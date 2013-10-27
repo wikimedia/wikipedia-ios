@@ -1,0 +1,10 @@
+# Mac OS X ignores
+.DS_Store*
+._*
+
+# Xcode ignore
+*.pbxuser
+*.perspective
+*.perspectivev3
+xcuserdata
+project.xcworkspace
