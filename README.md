@@ -2,7 +2,7 @@
 
 New (late 2013) native rewrite of the [Wikipedia reader application](https://www.mediawiki.org/wiki/Wikimedia_Apps/Wikipedia) for iOS.
 
-This version has not yet been deployed to the App Store -- the source of the older app currently in the store is in the (WikipediaMobile project on GitHub)[https://github.com/wikimedia/WikipediaMobile].
+This version has not yet been deployed to the App Store -- the source of the older app currently in the store is in the [WikipediaMobile project on GitHub](https://github.com/wikimedia/WikipediaMobile).
 
 * OS target: iOS 6.0 or higher
 * Device target: primary iPhone/iPod, secondary iPad
@@ -18,11 +18,11 @@ This version has not yet been deployed to the App Store -- the source of the old
 
 # Building
 
-Requires (Xcode 5 or higher)[https://itunes.apple.com/us/app/xcode/id497799835] on Mac OS X, with the bundled iOS 7 SDK.
+Requires [Xcode 5 or higher](https://itunes.apple.com/us/app/xcode/id497799835) on Mac OS X, with the bundled iOS 7 SDK.
 
 Standard Xcode project stuff: check out the repo, open Wikipedia-iOS.xcodeproj in Xcode 5, pick a device or simulator target and hit ⌘R.
 
-Note that due to Apple's restrictions on iOS app installation, to run a custom build on a standard iOS device you must pay for a (developer account with Apple)[https://developer.apple.com/devcenter/ios/index.action] and register the device with your account.
+Note that due to Apple's restrictions on iOS app installation, to run a custom build on a standard iOS device you must pay for a [developer account with Apple](https://developer.apple.com/devcenter/ios/index.action) and register the device with your account.
 
 
 # Running tests
@@ -32,7 +32,7 @@ In Xcode, hit ⌘U to run tests. Note that tests must run on iOS 7 simulator or 
 
 # Filing Bugs
 
-Please file bugs at (bugzilla.wikimedia.org)[https://bugzilla.wikimedia.org/]; use the "Wikipedia App" component.
+Please file bugs at [bugzilla.wikimedia.org](https://bugzilla.wikimedia.org/); use the "Wikipedia App" component.
 
 Note that existing bug reports for other versions of the app may be mixed in there; this requires some cleanup.
 
