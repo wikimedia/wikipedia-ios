@@ -1,21 +1,135 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4451" systemVersion="13A461" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4511" systemVersion="13A598" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Iku-rK-nd2">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3676"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3745"/>
     </dependencies>
     <scenes>
-        <!--class Prefix:identifier View Controller-->
+        <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="C8y-0k-FBq"/>
+                        <viewControllerLayoutGuide type="bottom" id="Xeb-oh-gct"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-Mj-Zsh">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="8dY-K2-ql9"/>
+                                </connections>
+                            </webView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="3Zs-jL-a48"/>
+                            <constraint firstAttribute="trailing" secondItem="WeL-Mj-Zsh" secondAttribute="trailing" id="QSr-uN-iN4"/>
+                            <constraint firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="UTu-Ve-ee9"/>
+                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="sqU-09-fno"/>
+                        </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="◁" style="plain" id="pTg-La-nAS">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="backButtonPushed:" destination="vXZ-lx-hvc" id="gCp-z8-VRZ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="zpy-ng-p19"/>
+                        <barButtonItem title="▷" style="plain" id="MX4-sv-Nu0">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="forwardButtonPushed:" destination="vXZ-lx-hvc" id="JSz-pP-0fp"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="uDk-OF-Che"/>
+                        <barButtonItem title="Aあ" style="plain" id="MxI-Vh-g3Q">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="languageButtonPushed:" destination="vXZ-lx-hvc" id="Eu8-sw-PTk"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="1xa-nF-vNw"/>
+                        <barButtonItem style="plain" systemItem="action" id="5QR-Xb-FU9">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="actionButtonPushed:" destination="vXZ-lx-hvc" id="aVH-3G-CVE"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="6tt-F2-qDC"/>
+                        <barButtonItem style="plain" systemItem="bookmarks" id="Qrf-EP-YWZ">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="bookmarkButtonPushed:" destination="vXZ-lx-hvc" id="ayH-Sp-sNS"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="vCu-en-Ec0">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" title="☰" id="gm0-si-g1F">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="menuButtonPushed:" destination="vXZ-lx-hvc" id="iu6-dn-8hQ"/>
+                            </connections>
+                        </barButtonItem>
+                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search Wikipedia" minimumFontSize="17" clearButtonMode="whileEditing" id="vzb-fP-Nwq">
+                            <rect key="frame" x="40" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                            <connections>
+                                <outlet property="delegate" destination="vXZ-lx-hvc" id="ZzO-hp-xg3"/>
+                            </connections>
+                        </textField>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="actionButton" destination="5QR-Xb-FU9" id="BzV-0P-caj"/>
+                        <outlet property="backButton" destination="pTg-La-nAS" id="5kK-dj-I0s"/>
+                        <outlet property="bookmarksButton" destination="Qrf-EP-YWZ" id="nJJ-MG-DIX"/>
+                        <outlet property="forwardButton" destination="MX4-sv-Nu0" id="WTP-6I-N05"/>
+                        <outlet property="languageButton" destination="MxI-Vh-g3Q" id="kQN-hP-Bot"/>
+                        <outlet property="menuButton" destination="gm0-si-g1F" id="r5P-ww-ml9"/>
+                        <outlet property="searchField" destination="vzb-fP-Nwq" id="gFH-xi-QkL"/>
+                        <outlet property="webView" destination="WeL-Mj-Zsh" id="iQJ-zA-CLH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="396" y="200"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dor-Wk-JQd">
+            <objects>
+                <navigationController definesPresentationContext="YES" toolbarHidden="NO" id="Iku-rK-nd2" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="diA-vI-SNq">
+                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="bnl-Sa-dzm">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="TU5-Qp-cWA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aFT-wt-Ywo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search Wikipedia" minimumFontSize="17" clearButtonMode="whileEditing" id="IML-ni-rsA">
+                    <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                </textField>
+            </objects>
+            <point key="canvasLocation" x="-56" y="200"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
