@@ -38,4 +38,17 @@
     return _text;
 }
 
+-(NSString *)prefix
+{
+    if (self.namespace.length == 0) {
+        return @"";
+    } else {
+        return [self.namespace stringByAppendingString:@":"];
+    }
+}
+-(NSString *)prefixedText
+{
+    return [self.prefix stringByAppendingString:self.text];
+}
+
 @end

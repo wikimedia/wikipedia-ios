@@ -16,5 +16,6 @@
 
 -(NSString *)namespace;
 -(NSString *)text;
+-(NSString *)prefixedText;
 
 @end

@@ -25,16 +25,31 @@
 - (void)tearDown
 {
     // Put teardown code here; it will be run once, after the last test case.
+    
+    // crazy hack for "tests not finished"
+    [NSThread sleepForTimeInterval:1.0];
+    NSLog(@"done");
+    
     [super tearDown];
 }
 
 - (void)testCreate
 {
-    NSString *ns = @"";
-    NSString *text = @"Test-driven developent";
-    PageTitle *title = [PageTitle titleFromNamespace:ns text:text];
-    XCTAssert([title.namespace isEqualToString:ns], @"Title namespace should be what we passed in");
-    XCTAssert([title.text isEqualToString:text], @"Title text should be what we passed in");
+    NSArray *dataSet = @[@{@"prefixed": @"Test-driven development",
+                           @"ns": @"",
+                           @"text": @"Test-driven development"},
+                         @{@"prefixed": @"Talk:Test-driven development",
+                           @"ns": @"Talk",
+                           @"text": @"Test-driven development"}];
+    for (NSDictionary *data in dataSet) {
+        NSString *ns = data[@"ns"];;
+        NSString *text = data[@"text"];
+        
+        PageTitle *title = [PageTitle titleFromNamespace:ns text:text];
+        XCTAssertEqualObjects(title.namespace, ns, @"Title namespace check");
+        XCTAssertEqualObjects(title.text, text, @"Title text check");
+        XCTAssertEqualObjects(title.prefixedText, data[@"prefixed"], @"Prefixed text check");
+    }
 }
 
 @end
