@@ -8,17 +8,23 @@
 
 #import "ViewController.h"
 
+#import "CommunicationBridge.h"
+
 @interface ViewController ()
 
 @end
 
-@implementation ViewController
+@implementation ViewController {
+    CommunicationBridge *bridge;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    [self navigateToPage:@"Main Page"];
+    bridge = [[CommunicationBridge alloc] initWithWebView:self.webView];
+    [bridge addListener:@"DOMLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        NSLog(@"QQQ HEY DOMLoaded!");
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -34,42 +40,6 @@
     [self navigateToPage:textField.text];
     [textField resignFirstResponder];
     return NO;
-}
-
-#pragma mark UIWebViewDelegate methods
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
-    NSLog(@"webView failed to load: %@", error);
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        NSURL *url = request.URL;
-        NSString *urlStr = [url absoluteString];
-        NSString *prefix = @"https://en.m.wikipedia.org/wiki/";
-        if ([urlStr hasPrefix:prefix]) {
-            NSString *encTitle = [urlStr substringFromIndex:prefix.length];
-            NSString *title = [encTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            [self navigateToPage:title];
-        } else {
-            [UIApplication.sharedApplication openURL:url];
-        }
-        return NO;
-    } else {
-        return YES;
-    }
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-    
 }
 
 #pragma mark action methods

@@ -22,6 +22,12 @@
 		D4991465181D51DF00E6073C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D4991463181D51DF00E6073C /* InfoPlist.strings */; };
 		D4991467181D51DF00E6073C /* Wikipedia_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4991466181D51DF00E6073C /* Wikipedia_iOSTests.m */; };
 		D4BC22B4181E9E6300CAC673 /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = D4BC22B3181E9E6300CAC673 /* empty.png */; };
+		D4DE203118283FF200148CA2 /* CommunicationBridgeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE203018283FF200148CA2 /* CommunicationBridgeTests.m */; };
+		D4DE20341828400C00148CA2 /* CommunicationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE20331828400C00148CA2 /* CommunicationBridge.m */; };
+		D4DE20351828400C00148CA2 /* CommunicationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE20331828400C00148CA2 /* CommunicationBridge.m */; };
+		D4DE20371828518B00148CA2 /* bridge-index.html in Resources */ = {isa = PBXBuildFile; fileRef = D4DE20361828518B00148CA2 /* bridge-index.html */; };
+		D4DE20381828518B00148CA2 /* bridge-index.html in Resources */ = {isa = PBXBuildFile; fileRef = D4DE20361828518B00148CA2 /* bridge-index.html */; };
+		D4DE203B1828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE203A1828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.m */; };
 		D4EE00B9182443FC0090790F /* PageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE00B8182443FC0090790F /* PageTitle.m */; };
 		D4EE00BA182443FC0090790F /* PageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE00B8182443FC0090790F /* PageTitle.m */; };
 		D4EE00BD1824459D0090790F /* PageTitleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE00BC1824459D0090790F /* PageTitleTests.m */; };
@@ -58,6 +64,12 @@
 		D4991464181D51DF00E6073C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D4991466181D51DF00E6073C /* Wikipedia_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Wikipedia_iOSTests.m; sourceTree = "<group>"; };
 		D4BC22B3181E9E6300CAC673 /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
+		D4DE203018283FF200148CA2 /* CommunicationBridgeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationBridgeTests.m; sourceTree = "<group>"; };
+		D4DE20321828400C00148CA2 /* CommunicationBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationBridge.h; sourceTree = "<group>"; };
+		D4DE20331828400C00148CA2 /* CommunicationBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationBridge.m; sourceTree = "<group>"; };
+		D4DE20361828518B00148CA2 /* bridge-index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "bridge-index.html"; sourceTree = "<group>"; };
+		D4DE20391828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRunLoop+TimeOutAndFlag.h"; sourceTree = "<group>"; };
+		D4DE203A1828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunLoop+TimeOutAndFlag.m"; sourceTree = "<group>"; };
 		D4EE00B7182443FC0090790F /* PageTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageTitle.h; path = "mw-support/PageTitle.h"; sourceTree = "<group>"; };
 		D4EE00B8182443FC0090790F /* PageTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageTitle.m; path = "mw-support/PageTitle.m"; sourceTree = "<group>"; };
 		D4EE00BC1824459D0090790F /* PageTitleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageTitleTests.m; path = "mw-support/PageTitleTests.m"; sourceTree = "<group>"; };
@@ -129,6 +141,9 @@
 				D4991453181D51DE00E6073C /* Images.xcassets */,
 				D499143F181D51DE00E6073C /* Supporting Files */,
 				D4EE00BB182445670090790F /* mw-support */,
+				D4DE20321828400C00148CA2 /* CommunicationBridge.h */,
+				D4DE20331828400C00148CA2 /* CommunicationBridge.m */,
+				D4DE20361828518B00148CA2 /* bridge-index.html */,
 			);
 			path = "Wikipedia-iOS";
 			sourceTree = "<group>";
@@ -150,6 +165,9 @@
 				D4991466181D51DF00E6073C /* Wikipedia_iOSTests.m */,
 				D4991461181D51DF00E6073C /* Supporting Files */,
 				D4EE00BC1824459D0090790F /* PageTitleTests.m */,
+				D4DE203018283FF200148CA2 /* CommunicationBridgeTests.m */,
+				D4DE20391828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.h */,
+				D4DE203A1828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.m */,
 			);
 			path = "Wikipedia-iOSTests";
 			sourceTree = "<group>";
@@ -253,6 +271,7 @@
 			files = (
 				D4991454181D51DE00E6073C /* Images.xcassets in Resources */,
 				D499144C181D51DE00E6073C /* Main_iPhone.storyboard in Resources */,
+				D4DE20371828518B00148CA2 /* bridge-index.html in Resources */,
 				D4991443181D51DE00E6073C /* InfoPlist.strings in Resources */,
 				D4BC22B4181E9E6300CAC673 /* empty.png in Resources */,
 			);
@@ -262,6 +281,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4DE20381828518B00148CA2 /* bridge-index.html in Resources */,
 				D4991465181D51DF00E6073C /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4DE20341828400C00148CA2 /* CommunicationBridge.m in Sources */,
 				D4991452181D51DE00E6073C /* ViewController.m in Sources */,
 				D4EE00B9182443FC0090790F /* PageTitle.m in Sources */,
 				D4991449181D51DE00E6073C /* AppDelegate.m in Sources */,
@@ -284,9 +305,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4DE20351828400C00148CA2 /* CommunicationBridge.m in Sources */,
 				D4991467181D51DF00E6073C /* Wikipedia_iOSTests.m in Sources */,
+				D4DE203B1828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				D4EE00BD1824459D0090790F /* PageTitleTests.m in Sources */,
 				D4EE00BA182443FC0090790F /* PageTitle.m in Sources */,
+				D4DE203118283FF200148CA2 /* CommunicationBridgeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

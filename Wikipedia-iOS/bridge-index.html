@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <base href="https://wikipedia.org" /> <!-- Force links to resolve with https as protocol, rather than file:// -->
+        <script>
+            ( function() {
+             var Bridge = function() {
+                this.eventHandlers = {};
+             };
+             
+             Bridge.prototype.handleMessage = function( type, payload ) {
+             var that = this;
+                 if ( this.eventHandlers.hasOwnProperty( type ) ) {
+                     this.eventHandlers[type].forEach( function( callback ) {
+                        callback.call( that, payload );
+                     } );
+                 }
+             };
+             
+             Bridge.prototype.registerListener = function( messageType, callback ) {
+                 if ( this.eventHandlers.hasOwnProperty( messageType ) ) {
+                    this.eventHandlers[messageType].push( callback );
+                 } else {
+                    this.eventHandlers[messageType] = [ callback ];
+                 }
+             };
+             
+             Bridge.prototype.sendMessage = function( messageType, payload ) {
+                var messagePack = { type: messageType, payload: payload };
+                var url = "x-wikipedia-bridge:" + JSON.stringify( messagePack );
+             
+                // quick iframe version based on http://stackoverflow.com/a/6508343/82439
+                // fixme can this be an XHR instead? check Cordova current state
+                var iframe = document.createElement('iframe');
+                iframe.setAttribute("src", url);
+                document.documentElement.appendChild(iframe);
+                iframe.parentNode.removeChild(iframe);
+                iframe = null;
+             };
+             
+             window.bridge = new Bridge();
+         } )();
+        </script>
+        <script>
+            ( function() {
+             window.onload = function() {
+                bridge.sendMessage( "DOMLoaded", {} );
+             };
+             
+             bridge.registerListener( "displayLeadSection", function( payload ) {
+                 document.getElementById( "content" ).innerHTML = payload.leadSectionHTML;
+             });
+             
+             } )();
+        </script>
+    </head>
+    <body>
+        <h1 id="title"></h1>
+        <div id="content"></div>
+    </body>
+</html>
