@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D474CC11182AE033002BDE45 /* SiteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D474CC10182AE033002BDE45 /* SiteTests.m */; };
+		D474CC15182AE196002BDE45 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = D474CC14182AE196002BDE45 /* Site.m */; };
+		D474CC16182AE196002BDE45 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = D474CC14182AE196002BDE45 /* Site.m */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -44,6 +47,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D474CC10182AE033002BDE45 /* SiteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiteTests.m; sourceTree = "<group>"; };
+		D474CC12182AE07C002BDE45 /* WikipediaApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaApp.h; sourceTree = "<group>"; };
+		D474CC13182AE196002BDE45 /* Site.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Site.h; path = "mw-support/Site.h"; sourceTree = "<group>"; };
+		D474CC14182AE196002BDE45 /* Site.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Site.m; path = "mw-support/Site.m"; sourceTree = "<group>"; };
 		D4991435181D51DE00E6073C /* Wikipedia-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -168,6 +175,7 @@
 				D4DE203018283FF200148CA2 /* CommunicationBridgeTests.m */,
 				D4DE20391828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.h */,
 				D4DE203A1828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.m */,
+				D474CC10182AE033002BDE45 /* SiteTests.m */,
 			);
 			path = "Wikipedia-iOSTests";
 			sourceTree = "<group>";
@@ -184,8 +192,11 @@
 		D4EE00BB182445670090790F /* mw-support */ = {
 			isa = PBXGroup;
 			children = (
+				D474CC12182AE07C002BDE45 /* WikipediaApp.h */,
 				D4EE00B7182443FC0090790F /* PageTitle.h */,
 				D4EE00B8182443FC0090790F /* PageTitle.m */,
+				D474CC13182AE196002BDE45 /* Site.h */,
+				D474CC14182AE196002BDE45 /* Site.m */,
 			);
 			name = "mw-support";
 			sourceTree = "<group>";
@@ -294,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4DE20341828400C00148CA2 /* CommunicationBridge.m in Sources */,
+				D474CC15182AE196002BDE45 /* Site.m in Sources */,
 				D4991452181D51DE00E6073C /* ViewController.m in Sources */,
 				D4EE00B9182443FC0090790F /* PageTitle.m in Sources */,
 				D4991449181D51DE00E6073C /* AppDelegate.m in Sources */,
@@ -306,9 +318,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4DE20351828400C00148CA2 /* CommunicationBridge.m in Sources */,
+				D474CC16182AE196002BDE45 /* Site.m in Sources */,
 				D4991467181D51DF00E6073C /* Wikipedia_iOSTests.m in Sources */,
 				D4DE203B1828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				D4EE00BD1824459D0090790F /* PageTitleTests.m in Sources */,
+				D474CC11182AE033002BDE45 /* SiteTests.m in Sources */,
 				D4EE00BA182443FC0090790F /* PageTitle.m in Sources */,
 				D4DE203118283FF200148CA2 /* CommunicationBridgeTests.m in Sources */,
 			);
