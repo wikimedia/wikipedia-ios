@@ -2,6 +2,7 @@
 <html>
     <head>
         <base href="https://wikipedia.org" /> <!-- Force links to resolve with https as protocol, rather than file:// -->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <script>
             ( function() {
              var Bridge = function() {
@@ -51,6 +52,10 @@
                  document.getElementById( "content" ).innerHTML = payload.leadSectionHTML;
              });
              
+             bridge.registerListener( "ping", function( payload ) {
+                 bridge.sendMessage( "pong", payload );
+             });
+
              } )();
         </script>
     </head>

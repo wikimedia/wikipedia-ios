@@ -110,7 +110,8 @@
         }
         NSString *htmlStr = [NSString stringWithString:str];
 
-        [self.webView loadHTMLString:htmlStr baseURL:baseUrl];
+        //[self.webView loadHTMLString:htmlStr baseURL:baseUrl];
+        [bridge sendMessage:@"displayLeadSection" withPayload:@{@"leadSectionHTML": htmlStr}];
     }];
     
 }

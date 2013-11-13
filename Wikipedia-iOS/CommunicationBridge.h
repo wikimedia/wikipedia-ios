@@ -17,11 +17,13 @@ typedef void (^JSListener)(NSString *, NSDictionary *);
 // Public methods
 - (CommunicationBridge *)initWithWebView:(UIWebView *)webView;
 - (void)addListener:(NSString *)messageType withBlock:(JSListener)block;
+- (void)sendMessage:(NSString *)messageType withPayload:(NSDictionary *)payload;
 
 // Methods reserved for internal and testing
 - (NSMutableArray *)listenersForMessageType:(NSString *)messageType;
 - (void)fireEvent:(NSString *)messageType withPayload:(NSDictionary *)payload;
 - (BOOL)isBridgeURL:(NSURL *)url;
 - (NSDictionary *)extractBridgePayload:(NSURL *)url;
+- (NSString *)stringify:(id)obj;
 
 @end

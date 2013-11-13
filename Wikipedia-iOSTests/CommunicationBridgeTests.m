@@ -91,6 +91,8 @@
     __block NSString *foundMessageType = @"<failed to fire>";
     __block BOOL found = NO;
     
+    XCTAssertFalse(bridge.isDOMReady);
+
     NSLog(@"QQQ WAITING");
     [bridge addListener:@"DOMLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
         NSLog(@"QQQ HEY");
@@ -101,6 +103,30 @@
     NSLog(@"QQQ DONE WAITING");
 
     XCTAssertEqualObjects(foundMessageType, @"DOMLoaded");
+    XCTAssertTrue(bridge.isDOMReady);
 }
 
+- (void)testStringify
+{
+    XCTAssertEqualObjects(@"\"simple\"", [bridge stringify:@"simple"]);
+    XCTAssertEqualObjects(@"{}", [bridge stringify:@{}]);
+}
+
+- (void)testPingback
+{
+    __block NSString *foundMessageType = @"<failed to fire>";
+    __block BOOL found = NO;
+    
+    NSLog(@"QQQ WAITING");
+    [bridge addListener:@"pong" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        NSLog(@"QQQ HEY");
+        foundMessageType = messageType;
+        found = YES;
+    }];
+    [bridge sendMessage:@"ping" withPayload:@{}];
+    [[NSRunLoop mainRunLoop] runUntilTimeout:5 orFinishedFlag:&found];
+    NSLog(@"QQQ DONE WAITING");
+    
+    XCTAssertEqualObjects(foundMessageType, @"pong");
+}
 @end

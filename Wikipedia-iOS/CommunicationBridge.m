@@ -11,6 +11,7 @@
 @implementation CommunicationBridge {
     UIWebView *webView;
     NSMutableDictionary *listenersByEvent;
+    NSMutableArray *queuedMessages;
 }
 
 #pragma mark Public methods
@@ -21,8 +22,14 @@
     if (self) {
         webView = targetWebView;
         listenersByEvent = [[NSMutableDictionary alloc] init];
+        queuedMessages = [[NSMutableArray alloc] init];
+        
+        __weak CommunicationBridge *weakSelf = self;
+        [self addListener:@"DOMLoaded" withBlock:^(NSString *type, NSDictionary *payload) {
+            [weakSelf onDOMReady];
+        }];
+        [self setupWebView];
     }
-    [self setupWebView];
     return self;
 }
 
@@ -36,6 +43,18 @@
     }
 }
 
+- (void)sendMessage:(NSString *)messageType withPayload:(NSDictionary *)payload
+{
+    NSString *js = [NSString stringWithFormat:@"bridge.handleMessage(%@,%@)",
+                    [self stringify:messageType],
+                    [self stringify:payload]];
+    NSLog(@"QQQ sending: %@", js);
+    if (self.isDOMReady) {
+        [self sendRawMessage:js];
+    } else {
+        [queuedMessages addObject:js];
+    }
+}
 
 #pragma mark Internal and testing methods
 
@@ -52,6 +71,26 @@
         listener(messageType, payload);
     }
 }
+
+- (NSString *)stringify:(id)obj
+{
+    BOOL needsWrapper = ![NSJSONSerialization isValidJSONObject:obj];
+    id payload;
+    if (needsWrapper) {
+        payload = @[obj];
+    } else {
+        payload = obj;
+    }
+    NSData *data = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
+    NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if (needsWrapper) {
+        // Remove the '['...']' wrapper
+        return [str substringWithRange:NSMakeRange(1, str.length - 2)];
+    } else {
+        return str;
+    }
+}
+
 
 #pragma mark Private methods
 
@@ -83,6 +122,11 @@ static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
     return dict;
 }
 
+- (void)sendRawMessage:(NSString *)js
+{
+    [webView stringByEvaluatingJavaScriptFromString:js];
+}
+
 #pragma mark UIWebViewDelegate methods
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -98,6 +142,14 @@ static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
     return YES;
 }
 
+- (void)onDOMReady
+{
+    self.isDOMReady = YES;
+    for (NSString *js in queuedMessages) {
+        [self sendRawMessage:js];
+    }
+    [queuedMessages removeAllObjects];
+}
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
