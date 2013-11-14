@@ -48,7 +48,7 @@
     NSString *js = [NSString stringWithFormat:@"bridge.handleMessage(%@,%@)",
                     [self stringify:messageType],
                     [self stringify:payload]];
-    NSLog(@"QQQ sending: %@", js);
+    //NSLog(@"QQQ sending: %@", js);
     if (self.isDOMReady) {
         [self sendRawMessage:js];
     } else {

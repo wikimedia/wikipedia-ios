@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MWNetworkOp.h"
 
-@interface ViewController : UIViewController <UITextFieldDelegate, UIWebViewDelegate>
+@interface ViewController : UIViewController <UITextFieldDelegate, UIWebViewDelegate, NetworkOpDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;

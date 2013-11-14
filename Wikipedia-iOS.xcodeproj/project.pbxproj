@@ -7,6 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04C43A9D183440B0006C643B /* MWCrumbyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43A9C183440B0006C643B /* MWCrumbyTest.m */; };
+		04C43A9E183440B0006C643B /* MWCrumbyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43A9C183440B0006C643B /* MWCrumbyTest.m */; };
+		04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */; };
+		04C43AA5183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */; };
+		04C43AA6183440C1006C643B /* MWNetworkOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA3183440C1006C643B /* MWNetworkOp.m */; };
+		04C43AA7183440C1006C643B /* MWNetworkOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA3183440C1006C643B /* MWNetworkOp.m */; };
+		04C43AAC18344131006C643B /* bridge-index.html in Resources */ = {isa = PBXBuildFile; fileRef = 04C43AA918344131006C643B /* bridge-index.html */; };
+		04C43AAD18344131006C643B /* bridge-index.html in Resources */ = {isa = PBXBuildFile; fileRef = 04C43AA918344131006C643B /* bridge-index.html */; };
+		04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AAB18344131006C643B /* CommunicationBridge.m */; };
+		04C43AAF18344131006C643B /* CommunicationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AAB18344131006C643B /* CommunicationBridge.m */; };
+		04C43AB3183441A4006C643B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AB2183441A4006C643B /* ViewController.m */; };
+		04C43AB4183441A4006C643B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AB2183441A4006C643B /* ViewController.m */; };
+		04C43AB61834423C006C643B /* NetworkOpCrumbyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AB51834423C006C643B /* NetworkOpCrumbyTests.m */; };
+		04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AB9183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m */; };
+		04C43ABF183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AB9183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m */; };
+		04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43ABB183442FC006C643B /* NSString+Extras.m */; };
+		04C43AC1183442FC006C643B /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43ABB183442FC006C643B /* NSString+Extras.m */; };
+		04C43AC2183442FC006C643B /* NSURLRequest+DictionaryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43ABD183442FC006C643B /* NSURLRequest+DictionaryRequest.m */; };
+		04C43AC3183442FC006C643B /* NSURLRequest+DictionaryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43ABD183442FC006C643B /* NSURLRequest+DictionaryRequest.m */; };
+		04C43AC5183446F2006C643B /* NetworkOpTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AC4183446F2006C643B /* NetworkOpTests.m */; };
 		D474CC11182AE033002BDE45 /* SiteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D474CC10182AE033002BDE45 /* SiteTests.m */; };
 		D474CC15182AE196002BDE45 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = D474CC14182AE196002BDE45 /* Site.m */; };
 		D474CC16182AE196002BDE45 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = D474CC14182AE196002BDE45 /* Site.m */; };
@@ -17,7 +37,6 @@
 		D4991445181D51DE00E6073C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4991444181D51DE00E6073C /* main.m */; };
 		D4991449181D51DE00E6073C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4991448181D51DE00E6073C /* AppDelegate.m */; };
 		D499144C181D51DE00E6073C /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D499144A181D51DE00E6073C /* Main_iPhone.storyboard */; };
-		D4991452181D51DE00E6073C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4991451181D51DE00E6073C /* ViewController.m */; };
 		D4991454181D51DE00E6073C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		D499145B181D51DF00E6073C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499145A181D51DF00E6073C /* XCTest.framework */; };
 		D499145C181D51DF00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
@@ -26,11 +45,6 @@
 		D4991467181D51DF00E6073C /* Wikipedia_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4991466181D51DF00E6073C /* Wikipedia_iOSTests.m */; };
 		D4BC22B4181E9E6300CAC673 /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = D4BC22B3181E9E6300CAC673 /* empty.png */; };
 		D4DE203118283FF200148CA2 /* CommunicationBridgeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE203018283FF200148CA2 /* CommunicationBridgeTests.m */; };
-		D4DE20341828400C00148CA2 /* CommunicationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE20331828400C00148CA2 /* CommunicationBridge.m */; };
-		D4DE20351828400C00148CA2 /* CommunicationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE20331828400C00148CA2 /* CommunicationBridge.m */; };
-		D4DE20371828518B00148CA2 /* bridge-index.html in Resources */ = {isa = PBXBuildFile; fileRef = D4DE20361828518B00148CA2 /* bridge-index.html */; };
-		D4DE20381828518B00148CA2 /* bridge-index.html in Resources */ = {isa = PBXBuildFile; fileRef = D4DE20361828518B00148CA2 /* bridge-index.html */; };
-		D4DE203B1828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE203A1828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.m */; };
 		D4EE00B9182443FC0090790F /* PageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE00B8182443FC0090790F /* PageTitle.m */; };
 		D4EE00BA182443FC0090790F /* PageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE00B8182443FC0090790F /* PageTitle.m */; };
 		D4EE00BD1824459D0090790F /* PageTitleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE00BC1824459D0090790F /* PageTitleTests.m */; };
@@ -47,6 +61,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04C43A9B183440B0006C643B /* MWCrumbyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWCrumbyTest.h; sourceTree = "<group>"; };
+		04C43A9C183440B0006C643B /* MWCrumbyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWCrumbyTest.m; sourceTree = "<group>"; };
+		04C43AA0183440C1006C643B /* MWNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
+		04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
+		04C43AA2183440C1006C643B /* MWNetworkOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWNetworkOp.h; sourceTree = "<group>"; };
+		04C43AA3183440C1006C643B /* MWNetworkOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWNetworkOp.m; sourceTree = "<group>"; };
+		04C43AA918344131006C643B /* bridge-index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "bridge-index.html"; sourceTree = "<group>"; };
+		04C43AAA18344131006C643B /* CommunicationBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationBridge.h; sourceTree = "<group>"; };
+		04C43AAB18344131006C643B /* CommunicationBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationBridge.m; sourceTree = "<group>"; };
+		04C43AB1183441A4006C643B /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		04C43AB2183441A4006C643B /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		04C43AB51834423C006C643B /* NetworkOpCrumbyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkOpCrumbyTests.m; sourceTree = "<group>"; };
+		04C43AB8183442FC006C643B /* NSRunLoop+TimeOutAndFlag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRunLoop+TimeOutAndFlag.h"; sourceTree = "<group>"; };
+		04C43AB9183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunLoop+TimeOutAndFlag.m"; sourceTree = "<group>"; };
+		04C43ABA183442FC006C643B /* NSString+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extras.h"; sourceTree = "<group>"; };
+		04C43ABB183442FC006C643B /* NSString+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extras.m"; sourceTree = "<group>"; };
+		04C43ABC183442FC006C643B /* NSURLRequest+DictionaryRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+DictionaryRequest.h"; sourceTree = "<group>"; };
+		04C43ABD183442FC006C643B /* NSURLRequest+DictionaryRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+DictionaryRequest.m"; sourceTree = "<group>"; };
+		04C43AC4183446F2006C643B /* NetworkOpTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkOpTests.m; sourceTree = "<group>"; };
 		D474CC10182AE033002BDE45 /* SiteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiteTests.m; sourceTree = "<group>"; };
 		D474CC12182AE07C002BDE45 /* WikipediaApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaApp.h; sourceTree = "<group>"; };
 		D474CC13182AE196002BDE45 /* Site.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Site.h; path = "mw-support/Site.h"; sourceTree = "<group>"; };
@@ -62,9 +95,7 @@
 		D4991447181D51DE00E6073C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D4991448181D51DE00E6073C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D499144B181D51DE00E6073C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		D4991450181D51DE00E6073C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		D4991451181D51DE00E6073C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		D4991453181D51DE00E6073C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D4991453181D51DE00E6073C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Wikipedia-iOS/Images.xcassets"; sourceTree = "<group>"; };
 		D4991459181D51DF00E6073C /* Wikipedia-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Wikipedia-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D499145A181D51DF00E6073C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D4991462181D51DF00E6073C /* Wikipedia-iOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Wikipedia-iOSTests-Info.plist"; sourceTree = "<group>"; };
@@ -72,11 +103,6 @@
 		D4991466181D51DF00E6073C /* Wikipedia_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Wikipedia_iOSTests.m; sourceTree = "<group>"; };
 		D4BC22B3181E9E6300CAC673 /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
 		D4DE203018283FF200148CA2 /* CommunicationBridgeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationBridgeTests.m; sourceTree = "<group>"; };
-		D4DE20321828400C00148CA2 /* CommunicationBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationBridge.h; sourceTree = "<group>"; };
-		D4DE20331828400C00148CA2 /* CommunicationBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationBridge.m; sourceTree = "<group>"; };
-		D4DE20361828518B00148CA2 /* bridge-index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "bridge-index.html"; sourceTree = "<group>"; };
-		D4DE20391828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRunLoop+TimeOutAndFlag.h"; sourceTree = "<group>"; };
-		D4DE203A1828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunLoop+TimeOutAndFlag.m"; sourceTree = "<group>"; };
 		D4EE00B7182443FC0090790F /* PageTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageTitle.h; path = "mw-support/PageTitle.h"; sourceTree = "<group>"; };
 		D4EE00B8182443FC0090790F /* PageTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageTitle.m; path = "mw-support/PageTitle.m"; sourceTree = "<group>"; };
 		D4EE00BC1824459D0090790F /* PageTitleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageTitleTests.m; path = "mw-support/PageTitleTests.m"; sourceTree = "<group>"; };
@@ -106,10 +132,63 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04C43A9A183440B0006C643B /* mw-crumbtest */ = {
+			isa = PBXGroup;
+			children = (
+				04C43A9B183440B0006C643B /* MWCrumbyTest.h */,
+				04C43A9C183440B0006C643B /* MWCrumbyTest.m */,
+			);
+			path = "mw-crumbtest";
+			sourceTree = "<group>";
+		};
+		04C43A9F183440C1006C643B /* mw-network */ = {
+			isa = PBXGroup;
+			children = (
+				04C43AA0183440C1006C643B /* MWNetworkActivityIndicatorManager.h */,
+				04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */,
+				04C43AA2183440C1006C643B /* MWNetworkOp.h */,
+				04C43AA3183440C1006C643B /* MWNetworkOp.m */,
+			);
+			path = "mw-network";
+			sourceTree = "<group>";
+		};
+		04C43AA818344131006C643B /* mw-bridge */ = {
+			isa = PBXGroup;
+			children = (
+				04C43AA918344131006C643B /* bridge-index.html */,
+				04C43AAA18344131006C643B /* CommunicationBridge.h */,
+				04C43AAB18344131006C643B /* CommunicationBridge.m */,
+			);
+			path = "mw-bridge";
+			sourceTree = "<group>";
+		};
+		04C43AB0183441A4006C643B /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				04C43AB1183441A4006C643B /* ViewController.h */,
+				04C43AB2183441A4006C643B /* ViewController.m */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		04C43AB7183442FC006C643B /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				04C43AB8183442FC006C643B /* NSRunLoop+TimeOutAndFlag.h */,
+				04C43AB9183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m */,
+				04C43ABA183442FC006C643B /* NSString+Extras.h */,
+				04C43ABB183442FC006C643B /* NSString+Extras.m */,
+				04C43ABC183442FC006C643B /* NSURLRequest+DictionaryRequest.h */,
+				04C43ABD183442FC006C643B /* NSURLRequest+DictionaryRequest.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
 				D499143E181D51DE00E6073C /* Wikipedia-iOS */,
+				D4991453181D51DE00E6073C /* Images.xcassets */,
 				D4991460181D51DF00E6073C /* Wikipedia-iOSTests */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
@@ -143,14 +222,13 @@
 				D4991447181D51DE00E6073C /* AppDelegate.h */,
 				D4991448181D51DE00E6073C /* AppDelegate.m */,
 				D499144A181D51DE00E6073C /* Main_iPhone.storyboard */,
-				D4991450181D51DE00E6073C /* ViewController.h */,
-				D4991451181D51DE00E6073C /* ViewController.m */,
-				D4991453181D51DE00E6073C /* Images.xcassets */,
+				04C43AB0183441A4006C643B /* View Controllers */,
+				04C43AB7183442FC006C643B /* Categories */,
 				D499143F181D51DE00E6073C /* Supporting Files */,
+				04C43AA818344131006C643B /* mw-bridge */,
 				D4EE00BB182445670090790F /* mw-support */,
-				D4DE20321828400C00148CA2 /* CommunicationBridge.h */,
-				D4DE20331828400C00148CA2 /* CommunicationBridge.m */,
-				D4DE20361828518B00148CA2 /* bridge-index.html */,
+				04C43A9F183440C1006C643B /* mw-network */,
+				04C43A9A183440B0006C643B /* mw-crumbtest */,
 			);
 			path = "Wikipedia-iOS";
 			sourceTree = "<group>";
@@ -173,8 +251,8 @@
 				D4991461181D51DF00E6073C /* Supporting Files */,
 				D4EE00BC1824459D0090790F /* PageTitleTests.m */,
 				D4DE203018283FF200148CA2 /* CommunicationBridgeTests.m */,
-				D4DE20391828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.h */,
-				D4DE203A1828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.m */,
+				04C43AB51834423C006C643B /* NetworkOpCrumbyTests.m */,
+				04C43AC4183446F2006C643B /* NetworkOpTests.m */,
 				D474CC10182AE033002BDE45 /* SiteTests.m */,
 			);
 			path = "Wikipedia-iOSTests";
@@ -282,7 +360,7 @@
 			files = (
 				D4991454181D51DE00E6073C /* Images.xcassets in Resources */,
 				D499144C181D51DE00E6073C /* Main_iPhone.storyboard in Resources */,
-				D4DE20371828518B00148CA2 /* bridge-index.html in Resources */,
+				04C43AAC18344131006C643B /* bridge-index.html in Resources */,
 				D4991443181D51DE00E6073C /* InfoPlist.strings in Resources */,
 				D4BC22B4181E9E6300CAC673 /* empty.png in Resources */,
 			);
@@ -292,7 +370,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4DE20381828518B00148CA2 /* bridge-index.html in Resources */,
+				04C43AAD18344131006C643B /* bridge-index.html in Resources */,
 				D4991465181D51DF00E6073C /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,12 +382,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4DE20341828400C00148CA2 /* CommunicationBridge.m in Sources */,
+				04C43AB3183441A4006C643B /* ViewController.m in Sources */,
+				04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */,
 				D474CC15182AE196002BDE45 /* Site.m in Sources */,
-				D4991452181D51DE00E6073C /* ViewController.m in Sources */,
 				D4EE00B9182443FC0090790F /* PageTitle.m in Sources */,
+				04C43AC2183442FC006C643B /* NSURLRequest+DictionaryRequest.m in Sources */,
+				04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
+				04C43AA6183440C1006C643B /* MWNetworkOp.m in Sources */,
+				04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */,
 				D4991449181D51DE00E6073C /* AppDelegate.m in Sources */,
+				04C43A9D183440B0006C643B /* MWCrumbyTest.m in Sources */,
 				D4991445181D51DE00E6073C /* main.m in Sources */,
+				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,11 +401,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4DE20351828400C00148CA2 /* CommunicationBridge.m in Sources */,
+				04C43AA7183440C1006C643B /* MWNetworkOp.m in Sources */,
 				D474CC16182AE196002BDE45 /* Site.m in Sources */,
+				04C43AAF18344131006C643B /* CommunicationBridge.m in Sources */,
 				D4991467181D51DF00E6073C /* Wikipedia_iOSTests.m in Sources */,
-				D4DE203B1828680C00148CA2 /* NSRunLoop+TimeOutAndFlag.m in Sources */,
+				04C43AC3183442FC006C643B /* NSURLRequest+DictionaryRequest.m in Sources */,
+				04C43A9E183440B0006C643B /* MWCrumbyTest.m in Sources */,
+				04C43AB4183441A4006C643B /* ViewController.m in Sources */,
+				04C43AC5183446F2006C643B /* NetworkOpTests.m in Sources */,
+				04C43AA5183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */,
+				04C43ABF183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				D4EE00BD1824459D0090790F /* PageTitleTests.m in Sources */,
+				04C43AB61834423C006C643B /* NetworkOpCrumbyTests.m in Sources */,
+				04C43AC1183442FC006C643B /* NSString+Extras.m in Sources */,
 				D474CC11182AE033002BDE45 /* SiteTests.m in Sources */,
 				D4EE00BA182443FC0090790F /* PageTitle.m in Sources */,
 				D4DE203118283FF200148CA2 /* CommunicationBridgeTests.m in Sources */,
