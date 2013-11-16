@@ -39,7 +39,7 @@
 {
     self = [super init];
 
-    NSLog(@"NETWORK OP INIT'ED: TAG = %d, POINTER = %p", self.tag, self);
+    //NSLog(@"NETWORK OP INIT'ED: TAG = %d, POINTER = %p", self.tag, self);
 
     if (self) {
         self.error = nil;
@@ -67,7 +67,7 @@
     if (self.aboutToDealloc != nil) self.aboutToDealloc();
 
     // Easy check to see if this operation is cleaned up when its work is done
-    NSLog(@"NETWORK OP DEALLOC'ED: TAG = %d, POINTER = %p", self.tag, self);    
+    //NSLog(@"NETWORK OP DEALLOC'ED: TAG = %d, POINTER = %p", self.tag, self);
 }
 
 #pragma mark - Overrides required for concurrency
@@ -82,11 +82,6 @@
 
 -(void)start
 {
-    if(finished_ || [self isCancelled]) {
-		[self finishWithError:@"Start method aborted early because op was marked finished or cancelled."];
-		return;
-	}
-
     // Don't start if *any* parent op failed or had an error.
     // "Dependent" for MWNetworkOp means dependent on its success!
     // This is so failures cascade automatically.
@@ -106,10 +101,15 @@
         }
     }
 
+    if(finished_ || [self isCancelled]) {
+		[self finishWithError:@"Start method aborted early because op was marked finished or cancelled."];
+		return;
+	}
+
     if (self.aboutToStart != nil) self.aboutToStart();
     
     if (self.request == nil) {
-        [self finish];
+		[self finishWithError:@"Start method aborted early because request was nil."];
         return;
     }
 
@@ -118,7 +118,7 @@
         //NSLog(@"STARTED: TAG = %d", self.tag);
         [self setOperationStarted:YES];  // See: http://stackoverflow.com/a/8152855/135557
 
-        NSLog(@"NETWORK OP STARTED: TAG = %d, POINTER = %p", self.tag, self);
+        //NSLog(@"NETWORK OP STARTED: TAG = %d, POINTER = %p", self.tag, self);
 
         self.startedTime = [NSDate timeIntervalSinceReferenceDate];
 
@@ -231,7 +231,7 @@
 
     //if (![self isOperationStarted]) return;
 
-    NSLog(@"NETWORK OP FINISHED: TAG = %d, POINTER = %p, ERROR = %@", self.tag, self, self.error);
+    //NSLog(@"NETWORK OP FINISHED: TAG = %d, POINTER = %p, ERROR = %@", self.tag, self, self.error);
 
     self.finishedTime = [NSDate timeIntervalSinceReferenceDate];
 

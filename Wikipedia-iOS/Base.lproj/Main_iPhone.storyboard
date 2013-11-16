@@ -18,22 +18,34 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-Mj-Zsh">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="8dY-K2-ql9"/>
                                 </connections>
                             </webView>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="eYB-ra-ZkE">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="3Z4-7z-PXM"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="3Zs-jL-a48"/>
+                            <constraint firstAttribute="trailing" secondItem="eYB-ra-ZkE" secondAttribute="trailing" id="Dvb-Dc-T4s"/>
+                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="eYB-ra-ZkE" secondAttribute="bottom" id="P3C-qn-2GC"/>
                             <constraint firstAttribute="trailing" secondItem="WeL-Mj-Zsh" secondAttribute="trailing" id="QSr-uN-iN4"/>
                             <constraint firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="UTu-Ve-ee9"/>
-                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="sqU-09-fno"/>
+                            <constraint firstItem="eYB-ra-ZkE" firstAttribute="top" secondItem="C8y-0k-FBq" secondAttribute="bottom" id="exx-hN-7Kq"/>
+                            <constraint firstItem="eYB-ra-ZkE" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="pHU-zD-gYP"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems>
                         <barButtonItem title="◁" style="plain" id="pTg-La-nAS">
                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -72,44 +84,40 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="vCu-en-Ec0">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="☰" id="gm0-si-g1F">
-                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <connections>
-                                <action selector="menuButtonPushed:" destination="vXZ-lx-hvc" id="iu6-dn-8hQ"/>
-                            </connections>
-                        </barButtonItem>
-                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search Wikipedia" minimumFontSize="17" clearButtonMode="whileEditing" id="vzb-fP-Nwq">
-                            <rect key="frame" x="40" y="7" width="240" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
-                            <connections>
-                                <outlet property="delegate" destination="vXZ-lx-hvc" id="ZzO-hp-xg3"/>
-                            </connections>
-                        </textField>
                     </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="actionButton" destination="5QR-Xb-FU9" id="BzV-0P-caj"/>
                         <outlet property="backButton" destination="pTg-La-nAS" id="5kK-dj-I0s"/>
                         <outlet property="bookmarksButton" destination="Qrf-EP-YWZ" id="nJJ-MG-DIX"/>
                         <outlet property="forwardButton" destination="MX4-sv-Nu0" id="WTP-6I-N05"/>
                         <outlet property="languageButton" destination="MxI-Vh-g3Q" id="kQN-hP-Bot"/>
-                        <outlet property="menuButton" destination="gm0-si-g1F" id="r5P-ww-ml9"/>
-                        <outlet property="searchField" destination="vzb-fP-Nwq" id="gFH-xi-QkL"/>
+                        <outlet property="searchDisplayController" destination="gE6-ua-RoM" id="hyj-0t-L5r"/>
                         <outlet property="webView" destination="WeL-Mj-Zsh" id="iQJ-zA-CLH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="gE6-ua-RoM">
+                    <connections>
+                        <outlet property="delegate" destination="vXZ-lx-hvc" id="UPv-2j-bXG"/>
+                        <outlet property="searchBar" destination="eYB-ra-ZkE" id="Bgu-DD-DSl"/>
+                        <outlet property="searchContentsController" destination="vXZ-lx-hvc" id="wEb-8p-yZ7"/>
+                        <outlet property="searchResultsDataSource" destination="vXZ-lx-hvc" id="AUW-aF-qCt"/>
+                        <outlet property="searchResultsDelegate" destination="vXZ-lx-hvc" id="yNu-Cm-lE5"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="396" y="200"/>
+            <point key="canvasLocation" x="397" y="223"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dor-Wk-JQd">
             <objects>
-                <navigationController definesPresentationContext="YES" toolbarHidden="NO" id="Iku-rK-nd2" sceneMemberID="viewController">
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="diA-vI-SNq">
+                <navigationController definesPresentationContext="YES" navigationBarHidden="YES" toolbarHidden="NO" id="Iku-rK-nd2" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="diA-vI-SNq">
                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
