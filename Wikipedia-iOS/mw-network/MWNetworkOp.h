@@ -32,7 +32,10 @@ delegate or controller to marshal inter-op communications (although nothing abou
 @property (copy) NSURLRequest *request;
 
 @property (copy, readonly) NSMutableData *dataRetrieved;
+@property (nonatomic) NSUInteger dataRetrievedExpectedLength;
+
 @property (copy, readonly) NSDictionary *jsonRetrieved;
+
 @property (copy, readonly) NSNumber *bytesWritten;
 @property (copy, readonly) NSNumber *bytesExpectedToWrite;
 

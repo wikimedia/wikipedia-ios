@@ -12,20 +12,19 @@
 #import "NSURLRequest+DictionaryRequest.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSString+Extras.h"
+#import "SearchResultCell.h"
 
 #pragma mark Defines
 
 #define SEARCH_THUMBNAIL_WIDTH 110
-#define SEARCH_RESULT_HEIGHT 65
-#define SEARCH_RESULT_THUMBNAIL_IMAGE_TAG 1001
-#define SEARCH_RESULT_TITLE_LABEL_TAG 1002
+#define SEARCH_RESULT_HEIGHT 64
 #define SEARCH_MAX_RESULTS @"25"
 
 @interface ViewController (){
 
 }
 
-@property (strong, atomic) NSMutableDictionary *searchResultsWithThumbURLs;
+@property (strong, atomic) NSMutableArray *searchResultsOrdered;
 
 @end
 
@@ -65,7 +64,7 @@
 
     self.searchDisplayController.searchBar.placeholder = @"Search Wikipedia";
     self.searchDisplayController.searchResultsDataSource = (id)self;
-    self.searchResultsWithThumbURLs = [[NSMutableDictionary alloc] init];
+    self.searchResultsOrdered = [[NSMutableArray alloc] init];
     
     articleRetrievalQ_ = [[NSOperationQueue alloc] init];
     searchQ_ = [[NSOperationQueue alloc] init];
@@ -104,7 +103,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     dispatch_async(dispatch_get_main_queue(), ^(){
-        debugLabel_.text = [NSString stringWithFormat:@"QUEUE OP COUNTS: Search %d, Thumb %d, Article %d", searchQ_.operationCount, thumbnailQ_.operationCount, articleRetrievalQ_.operationCount];
+        debugLabel_.text = [NSString stringWithFormat:@"QUEUE OP COUNTS: Search %lu, Thumb %lu, Article %lu", (unsigned long)searchQ_.operationCount, (unsigned long)thumbnailQ_.operationCount, (unsigned long)articleRetrievalQ_.operationCount];
     });
 }
 
@@ -121,20 +120,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.searchResultsWithThumbURLs.count;
+    return self.searchResultsOrdered.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //http://stackoverflow.com/questions/18746929/using-auto-layout-in-uitableview-for-dynamic-cell-layouts-heights
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchResultCell"];
-    [cell.contentView setNeedsLayout];
-    [cell.contentView layoutIfNeeded];
-
     return SEARCH_RESULT_HEIGHT;
     
     /*
-    NSString *height = self.searchResultsWithThumbURLs[self.searchResultsWithThumbURLs.allKeys[indexPath.row]][@"height"];
+    NSString *height = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"height"];
     float h = (height) ? [height floatValue]: SEARCH_THUMBNAIL_WIDTH;
     //if (h < SEARCH_THUMBNAIL_WIDTH) h = SEARCH_THUMBNAIL_WIDTH;
     return h;
@@ -143,17 +137,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchResultCell"];
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:SEARCH_RESULT_THUMBNAIL_IMAGE_TAG];
-    UILabel *label = (UILabel *)[cell viewWithTag:SEARCH_RESULT_TITLE_LABEL_TAG];
+    SearchResultCell *cell = (SearchResultCell *)[tableView dequeueReusableCellWithIdentifier:@"SearchResultCell"];
+
+    NSString *title = self.searchResultsOrdered[indexPath.row][@"title"];
+    cell.textLabel.text = title;
     
-    NSString *title = self.searchResultsWithThumbURLs.allKeys[indexPath.row];
-    label.text = title;
-    
-    NSString *thumbURL = self.searchResultsWithThumbURLs[self.searchResultsWithThumbURLs.allKeys[indexPath.row]][@"source"];
+    NSString *thumbURL = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"source"];
 
     // Set thumbnail placeholder
-    imageView.image = [UIImage imageNamed:@"logo-search-placeholder.png"];
+    cell.imageView.image = [UIImage imageNamed:@"logo-search-placeholder.png"];
+    cell.useField = NO;
     if (!thumbURL){
         // Don't bother downloading if no thumbURL
         return cell;
@@ -183,7 +176,8 @@
         // Needs to be *synchronous* and on main queue!
         dispatch_sync(dispatch_get_main_queue(), ^(){
             UIImage *image = [UIImage imageWithData:weakThumbnailOp.dataRetrieved];
-            imageView.image = image;
+            cell.imageView.image = image;
+            cell.useField = YES;
         });
     };
     [thumbnailQ_ addOperation:thumbnailOp];
@@ -194,9 +188,9 @@
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    if (self.searchResultsWithThumbURLs.count == 0) return;
+    if (self.searchResultsOrdered.count == 0) return;
     
-    NSString *thumbURL = self.searchResultsWithThumbURLs[self.searchResultsWithThumbURLs.allKeys[indexPath.row]][@"source"];
+    NSString *thumbURL = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"source"];
     //NSLog(@"CANCEL THUMB RETRIEVAL OP HERE for thumb url %@", thumbURL);
     MWNetworkOp *opToCancel = nil;
     for (MWNetworkOp *op in thumbnailQ_.operations) {
@@ -213,7 +207,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *title = self.searchResultsWithThumbURLs.allKeys[indexPath.row];
+    NSString *title = self.searchResultsOrdered[indexPath.row][@"title"];
     [self navigateToPage:title];
     [self.searchDisplayController setActive:NO animated:YES];
 }
@@ -221,13 +215,16 @@
 - (void)searchDisplayController:(UISearchDisplayController *)searchDisplayController didLoadSearchResultsTableView:(UITableView *)searchResultsTableView
 {
     [searchResultsTableView registerNib:[UINib nibWithNibName:@"SearchResultPrototypeView" bundle:nil] forCellReuseIdentifier:@"SearchResultCell"];
+
+    // Turn off the separator since one gets added in SearchResultCell.m
+    searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 #pragma mark Search term methods (requests titles matching search term and associated thumbnail urls)
 
 - (void)searchForTerm:(NSString *)searchTerm
 {
-    [self.searchResultsWithThumbURLs removeAllObjects];
+    [self.searchResultsOrdered removeAllObjects];
     [self.searchDisplayController.searchResultsTableView reloadData];
     
     [articleRetrievalQ_ cancelAllOperations];
@@ -264,6 +261,27 @@
             //NSLog(@"search op completionBlock bailed (because op was cancelled) for %@", searchTerm);
             return;
         }
+
+        if(weakSearchOp.error){
+            //NSLog(@"search op completionBlock bailed on error %@", weakSearchOp.error);
+            return;
+        }
+        
+        NSArray *searchResults = (NSArray *)weakSearchOp.jsonRetrieved;
+        //NSLog(@"searchResults = %@", searchResults);
+        
+        NSMutableArray *a = @[].mutableCopy;
+        for (NSString *title in searchResults[1]) {
+            [a addObject:@{@"title": title, @"thumbnail": @{}}.mutableCopy];
+        }
+        self.searchResultsOrdered = a;
+        
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            // We have search titles! Show them right away!
+            // NSLog(@"FIRE ONE! Show search result titles.");
+            [self.searchDisplayController.searchResultsTableView reloadData];
+        });
+
         //NSLog(@"search op completionBlock for %@", searchTerm);
         // Get article sections text (faster joining array elements than appending a string)
         //NSArray *searchResults = (NSArray *)weakSearchOp.jsonRetrieved;
@@ -309,25 +327,22 @@
         // Get dictionary of search thumb urls mapped to their respective search terms
         NSDictionary *results = (NSDictionary *)weakSearchThumbURLsOp.jsonRetrieved;
 
-        NSMutableDictionary *searchResultsWithThumbURLs = [@{} mutableCopy];
         if (results.count > 0) {
             NSDictionary *pages = results[@"query"][@"pages"];
             for (NSDictionary *page in pages) {
-                searchResultsWithThumbURLs[pages[page][@"title"]] = (pages[page][@"thumbnail"]) ? pages[page][@"thumbnail"] : [@{} mutableCopy];
+                NSString *titleFromThumbOpResults = pages[page][@"title"];
+                for (NSMutableDictionary *searchOpResult in self.searchResultsOrdered) {
+                    if ([searchOpResult[@"title"] isEqualToString:titleFromThumbOpResults]) {
+                        searchOpResult[@"thumbnail"] = (pages[page][@"thumbnail"]) ? pages[page][@"thumbnail"] : [@{} mutableCopy];
+                        break;
+                    }
+                }
             }
         }
-        //NSLog(@"searchResultsWithThumbURLs = %@", searchResultsWithThumbURLs);
-
         dispatch_async(dispatch_get_main_queue(), ^(){
-            // Update self.searchResultsWithThumbURLs once, not repeatedly in loop. This is
-            // because updating searchResultsWithThumbURLs causes the search results table
-            // to be updated. Doing so repeatedly in the loop above can make the table view laying
-            // out the search results crash complaining that searchResultsWithThumbURLs is being mutated
-            // (which the for loop above was doing formerly) while the table view was iterating
-            // searchResultsWithThumbURLs (which it does as it lays out the table cells)
-            self.searchResultsWithThumbURLs = searchResultsWithThumbURLs;
-            
-            // We have search results! Show them!
+            // Now we also have search thumbnail url data in searchResultsOrdered! Reload so thumb downloads
+            // for on-screen cells can happen!
+            // NSLog(@"FIRE TWO! Reload table data so it will download thumbnail images for on-screen search results.");
             [self.searchDisplayController.searchResultsTableView reloadData];
         });
     };
@@ -412,7 +427,7 @@
                   ];
     __weak MWNetworkOp *weakOp = op;
     op.aboutToStart = ^{
-        NSLog(@"aboutToStart for %@", pageTitle);
+        //NSLog(@"aboutToStart for %@", pageTitle);
         [self networkActivityIndicatorPush];
     };
     op.completionBlock = ^(){
@@ -448,7 +463,12 @@
 
 -(void)opProgressed:(MWNetworkOp *)op;
 {
-    //NSLog(@"Article retrieval progress: %@ of %@", op.bytesWritten, op.bytesExpectedToWrite);
+    return;
+    if (op.dataRetrieved.length) {
+        NSLog(@"Receive progress: %lu of %lu", (unsigned long)op.dataRetrieved.length, (unsigned long)op.dataRetrievedExpectedLength);
+    }else{
+        NSLog(@"Send progress: %@ of %@", op.bytesWritten, op.bytesExpectedToWrite);
+    }
 }
 
 @end

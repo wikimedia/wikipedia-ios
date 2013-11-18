@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0466F44F183A30CC00EA1FD7 /* logo-search-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0466F44D183A30CC00EA1FD7 /* logo-search-placeholder.png */; };
 		0466F450183A30CC00EA1FD7 /* logo-search-placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0466F44E183A30CC00EA1FD7 /* logo-search-placeholder@2x.png */; };
+		0466F456183BF71C00EA1FD7 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0466F455183BF71C00EA1FD7 /* SearchResultCell.m */; };
 		04C43A9D183440B0006C643B /* MWCrumbyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43A9C183440B0006C643B /* MWCrumbyTest.m */; };
 		04C43A9E183440B0006C643B /* MWCrumbyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43A9C183440B0006C643B /* MWCrumbyTest.m */; };
 		04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */; };
@@ -66,6 +67,8 @@
 /* Begin PBXFileReference section */
 		0466F44D183A30CC00EA1FD7 /* logo-search-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-search-placeholder.png"; sourceTree = "<group>"; };
 		0466F44E183A30CC00EA1FD7 /* logo-search-placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-search-placeholder@2x.png"; sourceTree = "<group>"; };
+		0466F454183BF71C00EA1FD7 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultCell.h; sourceTree = "<group>"; };
+		0466F455183BF71C00EA1FD7 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultCell.m; sourceTree = "<group>"; };
 		04C43A9B183440B0006C643B /* MWCrumbyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWCrumbyTest.h; sourceTree = "<group>"; };
 		04C43A9C183440B0006C643B /* MWCrumbyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWCrumbyTest.m; sourceTree = "<group>"; };
 		04C43AA0183440C1006C643B /* MWNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 				04C43AB1183441A4006C643B /* ViewController.h */,
 				04C43AB2183441A4006C643B /* ViewController.m */,
 				04C43B0D18389064006C643B /* SearchResultPrototypeView.xib */,
+				0466F454183BF71C00EA1FD7 /* SearchResultCell.h */,
+				0466F455183BF71C00EA1FD7 /* SearchResultCell.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -409,6 +414,7 @@
 				04C43AC2183442FC006C643B /* NSURLRequest+DictionaryRequest.m in Sources */,
 				04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				04C43AA6183440C1006C643B /* MWNetworkOp.m in Sources */,
+				0466F456183BF71C00EA1FD7 /* SearchResultCell.m in Sources */,
 				04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */,
 				D4991449181D51DE00E6073C /* AppDelegate.m in Sources */,
 				04C43A9D183440B0006C643B /* MWCrumbyTest.m in Sources */,

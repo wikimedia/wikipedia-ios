@@ -58,6 +58,7 @@
         self.aboutToDealloc = nil;
         self.tag = NSUIntegerMax;
         runLoopRunningIndefinitely_ = NO;
+        self.dataRetrievedExpectedLength = 0;
     }
     return self;
 }
@@ -178,6 +179,8 @@
 
 -(void)connection:(NSURLConnection*) connection didReceiveResponse:(NSURLResponse *)response
 {
+    self.dataRetrievedExpectedLength = [response expectedContentLength];
+
     self.response = response;
 }
 
@@ -196,6 +199,8 @@
         [self finishWithError:@"connection:didReceiveData: method saw the op was cancelled."];
     }else{
         [self.dataRetrieved appendData: data];
+        // Enable inspection of the progress of the data being received
+        [self reportProgress];
     }
 }
 
@@ -203,6 +208,14 @@
 {
     self.bytesWritten = [NSNumber numberWithInteger:totalBytesWritten];
     self.bytesExpectedToWrite = [NSNumber numberWithInteger:totalBytesExpectedToWrite];
+    // Enable inspection of the progress of the data being sent
+    [self reportProgress];
+}
+
+#pragma mark - Progress
+
+-(void)reportProgress
+{
     if ([(NSObject *)self.delegate respondsToSelector:@selector(opProgressed:)]){
         [(NSObject *)self.delegate performSelectorOnMainThread:@selector(opProgressed:) withObject:self waitUntilDone:NO];
     }
