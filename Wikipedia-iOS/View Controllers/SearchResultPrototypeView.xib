@@ -32,28 +32,29 @@
                             <constraint firstAttribute="width" constant="55" id="an5-O3-h22"/>
                         </constraints>
                     </imageView>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kfy-Vr-Cm4" userLabel="Bottom Border">
-                        <rect key="frame" x="0.0" y="60" width="320" height="2"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kfy-Vr-Cm4" userLabel="Bottom Border">
+                        <rect key="frame" x="69" y="61" width="241" height="1"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.89738252737226276" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="0.5" id="ds6-wm-FiV"/>
+                            <constraint firstAttribute="height" constant="1" id="ds6-wm-FiV"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Kfy-Vr-Cm4" firstAttribute="leading" secondItem="Osd-Rs-zDt" secondAttribute="trailing" constant="10" id="6Bc-qb-tfa"/>
                     <constraint firstItem="Osd-Rs-zDt" firstAttribute="leading" secondItem="c2I-Os-6UK" secondAttribute="leading" constant="4" id="7rT-zT-nvx"/>
                     <constraint firstItem="6gV-a2-bBZ" firstAttribute="leading" secondItem="Osd-Rs-zDt" secondAttribute="trailing" constant="11" id="DJ2-bz-8H4"/>
-                    <constraint firstItem="Kfy-Vr-Cm4" firstAttribute="leading" secondItem="c2I-Os-6UK" secondAttribute="leading" id="PGF-7c-POP"/>
                     <constraint firstAttribute="trailing" secondItem="6gV-a2-bBZ" secondAttribute="trailing" constant="20" symbolic="YES" id="aTu-dD-9pX"/>
                     <constraint firstAttribute="centerY" secondItem="Osd-Rs-zDt" secondAttribute="centerY" constant="0.5" id="bmG-XJ-mP7"/>
-                    <constraint firstAttribute="trailing" secondItem="Kfy-Vr-Cm4" secondAttribute="trailing" id="enu-3t-Yc9"/>
                     <constraint firstAttribute="centerY" secondItem="6gV-a2-bBZ" secondAttribute="centerY" constant="0.5" id="hK4-dK-ad4"/>
                     <constraint firstAttribute="bottom" secondItem="Kfy-Vr-Cm4" secondAttribute="bottom" id="hux-vZ-Xop"/>
+                    <constraint firstAttribute="trailing" secondItem="Kfy-Vr-Cm4" secondAttribute="trailing" constant="10" id="vRz-hF-fLj"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="bottomBorder" destination="Kfy-Vr-Cm4" id="lfI-gm-59e"/>
+                <outlet property="bottomBorderHeight" destination="ds6-wm-FiV" id="U37-Pu-GOx"/>
                 <outlet property="imageView" destination="Osd-Rs-zDt" id="Dwm-6q-j6W"/>
                 <outlet property="textLabel" destination="6gV-a2-bBZ" id="8MQ-zs-5C1"/>
             </connections>

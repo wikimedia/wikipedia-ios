@@ -24,8 +24,8 @@
         // This "field" - ie a slight background color, slightly rounded corners,
         // and a light border - helps images which may have large amounts of white,
         // or which may have transparent parts, look much nicer and more visually
-        // consistent. The thumbnail for the search term "Monaco", for example,
-        // looks much better atop this field.
+        // consistent. The thumbnails for search terms "Monaco" and "Poland", for
+        // example, look much better atop this field.
         UIColor *borderColor = [UIColor colorWithWhite:0.0 alpha:0.1];
         
         self.imageView.layer.borderColor = borderColor.CGColor;
@@ -47,6 +47,9 @@
 -(void)awakeFromNib
 {
     [super awakeFromNib];
+
+    // Use finer line on retina displays
+    self.bottomBorderHeight.constant = 1.0f / [UIScreen mainScreen].scale;
 
     // Initial changes to ui elements go here.
     // See: http://stackoverflow.com/a/15591474 for details.

@@ -36,6 +36,7 @@
     NSOperationQueue *searchQ_;
     NSOperationQueue *thumbnailQ_;
     UILabel *debugLabel_;
+    NSString *currentSearchString_;
 }
 
 #pragma mark Network activity indicator methods
@@ -62,6 +63,7 @@
 {
     [super viewDidLoad];
 
+    currentSearchString_ = @"";
     self.searchDisplayController.searchBar.placeholder = @"Search Wikipedia";
     self.searchDisplayController.searchResultsDataSource = (id)self;
     self.searchResultsOrdered = [[NSMutableArray alloc] init];
@@ -111,6 +113,9 @@
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
+
+    currentSearchString_ = searchString;
+
     // The documentation for ^this^ method recommends initiating async search here, then reloading the search results table
     // once results are obtained.
     [self searchForTerm:searchString];
@@ -140,7 +145,8 @@
     SearchResultCell *cell = (SearchResultCell *)[tableView dequeueReusableCellWithIdentifier:@"SearchResultCell"];
 
     NSString *title = self.searchResultsOrdered[indexPath.row][@"title"];
-    cell.textLabel.text = title;
+
+    cell.textLabel.attributedText = [self getAttributedTitle:title];
     
     NSString *thumbURL = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"source"];
 
@@ -218,6 +224,34 @@
 
     // Turn off the separator since one gets added in SearchResultCell.m
     searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
+#pragma mark Search term highlighter
+
+-(NSAttributedString *)getAttributedTitle:(NSString *)title
+{
+    // Returns attributed string of title with the current search term highlighted.
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:title];
+
+    // Non-search term
+    [str addAttribute:NSFontAttributeName
+                value:[UIFont fontWithName:@"HelveticaNeue" size:15.0]
+                range:NSMakeRange(0, title.length)];
+
+    [str addAttribute:NSForegroundColorAttributeName
+                value:[UIColor colorWithWhite:0.0 alpha:0.85]
+                range:NSMakeRange(0, title.length)];
+
+    // Search term
+    [str addAttribute:NSFontAttributeName
+                value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0]
+                range:NSMakeRange(0, currentSearchString_.length)];
+
+    [str addAttribute:NSForegroundColorAttributeName
+                value:[UIColor blackColor] //colorWithRed:0.00 green:0.48 blue:1.00 alpha:1.0]
+                range:NSMakeRange(0, currentSearchString_.length)];
+    
+    return str;
 }
 
 #pragma mark Search term methods (requests titles matching search term and associated thumbnail urls)
