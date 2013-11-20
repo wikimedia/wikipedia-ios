@@ -76,6 +76,21 @@
     [bridge_ addListener:@"DOMLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
         //NSLog(@"QQQ HEY DOMLoaded!");
     }];
+
+    __weak ViewController *weakSelf = self;
+    [bridge_ addListener:@"linkClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        NSString *href = payload[@"href"];
+        if ([href hasPrefix:@"/wiki/"]) {
+            NSString *title = [href substringWithRange:NSMakeRange(6, href.length - 6)];
+            [weakSelf navigateToPage:title];
+        }else if ([href hasPrefix:@"//"]) {
+            href = [@"http:" stringByAppendingString:href];
+            
+NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to external link: %@", href];
+[weakSelf.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"alert('%@')", msg]];
+
+        }
+    }];
     
     [self setupQMonitorDebuggingLabel];
     

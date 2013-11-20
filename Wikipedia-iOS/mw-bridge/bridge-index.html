@@ -56,6 +56,13 @@
                  bridge.sendMessage( "pong", payload );
              });
 
+             document.onclick = function() {
+                 if ( event.target.tagName === "A" ) {
+                     bridge.sendMessage( 'linkClicked', { href: event.target.getAttribute( "href" ) });
+                     event.preventDefault();
+                 }
+             }
+             
              } )();
         </script>
     </head>
