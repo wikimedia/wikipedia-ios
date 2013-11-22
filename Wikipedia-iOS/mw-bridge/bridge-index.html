@@ -48,8 +48,31 @@
                 bridge.sendMessage( "DOMLoaded", {} );
              };
              
-             bridge.registerListener( "displayLeadSection", function( payload ) {
-                 document.getElementById( "content" ).innerHTML = payload.leadSectionHTML;
+             bridge.registerListener( "append", function( payload ) {
+                  // Append html without losing existing event handlers
+                  // From: http://stackoverflow.com/a/595825
+                  var content = document.getElementById("content");
+                  var newcontent = document.createElement('div');
+                  newcontent.innerHTML = payload.html;
+                  while (newcontent.firstChild) {
+                     content.appendChild(newcontent.firstChild);
+                  }
+             });
+
+             bridge.registerListener( "prepend", function( payload ) {
+                  // Prepend html without losing existing event handlers
+                  var content = document.getElementById("content");
+                  var newcontent = document.createElement('div');
+                  newcontent.innerHTML = payload.html;
+                  content.insertBefore(newcontent, content.firstChild);
+             });
+
+             bridge.registerListener( "remove", function( payload ) {
+                 document.getElementById( "content" ).removeChild(document.getElementById(payload.element));
+             });
+
+             bridge.registerListener( "clear", function( payload ) {
+                 document.getElementById( "content" ).innerHTML = '';
              });
              
              bridge.registerListener( "ping", function( payload ) {

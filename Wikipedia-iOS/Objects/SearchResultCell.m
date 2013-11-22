@@ -61,7 +61,7 @@
 
 -(void)prepareForReuse
 {
-
+    //NSLog(@"imageView frame = %@", NSStringFromCGRect(self.imageView.frame));
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -13,18 +13,39 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSString+Extras.h"
 #import "SearchResultCell.h"
+#import "SearchBarLogoView.h"
+#import "SearchBarTextField.h"
 
 #pragma mark Defines
 
 #define SEARCH_THUMBNAIL_WIDTH 110
-#define SEARCH_RESULT_HEIGHT 64
+#define SEARCH_RESULT_HEIGHT 60
 #define SEARCH_MAX_RESULTS @"25"
+
+#define SEARCH_FONT [UIFont fontWithName:@"HelveticaNeue" size:16.0]
+#define SEARCH_FONT_COLOR [UIColor colorWithWhite:0.0 alpha:0.85]
+
+#define SEARCH_FONT_HIGHLIGHTED [UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]
+#define SEARCH_FONT_HIGHLIGHTED_COLOR [UIColor blackColor]
+
+#define SEARCH_FIELD_PLACEHOLDER_TEXT @"Search Wikipedia"
+#define SEARCH_FIELD_PLACEHOLDER_TEXT_COLOR [UIColor colorWithRed:0.57 green:0.58 blue:0.59 alpha:1.0]
+
+#define SEARCH_API_URL @"https://en.m.wikipedia.org/w/api.php"
+
+#define SEARCH_LOADING_MSG_SECTION_ZERO @"Loading..."
+#define SEARCH_LOADING_MSG_SECTION_REMAINING @"Loading the rest of the article..."
 
 @interface ViewController (){
 
 }
 
+@property (strong, nonatomic) SearchBarTextField *searchField;
 @property (strong, atomic) NSMutableArray *searchResultsOrdered;
+@property (strong, nonatomic) NSString *apiURL;
+@property (strong, nonatomic) NSString *loadingSectionZeroMessage;
+@property (strong, nonatomic) NSString *loadingSectionsRemainingMessage;
+@property (strong, nonatomic) NSString *searchFieldPlaceholderText;
 
 @end
 
@@ -35,8 +56,10 @@
     NSOperationQueue *articleRetrievalQ_;
     NSOperationQueue *searchQ_;
     NSOperationQueue *thumbnailQ_;
-    UILabel *debugLabel_;
+    UIView *navBarSubview_;
     NSString *currentSearchString_;
+    NSArray *currentSearchStringWordsToHighlight_;
+    CGFloat scrollViewDragBeganVerticalOffset_;
 }
 
 #pragma mark Network activity indicator methods
@@ -63,10 +86,22 @@
 {
     [super viewDidLoad];
 
+    [self setupNavbarSubview];
+
+    // Need to switch to localized strings...
+    NSString *loadingMsgDiv = @"<div style='text-align:center;font-weight:bold'>";
+    self.loadingSectionZeroMessage = [NSString stringWithFormat:@"%@%@</div>", loadingMsgDiv, SEARCH_LOADING_MSG_SECTION_ZERO];
+    self.loadingSectionsRemainingMessage = [NSString stringWithFormat:@"%@%@</div>", loadingMsgDiv, SEARCH_LOADING_MSG_SECTION_REMAINING];
+    self.searchFieldPlaceholderText = SEARCH_FIELD_PLACEHOLDER_TEXT;
+    
+    self.apiURL = SEARCH_API_URL;
+
     currentSearchString_ = @"";
-    self.searchDisplayController.searchBar.placeholder = @"Search Wikipedia";
-    self.searchDisplayController.searchResultsDataSource = (id)self;
+    currentSearchStringWordsToHighlight_ = @[];
+    self.searchField.attributedPlaceholder = [self getAttributedPlaceholderString];
     self.searchResultsOrdered = [[NSMutableArray alloc] init];
+    
+    scrollViewDragBeganVerticalOffset_ = 0.0f;
     
     articleRetrievalQ_ = [[NSOperationQueue alloc] init];
     searchQ_ = [[NSOperationQueue alloc] init];
@@ -94,7 +129,39 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
     [self setupQMonitorDebuggingLabel];
     
-    //self.searchDisplayController.searchBar.backgroundColor = [UIColor redColor];
+    // Perform search when text entered into searchField
+    [self.searchField addTarget:self action:@selector(reloadSearchResultsTableForSearchString) forControlEvents:UIControlEventEditingChanged];
+
+    // Register the search results cell for reuse
+    [self.searchResultsTable registerNib:[UINib nibWithNibName:@"SearchResultPrototypeView" bundle:nil] forCellReuseIdentifier:@"SearchResultCell"];
+
+    // Turn off the separator since one gets added in SearchResultCell.m
+    self.searchResultsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    // Ensure web view can appear beneath translucent nav bar when scrolled up
+    for (UIView *subview in self.webView.subviews) {
+        subview.clipsToBounds = NO;
+    }
+
+    // Ensure the keyboard hides if the web view is scrolled
+    self.webView.scrollView.delegate = self;
+
+    // Prime the web view's content div. Without something in the div, the first
+    // time an article loads, its "Loading..." message doesn't display in time
+    // for some reason.
+    [bridge_ sendMessage:@"append" withPayload:@{@"html": @"&nbsp;"}];
+
+    // Observe changes to nav bar's bounds so the nav bar's subview's frame can be
+    // kept in sync so it always overlays it perfectly, even as rotation animation
+    // tweens the nav bar frame.
+    [self.navigationController.navigationBar addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:nil];
+    
+    // Observe the visibility of the search results table so the web view can be made
+    // to show when the results table is not, and vice-versa.
+    [self.searchResultsTable addObserver:self forKeyPath:@"hidden" options:NSKeyValueObservingOptionNew context:nil];
+    
+    // Force the nav bar's subview to update for initial display - needed for iOS 6.
+    [self updateNavBarSubviewFrame];
 }
 
 #pragma mark Debugging
@@ -107,35 +174,157 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [thumbnailQ_ addObserver:self forKeyPath:@"operationCount" options:NSKeyValueObservingOptionNew context:nil];
     
     // Add a label so we can keep an eye on Q op counts to ensure they go away properly.
-    debugLabel_ = [[UILabel alloc] initWithFrame:CGRectMake(8, -1, 320, 50)];
-    [self.view addSubview:debugLabel_];
-    debugLabel_.backgroundColor = [UIColor clearColor];
-    debugLabel_.textColor = [UIColor colorWithRed:0.00 green:0.48 blue:1.00 alpha:1.0];
-    debugLabel_.font = [UIFont fontWithName:@"helvetica" size:8];
-    debugLabel_.text = @"All Queues Empty";
+    self.debugLabel.text = @"All Queues Empty";
+}
+
+#pragma mark Nav bar subview
+
+-(void)updateNavBarSubviewFrame
+{
+    // To get the search box floating over a translucent view it was placed as a subview of
+    // the nav bar, but the nav bar doesn't do autolayout on it's subviews, so the subview
+    // is resized manually here.
+    navBarSubview_.frame = self.navigationController.navigationBar.bounds;
+    //self.searchField.frame = navBarSubview_.bounds;
+    CGFloat rightPadding = (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) ? 0.0f : 6.0f;
+    
+    self.searchField.frame = CGRectMake(
+                                        navBarSubview_.bounds.origin.x,
+                                        navBarSubview_.bounds.origin.y,
+                                        navBarSubview_.bounds.size.width - rightPadding,
+                                        navBarSubview_.bounds.size.height
+                                        );
+
+    // Make the search field's leftView (a UIImageView) be as tall as the search field
+    // so its image can resize accordingly
+    self.searchField.leftView.frame = CGRectMake(self.searchField.leftView.frame.origin.x, self.searchField.leftView.frame.origin.y, self.searchField.leftView.frame.size.width, self.searchField.frame.size.height);
+}
+
+-(void)setupNavbarSubview
+{
+    navBarSubview_ = [[UIView alloc] init];
+    navBarSubview_.backgroundColor = [UIColor clearColor];
+    navBarSubview_.translatesAutoresizingMaskIntoConstraints = NO;
+
+    [self.navigationController.navigationBar addSubview:navBarSubview_];
+    
+    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
+        self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:0.97];
+    }
+
+    self.searchField = [[SearchBarTextField alloc] init];
+    self.searchField.delegate = self;
+    self.searchField.returnKeyType = UIReturnKeyGo;
+    self.searchField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.searchField.font = SEARCH_FONT;
+    self.searchField.textColor = SEARCH_FONT_HIGHLIGHTED_COLOR;
+    //self.searchField.frame = CGRectInset(navBarSubview_.frame, 3, 3);
+
+    self.searchField.leftViewMode = UITextFieldViewModeAlways;
+    self.searchField.leftView = [[SearchBarLogoView alloc] initWithFrame:CGRectMake(0, 0, 65, 50)];
+
+    self.searchField.leftView.backgroundColor = [UIColor clearColor];
+    self.searchField.clearButtonMode = UITextFieldViewModeAlways;
+    self.searchField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+
+    [navBarSubview_ addSubview:self.searchField];
+
+    //navBarSubview_.layer.borderWidth = 0.5f;
+    //self.searchField.layer.borderWidth = 0.5f;
+    //navBarSubview_.layer.borderColor = [UIColor greenColor].CGColor;
+    //self.searchField.backgroundColor = [UIColor colorWithWhite:0 alpha:0.0];
+    //self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
+    //self.navigationController.navigationBar.layer.borderWidth = 0.5;
+    //self.navigationController.navigationBar.layer.borderColor = [UIColor purpleColor].CGColor;
+}
+
+-(NSAttributedString *)getAttributedPlaceholderString
+{
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:self.searchFieldPlaceholderText];
+
+    [str addAttribute:NSFontAttributeName
+                value:SEARCH_FONT_HIGHLIGHTED
+                range:NSMakeRange(0, str.length)];
+
+    [str addAttribute:NSForegroundColorAttributeName
+                value:SEARCH_FIELD_PLACEHOLDER_TEXT_COLOR
+                range:NSMakeRange(0, str.length)];
+
+    return str;
 }
 
 #pragma mark KVO
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    dispatch_async(dispatch_get_main_queue(), ^(){
-        debugLabel_.text = [NSString stringWithFormat:@"QUEUE OP COUNTS: Search %lu, Thumb %lu, Article %lu", (unsigned long)searchQ_.operationCount, (unsigned long)thumbnailQ_.operationCount, (unsigned long)articleRetrievalQ_.operationCount];
-    });
+    if ([keyPath isEqualToString:@"operationCount"]) {
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            self.debugLabel.text = [NSString stringWithFormat:@"QUEUE OP COUNTS: Search %lu, Thumb %lu, Article %lu", (unsigned long)searchQ_.operationCount, (unsigned long)thumbnailQ_.operationCount, (unsigned long)articleRetrievalQ_.operationCount];
+        });
+    }else if(object == self.navigationController.navigationBar){
+        [self updateNavBarSubviewFrame];
+    }else if(object == self.searchResultsTable){
+        self.webView.hidden = !self.searchResultsTable.hidden;
+    }
+}
+
+#pragma mark Scroll
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    /*
+    // Hides nav bar when a scroll threshold is exceeded. Probably only want to do this
+    // when the webView's scrollView scrolls. Probably also want to set the status bar to
+    // be not transparent when the nav bar is hidden - if not possible could position a
+    // view just behind it, but above the webView.
+    if (scrollView == self.webView.scrollView) {
+        CGFloat f = scrollViewDragBeganVerticalOffset_ - scrollView.contentOffset.y;
+        if (f < -55 && !self.navigationController.navigationBarHidden) {
+            [self.navigationController setNavigationBarHidden:YES animated:YES];
+            //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+        }else if (f > 55 && self.navigationController.navigationBarHidden) {
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
+            //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+        }
+    }
+    */
+
+    // Hide the keyboard if it was visible when the results are scrolled, but only if
+    // the results have been scrolled in excess of some small distance threshold first.
+    // This prevents tiny scroll adjustments, which seem to occur occasionally for some
+    // reason, from causing the keyboard to hide when the user is typing on it!
+    CGFloat distanceScrolled = fabs(scrollViewDragBeganVerticalOffset_ - scrollView.contentOffset.y);
+    if (self.searchField.isFirstResponder && distanceScrolled > 55) {
+        [self.searchField resignFirstResponder];
+        //NSLog(@"Keyboard Hidden!");
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    scrollViewDragBeganVerticalOffset_ = scrollView.contentOffset.y;
 }
 
 #pragma mark Search results table methods (requests actual thumb image data)
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+- (void)reloadSearchResultsTableForSearchString
 {
+    NSString *searchString = self.searchField.text;
 
     currentSearchString_ = searchString;
+    [self updateWordsToHighlight];
 
-    // The documentation for ^this^ method recommends initiating async search here, then reloading the search results table
-    // once results are obtained.
+    NSString *trimmedSearchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if (trimmedSearchString.length == 0){
+        self.searchResultsTable.hidden = YES;
+        self.searchField.clearButtonMode = UITextFieldViewModeNever;
+        return;
+    }
+    
+    self.searchField.clearButtonMode = UITextFieldViewModeAlways;
     [self searchForTerm:searchString];
-
-    return NO;
+    self.searchResultsTable.hidden = NO;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -229,44 +418,54 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *title = self.searchResultsOrdered[indexPath.row][@"title"];
+
     [self navigateToPage:title];
-    [self.searchDisplayController setActive:NO animated:YES];
 }
 
-- (void)searchDisplayController:(UISearchDisplayController *)searchDisplayController didLoadSearchResultsTableView:(UITableView *)searchResultsTableView
-{
-    [searchResultsTableView registerNib:[UINib nibWithNibName:@"SearchResultPrototypeView" bundle:nil] forCellReuseIdentifier:@"SearchResultCell"];
-
-    // Turn off the separator since one gets added in SearchResultCell.m
-    searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-}
-
-#pragma mark Search term highlighter
+#pragma mark Search term highlighting
 
 -(NSAttributedString *)getAttributedTitle:(NSString *)title
 {
     // Returns attributed string of title with the current search term highlighted.
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:title];
 
-    // Non-search term
+    // Set base color and font of the entire result title
     [str addAttribute:NSFontAttributeName
-                value:[UIFont fontWithName:@"HelveticaNeue" size:15.0]
-                range:NSMakeRange(0, title.length)];
+                value:SEARCH_FONT
+                range:NSMakeRange(0, str.length)];
 
     [str addAttribute:NSForegroundColorAttributeName
-                value:[UIColor colorWithWhite:0.0 alpha:0.85]
-                range:NSMakeRange(0, title.length)];
+                value:SEARCH_FONT_COLOR
+                range:NSMakeRange(0, str.length)];
 
-    // Search term
-    [str addAttribute:NSFontAttributeName
-                value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0]
-                range:NSMakeRange(0, currentSearchString_.length)];
+    for (NSString *word in currentSearchStringWordsToHighlight_) {
+        // Search term highlighting
+        NSRange rangeOfThisWordInTitle = [title rangeOfString: word
+                                                      options: NSCaseInsensitiveSearch |
+                                                               NSDiacriticInsensitiveSearch |
+                                                               NSWidthInsensitiveSearch
+                                          ];
 
-    [str addAttribute:NSForegroundColorAttributeName
-                value:[UIColor blackColor] //colorWithRed:0.00 green:0.48 blue:1.00 alpha:1.0]
-                range:NSMakeRange(0, currentSearchString_.length)];
-    
+        [str addAttribute:NSFontAttributeName
+                    value:SEARCH_FONT_HIGHLIGHTED
+                    range:rangeOfThisWordInTitle];
+        
+        [str addAttribute:NSForegroundColorAttributeName
+                    value:SEARCH_FONT_HIGHLIGHTED_COLOR
+                    range:rangeOfThisWordInTitle];
+    }
     return str;
+}
+
+-(void)updateWordsToHighlight
+{
+    // Call this only when currentSearchString_ is updated. Keeps the list of words to highlight up to date.
+    // Get the words by splitting currentSearchString_ on a combination of whitespace and punctuation
+    // character sets so search term words get highlighted even if the puncuation in the result is slightly
+    // different from the punctuation in the retrieved search result title.
+    NSMutableCharacterSet *charSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
+    [charSet formUnionWithCharacterSet:[NSMutableCharacterSet punctuationCharacterSet]];
+    currentSearchStringWordsToHighlight_ = [currentSearchString_ componentsSeparatedByCharactersInSet:charSet];
 }
 
 #pragma mark Search term methods (requests titles matching search term and associated thumbnail urls)
@@ -274,22 +473,19 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 - (void)searchForTerm:(NSString *)searchTerm
 {
     [self.searchResultsOrdered removeAllObjects];
-    [self.searchDisplayController.searchResultsTableView reloadData];
+    [self.searchResultsTable reloadData];
     
     [articleRetrievalQ_ cancelAllOperations];
     [thumbnailQ_ cancelAllOperations];
     
-    NSString *trimmedSearchTerm = [searchTerm stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (trimmedSearchTerm.length == 0) return;
-    
-    #pragma mark Search for titles op
+    // Search for titles op
 
     // Cancel any in-progress article retrieval operations
     [searchQ_ cancelAllOperations];
     
     MWNetworkOp *searchOp = [[MWNetworkOp alloc] init];
     searchOp.delegate = self;
-    searchOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:@"https://en.m.wikipedia.org/w/api.php"]
+    searchOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:self.apiURL]
                                              parameters: @{
                                                            @"action": @"opensearch",
                                                            @"search": searchTerm,
@@ -328,7 +524,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         dispatch_async(dispatch_get_main_queue(), ^(){
             // We have search titles! Show them right away!
             // NSLog(@"FIRE ONE! Show search result titles.");
-            [self.searchDisplayController.searchResultsTableView reloadData];
+            [self.searchResultsTable reloadData];
         });
 
         //NSLog(@"search op completionBlock for %@", searchTerm);
@@ -337,7 +533,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         //NSLog(@"search results = %@", searchResults);
     };
     
-    #pragma mark Titles thumbnail urls retrieval op (dependent on search op)
+    // Titles thumbnail urls retrieval op (dependent on search op)
     
     // Thumbnail urls retrieval
     MWNetworkOp *searchThumbURLsOp = [[MWNetworkOp alloc] init];
@@ -351,7 +547,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         NSArray *searchResults = (NSArray *)weakSearchOp.jsonRetrieved;
         NSArray *titles = searchResults[1];
         NSString *barDelimitedTitles = [titles componentsJoinedByString:@"|"];
-        weakSearchThumbURLsOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:@"https://en.m.wikipedia.org/w/api.php"]
+        weakSearchThumbURLsOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:self.apiURL]
                                                               parameters: @{
                                                                             @"action": @"query",
                                                                             @"prop": @"pageimages",
@@ -392,7 +588,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             // Now we also have search thumbnail url data in searchResultsOrdered! Reload so thumb downloads
             // for on-screen cells can happen!
             // NSLog(@"FIRE TWO! Reload table data so it will download thumbnail images for on-screen search results.");
-            [self.searchDisplayController.searchResultsTableView reloadData];
+            [self.searchResultsTable reloadData];
         });
     };
     
@@ -405,7 +601,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self navigateToPage:textField.text];
-    [textField resignFirstResponder];
+
     return NO;
 }
 
@@ -447,39 +643,52 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 - (IBAction)menuButtonPushed:(id)sender {
 }
 
-#pragma mark Article loading op
+#pragma mark Article loading ops
 
 - (void)navigateToPage:(NSString *)pageTitle
+{
+    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+
+        self.searchResultsTable.hidden = YES;
+        [self.searchField resignFirstResponder];
+        
+        // Clear out previous page's html
+        [bridge_ sendMessage:@"clear" withPayload:@{}];
+
+        // Add a "Loading..." message as first element of cleared page
+        [bridge_ sendMessage:@"append" withPayload:@{@"html": self.loadingSectionZeroMessage}];
+
+        [self retrieveArticleForPageTitle:pageTitle];
+    }];
+}
+
+- (void)retrieveArticleForPageTitle:(NSString *)pageTitle
 {
     // Cancel any in-progress article retrieval operations
     [articleRetrievalQ_ cancelAllOperations];
     
     [searchQ_ cancelAllOperations];
     [thumbnailQ_ cancelAllOperations];
+
+    // Retrieve first section op
     
-    // Send html across bridge to web view
-    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-        [bridge_ sendMessage:@"displayLeadSection" withPayload:@{@"leadSectionHTML": @""}];
-        [bridge_ sendMessage:@"displayLeadSection" withPayload:@{@"leadSectionHTML": @"Loading..."}];
-    }];
-    
-    MWNetworkOp *op = [[MWNetworkOp alloc] init];
-    op.delegate = self;
-    op.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:@"https://en.m.wikipedia.org/w/api.php"]
+    MWNetworkOp *firstSectionOp = [[MWNetworkOp alloc] init];
+    firstSectionOp.delegate = self;
+    firstSectionOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:self.apiURL]
                                        parameters: @{
                                                      @"action": @"mobileview",
                                                      @"prop": @"sections|text",
-                                                     @"sections": @"all",
+                                                     @"sections": @"0",
                                                      @"page": pageTitle,
                                                      @"format": @"json"
                                                      }
                   ];
-    __weak MWNetworkOp *weakOp = op;
-    op.aboutToStart = ^{
+    __weak MWNetworkOp *weakOp = firstSectionOp;
+    firstSectionOp.aboutToStart = ^{
         //NSLog(@"aboutToStart for %@", pageTitle);
         [self networkActivityIndicatorPush];
     };
-    op.completionBlock = ^(){
+    firstSectionOp.completionBlock = ^(){
         [self networkActivityIndicatorPop];
         if(weakOp.isCancelled){
             //NSLog(@"completionBlock bailed (because op was cancelled) for %@", pageTitle);
@@ -493,7 +702,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         NSDictionary *sections = weakOp.jsonRetrieved[@"mobileview"][@"sections"];
         NSMutableArray *sectionText = [@[] mutableCopy];
         for (NSDictionary *section in sections) {
-            [sectionText addObject:section[@"text"]];
+            if ([section valueForKey:@"text"]){
+                [sectionText addObject:section[@"text"]];
+            }
         }
         
         // Join article sections text
@@ -502,10 +713,69 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         
         // Send html across bridge to web view
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-            [bridge_ sendMessage:@"displayLeadSection" withPayload:@{@"leadSectionHTML": htmlStr}];
+            // Clear out the loading message at the top of page
+            [bridge_ sendMessage:@"clear" withPayload:@{}];
+            // Add the first section html
+            [bridge_ sendMessage:@"append" withPayload:@{@"html": htmlStr}];
+            // Add a loading message beneath the first section so user can see more is on the way
+            [bridge_ sendMessage: @"append"
+                     withPayload: @{@"html": [NSString stringWithFormat:@"<div id='loadingMessage'>%@</div>", self.loadingSectionsRemainingMessage]}];
         }];
     };
-    [articleRetrievalQ_ addOperation:op];
+    
+    // Retrieve remaining sections op (dependent on first section op)
+    
+    MWNetworkOp *remainingSectionsOp = [[MWNetworkOp alloc] init];
+    remainingSectionsOp.delegate = self;
+    
+    // Retrieval of remaining sections depends on retrieving first section
+    [remainingSectionsOp addDependency:firstSectionOp];
+
+    remainingSectionsOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:self.apiURL]
+                                       parameters: @{
+                                                     @"action": @"mobileview",
+                                                     @"prop": @"sections|text",
+                                                     @"sections": @"1-",
+                                                     @"page": pageTitle,
+                                                     @"format": @"json"
+                                                     }
+                  ];
+    __weak MWNetworkOp *weakRemainingSectionsOp = remainingSectionsOp;
+    remainingSectionsOp.aboutToStart = ^{
+        //NSLog(@"aboutToStart for %@", pageTitle);
+        [self networkActivityIndicatorPush];
+    };
+    remainingSectionsOp.completionBlock = ^(){
+        [self networkActivityIndicatorPop];
+        if(weakRemainingSectionsOp.isCancelled){
+            //NSLog(@"completionBlock bailed (because op was cancelled) for %@", pageTitle);
+            return;
+        }
+        
+        // Get article sections text (faster joining array elements than appending a string)
+        NSDictionary *sections = weakRemainingSectionsOp.jsonRetrieved[@"mobileview"][@"sections"];
+        NSMutableArray *sectionText = [@[] mutableCopy];
+        for (NSDictionary *section in sections) {
+            if ([section valueForKey:@"text"]){
+                [sectionText addObject:section[@"text"]];
+            }
+        }
+        
+        // Join article sections text
+        NSString *joint = @""; //@"<div style=\"background-color:#ffffff;height:55px;\"></div>";
+        NSString *htmlStr = [sectionText componentsJoinedByString:joint];
+        
+        // Send html across bridge to web view
+        [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+            // Clear out the loading message beneath the first section
+            [bridge_ sendMessage:@"remove" withPayload:@{@"element": @"loadingMessage"}];
+            // Add the remaining sections beneath the first section
+            [bridge_ sendMessage:@"append" withPayload:@{@"html": htmlStr}];
+        }];
+    };
+    
+    [articleRetrievalQ_ addOperation:remainingSectionsOp];
+    [articleRetrievalQ_ addOperation:firstSectionOp];
 }
 
 #pragma mark Progress report
