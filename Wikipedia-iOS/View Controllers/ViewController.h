@@ -9,14 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MWNetworkOp.h"
 
-@interface ViewController : UIViewController <UITextFieldDelegate, UIWebViewDelegate, NetworkOpDelegate, UISearchDisplayDelegate, UITableViewDelegate>
+@interface ViewController : UIViewController <UITextFieldDelegate, UIWebViewDelegate, NetworkOpDelegate, UISearchDisplayDelegate, UITableViewDelegate, UISearchBarDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *forwardButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *languageButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *actionButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *bookmarksButton;
+@property (weak, nonatomic) IBOutlet UILabel *debugLabel;
+@property (weak, nonatomic) IBOutlet UITableView *searchResultsTable;
 
 - (IBAction)backButtonPushed:(id)sender;
 - (IBAction)forwardButtonPushed:(id)sender;
@@ -25,17 +22,3 @@
 - (IBAction)bookmarkButtonPushed:(id)sender;
 
 @end
-
-/*
-
-To do:
-x    make image result cell use a reusable cell
-x    make search result thumb images use dependent async op
-x    track down crash
-     rolling search timeout
-x    placeholder image when none found
-         bundle in app
-     query for further results when bottom of results scrolled to!
-     add small part of description to search result
-         will need another query? or one per title?
-*/

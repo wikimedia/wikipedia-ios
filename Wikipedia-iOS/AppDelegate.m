@@ -12,8 +12,46 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self systemWideStyleOverrides];
+
     // Override point for customization after application launch.
     return YES;
+}
+
+-(void)systemWideStyleOverrides
+{
+    // Minimize flicker of search result table cells being recycled as they
+    // pass completely beneath translucent nav bars
+    [[UIApplication sharedApplication] delegate].window.backgroundColor = [UIColor whiteColor];
+    
+    CGRect rect = CGRectMake(0, 0, 10, 10);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+    [[UIColor clearColor] setFill];
+    UIRectFill(rect);
+    UIImage *clearImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
+        // Pre iOS 7:
+        // Change the appearance of the nav bar throughout the app
+        // (do not do this for iOS 7 or above)
+        [[UINavigationBar appearance] setTintColor:[UIColor clearColor]];
+        [[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithWhite:0.0f alpha:0.3f]];
+        [[UINavigationBar appearance] setBackgroundImage:clearImage forBarMetrics:UIBarMetricsDefault];
+        [[UINavigationBar appearance] setShadowImage:clearImage];
+        
+    }else{
+        // Post iOS 7:
+        // Set the color of the nav bar and other system icons
+        [[UIApplication sharedApplication] delegate].window.tintColor = [UIColor whiteColor];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        
+        // Set the blinky-cursor color for text boxes
+        [[UITextField appearance] setTintColor:[UIColor colorWithWhite:0.0f alpha:0.35f]];
+        [[UITextView appearance] setTintColor:[UIColor colorWithWhite:0.0f alpha:0.35f]];
+    }
+    
+    [[UIButton appearance] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
