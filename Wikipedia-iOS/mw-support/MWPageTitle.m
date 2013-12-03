@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 //
 
-#import "PageTitle.h"
+#import "MWPageTitle.h"
 
-@implementation PageTitle {
+@implementation MWPageTitle {
     NSString *_namespace;
     NSString *_text;
 }
 
-+(PageTitle *)titleFromNamespace:(NSString *)namespace text:(NSString *)text
++(MWPageTitle *)titleFromNamespace:(NSString *)namespace text:(NSString *)text
 {
-    return [[PageTitle alloc] initFromNamespace:namespace text:text];
+    return [[MWPageTitle alloc] initFromNamespace:namespace text:text];
 }
 
 -(id)initFromNamespace:(NSString *)namespace text:(NSString *)text

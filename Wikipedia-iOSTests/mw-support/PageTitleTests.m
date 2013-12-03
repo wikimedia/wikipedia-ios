@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import "PageTitle.h"
+#import "MWPageTitle.h"
 
 @interface PageTitleTests : XCTestCase
 
@@ -45,7 +45,7 @@
         NSString *ns = data[@"ns"];;
         NSString *text = data[@"text"];
         
-        PageTitle *title = [PageTitle titleFromNamespace:ns text:text];
+        MWPageTitle *title = [MWPageTitle titleFromNamespace:ns text:text];
         XCTAssertEqualObjects(title.namespace, ns, @"Title namespace check");
         XCTAssertEqualObjects(title.text, text, @"Title text check");
         XCTAssertEqualObjects(title.prefixedText, data[@"prefixed"], @"Prefixed text check");

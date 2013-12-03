@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PageTitle.h"
+#import "MWPageTitle.h"
 
-@interface Site : NSObject
+@interface MWSite : NSObject
 
 @property NSString *domain;
 
 - (id)initWithDomain:(NSString *)domain;
-- (PageTitle *)titleForInternalLink:(NSString *)path;
+- (MWPageTitle *)titleForInternalLink:(NSString *)path;
 
 @end

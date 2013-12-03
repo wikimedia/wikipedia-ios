@@ -1,3 +1,3 @@
 #import <Foundation/Foundation.h>
-#import "PageTitle.h"
-#import "Site.h"
+#import "MWPageTitle.h"
+#import "MWSite.h"

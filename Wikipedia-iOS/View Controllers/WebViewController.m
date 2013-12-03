@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 //
 
-#import "ViewController.h"
+#import "WebViewController.h"
 
 #import "CommunicationBridge.h"
 #import "NSURLRequest+DictionaryRequest.h"
@@ -15,6 +15,18 @@
 #import "SearchResultCell.h"
 #import "SearchBarLogoView.h"
 #import "SearchBarTextField.h"
+
+#import <CoreData/CoreData.h>
+#import "Article.h"
+#import "DiscoveryContext.h"
+#import "DataContextSingleton.h"
+#import "Section.h"
+#import "History.h"
+#import "Saved.h"
+#import "DiscoveryMethod.h"
+#import "Image.h"
+#import "HistoryViewController.h"
+#import "NSDate-Utilities.h"
 
 #pragma mark Defines
 
@@ -36,7 +48,7 @@
 #define SEARCH_LOADING_MSG_SECTION_ZERO @"Loading..."
 #define SEARCH_LOADING_MSG_SECTION_REMAINING @"Loading the rest of the article..."
 
-@interface ViewController (){
+@interface WebViewController (){
 
 }
 
@@ -47,19 +59,28 @@
 @property (strong, nonatomic) NSString *loadingSectionsRemainingMessage;
 @property (strong, nonatomic) NSString *searchFieldPlaceholderText;
 
+@property (strong, nonatomic) Site *currentSite;
+@property (strong, nonatomic) Domain *currentDomain;
+
+@property (strong, nonatomic) DiscoveryMethod *searchDiscoveryMethod;
+@property (strong, nonatomic) DiscoveryMethod *linkDiscoveryMethod;
+@property (strong, nonatomic) DiscoveryMethod *randomDiscoveryMethod;
+
+@property (strong, nonatomic) NSString *currentSearchString;
+@property (strong, nonatomic) NSArray *currentSearchStringWordsToHighlight;
+
 @end
 
 #pragma mark Internal variables
 
-@implementation ViewController {
+@implementation WebViewController {
     CommunicationBridge *bridge_;
     NSOperationQueue *articleRetrievalQ_;
     NSOperationQueue *searchQ_;
     NSOperationQueue *thumbnailQ_;
     UIView *navBarSubview_;
-    NSString *currentSearchString_;
-    NSArray *currentSearchStringWordsToHighlight_;
     CGFloat scrollViewDragBeganVerticalOffset_;
+    DataContextSingleton *dataContext_;
 }
 
 #pragma mark Network activity indicator methods
@@ -86,6 +107,24 @@
 {
     [super viewDidLoad];
 
+    dataContext_ = [DataContextSingleton sharedInstance];
+
+// TODO: update these associations based on Brion's comments.   -   -   -   -   -   -   -   -   -
+
+    // Add site for article
+    self.currentSite = (Site *)[self getEntityForName: @"Site" withPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"wikipedia.org"]];
+    
+    // Add domain for article
+    self.currentDomain = (Domain *)[self getEntityForName: @"Domain" withPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"en"]];
+    
+    self.searchDiscoveryMethod = (DiscoveryMethod *)[self getEntityForName: @"DiscoveryMethod" withPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"search"]];
+    
+    self.linkDiscoveryMethod = (DiscoveryMethod *)[self getEntityForName: @"DiscoveryMethod" withPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"link"]];
+    
+    self.randomDiscoveryMethod = (DiscoveryMethod *)[self getEntityForName: @"DiscoveryMethod" withPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"random"]];
+
+//  -   -   -   -   -   -   -   -   -
+
     [self setupNavbarSubview];
 
     // Need to switch to localized strings...
@@ -96,8 +135,8 @@
     
     self.apiURL = SEARCH_API_URL;
 
-    currentSearchString_ = @"";
-    currentSearchStringWordsToHighlight_ = @[];
+    self.currentSearchString = @"";
+    self.currentSearchStringWordsToHighlight = @[];
     self.searchField.attributedPlaceholder = [self getAttributedPlaceholderString];
     self.searchResultsOrdered = [[NSMutableArray alloc] init];
     
@@ -112,12 +151,12 @@
         //NSLog(@"QQQ HEY DOMLoaded!");
     }];
 
-    __weak ViewController *weakSelf = self;
+    __weak WebViewController *weakSelf = self;
     [bridge_ addListener:@"linkClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
         NSString *href = payload[@"href"];
         if ([href hasPrefix:@"/wiki/"]) {
             NSString *title = [href substringWithRange:NSMakeRange(6, href.length - 6)];
-            [weakSelf navigateToPage:title];
+            [weakSelf navigateToPage:title discoveryMethod:weakSelf.linkDiscoveryMethod];
         }else if ([href hasPrefix:@"//"]) {
             href = [@"http:" stringByAppendingString:href];
             
@@ -236,6 +275,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     //self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
     //self.navigationController.navigationBar.layer.borderWidth = 0.5;
     //self.navigationController.navigationBar.layer.borderColor = [UIColor purpleColor].CGColor;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(historyToggle)];
+    [self.searchField.leftView addGestureRecognizer:tap];
 }
 
 -(NSAttributedString *)getAttributedPlaceholderString
@@ -251,6 +293,26 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                 range:NSMakeRange(0, str.length)];
 
     return str;
+}
+
+#pragma mark History
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    // Ensure the web VC is the top VC.
+    [self.navigationController popToViewController:self animated:YES];
+}
+
+-(void)historyToggle
+{
+    if(self.navigationController.topViewController != self){
+        // Hide if it's already showing.
+        [self.navigationController popToViewController:self animated:YES];
+        return;
+    }
+    self.searchField.text = @"";
+    [self.searchField resignFirstResponder];
+    [self performSegueWithIdentifier:@"ShowHistorySegue" sender:self];
 }
 
 #pragma mark KVO
@@ -311,7 +373,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 {
     NSString *searchString = self.searchField.text;
 
-    currentSearchString_ = searchString;
+    self.currentSearchString = searchString;
     [self updateWordsToHighlight];
 
     NSString *trimmedSearchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -353,6 +415,22 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     cell.textLabel.attributedText = [self getAttributedTitle:title];
     
     NSString *thumbURL = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"source"];
+    NSNumber *thumbWidth = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"width"];
+    NSNumber *thumbHeight = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"height"];
+
+    // Check for db record for thumb. If found use it rather than downloading it again!
+    Image *thumbnailFromDB = (Image *)[self getEntityForName: @"Image" withPredicate:[NSPredicate predicateWithFormat:@"sourceUrl == %@", thumbURL]];
+
+    if(thumbnailFromDB){
+        // Yay! Cached thumbnail found! Use it!
+        // Needs to be synchronous!
+        UIImage *image = [UIImage imageWithData:thumbnailFromDB.data];
+        cell.imageView.image = image;
+        cell.useField = YES;
+        return cell;
+    }
+
+    // If execution reaches this point a cached core data thumb was not found.
 
     // Set thumbnail placeholder
     cell.imageView.image = [UIImage imageNamed:@"logo-search-placeholder.png"];
@@ -389,6 +467,35 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             cell.imageView.image = image;
             cell.useField = YES;
         });
+
+        // Save thumbnail to core data article.image record for later use. This can be async.
+        NSMutableData *thumbData = weakThumbnailOp.dataRetrieved;
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            Article *article = (Article *)[self getEntityForName: @"Article" withPredicate:[NSPredicate predicateWithFormat:@"title == %@", title]];
+            if (!article) {
+                article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:dataContext_];
+                article.title = title;
+                article.dateCreated = [NSDate date];
+            }
+            
+            Image *thumb = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:dataContext_];
+            thumb.data = thumbData;
+            thumb.fileName = [thumbURL lastPathComponent];
+            thumb.extension = [thumbURL pathExtension];
+            thumb.imageDescription = nil;
+            thumb.sourceUrl = thumbURL;
+            thumb.dateRetrieved = [NSDate date];
+            thumb.width = thumbWidth;
+            thumb.height = thumbHeight;
+            
+            article.thumbnailImage = thumb;
+
+            article.site = self.currentSite;
+            article.domain = self.currentDomain;
+
+            NSError *error = nil;
+            [dataContext_ save:&error];
+        });
     };
     [thumbnailQ_ addOperation:thumbnailOp];
 
@@ -419,7 +526,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 {
     NSString *title = self.searchResultsOrdered[indexPath.row][@"title"];
 
-    [self navigateToPage:title];
+    [self navigateToPage:title discoveryMethod:self.searchDiscoveryMethod];
+
+    self.searchField.text = @"";
 }
 
 #pragma mark Search term highlighting
@@ -438,7 +547,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                 value:SEARCH_FONT_COLOR
                 range:NSMakeRange(0, str.length)];
 
-    for (NSString *word in currentSearchStringWordsToHighlight_) {
+    for (NSString *word in self.currentSearchStringWordsToHighlight) {
         // Search term highlighting
         NSRange rangeOfThisWordInTitle = [title rangeOfString: word
                                                       options: NSCaseInsensitiveSearch |
@@ -465,7 +574,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // different from the punctuation in the retrieved search result title.
     NSMutableCharacterSet *charSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
     [charSet formUnionWithCharacterSet:[NSMutableCharacterSet punctuationCharacterSet]];
-    currentSearchStringWordsToHighlight_ = [currentSearchString_ componentsSeparatedByCharactersInSet:charSet];
+    self.currentSearchStringWordsToHighlight = [self.currentSearchString componentsSeparatedByCharactersInSet:charSet];
 }
 
 #pragma mark Search term methods (requests titles matching search term and associated thumbnail urls)
@@ -600,7 +709,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [self navigateToPage:textField.text];
+    [self navigateToPage:textField.text discoveryMethod:self.searchDiscoveryMethod];
 
     return NO;
 }
@@ -645,7 +754,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 #pragma mark Article loading ops
 
-- (void)navigateToPage:(NSString *)pageTitle
+- (void)navigateToPage:(NSString *)pageTitle discoveryMethod:(DiscoveryMethod *)discoveryMethod
 {
     [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
 
@@ -658,12 +767,29 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // Add a "Loading..." message as first element of cleared page
         [bridge_ sendMessage:@"append" withPayload:@{@"html": self.loadingSectionZeroMessage}];
 
-        [self retrieveArticleForPageTitle:pageTitle];
+        [self retrieveArticleForPageTitle:pageTitle discoveryMethod:discoveryMethod];
     }];
 }
 
-- (void)retrieveArticleForPageTitle:(NSString *)pageTitle
+- (void)retrieveArticleForPageTitle:(NSString *)pageTitle discoveryMethod:(DiscoveryMethod *)discoveryMethod
 {
+    Article *article = (Article *)[self getEntityForName: @"Article" withPredicate:[NSPredicate predicateWithFormat:@"title == %@", pageTitle]];
+    
+    // If core data article with sections already exists just show it
+    if (article) {
+        if (article.section.count > 0) {
+            [self displayArticle:article];
+            return;
+        }
+        // If no sections in the existing article don't return. Allows sections to be retrieved if core data
+        // article was created when thumbnails were retrieved (before any sections are fetched).
+    }else{
+        // Else create core data article and then proceed to retrieve its data
+        article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:dataContext_];
+        article.title = pageTitle;
+        article.dateCreated = [NSDate date];
+    }
+
     // Cancel any in-progress article retrieval operations
     [articleRetrievalQ_ cancelAllOperations];
     
@@ -698,6 +824,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // Ensure web view is scrolled to top of new article
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
         
+        article.lastScrollLocation = @0.0f;
+
         // Get article sections text (faster joining array elements than appending a string)
         NSDictionary *sections = weakOp.jsonRetrieved[@"mobileview"][@"sections"];
         NSMutableArray *sectionText = [@[] mutableCopy];
@@ -710,7 +838,36 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // Join article sections text
         NSString *joint = @""; //@"<div style=\"background-color:#ffffff;height:55px;\"></div>";
         NSString *htmlStr = [sectionText componentsJoinedByString:joint];
+
+        // Add sections for article
+        Section *section0 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:dataContext_];
+        section0.index = @0;
+        section0.title = @"";
+        section0.dateRetrieved = [NSDate date];
+        section0.html = htmlStr;
+        article.section = [NSSet setWithObjects:section0, nil];
         
+        // Add history for article
+        History *history0 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:dataContext_];
+        history0.dateVisited = [NSDate date]; //dateWithDaysBeforeNow:22];
+        history0.discoveryMethod = discoveryMethod;
+        [article addHistoryObject:history0];
+
+        article.site = self.currentSite;
+        article.domain = self.currentDomain;
+
+        // Add saved for article
+        //Saved *saved0 = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:dataContext_];
+        //saved0.dateSaved = [NSDate date];
+        //[article addSavedObject:saved0];
+        
+        // Save the article!
+        NSError *error = nil;
+        [dataContext_ save:&error];
+
+        NSLog(@"error = %@", error);
+        NSLog(@"error = %@", error.localizedDescription);
+
         // Send html across bridge to web view
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
             // Clear out the loading message at the top of page
@@ -758,9 +915,20 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         for (NSDictionary *section in sections) {
             if ([section valueForKey:@"text"]){
                 [sectionText addObject:section[@"text"]];
+
+                // Add sections for article
+                Section *thisSection = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:dataContext_];
+                thisSection.index = section[@"id"];
+                thisSection.title = section[@"line"];
+                thisSection.html = section[@"text"];
+                thisSection.dateRetrieved = [NSDate date];
+                [article addSectionObject:thisSection];
             }
         }
-        
+
+        NSError *error = nil;
+        [dataContext_ save:&error];
+
         // Join article sections text
         NSString *joint = @""; //@"<div style=\"background-color:#ffffff;height:55px;\"></div>";
         NSString *htmlStr = [sectionText componentsJoinedByString:joint];
@@ -787,6 +955,57 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         NSLog(@"Receive progress: %lu of %lu", (unsigned long)op.dataRetrieved.length, (unsigned long)op.dataRetrievedExpectedLength);
     }else{
         NSLog(@"Send progress: %@ of %@", op.bytesWritten, op.bytesExpectedToWrite);
+    }
+}
+
+#pragma mark Display article from core data
+
+- (void)displayArticle:(Article *)article
+{
+    // Get sorted sections for this article (sorts the article.section NSSet into sortedSections)
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
+    NSArray *sortedSections = [article.section sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    NSMutableArray *sectionText = [@[] mutableCopy];
+    
+    for (Section *section in sortedSections) {
+        if (section.html){
+            [sectionText addObject:section.html];
+        }
+    }
+
+    // Join article sections text
+    NSString *joint = @""; //@"<div style=\"background-color:#ffffff;height:55px;\"></div>";
+    NSString *htmlStr = [sectionText componentsJoinedByString:joint];
+
+    // Send html across bridge to web view
+    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+        // Clear out the loading message at the top of page
+        [bridge_ sendMessage:@"clear" withPayload:@{}];
+        // Display all sections
+        [bridge_ sendMessage:@"append" withPayload:@{@"html": htmlStr}];
+    }];
+}
+
+#pragma mark Get core data entity
+
+-(NSManagedObject *)getEntityForName:(NSString *)entityName withPredicate:(NSPredicate *)predicate
+{
+    NSError *error = nil;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName: entityName
+                                              inManagedObjectContext: dataContext_];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:predicate];
+
+    error = nil;
+    NSArray *methods = [dataContext_ executeFetchRequest:fetchRequest error:&error];
+    //XCTAssert(error == nil, @"Could not fetch article.");
+
+    if (methods.count == 1) {
+        NSManagedObject *method = (NSManagedObject *)methods[0];
+        return method;
+    }else{
+        return nil;
     }
 }
 

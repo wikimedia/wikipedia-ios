@@ -5,10 +5,39 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--History View Controller-->
+        <scene sceneID="MQq-lR-zdc">
+            <objects>
+                <tableViewController storyboardIdentifier="HistoryViewController" id="0U8-c6-wgE" customClass="HistoryViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="PON-iz-KNC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="60" id="exH-Vc-J0k">
+                                <rect key="frame" x="0.0" y="86" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="exH-Vc-J0k" id="NcO-gl-2EB">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0U8-c6-wgE" id="vTs-ao-hE4"/>
+                            <outlet property="delegate" destination="0U8-c6-wgE" id="SDk-Zm-YUp"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="vJo-nY-hdG"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dIj-5a-go1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="782" y="200"/>
+        </scene>
+        <!--Web View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="WebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="C8y-0k-FBq"/>
                         <viewControllerLayoutGuide type="bottom" id="Xeb-oh-gct"/>
@@ -71,11 +100,12 @@
                         <outlet property="debugLabel" destination="AVk-of-qrd" id="InJ-sK-jEK"/>
                         <outlet property="searchResultsTable" destination="cih-nF-1ys" id="YqO-KG-TPD"/>
                         <outlet property="webView" destination="WeL-Mj-Zsh" id="iQJ-zA-CLH"/>
+                        <segue destination="0U8-c6-wgE" kind="push" identifier="ShowHistorySegue" id="ajd-Ao-Blc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="397" y="223"/>
+            <point key="canvasLocation" x="393" y="200"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dor-Wk-JQd">

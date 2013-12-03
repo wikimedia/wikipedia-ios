@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PageTitle : NSObject
+@interface MWPageTitle : NSObject
 
-+(PageTitle *)titleFromNamespace:(NSString *)namespace text:(NSString *)text;
++(MWPageTitle *)titleFromNamespace:(NSString *)namespace text:(NSString *)text;
 
 -(id)initFromNamespace:(NSString *)namespace text:(NSString *)text;
 

@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Wikimedia Foundation. All rights reserved.
 //
 
-#import "Site.h"
+#import "MWSite.h"
 
-@implementation Site
+@implementation MWSite
 
 - (id)initWithDomain:(NSString *)domain
 {
@@ -27,13 +27,13 @@
     if (![other isKindOfClass:self.class]) {
         return NO;
     }
-    Site *otherSite = other;
+    MWSite *otherSite = other;
     return [self.domain isEqualToString:otherSite.domain];
 }
 
 static NSString *localLinkPrefix = @"/wiki/";
 
-- (PageTitle *)titleForInternalLink:(NSString *)path
+- (MWPageTitle *)titleForInternalLink:(NSString *)path
 {
     if ([path hasPrefix:localLinkPrefix]) {
         NSString *remainder = [path substringFromIndex:localLinkPrefix.length];
@@ -41,7 +41,7 @@ static NSString *localLinkPrefix = @"/wiki/";
         // todo: use the hash
         NSString *rawTitle = chunks[0];
         // todo: kill namespaces from here
-        return [PageTitle titleFromNamespace:@"" text:rawTitle];
+        return [MWPageTitle titleFromNamespace:@"" text:rawTitle];
     } else {
         @throw [NSException exceptionWithName:@"SiteBadLinkFormatException" reason:@"unexpected local link format" userInfo:nil];
     }
