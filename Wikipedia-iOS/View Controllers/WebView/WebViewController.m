@@ -828,24 +828,21 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         article.lastScrollLocation = @0.0f;
 
         // Get article sections text (faster joining array elements than appending a string)
-        NSDictionary *sections = weakOp.jsonRetrieved[@"mobileview"][@"sections"];
-        NSMutableArray *sectionText = [@[] mutableCopy];
-        for (NSDictionary *section in sections) {
-            if ([section valueForKey:@"text"]){
-                [sectionText addObject:section[@"text"]];
+        NSArray *sections = weakOp.jsonRetrieved[@"mobileview"][@"sections"];
+        __block NSDictionary *sectionZeroDict = @{};
+        [sections enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL *stop){
+            if ([dict[@"id"] isEqual: @0]) {
+                sectionZeroDict = dict;
+                *stop = YES;
             }
-        }
-        
-        // Join article sections text
-        NSString *joint = @""; //@"<div style=\"background-color:#ffffff;height:55px;\"></div>";
-        NSString *htmlStr = [sectionText componentsJoinedByString:joint];
+        }];
 
         // Add sections for article
         Section *section0 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:dataContext_];
         section0.index = @0;
         section0.title = @"";
         section0.dateRetrieved = [NSDate date];
-        section0.html = htmlStr;
+        section0.html = sectionZeroDict[@"text"];
         article.section = [NSSet setWithObjects:section0, nil];
         
         // Add history for article
@@ -875,7 +872,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             // Clear out the loading message at the top of page
             [bridge_ sendMessage:@"clear" withPayload:@{}];
             // Add the first section html
-            [bridge_ sendMessage:@"append" withPayload:@{@"html": htmlStr}];
+            [bridge_ sendMessage:@"append" withPayload:@{@"html": sectionZeroDict[@"text"]}];
             // Add a loading message beneath the first section so user can see more is on the way
             [bridge_ sendMessage: @"append"
                      withPayload: @{@"html": [NSString stringWithFormat:@"<div id='loadingMessage'>%@</div>", self.loadingSectionsRemainingMessage]}];
@@ -915,7 +912,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         NSDictionary *sections = weakRemainingSectionsOp.jsonRetrieved[@"mobileview"][@"sections"];
         NSMutableArray *sectionText = [@[] mutableCopy];
         for (NSDictionary *section in sections) {
-            if ([section valueForKey:@"text"]){
+            if (![section[@"id"] isEqual: @0]) {
                 [sectionText addObject:section[@"text"]];
 
                 // Add sections for article
@@ -923,6 +920,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                 thisSection.index = section[@"id"];
                 thisSection.title = section[@"line"];
                 thisSection.html = section[@"text"];
+                thisSection.tocLevel = section[@"toclevel"];
                 thisSection.dateRetrieved = [NSDate date];
                 [article addSectionObject:thisSection];
             }

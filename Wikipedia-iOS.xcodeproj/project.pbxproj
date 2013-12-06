@@ -25,8 +25,6 @@
 		04142A68184EC5AC006EF779 /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 04142A66184EC5AC006EF779 /* History.m */; };
 		04142A6F184EC5C9006EF779 /* Saved.m in Sources */ = {isa = PBXBuildFile; fileRef = 04142A6E184EC5C9006EF779 /* Saved.m */; };
 		04142A70184EC5C9006EF779 /* Saved.m in Sources */ = {isa = PBXBuildFile; fileRef = 04142A6E184EC5C9006EF779 /* Saved.m */; };
-		04142A73184EC5D4006EF779 /* Section.m in Sources */ = {isa = PBXBuildFile; fileRef = 04142A72184EC5D4006EF779 /* Section.m */; };
-		04142A74184EC5D4006EF779 /* Section.m in Sources */ = {isa = PBXBuildFile; fileRef = 04142A72184EC5D4006EF779 /* Section.m */; };
 		04142A77184EC5E1006EF779 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = 04142A76184EC5E1006EF779 /* Site.m */; };
 		04142A78184EC5E1006EF779 /* Site.m in Sources */ = {isa = PBXBuildFile; fileRef = 04142A76184EC5E1006EF779 /* Site.m */; };
 		04142A7B184EC7B2006EF779 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 04142A7A184EC7B2006EF779 /* Image.m */; };
@@ -67,6 +65,8 @@
 		04478658185159700050563B /* history-random.png in Resources */ = {isa = PBXBuildFile; fileRef = 0447864D185159700050563B /* history-random.png */; };
 		04478659185159700050563B /* history-random@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0447864E185159700050563B /* history-random@2x.png */; };
 		0447865A185159700050563B /* history-random@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0447864E185159700050563B /* history-random@2x.png */; };
+		0447866118528DCF0050563B /* Section.m in Sources */ = {isa = PBXBuildFile; fileRef = 0447866018528DCF0050563B /* Section.m */; };
+		0447866218528DCF0050563B /* Section.m in Sources */ = {isa = PBXBuildFile; fileRef = 0447866018528DCF0050563B /* Section.m */; };
 		0466F44F183A30CC00EA1FD7 /* logo-search-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0466F44D183A30CC00EA1FD7 /* logo-search-placeholder.png */; };
 		0466F450183A30CC00EA1FD7 /* logo-search-placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0466F44E183A30CC00EA1FD7 /* logo-search-placeholder@2x.png */; };
 		04A47629183EF835009C0D82 /* w.png in Resources */ = {isa = PBXBuildFile; fileRef = 04A47627183EF835009C0D82 /* w.png */; };
@@ -143,8 +143,6 @@
 		04142A66184EC5AC006EF779 /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = History.m; path = "Wikipedia-iOS/Data/Model/History.m"; sourceTree = SOURCE_ROOT; };
 		04142A6D184EC5C9006EF779 /* Saved.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Saved.h; path = "Wikipedia-iOS/Data/Model/Saved.h"; sourceTree = SOURCE_ROOT; };
 		04142A6E184EC5C9006EF779 /* Saved.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Saved.m; path = "Wikipedia-iOS/Data/Model/Saved.m"; sourceTree = SOURCE_ROOT; };
-		04142A71184EC5D4006EF779 /* Section.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Section.h; path = "Wikipedia-iOS/Data/Model/Section.h"; sourceTree = SOURCE_ROOT; };
-		04142A72184EC5D4006EF779 /* Section.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Section.m; path = "Wikipedia-iOS/Data/Model/Section.m"; sourceTree = SOURCE_ROOT; };
 		04142A75184EC5E1006EF779 /* Site.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Site.h; path = "Wikipedia-iOS/Data/Model/Site.h"; sourceTree = SOURCE_ROOT; };
 		04142A76184EC5E1006EF779 /* Site.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Site.m; path = "Wikipedia-iOS/Data/Model/Site.m"; sourceTree = SOURCE_ROOT; };
 		04142A79184EC7B2006EF779 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
@@ -175,6 +173,8 @@
 		0447864C185159700050563B /* history-link@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "history-link@2x.png"; sourceTree = "<group>"; };
 		0447864D185159700050563B /* history-random.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "history-random.png"; sourceTree = "<group>"; };
 		0447864E185159700050563B /* history-random@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "history-random@2x.png"; sourceTree = "<group>"; };
+		0447865F18528DCF0050563B /* Section.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Section.h; sourceTree = "<group>"; };
+		0447866018528DCF0050563B /* Section.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Section.m; sourceTree = "<group>"; };
 		0466F44D183A30CC00EA1FD7 /* logo-search-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-search-placeholder.png"; sourceTree = "<group>"; };
 		0466F44E183A30CC00EA1FD7 /* logo-search-placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-search-placeholder@2x.png"; sourceTree = "<group>"; };
 		04A47627183EF835009C0D82 /* w.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = w.png; sourceTree = "<group>"; };
@@ -367,12 +367,12 @@
 			isa = PBXGroup;
 			children = (
 				04FD6C78184EBFCD002CA02F /* ArticleData.xcdatamodeld */,
+				0447865F18528DCF0050563B /* Section.h */,
+				0447866018528DCF0050563B /* Section.m */,
 				04142A79184EC7B2006EF779 /* Image.h */,
 				04142A7A184EC7B2006EF779 /* Image.m */,
 				04142A75184EC5E1006EF779 /* Site.h */,
 				04142A76184EC5E1006EF779 /* Site.m */,
-				04142A71184EC5D4006EF779 /* Section.h */,
-				04142A72184EC5D4006EF779 /* Section.m */,
 				04142A6D184EC5C9006EF779 /* Saved.h */,
 				04142A6E184EC5C9006EF779 /* Saved.m */,
 				04142A65184EC5AC006EF779 /* History.h */,
@@ -626,7 +626,6 @@
 				04FD6C7A184EBFCD002CA02F /* ArticleData.xcdatamodeld in Sources */,
 				D4EE00B9182443FC0090790F /* MWPageTitle.m in Sources */,
 				04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */,
-				04142A73184EC5D4006EF779 /* Section.m in Sources */,
 				04142A77184EC5E1006EF779 /* Site.m in Sources */,
 				04142A5F184EC593006EF779 /* Domain.m in Sources */,
 				04C43AC2183442FC006C643B /* NSURLRequest+DictionaryRequest.m in Sources */,
@@ -645,6 +644,7 @@
 				04142A63184EC5A0006EF779 /* GalleryImage.m in Sources */,
 				04C43A9D183440B0006C643B /* MWCrumbyTest.m in Sources */,
 				04478635185145090050563B /* SearchBarLogoView.m in Sources */,
+				0447866118528DCF0050563B /* Section.m in Sources */,
 				D4991445181D51DE00E6073C /* main.m in Sources */,
 				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
 				0447862F185145090050563B /* HistoryResultCell.m in Sources */,
@@ -664,7 +664,6 @@
 				04478636185145090050563B /* SearchBarLogoView.m in Sources */,
 				0447863A185145090050563B /* SearchResultCell.m in Sources */,
 				04C43AC3183442FC006C643B /* NSURLRequest+DictionaryRequest.m in Sources */,
-				04142A74184EC5D4006EF779 /* Section.m in Sources */,
 				04142A54184EC55E006EF779 /* Article.m in Sources */,
 				04C43A9E183440B0006C643B /* MWCrumbyTest.m in Sources */,
 				04142A78184EC5E1006EF779 /* Site.m in Sources */,
@@ -673,6 +672,7 @@
 				04C43AA5183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */,
 				04142A68184EC5AC006EF779 /* History.m in Sources */,
 				04C43ABF183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
+				0447866218528DCF0050563B /* Section.m in Sources */,
 				D4EE00BD1824459D0090790F /* PageTitleTests.m in Sources */,
 				04C43AB61834423C006C643B /* NetworkOpCrumbyTests.m in Sources */,
 				04478634185145090050563B /* HistoryViewController.m in Sources */,

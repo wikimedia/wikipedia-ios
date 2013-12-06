@@ -56,8 +56,9 @@
     <entity name="Section" representedClassName="Section" syncable="YES">
         <attribute name="dateRetrieved" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="html" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" indexed="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tocLevel" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
         <relationship name="article" maxCount="1" deletionRule="Nullify" destinationEntity="Article" inverseName="section" inverseEntity="Article" syncable="YES"/>
         <relationship name="thumbnailImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="section" inverseEntity="Image" syncable="YES"/>
     </entity>
@@ -74,7 +75,7 @@
         <element name="History" positionX="-317" positionY="-105" width="128" height="103"/>
         <element name="Image" positionX="-371" positionY="234" width="128" height="208"/>
         <element name="Saved" positionX="108" positionY="99" width="128" height="73"/>
-        <element name="Section" positionX="-551" positionY="63" width="128" height="135"/>
+        <element name="Section" positionX="-551" positionY="63" width="128" height="148"/>
         <element name="Site" positionX="79" positionY="204" width="128" height="75"/>
     </elements>
 </model>

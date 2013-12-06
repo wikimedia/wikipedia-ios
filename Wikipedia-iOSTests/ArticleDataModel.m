@@ -81,12 +81,14 @@
     section0.index = @0;
     section0.title = @"Potato chip section 0 title";
     section0.html = @"<b>Potato Chips section 0 html!</b>";
+    section0.tocLevel = @1;
     section0.dateRetrieved = [NSDate date];
 
     Section *section1 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:dataContext];
     section1.index = @1;
     section1.title = @"Potato chip section 1 title";
     section1.html = @"<b>Potato Chips section 1 html!</b>";
+    section1.tocLevel = @1;
     section1.dateRetrieved = [NSDate date];
 
     article.section = [NSSet setWithObjects:section0, section1, nil];
