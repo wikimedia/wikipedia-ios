@@ -1,12 +1,11 @@
 //  Created by Monte Hurd on 11/19/13.
 
-#import "SearchResultCell.h"
+#import "HistoryResultCell.h"
 
-@implementation SearchResultCell
+@implementation HistoryResultCell
 
 @synthesize imageView;
 @synthesize textLabel;
-@synthesize bottomBorder;
 @synthesize useField;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -29,12 +28,11 @@
         UIColor *borderColor = [UIColor colorWithWhite:0.0 alpha:0.1];
         
         self.imageView.layer.borderColor = borderColor.CGColor;
-        self.imageView.layer.borderWidth = 0.5f;
+        self.imageView.layer.borderWidth = 1.0f / [UIScreen mainScreen].scale;
         
-        self.imageView.layer.cornerRadius = 5.0f;
+        self.imageView.layer.cornerRadius = 0.0f;
         self.imageView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.025];
         
-        bottomBorder.backgroundColor = borderColor;
     }else{
         // The field can be turned off, when displaying the search term placeholder
         // image, for example.
@@ -47,9 +45,6 @@
 -(void)awakeFromNib
 {
     [super awakeFromNib];
-
-    // Use finer line on retina displays
-    self.bottomBorderHeight.constant = 1.0f / [UIScreen mainScreen].scale;
 
     // Initial changes to ui elements go here.
     // See: http://stackoverflow.com/a/15591474 for details.

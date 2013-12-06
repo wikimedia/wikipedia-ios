@@ -408,7 +408,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SearchResultCell *cell = (SearchResultCell *)[tableView dequeueReusableCellWithIdentifier:@"SearchResultCell"];
+    static NSString *cellID = @"SearchResultCell";
+    SearchResultCell *cell = (SearchResultCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
 
     NSString *title = self.searchResultsOrdered[indexPath.row][@"title"];
 
@@ -849,7 +850,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         
         // Add history for article
         History *history0 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:dataContext_];
-        history0.dateVisited = [NSDate date]; //dateWithDaysBeforeNow:22];
+        history0.dateVisited = [NSDate date];
+        //history0.dateVisited = [NSDate dateWithDaysBeforeNow:1];
         history0.discoveryMethod = discoveryMethod;
         [article addHistoryObject:history0];
 

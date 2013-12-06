@@ -14,6 +14,10 @@
 {
     [self systemWideStyleOverrides];
 
+    // Enables Alignment Rect highlighting for debugging
+    //[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"UIViewShowAlignmentRects"];
+    //[[NSUserDefaults standardUserDefaults] synchronize];
+
     // Override point for customization after application launch.
     return YES;
 }
