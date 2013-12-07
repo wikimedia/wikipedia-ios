@@ -11,12 +11,13 @@
 #import <CoreData/CoreData.h>
 #import "Article.h"
 #import "DiscoveryContext.h"
-#import "DataContextSingleton.h"
+#import "ArticleDataContextSingleton.h"
 #import "Section.h"
 #import "History.h"
 #import "Saved.h"
 #import "DiscoveryMethod.h"
 #import "Image.h"
+#import "NSManagedObjectContext+SimpleFetch.h"
 
 @interface TestArticleDataModel : XCTestCase{
 
@@ -47,11 +48,11 @@
 {
     NSError *error = nil;
 
-    DataContextSingleton *dataContext = [DataContextSingleton sharedInstance];
+    ArticleDataContextSingleton *dataContext = [ArticleDataContextSingleton sharedInstance];
     Article *article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:dataContext];
 
     article.dateCreated = [NSDate date];
-    article.lastScrollLocation = @123.0f;
+    article.lastScrollY = @123.0f;
     article.title = @"This is a sample title.";
 
     // Add history for article
@@ -146,9 +147,9 @@ history1.discoveryMethod = method;
     thumb.sourceUrl = @"http://www.this_is_a_placeholder.org/image.jpg";
     article.thumbnailImage = thumb;
 
-    article.site = (Site *)[self getEntityForName: @"Site" withPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"wikipedia.org"]];
+    article.site = (Site *)[dataContext getEntityForName: @"Site" withPredicateFormat:@"name == %@", @"wikipedia.org"];
     
-    article.domain = (Domain *)[self getEntityForName: @"Domain" withPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"en"]];
+    article.domain = (Domain *)[dataContext getEntityForName: @"Domain" withPredicateFormat:@"name == %@", @"en"];
 
     // Save the article!
     error = nil;
@@ -161,7 +162,7 @@ history1.discoveryMethod = method;
 - (void)test_02_DeleteArticles
 {
     NSError *error = nil;
-    DataContextSingleton *dataContext = [DataContextSingleton sharedInstance];
+    ArticleDataContextSingleton *dataContext = [ArticleDataContextSingleton sharedInstance];
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName: @"Article"
@@ -186,7 +187,7 @@ history1.discoveryMethod = method;
 - (void)test_03_ConfirmAllArticleDataWasDeleted
 {
     NSError *error = nil;
-    DataContextSingleton *dataContext = [DataContextSingleton sharedInstance];
+    ArticleDataContextSingleton *dataContext = [ArticleDataContextSingleton sharedInstance];
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName: @"Article"
@@ -205,7 +206,7 @@ history1.discoveryMethod = method;
 - (void)test_04_ConfirmAllImageDataWasDeleted
 {
     NSError *error = nil;
-    DataContextSingleton *dataContext = [DataContextSingleton sharedInstance];
+    ArticleDataContextSingleton *dataContext = [ArticleDataContextSingleton sharedInstance];
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName: @"Image"
@@ -230,7 +231,7 @@ history1.discoveryMethod = method;
     // Confirm discoveryMethods table records for “search", "link", and "random” still exist.
 
     NSError *error = nil;
-    DataContextSingleton *dataContext = [DataContextSingleton sharedInstance];
+    ArticleDataContextSingleton *dataContext = [ArticleDataContextSingleton sharedInstance];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName : @"DiscoveryMethod"
@@ -242,29 +243,6 @@ history1.discoveryMethod = method;
     
     XCTAssert(error == nil, @"Could determine how many discovery methods remain.");
     XCTAssert(existingMethods.count == 3, @"Expected discovery methods not found");
-}
-
--(NSManagedObject *)getEntityForName:(NSString *)entityName withPredicate:(NSPredicate *)predicate
-{
-    DataContextSingleton *dataContext = [DataContextSingleton sharedInstance];
-
-    NSError *error = nil;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName: entityName
-                                              inManagedObjectContext: dataContext];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setPredicate:predicate];
-
-    error = nil;
-    NSArray *methods = [dataContext executeFetchRequest:fetchRequest error:&error];
-    //XCTAssert(error == nil, @"Could not fetch article.");
-
-    if (methods.count == 1) {
-        NSManagedObject *method = (NSManagedObject *)methods[0];
-        return method;
-    }else{
-        return nil;
-    }
 }
 
 @end

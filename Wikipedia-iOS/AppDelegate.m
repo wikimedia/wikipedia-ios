@@ -12,6 +12,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self registerStandardUserDefaults];
     [self systemWideStyleOverrides];
 
     // Enables Alignment Rect highlighting for debugging
@@ -20,6 +21,14 @@
 
     // Override point for customization after application launch.
     return YES;
+}
+
+-(void)registerStandardUserDefaults
+{
+    // Register default default values.
+    // See: http://stackoverflow.com/a/5397647/135557
+    NSDictionary *userDefaultsDefaults = @{@"CurrentArticleTitle": @""};
+    [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];
 }
 
 -(void)systemWideStyleOverrides

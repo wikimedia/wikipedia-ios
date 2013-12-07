@@ -9,13 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "MWNetworkOp.h"
 
-@class DiscoveryMethod;
+@class DiscoveryMethod, AlertLabel;
 
 @interface WebViewController : UIViewController <UITextFieldDelegate, UIWebViewDelegate, NetworkOpDelegate, UISearchDisplayDelegate, UITableViewDelegate, UISearchBarDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UILabel *debugLabel;
 @property (weak, nonatomic) IBOutlet UITableView *searchResultsTable;
+
+@property (weak, nonatomic) IBOutlet UIView *alertView;
+@property (weak, nonatomic) IBOutlet AlertLabel *alertLabel;
 
 - (void)navigateToPage:(NSString *)pageTitle discoveryMethod:(DiscoveryMethod *)discoveryMethod;
 

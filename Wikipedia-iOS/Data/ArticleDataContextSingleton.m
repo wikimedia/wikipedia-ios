@@ -1,13 +1,13 @@
 //  Created by Monte Hurd on 11/27/13.
 
-#import "DataContextSingleton.h"
+#import "ArticleDataContextSingleton.h"
 #import "DiscoveryMethod.h"
 #import "Site.h"
 #import "Domain.h"
 
-@implementation DataContextSingleton
+@implementation ArticleDataContextSingleton
 
-+ (id)sharedInstance
++ (ArticleDataContextSingleton *)sharedInstance
 {
     static dispatch_once_t once;
     static id sharedInstance;
@@ -25,7 +25,7 @@
         NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
         
         NSString *articlesDBPath = [[self documentRootPath] stringByAppendingString:@"/articleData.sqlite"];
-        NSLog(@"\n\n\ndata path: %@\n\n\n", articlesDBPath);
+        NSLog(@"\n\n\nArticle data path: %@\n\n\n", articlesDBPath);
         NSURL *url = [NSURL fileURLWithPath:articlesDBPath];
 
         // First time! Will need initial data!

@@ -2,7 +2,8 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5029" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Article" representedClassName="Article" syncable="YES">
         <attribute name="dateCreated" attributeType="Date" indexed="YES" syncable="YES"/>
-        <attribute name="lastScrollLocation" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="lastScrollX" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="lastScrollY" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="domain" maxCount="1" deletionRule="Nullify" destinationEntity="Domain" inverseName="article" inverseEntity="Domain" syncable="YES"/>
         <relationship name="galleryImage" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GalleryImage" inverseName="article" inverseEntity="GalleryImage" syncable="YES"/>
@@ -67,15 +68,15 @@
         <relationship name="article" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Article" inverseName="site" inverseEntity="Article" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Article" positionX="-117" positionY="30" width="128" height="195"/>
-        <element name="DiscoveryContext" positionX="-513" positionY="-153" width="128" height="90"/>
-        <element name="DiscoveryMethod" positionX="-506" positionY="-39" width="128" height="75"/>
-        <element name="Domain" positionX="79" positionY="-48" width="128" height="75"/>
-        <element name="GalleryImage" positionX="-29" positionY="315" width="128" height="90"/>
-        <element name="History" positionX="-317" positionY="-105" width="128" height="103"/>
-        <element name="Image" positionX="-371" positionY="234" width="128" height="208"/>
-        <element name="Saved" positionX="108" positionY="99" width="128" height="73"/>
-        <element name="Section" positionX="-551" positionY="63" width="128" height="148"/>
-        <element name="Site" positionX="79" positionY="204" width="128" height="75"/>
+        <element name="Article" positionX="0" positionY="0" width="128" height="208"/>
+        <element name="DiscoveryContext" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="DiscoveryMethod" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Domain" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="GalleryImage" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="History" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="Image" positionX="0" positionY="0" width="128" height="210"/>
+        <element name="Saved" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Section" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="Site" positionX="0" positionY="0" width="128" height="75"/>
     </elements>
 </model>

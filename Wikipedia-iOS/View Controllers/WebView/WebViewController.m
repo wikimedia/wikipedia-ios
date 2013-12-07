@@ -7,7 +7,6 @@
 //
 
 #import "WebViewController.h"
-
 #import "CommunicationBridge.h"
 #import "NSURLRequest+DictionaryRequest.h"
 #import "MWNetworkActivityIndicatorManager.h"
@@ -15,18 +14,14 @@
 #import "SearchResultCell.h"
 #import "SearchBarLogoView.h"
 #import "SearchBarTextField.h"
-
-#import <CoreData/CoreData.h>
-#import "Article.h"
-#import "DiscoveryContext.h"
-#import "DataContextSingleton.h"
-#import "Section.h"
-#import "History.h"
-#import "Saved.h"
-#import "DiscoveryMethod.h"
-#import "Image.h"
+#import "ArticleCoreDataObjects.h"
+#import "ArticleDataContextSingleton.h"
 #import "HistoryViewController.h"
 #import "NSDate-Utilities.h"
+#import "SessionSingleton.h"
+#import "NSManagedObjectContext+SimpleFetch.h"
+#import "AlertLabel.h"
+#import "UIWebView+Reveal.h"
 
 #pragma mark Defines
 
@@ -45,8 +40,10 @@
 
 #define SEARCH_API_URL @"https://en.m.wikipedia.org/w/api.php"
 
-#define SEARCH_LOADING_MSG_SECTION_ZERO @"Loading..."
+#define SEARCH_LOADING_MSG_SECTION_ZERO @"Loading first section of the article..."
 #define SEARCH_LOADING_MSG_SECTION_REMAINING @"Loading the rest of the article..."
+#define SEARCH_LOADING_MSG_ARTICLE_LOADED @"Article loaded."
+#define SEARCH_LOADING_MSG_SEARCHING @"Searching..."
 
 @interface WebViewController (){
 
@@ -55,12 +52,6 @@
 @property (strong, nonatomic) SearchBarTextField *searchField;
 @property (strong, atomic) NSMutableArray *searchResultsOrdered;
 @property (strong, nonatomic) NSString *apiURL;
-@property (strong, nonatomic) NSString *loadingSectionZeroMessage;
-@property (strong, nonatomic) NSString *loadingSectionsRemainingMessage;
-@property (strong, nonatomic) NSString *searchFieldPlaceholderText;
-
-@property (strong, nonatomic) Site *currentSite;
-@property (strong, nonatomic) Domain *currentDomain;
 
 @property (strong, nonatomic) DiscoveryMethod *searchDiscoveryMethod;
 @property (strong, nonatomic) DiscoveryMethod *linkDiscoveryMethod;
@@ -69,18 +60,24 @@
 @property (strong, nonatomic) NSString *currentSearchString;
 @property (strong, nonatomic) NSArray *currentSearchStringWordsToHighlight;
 
+@property (strong, nonatomic) NSString *currentArticleTitle;
+
+@property (strong, nonatomic) CommunicationBridge *bridge;
+
+@property (nonatomic) CGPoint scrollOffset;
+@property (nonatomic) BOOL unsafeToScroll;
+
 @end
 
 #pragma mark Internal variables
 
 @implementation WebViewController {
-    CommunicationBridge *bridge_;
     NSOperationQueue *articleRetrievalQ_;
     NSOperationQueue *searchQ_;
     NSOperationQueue *thumbnailQ_;
     UIView *navBarSubview_;
     CGFloat scrollViewDragBeganVerticalOffset_;
-    DataContextSingleton *dataContext_;
+    ArticleDataContextSingleton *articleDataContext_;
 }
 
 #pragma mark Network activity indicator methods
@@ -107,31 +104,26 @@
 {
     [super viewDidLoad];
 
-    dataContext_ = [DataContextSingleton sharedInstance];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewFinishedLoading) name:@"WebViewFinishedLoading" object:nil];
+    self.unsafeToScroll = NO;
+    self.scrollOffset = CGPointZero;
+
+    self.currentArticleTitle = @"";
+    self.alertLabel.text = @"";
+
+    articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
 
 // TODO: update these associations based on Brion's comments.   -   -   -   -   -   -   -   -   -
 
-    // Add site for article
-    self.currentSite = (Site *)[self getEntityForName: @"Site" withPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"wikipedia.org"]];
+    self.searchDiscoveryMethod = (DiscoveryMethod *)[articleDataContext_ getEntityForName: @"DiscoveryMethod" withPredicateFormat:@"name == %@", @"search"];
     
-    // Add domain for article
-    self.currentDomain = (Domain *)[self getEntityForName: @"Domain" withPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"en"]];
+    self.linkDiscoveryMethod = (DiscoveryMethod *)[articleDataContext_ getEntityForName: @"DiscoveryMethod" withPredicateFormat:@"name == %@", @"link"];
     
-    self.searchDiscoveryMethod = (DiscoveryMethod *)[self getEntityForName: @"DiscoveryMethod" withPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"search"]];
-    
-    self.linkDiscoveryMethod = (DiscoveryMethod *)[self getEntityForName: @"DiscoveryMethod" withPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"link"]];
-    
-    self.randomDiscoveryMethod = (DiscoveryMethod *)[self getEntityForName: @"DiscoveryMethod" withPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"random"]];
+    self.randomDiscoveryMethod = (DiscoveryMethod *)[articleDataContext_ getEntityForName: @"DiscoveryMethod" withPredicateFormat:@"name == %@", @"random"];
 
 //  -   -   -   -   -   -   -   -   -
 
     [self setupNavbarSubview];
-
-    // Need to switch to localized strings...
-    NSString *loadingMsgDiv = @"<div style='text-align:center;font-weight:bold'>";
-    self.loadingSectionZeroMessage = [NSString stringWithFormat:@"%@%@</div>", loadingMsgDiv, SEARCH_LOADING_MSG_SECTION_ZERO];
-    self.loadingSectionsRemainingMessage = [NSString stringWithFormat:@"%@%@</div>", loadingMsgDiv, SEARCH_LOADING_MSG_SECTION_REMAINING];
-    self.searchFieldPlaceholderText = SEARCH_FIELD_PLACEHOLDER_TEXT;
     
     self.apiURL = SEARCH_API_URL;
 
@@ -146,27 +138,10 @@
     searchQ_ = [[NSOperationQueue alloc] init];
     thumbnailQ_ = [[NSOperationQueue alloc] init];
     
-    bridge_ = [[CommunicationBridge alloc] initWithWebView:self.webView];
-    [bridge_ addListener:@"DOMLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
-        //NSLog(@"QQQ HEY DOMLoaded!");
-    }];
-
-    __weak WebViewController *weakSelf = self;
-    [bridge_ addListener:@"linkClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
-        NSString *href = payload[@"href"];
-        if ([href hasPrefix:@"/wiki/"]) {
-            NSString *title = [href substringWithRange:NSMakeRange(6, href.length - 6)];
-            [weakSelf navigateToPage:title discoveryMethod:weakSelf.linkDiscoveryMethod];
-        }else if ([href hasPrefix:@"//"]) {
-            href = [@"http:" stringByAppendingString:href];
-            
-NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to external link: %@", href];
-[weakSelf.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"alert('%@')", msg]];
-
-        }
-    }];
-    
     [self setupQMonitorDebuggingLabel];
+
+    // Comment out to show the q debugging label.
+    self.debugLabel.alpha = 0.0f;
     
     // Perform search when text entered into searchField
     [self.searchField addTarget:self action:@selector(reloadSearchResultsTableForSearchString) forControlEvents:UIControlEventEditingChanged];
@@ -185,11 +160,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // Ensure the keyboard hides if the web view is scrolled
     self.webView.scrollView.delegate = self;
 
-    // Prime the web view's content div. Without something in the div, the first
-    // time an article loads, its "Loading..." message doesn't display in time
-    // for some reason.
-    [bridge_ sendMessage:@"append" withPayload:@{@"html": @"&nbsp;"}];
-
     // Observe changes to nav bar's bounds so the nav bar's subview's frame can be
     // kept in sync so it always overlays it perfectly, even as rotation animation
     // tweens the nav bar frame.
@@ -201,6 +171,67 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
     // Force the nav bar's subview to update for initial display - needed for iOS 6.
     [self updateNavBarSubviewFrame];
+}
+
+#pragma mark Webview obj-c to javascript bridge
+
+-(void)resetBridge
+{
+    // This needs to be called before sending a new page of html to the embedded UIWebView.
+    // The bridge is the web view's delegate, and one of the web view delegate methods which
+    // the bridge implements is "webViewDidFinishLoad:". This method only gets called the first
+    // time a page is displayed unless the bridge is reset before beginning to send a page of
+    // html. "webViewDidFinishLoad:" seems the only *reliable* way of being notified when the
+    // page dom has been loaded and the web view's view had taken on the size of the content
+    // it is rendering. It is only then that we can scroll to a saved article's previous
+    // scroll offsets.
+
+    // Because the bridge is a property now, rather than a private var, ARC should take care of
+    // cleanup when the bridge is reset.
+//TODO: confirm this comment ^
+    self.bridge = [[CommunicationBridge alloc] initWithWebView:self.webView];
+    [self.bridge addListener:@"DOMLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        //NSLog(@"QQQ HEY DOMLoaded!");
+    }];
+
+    __weak WebViewController *weakSelf = self;
+    [self.bridge addListener:@"linkClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        NSString *href = payload[@"href"];
+        if ([href hasPrefix:@"/wiki/"]) {
+            NSString *title = [href substringWithRange:NSMakeRange(6, href.length - 6)];
+            [weakSelf navigateToPage:title discoveryMethod:weakSelf.linkDiscoveryMethod];
+        }else if ([href hasPrefix:@"//"]) {
+            href = [@"http:" stringByAppendingString:href];
+            
+NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to external link: %@", href];
+[weakSelf.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"alert('%@')", msg]];
+
+        }
+    }];
+
+    self.unsafeToScroll = NO;
+    self.scrollOffset = CGPointZero;
+}
+
+#pragma mark Loading last-viewed article on app start
+
+-(void)setLastViewedArticleTitle:(NSString *)lastViewedArticleTitle
+{
+    [[NSUserDefaults standardUserDefaults] setObject:lastViewedArticleTitle forKey:@"LastViewedArticleTitle"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSString *)getLastViewedArticleTitle
+{
+    NSString *lastViewedArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastViewedArticleTitle"];
+    return lastViewedArticleTitle;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    // Should be ok to call "navigateToPage:" on viewDidAppear because it contains logic preventing
+    // reloads of pages already being displayed.
+    [self navigateToPage:[self getLastViewedArticleTitle] discoveryMethod:nil];
 }
 
 #pragma mark Debugging
@@ -282,7 +313,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(NSAttributedString *)getAttributedPlaceholderString
 {
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:self.searchFieldPlaceholderText];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:SEARCH_FIELD_PLACEHOLDER_TEXT];
 
     [str addAttribute:NSFontAttributeName
                 value:SEARCH_FONT_HIGHLIGHTED
@@ -301,6 +332,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 {
     // Ensure the web VC is the top VC.
     [self.navigationController popToViewController:self animated:YES];
+
+    self.alertLabel.hidden = YES;
 }
 
 -(void)historyToggle
@@ -330,7 +363,44 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }
 }
 
-#pragma mark Scroll
+#pragma mark Web view scroll offset recording
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if(!decelerate) [self scrollViewScrollingEnded:scrollView];
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    [self scrollViewScrollingEnded:scrollView];
+}
+
+-(void)scrollViewScrollingEnded:(UIScrollView *)scrollView
+{
+    if (scrollView == self.webView.scrollView) {
+        // Once we've started scrolling around don't allow the webview delegate to scroll
+        // to a saved position! Super annoying otherwise.
+        self.unsafeToScroll = YES;
+
+        // Save scroll location
+        Article *article = [self getArticleForTitle:self.currentArticleTitle];
+        article.lastScrollX = @(scrollView.contentOffset.x);
+        article.lastScrollY = @(scrollView.contentOffset.y);
+        NSError *error = nil;
+        [articleDataContext_ save:&error];
+    }
+}
+
+#pragma mark Web view scroll offset - using it!
+
+-(void)webViewFinishedLoading
+{
+    if(!self.unsafeToScroll){
+        [self.webView.scrollView setContentOffset:self.scrollOffset animated:NO];
+    }
+    [self.webView reveal];
+}
+
+#pragma mark Scroll hiding keyboard threshold
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -389,6 +459,31 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     self.searchResultsTable.hidden = NO;
 }
 
+-(NSString *)cleanTitle:(NSString *)title
+{
+    return [title stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+}
+
+-(Article *)getArticleForTitle:(NSString *)title
+{
+    Article *article = (Article *)[articleDataContext_ getEntityForName: @"Article" withPredicateFormat: @"\
+                       title ==[c] %@ \
+                       AND \
+                       site.name == %@ \
+                       AND \
+                       domain.name == %@",
+                       title,
+                       [SessionSingleton sharedInstance].site.name,
+                       [SessionSingleton sharedInstance].domain.name
+    ];
+    if (!article) {
+        article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:articleDataContext_];
+        article.title = title;
+        article.dateCreated = [NSDate date];
+    }
+    return article;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.searchResultsOrdered.count;
@@ -420,7 +515,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     NSNumber *thumbHeight = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"height"];
 
     // Check for db record for thumb. If found use it rather than downloading it again!
-    Image *thumbnailFromDB = (Image *)[self getEntityForName: @"Image" withPredicate:[NSPredicate predicateWithFormat:@"sourceUrl == %@", thumbURL]];
+    Image *thumbnailFromDB = (Image *)[articleDataContext_ getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
 
     if(thumbnailFromDB){
         // Yay! Cached thumbnail found! Use it!
@@ -472,14 +567,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // Save thumbnail to core data article.image record for later use. This can be async.
         NSMutableData *thumbData = weakThumbnailOp.dataRetrieved;
         dispatch_async(dispatch_get_main_queue(), ^(){
-            Article *article = (Article *)[self getEntityForName: @"Article" withPredicate:[NSPredicate predicateWithFormat:@"title == %@", title]];
-            if (!article) {
-                article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:dataContext_];
-                article.title = title;
-                article.dateCreated = [NSDate date];
-            }
+
+            Article *article = [self getArticleForTitle:title];
             
-            Image *thumb = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:dataContext_];
+            Image *thumb = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:articleDataContext_];
             thumb.data = thumbData;
             thumb.fileName = [thumbURL lastPathComponent];
             thumb.extension = [thumbURL pathExtension];
@@ -491,11 +582,11 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             
             article.thumbnailImage = thumb;
 
-            article.site = self.currentSite;
-            article.domain = self.currentDomain;
+            article.site = [SessionSingleton sharedInstance].site;     //self.currentSite;
+            article.domain = [SessionSingleton sharedInstance].domain; //self.currentDomain;
 
             NSError *error = nil;
-            [dataContext_ save:&error];
+            [articleDataContext_ save:&error];
         });
     };
     [thumbnailQ_ addOperation:thumbnailOp];
@@ -592,7 +683,12 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     // Cancel any in-progress article retrieval operations
     [searchQ_ cancelAllOperations];
-    
+
+    // Show "Searching..." message.
+    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+        self.alertLabel.text = SEARCH_LOADING_MSG_SEARCHING;
+    }];
+
     MWNetworkOp *searchOp = [[MWNetworkOp alloc] init];
     searchOp.delegate = self;
     searchOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:self.apiURL]
@@ -619,7 +715,19 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
         if(weakSearchOp.error){
             //NSLog(@"search op completionBlock bailed on error %@", weakSearchOp.error);
+            
+            // Show error message.
+            // (need to extract msg from error *before* main q block - the error is dealloc'ed by
+            // the time the block is dequeued)
+            NSString *errorMsg = weakSearchOp.error.localizedDescription;
+            [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+                self.alertLabel.text = errorMsg;
+            }];
             return;
+        }else{
+            [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+                self.alertLabel.text = @"";
+            }];
         }
         
         NSArray *searchResults = (NSArray *)weakSearchOp.jsonRetrieved;
@@ -627,7 +735,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         
         NSMutableArray *a = @[].mutableCopy;
         for (NSString *title in searchResults[1]) {
-            [a addObject:@{@"title": title, @"thumbnail": @{}}.mutableCopy];
+
+            NSString *cleanTitle = [self cleanTitle:title];
+
+            [a addObject:@{@"title": cleanTitle, @"thumbnail": @{}}.mutableCopy];
         }
         self.searchResultsOrdered = a;
         
@@ -755,41 +866,53 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 #pragma mark Article loading ops
 
-- (void)navigateToPage:(NSString *)pageTitle discoveryMethod:(DiscoveryMethod *)discoveryMethod
+- (void)navigateToPage:(NSString *)title discoveryMethod:(DiscoveryMethod *)discoveryMethod
 {
+    static BOOL isFirstArticle = YES;
+
     [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+        NSString *cleanTitle = [self cleanTitle:title];
 
+        // Hide the search results.
         self.searchResultsTable.hidden = YES;
+        // Hide the keyboard.
         [self.searchField resignFirstResponder];
+
+        // Don't try to load nothing. Core data takes exception with such nonsense.
+        if (cleanTitle == nil) return;
         
-        // Clear out previous page's html
-        [bridge_ sendMessage:@"clear" withPayload:@{}];
+        // Don't reload an article if it's already showing! The exception is if the article
+        // being shown is the first article being shown. In that case, lastViewedArticleTitle
+        // isn't currently onscreen so it doesn't matter (and won't flicker).
+        if ([cleanTitle isEqualToString:[self getLastViewedArticleTitle]] && !isFirstArticle) return;
 
-        // Add a "Loading..." message as first element of cleared page
-        [bridge_ sendMessage:@"append" withPayload:@{@"html": self.loadingSectionZeroMessage}];
+        // Fade the web view out so there's not a flickery transition between old and new html.
+//TODO: Fix this. It causes fade out even when no connection, which blanks out current article.
+        //[self.webView fade];
 
-        [self retrieveArticleForPageTitle:pageTitle discoveryMethod:discoveryMethod];
+        self.currentArticleTitle = cleanTitle;
+        isFirstArticle = NO;
+        [self setLastViewedArticleTitle:cleanTitle];
+        
+        // Show loading message
+        self.alertLabel.text = SEARCH_LOADING_MSG_SECTION_ZERO;
+        
+        [self retrieveArticleForPageTitle:cleanTitle discoveryMethod:discoveryMethod];
     }];
 }
 
 - (void)retrieveArticleForPageTitle:(NSString *)pageTitle discoveryMethod:(DiscoveryMethod *)discoveryMethod
 {
-    Article *article = (Article *)[self getEntityForName: @"Article" withPredicate:[NSPredicate predicateWithFormat:@"title == %@", pageTitle]];
-    
-    // If core data article with sections already exists just show it
-    if (article) {
-        if (article.section.count > 0) {
-            [self displayArticle:article];
-            return;
-        }
-        // If no sections in the existing article don't return. Allows sections to be retrieved if core data
-        // article was created when thumbnails were retrieved (before any sections are fetched).
-    }else{
-        // Else create core data article and then proceed to retrieve its data
-        article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:dataContext_];
-        article.title = pageTitle;
-        article.dateCreated = [NSDate date];
+    Article *article = [self getArticleForTitle:pageTitle];
+
+    // If article with sections just show them
+    if (article.section.count > 0) {
+        [self displayArticle:article];
+        return;
     }
+
+    // If no sections core data article may have been created when thumbnails were retrieved (before any sections are fetched)
+    // or may not have had any sections last time we checked. So check now.
 
     // Cancel any in-progress article retrieval operations
     [articleRetrievalQ_ cancelAllOperations];
@@ -817,43 +940,83 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     };
     firstSectionOp.completionBlock = ^(){
         [self networkActivityIndicatorPop];
+
+        if (weakOp.error) {
+            // Show error message.
+            // (need to extract msg from error *before* main q block - the error is dealloc'ed by
+            // the time the block is dequeued)
+            NSString *errorMsg = weakOp.error.localizedDescription;
+            [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+                self.alertLabel.text = errorMsg;
+            }];
+
+            // Remove the article so it doesn't get saved.
+            [articleDataContext_ deleteObject:article];
+            
+            return;
+        }
+
         if(weakOp.isCancelled){
             //NSLog(@"completionBlock bailed (because op was cancelled) for %@", pageTitle);
+            
+            // Remove the article so it doesn't get saved.
+            [articleDataContext_ deleteObject:article];
+
             return;
         }
         //NSLog(@"completionBlock for %@", pageTitle);
-        // Ensure web view is scrolled to top of new article
-        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
-        
-        article.lastScrollLocation = @0.0f;
 
-        // Get article section zero dict
+        // Check for error retrieving section zero data.
+        if(weakOp.jsonRetrieved[@"error"]){
+            NSDictionary *errorDict = weakOp.jsonRetrieved[@"error"];
+            //NSLog(@"errorDict = %@", errorDict);
+            
+            // Set error condition so dependent remaining sections op doesn't even start.
+            weakOp.error = [NSError errorWithDomain:@"Section Zero Op" code:001 userInfo:errorDict];
+            
+            // Remove the article so it doesn't get saved.
+            [articleDataContext_ deleteObject:article];
+            
+            // Send html across bridge to web view
+            [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+                // Show the api's "Page not found" message as first element of cleared page.
+                self.alertLabel.text = errorDict[@"info"];
+            }];
+            
+            return;
+        }
+
+        article.lastScrollX = @0.0f;
+        article.lastScrollY = @0.0f;
+
+        // Get article section zero html
         NSArray *sections = weakOp.jsonRetrieved[@"mobileview"][@"sections"];
-        __block NSDictionary *sectionZeroDict = @{};
+
+        __block NSString *section0HTML = @"";
         [sections enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL *stop){
             if ([dict[@"id"] isEqual: @0]) {
-                sectionZeroDict = dict;
+                section0HTML = (dict[@"text"]) ? dict[@"text"] : @"";
                 *stop = YES;
             }
         }];
 
         // Add sections for article
-        Section *section0 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:dataContext_];
+        Section *section0 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_];
         section0.index = @0;
         section0.title = @"";
         section0.dateRetrieved = [NSDate date];
-        section0.html = sectionZeroDict[@"text"];
+        section0.html = section0HTML;
         article.section = [NSSet setWithObjects:section0, nil];
         
         // Add history for article
-        History *history0 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:dataContext_];
+        History *history0 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:articleDataContext_];
         history0.dateVisited = [NSDate date];
-        //history0.dateVisited = [NSDate dateWithDaysBeforeNow:1];
+        //history0.dateVisited = [NSDate dateWithDaysBeforeNow:31];
         history0.discoveryMethod = discoveryMethod;
         [article addHistoryObject:history0];
 
-        article.site = self.currentSite;
-        article.domain = self.currentDomain;
+        article.site = [[SessionSingleton sharedInstance] site];   //self.currentSite;
+        article.domain = [[SessionSingleton sharedInstance] domain]; //self.currentDomain;
 
         // Add saved for article
         //Saved *saved0 = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:dataContext_];
@@ -862,20 +1025,35 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         
         // Save the article!
         NSError *error = nil;
-        [dataContext_ save:&error];
+        [articleDataContext_ save:&error];
 
-        NSLog(@"error = %@", error);
-        NSLog(@"error = %@", error.localizedDescription);
+        if (error) {
+            NSLog(@"error = %@", error);
+            NSLog(@"error = %@", error.localizedDescription);
+        }
 
         // Send html across bridge to web view
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-            // Clear out the loading message at the top of page
-            [bridge_ sendMessage:@"clear" withPayload:@{}];
+
+            // See comments inside resetBridge.
+            [self resetBridge];
+
             // Add the first section html
-            [bridge_ sendMessage:@"append" withPayload:@{@"html": sectionZeroDict[@"text"]}];
-            // Add a loading message beneath the first section so user can see more is on the way
-            [bridge_ sendMessage: @"append"
-                     withPayload: @{@"html": [NSString stringWithFormat:@"<div id='loadingMessage'>%@</div>", self.loadingSectionsRemainingMessage]}];
+            [self.bridge sendMessage:@"append" withPayload:@{@"html": section0HTML}];
+
+            // Show the web view again. (Had faded it out to prevent flickery transition to new html.)
+//TODO: Fix this. It causes fade out even when no connection, which blanks out current article.
+//            [self.webView reveal];
+
+            if(sections.count > 1){
+                // Show loading more sections message so user can see more is on the way
+                self.alertLabel.text = SEARCH_LOADING_MSG_SECTION_REMAINING;
+            }else{
+                // Show article loaded message
+                self.alertLabel.text = SEARCH_LOADING_MSG_ARTICLE_LOADED;
+                // Then hide the message (hidden has been overriden to fade out slowly)
+                self.alertLabel.hidden = YES;
+            }
         }];
     };
     
@@ -916,7 +1094,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                 [sectionText addObject:section[@"text"]];
 
                 // Add sections for article
-                Section *thisSection = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:dataContext_];
+                Section *thisSection = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_];
                 thisSection.index = section[@"id"];
                 thisSection.title = section[@"line"];
                 thisSection.html = section[@"text"];
@@ -927,7 +1105,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         }
 
         NSError *error = nil;
-        [dataContext_ save:&error];
+        [articleDataContext_ save:&error];
 
         // Join article sections text
         NSString *joint = @""; //@"<div style=\"background-color:#ffffff;height:55px;\"></div>";
@@ -935,10 +1113,13 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         
         // Send html across bridge to web view
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-            // Clear out the loading message beneath the first section
-            [bridge_ sendMessage:@"remove" withPayload:@{@"element": @"loadingMessage"}];
+            // Show article loaded message
+            self.alertLabel.text = SEARCH_LOADING_MSG_ARTICLE_LOADED;
+            // Then hide the message (hidden has been overriden to fade out slowly)
+            self.alertLabel.hidden = YES;
+            
             // Add the remaining sections beneath the first section
-            [bridge_ sendMessage:@"append" withPayload:@{@"html": htmlStr}];
+            [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];
         }];
     };
     
@@ -973,40 +1154,31 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         }
     }
 
+    // See comments inside resetBridge.
+    [self resetBridge];
+
+    self.scrollOffset = CGPointMake(article.lastScrollX.floatValue, article.lastScrollY.floatValue);
+
     // Join article sections text
     NSString *joint = @""; //@"<div style=\"background-color:#ffffff;height:55px;\"></div>";
     NSString *htmlStr = [sectionText componentsJoinedByString:joint];
 
     // Send html across bridge to web view
     [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-        // Clear out the loading message at the top of page
-        [bridge_ sendMessage:@"clear" withPayload:@{}];
+        // Show article loaded message
+        self.alertLabel.text = SEARCH_LOADING_MSG_ARTICLE_LOADED;
+        // Then hide the message (hidden has been overriden to fade out slowly)
+        self.alertLabel.hidden = YES;
+
         // Display all sections
-        [bridge_ sendMessage:@"append" withPayload:@{@"html": htmlStr}];
+        [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];        
     }];
 }
 
-#pragma mark Get core data entity
-
--(NSManagedObject *)getEntityForName:(NSString *)entityName withPredicate:(NSPredicate *)predicate
+-(void)scrollWebViewToOffset:(NSString *)offset
 {
-    NSError *error = nil;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName: entityName
-                                              inManagedObjectContext: dataContext_];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setPredicate:predicate];
-
-    error = nil;
-    NSArray *methods = [dataContext_ executeFetchRequest:fetchRequest error:&error];
-    //XCTAssert(error == nil, @"Could not fetch article.");
-
-    if (methods.count == 1) {
-        NSManagedObject *method = (NSManagedObject *)methods[0];
-        return method;
-    }else{
-        return nil;
-    }
+    CGPoint p = CGPointFromString(offset);
+    [self.webView.scrollView setContentOffset:p animated:NO];
 }
 
 @end

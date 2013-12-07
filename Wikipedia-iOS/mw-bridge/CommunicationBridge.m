@@ -8,10 +8,17 @@
 
 #import "CommunicationBridge.h"
 
+@interface CommunicationBridge (){
+
+}
+
+@property (strong, nonatomic) UIWebView *webView;
+@property (strong, nonatomic) NSMutableDictionary *listenersByEvent;
+@property (strong, nonatomic) NSMutableArray *queuedMessages;
+
+@end
+
 @implementation CommunicationBridge {
-    UIWebView *webView;
-    NSMutableDictionary *listenersByEvent;
-    NSMutableArray *queuedMessages;
 }
 
 #pragma mark Public methods
@@ -20,10 +27,10 @@
 {
     self = [super init];
     if (self) {
-        webView = targetWebView;
-        listenersByEvent = [[NSMutableDictionary alloc] init];
-        queuedMessages = [[NSMutableArray alloc] init];
-        
+        self.webView = targetWebView;
+        self.listenersByEvent = [[NSMutableDictionary alloc] init];
+        self.queuedMessages = [[NSMutableArray alloc] init];
+
         __weak CommunicationBridge *weakSelf = self;
         [self addListener:@"DOMLoaded" withBlock:^(NSString *type, NSDictionary *payload) {
             [weakSelf onDOMReady];
@@ -37,7 +44,7 @@
 {
     NSMutableArray *listeners = [self listenersForMessageType:messageType];
     if (listeners == nil) {
-        listenersByEvent[messageType] = [NSMutableArray arrayWithObject:block];
+        self.listenersByEvent[messageType] = [NSMutableArray arrayWithObject:block];
     } else {
         [listeners addObject:block];
     }
@@ -52,7 +59,7 @@
     if (self.isDOMReady) {
         [self sendRawMessage:js];
     } else {
-        [queuedMessages addObject:js];
+        [self.queuedMessages addObject:js];
     }
 }
 
@@ -61,7 +68,7 @@
 // Methods reserved for internal and testing
 - (NSMutableArray *)listenersForMessageType:(NSString *)messageType
 {
-    return listenersByEvent[messageType];
+    return self.listenersByEvent[messageType];
 }
 
 - (void)fireEvent:(NSString *)messageType withPayload:(NSDictionary *)payload
@@ -96,12 +103,12 @@
 
 - (void)setupWebView
 {
-    webView.delegate = self;
+    self.webView.delegate = self;
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"bridge-index" ofType:@"html"];
     NSURL *baseURL = [NSURL URLWithString:@"https://wikipedia-ios.wikipedia.org"]; // fake path
     NSData *data = [NSData dataWithContentsOfFile:path];
-    [webView loadData:data MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:baseURL];
+    [self.webView loadData:data MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:baseURL];
 }
 
 static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
@@ -124,7 +131,7 @@ static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
 
 - (void)sendRawMessage:(NSString *)js
 {
-    [webView stringByEvaluatingJavaScriptFromString:js];
+    [self.webView stringByEvaluatingJavaScriptFromString:js];
 }
 
 #pragma mark UIWebViewDelegate methods
@@ -145,10 +152,10 @@ static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
 - (void)onDOMReady
 {
     self.isDOMReady = YES;
-    for (NSString *js in queuedMessages) {
+    for (NSString *js in self.queuedMessages) {
         [self sendRawMessage:js];
     }
-    [queuedMessages removeAllObjects];
+    [self.queuedMessages removeAllObjects];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -159,6 +166,7 @@ static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     NSLog(@"webView finished load");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WebViewFinishedLoading" object:self userInfo:nil];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView

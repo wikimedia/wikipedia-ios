@@ -52,7 +52,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <dataDetectorType key="dataDetectorTypes"/>
                                 <connections>
-                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="8dY-K2-ql9"/>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="Pmz-tr-TG8"/>
                                 </connections>
                             </webView>
                             <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cih-nF-1ys" userLabel="Search Results Table">
@@ -75,12 +75,35 @@
                                 <color key="textColor" red="0.0" green="0.37405907846715331" blue="0.73511633211678828" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arg-wQ-gQS" userLabel="Message View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="S22-63-W9O" userLabel="Message Label" customClass="AlertLabel">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.96999999999999997" alpha="0.96999999999999997" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="S22-63-W9O" firstAttribute="top" secondItem="arg-wQ-gQS" secondAttribute="top" id="70M-Wv-uAr"/>
+                                    <constraint firstAttribute="bottom" secondItem="S22-63-W9O" secondAttribute="bottom" id="DN7-c5-IKQ"/>
+                                    <constraint firstAttribute="height" constant="18" id="G0W-KV-nyT"/>
+                                    <constraint firstAttribute="trailing" secondItem="S22-63-W9O" secondAttribute="trailing" id="r1p-oO-Kg8"/>
+                                    <constraint firstItem="S22-63-W9O" firstAttribute="leading" secondItem="arg-wQ-gQS" secondAttribute="leading" id="v8D-Ql-1MJ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="C8y-0k-FBq" secondAttribute="bottom" id="3Gh-gP-O56"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="3Zs-jL-a48"/>
                             <constraint firstItem="AVk-of-qrd" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="3np-cM-0Z4"/>
+                            <constraint firstItem="arg-wQ-gQS" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="5Wz-PS-Dp0"/>
+                            <constraint firstAttribute="trailing" secondItem="arg-wQ-gQS" secondAttribute="trailing" id="BDn-cU-hm8"/>
                             <constraint firstItem="cih-nF-1ys" firstAttribute="top" secondItem="C8y-0k-FBq" secondAttribute="bottom" constant="3" id="HIC-wc-Qbb"/>
                             <constraint firstAttribute="trailing" secondItem="WeL-Mj-Zsh" secondAttribute="trailing" id="QSr-uN-iN4"/>
                             <constraint firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="UTu-Ve-ee9"/>
@@ -89,6 +112,7 @@
                             <constraint firstItem="cih-nF-1ys" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="a9m-as-9bB"/>
                             <constraint firstItem="AVk-of-qrd" firstAttribute="top" secondItem="C8y-0k-FBq" secondAttribute="bottom" id="eNy-CK-zj4"/>
                             <constraint firstAttribute="trailing" secondItem="AVk-of-qrd" secondAttribute="trailing" id="gYd-wf-im8"/>
+                            <constraint firstItem="arg-wQ-gQS" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="wbb-jo-7d2"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -97,6 +121,8 @@
                         <nil key="title"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="alertLabel" destination="S22-63-W9O" id="VTk-Rs-EbQ"/>
+                        <outlet property="alertView" destination="arg-wQ-gQS" id="bds-1g-Ynr"/>
                         <outlet property="debugLabel" destination="AVk-of-qrd" id="InJ-sK-jEK"/>
                         <outlet property="searchResultsTable" destination="cih-nF-1ys" id="YqO-KG-TPD"/>
                         <outlet property="webView" destination="WeL-Mj-Zsh" id="iQJ-zA-CLH"/>

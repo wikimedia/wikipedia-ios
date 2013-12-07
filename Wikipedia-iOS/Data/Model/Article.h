@@ -2,7 +2,7 @@
 //  Article.h
 //  Wikipedia-iOS
 //
-//  Created by Monte Hurd on 12/3/13.
+//  Created by Monte Hurd on 12/9/13.
 //  Copyright (c) 2013 Wikimedia Foundation. All rights reserved.
 //
 
@@ -14,8 +14,9 @@
 @interface Article : NSManagedObject
 
 @property (nonatomic, retain) NSDate * dateCreated;
-@property (nonatomic, retain) NSNumber * lastScrollLocation;
+@property (nonatomic, retain) NSNumber * lastScrollY;
 @property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSNumber * lastScrollX;
 @property (nonatomic, retain) Domain *domain;
 @property (nonatomic, retain) NSSet *galleryImage;
 @property (nonatomic, retain) NSSet *history;

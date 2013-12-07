@@ -2,17 +2,8 @@
 
 #import "HistoryViewController.h"
 #import "NSDate-Utilities.h"
-#import <CoreData/CoreData.h>
-#import "Article.h"
-#import "DiscoveryContext.h"
-#import "DataContextSingleton.h"
-#import "Section.h"
-#import "History.h"
-#import "Saved.h"
-#import "DiscoveryMethod.h"
-#import "Image.h"
-#import "Site.h"
-#import "Domain.h"
+#import "ArticleDataContextSingleton.h"
+#import "ArticleCoreDataObjects.h"
 #import "WebViewController.h"
 #import "HistoryResultCell.h"
 #import "HistoryTableHeadingLabel.h"
@@ -30,8 +21,10 @@
 
 @interface HistoryViewController ()
 {
-    NSMutableArray *dataArray;
+    ArticleDataContextSingleton *articleDataContext_;
 }
+
+@property (strong, atomic) NSMutableArray *historyDataArray;
 
 @end
 
@@ -62,6 +55,8 @@
 {
     [super viewDidLoad];
     
+    articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
+
     self.navigationItem.hidesBackButton = YES;
     
     // Uncomment the following line to preserve selection between presentations.
@@ -70,7 +65,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    dataArray = [[NSMutableArray alloc] init];
+    self.historyDataArray = [[NSMutableArray alloc] init];
     
     [self getHistoryData];
     [self getHistorySectionTitleDateStrings];
@@ -96,15 +91,15 @@
 
 -(void)getHistoryData
 {
-    DataContextSingleton *dataContext = [DataContextSingleton sharedInstance];
-
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName: @"History"
-                                              inManagedObjectContext: dataContext];
+                                              inManagedObjectContext: articleDataContext_];
     [fetchRequest setEntity:entity];
     
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"dateVisited > %@", [[NSDate date] dateBySubtractingDays:30]]];
+    // For now fetch all history records - history entries older than 30 days will
+    // be placed into "garbage" array below and removed.
+    //[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"dateVisited > %@", [[NSDate date] dateBySubtractingDays:30]]];
 
     NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:NO selector:nil];
 
@@ -114,9 +109,10 @@
     NSMutableArray *yesterday = [@[] mutableCopy];
     NSMutableArray *lastWeek = [@[] mutableCopy];
     NSMutableArray *lastMonth = [@[] mutableCopy];
+    NSMutableArray *garbage = [@[] mutableCopy];
 
     error = nil;
-    NSArray *historyEntities = [dataContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *historyEntities = [articleDataContext_ executeFetchRequest:fetchRequest error:&error];
     //XCTAssert(error == nil, @"Could not fetch.");
     for (History *history in historyEntities) {
         NSLog(@"HISTORY:\n\t\
@@ -142,13 +138,41 @@
             [lastWeek addObject:history];
         }else if ([history.dateVisited isLaterThanDate:[[NSDate date] dateBySubtractingDays:30]]) {
             [lastMonth addObject:history];
+        }else{
+            // Older than 30 days == Garbage! Remove!
+            [garbage addObject:history];
         }
     }
     
-    [dataArray addObject:[@{@"data": today, @"sectionTitle": @"Today", @"sectionDateString": @""} mutableCopy]];
-    [dataArray addObject:[@{@"data": yesterday, @"sectionTitle": @"Yesterday", @"sectionDateString": @""} mutableCopy]];
-    [dataArray addObject:[@{@"data": lastWeek, @"sectionTitle": @"Last week", @"sectionDateString": @""} mutableCopy]];
-    [dataArray addObject:[@{@"data": lastMonth, @"sectionTitle": @"Last month", @"sectionDateString": @""} mutableCopy]];
+    [self removeGarbage:garbage];
+
+    [self.historyDataArray addObject:[@{@"data": today, @"sectionTitle": @"Today", @"sectionDateString": @""} mutableCopy]];
+    [self.historyDataArray addObject:[@{@"data": yesterday, @"sectionTitle": @"Yesterday", @"sectionDateString": @""} mutableCopy]];
+    [self.historyDataArray addObject:[@{@"data": lastWeek, @"sectionTitle": @"Last week", @"sectionDateString": @""} mutableCopy]];
+    [self.historyDataArray addObject:[@{@"data": lastMonth, @"sectionTitle": @"Last month", @"sectionDateString": @""} mutableCopy]];
+}
+
+#pragma mark - History garbage removal
+
+-(void) removeGarbage:(NSMutableArray *)garbage
+{
+    //NSLog(@"GARBAGE COUNT = %lu", (unsigned long)garbage.count);
+    //NSLog(@"GARBAGE = %@", garbage);
+    if (garbage.count == 0) return;
+
+    for (History *history in garbage) {
+        // Article deletes don't cascade to images (intentionally) so delete these article thumbnails manually.
+        Image *thumb = history.article.thumbnailImage;
+        if (thumb) [articleDataContext_ deleteObject:thumb];
+
+        // Image deletes don't cascade when article is deleted so delete manually for now.
+        Article *article = history.article;
+        if (article) [articleDataContext_ deleteObject:article];
+    }
+    
+    NSError *error = nil;
+    [articleDataContext_ save:&error];
+    //NSLog(@"GARBAGE error = %@", error);
 }
 
 #pragma mark - History section titles
@@ -163,12 +187,12 @@
     // Today date string
     [dateFormat setDateFormat:@"MMMM dd yyyy"];
     dateString = [dateFormat stringFromDate:[NSDate date]];
-    dataArray[0][@"sectionDateString"] = dateString;
+    self.historyDataArray[0][@"sectionDateString"] = dateString;
 
     // Yesterday date string
     [dateFormat setDateFormat:@"MMMM dd yyyy"];
     dateString = [dateFormat stringFromDate:[NSDate dateYesterday]];
-    dataArray[1][@"sectionDateString"] = dateString;
+    self.historyDataArray[1][@"sectionDateString"] = dateString;
 
     // Last week date string
     // Couldn't use just a single month name because 7 days ago could spans 2 months.
@@ -178,7 +202,7 @@
     NSString *d1 = [dateFormat stringFromDate:[NSDate dateWithDaysBeforeNow:7]];
     NSString *d2 = [dateFormat stringFromDate:[NSDate dateWithDaysBeforeNow:2]];
     NSString *lastWeekDateString = [NSString stringWithFormat:dateString, d1, d2];
-    dataArray[2][@"sectionDateString"] = lastWeekDateString;
+    self.historyDataArray[2][@"sectionDateString"] = lastWeekDateString;
 
     // Last month date string
     // Couldn't use just a single month name because 30 days ago probably spans 2 months.
@@ -193,20 +217,20 @@
     d1 = [dateFormat stringFromDate:[NSDate dateWithDaysBeforeNow:30]];
     d2 = [dateFormat stringFromDate:[NSDate dateWithDaysBeforeNow:8]];
     NSString *lastMonthDateString = [NSString stringWithFormat:dateString, d1, d2];
-    dataArray[3][@"sectionDateString"] = lastMonthDateString;
+    self.historyDataArray[3][@"sectionDateString"] = lastMonthDateString;
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [dataArray count];
+    return [self.historyDataArray count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //Number of rows it should expect should be based on the section
-    NSDictionary *dict = dataArray[section];
+    NSDictionary *dict = self.historyDataArray[section];
     NSArray *array = [dict objectForKey:@"data"];
     return [array count];
 }
@@ -216,7 +240,7 @@
     static NSString *cellID = @"HistoryResultCell";
     HistoryResultCell *cell = (HistoryResultCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
     
-    NSDictionary *dict = dataArray[indexPath.section];
+    NSDictionary *dict = self.historyDataArray[indexPath.section];
     NSArray *array = [dict objectForKey:@"data"];
     
     History *historyEntry = (History *)array[indexPath.row];
@@ -259,7 +283,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *selectedCell = nil;
-    NSDictionary *dict = dataArray[indexPath.section];
+    NSDictionary *dict = self.historyDataArray[indexPath.section];
     NSArray *array = dict[@"data"];
     selectedCell = array[indexPath.row];
     
@@ -281,7 +305,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
 {
-    NSDictionary *dict = dataArray[section];
+    NSDictionary *dict = self.historyDataArray[section];
     NSMutableArray *a = (NSMutableArray *) dict[@"data"];
     if(a.count == 0) return 0;
 
@@ -290,7 +314,7 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    NSDictionary *dict = dataArray[section];
+    NSDictionary *dict = self.historyDataArray[section];
     
     // Don't show header if no items in this section!
     NSMutableArray *a = (NSMutableArray *) dict[@"data"];
