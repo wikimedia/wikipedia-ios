@@ -827,7 +827,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         
         article.lastScrollLocation = @0.0f;
 
-        // Get article sections text (faster joining array elements than appending a string)
+        // Get article section zero dict
         NSArray *sections = weakOp.jsonRetrieved[@"mobileview"][@"sections"];
         __block NSDictionary *sectionZeroDict = @{};
         [sections enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL *stop){
