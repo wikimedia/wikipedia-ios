@@ -15,7 +15,6 @@
 #import "Section.h"
 #import "History.h"
 #import "Saved.h"
-#import "DiscoveryMethod.h"
 #import "Image.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 
@@ -84,6 +83,7 @@
     section0.html = @"<b>Potato Chips section 0 html!</b>";
     section0.tocLevel = @1;
     section0.dateRetrieved = [NSDate date];
+    section0.anchor = @"potato_anchor_0";
 
     Section *section1 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:dataContext];
     section1.index = @1;
@@ -91,6 +91,7 @@
     section1.html = @"<b>Potato Chips section 1 html!</b>";
     section1.tocLevel = @1;
     section1.dateRetrieved = [NSDate date];
+    section1.anchor = @"potato_anchor_1";
 
     article.section = [NSSet setWithObjects:section0, section1, nil];
 
@@ -103,26 +104,8 @@
     saved1.dateSaved = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24];
     [article addSavedObject:saved1];
     
-    // Add discovery method for article
-
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName: @"DiscoveryMethod"
-                                              inManagedObjectContext: dataContext];
-    [fetchRequest setEntity:entity];
-    
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"name == %@", @"random"];
-    [fetchRequest setPredicate:pred];
-    
-    error = nil;
-    NSArray *methods = [dataContext executeFetchRequest:fetchRequest error:&error];
-    XCTAssert(error == nil, @"Could not fetch article.");
-
-    if (methods.count == 1) {
-        DiscoveryMethod *method = (DiscoveryMethod *)methods[0];
-        NSLog(@"%@", method.name);
-        history0.discoveryMethod = method;
-history1.discoveryMethod = method;
-    }
+    history0.discoveryMethod = @"random";
+    history1.discoveryMethod = @"random";
 
     // Create test image
     CGRect rect = CGRectMake(0, 0, 10, 10);
@@ -140,16 +123,17 @@ history1.discoveryMethod = method;
     thumb.data = imageData;
     thumb.fileName = @"thisThumb.jpg";
     thumb.extension = @"jpg";
+    thumb.mimeType = @"image/jpeg";
     thumb.imageDescription = @"Sample thumb description";
     thumb.dateRetrieved = [NSDate date];
+    thumb.dateLastAccessed = [NSDate date];
     thumb.width = @100.0f;
     thumb.height = @200.0f;
     thumb.sourceUrl = @"http://www.this_is_a_placeholder.org/image.jpg";
     article.thumbnailImage = thumb;
 
-    article.site = (Site *)[dataContext getEntityForName: @"Site" withPredicateFormat:@"name == %@", @"wikipedia.org"];
-    
-    article.domain = (Domain *)[dataContext getEntityForName: @"Domain" withPredicateFormat:@"name == %@", @"en"];
+    article.site = @"wikipedia.org";
+    article.domain = @"en";
 
     // Save the article!
     error = nil;
@@ -224,25 +208,6 @@ history1.discoveryMethod = method;
     // number of images! Maybe when app starts remove all images older than a certain date, or remove
     // any in excess of a size threshold?
     XCTAssert(images.count == 0, @"Images still exist but should not.");
-}
-
-- (void)test_05_EnsureDiscoveryMethodsNotDeleted
-{
-    // Confirm discoveryMethods table records for “search", "link", and "random” still exist.
-
-    NSError *error = nil;
-    ArticleDataContextSingleton *dataContext = [ArticleDataContextSingleton sharedInstance];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName : @"DiscoveryMethod"
-                                              inManagedObjectContext : dataContext];
-    [fetchRequest setEntity:entity];
-
-    error = nil;
-    NSArray *existingMethods = [dataContext executeFetchRequest:fetchRequest error:&error];
-    
-    XCTAssert(error == nil, @"Could determine how many discovery methods remain.");
-    XCTAssert(existingMethods.count == 3, @"Expected discovery methods not found");
 }
 
 @end

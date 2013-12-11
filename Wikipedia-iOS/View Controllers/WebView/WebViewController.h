@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIView *alertView;
 @property (weak, nonatomic) IBOutlet AlertLabel *alertLabel;
 
-- (void)navigateToPage:(NSString *)pageTitle discoveryMethod:(DiscoveryMethod *)discoveryMethod;
+- (void)navigateToPage:(NSString *)pageTitle discoveryMethod:(NSString *)discoveryMethod;
 
 - (IBAction)backButtonPushed:(id)sender;
 - (IBAction)forwardButtonPushed:(id)sender;

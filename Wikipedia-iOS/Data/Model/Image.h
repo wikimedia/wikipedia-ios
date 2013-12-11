@@ -2,7 +2,7 @@
 //  Image.h
 //  Wikipedia-iOS
 //
-//  Created by Monte Hurd on 12/3/13.
+//  Created by Monte Hurd on 12/11/13.
 //  Copyright (c) 2013 Wikimedia Foundation. All rights reserved.
 //
 
@@ -14,11 +14,13 @@
 @interface Image : NSManagedObject
 
 @property (nonatomic, retain) NSData * data;
+@property (nonatomic, retain) NSDate * dateLastAccessed;
 @property (nonatomic, retain) NSDate * dateRetrieved;
 @property (nonatomic, retain) NSString * extension;
 @property (nonatomic, retain) NSString * fileName;
 @property (nonatomic, retain) NSNumber * height;
 @property (nonatomic, retain) NSString * imageDescription;
+@property (nonatomic, retain) NSString * mimeType;
 @property (nonatomic, retain) NSString * sourceUrl;
 @property (nonatomic, retain) NSNumber * width;
 @property (nonatomic, retain) NSSet *article;

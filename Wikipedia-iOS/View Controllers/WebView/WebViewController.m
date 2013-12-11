@@ -53,9 +53,9 @@
 @property (strong, atomic) NSMutableArray *searchResultsOrdered;
 @property (strong, nonatomic) NSString *apiURL;
 
-@property (strong, nonatomic) DiscoveryMethod *searchDiscoveryMethod;
-@property (strong, nonatomic) DiscoveryMethod *linkDiscoveryMethod;
-@property (strong, nonatomic) DiscoveryMethod *randomDiscoveryMethod;
+@property (strong, nonatomic) NSString *searchDiscoveryMethod;
+@property (strong, nonatomic) NSString *linkDiscoveryMethod;
+@property (strong, nonatomic) NSString *randomDiscoveryMethod;
 
 @property (strong, nonatomic) NSString *currentSearchString;
 @property (strong, nonatomic) NSArray *currentSearchStringWordsToHighlight;
@@ -115,11 +115,11 @@
 
 // TODO: update these associations based on Brion's comments.   -   -   -   -   -   -   -   -   -
 
-    self.searchDiscoveryMethod = (DiscoveryMethod *)[articleDataContext_ getEntityForName: @"DiscoveryMethod" withPredicateFormat:@"name == %@", @"search"];
+    self.searchDiscoveryMethod = @"search";
     
-    self.linkDiscoveryMethod = (DiscoveryMethod *)[articleDataContext_ getEntityForName: @"DiscoveryMethod" withPredicateFormat:@"name == %@", @"link"];
+    self.linkDiscoveryMethod = @"link";
     
-    self.randomDiscoveryMethod = (DiscoveryMethod *)[articleDataContext_ getEntityForName: @"DiscoveryMethod" withPredicateFormat:@"name == %@", @"random"];
+    self.randomDiscoveryMethod = @"random";
 
 //  -   -   -   -   -   -   -   -   -
 
@@ -382,7 +382,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         self.unsafeToScroll = YES;
 
         // Save scroll location
-        Article *article = [self getArticleForTitle:self.currentArticleTitle];
+        Article *article = [articleDataContext_ getArticleForTitle:self.currentArticleTitle];
         article.lastScrollX = @(scrollView.contentOffset.x);
         article.lastScrollY = @(scrollView.contentOffset.y);
         NSError *error = nil;
@@ -464,26 +464,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     return [title stringByReplacingOccurrencesOfString:@"_" withString:@" "];
 }
 
--(Article *)getArticleForTitle:(NSString *)title
-{
-    Article *article = (Article *)[articleDataContext_ getEntityForName: @"Article" withPredicateFormat: @"\
-                       title ==[c] %@ \
-                       AND \
-                       site.name == %@ \
-                       AND \
-                       domain.name == %@",
-                       title,
-                       [SessionSingleton sharedInstance].site.name,
-                       [SessionSingleton sharedInstance].domain.name
-    ];
-    if (!article) {
-        article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:articleDataContext_];
-        article.title = title;
-        article.dateCreated = [NSDate date];
-    }
-    return article;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.searchResultsOrdered.count;
@@ -518,6 +498,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     Image *thumbnailFromDB = (Image *)[articleDataContext_ getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
 
     if(thumbnailFromDB){
+
+//TODO: update thumbnailFromDB.dateLastAccessed here! Probably on background thread. Not sure best way to ensure just single object will be updated...
+
         // Yay! Cached thumbnail found! Use it!
         // Needs to be synchronous!
         UIImage *image = [UIImage imageWithData:thumbnailFromDB.data];
@@ -568,7 +551,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         NSMutableData *thumbData = weakThumbnailOp.dataRetrieved;
         dispatch_async(dispatch_get_main_queue(), ^(){
 
-            Article *article = [self getArticleForTitle:title];
+            Article *article = [articleDataContext_ getArticleForTitle:title];
             
             Image *thumb = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:articleDataContext_];
             thumb.data = thumbData;
@@ -577,8 +560,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             thumb.imageDescription = nil;
             thumb.sourceUrl = thumbURL;
             thumb.dateRetrieved = [NSDate date];
+            thumb.dateLastAccessed = [NSDate date];
             thumb.width = thumbWidth;
             thumb.height = thumbHeight;
+            thumb.mimeType = @"image/jpeg";
             
             article.thumbnailImage = thumb;
 
@@ -866,7 +851,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 #pragma mark Article loading ops
 
-- (void)navigateToPage:(NSString *)title discoveryMethod:(DiscoveryMethod *)discoveryMethod
+- (void)navigateToPage:(NSString *)title discoveryMethod:(NSString *)discoveryMethod
 {
     static BOOL isFirstArticle = YES;
 
@@ -901,9 +886,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }];
 }
 
-- (void)retrieveArticleForPageTitle:(NSString *)pageTitle discoveryMethod:(DiscoveryMethod *)discoveryMethod
+- (void)retrieveArticleForPageTitle:(NSString *)pageTitle discoveryMethod:(NSString *)discoveryMethod
 {
-    Article *article = [self getArticleForTitle:pageTitle];
+    Article *article = [articleDataContext_ getArticleForTitle:pageTitle];
 
     // If article with sections just show them
     if (article.section.count > 0) {
@@ -929,6 +914,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                                                      @"action": @"mobileview",
                                                      @"prop": @"sections|text",
                                                      @"sections": @"0",
+                                                     @"onlyrequestedsections": @"1",
+                                                     @"sectionprop": @"toclevel|line|anchor",
                                                      @"page": pageTitle,
                                                      @"format": @"json"
                                                      }
@@ -991,14 +978,12 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
         // Get article section zero html
         NSArray *sections = weakOp.jsonRetrieved[@"mobileview"][@"sections"];
+        NSDictionary *section0Dict = (sections.count == 1) ? sections[0] : nil;
 
-        __block NSString *section0HTML = @"";
-        [sections enumerateObjectsUsingBlock:^(NSDictionary *dict, NSUInteger idx, BOOL *stop){
-            if ([dict[@"id"] isEqual: @0]) {
-                section0HTML = (dict[@"text"]) ? dict[@"text"] : @"";
-                *stop = YES;
-            }
-        }];
+        NSString *section0HTML = @"";
+        if (section0Dict && [section0Dict[@"id"] isEqual: @0] && section0Dict[@"text"]) {
+            section0HTML = section0Dict[@"text"];
+        }
 
         // Add sections for article
         Section *section0 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_];
@@ -1006,6 +991,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         section0.title = @"";
         section0.dateRetrieved = [NSDate date];
         section0.html = section0HTML;
+        section0.anchor = @"";
         article.section = [NSSet setWithObjects:section0, nil];
         
         // Add history for article
@@ -1070,6 +1056,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                                                      @"action": @"mobileview",
                                                      @"prop": @"sections|text",
                                                      @"sections": @"1-",
+                                                     @"onlyrequestedsections": @"1",
+                                                     @"sectionprop": @"toclevel|line|anchor",
                                                      @"page": pageTitle,
                                                      @"format": @"json"
                                                      }
@@ -1100,6 +1088,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                 thisSection.html = section[@"text"];
                 thisSection.tocLevel = section[@"toclevel"];
                 thisSection.dateRetrieved = [NSDate date];
+                thisSection.anchor = (section[@"anchor"]) ? section[@"anchor"] : @"";
                 [article addSectionObject:thisSection];
             }
         }

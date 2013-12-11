@@ -1,9 +1,6 @@
 //  Created by Monte Hurd on 12/6/13.
 
 #import "SessionSingleton.h"
-#import "ArticleCoreDataObjects.h"
-#import "NSManagedObjectContext+SimpleFetch.h"
-#import "ArticleDataContextSingleton.h"
 
 @implementation SessionSingleton
 
@@ -28,13 +25,11 @@
 
 -(void)dataSetup
 {
-    ArticleDataContextSingleton *articleDataContext = [ArticleDataContextSingleton sharedInstance];
-
     // Make site available
-    self.site = (Site *)[articleDataContext getEntityForName: @"Site" withPredicateFormat:@"name == %@", @"wikipedia.org"];
+    self.site = @"wikipedia.org";
 
     // Make domain available
-    self.domain = (Domain *)[articleDataContext getEntityForName: @"Domain" withPredicateFormat:@"name == %@", @"en"];
+    self.domain = @"en";
 }
 
 @end

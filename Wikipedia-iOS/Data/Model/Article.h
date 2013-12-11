@@ -2,27 +2,27 @@
 //  Article.h
 //  Wikipedia-iOS
 //
-//  Created by Monte Hurd on 12/9/13.
+//  Created by Monte Hurd on 12/11/13.
 //  Copyright (c) 2013 Wikimedia Foundation. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Domain, GalleryImage, History, Image, Saved, Section, Site;
+@class GalleryImage, History, Image, Saved, Section;
 
 @interface Article : NSManagedObject
 
 @property (nonatomic, retain) NSDate * dateCreated;
+@property (nonatomic, retain) NSNumber * lastScrollX;
 @property (nonatomic, retain) NSNumber * lastScrollY;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSNumber * lastScrollX;
-@property (nonatomic, retain) Domain *domain;
+@property (nonatomic, retain) NSString * site;
+@property (nonatomic, retain) NSString * domain;
 @property (nonatomic, retain) NSSet *galleryImage;
 @property (nonatomic, retain) NSSet *history;
 @property (nonatomic, retain) NSSet *saved;
 @property (nonatomic, retain) NSSet *section;
-@property (nonatomic, retain) Site *site;
 @property (nonatomic, retain) Image *thumbnailImage;
 @end
 

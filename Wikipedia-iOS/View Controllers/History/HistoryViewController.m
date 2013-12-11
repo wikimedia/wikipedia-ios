@@ -123,10 +123,10 @@
             method: %@\n\t\
             image: %@",
             history.article.title,
-            history.article.site.name,
-            history.article.domain.name,
+            history.article.site,
+            history.article.domain,
             history.dateVisited,
-            history.discoveryMethod.name,
+            history.discoveryMethod,
             history.article.thumbnailImage.fileName
         );
         
@@ -251,7 +251,7 @@
     cell.textLabel.textColor = HISTORY_TEXT_COLOR;
     
 //TODO: pull this out so not loading image from file more than once.
-    NSString *imageName = [NSString stringWithFormat:@"history-%@.png", historyEntry.discoveryMethod.name];
+    NSString *imageName = [NSString stringWithFormat:@"history-%@.png", historyEntry.discoveryMethod];
     cell.methodImageView.image = [UIImage imageNamed:imageName];
 
     Image *thumbnailFromDB = historyEntry.article.thumbnailImage;

@@ -2,21 +2,21 @@
 //  History.h
 //  Wikipedia-iOS
 //
-//  Created by Monte Hurd on 12/3/13.
+//  Created by Monte Hurd on 12/11/13.
 //  Copyright (c) 2013 Wikimedia Foundation. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Article, DiscoveryContext, DiscoveryMethod;
+@class Article, DiscoveryContext;
 
 @interface History : NSManagedObject
 
 @property (nonatomic, retain) NSDate * dateVisited;
+@property (nonatomic, retain) NSString * discoveryMethod;
 @property (nonatomic, retain) Article *article;
 @property (nonatomic, retain) NSSet *discoveryContext;
-@property (nonatomic, retain) DiscoveryMethod *discoveryMethod;
 @end
 
 @interface History (CoreDataGeneratedAccessors)

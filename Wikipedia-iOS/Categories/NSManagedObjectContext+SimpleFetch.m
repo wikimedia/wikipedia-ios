@@ -1,6 +1,8 @@
 //  Created by Monte Hurd on 12/6/13.
 
 #import "NSManagedObjectContext+SimpleFetch.h"
+#import "ArticleCoreDataObjects.h"
+#import "SessionSingleton.h"
 
 @implementation NSManagedObjectContext (SimpleFetch)
 
@@ -34,6 +36,26 @@
     }else{
         return nil;
     }
+}
+
+-(Article *)getArticleForTitle:(NSString *)title
+{
+    Article *article = (Article *)[self getEntityForName: @"Article" withPredicateFormat: @"\
+                       title ==[c] %@ \
+                       AND \
+                       site.name == %@ \
+                       AND \
+                       domain.name == %@",
+                       title,
+                       [SessionSingleton sharedInstance].site,
+                       [SessionSingleton sharedInstance].domain
+    ];
+    if (!article) {
+        article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:self];
+        article.title = title;
+        article.dateCreated = [NSDate date];
+    }
+    return article;
 }
 
 @end

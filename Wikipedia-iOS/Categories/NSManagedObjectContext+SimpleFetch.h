@@ -2,8 +2,12 @@
 
 #import <CoreData/CoreData.h>
 
+@class Article;
+
 @interface NSManagedObjectContext (SimpleFetch)
 
 -(NSManagedObject *)getEntityForName:(NSString *)entityName withPredicateFormat:(NSString *)predicateFormat, ...;
+
+-(Article *)getArticleForTitle:(NSString *)title;
 
 @end

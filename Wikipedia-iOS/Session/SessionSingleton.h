@@ -2,11 +2,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class Site, Domain;
 @interface SessionSingleton : NSObject
 
-@property (strong, nonatomic) Site *site;
-@property (strong, nonatomic) Domain *domain;
+@property (strong, nonatomic) NSString *site;
+@property (strong, nonatomic) NSString *domain;
 
 + (SessionSingleton *)sharedInstance;
 
