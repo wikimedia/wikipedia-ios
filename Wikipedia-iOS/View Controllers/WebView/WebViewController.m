@@ -382,11 +382,11 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         self.unsafeToScroll = YES;
 
         // Save scroll location
-        Article *article = [articleDataContext_ getArticleForTitle:self.currentArticleTitle];
+        Article *article = [articleDataContext_.mainContext getArticleForTitle:self.currentArticleTitle];
         article.lastScrollX = @(scrollView.contentOffset.x);
         article.lastScrollY = @(scrollView.contentOffset.y);
         NSError *error = nil;
-        [articleDataContext_ save:&error];
+        [articleDataContext_.mainContext save:&error];
     }
 }
 
@@ -495,7 +495,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     NSNumber *thumbHeight = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"height"];
 
     // Check for db record for thumb. If found use it rather than downloading it again!
-    Image *thumbnailFromDB = (Image *)[articleDataContext_ getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
+    Image *thumbnailFromDB = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
 
     if(thumbnailFromDB){
 
@@ -551,9 +551,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         NSMutableData *thumbData = weakThumbnailOp.dataRetrieved;
         dispatch_async(dispatch_get_main_queue(), ^(){
 
-            Article *article = [articleDataContext_ getArticleForTitle:title];
+            Article *article = [articleDataContext_.mainContext getArticleForTitle:title];
             
-            Image *thumb = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:articleDataContext_];
+            Image *thumb = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:articleDataContext_.mainContext];
             thumb.data = thumbData;
             thumb.fileName = [thumbURL lastPathComponent];
             thumb.extension = [thumbURL pathExtension];
@@ -571,7 +571,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             article.domain = [SessionSingleton sharedInstance].domain; //self.currentDomain;
 
             NSError *error = nil;
-            [articleDataContext_ save:&error];
+            [articleDataContext_.mainContext save:&error];
         });
     };
     [thumbnailQ_ addOperation:thumbnailOp];
@@ -888,12 +888,17 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 - (void)retrieveArticleForPageTitle:(NSString *)pageTitle discoveryMethod:(NSString *)discoveryMethod
 {
-    Article *article = [articleDataContext_ getArticleForTitle:pageTitle];
+    Article *article = [articleDataContext_.mainContext getArticleForTitle:pageTitle];
 
     // If article with sections just show them
     if (article.section.count > 0) {
         [self displayArticle:article];
         return;
+    }else{
+        // Discard the empty article created in mainContext by getArticleForTitle.
+        [articleDataContext_.mainContext deleteObject:article];
+        // Needed is an article created in the *worker* context since that's what's updated below.
+        article = [articleDataContext_.workerContext getArticleForTitle:pageTitle];
     }
 
     // If no sections core data article may have been created when thumbnails were retrieved (before any sections are fetched)
@@ -938,7 +943,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             }];
 
             // Remove the article so it doesn't get saved.
-            [articleDataContext_ deleteObject:article];
+            [articleDataContext_.workerContext deleteObject:article];
             
             return;
         }
@@ -947,7 +952,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             //NSLog(@"completionBlock bailed (because op was cancelled) for %@", pageTitle);
             
             // Remove the article so it doesn't get saved.
-            [articleDataContext_ deleteObject:article];
+            [articleDataContext_.workerContext deleteObject:article];
 
             return;
         }
@@ -962,7 +967,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             weakOp.error = [NSError errorWithDomain:@"Section Zero Op" code:001 userInfo:errorDict];
             
             // Remove the article so it doesn't get saved.
-            [articleDataContext_ deleteObject:article];
+            [articleDataContext_.workerContext deleteObject:article];
             
             // Send html across bridge to web view
             [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
@@ -986,7 +991,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         }
 
         // Add sections for article
-        Section *section0 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_];
+        Section *section0 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_.workerContext];
         section0.index = @0;
         section0.title = @"";
         section0.dateRetrieved = [NSDate date];
@@ -995,7 +1000,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         article.section = [NSSet setWithObjects:section0, nil];
         
         // Add history for article
-        History *history0 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:articleDataContext_];
+        History *history0 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:articleDataContext_.workerContext];
         history0.dateVisited = [NSDate date];
         //history0.dateVisited = [NSDate dateWithDaysBeforeNow:31];
         history0.discoveryMethod = discoveryMethod;
@@ -1011,7 +1016,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         
         // Save the article!
         NSError *error = nil;
-        [articleDataContext_ save:&error];
+        [articleDataContext_.workerContext save:&error];
 
         if (error) {
             NSLog(@"error = %@", error);
@@ -1082,7 +1087,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                 [sectionText addObject:section[@"text"]];
 
                 // Add sections for article
-                Section *thisSection = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_];
+                Section *thisSection = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_.workerContext];
                 thisSection.index = section[@"id"];
                 thisSection.title = section[@"line"];
                 thisSection.html = section[@"text"];
@@ -1094,7 +1099,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         }
 
         NSError *error = nil;
-        [articleDataContext_ save:&error];
+        [articleDataContext_.workerContext save:&error];
 
         // Join article sections text
         NSString *joint = @""; //@"<div style=\"background-color:#ffffff;height:55px;\"></div>";

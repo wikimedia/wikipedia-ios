@@ -94,7 +94,7 @@
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName: @"History"
-                                              inManagedObjectContext: articleDataContext_];
+                                              inManagedObjectContext: articleDataContext_.mainContext];
     [fetchRequest setEntity:entity];
     
     // For now fetch all history records - history entries older than 30 days will
@@ -112,7 +112,7 @@
     NSMutableArray *garbage = [@[] mutableCopy];
 
     error = nil;
-    NSArray *historyEntities = [articleDataContext_ executeFetchRequest:fetchRequest error:&error];
+    NSArray *historyEntities = [articleDataContext_.mainContext executeFetchRequest:fetchRequest error:&error];
     //XCTAssert(error == nil, @"Could not fetch.");
     for (History *history in historyEntities) {
         NSLog(@"HISTORY:\n\t\
@@ -163,15 +163,15 @@
     for (History *history in garbage) {
         // Article deletes don't cascade to images (intentionally) so delete these article thumbnails manually.
         Image *thumb = history.article.thumbnailImage;
-        if (thumb) [articleDataContext_ deleteObject:thumb];
+        if (thumb) [articleDataContext_.mainContext deleteObject:thumb];
 
         // Image deletes don't cascade when article is deleted so delete manually for now.
         Article *article = history.article;
-        if (article) [articleDataContext_ deleteObject:article];
+        if (article) [articleDataContext_.mainContext deleteObject:article];
     }
     
     NSError *error = nil;
-    [articleDataContext_ save:&error];
+    [articleDataContext_.mainContext save:&error];
     //NSLog(@"GARBAGE error = %@", error);
 }
 
