@@ -54,6 +54,8 @@
         article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:self];
         article.title = title;
         article.dateCreated = [NSDate date];
+        article.site = [SessionSingleton sharedInstance].site;
+        article.domain = [SessionSingleton sharedInstance].domain;
     }
     return article;
 }

@@ -48,28 +48,28 @@
     NSError *error = nil;
 
     ArticleDataContextSingleton *dataContext = [ArticleDataContextSingleton sharedInstance];
-    Article *article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:dataContext];
+    Article *article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:dataContext.mainContext];
 
     article.dateCreated = [NSDate date];
     article.lastScrollY = @123.0f;
     article.title = @"This is a sample title.";
 
     // Add history for article
-    History *history0 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:dataContext];
+    History *history0 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:dataContext.mainContext];
     history0.dateVisited = [NSDate date];
     [article addHistoryObject:history0];
 
-    History *history1 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:dataContext];
+    History *history1 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:dataContext.mainContext];
     history1.dateVisited = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24];
     [article addHistoryObject:history1];
 
     // Add prefix context for article
-    DiscoveryContext *preContext = [NSEntityDescription insertNewObjectForEntityForName:@"DiscoveryContext" inManagedObjectContext:dataContext];
+    DiscoveryContext *preContext = [NSEntityDescription insertNewObjectForEntityForName:@"DiscoveryContext" inManagedObjectContext:dataContext.mainContext];
     preContext.isPrefix = @YES;
     preContext.text = @"Some potato chip pre-context.";
 
     // Add postfix context for article
-    DiscoveryContext *postContext = [NSEntityDescription insertNewObjectForEntityForName:@"DiscoveryContext" inManagedObjectContext:dataContext];
+    DiscoveryContext *postContext = [NSEntityDescription insertNewObjectForEntityForName:@"DiscoveryContext" inManagedObjectContext:dataContext.mainContext];
     postContext.isPrefix = @YES;
     postContext.text = @"Some potato chip post-context.";
 
@@ -77,7 +77,7 @@
     postContext.history = history0;
 
     // Add sections for article
-    Section *section0 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:dataContext];
+    Section *section0 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:dataContext.mainContext];
     section0.index = @0;
     section0.title = @"Potato chip section 0 title";
     section0.html = @"<b>Potato Chips section 0 html!</b>";
@@ -85,7 +85,7 @@
     section0.dateRetrieved = [NSDate date];
     section0.anchor = @"potato_anchor_0";
 
-    Section *section1 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:dataContext];
+    Section *section1 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:dataContext.mainContext];
     section1.index = @1;
     section1.title = @"Potato chip section 1 title";
     section1.html = @"<b>Potato Chips section 1 html!</b>";
@@ -96,11 +96,11 @@
     article.section = [NSSet setWithObjects:section0, section1, nil];
 
     // Add saved for article
-    Saved *saved0 = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:dataContext];
+    Saved *saved0 = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:dataContext.mainContext];
     saved0.dateSaved = [NSDate date];
     [article addSavedObject:saved0];
     
-    Saved *saved1 = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:dataContext];
+    Saved *saved1 = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:dataContext.mainContext];
     saved1.dateSaved = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24];
     [article addSavedObject:saved1];
     
@@ -119,7 +119,7 @@
     CGDataProviderRef provider = CGImageGetDataProvider(image.CGImage);
     NSData *imageData = (id)CFBridgingRelease(CGDataProviderCopyData(provider));
 
-    Image *thumb = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:dataContext];
+    Image *thumb = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:dataContext.mainContext];
     thumb.data = imageData;
     thumb.fileName = @"thisThumb.jpg";
     thumb.extension = @"jpg";
@@ -137,7 +137,7 @@
 
     // Save the article!
     error = nil;
-    [dataContext save:&error];
+    [dataContext.mainContext save:&error];
     XCTAssert(error == nil, @"Could not save article.");
 }
 
@@ -150,21 +150,21 @@
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName: @"Article"
-                                              inManagedObjectContext: dataContext];
+                                              inManagedObjectContext: dataContext.mainContext];
     [fetchRequest setEntity:entity];
     
     //NSPredicate *pred = [NSPredicate predicateWithFormat:@"name == %@", @"random"];
     //[fetchRequest setPredicate:pred];
 
     error = nil;
-    NSArray *articles = [dataContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *articles = [dataContext.mainContext executeFetchRequest:fetchRequest error:&error];
     XCTAssert(error == nil, @"Could not retrieve articles to be deleted.");
     for (Article *article in articles) {
-        [dataContext deleteObject:article];
+        [dataContext.mainContext deleteObject:article];
     }
     
     error = nil;
-    [dataContext save:&error];
+    [dataContext.mainContext save:&error];
     XCTAssert(error == nil, @"Could not delete articles.");
 }
 
@@ -175,14 +175,14 @@
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName: @"Article"
-                                              inManagedObjectContext: dataContext];
+                                              inManagedObjectContext: dataContext.mainContext];
     [fetchRequest setEntity:entity];
     
     //NSPredicate *pred = [NSPredicate predicateWithFormat:@"name == %@", @"random"];
     //[fetchRequest setPredicate:pred];
     
     error = nil;
-    NSArray *articles = [dataContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *articles = [dataContext.mainContext executeFetchRequest:fetchRequest error:&error];
     XCTAssert(error == nil, @"Could determine how many articles remain.");
     XCTAssert(articles.count == 0, @"Articles still exist but should not.");
 }
@@ -194,14 +194,14 @@
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName: @"Image"
-                                              inManagedObjectContext: dataContext];
+                                              inManagedObjectContext: dataContext.mainContext];
     [fetchRequest setEntity:entity];
     
     //NSPredicate *pred = [NSPredicate predicateWithFormat:@"name == %@", @"random"];
     //[fetchRequest setPredicate:pred];
     
     error = nil;
-    NSArray *images = [dataContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *images = [dataContext.mainContext executeFetchRequest:fetchRequest error:&error];
     XCTAssert(error == nil, @"Could determine how many images remain.");
     
     // Note: this Assert will probably fail. Left in place as a reminder to implement some way to limit

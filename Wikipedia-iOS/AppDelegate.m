@@ -7,11 +7,21 @@
 //
 
 #import "AppDelegate.h"
+#import "URLCache.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Set the shared url cache to our custom NSURLCache which re-routes images to
+    // our article cache.
+//TODO: update the app to occasionally check total size of our article cache and if its file exceeded some threshold size prune its image entries
+// (probably by Image.lastDateAccessed)
+    URLCache *urlCache = [[URLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
+                                                 diskCapacity:20 * 1024 * 1024
+                                                     diskPath:nil];
+    [NSURLCache setSharedURLCache:urlCache];
+
     [self registerStandardUserDefaults];
     [self systemWideStyleOverrides];
 

@@ -7,17 +7,7 @@
 #import "WebViewController.h"
 #import "HistoryResultCell.h"
 #import "HistoryTableHeadingLabel.h"
-
-#define HISTORY_THUMBNAIL_WIDTH 110
-#define HISTORY_RESULT_HEIGHT 66
-
-#define HISTORY_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
-#define HISTORY_DATE_HEADER_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.6f]
-#define HISTORY_DATE_HEADER_BACKGROUND_COLOR [UIColor colorWithWhite:1.0f alpha:0.97f]
-#define HISTORY_DATE_HEADER_HEIGHT 51.0f
-#define HISTORY_DATE_HEADER_LEFT_PADDING 37.0f
-
-//TODO: fix bug with separate history entries being entered if same search term, but with differing capitalization is used. ie: search for "History of China" then select the "History of China" result. Then search for "history of china" and select the "History of China" result again. There will be 2 history entries.
+#import "Defines.h"
 
 @interface HistoryViewController ()
 {
@@ -291,8 +281,11 @@
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    // Set CurrentArticleTitle so the web view knows what to display for this selection.
+    [[NSUserDefaults standardUserDefaults] setObject:historyEntry.article.title forKey:@"CurrentArticleTitle"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     WebViewController *webViewController = [self getWebViewController];
-    [webViewController navigateToPage:historyEntry.article.title discoveryMethod:historyEntry.discoveryMethod];
     [self.navigationController popToViewController:webViewController animated:YES];
 }
 

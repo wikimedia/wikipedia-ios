@@ -6,13 +6,12 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 //
 
+#import "Defines.h"
 #import "WebViewController.h"
 #import "CommunicationBridge.h"
 #import "NSURLRequest+DictionaryRequest.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSString+Extras.h"
-#import "SearchResultCell.h"
-#import "SearchBarLogoView.h"
 #import "SearchBarTextField.h"
 #import "ArticleCoreDataObjects.h"
 #import "ArticleDataContextSingleton.h"
@@ -22,48 +21,17 @@
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "AlertLabel.h"
 #import "UIWebView+Reveal.h"
-
-#pragma mark Defines
-
-#define SEARCH_THUMBNAIL_WIDTH 110
-#define SEARCH_RESULT_HEIGHT 60
-#define SEARCH_MAX_RESULTS @"25"
-
-#define SEARCH_FONT [UIFont fontWithName:@"HelveticaNeue" size:16.0]
-#define SEARCH_FONT_COLOR [UIColor colorWithWhite:0.0 alpha:0.85]
-
-#define SEARCH_FONT_HIGHLIGHTED [UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]
-#define SEARCH_FONT_HIGHLIGHTED_COLOR [UIColor blackColor]
-
-#define SEARCH_FIELD_PLACEHOLDER_TEXT @"Search Wikipedia"
-#define SEARCH_FIELD_PLACEHOLDER_TEXT_COLOR [UIColor colorWithRed:0.57 green:0.58 blue:0.59 alpha:1.0]
-
-#define SEARCH_API_URL @"https://en.m.wikipedia.org/w/api.php"
-
-#define SEARCH_LOADING_MSG_SECTION_ZERO @"Loading first section of the article..."
-#define SEARCH_LOADING_MSG_SECTION_REMAINING @"Loading the rest of the article..."
-#define SEARCH_LOADING_MSG_ARTICLE_LOADED @"Article loaded."
-#define SEARCH_LOADING_MSG_SEARCHING @"Searching..."
+#import "SearchNavController.h"
+#import "QueuesSingleton.h"
+#import "SearchResultsController.h"
 
 @interface WebViewController (){
 
 }
 
-@property (strong, nonatomic) SearchBarTextField *searchField;
-@property (strong, atomic) NSMutableArray *searchResultsOrdered;
-@property (strong, nonatomic) NSString *apiURL;
-
-@property (strong, nonatomic) NSString *searchDiscoveryMethod;
-@property (strong, nonatomic) NSString *linkDiscoveryMethod;
-@property (strong, nonatomic) NSString *randomDiscoveryMethod;
-
-@property (strong, nonatomic) NSString *currentSearchString;
-@property (strong, nonatomic) NSArray *currentSearchStringWordsToHighlight;
-
-@property (strong, nonatomic) NSString *currentArticleTitle;
-
+@property (strong, nonatomic) SearchResultsController *searchResultsController;
 @property (strong, nonatomic) CommunicationBridge *bridge;
-
+@property (weak, nonatomic) SearchNavController *searchNavController;
 @property (nonatomic) CGPoint scrollOffset;
 @property (nonatomic) BOOL unsafeToScroll;
 
@@ -72,10 +40,6 @@
 #pragma mark Internal variables
 
 @implementation WebViewController {
-    NSOperationQueue *articleRetrievalQ_;
-    NSOperationQueue *searchQ_;
-    NSOperationQueue *thumbnailQ_;
-    UIView *navBarSubview_;
     CGFloat scrollViewDragBeganVerticalOffset_;
     ArticleDataContextSingleton *articleDataContext_;
 }
@@ -104,54 +68,28 @@
 {
     [super viewDidLoad];
 
+    self.searchNavController = (SearchNavController *)self.navigationController;
+
+    self.searchResultsController = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
+    self.searchResultsController.webViewController = self;
+    self.searchResultsController.searchNavController = self.searchNavController;
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewFinishedLoading) name:@"WebViewFinishedLoading" object:nil];
     self.unsafeToScroll = NO;
     self.scrollOffset = CGPointZero;
 
-    self.currentArticleTitle = @"";
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyToggle) name:@"HistoryToggle" object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveCurrentPage) name:@"SavePage" object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(savedPagesToggle) name:@"SavedPagesToggle" object:nil];
+
     self.alertLabel.text = @"";
 
     articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
-
-// TODO: update these associations based on Brion's comments.   -   -   -   -   -   -   -   -   -
-
-    self.searchDiscoveryMethod = @"search";
-    
-    self.linkDiscoveryMethod = @"link";
-    
-    self.randomDiscoveryMethod = @"random";
-
-//  -   -   -   -   -   -   -   -   -
-
-    [self setupNavbarSubview];
-    
-    self.apiURL = SEARCH_API_URL;
-
-    self.currentSearchString = @"";
-    self.currentSearchStringWordsToHighlight = @[];
-    self.searchField.attributedPlaceholder = [self getAttributedPlaceholderString];
-    self.searchResultsOrdered = [[NSMutableArray alloc] init];
     
     scrollViewDragBeganVerticalOffset_ = 0.0f;
     
-    articleRetrievalQ_ = [[NSOperationQueue alloc] init];
-    searchQ_ = [[NSOperationQueue alloc] init];
-    thumbnailQ_ = [[NSOperationQueue alloc] init];
-    
-    [self setupQMonitorDebuggingLabel];
-
-    // Comment out to show the q debugging label.
-    self.debugLabel.alpha = 0.0f;
-    
-    // Perform search when text entered into searchField
-    [self.searchField addTarget:self action:@selector(reloadSearchResultsTableForSearchString) forControlEvents:UIControlEventEditingChanged];
-
-    // Register the search results cell for reuse
-    [self.searchResultsTable registerNib:[UINib nibWithNibName:@"SearchResultPrototypeView" bundle:nil] forCellReuseIdentifier:@"SearchResultCell"];
-
-    // Turn off the separator since one gets added in SearchResultCell.m
-    self.searchResultsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-
     // Ensure web view can appear beneath translucent nav bar when scrolled up
     for (UIView *subview in self.webView.subviews) {
         subview.clipsToBounds = NO;
@@ -160,17 +98,18 @@
     // Ensure the keyboard hides if the web view is scrolled
     self.webView.scrollView.delegate = self;
 
-    // Observe changes to nav bar's bounds so the nav bar's subview's frame can be
-    // kept in sync so it always overlays it perfectly, even as rotation animation
-    // tweens the nav bar frame.
-    [self.navigationController.navigationBar addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:nil];
-    
-    // Observe the visibility of the search results table so the web view can be made
-    // to show when the results table is not, and vice-versa.
-    [self.searchResultsTable addObserver:self forKeyPath:@"hidden" options:NSKeyValueObservingOptionNew context:nil];
-    
-    // Force the nav bar's subview to update for initial display - needed for iOS 6.
-    [self updateNavBarSubviewFrame];
+    // Observe chages to the search box search term.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchStringChanged) name:@"SearchStringChanged" object:nil];
+}
+
+#pragma mark Search terms changes
+
+-(void)searchStringChanged
+{
+    // If search results table not on top of nav stack push on to nav stack.
+    if (![self.navigationController.topViewController isMemberOfClass:[SearchResultsController class]]) {
+        [self.navigationController pushViewController:self.searchResultsController animated:NO];
+    }
 }
 
 #pragma mark Webview obj-c to javascript bridge
@@ -199,7 +138,7 @@
         NSString *href = payload[@"href"];
         if ([href hasPrefix:@"/wiki/"]) {
             NSString *title = [href substringWithRange:NSMakeRange(6, href.length - 6)];
-            [weakSelf navigateToPage:title discoveryMethod:weakSelf.linkDiscoveryMethod];
+            [weakSelf navigateToPage:title discoveryMethod:DISCOVERY_METHOD_LINK];
         }else if ([href hasPrefix:@"//"]) {
             href = [@"http:" stringByAppendingString:href];
             
@@ -227,103 +166,27 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     return lastViewedArticleTitle;
 }
 
+-(void)setCurrentArticleTitle:(NSString *)currentArticleTitle
+{
+    [[NSUserDefaults standardUserDefaults] setObject:currentArticleTitle forKey:@"CurrentArticleTitle"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSString *)getCurrentArticleTitle
+{
+    NSString *currentArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
+    return currentArticleTitle;
+}
+
 -(void)viewDidAppear:(BOOL)animated
 {
     // Should be ok to call "navigateToPage:" on viewDidAppear because it contains logic preventing
     // reloads of pages already being displayed.
-    [self navigateToPage:[self getLastViewedArticleTitle] discoveryMethod:nil];
-}
 
-#pragma mark Debugging
-
--(void)setupQMonitorDebuggingLabel
-{
-    // Listen in on the Q's op counts
-    [articleRetrievalQ_ addObserver:self forKeyPath:@"operationCount" options:NSKeyValueObservingOptionNew context:nil];
-    [searchQ_ addObserver:self forKeyPath:@"operationCount" options:NSKeyValueObservingOptionNew context:nil];
-    [thumbnailQ_ addObserver:self forKeyPath:@"operationCount" options:NSKeyValueObservingOptionNew context:nil];
+    NSString *title = [self getCurrentArticleTitle];
+    if (!title) title = [self getLastViewedArticleTitle];
     
-    // Add a label so we can keep an eye on Q op counts to ensure they go away properly.
-    self.debugLabel.text = @"All Queues Empty";
-}
-
-#pragma mark Nav bar subview
-
--(void)updateNavBarSubviewFrame
-{
-    // To get the search box floating over a translucent view it was placed as a subview of
-    // the nav bar, but the nav bar doesn't do autolayout on it's subviews, so the subview
-    // is resized manually here.
-    navBarSubview_.frame = self.navigationController.navigationBar.bounds;
-    //self.searchField.frame = navBarSubview_.bounds;
-    CGFloat rightPadding = (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) ? 0.0f : 6.0f;
-    
-    self.searchField.frame = CGRectMake(
-                                        navBarSubview_.bounds.origin.x,
-                                        navBarSubview_.bounds.origin.y,
-                                        navBarSubview_.bounds.size.width - rightPadding,
-                                        navBarSubview_.bounds.size.height
-                                        );
-
-    // Make the search field's leftView (a UIImageView) be as tall as the search field
-    // so its image can resize accordingly
-    self.searchField.leftView.frame = CGRectMake(self.searchField.leftView.frame.origin.x, self.searchField.leftView.frame.origin.y, self.searchField.leftView.frame.size.width, self.searchField.frame.size.height);
-}
-
--(void)setupNavbarSubview
-{
-    navBarSubview_ = [[UIView alloc] init];
-    navBarSubview_.backgroundColor = [UIColor clearColor];
-    navBarSubview_.translatesAutoresizingMaskIntoConstraints = NO;
-
-    [self.navigationController.navigationBar addSubview:navBarSubview_];
-    
-    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
-        self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:0.97];
-    }
-
-    self.searchField = [[SearchBarTextField alloc] init];
-    self.searchField.delegate = self;
-    self.searchField.returnKeyType = UIReturnKeyGo;
-    self.searchField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.searchField.font = SEARCH_FONT;
-    self.searchField.textColor = SEARCH_FONT_HIGHLIGHTED_COLOR;
-    //self.searchField.frame = CGRectInset(navBarSubview_.frame, 3, 3);
-
-    self.searchField.leftViewMode = UITextFieldViewModeAlways;
-    self.searchField.leftView = [[SearchBarLogoView alloc] initWithFrame:CGRectMake(0, 0, 65, 50)];
-
-    self.searchField.leftView.backgroundColor = [UIColor clearColor];
-    self.searchField.clearButtonMode = UITextFieldViewModeAlways;
-    self.searchField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-
-    [navBarSubview_ addSubview:self.searchField];
-
-    //navBarSubview_.layer.borderWidth = 0.5f;
-    //self.searchField.layer.borderWidth = 0.5f;
-    //navBarSubview_.layer.borderColor = [UIColor greenColor].CGColor;
-    //self.searchField.backgroundColor = [UIColor colorWithWhite:0 alpha:0.0];
-    //self.navigationController.navigationBar.backgroundColor = [UIColor greenColor];
-    //self.navigationController.navigationBar.layer.borderWidth = 0.5;
-    //self.navigationController.navigationBar.layer.borderColor = [UIColor purpleColor].CGColor;
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(historyToggle)];
-    [self.searchField.leftView addGestureRecognizer:tap];
-}
-
--(NSAttributedString *)getAttributedPlaceholderString
-{
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:SEARCH_FIELD_PLACEHOLDER_TEXT];
-
-    [str addAttribute:NSFontAttributeName
-                value:SEARCH_FONT_HIGHLIGHTED
-                range:NSMakeRange(0, str.length)];
-
-    [str addAttribute:NSForegroundColorAttributeName
-                value:SEARCH_FIELD_PLACEHOLDER_TEXT_COLOR
-                range:NSMakeRange(0, str.length)];
-
-    return str;
+    [self navigateToPage:title discoveryMethod:DISCOVERY_METHOD_SEARCH];
 }
 
 #pragma mark History
@@ -343,24 +206,45 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         [self.navigationController popToViewController:self animated:YES];
         return;
     }
-    self.searchField.text = @"";
-    [self.searchField resignFirstResponder];
+    
+    //self.searchNavController.searchField.text = @"";
+    [self.searchNavController resignSearchFieldFirstResponder];
     [self performSegueWithIdentifier:@"ShowHistorySegue" sender:self];
 }
 
-#pragma mark KVO
+#pragma Saved Pages
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+-(void)saveCurrentPage
 {
-    if ([keyPath isEqualToString:@"operationCount"]) {
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            self.debugLabel.text = [NSString stringWithFormat:@"QUEUE OP COUNTS: Search %lu, Thumb %lu, Article %lu", (unsigned long)searchQ_.operationCount, (unsigned long)thumbnailQ_.operationCount, (unsigned long)articleRetrievalQ_.operationCount];
-        });
-    }else if(object == self.navigationController.navigationBar){
-        [self updateNavBarSubviewFrame];
-    }else if(object == self.searchResultsTable){
-        self.webView.hidden = !self.searchResultsTable.hidden;
+    [articleDataContext_.workerContext performBlock:^(){
+        Article *article = [articleDataContext_.workerContext getArticleForTitle:[self getCurrentArticleTitle]];
+
+        //NSLog(@"SAVE PAGE FOR %@ COUNT = %d", article.title, article.saved.count);
+        if (article && (article.saved.count == 0)) {
+            NSLog(@"SAVED PAGE %@", article.title);
+            // Save!
+            Saved *saved = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:articleDataContext_.workerContext];
+            saved.dateSaved = [NSDate date];
+            [article addSavedObject:saved];
+            
+            NSError *error = nil;
+            [articleDataContext_.workerContext save:&error];
+            NSLog(@"SAVE PAGE ERROR = %@", error);
+        }
+    }];
+}
+
+-(void)savedPagesToggle
+{
+    NSLog(@"TOGGLE SAVED PAGES");
+    if(self.navigationController.topViewController != self){
+        // Hide if it's already showing.
+        [self.navigationController popToViewController:self animated:YES];
+        return;
     }
+    
+    [self.searchNavController resignSearchFieldFirstResponder];
+    [self performSegueWithIdentifier:@"ShowSavedPagesSegue" sender:self];
 }
 
 #pragma mark Web view scroll offset recording
@@ -382,7 +266,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         self.unsafeToScroll = YES;
 
         // Save scroll location
-        Article *article = [articleDataContext_.mainContext getArticleForTitle:self.currentArticleTitle];
+        Article *article = [articleDataContext_.mainContext getArticleForTitle:[self getCurrentArticleTitle]];
         article.lastScrollX = @(scrollView.contentOffset.x);
         article.lastScrollY = @(scrollView.contentOffset.y);
         NSError *error = nil;
@@ -426,8 +310,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // This prevents tiny scroll adjustments, which seem to occur occasionally for some
     // reason, from causing the keyboard to hide when the user is typing on it!
     CGFloat distanceScrolled = fabs(scrollViewDragBeganVerticalOffset_ - scrollView.contentOffset.y);
-    if (self.searchField.isFirstResponder && distanceScrolled > 55) {
-        [self.searchField resignFirstResponder];
+    
+    if (distanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
+        [self.searchNavController resignSearchFieldFirstResponder];
         //NSLog(@"Keyboard Hidden!");
     }
 }
@@ -435,380 +320,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     scrollViewDragBeganVerticalOffset_ = scrollView.contentOffset.y;
-}
-
-#pragma mark Search results table methods (requests actual thumb image data)
-
-- (void)reloadSearchResultsTableForSearchString
-{
-    NSString *searchString = self.searchField.text;
-
-    self.currentSearchString = searchString;
-    [self updateWordsToHighlight];
-
-    NSString *trimmedSearchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    if (trimmedSearchString.length == 0){
-        self.searchResultsTable.hidden = YES;
-        self.searchField.clearButtonMode = UITextFieldViewModeNever;
-        return;
-    }
-    
-    self.searchField.clearButtonMode = UITextFieldViewModeAlways;
-    [self searchForTerm:searchString];
-    self.searchResultsTable.hidden = NO;
-}
-
--(NSString *)cleanTitle:(NSString *)title
-{
-    return [title stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.searchResultsOrdered.count;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return SEARCH_RESULT_HEIGHT;
-    
-    /*
-    NSString *height = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"height"];
-    float h = (height) ? [height floatValue]: SEARCH_THUMBNAIL_WIDTH;
-    //if (h < SEARCH_THUMBNAIL_WIDTH) h = SEARCH_THUMBNAIL_WIDTH;
-    return h;
-    */
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *cellID = @"SearchResultCell";
-    SearchResultCell *cell = (SearchResultCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
-
-    NSString *title = self.searchResultsOrdered[indexPath.row][@"title"];
-
-    cell.textLabel.attributedText = [self getAttributedTitle:title];
-    
-    NSString *thumbURL = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"source"];
-    NSNumber *thumbWidth = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"width"];
-    NSNumber *thumbHeight = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"height"];
-
-    // Check for db record for thumb. If found use it rather than downloading it again!
-    Image *thumbnailFromDB = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
-
-    if(thumbnailFromDB){
-
-//TODO: update thumbnailFromDB.dateLastAccessed here! Probably on background thread. Not sure best way to ensure just single object will be updated...
-
-        // Yay! Cached thumbnail found! Use it!
-        // Needs to be synchronous!
-        UIImage *image = [UIImage imageWithData:thumbnailFromDB.data];
-        cell.imageView.image = image;
-        cell.useField = YES;
-        return cell;
-    }
-
-    // If execution reaches this point a cached core data thumb was not found.
-
-    // Set thumbnail placeholder
-    cell.imageView.image = [UIImage imageNamed:@"logo-search-placeholder.png"];
-    cell.useField = NO;
-    if (!thumbURL){
-        // Don't bother downloading if no thumbURL
-        return cell;
-    }
-
-    MWNetworkOp *thumbnailOp = [[MWNetworkOp alloc] init];
-    thumbnailOp.delegate = self;
-
-    //NSLog(@"thumbURL  = %@", thumbURL);
-
-    thumbnailOp.request = [NSURLRequest requestWithURL:[NSURL URLWithString:thumbURL]];
-    
-    __weak MWNetworkOp *weakThumbnailOp = thumbnailOp;
-    thumbnailOp.aboutToStart = ^{
-        //NSLog(@"thumbnail op aboutToStart with request %@", weakThumbnailOp.request);
-        [self networkActivityIndicatorPush];
-    };
-    thumbnailOp.completionBlock = ^(){
-        [self networkActivityIndicatorPop];
-        if(weakThumbnailOp.isCancelled){
-            //NSLog(@"thumbnail op completionBlock bailed (because op was cancelled) for %@", searchTerm);
-            return;
-        }
-        //NSLog(@"thumbnail data retrieved length = %d", weakThumbnailOp.dataRetrieved.length);
-        //NSLog(@"thumbnail data retrieved = %@", [NSString stringWithCString:[weakThumbnailOp.dataRetrieved bytes] encoding:NSUTF8StringEncoding]);
-
-        // Needs to be *synchronous* and on main queue!
-        dispatch_sync(dispatch_get_main_queue(), ^(){
-            UIImage *image = [UIImage imageWithData:weakThumbnailOp.dataRetrieved];
-            cell.imageView.image = image;
-            cell.useField = YES;
-        });
-
-        // Save thumbnail to core data article.image record for later use. This can be async.
-        NSMutableData *thumbData = weakThumbnailOp.dataRetrieved;
-        dispatch_async(dispatch_get_main_queue(), ^(){
-
-            Article *article = [articleDataContext_.mainContext getArticleForTitle:title];
-            
-            Image *thumb = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:articleDataContext_.mainContext];
-            thumb.data = thumbData;
-            thumb.fileName = [thumbURL lastPathComponent];
-            thumb.extension = [thumbURL pathExtension];
-            thumb.imageDescription = nil;
-            thumb.sourceUrl = thumbURL;
-            thumb.dateRetrieved = [NSDate date];
-            thumb.dateLastAccessed = [NSDate date];
-            thumb.width = thumbWidth;
-            thumb.height = thumbHeight;
-            thumb.mimeType = @"image/jpeg";
-            
-            article.thumbnailImage = thumb;
-
-            article.site = [SessionSingleton sharedInstance].site;     //self.currentSite;
-            article.domain = [SessionSingleton sharedInstance].domain; //self.currentDomain;
-
-            NSError *error = nil;
-            [articleDataContext_.mainContext save:&error];
-        });
-    };
-    [thumbnailQ_ addOperation:thumbnailOp];
-
-    //[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath*)indexPath
-{
-    if (self.searchResultsOrdered.count == 0) return;
-    
-    NSString *thumbURL = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"source"];
-    //NSLog(@"CANCEL THUMB RETRIEVAL OP HERE for thumb url %@", thumbURL);
-    MWNetworkOp *opToCancel = nil;
-    for (MWNetworkOp *op in thumbnailQ_.operations) {
-        //NSLog(@"in progress op request url = %@", op.request.URL);
-        if([thumbURL isEqualToString:op.request.URL.description]){
-            // Don't actually cancel the op while in the for loop - prevents mutating thumbnailQ_.operations
-            // while iterating it.
-            opToCancel = op;
-            break;
-        }
-    }
-    [opToCancel cancel];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *title = self.searchResultsOrdered[indexPath.row][@"title"];
-
-    [self navigateToPage:title discoveryMethod:self.searchDiscoveryMethod];
-
-    self.searchField.text = @"";
-}
-
-#pragma mark Search term highlighting
-
--(NSAttributedString *)getAttributedTitle:(NSString *)title
-{
-    // Returns attributed string of title with the current search term highlighted.
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:title];
-
-    // Set base color and font of the entire result title
-    [str addAttribute:NSFontAttributeName
-                value:SEARCH_FONT
-                range:NSMakeRange(0, str.length)];
-
-    [str addAttribute:NSForegroundColorAttributeName
-                value:SEARCH_FONT_COLOR
-                range:NSMakeRange(0, str.length)];
-
-    for (NSString *word in self.currentSearchStringWordsToHighlight) {
-        // Search term highlighting
-        NSRange rangeOfThisWordInTitle = [title rangeOfString: word
-                                                      options: NSCaseInsensitiveSearch |
-                                                               NSDiacriticInsensitiveSearch |
-                                                               NSWidthInsensitiveSearch
-                                          ];
-
-        [str addAttribute:NSFontAttributeName
-                    value:SEARCH_FONT_HIGHLIGHTED
-                    range:rangeOfThisWordInTitle];
-        
-        [str addAttribute:NSForegroundColorAttributeName
-                    value:SEARCH_FONT_HIGHLIGHTED_COLOR
-                    range:rangeOfThisWordInTitle];
-    }
-    return str;
-}
-
--(void)updateWordsToHighlight
-{
-    // Call this only when currentSearchString_ is updated. Keeps the list of words to highlight up to date.
-    // Get the words by splitting currentSearchString_ on a combination of whitespace and punctuation
-    // character sets so search term words get highlighted even if the puncuation in the result is slightly
-    // different from the punctuation in the retrieved search result title.
-    NSMutableCharacterSet *charSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
-    [charSet formUnionWithCharacterSet:[NSMutableCharacterSet punctuationCharacterSet]];
-    self.currentSearchStringWordsToHighlight = [self.currentSearchString componentsSeparatedByCharactersInSet:charSet];
-}
-
-#pragma mark Search term methods (requests titles matching search term and associated thumbnail urls)
-
-- (void)searchForTerm:(NSString *)searchTerm
-{
-    [self.searchResultsOrdered removeAllObjects];
-    [self.searchResultsTable reloadData];
-    
-    [articleRetrievalQ_ cancelAllOperations];
-    [thumbnailQ_ cancelAllOperations];
-    
-    // Search for titles op
-
-    // Cancel any in-progress article retrieval operations
-    [searchQ_ cancelAllOperations];
-
-    // Show "Searching..." message.
-    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-        self.alertLabel.text = SEARCH_LOADING_MSG_SEARCHING;
-    }];
-
-    MWNetworkOp *searchOp = [[MWNetworkOp alloc] init];
-    searchOp.delegate = self;
-    searchOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:self.apiURL]
-                                             parameters: @{
-                                                           @"action": @"opensearch",
-                                                           @"search": searchTerm,
-                                                           @"limit": SEARCH_MAX_RESULTS,
-                                                           @"format": @"json"
-                                                           }
-                        ];
-    
-    __weak MWNetworkOp *weakSearchOp = searchOp;
-    searchOp.aboutToStart = ^{
-        //NSLog(@"search op aboutToStart for %@", searchTerm);
-        [self networkActivityIndicatorPush];
-    };
-    
-    searchOp.completionBlock = ^(){
-        [self networkActivityIndicatorPop];
-        if(weakSearchOp.isCancelled){
-            //NSLog(@"search op completionBlock bailed (because op was cancelled) for %@", searchTerm);
-            return;
-        }
-
-        if(weakSearchOp.error){
-            //NSLog(@"search op completionBlock bailed on error %@", weakSearchOp.error);
-            
-            // Show error message.
-            // (need to extract msg from error *before* main q block - the error is dealloc'ed by
-            // the time the block is dequeued)
-            NSString *errorMsg = weakSearchOp.error.localizedDescription;
-            [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-                self.alertLabel.text = errorMsg;
-            }];
-            return;
-        }else{
-            [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-                self.alertLabel.text = @"";
-            }];
-        }
-        
-        NSArray *searchResults = (NSArray *)weakSearchOp.jsonRetrieved;
-        //NSLog(@"searchResults = %@", searchResults);
-        
-        NSMutableArray *a = @[].mutableCopy;
-        for (NSString *title in searchResults[1]) {
-
-            NSString *cleanTitle = [self cleanTitle:title];
-
-            [a addObject:@{@"title": cleanTitle, @"thumbnail": @{}}.mutableCopy];
-        }
-        self.searchResultsOrdered = a;
-        
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            // We have search titles! Show them right away!
-            // NSLog(@"FIRE ONE! Show search result titles.");
-            [self.searchResultsTable reloadData];
-        });
-
-        //NSLog(@"search op completionBlock for %@", searchTerm);
-        // Get article sections text (faster joining array elements than appending a string)
-        //NSArray *searchResults = (NSArray *)weakSearchOp.jsonRetrieved;
-        //NSLog(@"search results = %@", searchResults);
-    };
-    
-    // Titles thumbnail urls retrieval op (dependent on search op)
-    
-    // Thumbnail urls retrieval
-    MWNetworkOp *searchThumbURLsOp = [[MWNetworkOp alloc] init];
-    __weak MWNetworkOp *weakSearchThumbURLsOp = searchThumbURLsOp;
-
-    [searchThumbURLsOp addDependency:searchOp];
-    searchThumbURLsOp.delegate = self;
-
-    searchThumbURLsOp.aboutToStart = ^{
-        [self networkActivityIndicatorPush];
-        NSArray *searchResults = (NSArray *)weakSearchOp.jsonRetrieved;
-        NSArray *titles = searchResults[1];
-        NSString *barDelimitedTitles = [titles componentsJoinedByString:@"|"];
-        weakSearchThumbURLsOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:self.apiURL]
-                                                              parameters: @{
-                                                                            @"action": @"query",
-                                                                            @"prop": @"pageimages",
-                                                                            @"action": @"query",
-                                                                            @"piprop": @"thumbnail|name",
-                                                                            @"pilimit": SEARCH_MAX_RESULTS,
-                                                                            @"pithumbsize": [NSString stringWithFormat:@"%d", SEARCH_THUMBNAIL_WIDTH],
-                                                                            @"titles": barDelimitedTitles,
-                                                                            @"format": @"json"}];
-        
-    };
-    
-    searchThumbURLsOp.completionBlock = ^(){
-        [self networkActivityIndicatorPop];
-        if(weakSearchThumbURLsOp.isCancelled){
-            //NSLog(@"search thumb urls op completionBlock bailed (because op was cancelled) for %@", searchTerm);
-            return;
-        }
-        //NSLog(@"search op completionBlock for %@", searchTerm);
-        //NSLog(@"search op error %@", weakSearchThumbURLsOp.error);
-
-        // Get dictionary of search thumb urls mapped to their respective search terms
-        NSDictionary *results = (NSDictionary *)weakSearchThumbURLsOp.jsonRetrieved;
-
-        if (results.count > 0) {
-            NSDictionary *pages = results[@"query"][@"pages"];
-            for (NSDictionary *page in pages) {
-                NSString *titleFromThumbOpResults = pages[page][@"title"];
-                for (NSMutableDictionary *searchOpResult in self.searchResultsOrdered) {
-                    if ([searchOpResult[@"title"] isEqualToString:titleFromThumbOpResults]) {
-                        searchOpResult[@"thumbnail"] = (pages[page][@"thumbnail"]) ? pages[page][@"thumbnail"] : [@{} mutableCopy];
-                        break;
-                    }
-                }
-            }
-        }
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            // Now we also have search thumbnail url data in searchResultsOrdered! Reload so thumb downloads
-            // for on-screen cells can happen!
-            // NSLog(@"FIRE TWO! Reload table data so it will download thumbnail images for on-screen search results.");
-            [self.searchResultsTable reloadData];
-        });
-    };
-    
-    [searchQ_ addOperation:searchThumbURLsOp];
-    [searchQ_ addOperation:searchOp];
-}
-
-#pragma mark UITextFieldDelegate methods
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [self navigateToPage:textField.text discoveryMethod:self.searchDiscoveryMethod];
-
-    return NO;
 }
 
 #pragma Memory
@@ -819,34 +330,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark Action methods
-
-- (IBAction)backButtonPushed:(id)sender {
-    [self.webView goBack];
-}
-
-- (IBAction)forwardButtonPushed:(id)sender {
-    [self.webView goForward];
-}
-
-- (IBAction)languageButtonPushed:(id)sender {
-}
-
-- (IBAction)actionButtonPushed:(id)sender {
-    
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]
-                                                        initWithActivityItems:@[self.webView.request.URL]
-                                                        applicationActivities:@[]];
-    
-    [self presentViewController:activityViewController animated:YES completion:^{
-        // Whee!
-    }];
-}
-
-- (IBAction)bookmarkButtonPushed:(id)sender {
-}
-
-- (IBAction)menuButtonPushed:(id)sender {
+-(NSString *)cleanTitle:(NSString *)title
+{
+    return [title stringByReplacingOccurrencesOfString:@"_" withString:@" "];
 }
 
 #pragma mark Article loading ops
@@ -858,13 +344,12 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
         NSString *cleanTitle = [self cleanTitle:title];
 
-        // Hide the search results.
-        self.searchResultsTable.hidden = YES;
-        // Hide the keyboard.
-        [self.searchField resignFirstResponder];
-
         // Don't try to load nothing. Core data takes exception with such nonsense.
         if (cleanTitle == nil) return;
+        if (cleanTitle.length == 0) return;
+
+        // Hide the keyboard.
+        [self.searchNavController resignSearchFieldFirstResponder];
         
         // Don't reload an article if it's already showing! The exception is if the article
         // being shown is the first article being shown. In that case, lastViewedArticleTitle
@@ -875,7 +360,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 //TODO: Fix this. It causes fade out even when no connection, which blanks out current article.
         //[self.webView fade];
 
-        self.currentArticleTitle = cleanTitle;
+        [self setCurrentArticleTitle:cleanTitle];
         isFirstArticle = NO;
         [self setLastViewedArticleTitle:cleanTitle];
         
@@ -893,28 +378,49 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // If article with sections just show them
     if (article.section.count > 0) {
         [self displayArticle:article];
+
+//TODO: add code here attempting to downloading thumbnail for article if article.thumbnailImage is unset at this point.
+
+// Note: If no thumb is able to be downloaded even after this, the history controller,
+// upon confirming that article.thumbnailImage remains unset, could be made to
+// show a section image from the article instead (would just show it, *not* save
+// any association).
+
         return;
     }else{
         // Discard the empty article created in mainContext by getArticleForTitle.
         [articleDataContext_.mainContext deleteObject:article];
+
         // Needed is an article created in the *worker* context since that's what's updated below.
         article = [articleDataContext_.workerContext getArticleForTitle:pageTitle];
+    }
+
+    // Associate thumbnail with article.
+    // If search result for this pageTitle had a thumbnail url associated with it, see if
+    // a core data image object exists with a matching sourceURL. If so make the article
+    // thumbnailImage property point to that core data image object. This associates the
+    // search result thumbnail with the article.
+    NSArray *result = [self.searchResultsController.searchResultsOrdered filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", pageTitle]];
+    if (result.count == 1) {
+        NSString *thumbURL = result[0][@"thumbnail"][@"source"];
+        Image *thumb = (Image *)[articleDataContext_.workerContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
+        if (thumb) article.thumbnailImage = thumb;
     }
 
     // If no sections core data article may have been created when thumbnails were retrieved (before any sections are fetched)
     // or may not have had any sections last time we checked. So check now.
 
     // Cancel any in-progress article retrieval operations
-    [articleRetrievalQ_ cancelAllOperations];
+    [[QueuesSingleton sharedInstance].articleRetrievalQ cancelAllOperations];
     
-    [searchQ_ cancelAllOperations];
-    [thumbnailQ_ cancelAllOperations];
+    [[QueuesSingleton sharedInstance].searchQ cancelAllOperations];
+    [[QueuesSingleton sharedInstance].thumbnailQ cancelAllOperations];
 
     // Retrieve first section op
     
     MWNetworkOp *firstSectionOp = [[MWNetworkOp alloc] init];
     firstSectionOp.delegate = self;
-    firstSectionOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:self.apiURL]
+    firstSectionOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:SEARCH_API_URL]
                                        parameters: @{
                                                      @"action": @"mobileview",
                                                      @"prop": @"sections|text",
@@ -1056,7 +562,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // Retrieval of remaining sections depends on retrieving first section
     [remainingSectionsOp addDependency:firstSectionOp];
 
-    remainingSectionsOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:self.apiURL]
+    remainingSectionsOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:SEARCH_API_URL]
                                        parameters: @{
                                                      @"action": @"mobileview",
                                                      @"prop": @"sections|text",
@@ -1117,8 +623,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         }];
     };
     
-    [articleRetrievalQ_ addOperation:remainingSectionsOp];
-    [articleRetrievalQ_ addOperation:firstSectionOp];
+    [[QueuesSingleton sharedInstance].articleRetrievalQ addOperation:remainingSectionsOp];
+    [[QueuesSingleton sharedInstance].articleRetrievalQ addOperation:firstSectionOp];
 }
 
 #pragma mark Progress report
@@ -1169,10 +675,34 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }];
 }
 
--(void)scrollWebViewToOffset:(NSString *)offset
-{
-    CGPoint p = CGPointFromString(offset);
-    [self.webView.scrollView setContentOffset:p animated:NO];
+#pragma mark Action methods
+
+- (IBAction)backButtonPushed:(id)sender {
+    [self.webView goBack];
+}
+
+- (IBAction)forwardButtonPushed:(id)sender {
+    [self.webView goForward];
+}
+
+- (IBAction)languageButtonPushed:(id)sender {
+}
+
+- (IBAction)actionButtonPushed:(id)sender {
+    
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]
+                                                        initWithActivityItems:@[self.webView.request.URL]
+                                                        applicationActivities:@[]];
+    
+    [self presentViewController:activityViewController animated:YES completion:^{
+        // Whee!
+    }];
+}
+
+- (IBAction)bookmarkButtonPushed:(id)sender {
+}
+
+- (IBAction)menuButtonPushed:(id)sender {
 }
 
 @end

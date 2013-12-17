@@ -90,7 +90,7 @@
     [self.masterContext performBlock:^{
         NSError *masterError = nil;
         if (![self.masterContext save:&masterError]) {
-            NSLog(@"Error saving to master context.");
+            NSLog(@"Error saving to master context = %@", masterError);
         }
     }];
 }
@@ -99,7 +99,7 @@
     [self.mainContext performBlock:^{
         NSError *mainError = nil;
         if (![self.mainContext save:&mainError]) {
-            NSLog(@"Error saving to main context.");
+            NSLog(@"Error saving to main context = %@", mainError);
         }
     }];
 }

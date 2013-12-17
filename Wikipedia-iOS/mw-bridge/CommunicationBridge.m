@@ -138,7 +138,7 @@ static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSLog(@"QQQ %@", request.URL);
+    //NSLog(@"QQQ %@", request.URL);
     if ([self isBridgeURL:request.URL]) {
         NSDictionary *message = [self extractBridgePayload:request.URL];
         NSString *messageType = message[@"type"];
@@ -165,13 +165,13 @@ static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSLog(@"webView finished load");
+    //NSLog(@"webView finished load");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WebViewFinishedLoading" object:self userInfo:nil];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    NSLog(@"webView started load");
+    //NSLog(@"webView started load");
 }
 
 @end
