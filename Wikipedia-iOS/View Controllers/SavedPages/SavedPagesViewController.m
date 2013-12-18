@@ -96,6 +96,7 @@
     NSArray *savedPagesEntities = [articleDataContext_.mainContext executeFetchRequest:fetchRequest error:&error];
     //XCTAssert(error == nil, @"Could not fetch.");
     for (Saved *savedPage in savedPagesEntities) {
+        /*
         NSLog(@"SAVED:\n\t\
               article: %@\n\t\
               date: %@\n\t\
@@ -104,6 +105,7 @@
               savedPage.dateSaved,
               savedPage.article.thumbnailImage.fileName
               );
+        */
         [pages addObject:savedPage.objectID];
     }
     

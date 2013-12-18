@@ -105,6 +105,7 @@
     NSArray *historyEntities = [articleDataContext_.mainContext executeFetchRequest:fetchRequest error:&error];
     //XCTAssert(error == nil, @"Could not fetch.");
     for (History *history in historyEntities) {
+        /*
         NSLog(@"HISTORY:\n\t\
             article: %@\n\t\
             site: %@\n\t\
@@ -119,18 +120,19 @@
             history.discoveryMethod,
             history.article.thumbnailImage.fileName
         );
-        
+        */
+
         if ([history.dateVisited isToday]) {
-            [today addObject:history];
+            [today addObject:history.objectID];
         }else if ([history.dateVisited isYesterday]) {
-            [yesterday addObject:history];
+            [yesterday addObject:history.objectID];
         }else if ([history.dateVisited isLaterThanDate:[[NSDate date] dateBySubtractingDays:7]]) {
-            [lastWeek addObject:history];
+            [lastWeek addObject:history.objectID];
         }else if ([history.dateVisited isLaterThanDate:[[NSDate date] dateBySubtractingDays:30]]) {
-            [lastMonth addObject:history];
+            [lastMonth addObject:history.objectID];
         }else{
             // Older than 30 days == Garbage! Remove!
-            [garbage addObject:history];
+            [garbage addObject:history.objectID];
         }
     }
     
@@ -150,19 +152,33 @@
     //NSLog(@"GARBAGE = %@", garbage);
     if (garbage.count == 0) return;
 
-    for (History *history in garbage) {
-        // Article deletes don't cascade to images (intentionally) so delete these article thumbnails manually.
-        Image *thumb = history.article.thumbnailImage;
-        if (thumb) [articleDataContext_.mainContext deleteObject:thumb];
+    [articleDataContext_.workerContext performBlockAndWait:^(){
+        for (NSManagedObjectID *historyID in garbage) {
+            History *history = (History *)[articleDataContext_.workerContext objectWithID:historyID];
+            Article *article = history.article;
+            Image *thumb = history.article.thumbnailImage;
+            
+            // Delete the expired history record
+            [articleDataContext_.workerContext deleteObject:history];
 
-        // Image deletes don't cascade when article is deleted so delete manually for now.
-        Article *article = history.article;
-        if (article) [articleDataContext_.mainContext deleteObject:article];
-    }
-    
-    NSError *error = nil;
-    [articleDataContext_.mainContext save:&error];
-    //NSLog(@"GARBAGE error = %@", error);
+            BOOL isSaved = (article.saved.count > 0) ? YES : NO;
+
+            if (isSaved) continue;
+
+            // Article deletes don't cascade to images (intentionally) so delete these manually.
+            if (thumb) [articleDataContext_.workerContext deleteObject:thumb];
+
+//TODO: add code for deleting images which were only referenced by this article
+
+            // Delete the article
+            if (article) [articleDataContext_.workerContext deleteObject:article];
+
+        }
+        NSError *error = nil;
+        [articleDataContext_.workerContext save:&error];
+        if (error) NSLog(@"GARBAGE error = %@", error);
+
+    }];
 }
 
 #pragma mark - History section titles
@@ -233,7 +249,11 @@
     NSDictionary *dict = self.historyDataArray[indexPath.section];
     NSArray *array = [dict objectForKey:@"data"];
     
-    History *historyEntry = (History *)array[indexPath.row];
+    __block History *historyEntry = nil;
+    [articleDataContext_.mainContext performBlockAndWait:^(){
+        NSManagedObjectID *historyEntryId = (NSManagedObjectID *)array[indexPath.row];
+        historyEntry = (History *)[articleDataContext_.mainContext objectWithID:historyEntryId];
+    }];
     
     NSString *title = [historyEntry.article.title stringByReplacingOccurrencesOfString:@"_" withString:@" "];
     
@@ -277,7 +297,11 @@
     NSArray *array = dict[@"data"];
     selectedCell = array[indexPath.row];
     
-    History *historyEntry = (History *)array[indexPath.row];
+    __block History *historyEntry = nil;
+    [articleDataContext_.mainContext performBlockAndWait:^(){
+        NSManagedObjectID *historyEntryId = (NSManagedObjectID *)array[indexPath.row];
+        historyEntry = (History *)[articleDataContext_.mainContext objectWithID:historyEntryId];
+    }];
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     

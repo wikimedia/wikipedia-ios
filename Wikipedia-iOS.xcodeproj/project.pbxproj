@@ -342,12 +342,12 @@
 		04293002186030B0002A13FC /* SavedPages */ = {
 			isa = PBXGroup;
 			children = (
+				0429300818604898002A13FC /* SavedPagesViewController.h */,
+				0429300918604898002A13FC /* SavedPagesViewController.m */,
 				0429300318604898002A13FC /* SavedPagesResultCell.h */,
 				0429300418604898002A13FC /* SavedPagesResultCell.m */,
 				0429300618604898002A13FC /* SavedPagesTableHeadingLabel.h */,
 				0429300718604898002A13FC /* SavedPagesTableHeadingLabel.m */,
-				0429300818604898002A13FC /* SavedPagesViewController.h */,
-				0429300918604898002A13FC /* SavedPagesViewController.m */,
 				047E74131860509000916964 /* SavedPagesResultPrototypeView.xib */,
 			);
 			path = SavedPages;
