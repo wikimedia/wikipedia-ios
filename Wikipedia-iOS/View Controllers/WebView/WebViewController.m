@@ -24,12 +24,14 @@
 #import "SearchNavController.h"
 #import "QueuesSingleton.h"
 #import "SearchResultsController.h"
+#import "MainMenuTableViewController.h"
 
 @interface WebViewController (){
 
 }
 
 @property (strong, nonatomic) SearchResultsController *searchResultsController;
+@property (strong, nonatomic) MainMenuTableViewController *mainMenuTableViewController;
 @property (strong, nonatomic) CommunicationBridge *bridge;
 @property (weak, nonatomic) SearchNavController *searchNavController;
 @property (nonatomic) CGPoint scrollOffset;
@@ -74,9 +76,13 @@
     self.searchResultsController.webViewController = self;
     self.searchResultsController.searchNavController = self.searchNavController;
 
+    self.mainMenuTableViewController = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"MainMenuTableViewController"];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewFinishedLoading) name:@"WebViewFinishedLoading" object:nil];
     self.unsafeToScroll = NO;
     self.scrollOffset = CGPointZero;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mainMenuToggle) name:@"MainMenuToggle" object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyToggle) name:@"HistoryToggle" object:nil];
 
@@ -199,6 +205,19 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     self.alertLabel.hidden = YES;
 }
 
+-(void)mainMenuToggle
+{
+    UIViewController *topVC = self.navigationController.topViewController;
+    if(topVC == self.mainMenuTableViewController){
+        [self.navigationController popToViewController:self animated:NO];
+        return;
+    }
+    if(topVC != self){
+        [self.navigationController popToViewController:self animated:NO];
+    }
+    [self.navigationController pushViewController:self.mainMenuTableViewController animated:NO];
+}
+
 -(void)historyToggle
 {
     if(self.navigationController.topViewController != self){
@@ -218,9 +237,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 {
     [articleDataContext_.workerContext performBlock:^(){
         Article *article = [articleDataContext_.workerContext getArticleForTitle:[self getCurrentArticleTitle]];
-
-        //NSLog(@"SAVE PAGE FOR %@ COUNT = %d", article.title, article.saved.count);
-        if (article && (article.saved.count == 0)) {
+        Saved *alreadySaved = (Saved *)[articleDataContext_.workerContext getEntityForName: @"Saved" withPredicateFormat: @"article == %@", article];
+        NSLog(@"SAVE PAGE FOR %@, alreadySaved = %@", article.title, alreadySaved);
+        if (article && !alreadySaved) {
             NSLog(@"SAVED PAGE %@", article.title);
             // Save!
             Saved *saved = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:articleDataContext_.workerContext];
@@ -236,7 +255,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(void)savedPagesToggle
 {
-    NSLog(@"TOGGLE SAVED PAGES");
     if(self.navigationController.topViewController != self){
         // Hide if it's already showing.
         [self.navigationController popToViewController:self animated:YES];

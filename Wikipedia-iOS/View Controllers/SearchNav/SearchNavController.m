@@ -124,50 +124,13 @@
     //self.navigationBar.layer.borderWidth = 0.5;
     //self.navigationBar.layer.borderColor = [UIColor purpleColor].CGColor;
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(historyToggle)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mainMenuToggle)];
     [self.searchField.leftView addGestureRecognizer:tap];
-
-//TODO: remove these access points to the saved pages toggle and save functionality - setting searchField.rightView blocks the clear text button!
-
-    // Temporarily hook save up to disc icon long press.
-    self.searchField.rightViewMode = UITextFieldViewModeAlways;
-    UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 28, 35)];
-    l.text = @"💾";
-    l.userInteractionEnabled = YES;
-    self.searchField.rightView = l;
-    self.searchField.rightView.backgroundColor = [UIColor clearColor];
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(savePage:)];
-    longPress.minimumPressDuration = 0.25f;
-    [self.searchField.rightView addGestureRecognizer:longPress];
-
-    // Temporarily hook saved interface up to disc icon tap.
-    UITapGestureRecognizer *rightTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(savedPagesToggle:)];
-    [self.searchField.rightView addGestureRecognizer:rightTap];
 }
 
--(void)historyToggle
+-(void)mainMenuToggle
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryToggle" object:self userInfo:nil];
-}
-
--(void)savePage:(UILongPressGestureRecognizer*)sender
-{
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform"];
-        animation.autoreverses = YES;
-        animation.duration = 0.15;
-        animation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(2.4, 2.4, 1)];
-        [self.searchField.rightView.layer addAnimation:animation forKey:nil];
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SavePage" object:self userInfo:nil];
-    }
-}
-
--(void)savedPagesToggle:(UITapGestureRecognizer*)sender
-{
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SavedPagesToggle" object:self userInfo:nil];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MainMenuToggle" object:self userInfo:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
