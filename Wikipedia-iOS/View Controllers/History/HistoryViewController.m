@@ -8,6 +8,7 @@
 #import "HistoryResultCell.h"
 #import "HistoryTableHeadingLabel.h"
 #import "Defines.h"
+#import "Article+Convenience.h"
 
 @interface HistoryViewController ()
 {
@@ -15,21 +16,11 @@
 }
 
 @property (strong, atomic) NSMutableArray *historyDataArray;
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
 @end
 
 @implementation HistoryViewController
-
-#pragma mark - Init
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 #pragma mark - Memory
 
@@ -44,7 +35,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setLocale:[NSLocale currentLocale]];
+    [self.dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+
     articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
 
     self.navigationItem.hidesBackButton = YES;
@@ -58,7 +53,6 @@
     self.historyDataArray = [[NSMutableArray alloc] init];
     
     [self getHistoryData];
-    [self getHistorySectionTitleDateStrings];
 
     HistoryTableHeadingLabel *historyLabel = [[HistoryTableHeadingLabel alloc] initWithFrame:CGRectMake(0, 0, 10, 48)];
     historyLabel.text = @"Browsing History";
@@ -138,10 +132,34 @@
     
     [self removeGarbage:garbage];
 
-    [self.historyDataArray addObject:[@{@"data": today, @"sectionTitle": @"Today", @"sectionDateString": @""} mutableCopy]];
-    [self.historyDataArray addObject:[@{@"data": yesterday, @"sectionTitle": @"Yesterday", @"sectionDateString": @""} mutableCopy]];
-    [self.historyDataArray addObject:[@{@"data": lastWeek, @"sectionTitle": @"Last week", @"sectionDateString": @""} mutableCopy]];
-    [self.historyDataArray addObject:[@{@"data": lastMonth, @"sectionTitle": @"Last month", @"sectionDateString": @""} mutableCopy]];
+    if (today.count > 0)
+        [self.historyDataArray addObject:[@{
+                                            @"data": today,
+                                            @"sectionTitle": @"Today",
+                                            @"sectionDateString": [self getHistorySectionTitleForToday]
+                                            }
+                                          mutableCopy]];
+    if (yesterday.count > 0)
+        [self.historyDataArray addObject:[@{
+                                            @"data": yesterday,
+                                            @"sectionTitle": @"Yesterday",
+                                            @"sectionDateString": [self getHistorySectionTitleForYesterday]
+                                            }
+                                          mutableCopy]];
+    if (lastWeek.count > 0)
+        [self.historyDataArray addObject:[@{
+                                            @"data": lastWeek,
+                                            @"sectionTitle": @"Last week",
+                                            @"sectionDateString": [self getHistorySectionTitleForLastWeek]
+                                            }
+                                          mutableCopy]];
+    if (lastMonth.count > 0)
+        [self.historyDataArray addObject:[@{
+                                            @"data": lastMonth,
+                                            @"sectionTitle": @"Last month",
+                                            @"sectionDateString": [self getHistorySectionTitleForLastMonth]
+                                            }
+                                          mutableCopy]];
 }
 
 #pragma mark - History garbage removal
@@ -183,47 +201,42 @@
 
 #pragma mark - History section titles
 
--(void)getHistorySectionTitleDateStrings
+-(NSString *)getHistorySectionTitleForToday
 {
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setLocale:[NSLocale currentLocale]];
-    [dateFormat setTimeZone:[NSTimeZone localTimeZone]];
-    NSString *dateString = @"";
+    [self.dateFormatter setDateFormat:@"MMMM dd yyyy"];
+    return [self.dateFormatter stringFromDate:[NSDate date]];
+}
 
-    // Today date string
-    [dateFormat setDateFormat:@"MMMM dd yyyy"];
-    dateString = [dateFormat stringFromDate:[NSDate date]];
-    self.historyDataArray[0][@"sectionDateString"] = dateString;
+-(NSString *)getHistorySectionTitleForYesterday
+{
+    [self.dateFormatter setDateFormat:@"MMMM dd yyyy"];
+    return [self.dateFormatter stringFromDate:[NSDate dateYesterday]];
+}
 
-    // Yesterday date string
-    [dateFormat setDateFormat:@"MMMM dd yyyy"];
-    dateString = [dateFormat stringFromDate:[NSDate dateYesterday]];
-    self.historyDataArray[1][@"sectionDateString"] = dateString;
-
-    // Last week date string
+-(NSString *)getHistorySectionTitleForLastWeek
+{
     // Couldn't use just a single month name because 7 days ago could spans 2 months.
-    [dateFormat setDateFormat:@"%@ - %@"];
-    dateString = [dateFormat stringFromDate:[NSDate date]];
-    [dateFormat setDateFormat:@"MMM dd yyyy"];
-    NSString *d1 = [dateFormat stringFromDate:[NSDate dateWithDaysBeforeNow:7]];
-    NSString *d2 = [dateFormat stringFromDate:[NSDate dateWithDaysBeforeNow:2]];
-    NSString *lastWeekDateString = [NSString stringWithFormat:dateString, d1, d2];
-    self.historyDataArray[2][@"sectionDateString"] = lastWeekDateString;
+    [self.dateFormatter setDateFormat:@"%@ - %@"];
+    NSString *dateString = [self.dateFormatter stringFromDate:[NSDate date]];
+    [self.dateFormatter setDateFormat:@"MMM dd yyyy"];
+    NSString *d1 = [self.dateFormatter stringFromDate:[NSDate dateWithDaysBeforeNow:7]];
+    NSString *d2 = [self.dateFormatter stringFromDate:[NSDate dateWithDaysBeforeNow:2]];
+    return [NSString stringWithFormat:dateString, d1, d2];
+}
 
-    // Last month date string
+-(NSString *)getHistorySectionTitleForLastMonth
+{
     // Couldn't use just a single month name because 30 days ago probably spans 2 months.
     /*
-    [dateFormat setDateFormat:@"MMMM yyyy"];
-    dateString = [dateFormat stringFromDate:[NSDate date]];
-    dataArray[3][@"sectionDateString"] = dateString;
-    */
-    [dateFormat setDateFormat:@"%@ - %@"];
-    dateString = [dateFormat stringFromDate:[NSDate date]];
-    [dateFormat setDateFormat:@"MMM dd yyyy"];
-    d1 = [dateFormat stringFromDate:[NSDate dateWithDaysBeforeNow:30]];
-    d2 = [dateFormat stringFromDate:[NSDate dateWithDaysBeforeNow:8]];
-    NSString *lastMonthDateString = [NSString stringWithFormat:dateString, d1, d2];
-    self.historyDataArray[3][@"sectionDateString"] = lastMonthDateString;
+     [self.dateFormatter setDateFormat:@"MMMM yyyy"];
+     return [self.dateFormatter stringFromDate:[NSDate date]];
+     */
+    [self.dateFormatter setDateFormat:@"%@ - %@"];
+    NSString *dateString = [self.dateFormatter stringFromDate:[NSDate date]];
+    [self.dateFormatter setDateFormat:@"MMM dd yyyy"];
+    NSString *d1 = [self.dateFormatter stringFromDate:[NSDate dateWithDaysBeforeNow:30]];
+    NSString *d2 = [self.dateFormatter stringFromDate:[NSDate dateWithDaysBeforeNow:8]];
+    return [NSString stringWithFormat:dateString, d1, d2];
 }
 
 #pragma mark - Table view data source
@@ -264,10 +277,9 @@
     NSString *imageName = [NSString stringWithFormat:@"history-%@.png", historyEntry.discoveryMethod];
     cell.methodImageView.image = [UIImage imageNamed:imageName];
 
-    Image *thumbnailFromDB = historyEntry.article.thumbnailImage;
-    if(thumbnailFromDB){
-        UIImage *image = [UIImage imageWithData:thumbnailFromDB.data];
-        cell.imageView.image = image;
+    UIImage *thumbImage = [historyEntry.article getThumbnailUsingContext:articleDataContext_.mainContext];
+    if(thumbImage){
+        cell.imageView.image = thumbImage;
         cell.useField = YES;
         return cell;
     }
@@ -320,24 +332,10 @@
 
 #pragma mark - Table headers
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
-{
-    NSDictionary *dict = self.historyDataArray[section];
-    NSMutableArray *a = (NSMutableArray *) dict[@"data"];
-    if(a.count == 0) return 0;
-
-    return HISTORY_DATE_HEADER_HEIGHT;
-}
-
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     NSDictionary *dict = self.historyDataArray[section];
     
-    // Don't show header if no items in this section!
-    NSMutableArray *a = (NSMutableArray *) dict[@"data"];
-    if(a.count == 0) return nil;
-
-
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = HISTORY_DATE_HEADER_BACKGROUND_COLOR;
     view.autoresizesSubviews = YES;
@@ -393,6 +391,50 @@
         }
     }
     return nil;
+}
+
+#pragma mark - Delete
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        self.tableView.editing = NO;
+        [self performSelector:@selector(deleteHistoryForIndexPath:) withObject:indexPath afterDelay:0.15f];
+    }
+}
+
+-(void)deleteHistoryForIndexPath:(NSIndexPath *)indexPath
+{
+    [articleDataContext_.mainContext performBlockAndWait:^(){
+        NSManagedObjectID *historyEntryId = (NSManagedObjectID *)self.historyDataArray[indexPath.section][@"data"][indexPath.row];
+        History *historyEntry = (History *)[articleDataContext_.mainContext objectWithID:historyEntryId];
+        if (historyEntry) {
+            
+            [self.tableView beginUpdates];
+
+            NSUInteger itemsInSection = [(NSArray *)self.historyDataArray[indexPath.section][@"data"] count];
+            
+            if (itemsInSection == 1) {
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            
+            NSError *error = nil;
+            [articleDataContext_.mainContext deleteObject:historyEntry];
+            [articleDataContext_.mainContext save:&error];
+            
+            if (itemsInSection == 1) {
+                [self.historyDataArray removeObjectAtIndex:indexPath.section];
+            }else{
+                [self.historyDataArray[indexPath.section][@"data"] removeObject:historyEntryId];
+            }
+            
+            [self.tableView endUpdates];
+        }
+    }];
 }
 
 @end

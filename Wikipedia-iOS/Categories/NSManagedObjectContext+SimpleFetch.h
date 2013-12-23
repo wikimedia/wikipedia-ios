@@ -6,8 +6,8 @@
 
 @interface NSManagedObjectContext (SimpleFetch)
 
--(NSManagedObject *)getEntityForName:(NSString *)entityName withPredicateFormat:(NSString *)predicateFormat, ...;
+-(NSArray *)getEntitiesForName:(NSString *)entityName withPredicateFormat:(NSString *)predicateFormat, ...;
 
--(Article *)getArticleForTitle:(NSString *)title;
+-(NSManagedObjectID *)getArticleIDForTitle:(NSString *)title;
 
 @end

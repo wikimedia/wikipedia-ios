@@ -1,5 +1,5 @@
 //
-//  GalleryImage.h
+//  SectionImage.h
 //  Wikipedia-iOS
 //
 //  Created by Monte Hurd on 12/19/13.
@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Article, Image;
+@class Image, Section;
 
-@interface GalleryImage : NSManagedObject
+@interface SectionImage : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * index;
-@property (nonatomic, retain) Article *article;
 @property (nonatomic, retain) Image *image;
+@property (nonatomic, retain) Section *section;
 
 @end

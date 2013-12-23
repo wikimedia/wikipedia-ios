@@ -2,7 +2,7 @@
 //  Article.m
 //  Wikipedia-iOS
 //
-//  Created by Monte Hurd on 12/11/13.
+//  Created by Monte Hurd on 12/19/13.
 //  Copyright (c) 2013 Wikimedia Foundation. All rights reserved.
 //
 
@@ -17,11 +17,11 @@
 @implementation Article
 
 @dynamic dateCreated;
+@dynamic domain;
 @dynamic lastScrollX;
 @dynamic lastScrollY;
-@dynamic title;
 @dynamic site;
-@dynamic domain;
+@dynamic title;
 @dynamic galleryImage;
 @dynamic history;
 @dynamic saved;
