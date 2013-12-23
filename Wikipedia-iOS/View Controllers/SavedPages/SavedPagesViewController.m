@@ -7,6 +7,7 @@
 #import "SavedPagesResultCell.h"
 #import "SavedPagesTableHeadingLabel.h"
 #import "Defines.h"
+#import "Article+Convenience.h"
 
 @interface SavedPagesViewController ()
 {
@@ -148,10 +149,10 @@
     
     cell.methodImageView.image = nil;
 
-    Image *thumbnailFromDB = savedEntry.article.thumbnailImage;
-    if(thumbnailFromDB){
-        UIImage *image = [UIImage imageWithData:thumbnailFromDB.data];
-        cell.imageView.image = image;
+    UIImage *thumbImage = [savedEntry.article getThumbnailUsingContext:articleDataContext_.mainContext];
+    
+    if(thumbImage){
+        cell.imageView.image = thumbImage;
         cell.useField = YES;
         return cell;
     }
@@ -222,41 +223,31 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self deleteSavedPageForIndexPath:indexPath];
+        self.tableView.editing = NO;
+        [self performSelector:@selector(deleteSavedPageForIndexPath:) withObject:indexPath afterDelay:0.15f];
     }
 }
 
 -(void)deleteSavedPageForIndexPath:(NSIndexPath *)indexPath
 {
-    [articleDataContext_.mainContext performBlock:^(){
+    [articleDataContext_.mainContext performBlockAndWait:^(){
         NSManagedObjectID *savedEntryId = (NSManagedObjectID *)self.savedPagesDataArray[indexPath.section][@"data"][indexPath.row];
         Saved *savedEntry = (Saved *)[articleDataContext_.mainContext objectWithID:savedEntryId];
-        
         if (savedEntry) {
-            BOOL isLastItem = [self isLastItem:indexPath];
-            [self.savedPagesDataArray[indexPath.section][@"data"] removeObject:savedEntryId];
-            if (isLastItem) {
-                // Fix for funny animation on last item deletion.
-                [self.tableView reloadData];
-            }else{
-                [self.tableView beginUpdates];
-                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                [self.tableView endUpdates];
-            }
+            
+            [self.tableView beginUpdates];
+
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            
             NSError *error = nil;
             [articleDataContext_.mainContext deleteObject:savedEntry];
             [articleDataContext_.mainContext save:&error];
-            //NSLog(@"DELETE SAVED PAGE ERROR = %@", error);
+            
+            [self.savedPagesDataArray[indexPath.section][@"data"] removeObject:savedEntryId];
+            
+            [self.tableView endUpdates];
         }
     }];
-}
-
--(BOOL)isLastItem:(NSIndexPath *)indexPath
-{
-    NSDictionary *dict = self.savedPagesDataArray[indexPath.section];
-    NSArray *array = dict[@"data"];
-    //NSLog(@"indexPath.row = %d last array position = %d", indexPath.row, array.count - 1);
-    return (indexPath.row == (array.count - 1)) ? YES :NO;
 }
 
 @end

@@ -2,14 +2,14 @@
 //  Image.h
 //  Wikipedia-iOS
 //
-//  Created by Monte Hurd on 12/11/13.
+//  Created by Monte Hurd on 12/19/13.
 //  Copyright (c) 2013 Wikimedia Foundation. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Article, GalleryImage, Section;
+@class Article, GalleryImage, Section, SectionImage;
 
 @interface Image : NSManagedObject
 
@@ -23,9 +23,11 @@
 @property (nonatomic, retain) NSString * mimeType;
 @property (nonatomic, retain) NSString * sourceUrl;
 @property (nonatomic, retain) NSNumber * width;
+@property (nonatomic, retain) NSString * alt;
 @property (nonatomic, retain) NSSet *article;
 @property (nonatomic, retain) NSSet *galleryImage;
 @property (nonatomic, retain) NSSet *section;
+@property (nonatomic, retain) NSSet *sectionImage;
 @end
 
 @interface Image (CoreDataGeneratedAccessors)
@@ -44,5 +46,10 @@
 - (void)removeSectionObject:(Section *)value;
 - (void)addSection:(NSSet *)values;
 - (void)removeSection:(NSSet *)values;
+
+- (void)addSectionImageObject:(SectionImage *)value;
+- (void)removeSectionImageObject:(SectionImage *)value;
+- (void)addSectionImage:(NSSet *)values;
+- (void)removeSectionImage:(NSSet *)values;
 
 @end

@@ -105,9 +105,9 @@
 {
     self.webView.delegate = self;
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"bridge-index" ofType:@"html"];
-    NSURL *baseURL = [NSURL URLWithString:@"https://wikipedia-ios.wikipedia.org"]; // fake path
-    NSData *data = [NSData dataWithContentsOfFile:path];
+    NSURL *baseURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+    NSString *indexFilePath = [[NSBundle mainBundle] pathForResource:@"bridge-index" ofType:@"html"];
+    NSData *data = [NSData dataWithContentsOfFile:indexFilePath];
     [self.webView loadData:data MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:baseURL];
 }
 

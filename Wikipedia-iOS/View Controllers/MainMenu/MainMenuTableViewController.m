@@ -3,6 +3,11 @@
 #import "MainMenuTableViewController.h"
 #import "MainMenuSectionHeadingLabel.h"
 
+#import "ArticleDataContextSingleton.h"
+#import "NSManagedObjectContext+SimpleFetch.h"
+#import "ArticleCoreDataObjects.h"
+#import "Article+Convenience.h"
+
 @interface MainMenuTableViewController (){
 }
 
@@ -81,6 +86,13 @@
                                                          @"title": @"  💾  Save for Offline Reading",
                                                          @"label": @""
                                                          } mutableCopy]
+                                         
+                                         ,
+                                         @"debugPage": [@{
+                                                         @"title": @"  👀 Section Images to Console",
+                                                         @"label": @""
+                                                         } mutableCopy]
+                                         
                                          }
                                  } mutableCopy]
            
@@ -186,6 +198,30 @@
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
         [self animateArticleTitleMovingToSavedPages];
+    }else if ([selectedKey isEqualToString:@"debugPage"]) {
+
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        NSLog(@"DEBUG PAGE!");
+
+        NSString *lastViewedArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastViewedArticleTitle"];
+        if(lastViewedArticleTitle) {
+            ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
+            [articleDataContext_.workerContext performBlock:^{
+                NSManagedObjectID *articleID = [articleDataContext_.workerContext getArticleIDForTitle:lastViewedArticleTitle];
+                Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
+                if (article) {
+                    NSArray *sectionImages = [article getSectionImagesUsingContext:articleDataContext_.workerContext];
+                    for (SectionImage *sectionImage in sectionImages) {
+                        NSLog(@"\nsectionImage: \n\tsection index %@\n\timage index %@\n\tfile name %@\n\talt %@",
+                              sectionImage.section.index,
+                              sectionImage.index,
+                              sectionImage.image.fileName,
+                              sectionImage.image.alt
+                              );
+                    }
+                }
+            }];
+        }
     }
 }
 

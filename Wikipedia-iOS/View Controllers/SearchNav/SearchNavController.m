@@ -161,6 +161,11 @@
     self.searchField.leftView.frame = CGRectMake(self.searchField.leftView.frame.origin.x, self.searchField.leftView.frame.origin.y, self.searchField.leftView.frame.size.width, self.searchField.frame.size.height);
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchFieldBecameFirstResponder" object:self userInfo:nil];
+}
+
 -(void)resignSearchFieldFirstResponder
 {
     if ([self isSearchFieldFirstResponder]) {
