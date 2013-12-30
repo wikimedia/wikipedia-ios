@@ -7,4 +7,3 @@
 #import "Saved.h"
 #import "Image.h"
 #import "GalleryImage.h"
-#import "SectionImage.h"

@@ -2,7 +2,7 @@
 //  Image.m
 //  Wikipedia-iOS
 //
-//  Created by Monte Hurd on 12/19/13.
+//  Created by Monte Hurd on 12/11/13.
 //  Copyright (c) 2013 Wikimedia Foundation. All rights reserved.
 //
 
@@ -10,7 +10,6 @@
 #import "Article.h"
 #import "GalleryImage.h"
 #import "Section.h"
-#import "SectionImage.h"
 
 
 @implementation Image
@@ -25,10 +24,8 @@
 @dynamic mimeType;
 @dynamic sourceUrl;
 @dynamic width;
-@dynamic alt;
 @dynamic article;
 @dynamic galleryImage;
 @dynamic section;
-@dynamic sectionImage;
 
 @end

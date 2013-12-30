@@ -6,7 +6,7 @@
 
 @implementation NSManagedObjectContext (SimpleFetch)
 
--(NSArray *)getEntitiesForName:(NSString *)entityName withPredicateFormat:(NSString *)predicateFormat, ...
+-(NSManagedObject *)getEntityForName:(NSString *)entityName withPredicateFormat:(NSString *)predicateFormat, ...
 {
     // See: http://www.cocoawithlove.com/2009/05/variable-argument-lists-in-cocoa.html for variadic methods syntax reminder.
     va_list args;
@@ -21,23 +21,26 @@
     [fetchRequest setPredicate:predicate];
 
     NSError *error = nil;
-    NSArray *entities = [self executeFetchRequest:fetchRequest error:&error];
-
-    // Return nil if no results - makes it easier to test whether any entities were found.
-    if (entities && (entities.count == 0)) entities = nil;
-
+    NSArray *methods = [self executeFetchRequest:fetchRequest error:&error];
     if(error != nil){
         NSLog(@"Error: %@", error);
         return nil;
     }
-    return entities;
+
+    if (methods.count == 1) {
+
+//TODO: this assumes value is unique, otherwise nothing is returned. Probably not what's wanted in all cases.
+
+        NSManagedObject *method = (NSManagedObject *)methods[0];
+        return method;
+    }else{
+        return nil;
+    }
 }
 
-//NSManagedObject *entity = (NSManagedObject *)entities[0];
-
--(NSManagedObjectID *)getArticleIDForTitle:(NSString *)title
+-(Article *)getArticleForTitle:(NSString *)title
 {
-    NSArray *articles = [self getEntitiesForName: @"Article" withPredicateFormat: @"\
+    Article *article = (Article *)[self getEntityForName: @"Article" withPredicateFormat: @"\
                        title ==[c] %@ \
                        AND \
                        site.name == %@ \
@@ -47,9 +50,6 @@
                        [SessionSingleton sharedInstance].site,
                        [SessionSingleton sharedInstance].domain
     ];
-
-    Article *article = (articles) ? (Article *)articles[0] : nil;
-
     if (!article) {
         article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:self];
         article.title = title;
@@ -57,7 +57,7 @@
         article.site = [SessionSingleton sharedInstance].site;
         article.domain = [SessionSingleton sharedInstance].domain;
     }
-    return article.objectID;
+    return article;
 }
 
 @end

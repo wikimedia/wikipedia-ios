@@ -4,7 +4,5 @@
 
 - (NSString *)urlEncodedUTF8String;
 + (NSString *)sha1:(NSString *)dataFromString isFile:(BOOL)isFile;
-- (NSString *)getUrlWithoutScheme; 
-- (NSString *)getImageMimeTypeForExtension;
 
 @end
