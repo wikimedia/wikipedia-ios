@@ -39,7 +39,7 @@
 
     // If this is YES the focal cell's selection will be scrolled to when the TOC stops sliding.
     // If this is NO the focal cell's section will be jumped to as soon as cell becomes focal.
-    self.animateWebScrollAsFocalCellChanges = YES;
+    self.animateWebScrollAsFocalCellChanges = NO;
  
     self.sectionIds = [@[]mutableCopy];
     self.sectionImageIds = [@{} mutableCopy];
@@ -47,8 +47,6 @@
 
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setShowsVerticalScrollIndicator:NO];
-
-    self.scrollView.delegate = self;
 
     // Get data for sections and section images.
     [self getSectionIds];
@@ -60,8 +58,6 @@
         [self.scrollContainer addSubview:cell];
     }
     
-    [self constrainSectionCells];
-
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
 
     self.navigationItem.hidesBackButton = YES;
@@ -76,23 +72,64 @@
     self.scrollContainer.backgroundColor = [UIColor clearColor];
 }
 
-#pragma mark Constrain scroll container
-
--(void)constrainScrollContainer
+-(void)viewWillAppear:(BOOL)animated
 {
-    [self.scrollContainer.superview addConstraint:
-     [NSLayoutConstraint constraintWithItem: self.scrollContainer
-                                  attribute: NSLayoutAttributeWidth
-                                  relatedBy: NSLayoutRelationEqual
-                                     toItem: self.scrollContainer.superview
-                                  attribute: NSLayoutAttributeWidth
-                                 multiplier: 1.0
-                                   constant: 0]];
+    [super viewWillAppear:animated];
+
+    //WebViewController *webVC = (WebViewController *)self.parentViewController;
+
+//TODO: Need to remove and reset these web view animations on rotate before using them.
+/*
+ Have the web view controller do this after rotate conditionally if it sees these animations
+ are in effect - for it to do this the shrinkReset and skewReset methods would need to
+ remove animations for keys WEBVIEW_SHRINK and WEBVIEW_SKEW once they finish resetting.
+ This way the webVC can know if either of these animations are in effect by just looking
+ for animations for these keys.
+*/
+    //[webVC shrinkAndAlignRightWithScale:0.6f];
+    //[webVC skewWithEyePosition:-2000.0f angle:7.5f];
+
+    if (self.sectionCells.count == 0) return;
+    
+    // Temporarily set content insets to allow top cell to be completely off bottom of screen.
+    [self insetToRestrictScrollingToHeight:@(self.scrollView.frame.size.height)];
+
+    // Move all cells just off bottom of screen.
+    [self setScrollViewContentOffset:CGPointMake(0.0f, -self.scrollView.frame.size.height)];
+
+    [self updateHighlightedCellToReflectWebView];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    //WebViewController *webVC = (WebViewController *)self.parentViewController;
+    //[webVC shrinkReset];
+    //[webVC skewReset];
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self scrollHighlightedCellToScreenCenter];
+    [self cascadeSectionCellsAlphaFromMiddle];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Don't start monitoring scrollView scrolling until view has appeared.
+    self.scrollView.delegate = self;
+
+    [self scrollHighlightedCellToScreenCenter];
+
+    [self cascadeSectionCellsAlphaFromMiddle];
 }
 
 #pragma mark Data retrieval
 
-//TODO: these 2 methods have a lot in common...
+//TODO: these 2 methods have a lot in common... refactor and stuff.
 
 -(void) getSectionIds
 {
@@ -146,12 +183,6 @@
     [self performSelector:@selector(hideTOC) withObject:nil afterDelay:0.15f];
 }
 
--(void)hideScrollingOffScreenBottom
-{
-    CGPoint p = CGPointMake(0.0f, -self.scrollView.frame.size.height);
-    [self.scrollView setContentOffset:p animated:YES];
-}
-
 -(void)hideTOC
 {
     [self.view removeFromSuperview];
@@ -166,35 +197,34 @@
     UIView *view = tapRecognizer.view;
     CGPoint loc = [tapRecognizer locationInView:view];
     UIView *subview = [view hitTest:loc withEvent:nil];
+
     if ([subview isMemberOfClass:[UIImageView class]]) {
-        [self scrollWebViewToImageForCell:(UIImageView *)subview animated:YES];
+        if ([subview.superview isMemberOfClass:[TOCSectionCellView class]]) {
+            TOCSectionCellView *cell = (TOCSectionCellView*)subview.superview;
+            cell.isHighlighted = YES;
+        }
+
+        [self scrollWebViewToImageForCell:(UIImageView *)subview animated:NO];
         //NSLog(@"image tap index = %ld, section index = %ld", (long)subview.tag, (long)subview.superview.tag);
     }else if ([subview isMemberOfClass:[TOCSectionCellView class]]) {
-        [self scrollWebViewToSectionForCell:(TOCSectionCellView *)subview animated:YES];
+        [self scrollWebViewToSectionForCell:(TOCSectionCellView *)subview animated:NO];
         //NSLog(@"section cell tap index = %ld", (long)subview.tag);
     }
 }
 
 -(void)scrollWebViewToSectionForCell:(TOCSectionCellView *)cell animated:(BOOL)animated
 {
-    cell.isSelected = YES;
     cell.isHighlighted = YES;
 
     WebViewController *webVC = (WebViewController *)self.parentViewController;
     NSString *elementId = [NSString stringWithFormat:@"content_block_%ld", (long)cell.tag];
     CGPoint p = [webVC.webView getWebViewRectForHtmlElementWithId:elementId].origin;
+
     [self scrollWebView:webVC.webView toPoint:p animated:animated];
 }
 
 -(void)scrollWebViewToImageForCell:(UIImageView *)imageView animated:(BOOL)animated
 {
-
-if ([imageView.superview isMemberOfClass:[TOCSectionCellView class]]) {
-    TOCSectionCellView *cell = (TOCSectionCellView*)imageView.superview;
-    cell.isSelected = YES;
-    cell.isHighlighted = YES;
-}
-
     NSManagedObjectID *sectionId = self.sectionIds[imageView.superview.tag];
     NSArray *sectionImageIds = self.sectionImageIds[sectionId];
     NSManagedObjectID *sectionImageId = sectionImageIds[imageView.tag];
@@ -204,13 +234,14 @@ if ([imageView.superview isMemberOfClass:[TOCSectionCellView class]]) {
     
     WebViewController *webVC = (WebViewController *)self.parentViewController;
     CGPoint p = [webVC.webView getWebViewCoordsForHtmlImageWithSrc:sectionImage.image.sourceUrl];
+    p.y = p.y - 23;
+
     [self scrollWebView:webVC.webView toPoint:p animated:animated];
 }
 
 -(void)scrollWebView:(UIWebView *)webView toPoint:(CGPoint)point animated:(BOOL)animated
 {
     point.x = webView.scrollView.contentOffset.x;
-    point.y = point.y - 23;
     [webView.scrollView setContentOffset:point animated:animated];
 }
 
@@ -225,39 +256,76 @@ if ([imageView.superview isMemberOfClass:[TOCSectionCellView class]]) {
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    static CGFloat lastHighlightedCellTag = 0;
     if (scrollView == self.scrollView) {
+        CGFloat focalOffset = self.scrollView.frame.size.height / 2.0f;
         for (TOCSectionCellView *cell in self.sectionCells) {
+
+//TODO: TOCSectionCellView has a "TODO:" about making a section image object for managing their state. Do that.
+// Expecially note the "v.layer.borderColor" stuff below - doesn't belong here.
+            [cell resetSectionImageViewsBorderStyle];
+            NSArray *centerlineIntersectingCellImages = [cell imagesIntersectingYOffset:focalOffset inView:self.scrollView.superview];
+            
+//TODO: allow this image border highlighting for vertically stacked image layout.
+/*
+            for (UIImageView *v in centerlineIntersectingCellImages) {
+                v.layer.borderColor = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0].CGColor;
+            }
+*/
             if ([self isCellFocalCell:cell]) {
                 [self unHighlightAllCells];
                 cell.isHighlighted = YES;
-                lastHighlightedCellTag = cell.tag;
+            }
+
+            BOOL shouldAttemptScrollToImage = (centerlineIntersectingCellImages.count > 0) ? YES : NO;
+            BOOL shouldAttemptScrollToSection = ((!shouldAttemptScrollToImage) && cell.isHighlighted) ? YES : NO;
+
+//TODO: allow "shouldAttemptScrollToImage" to be used for vertically stacked image layout.
+shouldAttemptScrollToImage = NO;
+
+            /*
+             // Probably never do this here - to much "bridge" traffic for each scroll pixel move...
+             WebViewController *webVC = (WebViewController *)self.parentViewController;
+             NSInteger indexOfFirstOnscreenSection = [webVC.webView getIndexOfTopOnScreenElementWithPrefix:@"content_block_" count:self.sectionCells.count];
+             NSString *elementId = [NSString stringWithFormat:@"content_block_%ld", (long)indexOfFirstOnscreenSection];
+             CGPoint p = [webVC.webView getWebViewRectForHtmlElementWithId:elementId].origin;
+             if ((p.y < 0) || (p.y > 100)) shouldAttemptScrollToSection = YES;
+             */
+            
+            if (shouldAttemptScrollToImage) {
+                UIImageView *i = (UIImageView *)centerlineIntersectingCellImages[0];
+                    [self scrollWebViewToImageForCell:i animated:NO];
+            }
+
+            if (shouldAttemptScrollToSection){
                 if (!self.animateWebScrollAsFocalCellChanges) {
-                    [self scrollWebViewToSectionForCell:cell animated:NO];
+                        [self scrollWebViewToSectionForCell:cell animated:NO];
                 }
-            }else{
-                if (lastHighlightedCellTag == cell.tag) continue;
-                cell.isHighlighted = NO;
             }
         }
     }
-    
     [self cascadeSectionCellsAlphaFromMiddle];
 }
 
 -(void)cascadeSectionCellsAlphaFromMiddle
 {
+
+//TODO: the layout with the large vertically stacked images should *not* cascasde cell alpha.
+//return;
+
     CGFloat minAlpha = 0.25f;
+
     //CGFloat whiteLevel = 0.0f;
     CGFloat halfContainerHeight = self.scrollView.frame.size.height / 2.0f;
     // Proportionately fade out cells around middle cell.
     for (TOCSectionCellView *cell in self.sectionCells) {
-        if (cell.isHighlighted) continue;
+//      if (cell.isHighlighted) continue;
 
         //if (self.sectionCells.firstObject != cell) continue;
         //if (self.sectionCells.lastObject != cell) continue;
 
-        CGFloat distanceFromCenter = cell.center.y - self.scrollView.contentOffset.y - halfContainerHeight;
+        CGFloat distanceFromCenter = [self offsetFromCenterForView:cell];
+
+        //if (distanceFromCenter < 0) distanceFromCenter *= 1.5;
 
         CGFloat alpha = fabsf((fabsf(distanceFromCenter) - halfContainerHeight) / halfContainerHeight);
         //alpha = 1.0f - alpha; // Inverts alpha.
@@ -279,7 +347,7 @@ if ([imageView.superview isMemberOfClass:[TOCSectionCellView class]]) {
     p.x -= self.scrollView.frame.origin.x;
     p.y -= self.scrollView.frame.origin.y;
     if ((p.y < focalOffset) && ((p.y + cell.frame.size.height) > focalOffset)) {
-        if (!cell.isHighlighted) {
+        if (!cell.isHighlighted || (cell.isHighlighted && (cell.tag == 0))) {
             return YES;
         }
     }
@@ -308,12 +376,31 @@ if ([imageView.superview isMemberOfClass:[TOCSectionCellView class]]) {
     }
 }
 
-#pragma mark Resize with parent view controller
+#pragma mark Constraints
 
-- (void)didMoveToParentViewController:(UIViewController *)parent
+-(void)constrainScrollContainer
 {
-    [super didMoveToParentViewController:parent];
+    [self.scrollContainer.superview addConstraint:
+     [NSLayoutConstraint constraintWithItem: self.scrollContainer
+                                  attribute: NSLayoutAttributeWidth
+                                  relatedBy: NSLayoutRelationEqual
+                                     toItem: self.scrollContainer.superview
+                                  attribute: NSLayoutAttributeWidth
+                                 multiplier: 1.0
+                                   constant: 0]];
+}
 
+-(void)updateViewConstraints
+{
+    [super updateViewConstraints];
+
+    [self constrainSectionCells];
+
+    [self constrainTOCView];
+}
+
+- (void)constrainTOCView
+{
     float margin = 0.0f;
     void (^constrain)(NSLayoutAttribute, float) = ^void(NSLayoutAttribute a, float constant) {
         [self.view.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.view
@@ -329,47 +416,107 @@ if ([imageView.superview isMemberOfClass:[TOCSectionCellView class]]) {
     constrain(NSLayoutAttributeRight, -margin);
     constrain(NSLayoutAttributeTop, margin);
     constrain(NSLayoutAttributeBottom, -margin);
-    
-    [self updateScrollContentInset];
-    
-    [self revealFromBottomToMidScreen];
 }
 
--(void)revealFromBottomToMidScreen
+#pragma mark Highlighted cell
+
+-(TOCSectionCellView *)getHighlightedCell
+{
+    for (TOCSectionCellView *cell in self.sectionCells) {
+        if (cell.isHighlighted) return cell;
+    }
+    return nil;
+}
+
+-(void)scrollHighlightedCellToScreenCenter
 {
     if (self.sectionCells.count == 0) return;
-    UIView *firstCell = (UIView *)[self.sectionCells firstObject];
+    TOCSectionCellView *highlightedCell = [self getHighlightedCell];
+
+    // Return if no cell highlighted.
+    if (!highlightedCell) return;
+
+    // Temporarily set content insets to allow top cell to be completely off bottom of screen.
+    [self insetToRestrictScrollingToHeight:@(self.scrollView.frame.size.height)];
+
+    // Calculate highlighted cell's offset from screen center.
+    CGFloat distanceFromCenter = [self offsetFromCenterForView:highlightedCell];
+
+    // Scroll highlighted to screen center (animated).
+    CGPoint contentOffset = self.scrollView.contentOffset;
+    contentOffset.y += distanceFromCenter;
     
-    // First move just off bottom of screen.
-    CGPoint p = CGPointMake(0.0f, -self.scrollView.frame.size.height);
-    [self.scrollView setContentOffset:p animated:NO];
+    //NSLog(@"contentOffset.y = %f", contentOffset.y);
+    [self setScrollViewContentOffset:contentOffset];
 
-    // Now scroll up to just below center of screen.
-    CGPoint p2 = CGPointMake(
-                            0.0f,
-                            -(self.scrollView.contentInset.top + firstCell.frame.size.height) / 2.0f
-                            );
-    [self.scrollView setContentOffset:p2 animated:YES];
+    // After delay (to allow animated scroll above to complete) reset content
+    // insets to prevent first and last cells from scrolling past screen center.
+    [self performSelector:@selector(insetToRestrictScrollingTopAndBottomCellsPastCenter) withObject:nil afterDelay:0.35f];
 }
 
-- (void)viewDidLayoutSubviews
+-(CGFloat)offsetFromCenterForView:(UIView *)view
 {
-    [self updateScrollContentInset];
+    return view.center.y - self.scrollView.contentOffset.y - self.scrollView.frame.size.height / 2.0f;
 }
 
--(void)updateScrollContentInset
+#pragma mark Scroll limits
+
+-(void)insetToRestrictScrollingToHeight:(NSNumber *)height
 {
-    // Allows the scrollview to scroll the bottom cell all the way to the top and top all the way to bottom.
-    if (self.sectionCells.count > 0) {
-        UIView *lastCell = (UIView *)[self.sectionCells lastObject];
-        UIView *firstCell = (UIView *)[self.sectionCells firstObject];
-        CGFloat f = self.scrollView.frame.size.height - firstCell.frame.size.height;
-        f -= TOC_SECTION_MARGIN;
-        CGFloat l = self.scrollView.frame.size.height - lastCell.frame.size.height;
-        l -= TOC_SECTION_MARGIN;
-        self.scrollView.contentInset = UIEdgeInsetsMake(f, 0, l, 0);
+    // Don't report scrolling when changing inset.
+    self.scrollView.delegate = nil;
+
+    self.scrollView.contentInset = UIEdgeInsetsMake(
+        height.floatValue - TOC_SECTION_MARGIN,
+        0,
+        height.floatValue - TOC_SECTION_MARGIN,
+        0
+    );
+    self.scrollView.delegate = self;
+}
+
+-(void)setScrollViewContentOffset:(CGPoint)contentOffset
+{
+    // Don't report scrolling when changing offset.
+    self.scrollView.delegate = nil;
+    [self.scrollView setContentOffset:contentOffset animated:NO];
+    self.scrollView.delegate = self;
+}
+
+-(void)insetToRestrictScrollingTopAndBottomCellsPastCenter
+{
+    // Don't report scrolling when changing inset.
+    self.scrollView.delegate = nil;
+    CGFloat halfHeight = self.scrollView.frame.size.height / 2.0f;
+
+//TODO: the vertially stacked image layout should do "insetToRestrictScrollingToHeight", but the default layout
+// should not. Presently both are using "insetToRestrictScrollingToHeight" because of the line below.
+[self insetToRestrictScrollingToHeight:@(halfHeight)];
+return;
+    
+    self.scrollView.contentInset = UIEdgeInsetsMake(
+        halfHeight - TOC_SECTION_MARGIN - (((UIView *)self.sectionCells.firstObject).frame.size.height / 2.0f),
+        0,
+        halfHeight - TOC_SECTION_MARGIN - (((UIView *)self.sectionCells.lastObject).frame.size.height / 2.0f),
+        0
+    );
+    self.scrollView.delegate = self;
+}
+
+-(void)updateHighlightedCellToReflectWebView
+{
+    // Highlight cell for section currently nearest top of webview.
+    if (self.sectionCells.count > 0){
+        [self unHighlightAllCells];
+        WebViewController *webVC = (WebViewController *)self.parentViewController;
+        NSInteger indexOfFirstOnscreenSection = [webVC.webView getIndexOfTopOnScreenElementWithPrefix:@"content_block_" count:self.sectionCells.count];
+        if (indexOfFirstOnscreenSection < self.sectionCells.count) {
+            ((TOCSectionCellView *)self.sectionCells[indexOfFirstOnscreenSection]).isHighlighted = YES;
+        }
     }
 }
+
+#pragma mark Memory
 
 - (void)didReceiveMemoryWarning
 {
@@ -377,12 +524,16 @@ if ([imageView.superview isMemberOfClass:[TOCSectionCellView class]]) {
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark Section cells
+
 -(void)constrainSectionCells
 {
 
-//TODO: have these constrains, but also a set which positions cells offscreen, that way
+//TODO: have these constraints, but also a set which positions cells offscreen, that way
 // they can be animated between.
 
+    [self.scrollContainer removeConstraints:self.scrollContainer.constraints];
+    
     void (^constrain)(UIView *, NSLayoutAttribute, UIView *, NSLayoutAttribute, CGFloat) = ^void(UIView *view1, NSLayoutAttribute a1, UIView *view2, NSLayoutAttribute a2, CGFloat constant) {
         [self.scrollContainer addConstraint:
          [NSLayoutConstraint constraintWithItem: view1
@@ -421,39 +572,6 @@ if ([imageView.superview isMemberOfClass:[TOCSectionCellView class]]) {
         cell.sectionId = sectionId;
         [self.sectionCells addObject:cell];
     }
-}
-
--(NSString *)getSectionsWithImageDebuggingString
-{
-    ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
-    
-    NSMutableArray *tempTocArray = [@[]mutableCopy];
-    
-    for (NSManagedObjectID *sectionId in self.sectionIds) {
-        
-        Section *section = (Section *)[articleDataContext_.workerContext objectWithID:sectionId];
-        
-        NSString *tabs = [@"" stringByPaddingToLength:section.tocLevel.integerValue withString:@"\t" startingAtIndex:0];
-        
-        NSArray *sectionImageIds = self.sectionImageIds[sectionId];
-        
-        NSMutableArray *imgStrArray = [@[]mutableCopy];
-        for (NSManagedObjectID *sectionImageId in sectionImageIds) {
-            SectionImage *sectionImage = (SectionImage *)[articleDataContext_.workerContext objectWithID:sectionImageId];
-            [imgStrArray addObject:[NSString stringWithFormat:@"%@\t*%@", tabs, sectionImage.image.fileName]];
-        }
-        
-        NSString *sectionString = [NSString stringWithFormat:@"%@%@-%@: %@\n%@\n",
-                                   tabs,
-                                   section.index,
-                                   section.tocLevel,
-                                   section.title,
-                                   [imgStrArray componentsJoinedByString:@"\n"]
-                                   ];
-        [tempTocArray addObject:sectionString];
-    }
-    
-    return [tempTocArray componentsJoinedByString:@"\n"];
 }
 
 /*

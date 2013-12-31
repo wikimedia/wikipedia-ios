@@ -11,4 +11,6 @@
 - (CGPoint)getScreenCoordsForHtmlImageWithSrc:(NSString *)src;
 - (CGPoint)getWebViewCoordsForHtmlImageWithSrc:(NSString *)src;
 
+- (NSInteger)getIndexOfTopOnScreenElementWithPrefix:(NSString *)prefix count:(NSUInteger)count;
+
 @end

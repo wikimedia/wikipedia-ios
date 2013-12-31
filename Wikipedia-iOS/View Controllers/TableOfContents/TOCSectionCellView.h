@@ -10,4 +10,8 @@
 @property (nonatomic) BOOL isHighlighted;
 @property (nonatomic) BOOL isSelected;
 
+-(void)resetSectionImageViewsBorderStyle;
+
+-(NSArray *)imagesIntersectingYOffset:(CGFloat)yOffset inView:(UIView *)view;
+
 @end
