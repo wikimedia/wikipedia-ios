@@ -30,4 +30,24 @@
     return output;
 }
 
+-(NSString *)getUrlWithoutScheme
+{
+    NSRange dividerRange = [self rangeOfString:@"://"];
+    if (dividerRange.location == NSNotFound) return self;
+    NSUInteger divide = NSMaxRange(dividerRange) - 2;
+    //NSString *scheme = [self substringToIndex:divide];
+    NSString *path = [self substringFromIndex:divide];
+    return path;
+}
+
+-(NSString *)getImageMimeTypeForExtension
+{
+    NSString *lowerCaseSelf = [self lowercaseString];
+    if  ([lowerCaseSelf isEqualToString:@"jpg"]) return @"image/jpeg";
+    if  ([lowerCaseSelf isEqualToString:@"jpeg"]) return @"image/jpeg";
+    if  ([lowerCaseSelf isEqualToString:@"png"]) return @"image/png";
+    if  ([lowerCaseSelf isEqualToString:@"gif"]) return @"image/gif";
+    return @"";
+}
+
 @end

@@ -25,6 +25,9 @@
 #import "QueuesSingleton.h"
 #import "SearchResultsController.h"
 #import "MainMenuTableViewController.h"
+#import "TFHpple.h"
+#import "TOCViewController.h"
+#import "UIWebView+ElementLocation.h"
 
 @interface WebViewController (){
 
@@ -106,6 +109,50 @@
 
     // Observe chages to the search box search term.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchStringChanged) name:@"SearchStringChanged" object:nil];
+    
+    // Add gesture for showing table of contents.
+    UITapGestureRecognizer *twoFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tocToggle)];
+    twoFingerTap.numberOfTouchesRequired = 2;
+    twoFingerTap.numberOfTapsRequired = 1;
+    [self.webView addGestureRecognizer:twoFingerTap];
+}
+
+#pragma mark Table of contents
+
+-(void)tocToggle
+{
+    for (UIViewController *childVC in self.childViewControllers) {
+        if([childVC isMemberOfClass:[TOCViewController class]]){
+            TOCViewController *vc = (TOCViewController *)childVC;
+            [vc hideTOC];
+            return;
+        }
+    }
+
+    TOCViewController *tocVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"TOCViewController"];
+    [self addChildViewController:tocVC];
+    
+    [self.view addSubview:tocVC.view];
+    
+    [tocVC didMoveToParentViewController:self];
+
+    //[self debugScrollLeadSanFranciscoArticleImageToTopLeft];
+}
+
+-(BOOL)shouldAutomaticallyForwardAppearanceMethods
+{
+    // This method is called to determine whether to
+    // automatically forward appearance-related containment
+    //  callbacks to child view controllers.
+    return YES;
+    
+}
+-(BOOL)shouldAutomaticallyForwardRotationMethods
+{
+    // This method is called to determine whether to
+    // automatically forward rotation-related containment
+    // callbacks to child view controllers.
+    return YES;
 }
 
 #pragma mark Search terms changes
@@ -236,8 +283,14 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 -(void)saveCurrentPage
 {
     [articleDataContext_.workerContext performBlock:^(){
-        Article *article = [articleDataContext_.workerContext getArticleForTitle:[self getCurrentArticleTitle]];
-        Saved *alreadySaved = (Saved *)[articleDataContext_.workerContext getEntityForName: @"Saved" withPredicateFormat: @"article == %@", article];
+        NSManagedObjectID *articleID = [articleDataContext_.workerContext getArticleIDForTitle:[self getCurrentArticleTitle]];
+
+        Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
+
+        NSArray *alreadySavedArray = [articleDataContext_.workerContext getEntitiesForName: @"Saved" withPredicateFormat: @"article == %@", article];
+
+        Saved *alreadySaved = (alreadySavedArray) ? (Saved *)alreadySavedArray[0] : nil;
+
         NSLog(@"SAVE PAGE FOR %@, alreadySaved = %@", article.title, alreadySaved);
         if (article && !alreadySaved) {
             NSLog(@"SAVED PAGE %@", article.title);
@@ -283,13 +336,122 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // to a saved position! Super annoying otherwise.
         self.unsafeToScroll = YES;
 
-        // Save scroll location
-        Article *article = [articleDataContext_.mainContext getArticleForTitle:[self getCurrentArticleTitle]];
-        article.lastScrollX = @(scrollView.contentOffset.x);
-        article.lastScrollY = @(scrollView.contentOffset.y);
-        NSError *error = nil;
-        [articleDataContext_.mainContext save:&error];
+        //[self printLiveContentLocationTestingOutputToConsole];
+        //NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
+
+        [articleDataContext_.workerContext performBlock:^(){
+            // Save scroll location
+            NSManagedObjectID *articleID = [articleDataContext_.workerContext getArticleIDForTitle:[self getCurrentArticleTitle]];
+            Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
+            article.lastScrollX = @(scrollView.contentOffset.x);
+            article.lastScrollY = @(scrollView.contentOffset.y);
+            NSError *error = nil;
+            [articleDataContext_.workerContext save:&error];
+        }];
     }
+}
+
+#pragma mark Web view html content live location retrieval
+
+-(void)printLiveContentLocationTestingOutputToConsole
+{
+    // Test with the top image (presently) on the San Francisco article.
+    // (would test p.x and p.y against CGFLOAT_MAX to ensure good value was retrieved)
+    CGPoint p = [self.webView getScreenCoordsForHtmlImageWithSrc:@"//upload.wikimedia.org/wikipedia/commons/thumb/d/da/SF_From_Marin_Highlands3.jpg/280px-SF_From_Marin_Highlands3.jpg"];
+    NSLog(@"p = %@", NSStringFromCGPoint(p));
+
+    CGPoint p2 = [self.webView getWebViewCoordsForHtmlImageWithSrc:@"//upload.wikimedia.org/wikipedia/commons/thumb/d/da/SF_From_Marin_Highlands3.jpg/280px-SF_From_Marin_Highlands3.jpg"];
+    NSLog(@"p2 = %@", NSStringFromCGPoint(p2));
+
+    // Also test location of second section on page.
+    // (would test r with CGRectIsNull(r) to ensure good values were retrieved)
+    CGRect r = [self.webView getScreenRectForHtmlElementWithId:@"content_block_1"];
+    NSLog(@"r = %@", NSStringFromCGRect(r));
+
+    CGRect r2 = [self.webView getWebViewRectForHtmlElementWithId:@"content_block_1"];
+    NSLog(@"r2 = %@", NSStringFromCGRect(r2));
+}
+
+-(void)debugScrollLeadSanFranciscoArticleImageToTopLeft
+{
+    // Awesome! Now works regarless of pinch-zoom scale!
+    CGPoint p = [self.webView getWebViewCoordsForHtmlImageWithSrc:@"//upload.wikimedia.org/wikipedia/commons/thumb/d/da/SF_From_Marin_Highlands3.jpg/280px-SF_From_Marin_Highlands3.jpg"];
+    [self.webView.scrollView setContentOffset:p animated:YES];
+}
+
+#pragma mark Image section associations
+
+-(void)createSectionImageRecordsForSectionHtml:(NSManagedObjectID *)sectionID
+{
+    // Parse the section html extracting the image urls (in order)
+    // See: http://www.raywenderlich.com/14172/how-to-parse-html-on-ios
+    // for TFHpple details.
+    
+    // createSectionImageRecordsForSectionHtml needs to be called *after* article
+    // record created but before section html sent across bridge.
+
+    [articleDataContext_.workerContext performBlockAndWait:^(){
+        Section *section = (Section *)[articleDataContext_.workerContext objectWithID:sectionID];
+        
+        NSData *sectionHtmlData = [section.html dataUsingEncoding:NSUTF8StringEncoding];
+        TFHpple *sectionParser = [TFHpple hppleWithHTMLData:sectionHtmlData];
+        NSString *imageXpathQuery = @"//img[@src]";
+        NSArray *imageNodes = [sectionParser searchWithXPathQuery:imageXpathQuery];
+        NSUInteger imageIndexInSection = 0;
+        
+        for (TFHppleElement *imageNode in imageNodes) {
+            NSString *alt = imageNode.attributes[@"alt"];
+            NSString *height = imageNode.attributes[@"height"];
+            NSString *width = imageNode.attributes[@"width"];
+            NSString *src = imageNode.attributes[@"src"];
+            
+            NSArray *images = [articleDataContext_.workerContext getEntitiesForName: @"Image" withPredicateFormat:@"sourceUrl == %@", src];
+            Image *image = (images) ? (Image *)images[0] : nil;
+            
+            if (image) {
+                // If Image record already exists, update its attributes.
+                image.alt = alt;
+                image.height = @(height.integerValue);
+                image.width = @(width.integerValue);
+            }else{
+                // If no Image record, create one setting its "data" attribute to nil. This allows the record to be
+                // created so it can be associated with the section in which this , then when the URLCache intercepts the request for this image
+                image = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:articleDataContext_.workerContext];
+                image.data = [[NSData alloc] init];
+                image.fileName = [src lastPathComponent];
+                image.extension = [src pathExtension];
+                image.imageDescription = nil;
+                image.sourceUrl = src;
+                image.dateRetrieved = [NSDate date];
+                image.dateLastAccessed = [NSDate date];
+                image.width = @(width.integerValue);
+                image.height = @(height.integerValue);
+                image.mimeType = [image.extension getImageMimeTypeForExtension];
+            }
+            
+            // If imageSection doesn't already exist with the same index and image, create sectionImage record
+            // associating the image record (from line above) with section record and setting its index to the
+            // order from img tag parsing.
+            NSArray *sectionImages = [articleDataContext_.workerContext getEntitiesForName: @"SectionImage"
+                                                                       withPredicateFormat: @"section == %@ AND index == %@ AND image.sourceUrl == %@",
+                                      section, @(imageIndexInSection), src
+                                      ];
+            SectionImage *sectionImage = (sectionImages) ? (SectionImage *)sectionImages[0] : nil;
+            if (!sectionImage) {
+                sectionImage = [NSEntityDescription insertNewObjectForEntityForName:@"SectionImage" inManagedObjectContext:articleDataContext_.workerContext];
+                sectionImage.image = image;
+                sectionImage.index = @(imageIndexInSection);
+                sectionImage.section = section;
+            }
+            imageIndexInSection ++;
+        }
+        NSError *error = nil;
+        [articleDataContext_.workerContext save:&error];
+        if (error) {
+            NSLog(@"\n\nerror = %@\n\n", error);
+            NSLog(@"\n\nerror = %@\n\n", error.localizedDescription);
+        }
+    }];
 }
 
 #pragma mark Web view scroll offset - using it!
@@ -391,7 +553,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 - (void)retrieveArticleForPageTitle:(NSString *)pageTitle discoveryMethod:(NSString *)discoveryMethod
 {
-    Article *article = [articleDataContext_.mainContext getArticleForTitle:pageTitle];
+    NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:pageTitle];
+    Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
 
     // If article with sections just show them
     if (article.section.count > 0) {
@@ -410,7 +573,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         [articleDataContext_.mainContext deleteObject:article];
 
         // Needed is an article created in the *worker* context since that's what's updated below.
-        article = [articleDataContext_.workerContext getArticleForTitle:pageTitle];
+        articleID = [articleDataContext_.workerContext getArticleIDForTitle:pageTitle];
+        article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
     }
 
     // Associate thumbnail with article.
@@ -421,7 +585,12 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     NSArray *result = [self.searchResultsController.searchResultsOrdered filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", pageTitle]];
     if (result.count == 1) {
         NSString *thumbURL = result[0][@"thumbnail"][@"source"];
-        Image *thumb = (Image *)[articleDataContext_.workerContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
+        thumbURL = [thumbURL getUrlWithoutScheme];
+
+        NSArray *thumbs = [articleDataContext_.workerContext getEntitiesForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
+        
+        Image *thumb = (thumbs) ? (Image *)thumbs[0] : nil;
+
         if (thumb) article.thumbnailImage = thumb;
     }
 
@@ -542,6 +711,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         NSError *error = nil;
         [articleDataContext_.workerContext save:&error];
 
+        [self createSectionImageRecordsForSectionHtml:section0.objectID];
+
         if (error) {
             NSLog(@"error = %@", error);
             NSLog(@"error = %@", error.localizedDescription);
@@ -553,22 +724,18 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             // See comments inside resetBridge.
             [self resetBridge];
 
+            NSString *section0HTMLWithTitle = [self addTitle:article.title toHTML:section0HTML];
+            NSString *section0HTMLWithID = [self surroundHTML:section0HTMLWithTitle withDivForSection:@(0)];
+
             // Add the first section html
-            [self.bridge sendMessage:@"append" withPayload:@{@"html": section0HTML}];
+            [self.bridge sendMessage:@"append" withPayload:@{@"html": section0HTMLWithID}];
 
             // Show the web view again. (Had faded it out to prevent flickery transition to new html.)
 //TODO: Fix this. It causes fade out even when no connection, which blanks out current article.
 //            [self.webView reveal];
 
-            if(sections.count > 1){
-                // Show loading more sections message so user can see more is on the way
-                self.alertLabel.text = SEARCH_LOADING_MSG_SECTION_REMAINING;
-            }else{
-                // Show article loaded message
-                self.alertLabel.text = SEARCH_LOADING_MSG_ARTICLE_LOADED;
-                // Then hide the message (hidden has been overriden to fade out slowly)
-                self.alertLabel.hidden = YES;
-            }
+            // Show loading more sections message so user can see more is on the way
+            self.alertLabel.text = SEARCH_LOADING_MSG_SECTION_REMAINING;
         }];
     };
     
@@ -600,15 +767,20 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         [self networkActivityIndicatorPop];
         if(weakRemainingSectionsOp.isCancelled){
             //NSLog(@"completionBlock bailed (because op was cancelled) for %@", pageTitle);
+            self.alertLabel.hidden = YES;
             return;
         }
         
         // Get article sections text (faster joining array elements than appending a string)
         NSDictionary *sections = weakRemainingSectionsOp.jsonRetrieved[@"mobileview"][@"sections"];
+
         NSMutableArray *sectionText = [@[] mutableCopy];
         for (NSDictionary *section in sections) {
             if (![section[@"id"] isEqual: @0]) {
-                [sectionText addObject:section[@"text"]];
+
+                NSString *sectionHTMLWithID = [self surroundHTML:section[@"text"] withDivForSection:section[@"id"]];
+
+                [sectionText addObject:sectionHTMLWithID];
 
                 // Add sections for article
                 Section *thisSection = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_.workerContext];
@@ -624,6 +796,12 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
         NSError *error = nil;
         [articleDataContext_.workerContext save:&error];
+
+        for (Section *section in article.section) {
+            if (![section.index isEqual: @0]) {
+                [self createSectionImageRecordsForSectionHtml:section.objectID];
+            }
+        }
 
         // Join article sections text
         NSString *joint = @""; //@"<div style=\"background-color:#ffffff;height:55px;\"></div>";
@@ -657,6 +835,24 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }
 }
 
+#pragma mark HTML added just before display
+
+-(NSString *)surroundHTML:(NSString *)html withDivForSection:(NSNumber *)sectionIndex
+{
+    // Just before section html is sent across the bridge to the web view, add section identifiers around
+    // each section. This will make it easy to identify section offsets for the purpose of scrolling the
+    // web view to a given section. Do not save this html to the core data store - this way it can be changed
+    // later if needed (to a div etc).
+    return [NSString stringWithFormat:@"<div class='content_block' id='content_block_%@'>%@</div>", sectionIndex, html];
+}
+
+-(NSString *)addTitle:(NSString *)title toHTML:(NSString *)html
+{
+    // Add title just before section html is sent across the bridge to the web view.
+    // Do not save this html to the core data store.
+    return [NSString stringWithFormat:@"<h1 id=\"title\">%@</h1>%@", title, html];
+}
+
 #pragma mark Display article from core data
 
 - (void)displayArticle:(Article *)article
@@ -668,7 +864,17 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
     for (Section *section in sortedSections) {
         if (section.html){
-            [sectionText addObject:section.html];
+
+            [self createSectionImageRecordsForSectionHtml:section.objectID];
+
+            NSString *sectionHTML = section.html;
+            if ([section.index isEqualToNumber:@(0)]) {
+                sectionHTML = [self addTitle:article.title toHTML:sectionHTML];
+            }
+
+            NSString *sectionHTMLWithID = [self surroundHTML:sectionHTML withDivForSection:section.index];
+
+            [sectionText addObject:sectionHTMLWithID];
         }
     }
 

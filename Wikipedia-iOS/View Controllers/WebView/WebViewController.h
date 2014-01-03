@@ -11,7 +11,7 @@
 
 @class DiscoveryMethod, AlertLabel;
 
-@interface WebViewController : UIViewController <UIWebViewDelegate, NetworkOpDelegate,UIScrollViewDelegate>
+@interface WebViewController : UIViewController <UIWebViewDelegate, NetworkOpDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIView *alertView;

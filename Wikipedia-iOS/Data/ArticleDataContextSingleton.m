@@ -60,7 +60,7 @@
     NSManagedObjectModel *managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
     NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
     
-    NSString *articlesDBPath = [[self documentRootPath] stringByAppendingString:@"/articleData.sqlite"];
+    NSString *articlesDBPath = [[self documentRootPath] stringByAppendingString:@"/articleData2.sqlite"];
     NSLog(@"\n\n\nArticle data path: %@\n\n\n", articlesDBPath);
     NSURL *url = [NSURL fileURLWithPath:articlesDBPath];
     
