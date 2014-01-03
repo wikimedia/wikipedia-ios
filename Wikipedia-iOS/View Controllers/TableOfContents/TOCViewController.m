@@ -185,8 +185,8 @@
 
 -(void)hideTOC
 {
-    [self.view removeFromSuperview];
-    [self removeFromParentViewController];
+    WebViewController *webVC = (WebViewController *)self.parentViewController;
+    [webVC tocToggle];
 }
 
 #pragma mark Navigate

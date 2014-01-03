@@ -40,6 +40,8 @@
 @property (nonatomic) CGPoint scrollOffset;
 @property (nonatomic) BOOL unsafeToScroll;
 @property (nonatomic) NSInteger indexOfFirstOnscreenSectionBeforeRotate;
+@property (strong, nonatomic) NSDictionary *adjacentHistoryArticleTitles;
+@property (nonatomic) BOOL tocIsVisible;
 
 @end
 
@@ -73,6 +75,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.tocIsVisible = NO;
+    self.forwardButton.transform = CGAffineTransformMakeScale(-1.0, 1.0);
 
     self.searchNavController = (SearchNavController *)self.navigationController;
     self.indexOfFirstOnscreenSectionBeforeRotate = 0;
@@ -111,12 +116,6 @@
 
     // Observe chages to the search box search term.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchStringChanged) name:@"SearchStringChanged" object:nil];
-    
-    // Add gesture for showing table of contents.
-    UITapGestureRecognizer *twoFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tocToggle)];
-    twoFingerTap.numberOfTouchesRequired = 2;
-    twoFingerTap.numberOfTapsRequired = 1;
-    [self.webView addGestureRecognizer:twoFingerTap];
 }
 
 #pragma mark Table of contents
@@ -126,7 +125,10 @@
     for (UIViewController *childVC in self.childViewControllers) {
         if([childVC isMemberOfClass:[TOCViewController class]]){
             TOCViewController *vc = (TOCViewController *)childVC;
-            [vc hideTOC];
+            [vc.view removeFromSuperview];
+            [vc removeFromParentViewController];
+            [self showBottomBarAnimated:NO];
+            self.tocIsVisible = NO;
             return;
         }
     }
@@ -137,6 +139,10 @@
     [self.view addSubview:tocVC.view];
     
     [tocVC didMoveToParentViewController:self];
+
+    [self hideBottomBarAnimated:NO];
+
+    self.tocIsVisible = YES;
 
     //[self debugScrollLeadSanFranciscoArticleImageToTopLeft];
 }
@@ -491,9 +497,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // the results have been scrolled in excess of some small distance threshold first.
     // This prevents tiny scroll adjustments, which seem to occur occasionally for some
     // reason, from causing the keyboard to hide when the user is typing on it!
-    CGFloat distanceScrolled = fabs(scrollViewDragBeganVerticalOffset_ - scrollView.contentOffset.y);
+    CGFloat distanceScrolled = scrollViewDragBeganVerticalOffset_ - scrollView.contentOffset.y;
+    CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
     
-    if (distanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
+    if (fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
         [self.searchNavController resignSearchFieldFirstResponder];
         //NSLog(@"Keyboard Hidden!");
     }
@@ -550,6 +557,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         self.alertLabel.text = SEARCH_LOADING_MSG_SECTION_ZERO;
         
         [self retrieveArticleForPageTitle:cleanTitle discoveryMethod:discoveryMethod];
+        
+        // Update the back and forward buttons enabled state.
+        [self updateBackAndForwardButtonsEnabledState];
     }];
 }
 
@@ -712,6 +722,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // Save the article!
         NSError *error = nil;
         [articleDataContext_.workerContext save:&error];
+
+        // Update the back and forward buttons enabled state now that there's a new history entry.
+        [self updateBackAndForwardButtonsEnabledState];
 
         [self createSectionImageRecordsForSectionHtml:section0.objectID];
 
@@ -955,15 +968,96 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [self.webView.layer addAnimation:resetSkewAnimation forKey:@"WEBVIEW_SKEW_RESET"];
 }
 
-#pragma mark Action methods
+#pragma mark Bottom bar button methods
 
-- (IBAction)backButtonPushed:(id)sender {
-    [self.webView goBack];
+//TODO: Pull bottomBarView and into own object (and its subviews - the back and forward view/buttons/methods, etc).
+
+- (IBAction)backButtonPushed:(id)sender
+{
+    NSString *title = self.adjacentHistoryArticleTitles[@"before"];
+    if (title.length > 0) [self navigateToPage:title discoveryMethod:DISCOVERY_METHOD_SEARCH];
 }
 
-- (IBAction)forwardButtonPushed:(id)sender {
-    [self.webView goForward];
+- (IBAction)forwardButtonPushed:(id)sender
+{
+    NSString *title = self.adjacentHistoryArticleTitles[@"after"];
+    if (title.length > 0) [self navigateToPage:title discoveryMethod:DISCOVERY_METHOD_SEARCH];
 }
+
+-(NSDictionary *)getTitlesForAdjacentHistoryArticles
+{
+    __block NSMutableDictionary *result = [@{} mutableCopy];
+    [articleDataContext_.workerContext performBlockAndWait:^{
+        NSError *error = nil;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName: @"History"
+                                                  inManagedObjectContext: articleDataContext_.workerContext];
+        [fetchRequest setEntity:entity];
+        
+        NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:YES selector:nil];
+        
+        [fetchRequest setSortDescriptors:@[dateSort]];
+        
+        error = nil;
+        NSArray *historyEntities = [articleDataContext_.workerContext executeFetchRequest:fetchRequest error:&error];
+        
+        NSString *titleOfArticleBeforeCurrentOne = @"";
+        NSString *titleOfArticleAfterCurrentOne = @"";
+        NSString *currentArticleTitle = [self getCurrentArticleTitle];
+        NSString *lastTitle = @"";
+        for (History *history in historyEntities) {
+            NSString *thisTitle = history.article.title;
+            if ([thisTitle isEqualToString:currentArticleTitle]) {
+                titleOfArticleBeforeCurrentOne = lastTitle;
+            }else if ([lastTitle isEqualToString:currentArticleTitle]) {
+                titleOfArticleAfterCurrentOne = thisTitle;
+            }
+            lastTitle = thisTitle;
+        }
+        if(titleOfArticleBeforeCurrentOne.length > 0) result[@"before"] = titleOfArticleBeforeCurrentOne;
+        if(currentArticleTitle.length > 0) result[@"current"] = currentArticleTitle;
+        if(titleOfArticleAfterCurrentOne.length > 0) result[@"after"] = titleOfArticleAfterCurrentOne;
+    }];
+    return result;
+}
+
+-(void)updateBackAndForwardButtonsEnabledState
+{
+    self.adjacentHistoryArticleTitles = [self getTitlesForAdjacentHistoryArticles];
+    self.forwardButton.enabled = (self.adjacentHistoryArticleTitles[@"after"]) ? YES : NO;
+    self.backButton.enabled = (self.adjacentHistoryArticleTitles[@"before"]) ? YES : NO;
+}
+
+-(void)hideBottomBarAnimated:(BOOL)animated
+{
+    self.bottomBarViewBottomConstraint.constant = -self.bottomBarViewHeightConstraint.constant;
+    if (!animated) {
+        [self.view layoutIfNeeded];
+        return;
+    }
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+-(void)showBottomBarAnimated:(BOOL)animated
+{
+    self.bottomBarViewBottomConstraint.constant = 0;
+    if (!animated) {
+        [self.view layoutIfNeeded];
+        return;
+    }
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (IBAction)tocButtonPushed:(id)sender
+{
+    [self tocToggle];
+}
+
+#pragma mark Other action button methods (placeholders)
 
 - (IBAction)languageButtonPushed:(id)sender {
 }

@@ -7,6 +7,4 @@
 @property (strong, nonatomic) IBOutlet UIView *scrollContainer;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
--(void)hideTOC;
-
 @end
