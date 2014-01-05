@@ -39,6 +39,7 @@
 @property (weak, nonatomic) SearchNavController *searchNavController;
 @property (nonatomic) CGPoint scrollOffset;
 @property (nonatomic) BOOL unsafeToScroll;
+@property (nonatomic) NSInteger indexOfFirstOnscreenSectionBeforeRotate;
 
 @end
 
@@ -74,6 +75,7 @@
     [super viewDidLoad];
 
     self.searchNavController = (SearchNavController *)self.navigationController;
+    self.indexOfFirstOnscreenSectionBeforeRotate = 0;
 
     self.searchResultsController = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
     self.searchResultsController.webViewController = self;
@@ -899,6 +901,60 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }];
 }
 
+#pragma mark Shrink and skew
+
+-(CABasicAnimation *)animationForPath:(NSString *)path toValue:(NSValue *)value duration:(CGFloat)duration
+{
+    CABasicAnimation *a = [CABasicAnimation animationWithKeyPath:path];
+    a.fillMode = kCAFillModeForwards;
+    a.autoreverses = NO;
+    a.duration = duration;
+    a.removedOnCompletion = NO;
+    CGFloat delay = 0.0f;
+    [a setBeginTime:CACurrentMediaTime() + delay];
+    a.toValue = value;
+    return a;
+}
+
+-(void)shrinkAndAlignRightWithScale:(CGFloat)scale
+{
+    // Shrink web view and move it up against right side of screen.
+    CGSize size = self.webView.frame.size;
+    CGPoint alignRightOffset = CGPointMake(
+        (size.width - (size.width * scale)) / 2.0f,
+        -(size.height - (size.height * scale)) / 2.0f
+    );
+    CATransform3D xf = CATransform3DIdentity;
+    xf = CATransform3DTranslate(xf, alignRightOffset.x, alignRightOffset.y, 0);
+    xf = CATransform3DScale(xf, scale, scale, 1.0f);
+    CABasicAnimation *shrinkAnimation = [self animationForPath:@"transform" toValue:[NSValue valueWithCATransform3D:xf] duration:0.2f];
+    [self.webView.layer addAnimation:shrinkAnimation forKey:@"WEBVIEW_SHRINK"];
+}
+
+-(void)skewWithEyePosition:(CGFloat)eyePosition angle:(CGFloat)angle
+{
+    // Skew the web view a bit.
+    //CGFloat eyePosition = -2000;
+    //CGFloat angle = 7.5f;
+    CATransform3D perspective = CATransform3DIdentity;
+    perspective.m34 = -1.0 / eyePosition;
+    CATransform3D rotationAndPerspectiveTransform = CATransform3DRotate(perspective, angle * M_PI / 180.0f, 0.0f, 1.0f, 0.0f);
+    CABasicAnimation *skewAnimation = [self animationForPath:@"sublayerTransform" toValue:[NSValue valueWithCATransform3D:rotationAndPerspectiveTransform] duration:0.2f];
+    [self.webView.layer addAnimation:skewAnimation forKey:@"WEBVIEW_SKEW"];
+}
+
+-(void)shrinkReset
+{
+    CABasicAnimation *resetShrinkAnimation = [self animationForPath:@"transform" toValue:[NSValue valueWithCATransform3D:CATransform3DIdentity] duration:0.2f];
+    [self.webView.layer addAnimation:resetShrinkAnimation forKey:@"WEBVIEW_SHRINK_RESET"];
+}
+
+-(void)skewReset
+{
+    CABasicAnimation *resetSkewAnimation = [self animationForPath:@"sublayerTransform" toValue:[NSValue valueWithCATransform3D:CATransform3DIdentity] duration:0.2f];
+    [self.webView.layer addAnimation:resetSkewAnimation forKey:@"WEBVIEW_SKEW_RESET"];
+}
+
 #pragma mark Action methods
 
 - (IBAction)backButtonPushed:(id)sender {
@@ -927,6 +983,35 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 }
 
 - (IBAction)menuButtonPushed:(id)sender {
+}
+
+#pragma mark Scroll to last section after rotate
+
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [articleDataContext_.mainContext performBlockAndWait:^(){
+        NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:[self getCurrentArticleTitle]];
+        Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+
+        self.indexOfFirstOnscreenSectionBeforeRotate = [self.webView getIndexOfTopOnScreenElementWithPrefix:@"content_block_" count:article.section.count];
+    }];    
+    //self.view.alpha = 0.0f;
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [self performSelector:@selector(scrollToIndexOfFirstOnscreenSectionBeforeRotate) withObject:nil afterDelay:0.15f];
+}
+
+-(void)scrollToIndexOfFirstOnscreenSectionBeforeRotate{
+    if(self.indexOfFirstOnscreenSectionBeforeRotate == -1)return;
+    NSString *elementId = [NSString stringWithFormat:@"content_block_%ld", (long)self.indexOfFirstOnscreenSectionBeforeRotate];
+    CGPoint p = [self.webView getWebViewRectForHtmlElementWithId:elementId].origin;
+    p.x = self.webView.scrollView.contentOffset.x;
+    [self.webView.scrollView setContentOffset:p animated:YES];
+    //[UIView animateWithDuration:0.05f animations:^{
+    //    self.view.alpha = 1.0f;
+    //}];
 }
 
 @end

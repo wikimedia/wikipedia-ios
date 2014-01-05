@@ -23,4 +23,9 @@
 - (IBAction)actionButtonPushed:(id)sender;
 - (IBAction)bookmarkButtonPushed:(id)sender;
 
+-(void)shrinkAndAlignRightWithScale:(CGFloat)scale;
+-(void)shrinkReset;
+-(void)skewWithEyePosition:(CGFloat)eyePosition angle:(CGFloat)angle;
+-(void)skewReset;
+
 @end

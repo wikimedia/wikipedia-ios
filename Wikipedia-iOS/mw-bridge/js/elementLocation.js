@@ -36,3 +36,13 @@ function getElementRect(element) {
 function getElementRectAsJson(element) {
     return JSON.stringify(getElementRect(element));
 }
+
+function getIndexOfFirstOnScreenElementWithTopGreaterThanY(elementPrefix, elementCount, y){
+    for (var i = 0; i < elementCount; ++i) {
+        var div = document.getElementById(elementPrefix + i);
+        if(div == null) continue;
+        var rect = getElementRect(div);
+        if( (rect['top'] >= 0) || ((rect['top'] + rect['height']) >= 0)) return i;
+    }
+    return -1;
+}
