@@ -225,15 +225,70 @@
                                     <constraint firstItem="S22-63-W9O" firstAttribute="leading" secondItem="arg-wQ-gQS" secondAttribute="leading" id="v8D-Ql-1MJ"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4Q-Xc-ImV" userLabel="BottomNav">
+                                <rect key="frame" x="0.0" y="459" width="320" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8HR-Gs-iaC" userLabel="Back Button">
+                                        <rect key="frame" x="20" y="10" width="30" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                        <state key="normal" title="◃">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonPushed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="mf3-RM-K9o"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cq9-Zs-YsN" userLabel="Forward Button">
+                                        <rect key="frame" x="270" y="10" width="30" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                        <state key="normal" title="◃">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="forwardButtonPushed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hCZ-Gt-X8J"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVB-P9-soS" userLabel="TOC Button">
+                                        <rect key="frame" x="145" y="10" width="30" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                        <state key="normal" title="≣">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tocButtonPushed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Dii-uC-r3L"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.25" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="UVB-P9-soS" secondAttribute="bottom" constant="10" id="5xJ-mc-zwa"/>
+                                    <constraint firstItem="UVB-P9-soS" firstAttribute="top" secondItem="F4Q-Xc-ImV" secondAttribute="top" constant="10" id="6uY-Li-io7"/>
+                                    <constraint firstAttribute="bottom" secondItem="8HR-Gs-iaC" secondAttribute="bottom" constant="10" id="A2Q-JD-05C"/>
+                                    <constraint firstAttribute="centerX" secondItem="UVB-P9-soS" secondAttribute="centerX" id="Lgt-gU-ggO"/>
+                                    <constraint firstAttribute="bottom" secondItem="cq9-Zs-YsN" secondAttribute="bottom" constant="10" id="OFx-OZ-KQR"/>
+                                    <constraint firstItem="cq9-Zs-YsN" firstAttribute="top" secondItem="F4Q-Xc-ImV" secondAttribute="top" constant="10" id="Tzb-Jb-HvT"/>
+                                    <constraint firstAttribute="height" constant="45" id="V8K-Z3-GXD"/>
+                                    <constraint firstItem="8HR-Gs-iaC" firstAttribute="top" secondItem="F4Q-Xc-ImV" secondAttribute="top" constant="10" id="Yj5-ZF-D3V"/>
+                                    <constraint firstAttribute="trailing" secondItem="cq9-Zs-YsN" secondAttribute="trailing" constant="20" id="cJQ-ry-xoe"/>
+                                    <constraint firstItem="8HR-Gs-iaC" firstAttribute="leading" secondItem="F4Q-Xc-ImV" secondAttribute="leading" constant="20" id="sm2-qJ-HVC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="C8y-0k-FBq" secondAttribute="bottom" id="3Gh-gP-O56"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="3Zs-jL-a48"/>
+                            <constraint firstAttribute="trailing" secondItem="F4Q-Xc-ImV" secondAttribute="trailing" id="4bq-Pm-eXR"/>
                             <constraint firstItem="arg-wQ-gQS" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="5Wz-PS-Dp0"/>
                             <constraint firstAttribute="trailing" secondItem="arg-wQ-gQS" secondAttribute="trailing" id="BDn-cU-hm8"/>
+                            <constraint firstItem="F4Q-Xc-ImV" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Fce-L2-EzP"/>
                             <constraint firstAttribute="trailing" secondItem="WeL-Mj-Zsh" secondAttribute="trailing" id="QSr-uN-iN4"/>
                             <constraint firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="UTu-Ve-ee9"/>
+                            <constraint firstAttribute="bottom" secondItem="F4Q-Xc-ImV" secondAttribute="bottom" id="aO2-JM-8QC"/>
                             <constraint firstItem="arg-wQ-gQS" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="wbb-jo-7d2"/>
                         </constraints>
                     </view>
@@ -245,6 +300,12 @@
                     <connections>
                         <outlet property="alertLabel" destination="S22-63-W9O" id="VTk-Rs-EbQ"/>
                         <outlet property="alertView" destination="arg-wQ-gQS" id="bds-1g-Ynr"/>
+                        <outlet property="backButton" destination="8HR-Gs-iaC" id="Ycm-Ud-cEN"/>
+                        <outlet property="bottomBarView" destination="F4Q-Xc-ImV" id="U8K-lV-PiW"/>
+                        <outlet property="bottomBarViewBottomConstraint" destination="aO2-JM-8QC" id="iLm-8z-qeU"/>
+                        <outlet property="bottomBarViewHeightConstraint" destination="V8K-Z3-GXD" id="HIV-M5-vGR"/>
+                        <outlet property="forwardButton" destination="cq9-Zs-YsN" id="cPh-wD-WgL"/>
+                        <outlet property="tocButton" destination="UVB-P9-soS" id="0Y3-wf-tat"/>
                         <outlet property="webView" destination="WeL-Mj-Zsh" id="iQJ-zA-CLH"/>
                         <segue destination="0U8-c6-wgE" kind="push" identifier="ShowHistorySegue" id="ajd-Ao-Blc"/>
                         <segue destination="5JY-JE-rua" kind="push" identifier="ShowSavedPagesSegue" id="LQ6-al-Ud5"/>
