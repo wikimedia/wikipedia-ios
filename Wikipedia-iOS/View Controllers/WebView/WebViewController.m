@@ -86,7 +86,7 @@
     self.searchResultsController.webViewController = self;
     self.searchResultsController.searchNavController = self.searchNavController;
 
-    self.mainMenuTableViewController = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"MainMenuTableViewController"];
+    self.mainMenuTableViewController = nil;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewFinishedLoading) name:@"WebViewFinishedLoading" object:nil];
     self.unsafeToScroll = NO;
@@ -265,11 +265,14 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     UIViewController *topVC = self.navigationController.topViewController;
     if(topVC == self.mainMenuTableViewController){
         [self.navigationController popToViewController:self animated:NO];
+        self.mainMenuTableViewController = nil;
         return;
     }
     if(topVC != self){
         [self.navigationController popToViewController:self animated:NO];
     }
+    
+    self.mainMenuTableViewController = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"MainMenuTableViewController"];
     [self.navigationController pushViewController:self.mainMenuTableViewController animated:NO];
 }
 
@@ -426,7 +429,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                 // created so it can be associated with the section in which this , then when the URLCache intercepts the request for this image
                 image = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:articleDataContext_.workerContext];
                 image.data = [[NSData alloc] init];
+                image.dataSize = @(image.data.length);
                 image.fileName = [src lastPathComponent];
+                image.fileNameNoSizePrefix = [image.fileName getWikiImageFileNameWithoutSizePrefix];
                 image.extension = [src pathExtension];
                 image.imageDescription = nil;
                 image.sourceUrl = src;
@@ -619,7 +624,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
     MWNetworkOp *firstSectionOp = [[MWNetworkOp alloc] init];
     firstSectionOp.delegate = self;
-    firstSectionOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:SEARCH_API_URL]
+    firstSectionOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:[SessionSingleton sharedInstance].searchApiUrl]
                                        parameters: @{
                                                      @"action": @"mobileview",
                                                      @"prop": @"sections|text",
@@ -711,8 +716,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         history0.discoveryMethod = discoveryMethod;
         [article addHistoryObject:history0];
 
-        article.site = [[SessionSingleton sharedInstance] site];   //self.currentSite;
-        article.domain = [[SessionSingleton sharedInstance] domain]; //self.currentDomain;
+        article.site = [SessionSingleton sharedInstance].site;   //self.currentSite;
+        article.domain = [SessionSingleton sharedInstance].domain; //self.currentDomain;
+        article.domainName = [SessionSingleton sharedInstance].domainName;
 
         // Add saved for article
         //Saved *saved0 = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:dataContext_];
@@ -762,7 +768,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // Retrieval of remaining sections depends on retrieving first section
     [remainingSectionsOp addDependency:firstSectionOp];
 
-    remainingSectionsOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:SEARCH_API_URL]
+    remainingSectionsOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:[SessionSingleton sharedInstance].searchApiUrl]
                                        parameters: @{
                                                      @"action": @"mobileview",
                                                      @"prop": @"sections|text",

@@ -121,7 +121,9 @@
 
     Image *thumb = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:dataContext.mainContext];
     thumb.data = imageData;
-    thumb.fileName = @"thisThumb.jpg";
+    thumb.dataSize = @(imageData.length);
+    thumb.fileName = @"123px-thisThumb.jpg";
+    thumb.fileNameNoSizePrefix = @"thisThumb.jpg";
     thumb.extension = @"jpg";
     thumb.mimeType = @"image/jpeg";
     thumb.imageDescription = @"Sample thumb description";
@@ -134,6 +136,7 @@
 
     article.site = @"wikipedia.org";
     article.domain = @"en";
+    article.domainName = @"English";
 
     // Save the article!
     error = nil;

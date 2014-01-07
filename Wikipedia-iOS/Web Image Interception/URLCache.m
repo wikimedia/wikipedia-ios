@@ -84,7 +84,9 @@
             }
             
             image.data = imageDataToUse;
+            image.dataSize = @(imageDataToUse.length);
             image.fileName = [url lastPathComponent];
+            image.fileNameNoSizePrefix = [image.fileName getWikiImageFileNameWithoutSizePrefix];
             image.extension = [url pathExtension];
             image.imageDescription = nil;
             image.sourceUrl = urlStr;

@@ -6,5 +6,6 @@
 + (NSString *)sha1:(NSString *)dataFromString isFile:(BOOL)isFile;
 - (NSString *)getUrlWithoutScheme; 
 - (NSString *)getImageMimeTypeForExtension;
+- (NSString *)getWikiImageFileNameWithoutSizePrefix;
 
 @end

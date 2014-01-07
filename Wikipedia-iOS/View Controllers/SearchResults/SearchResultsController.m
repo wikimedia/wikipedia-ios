@@ -10,6 +10,7 @@
 #import "SearchResultCell.h"
 #import "SearchBarTextField.h"
 #import "AlertLabel.h"
+#import "SessionSingleton.h"
 
 @interface SearchResultsController (){
     CGFloat scrollViewDragBeganVerticalOffset_;
@@ -90,7 +91,7 @@
 
     MWNetworkOp *searchOp = [[MWNetworkOp alloc] init];
     searchOp.delegate = self;
-    searchOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:SEARCH_API_URL]
+    searchOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:[SessionSingleton sharedInstance].searchApiUrl]
                                              parameters: @{
                                                            @"action": @"opensearch",
                                                            @"search": searchTerm,
@@ -167,7 +168,7 @@
         NSArray *searchResults = (NSArray *)weakSearchOp.jsonRetrieved;
         NSArray *titles = searchResults[1];
         NSString *barDelimitedTitles = [titles componentsJoinedByString:@"|"];
-        weakSearchThumbURLsOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:SEARCH_API_URL]
+        weakSearchThumbURLsOp.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:[SessionSingleton sharedInstance].searchApiUrl]
                                                               parameters: @{
                                                                             @"action": @"query",
                                                                             @"prop": @"pageimages",

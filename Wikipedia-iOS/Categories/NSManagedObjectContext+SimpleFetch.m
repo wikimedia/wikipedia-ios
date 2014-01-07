@@ -56,6 +56,7 @@
         article.dateCreated = [NSDate date];
         article.site = [SessionSingleton sharedInstance].site;
         article.domain = [SessionSingleton sharedInstance].domain;
+        article.domainName = [SessionSingleton sharedInstance].domainName;
     }
     return article.objectID;
 }
