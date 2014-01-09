@@ -179,7 +179,7 @@
 
 -(void)connection:(NSURLConnection*) connection didReceiveResponse:(NSURLResponse *)response
 {
-    self.dataRetrievedExpectedLength = [response expectedContentLength];
+    self.dataRetrievedExpectedLength = (NSUInteger)[response expectedContentLength];
 
     self.response = response;
 }

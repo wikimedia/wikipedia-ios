@@ -4,8 +4,13 @@
 
 @interface SessionSingleton : NSObject
 
+// These 3 persist across app restarts.
 @property (strong, nonatomic) NSString *site;
 @property (strong, nonatomic) NSString *domain;
+@property (strong, nonatomic) NSString *domainName;
+
+@property (strong, nonatomic, readonly) NSString *searchApiUrl;
+@property (strong, nonatomic, readonly) NSString *languagesAvailableApiUrl;
 
 + (SessionSingleton *)sharedInstance;
 

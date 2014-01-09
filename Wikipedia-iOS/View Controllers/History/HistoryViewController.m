@@ -269,10 +269,25 @@
     }];
     
     NSString *title = [historyEntry.article.title stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+    NSString *language = [NSString stringWithFormat:@"\n%@", historyEntry.article.domainName];
+
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.alignment = NSTextAlignmentLeft;
+
+    NSMutableAttributedString *(^styleText)(NSString *, CGFloat, UIColor *) = ^NSMutableAttributedString *(NSString *str, CGFloat size, UIColor *color){
+        return [[NSMutableAttributedString alloc] initWithString:str attributes: @{
+            NSFontAttributeName : [UIFont boldSystemFontOfSize:size],
+            NSParagraphStyleAttributeName : paragraphStyle,
+            NSForegroundColorAttributeName : color,
+        }];
+    };
+
+    NSMutableAttributedString *attributedTitle = styleText(title, 15, HISTORY_TEXT_COLOR);
+    NSMutableAttributedString *attributedLanguage = styleText(language, 8, HISTORY_LANGUAGE_COLOR);
     
-    cell.textLabel.text = title;
-    cell.textLabel.textColor = HISTORY_TEXT_COLOR;
-    
+    [attributedTitle appendAttributedString:attributedLanguage];
+    cell.textLabel.attributedText = attributedTitle;
+
 //TODO: pull this out so not loading image from file more than once.
     NSString *imageName = [NSString stringWithFormat:@"history-%@.png", historyEntry.discoveryMethod];
     cell.methodImageView.image = [UIImage imageNamed:imageName];

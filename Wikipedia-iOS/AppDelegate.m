@@ -17,8 +17,8 @@
     // our article cache.
 //TODO: update the app to occasionally check total size of our article cache and if its file exceeded some threshold size prune its image entries
 // (probably by Image.lastDateAccessed)
-    URLCache *urlCache = [[URLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
-                                                 diskCapacity:20 * 1024 * 1024
+    URLCache *urlCache = [[URLCache alloc] initWithMemoryCapacity:8 * 1024 * 1024
+                                                 diskCapacity:25 * 1024 * 1024
                                                      diskPath:nil];
     [NSURLCache setSharedURLCache:urlCache];
 
@@ -37,7 +37,13 @@
 {
     // Register default default values.
     // See: http://stackoverflow.com/a/5397647/135557
-    NSDictionary *userDefaultsDefaults = @{@"CurrentArticleTitle": @""};
+    NSDictionary *userDefaultsDefaults = @{
+        @"CurrentArticleTitle": @"",
+        @"CurrentArticleDomain": @"",
+        @"Domain": @"en",
+        @"DomainName": @"English",
+        @"Site": @"wikipedia.org"
+    };
     [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];
 }
 

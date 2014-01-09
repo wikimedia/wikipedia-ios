@@ -143,9 +143,24 @@
     }];
     
     NSString *title = [savedEntry.article.title stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+    NSString *language = [NSString stringWithFormat:@"\n%@", savedEntry.article.domainName];
     
-    cell.textLabel.text = title;
-    cell.textLabel.textColor = SAVED_PAGES_TEXT_COLOR;
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.alignment = NSTextAlignmentLeft;
+
+    NSMutableAttributedString *(^styleText)(NSString *, CGFloat, UIColor *) = ^NSMutableAttributedString *(NSString *str, CGFloat size, UIColor *color){
+        return [[NSMutableAttributedString alloc] initWithString:str attributes: @{
+            NSFontAttributeName : [UIFont fontWithName:@"Georgia" size:size],
+            NSParagraphStyleAttributeName : paragraphStyle,
+            NSForegroundColorAttributeName : color,
+        }];
+    };
+
+    NSMutableAttributedString *attributedTitle = styleText(title, 22, SAVED_PAGES_TEXT_COLOR);
+    NSMutableAttributedString *attributedLanguage = styleText(language, 10, SAVED_PAGES_LANGUAGE_COLOR);
+    
+    [attributedTitle appendAttributedString:attributedLanguage];
+    cell.textLabel.attributedText = attributedTitle;
     
     cell.methodImageView.image = nil;
 

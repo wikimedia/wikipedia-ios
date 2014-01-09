@@ -2,8 +2,8 @@
 //  Article.m
 //  Wikipedia-iOS
 //
-//  Created by Monte Hurd on 12/19/13.
-//  Copyright (c) 2013 Wikimedia Foundation. All rights reserved.
+//  Created by Monte Hurd on 1/6/14.
+//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
 #import "Article.h"
@@ -22,6 +22,7 @@
 @dynamic lastScrollY;
 @dynamic site;
 @dynamic title;
+@dynamic domainName;
 @dynamic galleryImage;
 @dynamic history;
 @dynamic saved;

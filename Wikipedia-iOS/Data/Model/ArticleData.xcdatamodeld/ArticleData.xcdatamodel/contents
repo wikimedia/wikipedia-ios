@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5029" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5041" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Article" representedClassName="Article" syncable="YES">
         <attribute name="dateCreated" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="domain" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="domainName" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="lastScrollX" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lastScrollY" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="site" attributeType="String" indexed="YES" syncable="YES"/>
@@ -32,10 +33,12 @@
     <entity name="Image" representedClassName="Image" syncable="YES">
         <attribute name="alt" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="data" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="dataSize" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="dateLastAccessed" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="dateRetrieved" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="extension" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="fileName" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="fileNameNoSizePrefix" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="height" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="imageDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mimeType" attributeType="String" indexed="YES" syncable="YES"/>
@@ -67,11 +70,11 @@
         <relationship name="section" maxCount="1" deletionRule="Nullify" destinationEntity="Section" inverseName="sectionImage" inverseEntity="Section" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Article" positionX="-72" positionY="-603" width="128" height="208"/>
+        <element name="Article" positionX="-72" positionY="-603" width="128" height="223"/>
         <element name="DiscoveryContext" positionX="313" positionY="-675" width="128" height="90"/>
         <element name="GalleryImage" positionX="-297" positionY="-171" width="128" height="90"/>
         <element name="History" positionX="135" positionY="-738" width="128" height="105"/>
-        <element name="Image" positionX="88" positionY="-396" width="128" height="268"/>
+        <element name="Image" positionX="88" positionY="-396" width="128" height="298"/>
         <element name="Saved" positionX="252" positionY="-513" width="128" height="75"/>
         <element name="Section" positionX="-110" positionY="-27" width="128" height="178"/>
         <element name="SectionImage" positionX="268" positionY="-88" width="128" height="88"/>

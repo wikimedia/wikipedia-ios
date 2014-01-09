@@ -2,8 +2,8 @@
 //  Article.h
 //  Wikipedia-iOS
 //
-//  Created by Monte Hurd on 12/19/13.
-//  Copyright (c) 2013 Wikimedia Foundation. All rights reserved.
+//  Created by Monte Hurd on 1/6/14.
+//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSNumber * lastScrollY;
 @property (nonatomic, retain) NSString * site;
 @property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * domainName;
 @property (nonatomic, retain) NSSet *galleryImage;
 @property (nonatomic, retain) NSSet *history;
 @property (nonatomic, retain) NSSet *saved;

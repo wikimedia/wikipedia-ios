@@ -2,8 +2,8 @@
 //  Image.h
 //  Wikipedia-iOS
 //
-//  Created by Monte Hurd on 12/19/13.
-//  Copyright (c) 2013 Wikimedia Foundation. All rights reserved.
+//  Created by Monte Hurd on 1/6/14.
+//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -13,6 +13,7 @@
 
 @interface Image : NSManagedObject
 
+@property (nonatomic, retain) NSString * alt;
 @property (nonatomic, retain) NSData * data;
 @property (nonatomic, retain) NSDate * dateLastAccessed;
 @property (nonatomic, retain) NSDate * dateRetrieved;
@@ -23,7 +24,8 @@
 @property (nonatomic, retain) NSString * mimeType;
 @property (nonatomic, retain) NSString * sourceUrl;
 @property (nonatomic, retain) NSNumber * width;
-@property (nonatomic, retain) NSString * alt;
+@property (nonatomic, retain) NSString * fileNameNoSizePrefix;
+@property (nonatomic, retain) NSNumber * dataSize;
 @property (nonatomic, retain) NSSet *article;
 @property (nonatomic, retain) NSSet *galleryImage;
 @property (nonatomic, retain) NSSet *section;

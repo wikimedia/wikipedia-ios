@@ -14,22 +14,49 @@
     return sharedInstance;
 }
 
-- (id)init
+-(NSString *)searchApiUrl
 {
-    self = [super init];
-    if (self) {
-        [self dataSetup];
-    }
-    return self;
+    return [NSString stringWithFormat:@"https://%@.m.%@/w/api.php", [self domain], [self site]];
 }
 
--(void)dataSetup
+-(NSString *)languagesAvailableApiUrl
 {
-    // Make site available
-    self.site = @"wikipedia.org";
+    // Leave domain set to "en".
+    return @"https://en.wikipedia.org/w/api.php";
+}
 
-    // Make domain available
-    self.domain = @"en";
+-(void)setDomain:(NSString *)domain
+{
+    [[NSUserDefaults standardUserDefaults] setObject:domain forKey:@"Domain"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSString *)domain
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"Domain"];
+}
+
+-(void)setDomainName:(NSString *)domainName
+{
+    [[NSUserDefaults standardUserDefaults] setObject:domainName forKey:@"DomainName"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSString *)domainName
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"DomainName"];
+}
+
+-(void)setSite:(NSString *)site
+{
+    [[NSUserDefaults standardUserDefaults] setObject:site forKey:@"Site"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSString *)site
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"Site"];
 }
 
 @end
+
