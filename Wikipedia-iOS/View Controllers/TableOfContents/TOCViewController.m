@@ -8,8 +8,11 @@
 #import "TOCSectionCellView.h"
 #import "WebViewController.h"
 #import "UIWebView+ElementLocation.h"
+#import "UIView+Debugging.h"
 
-#define TOC_SECTION_MARGIN 0.0f
+#define TOC_SECTION_MARGIN 1.0f
+#define TOC_SELECTION_OFFSET_Y 48.0f
+#define TOC_DELAY_BETWEEN_SELECTION_AND_ZOOM 0.35f
 
 @interface TOCViewController (){
 
@@ -24,7 +27,7 @@
 
 @property (strong, nonatomic) NSMutableArray *sectionCells;
 
-@property (nonatomic) BOOL animateWebScrollAsFocalCellChanges;
+@property (strong, nonatomic) NSMutableArray *viewConstraints;
 
 @end
 
@@ -37,10 +40,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    // If this is YES the focal cell's selection will be scrolled to when the TOC stops sliding.
-    // If this is NO the focal cell's section will be jumped to as soon as cell becomes focal.
-    self.animateWebScrollAsFocalCellChanges = NO;
- 
+    self.viewConstraints = [@[] mutableCopy];
+
     self.sectionIds = [@[]mutableCopy];
     self.sectionImageIds = [@{} mutableCopy];
     self.sectionCells = [@[]mutableCopy];
@@ -64,9 +65,7 @@
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tocTapped:)];
     [self.view addGestureRecognizer:tap];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideTOC) name:@"SearchFieldBecameFirstResponder" object:nil];
-    
+
     [self constrainScrollContainer];
 
     self.scrollContainer.backgroundColor = [UIColor clearColor];
@@ -76,62 +75,30 @@
 {
     [super viewWillAppear:animated];
 
-    //WebViewController *webVC = (WebViewController *)self.parentViewController;
-
-//TODO: Need to remove and reset these web view animations on rotate before using them.
-/*
- Have the web view controller do this after rotate conditionally if it sees these animations
- are in effect - for it to do this the shrinkReset and skewReset methods would need to
- remove animations for keys WEBVIEW_SHRINK and WEBVIEW_SKEW once they finish resetting.
- This way the webVC can know if either of these animations are in effect by just looking
- for animations for these keys.
-*/
-    //[webVC shrinkAndAlignRightWithScale:0.6f];
-    //[webVC skewWithEyePosition:-2000.0f angle:7.5f];
-
     if (self.sectionCells.count == 0) return;
     
-    // Temporarily set content insets to allow top cell to be completely off bottom of screen.
-    [self insetToRestrictScrollingToHeight:@(self.scrollView.frame.size.height)];
-
-    // Move all cells just off bottom of screen.
-    [self setScrollViewContentOffset:CGPointMake(0.0f, -self.scrollView.frame.size.height)];
-
     [self updateHighlightedCellToReflectWebView];
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-
-    //WebViewController *webVC = (WebViewController *)self.parentViewController;
-    //[webVC shrinkReset];
-    //[webVC skewReset];
-}
-
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    [self scrollHighlightedCellToScreenCenter];
-    [self cascadeSectionCellsAlphaFromMiddle];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+
+    [self insetToRestrictScrollingTopAndBottomCellsPastCenter];
+
     // Don't start monitoring scrollView scrolling until view has appeared.
     self.scrollView.delegate = self;
 
-    [self scrollHighlightedCellToScreenCenter];
-
-    [self cascadeSectionCellsAlphaFromMiddle];
+    [self scrollHighlightedCellToSelectionLineAnimated:NO];
+    
+    //[self.view randomlyColorSubviews];
 }
 
 #pragma mark Data retrieval
 
 //TODO: these 2 methods have a lot in common... refactor and stuff.
 
--(void) getSectionIds
+-(void)getSectionIds
 {
     NSString *lastViewedArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastViewedArticleTitle"];
     if(lastViewedArticleTitle) {
@@ -149,7 +116,7 @@
     }
 }
 
--(void) getSectionImageIds
+-(void)getSectionImageIds
 {
     NSString *lastViewedArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastViewedArticleTitle"];
     if(lastViewedArticleTitle) {
@@ -179,14 +146,7 @@
         [self unHighlightAllCells];
         [self navigateToSelection:sender];
     }
-
-    [self performSelector:@selector(hideTOC) withObject:nil afterDelay:0.15f];
-}
-
--(void)hideTOC
-{
-    WebViewController *webVC = (WebViewController *)self.parentViewController;
-    [webVC tocToggle];
+    [self.webVC performSelector:@selector(tocToggle) withObject:nil afterDelay:TOC_DELAY_BETWEEN_SELECTION_AND_ZOOM ];
 }
 
 #pragma mark Navigate
@@ -198,16 +158,16 @@
     CGPoint loc = [tapRecognizer locationInView:view];
     UIView *subview = [view hitTest:loc withEvent:nil];
 
-    if ([subview isMemberOfClass:[UIImageView class]]) {
+    if ([subview isKindOfClass:[UIImageView class]]) {
         if ([subview.superview isMemberOfClass:[TOCSectionCellView class]]) {
             TOCSectionCellView *cell = (TOCSectionCellView*)subview.superview;
             cell.isHighlighted = YES;
         }
 
-        [self scrollWebViewToImageForCell:(UIImageView *)subview animated:NO];
+        [self scrollWebViewToImageForCell:(UIImageView *)subview animated:YES];
         //NSLog(@"image tap index = %ld, section index = %ld", (long)subview.tag, (long)subview.superview.tag);
     }else if ([subview isMemberOfClass:[TOCSectionCellView class]]) {
-        [self scrollWebViewToSectionForCell:(TOCSectionCellView *)subview animated:NO];
+        [self scrollWebViewToSectionForCell:(TOCSectionCellView *)subview animated:YES];
         //NSLog(@"section cell tap index = %ld", (long)subview.tag);
     }
 }
@@ -216,11 +176,10 @@
 {
     cell.isHighlighted = YES;
 
-    WebViewController *webVC = (WebViewController *)self.parentViewController;
     NSString *elementId = [NSString stringWithFormat:@"content_block_%ld", (long)cell.tag];
-    CGPoint p = [webVC.webView getWebViewRectForHtmlElementWithId:elementId].origin;
+    CGPoint p = [self.webVC.webView getWebViewRectForHtmlElementWithId:elementId].origin;
 
-    [self scrollWebView:webVC.webView toPoint:p animated:animated];
+    [self scrollWebView:self.webVC.webView toPoint:p animated:animated];
 }
 
 -(void)scrollWebViewToImageForCell:(UIImageView *)imageView animated:(BOOL)animated
@@ -232,17 +191,19 @@
     ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
     SectionImage *sectionImage = (SectionImage *)[articleDataContext_.mainContext objectWithID:sectionImageId];
     
-    WebViewController *webVC = (WebViewController *)self.parentViewController;
-    CGPoint p = [webVC.webView getWebViewCoordsForHtmlImageWithSrc:sectionImage.image.sourceUrl];
+    CGPoint p = [self.webVC.webView getWebViewCoordsForHtmlImageWithSrc:sectionImage.image.sourceUrl];
     p.y = p.y - 23;
 
-    [self scrollWebView:webVC.webView toPoint:p animated:animated];
+    [self scrollWebView:self.webVC.webView toPoint:p animated:animated];
 }
 
 -(void)scrollWebView:(UIWebView *)webView toPoint:(CGPoint)point animated:(BOOL)animated
 {
     point.x = webView.scrollView.contentOffset.x;
     [webView.scrollView setContentOffset:point animated:animated];
+    
+    // Give the scrolling a bit of time to finish, then record the new scroll location.
+    [self.webVC performSelector:@selector(saveWebViewScrollOffset) withObject:nil afterDelay:0.3];
 }
 
 #pragma mark Highlight and scroll to focal cell.
@@ -257,91 +218,31 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView == self.scrollView) {
-        CGFloat focalOffset = self.scrollView.frame.size.height / 2.0f;
         for (TOCSectionCellView *cell in self.sectionCells) {
 
 //TODO: TOCSectionCellView has a "TODO:" about making a section image object for managing their state. Do that.
 // Expecially note the "v.layer.borderColor" stuff below - doesn't belong here.
             [cell resetSectionImageViewsBorderStyle];
-            NSArray *centerlineIntersectingCellImages = [cell imagesIntersectingYOffset:focalOffset inView:self.scrollView.superview];
             
 //TODO: allow this image border highlighting for vertically stacked image layout.
 /*
-            for (UIImageView *v in centerlineIntersectingCellImages) {
-                v.layer.borderColor = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0].CGColor;
-            }
+NSArray *centerlineIntersectingCellImages = [cell imagesIntersectingYOffset:focalOffset inView:self.scrollView.superview];
+for (UIImageView *v in centerlineIntersectingCellImages) {
+    v.layer.borderColor = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0].CGColor;
+}
 */
             if ([self isCellFocalCell:cell]) {
                 [self unHighlightAllCells];
                 cell.isHighlighted = YES;
             }
-
-            BOOL shouldAttemptScrollToImage = (centerlineIntersectingCellImages.count > 0) ? YES : NO;
-            BOOL shouldAttemptScrollToSection = ((!shouldAttemptScrollToImage) && cell.isHighlighted) ? YES : NO;
-
-//TODO: allow "shouldAttemptScrollToImage" to be used for vertically stacked image layout.
-shouldAttemptScrollToImage = NO;
-
-            /*
-             // Probably never do this here - to much "bridge" traffic for each scroll pixel move...
-             WebViewController *webVC = (WebViewController *)self.parentViewController;
-             NSInteger indexOfFirstOnscreenSection = [webVC.webView getIndexOfTopOnScreenElementWithPrefix:@"content_block_" count:self.sectionCells.count];
-             NSString *elementId = [NSString stringWithFormat:@"content_block_%ld", (long)indexOfFirstOnscreenSection];
-             CGPoint p = [webVC.webView getWebViewRectForHtmlElementWithId:elementId].origin;
-             if ((p.y < 0) || (p.y > 100)) shouldAttemptScrollToSection = YES;
-             */
-            
-            if (shouldAttemptScrollToImage) {
-                UIImageView *i = (UIImageView *)centerlineIntersectingCellImages[0];
-                    [self scrollWebViewToImageForCell:i animated:NO];
-            }
-
-            if (shouldAttemptScrollToSection){
-                if (!self.animateWebScrollAsFocalCellChanges) {
-                        [self scrollWebViewToSectionForCell:cell animated:NO];
-                }
-            }
         }
-    }
-    [self cascadeSectionCellsAlphaFromMiddle];
-}
-
--(void)cascadeSectionCellsAlphaFromMiddle
-{
-
-//TODO: the layout with the large vertically stacked images should *not* cascasde cell alpha.
-//return;
-
-    CGFloat minAlpha = 0.25f;
-
-    //CGFloat whiteLevel = 0.0f;
-    CGFloat halfContainerHeight = self.scrollView.frame.size.height / 2.0f;
-    // Proportionately fade out cells around middle cell.
-    for (TOCSectionCellView *cell in self.sectionCells) {
-//      if (cell.isHighlighted) continue;
-
-        //if (self.sectionCells.firstObject != cell) continue;
-        //if (self.sectionCells.lastObject != cell) continue;
-
-        CGFloat distanceFromCenter = [self offsetFromCenterForView:cell];
-
-        //if (distanceFromCenter < 0) distanceFromCenter *= 1.5;
-
-        CGFloat alpha = fabsf((fabsf(distanceFromCenter) - halfContainerHeight) / halfContainerHeight);
-        //alpha = 1.0f - alpha; // Inverts alpha.
-        alpha = MAX(alpha, minAlpha);
-        
-        if(fabsf(distanceFromCenter) > halfContainerHeight) alpha = minAlpha;
-        
-        cell.alpha = alpha;
-        //cell.backgroundColor = [UIColor colorWithWhite:whiteLevel alpha:alpha];
     }
 }
 
 -(BOOL)isCellFocalCell:(TOCSectionCellView *)cell
 {
     // "offset" is distance from top of scrollView highlighting starts.
-    CGFloat focalOffset = self.scrollView.frame.size.height / 2.0f;
+    CGFloat focalOffset = [self getSelectionLine];
     //offset = 0.0f; // <--makes selection window be at top of scrollView
     CGPoint p = [cell convertPoint:CGPointZero toView:self.scrollView.superview];
     p.x -= self.scrollView.frame.origin.x;
@@ -354,7 +255,7 @@ shouldAttemptScrollToImage = NO;
     return NO;
 }
 
-#pragma mark Scroll if self.animateWebScrollAsFocalCellChanges == YES
+#pragma mark Scroll ended
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
@@ -367,12 +268,41 @@ shouldAttemptScrollToImage = NO;
 
 - (void)scrollViewScrollingEnded:(UIScrollView *)scrollView
 {
-    if (!self.animateWebScrollAsFocalCellChanges) return;
     for (TOCSectionCellView *cell in self.sectionCells) {
         if (cell.isHighlighted) {
-            [self scrollWebViewToSectionForCell:cell animated:YES];
-            break;
+
+            CGFloat focalOffset = [self getSelectionLine];
+            NSArray *centerlineIntersectingCellImages = [cell imagesIntersectingYOffset:focalOffset inView:self.scrollView.superview];
+            
+            BOOL shouldAttemptScrollToImage = (centerlineIntersectingCellImages.count > 0) ? YES : NO;
+//TODO: enable scroll to image for vertically stacked image layout.
+shouldAttemptScrollToImage = NO;
+            BOOL shouldAttemptScrollToSection = (!shouldAttemptScrollToImage) ? YES : NO;
+
+            if (shouldAttemptScrollToImage) {
+                UIImageView *i = (UIImageView *)centerlineIntersectingCellImages[0];
+                    [self scrollWebViewToImageForCell:i animated:YES];
+                    break;
+            }
+
+            if (shouldAttemptScrollToSection){
+                [self scrollWebViewToSectionForCell:cell animated:YES];
+                break;
+            }
         }
+    }
+}
+
+-(void)centerCellForWebViewTopMostSection
+{
+    if (!self.scrollView.isDragging) {
+        // Setting delegate to nil prevents flicker of TOC selection when scrolling *web
+        // view* to new section. Does so by ignoring TOC did scroll events until after
+        // scrollHighlightedCellToSelectionLineAnimated finishes scrolling the TOC.
+        self.scrollView.delegate = nil;
+        [self updateHighlightedCellToReflectWebView];
+        [self scrollHighlightedCellToSelectionLineAnimated:YES];
+        [self.scrollView performSelector:@selector(setDelegate:) withObject:self afterDelay:0.3];
     }
 }
 
@@ -395,27 +325,6 @@ shouldAttemptScrollToImage = NO;
     [super updateViewConstraints];
 
     [self constrainSectionCells];
-
-    [self constrainTOCView];
-}
-
-- (void)constrainTOCView
-{
-    float margin = 0.0f;
-    void (^constrain)(NSLayoutAttribute, float) = ^void(NSLayoutAttribute a, float constant) {
-        [self.view.superview addConstraint:[NSLayoutConstraint constraintWithItem:self.view
-                                                                        attribute:a
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:self.view.superview
-                                                                        attribute:a
-                                                                       multiplier:1.0
-                                                                         constant:constant]];
-    };
-    
-    constrain(NSLayoutAttributeLeft, margin);
-    constrain(NSLayoutAttributeRight, -margin);
-    constrain(NSLayoutAttributeTop, margin);
-    constrain(NSLayoutAttributeBottom, -margin);
 }
 
 #pragma mark Highlighted cell
@@ -428,7 +337,7 @@ shouldAttemptScrollToImage = NO;
     return nil;
 }
 
--(void)scrollHighlightedCellToScreenCenter
+-(void)scrollHighlightedCellToSelectionLineAnimated:(BOOL)animated
 {
     if (self.sectionCells.count == 0) return;
     TOCSectionCellView *highlightedCell = [self getHighlightedCell];
@@ -436,27 +345,35 @@ shouldAttemptScrollToImage = NO;
     // Return if no cell highlighted.
     if (!highlightedCell) return;
 
-    // Temporarily set content insets to allow top cell to be completely off bottom of screen.
-    [self insetToRestrictScrollingToHeight:@(self.scrollView.frame.size.height)];
+    // Calculate highlighted cell's offset from selection line.
+    CGFloat distanceFromCenter = [self offsetFromSelectionLineForView:highlightedCell];
 
-    // Calculate highlighted cell's offset from screen center.
-    CGFloat distanceFromCenter = [self offsetFromCenterForView:highlightedCell];
-
-    // Scroll highlighted to screen center (animated).
+    // Scroll highlighted to selection line (animated).
     CGPoint contentOffset = self.scrollView.contentOffset;
     contentOffset.y += distanceFromCenter;
-    
-    //NSLog(@"contentOffset.y = %f", contentOffset.y);
-    [self setScrollViewContentOffset:contentOffset];
 
-    // After delay (to allow animated scroll above to complete) reset content
-    // insets to prevent first and last cells from scrolling past screen center.
-    [self performSelector:@selector(insetToRestrictScrollingTopAndBottomCellsPastCenter) withObject:nil afterDelay:0.35f];
+    // Ensure the top cell's top isn't below the top of the scroll container.
+    contentOffset.y = fmaxf(contentOffset.y, 0);
+
+    [self setScrollViewContentOffset:contentOffset animated:animated];
 }
 
--(CGFloat)offsetFromCenterForView:(UIView *)view
+-(CGFloat)getSelectionLine
 {
-    return view.center.y - self.scrollView.contentOffset.y - self.scrollView.frame.size.height / 2.0f;
+    // Selection line is y coordinate of imaginary horizontal line. TOC cell will be considered selected
+    // if it intersects this line.
+    return TOC_SELECTION_OFFSET_Y;
+}
+
+-(CGFloat)offsetFromSelectionLineForView:(UIView *)view
+{
+    // Since the selection line is not to far from the top of the page, ignore it for the purpose
+    // of scrolling the highlighted cell to the selection line and instead just use an offset that
+    // scrolls the section *exactly* to the top of the scroll view container. This keeps a small
+    // gap from being left between the top of the screen and the selected cell. Would need to change
+    // this to actually take the value from [self getSelectionLine] into account if the selection
+    // is ever moved from near the top of the screen.
+    return view.frame.origin.y - self.scrollView.contentOffset.y /*- [self getSelectionLine]*/;
 }
 
 #pragma mark Scroll limits
@@ -467,37 +384,27 @@ shouldAttemptScrollToImage = NO;
     self.scrollView.delegate = nil;
 
     self.scrollView.contentInset = UIEdgeInsetsMake(
-        height.floatValue - TOC_SECTION_MARGIN,
+        height.floatValue - TOC_SECTION_MARGIN - (((UIView *)self.sectionCells.firstObject).frame.size.height / 2.0f),
         0,
-        height.floatValue - TOC_SECTION_MARGIN,
+        height.floatValue - TOC_SECTION_MARGIN - (((UIView *)self.sectionCells.lastObject).frame.size.height / 2.0f),
         0
     );
     self.scrollView.delegate = self;
 }
 
--(void)setScrollViewContentOffset:(CGPoint)contentOffset
+-(void)setScrollViewContentOffset:(CGPoint)contentOffset animated:(BOOL)animated;
 {
-    // Don't report scrolling when changing offset.
-    self.scrollView.delegate = nil;
-    [self.scrollView setContentOffset:contentOffset animated:NO];
-    self.scrollView.delegate = self;
+    [self.scrollView setContentOffset:contentOffset animated:animated];
 }
 
 -(void)insetToRestrictScrollingTopAndBottomCellsPastCenter
 {
     // Don't report scrolling when changing inset.
     self.scrollView.delegate = nil;
-    CGFloat halfHeight = self.scrollView.frame.size.height / 2.0f;
-
-//TODO: the vertially stacked image layout should do "insetToRestrictScrollingToHeight", but the default layout
-// should not. Presently both are using "insetToRestrictScrollingToHeight" because of the line below.
-[self insetToRestrictScrollingToHeight:@(halfHeight)];
-return;
-    
     self.scrollView.contentInset = UIEdgeInsetsMake(
-        halfHeight - TOC_SECTION_MARGIN - (((UIView *)self.sectionCells.firstObject).frame.size.height / 2.0f),
         0,
-        halfHeight - TOC_SECTION_MARGIN - (((UIView *)self.sectionCells.lastObject).frame.size.height / 2.0f),
+        0,
+        self.scrollView.frame.size.height - ((UIView *)self.sectionCells.lastObject).frame.size.height,
         0
     );
     self.scrollView.delegate = self;
@@ -507,9 +414,10 @@ return;
 {
     // Highlight cell for section currently nearest top of webview.
     if (self.sectionCells.count > 0){
+
         [self unHighlightAllCells];
-        WebViewController *webVC = (WebViewController *)self.parentViewController;
-        NSInteger indexOfFirstOnscreenSection = [webVC.webView getIndexOfTopOnScreenElementWithPrefix:@"content_block_" count:self.sectionCells.count];
+
+        NSInteger indexOfFirstOnscreenSection = [self.webVC.webView getIndexOfTopOnScreenElementWithPrefix:@"content_block_" count:self.sectionCells.count];
         if (indexOfFirstOnscreenSection < self.sectionCells.count) {
             ((TOCSectionCellView *)self.sectionCells[indexOfFirstOnscreenSection]).isHighlighted = YES;
         }
@@ -549,8 +457,8 @@ return;
     //margin = 0.0f;
     TOCSectionCellView *prevCell = nil;
     for (TOCSectionCellView *cell in self.sectionCells) {
-        constrain(cell, NSLayoutAttributeLeft, self.scrollContainer, NSLayoutAttributeLeft, margin);
-        constrain(cell, NSLayoutAttributeRight, self.scrollContainer, NSLayoutAttributeRight, -margin);
+        constrain(cell, NSLayoutAttributeLeft, self.scrollContainer, NSLayoutAttributeLeft, 0.0f);
+        constrain(cell, NSLayoutAttributeRight, self.scrollContainer, NSLayoutAttributeRight, 0.0f);
         if (self.sectionCells.firstObject == cell) {
             constrain(cell, NSLayoutAttributeTop, self.scrollContainer, NSLayoutAttributeTop, margin);
         }else if (self.sectionCells.lastObject == cell) {

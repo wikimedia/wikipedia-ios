@@ -45,7 +45,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sgu-W1-m18" userLabel="TOC Scroll View">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgu-W1-m18" userLabel="TOC Scroll View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -59,7 +59,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.24956154336734693" green="0.24956154336734693" blue="0.24956154336734693" alpha="0.70000000000000007" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.22052375637755106" green="0.22052375637755106" blue="0.22052375637755106" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="VGj-z3-9mh" secondAttribute="trailing" id="2FA-L1-7e4"/>
                                     <constraint firstItem="VGj-z3-9mh" firstAttribute="top" secondItem="sgu-W1-m18" secondAttribute="top" id="P6f-Yb-NbR"/>
@@ -307,6 +307,8 @@
                         <outlet property="forwardButton" destination="cq9-Zs-YsN" id="cPh-wD-WgL"/>
                         <outlet property="tocButton" destination="UVB-P9-soS" id="0Y3-wf-tat"/>
                         <outlet property="webView" destination="WeL-Mj-Zsh" id="iQJ-zA-CLH"/>
+                        <outlet property="webViewLeftConstraint" destination="3Zs-jL-a48" id="fnl-sG-tsS"/>
+                        <outlet property="webViewRightConstraint" destination="QSr-uN-iN4" id="EG4-9F-vyJ"/>
                         <segue destination="0U8-c6-wgE" kind="push" identifier="ShowHistorySegue" id="ajd-Ao-Blc"/>
                         <segue destination="5JY-JE-rua" kind="push" identifier="ShowSavedPagesSegue" id="LQ6-al-Ud5"/>
                     </connections>

@@ -3,6 +3,8 @@
 #import "TOCSectionCellView.h"
 #import "ArticleCoreDataObjects.h"
 #import "ArticleDataContextSingleton.h"
+#import "TFHpple.h"
+#import "TOCImageView.h"
 
 @interface TOCSectionCellView(){
 
@@ -58,7 +60,8 @@
         
         self.clipsToBounds = YES;
 
-        self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.7];
+        self.titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+        self.titleLabel.backgroundColor = [UIColor clearColor];
 
         //self.layer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.3f].CGColor;
         //self.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
@@ -69,14 +72,51 @@
 -(void)setIsHighlighted:(BOOL)isHighlighted
 {
     if (isHighlighted) {
-        self.titleLabel.textColor = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0];
+        self.backgroundColor = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0];
     }else{
-        self.titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+        self.backgroundColor = [UIColor darkGrayColor];
     }
     
     if (isHighlighted) self.alpha = 1.0f;
     
     _isHighlighted = isHighlighted;
+}
+
+- (NSString *)getStringWithoutHTML:(NSString *)string
+{
+    // Strips html from string with xpath / hpple.
+    if (!string) return string;
+    NSData *stringData = [string dataUsingEncoding:NSUTF8StringEncoding];
+    TFHpple *parser = [TFHpple hppleWithHTMLData:stringData];
+    NSArray *textNodes = [parser searchWithXPathQuery:@"//text()"];
+    NSMutableArray *results = [@[] mutableCopy];
+    for (TFHppleElement *node in textNodes) {
+        if(node.isTextNode) [results addObject:node.raw];
+    }
+    return [results componentsJoinedByString:@""];
+}
+
+-(NSAttributedString *)getAttributedTitleForSection:(Section *)section
+{
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.alignment = NSTextAlignmentLeft;
+    
+    NSMutableAttributedString *(^styleText)(NSString *, CGFloat) = ^NSMutableAttributedString *(NSString *str, CGFloat size){
+        return [[NSMutableAttributedString alloc]
+                initWithString:str attributes: @{
+                                                 NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:size],
+                                                 NSParagraphStyleAttributeName : paragraphStyle,
+                                                 NSStrokeWidthAttributeName : @0.0f, //@-1.0f,
+                                                 NSStrokeColorAttributeName : [UIColor blackColor],
+                                                 NSForegroundColorAttributeName : [UIColor whiteColor],
+                                                 }];
+    };
+    
+    return (section.index.integerValue == 0) ?
+        styleText([self getStringWithoutHTML:section.article.title], 22)
+        :
+        styleText([self getStringWithoutHTML:section.title], 15)
+    ;
 }
 
 -(void)setSectionId:(NSManagedObjectID *)sectionId
@@ -87,16 +127,10 @@
         
         self.tag = section.index.integerValue;
 
-        self.titleLabel.text = (section.index.integerValue == 0) ? section.article.title : section.title;
-        
+        self.titleLabel.attributedText = [self getAttributedTitleForSection:section];
+
         // Add tocLevel for debugging.
         //self.titleLabel.text = [NSString stringWithFormat:@"%@-%@ : %@", section.index, section.tocLevel, self.titleLabel.text];
-        
-        if (section.index.integerValue == 0) {
-            self.titleLabel.font = [UIFont fontWithName:@"Georgia" size:24];
-        }else{
-            self.titleLabel.font = [UIFont fontWithName:@"Georgia" size:18];
-        }
         
         // Remove previous images.
         [self.sectionImageViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -106,7 +140,7 @@
             [self addSectionImageViews];
             [self resetSectionImageViewsBorderStyle];
         }
-//TODO: if section index is 0 tack a toggle view on top of it (on right side) then hook up to animate changes to
+//TODO: (maybe) if section index is 0 tack a toggle view on top of it (on right side) then hook up to animate changes to
 // label and image constraints to provide for switching between current layout and a larger vertically stacked
 // image layout and another layout with just a single tiny thumbnail (from 1st img) to left of section title w/
 // section title tabbed over at tocLevel.
@@ -136,7 +170,7 @@
     NSUInteger i = 0;
     for (NSManagedObjectID *sectionImageId in self.sectionImageIds) {
         SectionImage *sectionImage = (SectionImage *)[articleDataContext_.mainContext objectWithID:sectionImageId];
-        UIImageView *imageView = [[UIImageView alloc] init];
+        TOCImageView *imageView = [[TOCImageView alloc] init];
         // Tag will make it easy to take the tapped image and find its sectionImageId from sectionImageIds.
         imageView.tag = i; // Don't use this--> sectionImage.index.integerValue; (not all images are shown)
         i++;
@@ -144,28 +178,33 @@
         imageView.clipsToBounds = YES;
         imageView.userInteractionEnabled = YES;
 
-        imageView.layer.borderWidth = 4.0 / [UIScreen mainScreen].scale;
-
         // Needed because sometimes these images have transparency.
         imageView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
         
         imageView.translatesAutoresizingMaskIntoConstraints = NO;
         imageView.image = [UIImage imageWithData:sectionImage.image.data];
+
         [self.sectionImageViews addObject:imageView];
-        [self addSubview:imageView];
+        [self insertSubview:imageView belowSubview:self.titleLabel];
     }
 }
 
 -(void)updateConstraints
 {
     [self removeConstraints:self.constraints];
+
     [self constrainTitleLabel:self.tocLevel];
-    [self constrainSectionImages:self.tocLevel];
+    [self constrainSectionImagesBelowTitleLabel:self.tocLevel];
+
+    // Experimental constraints:
+    //[self constrainTitleLabelToLeftOfCell];
+    //[self constrainSectionImagesFillingCell];
+    //[self constrainSectionImagesFillingCellSideBySide];
     
     [super updateConstraints];
 }
 
--(void)constrainSectionImages:(NSNumber *)tocLevel
+-(void)constrainSectionImagesBelowTitleLabel:(NSNumber *)tocLevel
 {
     [self removeConstraints:self.imageViewsConstraints];
     
@@ -192,15 +231,17 @@
         [self.imageViewsConstraints addObject:constraint];
     };
 
-    UIImageView *prevImage = nil;
-    for (UIImageView *imageView in self.sectionImageViews) {
+    TOCImageView *prevImage = nil;
+    for (TOCImageView *imageView in self.sectionImageViews) {
+
+        imageView.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
 
         // Default layout with horizontal row of images beneath title label.
         constrain(imageView, NSLayoutAttributeBottom, self, NSLayoutAttributeBottom, -self.imageMargin);
         constrain(imageView, NSLayoutAttributeWidth, nil, NSLayoutAttributeNotAnAttribute, self.imageSize.width);
         constrain(imageView, NSLayoutAttributeHeight, nil, NSLayoutAttributeNotAnAttribute, self.imageSize.height);
         if (self.sectionImageViews.firstObject == imageView) {
-            constrain(imageView, NSLayoutAttributeTop, self.titleLabel, NSLayoutAttributeBottom, 0);
+            constrain(imageView, NSLayoutAttributeTop, self.titleLabel, NSLayoutAttributeBottom, self.imageMargin);
             constrain(imageView, NSLayoutAttributeLeft, self, NSLayoutAttributeLeft, (tocLevel.floatValue * self.imageIndentMargin) + self.imageIndentMarginMin);
         }
         if (prevImage) {
@@ -212,8 +253,8 @@
         continue;
         
         // Layout with vertically stacked image beneath title layout.
-        self.imageSize = CGSizeMake(160.0f, 160.0f);
-        constrain(imageView, NSLayoutAttributeRight, self, NSLayoutAttributeRight, -self.imageMargin);
+        self.imageSize = CGSizeMake(150.0f, 150.0f);
+        constrain(imageView, NSLayoutAttributeCenterX, self, NSLayoutAttributeCenterX, 0);
         constrain(imageView, NSLayoutAttributeWidth, nil, NSLayoutAttributeNotAnAttribute, self.imageSize.width);
         constrain(imageView, NSLayoutAttributeHeight, nil, NSLayoutAttributeNotAnAttribute, self.imageSize.height);
         if (self.sectionImageViews.firstObject == imageView) {
@@ -248,12 +289,16 @@
     NSInteger tocLevelToUse = ((self.tocLevel.intValue - 1) < 0) ? 0 : self.tocLevel.intValue - 1;
     constrainTitleLabel(NSLayoutAttributeLeft, (tocLevelToUse * self.indentMargin) + self.indentMarginMin);
     constrainTitleLabel(NSLayoutAttributeRight, -5);
-    constrainTitleLabel(NSLayoutAttributeTop, 0);
-    constrainTitleLabel(NSLayoutAttributeBottom, 0);
-    
-    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat: @"V:[titleLabel(>=50)]"
+    constrainTitleLabel(NSLayoutAttributeTop, 5);
+    constrainTitleLabel(NSLayoutAttributeBottom, -5);
+
+    // The label's instrinsic content size will keep it above "1" height. This allows labels above
+    // images to be narrower vertically than a label for a section which has no images.
+    CGFloat minTitleLabelHeight = (self.sectionImageViews.count > 0) ? 1 : 40;
+
+    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat: @"V:[titleLabel(>=height)]"
                                              options: 0
-                                             metrics: 0
+                                             metrics: @{@"height": @(minTitleLabelHeight)}
                                                views: @{@"titleLabel": self.titleLabel}];
     [self addConstraints:constraints];
     [self.titleLabelConstraints addObjectsFromArray:constraints];
@@ -269,6 +314,97 @@
         }
     }
     return imagesIntersectingYOffset;
+}
+
+#pragma mark Experimental constraints
+
+//Places images side by side - for example, 3 images would be 33.3% of cell width each.
+-(void)constrainSectionImagesFillingCellSideBySide
+{
+    [self removeConstraints:self.imageViewsConstraints];
+    if(self.sectionImageViews.count == 0)return;
+
+    void (^constrain)(UIView *, NSLayoutAttribute, NSLayoutRelation, UIView *, NSLayoutAttribute, CGFloat, CGFloat) = ^void(UIView *view1, NSLayoutAttribute a1, NSLayoutRelation relation, UIView *view2, NSLayoutAttribute a2, CGFloat multiplier, CGFloat constant) {
+        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem: view1
+                                      attribute: a1
+                                      relatedBy: relation
+                                         toItem: view2
+                                      attribute: a2
+                                     multiplier: multiplier
+                                       constant: constant];
+        [self addConstraint:constraint];
+        [self.imageViewsConstraints addObject:constraint];
+    };
+    TOCImageView *prevImage = nil;
+    for (TOCImageView *imageView in self.sectionImageViews) {
+        imageView.alpha = 0.5;
+
+        constrain(imageView, NSLayoutAttributeWidth, NSLayoutRelationEqual, self, NSLayoutAttributeWidth, 1.0f / self.sectionImageViews.count, 0.0f);
+        constrain(imageView, NSLayoutAttributeCenterY, NSLayoutRelationEqual, self, NSLayoutAttributeCenterY, 1.0f, 0.0f);
+        
+        NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[imageView]-(5)-|" options:0 metrics:nil views:@{@"imageView": imageView}];
+        [self addConstraints:constraints];
+        [self.imageViewsConstraints addObjectsFromArray:constraints];
+
+        if (self.sectionImageViews.firstObject == imageView) {
+            constrain(imageView, NSLayoutAttributeLeft, NSLayoutRelationEqual, self, NSLayoutAttributeLeft, 1.0f, 0.0f);
+        }
+        if (prevImage) {
+            constrain(imageView, NSLayoutAttributeLeft, NSLayoutRelationEqual, prevImage, NSLayoutAttributeRight, 1.0f, 0.0f);
+        }
+        prevImage = imageView;
+    }
+}
+
+-(void)constrainSectionImagesFillingCell
+{
+    [self removeConstraints:self.imageViewsConstraints];
+    if(self.sectionImageViews.count == 0)return;
+    for (TOCImageView *imageView in self.sectionImageViews) {
+    
+        imageView.alpha = (self.sectionImageViews.firstObject == imageView) ? 0.5f : 0.0f;
+        NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[imageView]-(5)-|" options:0 metrics:nil views:@{@"imageView": imageView}];
+        [self addConstraints:constraints];
+        [self.imageViewsConstraints addObjectsFromArray:constraints];
+
+        constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(5)-[imageView]-(5)-|" options:0 metrics:nil views:@{@"imageView": imageView}];
+        [self addConstraints:constraints];
+        [self.imageViewsConstraints addObjectsFromArray:constraints];
+    }
+}
+
+-(void)constrainTitleLabelToLeftOfCell
+{
+    [self removeConstraints:self.titleLabelConstraints];
+    void (^constrain)(UIView *, NSLayoutAttribute, NSLayoutRelation, UIView *, NSLayoutAttribute, CGFloat) = ^void(UIView *view1, NSLayoutAttribute a1, NSLayoutRelation relation, UIView *view2, NSLayoutAttribute a2, CGFloat constant) {
+        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem: view1
+                                      attribute: a1
+                                      relatedBy: relation
+                                         toItem: view2
+                                      attribute: a2
+                                     multiplier: 1.0
+                                       constant: constant];
+        [self addConstraint:constraint];
+        [self.titleLabelConstraints addObject:constraint];
+    };
+    
+    
+    UIView *firstImage = nil;
+    if(self.sectionImageViews.count > 0) firstImage = self.sectionImageViews[0];
+
+    
+    NSInteger tocLevelToUse = ((self.tocLevel.intValue - 1) < 0) ? 0 : self.tocLevel.intValue - 1;
+    constrain(self.titleLabel, NSLayoutAttributeLeft, NSLayoutRelationEqual, self, NSLayoutAttributeLeft, (tocLevelToUse * self.indentMargin) + self.indentMarginMin);
+    constrain(self.titleLabel, NSLayoutAttributeRight, NSLayoutRelationEqual, self, NSLayoutAttributeRight, -5);
+    constrain(self.titleLabel, NSLayoutAttributeTop, NSLayoutRelationEqual, self, NSLayoutAttributeTop, 5);
+    constrain(self.titleLabel, NSLayoutAttributeBottom, NSLayoutRelationEqual, self, NSLayoutAttributeBottom, -5);
+    
+    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat: @"V:[titleLabel(>=height)]"
+                                             options: 0
+                                             metrics: @{@"height": @(40)}
+                                               views: @{@"titleLabel": self.titleLabel}];
+    [self addConstraints:constraints];
+    [self.titleLabelConstraints addObjectsFromArray:constraints];
 }
 
 /*
