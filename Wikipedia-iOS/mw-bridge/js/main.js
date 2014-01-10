@@ -156,5 +156,20 @@
              event.preventDefault();
          }
      }
+
+    touchDownY = 0.0;
+    function touchStart(event){
+        touchDownY = parseInt(event.changedTouches[0].clientY);
+    }
+    document.addEventListener("touchstart", touchStart, "false");
+
+    function touchEnd(event){
+        var touchobj = event.changedTouches[0];
+        touchEndY = parseInt(touchobj.clientY);
+         if ( event.target.tagName != "A" && ((touchDownY - touchEndY) == 0) && (event.changedTouches.length == 1)) {
+             bridge.sendMessage( 'nonAnchorTouchEndedWithoutDragging', { id: event.target.getAttribute( "id" ), tagName: event.target.tagName});
+         }
+    }
+    document.addEventListener("touchend", touchEnd, "false");
  
 } )();

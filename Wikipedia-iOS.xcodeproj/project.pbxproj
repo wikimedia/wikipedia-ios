@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04090A33187F53E400577EDF /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 04090A32187F53E400577EDF /* clear.png */; };
+		04090A34187F53E400577EDF /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 04090A32187F53E400577EDF /* clear.png */; };
+		04090A37187F818400577EDF /* TOCImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04090A36187F818400577EDF /* TOCImageView.m */; };
+		04090A38187F818400577EDF /* TOCImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04090A36187F818400577EDF /* TOCImageView.m */; };
+		04090A3B187FB7D000577EDF /* UIView+Debugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 04090A3A187FB7D000577EDF /* UIView+Debugging.m */; };
+		04090A3C187FB7D000577EDF /* UIView+Debugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 04090A3A187FB7D000577EDF /* UIView+Debugging.m */; };
 		040E5C4D184564D0007AFE6F /* ArticleDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 040E5C4C184564D0007AFE6F /* ArticleDataModel.m */; };
 		040E5C4F184566F4007AFE6F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		040E5C841846AC13007AFE6F /* ArticleDataContextSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 040E5C831846AC13007AFE6F /* ArticleDataContextSingleton.m */; };
@@ -174,6 +180,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04090A32187F53E400577EDF /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear.png; sourceTree = "<group>"; };
+		04090A35187F818400577EDF /* TOCImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOCImageView.h; sourceTree = "<group>"; };
+		04090A36187F818400577EDF /* TOCImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOCImageView.m; sourceTree = "<group>"; };
+		04090A39187FB7D000577EDF /* UIView+Debugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Debugging.h"; sourceTree = "<group>"; };
+		04090A3A187FB7D000577EDF /* UIView+Debugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Debugging.m"; sourceTree = "<group>"; };
 		040E5C4C184564D0007AFE6F /* ArticleDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleDataModel.m; sourceTree = "<group>"; };
 		040E5C4E184566F4007AFE6F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		040E5C821846AC13007AFE6F /* ArticleDataContextSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleDataContextSingleton.h; sourceTree = "<group>"; };
@@ -449,6 +460,7 @@
 		0466F44C183A30CC00EA1FD7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				04090A32187F53E400577EDF /* clear.png */,
 				04478643185155750050563B /* history-search.png */,
 				04478644185155750050563B /* history-search@2x.png */,
 				04478649185159700050563B /* history-external.png */,
@@ -523,6 +535,8 @@
 		04C43AB7183442FC006C643B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				04090A39187FB7D000577EDF /* UIView+Debugging.h */,
+				04090A3A187FB7D000577EDF /* UIView+Debugging.m */,
 				04F0E2E8186EDC1A00468738 /* UIWebView+ElementLocation.h */,
 				04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */,
 				044786861856E4DB0050563B /* UIWebView+Reveal.h */,
@@ -610,6 +624,8 @@
 				04F3958F186CF80100B0D6FC /* TOCViewController.m */,
 				04F0E2EC186FB2D000468738 /* TOCSectionCellView.h */,
 				04F0E2ED186FB2D100468738 /* TOCSectionCellView.m */,
+				04090A35187F818400577EDF /* TOCImageView.h */,
+				04090A36187F818400577EDF /* TOCImageView.m */,
 			);
 			path = TableOfContents;
 			sourceTree = "<group>";
@@ -816,6 +832,7 @@
 				047E74141860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */,
 				04A47629183EF835009C0D82 /* w.png in Resources */,
 				D4BC22B4181E9E6300CAC673 /* empty.png in Resources */,
+				04090A33187F53E400577EDF /* clear.png in Resources */,
 				04478645185155750050563B /* history-search.png in Resources */,
 				04478651185159700050563B /* history-external@2x.png in Resources */,
 				0447864F185159700050563B /* history-external.png in Resources */,
@@ -839,6 +856,7 @@
 				04478654185159700050563B /* history-link.png in Resources */,
 				047E74151860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */,
 				04478632185145090050563B /* HistoryResultPrototypeView.xib in Resources */,
+				04090A34187F53E400577EDF /* clear.png in Resources */,
 				04478648185155750050563B /* history-search@2x.png in Resources */,
 				04CF1CB7187C8F4400E9516F /* Languages in Resources */,
 				04478650185159700050563B /* history-external.png in Resources */,
@@ -878,6 +896,7 @@
 				04D34DE11868E21F00610A87 /* Article+Convenience.m in Sources */,
 				04D34DB91863F69500610A87 /* DiscoveryContext.m in Sources */,
 				04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */,
+				04090A3B187FB7D000577EDF /* UIView+Debugging.m in Sources */,
 				04C43AC2183442FC006C643B /* NSURLRequest+DictionaryRequest.m in Sources */,
 				04A70FD7185BB6C300E24515 /* URLCache.m in Sources */,
 				044786881856E4DB0050563B /* UIWebView+Reveal.m in Sources */,
@@ -887,6 +906,7 @@
 				04D34DC11863F6B200610A87 /* History.m in Sources */,
 				04D34DAF1863D2D600610A87 /* XPathQuery.m in Sources */,
 				04CF1CB3187BDB5C00E9516F /* Image.m in Sources */,
+				04090A37187F818400577EDF /* TOCImageView.m in Sources */,
 				04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				04C43AA6183440C1006C643B /* MWNetworkOp.m in Sources */,
 				040E5C841846AC13007AFE6F /* ArticleDataContextSingleton.m in Sources */,
@@ -934,6 +954,7 @@
 				04D34DDA1863F70A00610A87 /* Section.m in Sources */,
 				04293001185FC2C7002A13FC /* QueuesSingleton.m in Sources */,
 				04C43AA5183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */,
+				04090A3C187FB7D000577EDF /* UIView+Debugging.m in Sources */,
 				04C43ABF183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				D4EE00BD1824459D0090790F /* PageTitleTests.m in Sources */,
 				04292FE7185FB9D7002A13FC /* SearchNavController.m in Sources */,
@@ -943,6 +964,7 @@
 				04D34DA2186283AA00610A87 /* MainMenuSectionHeadingLabel.m in Sources */,
 				04D34DC21863F6B200610A87 /* History.m in Sources */,
 				04A70FD8185BB6C300E24515 /* URLCache.m in Sources */,
+				04090A38187F818400577EDF /* TOCImageView.m in Sources */,
 				04478634185145090050563B /* HistoryViewController.m in Sources */,
 				04C43AC1183442FC006C643B /* NSString+Extras.m in Sources */,
 				04FD6C7B184EBFCD002CA02F /* ArticleData.xcdatamodeld in Sources */,

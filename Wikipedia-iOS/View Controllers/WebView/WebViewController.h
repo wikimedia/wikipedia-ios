@@ -24,7 +24,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *forwardButton;
 @property (weak, nonatomic) IBOutlet UIButton *tocButton;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewLeftConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewRightConstraint;
+
 -(void)tocToggle;
+-(void)saveWebViewScrollOffset;
 
 - (IBAction)tocButtonPushed:(id)sender;
 - (IBAction)backButtonPushed:(id)sender;
@@ -32,10 +36,5 @@
 - (IBAction)languageButtonPushed:(id)sender;
 - (IBAction)actionButtonPushed:(id)sender;
 - (IBAction)bookmarkButtonPushed:(id)sender;
-
--(void)shrinkAndAlignRightWithScale:(CGFloat)scale;
--(void)shrinkReset;
--(void)skewWithEyePosition:(CGFloat)eyePosition angle:(CGFloat)angle;
--(void)skewReset;
 
 @end
