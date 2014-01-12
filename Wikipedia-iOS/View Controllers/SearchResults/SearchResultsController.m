@@ -85,9 +85,7 @@
     [[QueuesSingleton sharedInstance].searchQ cancelAllOperations];
 
     // Show "Searching..." message.
-    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-        self.webViewController.alertLabel.text = SEARCH_LOADING_MSG_SEARCHING;
-    }];
+    self.webViewController.alertLabel.text = SEARCH_LOADING_MSG_SEARCHING;
 
     MWNetworkOp *searchOp = [[MWNetworkOp alloc] init];
     searchOp.delegate = self;

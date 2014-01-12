@@ -407,28 +407,24 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(void)saveCurrentPage
 {
-    [articleDataContext_.workerContext performBlock:^(){
-        NSManagedObjectID *articleID = [articleDataContext_.workerContext getArticleIDForTitle:[self getCurrentArticleTitle]];
-
-        Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
-
-        NSArray *alreadySavedArray = [articleDataContext_.workerContext getEntitiesForName: @"Saved" withPredicateFormat: @"article == %@", article];
-
-        Saved *alreadySaved = (alreadySavedArray) ? (Saved *)alreadySavedArray[0] : nil;
-
-        NSLog(@"SAVE PAGE FOR %@, alreadySaved = %@", article.title, alreadySaved);
-        if (article && !alreadySaved) {
-            NSLog(@"SAVED PAGE %@", article.title);
-            // Save!
-            Saved *saved = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:articleDataContext_.workerContext];
-            saved.dateSaved = [NSDate date];
-            [article addSavedObject:saved];
-            
-            NSError *error = nil;
-            [articleDataContext_.workerContext save:&error];
-            NSLog(@"SAVE PAGE ERROR = %@", error);
-        }
-    }];
+    NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:[self getCurrentArticleTitle]];
+    
+    Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+    
+    Saved *alreadySaved = (Saved *)[articleDataContext_.mainContext getEntityForName: @"Saved" withPredicateFormat: @"article == %@", article];
+    
+    NSLog(@"SAVE PAGE FOR %@, alreadySaved = %@", article.title, alreadySaved);
+    if (article && !alreadySaved) {
+        NSLog(@"SAVED PAGE %@", article.title);
+        // Save!
+        Saved *saved = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:articleDataContext_.mainContext];
+        saved.dateSaved = [NSDate date];
+        [article addSavedObject:saved];
+        
+        NSError *error = nil;
+        [articleDataContext_.mainContext save:&error];
+        NSLog(@"SAVE PAGE ERROR = %@", error);
+    }
 }
 
 -(void)savedPagesToggle
@@ -477,14 +473,18 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(void)saveWebViewScrollOffset
 {
-    [articleDataContext_.workerContext performBlock:^(){
+    [articleDataContext_.mainContext performBlockAndWait:^(){
         // Save scroll location
-        NSManagedObjectID *articleID = [articleDataContext_.workerContext getArticleIDForTitle:[self getCurrentArticleTitle]];
-        Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
-        article.lastScrollX = @(self.webView.scrollView.contentOffset.x);
-        article.lastScrollY = @(self.webView.scrollView.contentOffset.y);
-        NSError *error = nil;
-        [articleDataContext_.workerContext save:&error];
+        NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:[self getCurrentArticleTitle]];
+        if (articleID) {
+            Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+            if (article) {
+                article.lastScrollX = @(self.webView.scrollView.contentOffset.x);
+                article.lastScrollY = @(self.webView.scrollView.contentOffset.y);
+                NSError *error = nil;
+                [articleDataContext_.mainContext save:&error];
+            }
+        }
     }];
 }
 
@@ -518,7 +518,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 #pragma mark Image section associations
 
--(void)createSectionImageRecordsForSectionHtml:(NSManagedObjectID *)sectionID
+-(void)createSectionImageRecordsForSectionHtml:(NSManagedObjectID *)sectionID onContext:(NSManagedObjectContext *)context
 {
     // Parse the section html extracting the image urls (in order)
     // See: http://www.raywenderlich.com/14172/how-to-parse-html-on-ios
@@ -527,23 +527,38 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // createSectionImageRecordsForSectionHtml needs to be called *after* article
     // record created but before section html sent across bridge.
 
-    [articleDataContext_.workerContext performBlockAndWait:^(){
-        Section *section = (Section *)[articleDataContext_.workerContext objectWithID:sectionID];
+    [context performBlockAndWait:^(){
+        Section *section = (Section *)[context objectWithID:sectionID];
         
         NSData *sectionHtmlData = [section.html dataUsingEncoding:NSUTF8StringEncoding];
         TFHpple *sectionParser = [TFHpple hppleWithHTMLData:sectionHtmlData];
-        NSString *imageXpathQuery = @"//img[@src]";
+        //NSString *imageXpathQuery = @"//img[@src]";
+        NSString *imageXpathQuery = @"//img[@src][not(ancestor::table[@class='navbox'])]";
+        // ^ the navbox exclusion prevents images from the hidden navbox table from appearing
+        // in the last section's TOC cell.
+
         NSArray *imageNodes = [sectionParser searchWithXPathQuery:imageXpathQuery];
         NSUInteger imageIndexInSection = 0;
-        
+
         for (TFHppleElement *imageNode in imageNodes) {
-            NSString *alt = imageNode.attributes[@"alt"];
+
             NSString *height = imageNode.attributes[@"height"];
             NSString *width = imageNode.attributes[@"width"];
-            NSString *src = imageNode.attributes[@"src"];
+
+            if (
+                height.integerValue < THUMBNAIL_MINIMUM_SIZE_TO_CACHE.width
+                ||
+                width.integerValue < THUMBNAIL_MINIMUM_SIZE_TO_CACHE.height
+                )
+            {
+                //NSLog(@"SKIPPING - IMAGE TOO SMALL");
+                continue;
+            }
             
-            NSArray *images = [articleDataContext_.workerContext getEntitiesForName: @"Image" withPredicateFormat:@"sourceUrl == %@", src];
-            Image *image = (images) ? (Image *)images[0] : nil;
+            NSString *alt = imageNode.attributes[@"alt"];
+            NSString *src = imageNode.attributes[@"src"];
+
+            Image *image = (Image *)[context getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", src];
             
             if (image) {
                 // If Image record already exists, update its attributes.
@@ -553,9 +568,20 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             }else{
                 // If no Image record, create one setting its "data" attribute to nil. This allows the record to be
                 // created so it can be associated with the section in which this , then when the URLCache intercepts the request for this image
-                image = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:articleDataContext_.workerContext];
-                image.data = [[NSData alloc] init];
-                image.dataSize = @(image.data.length);
+                image = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:context];
+
+                /*
+                 Moved imageData into own entity:
+                    "For small to modest sized BLOBs (and CLOBs), you should create a separate
+                    entity for the data and create a to-one relationship in place of the attribute."
+                    See: http://stackoverflow.com/a/9288796/135557
+                 
+                 This allows core data to lazily load the image blob data only when it's needed.
+                 */
+                image.imageData = [NSEntityDescription insertNewObjectForEntityForName:@"ImageData" inManagedObjectContext:context];
+
+                image.imageData.data = [[NSData alloc] init];
+                image.dataSize = @(image.imageData.data.length);
                 image.fileName = [src lastPathComponent];
                 image.fileNameNoSizePrefix = [image.fileName getWikiImageFileNameWithoutSizePrefix];
                 image.extension = [src pathExtension];
@@ -571,21 +597,21 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             // If imageSection doesn't already exist with the same index and image, create sectionImage record
             // associating the image record (from line above) with section record and setting its index to the
             // order from img tag parsing.
-            NSArray *sectionImages = [articleDataContext_.workerContext getEntitiesForName: @"SectionImage"
+            SectionImage *sectionImage = (SectionImage *)[context getEntityForName: @"SectionImage"
                                                                        withPredicateFormat: @"section == %@ AND index == %@ AND image.sourceUrl == %@",
                                       section, @(imageIndexInSection), src
                                       ];
-            SectionImage *sectionImage = (sectionImages) ? (SectionImage *)sectionImages[0] : nil;
             if (!sectionImage) {
-                sectionImage = [NSEntityDescription insertNewObjectForEntityForName:@"SectionImage" inManagedObjectContext:articleDataContext_.workerContext];
+                sectionImage = [NSEntityDescription insertNewObjectForEntityForName:@"SectionImage" inManagedObjectContext:context];
                 sectionImage.image = image;
                 sectionImage.index = @(imageIndexInSection);
                 sectionImage.section = section;
             }
             imageIndexInSection ++;
         }
+
         NSError *error = nil;
-        [articleDataContext_.workerContext save:&error];
+        [context save:&error];
         if (error) {
             NSLog(@"\n\nerror = %@\n\n", error);
             NSLog(@"\n\nerror = %@\n\n", error.localizedDescription);
@@ -661,37 +687,35 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 {
     static BOOL isFirstArticle = YES;
 
-    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-        NSString *cleanTitle = [self cleanTitle:title];
-
-        // Don't try to load nothing. Core data takes exception with such nonsense.
-        if (cleanTitle == nil) return;
-        if (cleanTitle.length == 0) return;
-
-        // Hide the keyboard.
-        [self.searchNavController resignSearchFieldFirstResponder];
-        
-        // Don't reload an article if it's already showing! The exception is if the article
-        // being shown is the first article being shown. In that case, lastViewedArticleTitle
-        // isn't currently onscreen so it doesn't matter (and won't flicker).
-        if ([cleanTitle isEqualToString:[self getLastViewedArticleTitle]] && !isFirstArticle) return;
-
-        // Fade the web view out so there's not a flickery transition between old and new html.
+    NSString *cleanTitle = [self cleanTitle:title];
+    
+    // Don't try to load nothing. Core data takes exception with such nonsense.
+    if (cleanTitle == nil) return;
+    if (cleanTitle.length == 0) return;
+    
+    // Hide the keyboard.
+    [self.searchNavController resignSearchFieldFirstResponder];
+    
+    // Don't reload an article if it's already showing! The exception is if the article
+    // being shown is the first article being shown. In that case, lastViewedArticleTitle
+    // isn't currently onscreen so it doesn't matter (and won't flicker).
+    if ([cleanTitle isEqualToString:[self getLastViewedArticleTitle]] && !isFirstArticle) return;
+    
+    // Fade the web view out so there's not a flickery transition between old and new html.
 //TODO: Fix this. It causes fade out even when no connection, which blanks out current article.
-        //[self.webView fade];
-
-        [self setCurrentArticleTitle:cleanTitle];
-        isFirstArticle = NO;
-        [self setLastViewedArticleTitle:cleanTitle];
-        
-        // Show loading message
-        self.alertLabel.text = SEARCH_LOADING_MSG_SECTION_ZERO;
-        
-        [self retrieveArticleForPageTitle:cleanTitle discoveryMethod:discoveryMethod];
-        
-        // Update the back and forward buttons enabled state.
-        [self updateBottomBarButtonsEnabledState];
-    }];
+    //[self.webView fade];
+    
+    [self setCurrentArticleTitle:cleanTitle];
+    isFirstArticle = NO;
+    [self setLastViewedArticleTitle:cleanTitle];
+    
+    // Show loading message
+    self.alertLabel.text = SEARCH_LOADING_MSG_SECTION_ZERO;
+    
+    [self retrieveArticleForPageTitle:cleanTitle discoveryMethod:discoveryMethod];
+    
+    // Update the back and forward buttons enabled state.
+    [self updateBottomBarButtonsEnabledState];
 }
 
 - (void)retrieveArticleForPageTitle:(NSString *)pageTitle discoveryMethod:(NSString *)discoveryMethod
@@ -702,22 +726,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // If article with sections just show them
     if (article.section.count > 0) {
         [self displayArticle:article];
-
-//TODO: add code here attempting to downloading thumbnail for article if article.thumbnailImage is unset at this point.
-
-// Note: If no thumb is able to be downloaded even after this, the history controller,
-// upon confirming that article.thumbnailImage remains unset, could be made to
-// show a section image from the article instead (would just show it, *not* save
-// any association).
-
         return;
-    }else{
-        // Discard the empty article created in mainContext by getArticleForTitle.
-        [articleDataContext_.mainContext deleteObject:article];
-
-        // Needed is an article created in the *worker* context since that's what's updated below.
-        articleID = [articleDataContext_.workerContext getArticleIDForTitle:pageTitle];
-        article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
     }
 
     // Associate thumbnail with article.
@@ -730,9 +739,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         NSString *thumbURL = result[0][@"thumbnail"][@"source"];
         thumbURL = [thumbURL getUrlWithoutScheme];
 
-        NSArray *thumbs = [articleDataContext_.workerContext getEntitiesForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
-        
-        Image *thumb = (thumbs) ? (Image *)thumbs[0] : nil;
+        Image *thumb = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
 
         if (thumb) article.thumbnailImage = thumb;
     }
@@ -768,6 +775,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     };
     firstSectionOp.completionBlock = ^(){
         [self networkActivityIndicatorPop];
+        // The completion block happens on non-main thread, so must get article from articleID again.
+        // Because "you can only use a context on a thread when the context was created on that thread"
+        // this must happen on workerContext as well (see: http://stackoverflow.com/a/6356201/135557)
+        Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
 
         if (weakOp.error) {
             // Show error message.
@@ -858,7 +869,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // Update the back and forward buttons enabled state now that there's a new history entry.
         [self updateBottomBarButtonsEnabledState];
 
-        [self createSectionImageRecordsForSectionHtml:section0.objectID];
+        [self createSectionImageRecordsForSectionHtml:section0.objectID onContext:articleDataContext_.workerContext];
 
         if (error) {
             NSLog(@"error = %@", error);
@@ -917,7 +928,12 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             self.alertLabel.hidden = YES;
             return;
         }
-        
+
+        // The completion block happens on non-main thread, so must get article from articleID again.
+        // Because "you can only use a context on a thread when the context was created on that thread"
+        // this must happen on workerContext as well (see: http://stackoverflow.com/a/6356201/135557)
+        Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
+
         // Get article sections text (faster joining array elements than appending a string)
         NSDictionary *sections = weakRemainingSectionsOp.jsonRetrieved[@"mobileview"][@"sections"];
 
@@ -946,7 +962,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
         for (Section *section in article.section) {
             if (![section.index isEqual: @0]) {
-                [self createSectionImageRecordsForSectionHtml:section.objectID];
+                [self createSectionImageRecordsForSectionHtml:section.objectID onContext:articleDataContext_.workerContext];
             }
         }
 
@@ -1012,7 +1028,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     for (Section *section in sortedSections) {
         if (section.html){
 
-            [self createSectionImageRecordsForSectionHtml:section.objectID];
+            [self createSectionImageRecordsForSectionHtml:section.objectID onContext:articleDataContext_.mainContext];
 
             NSString *sectionHTML = section.html;
             if ([section.index isEqualToNumber:@(0)]) {
@@ -1035,15 +1051,13 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     NSString *htmlStr = [sectionText componentsJoinedByString:joint];
 
     // Send html across bridge to web view
-    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-        // Show article loaded message
-        self.alertLabel.text = SEARCH_LOADING_MSG_ARTICLE_LOADED;
-        // Then hide the message (hidden has been overriden to fade out slowly)
-        self.alertLabel.hidden = YES;
+    // Show article loaded message
+    self.alertLabel.text = SEARCH_LOADING_MSG_ARTICLE_LOADED;
+    // Then hide the message (hidden has been overriden to fade out slowly)
+    self.alertLabel.hidden = YES;
 
-        // Display all sections
-        [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];        
-    }];
+    // Display all sections
+    [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];        
 }
 
 #pragma mark Bottom bar button methods
@@ -1064,38 +1078,36 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(NSDictionary *)getTitlesForAdjacentHistoryArticles
 {
-    __block NSMutableDictionary *result = [@{} mutableCopy];
-    [articleDataContext_.workerContext performBlockAndWait:^{
-        NSError *error = nil;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName: @"History"
-                                                  inManagedObjectContext: articleDataContext_.workerContext];
-        [fetchRequest setEntity:entity];
-        
-        NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:YES selector:nil];
-        
-        [fetchRequest setSortDescriptors:@[dateSort]];
-        
-        error = nil;
-        NSArray *historyEntities = [articleDataContext_.workerContext executeFetchRequest:fetchRequest error:&error];
-        
-        NSString *titleOfArticleBeforeCurrentOne = @"";
-        NSString *titleOfArticleAfterCurrentOne = @"";
-        NSString *currentArticleTitle = [self getCurrentArticleTitle];
-        NSString *lastTitle = @"";
-        for (History *history in historyEntities) {
-            NSString *thisTitle = history.article.title;
-            if ([thisTitle isEqualToString:currentArticleTitle]) {
-                titleOfArticleBeforeCurrentOne = lastTitle;
-            }else if ([lastTitle isEqualToString:currentArticleTitle]) {
-                titleOfArticleAfterCurrentOne = thisTitle;
-            }
-            lastTitle = thisTitle;
+    NSMutableDictionary *result = [@{} mutableCopy];
+    NSError *error = nil;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName: @"History"
+                                              inManagedObjectContext: articleDataContext_.mainContext];
+    [fetchRequest setEntity:entity];
+    
+    NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:YES selector:nil];
+    
+    [fetchRequest setSortDescriptors:@[dateSort]];
+    
+    error = nil;
+    NSArray *historyEntities = [articleDataContext_.mainContext executeFetchRequest:fetchRequest error:&error];
+    
+    NSString *titleOfArticleBeforeCurrentOne = @"";
+    NSString *titleOfArticleAfterCurrentOne = @"";
+    NSString *currentArticleTitle = [self getCurrentArticleTitle];
+    NSString *lastTitle = @"";
+    for (History *history in historyEntities) {
+        NSString *thisTitle = history.article.title;
+        if ([thisTitle isEqualToString:currentArticleTitle]) {
+            titleOfArticleBeforeCurrentOne = lastTitle;
+        }else if ([lastTitle isEqualToString:currentArticleTitle]) {
+            titleOfArticleAfterCurrentOne = thisTitle;
         }
-        if(titleOfArticleBeforeCurrentOne.length > 0) result[@"before"] = titleOfArticleBeforeCurrentOne;
-        if(currentArticleTitle.length > 0) result[@"current"] = currentArticleTitle;
-        if(titleOfArticleAfterCurrentOne.length > 0) result[@"after"] = titleOfArticleAfterCurrentOne;
-    }];
+        lastTitle = thisTitle;
+    }
+    if(titleOfArticleBeforeCurrentOne.length > 0) result[@"before"] = titleOfArticleBeforeCurrentOne;
+    if(currentArticleTitle.length > 0) result[@"current"] = currentArticleTitle;
+    if(titleOfArticleAfterCurrentOne.length > 0) result[@"after"] = titleOfArticleAfterCurrentOne;
     return result;
 }
 
@@ -1139,12 +1151,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:[self getCurrentArticleTitle]];
-        Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+    NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:[self getCurrentArticleTitle]];
+    Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
 
-        self.indexOfFirstOnscreenSectionBeforeRotate = [self.webView getIndexOfTopOnScreenElementWithPrefix:@"content_block_" count:article.section.count];
-    }];    
+    self.indexOfFirstOnscreenSectionBeforeRotate = [self.webView getIndexOfTopOnScreenElementWithPrefix:@"content_block_" count:article.section.count];
     //self.view.alpha = 0.0f;
 
     self.tocVisible = NO;

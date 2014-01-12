@@ -182,7 +182,7 @@
         imageView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.5f];
         
         imageView.translatesAutoresizingMaskIntoConstraints = NO;
-        imageView.image = [UIImage imageWithData:sectionImage.image.data];
+        imageView.image = [UIImage imageWithData:sectionImage.image.imageData.data];
 
         [self.sectionImageViews addObject:imageView];
         [self insertSubview:imageView belowSubview:self.titleLabel];

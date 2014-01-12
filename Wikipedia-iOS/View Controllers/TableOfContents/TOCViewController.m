@@ -103,11 +103,11 @@
     NSString *lastViewedArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastViewedArticleTitle"];
     if(lastViewedArticleTitle) {
         ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
-        [articleDataContext_.workerContext performBlockAndWait:^{
-            NSManagedObjectID *articleID = [articleDataContext_.workerContext getArticleIDForTitle:lastViewedArticleTitle];
-            Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
+        [articleDataContext_.mainContext performBlockAndWait:^{
+            NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:lastViewedArticleTitle];
+            Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
             if (article) {
-                NSArray *sections = [article getSectionsUsingContext:articleDataContext_.workerContext];
+                NSArray *sections = [article getSectionsUsingContext:articleDataContext_.mainContext];
                 for (Section *section in sections) {
                     [self.sectionIds addObject:section.objectID];
                 }
@@ -121,11 +121,11 @@
     NSString *lastViewedArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastViewedArticleTitle"];
     if(lastViewedArticleTitle) {
         ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
-        [articleDataContext_.workerContext performBlockAndWait:^{
-            NSManagedObjectID *articleID = [articleDataContext_.workerContext getArticleIDForTitle:lastViewedArticleTitle];
-            Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
+        [articleDataContext_.mainContext performBlockAndWait:^{
+            NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:lastViewedArticleTitle];
+            Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
             if (article) {
-                NSArray *sectionImages = [article getSectionImagesUsingContext:articleDataContext_.workerContext];
+                NSArray *sectionImages = [article getSectionImagesUsingContext:articleDataContext_.mainContext];
                 for (SectionImage *sectionImage in sectionImages) {
                     if (!self.sectionImageIds[sectionImage.section.objectID]) {
                         self.sectionImageIds[sectionImage.section.objectID] = [@[] mutableCopy];

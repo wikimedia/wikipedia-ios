@@ -8,3 +8,4 @@
 #import "Image.h"
 #import "GalleryImage.h"
 #import "SectionImage.h"
+#import "ImageData.h"

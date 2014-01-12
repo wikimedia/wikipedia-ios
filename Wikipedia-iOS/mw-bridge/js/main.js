@@ -48,9 +48,7 @@
 
 
 
-//TODO: move makeTablesNotBlockIfSafeToDoSo, hideAudioTags and reduceWeirdWebkitMargin out into
-// own js object for things which need to happen once the entire document is ready (as opposed
-// to section-level transforms).
+//TODO: move makeTablesNotBlockIfSafeToDoSo, hideAudioTags and reduceWeirdWebkitMargin out into own js object.
 
      function makeTablesNotBlockIfSafeToDoSo() {
         // Tables which are narrower than their container look funny - this is caused by table
@@ -108,13 +106,6 @@
 
      window.onload = function() {
         bridge.sendMessage( "DOMLoaded", {} );
- 
-        // Things which need to happen after entire page is ready.
-        makeTablesNotBlockIfSafeToDoSo();
-        reduceWeirdWebkitMargin();
-        hideAudioTags();
-        allowDivWidthsToFlow();
-
      };
      
      bridge.registerListener( "append", function( payload ) {
@@ -123,11 +114,20 @@
           var content = document.getElementById("ios_app_content");
           var newcontent = document.createElement('div');
           newcontent.innerHTML = payload.html;
+
           while (newcontent.firstChild) {
 // Quite often this pushes the first image pretty far offscreen... hmmm...
 //             newcontent.firstChild = transforms.transform( "lead", newcontent.firstChild );
              content.appendChild(newcontent.firstChild);
           }
+
+         // Things which need to happen any time data is appended.
+//TODO: later could optimize to only perform actions on elements found
+// within the ios_app_content div which was appended).
+         makeTablesNotBlockIfSafeToDoSo();
+         reduceWeirdWebkitMargin();
+         hideAudioTags();
+         allowDivWidthsToFlow();
      });
 
      bridge.registerListener( "prepend", function( payload ) {

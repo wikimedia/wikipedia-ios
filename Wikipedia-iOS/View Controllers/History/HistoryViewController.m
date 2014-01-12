@@ -170,30 +170,30 @@
     //NSLog(@"GARBAGE = %@", garbage);
     if (garbage.count == 0) return;
 
-    [articleDataContext_.workerContext performBlockAndWait:^(){
+    [articleDataContext_.mainContext performBlockAndWait:^(){
         for (NSManagedObjectID *historyID in garbage) {
-            History *history = (History *)[articleDataContext_.workerContext objectWithID:historyID];
+            History *history = (History *)[articleDataContext_.mainContext objectWithID:historyID];
             Article *article = history.article;
             Image *thumb = history.article.thumbnailImage;
             
             // Delete the expired history record
-            [articleDataContext_.workerContext deleteObject:history];
+            [articleDataContext_.mainContext deleteObject:history];
 
             BOOL isSaved = (article.saved.count > 0) ? YES : NO;
 
             if (isSaved) continue;
 
             // Article deletes don't cascade to images (intentionally) so delete these manually.
-            if (thumb) [articleDataContext_.workerContext deleteObject:thumb];
+            if (thumb) [articleDataContext_.mainContext deleteObject:thumb];
 
 //TODO: add code for deleting images which were only referenced by this article
 
             // Delete the article
-            if (article) [articleDataContext_.workerContext deleteObject:article];
+            if (article) [articleDataContext_.mainContext deleteObject:article];
 
         }
         NSError *error = nil;
-        [articleDataContext_.workerContext save:&error];
+        [articleDataContext_.mainContext save:&error];
         if (error) NSLog(@"GARBAGE error = %@", error);
 
     }];

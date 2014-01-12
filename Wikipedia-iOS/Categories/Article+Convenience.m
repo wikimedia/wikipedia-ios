@@ -2,12 +2,13 @@
 
 #import "Article+Convenience.h"
 #import "ArticleCoreDataObjects.h"
+#import "Defines.h"
 
 @implementation Article (Convenience)
 
 -(NSArray *)getSectionImagesUsingContext:(NSManagedObjectContext *)context
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"section.article == %@ AND (image.width > %@ OR image.height > %@)", self, @(99), @(99)];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"section.article == %@ AND (image.width >= %@ OR image.height >= %@)", self, @(THUMBNAIL_MINIMUM_SIZE_TO_CACHE.width), @(THUMBNAIL_MINIMUM_SIZE_TO_CACHE.height)];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName: @"SectionImage"
@@ -54,12 +55,12 @@
 -(UIImage *)getThumbnailUsingContext:(NSManagedObjectContext *)context
 {
     if(self.thumbnailImage){
-        return [UIImage imageWithData:self.thumbnailImage.data];
+        return [UIImage imageWithData:self.thumbnailImage.imageData.data];
     }else{
-        NSArray *firstSectionImage = [self getFirstSectionImageLargerThanSize:CGSizeMake(99, 99) usingContext:context];
+        NSArray *firstSectionImage = [self getFirstSectionImageLargerThanSize:THUMBNAIL_MINIMUM_SIZE_TO_CACHE usingContext:context];
         if (firstSectionImage.count == 1) {
             SectionImage *sectionImage = (SectionImage *)firstSectionImage[0];
-            return [UIImage imageWithData:sectionImage.image.data];
+            return [UIImage imageWithData:sectionImage.image.imageData.data];
         }
     }
     return nil;
@@ -67,7 +68,7 @@
 
 -(NSArray *)getFirstSectionImageLargerThanSize:(CGSize)size usingContext:(NSManagedObjectContext *)context
 {
-    NSPredicate * predicate = [NSPredicate predicateWithFormat:@"section.article == %@ AND image.width > %@ AND image.height > %@", self, @(size.width), @(size.height)];
+    NSPredicate * predicate = [NSPredicate predicateWithFormat:@"section.article == %@ AND image.width >= %@ AND image.height >= %@", self, @(size.width), @(size.height)];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName: @"SectionImage"

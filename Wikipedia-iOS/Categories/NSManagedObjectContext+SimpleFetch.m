@@ -6,7 +6,7 @@
 
 @implementation NSManagedObjectContext (SimpleFetch)
 
--(NSArray *)getEntitiesForName:(NSString *)entityName withPredicateFormat:(NSString *)predicateFormat, ...
+-(NSManagedObject *)getEntityForName:(NSString *)entityName withPredicateFormat:(NSString *)predicateFormat, ...
 {
     // See: http://www.cocoawithlove.com/2009/05/variable-argument-lists-in-cocoa.html for variadic methods syntax reminder.
     va_list args;
@@ -19,25 +19,26 @@
                                               inManagedObjectContext: self];
     [fetchRequest setEntity:entity];
     [fetchRequest setPredicate:predicate];
+    [fetchRequest setFetchLimit:1];
 
     NSError *error = nil;
     NSArray *entities = [self executeFetchRequest:fetchRequest error:&error];
-
-    // Return nil if no results - makes it easier to test whether any entities were found.
-    if (entities && (entities.count == 0)) entities = nil;
-
-    if(error != nil){
+    if(error){
         NSLog(@"Error: %@", error);
         return nil;
     }
-    return entities;
-}
 
-//NSManagedObject *entity = (NSManagedObject *)entities[0];
+    // Return nil if no results - makes it easier to test whether any entities were found.
+    if (entities){
+        return (entities.count == 1) ? entities[0] : nil;
+    }else{
+        return nil;
+    }
+}
 
 -(NSManagedObjectID *)getArticleIDForTitle:(NSString *)title
 {
-    NSArray *articles = [self getEntitiesForName: @"Article" withPredicateFormat: @"\
+    Article *article = (Article *)[self getEntityForName: @"Article" withPredicateFormat: @"\
                        title ==[c] %@ \
                        AND \
                        site.name == %@ \
@@ -47,8 +48,6 @@
                        [SessionSingleton sharedInstance].site,
                        [SessionSingleton sharedInstance].domain
     ];
-
-    Article *article = (articles) ? (Article *)articles[0] : nil;
 
     if (!article) {
         article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:self];

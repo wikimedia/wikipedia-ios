@@ -9,13 +9,8 @@
 #import <XCTest/XCTest.h>
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-#import "Article.h"
-#import "DiscoveryContext.h"
 #import "ArticleDataContextSingleton.h"
-#import "Section.h"
-#import "History.h"
-#import "Saved.h"
-#import "Image.h"
+#import "ArticleCoreDataObjects.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 
 @interface TestArticleDataModel : XCTestCase{
@@ -120,7 +115,9 @@
     NSData *imageData = (id)CFBridgingRelease(CGDataProviderCopyData(provider));
 
     Image *thumb = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:dataContext.mainContext];
-    thumb.data = imageData;
+
+    thumb.imageData = [NSEntityDescription insertNewObjectForEntityForName:@"ImageData" inManagedObjectContext:dataContext.mainContext];
+    thumb.imageData.data = imageData;
     thumb.dataSize = @(imageData.length);
     thumb.fileName = @"123px-thisThumb.jpg";
     thumb.fileNameNoSizePrefix = @"thisThumb.jpg";
