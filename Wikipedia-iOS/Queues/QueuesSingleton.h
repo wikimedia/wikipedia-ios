@@ -8,6 +8,8 @@
 @property (strong, nonatomic) NSOperationQueue *searchQ;
 @property (strong, nonatomic) NSOperationQueue *thumbnailQ;
 
+@property (strong, nonatomic) NSOperationQueue *sectionWikiTextQ;
+
 + (QueuesSingleton *)sharedInstance;
 
 @end

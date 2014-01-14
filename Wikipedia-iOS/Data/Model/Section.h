@@ -31,4 +31,10 @@
 - (void)addSectionImage:(NSSet *)values;
 - (void)removeSectionImage:(NSSet *)values;
 
+//TODO: refactor other core data objects (article etc) to contain/encapsulate their communication code.
+
+// Gets the latest revision of wikitext from server for this section.
+// The block is passed a string with the wiki text once its retrieved.
+- (void)getWikiTextThen:(void (^)(NSString *))block;
+
 @end

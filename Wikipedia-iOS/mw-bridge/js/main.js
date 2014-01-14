@@ -159,6 +159,9 @@
 
     touchDownY = 0.0;
     function touchStart(event){
+        if ( event.target.className === "edit_section" ) {
+            bridge.sendMessage( 'editClicked', { href: event.target.getAttribute( "id" ) });
+        }
         touchDownY = parseInt(event.changedTouches[0].clientY);
     }
     document.addEventListener("touchstart", touchStart, "false");

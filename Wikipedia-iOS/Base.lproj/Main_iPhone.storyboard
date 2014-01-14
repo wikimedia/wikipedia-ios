@@ -85,6 +85,69 @@
             </objects>
             <point key="canvasLocation" x="94" y="616"/>
         </scene>
+        <!--Section Editor View Controller-->
+        <scene sceneID="BWG-Ga-8hx">
+            <objects>
+                <viewController restorationIdentifier="SectionEditorViewController" storyboardIdentifier="SectionEditorViewController" id="5er-xi-5lN" customClass="SectionEditorViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Uij-Jt-RyQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="itb-4E-TzB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cex-zA-X93">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohj-LA-82c">
+                                <rect key="frame" x="10" y="80" width="300" height="478"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.93604512117346939" green="0.93604512117346939" blue="0.93604512117346939" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0o-I6-RDJ">
+                                <rect key="frame" x="20" y="35" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelPushed:" destination="5er-xi-5lN" eventType="touchUpInside" id="4tD-ZN-IsM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Wa-ox-cAd">
+                                <rect key="frame" x="266" y="35" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="savePushed:" destination="5er-xi-5lN" eventType="touchUpInside" id="CEB-5n-gJV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ohj-LA-82c" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="10" id="GW3-Ua-a8X"/>
+                            <constraint firstAttribute="trailing" secondItem="7Wa-ox-cAd" secondAttribute="trailing" constant="20" symbolic="YES" id="Vjy-nh-Pvb"/>
+                            <constraint firstAttribute="trailing" secondItem="ohj-LA-82c" secondAttribute="trailing" constant="10" id="aPb-dZ-HOe"/>
+                            <constraint firstAttribute="bottom" secondItem="ohj-LA-82c" secondAttribute="bottom" constant="10" id="eMa-8O-6mo"/>
+                            <constraint firstItem="ohj-LA-82c" firstAttribute="top" secondItem="P0o-I6-RDJ" secondAttribute="bottom" constant="15" id="mdr-1R-rmd"/>
+                            <constraint firstItem="P0o-I6-RDJ" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="20" symbolic="YES" id="tvI-a1-Zfx"/>
+                            <constraint firstItem="P0o-I6-RDJ" firstAttribute="top" secondItem="Uij-Jt-RyQ" secondAttribute="bottom" constant="15" id="vLv-1p-wHI"/>
+                            <constraint firstItem="7Wa-ox-cAd" firstAttribute="top" secondItem="Uij-Jt-RyQ" secondAttribute="bottom" constant="15" id="zVu-Gk-wAb"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="P0o-I6-RDJ" id="QMp-QK-lVW"/>
+                        <outlet property="editTextView" destination="ohj-LA-82c" id="uOG-V5-Eqx"/>
+                        <outlet property="saveButton" destination="7Wa-ox-cAd" id="5uf-34-uo9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DEY-rf-Gnw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="471" y="1015"/>
+        </scene>
         <!--Saved Pages View Controller-->
         <scene sceneID="IrT-ak-0hr">
             <objects>

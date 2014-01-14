@@ -21,6 +21,7 @@
         self.articleRetrievalQ = [[NSOperationQueue alloc] init];
         self.searchQ = [[NSOperationQueue alloc] init];
         self.thumbnailQ = [[NSOperationQueue alloc] init];
+        self.sectionWikiTextQ = [[NSOperationQueue alloc] init];
         //[self setupQMonitorLogging];
     }
     return self;

@@ -28,6 +28,7 @@
 #import "TFHpple.h"
 #import "TOCViewController.h"
 #import "UIWebView+ElementLocation.h"
+#import "SectionEditorViewController.h"
 
 #define WEB_VIEW_SCALE_WHEN_TOC_VISIBLE (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.45f : 0.70f)
 #define TOC_TOGGLE_ANIMATION_DURATION 0.35f
@@ -45,7 +46,8 @@
 @property (nonatomic) NSInteger indexOfFirstOnscreenSectionBeforeRotate;
 @property (strong, nonatomic) NSDictionary *adjacentHistoryArticleTitles;
 @property (nonatomic) BOOL tocVisible;
-
+@property (nonatomic) BOOL sectionEditingVisible;
+@property (nonatomic) NSUInteger sectionToEditIndex;
 @property (strong, nonatomic) NSMutableArray *tocConstraints;
 
 @end
@@ -82,8 +84,10 @@
     [super viewDidLoad];
 
     self.tocConstraints = [@[] mutableCopy];
+    self.sectionToEditIndex = 0;
 
     self.tocVisible = NO;
+    self.sectionEditingVisible = NO;
     self.forwardButton.transform = CGAffineTransformMakeScale(-1.0, 1.0);
 
     self.searchNavController = (SearchNavController *)self.navigationController;
@@ -107,7 +111,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(savedPagesToggle) name:@"SavedPagesToggle" object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tocHide) name:@"SearchFieldBecameFirstResponder" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchFieldBecameFirstResponder) name:@"SearchFieldBecameFirstResponder" object:nil];
 
     self.alertLabel.text = @"";
 
@@ -127,6 +131,79 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchStringChanged) name:@"SearchStringChanged" object:nil];
 
     [self updateBottomBarButtonsEnabledState];
+}
+
+#pragma mark Edit section
+
+-(BOOL)sectionEditingVisible
+{
+    SectionEditorViewController *sectionEditVC = [self getSectionEditorViewController];
+    return (sectionEditVC) ? YES : NO;
+}
+
+-(SectionEditorViewController *)getSectionEditorViewController
+{
+    for (UIViewController *childVC in self.childViewControllers) {
+        if([childVC isMemberOfClass:[SectionEditorViewController class]]){
+            return (SectionEditorViewController *)childVC;
+        }
+    }
+    return nil;
+}
+
+-(void)setSectionEditingVisible:(BOOL)sectionEditingVisible
+{
+    BOOL _sectionEditingVisible = self.sectionEditingVisible;
+    
+    if(_sectionEditingVisible != sectionEditingVisible){
+        _sectionEditingVisible = sectionEditingVisible;
+        
+        SectionEditorViewController *sectionEditVC = [self getSectionEditorViewController];
+        
+        // Hide section editor.
+        if(!sectionEditingVisible){
+            // Ensure one exists to be hidden.
+            if (sectionEditVC) {
+                [sectionEditVC.view removeFromSuperview];
+                [sectionEditVC removeFromParentViewController];
+            }
+        }else{
+            // Show section editor.
+            // Ensure it doesn't already exist.
+            if (!sectionEditVC) {
+                sectionEditVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SectionEditorViewController"];
+
+                NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:[self getCurrentArticleTitle]];
+                
+                Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+                
+                Section *section = (Section *)[articleDataContext_.mainContext getEntityForName: @"Section" withPredicateFormat:@"article == %@ AND index == %@", article, @(self.sectionToEditIndex)];
+                
+                sectionEditVC.sectionID = section.objectID;
+
+                [self addChildViewController:sectionEditVC];
+
+                sectionEditVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+                [self.view addSubview:sectionEditVC.view];
+
+                [self.view addConstraints:
+                    [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[sectionEditorView]|" options:0 metrics:nil views:@{@"sectionEditorView":sectionEditVC.view}]
+                ];
+
+                [self.view addConstraints:
+                    [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[sectionEditorView]|" options:0 metrics:nil views:@{@"sectionEditorView":sectionEditVC.view}]
+                ];
+                
+                [sectionEditVC didMoveToParentViewController:self];
+            }
+        }
+    }
+}
+
+-(void)searchFieldBecameFirstResponder
+{
+    self.tocVisible = NO;
+    self.sectionEditingVisible = NO;
 }
 
 #pragma mark Table of contents
@@ -189,11 +266,6 @@
             }
         }
     }
-}
-
--(void)tocHide
-{
-    self.tocVisible = NO;
 }
 
 -(void)tocToggle
@@ -312,6 +384,13 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 [weakSelf.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"alert('%@')", msg]];
 
         }
+    }];
+
+    [self.bridge addListener:@"editClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        weakSelf.tocVisible = NO;
+        weakSelf.sectionToEditIndex = [[payload[@"href"] stringByReplacingOccurrencesOfString:@"edit_section_" withString:@""] integerValue];
+
+        weakSelf.sectionEditingVisible = YES;
     }];
 
     [self.bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString *messageType, NSDictionary *payload) {
@@ -1006,7 +1085,14 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // each section. This will make it easy to identify section offsets for the purpose of scrolling the
     // web view to a given section. Do not save this html to the core data store - this way it can be changed
     // later if needed (to a div etc).
-    return [NSString stringWithFormat:@"<div class='content_block' id='content_block_%@'>%@</div>", sectionIndex, html];
+    
+    return [NSString stringWithFormat:
+        @"<div class='content_block' id='content_block_%@'>\
+            <div class='edit_section' id='edit_section_%d'>\
+            </div>\
+            %@\
+        </div>\
+        ", sectionIndex, sectionIndex.integerValue, html];
 }
 
 -(NSString *)addTitle:(NSString *)title toHTML:(NSString *)html
