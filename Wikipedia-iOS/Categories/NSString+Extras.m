@@ -52,10 +52,11 @@
 
 - (NSString *)getWikiImageFileNameWithoutSizePrefix
 {
-//TODO: optimize this to not use a regex. It's so simple there's no need to create regex objects.
-    static NSString *pattern = @"^(\\d+px-)(.+)";
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:NULL];
-    return [regex stringByReplacingMatchesInString:self options:NSMatchingReportProgress range:NSMakeRange(0, self.length) withTemplate:@"$2"];
+    const char *string = [self UTF8String];
+    const char *sizePrefixEnd = string;
+    for ( ; isdigit(*sizePrefixEnd); sizePrefixEnd++);
+    
+    return !strncmp(sizePrefixEnd, "px-", 3) ? [self substringFromIndex: (sizePrefixEnd - string) + 3] : self;
 }
 
 @end
