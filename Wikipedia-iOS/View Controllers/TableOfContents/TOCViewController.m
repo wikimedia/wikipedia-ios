@@ -100,16 +100,18 @@
 
 -(void)getSectionIds
 {
-    NSString *lastViewedArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastViewedArticleTitle"];
-    if(lastViewedArticleTitle) {
+    NSString *currentArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
+    if(currentArticleTitle) {
         ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
         [articleDataContext_.mainContext performBlockAndWait:^{
-            NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:lastViewedArticleTitle];
-            Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-            if (article) {
-                NSArray *sections = [article getSectionsUsingContext:articleDataContext_.mainContext];
-                for (Section *section in sections) {
-                    [self.sectionIds addObject:section.objectID];
+            NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:currentArticleTitle];
+            if (articleID) {
+                Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+                if (article) {
+                    NSArray *sections = [article getSectionsUsingContext:articleDataContext_.mainContext];
+                    for (Section *section in sections) {
+                        [self.sectionIds addObject:section.objectID];
+                    }
                 }
             }
         }];
@@ -118,19 +120,21 @@
 
 -(void)getSectionImageIds
 {
-    NSString *lastViewedArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastViewedArticleTitle"];
-    if(lastViewedArticleTitle) {
+    NSString *currentArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
+    if(currentArticleTitle) {
         ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
         [articleDataContext_.mainContext performBlockAndWait:^{
-            NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:lastViewedArticleTitle];
-            Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-            if (article) {
-                NSArray *sectionImages = [article getSectionImagesUsingContext:articleDataContext_.mainContext];
-                for (SectionImage *sectionImage in sectionImages) {
-                    if (!self.sectionImageIds[sectionImage.section.objectID]) {
-                        self.sectionImageIds[sectionImage.section.objectID] = [@[] mutableCopy];
+            NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:currentArticleTitle];
+            if (articleID) {
+                Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+                if (article) {
+                    NSArray *sectionImages = [article getSectionImagesUsingContext:articleDataContext_.mainContext];
+                    for (SectionImage *sectionImage in sectionImages) {
+                        if (!self.sectionImageIds[sectionImage.section.objectID]) {
+                            self.sectionImageIds[sectionImage.section.objectID] = [@[] mutableCopy];
+                        }
+                        [self.sectionImageIds[sectionImage.section.objectID] addObject:sectionImage.objectID];
                     }
-                    [self.sectionImageIds[sectionImage.section.objectID] addObject:sectionImage.objectID];
                 }
             }
         }];

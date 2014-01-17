@@ -94,8 +94,8 @@
     // Add a "Show Languages" toggle.
     [self addToTableDataLanguagesToggleWithTitle:LANGUAGES_TOGGLE_TEXT_SHOW];
 
-    NSString *lastViewedArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastViewedArticleTitle"];
-    if(!lastViewedArticleTitle || (lastViewedArticleTitle.length == 0)){
+    NSString *currentArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
+    if(!currentArticleTitle || (currentArticleTitle.length == 0)){
         self.hidePagesSection = YES;
         [[self sectionDict:SECTION_ARTICLE_OPTIONS][@"rows"] removeAllObjects];
     }else{
@@ -119,7 +119,7 @@
 
 -(void)loadTableData
 {
-    NSString *lastViewedArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastViewedArticleTitle"];
+    NSString *currentArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
 
     self.tableData = [@[
                             
@@ -157,7 +157,7 @@
                             
                             [@{
                                @"key": @"articleOptions",
-                               @"title": [NSString stringWithFormat:@"\"%@\"", lastViewedArticleTitle],
+                               @"title": [NSString stringWithFormat:@"\"%@\"", currentArticleTitle],
                                @"label": @"",
                                @"subTitle": @"",
                                @"rows": [@[

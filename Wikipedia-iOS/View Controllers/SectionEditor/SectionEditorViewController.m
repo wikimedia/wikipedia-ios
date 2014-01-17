@@ -6,6 +6,10 @@
 #import "ArticleDataContextSingleton.h"
 #import "ArticleCoreDataObjects.h"
 #import "Defines.h"
+#import "UIViewController+Alert.h"
+#import "QueuesSingleton.h"
+#import "DownloadSectionWikiTextOp.h"
+#import "UploadSectionWikiTextOp.h"
 
 #define EDIT_TEXT_VIEW_FONT @"AmericanTypewriter"
 #define EDIT_TEXT_VIEW_FONT_SIZE 14.0f
@@ -73,13 +77,29 @@
 
 -(void)loadLatestWikiTextForSectionFromServer
 {
+    [self showAlert:@"Loading wiki text..."];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
-    [section getWikiTextThen:^(NSString *wikiText){
-
-        self.editTextView.attributedText = [self getAttributedString:wikiText];
-        [self adjustScrollInset];
-        //[self performSelector:@selector(setCursor:) withObject:self.editTextView afterDelay:0.6];
+    
+    DownloadSectionWikiTextOp *downloadWikiTextOp = [[DownloadSectionWikiTextOp alloc] initForPageTitle:section.article.title section:section.index completionBlock:^(NSString *revision){
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+            [self showAlert:@"Wiki text loaded."];
+            [self showAlert:@""];
+            self.editTextView.attributedText = [self getAttributedString:revision];
+            [self adjustScrollInset];
+        }];
+        
+    } cancelledBlock:^(NSError *error){
+        NSString *errorMsg = error.localizedDescription;
+        [self showAlert:errorMsg];
+        
+    } errorBlock:^(NSError *error){
+        NSString *errorMsg = error.localizedDescription;
+        [self showAlert:errorMsg];
+        
     }];
+    
+    [[QueuesSingleton sharedInstance].sectionWikiTextQ addOperation:downloadWikiTextOp];
 }
 
 -(void)adjustScrollInset
@@ -116,13 +136,65 @@
 
 - (IBAction)savePushed:(id)sender
 {
-    NSLog(@"save pushed");
+    [self showAlert:@"Saving..."];
+    Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
+
+    NSManagedObjectID *articleID = section.article.objectID;
+
+    UploadSectionWikiTextOp *uploadWikiTextOp = [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title section:section.index wikiText:self.editTextView.text completionBlock:^(NSString *result){
+
+        // Remove all sections so they will be reloaded.
+        // (Needs to be done on worker context as worker context changes bubble up through
+        // main context too - so web view controller accessing main context will see changes.)
+        if (articleID) {
+            [articleDataContext_.workerContext performBlockAndWait:^(){
+                Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
+                if (article) {
+                    for (Section *thisSection in [article.section copy]) {
+                        [articleDataContext_.workerContext deleteObject:thisSection];
+                    }
+                    NSError *error = nil;
+                    [articleDataContext_.workerContext save:&error];
+                    NSLog(@"error = %@", error);
+                }
+            }];
+        }
+        
+        // Cause the web view to reload - now that its sections are gone it will try to reload them.
+        UIViewController *vc = self.parentViewController;
+        SEL selector = NSSelectorFromString(@"reloadCurrentArticle");
+        if ([vc respondsToSelector:selector]) {
+            // (Invokes selector in way that doesn't show annoying compiler warning.)
+            ((void (*)(id, SEL))[vc methodForSelector:selector])(vc, selector);
+        }
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+
+            [self showAlert:result];
+            [self showAlert:@""];
+            [self performSelector:@selector(hide) withObject:nil afterDelay:1.0f];
+        }];
+        
+    } cancelledBlock:^(NSError *error){
+        NSString *errorMsg = error.localizedDescription;
+        [self showAlert:errorMsg];
+        
+    } errorBlock:^(NSError *error){
+        NSString *errorMsg = error.localizedDescription;
+        [self showAlert:errorMsg];
+        
+    }];
+
+    [[QueuesSingleton sharedInstance].sectionWikiTextQ addOperation:uploadWikiTextOp];
 }
 
 - (IBAction)cancelPushed:(id)sender
 {
-    NSLog(@"cancel pushed");
-    
+    [self hide];
+}
+
+-(void)hide
+{
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
 }

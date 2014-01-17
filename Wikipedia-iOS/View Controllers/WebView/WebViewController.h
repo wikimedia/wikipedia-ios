@@ -9,13 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "MWNetworkOp.h"
 
-@class DiscoveryMethod, AlertLabel;
+@class DiscoveryMethod;
 
 @interface WebViewController : UIViewController <UIWebViewDelegate, NetworkOpDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-@property (weak, nonatomic) IBOutlet UIView *alertView;
-@property (weak, nonatomic) IBOutlet AlertLabel *alertLabel;
 
 @property (weak, nonatomic) IBOutlet UIView *bottomBarView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBarViewBottomConstraint;
@@ -29,6 +27,7 @@
 
 -(void)tocToggle;
 -(void)saveWebViewScrollOffset;
+-(void)reloadCurrentArticle;
 
 - (IBAction)tocButtonPushed:(id)sender;
 - (IBAction)backButtonPushed:(id)sender;

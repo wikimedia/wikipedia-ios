@@ -2,6 +2,7 @@
 
 #import "Article+Convenience.h"
 #import "ArticleCoreDataObjects.h"
+#import "Image+Convenience.h"
 #import "Defines.h"
 
 @implementation Article (Convenience)
@@ -55,7 +56,8 @@
 -(UIImage *)getThumbnailUsingContext:(NSManagedObjectContext *)context
 {
     if(self.thumbnailImage){
-        return [UIImage imageWithData:self.thumbnailImage.imageData.data];
+        Image *highestResolutionImage = [self.thumbnailImage getHighestResolutionImageWithSameNameUsingContext:context];
+        return [UIImage imageWithData:highestResolutionImage.imageData.data];
     }else{
         NSArray *firstSectionImage = [self getFirstSectionImageLargerThanSize:THUMBNAIL_MINIMUM_SIZE_TO_CACHE usingContext:context];
         if (firstSectionImage.count == 1) {

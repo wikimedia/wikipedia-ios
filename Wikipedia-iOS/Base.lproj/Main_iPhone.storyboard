@@ -98,14 +98,14 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohj-LA-82c">
-                                <rect key="frame" x="10" y="80" width="300" height="478"/>
+                                <rect key="frame" x="10" y="85" width="300" height="473"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.93604512117346939" green="0.93604512117346939" blue="0.93604512117346939" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0o-I6-RDJ">
-                                <rect key="frame" x="20" y="35" width="48" height="30"/>
+                                <rect key="frame" x="20" y="40" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -115,7 +115,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Wa-ox-cAd">
-                                <rect key="frame" x="266" y="35" width="34" height="30"/>
+                                <rect key="frame" x="266" y="40" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -133,11 +133,11 @@
                             <constraint firstAttribute="bottom" secondItem="ohj-LA-82c" secondAttribute="bottom" constant="10" id="eMa-8O-6mo"/>
                             <constraint firstItem="ohj-LA-82c" firstAttribute="top" secondItem="P0o-I6-RDJ" secondAttribute="bottom" constant="15" id="mdr-1R-rmd"/>
                             <constraint firstItem="P0o-I6-RDJ" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="20" symbolic="YES" id="tvI-a1-Zfx"/>
-                            <constraint firstItem="P0o-I6-RDJ" firstAttribute="top" secondItem="Uij-Jt-RyQ" secondAttribute="bottom" constant="15" id="vLv-1p-wHI"/>
-                            <constraint firstItem="7Wa-ox-cAd" firstAttribute="top" secondItem="Uij-Jt-RyQ" secondAttribute="bottom" constant="15" id="zVu-Gk-wAb"/>
+                            <constraint firstItem="P0o-I6-RDJ" firstAttribute="top" secondItem="Uij-Jt-RyQ" secondAttribute="bottom" constant="20" id="vLv-1p-wHI"/>
+                            <constraint firstItem="7Wa-ox-cAd" firstAttribute="top" secondItem="Uij-Jt-RyQ" secondAttribute="bottom" constant="20" id="zVu-Gk-wAb"/>
                         </constraints>
                     </view>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="cancelButton" destination="P0o-I6-RDJ" id="QMp-QK-lVW"/>
                         <outlet property="editTextView" destination="ohj-LA-82c" id="uOG-V5-Eqx"/>
@@ -267,27 +267,6 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="Pmz-tr-TG8"/>
                                 </connections>
                             </webView>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arg-wQ-gQS" userLabel="Message View">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="S22-63-W9O" userLabel="Message Label" customClass="AlertLabel">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.96999999999999997" alpha="0.96999999999999997" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="S22-63-W9O" firstAttribute="top" secondItem="arg-wQ-gQS" secondAttribute="top" id="70M-Wv-uAr"/>
-                                    <constraint firstAttribute="bottom" secondItem="S22-63-W9O" secondAttribute="bottom" id="DN7-c5-IKQ"/>
-                                    <constraint firstAttribute="height" constant="18" id="G0W-KV-nyT"/>
-                                    <constraint firstAttribute="trailing" secondItem="S22-63-W9O" secondAttribute="trailing" id="r1p-oO-Kg8"/>
-                                    <constraint firstItem="S22-63-W9O" firstAttribute="leading" secondItem="arg-wQ-gQS" secondAttribute="leading" id="v8D-Ql-1MJ"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4Q-Xc-ImV" userLabel="BottomNav">
                                 <rect key="frame" x="0.0" y="459" width="320" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -346,13 +325,10 @@
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="C8y-0k-FBq" secondAttribute="bottom" id="3Gh-gP-O56"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="3Zs-jL-a48"/>
                             <constraint firstAttribute="trailing" secondItem="F4Q-Xc-ImV" secondAttribute="trailing" id="4bq-Pm-eXR"/>
-                            <constraint firstItem="arg-wQ-gQS" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="5Wz-PS-Dp0"/>
-                            <constraint firstAttribute="trailing" secondItem="arg-wQ-gQS" secondAttribute="trailing" id="BDn-cU-hm8"/>
                             <constraint firstItem="F4Q-Xc-ImV" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Fce-L2-EzP"/>
                             <constraint firstAttribute="trailing" secondItem="WeL-Mj-Zsh" secondAttribute="trailing" id="QSr-uN-iN4"/>
                             <constraint firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="UTu-Ve-ee9"/>
                             <constraint firstAttribute="bottom" secondItem="F4Q-Xc-ImV" secondAttribute="bottom" id="aO2-JM-8QC"/>
-                            <constraint firstItem="arg-wQ-gQS" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="wbb-jo-7d2"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -361,8 +337,6 @@
                         <nil key="title"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="alertLabel" destination="S22-63-W9O" id="VTk-Rs-EbQ"/>
-                        <outlet property="alertView" destination="arg-wQ-gQS" id="bds-1g-Ynr"/>
                         <outlet property="backButton" destination="8HR-Gs-iaC" id="Ycm-Ud-cEN"/>
                         <outlet property="bottomBarView" destination="F4Q-Xc-ImV" id="U8K-lV-PiW"/>
                         <outlet property="bottomBarViewBottomConstraint" destination="aO2-JM-8QC" id="iLm-8z-qeU"/>

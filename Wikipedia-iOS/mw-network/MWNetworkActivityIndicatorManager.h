@@ -4,7 +4,7 @@
 
 + (MWNetworkActivityIndicatorManager *)sharedManager;
 
-- (void)show;
-- (void)hide;
+- (void)push;
+- (void)pop;
 
 @end

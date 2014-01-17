@@ -41,23 +41,15 @@
     Article *article = (Article *)[self getEntityForName: @"Article" withPredicateFormat: @"\
                        title ==[c] %@ \
                        AND \
-                       site.name == %@ \
+                       site == %@ \
                        AND \
-                       domain.name == %@",
+                       domain == %@",
                        title,
                        [SessionSingleton sharedInstance].site,
                        [SessionSingleton sharedInstance].domain
     ];
 
-    if (!article) {
-        article = [NSEntityDescription insertNewObjectForEntityForName:@"Article" inManagedObjectContext:self];
-        article.title = title;
-        article.dateCreated = [NSDate date];
-        article.site = [SessionSingleton sharedInstance].site;
-        article.domain = [SessionSingleton sharedInstance].domain;
-        article.domainName = [SessionSingleton sharedInstance].domainName;
-    }
-    return article.objectID;
+    return (article) ? article.objectID : nil;
 }
 
 @end

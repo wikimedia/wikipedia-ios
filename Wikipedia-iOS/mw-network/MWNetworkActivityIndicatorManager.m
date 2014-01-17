@@ -32,18 +32,20 @@ static MWNetworkActivityIndicatorManager *sharedManager;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:_count > 0 ? YES : NO];
 }
 
-- (void)show {
-    
-    @synchronized(self) {
-        self.count += 1;
-    }
+- (void)push {
+    dispatch_async(dispatch_get_main_queue(), ^(){
+        @synchronized(self) {
+            self.count += 1;
+        }
+    });
 }
 
-- (void)hide {
-    
-    @synchronized(self) {
-        self.count -= 1;
-    }
+- (void)pop {
+    dispatch_async(dispatch_get_main_queue(), ^(){
+        @synchronized(self) {
+            self.count -= 1;
+        }
+    });
 }
 
 @end

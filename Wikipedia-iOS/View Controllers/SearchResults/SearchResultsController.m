@@ -9,11 +9,16 @@
 #import "NSURLRequest+DictionaryRequest.h"
 #import "SearchResultCell.h"
 #import "SearchBarTextField.h"
-#import "AlertLabel.h"
 #import "SessionSingleton.h"
+#import "UIViewController+Alert.h"
+
+#import "ArticleDataContextSingleton.h"
+#import "ArticleCoreDataObjects.h"
+#import "NSString+Extras.h"
 
 @interface SearchResultsController (){
     CGFloat scrollViewDragBeganVerticalOffset_;
+    ArticleDataContextSingleton *articleDataContext_;
 }
 
 @end
@@ -24,6 +29,8 @@
 {
     [super viewDidLoad];
     
+    articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
+
     scrollViewDragBeganVerticalOffset_ = 0.0f;
 
     self.searchResultsOrdered = [[NSMutableArray alloc] init];
@@ -85,7 +92,7 @@
     [[QueuesSingleton sharedInstance].searchQ cancelAllOperations];
 
     // Show "Searching..." message.
-    self.webViewController.alertLabel.text = SEARCH_LOADING_MSG_SEARCHING;
+    [self showAlert:SEARCH_LOADING_MSG_SEARCHING];
 
     MWNetworkOp *searchOp = [[MWNetworkOp alloc] init];
     searchOp.delegate = self;
@@ -101,11 +108,11 @@
     __weak MWNetworkOp *weakSearchOp = searchOp;
     searchOp.aboutToStart = ^{
         //NSLog(@"search op aboutToStart for %@", searchTerm);
-        [self networkActivityIndicatorPush];
+        [[MWNetworkActivityIndicatorManager sharedManager] push];
     };
     
     searchOp.completionBlock = ^(){
-        [self networkActivityIndicatorPop];
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
         if(weakSearchOp.isCancelled){
             //NSLog(@"search op completionBlock bailed (because op was cancelled) for %@", searchTerm);
             return;
@@ -118,14 +125,10 @@
             // (need to extract msg from error *before* main q block - the error is dealloc'ed by
             // the time the block is dequeued)
             NSString *errorMsg = weakSearchOp.error.localizedDescription;
-            [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-                self.webViewController.alertLabel.text = errorMsg;
-            }];
+            [self showAlert:errorMsg];
             return;
         }else{
-            [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-                self.webViewController.alertLabel.text = @"";
-            }];
+            [self showAlert:@""];
         }
         
         NSArray *searchResults = (NSArray *)weakSearchOp.jsonRetrieved;
@@ -162,7 +165,7 @@
     searchThumbURLsOp.delegate = self;
 
     searchThumbURLsOp.aboutToStart = ^{
-        [self networkActivityIndicatorPush];
+        [[MWNetworkActivityIndicatorManager sharedManager] push];
         NSArray *searchResults = (NSArray *)weakSearchOp.jsonRetrieved;
         NSArray *titles = searchResults[1];
         NSString *barDelimitedTitles = [titles componentsJoinedByString:@"|"];
@@ -180,7 +183,7 @@
     };
     
     searchThumbURLsOp.completionBlock = ^(){
-        [self networkActivityIndicatorPop];
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
         if(weakSearchThumbURLsOp.isCancelled){
             //NSLog(@"search thumb urls op completionBlock bailed (because op was cancelled) for %@", searchTerm);
             return;
@@ -191,18 +194,41 @@
         // Get dictionary of search thumb urls mapped to their respective search terms
         NSDictionary *results = (NSDictionary *)weakSearchThumbURLsOp.jsonRetrieved;
 
-        if (results.count > 0) {
-            NSDictionary *pages = results[@"query"][@"pages"];
-            for (NSDictionary *page in pages) {
-                NSString *titleFromThumbOpResults = pages[page][@"title"];
-                for (NSMutableDictionary *searchOpResult in self.searchResultsOrdered) {
-                    if ([searchOpResult[@"title"] isEqualToString:titleFromThumbOpResults]) {
-                        searchOpResult[@"thumbnail"] = (pages[page][@"thumbnail"]) ? pages[page][@"thumbnail"] : [@{} mutableCopy];
-                        break;
+        [articleDataContext_.workerContext performBlockAndWait:^(){
+            if (results.count > 0) {
+                NSDictionary *pages = results[@"query"][@"pages"];
+                for (NSDictionary *page in pages) {
+                    NSString *titleFromThumbOpResults = pages[page][@"title"];
+                    for (NSMutableDictionary *searchOpResult in self.searchResultsOrdered) {
+                        if ([searchOpResult[@"title"] isEqualToString:titleFromThumbOpResults]) {
+                            searchOpResult[@"thumbnail"] = (pages[page][@"thumbnail"]) ? pages[page][@"thumbnail"] : [@{} mutableCopy];
+                            
+                            // If url thumb found, prepare a core data Image object so URLCache will know this is an image
+                            // to intercept. (Removing this would turn off thumbnail caching, but a better way to handle
+                            // too many thumbnails would be periodically removing Image records which aren't referenced by
+                            // a SectionImage record.)
+//TODO: write code to do the periodic core data store cleanup mentioned in above comment.
+                            if (pages[page][@"thumbnail"]) {
+                                
+                                NSString *src = searchOpResult[@"thumbnail"][@"source"];
+                                NSNumber *height = searchOpResult[@"thumbnail"][@"height"];
+                                NSNumber *width = searchOpResult[@"thumbnail"][@"width"];
+                                if (src && height && width) {
+                                    [self insertPlaceHolderImageEntityIntoContext: articleDataContext_.workerContext
+                                                                  forImageWithUrl: src
+                                                                            width: width
+                                                                           height: height
+                                     ];
+                                }
+                            }
+                            break;
+                        }
                     }
                 }
             }
-        }
+            NSError *error = nil;
+            [articleDataContext_.workerContext save:&error];
+        }];
         dispatch_async(dispatch_get_main_queue(), ^(){
             // Now we also have search thumbnail url data in searchResultsOrdered! Reload so thumb downloads
             // for on-screen cells can happen!
@@ -213,6 +239,29 @@
     
     [[QueuesSingleton sharedInstance].searchQ addOperation:searchThumbURLsOp];
     [[QueuesSingleton sharedInstance].searchQ addOperation:searchOp];
+}
+
+#pragma mark Core data Image record placeholder for thumbnail (so they get cached)
+
+-(void)insertPlaceHolderImageEntityIntoContext: (NSManagedObjectContext *)context
+                               forImageWithUrl: (NSString *)url
+                                         width: (NSNumber *)width
+                                        height: (NSNumber *)height
+{
+    Image *image = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:context];
+    image.imageData = [NSEntityDescription insertNewObjectForEntityForName:@"ImageData" inManagedObjectContext:context];
+    image.imageData.data = [[NSData alloc] init];
+    image.dataSize = @(image.imageData.data.length);
+    image.fileName = [url lastPathComponent];
+    image.fileNameNoSizePrefix = [image.fileName getWikiImageFileNameWithoutSizePrefix];
+    image.extension = [url pathExtension];
+    image.imageDescription = nil;
+    image.sourceUrl = [url getUrlWithoutScheme];
+    image.dateRetrieved = [NSDate date];
+    image.dateLastAccessed = [NSDate date];
+    image.width = @(width.integerValue);
+    image.height = @(height.integerValue);
+    image.mimeType = [image.extension getImageMimeTypeForExtension];
 }
 
 #pragma mark Search term highlighting
@@ -303,10 +352,10 @@
     __weak MWNetworkOp *weakThumbnailOp = thumbnailOp;
     thumbnailOp.aboutToStart = ^{
         //NSLog(@"thumbnail op aboutToStart with request %@", weakThumbnailOp.request);
-        [self networkActivityIndicatorPush];
+        [[MWNetworkActivityIndicatorManager sharedManager] push];
     };
     thumbnailOp.completionBlock = ^(){
-        [self networkActivityIndicatorPop];
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
         if(weakThumbnailOp.isCancelled){
             //NSLog(@"thumbnail op completionBlock bailed (because op was cancelled) for %@", searchTerm);
             return;
@@ -366,24 +415,6 @@
 -(void)popToWebViewController
 {
     [self.navigationController popToViewController:self.webViewController animated:NO];
-}
-
-#pragma mark Network activity indicator methods
-
--(void)networkActivityIndicatorPush
-{
-    dispatch_async(dispatch_get_main_queue(), ^(){
-        // Show status bar spinner
-        [[MWNetworkActivityIndicatorManager sharedManager] show];
-    });
-}
-
--(void)networkActivityIndicatorPop
-{
-    dispatch_async(dispatch_get_main_queue(), ^(){
-        // Hide status bar spinner
-        [[MWNetworkActivityIndicatorManager sharedManager] hide];
-    });
 }
 
 #pragma mark Memory

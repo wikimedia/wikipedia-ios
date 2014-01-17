@@ -10,7 +10,6 @@
 @property (strong, nonatomic) NSString *domainName;
 
 @property (strong, nonatomic, readonly) NSString *searchApiUrl;
-@property (strong, nonatomic, readonly) NSString *languagesAvailableApiUrl;
 
 + (SessionSingleton *)sharedInstance;
 
