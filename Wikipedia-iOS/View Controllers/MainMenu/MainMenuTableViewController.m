@@ -13,6 +13,7 @@
 #import "SessionSingleton.h"
 #import "NSURLRequest+DictionaryRequest.h"
 #import "MWNetworkActivityIndicatorManager.h"
+#import "SessionSingleton.h"
 
 // Section indexes.
 #define SECTION_MENU_OPTIONS 0
@@ -94,7 +95,7 @@
     // Add a "Show Languages" toggle.
     [self addToTableDataLanguagesToggleWithTitle:LANGUAGES_TOGGLE_TEXT_SHOW];
 
-    NSString *currentArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
+    NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
     if(!currentArticleTitle || (currentArticleTitle.length == 0)){
         self.hidePagesSection = YES;
         [[self sectionDict:SECTION_ARTICLE_OPTIONS][@"rows"] removeAllObjects];
@@ -119,7 +120,7 @@
 
 -(void)loadTableData
 {
-    NSString *currentArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
+    NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
 
     self.tableData = [@[
                             
@@ -508,16 +509,11 @@
 -(NSMutableArray *)getLanguagesFromFile
 {
     NSError *error = nil;
-    NSData *fileData = [NSData dataWithContentsOfFile:[self bundledLanguagesPath] options:0 error:&error];
+    NSData *fileData = [NSData dataWithContentsOfFile:[[SessionSingleton sharedInstance] bundledLanguagesPath] options:0 error:&error];
     if (error) return [@[] mutableCopy];
     error = nil;
     NSArray *result = [NSJSONSerialization JSONObjectWithData:fileData options:0 error:&error];
     return (error) ? [@[] mutableCopy]: [result mutableCopy];
-}
-
-- (NSString *)bundledLanguagesPath
-{
-    return [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/Languages/languages.json"];
 }
 
 @end

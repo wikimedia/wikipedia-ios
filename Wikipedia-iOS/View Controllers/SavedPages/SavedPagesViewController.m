@@ -8,6 +8,7 @@
 #import "SavedPagesTableHeadingLabel.h"
 #import "Defines.h"
 #import "Article+Convenience.h"
+#import "SessionSingleton.h"
 
 @interface SavedPagesViewController ()
 {
@@ -206,8 +207,8 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     // Set CurrentArticleTitle so the web view knows what to display for this selection.
-    [[NSUserDefaults standardUserDefaults] setObject:savedEntry.article.title forKey:@"CurrentArticleTitle"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [SessionSingleton sharedInstance].currentArticleTitle = savedEntry.article.title;
+    [SessionSingleton sharedInstance].currentArticleDomain = savedEntry.article.domain;
     
     WebViewController *webViewController = [self getWebViewController];
     [self.navigationController popToViewController:webViewController animated:YES];

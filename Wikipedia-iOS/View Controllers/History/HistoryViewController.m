@@ -9,6 +9,7 @@
 #import "HistoryTableHeadingLabel.h"
 #import "Defines.h"
 #import "Article+Convenience.h"
+#import "SessionSingleton.h"
 
 @interface HistoryViewController ()
 {
@@ -333,8 +334,8 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     // Set CurrentArticleTitle so the web view knows what to display for this selection.
-    [[NSUserDefaults standardUserDefaults] setObject:historyEntry.article.title forKey:@"CurrentArticleTitle"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [SessionSingleton sharedInstance].currentArticleTitle = historyEntry.article.title;
+    [SessionSingleton sharedInstance].currentArticleDomain = historyEntry.article.domain;
     
     WebViewController *webViewController = [self getWebViewController];
     [self.navigationController popToViewController:webViewController animated:YES];

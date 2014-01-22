@@ -36,7 +36,7 @@
     }
 }
 
--(NSManagedObjectID *)getArticleIDForTitle:(NSString *)title
+-(NSManagedObjectID *)getArticleIDForTitle:(NSString *)title domain:(NSString *)domain
 {
     Article *article = (Article *)[self getEntityForName: @"Article" withPredicateFormat: @"\
                        title ==[c] %@ \
@@ -46,7 +46,7 @@
                        domain == %@",
                        title,
                        [SessionSingleton sharedInstance].site,
-                       [SessionSingleton sharedInstance].domain
+                       domain
     ];
 
     return (article) ? article.objectID : nil;

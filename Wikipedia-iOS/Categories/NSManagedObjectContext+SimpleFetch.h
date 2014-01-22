@@ -8,6 +8,6 @@
 
 -(NSManagedObject *)getEntityForName:(NSString *)entityName withPredicateFormat:(NSString *)predicateFormat, ...;
 
--(NSManagedObjectID *)getArticleIDForTitle:(NSString *)title;
+-(NSManagedObjectID *)getArticleIDForTitle:(NSString *)title domain:(NSString *)domain;
 
 @end

@@ -8,13 +8,14 @@
 @implementation DownloadLeadSectionOp
 
 - (id)initForPageTitle: (NSString *)title
+                domain: (NSString *)domain
        completionBlock: (void (^)(NSArray *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock
 {
     self = [super init];
     if (self) {
-        self.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:[SessionSingleton sharedInstance].searchApiUrl]
+        self.request = [NSURLRequest postRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
                                              parameters: @{
                                                            @"action": @"mobileview",
                                                            @"prop": @"sections|text",

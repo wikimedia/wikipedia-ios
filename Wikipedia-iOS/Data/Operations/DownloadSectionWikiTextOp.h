@@ -5,6 +5,7 @@
 @interface DownloadSectionWikiTextOp : MWNetworkOp
 
 - (id)initForPageTitle: (NSString *)title
+                domain: (NSString *)domain
                section: (NSNumber *)section
        completionBlock: (void (^)(NSString *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock

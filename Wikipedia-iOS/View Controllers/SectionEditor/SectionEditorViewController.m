@@ -80,7 +80,7 @@
     [self showAlert:@"Loading wiki text..."];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
     
-    DownloadSectionWikiTextOp *downloadWikiTextOp = [[DownloadSectionWikiTextOp alloc] initForPageTitle:section.article.title section:section.index completionBlock:^(NSString *revision){
+    DownloadSectionWikiTextOp *downloadWikiTextOp = [[DownloadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index completionBlock:^(NSString *revision){
         
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
             [self showAlert:@"Wiki text loaded."];
@@ -141,7 +141,7 @@
 
     NSManagedObjectID *articleID = section.article.objectID;
 
-    UploadSectionWikiTextOp *uploadWikiTextOp = [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title section:section.index wikiText:self.editTextView.text completionBlock:^(NSString *result){
+    UploadSectionWikiTextOp *uploadWikiTextOp = [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index wikiText:self.editTextView.text completionBlock:^(NSString *result){
 
         // Remove all sections so they will be reloaded.
         // (Needs to be done on worker context as worker context changes bubble up through

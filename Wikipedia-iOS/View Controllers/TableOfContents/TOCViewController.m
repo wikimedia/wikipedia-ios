@@ -9,6 +9,7 @@
 #import "WebViewController.h"
 #import "UIWebView+ElementLocation.h"
 #import "UIView+Debugging.h"
+#import "SessionSingleton.h"
 
 #define TOC_SECTION_MARGIN 1.0f
 #define TOC_SELECTION_OFFSET_Y 48.0f
@@ -100,11 +101,13 @@
 
 -(void)getSectionIds
 {
-    NSString *currentArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
-    if(currentArticleTitle) {
+    NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
+    NSString *currentArticleDomain = [SessionSingleton sharedInstance].currentArticleDomain;
+    if(currentArticleTitle && currentArticleDomain) {
         ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
         [articleDataContext_.mainContext performBlockAndWait:^{
-            NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:currentArticleTitle];
+            NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: currentArticleTitle
+                                                                                          domain: currentArticleDomain];
             if (articleID) {
                 Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
                 if (article) {
@@ -120,11 +123,13 @@
 
 -(void)getSectionImageIds
 {
-    NSString *currentArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
-    if(currentArticleTitle) {
+    NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
+    NSString *currentArticleDomain = [SessionSingleton sharedInstance].currentArticleDomain;
+    if(currentArticleTitle && currentArticleDomain) {
         ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
         [articleDataContext_.mainContext performBlockAndWait:^{
-            NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:currentArticleTitle];
+            NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: currentArticleTitle
+                                                                                          domain: currentArticleDomain];
             if (articleID) {
                 Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
                 if (article) {

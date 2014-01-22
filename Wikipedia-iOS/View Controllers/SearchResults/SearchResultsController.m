@@ -15,6 +15,7 @@
 #import "ArticleDataContextSingleton.h"
 #import "ArticleCoreDataObjects.h"
 #import "NSString+Extras.h"
+#import "SessionSingleton.h"
 
 @interface SearchResultsController (){
     CGFloat scrollViewDragBeganVerticalOffset_;
@@ -402,8 +403,8 @@
     // Set CurrentArticleTitle so web view knows what to load.
     title = [self cleanTitle:title];
     
-    [[NSUserDefaults standardUserDefaults] setObject:title forKey:@"CurrentArticleTitle"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [SessionSingleton sharedInstance].currentArticleTitle = title;
+    [SessionSingleton sharedInstance].currentArticleDomain = [SessionSingleton sharedInstance].domain;
 
     [self.searchResultsTable deselectRowAtIndexPath:indexPath animated:YES];
 

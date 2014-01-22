@@ -5,6 +5,7 @@
 @interface DownloadNonLeadSectionsOp : MWNetworkOp
 
 - (id)initForPageTitle: (NSString *)title
+                domain: (NSString *)domain
        completionBlock: (void (^)(NSArray *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock

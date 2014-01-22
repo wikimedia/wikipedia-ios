@@ -52,7 +52,7 @@ typedef enum {
 @property (nonatomic) CGPoint scrollOffset;
 @property (nonatomic) BOOL unsafeToScroll;
 @property (nonatomic) NSInteger indexOfFirstOnscreenSectionBeforeRotate;
-@property (strong, nonatomic) NSDictionary *adjacentHistoryArticleTitles;
+@property (strong, nonatomic) NSDictionary *adjacentHistoryIDs;
 @property (nonatomic) BOOL tocVisible;
 @property (nonatomic) BOOL sectionEditingVisible;
 @property (nonatomic) NSUInteger sectionToEditIndex;
@@ -120,7 +120,9 @@ typedef enum {
     // Observe chages to the search box search term.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchStringChanged) name:@"SearchStringChanged" object:nil];
 
-    [self updateBottomBarButtonsEnabledState];
+    self.forwardButton.enabled = NO;
+    self.backButton.enabled = NO;
+    self.tocButton.enabled = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -129,8 +131,9 @@ typedef enum {
 }
 
 -(void)reloadCurrentArticle{
-    NSString *title = [self getCurrentArticleTitle];
-    [self navigateToPage:title discoveryMethod:DISCOVERY_METHOD_SEARCH];
+    NSString *title = [SessionSingleton sharedInstance].currentArticleTitle;
+    NSString *domain = [SessionSingleton sharedInstance].currentArticleDomain;
+    [self navigateToPage:title domain:domain discoveryMethod:DISCOVERY_METHOD_SEARCH];
 }
 
 #pragma mark Edit section
@@ -174,7 +177,8 @@ typedef enum {
             if (!sectionEditVC) {
                 sectionEditVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SectionEditorViewController"];
 
-                NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:[self getCurrentArticleTitle]];
+                NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+                                                                                              domain: [SessionSingleton sharedInstance].currentArticleDomain];
                 if (articleID) {
                     Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
                     
@@ -378,7 +382,10 @@ typedef enum {
         
         if ([href hasPrefix:@"/wiki/"]) {
             NSString *title = [href substringWithRange:NSMakeRange(6, href.length - 6)];
-            [weakSelf navigateToPage:title discoveryMethod:DISCOVERY_METHOD_LINK];
+
+            [weakSelf navigateToPage: title
+                              domain: [SessionSingleton sharedInstance].currentArticleDomain
+                     discoveryMethod: DISCOVERY_METHOD_LINK];
         }else if ([href hasPrefix:@"//"]) {
             href = [@"http:" stringByAppendingString:href];
             
@@ -404,20 +411,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     self.unsafeToScroll = NO;
     self.scrollOffset = CGPointZero;
-}
-
-#pragma mark Loading last-viewed article on app start
-
--(void)setCurrentArticleTitle:(NSString *)currentArticleTitle
-{
-    [[NSUserDefaults standardUserDefaults] setObject:currentArticleTitle forKey:@"CurrentArticleTitle"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
--(NSString *)getCurrentArticleTitle
-{
-    NSString *currentArticleTitle = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
-    return currentArticleTitle;
 }
 
 #pragma mark History
@@ -464,7 +457,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(void)saveCurrentPage
 {
-    NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:[self getCurrentArticleTitle]];
+    NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+                                                                                  domain: [SessionSingleton sharedInstance].currentArticleDomain];
     
     if (!articleID) return;
     
@@ -534,7 +528,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 {
     [articleDataContext_.mainContext performBlockAndWait:^(){
         // Save scroll location
-        NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:[self getCurrentArticleTitle]];
+        NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+                                                                                      domain: [SessionSingleton sharedInstance].currentArticleDomain];
         if (articleID) {
             Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
             if (article) {
@@ -639,7 +634,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 #pragma mark Article loading ops
 
-- (void)navigateToPage:(NSString *)title discoveryMethod:(NSString *)discoveryMethod
+- (void)navigateToPage:(NSString *)title domain:(NSString *)domain discoveryMethod:(NSString *)discoveryMethod
 {
     NSString *cleanTitle = [self cleanTitle:title];
     
@@ -653,20 +648,18 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // Show loading message
     [self showAlert:SEARCH_LOADING_MSG_SECTION_ZERO];
     
-    [self retrieveArticleForPageTitle:cleanTitle discoveryMethod:discoveryMethod];
-    
-    // Update the back and forward buttons enabled state.
-    [self updateBottomBarButtonsEnabledState];
+    [self retrieveArticleForPageTitle:cleanTitle domain:domain discoveryMethod:discoveryMethod];
 }
 
-- (void)retrieveArticleForPageTitle:(NSString *)pageTitle discoveryMethod:(NSString *)discoveryMethod
+- (void)retrieveArticleForPageTitle:(NSString *)pageTitle domain:(NSString *)domain discoveryMethod:(NSString *)discoveryMethod
 {
     // Cancel any in-progress article retrieval operations
     [[QueuesSingleton sharedInstance].articleRetrievalQ cancelAllOperations];
     [[QueuesSingleton sharedInstance].searchQ cancelAllOperations];
     [[QueuesSingleton sharedInstance].thumbnailQ cancelAllOperations];
 
-   __block NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:pageTitle];
+    __block NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: pageTitle
+                                                                                          domain: domain];
     
     if (articleID) {
         Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
@@ -681,7 +674,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }
 
     // Retrieve first section op
-    DownloadLeadSectionOp *firstSectionOp = [[DownloadLeadSectionOp alloc] initForPageTitle:pageTitle completionBlock:^(NSArray *sectionsRetrieved){
+    DownloadLeadSectionOp *firstSectionOp = [[DownloadLeadSectionOp alloc] initForPageTitle:pageTitle domain:[SessionSingleton sharedInstance].currentArticleDomain completionBlock:^(NSArray *sectionsRetrieved){
 
         Article *article = nil;
         
@@ -693,8 +686,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             article.title = pageTitle;
             article.dateCreated = [NSDate date];
             article.site = [SessionSingleton sharedInstance].site;
-            article.domain = [SessionSingleton sharedInstance].domain;
-            article.domainName = [SessionSingleton sharedInstance].domainName;
+            article.domain = [SessionSingleton sharedInstance].currentArticleDomain;
+            article.domainName = [SessionSingleton sharedInstance].currentArticleDomainName;
             articleID = article.objectID;
         }else{
             article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
@@ -741,22 +734,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         //history0.dateVisited = [NSDate dateWithDaysBeforeNow:31];
         history0.discoveryMethod = discoveryMethod;
         [article addHistoryObject:history0];
-
-        article.site = [SessionSingleton sharedInstance].site;   //self.currentSite;
-        article.domain = [SessionSingleton sharedInstance].domain; //self.currentDomain;
-        article.domainName = [SessionSingleton sharedInstance].domainName;
-
-        // Add saved for article
-        //Saved *saved0 = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:dataContext_];
-        //saved0.dateSaved = [NSDate date];
-        //[article addSavedObject:saved0];
         
         // Save the article!
         NSError *error = nil;
         [articleDataContext_.workerContext save:&error];
-
-        // Update the back and forward buttons enabled state now that there's a new history entry.
-        [self updateBottomBarButtonsEnabledState];
 
         if (error) {
             NSLog(@"error = %@", error);
@@ -787,7 +768,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     firstSectionOp.delegate = self;
     
     // Retrieve remaining sections op (dependent on first section op)
-    DownloadNonLeadSectionsOp *remainingSectionsOp = [[DownloadNonLeadSectionsOp alloc] initForPageTitle:pageTitle completionBlock:^(NSArray *sectionsRetrieved){
+    DownloadNonLeadSectionsOp *remainingSectionsOp = [[DownloadNonLeadSectionsOp alloc] initForPageTitle:pageTitle domain:[SessionSingleton sharedInstance].currentArticleDomain completionBlock:^(NSArray *sectionsRetrieved){
         
         // Just in case the article wasn't created during the "parent" operation.
         if (!articleID) return;
@@ -887,7 +868,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
 
     if (!article) return;
-    [self setCurrentArticleTitle:article.title];
+    [SessionSingleton sharedInstance].currentArticleTitle = article.title;
+    [SessionSingleton sharedInstance].currentArticleDomain = article.domain;
+
+    [self updateBottomBarButtonsEnabledState];
 
     NSArray *sortedSections = [article.section sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     NSMutableArray *sectionTextArray = [@[] mutableCopy];
@@ -938,57 +922,76 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 - (IBAction)backButtonPushed:(id)sender
 {
-    NSString *title = self.adjacentHistoryArticleTitles[@"before"];
-    if (title.length > 0) [self navigateToPage:title discoveryMethod:DISCOVERY_METHOD_SEARCH];
+    NSManagedObjectID *historyId = self.adjacentHistoryIDs[@"before"];
+    if (historyId){
+        History *history = (History *)[articleDataContext_.mainContext objectWithID:historyId];
+        [self navigateToPage:history.article.title domain:history.article.domain discoveryMethod:history.discoveryMethod];
+    }
 }
 
 - (IBAction)forwardButtonPushed:(id)sender
 {
-    NSString *title = self.adjacentHistoryArticleTitles[@"after"];
-    if (title.length > 0) [self navigateToPage:title discoveryMethod:DISCOVERY_METHOD_SEARCH];
+    NSManagedObjectID *historyId = self.adjacentHistoryIDs[@"after"];
+    if (historyId){
+        History *history = (History *)[articleDataContext_.mainContext objectWithID:historyId];
+        [self navigateToPage:history.article.title domain:history.article.domain discoveryMethod:history.discoveryMethod];
+    }
 }
 
--(NSDictionary *)getTitlesForAdjacentHistoryArticles
+-(NSDictionary *)getAdjacentHistoryIDs
 {
-    NSMutableDictionary *result = [@{} mutableCopy];
-    NSError *error = nil;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName: @"History"
-                                              inManagedObjectContext: articleDataContext_.mainContext];
-    [fetchRequest setEntity:entity];
+    __block NSManagedObjectID *currentHistoryId = nil;
+    __block NSManagedObjectID *beforeHistoryId = nil;
+    __block NSManagedObjectID *afterHistoryId = nil;
     
-    NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:YES selector:nil];
-    
-    [fetchRequest setSortDescriptors:@[dateSort]];
-    
-    error = nil;
-    NSArray *historyEntities = [articleDataContext_.mainContext executeFetchRequest:fetchRequest error:&error];
-    
-    NSString *titleOfArticleBeforeCurrentOne = @"";
-    NSString *titleOfArticleAfterCurrentOne = @"";
-    NSString *currentArticleTitle = [self getCurrentArticleTitle];
-    NSString *lastTitle = @"";
-    for (History *history in historyEntities) {
-        NSString *thisTitle = history.article.title;
-        if ([thisTitle isEqualToString:currentArticleTitle]) {
-            titleOfArticleBeforeCurrentOne = lastTitle;
-        }else if ([lastTitle isEqualToString:currentArticleTitle]) {
-            titleOfArticleAfterCurrentOne = thisTitle;
+    [articleDataContext_.workerContext performBlockAndWait:^(){
+        
+        NSError *error = nil;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName: @"History"
+                                                  inManagedObjectContext: articleDataContext_.workerContext];
+        [fetchRequest setEntity:entity];
+        
+        NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:YES selector:nil];
+        
+        [fetchRequest setSortDescriptors:@[dateSort]];
+        
+        error = nil;
+        NSArray *historyEntities = [articleDataContext_.workerContext executeFetchRequest:fetchRequest error:&error];
+        
+        NSManagedObjectID *currentArticleId = [articleDataContext_.workerContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+                                                                                               domain: [SessionSingleton sharedInstance].currentArticleDomain];
+        for (NSUInteger i = 0; i < historyEntities.count; i++) {
+            History *history = historyEntities[i];
+            if (history.article.objectID == currentArticleId){
+                currentHistoryId = history.objectID;
+                if (i > 0) {
+                    History *beforeHistory = historyEntities[i - 1];
+                    beforeHistoryId = beforeHistory.objectID;
+                }
+                if ((i + 1) <= (historyEntities.count - 1)) {
+                    History *afterHistory = historyEntities[i + 1];
+                    afterHistoryId = afterHistory.objectID;
+                }
+                break;
+            }
         }
-        lastTitle = thisTitle;
-    }
-    if(titleOfArticleBeforeCurrentOne.length > 0) result[@"before"] = titleOfArticleBeforeCurrentOne;
-    if(currentArticleTitle.length > 0) result[@"current"] = currentArticleTitle;
-    if(titleOfArticleAfterCurrentOne.length > 0) result[@"after"] = titleOfArticleAfterCurrentOne;
+    }];
+
+    NSMutableDictionary *result = [@{} mutableCopy];
+    if(beforeHistoryId) result[@"before"] = beforeHistoryId;
+    if(currentHistoryId) result[@"current"] = currentHistoryId;
+    if(afterHistoryId) result[@"after"] = afterHistoryId;
+
     return result;
 }
 
 -(void)updateBottomBarButtonsEnabledState
 {
-    self.adjacentHistoryArticleTitles = [self getTitlesForAdjacentHistoryArticles];
-    self.forwardButton.enabled = (self.adjacentHistoryArticleTitles[@"after"]) ? YES : NO;
-    self.backButton.enabled = (self.adjacentHistoryArticleTitles[@"before"]) ? YES : NO;
-    NSString *currentArticleTitle = [self getCurrentArticleTitle];
+    self.adjacentHistoryIDs = [self getAdjacentHistoryIDs];
+    self.forwardButton.enabled = (self.adjacentHistoryIDs[@"after"]) ? YES : NO;
+    self.backButton.enabled = (self.adjacentHistoryIDs[@"before"]) ? YES : NO;
+    NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
     self.tocButton.enabled = (currentArticleTitle && (currentArticleTitle.length > 0)) ? YES : NO;
 }
 
@@ -1023,7 +1026,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle:[self getCurrentArticleTitle]];
+    NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+                                                                                  domain: [SessionSingleton sharedInstance].currentArticleDomain];
     if (articleID) {
         Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
 

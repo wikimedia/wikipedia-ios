@@ -5,6 +5,7 @@
 @interface UploadSectionWikiTextOp : MWNetworkOp
 
 - (id)initForPageTitle: (NSString *)title
+                domain: (NSString *)domain
                section: (NSNumber *)section
               wikiText: (NSString *)wikiText
        completionBlock: (void (^)(NSString *))completionBlock

@@ -8,6 +8,7 @@
 @implementation UploadSectionWikiTextOp
 
 - (id)initForPageTitle: (NSString *)title
+                domain: (NSString *)domain
                section: (NSNumber *)section
               wikiText: (NSString *)wikiText
        completionBlock: (void (^)(NSString *))completionBlock
@@ -16,7 +17,7 @@
 {
     self = [super init];
     if (self) {
-        self.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:[SessionSingleton sharedInstance].searchApiUrl]
+        self.request = [NSURLRequest postRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
                                              parameters: @{
                                                            @"action": @"edit",
                                                            @"token": @"+\\",

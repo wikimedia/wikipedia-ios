@@ -8,6 +8,7 @@
 @implementation DownloadSectionWikiTextOp
 
 - (id)initForPageTitle: (NSString *)title
+                domain: (NSString *)domain
                section: (NSNumber *)section
        completionBlock: (void (^)(NSString *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
@@ -15,7 +16,7 @@
 {
     self = [super init];
     if (self) {
-        self.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:[SessionSingleton sharedInstance].searchApiUrl]
+        self.request = [NSURLRequest postRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
                                              parameters: @{
                                                            @"action": @"query",
                                                            @"prop": @"revisions",
