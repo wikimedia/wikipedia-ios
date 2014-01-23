@@ -15,7 +15,6 @@
 #import "ArticleDataContextSingleton.h"
 #import "ArticleCoreDataObjects.h"
 #import "NSString+Extras.h"
-#import "SessionSingleton.h"
 
 @interface SearchResultsController (){
     CGFloat scrollViewDragBeganVerticalOffset_;
@@ -200,7 +199,7 @@
                 NSDictionary *pages = results[@"query"][@"pages"];
                 for (NSDictionary *page in pages) {
                     NSString *titleFromThumbOpResults = pages[page][@"title"];
-                    for (NSMutableDictionary *searchOpResult in self.searchResultsOrdered) {
+                    for (NSMutableDictionary *searchOpResult in [self.searchResultsOrdered copy]) {
                         if ([searchOpResult[@"title"] isEqualToString:titleFromThumbOpResults]) {
                             searchOpResult[@"thumbnail"] = (pages[page][@"thumbnail"]) ? pages[page][@"thumbnail"] : [@{} mutableCopy];
                             

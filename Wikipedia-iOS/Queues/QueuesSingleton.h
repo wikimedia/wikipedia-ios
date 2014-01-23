@@ -9,6 +9,7 @@
 @property (strong, nonatomic) NSOperationQueue *thumbnailQ;
 
 @property (strong, nonatomic) NSOperationQueue *sectionWikiTextQ;
+@property (strong, nonatomic) NSOperationQueue *langLinksQ;
 
 + (QueuesSingleton *)sharedInstance;
 

@@ -2,7 +2,6 @@
 
 #import "SectionEditorViewController.h"
 
-#import "NSManagedObjectContext+SimpleFetch.h"
 #import "ArticleDataContextSingleton.h"
 #import "ArticleCoreDataObjects.h"
 #import "Defines.h"
@@ -143,16 +142,14 @@
 
     UploadSectionWikiTextOp *uploadWikiTextOp = [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index wikiText:self.editTextView.text completionBlock:^(NSString *result){
 
-        // Remove all sections so they will be reloaded.
+        // Mark article for refreshing so its data will be reloaded.
         // (Needs to be done on worker context as worker context changes bubble up through
         // main context too - so web view controller accessing main context will see changes.)
         if (articleID) {
             [articleDataContext_.workerContext performBlockAndWait:^(){
                 Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
                 if (article) {
-                    for (Section *thisSection in [article.section copy]) {
-                        [articleDataContext_.workerContext deleteObject:thisSection];
-                    }
+                    article.needsRefresh = @YES;
                     NSError *error = nil;
                     [articleDataContext_.workerContext save:&error];
                     NSLog(@"error = %@", error);

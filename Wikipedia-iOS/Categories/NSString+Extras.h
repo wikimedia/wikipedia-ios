@@ -8,4 +8,6 @@
 - (NSString *)getImageMimeTypeForExtension;
 - (NSString *)getWikiImageFileNameWithoutSizePrefix;
 
+- (NSDate *)getDateFromIso8601DateString;
+
 @end

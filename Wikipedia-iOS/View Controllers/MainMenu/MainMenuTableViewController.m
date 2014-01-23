@@ -2,17 +2,6 @@
 
 #import "MainMenuTableViewController.h"
 #import "MainMenuSectionHeadingLabel.h"
-
-#import "ArticleDataContextSingleton.h"
-#import "NSManagedObjectContext+SimpleFetch.h"
-#import "ArticleCoreDataObjects.h"
-#import "Article+Convenience.h"
-
-#import "MWNetworkOp.h"
-#import "QueuesSingleton.h"
-#import "SessionSingleton.h"
-#import "NSURLRequest+DictionaryRequest.h"
-#import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 
 // Section indexes.
@@ -48,8 +37,6 @@
 @property (atomic) BOOL hidePagesSection;
 @property (atomic) BOOL showAllLanguages;
 
-@property (strong, atomic) NSArray *unsupportedCharactersLanguageIds;
-
 @end
 
 @implementation MainMenuTableViewController
@@ -61,11 +48,7 @@
     [super viewDidLoad];
 
     self.showAllLanguages = NO;
-   
-//TODO: figure out what to do with these:
-    // Wiki language character sets that iOS doesn't seem to render properly...
-    self.unsupportedCharactersLanguageIds = [@"my am km dv lez arc got ti" componentsSeparatedByString:@" "];
-    
+
     self.hidePagesSection = NO;
     self.navigationItem.hidesBackButton = YES;
     self.tableData = [[NSMutableArray alloc] init];
@@ -205,7 +188,7 @@
             if (![langDict[@"code"] isEqualToString:[SessionSingleton sharedInstance].domain]) continue;
         }
         if (!SHOW_LANGUAGES_WITH_UNSUPPORTED_CHARACTERS) {
-            if ([self.unsupportedCharactersLanguageIds indexOfObject:langDict[@"code"]] != NSNotFound) continue;
+            if ([[SessionSingleton sharedInstance].unsupportedCharactersLanguageIds indexOfObject:langDict[@"code"]] != NSNotFound) continue;
         }
         [languagesToShow addObject:langDict];
     }

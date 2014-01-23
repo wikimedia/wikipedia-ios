@@ -10,10 +10,12 @@
 #import "UIWebView+ElementLocation.h"
 #import "UIView+Debugging.h"
 #import "SessionSingleton.h"
+#import "ArticleLanguagesTableVC.h"
 
-#define TOC_SECTION_MARGIN 1.0f
+#define TOC_SECTION_MARGIN (1.0f / [UIScreen mainScreen].scale)
 #define TOC_SELECTION_OFFSET_Y 48.0f
 #define TOC_DELAY_BETWEEN_SELECTION_AND_ZOOM 0.35f
+#define TOC_TAG_OTHER_LANGUAGES 9999
 
 @interface TOCViewController (){
 
@@ -30,6 +32,8 @@
 
 @property (strong, nonatomic) NSMutableArray *viewConstraints;
 
+@property (strong, nonatomic) NSNumber *languageCount;
+
 @end
 
 @implementation TOCViewController
@@ -41,6 +45,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    self.languageCount = @1;
     self.viewConstraints = [@[] mutableCopy];
 
     self.sectionIds = [@[]mutableCopy];
@@ -51,12 +56,12 @@
     [self.scrollView setShowsVerticalScrollIndicator:NO];
 
     // Get data for sections and section images.
-    [self getSectionIds];
-    [self getSectionImageIds];
- 
-    [self getSectionCells];
+    [self getArticleData];
 
-    for (TOCSectionCellView *cell in self.sectionCells) {
+    // Get cells for section entries in the table of contents.
+    [self getSectionCells];
+    
+    for (UIView *cell in self.sectionCells) {
         [self.scrollContainer addSubview:cell];
     }
     
@@ -97,9 +102,7 @@
 
 #pragma mark Data retrieval
 
-//TODO: these 2 methods have a lot in common... refactor and stuff.
-
--(void)getSectionIds
+-(void)getArticleData
 {
     NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
     NSString *currentArticleDomain = [SessionSingleton sharedInstance].currentArticleDomain;
@@ -111,28 +114,16 @@
             if (articleID) {
                 Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
                 if (article) {
+          
+                    // Get article language count.
+                    self.languageCount = article.languagecount;
+
+                    // Get section ids.
                     NSArray *sections = [article getSectionsUsingContext:articleDataContext_.mainContext];
                     for (Section *section in sections) {
                         [self.sectionIds addObject:section.objectID];
                     }
-                }
-            }
-        }];
-    }
-}
-
--(void)getSectionImageIds
-{
-    NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
-    NSString *currentArticleDomain = [SessionSingleton sharedInstance].currentArticleDomain;
-    if(currentArticleTitle && currentArticleDomain) {
-        ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
-        [articleDataContext_.mainContext performBlockAndWait:^{
-            NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: currentArticleTitle
-                                                                                          domain: currentArticleDomain];
-            if (articleID) {
-                Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-                if (article) {
+                    // Get section image ids.
                     NSArray *sectionImages = [article getSectionImagesUsingContext:articleDataContext_.mainContext];
                     for (SectionImage *sectionImage in sectionImages) {
                         if (!self.sectionImageIds[sectionImage.section.objectID]) {
@@ -155,7 +146,7 @@
         [self unHighlightAllCells];
         [self navigateToSelection:sender];
     }
-    [self.webVC performSelector:@selector(tocToggle) withObject:nil afterDelay:TOC_DELAY_BETWEEN_SELECTION_AND_ZOOM ];
+    [self.webVC performSelector:@selector(tocToggle) withObject:nil afterDelay:TOC_DELAY_BETWEEN_SELECTION_AND_ZOOM];
 }
 
 #pragma mark Navigate
@@ -175,9 +166,12 @@
 
         [self scrollWebViewToImageForCell:(UIImageView *)subview animated:YES];
         //NSLog(@"image tap index = %ld, section index = %ld", (long)subview.tag, (long)subview.superview.tag);
+
     }else if ([subview isMemberOfClass:[TOCSectionCellView class]]) {
+
         [self scrollWebViewToSectionForCell:(TOCSectionCellView *)subview animated:YES];
         //NSLog(@"section cell tap index = %ld", (long)subview.tag);
+
     }
 }
 
@@ -186,7 +180,9 @@
     cell.isHighlighted = YES;
 
     NSString *elementId = [NSString stringWithFormat:@"content_block_%ld", (long)cell.tag];
-    CGPoint p = [self.webVC.webView getWebViewRectForHtmlElementWithId:elementId].origin;
+    CGRect r = [self.webVC.webView getWebViewRectForHtmlElementWithId:elementId];
+    if (CGRectIsNull(r)) return;
+    CGPoint p = r.origin;
 
     [self scrollWebView:self.webVC.webView toPoint:p animated:animated];
 }
@@ -219,8 +215,10 @@
 
 -(void)unHighlightAllCells
 {
-    for (TOCSectionCellView *cell2 in self.sectionCells) {
-        cell2.isHighlighted = NO;
+    for (TOCSectionCellView *cell in self.sectionCells) {
+        // In case other non-TOCSectionCellView views are tacked beneath the TOCSectionCellView's...
+        if (![cell isMemberOfClass:[TOCSectionCellView class]]) continue;
+        cell.isHighlighted = NO;
     }
 }
 
@@ -228,6 +226,9 @@
 {
     if (scrollView == self.scrollView) {
         for (TOCSectionCellView *cell in self.sectionCells) {
+
+            // In case other non-TOCSectionCellView views are tacked beneath the TOCSectionCellView's...
+            if (![cell isMemberOfClass:[TOCSectionCellView class]]) continue;
 
 //TODO: TOCSectionCellView has a "TODO:" about making a section image object for managing their state. Do that.
 // Expecially note the "v.layer.borderColor" stuff below - doesn't belong here.
@@ -382,24 +383,10 @@ shouldAttemptScrollToImage = NO;
     // gap from being left between the top of the screen and the selected cell. Would need to change
     // this to actually take the value from [self getSelectionLine] into account if the selection
     // is ever moved from near the top of the screen.
-    return view.frame.origin.y - self.scrollView.contentOffset.y /*- [self getSelectionLine]*/;
+    return view.frame.origin.y - self.scrollView.contentOffset.y - TOC_SECTION_MARGIN /*- [self getSelectionLine]*/;
 }
 
 #pragma mark Scroll limits
-
--(void)insetToRestrictScrollingToHeight:(NSNumber *)height
-{
-    // Don't report scrolling when changing inset.
-    self.scrollView.delegate = nil;
-
-    self.scrollView.contentInset = UIEdgeInsetsMake(
-        height.floatValue - TOC_SECTION_MARGIN - (((UIView *)self.sectionCells.firstObject).frame.size.height / 2.0f),
-        0,
-        height.floatValue - TOC_SECTION_MARGIN - (((UIView *)self.sectionCells.lastObject).frame.size.height / 2.0f),
-        0
-    );
-    self.scrollView.delegate = self;
-}
 
 -(void)setScrollViewContentOffset:(CGPoint)contentOffset animated:(BOOL)animated;
 {
@@ -408,12 +395,20 @@ shouldAttemptScrollToImage = NO;
 
 -(void)insetToRestrictScrollingTopAndBottomCellsPastCenter
 {
+    // Make it so the last TOCSectionCellView can't scroll off top of screen. Assumes non-TOCSectionCellView cells come at end.
+    CGFloat nonTocCellBottomOffset = 0;
+    for (UIView *v in [self.sectionCells reverseObjectEnumerator]) {
+        nonTocCellBottomOffset += v.frame.size.height + (TOC_SECTION_MARGIN);
+        if ([v isMemberOfClass:[TOCSectionCellView class]]) break;
+    }
+    nonTocCellBottomOffset += (TOC_SECTION_MARGIN);
+
     // Don't report scrolling when changing inset.
     self.scrollView.delegate = nil;
     self.scrollView.contentInset = UIEdgeInsetsMake(
         0,
         0,
-        self.scrollView.frame.size.height - ((UIView *)self.sectionCells.lastObject).frame.size.height,
+        self.scrollView.frame.size.height - nonTocCellBottomOffset,
         0
     );
     self.scrollView.delegate = self;
@@ -462,19 +457,17 @@ shouldAttemptScrollToImage = NO;
                                        constant: constant]];
     };
 
-    CGFloat margin = TOC_SECTION_MARGIN / [UIScreen mainScreen].scale;
-    //margin = 0.0f;
-    TOCSectionCellView *prevCell = nil;
-    for (TOCSectionCellView *cell in self.sectionCells) {
+    UIView *prevCell = nil;
+    for (UIView *cell in self.sectionCells) {
         constrain(cell, NSLayoutAttributeLeft, self.scrollContainer, NSLayoutAttributeLeft, 0.0f);
         constrain(cell, NSLayoutAttributeRight, self.scrollContainer, NSLayoutAttributeRight, 0.0f);
         if (self.sectionCells.firstObject == cell) {
-            constrain(cell, NSLayoutAttributeTop, self.scrollContainer, NSLayoutAttributeTop, margin);
+            constrain(cell, NSLayoutAttributeTop, self.scrollContainer, NSLayoutAttributeTop, TOC_SECTION_MARGIN);
         }else if (self.sectionCells.lastObject == cell) {
-            constrain(cell, NSLayoutAttributeBottom, self.scrollContainer, NSLayoutAttributeBottom, -margin);
+            constrain(cell, NSLayoutAttributeBottom, self.scrollContainer, NSLayoutAttributeBottom, -TOC_SECTION_MARGIN);
         }
         if (prevCell) {
-            constrain(cell, NSLayoutAttributeTop, prevCell, NSLayoutAttributeBottom, margin);
+            constrain(cell, NSLayoutAttributeTop, prevCell, NSLayoutAttributeBottom, TOC_SECTION_MARGIN);
         }
         prevCell = cell;
     }

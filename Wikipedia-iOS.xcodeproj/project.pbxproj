@@ -95,6 +95,10 @@
 		04A70FD8185BB6C300E24515 /* URLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A70FD6185BB6C300E24515 /* URLCache.m */; };
 		04A81E8618871EB000EEBADB /* Section+ImageRecords.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A81E8518871EB000EEBADB /* Section+ImageRecords.m */; };
 		04A81E8718871EB000EEBADB /* Section+ImageRecords.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A81E8518871EB000EEBADB /* Section+ImageRecords.m */; };
+		04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C6F1891B302002D5487 /* NSObject+Extras.m */; };
+		04AE1C711891B302002D5487 /* NSObject+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C6F1891B302002D5487 /* NSObject+Extras.m */; };
+		04AE1C741891BB32002D5487 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C731891BB32002D5487 /* Article.m */; };
+		04AE1C751891BB32002D5487 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C731891BB32002D5487 /* Article.m */; };
 		04C43A9D183440B0006C643B /* MWCrumbyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43A9C183440B0006C643B /* MWCrumbyTest.m */; };
 		04C43A9E183440B0006C643B /* MWCrumbyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43A9C183440B0006C643B /* MWCrumbyTest.m */; };
 		04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */; };
@@ -113,8 +117,6 @@
 		04C43AC2183442FC006C643B /* NSURLRequest+DictionaryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43ABD183442FC006C643B /* NSURLRequest+DictionaryRequest.m */; };
 		04C43AC3183442FC006C643B /* NSURLRequest+DictionaryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43ABD183442FC006C643B /* NSURLRequest+DictionaryRequest.m */; };
 		04C43AC5183446F2006C643B /* NetworkOpTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AC4183446F2006C643B /* NetworkOpTests.m */; };
-		04CF1CAF187BD3FE00E9516F /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CF1CAE187BD3FE00E9516F /* Article.m */; };
-		04CF1CB0187BD3FE00E9516F /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CF1CAE187BD3FE00E9516F /* Article.m */; };
 		04CF1CB6187C8F4400E9516F /* Languages in Resources */ = {isa = PBXBuildFile; fileRef = 04CF1CB5187C8F4400E9516F /* Languages */; };
 		04CF1CB7187C8F4400E9516F /* Languages in Resources */ = {isa = PBXBuildFile; fileRef = 04CF1CB5187C8F4400E9516F /* Languages */; };
 		04D149DD18877343006B4104 /* AlertLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D149DA18877343006B4104 /* AlertLabel.m */; };
@@ -154,6 +156,14 @@
 		04D34DDA1863F70A00610A87 /* Section.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D34DD81863F70A00610A87 /* Section.m */; };
 		04D34DE11868E21F00610A87 /* Article+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D34DE01868E21F00610A87 /* Article+Convenience.m */; };
 		04D34DE21868E21F00610A87 /* Article+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D34DE01868E21F00610A87 /* Article+Convenience.m */; };
+		04D7581C18923B8400CE2040 /* ArticleLanguagesTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7581B18923B8400CE2040 /* ArticleLanguagesTableVC.m */; };
+		04D7581D18923B8400CE2040 /* ArticleLanguagesTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7581B18923B8400CE2040 /* ArticleLanguagesTableVC.m */; };
+		04D7582018923D3A00CE2040 /* ArticleLanguagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7581F18923D3A00CE2040 /* ArticleLanguagesCell.m */; };
+		04D7582118923D3A00CE2040 /* ArticleLanguagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D7581F18923D3A00CE2040 /* ArticleLanguagesCell.m */; };
+		04D75824189248E900CE2040 /* DownloadLangLinksOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D75823189248E900CE2040 /* DownloadLangLinksOp.m */; };
+		04D75825189248E900CE2040 /* DownloadLangLinksOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D75823189248E900CE2040 /* DownloadLangLinksOp.m */; };
+		04D75828189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D75827189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m */; };
+		04D75829189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D75827189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m */; };
 		04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */; };
 		04F0E2EB186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */; };
 		04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2ED186FB2D100468738 /* TOCSectionCellView.m */; };
@@ -277,6 +287,10 @@
 		04A70FD6185BB6C300E24515 /* URLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLCache.m; sourceTree = "<group>"; };
 		04A81E8418871EB000EEBADB /* Section+ImageRecords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Section+ImageRecords.h"; sourceTree = "<group>"; };
 		04A81E8518871EB000EEBADB /* Section+ImageRecords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Section+ImageRecords.m"; sourceTree = "<group>"; };
+		04AE1C6E1891B302002D5487 /* NSObject+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extras.h"; sourceTree = "<group>"; };
+		04AE1C6F1891B302002D5487 /* NSObject+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extras.m"; sourceTree = "<group>"; };
+		04AE1C721891BB32002D5487 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
+		04AE1C731891BB32002D5487 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		04C43A9B183440B0006C643B /* MWCrumbyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWCrumbyTest.h; sourceTree = "<group>"; };
 		04C43A9C183440B0006C643B /* MWCrumbyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWCrumbyTest.m; sourceTree = "<group>"; };
 		04C43AA0183440C1006C643B /* MWNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -294,8 +308,6 @@
 		04C43ABC183442FC006C643B /* NSURLRequest+DictionaryRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+DictionaryRequest.h"; sourceTree = "<group>"; };
 		04C43ABD183442FC006C643B /* NSURLRequest+DictionaryRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+DictionaryRequest.m"; sourceTree = "<group>"; };
 		04C43AC4183446F2006C643B /* NetworkOpTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkOpTests.m; sourceTree = "<group>"; };
-		04CF1CAD187BD3FE00E9516F /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
-		04CF1CAE187BD3FE00E9516F /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		04CF1CB5187C8F4400E9516F /* Languages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Languages; sourceTree = "<group>"; };
 		04D149D918877343006B4104 /* AlertLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertLabel.h; sourceTree = "<group>"; };
 		04D149DA18877343006B4104 /* AlertLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertLabel.m; sourceTree = "<group>"; };
@@ -333,6 +345,14 @@
 		04D34DD81863F70A00610A87 /* Section.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Section.m; sourceTree = "<group>"; };
 		04D34DDF1868E21F00610A87 /* Article+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Article+Convenience.h"; sourceTree = "<group>"; };
 		04D34DE01868E21F00610A87 /* Article+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Article+Convenience.m"; sourceTree = "<group>"; };
+		04D7581A18923B8400CE2040 /* ArticleLanguagesTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleLanguagesTableVC.h; sourceTree = "<group>"; };
+		04D7581B18923B8400CE2040 /* ArticleLanguagesTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleLanguagesTableVC.m; sourceTree = "<group>"; };
+		04D7581E18923D3A00CE2040 /* ArticleLanguagesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleLanguagesCell.h; sourceTree = "<group>"; };
+		04D7581F18923D3A00CE2040 /* ArticleLanguagesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleLanguagesCell.m; sourceTree = "<group>"; };
+		04D75822189248E900CE2040 /* DownloadLangLinksOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadLangLinksOp.h; sourceTree = "<group>"; };
+		04D75823189248E900CE2040 /* DownloadLangLinksOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadLangLinksOp.m; sourceTree = "<group>"; };
+		04D75826189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleLanguagesSectionHeadingLabel.h; sourceTree = "<group>"; };
+		04D75827189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleLanguagesSectionHeadingLabel.m; sourceTree = "<group>"; };
 		04F0E2E8186EDC1A00468738 /* UIWebView+ElementLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+ElementLocation.h"; sourceTree = "<group>"; };
 		04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+ElementLocation.m"; sourceTree = "<group>"; };
 		04F0E2EC186FB2D000468738 /* TOCSectionCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOCSectionCellView.h; sourceTree = "<group>"; };
@@ -569,6 +589,7 @@
 		04C43AB0183441A4006C643B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				04D7581918923B8400CE2040 /* ArticleLanguages */,
 				0447861F185145090050563B /* History */,
 				04D34D93186216AF00610A87 /* MainMenu */,
 				04293002186030B0002A13FC /* SavedPages */,
@@ -602,6 +623,8 @@
 				04C43AB9183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m */,
 				04C43ABA183442FC006C643B /* NSString+Extras.h */,
 				04C43ABB183442FC006C643B /* NSString+Extras.m */,
+				04AE1C6E1891B302002D5487 /* NSObject+Extras.h */,
+				04AE1C6F1891B302002D5487 /* NSObject+Extras.m */,
 				04C43ABC183442FC006C643B /* NSURLRequest+DictionaryRequest.h */,
 				04C43ABD183442FC006C643B /* NSURLRequest+DictionaryRequest.m */,
 				04A81E8418871EB000EEBADB /* Section+ImageRecords.h */,
@@ -633,6 +656,8 @@
 				04D149E7188889CA006B4104 /* DownloadLeadSectionOp.m */,
 				04D149EA18888A0D006B4104 /* DownloadNonLeadSectionsOp.h */,
 				04D149EB18888A0D006B4104 /* DownloadNonLeadSectionsOp.m */,
+				04D75822189248E900CE2040 /* DownloadLangLinksOp.h */,
+				04D75823189248E900CE2040 /* DownloadLangLinksOp.m */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -672,6 +697,19 @@
 			path = hpple;
 			sourceTree = "<group>";
 		};
+		04D7581918923B8400CE2040 /* ArticleLanguages */ = {
+			isa = PBXGroup;
+			children = (
+				04D7581A18923B8400CE2040 /* ArticleLanguagesTableVC.h */,
+				04D7581B18923B8400CE2040 /* ArticleLanguagesTableVC.m */,
+				04D7581E18923D3A00CE2040 /* ArticleLanguagesCell.h */,
+				04D7581F18923D3A00CE2040 /* ArticleLanguagesCell.m */,
+				04D75826189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.h */,
+				04D75827189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m */,
+			);
+			path = ArticleLanguages;
+			sourceTree = "<group>";
+		};
 		04EA7779184E4CED00D2F3C9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -680,8 +718,8 @@
 				040E533A1885FB4E00AFBFE9 /* ImageData.h */,
 				040E533B1885FB4E00AFBFE9 /* ImageData.m */,
 				04FD6C78184EBFCD002CA02F /* ArticleData.xcdatamodeld */,
-				04CF1CAD187BD3FE00E9516F /* Article.h */,
-				04CF1CAE187BD3FE00E9516F /* Article.m */,
+				04AE1C721891BB32002D5487 /* Article.h */,
+				04AE1C731891BB32002D5487 /* Article.m */,
 				04D34DD71863F70A00610A87 /* Section.h */,
 				04D34DD81863F70A00610A87 /* Section.m */,
 				04D34DCF1863F6E600610A87 /* SectionImage.h */,
@@ -959,9 +997,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04CF1CAF187BD3FE00E9516F /* Article.m in Sources */,
 				04D149EC18888A0D006B4104 /* DownloadNonLeadSectionsOp.m in Sources */,
 				04D34DBD1863F6A400610A87 /* GalleryImage.m in Sources */,
+				04D7581C18923B8400CE2040 /* ArticleLanguagesTableVC.m in Sources */,
+				04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */,
 				04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */,
 				0447863D185145090050563B /* WebViewController.m in Sources */,
 				D474CC15182AE196002BDE45 /* MWSite.m in Sources */,
@@ -977,6 +1016,7 @@
 				0447866F1852B5010050563B /* SessionSingleton.m in Sources */,
 				04D34DD11863F6E600610A87 /* SectionImage.m in Sources */,
 				0447867C1852BBFE0050563B /* NSManagedObjectContext+SimpleFetch.m in Sources */,
+				04AE1C741891BB32002D5487 /* Article.m in Sources */,
 				044BD6A21883302C00FFE4BE /* Image.m in Sources */,
 				04293000185FC2C7002A13FC /* QueuesSingleton.m in Sources */,
 				04D34DC91863F6CC00610A87 /* Saved.m in Sources */,
@@ -998,15 +1038,18 @@
 				04D34DC11863F6B200610A87 /* History.m in Sources */,
 				04D34DAF1863D2D600610A87 /* XPathQuery.m in Sources */,
 				04090A37187F818400577EDF /* TOCImageView.m in Sources */,
+				04D75828189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m in Sources */,
 				0460990A18899A9800B1F2BC /* DownloadSectionWikiTextOp.m in Sources */,
 				04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				04C43AA6183440C1006C643B /* MWNetworkOp.m in Sources */,
 				040E5C841846AC13007AFE6F /* ArticleDataContextSingleton.m in Sources */,
 				04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */,
 				0429300E18604898002A13FC /* SavedPagesTableHeadingLabel.m in Sources */,
+				04D7582018923D3A00CE2040 /* ArticleLanguagesCell.m in Sources */,
 				04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */,
 				D4991449181D51DE00E6073C /* AppDelegate.m in Sources */,
 				04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */,
+				04D75824189248E900CE2040 /* DownloadLangLinksOp.m in Sources */,
 				04292FF8185FBB0B002A13FC /* SearchResultsController.m in Sources */,
 				04478633185145090050563B /* HistoryViewController.m in Sources */,
 				04478641185146210050563B /* HistoryTableHeadingLabel.m in Sources */,
@@ -1035,11 +1078,15 @@
 				D474CC16182AE196002BDE45 /* MWSite.m in Sources */,
 				04C43AAF18344131006C643B /* CommunicationBridge.m in Sources */,
 				D4991467181D51DF00E6073C /* Wikipedia_iOSTests.m in Sources */,
+				04D7582118923D3A00CE2040 /* ArticleLanguagesCell.m in Sources */,
 				04D34DAC1863D2D600610A87 /* TFHpple.m in Sources */,
 				0429301118604899002A13FC /* SavedPagesViewController.m in Sources */,
+				04AE1C711891B302002D5487 /* NSObject+Extras.m in Sources */,
 				04D34D9E186236D400610A87 /* MainMenuResultsCell.m in Sources */,
+				04D75825189248E900CE2040 /* DownloadLangLinksOp.m in Sources */,
 				04C43AC3183442FC006C643B /* NSURLRequest+DictionaryRequest.m in Sources */,
 				04C43A9E183440B0006C643B /* MWCrumbyTest.m in Sources */,
+				04D75829189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m in Sources */,
 				04F0E2EF186FB2D100468738 /* TOCSectionCellView.m in Sources */,
 				04D149E9188889CA006B4104 /* DownloadLeadSectionOp.m in Sources */,
 				040E533D1885FB4E00AFBFE9 /* ImageData.m in Sources */,
@@ -1055,10 +1102,12 @@
 				04C43ABF183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				D4EE00BD1824459D0090790F /* PageTitleTests.m in Sources */,
 				04292FE7185FB9D7002A13FC /* SearchNavController.m in Sources */,
+				04AE1C751891BB32002D5487 /* Article.m in Sources */,
 				04C43AB61834423C006C643B /* NetworkOpCrumbyTests.m in Sources */,
 				04F0E2EB186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */,
 				044786701852B5010050563B /* SessionSingleton.m in Sources */,
 				04D34DA2186283AA00610A87 /* MainMenuSectionHeadingLabel.m in Sources */,
+				04D7581D18923B8400CE2040 /* ArticleLanguagesTableVC.m in Sources */,
 				04D34DC21863F6B200610A87 /* History.m in Sources */,
 				04D149E018877343006B4104 /* UIViewController+Alert.m in Sources */,
 				04A70FD8185BB6C300E24515 /* URLCache.m in Sources */,
@@ -1080,7 +1129,6 @@
 				04292FF3185FBA70002A13FC /* SearchResultCell.m in Sources */,
 				04478642185146210050563B /* HistoryTableHeadingLabel.m in Sources */,
 				04D34DE21868E21F00610A87 /* Article+Convenience.m in Sources */,
-				04CF1CB0187BD3FE00E9516F /* Article.m in Sources */,
 				04292FED185FBA3D002A13FC /* SearchBarTextField.m in Sources */,
 				044BD6A31883302C00FFE4BE /* Image.m in Sources */,
 				D4DE203118283FF200148CA2 /* CommunicationBridgeTests.m in Sources */,

@@ -96,27 +96,31 @@
     return [results componentsJoinedByString:@""];
 }
 
--(NSAttributedString *)getAttributedTitleForSection:(Section *)section
+-(NSAttributedString *)getAttributedStringForString:(NSString *)str isLeadSection:(BOOL)isLeadSection
 {
+    NSUInteger fontSize = (isLeadSection) ? 22 : 15;
+    
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = NSTextAlignmentLeft;
     
-    NSMutableAttributedString *(^styleText)(NSString *, CGFloat) = ^NSMutableAttributedString *(NSString *str, CGFloat size){
-        return [[NSMutableAttributedString alloc]
-                initWithString:str attributes: @{
-                                                 NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:size],
-                                                 NSParagraphStyleAttributeName : paragraphStyle,
-                                                 NSStrokeWidthAttributeName : @0.0f, //@-1.0f,
-                                                 NSStrokeColorAttributeName : [UIColor blackColor],
-                                                 NSForegroundColorAttributeName : [UIColor whiteColor],
-                                                 }];
-    };
+    return [[NSMutableAttributedString alloc]
+            initWithString:str attributes: @{
+                                             NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:fontSize],
+                                             NSParagraphStyleAttributeName : paragraphStyle,
+                                             NSStrokeWidthAttributeName : @0.0f, //@-1.0f,
+                                             NSStrokeColorAttributeName : [UIColor blackColor],
+                                             NSForegroundColorAttributeName : [UIColor whiteColor],
+                                             }];
+}
+
+-(NSAttributedString *)getAttributedTitleForSection:(Section *)section
+{
+    NSString *string = (section.index.integerValue == 0) ? section.article.title : section.title;
     
-    return (section.index.integerValue == 0) ?
-        styleText([self getStringWithoutHTML:section.article.title], 22)
-        :
-        styleText([self getStringWithoutHTML:section.title], 15)
-    ;
+    string = [self getStringWithoutHTML:string];
+    
+    BOOL isLead = (section.index.integerValue == 0) ? YES : NO;
+    return [self getAttributedStringForString:string isLeadSection:isLead];
 }
 
 -(void)setSectionId:(NSManagedObjectID *)sectionId

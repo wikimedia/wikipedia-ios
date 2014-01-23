@@ -2,11 +2,11 @@
 
 #import "MWNetworkOp.h"
 
-@interface DownloadLeadSectionOp : MWNetworkOp
+@interface DownloadLangLinksOp : MWNetworkOp
 
 - (id)initForPageTitle: (NSString *)title
                 domain: (NSString *)domain
-       completionBlock: (void (^)(NSDictionary *))completionBlock
+       completionBlock: (void (^)(NSArray *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock
 ;

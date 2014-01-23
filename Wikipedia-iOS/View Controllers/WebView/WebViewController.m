@@ -9,14 +9,9 @@
 #import "Defines.h"
 #import "WebViewController.h"
 #import "CommunicationBridge.h"
-#import "NSURLRequest+DictionaryRequest.h"
-#import "MWNetworkActivityIndicatorManager.h"
 #import "NSString+Extras.h"
-#import "SearchBarTextField.h"
 #import "ArticleCoreDataObjects.h"
 #import "ArticleDataContextSingleton.h"
-#import "HistoryViewController.h"
-#import "NSDate-Utilities.h"
 #import "SessionSingleton.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "UIWebView+Reveal.h"
@@ -31,6 +26,8 @@
 #import "UIViewController+Alert.h"
 #import "DownloadNonLeadSectionsOp.h"
 #import "DownloadLeadSectionOp.h"
+#import "ArticleLanguagesTableVC.h"
+#import "UIView+Debugging.h"
 
 #define WEB_VIEW_SCALE_WHEN_TOC_VISIBLE (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.45f : 0.70f)
 #define TOC_TOGGLE_ANIMATION_DURATION 0.35f
@@ -81,7 +78,7 @@ typedef enum {
     self.forwardButton.transform = CGAffineTransformMakeScale(-1.0, 1.0);
 
     self.searchNavController = (SearchNavController *)self.navigationController;
-    self.indexOfFirstOnscreenSectionBeforeRotate = 0;
+    self.indexOfFirstOnscreenSectionBeforeRotate = -1;
 
     self.searchResultsController = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
     self.searchResultsController.webViewController = self;
@@ -117,17 +114,16 @@ typedef enum {
     // Ensure the keyboard hides if the web view is scrolled
     self.webView.scrollView.delegate = self;
 
+    self.webView.backgroundColor = [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.0];
+
     // Observe chages to the search box search term.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchStringChanged) name:@"SearchStringChanged" object:nil];
-
-    self.forwardButton.enabled = NO;
-    self.backButton.enabled = NO;
-    self.tocButton.enabled = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [self reloadCurrentArticle];
+    //[self.view randomlyColorSubviews];
 }
 
 -(void)reloadCurrentArticle{
@@ -211,6 +207,26 @@ typedef enum {
     self.sectionEditingVisible = NO;
 }
 
+#pragma mark Update constraints
+
+-(void)updateViewConstraints
+{
+    [super updateViewConstraints];
+    
+    TOCViewController *tocVC = [self getTOCViewController];
+    if (tocVC) {
+        [self constrainTOCView:tocVC.view];
+    }
+}
+
+#pragma mark Languages
+
+-(void)showLanguages
+{
+    ArticleLanguagesTableVC *articleLanguagesTableVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"ArticleLanguagesTableVC"];
+    [self.navigationController pushViewController:articleLanguagesTableVC animated:NO];
+}
+
 #pragma mark Table of contents
 
 -(TOCViewController *)getTOCViewController
@@ -257,7 +273,9 @@ typedef enum {
                 tocVC.view.translatesAutoresizingMaskIntoConstraints = NO;
                 [self.view addSubview:tocVC.view];
                 
-                [self constrainTOCView:tocVC.view];
+                //[self constrainTOCView:tocVC.view];
+                [self.view setNeedsUpdateConstraints];
+
                 [self.view.superview layoutIfNeeded];
                 
                 [tocVC didMoveToParentViewController:self];
@@ -660,21 +678,23 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     __block NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: pageTitle
                                                                                           domain: domain];
-    
+    BOOL needsRefresh = NO;
+
     if (articleID) {
         Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
         
-        // If article with sections just show them
-        if (article.section.count > 0) {
+        // If article with sections just show them (unless needsRefresh is YES)
+        if (article.section.count > 0 && !article.needsRefresh.boolValue) {
             [self displayArticle:articleID mode:DISPLAY_ALL_SECTIONS];
             [self showAlert:SEARCH_LOADING_MSG_ARTICLE_LOADED];
             [self showAlert:@""];
             return;
         }
+        needsRefresh = article.needsRefresh.boolValue;
     }
 
     // Retrieve first section op
-    DownloadLeadSectionOp *firstSectionOp = [[DownloadLeadSectionOp alloc] initForPageTitle:pageTitle domain:[SessionSingleton sharedInstance].currentArticleDomain completionBlock:^(NSArray *sectionsRetrieved){
+    DownloadLeadSectionOp *firstSectionOp = [[DownloadLeadSectionOp alloc] initForPageTitle:pageTitle domain:[SessionSingleton sharedInstance].currentArticleDomain completionBlock:^(NSDictionary *dataRetrieved){
 
         Article *article = nil;
         
@@ -692,6 +712,25 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         }else{
             article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
         }
+
+        if (needsRefresh) {
+            // If and article needs refreshing remove its sections so they get reloaded too.
+            for (Section *thisSection in [article.section copy]) {
+                [articleDataContext_.workerContext deleteObject:thisSection];
+            }
+        }
+
+        // If "needsRefresh", an existing article's data is being retrieved again, so these need
+        // to be updated whether a new article record is being inserted or not as data may have
+        // changed since the article record was first created.
+        article.languagecount = dataRetrieved[@"languagecount"];
+        article.lastmodified = dataRetrieved[@"lastmodified"];
+        article.lastmodifiedby = dataRetrieved[@"lastmodifiedby"];
+        article.redirected = dataRetrieved[@"redirected"];
+        //NSDateFormatter *anotherDateFormatter = [[NSDateFormatter alloc] init];
+        //[anotherDateFormatter setDateStyle:NSDateFormatterLongStyle];
+        //[anotherDateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        //NSLog(@"formatted lastmodified = %@", [anotherDateFormatter stringFromDate:article.lastmodified]);
 
         // Associate thumbnail with article.
         // If search result for this pageTitle had a thumbnail url associated with it, see if
@@ -712,7 +751,18 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         article.lastScrollY = @0.0f;
 
         // Get article section zero html
-        NSDictionary *section0Dict = (sectionsRetrieved.count == 1) ? sectionsRetrieved[0] : nil;
+        NSArray *sectionsRetrieved = dataRetrieved[@"sections"];
+        NSDictionary *section0Dict = (sectionsRetrieved.count >= 1) ? sectionsRetrieved[0] : nil;
+
+        // If there was only one section then we have what we need so no refresh
+        // is needed. Otherwise leave needsRefresh set to YES until subsequent sections
+        // have been retrieved. Reminder: "onlyrequestedsections" is not used
+        // by the mobileview query so that sectionsRetrieved.count will
+        // reflect the article's total number of sections here ("sections"
+        // was set to "0" though so only the first section entry actually has
+        // any html). This fixes the bug which caused subsequent sections to never
+        // be retrieved if the article was navigated away from before they had loaded.
+        article.needsRefresh = (sectionsRetrieved.count == 1) ? @NO : @YES;
 
         NSString *section0HTML = @"";
         if (section0Dict && [section0Dict[@"id"] isEqual: @0] && section0Dict[@"text"]) {
@@ -727,14 +777,18 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         section0.html = section0HTML;
         section0.anchor = @"";
         article.section = [NSSet setWithObjects:section0, nil];
-        
-        // Add history for article
-        History *history0 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:articleDataContext_.workerContext];
-        history0.dateVisited = [NSDate date];
-        //history0.dateVisited = [NSDate dateWithDaysBeforeNow:31];
-        history0.discoveryMethod = discoveryMethod;
-        [article addHistoryObject:history0];
-        
+
+        // Don't add multiple history items for the same article or back-forward button
+        // behavior becomes a confusing mess.
+        if(article.history.count == 0){
+            // Add history for article
+            History *history0 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:articleDataContext_.workerContext];
+            history0.dateVisited = [NSDate date];
+            //history0.dateVisited = [NSDate dateWithDaysBeforeNow:31];
+            history0.discoveryMethod = discoveryMethod;
+            [article addHistoryObject:history0];
+        }
+
         // Save the article!
         NSError *error = nil;
         [articleDataContext_.workerContext save:&error];
@@ -777,7 +831,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // Because "you can only use a context on a thread when the context was created on that thread"
         // this must happen on workerContext as well (see: http://stackoverflow.com/a/6356201/135557)
         Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
-        
+
+        //Non-lead sections have been retreived so set needsRefresh to NO.
+        article.needsRefresh = @NO;
+
         NSMutableArray *sectionText = [@[] mutableCopy];
         for (NSDictionary *section in sectionsRetrieved) {
             if (![section[@"id"] isEqual: @0]) {
@@ -871,7 +928,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [SessionSingleton sharedInstance].currentArticleTitle = article.title;
     [SessionSingleton sharedInstance].currentArticleDomain = article.domain;
 
-    [self updateBottomBarButtonsEnabledState];
+    NSNumber *langCount = article.languagecount;
+    
+    [self updateBottomBarButtonsEnabledStateWithLangCount:langCount];
 
     NSArray *sortedSections = [article.section sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     NSMutableArray *sectionTextArray = [@[] mutableCopy];
@@ -986,13 +1045,14 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     return result;
 }
 
--(void)updateBottomBarButtonsEnabledState
+-(void)updateBottomBarButtonsEnabledStateWithLangCount:(NSNumber *)langCount
 {
     self.adjacentHistoryIDs = [self getAdjacentHistoryIDs];
     self.forwardButton.enabled = (self.adjacentHistoryIDs[@"after"]) ? YES : NO;
     self.backButton.enabled = (self.adjacentHistoryIDs[@"before"]) ? YES : NO;
     NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
     self.tocButton.enabled = (currentArticleTitle && (currentArticleTitle.length > 0)) ? YES : NO;
+    self.langButton.enabled = (langCount.integerValue > 1) ? YES : NO;
 }
 
 - (IBAction)tocButtonPushed:(id)sender
@@ -1003,6 +1063,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 #pragma mark Other action button methods (placeholders)
 
 - (IBAction)languageButtonPushed:(id)sender {
+
+    [self showLanguages];
+
 }
 
 - (IBAction)actionButtonPushed:(id)sender {
@@ -1046,7 +1109,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 -(void)scrollToIndexOfFirstOnscreenSectionBeforeRotate{
     if(self.indexOfFirstOnscreenSectionBeforeRotate == -1)return;
     NSString *elementId = [NSString stringWithFormat:@"content_block_%ld", (long)self.indexOfFirstOnscreenSectionBeforeRotate];
-    CGPoint p = [self.webView getWebViewRectForHtmlElementWithId:elementId].origin;
+    CGRect r = [self.webView getWebViewRectForHtmlElementWithId:elementId];
+    if (CGRectIsNull(r)) return;
+    CGPoint p = r.origin;
     p.x = self.webView.scrollView.contentOffset.x;
     [self.webView.scrollView setContentOffset:p animated:YES];
     //[UIView animateWithDuration:0.05f animations:^{

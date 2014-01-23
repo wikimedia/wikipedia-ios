@@ -2,7 +2,7 @@
 //  Article.h
 //  Wikipedia-iOS
 //
-//  Created by Monte Hurd on 1/6/14.
+//  Created by Monte Hurd on 1/23/14.
 //  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
@@ -15,11 +15,16 @@
 
 @property (nonatomic, retain) NSDate * dateCreated;
 @property (nonatomic, retain) NSString * domain;
+@property (nonatomic, retain) NSString * domainName;
 @property (nonatomic, retain) NSNumber * lastScrollX;
 @property (nonatomic, retain) NSNumber * lastScrollY;
 @property (nonatomic, retain) NSString * site;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * domainName;
+@property (nonatomic, retain) NSNumber * languagecount;
+@property (nonatomic, retain) NSDate * lastmodified;
+@property (nonatomic, retain) NSString * lastmodifiedby;
+@property (nonatomic, retain) NSString * redirected;
+@property (nonatomic, retain) NSNumber * needsRefresh;
 @property (nonatomic, retain) NSSet *galleryImage;
 @property (nonatomic, retain) NSSet *history;
 @property (nonatomic, retain) NSSet *saved;

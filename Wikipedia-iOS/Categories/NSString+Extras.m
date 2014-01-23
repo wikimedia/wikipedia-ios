@@ -58,4 +58,12 @@
     return [regex stringByReplacingMatchesInString:self options:NSMatchingReportProgress range:NSMakeRange(0, self.length) withTemplate:@"$2"];
 }
 
+- (NSDate *)getDateFromIso8601DateString
+{
+    // See: https://www.mediawiki.org/wiki/Manual:WfTimestamp
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+    return  [formatter dateFromString:self];
+}
+
 @end

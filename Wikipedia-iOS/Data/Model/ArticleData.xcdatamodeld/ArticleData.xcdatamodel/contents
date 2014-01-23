@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5041" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5041.1" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Article" representedClassName="Article" syncable="YES">
         <attribute name="dateCreated" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="domain" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="domainName" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="languagecount" attributeType="Integer 16" defaultValueString="1" syncable="YES"/>
+        <attribute name="lastmodified" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="lastmodifiedby" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="lastScrollX" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lastScrollY" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="needsRefresh" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
+        <attribute name="redirected" attributeType="String" syncable="YES"/>
         <attribute name="site" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="galleryImage" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GalleryImage" inverseName="article" inverseEntity="GalleryImage" syncable="YES"/>
@@ -74,14 +79,14 @@
         <relationship name="section" maxCount="1" deletionRule="Nullify" destinationEntity="Section" inverseName="sectionImage" inverseEntity="Section" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Article" positionX="-72" positionY="-603" width="128" height="223"/>
+        <element name="Article" positionX="-72" positionY="-603" width="128" height="298"/>
         <element name="DiscoveryContext" positionX="313" positionY="-675" width="128" height="90"/>
         <element name="GalleryImage" positionX="-297" positionY="-144" width="128" height="90"/>
         <element name="History" positionX="135" positionY="-738" width="128" height="105"/>
         <element name="Image" positionX="135" positionY="-361" width="128" height="298"/>
+        <element name="ImageData" positionX="324" positionY="-297" width="128" height="73"/>
         <element name="Saved" positionX="252" positionY="-513" width="128" height="75"/>
         <element name="Section" positionX="-252" positionY="-27" width="128" height="178"/>
         <element name="SectionImage" positionX="268" positionY="-88" width="128" height="88"/>
-        <element name="ImageData" positionX="324" positionY="-297" width="128" height="73"/>
     </elements>
 </model>

@@ -4,7 +4,6 @@
 #import "SearchNavController.h"
 #import "SearchBarLogoView.h"
 #import "Defines.h"
-#import "SearchResultsController.h"
 
 @interface SearchNavController (){
     UIView *navBarSubview_;

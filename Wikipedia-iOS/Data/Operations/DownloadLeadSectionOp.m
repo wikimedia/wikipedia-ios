@@ -4,12 +4,14 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSURLRequest+DictionaryRequest.h"
+#import "NSString+Extras.h"
+#import "NSObject+Extras.h"
 
 @implementation DownloadLeadSectionOp
 
 - (id)initForPageTitle: (NSString *)title
                 domain: (NSString *)domain
-       completionBlock: (void (^)(NSArray *))completionBlock
+       completionBlock: (void (^)(NSDictionary *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock
 {
@@ -18,13 +20,17 @@
         self.request = [NSURLRequest postRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
                                              parameters: @{
                                                            @"action": @"mobileview",
-                                                           @"prop": @"sections|text",
+                                                           @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount",
                                                            @"sections": @"0",
-                                                           @"onlyrequestedsections": @"1",
                                                            @"sectionprop": @"toclevel|line|anchor",
                                                            @"page": title,
                                                            @"format": @"json"
                                                            }
+                        //Reminder: do not set @"onlyrequestedsections": @"1" above.
+                        //Need to see keys for the subsequent sections so the "needsRefresh"
+                        //value can be left YES until subsequent sections have been retrieved
+                        //(if there's more than a single section).
+
                         ];
         __weak DownloadLeadSectionOp *weakSelf = self;
         self.aboutToStart = ^{
@@ -53,9 +59,33 @@
                 return;
             }
             
+            //NSLog(@"weakSelf.jsonRetrieved = %@", weakSelf.jsonRetrieved);
+            
+            NSString *lastmodifiedDateString = weakSelf.jsonRetrieved[@"mobileview"][@"lastmodified"];
+            NSDate *lastmodifiedDate = [lastmodifiedDateString getDateFromIso8601DateString];
+
+            NSDictionary *lastmodifiedbyDict = weakSelf.jsonRetrieved[@"mobileview"][@"lastmodifiedby"];
+            NSString *lastmodifiedby = @"";
+            if (lastmodifiedbyDict && (![lastmodifiedbyDict isNull]) && lastmodifiedbyDict[@"name"]) {
+                lastmodifiedby = lastmodifiedbyDict[@"name"];
+            }
+            if (!lastmodifiedby || [lastmodifiedby isNull]) lastmodifiedby = @"";
+            
+            NSNumber *languagecount = weakSelf.jsonRetrieved[@"mobileview"][@"languagecount"];
+            if (!languagecount || [languagecount isNull]) languagecount = @1;
+            
+            NSString *redirected = weakSelf.jsonRetrieved[@"mobileview"][@"redirected"];
+            if (!redirected || [redirected isNull]) redirected = @"";
+            
             NSArray *sections = weakSelf.jsonRetrieved[@"mobileview"][@"sections"];
             
-            completionBlock(sections);
+            completionBlock(@{
+                              @"sections": sections,
+                              @"lastmodified": lastmodifiedDate,
+                              @"lastmodifiedby": lastmodifiedby,
+                              @"redirected": redirected,
+                              @"languagecount": languagecount
+                              });
         };
     }
     return self;

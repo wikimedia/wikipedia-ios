@@ -15,6 +15,8 @@
 
 @property (strong, nonatomic, readonly) NSString *searchApiUrl;
 
+@property (strong, atomic) NSArray *unsupportedCharactersLanguageIds;
+
 -(NSURL *)urlForDomain:(NSString *)domain;
 -(NSString *)bundledLanguagesPath;
 

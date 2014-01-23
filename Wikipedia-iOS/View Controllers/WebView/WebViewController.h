@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *forwardButton;
 @property (weak, nonatomic) IBOutlet UIButton *tocButton;
+@property (weak, nonatomic) IBOutlet UIButton *langButton;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewLeftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewRightConstraint;
@@ -28,6 +29,7 @@
 -(void)tocToggle;
 -(void)saveWebViewScrollOffset;
 -(void)reloadCurrentArticle;
+-(void)showLanguages;
 
 - (IBAction)tocButtonPushed:(id)sender;
 - (IBAction)backButtonPushed:(id)sender;

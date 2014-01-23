@@ -14,6 +14,19 @@
     return sharedInstance;
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+
+//TODO: figure out what to do with these:
+        // Wiki language character sets that iOS doesn't seem to render properly...
+        self.unsupportedCharactersLanguageIds = [@"my am km dv lez arc got ti" componentsSeparatedByString:@" "];
+
+    }
+    return self;
+}
+
 -(NSURL *)urlForDomain:(NSString *)domain
 {
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.m.%@/w/api.php", domain, [self site]]];
@@ -26,18 +39,12 @@
 
 -(void)setDomain:(NSString *)domain
 {
-
-//domain = @"test";
-
     [[NSUserDefaults standardUserDefaults] setObject:domain forKey:@"Domain"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(NSString *)domain
 {
-
-//return @"test";
-
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"Domain"];
 }
 
