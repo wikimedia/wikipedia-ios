@@ -10,7 +10,12 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *reloadCaptchaButton;
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
+
+@property (weak, nonatomic) IBOutlet UIImageView *captchaImageView;
+@property (weak, nonatomic) IBOutlet UITextField *captchaTextBox;
+@property (weak, nonatomic) IBOutlet UIView *captchaContainer;
 
 - (IBAction)savePushed:(id)sender;
 - (IBAction)cancelPushed:(id)sender;

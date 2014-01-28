@@ -9,6 +9,7 @@
 #import "QueuesSingleton.h"
 #import "DownloadSectionWikiTextOp.h"
 #import "UploadSectionWikiTextOp.h"
+#import "SessionSingleton.h"
 
 #define EDIT_TEXT_VIEW_FONT @"AmericanTypewriter"
 #define EDIT_TEXT_VIEW_FONT_SIZE 14.0f
@@ -19,6 +20,10 @@
     ArticleDataContextSingleton *articleDataContext_;
     CGFloat scrollViewDragBeganVerticalOffset_;
 }
+
+@property (strong, nonatomic) NSString *captchaId;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *editTextViewTopConstraint;
+@property (nonatomic) BOOL showCaptchaContainer;
 
 @end
 
@@ -42,8 +47,16 @@
     [self.saveButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self.cancelButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
     [self.cancelButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.reloadCaptchaButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
+    [self.reloadCaptchaButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
 
     [self loadLatestWikiTextForSectionFromServer];
+    
+    self.captchaId = @"";
+    self.editTextViewTopConstraint = nil;
+
+    self.showCaptchaContainer = NO;
+    [self updateCaptchaContainerConstraint];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -140,7 +153,7 @@
 
     NSManagedObjectID *articleID = section.article.objectID;
 
-    UploadSectionWikiTextOp *uploadWikiTextOp = [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index wikiText:self.editTextView.text completionBlock:^(NSString *result){
+    UploadSectionWikiTextOp *uploadWikiTextOp = [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index wikiText:self.editTextView.text captchaId:self.captchaId captchaWord:self.captchaTextBox.text completionBlock:^(NSString *result){
 
         // Mark article for refreshing so its data will be reloaded.
         // (Needs to be done on worker context as worker context changes bubble up through
@@ -180,9 +193,72 @@
         NSString *errorMsg = error.localizedDescription;
         [self showAlert:errorMsg];
         
+        if (error.code == WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA) {
+            // If the server said a captcha was required, present the captcha image.
+            NSString *captchaUrl = error.userInfo[@"captchaUrl"];
+            NSString *captchaId = error.userInfo[@"captchaId"];
+            if (articleID) {
+                [articleDataContext_.mainContext performBlockAndWait:^(){
+                    Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+                    if (article) {
+                        self.showCaptchaContainer = YES;
+                        [self updateCaptchaContainerConstraint];
+                        [UIView animateWithDuration:0.2f animations:^{
+                            [self.view layoutIfNeeded];
+                        } completion:^(BOOL done){
+                        }];
+
+                        NSURL *captchaImageUrl = [NSURL URLWithString:
+                                                    [NSString stringWithFormat:@"https://%@.m.%@%@", article.domain, article.site, captchaUrl]
+                                                 ];
+                        
+                        UIImage *captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
+
+                        self.captchaTextBox.text = @"";
+                        self.captchaImageView.image = captchaImage;
+                        self.captchaId = captchaId;
+                    }
+                }];
+            }
+        }
+
     }];
 
     [[QueuesSingleton sharedInstance].sectionWikiTextQ addOperation:uploadWikiTextOp];
+}
+
+-(void)updateCaptchaContainerConstraint
+{
+    if (self.editTextViewTopConstraint) {
+        [self.view removeConstraint:self.editTextViewTopConstraint];
+    }
+    
+    if (self.showCaptchaContainer) {
+        self.editTextViewTopConstraint = [NSLayoutConstraint constraintWithItem: self.editTextView
+                                                                      attribute: NSLayoutAttributeTop
+                                                                      relatedBy: NSLayoutRelationEqual
+                                                                         toItem: self.captchaContainer
+                                                                      attribute: NSLayoutAttributeBottom
+                                                                     multiplier: 1.0
+                                                                       constant: 10];
+    }else{
+        self.editTextViewTopConstraint = [NSLayoutConstraint constraintWithItem: self.editTextView
+                                                                      attribute: NSLayoutAttributeTop
+                                                                      relatedBy: NSLayoutRelationEqual
+                                                                         toItem: self.cancelButton
+                                                                      attribute: NSLayoutAttributeBottom
+                                                                     multiplier: 1.0
+                                                                       constant: 10];
+    }
+    
+    [self.view addConstraint:self.editTextViewTopConstraint];
+}
+
+- (IBAction)reloadCaptchaPushed:(id)sender
+{
+    // Send a bad captcha response to get a new captcha image.
+    self.captchaTextBox.text = @"";
+    [self savePushed:nil];
 }
 
 - (IBAction)cancelPushed:(id)sender
