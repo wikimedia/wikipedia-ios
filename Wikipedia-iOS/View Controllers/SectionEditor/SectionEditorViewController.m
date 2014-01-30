@@ -191,40 +191,122 @@
         
     } errorBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg];
         
-        if (error.code == WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA) {
-            // If the server said a captcha was required, present the captcha image.
-            NSString *captchaUrl = error.userInfo[@"captchaUrl"];
-            NSString *captchaId = error.userInfo[@"captchaId"];
-            if (articleID) {
-                [articleDataContext_.mainContext performBlockAndWait:^(){
-                    Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-                    if (article) {
-                        self.showCaptchaContainer = YES;
-                        [self updateCaptchaContainerConstraint];
-                        [UIView animateWithDuration:0.2f animations:^{
-                            [self.view layoutIfNeeded];
-                        } completion:^(BOOL done){
+        [self showAlert:errorMsg];
+
+        switch (error.code) {
+            case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
+                {
+                    // If the server said a captcha was required, present the captcha image.
+                    NSString *captchaUrl = error.userInfo[@"captchaUrl"];
+                    NSString *captchaId = error.userInfo[@"captchaId"];
+                    if (articleID) {
+                        [articleDataContext_.mainContext performBlockAndWait:^(){
+                            Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+                            if (article) {
+                                self.showCaptchaContainer = YES;
+                                [self updateCaptchaContainerConstraint];
+                                [UIView animateWithDuration:0.2f animations:^{
+                                    [self.view layoutIfNeeded];
+                                } completion:^(BOOL done){
+                                }];
+                                
+                                NSURL *captchaImageUrl = [NSURL URLWithString:
+                                                          [NSString stringWithFormat:@"https://%@.m.%@%@", article.domain, article.site, captchaUrl]
+                                                          ];
+                                
+                                UIImage *captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
+                                
+                                self.captchaTextBox.text = @"";
+                                self.captchaImageView.image = captchaImage;
+                                self.captchaId = captchaId;
+                            }
                         }];
-
-                        NSURL *captchaImageUrl = [NSURL URLWithString:
-                                                    [NSString stringWithFormat:@"https://%@.m.%@%@", article.domain, article.site, captchaUrl]
-                                                 ];
-                        
-                        UIImage *captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
-
-                        self.captchaTextBox.text = @"";
-                        self.captchaImageView.image = captchaImage;
-                        self.captchaId = captchaId;
                     }
-                }];
-            }
-        }
+                }
+                break;
+            
+            case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED:
+            case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING:
+            case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER:
+                {
+                    NSString *warningHtml = error.userInfo[@"warning"];
+                    //NSLog(@"the warning = %@", warningHtml);
 
+                    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+                        [self.captchaTextBox resignFirstResponder];
+                        [self.editTextView resignFirstResponder];
+                    }];
+
+                    NSString *bannerImage = nil;
+                    UIColor *bannerColor = nil;
+                    NSString *labelText = nil;
+                    UIImage *leftImage = nil;
+
+                    if ((error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED)) {
+                        bannerImage = @"abuse-filter-disallowed.png";
+                        bannerColor = [UIColor colorWithRed:0.93 green:0.18 blue:0.20 alpha:1.0];
+                        labelText = @"Review edit";
+                    }else{
+                        bannerImage = @"abuse-filter-flag-white.png";
+                        bannerColor = [UIColor colorWithRed:0.99 green:0.32 blue:0.22 alpha:1.0];
+                        labelText = @"Ignore or review edit";
+                        leftImage = [UIImage imageNamed:@"abuse-filter-check.png"];
+                    }
+
+                    NSString *restyledWarningHtml = [self restyleAbuseFilterWarningHtml:warningHtml];
+                    [self showAlert:@""];
+                    [self showHTMLAlert: restyledWarningHtml
+                              leftImage: leftImage
+                              labelText: labelText
+                             rightImage: [UIImage imageNamed:@"abuse-filter-edit-black.png"]
+                            bannerImage: [UIImage imageNamed:bannerImage]
+                            bannerColor: bannerColor
+                     ];
+                }
+                break;
+ 
+        default:
+            break;
+        }
     }];
 
     [[QueuesSingleton sharedInstance].sectionWikiTextQ addOperation:uploadWikiTextOp];
+}
+
+//TODO: this shouldn't be in the controller. Find it a nice home.
+-(NSString *)restyleAbuseFilterWarningHtml:(NSString *)warningHtml
+{
+    // Abuse filter warnings have html :( Re-style as best we can...
+    return [NSString stringWithFormat:
+        @"\
+        <html>\
+        <head>\
+        <style>\
+            *{\
+                background-color:transparent!important;\
+                border-color:transparent!important;\
+                width:auto!important;\
+                font:auto!important;\
+                font-family:sans-serif!important;\
+                font-size:14px!important;\
+                color:rgb(85, 85, 85)!important;\
+                line-height:22px!important;\
+                text-align:left!important;\
+            }\
+            td[style]{background-color:transparent!important;border-style:none!important;}\
+            IMG{zoom:0.5;margin:20px}\
+            body{padding:21px!important;padding-top:16px!important;margin:0px!important;}\
+        </style>\
+        </head>\
+        <body>\
+        <div>\
+            %@\
+        </div>\
+        </body>\
+        </html>\
+        ",
+    warningHtml];
 }
 
 -(void)updateCaptchaContainerConstraint

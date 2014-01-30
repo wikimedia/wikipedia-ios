@@ -70,21 +70,58 @@
                 weakSelf.error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WIKITEXT_UPLOAD_ERROR_UNKNOWN userInfo:errorDict];
             }
 
-            if (!weakSelf.error && result && [result isEqualToString:@"Failure"] && weakSelf.jsonRetrieved[@"edit"][@"captcha"]) {
-                NSMutableDictionary *errorDict = [@{} mutableCopy];
-                
-                errorDict[NSLocalizedDescriptionKey] = (captchaWord && (captchaWord.length > 0)) ?
+            if (!weakSelf.error && result && [result isEqualToString:@"Failure"]) {
+            
+            
+                if(weakSelf.jsonRetrieved[@"edit"][@"captcha"]){
+                    NSMutableDictionary *errorDict = [@{} mutableCopy];
+                    
+                    errorDict[NSLocalizedDescriptionKey] = (captchaWord && (captchaWord.length > 0)) ?
                     @"Captcha verification error."
                     :
                     @"Need captcha verification."
-                ;
-                
-                // Make the capcha id and url available from the error.
-                errorDict[@"captchaId"] = weakSelf.jsonRetrieved[@"edit"][@"captcha"][@"id"];
-                errorDict[@"captchaUrl"] = weakSelf.jsonRetrieved[@"edit"][@"captcha"][@"url"];
-                
-                // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
-                weakSelf.error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA userInfo:errorDict];
+                    ;
+                    
+                    // Make the capcha id and url available from the error.
+                    errorDict[@"captchaId"] = weakSelf.jsonRetrieved[@"edit"][@"captcha"][@"id"];
+                    errorDict[@"captchaUrl"] = weakSelf.jsonRetrieved[@"edit"][@"captcha"][@"url"];
+                    
+                    // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
+                    weakSelf.error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA userInfo:errorDict];
+                }else if(weakSelf.jsonRetrieved[@"edit"][@"code"]){
+
+                    NSString *abuseFilterCode = weakSelf.jsonRetrieved[@"edit"][@"code"];
+                    UploadSectionWikiTextOpErrors errorType = WIKITEXT_UPLOAD_ERROR_UNKNOWN;
+
+                    if([abuseFilterCode hasPrefix:@"abusefilter-warning"]){
+                        errorType = WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING;
+                    }else if([abuseFilterCode hasPrefix:@"abusefilter-disallowed"]){
+                        errorType = WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED;
+                    }else if([abuseFilterCode hasPrefix:@"abusefilter"]){
+                        errorType = WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER;
+                    }
+                    
+                    switch (errorType) {
+                        case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING:
+                        case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED:
+                        case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER:
+                            {
+                                NSMutableDictionary *errorDict = [@{} mutableCopy];
+                                
+                                errorDict[NSLocalizedDescriptionKey] = weakSelf.jsonRetrieved[@"edit"][@"info"];
+                                
+                                // Make the verbose warning available from the error.
+                                errorDict[@"warning"] = weakSelf.jsonRetrieved[@"edit"][@"warning"];
+                                
+                                // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
+                                weakSelf.error = [NSError errorWithDomain:@"Upload Wikitext Op" code:errorType userInfo:errorDict];
+                            }
+                            break;
+                            
+                        default:
+                            break;
+                    }
+                }
             }
             
             if (weakSelf.error) {

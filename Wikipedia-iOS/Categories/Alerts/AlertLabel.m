@@ -14,9 +14,21 @@
         self.font = [UIFont systemFontOfSize:10];
         self.textAlignment = NSTextAlignmentCenter;
         self.textColor = [UIColor darkGrayColor];
+        self.numberOfLines = 10;
+        self.lineBreakMode = NSLineBreakByWordWrapping;
         self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.9];
+        self.userInteractionEnabled = YES;
+
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
+        [self addGestureRecognizer:tap];
     }
     return self;
+}
+
+-(void)tap
+{
+    // Hide without delay.
+    self.alpha = 0.0f;
 }
 
 -(void)setHidden:(BOOL)hidden

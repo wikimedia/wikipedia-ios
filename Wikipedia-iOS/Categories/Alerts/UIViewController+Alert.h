@@ -2,14 +2,23 @@
 
 #import <UIKit/UIKit.h>
 
+// Category for showing alerts over *any* view controller's view.
+
 @interface UIViewController (Alert)
 
-// Category for showing an some alert text at top of *any* view controller's
-// view.
-
-// Shows alert. Fades out alert if alertText set to zero length string.
+// Shows alert text at top of view controller's view.
+// Fades out alert if alertText set to zero length string.
 -(void)showAlert:(NSString *)alertText;
 
-//TODO: make showAlert immediately disappear if alertText nil.
+//TODO: maybe make showAlert immediately disappear if alertText nil... maybe not?
+
+// Shows full screen alert html over top of view controller's view.
+// Any links open in Safari.
+-(void)showHTMLAlert: (NSString *)html
+           leftImage: (UIImage *)leftImage
+           labelText: (NSString *)labelText
+          rightImage: (UIImage *)rightImage
+         bannerImage: (UIImage *)bannerImage
+         bannerColor: (UIColor *)bannerColor;
 
 @end
