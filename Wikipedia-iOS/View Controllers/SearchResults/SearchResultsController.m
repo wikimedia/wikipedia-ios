@@ -5,21 +5,24 @@
 #import "QueuesSingleton.h"
 #import "WebViewController.h"
 #import "MWNetworkActivityIndicatorManager.h"
-#import "SearchNavController.h"
 #import "NSURLRequest+DictionaryRequest.h"
 #import "SearchResultCell.h"
-#import "SearchBarTextField.h"
+#import "NavBarTextField.h"
 #import "SessionSingleton.h"
 #import "UIViewController+Alert.h"
 
 #import "ArticleDataContextSingleton.h"
 #import "ArticleCoreDataObjects.h"
 #import "NSString+Extras.h"
+#import "UIViewController+HideKeyboard.h"
+#import "NavController.h"
 
 @interface SearchResultsController (){
     CGFloat scrollViewDragBeganVerticalOffset_;
     ArticleDataContextSingleton *articleDataContext_;
 }
+
+@property (weak, nonatomic) NavController *searchNavController;
 
 @end
 
@@ -28,6 +31,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.searchNavController = (NavController *)self.navigationController;
     
     articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
 
@@ -59,8 +64,7 @@
     CGFloat distanceScrolled = fabs(scrollViewDragBeganVerticalOffset_ - scrollView.contentOffset.y);
 
     if (distanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
-        [self.searchNavController resignSearchFieldFirstResponder];
-        //NSLog(@"Keyboard Hidden!");
+        [self hideKeyboard];
     }
 }
 

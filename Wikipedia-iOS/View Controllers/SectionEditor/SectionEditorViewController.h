@@ -17,7 +17,4 @@
 @property (weak, nonatomic) IBOutlet UITextField *captchaTextBox;
 @property (weak, nonatomic) IBOutlet UIView *captchaContainer;
 
-- (IBAction)savePushed:(id)sender;
-- (IBAction)cancelPushed:(id)sender;
-
 @end

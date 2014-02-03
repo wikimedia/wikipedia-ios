@@ -9,7 +9,4 @@
 @property (strong, nonatomic) NSString *currentSearchString;
 @property (strong, nonatomic) NSArray *currentSearchStringWordsToHighlight;
 
--(void)resignSearchFieldFirstResponder;
--(BOOL)isSearchFieldFirstResponder;
-
 @end

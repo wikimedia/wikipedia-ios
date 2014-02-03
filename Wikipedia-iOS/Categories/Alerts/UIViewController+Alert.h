@@ -15,9 +15,6 @@
 // Shows full screen alert html over top of view controller's view.
 // Any links open in Safari.
 -(void)showHTMLAlert: (NSString *)html
-           leftImage: (UIImage *)leftImage
-           labelText: (NSString *)labelText
-          rightImage: (UIImage *)rightImage
          bannerImage: (UIImage *)bannerImage
          bannerColor: (UIColor *)bannerColor;
 

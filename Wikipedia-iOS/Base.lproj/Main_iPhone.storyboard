@@ -154,45 +154,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0o-I6-RDJ">
-                                <rect key="frame" x="20" y="40" width="48" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancelPushed:" destination="5er-xi-5lN" eventType="touchUpInside" id="4tD-ZN-IsM"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Wa-ox-cAd">
-                                <rect key="frame" x="266" y="40" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Save">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="savePushed:" destination="5er-xi-5lN" eventType="touchUpInside" id="CEB-5n-gJV"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eg4-Lv-DoU" userLabel="Captcha Container">
-                                <rect key="frame" x="10" y="78" width="300" height="150"/>
+                                <rect key="frame" x="10" y="20" width="300" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8hN-zs-sD0">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="70"/>
+                                        <rect key="frame" x="0.0" y="20" width="300" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="70" id="yDi-pw-FXh"/>
                                         </constraints>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter captcha text from image above" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AIA-vO-cLI">
-                                        <rect key="frame" x="0.0" y="120" width="300" height="30"/>
+                                        <rect key="frame" x="0.0" y="140" width="300" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="QGI-DM-j1P">
-                                        <rect key="frame" x="0.0" y="80" width="300" height="30"/>
+                                        <rect key="frame" x="0.0" y="100" width="300" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Show another captcha">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -209,45 +189,39 @@
                                     <constraint firstItem="8hN-zs-sD0" firstAttribute="leading" secondItem="eg4-Lv-DoU" secondAttribute="leading" id="KV5-w3-mhP"/>
                                     <constraint firstAttribute="trailing" secondItem="QGI-DM-j1P" secondAttribute="trailing" id="RSj-EU-I8r"/>
                                     <constraint firstItem="QGI-DM-j1P" firstAttribute="top" secondItem="8hN-zs-sD0" secondAttribute="bottom" constant="10" id="Y5o-hM-GvO"/>
-                                    <constraint firstItem="8hN-zs-sD0" firstAttribute="top" secondItem="eg4-Lv-DoU" secondAttribute="top" id="dN9-Hy-wxB"/>
+                                    <constraint firstItem="8hN-zs-sD0" firstAttribute="top" secondItem="eg4-Lv-DoU" secondAttribute="top" constant="20" id="dN9-Hy-wxB"/>
                                     <constraint firstAttribute="trailing" secondItem="8hN-zs-sD0" secondAttribute="trailing" id="e3T-Si-9fd"/>
-                                    <constraint firstAttribute="bottom" secondItem="AIA-vO-cLI" secondAttribute="bottom" id="pnc-Rh-wxe"/>
+                                    <constraint firstAttribute="bottom" secondItem="AIA-vO-cLI" secondAttribute="bottom" constant="10" id="pnc-Rh-wxe"/>
                                     <constraint firstItem="AIA-vO-cLI" firstAttribute="top" secondItem="QGI-DM-j1P" secondAttribute="bottom" constant="10" id="xSm-ld-O3k"/>
                                     <constraint firstItem="AIA-vO-cLI" firstAttribute="leading" secondItem="eg4-Lv-DoU" secondAttribute="leading" id="xhe-j7-Tls"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohj-LA-82c">
-                                <rect key="frame" x="10" y="238" width="300" height="320"/>
+                                <rect key="frame" x="5" y="200" width="310" height="368"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.93604512117346939" green="0.93604512117346939" blue="0.93604512117346939" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ohj-LA-82c" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="10" id="GW3-Ua-a8X"/>
-                            <constraint firstItem="eg4-Lv-DoU" firstAttribute="top" secondItem="P0o-I6-RDJ" secondAttribute="bottom" constant="8" id="MrF-jb-0U9"/>
+                            <constraint firstItem="ohj-LA-82c" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="5" id="GW3-Ua-a8X"/>
                             <constraint firstAttribute="trailing" secondItem="eg4-Lv-DoU" secondAttribute="trailing" constant="10" id="Ov1-hZ-CTt"/>
-                            <constraint firstAttribute="trailing" secondItem="7Wa-ox-cAd" secondAttribute="trailing" constant="20" symbolic="YES" id="Vjy-nh-Pvb"/>
-                            <constraint firstAttribute="trailing" secondItem="ohj-LA-82c" secondAttribute="trailing" constant="10" id="aPb-dZ-HOe"/>
-                            <constraint firstAttribute="bottom" secondItem="ohj-LA-82c" secondAttribute="bottom" constant="10" id="eMa-8O-6mo"/>
-                            <constraint firstItem="ohj-LA-82c" firstAttribute="top" secondItem="eg4-Lv-DoU" secondAttribute="bottom" constant="10" placeholder="YES" id="h9H-gX-FwV"/>
+                            <constraint firstAttribute="trailing" secondItem="ohj-LA-82c" secondAttribute="trailing" constant="5" id="aPb-dZ-HOe"/>
+                            <constraint firstAttribute="bottom" secondItem="ohj-LA-82c" secondAttribute="bottom" id="eMa-8O-6mo"/>
+                            <constraint firstItem="ohj-LA-82c" firstAttribute="top" secondItem="eg4-Lv-DoU" secondAttribute="bottom" placeholder="YES" id="h9H-gX-FwV"/>
                             <constraint firstItem="eg4-Lv-DoU" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="10" id="hIS-z5-BGj"/>
-                            <constraint firstItem="P0o-I6-RDJ" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="20" symbolic="YES" id="tvI-a1-Zfx"/>
-                            <constraint firstItem="P0o-I6-RDJ" firstAttribute="top" secondItem="Uij-Jt-RyQ" secondAttribute="bottom" constant="20" id="vLv-1p-wHI"/>
-                            <constraint firstItem="7Wa-ox-cAd" firstAttribute="top" secondItem="Uij-Jt-RyQ" secondAttribute="bottom" constant="20" id="zVu-Gk-wAb"/>
+                            <constraint firstItem="eg4-Lv-DoU" firstAttribute="top" secondItem="Uij-Jt-RyQ" secondAttribute="bottom" id="kYE-Qj-Fio"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
-                        <outlet property="cancelButton" destination="P0o-I6-RDJ" id="QMp-QK-lVW"/>
                         <outlet property="captchaContainer" destination="eg4-Lv-DoU" id="9Ek-3Z-AYp"/>
                         <outlet property="captchaImageView" destination="8hN-zs-sD0" id="STI-qB-Qus"/>
                         <outlet property="captchaTextBox" destination="AIA-vO-cLI" id="P4b-uf-JW8"/>
                         <outlet property="editTextView" destination="ohj-LA-82c" id="uOG-V5-Eqx"/>
                         <outlet property="reloadCaptchaButton" destination="QGI-DM-j1P" id="aIr-WK-938"/>
-                        <outlet property="saveButton" destination="7Wa-ox-cAd" id="5uf-34-uo9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DEY-rf-Gnw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -508,10 +482,10 @@
             </objects>
             <point key="canvasLocation" x="181" y="-116"/>
         </scene>
-        <!--Search Nav Controller-->
+        <!--Nav Controller-->
         <scene sceneID="dor-Wk-JQd">
             <objects>
-                <navigationController storyboardIdentifier="SearchNavController" extendedLayoutIncludesOpaqueBars="YES" definesPresentationContext="YES" id="Iku-rK-nd2" customClass="SearchNavController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SearchNavController" extendedLayoutIncludesOpaqueBars="YES" definesPresentationContext="YES" id="Iku-rK-nd2" customClass="NavController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="diA-vI-SNq">

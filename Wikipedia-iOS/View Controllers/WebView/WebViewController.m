@@ -15,7 +15,6 @@
 #import "SessionSingleton.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "UIWebView+Reveal.h"
-#import "SearchNavController.h"
 #import "QueuesSingleton.h"
 #import "SearchResultsController.h"
 #import "MainMenuTableViewController.h"
@@ -28,6 +27,7 @@
 #import "DownloadLeadSectionOp.h"
 #import "ArticleLanguagesTableVC.h"
 #import "UIView+Debugging.h"
+#import "UIViewController+HideKeyboard.h"
 
 #define WEB_VIEW_SCALE_WHEN_TOC_VISIBLE (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.45f : 0.70f)
 #define TOC_TOGGLE_ANIMATION_DURATION 0.35f
@@ -45,7 +45,6 @@ typedef enum {
 @property (strong, nonatomic) SearchResultsController *searchResultsController;
 @property (strong, nonatomic) MainMenuTableViewController *mainMenuTableViewController;
 @property (strong, nonatomic) CommunicationBridge *bridge;
-@property (weak, nonatomic) SearchNavController *searchNavController;
 @property (nonatomic) CGPoint scrollOffset;
 @property (nonatomic) BOOL unsafeToScroll;
 @property (nonatomic) NSInteger indexOfFirstOnscreenSectionBeforeRotate;
@@ -76,13 +75,10 @@ typedef enum {
     self.tocVisible = NO;
     self.sectionEditingVisible = NO;
     self.forwardButton.transform = CGAffineTransformMakeScale(-1.0, 1.0);
-
-    self.searchNavController = (SearchNavController *)self.navigationController;
     self.indexOfFirstOnscreenSectionBeforeRotate = -1;
 
     self.searchResultsController = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
     self.searchResultsController.webViewController = self;
-    self.searchResultsController.searchNavController = self.searchNavController;
 
     self.mainMenuTableViewController = nil;
 
@@ -443,6 +439,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(void)mainMenuToggle
 {
+    [self hideKeyboard];
+
     UIViewController *topVC = self.navigationController.topViewController;
     if(topVC == self.mainMenuTableViewController){
         [self.navigationController popToViewController:self animated:NO];
@@ -467,7 +465,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         return;
     }
     
-    [self.searchNavController resignSearchFieldFirstResponder];
+    [self hideKeyboard];
+
     [self performSegueWithIdentifier:@"ShowHistorySegue" sender:self];
 }
 
@@ -506,7 +505,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         return;
     }
     
-    [self.searchNavController resignSearchFieldFirstResponder];
+    [self hideKeyboard];
     [self performSegueWithIdentifier:@"ShowSavedPagesSegue" sender:self];
 }
 
@@ -627,7 +626,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
     
     if (fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
-        [self.searchNavController resignSearchFieldFirstResponder];
+        [self hideKeyboard];
         //NSLog(@"Keyboard Hidden!");
     }
 }
@@ -660,8 +659,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     if (cleanTitle == nil) return;
     if (cleanTitle.length == 0) return;
     
-    // Hide the keyboard.
-    [self.searchNavController resignSearchFieldFirstResponder];
+    [self hideKeyboard];
     
     // Show loading message
     [self showAlert:SEARCH_LOADING_MSG_SECTION_ZERO];

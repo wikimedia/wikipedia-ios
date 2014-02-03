@@ -93,7 +93,13 @@
     for (TFHppleElement *node in textNodes) {
         if(node.isTextNode) [results addObject:node.raw];
     }
-    return [results componentsJoinedByString:@""];
+    
+    NSString *result = [results componentsJoinedByString:@""];
+
+    // Also decode any "&amp;" strings.
+    result = [result stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+
+    return result;
 }
 
 -(NSAttributedString *)getAttributedStringForString:(NSString *)str isLeadSection:(BOOL)isLeadSection
