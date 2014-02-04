@@ -1,0 +1,6 @@
+"article-languages-label" = "Header label for per-article language selector screen";
+"history-label" = "Header label for screen showing the users' in-app browsing history";
+"history-section-today" = "Subsection label for list of articles browsed today";
+"history-section-yesterday" = "Subsection label for list of articles browsed yesterday";
+"history-section-lastweek" = "Subsection label for list of articles browsed within the last week";
+"history-section-lastmonth" = "Subsection label for list of articles browsed within the last month";

@@ -56,7 +56,7 @@
     [self getHistoryData];
 
     HistoryTableHeadingLabel *historyLabel = [[HistoryTableHeadingLabel alloc] initWithFrame:CGRectMake(0, 0, 10, 48)];
-    historyLabel.text = @"Browsing History";
+    historyLabel.text = NSLocalizedString(@"history-label", nil);
     historyLabel.textAlignment = NSTextAlignmentCenter;
     historyLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:20];
     historyLabel.textColor = HISTORY_TEXT_COLOR;
@@ -136,28 +136,28 @@
     if (today.count > 0)
         [self.historyDataArray addObject:[@{
                                             @"data": today,
-                                            @"sectionTitle": @"Today",
+                                            @"sectionTitle": NSLocalizedString(@"history-section-today", nil),
                                             @"sectionDateString": [self getHistorySectionTitleForToday]
                                             }
                                           mutableCopy]];
     if (yesterday.count > 0)
         [self.historyDataArray addObject:[@{
                                             @"data": yesterday,
-                                            @"sectionTitle": @"Yesterday",
+                                            @"sectionTitle": NSLocalizedString(@"history-section-yesterday", nil),
                                             @"sectionDateString": [self getHistorySectionTitleForYesterday]
                                             }
                                           mutableCopy]];
     if (lastWeek.count > 0)
         [self.historyDataArray addObject:[@{
                                             @"data": lastWeek,
-                                            @"sectionTitle": @"Last week",
+                                            @"sectionTitle": NSLocalizedString(@"history-section-lastweek", nil),
                                             @"sectionDateString": [self getHistorySectionTitleForLastWeek]
                                             }
                                           mutableCopy]];
     if (lastMonth.count > 0)
         [self.historyDataArray addObject:[@{
                                             @"data": lastMonth,
-                                            @"sectionTitle": @"Last month",
+                                            @"sectionTitle": NSLocalizedString(@"history-section-lastmonth", nil),
                                             @"sectionDateString": [self getHistorySectionTitleForLastMonth]
                                             }
                                           mutableCopy]];

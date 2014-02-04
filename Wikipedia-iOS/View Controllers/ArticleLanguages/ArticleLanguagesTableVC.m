@@ -99,7 +99,7 @@
         ArticleLanguagesSectionHeadingLabel *label = [[ArticleLanguagesSectionHeadingLabel alloc] init];
         label.translatesAutoresizingMaskIntoConstraints = NO;
                 
-        label.text = @"Choose language";
+        label.text = NSLocalizedString(@"article-languages-label", nil);
         [view addSubview:label];
 
         UIButton *cancelButton = [[UIButton alloc] init];

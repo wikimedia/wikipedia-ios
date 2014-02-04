@@ -1,0 +1,30 @@
+
+/* Class = "IBUIButton"; normalTitle = "Save"; ObjectID = "7Wa-ox-cAd"; */
+"7Wa-ox-cAd.normalTitle" = "Save";
+
+/* Class = "IBUIButton"; normalTitle = "◃"; ObjectID = "8HR-Gs-iaC"; */
+"8HR-Gs-iaC.normalTitle" = "◃";
+
+/* Class = "IBUITextField"; placeholder = "Enter captcha text from image above"; ObjectID = "AIA-vO-cLI"; */
+"AIA-vO-cLI.placeholder" = "Enter captcha text from image above";
+
+/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "P0o-I6-RDJ"; */
+"P0o-I6-RDJ.normalTitle" = "Cancel";
+
+/* Class = "IBUIButton"; normalTitle = "Show another captcha"; ObjectID = "QGI-DM-j1P"; */
+"QGI-DM-j1P.normalTitle" = "Show another captcha";
+
+/* Class = "IBUIButton"; normalTitle = "≣"; ObjectID = "UVB-P9-soS"; */
+"UVB-P9-soS.normalTitle" = "≣";
+
+/* Class = "IBUILabel"; text = "Canonical Language"; ObjectID = "Vkd-3W-cSt"; */
+"Vkd-3W-cSt.text" = "Canonical Language";
+
+/* Class = "IBUIButton"; normalTitle = "Aあ"; ObjectID = "atP-34-Uka"; */
+"atP-34-Uka.normalTitle" = "Aあ";
+
+/* Class = "IBUIButton"; normalTitle = "◃"; ObjectID = "cq9-Zs-YsN"; */
+"cq9-Zs-YsN.normalTitle" = "◃";
+
+/* Class = "IBUILabel"; text = "Language"; ObjectID = "djd-0J-VZY"; */
+"djd-0J-VZY.text" = "Language";
