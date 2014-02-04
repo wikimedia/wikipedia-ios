@@ -901,11 +901,11 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
     return [NSString stringWithFormat:
         @"<div class='content_block' id='content_block_%@'>\
-            <div class='edit_section' id='edit_section_%d'>\
+            <div class='edit_section' id='edit_section_%@'>\
             </div>\
             %@\
         </div>\
-        ", sectionIndex, sectionIndex.integerValue, html];
+        ", sectionIndex, sectionIndex, html];
 }
 
 -(NSString *)addTitle:(NSString *)title toHTML:(NSString *)html
