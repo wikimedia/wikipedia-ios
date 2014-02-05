@@ -18,7 +18,7 @@ This version has not yet been deployed to the App Store -- the source of the old
 
 # Building
 
-Requires [Xcode 5 or higher](https://itunes.apple.com/us/app/xcode/id497799835) on Mac OS X, with the bundled iOS 7 SDK.
+Requires [Xcode 5 or higher](https://itunes.apple.com/us/app/xcode/id497799835) on Mac OS X, with the bundled iOS 7 SDK. You may need to get Xcode 5.1 beta with iOS 7.1 beta to support the latest storyboard - it's available at [developer.apple.com](https://developer.apple.com/) after signing in with your Apple ID.
 
 Standard Xcode project stuff: check out the repo, open Wikipedia-iOS.xcodeproj in Xcode 5, pick a device or simulator target and hit ⌘R.
 
