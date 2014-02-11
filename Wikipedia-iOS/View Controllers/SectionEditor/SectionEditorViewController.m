@@ -12,6 +12,7 @@
 #import "SessionSingleton.h"
 #import "UIViewController+HideKeyboard.h"
 #import "NavController.h"
+#import "EditTokenOp.h"
 
 #define EDIT_TEXT_VIEW_FONT @"HelveticaNeue"
 #define EDIT_TEXT_VIEW_FONT_SIZE 14.0f
@@ -200,7 +201,7 @@
 
     NSManagedObjectID *articleID = section.article.objectID;
 
-    UploadSectionWikiTextOp *uploadWikiTextOp = [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index wikiText:self.editTextView.text captchaId:self.captchaId captchaWord:self.captchaTextBox.text completionBlock:^(NSString *result){
+    UploadSectionWikiTextOp *uploadWikiTextOp = [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index wikiText:self.editTextView.text captchaId:self.captchaId captchaWord:self.captchaTextBox.text  completionBlock:^(NSString *result){
 
         // Mark article for refreshing so its data will be reloaded.
         // (Needs to be done on worker context as worker context changes bubble up through
@@ -317,7 +318,49 @@
         isAleadySaving = NO;
     }];
 
+    EditTokenOp *editTokenOp = [[EditTokenOp alloc] initWithDomain: section.article.domain
+                                                   completionBlock: ^(NSDictionary *result){
+                                                       //NSLog(@"editTokenOp result = %@", result);
+                                                       //NSLog(@"editTokenOp result tokens = %@", result[@"tokens"][@"edittoken"]);
+                                                       
+                                                       NSString *editToken = result[@"tokens"][@"edittoken"];
+                                                       NSMutableDictionary *editTokens = [SessionSingleton sharedInstance].keychainCredentials.editTokens;
+                                                       editTokens[[SessionSingleton sharedInstance].domain] = editToken;
+                                                       [SessionSingleton sharedInstance].keychainCredentials.editTokens = editTokens;
+                                                       
+                                                   } cancelledBlock: ^(NSError *error){
+                                                       
+                                                       [self showAlert:@""];
+                                                       
+                                                   } errorBlock: ^(NSError *error){
+                                                       
+                                                       [self showAlert:error.localizedDescription];
+                                                   }];
+
+//TODO: if we have credentials, yet the edit token retrieved for an edit is
+// an anonymous token (i think this happens if you try to get an edit token
+// and your login session has expired), need to pop up alert asking user if they
+// want to log in before continuing with their edit. In this scenario would
+// probably need cancelDependentOpsIfThisOpFails set to YES, then if the user
+// says they don't want to login in (ie continue anon editing) then we would
+// want cancelDependentOpsIfThisOpFails set to NO.
+
+    editTokenOp.delegate = self;
+    uploadWikiTextOp.delegate = self;
+    
+    // Still try the uploadWikiTextOp even if editTokenOp fails to get a token. uploadWikiTextOp
+    // will use an anonymous "+\" edit token if it doesn't find an edit token.
+    editTokenOp.cancelDependentOpsIfThisOpFails = NO;
+    
+    // Try to get an edit token for the page's domain before trying to upload the changes.
+    [uploadWikiTextOp addDependency:editTokenOp];
+    
+    [QueuesSingleton sharedInstance].sectionWikiTextQ.suspended = YES;
+    
+    [[QueuesSingleton sharedInstance].sectionWikiTextQ addOperation:editTokenOp];
     [[QueuesSingleton sharedInstance].sectionWikiTextQ addOperation:uploadWikiTextOp];
+    
+    [QueuesSingleton sharedInstance].sectionWikiTextQ.suspended = NO;
 }
 
 //TODO: this shouldn't be in the controller. Find it a nice home.

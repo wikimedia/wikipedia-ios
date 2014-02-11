@@ -9,6 +9,7 @@
 #import "Defines.h"
 #import "Article+Convenience.h"
 #import "SessionSingleton.h"
+#import "UINavigationController+SearchNavStack.h"
 
 @interface SavedPagesViewController ()
 {
@@ -209,26 +210,15 @@
     // Set CurrentArticleTitle so the web view knows what to display for this selection.
     [SessionSingleton sharedInstance].currentArticleTitle = savedEntry.article.title;
     [SessionSingleton sharedInstance].currentArticleDomain = savedEntry.article.domain;
+
+    WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
     
-    WebViewController *webViewController = [self getWebViewController];
-    [self.navigationController popToViewController:webViewController animated:YES];
+    [self.navigationController popToViewController:webVC animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return SAVED_PAGES_RESULT_HEIGHT;
-}
-
-#pragma mark - Misc
-
--(WebViewController *)getWebViewController
-{
-    for (UIViewController *vc in self.navigationController.viewControllers) {
-        if ([vc isMemberOfClass:[WebViewController class]]) {
-            return (WebViewController *)vc;
-        }
-    }
-    return nil;
 }
 
 #pragma mark - Delete

@@ -42,6 +42,7 @@
     //NSLog(@"NETWORK OP INIT'ED: TAG = %d, POINTER = %p", self.tag, self);
 
     if (self) {
+        self.cancelDependentOpsIfThisOpFails = YES;
         self.error = nil;
         self.connection = nil;
         self.response = nil;
@@ -83,21 +84,18 @@
 
 -(void)start
 {
-    // Don't start if *any* parent op failed or had an error.
-    // "Dependent" for MWNetworkOp means dependent on its success!
-    // This is so failures cascade automatically.
-    for (id obj in self.dependencies) {
-        if ([obj isMemberOfClass:[NSOperation class]]){
-            NSOperation *op = (NSOperation *)obj;
-            if ([op isCancelled]) {
-                [self finishWithError:@"Start method aborted early because parent NSOperation had been cancelled."];
-                return;
-            }
-        }else if ([obj isMemberOfClass:[MWNetworkOp class]]){
-            MWNetworkOp *op = (MWNetworkOp *)obj;
-            if (op.error || [op isCancelled]) {
-                [self finishWithError:@"Start method aborted early because parent MWNetworkOp had been cancelled or had an error."];
-                return;
+
+    if (self.cancelDependentOpsIfThisOpFails) {
+        // Don't start if *any* parent op failed or had an error.
+        // "Dependent" for MWNetworkOp means dependent on its success!
+        // This is so failures cascade automatically.
+        for (id obj in self.dependencies) {
+            if ([obj isKindOfClass:[MWNetworkOp class]]){
+                MWNetworkOp *op = (MWNetworkOp *)obj;
+                if (op.error || [op isCancelled]) {
+                    [self finishWithError:@"Start method aborted early because parent MWNetworkOp had been cancelled or had an error."];
+                    return;
+                }
             }
         }
     }

@@ -6,6 +6,10 @@
 #import "UIView+Debugging.h"
 #import "UIView+RemoveConstraints.h"
 #import "NavBarContainerView.h"
+#import "MainMenuTableViewController.h"
+#import "UIViewController+HideKeyboard.h"
+#import "SearchResultsController.h"
+#import "UINavigationController+SearchNavStack.h"
 
 @interface NavController (){
 
@@ -201,8 +205,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
  
+    self.currentSearchResultsOrdered = [@[] mutableCopy];
     self.currentSearchString = @"";
-    self.currentSearchStringWordsToHighlight = @[];
 
     [self setupNavbarContainer];
     [self setupNavbarContainerSubviews];
@@ -234,8 +238,16 @@
 -(void)updateViewConstraints
 {
     [super updateViewConstraints];
-    [self constrainNavBarContainer];
-    [self constrainNavBarContainerSubViews];
+    
+    CGFloat duration = 0.1f;
+
+    [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        [self constrainNavBarContainer];
+        [self constrainNavBarContainerSubViews];
+        [self.navBarContainer layoutIfNeeded];
+    } completion:^(BOOL done){
+    
+    }];
 }
 
 -(void)constrainNavBarContainer
@@ -308,12 +320,10 @@
 {
     NSString *searchString = self.textField.text;
 
-    self.currentSearchString = searchString;
-    [self updateWordsToHighlight];
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchStringChanged" object:self userInfo:nil];
-
     NSString *trimmedSearchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    self.currentSearchString = trimmedSearchString;
+
+    [self showSearchResultsController];
     
     if (trimmedSearchString.length == 0){
         self.textField.clearButtonMode = UITextFieldViewModeNever;
@@ -323,15 +333,20 @@
     self.textField.clearButtonMode = UITextFieldViewModeAlways;
 }
 
--(void)updateWordsToHighlight
+-(void)showSearchResultsController
 {
-    // Call this only when currentSearchString is updated. Keeps the list of words to highlight up to date.
-    // Get the words by splitting currentSearchString on a combination of whitespace and punctuation
-    // character sets so search term words get highlighted even if the puncuation in the result is slightly
-    // different from the punctuation in the retrieved search result title.
-    NSMutableCharacterSet *charSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
-    [charSet formUnionWithCharacterSet:[NSMutableCharacterSet punctuationCharacterSet]];
-    self.currentSearchStringWordsToHighlight = [self.currentSearchString componentsSeparatedByCharactersInSet:charSet];
+    SearchResultsController *searchResultsVC = [self searchNavStackForViewControllerOfClass:[SearchResultsController class]];
+
+    if(searchResultsVC){
+        if (self.topViewController == searchResultsVC) {
+            [searchResultsVC refreshSearchResults];
+        }else{
+            [self popToViewController:searchResultsVC animated:YES];
+        }
+    }else{
+        SearchResultsController *searchResultsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
+        [self pushViewController:searchResultsVC animated:YES];
+    }
 }
 
 -(NSAttributedString *)getAttributedPlaceholderString
@@ -351,7 +366,18 @@
 
 -(void)mainMenuToggle
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"MainMenuToggle" object:self userInfo:nil];
+    UIViewController *topVC = self.topViewController;
+
+    [topVC hideKeyboard];
+    
+    MainMenuTableViewController *mainMenuTableVC = [self searchNavStackForViewControllerOfClass:[MainMenuTableViewController class]];
+    
+    if(mainMenuTableVC){
+        [self popToRootViewControllerAnimated:YES];
+    }else{
+        MainMenuTableViewController *mainMenuTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainMenuTableViewController"];
+        [self pushViewController:mainMenuTableVC animated:YES];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context

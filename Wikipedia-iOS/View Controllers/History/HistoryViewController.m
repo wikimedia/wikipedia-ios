@@ -10,6 +10,7 @@
 #import "Defines.h"
 #import "Article+Convenience.h"
 #import "SessionSingleton.h"
+#import "UINavigationController+SearchNavStack.h"
 
 @interface HistoryViewController ()
 {
@@ -337,8 +338,9 @@
     [SessionSingleton sharedInstance].currentArticleTitle = historyEntry.article.title;
     [SessionSingleton sharedInstance].currentArticleDomain = historyEntry.article.domain;
     
-    WebViewController *webViewController = [self getWebViewController];
-    [self.navigationController popToViewController:webViewController animated:YES];
+    WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
+
+    [self.navigationController popToViewController:webVC animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -395,18 +397,6 @@
                                       NSForegroundColorAttributeName : HISTORY_DATE_HEADER_TEXT_COLOR
                                       } range:rangeOfDateString];
     return attributedHeader;
-}
-
-#pragma mark - Misc
-
--(WebViewController *)getWebViewController
-{
-    for (UIViewController *vc in self.navigationController.viewControllers) {
-        if ([vc isMemberOfClass:[WebViewController class]]) {
-            return (WebViewController *)vc;
-        }
-    }
-    return nil;
 }
 
 #pragma mark - Delete

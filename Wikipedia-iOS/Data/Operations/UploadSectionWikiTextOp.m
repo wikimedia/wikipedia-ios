@@ -11,35 +11,42 @@
                 domain: (NSString *)domain
                section: (NSNumber *)section
               wikiText: (NSString *)wikiText
-              captchaId: (NSString *)captchaId
-              captchaWord: (NSString *)captchaWord
+             captchaId: (NSString *)captchaId
+           captchaWord: (NSString *)captchaWord
        completionBlock: (void (^)(NSString *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock
 {
     self = [super init];
     if (self) {
-        NSMutableDictionary *parameters = [@{
-                                             @"action": @"edit",
-                                             @"token": @"+\\",
-                                             @"text": wikiText,
-                                             @"section": section,
-                                             @"title": title,
-                                             @"format": @"json"
-                                             } mutableCopy];
-
-        if (captchaWord) {
-            parameters[@"captchaid"] = captchaId;
-            parameters[@"captchaword"] = captchaWord;
-        }
-
-        //NSLog(@"parameters = %@", parameters);
-
-        self.request = [NSURLRequest postRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
-                                             parameters: parameters];
+    
         __weak UploadSectionWikiTextOp *weakSelf = self;
         self.aboutToStart = ^{
             [[MWNetworkActivityIndicatorManager sharedManager] push];
+            
+            NSMutableDictionary *editTokens = [SessionSingleton sharedInstance].keychainCredentials.editTokens;
+            NSString *editToken = editTokens[domain];
+            
+            if (!editToken) editToken  = @"+\\";
+            
+            NSMutableDictionary *parameters = [@{
+                                                 @"action": @"edit",
+                                                 @"token": editToken,
+                                                 @"text": wikiText,
+                                                 @"section": section,
+                                                 @"title": title,
+                                                 @"format": @"json"
+                                                 } mutableCopy];
+            
+            if (captchaWord) {
+                parameters[@"captchaid"] = captchaId;
+                parameters[@"captchaword"] = captchaWord;
+            }
+            
+            //NSLog(@"parameters = %@", parameters);
+            
+            weakSelf.request = [NSURLRequest postRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
+                                                     parameters: parameters];
         };
         self.completionBlock = ^(){
             [[MWNetworkActivityIndicatorManager sharedManager] pop];

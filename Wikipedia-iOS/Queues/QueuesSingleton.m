@@ -18,6 +18,7 @@
 {
     self = [super init];
     if (self) {
+        self.loginQ = [[NSOperationQueue alloc] init];
         self.articleRetrievalQ = [[NSOperationQueue alloc] init];
         self.searchQ = [[NSOperationQueue alloc] init];
         self.thumbnailQ = [[NSOperationQueue alloc] init];

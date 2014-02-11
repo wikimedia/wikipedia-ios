@@ -24,16 +24,11 @@ typedef enum {
 @interface NavController : UINavigationController <UITextFieldDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) NSString *currentSearchString;
-@property (strong, nonatomic) NSArray *currentSearchStringWordsToHighlight;
+@property (strong, atomic) NSMutableArray *currentSearchResultsOrdered;
 
 @property (nonatomic) NavBarStyle navBarStyle;
 -(id)getNavBarItem:(NavBarItemTag)tag;
 
 @end
 
-//TODO: maybe...
-/*
--use currentNavBarTextFieldText instead of currentSearchString
--get rid of currentSearchStringWordsToHighlight - move that to whever it gets used - that vc will
-    calculate currentSearchStringWordsToHighlight based on currentNavBarTextFieldText
-*/
+//TODO: maybe use currentNavBarTextFieldText instead of currentSearchString

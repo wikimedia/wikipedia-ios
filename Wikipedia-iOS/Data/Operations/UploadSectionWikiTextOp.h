@@ -17,8 +17,8 @@ typedef enum {
                 domain: (NSString *)domain
                section: (NSNumber *)section
               wikiText: (NSString *)wikiText
-              captchaId: (NSString *)captchaId
-              captchaWord: (NSString *)captchaWord
+             captchaId: (NSString *)captchaId
+           captchaWord: (NSString *)captchaWord
        completionBlock: (void (^)(NSString *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock

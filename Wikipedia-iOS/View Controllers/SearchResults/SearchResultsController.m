@@ -3,7 +3,6 @@
 #import "SearchResultsController.h"
 #import "Defines.h"
 #import "QueuesSingleton.h"
-#import "WebViewController.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSURLRequest+DictionaryRequest.h"
 #import "SearchResultCell.h"
@@ -17,12 +16,16 @@
 #import "UIViewController+HideKeyboard.h"
 #import "NavController.h"
 
+#define NAV ((NavController *)self.navigationController)
+
 @interface SearchResultsController (){
     CGFloat scrollViewDragBeganVerticalOffset_;
     ArticleDataContextSingleton *articleDataContext_;
 }
 
-@property (weak, nonatomic) NavController *searchNavController;
+@property (strong, atomic) NSMutableArray *searchResultsOrdered;
+@property (weak, nonatomic) IBOutlet UITableView *searchResultsTable;
+@property (strong, nonatomic) NSArray *currentSearchStringWordsToHighlight;
 
 @end
 
@@ -31,8 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.searchNavController = (NavController *)self.navigationController;
+
+    self.currentSearchStringWordsToHighlight = @[];
     
     articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
 
@@ -46,13 +49,33 @@
 
     // Turn off the separator since one gets added in SearchResultCell.m
     self.searchResultsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchStringChanged) name:@"SearchStringChanged" object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self searchStringChanged];
+    [super viewWillAppear:animated];
+    
+    [self refreshSearchResults];
+}
+
+-(void)refreshSearchResults
+{
+    if (NAV.currentSearchString.length == 0) return;
+    
+    [self updateWordsToHighlight];
+    
+    [self searchForTerm:NAV.currentSearchString];
+}
+
+-(void)updateWordsToHighlight
+{
+    // Call this only when currentSearchString is updated. Keeps the list of words to highlight up to date.
+    // Get the words by splitting currentSearchString on a combination of whitespace and punctuation
+    // character sets so search term words get highlighted even if the puncuation in the result is slightly
+    // different from the punctuation in the retrieved search result title.
+    NSMutableCharacterSet *charSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
+    [charSet formUnionWithCharacterSet:[NSMutableCharacterSet punctuationCharacterSet]];
+    self.currentSearchStringWordsToHighlight = [NAV.currentSearchString componentsSeparatedByCharactersInSet:charSet];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -66,18 +89,6 @@
     if (distanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
         [self hideKeyboard];
     }
-}
-
--(void)searchStringChanged
-{
-    NSString *trimmedSearchString = [self.searchNavController.currentSearchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    if (trimmedSearchString.length == 0) {
-        [self popToWebViewController];
-        return;
-    }
-    
-    [self searchForTerm:trimmedSearchString];
 }
 
 #pragma mark Search term methods (requests titles matching search term and associated thumbnail urls)
@@ -146,6 +157,8 @@
             [a addObject:@{@"title": cleanTitle, @"thumbnail": @{}}.mutableCopy];
         }
         self.searchResultsOrdered = a;
+
+        NAV.currentSearchResultsOrdered = self.searchResultsOrdered;
         
         dispatch_async(dispatch_get_main_queue(), ^(){
             // We have search titles! Show them right away!
@@ -284,7 +297,7 @@
                 value:SEARCH_FONT_COLOR
                 range:NSMakeRange(0, str.length)];
 
-    for (NSString *word in self.searchNavController.currentSearchStringWordsToHighlight) {
+    for (NSString *word in self.currentSearchStringWordsToHighlight) {
         // Search term highlighting
         NSRange rangeOfThisWordInTitle = [title rangeOfString: word
                                                       options: NSCaseInsensitiveSearch |
@@ -418,7 +431,7 @@
 
 -(void)popToWebViewController
 {
-    [self.navigationController popToViewController:self.webViewController animated:NO];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark Memory

@@ -19,6 +19,8 @@
     self = [super init];
     if (self) {
 
+        self.keychainCredentials = [[KeychainCredentials alloc] init];
+
 //TODO: figure out what to do with these:
         // Wiki language character sets that iOS doesn't seem to render properly...
         self.unsupportedCharactersLanguageIds = [@"my am km dv lez arc got ti" componentsSeparatedByString:@" "];

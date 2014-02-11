@@ -53,5 +53,9 @@ delegate or controller to marshal inter-op communications (although nothing abou
 
 @property (nonatomic) NSUInteger tag;
 
+// Dependency determines order of execution, but sometimes we want a child op to
+// still execute even if its "parent" operation failed.
+@property (nonatomic) BOOL cancelDependentOpsIfThisOpFails;
+
 @end
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0400EB0318AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400EB0218AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m */; };
+		0400EB0418AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400EB0218AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m */; };
 		0402E10F18A3ABA900C3B679 /* NavBarContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402E10E18A3ABA900C3B679 /* NavBarContainerView.m */; };
 		0402E11018A3ABA900C3B679 /* NavBarContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402E10E18A3ABA900C3B679 /* NavBarContainerView.m */; };
 		04090A33187F53E400577EDF /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 04090A32187F53E400577EDF /* clear.png */; };
@@ -109,6 +111,10 @@
 		0447867D1852BBFE0050563B /* NSManagedObjectContext+SimpleFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0447867B1852BBFE0050563B /* NSManagedObjectContext+SimpleFetch.m */; };
 		044786881856E4DB0050563B /* UIWebView+Reveal.m in Sources */ = {isa = PBXBuildFile; fileRef = 044786871856E4DB0050563B /* UIWebView+Reveal.m */; };
 		044786891856E4DB0050563B /* UIWebView+Reveal.m in Sources */ = {isa = PBXBuildFile; fileRef = 044786871856E4DB0050563B /* UIWebView+Reveal.m */; };
+		0449E63518A9845C00D51524 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0449E63418A9845C00D51524 /* LoginViewController.m */; };
+		0449E63618A9845C00D51524 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0449E63418A9845C00D51524 /* LoginViewController.m */; };
+		0449E63918AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = 0449E63818AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m */; };
+		0449E63A18AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = 0449E63818AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m */; };
 		044BD6A21883302C00FFE4BE /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 044BD6A11883302C00FFE4BE /* Image.m */; };
 		044BD6A31883302C00FFE4BE /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 044BD6A11883302C00FFE4BE /* Image.m */; };
 		044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044BD6B418849AD000FFE4BE /* SectionEditorViewController.m */; };
@@ -119,12 +125,20 @@
 		0460990B18899A9800B1F2BC /* DownloadSectionWikiTextOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0460990918899A9800B1F2BC /* DownloadSectionWikiTextOp.m */; };
 		0460990E1889A0DD00B1F2BC /* UploadSectionWikiTextOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0460990D1889A0DD00B1F2BC /* UploadSectionWikiTextOp.m */; };
 		0460990F1889A0DD00B1F2BC /* UploadSectionWikiTextOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0460990D1889A0DD00B1F2BC /* UploadSectionWikiTextOp.m */; };
+		0463639318A5CCEB0049EE4F /* EditTokenOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463639218A5CCEB0049EE4F /* EditTokenOp.m */; };
+		0463639418A5CCEB0049EE4F /* EditTokenOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463639218A5CCEB0049EE4F /* EditTokenOp.m */; };
+		0463639818A844570049EE4F /* KeychainCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463639718A844570049EE4F /* KeychainCredentials.m */; };
+		0463639918A844570049EE4F /* KeychainCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463639718A844570049EE4F /* KeychainCredentials.m */; };
 		0466F44F183A30CC00EA1FD7 /* logo-search-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0466F44D183A30CC00EA1FD7 /* logo-search-placeholder.png */; };
 		0466F450183A30CC00EA1FD7 /* logo-search-placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0466F44E183A30CC00EA1FD7 /* logo-search-placeholder@2x.png */; };
+		04735E6018A5B42D00C89C30 /* LoginTokenOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04735E5F18A5B42D00C89C30 /* LoginTokenOp.m */; };
+		04735E6118A5B42D00C89C30 /* LoginTokenOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04735E5F18A5B42D00C89C30 /* LoginTokenOp.m */; };
 		047E74141860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047E74131860509000916964 /* SavedPagesResultPrototypeView.xib */; };
 		047E74151860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047E74131860509000916964 /* SavedPagesResultPrototypeView.xib */; };
 		047FF5471889078C009DB293 /* Image+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 047FF5461889078C009DB293 /* Image+Convenience.m */; };
 		047FF5481889078C009DB293 /* Image+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 047FF5461889078C009DB293 /* Image+Convenience.m */; };
+		049B640C18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 049B640B18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m */; };
+		049B640D18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 049B640B18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m */; };
 		04A47629183EF835009C0D82 /* w.png in Resources */ = {isa = PBXBuildFile; fileRef = 04A47627183EF835009C0D82 /* w.png */; };
 		04A4762A183EF835009C0D82 /* w@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04A47628183EF835009C0D82 /* w@2x.png */; };
 		04A70FD7185BB6C300E24515 /* URLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A70FD6185BB6C300E24515 /* URLCache.m */; };
@@ -135,6 +149,8 @@
 		04AE1C711891B302002D5487 /* NSObject+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C6F1891B302002D5487 /* NSObject+Extras.m */; };
 		04AE1C741891BB32002D5487 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C731891BB32002D5487 /* Article.m */; };
 		04AE1C751891BB32002D5487 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C731891BB32002D5487 /* Article.m */; };
+		04B78A5318A580AF0050EBF5 /* LoginOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B78A5218A580AF0050EBF5 /* LoginOp.m */; };
+		04B78A5418A580AF0050EBF5 /* LoginOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B78A5218A580AF0050EBF5 /* LoginOp.m */; };
 		04C43A9D183440B0006C643B /* MWCrumbyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43A9C183440B0006C643B /* MWCrumbyTest.m */; };
 		04C43A9E183440B0006C643B /* MWCrumbyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43A9C183440B0006C643B /* MWCrumbyTest.m */; };
 		04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */; };
@@ -249,6 +265,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0400EB0118AAEEC60043ECE2 /* UINavigationController+SearchNavStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SearchNavStack.h"; sourceTree = "<group>"; };
+		0400EB0218AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SearchNavStack.m"; sourceTree = "<group>"; };
 		0402E10D18A3ABA900C3B679 /* NavBarContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavBarContainerView.h; sourceTree = "<group>"; };
 		0402E10E18A3ABA900C3B679 /* NavBarContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavBarContainerView.m; sourceTree = "<group>"; };
 		04090A32187F53E400577EDF /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear.png; sourceTree = "<group>"; };
@@ -326,6 +344,10 @@
 		0447867B1852BBFE0050563B /* NSManagedObjectContext+SimpleFetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+SimpleFetch.m"; sourceTree = "<group>"; };
 		044786861856E4DB0050563B /* UIWebView+Reveal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Reveal.h"; sourceTree = "<group>"; };
 		044786871856E4DB0050563B /* UIWebView+Reveal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Reveal.m"; sourceTree = "<group>"; };
+		0449E63318A9845C00D51524 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		0449E63418A9845C00D51524 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		0449E63718AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSHTTPCookieStorage+CloneCookie.h"; sourceTree = "<group>"; };
+		0449E63818AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSHTTPCookieStorage+CloneCookie.m"; sourceTree = "<group>"; };
 		044BD6A01883302C00FFE4BE /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		044BD6A11883302C00FFE4BE /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		044BD6B318849AD000FFE4BE /* SectionEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionEditorViewController.h; sourceTree = "<group>"; };
@@ -335,11 +357,19 @@
 		0460990918899A9800B1F2BC /* DownloadSectionWikiTextOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadSectionWikiTextOp.m; sourceTree = "<group>"; };
 		0460990C1889A0DD00B1F2BC /* UploadSectionWikiTextOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadSectionWikiTextOp.h; sourceTree = "<group>"; };
 		0460990D1889A0DD00B1F2BC /* UploadSectionWikiTextOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadSectionWikiTextOp.m; sourceTree = "<group>"; };
+		0463639118A5CCEB0049EE4F /* EditTokenOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditTokenOp.h; sourceTree = "<group>"; };
+		0463639218A5CCEB0049EE4F /* EditTokenOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditTokenOp.m; sourceTree = "<group>"; };
+		0463639618A844570049EE4F /* KeychainCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainCredentials.h; sourceTree = "<group>"; };
+		0463639718A844570049EE4F /* KeychainCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainCredentials.m; sourceTree = "<group>"; };
 		0466F44D183A30CC00EA1FD7 /* logo-search-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-search-placeholder.png"; sourceTree = "<group>"; };
 		0466F44E183A30CC00EA1FD7 /* logo-search-placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-search-placeholder@2x.png"; sourceTree = "<group>"; };
+		04735E5E18A5B42D00C89C30 /* LoginTokenOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTokenOp.h; sourceTree = "<group>"; };
+		04735E5F18A5B42D00C89C30 /* LoginTokenOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTokenOp.m; sourceTree = "<group>"; };
 		047E74131860509000916964 /* SavedPagesResultPrototypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SavedPagesResultPrototypeView.xib; sourceTree = "<group>"; };
 		047FF5451889078C009DB293 /* Image+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Image+Convenience.h"; sourceTree = "<group>"; };
 		047FF5461889078C009DB293 /* Image+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Image+Convenience.m"; sourceTree = "<group>"; };
+		049B640A18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SearchChildViewControllers.h"; sourceTree = "<group>"; };
+		049B640B18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SearchChildViewControllers.m"; sourceTree = "<group>"; };
 		04A47627183EF835009C0D82 /* w.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = w.png; sourceTree = "<group>"; };
 		04A47628183EF835009C0D82 /* w@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "w@2x.png"; sourceTree = "<group>"; };
 		04A70FD5185BB6C300E24515 /* URLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLCache.h; sourceTree = "<group>"; };
@@ -350,6 +380,8 @@
 		04AE1C6F1891B302002D5487 /* NSObject+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extras.m"; sourceTree = "<group>"; };
 		04AE1C721891BB32002D5487 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
 		04AE1C731891BB32002D5487 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
+		04B78A5118A580AF0050EBF5 /* LoginOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginOp.h; sourceTree = "<group>"; };
+		04B78A5218A580AF0050EBF5 /* LoginOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginOp.m; sourceTree = "<group>"; };
 		04C43A9B183440B0006C643B /* MWCrumbyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWCrumbyTest.h; sourceTree = "<group>"; };
 		04C43A9C183440B0006C643B /* MWCrumbyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWCrumbyTest.m; sourceTree = "<group>"; };
 		04C43AA0183440C1006C643B /* MWNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -581,6 +613,15 @@
 			path = Session;
 			sourceTree = "<group>";
 		};
+		0449E63218A9844000D51524 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				0449E63318A9845C00D51524 /* LoginViewController.h */,
+				0449E63418A9845C00D51524 /* LoginViewController.m */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		044BD6B218849AD000FFE4BE /* SectionEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -588,6 +629,15 @@
 				044BD6B418849AD000FFE4BE /* SectionEditorViewController.m */,
 			);
 			path = SectionEditor;
+			sourceTree = "<group>";
+		};
+		0463639518A844380049EE4F /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				0463639618A844570049EE4F /* KeychainCredentials.h */,
+				0463639718A844570049EE4F /* KeychainCredentials.m */,
+			);
+			path = Keychain;
 			sourceTree = "<group>";
 		};
 		0466F44C183A30CC00EA1FD7 /* Images */ = {
@@ -673,6 +723,7 @@
 			children = (
 				04D7581918923B8400CE2040 /* ArticleLanguages */,
 				0447861F185145090050563B /* History */,
+				0449E63218A9844000D51524 /* Login */,
 				04D34D93186216AF00610A87 /* MainMenu */,
 				04293002186030B0002A13FC /* SavedPages */,
 				04292FEE185FBA70002A13FC /* SearchResults */,
@@ -689,6 +740,10 @@
 			children = (
 				0433542418A093C5009305F0 /* UIView+RemoveConstraints.h */,
 				0433542518A093C5009305F0 /* UIView+RemoveConstraints.m */,
+				0400EB0118AAEEC60043ECE2 /* UINavigationController+SearchNavStack.h */,
+				0400EB0218AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m */,
+				049B640A18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.h */,
+				049B640B18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m */,
 				0433542018A023FE009305F0 /* UIViewController+HideKeyboard.h */,
 				0433542118A023FE009305F0 /* UIViewController+HideKeyboard.m */,
 				04090A39187FB7D000577EDF /* UIView+Debugging.h */,
@@ -713,6 +768,8 @@
 				04AE1C6F1891B302002D5487 /* NSObject+Extras.m */,
 				04C43ABC183442FC006C643B /* NSURLRequest+DictionaryRequest.h */,
 				04C43ABD183442FC006C643B /* NSURLRequest+DictionaryRequest.m */,
+				0449E63718AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.h */,
+				0449E63818AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m */,
 				04A81E8418871EB000EEBADB /* Section+ImageRecords.h */,
 				04A81E8518871EB000EEBADB /* Section+ImageRecords.m */,
 				04D149D818877343006B4104 /* Alerts */,
@@ -736,6 +793,12 @@
 		04D149E5188889CA006B4104 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				04B78A5118A580AF0050EBF5 /* LoginOp.h */,
+				04B78A5218A580AF0050EBF5 /* LoginOp.m */,
+				04735E5E18A5B42D00C89C30 /* LoginTokenOp.h */,
+				04735E5F18A5B42D00C89C30 /* LoginTokenOp.m */,
+				0463639118A5CCEB0049EE4F /* EditTokenOp.h */,
+				0463639218A5CCEB0049EE4F /* EditTokenOp.m */,
 				0460990818899A9800B1F2BC /* DownloadSectionWikiTextOp.h */,
 				0460990918899A9800B1F2BC /* DownloadSectionWikiTextOp.m */,
 				0460990C1889A0DD00B1F2BC /* UploadSectionWikiTextOp.h */,
@@ -885,6 +948,7 @@
 				04292FFB185FC026002A13FC /* Defines */,
 				04D34DA31863D2D600610A87 /* HTML Parsing */,
 				0466F44C183A30CC00EA1FD7 /* Images */,
+				0463639518A844380049EE4F /* Keychain */,
 				04CF1CB5187C8F4400E9516F /* Languages */,
 				04292FFD185FC2C7002A13FC /* Queues */,
 				0447866C1852B5010050563B /* Session */,
@@ -1120,19 +1184,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0449E63518A9845C00D51524 /* LoginViewController.m in Sources */,
 				04D149EC18888A0D006B4104 /* DownloadNonLeadSectionsOp.m in Sources */,
 				04D34DBD1863F6A400610A87 /* GalleryImage.m in Sources */,
 				04D7581C18923B8400CE2040 /* ArticleLanguagesTableVC.m in Sources */,
 				04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */,
 				04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */,
 				0447863D185145090050563B /* WebViewController.m in Sources */,
+				0449E63918AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m in Sources */,
 				D474CC15182AE196002BDE45 /* MWSite.m in Sources */,
+				0463639818A844570049EE4F /* KeychainCredentials.m in Sources */,
 				0433543518A1A7AE009305F0 /* NavBarTextField.m in Sources */,
 				044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */,
 				04D34DAB1863D2D600610A87 /* TFHpple.m in Sources */,
 				0429301018604898002A13FC /* SavedPagesViewController.m in Sources */,
 				04D149DF18877343006B4104 /* UIViewController+Alert.m in Sources */,
 				04FD6C7A184EBFCD002CA02F /* ArticleData.xcdatamodeld in Sources */,
+				04735E6018A5B42D00C89C30 /* LoginTokenOp.m in Sources */,
 				D4EE00B9182443FC0090790F /* MWPageTitle.m in Sources */,
 				04292FF2185FBA70002A13FC /* SearchResultCell.m in Sources */,
 				04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */,
@@ -1165,6 +1233,7 @@
 				04D34DC11863F6B200610A87 /* History.m in Sources */,
 				04D34DAF1863D2D600610A87 /* XPathQuery.m in Sources */,
 				04090A37187F818400577EDF /* TOCImageView.m in Sources */,
+				0463639318A5CCEB0049EE4F /* EditTokenOp.m in Sources */,
 				04D75828189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m in Sources */,
 				0460990A18899A9800B1F2BC /* DownloadSectionWikiTextOp.m in Sources */,
 				04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
@@ -1179,11 +1248,14 @@
 				D4991449181D51DE00E6073C /* AppDelegate.m in Sources */,
 				04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */,
 				04D75824189248E900CE2040 /* DownloadLangLinksOp.m in Sources */,
+				049B640C18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m in Sources */,
 				04292FF8185FBB0B002A13FC /* SearchResultsController.m in Sources */,
 				04478633185145090050563B /* HistoryViewController.m in Sources */,
 				04478641185146210050563B /* HistoryTableHeadingLabel.m in Sources */,
 				0460990E1889A0DD00B1F2BC /* UploadSectionWikiTextOp.m in Sources */,
+				0400EB0318AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m in Sources */,
 				04D149E8188889CA006B4104 /* DownloadLeadSectionOp.m in Sources */,
+				04B78A5318A580AF0050EBF5 /* LoginOp.m in Sources */,
 				04D34DAD1863D2D600610A87 /* TFHppleElement.m in Sources */,
 				04C43A9D183440B0006C643B /* MWCrumbyTest.m in Sources */,
 				D4991445181D51DE00E6073C /* main.m in Sources */,
@@ -1202,6 +1274,7 @@
 				0447863E185145090050563B /* WebViewController.m in Sources */,
 				04A81E8718871EB000EEBADB /* Section+ImageRecords.m in Sources */,
 				D474CC16182AE196002BDE45 /* MWSite.m in Sources */,
+				0449E63618A9845C00D51524 /* LoginViewController.m in Sources */,
 				04C43AAF18344131006C643B /* CommunicationBridge.m in Sources */,
 				D4991467181D51DF00E6073C /* Wikipedia_iOSTests.m in Sources */,
 				04D7582118923D3A00CE2040 /* ArticleLanguagesCell.m in Sources */,
@@ -1210,12 +1283,14 @@
 				04AE1C711891B302002D5487 /* NSObject+Extras.m in Sources */,
 				04D34D9E186236D400610A87 /* MainMenuResultsCell.m in Sources */,
 				04D75825189248E900CE2040 /* DownloadLangLinksOp.m in Sources */,
+				04735E6118A5B42D00C89C30 /* LoginTokenOp.m in Sources */,
 				04C43AC3183442FC006C643B /* NSURLRequest+DictionaryRequest.m in Sources */,
 				04C43A9E183440B0006C643B /* MWCrumbyTest.m in Sources */,
 				04D75829189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m in Sources */,
 				0433543618A1A7AE009305F0 /* NavBarTextField.m in Sources */,
 				04F0E2EF186FB2D100468738 /* TOCSectionCellView.m in Sources */,
 				04D122331899B8AC006B9A30 /* AlertWebView.m in Sources */,
+				0449E63A18AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m in Sources */,
 				04D149E9188889CA006B4104 /* DownloadLeadSectionOp.m in Sources */,
 				040E533D1885FB4E00AFBFE9 /* ImageData.m in Sources */,
 				0447867D1852BBFE0050563B /* NSManagedObjectContext+SimpleFetch.m in Sources */,
@@ -1232,6 +1307,7 @@
 				D4EE00BD1824459D0090790F /* PageTitleTests.m in Sources */,
 				04AE1C751891BB32002D5487 /* Article.m in Sources */,
 				04C43AB61834423C006C643B /* NetworkOpCrumbyTests.m in Sources */,
+				0463639418A5CCEB0049EE4F /* EditTokenOp.m in Sources */,
 				04F0E2EB186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */,
 				044786701852B5010050563B /* SessionSingleton.m in Sources */,
 				04D34DA2186283AA00610A87 /* MainMenuSectionHeadingLabel.m in Sources */,
@@ -1252,6 +1328,7 @@
 				04D34DCA1863F6CC00610A87 /* Saved.m in Sources */,
 				040E5C4D184564D0007AFE6F /* ArticleDataModel.m in Sources */,
 				D474CC11182AE033002BDE45 /* SiteTests.m in Sources */,
+				0400EB0418AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m in Sources */,
 				D4EE00BA182443FC0090790F /* MWPageTitle.m in Sources */,
 				04F39591186CF80100B0D6FC /* TOCViewController.m in Sources */,
 				04292FF3185FBA70002A13FC /* SearchResultCell.m in Sources */,
@@ -1263,6 +1340,7 @@
 				0429300B18604898002A13FC /* SavedPagesResultCell.m in Sources */,
 				04142A90184F974E006EF779 /* NSDate-Utilities.m in Sources */,
 				04D34DD21863F6E600610A87 /* SectionImage.m in Sources */,
+				049B640D18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m in Sources */,
 				0460990B18899A9800B1F2BC /* DownloadSectionWikiTextOp.m in Sources */,
 				04D34D98186216AF00610A87 /* MainMenuTableViewController.m in Sources */,
 				0433542318A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */,
@@ -1270,6 +1348,8 @@
 				0433543818A1A7AE009305F0 /* NavController.m in Sources */,
 				04D149DE18877343006B4104 /* AlertLabel.m in Sources */,
 				044BD6B718849AD000FFE4BE /* SectionEditorViewController.m in Sources */,
+				0463639918A844570049EE4F /* KeychainCredentials.m in Sources */,
+				04B78A5418A580AF0050EBF5 /* LoginOp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

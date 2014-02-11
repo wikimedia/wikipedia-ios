@@ -16,8 +16,6 @@
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "UIWebView+Reveal.h"
 #import "QueuesSingleton.h"
-#import "SearchResultsController.h"
-#import "MainMenuTableViewController.h"
 #import "TOCViewController.h"
 #import "UIWebView+ElementLocation.h"
 #import "SectionEditorViewController.h"
@@ -28,9 +26,12 @@
 #import "ArticleLanguagesTableVC.h"
 #import "UIView+Debugging.h"
 #import "UIViewController+HideKeyboard.h"
+#import "NavController.h"
+#import "UIViewController+SearchChildViewControllers.h"
 
 #define WEB_VIEW_SCALE_WHEN_TOC_VISIBLE (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.45f : 0.70f)
 #define TOC_TOGGLE_ANIMATION_DURATION 0.35f
+#define NAV ((NavController *)self.navigationController)
 
 typedef enum {
     DISPLAY_LEAD_SECTION = 0,
@@ -42,8 +43,6 @@ typedef enum {
 
 }
 
-@property (strong, nonatomic) SearchResultsController *searchResultsController;
-@property (strong, nonatomic) MainMenuTableViewController *mainMenuTableViewController;
 @property (strong, nonatomic) CommunicationBridge *bridge;
 @property (nonatomic) CGPoint scrollOffset;
 @property (nonatomic) BOOL unsafeToScroll;
@@ -77,22 +76,11 @@ typedef enum {
     self.forwardButton.transform = CGAffineTransformMakeScale(-1.0, 1.0);
     self.indexOfFirstOnscreenSectionBeforeRotate = -1;
 
-    self.searchResultsController = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
-    self.searchResultsController.webViewController = self;
-
-    self.mainMenuTableViewController = nil;
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewFinishedLoading) name:@"WebViewFinishedLoading" object:nil];
     self.unsafeToScroll = NO;
     self.scrollOffset = CGPointZero;
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mainMenuToggle) name:@"MainMenuToggle" object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyToggle) name:@"HistoryToggle" object:nil];
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveCurrentPage) name:@"SavePage" object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(savedPagesToggle) name:@"SavedPagesToggle" object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchFieldBecameFirstResponder) name:@"SearchFieldBecameFirstResponder" object:nil];
 
@@ -111,15 +99,26 @@ typedef enum {
     self.webView.scrollView.delegate = self;
 
     self.webView.backgroundColor = [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.0];
-
-    // Observe chages to the search box search term.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchStringChanged) name:@"SearchStringChanged" object:nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+    
     [self reloadCurrentArticle];
     //[self.view randomlyColorSubviews];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.tocVisible = NO;
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    self.tocVisible = NO;
+    [super viewWillDisappear:animated];
 }
 
 -(void)reloadCurrentArticle{
@@ -132,18 +131,9 @@ typedef enum {
 
 -(BOOL)sectionEditingVisible
 {
-    SectionEditorViewController *sectionEditVC = [self getSectionEditorViewController];
-    return (sectionEditVC) ? YES : NO;
-}
+    SectionEditorViewController *sectionEditVC = [self searchForChildViewControllerOfClass:[SectionEditorViewController class]];
 
--(SectionEditorViewController *)getSectionEditorViewController
-{
-    for (UIViewController *childVC in self.childViewControllers) {
-        if([childVC isMemberOfClass:[SectionEditorViewController class]]){
-            return (SectionEditorViewController *)childVC;
-        }
-    }
-    return nil;
+    return (sectionEditVC) ? YES : NO;
 }
 
 -(void)setSectionEditingVisible:(BOOL)sectionEditingVisible
@@ -153,7 +143,7 @@ typedef enum {
     if(_sectionEditingVisible != sectionEditingVisible){
         _sectionEditingVisible = sectionEditingVisible;
         
-        SectionEditorViewController *sectionEditVC = [self getSectionEditorViewController];
+        SectionEditorViewController *sectionEditVC = [self searchForChildViewControllerOfClass:[SectionEditorViewController class]];
         
         // Hide section editor.
         if(!sectionEditingVisible){
@@ -209,7 +199,8 @@ typedef enum {
 {
     [super updateViewConstraints];
     
-    TOCViewController *tocVC = [self getTOCViewController];
+    TOCViewController *tocVC = [self searchForChildViewControllerOfClass:[TOCViewController class]];
+
     if (tocVC) {
         [self constrainTOCView:tocVC.view];
     }
@@ -225,22 +216,12 @@ typedef enum {
 
 #pragma mark Table of contents
 
--(TOCViewController *)getTOCViewController
-{
-    for (UIViewController *childVC in self.childViewControllers) {
-        if([childVC isMemberOfClass:[TOCViewController class]]){
-            return (TOCViewController *)childVC;
-        }
-    }
-    return nil;
-}
-
 -(void)setTocVisible:(BOOL)tocVisible
 {
     if(_tocVisible != tocVisible){
         _tocVisible = tocVisible;
         
-        TOCViewController *tocVC = [self getTOCViewController];
+        TOCViewController *tocVC = [self searchForChildViewControllerOfClass:[TOCViewController class]];
         
         // Hide toc.
         if(!tocVisible){
@@ -357,16 +338,6 @@ typedef enum {
     return YES;
 }
 
-#pragma mark Search terms changes
-
--(void)searchStringChanged
-{
-    // If search results table not on top of nav stack push on to nav stack.
-    if (![self.navigationController.topViewController isMemberOfClass:[SearchResultsController class]]) {
-        [self.navigationController pushViewController:self.searchResultsController animated:NO];
-    }
-}
-
 #pragma mark Webview obj-c to javascript bridge
 
 -(void)resetBridge
@@ -437,39 +408,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [self showAlert:@""];
 }
 
--(void)mainMenuToggle
-{
-    [self hideKeyboard];
-
-    UIViewController *topVC = self.navigationController.topViewController;
-    if(topVC == self.mainMenuTableViewController){
-        [self.navigationController popToViewController:self animated:NO];
-        self.mainMenuTableViewController = nil;
-        return;
-    }
-    if(topVC != self){
-        [self.navigationController popToViewController:self animated:NO];
-    }
-    
-    self.tocVisible = NO;
-
-    self.mainMenuTableViewController = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"MainMenuTableViewController"];
-    [self.navigationController pushViewController:self.mainMenuTableViewController animated:NO];
-}
-
--(void)historyToggle
-{
-    if(self.navigationController.topViewController != self){
-        // Hide if it's already showing.
-        [self.navigationController popToViewController:self animated:YES];
-        return;
-    }
-    
-    [self hideKeyboard];
-
-    [self performSegueWithIdentifier:@"ShowHistorySegue" sender:self];
-}
-
 #pragma Saved Pages
 
 -(void)saveCurrentPage
@@ -497,18 +435,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }
 }
 
--(void)savedPagesToggle
-{
-    if(self.navigationController.topViewController != self){
-        // Hide if it's already showing.
-        [self.navigationController popToViewController:self animated:YES];
-        return;
-    }
-    
-    [self hideKeyboard];
-    [self performSegueWithIdentifier:@"ShowSavedPagesSegue" sender:self];
-}
-
 #pragma mark Web view scroll offset recording
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -531,13 +457,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         //NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
         [self saveWebViewScrollOffset];
         
-        for (UIViewController *childVC in self.childViewControllers) {
-            if([childVC isMemberOfClass:[TOCViewController class]]){
-                TOCViewController *vc = (TOCViewController *)childVC;
-                [vc centerCellForWebViewTopMostSection];
-                break;
-            }
-        }
+        TOCViewController *tocVC = [self searchForChildViewControllerOfClass:[TOCViewController class]];
+        if (tocVC) [tocVC centerCellForWebViewTopMostSection];
     }
 }
 
@@ -735,7 +656,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // a core data image object exists with a matching sourceURL. If so make the article
         // thumbnailImage property point to that core data image object. This associates the
         // search result thumbnail with the article.
-        NSArray *result = [self.searchResultsController.searchResultsOrdered filteredArrayUsingPredicate:
+        
+        NSArray *result = [NAV.currentSearchResultsOrdered filteredArrayUsingPredicate:
             [NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", pageTitle]
         ];
         if (result.count == 1) {
@@ -1068,11 +990,11 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 - (IBAction)actionButtonPushed:(id)sender {
     
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc]
                                                         initWithActivityItems:@[self.webView.request.URL]
                                                         applicationActivities:@[]];
     
-    [self presentViewController:activityViewController animated:YES completion:^{
+    [self presentViewController:activityVC animated:YES completion:^{
         // Whee!
     }];
 }
