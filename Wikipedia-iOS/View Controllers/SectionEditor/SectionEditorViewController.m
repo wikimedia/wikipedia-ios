@@ -58,7 +58,7 @@
     [self.view setNeedsUpdateConstraints];
     
     // Change the nav bar layout.
-    ((NavController *)self.navigationController).navBarStyle = NAVBAR_STYLE_EDIT_WIKITEXT;
+    ((NavController *)self.navigationController).navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
     
     // Listen for nav bar taps.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navItemTappedNotification:) name:@"NavItemTapped" object:nil];
@@ -98,7 +98,7 @@
 
 -(void)htmlAlertWasHidden
 {
-    ((NavController *)self.navigationController).navBarStyle = NAVBAR_STYLE_EDIT_WIKITEXT;
+    ((NavController *)self.navigationController).navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -294,11 +294,11 @@
                 UIColor *bannerColor = nil;
                 
                 if ((error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED)) {
-                    ((NavController *)self.navigationController).navBarStyle = NAVBAR_STYLE_EDIT_WIKITEXT_DISALLOW;
+                    ((NavController *)self.navigationController).navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW;
                     bannerImage = @"abuse-filter-disallowed.png";
                     bannerColor = [UIColor colorWithRed:0.93 green:0.18 blue:0.20 alpha:1.0];
                 }else{
-                    ((NavController *)self.navigationController).navBarStyle = NAVBAR_STYLE_EDIT_WIKITEXT_WARNING;
+                    ((NavController *)self.navigationController).navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_WARNING;
                     bannerImage = @"abuse-filter-flag-white.png";
                     bannerColor = [UIColor colorWithRed:0.99 green:0.32 blue:0.22 alpha:1.0];
                 }
@@ -446,7 +446,7 @@
 -(void)hide
 {
     // Change the nav bar layout.
-    ((NavController *)self.navigationController).navBarStyle = NAVBAR_STYLE_SEARCH;
+    ((NavController *)self.navigationController).navBarMode = NAVBAR_MODE_SEARCH;
 
     [self.view removeFromSuperview];
     [self removeFromParentViewController];

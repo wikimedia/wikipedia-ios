@@ -1,14 +1,18 @@
 //  Created by Monte Hurd on 11/23/13.
 
 #import "NavBarTextField.h"
+#import "Defines.h"
 
 @implementation NavBarTextField
+
+@synthesize placeholder = _placeholder;
+@synthesize placeholderColor = _placeholderColor;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        self.placeholderColor = SEARCH_FIELD_PLACEHOLDER_TEXT_COLOR;
     }
     return self;
 }
@@ -25,6 +29,33 @@
 
 - (CGRect)editingRectForBounds:(CGRect)bounds {
     return [self textRectForBounds:bounds];
+}
+
+-(void)setPlaceholder:(NSString *)placeholder
+{
+        _placeholder = placeholder;
+        self.attributedPlaceholder = [self getAttributedPlaceholderForString:(!placeholder) ? @"": placeholder];
+}
+
+-(void)setPlaceholderColor:(UIColor *)placeholderColor
+{
+    _placeholderColor = placeholderColor;
+    self.placeholder = self.placeholder;
+}
+
+-(NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string
+{
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:string];
+
+    [str addAttribute:NSFontAttributeName
+                value:SEARCH_FONT_HIGHLIGHTED
+                range:NSMakeRange(0, str.length)];
+
+    [str addAttribute:NSForegroundColorAttributeName
+                value:self.placeholderColor
+                range:NSMakeRange(0, str.length)];
+
+    return str;
 }
 
 /*

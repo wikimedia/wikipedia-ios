@@ -10,6 +10,7 @@
 #import "UIViewController+HideKeyboard.h"
 #import "SearchResultsController.h"
 #import "UINavigationController+SearchNavStack.h"
+#import "UIButton+ColorMask.h"
 
 @interface NavController (){
 
@@ -35,7 +36,6 @@
 @property (strong, nonatomic) UIButton *buttonArrowRight;
 @property (strong, nonatomic) UILabel *label;
 
-
 // Used for constraining container sub-views.
 @property (strong, nonatomic) NSString *navBarSubViewsHorizontalVFLString;
 @property (strong, nonatomic) NSDictionary *navBarSubViews;
@@ -45,160 +45,7 @@
 
 @implementation NavController
 
--(id)getNavBarItem:(NavBarItemTag)tag
-{
-    for (UIView *view in self.navBarContainer.subviews) {
-        if (view.tag == tag) return view;
-    }
-    return nil;
-}
-
--(NSDictionary *)getNavBarSubViews
-{
-    return @{
-             @"NAVBAR_BUTTON_X": self.buttonX,
-             @"NAVBAR_BUTTON_PENCIL": self.buttonPencil,
-             @"NAVBAR_BUTTON_CHECK": self.buttonCheck,
-             @"NAVBAR_BUTTON_ARROW_LEFT": self.buttonArrowLeft,
-             @"NAVBAR_BUTTON_ARROW_RIGHT": self.buttonArrowRight,
-             @"NAVBAR_BUTTON_LOGO_W": self.buttonW,
-             @"NAVBAR_BUTTON_EYE": self.buttonEye,
-             @"NAVBAR_TEXT_FIELD": self.textField,
-             @"NAVBAR_LABEL": self.label,
-             @"NAVBAR_VERTICAL_LINE_1": self.verticalLine1,
-             @"NAVBAR_VERTICAL_LINE_2": self.verticalLine2,
-             @"NAVBAR_VERTICAL_LINE_3": self.verticalLine3,
-             @"NAVBAR_VERTICAL_LINE_4": self.verticalLine4,
-             @"NAVBAR_VERTICAL_LINE_5": self.verticalLine5,
-             @"NAVBAR_VERTICAL_LINE_6": self.verticalLine6
-             };
-}
-
--(NSDictionary *)getNavBarSubViewMetrics
-{
-    return @{
-             @"singlePixel": @(1.0f / [UIScreen mainScreen].scale)
-             };
-}
-
--(void)setNavBarStyle:(NavBarStyle)navBarStyle
-{
-        _navBarStyle = navBarStyle;
-        switch (navBarStyle) {
-            case NAVBAR_STYLE_EDIT_WIKITEXT:
-                self.label.text = @"Edit";
-            case NAVBAR_STYLE_LOGIN:
-                self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
-                break;
-            case NAVBAR_STYLE_EDIT_WIKITEXT_WARNING:
-                self.label.text = @"Edit issues";
-                self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_CHECK(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_PENCIL(50)]|";
-                break;
-            case NAVBAR_STYLE_EDIT_WIKITEXT_DISALLOW:
-                self.label.text = @"Edit issues";
-                self.navBarSubViewsHorizontalVFLString = @"H:|-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_BUTTON_PENCIL(50)]|";
-                break;
-            default: //NAVBAR_STYLE_SEARCH
-                self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_LOGO_W(65)][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_TEXT_FIELD]-(10)-|";
-                break;
-        }
-        [self.view setNeedsUpdateConstraints];
-}
-
--(void)setupNavbarContainerSubviews
-{
-    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
-        self.navigationBar.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:0.97];
-    }
-
-    self.textField = [[NavBarTextField alloc] init];
-    self.textField.delegate = self;
-    self.textField.translatesAutoresizingMaskIntoConstraints = NO;
-    self.textField.returnKeyType = UIReturnKeyGo;
-    self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.textField.font = SEARCH_FONT;
-    self.textField.textColor = SEARCH_FONT_HIGHLIGHTED_COLOR;
-    self.textField.tag = NAVBAR_TEXT_FIELD;
-    self.textField.clearButtonMode = UITextFieldViewModeAlways;
-    self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    [self.textField addTarget:self action:@selector(navItemTapped:) forControlEvents:UIControlEventTouchUpInside];
-    [self.navBarContainer addSubview:self.textField];
-
-    UIView *(^getLineView)() = ^UIView *() {
-        UIView *view = [[UIView alloc] init];
-        view.translatesAutoresizingMaskIntoConstraints = NO;
-        view.backgroundColor = [UIColor lightGrayColor];
-        view.tag = NAVBAR_VERTICAL_LINE;
-        return view;
-    };
-    
-    self.verticalLine1 = getLineView();
-    self.verticalLine2 = getLineView();
-    self.verticalLine3 = getLineView();
-    self.verticalLine4 = getLineView();
-    self.verticalLine5 = getLineView();
-    self.verticalLine6 = getLineView();
-    
-    [self.navBarContainer addSubview:self.verticalLine1];
-    [self.navBarContainer addSubview:self.verticalLine2];
-    [self.navBarContainer addSubview:self.verticalLine3];
-    [self.navBarContainer addSubview:self.verticalLine4];
-    [self.navBarContainer addSubview:self.verticalLine5];
-    [self.navBarContainer addSubview:self.verticalLine6];
-
-    UIButton *(^getButton)(NSString *, NavBarItemTag) = ^UIButton *(NSString *image, NavBarItemTag tag) {
-        UIButton *button = [[UIButton alloc] init];
-        button.translatesAutoresizingMaskIntoConstraints = NO;
-        button.backgroundColor = [UIColor clearColor];
-        button.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [button setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(navItemTapped:) forControlEvents:UIControlEventTouchUpInside];
-
-        button.tag = tag;
-        return button;
-    };
-
-    self.buttonPencil =     getButton(@"abuse-filter-edit-black.png",   NAVBAR_BUTTON_PENCIL);
-    self.buttonCheck =      getButton(@"abuse-filter-check.png",        NAVBAR_BUTTON_CHECK);
-    self.buttonX =          getButton(@"button_cancel_grey.png",        NAVBAR_BUTTON_X);
-    self.buttonEye =        getButton(@"button_preview_white.png",      NAVBAR_BUTTON_EYE);
-    self.buttonArrowLeft =  getButton(@"button_arrow_left.png",         NAVBAR_BUTTON_ARROW_LEFT);
-    self.buttonArrowRight = getButton(@"button_arrow_right.png",        NAVBAR_BUTTON_ARROW_RIGHT);
-    self.buttonW =          getButton(@"w.png",                         NAVBAR_BUTTON_LOGO_W);
-
-    [self.navBarContainer addSubview:self.buttonPencil];
-    [self.navBarContainer addSubview:self.buttonCheck];
-    [self.navBarContainer addSubview:self.buttonX];
-    [self.navBarContainer addSubview:self.buttonEye];
-    [self.navBarContainer addSubview:self.buttonArrowLeft];
-    [self.navBarContainer addSubview:self.buttonArrowRight];
-    [self.navBarContainer addSubview:self.buttonW];
-
-    self.label = [[UILabel alloc] init];
-    self.label.text = @"";
-    self.label.translatesAutoresizingMaskIntoConstraints = NO;
-    self.label.tag = NAVBAR_LABEL;
-    self.label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0];
-    self.label.textColor = [UIColor darkGrayColor];
-    self.label.backgroundColor = [UIColor clearColor];
-    self.label.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapLabel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navItemTapped:)];
-    [self.label addGestureRecognizer:tapLabel];
-    [self.navBarContainer addSubview:self.label];
-}
-
--(void)navItemTapped:(id)sender
-{
-    UIView *tappedView = nil;
-    if([sender isKindOfClass:[UIGestureRecognizer class]]){
-        tappedView = ((UIGestureRecognizer *)sender).view;
-    }else{
-        tappedView = sender;
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"NavItemTapped" object:self userInfo:
-        @{@"tappedItem": tappedView}
-    ];
-}
+#pragma mark View lifecycle
 
 - (void)viewDidLoad
 {
@@ -211,11 +58,13 @@
     [self setupNavbarContainer];
     [self setupNavbarContainerSubviews];
 
+    self.navBarStyle = NAVBAR_STYLE_DAY;
+
     [self.buttonW addTarget:self action:@selector(mainMenuToggle) forControlEvents:UIControlEventTouchUpInside];
 
-    self.navBarStyle = NAVBAR_STYLE_SEARCH;
+    self.navBarMode = NAVBAR_MODE_SEARCH;
 
-    self.textField.attributedPlaceholder = [self getAttributedPlaceholderString];
+    self.textField.placeholder = SEARCH_FIELD_PLACEHOLDER_TEXT;
 
     [self.navigationBar addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial context:nil];
 
@@ -227,26 +76,27 @@
     self.navBarSubViewMetrics = [self getNavBarSubViewMetrics];
 }
 
--(void)setupNavbarContainer
-{
-    self.navBarContainer = [[NavBarContainerView alloc] init];
-    self.navBarContainer.translatesAutoresizingMaskIntoConstraints = NO;
-    self.navBarContainer.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:self.navBarContainer];
-}
+#pragma mark Constraints
 
 -(void)updateViewConstraints
 {
     [super updateViewConstraints];
     
-    CGFloat duration = 0.1f;
+    CGFloat duration = 0.3f;
 
-    [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        [self constrainNavBarContainer];
-        [self constrainNavBarContainerSubViews];
+    [self constrainNavBarContainer];
+    [self constrainNavBarContainerSubViews];
+
+    for (UIView *v in self.navBarContainer.subviews) v.alpha = 0.0f;
+
+    [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionTransitionNone animations:^{
+        for (UIView *v in self.navBarContainer.subviews) v.alpha = 0.7f;
         [self.navBarContainer layoutIfNeeded];
     } completion:^(BOOL done){
-    
+        [UIView animateWithDuration:0.15 delay:0.1f options:UIViewAnimationOptionTransitionNone animations:^{
+            for (UIView *v in self.navBarContainer.subviews) v.alpha = 1.0f;
+        } completion:^(BOOL done){
+        }];
     }];
 }
 
@@ -312,26 +162,216 @@
           ]
          ];
     }
-}
 
-#pragma mark Search term changed
-
-- (void)searchStringChanged
-{
-    NSString *searchString = self.textField.text;
-
-    NSString *trimmedSearchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    self.currentSearchString = trimmedSearchString;
-
-    [self showSearchResultsController];
-    
-    if (trimmedSearchString.length == 0){
-        self.textField.clearButtonMode = UITextFieldViewModeNever;
-        return;
+    // Constrain the views not being presently shown so when they are shown they'll animate from
+    // the constrained position specified below.
+    for (UIView *view in [self.navBarContainer.subviews copy]) {
+        if (view.hidden) {
+            [self.navBarContainer addConstraint:
+             [NSLayoutConstraint constraintWithItem: view
+                                          attribute: NSLayoutAttributeRight
+                                          relatedBy: NSLayoutRelationEqual
+                                             toItem: self.navBarContainer
+                                          attribute: NSLayoutAttributeLeft
+                                         multiplier: 1.0
+                                           constant: 0.0
+              ]
+            ];
+            [self.navBarContainer addConstraints:
+             [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-(topMargin)-[view]|"
+                                                     options: 0
+                                                     metrics: @{@"topMargin": @((view.tag == NAVBAR_VERTICAL_LINE) ? 5 : 0)}
+                                                       views: NSDictionaryOfVariableBindings(view)
+              ]
+             ];
+        }
     }
-    
-    self.textField.clearButtonMode = UITextFieldViewModeAlways;
 }
+
+#pragma mark Setup
+
+-(void)setupNavbarContainerSubviews
+{
+    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
+        self.navigationBar.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:0.97];
+    }
+
+    self.textField = [[NavBarTextField alloc] init];
+    self.textField.delegate = self;
+    self.textField.translatesAutoresizingMaskIntoConstraints = NO;
+    self.textField.returnKeyType = UIReturnKeyGo;
+    self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.textField.font = SEARCH_FONT;
+    self.textField.textColor = SEARCH_FONT_HIGHLIGHTED_COLOR;
+    self.textField.tag = NAVBAR_TEXT_FIELD;
+    self.textField.clearButtonMode = UITextFieldViewModeNever;
+    self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    [self.textField addTarget:self action:@selector(navItemTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navBarContainer addSubview:self.textField];
+ 
+    UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 26, 26)];
+    [clearButton setImage:[UIImage imageNamed:@"text_field_x_circle_gray.png"] forState:UIControlStateNormal];
+    [clearButton addTarget:self action:@selector(clearTextFieldText) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.textField.rightView = clearButton;
+    self.textField.rightViewMode = UITextFieldViewModeWhileEditing;
+
+    UIView *(^getLineView)() = ^UIView *() {
+        UIView *view = [[UIView alloc] init];
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+        view.backgroundColor = [UIColor lightGrayColor];
+        view.tag = NAVBAR_VERTICAL_LINE;
+        return view;
+    };
+    
+    self.verticalLine1 = getLineView();
+    self.verticalLine2 = getLineView();
+    self.verticalLine3 = getLineView();
+    self.verticalLine4 = getLineView();
+    self.verticalLine5 = getLineView();
+    self.verticalLine6 = getLineView();
+    
+    [self.navBarContainer addSubview:self.verticalLine1];
+    [self.navBarContainer addSubview:self.verticalLine2];
+    [self.navBarContainer addSubview:self.verticalLine3];
+    [self.navBarContainer addSubview:self.verticalLine4];
+    [self.navBarContainer addSubview:self.verticalLine5];
+    [self.navBarContainer addSubview:self.verticalLine6];
+
+    UIButton *(^getButton)(NSString *, NavBarItemTag) = ^UIButton *(NSString *image, NavBarItemTag tag) {
+        UIButton *button = [[UIButton alloc] init];
+        button.translatesAutoresizingMaskIntoConstraints = NO;
+        button.backgroundColor = [UIColor clearColor];
+        button.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [button setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(navItemTapped:) forControlEvents:UIControlEventTouchUpInside];
+
+        button.tag = tag;
+        return button;
+    };
+
+    self.buttonPencil =     getButton(@"abuse-filter-edit-black.png",   NAVBAR_BUTTON_PENCIL);
+    self.buttonCheck =      getButton(@"abuse-filter-check.png",        NAVBAR_BUTTON_CHECK);
+    self.buttonX =          getButton(@"button_cancel_grey.png",        NAVBAR_BUTTON_X);
+    self.buttonEye =        getButton(@"button_preview_white.png",      NAVBAR_BUTTON_EYE);
+    self.buttonArrowLeft =  getButton(@"button_arrow_left.png",         NAVBAR_BUTTON_ARROW_LEFT);
+    self.buttonArrowRight = getButton(@"button_arrow_right.png",        NAVBAR_BUTTON_ARROW_RIGHT);
+    self.buttonW =          getButton(@"w.png",                         NAVBAR_BUTTON_LOGO_W);
+
+    [self.navBarContainer addSubview:self.buttonPencil];
+    [self.navBarContainer addSubview:self.buttonCheck];
+    [self.navBarContainer addSubview:self.buttonX];
+    [self.navBarContainer addSubview:self.buttonEye];
+    [self.navBarContainer addSubview:self.buttonArrowLeft];
+    [self.navBarContainer addSubview:self.buttonArrowRight];
+    [self.navBarContainer addSubview:self.buttonW];
+
+    self.label = [[UILabel alloc] init];
+    self.label.text = @"";
+    self.label.translatesAutoresizingMaskIntoConstraints = NO;
+    self.label.tag = NAVBAR_LABEL;
+    self.label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0];
+    self.label.textColor = [UIColor darkGrayColor];
+    self.label.backgroundColor = [UIColor clearColor];
+    self.label.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapLabel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navItemTapped:)];
+    [self.label addGestureRecognizer:tapLabel];
+    [self.navBarContainer addSubview:self.label];
+}
+
+-(void)setupNavbarContainer
+{
+    self.navBarContainer = [[NavBarContainerView alloc] init];
+    self.navBarContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    self.navBarContainer.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.navBarContainer];
+}
+
+#pragma mark Nav bar items
+
+-(id)getNavBarItem:(NavBarItemTag)tag
+{
+    for (UIView *view in self.navBarContainer.subviews) {
+        if (view.tag == tag) return view;
+    }
+    return nil;
+}
+
+-(NSDictionary *)getNavBarSubViews
+{
+    return @{
+             @"NAVBAR_BUTTON_X": self.buttonX,
+             @"NAVBAR_BUTTON_PENCIL": self.buttonPencil,
+             @"NAVBAR_BUTTON_CHECK": self.buttonCheck,
+             @"NAVBAR_BUTTON_ARROW_LEFT": self.buttonArrowLeft,
+             @"NAVBAR_BUTTON_ARROW_RIGHT": self.buttonArrowRight,
+             @"NAVBAR_BUTTON_LOGO_W": self.buttonW,
+             @"NAVBAR_BUTTON_EYE": self.buttonEye,
+             @"NAVBAR_TEXT_FIELD": self.textField,
+             @"NAVBAR_LABEL": self.label,
+             @"NAVBAR_VERTICAL_LINE_1": self.verticalLine1,
+             @"NAVBAR_VERTICAL_LINE_2": self.verticalLine2,
+             @"NAVBAR_VERTICAL_LINE_3": self.verticalLine3,
+             @"NAVBAR_VERTICAL_LINE_4": self.verticalLine4,
+             @"NAVBAR_VERTICAL_LINE_5": self.verticalLine5,
+             @"NAVBAR_VERTICAL_LINE_6": self.verticalLine6
+             };
+}
+
+-(NSDictionary *)getNavBarSubViewMetrics
+{
+    return @{
+             @"singlePixel": @(1.0f / [UIScreen mainScreen].scale)
+             };
+}
+
+-(void)setNavBarMode:(NavBarMode)navBarMode
+{
+        _navBarMode = navBarMode;
+        switch (navBarMode) {
+            case NAVBAR_MODE_EDIT_WIKITEXT:
+                self.label.text = @"Edit";
+            case NAVBAR_MODE_LOGIN:
+                self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+                break;
+            case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
+                self.label.text = @"Edit issues";
+                self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_CHECK(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_PENCIL(50)]|";
+                break;
+            case NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW:
+                self.label.text = @"Edit issues";
+                self.navBarSubViewsHorizontalVFLString = @"H:|-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_BUTTON_PENCIL(50)]|";
+                break;
+            default: //NAVBAR_STYLE_SEARCH
+                self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_LOGO_W(65)][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_TEXT_FIELD]-(10)-|";
+                break;
+        }
+        [self.view setNeedsUpdateConstraints];
+}
+
+-(void)navItemTapped:(id)sender
+{
+    UIView *tappedView = nil;
+    if([sender isKindOfClass:[UIGestureRecognizer class]]){
+        tappedView = ((UIGestureRecognizer *)sender).view;
+    }else{
+        tappedView = sender;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"NavItemTapped" object:self userInfo:
+        @{@"tappedItem": tappedView}
+    ];
+}
+
+#pragma mark Rotation
+
+/*
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    self.navBarStyle = (UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? NAVBAR_STYLE_DAY : NAVBAR_STYLE_NIGHT);
+}
+*/
+
+#pragma mark Toggles
 
 -(void)showSearchResultsController
 {
@@ -349,23 +389,17 @@
     }
 }
 
--(NSAttributedString *)getAttributedPlaceholderString
-{
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:SEARCH_FIELD_PLACEHOLDER_TEXT];
-
-    [str addAttribute:NSFontAttributeName
-                value:SEARCH_FONT_HIGHLIGHTED
-                range:NSMakeRange(0, str.length)];
-
-    [str addAttribute:NSForegroundColorAttributeName
-                value:SEARCH_FIELD_PLACEHOLDER_TEXT_COLOR
-                range:NSMakeRange(0, str.length)];
-
-    return str;
-}
-
 -(void)mainMenuToggle
 {
+    static CFTimeInterval lastToggleTime = 0;
+    CFTimeInterval elapsedTime = CACurrentMediaTime() - lastToggleTime;
+    if (elapsedTime > 0.7) {
+        lastToggleTime = CACurrentMediaTime();
+    }else{
+        // Don't allow toggle before previous toggle animation has finished.
+        return;
+    }
+
     UIViewController *topVC = self.topViewController;
 
     [topVC hideKeyboard];
@@ -380,6 +414,40 @@
     }
 }
 
+#pragma mark Text field
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchFieldBecameFirstResponder" object:self userInfo:nil];
+    
+    if (self.textField.text.length == 0) self.textField.rightView.hidden = YES;
+}
+
+-(void)clearTextFieldText
+{
+    self.textField.text = @"";
+    self.textField.rightView.hidden = YES;
+}
+
+- (void)searchStringChanged
+{
+    NSString *searchString = self.textField.text;
+
+    NSString *trimmedSearchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    self.currentSearchString = trimmedSearchString;
+
+    [self showSearchResultsController];
+    
+    if (trimmedSearchString.length == 0){
+        self.textField.rightView.hidden = YES;
+        
+        return;
+    }
+    self.textField.rightView.hidden = NO;
+}
+
+#pragma mark KVO
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if(object == self.navigationBar){
@@ -389,15 +457,125 @@
     }
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchFieldBecameFirstResponder" object:self userInfo:nil];
-}
+#pragma mark Memory
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark NavBarStyle night/day mode management
+
+-(void)setNavBarStyle:(NavBarStyle)navBarStyle
+{
+    if (_navBarStyle != navBarStyle) {
+        _navBarStyle = navBarStyle;
+        
+        // Make the nav bar itself be light or dark.
+        switch (navBarStyle) {
+            case NAVBAR_STYLE_DAY:
+                [self.navigationBar setBarTintColor:[UIColor colorWithWhite:1.0 alpha:0.9]];
+                break;
+            case NAVBAR_STYLE_NIGHT:
+                [self.navigationBar setBarTintColor:[UIColor colorWithWhite:0.0 alpha:0.9]];
+                break;
+            default:
+                break;
+        }
+        
+        // Make the status bar above the nav bar use light or dark text.
+        if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
+
+        // Update the nav bar containers subviews to use light or dark appearance.
+        for (id view in self.navBarContainer.subviews) {
+            [self updateViewAppearance:view forNavBarStyle:self.navBarStyle];
+        }
+    }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return (self.navBarStyle == NAVBAR_STYLE_DAY) ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent;
+}
+
+-(NSDictionary *)getNavBarSubViewsColorsForNavBarStyle:(NavBarStyle)navBarStyle
+{
+    NSDictionary *output = nil;
+    switch (navBarStyle) {
+        case NAVBAR_STYLE_DAY:{
+            output = @{
+                       @"NAVBAR_TEXT_FIELD_TEXT_COLOR": [UIColor lightGrayColor],
+                       @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor lightGrayColor],
+                       @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0],
+                       @"NAVBAR_BUTTON_COLOR": [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0],
+                       @"NAVBAR_LABEL_TEXT_COLOR": [UIColor lightGrayColor],
+                       @"NAVBAR_VERTICAL_LINE_COLOR": [UIColor lightGrayColor]
+                       };
+        }
+            break;
+        case NAVBAR_STYLE_NIGHT:{
+            output = @{
+                       @"NAVBAR_TEXT_FIELD_TEXT_COLOR": [UIColor whiteColor],
+                       @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor whiteColor],
+                       @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0],
+                       @"NAVBAR_BUTTON_COLOR": [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0],
+                       @"NAVBAR_LABEL_TEXT_COLOR": [UIColor whiteColor],
+                       @"NAVBAR_VERTICAL_LINE_COLOR": [UIColor whiteColor]
+                       };
+        }
+            break;
+            
+        default:
+            break;
+    }
+    return output;
+}
+
+-(void)updateViewAppearance:(UIView *)view forNavBarStyle:(NavBarStyle)navBarStyle
+{
+    NSDictionary *colors = [self getNavBarSubViewsColorsForNavBarStyle:navBarStyle];
+
+    switch (view.tag) {
+        case NAVBAR_BUTTON_X:
+        case NAVBAR_BUTTON_PENCIL:
+        case NAVBAR_BUTTON_CHECK:
+        case NAVBAR_BUTTON_ARROW_LEFT:
+        case NAVBAR_BUTTON_ARROW_RIGHT:
+        case NAVBAR_BUTTON_LOGO_W:
+        case NAVBAR_BUTTON_EYE:{
+            UIButton *button = (UIButton *)view;
+            [button maskButtonImageWithColor:colors[@"NAVBAR_BUTTON_COLOR"]];
+        }
+            break;
+        case NAVBAR_TEXT_FIELD:{
+            NavBarTextField *textField = (NavBarTextField *)view;
+            
+            // Typed text.
+            textField.textColor = colors[@"NAVBAR_TEXT_FIELD_TEXT_COLOR"];
+            
+            // Placeholder text.
+            textField.placeholderColor = colors[@"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR"];
+
+            // Text clear button.
+            UIButton *button = (UIButton *)textField.rightView;
+            [button maskButtonImageWithColor:colors[@"NAVBAR_TEXT_CLEAR_BUTTON_COLOR"]];
+        }
+            break;
+        case NAVBAR_LABEL:{
+            UILabel *label = (UILabel *)view;
+            label.textColor = colors[@"NAVBAR_LABEL_TEXT_COLOR"];
+        }
+            break;
+        case NAVBAR_VERTICAL_LINE:
+            view.backgroundColor = colors[@"NAVBAR_VERTICAL_LINE_COLOR"];
+            break;
+        default:
+            break;
+    }
+    [view setNeedsDisplay];
 }
 
 @end

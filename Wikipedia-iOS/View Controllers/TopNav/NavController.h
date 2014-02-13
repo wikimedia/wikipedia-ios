@@ -14,11 +14,16 @@ typedef enum {
 } NavBarItemTag;
 
 typedef enum {
-    NAVBAR_STYLE_SEARCH = 0,
-    NAVBAR_STYLE_EDIT_WIKITEXT = 1,
-    NAVBAR_STYLE_EDIT_WIKITEXT_WARNING = 2,
-    NAVBAR_STYLE_EDIT_WIKITEXT_DISALLOW = 3,
-    NAVBAR_STYLE_LOGIN = 4
+    NAVBAR_MODE_SEARCH = 0,
+    NAVBAR_MODE_EDIT_WIKITEXT = 1,
+    NAVBAR_MODE_EDIT_WIKITEXT_WARNING = 2,
+    NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW = 3,
+    NAVBAR_MODE_LOGIN = 4
+} NavBarMode;
+
+typedef enum {
+    NAVBAR_STYLE_DAY = 0,
+    NAVBAR_STYLE_NIGHT = 1
 } NavBarStyle;
 
 @interface NavController : UINavigationController <UITextFieldDelegate, UISearchBarDelegate>
@@ -27,8 +32,10 @@ typedef enum {
 @property (strong, atomic) NSMutableArray *currentSearchResultsOrdered;
 
 @property (nonatomic) NavBarStyle navBarStyle;
+@property (nonatomic) NavBarMode navBarMode;
+
 -(id)getNavBarItem:(NavBarItemTag)tag;
 
 @end
 
-//TODO: maybe use currentNavBarTextFieldText instead of currentSearchString
+//TODO: maybe use currentNavBarTextFieldText instead of currentSearchString?
