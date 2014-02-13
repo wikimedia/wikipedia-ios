@@ -222,6 +222,36 @@
                                @"subTitle": @"",
                                @"rows": [@[] mutableCopy]
                                } mutableCopy]
+                            ,
+                            
+                            
+                            
+                            [@{
+                               @"key": @"wikipediaZero",
+                               @"title": NSLocalizedString(@"zero-wikipedia-zero-heading", nil),
+                               @"label": @"",
+                               @"subTitle": @"",
+                               @"rows": @[
+                                       
+                                       
+                                       [@{
+                                          @"key": @"zeroWarnWhenLeaving",
+                                          @"title": [NSString stringWithFormat:@"%@ %@",
+                                                     [SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving ? @"✔️" : @"    ",
+                                                     NSLocalizedString(@"zero-warn-when-leaving", nil)],
+                                          @"label": @""
+                                          } mutableCopy]
+                                       ,
+                                       
+                                       [@{
+                                          @"key": @"zeroDevMode",
+                                          @"title": [NSString stringWithFormat:@"%@ %@",
+                                                     [SessionSingleton sharedInstance].zeroConfigState.devMode ? @"✔️" : @"    ", NSLocalizedString(@"zero-settings-devmode", nil)],
+                                          @"label": @""
+                                          } mutableCopy]
+                                       ]
+                               } mutableCopy]
+                            
                             
                             
                             ] mutableCopy];
@@ -432,6 +462,16 @@
             [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
             [self switchPreferredLanguageToId:selectedRowKey name:rowDict[@"languageName"]];
         }
+    }  else if ([selectedRowKey isEqualToString:@"zeroWarnWhenLeaving"]) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [[SessionSingleton sharedInstance].zeroConfigState toggleWarnWhenLeaving];
+        [self viewWillAppear:YES]; // TODO: just for now, post rebase will use new convention
+        [self.tableView reloadData];
+    } else if ([selectedRowKey isEqualToString:@"zeroDevMode"]) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [[SessionSingleton sharedInstance].zeroConfigState toggleDevMode];
+        [self viewWillAppear:YES]; // TODO: just for now, post rebase will use new convention
+        [self.tableView reloadData];
     }
 }
 

@@ -8,6 +8,7 @@
 @property (strong, nonatomic) NSOperationQueue *articleRetrievalQ;
 @property (strong, nonatomic) NSOperationQueue *searchQ;
 @property (strong, nonatomic) NSOperationQueue *thumbnailQ;
+@property (strong, nonatomic) NSOperationQueue *zeroRatedMessageStringQ;
 
 @property (strong, nonatomic) NSOperationQueue *sectionWikiTextQ;
 @property (strong, nonatomic) NSOperationQueue *langLinksQ;

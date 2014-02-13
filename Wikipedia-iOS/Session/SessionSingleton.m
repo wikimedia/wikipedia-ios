@@ -20,6 +20,8 @@
     if (self) {
 
         self.keychainCredentials = [[KeychainCredentials alloc] init];
+        self.zeroConfigState = [[ZeroConfigState alloc] init];
+        self.zeroConfigState.disposition = false;
 
 //TODO: figure out what to do with these:
         // Wiki language character sets that iOS doesn't seem to render properly...

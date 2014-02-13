@@ -42,7 +42,11 @@
         @"CurrentArticleDomain": @"",
         @"Domain": @"en",
         @"DomainName": @"English",
-        @"Site": @"wikipedia.org"
+        @"Site": @"wikipedia.org",
+        @"ZeroDevMode" : @NO,
+        @"ZeroWarnWhenLeaving" : @YES,
+        @"ZeroOnDialogShownOnce" : @NO,
+        @"ZeroOffDialogShownOnce" : @NO
     };
     [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];
 }

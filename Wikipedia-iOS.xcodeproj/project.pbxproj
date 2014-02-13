@@ -238,6 +238,12 @@
 		04F39591186CF80100B0D6FC /* TOCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F3958F186CF80100B0D6FC /* TOCViewController.m */; };
 		04FD6C7A184EBFCD002CA02F /* ArticleData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04FD6C78184EBFCD002CA02F /* ArticleData.xcdatamodeld */; };
 		04FD6C7B184EBFCD002CA02F /* ArticleData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04FD6C78184EBFCD002CA02F /* ArticleData.xcdatamodeld */; };
+		C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
+		C9180EC518AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
+		C9180EC918AED3B6006C1DCA /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC818AED3B6006C1DCA /* ZeroConfigState.m */; };
+		C9180ECA18AED3B6006C1DCA /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC818AED3B6006C1DCA /* ZeroConfigState.m */; };
+		C9928B8618AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m in Sources */ = {isa = PBXBuildFile; fileRef = C9928B8518AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m */; };
+		C9928B8818AD5E1000FCCA9A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C9928B8718AD5E1000FCCA9A /* Settings.bundle */; };
 		D46CD8C418A1AC4F0042959E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C018A1AC4F0042959E /* InfoPlist.strings */; };
 		D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
 		D474CC11182AE033002BDE45 /* SiteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D474CC10182AE033002BDE45 /* SiteTests.m */; };
@@ -469,6 +475,13 @@
 		04F3958E186CF80100B0D6FC /* TOCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOCViewController.h; sourceTree = "<group>"; };
 		04F3958F186CF80100B0D6FC /* TOCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOCViewController.m; sourceTree = "<group>"; };
 		04FD6C79184EBFCD002CA02F /* ArticleData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ArticleData.xcdatamodel; sourceTree = "<group>"; };
+		C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaAppUtils.h; sourceTree = "<group>"; };
+		C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikipediaAppUtils.m; sourceTree = "<group>"; };
+		C9180EC718AED3B6006C1DCA /* ZeroConfigState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZeroConfigState.h; sourceTree = "<group>"; };
+		C9180EC818AED3B6006C1DCA /* ZeroConfigState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZeroConfigState.m; sourceTree = "<group>"; };
+		C9928B8418AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadWikipediaZeroMessageOp.h; sourceTree = "<group>"; };
+		C9928B8518AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadWikipediaZeroMessageOp.m; sourceTree = "<group>"; };
+		C9928B8718AD5E1000FCCA9A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D46CD8C718A1AC630042959E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D46CD8C818A1AC730042959E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D46CD8CC18A1ACA20042959E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
@@ -829,6 +842,8 @@
 				04D149EB18888A0D006B4104 /* DownloadNonLeadSectionsOp.m */,
 				04D75822189248E900CE2040 /* DownloadLangLinksOp.h */,
 				04D75823189248E900CE2040 /* DownloadLangLinksOp.m */,
+				C9928B8418AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.h */,
+				C9928B8518AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -921,12 +936,32 @@
 			path = TableOfContents;
 			sourceTree = "<group>";
 		};
+		C9180EC118AED30C006C1DCA /* mw-utils */ = {
+			isa = PBXGroup;
+			children = (
+				C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */,
+				C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */,
+			);
+			path = "mw-utils";
+			sourceTree = "<group>";
+		};
+		C9180EC618AED36A006C1DCA /* Zero */ = {
+			isa = PBXGroup;
+			children = (
+				C9180EC718AED3B6006C1DCA /* ZeroConfigState.h */,
+				C9180EC818AED3B6006C1DCA /* ZeroConfigState.m */,
+			);
+			name = Zero;
+			path = "Wikipedia-iOS/Zero";
+			sourceTree = "<group>";
+		};
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
 				D499143E181D51DE00E6073C /* Wikipedia-iOS */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,
 				D4991460181D51DF00E6073C /* Wikipedia-iOSTests */,
+				C9180EC618AED36A006C1DCA /* Zero */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
 			);
@@ -979,6 +1014,8 @@
 				04C43A9A183440B0006C643B /* mw-crumbtest */,
 				04C43A9F183440C1006C643B /* mw-network */,
 				D4EE00BB182445670090790F /* mw-support */,
+				C9180EC118AED30C006C1DCA /* mw-utils */,
+				C9928B8718AD5E1000FCCA9A /* Settings.bundle */,
 			);
 			path = "Wikipedia-iOS";
 			sourceTree = "<group>";
@@ -1130,6 +1167,7 @@
 				042C6FC718A350C2003712D7 /* button_preview_white@2x.png in Resources */,
 				04C43AAC18344131006C643B /* bridge-index.html in Resources */,
 				04292FF4185FBA70002A13FC /* SearchResultPrototypeView.xib in Resources */,
+				C9928B8818AD5E1000FCCA9A /* Settings.bundle in Resources */,
 				04123632189C29EA00E0CF8E /* abuse-filter-edit-black.png in Resources */,
 				04A4762A183EF835009C0D82 /* w@2x.png in Resources */,
 				047E74141860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */,
@@ -1215,6 +1253,7 @@
 				04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */,
 				04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */,
 				0447863D185145090050563B /* WebViewController.m in Sources */,
+				C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */,
 				0449E63918AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m in Sources */,
 				D474CC15182AE196002BDE45 /* MWSite.m in Sources */,
 				0463639818A844570049EE4F /* KeychainCredentials.m in Sources */,
@@ -1224,6 +1263,7 @@
 				0429301018604898002A13FC /* SavedPagesViewController.m in Sources */,
 				04D149DF18877343006B4104 /* UIViewController+Alert.m in Sources */,
 				04FD6C7A184EBFCD002CA02F /* ArticleData.xcdatamodeld in Sources */,
+				C9928B8618AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m in Sources */,
 				04735E6018A5B42D00C89C30 /* LoginTokenOp.m in Sources */,
 				D4EE00B9182443FC0090790F /* MWPageTitle.m in Sources */,
 				04292FF2185FBA70002A13FC /* SearchResultCell.m in Sources */,
@@ -1275,6 +1315,7 @@
 				04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */,
 				04D75824189248E900CE2040 /* DownloadLangLinksOp.m in Sources */,
 				049B640C18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m in Sources */,
+				C9180EC918AED3B6006C1DCA /* ZeroConfigState.m in Sources */,
 				04292FF8185FBB0B002A13FC /* SearchResultsController.m in Sources */,
 				04478633185145090050563B /* HistoryViewController.m in Sources */,
 				04478641185146210050563B /* HistoryTableHeadingLabel.m in Sources */,
@@ -1319,6 +1360,7 @@
 				0449E63A18AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m in Sources */,
 				04D149E9188889CA006B4104 /* DownloadLeadSectionOp.m in Sources */,
 				040E533D1885FB4E00AFBFE9 /* ImageData.m in Sources */,
+				C9180ECA18AED3B6006C1DCA /* ZeroConfigState.m in Sources */,
 				0447867D1852BBFE0050563B /* NSManagedObjectContext+SimpleFetch.m in Sources */,
 				044786891856E4DB0050563B /* UIWebView+Reveal.m in Sources */,
 				047FF5481889078C009DB293 /* Image+Convenience.m in Sources */,
@@ -1364,6 +1406,7 @@
 				04D34DE21868E21F00610A87 /* Article+Convenience.m in Sources */,
 				044BD6A31883302C00FFE4BE /* Image.m in Sources */,
 				D4DE203118283FF200148CA2 /* CommunicationBridgeTests.m in Sources */,
+				C9180EC518AED30C006C1DCA /* WikipediaAppUtils.m in Sources */,
 				04D34DBE1863F6A400610A87 /* GalleryImage.m in Sources */,
 				0429300B18604898002A13FC /* SavedPagesResultCell.m in Sources */,
 				04142A90184F974E006EF779 /* NSDate-Utilities.m in Sources */,

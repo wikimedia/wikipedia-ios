@@ -2,12 +2,14 @@
 
 #import <Foundation/Foundation.h>
 #import "KeychainCredentials.h"
+#import "ZeroConfigState.h"
 
 @class KeychainCredentials;
 
 @interface SessionSingleton : NSObject
 
 @property (strong, nonatomic) KeychainCredentials *keychainCredentials;
+@property (strong, nonatomic) ZeroConfigState *zeroConfigState;
 
 // These 5 persist across app restarts.
 @property (strong, nonatomic) NSString *site;
