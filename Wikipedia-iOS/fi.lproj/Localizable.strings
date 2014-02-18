@@ -1,0 +1,10 @@
+// Messages for Finnish (suomi)
+// Exported from translatewiki.net
+// Author: Nike
+
+"article-languages-label" = "Valitse kieli";
+"history-label" = "Selaushistoria";
+"history-section-today" = "Tänään";
+"history-section-yesterday" = "Eilen";
+"history-section-lastweek" = "Viime viikolla";
+"history-section-lastmonth" = "Viime kuussa";

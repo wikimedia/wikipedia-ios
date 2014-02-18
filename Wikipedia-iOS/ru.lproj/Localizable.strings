@@ -1,0 +1,10 @@
+// Messages for Russian (русский)
+// Exported from translatewiki.net
+// Author: Okras
+
+"article-languages-label" = "Выберите язык";
+"history-label" = "Просмотр истории";
+"history-section-today" = "Сегодня";
+"history-section-yesterday" = "Вчера";
+"history-section-lastweek" = "На прошлой неделе";
+"history-section-lastmonth" = "В прошлом месяце";
