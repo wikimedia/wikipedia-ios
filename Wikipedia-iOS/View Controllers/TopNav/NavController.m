@@ -519,7 +519,7 @@
         case NAVBAR_STYLE_NIGHT:{
             output = @{
                        @"NAVBAR_TEXT_FIELD_TEXT_COLOR": [UIColor whiteColor],
-                       @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor whiteColor],
+                       @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor lightGrayColor],
                        @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0],
                        @"NAVBAR_BUTTON_COLOR": [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0],
                        @"NAVBAR_LABEL_TEXT_COLOR": [UIColor whiteColor],
@@ -553,8 +553,9 @@
         case NAVBAR_TEXT_FIELD:{
             NavBarTextField *textField = (NavBarTextField *)view;
             
-            // Typed text.
+            // Typed text and cursor.
             textField.textColor = colors[@"NAVBAR_TEXT_FIELD_TEXT_COLOR"];
+            textField.tintColor = colors[@"NAVBAR_TEXT_FIELD_TEXT_COLOR"];
             
             // Placeholder text.
             textField.placeholderColor = colors[@"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR"];

@@ -4,4 +4,17 @@
 "history-section-yesterday" = "Yesterday";
 "history-section-lastweek" = "Last week";
 "history-section-lastmonth" = "Last month";
-
+"zero-free-verbiage" = "Free Wikipedia access from your mobile operator (data charges waived)";
+"zero-charged-verbiage" = "Wikipedia Zero OFF (STANDARD DATA CHARGES MAY APPLY)";
+"zero-search-hint" = "Search Wikipedia Zero";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "Leaving Wikipedia Zero";
+"zero-interstitial-leave-app" = "Continue to external site? Standard data charges may apply.";
+"zero-interstitial-continue" = "Continue";
+"zero-interstitial-cancel" = "Cancel";
+"zero-learn-more" = "Want to learn about Wikipedia Zero?";
+"zero-learn-more-learn-more" = "Learn more";
+"zero-learn-more-no-thanks" = "No thanks";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"zero-warn-when-leaving" = "Warn if leaving Wikipedia Zero";
+"zero-settings-devmode" = "Zero Devmode";

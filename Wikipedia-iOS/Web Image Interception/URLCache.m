@@ -5,6 +5,7 @@
 #import "ArticleCoreDataObjects.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "NSString+Extras.h"
+#import "SessionSingleton.h"
 
 @interface URLCache (){
     ArticleDataContextSingleton *articleDataContext_;
@@ -38,6 +39,15 @@
 {
     if (![self isMIMETypeRerouted:cachedResponse.response.MIMEType]) {
         [super storeCachedResponse:cachedResponse forRequest:request];
+        if ([cachedResponse.response.MIMEType rangeOfString:@"application/json"].location != NSNotFound) {
+            // NSData *data = cachedResponse.data;
+            // NSString *newStr = [[NSString alloc] initWithData:data
+            //                                          encoding:NSUTF8StringEncoding];
+            // NSLog(@"%@", newStr);
+            dispatch_async(dispatch_get_main_queue(), ^(){
+                [self processZeroHeaders:cachedResponse.response];
+            });
+        }
         return;
     }
     
@@ -148,6 +158,28 @@
 
     //NSLog(@"CACHED IMAGE NOT FOUND!!!!! request.URL = %@", imageURL);
     return [super cachedResponseForRequest:request];
+}
+
+-(void) processZeroHeaders:(NSURLResponse*) response {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroDevMode"]) {
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        NSHTTPURLResponse *httpUrlResponse = (NSHTTPURLResponse*)response;
+        NSDictionary *headers = httpUrlResponse.allHeaderFields;
+        NSString *xZeroRatedHeader =  [headers objectForKey:@"X-CS"];
+        BOOL zeroRatedHeaderPresent = xZeroRatedHeader != nil;
+        NSString *xcs = [SessionSingleton sharedInstance].zeroConfigState.partnerXcs;
+        BOOL zeroProviderChanged = zeroRatedHeaderPresent && ![xZeroRatedHeader isEqualToString:xcs];
+        BOOL zeroDisposition = [SessionSingleton sharedInstance].zeroConfigState.disposition;
+        if (zeroRatedHeaderPresent && (!zeroDisposition || zeroProviderChanged)) {
+            [SessionSingleton sharedInstance].zeroConfigState.disposition = YES;
+            [SessionSingleton sharedInstance].zeroConfigState.partnerXcs = xZeroRatedHeader;
+            [notificationCenter postNotificationName:@"ZeroStateChanged" object:self userInfo:@{@"state": @YES}];
+        } else if (!zeroRatedHeaderPresent && zeroDisposition) {
+            [SessionSingleton sharedInstance].zeroConfigState.disposition = NO;
+            [SessionSingleton sharedInstance].zeroConfigState.partnerXcs = nil;
+            [notificationCenter postNotificationName:@"ZeroStateChanged" object:self userInfo:@{@"state": @NO}];
+        }
+    }
 }
 
 @end

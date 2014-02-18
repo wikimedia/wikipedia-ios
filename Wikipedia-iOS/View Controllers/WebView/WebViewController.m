@@ -28,6 +28,8 @@
 #import "UIViewController+HideKeyboard.h"
 #import "NavController.h"
 #import "UIViewController+SearchChildViewControllers.h"
+#import "DownloadWikipediaZeroMessageOp.h"
+#import "NavBarTextField.h"
 
 #define WEB_VIEW_SCALE_WHEN_TOC_VISIBLE (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.45f : 0.70f)
 #define TOC_TOGGLE_ANIMATION_DURATION 0.35f
@@ -52,6 +54,7 @@ typedef enum {
 @property (nonatomic) BOOL sectionEditingVisible;
 @property (nonatomic) NSUInteger sectionToEditIndex;
 @property (strong, nonatomic) NSMutableArray *tocConstraints;
+@property (strong, nonatomic) NSString *externalUrl;
 
 @end
 
@@ -83,6 +86,8 @@ typedef enum {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveCurrentPage) name:@"SavePage" object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchFieldBecameFirstResponder) name:@"SearchFieldBecameFirstResponder" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(zeroStateChanged:) name:@"ZeroStateChanged" object:nil];
 
     [self showAlert:@""];
 
@@ -377,6 +382,26 @@ typedef enum {
 NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to external link: %@", href];
 [weakSelf.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"alert('%@')", msg]];
 
+        } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"]) {
+            // A standard link.
+            // TODO: make all of the stuff above parse the URL into parts
+            // unless it's /wiki/ or #anchor style.
+            // Then validate if it's still in Wikipedia land and branch appropriately.
+            if ([SessionSingleton sharedInstance].zeroConfigState.disposition &&
+                [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
+                weakSelf.externalUrl = href;
+                UIAlertView *dialog = [[UIAlertView alloc]
+                                       initWithTitle:NSLocalizedString(@"zero-interstitial-title", nil)
+                                       message:NSLocalizedString(@"zero-interstitial-leave-app", nil)
+                                       delegate:weakSelf
+                                       cancelButtonTitle:NSLocalizedString(@"zero-interstitial-cancel", nil)
+                                       otherButtonTitles:NSLocalizedString(@"zero-interstitial-continue", nil)
+                                       , nil];
+                [dialog show];
+            } else {
+                NSURL *url = [NSURL URLWithString:href];
+                [[UIApplication sharedApplication] openURL:url];
+            }
         }
     }];
 
@@ -1037,6 +1062,83 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     //[UIView animateWithDuration:0.05f animations:^{
     //    self.view.alpha = 1.0f;
     //}];
+}
+
+#pragma mark Wikipedia Zero handling
+
+-(void)zeroStateChanged: (NSNotification*) notification
+{
+    if ([[[notification userInfo] objectForKey:@"state"] boolValue]) {
+        DownloadWikipediaZeroMessageOp *zeroMessageRetrievalOp =
+        [
+         [DownloadWikipediaZeroMessageOp alloc]
+         initForDomain: [SessionSingleton sharedInstance].currentArticleDomain
+         completionBlock: ^(NSString *message) {
+             if (message) {
+                 dispatch_async(dispatch_get_main_queue(), ^(){
+                     NavController *navController = (NavController *)self.navigationController;
+                     NavBarTextField *textField = [navController getNavBarItem:NAVBAR_TEXT_FIELD];
+                     textField.placeholder = NSLocalizedString(@"zero-search-hint", nil);
+                     
+                     navController.navBarStyle = NAVBAR_STYLE_NIGHT;
+                     
+                     [self showAlert:message];
+                     [self promptFirstTimeZeroOnWithMessageIfAppropriate:message];
+                 });
+                 
+                 //
+                 // [self showHTMLAlert:message bannerImage:nil bannerColor:
+                 // [UIColor colorWithWhite:0.0 alpha:1.0]];
+             }
+         } cancelledBlock:^(NSError *errorCancel) {
+             NSLog(@"error cancel");
+         } errorBlock:^(NSError *errorError) {
+             NSLog(@"error error");
+         }];
+        
+        [[QueuesSingleton sharedInstance].zeroRatedMessageStringQ addOperation:zeroMessageRetrievalOp];
+        
+    } else {
+        ((NavController *)self.navigationController).navBarStyle = NAVBAR_STYLE_DAY;
+        [self showAlert:NSLocalizedString(@"zero-charged-verbiage", nil)];
+        [self promptFirstTimeZeroOffIfAppropriate];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (1 == buttonIndex) {
+        NSURL *url = [NSURL URLWithString:self.externalUrl];
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+
+// Don't call this directly. Use promptFirstTimeZeroOnWithMessageIfAppropriate or promptFirstTimeZeroOffIfAppropriate
+-(void) promptFirstTimeZeroOnOrOff:(NSString *) message
+{
+    self.externalUrl = NSLocalizedString(@"zero-webpage-url", nil);
+    UIAlertView *dialog = [[UIAlertView alloc]
+                           initWithTitle: (message ? message : NSLocalizedString(@"zero-charged-verbiage", nil))
+                           message:NSLocalizedString(@"zero-learn-more", nil)
+                           delegate:self
+                           cancelButtonTitle:NSLocalizedString(@"zero-learn-more-no-thanks", nil)
+                           otherButtonTitles:NSLocalizedString(@"zero-learn-more-learn-more", nil)
+                           , nil];
+    [dialog show];
+}
+
+-(void) promptFirstTimeZeroOnWithMessageIfAppropriate:(NSString *) message {
+    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce) {
+        [[SessionSingleton sharedInstance].zeroConfigState setZeroOnDialogShownOnce];
+        [self promptFirstTimeZeroOnOrOff:message];
+    }
+}
+
+-(void) promptFirstTimeZeroOffIfAppropriate {
+    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOffDialogShownOnce) {
+        [[SessionSingleton sharedInstance].zeroConfigState setZeroOffDialogShownOnce];
+        [self promptFirstTimeZeroOnOrOff:nil];
+    }
 }
 
 @end
