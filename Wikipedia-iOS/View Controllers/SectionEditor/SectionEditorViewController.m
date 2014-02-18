@@ -189,6 +189,21 @@
                                                          }];
 }
 
+-(void)setShowCaptchaContainer:(BOOL)showCaptchaContainer
+{
+    if (_showCaptchaContainer != showCaptchaContainer) {
+        _showCaptchaContainer = showCaptchaContainer;
+        if (showCaptchaContainer){
+            self.editTextView.alpha = 0.0;
+            [self.captchaTextBox performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
+            self.editTextView.userInteractionEnabled = NO;
+        }else{
+            self.editTextView.alpha = 1.0;
+            self.editTextView.userInteractionEnabled = YES;
+        }
+    }
+}
+
 - (void)savePushed:(id)sender
 {
     // Use static flag to prevent save when save already in progress.
@@ -440,6 +455,17 @@
 
 - (void)cancelPushed:(id)sender
 {
+    if (self.showCaptchaContainer) {
+        [self showAlert:@""];
+        [UIView animateWithDuration:0.3f animations:^{
+            self.showCaptchaContainer = NO;
+            [self.captchaContainer.superview setNeedsUpdateConstraints];
+            [self.captchaContainer.superview layoutIfNeeded];
+        } completion:^(BOOL done){
+        }];
+        return;
+    }
+
     [self hide];
 }
 
