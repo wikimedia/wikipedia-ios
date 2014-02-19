@@ -1076,11 +1076,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
          completionBlock: ^(NSString *message) {
              if (message) {
                  dispatch_async(dispatch_get_main_queue(), ^(){
-                     NavController *navController = (NavController *)self.navigationController;
-                     NavBarTextField *textField = [navController getNavBarItem:NAVBAR_TEXT_FIELD];
+                     NavBarTextField *textField = [NAV getNavBarItem:NAVBAR_TEXT_FIELD];
                      textField.placeholder = NSLocalizedString(@"zero-search-hint", nil);
                      
-                     navController.navBarStyle = NAVBAR_STYLE_NIGHT;
+                     NAV.navBarStyle = NAVBAR_STYLE_NIGHT;
                      
                      [self showAlert:message];
                      [self promptFirstTimeZeroOnWithMessageIfAppropriate:message];
@@ -1099,7 +1098,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         [[QueuesSingleton sharedInstance].zeroRatedMessageStringQ addOperation:zeroMessageRetrievalOp];
         
     } else {
-        ((NavController *)self.navigationController).navBarStyle = NAVBAR_STYLE_DAY;
+        NAV.navBarStyle = NAVBAR_STYLE_DAY;
         [self showAlert:NSLocalizedString(@"zero-charged-verbiage", nil)];
         [self promptFirstTimeZeroOffIfAppropriate];
     }
