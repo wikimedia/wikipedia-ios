@@ -1091,11 +1091,11 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                  // [UIColor colorWithWhite:0.0 alpha:1.0]];
              }
          } cancelledBlock:^(NSError *errorCancel) {
-             NSLog(@"error cancel");
+             NSLog(@"error w0 cancel");
          } errorBlock:^(NSError *errorError) {
-             NSLog(@"error error");
+             NSLog(@"error w0 error");
          }];
-        
+        [[QueuesSingleton sharedInstance].zeroRatedMessageStringQ cancelAllOperations];
         [[QueuesSingleton sharedInstance].zeroRatedMessageStringQ addOperation:zeroMessageRetrievalOp];
         
     } else {

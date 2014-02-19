@@ -12,6 +12,7 @@
 #define SECTION_MENU_OPTIONS 1
 #define SECTION_ARTICLE_OPTIONS 2
 #define SECTION_SEARCH_LANGUAGE_OPTIONS 3
+#define SECTION_ZERO_OPTIONS 4
 
 // Row indexes.
 #define ROW_SAVED_PAGES 1
@@ -92,6 +93,7 @@
     
     [self updateLoginButtons];
     [self updateLoginTitle];
+    [self updateZeroToggles];
     [self.tableView reloadData];
 }
 
@@ -101,9 +103,9 @@
     // Show login/logout buttons
     [[self sectionDict:SECTION_LOGIN_OPTIONS][@"rows"] removeAllObjects];
     if([SessionSingleton sharedInstance].keychainCredentials.userName){
-        [self addToTableDataLoginOptionsWithTitle:@"🎭  Logout" key:@"logout"];
+        [self addToTableDataRowWithTitle:@"🎭  Logout" key:@"logout" section: SECTION_LOGIN_OPTIONS];
     }else{
-        [self addToTableDataLoginOptionsWithTitle:@"🎭  Login" key:@"login"];
+        [self addToTableDataRowWithTitle:@"🎭  Login" key:@"login" section: SECTION_LOGIN_OPTIONS];
     }
 }
 
@@ -115,6 +117,28 @@
     }else{
         [self sectionDict:SECTION_LOGIN_OPTIONS][@"title"] = @"Account";
     }
+}
+
+#pragma mark - Wikipedia Zero toggles
+-(void)updateZeroToggles
+{
+    [[self sectionDict:SECTION_ZERO_OPTIONS][@"rows"] removeAllObjects];
+
+    [self addToTableDataRowWithTitle: [NSString stringWithFormat:@"%@ %@",
+                                           [SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving ?
+                                           @"✔️" : @"    ",
+                                           NSLocalizedString(@"zero-warn-when-leaving", nil)]
+                                     key: @"zeroWarnWhenLeaving"
+                           section: SECTION_ZERO_OPTIONS
+     ];
+
+    [self addToTableDataRowWithTitle: [NSString stringWithFormat:@"%@ %@",
+                                           [SessionSingleton sharedInstance].zeroConfigState.devMode ?
+                                           @"✔️" : @"    ",
+                                           NSLocalizedString(@"zero-settings-devmode", nil)]
+                                     key: @"zeroDevMode"
+                           section: SECTION_ZERO_OPTIONS
+     ];
 }
 
 #pragma mark - Table section and row accessors
@@ -131,9 +155,9 @@
 
 #pragma mark - Table data
 
--(void)addToTableDataLoginOptionsWithTitle:(NSString *)title key:(NSString *)key
+-(void)addToTableDataRowWithTitle:(NSString *)title key:(NSString *)key section:(NSInteger)section
 {
-    [[self sectionDict:SECTION_LOGIN_OPTIONS][@"rows"] addObject:
+    [[self sectionDict:section][@"rows"] addObject:
      [@{
         @"key": key,
         @"title": title,
@@ -223,37 +247,16 @@
                                @"rows": [@[] mutableCopy]
                                } mutableCopy]
                             ,
-                            
-                            
-                            
+
+
                             [@{
                                @"key": @"wikipediaZero",
                                @"title": NSLocalizedString(@"zero-wikipedia-zero-heading", nil),
                                @"label": @"",
                                @"subTitle": @"",
-                               @"rows": @[
-                                       
-                                       
-                                       [@{
-                                          @"key": @"zeroWarnWhenLeaving",
-                                          @"title": [NSString stringWithFormat:@"%@ %@",
-                                                     [SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving ? @"✔️" : @"    ",
-                                                     NSLocalizedString(@"zero-warn-when-leaving", nil)],
-                                          @"label": @""
-                                          } mutableCopy]
-                                       ,
-                                       
-                                       [@{
-                                          @"key": @"zeroDevMode",
-                                          @"title": [NSString stringWithFormat:@"%@ %@",
-                                                     [SessionSingleton sharedInstance].zeroConfigState.devMode ? @"✔️" : @"    ", NSLocalizedString(@"zero-settings-devmode", nil)],
-                                          @"label": @""
-                                          } mutableCopy]
-                                       ]
+                               @"rows": [@[
+                                           ] mutableCopy]
                                } mutableCopy]
-                            
-                            
-                            
                             ] mutableCopy];
 }
 
@@ -465,12 +468,12 @@
     }  else if ([selectedRowKey isEqualToString:@"zeroWarnWhenLeaving"]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         [[SessionSingleton sharedInstance].zeroConfigState toggleWarnWhenLeaving];
-        [self viewWillAppear:YES]; // TODO: just for now, post rebase will use new convention
+        [self updateZeroToggles];
         [self.tableView reloadData];
     } else if ([selectedRowKey isEqualToString:@"zeroDevMode"]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         [[SessionSingleton sharedInstance].zeroConfigState toggleDevMode];
-        [self viewWillAppear:YES]; // TODO: just for now, post rebase will use new convention
+        [self updateZeroToggles];
         [self.tableView reloadData];
     }
 }
