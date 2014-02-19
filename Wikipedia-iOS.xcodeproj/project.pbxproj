@@ -244,6 +244,7 @@
 		C9180ECA18AED3B6006C1DCA /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC818AED3B6006C1DCA /* ZeroConfigState.m */; };
 		C9928B8618AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m in Sources */ = {isa = PBXBuildFile; fileRef = C9928B8518AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m */; };
 		C9928B8818AD5E1000FCCA9A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C9928B8718AD5E1000FCCA9A /* Settings.bundle */; };
+		D469889518B52DA200DBE014 /* Main_iPhone.strings in Resources */ = {isa = PBXBuildFile; fileRef = D469889318B52DA200DBE014 /* Main_iPhone.strings */; };
 		D46CD8C418A1AC4F0042959E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C018A1AC4F0042959E /* InfoPlist.strings */; };
 		D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
 		D474CC11182AE033002BDE45 /* SiteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D474CC10182AE033002BDE45 /* SiteTests.m */; };
@@ -482,6 +483,14 @@
 		C9928B8418AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadWikipediaZeroMessageOp.h; sourceTree = "<group>"; };
 		C9928B8518AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadWikipediaZeroMessageOp.m; sourceTree = "<group>"; };
 		C9928B8718AD5E1000FCCA9A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		D469889118B52DA200DBE014 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D469889218B52DA200DBE014 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D469889418B52DA200DBE014 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		D469889618B52DCD00DBE014 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		D469889718B52DD000DBE014 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		D469889818B52DF100DBE014 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D469889918B52DF100DBE014 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D469889A18B52DF100DBE014 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D46CD8C718A1AC630042959E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D46CD8C818A1AC730042959E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D46CD8CC18A1ACA20042959E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
@@ -997,6 +1006,7 @@
 				D4991448181D51DE00E6073C /* AppDelegate.m */,
 				D499144A181D51DE00E6073C /* Main_iPhone.storyboard */,
 				D46CD8C018A1AC4F0042959E /* InfoPlist.strings */,
+				D469889318B52DA200DBE014 /* Main_iPhone.strings */,
 				D46CD8C218A1AC4F0042959E /* Localizable.strings */,
 				04C43AB7183442FC006C643B /* Categories */,
 				040E5C50184673F2007AFE6F /* Data */,
@@ -1129,6 +1139,8 @@
 				en,
 				Base,
 				fr,
+				ru,
+				fi,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -1147,6 +1159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0412362A189C29EA00E0CF8E /* abuse-filter-check.png in Resources */,
+				D469889518B52DA200DBE014 /* Main_iPhone.strings in Resources */,
 				044BD6CE1884E78D00FFE4BE /* images in Resources */,
 				04CF1CB6187C8F4400E9516F /* Languages in Resources */,
 				042C6FBF18A350C2003712D7 /* button_arrow_right@2x.png in Resources */,
@@ -1435,11 +1448,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		D469889318B52DA200DBE014 /* Main_iPhone.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D469889418B52DA200DBE014 /* ru */,
+				D469889618B52DCD00DBE014 /* fr */,
+				D469889718B52DD000DBE014 /* en */,
+				D469889A18B52DF100DBE014 /* fi */,
+			);
+			name = Main_iPhone.strings;
+			sourceTree = "<group>";
+		};
 		D46CD8C018A1AC4F0042959E /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				D46CD8C718A1AC630042959E /* fr */,
 				D46CD8D218A1B10A0042959E /* en */,
+				D469889118B52DA200DBE014 /* ru */,
+				D469889818B52DF100DBE014 /* fi */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1449,6 +1475,8 @@
 			children = (
 				D46CD8C818A1AC730042959E /* fr */,
 				D46CD8D318A1B1140042959E /* en */,
+				D469889218B52DA200DBE014 /* ru */,
+				D469889918B52DF100DBE014 /* fi */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
