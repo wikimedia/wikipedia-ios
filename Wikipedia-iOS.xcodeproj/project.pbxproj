@@ -139,12 +139,18 @@
 		0466F450183A30CC00EA1FD7 /* logo-search-placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0466F44E183A30CC00EA1FD7 /* logo-search-placeholder@2x.png */; };
 		04735E6018A5B42D00C89C30 /* LoginTokenOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04735E5F18A5B42D00C89C30 /* LoginTokenOp.m */; };
 		04735E6118A5B42D00C89C30 /* LoginTokenOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04735E5F18A5B42D00C89C30 /* LoginTokenOp.m */; };
+		0476967C18BBFC9400071963 /* AccountCreationOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0476967B18BBFC9400071963 /* AccountCreationOp.m */; };
+		0476967D18BBFC9400071963 /* AccountCreationOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0476967B18BBFC9400071963 /* AccountCreationOp.m */; };
 		047801BE18AE987900DBB747 /* UIButton+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 047801BD18AE987900DBB747 /* UIButton+ColorMask.m */; };
 		047801BF18AE987900DBB747 /* UIButton+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 047801BD18AE987900DBB747 /* UIButton+ColorMask.m */; };
 		047E74141860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047E74131860509000916964 /* SavedPagesResultPrototypeView.xib */; };
 		047E74151860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047E74131860509000916964 /* SavedPagesResultPrototypeView.xib */; };
 		047FF5471889078C009DB293 /* Image+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 047FF5461889078C009DB293 /* Image+Convenience.m */; };
 		047FF5481889078C009DB293 /* Image+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 047FF5461889078C009DB293 /* Image+Convenience.m */; };
+		04992BC018B687AF00A6C22B /* SearchOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04992BBF18B687AF00A6C22B /* SearchOp.m */; };
+		04992BC118B687B000A6C22B /* SearchOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04992BBF18B687AF00A6C22B /* SearchOp.m */; };
+		04992BC418B6971F00A6C22B /* SearchThumbUrlsOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04992BC318B6971F00A6C22B /* SearchThumbUrlsOp.m */; };
+		04992BC518B6971F00A6C22B /* SearchThumbUrlsOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04992BC318B6971F00A6C22B /* SearchThumbUrlsOp.m */; };
 		049B640C18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 049B640B18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m */; };
 		049B640D18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 049B640B18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m */; };
 		04A47629183EF835009C0D82 /* w.png in Resources */ = {isa = PBXBuildFile; fileRef = 04A47627183EF835009C0D82 /* w.png */; };
@@ -153,12 +159,16 @@
 		04A70FD8185BB6C300E24515 /* URLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A70FD6185BB6C300E24515 /* URLCache.m */; };
 		04A81E8618871EB000EEBADB /* Section+ImageRecords.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A81E8518871EB000EEBADB /* Section+ImageRecords.m */; };
 		04A81E8718871EB000EEBADB /* Section+ImageRecords.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A81E8518871EB000EEBADB /* Section+ImageRecords.m */; };
+		04A97E8718B81D5D0046B166 /* AccountCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A97E8618B81D5D0046B166 /* AccountCreationViewController.m */; };
+		04A97E8818B81D5D0046B166 /* AccountCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A97E8618B81D5D0046B166 /* AccountCreationViewController.m */; };
 		04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C6F1891B302002D5487 /* NSObject+Extras.m */; };
 		04AE1C711891B302002D5487 /* NSObject+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C6F1891B302002D5487 /* NSObject+Extras.m */; };
 		04AE1C741891BB32002D5487 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C731891BB32002D5487 /* Article.m */; };
 		04AE1C751891BB32002D5487 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C731891BB32002D5487 /* Article.m */; };
 		04B78A5318A580AF0050EBF5 /* LoginOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B78A5218A580AF0050EBF5 /* LoginOp.m */; };
 		04B78A5418A580AF0050EBF5 /* LoginOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B78A5218A580AF0050EBF5 /* LoginOp.m */; };
+		04B7B9BD18B5570E00A63551 /* CaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */; };
+		04B7B9BE18B5570E00A63551 /* CaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */; };
 		04C43A9D183440B0006C643B /* MWCrumbyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43A9C183440B0006C643B /* MWCrumbyTest.m */; };
 		04C43A9E183440B0006C643B /* MWCrumbyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43A9C183440B0006C643B /* MWCrumbyTest.m */; };
 		04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */; };
@@ -226,6 +236,10 @@
 		04D75825189248E900CE2040 /* DownloadLangLinksOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D75823189248E900CE2040 /* DownloadLangLinksOp.m */; };
 		04D75828189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D75827189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m */; };
 		04D75829189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D75827189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m */; };
+		04DB0BE618BC2E1E00B4BCF3 /* CaptchaResetOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DB0BE518BC2E1E00B4BCF3 /* CaptchaResetOp.m */; };
+		04DB0BE718BC2E1E00B4BCF3 /* CaptchaResetOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DB0BE518BC2E1E00B4BCF3 /* CaptchaResetOp.m */; };
+		04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */; };
+		04DB0BEB18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */; };
 		04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */; };
 		04F0E2EB186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */; };
 		04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2ED186FB2D100468738 /* TOCSectionCellView.m */; };
@@ -384,11 +398,17 @@
 		0466F44E183A30CC00EA1FD7 /* logo-search-placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-search-placeholder@2x.png"; sourceTree = "<group>"; };
 		04735E5E18A5B42D00C89C30 /* LoginTokenOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTokenOp.h; sourceTree = "<group>"; };
 		04735E5F18A5B42D00C89C30 /* LoginTokenOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTokenOp.m; sourceTree = "<group>"; };
+		0476967A18BBFC9400071963 /* AccountCreationOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCreationOp.h; sourceTree = "<group>"; };
+		0476967B18BBFC9400071963 /* AccountCreationOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountCreationOp.m; sourceTree = "<group>"; };
 		047801BC18AE987900DBB747 /* UIButton+ColorMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ColorMask.h"; sourceTree = "<group>"; };
 		047801BD18AE987900DBB747 /* UIButton+ColorMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ColorMask.m"; sourceTree = "<group>"; };
 		047E74131860509000916964 /* SavedPagesResultPrototypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SavedPagesResultPrototypeView.xib; sourceTree = "<group>"; };
 		047FF5451889078C009DB293 /* Image+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Image+Convenience.h"; sourceTree = "<group>"; };
 		047FF5461889078C009DB293 /* Image+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Image+Convenience.m"; sourceTree = "<group>"; };
+		04992BBE18B687AF00A6C22B /* SearchOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchOp.h; sourceTree = "<group>"; };
+		04992BBF18B687AF00A6C22B /* SearchOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchOp.m; sourceTree = "<group>"; };
+		04992BC218B6971F00A6C22B /* SearchThumbUrlsOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchThumbUrlsOp.h; sourceTree = "<group>"; };
+		04992BC318B6971F00A6C22B /* SearchThumbUrlsOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchThumbUrlsOp.m; sourceTree = "<group>"; };
 		049B640A18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SearchChildViewControllers.h"; sourceTree = "<group>"; };
 		049B640B18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SearchChildViewControllers.m"; sourceTree = "<group>"; };
 		04A47627183EF835009C0D82 /* w.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = w.png; sourceTree = "<group>"; };
@@ -397,12 +417,16 @@
 		04A70FD6185BB6C300E24515 /* URLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLCache.m; sourceTree = "<group>"; };
 		04A81E8418871EB000EEBADB /* Section+ImageRecords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Section+ImageRecords.h"; sourceTree = "<group>"; };
 		04A81E8518871EB000EEBADB /* Section+ImageRecords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Section+ImageRecords.m"; sourceTree = "<group>"; };
+		04A97E8518B81D5D0046B166 /* AccountCreationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCreationViewController.h; sourceTree = "<group>"; };
+		04A97E8618B81D5D0046B166 /* AccountCreationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountCreationViewController.m; sourceTree = "<group>"; };
 		04AE1C6E1891B302002D5487 /* NSObject+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extras.h"; sourceTree = "<group>"; };
 		04AE1C6F1891B302002D5487 /* NSObject+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extras.m"; sourceTree = "<group>"; };
 		04AE1C721891BB32002D5487 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
 		04AE1C731891BB32002D5487 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		04B78A5118A580AF0050EBF5 /* LoginOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginOp.h; sourceTree = "<group>"; };
 		04B78A5218A580AF0050EBF5 /* LoginOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginOp.m; sourceTree = "<group>"; };
+		04B7B9BB18B5570E00A63551 /* CaptchaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaViewController.h; sourceTree = "<group>"; };
+		04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaViewController.m; sourceTree = "<group>"; };
 		04C43A9B183440B0006C643B /* MWCrumbyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWCrumbyTest.h; sourceTree = "<group>"; };
 		04C43A9C183440B0006C643B /* MWCrumbyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWCrumbyTest.m; sourceTree = "<group>"; };
 		04C43AA0183440C1006C643B /* MWNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -467,6 +491,10 @@
 		04D75823189248E900CE2040 /* DownloadLangLinksOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadLangLinksOp.m; sourceTree = "<group>"; };
 		04D75826189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleLanguagesSectionHeadingLabel.h; sourceTree = "<group>"; };
 		04D75827189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleLanguagesSectionHeadingLabel.m; sourceTree = "<group>"; };
+		04DB0BE418BC2E1E00B4BCF3 /* CaptchaResetOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaResetOp.h; sourceTree = "<group>"; };
+		04DB0BE518BC2E1E00B4BCF3 /* CaptchaResetOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaResetOp.m; sourceTree = "<group>"; };
+		04DB0BE818BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+ScrollSubviewToLocation.h"; sourceTree = "<group>"; };
+		04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+ScrollSubviewToLocation.m"; sourceTree = "<group>"; };
 		04F0E2E8186EDC1A00468738 /* UIWebView+ElementLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+ElementLocation.h"; sourceTree = "<group>"; };
 		04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+ElementLocation.m"; sourceTree = "<group>"; };
 		04F0E2EC186FB2D000468738 /* TOCSectionCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOCSectionCellView.h; sourceTree = "<group>"; };
@@ -723,6 +751,24 @@
 			path = "Web Image Interception";
 			sourceTree = "<group>";
 		};
+		04A97E8418B81D440046B166 /* AccountCreation */ = {
+			isa = PBXGroup;
+			children = (
+				04A97E8518B81D5D0046B166 /* AccountCreationViewController.h */,
+				04A97E8618B81D5D0046B166 /* AccountCreationViewController.m */,
+			);
+			path = AccountCreation;
+			sourceTree = "<group>";
+		};
+		04B7B9BA18B5569600A63551 /* Captcha */ = {
+			isa = PBXGroup;
+			children = (
+				04B7B9BB18B5570E00A63551 /* CaptchaViewController.h */,
+				04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */,
+			);
+			path = Captcha;
+			sourceTree = "<group>";
+		};
 		04C43A9A183440B0006C643B /* mw-crumbtest */ = {
 			isa = PBXGroup;
 			children = (
@@ -759,7 +805,9 @@
 		04C43AB0183441A4006C643B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				04A97E8418B81D440046B166 /* AccountCreation */,
 				04D7581918923B8400CE2040 /* ArticleLanguages */,
+				04B7B9BA18B5569600A63551 /* Captcha */,
 				0447861F185145090050563B /* History */,
 				0449E63218A9844000D51524 /* Login */,
 				04D34D93186216AF00610A87 /* MainMenu */,
@@ -776,6 +824,8 @@
 		04C43AB7183442FC006C643B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				04DB0BE818BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.h */,
+				04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */,
 				0415581A18ADFA5C00B81A59 /* UIImage+ColorMask.h */,
 				0415581B18ADFA5C00B81A59 /* UIImage+ColorMask.m */,
 				047801BC18AE987900DBB747 /* UIButton+ColorMask.h */,
@@ -835,6 +885,14 @@
 		04D149E5188889CA006B4104 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				0476967A18BBFC9400071963 /* AccountCreationOp.h */,
+				0476967B18BBFC9400071963 /* AccountCreationOp.m */,
+				04DB0BE418BC2E1E00B4BCF3 /* CaptchaResetOp.h */,
+				04DB0BE518BC2E1E00B4BCF3 /* CaptchaResetOp.m */,
+				04992BBE18B687AF00A6C22B /* SearchOp.h */,
+				04992BBF18B687AF00A6C22B /* SearchOp.m */,
+				04992BC218B6971F00A6C22B /* SearchThumbUrlsOp.h */,
+				04992BC318B6971F00A6C22B /* SearchThumbUrlsOp.m */,
 				04B78A5118A580AF0050EBF5 /* LoginOp.h */,
 				04B78A5218A580AF0050EBF5 /* LoginOp.m */,
 				04735E5E18A5B42D00C89C30 /* LoginTokenOp.h */,
@@ -1261,9 +1319,11 @@
 			files = (
 				0449E63518A9845C00D51524 /* LoginViewController.m in Sources */,
 				04D149EC18888A0D006B4104 /* DownloadNonLeadSectionsOp.m in Sources */,
+				04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				04D34DBD1863F6A400610A87 /* GalleryImage.m in Sources */,
 				04D7581C18923B8400CE2040 /* ArticleLanguagesTableVC.m in Sources */,
 				04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */,
+				04B7B9BD18B5570E00A63551 /* CaptchaViewController.m in Sources */,
 				04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */,
 				0447863D185145090050563B /* WebViewController.m in Sources */,
 				C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */,
@@ -1271,6 +1331,7 @@
 				D474CC15182AE196002BDE45 /* MWSite.m in Sources */,
 				0463639818A844570049EE4F /* KeychainCredentials.m in Sources */,
 				0433543518A1A7AE009305F0 /* NavBarTextField.m in Sources */,
+				04992BC418B6971F00A6C22B /* SearchThumbUrlsOp.m in Sources */,
 				044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */,
 				04D34DAB1863D2D600610A87 /* TFHpple.m in Sources */,
 				0429301018604898002A13FC /* SavedPagesViewController.m in Sources */,
@@ -1298,8 +1359,10 @@
 				04C43AC2183442FC006C643B /* NSURLRequest+DictionaryRequest.m in Sources */,
 				0402E10F18A3ABA900C3B679 /* NavBarContainerView.m in Sources */,
 				040E533C1885FB4E00AFBFE9 /* ImageData.m in Sources */,
+				04DB0BE618BC2E1E00B4BCF3 /* CaptchaResetOp.m in Sources */,
 				0415581C18ADFA5D00B81A59 /* UIImage+ColorMask.m in Sources */,
 				04A70FD7185BB6C300E24515 /* URLCache.m in Sources */,
+				04992BC018B687AF00A6C22B /* SearchOp.m in Sources */,
 				044786881856E4DB0050563B /* UIWebView+Reveal.m in Sources */,
 				04D34DD91863F70A00610A87 /* Section.m in Sources */,
 				04D34DA1186283AA00610A87 /* MainMenuSectionHeadingLabel.m in Sources */,
@@ -1329,6 +1392,7 @@
 				04D75824189248E900CE2040 /* DownloadLangLinksOp.m in Sources */,
 				049B640C18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m in Sources */,
 				C9180EC918AED3B6006C1DCA /* ZeroConfigState.m in Sources */,
+				04A97E8718B81D5D0046B166 /* AccountCreationViewController.m in Sources */,
 				04292FF8185FBB0B002A13FC /* SearchResultsController.m in Sources */,
 				04478633185145090050563B /* HistoryViewController.m in Sources */,
 				04478641185146210050563B /* HistoryTableHeadingLabel.m in Sources */,
@@ -1341,6 +1405,7 @@
 				D4991445181D51DE00E6073C /* main.m in Sources */,
 				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
 				0447862F185145090050563B /* HistoryResultCell.m in Sources */,
+				0476967C18BBFC9400071963 /* AccountCreationOp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1355,11 +1420,13 @@
 				04A81E8718871EB000EEBADB /* Section+ImageRecords.m in Sources */,
 				D474CC16182AE196002BDE45 /* MWSite.m in Sources */,
 				0449E63618A9845C00D51524 /* LoginViewController.m in Sources */,
+				04B7B9BE18B5570E00A63551 /* CaptchaViewController.m in Sources */,
 				04C43AAF18344131006C643B /* CommunicationBridge.m in Sources */,
 				D4991467181D51DF00E6073C /* Wikipedia_iOSTests.m in Sources */,
 				04D7582118923D3A00CE2040 /* ArticleLanguagesCell.m in Sources */,
 				04D34DAC1863D2D600610A87 /* TFHpple.m in Sources */,
 				0429301118604899002A13FC /* SavedPagesViewController.m in Sources */,
+				04DB0BE718BC2E1E00B4BCF3 /* CaptchaResetOp.m in Sources */,
 				04AE1C711891B302002D5487 /* NSObject+Extras.m in Sources */,
 				04D34D9E186236D400610A87 /* MainMenuResultsCell.m in Sources */,
 				04D75825189248E900CE2040 /* DownloadLangLinksOp.m in Sources */,
@@ -1368,6 +1435,7 @@
 				04C43A9E183440B0006C643B /* MWCrumbyTest.m in Sources */,
 				04D75829189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m in Sources */,
 				0433543618A1A7AE009305F0 /* NavBarTextField.m in Sources */,
+				04DB0BEB18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				04F0E2EF186FB2D100468738 /* TOCSectionCellView.m in Sources */,
 				04D122331899B8AC006B9A30 /* AlertWebView.m in Sources */,
 				0449E63A18AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m in Sources */,
@@ -1382,6 +1450,7 @@
 				04293001185FC2C7002A13FC /* QueuesSingleton.m in Sources */,
 				0433542718A093C5009305F0 /* UIView+RemoveConstraints.m in Sources */,
 				04C43AA5183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */,
+				04A97E8818B81D5D0046B166 /* AccountCreationViewController.m in Sources */,
 				04D149ED18888A0D006B4104 /* DownloadNonLeadSectionsOp.m in Sources */,
 				04090A3C187FB7D000577EDF /* UIView+Debugging.m in Sources */,
 				04C43ABF183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
@@ -1391,6 +1460,7 @@
 				0463639418A5CCEB0049EE4F /* EditTokenOp.m in Sources */,
 				04F0E2EB186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */,
 				044786701852B5010050563B /* SessionSingleton.m in Sources */,
+				04992BC518B6971F00A6C22B /* SearchThumbUrlsOp.m in Sources */,
 				04D34DA2186283AA00610A87 /* MainMenuSectionHeadingLabel.m in Sources */,
 				04D7581D18923B8400CE2040 /* ArticleLanguagesTableVC.m in Sources */,
 				04D34DC21863F6B200610A87 /* History.m in Sources */,
@@ -1405,11 +1475,13 @@
 				04478630185145090050563B /* HistoryResultCell.m in Sources */,
 				0429300F18604898002A13FC /* SavedPagesTableHeadingLabel.m in Sources */,
 				040E5C851846AC13007AFE6F /* ArticleDataContextSingleton.m in Sources */,
+				04992BC118B687B000A6C22B /* SearchOp.m in Sources */,
 				04D34DBA1863F69500610A87 /* DiscoveryContext.m in Sources */,
 				04D34DAE1863D2D600610A87 /* TFHppleElement.m in Sources */,
 				04D34DCA1863F6CC00610A87 /* Saved.m in Sources */,
 				047801BF18AE987900DBB747 /* UIButton+ColorMask.m in Sources */,
 				040E5C4D184564D0007AFE6F /* ArticleDataModel.m in Sources */,
+				0476967D18BBFC9400071963 /* AccountCreationOp.m in Sources */,
 				D474CC11182AE033002BDE45 /* SiteTests.m in Sources */,
 				0400EB0418AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m in Sources */,
 				D4EE00BA182443FC0090790F /* MWPageTitle.m in Sources */,

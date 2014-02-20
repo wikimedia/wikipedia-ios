@@ -60,7 +60,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="erJ-jP-eM0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1077" y="1262"/>
+            <point key="canvasLocation" x="1164" y="1325"/>
         </scene>
         <!--Main Menu Table View Controller-->
         <scene sceneID="7EX-cX-HXj">
@@ -142,6 +142,148 @@
             </objects>
             <point key="canvasLocation" x="94" y="616"/>
         </scene>
+        <!--Account Creation View Controller-->
+        <scene sceneID="Atg-7d-baS">
+            <objects>
+                <viewController restorationIdentifier="AccountCreationViewController" storyboardIdentifier="AccountCreationViewController" id="LsX-JK-bT6" customClass="AccountCreationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lYO-68-MKd"/>
+                        <viewControllerLayoutGuide type="bottom" id="u9G-FH-WvX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="c5n-ZK-2d9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKm-Zn-TSm">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Qz-4P-2EZ" userLabel="Scroll Container">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="812"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5cT-2Y-0Ie">
+                                                <rect key="frame" x="20" y="39" width="280" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="280" id="Gao-rE-xbM"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="LsX-JK-bT6" id="QIw-fL-bzL"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PCr-0J-fBj">
+                                                <rect key="frame" x="20" y="77" width="280" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="280" id="wXk-6q-xpB"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="LsX-JK-bT6" id="2Nk-3P-YFQ"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Re-type password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UgH-77-lyp">
+                                                <rect key="frame" x="20" y="115" width="280" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="280" id="LPp-qZ-fid"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="LsX-JK-bT6" id="OmS-Kk-xfz"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email address (optional)" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="rKI-nq-3p7">
+                                                <rect key="frame" x="20" y="153" width="280" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="280" id="0vZ-Pg-ajS"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="LsX-JK-bT6" id="MI0-Gv-E2c"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Real name (optional)" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Oun-t6-8P1">
+                                                <rect key="frame" x="20" y="191" width="280" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="280" id="vZo-bR-BtD"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="LsX-JK-bT6" id="ehc-FY-I0q"/>
+                                                </connections>
+                                            </textField>
+                                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nkJ-ZP-8yL">
+                                                <rect key="frame" x="20" y="229" width="280" height="163"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="163" id="S8T-dk-ANv"/>
+                                                    <constraint firstAttribute="width" constant="280" id="bC9-aK-J8r"/>
+                                                </constraints>
+                                                <connections>
+                                                    <segue destination="sIA-fC-CW8" kind="embed" identifier="AccountCreation_Captcha_Embed" id="HJg-5s-ewq"/>
+                                                </connections>
+                                            </containerView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="5cT-2Y-0Ie" firstAttribute="top" secondItem="8Qz-4P-2EZ" secondAttribute="top" constant="39" id="81C-La-e2s"/>
+                                            <constraint firstAttribute="centerX" secondItem="nkJ-ZP-8yL" secondAttribute="centerX" id="A96-6a-F0d"/>
+                                            <constraint firstAttribute="centerX" secondItem="rKI-nq-3p7" secondAttribute="centerX" id="Agw-sD-hRr"/>
+                                            <constraint firstAttribute="centerX" secondItem="PCr-0J-fBj" secondAttribute="centerX" id="B7L-q8-1ED"/>
+                                            <constraint firstAttribute="centerX" secondItem="5cT-2Y-0Ie" secondAttribute="centerX" id="ESN-yX-pbi"/>
+                                            <constraint firstItem="Oun-t6-8P1" firstAttribute="top" secondItem="rKI-nq-3p7" secondAttribute="bottom" constant="8" id="FNF-we-pWc"/>
+                                            <constraint firstItem="rKI-nq-3p7" firstAttribute="top" secondItem="UgH-77-lyp" secondAttribute="bottom" constant="8" id="KDf-Fg-G0z"/>
+                                            <constraint firstAttribute="bottom" secondItem="nkJ-ZP-8yL" secondAttribute="bottom" constant="420" id="P54-yf-Kc2"/>
+                                            <constraint firstAttribute="centerX" secondItem="Oun-t6-8P1" secondAttribute="centerX" id="VXq-SY-jUx"/>
+                                            <constraint firstItem="PCr-0J-fBj" firstAttribute="top" secondItem="5cT-2Y-0Ie" secondAttribute="bottom" constant="8" id="fIt-vm-nHd"/>
+                                            <constraint firstItem="nkJ-ZP-8yL" firstAttribute="top" secondItem="Oun-t6-8P1" secondAttribute="bottom" constant="8" symbolic="YES" id="h7E-Ze-SdJ"/>
+                                            <constraint firstItem="UgH-77-lyp" firstAttribute="top" secondItem="PCr-0J-fBj" secondAttribute="bottom" constant="8" id="qtp-Rg-T4I"/>
+                                            <constraint firstAttribute="centerX" secondItem="UgH-77-lyp" secondAttribute="centerX" id="vkt-wI-2J0"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="8Qz-4P-2EZ" secondAttribute="width" id="1jF-yN-wFp"/>
+                                    <constraint firstItem="8Qz-4P-2EZ" firstAttribute="leading" secondItem="dKm-Zn-TSm" secondAttribute="leading" id="EQf-DV-3AI"/>
+                                    <constraint firstAttribute="trailing" secondItem="8Qz-4P-2EZ" secondAttribute="trailing" id="H6Y-IN-mTp"/>
+                                    <constraint firstAttribute="bottom" secondItem="8Qz-4P-2EZ" secondAttribute="bottom" id="aHx-yS-3Ab"/>
+                                    <constraint firstItem="8Qz-4P-2EZ" firstAttribute="top" secondItem="dKm-Zn-TSm" secondAttribute="top" id="pph-Xg-w1X"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dKm-Zn-TSm" firstAttribute="top" secondItem="c5n-ZK-2d9" secondAttribute="top" id="CDF-Fi-LFu"/>
+                            <constraint firstItem="dKm-Zn-TSm" firstAttribute="leading" secondItem="c5n-ZK-2d9" secondAttribute="leading" id="QvV-bh-bUf"/>
+                            <constraint firstAttribute="bottom" secondItem="dKm-Zn-TSm" secondAttribute="bottom" id="Uc7-Z6-nwh"/>
+                            <constraint firstAttribute="trailing" secondItem="dKm-Zn-TSm" secondAttribute="trailing" id="ygC-SI-lSL"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="captchaContainer" destination="nkJ-ZP-8yL" id="EVl-1d-gsg"/>
+                        <outlet property="emailField" destination="rKI-nq-3p7" id="FdI-zs-zky"/>
+                        <outlet property="passwordField" destination="PCr-0J-fBj" id="8aR-Qi-zWN"/>
+                        <outlet property="passwordRepeatField" destination="UgH-77-lyp" id="2o9-29-ToR"/>
+                        <outlet property="realnameField" destination="Oun-t6-8P1" id="ePa-SM-Qeg"/>
+                        <outlet property="scrollView" destination="dKm-Zn-TSm" id="gEZ-Pp-aUZ"/>
+                        <outlet property="usernameField" destination="5cT-2Y-0Ie" id="ldu-Gg-yqR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ysT-81-Q5N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-80" y="1953"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="fEN-6l-kyQ">
             <objects>
@@ -169,7 +311,10 @@
                                                     <constraint firstAttribute="width" constant="240" id="b5b-G7-EmR"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="mbm-n6-GWW" id="Dta-AT-UIE"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kVb-lx-d6C">
                                                 <rect key="frame" x="40" y="91" width="240" height="30"/>
@@ -178,15 +323,31 @@
                                                     <constraint firstAttribute="width" constant="240" id="x8H-NL-26X"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="mbm-n6-GWW" id="rQW-xj-Oea"/>
+                                                </connections>
                                             </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="VqR-fO-ROH">
+                                                <rect key="frame" x="175" y="146" width="105" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Create account">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="createAccountButtonPushed:" destination="mbm-n6-GWW" eventType="touchUpInside" id="4Zo-jl-8th"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" constant="441" id="75x-ma-bMA"/>
                                             <constraint firstItem="kVb-lx-d6C" firstAttribute="top" secondItem="mAk-1N-jPC" secondAttribute="bottom" constant="17" id="KqM-Nu-o56"/>
                                             <constraint firstItem="mAk-1N-jPC" firstAttribute="top" secondItem="PEY-pn-IDi" secondAttribute="top" constant="44" id="PnT-ne-msU"/>
                                             <constraint firstAttribute="centerX" secondItem="mAk-1N-jPC" secondAttribute="centerX" id="XfR-k3-Sff"/>
-                                            <constraint firstAttribute="bottom" secondItem="kVb-lx-d6C" secondAttribute="bottom" constant="320" id="fkR-f9-lNk"/>
+                                            <constraint firstItem="VqR-fO-ROH" firstAttribute="top" secondItem="kVb-lx-d6C" secondAttribute="bottom" constant="25" id="azi-eS-HtM"/>
+                                            <constraint firstItem="kVb-lx-d6C" firstAttribute="trailing" secondItem="VqR-fO-ROH" secondAttribute="trailing" id="jJ7-b8-StL"/>
                                             <constraint firstItem="mAk-1N-jPC" firstAttribute="centerX" secondItem="kVb-lx-d6C" secondAttribute="centerX" id="sJv-x3-bei"/>
                                         </constraints>
                                     </view>
@@ -210,6 +371,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
+                        <outlet property="createAccountButton" destination="VqR-fO-ROH" id="Mot-xf-jbZ"/>
                         <outlet property="passwordField" destination="kVb-lx-d6C" id="CMg-WD-j0S"/>
                         <outlet property="scrollView" destination="qMR-5R-aiQ" id="z3y-S5-i6j"/>
                         <outlet property="usernameField" destination="mAk-1N-jPC" id="CQv-Gx-5es"/>
@@ -231,50 +393,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eg4-Lv-DoU" userLabel="Captcha Container">
-                                <rect key="frame" x="10" y="20" width="300" height="180"/>
+                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jtn-ET-Toa" userLabel="Captcha Container">
+                                <rect key="frame" x="20" y="20" width="280" height="163"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8hN-zs-sD0">
-                                        <rect key="frame" x="0.0" y="20" width="300" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="70" id="yDi-pw-FXh"/>
-                                        </constraints>
-                                    </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter captcha text from image above" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AIA-vO-cLI">
-                                        <rect key="frame" x="0.0" y="140" width="300" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="QGI-DM-j1P">
-                                        <rect key="frame" x="0.0" y="100" width="300" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Show another captcha">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="reloadCaptchaPushed:" destination="5er-xi-5lN" eventType="touchUpInside" id="GKO-FE-drO"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="AIA-vO-cLI" secondAttribute="trailing" id="ANd-OL-beV"/>
-                                    <constraint firstItem="QGI-DM-j1P" firstAttribute="leading" secondItem="eg4-Lv-DoU" secondAttribute="leading" id="IS8-cl-t1I"/>
-                                    <constraint firstItem="8hN-zs-sD0" firstAttribute="leading" secondItem="eg4-Lv-DoU" secondAttribute="leading" id="KV5-w3-mhP"/>
-                                    <constraint firstAttribute="trailing" secondItem="QGI-DM-j1P" secondAttribute="trailing" id="RSj-EU-I8r"/>
-                                    <constraint firstItem="QGI-DM-j1P" firstAttribute="top" secondItem="8hN-zs-sD0" secondAttribute="bottom" constant="10" id="Y5o-hM-GvO"/>
-                                    <constraint firstItem="8hN-zs-sD0" firstAttribute="top" secondItem="eg4-Lv-DoU" secondAttribute="top" constant="20" id="dN9-Hy-wxB"/>
-                                    <constraint firstAttribute="trailing" secondItem="8hN-zs-sD0" secondAttribute="trailing" id="e3T-Si-9fd"/>
-                                    <constraint firstAttribute="bottom" secondItem="AIA-vO-cLI" secondAttribute="bottom" constant="10" id="pnc-Rh-wxe"/>
-                                    <constraint firstItem="AIA-vO-cLI" firstAttribute="top" secondItem="QGI-DM-j1P" secondAttribute="bottom" constant="10" id="xSm-ld-O3k"/>
-                                    <constraint firstItem="AIA-vO-cLI" firstAttribute="leading" secondItem="eg4-Lv-DoU" secondAttribute="leading" id="xhe-j7-Tls"/>
+                                    <constraint firstAttribute="height" constant="163" id="bLP-7Y-Imv"/>
                                 </constraints>
-                            </view>
+                                <connections>
+                                    <segue destination="sIA-fC-CW8" kind="embed" identifier="SectionEditor_Captcha_Embed" id="VhD-Zl-t0A"/>
+                                </connections>
+                            </containerView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohj-LA-82c">
-                                <rect key="frame" x="5" y="200" width="310" height="368"/>
+                                <rect key="frame" x="5" y="191" width="310" height="377"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
@@ -284,26 +415,80 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ohj-LA-82c" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="5" id="GW3-Ua-a8X"/>
-                            <constraint firstAttribute="trailing" secondItem="eg4-Lv-DoU" secondAttribute="trailing" constant="10" id="Ov1-hZ-CTt"/>
+                            <constraint firstAttribute="trailing" secondItem="Jtn-ET-Toa" secondAttribute="trailing" constant="20" symbolic="YES" id="MYt-bP-GhC"/>
+                            <constraint firstItem="Jtn-ET-Toa" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="20" symbolic="YES" id="Ybq-pR-Xwk"/>
                             <constraint firstAttribute="trailing" secondItem="ohj-LA-82c" secondAttribute="trailing" constant="5" id="aPb-dZ-HOe"/>
                             <constraint firstAttribute="bottom" secondItem="ohj-LA-82c" secondAttribute="bottom" id="eMa-8O-6mo"/>
-                            <constraint firstItem="ohj-LA-82c" firstAttribute="top" secondItem="eg4-Lv-DoU" secondAttribute="bottom" placeholder="YES" id="h9H-gX-FwV"/>
-                            <constraint firstItem="eg4-Lv-DoU" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="10" id="hIS-z5-BGj"/>
-                            <constraint firstItem="eg4-Lv-DoU" firstAttribute="top" secondItem="Uij-Jt-RyQ" secondAttribute="bottom" id="kYE-Qj-Fio"/>
+                            <constraint firstItem="ohj-LA-82c" firstAttribute="top" secondItem="Jtn-ET-Toa" secondAttribute="bottom" constant="8" symbolic="YES" placeholder="YES" id="qFl-Lk-XcU"/>
+                            <constraint firstItem="Jtn-ET-Toa" firstAttribute="top" secondItem="Cex-zA-X93" secondAttribute="top" constant="20" symbolic="YES" id="ssW-qx-wtK"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
-                        <outlet property="captchaContainer" destination="eg4-Lv-DoU" id="9Ek-3Z-AYp"/>
-                        <outlet property="captchaImageView" destination="8hN-zs-sD0" id="STI-qB-Qus"/>
-                        <outlet property="captchaTextBox" destination="AIA-vO-cLI" id="P4b-uf-JW8"/>
+                        <outlet property="captchaContainer" destination="Jtn-ET-Toa" id="Avw-N7-N6x"/>
                         <outlet property="editTextView" destination="ohj-LA-82c" id="uOG-V5-Eqx"/>
-                        <outlet property="reloadCaptchaButton" destination="QGI-DM-j1P" id="aIr-WK-938"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DEY-rf-Gnw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="471" y="1015"/>
+            <point key="canvasLocation" x="599" y="1393"/>
+        </scene>
+        <!--Captcha View Controller-->
+        <scene sceneID="bAd-gv-kTa">
+            <objects>
+                <viewController restorationIdentifier="CaptchaViewController" storyboardIdentifier="CaptchaViewController" id="sIA-fC-CW8" customClass="CaptchaViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SY2-Hg-a3u"/>
+                        <viewControllerLayoutGuide type="bottom" id="NcO-7E-4V6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2UF-VY-OwF">
+                        <rect key="frame" x="0.0" y="0.0" width="280" height="163"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ubi-fl-THX">
+                                <rect key="frame" x="0.0" y="20" width="280" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="djK-ra-WHc"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="21c-U6-yfo">
+                                <rect key="frame" x="0.0" y="100" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Show another captcha">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter captcha text from image above" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gPg-cg-Yjy">
+                                <rect key="frame" x="0.0" y="140" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gPg-cg-Yjy" firstAttribute="leading" secondItem="2UF-VY-OwF" secondAttribute="leading" id="1EX-nt-ubH"/>
+                            <constraint firstAttribute="trailing" secondItem="ubi-fl-THX" secondAttribute="trailing" id="1Td-fM-XPv"/>
+                            <constraint firstItem="21c-U6-yfo" firstAttribute="leading" secondItem="2UF-VY-OwF" secondAttribute="leading" id="2CR-db-V5c"/>
+                            <constraint firstAttribute="trailing" secondItem="gPg-cg-Yjy" secondAttribute="trailing" id="4AJ-yn-CG2"/>
+                            <constraint firstItem="ubi-fl-THX" firstAttribute="top" secondItem="2UF-VY-OwF" secondAttribute="top" constant="20" id="DPC-k6-MUG"/>
+                            <constraint firstItem="21c-U6-yfo" firstAttribute="top" secondItem="ubi-fl-THX" secondAttribute="bottom" constant="10" id="buE-gO-Th9"/>
+                            <constraint firstItem="ubi-fl-THX" firstAttribute="leading" secondItem="2UF-VY-OwF" secondAttribute="leading" id="hvo-cb-rAM"/>
+                            <constraint firstAttribute="trailing" secondItem="21c-U6-yfo" secondAttribute="trailing" id="iuC-PQ-O9K"/>
+                            <constraint firstItem="gPg-cg-Yjy" firstAttribute="top" secondItem="21c-U6-yfo" secondAttribute="bottom" constant="10" id="ws5-VT-2g2"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="captchaImageView" destination="ubi-fl-THX" id="M7P-e6-2ct"/>
+                        <outlet property="captchaTextBox" destination="gPg-cg-Yjy" id="3QO-Xc-yVP"/>
+                        <outlet property="reloadCaptchaButton" destination="21c-U6-yfo" id="b2a-xv-a69"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eHF-WC-RSd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="548" y="2296"/>
         </scene>
         <!--Saved Pages View Controller-->
         <scene sceneID="IrT-ak-0hr">
@@ -585,4 +770,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="HJg-5s-ewq"/>
+    </inferredMetricsTieBreakers>
 </document>

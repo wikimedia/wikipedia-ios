@@ -389,7 +389,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
 {
     if (section == SECTION_ARTICLE_OPTIONS && self.hidePagesSection) {
-        return 0.01;
+        return 0.0;
     }
     return 63;
 }
@@ -546,6 +546,7 @@
     labelCopy.text = labelToCopy.text;
     labelCopy.font = labelToCopy.font;
     labelCopy.textColor = [UIColor colorWithWhite:0.3 alpha:1.0];
+    labelCopy.backgroundColor = [UIColor clearColor];
     labelCopy.textAlignment = labelToCopy.textAlignment;
     labelCopy.lineBreakMode = labelToCopy.lineBreakMode;
     labelCopy.numberOfLines = labelToCopy.numberOfLines;

@@ -18,12 +18,14 @@ typedef enum {
     NAVBAR_MODE_EDIT_WIKITEXT = 1,
     NAVBAR_MODE_EDIT_WIKITEXT_WARNING = 2,
     NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW = 3,
-    NAVBAR_MODE_LOGIN = 4
+    NAVBAR_MODE_LOGIN = 4,
+    NAVBAR_MODE_CREATE_ACCOUNT = 5
 } NavBarMode;
 
 typedef enum {
-    NAVBAR_STYLE_DAY = 0,
-    NAVBAR_STYLE_NIGHT = 1
+    NAVBAR_STYLE_UNKNOWN = 0,
+    NAVBAR_STYLE_DAY = 1,
+    NAVBAR_STYLE_NIGHT = 2
 } NavBarStyle;
 
 @interface NavController : UINavigationController <UITextFieldDelegate, UISearchBarDelegate>

@@ -8,6 +8,8 @@
 #import "SessionSingleton.h"
 #import "UIViewController+Alert.h"
 #import "NSHTTPCookieStorage+CloneCookie.h"
+#import "AccountCreationViewController.h"
+#import "UIButton+ColorMask.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -27,6 +29,9 @@
     // Do any additional setup after loading the view.
 
     self.navigationItem.hidesBackButton = YES;
+    [self.createAccountButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [self.createAccountButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateSelected];
+    [self.createAccountButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
 
     UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress)];
     longPressRecognizer.minimumPressDuration = 1.0f;
@@ -34,6 +39,59 @@
 
     if ([self.scrollView respondsToSelector:@selector(keyboardDismissMode)]) {
         self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    }
+    
+    [self.usernameField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.passwordField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];    
+}
+
+-(void)textFieldDidChange:(id)sender
+{
+    BOOL shouldHighlight = ((self.usernameField.text.length > 0) && (self.passwordField.text.length > 0)) ? YES : NO;
+    [self highlightCheckButton:shouldHighlight];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == self.usernameField) {
+        [self.passwordField becomeFirstResponder];
+    }else if(textField == self.passwordField) {
+        [self save];
+    }
+    return YES;
+}
+
+-(void)highlightCheckButton:(BOOL)highlight
+{
+    UIButton *checkButton = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
+    
+    checkButton.backgroundColor = highlight ?
+        [UIColor colorWithRed:0.19 green:0.70 blue:0.55 alpha:1.0]
+        :
+        [UIColor clearColor];
+    
+    [checkButton maskButtonImageWithColor: highlight ?
+        [UIColor whiteColor]
+        :
+        [UIColor blackColor]
+     ];
+}
+
+// Handle nav bar taps.
+- (void)navItemTappedNotification:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    UIView *tappedItem = userInfo[@"tappedItem"];
+
+    switch (tappedItem.tag) {
+        case NAVBAR_BUTTON_CHECK:
+            [self save];
+            break;
+        case NAVBAR_BUTTON_X:
+            [self hide];
+            break;
+        default:
+            break;
     }
 }
 
@@ -48,28 +106,19 @@
 {
     [super viewWillAppear:animated];
     
-    [self configureNavBar];
+    NAV.navBarMode = NAVBAR_MODE_LOGIN;
+    ((UILabel *)[NAV getNavBarItem:NAVBAR_LABEL]).text = @"Sign In";
+    
+    [self highlightCheckButton:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self.usernameField becomeFirstResponder];
-}
 
--(void)configureNavBar
-{
-    NAV.navBarMode = NAVBAR_MODE_LOGIN;
-    
-    [[NAV getNavBarItem:NAVBAR_BUTTON_CHECK] addTarget: self
-                                                action: @selector(save)
-                                      forControlEvents: UIControlEventTouchUpInside];
-    
-    [[NAV getNavBarItem:NAVBAR_BUTTON_X] addTarget: self
-                                            action: @selector(hide)
-                                  forControlEvents: UIControlEventTouchUpInside];
-    
-    ((UILabel *)[NAV getNavBarItem:NAVBAR_LABEL]).text = @"Sign In";
+    // Listen for nav bar taps.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navItemTappedNotification:) name:@"NavItemTapped" object:nil];
 }
 
 -(void)save
@@ -79,22 +128,17 @@
 
 -(void)hide
 {
-    // Remove these listeners before popping the VC or you get sadness and crashes.
-    [[NAV getNavBarItem:NAVBAR_BUTTON_CHECK] removeTarget: self
-                                                   action: @selector(save)
-                                         forControlEvents: UIControlEventTouchUpInside];
-    
-    [[NAV getNavBarItem:NAVBAR_BUTTON_X] removeTarget: self
-                                               action: @selector(cancel)
-                                     forControlEvents: UIControlEventTouchUpInside];
-    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+    [self highlightCheckButton:NO];
+
     [super viewWillDisappear:animated];
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
+
     NAV.navBarMode = NAVBAR_MODE_SEARCH;
 }
 
@@ -204,6 +248,12 @@
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] recreateCookie: @"centralauth_Session"
                                             usingCookieAsTemplate: @"centralauth_User"
      ];
+}
+
+- (IBAction)createAccountButtonPushed:(id)sender
+{
+    AccountCreationViewController *createAcctVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"AccountCreationViewController"];
+    [self.navigationController pushViewController:createAcctVC animated:YES];
 }
 
 @end

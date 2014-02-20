@@ -149,6 +149,8 @@
       ]
      ];
     
+    CGFloat verticalLineTopMargin = 0;
+    
     // Now take the views which were constrained horizontally (above) and constrain them
     // vertically as well. Also set hidden = NO for just these views.
     for (NSLayoutConstraint *c in [self.navBarContainer.constraints copy]) {
@@ -157,7 +159,7 @@
         [self.navBarContainer addConstraints:
          [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-(topMargin)-[view]|"
                                                  options: 0
-                                                 metrics: @{@"topMargin": @((view.tag == NAVBAR_VERTICAL_LINE) ? 5 : 0)}
+                                                 metrics: @{@"topMargin": @((view.tag == NAVBAR_VERTICAL_LINE) ? verticalLineTopMargin : 0)}
                                                    views: NSDictionaryOfVariableBindings(view)
           ]
          ];
@@ -180,7 +182,7 @@
             [self.navBarContainer addConstraints:
              [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-(topMargin)-[view]|"
                                                      options: 0
-                                                     metrics: @{@"topMargin": @((view.tag == NAVBAR_VERTICAL_LINE) ? 5 : 0)}
+                                                     metrics: @{@"topMargin": @((view.tag == NAVBAR_VERTICAL_LINE) ? verticalLineTopMargin : 0)}
                                                        views: NSDictionaryOfVariableBindings(view)
               ]
              ];
@@ -210,11 +212,13 @@
     [self.navBarContainer addSubview:self.textField];
  
     UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 26, 26)];
+    clearButton.backgroundColor = [UIColor clearColor];
     [clearButton setImage:[UIImage imageNamed:@"text_field_x_circle_gray.png"] forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearTextFieldText) forControlEvents:UIControlEventTouchUpInside];
     
     self.textField.rightView = clearButton;
-    self.textField.rightViewMode = UITextFieldViewModeWhileEditing;
+    self.textField.rightViewMode = UITextFieldViewModeAlways;
+    self.textField.rightView.hidden = YES;
 
     UIView *(^getLineView)() = ^UIView *() {
         UIView *view = [[UIView alloc] init];
@@ -240,6 +244,7 @@
 
     UIButton *(^getButton)(NSString *, NavBarItemTag) = ^UIButton *(NSString *image, NavBarItemTag tag) {
         UIButton *button = [[UIButton alloc] init];
+        [button setTitle:@"" forState:UIControlStateNormal];
         button.translatesAutoresizingMaskIntoConstraints = NO;
         button.backgroundColor = [UIColor clearColor];
         button.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -325,28 +330,39 @@
              };
 }
 
+-(void)clearViewControllerTitles
+{
+    // Without this 3 little blue dots can appear on left of nav bar on iOS 7 during animations.
+    [self.viewControllers makeObjectsPerformSelector:@selector(setTitle:) withObject:@""];
+}
+
 -(void)setNavBarMode:(NavBarMode)navBarMode
 {
-        _navBarMode = navBarMode;
-        switch (navBarMode) {
-            case NAVBAR_MODE_EDIT_WIKITEXT:
-                self.label.text = @"Edit";
-            case NAVBAR_MODE_LOGIN:
-                self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
-                break;
-            case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
-                self.label.text = @"Edit issues";
-                self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_CHECK(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_PENCIL(50)]|";
-                break;
-            case NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW:
-                self.label.text = @"Edit issues";
-                self.navBarSubViewsHorizontalVFLString = @"H:|-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_BUTTON_PENCIL(50)]|";
-                break;
-            default: //NAVBAR_STYLE_SEARCH
-                self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_LOGO_W(65)][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_TEXT_FIELD]-(10)-|";
-                break;
-        }
-        [self.view setNeedsUpdateConstraints];
+    [self clearViewControllerTitles];
+
+    _navBarMode = navBarMode;
+    switch (navBarMode) {
+        case NAVBAR_MODE_EDIT_WIKITEXT:
+            self.label.text = @"Edit";
+        case NAVBAR_MODE_LOGIN:
+            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+            break;
+        case NAVBAR_MODE_CREATE_ACCOUNT:
+            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+            break;
+        case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
+            self.label.text = @"Edit issues";
+            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_CHECK(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_PENCIL(50)]|";
+            break;
+        case NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW:
+            self.label.text = @"Edit issues";
+            self.navBarSubViewsHorizontalVFLString = @"H:|-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_BUTTON_PENCIL(50)]|";
+            break;
+        default: //NAVBAR_STYLE_SEARCH
+            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_LOGO_W(65)][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_TEXT_FIELD]-(10)-|";
+            break;
+    }
+    [self.view setNeedsUpdateConstraints];
 }
 
 -(void)navItemTapped:(id)sender
@@ -471,17 +487,13 @@
 {
     if (_navBarStyle != navBarStyle) {
         _navBarStyle = navBarStyle;
-        
+
         // Make the nav bar itself be light or dark.
-        switch (navBarStyle) {
-            case NAVBAR_STYLE_DAY:
-                [self.navigationBar setBarTintColor:[UIColor colorWithWhite:1.0 alpha:0.9]];
-                break;
-            case NAVBAR_STYLE_NIGHT:
-                [self.navigationBar setBarTintColor:[UIColor colorWithWhite:0.0 alpha:0.9]];
-                break;
-            default:
-                break;
+        NSDictionary *colors = [self getNavBarColorsForNavBarStyle:navBarStyle];
+        if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
+            self.navigationBar.backgroundColor = colors[@"NAVBAR_COLOR_PRE_IOS_7"];
+        }else{
+            [self.navigationBar setBarTintColor:colors[@"NAVBAR_COLOR"]];
         }
         
         // Make the status bar above the nav bar use light or dark text.
@@ -501,27 +513,31 @@
     return (self.navBarStyle == NAVBAR_STYLE_DAY) ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent;
 }
 
--(NSDictionary *)getNavBarSubViewsColorsForNavBarStyle:(NavBarStyle)navBarStyle
+-(NSDictionary *)getNavBarColorsForNavBarStyle:(NavBarStyle)navBarStyle
 {
     NSDictionary *output = nil;
     switch (navBarStyle) {
         case NAVBAR_STYLE_DAY:{
             output = @{
-                       @"NAVBAR_TEXT_FIELD_TEXT_COLOR": [UIColor lightGrayColor],
-                       @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor lightGrayColor],
-                       @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1.0],
-                       @"NAVBAR_BUTTON_COLOR": [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0],
-                       @"NAVBAR_LABEL_TEXT_COLOR": [UIColor lightGrayColor],
+                       @"NAVBAR_COLOR": [UIColor colorWithWhite:1.0 alpha:0.9],
+                       @"NAVBAR_COLOR_PRE_IOS_7": [UIColor colorWithWhite:1.0 alpha:0.983],
+                       @"NAVBAR_TEXT_FIELD_TEXT_COLOR": [UIColor colorWithWhite:0.33 alpha:1.0],
+                       @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor colorWithWhite:0.33 alpha:1.0],
+                       @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor colorWithWhite:0.33 alpha:1.0],
+                       @"NAVBAR_BUTTON_COLOR": [UIColor blackColor],
+                       @"NAVBAR_LABEL_TEXT_COLOR": [UIColor blackColor],
                        @"NAVBAR_VERTICAL_LINE_COLOR": [UIColor lightGrayColor]
                        };
         }
             break;
         case NAVBAR_STYLE_NIGHT:{
             output = @{
+                       @"NAVBAR_COLOR": [UIColor colorWithWhite:0.0 alpha:0.9],
+                       @"NAVBAR_COLOR_PRE_IOS_7": [UIColor colorWithWhite:0.0 alpha:0.925],
                        @"NAVBAR_TEXT_FIELD_TEXT_COLOR": [UIColor whiteColor],
-                       @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor lightGrayColor],
-                       @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0],
-                       @"NAVBAR_BUTTON_COLOR": [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0],
+                       @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor whiteColor],
+                       @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor whiteColor],
+                       @"NAVBAR_BUTTON_COLOR": [UIColor whiteColor],
                        @"NAVBAR_LABEL_TEXT_COLOR": [UIColor whiteColor],
                        @"NAVBAR_VERTICAL_LINE_COLOR": [UIColor whiteColor]
                        };
@@ -536,7 +552,7 @@
 
 -(void)updateViewAppearance:(UIView *)view forNavBarStyle:(NavBarStyle)navBarStyle
 {
-    NSDictionary *colors = [self getNavBarSubViewsColorsForNavBarStyle:navBarStyle];
+    NSDictionary *colors = [self getNavBarColorsForNavBarStyle:navBarStyle];
 
     switch (view.tag) {
         case NAVBAR_BUTTON_X:
@@ -555,7 +571,9 @@
             
             // Typed text and cursor.
             textField.textColor = colors[@"NAVBAR_TEXT_FIELD_TEXT_COLOR"];
-            textField.tintColor = colors[@"NAVBAR_TEXT_FIELD_TEXT_COLOR"];
+            if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
+                textField.tintColor = colors[@"NAVBAR_TEXT_FIELD_TEXT_COLOR"];
+            }
             
             // Placeholder text.
             textField.placeholderColor = colors[@"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR"];

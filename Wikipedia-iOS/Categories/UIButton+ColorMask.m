@@ -11,7 +11,7 @@
     // Generate colored button image on a background q.
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
         UIImage *filteredImage = [buttonImage getImageOfColor:maskColor.CGColor];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_sync(dispatch_get_main_queue(), ^{
             // Update ui element on main thread.
             [self setImage:filteredImage forState:UIControlStateNormal];
             [self setNeedsDisplay];

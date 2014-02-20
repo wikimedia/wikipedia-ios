@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) NSOperationQueue *sectionWikiTextQ;
 @property (strong, nonatomic) NSOperationQueue *langLinksQ;
+@property (strong, nonatomic) NSOperationQueue *accountCreationQ;
 
 + (QueuesSingleton *)sharedInstance;
 
