@@ -67,14 +67,14 @@
     self = [super init];
     if (self) {
 
-        self.domain = domain;
-        self.userName = userName;
-        self.password = password;
-        self.realName = realName;
-        self.email = email;
-        self.token = token;
-        self.captchaId = captchaId;
-        self.captchaWord = captchaWord;
+        self.domain = domain ? domain : @"";
+        self.userName = userName ? userName : @"";
+        self.password = password ? password : @"";
+        self.realName = realName ? realName : @"";
+        self.email = email ? email : @"";
+        self.token = token ? token : @"";
+        self.captchaId = captchaId ? captchaId : @"";
+        self.captchaWord = captchaWord ? captchaWord : @"";
 
         __weak AccountCreationOp *weakSelf = self;
         self.aboutToStart = ^{

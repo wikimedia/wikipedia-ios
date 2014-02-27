@@ -104,7 +104,7 @@
     if (status == errSecSuccess) {
         return YES;
     } else {
-        NSLog(@"Keychain: SecItemUpdate returned %i", (int)status);
+        //NSLog(@"Keychain: SecItemUpdate returned %i", (int)status);
         return NO;
     }
 }
@@ -128,7 +128,7 @@
         NSData *result = (__bridge_transfer NSData *)found;
         return [[NSString alloc] initWithData: result encoding:NSUTF8StringEncoding];
     } else {
-        NSLog(@"Keychain: SecItemCopyMatching returned %i", (int)status);
+        //NSLog(@"Keychain: SecItemCopyMatching returned %i", (int)status);
         return nil;
     }
 }
