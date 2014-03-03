@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5051" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Iku-rK-nd2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5051" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Iku-rK-nd2">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -60,7 +60,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="erJ-jP-eM0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1164" y="1325"/>
+            <point key="canvasLocation" x="605" y="1325"/>
         </scene>
         <!--Main Menu Table View Controller-->
         <scene sceneID="7EX-cX-HXj">
@@ -140,7 +140,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I47-Yh-yr4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="94" y="616"/>
+            <point key="canvasLocation" x="89" y="581"/>
         </scene>
         <!--Account Creation View Controller-->
         <scene sceneID="Atg-7d-baS">
@@ -282,7 +282,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ysT-81-Q5N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-80" y="1953"/>
+            <point key="canvasLocation" x="1104" y="2092"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="fEN-6l-kyQ">
@@ -379,7 +379,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nlo-6M-8WC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="94" y="1325"/>
+            <point key="canvasLocation" x="89" y="1325"/>
         </scene>
         <!--Section Editor View Controller-->
         <scene sceneID="BWG-Ga-8hx">
@@ -393,19 +393,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jtn-ET-Toa" userLabel="Captcha Container">
-                                <rect key="frame" x="20" y="20" width="280" height="163"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="163" id="bLP-7Y-Imv"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="sIA-fC-CW8" kind="embed" identifier="SectionEditor_Captcha_Embed" id="VhD-Zl-t0A"/>
-                                </connections>
-                            </containerView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohj-LA-82c">
-                                <rect key="frame" x="5" y="191" width="310" height="377"/>
+                                <rect key="frame" x="5" y="5" width="310" height="563"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
@@ -415,23 +404,99 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ohj-LA-82c" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="5" id="GW3-Ua-a8X"/>
-                            <constraint firstAttribute="trailing" secondItem="Jtn-ET-Toa" secondAttribute="trailing" constant="20" symbolic="YES" id="MYt-bP-GhC"/>
-                            <constraint firstItem="Jtn-ET-Toa" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="20" symbolic="YES" id="Ybq-pR-Xwk"/>
+                            <constraint firstItem="ohj-LA-82c" firstAttribute="top" secondItem="Cex-zA-X93" secondAttribute="top" constant="5" id="NPC-TM-Xq1"/>
                             <constraint firstAttribute="trailing" secondItem="ohj-LA-82c" secondAttribute="trailing" constant="5" id="aPb-dZ-HOe"/>
                             <constraint firstAttribute="bottom" secondItem="ohj-LA-82c" secondAttribute="bottom" id="eMa-8O-6mo"/>
-                            <constraint firstItem="ohj-LA-82c" firstAttribute="top" secondItem="Jtn-ET-Toa" secondAttribute="bottom" constant="8" symbolic="YES" placeholder="YES" id="qFl-Lk-XcU"/>
-                            <constraint firstItem="Jtn-ET-Toa" firstAttribute="top" secondItem="Cex-zA-X93" secondAttribute="top" constant="20" symbolic="YES" id="ssW-qx-wtK"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
-                        <outlet property="captchaContainer" destination="Jtn-ET-Toa" id="Avw-N7-N6x"/>
                         <outlet property="editTextView" destination="ohj-LA-82c" id="uOG-V5-Eqx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DEY-rf-Gnw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="599" y="1393"/>
+            <point key="canvasLocation" x="1104" y="1317"/>
+        </scene>
+        <!--Preview And Save View Controller-->
+        <scene sceneID="TJS-xh-DjB">
+            <objects>
+                <viewController restorationIdentifier="PreviewViewController" storyboardIdentifier="PreviewViewController" id="YCc-it-nqb" customClass="PreviewAndSaveViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Mk2-1E-CSA"/>
+                        <viewControllerLayoutGuide type="bottom" id="LhU-TB-lQR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tP4-ul-Au7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EhD-15-Yw7" customClass="PreviewWebView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w3I-Dk-osW">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcy-cO-aq9" userLabel="Scroll Container">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="583"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bEh-0m-jAS">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="163"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="163" id="16b-wr-HNw"/>
+                                                </constraints>
+                                                <connections>
+                                                    <segue destination="sIA-fC-CW8" kind="embed" identifier="Preview_Captcha_Embed" id="ca4-hw-8WK"/>
+                                                </connections>
+                                            </containerView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="bEh-0m-jAS" firstAttribute="top" secondItem="Vcy-cO-aq9" secondAttribute="top" id="9rS-8Z-Njh"/>
+                                            <constraint firstItem="bEh-0m-jAS" firstAttribute="leading" secondItem="Vcy-cO-aq9" secondAttribute="leading" id="D1V-sH-jFs"/>
+                                            <constraint firstAttribute="trailing" secondItem="bEh-0m-jAS" secondAttribute="trailing" id="Gmr-fe-huM"/>
+                                            <constraint firstAttribute="centerX" secondItem="bEh-0m-jAS" secondAttribute="centerX" id="ITZ-NZ-Hcs"/>
+                                            <constraint firstAttribute="bottom" secondItem="bEh-0m-jAS" secondAttribute="bottom" constant="420" id="ry0-II-3D8"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Vcy-cO-aq9" secondAttribute="bottom" id="CCw-6A-TYR"/>
+                                    <constraint firstItem="Vcy-cO-aq9" firstAttribute="width" secondItem="w3I-Dk-osW" secondAttribute="width" id="DZR-WP-NMI"/>
+                                    <constraint firstItem="Vcy-cO-aq9" firstAttribute="leading" secondItem="w3I-Dk-osW" secondAttribute="leading" id="H4W-yH-6vr"/>
+                                    <constraint firstItem="Vcy-cO-aq9" firstAttribute="top" secondItem="w3I-Dk-osW" secondAttribute="top" id="lkd-Fm-aCU"/>
+                                    <constraint firstAttribute="trailing" secondItem="Vcy-cO-aq9" secondAttribute="trailing" id="siT-BD-WLG"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="w3I-Dk-osW" secondAttribute="trailing" id="4Hp-8S-Y92"/>
+                            <constraint firstItem="w3I-Dk-osW" firstAttribute="leading" secondItem="tP4-ul-Au7" secondAttribute="leading" id="5tC-0O-NX6"/>
+                            <constraint firstAttribute="trailing" secondItem="EhD-15-Yw7" secondAttribute="trailing" id="6x7-iV-EJ0"/>
+                            <constraint firstAttribute="bottom" secondItem="w3I-Dk-osW" secondAttribute="bottom" id="ERj-B7-2EF"/>
+                            <constraint firstItem="w3I-Dk-osW" firstAttribute="top" secondItem="tP4-ul-Au7" secondAttribute="top" id="F4A-PB-dbW"/>
+                            <constraint firstItem="EhD-15-Yw7" firstAttribute="leading" secondItem="tP4-ul-Au7" secondAttribute="leading" id="KIb-JZ-SKf"/>
+                            <constraint firstAttribute="bottom" secondItem="EhD-15-Yw7" secondAttribute="bottom" id="q9r-BL-yhD"/>
+                            <constraint firstItem="EhD-15-Yw7" firstAttribute="top" secondItem="tP4-ul-Au7" secondAttribute="top" id="qgD-Cz-hcp"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="captchaContainer" destination="bEh-0m-jAS" id="XJu-Rn-30B"/>
+                        <outlet property="previewWebView" destination="EhD-15-Yw7" id="syP-Dy-I4o"/>
+                        <outlet property="scrollContainer" destination="Vcy-cO-aq9" id="FfJ-bO-lQK"/>
+                        <outlet property="scrollView" destination="w3I-Dk-osW" id="yLA-4o-PCw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lKe-tq-9vz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1104" y="2848"/>
         </scene>
         <!--Captcha View Controller-->
         <scene sceneID="bAd-gv-kTa">
@@ -442,37 +507,39 @@
                         <viewControllerLayoutGuide type="bottom" id="NcO-7E-4V6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2UF-VY-OwF">
-                        <rect key="frame" x="0.0" y="0.0" width="280" height="163"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="163"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ubi-fl-THX">
-                                <rect key="frame" x="0.0" y="20" width="280" height="70"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="djK-ra-WHc"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="21c-U6-yfo">
-                                <rect key="frame" x="0.0" y="100" width="280" height="30"/>
+                                <rect key="frame" x="0.0" y="100" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Show another captcha">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter captcha text from image above" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gPg-cg-Yjy">
-                                <rect key="frame" x="0.0" y="140" width="280" height="30"/>
+                                <rect key="frame" x="20" y="140" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="6wn-Hx-rhl"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="gPg-cg-Yjy" firstAttribute="leading" secondItem="2UF-VY-OwF" secondAttribute="leading" id="1EX-nt-ubH"/>
                             <constraint firstAttribute="trailing" secondItem="ubi-fl-THX" secondAttribute="trailing" id="1Td-fM-XPv"/>
                             <constraint firstItem="21c-U6-yfo" firstAttribute="leading" secondItem="2UF-VY-OwF" secondAttribute="leading" id="2CR-db-V5c"/>
-                            <constraint firstAttribute="trailing" secondItem="gPg-cg-Yjy" secondAttribute="trailing" id="4AJ-yn-CG2"/>
                             <constraint firstItem="ubi-fl-THX" firstAttribute="top" secondItem="2UF-VY-OwF" secondAttribute="top" constant="20" id="DPC-k6-MUG"/>
+                            <constraint firstAttribute="centerX" secondItem="gPg-cg-Yjy" secondAttribute="centerX" id="ZLk-CP-XhB"/>
                             <constraint firstItem="21c-U6-yfo" firstAttribute="top" secondItem="ubi-fl-THX" secondAttribute="bottom" constant="10" id="buE-gO-Th9"/>
                             <constraint firstItem="ubi-fl-THX" firstAttribute="leading" secondItem="2UF-VY-OwF" secondAttribute="leading" id="hvo-cb-rAM"/>
                             <constraint firstAttribute="trailing" secondItem="21c-U6-yfo" secondAttribute="trailing" id="iuC-PQ-O9K"/>
@@ -488,7 +555,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHF-WC-RSd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="548" y="2296"/>
+            <point key="canvasLocation" x="1753" y="2294"/>
         </scene>
         <!--Saved Pages View Controller-->
         <scene sceneID="IrT-ak-0hr">
@@ -517,7 +584,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PDQ-kS-sDG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="708" y="337"/>
+            <point key="canvasLocation" x="605" y="581"/>
         </scene>
         <!--History View Controller-->
         <scene sceneID="MQq-lR-zdc">
@@ -546,7 +613,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dIj-5a-go1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="721" y="-563"/>
+            <point key="canvasLocation" x="605" y="-164"/>
         </scene>
         <!--Search Results Controller-->
         <scene sceneID="Jmf-xS-W4M">
@@ -586,7 +653,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QYs-yc-yzW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1104" y="-100"/>
+            <point key="canvasLocation" x="1104" y="-164"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="ufC-wZ-h7g">
@@ -740,7 +807,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="181" y="-116"/>
+            <point key="canvasLocation" x="89" y="-164"/>
         </scene>
         <!--Nav Controller-->
         <scene sceneID="dor-Wk-JQd">
@@ -762,7 +829,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aFT-wt-Ywo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-299" y="-164"/>
+            <point key="canvasLocation" x="-407" y="-164"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -771,6 +838,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="HJg-5s-ewq"/>
+        <segue reference="ca4-hw-8WK"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -51,7 +51,6 @@ typedef enum {
 @property (nonatomic) NSInteger indexOfFirstOnscreenSectionBeforeRotate;
 @property (strong, nonatomic) NSDictionary *adjacentHistoryIDs;
 @property (nonatomic) BOOL tocVisible;
-@property (nonatomic) BOOL sectionEditingVisible;
 @property (nonatomic) NSUInteger sectionToEditIndex;
 @property (strong, nonatomic) NSMutableArray *tocConstraints;
 @property (strong, nonatomic) NSString *externalUrl;
@@ -75,7 +74,6 @@ typedef enum {
     self.sectionToEditIndex = 0;
 
     self.tocVisible = NO;
-    self.sectionEditingVisible = NO;
     self.forwardButton.transform = CGAffineTransformMakeScale(-1.0, 1.0);
     self.indexOfFirstOnscreenSectionBeforeRotate = -1;
 
@@ -117,6 +115,9 @@ typedef enum {
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    NAV.navBarMode = NAVBAR_MODE_SEARCH;
+    
     self.tocVisible = NO;
 }
 
@@ -134,68 +135,27 @@ typedef enum {
 
 #pragma mark Edit section
 
--(BOOL)sectionEditingVisible
+
+-(void)showSectionEditor
 {
-    SectionEditorViewController *sectionEditVC = [self searchForChildViewControllerOfClass:[SectionEditorViewController class]];
+    SectionEditorViewController *sectionEditVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SectionEditorViewController"];
 
-    return (sectionEditVC) ? YES : NO;
-}
-
--(void)setSectionEditingVisible:(BOOL)sectionEditingVisible
-{
-    BOOL _sectionEditingVisible = self.sectionEditingVisible;
-    
-    if(_sectionEditingVisible != sectionEditingVisible){
-        _sectionEditingVisible = sectionEditingVisible;
+    NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+                                                                                  domain: [SessionSingleton sharedInstance].currentArticleDomain];
+    if (articleID) {
+        Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
         
-        SectionEditorViewController *sectionEditVC = [self searchForChildViewControllerOfClass:[SectionEditorViewController class]];
+        Section *section = (Section *)[articleDataContext_.mainContext getEntityForName: @"Section" withPredicateFormat:@"article == %@ AND index == %@", article, @(self.sectionToEditIndex)];
         
-        // Hide section editor.
-        if(!sectionEditingVisible){
-            // Ensure one exists to be hidden.
-            if (sectionEditVC) {
-                [sectionEditVC willMoveToParentViewController:nil];
-                [sectionEditVC.view removeFromSuperview];
-                [sectionEditVC removeFromParentViewController];
-            }
-        }else{
-            // Show section editor.
-            // Ensure it doesn't already exist.
-            if (!sectionEditVC) {
-                sectionEditVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SectionEditorViewController"];
-
-                NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
-                                                                                              domain: [SessionSingleton sharedInstance].currentArticleDomain];
-                if (articleID) {
-                    Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-                    
-                    Section *section = (Section *)[articleDataContext_.mainContext getEntityForName: @"Section" withPredicateFormat:@"article == %@ AND index == %@", article, @(self.sectionToEditIndex)];
-                    
-                    sectionEditVC.sectionID = section.objectID;
-                }
-                [self addChildViewController:sectionEditVC];
-
-                sectionEditVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-                [self.view addSubview:sectionEditVC.view];
-
-                [self.view addConstraints:
-                    [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[sectionEditorView]|" options:0 metrics:nil views:@{@"sectionEditorView":sectionEditVC.view}]
-                ];
-
-                [self.view addConstraints:
-                    [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[sectionEditorView]|" options:0 metrics:nil views:@{@"sectionEditorView":sectionEditVC.view}]
-                ];
-                
-                [sectionEditVC didMoveToParentViewController:self];
-            }
-        }
+        sectionEditVC.sectionID = section.objectID;
     }
+    
+    [self.navigationController pushViewController:sectionEditVC animated:YES];
 }
 
 -(void)searchFieldBecameFirstResponder
 {
     self.tocVisible = NO;
-    self.sectionEditingVisible = NO;
 }
 
 #pragma mark Update constraints
@@ -409,7 +369,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         weakSelf.tocVisible = NO;
         weakSelf.sectionToEditIndex = [[payload[@"href"] stringByReplacingOccurrencesOfString:@"edit_section_" withString:@""] integerValue];
 
-        weakSelf.sectionEditingVisible = YES;
+        [weakSelf.self showSectionEditor];
     }];
 
     [self.bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString *messageType, NSDictionary *payload) {

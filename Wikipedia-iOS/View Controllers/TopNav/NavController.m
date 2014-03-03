@@ -344,19 +344,31 @@
     switch (navBarMode) {
         case NAVBAR_MODE_EDIT_WIKITEXT:
             self.label.text = @"Edit";
+            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_EYE(50)]|";
+            break;
         case NAVBAR_MODE_LOGIN:
+            self.label.text = @"Sign In";
             self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_CREATE_ACCOUNT:
+            self.label.text = @"Create Account";
             self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
             self.label.text = @"Edit issues";
-            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_CHECK(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_PENCIL(50)]|";
+            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW:
             self.label.text = @"Edit issues";
-            self.navBarSubViewsHorizontalVFLString = @"H:|-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_BUTTON_PENCIL(50)]|";
+            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]|";
+            break;
+        case NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW:
+            self.label.text = @"Previewing";
+            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+            break;
+        case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
+            self.label.text = @"Quick Verification needed";
+            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
             break;
         default: //NAVBAR_STYLE_SEARCH
             self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_LOGO_W(65)][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_TEXT_FIELD]-(10)-|";

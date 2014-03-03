@@ -52,7 +52,6 @@
     self.showCaptchaContainer = NO;
 
     NAV.navBarMode = NAVBAR_MODE_CREATE_ACCOUNT;
-    ((UILabel *)[NAV getNavBarItem:NAVBAR_LABEL]).text = @"Create Account";
     
     [self highlightCheckButton:NO];
 }

@@ -107,7 +107,6 @@
     [super viewWillAppear:animated];
     
     NAV.navBarMode = NAVBAR_MODE_LOGIN;
-    ((UILabel *)[NAV getNavBarItem:NAVBAR_LABEL]).text = @"Sign In";
     
     [self highlightCheckButton:NO];
 }

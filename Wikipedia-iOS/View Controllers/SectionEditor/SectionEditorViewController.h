@@ -2,17 +2,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MWNetworkOp.h"
-#import "CaptchaViewController.h"
 
 @class NSManagedObjectID;
 
-@interface SectionEditorViewController : UIViewController <UITextViewDelegate, UIScrollViewDelegate, NetworkOpDelegate, CaptchaViewControllerRefresh, UITextFieldDelegate>
+@interface SectionEditorViewController : UIViewController <UITextViewDelegate, UIScrollViewDelegate, NetworkOpDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) NSManagedObjectID *sectionID;
 
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
-@property (weak, nonatomic) IBOutlet UIView *captchaContainer;
-
-- (void)reloadCaptchaPushed:(id)sender;
 
 @end
