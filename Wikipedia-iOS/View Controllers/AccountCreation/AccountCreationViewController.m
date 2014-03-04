@@ -9,6 +9,9 @@
 #import "CaptchaResetOp.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "UIButton+ColorMask.h"
+#import "LoginViewController.h"
+#import "UINavigationController+SearchNavStack.h"
+#import "MainMenuTableViewController.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -248,6 +251,24 @@
     }
 }
 
+-(void)login
+{
+    LoginViewController *loginVC = [self.navigationController searchNavStackForViewControllerOfClass:[LoginViewController class]];
+    
+    [self showAlert:@"Logging in..."];
+    
+    [loginVC loginWithUserName:self.usernameField.text password:self.passwordField.text onSuccess:^{
+
+        MainMenuTableViewController *menuVC = [self.navigationController searchNavStackForViewControllerOfClass:[MainMenuTableViewController class]];
+        [self.navigationController popToViewController:menuVC animated:YES];
+        
+    } onFail:^(){
+
+        [self performSelector:@selector(hide) withObject:nil afterDelay:0.5f];
+
+    }];
+}
+
 -(void)save
 {
     static BOOL isAleadySaving = NO;
@@ -281,7 +302,7 @@
                                   dispatch_async(dispatch_get_main_queue(), ^(){
                                       [self showAlert:result];
                                       [self showAlert:@""];
-                                      [self performSelector:@selector(hide) withObject:nil afterDelay:1.0f];
+                                      [self performSelector:@selector(login) withObject:nil afterDelay:0.6f];
                                       isAleadySaving = NO;
                                   });
                                   

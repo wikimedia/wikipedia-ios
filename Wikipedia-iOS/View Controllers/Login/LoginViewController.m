@@ -122,7 +122,11 @@
 
 -(void)save
 {
-    [self login];
+    [self loginWithUserName: self.usernameField.text
+                   password: self.passwordField.text
+                  onSuccess: ^{
+                      [self performSelector:@selector(hide) withObject:nil afterDelay:1.25f];
+                  } onFail: nil];
 }
 
 -(void)hide
@@ -147,9 +151,15 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)login
+-(void)loginWithUserName: (NSString *)userName
+                password: (NSString *)password
+               onSuccess: (void (^)(void))successBlock
+                  onFail: (void (^)(void))failBlock
 {
     [self showAlert:@""];
+
+    if (!successBlock) successBlock = ^(){};
+    if (!failBlock) failBlock = ^(){};
 
     /*
     void (^printCookies)() =  ^void(){
@@ -163,57 +173,61 @@
     
     //[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
     
-    NSString *userName = self.usernameField.text;
-    NSString *password = self.passwordField.text;
+    LoginOp *loginOp =
+    [[LoginOp alloc] initWithUsername: userName
+                             password: password
+                               domain: [SessionSingleton sharedInstance].domain
+                      completionBlock: ^(NSString *loginResult){
+                          
+                          // Login credentials should only be placed in the keychain if they've been authenticated.
+                          [SessionSingleton sharedInstance].keychainCredentials.userName = userName;
+                          [SessionSingleton sharedInstance].keychainCredentials.password = password;
+                          
+                          //NSString *result = loginResult[@"login"][@"result"];
+                          [self showAlert:loginResult];
+                          
+                          [[NSOperationQueue mainQueue] addOperationWithBlock:successBlock];
+                          
+                          [self cloneSessionCookies];
+                          //printCookies();
+                          
+                      } cancelledBlock: ^(NSError *error){
+                          
+                          [self showAlert:error.localizedDescription];
+
+                          [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
+
+                          
+                      } errorBlock: ^(NSError *error){
+                          
+                          [self showAlert:error.localizedDescription];
+
+                          [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
+                          
+                      }];
     
-    LoginOp *loginOp = [[LoginOp alloc] initWithUsername: userName
-                                                password: password
-                                                  domain: [SessionSingleton sharedInstance].domain
-                                         completionBlock: ^(NSString *loginResult){
-                                             
-                                             // Login credentials should only be placed in the keychain if they've been authenticated.
-                                             [SessionSingleton sharedInstance].keychainCredentials.userName = userName;
-                                             [SessionSingleton sharedInstance].keychainCredentials.password = password;
-                                             
-                                             //NSString *result = loginResult[@"login"][@"result"];
-                                             [self showAlert:loginResult];
-                                             
-                                             [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-                                                 
-                                                 [self performSelector:@selector(hide) withObject:nil afterDelay:1.25f];
-                                                 
-                                             }];
-                                             
-                                             [self cloneSessionCookies];
-                                             //printCookies();
-                                             
-                                         } cancelledBlock: ^(NSError *error){
-                                             
-                                             [self showAlert:error.localizedDescription];
-                                             
-                                         } errorBlock: ^(NSError *error){
-                                             
-                                             [self showAlert:error.localizedDescription];
-                                             
-                                         }];
-    
-    LoginTokenOp *loginTokenOp = [[LoginTokenOp alloc] initWithUsername: userName
-                                                               password: password
-                                                                 domain: [SessionSingleton sharedInstance].domain
-                                                        completionBlock: ^(NSString *tokenRetrieved){
-                                                            
-                                                            NSLog(@"loginTokenOp token = %@", tokenRetrieved);
-                                                            loginOp.token = tokenRetrieved;
-                                                            
-                                                        } cancelledBlock: ^(NSError *error){
-                                                            
-                                                            [self showAlert:@""];
-                                                            
-                                                        } errorBlock: ^(NSError *error){
-                                                            
-                                                            [self showAlert:error.localizedDescription];
-                                                            
-                                                        }];
+    LoginTokenOp *loginTokenOp =
+    [[LoginTokenOp alloc] initWithUsername: userName
+                                  password: password
+                                    domain: [SessionSingleton sharedInstance].domain
+                           completionBlock: ^(NSString *tokenRetrieved){
+                               
+                               NSLog(@"loginTokenOp token = %@", tokenRetrieved);
+                               loginOp.token = tokenRetrieved;
+                               
+                           } cancelledBlock: ^(NSError *error){
+                               
+                               [self showAlert:@""];
+
+                               [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
+                               
+                           } errorBlock: ^(NSError *error){
+                               
+                               [self showAlert:error.localizedDescription];
+
+                               [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
+                               
+                           }];
     
     loginTokenOp.delegate = self;
     loginOp.delegate = self;
