@@ -22,7 +22,9 @@
         self.articleRetrievalQ = [[NSOperationQueue alloc] init];
         self.searchQ = [[NSOperationQueue alloc] init];
         self.thumbnailQ = [[NSOperationQueue alloc] init];
-        self.sectionWikiTextQ = [[NSOperationQueue alloc] init];
+        self.sectionWikiTextDownloadQ = [[NSOperationQueue alloc] init];
+        self.sectionWikiTextUploadQ = [[NSOperationQueue alloc] init];
+        self.sectionWikiTextPreviewQ = [[NSOperationQueue alloc] init];
         self.langLinksQ = [[NSOperationQueue alloc] init];
         self.zeroRatedMessageStringQ = [[NSOperationQueue alloc] init];
         self.accountCreationQ = [[NSOperationQueue alloc] init];

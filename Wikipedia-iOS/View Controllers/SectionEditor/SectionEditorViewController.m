@@ -184,8 +184,9 @@
         [self showAlert:errorMsg];
         
     }];
-    
-    [[QueuesSingleton sharedInstance].sectionWikiTextQ addOperation:downloadWikiTextOp];
+
+    [[QueuesSingleton sharedInstance].sectionWikiTextDownloadQ cancelAllOperations];
+    [[QueuesSingleton sharedInstance].sectionWikiTextDownloadQ addOperation:downloadWikiTextOp];
 }
 
 -(void)adjustScrollInset

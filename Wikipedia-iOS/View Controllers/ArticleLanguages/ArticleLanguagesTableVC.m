@@ -31,7 +31,6 @@
 
 -(void)downloadLangLinkData
 {
-    [[QueuesSingleton sharedInstance].langLinksQ cancelAllOperations];
 
 //TODO: fix "showAlert" to work with table view controllers.
     //[self showAlert:@"Loading language links..."];
@@ -56,6 +55,7 @@
         
     }];
     
+    [[QueuesSingleton sharedInstance].langLinksQ cancelAllOperations];
     [[QueuesSingleton sharedInstance].langLinksQ addOperation:langLinksOp];
 }
 

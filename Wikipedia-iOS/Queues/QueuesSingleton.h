@@ -10,7 +10,9 @@
 @property (strong, nonatomic) NSOperationQueue *thumbnailQ;
 @property (strong, nonatomic) NSOperationQueue *zeroRatedMessageStringQ;
 
-@property (strong, nonatomic) NSOperationQueue *sectionWikiTextQ;
+@property (strong, nonatomic) NSOperationQueue *sectionWikiTextDownloadQ;
+@property (strong, nonatomic) NSOperationQueue *sectionWikiTextUploadQ;
+@property (strong, nonatomic) NSOperationQueue *sectionWikiTextPreviewQ;
 @property (strong, nonatomic) NSOperationQueue *langLinksQ;
 @property (strong, nonatomic) NSOperationQueue *accountCreationQ;
 

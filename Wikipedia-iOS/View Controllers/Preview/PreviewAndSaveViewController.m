@@ -175,8 +175,8 @@
 
     previewWikiTextOp.delegate = self;
 
-    [[QueuesSingleton sharedInstance].sectionWikiTextQ cancelAllOperations];
-    [[QueuesSingleton sharedInstance].sectionWikiTextQ addOperation:previewWikiTextOp];
+    [[QueuesSingleton sharedInstance].sectionWikiTextPreviewQ cancelAllOperations];
+    [[QueuesSingleton sharedInstance].sectionWikiTextPreviewQ addOperation:previewWikiTextOp];
 }
 
 - (void)didReceiveMemoryWarning
@@ -199,8 +199,9 @@
 
     NSManagedObjectID *articleID = section.article.objectID;
 
-    UploadSectionWikiTextOp *uploadWikiTextOp = [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index wikiText:self.wikiText captchaId:self.captchaId captchaWord:self.captchaViewController.captchaTextBox.text  completionBlock:^(NSString *result){
-
+    UploadSectionWikiTextOp *uploadWikiTextOp =
+    [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index wikiText:self.wikiText captchaId:self.captchaId captchaWord:self.captchaViewController.captchaTextBox.text  completionBlock:^(NSString *result){
+        
         // Mark article for refreshing so its data will be reloaded.
         // (Needs to be done on worker context as worker context changes bubble up through
         // main context too - so web view controller accessing main context will see changes.)
@@ -325,24 +326,29 @@
         isAleadySaving = NO;
     }];
 
-    EditTokenOp *editTokenOp = [[EditTokenOp alloc] initWithDomain: section.article.domain
-                                                   completionBlock: ^(NSDictionary *result){
-                                                       //NSLog(@"editTokenOp result = %@", result);
-                                                       //NSLog(@"editTokenOp result tokens = %@", result[@"tokens"][@"edittoken"]);
-                                                       
-                                                       NSString *editToken = result[@"tokens"][@"edittoken"];
-                                                       NSMutableDictionary *editTokens = [SessionSingleton sharedInstance].keychainCredentials.editTokens;
-                                                       editTokens[[SessionSingleton sharedInstance].domain] = editToken;
-                                                       [SessionSingleton sharedInstance].keychainCredentials.editTokens = editTokens;
-                                                       
-                                                   } cancelledBlock: ^(NSError *error){
-                                                       
-                                                       [self showAlert:@""];
-                                                       
-                                                   } errorBlock: ^(NSError *error){
-                                                       
-                                                       [self showAlert:error.localizedDescription];
-                                                   }];
+    EditTokenOp *editTokenOp =
+    [[EditTokenOp alloc] initWithDomain: section.article.domain
+                        completionBlock: ^(NSDictionary *result){
+                            //NSLog(@"editTokenOp result = %@", result);
+                            //NSLog(@"editTokenOp result tokens = %@", result[@"tokens"][@"edittoken"]);
+                            
+                            NSString *editToken = result[@"tokens"][@"edittoken"];
+                            NSMutableDictionary *editTokens = [SessionSingleton sharedInstance].keychainCredentials.editTokens;
+                            editTokens[[SessionSingleton sharedInstance].domain] = editToken;
+                            [SessionSingleton sharedInstance].keychainCredentials.editTokens = editTokens;
+                            
+                        } cancelledBlock: ^(NSError *error){
+                            
+                            [self showAlert:@""];
+                            
+                            isAleadySaving = NO;
+                            
+                        } errorBlock: ^(NSError *error){
+                            
+                            [self showAlert:error.localizedDescription];
+                            isAleadySaving = NO;
+                            
+                        }];
 
 //TODO: if we have credentials, yet the edit token retrieved for an edit is
 // an anonymous token (i think this happens if you try to get an edit token
@@ -362,13 +368,13 @@
     // Try to get an edit token for the page's domain before trying to upload the changes.
     [uploadWikiTextOp addDependency:editTokenOp];
     
-    [[QueuesSingleton sharedInstance].sectionWikiTextQ cancelAllOperations];
-    [QueuesSingleton sharedInstance].sectionWikiTextQ.suspended = YES;
+    [[QueuesSingleton sharedInstance].sectionWikiTextUploadQ cancelAllOperations];
+    [QueuesSingleton sharedInstance].sectionWikiTextUploadQ.suspended = YES;
     
-    [[QueuesSingleton sharedInstance].sectionWikiTextQ addOperation:editTokenOp];
-    [[QueuesSingleton sharedInstance].sectionWikiTextQ addOperation:uploadWikiTextOp];
+    [[QueuesSingleton sharedInstance].sectionWikiTextUploadQ addOperation:editTokenOp];
+    [[QueuesSingleton sharedInstance].sectionWikiTextUploadQ addOperation:uploadWikiTextOp];
     
-    [QueuesSingleton sharedInstance].sectionWikiTextQ.suspended = NO;
+    [QueuesSingleton sharedInstance].sectionWikiTextUploadQ.suspended = NO;
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

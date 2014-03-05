@@ -9,6 +9,8 @@
 
 -(void)showAlert:(NSString *)alertText
 {
+    //NSLog(@"alertText = %@", alertText);
+
     [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
         AlertLabel *alertLabel = nil;
         
