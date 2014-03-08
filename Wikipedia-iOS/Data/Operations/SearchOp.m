@@ -63,7 +63,7 @@
             if (output.count == 0) {
                 NSMutableDictionary *errorDict = @{}.mutableCopy;
                 
-                errorDict[NSLocalizedDescriptionKey] = @"No matches found for search term.";
+                errorDict[NSLocalizedDescriptionKey] = NSLocalizedString(@"search-no-matches", nil);
                 
                 // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
                 weakSelf.error = [NSError errorWithDomain:@"Search Op" code:002 userInfo:errorDict];

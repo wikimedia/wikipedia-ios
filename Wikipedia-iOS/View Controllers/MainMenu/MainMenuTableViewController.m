@@ -17,10 +17,6 @@
 // Row indexes.
 #define ROW_SAVED_PAGES 1
 
-// Language toggle text.
-#define LANGUAGES_TOGGLE_TEXT_SHOW @" 🙉  Show Languages"
-#define LANGUAGES_TOGGLE_TEXT_HIDE @" 🙈  Hide Languages"
-
 // Language options text font/size/color.
 #define LANGUAGES_TEXT_FONT @"Georgia"
 
@@ -81,7 +77,7 @@
     [self addRowsToTableDataForLanguagesFromFile];
 
     // Add a "Show Languages" toggle.
-    [self addToTableDataLanguagesToggleWithTitle:LANGUAGES_TOGGLE_TEXT_SHOW];
+    [self addToTableDataLanguagesToggleWithTitle:NSLocalizedString(@"main-menu-language-toggle-show", nil)];
 
     NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
     if(!currentArticleTitle || (currentArticleTitle.length == 0)){
@@ -103,9 +99,9 @@
     // Show login/logout buttons
     [[self sectionDict:SECTION_LOGIN_OPTIONS][@"rows"] removeAllObjects];
     if([SessionSingleton sharedInstance].keychainCredentials.userName){
-        [self addToTableDataRowWithTitle:@"🎭  Logout" key:@"logout" section: SECTION_LOGIN_OPTIONS];
+        [self addToTableDataRowWithTitle:NSLocalizedString(@"main-menu-account-logout", nil) key:@"logout" section: SECTION_LOGIN_OPTIONS];
     }else{
-        [self addToTableDataRowWithTitle:@"🎭  Login" key:@"login" section: SECTION_LOGIN_OPTIONS];
+        [self addToTableDataRowWithTitle:NSLocalizedString(@"main-menu-account-login", nil) key:@"login" section: SECTION_LOGIN_OPTIONS];
     }
 }
 
@@ -113,9 +109,13 @@
 {
     NSString *userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
     if(userName){
-        [self sectionDict:SECTION_LOGIN_OPTIONS][@"title"] = [NSString stringWithFormat:@"Logged in as: %@", userName];
+    
+        NSString *loggedInAsTitle = NSLocalizedString(@"main-menu-account-title-logged-in", nil);
+        loggedInAsTitle = [loggedInAsTitle stringByReplacingOccurrencesOfString:@"$1" withString:userName];
+    
+        [self sectionDict:SECTION_LOGIN_OPTIONS][@"title"] = loggedInAsTitle;
     }else{
-        [self sectionDict:SECTION_LOGIN_OPTIONS][@"title"] = @"Account";
+        [self sectionDict:SECTION_LOGIN_OPTIONS][@"title"] = NSLocalizedString(@"main-menu-account-title-logged-out", nil);
     }
 }
 
@@ -174,7 +174,7 @@
 
                             [@{
                                @"key": @"menuOptions",
-                               @"title": @"Account",
+                               @"title": NSLocalizedString(@"main-menu-account-title-logged-out", nil),
                                @"label": @"",
                                @"subTitle": @"",
                                @"rows": [@[
@@ -186,7 +186,7 @@
 
                             [@{
                                @"key": @"menuOptions",
-                               @"title": @"Show me...",
+                               @"title": NSLocalizedString(@"main-menu-show-title", nil),
                                @"label": @"",
                                @"subTitle": @"",
                                @"rows": @[
@@ -194,7 +194,7 @@
 
                                        [@{
                                           @"key": @"history",
-                                          @"title": @"📖  My Browsing History",
+                                          @"title": NSLocalizedString(@"main-menu-show-history", nil),
                                           @"label": @""
                                           } mutableCopy]
 
@@ -203,7 +203,7 @@
 
                                        [@{
                                           @"key": @"savedPages",
-                                          @"title": @"💾  My Saved Pages",
+                                          @"title": NSLocalizedString(@"main-menu-show-saved", nil),
                                           @"label": @""
                                           } mutableCopy]
                                        
@@ -223,17 +223,19 @@
                                @"rows": [@[
                                        [@{
                                           @"key": @"savePage",
-                                          @"title": @"💾  Save for Offline Reading",
+                                          @"title": NSLocalizedString(@"main-menu-current-article-save", nil),
                                           @"label": @""
                                           } mutableCopy]
                                        
+/*
                                        ,
                                        [@{
                                           @"key": @"debugPage",
                                           @"title": @"👀 Debug",
                                           @"label": @""
                                           } mutableCopy]
-                                       
+*/
+
                                        ] mutableCopy]
                                } mutableCopy]
                             ,
@@ -241,7 +243,7 @@
                             
                             [@{
                                @"key": @"searchLanguageOptions",
-                               @"title": @"Language Wiki To Search",
+                               @"title": NSLocalizedString(@"main-menu-language-title", nil),
                                @"label": @"",
                                @"subTitle": @"",
                                @"rows": [@[] mutableCopy]
@@ -446,9 +448,9 @@
             if (!self.showAllLanguages)[self addRowsToTableDataForLanguagesFromFile];
             
             if (self.showAllLanguages) {
-                [self addToTableDataLanguagesToggleWithTitle:LANGUAGES_TOGGLE_TEXT_HIDE];
+                [self addToTableDataLanguagesToggleWithTitle:NSLocalizedString(@"main-menu-language-toggle-hide", nil)];
             }else{
-                [self addToTableDataLanguagesToggleWithTitle:LANGUAGES_TOGGLE_TEXT_SHOW];
+                [self addToTableDataLanguagesToggleWithTitle:NSLocalizedString(@"main-menu-language-toggle-show", nil)];
             }
             // Show huge language list below the "Hide Languages" toggle.
             if (self.showAllLanguages)[self addRowsToTableDataForLanguagesFromFile];

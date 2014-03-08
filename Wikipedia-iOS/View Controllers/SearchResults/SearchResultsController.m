@@ -108,7 +108,7 @@
     [[QueuesSingleton sharedInstance].searchQ cancelAllOperations];
     
     // Show "Searching..." message.
-    [self showAlert:SEARCH_LOADING_MSG_SEARCHING];
+    [self showAlert:NSLocalizedString(@"search-searching", nil)];
     
     
     

@@ -60,7 +60,7 @@
 
             if (!weakSelf.error && !revision) {
                 NSMutableDictionary *errorDict = [@{} mutableCopy];
-                errorDict[NSLocalizedDescriptionKey] = @"Unable to obtain latest revision.";
+                errorDict[NSLocalizedDescriptionKey] = NSLocalizedString(@"wikitext-download-failed", nil);
                 
                 // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
                 weakSelf.error = [NSError errorWithDomain:@"Download Wikitext Op" code:002 userInfo:errorDict];

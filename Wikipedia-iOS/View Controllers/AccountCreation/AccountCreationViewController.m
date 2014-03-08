@@ -192,7 +192,7 @@
 {
     self.captchaViewController.captchaTextBox.text = @"";
 
-    [self showAlert:@"Obtaining a new captcha."];
+    [self showAlert:NSLocalizedString(@"account-creation-captcha-obtaining", nil)];
     [self showAlert:@""];
 
     CaptchaResetOp *captchaResetOp =
@@ -255,7 +255,7 @@
 {
     LoginViewController *loginVC = [self.navigationController searchNavStackForViewControllerOfClass:[LoginViewController class]];
     
-    [self showAlert:@"Logging in..."];
+    [self showAlert:NSLocalizedString(@"account-creation-logging-in", nil)];
     
     [loginVC loginWithUserName:self.usernameField.text password:self.passwordField.text onSuccess:^{
 
@@ -277,13 +277,13 @@
 
     // Verify passwords fields match.
     if (![self.passwordField.text isEqualToString:self.passwordRepeatField.text]) {
-        [self showAlert:@"Password fields do not match."];
+        [self showAlert:NSLocalizedString(@"account-creation-passwords-mismatched", nil)];
         isAleadySaving = NO;
         return;
     }
 
     // Save!
-    [self showAlert:@"Saving..."];
+    [self showAlert:NSLocalizedString(@"account-creation-saving", nil)];
 
     AccountCreationOp *accountCreationOp =
     [[AccountCreationOp alloc] initWithDomain: [SessionSingleton sharedInstance].domain

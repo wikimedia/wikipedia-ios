@@ -104,7 +104,7 @@
 
         UIButton *cancelButton = [[UIButton alloc] init];
         cancelButton.userInteractionEnabled = YES;
-        [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        [cancelButton setTitle:NSLocalizedString(@"article-languages-cancel", nil) forState:UIControlStateNormal];
         [cancelButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
         [cancelButton addTarget:self action:@selector(hide) forControlEvents: UIControlEventTouchUpInside];

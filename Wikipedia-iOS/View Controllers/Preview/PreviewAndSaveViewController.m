@@ -139,7 +139,7 @@
     if (isAleadyPreviewing) return;
     isAleadyPreviewing = YES;
 
-    [self showAlert:@"Retrieving preview of your changes..."];
+    [self showAlert:NSLocalizedString(@"wikitext-preview-changes", nil)];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
 
     PreviewWikiTextOp *previewWikiTextOp =
@@ -194,7 +194,7 @@
 
     ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
 
-    [self showAlert:@"Saving..."];
+    [self showAlert:NSLocalizedString(@"wikitext-upload-save", nil)];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
 
     NSManagedObjectID *articleID = section.article.objectID;

@@ -568,7 +568,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [self hideKeyboard];
     
     // Show loading message
-    [self showAlert:SEARCH_LOADING_MSG_SECTION_ZERO];
+    [self showAlert:NSLocalizedString(@"search-loading-section-zero", nil)];
     
     [self retrieveArticleForPageTitle:cleanTitle domain:domain discoveryMethod:discoveryMethod];
 }
@@ -590,7 +590,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // If article with sections just show them (unless needsRefresh is YES)
         if (article.section.count > 0 && !article.needsRefresh.boolValue) {
             [self displayArticle:articleID mode:DISPLAY_ALL_SECTIONS];
-            [self showAlert:SEARCH_LOADING_MSG_ARTICLE_LOADED];
+            [self showAlert:NSLocalizedString(@"search-loading-article-loaded", nil)];
             [self showAlert:@""];
             return;
         }
@@ -704,7 +704,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         }
 
         [self displayArticle:articleID mode:DISPLAY_LEAD_SECTION];
-        [self showAlert:SEARCH_LOADING_MSG_SECTION_REMAINING];
+        [self showAlert:NSLocalizedString(@"search-loading-section-remaining", nil)];
 
     } cancelledBlock:^(NSError *error){
 
@@ -764,7 +764,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         [articleDataContext_.workerContext save:&error];
         
         [self displayArticle:articleID mode:DISPLAY_APPEND_NON_LEAD_SECTIONS];
-        [self showAlert:SEARCH_LOADING_MSG_ARTICLE_LOADED];
+        [self showAlert:NSLocalizedString(@"search-loading-article-loaded", nil)];
         [self showAlert:@""];
 
     } cancelledBlock:^(NSError *error){
@@ -1028,16 +1028,20 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(void)zeroStateChanged: (NSNotification*) notification
 {
+    [[QueuesSingleton sharedInstance].zeroRatedMessageStringQ cancelAllOperations];
+
     if ([[[notification userInfo] objectForKey:@"state"] boolValue]) {
         DownloadWikipediaZeroMessageOp *zeroMessageRetrievalOp =
         [
          [DownloadWikipediaZeroMessageOp alloc]
          initForDomain: [SessionSingleton sharedInstance].currentArticleDomain
          completionBlock: ^(NSString *message) {
+         
              if (message) {
                  dispatch_async(dispatch_get_main_queue(), ^(){
+                 
                      NavBarTextField *textField = [NAV getNavBarItem:NAVBAR_TEXT_FIELD];
-                     textField.placeholder = NSLocalizedString(@"zero-search-hint", nil);
+                     textField.placeholder = NSLocalizedString(@"search-field-placeholder-text-zero", nil);
                      
                      NAV.navBarStyle = NAVBAR_STYLE_NIGHT;
                      
@@ -1045,7 +1049,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                      [self promptFirstTimeZeroOnWithMessageIfAppropriate:message];
                  });
                  
-                 //
                  // [self showHTMLAlert:message bannerImage:nil bannerColor:
                  // [UIColor colorWithWhite:0.0 alpha:1.0]];
              }
@@ -1054,10 +1057,14 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
          } errorBlock:^(NSError *errorError) {
              NSLog(@"error w0 error");
          }];
-        [[QueuesSingleton sharedInstance].zeroRatedMessageStringQ cancelAllOperations];
+
         [[QueuesSingleton sharedInstance].zeroRatedMessageStringQ addOperation:zeroMessageRetrievalOp];
         
     } else {
+    
+        NavBarTextField *textField = [NAV getNavBarItem:NAVBAR_TEXT_FIELD];
+        textField.placeholder = NSLocalizedString(@"search-field-placeholder-text", nil);
+
         NAV.navBarStyle = NAVBAR_STYLE_DAY;
         [self showAlert:NSLocalizedString(@"zero-charged-verbiage", nil)];
         [self promptFirstTimeZeroOffIfAppropriate];

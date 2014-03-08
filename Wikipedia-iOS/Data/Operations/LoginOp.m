@@ -106,21 +106,29 @@
 {
     // Error types from: http://www.mediawiki.org/wiki/API:Login#Errors
     NSString *errorMessage = [NSString stringWithFormat:@"Unknown login error. Code '%@'", result];
+
     if ([result isEqualToString:@"NoName"]) {
-        errorMessage = @"User name is required to login.";
+        errorMessage = NSLocalizedString(@"login-name-not-found", nil);
+
     }else if ([result isEqualToString:@"Illegal"]) {
-        errorMessage = @"You provided an illegal user name.";
+        errorMessage = NSLocalizedString(@"login-name-illegal", nil);
+
     }else if ([result isEqualToString:@"NotExists"]) {
-        errorMessage = @"The user name you provided doesn't exist.";
+        errorMessage = NSLocalizedString(@"login-name-does-not-exist", nil);
+
     }else if ([result isEqualToString:@"EmptyPass"]) {
-        errorMessage = @"Password is required to login.";
+        errorMessage = NSLocalizedString(@"login-password-empty", nil);
+
     }else if ([result isEqualToString:@"WrongPass"] || [result isEqualToString:@"WrongPluginPass"]) {
-        errorMessage = @"The password you provided is incorrect.";
+        errorMessage = NSLocalizedString(@"login-password-wrong", nil);
+
     }else if ([result isEqualToString:@"Throttled"]) {
-        errorMessage = @"You've logged in too many times in a short time.";
+        errorMessage = NSLocalizedString(@"login-throttled", nil);
+
     }else if ([result isEqualToString:@"Blocked"]) {
-        errorMessage = @"User is blocked.";
+        errorMessage = NSLocalizedString(@"login-user-blocked", nil);
     }
+    
     return errorMessage;
 }
 

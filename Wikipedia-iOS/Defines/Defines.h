@@ -12,13 +12,7 @@
 #define SEARCH_FONT_HIGHLIGHTED [UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]
 #define SEARCH_FONT_HIGHLIGHTED_COLOR [UIColor blackColor]
 
-#define SEARCH_FIELD_PLACEHOLDER_TEXT @"Search Wikipedia"
 #define SEARCH_FIELD_PLACEHOLDER_TEXT_COLOR [UIColor colorWithRed:0.57 green:0.58 blue:0.59 alpha:1.0]
-
-#define SEARCH_LOADING_MSG_SECTION_ZERO @"Loading first section of the article..."
-#define SEARCH_LOADING_MSG_SECTION_REMAINING @"Loading the rest of the article..."
-#define SEARCH_LOADING_MSG_ARTICLE_LOADED @"Article loaded."
-#define SEARCH_LOADING_MSG_SEARCHING @"Searching..."
 
 #define DISCOVERY_METHOD_SEARCH @"search"
 #define DISCOVERY_METHOD_RANDOM @"random"

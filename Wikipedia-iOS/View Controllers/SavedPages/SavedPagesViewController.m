@@ -62,7 +62,7 @@
     [self getSavedPagesData];
 
     SavedPagesTableHeadingLabel *savedPagesLabel = [[SavedPagesTableHeadingLabel alloc] initWithFrame:CGRectMake(0, 0, 10, 53)];
-    savedPagesLabel.text = @"Saved Pages";
+    savedPagesLabel.text = NSLocalizedString(@"saved-pages-title", nil);
     savedPagesLabel.textAlignment = NSTextAlignmentCenter;
     savedPagesLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:20];
     savedPagesLabel.textColor = SAVED_PAGES_TITLE_TEXT_COLOR;

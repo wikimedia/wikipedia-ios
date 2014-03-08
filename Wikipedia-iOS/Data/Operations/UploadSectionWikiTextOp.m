@@ -71,7 +71,7 @@
 
             if (!weakSelf.error && !result) {
                 NSMutableDictionary *errorDict = [@{} mutableCopy];
-                errorDict[NSLocalizedDescriptionKey] = @"Unable to determine wikitext upload result.";
+                errorDict[NSLocalizedDescriptionKey] = NSLocalizedString(@"wikitext-upload-result-unknown", nil);
                 
                 // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
                 weakSelf.error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WIKITEXT_UPLOAD_ERROR_UNKNOWN userInfo:errorDict];
@@ -84,9 +84,9 @@
                     NSMutableDictionary *errorDict = [@{} mutableCopy];
                     
                     errorDict[NSLocalizedDescriptionKey] = (captchaWord && (captchaWord.length > 0)) ?
-                    @"Captcha verification error."
+                    NSLocalizedString(@"wikitext-upload-captcha-error", nil)
                     :
-                    @"Need captcha verification."
+                    NSLocalizedString(@"wikitext-upload-captcha-needed", nil)
                     ;
                     
                     // Make the capcha id and url available from the error.

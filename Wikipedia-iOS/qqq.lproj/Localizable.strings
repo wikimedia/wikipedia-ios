@@ -1,6 +1,76 @@
 "article-languages-label" = "Header label for per-article language selector screen";
+"article-languages-cancel" = "Button text for dismissing the language selector screen";
+
 "history-label" = "Header label for screen showing the users' in-app browsing history";
 "history-section-today" = "Subsection label for list of articles browsed today";
 "history-section-yesterday" = "Subsection label for list of articles browsed yesterday";
 "history-section-lastweek" = "Subsection label for list of articles browsed within the last week";
 "history-section-lastmonth" = "Subsection label for list of articles browsed within the last month";
+
+"zero-free-verbiage" = "Alert text for Wikipedia Zero free data access enabled";
+"zero-charged-verbiage" = "Alert text for Wikipedia Zero free data access disabled";
+"zero-webpage-url" = "Url for Wikipedia Zero FAQ";
+"zero-interstitial-title" = "Alert text for leaving Wikipedia Zero";
+"zero-interstitial-leave-app" = "Alert text shown if Wikipedia Zero free data access is enabled and user taps external link";
+"zero-interstitial-continue" = "Button text confirming user wants to continue to external site";
+"zero-interstitial-cancel" = "Button text to not continue to external site";
+"zero-learn-more" = "Alert text for learning more about Wikipedia Zero";
+"zero-learn-more-learn-more" = "Button text for learn more about Wikipedia Zero";
+"zero-learn-more-no-thanks" = "Button text for declining to learn more about Wikipedia Zero";
+"zero-wikipedia-zero-heading" = "Main menu heading for Wikipedia Zero options";
+"zero-warn-when-leaving" = "Main menu option to be warned if leaving Wikipedia Zero";
+"zero-settings-devmode" = "Main menu option for enabling Zero Devmode";
+
+"account-creation-captcha-required" = "Alert message shown when account creation require a captcha verification";
+"account-creation-captcha-obtaining" = "Alert shown when user wants a new captcha when creating account";
+"account-creation-logging-in" = "Alert shown after account successfully created and the user is being logged in automatically";
+"account-creation-passwords-mismatched" = "Alert shown if the user doesn't enter the same password in both password boxes";
+"account-creation-saving" = "Alert shown when user saves account creation form";
+
+"login-name-not-found" = "Alert text shown when no user name was entered";
+"login-name-illegal" = "Alert text shown when illegal user name entered";
+"login-name-does-not-exist" = "Alert text shown when user name entered was not found";
+"login-password-empty" = "Alert text shown when no password was entered";
+"login-password-wrong" = "Alert text shown when incorrect password entered";
+"login-throttled" = "Alert text shown when too many login attempts fail";
+"login-user-blocked" = "Alert text shown when user name entered is blocked";
+
+"wikitext-downloading" = "Alert text shown when obtaining latest revision of the section being edited";
+"wikitext-download-failed" = "Alert text shown when unable to obtain latest revision of the section being edited";
+"wikitext-download-success" = "Alert text shown when latest revision of the section being edited has been retrieved";
+"wikitext-preview-changes" = "Alert text shown when getting preview of user changes to wikitext";
+"wikitext-preview-changes-none" = "Alert text shown if no changes were made to be previewed.";
+"wikitext-upload-result-unknown" = "Alert text shown when the result of saving section wikitext changes is unknown";
+"wikitext-upload-captcha-error" = "Alert text shown when section wikitext upload captcha fails";
+"wikitext-upload-captcha-needed" = "Alert text shown when section wikitext upload captcha is required";
+"wikitext-upload-save" = "Alert text shown when changes to section wikitext are being saved";
+
+"search-searching" = "Alert text shown when results for search term are being retrieved";
+"search-no-matches" = "Message shown if no results found for search term";
+"search-field-placeholder-text" = "Search field placeholder text";
+"search-field-placeholder-text-zero" = "Search field placeholder text when Wikipedia Zero is enabled";
+"search-loading-section-zero" = "Alert text shown when loading first section of the article";
+"search-loading-section-remaining" = "Alert text shown when loading remaining article sections";
+"search-loading-article-loaded" = "Alert text shown when the article has been completely loaded";
+
+"main-menu-language-title" = "Header text for default search language selection";
+"main-menu-language-toggle-show" = "Button text for showing language list";
+"main-menu-language-toggle-hide" = "Button text for hiding language list";
+"main-menu-account-title-logged-out" = "Header text used when account is not logged in";
+"main-menu-account-title-logged-in" = "Header text used when account is logged in";
+"main-menu-account-login" = "Button text for logging in";
+"main-menu-account-logout" = "Button text for logging out";
+"main-menu-show-title" = "Header informing the user that they can be shown various things";
+"main-menu-show-history" = "Button text for article history interface";
+"main-menu-show-saved" = "Button text for saved articles interface";
+"main-menu-current-article-save" = "Button text for saving the current article";
+
+"saved-pages-title" = "Header text for Saved Pages interface";
+
+"navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited";
+"navbar-title-mode-login" = "Header text shown when user is signing in";
+"navbar-title-mode-create-account" = "Header text shown when user is creating an account";
+"navbar-title-mode-edit-wikitext-warning" = "Header text shown when an abuse filter warning is displayed";
+"navbar-title-mode-edit-wikitext-disallow" = "Header text shown when an abuse filter disallow message is displayed";
+"navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed";
+"navbar-title-mode-edit-wikitext-captcha" = "Header text shown when wikitext captcha is displayed";

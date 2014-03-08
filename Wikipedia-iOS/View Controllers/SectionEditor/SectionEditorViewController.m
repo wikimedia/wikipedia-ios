@@ -123,7 +123,7 @@
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_EYE:
             if (![self changesMade]) {
-                [self showAlert:@"No changes were made to be previewed."];
+                [self showAlert:NSLocalizedString(@"wikitext-preview-changes-none", nil)];
                 [self showAlert:@""];
                 break;
             }
@@ -160,13 +160,13 @@
 
 -(void)loadLatestWikiTextForSectionFromServer
 {
-    [self showAlert:@"Loading wiki text..."];
+    [self showAlert:NSLocalizedString(@"wikitext-downloading", nil)];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
     
     DownloadSectionWikiTextOp *downloadWikiTextOp = [[DownloadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index completionBlock:^(NSString *revision){
         
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-            [self showAlert:@"Wiki text loaded."];
+            [self showAlert:NSLocalizedString(@"wikitext-download-success", nil)];
             [self showAlert:@""];
             self.unmodifiedWikiText = revision;
             self.editTextView.attributedText = [self getAttributedString:revision];

@@ -108,7 +108,7 @@
                 if ([createAccountResult isEqualToString:@"NeedToken"]) {
                     NSMutableDictionary *errorDict = @{}.mutableCopy;
                     
-                    errorDict[NSLocalizedDescriptionKey] = @"CAPTCHA verification required.";
+                    errorDict[NSLocalizedDescriptionKey] = NSLocalizedString(@"account-creation-captcha-required", nil);
                     
                     // Make the capcha id and url available from the error.
                     errorDict[@"captchaId"] = weakSelf.jsonRetrieved[@"createaccount"][@"captcha"][@"id"];

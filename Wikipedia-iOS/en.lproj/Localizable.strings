@@ -1,12 +1,14 @@
 "article-languages-label" = "Choose language";
+"article-languages-cancel" = "Cancel";
+
 "history-label" = "Browsing History";
 "history-section-today" = "Today";
 "history-section-yesterday" = "Yesterday";
 "history-section-lastweek" = "Last week";
 "history-section-lastmonth" = "Last month";
+
 "zero-free-verbiage" = "Free Wikipedia access from your mobile operator (data charges waived)";
 "zero-charged-verbiage" = "Wikipedia Zero OFF (STANDARD DATA CHARGES MAY APPLY)";
-"zero-search-hint" = "Search Wikipedia Zero";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Leaving Wikipedia Zero";
 "zero-interstitial-leave-app" = "Continue to external site? Standard data charges may apply.";
@@ -17,4 +19,60 @@
 "zero-learn-more-no-thanks" = "No thanks";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Warn if leaving Wikipedia Zero";
-"zero-settings-devmode" = "Zero Devmode";
+"zero-settings-devmode" = "Zero devmode";
+
+"account-creation-captcha-required" = "CAPTCHA verification required.";
+"account-creation-captcha-obtaining" = "Obtaining a new CAPTCHA.";
+"account-creation-logging-in" = "Logging in...";
+"account-creation-passwords-mismatched" = "Password fields do not match.";
+"account-creation-saving" = "Saving...";
+
+"login-name-not-found" = "User name is required to login.";
+"login-name-illegal" = "You provided an illegal user name.";
+"login-name-does-not-exist" = "The user name you provided doesn't exist.";
+"login-password-empty" = "Password is required to login.";
+"login-password-wrong" = "The password you provided is incorrect.";
+"login-throttled" = "You've logged in too many times in a short time.";
+"login-user-blocked" = "User is blocked.";
+
+"wikitext-downloading" = "Loading wiki text...";
+"wikitext-download-failed" = "Unable to obtain latest revision.";
+"wikitext-download-success" = "Wiki text loaded.";
+"wikitext-preview-changes" = "Retrieving preview of your changes...";
+"wikitext-preview-changes-none" = "No changes were made to be previewed.";
+"wikitext-upload-result-unknown" = "Unable to determine wikitext upload result.";
+"wikitext-upload-captcha-error" = "Captcha verification error.";
+"wikitext-upload-captcha-needed" = "Need captcha verification.";
+"wikitext-upload-save" = "Saving...";
+
+"search-searching" = "Searching...";
+"search-no-matches" = "No matches found for search term.";
+"search-field-placeholder-text" = "Search Wikipedia";
+"search-field-placeholder-text-zero" = "Search Wikipedia Zero";
+"search-loading-section-zero" = "Loading first section of the article...";
+"search-loading-section-remaining" = "Loading the rest of the article...";
+"search-loading-article-loaded" = "Article loaded.";
+
+"main-menu-language-title" = "Language wiki to search";
+"main-menu-language-toggle-show" = "Show languages";
+"main-menu-language-toggle-hide" = "Hide languages";
+"main-menu-account-title-logged-out" = "Account";
+"main-menu-account-title-logged-in" = "Logged in as: $1";
+"main-menu-account-login" = "Log in";
+"main-menu-account-logout" = "Log out";
+"main-menu-show-title" = "Show me...";
+"main-menu-show-history" = "My browsing history";
+"main-menu-show-saved" = "My saved pages";
+"main-menu-current-article-save" = "Save for offline reading";
+
+"saved-pages-title" = "Saved Pages";
+
+"navbar-title-mode-edit-wikitext" = "Edit";
+"navbar-title-mode-login" = "Sign in";
+"navbar-title-mode-create-account" = "Create Account";
+"navbar-title-mode-edit-wikitext-warning" = "Edit issues";
+"navbar-title-mode-edit-wikitext-disallow" = "Edit issues";
+"navbar-title-mode-edit-wikitext-preview" = "Previewing";
+"navbar-title-mode-edit-wikitext-captcha" = "Quick Verification needed";
+
+

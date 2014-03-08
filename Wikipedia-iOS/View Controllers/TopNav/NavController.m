@@ -64,7 +64,7 @@
 
     self.navBarMode = NAVBAR_MODE_SEARCH;
 
-    self.textField.placeholder = SEARCH_FIELD_PLACEHOLDER_TEXT;
+    self.textField.placeholder = NSLocalizedString(@"search-field-placeholder-text", nil);
 
     [self.navigationBar addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial context:nil];
 
@@ -343,31 +343,31 @@
     _navBarMode = navBarMode;
     switch (navBarMode) {
         case NAVBAR_MODE_EDIT_WIKITEXT:
-            self.label.text = @"Edit";
+            self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext", nil);
             self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_EYE(50)]|";
             break;
         case NAVBAR_MODE_LOGIN:
-            self.label.text = @"Sign In";
+            self.label.text = NSLocalizedString(@"navbar-title-mode-login", nil);
             self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_CREATE_ACCOUNT:
-            self.label.text = @"Create Account";
+            self.label.text = NSLocalizedString(@"navbar-title-mode-create-account", nil);
             self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
-            self.label.text = @"Edit issues";
+            self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext-warning", nil);
             self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW:
-            self.label.text = @"Edit issues";
+            self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext-disallow", nil);
             self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW:
-            self.label.text = @"Previewing";
+            self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext-preview", nil);
             self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
-            self.label.text = @"Quick Verification needed";
+            self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext-captcha", nil);
             self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
             break;
         default: //NAVBAR_STYLE_SEARCH
