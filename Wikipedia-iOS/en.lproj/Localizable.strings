@@ -64,6 +64,7 @@
 "main-menu-show-history" = "My browsing history";
 "main-menu-show-saved" = "My saved pages";
 "main-menu-current-article-save" = "Save for offline reading";
+"main-menu-random" = "Random";
 
 "saved-pages-title" = "Saved Pages";
 
@@ -82,3 +83,4 @@
 "edit-summary-description" = "A specific summary for important changes helps co-editors quickly review your edits. Or you could select from the tags below.";
 "edit-summary-field-placeholder-text" = "How did you improve the page?";
 
+"fetching-random-article" = "Fetching random article";

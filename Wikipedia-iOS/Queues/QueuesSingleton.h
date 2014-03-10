@@ -16,6 +16,8 @@
 @property (strong, nonatomic) NSOperationQueue *langLinksQ;
 @property (strong, nonatomic) NSOperationQueue *accountCreationQ;
 
+@property (strong, nonatomic) NSOperationQueue *randomArticleQ;
+
 + (QueuesSingleton *)sharedInstance;
 
 @end

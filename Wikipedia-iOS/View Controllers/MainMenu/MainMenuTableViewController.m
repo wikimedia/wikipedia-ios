@@ -6,6 +6,11 @@
 #import "LoginViewController.h"
 #import "HistoryViewController.h"
 #import "SavedPagesViewController.h"
+#import "QueuesSingleton.h"
+#import "DownloadTitlesForRandomArticlesOp.h"
+#import "SessionSingleton.h"
+#import "WebViewController.h"
+#import "UINavigationController+SearchNavStack.h"
 
 // Section indexes.
 #define SECTION_LOGIN_OPTIONS 0
@@ -13,6 +18,7 @@
 #define SECTION_ARTICLE_OPTIONS 2
 #define SECTION_SEARCH_LANGUAGE_OPTIONS 3
 #define SECTION_ZERO_OPTIONS 4
+#define SECTION_RANDOM 5
 
 // Row indexes.
 #define ROW_SAVED_PAGES 1
@@ -91,6 +97,12 @@
     [self updateLoginTitle];
     [self updateZeroToggles];
     [self.tableView reloadData];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[QueuesSingleton sharedInstance].randomArticleQ cancelAllOperations];
 }
 
 #pragma mark - Login / logout button
@@ -259,6 +271,23 @@
                                @"rows": [@[
                                            ] mutableCopy]
                                } mutableCopy]
+                            ,
+                            
+                            
+                            
+                            [@{
+                               @"key": @"random",
+                               @"title": NSLocalizedString(@"main-menu-random", nil),
+                               @"label": @"",
+                               @"subTitle": @"",
+                               @"rows": [@[
+                                           [@{
+                                               @"key": @"randomTappable",
+                                               @"title": NSLocalizedString(@"main-menu-random", nil),
+                                               @"label": @""
+                                               } mutableCopy]
+                                           ] mutableCopy]
+                               } mutableCopy]
                             ] mutableCopy];
 }
 
@@ -398,6 +427,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [[QueuesSingleton sharedInstance].randomArticleQ cancelAllOperations];
     NSDictionary *sectionDict = [self sectionDict:indexPath.section];
 
     NSString *selectedSectionKey = sectionDict[@"key"];
@@ -477,6 +507,11 @@
         [[SessionSingleton sharedInstance].zeroConfigState toggleDevMode];
         [self updateZeroToggles];
         [self.tableView reloadData];
+    }  else if ([selectedRowKey isEqualToString:@"randomTappable"]) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        // TODO: make showAlert work. mhurd on it.
+        // [self showAlert:NSLocalizedString(@"fetching-random-article", nil)];
+        [self fetchRandomArticle];
     }
 }
 
@@ -611,6 +646,30 @@
     error = nil;
     NSArray *result = [NSJSONSerialization JSONObjectWithData:fileData options:0 error:&error];
     return (error) ? [@[] mutableCopy]: [result mutableCopy];
+}
+
+#pragma mark - Random
+-(void)fetchRandomArticle {
+    [[QueuesSingleton sharedInstance].randomArticleQ cancelAllOperations];
+    DownloadTitlesForRandomArticlesOp *downloadTitlesForRandomArticlesOp =
+    [
+     [DownloadTitlesForRandomArticlesOp alloc]
+     initForDomain: [SessionSingleton sharedInstance].domain
+     completionBlock: ^(NSString *title) {
+         if (title) {
+             dispatch_async(dispatch_get_main_queue(), ^(){
+                 [SessionSingleton sharedInstance].currentArticleTitle = title;
+                 [SessionSingleton sharedInstance].currentArticleDomain = [SessionSingleton sharedInstance].domain;
+                 WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
+                 [self.navigationController popToViewController:webVC animated:YES];
+             });
+         }
+     } cancelledBlock:^(NSError *errorCancel) {
+         NSLog(@"error for Random - cancel block encountered");
+     } errorBlock:^(NSError *errorError) {
+         NSLog(@"error for Random - error block encountered");
+     }];
+    [[QueuesSingleton sharedInstance].randomArticleQ addOperation:downloadTitlesForRandomArticlesOp];
 }
 
 @end
