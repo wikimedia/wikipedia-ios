@@ -69,6 +69,7 @@
 "navbar-title-mode-edit-wikitext-disallow" = "Header text shown when an abuse filter disallow message is displayed";
 "navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed";
 "navbar-title-mode-edit-wikitext-captcha" = "Header text shown when wikitext captcha is displayed";
+"navbar-title-mode-edit-wikitext-summary" = "Header text shown when wikitext edit summary interface is active";
 
 "edit-summary-choice-fixed-typos-grammar" = "Button text for quick 'fixed typos' edit summary selection";
 "edit-summary-choice-linked-words" = "Button text for quick 'link addition' edit summary selection";

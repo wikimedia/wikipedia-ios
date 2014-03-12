@@ -1,7 +1,9 @@
 //  Created by Monte Hurd on 3/10/14.
 
 #import "EditSummaryViewController.h"
+#import "NavController.h"
 
+#define NAV ((NavController *)self.navigationController)
 #define DOCK_DISTANCE_FROM_BOTTOM 68.0f
 #define MAX_SUMMARY_LENGTH 255
 
@@ -118,9 +120,14 @@ typedef enum {
     if (recognizer.state == UIGestureRecognizerStateChanged)
     {
         CGPoint translate = [recognizer translationInView:recognizer.view.superview];
-        CGFloat newHeight = originalHeight + translate.y;
-        self.topConstraint.constant = newHeight;
+        CGFloat newYOffset = originalHeight + translate.y;
+        
+        newYOffset = fminf(newYOffset, [self getDockingYOffset]);
+
+        self.topConstraint.constant = newYOffset;
         [self.view setNeedsUpdateConstraints];
+        
+        [self updateNavBar];
     }
     
     if (recognizer.state == UIGestureRecognizerStateEnded ||
@@ -130,9 +137,28 @@ typedef enum {
     }
 }
 
+-(void)updateNavBar
+{
+    NavBarMode newNavBarMode = ([self isDockedAtBottom])
+        ? NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW
+        : NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY;
+    if(NAV.navBarMode != newNavBarMode) NAV.navBarMode = newNavBarMode;
+}
+
+-(BOOL)isDockedAtBottom
+{
+    return (self.topConstraint.constant == ([self getDockingYOffset])) ? YES : NO;
+}
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [self dockAtLocation:DOCK_TOP];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self.summaryTextField resignFirstResponder];
+    [super viewWillDisappear:animated];
 }
 
 // From: http://stackoverflow.com/a/1773257
@@ -155,7 +181,7 @@ typedef enum {
                                  self.topConstraint.constant = 0.0;
                                  break;
                              case DOCK_BOTTOM:
-                                 self.topConstraint.constant = self.parentViewController.view.frame.size.height - DOCK_DISTANCE_FROM_BOTTOM;
+                                 self.topConstraint.constant = [self getDockingYOffset];
                                  break;
                              default:
                                  break;
@@ -163,11 +189,17 @@ typedef enum {
                          [self.parentViewController.view layoutIfNeeded];
                      } completion:^(BOOL done){
                      }];
+    [self updateNavBar];
+}
+
+-(CGFloat)getDockingYOffset
+{
+    return self.parentViewController.view.frame.size.height - DOCK_DISTANCE_FROM_BOTTOM;
 }
 
 -(void)updateViewConstraints
 {
-    CGFloat initialDistanceFromTop = self.parentViewController.view.frame.size.height - DOCK_DISTANCE_FROM_BOTTOM;
+    CGFloat initialDistanceFromTop = [self getDockingYOffset];
     if (!self.topConstraint) {
     
         self.topConstraint = [NSLayoutConstraint constraintWithItem: self.view
@@ -200,7 +232,7 @@ typedef enum {
     // Ensure edit summary isn't scrolled past its vertical limits after rotate.
     [self.view setNeedsUpdateConstraints];
     
-    //[self dockAtLocation:DOCK_BOTTOM];
+    [self dockAtLocation:DOCK_BOTTOM];
 }
 
 - (void)didReceiveMemoryWarning

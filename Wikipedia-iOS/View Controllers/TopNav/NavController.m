@@ -81,19 +81,26 @@
 -(void)updateViewConstraints
 {
     [super updateViewConstraints];
-    
-    CGFloat duration = 0.3f;
 
     [self constrainNavBarContainer];
     [self constrainNavBarContainerSubViews];
 
+    [self.navBarContainer layoutIfNeeded];
+    
+    // Disabled the animations because they're a little funky with the alpha tweening... can revisit later if needed.
+    //[self animateNavConstraintChanges];
+}
+
+-(void)animateNavConstraintChanges
+{
+    CGFloat duration = 0.3f;
     for (UIView *v in self.navBarContainer.subviews) v.alpha = 0.0f;
 
-    [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionTransitionNone animations:^{
+    [UIView animateWithDuration:(duration / 2.0f) delay:0.0f options:UIViewAnimationOptionTransitionNone animations:^{
         for (UIView *v in self.navBarContainer.subviews) v.alpha = 0.7f;
         [self.navBarContainer layoutIfNeeded];
     } completion:^(BOOL done){
-        [UIView animateWithDuration:0.15 delay:0.1f options:UIViewAnimationOptionTransitionNone animations:^{
+        [UIView animateWithDuration:(duration / 2.0f) delay:0.1f options:UIViewAnimationOptionTransitionNone animations:^{
             for (UIView *v in self.navBarContainer.subviews) v.alpha = 1.0f;
         } completion:^(BOOL done){
         }];
@@ -164,6 +171,9 @@
           ]
          ];
     }
+    
+    // Return can be uncommented here if we re-enable "animateNavConstraintChanges" in the future...
+    return;
 
     // Constrain the views not being presently shown so when they are shown they'll animate from
     // the constrained position specified below.
@@ -363,7 +373,12 @@
             self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW:
-            self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext-preview", nil);
+        case NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY:
+            self.label.text =
+            (NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW == navBarMode) ?
+                NSLocalizedString(@"navbar-title-mode-edit-wikitext-preview", nil)
+                :
+                NSLocalizedString(@"navbar-title-mode-edit-wikitext-summary", nil);
             self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:

@@ -533,7 +533,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohj-LA-82c">
-                                <rect key="frame" x="5" y="5" width="310" height="563"/>
+                                <rect key="frame" x="5" y="0.0" width="310" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
@@ -543,7 +543,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ohj-LA-82c" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="5" id="GW3-Ua-a8X"/>
-                            <constraint firstItem="ohj-LA-82c" firstAttribute="top" secondItem="Cex-zA-X93" secondAttribute="top" constant="5" id="NPC-TM-Xq1"/>
+                            <constraint firstItem="ohj-LA-82c" firstAttribute="top" secondItem="Cex-zA-X93" secondAttribute="top" id="NPC-TM-Xq1"/>
                             <constraint firstAttribute="trailing" secondItem="ohj-LA-82c" secondAttribute="trailing" constant="5" id="aPb-dZ-HOe"/>
                             <constraint firstAttribute="bottom" secondItem="ohj-LA-82c" secondAttribute="bottom" id="eMa-8O-6mo"/>
                         </constraints>
@@ -569,7 +569,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView clearsContextBeforeDrawing="NO" contentMode="scaleToFill" allowsInlineMediaPlayback="NO" mediaPlaybackAllowsAirPlay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhD-15-Yw7" customClass="PreviewWebView">
+                            <webView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" allowsInlineMediaPlayback="NO" mediaPlaybackAllowsAirPlay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhD-15-Yw7" customClass="PreviewWebView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="463"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

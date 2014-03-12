@@ -74,6 +74,7 @@
 "navbar-title-mode-edit-wikitext-disallow" = "Edit issues";
 "navbar-title-mode-edit-wikitext-preview" = "Previewing";
 "navbar-title-mode-edit-wikitext-captcha" = "Quick Verification needed";
+"navbar-title-mode-edit-wikitext-summary" = "Describe your edit";
 
 "edit-summary-choice-fixed-typos-grammar" = "Fixed typos or grammar";
 "edit-summary-choice-linked-words" = "Linked words";

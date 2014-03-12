@@ -43,9 +43,6 @@
 
     [self loadLatestWikiTextForSectionFromServer];
 
-    // Change the nav bar layout.
-    NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
-
     if ([self.editTextView respondsToSelector:@selector(keyboardDismissMode)]) {
         self.editTextView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     }
@@ -97,6 +94,14 @@
         // Needed to keep keyboard on screen when cancelling out of preview.
         [self.editTextView becomeFirstResponder];
     }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    // Change the nav bar layout.
+    NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
