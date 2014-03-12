@@ -1,8 +1,9 @@
 // Messages for Finnish (suomi)
 // Exported from translatewiki.net
+// Author: Elseweyr
 // Author: Nike
 
 "7Wa-ox-cAd.normalTitle" = "Tallenna";
 "AIA-vO-cLI.placeholder" = "Syötä teksti yllä olevasta kuvasta";
 "P0o-I6-RDJ.normalTitle" = "Peru";
-"QGI-DM-j1P.normalTitle" = "Näytä toinen kuva";
+"QGI-DM-j1P.normalTitle" = "Näytä eri kuva";
