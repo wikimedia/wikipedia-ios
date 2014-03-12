@@ -6,7 +6,7 @@
 
 @class NSManagedObjectID;
 
-@interface PreviewAndSaveViewController : UIViewController <NetworkOpDelegate, UITextFieldDelegate, CaptchaViewControllerRefresh>
+@interface PreviewAndSaveViewController : UIViewController <NetworkOpDelegate, UITextFieldDelegate, CaptchaViewControllerRefresh, UIScrollViewDelegate>
 
 @property (strong, nonatomic) NSManagedObjectID *sectionID;
 @property (strong, nonatomic) NSString *wikiText;

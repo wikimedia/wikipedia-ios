@@ -173,6 +173,8 @@
 		04B78A5418A580AF0050EBF5 /* LoginOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B78A5218A580AF0050EBF5 /* LoginOp.m */; };
 		04B7B9BD18B5570E00A63551 /* CaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */; };
 		04B7B9BE18B5570E00A63551 /* CaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */; };
+		04B9C42918CE5D4D003B5058 /* EditSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B9C42818CE5D4D003B5058 /* EditSummaryViewController.m */; };
+		04B9C42A18CE5D4D003B5058 /* EditSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B9C42818CE5D4D003B5058 /* EditSummaryViewController.m */; };
 		04C43A9D183440B0006C643B /* MWCrumbyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43A9C183440B0006C643B /* MWCrumbyTest.m */; };
 		04C43A9E183440B0006C643B /* MWCrumbyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43A9C183440B0006C643B /* MWCrumbyTest.m */; };
 		04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */; };
@@ -437,6 +439,8 @@
 		04B78A5218A580AF0050EBF5 /* LoginOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginOp.m; sourceTree = "<group>"; };
 		04B7B9BB18B5570E00A63551 /* CaptchaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaViewController.h; sourceTree = "<group>"; };
 		04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaViewController.m; sourceTree = "<group>"; };
+		04B9C42718CE5D4D003B5058 /* EditSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSummaryViewController.h; sourceTree = "<group>"; };
+		04B9C42818CE5D4D003B5058 /* EditSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditSummaryViewController.m; sourceTree = "<group>"; };
 		04C43A9B183440B0006C643B /* MWCrumbyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWCrumbyTest.h; sourceTree = "<group>"; };
 		04C43A9C183440B0006C643B /* MWCrumbyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWCrumbyTest.m; sourceTree = "<group>"; };
 		04C43AA0183440C1006C643B /* MWNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -781,6 +785,15 @@
 			path = Captcha;
 			sourceTree = "<group>";
 		};
+		04B9C42618CE5D25003B5058 /* EditSummary */ = {
+			isa = PBXGroup;
+			children = (
+				04B9C42718CE5D4D003B5058 /* EditSummaryViewController.h */,
+				04B9C42818CE5D4D003B5058 /* EditSummaryViewController.m */,
+			);
+			path = EditSummary;
+			sourceTree = "<group>";
+		};
 		04C43A9A183440B0006C643B /* mw-crumbtest */ = {
 			isa = PBXGroup;
 			children = (
@@ -820,6 +833,7 @@
 				04A97E8418B81D440046B166 /* AccountCreation */,
 				04D7581918923B8400CE2040 /* ArticleLanguages */,
 				04B7B9BA18B5569600A63551 /* Captcha */,
+				04B9C42618CE5D25003B5058 /* EditSummary */,
 				0447861F185145090050563B /* History */,
 				0449E63218A9844000D51524 /* Login */,
 				04D34D93186216AF00610A87 /* MainMenu */,
@@ -1363,6 +1377,7 @@
 				0429301018604898002A13FC /* SavedPagesViewController.m in Sources */,
 				04D149DF18877343006B4104 /* UIViewController+Alert.m in Sources */,
 				04FD6C7A184EBFCD002CA02F /* ArticleData.xcdatamodeld in Sources */,
+				04B9C42918CE5D4D003B5058 /* EditSummaryViewController.m in Sources */,
 				C9928B8618AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m in Sources */,
 				04735E6018A5B42D00C89C30 /* LoginTokenOp.m in Sources */,
 				D4EE00B9182443FC0090790F /* MWPageTitle.m in Sources */,
@@ -1464,6 +1479,7 @@
 				04C43A9E183440B0006C643B /* MWCrumbyTest.m in Sources */,
 				04D75829189301B100CE2040 /* ArticleLanguagesSectionHeadingLabel.m in Sources */,
 				0433543618A1A7AE009305F0 /* NavBarTextField.m in Sources */,
+				04B9C42A18CE5D4D003B5058 /* EditSummaryViewController.m in Sources */,
 				04DB0BEB18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				04F0E2EF186FB2D100468738 /* TOCSectionCellView.m in Sources */,
 				04D122331899B8AC006B9A30 /* AlertWebView.m in Sources */,

@@ -16,6 +16,7 @@
 #import "WebViewController.h"
 #import "UINavigationController+SearchNavStack.h"
 #import "PreviewWebView.h"
+#import "EditSummaryViewController.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -23,6 +24,8 @@
 
 @property (strong, nonatomic) NSString *captchaId;
 @property (strong, nonatomic) CaptchaViewController *captchaViewController;
+@property (weak, nonatomic) IBOutlet UIView *editSummaryContainer;
+@property (strong, nonatomic) EditSummaryViewController *editSummaryViewController;
 
 @end
 
@@ -49,10 +52,17 @@
     }
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PreviewWebViewBeganScrolling" object:self userInfo:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.previewWebView.scrollView.delegate = self;
     
     self.captchaId = @"";
 
@@ -187,6 +197,8 @@
 
 - (void)save
 {
+    NSString *editSummary = [self.editSummaryViewController getSummary];
+
     // Use static flag to prevent save when save already in progress.
     static BOOL isAleadySaving = NO;
     if (isAleadySaving) return;
@@ -200,7 +212,7 @@
     NSManagedObjectID *articleID = section.article.objectID;
 
     UploadSectionWikiTextOp *uploadWikiTextOp =
-    [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index wikiText:self.wikiText captchaId:self.captchaId captchaWord:self.captchaViewController.captchaTextBox.text  completionBlock:^(NSString *result){
+    [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index wikiText:self.wikiText summary:editSummary captchaId:self.captchaId captchaWord:self.captchaViewController.captchaTextBox.text  completionBlock:^(NSString *result){
         
         // Mark article for refreshing so its data will be reloaded.
         // (Needs to be done on worker context as worker context changes bubble up through
@@ -381,6 +393,8 @@
 {
 	if ([segue.identifier isEqualToString: @"Preview_Captcha_Embed"]) {
 		self.captchaViewController = (CaptchaViewController *) [segue destinationViewController];
+	}else if ([segue.identifier isEqualToString: @"Preview_Edit_Summary_Embed"]) {
+		self.editSummaryViewController = (EditSummaryViewController *) [segue destinationViewController];
 	}
 }
 
