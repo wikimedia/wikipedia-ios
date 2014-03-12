@@ -11,6 +11,7 @@
                 domain: (NSString *)domain
                section: (NSNumber *)section
               wikiText: (NSString *)wikiText
+               summary: (NSString *)summary
              captchaId: (NSString *)captchaId
            captchaWord: (NSString *)captchaWord
        completionBlock: (void (^)(NSString *))completionBlock
@@ -33,6 +34,7 @@
                                                  @"action": @"edit",
                                                  @"token": editToken,
                                                  @"text": wikiText,
+                                                 @"summary": summary,
                                                  @"section": section,
                                                  @"title": title,
                                                  @"format": @"json"

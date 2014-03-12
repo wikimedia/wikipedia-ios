@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5051" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Iku-rK-nd2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Iku-rK-nd2">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -381,6 +381,145 @@
             </objects>
             <point key="canvasLocation" x="89" y="1325"/>
         </scene>
+        <!--Edit Summary View Controller-->
+        <scene sceneID="Ex2-dA-g4P">
+            <objects>
+                <viewController restorationIdentifier="EditSummaryViewController" storyboardIdentifier="EditSummaryViewController" id="y4n-MK-Lad" customClass="EditSummaryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZyV-uf-JEQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="9aG-NE-aJo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gmn-rP-nco">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2KM-dg-4iC" userLabel="TopDivider">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="6fq-x8-XJr"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TXq-x6-7l1" userLabel="Drag Handle">
+                                <rect key="frame" x="153" y="0.0" width="15" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LYh-5s-tU3">
+                                        <rect key="frame" x="0.0" y="10" width="15" height="1"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="fLf-Vv-cfz"/>
+                                        </constraints>
+                                    </view>
+                                    <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdS-Ve-F0a">
+                                        <rect key="frame" x="0.0" y="14" width="15" height="1"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="TvB-kP-EJQ"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="LYh-5s-tU3" secondAttribute="centerY" constant="2" id="KXn-hI-pqt"/>
+                                    <constraint firstAttribute="centerY" secondItem="ZdS-Ve-F0a" secondAttribute="centerY" constant="-2" id="YLk-Eo-eza"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZdS-Ve-F0a" secondAttribute="trailing" id="Zdd-bC-ArC"/>
+                                    <constraint firstItem="ZdS-Ve-F0a" firstAttribute="leading" secondItem="TXq-x6-7l1" secondAttribute="leading" id="ZwX-D3-FcH"/>
+                                    <constraint firstItem="LYh-5s-tU3" firstAttribute="leading" secondItem="TXq-x6-7l1" secondAttribute="leading" id="hzi-eN-d30"/>
+                                    <constraint firstAttribute="trailing" secondItem="LYh-5s-tU3" secondAttribute="trailing" id="n5Z-pW-3aD"/>
+                                    <constraint firstAttribute="width" constant="15" id="tWh-Tt-F7a"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZOX-Fl-iot" userLabel="Edit Summary Container">
+                                <rect key="frame" x="20" y="24" width="280" height="556"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="ssq-A7-dt2">
+                                        <rect key="frame" x="0.0" y="50" width="280" height="15"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="94u-WG-Ye2">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vrw-dZ-OFO">
+                                        <rect key="frame" x="0.0" y="85" width="38" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ye-Xe-EBO">
+                                        <rect key="frame" x="46" y="85" width="38" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8T-sr-vj9">
+                                        <rect key="frame" x="0.0" y="120" width="38" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="ssq-A7-dt2" firstAttribute="top" secondItem="94u-WG-Ye2" secondAttribute="bottom" constant="20" id="5Eg-NL-ma5"/>
+                                    <constraint firstItem="94u-WG-Ye2" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="DBm-H2-PsH"/>
+                                    <constraint firstItem="ssq-A7-dt2" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="EQW-UK-qrz"/>
+                                    <constraint firstItem="V8T-sr-vj9" firstAttribute="top" secondItem="vrw-dZ-OFO" secondAttribute="bottom" constant="8" symbolic="YES" id="FRi-3H-Hea"/>
+                                    <constraint firstAttribute="trailing" secondItem="94u-WG-Ye2" secondAttribute="trailing" id="Jxk-G4-Ng2"/>
+                                    <constraint firstAttribute="trailing" secondItem="ssq-A7-dt2" secondAttribute="trailing" id="Rfv-mN-nox"/>
+                                    <constraint firstItem="vrw-dZ-OFO" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="UEj-qe-vDF"/>
+                                    <constraint firstItem="ssq-A7-dt2" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="Ugl-eQ-2cz"/>
+                                    <constraint firstItem="8ye-Xe-EBO" firstAttribute="leading" secondItem="vrw-dZ-OFO" secondAttribute="trailing" constant="8" symbolic="YES" id="cfe-cF-HFv"/>
+                                    <constraint firstAttribute="width" constant="280" id="eUA-pY-zeL"/>
+                                    <constraint firstItem="94u-WG-Ye2" firstAttribute="top" secondItem="ZOX-Fl-iot" secondAttribute="top" id="foi-4k-dl2"/>
+                                    <constraint firstItem="V8T-sr-vj9" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="m8H-ge-PL6"/>
+                                    <constraint firstItem="vrw-dZ-OFO" firstAttribute="top" secondItem="ssq-A7-dt2" secondAttribute="bottom" constant="20" id="xjG-RW-Nfw"/>
+                                    <constraint firstItem="vrw-dZ-OFO" firstAttribute="top" secondItem="8ye-Xe-EBO" secondAttribute="top" id="yO1-Jw-1IR"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2KM-dg-4iC" firstAttribute="leading" secondItem="gmn-rP-nco" secondAttribute="leading" id="BMb-Jy-tBo"/>
+                            <constraint firstItem="ZOX-Fl-iot" firstAttribute="top" secondItem="gmn-rP-nco" secondAttribute="top" constant="24" id="KhF-W6-mdi"/>
+                            <constraint firstAttribute="trailing" secondItem="2KM-dg-4iC" secondAttribute="trailing" id="PqR-fE-MWC"/>
+                            <constraint firstAttribute="centerX" secondItem="TXq-x6-7l1" secondAttribute="centerX" id="ZbO-vt-Hbl"/>
+                            <constraint firstItem="TXq-x6-7l1" firstAttribute="top" secondItem="gmn-rP-nco" secondAttribute="top" id="arX-ce-Ncl"/>
+                            <constraint firstItem="94u-WG-Ye2" firstAttribute="top" secondItem="TXq-x6-7l1" secondAttribute="bottom" id="fTp-7q-wUl"/>
+                            <constraint firstAttribute="bottom" secondItem="ZOX-Fl-iot" secondAttribute="bottom" constant="20" symbolic="YES" id="gVd-0l-NsQ"/>
+                            <constraint firstItem="2KM-dg-4iC" firstAttribute="top" secondItem="gmn-rP-nco" secondAttribute="top" id="hcy-y5-ek2"/>
+                            <constraint firstAttribute="centerX" secondItem="ZOX-Fl-iot" secondAttribute="centerX" id="qnR-f0-AkD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="aboutLabel" destination="ssq-A7-dt2" id="2wa-Oh-Jju"/>
+                        <outlet property="addRemoveInfoButton" destination="V8T-sr-vj9" id="c85-Dw-qBK"/>
+                        <outlet property="fixedTyposButton" destination="vrw-dZ-OFO" id="lxH-lD-2Qr"/>
+                        <outlet property="linkedWordsButton" destination="8ye-Xe-EBO" id="Hre-vg-lBu"/>
+                        <outlet property="summaryTextField" destination="94u-WG-Ye2" id="yjv-q4-KB6"/>
+                        <outlet property="topDividerHeightConstraint" destination="6fq-x8-XJr" id="QMl-gM-G2z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X6O-4x-hwH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1753" y="3185"/>
+        </scene>
         <!--Section Editor View Controller-->
         <scene sceneID="BWG-Ga-8hx">
             <objects>
@@ -430,20 +569,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EhD-15-Yw7" customClass="PreviewWebView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <webView clearsContextBeforeDrawing="NO" contentMode="scaleToFill" allowsInlineMediaPlayback="NO" mediaPlaybackAllowsAirPlay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhD-15-Yw7" customClass="PreviewWebView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="463"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <dataDetectorType key="dataDetectorTypes"/>
                             </webView>
+                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w7S-Yl-0L8" userLabel="Edit Summary Container">
+                                <rect key="frame" x="0.0" y="462" width="320" height="600"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="600" id="YI3-j3-U6N"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="y4n-MK-Lad" kind="embed" identifier="Preview_Edit_Summary_Embed" id="O5n-Zm-wCj"/>
+                                </connections>
+                            </containerView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w3I-Dk-osW">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcy-cO-aq9" userLabel="Scroll Container">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcy-cO-aq9" userLabel="Captcha Scroll Container">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="583"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bEh-0m-jAS">
+                                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bEh-0m-jAS" userLabel="Captcha Container">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="163"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -476,19 +627,23 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="w7S-Yl-0L8" secondAttribute="trailing" id="0P1-it-pRL"/>
                             <constraint firstAttribute="trailing" secondItem="w3I-Dk-osW" secondAttribute="trailing" id="4Hp-8S-Y92"/>
                             <constraint firstItem="w3I-Dk-osW" firstAttribute="leading" secondItem="tP4-ul-Au7" secondAttribute="leading" id="5tC-0O-NX6"/>
                             <constraint firstAttribute="trailing" secondItem="EhD-15-Yw7" secondAttribute="trailing" id="6x7-iV-EJ0"/>
                             <constraint firstAttribute="bottom" secondItem="w3I-Dk-osW" secondAttribute="bottom" id="ERj-B7-2EF"/>
                             <constraint firstItem="w3I-Dk-osW" firstAttribute="top" secondItem="tP4-ul-Au7" secondAttribute="top" id="F4A-PB-dbW"/>
+                            <constraint firstItem="w7S-Yl-0L8" firstAttribute="leading" secondItem="tP4-ul-Au7" secondAttribute="leading" id="FfM-EC-SU1"/>
                             <constraint firstItem="EhD-15-Yw7" firstAttribute="leading" secondItem="tP4-ul-Au7" secondAttribute="leading" id="KIb-JZ-SKf"/>
-                            <constraint firstAttribute="bottom" secondItem="EhD-15-Yw7" secondAttribute="bottom" id="q9r-BL-yhD"/>
+                            <constraint firstItem="w7S-Yl-0L8" firstAttribute="top" secondItem="EhD-15-Yw7" secondAttribute="bottom" constant="-1" id="P1Z-vw-gda"/>
+                            <constraint firstItem="w7S-Yl-0L8" firstAttribute="top" secondItem="tP4-ul-Au7" secondAttribute="top" constant="462" placeholder="YES" id="krj-6g-2YY"/>
                             <constraint firstItem="EhD-15-Yw7" firstAttribute="top" secondItem="tP4-ul-Au7" secondAttribute="top" id="qgD-Cz-hcp"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="captchaContainer" destination="bEh-0m-jAS" id="XJu-Rn-30B"/>
+                        <outlet property="editSummaryContainer" destination="w7S-Yl-0L8" id="VJE-RY-b5k"/>
                         <outlet property="previewWebView" destination="EhD-15-Yw7" id="syP-Dy-I4o"/>
                         <outlet property="scrollContainer" destination="Vcy-cO-aq9" id="FfJ-bO-lQK"/>
                         <outlet property="scrollView" destination="w3I-Dk-osW" id="yLA-4o-PCw"/>
