@@ -156,3 +156,7 @@ li {
     background-image:url('../images/edit.png');
     border-style:none;
 }
+
+body[dir=rtl] .edit_section {
+    float:left;
+}

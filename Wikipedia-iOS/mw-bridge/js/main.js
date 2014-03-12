@@ -107,7 +107,13 @@
      window.onload = function() {
         bridge.sendMessage( "DOMLoaded", {} );
      };
-     
+ 
+     bridge.registerListener( "setLanguage", function( payload ) {
+         var body = document.querySelector( "body" );
+         body.lang = payload.lang;
+         body.dir = payload.dir;
+     } );
+
      bridge.registerListener( "append", function( payload ) {
           // Append html without losing existing event handlers
           // From: http://stackoverflow.com/a/595825

@@ -266,6 +266,8 @@
 		C9180ECA18AED3B6006C1DCA /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC818AED3B6006C1DCA /* ZeroConfigState.m */; };
 		C9928B8618AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m in Sources */ = {isa = PBXBuildFile; fileRef = C9928B8518AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m */; };
 		C9928B8818AD5E1000FCCA9A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C9928B8718AD5E1000FCCA9A /* Settings.bundle */; };
+		D42E75EB18D11237002EA7E5 /* MWLanguageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D42E75EA18D11237002EA7E5 /* MWLanguageInfo.m */; };
+		D42E75EC18D11237002EA7E5 /* MWLanguageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D42E75EA18D11237002EA7E5 /* MWLanguageInfo.m */; };
 		D469889518B52DA200DBE014 /* Main_iPhone.strings in Resources */ = {isa = PBXBuildFile; fileRef = D469889318B52DA200DBE014 /* Main_iPhone.strings */; };
 		D46CD8C418A1AC4F0042959E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C018A1AC4F0042959E /* InfoPlist.strings */; };
 		D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
@@ -527,6 +529,8 @@
 		C9928B8418AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadWikipediaZeroMessageOp.h; sourceTree = "<group>"; };
 		C9928B8518AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadWikipediaZeroMessageOp.m; sourceTree = "<group>"; };
 		C9928B8718AD5E1000FCCA9A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		D42E75E918D11237002EA7E5 /* MWLanguageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWLanguageInfo.h; path = "mw-support/MWLanguageInfo.h"; sourceTree = "<group>"; };
+		D42E75EA18D11237002EA7E5 /* MWLanguageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWLanguageInfo.m; path = "mw-support/MWLanguageInfo.m"; sourceTree = "<group>"; };
 		D469889118B52DA200DBE014 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D469889218B52DA200DBE014 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D469889418B52DA200DBE014 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
@@ -1170,6 +1174,8 @@
 				D4EE00B8182443FC0090790F /* MWPageTitle.m */,
 				D474CC13182AE196002BDE45 /* MWSite.h */,
 				D474CC14182AE196002BDE45 /* MWSite.m */,
+				D42E75E918D11237002EA7E5 /* MWLanguageInfo.h */,
+				D42E75EA18D11237002EA7E5 /* MWLanguageInfo.m */,
 			);
 			name = "mw-support";
 			sourceTree = "<group>";
@@ -1408,6 +1414,7 @@
 				044786881856E4DB0050563B /* UIWebView+Reveal.m in Sources */,
 				04D34DD91863F70A00610A87 /* Section.m in Sources */,
 				04D34DA1186283AA00610A87 /* MainMenuSectionHeadingLabel.m in Sources */,
+				D42E75EB18D11237002EA7E5 /* MWLanguageInfo.m in Sources */,
 				04A81E8618871EB000EEBADB /* Section+ImageRecords.m in Sources */,
 				047FF5471889078C009DB293 /* Image+Convenience.m in Sources */,
 				04D149DD18877343006B4104 /* AlertLabel.m in Sources */,
@@ -1528,6 +1535,7 @@
 				04D34DAE1863D2D600610A87 /* TFHppleElement.m in Sources */,
 				04D34DCA1863F6CC00610A87 /* Saved.m in Sources */,
 				047801BF18AE987900DBB747 /* UIButton+ColorMask.m in Sources */,
+				D42E75EC18D11237002EA7E5 /* MWLanguageInfo.m in Sources */,
 				040E5C4D184564D0007AFE6F /* ArticleDataModel.m in Sources */,
 				0476967D18BBFC9400071963 /* AccountCreationOp.m in Sources */,
 				D474CC11182AE033002BDE45 /* SiteTests.m in Sources */,
@@ -1807,8 +1815,8 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Wikimedia Foundation, Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Wikimedia Foundation, Inc.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wikipedia-iOS/Wikipedia-iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

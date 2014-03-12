@@ -30,6 +30,8 @@
 #import "UIViewController+SearchChildViewControllers.h"
 #import "DownloadWikipediaZeroMessageOp.h"
 #import "NavBarTextField.h"
+#import "MWLanguageInfo.h"
+
 
 #define WEB_VIEW_SCALE_WHEN_TOC_VISIBLE (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.45f : 0.70f)
 #define TOC_TOGGLE_ANIMATION_DURATION 0.35f
@@ -832,6 +834,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     if (!article) return;
     [SessionSingleton sharedInstance].currentArticleTitle = article.title;
     [SessionSingleton sharedInstance].currentArticleDomain = article.domain;
+    MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:article.domain];
 
     NSNumber *langCount = article.languagecount;
     
@@ -876,6 +879,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         NSString *htmlStr = [sectionTextArray componentsJoinedByString:joint];
         
         // Display all sections
+        [self.bridge sendMessage:@"setLanguage" withPayload:@{@"lang": languageInfo.code,
+                                                              @"dir": languageInfo.dir}];
         [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];
     }];
 }
