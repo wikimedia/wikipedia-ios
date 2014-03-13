@@ -236,6 +236,9 @@ typedef enum {
 
 -(void)tocToggle
 {
+    // Clear alerts
+    [self showAlert:@""];
+
     self.tocVisible = !self.tocVisible;
 }
 

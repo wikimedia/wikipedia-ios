@@ -11,6 +11,7 @@
 #import "SearchResultsController.h"
 #import "UINavigationController+SearchNavStack.h"
 #import "UIButton+ColorMask.h"
+#import "UINavigationController+Alert.h"
 
 @interface NavController (){
 
@@ -51,6 +52,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+ 
+    self.delegate = self;
  
     self.currentSearchResultsOrdered = [@[] mutableCopy];
     self.currentSearchString = @"";
@@ -105,6 +108,12 @@
         } completion:^(BOOL done){
         }];
     }];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    [self showAlert:@""];
+    [self showHTMLAlert:@"" bannerImage:nil bannerColor:nil];
 }
 
 -(void)constrainNavBarContainer

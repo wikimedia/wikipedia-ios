@@ -31,7 +31,7 @@ typedef enum {
     NAVBAR_STYLE_NIGHT = 2
 } NavBarStyle;
 
-@interface NavController : UINavigationController <UITextFieldDelegate, UISearchBarDelegate>
+@interface NavController : UINavigationController <UITextFieldDelegate, UISearchBarDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) NSString *currentSearchString;
 @property (strong, atomic) NSMutableArray *currentSearchResultsOrdered;

@@ -2,13 +2,15 @@
 
 #import <UIKit/UIKit.h>
 
-// Category for showing alerts from any view controller.
+// Category for showing alerts beneath the nav bar.
 
-@interface UIViewController (Alert)
+@interface UINavigationController (Alert)
 
 // Shows alert text just beneath the nav bar.
 // Fades out alert if alertText set to zero length string.
 -(void)showAlert:(NSString *)alertText;
+
+//TODO: maybe make showAlert immediately disappear if alertText nil... maybe not?
 
 // Shows full screen alert html just beneath the nav bar.
 // Any links open in Safari.

@@ -248,6 +248,8 @@
 		04DB0BEB18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */; };
 		04DD89B118BFE63A00DD5DAD /* PreviewAndSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD89B018BFE63A00DD5DAD /* PreviewAndSaveViewController.m */; };
 		04DD89B218BFE63A00DD5DAD /* PreviewAndSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD89B018BFE63A00DD5DAD /* PreviewAndSaveViewController.m */; };
+		04EA3A5B18D25D7700E2F5C4 /* UINavigationController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EA3A5A18D25D7700E2F5C4 /* UINavigationController+Alert.m */; };
+		04EA3A5C18D25D7700E2F5C4 /* UINavigationController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EA3A5A18D25D7700E2F5C4 /* UINavigationController+Alert.m */; };
 		04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */; };
 		04F0E2EB186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */; };
 		04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2ED186FB2D100468738 /* TOCSectionCellView.m */; };
@@ -511,6 +513,8 @@
 		04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+ScrollSubviewToLocation.m"; sourceTree = "<group>"; };
 		04DD89AF18BFE63A00DD5DAD /* PreviewAndSaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewAndSaveViewController.h; sourceTree = "<group>"; };
 		04DD89B018BFE63A00DD5DAD /* PreviewAndSaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewAndSaveViewController.m; sourceTree = "<group>"; };
+		04EA3A5918D25D7700E2F5C4 /* UINavigationController+Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Alert.h"; sourceTree = "<group>"; };
+		04EA3A5A18D25D7700E2F5C4 /* UINavigationController+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Alert.m"; sourceTree = "<group>"; };
 		04F0E2E8186EDC1A00468738 /* UIWebView+ElementLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+ElementLocation.h"; sourceTree = "<group>"; };
 		04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+ElementLocation.m"; sourceTree = "<group>"; };
 		04F0E2EC186FB2D000468738 /* TOCSectionCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOCSectionCellView.h; sourceTree = "<group>"; };
@@ -903,6 +907,8 @@
 				04D149DA18877343006B4104 /* AlertLabel.m */,
 				04D122301899B8AC006B9A30 /* AlertWebView.h */,
 				04D122311899B8AC006B9A30 /* AlertWebView.m */,
+				04EA3A5918D25D7700E2F5C4 /* UINavigationController+Alert.h */,
+				04EA3A5A18D25D7700E2F5C4 /* UINavigationController+Alert.m */,
 				04D149DB18877343006B4104 /* UIViewController+Alert.h */,
 				04D149DC18877343006B4104 /* UIViewController+Alert.m */,
 			);
@@ -1393,6 +1399,7 @@
 				04293000185FC2C7002A13FC /* QueuesSingleton.m in Sources */,
 				04D34DC91863F6CC00610A87 /* Saved.m in Sources */,
 				04D34D9D186236D400610A87 /* MainMenuResultsCell.m in Sources */,
+				04EA3A5B18D25D7700E2F5C4 /* UINavigationController+Alert.m in Sources */,
 				04D34DE11868E21F00610A87 /* Article+Convenience.m in Sources */,
 				04D34DB91863F69500610A87 /* DiscoveryContext.m in Sources */,
 				04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */,
@@ -1551,6 +1558,7 @@
 				0402E11018A3ABA900C3B679 /* NavBarContainerView.m in Sources */,
 				0433543818A1A7AE009305F0 /* NavController.m in Sources */,
 				04D149DE18877343006B4104 /* AlertLabel.m in Sources */,
+				04EA3A5C18D25D7700E2F5C4 /* UINavigationController+Alert.m in Sources */,
 				044BD6B718849AD000FFE4BE /* SectionEditorViewController.m in Sources */,
 				0463639918A844570049EE4F /* KeychainCredentials.m in Sources */,
 				04B78A5418A580AF0050EBF5 /* LoginOp.m in Sources */,

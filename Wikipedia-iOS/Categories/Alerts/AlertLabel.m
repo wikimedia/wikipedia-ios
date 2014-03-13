@@ -58,10 +58,16 @@
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
     CGContextRef context = UIGraphicsGetCurrentContext();
+
     CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMaxY(rect));
     CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMaxY(rect));
+
+    CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMinY(rect));
+    CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMinY(rect));
+
     CGContextSetStrokeColorWithColor(context, [[UIColor lightGrayColor] CGColor] );
     CGContextSetLineWidth(context, 1.0);
+
     CGContextStrokePath(context);
 }
 
