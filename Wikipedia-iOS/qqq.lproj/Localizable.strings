@@ -62,6 +62,8 @@
 "main-menu-show-saved" = "Button text for saved articles interface";
 "main-menu-current-article-save" = "Button text for saving the current article";
 "main-menu-random" = "Button text for fetching a Random article";
+"main-menu-feedback-heading" = "Header text for app feedback";
+"main-menu-send-feedback" = "Button text for button to send app feedback";
 "saved-pages-title" = "Header text for Saved Pages interface";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited";
 "navbar-title-mode-login" = "Header text shown when user is signing in";

@@ -11,6 +11,7 @@
 #import "SessionSingleton.h"
 #import "WebViewController.h"
 #import "UINavigationController+SearchNavStack.h"
+#import "WikipediaAppUtils.h"
 
 // Section indexes.
 #define SECTION_LOGIN_OPTIONS 0
@@ -288,6 +289,20 @@
                                                } mutableCopy]
                                            ] mutableCopy]
                                } mutableCopy]
+                            ,
+                            [@{
+                               @"key": @"sendFeedbackHeading",
+                               @"title": NSLocalizedString(@"main-menu-feedback-heading", nil),
+                               @"label": @"",
+                               @"subTitle": @"",
+                               @"rows": [@[
+                                           [@{
+                                              @"key": @"sendFeedback",
+                                              @"title": NSLocalizedString(@"main-menu-send-feedback", nil),
+                                              @"label": @""
+                                              } mutableCopy]
+                                           ] mutableCopy]
+                               } mutableCopy]
                             ] mutableCopy];
 }
 
@@ -507,11 +522,16 @@
         [[SessionSingleton sharedInstance].zeroConfigState toggleDevMode];
         [self updateZeroToggles];
         [self.tableView reloadData];
-    }  else if ([selectedRowKey isEqualToString:@"randomTappable"]) {
+    } else if ([selectedRowKey isEqualToString:@"randomTappable"]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         // TODO: make showAlert work. mhurd on it.
         // [self showAlert:NSLocalizedString(@"fetching-random-article", nil)];
         [self fetchRandomArticle];
+    } else if ([selectedRowKey isEqualToString:@"sendFeedback"]) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        NSString *mailtoUri = [NSString stringWithFormat:@"mailto:mhurd@wikimedia.org?subject=Feedback:%@",
+                               [WikipediaAppUtils appVersion]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mailtoUri]];
     }
 }
 

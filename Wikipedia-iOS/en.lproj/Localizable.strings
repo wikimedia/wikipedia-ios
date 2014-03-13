@@ -65,6 +65,8 @@
 "main-menu-show-saved" = "My saved pages";
 "main-menu-current-article-save" = "Save for offline reading";
 "main-menu-random" = "Random";
+"main-menu-feedback-heading" = "App feedback";
+"main-menu-send-feedback" = "Send app feedback";
 
 "saved-pages-title" = "Saved Pages";
 
