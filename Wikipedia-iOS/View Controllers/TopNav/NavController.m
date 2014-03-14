@@ -42,6 +42,8 @@
 @property (strong, nonatomic) NSDictionary *navBarSubViews;
 @property (strong, nonatomic) NSDictionary *navBarSubViewMetrics;
 
+@property (nonatomic) BOOL isTransitioningBetweenViewControllers;
+
 @end
 
 @implementation NavController
@@ -77,6 +79,8 @@
     self.navBarSubViews = [self getNavBarSubViews];
     
     self.navBarSubViewMetrics = [self getNavBarSubViewMetrics];
+    
+    self.isTransitioningBetweenViewControllers = NO;
 }
 
 #pragma mark Constraints
@@ -112,8 +116,28 @@
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    self.isTransitioningBetweenViewControllers = YES;
+
     [self showAlert:@""];
     [self showHTMLAlert:@"" bannerImage:nil bannerColor:nil];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    self.isTransitioningBetweenViewControllers = NO;
+}
+
+-(void)setIsTransitioningBetweenViewControllers:(BOOL)isTransitioningBetweenViewControllers
+{
+    _isTransitioningBetweenViewControllers = isTransitioningBetweenViewControllers;
+    
+    // Disabling userInteractionEnabled when nav stack views are being pushed/popped prevents
+    // "nested push animation can result in corrupted navigation bar" and "unbalanced calls
+    // to begin/end appearance transitions" errors. If this line is commented out, you can
+    // trigger the error by rapidly tapping on the main menu toggle (the "W" icon presently).
+    // You can also trigger another error by tapping the edit pencil, then tap the "X" icon
+    // then very quickly tap the "W" icon.
+    self.view.userInteractionEnabled = !isTransitioningBetweenViewControllers;
 }
 
 -(void)constrainNavBarContainer
@@ -443,15 +467,6 @@
 
 -(void)mainMenuToggle
 {
-    static CFTimeInterval lastToggleTime = 0;
-    CFTimeInterval elapsedTime = CACurrentMediaTime() - lastToggleTime;
-    if (elapsedTime > 0.7) {
-        lastToggleTime = CACurrentMediaTime();
-    }else{
-        // Don't allow toggle before previous toggle animation has finished.
-        return;
-    }
-
     UIViewController *topVC = self.topViewController;
 
     [topVC hideKeyboard];
