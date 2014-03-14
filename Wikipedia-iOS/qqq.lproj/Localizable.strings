@@ -61,6 +61,7 @@
 "main-menu-show-history" = "Button text for article history interface";
 "main-menu-show-saved" = "Button text for saved articles interface";
 "main-menu-current-article-save" = "Button text for saving the current article";
+"main-menu-random" = "Button text for fetching a Random article";
 "saved-pages-title" = "Header text for Saved Pages interface";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited";
 "navbar-title-mode-login" = "Header text shown when user is signing in";
@@ -76,4 +77,5 @@
 "edit-summary-choice-add-remove-info" = "Button text for quick 'added/removed info' edit summary selection";
 "edit-summary-description" = "Label text describing the edit summary interface";
 "edit-summary-field-placeholder-text" = "Placeholder text which appears initially in the free-form edit summary text box";
+"fetching-random-article" = "Alert text shown when fetching a random article";
 

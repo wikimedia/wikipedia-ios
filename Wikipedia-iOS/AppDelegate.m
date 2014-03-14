@@ -39,7 +39,7 @@
     // See: http://stackoverflow.com/a/5397647/135557
     NSDictionary *userDefaultsDefaults = @{
         @"CurrentArticleTitle": @"",
-        @"CurrentArticleDomain": @"",
+        @"CurrentArticleDomain": @"en",
         @"Domain": @"en",
         @"DomainName": @"English",
         @"Site": @"wikipedia.org",
