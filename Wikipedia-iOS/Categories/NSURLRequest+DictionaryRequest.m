@@ -2,6 +2,7 @@
 
 #import "NSURLRequest+DictionaryRequest.h"
 #import "NSString+Extras.h"
+#import "WikipediaAppUtils.h"
 
 @implementation NSURLRequest (DictionaryRequest)
 
@@ -26,6 +27,7 @@
     [request setHTTPMethod:@"POST"];
     [request addValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
     [request addValue:@"" forHTTPHeaderField:@"Accept-Encoding"];
+    [request addValue:[WikipediaAppUtils appVersion] forHTTPHeaderField:@"User-Agent"];
     [request setHTTPBody:[[NSURLRequest constructEncodedURL:parameters] dataUsingEncoding:NSUTF8StringEncoding]];
     return request;
 }
@@ -38,6 +40,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:body]];
     [request setHTTPMethod:@"GET"];
     [request addValue:@"" forHTTPHeaderField:@"Accept-Encoding"];
+    [request addValue:[WikipediaAppUtils appVersion] forHTTPHeaderField:@"User-Agent"];
     [request addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     return request;
 }
