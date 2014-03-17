@@ -529,7 +529,7 @@
         [self fetchRandomArticle];
     } else if ([selectedRowKey isEqualToString:@"sendFeedback"]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        NSString *mailtoUri = [NSString stringWithFormat:@"mailto:mhurd@wikimedia.org?subject=Feedback:%@",
+        NSString *mailtoUri = [NSString stringWithFormat:@"mailto:ios@wikimedia.org?subject=Feedback:%@",
                                [WikipediaAppUtils appVersion]];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mailtoUri]];
     }
