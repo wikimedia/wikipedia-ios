@@ -41,8 +41,8 @@
 "wikitext-preview-changes" = "Retrieving preview of your changes...";
 "wikitext-preview-changes-none" = "No changes were made to be previewed.";
 "wikitext-upload-result-unknown" = "Unable to determine wikitext upload result.";
-"wikitext-upload-captcha-error" = "Captcha verification error.";
-"wikitext-upload-captcha-needed" = "Need captcha verification.";
+"wikitext-upload-captcha-error" = "CAPTCHA verification error.";
+"wikitext-upload-captcha-needed" = "Need CAPTCHA verification.";
 "wikitext-upload-save" = "Saving...";
 
 "search-searching" = "Searching...";
@@ -76,7 +76,7 @@
 "navbar-title-mode-edit-wikitext-warning" = "Edit issues";
 "navbar-title-mode-edit-wikitext-disallow" = "Edit issues";
 "navbar-title-mode-edit-wikitext-preview" = "Previewing";
-"navbar-title-mode-edit-wikitext-captcha" = "Quick Verification needed";
+"navbar-title-mode-edit-wikitext-captcha" = "Quick verification needed";
 "navbar-title-mode-edit-wikitext-summary" = "Describe your edit";
 
 "edit-summary-choice-fixed-typos-grammar" = "Fixed typos or grammar";

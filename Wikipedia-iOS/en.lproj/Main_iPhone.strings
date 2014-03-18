@@ -5,14 +5,14 @@
 /* Class = "IBUIButton"; normalTitle = "◃"; ObjectID = "8HR-Gs-iaC"; */
 "8HR-Gs-iaC.normalTitle" = "◃";
 
-/* Class = "IBUITextField"; placeholder = "Enter captcha text from image above"; ObjectID = "AIA-vO-cLI"; */
-"AIA-vO-cLI.placeholder" = "Enter captcha text from image above";
+/* Class = "IBUITextField"; placeholder = "Enter CAPTCHA text from image above"; ObjectID = "AIA-vO-cLI"; */
+"AIA-vO-cLI.placeholder" = "Enter CAPTCHA text from image above";
 
 /* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "P0o-I6-RDJ"; */
 "P0o-I6-RDJ.normalTitle" = "Cancel";
 
-/* Class = "IBUIButton"; normalTitle = "Show another captcha"; ObjectID = "QGI-DM-j1P"; */
-"QGI-DM-j1P.normalTitle" = "Show another captcha";
+/* Class = "IBUIButton"; normalTitle = "Show another CAPTCHA"; ObjectID = "QGI-DM-j1P"; */
+"QGI-DM-j1P.normalTitle" = "Show another CAPTCHA";
 
 /* Class = "IBUIButton"; normalTitle = "≣"; ObjectID = "UVB-P9-soS"; */
 "UVB-P9-soS.normalTitle" = "≣";

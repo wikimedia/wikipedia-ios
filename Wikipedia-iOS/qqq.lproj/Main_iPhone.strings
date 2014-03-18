@@ -4,9 +4,9 @@
 
 "7Wa-ox-cAd.normalTitle" = "Save button in edit dialog.\n{{Identical|Save}}";
 "8HR-Gs-iaC.normalTitle" = "menu pseudo-icon; do not modify";
-"AIA-vO-cLI.placeholder" = "Enter captcha text from image above";
+"AIA-vO-cLI.placeholder" = "Text that tells user they should solve the above CAPTCHA.";
 "P0o-I6-RDJ.normalTitle" = "Cancel button in edit save dialog.\n{{Identical|Cancel}}";
-"QGI-DM-j1P.normalTitle" = "Button label to replace the current captcha image with another, hopefully more legible one";
+"QGI-DM-j1P.normalTitle" = "Button label to replace the current CAPTCHA image with another, hopefully more legible one";
 "UVB-P9-soS.normalTitle" = "menu pseudo-icon; do not modify";
 "Vkd-3W-cSt.text" = "placeholder; do not modify";
 "atP-34-Uka.normalTitle" = "menu pseudo-icon; do not modify";
