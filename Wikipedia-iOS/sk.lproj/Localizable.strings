@@ -1,0 +1,47 @@
+// Messages for Slovak (slovenčina)
+// Exported from translatewiki.net
+// Author: Kusavica
+
+"article-languages-label" = "Zvoliť jazyk";
+"article-languages-cancel" = "Zrušiť";
+"history-label" = "História prehliadania";
+"history-section-today" = "Dnes";
+"history-section-yesterday" = "Včera";
+"history-section-lastweek" = "Minulý týždeň";
+"history-section-lastmonth" = "Minulý mesiac";
+"zero-free-verbiage" = "Voľný prístup k Wikipédii od vášho mobilného operátora (neplatíte poplatky za prenos dát)";
+"zero-interstitial-leave-app" = "Pokračovať na externú stránku? Môžu sa objaviť štandardné poplatky za prenos dát.";
+"zero-interstitial-continue" = "Pokračovať";
+"zero-interstitial-cancel" = "Zrušiť";
+"zero-learn-more" = "Chcete sa dozvedieť viac o Wikipédii Zero?";
+"zero-learn-more-learn-more" = "Ďalšie informácie";
+"zero-learn-more-no-thanks" = "Nie, ďakujem";
+"zero-wikipedia-zero-heading" = "Wikipédia Zero";
+"zero-warn-when-leaving" = "Upozorniť ma ak opúšťam Wikipédia Zero";
+"account-creation-logging-in" = "Prihlasujem...";
+"account-creation-passwords-mismatched" = "Heslá sa nezhodujú";
+"account-creation-saving" = "Ukladanie...";
+"login-name-not-found" = "K prihláseniu je potrebné používateľské meno.";
+"login-name-does-not-exist" = "Zadané používateľské meno neexistuje.";
+"login-password-empty" = "K prihláseniu je potrebné heslo.";
+"login-password-wrong" = "Zadané heslo je nesprávne.";
+"login-user-blocked" = "Používateľ je zablokovaný.";
+"wikitext-downloading" = "Načítavam text...";
+"wikitext-download-failed" = "Nepodarilo sa získať najnovšiu revíziu.";
+"wikitext-download-success" = "Text je načítaný.";
+"wikitext-upload-save" = "Ukladám...";
+"search-searching" = "Hľadám...";
+"search-no-matches" = "Vyhľadávanie nenašlo žiadne výsledky.";
+"search-loading-article-loaded" = "Článok je načítaný.";
+"main-menu-language-toggle-show" = "Ukázať jazyky";
+"main-menu-language-toggle-hide" = "Skryť jazyky";
+"main-menu-account-title-logged-out" = "Účet";
+"main-menu-account-title-logged-in" = "Prihlásený ako: $1";
+"main-menu-account-login" = "Prihlásiť sa";
+"main-menu-account-logout" = "Odhlásiť sa";
+"main-menu-show-history" = "Moja história prehliadania";
+"main-menu-show-saved" = "Moje uložené stránky";
+"saved-pages-title" = "Uložené stránky";
+"navbar-title-mode-edit-wikitext" = "Upraviť";
+"navbar-title-mode-login" = "Prihlásiť sa";
+"navbar-title-mode-create-account" = "Vytvoriť účet";

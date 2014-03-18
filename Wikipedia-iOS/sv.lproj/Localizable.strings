@@ -1,0 +1,72 @@
+// Messages for Swedish (svenska)
+// Exported from translatewiki.net
+// Author: Ainali
+// Author: Jopparn
+// Author: WikiPhoenix
+
+"article-languages-label" = "Välj språk";
+"article-languages-cancel" = "Avbryt";
+"history-label" = "Webbhistorik";
+"history-section-today" = "Idag";
+"history-section-yesterday" = "Igår";
+"history-section-lastweek" = "Senaste veckan";
+"history-section-lastmonth" = "Senaste månaden";
+"zero-free-verbiage" = "Gratis Wikipedia-tillgång från din mobiloperatör (avstår från dataavgifter)";
+"zero-charged-verbiage" = "Wikipedia Zero INAKTIVERAD (STANDARDDATAAVGIFTER KAN TILLKOMMA)";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "Lämnar Wikipedia Zero";
+"zero-interstitial-leave-app" = "Fortsätt till en extern webbplats? Standarddataavgifter kan tillkomma.";
+"zero-interstitial-continue" = "Fortsätt";
+"zero-interstitial-cancel" = "Avbryt";
+"zero-learn-more" = "Vill du veta mer om Wikipedia Zero?";
+"zero-learn-more-learn-more" = "Läs mer";
+"zero-learn-more-no-thanks" = "Nej tack";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"zero-warn-when-leaving" = "Varna om jag lämnar Wikipedia Zero";
+"zero-settings-devmode" = "Zero-utvecklarläge";
+"account-creation-captcha-required" = "CAPTCHA-verifiering krävs.";
+"account-creation-captcha-obtaining" = "Hämtar en ny CAPTCHA";
+"account-creation-logging-in" = "Loggar in...";
+"account-creation-passwords-mismatched" = "Lösenordsfälten matchar inte.";
+"account-creation-saving" = "Sparar...";
+"login-name-not-found" = "Användarnamn krävs för att logga in.";
+"login-name-illegal" = "Du angav ett olagligt användarnamn.";
+"login-name-does-not-exist" = "Det användarnamn du angav finns inte.";
+"login-password-empty" = "Lösenord krävs för att logga in.";
+"login-password-wrong" = "Det lösenord som du angav är felaktigt.";
+"login-throttled" = "Du har loggat in för många gånger på kort tid.";
+"login-user-blocked" = "Användaren är blockerad.";
+"wikitext-downloading" = "Laddar wikitext...";
+"wikitext-download-failed" = "Går inte att hämta senaste sidversion.";
+"wikitext-download-success" = "Wikitext laddad.";
+"wikitext-preview-changes" = "Hämtar förhandsgranskning av dina ändringar...";
+"wikitext-preview-changes-none" = "Inga ändringar gjordes för att förhandsgranska.";
+"wikitext-upload-captcha-error" = "Captcha-verifieringsfel.";
+"wikitext-upload-captcha-needed" = "Kräver captcha-verifiering.";
+"wikitext-upload-save" = "Sparar...";
+"search-searching" = "Söker...";
+"search-no-matches" = "Inga matchningar hittades för söktermen.";
+"search-field-placeholder-text" = "Sök på Wikipedia";
+"search-field-placeholder-text-zero" = "Sök på Wikipedia Zero";
+"search-loading-section-zero" = "Laddar första stycket av artikeln...";
+"search-loading-section-remaining" = "Laddar resten av artikeln...";
+"search-loading-article-loaded" = "Artikel laddad.";
+"main-menu-language-title" = "Språkwiki att söka";
+"main-menu-language-toggle-show" = "Visa språk";
+"main-menu-language-toggle-hide" = "Dölj språk";
+"main-menu-account-title-logged-out" = "Konto";
+"main-menu-account-title-logged-in" = "Inloggad som: $1";
+"main-menu-account-login" = "Logga in";
+"main-menu-account-logout" = "Logga ut";
+"main-menu-show-title" = "Visa mig...";
+"main-menu-show-history" = "Min webbhistorik";
+"main-menu-show-saved" = "Mina sparade sidor";
+"main-menu-current-article-save" = "Spara för läsning offline";
+"saved-pages-title" = "Sparade sidor";
+"navbar-title-mode-edit-wikitext" = "Redigera";
+"navbar-title-mode-login" = "Logga in";
+"navbar-title-mode-create-account" = "Skapa konto";
+"navbar-title-mode-edit-wikitext-warning" = "Redigeringsproblem";
+"navbar-title-mode-edit-wikitext-disallow" = "Redigeringsproblem";
+"navbar-title-mode-edit-wikitext-preview" = "Förhandsgranskar";
+"navbar-title-mode-edit-wikitext-captcha" = "Snabbverifiering krävs";

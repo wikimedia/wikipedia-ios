@@ -1,0 +1,47 @@
+// Messages for Upper Sorbian (hornjoserbsce)
+// Exported from translatewiki.net
+// Author: Michawiki
+
+"article-languages-label" = "Rěč wubrać";
+"article-languages-cancel" = "Přetorhnyć";
+"history-label" = "Historija";
+"history-section-today" = "Dźensa";
+"history-section-yesterday" = "Wčera";
+"history-section-lastweek" = "Zańdźeny tydźeń";
+"history-section-lastmonth" = "Zańdźeny měsac";
+"zero-charged-verbiage" = "Wikipedija Zero WUPINJENA (POPŁATKI ZA STANDARDNE DATY MÓŽA SO ZBĚRAĆ)";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-continue" = "Dale";
+"zero-interstitial-cancel" = "Přetorhnyć";
+"zero-learn-more-learn-more" = "Dalše informacije";
+"zero-learn-more-no-thanks" = "Ně, dźakuju so";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"account-creation-logging-in" = "Přizjewja so...";
+"account-creation-passwords-mismatched" = "Poli hesłow so njekryjetej";
+"account-creation-saving" = "Składuje so...";
+"login-name-does-not-exist" = "Podate wužiwarske mjeno njeeksistuje.";
+"login-password-wrong" = "Podate hesło je wopak.";
+"login-user-blocked" = "Wužiwar je zablokowany.";
+"wikitext-downloading" = "Wikitekst so začituje...";
+"wikitext-download-success" = "Wikitekst začitany.";
+"wikitext-upload-save" = "Składuje so...";
+"search-searching" = "Pyta so...";
+"search-field-placeholder-text" = "Wikipediju přepytać";
+"search-field-placeholder-text-zero" = "Wikipediju Zero přepytać";
+"search-loading-section-zero" = "Prěni wotrězk nastawka so začituje...";
+"search-loading-section-remaining" = "Zbytk nastawka so začituje...";
+"search-loading-article-loaded" = "Nastawk začitany.";
+"main-menu-language-title" = "Rěčny wiki, kotryž ma so přepytać";
+"main-menu-language-toggle-show" = "Rěče pokazać";
+"main-menu-language-toggle-hide" = "Rěče schować";
+"main-menu-account-title-logged-out" = "Konto";
+"main-menu-account-login" = "Přizjewić";
+"main-menu-account-logout" = "Wotzjewić";
+"main-menu-show-title" = "Pokazaj mi...";
+"main-menu-show-saved" = "Moje składowane strony";
+"saved-pages-title" = "Składowane strony";
+"navbar-title-mode-edit-wikitext" = "Wobdźěłać";
+"navbar-title-mode-login" = "Přizjewić";
+"navbar-title-mode-create-account" = "Konto załožić";
+"navbar-title-mode-edit-wikitext-warning" = "Wobdźěłowanske problemy";
+"navbar-title-mode-edit-wikitext-disallow" = "Wobdźěłowanske problemy";

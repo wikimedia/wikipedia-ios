@@ -1,0 +1,51 @@
+// Messages for Spanish (español)
+// Exported from translatewiki.net
+// Author: Fitoschido
+// Author: VegaDark
+// Author: Vivaelcelta
+
+"article-languages-label" = "Elige un idioma";
+"article-languages-cancel" = "Cancelar";
+"history-label" = "Buscar en el historial";
+"history-section-today" = "Hoy";
+"history-section-yesterday" = "Ayer";
+"history-section-lastweek" = "La semana pasada";
+"history-section-lastmonth" = "Último mes";
+"zero-free-verbiage" = "Acceso gratuito a Wikipedia de tu operador móvil (sin cargos por datos)";
+"zero-interstitial-title" = "Salir de Wikipedia Zero";
+"zero-interstitial-continue" = "Continuar";
+"zero-interstitial-cancel" = "Cancelar";
+"zero-learn-more" = "¿Quieres saber más de Wikipedia Zero?";
+"zero-learn-more-learn-more" = "Más información";
+"zero-learn-more-no-thanks" = "No, gracias";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"zero-warn-when-leaving" = "Avisar al salir de Wikipedia Zero";
+"account-creation-logging-in" = "Iniciando sesión…";
+"account-creation-passwords-mismatched" = "Las contraseñas no coinciden.";
+"account-creation-saving" = "Guardando…";
+"login-name-not-found" = "Para iniciar sesión debes escribir el nombre de usuario.";
+"login-name-illegal" = "Has escrito un nombre de usuario no válido.";
+"login-name-does-not-exist" = "El nombre de usuario proporcionado no existe.";
+"login-password-empty" = "Para iniciar sesión debes escribir tu contraseña.";
+"login-password-wrong" = "La contraseña proporcionada es incorrecta.";
+"login-user-blocked" = "El usuario está bloqueado.";
+"wikitext-downloading" = "Cargando el código del wiki…";
+"wikitext-download-success" = "Se cargó el código del wiki.";
+"wikitext-upload-save" = "Guardando…";
+"search-searching" = "Buscando…";
+"search-field-placeholder-text" = "Buscar en Wikipedia";
+"search-field-placeholder-text-zero" = "Buscar en Wikipedia Zero";
+"search-loading-section-zero" = "Cargando la primera sección del artículo…";
+"search-loading-section-remaining" = "Cargando el resto del artículo…";
+"search-loading-article-loaded" = "Artículo cargado.";
+"main-menu-language-toggle-show" = "Mostrar idiomas";
+"main-menu-language-toggle-hide" = "Ocultar idiomas";
+"main-menu-account-title-logged-out" = "Cuenta";
+"main-menu-account-login" = "Iniciar sesión";
+"main-menu-account-logout" = "Cerrar sesión";
+"main-menu-show-saved" = "Mis páginas guardadas";
+"main-menu-current-article-save" = "Guardar para leer sin conexión";
+"saved-pages-title" = "Páginas guardadas";
+"navbar-title-mode-edit-wikitext" = "Editar";
+"navbar-title-mode-login" = "Iniciar sesión";
+"navbar-title-mode-create-account" = "Crear cuenta";

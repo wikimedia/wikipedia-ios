@@ -1,0 +1,42 @@
+// Messages for Luxembourgish (Lëtzebuergesch)
+// Exported from translatewiki.net
+// Author: Robby
+
+"article-languages-label" = "Sprooch eraussichen";
+"article-languages-cancel" = "Ofbriechen";
+"history-label" = "Versiounen";
+"history-section-today" = "Haut";
+"history-section-yesterday" = "Gëschter";
+"history-section-lastweek" = "Lescht Woch";
+"history-section-lastmonth" = "Leschte Mount";
+"zero-interstitial-continue" = "Virufueren";
+"zero-interstitial-cancel" = "Ofbriechen";
+"zero-learn-more" = "Wëllt Dir Eppes iwwer Wikipedia Zero gewuer ginn?";
+"zero-learn-more-learn-more" = "Fir méi ze wëssen";
+"zero-learn-more-no-thanks" = "Nee, merci";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"account-creation-logging-in" = "Aloggen...";
+"account-creation-saving" = "Späicheren...";
+"login-name-not-found" = "De Benotzernumm ass obligatoresch fir sech anzeloggen.";
+"login-name-illegal" = "Dir hutt e falsche Benotzernumm uginn.";
+"login-name-does-not-exist" = "De Benotzernumm deen Dir uginn hutt gëtt et net.";
+"login-password-empty" = "D'Passwuert ass obligatoresch fir sech anzeloggen.";
+"login-password-wrong" = "D'Passwuert dat Dir uginn hutt ass net richteg.";
+"login-user-blocked" = "Benotzer ass gespaart.";
+"wikitext-upload-save" = "Späicheren...";
+"search-searching" = "Sichen...";
+"search-field-placeholder-text-zero" = "Op Wikipedia Zero sichen";
+"search-loading-section-remaining" = "De Rescht vum Artikel lueden...";
+"search-loading-article-loaded" = "Artikel gelueden.";
+"main-menu-language-toggle-show" = "Sprooche weisen";
+"main-menu-language-toggle-hide" = "Sprooche verstoppen";
+"main-menu-account-title-logged-out" = "Benotzerkont";
+"main-menu-account-title-logged-in" = "Ageloggt als: $1";
+"main-menu-account-login" = "Aloggen";
+"main-menu-account-logout" = "Ausloggen";
+"main-menu-show-title" = "Weis mir...";
+"main-menu-show-saved" = "Meng gespäichert Säiten";
+"saved-pages-title" = "Gespäichert Säiten";
+"navbar-title-mode-edit-wikitext" = "Änneren";
+"navbar-title-mode-login" = "Aloggen";
+"navbar-title-mode-create-account" = "Benotzerkont uleeën";

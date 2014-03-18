@@ -1,0 +1,51 @@
+// Messages for Occitan (occitan)
+// Exported from translatewiki.net
+// Author: Cedric31
+
+"article-languages-label" = "Causir una lenga";
+"article-languages-cancel" = "Anullar";
+"history-label" = "Percórrer l'istoric";
+"history-section-today" = "Uèi";
+"history-section-yesterday" = "Ièr";
+"history-section-lastweek" = "La setmana passada";
+"history-section-lastmonth" = "Lo mes passat";
+"zero-interstitial-title" = "Sortida de Wikipèdia Zèro";
+"zero-interstitial-continue" = "Contunhar";
+"zero-interstitial-cancel" = "Anullar";
+"zero-learn-more-learn-more" = "Ne saber mai";
+"zero-learn-more-no-thanks" = "Non mercé";
+"zero-wikipedia-zero-heading" = "Wikipèdia Zèro";
+"zero-warn-when-leaving" = "Avertir en quitant Wikipèdia Zèro";
+"zero-settings-devmode" = "Devmode Zèro";
+"account-creation-logging-in" = "Connexion en cors…";
+"account-creation-passwords-mismatched" = "Los senhals son pas identics.";
+"account-creation-saving" = "Enregistrament en cors…";
+"login-user-blocked" = "L'utilizaire es blocat.";
+"wikitext-downloading" = "Cargament del tèxte wiki…";
+"wikitext-download-success" = "Tèxte wiki cargat.";
+"wikitext-upload-save" = "Enregistrament en cors…";
+"search-searching" = "Recèrca en cors...";
+"search-field-placeholder-text" = "Recercar dins Wikipèdia";
+"search-field-placeholder-text-zero" = "Recercar dins Wikipèdia Zèro";
+"search-loading-section-zero" = "Cargament de la primièra seccion de l’article…";
+"search-loading-section-remaining" = "Cargament del demai de l’article…";
+"search-loading-article-loaded" = "Article cargat.";
+"main-menu-language-title" = "Lenga del wiki de recercar";
+"main-menu-language-toggle-show" = "Afichar las lengas";
+"main-menu-language-toggle-hide" = "Amagar las lengas";
+"main-menu-account-title-logged-out" = "Compte";
+"main-menu-account-title-logged-in" = "Connectat en tant que : $1.";
+"main-menu-account-login" = "Connexion";
+"main-menu-account-logout" = "Desconnexion";
+"main-menu-show-title" = "M’afichar…";
+"main-menu-show-history" = "Mon istoric de navigacion";
+"main-menu-show-saved" = "Mas paginas enregistradas";
+"main-menu-current-article-save" = "Enregistrar per una lectura fòra linha";
+"saved-pages-title" = "Paginas enregistradas";
+"navbar-title-mode-edit-wikitext" = "Modificar";
+"navbar-title-mode-login" = "Se connectar";
+"navbar-title-mode-create-account" = "Crear un compte";
+"navbar-title-mode-edit-wikitext-warning" = "Modificar los problèmas";
+"navbar-title-mode-edit-wikitext-disallow" = "Modificar los problèmas";
+"navbar-title-mode-edit-wikitext-preview" = "Apercebut";
+"navbar-title-mode-edit-wikitext-captcha" = "Verificacion rapida necessària";

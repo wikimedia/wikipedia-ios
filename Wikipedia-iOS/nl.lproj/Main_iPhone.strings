@@ -1,8 +1,9 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
+// Author: Siebrand
 // Author: Southparkfan
 
 "7Wa-ox-cAd.normalTitle" = "Opslaan";
-"AIA-vO-cLI.placeholder" = "Los de captcha hierboven op en vul het antwoord in";
+"AIA-vO-cLI.placeholder" = "Los de CAPTCHA hierboven op en vul het antwoord in";
 "P0o-I6-RDJ.normalTitle" = "Annuleren";
-"QGI-DM-j1P.normalTitle" = "Toon een andere captcha";
+"QGI-DM-j1P.normalTitle" = "Andere CAPTCHA weergeven";
