@@ -12,4 +12,14 @@
     return nil;
 }
 
+-(id)getVCBeneathVC:(id)thisVC
+{
+    id vcBeneath = nil;
+    for (id vc in self.viewControllers) {
+        if (vc == thisVC) return vcBeneath;
+        vcBeneath = vc;
+    }
+    return nil;
+}
+
 @end

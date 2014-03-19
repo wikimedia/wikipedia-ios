@@ -438,10 +438,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="ssq-A7-dt2">
-                                        <rect key="frame" x="0.0" y="50" width="280" height="15"/>
+                                        <rect key="frame" x="0.0" y="50" width="280" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="94u-WG-Ye2">
@@ -451,25 +451,57 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vrw-dZ-OFO">
-                                        <rect key="frame" x="0.0" y="85" width="38" height="27"/>
+                                        <rect key="frame" x="0.0" y="84" width="35" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title="Button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ye-Xe-EBO">
-                                        <rect key="frame" x="46" y="85" width="38" height="27"/>
+                                        <rect key="frame" x="41" y="84" width="35" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title="Button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8T-sr-vj9">
-                                        <rect key="frame" x="0.0" y="120" width="38" height="27"/>
+                                        <rect key="frame" x="0.0" y="116" width="35" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BZd-7p-bSx">
+                                        <rect key="frame" x="0.0" y="155" width="35" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0D3-cN-OVL">
+                                        <rect key="frame" x="41" y="155" width="35" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cok-jA-aOh">
+                                        <rect key="frame" x="0.0" y="187" width="35" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKE-G4-igF">
+                                        <rect key="frame" x="0.0" y="226" width="35" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title="Button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -478,16 +510,24 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="ssq-A7-dt2" firstAttribute="top" secondItem="94u-WG-Ye2" secondAttribute="bottom" constant="20" id="5Eg-NL-ma5"/>
+                                    <constraint firstItem="cok-jA-aOh" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="6Hj-Kc-AGd"/>
                                     <constraint firstItem="94u-WG-Ye2" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="DBm-H2-PsH"/>
+                                    <constraint firstItem="AKE-G4-igF" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="E2p-5x-tJT"/>
                                     <constraint firstItem="ssq-A7-dt2" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="EQW-UK-qrz"/>
-                                    <constraint firstItem="V8T-sr-vj9" firstAttribute="top" secondItem="vrw-dZ-OFO" secondAttribute="bottom" constant="8" symbolic="YES" id="FRi-3H-Hea"/>
+                                    <constraint firstItem="V8T-sr-vj9" firstAttribute="top" secondItem="vrw-dZ-OFO" secondAttribute="bottom" constant="6" id="FRi-3H-Hea"/>
                                     <constraint firstAttribute="trailing" secondItem="94u-WG-Ye2" secondAttribute="trailing" id="Jxk-G4-Ng2"/>
+                                    <constraint firstItem="0D3-cN-OVL" firstAttribute="top" secondItem="BZd-7p-bSx" secondAttribute="top" id="MGw-VT-4ia"/>
                                     <constraint firstAttribute="trailing" secondItem="ssq-A7-dt2" secondAttribute="trailing" id="Rfv-mN-nox"/>
                                     <constraint firstItem="vrw-dZ-OFO" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="UEj-qe-vDF"/>
                                     <constraint firstItem="ssq-A7-dt2" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="Ugl-eQ-2cz"/>
-                                    <constraint firstItem="8ye-Xe-EBO" firstAttribute="leading" secondItem="vrw-dZ-OFO" secondAttribute="trailing" constant="8" symbolic="YES" id="cfe-cF-HFv"/>
+                                    <constraint firstItem="BZd-7p-bSx" firstAttribute="top" secondItem="V8T-sr-vj9" secondAttribute="bottom" constant="13" id="Znd-bZ-VYK"/>
+                                    <constraint firstItem="0D3-cN-OVL" firstAttribute="leading" secondItem="BZd-7p-bSx" secondAttribute="trailing" constant="6" id="aqN-Uf-PX2"/>
+                                    <constraint firstItem="8ye-Xe-EBO" firstAttribute="leading" secondItem="vrw-dZ-OFO" secondAttribute="trailing" constant="6" id="cfe-cF-HFv"/>
+                                    <constraint firstItem="AKE-G4-igF" firstAttribute="top" secondItem="cok-jA-aOh" secondAttribute="bottom" constant="13" id="dnG-I2-thF"/>
                                     <constraint firstAttribute="width" constant="280" id="eUA-pY-zeL"/>
+                                    <constraint firstItem="BZd-7p-bSx" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="eVG-XQ-Vum"/>
                                     <constraint firstItem="94u-WG-Ye2" firstAttribute="top" secondItem="ZOX-Fl-iot" secondAttribute="top" id="foi-4k-dl2"/>
+                                    <constraint firstItem="cok-jA-aOh" firstAttribute="top" secondItem="BZd-7p-bSx" secondAttribute="bottom" constant="6" id="hxQ-Xp-JBW"/>
                                     <constraint firstItem="V8T-sr-vj9" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="m8H-ge-PL6"/>
                                     <constraint firstItem="vrw-dZ-OFO" firstAttribute="top" secondItem="ssq-A7-dt2" secondAttribute="bottom" constant="20" id="xjG-RW-Nfw"/>
                                     <constraint firstItem="vrw-dZ-OFO" firstAttribute="top" secondItem="8ye-Xe-EBO" secondAttribute="top" id="yO1-Jw-1IR"/>
@@ -509,9 +549,13 @@
                     </view>
                     <connections>
                         <outlet property="aboutLabel" destination="ssq-A7-dt2" id="2wa-Oh-Jju"/>
-                        <outlet property="addRemoveInfoButton" destination="V8T-sr-vj9" id="c85-Dw-qBK"/>
-                        <outlet property="fixedTyposButton" destination="vrw-dZ-OFO" id="lxH-lD-2Qr"/>
-                        <outlet property="linkedWordsButton" destination="8ye-Xe-EBO" id="Hre-vg-lBu"/>
+                        <outlet property="cannedSummary01" destination="vrw-dZ-OFO" id="K1r-wg-dv2"/>
+                        <outlet property="cannedSummary02" destination="8ye-Xe-EBO" id="c9h-Es-uoS"/>
+                        <outlet property="cannedSummary03" destination="V8T-sr-vj9" id="bal-uX-hKk"/>
+                        <outlet property="cannedSummary04" destination="BZd-7p-bSx" id="ACJ-6S-6oe"/>
+                        <outlet property="cannedSummary05" destination="0D3-cN-OVL" id="iSl-Vu-GUo"/>
+                        <outlet property="cannedSummary06" destination="cok-jA-aOh" id="pNr-vu-qPg"/>
+                        <outlet property="cannedSummaryOther" destination="AKE-G4-igF" id="vwm-ww-oeL"/>
                         <outlet property="summaryTextField" destination="94u-WG-Ye2" id="yjv-q4-KB6"/>
                         <outlet property="topDividerHeightConstraint" destination="6fq-x8-XJr" id="QMl-gM-G2z"/>
                     </connections>

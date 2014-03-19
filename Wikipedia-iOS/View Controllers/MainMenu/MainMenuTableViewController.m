@@ -12,6 +12,7 @@
 #import "WebViewController.h"
 #import "UINavigationController+SearchNavStack.h"
 #import "WikipediaAppUtils.h"
+#import "UIViewController+Alert.h"
 
 // Section indexes.
 #define SECTION_LOGIN_OPTIONS 0
@@ -525,7 +526,7 @@
     } else if ([selectedRowKey isEqualToString:@"randomTappable"]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         // TODO: make showAlert work. mhurd on it.
-        // [self showAlert:NSLocalizedString(@"fetching-random-article", nil)];
+        [self showAlert:NSLocalizedString(@"fetching-random-article", nil)];
         [self fetchRandomArticle];
     } else if ([selectedRowKey isEqualToString:@"sendFeedback"]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];

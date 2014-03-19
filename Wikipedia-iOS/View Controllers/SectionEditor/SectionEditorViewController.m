@@ -50,7 +50,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    [self highlightEyeButton:[self changesMade]];
+    [self highlightProgressiveButton:[self changesMade]];
 }
 
 -(BOOL)changesMade
@@ -59,7 +59,7 @@
     return ![self.unmodifiedWikiText isEqualToString:self.editTextView.text];
 }
 
--(void)highlightEyeButton:(BOOL)highlight
+-(void)highlightProgressiveButton:(BOOL)highlight
 {
     static BOOL lastHightlight = NO;
     if (lastHightlight == highlight) return;
@@ -88,7 +88,7 @@
     // Listen for nav bar taps.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navItemTappedNotification:) name:@"NavItemTapped" object:nil];
     
-    [self highlightEyeButton:[self changesMade]];
+    [self highlightProgressiveButton:[self changesMade]];
     
     if([self changesMade]){
         // Needed to keep keyboard on screen when cancelling out of preview.
@@ -108,7 +108,7 @@
 {
     [self setScrollsToTop:NO];
 
-    [self highlightEyeButton:NO];
+    [self highlightProgressiveButton:NO];
 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
 

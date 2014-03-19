@@ -45,6 +45,11 @@
 "wikitext-upload-captcha-needed" = "Need CAPTCHA verification.";
 "wikitext-upload-save" = "Saving...";
 
+"wikitext-upload-save-sign-in" = "Sign in and save";
+"wikitext-upload-save-sign-in-benefits" = "So co-editors can connect with you & you can see what articles you edited";
+"wikitext-upload-save-anonymously" = "Save anonymously";
+"wikitext-upload-save-anonymously-warning" = "This has less privacy. Your IP address is visible with edits. By saving, you agree to permanently publish your edits under CC BY-SA 3.0";
+
 "search-searching" = "Searching...";
 "search-no-matches" = "No matches found for search term.";
 "search-field-placeholder-text" = "Search Wikipedia";
@@ -72,17 +77,26 @@
 
 "navbar-title-mode-edit-wikitext" = "Edit";
 "navbar-title-mode-login" = "Sign in";
-"navbar-title-mode-create-account" = "Create Account";
+"navbar-title-mode-login-and-save" = "Sign in and save";
+"navbar-title-mode-create-account" = "Create account";
+"navbar-title-mode-create-account-and-save" = "Create account and save";
 "navbar-title-mode-edit-wikitext-warning" = "Edit issues";
 "navbar-title-mode-edit-wikitext-disallow" = "Edit issues";
-"navbar-title-mode-edit-wikitext-preview" = "Previewing";
+"navbar-title-mode-edit-wikitext-preview" = "Preview";
 "navbar-title-mode-edit-wikitext-captcha" = "Quick verification needed";
 "navbar-title-mode-edit-wikitext-summary" = "Describe your edit";
 
-"edit-summary-choice-fixed-typos-grammar" = "Fixed typos or grammar";
+"edit-summary-choice-grammar" = "Improved grammar";
 "edit-summary-choice-linked-words" = "Linked words";
-"edit-summary-choice-add-remove-info" = "Added or removed information";
-"edit-summary-description" = "A specific summary for important changes helps co-editors quickly review your edits. Or you could select from the tags below.";
+"edit-summary-choice-fixed-inaccuracy" = "Fixed inaccuracy";
+
+"edit-summary-choice-fixed-typos" = "Fixed typo";
+"edit-summary-choice-added-category" = "Added category";
+"edit-summary-choice-added-critical-info" = "Added critical info";
+
+"edit-summary-choice-other" = "Other";
+
+"edit-summary-description" = "A specific summary helps co-editors quickly review your edits. You can also pick from tags below.";
 "edit-summary-field-placeholder-text" = "How did you improve the page?";
 
 "fetching-random-article" = "Fetching random article";

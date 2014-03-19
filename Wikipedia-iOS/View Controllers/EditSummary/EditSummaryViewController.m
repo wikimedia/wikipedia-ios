@@ -18,13 +18,21 @@ typedef enum {
 
 @property (weak, nonatomic) IBOutlet UILabel *aboutLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *fixedTyposButton;
-@property (weak, nonatomic) IBOutlet UIButton *linkedWordsButton;
-@property (weak, nonatomic) IBOutlet UIButton *addRemoveInfoButton;
+@property (weak, nonatomic) IBOutlet UIButton *cannedSummary01;
+@property (weak, nonatomic) IBOutlet UIButton *cannedSummary02;
+@property (weak, nonatomic) IBOutlet UIButton *cannedSummary03;
+
+@property (weak, nonatomic) IBOutlet UIButton *cannedSummary04;
+@property (weak, nonatomic) IBOutlet UIButton *cannedSummary05;
+@property (weak, nonatomic) IBOutlet UIButton *cannedSummary06;
+
+@property (weak, nonatomic) IBOutlet UIButton *cannedSummaryOther;
 
 @property (weak, nonatomic) IBOutlet UITextField *summaryTextField;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topDividerHeightConstraint;
+
+@property (nonatomic) CGFloat borderWidth;
 
 @end
 
@@ -37,15 +45,22 @@ typedef enum {
     if (self.summaryTextField.text && (self.summaryTextField.text.length > 0)) {
         [summaryArray addObject:self.summaryTextField.text];
     }
-    if (self.fixedTyposButton.selected) [summaryArray addObject:self.fixedTyposButton.titleLabel.text];
-    if (self.linkedWordsButton.selected) [summaryArray addObject:self.linkedWordsButton.titleLabel.text];
-    if (self.addRemoveInfoButton.selected) [summaryArray addObject:self.addRemoveInfoButton.titleLabel.text];
+    if (self.cannedSummary01.selected) [summaryArray addObject:self.cannedSummary01.titleLabel.text];
+    if (self.cannedSummary02.selected) [summaryArray addObject:self.cannedSummary02.titleLabel.text];
+    if (self.cannedSummary03.selected) [summaryArray addObject:self.cannedSummary03.titleLabel.text];
+
+    if (self.cannedSummary04.selected) [summaryArray addObject:self.cannedSummary04.titleLabel.text];
+    if (self.cannedSummary05.selected) [summaryArray addObject:self.cannedSummary05.titleLabel.text];
+    if (self.cannedSummary06.selected) [summaryArray addObject:self.cannedSummary06.titleLabel.text];
+
     return [summaryArray componentsJoinedByString:@"; "];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.borderWidth = 1.0f / [UIScreen mainScreen].scale;
     
     // Use the pan recognizer to allow the edit summary to be dragged up and down.
     // Works because in the "handlePan:" method the height constraint is updated
@@ -54,23 +69,7 @@ typedef enum {
     panRecognizer.delegate = self;
     [self.view addGestureRecognizer:panRecognizer];
     
-    UIColor *buttonTextColor = [UIColor colorWithRed:0.00 green:0.51 blue:0.96 alpha:1.0];
-    UIColor *borderColor = [UIColor lightGrayColor];
-    CGFloat borderWidth = 1.0f / [UIScreen mainScreen].scale;
-    UIEdgeInsets buttonPaddingInset = UIEdgeInsetsMake(8, 10, 8, 10);
-    
-    void (^setupButton)(UIButton *, NSString *) = ^void(UIButton *button, NSString *title) {
-        [button setTitle:title forState:UIControlStateNormal];
-        [button setTitleColor:buttonTextColor forState:UIControlStateNormal];
-        button.layer.borderColor = borderColor.CGColor;
-        button.layer.borderWidth = borderWidth;
-        button.contentEdgeInsets = buttonPaddingInset;
-        [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    };
-
-    setupButton(self.fixedTyposButton, NSLocalizedString(@"edit-summary-choice-fixed-typos-grammar", nil));
-    setupButton(self.linkedWordsButton, NSLocalizedString(@"edit-summary-choice-linked-words", nil));
-    setupButton(self.addRemoveInfoButton, NSLocalizedString(@"edit-summary-choice-add-remove-info", nil));
+    [self setupButtons];
     
     self.aboutLabel.text = NSLocalizedString(@"edit-summary-description", nil);
     self.summaryTextField.placeholder = NSLocalizedString(@"edit-summary-field-placeholder-text", nil);
@@ -79,7 +78,7 @@ typedef enum {
     self.summaryTextField.returnKeyType = UIReturnKeyDone;
     self.summaryTextField.delegate = self;
     
-    self.topDividerHeightConstraint.constant = borderWidth;
+    self.topDividerHeightConstraint.constant = self.borderWidth;
     
     self.navigationItem.hidesBackButton = YES;
     
@@ -87,6 +86,91 @@ typedef enum {
                                              selector: @selector(previewWebViewBeganScrolling)
                                                  name: @"PreviewWebViewBeganScrolling"
                                                object: nil];
+
+}
+
+-(void)setupButtons
+{
+    UIColor *redTextColor = [UIColor colorWithRed:1.00 green:0.35 blue:0.24 alpha:1.0];
+    UIColor *greenTextColor = [UIColor colorWithRed:0.00 green:0.73 blue:0.51 alpha:1.0];
+    UIColor *borderColor = [UIColor lightGrayColor];
+
+    [self setupButton: self.cannedSummary01
+            withTitle: NSLocalizedString(@"edit-summary-choice-fixed-typos", nil)
+            textColor: redTextColor
+          borderColor: borderColor
+     ];
+    
+    [self setupButton: self.cannedSummary02
+            withTitle: NSLocalizedString(@"edit-summary-choice-grammar", nil)
+            textColor: redTextColor
+          borderColor: borderColor
+     ];
+
+    [self setupButton: self.cannedSummary03
+            withTitle: NSLocalizedString(@"edit-summary-choice-fixed-inaccuracy", nil)
+            textColor: redTextColor
+          borderColor: borderColor
+     ];
+
+    [self setupButton: self.cannedSummary04
+            withTitle: NSLocalizedString(@"edit-summary-choice-linked-words", nil)
+            textColor: greenTextColor
+          borderColor: borderColor
+     ];
+
+    [self setupButton: self.cannedSummary05
+            withTitle: NSLocalizedString(@"edit-summary-choice-added-category", nil)
+            textColor: greenTextColor
+          borderColor: borderColor
+     ];
+
+    [self setupButton: self.cannedSummary06
+            withTitle: NSLocalizedString(@"edit-summary-choice-added-critical-info", nil)
+            textColor: greenTextColor
+          borderColor: borderColor
+     ];
+
+    [self setupButton: self.cannedSummaryOther
+            withTitle: NSLocalizedString(@"edit-summary-choice-other", nil)
+            textColor: [UIColor colorWithRed:0.57 green:0.35 blue:0.25 alpha:1.0]
+          borderColor: borderColor
+     ];
+
+    self.cannedSummaryOther.hidden = YES;
+    self.cannedSummary05.hidden = YES;
+}
+
+-(void)setupButton:(UIButton *)button withTitle:(NSString *)title textColor:(UIColor *)textColor borderColor:(UIColor *)borderColor{
+
+    NSAttributedString *(^getAttributedText)(NSString *, UIColor *) = ^NSAttributedString *(NSString *title, UIColor *textColor) {
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        //paragraphStyle.lineSpacing = 2.0f;
+        paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+        
+        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:title attributes:nil];
+        NSRange wholeRange = NSMakeRange(0, title.length);
+        
+        [attStr beginEditing];
+        [attStr addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:wholeRange];
+        [attStr addAttribute:NSForegroundColorAttributeName value:textColor range:wholeRange];
+        [attStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10.0f] range:wholeRange];
+        [attStr addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:wholeRange];
+        [attStr addAttribute:NSKernAttributeName value:@1.0f range:wholeRange];
+        [attStr endEditing];
+        
+        return attStr;
+    };
+
+[button setAttributedTitle:getAttributedText(title, textColor) forState:UIControlStateNormal];
+
+    CGFloat borderWidth = self.borderWidth;
+    UIEdgeInsets buttonPaddingInset = UIEdgeInsetsMake(5, 12, 5, 12);
+
+        button.layer.borderColor = borderColor.CGColor;
+        button.layer.borderWidth = borderWidth;
+        button.contentEdgeInsets = buttonPaddingInset;
+        [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
 
 }
 
@@ -102,8 +186,13 @@ typedef enum {
 
 -(void)buttonTapped:(UIButton *)button
 {
+    if (button == self.cannedSummaryOther) {
+        [self.summaryTextField becomeFirstResponder];
+        return;
+    }
+
     button.selected = !button.selected;
-    button.backgroundColor = (button.selected) ? [UIColor colorWithRed:0.80 green:0.94 blue:0.91 alpha:1.0] : [UIColor whiteColor];
+    button.backgroundColor = (button.selected) ? [UIColor colorWithWhite:0.9f alpha:1.0f] : [UIColor whiteColor];
 }
 
 -(void)handlePan:(UIPanGestureRecognizer *)recognizer

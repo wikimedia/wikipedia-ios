@@ -11,7 +11,6 @@
 #import "UIButton+ColorMask.h"
 #import "LoginViewController.h"
 #import "UINavigationController+SearchNavStack.h"
-#import "MainMenuTableViewController.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -259,8 +258,18 @@
     
     [loginVC loginWithUserName:self.usernameField.text password:self.passwordField.text onSuccess:^{
 
-        MainMenuTableViewController *menuVC = [self.navigationController searchNavStackForViewControllerOfClass:[MainMenuTableViewController class]];
-        [self.navigationController popToViewController:menuVC animated:YES];
+        NSString *loggedInMessage = NSLocalizedString(@"main-menu-account-title-logged-in", nil);
+        loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString: @"$1"
+                                                                     withString: self.usernameField.text];
+        [self showAlert:loggedInMessage];
+
+        UIViewController *vcBeneathLoginVC = [self.navigationController getVCBeneathVC:loginVC];
+
+        if (vcBeneathLoginVC){
+            [self.navigationController popToViewController:vcBeneathLoginVC animated:YES];
+        }else{
+            [self performSelector:@selector(hide) withObject:nil afterDelay:0.5f];
+        }
         
     } onFail:^(){
 

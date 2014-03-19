@@ -12,6 +12,7 @@
 #import "UINavigationController+SearchNavStack.h"
 #import "UIButton+ColorMask.h"
 #import "UINavigationController+Alert.h"
+#import "PreviewAndSaveViewController.h"
 
 @interface NavController (){
 
@@ -33,6 +34,7 @@
 @property (strong, nonatomic) UIButton *buttonCheck;
 @property (strong, nonatomic) UIButton *buttonX;
 @property (strong, nonatomic) UIButton *buttonEye;
+@property (strong, nonatomic) UIButton *buttonCC;
 @property (strong, nonatomic) UIButton *buttonArrowLeft;
 @property (strong, nonatomic) UIButton *buttonArrowRight;
 @property (strong, nonatomic) UILabel *label;
@@ -302,6 +304,7 @@
     self.buttonCheck =      getButton(@"abuse-filter-check.png",        NAVBAR_BUTTON_CHECK);
     self.buttonX =          getButton(@"button_cancel_grey.png",        NAVBAR_BUTTON_X);
     self.buttonEye =        getButton(@"button_preview_white.png",      NAVBAR_BUTTON_EYE);
+    self.buttonCC =         getButton(@"button_cc_black.png",           NAVBAR_BUTTON_CC);
     self.buttonArrowLeft =  getButton(@"button_arrow_left.png",         NAVBAR_BUTTON_ARROW_LEFT);
     self.buttonArrowRight = getButton(@"button_arrow_right.png",        NAVBAR_BUTTON_ARROW_RIGHT);
     self.buttonW =          getButton(@"w.png",                         NAVBAR_BUTTON_LOGO_W);
@@ -310,6 +313,7 @@
     [self.navBarContainer addSubview:self.buttonCheck];
     [self.navBarContainer addSubview:self.buttonX];
     [self.navBarContainer addSubview:self.buttonEye];
+    [self.navBarContainer addSubview:self.buttonCC];
     [self.navBarContainer addSubview:self.buttonArrowLeft];
     [self.navBarContainer addSubview:self.buttonArrowRight];
     [self.navBarContainer addSubview:self.buttonW];
@@ -355,6 +359,7 @@
              @"NAVBAR_BUTTON_ARROW_RIGHT": self.buttonArrowRight,
              @"NAVBAR_BUTTON_LOGO_W": self.buttonW,
              @"NAVBAR_BUTTON_EYE": self.buttonEye,
+             @"NAVBAR_BUTTON_CC": self.buttonCC,
              @"NAVBAR_TEXT_FIELD": self.textField,
              @"NAVBAR_LABEL": self.label,
              @"NAVBAR_VERTICAL_LINE_1": self.verticalLine1,
@@ -383,43 +388,66 @@
 {
     [self clearViewControllerTitles];
 
+    PreviewAndSaveViewController *previewAndSaveVC = [self searchNavStackForViewControllerOfClass:[PreviewAndSaveViewController class]];
+
     _navBarMode = navBarMode;
     switch (navBarMode) {
         case NAVBAR_MODE_EDIT_WIKITEXT:
             self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext", nil);
-            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_EYE(50)]|";
+            self.navBarSubViewsHorizontalVFLString =
+                @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_EYE(50)]|";
             break;
         case NAVBAR_MODE_LOGIN:
-            self.label.text = NSLocalizedString(@"navbar-title-mode-login", nil);
-            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+            self.label.text = (!previewAndSaveVC) ?
+                NSLocalizedString(@"navbar-title-mode-login", nil)
+                :
+                NSLocalizedString(@"navbar-title-mode-login-and-save", nil)
+            ;
+            self.navBarSubViewsHorizontalVFLString =
+                @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+            break;
+        case NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY:
+            self.label.text = @"";
+            self.navBarSubViewsHorizontalVFLString =
+                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_BUTTON_CC(50)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_CREATE_ACCOUNT:
-            self.label.text = NSLocalizedString(@"navbar-title-mode-create-account", nil);
-            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+            self.label.text = (!previewAndSaveVC) ?
+                NSLocalizedString(@"navbar-title-mode-create-account", nil)
+                :
+                NSLocalizedString(@"navbar-title-mode-create-account-and-save", nil)
+            ;
+            self.navBarSubViewsHorizontalVFLString =
+                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
             self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext-warning", nil);
-            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+            self.navBarSubViewsHorizontalVFLString =
+                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW:
             self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext-disallow", nil);
-            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]|";
+            self.navBarSubViewsHorizontalVFLString =
+                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW:
         case NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY:
-            self.label.text =
-            (NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW == navBarMode) ?
+            self.label.text = (NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW == navBarMode) ?
                 NSLocalizedString(@"navbar-title-mode-edit-wikitext-preview", nil)
                 :
-                NSLocalizedString(@"navbar-title-mode-edit-wikitext-summary", nil);
-            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+                NSLocalizedString(@"navbar-title-mode-edit-wikitext-summary", nil)
+            ;
+            self.navBarSubViewsHorizontalVFLString =
+                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
             self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext-captcha", nil);
-            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
+            self.navBarSubViewsHorizontalVFLString =
+                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
             break;
         default: //NAVBAR_STYLE_SEARCH
-            self.navBarSubViewsHorizontalVFLString = @"H:|[NAVBAR_BUTTON_LOGO_W(65)][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_TEXT_FIELD]-(10)-|";
+            self.navBarSubViewsHorizontalVFLString =
+                @"H:|[NAVBAR_BUTTON_LOGO_W(65)][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_TEXT_FIELD]-(10)-|";
             break;
     }
     [self.view setNeedsUpdateConstraints];

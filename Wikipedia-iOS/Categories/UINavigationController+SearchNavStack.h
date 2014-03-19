@@ -6,4 +6,6 @@
 
 -(id)searchNavStackForViewControllerOfClass:(Class)aClass;
 
+-(id)getVCBeneathVC:(id)thisVC;
+
 @end

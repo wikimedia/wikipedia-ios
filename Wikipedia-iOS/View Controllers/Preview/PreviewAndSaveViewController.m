@@ -17,8 +17,16 @@
 #import "UINavigationController+SearchNavStack.h"
 #import "PreviewWebView.h"
 #import "EditSummaryViewController.h"
+#import "LoginViewController.h"
+#import "UINavigationController+TopActionSheet.h"
+#import "TitleSubtitleView.h"
 
 #define NAV ((NavController *)self.navigationController)
+
+typedef enum {
+    TOP_ACTION_SHEET_LOGIN_THEN_SAVE = 0,
+    TOP_ACTION_SHEET_SAVE = 1
+} TopActionSheetItemTag;
 
 @interface PreviewAndSaveViewController ()
 
@@ -26,6 +34,8 @@
 @property (strong, nonatomic) CaptchaViewController *captchaViewController;
 @property (weak, nonatomic) IBOutlet UIView *editSummaryContainer;
 @property (strong, nonatomic) EditSummaryViewController *editSummaryViewController;
+
+@property (nonatomic) BOOL saveAutomaticallyIfSignedIn;
 
 @end
 
@@ -44,7 +54,7 @@
         case NAVBAR_BUTTON_CHECK:
         case NAVBAR_BUTTON_ARROW_RIGHT: /* for captcha submit button */
             {
-                [self save];
+                [self saveOrShowSignInActionSheetIfNotLoggedIn];
             }
             break;
         default:
@@ -61,6 +71,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.saveAutomaticallyIfSignedIn = NO;
     
     self.previewWebView.scrollView.delegate = self;
     
@@ -88,23 +100,29 @@
                                              selector: @selector(navItemTappedNotification:)
                                                  name: @"NavItemTapped"
                                                object: nil];
-
-    [self highlightArrowButton:YES];
    
     [self preview];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(topActionSheetItemTappedNotification:) name:@"TopActionSheetItemTapped" object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     self.scrollView.alpha = 0.0f;
 
-    // Change the nav bar layout.
     NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW;
+
+    UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_CC];
+    [button maskButtonImageWithColor: [UIColor darkGrayColor]];
+
+    [self highlightProgressiveButton:YES];
+
+    [self saveAutomaticallyIfNecessary];
 
     [super viewWillAppear:animated];
 }
 
--(void)highlightArrowButton:(BOOL)highlight
+-(void)highlightProgressiveButton:(BOOL)highlight
 {
     static BOOL lastHightlight = NO;
     if (lastHightlight == highlight) return;
@@ -113,14 +131,14 @@
     UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
 
     button.backgroundColor = highlight ?
-        [UIColor colorWithRed:0.24 green:0.41 blue:0.69 alpha:1.0]
+        [UIColor colorWithRed:0.00 green:0.70 blue:0.55 alpha:1.0]
         :
-        [UIColor clearColor];
+        [UIColor darkGrayColor];
     
     [button maskButtonImageWithColor: highlight ?
         [UIColor whiteColor]
         :
-        [UIColor blackColor]
+        [UIColor whiteColor]
      ];
 }
 
@@ -130,12 +148,18 @@
                                                     name: @"NavItemTapped"
                                                   object: nil];
 
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                name: @"TopActionSheetItemTapped"
+                                              object: nil];
+
+    [self.navigationController topActionSheetHide];
+
     [self showAlert:@""];
 
     // Change the nav bar layout.
     NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
 
-    [self highlightArrowButton:NO];
+    [self highlightProgressiveButton:NO];
 
     [super viewWillDisappear:animated];
 }
@@ -193,6 +217,73 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)saveAutomaticallyIfNecessary
+{
+    // Save automatically if user had tapped "sign in and save" previously and if
+    // the view is appearing and the user is now logged in.
+    if(self.saveAutomaticallyIfSignedIn){
+        self.saveAutomaticallyIfSignedIn = NO;
+        if([SessionSingleton sharedInstance].keychainCredentials.userName){
+            [self save];
+        }
+    }
+}
+
+- (void)topActionSheetItemTappedNotification:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    UIView *tappedItem = userInfo[@"tappedItem"];
+
+    switch (tappedItem.tag) {
+        case TOP_ACTION_SHEET_LOGIN_THEN_SAVE:{
+            self.saveAutomaticallyIfSignedIn = YES;
+            LoginViewController *loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            [self.navigationController pushViewController:loginVC animated:YES];
+        }
+            break;
+        case TOP_ACTION_SHEET_SAVE:
+            [self save];
+            break;
+        default:
+            break;
+    }
+    [self highlightProgressiveButton:YES];
+
+    [self.navigationController topActionSheetHide];
+}
+
+- (void)saveOrShowSignInActionSheetIfNotLoggedIn
+{
+    if(![SessionSingleton sharedInstance].keychainCredentials.userName){
+        
+        NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY;
+        
+        [self highlightProgressiveButton:NO];
+
+        TitleSubtitleView *saveAnonItemView =
+        [[TitleSubtitleView alloc] initWithTitle: NSLocalizedString(@"wikitext-upload-save-anonymously", nil)
+                                        subTitle: NSLocalizedString(@"wikitext-upload-save-anonymously-warning", nil)
+                                  titleTextColor: [UIColor whiteColor]
+                               subTitleTextColor: [UIColor colorWithWhite:0.75 alpha:1.0]
+                                 backgroundColor: [UIColor darkGrayColor]];
+        saveAnonItemView.tag = TOP_ACTION_SHEET_SAVE;
+        
+        TitleSubtitleView *saveLoginItemView =
+        [[TitleSubtitleView alloc] initWithTitle: NSLocalizedString(@"wikitext-upload-save-sign-in", nil)
+                                        subTitle: NSLocalizedString(@"wikitext-upload-save-sign-in-benefits", nil)
+                                  titleTextColor: [UIColor whiteColor]
+                               subTitleTextColor: [UIColor colorWithWhite:0.75 alpha:1.0]
+                                 backgroundColor: [UIColor colorWithRed:0.24 green:0.41 blue:0.69 alpha:1.0]];
+        saveLoginItemView.tag = TOP_ACTION_SHEET_LOGIN_THEN_SAVE;
+        
+        [self.navigationController topActionSheetShowWithViews: @[saveAnonItemView, saveLoginItemView]
+                                                   orientation: TOP_ACTION_SHEET_LAYOUT_VERTICAL];
+        return;
+    }
+
+    [self save];
 }
 
 - (void)save

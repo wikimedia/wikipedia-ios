@@ -88,6 +88,7 @@
             [self save];
             break;
         case NAVBAR_BUTTON_X:
+        case NAVBAR_BUTTON_ARROW_LEFT:
             [self hide];
             break;
         default:
@@ -125,6 +126,12 @@
     [self loginWithUserName: self.usernameField.text
                    password: self.passwordField.text
                   onSuccess: ^{
+                  
+                      NSString *loggedInMessage = NSLocalizedString(@"main-menu-account-title-logged-in", nil);
+                      loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString: @"$1"
+                                                                                   withString: self.usernameField.text];
+                      [self showAlert:loggedInMessage];
+
                       [self performSelector:@selector(hide) withObject:nil afterDelay:1.25f];
                   } onFail: nil];
 }
