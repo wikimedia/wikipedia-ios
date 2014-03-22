@@ -11,6 +11,7 @@
 #import "NavController.h"
 #import "PreviewAndSaveViewController.h"
 #import "UIButton+ColorMask.h"
+#import "WMF_Colors.h"
 
 #define EDIT_TEXT_VIEW_FONT @"HelveticaNeue"
 #define EDIT_TEXT_VIEW_FONT_SIZE 14.0f
@@ -23,6 +24,7 @@
     ArticleDataContextSingleton *articleDataContext_;
 }
 
+@property (weak, nonatomic) IBOutlet UITextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
 
 @end
@@ -68,7 +70,7 @@
     UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_EYE];
 
     button.backgroundColor = highlight ?
-        [UIColor colorWithRed:0.24 green:0.41 blue:0.69 alpha:1.0]
+        WMF_COLOR_BLUE
         :
         [UIColor clearColor];
     
@@ -175,8 +177,8 @@
             [self showAlert:@""];
             self.unmodifiedWikiText = revision;
             self.editTextView.attributedText = [self getAttributedString:revision];
-            [self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
-            [self performSelector:@selector(setCursor:) withObject:self.editTextView afterDelay:0.45];
+            //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
+            //[self performSelector:@selector(setCursor:) withObject:self.editTextView afterDelay:0.45];
             [self adjustScrollInset];
         }];
         
@@ -198,7 +200,7 @@
 {
     // Ensure the edit text view can scroll whatever text it is displaying all the
     // way so the bottom of the text can be scrolled to the top of the screen.
-    CGFloat bottomInset = self.view.bounds.size.height - 150;
+    CGFloat bottomInset = self.view.bounds.size.height - 60;
     self.editTextView.contentInset = UIEdgeInsetsMake(0, 0, bottomInset, 0);
 }
 
@@ -209,7 +211,9 @@
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-  [self adjustScrollInset];
+    [self adjustScrollInset];
+    
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 -(NSAttributedString *)getAttributedString:(NSString *)string
@@ -217,12 +221,17 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.maximumLineHeight = EDIT_TEXT_VIEW_LINE_HEIGHT_MIN;
     paragraphStyle.minimumLineHeight = EDIT_TEXT_VIEW_LINE_HEIGHT_MAX;
-    
-    return [[NSAttributedString alloc] initWithString: string
-                                           attributes: @{
-                                                         NSFontAttributeName : [UIFont fontWithName:EDIT_TEXT_VIEW_FONT size:EDIT_TEXT_VIEW_FONT_SIZE],
-                                                         NSParagraphStyleAttributeName : paragraphStyle,
-                                                         }];
+
+    paragraphStyle.headIndent = 10.0;
+    paragraphStyle.firstLineHeadIndent = 10.0;
+    paragraphStyle.tailIndent = -10.0;
+
+    return
+    [[NSAttributedString alloc] initWithString: string
+                                    attributes: @{
+                                                  NSParagraphStyleAttributeName : paragraphStyle,
+                                                  NSFontAttributeName : [UIFont fontWithName:EDIT_TEXT_VIEW_FONT size:EDIT_TEXT_VIEW_FONT_SIZE],
+                                                  }];
 }
 
 - (void)preview

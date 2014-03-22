@@ -86,14 +86,14 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Quick verification needed";
 "navbar-title-mode-edit-wikitext-summary" = "Describe your edit";
 
-"edit-summary-choice-grammar" = "Improved grammar";
 "edit-summary-choice-linked-words" = "Linked words";
+"edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-inaccuracy" = "Fixed inaccuracy";
-
+"edit-summary-choice-fixed-styling" = "Fixed styling";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
 "edit-summary-choice-added-category" = "Added category";
-"edit-summary-choice-added-critical-info" = "Added critical info";
-
+"edit-summary-choice-added-missing-info" = "Added missing info";
+"edit-summary-choice-added-clarification" = "Added clarification";
 "edit-summary-choice-other" = "Other";
 
 "edit-summary-description" = "A specific summary helps co-editors quickly review your edits. You can also pick from tags below.";

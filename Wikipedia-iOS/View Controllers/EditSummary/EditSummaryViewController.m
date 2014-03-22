@@ -2,9 +2,10 @@
 
 #import "EditSummaryViewController.h"
 #import "NavController.h"
+#import "Defines.h"
+#import "WMF_Colors.h"
 
 #define NAV ((NavController *)self.navigationController)
-#define DOCK_DISTANCE_FROM_BOTTOM 68.0f
 #define MAX_SUMMARY_LENGTH 255
 
 typedef enum {
@@ -13,8 +14,6 @@ typedef enum {
 } EditSummaryDockLocation;
 
 @interface EditSummaryViewController ()
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
 @property (weak, nonatomic) IBOutlet UILabel *aboutLabel;
 
@@ -25,14 +24,15 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIButton *cannedSummary04;
 @property (weak, nonatomic) IBOutlet UIButton *cannedSummary05;
 @property (weak, nonatomic) IBOutlet UIButton *cannedSummary06;
-
-@property (weak, nonatomic) IBOutlet UIButton *cannedSummaryOther;
+@property (weak, nonatomic) IBOutlet UIButton *cannedSummary07;
 
 @property (weak, nonatomic) IBOutlet UITextField *summaryTextField;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topDividerHeightConstraint;
 
 @property (nonatomic) CGFloat borderWidth;
+
+@property (weak, nonatomic) IBOutlet UIView *editSummaryContainerView;
 
 @end
 
@@ -52,6 +52,7 @@ typedef enum {
     if (self.cannedSummary04.selected) [summaryArray addObject:self.cannedSummary04.titleLabel.text];
     if (self.cannedSummary05.selected) [summaryArray addObject:self.cannedSummary05.titleLabel.text];
     if (self.cannedSummary06.selected) [summaryArray addObject:self.cannedSummary06.titleLabel.text];
+    if (self.cannedSummary07.selected) [summaryArray addObject:self.cannedSummary07.titleLabel.text];
 
     return [summaryArray componentsJoinedByString:@"; "];
 }
@@ -60,6 +61,8 @@ typedef enum {
 {
     [super viewDidLoad];
     
+    self.view.translatesAutoresizingMaskIntoConstraints = NO;
+
     self.borderWidth = 1.0f / [UIScreen mainScreen].scale;
     
     // Use the pan recognizer to allow the edit summary to be dragged up and down.
@@ -87,61 +90,58 @@ typedef enum {
                                                  name: @"PreviewWebViewBeganScrolling"
                                                object: nil];
 
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)]];
+}
+
+-(void)viewTapped:(id)sender
+{
+    if ([self isDockedAtBottom]) {
+        [self dockAtLocation:DOCK_TOP];
+    }
 }
 
 -(void)setupButtons
 {
-    UIColor *redTextColor = [UIColor colorWithRed:1.00 green:0.35 blue:0.24 alpha:1.0];
-    UIColor *greenTextColor = [UIColor colorWithRed:0.00 green:0.73 blue:0.51 alpha:1.0];
-    UIColor *borderColor = [UIColor lightGrayColor];
+    UIColor *topColor = WMF_COLOR_ORANGE;
+    UIColor *bottomColor = WMF_COLOR_GREEN;
 
     [self setupButton: self.cannedSummary01
             withTitle: NSLocalizedString(@"edit-summary-choice-fixed-typos", nil)
-            textColor: redTextColor
-          borderColor: borderColor
+                color: topColor
      ];
     
     [self setupButton: self.cannedSummary02
-            withTitle: NSLocalizedString(@"edit-summary-choice-grammar", nil)
-            textColor: redTextColor
-          borderColor: borderColor
+            withTitle: NSLocalizedString(@"edit-summary-choice-fixed-grammar", nil)
+                color: topColor
      ];
-
+    
     [self setupButton: self.cannedSummary03
             withTitle: NSLocalizedString(@"edit-summary-choice-fixed-inaccuracy", nil)
-            textColor: redTextColor
-          borderColor: borderColor
+                color: topColor
      ];
-
+    
     [self setupButton: self.cannedSummary04
             withTitle: NSLocalizedString(@"edit-summary-choice-linked-words", nil)
-            textColor: greenTextColor
-          borderColor: borderColor
+                color: bottomColor
      ];
-
+    
     [self setupButton: self.cannedSummary05
-            withTitle: NSLocalizedString(@"edit-summary-choice-added-category", nil)
-            textColor: greenTextColor
-          borderColor: borderColor
+            withTitle: NSLocalizedString(@"edit-summary-choice-added-clarification", nil)
+                color: bottomColor
      ];
-
+    
     [self setupButton: self.cannedSummary06
-            withTitle: NSLocalizedString(@"edit-summary-choice-added-critical-info", nil)
-            textColor: greenTextColor
-          borderColor: borderColor
+            withTitle: NSLocalizedString(@"edit-summary-choice-added-missing-info", nil)
+                color: bottomColor
      ];
-
-    [self setupButton: self.cannedSummaryOther
-            withTitle: NSLocalizedString(@"edit-summary-choice-other", nil)
-            textColor: [UIColor colorWithRed:0.57 green:0.35 blue:0.25 alpha:1.0]
-          borderColor: borderColor
+    
+    [self setupButton: self.cannedSummary07
+            withTitle: NSLocalizedString(@"edit-summary-choice-fixed-styling", nil)
+                color: topColor
      ];
-
-    self.cannedSummaryOther.hidden = YES;
-    self.cannedSummary05.hidden = YES;
 }
 
--(void)setupButton:(UIButton *)button withTitle:(NSString *)title textColor:(UIColor *)textColor borderColor:(UIColor *)borderColor{
+-(void)setupButton:(UIButton *)button withTitle:(NSString *)title color:(UIColor *)color{
 
     NSAttributedString *(^getAttributedText)(NSString *, UIColor *) = ^NSAttributedString *(NSString *title, UIColor *textColor) {
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -154,7 +154,7 @@ typedef enum {
         [attStr beginEditing];
         [attStr addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:wholeRange];
         [attStr addAttribute:NSForegroundColorAttributeName value:textColor range:wholeRange];
-        [attStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10.0f] range:wholeRange];
+        [attStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13.0f] range:wholeRange];
         [attStr addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:wholeRange];
         [attStr addAttribute:NSKernAttributeName value:@1.0f range:wholeRange];
         [attStr endEditing];
@@ -162,16 +162,18 @@ typedef enum {
         return attStr;
     };
 
-[button setAttributedTitle:getAttributedText(title, textColor) forState:UIControlStateNormal];
+    [button setAttributedTitle:getAttributedText(title, color) forState:UIControlStateNormal];
+    [button setAttributedTitle:getAttributedText(title, [UIColor whiteColor]) forState:UIControlStateSelected];
 
     CGFloat borderWidth = self.borderWidth;
-    UIEdgeInsets buttonPaddingInset = UIEdgeInsetsMake(5, 12, 5, 12);
+    UIEdgeInsets buttonPaddingInset = UIEdgeInsetsMake(10, 12, 10, 12);
 
-        button.layer.borderColor = borderColor.CGColor;
-        button.layer.borderWidth = borderWidth;
-        button.contentEdgeInsets = buttonPaddingInset;
-        [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-
+    button.layer.borderColor = color.CGColor;
+    button.layer.borderWidth = borderWidth;
+    button.contentEdgeInsets = buttonPaddingInset;
+    [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    button.backgroundColor = [UIColor whiteColor];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -186,13 +188,19 @@ typedef enum {
 
 -(void)buttonTapped:(UIButton *)button
 {
-    if (button == self.cannedSummaryOther) {
-        [self.summaryTextField becomeFirstResponder];
-        return;
-    }
-
     button.selected = !button.selected;
-    button.backgroundColor = (button.selected) ? [UIColor colorWithWhite:0.9f alpha:1.0f] : [UIColor whiteColor];
+    button.backgroundColor = (button.selected) ? [self getButtonAttributedTextColor:button] : [UIColor whiteColor];
+}
+
+-(UIColor *)getButtonAttributedTextColor:(UIButton *)button
+{
+    // Return the button's UIControlStateNormal attributed text color.
+    NSRange effectiveRange = NSMakeRange(0, 0);
+    NSAttributedString *attributedString = [button attributedTitleForState:UIControlStateNormal];
+    id attributeValue = [attributedString attribute: NSForegroundColorAttributeName
+                                                  atIndex: NSMaxRange(effectiveRange)
+                                           effectiveRange: &effectiveRange];
+    return (attributeValue) ? ((UIColor *)attributeValue) : [UIColor whiteColor];
 }
 
 -(void)handlePan:(UIPanGestureRecognizer *)recognizer
@@ -239,15 +247,33 @@ typedef enum {
     return (self.topConstraint.constant == ([self getDockingYOffset])) ? YES : NO;
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    BOOL wasDockedAtBottom = [self isDockedAtBottom];
+    
+    // Scroll the edit summary panel to top. Reminder: this changes what's returned
+    // from "isDockedAtBottom" - that's why the value was pulled out into
+    // "wasDockedAtBottom" above.
     [self dockAtLocation:DOCK_TOP];
+
+    // Only raise the keyboard if tap on text field occured after edit summary
+    // panel has been raised from bottom dock location. Allows user to see canned edit
+    // summary options before they're hidden by the keyboard.
+    return !wasDockedAtBottom;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [self.summaryTextField resignFirstResponder];
     [super viewWillDisappear:animated];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    CGFloat initialDistanceFromTop = [self getDockingYOffset];
+    self.topConstraint.constant = initialDistanceFromTop;
 }
 
 // From: http://stackoverflow.com/a/1773257
@@ -283,45 +309,60 @@ typedef enum {
 
 -(CGFloat)getDockingYOffset
 {
-    return self.parentViewController.view.frame.size.height - DOCK_DISTANCE_FROM_BOTTOM;
+    return self.parentViewController.view.frame.size.height - EDIT_SUMMARY_DOCK_DISTANCE_FROM_BOTTOM;
 }
 
 -(void)updateViewConstraints
 {
-    CGFloat initialDistanceFromTop = [self getDockingYOffset];
-    if (!self.topConstraint) {
-    
-        self.topConstraint = [NSLayoutConstraint constraintWithItem: self.view
-                                                          attribute: NSLayoutAttributeTop
-                                                          relatedBy: NSLayoutRelationGreaterThanOrEqual
-                                                             toItem: self.parentViewController.view
-                                                          attribute: NSLayoutAttributeTop
-                                                         multiplier: 1.0f
-                                                           constant: initialDistanceFromTop];
-        
-        [self.parentViewController.view addConstraint:self.topConstraint];
-
-    }
-    
     // Enforce vertical scroll limits.
-    CGFloat yConstant = self.topConstraint.constant;
-    CGFloat constrainedYConstant = fmaxf(yConstant, 0);
-    constrainedYConstant = fminf(initialDistanceFromTop, constrainedYConstant);
-    
-    // Adjust only if it was scrolled out of limits.
-    if (yConstant != constrainedYConstant) {
-        self.topConstraint.constant = constrainedYConstant;
+    CGFloat distanceFromTop = self.topConstraint.constant;
+
+    if (distanceFromTop < 0) {
+        
+        CGPoint containerBottomOffset =
+            [self.editSummaryContainerView convertPoint: CGPointMake(0, self.editSummaryContainerView.frame.size.height)
+                                                                             toView: self.view];
+        
+        // When device is portrait, the editSummaryContainerView may be taller than the screen, so allow
+        // the edit summary panel to be scrolled up as far as necessary to allow the bottom of the
+        // editSummaryContainerView to be scrolled completely on screen. Otherwise some canned edit
+        // summaries won't be selectable!
+        CGFloat containerBottomExtraVerticalScrollMarginNeeded =
+            fminf((self.parentViewController.view.frame.size.height - containerBottomOffset.y), 0);
+        
+        distanceFromTop = fmaxf(distanceFromTop, containerBottomExtraVerticalScrollMarginNeeded);
+        
+        self.topConstraint.constant = distanceFromTop;
     }
-    
+
     [super updateViewConstraints];
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    // The view's dimensions have been updated by the time "willAnimateRotationToInterfaceOrientation"
+    // is called. So dock the edit summary panel at bottom - this will cause it to animate to docking
+    // position as part of rotation animation.
+    self.topConstraint.constant = [self getDockingYOffset];
+}
+
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    // This prevents a "Unable to simultaneously satisfy constraints." warning which happens if
+    // device is rotated back and forth.
+    
+    // "willAnimateRotationToInterfaceOrientation" sets self.topConstraint.constant so it's ok to
+    // set it to 1 here.
+    
+    self.topConstraint.constant = 1;
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    // Ensure edit summary isn't scrolled past its vertical limits after rotate.
-    [self.view setNeedsUpdateConstraints];
-    
-    [self dockAtLocation:DOCK_BOTTOM];
+    [self updateNavBar];
+
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 - (void)didReceiveMemoryWarning

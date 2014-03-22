@@ -14,6 +14,9 @@
 #import "UINavigationController+Alert.h"
 #import "PreviewAndSaveViewController.h"
 
+#import "SessionSingleton.h"
+#import "WebViewController.h"
+
 @interface NavController (){
 
 }
@@ -246,7 +249,7 @@
     self.textField = [[NavBarTextField alloc] init];
     self.textField.delegate = self;
     self.textField.translatesAutoresizingMaskIntoConstraints = NO;
-    self.textField.returnKeyType = UIReturnKeyGo;
+    self.textField.returnKeyType = UIReturnKeyDone;
     self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.textField.font = SEARCH_FONT;
     self.textField.textColor = SEARCH_FONT_HIGHLIGHTED_COLOR;
@@ -409,7 +412,7 @@
         case NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY:
             self.label.text = @"";
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_BUTTON_CC(50)][NAVBAR_BUTTON_CHECK(50)]|";
+                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_BUTTON_CC(50)][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_CREATE_ACCOUNT:
             self.label.text = (!previewAndSaveVC) ?
@@ -438,14 +441,14 @@
                 NSLocalizedString(@"navbar-title-mode-edit-wikitext-summary", nil)
             ;
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_BUTTON_CC(50)][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
             self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext-captcha", nil);
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
             break;
-        default: //NAVBAR_STYLE_SEARCH
+        default: //NAVBAR_MODE_SEARCH
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_LOGO_W(65)][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_TEXT_FIELD]-(10)-|";
             break;
@@ -472,6 +475,7 @@
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     self.navBarStyle = (UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? NAVBAR_STYLE_DAY : NAVBAR_STYLE_NIGHT);
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 */
 
@@ -485,11 +489,11 @@
         if (self.topViewController == searchResultsVC) {
             [searchResultsVC refreshSearchResults];
         }else{
-            [self popToViewController:searchResultsVC animated:YES];
+            [self popToViewController:searchResultsVC animated:NO];
         }
     }else{
         SearchResultsController *searchResultsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
-        [self pushViewController:searchResultsVC animated:YES];
+        [self pushViewController:searchResultsVC animated:NO];
     }
 }
 
@@ -515,13 +519,24 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchFieldBecameFirstResponder" object:self userInfo:nil];
     
-    if (self.textField.text.length == 0) self.textField.rightView.hidden = YES;
+    if (self.textField.text.length == 0){
+        self.textField.rightView.hidden = YES;
+    }else{
+        [self showSearchResultsController];
+    }
 }
 
 -(void)clearTextFieldText
 {
     self.textField.text = @"";
     self.textField.rightView.hidden = YES;
+
+    SearchResultsController *searchResultsVC = [self searchNavStackForViewControllerOfClass:[SearchResultsController class]];
+    [searchResultsVC clearSearchResults];
+    
+    if (self.topViewController == searchResultsVC) {
+        [self popViewControllerAnimated:NO];
+    }
 }
 
 - (void)searchStringChanged
@@ -532,13 +547,30 @@
     self.currentSearchString = trimmedSearchString;
 
     [self showSearchResultsController];
-    
+
     if (trimmedSearchString.length == 0){
         self.textField.rightView.hidden = YES;
         
         return;
     }
     self.textField.rightView.hidden = NO;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.topViewController hideKeyboard];
+    return YES;
+}
+
+-(BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    // In "setIsTransitioningBetweenViewControllers" self.view.userInteractionEnabled is conditionally
+    // disabled as a fairly robust "debounce" strategy. But this is problematic on iOS 6 which hides
+    // any keyboards which had been visible when a first responder view's superview has its
+    // userInteractionEnabled set to NO. So here the seach box keyboard is set to *not* hide if it has
+    // been told to hide while transistioning between view controllers. Without this, the first time a
+    // search term is entered on iOS 6 they keyboard will immediately hide. That's bad.
+    return (self.isTransitioningBetweenViewControllers) ? NO : YES;
 }
 
 #pragma mark KVO
@@ -676,6 +708,17 @@
             break;
     }
     [view setNeedsDisplay];
+}
+
+-(void)loadArticleWithTitle:(NSString *)title domain:(NSString *)domain animated:(BOOL)animated
+{
+    WebViewController *webVC = [self searchNavStackForViewControllerOfClass:[WebViewController class]];
+    if (webVC){
+        [SessionSingleton sharedInstance].currentArticleTitle = title;
+        [SessionSingleton sharedInstance].currentArticleDomain = domain;
+        [webVC reloadCurrentArticle];
+        [self popToViewController:webVC animated:animated];
+    }
 }
 
 @end

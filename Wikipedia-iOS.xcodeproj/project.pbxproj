@@ -391,6 +391,7 @@
 		043F18E818D9885F00D8489A /* TitleSubtitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleSubtitleView.m; sourceTree = "<group>"; };
 		043F18EB18DA3D9B00D8489A /* button_cc_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_cc_black.png; sourceTree = "<group>"; };
 		043F18EC18DA3D9B00D8489A /* button_cc_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_cc_black@2x.png"; sourceTree = "<group>"; };
+		043F18F118DCDD3A00D8489A /* WMF_Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMF_Colors.h; sourceTree = "<group>"; };
 		04478620185145090050563B /* HistoryResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryResultCell.h; sourceTree = "<group>"; };
 		04478621185145090050563B /* HistoryResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryResultCell.m; sourceTree = "<group>"; };
 		04478622185145090050563B /* HistoryResultPrototypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryResultPrototypeView.xib; sourceTree = "<group>"; };
@@ -773,6 +774,7 @@
 			isa = PBXGroup;
 			children = (
 				04292FFC185FC026002A13FC /* Defines.h */,
+				043F18F118DCDD3A00D8489A /* WMF_Colors.h */,
 			);
 			path = Defines;
 			sourceTree = "<group>";

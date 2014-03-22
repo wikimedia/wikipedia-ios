@@ -16,5 +16,6 @@
 // this view controller is already on top of the nav stack and the search term has
 // changed.
 -(void)refreshSearchResults;
+-(void)clearSearchResults;
 
 @end

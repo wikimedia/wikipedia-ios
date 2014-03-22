@@ -6,7 +6,9 @@
 #import "QueuesSingleton.h"
 #import "ArticleLanguagesCell.h"
 #import "ArticleLanguagesSectionHeadingLabel.h"
-//#import "UIViewController+Alert.h"
+#import "NavController.h"
+
+#define NAV ((NavController *)self.navigationController)
 
 @interface ArticleLanguagesTableVC ()
 
@@ -140,6 +142,9 @@
 
 -(void)hide
 {
+    [self.navigationController.view.layer addAnimation:[self getTransition] forKey:nil];
+
+    // Don't animate - so the transistion set above will be used.
     [self.navigationController popViewControllerAnimated:NO];
 }
 
@@ -160,10 +165,19 @@
 {
     NSDictionary *d = self.languagesData[indexPath.row];
 
-    [SessionSingleton sharedInstance].currentArticleTitle = d[@"*"];
-    [SessionSingleton sharedInstance].currentArticleDomain = d[@"code"];
+    [self.navigationController.view.layer addAnimation:[self getTransition] forKey:nil];
 
-    [self hide];
+    // Don't animate - so the transistion set above will be used.
+    [NAV loadArticleWithTitle:d[@"*"] domain:d[@"code"] animated:NO];
+}
+
+-(CATransition *)getTransition
+{
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.25;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    return transition;
 }
 
 /*

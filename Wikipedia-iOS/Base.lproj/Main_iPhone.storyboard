@@ -389,8 +389,8 @@
                         <viewControllerLayoutGuide type="top" id="ZyV-uf-JEQ"/>
                         <viewControllerLayoutGuide type="bottom" id="9aG-NE-aJo"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="gmn-rP-nco">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="600"/>
+                    <view key="view" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="106" id="gmn-rP-nco">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="106"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2KM-dg-4iC" userLabel="TopDivider">
@@ -434,13 +434,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZOX-Fl-iot" userLabel="Edit Summary Container">
-                                <rect key="frame" x="20" y="24" width="280" height="556"/>
+                                <rect key="frame" x="20" y="24" width="280" height="235"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="ssq-A7-dt2">
-                                        <rect key="frame" x="0.0" y="50" width="280" height="14"/>
+                                        <rect key="frame" x="0.0" y="50" width="280" height="16"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -451,7 +451,7 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vrw-dZ-OFO">
-                                        <rect key="frame" x="0.0" y="84" width="35" height="26"/>
+                                        <rect key="frame" x="0.0" y="86" width="35" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title="Button">
@@ -459,7 +459,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ye-Xe-EBO">
-                                        <rect key="frame" x="41" y="84" width="35" height="26"/>
+                                        <rect key="frame" x="41" y="86" width="35" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title="Button">
@@ -467,7 +467,15 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8T-sr-vj9">
-                                        <rect key="frame" x="0.0" y="116" width="35" height="26"/>
+                                        <rect key="frame" x="0.0" y="118" width="35" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exB-80-3yh">
+                                        <rect key="frame" x="41" y="118" width="35" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title="Button">
@@ -475,7 +483,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BZd-7p-bSx">
-                                        <rect key="frame" x="0.0" y="155" width="35" height="26"/>
+                                        <rect key="frame" x="0.0" y="157" width="35" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title="Button">
@@ -483,7 +491,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0D3-cN-OVL">
-                                        <rect key="frame" x="41" y="155" width="35" height="26"/>
+                                        <rect key="frame" x="41" y="157" width="35" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title="Button">
@@ -491,15 +499,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cok-jA-aOh">
-                                        <rect key="frame" x="0.0" y="187" width="35" height="26"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                        <state key="normal" title="Button">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKE-G4-igF">
-                                        <rect key="frame" x="0.0" y="226" width="35" height="26"/>
+                                        <rect key="frame" x="0.0" y="189" width="35" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title="Button">
@@ -512,29 +512,30 @@
                                     <constraint firstItem="ssq-A7-dt2" firstAttribute="top" secondItem="94u-WG-Ye2" secondAttribute="bottom" constant="20" id="5Eg-NL-ma5"/>
                                     <constraint firstItem="cok-jA-aOh" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="6Hj-Kc-AGd"/>
                                     <constraint firstItem="94u-WG-Ye2" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="DBm-H2-PsH"/>
-                                    <constraint firstItem="AKE-G4-igF" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="E2p-5x-tJT"/>
                                     <constraint firstItem="ssq-A7-dt2" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="EQW-UK-qrz"/>
                                     <constraint firstItem="V8T-sr-vj9" firstAttribute="top" secondItem="vrw-dZ-OFO" secondAttribute="bottom" constant="6" id="FRi-3H-Hea"/>
                                     <constraint firstAttribute="trailing" secondItem="94u-WG-Ye2" secondAttribute="trailing" id="Jxk-G4-Ng2"/>
                                     <constraint firstItem="0D3-cN-OVL" firstAttribute="top" secondItem="BZd-7p-bSx" secondAttribute="top" id="MGw-VT-4ia"/>
                                     <constraint firstAttribute="trailing" secondItem="ssq-A7-dt2" secondAttribute="trailing" id="Rfv-mN-nox"/>
+                                    <constraint firstItem="exB-80-3yh" firstAttribute="leading" secondItem="V8T-sr-vj9" secondAttribute="trailing" constant="6" id="SUl-tZ-dH4"/>
                                     <constraint firstItem="vrw-dZ-OFO" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="UEj-qe-vDF"/>
                                     <constraint firstItem="ssq-A7-dt2" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="Ugl-eQ-2cz"/>
                                     <constraint firstItem="BZd-7p-bSx" firstAttribute="top" secondItem="V8T-sr-vj9" secondAttribute="bottom" constant="13" id="Znd-bZ-VYK"/>
                                     <constraint firstItem="0D3-cN-OVL" firstAttribute="leading" secondItem="BZd-7p-bSx" secondAttribute="trailing" constant="6" id="aqN-Uf-PX2"/>
+                                    <constraint firstAttribute="bottom" secondItem="cok-jA-aOh" secondAttribute="bottom" constant="20" symbolic="YES" id="cca-UZ-uBJ"/>
                                     <constraint firstItem="8ye-Xe-EBO" firstAttribute="leading" secondItem="vrw-dZ-OFO" secondAttribute="trailing" constant="6" id="cfe-cF-HFv"/>
-                                    <constraint firstItem="AKE-G4-igF" firstAttribute="top" secondItem="cok-jA-aOh" secondAttribute="bottom" constant="13" id="dnG-I2-thF"/>
                                     <constraint firstAttribute="width" constant="280" id="eUA-pY-zeL"/>
                                     <constraint firstItem="BZd-7p-bSx" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="eVG-XQ-Vum"/>
                                     <constraint firstItem="94u-WG-Ye2" firstAttribute="top" secondItem="ZOX-Fl-iot" secondAttribute="top" id="foi-4k-dl2"/>
                                     <constraint firstItem="cok-jA-aOh" firstAttribute="top" secondItem="BZd-7p-bSx" secondAttribute="bottom" constant="6" id="hxQ-Xp-JBW"/>
                                     <constraint firstItem="V8T-sr-vj9" firstAttribute="leading" secondItem="ZOX-Fl-iot" secondAttribute="leading" id="m8H-ge-PL6"/>
+                                    <constraint firstItem="V8T-sr-vj9" firstAttribute="top" secondItem="exB-80-3yh" secondAttribute="top" id="uQc-8G-7pj"/>
                                     <constraint firstItem="vrw-dZ-OFO" firstAttribute="top" secondItem="ssq-A7-dt2" secondAttribute="bottom" constant="20" id="xjG-RW-Nfw"/>
                                     <constraint firstItem="vrw-dZ-OFO" firstAttribute="top" secondItem="8ye-Xe-EBO" secondAttribute="top" id="yO1-Jw-1IR"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.96758097627737227" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2KM-dg-4iC" firstAttribute="leading" secondItem="gmn-rP-nco" secondAttribute="leading" id="BMb-Jy-tBo"/>
                             <constraint firstItem="ZOX-Fl-iot" firstAttribute="top" secondItem="gmn-rP-nco" secondAttribute="top" constant="24" id="KhF-W6-mdi"/>
@@ -542,7 +543,6 @@
                             <constraint firstAttribute="centerX" secondItem="TXq-x6-7l1" secondAttribute="centerX" id="ZbO-vt-Hbl"/>
                             <constraint firstItem="TXq-x6-7l1" firstAttribute="top" secondItem="gmn-rP-nco" secondAttribute="top" id="arX-ce-Ncl"/>
                             <constraint firstItem="94u-WG-Ye2" firstAttribute="top" secondItem="TXq-x6-7l1" secondAttribute="bottom" id="fTp-7q-wUl"/>
-                            <constraint firstAttribute="bottom" secondItem="ZOX-Fl-iot" secondAttribute="bottom" constant="20" symbolic="YES" id="gVd-0l-NsQ"/>
                             <constraint firstItem="2KM-dg-4iC" firstAttribute="top" secondItem="gmn-rP-nco" secondAttribute="top" id="hcy-y5-ek2"/>
                             <constraint firstAttribute="centerX" secondItem="ZOX-Fl-iot" secondAttribute="centerX" id="qnR-f0-AkD"/>
                         </constraints>
@@ -555,7 +555,8 @@
                         <outlet property="cannedSummary04" destination="BZd-7p-bSx" id="ACJ-6S-6oe"/>
                         <outlet property="cannedSummary05" destination="0D3-cN-OVL" id="iSl-Vu-GUo"/>
                         <outlet property="cannedSummary06" destination="cok-jA-aOh" id="pNr-vu-qPg"/>
-                        <outlet property="cannedSummaryOther" destination="AKE-G4-igF" id="vwm-ww-oeL"/>
+                        <outlet property="cannedSummary07" destination="exB-80-3yh" id="faQ-zN-fLL"/>
+                        <outlet property="editSummaryContainerView" destination="ZOX-Fl-iot" id="HH3-97-PIe"/>
                         <outlet property="summaryTextField" destination="94u-WG-Ye2" id="yjv-q4-KB6"/>
                         <outlet property="topDividerHeightConstraint" destination="6fq-x8-XJr" id="QMl-gM-G2z"/>
                     </connections>
@@ -577,7 +578,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohj-LA-82c">
-                                <rect key="frame" x="5" y="0.0" width="310" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
@@ -586,9 +587,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ohj-LA-82c" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" constant="5" id="GW3-Ua-a8X"/>
+                            <constraint firstItem="ohj-LA-82c" firstAttribute="leading" secondItem="Cex-zA-X93" secondAttribute="leading" id="GW3-Ua-a8X"/>
                             <constraint firstItem="ohj-LA-82c" firstAttribute="top" secondItem="Cex-zA-X93" secondAttribute="top" id="NPC-TM-Xq1"/>
-                            <constraint firstAttribute="trailing" secondItem="ohj-LA-82c" secondAttribute="trailing" constant="5" id="aPb-dZ-HOe"/>
+                            <constraint firstAttribute="trailing" secondItem="ohj-LA-82c" secondAttribute="trailing" id="aPb-dZ-HOe"/>
                             <constraint firstAttribute="bottom" secondItem="ohj-LA-82c" secondAttribute="bottom" id="eMa-8O-6mo"/>
                         </constraints>
                     </view>
@@ -614,18 +615,15 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" allowsInlineMediaPlayback="NO" mediaPlaybackAllowsAirPlay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhD-15-Yw7" customClass="PreviewWebView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="463"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <dataDetectorType key="dataDetectorTypes"/>
                             </webView>
                             <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w7S-Yl-0L8" userLabel="Edit Summary Container">
-                                <rect key="frame" x="0.0" y="462" width="320" height="600"/>
+                                <rect key="frame" x="0.0" y="462" width="320" height="106"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="600" id="YI3-j3-U6N"/>
-                                </constraints>
                                 <connections>
                                     <segue destination="y4n-MK-Lad" kind="embed" identifier="Preview_Edit_Summary_Embed" id="O5n-Zm-wCj"/>
                                 </connections>
@@ -679,16 +677,19 @@
                             <constraint firstItem="w3I-Dk-osW" firstAttribute="top" secondItem="tP4-ul-Au7" secondAttribute="top" id="F4A-PB-dbW"/>
                             <constraint firstItem="w7S-Yl-0L8" firstAttribute="leading" secondItem="tP4-ul-Au7" secondAttribute="leading" id="FfM-EC-SU1"/>
                             <constraint firstItem="EhD-15-Yw7" firstAttribute="leading" secondItem="tP4-ul-Au7" secondAttribute="leading" id="KIb-JZ-SKf"/>
-                            <constraint firstItem="w7S-Yl-0L8" firstAttribute="top" secondItem="EhD-15-Yw7" secondAttribute="bottom" constant="-1" id="P1Z-vw-gda"/>
-                            <constraint firstItem="w7S-Yl-0L8" firstAttribute="top" secondItem="tP4-ul-Au7" secondAttribute="top" constant="462" placeholder="YES" id="krj-6g-2YY"/>
+                            <constraint firstAttribute="bottom" secondItem="w7S-Yl-0L8" secondAttribute="bottom" id="hgj-7O-Wef"/>
+                            <constraint firstItem="w7S-Yl-0L8" firstAttribute="top" secondItem="tP4-ul-Au7" secondAttribute="top" constant="462" id="krj-6g-2YY"/>
                             <constraint firstItem="EhD-15-Yw7" firstAttribute="top" secondItem="tP4-ul-Au7" secondAttribute="top" id="qgD-Cz-hcp"/>
+                            <constraint firstAttribute="bottom" secondItem="EhD-15-Yw7" secondAttribute="bottom" id="rbj-xH-1xm"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="captchaContainer" destination="bEh-0m-jAS" id="XJu-Rn-30B"/>
                         <outlet property="editSummaryContainer" destination="w7S-Yl-0L8" id="VJE-RY-b5k"/>
+                        <outlet property="editSummaryTopConstraint" destination="krj-6g-2YY" id="mRw-sA-l5j"/>
                         <outlet property="previewWebView" destination="EhD-15-Yw7" id="syP-Dy-I4o"/>
+                        <outlet property="previewWebViewBottomConstraint" destination="rbj-xH-1xm" id="q5b-Md-bE1"/>
                         <outlet property="scrollContainer" destination="Vcy-cO-aq9" id="FfJ-bO-lQK"/>
                         <outlet property="scrollView" destination="w3I-Dk-osW" id="yLA-4o-PCw"/>
                     </connections>

@@ -9,8 +9,19 @@
 #import "HistoryTableHeadingLabel.h"
 #import "Defines.h"
 #import "Article+Convenience.h"
-#import "SessionSingleton.h"
 #import "UINavigationController+SearchNavStack.h"
+#import "NavController.h"
+
+#define NAV ((NavController *)self.navigationController)
+
+#define HISTORY_THUMBNAIL_WIDTH 110
+#define HISTORY_RESULT_HEIGHT 66
+#define HISTORY_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
+#define HISTORY_LANGUAGE_COLOR [UIColor colorWithWhite:0.0f alpha:0.4f]
+#define HISTORY_DATE_HEADER_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.6f]
+#define HISTORY_DATE_HEADER_BACKGROUND_COLOR [UIColor colorWithWhite:1.0f alpha:0.97f]
+#define HISTORY_DATE_HEADER_HEIGHT 51.0f
+#define HISTORY_DATE_HEADER_LEFT_PADDING 37.0f
 
 @interface HistoryViewController ()
 {
@@ -334,13 +345,7 @@
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    // Set CurrentArticleTitle so the web view knows what to display for this selection.
-    [SessionSingleton sharedInstance].currentArticleTitle = historyEntry.article.title;
-    [SessionSingleton sharedInstance].currentArticleDomain = historyEntry.article.domain;
-    
-    WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
-
-    [self.navigationController popToViewController:webVC animated:YES];
+    [NAV loadArticleWithTitle:historyEntry.article.title domain:historyEntry.article.domain animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

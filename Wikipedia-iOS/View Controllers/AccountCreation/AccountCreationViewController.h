@@ -12,7 +12,4 @@
 @property (weak, nonatomic) IBOutlet UITextField *realnameField;
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 
-@property (weak, nonatomic) IBOutlet UIView *captchaContainer;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-
 @end

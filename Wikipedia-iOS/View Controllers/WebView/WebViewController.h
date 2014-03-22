@@ -15,27 +15,8 @@
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
-@property (weak, nonatomic) IBOutlet UIView *bottomBarView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBarViewBottomConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBarViewHeightConstraint;
-@property (weak, nonatomic) IBOutlet UIButton *backButton;
-@property (weak, nonatomic) IBOutlet UIButton *forwardButton;
-@property (weak, nonatomic) IBOutlet UIButton *tocButton;
-@property (weak, nonatomic) IBOutlet UIButton *langButton;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewLeftConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewRightConstraint;
-
 -(void)tocToggle;
 -(void)saveWebViewScrollOffset;
 -(void)reloadCurrentArticle;
--(void)showLanguages;
-
-- (IBAction)tocButtonPushed:(id)sender;
-- (IBAction)backButtonPushed:(id)sender;
-- (IBAction)forwardButtonPushed:(id)sender;
-- (IBAction)languageButtonPushed:(id)sender;
-- (IBAction)actionButtonPushed:(id)sender;
-- (IBAction)bookmarkButtonPushed:(id)sender;
 
 @end

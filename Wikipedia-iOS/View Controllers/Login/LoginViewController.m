@@ -10,6 +10,7 @@
 #import "NSHTTPCookieStorage+CloneCookie.h"
 #import "AccountCreationViewController.h"
 #import "UIButton+ColorMask.h"
+#import "WMF_Colors.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -18,6 +19,9 @@
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITextField *usernameField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (weak, nonatomic) IBOutlet UIButton *createAccountButton;
 
 @end
 
@@ -66,7 +70,7 @@
     UIButton *checkButton = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
     
     checkButton.backgroundColor = highlight ?
-        [UIColor colorWithRed:0.19 green:0.70 blue:0.55 alpha:1.0]
+        WMF_COLOR_GREEN
         :
         [UIColor clearColor];
     

@@ -20,6 +20,8 @@
 #import "LoginViewController.h"
 #import "UINavigationController+TopActionSheet.h"
 #import "TitleSubtitleView.h"
+#import "Defines.h"
+#import "WMF_Colors.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -32,10 +34,19 @@ typedef enum {
 
 @property (strong, nonatomic) NSString *captchaId;
 @property (strong, nonatomic) CaptchaViewController *captchaViewController;
-@property (weak, nonatomic) IBOutlet UIView *editSummaryContainer;
+@property (weak, nonatomic) IBOutlet UIView *captchaContainer;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *scrollContainer;
+
 @property (strong, nonatomic) EditSummaryViewController *editSummaryViewController;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *editSummaryTopConstraint;
+@property (weak, nonatomic) IBOutlet UIView *editSummaryContainer;
 
 @property (nonatomic) BOOL saveAutomaticallyIfSignedIn;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewWebViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet UIWebView *previewWebView;
 
 @end
 
@@ -84,6 +95,8 @@ typedef enum {
                                              selector: @selector(htmlAlertWasHidden)
                                                  name: @"HtmlAlertWasHidden"
                                                object: nil];
+    
+    self.previewWebViewBottomConstraint.constant = EDIT_SUMMARY_DOCK_DISTANCE_FROM_BOTTOM;
 }
 
 -(void)htmlAlertWasHidden
@@ -131,15 +144,11 @@ typedef enum {
     UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
 
     button.backgroundColor = highlight ?
-        [UIColor colorWithRed:0.00 green:0.70 blue:0.55 alpha:1.0]
+        WMF_COLOR_GREEN
         :
         [UIColor darkGrayColor];
     
-    [button maskButtonImageWithColor: highlight ?
-        [UIColor whiteColor]
-        :
-        [UIColor whiteColor]
-     ];
+    [button maskButtonImageWithColor:[UIColor whiteColor]];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -275,7 +284,7 @@ typedef enum {
                                         subTitle: NSLocalizedString(@"wikitext-upload-save-sign-in-benefits", nil)
                                   titleTextColor: [UIColor whiteColor]
                                subTitleTextColor: [UIColor colorWithWhite:0.75 alpha:1.0]
-                                 backgroundColor: [UIColor colorWithRed:0.24 green:0.41 blue:0.69 alpha:1.0]];
+                                 backgroundColor: WMF_COLOR_BLUE];
         saveLoginItemView.tag = TOP_ACTION_SHEET_LOGIN_THEN_SAVE;
         
         [self.navigationController topActionSheetShowWithViews: @[saveAnonItemView, saveLoginItemView]
@@ -325,7 +334,7 @@ typedef enum {
             // Cause the web view to reload - now that its sections are gone it will try to reload them.
 
             WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
-
+            [webVC reloadCurrentArticle];
             [self.navigationController popToViewController:webVC animated:YES];
             
             isAleadySaving = NO;
@@ -406,11 +415,11 @@ typedef enum {
                     if ((error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED)) {
                         NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW;
                         bannerImage = @"abuse-filter-disallowed.png";
-                        bannerColor = [UIColor colorWithRed:0.93 green:0.18 blue:0.20 alpha:1.0];
+                        bannerColor = WMF_COLOR_RED;
                     }else{
                         NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_WARNING;
                         bannerImage = @"abuse-filter-flag-white.png";
-                        bannerColor = [UIColor colorWithRed:0.99 green:0.32 blue:0.22 alpha:1.0];
+                        bannerColor = WMF_COLOR_ORANGE;
                     }
                     
                     NSString *restyledWarningHtml = [self restyleAbuseFilterWarningHtml:warningHtml];
@@ -486,6 +495,7 @@ typedef enum {
 		self.captchaViewController = (CaptchaViewController *) [segue destinationViewController];
 	}else if ([segue.identifier isEqualToString: @"Preview_Edit_Summary_Embed"]) {
 		self.editSummaryViewController = (EditSummaryViewController *) [segue destinationViewController];
+        self.editSummaryViewController.topConstraint = self.editSummaryTopConstraint;
 	}
 }
 
@@ -531,9 +541,9 @@ typedef enum {
                                         forControlEvents: UIControlEventEditingChanged];
 }
 
--(void)captchaTextFieldDidChange:(id)sender
+-(void)captchaTextFieldDidChange:(UITextField *)textField
 {
-    [self highlightCaptchaSubmitButton:YES];
+    [self highlightCaptchaSubmitButton:(textField.text.length == 0) ? NO : YES];
 }
 
 -(void)highlightCaptchaSubmitButton:(BOOL)highlight
@@ -541,7 +551,7 @@ typedef enum {
     UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
 
     button.backgroundColor = highlight ?
-        [UIColor colorWithRed:0.00 green:0.69 blue:0.54 alpha:1.0]
+        WMF_COLOR_GREEN
         :
         [UIColor clearColor];
     

@@ -4,4 +4,6 @@
 
 @interface ArticleLanguagesTableVC : UITableViewController
 
+-(CATransition *)getTransition;
+
 @end

@@ -13,6 +13,10 @@
 #import "UINavigationController+SearchNavStack.h"
 #import "WikipediaAppUtils.h"
 #import "UIViewController+Alert.h"
+#import "NavController.h"
+#import "UIViewController+HideKeyboard.h"
+
+#define NAV ((NavController *)self.navigationController)
 
 // Section indexes.
 #define SECTION_LOGIN_OPTIONS 0
@@ -670,6 +674,7 @@
 }
 
 #pragma mark - Random
+
 -(void)fetchRandomArticle {
     [[QueuesSingleton sharedInstance].randomArticleQ cancelAllOperations];
     DownloadTitlesForRandomArticlesOp *downloadTitlesForRandomArticlesOp =
@@ -679,10 +684,7 @@
      completionBlock: ^(NSString *title) {
          if (title) {
              dispatch_async(dispatch_get_main_queue(), ^(){
-                 [SessionSingleton sharedInstance].currentArticleTitle = title;
-                 [SessionSingleton sharedInstance].currentArticleDomain = [SessionSingleton sharedInstance].domain;
-                 WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
-                 [self.navigationController popToViewController:webVC animated:YES];
+                [NAV loadArticleWithTitle:title domain:[SessionSingleton sharedInstance].domain animated:YES];
              });
          }
      } cancelledBlock:^(NSError *errorCancel) {
@@ -691,6 +693,13 @@
          NSLog(@"error for Random - error block encountered");
      }];
     [[QueuesSingleton sharedInstance].randomArticleQ addOperation:downloadTitlesForRandomArticlesOp];
+}
+
+#pragma mark - Scroll
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self hideKeyboard];
 }
 
 @end

@@ -5,6 +5,7 @@
 #import "ArticleDataContextSingleton.h"
 #import "TFHpple.h"
 #import "TOCImageView.h"
+#import "WMF_Colors.h"
 
 @interface TOCSectionCellView(){
 
@@ -72,7 +73,7 @@
 -(void)setIsHighlighted:(BOOL)isHighlighted
 {
     if (isHighlighted) {
-        self.backgroundColor = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0];
+        self.backgroundColor = WMF_COLOR_BLUE;
     }else{
         self.backgroundColor = [UIColor darkGrayColor];
     }

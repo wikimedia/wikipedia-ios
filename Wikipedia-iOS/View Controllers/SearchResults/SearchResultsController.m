@@ -9,7 +9,6 @@
 #import "NavBarTextField.h"
 #import "SessionSingleton.h"
 #import "UIViewController+Alert.h"
-
 #import "ArticleDataContextSingleton.h"
 #import "ArticleCoreDataObjects.h"
 #import "NSString+Extras.h"
@@ -96,7 +95,7 @@
 
 #pragma mark Search term methods (requests titles matching search term and associated thumbnail urls)
 
-- (void)searchForTerm:(NSString *)searchTerm
+-(void)clearSearchResults
 {
     [self.searchResultsOrdered removeAllObjects];
     [self.searchResultsTable reloadData];
@@ -106,6 +105,11 @@
     
     // Cancel any in-progress article retrieval operations
     [[QueuesSingleton sharedInstance].searchQ cancelAllOperations];
+}
+
+- (void)searchForTerm:(NSString *)searchTerm
+{
+    [self clearSearchResults];
     
     // Show "Searching..." message.
     [self showAlert:NSLocalizedString(@"search-searching", nil)];
@@ -385,19 +389,11 @@
     // Set CurrentArticleTitle so web view knows what to load.
     title = [self cleanTitle:title];
     
-    [SessionSingleton sharedInstance].currentArticleTitle = title;
-    [SessionSingleton sharedInstance].currentArticleDomain = [SessionSingleton sharedInstance].domain;
+    [self hideKeyboard];
 
     [self.searchResultsTable deselectRowAtIndexPath:indexPath animated:YES];
 
-    [self popToWebViewController];
-}
-
-#pragma mark Show web view
-
--(void)popToWebViewController
-{
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [NAV loadArticleWithTitle:title domain:[SessionSingleton sharedInstance].domain animated:YES];
 }
 
 #pragma mark Memory

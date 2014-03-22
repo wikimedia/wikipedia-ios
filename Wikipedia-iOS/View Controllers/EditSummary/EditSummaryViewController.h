@@ -6,4 +6,6 @@
 
 -(NSString *)getSummary;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+
 @end

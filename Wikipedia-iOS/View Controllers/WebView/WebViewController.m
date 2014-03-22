@@ -6,36 +6,42 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 //
 
-#import "Defines.h"
 #import "WebViewController.h"
-#import "CommunicationBridge.h"
-#import "NSString+Extras.h"
-#import "ArticleCoreDataObjects.h"
-#import "ArticleDataContextSingleton.h"
-#import "SessionSingleton.h"
-#import "NSManagedObjectContext+SimpleFetch.h"
-#import "UIWebView+Reveal.h"
-#import "QueuesSingleton.h"
-#import "TOCViewController.h"
-#import "UIWebView+ElementLocation.h"
-#import "SectionEditorViewController.h"
-#import "Section+ImageRecords.h"
-#import "UIViewController+Alert.h"
-#import "DownloadNonLeadSectionsOp.h"
-#import "DownloadLeadSectionOp.h"
-#import "ArticleLanguagesTableVC.h"
-#import "UIView+Debugging.h"
-#import "UIViewController+HideKeyboard.h"
-#import "NavController.h"
-#import "UIViewController+SearchChildViewControllers.h"
+
 #import "DownloadWikipediaZeroMessageOp.h"
+#import "ArticleDataContextSingleton.h"
+#import "SectionEditorViewController.h"
+#import "DownloadNonLeadSectionsOp.h"
+#import "ArticleLanguagesTableVC.h"
+#import "ArticleCoreDataObjects.h"
+#import "DownloadLeadSectionOp.h"
+#import "CommunicationBridge.h"
+#import "TOCViewController.h"
+#import "SessionSingleton.h"
+#import "QueuesSingleton.h"
 #import "NavBarTextField.h"
 #import "MWLanguageInfo.h"
+#import "NavController.h"
+#import "Defines.h"
 
+#import "UIViewController+SearchChildViewControllers.h"
+#import "NSManagedObjectContext+SimpleFetch.h"
+#import "UIViewController+HideKeyboard.h"
+#import "UIWebView+ElementLocation.h"
+#import "UIViewController+Alert.h"
+#import "Section+ImageRecords.h"
+#import "UIWebView+Reveal.h"
+#import "NSString+Extras.h"
+
+//#import "UIView+Debugging.h"
 
 #define WEB_VIEW_SCALE_WHEN_TOC_VISIBLE (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.45f : 0.70f)
 #define TOC_TOGGLE_ANIMATION_DURATION 0.35f
 #define NAV ((NavController *)self.navigationController)
+
+#define DISCOVERY_METHOD_SEARCH @"search"
+#define DISCOVERY_METHOD_RANDOM @"random"
+#define DISCOVERY_METHOD_LINK   @"link"
 
 typedef enum {
     DISPLAY_LEAD_SECTION = 0,
@@ -48,14 +54,35 @@ typedef enum {
 }
 
 @property (strong, nonatomic) CommunicationBridge *bridge;
+
 @property (nonatomic) CGPoint scrollOffset;
+
 @property (nonatomic) BOOL unsafeToScroll;
-@property (nonatomic) NSInteger indexOfFirstOnscreenSectionBeforeRotate;
-@property (strong, nonatomic) NSDictionary *adjacentHistoryIDs;
 @property (nonatomic) BOOL tocVisible;
+
+@property (nonatomic) NSInteger indexOfFirstOnscreenSectionBeforeRotate;
 @property (nonatomic) NSUInteger sectionToEditIndex;
+
+@property (strong, nonatomic) NSDictionary *adjacentHistoryIDs;
 @property (strong, nonatomic) NSMutableArray *tocConstraints;
 @property (strong, nonatomic) NSString *externalUrl;
+
+@property (weak, nonatomic) IBOutlet UIView *bottomBarView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBarViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBarViewHeightConstraint;
+
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIButton *forwardButton;
+@property (weak, nonatomic) IBOutlet UIButton *tocButton;
+@property (weak, nonatomic) IBOutlet UIButton *langButton;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewLeftConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewRightConstraint;
+
+- (IBAction)tocButtonPushed:(id)sender;
+- (IBAction)backButtonPushed:(id)sender;
+- (IBAction)forwardButtonPushed:(id)sender;
+- (IBAction)languageButtonPushed:(id)sender;
 
 @end
 
@@ -104,13 +131,14 @@ typedef enum {
     self.webView.scrollView.delegate = self;
 
     self.webView.backgroundColor = [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.0];
+
+    [self reloadCurrentArticle];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    [self reloadCurrentArticle];
     //[self.view randomlyColorSubviews];
 }
 
@@ -129,14 +157,7 @@ typedef enum {
     [super viewWillDisappear:animated];
 }
 
--(void)reloadCurrentArticle{
-    NSString *title = [SessionSingleton sharedInstance].currentArticleTitle;
-    NSString *domain = [SessionSingleton sharedInstance].currentArticleDomain;
-    [self navigateToPage:title domain:domain discoveryMethod:DISCOVERY_METHOD_SEARCH];
-}
-
 #pragma mark Edit section
-
 
 -(void)showSectionEditor
 {
@@ -178,6 +199,10 @@ typedef enum {
 -(void)showLanguages
 {
     ArticleLanguagesTableVC *articleLanguagesTableVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"ArticleLanguagesTableVC"];
+
+    [self.navigationController.view.layer addAnimation:[articleLanguagesTableVC getTransition] forKey:nil];
+
+    // Don't animate - so the transistion set above will be used.
     [self.navigationController pushViewController:articleLanguagesTableVC animated:NO];
 }
 
@@ -578,6 +603,12 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [self retrieveArticleForPageTitle:cleanTitle domain:domain discoveryMethod:discoveryMethod];
 }
 
+-(void)reloadCurrentArticle{
+    NSString *title = [SessionSingleton sharedInstance].currentArticleTitle;
+    NSString *domain = [SessionSingleton sharedInstance].currentArticleDomain;
+    [self navigateToPage:title domain:domain discoveryMethod:DISCOVERY_METHOD_SEARCH];
+}
+
 - (void)retrieveArticleForPageTitle:(NSString *)pageTitle domain:(NSString *)domain discoveryMethod:(NSString *)discoveryMethod
 {
     // Cancel any in-progress article retrieval operations
@@ -811,8 +842,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
     return [NSString stringWithFormat:
         @"<div class='content_block' id='content_block_%@'>\
-            <div class='edit_section' id='edit_section_%d'>\
-            </div>\
+            <span class='edit_section' id='edit_section_%d'>\
+            </span>\
             %@\
         </div>\
         ", sectionIndex, sectionIndex.integerValue, html];
@@ -973,29 +1004,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [self tocToggle];
 }
 
-#pragma mark Other action button methods (placeholders)
-
-- (IBAction)languageButtonPushed:(id)sender {
-
+- (IBAction)languageButtonPushed:(id)sender
+{
     [self showLanguages];
-
-}
-
-- (IBAction)actionButtonPushed:(id)sender {
-    
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc]
-                                                        initWithActivityItems:@[self.webView.request.URL]
-                                                        applicationActivities:@[]];
-    
-    [self presentViewController:activityVC animated:YES completion:^{
-        // Whee!
-    }];
-}
-
-- (IBAction)bookmarkButtonPushed:(id)sender {
-}
-
-- (IBAction)menuButtonPushed:(id)sender {
 }
 
 #pragma mark Scroll to last section after rotate
@@ -1012,10 +1023,14 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     //self.view.alpha = 0.0f;
 
     self.tocVisible = NO;
+    
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+
     [self performSelector:@selector(scrollToIndexOfFirstOnscreenSectionBeforeRotate) withObject:nil afterDelay:0.15f];
 }
 

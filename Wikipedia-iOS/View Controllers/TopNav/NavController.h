@@ -43,6 +43,8 @@ typedef enum {
 
 -(id)getNavBarItem:(NavBarItemTag)tag;
 
+-(void)loadArticleWithTitle:(NSString *)title domain:(NSString *)domain animated:(BOOL)animated;
+
 @end
 
 //TODO: maybe use currentNavBarTextFieldText instead of currentSearchString?

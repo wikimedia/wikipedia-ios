@@ -9,6 +9,4 @@
 
 @property (strong, nonatomic) NSManagedObjectID *sectionID;
 
-@property (weak, nonatomic) IBOutlet UITextView *editTextView;
-
 @end

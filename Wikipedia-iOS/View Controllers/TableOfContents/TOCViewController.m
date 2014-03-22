@@ -27,12 +27,12 @@
 // Dict of sectionImage ids for the current article.
 // (key is sectionId, value is array of sectionImage ids)
 @property (strong, nonatomic) NSMutableDictionary *sectionImageIds;
-
 @property (strong, nonatomic) NSMutableArray *sectionCells;
-
 @property (strong, nonatomic) NSMutableArray *viewConstraints;
-
 @property (strong, nonatomic) NSNumber *languageCount;
+
+@property (strong, nonatomic) IBOutlet UIView *scrollContainer;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
 

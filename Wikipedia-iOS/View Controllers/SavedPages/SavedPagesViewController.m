@@ -10,6 +10,14 @@
 #import "Article+Convenience.h"
 #import "SessionSingleton.h"
 #import "UINavigationController+SearchNavStack.h"
+#import "NavController.h"
+
+#define NAV ((NavController *)self.navigationController)
+
+#define SAVED_PAGES_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
+#define SAVED_PAGES_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:1.0f]
+#define SAVED_PAGES_LANGUAGE_COLOR [UIColor colorWithWhite:0.0f alpha:0.4f]
+#define SAVED_PAGES_RESULT_HEIGHT 116
 
 @interface SavedPagesViewController ()
 {
@@ -207,13 +215,7 @@
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    // Set CurrentArticleTitle so the web view knows what to display for this selection.
-    [SessionSingleton sharedInstance].currentArticleTitle = savedEntry.article.title;
-    [SessionSingleton sharedInstance].currentArticleDomain = savedEntry.article.domain;
-
-    WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
-    
-    [self.navigationController popToViewController:webVC animated:YES];
+    [NAV loadArticleWithTitle:savedEntry.article.title domain:savedEntry.article.domain animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

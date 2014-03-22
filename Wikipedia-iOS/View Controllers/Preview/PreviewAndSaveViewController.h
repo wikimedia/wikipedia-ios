@@ -11,12 +11,6 @@
 @property (strong, nonatomic) NSManagedObjectID *sectionID;
 @property (strong, nonatomic) NSString *wikiText;
 
-@property (weak, nonatomic) IBOutlet UIView *captchaContainer;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIView *scrollContainer;
-
-@property (weak, nonatomic) IBOutlet UIWebView *previewWebView;
-
-- (void)reloadCaptchaPushed:(id)sender;
+-(void)reloadCaptchaPushed:(id)sender;
 
 @end

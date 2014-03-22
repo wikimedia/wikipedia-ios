@@ -11,14 +11,16 @@
 #import "UIButton+ColorMask.h"
 #import "LoginViewController.h"
 #import "UINavigationController+SearchNavStack.h"
+#import "WMF_Colors.h"
 
 #define NAV ((NavController *)self.navigationController)
 
 @interface AccountCreationViewController ()
 
-@property (nonatomic) BOOL showCaptchaContainer;
 @property (strong, nonatomic) CaptchaViewController *captchaViewController;
-
+@property (weak, nonatomic) IBOutlet UIView *captchaContainer;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic) BOOL showCaptchaContainer;
 @property (strong, nonatomic) NSString *captchaId;
 @property (strong, nonatomic) NSString *captchaUrl;
 @property (strong, nonatomic) NSString *token;
@@ -104,7 +106,7 @@
     UIButton *checkButton = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
     
     checkButton.backgroundColor = highlight ?
-        [UIColor colorWithRed:0.00 green:0.51 blue:0.96 alpha:1.0]
+        WMF_COLOR_BLUE
         :
         [UIColor clearColor];
     
