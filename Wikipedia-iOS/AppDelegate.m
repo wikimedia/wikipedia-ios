@@ -43,7 +43,6 @@
         @"Domain": @"en",
         @"DomainName": @"English",
         @"Site": @"wikipedia.org",
-        @"ZeroDevMode" : @NO,
         @"ZeroWarnWhenLeaving" : @YES,
         @"ZeroOnDialogShownOnce" : @NO,
         @"ZeroOffDialogShownOnce" : @NO

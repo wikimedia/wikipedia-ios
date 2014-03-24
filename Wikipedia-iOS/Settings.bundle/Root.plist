@@ -1,47 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-        <key>PreferenceSpecifiers</key>
-        <array>
-            <dict>
-                <key>Title</key>
-                <string>Wikipedia Zero</string>
-                <key>Type</key>
-                <string>PSGroupSpecifier</string>
-                <key>FooterText</key>
-                <string>If your mobile operator waives data access charges for the Wikipedia app through a Wikipedia Zero partnership, leaving this setting On helps you know when you are leaving the Wikipedia app and could be charged.</string>
-            </dict>
-            <dict>
-                <key>Type</key>
-                <string>PSToggleSwitchSpecifier</string>
-                <key>Title</key>
-                <string>Warn if leaving Wikipedia Zero</string>
-                <key>Key</key>
-                <string>ZeroWarnWhenLeaving</string>
-                <key>DefaultValue</key>
-                <true/>
-            </dict>
-            <dict>
-                <key>Title</key>
-                <string>DEVMODE</string>
-                <key>Type</key>
-                <string>PSGroupSpecifier</string>
-                <key>FooterText</key>
-                <string>During development this enables code execution of W0 things.</string>
-            </dict>
-            <dict>
-                <key>Key</key>
-                <string>ZeroDevMode</string>
-                <key>Title</key>
-                <string>Zero Devmode</string>
-                <key>Type</key>
-                <string>PSToggleSwitchSpecifier</string>
-                <key>DefaultValue</key>
-                <false/>
-            </dict>
-        </array>
-        <key>StringsTable</key>
-        <string>Root</string>
-    </dict>
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Title</key>
+			<string>Wikipedia Zero</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>If your mobile operator waives data access charges for the Wikipedia app through a Wikipedia Zero partnership, leaving this setting On helps you know when you are leaving the Wikipedia app and could be charged.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Warn if leaving Wikipedia Zero</string>
+			<key>Key</key>
+			<string>ZeroWarnWhenLeaving</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+	</array>
+	<key>StringsTable</key>
+	<string>Root</string>
+</dict>
 </plist>

@@ -15,11 +15,9 @@
 @property (nonatomic, readonly) BOOL zeroOnDialogShownOnce;
 @property (nonatomic, readonly) BOOL zeroOffDialogShownOnce;
 @property (nonatomic, readonly) BOOL warnWhenLeaving;
-@property (nonatomic, readonly) BOOL devMode;
 
 -(void)setZeroOnDialogShownOnce;
 -(void)setZeroOffDialogShownOnce;
 -(void)toggleWarnWhenLeaving;
--(void)toggleDevMode;
 
 @end

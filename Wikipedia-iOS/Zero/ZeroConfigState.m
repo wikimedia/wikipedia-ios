@@ -40,16 +40,4 @@
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"];
 }
 
--(void)toggleDevMode
-{
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool: ![self devMode]]
-                                              forKey:@"ZeroDevMode"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
--(BOOL)devMode
-{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroDevMode"];
-}
-
 @end

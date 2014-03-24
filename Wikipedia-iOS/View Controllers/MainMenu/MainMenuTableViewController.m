@@ -149,14 +149,6 @@
                                      key: @"zeroWarnWhenLeaving"
                            section: SECTION_ZERO_OPTIONS
      ];
-
-    [self addToTableDataRowWithTitle: [NSString stringWithFormat:@"%@ %@",
-                                           [SessionSingleton sharedInstance].zeroConfigState.devMode ?
-                                           @"✔️" : @"    ",
-                                           NSLocalizedString(@"zero-settings-devmode", nil)]
-                                     key: @"zeroDevMode"
-                           section: SECTION_ZERO_OPTIONS
-     ];
 }
 
 #pragma mark - Table section and row accessors
@@ -520,11 +512,6 @@
     }  else if ([selectedRowKey isEqualToString:@"zeroWarnWhenLeaving"]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         [[SessionSingleton sharedInstance].zeroConfigState toggleWarnWhenLeaving];
-        [self updateZeroToggles];
-        [self.tableView reloadData];
-    } else if ([selectedRowKey isEqualToString:@"zeroDevMode"]) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [[SessionSingleton sharedInstance].zeroConfigState toggleDevMode];
         [self updateZeroToggles];
         [self.tableView reloadData];
     } else if ([selectedRowKey isEqualToString:@"randomTappable"]) {
