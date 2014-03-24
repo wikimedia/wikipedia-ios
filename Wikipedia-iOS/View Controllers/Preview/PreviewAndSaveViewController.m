@@ -314,32 +314,15 @@ typedef enum {
     UploadSectionWikiTextOp *uploadWikiTextOp =
     [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index wikiText:self.wikiText summary:editSummary captchaId:self.captchaId captchaWord:self.captchaViewController.captchaTextBox.text  completionBlock:^(NSString *result){
         
-        // Mark article for refreshing so its data will be reloaded.
-        // (Needs to be done on worker context as worker context changes bubble up through
-        // main context too - so web view controller accessing main context will see changes.)
+        // Mark article for refreshing and reload it.
         if (articleID) {
-            [articleDataContext_.workerContext performBlockAndWait:^(){
-                Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
-                if (article) {
-                    article.needsRefresh = @YES;
-                    NSError *error = nil;
-                    [articleDataContext_.workerContext save:&error];
-                    NSLog(@"error = %@", error);
-                }
+            [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+                WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
+                [webVC reloadCurrentArticleInvalidatingCache];
+                [self.navigationController popToViewController:webVC animated:YES];
+                isAleadySaving = NO;
             }];
         }
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-
-            // Cause the web view to reload - now that its sections are gone it will try to reload them.
-
-            WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
-            [webVC reloadCurrentArticle];
-            [self.navigationController popToViewController:webVC animated:YES];
-            
-            isAleadySaving = NO;
-            
-        }];
         
     } cancelledBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;

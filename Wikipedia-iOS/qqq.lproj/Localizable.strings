@@ -95,3 +95,7 @@
 "edit-summary-field-placeholder-text" = "Placeholder text which appears initially in the free-form edit summary text box";
 
 "fetching-random-article" = "Alert text shown when fetching a random article";
+
+"article-pull-to-refresh-prompt" = "Label text informing user article may be pulled down to refresh";
+"article-pull-to-refresh-is-refreshing" = "Label text shown when user pulls down on article to refresh";
+

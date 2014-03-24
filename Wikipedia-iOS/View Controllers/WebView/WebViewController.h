@@ -17,6 +17,8 @@
 
 -(void)tocToggle;
 -(void)saveWebViewScrollOffset;
+
 -(void)reloadCurrentArticle;
+-(void)reloadCurrentArticleInvalidatingCache;
 
 @end

@@ -100,3 +100,6 @@
 "edit-summary-field-placeholder-text" = "How did you improve the page?";
 
 "fetching-random-article" = "Fetching random article";
+
+"article-pull-to-refresh-prompt" = "Pull to refresh article";
+"article-pull-to-refresh-is-refreshing" = "Refreshing article";
