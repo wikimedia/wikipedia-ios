@@ -161,24 +161,22 @@
 }
 
 -(void) processZeroHeaders:(NSURLResponse*) response {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroDevMode"]) {
-        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-        NSHTTPURLResponse *httpUrlResponse = (NSHTTPURLResponse*)response;
-        NSDictionary *headers = httpUrlResponse.allHeaderFields;
-        NSString *xZeroRatedHeader =  [headers objectForKey:@"X-CS"];
-        BOOL zeroRatedHeaderPresent = xZeroRatedHeader != nil;
-        NSString *xcs = [SessionSingleton sharedInstance].zeroConfigState.partnerXcs;
-        BOOL zeroProviderChanged = zeroRatedHeaderPresent && ![xZeroRatedHeader isEqualToString:xcs];
-        BOOL zeroDisposition = [SessionSingleton sharedInstance].zeroConfigState.disposition;
-        if (zeroRatedHeaderPresent && (!zeroDisposition || zeroProviderChanged)) {
-            [SessionSingleton sharedInstance].zeroConfigState.disposition = YES;
-            [SessionSingleton sharedInstance].zeroConfigState.partnerXcs = xZeroRatedHeader;
-            [notificationCenter postNotificationName:@"ZeroStateChanged" object:self userInfo:@{@"state": @YES}];
-        } else if (!zeroRatedHeaderPresent && zeroDisposition) {
-            [SessionSingleton sharedInstance].zeroConfigState.disposition = NO;
-            [SessionSingleton sharedInstance].zeroConfigState.partnerXcs = nil;
-            [notificationCenter postNotificationName:@"ZeroStateChanged" object:self userInfo:@{@"state": @NO}];
-        }
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    NSHTTPURLResponse *httpUrlResponse = (NSHTTPURLResponse*)response;
+    NSDictionary *headers = httpUrlResponse.allHeaderFields;
+    NSString *xZeroRatedHeader =  [headers objectForKey:@"X-CS"];
+    BOOL zeroRatedHeaderPresent = xZeroRatedHeader != nil;
+    NSString *xcs = [SessionSingleton sharedInstance].zeroConfigState.partnerXcs;
+    BOOL zeroProviderChanged = zeroRatedHeaderPresent && ![xZeroRatedHeader isEqualToString:xcs];
+    BOOL zeroDisposition = [SessionSingleton sharedInstance].zeroConfigState.disposition;
+    if (zeroRatedHeaderPresent && (!zeroDisposition || zeroProviderChanged)) {
+        [SessionSingleton sharedInstance].zeroConfigState.disposition = YES;
+        [SessionSingleton sharedInstance].zeroConfigState.partnerXcs = xZeroRatedHeader;
+        [notificationCenter postNotificationName:@"ZeroStateChanged" object:self userInfo:@{@"state": @YES}];
+    } else if (!zeroRatedHeaderPresent && zeroDisposition) {
+        [SessionSingleton sharedInstance].zeroConfigState.disposition = NO;
+        [SessionSingleton sharedInstance].zeroConfigState.partnerXcs = nil;
+        [notificationCenter postNotificationName:@"ZeroStateChanged" object:self userInfo:@{@"state": @NO}];
     }
 }
 
