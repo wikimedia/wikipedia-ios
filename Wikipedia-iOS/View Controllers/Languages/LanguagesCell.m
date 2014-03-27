@@ -1,8 +1,10 @@
 //  Created by Monte Hurd on 1/23/14.
 
-#import "ArticleLanguagesCell.h"
+#import "LanguagesCell.h"
 
-@implementation ArticleLanguagesCell
+#define BACKGROUND_COLOR [UIColor colorWithWhite:0.97f alpha:1.0f]
+
+@implementation LanguagesCell
 
 @synthesize textLabel;
 @synthesize canonicalLabel;
@@ -25,7 +27,7 @@
 
     //self.textLabel.layer.borderWidth = 1;
     //self.textLabel.layer.borderColor = [UIColor redColor].CGColor;
-    //self.backgroundColor = [UIColor greenColor];
+    self.backgroundColor = BACKGROUND_COLOR;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -1,29 +1,41 @@
 //  Created by Monte Hurd on 3/17/14.
 
-#import "TopActionSheetScrollView.h"
+#import "TabularScrollView.h"
 #import "UIView+RemoveConstraints.h"
 
-#define ANIMATION_DURATION 0.23f
+@interface TabularScrollView()
 
-@interface TopActionSheetScrollView()
-
-@property (strong, atomic) UIView *containerView;
+@property (strong, nonatomic) UIView *containerView;
 
 @end
 
-@implementation TopActionSheetScrollView
+@implementation TabularScrollView
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        self.orientation = TOP_ACTION_SHEET_LAYOUT_HORIZONTAL;
-        self.translatesAutoresizingMaskIntoConstraints = NO;
-        self.clipsToBounds = YES;
-
-        [self setupViews];
+        [self setup];
     }
     return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+-(void)setup
+{
+    self.orientation = TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL;
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    self.clipsToBounds = YES;
+    
+    [self setupViews];
 }
 
 -(void)setupViews
@@ -33,12 +45,12 @@
     self.containerView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self addSubview:self.containerView];
-
-    [self constrainContainerView];
 }
 
 -(void)constrainContainerView
 {
+    [self.containerView removeConstraintsOfViewFromView:self];
+
     NSDictionary *views = @{@"view": self.containerView};
     
     NSArray *constraints =
@@ -60,13 +72,26 @@
     [self addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
 }
 
--(void)setTopActionSheetSubviews:(NSArray *)topActionSheetSubviews
+-(void)setTabularSubviews:(NSArray *)tabularSubviews
+{
+    // Reminder: iOS 6 can crash (tap "Login" then tap "X" to go back to left menu) for
+    // some reason if we don't delay execution of this stuff to next run loop iteration.
+    // Probably has to do with calling this method from a view controller's
+    // viewWillAppear method - crash doesn't seem to happend from viewDidLoad.
+    [[NSRunLoop currentRunLoop] performSelector: @selector(actuallySetTabularSubviews:)
+                                         target: self
+                                       argument: tabularSubviews
+                                          order: 0
+                                          modes: [NSArray arrayWithObject:@"NSDefaultRunLoopMode"]];
+}
+
+-(void)actuallySetTabularSubviews:(NSArray *)tabularSubviews
 {
     if (self.containerView.subviews) {
         [self.containerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     }
     
-    for (UIView *view in [topActionSheetSubviews reverseObjectEnumerator]) {
+    for (UIView *view in [tabularSubviews reverseObjectEnumerator]) {
         view.translatesAutoresizingMaskIntoConstraints = NO;
         [self.containerView addSubview:view];
         
@@ -86,26 +111,22 @@
     }else{
         tappedView = sender;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"TopActionSheetItemTapped" object:self userInfo:
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"TabularScrollViewItemTapped" object:self userInfo:
         @{@"tappedItem": tappedView}
     ];
 }
 
--(void)setOrientation:(TopActionSheetLayoutOrientation)orientation
+-(void)setOrientation:(TabularScrollViewOrientation)orientation
 {
     if (_orientation != orientation) {
         _orientation = orientation;
-        
-        [self constrainContainerViewSubviews];
-        [UIView animateWithDuration:ANIMATION_DURATION delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            [self layoutIfNeeded];
-        } completion:^(BOOL done){
-        }];
+        [self setNeedsUpdateConstraints];
     }
 }
 
 -(void)updateConstraints
 {
+    [self constrainContainerView];
     [self constrainContainerViewSubviews];
     [super updateConstraints];
 }
@@ -118,10 +139,10 @@
     }
 
     switch (self.orientation) {
-        case TOP_ACTION_SHEET_LAYOUT_HORIZONTAL:
+        case TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL:
             [self constrainContainerViewSubviewsHorizontally];
             break;
-        case TOP_ACTION_SHEET_LAYOUT_VERTICAL:
+        case TABULAR_SCROLLVIEW_LAYOUT_VERTICAL:
             [self constrainContainerViewSubviewsVertically];
             break;
         default:

@@ -112,7 +112,7 @@
     
     return [[NSMutableAttributedString alloc]
             initWithString:str attributes: @{
-                                             NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:fontSize],
+                                             NSFontAttributeName : [UIFont systemFontOfSize:fontSize],
                                              NSParagraphStyleAttributeName : paragraphStyle,
                                              NSStrokeWidthAttributeName : @0.0f, //@-1.0f,
                                              NSStrokeColorAttributeName : [UIColor blackColor],

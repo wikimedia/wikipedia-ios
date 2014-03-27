@@ -70,7 +70,7 @@
     HistoryTableHeadingLabel *historyLabel = [[HistoryTableHeadingLabel alloc] initWithFrame:CGRectMake(0, 0, 10, 48)];
     historyLabel.text = NSLocalizedString(@"history-label", nil);
     historyLabel.textAlignment = NSTextAlignmentCenter;
-    historyLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:20];
+    historyLabel.font = [UIFont boldSystemFontOfSize:20.0];
     historyLabel.textColor = HISTORY_TEXT_COLOR;
     self.tableView.tableHeaderView = historyLabel;
     historyLabel.backgroundColor = [UIColor whiteColor];
@@ -393,12 +393,12 @@
                                       } range:rangeOfHeader];
     
     [attributedHeader addAttributes:@{
-                                      NSFontAttributeName : [UIFont fontWithName:@"Helvetica-Bold" size:12],
+                                      NSFontAttributeName : [UIFont boldSystemFontOfSize:12.0],
                                       NSForegroundColorAttributeName : HISTORY_DATE_HEADER_TEXT_COLOR
                                       } range:rangeOfTitle];
     
     [attributedHeader addAttributes:@{
-                                      NSFontAttributeName : [UIFont fontWithName:@"Helvetica" size:12],
+                                      NSFontAttributeName : [UIFont systemFontOfSize:12.0],
                                       NSForegroundColorAttributeName : HISTORY_DATE_HEADER_TEXT_COLOR
                                       } range:rangeOfDateString];
     return attributedHeader;

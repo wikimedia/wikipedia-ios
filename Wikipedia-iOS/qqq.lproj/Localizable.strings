@@ -4,6 +4,8 @@
 
 "article-languages-label" = "Header label for per-article language selector screen.\n{{Identical|Choose language}}";
 "article-languages-cancel" = "Button text for dismissing the language selector screen";
+"article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
+"article-languages-filter-placeholder" = "Filter languages text box placeholder text";
 "history-label" = "Header label for screen showing the users' in-app browsing history";
 "history-section-today" = "Subsection label for list of articles browsed today.\n{{Identical|Today}}";
 "history-section-yesterday" = "Subsection label for list of articles browsed yesterday.\n{{Identical|Yesterday}}";
@@ -59,6 +61,7 @@
 "main-menu-language-title" = "Header text for default search language selection";
 "main-menu-language-toggle-show" = "Button text for showing language list";
 "main-menu-language-toggle-hide" = "Button text for hiding language list";
+"main-menu-language-selection-saved" = "Alert text shown when user selects a language wiki to search";
 "main-menu-account-title-logged-out" = "Header text used when account is not logged in";
 "main-menu-account-title-logged-in" = "Header text used when account is logged in";
 "main-menu-account-login" = "Button text for logging in";

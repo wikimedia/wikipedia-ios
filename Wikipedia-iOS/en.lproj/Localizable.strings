@@ -1,5 +1,7 @@
 "article-languages-label" = "Choose language";
 "article-languages-cancel" = "Cancel";
+"article-languages-downloading" = "Loading article languages...";
+"article-languages-filter-placeholder" = "Filter";
 
 "history-label" = "Browsing History";
 "history-section-today" = "Today";
@@ -58,20 +60,21 @@
 "search-loading-section-remaining" = "Loading the rest of the article...";
 "search-loading-article-loaded" = "Article loaded.";
 
-"main-menu-language-title" = "Language wiki to search";
+"main-menu-language-title" = "Search $1 language wiki";
 "main-menu-language-toggle-show" = "Show languages";
 "main-menu-language-toggle-hide" = "Hide languages";
+"main-menu-language-selection-saved" = "Language selection saved";
 "main-menu-account-title-logged-out" = "Account";
 "main-menu-account-title-logged-in" = "Logged in as: $1";
 "main-menu-account-login" = "Log in";
 "main-menu-account-logout" = "Log out";
 "main-menu-show-title" = "Show me...";
-"main-menu-show-history" = "My browsing history";
-"main-menu-show-saved" = "My saved pages";
-"main-menu-current-article-save" = "Save for offline reading";
-"main-menu-random" = "Random";
-"main-menu-feedback-heading" = "App feedback";
-"main-menu-send-feedback" = "Send app feedback";
+"main-menu-show-history" = "Browsing history";
+"main-menu-show-saved" = "Saved pages";
+"main-menu-current-article-save" = "Save $1 for offline reading";
+"main-menu-random" = "Random article";
+"main-menu-feedback-heading" = "Feedback";
+"main-menu-send-feedback" = "Send feedback";
 
 "saved-pages-title" = "Saved Pages";
 

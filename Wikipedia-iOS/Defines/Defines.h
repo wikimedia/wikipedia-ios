@@ -4,10 +4,10 @@
 #define SEARCH_RESULT_HEIGHT 60
 #define SEARCH_MAX_RESULTS @"25"
 
-#define SEARCH_FONT [UIFont fontWithName:@"HelveticaNeue" size:16.0]
+#define SEARCH_FONT [UIFont systemFontOfSize:16.0]
 #define SEARCH_FONT_COLOR [UIColor colorWithWhite:0.0 alpha:0.85]
 
-#define SEARCH_FONT_HIGHLIGHTED [UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0]
+#define SEARCH_FONT_HIGHLIGHTED [UIFont boldSystemFontOfSize:16.0]
 #define SEARCH_FONT_HIGHLIGHTED_COLOR [UIColor blackColor]
 
 #define SEARCH_FIELD_PLACEHOLDER_TEXT_COLOR [UIColor colorWithRed:0.57 green:0.58 blue:0.59 alpha:1.0]

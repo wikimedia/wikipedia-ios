@@ -99,7 +99,7 @@
 -(NSString *)currentArticleDomainName
 {
     NSError *error = nil;
-    NSData *fileData = [NSData dataWithContentsOfFile:[self bundledLanguagesPath] options:0 error:&error];
+    NSData *fileData = [NSData dataWithContentsOfFile:[self bundledLanguagesJsonPath] options:0 error:&error];
     if (error) return nil;
     error = nil;
     NSArray *result = [NSJSONSerialization JSONObjectWithData:fileData options:0 error:&error];
@@ -115,9 +115,19 @@
     }
 }
 
-- (NSString *)bundledLanguagesPath
+- (NSString *)bundledLanguagesJsonPath
 {
     return [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/Languages/languages.json"];
+}
+
+-(NSMutableArray *)getBundledLanguagesJson
+{
+    NSError *error = nil;
+    NSData *fileData = [NSData dataWithContentsOfFile:[[SessionSingleton sharedInstance] bundledLanguagesJsonPath] options:0 error:&error];
+    if (error) return [@[] mutableCopy];
+    error = nil;
+    NSArray *result = [NSJSONSerialization JSONObjectWithData:fileData options:0 error:&error];
+    return (error) ? [@[] mutableCopy]: [result mutableCopy];
 }
 
 @end

@@ -25,7 +25,7 @@
 @property (strong, atomic) NSArray *unsupportedCharactersLanguageIds;
 
 -(NSURL *)urlForDomain:(NSString *)domain;
--(NSString *)bundledLanguagesPath;
+-(NSMutableArray *)getBundledLanguagesJson;
 
 + (SessionSingleton *)sharedInstance;
 

@@ -6,7 +6,7 @@
 #import "UIView+Debugging.h"
 #import "UIView+RemoveConstraints.h"
 #import "NavBarContainerView.h"
-#import "MainMenuTableViewController.h"
+#import "MainMenuViewController.h"
 #import "UIViewController+HideKeyboard.h"
 #import "SearchResultsController.h"
 #import "UINavigationController+SearchNavStack.h"
@@ -325,7 +325,7 @@
     self.label.text = @"";
     self.label.translatesAutoresizingMaskIntoConstraints = NO;
     self.label.tag = NAVBAR_LABEL;
-    self.label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0];
+    self.label.font = [UIFont boldSystemFontOfSize:15.0];
     self.label.textColor = [UIColor darkGrayColor];
     self.label.backgroundColor = [UIColor clearColor];
     self.label.userInteractionEnabled = YES;
@@ -503,12 +503,12 @@
 
     [topVC hideKeyboard];
     
-    MainMenuTableViewController *mainMenuTableVC = [self searchNavStackForViewControllerOfClass:[MainMenuTableViewController class]];
+    MainMenuViewController *mainMenuTableVC = [self searchNavStackForViewControllerOfClass:[MainMenuViewController class]];
     
     if(mainMenuTableVC){
         [self popToRootViewControllerAnimated:YES];
     }else{
-        MainMenuTableViewController *mainMenuTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainMenuTableViewController"];
+        MainMenuViewController *mainMenuTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainMenuViewController"];
         [self pushViewController:mainMenuTableVC animated:YES];
     }
 }

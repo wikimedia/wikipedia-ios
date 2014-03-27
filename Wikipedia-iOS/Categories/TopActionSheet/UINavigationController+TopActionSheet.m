@@ -1,22 +1,21 @@
 //  Created by Monte Hurd on 1/15/14.
 
 #import "UINavigationController+TopActionSheet.h"
-#import "TopActionSheetScrollView.h"
 #import "UIView+RemoveConstraints.h"
 
 #define ANIMATION_DURATION 0.23f
 
 @implementation UINavigationController (TopActionSheet)
 
--(void)topActionSheetShowWithViews: (NSArray *)views orientation: (TopActionSheetLayoutOrientation)orientation
+-(void)topActionSheetShowWithViews: (NSArray *)views orientation: (TabularScrollViewOrientation)orientation
 {
     [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-        TopActionSheetScrollView *containerView = nil;
+        TabularScrollView *containerView = nil;
         
         UIView *superView = self.view;
         
         // Reuse existing container if any.
-        containerView = [self getExistingViewOfClass:[TopActionSheetScrollView class] inContainer:superView];
+        containerView = [self getExistingViewOfClass:[TabularScrollView class] inContainer:superView];
 
         // Remove container view if no views were specified.
         if (!views || (views.count == 0)) {
@@ -35,7 +34,7 @@
         
         // If no container to reuse, add one.
         if (!containerView) {
-            containerView = [[TopActionSheetScrollView alloc] init];
+            containerView = [[TabularScrollView alloc] init];
             if (superView) {
 
                 [superView insertSubview:containerView belowSubview:self.navigationBar];
@@ -48,7 +47,7 @@
                 // Animate container coming down onscreen.
                 [UIView animateWithDuration:ANIMATION_DURATION delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
 
-                    containerView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.6];
+                    containerView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:1.0];
 
                     [self constrainContainerView:containerView onScreen:YES];
                     [self.view layoutIfNeeded];
@@ -59,14 +58,14 @@
         }
 
         containerView.orientation = orientation;
-        containerView.topActionSheetSubviews = views;
+        containerView.tabularSubviews = views;
     }];
 }
 
--(void)topActionSheetChangeOrientation:(TopActionSheetLayoutOrientation)orientation
+-(void)topActionSheetChangeOrientation:(TabularScrollViewOrientation)orientation
 {
     [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-        TopActionSheetScrollView *containerView = [self getExistingViewOfClass:[TopActionSheetScrollView class] inContainer:self.view];
+        TabularScrollView *containerView = [self getExistingViewOfClass:[TabularScrollView class] inContainer:self.view];
 
         [containerView setOrientation:orientation];
             
@@ -75,7 +74,7 @@
 
 -(void)topActionSheetHide
 {
-    [self topActionSheetShowWithViews:nil orientation:TOP_ACTION_SHEET_LAYOUT_VERTICAL];
+    [self topActionSheetShowWithViews:nil orientation:TABULAR_SCROLLVIEW_LAYOUT_VERTICAL];
 }
 
 -(void)constrainContainerView:(UIView *)containerView onScreen:(BOOL)onScreen
@@ -104,7 +103,7 @@
 
     [self.view addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
 
-    [self.view  setNeedsUpdateConstraints];
+    [self.view setNeedsUpdateConstraints];
 }
 
 -(id)getExistingViewOfClass:(Class)class inContainer:(UIView *)container

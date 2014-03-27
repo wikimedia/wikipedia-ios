@@ -6,6 +6,7 @@
 
 - (id)initForPageTitle: (NSString *)title
                 domain: (NSString *)domain
+          allLanguages: (NSMutableArray *)allLanguages
        completionBlock: (void (^)(NSArray *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock

@@ -13,8 +13,7 @@
 #import "UIButton+ColorMask.h"
 #import "WMF_Colors.h"
 
-#define EDIT_TEXT_VIEW_FONT @"HelveticaNeue"
-#define EDIT_TEXT_VIEW_FONT_SIZE 14.0f
+#define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:14.0f]
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN 25.0f
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX 25.0f
 
@@ -230,7 +229,7 @@
     [[NSAttributedString alloc] initWithString: string
                                     attributes: @{
                                                   NSParagraphStyleAttributeName : paragraphStyle,
-                                                  NSFontAttributeName : [UIFont fontWithName:EDIT_TEXT_VIEW_FONT size:EDIT_TEXT_VIEW_FONT_SIZE],
+                                                  NSFontAttributeName : EDIT_TEXT_VIEW_FONT,
                                                   }];
 }
 

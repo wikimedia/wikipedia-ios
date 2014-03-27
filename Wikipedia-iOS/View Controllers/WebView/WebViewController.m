@@ -12,11 +12,11 @@
 #import "ArticleDataContextSingleton.h"
 #import "SectionEditorViewController.h"
 #import "DownloadNonLeadSectionsOp.h"
-#import "ArticleLanguagesTableVC.h"
 #import "ArticleCoreDataObjects.h"
 #import "DownloadLeadSectionOp.h"
 #import "CommunicationBridge.h"
 #import "TOCViewController.h"
+#import "LanguagesTableVC.h"
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
 #import "NavBarTextField.h"
@@ -204,12 +204,23 @@ typedef enum {
 
 -(void)showLanguages
 {
-    ArticleLanguagesTableVC *articleLanguagesTableVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"ArticleLanguagesTableVC"];
+    LanguagesTableVC *languagesTableVC =
+        [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LanguagesTableVC"];
 
-    [self.navigationController.view.layer addAnimation:[articleLanguagesTableVC getTransition] forKey:nil];
+    languagesTableVC.downloadLanguagesForCurrentArticle = YES;
+    
+    CATransition *transition = [languagesTableVC getTransition];
+    
+    languagesTableVC.selectionBlock = ^(NSDictionary *selectedLangInfo){
+        [self.navigationController.view.layer addAnimation:transition forKey:nil];
+        // Don't animate - so the transistion set above will be used.
+        [NAV loadArticleWithTitle:selectedLangInfo[@"*"] domain:selectedLangInfo[@"code"] animated:NO];
+    };
+    
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
 
     // Don't animate - so the transistion set above will be used.
-    [self.navigationController pushViewController:articleLanguagesTableVC animated:NO];
+    [self.navigationController pushViewController:languagesTableVC animated:NO];
 }
 
 #pragma mark Table of contents

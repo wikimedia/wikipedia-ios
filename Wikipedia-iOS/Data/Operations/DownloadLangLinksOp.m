@@ -9,6 +9,7 @@
 
 - (id)initForPageTitle: (NSString *)title
                 domain: (NSString *)domain
+          allLanguages: (NSMutableArray *)allLanguages
        completionBlock: (void (^)(NSArray *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock
@@ -77,8 +78,7 @@
             // (Also, the output array's lang codes will be ordered the same as they are
             // in the lang file.)
             NSMutableArray *outputArray = [@[] mutableCopy];
-            NSMutableArray *languagesFromFile = [weakSelf getLanguagesFromFile];
-            for (NSDictionary *fileDict in languagesFromFile) {
+            for (NSDictionary *fileDict in allLanguages) {
                 if ([langCodeToLocalTitleDict objectForKey:fileDict[@"code"]]) {
                 
                     if ([[SessionSingleton sharedInstance].unsupportedCharactersLanguageIds indexOfObject:fileDict[@"code"]] != NSNotFound) continue;
@@ -96,16 +96,6 @@
         };
     }
     return self;
-}
-
--(NSMutableArray *)getLanguagesFromFile
-{
-    NSError *error = nil;
-    NSData *fileData = [NSData dataWithContentsOfFile:[[SessionSingleton sharedInstance] bundledLanguagesPath] options:0 error:&error];
-    if (error) return [@[] mutableCopy];
-    error = nil;
-    NSArray *result = [NSJSONSerialization JSONObjectWithData:fileData options:0 error:&error];
-    return (error) ? [@[] mutableCopy]: [result mutableCopy];
 }
 
 @end

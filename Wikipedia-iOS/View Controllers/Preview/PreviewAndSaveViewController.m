@@ -116,7 +116,7 @@ typedef enum {
    
     [self preview];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(topActionSheetItemTappedNotification:) name:@"TopActionSheetItemTapped" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabularScrollViewItemTappedNotification:) name:@"TabularScrollViewItemTapped" object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -158,7 +158,7 @@ typedef enum {
                                                   object: nil];
 
     [[NSNotificationCenter defaultCenter] removeObserver: self
-                                                name: @"TopActionSheetItemTapped"
+                                                name: @"TabularScrollViewItemTapped"
                                               object: nil];
 
     [self.navigationController topActionSheetHide];
@@ -240,7 +240,7 @@ typedef enum {
     }
 }
 
-- (void)topActionSheetItemTappedNotification:(NSNotification *)notification
+- (void)tabularScrollViewItemTappedNotification:(NSNotification *)notification
 {
     NSDictionary *userInfo = [notification userInfo];
     UIView *tappedItem = userInfo[@"tappedItem"];
@@ -288,7 +288,7 @@ typedef enum {
         saveLoginItemView.tag = TOP_ACTION_SHEET_LOGIN_THEN_SAVE;
         
         [self.navigationController topActionSheetShowWithViews: @[saveAnonItemView, saveLoginItemView]
-                                                   orientation: TOP_ACTION_SHEET_LAYOUT_VERTICAL];
+                                                   orientation: TABULAR_SCROLLVIEW_LAYOUT_VERTICAL];
         return;
     }
 

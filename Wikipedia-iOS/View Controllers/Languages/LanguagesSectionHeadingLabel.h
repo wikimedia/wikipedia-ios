@@ -2,6 +2,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ArticleLanguagesSectionHeadingLabel : UILabel
+@interface LanguagesSectionHeadingLabel : UILabel
 
 @end

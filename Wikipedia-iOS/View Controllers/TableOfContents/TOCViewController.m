@@ -10,7 +10,6 @@
 #import "UIWebView+ElementLocation.h"
 #import "UIView+Debugging.h"
 #import "SessionSingleton.h"
-#import "ArticleLanguagesTableVC.h"
 
 #define TOC_SECTION_MARGIN (1.0f / [UIScreen mainScreen].scale)
 #define TOC_SELECTION_OFFSET_Y 48.0f
