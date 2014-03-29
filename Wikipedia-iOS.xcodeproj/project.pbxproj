@@ -221,6 +221,8 @@
 		04AE1C711891B302002D5487 /* NSObject+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C6F1891B302002D5487 /* NSObject+Extras.m */; };
 		04AE1C741891BB32002D5487 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C731891BB32002D5487 /* Article.m */; };
 		04AE1C751891BB32002D5487 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C731891BB32002D5487 /* Article.m */; };
+		04B6925018E77B2A00F88D8A /* UIWebView+HideScrollGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */; };
+		04B6925118E77B2A00F88D8A /* UIWebView+HideScrollGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */; };
 		04B78A5318A580AF0050EBF5 /* LoginOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B78A5218A580AF0050EBF5 /* LoginOp.m */; };
 		04B78A5418A580AF0050EBF5 /* LoginOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B78A5218A580AF0050EBF5 /* LoginOp.m */; };
 		04B7B9BD18B5570E00A63551 /* CaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */; };
@@ -528,6 +530,8 @@
 		04AE1C6F1891B302002D5487 /* NSObject+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extras.m"; sourceTree = "<group>"; };
 		04AE1C721891BB32002D5487 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
 		04AE1C731891BB32002D5487 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
+		04B6924E18E77B2A00F88D8A /* UIWebView+HideScrollGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+HideScrollGradient.h"; sourceTree = "<group>"; };
+		04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+HideScrollGradient.m"; sourceTree = "<group>"; };
 		04B78A5118A580AF0050EBF5 /* LoginOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginOp.h; sourceTree = "<group>"; };
 		04B78A5218A580AF0050EBF5 /* LoginOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginOp.m; sourceTree = "<group>"; };
 		04B7B9BB18B5570E00A63551 /* CaptchaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaViewController.h; sourceTree = "<group>"; };
@@ -1143,6 +1147,8 @@
 				0433542118A023FE009305F0 /* UIViewController+HideKeyboard.m */,
 				04090A39187FB7D000577EDF /* UIView+Debugging.h */,
 				04090A3A187FB7D000577EDF /* UIView+Debugging.m */,
+				04B6924E18E77B2A00F88D8A /* UIWebView+HideScrollGradient.h */,
+				04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */,
 				04F0E2E8186EDC1A00468738 /* UIWebView+ElementLocation.h */,
 				04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */,
 				044786861856E4DB0050563B /* UIWebView+Reveal.h */,
@@ -1494,7 +1500,7 @@
 				ORGANIZATIONNAME = "Wikimedia Foundation";
 				TargetAttributes = {
 					D4991434181D51DE00E6073C = {
-						DevelopmentTeam = AKK7J2GV64;
+						DevelopmentTeam = D5RR3ZF62D;
 					};
 					D4991458181D51DF00E6073C = {
 						TestTargetID = D4991434181D51DE00E6073C;
@@ -1789,6 +1795,7 @@
 				04D34DAF1863D2D600610A87 /* XPathQuery.m in Sources */,
 				047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */,
 				04090A37187F818400577EDF /* TOCImageView.m in Sources */,
+				04B6925018E77B2A00F88D8A /* UIWebView+HideScrollGradient.m in Sources */,
 				0463639318A5CCEB0049EE4F /* EditTokenOp.m in Sources */,
 				0460990A18899A9800B1F2BC /* DownloadSectionWikiTextOp.m in Sources */,
 				04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
@@ -1903,6 +1910,7 @@
 				040E5C851846AC13007AFE6F /* ArticleDataContextSingleton.m in Sources */,
 				04992BC118B687B000A6C22B /* SearchOp.m in Sources */,
 				04D34DBA1863F69500610A87 /* DiscoveryContext.m in Sources */,
+				04B6925118E77B2A00F88D8A /* UIWebView+HideScrollGradient.m in Sources */,
 				04D34DAE1863D2D600610A87 /* TFHppleElement.m in Sources */,
 				04D34DCA1863F6CC00610A87 /* Saved.m in Sources */,
 				047801BF18AE987900DBB747 /* UIButton+ColorMask.m in Sources */,
@@ -2309,8 +2317,8 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Wikimedia Foundation, Inc.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Wikimedia Foundation, Inc.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Wikipedia-iOS/Wikipedia-iOS-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

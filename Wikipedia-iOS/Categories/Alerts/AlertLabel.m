@@ -2,6 +2,12 @@
 
 #import "AlertLabel.h"
 
+@interface AlertLabel()
+
+@property (nonatomic) UIEdgeInsets paddingEdgeInsets;
+
+@end
+
 @implementation AlertLabel
 
 - (id)init
@@ -9,7 +15,9 @@
     self = [super init];
     if (self) {
         self.alpha = 0.0f;
-        
+
+        self.paddingEdgeInsets = UIEdgeInsetsMake(1, 10, 1, 10);
+
         self.minimumScaleFactor = 0.2;
         self.font = [UIFont systemFontOfSize:10];
         self.textAlignment = NSTextAlignmentCenter;
@@ -69,6 +77,20 @@
     CGContextSetLineWidth(context, 1.0);
 
     CGContextStrokePath(context);
+}
+
+// Label padding edge insets! From: http://stackoverflow.com/a/21934948
+
+-(void)drawTextInRect:(CGRect)rect {
+    return [super drawTextInRect:UIEdgeInsetsInsetRect(rect, self.paddingEdgeInsets)];
+}
+
+-(CGSize)intrinsicContentSize {
+    CGSize contentSize = [super intrinsicContentSize];
+    UIEdgeInsets insets = self.paddingEdgeInsets;
+    contentSize.height += insets.top + insets.bottom;
+    contentSize.width += insets.left + insets.right;
+    return contentSize;
 }
 
 @end

@@ -2,6 +2,7 @@
 
 #import "PreviewWebView.h"
 #import "SessionSingleton.h"
+#import "UIWebView+HideScrollGradient.h"
 
 @interface PreviewWebView ()
 
@@ -13,7 +14,6 @@
 -(void)loadHTMLString:(NSString *)string baseURL:(NSURL *)baseURL
 {
     [super loadHTMLString:string baseURL:baseURL];
-    
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -27,7 +27,8 @@
         self.userInteractionEnabled = YES;
         
         self.dataDetectorTypes = UIDataDetectorTypeNone;
-
+        
+        [self hideScrollGradient];
     }
     return self;
 }

@@ -426,12 +426,21 @@ typedef enum {
                         completionBlock: ^(NSDictionary *result){
                             //NSLog(@"editTokenOp result = %@", result);
                             //NSLog(@"editTokenOp result tokens = %@", result[@"tokens"][@"edittoken"]);
-                            
-                            NSString *editToken = result[@"tokens"][@"edittoken"];
-                            NSMutableDictionary *editTokens = [SessionSingleton sharedInstance].keychainCredentials.editTokens;
-                            editTokens[[SessionSingleton sharedInstance].domain] = editToken;
-                            [SessionSingleton sharedInstance].keychainCredentials.editTokens = editTokens;
-                            
+
+                            if (articleID) {
+                                [articleDataContext_.mainContext performBlockAndWait:^(){
+                                    Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+                                    if (article) {
+                                        NSString *editToken = result[@"tokens"][@"edittoken"];
+                                        NSMutableDictionary *editTokens =
+                                            [SessionSingleton sharedInstance].keychainCredentials.editTokens;
+                                        //NSLog(@"article.domain = %@", article.domain);
+                                        editTokens[article.domain] = editToken;
+                                        [SessionSingleton sharedInstance].keychainCredentials.editTokens = editTokens;
+                                    }
+                                }];
+                            }
+
                         } cancelledBlock: ^(NSError *error){
                             
                             [self showAlert:@""];

@@ -6,7 +6,7 @@
 
 - (UIImage *)getImageOfColor:(CGColorRef)CGColor;
 {
-    const CGFloat* colorComponents = CGColorGetComponents(CGColor);
+    const CGFloat *colorComponents = CGColorGetComponents(CGColor);
     CGFloat red = colorComponents[0];
     CGFloat green = colorComponents[1];
     CGFloat blue = colorComponents[2];

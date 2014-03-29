@@ -326,7 +326,9 @@ shouldAttemptScrollToImage = NO;
                                      toItem: self.scrollContainer.superview
                                   attribute: NSLayoutAttributeWidth
                                  multiplier: 1.0
-                                   constant: 0]];
+                                   constant: -1.0]];
+    // "constant" is -1.0 to ensure the container width never exceeds the scroll view's width.
+    // This prevents horizontal scrolling within the toc.
 }
 
 -(void)updateViewConstraints

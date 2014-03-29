@@ -306,10 +306,8 @@ typedef enum {
     
     if (tappedItem.tag == ROW_INDEX_ZERO_WARN_WHEN_LEAVING) animationDuration = 0.0f;
     
-    [self pulseAnimateImageOfRowView:tappedItem withDuration:animationDuration];
+    void(^performTapAction)() = ^(){
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (animationDuration * 2.0f) * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        
         switch (tappedItem.tag) {
             case ROW_INDEX_LOGIN:
             {
@@ -371,9 +369,23 @@ typedef enum {
         }
         
         [self loadRowViews];
-        
-        //NSLog(@"ACTION TAPPED = %d", tappedItem.tag);
-    });
+    };
+
+    CGFloat animationScale = 1.28f;
+    
+    NSMutableDictionary *row = [self getRowWithTag:tappedItem.tag];
+    
+    NSString *imageName = [row objectForKey:@"imageName"];
+
+    if (imageName && (imageName.length > 0) && (animationDuration > 0)) {
+        [tappedItem.thumbnailImageView animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
+                                               afterDelay: 0.0
+                                                 duration: animationDuration
+                                                     then: performTapAction
+                                                 ];
+    }else{
+        performTapAction();
+    }
 }
 
 -(void)showLanguages
@@ -420,7 +432,8 @@ typedef enum {
                                                          dispatch_async(dispatch_get_main_queue(), ^(){
                                                              [NAV loadArticleWithTitle: title
                                                                                 domain: [SessionSingleton sharedInstance].domain
-                                                                              animated: YES];
+                                                                              animated: YES
+                                                                       discoveryMethod: DISCOVERY_METHOD_RANDOM];
                                                          });
                                                      }
                                                  } cancelledBlock: ^(NSError *errorCancel) {
@@ -466,8 +479,9 @@ typedef enum {
     }
 
     [savedPagesLabel animateAndRewindXF: CATransform3DMakeScale(1.08f, 1.08f, 1.0f)
-                             afterDelay: 0.33
-                               duration: 0.17];
+                             afterDelay: 0.32
+                               duration: 0.16
+                                   then: nil];
 }
 
 -(UILabel *)getLabelCopyToAnimate:(UILabel *)labelToCopy
@@ -484,19 +498,6 @@ typedef enum {
     labelCopy.numberOfLines = labelToCopy.numberOfLines;
     [self.view addSubview:labelCopy];
     return labelCopy;
-}
-
--(void)pulseAnimateImageOfRowView:(MainMenuRowView*)rowView withDuration:(CGFloat)duration
-{
-    CGFloat animationScale = 1.35f;
-    NSMutableDictionary *row = [self getRowWithTag:rowView.tag];
-    NSString *imageName = [row objectForKey:@"imageName"];
-
-    if (imageName && (imageName.length > 0) && (duration > 0)) {
-        [rowView.thumbnailImageView animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
-                                               afterDelay: 0.0
-                                                 duration: duration];
-    }
 }
 
 -(CGPoint)getLocationForView:(UIView *)view xf:(CGAffineTransform)xf

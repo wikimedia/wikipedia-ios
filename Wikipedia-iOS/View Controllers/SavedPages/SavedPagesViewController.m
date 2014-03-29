@@ -215,7 +215,10 @@
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [NAV loadArticleWithTitle:savedEntry.article.title domain:savedEntry.article.domain animated:YES];
+    [NAV loadArticleWithTitle: savedEntry.article.title
+                       domain: savedEntry.article.domain
+                     animated: YES
+              discoveryMethod: DISCOVERY_METHOD_SEARCH];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -25,6 +25,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
+@property (nonatomic) CGRect viewKeyboardRect;
 
 @end
 
@@ -40,6 +41,12 @@
 
     [self.editTextView setDelegate:self];
 
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
+        // Fix for strange ios 7 bug with large pages of text in the edit text view
+        // jumping around if scrolled quickly.
+        self.editTextView.layoutManager.allowsNonContiguousLayout = NO;
+    }
+    
     articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
 
     [self loadLatestWikiTextForSectionFromServer];
@@ -47,11 +54,15 @@
     if ([self.editTextView respondsToSelector:@selector(keyboardDismissMode)]) {
         self.editTextView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     }
+    
+    self.viewKeyboardRect = CGRectNull;
 }
 
 - (void)textViewDidChange:(UITextView *)textView
 {
     [self highlightProgressiveButton:[self changesMade]];
+    
+    [self scrollTextViewSoCursorNotUnderKeyboard:textView];
 }
 
 -(BOOL)changesMade
@@ -84,6 +95,8 @@
 {
     [super viewDidAppear:animated];
 
+    [self registerForKeyboardNotifications];
+
     [self setScrollsToTop:YES];
     
     // Listen for nav bar taps.
@@ -108,6 +121,8 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [self setScrollsToTop:NO];
+
+    [self unRegisterForKeyboardNotifications];
 
     [self highlightProgressiveButton:NO];
 
@@ -177,8 +192,6 @@
             self.unmodifiedWikiText = revision;
             self.editTextView.attributedText = [self getAttributedString:revision];
             //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
-            //[self performSelector:@selector(setCursor:) withObject:self.editTextView afterDelay:0.45];
-            [self adjustScrollInset];
         }];
         
     } cancelledBlock:^(NSError *error){
@@ -193,26 +206,6 @@
 
     [[QueuesSingleton sharedInstance].sectionWikiTextDownloadQ cancelAllOperations];
     [[QueuesSingleton sharedInstance].sectionWikiTextDownloadQ addOperation:downloadWikiTextOp];
-}
-
--(void)adjustScrollInset
-{
-    // Ensure the edit text view can scroll whatever text it is displaying all the
-    // way so the bottom of the text can be scrolled to the top of the screen.
-    CGFloat bottomInset = self.view.bounds.size.height - 60;
-    self.editTextView.contentInset = UIEdgeInsetsMake(0, 0, bottomInset, 0);
-}
-
-- (void)setCursor:(UITextView *)textView
-{ 
-    textView.selectedRange = NSMakeRange(0, 0);
-}
-
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    [self adjustScrollInset];
-    
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
 -(NSAttributedString *)getAttributedString:(NSString *)string
@@ -250,6 +243,75 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+#pragma mark Keyboard
+
+// Ensure the edit text view can scroll whatever text it is displaying all the
+// way so the bottom of the text can be scrolled to the top of the screen.
+// More info here:
+// https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
+
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(keyboardWasShown:)
+                                                 name: UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(keyboardWillBeHidden:)
+                                                 name: UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)unRegisterForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: UIKeyboardDidShowNotification
+                                                  object: nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: UIKeyboardWillHideNotification
+                                                  object: nil];
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary *info = [aNotification userInfo];
+
+    CGRect windowKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+
+    CGRect viewKeyboardRect = [self.view.window convertRect:windowKeyboardRect toView:self.view];
+
+    self.viewKeyboardRect = viewKeyboardRect;
+
+    // This makes it so you can always scroll to the bottom of the text view's text
+    // even if the keyboard is onscreen.
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, viewKeyboardRect.size.height, 0.0);
+    self.editTextView.contentInset = contentInsets;
+    self.editTextView.scrollIndicatorInsets = contentInsets;
+}
+ 
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.editTextView.contentInset = contentInsets;
+    self.editTextView.scrollIndicatorInsets = contentInsets;
+    
+    self.viewKeyboardRect = CGRectNull;
+}
+
+- (void)scrollTextViewSoCursorNotUnderKeyboard:(UITextView *)textView
+{
+    // If cursor is hidden by keyboard, scroll the text view so cursor is onscreen.
+    if (!CGRectIsNull(self.viewKeyboardRect)) {
+        CGRect cursorRectInTextView = [textView caretRectForPosition:textView.selectedTextRange.start];
+        CGRect cursorRectInView = [textView convertRect:cursorRectInTextView toView:self.view];
+        if(CGRectIntersectsRect(self.viewKeyboardRect, cursorRectInView)){
+            [textView scrollRectToVisible:cursorRectInTextView animated:YES];
+        }
+    }
+}
+
+#pragma mark Memory
 
 - (void)didReceiveMemoryWarning
 {

@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MWNetworkOp.h"
-
-@class DiscoveryMethod;
+#import "NavController.h"
 
 @interface WebViewController : UIViewController <UIWebViewDelegate, NetworkOpDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
@@ -20,5 +19,7 @@
 
 -(void)reloadCurrentArticle;
 -(void)reloadCurrentArticleInvalidatingCache;
+
+-(void)navigateToPage:(NSString *)title domain:(NSString *)domain discoveryMethod:(ArticleDiscoveryMethod)discoveryMethod;
 
 @end

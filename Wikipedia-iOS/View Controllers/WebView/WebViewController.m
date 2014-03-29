@@ -27,7 +27,9 @@
 #import "UIViewController+SearchChildViewControllers.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "UIViewController+HideKeyboard.h"
+#import "UIWebView+HideScrollGradient.h"
 #import "UIWebView+ElementLocation.h"
+#import "UIView+RemoveConstraints.h"
 #import "UIViewController+Alert.h"
 #import "Section+ImageRecords.h"
 #import "UIWebView+Reveal.h"
@@ -35,13 +37,8 @@
 
 //#import "UIView+Debugging.h"
 
-#define WEB_VIEW_SCALE_WHEN_TOC_VISIBLE (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.45f : 0.70f)
 #define TOC_TOGGLE_ANIMATION_DURATION 0.35f
 #define NAV ((NavController *)self.navigationController)
-
-#define DISCOVERY_METHOD_SEARCH @"search"
-#define DISCOVERY_METHOD_RANDOM @"random"
-#define DISCOVERY_METHOD_LINK   @"link"
 
 typedef enum {
     DISPLAY_LEAD_SECTION = 0,
@@ -64,7 +61,6 @@ typedef enum {
 @property (nonatomic) NSUInteger sectionToEditIndex;
 
 @property (strong, nonatomic) NSDictionary *adjacentHistoryIDs;
-@property (strong, nonatomic) NSMutableArray *tocConstraints;
 @property (strong, nonatomic) NSString *externalUrl;
 
 @property (weak, nonatomic) IBOutlet UIView *bottomBarView;
@@ -103,7 +99,6 @@ typedef enum {
 {
     [super viewDidLoad];
 
-    self.tocConstraints = [@[] mutableCopy];
     self.sectionToEditIndex = 0;
 
     self.tocVisible = NO;
@@ -135,6 +130,8 @@ typedef enum {
     self.webView.scrollView.delegate = self;
 
     self.webView.backgroundColor = [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.0];
+
+    [self.webView hideScrollGradient];
 
     [self reloadCurrentArticle];
     
@@ -214,7 +211,10 @@ typedef enum {
     languagesTableVC.selectionBlock = ^(NSDictionary *selectedLangInfo){
         [self.navigationController.view.layer addAnimation:transition forKey:nil];
         // Don't animate - so the transistion set above will be used.
-        [NAV loadArticleWithTitle:selectedLangInfo[@"*"] domain:selectedLangInfo[@"code"] animated:NO];
+        [NAV loadArticleWithTitle: selectedLangInfo[@"*"]
+                           domain: selectedLangInfo[@"code"]
+                         animated: NO
+                  discoveryMethod: DISCOVERY_METHOD_SEARCH];
     };
     
     [self.navigationController.view.layer addAnimation:transition forKey:nil];
@@ -266,11 +266,12 @@ typedef enum {
                 
                 [tocVC didMoveToParentViewController:self];
                 
-                CGAffineTransform xf = CGAffineTransformMakeScale(WEB_VIEW_SCALE_WHEN_TOC_VISIBLE, WEB_VIEW_SCALE_WHEN_TOC_VISIBLE);
+                CGFloat scale = [self getWebViewScaleWhenTOCVisible];
+                CGAffineTransform xf = CGAffineTransformMakeScale(scale, scale);
                 [UIView animateWithDuration:TOC_TOGGLE_ANIMATION_DURATION animations:^{
                     self.bottomBarViewBottomConstraint.constant = -self.bottomBarViewHeightConstraint.constant;
                     self.webView.transform = xf;
-                    self.webViewLeftConstraint.constant = self.view.frame.size.width * (1.0f - WEB_VIEW_SCALE_WHEN_TOC_VISIBLE);
+                    self.webViewLeftConstraint.constant = self.view.frame.size.width * (1.0f - scale);
                     [self.view.superview layoutIfNeeded];
                 }];
             }
@@ -288,50 +289,46 @@ typedef enum {
 
 -(void)constrainTOCView:(UIView *)tocView
 {
-    [self.view removeConstraints:self.tocConstraints];
-    [self.tocConstraints removeAllObjects];
+    [tocView removeConstraintsOfViewFromView:self.view];
 
-    NSLayoutConstraint *constraint = nil;
+    CGFloat scale = [self getWebViewScaleWhenTOCVisible];
+
+    NSArray *constraints =
+    @[
+      [NSLayoutConstraint constraintWithItem: tocView
+                                   attribute: NSLayoutAttributeTop
+                                   relatedBy: NSLayoutRelationEqual
+                                      toItem: self.view
+                                   attribute: NSLayoutAttributeTop
+                                  multiplier: 1.0
+                                    constant: 0]
+      ,
+      [NSLayoutConstraint constraintWithItem: tocView
+                                   attribute: NSLayoutAttributeBottom
+                                   relatedBy: NSLayoutRelationEqual
+                                      toItem: self.view
+                                   attribute: NSLayoutAttributeBottom
+                                  multiplier: 1.0
+                                    constant: 0]
+      ,
+      [NSLayoutConstraint constraintWithItem: tocView
+                                   attribute: NSLayoutAttributeRight
+                                   relatedBy: NSLayoutRelationEqual
+                                      toItem: self.webView
+                                   attribute: NSLayoutAttributeLeft
+                                  multiplier: 1.0
+                                    constant: 0]
+      ,
+      [NSLayoutConstraint constraintWithItem: tocView
+                                   attribute: NSLayoutAttributeWidth
+                                   relatedBy: NSLayoutRelationEqual
+                                      toItem: self.webView
+                                   attribute: NSLayoutAttributeWidth
+                                  multiplier: 1.0f - scale
+                                    constant: 0]
+      ];
     
-    constraint = [NSLayoutConstraint constraintWithItem:tocView
-                                              attribute:NSLayoutAttributeTop
-                                              relatedBy:NSLayoutRelationEqual
-                                                 toItem:self.view
-                                              attribute:NSLayoutAttributeTop
-                                             multiplier:1.0
-                                               constant:0];
-    [self.view addConstraint:constraint];
-    [self.tocConstraints addObject:constraint];
-    
-    constraint = [NSLayoutConstraint constraintWithItem:tocView
-                                              attribute:NSLayoutAttributeBottom
-                                              relatedBy:NSLayoutRelationEqual
-                                                 toItem:self.view
-                                              attribute:NSLayoutAttributeBottom
-                                             multiplier:1.0
-                                               constant:0];
-    [self.view addConstraint:constraint];
-    [self.tocConstraints addObject:constraint];
-    
-    constraint = [NSLayoutConstraint constraintWithItem:tocView
-                                              attribute:NSLayoutAttributeRight
-                                              relatedBy:NSLayoutRelationEqual
-                                                 toItem:self.webView
-                                              attribute:NSLayoutAttributeLeft
-                                             multiplier:1.0
-                                               constant:0];
-    [self.view addConstraint:constraint];
-    [self.tocConstraints addObject:constraint];
-    
-    constraint = [NSLayoutConstraint constraintWithItem:tocView
-                                              attribute:NSLayoutAttributeWidth
-                                              relatedBy:NSLayoutRelationEqual
-                                                 toItem:self.webView
-                                              attribute:NSLayoutAttributeWidth
-                                             multiplier:1.0f - WEB_VIEW_SCALE_WHEN_TOC_VISIBLE
-                                               constant:0];
-    [self.view addConstraint:constraint];
-    [self.tocConstraints addObject:constraint];
+    [self.view addConstraints:constraints];
 }
 
 -(BOOL)shouldAutomaticallyForwardAppearanceMethods
@@ -348,6 +345,15 @@ typedef enum {
     // automatically forward rotation-related containment
     // callbacks to child view controllers.
     return YES;
+}
+
+-(CGFloat)getWebViewScaleWhenTOCVisible
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
+        return (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.7f : 0.75f);
+    }else{
+        return (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.45f : 0.70f);
+    }
 }
 
 #pragma mark Webview obj-c to javascript bridge
@@ -608,7 +614,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 #pragma mark Article loading ops
 
-- (void)navigateToPage:(NSString *)title domain:(NSString *)domain discoveryMethod:(NSString *)discoveryMethod
+- (void)navigateToPage:(NSString *)title domain:(NSString *)domain discoveryMethod:(ArticleDiscoveryMethod)discoveryMethod
 {
     NSString *cleanTitle = [self cleanTitle:title];
     
@@ -621,13 +627,15 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // Show loading message
     [self showAlert:NSLocalizedString(@"search-loading-section-zero", nil)];
     
-    [self retrieveArticleForPageTitle:cleanTitle domain:domain discoveryMethod:discoveryMethod];
+    [self retrieveArticleForPageTitle:cleanTitle domain:domain discoveryMethod:[self getStringForDiscoveryMethod:discoveryMethod]];
 }
 
 -(void)reloadCurrentArticle{
     NSString *title = [SessionSingleton sharedInstance].currentArticleTitle;
     NSString *domain = [SessionSingleton sharedInstance].currentArticleDomain;
-    [self navigateToPage:title domain:domain discoveryMethod:DISCOVERY_METHOD_SEARCH];
+    [self navigateToPage: title
+                  domain: domain
+         discoveryMethod: DISCOVERY_METHOD_SEARCH];
 }
 
 -(void)reloadCurrentArticleInvalidatingCache
@@ -862,6 +870,22 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
     [[QueuesSingleton sharedInstance].articleRetrievalQ addOperation:remainingSectionsOp];
     [[QueuesSingleton sharedInstance].articleRetrievalQ addOperation:firstSectionOp];
+}
+
+-(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method
+{
+    switch (method) {
+        case DISCOVERY_METHOD_RANDOM:
+            return @"random";
+            break;
+        case DISCOVERY_METHOD_LINK:
+            return @"link";
+            break;
+        case DISCOVERY_METHOD_SEARCH:
+        default:
+            return @"search";
+            break;
+    }
 }
 
 #pragma mark Progress report

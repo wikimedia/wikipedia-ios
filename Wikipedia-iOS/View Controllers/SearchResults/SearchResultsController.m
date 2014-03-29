@@ -393,7 +393,10 @@
 
     [self.searchResultsTable deselectRowAtIndexPath:indexPath animated:YES];
 
-    [NAV loadArticleWithTitle:title domain:[SessionSingleton sharedInstance].domain animated:YES];
+    [NAV loadArticleWithTitle: title
+                       domain: [SessionSingleton sharedInstance].domain
+                     animated: YES
+              discoveryMethod: DISCOVERY_METHOD_SEARCH];
 }
 
 #pragma mark Memory

@@ -33,6 +33,12 @@ typedef enum {
     NAVBAR_STYLE_NIGHT = 2
 } NavBarStyle;
 
+typedef enum {
+    DISCOVERY_METHOD_SEARCH = 0,
+    DISCOVERY_METHOD_RANDOM = 1,
+    DISCOVERY_METHOD_LINK = 2
+} ArticleDiscoveryMethod;
+
 @interface NavController : UINavigationController <UITextFieldDelegate, UISearchBarDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) NSString *currentSearchString;
@@ -43,7 +49,10 @@ typedef enum {
 
 -(id)getNavBarItem:(NavBarItemTag)tag;
 
--(void)loadArticleWithTitle:(NSString *)title domain:(NSString *)domain animated:(BOOL)animated;
+-(void)loadArticleWithTitle: (NSString *)title
+                     domain: (NSString *)domain
+                   animated: (BOOL)animated
+            discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod;
 
 @end
 

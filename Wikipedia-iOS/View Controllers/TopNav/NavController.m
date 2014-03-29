@@ -16,6 +16,7 @@
 
 #import "SessionSingleton.h"
 #import "WebViewController.h"
+#import "UIView+TemporaryAnimatedXF.h"
 
 @interface NavController (){
 
@@ -70,22 +71,35 @@
 
     self.navBarStyle = NAVBAR_STYLE_DAY;
 
-    [self.buttonW addTarget:self action:@selector(mainMenuToggle) forControlEvents:UIControlEventTouchUpInside];
-
     self.navBarMode = NAVBAR_MODE_SEARCH;
 
-    self.textField.placeholder = NSLocalizedString(@"search-field-placeholder-text", nil);
-
     [self.navigationBar addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial context:nil];
-
-    // Perform search when text entered into textField
-    [self.textField addTarget:self action:@selector(searchStringChanged) forControlEvents:UIControlEventEditingChanged];
     
     self.navBarSubViews = [self getNavBarSubViews];
     
     self.navBarSubViewMetrics = [self getNavBarSubViewMetrics];
     
     self.isTransitioningBetweenViewControllers = NO;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Listen for nav bar taps.
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(navItemTappedNotification:)
+                                                 name: @"NavItemTapped"
+                                               object: nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: @"NavItemTapped"
+                                                  object: nil];
+
+    [super viewWillDisappear:animated];
 }
 
 #pragma mark Constraints
@@ -119,7 +133,9 @@
     }];
 }
 
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+- (void)navigationController: (UINavigationController *)navigationController
+      willShowViewController: (UIViewController *)viewController
+                    animated: (BOOL)animated
 {
     self.isTransitioningBetweenViewControllers = YES;
 
@@ -127,7 +143,9 @@
     [self showHTMLAlert:@"" bannerImage:nil bannerColor:nil];
 }
 
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+- (void)navigationController: (UINavigationController *)navigationController
+       didShowViewController: (UIViewController *)viewController
+                    animated: (BOOL)animated
 {
     self.isTransitioningBetweenViewControllers = NO;
 }
@@ -256,7 +274,12 @@
     self.textField.tag = NAVBAR_TEXT_FIELD;
     self.textField.clearButtonMode = UITextFieldViewModeNever;
     self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    [self.textField addTarget:self action:@selector(navItemTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.textField addTarget:self action:@selector(postNavItemTappedNotification:) forControlEvents:UIControlEventTouchUpInside];
+    self.textField.placeholder = NSLocalizedString(@"search-field-placeholder-text", nil);
+
+    // Perform search when text entered into textField
+    [self.textField addTarget:self action:@selector(searchStringChanged) forControlEvents:UIControlEventEditingChanged];
+    
     [self.navBarContainer addSubview:self.textField];
  
     UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 26, 26)];
@@ -297,7 +320,9 @@
         button.backgroundColor = [UIColor clearColor];
         button.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [button setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(navItemTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [button setImage:[UIImage imageNamed:image] forState:UIControlStateSelected];
+        [button setImage:[UIImage imageNamed:image] forState:UIControlStateHighlighted];
+        [button addTarget:self action:@selector(postNavItemTappedNotification:) forControlEvents:UIControlEventTouchUpInside];
 
         button.tag = tag;
         return button;
@@ -329,7 +354,7 @@
     self.label.textColor = [UIColor darkGrayColor];
     self.label.backgroundColor = [UIColor clearColor];
     self.label.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapLabel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navItemTapped:)];
+    UITapGestureRecognizer *tapLabel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(postNavItemTappedNotification:)];
     [self.label addGestureRecognizer:tapLabel];
     [self.navBarContainer addSubview:self.label];
 }
@@ -456,7 +481,9 @@
     [self.view setNeedsUpdateConstraints];
 }
 
--(void)navItemTapped:(id)sender
+#pragma mark Broadcast nav button taps
+
+-(void)postNavItemTappedNotification:(id)sender
 {
     UIView *tappedView = nil;
     if([sender isKindOfClass:[UIGestureRecognizer class]]){
@@ -464,9 +491,43 @@
     }else{
         tappedView = sender;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"NavItemTapped" object:self userInfo:
-        @{@"tappedItem": tappedView}
-    ];
+    
+    void(^postTapNotification)() = ^(){
+        if(self.isTransitioningBetweenViewControllers) return;
+
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"NavItemTapped"
+                                                            object: self
+                                                          userInfo: @{@"tappedItem": tappedView}];
+    };
+    
+    // If the tapped item was a button, first animate it briefly, then post the notication.
+    if([tappedView isKindOfClass:[UIButton class]]){
+        CGFloat animationScale = 1.15f;
+        [tappedView animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
+                            afterDelay: 0.0
+                              duration: 0.06f
+                                  then: postTapNotification];
+    }else{
+        // If tapped item not a button, don't animate, just post.
+        postTapNotification();
+    }
+}
+
+#pragma mark Handle nav button taps
+
+// Handle nav bar taps. (same way as any other view controller would)
+- (void)navItemTappedNotification:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    UIView *tappedItem = userInfo[@"tappedItem"];
+
+    switch (tappedItem.tag) {
+        case NAVBAR_BUTTON_LOGO_W:
+            [self mainMenuToggle];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark Rotation
@@ -710,13 +771,20 @@
     [view setNeedsDisplay];
 }
 
--(void)loadArticleWithTitle:(NSString *)title domain:(NSString *)domain animated:(BOOL)animated
+#pragma mark Article
+
+-(void)loadArticleWithTitle: (NSString *)title
+                     domain: (NSString *)domain
+                   animated: (BOOL)animated
+            discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
 {
     WebViewController *webVC = [self searchNavStackForViewControllerOfClass:[WebViewController class]];
     if (webVC){
         [SessionSingleton sharedInstance].currentArticleTitle = title;
         [SessionSingleton sharedInstance].currentArticleDomain = domain;
-        [webVC reloadCurrentArticle];
+        [webVC navigateToPage: title
+                       domain: domain
+              discoveryMethod: discoveryMethod];
         [self popToViewController:webVC animated:animated];
     }
 }
