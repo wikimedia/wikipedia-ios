@@ -36,7 +36,7 @@
 "login-throttled" = "Направивте премногу обиди за најава за кратко време.";
 "login-user-blocked" = "Корисникот е блокиран";
 "wikitext-downloading" = "Го вчитувам викитекстот...";
-"wikitext-download-failed" = "Не можам да ја добијам најновата ревизија.";
+"wikitext-download-failed" = "Не можам да ја добијам најновата преработка.";
 "wikitext-download-success" = "Викитекстот е вчитан.";
 "wikitext-preview-changes" = "Испишувам преглед на промените што ги направивте...";
 "wikitext-preview-changes-none" = "Не направивте промени.";
@@ -44,6 +44,10 @@
 "wikitext-upload-captcha-error" = "Грешка при проверката со Captcha.";
 "wikitext-upload-captcha-needed" = "Ќе треба потврда со Captcha.";
 "wikitext-upload-save" = "Зачувувам...";
+"wikitext-upload-save-sign-in" = "Регистрирај ме и зачувај";
+"wikitext-upload-save-sign-in-benefits" = "За да можат другите уредници да се поврзат со вас и да  видите кои статии ги имате уредувано";
+"wikitext-upload-save-anonymously" = "Зачувај анонимно";
+"wikitext-upload-save-anonymously-warning" = "Ова има помалку приватност. Вашата IP-адреса е видлива со уредувањата. Со зачувување, се согласувате трајно да ги објавиме вашите уредувања под лиценцата CC BY-SA 3.0";
 "search-searching" = "Пребарувам...";
 "search-no-matches" = "Не пронајдов совпаѓања со бараното.";
 "search-field-placeholder-text" = "Пребарај ја Википедија";
@@ -51,6 +55,7 @@
 "search-loading-section-zero" = "Го вчитувам првиот дел од статијата...";
 "search-loading-section-remaining" = "Го вчитувам остатокот од статијата...";
 "search-loading-article-loaded" = "Статијата е вчитана.";
+// Fuzzy
 "main-menu-language-title" = "На кое јазично издание да се пребарува";
 "main-menu-language-toggle-show" = "Прикажи јазици";
 "main-menu-language-toggle-hide" = "Скриј јазици";
@@ -59,14 +64,34 @@
 "main-menu-account-login" = "Најава";
 "main-menu-account-logout" = "Одјава";
 "main-menu-show-title" = "Покажи ми...";
+// Fuzzy
 "main-menu-show-history" = "Моја историја на прелистување";
+// Fuzzy
 "main-menu-show-saved" = "Мои зачувани страници";
+// Fuzzy
 "main-menu-current-article-save" = "Зачувај за вонмрежно читање";
+// Fuzzy
+"main-menu-random" = "Случајна";
+// Fuzzy
+"main-menu-feedback-heading" = "Мислења за прилогот";
+// Fuzzy
+"main-menu-send-feedback" = "Испратете ваше мислење за прилогот";
 "saved-pages-title" = "Зачувани страници";
 "navbar-title-mode-edit-wikitext" = "Уреди";
 "navbar-title-mode-login" = "Најава";
+"navbar-title-mode-login-and-save" = "Регистрирај ме и зачувај";
 "navbar-title-mode-create-account" = "Направи сметка";
+"navbar-title-mode-create-account-and-save" = "Направете сметка и зачувајте";
 "navbar-title-mode-edit-wikitext-warning" = "Проблеми со уредувањата";
 "navbar-title-mode-edit-wikitext-disallow" = "Проблеми со уредувањата";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
 "navbar-title-mode-edit-wikitext-captcha" = "Се бара брза проверка";
+"navbar-title-mode-edit-wikitext-summary" = "Опишете го уредувањето";
+"edit-summary-choice-linked-words" = "Ставени зборови во врски";
+"edit-summary-choice-fixed-inaccuracy" = "Исправена неточност";
+"edit-summary-choice-fixed-typos" = "Исправена грешка при пишување";
+"edit-summary-choice-added-category" = "Додадена категорија";
+"edit-summary-choice-other" = "Другo";
+"edit-summary-description" = "Објаснителниот опис на поважните направени промени ќе им помогне на другите уредници бргу да ги проверат Вашите уредувања. Можете и да изберете од готовите описи подолу.";
+"edit-summary-field-placeholder-text" = "На кој начин ја подобривте страницата?";
+"fetching-random-article" = "Повикувам случајна статија";

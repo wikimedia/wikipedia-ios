@@ -1,0 +1,91 @@
+// Messages for Italian (italiano)
+// Exported from translatewiki.net
+// Author: Beta16
+// Author: Nastoshka
+
+"article-languages-label" = "Scegli la lingua";
+"article-languages-cancel" = "Annulla";
+"history-label" = "Naviga nella cronologia";
+"history-section-today" = "Oggi";
+"history-section-yesterday" = "Ieri";
+"history-section-lastweek" = "Ultima settimana";
+"history-section-lastmonth" = "Ultimo mese";
+"zero-free-verbiage" = "Accesso gratuito a Wikipedia dal vostro operatore di telefonia mobile (tariffa dati non applicata)";
+"zero-charged-verbiage" = "Wikipedia Zero NON connessa (si applicano le tariffe standard di connessione)";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "Stai uscendo da Wikipedia Zero";
+"zero-interstitial-leave-app" = "Continuare su un sito esterno? Potrebbero essere applicati i costi standard di connessione.";
+"zero-interstitial-continue" = "Continua";
+"zero-interstitial-cancel" = "Annulla";
+"zero-learn-more" = "Vuoi conoscere Wikipedia Zero?";
+"zero-learn-more-learn-more" = "Ulteriori informazioni";
+"zero-learn-more-no-thanks" = "No, grazie";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"zero-warn-when-leaving" = "Avvisa se sto uscendo da Wikipedia Zero";
+"zero-settings-devmode" = "Zero Devmode";
+"account-creation-captcha-required" = "Verifica CAPTCHA richiesta.";
+"account-creation-captcha-obtaining" = "Creazione di un nuovo CAPTCHA.";
+"account-creation-logging-in" = "Accesso in corso...";
+"account-creation-passwords-mismatched" = "Le password non corrispondono.";
+"account-creation-saving" = "Salvataggio...";
+"login-name-not-found" = "Il nome utente è necessario per effettuare l'accesso.";
+"login-name-illegal" = "Hai fornito un nome utente non valido.";
+"login-name-does-not-exist" = "Il nome utente fornito non esiste.";
+"login-password-empty" = "La password è necessaria per effettuare l'accesso.";
+"login-password-wrong" = "La password che hai fornito non è corretta.";
+"login-throttled" = "Hai tentato l'accesso troppe volte in breve tempo.";
+"login-user-blocked" = "L'utente è bloccato.";
+"wikitext-downloading" = "Caricamento wiki testo...";
+"wikitext-download-failed" = "Impossibile visualizzare l'ultima versione.";
+"wikitext-download-success" = "Wiki testo caricato.";
+"wikitext-preview-changes" = "Recupero anteprima delle tue modifiche...";
+"wikitext-preview-changes-none" = "Non sono state apportate modifiche da visualizzare in anteprima.";
+"wikitext-upload-captcha-error" = "Errore nella verifica del CAPTCHA.";
+"wikitext-upload-captcha-needed" = "Verifica del CAPTCHA necessaria.";
+"wikitext-upload-save" = "Salvataggio...";
+"wikitext-upload-save-sign-in" = "Registrati e salva";
+"wikitext-upload-save-sign-in-benefits" = "Così gli altri co-editor potranno connettersi con te e potrete vedere quali articoli avete modificato";
+"wikitext-upload-save-anonymously" = "Salva in modo anonimo";
+"search-searching" = "Ricerca in corso...";
+"search-no-matches" = "Nessuna corrispondenza trovata per il termine di ricerca.";
+"search-field-placeholder-text" = "Cerca su Wikipedia";
+"search-field-placeholder-text-zero" = "Cerca su Wikipedia Zero";
+"search-loading-section-zero" = "Caricamento prima sezione della voce...";
+"search-loading-section-remaining" = "Caricamento del resto della voce...";
+"search-loading-article-loaded" = "Voce caricata.";
+// Fuzzy
+"main-menu-language-title" = "Lingua della wiki in cui ricercare";
+"main-menu-language-toggle-show" = "Visualizza lingue";
+"main-menu-language-toggle-hide" = "Nascondi lingue";
+"main-menu-account-title-logged-out" = "Utenza";
+"main-menu-account-title-logged-in" = "Accesso effettuato come: $1";
+"main-menu-account-login" = "Entra";
+"main-menu-account-logout" = "Esci";
+"main-menu-show-title" = "Fammi vedere...";
+// Fuzzy
+"main-menu-show-history" = "Mia cronologia di navigazione";
+// Fuzzy
+"main-menu-show-saved" = "Mie pagine salvate";
+// Fuzzy
+"main-menu-current-article-save" = "Salva per la lettura offline";
+// Fuzzy
+"main-menu-random" = "Una pagina a caso";
+// Fuzzy
+"main-menu-send-feedback" = "Invia i tuoi commenti";
+"saved-pages-title" = "Pagine salvate";
+"navbar-title-mode-edit-wikitext" = "Modifica";
+"navbar-title-mode-login" = "Accedi";
+"navbar-title-mode-login-and-save" = "Accedi e salva";
+"navbar-title-mode-create-account" = "Crea un'utenza";
+"navbar-title-mode-create-account-and-save" = "Crea un'utenza e salva";
+"navbar-title-mode-edit-wikitext-preview" = "Anteprima";
+"navbar-title-mode-edit-wikitext-captcha" = "Verifica rapida necessaria";
+"navbar-title-mode-edit-wikitext-summary" = "Descrivi la tua modifica";
+"edit-summary-choice-linked-words" = "Parole collegate";
+"edit-summary-choice-fixed-inaccuracy" = "Corretta inesattezza";
+"edit-summary-choice-fixed-typos" = "Corretto errore di battitura";
+"edit-summary-choice-added-category" = "Aggiunta categoria";
+"edit-summary-choice-other" = "Altro";
+"edit-summary-description" = "Un oggetto compilato in modo chiaro aiuta gli altri utenti a controllare le tue modifiche. Puoi anche sceglierne uno preimpostato dalla lista qui in basso";
+"edit-summary-field-placeholder-text" = "Quali miglioramenti hai apportato?";
+"fetching-random-article" = "Recupera voce a caso";

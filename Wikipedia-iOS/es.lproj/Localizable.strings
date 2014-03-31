@@ -12,6 +12,8 @@
 "history-section-lastweek" = "La semana pasada";
 "history-section-lastmonth" = "Último mes";
 "zero-free-verbiage" = "Acceso gratuito a Wikipedia de tu operador móvil (sin cargos por datos)";
+"zero-charged-verbiage" = "Wikipedia Zero desactivado (pueden aplicar cargos de uso de datos)";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Salir de Wikipedia Zero";
 "zero-interstitial-continue" = "Continuar";
 "zero-interstitial-cancel" = "Cancelar";
@@ -31,7 +33,11 @@
 "login-user-blocked" = "El usuario está bloqueado.";
 "wikitext-downloading" = "Cargando el código del wiki…";
 "wikitext-download-success" = "Se cargó el código del wiki.";
+"wikitext-preview-changes" = "Generando previsualización de tus cambios…";
+"wikitext-preview-changes-none" = "No se realizaron cambios que revisar.";
 "wikitext-upload-save" = "Guardando…";
+"wikitext-upload-save-sign-in" = "Acceder y guardar";
+"wikitext-upload-save-anonymously" = "Guardar anónimamente";
 "search-searching" = "Buscando…";
 "search-field-placeholder-text" = "Buscar en Wikipedia";
 "search-field-placeholder-text-zero" = "Buscar en Wikipedia Zero";
@@ -41,11 +47,29 @@
 "main-menu-language-toggle-show" = "Mostrar idiomas";
 "main-menu-language-toggle-hide" = "Ocultar idiomas";
 "main-menu-account-title-logged-out" = "Cuenta";
+"main-menu-account-title-logged-in" = "Sesión iniciada como: $1";
 "main-menu-account-login" = "Iniciar sesión";
 "main-menu-account-logout" = "Cerrar sesión";
+"main-menu-show-title" = "Mostrarme…";
+// Fuzzy
+"main-menu-show-history" = "Mi historial de navegación";
+// Fuzzy
 "main-menu-show-saved" = "Mis páginas guardadas";
+// Fuzzy
 "main-menu-current-article-save" = "Guardar para leer sin conexión";
+// Fuzzy
+"main-menu-random" = "Al azar";
 "saved-pages-title" = "Páginas guardadas";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Iniciar sesión";
+"navbar-title-mode-login-and-save" = "Acceder y guardar";
 "navbar-title-mode-create-account" = "Crear cuenta";
+"navbar-title-mode-create-account-and-save" = "Crear cuenta y guardar";
+"navbar-title-mode-edit-wikitext-preview" = "Previsualización";
+"navbar-title-mode-edit-wikitext-summary" = "Describe tu modificación";
+"edit-summary-choice-linked-words" = "Palabras enlazadas";
+"edit-summary-choice-fixed-inaccuracy" = "Imprecisión corregida";
+"edit-summary-choice-fixed-typos" = "Error ortográfico corregido";
+"edit-summary-choice-added-category" = "Categoría añadida";
+"edit-summary-choice-other" = "Otro";
+"edit-summary-field-placeholder-text" = "¿Cómo mejoraste la página?";

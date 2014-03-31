@@ -2,6 +2,8 @@
 // Exported from translatewiki.net
 // Author: Brion Vibber
 // Author: Gomoko
+// Author: John Trololo
+// Author: Solucer
 
 "article-languages-label" = "Choisir langue";
 "article-languages-cancel" = "Annuler";
@@ -44,6 +46,10 @@
 "wikitext-upload-captcha-error" = "Erreur de vérification du Captcha.";
 "wikitext-upload-captcha-needed" = "Vérification du Captcha nécessaire.";
 "wikitext-upload-save" = "Enregistrement en cours…";
+"wikitext-upload-save-sign-in" = "Se connecter et enregistrer";
+"wikitext-upload-save-sign-in-benefits" = "Les co-éditeurs peuvent donc se connecter avec vous et vous pouvez voir quels articles vous avez édités.";
+"wikitext-upload-save-anonymously" = "Enregistrer anonymement";
+"wikitext-upload-save-anonymously-warning" = "Cette action est moins privée. Votre adresse IP est visible avec les modifications. En enregistrant, vous acceptez définitivement de publier vos modifications sous CC BY-SA 3.0";
 "search-searching" = "Recherche en cours…";
 "search-no-matches" = "Aucune correspondance trouvée pour le critère de recherche.";
 "search-field-placeholder-text" = "Rechercher dans Wikipédia";
@@ -51,6 +57,7 @@
 "search-loading-section-zero" = "Chargement de la première section de l’article…";
 "search-loading-section-remaining" = "Chargement du reste de l’article…";
 "search-loading-article-loaded" = "Article chargé.";
+// Fuzzy
 "main-menu-language-title" = "Langue du wiki à rechercher";
 "main-menu-language-toggle-show" = "Afficher les langues";
 "main-menu-language-toggle-hide" = "Masquer les langues";
@@ -59,24 +66,34 @@
 "main-menu-account-login" = "Connexion";
 "main-menu-account-logout" = "Déconnexion";
 "main-menu-show-title" = "M’afficher…";
+// Fuzzy
 "main-menu-show-history" = "Mon historique de navigation";
+// Fuzzy
 "main-menu-show-saved" = "Mes pages enregistrées";
+// Fuzzy
 "main-menu-current-article-save" = "Enregistrer pour une lecture hors ligne";
+// Fuzzy
 "main-menu-random" = "Aléatoire";
+// Fuzzy
 "main-menu-feedback-heading" = "Commentaire sur l’application";
+// Fuzzy
 "main-menu-send-feedback" = "Envoyer un commentaire sur l’application";
 "saved-pages-title" = "Pages enregistrées";
 "navbar-title-mode-edit-wikitext" = "Modifier";
 "navbar-title-mode-login" = "Se connecter";
+"navbar-title-mode-login-and-save" = "Se connecter et enregistrer";
 "navbar-title-mode-create-account" = "Créer un compte";
+"navbar-title-mode-create-account-and-save" = "Créer un compte et enregistrer";
 "navbar-title-mode-edit-wikitext-warning" = "Modifier les problèmes";
 "navbar-title-mode-edit-wikitext-disallow" = "Modifier les problèmes";
 "navbar-title-mode-edit-wikitext-preview" = "Aperçu";
 "navbar-title-mode-edit-wikitext-captcha" = "Vérification rapide nécessaire";
 "navbar-title-mode-edit-wikitext-summary" = "Décrire votre modification";
-"edit-summary-choice-fixed-typos-grammar" = "Fautes de frappe ou de grammaire corrigées";
 "edit-summary-choice-linked-words" = "Mots liés";
-"edit-summary-choice-add-remove-info" = "Information ajoutée ou supprimée";
-"edit-summary-description" = "Un résumé spécifique pour les modifications importantes aide les coéditeurs à relire rapidement vos modifications. Ou vous pouvez faire votre choix parmi les balises ci-dessous.";
+"edit-summary-choice-fixed-inaccuracy" = "Inexactitude corrigée";
+"edit-summary-choice-fixed-typos" = "Correction de fautes";
+"edit-summary-choice-added-category" = "Catégorie ajoutée";
+"edit-summary-choice-other" = "Autre";
+"edit-summary-description" = "Un résumé spécifique aide les coéditeurs à relire rapidement vos modifications. Vous pouvez également faire votre choix parmi les balises ci-dessous.";
 "edit-summary-field-placeholder-text" = "Comment avez-vous amélioré la page ?";
 "fetching-random-article" = "Récupération d’un article au hasard";

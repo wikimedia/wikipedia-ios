@@ -30,6 +30,7 @@
 "search-loading-section-zero" = "Cargament de la primièra seccion de l’article…";
 "search-loading-section-remaining" = "Cargament del demai de l’article…";
 "search-loading-article-loaded" = "Article cargat.";
+// Fuzzy
 "main-menu-language-title" = "Lenga del wiki de recercar";
 "main-menu-language-toggle-show" = "Afichar las lengas";
 "main-menu-language-toggle-hide" = "Amagar las lengas";
@@ -38,8 +39,11 @@
 "main-menu-account-login" = "Connexion";
 "main-menu-account-logout" = "Desconnexion";
 "main-menu-show-title" = "M’afichar…";
+// Fuzzy
 "main-menu-show-history" = "Mon istoric de navigacion";
+// Fuzzy
 "main-menu-show-saved" = "Mas paginas enregistradas";
+// Fuzzy
 "main-menu-current-article-save" = "Enregistrar per una lectura fòra linha";
 "saved-pages-title" = "Paginas enregistradas";
 "navbar-title-mode-edit-wikitext" = "Modificar";

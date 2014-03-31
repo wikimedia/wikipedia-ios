@@ -43,6 +43,10 @@
 "wikitext-upload-captcha-error" = "Eroare de verificare la Captcha.";
 "wikitext-upload-captcha-needed" = "Verificare captcha necesară.";
 "wikitext-upload-save" = "Se salvează...";
+"wikitext-upload-save-sign-in" = "Autentificare și salvare";
+"wikitext-upload-save-sign-in-benefits" = "Astfel, coeditorii pot interacționa cu dumnevoastră, iar dumnevoastră veți putea vedea articolele pe care le-ați modificat";
+"wikitext-upload-save-anonymously" = "Salvare ca anonim";
+"wikitext-upload-save-anonymously-warning" = "Această opțiune înseamnă mai puțină intimitate. Adresa dumnevoastră IP este vizibilă lângă modificări. Salvând, acceptați definitiv să vă publicați modificările sub CC BY-SA 3.0";
 "search-searching" = "Se caută...";
 "search-no-matches" = "Nu s-au găsit potriviri pentru termenul căutat.";
 "search-field-placeholder-text" = "Căutare în Wikipedia";
@@ -50,6 +54,7 @@
 "search-loading-section-zero" = "Se încarcă prima secțiune a articolului...";
 "search-loading-section-remaining" = "Se încarcă restul articolului...";
 "search-loading-article-loaded" = "Articol încărcat.";
+// Fuzzy
 "main-menu-language-title" = "Limba wikiului pentru căutare";
 "main-menu-language-toggle-show" = "Arată limbile";
 "main-menu-language-toggle-hide" = "Ascunde limbile";
@@ -58,14 +63,34 @@
 "main-menu-account-login" = "Autentificare";
 "main-menu-account-logout" = "Închide sesiunea";
 "main-menu-show-title" = "Arată-mi...";
+// Fuzzy
 "main-menu-show-history" = "Istoricul meu de navigare";
+// Fuzzy
 "main-menu-show-saved" = "Paginile mele salvate";
+// Fuzzy
 "main-menu-current-article-save" = "Salvează pentru lectură off-line";
+// Fuzzy
+"main-menu-random" = "Aleatoriu";
+// Fuzzy
+"main-menu-feedback-heading" = "Păreri despre aplicație";
+// Fuzzy
+"main-menu-send-feedback" = "Trimite părerea despre aplicație";
 "saved-pages-title" = "Pagini salvate";
 "navbar-title-mode-edit-wikitext" = "Modificare";
 "navbar-title-mode-login" = "Autentificare";
+"navbar-title-mode-login-and-save" = "Autentificare și salvare";
 "navbar-title-mode-create-account" = "Creare cont";
+"navbar-title-mode-create-account-and-save" = "Creare cont și salvare";
 "navbar-title-mode-edit-wikitext-warning" = "Probleme la modificare";
 "navbar-title-mode-edit-wikitext-disallow" = "Probleme la modificare";
-"navbar-title-mode-edit-wikitext-preview" = "Se previzualizează";
+"navbar-title-mode-edit-wikitext-preview" = "Previzualizare";
 "navbar-title-mode-edit-wikitext-captcha" = "Verificare rapidă necesară";
+"navbar-title-mode-edit-wikitext-summary" = "Descrieți-vă modificarea";
+"edit-summary-choice-linked-words" = "Adăugat legături";
+"edit-summary-choice-fixed-inaccuracy" = "Corectat inexactități";
+"edit-summary-choice-fixed-typos" = "Corectat greșeli ortografice";
+"edit-summary-choice-added-category" = "Adăugat categorie";
+"edit-summary-choice-other" = "Altele";
+"edit-summary-description" = "O descriere specifică îi ajută pe coeditori să vă revizuiască mai rapid modificările. Puteți, de asemenea, alege dintre etichetele de mai jos.";
+"edit-summary-field-placeholder-text" = "Cum ați îmbunătățit pagina?";
+"fetching-random-article" = "Se preia articolul aleatoriu";

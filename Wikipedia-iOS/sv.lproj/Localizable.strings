@@ -30,7 +30,7 @@
 "account-creation-passwords-mismatched" = "Lösenordsfälten matchar inte.";
 "account-creation-saving" = "Sparar...";
 "login-name-not-found" = "Användarnamn krävs för att logga in.";
-"login-name-illegal" = "Du angav ett olagligt användarnamn.";
+"login-name-illegal" = "Du angav ett ogiltigt användarnamn.";
 "login-name-does-not-exist" = "Det användarnamn du angav finns inte.";
 "login-password-empty" = "Lösenord krävs för att logga in.";
 "login-password-wrong" = "Det lösenord som du angav är felaktigt.";
@@ -41,9 +41,14 @@
 "wikitext-download-success" = "Wikitext laddad.";
 "wikitext-preview-changes" = "Hämtar förhandsgranskning av dina ändringar...";
 "wikitext-preview-changes-none" = "Inga ändringar gjordes för att förhandsgranska.";
+"wikitext-upload-result-unknown" = "Kunde inte att avgöra wikitextens uppladdningsresultat.";
 "wikitext-upload-captcha-error" = "Captcha-verifieringsfel.";
 "wikitext-upload-captcha-needed" = "Kräver captcha-verifiering.";
 "wikitext-upload-save" = "Sparar...";
+"wikitext-upload-save-sign-in" = "Logga in och spara";
+"wikitext-upload-save-sign-in-benefits" = "Så medredigerare kan ansluta sig till dig och du kan se vilka artiklar du har redigerat";
+"wikitext-upload-save-anonymously" = "Spara anonymt";
+"wikitext-upload-save-anonymously-warning" = "Detta har lägre sekretess. Din IP-adress är synlig tillsammans med redigeringarna. Genom att spara, samtycker du permanent till att publicera dina redigeringar under CC BY-SA 3.0";
 "search-searching" = "Söker...";
 "search-no-matches" = "Inga matchningar hittades för söktermen.";
 "search-field-placeholder-text" = "Sök på Wikipedia";
@@ -51,6 +56,7 @@
 "search-loading-section-zero" = "Laddar första stycket av artikeln...";
 "search-loading-section-remaining" = "Laddar resten av artikeln...";
 "search-loading-article-loaded" = "Artikel laddad.";
+// Fuzzy
 "main-menu-language-title" = "Språkwiki att söka";
 "main-menu-language-toggle-show" = "Visa språk";
 "main-menu-language-toggle-hide" = "Dölj språk";
@@ -59,14 +65,34 @@
 "main-menu-account-login" = "Logga in";
 "main-menu-account-logout" = "Logga ut";
 "main-menu-show-title" = "Visa mig...";
+// Fuzzy
 "main-menu-show-history" = "Min webbhistorik";
+// Fuzzy
 "main-menu-show-saved" = "Mina sparade sidor";
+// Fuzzy
 "main-menu-current-article-save" = "Spara för läsning offline";
+// Fuzzy
+"main-menu-random" = "Slumpartikel";
+// Fuzzy
+"main-menu-feedback-heading" = "Appåterkoppling";
+// Fuzzy
+"main-menu-send-feedback" = "Skicka appåterkoppling";
 "saved-pages-title" = "Sparade sidor";
 "navbar-title-mode-edit-wikitext" = "Redigera";
 "navbar-title-mode-login" = "Logga in";
+"navbar-title-mode-login-and-save" = "Logga in och spara";
 "navbar-title-mode-create-account" = "Skapa konto";
+"navbar-title-mode-create-account-and-save" = "Skapa konto och spara";
 "navbar-title-mode-edit-wikitext-warning" = "Redigeringsproblem";
 "navbar-title-mode-edit-wikitext-disallow" = "Redigeringsproblem";
-"navbar-title-mode-edit-wikitext-preview" = "Förhandsgranskar";
+"navbar-title-mode-edit-wikitext-preview" = "Förhandsgranska";
 "navbar-title-mode-edit-wikitext-captcha" = "Snabbverifiering krävs";
+"navbar-title-mode-edit-wikitext-summary" = "Beskriv din redigering";
+"edit-summary-choice-linked-words" = "Länkade ord";
+"edit-summary-choice-fixed-inaccuracy" = "Åtgärdade felaktighet";
+"edit-summary-choice-fixed-typos" = "Åtgärdade felstavning";
+"edit-summary-choice-added-category" = "Lägg till kategori";
+"edit-summary-choice-other" = "Övrigt";
+"edit-summary-description" = "En särskild sammanfattning hjälper medredigerare snabbt granska dina redigeringar. Du kan också välja en från taggarna nedan.";
+"edit-summary-field-placeholder-text" = "Hur förbättrade du sidan?";
+"fetching-random-article" = "Hämtar slumpartikel";

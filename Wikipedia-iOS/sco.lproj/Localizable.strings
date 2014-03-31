@@ -44,6 +44,10 @@
 "wikitext-upload-captcha-error" = "Captcha vereefeecation mistak.";
 "wikitext-upload-captcha-needed" = "Need captcha vereefication.";
 "wikitext-upload-save" = "Hainin...";
+"wikitext-upload-save-sign-in" = "Sign in n hain";
+"wikitext-upload-save-sign-in-benefits" = "Sae that co-eediters can connect wi ye & ye can see whit airticles that ye eeditit";
+"wikitext-upload-save-anonymously" = "Hain anonimislie";
+"wikitext-upload-save-anonymously-warning" = "This haes less preevacie. Yer IP address is veesible wi eedits. Bi hainin, ye agree tae permenantlie publeesh yer eedits unner CC BY-SA 3.0";
 "search-searching" = "Rakin...";
 "search-no-matches" = "Naw matches foond fer rake term.";
 "search-field-placeholder-text" = "Rake Wikipædia";
@@ -51,6 +55,7 @@
 "search-loading-section-zero" = "Laidin first section o the airticle...";
 "search-loading-section-remaining" = "Laidin the rest o the airticle...";
 "search-loading-article-loaded" = "Airticle laidit.";
+// Fuzzy
 "main-menu-language-title" = "Leid wiki tae rake";
 "main-menu-language-toggle-show" = "Shaw leids";
 "main-menu-language-toggle-hide" = "Skauk leids";
@@ -59,14 +64,34 @@
 "main-menu-account-login" = "Log in";
 "main-menu-account-logout" = "Log oot";
 "main-menu-show-title" = "Shaw me...";
+// Fuzzy
 "main-menu-show-history" = "Ma brousing histerie";
+// Fuzzy
 "main-menu-show-saved" = "Ma hained pages";
+// Fuzzy
 "main-menu-current-article-save" = "Hain fer affline readin";
+// Fuzzy
+"main-menu-random" = "Random";
+// Fuzzy
+"main-menu-feedback-heading" = "App feedback";
+// Fuzzy
+"main-menu-send-feedback" = "Send app feedback";
 "saved-pages-title" = "Hained Pages";
 "navbar-title-mode-edit-wikitext" = "Eedit";
 "navbar-title-mode-login" = "Sign in";
+"navbar-title-mode-login-and-save" = "Sign in n hain";
 "navbar-title-mode-create-account" = "Cræft accoont";
+"navbar-title-mode-create-account-and-save" = "Cræft accoont n hain";
 "navbar-title-mode-edit-wikitext-warning" = "Eedit issues";
 "navbar-title-mode-edit-wikitext-disallow" = "Eedit issues";
-"navbar-title-mode-edit-wikitext-preview" = "Luikin ower";
+"navbar-title-mode-edit-wikitext-preview" = "Luikower";
 "navbar-title-mode-edit-wikitext-captcha" = "Quick Vereefication needit";
+"navbar-title-mode-edit-wikitext-summary" = "Describe yer eedit";
+"edit-summary-choice-linked-words" = "Linkt wairds";
+"edit-summary-choice-fixed-inaccuracy" = "Fixt onaccuracie";
+"edit-summary-choice-fixed-typos" = "Fixt typo";
+"edit-summary-choice-added-category" = "Eikit categerie";
+"edit-summary-choice-other" = "Ither";
+"edit-summary-description" = "Ae speceefic ootline heelps co-eediters quicklie luikower yer eedits.Ye can chuise fae the tags ablo ava.";
+"edit-summary-field-placeholder-text" = "Hou'd ye impruiv the page?";
+"fetching-random-article" = "Gettin random airticle";

@@ -43,6 +43,10 @@
 "wikitext-upload-captcha-error" = "Hewa hōʻoia Kapakā.";
 "wikitext-upload-captcha-needed" = "Pono i ka hōʻoia Kapakā.";
 "wikitext-upload-save" = "Mālama nei...";
+"wikitext-upload-save-sign-in" = "E ʻeʻe a mālama";
+"wikitext-upload-save-sign-in-benefits" = "No laila hiki i nā luna hoʻoponopono ʻē aʻe ke hoʻokuʻi me ʻoe a hiki iā ʻoe ke ʻike i nā ʻatikala āu i hoʻololi ai";
+"wikitext-upload-save-anonymously" = "Mālama me ka inoa ʻole";
+"wikitext-upload-save-anonymously-warning" = "Oi aʻe ka pilikino o ka hana ʻeʻe ma mua o kēia hana ʻana. E hōʻike ana i kāu wahinoho IP me kāu mau hoʻololi a ma ka mālama ʻana, ʻae ʻoe i ka paʻi ʻana o kāu mau hoʻololi ma lalo o ka laikini CC BY-SA 3.0";
 "search-searching" = "Huli nei...";
 "search-no-matches" = "ʻAʻohe mea i loaʻa ʻia no kāu māmalaʻōlelo.";
 "search-field-placeholder-text" = "Huli iā Wikipikia";
@@ -50,6 +54,7 @@
 "search-loading-section-zero" = "Hoʻouka nei i ka pauku mua o kēia ʻatikala...";
 "search-loading-section-remaining" = "Hoʻouka nei i nā mea ʻē aʻe o ka ʻatikala...";
 "search-loading-article-loaded" = "Hoʻouka ʻia ka ʻatikala.";
+// Fuzzy
 "main-menu-language-title" = "Huli i ka wiki ʻōlelo";
 "main-menu-language-toggle-show" = "Hōʻike i nā ʻōlelo";
 "main-menu-language-toggle-hide" = "Hoʻohūnā i nā ʻōlelo";
@@ -58,14 +63,34 @@
 "main-menu-account-login" = "ʻEʻe";
 "main-menu-account-logout" = "Haʻalele";
 "main-menu-show-title" = "Hōʻike iaʻu...";
+// Fuzzy
 "main-menu-show-history" = "Kaʻu mōʻaukala pūnaewele";
+// Fuzzy
 "main-menu-show-saved" = "Kaʻu ʻaoʻao mālama ʻia";
+// Fuzzy
 "main-menu-current-article-save" = "Mālama no ka heluhelu pūnaeweleʻole ʻana";
+// Fuzzy
+"main-menu-random" = "ʻOhi Kaulele";
+// Fuzzy
+"main-menu-feedback-heading" = "Manaʻo pōlamu";
+// Fuzzy
+"main-menu-send-feedback" = "Hoʻouna i ka manaʻo pōlamu";
 "saved-pages-title" = "Nā ʻAoʻao mālama ʻia";
 "navbar-title-mode-edit-wikitext" = "Hoʻololi";
 "navbar-title-mode-login" = "ʻEʻe";
+"navbar-title-mode-login-and-save" = "E ʻeʻe a mālama";
 "navbar-title-mode-create-account" = "E Kāinoa";
+"navbar-title-mode-create-account-and-save" = "E kāinoa a mālama";
 "navbar-title-mode-edit-wikitext-warning" = "Hoʻololi i nā pilikia";
 "navbar-title-mode-edit-wikitext-disallow" = "HOʻololi i nā pilikia";
-"navbar-title-mode-edit-wikitext-preview" = "Nāmua nei";
+"navbar-title-mode-edit-wikitext-preview" = "Nāmua";
 "navbar-title-mode-edit-wikitext-captcha" = "Pono i ka hōʻoiana wiki";
+"navbar-title-mode-edit-wikitext-summary" = "E hōʻike ʻano i kāu hoʻololi";
+"edit-summary-choice-linked-words" = "Ua hoʻoloulou i nā huaʻōlelo";
+"edit-summary-choice-fixed-inaccuracy" = "Ua kāpili hou i ka ʻākulakī ʻole";
+"edit-summary-choice-fixed-typos" = "Ua kāpili hou i ka hewa kākau";
+"edit-summary-choice-added-category" = "Ua hoʻohui i ka mahele";
+"edit-summary-choice-other" = "He mea ʻē aʻe";
+"edit-summary-description" = "Kākoʻo kekahi hōʻuluʻulu manaʻo kikoʻī i ka loihape ʻana o kāu mau hoʻololi e nā luna hoʻoponopono ʻē aʻe. Hiki iā ʻoe ke koho mai nā lepili i lalo.";
+"edit-summary-field-placeholder-text" = "Pehea āu i holomua ai i ka ʻaoʻao?";
+"fetching-random-article" = "Ke kiʻi nei i kekahi ʻatikala kaulele";

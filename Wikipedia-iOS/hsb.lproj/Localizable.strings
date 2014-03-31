@@ -31,6 +31,7 @@
 "search-loading-section-zero" = "Prěni wotrězk nastawka so začituje...";
 "search-loading-section-remaining" = "Zbytk nastawka so začituje...";
 "search-loading-article-loaded" = "Nastawk začitany.";
+// Fuzzy
 "main-menu-language-title" = "Rěčny wiki, kotryž ma so přepytać";
 "main-menu-language-toggle-show" = "Rěče pokazać";
 "main-menu-language-toggle-hide" = "Rěče schować";
@@ -38,6 +39,7 @@
 "main-menu-account-login" = "Přizjewić";
 "main-menu-account-logout" = "Wotzjewić";
 "main-menu-show-title" = "Pokazaj mi...";
+// Fuzzy
 "main-menu-show-saved" = "Moje składowane strony";
 "saved-pages-title" = "Składowane strony";
 "navbar-title-mode-edit-wikitext" = "Wobdźěłać";

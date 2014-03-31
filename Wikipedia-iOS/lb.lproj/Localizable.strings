@@ -9,12 +9,14 @@
 "history-section-yesterday" = "Gëschter";
 "history-section-lastweek" = "Lescht Woch";
 "history-section-lastmonth" = "Leschte Mount";
+"zero-interstitial-title" = "Wikipedia Zero verloossen";
 "zero-interstitial-continue" = "Virufueren";
 "zero-interstitial-cancel" = "Ofbriechen";
 "zero-learn-more" = "Wëllt Dir Eppes iwwer Wikipedia Zero gewuer ginn?";
 "zero-learn-more-learn-more" = "Fir méi ze wëssen";
 "zero-learn-more-no-thanks" = "Nee, merci";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"zero-warn-when-leaving" = "Beim Verloosse vu Wikipedia Zero warnen";
 "account-creation-logging-in" = "Aloggen...";
 "account-creation-saving" = "Späicheren...";
 "login-name-not-found" = "De Benotzernumm ass obligatoresch fir sech anzeloggen.";
@@ -22,12 +24,20 @@
 "login-name-does-not-exist" = "De Benotzernumm deen Dir uginn hutt gëtt et net.";
 "login-password-empty" = "D'Passwuert ass obligatoresch fir sech anzeloggen.";
 "login-password-wrong" = "D'Passwuert dat Dir uginn hutt ass net richteg.";
+"login-throttled" = "Dir hutt a kuerzer Zäit ze dacks probéiert Iech anzeloggen.";
 "login-user-blocked" = "Benotzer ass gespaart.";
+"wikitext-downloading" = "Wikitext gëtt gelueden...";
 "wikitext-upload-save" = "Späicheren...";
+"wikitext-upload-save-sign-in" = "Aloggen a späicheren";
+"wikitext-upload-save-anonymously" = "Anonym späicheren";
 "search-searching" = "Sichen...";
+"search-field-placeholder-text" = "Op Wikipedia sichen";
 "search-field-placeholder-text-zero" = "Op Wikipedia Zero sichen";
+"search-loading-section-zero" = "Éischten Abschnitt vum Artikel gëtt gelueden...";
 "search-loading-section-remaining" = "De Rescht vum Artikel lueden...";
 "search-loading-article-loaded" = "Artikel gelueden.";
+// Fuzzy
+"main-menu-language-title" = "Sproochwiki an där gesicht gi soll";
 "main-menu-language-toggle-show" = "Sprooche weisen";
 "main-menu-language-toggle-hide" = "Sprooche verstoppen";
 "main-menu-account-title-logged-out" = "Benotzerkont";
@@ -35,8 +45,27 @@
 "main-menu-account-login" = "Aloggen";
 "main-menu-account-logout" = "Ausloggen";
 "main-menu-show-title" = "Weis mir...";
+// Fuzzy
 "main-menu-show-saved" = "Meng gespäichert Säiten";
+// Fuzzy
+"main-menu-current-article-save" = "Späichere fir off-line ze liesen";
+// Fuzzy
+"main-menu-random" = "Zoufall";
+// Fuzzy
+"main-menu-send-feedback" = "Feedback vun der App schécken";
 "saved-pages-title" = "Gespäichert Säiten";
 "navbar-title-mode-edit-wikitext" = "Änneren";
 "navbar-title-mode-login" = "Aloggen";
+"navbar-title-mode-login-and-save" = "Aloggen a späicheren";
 "navbar-title-mode-create-account" = "Benotzerkont uleeën";
+"navbar-title-mode-create-account-and-save" = "Benotzerkont uleeën a späicheren";
+"navbar-title-mode-edit-wikitext-warning" = "Problemer beim Änneren";
+"navbar-title-mode-edit-wikitext-preview" = "Kucken ouni ofzespäicheren";
+"navbar-title-mode-edit-wikitext-summary" = "Beschreift Är Ännerung";
+"edit-summary-choice-linked-words" = "Verlinkt Wierder";
+"edit-summary-choice-fixed-inaccuracy" = "Ongenauegkeete verbessert";
+"edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
+"edit-summary-choice-added-category" = "Kategorie derbäigesat";
+"edit-summary-choice-other" = "Anerer";
+"edit-summary-field-placeholder-text" = "Wéi hutt Dir d'Säit verbessert?";
+"fetching-random-article" = "Zoufällegen Artikel ofrufen";

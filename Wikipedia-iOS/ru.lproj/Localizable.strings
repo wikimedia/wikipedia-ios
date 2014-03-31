@@ -43,6 +43,10 @@
 "wikitext-upload-captcha-error" = "Ошибка проверки капчи.";
 "wikitext-upload-captcha-needed" = "Нужна проверка капчи.";
 "wikitext-upload-save" = "Сохраняется…";
+"wikitext-upload-save-sign-in" = "Войти и сохранить";
+"wikitext-upload-save-sign-in-benefits" = "Так другие участники смогут связаться с вами, и вы сможете увидеть, какие статьи вы редактировали";
+"wikitext-upload-save-anonymously" = "Сохранить анонимно";
+"wikitext-upload-save-anonymously-warning" = "Это имеет менее конфиденциально. Ваш IP-адрес виден рядом с вашими правками. Сохраняя, вы соглашаетесь постоянно публиковать ваши правки в соответствии с лицензией CC BY-SA 3.0";
 "search-searching" = "Поиск…";
 "search-no-matches" = "Не найдены совпадения по заданному критерию поиска.";
 "search-field-placeholder-text" = "Поиск по Википедии";
@@ -50,6 +54,7 @@
 "search-loading-section-zero" = "Загрузка первого раздела этой статьи…";
 "search-loading-section-remaining" = "Загрузка остальной части этой статьи…";
 "search-loading-article-loaded" = "Статья загружена.";
+// Fuzzy
 "main-menu-language-title" = "Язык для поиска на вики";
 "main-menu-language-toggle-show" = "Показать языки";
 "main-menu-language-toggle-hide" = "Скрыть языки";
@@ -58,14 +63,34 @@
 "main-menu-account-login" = "Представиться";
 "main-menu-account-logout" = "Выйти";
 "main-menu-show-title" = "Показать мне…";
+// Fuzzy
 "main-menu-show-history" = "Моя история просмотра";
+// Fuzzy
 "main-menu-show-saved" = "Мои сохранённые страницы";
+// Fuzzy
 "main-menu-current-article-save" = "Сохранить для чтения в автономном режиме";
+// Fuzzy
+"main-menu-random" = "Случайная";
+// Fuzzy
+"main-menu-feedback-heading" = "Обратная связь";
+// Fuzzy
+"main-menu-send-feedback" = "Отправить отзыв";
 "saved-pages-title" = "Сохранённые страницы";
 "navbar-title-mode-edit-wikitext" = "Править";
 "navbar-title-mode-login" = "Войти";
+"navbar-title-mode-login-and-save" = "Войти и сохранить";
 "navbar-title-mode-create-account" = "Создать учётную запись";
+"navbar-title-mode-create-account-and-save" = "Создать учётную запись и сохранить";
 "navbar-title-mode-edit-wikitext-warning" = "Проблемы редактирования";
 "navbar-title-mode-edit-wikitext-disallow" = "Проблемы редактирования";
-"navbar-title-mode-edit-wikitext-preview" = "Предварительный просмотр";
+"navbar-title-mode-edit-wikitext-preview" = "Предпросмотр";
 "navbar-title-mode-edit-wikitext-captcha" = "Необходима быстрая проверка";
+"navbar-title-mode-edit-wikitext-summary" = "Опишите вашу правку";
+"edit-summary-choice-linked-words" = "Установка слов-ссылок";
+"edit-summary-choice-fixed-inaccuracy" = "Исправлена неточность";
+"edit-summary-choice-fixed-typos" = "Исправлена опечатка";
+"edit-summary-choice-added-category" = "Добавлена категория";
+"edit-summary-choice-other" = "Другое";
+"edit-summary-description" = "Точное описание помогает другим участникам быстро проверить ваши правки. Также вы могли бы указать описания с использованием приведённых ниже тегов.";
+"edit-summary-field-placeholder-text" = "Как именно вы улучили страницу?";
+"fetching-random-article" = "Выбор случайной статьи";

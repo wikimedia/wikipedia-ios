@@ -44,6 +44,7 @@
 "search-loading-section-zero" = "O klask rannskrid kentañ ar pennad...";
 "search-loading-section-remaining" = "O kargañ ar peurrest eus ar rannskrid...";
 "search-loading-article-loaded" = "Pennad karget.";
+// Fuzzy
 "main-menu-language-title" = "Yezh wiki evit klask";
 "main-menu-language-toggle-show" = "Diskouez ar yezhoù";
 "main-menu-language-toggle-hide" = "Kuzhat ar yezhoù";
@@ -52,11 +53,15 @@
 "main-menu-account-login" = "Kevreañ";
 "main-menu-account-logout" = "Digevreañ";
 "main-menu-show-title" = "Diskouezit din";
+// Fuzzy
 "main-menu-show-history" = "Istor ar merdeiñ din-me";
+// Fuzzy
 "main-menu-show-saved" = "Ma fajennoù enrollet";
+// Fuzzy
 "main-menu-current-article-save" = "Saveteiñ evit lenn ezlinenn";
 "saved-pages-title" = "Pajennoù saveteet";
 "navbar-title-mode-edit-wikitext" = "Kemmañ";
 "navbar-title-mode-login" = "Enrollañ";
 "navbar-title-mode-create-account" = "Krouiñ ur gont";
+// Fuzzy
 "navbar-title-mode-edit-wikitext-preview" = "O rakwelet";

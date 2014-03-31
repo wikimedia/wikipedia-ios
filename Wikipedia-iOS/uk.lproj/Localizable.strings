@@ -43,6 +43,10 @@
 "wikitext-upload-captcha-error" = "Помилка перевірки CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Потрібна перевірка captcha.";
 "wikitext-upload-save" = "Збереження...";
+"wikitext-upload-save-sign-in" = "Увійти і зберегти";
+"wikitext-upload-save-sign-in-benefits" = "Так інші учасники зможуть зв'язатися з вами, і ви зможете побачити, які статті ви редагували";
+"wikitext-upload-save-anonymously" = "Зберегти анонімно";
+"wikitext-upload-save-anonymously-warning" = "Це менш конфіденційно. Вашу IP-адресу видно поруч з вашими правками. Зберігаючи, ви погоджуєтесь постійно публікувати ваші правки у відповідності з ліцензією CC BY-SA 3.0";
 "search-searching" = "Пошук...";
 "search-no-matches" = "Збігів не знайдено для пошукового терміну.";
 "search-field-placeholder-text" = "Пошук по Вікіпедії";
@@ -50,6 +54,7 @@
 "search-loading-section-zero" = "Завантаження першого розділі статті...";
 "search-loading-section-remaining" = "Завантаження решти статті...";
 "search-loading-article-loaded" = "Стаття завантажена.";
+// Fuzzy
 "main-menu-language-title" = "Мова вікі для пошуку";
 "main-menu-language-toggle-show" = "Показати мови";
 "main-menu-language-toggle-hide" = "Приховати мови";
@@ -58,14 +63,34 @@
 "main-menu-account-login" = "Вхід";
 "main-menu-account-logout" = "Вихід";
 "main-menu-show-title" = "Показати мені...";
+// Fuzzy
 "main-menu-show-history" = "Моя історія перегляду";
+// Fuzzy
 "main-menu-show-saved" = "Мої збережені сторінки";
+// Fuzzy
 "main-menu-current-article-save" = "Зберегти для читання в автономному режимі";
+// Fuzzy
+"main-menu-random" = "Випадково";
+// Fuzzy
+"main-menu-feedback-heading" = "Зворотний зв'язок програми";
+// Fuzzy
+"main-menu-send-feedback" = "Надіслати відгук про програму";
 "saved-pages-title" = "Збережені сторінки";
 "navbar-title-mode-edit-wikitext" = "Змінити";
 "navbar-title-mode-login" = "Увійти";
+"navbar-title-mode-login-and-save" = "Увійти і зберегти";
 "navbar-title-mode-create-account" = "Створити обліковий запис";
+"navbar-title-mode-create-account-and-save" = "Створити обліковий запис і зберегти";
 "navbar-title-mode-edit-wikitext-warning" = "Проблеми редагування";
 "navbar-title-mode-edit-wikitext-disallow" = "Проблеми редагування";
-"navbar-title-mode-edit-wikitext-preview" = "Попередній перегляд";
+"navbar-title-mode-edit-wikitext-preview" = "Перегляд";
 "navbar-title-mode-edit-wikitext-captcha" = "Потрібна швидка перевірка";
+"navbar-title-mode-edit-wikitext-summary" = "Опишіть вашу зміну";
+"edit-summary-choice-linked-words" = "Пов'язано слова";
+"edit-summary-choice-fixed-inaccuracy" = "Виправлена неточність";
+"edit-summary-choice-fixed-typos" = "Виправлена помилка";
+"edit-summary-choice-added-category" = "Додана категорія";
+"edit-summary-choice-other" = "Інше";
+"edit-summary-description" = "Точний опис допомагає іншим учасникам швидко перевірити ваші правки. Також ви могли б вказати опису з використанням наведених нижче тегів.";
+"edit-summary-field-placeholder-text" = "Як ви поліпшили сторінку?";
+"fetching-random-article" = "Вибірка випадкової статті";

@@ -43,6 +43,10 @@
 "wikitext-upload-captcha-error" = "Error na comprobación captcha.";
 "wikitext-upload-captcha-needed" = "Necesita la comprobación del captcha.";
 "wikitext-upload-save" = "Guardando...";
+"wikitext-upload-save-sign-in" = "Aniciar sesión y guardar";
+"wikitext-upload-save-sign-in-benefits" = "Pa que los co-editores puedan coneutase con vusté y vusté pueda ver los artículos qu'editó";
+"wikitext-upload-save-anonymously" = "Guardar como anónimu";
+"wikitext-upload-save-anonymously-warning" = "Esto tien menor intimidá. La so direición IP ye visible coles ediciones. Al guardar, ta d'alcuerdo con espublizar permanentemente les sos ediciones baxo CC BY-SA 3.0";
 "search-searching" = "Buscando...";
 "search-no-matches" = "Nun hebo resultaos pal términu buscáu.";
 "search-field-placeholder-text" = "Guetar na Wikipedia";
@@ -50,6 +54,7 @@
 "search-loading-section-zero" = "Cargando la primera seición del artículu...";
 "search-loading-section-remaining" = "Cargando'l resto del artículu...";
 "search-loading-article-loaded" = "Artículu cargáu.";
+// Fuzzy
 "main-menu-language-title" = "Llingua de la wiki a guetar";
 "main-menu-language-toggle-show" = "Amosar llingües";
 "main-menu-language-toggle-hide" = "Anubrir llingües";
@@ -58,14 +63,34 @@
 "main-menu-account-login" = "Aniciar sesión";
 "main-menu-account-logout" = "Salir";
 "main-menu-show-title" = "Amosame...";
+// Fuzzy
 "main-menu-show-history" = "El mio historial de navegación";
+// Fuzzy
 "main-menu-show-saved" = "Les mios páxines guardaes";
+// Fuzzy
 "main-menu-current-article-save" = "Guardar pa lleer ensin conexón";
+// Fuzzy
+"main-menu-random" = "Al debalu";
+// Fuzzy
+"main-menu-feedback-heading" = "Comentar sobro la app";
+// Fuzzy
+"main-menu-send-feedback" = "Opinar sobro la app";
 "saved-pages-title" = "Páxines guardaes";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Entrar";
+"navbar-title-mode-login-and-save" = "Aniciar sesión y guardar";
 "navbar-title-mode-create-account" = "Crear una cuenta";
+"navbar-title-mode-create-account-and-save" = "Crear una cuenta y guardar";
 "navbar-title-mode-edit-wikitext-warning" = "Problemes cola edición";
 "navbar-title-mode-edit-wikitext-disallow" = "Problemes cola edición";
-"navbar-title-mode-edit-wikitext-preview" = "En vista previa";
+"navbar-title-mode-edit-wikitext-preview" = "Vista previa";
 "navbar-title-mode-edit-wikitext-captcha" = "Necesítase una comprobación rápida";
+"navbar-title-mode-edit-wikitext-summary" = "Describa la so edición";
+"edit-summary-choice-linked-words" = "Pallabres enllazaes";
+"edit-summary-choice-fixed-inaccuracy" = "Imprecisión correxida";
+"edit-summary-choice-fixed-typos" = "Igua ortográfica";
+"edit-summary-choice-added-category" = "Amestada una categoría";
+"edit-summary-choice-other" = "Otros";
+"edit-summary-description" = "Un resume específicu ayuda a los co-editores a revisar aína les sos ediciones. Tamién pue esbillar ente les etiquetes d'abaxo.";
+"edit-summary-field-placeholder-text" = "¿Cómo ameyoró la páxina?";
+"fetching-random-article" = "Baxando un artículu al debalu";

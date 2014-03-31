@@ -10,6 +10,9 @@
 "history-section-lastweek" = "Minulý týždeň";
 "history-section-lastmonth" = "Minulý mesiac";
 "zero-free-verbiage" = "Voľný prístup k Wikipédii od vášho mobilného operátora (neplatíte poplatky za prenos dát)";
+"zero-charged-verbiage" = "Wikipédia Zero je VYPNUTÁ (MÔŽU SA OBJAVIŤ ŠTANDARDNÉ POPLATKY ZA PRENOS DÁT)";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "Opúšťate Wikipédiu Zero";
 "zero-interstitial-leave-app" = "Pokračovať na externú stránku? Môžu sa objaviť štandardné poplatky za prenos dát.";
 "zero-interstitial-continue" = "Pokračovať";
 "zero-interstitial-cancel" = "Zrušiť";
@@ -18,6 +21,7 @@
 "zero-learn-more-no-thanks" = "Nie, ďakujem";
 "zero-wikipedia-zero-heading" = "Wikipédia Zero";
 "zero-warn-when-leaving" = "Upozorniť ma ak opúšťam Wikipédia Zero";
+"zero-settings-devmode" = "Vývojársky režim";
 "account-creation-logging-in" = "Prihlasujem...";
 "account-creation-passwords-mismatched" = "Heslá sa nezhodujú";
 "account-creation-saving" = "Ukladanie...";
@@ -30,8 +34,13 @@
 "wikitext-download-failed" = "Nepodarilo sa získať najnovšiu revíziu.";
 "wikitext-download-success" = "Text je načítaný.";
 "wikitext-upload-save" = "Ukladám...";
+"wikitext-upload-save-anonymously" = "Uložiť anonymne";
 "search-searching" = "Hľadám...";
 "search-no-matches" = "Vyhľadávanie nenašlo žiadne výsledky.";
+"search-field-placeholder-text" = "Hľadať";
+"search-field-placeholder-text-zero" = "Hľadať";
+"search-loading-section-zero" = "Načítavam prvú časť článku...";
+"search-loading-section-remaining" = "Načítavam zvyšnú časť článku...";
 "search-loading-article-loaded" = "Článok je načítaný.";
 "main-menu-language-toggle-show" = "Ukázať jazyky";
 "main-menu-language-toggle-hide" = "Skryť jazyky";
@@ -39,9 +48,23 @@
 "main-menu-account-title-logged-in" = "Prihlásený ako: $1";
 "main-menu-account-login" = "Prihlásiť sa";
 "main-menu-account-logout" = "Odhlásiť sa";
+// Fuzzy
 "main-menu-show-history" = "Moja história prehliadania";
+// Fuzzy
 "main-menu-show-saved" = "Moje uložené stránky";
+// Fuzzy
+"main-menu-current-article-save" = "Uložiť pre offline čítanie";
+// Fuzzy
+"main-menu-feedback-heading" = "Spätná väzba";
+// Fuzzy
+"main-menu-send-feedback" = "Poslať spätnú väzbu";
 "saved-pages-title" = "Uložené stránky";
 "navbar-title-mode-edit-wikitext" = "Upraviť";
 "navbar-title-mode-login" = "Prihlásiť sa";
+"navbar-title-mode-login-and-save" = "Prihlásiť sa a uložiť";
 "navbar-title-mode-create-account" = "Vytvoriť účet";
+"navbar-title-mode-create-account-and-save" = "Vytvoriť účet a uložiť";
+"navbar-title-mode-edit-wikitext-preview" = "Náhľad";
+"navbar-title-mode-edit-wikitext-summary" = "Zhrnutie úprav";
+"edit-summary-choice-other" = "Iné";
+"edit-summary-field-placeholder-text" = "Ako ste vylepšili článok?";
