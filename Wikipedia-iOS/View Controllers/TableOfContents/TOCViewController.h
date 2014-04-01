@@ -6,8 +6,10 @@
 
 @interface TOCViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate>
 
-@property (weak, nonatomic) WebViewController *webVC;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
--(void)centerCellForWebViewTopMostSection;
+-(void)centerCellForWebViewTopMostSectionAnimated:(BOOL)animated;
+
+-(void)refreshForCurrentArticle;
 
 @end

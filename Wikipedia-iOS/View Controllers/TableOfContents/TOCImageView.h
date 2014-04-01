@@ -4,4 +4,6 @@
 
 @interface TOCImageView : UIImageView
 
+@property (strong, nonatomic) NSString *fileName;
+
 @end

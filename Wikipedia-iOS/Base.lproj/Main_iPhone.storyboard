@@ -70,7 +70,7 @@
                         <viewControllerLayoutGuide type="top" id="pMv-Lv-iJ5"/>
                         <viewControllerLayoutGuide type="bottom" id="rso-hx-ZYH"/>
                     </layoutGuides>
-                    <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="PkH-FW-CMU">
+                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="PkH-FW-CMU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -874,11 +874,11 @@
                         <viewControllerLayoutGuide type="top" id="C8y-0k-FBq"/>
                         <viewControllerLayoutGuide type="bottom" id="Xeb-oh-gct"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView opaque="NO" contentMode="scaleToFill" scalesPageToFit="YES" allowsInlineMediaPlayback="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-Mj-Zsh">
+                            <webView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" allowsInlineMediaPlayback="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-Mj-Zsh">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -887,12 +887,12 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="Pmz-tr-TG8"/>
                                 </connections>
                             </webView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4Q-Xc-ImV" userLabel="BottomNav">
-                                <rect key="frame" x="0.0" y="458" width="320" height="46"/>
+                            <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4Q-Xc-ImV" userLabel="BottomNav">
+                                <rect key="frame" x="0.0" y="454" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8HR-Gs-iaC" userLabel="Back Button">
-                                        <rect key="frame" x="20" y="0.0" width="39" height="46"/>
+                                    <button clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8HR-Gs-iaC" userLabel="Back Button">
+                                        <rect key="frame" x="20" y="0.0" width="39" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                         <state key="normal" title="◃">
@@ -902,8 +902,8 @@
                                             <action selector="backButtonPushed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="mf3-RM-K9o"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cq9-Zs-YsN" userLabel="Forward Button">
-                                        <rect key="frame" x="261" y="0.0" width="39" height="46"/>
+                                    <button clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cq9-Zs-YsN" userLabel="Forward Button">
+                                        <rect key="frame" x="261" y="0.0" width="39" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="44"/>
                                         <state key="normal" title="◃">
@@ -913,8 +913,8 @@
                                             <action selector="forwardButtonPushed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="hCZ-Gt-X8J"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVB-P9-soS" userLabel="TOC Button">
-                                        <rect key="frame" x="97" y="0.0" width="36" height="46"/>
+                                    <button clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVB-P9-soS" userLabel="TOC Button">
+                                        <rect key="frame" x="97" y="0.0" width="36" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="42"/>
                                         <state key="normal" title="≣">
@@ -924,8 +924,8 @@
                                             <action selector="tocButtonPushed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Dii-uC-r3L"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="atP-34-Uka">
-                                        <rect key="frame" x="170" y="0.0" width="53" height="46"/>
+                                    <button clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="1000" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="atP-34-Uka">
+                                        <rect key="frame" x="170" y="0.0" width="53" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                         <state key="normal" title="Aあ">
@@ -935,24 +935,24 @@
                                             <action selector="languageButtonPushed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="o3T-su-JiR"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lex-72-1nr" userLabel="Spacer">
-                                        <rect key="frame" x="223" y="13" width="38" height="20"/>
+                                    <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lex-72-1nr" userLabel="Spacer">
+                                        <rect key="frame" x="223" y="15" width="38" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="NG6-eX-lbC"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vSI-Du-yis" userLabel="Spacer">
-                                        <rect key="frame" x="133" y="13" width="37" height="20"/>
+                                    <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vSI-Du-yis" userLabel="Spacer">
+                                        <rect key="frame" x="133" y="15" width="37" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="ZJL-ra-eQX"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o5F-gL-v2f" userLabel="Spacer">
-                                        <rect key="frame" x="59" y="13" width="38" height="20"/>
+                                    <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o5F-gL-v2f" userLabel="Spacer">
+                                        <rect key="frame" x="59" y="15" width="38" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -973,13 +973,13 @@
                                     <constraint firstItem="cq9-Zs-YsN" firstAttribute="top" secondItem="F4Q-Xc-ImV" secondAttribute="top" id="IsG-ty-CTG"/>
                                     <constraint firstItem="UVB-P9-soS" firstAttribute="top" secondItem="F4Q-Xc-ImV" secondAttribute="top" id="Twa-32-SOE"/>
                                     <constraint firstAttribute="bottom" secondItem="cq9-Zs-YsN" secondAttribute="bottom" id="V60-zn-qh0"/>
-                                    <constraint firstAttribute="height" constant="46" id="V8K-Z3-GXD"/>
                                     <constraint firstItem="cq9-Zs-YsN" firstAttribute="leading" secondItem="lex-72-1nr" secondAttribute="trailing" id="Vsc-eh-M1U"/>
                                     <constraint firstItem="UVB-P9-soS" firstAttribute="leading" secondItem="o5F-gL-v2f" secondAttribute="trailing" id="W8C-3j-Dg8"/>
                                     <constraint firstItem="o5F-gL-v2f" firstAttribute="leading" secondItem="8HR-Gs-iaC" secondAttribute="trailing" id="WxI-Rk-MMt"/>
                                     <constraint firstAttribute="bottom" secondItem="UVB-P9-soS" secondAttribute="bottom" id="Xu9-G3-k8Q"/>
                                     <constraint firstAttribute="centerY" secondItem="o5F-gL-v2f" secondAttribute="centerY" id="YwF-hd-vYa"/>
                                     <constraint firstAttribute="trailing" secondItem="cq9-Zs-YsN" secondAttribute="trailing" constant="20" symbolic="YES" id="ZXw-9n-SGZ"/>
+                                    <constraint firstAttribute="height" constant="50" id="bT3-rS-gSj"/>
                                     <constraint firstAttribute="centerY" secondItem="lex-72-1nr" secondAttribute="centerY" id="exB-Ib-X7d"/>
                                     <constraint firstItem="atP-34-Uka" firstAttribute="leading" secondItem="vSI-Du-yis" secondAttribute="trailing" id="luS-an-xW6"/>
                                     <constraint firstItem="o5F-gL-v2f" firstAttribute="width" secondItem="lex-72-1nr" secondAttribute="width" id="p0p-ZH-wc7"/>
@@ -991,8 +991,8 @@
                         <constraints>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="C8y-0k-FBq" secondAttribute="bottom" id="3Gh-gP-O56"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="3Zs-jL-a48"/>
-                            <constraint firstAttribute="trailing" secondItem="F4Q-Xc-ImV" secondAttribute="trailing" id="4bq-Pm-eXR"/>
-                            <constraint firstItem="F4Q-Xc-ImV" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Fce-L2-EzP"/>
+                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="F4Q-Xc-ImV" secondAttribute="leading" id="87k-zE-vFH"/>
+                            <constraint firstAttribute="trailing" secondItem="F4Q-Xc-ImV" secondAttribute="trailing" id="D19-HH-fX5"/>
                             <constraint firstAttribute="trailing" secondItem="WeL-Mj-Zsh" secondAttribute="trailing" id="QSr-uN-iN4"/>
                             <constraint firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="UTu-Ve-ee9"/>
                             <constraint firstAttribute="bottom" secondItem="F4Q-Xc-ImV" secondAttribute="bottom" id="aO2-JM-8QC"/>
@@ -1006,12 +1006,10 @@
                     <connections>
                         <outlet property="backButton" destination="8HR-Gs-iaC" id="Ycm-Ud-cEN"/>
                         <outlet property="bottomBarView" destination="F4Q-Xc-ImV" id="U8K-lV-PiW"/>
-                        <outlet property="bottomBarViewBottomConstraint" destination="aO2-JM-8QC" id="iLm-8z-qeU"/>
-                        <outlet property="bottomBarViewHeightConstraint" destination="V8K-Z3-GXD" id="HIV-M5-vGR"/>
                         <outlet property="forwardButton" destination="cq9-Zs-YsN" id="cPh-wD-WgL"/>
                         <outlet property="langButton" destination="atP-34-Uka" id="Lsr-4K-3n9"/>
                         <outlet property="tocButton" destination="UVB-P9-soS" id="0Y3-wf-tat"/>
-                        <outlet property="webView" destination="WeL-Mj-Zsh" id="iQJ-zA-CLH"/>
+                        <outlet property="webView" destination="WeL-Mj-Zsh" id="UAL-nl-cQD"/>
                         <outlet property="webViewLeftConstraint" destination="3Zs-jL-a48" id="fnl-sG-tsS"/>
                         <outlet property="webViewRightConstraint" destination="QSr-uN-iN4" id="EG4-9F-vyJ"/>
                     </connections>

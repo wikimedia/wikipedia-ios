@@ -114,6 +114,18 @@
          body.dir = payload.dir;
      } );
 
+     bridge.registerListener( "setScale", function( payload ) {
+        var contentSettings = [
+            "width=device-width",
+            "initial-scale=1.0",
+            "user-scalable=yes",
+            "minimum-scale=" + payload.min,
+            "maximum-scale=" + payload.max
+        ];
+        var content = contentSettings.join(", ");
+        document.getElementById("viewport").setAttribute('content', content);
+     } );
+
      bridge.registerListener( "append", function( payload ) {
           // Append html without losing existing event handlers
           // From: http://stackoverflow.com/a/595825
@@ -159,15 +171,12 @@
      document.onclick = function() {
          if ( event.target.tagName === "A" ) {
              bridge.sendMessage( 'linkClicked', { href: event.target.getAttribute( "href" ) });
-             event.preventDefault();
          }
+        event.preventDefault();
      }
 
     touchDownY = 0.0;
     function touchStart(event){
-        if ( event.target.className === "edit_section" ) {
-            bridge.sendMessage( 'editClicked', { href: event.target.getAttribute( "id" ) });
-        }
         touchDownY = parseInt(event.changedTouches[0].clientY);
     }
     document.addEventListener("touchstart", touchStart, "false");
@@ -176,7 +185,12 @@
         var touchobj = event.changedTouches[0];
         touchEndY = parseInt(touchobj.clientY);
          if ( event.target.tagName != "A" && ((touchDownY - touchEndY) == 0) && (event.changedTouches.length == 1)) {
-             bridge.sendMessage( 'nonAnchorTouchEndedWithoutDragging', { id: event.target.getAttribute( "id" ), tagName: event.target.tagName});
+ 
+            if ( event.target.className === "edit_section" ) {
+                bridge.sendMessage( 'editClicked', { href: event.target.getAttribute( "id" ) });
+            }else{
+                bridge.sendMessage( 'nonAnchorTouchEndedWithoutDragging', { id: event.target.getAttribute( "id" ), tagName: event.target.tagName});
+            }
          }
     }
     document.addEventListener("touchend", touchEnd, "false");

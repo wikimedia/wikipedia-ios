@@ -26,18 +26,18 @@
 
 #import "UIViewController+SearchChildViewControllers.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
+#import "UIScrollView+NoHorizontalScrolling.h"
 #import "UIViewController+HideKeyboard.h"
 #import "UIWebView+HideScrollGradient.h"
 #import "UIWebView+ElementLocation.h"
 #import "UIView+RemoveConstraints.h"
 #import "UIViewController+Alert.h"
 #import "Section+ImageRecords.h"
-#import "UIWebView+Reveal.h"
 #import "NSString+Extras.h"
 
 //#import "UIView+Debugging.h"
 
-#define TOC_TOGGLE_ANIMATION_DURATION 0.35f
+#define TOC_TOGGLE_ANIMATION_DURATION 0.3f
 #define NAV ((NavController *)self.navigationController)
 
 typedef enum {
@@ -55,7 +55,6 @@ typedef enum {
 @property (nonatomic) CGPoint scrollOffset;
 
 @property (nonatomic) BOOL unsafeToScroll;
-@property (nonatomic) BOOL tocVisible;
 
 @property (nonatomic) NSInteger indexOfFirstOnscreenSectionBeforeRotate;
 @property (nonatomic) NSUInteger sectionToEditIndex;
@@ -64,8 +63,6 @@ typedef enum {
 @property (strong, nonatomic) NSString *externalUrl;
 
 @property (weak, nonatomic) IBOutlet UIView *bottomBarView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBarViewBottomConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomBarViewHeightConstraint;
 
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *forwardButton;
@@ -78,6 +75,10 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *pullToRefreshViewBottomConstraint;
 @property (strong, nonatomic) UILabel *pullToRefreshLabel;
 @property (strong, nonatomic) UIView *pullToRefreshView;
+
+@property (strong, nonatomic) TOCViewController *tocVC;
+
+@property (strong, nonatomic) UIPanGestureRecognizer *tocPanRecognizer;
 
 - (IBAction)tocButtonPushed:(id)sender;
 - (IBAction)backButtonPushed:(id)sender;
@@ -101,7 +102,6 @@ typedef enum {
 
     self.sectionToEditIndex = 0;
 
-    self.tocVisible = NO;
     self.forwardButton.transform = CGAffineTransformMakeScale(-1.0, 1.0);
     self.indexOfFirstOnscreenSectionBeforeRotate = -1;
 
@@ -133,9 +133,23 @@ typedef enum {
 
     [self.webView hideScrollGradient];
 
+    [self setupTOC];
+
     [self reloadCurrentArticle];
     
     [self setupPullToRefresh];
+    
+    // Restrict the web view from scrolling horizonally.
+    [self.webView.scrollView addObserver: self
+                              forKeyPath: @"contentSize"
+                                 options: NSKeyValueObservingOptionNew
+                                 context: nil];
+    
+    [self setupGestureRecognizers];
+    
+    // UIWebView has a bug which causes a black bar to appear at
+    // bottom of the web view if toc quickly dragged on and offscreen.
+    self.webView.opaque = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -150,14 +164,109 @@ typedef enum {
     [super viewWillAppear:animated];
     
     NAV.navBarMode = NAVBAR_MODE_SEARCH;
-    
-    self.tocVisible = NO;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    self.tocVisible = NO;
+    [self tocHide];
     [super viewWillDisappear:animated];
+}
+
+#pragma mark Gesture recognizers
+
+-(void)setupGestureRecognizers
+{
+    self.tocPanRecognizer =
+    [[UIPanGestureRecognizer alloc] initWithTarget: self
+                                            action: @selector(handlePanToDragTOC:)];
+    
+    self.tocPanRecognizer.delegate = self;
+    [self.view addGestureRecognizer:self.tocPanRecognizer];
+
+    // Make the web view's scroll view not scroll until the tocPanRecognizer fails.
+    [self.webView.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.tocPanRecognizer];
+
+    // Make the toc's scroll view not scroll until the tocPanRecognizer fails.
+    [self.tocVC.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.tocPanRecognizer];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+-(void)handlePanToDragTOC:(UIPanGestureRecognizer *)recognizer
+{
+    UIPinchGestureRecognizer *webViewPinchRecognizer = (UIPinchGestureRecognizer *)self.webView.scrollView.pinchGestureRecognizer;
+    UIGestureRecognizerState webViewPinchState = webViewPinchRecognizer.state;
+    // Don't do anything if web view pinch in progress.
+    if(
+       webViewPinchState == UIGestureRecognizerStateBegan
+       ||
+       webViewPinchState == UIGestureRecognizerStateChanged
+       )
+    {
+        return;
+    }
+
+    static CGFloat originalConstant;
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        originalConstant = self.webViewLeftConstraint.constant;
+        
+        CGPoint velocity = [recognizer velocityInView:self.view];
+
+        CGFloat dragDegreesFromHorizontalAxis = [self getAbsoluteHorizontalDegreesFromVelocity:velocity];
+
+        // Don't begin to pan if the drag angle from the horizontal axis exceeds 30 degrees.
+        // Toggling the recognizer's "enabled" property should cause it to fail, then the
+        // web view scroll can happen instead because web view's scroll view's pan gesture
+        // requires the tocPanRecognizer to fail before it will begin.
+        
+        CGFloat maxPanDragAngle = 30.0f;
+        //NSLog(@"dragDegreesFromHorizontalAxis = %f", dragDegreesFromHorizontalAxis);
+        if(dragDegreesFromHorizontalAxis > maxPanDragAngle){
+            recognizer.enabled = NO;
+            recognizer.enabled = YES;
+        }
+    }
+    
+    if (recognizer.state == UIGestureRecognizerStateChanged)
+    {
+        CGPoint translate = [recognizer translationInView:recognizer.view.superview];
+
+        CGFloat tocMaxPercentOfScreenWidth = 1.0f - [self getWebViewScaleWhenTOCVisible];
+        
+        CGFloat constant = fmaxf(0.0f, originalConstant + translate.x);
+        constant = fminf(constant, self.view.frame.size.width * tocMaxPercentOfScreenWidth);
+    
+        CGFloat scale = 1.0f - (constant / self.view.frame.size.width);
+        CGAffineTransform xf = CGAffineTransformMakeScale(scale, scale);
+        self.webView.transform = xf;
+        self.bottomBarView.transform = xf;
+        self.webViewLeftConstraint.constant = constant;
+
+        self.bottomBarView.alpha = 1.0f - [self getTOCPercentOnscreen];
+        
+        [self.view setNeedsUpdateConstraints];
+    }
+    
+    if (
+        recognizer.state == UIGestureRecognizerStateEnded
+        ||
+        recognizer.state == UIGestureRecognizerStateFailed
+        ||
+        recognizer.state == UIGestureRecognizerStateCancelled
+        )
+    {
+        CGFloat tocPercentOnscreen = [self getTOCPercentOnscreen];
+        
+        if (tocPercentOnscreen < 0.5){
+            [self tocHideWithDuration:0.035];
+        }else{
+            [self tocShowWithDuration:0.035];
+        }
+    }
 }
 
 #pragma mark Edit section
@@ -181,7 +290,7 @@ typedef enum {
 
 -(void)searchFieldBecameFirstResponder
 {
-    self.tocVisible = NO;
+    [self tocHide];
 }
 
 #pragma mark Update constraints
@@ -190,11 +299,7 @@ typedef enum {
 {
     [super updateViewConstraints];
     
-    TOCViewController *tocVC = [self searchForChildViewControllerOfClass:[TOCViewController class]];
-
-    if (tocVC) {
-        [self constrainTOCView:tocVC.view];
-    }
+    [self constrainTOCView:self.tocVC.view];
 }
 
 #pragma mark Languages
@@ -225,58 +330,87 @@ typedef enum {
 
 #pragma mark Table of contents
 
--(void)setTocVisible:(BOOL)tocVisible
+-(void)setupTOC
 {
-    if(_tocVisible != tocVisible){
-        _tocVisible = tocVisible;
-        
-        TOCViewController *tocVC = [self searchForChildViewControllerOfClass:[TOCViewController class]];
-        
-        // Hide toc.
-        if(!tocVisible){
-            // Ensure one exists to be hidden.
-            if (tocVC) {
-                [UIView animateWithDuration:TOC_TOGGLE_ANIMATION_DURATION animations:^{
-                    self.webView.transform = CGAffineTransformIdentity;
-                    self.webViewLeftConstraint.constant = 0;
-                    self.bottomBarViewBottomConstraint.constant = 0;
-                    [self.view.superview layoutIfNeeded];
-                } completion:^(BOOL done){
-                    [tocVC willMoveToParentViewController:nil];
-                    [tocVC.view removeFromSuperview];
-                    [tocVC removeFromParentViewController];
-                }];
-            }
-        }else{
-            // Show toc.
-            // Ensure it doesn't already exist. Needed because the animation for "hide" case
-            // above takes some time to complete - just to be safe.
-            if (!tocVC) {
-                tocVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"TOCViewController"];
-                tocVC.webVC = self;
-                [self addChildViewController:tocVC];
-                
-                tocVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-                [self.view addSubview:tocVC.view];
-                
-                //[self constrainTOCView:tocVC.view];
-                [self.view setNeedsUpdateConstraints];
+    self.tocVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"TOCViewController"];
 
-                [self.view.superview layoutIfNeeded];
-                
-                [tocVC didMoveToParentViewController:self];
-                
-                CGFloat scale = [self getWebViewScaleWhenTOCVisible];
-                CGAffineTransform xf = CGAffineTransformMakeScale(scale, scale);
-                [UIView animateWithDuration:TOC_TOGGLE_ANIMATION_DURATION animations:^{
-                    self.bottomBarViewBottomConstraint.constant = -self.bottomBarViewHeightConstraint.constant;
-                    self.webView.transform = xf;
-                    self.webViewLeftConstraint.constant = self.view.frame.size.width * (1.0f - scale);
-                    [self.view.superview layoutIfNeeded];
-                }];
-            }
-        }
-    }
+    [self addChildViewController:self.tocVC];
+    
+    self.tocVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.tocVC.view];
+    
+    [self.tocVC didMoveToParentViewController:self];
+}
+
+-(CGFloat)getAngleInDegreesForVelocity:(CGPoint)velocity
+{
+    // Returns angle from 0 to 360 (ccw from right)
+    return (atan2(velocity.y, -velocity.x) / M_PI * 180 + 180);
+}
+
+-(CGFloat)getAbsoluteHorizontalDegreesFromVelocity:(CGPoint)velocity
+{
+    // Returns deviation from horizontal axis in degrees.
+    return (atan2(fabs(velocity.y), fabs(velocity.x)) / M_PI * 180);
+}
+
+-(BOOL)isTOCVisible
+{
+    return (self.webViewLeftConstraint.constant == 0) ? NO : YES;
+}
+
+-(void)tocHideWithDuration:(CGFloat)duration
+{
+    // Clear alerts
+    [self showAlert:@""];
+    
+    // Ensure one exists to be hidden.
+    [UIView animateWithDuration: duration
+                          delay: 0.0f
+                        options: UIViewAnimationOptionBeginFromCurrentState
+                     animations: ^{
+                         self.webView.transform = CGAffineTransformIdentity;
+                         self.bottomBarView.transform = CGAffineTransformIdentity;
+                         self.bottomBarView.alpha = 1.0f;
+                         self.webViewLeftConstraint.constant = 0;
+                         [self.view.superview layoutIfNeeded];
+                     }completion: ^(BOOL done){
+                         [self.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
+                         [self.view setNeedsUpdateConstraints];
+                     }];
+}
+
+-(void)tocShowWithDuration:(CGFloat)duration
+{
+    // Clear alerts
+    [self showAlert:@""];
+
+    CGFloat scale = [self getWebViewScaleWhenTOCVisible];
+    CGAffineTransform xf = CGAffineTransformMakeScale(scale, scale);
+    
+    [UIView animateWithDuration: duration
+                          delay: 0.0f
+                        options: UIViewAnimationOptionBeginFromCurrentState
+                     animations: ^{
+                         self.webView.transform = xf;
+                         self.bottomBarView.transform = xf;
+                         self.bottomBarView.alpha = 0.0f;
+                         self.webViewLeftConstraint.constant = [self getTOCWidthForWebViewScale:scale];
+                         [self.view.superview layoutIfNeeded];
+                     }completion: ^(BOOL done){
+                         [self.tocVC centerCellForWebViewTopMostSectionAnimated:YES];
+                         [self.view setNeedsUpdateConstraints];
+                     }];
+}
+
+-(void)tocHide
+{
+    [self tocHideWithDuration:TOC_TOGGLE_ANIMATION_DURATION];
+}
+
+-(void)tocShow
+{
+    [self tocShowWithDuration:TOC_TOGGLE_ANIMATION_DURATION];
 }
 
 -(void)tocToggle
@@ -284,51 +418,99 @@ typedef enum {
     // Clear alerts
     [self showAlert:@""];
 
-    self.tocVisible = !self.tocVisible;
+    if ([self isTOCVisible]) {
+        [self tocHide];
+    }else{
+        [self tocShow];
+    }
+}
+
+-(CGFloat)getWebViewScaleWhenTOCVisible
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
+        return (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.7f : 0.75f);
+    }else{
+        return (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.45f : 0.65f);
+    }
+}
+
+-(CGFloat)getTOCWidthForWebViewScale:(CGFloat)webViewScale
+{
+    return self.view.frame.size.width * (1.0f - webViewScale);
 }
 
 -(void)constrainTOCView:(UIView *)tocView
 {
     [tocView removeConstraintsOfViewFromView:self.view];
 
-    CGFloat scale = [self getWebViewScaleWhenTOCVisible];
-
+    CGFloat webViewScale = [self getWebViewScaleWhenTOCVisible];
+    
+    NSDictionary *views = @{@"view": self.view, @"tocView": tocView, @"webView": self.webView};
+    NSDictionary *metrics = @{@"tocInitialWidth": @([self getTOCWidthForWebViewScale:webViewScale])};
+    
+    NSLayoutConstraint *tocLeftConstraint =
+    [NSLayoutConstraint constraintWithItem: tocView
+                                 attribute: NSLayoutAttributeLeft
+                                 relatedBy: NSLayoutRelationEqual
+                                    toItem: self.view
+                                 attribute: NSLayoutAttributeLeft
+                                multiplier: 1.0
+                                  constant: 0];
+    
+    tocLeftConstraint.priority = 999;
+    
     NSArray *constraints =
     @[
-      [NSLayoutConstraint constraintWithItem: tocView
-                                   attribute: NSLayoutAttributeTop
-                                   relatedBy: NSLayoutRelationEqual
-                                      toItem: self.view
-                                   attribute: NSLayoutAttributeTop
-                                  multiplier: 1.0
-                                    constant: 0]
+      @[
+          [NSLayoutConstraint constraintWithItem: tocView
+                                       attribute: NSLayoutAttributeRight
+                                       relatedBy: NSLayoutRelationEqual
+                                          toItem: self.webView
+                                       attribute: NSLayoutAttributeLeft
+                                      multiplier: 1.0
+                                        constant: 0]
+          ,
+          tocLeftConstraint
+          ]
       ,
-      [NSLayoutConstraint constraintWithItem: tocView
-                                   attribute: NSLayoutAttributeBottom
-                                   relatedBy: NSLayoutRelationEqual
-                                      toItem: self.view
-                                   attribute: NSLayoutAttributeBottom
-                                  multiplier: 1.0
-                                    constant: 0]
+      [NSLayoutConstraint constraintsWithVisualFormat: @"H:[tocView(>=tocInitialWidth@1000)]"
+                                              options: 0
+                                              metrics: metrics
+                                                views: views]
       ,
-      [NSLayoutConstraint constraintWithItem: tocView
-                                   attribute: NSLayoutAttributeRight
-                                   relatedBy: NSLayoutRelationEqual
-                                      toItem: self.webView
-                                   attribute: NSLayoutAttributeLeft
-                                  multiplier: 1.0
-                                    constant: 0]
-      ,
-      [NSLayoutConstraint constraintWithItem: tocView
-                                   attribute: NSLayoutAttributeWidth
-                                   relatedBy: NSLayoutRelationEqual
-                                      toItem: self.webView
-                                   attribute: NSLayoutAttributeWidth
-                                  multiplier: 1.0f - scale
-                                    constant: 0]
+      [NSLayoutConstraint constraintsWithVisualFormat: @"V:|[tocView]|"
+                                              options: 0
+                                              metrics: metrics
+                                                views: views]
       ];
     
-    [self.view addConstraints:constraints];
+    [self.view addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
+}
+
+-(void)observeValueForKeyPath: (NSString *)keyPath
+                     ofObject: (id)object
+                       change: (NSDictionary *)change
+                      context: (void *)context
+{
+    if (
+        (object == self.webView.scrollView)
+        &&
+        [keyPath isEqual:@"contentSize"]
+        ) {
+        [object preventHorizontalScrolling];
+    }
+}
+
+-(void)dealloc
+{
+    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+}
+
+-(CGFloat)getTOCPercentOnscreen
+{
+    CGFloat defaultWebViewScaleWhenTOCVisible = [self getWebViewScaleWhenTOCVisible];
+    CGFloat defaultTOCWidth = [self getTOCWidthForWebViewScale:defaultWebViewScaleWhenTOCVisible];
+    return 1.0f - (fabsf(self.tocVC.view.frame.origin.x) / defaultTOCWidth);
 }
 
 -(BOOL)shouldAutomaticallyForwardAppearanceMethods
@@ -347,13 +529,28 @@ typedef enum {
     return YES;
 }
 
--(CGFloat)getWebViewScaleWhenTOCVisible
+-(void)scrollWebViewToPoint: (CGPoint)point
+                   duration: (CGFloat)duration
+                thenHideTOC: (BOOL)hideTOC
 {
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
-        return (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.7f : 0.75f);
-    }else{
-        return (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.45f : 0.70f);
-    }
+    point.x = self.webView.scrollView.contentOffset.x;
+    
+    [UIView animateWithDuration: duration
+                          delay: 0.0f
+                        options: UIViewAnimationOptionBeginFromCurrentState
+                     animations: ^{
+
+                         // Not using "setContentOffset:animated:" so duration of animation
+                         // can be controlled and action can be taken after animation completes.
+                         self.webView.scrollView.contentOffset = point;
+
+                     } completion:^(BOOL done){
+                         
+                         // Record the new scroll location.
+                         [self saveWebViewScrollOffset];
+                         // Toggle toc.
+                         if (hideTOC) [self tocHide];
+                     }];
 }
 
 #pragma mark Webview obj-c to javascript bridge
@@ -381,7 +578,7 @@ typedef enum {
     [self.bridge addListener:@"linkClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
         NSString *href = payload[@"href"];
         
-        weakSelf.tocVisible = NO;
+        [weakSelf tocHide];
         
         if ([href hasPrefix:@"/wiki/"]) {
             NSString *title = [href substringWithRange:NSMakeRange(6, href.length - 6)];
@@ -419,7 +616,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }];
 
     [self.bridge addListener:@"editClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
-        weakSelf.tocVisible = NO;
+        [weakSelf tocHide];
         weakSelf.sectionToEditIndex = [[payload[@"href"] stringByReplacingOccurrencesOfString:@"edit_section_" withString:@""] integerValue];
 
         [weakSelf.self showSectionEditor];
@@ -429,7 +626,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
         // nonAnchorTouchEndedWithoutDragging is used so TOC may be hidden if user tapped, but did *not* drag.
         // Used because UIWebView is difficult to attach one-finger touch events to.
-        weakSelf.tocVisible = NO;
+        [weakSelf tocHide];
     }];
 
     self.unsafeToScroll = NO;
@@ -496,7 +693,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         [self saveWebViewScrollOffset];
         
         TOCViewController *tocVC = [self searchForChildViewControllerOfClass:[TOCViewController class]];
-        if (tocVC) [tocVC centerCellForWebViewTopMostSection];
+        if (tocVC) [tocVC centerCellForWebViewTopMostSectionAnimated:YES];
 
         self.pullToRefreshView.alpha = 0.0f;
     }
@@ -555,7 +752,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     if(!self.unsafeToScroll){
         [self.webView.scrollView setContentOffset:self.scrollOffset animated:NO];
     }
-    [self.webView reveal];
+    
+    [self.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
 }
 
 #pragma mark Scroll hiding keyboard threshold
@@ -597,6 +795,12 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     scrollViewDragBeganVerticalOffset_ = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
+{
+    [self.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
+    [self saveWebViewScrollOffset];
 }
 
 #pragma Memory
@@ -985,6 +1189,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         [self.bridge sendMessage:@"setLanguage" withPayload:@{@"lang": languageInfo.code,
                                                               @"dir": languageInfo.dir}];
         [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];
+
+        [self.tocVC refreshForCurrentArticle];
+
     }];
 }
 
@@ -1091,7 +1298,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }
     //self.view.alpha = 0.0f;
 
-    self.tocVisible = NO;
+    [self tocHideWithDuration:0.0f];
     
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
@@ -1110,10 +1317,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     if (CGRectIsNull(r)) return;
     CGPoint p = r.origin;
     p.x = self.webView.scrollView.contentOffset.x;
-    [self.webView.scrollView setContentOffset:p animated:YES];
-    //[UIView animateWithDuration:0.05f animations:^{
-    //    self.view.alpha = 1.0f;
-    //}];
+    [self.webView.scrollView setContentOffset:p animated:NO];
+
+    [self.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
 }
 
 #pragma mark Wikipedia Zero handling
@@ -1262,12 +1468,15 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 {
     CGFloat pullDistance = (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) ? 85.0f : 55.0f;
 
+    UIGestureRecognizerState state = ((UIPinchGestureRecognizer *)scrollView.pinchGestureRecognizer).state;
+
     BOOL safeToShow =
-        !scrollView.decelerating
+        (!scrollView.decelerating)
         &&
         ([QueuesSingleton sharedInstance].articleRetrievalQ.operationCount == 0)
         &&
-        !self.tocVisible
+        (![self isTOCVisible])
+        && (state == UIGestureRecognizerStatePossible)
     ;
 
     //NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
