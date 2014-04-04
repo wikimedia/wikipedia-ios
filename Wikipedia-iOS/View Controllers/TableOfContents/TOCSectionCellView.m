@@ -6,13 +6,13 @@
 #import "TFHpple.h"
 #import "TOCImageView.h"
 #import "WMF_Colors.h"
+#import "UIView+RemoveConstraints.h"
 
 @interface TOCSectionCellView(){
 
 }
 
-@property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) NSMutableArray *sectionImageViews;
+@property (nonatomic, strong) UILabel *titleLabel;
 
 @property (nonatomic) CGFloat indentMargin;
 @property (nonatomic) CGFloat indentMarginMin;
@@ -21,10 +21,8 @@
 @property (nonatomic) CGFloat imageIndentMarginMin;
 @property (nonatomic) CGFloat imageMargin;
 @property (nonatomic) CGSize imageSize;
-@property (nonatomic, retain) NSNumber *tocLevel;
 
-@property (strong, nonatomic) NSMutableArray *imageViewsConstraints;
-@property (strong, nonatomic) NSMutableArray *titleLabelConstraints;
+@property (nonatomic, strong) NSNumber *tocLevel;
 
 @end
 
@@ -36,16 +34,17 @@
     if (self) {
         self.tocLevel = @(0);
         self.sectionId = nil;
-        self.sectionImageIds = @[];
         
-        self.imageViewsConstraints = [@[]mutableCopy];
-        self.titleLabelConstraints = [@[]mutableCopy];
+        self.sectionImageIds = @[];
+        self.sectionImageViews = [@[] mutableCopy];
         
         self.titleLabel = [[UILabel alloc] init];
-        //self.titleLabel.layer.borderWidth = 1.0f;
-        self.sectionImageViews = [@[] mutableCopy];
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         self.titleLabel.numberOfLines = 10;
+        self.titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+        self.titleLabel.backgroundColor = [UIColor clearColor];
+        //self.titleLabel.layer.borderWidth = 1.0f;
+        
         [self addSubview:self.titleLabel];
         
         self.indentMargin = 0.0f;
@@ -60,9 +59,8 @@
         self.isHighlighted = NO;
         
         self.clipsToBounds = YES;
-
-        self.titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
-        self.titleLabel.backgroundColor = [UIColor clearColor];
+        self.opaque = YES;
+        self.clearsContextBeforeDrawing = NO;
 
         //self.layer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.3f].CGColor;
         //self.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
@@ -195,6 +193,8 @@
         imageView.translatesAutoresizingMaskIntoConstraints = NO;
         imageView.image = [UIImage imageWithData:sectionImage.image.imageData.data];
 
+        imageView.fileName = sectionImage.image.fileName;
+
         [self.sectionImageViews addObject:imageView];
         [self insertSubview:imageView belowSubview:self.titleLabel];
     }
@@ -217,8 +217,6 @@
 
 -(void)constrainSectionImagesBelowTitleLabel:(NSNumber *)tocLevel
 {
-    [self removeConstraints:self.imageViewsConstraints];
-    
     if(self.sectionImageViews.count > 0){
         NSLayoutConstraint *titleLabelBottomConstraint = nil;
         for (NSLayoutConstraint *c in self.constraints) {
@@ -231,19 +229,20 @@
     }
 
     void (^constrain)(UIView *, NSLayoutAttribute, UIView *, NSLayoutAttribute, CGFloat) = ^void(UIView *view1, NSLayoutAttribute a1, UIView *view2, NSLayoutAttribute a2, CGFloat constant) {
-        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem: view1
-                                      attribute: a1
-                                      relatedBy: NSLayoutRelationEqual
-                                         toItem: view2
-                                      attribute: a2
-                                     multiplier: 1.0
-                                       constant: constant];
+        NSLayoutConstraint *constraint =
+        [NSLayoutConstraint constraintWithItem: view1
+                                     attribute: a1
+                                     relatedBy: NSLayoutRelationEqual
+                                        toItem: view2
+                                     attribute: a2
+                                    multiplier: 1.0
+                                      constant: constant];
         [self addConstraint:constraint];
-        [self.imageViewsConstraints addObject:constraint];
     };
 
     TOCImageView *prevImage = nil;
     for (TOCImageView *imageView in self.sectionImageViews) {
+        [imageView removeConstraintsOfViewFromView:self];
 
         imageView.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
 
@@ -283,7 +282,8 @@
 
 -(void)constrainTitleLabel:(NSNumber *)tocLevel
 {
-    [self removeConstraints:self.titleLabelConstraints];
+    [self.titleLabel removeConstraintsOfViewFromView:self];
+
     void (^constrainTitleLabel)(NSLayoutAttribute, CGFloat) = ^void(NSLayoutAttribute a, CGFloat constant) {
         NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem: self.titleLabel
                                       attribute: a
@@ -294,7 +294,6 @@
                                        constant: constant];
 
         [self addConstraint:constraint];
-        [self.titleLabelConstraints addObject:constraint];
     };
     
     NSInteger tocLevelToUse = ((self.tocLevel.intValue - 1) < 0) ? 0 : self.tocLevel.intValue - 1;
@@ -307,12 +306,12 @@
     // images to be narrower vertically than a label for a section which has no images.
     CGFloat minTitleLabelHeight = (self.sectionImageViews.count > 0) ? 1 : 40;
 
-    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat: @"V:[titleLabel(>=height)]"
-                                             options: 0
-                                             metrics: @{@"height": @(minTitleLabelHeight)}
-                                               views: @{@"titleLabel": self.titleLabel}];
+    NSArray *constraints =
+    [NSLayoutConstraint constraintsWithVisualFormat: @"V:[titleLabel(>=height)]"
+                                            options: 0
+                                            metrics: @{@"height": @(minTitleLabelHeight)}
+                                              views: @{@"titleLabel": self.titleLabel}];
     [self addConstraints:constraints];
-    [self.titleLabelConstraints addObjectsFromArray:constraints];
 }
 
 -(NSArray *)imagesIntersectingYOffset:(CGFloat)yOffset inView:(UIView *)view;
@@ -332,7 +331,6 @@
 //Places images side by side - for example, 3 images would be 33.3% of cell width each.
 -(void)constrainSectionImagesFillingCellSideBySide
 {
-    [self removeConstraints:self.imageViewsConstraints];
     if(self.sectionImageViews.count == 0)return;
 
     void (^constrain)(UIView *, NSLayoutAttribute, NSLayoutRelation, UIView *, NSLayoutAttribute, CGFloat, CGFloat) = ^void(UIView *view1, NSLayoutAttribute a1, NSLayoutRelation relation, UIView *view2, NSLayoutAttribute a2, CGFloat multiplier, CGFloat constant) {
@@ -344,10 +342,11 @@
                                      multiplier: multiplier
                                        constant: constant];
         [self addConstraint:constraint];
-        [self.imageViewsConstraints addObject:constraint];
     };
     TOCImageView *prevImage = nil;
     for (TOCImageView *imageView in self.sectionImageViews) {
+        [imageView removeConstraintsOfViewFromView:self];
+
         imageView.alpha = 0.5;
 
         constrain(imageView, NSLayoutAttributeWidth, NSLayoutRelationEqual, self, NSLayoutAttributeWidth, 1.0f / self.sectionImageViews.count, 0.0f);
@@ -355,7 +354,6 @@
         
         NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[imageView]-(5)-|" options:0 metrics:nil views:@{@"imageView": imageView}];
         [self addConstraints:constraints];
-        [self.imageViewsConstraints addObjectsFromArray:constraints];
 
         if (self.sectionImageViews.firstObject == imageView) {
             constrain(imageView, NSLayoutAttributeLeft, NSLayoutRelationEqual, self, NSLayoutAttributeLeft, 1.0f, 0.0f);
@@ -369,24 +367,29 @@
 
 -(void)constrainSectionImagesFillingCell
 {
-    [self removeConstraints:self.imageViewsConstraints];
     if(self.sectionImageViews.count == 0)return;
     for (TOCImageView *imageView in self.sectionImageViews) {
-    
-        imageView.alpha = (self.sectionImageViews.firstObject == imageView) ? 0.5f : 0.0f;
-        NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(5)-[imageView]-(5)-|" options:0 metrics:nil views:@{@"imageView": imageView}];
-        [self addConstraints:constraints];
-        [self.imageViewsConstraints addObjectsFromArray:constraints];
+        [imageView removeConstraintsOfViewFromView:self];
 
-        constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(5)-[imageView]-(5)-|" options:0 metrics:nil views:@{@"imageView": imageView}];
+        imageView.alpha = (self.sectionImageViews.firstObject == imageView) ? 0.5f : 0.0f;
+        NSArray *constraints =
+        [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-(5)-[imageView]-(5)-|"
+                                                options: 0
+                                                metrics: nil
+                                                  views: @{@"imageView": imageView}];
         [self addConstraints:constraints];
-        [self.imageViewsConstraints addObjectsFromArray:constraints];
+
+        constraints =
+        [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-(5)-[imageView]-(5)-|"
+                                                options: 0
+                                                metrics: nil
+                                                  views: @{@"imageView": imageView}];
+        [self addConstraints:constraints];
     }
 }
 
 -(void)constrainTitleLabelToLeftOfCell
 {
-    [self removeConstraints:self.titleLabelConstraints];
     void (^constrain)(UIView *, NSLayoutAttribute, NSLayoutRelation, UIView *, NSLayoutAttribute, CGFloat) = ^void(UIView *view1, NSLayoutAttribute a1, NSLayoutRelation relation, UIView *view2, NSLayoutAttribute a2, CGFloat constant) {
         NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem: view1
                                       attribute: a1
@@ -396,13 +399,12 @@
                                      multiplier: 1.0
                                        constant: constant];
         [self addConstraint:constraint];
-        [self.titleLabelConstraints addObject:constraint];
     };
-    
     
     UIView *firstImage = nil;
     if(self.sectionImageViews.count > 0) firstImage = self.sectionImageViews[0];
 
+    [self.titleLabel removeConstraintsOfViewFromView:self];
     
     NSInteger tocLevelToUse = ((self.tocLevel.intValue - 1) < 0) ? 0 : self.tocLevel.intValue - 1;
     constrain(self.titleLabel, NSLayoutAttributeLeft, NSLayoutRelationEqual, self, NSLayoutAttributeLeft, (tocLevelToUse * self.indentMargin) + self.indentMarginMin);
@@ -410,12 +412,12 @@
     constrain(self.titleLabel, NSLayoutAttributeTop, NSLayoutRelationEqual, self, NSLayoutAttributeTop, 5);
     constrain(self.titleLabel, NSLayoutAttributeBottom, NSLayoutRelationEqual, self, NSLayoutAttributeBottom, -5);
     
-    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat: @"V:[titleLabel(>=height)]"
-                                             options: 0
-                                             metrics: @{@"height": @(40)}
-                                               views: @{@"titleLabel": self.titleLabel}];
+    NSArray *constraints =
+    [NSLayoutConstraint constraintsWithVisualFormat: @"V:[titleLabel(>=height)]"
+                                            options: 0
+                                            metrics: @{@"height": @(40)}
+                                              views: @{@"titleLabel": self.titleLabel}];
     [self addConstraints:constraints];
-    [self.titleLabelConstraints addObjectsFromArray:constraints];
 }
 
 /*

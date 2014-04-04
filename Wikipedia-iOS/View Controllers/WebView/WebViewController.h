@@ -14,12 +14,16 @@
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
--(void)tocToggle;
+-(void)tocHide;
 -(void)saveWebViewScrollOffset;
 
 -(void)reloadCurrentArticle;
 -(void)reloadCurrentArticleInvalidatingCache;
 
 -(void)navigateToPage:(NSString *)title domain:(NSString *)domain discoveryMethod:(ArticleDiscoveryMethod)discoveryMethod;
+
+-(void)scrollWebViewToPoint: (CGPoint)point
+                   duration: (CGFloat)duration
+                thenHideTOC: (BOOL)hideTOC;
 
 @end

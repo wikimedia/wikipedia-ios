@@ -88,9 +88,11 @@
     // (This one has no thread safety issues.)
     //imageDataToUse = self.debuggingPlaceHolderImageData;
     
+    NSString *imageFileName = [url lastPathComponent];
+
     image.imageData.data = imageDataToUse;
     image.dataSize = @(imageDataToUse.length);
-    image.fileName = [url lastPathComponent];
+    image.fileName = imageFileName;
     image.fileNameNoSizePrefix = [image.fileName getWikiImageFileNameWithoutSizePrefix];
     image.extension = [url pathExtension];
     image.imageDescription = nil;
@@ -106,6 +108,15 @@
     [articleDataContext_.mainContext save:&error];
     if (error) {
         NSLog(@"Error re-routing image to articleData store: %@", error);
+    }else{
+        // Broadcast the image data so things like the table of contents can update
+        // itself as images arrive.
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"SectionImageRetrieved"
+                                                            object: nil
+                                                          userInfo: @{
+                                                                      @"fileName": imageFileName,
+                                                                      @"data": imageDataToUse,
+                                                                      }];
     }
 }
 

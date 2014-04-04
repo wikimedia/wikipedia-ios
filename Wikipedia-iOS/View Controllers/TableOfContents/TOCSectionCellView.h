@@ -5,6 +5,7 @@
 
 @interface TOCSectionCellView : UIView
 
+@property (strong, nonatomic) NSMutableArray *sectionImageViews;
 @property (strong, nonatomic) NSManagedObjectID *sectionId;
 @property (strong, nonatomic) NSArray *sectionImageIds;
 @property (nonatomic) BOOL isHighlighted;
