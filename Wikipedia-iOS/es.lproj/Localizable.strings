@@ -6,6 +6,8 @@
 
 "article-languages-label" = "Elige un idioma";
 "article-languages-cancel" = "Cancelar";
+"article-languages-downloading" = "Cargando idiomas del artículo…";
+"article-languages-filter-placeholder" = "Filtrar";
 "history-label" = "Buscar en el historial";
 "history-section-today" = "Hoy";
 "history-section-yesterday" = "Ayer";
@@ -30,8 +32,10 @@
 "login-name-does-not-exist" = "El nombre de usuario proporcionado no existe.";
 "login-password-empty" = "Para iniciar sesión debes escribir tu contraseña.";
 "login-password-wrong" = "La contraseña proporcionada es incorrecta.";
+"login-throttled" = "Has iniciado sesión demasiadas veces en poco tiempo.";
 "login-user-blocked" = "El usuario está bloqueado.";
 "wikitext-downloading" = "Cargando el código del wiki…";
+"wikitext-download-failed" = "No se puede obtener la versión más reciente.";
 "wikitext-download-success" = "Se cargó el código del wiki.";
 "wikitext-preview-changes" = "Generando previsualización de tus cambios…";
 "wikitext-preview-changes-none" = "No se realizaron cambios que revisar.";
@@ -51,14 +55,12 @@
 "main-menu-account-login" = "Iniciar sesión";
 "main-menu-account-logout" = "Cerrar sesión";
 "main-menu-show-title" = "Mostrarme…";
-// Fuzzy
-"main-menu-show-history" = "Mi historial de navegación";
-// Fuzzy
-"main-menu-show-saved" = "Mis páginas guardadas";
-// Fuzzy
-"main-menu-current-article-save" = "Guardar para leer sin conexión";
-// Fuzzy
-"main-menu-random" = "Al azar";
+"main-menu-show-history" = "Historial de navegación";
+"main-menu-show-saved" = "Páginas guardadas";
+"main-menu-current-article-save" = "Guardar $1 para leer sin conexión";
+"main-menu-random" = "Artículo al azar";
+"main-menu-feedback-heading" = "Sugerencias";
+"main-menu-send-feedback" = "Enviar sugerencias";
 "saved-pages-title" = "Páginas guardadas";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Iniciar sesión";
@@ -69,7 +71,11 @@
 "navbar-title-mode-edit-wikitext-summary" = "Describe tu modificación";
 "edit-summary-choice-linked-words" = "Palabras enlazadas";
 "edit-summary-choice-fixed-inaccuracy" = "Imprecisión corregida";
+"edit-summary-choice-fixed-styling" = "Estilo corregido";
 "edit-summary-choice-fixed-typos" = "Error ortográfico corregido";
 "edit-summary-choice-added-category" = "Categoría añadida";
+"edit-summary-choice-added-missing-info" = "Añadida información faltante";
+"edit-summary-choice-added-clarification" = "Aclaración añadida";
 "edit-summary-choice-other" = "Otro";
 "edit-summary-field-placeholder-text" = "¿Cómo mejoraste la página?";
+"article-pull-to-refresh-is-refreshing" = "Actualizando el artículo";

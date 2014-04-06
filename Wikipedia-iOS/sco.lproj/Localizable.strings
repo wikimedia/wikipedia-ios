@@ -5,6 +5,8 @@
 
 "article-languages-label" = "Pick yer leid";
 "article-languages-cancel" = "Cancel";
+"article-languages-downloading" = "Laidin the airticle leids...";
+"article-languages-filter-placeholder" = "Filter";
 "history-label" = "Yer Browsing Historie";
 "history-section-today" = "The day";
 "history-section-yesterday" = "Yesterday";
@@ -55,27 +57,21 @@
 "search-loading-section-zero" = "Laidin first section o the airticle...";
 "search-loading-section-remaining" = "Laidin the rest o the airticle...";
 "search-loading-article-loaded" = "Airticle laidit.";
-// Fuzzy
-"main-menu-language-title" = "Leid wiki tae rake";
+"main-menu-language-title" = "Rake the $1 leid wiki";
 "main-menu-language-toggle-show" = "Shaw leids";
 "main-menu-language-toggle-hide" = "Skauk leids";
+"main-menu-language-selection-saved" = "Leid selection haes been hained";
 "main-menu-account-title-logged-out" = "Accoont";
 "main-menu-account-title-logged-in" = "Loggit in aes: $1";
 "main-menu-account-login" = "Log in";
 "main-menu-account-logout" = "Log oot";
 "main-menu-show-title" = "Shaw me...";
-// Fuzzy
-"main-menu-show-history" = "Ma brousing histerie";
-// Fuzzy
-"main-menu-show-saved" = "Ma hained pages";
-// Fuzzy
-"main-menu-current-article-save" = "Hain fer affline readin";
-// Fuzzy
-"main-menu-random" = "Random";
-// Fuzzy
-"main-menu-feedback-heading" = "App feedback";
-// Fuzzy
-"main-menu-send-feedback" = "Send app feedback";
+"main-menu-show-history" = "Brousin histerie";
+"main-menu-show-saved" = "Hained pages";
+"main-menu-current-article-save" = "Hain $1 fer affline readin";
+"main-menu-random" = "Random airticle";
+"main-menu-feedback-heading" = "Feedback";
+"main-menu-send-feedback" = "Send feedback";
 "saved-pages-title" = "Hained Pages";
 "navbar-title-mode-edit-wikitext" = "Eedit";
 "navbar-title-mode-login" = "Sign in";
@@ -88,10 +84,16 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Quick Vereefication needit";
 "navbar-title-mode-edit-wikitext-summary" = "Describe yer eedit";
 "edit-summary-choice-linked-words" = "Linkt wairds";
+"edit-summary-choice-fixed-grammar" = "Fixi graimmer";
 "edit-summary-choice-fixed-inaccuracy" = "Fixt onaccuracie";
+"edit-summary-choice-fixed-styling" = "Fixt stylin";
 "edit-summary-choice-fixed-typos" = "Fixt typo";
 "edit-summary-choice-added-category" = "Eikit categerie";
+"edit-summary-choice-added-missing-info" = "Eikit some missin info";
+"edit-summary-choice-added-clarification" = "Eikit clarifeecation";
 "edit-summary-choice-other" = "Ither";
 "edit-summary-description" = "Ae speceefic ootline heelps co-eediters quicklie luikower yer eedits.Ye can chuise fae the tags ablo ava.";
 "edit-summary-field-placeholder-text" = "Hou'd ye impruiv the page?";
 "fetching-random-article" = "Gettin random airticle";
+"article-pull-to-refresh-prompt" = "Pul tae refresh the airticle";
+"article-pull-to-refresh-is-refreshing" = "Refreshin the airticle";

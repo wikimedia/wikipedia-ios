@@ -4,6 +4,8 @@
 
 "article-languages-label" = "Alegere limbă";
 "article-languages-cancel" = "Revocare";
+"article-languages-downloading" = "Se încarcă limbile articolului...";
+"article-languages-filter-placeholder" = "Filtru";
 "history-label" = "Istoric de navigare";
 "history-section-today" = "Astăzi";
 "history-section-yesterday" = "Ieri";
@@ -54,27 +56,21 @@
 "search-loading-section-zero" = "Se încarcă prima secțiune a articolului...";
 "search-loading-section-remaining" = "Se încarcă restul articolului...";
 "search-loading-article-loaded" = "Articol încărcat.";
-// Fuzzy
-"main-menu-language-title" = "Limba wikiului pentru căutare";
+"main-menu-language-title" = "Căutare pe wiki în limba $1";
 "main-menu-language-toggle-show" = "Arată limbile";
 "main-menu-language-toggle-hide" = "Ascunde limbile";
+"main-menu-language-selection-saved" = "Selectarea limbii salvată";
 "main-menu-account-title-logged-out" = "Cont";
 "main-menu-account-title-logged-in" = "Autentificat ca: $1";
 "main-menu-account-login" = "Autentificare";
 "main-menu-account-logout" = "Închide sesiunea";
 "main-menu-show-title" = "Arată-mi...";
-// Fuzzy
-"main-menu-show-history" = "Istoricul meu de navigare";
-// Fuzzy
-"main-menu-show-saved" = "Paginile mele salvate";
-// Fuzzy
-"main-menu-current-article-save" = "Salvează pentru lectură off-line";
-// Fuzzy
-"main-menu-random" = "Aleatoriu";
-// Fuzzy
-"main-menu-feedback-heading" = "Păreri despre aplicație";
-// Fuzzy
-"main-menu-send-feedback" = "Trimite părerea despre aplicație";
+"main-menu-show-history" = "Istoric de navigare";
+"main-menu-show-saved" = "Pagini salvate";
+"main-menu-current-article-save" = "Salvează $1 pentru lectură off-line";
+"main-menu-random" = "Articol aleatoriu";
+"main-menu-feedback-heading" = "Păreri";
+"main-menu-send-feedback" = "Trimite părerea";
 "saved-pages-title" = "Pagini salvate";
 "navbar-title-mode-edit-wikitext" = "Modificare";
 "navbar-title-mode-login" = "Autentificare";
@@ -87,10 +83,16 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Verificare rapidă necesară";
 "navbar-title-mode-edit-wikitext-summary" = "Descrieți-vă modificarea";
 "edit-summary-choice-linked-words" = "Adăugat legături";
+"edit-summary-choice-fixed-grammar" = "Ajustări gramaticale";
 "edit-summary-choice-fixed-inaccuracy" = "Corectat inexactități";
+"edit-summary-choice-fixed-styling" = "Ajustat stil formatare";
 "edit-summary-choice-fixed-typos" = "Corectat greșeli ortografice";
 "edit-summary-choice-added-category" = "Adăugat categorie";
+"edit-summary-choice-added-missing-info" = "Adăugat informații lipsă";
+"edit-summary-choice-added-clarification" = "Adăugat clarificare";
 "edit-summary-choice-other" = "Altele";
 "edit-summary-description" = "O descriere specifică îi ajută pe coeditori să vă revizuiască mai rapid modificările. Puteți, de asemenea, alege dintre etichetele de mai jos.";
 "edit-summary-field-placeholder-text" = "Cum ați îmbunătățit pagina?";
 "fetching-random-article" = "Se preia articolul aleatoriu";
+"article-pull-to-refresh-prompt" = "Trageți pentru a reîncărca articolul";
+"article-pull-to-refresh-is-refreshing" = "Se reîncarcă articolul";

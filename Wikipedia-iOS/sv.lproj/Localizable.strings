@@ -6,6 +6,8 @@
 
 "article-languages-label" = "Välj språk";
 "article-languages-cancel" = "Avbryt";
+"article-languages-downloading" = "Läser in artikelspråk...";
+"article-languages-filter-placeholder" = "Filtrera";
 "history-label" = "Webbhistorik";
 "history-section-today" = "Idag";
 "history-section-yesterday" = "Igår";
@@ -56,27 +58,21 @@
 "search-loading-section-zero" = "Laddar första stycket av artikeln...";
 "search-loading-section-remaining" = "Laddar resten av artikeln...";
 "search-loading-article-loaded" = "Artikel laddad.";
-// Fuzzy
-"main-menu-language-title" = "Språkwiki att söka";
+"main-menu-language-title" = "Sök wikin på språket $1";
 "main-menu-language-toggle-show" = "Visa språk";
 "main-menu-language-toggle-hide" = "Dölj språk";
+"main-menu-language-selection-saved" = "Språkval sparades";
 "main-menu-account-title-logged-out" = "Konto";
 "main-menu-account-title-logged-in" = "Inloggad som: $1";
 "main-menu-account-login" = "Logga in";
 "main-menu-account-logout" = "Logga ut";
 "main-menu-show-title" = "Visa mig...";
-// Fuzzy
-"main-menu-show-history" = "Min webbhistorik";
-// Fuzzy
-"main-menu-show-saved" = "Mina sparade sidor";
-// Fuzzy
-"main-menu-current-article-save" = "Spara för läsning offline";
-// Fuzzy
+"main-menu-show-history" = "Webbhistorik";
+"main-menu-show-saved" = "Sparade sidor";
+"main-menu-current-article-save" = "Spara $1 för läsning offline";
 "main-menu-random" = "Slumpartikel";
-// Fuzzy
-"main-menu-feedback-heading" = "Appåterkoppling";
-// Fuzzy
-"main-menu-send-feedback" = "Skicka appåterkoppling";
+"main-menu-feedback-heading" = "Återkoppling";
+"main-menu-send-feedback" = "Skicka återkoppling";
 "saved-pages-title" = "Sparade sidor";
 "navbar-title-mode-edit-wikitext" = "Redigera";
 "navbar-title-mode-login" = "Logga in";
@@ -89,10 +85,16 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Snabbverifiering krävs";
 "navbar-title-mode-edit-wikitext-summary" = "Beskriv din redigering";
 "edit-summary-choice-linked-words" = "Länkade ord";
+"edit-summary-choice-fixed-grammar" = "Korrigerade grammatiken";
 "edit-summary-choice-fixed-inaccuracy" = "Åtgärdade felaktighet";
+"edit-summary-choice-fixed-styling" = "Åtgärdade utseendet";
 "edit-summary-choice-fixed-typos" = "Åtgärdade felstavning";
 "edit-summary-choice-added-category" = "Lägg till kategori";
+"edit-summary-choice-added-missing-info" = "Lade till saknad information";
+"edit-summary-choice-added-clarification" = "Lade till förtydligande";
 "edit-summary-choice-other" = "Övrigt";
 "edit-summary-description" = "En särskild sammanfattning hjälper medredigerare snabbt granska dina redigeringar. Du kan också välja en från taggarna nedan.";
 "edit-summary-field-placeholder-text" = "Hur förbättrade du sidan?";
 "fetching-random-article" = "Hämtar slumpartikel";
+"article-pull-to-refresh-prompt" = "Dra för att uppdatera artikeln";
+"article-pull-to-refresh-is-refreshing" = "Uppdaterar artikeln";

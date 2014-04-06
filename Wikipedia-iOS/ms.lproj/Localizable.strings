@@ -4,6 +4,8 @@
 
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batalkan";
+"article-languages-downloading" = "Memuatkan bahasa-bahasa rencana...";
+"article-languages-filter-placeholder" = "Tapis";
 "history-label" = "Sejarah Pelayaran";
 "history-section-today" = "Hari ini";
 "history-section-yesterday" = "Semalam";
@@ -54,27 +56,21 @@
 "search-loading-section-zero" = "Memuatkan bahagian pertama rencana...";
 "search-loading-section-remaining" = "Memuatkan isi kandungan selebihnya...";
 "search-loading-article-loaded" = "Rencana telah dimuatkan.";
-// Fuzzy
-"main-menu-language-title" = "Bahasa carian wiki";
+"main-menu-language-title" = "Cari dalam wiki bahasa $1";
 "main-menu-language-toggle-show" = "Paparkan bahasa";
 "main-menu-language-toggle-hide" = "Sorokkan bahasa";
+"main-menu-language-selection-saved" = "Pilihan bahasa disimpan";
 "main-menu-account-title-logged-out" = "Akaun";
 "main-menu-account-title-logged-in" = "Anda telah log masuk sebagai: $1";
 "main-menu-account-login" = "Log masuk";
 "main-menu-account-logout" = "Log keluar";
 "main-menu-show-title" = "Paparkan...";
-// Fuzzy
-"main-menu-show-history" = "Sejarah pelayaran saya";
-// Fuzzy
-"main-menu-show-saved" = "Laman-laman yang telah saya simpan";
-// Fuzzy
-"main-menu-current-article-save" = "Simpan untuk dibaca offline";
-// Fuzzy
-"main-menu-random" = "Rawak";
-// Fuzzy
-"main-menu-feedback-heading" = "Maklum balas aplikasi";
-// Fuzzy
-"main-menu-send-feedback" = "Kirim maklum balas aplikasi";
+"main-menu-show-history" = "Sejarah pelayaran";
+"main-menu-show-saved" = "Laman-laman tersimpan";
+"main-menu-current-article-save" = "Simpan $1 untuk dibaca offline";
+"main-menu-random" = "Rencana rawak";
+"main-menu-feedback-heading" = "Maklum balas";
+"main-menu-send-feedback" = "Kirim maklum balas";
 "saved-pages-title" = "Laman Tersimpan";
 "navbar-title-mode-edit-wikitext" = "Sunting";
 "navbar-title-mode-login" = "Log masuk";
@@ -87,10 +83,16 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Pengesahan segera diperlukan";
 "navbar-title-mode-edit-wikitext-summary" = "Huraikan suntingan anda";
 "edit-summary-choice-linked-words" = "Membubuh pautan";
+"edit-summary-choice-fixed-grammar" = "Memperbaiki tatabahasa";
 "edit-summary-choice-fixed-inaccuracy" = "Membetulkan kesilapan fakta";
+"edit-summary-choice-fixed-styling" = "Memperbaiki gaya penulisan";
 "edit-summary-choice-fixed-typos" = "Membetulkan kesilapan ejaan";
 "edit-summary-choice-added-category" = "Menambahkan kategori";
+"edit-summary-choice-added-missing-info" = "Menambahkan maklumat yang tertinggal";
+"edit-summary-choice-added-clarification" = "Menambahkan penjelasan";
 "edit-summary-choice-other" = "Lain-lain";
 "edit-summary-description" = "Ringkasan yang khusus membantu penyunting lain untuk menyemak suntingan anda dengan cepat. Anda juga boleh memilih dari antara teg-teg yang berikut.";
 "edit-summary-field-placeholder-text" = "Bagaimanakah anda telah menambah baik halaman ini?";
 "fetching-random-article" = "Memperoleh rencana rawak";
+"article-pull-to-refresh-prompt" = "Tarik untuk muat semula rencana";
+"article-pull-to-refresh-is-refreshing" = "Rencana sedang dimuatkan semula";

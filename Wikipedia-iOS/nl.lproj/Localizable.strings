@@ -96,3 +96,4 @@
 "edit-summary-field-placeholder-text" = "Hoe hebt u de pagina verbeterd?";
 "fetching-random-article" = "Willekeurige pagina ophalen";
 "article-pull-to-refresh-prompt" = "Naar beneden trekken om bij te werken";
+"article-pull-to-refresh-is-refreshing" = "Pagina bijwerken";

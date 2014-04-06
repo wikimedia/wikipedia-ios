@@ -4,6 +4,8 @@
 
 "article-languages-label" = "Выберите язык";
 "article-languages-cancel" = "Отмена";
+"article-languages-downloading" = "Загрузка языков статьи…";
+"article-languages-filter-placeholder" = "Фильтр";
 "history-label" = "Просмотр истории";
 "history-section-today" = "Сегодня";
 "history-section-yesterday" = "Вчера";
@@ -54,26 +56,20 @@
 "search-loading-section-zero" = "Загрузка первого раздела этой статьи…";
 "search-loading-section-remaining" = "Загрузка остальной части этой статьи…";
 "search-loading-article-loaded" = "Статья загружена.";
-// Fuzzy
-"main-menu-language-title" = "Язык для поиска на вики";
+"main-menu-language-title" = "$1 язык для поиска на вики";
 "main-menu-language-toggle-show" = "Показать языки";
 "main-menu-language-toggle-hide" = "Скрыть языки";
+"main-menu-language-selection-saved" = "Выбор языка сохранён";
 "main-menu-account-title-logged-out" = "Учётная запись";
 "main-menu-account-title-logged-in" = "Вошёл как: $1";
 "main-menu-account-login" = "Представиться";
 "main-menu-account-logout" = "Выйти";
 "main-menu-show-title" = "Показать мне…";
-// Fuzzy
-"main-menu-show-history" = "Моя история просмотра";
-// Fuzzy
-"main-menu-show-saved" = "Мои сохранённые страницы";
-// Fuzzy
-"main-menu-current-article-save" = "Сохранить для чтения в автономном режиме";
-// Fuzzy
-"main-menu-random" = "Случайная";
-// Fuzzy
+"main-menu-show-history" = "История просмотра";
+"main-menu-show-saved" = "Сохранённые страницы";
+"main-menu-current-article-save" = "Сохранить $1 для чтения в автономном режиме";
+"main-menu-random" = "Случайная статья";
 "main-menu-feedback-heading" = "Обратная связь";
-// Fuzzy
 "main-menu-send-feedback" = "Отправить отзыв";
 "saved-pages-title" = "Сохранённые страницы";
 "navbar-title-mode-edit-wikitext" = "Править";
@@ -87,10 +83,16 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Необходима быстрая проверка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишите вашу правку";
 "edit-summary-choice-linked-words" = "Установка слов-ссылок";
+"edit-summary-choice-fixed-grammar" = "Исправлено правописание";
 "edit-summary-choice-fixed-inaccuracy" = "Исправлена неточность";
+"edit-summary-choice-fixed-styling" = "Стилевые правки";
 "edit-summary-choice-fixed-typos" = "Исправлена опечатка";
 "edit-summary-choice-added-category" = "Добавлена категория";
+"edit-summary-choice-added-missing-info" = "Добавлена отсутствующая информация";
+"edit-summary-choice-added-clarification" = "Добавлено разъяснение";
 "edit-summary-choice-other" = "Другое";
 "edit-summary-description" = "Точное описание помогает другим участникам быстро проверить ваши правки. Также вы могли бы указать описания с использованием приведённых ниже тегов.";
 "edit-summary-field-placeholder-text" = "Как именно вы улучили страницу?";
 "fetching-random-article" = "Выбор случайной статьи";
+"article-pull-to-refresh-prompt" = "Потяните, чтобы обновить статью";
+"article-pull-to-refresh-is-refreshing" = "Обновление статьи";

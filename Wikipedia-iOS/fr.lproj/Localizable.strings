@@ -7,6 +7,8 @@
 
 "article-languages-label" = "Choisir langue";
 "article-languages-cancel" = "Annuler";
+"article-languages-downloading" = "Chargement des langues de l’article en cours…";
+"article-languages-filter-placeholder" = "Filtre";
 "history-label" = "Histoire de léer";
 "history-section-today" = "Aujourd'hui";
 "history-section-yesterday" = "Hier";
@@ -57,27 +59,21 @@
 "search-loading-section-zero" = "Chargement de la première section de l’article…";
 "search-loading-section-remaining" = "Chargement du reste de l’article…";
 "search-loading-article-loaded" = "Article chargé.";
-// Fuzzy
-"main-menu-language-title" = "Langue du wiki à rechercher";
+"main-menu-language-title" = "Rechercher le wiki de langue $1";
 "main-menu-language-toggle-show" = "Afficher les langues";
 "main-menu-language-toggle-hide" = "Masquer les langues";
+"main-menu-language-selection-saved" = "Sélection de langue enregistrée";
 "main-menu-account-title-logged-out" = "Compte";
 "main-menu-account-title-logged-in" = "Connecté en tant que : $1";
 "main-menu-account-login" = "Connexion";
 "main-menu-account-logout" = "Déconnexion";
 "main-menu-show-title" = "M’afficher…";
-// Fuzzy
-"main-menu-show-history" = "Mon historique de navigation";
-// Fuzzy
-"main-menu-show-saved" = "Mes pages enregistrées";
-// Fuzzy
-"main-menu-current-article-save" = "Enregistrer pour une lecture hors ligne";
-// Fuzzy
-"main-menu-random" = "Aléatoire";
-// Fuzzy
-"main-menu-feedback-heading" = "Commentaire sur l’application";
-// Fuzzy
-"main-menu-send-feedback" = "Envoyer un commentaire sur l’application";
+"main-menu-show-history" = "Historique de navigation";
+"main-menu-show-saved" = "Pages enregistrées";
+"main-menu-current-article-save" = "Enregistrer $1 pour une lecture hors ligne";
+"main-menu-random" = "Article au hasard";
+"main-menu-feedback-heading" = "Commentaire";
+"main-menu-send-feedback" = "Envoyer un commentaire";
 "saved-pages-title" = "Pages enregistrées";
 "navbar-title-mode-edit-wikitext" = "Modifier";
 "navbar-title-mode-login" = "Se connecter";
@@ -90,10 +86,16 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Vérification rapide nécessaire";
 "navbar-title-mode-edit-wikitext-summary" = "Décrire votre modification";
 "edit-summary-choice-linked-words" = "Mots liés";
+"edit-summary-choice-fixed-grammar" = "Correction grammaticale";
 "edit-summary-choice-fixed-inaccuracy" = "Inexactitude corrigée";
+"edit-summary-choice-fixed-styling" = "Correction de style";
 "edit-summary-choice-fixed-typos" = "Correction de fautes";
 "edit-summary-choice-added-category" = "Catégorie ajoutée";
+"edit-summary-choice-added-missing-info" = "Ajout d’une information manquante";
+"edit-summary-choice-added-clarification" = "Ajout d’une précision";
 "edit-summary-choice-other" = "Autre";
 "edit-summary-description" = "Un résumé spécifique aide les coéditeurs à relire rapidement vos modifications. Vous pouvez également faire votre choix parmi les balises ci-dessous.";
 "edit-summary-field-placeholder-text" = "Comment avez-vous amélioré la page ?";
 "fetching-random-article" = "Récupération d’un article au hasard";
+"article-pull-to-refresh-prompt" = "Tirer pour rafraîchir l’article";
+"article-pull-to-refresh-is-refreshing" = "Article rafraîchi";

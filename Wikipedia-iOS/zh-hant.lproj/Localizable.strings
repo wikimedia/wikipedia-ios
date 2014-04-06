@@ -1,0 +1,44 @@
+// Messages for Traditional Chinese (中文（繁體）‎)
+// Exported from translatewiki.net
+// Author: Liuxinyu970226
+// Author: Simon Shek
+
+"article-languages-label" = "選擇語言";
+"article-languages-cancel" = "取消";
+"history-label" = "瀏覽歷史";
+"history-section-today" = "今天";
+"history-section-yesterday" = "昨天";
+"history-section-lastweek" = "上週";
+"history-section-lastmonth" = "上月";
+"zero-interstitial-continue" = "繼續";
+"zero-interstitial-cancel" = "取消";
+"zero-learn-more-learn-more" = "了解更多";
+"zero-learn-more-no-thanks" = "不，謝謝";
+"account-creation-logging-in" = "登入中...";
+"account-creation-saving" = "儲存中...";
+"login-name-not-found" = "需要用戶名。";
+"login-name-illegal" = "您提供的用戶名無效。";
+"login-name-does-not-exist" = "您提供的用戶名不存在。";
+"wikitext-upload-captcha-error" = "驗證碼校驗錯誤。";
+"wikitext-upload-captcha-needed" = "需要驗證碼確認。";
+"wikitext-upload-save" = "儲存中...";
+"wikitext-upload-save-sign-in" = "登入並儲存";
+"wikitext-upload-save-anonymously" = "以匿名方式保存";
+"search-searching" = "搜尋中...";
+"search-field-placeholder-text" = "搜尋維基百科";
+"main-menu-language-toggle-show" = "顯示語言";
+"main-menu-language-toggle-hide" = "隱藏語言";
+"main-menu-account-login" = "登入";
+"main-menu-account-logout" = "登出";
+"main-menu-show-history" = "瀏覽歷史";
+"main-menu-show-saved" = "已儲存頁面";
+"main-menu-feedback-heading" = "意見反饋";
+"saved-pages-title" = "已儲存頁面";
+"navbar-title-mode-edit-wikitext" = "編輯";
+"navbar-title-mode-login" = "登入";
+"navbar-title-mode-login-and-save" = "登入並儲存";
+"navbar-title-mode-create-account" = "建立帳號";
+"navbar-title-mode-create-account-and-save" = "建立帳號並儲存";
+"navbar-title-mode-edit-wikitext-preview" = "預覽";
+"edit-summary-choice-other" = "其他";
+"article-pull-to-refresh-is-refreshing" = "重新整理文章中";

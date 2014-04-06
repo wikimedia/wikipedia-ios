@@ -4,6 +4,7 @@
 
 "article-languages-label" = "Causir una lenga";
 "article-languages-cancel" = "Anullar";
+"article-languages-filter-placeholder" = "Filtrar";
 "history-label" = "Percórrer l'istoric";
 "history-section-today" = "Uèi";
 "history-section-yesterday" = "Ièr";
@@ -30,21 +31,21 @@
 "search-loading-section-zero" = "Cargament de la primièra seccion de l’article…";
 "search-loading-section-remaining" = "Cargament del demai de l’article…";
 "search-loading-article-loaded" = "Article cargat.";
-// Fuzzy
-"main-menu-language-title" = "Lenga del wiki de recercar";
+"main-menu-language-title" = "Recercar lo wiki de lenga $1";
 "main-menu-language-toggle-show" = "Afichar las lengas";
 "main-menu-language-toggle-hide" = "Amagar las lengas";
+"main-menu-language-selection-saved" = "Seleccion de lenga enregistrada";
 "main-menu-account-title-logged-out" = "Compte";
 "main-menu-account-title-logged-in" = "Connectat en tant que : $1.";
 "main-menu-account-login" = "Connexion";
 "main-menu-account-logout" = "Desconnexion";
 "main-menu-show-title" = "M’afichar…";
-// Fuzzy
-"main-menu-show-history" = "Mon istoric de navigacion";
-// Fuzzy
-"main-menu-show-saved" = "Mas paginas enregistradas";
-// Fuzzy
-"main-menu-current-article-save" = "Enregistrar per una lectura fòra linha";
+"main-menu-show-history" = "Istoric de navigacion";
+"main-menu-show-saved" = "Paginas enregistradas";
+"main-menu-current-article-save" = "Enregistrar $1 per una lectura fòra linha";
+"main-menu-random" = "Article a l'azard";
+"main-menu-feedback-heading" = "Comentari";
+"main-menu-send-feedback" = "Mandar un comentari";
 "saved-pages-title" = "Paginas enregistradas";
 "navbar-title-mode-edit-wikitext" = "Modificar";
 "navbar-title-mode-login" = "Se connectar";
@@ -53,3 +54,6 @@
 "navbar-title-mode-edit-wikitext-disallow" = "Modificar los problèmas";
 "navbar-title-mode-edit-wikitext-preview" = "Apercebut";
 "navbar-title-mode-edit-wikitext-captcha" = "Verificacion rapida necessària";
+"edit-summary-choice-fixed-grammar" = "Correccion gramaticala";
+"edit-summary-choice-fixed-styling" = "Correccion d'estil";
+"article-pull-to-refresh-is-refreshing" = "Article refrescat";

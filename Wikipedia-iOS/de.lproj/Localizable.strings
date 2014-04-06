@@ -4,6 +4,8 @@
 
 "article-languages-label" = "Sprache auswählen";
 "article-languages-cancel" = "Abbrechen";
+"article-languages-downloading" = "Lade Artikelsprachen …";
+"article-languages-filter-placeholder" = "Filter";
 "history-label" = "Verlauf";
 "history-section-today" = "Heute";
 "history-section-yesterday" = "Gestern";
@@ -54,27 +56,21 @@
 "search-loading-section-zero" = "Lade den ersten Abschnitt des Artikels …";
 "search-loading-section-remaining" = "Lade den Rest des Artikels …";
 "search-loading-article-loaded" = "Artikel geladen.";
-// Fuzzy
-"main-menu-language-title" = "Zu durchsuchendes Sprachwiki";
+"main-menu-language-title" = "Sprachwiki $1 durchsuchen";
 "main-menu-language-toggle-show" = "Sprachen anzeigen";
 "main-menu-language-toggle-hide" = "Sprachen ausblenden";
+"main-menu-language-selection-saved" = "Sprachauswahl gespeichert";
 "main-menu-account-title-logged-out" = "Benutzerkonto";
 "main-menu-account-title-logged-in" = "Angemeldet als: $1";
 "main-menu-account-login" = "Anmelden";
 "main-menu-account-logout" = "Abmelden";
 "main-menu-show-title" = "Zeige mir …";
-// Fuzzy
-"main-menu-show-history" = "Mein Verlauf";
-// Fuzzy
-"main-menu-show-saved" = "Meine gespeicherten Seiten";
-// Fuzzy
-"main-menu-current-article-save" = "Zum Offline-Lesen speichern";
-// Fuzzy
-"main-menu-random" = "Zufällig";
-// Fuzzy
-"main-menu-feedback-heading" = "App-Rückmeldung";
-// Fuzzy
-"main-menu-send-feedback" = "App-Rückmeldung senden";
+"main-menu-show-history" = "Verlauf";
+"main-menu-show-saved" = "Gespeicherte Seiten";
+"main-menu-current-article-save" = "$1 zum Offline-Lesen speichern";
+"main-menu-random" = "Zufälliger Artikel";
+"main-menu-feedback-heading" = "Rückmeldung";
+"main-menu-send-feedback" = "Rückmeldung senden";
 "saved-pages-title" = "Gespeicherte Seiten";
 "navbar-title-mode-edit-wikitext" = "Bearbeiten";
 "navbar-title-mode-login" = "Anmelden";
@@ -87,10 +83,16 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Schnellprüfung erforderlich";
 "navbar-title-mode-edit-wikitext-summary" = "Beschreibe deine Bearbeitung";
 "edit-summary-choice-linked-words" = "Verlinkte Wörter";
+"edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
 "edit-summary-choice-fixed-inaccuracy" = "Ungenauigkeiten korrigiert";
+"edit-summary-choice-fixed-styling" = "Gestaltung verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfehler korrigiert";
 "edit-summary-choice-added-category" = "Kategorie hinzugefügt";
+"edit-summary-choice-added-missing-info" = "Fehlende Informationen hinzugefügt";
+"edit-summary-choice-added-clarification" = "Erklärung hinzugefügt";
 "edit-summary-choice-other" = "Andere";
 "edit-summary-description" = "Eine bestimmte Zusammenfassung hilft anderen Autoren, deine Bearbeitungen schnell zu überprüfen. Du kannst auch zwischen den unten stehenden Markierungen wählen.";
 "edit-summary-field-placeholder-text" = "Wie hast du die Seite verbessert?";
 "fetching-random-article" = "Zufälligen Artikel aufrufen";
+"article-pull-to-refresh-prompt" = "Ziehen zum Aktualisieren des Artikels";
+"article-pull-to-refresh-is-refreshing" = "Artikel aktualisieren";

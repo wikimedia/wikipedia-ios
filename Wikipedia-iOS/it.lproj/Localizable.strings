@@ -5,6 +5,7 @@
 
 "article-languages-label" = "Scegli la lingua";
 "article-languages-cancel" = "Annulla";
+"article-languages-filter-placeholder" = "Filtra";
 "history-label" = "Naviga nella cronologia";
 "history-section-today" = "Oggi";
 "history-section-yesterday" = "Ieri";
@@ -53,8 +54,7 @@
 "search-loading-section-zero" = "Caricamento prima sezione della voce...";
 "search-loading-section-remaining" = "Caricamento del resto della voce...";
 "search-loading-article-loaded" = "Voce caricata.";
-// Fuzzy
-"main-menu-language-title" = "Lingua della wiki in cui ricercare";
+"main-menu-language-title" = "Cerca nel wiki in lingua $1";
 "main-menu-language-toggle-show" = "Visualizza lingue";
 "main-menu-language-toggle-hide" = "Nascondi lingue";
 "main-menu-account-title-logged-out" = "Utenza";
@@ -62,16 +62,12 @@
 "main-menu-account-login" = "Entra";
 "main-menu-account-logout" = "Esci";
 "main-menu-show-title" = "Fammi vedere...";
-// Fuzzy
-"main-menu-show-history" = "Mia cronologia di navigazione";
-// Fuzzy
-"main-menu-show-saved" = "Mie pagine salvate";
-// Fuzzy
-"main-menu-current-article-save" = "Salva per la lettura offline";
-// Fuzzy
-"main-menu-random" = "Una pagina a caso";
-// Fuzzy
-"main-menu-send-feedback" = "Invia i tuoi commenti";
+"main-menu-show-history" = "Cronologia di navigazione";
+"main-menu-show-saved" = "Pagine salvate";
+"main-menu-current-article-save" = "Salva $1 per la lettura offline";
+"main-menu-random" = "Voce a caso";
+"main-menu-feedback-heading" = "Commenti";
+"main-menu-send-feedback" = "Invia commento";
 "saved-pages-title" = "Pagine salvate";
 "navbar-title-mode-edit-wikitext" = "Modifica";
 "navbar-title-mode-login" = "Accedi";
@@ -82,9 +78,13 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Verifica rapida necessaria";
 "navbar-title-mode-edit-wikitext-summary" = "Descrivi la tua modifica";
 "edit-summary-choice-linked-words" = "Parole collegate";
+"edit-summary-choice-fixed-grammar" = "Corretta grammatica";
 "edit-summary-choice-fixed-inaccuracy" = "Corretta inesattezza";
+"edit-summary-choice-fixed-styling" = "Corretto stile";
 "edit-summary-choice-fixed-typos" = "Corretto errore di battitura";
 "edit-summary-choice-added-category" = "Aggiunta categoria";
+"edit-summary-choice-added-missing-info" = "Aggiunte informazioni mancanti";
+"edit-summary-choice-added-clarification" = "Aggiunto chiarimento";
 "edit-summary-choice-other" = "Altro";
 "edit-summary-description" = "Un oggetto compilato in modo chiaro aiuta gli altri utenti a controllare le tue modifiche. Puoi anche sceglierne uno preimpostato dalla lista qui in basso";
 "edit-summary-field-placeholder-text" = "Quali miglioramenti hai apportato?";

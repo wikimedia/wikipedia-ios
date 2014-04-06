@@ -34,6 +34,7 @@
 "wikitext-download-failed" = "Nepodarilo sa získať najnovšiu revíziu.";
 "wikitext-download-success" = "Text je načítaný.";
 "wikitext-upload-save" = "Ukladám...";
+"wikitext-upload-save-sign-in" = "Prihlásiť sa a uložiť";
 "wikitext-upload-save-anonymously" = "Uložiť anonymne";
 "search-searching" = "Hľadám...";
 "search-no-matches" = "Vyhľadávanie nenašlo žiadne výsledky.";
@@ -48,15 +49,10 @@
 "main-menu-account-title-logged-in" = "Prihlásený ako: $1";
 "main-menu-account-login" = "Prihlásiť sa";
 "main-menu-account-logout" = "Odhlásiť sa";
-// Fuzzy
-"main-menu-show-history" = "Moja história prehliadania";
-// Fuzzy
-"main-menu-show-saved" = "Moje uložené stránky";
-// Fuzzy
-"main-menu-current-article-save" = "Uložiť pre offline čítanie";
-// Fuzzy
+"main-menu-show-history" = "História prehliadania";
+"main-menu-show-saved" = "Uložené stránky";
+"main-menu-current-article-save" = "Uložiť stránku $1 pre offline čítanie";
 "main-menu-feedback-heading" = "Spätná väzba";
-// Fuzzy
 "main-menu-send-feedback" = "Poslať spätnú väzbu";
 "saved-pages-title" = "Uložené stránky";
 "navbar-title-mode-edit-wikitext" = "Upraviť";

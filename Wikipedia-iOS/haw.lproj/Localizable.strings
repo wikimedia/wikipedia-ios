@@ -4,6 +4,8 @@
 
 "article-languages-label" = "Koho i ka ʻōlelo";
 "article-languages-cancel" = "Hoʻōki";
+"article-languages-downloading" = "Ke hoʻouka nei i nā ʻōlelo ʻatikala...";
+"article-languages-filter-placeholder" = "Kānana";
 "history-label" = "Mōʻaukaki Pūnaewele";
 "history-section-today" = "I kēia lā";
 "history-section-yesterday" = "I nehinei";
@@ -54,27 +56,21 @@
 "search-loading-section-zero" = "Hoʻouka nei i ka pauku mua o kēia ʻatikala...";
 "search-loading-section-remaining" = "Hoʻouka nei i nā mea ʻē aʻe o ka ʻatikala...";
 "search-loading-article-loaded" = "Hoʻouka ʻia ka ʻatikala.";
-// Fuzzy
-"main-menu-language-title" = "Huli i ka wiki ʻōlelo";
+"main-menu-language-title" = "Huli i ka wiki ʻōlelo $1";
 "main-menu-language-toggle-show" = "Hōʻike i nā ʻōlelo";
 "main-menu-language-toggle-hide" = "Hoʻohūnā i nā ʻōlelo";
+"main-menu-language-selection-saved" = "Ua mālama ʻia ka ʻōlelo";
 "main-menu-account-title-logged-out" = "Moʻokāki";
 "main-menu-account-title-logged-in" = "ʻEʻe ʻia e: $1";
 "main-menu-account-login" = "ʻEʻe";
 "main-menu-account-logout" = "Haʻalele";
 "main-menu-show-title" = "Hōʻike iaʻu...";
-// Fuzzy
-"main-menu-show-history" = "Kaʻu mōʻaukala pūnaewele";
-// Fuzzy
+"main-menu-show-history" = "Mōʻaukala Kelena";
 "main-menu-show-saved" = "Kaʻu ʻaoʻao mālama ʻia";
-// Fuzzy
 "main-menu-current-article-save" = "Mālama no ka heluhelu pūnaeweleʻole ʻana";
-// Fuzzy
-"main-menu-random" = "ʻOhi Kaulele";
-// Fuzzy
-"main-menu-feedback-heading" = "Manaʻo pōlamu";
-// Fuzzy
-"main-menu-send-feedback" = "Hoʻouna i ka manaʻo pōlamu";
+"main-menu-random" = "ʻAtikala kaulele";
+"main-menu-feedback-heading" = "Manaʻo";
+"main-menu-send-feedback" = "Hoʻouna i ka manaʻo";
 "saved-pages-title" = "Nā ʻAoʻao mālama ʻia";
 "navbar-title-mode-edit-wikitext" = "Hoʻololi";
 "navbar-title-mode-login" = "ʻEʻe";
@@ -87,10 +83,16 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Pono i ka hōʻoiana wiki";
 "navbar-title-mode-edit-wikitext-summary" = "E hōʻike ʻano i kāu hoʻololi";
 "edit-summary-choice-linked-words" = "Ua hoʻoloulou i nā huaʻōlelo";
+"edit-summary-choice-fixed-grammar" = "Ua kāpili hou i ka pilinaʻōlelo";
 "edit-summary-choice-fixed-inaccuracy" = "Ua kāpili hou i ka ʻākulakī ʻole";
+"edit-summary-choice-fixed-styling" = "Ua kāpili hou i ke kaila";
 "edit-summary-choice-fixed-typos" = "Ua kāpili hou i ka hewa kākau";
 "edit-summary-choice-added-category" = "Ua hoʻohui i ka mahele";
+"edit-summary-choice-added-missing-info" = "Ua hoʻohui i nā ʻike nele";
+"edit-summary-choice-added-clarification" = "Ua hoʻohui i ka moaka";
 "edit-summary-choice-other" = "He mea ʻē aʻe";
 "edit-summary-description" = "Kākoʻo kekahi hōʻuluʻulu manaʻo kikoʻī i ka loihape ʻana o kāu mau hoʻololi e nā luna hoʻoponopono ʻē aʻe. Hiki iā ʻoe ke koho mai nā lepili i lalo.";
 "edit-summary-field-placeholder-text" = "Pehea āu i holomua ai i ka ʻaoʻao?";
 "fetching-random-article" = "Ke kiʻi nei i kekahi ʻatikala kaulele";
+"article-pull-to-refresh-prompt" = "Hoʻohelei no ka hōʻano hou o ka ʻatikala";
+"article-pull-to-refresh-is-refreshing" = "Ke hoʻohelei nei i ka ʻatikala";

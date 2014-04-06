@@ -56,8 +56,7 @@
 "search-loading-section-zero" = "טעינת הפסקה הראשונה של הערך...";
 "search-loading-section-remaining" = "טעינת שאר הערך...";
 "search-loading-article-loaded" = "הערך נטען.";
-// Fuzzy
-"main-menu-language-title" = "בוויקי באיזו שפה לחפש";
+"main-menu-language-title" = "חיפוש בוויקי בשפה $1";
 "main-menu-language-toggle-show" = "הצגת השפות";
 "main-menu-language-toggle-hide" = "הסתרת השפות";
 "main-menu-account-title-logged-out" = "חשבון";
@@ -65,18 +64,12 @@
 "main-menu-account-login" = "כניסה";
 "main-menu-account-logout" = "יציאה";
 "main-menu-show-title" = "תַראו לי...";
-// Fuzzy
-"main-menu-show-history" = "את היסטוריית הגלישה שלי";
-// Fuzzy
-"main-menu-show-saved" = "את הדפים השמורים שלי";
-// Fuzzy
-"main-menu-current-article-save" = "שמירה לקריאה בלי רשת";
-// Fuzzy
+"main-menu-show-history" = "היסטוריית הגלישה";
+"main-menu-show-saved" = "דפים שמורים";
+"main-menu-current-article-save" = "שמירת $1 לקריאה בלי רשת";
 "main-menu-random" = "דף אקראי";
-// Fuzzy
-"main-menu-feedback-heading" = "משוב על היישום";
-// Fuzzy
-"main-menu-send-feedback" = "שליחת משוב על היישום";
+"main-menu-feedback-heading" = "משוב";
+"main-menu-send-feedback" = "שליחת משוב";
 "saved-pages-title" = "דפים שמורים";
 "navbar-title-mode-edit-wikitext" = "עריכה";
 "navbar-title-mode-login" = "כניסה";

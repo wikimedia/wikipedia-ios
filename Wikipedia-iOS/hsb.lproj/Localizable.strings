@@ -4,6 +4,7 @@
 
 "article-languages-label" = "Rěč wubrać";
 "article-languages-cancel" = "Přetorhnyć";
+"article-languages-filter-placeholder" = "Filter";
 "history-label" = "Historija";
 "history-section-today" = "Dźensa";
 "history-section-yesterday" = "Wčera";
@@ -31,19 +32,19 @@
 "search-loading-section-zero" = "Prěni wotrězk nastawka so začituje...";
 "search-loading-section-remaining" = "Zbytk nastawka so začituje...";
 "search-loading-article-loaded" = "Nastawk začitany.";
-// Fuzzy
-"main-menu-language-title" = "Rěčny wiki, kotryž ma so přepytać";
+"main-menu-language-title" = "Rěčny wiki $1 přepytać";
 "main-menu-language-toggle-show" = "Rěče pokazać";
 "main-menu-language-toggle-hide" = "Rěče schować";
 "main-menu-account-title-logged-out" = "Konto";
 "main-menu-account-login" = "Přizjewić";
 "main-menu-account-logout" = "Wotzjewić";
 "main-menu-show-title" = "Pokazaj mi...";
-// Fuzzy
-"main-menu-show-saved" = "Moje składowane strony";
+"main-menu-show-saved" = "Składowane strony";
 "saved-pages-title" = "Składowane strony";
 "navbar-title-mode-edit-wikitext" = "Wobdźěłać";
 "navbar-title-mode-login" = "Přizjewić";
 "navbar-title-mode-create-account" = "Konto załožić";
 "navbar-title-mode-edit-wikitext-warning" = "Wobdźěłowanske problemy";
 "navbar-title-mode-edit-wikitext-disallow" = "Wobdźěłowanske problemy";
+"navbar-title-mode-edit-wikitext-preview" = "Přehlad";
+"edit-summary-choice-added-category" = "Kategorija je so přidała";

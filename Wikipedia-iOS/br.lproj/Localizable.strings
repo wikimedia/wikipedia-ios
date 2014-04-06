@@ -1,9 +1,11 @@
 // Messages for Breton (brezhoneg)
 // Exported from translatewiki.net
 // Author: Gwenn-Ael
+// Author: Y-M D
 
 "article-languages-label" = "Dibab ar yezh";
 "article-languages-cancel" = "Nullañ";
+"article-languages-filter-placeholder" = "Sil";
 "history-label" = "Furchal en istor";
 "history-section-today" = "Hiziv";
 "history-section-yesterday" = "Dec'h";
@@ -38,6 +40,7 @@
 "wikitext-upload-captcha-error" = "Fazi gwiriañ Captcha";
 "wikitext-upload-captcha-needed" = "Ezhomm gwiriañ captcha";
 "wikitext-upload-save" = "Oc'h enrollañ...";
+"wikitext-upload-save-sign-in" = "Kevreañ hag enrollañ";
 "search-searching" = "O klask...";
 "search-field-placeholder-text" = "Klask e Wikipedia";
 "search-field-placeholder-text-zero" = "Klask e Wikipedia Zero";
@@ -48,20 +51,30 @@
 "main-menu-language-title" = "Yezh wiki evit klask";
 "main-menu-language-toggle-show" = "Diskouez ar yezhoù";
 "main-menu-language-toggle-hide" = "Kuzhat ar yezhoù";
+"main-menu-language-selection-saved" = "Enrollet eo bet an dibab eus ar yezh";
 "main-menu-account-title-logged-out" = "Kont";
 "main-menu-account-title-logged-in" = "Kevreañ evel : $1";
 "main-menu-account-login" = "Kevreañ";
 "main-menu-account-logout" = "Digevreañ";
 "main-menu-show-title" = "Diskouezit din";
-// Fuzzy
-"main-menu-show-history" = "Istor ar merdeiñ din-me";
-// Fuzzy
-"main-menu-show-saved" = "Ma fajennoù enrollet";
+"main-menu-show-history" = "Istor ar merdeiñ";
+"main-menu-show-saved" = "Pajennoù enrollet";
 // Fuzzy
 "main-menu-current-article-save" = "Saveteiñ evit lenn ezlinenn";
+"main-menu-random" = "Ur pennad dre zegouezh";
+"main-menu-feedback-heading" = "Sonjoù";
+"main-menu-send-feedback" = "Kasit hoc'h evezhiadennoù";
 "saved-pages-title" = "Pajennoù saveteet";
 "navbar-title-mode-edit-wikitext" = "Kemmañ";
 "navbar-title-mode-login" = "Enrollañ";
+"navbar-title-mode-login-and-save" = "Kevreañ hag enrollañ";
 "navbar-title-mode-create-account" = "Krouiñ ur gont";
-// Fuzzy
-"navbar-title-mode-edit-wikitext-preview" = "O rakwelet";
+"navbar-title-mode-create-account-and-save" = "Krouiñ ur gont hag enrollañ";
+"navbar-title-mode-edit-wikitext-preview" = "Rakwelet";
+"navbar-title-mode-edit-wikitext-summary" = "Deskrivit ho kemm";
+"edit-summary-choice-linked-words" = "Gerioù liammet";
+"edit-summary-choice-added-category" = "Rummad ouzhpennet";
+"edit-summary-choice-other" = "All";
+"edit-summary-field-placeholder-text" = "Penaos ho peus gwellaet ar bajenn ?";
+"article-pull-to-refresh-prompt" = "Sachañ evit freskaat ar pennad";
+"article-pull-to-refresh-is-refreshing" = "O freskaat ar pennad";

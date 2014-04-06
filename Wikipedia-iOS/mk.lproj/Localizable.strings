@@ -5,12 +5,14 @@
 
 "article-languages-label" = "Изберете јазик";
 "article-languages-cancel" = "Откажи";
+"article-languages-downloading" = "Ги вчитувам јазиците на статијата...";
+"article-languages-filter-placeholder" = "Филтер";
 "history-label" = "Историја на прелистување";
 "history-section-today" = "Денес";
 "history-section-yesterday" = "Вчера";
 "history-section-lastweek" = "Минатата седмица";
 "history-section-lastmonth" = "Минатиот месец";
-"zero-free-verbiage" = "Бесплатнен пристап до Википедија преку вашиот мобилен оператор (податочниот сообраќај не се наплаќа)";
+"zero-free-verbiage" = "Бесплатнен пристап до Википедија преку Вашиот мобилен оператор (податочниот сообраќај не се наплаќа)";
 "zero-charged-verbiage" = "Википедија Нулта е ИСКЛУЧЕНА (ПОДАТОЧНИОТ ПРОМЕТ МОЖЕ ДА СЕ НАПЛАЌА СТДАНДАРДНО)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Ја напуштате Википедија Нулта";
@@ -47,7 +49,7 @@
 "wikitext-upload-save-sign-in" = "Регистрирај ме и зачувај";
 "wikitext-upload-save-sign-in-benefits" = "За да можат другите уредници да се поврзат со вас и да  видите кои статии ги имате уредувано";
 "wikitext-upload-save-anonymously" = "Зачувај анонимно";
-"wikitext-upload-save-anonymously-warning" = "Ова има помалку приватност. Вашата IP-адреса е видлива со уредувањата. Со зачувување, се согласувате трајно да ги објавиме вашите уредувања под лиценцата CC BY-SA 3.0";
+"wikitext-upload-save-anonymously-warning" = "Ова има помалку приватност. Вашата IP-адреса е видлива со уредувањата. Со зачувување, се согласувате трајно да ги објавиме Вашите уредувања под лиценцата CC BY-SA 3.0";
 "search-searching" = "Пребарувам...";
 "search-no-matches" = "Не пронајдов совпаѓања со бараното.";
 "search-field-placeholder-text" = "Пребарај ја Википедија";
@@ -55,27 +57,21 @@
 "search-loading-section-zero" = "Го вчитувам првиот дел од статијата...";
 "search-loading-section-remaining" = "Го вчитувам остатокот од статијата...";
 "search-loading-article-loaded" = "Статијата е вчитана.";
-// Fuzzy
-"main-menu-language-title" = "На кое јазично издание да се пребарува";
+"main-menu-language-title" = "Пребарување на викито на $1";
 "main-menu-language-toggle-show" = "Прикажи јазици";
 "main-menu-language-toggle-hide" = "Скриј јазици";
+"main-menu-language-selection-saved" = "Одбраниот јазик е зачуван";
 "main-menu-account-title-logged-out" = "Сметка";
 "main-menu-account-title-logged-in" = "Најавени сте како: $1";
 "main-menu-account-login" = "Најава";
 "main-menu-account-logout" = "Одјава";
 "main-menu-show-title" = "Покажи ми...";
-// Fuzzy
-"main-menu-show-history" = "Моја историја на прелистување";
-// Fuzzy
-"main-menu-show-saved" = "Мои зачувани страници";
-// Fuzzy
-"main-menu-current-article-save" = "Зачувај за вонмрежно читање";
-// Fuzzy
-"main-menu-random" = "Случајна";
-// Fuzzy
-"main-menu-feedback-heading" = "Мислења за прилогот";
-// Fuzzy
-"main-menu-send-feedback" = "Испратете ваше мислење за прилогот";
+"main-menu-show-history" = "Историја на прелистување";
+"main-menu-show-saved" = "Зачувани страници";
+"main-menu-current-article-save" = "Зачувај ја „$1“ за вонмрежно читање";
+"main-menu-random" = "Случајна статија";
+"main-menu-feedback-heading" = "Мислења";
+"main-menu-send-feedback" = "Испрати мислење";
 "saved-pages-title" = "Зачувани страници";
 "navbar-title-mode-edit-wikitext" = "Уреди";
 "navbar-title-mode-login" = "Најава";
@@ -88,10 +84,16 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Се бара брза проверка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишете го уредувањето";
 "edit-summary-choice-linked-words" = "Ставени зборови во врски";
+"edit-summary-choice-fixed-grammar" = "Исправена граматиката";
 "edit-summary-choice-fixed-inaccuracy" = "Исправена неточност";
+"edit-summary-choice-fixed-styling" = "Исправен стилот";
 "edit-summary-choice-fixed-typos" = "Исправена грешка при пишување";
 "edit-summary-choice-added-category" = "Додадена категорија";
+"edit-summary-choice-added-missing-info" = "Додадени отсутни информации";
+"edit-summary-choice-added-clarification" = "Додадено разјаснување";
 "edit-summary-choice-other" = "Другo";
 "edit-summary-description" = "Објаснителниот опис на поважните направени промени ќе им помогне на другите уредници бргу да ги проверат Вашите уредувања. Можете и да изберете од готовите описи подолу.";
 "edit-summary-field-placeholder-text" = "На кој начин ја подобривте страницата?";
 "fetching-random-article" = "Повикувам случајна статија";
+"article-pull-to-refresh-prompt" = "Повлечете за да ја превчитате статијата";
+"article-pull-to-refresh-is-refreshing" = "Превчитување на статијата";

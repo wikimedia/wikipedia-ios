@@ -4,6 +4,7 @@
 
 "article-languages-label" = "Sprooch eraussichen";
 "article-languages-cancel" = "Ofbriechen";
+"article-languages-filter-placeholder" = "Filter";
 "history-label" = "Versiounen";
 "history-section-today" = "Haut";
 "history-section-yesterday" = "Gëschter";
@@ -36,8 +37,7 @@
 "search-loading-section-zero" = "Éischten Abschnitt vum Artikel gëtt gelueden...";
 "search-loading-section-remaining" = "De Rescht vum Artikel lueden...";
 "search-loading-article-loaded" = "Artikel gelueden.";
-// Fuzzy
-"main-menu-language-title" = "Sproochwiki an där gesicht gi soll";
+"main-menu-language-title" = "Sicht an der Wiki op $1";
 "main-menu-language-toggle-show" = "Sprooche weisen";
 "main-menu-language-toggle-hide" = "Sprooche verstoppen";
 "main-menu-account-title-logged-out" = "Benotzerkont";
@@ -45,14 +45,11 @@
 "main-menu-account-login" = "Aloggen";
 "main-menu-account-logout" = "Ausloggen";
 "main-menu-show-title" = "Weis mir...";
-// Fuzzy
-"main-menu-show-saved" = "Meng gespäichert Säiten";
-// Fuzzy
-"main-menu-current-article-save" = "Späichere fir off-line ze liesen";
-// Fuzzy
-"main-menu-random" = "Zoufall";
-// Fuzzy
-"main-menu-send-feedback" = "Feedback vun der App schécken";
+"main-menu-show-saved" = "Gespäichert Säiten";
+"main-menu-current-article-save" = "$1 späichere fir off-line ze liesen";
+"main-menu-random" = "Zoufällegen Artikel";
+"main-menu-feedback-heading" = "Feedback";
+"main-menu-send-feedback" = "Feedback schécken";
 "saved-pages-title" = "Gespäichert Säiten";
 "navbar-title-mode-edit-wikitext" = "Änneren";
 "navbar-title-mode-login" = "Aloggen";
@@ -63,7 +60,9 @@
 "navbar-title-mode-edit-wikitext-preview" = "Kucken ouni ofzespäicheren";
 "navbar-title-mode-edit-wikitext-summary" = "Beschreift Är Ännerung";
 "edit-summary-choice-linked-words" = "Verlinkt Wierder";
+"edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-inaccuracy" = "Ongenauegkeete verbessert";
+"edit-summary-choice-fixed-styling" = "Stil verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
 "edit-summary-choice-added-category" = "Kategorie derbäigesat";
 "edit-summary-choice-other" = "Anerer";

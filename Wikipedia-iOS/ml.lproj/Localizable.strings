@@ -5,6 +5,8 @@
 
 "article-languages-label" = "ഭാഷ തിരഞ്ഞെടുക്കുക";
 "article-languages-cancel" = "റദ്ദാക്കുക";
+"article-languages-downloading" = "ലേഖനമുള്ള ഭാഷകൾ എടുക്കുന്നു...";
+"article-languages-filter-placeholder" = "അരിപ്പ";
 "history-label" = "ബ്രൗസിങ് നാൾവഴി";
 "history-section-today" = "ഇന്ന്";
 "history-section-yesterday" = "ഇന്നലെ";
@@ -48,27 +50,21 @@
 "search-loading-section-zero" = "ലേഖനത്തിന്റെ ആദ്യഭാഗം എടുക്കുന്നു...";
 "search-loading-section-remaining" = "ലേഖനത്തിന്റെ ബാക്കി എടുക്കുന്നു...";
 "search-loading-article-loaded" = "ലേഖനം എടുത്തിരിക്കുന്നു.";
-// Fuzzy
-"main-menu-language-title" = "തിരയേണ്ട ഭാഷാ വിക്കി";
+"main-menu-language-title" = "തിരയേണ്ട $1 ഭാഷാ വിക്കി";
 "main-menu-language-toggle-show" = "ഭാഷകൾ പ്രദർശിപ്പിക്കുക";
 "main-menu-language-toggle-hide" = "ഭാഷകൾ മറയ്ക്കുക";
+"main-menu-language-selection-saved" = "ഭാഷ തിരഞ്ഞെടുക്കൽ സൂക്ഷിച്ചു വെച്ചിട്ടുണ്ട്.";
 "main-menu-account-title-logged-out" = "അംഗത്വം";
 "main-menu-account-title-logged-in" = "$1 ആയി പ്രവേശിച്ചിരിക്കുന്നു";
 "main-menu-account-login" = "പ്രവേശിക്കുക";
 "main-menu-account-logout" = "ലോഗൗട്ട്";
 "main-menu-show-title" = "എന്നെ കാണിക്കുക...";
-// Fuzzy
-"main-menu-show-history" = "എന്റെ ബ്രൗസിങ് ഹിസ്റ്ററി";
-// Fuzzy
-"main-menu-show-saved" = "ഞാൻ സേവ് ചെയ്തിട്ടുള്ള താളുകൾ";
-// Fuzzy
-"main-menu-current-article-save" = "ഓഫ്‌ലൈനായി വായിക്കാൻ സേവ് ചെയ്യുക";
-// Fuzzy
-"main-menu-random" = "ക്രമരഹിതം";
-// Fuzzy
-"main-menu-feedback-heading" = "ആപിനെക്കുറിച്ചുള്ള അഭിപ്രായം";
-// Fuzzy
-"main-menu-send-feedback" = "ആപിനെക്കുറിച്ചുള്ള അഭിപ്രായം അറിയിക്കുക";
+"main-menu-show-history" = "ബ്രൗസിങ് ഹിസ്റ്ററി";
+"main-menu-show-saved" = "സേവ് ചെയ്തിട്ടുള്ള താളുകൾ";
+"main-menu-current-article-save" = "ഓഫ്‌ലൈനായി വായിക്കാൻ $1 സേവ് ചെയ്യുക";
+"main-menu-random" = "ഏതെങ്കിലും ലേഖനം";
+"main-menu-feedback-heading" = "പ്രതികരണം";
+"main-menu-send-feedback" = "അഭിപ്രായം അറിയിക്കുക";
 "saved-pages-title" = "സേവ് ചെയ്ത താളുകൾ";
 "navbar-title-mode-edit-wikitext" = "തിരുത്തുക";
 "navbar-title-mode-login" = "പ്രവേശിക്കുക";
@@ -81,10 +77,16 @@
 "navbar-title-mode-edit-wikitext-captcha" = "ഉടനെ പരിശോധന ആവശ്യമാണ്";
 "navbar-title-mode-edit-wikitext-summary" = "താങ്കളുടെ തിരുത്തിനെ വിശദീകരിക്കുക";
 "edit-summary-choice-linked-words" = "വാക്കുകളിൽ  കണ്ണി ചേർത്തു";
+"edit-summary-choice-fixed-grammar" = "വ്യാകരണം ശരിയാക്കി";
 "edit-summary-choice-fixed-inaccuracy" = "കൃത്യതയില്ലായ്മ ശരിയാക്കി";
+"edit-summary-choice-fixed-styling" = "രീതി ശരിയാക്കി";
 "edit-summary-choice-fixed-typos" = "അക്ഷരപിശക് തിരുത്തി";
 "edit-summary-choice-added-category" = "വർഗ്ഗം ചേർത്തു";
+"edit-summary-choice-added-missing-info" = "വിവരം കൂട്ടിച്ചേർത്തു";
+"edit-summary-choice-added-clarification" = "വ്യക്തത വരുത്തി";
 "edit-summary-choice-other" = "മറ്റുള്ളവ";
 "edit-summary-description" = "താങ്കളുടെ തിരുത്തുകൾ മറ്റുള്ളവർക്ക് പരിശോധിക്കാൻ ഒരു കൃത്യമായ സംഗ്രഹം സഹായമാവും. താഴെക്കൊടുത്തിരിക്കുന്ന ടാഗുകളിൽ നിന്നുമൊരെണ്ണം തിരഞ്ഞെടുക്കാവുന്നതുമാണ്.";
 "edit-summary-field-placeholder-text" = "ഈ താൾ താങ്കൾ എങ്ങനെയാണ് മെച്ചപ്പെടുത്തിയത്?";
 "fetching-random-article" = "ക്രമരഹിതമായി ലേഖനം എടുക്കുന്നു";
+"article-pull-to-refresh-prompt" = "ലേഖനം വീണ്ടുമെടുക്കാൻ വലിക്കുക";
+"article-pull-to-refresh-is-refreshing" = "ലേഖനം പുതുക്കുന്നു";
