@@ -13,6 +13,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.useField = NO;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -61,6 +62,8 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
+    if (selected) self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
 }

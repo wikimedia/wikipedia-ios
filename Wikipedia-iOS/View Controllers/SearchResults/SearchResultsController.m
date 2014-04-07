@@ -391,8 +391,6 @@
     
     [self hideKeyboard];
 
-    [self.searchResultsTable deselectRowAtIndexPath:indexPath animated:YES];
-
     [NAV loadArticleWithTitle: title
                        domain: [SessionSingleton sharedInstance].domain
                      animated: YES

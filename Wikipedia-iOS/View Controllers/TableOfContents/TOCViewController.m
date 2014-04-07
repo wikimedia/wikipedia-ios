@@ -34,8 +34,6 @@
 
 @property (strong, nonatomic) IBOutlet UIView *scrollContainer;
 
-@property (weak, nonatomic) WebViewController *webVC;
-
 @end
 
 @implementation TOCViewController
@@ -47,15 +45,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.webVC = (WebViewController *)self.parentViewController;
-
     self.sectionIds = [@[]mutableCopy];
     self.sectionImageIds = [@{} mutableCopy];
     self.sectionCells = [@[]mutableCopy];
 
-    [self.scrollView setShowsHorizontalScrollIndicator:NO];
-    [self.scrollView setShowsVerticalScrollIndicator:NO];
-    
+    self.scrollView.showsHorizontalScrollIndicator = NO;
+    self.scrollView.showsVerticalScrollIndicator = NO;
+
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
 
     self.navigationItem.hidesBackButton = YES;
@@ -64,6 +60,8 @@
     [self.view addGestureRecognizer:tap];
 
     [self constrainScrollContainerWidth];
+    
+    self.scrollContainer.translatesAutoresizingMaskIntoConstraints = NO;
 
     self.scrollContainer.backgroundColor = [UIColor clearColor];
 
@@ -72,7 +70,7 @@
     // Adjust scrollview content inset when contentSize changes so bottom entry can be scrolled to top.
     [self.scrollView addObserver: self
                       forKeyPath: @"contentSize"
-                         options: NSKeyValueObservingOptionNew
+                         options: NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial
                          context: nil];
 }
 
@@ -95,10 +93,18 @@
                                                object: nil];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self refreshForCurrentArticle];
+}
+
 #pragma mark Refreshing
 
 -(void)refreshForCurrentArticle
 {
+    self.scrollView.delegate = nil;
+
     [self.scrollContainer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
     [self.sectionIds removeAllObjects];
@@ -233,7 +239,7 @@
     if (CGRectIsNull(r)) return;
     CGPoint p = r.origin;
 
-    [self.webVC scrollWebViewToPoint: p
+    [self.webVC tocScrollWebViewToPoint: p
                             duration: duration
                          thenHideTOC: hideTOC];
 }
@@ -252,9 +258,9 @@
     CGPoint p = [self.webVC.webView getWebViewCoordsForHtmlImageWithSrc:sectionImage.image.sourceUrl];
     p.y = p.y - 23;
 
-    [self.webVC scrollWebViewToPoint: p
-                            duration: duration
-                         thenHideTOC: hideTOC];
+    [self.webVC tocScrollWebViewToPoint: p
+                               duration: duration
+                            thenHideTOC: hideTOC];
 }
 
 #pragma mark Highlight and scroll to focal cell.
@@ -312,7 +318,7 @@ for (UIImageView *v in centerlineIntersectingCellImages) {
     return NO;
 }
 
-#pragma mark Scroll ended
+#pragma mark Scrolling
 
 - (void)scrollViewDidEndDragging: (UIScrollView *)scrollView
                   willDecelerate: (BOOL)decelerate
@@ -361,7 +367,7 @@ shouldAttemptScrollToImage = NO;
 {
     if (!self.scrollView.isDragging) {
         [self updateHighlightedCellToReflectWebView];
-        [self scrollHighlightedCellToSelectionLineWithDuration:0.2f];
+        [self scrollHighlightedCellToSelectionLineWithDuration:(animated ? 0.2f : 0.0f)];
     }
 }
 
@@ -520,6 +526,8 @@ shouldAttemptScrollToImage = NO;
 
 -(void)dealloc
 {
+    // NSLog(@"tocVC dealloc");
+
     [self.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 

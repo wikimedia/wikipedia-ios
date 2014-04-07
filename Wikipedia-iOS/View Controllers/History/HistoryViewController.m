@@ -343,8 +343,6 @@
         historyEntry = (History *)[articleDataContext_.mainContext objectWithID:historyEntryId];
     }];
 
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     [NAV loadArticleWithTitle: historyEntry.article.title
                        domain: historyEntry.article.domain
                      animated: YES

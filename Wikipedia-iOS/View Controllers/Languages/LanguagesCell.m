@@ -9,11 +9,11 @@
 @synthesize textLabel;
 @synthesize canonicalLabel;
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self = [super initWithCoder:aDecoder];
     if (self) {
-        // Initialization code
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -32,6 +32,8 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
+    if (selected) self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state

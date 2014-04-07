@@ -20,9 +20,11 @@
 -(void)reloadCurrentArticle;
 -(void)reloadCurrentArticleInvalidatingCache;
 
--(void)navigateToPage:(NSString *)title domain:(NSString *)domain discoveryMethod:(ArticleDiscoveryMethod)discoveryMethod;
+-(void)navigateToPage: (NSString *)title
+               domain: (NSString *)domain
+      discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod;
 
--(void)scrollWebViewToPoint: (CGPoint)point
+-(void)tocScrollWebViewToPoint: (CGPoint)point
                    duration: (CGFloat)duration
                 thenHideTOC: (BOOL)hideTOC;
 

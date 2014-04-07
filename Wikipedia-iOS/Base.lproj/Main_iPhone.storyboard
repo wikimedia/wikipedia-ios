@@ -71,11 +71,11 @@
                         <viewControllerLayoutGuide type="bottom" id="rso-hx-ZYH"/>
                     </layoutGuides>
                     <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="PkH-FW-CMU">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgu-W1-m18" userLabel="TOC Scroll View">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <scrollView contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgu-W1-m18" userLabel="TOC Scroll View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VGj-z3-9mh" userLabel="Scroll Container">
@@ -83,17 +83,17 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="768" placeholder="YES" id="DJg-ZX-IOM"/>
-                                            <constraint firstAttribute="width" constant="320" placeholder="YES" id="JFe-nN-IdA"/>
+                                            <constraint firstAttribute="width" constant="320" placeholder="YES" id="A8D-SF-YFI"/>
+                                            <constraint firstAttribute="height" constant="768" placeholder="YES" id="E5c-CM-Mg4"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.22052375637755106" green="0.22052375637755106" blue="0.22052375637755106" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="VGj-z3-9mh" secondAttribute="trailing" id="2FA-L1-7e4"/>
-                                    <constraint firstItem="VGj-z3-9mh" firstAttribute="top" secondItem="sgu-W1-m18" secondAttribute="top" id="P6f-Yb-NbR"/>
-                                    <constraint firstAttribute="bottom" secondItem="VGj-z3-9mh" secondAttribute="bottom" id="XVF-Jp-Y4s"/>
-                                    <constraint firstItem="VGj-z3-9mh" firstAttribute="leading" secondItem="sgu-W1-m18" secondAttribute="leading" id="dbw-nh-j90"/>
+                                    <constraint firstItem="VGj-z3-9mh" firstAttribute="leading" secondItem="sgu-W1-m18" secondAttribute="leading" id="jVV-fN-1Va"/>
+                                    <constraint firstAttribute="bottom" secondItem="VGj-z3-9mh" secondAttribute="bottom" id="jvc-8X-PKF"/>
+                                    <constraint firstAttribute="trailing" secondItem="VGj-z3-9mh" secondAttribute="trailing" id="lRf-aE-j7a"/>
+                                    <constraint firstItem="VGj-z3-9mh" firstAttribute="top" secondItem="sgu-W1-m18" secondAttribute="top" id="wUS-Kd-nWK"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -105,6 +105,8 @@
                             <constraint firstAttribute="bottom" secondItem="sgu-W1-m18" secondAttribute="bottom" id="b1q-x7-bYH"/>
                         </constraints>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="504"/>
                     <connections>
                         <outlet property="scrollContainer" destination="VGj-z3-9mh" id="sBf-vm-TJH"/>
                         <outlet property="scrollView" destination="sgu-W1-m18" id="287-9B-G7M"/>
@@ -874,11 +876,11 @@
                         <viewControllerLayoutGuide type="top" id="C8y-0k-FBq"/>
                         <viewControllerLayoutGuide type="bottom" id="Xeb-oh-gct"/>
                     </layoutGuides>
-                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="kh9-bI-dsS">
+                    <view key="view" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" allowsInlineMediaPlayback="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-Mj-Zsh">
+                            <webView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" allowsInlineMediaPlayback="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-Mj-Zsh">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -887,7 +889,7 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="Pmz-tr-TG8"/>
                                 </connections>
                             </webView>
-                            <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4Q-Xc-ImV" userLabel="BottomNav">
+                            <view autoresizesSubviews="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4Q-Xc-ImV" userLabel="BottomNav">
                                 <rect key="frame" x="0.0" y="454" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>

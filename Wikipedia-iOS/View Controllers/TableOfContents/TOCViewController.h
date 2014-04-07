@@ -10,6 +10,6 @@
 
 -(void)centerCellForWebViewTopMostSectionAnimated:(BOOL)animated;
 
--(void)refreshForCurrentArticle;
+@property (weak, nonatomic) WebViewController *webVC;
 
 @end

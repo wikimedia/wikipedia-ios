@@ -72,13 +72,13 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewLeftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewRightConstraint;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pullToRefreshViewBottomConstraint;
+@property (weak, nonatomic) NSLayoutConstraint *pullToRefreshViewBottomConstraint;
 @property (strong, nonatomic) UILabel *pullToRefreshLabel;
 @property (strong, nonatomic) UIView *pullToRefreshView;
 
 @property (strong, nonatomic) TOCViewController *tocVC;
-
-@property (strong, nonatomic) UIPanGestureRecognizer *tocPanRecognizer;
+@property (strong, nonatomic) UISwipeGestureRecognizer *tocSwipeLeftRecognizer;
+@property (strong, nonatomic) UISwipeGestureRecognizer *tocSwipeRightRecognizer;
 
 - (IBAction)tocButtonPushed:(id)sender;
 - (IBAction)backButtonPushed:(id)sender;
@@ -105,15 +105,28 @@ typedef enum {
     self.forwardButton.transform = CGAffineTransformMakeScale(-1.0, 1.0);
     self.indexOfFirstOnscreenSectionBeforeRotate = -1;
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(webViewFinishedLoading) name:@"WebViewFinishedLoading" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(webViewFinishedLoading)
+                                                 name: @"WebViewFinishedLoading"
+                                               object: nil];
+    
     self.unsafeToScroll = NO;
     self.scrollOffset = CGPointZero;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveCurrentPage) name:@"SavePage" object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchFieldBecameFirstResponder) name:@"SearchFieldBecameFirstResponder" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(zeroStateChanged:) name:@"ZeroStateChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(saveCurrentPage)
+                                                 name: @"SavePage"
+                                               object: nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(searchFieldBecameFirstResponder)
+                                                 name: @"SearchFieldBecameFirstResponder"
+                                               object: nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(zeroStateChanged:)
+                                                 name: @"ZeroStateChanged"
+                                               object: nil];
 
     [self showAlert:@""];
 
@@ -133,8 +146,6 @@ typedef enum {
 
     [self.webView hideScrollGradient];
 
-    [self setupTOC];
-
     [self reloadCurrentArticle];
     
     [self setupPullToRefresh];
@@ -145,7 +156,7 @@ typedef enum {
                                  options: NSKeyValueObservingOptionNew
                                  context: nil];
     
-    [self setupGestureRecognizers];
+    [self tocSetupSwipeGestureRecognizers];
     
     // UIWebView has a bug which causes a black bar to appear at
     // bottom of the web view if toc quickly dragged on and offscreen.
@@ -172,120 +183,28 @@ typedef enum {
     [super viewWillDisappear:animated];
 }
 
-#pragma mark Gesture recognizers
-
--(void)setupGestureRecognizers
-{
-    self.tocPanRecognizer =
-    [[UIPanGestureRecognizer alloc] initWithTarget: self
-                                            action: @selector(handlePanToDragTOC:)];
-    
-    self.tocPanRecognizer.delegate = self;
-    [self.view addGestureRecognizer:self.tocPanRecognizer];
-
-    // Make the web view's scroll view not scroll until the tocPanRecognizer fails.
-    [self.webView.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.tocPanRecognizer];
-
-    // Make the toc's scroll view not scroll until the tocPanRecognizer fails.
-    [self.tocVC.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.tocPanRecognizer];
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    return YES;
-}
-
--(void)handlePanToDragTOC:(UIPanGestureRecognizer *)recognizer
-{
-    UIPinchGestureRecognizer *webViewPinchRecognizer = (UIPinchGestureRecognizer *)self.webView.scrollView.pinchGestureRecognizer;
-    UIGestureRecognizerState webViewPinchState = webViewPinchRecognizer.state;
-    // Don't do anything if web view pinch in progress.
-    if(
-       webViewPinchState == UIGestureRecognizerStateBegan
-       ||
-       webViewPinchState == UIGestureRecognizerStateChanged
-       )
-    {
-        return;
-    }
-
-    static CGFloat originalConstant;
-    if (recognizer.state == UIGestureRecognizerStateBegan)
-    {
-        originalConstant = self.webViewLeftConstraint.constant;
-        
-        CGPoint velocity = [recognizer velocityInView:self.view];
-
-        CGFloat dragDegreesFromHorizontalAxis = [self getAbsoluteHorizontalDegreesFromVelocity:velocity];
-
-        // Don't begin to pan if the drag angle from the horizontal axis exceeds 30 degrees.
-        // Toggling the recognizer's "enabled" property should cause it to fail, then the
-        // web view scroll can happen instead because web view's scroll view's pan gesture
-        // requires the tocPanRecognizer to fail before it will begin.
-        
-        CGFloat maxPanDragAngle = 30.0f;
-        //NSLog(@"dragDegreesFromHorizontalAxis = %f", dragDegreesFromHorizontalAxis);
-        if(dragDegreesFromHorizontalAxis > maxPanDragAngle){
-            recognizer.enabled = NO;
-            recognizer.enabled = YES;
-        }
-    }
-    
-    if (recognizer.state == UIGestureRecognizerStateChanged)
-    {
-        CGPoint translate = [recognizer translationInView:recognizer.view.superview];
-
-        CGFloat tocMaxPercentOfScreenWidth = 1.0f - [self getWebViewScaleWhenTOCVisible];
-        
-        CGFloat constant = fmaxf(0.0f, originalConstant + translate.x);
-        constant = fminf(constant, self.view.frame.size.width * tocMaxPercentOfScreenWidth);
-    
-        CGFloat scale = 1.0f - (constant / self.view.frame.size.width);
-        CGAffineTransform xf = CGAffineTransformMakeScale(scale, scale);
-        self.webView.transform = xf;
-        self.bottomBarView.transform = xf;
-        self.webViewLeftConstraint.constant = constant;
-
-        self.bottomBarView.alpha = 1.0f - [self getTOCPercentOnscreen];
-        
-        [self.view setNeedsUpdateConstraints];
-    }
-    
-    if (
-        recognizer.state == UIGestureRecognizerStateEnded
-        ||
-        recognizer.state == UIGestureRecognizerStateFailed
-        ||
-        recognizer.state == UIGestureRecognizerStateCancelled
-        )
-    {
-        CGFloat tocPercentOnscreen = [self getTOCPercentOnscreen];
-        
-        if (tocPercentOnscreen < 0.5){
-            [self tocHideWithDuration:0.035];
-        }else{
-            [self tocShowWithDuration:0.035];
-        }
-    }
-}
-
 #pragma mark Edit section
 
 -(void)showSectionEditor
 {
-    SectionEditorViewController *sectionEditVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SectionEditorViewController"];
+    SectionEditorViewController *sectionEditVC =
+    [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SectionEditorViewController"];
 
-    NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
-                                                                                  domain: [SessionSingleton sharedInstance].currentArticleDomain];
+    NSManagedObjectID *articleID =
+    [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+                                                   domain: [SessionSingleton sharedInstance].currentArticleDomain];
     if (articleID) {
         Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
         
-        Section *section = (Section *)[articleDataContext_.mainContext getEntityForName: @"Section" withPredicateFormat:@"article == %@ AND index == %@", article, @(self.sectionToEditIndex)];
+        Section *section =
+        (Section *)[articleDataContext_.mainContext getEntityForName: @"Section"
+                                                 withPredicateFormat: @"article == %@ AND index == %@", article, @(self.sectionToEditIndex)];
         
         sectionEditVC.sectionID = section.objectID;
     }
     
-    [self.navigationController pushViewController:sectionEditVC animated:YES];
+    [self.navigationController pushViewController: sectionEditVC
+                                         animated: YES];
 }
 
 -(void)searchFieldBecameFirstResponder
@@ -299,7 +218,7 @@ typedef enum {
 {
     [super updateViewConstraints];
     
-    [self constrainTOCView:self.tocVC.view];
+    [self tocConstrainView];
 }
 
 #pragma mark Languages
@@ -314,6 +233,7 @@ typedef enum {
     CATransition *transition = [languagesTableVC getTransition];
     
     languagesTableVC.selectionBlock = ^(NSDictionary *selectedLangInfo){
+    
         [self.navigationController.view.layer addAnimation:transition forKey:nil];
         // Don't animate - so the transistion set above will be used.
         [NAV loadArticleWithTitle: selectedLangInfo[@"*"]
@@ -328,19 +248,7 @@ typedef enum {
     [self.navigationController pushViewController:languagesTableVC animated:NO];
 }
 
-#pragma mark Table of contents
-
--(void)setupTOC
-{
-    self.tocVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"TOCViewController"];
-
-    [self addChildViewController:self.tocVC];
-    
-    self.tocVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:self.tocVC.view];
-    
-    [self.tocVC didMoveToParentViewController:self];
-}
+#pragma mark Angle from velocity vector
 
 -(CGFloat)getAngleInDegreesForVelocity:(CGPoint)velocity
 {
@@ -354,7 +262,9 @@ typedef enum {
     return (atan2(fabs(velocity.y), fabs(velocity.x)) / M_PI * 180);
 }
 
--(BOOL)isTOCVisible
+#pragma mark Table of contents
+
+-(BOOL)tocDrawerIsOpen
 {
     return (self.webViewLeftConstraint.constant == 0) ? NO : YES;
 }
@@ -375,8 +285,9 @@ typedef enum {
                          self.webViewLeftConstraint.constant = 0;
                          [self.view.superview layoutIfNeeded];
                      }completion: ^(BOOL done){
-                         [self.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
-                         [self.view setNeedsUpdateConstraints];
+
+                         if(self.tocVC) [self tocViewControllerRemove];
+
                      }];
 }
 
@@ -385,9 +296,18 @@ typedef enum {
     // Clear alerts
     [self showAlert:@""];
 
-    CGFloat scale = [self getWebViewScaleWhenTOCVisible];
-    CGAffineTransform xf = CGAffineTransformMakeScale(scale, scale);
+    // Ensure the toc is rebuilt from scratch! Very weird toc scroll view
+    // resizing issues (can't scroll up to bottom toc entry sometimes, etc)
+    // when choosing different article languages otherwise!
+    if(self.tocVC) [self tocViewControllerRemove];
     
+    [self tocViewControllerAdd];
+    
+    [self.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
+
+    CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
+    CGAffineTransform xf = CGAffineTransformMakeScale(webViewScale, webViewScale);
+
     [UIView animateWithDuration: duration
                           delay: 0.0f
                         options: UIViewAnimationOptionBeginFromCurrentState
@@ -395,12 +315,41 @@ typedef enum {
                          self.webView.transform = xf;
                          self.bottomBarView.transform = xf;
                          self.bottomBarView.alpha = 0.0f;
-                         self.webViewLeftConstraint.constant = [self getTOCWidthForWebViewScale:scale];
+                         self.webViewLeftConstraint.constant = [self tocGetWidthForWebViewScale:webViewScale];
                          [self.view.superview layoutIfNeeded];
                      }completion: ^(BOOL done){
-                         [self.tocVC centerCellForWebViewTopMostSectionAnimated:YES];
                          [self.view setNeedsUpdateConstraints];
                      }];
+}
+
+- (void)tocViewControllerAdd
+{
+    self.tocVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"TOCViewController"];
+    self.tocVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+    self.tocVC.webVC = self;
+
+    [self addChildViewController:self.tocVC];
+
+    [self.view setNeedsUpdateConstraints];
+        
+    [self.view addSubview:self.tocVC.view];
+
+    [self.tocVC didMoveToParentViewController:self];
+
+    // Make the toc's scroll view not scroll until the swipe recognizer fails.
+    [self.tocVC.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.tocSwipeLeftRecognizer];
+    [self.tocVC.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.tocSwipeRightRecognizer];
+
+    [self.view.superview layoutIfNeeded];
+}
+
+- (void)tocViewControllerRemove
+{
+    [self.tocVC willMoveToParentViewController:nil];
+    [self.tocVC.view removeFromSuperview];
+    [self.tocVC removeFromParentViewController];
+    
+    self.tocVC = nil;
 }
 
 -(void)tocHide
@@ -418,62 +367,106 @@ typedef enum {
     // Clear alerts
     [self showAlert:@""];
 
-    if ([self isTOCVisible]) {
+    if ([self tocDrawerIsOpen]) {
         [self tocHide];
     }else{
         [self tocShow];
     }
 }
 
--(CGFloat)getWebViewScaleWhenTOCVisible
+-(void)tocSetupSwipeGestureRecognizers
+{
+    self.tocSwipeLeftRecognizer =
+    [[UISwipeGestureRecognizer alloc] initWithTarget: self
+                                              action: @selector(tocSwipeLeftHandler:)];
+    
+    self.tocSwipeRightRecognizer =
+    [[UISwipeGestureRecognizer alloc] initWithTarget: self
+                                              action: @selector(tocSwipeRightHandler:)];
+
+    [self tocSetupSwipeGestureRecognizer: self.tocSwipeLeftRecognizer
+                            forDirection: UISwipeGestureRecognizerDirectionLeft];
+
+    [self tocSetupSwipeGestureRecognizer: self.tocSwipeRightRecognizer
+                            forDirection: UISwipeGestureRecognizerDirectionRight];
+}
+
+-(void)tocSetupSwipeGestureRecognizer: (UISwipeGestureRecognizer *)recognizer
+                         forDirection: (UISwipeGestureRecognizerDirection)direction
+{
+    recognizer.delegate = self;
+
+    recognizer.direction = direction;
+    
+    [self.view addGestureRecognizer:recognizer];
+
+    // Make the web view's scroll view not scroll until the swipe recognizer fails.
+    [self.webView.scrollView.panGestureRecognizer requireGestureRecognizerToFail:recognizer];
+    
+}
+
+-(void)tocSwipeLeftHandler:(UISwipeGestureRecognizer *)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateEnded){
+        [self tocHide];
+    }
+}
+
+-(void)tocSwipeRightHandler:(UISwipeGestureRecognizer *)recognizer
+{
+    NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
+    if (!currentArticleTitle || (currentArticleTitle.length == 0)) return;
+
+    if (recognizer.state == UIGestureRecognizerStateEnded){
+        [self tocShow];
+    }
+}
+
+-(CGFloat)tocGetWebViewScaleWhenTOCVisible
 {
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
-        return (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.7f : 0.75f);
+        return (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.67f : 0.72f);
     }else{
         return (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.45f : 0.65f);
     }
 }
 
--(CGFloat)getTOCWidthForWebViewScale:(CGFloat)webViewScale
+-(CGFloat)tocGetWidthForWebViewScale:(CGFloat)webViewScale
 {
     return self.view.frame.size.width * (1.0f - webViewScale);
 }
 
--(void)constrainTOCView:(UIView *)tocView
+-(void)tocConstrainView
 {
-    [tocView removeConstraintsOfViewFromView:self.view];
+    if (!self.tocVC) return;
+    
+    [self.tocVC.view removeConstraintsOfViewFromView:self.view];
 
-    CGFloat webViewScale = [self getWebViewScaleWhenTOCVisible];
+    CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
     
-    NSDictionary *views = @{@"view": self.view, @"tocView": tocView, @"webView": self.webView};
-    NSDictionary *metrics = @{@"tocInitialWidth": @([self getTOCWidthForWebViewScale:webViewScale])};
+    NSDictionary *views = @{
+                            @"view": self.view,
+                            @"tocView": self.tocVC.view,
+                            @"webView": self.webView
+                            };
     
-    NSLayoutConstraint *tocLeftConstraint =
-    [NSLayoutConstraint constraintWithItem: tocView
-                                 attribute: NSLayoutAttributeLeft
-                                 relatedBy: NSLayoutRelationEqual
-                                    toItem: self.view
-                                 attribute: NSLayoutAttributeLeft
-                                multiplier: 1.0
-                                  constant: 0];
-    
-    tocLeftConstraint.priority = 999;
+    NSDictionary *metrics = @{
+                              @"tocInitialWidth": @([self tocGetWidthForWebViewScale:webViewScale])
+                              };
     
     NSArray *constraints =
     @[
       @[
-          [NSLayoutConstraint constraintWithItem: tocView
+          [NSLayoutConstraint constraintWithItem: self.tocVC.view
                                        attribute: NSLayoutAttributeRight
                                        relatedBy: NSLayoutRelationEqual
                                           toItem: self.webView
                                        attribute: NSLayoutAttributeLeft
                                       multiplier: 1.0
                                         constant: 0]
-          ,
-          tocLeftConstraint
           ]
       ,
-      [NSLayoutConstraint constraintsWithVisualFormat: @"H:[tocView(>=tocInitialWidth@1000)]"
+      [NSLayoutConstraint constraintsWithVisualFormat: @"H:[tocView(==tocInitialWidth@1000)]"
                                               options: 0
                                               metrics: metrics
                                                 views: views]
@@ -487,51 +480,16 @@ typedef enum {
     [self.view addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
 }
 
--(void)observeValueForKeyPath: (NSString *)keyPath
-                     ofObject: (id)object
-                       change: (NSDictionary *)change
-                      context: (void *)context
+-(CGFloat)tocGetPercentOnscreen
 {
-    if (
-        (object == self.webView.scrollView)
-        &&
-        [keyPath isEqual:@"contentSize"]
-        ) {
-        [object preventHorizontalScrolling];
-    }
-}
-
--(void)dealloc
-{
-    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
-}
-
--(CGFloat)getTOCPercentOnscreen
-{
-    CGFloat defaultWebViewScaleWhenTOCVisible = [self getWebViewScaleWhenTOCVisible];
-    CGFloat defaultTOCWidth = [self getTOCWidthForWebViewScale:defaultWebViewScaleWhenTOCVisible];
+    CGFloat defaultWebViewScaleWhenTOCVisible = [self tocGetWebViewScaleWhenTOCVisible];
+    CGFloat defaultTOCWidth = [self tocGetWidthForWebViewScale:defaultWebViewScaleWhenTOCVisible];
     return 1.0f - (fabsf(self.tocVC.view.frame.origin.x) / defaultTOCWidth);
 }
 
--(BOOL)shouldAutomaticallyForwardAppearanceMethods
-{
-    // This method is called to determine whether to
-    // automatically forward appearance-related containment
-    //  callbacks to child view controllers.
-    return YES;
-    
-}
--(BOOL)shouldAutomaticallyForwardRotationMethods
-{
-    // This method is called to determine whether to
-    // automatically forward rotation-related containment
-    // callbacks to child view controllers.
-    return YES;
-}
-
--(void)scrollWebViewToPoint: (CGPoint)point
-                   duration: (CGFloat)duration
-                thenHideTOC: (BOOL)hideTOC
+-(void)tocScrollWebViewToPoint: (CGPoint)point
+                      duration: (CGFloat)duration
+                   thenHideTOC: (BOOL)hideTOC
 {
     point.x = self.webView.scrollView.contentOffset.x;
     
@@ -551,6 +509,41 @@ typedef enum {
                          // Toggle toc.
                          if (hideTOC) [self tocHide];
                      }];
+}
+
+#pragma mark UIContainerViewControllerCallbacks
+
+-(BOOL)shouldAutomaticallyForwardAppearanceMethods
+{
+    return YES;
+}
+
+-(BOOL)shouldAutomaticallyForwardRotationMethods
+{
+    return YES;
+}
+
+#pragma mark KVO
+
+-(void)observeValueForKeyPath: (NSString *)keyPath
+                     ofObject: (id)object
+                       change: (NSDictionary *)change
+                      context: (void *)context
+{
+    if (
+        (object == self.webView.scrollView)
+        &&
+        [keyPath isEqual:@"contentSize"]
+        ) {
+        [object preventHorizontalScrolling];
+    }
+}
+
+#pragma mark Dealloc
+
+-(void)dealloc
+{
+    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 
 #pragma mark Webview obj-c to javascript bridge
@@ -818,7 +811,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 #pragma mark Article loading ops
 
-- (void)navigateToPage:(NSString *)title domain:(NSString *)domain discoveryMethod:(ArticleDiscoveryMethod)discoveryMethod
+- (void)navigateToPage: (NSString *)title
+                domain: (NSString *)domain
+       discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
 {
     NSString *cleanTitle = [self cleanTitle:title];
     
@@ -831,7 +826,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // Show loading message
     [self showAlert:NSLocalizedString(@"search-loading-section-zero", nil)];
     
-    [self retrieveArticleForPageTitle:cleanTitle domain:domain discoveryMethod:[self getStringForDiscoveryMethod:discoveryMethod]];
+    [self retrieveArticleForPageTitle: cleanTitle
+                               domain: domain
+                      discoveryMethod: [self getStringForDiscoveryMethod:discoveryMethod]];
 }
 
 -(void)reloadCurrentArticle{
@@ -866,15 +863,18 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }
 }
 
-- (void)retrieveArticleForPageTitle:(NSString *)pageTitle domain:(NSString *)domain discoveryMethod:(NSString *)discoveryMethod
+- (void)retrieveArticleForPageTitle: (NSString *)pageTitle
+                             domain: (NSString *)domain
+                    discoveryMethod: (NSString *)discoveryMethod
 {
     // Cancel any in-progress article retrieval operations
     [[QueuesSingleton sharedInstance].articleRetrievalQ cancelAllOperations];
     [[QueuesSingleton sharedInstance].searchQ cancelAllOperations];
     [[QueuesSingleton sharedInstance].thumbnailQ cancelAllOperations];
 
-    __block NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: pageTitle
-                                                                                          domain: domain];
+    __block NSManagedObjectID *articleID =
+    [articleDataContext_.mainContext getArticleIDForTitle: pageTitle
+                                                   domain: domain];
     BOOL needsRefresh = NO;
 
     if (articleID) {
@@ -891,7 +891,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }
 
     // Retrieve first section op
-    DownloadLeadSectionOp *firstSectionOp = [[DownloadLeadSectionOp alloc] initForPageTitle:pageTitle domain:[SessionSingleton sharedInstance].currentArticleDomain completionBlock:^(NSDictionary *dataRetrieved){
+    DownloadLeadSectionOp *firstSectionOp =
+    [[DownloadLeadSectionOp alloc] initForPageTitle:pageTitle domain:[SessionSingleton sharedInstance].currentArticleDomain completionBlock:^(NSDictionary *dataRetrieved){
 
         Article *article = nil;
         
@@ -1186,12 +1187,18 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         NSString *htmlStr = [sectionTextArray componentsJoinedByString:joint];
         
         // Display all sections
-        [self.bridge sendMessage:@"setLanguage" withPayload:@{@"lang": languageInfo.code,
-                                                              @"dir": languageInfo.dir}];
+        [self.bridge sendMessage: @"setLanguage"
+                     withPayload: @{
+                                   @"lang": languageInfo.code,
+                                   @"dir": languageInfo.dir
+                                   }];
+        
         [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];
 
-        [self.tocVC refreshForCurrentArticle];
-
+        if ([self tocDrawerIsOpen]) {
+            // Drawer is already open, so just refresh the toc quickly w/o animation.
+            [self tocShowWithDuration:0.0f];
+        }
     }];
 }
 
@@ -1204,7 +1211,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     NSManagedObjectID *historyId = self.adjacentHistoryIDs[@"before"];
     if (historyId){
         History *history = (History *)[articleDataContext_.mainContext objectWithID:historyId];
-        [self navigateToPage:history.article.title domain:history.article.domain discoveryMethod:history.discoveryMethod];
+        [self navigateToPage: history.article.title
+                      domain: history.article.domain
+             discoveryMethod: DISCOVERY_METHOD_SEARCH];
     }
 }
 
@@ -1213,7 +1222,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     NSManagedObjectID *historyId = self.adjacentHistoryIDs[@"after"];
     if (historyId){
         History *history = (History *)[articleDataContext_.mainContext objectWithID:historyId];
-        [self navigateToPage:history.article.title domain:history.article.domain discoveryMethod:history.discoveryMethod];
+        [self navigateToPage: history.article.title
+                      domain: history.article.domain
+             discoveryMethod: DISCOVERY_METHOD_SEARCH];
     }
 }
 
@@ -1470,13 +1481,18 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     UIGestureRecognizerState state = ((UIPinchGestureRecognizer *)scrollView.pinchGestureRecognizer).state;
 
+    NSString *title = [SessionSingleton sharedInstance].currentArticleTitle;
+
     BOOL safeToShow =
         (!scrollView.decelerating)
         &&
         ([QueuesSingleton sharedInstance].articleRetrievalQ.operationCount == 0)
         &&
-        (![self isTOCVisible])
-        && (state == UIGestureRecognizerStatePossible)
+        (![self tocDrawerIsOpen])
+        &&
+        (state == UIGestureRecognizerStatePossible)
+        &&
+        (title && (title.length > 0))
     ;
 
     //NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));

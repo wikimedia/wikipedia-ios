@@ -212,8 +212,6 @@
         NSManagedObjectID *savedEntryId = (NSManagedObjectID *)array[indexPath.row];
         savedEntry = (Saved *)[articleDataContext_.mainContext objectWithID:savedEntryId];
     }];
-
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     [NAV loadArticleWithTitle: savedEntry.article.title
                        domain: savedEntry.article.domain
