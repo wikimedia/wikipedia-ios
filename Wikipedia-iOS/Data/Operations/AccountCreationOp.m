@@ -57,7 +57,6 @@
             password: (NSString *) password
             realName: (NSString *) realName
                email: (NSString *) email
-               token: (NSString *) token
            captchaId: (NSString *) captchaId
          captchaWord: (NSString *) captchaWord
      completionBlock: (void (^)(NSString *))completionBlock
@@ -72,7 +71,6 @@
         self.password = password ? password : @"";
         self.realName = realName ? realName : @"";
         self.email = email ? email : @"";
-        self.token = token ? token : @"";
         self.captchaId = captchaId ? captchaId : @"";
         self.captchaWord = captchaWord ? captchaWord : @"";
 
@@ -105,19 +103,20 @@
 
             if(weakSelf.jsonRetrieved[@"createaccount"]){
                 NSString *createAccountResult = weakSelf.jsonRetrieved[@"createaccount"][@"result"];
-                if ([createAccountResult isEqualToString:@"NeedToken"]) {
+                if ([createAccountResult isEqualToString:@"NeedCaptcha"]) {
                     NSMutableDictionary *errorDict = @{}.mutableCopy;
-                    
-                    errorDict[NSLocalizedDescriptionKey] = NSLocalizedString(@"account-creation-captcha-required", nil);
-                    
-                    // Make the capcha id and url available from the error.
-                    errorDict[@"captchaId"] = weakSelf.jsonRetrieved[@"createaccount"][@"captcha"][@"id"];
-                    errorDict[@"captchaUrl"] = weakSelf.jsonRetrieved[@"createaccount"][@"captcha"][@"url"];
-                    errorDict[@"token"] = weakSelf.jsonRetrieved[@"createaccount"][@"token"];
+
+                    if (weakSelf.jsonRetrieved[@"createaccount"][@"captcha"]) {
+                        errorDict[NSLocalizedDescriptionKey] = NSLocalizedString(@"account-creation-captcha-required", nil);
+                        
+                        // Make the capcha id and url available from the error.
+                        errorDict[@"captchaId"] = weakSelf.jsonRetrieved[@"createaccount"][@"captcha"][@"id"];
+                        errorDict[@"captchaUrl"] = weakSelf.jsonRetrieved[@"createaccount"][@"captcha"][@"url"]; 
+                    }
                     
                     // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
                     weakSelf.error = [NSError errorWithDomain: @"Account Creation Op"
-                                                         code: ACCOUNT_CREATION_ERROR_NEEDS_TOKEN
+                                                         code: ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA
                                                      userInfo: errorDict];
                 }
             }

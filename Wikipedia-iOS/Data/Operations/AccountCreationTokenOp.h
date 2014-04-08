@@ -2,10 +2,12 @@
 
 #import "MWNetworkOp.h"
 
-@interface EditTokenOp : MWNetworkOp
+@interface AccountCreationTokenOp : MWNetworkOp
 
-- (id)initWithDomain: (NSString *)domain
-     completionBlock: (void (^)(NSDictionary *))completionBlock
+- (id)initWithDomain: (NSString *) domain
+            userName: (NSString *) userName
+            password: (NSString *) password
+     completionBlock: (void (^)(NSString *))completionBlock
       cancelledBlock: (void (^)(NSError *))cancelledBlock
           errorBlock: (void (^)(NSError *))errorBlock
 ;

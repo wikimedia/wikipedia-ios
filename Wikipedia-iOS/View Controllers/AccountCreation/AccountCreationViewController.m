@@ -6,6 +6,7 @@
 #import "SessionSingleton.h"
 #import "UIViewController+Alert.h"
 #import "AccountCreationOp.h"
+#import "AccountCreationTokenOp.h"
 #import "CaptchaResetOp.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "UIButton+ColorMask.h"
@@ -302,7 +303,6 @@
                                      password: self.passwordField.text
                                      realName: self.realnameField.text
                                         email: self.emailField.text
-                                        token: self.token
                                     captchaId: self.captchaId
                                   captchaWord: self.captchaViewController.captchaTextBox.text
      
@@ -324,23 +324,51 @@
                                   
                               } errorBlock: ^(NSError *error){
                                   [self showAlert:error.localizedDescription];
-                                  
-                                  if (error.code == ACCOUNT_CREATION_ERROR_NEEDS_TOKEN) {
-                                      self.captchaId = error.userInfo[@"captchaId"];
-                                      self.token = error.userInfo[@"token"];
-                                      
-                                      dispatch_async(dispatch_get_main_queue(), ^(){
-                                          self.captchaUrl = error.userInfo[@"captchaUrl"];
-                                          self.showCaptchaContainer = YES;
-                                      });
+
+                                  switch (error.code) {
+                                      case ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA:{
+                                          self.captchaId = error.userInfo[@"captchaId"];
+                                          dispatch_async(dispatch_get_main_queue(), ^(){
+                                              self.captchaUrl = error.userInfo[@"captchaUrl"];
+                                              self.showCaptchaContainer = YES;
+                                          });
+                                      }
+                                          break;
+                                      default:
+                                          break;
                                   }
+                                  
                                   isAleadySaving = NO;
                               }];
 
+    AccountCreationTokenOp *accountCreationTokenOp =
+    [[AccountCreationTokenOp alloc] initWithDomain: [SessionSingleton sharedInstance].domain
+                                          userName: self.usernameField.text
+                                          password: self.passwordField.text
+                                   completionBlock: ^(NSString *token){
+                                       accountCreationOp.token = token;
+                                   }
+                                    cancelledBlock: ^(NSError *error){
+                                        [self showAlert:@""];
+                                        isAleadySaving = NO;
+                                    }
+                                        errorBlock: ^(NSError *error){
+                                            [self showAlert:error.localizedDescription];
+                                            isAleadySaving = NO;
+                                        }];
+
     accountCreationOp.delegate = self;
+    accountCreationTokenOp.delegate = self;
+
+    // The accountCreationTokenOp needs to succeed before the accountCreationOp can begin.
+    [accountCreationOp addDependency:accountCreationTokenOp];
 
     [[QueuesSingleton sharedInstance].accountCreationQ cancelAllOperations];
+    
+    [QueuesSingleton sharedInstance].loginQ.suspended = YES;
+    [[QueuesSingleton sharedInstance].accountCreationQ addOperation:accountCreationTokenOp];
     [[QueuesSingleton sharedInstance].accountCreationQ addOperation:accountCreationOp];
+    [QueuesSingleton sharedInstance].loginQ.suspended = NO;
 }
 
 -(void)hide

@@ -1,33 +1,58 @@
 //  Created by Monte Hurd on 1/16/14.
 
-#import "EditTokenOp.h"
+#import "AccountCreationTokenOp.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSURLRequest+DictionaryRequest.h"
 
-@implementation EditTokenOp
+@interface AccountCreationTokenOp()
 
-- (id)initWithDomain: (NSString *)domain
-     completionBlock: (void (^)(NSDictionary *))completionBlock
+@property (strong, nonatomic) NSString *domain;
+@property (strong, nonatomic) NSString *userName;
+@property (strong, nonatomic) NSString *password;
+
+@end
+
+@implementation AccountCreationTokenOp
+
+-(NSURLRequest *)getRequest
+{
+    NSMutableDictionary *parameters =
+        @{
+          @"action":     @"createaccount",
+          @"name":       self.userName,
+          @"password":   self.password,
+          @"language":
+              ([self.domain isEqualToString:@"test"]) ?
+                @"en"
+                :
+                self.domain,
+          @"format":     @"json"
+          }.mutableCopy;
+    
+    return [NSURLRequest postRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:self.domain]
+                                 parameters: parameters];
+}
+
+- (id)initWithDomain: (NSString *) domain
+            userName: (NSString *) userName
+            password: (NSString *) password
+     completionBlock: (void (^)(NSString *))completionBlock
       cancelledBlock: (void (^)(NSError *))cancelledBlock
           errorBlock: (void (^)(NSError *))errorBlock
+
 {
     self = [super init];
     if (self) {
 
-        NSMutableDictionary *parameters = [@{
-                                             @"action": @"tokens",
-                                             @"type": @"edit",
-                                             @"format": @"json"
-                                             }mutableCopy];
-        
-        self.request = [NSURLRequest postRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
-                                             parameters: parameters
-                        ];
-        
-        __weak EditTokenOp *weakSelf = self;
+        self.domain = domain ? domain : @"";
+        self.userName = userName ? userName : @"";
+        self.password = password ? password : @"";
+
+        __weak AccountCreationTokenOp *weakSelf = self;
         self.aboutToStart = ^{
             [[MWNetworkActivityIndicatorManager sharedManager] push];
+            weakSelf.request = [weakSelf getRequest];
         };
         self.completionBlock = ^(){
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
@@ -37,14 +62,13 @@
                 return;
             }
             
-            // Check for error retrieving section zero data.
             if(weakSelf.jsonRetrieved[@"error"]){
                 NSMutableDictionary *errorDict = [weakSelf.jsonRetrieved[@"error"] mutableCopy];
                 
                 errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
                 
                 // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
-                weakSelf.error = [NSError errorWithDomain:@"Edit Token Op" code:001 userInfo:errorDict];
+                weakSelf.error = [NSError errorWithDomain:@"Account Creation Token Op" code:001 userInfo:errorDict];
             }
             
             if (weakSelf.error) {
@@ -52,7 +76,7 @@
                 return;
             }
             
-            NSDictionary *result = weakSelf.jsonRetrieved;
+            NSString *result = weakSelf.jsonRetrieved[@"createaccount"][@"token"];
             
             completionBlock(result);
         };

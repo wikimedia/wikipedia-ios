@@ -4,7 +4,7 @@
 
 typedef enum {
     ACCOUNT_CREATION_ERROR_UNKNOWN = 0,
-    ACCOUNT_CREATION_ERROR_NEEDS_TOKEN = 1
+    ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA = 1
 } AccountCreationOpErrors;
 
 @interface AccountCreationOp : MWNetworkOp
@@ -16,7 +16,6 @@ typedef enum {
             password: (NSString *) password
             realName: (NSString *) realName
                email: (NSString *) email
-               token: (NSString *) token
            captchaId: (NSString *) captchaId
          captchaWord: (NSString *) captchaWord
      completionBlock: (void (^)(NSString *))completionBlock
