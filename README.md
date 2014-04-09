@@ -20,7 +20,7 @@ This version has not yet been deployed to the App Store -- the source of the old
 
 Requires [Xcode 5 or higher](https://itunes.apple.com/us/app/xcode/id497799835) on Mac OS X, with the bundled iOS 7 SDK. You may need to get Xcode 5.1 beta with iOS 7.1 beta to support the latest storyboard - it's available at [developer.apple.com](https://developer.apple.com/) after signing in with your Apple ID.
 
-Standard Xcode project stuff: check out the repo, open Wikipedia-iOS.xcodeproj in Xcode 5, pick a device or simulator target and hit ⌘R.
+Standard Xcode project stuff: check out the repo, open Wikipedia.xcodeproj in Xcode 5, pick a device or simulator target and hit ⌘R.
 
 Note that due to Apple's restrictions on iOS app installation, to run a custom build on a standard iOS device you must pay for a [developer account with Apple](https://developer.apple.com/devcenter/ios/index.action) and register the device with your account.
 

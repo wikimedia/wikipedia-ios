@@ -8,3 +8,6 @@
 *.perspectivev3
 xcuserdata
 project.xcworkspace
+
+# Node modules for the js
+www/node_modules
