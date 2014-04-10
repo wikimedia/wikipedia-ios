@@ -101,7 +101,7 @@
     self.webView.delegate = self;
     
     NSURL *baseURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
-    NSString *indexFilePath = [[NSBundle mainBundle] pathForResource:@"bridge-index" ofType:@"html"];
+    NSString *indexFilePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"assets"];
     NSData *data = [NSData dataWithContentsOfFile:indexFilePath];
     [self.webView loadData:data MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:baseURL];
 }

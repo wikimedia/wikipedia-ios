@@ -6,7 +6,14 @@ function stringEndsWith(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
 
-function getImageWithSrc(src) {
+function getZoomLevel() {
+    // From: http://stackoverflow.com/a/5078596/135557
+    var deviceWidth = (Math.abs(window.orientation) == 90) ? screen.height : screen.width;
+    var zoom = deviceWidth / window.innerWidth;
+    return zoom;
+}
+
+exports.getImageWithSrc = function(src) {
     var images = document.getElementsByTagName('IMG');
     for (var i = 0; i < images.length; ++i) {
         if (stringEndsWith(images[i].src, src)){
@@ -16,14 +23,7 @@ function getImageWithSrc(src) {
     return null;
 }
 
-function getZoomLevel() {
-    // From: http://stackoverflow.com/a/5078596/135557
-    var deviceWidth = (Math.abs(window.orientation) == 90) ? screen.height : screen.width;
-    var zoom = deviceWidth / window.innerWidth;
-    return zoom;
-}
-
-function getElementRect(element) {
+exports.getElementRect = function(element) {
     var rect = element.getBoundingClientRect();
     var zoom = getZoomLevel();
     var zoomedRect = new Object();
@@ -34,15 +34,15 @@ function getElementRect(element) {
     return zoomedRect;
 }
 
-function getElementRectAsJson(element) {
-    return JSON.stringify(getElementRect(element));
+exports.getElementRectAsJson = function(element) {
+    return JSON.stringify(this.getElementRect(element));
 }
 
-function getIndexOfFirstOnScreenElementWithTopGreaterThanY(elementPrefix, elementCount, y){
+exports.getIndexOfFirstOnScreenElementWithTopGreaterThanY = function(elementPrefix, elementCount, y){
     for (var i = 0; i < elementCount; ++i) {
         var div = document.getElementById(elementPrefix + i);
         if(div == null) continue;
-        var rect = getElementRect(div);
+	var rect = this.getElementRect(div);
         if( (rect['top'] >= 0) || ((rect['top'] + rect['height']) >= 0)) return i;
     }
     return -1;
