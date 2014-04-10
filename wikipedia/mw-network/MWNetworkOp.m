@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "MWNetworkOp.h"
+#import "WikipediaAppUtils.h"
 
 @interface MWNetworkOp()
 
@@ -294,7 +295,7 @@
     self.error = [[NSError alloc] initWithDomain : @"MWNetworkOp.m"
                                             code : 555
                                         userInfo : @{
-                                                   NSLocalizedDescriptionKey: NSLocalizedString([@"MWNetworkOp Error: " stringByAppendingString:description], nil)
+                                                   NSLocalizedDescriptionKey: MWLocalizedString([@"MWNetworkOp Error: " stringByAppendingString:description], nil)
                                                    }];
 	[self finish];
 }

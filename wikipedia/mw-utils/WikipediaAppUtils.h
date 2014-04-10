@@ -3,8 +3,11 @@
 
 #import <Foundation/Foundation.h>
 
+#define MWLocalizedString(key, throwaway) [WikipediaAppUtils localizedStringForKey:key]
+
 @interface WikipediaAppUtils : NSObject
 
 +(NSString*) appVersion;
++(NSString*) localizedStringForKey:(NSString *)key;
 
 @end

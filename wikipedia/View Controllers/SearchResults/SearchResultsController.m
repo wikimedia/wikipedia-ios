@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SearchResultsController.h"
+#import "WikipediaAppUtils.h"
 #import "Defines.h"
 #import "QueuesSingleton.h"
 #import "MWNetworkActivityIndicatorManager.h"
@@ -113,7 +114,7 @@
     [self clearSearchResults];
     
     // Show "Searching..." message.
-    [self showAlert:NSLocalizedString(@"search-searching", nil)];
+    [self showAlert:MWLocalizedString(@"search-searching", nil)];
     
     
     

@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "LoginOp.h"
+#import "WikipediaAppUtils.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSURLRequest+DictionaryRequest.h"
@@ -109,25 +110,25 @@
     NSString *errorMessage = [NSString stringWithFormat:@"Unknown login error. Code '%@'", result];
 
     if ([result isEqualToString:@"NoName"]) {
-        errorMessage = NSLocalizedString(@"login-name-not-found", nil);
+        errorMessage = MWLocalizedString(@"login-name-not-found", nil);
 
     }else if ([result isEqualToString:@"Illegal"]) {
-        errorMessage = NSLocalizedString(@"login-name-illegal", nil);
+        errorMessage = MWLocalizedString(@"login-name-illegal", nil);
 
     }else if ([result isEqualToString:@"NotExists"]) {
-        errorMessage = NSLocalizedString(@"login-name-does-not-exist", nil);
+        errorMessage = MWLocalizedString(@"login-name-does-not-exist", nil);
 
     }else if ([result isEqualToString:@"EmptyPass"]) {
-        errorMessage = NSLocalizedString(@"login-password-empty", nil);
+        errorMessage = MWLocalizedString(@"login-password-empty", nil);
 
     }else if ([result isEqualToString:@"WrongPass"] || [result isEqualToString:@"WrongPluginPass"]) {
-        errorMessage = NSLocalizedString(@"login-password-wrong", nil);
+        errorMessage = MWLocalizedString(@"login-password-wrong", nil);
 
     }else if ([result isEqualToString:@"Throttled"]) {
-        errorMessage = NSLocalizedString(@"login-throttled", nil);
+        errorMessage = MWLocalizedString(@"login-throttled", nil);
 
     }else if ([result isEqualToString:@"Blocked"]) {
-        errorMessage = NSLocalizedString(@"login-user-blocked", nil);
+        errorMessage = MWLocalizedString(@"login-user-blocked", nil);
     }
     
     return errorMessage;

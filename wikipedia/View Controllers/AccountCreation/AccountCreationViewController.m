@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "AccountCreationViewController.h"
+#import "WikipediaAppUtils.h"
 #import "NavController.h"
 #import "QueuesSingleton.h"
 #import "SessionSingleton.h"
@@ -195,7 +196,7 @@
 {
     self.captchaViewController.captchaTextBox.text = @"";
 
-    [self showAlert:NSLocalizedString(@"account-creation-captcha-obtaining", nil)];
+    [self showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil)];
     [self showAlert:@""];
 
     CaptchaResetOp *captchaResetOp =
@@ -258,11 +259,11 @@
 {
     LoginViewController *loginVC = [self.navigationController searchNavStackForViewControllerOfClass:[LoginViewController class]];
     
-    [self showAlert:NSLocalizedString(@"account-creation-logging-in", nil)];
+    [self showAlert:MWLocalizedString(@"account-creation-logging-in", nil)];
     
     [loginVC loginWithUserName:self.usernameField.text password:self.passwordField.text onSuccess:^{
 
-        NSString *loggedInMessage = NSLocalizedString(@"main-menu-account-title-logged-in", nil);
+        NSString *loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
         loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString: @"$1"
                                                                      withString: self.usernameField.text];
         [self showAlert:loggedInMessage];
@@ -290,13 +291,13 @@
 
     // Verify passwords fields match.
     if (![self.passwordField.text isEqualToString:self.passwordRepeatField.text]) {
-        [self showAlert:NSLocalizedString(@"account-creation-passwords-mismatched", nil)];
+        [self showAlert:MWLocalizedString(@"account-creation-passwords-mismatched", nil)];
         isAleadySaving = NO;
         return;
     }
 
     // Save!
-    [self showAlert:NSLocalizedString(@"account-creation-saving", nil)];
+    [self showAlert:MWLocalizedString(@"account-creation-saving", nil)];
 
     AccountCreationOp *accountCreationOp =
     [[AccountCreationOp alloc] initWithDomain: [SessionSingleton sharedInstance].domain

@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "UploadSectionWikiTextOp.h"
+#import "WikipediaAppUtils.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSURLRequest+DictionaryRequest.h"
@@ -74,7 +75,7 @@
 
             if (!weakSelf.error && !result) {
                 NSMutableDictionary *errorDict = [@{} mutableCopy];
-                errorDict[NSLocalizedDescriptionKey] = NSLocalizedString(@"wikitext-upload-result-unknown", nil);
+                errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"wikitext-upload-result-unknown", nil);
                 
                 // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
                 weakSelf.error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WIKITEXT_UPLOAD_ERROR_UNKNOWN userInfo:errorDict];
@@ -87,9 +88,9 @@
                     NSMutableDictionary *errorDict = [@{} mutableCopy];
                     
                     errorDict[NSLocalizedDescriptionKey] = (captchaWord && (captchaWord.length > 0)) ?
-                    NSLocalizedString(@"wikitext-upload-captcha-error", nil)
+                    MWLocalizedString(@"wikitext-upload-captcha-error", nil)
                     :
-                    NSLocalizedString(@"wikitext-upload-captcha-needed", nil)
+                    MWLocalizedString(@"wikitext-upload-captcha-needed", nil)
                     ;
                     
                     // Make the capcha id and url available from the error.

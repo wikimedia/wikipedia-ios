@@ -1,6 +1,7 @@
 //  Created by Monte Hurd on 2/10/14.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
+#import "WikipediaAppUtils.h"
 #import "LoginViewController.h"
 #import "NavController.h"
 #import "QueuesSingleton.h"
@@ -132,7 +133,7 @@
                    password: self.passwordField.text
                   onSuccess: ^{
                   
-                      NSString *loggedInMessage = NSLocalizedString(@"main-menu-account-title-logged-in", nil);
+                      NSString *loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
                       loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString: @"$1"
                                                                                    withString: self.usernameField.text];
                       [self showAlert:loggedInMessage];

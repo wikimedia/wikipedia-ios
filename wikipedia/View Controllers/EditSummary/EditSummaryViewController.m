@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "EditSummaryViewController.h"
+#import "WikipediaAppUtils.h"
 #import "NavController.h"
 #import "Defines.h"
 #import "WMF_Colors.h"
@@ -75,8 +76,8 @@ typedef enum {
     
     [self setupButtons];
     
-    self.aboutLabel.text = NSLocalizedString(@"edit-summary-description", nil);
-    self.summaryTextField.placeholder = NSLocalizedString(@"edit-summary-field-placeholder-text", nil);
+    self.aboutLabel.text = MWLocalizedString(@"edit-summary-description", nil);
+    self.summaryTextField.placeholder = MWLocalizedString(@"edit-summary-field-placeholder-text", nil);
 
     self.summaryTextField.textColor = [UIColor darkGrayColor];
     self.summaryTextField.returnKeyType = UIReturnKeyDone;
@@ -107,37 +108,37 @@ typedef enum {
     UIColor *bottomColor = WMF_COLOR_GREEN;
 
     [self setupButton: self.cannedSummary01
-            withTitle: NSLocalizedString(@"edit-summary-choice-fixed-typos", nil)
+            withTitle: MWLocalizedString(@"edit-summary-choice-fixed-typos", nil)
                 color: topColor
      ];
     
     [self setupButton: self.cannedSummary02
-            withTitle: NSLocalizedString(@"edit-summary-choice-fixed-grammar", nil)
+            withTitle: MWLocalizedString(@"edit-summary-choice-fixed-grammar", nil)
                 color: topColor
      ];
     
     [self setupButton: self.cannedSummary03
-            withTitle: NSLocalizedString(@"edit-summary-choice-fixed-inaccuracy", nil)
+            withTitle: MWLocalizedString(@"edit-summary-choice-fixed-inaccuracy", nil)
                 color: topColor
      ];
     
     [self setupButton: self.cannedSummary04
-            withTitle: NSLocalizedString(@"edit-summary-choice-linked-words", nil)
+            withTitle: MWLocalizedString(@"edit-summary-choice-linked-words", nil)
                 color: bottomColor
      ];
     
     [self setupButton: self.cannedSummary05
-            withTitle: NSLocalizedString(@"edit-summary-choice-added-clarification", nil)
+            withTitle: MWLocalizedString(@"edit-summary-choice-added-clarification", nil)
                 color: bottomColor
      ];
     
     [self setupButton: self.cannedSummary06
-            withTitle: NSLocalizedString(@"edit-summary-choice-added-missing-info", nil)
+            withTitle: MWLocalizedString(@"edit-summary-choice-added-missing-info", nil)
                 color: bottomColor
      ];
     
     [self setupButton: self.cannedSummary07
-            withTitle: NSLocalizedString(@"edit-summary-choice-fixed-styling", nil)
+            withTitle: MWLocalizedString(@"edit-summary-choice-fixed-styling", nil)
                 color: topColor
      ];
 }

@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "HistoryViewController.h"
+#import "WikipediaAppUtils.h"
 #import "NSDate-Utilities.h"
 #import "ArticleDataContextSingleton.h"
 #import "ArticleCoreDataObjects.h"
@@ -69,7 +70,7 @@
     [self getHistoryData];
 
     HistoryTableHeadingLabel *historyLabel = [[HistoryTableHeadingLabel alloc] initWithFrame:CGRectMake(0, 0, 10, 48)];
-    historyLabel.text = NSLocalizedString(@"history-label", nil);
+    historyLabel.text = MWLocalizedString(@"history-label", nil);
     historyLabel.textAlignment = NSTextAlignmentCenter;
     historyLabel.font = [UIFont boldSystemFontOfSize:20.0];
     historyLabel.textColor = HISTORY_TEXT_COLOR;
@@ -149,28 +150,28 @@
     if (today.count > 0)
         [self.historyDataArray addObject:[@{
                                             @"data": today,
-                                            @"sectionTitle": NSLocalizedString(@"history-section-today", nil),
+                                            @"sectionTitle": MWLocalizedString(@"history-section-today", nil),
                                             @"sectionDateString": [self getHistorySectionTitleForToday]
                                             }
                                           mutableCopy]];
     if (yesterday.count > 0)
         [self.historyDataArray addObject:[@{
                                             @"data": yesterday,
-                                            @"sectionTitle": NSLocalizedString(@"history-section-yesterday", nil),
+                                            @"sectionTitle": MWLocalizedString(@"history-section-yesterday", nil),
                                             @"sectionDateString": [self getHistorySectionTitleForYesterday]
                                             }
                                           mutableCopy]];
     if (lastWeek.count > 0)
         [self.historyDataArray addObject:[@{
                                             @"data": lastWeek,
-                                            @"sectionTitle": NSLocalizedString(@"history-section-lastweek", nil),
+                                            @"sectionTitle": MWLocalizedString(@"history-section-lastweek", nil),
                                             @"sectionDateString": [self getHistorySectionTitleForLastWeek]
                                             }
                                           mutableCopy]];
     if (lastMonth.count > 0)
         [self.historyDataArray addObject:[@{
                                             @"data": lastMonth,
-                                            @"sectionTitle": NSLocalizedString(@"history-section-lastmonth", nil),
+                                            @"sectionTitle": MWLocalizedString(@"history-section-lastmonth", nil),
                                             @"sectionDateString": [self getHistorySectionTitleForLastMonth]
                                             }
                                           mutableCopy]];

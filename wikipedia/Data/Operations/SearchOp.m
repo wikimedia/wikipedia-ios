@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SearchOp.h"
+#import "WikipediaAppUtils.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSURLRequest+DictionaryRequest.h"
@@ -64,7 +65,7 @@
             if (output.count == 0) {
                 NSMutableDictionary *errorDict = @{}.mutableCopy;
                 
-                errorDict[NSLocalizedDescriptionKey] = NSLocalizedString(@"search-no-matches", nil);
+                errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"search-no-matches", nil);
                 
                 // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
                 weakSelf.error = [NSError errorWithDomain:@"Search Op" code:002 userInfo:errorDict];

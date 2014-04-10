@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "PreviewAndSaveViewController.h"
+#import "WikipediaAppUtils.h"
 #import "PreviewWikiTextOp.h"
 #import "UIViewController+Alert.h"
 #import "ArticleCoreDataObjects.h"
@@ -183,7 +184,7 @@ typedef enum {
     if (isAleadyPreviewing) return;
     isAleadyPreviewing = YES;
 
-    [self showAlert:NSLocalizedString(@"wikitext-preview-changes", nil)];
+    [self showAlert:MWLocalizedString(@"wikitext-preview-changes", nil)];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
 
     PreviewWikiTextOp *previewWikiTextOp =
@@ -273,16 +274,16 @@ typedef enum {
         [self highlightProgressiveButton:NO];
 
         TitleSubtitleView *saveAnonItemView =
-        [[TitleSubtitleView alloc] initWithTitle: NSLocalizedString(@"wikitext-upload-save-anonymously", nil)
-                                        subTitle: NSLocalizedString(@"wikitext-upload-save-anonymously-warning", nil)
+        [[TitleSubtitleView alloc] initWithTitle: MWLocalizedString(@"wikitext-upload-save-anonymously", nil)
+                                        subTitle: MWLocalizedString(@"wikitext-upload-save-anonymously-warning", nil)
                                   titleTextColor: [UIColor whiteColor]
                                subTitleTextColor: [UIColor colorWithWhite:0.75 alpha:1.0]
                                  backgroundColor: [UIColor darkGrayColor]];
         saveAnonItemView.tag = TOP_ACTION_SHEET_SAVE;
         
         TitleSubtitleView *saveLoginItemView =
-        [[TitleSubtitleView alloc] initWithTitle: NSLocalizedString(@"wikitext-upload-save-sign-in", nil)
-                                        subTitle: NSLocalizedString(@"wikitext-upload-save-sign-in-benefits", nil)
+        [[TitleSubtitleView alloc] initWithTitle: MWLocalizedString(@"wikitext-upload-save-sign-in", nil)
+                                        subTitle: MWLocalizedString(@"wikitext-upload-save-sign-in-benefits", nil)
                                   titleTextColor: [UIColor whiteColor]
                                subTitleTextColor: [UIColor colorWithWhite:0.75 alpha:1.0]
                                  backgroundColor: WMF_COLOR_BLUE];
@@ -307,7 +308,7 @@ typedef enum {
 
     ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
 
-    [self showAlert:NSLocalizedString(@"wikitext-upload-save", nil)];
+    [self showAlert:MWLocalizedString(@"wikitext-upload-save", nil)];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
 
     NSManagedObjectID *articleID = section.article.objectID;

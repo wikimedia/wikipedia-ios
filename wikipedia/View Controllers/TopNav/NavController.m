@@ -1,6 +1,7 @@
 //  Created by Monte Hurd on 12/16/13.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
+#import "WikipediaAppUtils.h"
 #import "NavBarTextField.h"
 #import "NavController.h"
 #import "Defines.h"
@@ -276,7 +277,7 @@
     self.textField.clearButtonMode = UITextFieldViewModeNever;
     self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [self.textField addTarget:self action:@selector(postNavItemTappedNotification:) forControlEvents:UIControlEventTouchUpInside];
-    self.textField.placeholder = NSLocalizedString(@"search-field-placeholder-text", nil);
+    self.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text", nil);
 
     // Perform search when text entered into textField
     [self.textField addTarget:self action:@selector(searchStringChanged) forControlEvents:UIControlEventEditingChanged];
@@ -422,15 +423,15 @@
     _navBarMode = navBarMode;
     switch (navBarMode) {
         case NAVBAR_MODE_EDIT_WIKITEXT:
-            self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext", nil);
+            self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext", nil);
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_EYE(50)]|";
             break;
         case NAVBAR_MODE_LOGIN:
             self.label.text = (!previewAndSaveVC) ?
-                NSLocalizedString(@"navbar-title-mode-login", nil)
+                MWLocalizedString(@"navbar-title-mode-login", nil)
                 :
-                NSLocalizedString(@"navbar-title-mode-login-and-save", nil)
+                MWLocalizedString(@"navbar-title-mode-login-and-save", nil)
             ;
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
@@ -442,35 +443,35 @@
             break;
         case NAVBAR_MODE_CREATE_ACCOUNT:
             self.label.text = (!previewAndSaveVC) ?
-                NSLocalizedString(@"navbar-title-mode-create-account", nil)
+                MWLocalizedString(@"navbar-title-mode-create-account", nil)
                 :
-                NSLocalizedString(@"navbar-title-mode-create-account-and-save", nil)
+                MWLocalizedString(@"navbar-title-mode-create-account-and-save", nil)
             ;
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
-            self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext-warning", nil);
+            self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-warning", nil);
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW:
-            self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext-disallow", nil);
+            self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-disallow", nil);
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW:
         case NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY:
             self.label.text = (NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW == navBarMode) ?
-                NSLocalizedString(@"navbar-title-mode-edit-wikitext-preview", nil)
+                MWLocalizedString(@"navbar-title-mode-edit-wikitext-preview", nil)
                 :
-                NSLocalizedString(@"navbar-title-mode-edit-wikitext-summary", nil)
+                MWLocalizedString(@"navbar-title-mode-edit-wikitext-summary", nil)
             ;
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_BUTTON_CC(50)][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
-            self.label.text = NSLocalizedString(@"navbar-title-mode-edit-wikitext-captcha", nil);
+            self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-captcha", nil);
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
             break;

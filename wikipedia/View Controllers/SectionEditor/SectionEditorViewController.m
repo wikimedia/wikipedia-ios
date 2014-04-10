@@ -3,6 +3,7 @@
 
 #import "SectionEditorViewController.h"
 
+#import "WikipediaAppUtils.h"
 #import "ArticleDataContextSingleton.h"
 #import "ArticleCoreDataObjects.h"
 #import "Defines.h"
@@ -145,7 +146,7 @@
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_EYE:
             if (![self changesMade]) {
-                [self showAlert:NSLocalizedString(@"wikitext-preview-changes-none", nil)];
+                [self showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil)];
                 [self showAlert:@""];
                 break;
             }
@@ -182,13 +183,13 @@
 
 -(void)loadLatestWikiTextForSectionFromServer
 {
-    [self showAlert:NSLocalizedString(@"wikitext-downloading", nil)];
+    [self showAlert:MWLocalizedString(@"wikitext-downloading", nil)];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
     
     DownloadSectionWikiTextOp *downloadWikiTextOp = [[DownloadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index completionBlock:^(NSString *revision){
         
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-            [self showAlert:NSLocalizedString(@"wikitext-download-success", nil)];
+            [self showAlert:MWLocalizedString(@"wikitext-download-success", nil)];
             [self showAlert:@""];
             self.unmodifiedWikiText = revision;
             self.editTextView.attributedText = [self getAttributedString:revision];

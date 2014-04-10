@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "LanguagesTableVC.h"
+#import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "DownloadLangLinksOp.h"
 #import "QueuesSingleton.h"
@@ -220,7 +221,7 @@
     textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     textField.spellCheckingType = UITextSpellCheckingTypeNo;
     textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    textField.placeholder = NSLocalizedString(@"article-languages-filter-placeholder", nil);
+    textField.placeholder = MWLocalizedString(@"article-languages-filter-placeholder", nil);
     textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     return textField;
 }
@@ -229,7 +230,7 @@
 {
     LanguagesSectionHeadingLabel *label = [[LanguagesSectionHeadingLabel alloc] init];
     label.translatesAutoresizingMaskIntoConstraints = NO;
-    label.text = NSLocalizedString(@"article-languages-label", nil);
+    label.text = MWLocalizedString(@"article-languages-label", nil);
     return label;
 }
 
@@ -239,7 +240,7 @@
     cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
     cancelButton.titleLabel.font = [UIFont systemFontOfSize:14];
     cancelButton.userInteractionEnabled = YES;
-    [cancelButton setTitle:NSLocalizedString(@"article-languages-cancel", nil) forState:UIControlStateNormal];
+    [cancelButton setTitle:MWLocalizedString(@"article-languages-cancel", nil) forState:UIControlStateNormal];
     [cancelButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(hide) forControlEvents: UIControlEventTouchUpInside];
     [cancelButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
@@ -286,7 +287,7 @@
 
 -(void)downloadLangLinkData
 {
-    [self showAlert:NSLocalizedString(@"article-languages-downloading", nil)];
+    [self showAlert:MWLocalizedString(@"article-languages-downloading", nil)];
 
     DownloadLangLinksOp *langLinksOp =
     [[DownloadLangLinksOp alloc] initForPageTitle: [SessionSingleton sharedInstance].currentArticleTitle

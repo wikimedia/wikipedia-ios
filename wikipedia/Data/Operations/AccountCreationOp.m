@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "AccountCreationOp.h"
+#import "WikipediaAppUtils.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSURLRequest+DictionaryRequest.h"
@@ -108,7 +109,7 @@
                     NSMutableDictionary *errorDict = @{}.mutableCopy;
 
                     if (weakSelf.jsonRetrieved[@"createaccount"][@"captcha"]) {
-                        errorDict[NSLocalizedDescriptionKey] = NSLocalizedString(@"account-creation-captcha-required", nil);
+                        errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"account-creation-captcha-required", nil);
                         
                         // Make the capcha id and url available from the error.
                         errorDict[@"captchaId"] = weakSelf.jsonRetrieved[@"createaccount"][@"captcha"][@"id"];

@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "DownloadSectionWikiTextOp.h"
+#import "WikipediaAppUtils.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSURLRequest+DictionaryRequest.h"
@@ -61,7 +62,7 @@
 
             if (!weakSelf.error && !revision) {
                 NSMutableDictionary *errorDict = [@{} mutableCopy];
-                errorDict[NSLocalizedDescriptionKey] = NSLocalizedString(@"wikitext-download-failed", nil);
+                errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"wikitext-download-failed", nil);
                 
                 // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
                 weakSelf.error = [NSError errorWithDomain:@"Download Wikitext Op" code:002 userInfo:errorDict];

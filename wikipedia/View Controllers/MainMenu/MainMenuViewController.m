@@ -193,13 +193,13 @@ typedef enum {
     NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
     
     NSAttributedString *searchWikiTitle =
-    [NSLocalizedString(@"main-menu-language-title", nil) attributedStringWithAttributes: nil
+    [MWLocalizedString(@"main-menu-language-title", nil) attributedStringWithAttributes: nil
                                                                     substitutionStrings: @[[SessionSingleton sharedInstance].domainName]
                                                                  substitutionAttributes: @[self.self.highlightedTextAttributes]
      ];
     
     NSAttributedString *saveArticleTitle =
-    [NSLocalizedString(@"main-menu-current-article-save", nil) attributedStringWithAttributes: nil
+    [MWLocalizedString(@"main-menu-current-article-save", nil) attributedStringWithAttributes: nil
                                                                           substitutionStrings: @[currentArticleTitle]
                                                                        substitutionAttributes: @[self.self.highlightedTextAttributes]
      ];
@@ -214,21 +214,21 @@ typedef enum {
           }.mutableCopy
       ,
       @{
-          @"title": NSLocalizedString(@"main-menu-random", nil),
+          @"title": MWLocalizedString(@"main-menu-random", nil),
           @"tag": @(ROW_INDEX_RANDOM),
           @"imageName": @"main_menu_dice_white.png",
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
-          @"title": NSLocalizedString(@"main-menu-show-history", nil),
+          @"title": MWLocalizedString(@"main-menu-show-history", nil),
           @"tag": @(ROW_INDEX_HISTORY),
           @"imageName": @"main_menu_clock_white.png",
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
-          @"title": NSLocalizedString(@"main-menu-show-saved", nil),
+          @"title": MWLocalizedString(@"main-menu-show-saved", nil),
           @"tag": @(ROW_INDEX_SAVED_PAGES),
           @"imageName": @"main_menu_bookmark_white.png",
           @"highlighted": @YES,
@@ -250,14 +250,14 @@ typedef enum {
           }.mutableCopy
       ,
       @{
-          @"title": NSLocalizedString(@"zero-warn-when-leaving", nil),
+          @"title": MWLocalizedString(@"zero-warn-when-leaving", nil),
           @"tag": @(ROW_INDEX_ZERO_WARN_WHEN_LEAVING),
           @"imageName": @"main_menu_flag_white.png",
           @"highlighted": @([SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving),
           }.mutableCopy
       ,
       @{
-          @"title": NSLocalizedString(@"main-menu-send-feedback", nil),
+          @"title": MWLocalizedString(@"main-menu-send-feedback", nil),
           @"tag": @(ROW_INDEX_SEND_FEEDBACK),
           @"imageName": @"main_menu_envelope_white.png",
           @"highlighted": @YES,
@@ -278,7 +278,7 @@ typedef enum {
     NSString *loginImageName = nil;
     NSString *userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
     if(userName){
-        loginTitle = [NSLocalizedString(@"main-menu-account-logout", nil) stringByAppendingString:@" $1"];
+        loginTitle = [MWLocalizedString(@"main-menu-account-logout", nil) stringByAppendingString:@" $1"];
 
         loginTitle =
         [loginTitle attributedStringWithAttributes: nil
@@ -288,7 +288,7 @@ typedef enum {
         
         loginImageName = @"main_menu_face_smile_white.png";
     }else{
-        loginTitle = NSLocalizedString(@"main-menu-account-login", nil);
+        loginTitle = MWLocalizedString(@"main-menu-account-login", nil);
         loginImageName = @"main_menu_face_sleep_white.png";
     }
     
@@ -331,7 +331,7 @@ typedef enum {
             }
                 break;
             case ROW_INDEX_RANDOM:
-                [self showAlert:NSLocalizedString(@"fetching-random-article", nil)];
+                [self showAlert:MWLocalizedString(@"fetching-random-article", nil)];
                 [self fetchRandomArticle];
                 break;
             case ROW_INDEX_HISTORY:
@@ -400,7 +400,7 @@ typedef enum {
     
     languagesTableVC.selectionBlock = ^(NSDictionary *selectedLangInfo){
 
-        [self showAlert:NSLocalizedString(@"main-menu-language-selection-saved", nil)];
+        [self showAlert:MWLocalizedString(@"main-menu-language-selection-saved", nil)];
         [self showAlert:@""];
 
         [self switchPreferredLanguageToId:selectedLangInfo[@"code"] name:selectedLangInfo[@"name"]];
@@ -456,7 +456,7 @@ typedef enum {
     CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
     CGPoint destPoint = [self getLocationForView:savedPagesLabel xf:scale];
     
-    NSString *title = NSLocalizedString(@"main-menu-current-article-save", nil);
+    NSString *title = MWLocalizedString(@"main-menu-current-article-save", nil);
     NSAttributedString *attributedTitle =
     [title attributedStringWithAttributes: @{NSForegroundColorAttributeName: [UIColor clearColor]}
                       substitutionStrings: @[[SessionSingleton sharedInstance].currentArticleTitle]

@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SavedPagesViewController.h"
+#import "WikipediaAppUtils.h"
 #import "ArticleDataContextSingleton.h"
 #import "ArticleCoreDataObjects.h"
 #import "WebViewController.h"
@@ -71,7 +72,7 @@
     [self getSavedPagesData];
 
     SavedPagesTableHeadingLabel *savedPagesLabel = [[SavedPagesTableHeadingLabel alloc] initWithFrame:CGRectMake(0, 0, 10, 53)];
-    savedPagesLabel.text = NSLocalizedString(@"saved-pages-title", nil);
+    savedPagesLabel.text = MWLocalizedString(@"saved-pages-title", nil);
     savedPagesLabel.textAlignment = NSTextAlignmentCenter;
     savedPagesLabel.font = [UIFont boldSystemFontOfSize:20.0];
     savedPagesLabel.textColor = SAVED_PAGES_TITLE_TEXT_COLOR;

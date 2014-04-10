@@ -3,6 +3,7 @@
 
 #import "WebViewController.h"
 
+#import "WikipediaAppUtils.h"
 #import "DownloadWikipediaZeroMessageOp.h"
 #import "ArticleDataContextSingleton.h"
 #import "SectionEditorViewController.h"
@@ -589,11 +590,11 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                 [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
                 weakSelf.externalUrl = href;
                 UIAlertView *dialog = [[UIAlertView alloc]
-                                       initWithTitle:NSLocalizedString(@"zero-interstitial-title", nil)
-                                       message:NSLocalizedString(@"zero-interstitial-leave-app", nil)
+                                       initWithTitle:MWLocalizedString(@"zero-interstitial-title", nil)
+                                       message:MWLocalizedString(@"zero-interstitial-leave-app", nil)
                                        delegate:weakSelf
-                                       cancelButtonTitle:NSLocalizedString(@"zero-interstitial-cancel", nil)
-                                       otherButtonTitles:NSLocalizedString(@"zero-interstitial-continue", nil)
+                                       cancelButtonTitle:MWLocalizedString(@"zero-interstitial-cancel", nil)
+                                       otherButtonTitles:MWLocalizedString(@"zero-interstitial-continue", nil)
                                        , nil];
                 [dialog show];
             } else {
@@ -819,7 +820,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [self hideKeyboard];
     
     // Show loading message
-    [self showAlert:NSLocalizedString(@"search-loading-section-zero", nil)];
+    [self showAlert:MWLocalizedString(@"search-loading-section-zero", nil)];
     
     [self retrieveArticleForPageTitle: cleanTitle
                                domain: domain
@@ -878,7 +879,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // If article with sections just show them (unless needsRefresh is YES)
         if (article.section.count > 0 && !article.needsRefresh.boolValue) {
             [self displayArticle:articleID mode:DISPLAY_ALL_SECTIONS];
-            [self showAlert:NSLocalizedString(@"search-loading-article-loaded", nil)];
+            [self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil)];
             [self showAlert:@""];
             return;
         }
@@ -993,7 +994,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         }
 
         [self displayArticle:articleID mode:DISPLAY_LEAD_SECTION];
-        [self showAlert:NSLocalizedString(@"search-loading-section-remaining", nil)];
+        [self showAlert:MWLocalizedString(@"search-loading-section-remaining", nil)];
 
     } cancelledBlock:^(NSError *error){
 
@@ -1053,7 +1054,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         [articleDataContext_.workerContext save:&error];
         
         [self displayArticle:articleID mode:DISPLAY_APPEND_NON_LEAD_SECTIONS];
-        [self showAlert:NSLocalizedString(@"search-loading-article-loaded", nil)];
+        [self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil)];
         [self showAlert:@""];
 
     } cancelledBlock:^(NSError *error){
@@ -1345,7 +1346,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                  dispatch_async(dispatch_get_main_queue(), ^(){
                  
                      NavBarTextField *textField = [NAV getNavBarItem:NAVBAR_TEXT_FIELD];
-                     textField.placeholder = NSLocalizedString(@"search-field-placeholder-text-zero", nil);
+                     textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
                      
                      NAV.navBarStyle = NAVBAR_STYLE_NIGHT;
                      
@@ -1367,10 +1368,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     } else {
     
         NavBarTextField *textField = [NAV getNavBarItem:NAVBAR_TEXT_FIELD];
-        textField.placeholder = NSLocalizedString(@"search-field-placeholder-text", nil);
+        textField.placeholder = MWLocalizedString(@"search-field-placeholder-text", nil);
 
         NAV.navBarStyle = NAVBAR_STYLE_DAY;
-        [self showAlert:NSLocalizedString(@"zero-charged-verbiage", nil)];
+        [self showAlert:MWLocalizedString(@"zero-charged-verbiage", nil)];
         [self promptFirstTimeZeroOffIfAppropriate];
     }
 }
@@ -1386,13 +1387,13 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 // Don't call this directly. Use promptFirstTimeZeroOnWithMessageIfAppropriate or promptFirstTimeZeroOffIfAppropriate
 -(void) promptFirstTimeZeroOnOrOff:(NSString *) message
 {
-    self.externalUrl = NSLocalizedString(@"zero-webpage-url", nil);
+    self.externalUrl = MWLocalizedString(@"zero-webpage-url", nil);
     UIAlertView *dialog = [[UIAlertView alloc]
-                           initWithTitle: (message ? message : NSLocalizedString(@"zero-charged-verbiage", nil))
-                           message:NSLocalizedString(@"zero-learn-more", nil)
+                           initWithTitle: (message ? message : MWLocalizedString(@"zero-charged-verbiage", nil))
+                           message:MWLocalizedString(@"zero-learn-more", nil)
                            delegate:self
-                           cancelButtonTitle:NSLocalizedString(@"zero-learn-more-no-thanks", nil)
-                           otherButtonTitles:NSLocalizedString(@"zero-learn-more-learn-more", nil)
+                           cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
+                           otherButtonTitles:MWLocalizedString(@"zero-learn-more-learn-more", nil)
                            , nil];
     [dialog show];
 }
@@ -1501,7 +1502,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         }
 
         NSString *lineOneText = @"";
-        NSString *lineTwoText = NSLocalizedString(@"article-pull-to-refresh-prompt", nil);
+        NSString *lineTwoText = MWLocalizedString(@"article-pull-to-refresh-prompt", nil);
 
         if (scrollView.contentOffset.y > -(pullDistance * 0.35)){
             lineOneText = @"▫︎ ▫︎ ▫︎ ▫︎ ▫︎";
@@ -1513,7 +1514,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             lineOneText = @"▫︎ ▪︎ ▪︎ ▪︎ ▫︎";
         }else{
             lineOneText = @"▪︎ ▪︎ ▪︎ ▪︎ ▪︎";
-            lineTwoText = NSLocalizedString(@"article-pull-to-refresh-is-refreshing", nil);
+            lineTwoText = MWLocalizedString(@"article-pull-to-refresh-is-refreshing", nil);
         }
 
         self.pullToRefreshLabel.text = [NSString stringWithFormat:@"%@\n%@", lineOneText, lineTwoText];
