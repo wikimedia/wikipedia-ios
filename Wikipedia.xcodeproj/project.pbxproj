@@ -158,7 +158,6 @@
 		04DB0BE618BC2E1E00B4BCF3 /* CaptchaResetOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DB0BE518BC2E1E00B4BCF3 /* CaptchaResetOp.m */; };
 		04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */; };
 		04DD89B118BFE63A00DD5DAD /* PreviewAndSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD89B018BFE63A00DD5DAD /* PreviewAndSaveViewController.m */; };
-		04E9A78318F73C7300F7ECF7 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 04E9A78218F73C7200F7ECF7 /* www */; };
 		04EA3A5B18D25D7700E2F5C4 /* UINavigationController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EA3A5A18D25D7700E2F5C4 /* UINavigationController+Alert.m */; };
 		04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */; };
 		04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2ED186FB2D100468738 /* TOCSectionCellView.m */; };
@@ -1442,7 +1441,6 @@
 				042C6FC518A350C2003712D7 /* button_preview_white.png in Resources */,
 				04478657185159700050563B /* history-random.png in Resources */,
 				04123638189C29EA00E0CF8E /* abuse-filter-flag-white@2x.png in Resources */,
-				04E9A78318F73C7300F7ECF7 /* www in Resources */,
 				042C6FB918A350C2003712D7 /* button_arrow_left.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
