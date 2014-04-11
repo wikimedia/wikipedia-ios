@@ -24,6 +24,7 @@
 #import "TitleSubtitleView.h"
 #import "Defines.h"
 #import "WMF_Colors.h"
+#import "CommunicationBridge.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -50,9 +51,26 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewWebViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet UIWebView *previewWebView;
 
+@property (strong, nonatomic) CommunicationBridge *bridge;
+
 @end
 
 @implementation PreviewAndSaveViewController
+
+-(void)resetBridge
+{
+    self.bridge = [[CommunicationBridge alloc] initWithWebView:self.previewWebView];
+
+    [self.bridge addListener:@"DOMLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
+
+    }];
+
+    __weak PreviewAndSaveViewController *weakSelf = self;
+
+    [self.bridge addListener:@"linkClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        [weakSelf.previewWebView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"alert('%@')", payload[@"href"]]];
+    }];
+}
 
 // Handle nav bar taps.
 - (void)navItemTappedNotification:(NSNotification *)notification
@@ -197,9 +215,8 @@ typedef enum {
 
             [self showAlert:@""];
 
-            NSURL *baseUrl = [[SessionSingleton sharedInstance] urlForDomain:[SessionSingleton sharedInstance].currentArticleDomain];
-            
-            [self.previewWebView loadHTMLString:result baseURL:baseUrl];
+            [self resetBridge];
+            [self.bridge sendMessage:@"append" withPayload:@{@"html": result}];
 
             isAleadyPreviewing = NO;
             
