@@ -30,6 +30,7 @@
         self.zeroRatedMessageStringQ = [[NSOperationQueue alloc] init];
         self.accountCreationQ = [[NSOperationQueue alloc] init];
         self.randomArticleQ = [[NSOperationQueue alloc] init];
+        self.eventLoggingQ = [[NSOperationQueue alloc] init];
         //[self setupQMonitorLogging];
     }
     return self;

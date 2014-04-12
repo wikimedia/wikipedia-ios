@@ -19,6 +19,8 @@
 
 @property (strong, nonatomic) NSOperationQueue *randomArticleQ;
 
+@property (strong, nonatomic) NSOperationQueue *eventLoggingQ;
+
 + (QueuesSingleton *)sharedInstance;
 
 @end

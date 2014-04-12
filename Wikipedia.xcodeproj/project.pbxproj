@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0400EB0318AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400EB0218AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m */; };
 		0402E10F18A3ABA900C3B679 /* NavBarContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402E10E18A3ABA900C3B679 /* NavBarContainerView.m */; };
+		0406CEF618F8C390007EE43E /* LogEventOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0406CEF518F8C390007EE43E /* LogEventOp.m */; };
+		0406CEF918F8D6F7007EE43E /* UIViewController+LogEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0406CEF818F8D6F7007EE43E /* UIViewController+LogEvent.m */; };
 		04082B5318ADA25A00FAF3D6 /* text_field_x_circle_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 04082B5118ADA25A00FAF3D6 /* text_field_x_circle_gray.png */; };
 		04082B5518ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04082B5218ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png */; };
 		04090A33187F53E400577EDF /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 04090A32187F53E400577EDF /* clear.png */; };
@@ -188,6 +190,10 @@
 		0400EB0218AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SearchNavStack.m"; sourceTree = "<group>"; };
 		0402E10D18A3ABA900C3B679 /* NavBarContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavBarContainerView.h; sourceTree = "<group>"; };
 		0402E10E18A3ABA900C3B679 /* NavBarContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavBarContainerView.m; sourceTree = "<group>"; };
+		0406CEF418F8C390007EE43E /* LogEventOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogEventOp.h; sourceTree = "<group>"; };
+		0406CEF518F8C390007EE43E /* LogEventOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogEventOp.m; sourceTree = "<group>"; };
+		0406CEF718F8D6F7007EE43E /* UIViewController+LogEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LogEvent.h"; sourceTree = "<group>"; };
+		0406CEF818F8D6F7007EE43E /* UIViewController+LogEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LogEvent.m"; sourceTree = "<group>"; };
 		04082B5118ADA25A00FAF3D6 /* text_field_x_circle_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = text_field_x_circle_gray.png; sourceTree = "<group>"; };
 		04082B5218ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text_field_x_circle_gray@2x.png"; sourceTree = "<group>"; };
 		04090A32187F53E400577EDF /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear.png; sourceTree = "<group>"; };
@@ -944,6 +950,8 @@
 			isa = PBXGroup;
 			children = (
 				043F18DA18D9691D00D8489A /* TopActionSheet */,
+				0406CEF718F8D6F7007EE43E /* UIViewController+LogEvent.h */,
+				0406CEF818F8D6F7007EE43E /* UIViewController+LogEvent.m */,
 				04B91AA518E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.h */,
 				04B91AA618E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m */,
 				04DB0BE818BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.h */,
@@ -1015,6 +1023,8 @@
 		04D149E5188889CA006B4104 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				0406CEF418F8C390007EE43E /* LogEventOp.h */,
+				0406CEF518F8C390007EE43E /* LogEventOp.m */,
 				043C668818BE9A8E00580E9B /* PreviewWikiTextOp.h */,
 				043C668918BE9A8E00580E9B /* PreviewWikiTextOp.m */,
 				0476967A18BBFC9400071963 /* AccountCreationOp.h */,
@@ -1530,6 +1540,7 @@
 				0433542218A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */,
 				043F18E918D9885F00D8489A /* TitleSubtitleView.m in Sources */,
 				C958EE3418CE73E600148D13 /* DownloadTitlesForRandomArticlesOp.m in Sources */,
+				0406CEF918F8D6F7007EE43E /* UIViewController+LogEvent.m in Sources */,
 				04B91AB718E4D5B200FFAA1C /* TabularScrollView.m in Sources */,
 				04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */,
 				04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */,
@@ -1555,6 +1566,7 @@
 				D4991445181D51DE00E6073C /* main.m in Sources */,
 				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
 				0447862F185145090050563B /* HistoryResultCell.m in Sources */,
+				0406CEF618F8C390007EE43E /* LogEventOp.m in Sources */,
 				0476967C18BBFC9400071963 /* AccountCreationOp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

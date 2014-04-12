@@ -26,6 +26,7 @@
 #import "UIViewController+HideKeyboard.h"
 #import "UIWebView+HideScrollGradient.h"
 #import "UIWebView+ElementLocation.h"
+#import "UIViewController+LogEvent.h"
 #import "UIView+RemoveConstraints.h"
 #import "UIViewController+Alert.h"
 #import "Section+ImageRecords.h"
@@ -607,6 +608,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [self.bridge addListener:@"editClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
         [weakSelf tocHide];
         weakSelf.sectionToEditIndex = [[payload[@"href"] stringByReplacingOccurrencesOfString:@"edit_section_" withString:@""] integerValue];
+
+        [weakSelf logEvent:@{@"action": @"start"} schema:LOG_SCHEMA_EDIT];
 
         [weakSelf.self showSectionEditor];
     }];
