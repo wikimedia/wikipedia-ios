@@ -14,6 +14,7 @@
 #import "PreviewAndSaveViewController.h"
 #import "UIButton+ColorMask.h"
 #import "WMF_Colors.h"
+#import "MWLanguageInfo.h"
 
 #define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:14.0f]
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN 25.0f
@@ -185,7 +186,8 @@
 {
     [self showAlert:MWLocalizedString(@"wikitext-downloading", nil)];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
-    
+    NSString *domain = section.article.domain;
+
     DownloadSectionWikiTextOp *downloadWikiTextOp = [[DownloadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index completionBlock:^(NSString *revision){
         
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
@@ -194,6 +196,14 @@
             self.unmodifiedWikiText = revision;
             self.editTextView.attributedText = [self getAttributedString:revision];
             //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
+            
+            MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:domain];
+            UITextRange *range = [self.editTextView textRangeFromPosition:self.editTextView.beginningOfDocument toPosition: self.editTextView.endOfDocument];
+            if ([lang.dir isEqualToString:@"rtl"]) {
+                [self.editTextView setBaseWritingDirection:UITextWritingDirectionRightToLeft forRange:range];
+            } else {
+                [self.editTextView setBaseWritingDirection:UITextWritingDirectionLeftToRight forRange:range];
+            }
         }];
         
     } cancelledBlock:^(NSError *error){
