@@ -25,6 +25,7 @@
 #import "Defines.h"
 #import "WMF_Colors.h"
 #import "CommunicationBridge.h"
+#import "UIViewController+LogEvent.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -81,11 +82,23 @@ typedef enum {
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_ARROW_LEFT:
             [self.navigationController popViewControllerAnimated:YES];
+            
+            if(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING){
+                [self logEvent: @{@"action": @"abuseFilterWarningBack"}
+                        schema: LOG_SCHEMA_EDIT];
+            }
+            
             break;
         case NAVBAR_BUTTON_CHECK:
         case NAVBAR_BUTTON_ARROW_RIGHT: /* for captcha submit button */
             {
                 [self saveOrShowSignInActionSheetIfNotLoggedIn];
+
+                if(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING){
+                    [self logEvent: @{@"action": @"abuseFilterWarningIgnore"}
+                            schema: LOG_SCHEMA_EDIT];
+                }
+
             }
             break;
         default:
@@ -117,6 +130,9 @@ typedef enum {
                                                object: nil];
     
     self.previewWebViewBottomConstraint.constant = EDIT_SUMMARY_DOCK_DISTANCE_FROM_BOTTOM;
+    
+    [self logEvent: @{@"action": @"preview"}
+            schema: LOG_SCHEMA_EDIT];
 }
 
 -(void)htmlAlertWasHidden
@@ -272,6 +288,10 @@ typedef enum {
         }
             break;
         case TOP_ACTION_SHEET_SAVE:
+
+            [self logEvent: @{@"action": @"saveAnonExplicit"}
+                    schema: LOG_SCHEMA_EDIT];
+
             [self save];
             break;
         default:
@@ -284,7 +304,15 @@ typedef enum {
 
 - (void)saveOrShowSignInActionSheetIfNotLoggedIn
 {
-    if(![SessionSingleton sharedInstance].keychainCredentials.userName){
+    if(
+        ![SessionSingleton sharedInstance].keychainCredentials.userName
+        &&
+        !(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA)
+        &&
+        !(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING)
+        &&
+        !(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW)
+       ){
         
         NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY;
         
@@ -316,6 +344,15 @@ typedef enum {
 
 - (void)save
 {
+    [self logEvent: @{@"action": @"save"}
+            schema: LOG_SCHEMA_EDIT];
+
+    NSString *userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
+    if (userName) {
+        [self logEvent: @{@"userName": userName}
+                schema: LOG_SCHEMA_EDIT];
+    }
+
     NSString *editSummary = [self.editSummaryViewController getSummary];
 
     // Use static flag to prevent save when save already in progress.
@@ -343,6 +380,11 @@ typedef enum {
             }];
         }
         
+        if(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA){
+            [self logEvent: @{@"action": @"captchaSolve"}
+                    schema: LOG_SCHEMA_EDIT];
+        }
+        
     } cancelledBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;
         [self showAlert:errorMsg];
@@ -356,6 +398,12 @@ typedef enum {
         switch (error.code) {
             case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
             {
+
+                if(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA){
+                    [self logEvent: @{@"action": @"captchaFailure"}
+                            schema: LOG_SCHEMA_EDIT];
+                }
+            
                 // If the server said a captcha was required, present the captcha image.
                 NSString *captchaUrl = error.userInfo[@"captchaUrl"];
                 NSString *captchaId = error.userInfo[@"captchaId"];
@@ -418,10 +466,18 @@ typedef enum {
                         NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW;
                         bannerImage = @"abuse-filter-disallowed.png";
                         bannerColor = WMF_COLOR_RED;
+
+                        [self logEvent: @{@"action": @"abuseFilterError"}
+                                schema: LOG_SCHEMA_EDIT];
+
                     }else{
                         NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_WARNING;
                         bannerImage = @"abuse-filter-flag-white.png";
                         bannerColor = WMF_COLOR_ORANGE;
+
+                        [self logEvent: @{@"action": @"abuseFilterWarning"}
+                                schema: LOG_SCHEMA_EDIT];
+
                     }
                     
                     NSString *restyledWarningHtml = [self restyleAbuseFilterWarningHtml:warningHtml];
@@ -432,6 +488,17 @@ typedef enum {
                      ];
                 });
             }
+                break;
+
+            case WIKITEXT_UPLOAD_ERROR_SERVER:
+            case WIKITEXT_UPLOAD_ERROR_UNKNOWN:
+
+                [self logEvent: @{@"action": @"error"}
+                        schema: LOG_SCHEMA_EDIT];
+                
+                [self logEvent: @{@"errorText": error.localizedDescription}
+                        schema: LOG_SCHEMA_EDIT];
+
                 break;
                 
             default:
@@ -456,6 +523,9 @@ typedef enum {
                                         //NSLog(@"article.domain = %@", article.domain);
                                         editTokens[article.domain] = editToken;
                                         [SessionSingleton sharedInstance].keychainCredentials.editTokens = editTokens;
+
+                                        [self logEvent: @{@"editSessionToken": editToken}
+                                                schema: LOG_SCHEMA_EDIT];
                                     }
                                 }];
                             }
@@ -527,6 +597,9 @@ typedef enum {
 
 -(void)revealCaptcha
 {
+    [self logEvent: @{@"action": @"captchaShown"}
+            schema: LOG_SCHEMA_EDIT];
+
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.35];
     [UIView setAnimationTransition: UIViewAnimationTransitionNone

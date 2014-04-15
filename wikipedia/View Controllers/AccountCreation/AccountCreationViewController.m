@@ -15,6 +15,7 @@
 #import "LoginViewController.h"
 #import "UINavigationController+SearchNavStack.h"
 #import "WMF_Colors.h"
+#import "UIViewController+LogEvent.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -71,6 +72,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navItemTappedNotification:) name:@"NavItemTapped" object:nil];
     
     [self.usernameField becomeFirstResponder];
+
+    [self logEvent: @{@"action": @"start"}
+            schema: LOG_SCHEMA_CREATEACCOUNT];
 
     //[self prepopulateTextFieldsForDebugging];
 }
@@ -153,7 +157,11 @@
     if (_showCaptchaContainer != showCaptchaContainer) {
         _showCaptchaContainer = showCaptchaContainer;
         if (showCaptchaContainer){
-            [self.captchaViewController.captchaTextBox performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
+            [self.captchaViewController.captchaTextBox performSelector: @selector(becomeFirstResponder)
+                                                            withObject: nil afterDelay:0.4f];
+            
+            [self logEvent: @{@"action": @"captchaShown"}
+                    schema: LOG_SCHEMA_CREATEACCOUNT];
         }
     }
 }
@@ -312,6 +320,9 @@
                                   
                                   //NSLog(@"AccountCreationOp result = %@", result);
                                   
+                                  [self logEvent: @{@"action": @"accountCreated"}
+                                          schema: LOG_SCHEMA_CREATEACCOUNT];
+
                                   dispatch_async(dispatch_get_main_queue(), ^(){
                                       [self showAlert:result];
                                       [self showAlert:@""];
@@ -326,6 +337,12 @@
                                   
                               } errorBlock: ^(NSError *error){
                                   [self showAlert:error.localizedDescription];
+
+                                  [self logEvent: @{@"action": @"error"}
+                                          schema: LOG_SCHEMA_CREATEACCOUNT];
+                                  
+                                  [self logEvent: @{@"errorText": error.localizedDescription}
+                                          schema: LOG_SCHEMA_CREATEACCOUNT];
 
                                   switch (error.code) {
                                       case ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA:{

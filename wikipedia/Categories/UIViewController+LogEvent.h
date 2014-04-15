@@ -6,6 +6,7 @@
 
 @interface UIViewController (LogEvent)
 
--(void)logEvent:(NSDictionary *)event schema:(EventLogSchema)schema;
+-(void)logEvent: (NSDictionary *)event
+         schema: (EventLogSchema)schema;
 
 @end
