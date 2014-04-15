@@ -56,6 +56,14 @@
             
             NSString *zeroRatedMessage = json.count > 0 ? [json objectForKey:@"message"] : nil;
             
+            // For testing Wikipedia Zero visual flourishes.
+            // Go to WebViewController.m and uncomment the W0 part,
+            // then when running the app in the simulator fire the
+            // memory warning to toggle the fake state on or off.
+            if ([SessionSingleton sharedInstance].zeroConfigState.fakeZeroOn) {
+                zeroRatedMessage = @"Free Wikipedia by Test Operator";
+            }
+            
             if (zeroRatedMessage) {
                 completionBlock(zeroRatedMessage);
             }

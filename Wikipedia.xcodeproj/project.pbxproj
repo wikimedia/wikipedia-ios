@@ -11,6 +11,7 @@
 		0402E10F18A3ABA900C3B679 /* NavBarContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402E10E18A3ABA900C3B679 /* NavBarContainerView.m */; };
 		0406CEF618F8C390007EE43E /* LogEventOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0406CEF518F8C390007EE43E /* LogEventOp.m */; };
 		0406CEF918F8D6F7007EE43E /* UIViewController+LogEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0406CEF818F8D6F7007EE43E /* UIViewController+LogEvent.m */; };
+		0406CEFC18FC88A6007EE43E /* ZeroStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0406CEFB18FC88A6007EE43E /* ZeroStatusLabel.m */; };
 		04082B5318ADA25A00FAF3D6 /* text_field_x_circle_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 04082B5118ADA25A00FAF3D6 /* text_field_x_circle_gray.png */; };
 		04082B5518ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04082B5218ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png */; };
 		04090A33187F53E400577EDF /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 04090A32187F53E400577EDF /* clear.png */; };
@@ -194,6 +195,8 @@
 		0406CEF518F8C390007EE43E /* LogEventOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogEventOp.m; sourceTree = "<group>"; };
 		0406CEF718F8D6F7007EE43E /* UIViewController+LogEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LogEvent.h"; sourceTree = "<group>"; };
 		0406CEF818F8D6F7007EE43E /* UIViewController+LogEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LogEvent.m"; sourceTree = "<group>"; };
+		0406CEFA18FC88A6007EE43E /* ZeroStatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZeroStatusLabel.h; sourceTree = "<group>"; };
+		0406CEFB18FC88A6007EE43E /* ZeroStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZeroStatusLabel.m; sourceTree = "<group>"; };
 		04082B5118ADA25A00FAF3D6 /* text_field_x_circle_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = text_field_x_circle_gray.png; sourceTree = "<group>"; };
 		04082B5218ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text_field_x_circle_gray@2x.png"; sourceTree = "<group>"; };
 		04090A32187F53E400577EDF /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear.png; sourceTree = "<group>"; };
@@ -740,6 +743,8 @@
 		04478625185145090050563B /* WebView */ = {
 			isa = PBXGroup;
 			children = (
+				0406CEFA18FC88A6007EE43E /* ZeroStatusLabel.h */,
+				0406CEFB18FC88A6007EE43E /* ZeroStatusLabel.m */,
 				0447862D185145090050563B /* WebViewController.h */,
 				0447862E185145090050563B /* WebViewController.m */,
 			);
@@ -1501,6 +1506,7 @@
 				04293000185FC2C7002A13FC /* QueuesSingleton.m in Sources */,
 				04D34DC91863F6CC00610A87 /* Saved.m in Sources */,
 				04EA3A5B18D25D7700E2F5C4 /* UINavigationController+Alert.m in Sources */,
+				0406CEFC18FC88A6007EE43E /* ZeroStatusLabel.m in Sources */,
 				04D34DE11868E21F00610A87 /* Article+Convenience.m in Sources */,
 				04D34DB91863F69500610A87 /* DiscoveryContext.m in Sources */,
 				04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */,

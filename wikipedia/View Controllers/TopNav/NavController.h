@@ -56,6 +56,9 @@ typedef enum {
                    animated: (BOOL)animated
             discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod;
 
+-(void) promptFirstTimeZeroOnWithMessageIfAppropriate:(NSString *) message;
+-(void) promptFirstTimeZeroOffIfAppropriate;
+
 @end
 
 //TODO: maybe use currentNavBarTextFieldText instead of currentSearchString?

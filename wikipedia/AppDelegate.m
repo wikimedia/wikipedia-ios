@@ -40,7 +40,8 @@
         @"Site": @"wikipedia.org",
         @"ZeroWarnWhenLeaving" : @YES,
         @"ZeroOnDialogShownOnce" : @NO,
-        @"ZeroOffDialogShownOnce" : @NO
+        @"ZeroOffDialogShownOnce" : @NO,
+        @"FakeZeroOn" : @NO
     };
     [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];
 }

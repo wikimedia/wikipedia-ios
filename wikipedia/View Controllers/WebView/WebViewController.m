@@ -32,6 +32,7 @@
 #import "Section+ImageRecords.h"
 #import "NSString+Extras.h"
 
+#import "ZeroStatusLabel.h"
 //#import "UIView+Debugging.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION 0.3f
@@ -81,6 +82,8 @@ typedef enum {
 - (IBAction)backButtonPushed:(id)sender;
 - (IBAction)forwardButtonPushed:(id)sender;
 - (IBAction)languageButtonPushed:(id)sender;
+
+@property (strong, nonatomic) IBOutlet ZeroStatusLabel *zeroStatusLabel;
 
 @end
 
@@ -802,6 +805,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    // Do not remove the following commented toggle. It's for testing W0 stuff.
+    // [[SessionSingleton sharedInstance].zeroConfigState toggleFakeZeroOn];
 }
 
 -(NSString *)cleanTitle:(NSString *)title
@@ -1351,15 +1357,14 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                  
                      NavBarTextField *textField = [NAV getNavBarItem:NAVBAR_TEXT_FIELD];
                      textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
-                     
-                     NAV.navBarStyle = NAVBAR_STYLE_NIGHT;
-                     
+
+                     self.zeroStatusLabel.text = message;
+                     self.zeroStatusLabel.paddingEdgeInsets = UIEdgeInsetsMake(3, 10, 3, 10);
+                     self.zeroStatusLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.93];
+
                      [self showAlert:message];
-                     [self promptFirstTimeZeroOnWithMessageIfAppropriate:message];
+                     [NAV promptFirstTimeZeroOnWithMessageIfAppropriate:message];
                  });
-                 
-                 // [self showHTMLAlert:message bannerImage:nil bannerColor:
-                 // [UIColor colorWithWhite:0.0 alpha:1.0]];
              }
          } cancelledBlock:^(NSError *errorCancel) {
              NSLog(@"error w0 cancel");
@@ -1373,10 +1378,18 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
         NavBarTextField *textField = [NAV getNavBarItem:NAVBAR_TEXT_FIELD];
         textField.placeholder = MWLocalizedString(@"search-field-placeholder-text", nil);
+        NSString *warnVerbiage = MWLocalizedString(@"zero-charged-verbiage", nil);
 
-        NAV.navBarStyle = NAVBAR_STYLE_DAY;
-        [self showAlert:MWLocalizedString(@"zero-charged-verbiage", nil)];
-        [self promptFirstTimeZeroOffIfAppropriate];
+        self.zeroStatusLabel.text = warnVerbiage;
+        self.zeroStatusLabel.backgroundColor = [UIColor redColor];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.zeroStatusLabel.text = @"";
+            self.zeroStatusLabel.paddingEdgeInsets = UIEdgeInsetsZero;
+        });
+
+        [self showAlert:warnVerbiage];
+        [NAV promptFirstTimeZeroOffIfAppropriate];
     }
 }
 
@@ -1385,34 +1398,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     if (1 == buttonIndex) {
         NSURL *url = [NSURL URLWithString:self.externalUrl];
         [[UIApplication sharedApplication] openURL:url];
-    }
-}
-
-// Don't call this directly. Use promptFirstTimeZeroOnWithMessageIfAppropriate or promptFirstTimeZeroOffIfAppropriate
--(void) promptFirstTimeZeroOnOrOff:(NSString *) message
-{
-    self.externalUrl = MWLocalizedString(@"zero-webpage-url", nil);
-    UIAlertView *dialog = [[UIAlertView alloc]
-                           initWithTitle: (message ? message : MWLocalizedString(@"zero-charged-verbiage", nil))
-                           message:MWLocalizedString(@"zero-learn-more", nil)
-                           delegate:self
-                           cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
-                           otherButtonTitles:MWLocalizedString(@"zero-learn-more-learn-more", nil)
-                           , nil];
-    [dialog show];
-}
-
--(void) promptFirstTimeZeroOnWithMessageIfAppropriate:(NSString *) message {
-    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce) {
-        [[SessionSingleton sharedInstance].zeroConfigState setZeroOnDialogShownOnce];
-        [self promptFirstTimeZeroOnOrOff:message];
-    }
-}
-
--(void) promptFirstTimeZeroOffIfAppropriate {
-    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOffDialogShownOnce) {
-        [[SessionSingleton sharedInstance].zeroConfigState setZeroOffDialogShownOnce];
-        [self promptFirstTimeZeroOnOrOff:nil];
     }
 }
 

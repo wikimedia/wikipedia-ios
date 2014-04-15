@@ -181,6 +181,16 @@
     NSString *xcs = [SessionSingleton sharedInstance].zeroConfigState.partnerXcs;
     BOOL zeroProviderChanged = zeroRatedHeaderPresent && ![xZeroRatedHeader isEqualToString:xcs];
     BOOL zeroDisposition = [SessionSingleton sharedInstance].zeroConfigState.disposition;
+    
+    // For testing Wikipedia Zero visual flourishes.
+    // Go to WebViewController.m and uncomment the W0 part,
+    // then when running the app in the simulator fire the
+    // memory warning to toggle the fake state on or off.
+    if ([SessionSingleton sharedInstance].zeroConfigState.fakeZeroOn) {
+        zeroRatedHeaderPresent = YES;
+        xZeroRatedHeader = @"000-00";
+    }
+    
     if (zeroRatedHeaderPresent && (!zeroDisposition || zeroProviderChanged)) {
         [SessionSingleton sharedInstance].zeroConfigState.disposition = YES;
         [SessionSingleton sharedInstance].zeroConfigState.partnerXcs = xZeroRatedHeader;

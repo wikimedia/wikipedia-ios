@@ -52,6 +52,7 @@
 @property (strong, nonatomic) NSDictionary *navBarSubViewMetrics;
 
 @property (nonatomic) BOOL isTransitioningBetweenViewControllers;
+@property (strong, nonatomic) NSString *wikipediaZeroLearnMoreExternalUrl;
 
 @end
 
@@ -800,6 +801,49 @@
 {
     id editVC = [self searchNavStackForViewControllerOfClass:[SectionEditorViewController class]];
     return editVC ? YES : NO;
+}
+
+#pragma Wikipedia Zero alert dialogs
+
+// Don't call this directly. Use promptFirstTimeZeroOnWithMessageIfAppropriate or promptFirstTimeZeroOffIfAppropriate
+-(void) promptZeroOnOrOff:(NSString *) message
+{
+    self.wikipediaZeroLearnMoreExternalUrl = MWLocalizedString(@"zero-webpage-url", nil);
+    UIAlertView *dialog = [[UIAlertView alloc]
+                           initWithTitle: (message ? message : MWLocalizedString(@"zero-charged-verbiage", nil))
+                           message:MWLocalizedString(@"zero-learn-more", nil)
+                           delegate:self
+                           cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
+                           otherButtonTitles:MWLocalizedString(@"zero-learn-more-learn-more", nil)
+                           , nil];
+    [dialog show];
+}
+
+-(void) promptFirstTimeZeroOnWithMessageIfAppropriate:(NSString *) message {
+    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce || ![self isTopViewControllerAWebviewController]) {
+        [[SessionSingleton sharedInstance].zeroConfigState setZeroOnDialogShownOnce];
+        [self promptZeroOnOrOff:message];
+    }
+}
+
+-(void) promptFirstTimeZeroOffIfAppropriate {
+    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOffDialogShownOnce || ![self isTopViewControllerAWebviewController]) {
+        [[SessionSingleton sharedInstance].zeroConfigState setZeroOffDialogShownOnce];
+        [self promptZeroOnOrOff:nil];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (1 == buttonIndex) {
+        NSURL *url = [NSURL URLWithString:self.wikipediaZeroLearnMoreExternalUrl];
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+
+-(BOOL) isTopViewControllerAWebviewController
+{
+    return [[self topViewController] isMemberOfClass:[WebViewController class]];
 }
 
 @end
