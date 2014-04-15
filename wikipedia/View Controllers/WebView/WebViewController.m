@@ -184,6 +184,9 @@ typedef enum {
 
 -(void)showSectionEditor
 {
+    [self logEvent: @{@"action": @"start"}
+            schema: LOG_SCHEMA_EDIT];
+
     SectionEditorViewController *sectionEditVC =
     [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SectionEditorViewController"];
 
@@ -608,8 +611,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [self.bridge addListener:@"editClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
         [weakSelf tocHide];
         weakSelf.sectionToEditIndex = [[payload[@"href"] stringByReplacingOccurrencesOfString:@"edit_section_" withString:@""] integerValue];
-
-        [weakSelf logEvent:@{@"action": @"start"} schema:LOG_SCHEMA_EDIT];
 
         [weakSelf.self showSectionEditor];
     }];

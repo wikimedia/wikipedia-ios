@@ -6,9 +6,12 @@
 
 @implementation UIViewController (LogEvent)
 
--(void)logEvent:(NSDictionary *)event schema:(EventLogSchema)schema
+-(void)logEvent: (NSDictionary *)event
+         schema: (EventLogSchema)schema
 {
-    LogEventOp *logOp = [[LogEventOp alloc] initWithSchema:schema event:event];
+    LogEventOp *logOp = [[LogEventOp alloc] initWithSchema: schema
+                                                     event: event];
+    
     [[QueuesSingleton sharedInstance].eventLoggingQ addOperation:logOp];
 }
 

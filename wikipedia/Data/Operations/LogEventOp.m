@@ -7,6 +7,8 @@
 
 #define LOG_ENDPOINT @"https://bits.wikimedia.org/event.gif"
 
+//#define LOG_ENDPOINT @"http://localhost:8000/event.gif"
+
 @implementation LogEventOp
 
 -(NSDictionary *)getSchemaData

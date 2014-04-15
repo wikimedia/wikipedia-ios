@@ -19,6 +19,7 @@
 #import "SessionSingleton.h"
 #import "WebViewController.h"
 #import "UIView+TemporaryAnimatedXF.h"
+#import "SectionEditorViewController.h"
 
 @interface NavController (){
 
@@ -789,6 +790,14 @@
               discoveryMethod: discoveryMethod];
         [self popToViewController:webVC animated:animated];
     }
+}
+
+#pragma mark Is editing
+
+-(BOOL)isEditorOnNavstack
+{
+    id editVC = [self searchNavStackForViewControllerOfClass:[SectionEditorViewController class]];
+    return editVC ? YES : NO;
 }
 
 @end

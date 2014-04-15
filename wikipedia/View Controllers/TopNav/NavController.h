@@ -47,6 +47,7 @@ typedef enum {
 
 @property (nonatomic) NavBarStyle navBarStyle;
 @property (nonatomic) NavBarMode navBarMode;
+@property (nonatomic, readonly) BOOL isEditorOnNavstack;
 
 -(id)getNavBarItem:(NavBarItemTag)tag;
 
