@@ -8,6 +8,8 @@
 @interface WikipediaAppUtils : NSObject
 
 +(NSString*) appVersion;
++(NSString*) formFactor;
++(NSString*) versionedUserAgent;
 +(NSString*) localizedStringForKey:(NSString *)key;
 
 @end

@@ -8,10 +8,34 @@
 +(NSString*) appVersion
 {
     NSDictionary *appInfo = [[NSBundle mainBundle] infoDictionary];
-    return [NSString stringWithFormat: @"iOS-%@-%@-%@",
-            [appInfo objectForKey: @"CFBundleDisplayName"],
-            [appInfo objectForKey:@"CFBundleShortVersionString"],
-            [appInfo objectForKey: @"CFBundleVersion"]
+    return [NSString stringWithFormat: @"%@", [appInfo objectForKey:@"CFBundleShortVersionString"]];
+}
+
++(NSString*) formFactor
+{
+    UIUserInterfaceIdiom ff = UI_USER_INTERFACE_IDIOM();
+    // We'll break; on each case, just to follow good form.
+    switch (ff) {
+        case UIUserInterfaceIdiomPad:
+            return @"Tablet";
+            break;
+        case UIUserInterfaceIdiomPhone:
+            return @"Phone";
+            break;
+        default:
+            return @"Other";
+            break;
+    }
+}
+
++(NSString*) versionedUserAgent
+{
+    UIDevice *d = [UIDevice currentDevice];
+    return [NSString stringWithFormat:@"WikipediaApp/%@ (%@ %@; %@)",
+            [self appVersion],
+            [d systemName],
+            [d systemVersion],
+            [self formFactor]
             ];
 }
 

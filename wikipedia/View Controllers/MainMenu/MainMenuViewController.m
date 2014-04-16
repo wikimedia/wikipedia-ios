@@ -361,7 +361,7 @@ typedef enum {
             case ROW_INDEX_SEND_FEEDBACK:
             {
                 NSString *mailtoUri =
-                [NSString stringWithFormat:@"mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:%@", [WikipediaAppUtils appVersion]];
+                [NSString stringWithFormat:@"mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:%@", [WikipediaAppUtils versionedUserAgent]];
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mailtoUri]];
             }
                 break;
