@@ -87,8 +87,15 @@
 }
 
 -(CGSize)intrinsicContentSize {
-    CGSize contentSize = [super intrinsicContentSize];
     UIEdgeInsets insets = self.paddingEdgeInsets;
+
+    // This needs to come before the call to super so the super call can take
+    // into account the padding. Needed because the padding can affect how many
+    // lines are being displayed, which can increase the intrinsicContentSize
+    // height.
+    self.preferredMaxLayoutWidth = self.bounds.size.width - (insets.left + insets.right);
+
+    CGSize contentSize = [super intrinsicContentSize];
     contentSize.height += insets.top + insets.bottom;
     contentSize.width += insets.left + insets.right;
     return contentSize;
