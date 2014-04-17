@@ -143,4 +143,7 @@ li {
 }
 body[dir=rtl] .edit_section {
   float: left;
+  /* Flip it! */
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
