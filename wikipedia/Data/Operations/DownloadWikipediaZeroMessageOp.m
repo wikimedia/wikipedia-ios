@@ -20,7 +20,7 @@
                                              parameters: @{
                                                            @"action": @"zeroconfig",
                                                            @"type": @"message",
-                                                           @"agent": [WikipediaAppUtils appVersion]
+                                                           @"agent": [WikipediaAppUtils versionedUserAgent]
                                                            }
                         ];
         __weak DownloadWikipediaZeroMessageOp *weakSelf = self;
