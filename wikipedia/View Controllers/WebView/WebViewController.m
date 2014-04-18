@@ -763,11 +763,13 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // view just behind it, but above the webView.
     if (scrollView == self.webView.scrollView) {
         CGFloat f = scrollViewDragBeganVerticalOffset_ - scrollView.contentOffset.y;
-        if (f < -55 && !self.navigationController.navigationBarHidden) {
+        if (f < -55 && ![UIApplication sharedApplication].statusBarHidden) {
             [self.navigationController setNavigationBarHidden:YES animated:YES];
+            //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
             //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
-        }else if (f > 55 && self.navigationController.navigationBarHidden) {
-            [self.navigationController setNavigationBarHidden:NO animated:YES];
+        }else if (f > 55 && [UIApplication sharedApplication].statusBarHidden) {
+              [self.navigationController setNavigationBarHidden:NO animated:YES];
+            //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
             //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
         }
     }
@@ -835,6 +837,12 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [self retrieveArticleForPageTitle: cleanTitle
                                domain: domain
                       discoveryMethod: [self getStringForDiscoveryMethod:discoveryMethod]];
+
+    // Reset the search field to its placeholder text after 5 seconds.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NavBarTextField *textField = [NAV getNavBarItem:NAVBAR_TEXT_FIELD];
+        if (!textField.isFirstResponder) textField.text = @"";
+    });
 }
 
 -(void)reloadCurrentArticle{

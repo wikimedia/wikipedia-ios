@@ -54,6 +54,8 @@
 @property (nonatomic) BOOL isTransitioningBetweenViewControllers;
 @property (strong, nonatomic) NSString *wikipediaZeroLearnMoreExternalUrl;
 
+@property (strong, nonatomic) NSString *lastSearchString;
+
 @end
 
 @implementation NavController
@@ -84,6 +86,8 @@
     self.navBarSubViewMetrics = [self getNavBarSubViewMetrics];
     
     self.isTransitioningBetweenViewControllers = NO;
+    
+    self.lastSearchString = @"";
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -286,7 +290,7 @@
     
     [self.navBarContainer addSubview:self.textField];
  
-    UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 26, 26)];
+    UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 36, 36)];
     clearButton.backgroundColor = [UIColor clearColor];
     [clearButton setImage:[UIImage imageNamed:@"text_field_x_circle_gray.png"] forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearTextFieldText) forControlEvents:UIControlEventTouchUpInside];
@@ -584,6 +588,13 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+
+    if (self.textField.text.length == 0){
+        // Remeber user's last search term. Must come before the
+        // @"SearchFieldBecameFirstResponder" notification is posted.
+        if (self.lastSearchString.length != 0) self.textField.text = self.lastSearchString;
+    }
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchFieldBecameFirstResponder" object:self userInfo:nil];
     
     if (self.textField.text.length == 0){
@@ -612,6 +623,8 @@
 
     NSString *trimmedSearchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     self.currentSearchString = trimmedSearchString;
+
+    self.lastSearchString = trimmedSearchString;
 
     [self showSearchResultsController];
 
@@ -702,7 +715,7 @@
                        @"NAVBAR_COLOR": [UIColor colorWithWhite:1.0 alpha:0.9],
                        @"NAVBAR_COLOR_PRE_IOS_7": [UIColor colorWithWhite:1.0 alpha:0.983],
                        @"NAVBAR_TEXT_FIELD_TEXT_COLOR": [UIColor colorWithWhite:0.33 alpha:1.0],
-                       @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor colorWithWhite:0.33 alpha:1.0],
+                       @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor lightGrayColor],
                        @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor colorWithWhite:0.33 alpha:1.0],
                        @"NAVBAR_BUTTON_COLOR": [UIColor blackColor],
                        @"NAVBAR_LABEL_TEXT_COLOR": [UIColor blackColor],
