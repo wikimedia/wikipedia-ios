@@ -1,0 +1,43 @@
+// Messages for Zazaki (Zazaki)
+// Exported from translatewiki.net
+// Author: Marmase
+// Author: Mirzali
+
+"article-languages-label" = "Zıwan weçine";
+"article-languages-cancel" = "Bıtexelne";
+"article-languages-downloading" = "Wesiqeyo zıwanan de waneno...";
+"article-languages-filter-placeholder" = "Avréc";
+"history-label" = "Tarixê Mirirgeri";
+"history-section-today" = "Noroc";
+"history-section-yesterday" = "Vızér";
+"history-section-lastweek" = "Hefteyo Peyên";
+"history-section-lastmonth" = "Aşma Peyên";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-continue" = "Dewam ke";
+"zero-interstitial-cancel" = "Bıtexelne";
+"zero-learn-more-learn-more" = "Zêde bımuse";
+"zero-learn-more-no-thanks" = "Nê, teşekur kena";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"account-creation-logging-in" = "Ronıştışo abeno...";
+"account-creation-saving" = "Beno qeyd...";
+"login-user-blocked" = "Karber kerdo bloqe.";
+"wikitext-upload-save" = "Beno qeyd...";
+"wikitext-upload-save-sign-in" = "De kew u qeyd ke";
+"main-menu-language-toggle-show" = "Zıwanan bımocne";
+"main-menu-language-toggle-hide" = "Zıwanan bınımne";
+"main-menu-language-selection-saved" = "Weçinayışê zıwani qeyd bi";
+"main-menu-account-title-logged-out" = "Hesab";
+"main-menu-account-title-logged-in" = "Zey $1 kewt cı.";
+"main-menu-account-login" = "Cıkewtış";
+"main-menu-account-logout" = "Veciyayış";
+"main-menu-show-title" = "Bımocne...";
+"main-menu-show-history" = "Tarixê cıgeyrayışi";
+"main-menu-random" = "Meqaleyo raştameye";
+"main-menu-feedback-heading" = "Peydrışten";
+"navbar-title-mode-edit-wikitext" = "Bıvurne";
+"navbar-title-mode-login" = "Cı kewe";
+"navbar-title-mode-login-and-save" = "De kew u qeyd ke";
+"navbar-title-mode-create-account" = "Hesab vıraze";
+"navbar-title-mode-create-account-and-save" = "Hesab vıraz u qeyd ke";
+"navbar-title-mode-edit-wikitext-preview" = "Verqayt";
+"edit-summary-choice-other" = "Zewbi";

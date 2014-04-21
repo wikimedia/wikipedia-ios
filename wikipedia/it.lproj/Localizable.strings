@@ -57,6 +57,7 @@
 "main-menu-language-title" = "Cerca nel wiki in lingua $1";
 "main-menu-language-toggle-show" = "Visualizza lingue";
 "main-menu-language-toggle-hide" = "Nascondi lingue";
+"main-menu-language-selection-saved" = "Selezione della lingua salvata";
 "main-menu-account-title-logged-out" = "Utenza";
 "main-menu-account-title-logged-in" = "Accesso effettuato come: $1";
 "main-menu-account-login" = "Entra";
@@ -74,6 +75,8 @@
 "navbar-title-mode-login-and-save" = "Accedi e salva";
 "navbar-title-mode-create-account" = "Crea un'utenza";
 "navbar-title-mode-create-account-and-save" = "Crea un'utenza e salva";
+"navbar-title-mode-edit-wikitext-warning" = "Problemi con la modifica";
+"navbar-title-mode-edit-wikitext-disallow" = "Problemi con la modifica";
 "navbar-title-mode-edit-wikitext-preview" = "Anteprima";
 "navbar-title-mode-edit-wikitext-captcha" = "Verifica rapida necessaria";
 "navbar-title-mode-edit-wikitext-summary" = "Descrivi la tua modifica";
@@ -89,3 +92,5 @@
 "edit-summary-description" = "Un oggetto compilato in modo chiaro aiuta gli altri utenti a controllare le tue modifiche. Puoi anche sceglierne uno preimpostato dalla lista qui in basso";
 "edit-summary-field-placeholder-text" = "Quali miglioramenti hai apportato?";
 "fetching-random-article" = "Recupera voce a caso";
+"article-pull-to-refresh-prompt" = "Tira per aggiornare la voce";
+"article-pull-to-refresh-is-refreshing" = "Aggiornamento voce";

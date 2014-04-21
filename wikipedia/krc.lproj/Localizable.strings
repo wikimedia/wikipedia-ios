@@ -1,0 +1,44 @@
+// Messages for Karachay-Balkar (къарачай-малкъар)
+// Exported from translatewiki.net
+// Author: Iltever
+
+"article-languages-label" = "Тилни сайла";
+"article-languages-cancel" = "Ызына алыу";
+"article-languages-filter-placeholder" = "Фильтр";
+"history-label" = "Тарихине къара";
+"history-section-today" = "Бюгюн";
+"history-section-yesterday" = "Тюнене";
+"history-section-lastweek" = "Ол бир ыйыкъда";
+"zero-free-verbiage" = "Сизни мобил операторугъузда Википедия тёлеусюздю (трафик ючюн джукъ тёленмейди)";
+"zero-charged-verbiage" = "Wikipedia Zero ДЖУКЪЛАНЫБДЫ (БИЛГИЛЕ КЁЧЮРГЕН ЮЧЮН СТАНДАРТ ТЁЛЕУ АЛЫНЫРГЪА БОЛЛУКЪДУ)";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "Wikipedia Zero'дан кетиу";
+"zero-interstitial-continue" = "Баргъаны";
+"zero-interstitial-cancel" = "Ызына алыу";
+"zero-learn-more-learn-more" = "Кёбюрек бил";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"account-creation-logging-in" = "Системагъа кириу...";
+"account-creation-saving" = "Сакъланады…";
+"login-user-blocked" = "Къошулуучу блок этилиниб турады";
+"wikitext-upload-save" = "Сакъланады…";
+"wikitext-upload-save-sign-in" = "Кир эм сакъла";
+"wikitext-upload-save-anonymously" = "Аноним халда сакъла";
+"search-searching" = "Излеу…";
+"search-field-placeholder-text" = "Википедияда излеу";
+"search-field-placeholder-text-zero" = "Wikipedia Zero'да излеу";
+"main-menu-language-toggle-hide" = "Тиллени джашыр";
+"main-menu-account-title-logged-out" = "Тергеу джазыу";
+"main-menu-account-login" = "Системагъа кириу";
+"main-menu-account-logout" = "Чыгъыу";
+"main-menu-show-history" = "Къаралгъан тарихи";
+"main-menu-show-saved" = "Сакъланнган бетле";
+"main-menu-feedback-heading" = "Ызына билдириу";
+"saved-pages-title" = "Сакъланнган бетле";
+"navbar-title-mode-edit-wikitext" = "Тюрлендир";
+"navbar-title-mode-login" = "Кириу";
+"navbar-title-mode-login-and-save" = "Кир эм сакъла";
+"navbar-title-mode-create-account" = "Аккаунт къурау";
+"navbar-title-mode-edit-wikitext-preview" = "Ал къарау";
+"edit-summary-choice-added-category" = "Категория къошулду";
+"edit-summary-choice-other" = "Башха";
+"article-pull-to-refresh-is-refreshing" = "Статьяны джангыртыу";

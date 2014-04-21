@@ -4,6 +4,8 @@
 
 "article-languages-label" = "Вибрати мову";
 "article-languages-cancel" = "Скасувати";
+"article-languages-downloading" = "Завантаження мов статті...";
+"article-languages-filter-placeholder" = "Фільтр";
 "history-label" = "Перегляд Історії";
 "history-section-today" = "Сьогодні";
 "history-section-yesterday" = "Вчора";
@@ -54,27 +56,21 @@
 "search-loading-section-zero" = "Завантаження першого розділі статті...";
 "search-loading-section-remaining" = "Завантаження решти статті...";
 "search-loading-article-loaded" = "Стаття завантажена.";
-// Fuzzy
-"main-menu-language-title" = "Мова вікі для пошуку";
+"main-menu-language-title" = "$1 мова для пошуку на вікі";
 "main-menu-language-toggle-show" = "Показати мови";
 "main-menu-language-toggle-hide" = "Приховати мови";
+"main-menu-language-selection-saved" = "Вибір мови збережено";
 "main-menu-account-title-logged-out" = "Обліковий запис";
 "main-menu-account-title-logged-in" = "Увійшов в систему як: $1";
 "main-menu-account-login" = "Вхід";
 "main-menu-account-logout" = "Вихід";
 "main-menu-show-title" = "Показати мені...";
-// Fuzzy
-"main-menu-show-history" = "Моя історія перегляду";
-// Fuzzy
-"main-menu-show-saved" = "Мої збережені сторінки";
-// Fuzzy
-"main-menu-current-article-save" = "Зберегти для читання в автономному режимі";
-// Fuzzy
-"main-menu-random" = "Випадково";
-// Fuzzy
-"main-menu-feedback-heading" = "Зворотний зв'язок програми";
-// Fuzzy
-"main-menu-send-feedback" = "Надіслати відгук про програму";
+"main-menu-show-history" = "Історія перегляду";
+"main-menu-show-saved" = "Збережені сторінки";
+"main-menu-current-article-save" = "Зберегти  $1  для читання в автономному режимі";
+"main-menu-random" = "Випадкова стаття";
+"main-menu-feedback-heading" = "Зворотний зв'язок";
+"main-menu-send-feedback" = "Надіслати відгук";
 "saved-pages-title" = "Збережені сторінки";
 "navbar-title-mode-edit-wikitext" = "Змінити";
 "navbar-title-mode-login" = "Увійти";
@@ -87,10 +83,16 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Потрібна швидка перевірка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишіть вашу зміну";
 "edit-summary-choice-linked-words" = "Пов'язано слова";
+"edit-summary-choice-fixed-grammar" = "Виправлений правопис";
 "edit-summary-choice-fixed-inaccuracy" = "Виправлена неточність";
+"edit-summary-choice-fixed-styling" = "Стильові виправлення";
 "edit-summary-choice-fixed-typos" = "Виправлена помилка";
 "edit-summary-choice-added-category" = "Додана категорія";
+"edit-summary-choice-added-missing-info" = "Додано відсутні дані";
+"edit-summary-choice-added-clarification" = "Додано пояснення";
 "edit-summary-choice-other" = "Інше";
 "edit-summary-description" = "Точний опис допомагає іншим учасникам швидко перевірити ваші правки. Також ви могли б вказати опису з використанням наведених нижче тегів.";
 "edit-summary-field-placeholder-text" = "Як ви поліпшили сторінку?";
 "fetching-random-article" = "Вибірка випадкової статті";
+"article-pull-to-refresh-prompt" = "Потягність для оновлення статті";
+"article-pull-to-refresh-is-refreshing" = "Оновлення статті";

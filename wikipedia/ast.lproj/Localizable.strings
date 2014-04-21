@@ -4,6 +4,8 @@
 
 "article-languages-label" = "Escoyer llingua";
 "article-languages-cancel" = "Encaboxar";
+"article-languages-downloading" = "Cargando llingües del artículu...";
+"article-languages-filter-placeholder" = "Peñera";
 "history-label" = "Historial de navegación";
 "history-section-today" = "Güei";
 "history-section-yesterday" = "Ayeri";
@@ -54,27 +56,21 @@
 "search-loading-section-zero" = "Cargando la primera seición del artículu...";
 "search-loading-section-remaining" = "Cargando'l resto del artículu...";
 "search-loading-article-loaded" = "Artículu cargáu.";
-// Fuzzy
-"main-menu-language-title" = "Llingua de la wiki a guetar";
+"main-menu-language-title" = "Guetar la wiki en llingua $1";
 "main-menu-language-toggle-show" = "Amosar llingües";
 "main-menu-language-toggle-hide" = "Anubrir llingües";
+"main-menu-language-selection-saved" = "Seleición d'idioma guardada";
 "main-menu-account-title-logged-out" = "Cuenta";
 "main-menu-account-title-logged-in" = "Anició sesión como: $1";
 "main-menu-account-login" = "Aniciar sesión";
 "main-menu-account-logout" = "Salir";
 "main-menu-show-title" = "Amosame...";
-// Fuzzy
-"main-menu-show-history" = "El mio historial de navegación";
-// Fuzzy
-"main-menu-show-saved" = "Les mios páxines guardaes";
-// Fuzzy
-"main-menu-current-article-save" = "Guardar pa lleer ensin conexón";
-// Fuzzy
-"main-menu-random" = "Al debalu";
-// Fuzzy
-"main-menu-feedback-heading" = "Comentar sobro la app";
-// Fuzzy
-"main-menu-send-feedback" = "Opinar sobro la app";
+"main-menu-show-history" = "Historial de navegación";
+"main-menu-show-saved" = "Páxines guardaes";
+"main-menu-current-article-save" = "Guardar $1 pa lleer ensin conexón";
+"main-menu-random" = "Artículu al debalu";
+"main-menu-feedback-heading" = "La to opinión";
+"main-menu-send-feedback" = "Unviar el comentariu";
 "saved-pages-title" = "Páxines guardaes";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Entrar";
@@ -87,10 +83,16 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Necesítase una comprobación rápida";
 "navbar-title-mode-edit-wikitext-summary" = "Describa la so edición";
 "edit-summary-choice-linked-words" = "Pallabres enllazaes";
+"edit-summary-choice-fixed-grammar" = "Igua gramatical";
 "edit-summary-choice-fixed-inaccuracy" = "Imprecisión correxida";
+"edit-summary-choice-fixed-styling" = "Igua d'estilu";
 "edit-summary-choice-fixed-typos" = "Igua ortográfica";
 "edit-summary-choice-added-category" = "Amestada una categoría";
+"edit-summary-choice-added-missing-info" = "Amestada información que faltaba";
+"edit-summary-choice-added-clarification" = "Amestada una aclaración";
 "edit-summary-choice-other" = "Otros";
 "edit-summary-description" = "Un resume específicu ayuda a los co-editores a revisar aína les sos ediciones. Tamién pue esbillar ente les etiquetes d'abaxo.";
 "edit-summary-field-placeholder-text" = "¿Cómo ameyoró la páxina?";
 "fetching-random-article" = "Baxando un artículu al debalu";
+"article-pull-to-refresh-prompt" = "Tirar pa refrescar l'artículu";
+"article-pull-to-refresh-is-refreshing" = "Refrescando l'artículu";

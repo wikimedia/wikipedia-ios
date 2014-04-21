@@ -4,6 +4,7 @@
 
 "article-languages-label" = "Sprooch eraussichen";
 "article-languages-cancel" = "Ofbriechen";
+"article-languages-downloading" = "Luede vun de Sprooche vum Artikel...";
 "article-languages-filter-placeholder" = "Filter";
 "history-label" = "Versiounen";
 "history-section-today" = "Haut";
@@ -11,6 +12,7 @@
 "history-section-lastweek" = "Lescht Woch";
 "history-section-lastmonth" = "Leschte Mount";
 "zero-interstitial-title" = "Wikipedia Zero verloossen";
+"zero-interstitial-leave-app" = "Virufueren op den externen Internetsite? Déi normal Käschte fir Datentransfer sinn eventuell applicabel.";
 "zero-interstitial-continue" = "Virufueren";
 "zero-interstitial-cancel" = "Ofbriechen";
 "zero-learn-more" = "Wëllt Dir Eppes iwwer Wikipedia Zero gewuer ginn?";
@@ -18,7 +20,9 @@
 "zero-learn-more-no-thanks" = "Nee, merci";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Beim Verloosse vu Wikipedia Zero warnen";
+"account-creation-captcha-obtaining" = "En neie CAPTCHA kréien.";
 "account-creation-logging-in" = "Aloggen...";
+"account-creation-passwords-mismatched" = "D'Passwierder sinn net identesch.";
 "account-creation-saving" = "Späicheren...";
 "login-name-not-found" = "De Benotzernumm ass obligatoresch fir sech anzeloggen.";
 "login-name-illegal" = "Dir hutt e falsche Benotzernumm uginn.";
@@ -28,9 +32,13 @@
 "login-throttled" = "Dir hutt a kuerzer Zäit ze dacks probéiert Iech anzeloggen.";
 "login-user-blocked" = "Benotzer ass gespaart.";
 "wikitext-downloading" = "Wikitext gëtt gelueden...";
+"wikitext-download-success" = "Wikitext gelueden.";
+"wikitext-preview-changes-none" = "Et goufe keng Ännerunge gemaach fir ze weisen.";
+"wikitext-upload-captcha-error" = "Feeler beim Nokucke vum CAPTCHA.";
 "wikitext-upload-save" = "Späicheren...";
 "wikitext-upload-save-sign-in" = "Aloggen a späicheren";
 "wikitext-upload-save-anonymously" = "Anonym späicheren";
+"wikitext-upload-save-anonymously-warning" = "Dat huet manner Dateschutz. Är IP-Adress gëtt mat den Ännerunge gewisen. Wann Dir späichert sidd Dir domat d'accord datt Dir Är Ännerunge permanent ënner CC BY-SA 3.0 publizéiert.";
 "search-searching" = "Sichen...";
 "search-field-placeholder-text" = "Op Wikipedia sichen";
 "search-field-placeholder-text-zero" = "Op Wikipedia Zero sichen";
@@ -40,6 +48,7 @@
 "main-menu-language-title" = "Sicht an der Wiki op $1";
 "main-menu-language-toggle-show" = "Sprooche weisen";
 "main-menu-language-toggle-hide" = "Sprooche verstoppen";
+"main-menu-language-selection-saved" = "Eraussiche vun der Sprooch gespäichert";
 "main-menu-account-title-logged-out" = "Benotzerkont";
 "main-menu-account-title-logged-in" = "Ageloggt als: $1";
 "main-menu-account-login" = "Aloggen";
@@ -65,6 +74,9 @@
 "edit-summary-choice-fixed-styling" = "Stil verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
 "edit-summary-choice-added-category" = "Kategorie derbäigesat";
+"edit-summary-choice-added-missing-info" = "Informatiounen déi gefeelt hunn derbäigesat";
 "edit-summary-choice-other" = "Anerer";
 "edit-summary-field-placeholder-text" = "Wéi hutt Dir d'Säit verbessert?";
 "fetching-random-article" = "Zoufällegen Artikel ofrufen";
+"article-pull-to-refresh-prompt" = "Zitt fir den Artikel z'aktualiséieren";
+"article-pull-to-refresh-is-refreshing" = "Artikel aktualiséieren";

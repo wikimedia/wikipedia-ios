@@ -1,0 +1,40 @@
+// Messages for Polish (polski)
+// Exported from translatewiki.net
+// Author: Chrumps
+// Author: Jacenty359
+
+"article-languages-label" = "Wybierz język";
+"article-languages-cancel" = "Anuluj";
+"article-languages-filter-placeholder" = "Filtr";
+"history-label" = "Historia Przeglądania";
+"history-section-today" = "Dzisiaj";
+"history-section-yesterday" = "Wczoraj";
+"history-section-lastweek" = "Ostatni tydzień";
+"history-section-lastmonth" = "Ostatni miesiąc";
+"zero-interstitial-continue" = "Kontynuuj";
+"zero-interstitial-cancel" = "Anuluj";
+"zero-learn-more-learn-more" = "Dowiedz się więcej";
+"zero-learn-more-no-thanks" = "Nie, dziękuję";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"account-creation-logging-in" = "Logowanie...";
+"account-creation-passwords-mismatched" = "Hasła nie są identyczne.";
+"account-creation-saving" = "Zapisywanie...";
+"login-name-not-found" = "Do logowania wymagana jest nazwa użytkownika.";
+"login-name-illegal" = "Wpisałeś niedozwoloną nazwę użytkownika.";
+"login-password-empty" = "Do zalogowania potrzebne jest hasło.";
+"login-password-wrong" = "Podane hasło jest nieprawidłowe.";
+"login-user-blocked" = "Użytkownik jest zablokowany.";
+"wikitext-upload-save" = "Zapisywanie...";
+"wikitext-upload-save-sign-in" = "Zaloguj się i zapisz";
+"wikitext-upload-save-anonymously" = "Zapisz anonimowo";
+"search-searching" = "Wyszukiwanie...";
+"main-menu-language-toggle-show" = "Pokaż języki";
+"main-menu-language-toggle-hide" = "Ukryj języki";
+"main-menu-account-title-logged-out" = "Konto";
+"main-menu-account-login" = "Zaloguj się";
+"main-menu-account-logout" = "Wyloguj";
+"main-menu-show-saved" = "Zapisane strony";
+"navbar-title-mode-edit-wikitext-preview" = "Podgląd";
+"edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
+"edit-summary-choice-fixed-styling" = "Poprawiono stylistykę";
+"edit-summary-choice-fixed-typos" = "Poprawiono literówkę";

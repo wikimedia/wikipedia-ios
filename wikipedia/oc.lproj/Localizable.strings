@@ -4,6 +4,7 @@
 
 "article-languages-label" = "Causir una lenga";
 "article-languages-cancel" = "Anullar";
+"article-languages-downloading" = "Cargament de las lengas de l’article en cors…";
 "article-languages-filter-placeholder" = "Filtrar";
 "history-label" = "Percórrer l'istoric";
 "history-section-today" = "Uèi";
@@ -56,4 +57,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Verificacion rapida necessària";
 "edit-summary-choice-fixed-grammar" = "Correccion gramaticala";
 "edit-summary-choice-fixed-styling" = "Correccion d'estil";
+"edit-summary-choice-added-missing-info" = "Apondon d’una informacion mancanta";
+"edit-summary-choice-added-clarification" = "Apondon d’una precision";
+"article-pull-to-refresh-prompt" = "Tirar per refrescar l’article";
 "article-pull-to-refresh-is-refreshing" = "Article refrescat";
