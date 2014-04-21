@@ -70,6 +70,7 @@
 		043649E018E2573E00B528DB /* main_menu_save.png in Resources */ = {isa = PBXBuildFile; fileRef = 043649BE18E2573E00B528DB /* main_menu_save.png */; };
 		043649E218E2573E00B528DB /* main_menu_save@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 043649BF18E2573E00B528DB /* main_menu_save@2x.png */; };
 		043C668A18BE9A8E00580E9B /* PreviewWikiTextOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 043C668918BE9A8E00580E9B /* PreviewWikiTextOp.m */; };
+		043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043DAC4A1901C3EE001CD17C /* CreditsViewController.m */; };
 		043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18DC18D9691D00D8489A /* TopActionSheetLabel.m */; };
 		043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */; };
 		043F18E918D9885F00D8489A /* TitleSubtitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18E818D9885F00D8489A /* TitleSubtitleView.m */; };
@@ -284,6 +285,8 @@
 		043649BF18E2573E00B528DB /* main_menu_save@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_menu_save@2x.png"; sourceTree = "<group>"; };
 		043C668818BE9A8E00580E9B /* PreviewWikiTextOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewWikiTextOp.h; sourceTree = "<group>"; };
 		043C668918BE9A8E00580E9B /* PreviewWikiTextOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewWikiTextOp.m; sourceTree = "<group>"; };
+		043DAC491901C3EE001CD17C /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
+		043DAC4A1901C3EE001CD17C /* CreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsViewController.m; sourceTree = "<group>"; };
 		043F18DB18D9691D00D8489A /* TopActionSheetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopActionSheetLabel.h; sourceTree = "<group>"; };
 		043F18DC18D9691D00D8489A /* TopActionSheetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopActionSheetLabel.m; sourceTree = "<group>"; };
 		043F18DF18D9691D00D8489A /* UINavigationController+TopActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+TopActionSheet.h"; sourceTree = "<group>"; };
@@ -731,6 +734,15 @@
 			path = TopNav;
 			sourceTree = "<group>";
 		};
+		043DAC481901C3D2001CD17C /* Credits */ = {
+			isa = PBXGroup;
+			children = (
+				043DAC491901C3EE001CD17C /* CreditsViewController.h */,
+				043DAC4A1901C3EE001CD17C /* CreditsViewController.m */,
+			);
+			path = Credits;
+			sourceTree = "<group>";
+		};
 		043F18DA18D9691D00D8489A /* TopActionSheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -959,6 +971,7 @@
 			children = (
 				04A97E8418B81D440046B166 /* AccountCreation */,
 				04B7B9BA18B5569600A63551 /* Captcha */,
+				043DAC481901C3D2001CD17C /* Credits */,
 				04B9C42618CE5D25003B5058 /* EditSummary */,
 				0447861F185145090050563B /* History */,
 				041A3B5718E11ED90079FF1C /* Languages */,
@@ -1569,6 +1582,7 @@
 				041A3B5E18E11ED90079FF1C /* LanguagesCell.m in Sources */,
 				04D34DD91863F70A00610A87 /* Section.m in Sources */,
 				04C8781018F4A42700FA3B99 /* AccountCreationTokenOp.m in Sources */,
+				043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */,
 				D42E75EB18D11237002EA7E5 /* MWLanguageInfo.m in Sources */,
 				04A81E8618871EB000EEBADB /* Section+ImageRecords.m in Sources */,
 				047FF5471889078C009DB293 /* Image+Convenience.m in Sources */,

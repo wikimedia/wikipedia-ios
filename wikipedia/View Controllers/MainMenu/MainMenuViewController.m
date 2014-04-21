@@ -24,6 +24,7 @@
 
 #import "MainMenuRowView.h"
 #import "PageHistoryViewController.h"
+#import "CreditsViewController.h"
 
 #pragma mark - Defines
 
@@ -39,7 +40,8 @@ typedef enum {
     ROW_INDEX_SEARCH_LANGUAGE = 5,
     ROW_INDEX_ZERO_WARN_WHEN_LEAVING = 6,
     ROW_INDEX_SEND_FEEDBACK = 7,
-    ROW_INDEX_PAGE_HISTORY = 8
+    ROW_INDEX_PAGE_HISTORY = 8,
+    ROW_INDEX_CREDITS = 9
 } MainMenuRowIndex;
 
 #pragma mark - Private
@@ -277,6 +279,14 @@ typedef enum {
           @"imageName": @"main_menu_save.png",
           @"highlighted": @YES,
           }.mutableCopy
+        ,
+      @{
+          @"domain": [SessionSingleton sharedInstance].domain,
+          @"title": MWLocalizedString(@"main-menu-credits", nil),
+          @"tag": @(ROW_INDEX_CREDITS),
+          @"imageName": @"main_menu_foreign_characters_gray.png",
+          @"highlighted": @YES,
+          }.mutableCopy
       ].mutableCopy;
 
     self.rowData = rowData;
@@ -385,6 +395,13 @@ typedef enum {
                 PageHistoryViewController *pageHistoryVC =
                     [NAV.storyboard instantiateViewControllerWithIdentifier:@"PageHistoryViewController"];
                 [NAV pushViewController:pageHistoryVC animated:YES];
+            }
+                break;
+            case ROW_INDEX_CREDITS:
+            {
+                CreditsViewController *creditsVC =
+                    [NAV.storyboard instantiateViewControllerWithIdentifier:@"CreditsViewController"];
+                [NAV pushViewController:creditsVC animated:YES];
             }
                 break;
             default:

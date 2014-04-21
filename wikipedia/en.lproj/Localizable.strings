@@ -76,6 +76,7 @@
 "main-menu-feedback-heading" = "Feedback";
 "main-menu-send-feedback" = "Send feedback";
 "main-menu-show-page-history" = "History of changes to $1";
+"main-menu-credits" = "Credits";
 
 "saved-pages-title" = "Saved pages";
 "page-history-title" = "Page history";
@@ -109,3 +110,9 @@
 
 "article-pull-to-refresh-prompt" = "Pull to refresh article";
 "article-pull-to-refresh-is-refreshing" = "Refreshing article";
+
+"credits-title" = "Open source repositories";
+"credits-wikimedia-repos" = "Wikimedia";
+"credits-gerrit-repo" = "App main (Gerrit)";
+"credits-github-mirror" = "App mirror (GitHub)";
+"credits-external-libraries" = "External";

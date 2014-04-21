@@ -488,6 +488,11 @@
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]|";
             break;        
+        case NAVBAR_MODE_CREDITS:
+            self.label.text = MWLocalizedString(@"main-menu-credits", nil);
+            self.navBarSubViewsHorizontalVFLString =
+                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]|";
+            break;        
         default: //NAVBAR_MODE_SEARCH
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_LOGO_W(65)][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_TEXT_FIELD]-(10)-|";
