@@ -6,6 +6,10 @@
 	<false/>
 	<key>UIStatusBarHidden</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>WikiFont.ttf</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

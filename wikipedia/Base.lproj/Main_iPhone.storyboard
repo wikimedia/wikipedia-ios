@@ -116,6 +116,34 @@
             </objects>
             <point key="canvasLocation" x="89" y="581"/>
         </scene>
+        <!--Page History View Controller-->
+        <scene sceneID="P9W-EJ-Sh4">
+            <objects>
+                <tableViewController restorationIdentifier="PageHistoryViewController" storyboardIdentifier="PageHistoryViewController" id="8V4-Y7-UO5" customClass="PageHistoryViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="f8b-40-ZUd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PageHistoryCell" id="7aI-2Z-g7p">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7aI-2Z-g7p" id="XOz-8p-5mi">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="8V4-Y7-UO5" id="C2k-mT-uGu"/>
+                            <outlet property="delegate" destination="8V4-Y7-UO5" id="8LD-eA-w8U"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mKQ-r2-KIR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="592" y="2095"/>
+        </scene>
         <!--Account Creation View Controller-->
         <scene sceneID="Atg-7d-baS">
             <objects>

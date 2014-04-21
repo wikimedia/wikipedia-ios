@@ -4,7 +4,7 @@
 #import "TOCSectionCellView.h"
 #import "ArticleCoreDataObjects.h"
 #import "ArticleDataContextSingleton.h"
-#import "TFHpple.h"
+#import "NSString+Extras.h"
 #import "TOCImageView.h"
 #import "WMF_Colors.h"
 #import "UIView+RemoveConstraints.h"
@@ -82,26 +82,6 @@
     _isHighlighted = isHighlighted;
 }
 
-- (NSString *)getStringWithoutHTML:(NSString *)string
-{
-    // Strips html from string with xpath / hpple.
-    if (!string) return string;
-    NSData *stringData = [string dataUsingEncoding:NSUTF8StringEncoding];
-    TFHpple *parser = [TFHpple hppleWithHTMLData:stringData];
-    NSArray *textNodes = [parser searchWithXPathQuery:@"//text()"];
-    NSMutableArray *results = [@[] mutableCopy];
-    for (TFHppleElement *node in textNodes) {
-        if(node.isTextNode) [results addObject:node.raw];
-    }
-    
-    NSString *result = [results componentsJoinedByString:@""];
-
-    // Also decode any "&amp;" strings.
-    result = [result stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-
-    return result;
-}
-
 -(NSAttributedString *)getAttributedStringForString:(NSString *)str isLeadSection:(BOOL)isLeadSection
 {
     NSUInteger fontSize = (isLeadSection) ? 22 : 15;
@@ -123,7 +103,7 @@
 {
     NSString *string = (section.index.integerValue == 0) ? section.article.title : section.title;
     
-    string = [self getStringWithoutHTML:string];
+    string = [string getStringWithoutHTML];
     
     BOOL isLead = (section.index.integerValue == 0) ? YES : NO;
     return [self getAttributedStringForString:string isLeadSection:isLead];

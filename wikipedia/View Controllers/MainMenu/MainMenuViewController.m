@@ -23,6 +23,7 @@
 #import "TabularScrollView.h"
 
 #import "MainMenuRowView.h"
+#import "PageHistoryViewController.h"
 
 #pragma mark - Defines
 
@@ -37,7 +38,8 @@ typedef enum {
     ROW_INDEX_SAVE_PAGE = 4,
     ROW_INDEX_SEARCH_LANGUAGE = 5,
     ROW_INDEX_ZERO_WARN_WHEN_LEAVING = 6,
-    ROW_INDEX_SEND_FEEDBACK = 7
+    ROW_INDEX_SEND_FEEDBACK = 7,
+    ROW_INDEX_PAGE_HISTORY = 8
 } MainMenuRowIndex;
 
 #pragma mark - Private
@@ -203,6 +205,12 @@ typedef enum {
                                                                           substitutionStrings: @[currentArticleTitle]
                                                                        substitutionAttributes: @[self.self.highlightedTextAttributes]
      ];
+
+    NSAttributedString *pageHistoryTitle =
+    [MWLocalizedString(@"main-menu-show-page-history", nil) attributedStringWithAttributes: nil
+                                                                       substitutionStrings: @[currentArticleTitle]
+                                                                    substitutionAttributes: @[self.self.highlightedTextAttributes]
+     ];
     
     NSMutableArray *rowData =
     @[
@@ -262,13 +270,20 @@ typedef enum {
           @"imageName": @"main_menu_envelope_white.png",
           @"highlighted": @YES,
           }.mutableCopy
-      
+      ,
+      @{
+          @"title": pageHistoryTitle,
+          @"tag": @(ROW_INDEX_PAGE_HISTORY),
+          @"imageName": @"main_menu_save.png",
+          @"highlighted": @YES,
+          }.mutableCopy
       ].mutableCopy;
 
     self.rowData = rowData;
     
     if(self.hidePagesSection){
         [self deleteRowWithTag:ROW_INDEX_SAVE_PAGE];
+        [self deleteRowWithTag:ROW_INDEX_PAGE_HISTORY];
     }
 }
 
@@ -363,6 +378,13 @@ typedef enum {
                 NSString *mailtoUri =
                 [NSString stringWithFormat:@"mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:%@", [WikipediaAppUtils versionedUserAgent]];
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mailtoUri]];
+            }
+                break;
+            case ROW_INDEX_PAGE_HISTORY:
+            {
+                PageHistoryViewController *pageHistoryVC =
+                    [NAV.storyboard instantiateViewControllerWithIdentifier:@"PageHistoryViewController"];
+                [NAV pushViewController:pageHistoryVC animated:YES];
             }
                 break;
             default:

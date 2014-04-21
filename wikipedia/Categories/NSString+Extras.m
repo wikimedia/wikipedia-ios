@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "NSString+Extras.h"
+#import "TFHpple.h"
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation NSString (Extras)
@@ -65,6 +66,26 @@
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
     return  [formatter dateFromString:self];
+}
+
+- (NSString *)getStringWithoutHTML
+{
+    // Strips html from string with xpath / hpple.
+    if (!self || (self.length == 0)) return self;
+    NSData *stringData = [self dataUsingEncoding:NSUTF8StringEncoding];
+    TFHpple *parser = [TFHpple hppleWithHTMLData:stringData];
+    NSArray *textNodes = [parser searchWithXPathQuery:@"//text()"];
+    NSMutableArray *results = [@[] mutableCopy];
+    for (TFHppleElement *node in textNodes) {
+        if(node.isTextNode) [results addObject:node.raw];
+    }
+    
+    NSString *result = [results componentsJoinedByString:@""];
+    
+    // Also decode any "&amp;" strings.
+    result = [result stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+    
+    return result;
 }
 
 @end

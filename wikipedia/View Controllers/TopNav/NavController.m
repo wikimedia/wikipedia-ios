@@ -483,6 +483,11 @@
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL][NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
             break;
+        case NAVBAR_MODE_PAGE_HISTORY:
+            self.label.text = MWLocalizedString(@"page-history-title", nil);
+            self.navBarSubViewsHorizontalVFLString =
+                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]|";
+            break;        
         default: //NAVBAR_MODE_SEARCH
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_LOGO_W(65)][NAVBAR_VERTICAL_LINE_1(singlePixel)][NAVBAR_TEXT_FIELD]-(10)-|";

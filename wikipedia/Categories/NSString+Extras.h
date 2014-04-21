@@ -10,5 +10,6 @@
 - (NSString *)getWikiImageFileNameWithoutSizePrefix;
 
 - (NSDate *)getDateFromIso8601DateString;
+- (NSString *)getStringWithoutHTML;
 
 @end

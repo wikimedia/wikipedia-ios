@@ -72,7 +72,11 @@
 "main-menu-random" = "Button text for fetching a Random article.\n{{Identical|Random article}}";
 "main-menu-feedback-heading" = "Header text for app feedback.\n{{Identical|Feedback}}";
 "main-menu-send-feedback" = "Button text for button to send app feedback.\n{{Identical|Send feedback}}";
+"main-menu-show-page-history" = "Button text for showing history of changes to current article. Parameters:\n* $1 - page title";
+"main-menu-credits" = "Button text for showing credits for external open source libraries used";
 "saved-pages-title" = "Header text for Saved Pages interface.\n{{Identical|Saved page}}";
+"page-history-title" = "Header text for Page History interface";
+"page-history-downloading" = "Alert text shown when obtaining revision history of an article";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited";
 "navbar-title-mode-login" = "Header text shown when user is signing in";
 "navbar-title-mode-login-and-save" = "Header text shown when user is editing wikitext then chooses to sign in and save";
@@ -97,3 +101,8 @@
 "fetching-random-article" = "Alert text shown when fetching a random article";
 "article-pull-to-refresh-prompt" = "Label text informing user article may be pulled down to refresh";
 "article-pull-to-refresh-is-refreshing" = "Label text shown when user pulls down on article to refresh";
+"credits-title" = "Title for credits page";
+"credits-wikimedia-repos" = "Title for area of credits page showing Wikimedia open source repositories for app";
+"credits-gerrit-repo" = "Text for item linking to the app's main gerrit repository";
+"credits-github-mirror" = "Text for item linking to the app's mirrored GitHub repository";
+"credits-external-libraries" = "Title for area of credits page showing external open source libraries used by app";

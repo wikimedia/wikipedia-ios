@@ -75,8 +75,11 @@
 "main-menu-random" = "Random article";
 "main-menu-feedback-heading" = "Feedback";
 "main-menu-send-feedback" = "Send feedback";
+"main-menu-show-page-history" = "History of changes to $1";
 
-"saved-pages-title" = "Saved Pages";
+"saved-pages-title" = "Saved pages";
+"page-history-title" = "Page history";
+"page-history-downloading" = "Loading page history...";
 
 "navbar-title-mode-edit-wikitext" = "Edit";
 "navbar-title-mode-login" = "Sign in";
