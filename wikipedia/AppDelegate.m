@@ -3,6 +3,7 @@
 
 #import "AppDelegate.h"
 #import "URLCache.h"
+#import "DataMigrator.h"
 
 @implementation AppDelegate
 
@@ -25,6 +26,19 @@
     //[[NSUserDefaults standardUserDefaults] synchronize];
 
     // Override point for customization after application launch.
+    
+    // This probably belongs elsewhere... maybe tie it into one of the main pages on the nav stack.
+    DataMigrator *dataMigrator = [[DataMigrator alloc] init];
+    if ([dataMigrator hasData]) {
+        NSLog(@"Old data to migrate found!");
+        NSArray *titles = [dataMigrator extractSavedPages];
+        for (NSDictionary *item in titles) {
+            NSLog(@"Need to import saved page: %@ %@", item[@"lang"], item[@"title"]);
+        }
+    } else {
+        NSLog(@"No pld data to migrate.");
+    }
+
     return YES;
 }
 

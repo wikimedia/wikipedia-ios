@@ -162,6 +162,9 @@
 		D499144C181D51DE00E6073C /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D499144A181D51DE00E6073C /* Main_iPhone.storyboard */; };
 		D4991454181D51DE00E6073C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		D4BC22B4181E9E6300CAC673 /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = D4BC22B3181E9E6300CAC673 /* empty.png */; };
+		D4E8A8A4190835C100DA4765 /* DataMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E8A8A3190835C100DA4765 /* DataMigrator.m */; };
+		D4E8A8A719084F1300DA4765 /* SQLiteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E8A8A619084F1300DA4765 /* SQLiteHelper.m */; };
+		D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */; };
 		D4EE00B9182443FC0090790F /* MWPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE00B8182443FC0090790F /* MWPageTitle.m */; };
 /* End PBXBuildFile section */
 
@@ -583,6 +586,11 @@
 		D4991466181D51DF00E6073C /* Wikipedia_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Wikipedia_Tests.m; sourceTree = "<group>"; };
 		D4BC22B3181E9E6300CAC673 /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
 		D4DE203018283FF200148CA2 /* CommunicationBridgeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationBridgeTests.m; sourceTree = "<group>"; };
+		D4E8A8A2190835C100DA4765 /* DataMigrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataMigrator.h; sourceTree = "<group>"; };
+		D4E8A8A3190835C100DA4765 /* DataMigrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataMigrator.m; sourceTree = "<group>"; };
+		D4E8A8A519084F1300DA4765 /* SQLiteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteHelper.h; sourceTree = "<group>"; };
+		D4E8A8A619084F1300DA4765 /* SQLiteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteHelper.m; sourceTree = "<group>"; };
+		D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		D4EE00B7182443FC0090790F /* MWPageTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWPageTitle.h; path = "mw-support/MWPageTitle.h"; sourceTree = "<group>"; };
 		D4EE00B8182443FC0090790F /* MWPageTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWPageTitle.m; path = "mw-support/MWPageTitle.m"; sourceTree = "<group>"; };
 		D4EE00BC1824459D0090790F /* PageTitleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageTitleTests.m; path = "mw-support/PageTitleTests.m"; sourceTree = "<group>"; };
@@ -593,6 +601,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */,
 				04D34DB21863D39000610A87 /* libxml2.dylib in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
@@ -1180,6 +1189,7 @@
 		D4991437181D51DE00E6073C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */,
 				04D34DB11863D39000610A87 /* libxml2.dylib */,
 				040E5C4E184566F4007AFE6F /* CoreData.framework */,
 				D4991438181D51DE00E6073C /* Foundation.framework */,
@@ -1203,6 +1213,7 @@
 				045A9F0C18F6090E0057EA85 /* assets */,
 				04C43AB7183442FC006C643B /* Categories */,
 				040E5C50184673F2007AFE6F /* Data */,
+				D4E8A8A11908357600DA4765 /* Data Migration */,
 				04292FFB185FC026002A13FC /* Defines */,
 				0442F57C1900718600F55DF9 /* Fonts */,
 				04D34DA31863D2D600610A87 /* HTML Parsing */,
@@ -1262,6 +1273,17 @@
 				D4991463181D51DF00E6073C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D4E8A8A11908357600DA4765 /* Data Migration */ = {
+			isa = PBXGroup;
+			children = (
+				D4E8A8A2190835C100DA4765 /* DataMigrator.h */,
+				D4E8A8A3190835C100DA4765 /* DataMigrator.m */,
+				D4E8A8A519084F1300DA4765 /* SQLiteHelper.h */,
+				D4E8A8A619084F1300DA4765 /* SQLiteHelper.m */,
+			);
+			name = "Data Migration";
 			sourceTree = "<group>";
 		};
 		D4EE00BB182445670090790F /* mw-support */ = {
@@ -1471,6 +1493,7 @@
 				04D34D97186216AF00610A87 /* MainMenuViewController.m in Sources */,
 				0433543718A1A7AE009305F0 /* NavController.m in Sources */,
 				0447866F1852B5010050563B /* SessionSingleton.m in Sources */,
+				D4E8A8A4190835C100DA4765 /* DataMigrator.m in Sources */,
 				04D34DD11863F6E600610A87 /* SectionImage.m in Sources */,
 				0447867C1852BBFE0050563B /* NSManagedObjectContext+SimpleFetch.m in Sources */,
 				04AE1C741891BB32002D5487 /* Article.m in Sources */,
@@ -1526,6 +1549,7 @@
 				04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */,
 				04D122321899B8AC006B9A30 /* AlertWebView.m in Sources */,
 				D4991449181D51DE00E6073C /* AppDelegate.m in Sources */,
+				D4E8A8A719084F1300DA4765 /* SQLiteHelper.m in Sources */,
 				04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */,
 				04D75824189248E900CE2040 /* DownloadLangLinksOp.m in Sources */,
 				04B91AB218E406FB00FFAA1C /* MainMenuRowView.m in Sources */,
