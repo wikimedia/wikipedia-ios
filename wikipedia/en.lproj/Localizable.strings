@@ -48,9 +48,11 @@
 "wikitext-upload-save" = "Saving...";
 
 "wikitext-upload-save-sign-in" = "Sign in and save";
-"wikitext-upload-save-sign-in-benefits" = "So co-editors can connect with you & you can see what articles you edited";
+"wikitext-upload-save-sign-in-benefits" = "So co-editors can connect with you & you can see what articles you edited.";
 "wikitext-upload-save-anonymously" = "Save anonymously";
-"wikitext-upload-save-anonymously-warning" = "This has less privacy. Your IP address is visible with edits. By saving, you agree to permanently publish your edits under CC BY-SA 3.0";
+"wikitext-upload-save-anonymously-warning" = "This has less privacy. Your IP address is visible with edits.";
+"wikitext-upload-save-license" = "By saving, you agree to release your contributions under $1 license.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 
 "search-searching" = "Searching...";
 "search-no-matches" = "No matches found for search term.";

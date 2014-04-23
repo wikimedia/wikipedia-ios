@@ -73,7 +73,6 @@
 		043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043DAC4A1901C3EE001CD17C /* CreditsViewController.m */; };
 		043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18DC18D9691D00D8489A /* TopActionSheetLabel.m */; };
 		043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */; };
-		043F18E918D9885F00D8489A /* TitleSubtitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18E818D9885F00D8489A /* TitleSubtitleView.m */; };
 		043F18ED18DA3D9B00D8489A /* button_cc_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 043F18EB18DA3D9B00D8489A /* button_cc_black.png */; };
 		043F18EF18DA3D9B00D8489A /* button_cc_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 043F18EC18DA3D9B00D8489A /* button_cc_black@2x.png */; };
 		0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0442F57A19006DCC00F55DF9 /* PageHistoryLabel.m */; };
@@ -110,6 +109,9 @@
 		047E74141860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047E74131860509000916964 /* SavedPagesResultPrototypeView.xib */; };
 		047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047ED63818C13E4900442BE3 /* PreviewWebView.m */; };
 		047FF5471889078C009DB293 /* Image+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 047FF5461889078C009DB293 /* Image+Convenience.m */; };
+		048A266D1905E12E00395F53 /* PreviewChoicesMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048A266C1905E12E00395F53 /* PreviewChoicesMenuView.xib */; };
+		048A26701905E55B00395F53 /* PreviewChoicesMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 048A266F1905E55B00395F53 /* PreviewChoicesMenuView.m */; };
+		048A26771906268100395F53 /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048A26761906268100395F53 /* PaddedLabel.m */; };
 		049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049566C118F5F4CB0058EA12 /* ZeroConfigState.m */; };
 		04992BC018B687AF00A6C22B /* SearchOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04992BBF18B687AF00A6C22B /* SearchOp.m */; };
 		04992BC418B6971F00A6C22B /* SearchThumbUrlsOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04992BC318B6971F00A6C22B /* SearchThumbUrlsOp.m */; };
@@ -291,8 +293,6 @@
 		043F18DC18D9691D00D8489A /* TopActionSheetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopActionSheetLabel.m; sourceTree = "<group>"; };
 		043F18DF18D9691D00D8489A /* UINavigationController+TopActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+TopActionSheet.h"; sourceTree = "<group>"; };
 		043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+TopActionSheet.m"; sourceTree = "<group>"; };
-		043F18E718D9885F00D8489A /* TitleSubtitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleSubtitleView.h; sourceTree = "<group>"; };
-		043F18E818D9885F00D8489A /* TitleSubtitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleSubtitleView.m; sourceTree = "<group>"; };
 		043F18EB18DA3D9B00D8489A /* button_cc_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_cc_black.png; sourceTree = "<group>"; };
 		043F18EC18DA3D9B00D8489A /* button_cc_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_cc_black@2x.png"; sourceTree = "<group>"; };
 		043F18F118DCDD3A00D8489A /* WMF_Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMF_Colors.h; sourceTree = "<group>"; };
@@ -351,6 +351,11 @@
 		047ED63818C13E4900442BE3 /* PreviewWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewWebView.m; sourceTree = "<group>"; };
 		047FF5451889078C009DB293 /* Image+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Image+Convenience.h"; sourceTree = "<group>"; };
 		047FF5461889078C009DB293 /* Image+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Image+Convenience.m"; sourceTree = "<group>"; };
+		048A266C1905E12E00395F53 /* PreviewChoicesMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviewChoicesMenuView.xib; sourceTree = "<group>"; };
+		048A266E1905E55B00395F53 /* PreviewChoicesMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewChoicesMenuView.h; sourceTree = "<group>"; };
+		048A266F1905E55B00395F53 /* PreviewChoicesMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewChoicesMenuView.m; sourceTree = "<group>"; };
+		048A26751906268100395F53 /* PaddedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddedLabel.h; sourceTree = "<group>"; };
+		048A26761906268100395F53 /* PaddedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddedLabel.m; sourceTree = "<group>"; };
 		049566C018F5F4CB0058EA12 /* ZeroConfigState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZeroConfigState.h; sourceTree = "<group>"; };
 		049566C118F5F4CB0058EA12 /* ZeroConfigState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZeroConfigState.m; sourceTree = "<group>"; };
 		04992BBE18B687AF00A6C22B /* SearchOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchOp.h; sourceTree = "<group>"; };
@@ -883,6 +888,15 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		048A26741906268100395F53 /* PaddedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				048A26751906268100395F53 /* PaddedLabel.h */,
+				048A26761906268100395F53 /* PaddedLabel.m */,
+			);
+			path = PaddedLabel;
+			sourceTree = "<group>";
+		};
 		049566BF18F5F4CB0058EA12 /* Zero */ = {
 			isa = PBXGroup;
 			children = (
@@ -1146,8 +1160,9 @@
 				04DD89B018BFE63A00DD5DAD /* PreviewAndSaveViewController.m */,
 				047ED63718C13E4900442BE3 /* PreviewWebView.h */,
 				047ED63818C13E4900442BE3 /* PreviewWebView.m */,
-				043F18E718D9885F00D8489A /* TitleSubtitleView.h */,
-				043F18E818D9885F00D8489A /* TitleSubtitleView.m */,
+				048A266C1905E12E00395F53 /* PreviewChoicesMenuView.xib */,
+				048A266E1905E55B00395F53 /* PreviewChoicesMenuView.h */,
+				048A266F1905E55B00395F53 /* PreviewChoicesMenuView.m */,
 			);
 			path = Preview;
 			sourceTree = "<group>";
@@ -1267,6 +1282,7 @@
 				0466F44C183A30CC00EA1FD7 /* Images */,
 				0463639518A844380049EE4F /* Keychain */,
 				04CF1CB5187C8F4400E9516F /* Languages */,
+				048A26741906268100395F53 /* PaddedLabel */,
 				04292FFD185FC2C7002A13FC /* Queues */,
 				0447866C1852B5010050563B /* Session */,
 				04B91AB418E4D58D00FFAA1C /* TabularScrollView */,
@@ -1466,6 +1482,7 @@
 				D499144C181D51DE00E6073C /* Main_iPhone.storyboard in Resources */,
 				D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */,
 				04082B5318ADA25A00FAF3D6 /* text_field_x_circle_gray.png in Resources */,
+				048A266D1905E12E00395F53 /* PreviewChoicesMenuView.xib in Resources */,
 				042C6FBB18A350C2003712D7 /* button_arrow_left@2x.png in Resources */,
 				043649E018E2573E00B528DB /* main_menu_save.png in Resources */,
 				04478631185145090050563B /* HistoryResultPrototypeView.xib in Resources */,
@@ -1540,6 +1557,7 @@
 				04F27B7518FE0F2E00EDD838 /* PageHistoryResultCell.m in Sources */,
 				D474CC15182AE196002BDE45 /* MWSite.m in Sources */,
 				0463639818A844570049EE4F /* KeychainCredentials.m in Sources */,
+				048A26701905E55B00395F53 /* PreviewChoicesMenuView.m in Sources */,
 				0433543518A1A7AE009305F0 /* NavBarTextField.m in Sources */,
 				04992BC418B6971F00A6C22B /* SearchThumbUrlsOp.m in Sources */,
 				044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */,
@@ -1547,6 +1565,7 @@
 				0429301018604898002A13FC /* SavedPagesViewController.m in Sources */,
 				04D149DF18877343006B4104 /* UIViewController+Alert.m in Sources */,
 				04FD6C7A184EBFCD002CA02F /* ArticleData.xcdatamodeld in Sources */,
+				048A26771906268100395F53 /* PaddedLabel.m in Sources */,
 				04B9C42918CE5D4D003B5058 /* EditSummaryViewController.m in Sources */,
 				C9928B8618AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m in Sources */,
 				04B91AAB18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m in Sources */,
@@ -1604,7 +1623,6 @@
 				04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */,
 				0429300E18604898002A13FC /* SavedPagesTableHeadingLabel.m in Sources */,
 				0433542218A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */,
-				043F18E918D9885F00D8489A /* TitleSubtitleView.m in Sources */,
 				C958EE3418CE73E600148D13 /* DownloadTitlesForRandomArticlesOp.m in Sources */,
 				0406CEF918F8D6F7007EE43E /* UIViewController+LogEvent.m in Sources */,
 				04B91AB718E4D5B200FFAA1C /* TabularScrollView.m in Sources */,

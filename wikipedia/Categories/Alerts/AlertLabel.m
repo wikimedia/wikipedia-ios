@@ -71,11 +71,8 @@
     CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMaxY(rect));
     CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMaxY(rect));
 
-    CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMinY(rect));
-    CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMinY(rect));
-
     CGContextSetStrokeColorWithColor(context, [[UIColor lightGrayColor] CGColor] );
-    CGContextSetLineWidth(context, 1.0);
+    CGContextSetLineWidth(context, 1.0f / [UIScreen mainScreen].scale);
 
     CGContextStrokePath(context);
 }

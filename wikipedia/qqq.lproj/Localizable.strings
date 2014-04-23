@@ -50,6 +50,8 @@
 "wikitext-upload-save-sign-in-benefits" = "Button sub-text informing user of sign in benefits";
 "wikitext-upload-save-anonymously" = "Button text for saving without logging in";
 "wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext";
+"wikitext-upload-save-license" = "Button text for information about the edit license. Parameters:\n* $1 - license name";
+"wikitext-upload-save-license-name" = "Name of license user edits are saved under - presently CC BY-SA 3.0";
 "search-searching" = "Alert text shown when results for search term are being retrieved";
 "search-no-matches" = "Message shown if no results found for search term";
 "search-field-placeholder-text" = "Search field placeholder text";

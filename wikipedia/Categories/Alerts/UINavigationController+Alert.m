@@ -73,8 +73,7 @@
 
 -(void)constrainAlertView:(UIView *)view fullScreen:(BOOL)isFullScreen
 {
-    CGFloat topMargin = (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) ? -(1.0f / [UIScreen mainScreen].scale): 0.0f;
-
+    CGFloat topMargin = 0.0f;
     id navBar = self.navigationBar;
     NSDictionary *views = NSDictionaryOfVariableBindings (view, navBar);
     NSDictionary *metrics = @{@"space": @(topMargin)};

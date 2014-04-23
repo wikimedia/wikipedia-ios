@@ -276,7 +276,7 @@ typedef enum {
       @{
           @"title": pageHistoryTitle,
           @"tag": @(ROW_INDEX_PAGE_HISTORY),
-          @"imageName": @"main_menu_save.png",
+          @"imageName": @"w.png",
           @"highlighted": @YES,
           }.mutableCopy
         ,
@@ -284,7 +284,7 @@ typedef enum {
           @"domain": [SessionSingleton sharedInstance].domain,
           @"title": MWLocalizedString(@"main-menu-credits", nil),
           @"tag": @(ROW_INDEX_CREDITS),
-          @"imageName": @"main_menu_foreign_characters_gray.png",
+          @"imageName": @"w.png",
           @"highlighted": @YES,
           }.mutableCopy
       ].mutableCopy;

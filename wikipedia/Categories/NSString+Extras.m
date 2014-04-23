@@ -88,4 +88,15 @@
     return result;
 }
 
+- (NSString *)randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
+{
+    float(^rnd)() = ^(){
+        return (float)(rand() % (maxTimes - 1) + 1);
+    };
+
+    NSString *randStr = [@"" stringByPaddingToLength:rnd() * [self length] withString:self startingAtIndex:0];
+    
+    return [NSString stringWithFormat:@"<%@>", [randStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+}
+
 @end

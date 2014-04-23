@@ -12,4 +12,6 @@
 - (NSDate *)getDateFromIso8601DateString;
 - (NSString *)getStringWithoutHTML;
 
+- (NSString *)randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
+
 @end

@@ -21,18 +21,16 @@
 #import "EditSummaryViewController.h"
 #import "LoginViewController.h"
 #import "UINavigationController+TopActionSheet.h"
-#import "TitleSubtitleView.h"
 #import "Defines.h"
 #import "WMF_Colors.h"
 #import "CommunicationBridge.h"
 #import "UIViewController+LogEvent.h"
+#import "PreviewChoicesMenuView.h"
+
+#import "PaddedLabel.h"
+#import "NSString+Extras.h"
 
 #define NAV ((NavController *)self.navigationController)
-
-typedef enum {
-    TOP_ACTION_SHEET_LOGIN_THEN_SAVE = 0,
-    TOP_ACTION_SHEET_SAVE = 1
-} TopActionSheetItemTag;
 
 @interface PreviewAndSaveViewController ()
 
@@ -151,8 +149,6 @@ typedef enum {
                                                object: nil];
    
     [self preview];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabularScrollViewItemTappedNotification:) name:@"TabularScrollViewItemTapped" object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -182,9 +178,9 @@ typedef enum {
     button.backgroundColor = highlight ?
         WMF_COLOR_GREEN
         :
-        [UIColor darkGrayColor];
+        [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.0];
     
-    [button maskButtonImageWithColor:[UIColor whiteColor]];
+    [button maskButtonImageWithColor:(highlight ? [UIColor whiteColor] : [UIColor blackColor])];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -192,10 +188,6 @@ typedef enum {
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: @"NavItemTapped"
                                                   object: nil];
-
-    [[NSNotificationCenter defaultCenter] removeObserver: self
-                                                name: @"TabularScrollViewItemTapped"
-                                              object: nil];
 
     [self.navigationController topActionSheetHide];
 
@@ -275,24 +267,29 @@ typedef enum {
     }
 }
 
-- (void)tabularScrollViewItemTappedNotification:(NSNotification *)notification
+- (void)previewChoiceTapped:(UITapGestureRecognizer *)recognizer
 {
-    NSDictionary *userInfo = [notification userInfo];
-    UIView *tappedItem = userInfo[@"tappedItem"];
-
-    switch (tappedItem.tag) {
-        case TOP_ACTION_SHEET_LOGIN_THEN_SAVE:{
+    switch (recognizer.view.tag) {
+        case PREVIEW_CHOICE_LOGIN_THEN_SAVE:{
             self.saveAutomaticallyIfSignedIn = YES;
             LoginViewController *loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
             [self.navigationController pushViewController:loginVC animated:YES];
         }
             break;
-        case TOP_ACTION_SHEET_SAVE:
-
+        case PREVIEW_CHOICE_SAVE:
             [self logEvent: @{@"action": @"saveAnonExplicit"}
                     schema: LOG_SCHEMA_EDIT];
 
             [self save];
+            break;
+        case PREVIEW_CHOICE_SHOW_LICENSE:
+            NSLog(@"show license here!")
+
+//TODO: this!
+[self showAlert:@"To do: Hook up license copy to this label tap!"];
+[self showAlert:@""];
+return;
+
             break;
         default:
             break;
@@ -318,23 +315,23 @@ typedef enum {
         
         [self highlightProgressiveButton:NO];
 
-        TitleSubtitleView *saveAnonItemView =
-        [[TitleSubtitleView alloc] initWithTitle: MWLocalizedString(@"wikitext-upload-save-anonymously", nil)
-                                        subTitle: MWLocalizedString(@"wikitext-upload-save-anonymously-warning", nil)
-                                  titleTextColor: [UIColor whiteColor]
-                               subTitleTextColor: [UIColor colorWithWhite:0.75 alpha:1.0]
-                                 backgroundColor: [UIColor darkGrayColor]];
-        saveAnonItemView.tag = TOP_ACTION_SHEET_SAVE;
+        UINib *previewChoicesNib = [UINib nibWithNibName:@"PreviewChoicesMenuView" bundle:nil];
         
-        TitleSubtitleView *saveLoginItemView =
-        [[TitleSubtitleView alloc] initWithTitle: MWLocalizedString(@"wikitext-upload-save-sign-in", nil)
-                                        subTitle: MWLocalizedString(@"wikitext-upload-save-sign-in-benefits", nil)
-                                  titleTextColor: [UIColor whiteColor]
-                               subTitleTextColor: [UIColor colorWithWhite:0.75 alpha:1.0]
-                                 backgroundColor: WMF_COLOR_BLUE];
-        saveLoginItemView.tag = TOP_ACTION_SHEET_LOGIN_THEN_SAVE;
+        PreviewChoicesMenuView *previewChoicesView = [[previewChoicesNib instantiateWithOwner:nil options:nil] firstObject];
         
-        [self.navigationController topActionSheetShowWithViews: @[saveAnonItemView, saveLoginItemView]
+        void (^addTap)(UIView *) = ^void(UIView *view) {
+            [view addGestureRecognizer:
+             [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewChoiceTapped:)]
+             ];
+        };
+        
+        addTap(previewChoicesView.signInView);
+        addTap(previewChoicesView.saveAnonView);
+        addTap(previewChoicesView.licenseView);
+        
+        // Used "topActionSheetShowWithViews:orientation:" as quick way to
+        // get UIScrollView containment for free.
+        [self.navigationController topActionSheetShowWithViews: @[previewChoicesView]
                                                    orientation: TABULAR_SCROLLVIEW_LAYOUT_VERTICAL];
         return;
     }
