@@ -6,9 +6,8 @@
 @interface MainMenuRowView : UIView
 
 @property (strong, nonatomic) IBOutlet UILabel *textLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *thumbnailImageView;
+@property (strong, nonatomic) IBOutlet UILabel *iconLabel;
 
-@property (strong, nonatomic) NSString *imageName;
 @property (nonatomic) BOOL highlighted;
 
 @end
