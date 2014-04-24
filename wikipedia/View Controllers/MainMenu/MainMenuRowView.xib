@@ -11,14 +11,6 @@
             <rect key="frame" x="0.0" y="0.0" width="318" height="59"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z0h-5o-gOE">
-                    <rect key="frame" x="10" y="6" width="47" height="47"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="47" id="cUa-Lj-OHi"/>
-                        <constraint firstAttribute="width" constant="47" id="mSf-GB-3RW"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="233" translatesAutoresizingMaskIntoConstraints="NO" id="WPC-HU-a4T">
                     <rect key="frame" x="65" y="1" width="233" height="57"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -26,20 +18,30 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cA7-gi-Qv0">
+                    <rect key="frame" x="10" y="6" width="47" height="47"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="47" id="9Pr-gl-Oz8"/>
+                        <constraint firstAttribute="width" constant="47" id="z3r-eR-8Mr"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Z0h-5o-gOE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="6nL-AU-TSu"/>
-                <constraint firstItem="WPC-HU-a4T" firstAttribute="centerY" secondItem="Z0h-5o-gOE" secondAttribute="centerY" id="csq-77-bti"/>
+                <constraint firstItem="cA7-gi-Qv0" firstAttribute="centerY" secondItem="WPC-HU-a4T" secondAttribute="centerY" id="1BX-Ct-i1Q"/>
+                <constraint firstItem="WPC-HU-a4T" firstAttribute="leading" secondItem="cA7-gi-Qv0" secondAttribute="trailing" constant="8" symbolic="YES" id="VKT-qy-eej"/>
+                <constraint firstItem="cA7-gi-Qv0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="fgr-qp-h46"/>
                 <constraint firstItem="WPC-HU-a4T" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="1" id="hnC-l4-TFw"/>
-                <constraint firstItem="WPC-HU-a4T" firstAttribute="leading" secondItem="Z0h-5o-gOE" secondAttribute="trailing" constant="8" symbolic="YES" id="o0F-2w-h8Q"/>
                 <constraint firstAttribute="bottom" secondItem="WPC-HU-a4T" secondAttribute="bottom" constant="1" id="roH-8j-kwK"/>
                 <constraint firstAttribute="trailing" secondItem="WPC-HU-a4T" secondAttribute="trailing" constant="20" id="xxr-8J-xqL"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="iconLabel" destination="cA7-gi-Qv0" id="cxa-sB-MTo"/>
                 <outlet property="textLabel" destination="WPC-HU-a4T" id="Fvl-u9-cgg"/>
-                <outlet property="thumbnailImageView" destination="Z0h-5o-gOE" id="ZH4-bg-ozI"/>
             </connections>
         </view>
     </objects>

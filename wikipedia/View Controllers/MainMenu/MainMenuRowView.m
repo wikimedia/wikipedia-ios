@@ -2,12 +2,8 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "MainMenuRowView.h"
-#import "UIImage+ColorMask.h"
-#import "QueuesSingleton.h"
 
 @interface MainMenuRowView()
-
-@property (strong, nonatomic) UIColor *imageColor;
 
 @end
 
@@ -19,31 +15,8 @@
     if (self) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
         self.highlighted = YES;
-        self.imageColor = [UIColor clearColor];
     }
     return self;
-}
-
--(void)setImageName:(NSString *)imageName
-{
-    UIColor *rowColor = (self.highlighted) ?
-        [UIColor blackColor]
-        :
-        [UIColor lightGrayColor]
-        ;
-    
-    if (_imageName == imageName){
-        if (CGColorEqualToColor(rowColor.CGColor, self.imageColor.CGColor))return;
-    }
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        UIImage *image = [[UIImage imageNamed:imageName] getImageOfColor:rowColor.CGColor];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.thumbnailImageView.image = image;
-        });
-    });
-
-    self.imageColor = rowColor;
 }
 
 /*

@@ -18,7 +18,6 @@
 #import "UIViewController+HideKeyboard.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "UIViewController+Alert.h"
-#import "UIImage+ColorMask.h"
 #import "NSString+FormattedAttributedString.h"
 #import "TabularScrollView.h"
 
@@ -30,6 +29,9 @@
 
 #define NAV ((NavController *)self.navigationController)
 #define BACKGROUND_COLOR [UIColor colorWithWhite:0.97f alpha:1.0f]
+#define MENU_ICON_COLOR [UIColor blackColor]
+#define MENU_ICON_COLOR_DESELECTED [UIColor lightGrayColor];
+#define MENU_ICON_FONT_SIZE 38
 
 typedef enum {
     ROW_INDEX_LOGIN = 0,
@@ -181,7 +183,18 @@ typedef enum {
 
         rowView.highlighted = ((NSNumber *)row[@"highlighted"]).boolValue;
 
-        rowView.imageName = row[@"imageName"];
+        UIColor *iconColor = rowView.highlighted ? MENU_ICON_COLOR : MENU_ICON_COLOR_DESELECTED;
+
+        NSDictionary *attributes =
+            @{
+              NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Regular" size:MENU_ICON_FONT_SIZE],
+              NSForegroundColorAttributeName : iconColor,
+              NSBaselineOffsetAttributeName: @2
+              };
+
+        rowView.iconLabel.attributedText =
+            [[NSAttributedString alloc] initWithString: row[@"icon"]
+                                            attributes: attributes];
 
         id title = row[@"title"];
         if([title isKindOfClass:[NSString class]]){
@@ -219,35 +232,35 @@ typedef enum {
       @{
           @"title": @"",
           @"tag": @(ROW_INDEX_LOGIN),
-          @"imageName": @"",
+          @"icon": @"",
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": MWLocalizedString(@"main-menu-random", nil),
           @"tag": @(ROW_INDEX_RANDOM),
-          @"imageName": @"main_menu_dice_white.png",
+          @"icon": @"",
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": MWLocalizedString(@"main-menu-show-history", nil),
           @"tag": @(ROW_INDEX_HISTORY),
-          @"imageName": @"main_menu_clock_white.png",
+          @"icon": @"",
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": MWLocalizedString(@"main-menu-show-saved", nil),
           @"tag": @(ROW_INDEX_SAVED_PAGES),
-          @"imageName": @"main_menu_bookmark_white.png",
+          @"icon": @"",
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": saveArticleTitle,
           @"tag": @(ROW_INDEX_SAVE_PAGE),
-          @"imageName": @"main_menu_save.png",
+          @"icon": @"",
           @"highlighted": @YES,
           }.mutableCopy
       ,
@@ -255,28 +268,28 @@ typedef enum {
           @"domain": [SessionSingleton sharedInstance].domain,
           @"title": searchWikiTitle,
           @"tag": @(ROW_INDEX_SEARCH_LANGUAGE),
-          @"imageName": @"main_menu_foreign_characters_gray.png",
+          @"icon": @"",
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": MWLocalizedString(@"zero-warn-when-leaving", nil),
           @"tag": @(ROW_INDEX_ZERO_WARN_WHEN_LEAVING),
-          @"imageName": @"main_menu_flag_white.png",
+          @"icon": @"",
           @"highlighted": @([SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving),
           }.mutableCopy
       ,
       @{
           @"title": MWLocalizedString(@"main-menu-send-feedback", nil),
           @"tag": @(ROW_INDEX_SEND_FEEDBACK),
-          @"imageName": @"main_menu_envelope_white.png",
+          @"icon": @"",
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": pageHistoryTitle,
           @"tag": @(ROW_INDEX_PAGE_HISTORY),
-          @"imageName": @"w.png",
+          @"icon": @"",
           @"highlighted": @YES,
           }.mutableCopy
         ,
@@ -284,7 +297,7 @@ typedef enum {
           @"domain": [SessionSingleton sharedInstance].domain,
           @"title": MWLocalizedString(@"main-menu-credits", nil),
           @"tag": @(ROW_INDEX_CREDITS),
-          @"imageName": @"w.png",
+          @"icon": @"",
           @"highlighted": @YES,
           }.mutableCopy
       ].mutableCopy;
@@ -300,26 +313,26 @@ typedef enum {
 -(void)updateLoginRow
 {
     id loginTitle = nil;
-    NSString *loginImageName = nil;
+    NSString *loginIcon = @"";
     NSString *userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
     if(userName){
         loginTitle = [MWLocalizedString(@"main-menu-account-logout", nil) stringByAppendingString:@" $1"];
-
+        
         loginTitle =
         [loginTitle attributedStringWithAttributes: nil
-                                substitutionStrings: @[userName]
-                             substitutionAttributes: @[self.highlightedTextAttributes]
+                               substitutionStrings: @[userName]
+                            substitutionAttributes: @[self.highlightedTextAttributes]
          ];
         
-        loginImageName = @"main_menu_face_smile_white.png";
+        loginIcon = @"";
     }else{
         loginTitle = MWLocalizedString(@"main-menu-account-login", nil);
-        loginImageName = @"main_menu_face_sleep_white.png";
+        loginIcon = @"";
     }
     
     NSMutableDictionary *row = [self getRowWithTag:ROW_INDEX_LOGIN];
     row[@"title"] = loginTitle;
-    row[@"imageName"] = loginImageName;
+    row[@"icon"] = loginIcon;
 }
 
 #pragma mark - Selection
@@ -415,14 +428,14 @@ typedef enum {
     
     NSMutableDictionary *row = [self getRowWithTag:tappedItem.tag];
     
-    NSString *imageName = [row objectForKey:@"imageName"];
-
-    if (imageName && (imageName.length > 0) && (animationDuration > 0)) {
-        [tappedItem.thumbnailImageView animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
-                                               afterDelay: 0.0
-                                                 duration: animationDuration
-                                                     then: performTapAction
-                                                 ];
+    NSString *icon = [row objectForKey:@"icon"];
+    
+    if (icon && (icon.length > 0) && (animationDuration > 0)) {
+        [tappedItem.iconLabel animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
+                                      afterDelay: 0.0
+                                        duration: animationDuration
+                                            then: performTapAction
+         ];
     }else{
         performTapAction();
     }
