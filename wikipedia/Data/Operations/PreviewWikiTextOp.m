@@ -29,6 +29,7 @@
                                              @"format": @"json"
                                              }mutableCopy];
         
+        // Note: "Preview should probably stay as a post, since the wikitext chunk may be pretty long and there may or may not be a limit on URL length some" - Brion
         self.request = [NSURLRequest postRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
                                              parameters: parameters
                         ];

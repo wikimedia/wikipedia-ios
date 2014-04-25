@@ -26,7 +26,7 @@
                                              } mutableCopy];
         
         
-        self.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:[SessionSingleton sharedInstance].searchApiUrl]
+        self.request = [NSURLRequest getRequestWithURL: [NSURL URLWithString:[SessionSingleton sharedInstance].searchApiUrl]
                                              parameters: parameters
                         ];
         

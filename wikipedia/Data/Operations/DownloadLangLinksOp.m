@@ -17,7 +17,7 @@
 {
     self = [super init];
     if (self) {
-        self.request = [NSURLRequest postRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
+        self.request = [NSURLRequest getRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
                                              parameters: @{
                                                            @"action": @"query",
                                                            @"prop": @"langlinks",
