@@ -27,6 +27,7 @@
 
 -(NSURL *)urlForDomain:(NSString *)domain;
 -(NSMutableArray *)getBundledLanguagesJson;
+-(NSString *)domainNameForCode:(NSString *)code;
 
 + (SessionSingleton *)sharedInstance;
 

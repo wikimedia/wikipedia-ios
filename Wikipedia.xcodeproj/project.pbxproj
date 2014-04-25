@@ -93,6 +93,7 @@
 		04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0EA49190B2348007458AF /* PreviewLicenseView.m */; };
 		04B0EA4D190E2983007458AF /* NavButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0EA4C190E2983007458AF /* NavButtonView.m */; };
 		04B0EA50190E2E4E007458AF /* NavButtonLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0EA4F190E2E4E007458AF /* NavButtonLabel.m */; };
+		04B0EA45190AFDD8007458AF /* ArticleImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0EA44190AFDD8007458AF /* ArticleImporter.m */; };
 		04B6925018E77B2A00F88D8A /* UIWebView+HideScrollGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */; };
 		04B78A5318A580AF0050EBF5 /* LoginOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B78A5218A580AF0050EBF5 /* LoginOp.m */; };
 		04B7B9BD18B5570E00A63551 /* CaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */; };
@@ -318,6 +319,8 @@
 		04B0EA4C190E2983007458AF /* NavButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavButtonView.m; sourceTree = "<group>"; };
 		04B0EA4E190E2E4E007458AF /* NavButtonLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavButtonLabel.h; sourceTree = "<group>"; };
 		04B0EA4F190E2E4E007458AF /* NavButtonLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavButtonLabel.m; sourceTree = "<group>"; };
+		04B0EA43190AFDD8007458AF /* ArticleImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleImporter.h; sourceTree = "<group>"; };
+		04B0EA44190AFDD8007458AF /* ArticleImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleImporter.m; sourceTree = "<group>"; };
 		04B6924E18E77B2A00F88D8A /* UIWebView+HideScrollGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+HideScrollGradient.h"; sourceTree = "<group>"; };
 		04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+HideScrollGradient.m"; sourceTree = "<group>"; };
 		04B78A5118A580AF0050EBF5 /* LoginOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginOp.h; sourceTree = "<group>"; };
@@ -834,6 +837,15 @@
 			path = AccountCreation;
 			sourceTree = "<group>";
 		};
+		04B0EA42190AFDBA007458AF /* Importer */ = {
+			isa = PBXGroup;
+			children = (
+				04B0EA43190AFDD8007458AF /* ArticleImporter.h */,
+				04B0EA44190AFDD8007458AF /* ArticleImporter.m */,
+			);
+			path = Importer;
+			sourceTree = "<group>";
+		};
 		04B7B9BA18B5569600A63551 /* Captcha */ = {
 			isa = PBXGroup;
 			children = (
@@ -1195,6 +1207,7 @@
 				0442F57C1900718600F55DF9 /* Fonts */,
 				04D34DA31863D2D600610A87 /* HTML Parsing */,
 				0466F44C183A30CC00EA1FD7 /* Images */,
+				04B0EA42190AFDBA007458AF /* Importer */,
 				0463639518A844380049EE4F /* Keychain */,
 				04CF1CB5187C8F4400E9516F /* Languages */,
 				048A26741906268100395F53 /* PaddedLabel */,
@@ -1536,6 +1549,7 @@
 				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
 				0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */,
 				0447862F185145090050563B /* HistoryResultCell.m in Sources */,
+				04B0EA45190AFDD8007458AF /* ArticleImporter.m in Sources */,
 				0406CEF618F8C390007EE43E /* LogEventOp.m in Sources */,
 				0476967C18BBFC9400071963 /* AccountCreationOp.m in Sources */,
 			);

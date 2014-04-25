@@ -99,6 +99,11 @@
 
 -(NSString *)currentArticleDomainName
 {
+    return [self domainNameForCode:self.currentArticleDomain];
+}
+
+-(NSString *)domainNameForCode:(NSString *)code
+{
     NSError *error = nil;
     NSData *fileData = [NSData dataWithContentsOfFile:[self bundledLanguagesJsonPath] options:0 error:&error];
     if (error) return nil;
@@ -106,7 +111,7 @@
     NSArray *result = [NSJSONSerialization JSONObjectWithData:fileData options:0 error:&error];
     if (!error) {
         for (NSDictionary *d in result) {
-            if ([d[@"code"] isEqualToString:self.currentArticleDomain]) {
+            if ([d[@"code"] isEqualToString:code]) {
                 return d[@"name"];
             }
         }
