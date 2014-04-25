@@ -1,5 +1,5 @@
 body {
-  background-color: #fafafa;
+  background-color: #ffffff;
   padding: 0px;
   margin: 0px;
   color: #000;
@@ -138,11 +138,11 @@ li {
   background-image: url('images/edit.png');
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #fafafa;
+  background-color: #ffffff;
   /* Having border seems to make the edit_section span respond better to touch events for some reason. */
   border-style: solid;
   border-width: 1px;
-  border-color: #fafafa;
+  border-color: #ffffff;
   margin-top: 8px;
 }
 body[dir=rtl] .edit_section {

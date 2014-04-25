@@ -3,10 +3,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class EditSummaryHandleView;
+
 @interface EditSummaryViewController : UIViewController <UIGestureRecognizerDelegate, UITextFieldDelegate>
 
 -(NSString *)getSummary;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+@property (weak, nonatomic) NSLayoutConstraint *topConstraint;
 
 @end
