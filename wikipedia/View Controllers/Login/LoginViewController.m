@@ -263,9 +263,10 @@
                                NSLog(@"loginTokenOp token = %@", tokenRetrieved);
                                loginOp.token = tokenRetrieved;
                                
-                               [self logEvent: @{@"loginSessionToken": tokenRetrieved}
-                                       schema: LOG_SCHEMA_LOGIN];
-                               
+                               if (tokenRetrieved) {
+                                   [self logEvent: @{@"loginSessionToken": tokenRetrieved}
+                                           schema: LOG_SCHEMA_LOGIN];
+                               }
                            } cancelledBlock: ^(NSError *error){
                                
                                [self showAlert:@""];
