@@ -87,7 +87,6 @@
             }
             
             break;
-        case NAVBAR_BUTTON_CHECK:
         case NAVBAR_BUTTON_ARROW_RIGHT: /* for captcha submit button */
             {
                 [self saveOrShowSignInActionSheetIfNotLoggedIn];
@@ -173,10 +172,10 @@
     if (lastHightlight == highlight) return;
     lastHightlight = highlight;
 
-    UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
+    UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
 
     button.backgroundColor = highlight ?
-        WMF_COLOR_GREEN
+        WMF_COLOR_BLUE
         :
         [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.0];
     

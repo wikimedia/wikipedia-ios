@@ -146,6 +146,7 @@
 		04DB0BE618BC2E1E00B4BCF3 /* CaptchaResetOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DB0BE518BC2E1E00B4BCF3 /* CaptchaResetOp.m */; };
 		04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */; };
 		04DD89B118BFE63A00DD5DAD /* PreviewAndSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD89B018BFE63A00DD5DAD /* PreviewAndSaveViewController.m */; };
+		04E6B4A41909EC3D009AD199 /* EditSummaryHandleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E6B4A31909EC3D009AD199 /* EditSummaryHandleView.m */; };
 		04EA3A5B18D25D7700E2F5C4 /* UINavigationController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EA3A5A18D25D7700E2F5C4 /* UINavigationController+Alert.m */; };
 		04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */; };
 		04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2ED186FB2D100468738 /* TOCSectionCellView.m */; };
@@ -419,6 +420,8 @@
 		04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+ScrollSubviewToLocation.m"; sourceTree = "<group>"; };
 		04DD89AF18BFE63A00DD5DAD /* PreviewAndSaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewAndSaveViewController.h; sourceTree = "<group>"; };
 		04DD89B018BFE63A00DD5DAD /* PreviewAndSaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewAndSaveViewController.m; sourceTree = "<group>"; };
+		04E6B4A21909EC3D009AD199 /* EditSummaryHandleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSummaryHandleView.h; sourceTree = "<group>"; };
+		04E6B4A31909EC3D009AD199 /* EditSummaryHandleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditSummaryHandleView.m; sourceTree = "<group>"; };
 		04E9A78218F73C7200F7ECF7 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		04EA3A5918D25D7700E2F5C4 /* UINavigationController+Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Alert.h"; sourceTree = "<group>"; };
 		04EA3A5A18D25D7700E2F5C4 /* UINavigationController+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Alert.m"; sourceTree = "<group>"; };
@@ -887,6 +890,8 @@
 			children = (
 				04B9C42718CE5D4D003B5058 /* EditSummaryViewController.h */,
 				04B9C42818CE5D4D003B5058 /* EditSummaryViewController.m */,
+				04E6B4A21909EC3D009AD199 /* EditSummaryHandleView.h */,
+				04E6B4A31909EC3D009AD199 /* EditSummaryHandleView.m */,
 			);
 			path = EditSummary;
 			sourceTree = "<group>";
@@ -1540,6 +1545,7 @@
 				043C668A18BE9A8E00580E9B /* PreviewWikiTextOp.m in Sources */,
 				04C43AA6183440C1006C643B /* MWNetworkOp.m in Sources */,
 				040E5C841846AC13007AFE6F /* ArticleDataContextSingleton.m in Sources */,
+				04E6B4A41909EC3D009AD199 /* EditSummaryHandleView.m in Sources */,
 				04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */,
 				0429300E18604898002A13FC /* SavedPagesTableHeadingLabel.m in Sources */,
 				0433542218A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */,

@@ -6,6 +6,7 @@
 #import "NavController.h"
 #import "Defines.h"
 #import "WMF_Colors.h"
+#import "EditSummaryHandleView.h"
 
 #define NAV ((NavController *)self.navigationController)
 #define MAX_SUMMARY_LENGTH 255
@@ -36,6 +37,12 @@ typedef enum {
 
 @property (weak, nonatomic) IBOutlet UIView *editSummaryContainerView;
 
+@property (nonatomic) CGFloat origHandleHeightConstant;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *handleHeightConstraint;
+
+@property (weak, nonatomic) IBOutlet EditSummaryHandleView *handleView;
+
 @end
 
 @implementation EditSummaryViewController
@@ -63,6 +70,8 @@ typedef enum {
 {
     [super viewDidLoad];
     
+    self.origHandleHeightConstant = self.handleHeightConstraint.constant;
+    
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
 
     self.borderWidth = 1.0f / [UIScreen mainScreen].scale;
@@ -77,7 +86,9 @@ typedef enum {
     [self setupButtons];
     
     self.aboutLabel.text = MWLocalizedString(@"edit-summary-description", nil);
-    self.summaryTextField.placeholder = MWLocalizedString(@"edit-summary-field-placeholder-text", nil);
+
+    self.summaryTextField.attributedPlaceholder =
+        [self getAttributedPlaceholderForString:MWLocalizedString(@"edit-summary-field-placeholder-text", nil)];
 
     self.summaryTextField.textColor = [UIColor darkGrayColor];
     self.summaryTextField.returnKeyType = UIReturnKeyDone;
@@ -93,18 +104,42 @@ typedef enum {
                                                object: nil];
 
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)]];
+
+    [self.handleView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleViewTapped)]];
+}
+
+-(NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string
+{
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:string];
+
+    [str addAttribute:NSFontAttributeName
+                value:[UIFont systemFontOfSize:12.0]
+                range:NSMakeRange(0, str.length)];
+
+    [str addAttribute:NSForegroundColorAttributeName
+                value:[UIColor colorWithWhite:0.33 alpha:1.0]
+                range:NSMakeRange(0, str.length)];
+
+    return str;
 }
 
 -(void)viewTapped:(id)sender
 {
     if ([self isDockedAtBottom]) {
         [self dockAtLocation:DOCK_TOP];
+    }else if (self.summaryTextField.isFirstResponder){
+        [self.summaryTextField resignFirstResponder];
     }
+}
+
+-(void)handleViewTapped
+{
+    [self dockAtLocation:[self isDockedAtBottom] ? DOCK_TOP : DOCK_BOTTOM];
 }
 
 -(void)setupButtons
 {
-    UIColor *topColor = WMF_COLOR_ORANGE;
+    UIColor *topColor = WMF_COLOR_GREEN;
     UIColor *bottomColor = WMF_COLOR_GREEN;
 
     [self setupButton: self.cannedSummary01
@@ -192,6 +227,10 @@ typedef enum {
 {
     button.selected = !button.selected;
     button.backgroundColor = (button.selected) ? [self getButtonAttributedTextColor:button] : [UIColor whiteColor];
+
+    if (self.summaryTextField.isFirstResponder){
+        [self.summaryTextField resignFirstResponder];
+    }
 }
 
 -(UIColor *)getButtonAttributedTextColor:(UIButton *)button
@@ -242,6 +281,28 @@ typedef enum {
         ? NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW
         : NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY;
     if(NAV.navBarMode != newNavBarMode) NAV.navBarMode = newNavBarMode;
+    
+    [self adjustHandleHeightAnimated];
+}
+
+-(void)adjustHandleHeightAnimated
+{
+    [UIView animateWithDuration: 0.08f
+                          delay: 0.0f
+                        options: UIViewAnimationOptionTransitionNone
+                     animations: ^{
+                         
+                         if ([self isDockedAtBottom]) {
+                            self.handleHeightConstraint.constant = self.origHandleHeightConstant;
+                            self.handleView.state = EDIT_SUMMARY_HANDLE_BOTTOM;
+                         }else{
+                            self.handleHeightConstraint.constant = self.origHandleHeightConstant * 1.4f;
+                            self.handleView.state = EDIT_SUMMARY_HANDLE_TOP;
+                         }
+                         
+                         [self.view layoutIfNeeded];
+                     } completion:^(BOOL done){
+                     }];
 }
 
 -(BOOL)isDockedAtBottom
@@ -325,7 +386,7 @@ typedef enum {
             [self.editSummaryContainerView convertPoint: CGPointMake(0, self.editSummaryContainerView.frame.size.height)
                                                                              toView: self.view];
         
-        // When device is portrait, the editSummaryContainerView may be taller than the screen, so allow
+        // When device is landscape, the editSummaryContainerView may be taller than the screen, so allow
         // the edit summary panel to be scrolled up as far as necessary to allow the bottom of the
         // editSummaryContainerView to be scrolled completely on screen. Otherwise some canned edit
         // summaries won't be selectable!

@@ -142,7 +142,7 @@ typedef enum {
     // Ensure the keyboard hides if the web view is scrolled
     self.webView.scrollView.delegate = self;
 
-    self.webView.backgroundColor = [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.0];
+    self.webView.backgroundColor = [UIColor whiteColor];
 
     [self.webView hideScrollGradient];
 

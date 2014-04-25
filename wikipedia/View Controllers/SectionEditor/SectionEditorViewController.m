@@ -16,7 +16,7 @@
 #import "WMF_Colors.h"
 #import "MWLanguageInfo.h"
 
-#define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:14.0f]
+#define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f]
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN 25.0f
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX 25.0f
 
@@ -80,7 +80,7 @@
     if (lastHightlight == highlight) return;
     lastHightlight = highlight;
 
-    UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_EYE];
+    UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
 
     button.backgroundColor = highlight ?
         WMF_COLOR_BLUE
@@ -145,7 +145,7 @@
     UIView *tappedItem = userInfo[@"tappedItem"];
 
     switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_EYE:
+        case NAVBAR_BUTTON_ARROW_RIGHT:
             if (![self changesMade]) {
                 [self showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil)];
                 [self showAlert:@""];
