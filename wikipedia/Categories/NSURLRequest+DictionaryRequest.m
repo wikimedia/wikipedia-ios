@@ -43,6 +43,7 @@
     [request setHTTPMethod:@"GET"];
     [request addValue:@"" forHTTPHeaderField:@"Accept-Encoding"];
     [request addValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
+    // NSLog(@"%@", [WikipediaAppUtils versionedUserAgent]);
     [request addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     return request;
 }
