@@ -32,6 +32,11 @@
     }];
 }
 
+-(void)fadeAlert
+{
+    [self showAlert:@""];
+}
+
 -(void)showHTMLAlert: (NSString *)html
       bannerImage: (UIImage *)bannerImage
       bannerColor: (UIColor *)bannerColor
@@ -69,6 +74,11 @@
             [self constrainAlertView:alertWebView fullScreen:YES];
         }
     }];
+}
+
+-(void)hideHTMLAlert
+{
+    [self showHTMLAlert:nil bannerImage:nil bannerColor:nil];
 }
 
 -(void)constrainAlertView:(UIView *)view fullScreen:(BOOL)isFullScreen

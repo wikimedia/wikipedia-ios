@@ -128,7 +128,7 @@ typedef enum {
                                                  name: @"ZeroStateChanged"
                                                object: nil];
 
-    [self showAlert:@""];
+    [self fadeAlert];
 
     articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
     
@@ -275,7 +275,7 @@ typedef enum {
 -(void)tocHideWithDuration:(CGFloat)duration
 {
     // Clear alerts
-    [self showAlert:@""];
+    [self fadeAlert];
     
     // Ensure one exists to be hidden.
     [UIView animateWithDuration: duration
@@ -297,7 +297,7 @@ typedef enum {
 -(void)tocShowWithDuration:(CGFloat)duration
 {
     // Clear alerts
-    [self showAlert:@""];
+    [self fadeAlert];
 
     // Ensure the toc is rebuilt from scratch! Very weird toc scroll view
     // resizing issues (can't scroll up to bottom toc entry sometimes, etc)
@@ -368,7 +368,7 @@ typedef enum {
 -(void)tocToggle
 {
     // Clear alerts
-    [self showAlert:@""];
+    [self fadeAlert];
 
     if ([self tocDrawerIsOpen]) {
         [self tocHide];
@@ -636,7 +636,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // Ensure the web VC is the top VC.
     [self.navigationController popToViewController:self animated:YES];
 
-    [self showAlert:@""];
+    [self fadeAlert];
 }
 
 #pragma Saved Pages
@@ -898,7 +898,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         if (article.section.count > 0 && !article.needsRefresh.boolValue) {
             [self displayArticle:articleID mode:DISPLAY_ALL_SECTIONS];
             [self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil)];
-            [self showAlert:@""];
+            [self fadeAlert];
             return;
         }
         needsRefresh = article.needsRefresh.boolValue;
@@ -1073,10 +1073,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         
         [self displayArticle:articleID mode:DISPLAY_APPEND_NON_LEAD_SECTIONS];
         [self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil)];
-        [self showAlert:@""];
+        [self fadeAlert];
 
     } cancelledBlock:^(NSError *error){
-        [self showAlert:@""];
+        [self fadeAlert];
     } errorBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;
         [self showAlert:errorMsg];

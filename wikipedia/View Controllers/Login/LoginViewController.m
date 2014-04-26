@@ -186,7 +186,7 @@
                onSuccess: (void (^)(void))successBlock
                   onFail: (void (^)(void))failBlock
 {
-    [self showAlert:@""];
+    [self fadeAlert];
 
     if (!successBlock) successBlock = ^(){};
     if (!failBlock) failBlock = ^(){};
@@ -269,7 +269,7 @@
                                }
                            } cancelledBlock: ^(NSError *error){
                                
-                               [self showAlert:@""];
+                               [self fadeAlert];
 
                                [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
                                

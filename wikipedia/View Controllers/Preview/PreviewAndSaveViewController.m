@@ -26,11 +26,18 @@
 #import "CommunicationBridge.h"
 #import "UIViewController+LogEvent.h"
 #import "PreviewChoicesMenuView.h"
+#import "PreviewLicenseView.h"
 
 #import "PaddedLabel.h"
 #import "NSString+Extras.h"
 
 #define NAV ((NavController *)self.navigationController)
+
+typedef enum {
+    PREVIEW_CHOICE_LOGIN_THEN_SAVE = 0,
+    PREVIEW_CHOICE_SAVE = 1,
+    PREVIEW_CHOICE_SHOW_LICENSE = 2
+} PreviewChoices;
 
 @interface PreviewAndSaveViewController ()
 
@@ -78,7 +85,7 @@
     UIView *tappedItem = userInfo[@"tappedItem"];
 
     switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_ARROW_LEFT:
+        case NAVBAR_BUTTON_PENCIL:
             [self.navigationController popViewControllerAnimated:YES];
             
             if(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING){
@@ -88,12 +95,14 @@
             
             break;
         case NAVBAR_BUTTON_ARROW_RIGHT: /* for captcha submit button */
+        case NAVBAR_BUTTON_CHECK:
             {
-                [self saveOrShowSignInActionSheetIfNotLoggedIn];
-
                 if(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING){
+                    [self save];
                     [self logEvent: @{@"action": @"abuseFilterWarningIgnore"}
                             schema: LOG_SCHEMA_EDIT];
+                }else{
+                    [self saveOrShowSignInActionSheetsIfNotLoggedIn];
                 }
 
             }
@@ -147,6 +156,11 @@
                                                  name: @"NavItemTapped"
                                                object: nil];
    
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(previewChoiceTapped:)
+                                                 name: @"TabularScrollViewItemTapped"
+                                               object: nil];
+
     [self preview];
 }
 
@@ -156,30 +170,41 @@
 
     NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW;
 
-    UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_CC];
-    [button maskButtonImageWithColor: [UIColor darkGrayColor]];
-
-    [self highlightProgressiveButton:YES];
+    [self highlightProgressiveButtons:YES];
 
     [self saveAutomaticallyIfNecessary];
 
     [super viewWillAppear:animated];
 }
 
--(void)highlightProgressiveButton:(BOOL)highlight
+-(void)highlightProgressiveButtons:(BOOL)highlight
 {
     static BOOL lastHightlight = NO;
     if (lastHightlight == highlight) return;
     lastHightlight = highlight;
 
+
     UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
 
-    button.backgroundColor = highlight ?
-        WMF_COLOR_BLUE
-        :
-        [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.0];
+    button.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
     
     [button maskButtonImageWithColor:(highlight ? [UIColor whiteColor] : [UIColor blackColor])];
+
+
+    UIButton *button2 = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
+    
+    button2.backgroundColor = highlight ? WMF_COLOR_GREEN : [UIColor clearColor];
+    
+    [button2 maskButtonImageWithColor:(highlight ? [UIColor whiteColor] : [UIColor blackColor])];
+}
+
+-(void)highlightCaptchaSubmitButton:(BOOL)highlight
+{
+    UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
+
+    button.backgroundColor = highlight ? WMF_COLOR_GREEN : [UIColor clearColor];
+    
+    [button maskButtonImageWithColor: highlight ? [UIColor whiteColor] : [UIColor blackColor]];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -190,12 +215,16 @@
 
     [self.navigationController topActionSheetHide];
 
-    [self showAlert:@""];
+    [self fadeAlert];
 
     // Change the nav bar layout.
     NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
 
-    [self highlightProgressiveButton:NO];
+    [self highlightProgressiveButtons:NO];
+
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: @"TabularScrollViewItemTapped"
+                                                  object: nil];
 
     [super viewWillDisappear:animated];
 }
@@ -220,7 +249,7 @@
 
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
 
-            [self showAlert:@""];
+            [self fadeAlert];
 
             [self resetBridge];
             [self.bridge sendMessage:@"append" withPayload:@{@"html": result}];
@@ -266,9 +295,15 @@
     }
 }
 
-- (void)previewChoiceTapped:(UITapGestureRecognizer *)recognizer
+- (void)previewChoiceTapped:(NSNotification *)notification
 {
-    switch (recognizer.view.tag) {
+    NSDictionary *userInfo = [notification userInfo];
+    UIView *tappedItem = userInfo[@"tappedItem"];
+
+    UIView *tappedChildView = userInfo[@"tappedChild"];
+    if (tappedChildView) tappedItem = tappedChildView;
+
+    switch (tappedItem.tag) {
         case PREVIEW_CHOICE_LOGIN_THEN_SAVE:{
             self.saveAutomaticallyIfSignedIn = YES;
             LoginViewController *loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
@@ -286,56 +321,98 @@
 
 //TODO: this!
 [self showAlert:@"To do: Hook up license copy to this label tap!"];
-[self showAlert:@""];
+[self fadeAlert];
 return;
 
             break;
         default:
             break;
     }
-    [self highlightProgressiveButton:YES];
+    [self highlightProgressiveButtons:NO];
 
     [self.navigationController topActionSheetHide];
 }
 
-- (void)saveOrShowSignInActionSheetIfNotLoggedIn
+- (BOOL)shouldShowSignInOrSaveAnonActionSheet
 {
-    if(
-        ![SessionSingleton sharedInstance].keychainCredentials.userName
-        &&
-        !(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA)
-        &&
-        !(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING)
-        &&
-        !(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW)
-       ){
-        
-        NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY;
-        
-        [self highlightProgressiveButton:NO];
-
-        UINib *previewChoicesNib = [UINib nibWithNibName:@"PreviewChoicesMenuView" bundle:nil];
-        
-        PreviewChoicesMenuView *previewChoicesView = [[previewChoicesNib instantiateWithOwner:nil options:nil] firstObject];
-        
-        void (^addTap)(UIView *) = ^void(UIView *view) {
-            [view addGestureRecognizer:
-             [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewChoiceTapped:)]
-             ];
-        };
-        
-        addTap(previewChoicesView.signInView);
-        addTap(previewChoicesView.saveAnonView);
-        addTap(previewChoicesView.licenseView);
-        
-        // Used "topActionSheetShowWithViews:orientation:" as quick way to
-        // get UIScrollView containment for free.
-        [self.navigationController topActionSheetShowWithViews: @[previewChoicesView]
-                                                   orientation: TABULAR_SCROLLVIEW_LAYOUT_VERTICAL];
-        return;
+    switch (NAV.navBarMode) {
+        case NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW:
+        case NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY:
+            return YES;
+            break;
+        default:
+            return NO;
+            break;
     }
+}
 
-    [self save];
+- (void)saveOrShowSignInActionSheetsIfNotLoggedIn
+{
+    BOOL userIsloggedIn = [SessionSingleton sharedInstance].keychainCredentials.userName ? YES : NO;
+    
+    if(!userIsloggedIn){
+        
+        if ([self shouldShowSignInOrSaveAnonActionSheet]) {
+            
+            NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY;
+            [self highlightProgressiveButtons:NO];
+            [self showSignInOrSaveAnonActionSheet];
+            
+        }
+    }else{
+        
+        if(
+            (NAV.navBarMode != NAVBAR_MODE_EDIT_WIKITEXT_SAVE)
+            &&
+            (NAV.navBarMode != NAVBAR_MODE_EDIT_WIKITEXT_WARNING)
+          ){
+            
+            NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_SAVE;
+            [self highlightProgressiveButtons:YES];
+            [self showLicenseActionSheet];
+            
+            // Hide edit summary panel here too?
+            
+        }else{
+            
+            [self save];
+            
+        }
+    }
+}
+
+-(void)showSignInOrSaveAnonActionSheet
+{
+    UINib *previewChoicesNib = [UINib nibWithNibName:@"PreviewChoicesMenuView" bundle:nil];
+    PreviewChoicesMenuView *previewChoicesView =
+    [[previewChoicesNib instantiateWithOwner:nil options:nil] firstObject];
+    
+    UINib *previewLicenseNib = [UINib nibWithNibName:@"PreviewLicenseView" bundle:nil];
+    PreviewLicenseView *previewLicenseView =
+    [[previewLicenseNib instantiateWithOwner:nil options:nil] firstObject];
+    
+    // Used "topActionSheetShowWithViews:orientation:" as quick way to
+    // get UIScrollView containment for free.
+    [self.navigationController topActionSheetShowWithViews: @[previewChoicesView, previewLicenseView]
+                                               orientation: TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL];
+    
+    previewChoicesView.signInView.tag = PREVIEW_CHOICE_LOGIN_THEN_SAVE;
+    previewChoicesView.saveAnonView.tag = PREVIEW_CHOICE_SAVE;
+    previewLicenseView.tag = PREVIEW_CHOICE_SHOW_LICENSE;
+}
+
+-(void)showLicenseActionSheet
+{
+    UINib *previewLicenseNib = [UINib nibWithNibName:@"PreviewLicenseView" bundle:nil];
+    PreviewLicenseView *previewLicenseView =
+    [[previewLicenseNib instantiateWithOwner:nil options:nil] firstObject];
+    
+    previewLicenseView.hideTopDivider = YES;
+    
+    [self.navigationController topActionSheetShowWithViews: @[previewLicenseView]
+                                               orientation: TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL];
+    
+    previewLicenseView.tag = PREVIEW_CHOICE_SHOW_LICENSE;
 }
 
 - (void)save
@@ -468,6 +545,9 @@ return;
 
                     }else{
                         NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_WARNING;
+
+                        [self highlightProgressiveButtons:YES];
+
                         bannerImage = @"abuse-filter-flag-white.png";
                         bannerColor = WMF_COLOR_ORANGE;
 
@@ -475,9 +555,12 @@ return;
                                 schema: LOG_SCHEMA_EDIT];
 
                     }
+
+                    // Hides the license panel. Needed if logged in and a disallow is triggered.
+                    [self.navigationController topActionSheetHide];
                     
                     NSString *restyledWarningHtml = [self restyleAbuseFilterWarningHtml:warningHtml];
-                    [self showAlert:@""];
+                    [self fadeAlert];
                     [self showHTMLAlert: restyledWarningHtml
                             bannerImage: [UIImage imageNamed:bannerImage]
                             bannerColor: bannerColor
@@ -528,7 +611,7 @@ return;
 
                         } cancelledBlock: ^(NSError *error){
                             
-                            [self showAlert:@""];
+                            [self fadeAlert];
                             
                             isAleadySaving = NO;
                             
@@ -624,22 +707,6 @@ return;
 -(void)captchaTextFieldDidChange:(UITextField *)textField
 {
     [self highlightCaptchaSubmitButton:(textField.text.length == 0) ? NO : YES];
-}
-
--(void)highlightCaptchaSubmitButton:(BOOL)highlight
-{
-    UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
-
-    button.backgroundColor = highlight ?
-        WMF_COLOR_GREEN
-        :
-        [UIColor clearColor];
-    
-    [button maskButtonImageWithColor: highlight ?
-        [UIColor whiteColor]
-        :
-        [UIColor blackColor]
-     ];
 }
 
 //TODO: this shouldn't be in the controller. Find it a nice home.

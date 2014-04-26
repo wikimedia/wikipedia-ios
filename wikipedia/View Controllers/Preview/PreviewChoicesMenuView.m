@@ -8,6 +8,7 @@
 
 #define PREVIEW_BLUE_COLOR [UIColor colorWithRed:0.13 green:0.42 blue:0.68 alpha:1.0]
 
+//#import "NSString+Extras.h"
 //#import "UIView+Debugging.h"
 
 @interface PreviewChoicesMenuView(){
@@ -42,27 +43,24 @@
     self.signInSubTitleLabel.padding = padding;
     self.saveAnonTitleLabel.padding = padding;
     self.saveAnonSubTitleLabel.padding = padding;
-    self.licenseTitleLabel.padding = padding;
 
     self.saveAnonTitleLabel.text = MWLocalizedString(@"wikitext-upload-save-anonymously", nil);
     self.saveAnonSubTitleLabel.text = MWLocalizedString(@"wikitext-upload-save-anonymously-warning", nil);
     self.signInTitleLabel.text = MWLocalizedString(@"wikitext-upload-save-sign-in", nil);
     self.signInSubTitleLabel.text = MWLocalizedString(@"wikitext-upload-save-sign-in-benefits", nil);
-    self.licenseTitleLabel.text = MWLocalizedString(@"wikitext-upload-save-license", nil);
-    
-    self.signInView.tag = PREVIEW_CHOICE_LOGIN_THEN_SAVE;
-    self.saveAnonView.tag = PREVIEW_CHOICE_SAVE;
-    self.licenseView.tag = PREVIEW_CHOICE_SHOW_LICENSE;
     
     self.signInView.backgroundColor = PREVIEW_BLUE_COLOR;
     
-    self.topDividerHeight.constant = 1.0f / [UIScreen mainScreen].scale;
-    self.bottomDividerHeight.constant = 1.0f / [UIScreen mainScreen].scale;
-    //[self randomlyColorSubviews];
-    
     [self underlineLabelText: self.signInTitleLabel];
     [self underlineLabelText: self.saveAnonTitleLabel];
-    [self underlineLicenseName:self.licenseTitleLabel];
+
+    /*
+    self.signInTitleLabel.text = [@" abc " randomlyRepeatMaxTimes:100];
+    self.signInSubTitleLabel.text = [@" abc " randomlyRepeatMaxTimes:100];
+    self.saveAnonTitleLabel.text = [@" abc " randomlyRepeatMaxTimes:100];
+    self.saveAnonSubTitleLabel.text = [@" abc " randomlyRepeatMaxTimes:100];
+    [self randomlyColorSubviews];
+    */
 }
 
 -(void)underlineLabelText:(UILabel *)label
@@ -79,25 +77,6 @@
     [aString endEditing];
     
     label.attributedText = aString;
-}
-
--(void)underlineLicenseName:(UILabel *)licenseLabel
-{
-    NSDictionary *baseAttributes =
-        @{
-            NSForegroundColorAttributeName: licenseLabel.textColor,
-            NSFontAttributeName: licenseLabel.font
-        };
-    
-    licenseLabel.attributedText =
-    [licenseLabel.text attributedStringWithAttributes: baseAttributes
-                                  substitutionStrings: @[MWLocalizedString(@"wikitext-upload-save-license-name", nil)]
-                               substitutionAttributes: @[
-                                                         @{
-                                                             NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-                                                             NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
-                                                             }]
-     ];
 }
 
 @end

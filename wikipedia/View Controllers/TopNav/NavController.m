@@ -172,7 +172,7 @@
 {
     self.isTransitioningBetweenViewControllers = YES;
 
-    [self showAlert:@""];
+    [self fadeAlert];
     [self showHTMLAlert:@"" bannerImage:nil bannerColor:nil];
 }
 
@@ -472,7 +472,12 @@
         case NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY:
             self.label.text = @"";
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+            break;
+        case NAVBAR_MODE_EDIT_WIKITEXT_SAVE:
+            self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-save", nil);
+            self.navBarSubViewsHorizontalVFLString =
+            @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_CREATE_ACCOUNT:
             self.label.text = (!previewAndSaveVC) ?
@@ -486,12 +491,12 @@
         case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-warning", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-disallow", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-|";
+                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW:
         case NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY:
@@ -501,12 +506,12 @@
                 MWLocalizedString(@"navbar-title-mode-edit-wikitext-summary", nil)
             ;
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
+                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-captcha", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
+                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
             break;
         case NAVBAR_MODE_PAGE_HISTORY:
             self.label.text = MWLocalizedString(@"page-history-title", nil);

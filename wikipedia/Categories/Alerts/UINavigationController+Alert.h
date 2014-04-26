@@ -11,6 +11,8 @@
 // Fades out alert if alertText set to zero length string.
 -(void)showAlert:(NSString *)alertText;
 
+-(void)fadeAlert;
+
 //TODO: maybe make showAlert immediately disappear if alertText nil... maybe not?
 
 // Shows full screen alert html just beneath the nav bar.
@@ -18,5 +20,7 @@
 -(void)showHTMLAlert: (NSString *)html
          bannerImage: (UIImage *)bannerImage
          bannerColor: (UIColor *)bannerColor;
+
+-(void)hideHTMLAlert;
 
 @end

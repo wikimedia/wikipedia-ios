@@ -89,6 +89,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Header text shown when wikitext changes are being previewed.\n{{Identical|Preview}}";
 "navbar-title-mode-edit-wikitext-captcha" = "Header text shown when wikitext captcha is displayed";
 "navbar-title-mode-edit-wikitext-summary" = "Header text shown when wikitext edit summary interface is active";
+"navbar-title-mode-edit-wikitext-save" = "Header text shown when wikitext edit can be saved";
 "edit-summary-choice-linked-words" = "Button text for quick 'link addition' edit summary selection";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-inaccuracy" = "Button text for quick 'fixed inaccuracy' edit summary selection";

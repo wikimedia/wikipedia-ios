@@ -48,7 +48,7 @@
                 // Animate container coming down onscreen.
                 [UIView animateWithDuration:ANIMATION_DURATION delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
 
-                    containerView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+                    containerView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.96];
 
                     [self constrainContainerView:containerView onScreen:YES];
                     [self.view layoutIfNeeded];

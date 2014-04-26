@@ -94,6 +94,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Preview";
 "navbar-title-mode-edit-wikitext-captcha" = "Quick verification needed";
 "navbar-title-mode-edit-wikitext-summary" = "Describe your edit";
+"navbar-title-mode-edit-wikitext-save" = "Save";
 
 "edit-summary-choice-linked-words" = "Linked words";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";

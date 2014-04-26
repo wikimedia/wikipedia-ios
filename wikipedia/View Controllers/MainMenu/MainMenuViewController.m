@@ -453,7 +453,7 @@ typedef enum {
     languagesTableVC.selectionBlock = ^(NSDictionary *selectedLangInfo){
 
         [self showAlert:MWLocalizedString(@"main-menu-language-selection-saved", nil)];
-        [self showAlert:@""];
+        [self fadeAlert];
 
         [self switchPreferredLanguageToId:selectedLangInfo[@"code"] name:selectedLangInfo[@"name"]];
         
@@ -490,7 +490,7 @@ typedef enum {
                                                          });
                                                      }
                                                  } cancelledBlock: ^(NSError *errorCancel) {
-                                                    [self showAlert:@""];
+                                                    [self fadeAlert];
                                                  } errorBlock: ^(NSError *error) {
                                                     [self showAlert:error.localizedDescription];
                                                  }];

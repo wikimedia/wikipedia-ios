@@ -107,14 +107,22 @@
 -(void)viewTapped:(id)sender
 {
     UIView *tappedView = nil;
+    UIView *tappedChildView = nil;
+    
     if([sender isKindOfClass:[UIGestureRecognizer class]]){
-        tappedView = ((UIGestureRecognizer *)sender).view;
+        UIGestureRecognizer *recognizer = (UIGestureRecognizer *)sender;
+        tappedView = recognizer.view;
+        CGPoint loc = [recognizer locationInView:tappedView];
+        tappedChildView = [tappedView hitTest:loc withEvent:nil];
     }else{
         tappedView = sender;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"TabularScrollViewItemTapped" object:self userInfo:
-        @{@"tappedItem": tappedView}
-    ];
+     @{
+       @"tappedItem": tappedView,
+       @"tappedChild": tappedChildView
+       }
+     ];
 }
 
 -(void)setOrientation:(TabularScrollViewOrientation)orientation

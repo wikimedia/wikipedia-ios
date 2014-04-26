@@ -11,10 +11,14 @@
 // Fades out alert if alertText set to zero length string.
 -(void)showAlert:(NSString *)alertText;
 
+-(void)fadeAlert;
+
 // Shows full screen alert html just beneath the nav bar.
 // Any links open in Safari.
 -(void)showHTMLAlert: (NSString *)html
          bannerImage: (UIImage *)bannerImage
          bannerColor: (UIColor *)bannerColor;
+
+-(void)hideHTMLAlert;
 
 @end

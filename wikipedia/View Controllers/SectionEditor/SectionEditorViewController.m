@@ -148,7 +148,7 @@
         case NAVBAR_BUTTON_ARROW_RIGHT:
             if (![self changesMade]) {
                 [self showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil)];
-                [self showAlert:@""];
+                [self fadeAlert];
                 break;
             }
             [self preview];
@@ -192,7 +192,7 @@
         
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
             [self showAlert:MWLocalizedString(@"wikitext-download-success", nil)];
-            [self showAlert:@""];
+            [self fadeAlert];
             self.unmodifiedWikiText = revision;
             self.editTextView.attributedText = [self getAttributedString:revision];
             //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];

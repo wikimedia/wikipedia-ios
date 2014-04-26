@@ -297,7 +297,7 @@
                                       
                                       [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
                                           //[self showAlert:@"Language links loaded."];
-                                          //[self showAlert:@""];
+                                          //[self fadeAlert];
                                                       self.headerView.hidden = NO;
 
                                           self.languagesData = result;
@@ -306,7 +306,7 @@
                                       
                                   } cancelledBlock: ^(NSError *error){
                                       //NSString *errorMsg = error.localizedDescription;
-                                      [self showAlert:@""];
+                                      [self fadeAlert];
                                       
                                   } errorBlock: ^(NSError *error){
                                       //NSString *errorMsg = error.localizedDescription;

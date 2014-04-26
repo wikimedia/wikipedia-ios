@@ -163,7 +163,7 @@
         
     } cancelledBlock: ^(NSError *error){
         
-        [self showAlert:@""];
+        [self fadeAlert];
         
     } errorBlock: ^(NSError *error){
         
@@ -180,7 +180,7 @@
     SearchOp *searchOp = [[SearchOp alloc] initWithSearchTerm: searchTerm
                                               completionBlock: ^(NSArray *searchResults){
                                                   
-                                                  [self showAlert:@""];
+                                                  [self fadeAlert];
                                                   
                                                   NSMutableArray *orderedResults = @[].mutableCopy;
                                                   for (NSString *title in searchResults) {
@@ -204,7 +204,7 @@
                                                   
                                               } cancelledBlock: ^(NSError *error){
                                                   
-                                                  [self showAlert:@""];
+                                                  [self fadeAlert];
                                                   
                                               } errorBlock: ^(NSError *error){
                                                   

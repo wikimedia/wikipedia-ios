@@ -106,12 +106,12 @@
                               weakSelf.pageHistoryDataArray = result;
                               
                               dispatch_async(dispatch_get_main_queue(), ^(void){
-                                  [self showAlert:@""];
+                                  [self fadeAlert];
                                   [weakSelf.tableView reloadData];
                               });
                           }
                            cancelledBlock: ^(NSError *error){
-                               [self showAlert:@""];
+                               [self fadeAlert];
                            }
                                errorBlock: ^(NSError *error){
                                    [self showAlert:error.localizedDescription];

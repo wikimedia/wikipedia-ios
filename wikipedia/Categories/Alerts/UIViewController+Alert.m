@@ -11,11 +11,21 @@
     [self.navigationController showAlert:alertText];
 }
 
+-(void)fadeAlert
+{
+    [self.navigationController fadeAlert];
+}
+
 -(void)showHTMLAlert: (NSString *)html
       bannerImage: (UIImage *)bannerImage
       bannerColor: (UIColor *)bannerColor
 {
     [self.navigationController showHTMLAlert:html bannerImage:bannerImage bannerColor:bannerColor];
+}
+
+-(void)hideHTMLAlert
+{
+    [self.navigationController hideHTMLAlert];
 }
 
 @end

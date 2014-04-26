@@ -205,7 +205,7 @@
     self.captchaViewController.captchaTextBox.text = @"";
 
     [self showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil)];
-    [self showAlert:@""];
+    [self fadeAlert];
 
     CaptchaResetOp *captchaResetOp =
     [[CaptchaResetOp alloc] initWithDomain: [SessionSingleton sharedInstance].domain
@@ -232,7 +232,7 @@
                                
                            } cancelledBlock: ^(NSError *error){
                                
-                               [self showAlert:@""];
+                               [self fadeAlert];
                                
                            } errorBlock: ^(NSError *error){
                                [self showAlert:error.localizedDescription];
@@ -325,14 +325,14 @@
 
                                   dispatch_async(dispatch_get_main_queue(), ^(){
                                       [self showAlert:result];
-                                      [self showAlert:@""];
+                                      [self fadeAlert];
                                       [self performSelector:@selector(login) withObject:nil afterDelay:0.6f];
                                       isAleadySaving = NO;
                                   });
                                   
                               } cancelledBlock: ^(NSError *error){
                                   
-                                  [self showAlert:@""];
+                                  [self fadeAlert];
                                   isAleadySaving = NO;
                                   
                               } errorBlock: ^(NSError *error){
@@ -368,7 +368,7 @@
                                        accountCreationOp.token = token;
                                    }
                                     cancelledBlock: ^(NSError *error){
-                                        [self showAlert:@""];
+                                        [self fadeAlert];
                                         isAleadySaving = NO;
                                     }
                                         errorBlock: ^(NSError *error){
