@@ -9,10 +9,9 @@ typedef enum {
     NAVBAR_BUTTON_ARROW_RIGHT = 4,
     NAVBAR_BUTTON_LOGO_W = 5,
     NAVBAR_BUTTON_EYE = 6,
-    NAVBAR_BUTTON_CC = 7,
-    NAVBAR_TEXT_FIELD = 8,
-    NAVBAR_LABEL = 9,
-    NAVBAR_VERTICAL_LINE = 10
+    NAVBAR_TEXT_FIELD = 7,
+    NAVBAR_LABEL = 8,
+    NAVBAR_VERTICAL_LINE = 9
 } NavBarItemTag;
 
 typedef enum {
