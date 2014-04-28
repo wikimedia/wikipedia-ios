@@ -279,6 +279,7 @@
 		0466F44E183A30CC00EA1FD7 /* logo-search-placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-search-placeholder@2x.png"; sourceTree = "<group>"; };
 		04735E5E18A5B42D00C89C30 /* LoginTokenOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTokenOp.h; sourceTree = "<group>"; };
 		04735E5F18A5B42D00C89C30 /* LoginTokenOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTokenOp.m; sourceTree = "<group>"; };
+		047528A3190F0C2900F2CDA8 /* WMF_WikiFont_Chars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMF_WikiFont_Chars.h; sourceTree = "<group>"; };
 		0476967A18BBFC9400071963 /* AccountCreationOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCreationOp.h; sourceTree = "<group>"; };
 		0476967B18BBFC9400071963 /* AccountCreationOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountCreationOp.m; sourceTree = "<group>"; };
 		047801BC18AE987900DBB747 /* UIButton+ColorMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ColorMask.h"; sourceTree = "<group>"; };
@@ -641,6 +642,7 @@
 			children = (
 				04292FFC185FC026002A13FC /* Defines.h */,
 				043F18F118DCDD3A00D8489A /* WMF_Colors.h */,
+				047528A3190F0C2900F2CDA8 /* WMF_WikiFont_Chars.h */,
 			);
 			path = Defines;
 			sourceTree = "<group>";

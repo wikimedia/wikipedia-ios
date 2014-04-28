@@ -14,6 +14,8 @@
 #import "NSDate-Utilities.h"
 #import "NSString+Extras.h"
 
+#import "WMF_WikiFont_Chars.h"
+
 #define NAV ((NavController *)self.navigationController)
 
 @interface PageHistoryViewController (){
@@ -170,7 +172,7 @@
         ;
 
     cell.iconLabel.attributedText =
-    [[NSAttributedString alloc] initWithString: row[@"anon"] ? @"" : @""
+    [[NSAttributedString alloc] initWithString: row[@"anon"] ? WIKIFONT_CHAR_USER_SLEEP : WIKIFONT_CHAR_USER_SMILE
                                     attributes: @{
                                                   NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Regular" size:23],
                                                   NSForegroundColorAttributeName : [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0],
