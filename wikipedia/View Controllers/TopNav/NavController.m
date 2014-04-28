@@ -21,6 +21,10 @@
 #import "UIView+TemporaryAnimatedXF.h"
 #import "SectionEditorViewController.h"
 
+#import "NavButtonView.h"
+#import "NavButtonLabel.h"
+#import "PaddedLabel.h"
+
 @interface NavController (){
 
 }
@@ -36,14 +40,13 @@
 @property (strong, nonatomic) UIView *verticalLine4;
 @property (strong, nonatomic) UIView *verticalLine5;
 @property (strong, nonatomic) UIView *verticalLine6;
-@property (strong, nonatomic) UIButton *buttonW;
-@property (strong, nonatomic) UIButton *buttonPencil;
-@property (strong, nonatomic) UIButton *buttonCheck;
-@property (strong, nonatomic) UIButton *buttonX;
-@property (strong, nonatomic) UIButton *buttonEye;
-@property (strong, nonatomic) UIButton *buttonCC;
-@property (strong, nonatomic) UIButton *buttonArrowLeft;
-@property (strong, nonatomic) UIButton *buttonArrowRight;
+@property (strong, nonatomic) NavButtonView *buttonW;
+@property (strong, nonatomic) NavButtonView *buttonPencil;
+@property (strong, nonatomic) NavButtonView *buttonCheck;
+@property (strong, nonatomic) NavButtonView *buttonX;
+@property (strong, nonatomic) NavButtonView *buttonEye;
+@property (strong, nonatomic) NavButtonView *buttonArrowLeft;
+@property (strong, nonatomic) NavButtonView *buttonArrowRight;
 @property (strong, nonatomic) UILabel *label;
 
 // Used for constraining container sub-views.
@@ -346,35 +349,32 @@
     [self.navBarContainer addSubview:self.verticalLine5];
     [self.navBarContainer addSubview:self.verticalLine6];
 
-    UIButton *(^getButton)(NSString *, NavBarItemTag) = ^UIButton *(NSString *image, NavBarItemTag tag) {
-        UIButton *button = [[UIButton alloc] init];
-        [button setTitle:@"" forState:UIControlStateNormal];
+    NavButtonView *(^getButton)(NSString *, NavBarItemTag) = ^NavButtonView *(NSString *character, NavBarItemTag tag) {
+        NavButtonView *button = [[NavButtonView alloc] init];
+        button.label.text = character;
         button.translatesAutoresizingMaskIntoConstraints = NO;
-        button.backgroundColor = [UIColor clearColor];
-        button.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [button setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:image] forState:UIControlStateSelected];
-        [button setImage:[UIImage imageNamed:image] forState:UIControlStateHighlighted];
-        [button addTarget:self action:@selector(postNavItemTappedNotification:) forControlEvents:UIControlEventTouchUpInside];
+
+    [button addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(postNavItemTappedNotification:)]];
 
         button.tag = tag;
         return button;
     };
 
-    self.buttonPencil =     getButton(@"abuse-filter-edit-black.png",   NAVBAR_BUTTON_PENCIL);
-    self.buttonCheck =      getButton(@"abuse-filter-check.png",        NAVBAR_BUTTON_CHECK);
-    self.buttonX =          getButton(@"button_cancel_grey.png",        NAVBAR_BUTTON_X);
-    self.buttonEye =        getButton(@"button_preview_white.png",      NAVBAR_BUTTON_EYE);
-    self.buttonCC =         getButton(@"button_cc_black.png",           NAVBAR_BUTTON_CC);
-    self.buttonArrowLeft =  getButton(@"button_arrow_left.png",         NAVBAR_BUTTON_ARROW_LEFT);
-    self.buttonArrowRight = getButton(@"button_arrow_right.png",        NAVBAR_BUTTON_ARROW_RIGHT);
-    self.buttonW =          getButton(@"w.png",                         NAVBAR_BUTTON_LOGO_W);
+    self.buttonPencil =     getButton(@"",     NAVBAR_BUTTON_PENCIL);
+    self.buttonCheck =      getButton(@"",     NAVBAR_BUTTON_CHECK);
+    self.buttonX =          getButton(@"",     NAVBAR_BUTTON_X);
+    self.buttonEye =        getButton(@"",     NAVBAR_BUTTON_EYE);
+    self.buttonArrowLeft =  getButton(@"",     NAVBAR_BUTTON_ARROW_LEFT);
+    self.buttonArrowRight = getButton(@"",     NAVBAR_BUTTON_ARROW_RIGHT);
+    self.buttonW =          getButton(@"",     NAVBAR_BUTTON_LOGO_W);
+
+    // Mirror the left arrow.
+    self.buttonArrowRight.transform = CGAffineTransformMakeScale(-1.0, 1.0);
 
     [self.navBarContainer addSubview:self.buttonPencil];
     [self.navBarContainer addSubview:self.buttonCheck];
     [self.navBarContainer addSubview:self.buttonX];
     [self.navBarContainer addSubview:self.buttonEye];
-    [self.navBarContainer addSubview:self.buttonCC];
     [self.navBarContainer addSubview:self.buttonArrowLeft];
     [self.navBarContainer addSubview:self.buttonArrowRight];
     [self.navBarContainer addSubview:self.buttonW];
@@ -422,7 +422,6 @@
              @"NAVBAR_BUTTON_ARROW_RIGHT": self.buttonArrowRight,
              @"NAVBAR_BUTTON_LOGO_W": self.buttonW,
              @"NAVBAR_BUTTON_EYE": self.buttonEye,
-             @"NAVBAR_BUTTON_CC": self.buttonCC,
              @"NAVBAR_TEXT_FIELD": self.textField,
              @"NAVBAR_LABEL": self.label,
              @"NAVBAR_VERTICAL_LINE_1": self.verticalLine1,
@@ -551,9 +550,10 @@
     };
     
     // If the tapped item was a button, first animate it briefly, then post the notication.
-    if([tappedView isKindOfClass:[UIButton class]]){
+    if([tappedView isKindOfClass:[NavButtonView class]]){
         CGFloat animationScale = 1.15f;
-        [tappedView animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
+        NavButtonView *button = (NavButtonView *)tappedView;
+        [button.label animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
                             afterDelay: 0.0
                               duration: 0.06f
                                   then: postTapNotification];
@@ -795,8 +795,8 @@
         case NAVBAR_BUTTON_ARROW_RIGHT:
         case NAVBAR_BUTTON_LOGO_W:
         case NAVBAR_BUTTON_EYE:{
-            UIButton *button = (UIButton *)view;
-            [button maskButtonImageWithColor:colors[@"NAVBAR_BUTTON_COLOR"]];
+            NavButtonView *button = (NavButtonView *)view;
+            button.label.textColor = colors[@"NAVBAR_BUTTON_COLOR"];
         }
             break;
         case NAVBAR_TEXT_FIELD:{

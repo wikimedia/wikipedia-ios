@@ -11,11 +11,13 @@
 #import "AccountCreationTokenOp.h"
 #import "CaptchaResetOp.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
-#import "UIButton+ColorMask.h"
 #import "LoginViewController.h"
 #import "UINavigationController+SearchNavStack.h"
 #import "WMF_Colors.h"
 #import "UIViewController+LogEvent.h"
+
+#import "NavButtonView.h"
+#import "NavButtonLabel.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -110,18 +112,11 @@
 
 -(void)highlightCheckButton:(BOOL)highlight
 {
-    UIButton *checkButton = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
+    NavButtonView *checkButton = (NavButtonView *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
     
-    checkButton.backgroundColor = highlight ?
-        WMF_COLOR_BLUE
-        :
-        [UIColor clearColor];
+    checkButton.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
     
-    [checkButton maskButtonImageWithColor: highlight ?
-        [UIColor whiteColor]
-        :
-        [UIColor blackColor]
-     ];
+    checkButton.color = highlight ? [UIColor whiteColor] : [UIColor blackColor];
 }
 
 -(void)prepopulateTextFieldsForDebugging

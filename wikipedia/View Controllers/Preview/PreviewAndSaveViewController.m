@@ -9,7 +9,6 @@
 #import "ArticleDataContextSingleton.h"
 #import "QueuesSingleton.h"
 #import "NavController.h"
-#import "UIButton+ColorMask.h"
 #import "UploadSectionWikiTextOp.h"
 #import "CaptchaViewController.h"
 #import "UIViewController+HideKeyboard.h"
@@ -30,6 +29,9 @@
 
 #import "PaddedLabel.h"
 #import "NSString+Extras.h"
+
+#import "NavButtonView.h"
+#import "NavButtonLabel.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -184,27 +186,27 @@ typedef enum {
     lastHightlight = highlight;
 
 
-    UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
+    NavButtonView *button = (NavButtonView *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
 
     button.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
     
-    [button maskButtonImageWithColor:(highlight ? [UIColor whiteColor] : [UIColor blackColor])];
+    button.color = highlight ? [UIColor whiteColor] : [UIColor blackColor];
 
 
-    UIButton *button2 = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
+    NavButtonView *button2 = (NavButtonView *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
     
     button2.backgroundColor = highlight ? WMF_COLOR_GREEN : [UIColor clearColor];
     
-    [button2 maskButtonImageWithColor:(highlight ? [UIColor whiteColor] : [UIColor blackColor])];
+    button2.color = highlight ? [UIColor whiteColor] : [UIColor blackColor];
 }
 
 -(void)highlightCaptchaSubmitButton:(BOOL)highlight
 {
-    UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
+    NavButtonView *button = (NavButtonView *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
 
     button.backgroundColor = highlight ? WMF_COLOR_GREEN : [UIColor clearColor];
     
-    [button maskButtonImageWithColor: highlight ? [UIColor whiteColor] : [UIColor blackColor]];
+    button.color = highlight ? [UIColor whiteColor] : [UIColor blackColor];
 }
 
 -(void)viewWillDisappear:(BOOL)animated

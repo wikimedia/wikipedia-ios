@@ -12,9 +12,11 @@
 #import "DownloadSectionWikiTextOp.h"
 #import "NavController.h"
 #import "PreviewAndSaveViewController.h"
-#import "UIButton+ColorMask.h"
 #import "WMF_Colors.h"
 #import "MWLanguageInfo.h"
+
+#import "NavButtonView.h"
+#import "NavButtonLabel.h"
 
 #define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f]
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN 25.0f
@@ -80,18 +82,11 @@
     if (lastHightlight == highlight) return;
     lastHightlight = highlight;
 
-    UIButton *button = (UIButton *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
+    NavButtonView *button = (NavButtonView *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
 
-    button.backgroundColor = highlight ?
-        WMF_COLOR_BLUE
-        :
-        [UIColor clearColor];
+    button.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
     
-    [button maskButtonImageWithColor: highlight ?
-        [UIColor whiteColor]
-        :
-        [UIColor blackColor]
-     ];
+    button.color = highlight ? [UIColor whiteColor] : [UIColor blackColor];
 }
 
 -(void)viewDidAppear:(BOOL)animated
