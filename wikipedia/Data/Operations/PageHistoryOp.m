@@ -38,7 +38,7 @@
             
             //NSLog(@"parameters = %@", parameters);
             
-            weakSelf.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:[SessionSingleton sharedInstance].searchApiUrl]
+            weakSelf.request = [NSURLRequest getRequestWithURL: [NSURL URLWithString:[SessionSingleton sharedInstance].searchApiUrl]
                                                  parameters: parameters
                             ];
         };

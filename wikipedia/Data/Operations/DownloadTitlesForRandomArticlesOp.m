@@ -18,7 +18,7 @@
     if (self) {
         // FUTURE FEATURE: Get multiple titles, and cache them so they're readily available
         // Will need to consider things like article language changes, though.
-        self.request = [NSURLRequest postRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
+        self.request = [NSURLRequest getRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
                                              parameters: @{
                                                            @"action": @"query",
                                                            @"list": @"random",
