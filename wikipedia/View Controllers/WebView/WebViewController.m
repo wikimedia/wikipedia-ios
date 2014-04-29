@@ -35,6 +35,9 @@
 #import "ZeroStatusLabel.h"
 //#import "UIView+Debugging.h"
 
+#import "DataMigrator.h"
+#import "ArticleImporter.h"
+
 #define TOC_TOGGLE_ANIMATION_DURATION 0.3f
 #define NAV ((NavController *)self.navigationController)
 
@@ -161,6 +164,10 @@ typedef enum {
     // UIWebView has a bug which causes a black bar to appear at
     // bottom of the web view if toc quickly dragged on and offscreen.
     self.webView.opaque = NO;
+    
+    // This is the first view that's opened when the app opens...
+    // Perform any first-time data migration as needed.
+    [self migrateDataIfNecessary];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -1537,6 +1544,27 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                              }];
         }
     }
+}
+
+- (void)migrateDataIfNecessary
+{
+    DataMigrator *dataMigrator = [[DataMigrator alloc] init];
+    if ([dataMigrator hasData]) {
+        NSLog(@"Old data to migrate found!");
+        NSArray *titles = [dataMigrator extractSavedPages];
+        ArticleImporter *importer = [[ArticleImporter alloc] init];
+        
+        for (NSDictionary *item in titles) {
+            NSLog(@"Will import saved page: %@ %@", item[@"lang"], item[@"title"]);
+        }
+        
+        [importer importArticles:titles];
+        
+        [dataMigrator removeOldData];
+    } else {
+        NSLog(@"No old data to migrate.");
+    }
+
 }
 
 @end

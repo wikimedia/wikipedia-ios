@@ -586,8 +586,8 @@
 		D4991466181D51DF00E6073C /* Wikipedia_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Wikipedia_Tests.m; sourceTree = "<group>"; };
 		D4BC22B3181E9E6300CAC673 /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
 		D4DE203018283FF200148CA2 /* CommunicationBridgeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationBridgeTests.m; sourceTree = "<group>"; };
-		D4E8A8A2190835C100DA4765 /* DataMigrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataMigrator.h; sourceTree = "<group>"; };
-		D4E8A8A3190835C100DA4765 /* DataMigrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataMigrator.m; sourceTree = "<group>"; };
+		D4E8A8A2190835C100DA4765 /* DataMigrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataMigrator.h; path = wikipedia/DataMigrator.h; sourceTree = SOURCE_ROOT; };
+		D4E8A8A3190835C100DA4765 /* DataMigrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataMigrator.m; path = wikipedia/DataMigrator.m; sourceTree = SOURCE_ROOT; };
 		D4E8A8A519084F1300DA4765 /* SQLiteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteHelper.h; sourceTree = "<group>"; };
 		D4E8A8A619084F1300DA4765 /* SQLiteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteHelper.m; sourceTree = "<group>"; };
 		D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -619,6 +619,8 @@
 				040E5C831846AC13007AFE6F /* ArticleDataContextSingleton.m */,
 				04EA7779184E4CED00D2F3C9 /* Model */,
 				04D149E5188889CA006B4104 /* Operations */,
+				D4E8A8A11908357600DA4765 /* Data Migration */,
+				04B0EA42190AFDBA007458AF /* Importer */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -852,7 +854,8 @@
 				04B0EA43190AFDD8007458AF /* ArticleImporter.h */,
 				04B0EA44190AFDD8007458AF /* ArticleImporter.m */,
 			);
-			path = Importer;
+			name = Importer;
+			path = ../Importer;
 			sourceTree = "<group>";
 		};
 		04B7B9BA18B5569600A63551 /* Captcha */ = {
@@ -1213,12 +1216,10 @@
 				045A9F0C18F6090E0057EA85 /* assets */,
 				04C43AB7183442FC006C643B /* Categories */,
 				040E5C50184673F2007AFE6F /* Data */,
-				D4E8A8A11908357600DA4765 /* Data Migration */,
 				04292FFB185FC026002A13FC /* Defines */,
 				0442F57C1900718600F55DF9 /* Fonts */,
 				04D34DA31863D2D600610A87 /* HTML Parsing */,
 				0466F44C183A30CC00EA1FD7 /* Images */,
-				04B0EA42190AFDBA007458AF /* Importer */,
 				0463639518A844380049EE4F /* Keychain */,
 				04CF1CB5187C8F4400E9516F /* Languages */,
 				048A26741906268100395F53 /* PaddedLabel */,
@@ -1284,6 +1285,7 @@
 				D4E8A8A619084F1300DA4765 /* SQLiteHelper.m */,
 			);
 			name = "Data Migration";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		D4EE00BB182445670090790F /* mw-support */ = {

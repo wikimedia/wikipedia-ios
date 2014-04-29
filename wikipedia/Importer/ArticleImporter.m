@@ -20,24 +20,24 @@
         NSError *error = nil;
         for (NSDictionary *articleDict in articleDictionaries) {
             
-            // Ensure both domain and title keys are present in this article dict.
-            if (![articleDict objectForKey:@"domain"] || ![articleDict objectForKey:@"title"]){
-                NSLog(@"Error: domain or title missing.");
+            // Ensure both lang and title keys are present in this article dict.
+            if (![articleDict objectForKey:@"lang"] || ![articleDict objectForKey:@"title"]){
+                NSLog(@"Error: lang or title missing.");
                 continue;
             }
             
             NSString *title = articleDict[@"title"];
-            NSString *domain = articleDict[@"domain"];
+            NSString *lang = articleDict[@"lang"];
 
-            // Ensure both domain and title strings are not zero length.
-            if ((title.length == 0) || (domain.length == 0)){
-                NSLog(@"Error: domain or title zero length.");
+            // Ensure both lang and title strings are not zero length.
+            if ((title.length == 0) || (lang.length == 0)){
+                NSLog(@"Error: lang or title zero length.");
                 continue;
             }
 
             // Get existing article record. Create article record if not found.
             Article *article = nil;
-            NSManagedObjectID *existingArticleID = [context getArticleIDForTitle:title domain:domain];
+            NSManagedObjectID *existingArticleID = [context getArticleIDForTitle:title domain:lang];
             if (existingArticleID) {
                 article = (Article *)[context objectWithID:existingArticleID];
             }else{
@@ -64,7 +64,7 @@
             // All needed data in place and no saved record already exists, so safe to proceed.
             article.dateCreated = [NSDate date];
             article.site = @"wikipedia.org";
-            article.domain = domain;
+            article.domain = lang;
             article.title = title;
             article.needsRefresh = @YES;
             article.lastmodifiedby = @"";

@@ -50,7 +50,10 @@
 - (void)removeOldData
 {
     if ([self hasData]) {
-        NSLog(@"todo: implement removeOldData in DataMigrator");
+        NSLog(@"Deleting old app's Caches/Databases.db");
+        masterDB = nil;
+        NSString *dbPath = [self localLibraryPath:@"Caches/Databases.db"];
+        [[NSFileManager defaultManager] removeItemAtPath:dbPath error:nil];
     }
 }
 
