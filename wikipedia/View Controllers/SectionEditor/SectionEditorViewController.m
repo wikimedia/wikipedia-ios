@@ -295,6 +295,14 @@
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, viewKeyboardRect.size.height, 0.0);
     self.editTextView.contentInset = contentInsets;
     self.editTextView.scrollIndicatorInsets = contentInsets;
+
+    // Mark the text view as needing a layout update so the inset changes above will
+    // be taken in to account when the cursor is scrolled onscreen.
+    [self.editTextView setNeedsLayout];
+    [self.editTextView layoutIfNeeded];
+    
+    // Scroll cursor onscreen if needed.
+    [self scrollTextViewSoCursorNotUnderKeyboard:self.editTextView];
 }
  
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
@@ -313,6 +321,11 @@
         CGRect cursorRectInTextView = [textView caretRectForPosition:textView.selectedTextRange.start];
         CGRect cursorRectInView = [textView convertRect:cursorRectInTextView toView:self.view];
         if(CGRectIntersectsRect(self.viewKeyboardRect, cursorRectInView)){
+
+            CGFloat margin = -20;
+            // Margin here is the amount the cursor will be scrolled above the top of the keyboard.
+            cursorRectInTextView = CGRectInset(cursorRectInTextView, 0, margin);
+
             [textView scrollRectToVisible:cursorRectInTextView animated:YES];
         }
     }
