@@ -25,6 +25,8 @@
 #import "PageHistoryViewController.h"
 #import "CreditsViewController.h"
 
+#import "WMF_WikiFont_Chars.h"
+
 #pragma mark - Defines
 
 #define NAV ((NavController *)self.navigationController)
@@ -232,35 +234,35 @@ typedef enum {
       @{
           @"title": @"",
           @"tag": @(ROW_INDEX_LOGIN),
-          @"icon": @"",
+          @"icon": WIKIFONT_CHAR_USER_SLEEP,
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": MWLocalizedString(@"main-menu-random", nil),
           @"tag": @(ROW_INDEX_RANDOM),
-          @"icon": @"",
+          @"icon": WIKIFONT_CHAR_DICE,
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": MWLocalizedString(@"main-menu-show-history", nil),
           @"tag": @(ROW_INDEX_HISTORY),
-          @"icon": @"",
+          @"icon": WIKIFONT_CHAR_CLOCK,
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": MWLocalizedString(@"main-menu-show-saved", nil),
           @"tag": @(ROW_INDEX_SAVED_PAGES),
-          @"icon": @"",
+          @"icon": WIKIFONT_CHAR_BOOKMARK,
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": saveArticleTitle,
           @"tag": @(ROW_INDEX_SAVE_PAGE),
-          @"icon": @"",
+          @"icon": WIKIFONT_CHAR_DOWNLOAD,
           @"highlighted": @YES,
           }.mutableCopy
       ,
@@ -268,28 +270,28 @@ typedef enum {
           @"domain": [SessionSingleton sharedInstance].domain,
           @"title": searchWikiTitle,
           @"tag": @(ROW_INDEX_SEARCH_LANGUAGE),
-          @"icon": @"",
+          @"icon": WIKIFONT_CHAR_TRANSLATE,
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": MWLocalizedString(@"zero-warn-when-leaving", nil),
           @"tag": @(ROW_INDEX_ZERO_WARN_WHEN_LEAVING),
-          @"icon": @"",
+          @"icon": WIKIFONT_CHAR_FLAG,
           @"highlighted": @([SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving),
           }.mutableCopy
       ,
       @{
           @"title": MWLocalizedString(@"main-menu-send-feedback", nil),
           @"tag": @(ROW_INDEX_SEND_FEEDBACK),
-          @"icon": @"",
+          @"icon": WIKIFONT_CHAR_ENVELOPE,
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": pageHistoryTitle,
           @"tag": @(ROW_INDEX_PAGE_HISTORY),
-          @"icon": @"",
+          @"icon": WIKIFONT_CHAR_LINK,
           @"highlighted": @YES,
           }.mutableCopy
         ,
@@ -297,7 +299,7 @@ typedef enum {
           @"domain": [SessionSingleton sharedInstance].domain,
           @"title": MWLocalizedString(@"main-menu-credits", nil),
           @"tag": @(ROW_INDEX_CREDITS),
-          @"icon": @"",
+          @"icon": WIKIFONT_CHAR_PUZZLE,
           @"highlighted": @YES,
           }.mutableCopy
       ].mutableCopy;
@@ -324,10 +326,10 @@ typedef enum {
                             substitutionAttributes: @[self.highlightedTextAttributes]
          ];
         
-        loginIcon = @"";
+        loginIcon = WIKIFONT_CHAR_USER_SMILE;
     }else{
         loginTitle = MWLocalizedString(@"main-menu-account-login", nil);
-        loginIcon = @"";
+        loginIcon = WIKIFONT_CHAR_USER_SLEEP;
     }
     
     NSMutableDictionary *row = [self getRowWithTag:ROW_INDEX_LOGIN];

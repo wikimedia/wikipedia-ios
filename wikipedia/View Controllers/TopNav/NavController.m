@@ -25,6 +25,8 @@
 #import "NavButtonLabel.h"
 #import "PaddedLabel.h"
 
+#import "WMF_WikiFont_Chars.h"
+
 @interface NavController (){
 
 }
@@ -360,13 +362,13 @@
         return button;
     };
 
-    self.buttonPencil =     getButton(@"",     NAVBAR_BUTTON_PENCIL);
-    self.buttonCheck =      getButton(@"",     NAVBAR_BUTTON_CHECK);
-    self.buttonX =          getButton(@"",     NAVBAR_BUTTON_X);
-    self.buttonEye =        getButton(@"",     NAVBAR_BUTTON_EYE);
-    self.buttonArrowLeft =  getButton(@"",     NAVBAR_BUTTON_ARROW_LEFT);
-    self.buttonArrowRight = getButton(@"",     NAVBAR_BUTTON_ARROW_RIGHT);
-    self.buttonW =          getButton(@"",     NAVBAR_BUTTON_LOGO_W);
+    self.buttonPencil =     getButton(WIKIFONT_CHAR_PENCIL,         NAVBAR_BUTTON_PENCIL);
+    self.buttonCheck =      getButton(WIKIFONT_CHAR_TICK,           NAVBAR_BUTTON_CHECK);
+    self.buttonX =          getButton(WIKIFONT_CHAR_X,              NAVBAR_BUTTON_X);
+    self.buttonEye =        getButton(WIKIFONT_CHAR_EYE,            NAVBAR_BUTTON_EYE);
+    self.buttonArrowLeft =  getButton(WIKIFONT_CHAR_ARROW_LEFT,     NAVBAR_BUTTON_ARROW_LEFT);
+    self.buttonArrowRight = getButton(WIKIFONT_CHAR_ARROW_LEFT,     NAVBAR_BUTTON_ARROW_RIGHT);
+    self.buttonW =          getButton(WIKIFONT_CHAR_W,              NAVBAR_BUTTON_LOGO_W);
 
     // Mirror the left arrow.
     self.buttonArrowRight.transform = CGAffineTransformMakeScale(-1.0, 1.0);
@@ -551,7 +553,7 @@
     
     // If the tapped item was a button, first animate it briefly, then post the notication.
     if([tappedView isKindOfClass:[NavButtonView class]]){
-        CGFloat animationScale = 1.15f;
+        CGFloat animationScale = 1.25f;
         NavButtonView *button = (NavButtonView *)tappedView;
         [button.label animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
                             afterDelay: 0.0
