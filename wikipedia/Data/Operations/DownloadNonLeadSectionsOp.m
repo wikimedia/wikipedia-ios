@@ -5,6 +5,7 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSURLRequest+DictionaryRequest.h"
+#import "NSString+Extras.h"
 
 @implementation DownloadNonLeadSectionsOp
 
@@ -22,7 +23,7 @@
                                                            @"prop": @"sections|text",
                                                            @"sections": @"1-",
                                                            @"onlyrequestedsections": @"1",
-                                                           @"sectionprop": @"toclevel|line|anchor",
+                                                           @"sectionprop": @"toclevel|line|anchor|level|number|fromtitle|index",
                                                            @"page": title,
                                                            @"format": @"json"
                                                            }
@@ -55,8 +56,28 @@
             }
 
             NSArray *sections = weakSelf.jsonRetrieved[@"mobileview"][@"sections"];
+
+            NSMutableArray *output = @[].mutableCopy;
             
-            completionBlock(sections);
+            // The fromtitle tells us if a section was transcluded, but the api sometimes returns false instead
+            // of just leaving it out if the section wasn't transcluded. It is also sometimes the name of the
+            // current article, which is redundant. So here remove the fromtitle key/value in both of these
+            // cases. That way the existense of a "fromtitle" can be relied on as a true transclusion indicator.
+            // Todo: pull this out into own method within this file.
+            for (NSDictionary *section in sections) {
+                NSMutableDictionary *mutableSection = section.mutableCopy;
+                if ([mutableSection[@"fromtitle"] isKindOfClass:[NSString class]]) {
+                    NSString *fromTitle = mutableSection[@"fromtitle"];
+                    if ([[title cleanWikiTitle] isEqualToString:[fromTitle cleanWikiTitle]]) {
+                        [mutableSection removeObjectForKey:@"fromtitle"];
+                    }
+                }else{
+                    [mutableSection removeObjectForKey:@"fromtitle"];
+                }
+                [output addObject:mutableSection];
+            }
+
+            completionBlock(output);
         };
     }
     return self;

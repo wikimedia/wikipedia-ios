@@ -11,7 +11,7 @@
 
 - (id)initForPageTitle: (NSString *)title
                 domain: (NSString *)domain
-               section: (NSNumber *)section
+               section: (NSString *)section
               wikiText: (NSString *)wikiText
                summary: (NSString *)summary
              captchaId: (NSString *)captchaId
@@ -48,6 +48,8 @@
             }
             
             //NSLog(@"parameters = %@", parameters);
+            //weakSelf.request = [NSURLRequest postRequestWithURL: [NSURL URLWithString:@"127.0.0.1"] parameters: parameters];
+            //return;
             
             weakSelf.request = [NSURLRequest postRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
                                                      parameters: parameters];

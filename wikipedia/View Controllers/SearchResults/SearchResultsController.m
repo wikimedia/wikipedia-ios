@@ -185,7 +185,7 @@
                                                   NSMutableArray *orderedResults = @[].mutableCopy;
                                                   for (NSString *title in searchResults) {
                                                       
-                                                      NSString *cleanTitle = [self cleanTitle:title];
+                                                      NSString *cleanTitle = [title cleanWikiTitle];
                                                       
                                                       [orderedResults addObject:@{@"title": cleanTitle, @"thumbnail": @{}}.mutableCopy];
                                                   }
@@ -290,11 +290,6 @@
 
 #pragma mark Search results table methods (requests actual thumb image data)
 
--(NSString *)cleanTitle:(NSString *)title
-{
-    return [title stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.searchResultsOrdered.count;
@@ -389,7 +384,7 @@
     NSString *title = self.searchResultsOrdered[indexPath.row][@"title"];
 
     // Set CurrentArticleTitle so web view knows what to load.
-    title = [self cleanTitle:title];
+    title = [title cleanWikiTitle];
     
     [self hideKeyboard];
 

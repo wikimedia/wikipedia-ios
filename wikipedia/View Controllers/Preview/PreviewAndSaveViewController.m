@@ -442,8 +442,12 @@ return;
 
     NSManagedObjectID *articleID = section.article.objectID;
 
+    // If fromTitle was set, the section was transcluded, so use the title of the page
+    // it was transcluded from.
+    NSString *title = section.fromTitle ? section.fromTitle : section.article.title;
+
     UploadSectionWikiTextOp *uploadWikiTextOp =
-    [[UploadSectionWikiTextOp alloc] initForPageTitle:section.article.title domain:section.article.domain section:section.index wikiText:self.wikiText summary:editSummary captchaId:self.captchaId captchaWord:self.captchaViewController.captchaTextBox.text  completionBlock:^(NSString *result){
+    [[UploadSectionWikiTextOp alloc] initForPageTitle:title domain:section.article.domain section:section.index wikiText:self.wikiText summary:editSummary captchaId:self.captchaId captchaWord:self.captchaViewController.captchaTextBox.text  completionBlock:^(NSString *result){
         
         // Mark article for refreshing and reload it.
         if (articleID) {

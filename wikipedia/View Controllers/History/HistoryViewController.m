@@ -13,6 +13,7 @@
 #import "Article+Convenience.h"
 #import "UINavigationController+SearchNavStack.h"
 #import "NavController.h"
+#import "NSString+Extras.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -283,7 +284,7 @@
         historyEntry = (History *)[articleDataContext_.mainContext objectWithID:historyEntryId];
     }];
     
-    NSString *title = [historyEntry.article.title stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+    NSString *title = [historyEntry.article.title cleanWikiTitle];
     NSString *language = [NSString stringWithFormat:@"\n%@", historyEntry.article.domainName];
 
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];

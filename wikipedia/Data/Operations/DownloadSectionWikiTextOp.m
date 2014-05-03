@@ -11,7 +11,7 @@
 
 - (id)initForPageTitle: (NSString *)title
                 domain: (NSString *)domain
-               section: (NSNumber *)section
+               section: (NSString *)section
        completionBlock: (void (^)(NSString *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock

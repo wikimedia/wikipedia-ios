@@ -21,9 +21,9 @@
         self.request = [NSURLRequest getRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
                                              parameters: @{
                                                            @"action": @"mobileview",
-                                                           @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount",
+                                                           @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount|id",
                                                            @"sections": @"0",
-                                                           @"sectionprop": @"toclevel|line|anchor",
+                                                           @"sectionprop": @"toclevel|line|anchor|level|number|fromtitle|index",
                                                            @"page": title,
                                                            @"format": @"json"
                                                            }
@@ -79,14 +79,18 @@
             if (!redirected || [redirected isNull]) redirected = @"";
             
             NSArray *sections = weakSelf.jsonRetrieved[@"mobileview"][@"sections"];
+
+            NSNumber *articleId = weakSelf.jsonRetrieved[@"mobileview"][@"id"];
+            if (!articleId || [articleId isNull]) articleId = @0;
             
             completionBlock(@{
                               @"sections": sections,
                               @"lastmodified": lastmodifiedDate,
                               @"lastmodifiedby": lastmodifiedby,
                               @"redirected": redirected,
-                              @"languagecount": languagecount
-                              });
+                              @"languagecount": languagecount,
+                              @"articleId": articleId
+                              }.mutableCopy);
         };
     }
     return self;

@@ -8,6 +8,7 @@
 #import "TOCImageView.h"
 #import "WMF_Colors.h"
 #import "UIView+RemoveConstraints.h"
+#import "Section+LeadSection.h"
 
 @interface TOCSectionCellView(){
 
@@ -101,12 +102,11 @@
 
 -(NSAttributedString *)getAttributedTitleForSection:(Section *)section
 {
-    NSString *string = (section.index.integerValue == 0) ? section.article.title : section.title;
+    NSString *string = [section isLeadSection] ? section.article.title : section.title;
     
     string = [string getStringWithoutHTML];
     
-    BOOL isLead = (section.index.integerValue == 0) ? YES : NO;
-    return [self getAttributedStringForString:string isLeadSection:isLead];
+    return [self getAttributedStringForString:string isLeadSection:[section isLeadSection]];
 }
 
 -(void)setSectionId:(NSManagedObjectID *)sectionId
@@ -115,7 +115,7 @@
         ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
         Section *section = (Section *)[articleDataContext_.mainContext objectWithID:sectionId];
         
-        self.tag = section.index.integerValue;
+        self.tag = section.sectionId.integerValue;
 
         self.titleLabel.attributedText = [self getAttributedTitleForSection:section];
 

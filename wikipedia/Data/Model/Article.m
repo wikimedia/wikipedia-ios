@@ -1,5 +1,5 @@
-//  Created by Monte Hurd on 1/23/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
+//  Created by Monte Hurd on 5/2/14.
+//  Created by Monte Hurd on 4/29/14.
 
 #import "Article.h"
 #import "GalleryImage.h"
@@ -14,15 +14,16 @@
 @dynamic dateCreated;
 @dynamic domain;
 @dynamic domainName;
-@dynamic lastScrollX;
-@dynamic lastScrollY;
-@dynamic site;
-@dynamic title;
 @dynamic languagecount;
 @dynamic lastmodified;
 @dynamic lastmodifiedby;
-@dynamic redirected;
+@dynamic lastScrollX;
+@dynamic lastScrollY;
 @dynamic needsRefresh;
+@dynamic redirected;
+@dynamic site;
+@dynamic title;
+@dynamic articleId;
 @dynamic galleryImage;
 @dynamic history;
 @dynamic saved;

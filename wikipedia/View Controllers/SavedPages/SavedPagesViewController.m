@@ -13,6 +13,7 @@
 #import "SessionSingleton.h"
 #import "UINavigationController+SearchNavStack.h"
 #import "NavController.h"
+#import "NSString+Extras.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -154,7 +155,7 @@
         savedEntry = (Saved *)[articleDataContext_.mainContext objectWithID:savedEntryId];
     }];
     
-    NSString *title = [savedEntry.article.title stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+    NSString *title = [savedEntry.article.title cleanWikiTitle];
     NSString *language = [NSString stringWithFormat:@"\n%@", savedEntry.article.domainName];
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];

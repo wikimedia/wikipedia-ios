@@ -19,8 +19,8 @@
     [fetchRequest setPredicate:predicate];
     
     // Sort by section.
-    NSSortDescriptor *sectionSort = [[NSSortDescriptor alloc] initWithKey:@"section.index" ascending:YES selector:nil];
-    // Within section sort by index.
+    NSSortDescriptor *sectionSort = [[NSSortDescriptor alloc] initWithKey:@"section.sectionId" ascending:YES selector:nil];
+    // Within section sort by id.
     NSSortDescriptor *imageSort = [[NSSortDescriptor alloc] initWithKey:@"index" ascending:YES selector:nil];
     [fetchRequest setSortDescriptors:@[sectionSort, imageSort]];
     
@@ -43,7 +43,7 @@
     [fetchRequest setPredicate:predicate];
     
     // Sort by section.
-    NSSortDescriptor *sectionSort = [[NSSortDescriptor alloc] initWithKey:@"index" ascending:YES selector:nil];
+    NSSortDescriptor *sectionSort = [[NSSortDescriptor alloc] initWithKey:@"sectionId" ascending:YES selector:nil];
     [fetchRequest setSortDescriptors:@[sectionSort]];
     
     NSError *error = nil;

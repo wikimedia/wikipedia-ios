@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5041.1" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C1021" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Article" representedClassName="Article" syncable="YES">
+        <attribute name="articleId" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="dateCreated" attributeType="Date" indexed="YES" syncable="YES"/>
         <attribute name="domain" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="domainName" attributeType="String" indexed="YES" syncable="YES"/>
@@ -65,8 +66,12 @@
     <entity name="Section" representedClassName="Section" syncable="YES">
         <attribute name="anchor" attributeType="String" syncable="YES"/>
         <attribute name="dateRetrieved" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="fromTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="html" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="index" optional="YES" attributeType="Integer 16" indexed="YES" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="level" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="sectionId" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tocLevel" optional="YES" attributeType="Integer 16" defaultValueString="0" indexed="YES" syncable="YES"/>
         <relationship name="article" maxCount="1" deletionRule="Nullify" destinationEntity="Article" inverseName="section" inverseEntity="Article" syncable="YES"/>
@@ -79,14 +84,14 @@
         <relationship name="section" maxCount="1" deletionRule="Nullify" destinationEntity="Section" inverseName="sectionImage" inverseEntity="Section" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Article" positionX="-72" positionY="-603" width="128" height="298"/>
+        <element name="Article" positionX="-72" positionY="-603" width="128" height="313"/>
         <element name="DiscoveryContext" positionX="313" positionY="-675" width="128" height="90"/>
         <element name="GalleryImage" positionX="-297" positionY="-144" width="128" height="90"/>
         <element name="History" positionX="135" positionY="-738" width="128" height="105"/>
         <element name="Image" positionX="135" positionY="-361" width="128" height="298"/>
         <element name="ImageData" positionX="324" positionY="-297" width="128" height="73"/>
         <element name="Saved" positionX="252" positionY="-513" width="128" height="75"/>
-        <element name="Section" positionX="-252" positionY="-27" width="128" height="178"/>
+        <element name="Section" positionX="-252" positionY="-27" width="128" height="238"/>
         <element name="SectionImage" positionX="268" positionY="-88" width="128" height="88"/>
     </elements>
 </model>

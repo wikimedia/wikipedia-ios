@@ -14,4 +14,6 @@
 
 - (NSString *)randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
 
+- (NSString *)cleanWikiTitle;
+
 @end

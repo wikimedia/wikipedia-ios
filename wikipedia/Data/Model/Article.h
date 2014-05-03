@@ -1,5 +1,5 @@
-//  Created by Monte Hurd on 1/23/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
+//  Created by Monte Hurd on 5/2/14.
+//  Created by Monte Hurd on 4/29/14.
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
@@ -11,15 +11,16 @@
 @property (nonatomic, retain) NSDate * dateCreated;
 @property (nonatomic, retain) NSString * domain;
 @property (nonatomic, retain) NSString * domainName;
-@property (nonatomic, retain) NSNumber * lastScrollX;
-@property (nonatomic, retain) NSNumber * lastScrollY;
-@property (nonatomic, retain) NSString * site;
-@property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * languagecount;
 @property (nonatomic, retain) NSDate * lastmodified;
 @property (nonatomic, retain) NSString * lastmodifiedby;
-@property (nonatomic, retain) NSString * redirected;
+@property (nonatomic, retain) NSNumber * lastScrollX;
+@property (nonatomic, retain) NSNumber * lastScrollY;
 @property (nonatomic, retain) NSNumber * needsRefresh;
+@property (nonatomic, retain) NSString * redirected;
+@property (nonatomic, retain) NSString * site;
+@property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSNumber * articleId;
 @property (nonatomic, retain) NSSet *galleryImage;
 @property (nonatomic, retain) NSSet *history;
 @property (nonatomic, retain) NSSet *saved;
