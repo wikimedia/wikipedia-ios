@@ -214,19 +214,19 @@ typedef enum {
     NSAttributedString *searchWikiTitle =
     [MWLocalizedString(@"main-menu-language-title", nil) attributedStringWithAttributes: nil
                                                                     substitutionStrings: @[[SessionSingleton sharedInstance].domainName]
-                                                                 substitutionAttributes: @[self.self.highlightedTextAttributes]
+                                                                 substitutionAttributes: @[self.highlightedTextAttributes]
      ];
     
     NSAttributedString *saveArticleTitle =
     [MWLocalizedString(@"main-menu-current-article-save", nil) attributedStringWithAttributes: nil
                                                                           substitutionStrings: @[currentArticleTitle]
-                                                                       substitutionAttributes: @[self.self.highlightedTextAttributes]
+                                                                       substitutionAttributes: @[self.highlightedTextAttributes]
      ];
 
     NSAttributedString *pageHistoryTitle =
     [MWLocalizedString(@"main-menu-show-page-history", nil) attributedStringWithAttributes: nil
                                                                        substitutionStrings: @[currentArticleTitle]
-                                                                    substitutionAttributes: @[self.self.highlightedTextAttributes]
+                                                                    substitutionAttributes: @[self.highlightedTextAttributes]
      ];
     
     NSMutableArray *rowData =
