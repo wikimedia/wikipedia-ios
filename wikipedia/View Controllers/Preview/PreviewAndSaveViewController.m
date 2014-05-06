@@ -99,14 +99,23 @@ typedef enum {
         case NAVBAR_BUTTON_ARROW_RIGHT: /* for captcha submit button */
         case NAVBAR_BUTTON_CHECK:
             {
-                if(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING){
-                    [self save];
-                    [self logEvent: @{@"action": @"abuseFilterWarningIgnore"}
-                            schema: LOG_SCHEMA_EDIT];
-                }else{
-                    [self saveOrShowSignInActionSheetsIfNotLoggedIn];
+                switch (NAV.navBarMode) {
+                    case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
+                        [self save];
+                        [self logEvent: @{@"action": @"abuseFilterWarningIgnore"}
+                                schema: LOG_SCHEMA_EDIT];
+                        break;
+                    case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
+                        [self save];
+                        break;
+                    case NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY:
+                        // Login/SaveAnon buttons are already visible, so fake out a "Save Anonymously" button tap.
+                        [self performPreviewChoiceAction:PREVIEW_CHOICE_SAVE];
+                        break;
+                    default:
+                        [self saveOrShowSignInActionSheetsIfNotLoggedIn];
+                        break;
                 }
-
             }
             break;
         default:
@@ -305,7 +314,12 @@ typedef enum {
     UIView *tappedChildView = userInfo[@"tappedChild"];
     if (tappedChildView) tappedItem = tappedChildView;
 
-    switch (tappedItem.tag) {
+    [self performPreviewChoiceAction:tappedItem.tag];
+}
+
+-(void)performPreviewChoiceAction:(PreviewChoices)choice
+{
+    switch (choice) {
         case PREVIEW_CHOICE_LOGIN_THEN_SAVE:{
             self.saveAutomaticallyIfSignedIn = YES;
             LoginViewController *loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
