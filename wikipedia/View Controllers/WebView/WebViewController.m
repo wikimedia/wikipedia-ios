@@ -150,7 +150,7 @@ typedef enum {
 
     [self.webView hideScrollGradient];
 
-    [self reloadCurrentArticle];
+    [self reloadCurrentArticleInvalidatingCache:NO];
     
     [self setupPullToRefresh];
     
@@ -250,7 +250,8 @@ typedef enum {
         [NAV loadArticleWithTitle: selectedLangInfo[@"*"]
                            domain: selectedLangInfo[@"code"]
                          animated: NO
-                  discoveryMethod: DISCOVERY_METHOD_SEARCH];
+                  discoveryMethod: DISCOVERY_METHOD_SEARCH
+                invalidatingCache: NO];
     };
     
     [self.navigationController.view.layer addAnimation:transition forKey:nil];
@@ -304,6 +305,8 @@ typedef enum {
 
 -(void)tocShowWithDuration:(CGFloat)duration
 {
+    if(!self.tocButton.enabled) return;
+    
     // Clear alerts
     [self fadeAlert];
 
@@ -589,7 +592,8 @@ typedef enum {
 
             [weakSelf navigateToPage: title
                               domain: [SessionSingleton sharedInstance].currentArticleDomain
-                     discoveryMethod: DISCOVERY_METHOD_LINK];
+                     discoveryMethod: DISCOVERY_METHOD_LINK
+                   invalidatingCache: NO];
         }else if ([href hasPrefix:@"//"]) {
             href = [@"http:" stringByAppendingString:href];
             
@@ -705,6 +709,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(void)saveWebViewScrollOffset
 {
+    // Don't record scroll position of "main" pages.
+    if ([[SessionSingleton sharedInstance] isCurrentArticleMain]) return;
+
     [articleDataContext_.mainContext performBlockAndWait:^(){
         // Save scroll location
         NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
@@ -830,6 +837,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 - (void)navigateToPage: (NSString *)title
                 domain: (NSString *)domain
        discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
+     invalidatingCache: (BOOL)invalidateCache
 {
     NSString *cleanTitle = [self cleanTitle:title];
     
@@ -844,7 +852,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
     [self retrieveArticleForPageTitle: cleanTitle
                                domain: domain
-                      discoveryMethod: [self getStringForDiscoveryMethod:discoveryMethod]];
+                      discoveryMethod: [self getStringForDiscoveryMethod:discoveryMethod]
+                    invalidatingCache: invalidateCache];
 
     // Reset the search field to its placeholder text after 5 seconds.
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -853,42 +862,41 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     });
 }
 
--(void)reloadCurrentArticle{
-    NSString *title = [SessionSingleton sharedInstance].currentArticleTitle;
-    NSString *domain = [SessionSingleton sharedInstance].currentArticleDomain;
-    [self navigateToPage: title
-                  domain: domain
-         discoveryMethod: DISCOVERY_METHOD_SEARCH];
-}
-
--(void)reloadCurrentArticleInvalidatingCache
-{
-    // Mark article for refreshing so its core data records will be reloaded.
-    // (Needs to be done on worker context as worker context changes bubble up through
-    // main context too - so web view controller accessing main context will see changes.)
-
-    NSManagedObjectID *articleID =
-    [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
-                                                   domain: [SessionSingleton sharedInstance].currentArticleDomain];
-    
-    if (articleID) {
-        [articleDataContext_.workerContext performBlockAndWait:^(){
-            Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
-            if (article) {
-                article.needsRefresh = @YES;
-                NSError *error = nil;
-                [articleDataContext_.workerContext save:&error];
-                NSLog(@"error = %@", error);
-            }
-        }];
-        [self reloadCurrentArticle];
-    }
+-(void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache
+{    
+    [self navigateToPage: [SessionSingleton sharedInstance].currentArticleTitle
+                  domain: [SessionSingleton sharedInstance].currentArticleDomain
+         discoveryMethod: DISCOVERY_METHOD_SEARCH
+       invalidatingCache: invalidateCache];
 }
 
 - (void)retrieveArticleForPageTitle: (NSString *)pageTitle
                              domain: (NSString *)domain
                     discoveryMethod: (NSString *)discoveryMethod
+                  invalidatingCache: (BOOL)invalidateCache
 {
+    if (invalidateCache) {
+        // Mark article for refreshing so its core data records will be reloaded.
+        // (Needs to be done on worker context as worker context changes bubble up through
+        // main context too - so web view controller accessing main context will see changes.)
+        
+        NSManagedObjectID *articleID =
+        [articleDataContext_.mainContext getArticleIDForTitle: pageTitle
+                                                       domain: domain];
+        
+        if (articleID) {
+            [articleDataContext_.workerContext performBlockAndWait:^(){
+                Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
+                if (article) {
+                    article.needsRefresh = @YES;
+                    NSError *error = nil;
+                    [articleDataContext_.workerContext save:&error];
+                    NSLog(@"error = %@", error);
+                }
+            }];
+        }
+    }
+
     // Cancel any in-progress article retrieval operations
     [[QueuesSingleton sharedInstance].articleRetrievalQ cancelAllOperations];
     [[QueuesSingleton sharedInstance].searchQ cancelAllOperations];
@@ -998,7 +1006,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // differs from titleReflectingAnyRedirects.
         if (redirectedTitle.length > 0) {
             NSString *newTitle = redirectedTitle.copy;
-            [self retrieveArticleForPageTitle:newTitle domain:domain discoveryMethod:discoveryMethod];
+            [self retrieveArticleForPageTitle: newTitle
+                                       domain: domain
+                              discoveryMethod: discoveryMethod
+                            invalidatingCache: NO];
             return;
         }
 
@@ -1181,13 +1192,19 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // web view to a given section. Do not save this html to the core data store - this way it can be changed
     // later if needed (to a div etc).
     
+    // Don't show the edit pencil on "main" articles.
+    NSString *editPencilSpan = [[SessionSingleton sharedInstance] isCurrentArticleMain] ?
+        @""
+        :
+        [NSString stringWithFormat:@"<span class='edit_section' id='edit_section_%d'></span>", sectionId.integerValue]
+    ;
+    
     return [NSString stringWithFormat:
         @"<div class='content_block' id='content_block_%@'>\
-            <span class='edit_section' id='edit_section_%d'>\
-            </span>\
+            %@\
             %@\
         </div>\
-        ", sectionId, sectionId.integerValue, html];
+        ", sectionId, editPencilSpan, html];
 }
 
 -(NSString *)addTitle:(NSString *)title toHTML:(NSString *)html
@@ -1227,7 +1244,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             [section createImageRecordsForHtmlOnContext:articleDataContext_.mainContext];
 
             NSString *sectionHTML = section.html;
-            if ([section.sectionId isEqualToNumber:@(0)]) {
+            if ([section.sectionId isEqualToNumber:@(0)] && ![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
                 sectionHTML = [self addTitle:article.title toHTML:sectionHTML];
             }
 
@@ -1280,7 +1297,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         History *history = (History *)[articleDataContext_.mainContext objectWithID:historyId];
         [self navigateToPage: history.article.title
                       domain: history.article.domain
-             discoveryMethod: DISCOVERY_METHOD_SEARCH];
+             discoveryMethod: DISCOVERY_METHOD_SEARCH
+           invalidatingCache: NO];
     }
 }
 
@@ -1291,7 +1309,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         History *history = (History *)[articleDataContext_.mainContext objectWithID:historyId];
         [self navigateToPage: history.article.title
                       domain: history.article.domain
-             discoveryMethod: DISCOVERY_METHOD_SEARCH];
+             discoveryMethod: DISCOVERY_METHOD_SEARCH
+           invalidatingCache: NO];
     }
 }
 
@@ -1348,9 +1367,16 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     self.adjacentHistoryIDs = [self getAdjacentHistoryIDs];
     self.forwardButton.enabled = (self.adjacentHistoryIDs[@"after"]) ? YES : NO;
     self.backButton.enabled = (self.adjacentHistoryIDs[@"before"]) ? YES : NO;
-    NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
-    self.tocButton.enabled = (currentArticleTitle && (currentArticleTitle.length > 0)) ? YES : NO;
-    self.langButton.enabled = (langCount.integerValue > 1) ? YES : NO;
+    
+    if ([[SessionSingleton sharedInstance] isCurrentArticleMain]) {
+        // Disable the TOC and the article languages buttons if this is the main page.
+        self.tocButton.enabled = NO;
+        self.langButton.enabled = NO;
+    }else{
+        NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
+        self.tocButton.enabled = (currentArticleTitle && (currentArticleTitle.length > 0)) ? YES : NO;
+        self.langButton.enabled = (langCount.integerValue > 1) ? YES : NO;
+    }
 }
 
 - (IBAction)tocButtonPushed:(id)sender
@@ -1575,7 +1601,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             
             //NSLog(@"REFRESH NOW!!!!!");
             
-            [self reloadCurrentArticleInvalidatingCache];
+            [self reloadCurrentArticleInvalidatingCache:YES];
             
             [UIView animateWithDuration: 0.3f
                                   delay: 0.6f

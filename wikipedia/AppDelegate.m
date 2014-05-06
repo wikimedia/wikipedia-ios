@@ -34,10 +34,11 @@
     // Register default default values.
     // See: http://stackoverflow.com/a/5397647/135557
     NSDictionary *userDefaultsDefaults = @{
-        @"CurrentArticleTitle": @"",
+        @"CurrentArticleTitle": @"Main Page",
         @"CurrentArticleDomain": @"en",
         @"Domain": @"en",
         @"DomainName": @"English",
+        @"DomainMainArticleTitle": @"Main Page",
         @"Site": @"wikipedia.org",
         @"ZeroWarnWhenLeaving" : @YES,
         @"ZeroOnDialogShownOnce" : @NO,

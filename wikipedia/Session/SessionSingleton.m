@@ -44,6 +44,8 @@
 
 -(void)setDomain:(NSString *)domain
 {
+    self.domainMainArticleTitle = [self mainArticleTitleForCode:domain];
+
     [[NSUserDefaults standardUserDefaults] setObject:domain forKey:@"Domain"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -51,6 +53,17 @@
 -(NSString *)domain
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"Domain"];
+}
+
+-(void)setDomainMainArticleTitle:(NSString *)domainMainArticleTitle
+{
+    [[NSUserDefaults standardUserDefaults] setObject:domainMainArticleTitle forKey:@"DomainMainArticleTitle"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSString *)domainMainArticleTitle
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"DomainMainArticleTitle"];
 }
 
 -(void)setDomainName:(NSString *)domainName
@@ -134,6 +147,44 @@
     error = nil;
     NSArray *result = [NSJSONSerialization JSONObjectWithData:fileData options:0 error:&error];
     return (error) ? [@[] mutableCopy]: [result mutableCopy];
+}
+
+- (NSString *)bundledMainArticleTitlesJsonPath
+{
+    return [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/Languages/mainpages.json"];
+}
+
+-(NSMutableDictionary *)getBundledMainArticleTitlesJson
+{
+    NSError *error = nil;
+    NSData *fileData = [NSData dataWithContentsOfFile:[[SessionSingleton sharedInstance] bundledMainArticleTitlesJsonPath] options:0 error:&error];
+    if (error) return @{}.mutableCopy;
+    error = nil;
+    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:fileData options:0 error:&error];
+    return (error) ? @{}.mutableCopy: [result mutableCopy];
+}
+
+-(NSString *)mainArticleTitleForCode:(NSString *)code
+{
+    NSMutableDictionary *mainPageNames = [self getBundledMainArticleTitlesJson];
+    return mainPageNames[code];
+}
+
+-(BOOL)isCurrentArticleMain
+{
+    NSString *mainArticleTitle = [self mainArticleTitleForCode: self.currentArticleDomain];
+    // Reminder: Do not do the following instead of the line above:
+    //      NSString *mainArticleTitle = self.domainMainArticleTitle;
+    // This is because each language domain has its own main page, and self.domainMainArticleTitle
+    // is the main article title for the current search domain, but this "isCurrentArticleMain"
+    // method needs to return YES if an article is a main page, even if it isn't the current
+    // search domain's main page. For example, isCurrentArticleMain is used to decide whether edit
+    // pencil icons will be shown for a page (they are not shown for main pages), but if
+    // self.domainMainArticleTitle was being used above, the user would see edit icons if they
+    // switched their search language from "en" to "fr", then hit back button - the "en" main
+    // page would erroneously display edit pencil icons.
+    if (!mainArticleTitle) return NO;
+    return ([self.currentArticleTitle isEqualToString: mainArticleTitle]);
 }
 
 @end

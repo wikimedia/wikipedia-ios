@@ -453,7 +453,7 @@ return;
         if (articleID) {
             [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
                 WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
-                [webVC reloadCurrentArticleInvalidatingCache];
+                [webVC reloadCurrentArticleInvalidatingCache:YES];
                 [self.navigationController popToViewController:webVC animated:YES];
                 isAleadySaving = NO;
             }];

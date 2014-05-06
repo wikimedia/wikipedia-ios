@@ -349,7 +349,8 @@
     [NAV loadArticleWithTitle: historyEntry.article.title
                        domain: historyEntry.article.domain
                      animated: YES
-              discoveryMethod: DISCOVERY_METHOD_SEARCH];
+              discoveryMethod: DISCOVERY_METHOD_SEARCH
+            invalidatingCache: NO];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

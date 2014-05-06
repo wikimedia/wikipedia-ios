@@ -838,6 +838,7 @@
                      domain: (NSString *)domain
                    animated: (BOOL)animated
             discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
+          invalidatingCache: (BOOL)invalidateCache
 {
     WebViewController *webVC = [self searchNavStackForViewControllerOfClass:[WebViewController class]];
     if (webVC){
@@ -845,7 +846,8 @@
         [SessionSingleton sharedInstance].currentArticleDomain = domain;
         [webVC navigateToPage: title
                        domain: domain
-              discoveryMethod: discoveryMethod];
+              discoveryMethod: discoveryMethod
+            invalidatingCache: invalidateCache];
         [self popToViewController:webVC animated:animated];
     }
 }

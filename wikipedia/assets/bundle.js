@@ -159,8 +159,36 @@ bridge.registerListener( "ping", function( payload ) {
 });
 
 document.onclick = function() {
-    if ( event.target.tagName === "A" ) {
-        bridge.sendMessage( 'linkClicked', { href: event.target.getAttribute( "href" ) });
+
+    /*
+    If the clicked object was not an anchor, the object may have been
+    an html tag styling the anchor text, such as the bold tags in the
+    following:
+
+    <a href="/wiki/Castlevania:_Aria_of_Sorrow" title="Castlevania: Aria of Sorrow"><b>Full article...</b></a>
+
+    To handle these cases just walk ancestors until an anchor tag is
+    encountered.
+    */
+
+    var anchorTarget = null;
+    var potentialAnchorTarget = event.target;
+    while (potentialAnchorTarget) {
+        if ( potentialAnchorTarget.tagName === "A" ){
+            anchorTarget = potentialAnchorTarget;
+            break;
+        }
+        potentialAnchorTarget = potentialAnchorTarget.parentNode;
+    }
+
+    if ( anchorTarget && (anchorTarget.tagName === "A") ) {
+        var href = anchorTarget.getAttribute( "href" );
+        if ( href[0] === "#" ) {
+            // If it is a link to an anchor in the current page, just scroll to it
+            document.getElementById( href.substring( 1 ) ).scrollIntoView();
+        } else {
+            bridge.sendMessage( 'linkClicked', { href: anchorTarget.getAttribute( "href" ) });
+        }
     }
     event.preventDefault();
 }
