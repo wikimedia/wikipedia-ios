@@ -419,7 +419,7 @@ return;
 
 - (void)save
 {
-    [self logEvent: @{@"action": @"save"}
+    [self logEvent: @{@"action": @"saved"}
             schema: LOG_SCHEMA_EDIT];
 
     NSString *userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
@@ -458,12 +458,7 @@ return;
                 isAleadySaving = NO;
             }];
         }
-        
-        if(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA){
-            [self logEvent: @{@"action": @"captchaSolve"}
-                    schema: LOG_SCHEMA_EDIT];
-        }
-        
+
     } cancelledBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;
         [self showAlert:errorMsg];

@@ -16,19 +16,19 @@
     return @{
         @(LOG_SCHEMA_CREATEACCOUNT): @{
             @"name": @"MobileWikiAppCreateAccount",
-            @"revision": @8134803
+            @"revision": @8240702
         },
-        @(LOG_SCHEMA_READINGSESSION): @{
-            @"name": @"MobileWikiAppReadingSession",
-            @"revision": @8134785
+        @(LOG_SCHEMA_READINGACTION): @{
+            @"name": @"MobileWikiAppReadingAction",
+            @"revision": @8233801
         },
         @(LOG_SCHEMA_EDIT): @{
             @"name": @"MobileWikiAppEdit",
-            @"revision": @8134783
+            @"revision": @8198182
         },
         @(LOG_SCHEMA_LOGIN): @{
             @"name": @"MobileWikiAppLogin",
-            @"revision": @8134781
+            @"revision": @8234533
         }
     };
 }
