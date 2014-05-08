@@ -14,6 +14,7 @@
 #import "UINavigationController+SearchNavStack.h"
 #import "NavController.h"
 #import "NSString+Extras.h"
+#import "WMF_WikiFont_Chars.h"
 
 #define NAV ((NavController *)self.navigationController)
 
@@ -304,9 +305,8 @@
     [attributedTitle appendAttributedString:attributedLanguage];
     cell.textLabel.attributedText = attributedTitle;
 
-//TODO: pull this out so not loading image from file more than once.
-    NSString *imageName = [NSString stringWithFormat:@"history-%@.png", historyEntry.discoveryMethod];
-    cell.methodImageView.image = [UIImage imageNamed:imageName];
+    ArticleDiscoveryMethod discoveryMethod = [NAV getDiscoveryMethodForString:historyEntry.discoveryMethod];
+    cell.methodLabel.attributedText = [self getIconLabelAttributedStringForDiscoveryMethod:discoveryMethod];
 
     UIImage *thumbImage = [historyEntry.article getThumbnailUsingContext:articleDataContext_.mainContext];
     if(thumbImage){
@@ -451,6 +451,36 @@
             [self.tableView endUpdates];
         }
     }];
+}
+
+#pragma mark - Discovery method icons
+
+-(NSAttributedString *)getIconLabelAttributedStringForDiscoveryMethod:(ArticleDiscoveryMethod)discoveryMethod
+{
+    NSString *wikiFontCharacter = nil;;
+    switch (discoveryMethod) {
+        case DISCOVERY_METHOD_RANDOM:
+            wikiFontCharacter = WIKIFONT_CHAR_DICE;
+            break;
+        case DISCOVERY_METHOD_LINK:
+            wikiFontCharacter = WIKIFONT_CHAR_LINK;
+            break;
+        default:
+            wikiFontCharacter = WIKIFONT_CHAR_MAGNIFYING_GLASS;
+            break;
+    }
+    
+    UIColor *iconColor = [UIColor lightGrayColor];
+    CGFloat fontSize = 20;
+    NSDictionary *attributes =
+        @{
+            NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Regular" size:fontSize],
+            NSForegroundColorAttributeName : iconColor,
+            NSBaselineOffsetAttributeName: @1
+        };
+    
+    return [[NSAttributedString alloc] initWithString: wikiFontCharacter
+                                           attributes: attributes];
 }
 
 @end

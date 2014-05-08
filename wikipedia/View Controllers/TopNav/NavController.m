@@ -852,6 +852,33 @@
     }
 }
 
+-(ArticleDiscoveryMethod)getDiscoveryMethodForString:(NSString *)string
+{
+    if ([string isEqualToString:@"random"]) {
+        return DISCOVERY_METHOD_RANDOM;
+    }else if ([string isEqualToString:@"link"]) {
+        return DISCOVERY_METHOD_LINK;
+    }else {
+        return DISCOVERY_METHOD_SEARCH;
+    }
+}
+
+-(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method
+{
+    switch (method) {
+        case DISCOVERY_METHOD_RANDOM:
+            return @"random";
+            break;
+        case DISCOVERY_METHOD_LINK:
+            return @"link";
+            break;
+        case DISCOVERY_METHOD_SEARCH:
+        default:
+            return @"search";
+            break;
+    }
+}
+
 #pragma mark Is editing
 
 -(BOOL)isEditorOnNavstack

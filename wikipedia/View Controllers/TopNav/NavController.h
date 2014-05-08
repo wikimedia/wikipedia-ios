@@ -62,6 +62,9 @@ typedef enum {
 -(void) promptFirstTimeZeroOnWithMessageIfAppropriate:(NSString *) message;
 -(void) promptFirstTimeZeroOffIfAppropriate;
 
+-(ArticleDiscoveryMethod)getDiscoveryMethodForString:(NSString *)string;
+-(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method;
+
 @end
 
 //TODO: maybe use currentNavBarTextFieldText instead of currentSearchString?

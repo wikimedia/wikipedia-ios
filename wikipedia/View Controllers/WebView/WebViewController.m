@@ -852,7 +852,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
     [self retrieveArticleForPageTitle: cleanTitle
                                domain: domain
-                      discoveryMethod: [self getStringForDiscoveryMethod:discoveryMethod]
+                      discoveryMethod: [NAV getStringForDiscoveryMethod:discoveryMethod]
                     invalidatingCache: invalidateCache];
 
     // Reset the search field to its placeholder text after 5 seconds.
@@ -1153,22 +1153,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
     [[QueuesSingleton sharedInstance].articleRetrievalQ addOperation:remainingSectionsOp];
     [[QueuesSingleton sharedInstance].articleRetrievalQ addOperation:firstSectionOp];
-}
-
--(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method
-{
-    switch (method) {
-        case DISCOVERY_METHOD_RANDOM:
-            return @"random";
-            break;
-        case DISCOVERY_METHOD_LINK:
-            return @"link";
-            break;
-        case DISCOVERY_METHOD_SEARCH:
-        default:
-            return @"search";
-            break;
-    }
 }
 
 #pragma mark Progress report
