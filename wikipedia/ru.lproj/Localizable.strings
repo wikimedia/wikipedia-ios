@@ -46,9 +46,11 @@
 "wikitext-upload-captcha-needed" = "Нужна проверка капчи.";
 "wikitext-upload-save" = "Сохраняется…";
 "wikitext-upload-save-sign-in" = "Войти и сохранить";
-"wikitext-upload-save-sign-in-benefits" = "Так другие участники смогут связаться с вами, и вы сможете увидеть, какие статьи вы редактировали";
+"wikitext-upload-save-sign-in-benefits" = "Так другие участники смогут связаться с вами, и вы сможете видеть, какие статьи вы редактировали.";
 "wikitext-upload-save-anonymously" = "Сохранить анонимно";
-"wikitext-upload-save-anonymously-warning" = "Это имеет менее конфиденциально. Ваш IP-адрес виден рядом с вашими правками. Сохраняя, вы соглашаетесь постоянно публиковать ваши правки в соответствии с лицензией CC BY-SA 3.0";
+"wikitext-upload-save-anonymously-warning" = "Это менее конфиденциально. Ваш IP-адрес виден рядом с вашими правками.";
+"wikitext-upload-save-license" = "Сохраняя, вы соглашаетесь разместить ваш вклад под лицензией $1.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Поиск…";
 "search-no-matches" = "Не найдены совпадения по заданному критерию поиска.";
 "search-field-placeholder-text" = "Поиск по Википедии";
@@ -71,7 +73,11 @@
 "main-menu-random" = "Случайная статья";
 "main-menu-feedback-heading" = "Обратная связь";
 "main-menu-send-feedback" = "Отправить отзыв";
+"main-menu-show-page-history" = "История изменений страницы $1";
+"main-menu-credits" = "Создатели";
 "saved-pages-title" = "Сохранённые страницы";
+"page-history-title" = "История страницы";
+"page-history-downloading" = "Загрузка страницы истории…";
 "navbar-title-mode-edit-wikitext" = "Править";
 "navbar-title-mode-login" = "Войти";
 "navbar-title-mode-login-and-save" = "Войти и сохранить";
@@ -82,6 +88,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Предпросмотр";
 "navbar-title-mode-edit-wikitext-captcha" = "Необходима быстрая проверка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишите вашу правку";
+"navbar-title-mode-edit-wikitext-save" = "Сохранить";
 "edit-summary-choice-linked-words" = "Установка слов-ссылок";
 "edit-summary-choice-fixed-grammar" = "Исправлено правописание";
 "edit-summary-choice-fixed-inaccuracy" = "Исправлена неточность";
@@ -96,3 +103,8 @@
 "fetching-random-article" = "Выбор случайной статьи";
 "article-pull-to-refresh-prompt" = "Потяните, чтобы обновить статью";
 "article-pull-to-refresh-is-refreshing" = "Обновление статьи";
+"credits-title" = "Репозитории открытого исходного кода";
+"credits-wikimedia-repos" = "Викимедиа";
+"credits-gerrit-repo" = "Основной (Gerrit)";
+"credits-github-mirror" = "Зеркало (GitHub)";
+"credits-external-libraries" = "Сторонние";

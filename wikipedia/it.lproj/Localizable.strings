@@ -2,9 +2,11 @@
 // Exported from translatewiki.net
 // Author: Beta16
 // Author: Nastoshka
+// Author: Ontsed
 
 "article-languages-label" = "Scegli la lingua";
 "article-languages-cancel" = "Annulla";
+"article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
 "article-languages-filter-placeholder" = "Filtra";
 "history-label" = "Naviga nella cronologia";
 "history-section-today" = "Oggi";
@@ -41,12 +43,16 @@
 "wikitext-download-success" = "Wiki testo caricato.";
 "wikitext-preview-changes" = "Recupero anteprima delle tue modifiche...";
 "wikitext-preview-changes-none" = "Non sono state apportate modifiche da visualizzare in anteprima.";
+"wikitext-upload-result-unknown" = "Impossibile determinare il risultato del caricamento del wikitesto.";
 "wikitext-upload-captcha-error" = "Errore nella verifica del CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verifica del CAPTCHA necessaria.";
 "wikitext-upload-save" = "Salvataggio...";
 "wikitext-upload-save-sign-in" = "Registrati e salva";
-"wikitext-upload-save-sign-in-benefits" = "Così gli altri co-editor potranno connettersi con te e potrete vedere quali articoli avete modificato";
+"wikitext-upload-save-sign-in-benefits" = "Così gli altri co-editori potranno connettersi con te e potrete vedere quali articoli avete modificato.";
 "wikitext-upload-save-anonymously" = "Salva in modo anonimo";
+"wikitext-upload-save-anonymously-warning" = "Questo ha meno privacy. Il tuo indirizzo IP è visibile con le modifiche.";
+"wikitext-upload-save-license" = "Salvando, accetti di rilasciare il tuo contributo in base alla licenza $1.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Ricerca in corso...";
 "search-no-matches" = "Nessuna corrispondenza trovata per il termine di ricerca.";
 "search-field-placeholder-text" = "Cerca su Wikipedia";
@@ -69,7 +75,11 @@
 "main-menu-random" = "Voce a caso";
 "main-menu-feedback-heading" = "Commenti";
 "main-menu-send-feedback" = "Invia commento";
+"main-menu-show-page-history" = "Cronologia delle modifiche a $1";
+"main-menu-credits" = "Crediti";
 "saved-pages-title" = "Pagine salvate";
+"page-history-title" = "Cronologia della pagina";
+"page-history-downloading" = "Caricamento della cronologia di pagina...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
 "navbar-title-mode-login" = "Accedi";
 "navbar-title-mode-login-and-save" = "Accedi e salva";
@@ -80,6 +90,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Anteprima";
 "navbar-title-mode-edit-wikitext-captcha" = "Verifica rapida necessaria";
 "navbar-title-mode-edit-wikitext-summary" = "Descrivi la tua modifica";
+"navbar-title-mode-edit-wikitext-save" = "Salva";
 "edit-summary-choice-linked-words" = "Parole collegate";
 "edit-summary-choice-fixed-grammar" = "Corretta grammatica";
 "edit-summary-choice-fixed-inaccuracy" = "Corretta inesattezza";
@@ -94,3 +105,8 @@
 "fetching-random-article" = "Recupera voce a caso";
 "article-pull-to-refresh-prompt" = "Tira per aggiornare la voce";
 "article-pull-to-refresh-is-refreshing" = "Aggiornamento voce";
+"credits-title" = "Repository open source";
+"credits-wikimedia-repos" = "Wikimedia";
+"credits-gerrit-repo" = "Applicazione principale (Gerrit)";
+"credits-github-mirror" = "Applicazione mirror (GitHub)";
+"credits-external-libraries" = "Esterno";

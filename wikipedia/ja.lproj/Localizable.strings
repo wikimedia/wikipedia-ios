@@ -1,0 +1,51 @@
+// Messages for Japanese (日本語)
+// Exported from translatewiki.net
+// Author: Dude1717
+// Author: Shirayuki
+
+"article-languages-cancel" = "キャンセル";
+"history-section-today" = "今日";
+"history-section-yesterday" = "昨日";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-continue" = "続行";
+"zero-interstitial-cancel" = "キャンセル";
+"account-creation-captcha-required" = "CAPTCHA 検証が必要です。";
+"account-creation-logging-in" = "ログイン中...";
+"account-creation-saving" = "保存中...";
+"login-name-not-found" = "ログインするには利用者名が必要です。";
+"login-name-does-not-exist" = "指定した利用者名は存在しません。";
+"login-password-empty" = "ログインするにはパスワードが必要です。";
+"login-password-wrong" = "指定したパスワードは正しくありません。";
+"login-user-blocked" = "利用者はブロックされています。";
+"wikitext-downloading" = "ウィキテキストを読込中...";
+"wikitext-download-failed" = "最新の版を取得できません。";
+"wikitext-download-success" = "ウィキテキストを読み込みました。";
+"wikitext-upload-captcha-error" = "CAPTCHA 検証エラーです。";
+"wikitext-upload-captcha-needed" = "CAPTCHA 検証が必要です。";
+"wikitext-upload-save" = "保存中...";
+"wikitext-upload-save-anonymously" = "匿名で保存";
+"search-searching" = "検索中...";
+"search-loading-article-loaded" = "記事を読み込みました。";
+"main-menu-language-toggle-show" = "言語を表示";
+"main-menu-language-toggle-hide" = "言語を非表示";
+"main-menu-language-selection-saved" = "言語の選択を保存しました";
+"main-menu-account-title-logged-out" = "アカウント";
+"main-menu-account-login" = "ログイン";
+"main-menu-account-logout" = "ログアウト";
+"main-menu-show-saved" = "保存したページ";
+// Fuzzy
+"main-menu-current-article-save" = "$1をオフラインで読むのため";
+"main-menu-random" = "ランダム記事";
+"main-menu-feedback-heading" = "フィードバック";
+"main-menu-send-feedback" = "フィードバックを送信";
+"main-menu-credits" = "クレジット";
+"saved-pages-title" = "保存したページ";
+"page-history-title" = "ページの履歴";
+"page-history-downloading" = "ページの履歴を読み込み中...";
+"navbar-title-mode-edit-wikitext" = "編集";
+"navbar-title-mode-create-account" = "アカウント作成";
+"navbar-title-mode-create-account-and-save" = "アカウントを作成して保存";
+"navbar-title-mode-edit-wikitext-preview" = "プレビュー";
+"edit-summary-choice-other" = "その他";
+"credits-wikimedia-repos" = "ウィキメディア";
+"credits-external-libraries" = "外部";

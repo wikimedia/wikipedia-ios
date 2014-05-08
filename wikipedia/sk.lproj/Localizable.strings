@@ -46,7 +46,9 @@
 "wikitext-upload-save" = "Ukladám...";
 "wikitext-upload-save-sign-in" = "Prihlásiť sa a uložiť";
 "wikitext-upload-save-anonymously" = "Uložiť anonymne";
-"wikitext-upload-save-anonymously-warning" = "Táto voľba menej chráni vaše súkromie. Vaša IP adresa bude spojená s úpravou. Uložením súhlasíte so zverejnením vašej úpravy pod licenciou CC BY-SA 3.0";
+"wikitext-upload-save-anonymously-warning" = "Táto voľba menej chráni vaše súkromie. Vaša IP adresa bude spojená s úpravou.";
+"wikitext-upload-save-license" = "Uložením súhlasíte so zverejnením vašej úpravy pod licenciou $1.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Hľadám...";
 "search-no-matches" = "Vyhľadávanie nenašlo žiadne výsledky.";
 "search-field-placeholder-text" = "Hľadať";
@@ -69,6 +71,8 @@
 "main-menu-feedback-heading" = "Spätná väzba";
 "main-menu-send-feedback" = "Poslať spätnú väzbu";
 "saved-pages-title" = "Uložené stránky";
+"page-history-title" = "História stránky";
+"page-history-downloading" = "Načítavanie histórie stránky...";
 "navbar-title-mode-edit-wikitext" = "Upraviť";
 "navbar-title-mode-login" = "Prihlásiť sa";
 "navbar-title-mode-login-and-save" = "Prihlásiť sa a uložiť";
@@ -85,3 +89,4 @@
 "fetching-random-article" = "Nahrávam náhodný článok";
 "article-pull-to-refresh-prompt" = "Potiahnutím obnovíte článok";
 "article-pull-to-refresh-is-refreshing" = "Obnovujem článok";
+"credits-wikimedia-repos" = "Wikimédia";

@@ -47,8 +47,10 @@
 "wikitext-upload-captcha-needed" = "Er is een CAPTCHA-controle nodig.";
 "wikitext-upload-save" = "Aan het opslaan...";
 "wikitext-upload-save-sign-in" = "Aanmelden en opslaan";
+// Fuzzy
 "wikitext-upload-save-sign-in-benefits" = "Zodat mederedacteuren met u kunnen communiceren en zodat u kunt zien welke pagina's u hebt bewerkt.";
 "wikitext-upload-save-anonymously" = "Als anoniem opslaan";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Deze manier kent minder privacy. Uw IP-adres is zichtbaar bij de bewerkingen. Door op te slaan, gaat u akkoord met het permanent publiceren van uw bewerkingen onder de licentie CC BY-SA 3.0.";
 "search-searching" = "Bezig met zoeken...";
 "search-no-matches" = "Geen overeenkomsten gevonden voor de zoekterm.";

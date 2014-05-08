@@ -46,9 +46,11 @@
 "wikitext-upload-captcha-needed" = "Verificare captcha necesară.";
 "wikitext-upload-save" = "Se salvează...";
 "wikitext-upload-save-sign-in" = "Autentificare și salvare";
-"wikitext-upload-save-sign-in-benefits" = "Astfel, coeditorii pot interacționa cu dumnevoastră, iar dumnevoastră veți putea vedea articolele pe care le-ați modificat";
+"wikitext-upload-save-sign-in-benefits" = "Astfel, coeditorii pot interacționa cu dumnevoastră, iar dumnevoastră veți putea vedea articolele pe care le-ați modificat.";
 "wikitext-upload-save-anonymously" = "Salvare ca anonim";
-"wikitext-upload-save-anonymously-warning" = "Această opțiune înseamnă mai puțină intimitate. Adresa dumnevoastră IP este vizibilă lângă modificări. Salvând, acceptați definitiv să vă publicați modificările sub CC BY-SA 3.0";
+"wikitext-upload-save-anonymously-warning" = "Această opțiune înseamnă mai puțină intimitate. Adresa dumnevoastră IP este vizibilă lângă modificări.";
+"wikitext-upload-save-license" = "Salvând, acceptați să vă publicați modificările sub licența $1.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Se caută...";
 "search-no-matches" = "Nu s-au găsit potriviri pentru termenul căutat.";
 "search-field-placeholder-text" = "Căutare în Wikipedia";
@@ -71,7 +73,11 @@
 "main-menu-random" = "Articol aleatoriu";
 "main-menu-feedback-heading" = "Păreri";
 "main-menu-send-feedback" = "Trimite părerea";
+"main-menu-show-page-history" = "Istoricul modificărilor pentru $1";
+"main-menu-credits" = "Credite";
 "saved-pages-title" = "Pagini salvate";
+"page-history-title" = "Istoricul paginii";
+"page-history-downloading" = "Se încarcă istoricul paginii...";
 "navbar-title-mode-edit-wikitext" = "Modificare";
 "navbar-title-mode-login" = "Autentificare";
 "navbar-title-mode-login-and-save" = "Autentificare și salvare";
@@ -82,6 +88,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Previzualizare";
 "navbar-title-mode-edit-wikitext-captcha" = "Verificare rapidă necesară";
 "navbar-title-mode-edit-wikitext-summary" = "Descrieți-vă modificarea";
+"navbar-title-mode-edit-wikitext-save" = "Salvare";
 "edit-summary-choice-linked-words" = "Adăugat legături";
 "edit-summary-choice-fixed-grammar" = "Ajustări gramaticale";
 "edit-summary-choice-fixed-inaccuracy" = "Corectat inexactități";
@@ -96,3 +103,8 @@
 "fetching-random-article" = "Se preia articolul aleatoriu";
 "article-pull-to-refresh-prompt" = "Trageți pentru a reîncărca articolul";
 "article-pull-to-refresh-is-refreshing" = "Se reîncarcă articolul";
+"credits-title" = "Depozite cu sursă deschisă";
+"credits-wikimedia-repos" = "Wikimedia";
+"credits-gerrit-repo" = "Aplicația de bază (Gerrit)";
+"credits-github-mirror" = "Aplicația oglindă (GitHub)";
+"credits-external-libraries" = "Externe";

@@ -48,7 +48,9 @@
 "wikitext-upload-save-sign-in" = "Anmelden und speichern";
 "wikitext-upload-save-sign-in-benefits" = "Andere Autoren können dich kontaktieren und du kannst sehen, welche Artikel du bearbeitet hast.";
 "wikitext-upload-save-anonymously" = "Anonym speichern";
-"wikitext-upload-save-anonymously-warning" = "Dies bedeutet weniger Datenschutz. Deine IP-Adresse ist mit den Bearbeitungen einsehbar. Mit dem Speichern stimmst du der dauerhaften Veröffentlichung deiner Bearbeitungen unter der CC-BY-SA-3.0-Lizenz zu.";
+"wikitext-upload-save-anonymously-warning" = "Dies bedeutet weniger Datenschutz. Deine IP-Adresse ist mit den Bearbeitungen einsehbar.";
+"wikitext-upload-save-license" = "Mit dem Speichern stimmst du der Veröffentlichung deiner Beiträge unter der $1-Lizenz zu.";
+"wikitext-upload-save-license-name" = "CC-BY-SA 3.0";
 "search-searching" = "Suche …";
 "search-no-matches" = "Keine Treffer für diesen Suchbegriff gefunden.";
 "search-field-placeholder-text" = "Wikipedia durchsuchen";
@@ -71,7 +73,11 @@
 "main-menu-random" = "Zufälliger Artikel";
 "main-menu-feedback-heading" = "Rückmeldung";
 "main-menu-send-feedback" = "Rückmeldung senden";
+"main-menu-show-page-history" = "Versionsgeschichte der Änderungen an $1";
+"main-menu-credits" = "Danksagungen";
 "saved-pages-title" = "Gespeicherte Seiten";
+"page-history-title" = "Versionsgeschichte";
+"page-history-downloading" = "Lade Versionsgeschichte …";
 "navbar-title-mode-edit-wikitext" = "Bearbeiten";
 "navbar-title-mode-login" = "Anmelden";
 "navbar-title-mode-login-and-save" = "Anmelden und speichern";
@@ -82,6 +88,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Vorschau";
 "navbar-title-mode-edit-wikitext-captcha" = "Schnellprüfung erforderlich";
 "navbar-title-mode-edit-wikitext-summary" = "Beschreibe deine Bearbeitung";
+"navbar-title-mode-edit-wikitext-save" = "Speichern";
 "edit-summary-choice-linked-words" = "Verlinkte Wörter";
 "edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
 "edit-summary-choice-fixed-inaccuracy" = "Ungenauigkeiten korrigiert";
@@ -96,3 +103,8 @@
 "fetching-random-article" = "Zufälligen Artikel aufrufen";
 "article-pull-to-refresh-prompt" = "Ziehen zum Aktualisieren des Artikels";
 "article-pull-to-refresh-is-refreshing" = "Artikel aktualisieren";
+"credits-title" = "Open-Source-Repositorien";
+"credits-wikimedia-repos" = "Wikimedia";
+"credits-gerrit-repo" = "App-Hauptrepositorium (Gerrit)";
+"credits-github-mirror" = "App-Mirror (GitHub)";
+"credits-external-libraries" = "Extern";

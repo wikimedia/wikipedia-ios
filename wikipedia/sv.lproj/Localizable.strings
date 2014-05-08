@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Ainali
 // Author: Jopparn
+// Author: Lokal Profil
 // Author: WikiPhoenix
 
 "article-languages-label" = "Välj språk";
@@ -48,9 +49,11 @@
 "wikitext-upload-captcha-needed" = "Kräver captcha-verifiering.";
 "wikitext-upload-save" = "Sparar...";
 "wikitext-upload-save-sign-in" = "Logga in och spara";
-"wikitext-upload-save-sign-in-benefits" = "Så medredigerare kan ansluta sig till dig och du kan se vilka artiklar du har redigerat";
+"wikitext-upload-save-sign-in-benefits" = "Så medredigerare kan kontakta dig och du kan se vilka artiklar du har redigerat.";
 "wikitext-upload-save-anonymously" = "Spara anonymt";
-"wikitext-upload-save-anonymously-warning" = "Detta har lägre sekretess. Din IP-adress är synlig tillsammans med redigeringarna. Genom att spara, samtycker du permanent till att publicera dina redigeringar under CC BY-SA 3.0";
+"wikitext-upload-save-anonymously-warning" = "Detta har lägre sekretess. Din IP-adress är synlig i samband med redigeringarna.";
+"wikitext-upload-save-license" = "Genom att spara, samtycker du till att släppa dina bidrag under licensen $1.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Söker...";
 "search-no-matches" = "Inga matchningar hittades för söktermen.";
 "search-field-placeholder-text" = "Sök på Wikipedia";
@@ -73,7 +76,11 @@
 "main-menu-random" = "Slumpartikel";
 "main-menu-feedback-heading" = "Återkoppling";
 "main-menu-send-feedback" = "Skicka återkoppling";
+"main-menu-show-page-history" = "Historik över ändringar av $1";
+"main-menu-credits" = "Erkännanden";
 "saved-pages-title" = "Sparade sidor";
+"page-history-title" = "Sidhistorik";
+"page-history-downloading" = "Laddar sidhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigera";
 "navbar-title-mode-login" = "Logga in";
 "navbar-title-mode-login-and-save" = "Logga in och spara";
@@ -84,17 +91,22 @@
 "navbar-title-mode-edit-wikitext-preview" = "Förhandsgranska";
 "navbar-title-mode-edit-wikitext-captcha" = "Snabbverifiering krävs";
 "navbar-title-mode-edit-wikitext-summary" = "Beskriv din redigering";
+"navbar-title-mode-edit-wikitext-save" = "Spara";
 "edit-summary-choice-linked-words" = "Länkade ord";
 "edit-summary-choice-fixed-grammar" = "Korrigerade grammatiken";
 "edit-summary-choice-fixed-inaccuracy" = "Åtgärdade felaktighet";
 "edit-summary-choice-fixed-styling" = "Åtgärdade utseendet";
 "edit-summary-choice-fixed-typos" = "Åtgärdade felstavning";
-"edit-summary-choice-added-category" = "Lägg till kategori";
+"edit-summary-choice-added-category" = "Lade till kategori";
 "edit-summary-choice-added-missing-info" = "Lade till saknad information";
 "edit-summary-choice-added-clarification" = "Lade till förtydligande";
 "edit-summary-choice-other" = "Övrigt";
-"edit-summary-description" = "En särskild sammanfattning hjälper medredigerare snabbt granska dina redigeringar. Du kan också välja en från taggarna nedan.";
+"edit-summary-description" = "En särskild sammanfattning hjälper medredigerare att snabbt granska dina redigeringar. Du kan också välja en från taggarna nedan.";
 "edit-summary-field-placeholder-text" = "Hur förbättrade du sidan?";
 "fetching-random-article" = "Hämtar slumpartikel";
 "article-pull-to-refresh-prompt" = "Dra för att uppdatera artikeln";
 "article-pull-to-refresh-is-refreshing" = "Uppdaterar artikeln";
+"credits-wikimedia-repos" = "Wikimedia";
+"credits-gerrit-repo" = "Huvudsaklig app (Gerrit)";
+"credits-github-mirror" = "Speglad app (GitHub)";
+"credits-external-libraries" = "Externa";

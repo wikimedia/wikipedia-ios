@@ -1,6 +1,7 @@
 // Messages for Spanish (español)
 // Exported from translatewiki.net
 // Author: Fitoschido
+// Author: Mcervera
 // Author: VegaDark
 // Author: Vivaelcelta
 
@@ -42,6 +43,7 @@
 "wikitext-upload-save" = "Guardando…";
 "wikitext-upload-save-sign-in" = "Acceder y guardar";
 "wikitext-upload-save-anonymously" = "Guardar anónimamente";
+"wikitext-upload-save-license" = "Guardando, aceptas liberar tus contribuciones bajo la licencia $1";
 "search-searching" = "Buscando…";
 "search-field-placeholder-text" = "Buscar en Wikipedia";
 "search-field-placeholder-text-zero" = "Buscar en Wikipedia Zero";
@@ -61,7 +63,9 @@
 "main-menu-random" = "Artículo al azar";
 "main-menu-feedback-heading" = "Sugerencias";
 "main-menu-send-feedback" = "Enviar sugerencias";
+"main-menu-credits" = "Créditos";
 "saved-pages-title" = "Páginas guardadas";
+"page-history-title" = "Historial de página";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Iniciar sesión";
 "navbar-title-mode-login-and-save" = "Acceder y guardar";
@@ -79,3 +83,6 @@
 "edit-summary-choice-other" = "Otro";
 "edit-summary-field-placeholder-text" = "¿Cómo mejoraste la página?";
 "article-pull-to-refresh-is-refreshing" = "Actualizando el artículo";
+"credits-title" = "Repositorios de código abierto";
+"credits-gerrit-repo" = "Main de la aplicación (Gerrit)";
+"credits-external-libraries" = "Externo";

@@ -47,9 +47,11 @@
 "wikitext-upload-captcha-needed" = "Ќе треба потврда со Captcha.";
 "wikitext-upload-save" = "Зачувувам...";
 "wikitext-upload-save-sign-in" = "Регистрирај ме и зачувај";
-"wikitext-upload-save-sign-in-benefits" = "За да можат другите уредници да се поврзат со вас и да  видите кои статии ги имате уредувано";
+"wikitext-upload-save-sign-in-benefits" = "За да можат другите уредници да се поврзат со вас и да  видите кои статии ги имате уредувано.";
 "wikitext-upload-save-anonymously" = "Зачувај анонимно";
-"wikitext-upload-save-anonymously-warning" = "Ова има помалку приватност. Вашата IP-адреса е видлива со уредувањата. Со зачувување, се согласувате трајно да ги објавиме Вашите уредувања под лиценцата CC BY-SA 3.0";
+"wikitext-upload-save-anonymously-warning" = "Ова има помалку приватност. Вашата IP-адреса е видлива со уредувањата.";
+"wikitext-upload-save-license" = "Зачувувајќи ги промените, се согласувате со објавувањето на вашите придонеси под лиценцата $1.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Пребарувам...";
 "search-no-matches" = "Не пронајдов совпаѓања со бараното.";
 "search-field-placeholder-text" = "Пребарај ја Википедија";
@@ -72,7 +74,11 @@
 "main-menu-random" = "Случајна статија";
 "main-menu-feedback-heading" = "Мислења";
 "main-menu-send-feedback" = "Испрати мислење";
+"main-menu-show-page-history" = "Историја на измените на $1";
+"main-menu-credits" = "Признанија";
 "saved-pages-title" = "Зачувани страници";
+"page-history-title" = "Историја на страницата";
+"page-history-downloading" = "Ја вчитувам историјата...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
 "navbar-title-mode-login" = "Најава";
 "navbar-title-mode-login-and-save" = "Регистрирај ме и зачувај";
@@ -83,6 +89,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
 "navbar-title-mode-edit-wikitext-captcha" = "Се бара брза проверка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишете го уредувањето";
+"navbar-title-mode-edit-wikitext-save" = "Зачувај";
 "edit-summary-choice-linked-words" = "Ставени зборови во врски";
 "edit-summary-choice-fixed-grammar" = "Исправена граматиката";
 "edit-summary-choice-fixed-inaccuracy" = "Исправена неточност";
@@ -97,3 +104,8 @@
 "fetching-random-article" = "Повикувам случајна статија";
 "article-pull-to-refresh-prompt" = "Повлечете за да ја превчитате статијата";
 "article-pull-to-refresh-is-refreshing" = "Превчитување на статијата";
+"credits-title" = "Складишта на отворен код";
+"credits-wikimedia-repos" = "Викимедија";
+"credits-gerrit-repo" = "Главно (Gerrit)";
+"credits-github-mirror" = "Огледално (GitHub)";
+"credits-external-libraries" = "Надворешни";

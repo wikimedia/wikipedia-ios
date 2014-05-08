@@ -1,0 +1,47 @@
+// Messages for Bengali (বাংলা)
+// Exported from translatewiki.net
+// Author: Aftab1995
+
+"article-languages-label" = "ভাষা নির্বাচন করুন";
+"article-languages-cancel" = "বাতিল";
+"article-languages-filter-placeholder" = "ছাকনী";
+"history-label" = "ব্রাউজের ইতিহাস";
+"history-section-today" = "আজ";
+"history-section-yesterday" = "গতকাল";
+"history-section-lastweek" = "গত সপ্তাহ";
+"history-section-lastmonth" = "গত মাস";
+"zero-charged-verbiage" = "উইকিপিডিয়া জিরো বন্ধ (স্ট্যান্ডার্ড ডাটা চার্জ প্রযোজ্য হতে পারে)";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "উইকিপিডিয়া জিরো প্রস্থান হচ্ছে";
+"zero-interstitial-continue" = "অগ্রসর হোন";
+"zero-interstitial-cancel" = "বাতিল";
+"zero-learn-more" = "উইকিপিডিয়া জিরো সম্পর্কে জানতে চান?";
+"zero-learn-more-learn-more" = "আরও জানুন";
+"zero-learn-more-no-thanks" = "না, ধন্যবাদ";
+"zero-wikipedia-zero-heading" = "উইকিপিডিয়া জিরো";
+"zero-warn-when-leaving" = "উইকিপিডিয়া জিরো প্রস্থানের সময় সতর্ক করো";
+"account-creation-captcha-required" = "ক্যাপচা যাচাইকরণ প্রয়োজন।";
+"wikitext-upload-save" = "সংরক্ষণ হচ্ছে ...";
+"search-field-placeholder-text" = "উইকিপিডিয়া অনুসন্ধান";
+"search-field-placeholder-text-zero" = "উইকিপিডিয়া জিরো অনুসন্ধান";
+"main-menu-language-title" = "$1 ভাষার উইকিতে অনুসন্ধান";
+"main-menu-language-toggle-show" = "ভাষা দেখাও";
+"main-menu-language-toggle-hide" = "ভাষা আড়াল করো";
+"main-menu-account-title-logged-out" = "অ্যাকাউন্ট";
+"main-menu-account-title-logged-in" = "$1 হিসাবে প্রবেশ";
+"main-menu-account-login" = "প্রবেশ";
+"main-menu-account-logout" = "প্রস্থান";
+"main-menu-show-title" = "আমাকে দেখাও...";
+"main-menu-show-history" = "ব্রাউজের ইতিহাস";
+"main-menu-show-saved" = "সংরক্ষিত পাতা";
+"main-menu-random" = "অজানা যেকোনো নিবন্ধ";
+"main-menu-feedback-heading" = "প্রতিক্রিয়া";
+"main-menu-send-feedback" = "প্রতিক্রিয়া পাঠান";
+"main-menu-credits" = "কৃতিত্ব";
+"saved-pages-title" = "সংরক্ষিত পাতা";
+"page-history-title" = "পাতার ইতিহাস";
+"navbar-title-mode-edit-wikitext" = "সম্পাদনা";
+"navbar-title-mode-edit-wikitext-preview" = "প্রাকদর্শন";
+"edit-summary-choice-other" = "অন্যান্য";
+"credits-wikimedia-repos" = "উইকিমিডিয়া";
+"credits-external-libraries" = "বাহ্যিক";

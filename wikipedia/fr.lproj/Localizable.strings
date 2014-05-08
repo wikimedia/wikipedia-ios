@@ -4,6 +4,7 @@
 // Author: Gomoko
 // Author: John Trololo
 // Author: Solucer
+// Author: Wladek92
 
 "article-languages-label" = "Choisir langue";
 "article-languages-cancel" = "Annuler";
@@ -49,9 +50,11 @@
 "wikitext-upload-captcha-needed" = "Vérification du Captcha nécessaire.";
 "wikitext-upload-save" = "Enregistrement en cours…";
 "wikitext-upload-save-sign-in" = "Se connecter et enregistrer";
-"wikitext-upload-save-sign-in-benefits" = "Les co-éditeurs peuvent donc se connecter avec vous et vous pouvez voir quels articles vous avez édités.";
+"wikitext-upload-save-sign-in-benefits" = "Les co-éditeurs peuvent ainsi interagir directement avec vous et vous pouvez voir quels articles vous avez modifiés.";
 "wikitext-upload-save-anonymously" = "Enregistrer anonymement";
-"wikitext-upload-save-anonymously-warning" = "Cette action est moins privée. Votre adresse IP est visible avec les modifications. En enregistrant, vous acceptez définitivement de publier vos modifications sous CC BY-SA 3.0";
+"wikitext-upload-save-anonymously-warning" = "Cette action est moins privée. Votre adresse IP est visible avec les modifications.";
+"wikitext-upload-save-license" = "En enregistrant, vous acceptez de mettre vos modifications sous la licence $1.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Recherche en cours…";
 "search-no-matches" = "Aucune correspondance trouvée pour le critère de recherche.";
 "search-field-placeholder-text" = "Rechercher dans Wikipédia";
@@ -74,7 +77,11 @@
 "main-menu-random" = "Article au hasard";
 "main-menu-feedback-heading" = "Commentaire";
 "main-menu-send-feedback" = "Envoyer un commentaire";
+"main-menu-show-page-history" = "Historique des modifications de $1";
+"main-menu-credits" = "Remerciements";
 "saved-pages-title" = "Pages enregistrées";
+"page-history-title" = "Historique de la page";
+"page-history-downloading" = "Chargement de l’historique de la page…";
 "navbar-title-mode-edit-wikitext" = "Modifier";
 "navbar-title-mode-login" = "Se connecter";
 "navbar-title-mode-login-and-save" = "Se connecter et enregistrer";
@@ -85,6 +92,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Aperçu";
 "navbar-title-mode-edit-wikitext-captcha" = "Vérification rapide nécessaire";
 "navbar-title-mode-edit-wikitext-summary" = "Décrire votre modification";
+"navbar-title-mode-edit-wikitext-save" = "Enregistrer";
 "edit-summary-choice-linked-words" = "Mots liés";
 "edit-summary-choice-fixed-grammar" = "Correction grammaticale";
 "edit-summary-choice-fixed-inaccuracy" = "Inexactitude corrigée";
@@ -99,3 +107,8 @@
 "fetching-random-article" = "Récupération d’un article au hasard";
 "article-pull-to-refresh-prompt" = "Tirer pour rafraîchir l’article";
 "article-pull-to-refresh-is-refreshing" = "Article rafraîchi";
+"credits-title" = "Lieux de mise à disposition des Open sources";
+"credits-wikimedia-repos" = "Wikimedia";
+"credits-gerrit-repo" = "Application principale (Gerrit)";
+"credits-github-mirror" = "Application miroir (GitHub)";
+"credits-external-libraries" = "Externe";

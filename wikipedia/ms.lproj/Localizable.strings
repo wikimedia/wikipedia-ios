@@ -46,9 +46,11 @@
 "wikitext-upload-captcha-needed" = "Pengesahan CAPTCHA diperlukan.";
 "wikitext-upload-save" = "Menyimpan...";
 "wikitext-upload-save-sign-in" = "Log masuk dan simpan";
-"wikitext-upload-save-sign-in-benefits" = "Supaya penyunting lain boleh berhubungan dengan anda, dan anda dapat meninjau rencana-rencana yang pernah anda sunting";
+"wikitext-upload-save-sign-in-benefits" = "Supaya penyunting lain boleh berhubungan dengan anda, dan anda dapat meninjau rencana-rencana suntingan anda.";
 "wikitext-upload-save-anonymously" = "Simpan secara awanama";
-"wikitext-upload-save-anonymously-warning" = "Ini kurang privasinya. Alamat IP anda kelihatan bersama suntingan. Dengan menyimpan, anda bersetuju untuk menyiarkan suntingan anda dengan berlesenkan CC BY-SA 3.0 secara berkekalan.";
+"wikitext-upload-save-anonymously-warning" = "Begini kurang privasi. Alamat IP anda kelihatan bersama suntingan.";
+"wikitext-upload-save-license" = "Dengan menyimpan, anda setuju untuk melepaskan sumbangan anda di bawah lesen $1.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Mencari...";
 "search-no-matches" = "Tiada padanan yang ditemui untuk kata carian.";
 "search-field-placeholder-text" = "Cari dalam Wikipedia";
@@ -71,7 +73,11 @@
 "main-menu-random" = "Rencana rawak";
 "main-menu-feedback-heading" = "Maklum balas";
 "main-menu-send-feedback" = "Kirim maklum balas";
+"main-menu-show-page-history" = "Sejarah perubahan $1";
+"main-menu-credits" = "Kredit";
 "saved-pages-title" = "Laman Tersimpan";
+"page-history-title" = "Sejarah laman";
+"page-history-downloading" = "Memuatkan sejarah laman...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
 "navbar-title-mode-login" = "Log masuk";
 "navbar-title-mode-login-and-save" = "Log masuk dan simpan";
@@ -82,6 +88,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Pralihat";
 "navbar-title-mode-edit-wikitext-captcha" = "Pengesahan segera diperlukan";
 "navbar-title-mode-edit-wikitext-summary" = "Huraikan suntingan anda";
+"navbar-title-mode-edit-wikitext-save" = "Simpan";
 "edit-summary-choice-linked-words" = "Membubuh pautan";
 "edit-summary-choice-fixed-grammar" = "Memperbaiki tatabahasa";
 "edit-summary-choice-fixed-inaccuracy" = "Membetulkan kesilapan fakta";
@@ -96,3 +103,8 @@
 "fetching-random-article" = "Memperoleh rencana rawak";
 "article-pull-to-refresh-prompt" = "Tarik untuk muat semula rencana";
 "article-pull-to-refresh-is-refreshing" = "Rencana sedang dimuatkan semula";
+"credits-title" = "Repositori sumber terbuka";
+"credits-wikimedia-repos" = "Wikimedia";
+"credits-gerrit-repo" = "Utama (Gerrit)";
+"credits-github-mirror" = "Cermin (GitHub)";
+"credits-external-libraries" = "Luaran";

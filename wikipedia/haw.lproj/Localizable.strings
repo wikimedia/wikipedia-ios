@@ -46,8 +46,10 @@
 "wikitext-upload-captcha-needed" = "Pono i ka hōʻoia Kapakā.";
 "wikitext-upload-save" = "Mālama nei...";
 "wikitext-upload-save-sign-in" = "E ʻeʻe a mālama";
+// Fuzzy
 "wikitext-upload-save-sign-in-benefits" = "No laila hiki i nā luna hoʻoponopono ʻē aʻe ke hoʻokuʻi me ʻoe a hiki iā ʻoe ke ʻike i nā ʻatikala āu i hoʻololi ai";
 "wikitext-upload-save-anonymously" = "Mālama me ka inoa ʻole";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Oi aʻe ka pilikino o ka hana ʻeʻe ma mua o kēia hana ʻana. E hōʻike ana i kāu wahinoho IP me kāu mau hoʻololi a ma ka mālama ʻana, ʻae ʻoe i ka paʻi ʻana o kāu mau hoʻololi ma lalo o ka laikini CC BY-SA 3.0";
 "search-searching" = "Huli nei...";
 "search-no-matches" = "ʻAʻohe mea i loaʻa ʻia no kāu māmalaʻōlelo.";

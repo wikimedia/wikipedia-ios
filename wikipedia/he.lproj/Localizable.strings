@@ -48,9 +48,11 @@
 "wikitext-upload-captcha-needed" = "נדרש אימות תמונה.";
 "wikitext-upload-save" = "שמירה...";
 "wikitext-upload-save-sign-in" = "כניסה ושמירה";
-"wikitext-upload-save-sign-in-benefits" = "כדי שעורכים עמיתים יוכלו להיות בקשר אתך ולראות אילו ערכים ערכת";
+"wikitext-upload-save-sign-in-benefits" = "כדי שעורכים עמיתים יוכלו להיות בקשר אתך ולראות אילו ערכים ערכת.";
 "wikitext-upload-save-anonymously" = "שמירה אלמונית";
-"wikitext-upload-save-anonymously-warning" = "זה מעניק פחות פרטיות. כתובת ה־IP שלך תוצג עם עריכות. השמירה היא הסכמה לפרסם את העירכות שלך לפי תנאי רישיון CC-BY-SA 3.0";
+"wikitext-upload-save-anonymously-warning" = "זה מעניק פחות פרטיות. כתובת ה־IP שלך תוצג עם עריכות.";
+"wikitext-upload-save-license" = "שמירת השינויים מהווה את הסכמתך לפרסום התרומה שלך לפי תנאי רישיון $1.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "חיפוש...";
 "search-no-matches" = "לא נמצאו תוצאות מתאימות למילת החיפוש.";
 "search-field-placeholder-text" = "חיפוש בוויקיפדיה";
@@ -73,7 +75,11 @@
 "main-menu-random" = "דף אקראי";
 "main-menu-feedback-heading" = "משוב";
 "main-menu-send-feedback" = "שליחת משוב";
+"main-menu-show-page-history" = "היסטוריה של שינויים שנעשו לדף $1";
+"main-menu-credits" = "קרדיטים";
 "saved-pages-title" = "דפים שמורים";
+"page-history-title" = "היסטוריית הדף";
+"page-history-downloading" = "טעינת היסטוריית הדף";
 "navbar-title-mode-edit-wikitext" = "עריכה";
 "navbar-title-mode-login" = "כניסה";
 "navbar-title-mode-login-and-save" = "כניסה ושמירה";
@@ -84,6 +90,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "תצוגה מקדימה";
 "navbar-title-mode-edit-wikitext-captcha" = "נדרש אימות מהיר";
 "navbar-title-mode-edit-wikitext-summary" = "נא לתאר את העריכה שלך";
+"navbar-title-mode-edit-wikitext-save" = "שמירה";
 "edit-summary-choice-linked-words" = "קישרתי מילים";
 "edit-summary-choice-fixed-grammar" = "תיקנתי דקדוק";
 "edit-summary-choice-fixed-inaccuracy" = "תיקנתי טעויות";
@@ -98,3 +105,8 @@
 "fetching-random-article" = "אחזור ערך אקראי";
 "article-pull-to-refresh-prompt" = "למשוך לרענון הערך";
 "article-pull-to-refresh-is-refreshing" = "מרענן את הערך";
+"credits-title" = "מאגרי קוד פתוח";
+"credits-wikimedia-repos" = "ויקימדיה";
+"credits-gerrit-repo" = "יישום – ראשי (גריט)";
+"credits-github-mirror" = "יישום – מראה (גיטהאב)";
+"credits-external-libraries" = "חיצוני";

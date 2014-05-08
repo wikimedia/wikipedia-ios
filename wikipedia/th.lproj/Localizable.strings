@@ -36,8 +36,10 @@
 "wikitext-upload-captcha-needed" = "ต้องการการทวนสอบ CAPTCHA";
 "wikitext-upload-save" = "กำลังบันทึก...";
 "wikitext-upload-save-sign-in" = "ลงชื่อเข้าใช้และบันทึก";
+// Fuzzy
 "wikitext-upload-save-sign-in-benefits" = "เพื่อที่ผู้ร่วมแก้ไขสามารถติดต่อคุณ และคุณสามารถเห็นบทความที่คุณได้แก้ไขไปแล้วได้";
 "wikitext-upload-save-anonymously" = "บันทึกแบบนิรนาม";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "กรณีนี้มีความเป็นส่วนตัวน้อยกว่า เลขที่อยู่ไอพีของคุณจะมองเห็นได้พร้อมการแก้ไข เมื่อคุณบันทึก คุณตกลงจะพิมพ์เผยแพร่การแก้ไขของคุณภายใต้ CC BY-SA 3.0 อย่างถาวร";
 "search-searching" = "กำลังค้นหา...";
 "search-no-matches" = "ไม่มีผลลัพธ์ตรงกับคำค้นหา";

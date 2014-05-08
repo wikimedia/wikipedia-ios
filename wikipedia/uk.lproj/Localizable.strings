@@ -46,8 +46,10 @@
 "wikitext-upload-captcha-needed" = "Потрібна перевірка captcha.";
 "wikitext-upload-save" = "Збереження...";
 "wikitext-upload-save-sign-in" = "Увійти і зберегти";
+// Fuzzy
 "wikitext-upload-save-sign-in-benefits" = "Так інші учасники зможуть зв'язатися з вами, і ви зможете побачити, які статті ви редагували";
 "wikitext-upload-save-anonymously" = "Зберегти анонімно";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Це менш конфіденційно. Вашу IP-адресу видно поруч з вашими правками. Зберігаючи, ви погоджуєтесь постійно публікувати ваші правки у відповідності з ліцензією CC BY-SA 3.0";
 "search-searching" = "Пошук...";
 "search-no-matches" = "Збігів не знайдено для пошукового терміну.";

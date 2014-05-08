@@ -1,7 +1,9 @@
 // Messages for Polish (polski)
 // Exported from translatewiki.net
+// Author: Alan ffm
 // Author: Chrumps
 // Author: Jacenty359
+// Author: Wiochman
 
 "article-languages-label" = "Wybierz język";
 "article-languages-cancel" = "Anuluj";
@@ -34,7 +36,15 @@
 "main-menu-account-login" = "Zaloguj się";
 "main-menu-account-logout" = "Wyloguj";
 "main-menu-show-saved" = "Zapisane strony";
+"navbar-title-mode-edit-wikitext" = "Edytuj";
+"navbar-title-mode-login" = "Zaloguj się";
+"navbar-title-mode-login-and-save" = "Zaloguj się i zapisz";
+"navbar-title-mode-create-account" = "Utwórz konto";
+"navbar-title-mode-create-account-and-save" = "Załóż konto i zapisz";
 "navbar-title-mode-edit-wikitext-preview" = "Podgląd";
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
 "edit-summary-choice-fixed-styling" = "Poprawiono stylistykę";
 "edit-summary-choice-fixed-typos" = "Poprawiono literówkę";
+"credits-title" = "Repozytoria otwartego kodu";
+"credits-github-mirror" = "Lustrzana kopia aplikacji (Github)";
+"credits-external-libraries" = "Zewnętrzny";

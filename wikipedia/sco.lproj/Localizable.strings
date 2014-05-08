@@ -47,8 +47,10 @@
 "wikitext-upload-captcha-needed" = "Need captcha vereefication.";
 "wikitext-upload-save" = "Hainin...";
 "wikitext-upload-save-sign-in" = "Sign in n hain";
+// Fuzzy
 "wikitext-upload-save-sign-in-benefits" = "Sae that co-eediters can connect wi ye & ye can see whit airticles that ye eeditit";
 "wikitext-upload-save-anonymously" = "Hain anonimislie";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "This haes less preevacie. Yer IP address is veesible wi eedits. Bi hainin, ye agree tae permenantlie publeesh yer eedits unner CC BY-SA 3.0";
 "search-searching" = "Rakin...";
 "search-no-matches" = "Naw matches foond fer rake term.";

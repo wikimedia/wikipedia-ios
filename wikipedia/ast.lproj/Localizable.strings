@@ -46,8 +46,10 @@
 "wikitext-upload-captcha-needed" = "Necesita la comprobación del captcha.";
 "wikitext-upload-save" = "Guardando...";
 "wikitext-upload-save-sign-in" = "Aniciar sesión y guardar";
+// Fuzzy
 "wikitext-upload-save-sign-in-benefits" = "Pa que los co-editores puedan coneutase con vusté y vusté pueda ver los artículos qu'editó";
 "wikitext-upload-save-anonymously" = "Guardar como anónimu";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Esto tien menor intimidá. La so direición IP ye visible coles ediciones. Al guardar, ta d'alcuerdo con espublizar permanentemente les sos ediciones baxo CC BY-SA 3.0";
 "search-searching" = "Buscando...";
 "search-no-matches" = "Nun hebo resultaos pal términu buscáu.";

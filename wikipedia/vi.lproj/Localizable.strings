@@ -46,9 +46,11 @@
 "wikitext-upload-captcha-needed" = "Cần xác nhận bằng CAPTCHA.";
 "wikitext-upload-save" = "Đang lưu…";
 "wikitext-upload-save-sign-in" = "Đăng nhập và lưu giữ";
-"wikitext-upload-save-sign-in-benefits" = "Để cho những người dùng sửa đổi có thể liên lạc với bạn & bạn có thể xem những bài bạn đã sửa đổi";
+"wikitext-upload-save-sign-in-benefits" = "Để cho những người dùng sửa đổi có thể liên lạc với bạn & bạn có thể xem những bài bạn đã sửa đổi.";
 "wikitext-upload-save-anonymously" = "Lưu vô danh";
-"wikitext-upload-save-anonymously-warning" = "Các sửa đổi của bạn sẽ ghi rõ địa chỉ IP của bạn, nên sẽ không bảo vệ quyền riêng tư của bạn. Với việc lưu trang, bạn đồng ý xuất bản các sửa đổi của bạn theo giấy phép vĩnh viễn CC BY-SA 3.0.";
+"wikitext-upload-save-anonymously-warning" = "Các sửa đổi của bạn sẽ ghi rõ địa chỉ IP của bạn, nên sẽ không bảo vệ quyền riêng tư của bạn.";
+"wikitext-upload-save-license" = "Với việc lưu trang, bạn đồng ý xuất bản các đóng góp của bạn theo giấy phép $1.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Đang tìm…";
 "search-no-matches" = "Không tìm thấy kết quả cho truy vấn này.";
 "search-field-placeholder-text" = "Tìm trong Wikipedia";
@@ -71,7 +73,11 @@
 "main-menu-random" = "Bài viết Ngẫu nhiên";
 "main-menu-feedback-heading" = "Phản hồi";
 "main-menu-send-feedback" = "Gửi phản hồi";
+"main-menu-show-page-history" = "Lịch sử các thay đổi vào $1";
+"main-menu-credits" = "Ghi công";
 "saved-pages-title" = "Trang đã Lưu";
+"page-history-title" = "Lịch sử trang";
+"page-history-downloading" = "Đang tải lịch sử trang…";
 "navbar-title-mode-edit-wikitext" = "Sửa đổi";
 "navbar-title-mode-login" = "Đăng nhập";
 "navbar-title-mode-login-and-save" = "Đăng nhập và lưu giữ";
@@ -82,6 +88,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Xem trước";
 "navbar-title-mode-edit-wikitext-captcha" = "Cần Xác nhận Nhanh chóng";
 "navbar-title-mode-edit-wikitext-summary" = "Miêu tả sửa đổi của bạn";
+"navbar-title-mode-edit-wikitext-save" = "Lưu";
 "edit-summary-choice-linked-words" = "Đặt liên kết";
 "edit-summary-choice-fixed-grammar" = "Sửa ngữ pháp";
 "edit-summary-choice-fixed-inaccuracy" = "Sửa thông tin sai";
@@ -96,3 +103,8 @@
 "fetching-random-article" = "Đang lấy bài ngẫu nhiên";
 "article-pull-to-refresh-prompt" = "Kéo để làm mới bài";
 "article-pull-to-refresh-is-refreshing" = "Đang làm mới bài";
+"credits-title" = "Kho phần mềm mã nguồn mở";
+"credits-wikimedia-repos" = "Wikipedia";
+"credits-gerrit-repo" = "Kho chính của ứng dụng (Gerrit)";
+"credits-github-mirror" = "Kho sao của ứng dụng (GitHub)";
+"credits-external-libraries" = "Bên ngoài";

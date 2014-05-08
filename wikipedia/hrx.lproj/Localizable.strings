@@ -46,8 +46,10 @@
 "wikitext-upload-captcha-needed" = "Captcha-Üwerprüfung nötich.";
 "wikitext-upload-save" = "Speichere …";
 "wikitext-upload-save-sign-in" = "Oonmelde und speichre";
+// Fuzzy
 "wikitext-upload-save-sign-in-benefits" = "Annre Autore / Autorinne könne dich kontaktiere und du kannst siehn, was für Artikel du beoorbeitet host.";
 "wikitext-upload-save-anonymously" = "Anonym speichre";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Das bedeitet wenicher Dateschutz. Dein IP-Adress ist mit den Beoorbeitunge einsiehbar. Mit dem Speichre stimmst du der dauerhafte Veröffentlichung von deiner Beoorbeitunge unner der CC-BY-SA-3.0-Lizenz zu.";
 "search-searching" = "Such …";
 "search-no-matches" = "Ken Treffer für den Suchbegriff gefund.";
