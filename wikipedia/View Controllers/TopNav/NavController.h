@@ -56,7 +56,8 @@ typedef enum {
 -(void)loadArticleWithTitle: (NSString *)title
                      domain: (NSString *)domain
                    animated: (BOOL)animated
-            discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod;
+            discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
+          invalidatingCache: (BOOL)invalidateCache;
 
 -(void) promptFirstTimeZeroOnWithMessageIfAppropriate:(NSString *) message;
 -(void) promptFirstTimeZeroOffIfAppropriate;

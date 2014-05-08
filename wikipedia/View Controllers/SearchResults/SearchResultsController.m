@@ -391,7 +391,8 @@
     [NAV loadArticleWithTitle: title
                        domain: [SessionSingleton sharedInstance].domain
                      animated: YES
-              discoveryMethod: DISCOVERY_METHOD_SEARCH];
+              discoveryMethod: DISCOVERY_METHOD_SEARCH
+            invalidatingCache: NO];
 }
 
 #pragma mark Memory

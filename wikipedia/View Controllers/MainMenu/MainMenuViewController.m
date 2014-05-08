@@ -474,6 +474,16 @@ typedef enum {
 {
     [SessionSingleton sharedInstance].domain = languageId;
     [SessionSingleton sharedInstance].domainName = name;
+    
+    NSString *mainArticleTitle = [SessionSingleton sharedInstance].domainMainArticleTitle;
+    if (mainArticleTitle) {
+        // Invalidate cache so present day main page article is always retrieved.
+        [NAV loadArticleWithTitle: mainArticleTitle
+                           domain: languageId
+                         animated: YES
+                  discoveryMethod: DISCOVERY_METHOD_SEARCH
+                invalidatingCache: YES];
+    }
 }
 
 -(void)fetchRandomArticle {
@@ -488,7 +498,8 @@ typedef enum {
                                                              [NAV loadArticleWithTitle: title
                                                                                 domain: [SessionSingleton sharedInstance].domain
                                                                               animated: YES
-                                                                       discoveryMethod: DISCOVERY_METHOD_RANDOM];
+                                                                       discoveryMethod: DISCOVERY_METHOD_RANDOM
+                                                                     invalidatingCache: NO];
                                                          });
                                                      }
                                                  } cancelledBlock: ^(NSError *errorCancel) {

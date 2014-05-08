@@ -12,12 +12,15 @@
 -(void)tocHide;
 -(void)saveWebViewScrollOffset;
 
--(void)reloadCurrentArticle;
--(void)reloadCurrentArticleInvalidatingCache;
+// Reloads the current article from the core data cache.
+// If "invalidateCache" is set to YES the article will be re-downloaded first.
+-(void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache;
 
+// If "invalidateCache" is set to YES the article will be re-downloaded first.
 -(void)navigateToPage: (NSString *)title
                domain: (NSString *)domain
-      discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod;
+      discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
+    invalidatingCache: (BOOL)invalidateCache;
 
 -(void)tocScrollWebViewToPoint: (CGPoint)point
                    duration: (CGFloat)duration
