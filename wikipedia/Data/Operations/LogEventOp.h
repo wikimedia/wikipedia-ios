@@ -8,8 +8,8 @@ typedef enum {
     //https://meta.wikimedia.org/wiki/Schema:MobileWikiAppCreateAccount
     LOG_SCHEMA_CREATEACCOUNT = 0,
 
-    //https://meta.wikimedia.org/wiki/Schema:MobileWikiAppReadingSession
-    LOG_SCHEMA_READINGSESSION = 1,
+    //https://meta.wikimedia.org/wiki/Schema:MobileWikiAppReadingAction
+    LOG_SCHEMA_READINGACTION = 1,
 
     //https://meta.wikimedia.org/wiki/Schema:MobileWikiAppEdit
     LOG_SCHEMA_EDIT = 2,

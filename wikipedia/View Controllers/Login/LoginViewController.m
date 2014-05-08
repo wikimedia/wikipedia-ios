@@ -125,13 +125,9 @@
     [self logEvent: @{@"action": @"start"}
             schema: LOG_SCHEMA_LOGIN];
     
-    if (NAV.isEditorOnNavstack) {
-        [self logEvent: @{@"source": @"edit"}
-                schema: LOG_SCHEMA_LOGIN];
-    }else{
-        [self logEvent: @{@"source": @"navigation"}
-                schema: LOG_SCHEMA_LOGIN];
-    }
+    NSString *source = NAV.isEditorOnNavstack ? @"edit" : @"navigation";
+    [self logEvent: @{@"source": source}
+            schema: LOG_SCHEMA_LOGIN];
 }
 
 -(void)save
@@ -220,7 +216,7 @@
                           [self cloneSessionCookies];
                           //printCookies();
 
-                          [self logEvent: @{@"action": @"login"}
+                          [self logEvent: @{@"action": @"success"}
                                   schema: LOG_SCHEMA_LOGIN];
 
                           if (NAV.isEditorOnNavstack) {
@@ -245,12 +241,15 @@
                           [self logEvent: @{@"action": @"error"}
                                   schema: LOG_SCHEMA_LOGIN];
 
+                          if (error.localizedDescription) {
+                              [self logEvent: @{@"errorText": error.localizedDescription}
+                                      schema: LOG_SCHEMA_LOGIN];
+                          }
+
                           if (NAV.isEditorOnNavstack) {
                               [self logEvent: @{@"action": @"loginFailure"}
                                       schema: LOG_SCHEMA_EDIT];
                           }
-
-                          
                       }];
     
     LoginTokenOp *loginTokenOp =
@@ -278,10 +277,13 @@
 
                                [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
 
-                               [self logEvent: @{@"errorText": error.localizedDescription}
+                               [self logEvent: @{@"action": @"error"}
                                        schema: LOG_SCHEMA_LOGIN];
 
-                               
+                               if (error.localizedDescription) {
+                                   [self logEvent: @{@"errorText": error.localizedDescription}
+                                           schema: LOG_SCHEMA_LOGIN];
+                               }
                            }];
     
     loginTokenOp.delegate = self;

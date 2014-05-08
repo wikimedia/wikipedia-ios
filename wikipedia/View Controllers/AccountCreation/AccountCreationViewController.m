@@ -315,7 +315,7 @@
                                   
                                   //NSLog(@"AccountCreationOp result = %@", result);
                                   
-                                  [self logEvent: @{@"action": @"accountCreated"}
+                                  [self logEvent: @{@"action": @"success"}
                                           schema: LOG_SCHEMA_CREATEACCOUNT];
 
                                   dispatch_async(dispatch_get_main_queue(), ^(){
@@ -336,8 +336,10 @@
                                   [self logEvent: @{@"action": @"error"}
                                           schema: LOG_SCHEMA_CREATEACCOUNT];
                                   
-                                  [self logEvent: @{@"errorText": error.localizedDescription}
-                                          schema: LOG_SCHEMA_CREATEACCOUNT];
+                                  if (error.localizedDescription) {
+                                      [self logEvent: @{@"errorText": error.localizedDescription}
+                                              schema: LOG_SCHEMA_CREATEACCOUNT];
+                                  }
 
                                   switch (error.code) {
                                       case ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA:{
