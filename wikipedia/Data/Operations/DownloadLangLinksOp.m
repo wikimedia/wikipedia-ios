@@ -10,7 +10,7 @@
 
 - (id)initForPageTitle: (NSString *)title
                 domain: (NSString *)domain
-          allLanguages: (NSMutableArray *)allLanguages
+          allLanguages: (NSArray *)allLanguages
        completionBlock: (void (^)(NSArray *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock

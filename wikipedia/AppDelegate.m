@@ -20,6 +20,12 @@
     [self registerStandardUserDefaults];
     [self systemWideStyleOverrides];
 
+    // We may need to overwrite these json files form the server, so they need to be
+    // placed in the "AppData/Documents/" folder and access and update them there.
+    // This method copies bundled "Json" folder over to "AppData/Documents/" if it's
+    // not already there.
+    [self copyBundledFolderToAppDataDocuments:@"Json"];
+
     // Enables Alignment Rect highlighting for debugging
     //[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"UIViewShowAlignmentRects"];
     //[[NSUserDefaults standardUserDefaults] synchronize];
@@ -27,6 +33,23 @@
     // Override point for customization after application launch.
 
     return YES;
+}
+
+-(void)copyBundledFolderToAppDataDocuments:(NSString *)folderName
+{
+
+//TODO: modify so if new app release has new bundled files or folders these
+// get copied too. Presently if folderName is seen to already exist in the
+// AppData/Documents/ directory no copying occurs.
+
+    NSFileManager *fileManager = [[NSFileManager defaultManager] init];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:folderName];
+    if (![fileManager fileExistsAtPath:documentsPath]){
+        NSString *bundledPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
+        //[fileManager createDirectoryAtPath: documentDBFolderPath attributes:nil];
+        [fileManager copyItemAtPath:bundledPath toPath:documentsPath error:nil];
+    }
 }
 
 -(void)registerStandardUserDefaults

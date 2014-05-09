@@ -102,6 +102,7 @@
                 <outlet property="signInSubTitleLabel" destination="dVR-8O-7eG" id="hus-QR-GXZ"/>
                 <outlet property="signInTitleLabel" destination="PPh-Eu-usA" id="LO3-x5-pCZ"/>
                 <outlet property="signInView" destination="JYT-4n-1ej" id="k1q-zU-i4A"/>
+                <outlet property="topRowContainer" destination="2HE-pz-gbX" id="8XN-KB-zcG"/>
             </connections>
         </view>
     </objects>

@@ -5,6 +5,7 @@
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
 #import "NSString+FormattedAttributedString.h"
+#import "BundledJson.h"
 
 #define PREVIEW_BLUE_COLOR [UIColor colorWithRed:0.13 green:0.42 blue:0.68 alpha:1.0]
 
@@ -14,6 +15,8 @@
 @interface PreviewChoicesMenuView(){
 
 }
+
+@property (weak, nonatomic) IBOutlet UIView *topRowContainer;
 
 @end
 
@@ -52,7 +55,6 @@
     self.signInView.backgroundColor = PREVIEW_BLUE_COLOR;
     
     [self underlineLabelText: self.signInTitleLabel];
-    [self underlineLabelText: self.saveAnonTitleLabel];
 
     /*
     self.signInTitleLabel.text = [@" abc " randomlyRepeatMaxTimes:100];
@@ -61,6 +63,21 @@
     self.saveAnonSubTitleLabel.text = [@" abc " randomlyRepeatMaxTimes:100];
     [self randomlyColorSubviews];
     */
+
+    if ([self isAnonymousEditingDisabled]) {
+        [self.saveAnonView removeFromSuperview];
+        // The right side of the signInView had been constrained to the left side of the
+        // saveAnonView, but now that the saveAnonView is gone the right side of the
+        // signInView needs to be constrained to the right side of the topRowContainer.
+        [self.topRowContainer addConstraints:
+         [NSLayoutConstraint constraintsWithVisualFormat: @"H:[signInView]|"
+                                                 options: 0
+                                                 metrics: nil
+                                                   views: @{@"signInView" : self.signInView}]
+         ];
+    }else{
+        [self underlineLabelText: self.saveAnonTitleLabel];
+    }
 }
 
 -(void)underlineLabelText:(UILabel *)label
@@ -77,6 +94,16 @@
     [aString endEditing];
     
     label.attributedText = aString;
+}
+
+-(BOOL)isAnonymousEditingDisabled
+{
+    NSDictionary *iosConfigJson = [BundledJson dictionaryFromBundledJsonFile:BUNDLED_JSON_CONFIG];
+    NSNumber *disableAnonEditing = iosConfigJson[@"disableAnonEditing"];
+    if (disableAnonEditing && (disableAnonEditing.boolValue == YES)) {
+        return YES;
+    }
+    return NO;
 }
 
 @end

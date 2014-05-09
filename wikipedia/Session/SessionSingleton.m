@@ -2,6 +2,8 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SessionSingleton.h"
+#import "BundledPaths.h"
+#import "BundledJson.h"
 
 @implementation SessionSingleton
 
@@ -117,12 +119,8 @@
 
 -(NSString *)domainNameForCode:(NSString *)code
 {
-    NSError *error = nil;
-    NSData *fileData = [NSData dataWithContentsOfFile:[self bundledLanguagesJsonPath] options:0 error:&error];
-    if (error) return nil;
-    error = nil;
-    NSArray *result = [NSJSONSerialization JSONObjectWithData:fileData options:0 error:&error];
-    if (!error) {
+    NSArray *result = [BundledJson arrayFromBundledJsonFile:BUNDLED_JSON_LANGUAGES];
+    if (result.count > 0) {
         for (NSDictionary *d in result) {
             if ([d[@"code"] isEqualToString:code]) {
                 return d[@"name"];
@@ -134,39 +132,9 @@
     }
 }
 
-- (NSString *)bundledLanguagesJsonPath
-{
-    return [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/Languages/languages.json"];
-}
-
--(NSMutableArray *)getBundledLanguagesJson
-{
-    NSError *error = nil;
-    NSData *fileData = [NSData dataWithContentsOfFile:[[SessionSingleton sharedInstance] bundledLanguagesJsonPath] options:0 error:&error];
-    if (error) return [@[] mutableCopy];
-    error = nil;
-    NSArray *result = [NSJSONSerialization JSONObjectWithData:fileData options:0 error:&error];
-    return (error) ? [@[] mutableCopy]: [result mutableCopy];
-}
-
-- (NSString *)bundledMainArticleTitlesJsonPath
-{
-    return [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/Languages/mainpages.json"];
-}
-
--(NSMutableDictionary *)getBundledMainArticleTitlesJson
-{
-    NSError *error = nil;
-    NSData *fileData = [NSData dataWithContentsOfFile:[[SessionSingleton sharedInstance] bundledMainArticleTitlesJsonPath] options:0 error:&error];
-    if (error) return @{}.mutableCopy;
-    error = nil;
-    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:fileData options:0 error:&error];
-    return (error) ? @{}.mutableCopy: [result mutableCopy];
-}
-
 -(NSString *)mainArticleTitleForCode:(NSString *)code
 {
-    NSMutableDictionary *mainPageNames = [self getBundledMainArticleTitlesJson];
+    NSDictionary *mainPageNames = [BundledJson dictionaryFromBundledJsonFile:BUNDLED_JSON_MAINPAGES];
     return mainPageNames[code];
 }
 

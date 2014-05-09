@@ -22,6 +22,8 @@
 @property (strong, nonatomic) NSOperationQueue *eventLoggingQ;
 @property (strong, nonatomic) NSOperationQueue *pageHistoryQ;
 
+@property (strong, nonatomic) NSOperationQueue *bundledFileSyncQ;
+
 + (QueuesSingleton *)sharedInstance;
 
 @end

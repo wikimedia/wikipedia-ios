@@ -473,7 +473,7 @@
         case NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY:
             self.label.text = @"";
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_SAVE:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-save", nil);

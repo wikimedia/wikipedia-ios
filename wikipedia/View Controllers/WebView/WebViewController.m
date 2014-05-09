@@ -39,6 +39,8 @@
 #import "DataMigrator.h"
 #import "ArticleImporter.h"
 
+#import "ConfigFileSyncOp.h"
+
 #define TOC_TOGGLE_ANIMATION_DURATION 0.3f
 #define NAV ((NavController *)self.navigationController)
 
@@ -174,7 +176,12 @@ typedef enum {
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+
+    // Don't move this to viewDidLoad - this is because viewDidLoad may only get
+    // called very occasionally as app suspend/resume probably doesn't cause
+    // viewDidLoad to fire.
+    [self sycnConfigIosJsonIfNecessary];
+
     //[self.view randomlyColorSubviews];
 }
 
@@ -189,6 +196,21 @@ typedef enum {
 {
     [self tocHide];
     [super viewWillDisappear:animated];
+}
+
+#pragma mark Sync bundled config/ios.json if necessary
+
+-(void)sycnConfigIosJsonIfNecessary
+{
+    // Sync config/ios.json at most once per day.
+    CGFloat maxAge = 60 * 60 * 24;
+
+    ConfigFileSyncOp *configSyncOp =
+    [[ConfigFileSyncOp alloc] initForBundledJsonFile: BUNDLED_JSON_CONFIG
+                                              maxAge: maxAge];
+    
+    [[QueuesSingleton sharedInstance].bundledFileSyncQ cancelAllOperations];
+    [[QueuesSingleton sharedInstance].bundledFileSyncQ addOperation:configSyncOp];
 }
 
 #pragma mark Edit section

@@ -1,0 +1,7 @@
+
+typedef NS_ENUM(NSUInteger, BundledJsonFile) {
+    BUNDLED_JSON_UNDEFINED = 0,
+    BUNDLED_JSON_CONFIG = 1,
+    BUNDLED_JSON_LANGUAGES = 2,
+    BUNDLED_JSON_MAINPAGES = 3
+};

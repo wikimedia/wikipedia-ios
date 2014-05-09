@@ -43,6 +43,10 @@
 		043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043DAC4A1901C3EE001CD17C /* CreditsViewController.m */; };
 		043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18DC18D9691D00D8489A /* TopActionSheetLabel.m */; };
 		043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */; };
+		044213C8191C3C2A006C03BF /* ConfigFileSyncOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 044213C7191C3C2A006C03BF /* ConfigFileSyncOp.m */; };
+		044213D0191D6F43006C03BF /* BundledPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 044213CF191D6F43006C03BF /* BundledPaths.m */; };
+		044213D4191D70E9006C03BF /* BundledJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 044213D3191D70E9006C03BF /* BundledJson.m */; };
+		044213D8191D99FB006C03BF /* Json in Resources */ = {isa = PBXBuildFile; fileRef = 044213D7191D99FB006C03BF /* Json */; };
 		0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0442F57A19006DCC00F55DF9 /* PageHistoryLabel.m */; };
 		0442F57E190071A100F55DF9 /* WikiFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0442F57D190071A100F55DF9 /* WikiFont.ttf */; };
 		0447862F185145090050563B /* HistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04478621185145090050563B /* HistoryResultCell.m */; };
@@ -107,7 +111,6 @@
 		04C695CE18ED08D900D9F2DA /* UIView+SearchSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C695CD18ED08D900D9F2DA /* UIView+SearchSubviews.m */; };
 		04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C695D118ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m */; };
 		04C8781018F4A42700FA3B99 /* AccountCreationTokenOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C8780F18F4A42700FA3B99 /* AccountCreationTokenOp.m */; };
-		04CF1CB6187C8F4400E9516F /* Languages in Resources */ = {isa = PBXBuildFile; fileRef = 04CF1CB5187C8F4400E9516F /* Languages */; };
 		04D122321899B8AC006B9A30 /* AlertWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D122311899B8AC006B9A30 /* AlertWebView.m */; };
 		04D149DD18877343006B4104 /* AlertLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D149DA18877343006B4104 /* AlertLabel.m */; };
 		04D149DF18877343006B4104 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D149DC18877343006B4104 /* UIViewController+Alert.m */; };
@@ -230,6 +233,15 @@
 		043F18DF18D9691D00D8489A /* UINavigationController+TopActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+TopActionSheet.h"; sourceTree = "<group>"; };
 		043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+TopActionSheet.m"; sourceTree = "<group>"; };
 		043F18F118DCDD3A00D8489A /* WMF_Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMF_Colors.h; sourceTree = "<group>"; };
+		044213C6191C3C2A006C03BF /* ConfigFileSyncOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigFileSyncOp.h; sourceTree = "<group>"; };
+		044213C7191C3C2A006C03BF /* ConfigFileSyncOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigFileSyncOp.m; sourceTree = "<group>"; };
+		044213CE191D6F43006C03BF /* BundledPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BundledPaths.h; sourceTree = "<group>"; };
+		044213CF191D6F43006C03BF /* BundledPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BundledPaths.m; sourceTree = "<group>"; };
+		044213D2191D70E9006C03BF /* BundledJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BundledJson.h; sourceTree = "<group>"; };
+		044213D3191D70E9006C03BF /* BundledJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BundledJson.m; sourceTree = "<group>"; };
+		044213D5191D7FEA006C03BF /* BundledJsonEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BundledJsonEnum.h; sourceTree = "<group>"; };
+		044213D6191D7FFC006C03BF /* BundledPathsEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BundledPathsEnum.h; sourceTree = "<group>"; };
+		044213D7191D99FB006C03BF /* Json */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Json; sourceTree = "<group>"; };
 		0442F57919006DCC00F55DF9 /* PageHistoryLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageHistoryLabel.h; sourceTree = "<group>"; };
 		0442F57A19006DCC00F55DF9 /* PageHistoryLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageHistoryLabel.m; sourceTree = "<group>"; };
 		0442F57D190071A100F55DF9 /* WikiFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WikiFont.ttf; sourceTree = "<group>"; };
@@ -353,7 +365,6 @@
 		04C695D118ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+NoHorizontalScrolling.m"; sourceTree = "<group>"; };
 		04C8780E18F4A42700FA3B99 /* AccountCreationTokenOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCreationTokenOp.h; sourceTree = "<group>"; };
 		04C8780F18F4A42700FA3B99 /* AccountCreationTokenOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountCreationTokenOp.m; sourceTree = "<group>"; };
-		04CF1CB5187C8F4400E9516F /* Languages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Languages; sourceTree = "<group>"; };
 		04D122301899B8AC006B9A30 /* AlertWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWebView.h; sourceTree = "<group>"; };
 		04D122311899B8AC006B9A30 /* AlertWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWebView.m; sourceTree = "<group>"; };
 		04D149D918877343006B4104 /* AlertLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertLabel.h; sourceTree = "<group>"; };
@@ -708,6 +719,26 @@
 			path = TopActionSheet;
 			sourceTree = "<group>";
 		};
+		044213CD191D6F43006C03BF /* BundledPaths */ = {
+			isa = PBXGroup;
+			children = (
+				044213D6191D7FFC006C03BF /* BundledPathsEnum.h */,
+				044213CE191D6F43006C03BF /* BundledPaths.h */,
+				044213CF191D6F43006C03BF /* BundledPaths.m */,
+			);
+			path = BundledPaths;
+			sourceTree = "<group>";
+		};
+		044213D1191D70BC006C03BF /* BundledJson */ = {
+			isa = PBXGroup;
+			children = (
+				044213D5191D7FEA006C03BF /* BundledJsonEnum.h */,
+				044213D2191D70E9006C03BF /* BundledJson.h */,
+				044213D3191D70E9006C03BF /* BundledJson.m */,
+			);
+			path = BundledJson;
+			sourceTree = "<group>";
+		};
 		0442F57C1900718600F55DF9 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -999,6 +1030,8 @@
 		04D149E5188889CA006B4104 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				044213C6191C3C2A006C03BF /* ConfigFileSyncOp.h */,
+				044213C7191C3C2A006C03BF /* ConfigFileSyncOp.m */,
 				04F27B7918FE19B700EDD838 /* PageHistoryOp.h */,
 				04F27B7A18FE19B700EDD838 /* PageHistoryOp.m */,
 				0406CEF418F8C390007EE43E /* LogEventOp.h */,
@@ -1197,14 +1230,16 @@
 				D469889318B52DA200DBE014 /* Main_iPhone.strings */,
 				D46CD8C218A1AC4F0042959E /* Localizable.strings */,
 				045A9F0C18F6090E0057EA85 /* assets */,
+				044213D1191D70BC006C03BF /* BundledJson */,
+				044213CD191D6F43006C03BF /* BundledPaths */,
 				04C43AB7183442FC006C643B /* Categories */,
 				040E5C50184673F2007AFE6F /* Data */,
 				04292FFB185FC026002A13FC /* Defines */,
 				0442F57C1900718600F55DF9 /* Fonts */,
 				04D34DA31863D2D600610A87 /* HTML Parsing */,
 				0466F44C183A30CC00EA1FD7 /* Images */,
+				044213D7191D99FB006C03BF /* Json */,
 				0463639518A844380049EE4F /* Keychain */,
-				04CF1CB5187C8F4400E9516F /* Languages */,
 				048A26741906268100395F53 /* PaddedLabel */,
 				04292FFD185FC2C7002A13FC /* Queues */,
 				0447866C1852B5010050563B /* Session */,
@@ -1398,7 +1433,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D469889518B52DA200DBE014 /* Main_iPhone.strings in Resources */,
-				04CF1CB6187C8F4400E9516F /* Languages in Resources */,
 				0466F44F183A30CC00EA1FD7 /* logo-search-placeholder.png in Resources */,
 				D46CD8C418A1AC4F0042959E /* InfoPlist.strings in Resources */,
 				D4991454181D51DE00E6073C /* Images.xcassets in Resources */,
@@ -1418,6 +1452,7 @@
 				04B91AAE18E4056D00FFAA1C /* MainMenuRowView.xib in Resources */,
 				04090A33187F53E400577EDF /* clear.png in Resources */,
 				0412362E189C29EA00E0CF8E /* abuse-filter-disallowed.png in Resources */,
+				044213D8191D99FB006C03BF /* Json in Resources */,
 				0442F57E190071A100F55DF9 /* WikiFont.ttf in Resources */,
 				04082B5518ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png in Resources */,
 				0466F450183A30CC00EA1FD7 /* logo-search-placeholder@2x.png in Resources */,
@@ -1457,6 +1492,7 @@
 				044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */,
 				04D34DAB1863D2D600610A87 /* TFHpple.m in Sources */,
 				0429301018604898002A13FC /* SavedPagesViewController.m in Sources */,
+				044213D4191D70E9006C03BF /* BundledJson.m in Sources */,
 				04D149DF18877343006B4104 /* UIViewController+Alert.m in Sources */,
 				04FD6C7A184EBFCD002CA02F /* ArticleData.xcdatamodeld in Sources */,
 				048A26771906268100395F53 /* PaddedLabel.m in Sources */,
@@ -1492,6 +1528,7 @@
 				040E533C1885FB4E00AFBFE9 /* ImageData.m in Sources */,
 				04DB0BE618BC2E1E00B4BCF3 /* CaptchaResetOp.m in Sources */,
 				0415581C18ADFA5D00B81A59 /* UIImage+ColorMask.m in Sources */,
+				044213C8191C3C2A006C03BF /* ConfigFileSyncOp.m in Sources */,
 				04A70FD7185BB6C300E24515 /* URLCache.m in Sources */,
 				04992BC018B687AF00A6C22B /* SearchOp.m in Sources */,
 				041A3B5E18E11ED90079FF1C /* LanguagesCell.m in Sources */,
@@ -1552,6 +1589,7 @@
 				0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */,
 				0447862F185145090050563B /* HistoryResultCell.m in Sources */,
 				04B0EA45190AFDD8007458AF /* ArticleImporter.m in Sources */,
+				044213D0191D6F43006C03BF /* BundledPaths.m in Sources */,
 				0406CEF618F8C390007EE43E /* LogEventOp.m in Sources */,
 				0476967C18BBFC9400071963 /* AccountCreationOp.m in Sources */,
 			);

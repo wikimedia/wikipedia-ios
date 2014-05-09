@@ -10,6 +10,7 @@
 #import "LanguagesSectionHeadingLabel.h"
 #import "NavController.h"
 #import "Defines.h"
+#import "BundledJson.h"
 
 #import "UIViewController+Alert.h"
 
@@ -70,7 +71,7 @@
     if(self.downloadLanguagesForCurrentArticle){
         [self downloadLangLinkData];
     }else{
-        self.languagesData = [[SessionSingleton sharedInstance] getBundledLanguagesJson];
+        self.languagesData = [BundledJson arrayFromBundledJsonFile:BUNDLED_JSON_LANGUAGES];
             self.headerView.hidden = NO;
         [self reloadTableDataFiltered];
     }
@@ -292,7 +293,7 @@
     DownloadLangLinksOp *langLinksOp =
     [[DownloadLangLinksOp alloc] initForPageTitle: [SessionSingleton sharedInstance].currentArticleTitle
                                            domain: [SessionSingleton sharedInstance].currentArticleDomain
-                                     allLanguages: [[SessionSingleton sharedInstance] getBundledLanguagesJson]
+                                     allLanguages: [BundledJson arrayFromBundledJsonFile:BUNDLED_JSON_LANGUAGES]
                                   completionBlock: ^(NSArray *result){
                                       
                                       [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {

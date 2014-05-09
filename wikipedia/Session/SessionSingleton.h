@@ -28,7 +28,6 @@
 @property (strong, atomic) NSArray *unsupportedCharactersLanguageIds;
 
 -(NSURL *)urlForDomain:(NSString *)domain;
--(NSMutableArray *)getBundledLanguagesJson;
 -(NSString *)domainNameForCode:(NSString *)code;
 
 -(NSString *)mainArticleTitleForCode:(NSString *)code;
