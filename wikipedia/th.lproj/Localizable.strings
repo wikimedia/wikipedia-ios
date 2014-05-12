@@ -39,8 +39,9 @@
 // Fuzzy
 "wikitext-upload-save-sign-in-benefits" = "เพื่อที่ผู้ร่วมแก้ไขสามารถติดต่อคุณ และคุณสามารถเห็นบทความที่คุณได้แก้ไขไปแล้วได้";
 "wikitext-upload-save-anonymously" = "บันทึกแบบนิรนาม";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "กรณีนี้มีความเป็นส่วนตัวน้อยกว่า เลขที่อยู่ไอพีของคุณจะมองเห็นได้พร้อมการแก้ไข เมื่อคุณบันทึก คุณตกลงจะพิมพ์เผยแพร่การแก้ไขของคุณภายใต้ CC BY-SA 3.0 อย่างถาวร";
+"wikitext-upload-save-anonymously-warning" = "กรณีนี้มีความเป็นส่วนตัวน้อยกว่า เลขที่อยู่ไอพีของคุณจะมองเห็นได้เมื่อแก้ไข";
+"wikitext-upload-save-license" = "โดยการบันทึก คุณตกลงเผยแพร่การแก้ไขของคุณภายใต้สัญญาอนุญาต $1";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "กำลังค้นหา...";
 "search-no-matches" = "ไม่มีผลลัพธ์ตรงกับคำค้นหา";
 "search-field-placeholder-text" = "ค้นหาวิกิพีเดีย";

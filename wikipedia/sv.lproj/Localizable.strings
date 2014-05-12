@@ -106,6 +106,7 @@
 "fetching-random-article" = "Hämtar slumpartikel";
 "article-pull-to-refresh-prompt" = "Dra för att uppdatera artikeln";
 "article-pull-to-refresh-is-refreshing" = "Uppdaterar artikeln";
+"credits-title" = "Centralförvar för öppen källkod";
 "credits-wikimedia-repos" = "Wikimedia";
 "credits-gerrit-repo" = "Huvudsaklig app (Gerrit)";
 "credits-github-mirror" = "Speglad app (GitHub)";

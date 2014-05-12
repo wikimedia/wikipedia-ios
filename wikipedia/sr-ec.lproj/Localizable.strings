@@ -1,0 +1,55 @@
+// Messages for Serbian (Cyrillic script) (српски (ћирилица)‎)
+// Exported from translatewiki.net
+// Author: Milicevic01
+// Author: Rancher
+
+"article-languages-label" = "Изаберите језик";
+"article-languages-cancel" = "Откажи";
+"article-languages-filter-placeholder" = "Филтер";
+"history-label" = "Историја прегледања";
+"history-section-today" = "Данас";
+"history-section-yesterday" = "Јуче";
+"history-section-lastweek" = "Прошле недеље";
+"history-section-lastmonth" = "Прошлог месеца";
+"zero-interstitial-continue" = "Настави";
+"zero-interstitial-cancel" = "Откажи";
+"zero-learn-more-learn-more" = "Сазнајте више";
+"zero-learn-more-no-thanks" = "Не, хвала";
+"account-creation-logging-in" = "Пријављивање...";
+"account-creation-saving" = "Чување...";
+"login-user-blocked" = "Корисник је блокиран.";
+"wikitext-downloading" = "Учитавам викитекст...";
+"wikitext-download-success" = "Викитекст учитан.";
+"wikitext-upload-save" = "Чување...";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"search-field-placeholder-text" = "Претрага Википедије";
+"main-menu-language-toggle-show" = "Прикажи језике";
+"main-menu-language-toggle-hide" = "Сакрији језике";
+"main-menu-language-selection-saved" = "Избор језика сачуван";
+"main-menu-account-title-logged-out" = "Налог";
+"main-menu-account-title-logged-in" = "Пријављен сте као: $1";
+"main-menu-account-login" = "Пријави ме";
+"main-menu-account-logout" = "Одјави ме";
+"main-menu-show-history" = "Историја прегледања";
+"main-menu-show-saved" = "Сачуване странице";
+"main-menu-current-article-save" = "Сачувај $1 за ванмрежно читање";
+"main-menu-random" = "Случајан чланак";
+"main-menu-feedback-heading" = "Повратне информације";
+"main-menu-send-feedback" = "Пошаљи повратне информације";
+"main-menu-show-page-history" = "Историја измена за $1";
+"main-menu-credits" = "Заслуге";
+"saved-pages-title" = "Сачуване странице";
+"page-history-title" = "Историја странице";
+"page-history-downloading" = "Учитавам историју странице...";
+"navbar-title-mode-edit-wikitext" = "Уреди";
+"navbar-title-mode-login" = "Пријави ме";
+"navbar-title-mode-login-and-save" = "Пријави ме и сачувај";
+"navbar-title-mode-create-account" = "Отвори налог";
+"navbar-title-mode-create-account-and-save" = "Отвори налог и сачувај";
+"navbar-title-mode-edit-wikitext-preview" = "Претпреглед";
+"navbar-title-mode-edit-wikitext-summary" = "Опишите вашу измену";
+"navbar-title-mode-edit-wikitext-save" = "Сачувај";
+"edit-summary-choice-added-category" = "Додата категорија";
+"edit-summary-choice-other" = "Друго";
+"edit-summary-field-placeholder-text" = "Како сте унапредили страницу?";
+"credits-wikimedia-repos" = "Викимедија";

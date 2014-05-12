@@ -55,7 +55,7 @@
 "main-menu-account-title-logged-out" = "Cuenta";
 "main-menu-account-title-logged-in" = "Sesión iniciada como: $1";
 "main-menu-account-login" = "Iniciar sesión";
-"main-menu-account-logout" = "Cerrar sesión";
+"main-menu-account-logout" = "Salir";
 "main-menu-show-title" = "Mostrarme…";
 "main-menu-show-history" = "Historial de navegación";
 "main-menu-show-saved" = "Páginas guardadas";
@@ -84,5 +84,5 @@
 "edit-summary-field-placeholder-text" = "¿Cómo mejoraste la página?";
 "article-pull-to-refresh-is-refreshing" = "Actualizando el artículo";
 "credits-title" = "Repositorios de código abierto";
-"credits-gerrit-repo" = "Main de la aplicación (Gerrit)";
+"credits-gerrit-repo" = "Rep. principal de aplicación (Gerrit)";
 "credits-external-libraries" = "Externo";

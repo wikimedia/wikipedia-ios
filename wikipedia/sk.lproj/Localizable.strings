@@ -81,6 +81,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Náhľad";
 "navbar-title-mode-edit-wikitext-captcha" = "Je požadované rýchle overenie";
 "navbar-title-mode-edit-wikitext-summary" = "Zhrnutie úprav";
+"navbar-title-mode-edit-wikitext-save" = "Uložiť";
 "edit-summary-choice-fixed-grammar" = "gramatika";
 "edit-summary-choice-added-category" = "kategórie";
 "edit-summary-choice-added-missing-info" = "pridané chýbajúce informácie";
