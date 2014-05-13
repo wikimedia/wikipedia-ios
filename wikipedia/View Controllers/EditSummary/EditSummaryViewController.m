@@ -423,7 +423,9 @@ typedef enum {
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    [self updateNavBar];
+    if (NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY) {
+        [self updateNavBar];
+    }
 
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
