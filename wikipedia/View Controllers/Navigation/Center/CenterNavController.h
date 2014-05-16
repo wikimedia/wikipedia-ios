@@ -27,4 +27,4 @@ typedef enum {
 
 @end
 
-//TODO: maybe use currentNavBarTextFieldText instead of currentSearchString?
+//TODO: maybe use currentTopMenuTextFieldText instead of currentSearchString?
