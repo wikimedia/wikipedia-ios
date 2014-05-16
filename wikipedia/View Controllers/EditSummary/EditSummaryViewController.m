@@ -3,12 +3,14 @@
 
 #import "EditSummaryViewController.h"
 #import "WikipediaAppUtils.h"
-#import "NavController.h"
+#import "CenterNavController.h"
 #import "Defines.h"
 #import "WMF_Colors.h"
 #import "EditSummaryHandleView.h"
 
-#define NAV ((NavController *)self.navigationController)
+#import "RootViewController.h"
+#import "TopMenuViewController.h"
+
 #define MAX_SUMMARY_LENGTH 255
 
 typedef enum {
@@ -280,7 +282,10 @@ typedef enum {
     NavBarMode newNavBarMode = ([self isDockedAtBottom])
         ? NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW
         : NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY;
-    if(NAV.navBarMode != newNavBarMode) NAV.navBarMode = newNavBarMode;
+    
+    if(ROOT.topMenuViewController.navBarMode != newNavBarMode){
+        ROOT.topMenuViewController.navBarMode = newNavBarMode;
+    }
     
     [self adjustHandleHeightAnimated];
 }
@@ -423,7 +428,7 @@ typedef enum {
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
-    if (NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY) {
+    if (ROOT.topMenuViewController.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY) {
         [self updateNavBar];
     }
 

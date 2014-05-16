@@ -3,7 +3,7 @@
 
 #import "AccountCreationViewController.h"
 #import "WikipediaAppUtils.h"
-#import "NavController.h"
+#import "CenterNavController.h"
 #import "QueuesSingleton.h"
 #import "SessionSingleton.h"
 #import "UIViewController+Alert.h"
@@ -16,10 +16,11 @@
 #import "WMF_Colors.h"
 #import "UIViewController+LogEvent.h"
 
-#import "NavButtonView.h"
-#import "NavButtonLabel.h"
+#import "TopMenuButtonView.h"
+#import "TopMenuLabel.h"
 
-#define NAV ((NavController *)self.navigationController)
+#import "RootViewController.h"
+#import "TopMenuViewController.h"
 
 @interface AccountCreationViewController ()
 
@@ -61,7 +62,7 @@
     
     self.showCaptchaContainer = NO;
 
-    NAV.navBarMode = NAVBAR_MODE_CREATE_ACCOUNT;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_CREATE_ACCOUNT;
     
     [self highlightCheckButton:NO];
 }
@@ -112,7 +113,7 @@
 
 -(void)highlightCheckButton:(BOOL)highlight
 {
-    NavButtonView *checkButton = (NavButtonView *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
+    TopMenuButtonView *checkButton = (TopMenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
     
     checkButton.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
     
@@ -132,7 +133,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
 
-    NAV.navBarMode = NAVBAR_MODE_SEARCH;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_SEARCH;
 
     [self highlightCheckButton:NO];
 

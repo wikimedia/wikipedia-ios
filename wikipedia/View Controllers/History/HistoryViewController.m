@@ -12,11 +12,9 @@
 #import "Defines.h"
 #import "Article+Convenience.h"
 #import "UINavigationController+SearchNavStack.h"
-#import "NavController.h"
+#import "CenterNavController.h"
 #import "NSString+Extras.h"
 #import "WMF_WikiFont_Chars.h"
-
-#define NAV ((NavController *)self.navigationController)
 
 #define HISTORY_THUMBNAIL_WIDTH 110
 #define HISTORY_RESULT_HEIGHT 66

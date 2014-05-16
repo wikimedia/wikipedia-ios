@@ -8,7 +8,7 @@
 #import "ArticleCoreDataObjects.h"
 #import "ArticleDataContextSingleton.h"
 #import "QueuesSingleton.h"
-#import "NavController.h"
+#import "CenterNavController.h"
 #import "UploadSectionWikiTextOp.h"
 #import "CaptchaViewController.h"
 #import "UIViewController+HideKeyboard.h"
@@ -30,10 +30,11 @@
 #import "PaddedLabel.h"
 #import "NSString+Extras.h"
 
-#import "NavButtonView.h"
-#import "NavButtonLabel.h"
+#import "TopMenuButtonView.h"
+#import "TopMenuLabel.h"
 
-#define NAV ((NavController *)self.navigationController)
+#import "RootViewController.h"
+#import "TopMenuViewController.h"
 
 typedef enum {
     PREVIEW_CHOICE_LOGIN_THEN_SAVE = 0,
@@ -90,7 +91,7 @@ typedef enum {
         case NAVBAR_BUTTON_PENCIL:
             [self.navigationController popViewControllerAnimated:YES];
             
-            if(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING){
+            if(ROOT.topMenuViewController.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING){
                 [self logEvent: @{@"action": @"abuseFilterWarningBack"}
                         schema: LOG_SCHEMA_EDIT];
             }
@@ -99,7 +100,7 @@ typedef enum {
         case NAVBAR_BUTTON_ARROW_RIGHT: /* for captcha submit button */
         case NAVBAR_BUTTON_CHECK:
             {
-                switch (NAV.navBarMode) {
+                switch (ROOT.topMenuViewController.navBarMode) {
                     case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
                         [self save];
                         [self logEvent: @{@"action": @"abuseFilterWarningIgnore"}
@@ -179,7 +180,7 @@ typedef enum {
 {
     self.scrollView.alpha = 0.0f;
 
-    NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW;
 
     [self highlightProgressiveButtons:YES];
 
@@ -195,14 +196,14 @@ typedef enum {
     lastHightlight = highlight;
 
 
-    NavButtonView *button = (NavButtonView *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
+    TopMenuButtonView *button = (TopMenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
 
     button.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
     
     button.color = highlight ? [UIColor whiteColor] : [UIColor blackColor];
 
 
-    NavButtonView *button2 = (NavButtonView *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
+    TopMenuButtonView *button2 = (TopMenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
     
     button2.backgroundColor = highlight ? WMF_COLOR_GREEN : [UIColor clearColor];
     
@@ -211,7 +212,7 @@ typedef enum {
 
 -(void)highlightCaptchaSubmitButton:(BOOL)highlight
 {
-    NavButtonView *button = (NavButtonView *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
+    TopMenuButtonView *button = (TopMenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
 
     button.backgroundColor = highlight ? WMF_COLOR_GREEN : [UIColor clearColor];
     
@@ -229,7 +230,7 @@ typedef enum {
     [self fadeAlert];
 
     // Change the nav bar layout.
-    NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
 
     [self highlightProgressiveButtons:NO];
 
@@ -351,7 +352,7 @@ return;
 
 - (BOOL)shouldShowSignInOrSaveAnonActionSheet
 {
-    switch (NAV.navBarMode) {
+    switch (ROOT.topMenuViewController.navBarMode) {
         case NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW:
         case NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY:
             return YES;
@@ -370,7 +371,7 @@ return;
         
         if ([self shouldShowSignInOrSaveAnonActionSheet]) {
             
-            NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY;
+            ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY;
             [self highlightProgressiveButtons:NO];
             [self showSignInOrSaveAnonActionSheet];
             
@@ -378,12 +379,12 @@ return;
     }else{
         
         if(
-            (NAV.navBarMode != NAVBAR_MODE_EDIT_WIKITEXT_SAVE)
+            (ROOT.topMenuViewController.navBarMode != NAVBAR_MODE_EDIT_WIKITEXT_SAVE)
             &&
-            (NAV.navBarMode != NAVBAR_MODE_EDIT_WIKITEXT_WARNING)
+            (ROOT.topMenuViewController.navBarMode != NAVBAR_MODE_EDIT_WIKITEXT_WARNING)
           ){
             
-            NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_SAVE;
+            ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_SAVE;
             [self highlightProgressiveButtons:YES];
             [self showLicenseActionSheet];
             
@@ -487,7 +488,7 @@ return;
             case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
             {
 
-                if(NAV.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA){
+                if(ROOT.topMenuViewController.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA){
                     [self logEvent: @{@"action": @"captchaFailure"}
                             schema: LOG_SCHEMA_EDIT];
                 }
@@ -551,7 +552,7 @@ return;
                     UIColor *bannerColor = nil;
                     
                     if ((error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED)) {
-                        NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW;
+                        ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW;
                         bannerImage = @"abuse-filter-disallowed.png";
                         bannerColor = WMF_COLOR_RED;
 
@@ -559,7 +560,7 @@ return;
                                 schema: LOG_SCHEMA_EDIT];
 
                     }else{
-                        NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_WARNING;
+                        ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_WARNING;
 
                         [self highlightProgressiveButtons:YES];
 
@@ -710,7 +711,7 @@ return;
     
     [UIView commitAnimations];
     
-    NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA;
     
     [self highlightCaptchaSubmitButton:NO];
 

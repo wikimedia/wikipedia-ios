@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Iku-rK-nd2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1qV-3k-dN1">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -1031,11 +1031,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Xeb-oh-gct"/>
                     </layoutGuides>
                     <view key="view" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="448"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" allowsInlineMediaPlayback="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WeL-Mj-Zsh">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="448"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <dataDetectorType key="dataDetectorTypes"/>
@@ -1044,7 +1044,7 @@
                                 </connections>
                             </webView>
                             <view autoresizesSubviews="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4Q-Xc-ImV" userLabel="BottomNav">
-                                <rect key="frame" x="0.0" y="454" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="398" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8HR-Gs-iaC" userLabel="Back Button">
@@ -1188,10 +1188,118 @@
             </objects>
             <point key="canvasLocation" x="89" y="-164"/>
         </scene>
-        <!--Nav Controller-->
+        <!--Top Menu View Controller-->
+        <scene sceneID="M3c-1r-pFC">
+            <objects>
+                <viewController restorationIdentifier="TopMenuViewController" storyboardIdentifier="TopMenuViewController" id="O6g-Mt-Bq7" customClass="TopMenuViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Jva-Gs-UOS"/>
+                        <viewControllerLayoutGuide type="bottom" id="zQu-e4-iuw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dqC-fj-jbQ" customClass="TopMenuContainerView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="navBarContainer" destination="dqC-fj-jbQ" id="Z9V-Oo-jqX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jqp-j4-XR4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1207" y="-419"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="OJ3-Ed-BiM">
+            <objects>
+                <viewController restorationIdentifier="RootViewController" storyboardIdentifier="RootViewController" id="1qV-3k-dN1" customClass="RootViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nta-i4-3lY"/>
+                        <viewControllerLayoutGuide type="bottom" id="0Ee-rK-NEL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OxS-mB-oKF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nkw-8K-qxp">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="7Nu-ia-kge"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="O6g-Mt-Bq7" kind="embed" identifier="TopMenuViewController_embed" id="ZQB-DP-tFv"/>
+                                </connections>
+                            </containerView>
+                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wDN-HT-UDz">
+                                <rect key="frame" x="0.0" y="60" width="320" height="448"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="Iku-rK-nd2" kind="embed" identifier="CenterNavController_embed" id="4YC-1M-ec4"/>
+                                </connections>
+                            </containerView>
+                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FUb-qe-W16">
+                                <rect key="frame" x="0.0" y="508" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="3fo-Zl-qxJ"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="d5t-sx-LhF" kind="embed" identifier="BottomMenuViewController_embed" id="yAV-D5-ltu"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FUb-qe-W16" firstAttribute="top" secondItem="wDN-HT-UDz" secondAttribute="bottom" id="8CD-sn-zbg"/>
+                            <constraint firstItem="wDN-HT-UDz" firstAttribute="top" secondItem="OxS-mB-oKF" secondAttribute="top" constant="60" id="B6Z-BB-oAx"/>
+                            <constraint firstItem="wDN-HT-UDz" firstAttribute="leading" secondItem="OxS-mB-oKF" secondAttribute="leading" id="KOj-h0-Afq"/>
+                            <constraint firstAttribute="trailing" secondItem="FUb-qe-W16" secondAttribute="trailing" id="RJ9-UK-EFI"/>
+                            <constraint firstAttribute="trailing" secondItem="wDN-HT-UDz" secondAttribute="trailing" id="dHN-VT-o2O"/>
+                            <constraint firstAttribute="bottom" secondItem="wDN-HT-UDz" secondAttribute="bottom" constant="60" id="i4h-5M-QIT"/>
+                            <constraint firstItem="wDN-HT-UDz" firstAttribute="top" secondItem="Nkw-8K-qxp" secondAttribute="bottom" id="jjj-Dk-YfA"/>
+                            <constraint firstItem="Nkw-8K-qxp" firstAttribute="leading" secondItem="OxS-mB-oKF" secondAttribute="leading" id="mCx-cE-IiS"/>
+                            <constraint firstItem="FUb-qe-W16" firstAttribute="leading" secondItem="OxS-mB-oKF" secondAttribute="leading" id="wBY-kb-OCf"/>
+                            <constraint firstAttribute="trailing" secondItem="Nkw-8K-qxp" secondAttribute="trailing" id="yNm-ff-1E7"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <connections>
+                        <outlet property="bottomContainerHeightConstraint" destination="3fo-Zl-qxJ" id="ima-LJ-s1g"/>
+                        <outlet property="centerContainerBottomConstraint" destination="i4h-5M-QIT" id="6t5-eg-1jK"/>
+                        <outlet property="centerContainerTopConstraint" destination="B6Z-BB-oAx" id="A7r-bv-QMJ"/>
+                        <outlet property="topContainerHeightConstraint" destination="7Nu-ia-kge" id="MZ6-aW-N6h"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f3g-Y6-7VD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1207" y="-224"/>
+        </scene>
+        <!--Bottom Menu View Controller-->
+        <scene sceneID="IbJ-15-kHu">
+            <objects>
+                <viewController restorationIdentifier="BottomMenuViewController" storyboardIdentifier="BottomMenuViewController" id="d5t-sx-LhF" customClass="BottomMenuViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TZD-c8-Gy2"/>
+                        <viewControllerLayoutGuide type="bottom" id="s0H-x2-sxc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RrN-8E-MMt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="heC-Be-Fgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1207" y="470"/>
+        </scene>
+        <!--Center Nav Controller-->
         <scene sceneID="dor-Wk-JQd">
             <objects>
-                <navigationController restorationIdentifier="SearchNavController" storyboardIdentifier="SearchNavController" extendedLayoutIncludesOpaqueBars="YES" definesPresentationContext="YES" id="Iku-rK-nd2" customClass="NavController" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="CenterNavController" storyboardIdentifier="CenterNavController" extendedLayoutIncludesOpaqueBars="YES" definesPresentationContext="YES" navigationBarHidden="YES" id="Iku-rK-nd2" customClass="CenterNavController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="diA-vI-SNq">

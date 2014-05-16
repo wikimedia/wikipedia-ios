@@ -76,7 +76,8 @@
     // Minimize flicker of search result table cells being recycled as they
     // pass completely beneath translucent nav bars
     [[UIApplication sharedApplication] delegate].window.backgroundColor = [UIColor whiteColor];
-    
+
+/*
     if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
         // Pre iOS 7:
         CGRect rect = CGRectMake(0, 0, 10, 10);
@@ -89,6 +90,7 @@
         [[UINavigationBar appearance] setTintColor:[UIColor clearColor]];
         [[UINavigationBar appearance] setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
     }
+*/
     
     [[UIButton appearance] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
 

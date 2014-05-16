@@ -6,7 +6,7 @@
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
-#import "NavController.h"
+#import "CenterNavController.h"
 #import "PageHistoryOp.h"
 
 #import "UINavigationController+SearchNavStack.h"
@@ -16,7 +16,8 @@
 
 #import "WMF_WikiFont_Chars.h"
 
-#define NAV ((NavController *)self.navigationController)
+#import "RootViewController.h"
+#import "TopMenuViewController.h"
 
 @interface PageHistoryViewController (){
 
@@ -48,7 +49,7 @@
                                                     name: @"NavItemTapped"
                                                   object: nil];
 
-    NAV.navBarMode = NAVBAR_MODE_SEARCH;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_SEARCH;
 
     [super viewWillDisappear:animated];
 }
@@ -57,7 +58,7 @@
 {
     [super viewWillAppear:animated];
 
-    NAV.navBarMode = NAVBAR_MODE_PAGE_HISTORY;    
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_PAGE_HISTORY;
 }
 
 - (void)navItemTappedNotification:(NSNotification *)notification

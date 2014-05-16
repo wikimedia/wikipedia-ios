@@ -3,7 +3,7 @@
 
 #import "WikipediaAppUtils.h"
 #import "LoginViewController.h"
-#import "NavController.h"
+#import "CenterNavController.h"
 #import "QueuesSingleton.h"
 #import "LoginTokenOp.h"
 #import "LoginOp.h"
@@ -14,10 +14,11 @@
 #import "WMF_Colors.h"
 #import "UIViewController+LogEvent.h"
 
-#import "NavButtonView.h"
-#import "NavButtonLabel.h"
+#import "TopMenuButtonView.h"
+#import "TopMenuLabel.h"
 
-#define NAV ((NavController *)self.navigationController)
+#import "RootViewController.h"
+#import "TopMenuViewController.h"
 
 @interface LoginViewController (){
 
@@ -72,7 +73,7 @@
 
 -(void)highlightCheckButton:(BOOL)highlight
 {
-    NavButtonView *checkButton = (NavButtonView *)[NAV getNavBarItem:NAVBAR_BUTTON_CHECK];
+    TopMenuButtonView *checkButton = (TopMenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
     
     checkButton.backgroundColor = highlight ? WMF_COLOR_GREEN : [UIColor clearColor];
     
@@ -109,7 +110,7 @@
 {
     [super viewWillAppear:animated];
     
-    NAV.navBarMode = NAVBAR_MODE_LOGIN;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_LOGIN;
     
     [self highlightCheckButton:NO];
 }
@@ -163,7 +164,7 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
 
-    NAV.navBarMode = NAVBAR_MODE_SEARCH;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_SEARCH;
 }
 
 - (void)didReceiveMemoryWarning

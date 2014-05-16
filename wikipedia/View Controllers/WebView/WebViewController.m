@@ -15,9 +15,9 @@
 #import "LanguagesTableVC.h"
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
-#import "NavBarTextField.h"
+#import "TopMenuTextField.h"
 #import "MWLanguageInfo.h"
-#import "NavController.h"
+#import "CenterNavController.h"
 #import "Defines.h"
 
 #import "UIViewController+SearchChildViewControllers.h"
@@ -41,8 +41,10 @@
 
 #import "ConfigFileSyncOp.h"
 
-#define TOC_TOGGLE_ANIMATION_DURATION 0.3f
-#define NAV ((NavController *)self.navigationController)
+#import "RootViewController.h"
+#import "TopMenuViewController.h"
+
+#define TOC_TOGGLE_ANIMATION_DURATION @0.3f
 
 typedef enum {
     DISPLAY_LEAD_SECTION = 0,
@@ -189,12 +191,15 @@ typedef enum {
 {
     [super viewWillAppear:animated];
     
-    NAV.navBarMode = NAVBAR_MODE_SEARCH;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_SEARCH;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [self tocHide];
+    
+    ROOT.hideTopAndBottomMenus = NO;
+    
     [super viewWillDisappear:animated];
 }
 
@@ -303,13 +308,23 @@ typedef enum {
     return (self.webViewLeftConstraint.constant == 0) ? NO : YES;
 }
 
--(void)tocHideWithDuration:(CGFloat)duration
+-(void)tocHideWithDuration:(NSNumber *)duration
+{
+    // iOS 6 can blank out the web view this isn't scheduled for next run loop.
+    [[NSRunLoop currentRunLoop] performSelector: @selector(tocHideWithDurationNextRunLoop:)
+                                         target: self
+                                       argument: duration
+                                          order: 0
+                                          modes: [NSArray arrayWithObject:@"NSDefaultRunLoopMode"]];
+}
+
+-(void)tocHideWithDurationNextRunLoop:(NSNumber *)duration
 {
     // Clear alerts
     [self fadeAlert];
     
     // Ensure one exists to be hidden.
-    [UIView animateWithDuration: duration
+    [UIView animateWithDuration: duration.floatValue
                           delay: 0.0f
                         options: UIViewAnimationOptionBeginFromCurrentState
                      animations: ^{
@@ -325,7 +340,17 @@ typedef enum {
                      }];
 }
 
--(void)tocShowWithDuration:(CGFloat)duration
+-(void)tocShowWithDuration:(NSNumber *)duration
+{
+    // iOS 6 can blank out the web view this isn't scheduled for next run loop.
+    [[NSRunLoop currentRunLoop] performSelector: @selector(tocShowWithDurationNextRunLoop:)
+                                         target: self
+                                       argument: duration
+                                          order: 0
+                                          modes: [NSArray arrayWithObject:@"NSDefaultRunLoopMode"]];
+}
+
+-(void)tocShowWithDurationNextRunLoop:(NSNumber *)duration
 {
     if(!self.tocButton.enabled) return;
     
@@ -344,7 +369,7 @@ typedef enum {
     CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
     CGAffineTransform xf = CGAffineTransformMakeScale(webViewScale, webViewScale);
 
-    [UIView animateWithDuration: duration
+    [UIView animateWithDuration: duration.floatValue
                           delay: 0.0f
                         options: UIViewAnimationOptionBeginFromCurrentState
                      animations: ^{
@@ -654,6 +679,11 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     [self.bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString *messageType, NSDictionary *payload) {
         NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
+
+        if (!weakSelf.tocVC) {
+            [weakSelf toggleTopMenu];
+        }
+
         // nonAnchorTouchEndedWithoutDragging is used so TOC may be hidden if user tapped, but did *not* drag.
         // Used because UIWebView is difficult to attach one-finger touch events to.
         [weakSelf tocHide];
@@ -661,6 +691,13 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     self.unsafeToScroll = NO;
     self.scrollOffset = CGPointZero;
+}
+
+#pragma mark Top menu toggle
+
+-(void)toggleTopMenu
+{
+    ROOT.hideTopAndBottomMenus = ! ROOT.hideTopAndBottomMenus;
 }
 
 #pragma mark History
@@ -879,7 +916,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     // Reset the search field to its placeholder text after 5 seconds.
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NavBarTextField *textField = [NAV getNavBarItem:NAVBAR_TEXT_FIELD];
+        TopMenuTextField *textField = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
         if (!textField.isFirstResponder) textField.text = @"";
     });
 }
@@ -1081,7 +1118,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // thumbnailImage property point to that core data image object. This associates the
         // search result thumbnail with the article.
         
-        NSArray *result = [NAV.currentSearchResultsOrdered filteredArrayUsingPredicate:
+        NSArray *result = [ROOT.topMenuViewController.currentSearchResultsOrdered filteredArrayUsingPredicate:
             [NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", pageTitle]
         ];
         if (result.count == 1) {
@@ -1287,7 +1324,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
         if ([self tocDrawerIsOpen]) {
             // Drawer is already open, so just refresh the toc quickly w/o animation.
-            [self tocShowWithDuration:0.0f];
+            [self tocShowWithDuration:@0.0f];
         }
     }];
 }
@@ -1408,7 +1445,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }
     //self.view.alpha = 0.0f;
 
-    [self tocHideWithDuration:0.0f];
+    [self tocHideWithDuration:@0.0f];
     
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
@@ -1448,7 +1485,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
              if (message) {
                  dispatch_async(dispatch_get_main_queue(), ^(){
                  
-                     NavBarTextField *textField = [NAV getNavBarItem:NAVBAR_TEXT_FIELD];
+                     TopMenuTextField *textField = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
                      textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
 
                      self.zeroStatusLabel.text = message;
@@ -1469,7 +1506,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         
     } else {
     
-        NavBarTextField *textField = [NAV getNavBarItem:NAVBAR_TEXT_FIELD];
+        TopMenuTextField *textField = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
         textField.placeholder = MWLocalizedString(@"search-field-placeholder-text", nil);
         NSString *warnVerbiage = MWLocalizedString(@"zero-charged-verbiage", nil);
 

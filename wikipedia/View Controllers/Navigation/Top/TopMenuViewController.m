@@ -2,12 +2,11 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WikipediaAppUtils.h"
-#import "NavBarTextField.h"
-#import "NavController.h"
+#import "TopMenuTextField.h"
+#import "TopMenuViewController.h"
 #import "Defines.h"
 #import "UIView+Debugging.h"
 #import "UIView+RemoveConstraints.h"
-#import "NavBarContainerView.h"
 #import "MainMenuViewController.h"
 #import "UIViewController+HideKeyboard.h"
 #import "SearchResultsController.h"
@@ -19,36 +18,41 @@
 #import "SessionSingleton.h"
 #import "WebViewController.h"
 #import "UIView+TemporaryAnimatedXF.h"
-#import "SectionEditorViewController.h"
+//#import "SectionEditorViewController.h"
 
-#import "NavButtonView.h"
-#import "NavButtonLabel.h"
+#import "TopMenuButtonView.h"
+#import "TopMenuLabel.h"
 #import "PaddedLabel.h"
 
 #import "WMF_WikiFont_Chars.h"
 
-@interface NavController (){
+#import "CenterNavController.h"
+
+#import "RootViewController.h"
+#import "TopMenuViewController.h"
+
+@interface TopMenuViewController (){
 
 }
 
 // Container.
-@property (strong, nonatomic) UIView *navBarContainer;
+@property (strong, nonatomic) IBOutlet UIView *navBarContainer;
 
 // Views which go into the container.
-@property (strong, nonatomic) NavBarTextField *textField;
+@property (strong, nonatomic) TopMenuTextField *textField;
 @property (strong, nonatomic) UIView *verticalLine1;
 @property (strong, nonatomic) UIView *verticalLine2;
 @property (strong, nonatomic) UIView *verticalLine3;
 @property (strong, nonatomic) UIView *verticalLine4;
 @property (strong, nonatomic) UIView *verticalLine5;
 @property (strong, nonatomic) UIView *verticalLine6;
-@property (strong, nonatomic) NavButtonView *buttonW;
-@property (strong, nonatomic) NavButtonView *buttonPencil;
-@property (strong, nonatomic) NavButtonView *buttonCheck;
-@property (strong, nonatomic) NavButtonView *buttonX;
-@property (strong, nonatomic) NavButtonView *buttonEye;
-@property (strong, nonatomic) NavButtonView *buttonArrowLeft;
-@property (strong, nonatomic) NavButtonView *buttonArrowRight;
+@property (strong, nonatomic) TopMenuButtonView *buttonW;
+@property (strong, nonatomic) TopMenuButtonView *buttonPencil;
+@property (strong, nonatomic) TopMenuButtonView *buttonCheck;
+@property (strong, nonatomic) TopMenuButtonView *buttonX;
+@property (strong, nonatomic) TopMenuButtonView *buttonEye;
+@property (strong, nonatomic) TopMenuButtonView *buttonArrowLeft;
+@property (strong, nonatomic) TopMenuButtonView *buttonArrowRight;
 @property (strong, nonatomic) UILabel *label;
 
 // Used for constraining container sub-views.
@@ -56,14 +60,11 @@
 @property (strong, nonatomic) NSDictionary *navBarSubViews;
 @property (strong, nonatomic) NSDictionary *navBarSubViewMetrics;
 
-@property (nonatomic) BOOL isTransitioningBetweenViewControllers;
-@property (strong, nonatomic) NSString *wikipediaZeroLearnMoreExternalUrl;
-
 @property (strong, nonatomic) NSString *lastSearchString;
 
 @end
 
-@implementation NavController
+@implementation TopMenuViewController
 
 #pragma mark View lifecycle
 
@@ -71,26 +72,19 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
- 
-    self.delegate = self;
- 
+  
     self.currentSearchResultsOrdered = [@[] mutableCopy];
     self.currentSearchString = @"";
 
-    [self setupNavbarContainer];
     [self setupNavbarContainerSubviews];
 
     self.navBarStyle = NAVBAR_STYLE_DAY;
 
     self.navBarMode = NAVBAR_MODE_SEARCH;
-
-    [self.navigationBar addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial context:nil];
     
     self.navBarSubViews = [self getNavBarSubViews];
     
     self.navBarSubViewMetrics = [self getNavBarSubViewMetrics];
-    
-    self.isTransitioningBetweenViewControllers = NO;
     
     self.lastSearchString = @"";
 }
@@ -99,8 +93,8 @@
 {
     [super viewWillAppear:animated];
 
-    UIImageView *navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationBar];
-    navBarHairlineImageView.hidden = YES;
+//    UIImageView *navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationBar];
+//    navBarHairlineImageView.hidden = YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -123,6 +117,7 @@
     [super viewWillDisappear:animated];
 }
 
+/*
 #pragma mark iOS 7 hide nav bar hairline divider
 
 // From: http://stackoverflow.com/a/19227158
@@ -139,6 +134,7 @@
     }
     return nil;
 }
+*/
 
 #pragma mark Constraints
 
@@ -146,7 +142,6 @@
 {
     [super updateViewConstraints];
 
-    [self constrainNavBarContainer];
     [self constrainNavBarContainerSubViews];
 
     [self.navBarContainer layoutIfNeeded];
@@ -171,65 +166,6 @@
     }];
 }
 
-- (void)navigationController: (UINavigationController *)navigationController
-      willShowViewController: (UIViewController *)viewController
-                    animated: (BOOL)animated
-{
-    self.isTransitioningBetweenViewControllers = YES;
-
-    [self fadeAlert];
-    [self showHTMLAlert:@"" bannerImage:nil bannerColor:nil];
-}
-
-- (void)navigationController: (UINavigationController *)navigationController
-       didShowViewController: (UIViewController *)viewController
-                    animated: (BOOL)animated
-{
-    self.isTransitioningBetweenViewControllers = NO;
-}
-
--(void)setIsTransitioningBetweenViewControllers:(BOOL)isTransitioningBetweenViewControllers
-{
-    _isTransitioningBetweenViewControllers = isTransitioningBetweenViewControllers;
-    
-    // Disabling userInteractionEnabled when nav stack views are being pushed/popped prevents
-    // "nested push animation can result in corrupted navigation bar" and "unbalanced calls
-    // to begin/end appearance transitions" errors. If this line is commented out, you can
-    // trigger the error by rapidly tapping on the main menu toggle (the "W" icon presently).
-    // You can also trigger another error by tapping the edit pencil, then tap the "X" icon
-    // then very quickly tap the "W" icon.
-    self.view.userInteractionEnabled = !isTransitioningBetweenViewControllers;
-}
-
--(void)constrainNavBarContainer
-{
-    // Remove existing navBarContainer constraints.
-    [self.navBarContainer removeConstraintsOfViewFromView:self.view];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"H:|[navBarContainer]|"
-                                                                      options: 0
-                                                                      metrics: nil
-                                                                        views: @{@"navBarContainer": self.navBarContainer}]];
-    NSArray *constraintsArray = @[
-                                  [NSLayoutConstraint constraintWithItem: self.navBarContainer
-                                                               attribute: NSLayoutAttributeTop
-                                                               relatedBy: NSLayoutRelationEqual
-                                                                  toItem: self.view
-                                                               attribute: NSLayoutAttributeTop
-                                                              multiplier: 1.0
-                                                                constant: self.navigationBar.frame.origin.y]
-                                  ,
-                                  [NSLayoutConstraint constraintWithItem: self.navBarContainer
-                                                               attribute: NSLayoutAttributeHeight
-                                                               relatedBy: NSLayoutRelationEqual
-                                                                  toItem: NSLayoutAttributeNotAnAttribute
-                                                               attribute: 0
-                                                              multiplier: 1.0
-                                                                constant: self.navigationBar.bounds.size.height]
-                                  ];
-    [self.view addConstraints:constraintsArray];
-}
-
 -(void)constrainNavBarContainerSubViews
 {
     // Remove *all* navBarContainer constraints.
@@ -250,7 +186,13 @@
       ]
      ];
     
-    CGFloat verticalLineTopMargin = 0;
+    CGFloat verticalLineTopMargin = 25;
+    CGFloat topMargin = 20;
+    
+    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
+        verticalLineTopMargin = 5;
+        topMargin = 0;
+    }
     
     // Now take the views which were constrained horizontally (above) and constrain them
     // vertically as well. Also set hidden = NO for just these views.
@@ -260,7 +202,7 @@
         [self.navBarContainer addConstraints:
          [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-(topMargin)-[view]|"
                                                  options: 0
-                                                 metrics: @{@"topMargin": @((view.tag == NAVBAR_VERTICAL_LINE) ? verticalLineTopMargin : 0)}
+                                                 metrics: @{@"topMargin": @((view.tag == NAVBAR_VERTICAL_LINE) ? verticalLineTopMargin : topMargin)}
                                                    views: NSDictionaryOfVariableBindings(view)
           ]
          ];
@@ -298,11 +240,11 @@
 
 -(void)setupNavbarContainerSubviews
 {
-    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
-        self.navigationBar.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:0.97];
-    }
+//    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
+//        self.navigationBar.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:0.97];
+//    }
 
-    self.textField = [[NavBarTextField alloc] init];
+    self.textField = [[TopMenuTextField alloc] init];
     self.textField.delegate = self;
     self.textField.translatesAutoresizingMaskIntoConstraints = NO;
     self.textField.returnKeyType = UIReturnKeyDone;
@@ -351,8 +293,8 @@
     [self.navBarContainer addSubview:self.verticalLine5];
     [self.navBarContainer addSubview:self.verticalLine6];
 
-    NavButtonView *(^getButton)(NSString *, NavBarItemTag) = ^NavButtonView *(NSString *character, NavBarItemTag tag) {
-        NavButtonView *button = [[NavButtonView alloc] init];
+    TopMenuButtonView *(^getButton)(NSString *, NavBarItemTag) = ^TopMenuButtonView *(NSString *character, NavBarItemTag tag) {
+        TopMenuButtonView *button = [[TopMenuButtonView alloc] init];
         button.label.text = character;
         button.translatesAutoresizingMaskIntoConstraints = NO;
 
@@ -369,6 +311,8 @@
     self.buttonArrowLeft =  getButton(WIKIFONT_CHAR_ARROW_LEFT,     NAVBAR_BUTTON_ARROW_LEFT);
     self.buttonArrowRight = getButton(WIKIFONT_CHAR_ARROW_LEFT,     NAVBAR_BUTTON_ARROW_RIGHT);
     self.buttonW =          getButton(WIKIFONT_CHAR_W,              NAVBAR_BUTTON_LOGO_W);
+
+NSLog(@"self.buttonX = %@",  self.buttonX);
 
     // Mirror the left arrow.
     self.buttonArrowRight.transform = CGAffineTransformMakeScale(-1.0, 1.0);
@@ -394,14 +338,6 @@
     UITapGestureRecognizer *tapLabel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(postNavItemTappedNotification:)];
     [self.label addGestureRecognizer:tapLabel];
     [self.navBarContainer addSubview:self.label];
-}
-
--(void)setupNavbarContainer
-{
-    self.navBarContainer = [[NavBarContainerView alloc] init];
-    self.navBarContainer.translatesAutoresizingMaskIntoConstraints = NO;
-    self.navBarContainer.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:self.navBarContainer];
 }
 
 #pragma mark Nav bar items
@@ -442,17 +378,17 @@
              };
 }
 
--(void)clearViewControllerTitles
-{
-    // Without this 3 little blue dots can appear on left of nav bar on iOS 7 during animations.
-    [self.viewControllers makeObjectsPerformSelector:@selector(setTitle:) withObject:@""];
-}
+//-(void)clearViewControllerTitles
+//{
+//    // Without this 3 little blue dots can appear on left of nav bar on iOS 7 during animations.
+//    [self.viewControllers makeObjectsPerformSelector:@selector(setTitle:) withObject:@""];
+//}
 
 -(void)setNavBarMode:(NavBarMode)navBarMode
 {
-    [self clearViewControllerTitles];
+//    [self clearViewControllerTitles];
 
-    PreviewAndSaveViewController *previewAndSaveVC = [self searchNavStackForViewControllerOfClass:[PreviewAndSaveViewController class]];
+    PreviewAndSaveViewController *previewAndSaveVC = [ROOT.centerNavController searchNavStackForViewControllerOfClass:[PreviewAndSaveViewController class]];
 
     _navBarMode = navBarMode;
     switch (navBarMode) {
@@ -544,7 +480,8 @@
     }
     
     void(^postTapNotification)() = ^(){
-        if(self.isTransitioningBetweenViewControllers) return;
+
+        if(ROOT.centerNavController.isTransitioningBetweenViewControllers) return;
 
         [[NSNotificationCenter defaultCenter] postNotificationName: @"NavItemTapped"
                                                             object: self
@@ -552,9 +489,9 @@
     };
     
     // If the tapped item was a button, first animate it briefly, then post the notication.
-    if([tappedView isKindOfClass:[NavButtonView class]]){
+    if([tappedView isKindOfClass:[TopMenuButtonView class]]){
         CGFloat animationScale = 1.25f;
-        NavButtonView *button = (NavButtonView *)tappedView;
+        TopMenuButtonView *button = (TopMenuButtonView *)tappedView;
         [button.label animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
                             afterDelay: 0.0
                               duration: 0.06f
@@ -596,33 +533,33 @@
 
 -(void)showSearchResultsController
 {
-    SearchResultsController *searchResultsVC = [self searchNavStackForViewControllerOfClass:[SearchResultsController class]];
+    SearchResultsController *searchResultsVC = [ROOT.centerNavController searchNavStackForViewControllerOfClass:[SearchResultsController class]];
 
     if(searchResultsVC){
-        if (self.topViewController == searchResultsVC) {
+        if (ROOT.centerNavController.topViewController == searchResultsVC) {
             [searchResultsVC refreshSearchResults];
         }else{
-            [self popToViewController:searchResultsVC animated:NO];
+            [ROOT.centerNavController popToViewController:searchResultsVC animated:NO];
         }
     }else{
         SearchResultsController *searchResultsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
-        [self pushViewController:searchResultsVC animated:NO];
+        [ROOT.centerNavController pushViewController:searchResultsVC animated:NO];
     }
 }
 
 -(void)mainMenuToggle
 {
-    UIViewController *topVC = self.topViewController;
+    UIViewController *topVC = ROOT.centerNavController.topViewController;
 
     [topVC hideKeyboard];
     
-    MainMenuViewController *mainMenuTableVC = [self searchNavStackForViewControllerOfClass:[MainMenuViewController class]];
+    MainMenuViewController *mainMenuTableVC = [ROOT.centerNavController searchNavStackForViewControllerOfClass:[MainMenuViewController class]];
     
     if(mainMenuTableVC){
-        [self popToRootViewControllerAnimated:YES];
+        [ROOT.centerNavController popToRootViewControllerAnimated:YES];
     }else{
         MainMenuViewController *mainMenuTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainMenuViewController"];
-        [self pushViewController:mainMenuTableVC animated:YES];
+        [ROOT.centerNavController pushViewController:mainMenuTableVC animated:YES];
     }
 }
 
@@ -651,11 +588,11 @@
     self.textField.text = @"";
     self.textField.rightView.hidden = YES;
 
-    SearchResultsController *searchResultsVC = [self searchNavStackForViewControllerOfClass:[SearchResultsController class]];
+    SearchResultsController *searchResultsVC = [ROOT.centerNavController searchNavStackForViewControllerOfClass:[SearchResultsController class]];
     [searchResultsVC clearSearchResults];
     
-    if (self.topViewController == searchResultsVC) {
-        [self popViewControllerAnimated:NO];
+    if (ROOT.centerNavController.topViewController == searchResultsVC) {
+        [ROOT.centerNavController popViewControllerAnimated:NO];
     }
 }
 
@@ -680,7 +617,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [self.topViewController hideKeyboard];
+    [ROOT.centerNavController.topViewController hideKeyboard];
     return YES;
 }
 
@@ -692,18 +629,8 @@
     // userInteractionEnabled set to NO. So here the seach box keyboard is set to *not* hide if it has
     // been told to hide while transistioning between view controllers. Without this, the first time a
     // search term is entered on iOS 6 they keyboard will immediately hide. That's bad.
-    return (self.isTransitioningBetweenViewControllers) ? NO : YES;
-}
 
-#pragma mark KVO
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if(object == self.navigationBar){
-        if ([keyPath isEqualToString:@"bounds"]) {
-            [self.view setNeedsUpdateConstraints];
-        }
-    }
+    return (ROOT.centerNavController.isTransitioningBetweenViewControllers) ? NO : YES;
 }
 
 #pragma mark Memory
@@ -725,11 +652,8 @@
 
         // Make the nav bar itself be light or dark.
         NSDictionary *colors = [self getNavBarColorsForNavBarStyle:navBarStyle];
-        if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
-            self.navigationBar.backgroundColor = colors[@"NAVBAR_COLOR_PRE_IOS_7"];
-        }else{
-            [self.navigationBar setBarTintColor:colors[@"NAVBAR_COLOR"]];
-        }
+
+        self.view.backgroundColor = colors[@"NAVBAR_COLOR"];
         
         // Make the status bar above the nav bar use light or dark text.
         if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
@@ -738,14 +662,12 @@
 
         // Update the nav bar containers subviews to use light or dark appearance.
         for (id view in self.navBarContainer.subviews) {
-            [self updateViewAppearance:view forNavBarStyle:self.navBarStyle];
+            // Ignore layout guides.
+            if (![view conformsToProtocol:@protocol(UILayoutSupport)]) {
+                [self updateViewAppearance:view forNavBarStyle:self.navBarStyle];
+            }
         }
     }
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return (self.navBarStyle == NAVBAR_STYLE_DAY) ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent;
 }
 
 -(NSDictionary *)getNavBarColorsForNavBarStyle:(NavBarStyle)navBarStyle
@@ -754,8 +676,7 @@
     switch (navBarStyle) {
         case NAVBAR_STYLE_DAY:{
             output = @{
-                       @"NAVBAR_COLOR": [UIColor colorWithWhite:1.0 alpha:0.9],
-                       @"NAVBAR_COLOR_PRE_IOS_7": [UIColor colorWithWhite:1.0 alpha:0.983],
+                       @"NAVBAR_COLOR": [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0],
                        @"NAVBAR_TEXT_FIELD_TEXT_COLOR": [UIColor colorWithWhite:0.33 alpha:1.0],
                        @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor lightGrayColor],
                        @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor colorWithWhite:0.33 alpha:1.0],
@@ -768,7 +689,6 @@
         case NAVBAR_STYLE_NIGHT:{
             output = @{
                        @"NAVBAR_COLOR": [UIColor colorWithWhite:0.0 alpha:0.9],
-                       @"NAVBAR_COLOR_PRE_IOS_7": [UIColor colorWithWhite:0.0 alpha:0.925],
                        @"NAVBAR_TEXT_FIELD_TEXT_COLOR": [UIColor whiteColor],
                        @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor whiteColor],
                        @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor whiteColor],
@@ -797,12 +717,12 @@
         case NAVBAR_BUTTON_ARROW_RIGHT:
         case NAVBAR_BUTTON_LOGO_W:
         case NAVBAR_BUTTON_EYE:{
-            NavButtonView *button = (NavButtonView *)view;
+            TopMenuButtonView *button = (TopMenuButtonView *)view;
             button.label.textColor = colors[@"NAVBAR_BUTTON_COLOR"];
         }
             break;
         case NAVBAR_TEXT_FIELD:{
-            NavBarTextField *textField = (NavBarTextField *)view;
+            TopMenuTextField *textField = (TopMenuTextField *)view;
             
             // Typed text and cursor.
             textField.textColor = colors[@"NAVBAR_TEXT_FIELD_TEXT_COLOR"];
@@ -830,104 +750,6 @@
             break;
     }
     [view setNeedsDisplay];
-}
-
-#pragma mark Article
-
--(void)loadArticleWithTitle: (NSString *)title
-                     domain: (NSString *)domain
-                   animated: (BOOL)animated
-            discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
-          invalidatingCache: (BOOL)invalidateCache
-{
-    WebViewController *webVC = [self searchNavStackForViewControllerOfClass:[WebViewController class]];
-    if (webVC){
-        [SessionSingleton sharedInstance].currentArticleTitle = title;
-        [SessionSingleton sharedInstance].currentArticleDomain = domain;
-        [webVC navigateToPage: title
-                       domain: domain
-              discoveryMethod: discoveryMethod
-            invalidatingCache: invalidateCache];
-        [self popToViewController:webVC animated:animated];
-    }
-}
-
--(ArticleDiscoveryMethod)getDiscoveryMethodForString:(NSString *)string
-{
-    if ([string isEqualToString:@"random"]) {
-        return DISCOVERY_METHOD_RANDOM;
-    }else if ([string isEqualToString:@"link"]) {
-        return DISCOVERY_METHOD_LINK;
-    }else {
-        return DISCOVERY_METHOD_SEARCH;
-    }
-}
-
--(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method
-{
-    switch (method) {
-        case DISCOVERY_METHOD_RANDOM:
-            return @"random";
-            break;
-        case DISCOVERY_METHOD_LINK:
-            return @"link";
-            break;
-        case DISCOVERY_METHOD_SEARCH:
-        default:
-            return @"search";
-            break;
-    }
-}
-
-#pragma mark Is editing
-
--(BOOL)isEditorOnNavstack
-{
-    id editVC = [self searchNavStackForViewControllerOfClass:[SectionEditorViewController class]];
-    return editVC ? YES : NO;
-}
-
-#pragma Wikipedia Zero alert dialogs
-
-// Don't call this directly. Use promptFirstTimeZeroOnWithMessageIfAppropriate or promptFirstTimeZeroOffIfAppropriate
--(void) promptZeroOnOrOff:(NSString *) message
-{
-    self.wikipediaZeroLearnMoreExternalUrl = MWLocalizedString(@"zero-webpage-url", nil);
-    UIAlertView *dialog = [[UIAlertView alloc]
-                           initWithTitle: (message ? message : MWLocalizedString(@"zero-charged-verbiage", nil))
-                           message:MWLocalizedString(@"zero-learn-more", nil)
-                           delegate:self
-                           cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
-                           otherButtonTitles:MWLocalizedString(@"zero-learn-more-learn-more", nil)
-                           , nil];
-    [dialog show];
-}
-
--(void) promptFirstTimeZeroOnWithMessageIfAppropriate:(NSString *) message {
-    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce || ![self isTopViewControllerAWebviewController]) {
-        [[SessionSingleton sharedInstance].zeroConfigState setZeroOnDialogShownOnce];
-        [self promptZeroOnOrOff:message];
-    }
-}
-
--(void) promptFirstTimeZeroOffIfAppropriate {
-    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOffDialogShownOnce || ![self isTopViewControllerAWebviewController]) {
-        [[SessionSingleton sharedInstance].zeroConfigState setZeroOffDialogShownOnce];
-        [self promptZeroOnOrOff:nil];
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (1 == buttonIndex) {
-        NSURL *url = [NSURL URLWithString:self.wikipediaZeroLearnMoreExternalUrl];
-        [[UIApplication sharedApplication] openURL:url];
-    }
-}
-
--(BOOL) isTopViewControllerAWebviewController
-{
-    return [[self topViewController] isMemberOfClass:[WebViewController class]];
 }
 
 @end

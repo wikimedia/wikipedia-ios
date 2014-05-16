@@ -207,6 +207,7 @@ function touchEnd(event){
         if ( event.target.className === "edit_section" ) {
             bridge.sendMessage( 'editClicked', { href: event.target.getAttribute( "id" ) });
         }else{
+            event.preventDefault();
             bridge.sendMessage( 'nonAnchorTouchEndedWithoutDragging', { id: event.target.getAttribute( "id" ), tagName: event.target.tagName});
         }
     }

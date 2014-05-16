@@ -10,19 +10,20 @@
 #import "UIViewController+Alert.h"
 #import "QueuesSingleton.h"
 #import "DownloadSectionWikiTextOp.h"
-#import "NavController.h"
+#import "CenterNavController.h"
 #import "PreviewAndSaveViewController.h"
 #import "WMF_Colors.h"
 #import "MWLanguageInfo.h"
 
-#import "NavButtonView.h"
-#import "NavButtonLabel.h"
+#import "TopMenuButtonView.h"
+#import "TopMenuLabel.h"
+
+#import "RootViewController.h"
+#import "TopMenuViewController.h"
 
 #define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f]
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN 25.0f
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX 25.0f
-
-#define NAV ((NavController *)self.navigationController)
 
 @interface SectionEditorViewController (){
     ArticleDataContextSingleton *articleDataContext_;
@@ -82,7 +83,7 @@
     if (lastHightlight == highlight) return;
     lastHightlight = highlight;
 
-    NavButtonView *button = (NavButtonView *)[NAV getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
+    TopMenuButtonView *button = (TopMenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
 
     button.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
     
@@ -113,7 +114,7 @@
     [super viewWillAppear:animated];
 
     // Change the nav bar layout.
-    NAV.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -126,9 +127,7 @@
 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
 
-    NAV.navBarMode = NAVBAR_MODE_SEARCH;
-
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_SEARCH;
 
     [super viewWillDisappear:animated];
 }

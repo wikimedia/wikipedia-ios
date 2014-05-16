@@ -12,10 +12,8 @@
 #import "Article+Convenience.h"
 #import "SessionSingleton.h"
 #import "UINavigationController+SearchNavStack.h"
-#import "NavController.h"
+#import "CenterNavController.h"
 #import "NSString+Extras.h"
-
-#define NAV ((NavController *)self.navigationController)
 
 #define SAVED_PAGES_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
 #define SAVED_PAGES_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:1.0f]

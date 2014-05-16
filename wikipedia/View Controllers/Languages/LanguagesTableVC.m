@@ -8,15 +8,13 @@
 #import "QueuesSingleton.h"
 #import "LanguagesCell.h"
 #import "LanguagesSectionHeadingLabel.h"
-#import "NavController.h"
+#import "CenterNavController.h"
 #import "Defines.h"
 #import "BundledJson.h"
 
 #import "UIViewController+Alert.h"
 
 #pragma mark - Defines
-
-#define NAV ((NavController *)self.navigationController)
 
 #define BACKGROUND_COLOR [UIColor colorWithWhite:0.97f alpha:1.0f]
 

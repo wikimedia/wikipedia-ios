@@ -7,6 +7,9 @@ body {
   font-size: 16px;
   line-height: 26px;
 }
+html {
+    -webkit-text-size-adjust: none; /* Never autoresize text */
+}
 #ios_app_content {
   margin: 0px;
   padding: 10px;

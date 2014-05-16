@@ -8,19 +8,20 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSURLRequest+DictionaryRequest.h"
 #import "SearchResultCell.h"
-#import "NavBarTextField.h"
+#import "TopMenuTextField.h"
 #import "SessionSingleton.h"
 #import "UIViewController+Alert.h"
 #import "ArticleDataContextSingleton.h"
 #import "ArticleCoreDataObjects.h"
 #import "NSString+Extras.h"
 #import "UIViewController+HideKeyboard.h"
-#import "NavController.h"
+#import "CenterNavController.h"
 #import "SearchOp.h"
 #import "SearchThumbUrlsOp.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 
-#define NAV ((NavController *)self.navigationController)
+#import "RootViewController.h"
+#import "TopMenuViewController.h"
 
 @interface SearchResultsController (){
     CGFloat scrollViewDragBeganVerticalOffset_;
@@ -64,11 +65,11 @@
 
 -(void)refreshSearchResults
 {
-    if (NAV.currentSearchString.length == 0) return;
+    if (ROOT.topMenuViewController.currentSearchString.length == 0) return;
     
     [self updateWordsToHighlight];
     
-    [self searchForTerm:NAV.currentSearchString];
+    [self searchForTerm:ROOT.topMenuViewController.currentSearchString];
 }
 
 -(void)updateWordsToHighlight
@@ -79,7 +80,7 @@
     // different from the punctuation in the retrieved search result title.
     NSMutableCharacterSet *charSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
     [charSet formUnionWithCharacterSet:[NSMutableCharacterSet punctuationCharacterSet]];
-    self.currentSearchStringWordsToHighlight = [NAV.currentSearchString componentsSeparatedByCharactersInSet:charSet];
+    self.currentSearchStringWordsToHighlight = [ROOT.topMenuViewController.currentSearchString componentsSeparatedByCharactersInSet:charSet];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -191,7 +192,7 @@
                                                   }
                                                   self.searchResultsOrdered = orderedResults;
                                                   
-                                                  NAV.currentSearchResultsOrdered = self.searchResultsOrdered;
+                                                  ROOT.topMenuViewController.currentSearchResultsOrdered = self.searchResultsOrdered;
                                                   
                                                   dispatch_async(dispatch_get_main_queue(), ^(){
                                                       // We have search titles! Show them right away!

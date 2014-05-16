@@ -11,7 +11,7 @@
 #import "SessionSingleton.h"
 #import "WebViewController.h"
 #import "WikipediaAppUtils.h"
-#import "NavController.h"
+#import "CenterNavController.h"
 #import "LanguagesTableVC.h"
 
 #import "UINavigationController+SearchNavStack.h"
@@ -29,7 +29,6 @@
 
 #pragma mark - Defines
 
-#define NAV ((NavController *)self.navigationController)
 #define BACKGROUND_COLOR [UIColor colorWithWhite:0.97f alpha:1.0f]
 #define MENU_ICON_COLOR [UIColor blackColor]
 #define MENU_ICON_COLOR_DESELECTED [UIColor lightGrayColor];

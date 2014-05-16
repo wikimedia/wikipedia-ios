@@ -3,7 +3,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MWNetworkOp.h"
-#import "NavController.h"
+#import "CenterNavController.h"
 
 @interface WebViewController : UIViewController <UIWebViewDelegate, NetworkOpDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
 

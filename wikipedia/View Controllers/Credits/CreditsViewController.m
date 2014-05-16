@@ -3,9 +3,9 @@
 
 #import "CreditsViewController.h"
 #import "WikipediaAppUtils.h"
-#import "NavController.h"
-
-#define NAV ((NavController *)self.navigationController)
+#import "CenterNavController.h"
+#import "RootViewController.h"
+#import "TopMenuViewController.h"
 
 @interface CreditsViewController ()
 
@@ -29,7 +29,7 @@
                                                     name: @"NavItemTapped"
                                                   object: nil];
 
-    NAV.navBarMode = NAVBAR_MODE_SEARCH;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_SEARCH;
 
     [super viewWillDisappear:animated];
 }
@@ -38,7 +38,7 @@
 {
     [super viewWillAppear:animated];
 
-    NAV.navBarMode = NAVBAR_MODE_CREDITS;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_CREDITS;
 }
 
 - (void)navItemTappedNotification:(NSNotification *)notification
