@@ -16,7 +16,7 @@
     return self;
 }
 
--(void)setText:(NSString *)text
+-(void)setWikiText:(NSString *)text
 {
     NSDictionary *attributes =
     @{

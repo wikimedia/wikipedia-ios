@@ -12,7 +12,6 @@
 #import "DownloadLeadSectionOp.h"
 #import "CommunicationBridge.h"
 #import "TOCViewController.h"
-#import "LanguagesTableVC.h"
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
 #import "TopMenuTextField.h"
@@ -33,7 +32,7 @@
 #import "Section+LeadSection.h"
 #import "NSString+Extras.h"
 
-#import "ZeroStatusLabel.h"
+#import "PaddedLabel.h"
 //#import "UIView+Debugging.h"
 
 #import "DataMigrator.h"
@@ -43,6 +42,9 @@
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
+#import "BottomMenuViewController.h"
+#import "TopMenuButtonView.h"
+#import "TopMenuLabel.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.3f
 
@@ -70,11 +72,6 @@ typedef enum {
 
 @property (weak, nonatomic) IBOutlet UIView *bottomBarView;
 
-@property (weak, nonatomic) IBOutlet UIButton *backButton;
-@property (weak, nonatomic) IBOutlet UIButton *forwardButton;
-@property (weak, nonatomic) IBOutlet UIButton *tocButton;
-@property (weak, nonatomic) IBOutlet UIButton *langButton;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewLeftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewRightConstraint;
 
@@ -86,12 +83,13 @@ typedef enum {
 @property (strong, nonatomic) UISwipeGestureRecognizer *tocSwipeLeftRecognizer;
 @property (strong, nonatomic) UISwipeGestureRecognizer *tocSwipeRightRecognizer;
 
-- (IBAction)tocButtonPushed:(id)sender;
-- (IBAction)backButtonPushed:(id)sender;
-- (IBAction)forwardButtonPushed:(id)sender;
-- (IBAction)languageButtonPushed:(id)sender;
+@property (strong, nonatomic) IBOutlet PaddedLabel *zeroStatusLabel;
 
-@property (strong, nonatomic) IBOutlet ZeroStatusLabel *zeroStatusLabel;
+@property (nonatomic) BOOL unsafeToToggleTOC;
+
+@property (weak, nonatomic) BottomMenuViewController *bottomMenuViewController;
+
+@property (strong, nonatomic) NSLayoutConstraint *bottomBarViewBottomConstraint;
 
 @end
 
@@ -108,9 +106,10 @@ typedef enum {
 {
     [super viewDidLoad];
 
+    self.zeroStatusLabel.text = @"";
+    
     self.sectionToEditId = 0;
 
-    self.forwardButton.transform = CGAffineTransformMakeScale(-1.0, 1.0);
     self.indexOfFirstOnscreenSectionBeforeRotate = -1;
 
     [[NSNotificationCenter defaultCenter] addObserver: self
@@ -119,6 +118,7 @@ typedef enum {
                                                object: nil];
     
     self.unsafeToScroll = NO;
+    self.unsafeToToggleTOC = NO;
     self.scrollOffset = CGPointZero;
     
     [[NSNotificationCenter defaultCenter] addObserver: self
@@ -163,6 +163,11 @@ typedef enum {
                               forKeyPath: @"contentSize"
                                  options: NSKeyValueObservingOptionNew
                                  context: nil];
+
+    [self.bottomBarView addObserver:self
+                         forKeyPath: @"bounds"
+                            options: NSKeyValueObservingOptionNew
+                            context: nil];
     
     [self tocSetupSwipeGestureRecognizers];
     
@@ -173,6 +178,10 @@ typedef enum {
     // This is the first view that's opened when the app opens...
     // Perform any first-time data migration as needed.
     [self migrateDataIfNecessary];
+    
+    
+    self.bottomBarViewBottomConstraint = nil;
+    self.bottomMenuHidden = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -191,14 +200,14 @@ typedef enum {
 {
     [super viewWillAppear:animated];
     
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_SEARCH;
+    if (ROOT.topMenuViewController.navBarMode != NAVBAR_MODE_SEARCH) {
+        ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [self tocHide];
-    
-    ROOT.hideTopAndBottomMenus = NO;
+    [self tocHideWithDuration:TOC_TOGGLE_ANIMATION_DURATION];
     
     [super viewWillDisappear:animated];
 }
@@ -241,8 +250,7 @@ typedef enum {
         sectionEditVC.sectionID = section.objectID;
     }
     
-    [self.navigationController pushViewController: sectionEditVC
-                                         animated: YES];
+    [NAV pushViewController:sectionEditVC animated:YES];
 }
 
 -(void)searchFieldBecameFirstResponder
@@ -254,37 +262,11 @@ typedef enum {
 
 -(void)updateViewConstraints
 {
-    [super updateViewConstraints];
-    
     [self tocConstrainView];
-}
-
-#pragma mark Languages
-
--(void)showLanguages
-{
-    LanguagesTableVC *languagesTableVC =
-        [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LanguagesTableVC"];
-
-    languagesTableVC.downloadLanguagesForCurrentArticle = YES;
     
-    CATransition *transition = [languagesTableVC getTransition];
+    [self constrainBottomMenu];
     
-    languagesTableVC.selectionBlock = ^(NSDictionary *selectedLangInfo){
-    
-        [self.navigationController.view.layer addAnimation:transition forKey:nil];
-        // Don't animate - so the transistion set above will be used.
-        [NAV loadArticleWithTitle: selectedLangInfo[@"*"]
-                           domain: selectedLangInfo[@"code"]
-                         animated: NO
-                  discoveryMethod: DISCOVERY_METHOD_SEARCH
-                invalidatingCache: NO];
-    };
-    
-    [self.navigationController.view.layer addAnimation:transition forKey:nil];
-
-    // Don't animate - so the transistion set above will be used.
-    [self.navigationController pushViewController:languagesTableVC animated:NO];
+    [super updateViewConstraints];
 }
 
 #pragma mark Angle from velocity vector
@@ -308,52 +290,62 @@ typedef enum {
     return (self.webViewLeftConstraint.constant == 0) ? NO : YES;
 }
 
--(void)tocHideWithDuration:(NSNumber *)duration
+-(void)tocHideWithDurationNextRunLoop:(NSNumber *)duration
 {
     // iOS 6 can blank out the web view this isn't scheduled for next run loop.
-    [[NSRunLoop currentRunLoop] performSelector: @selector(tocHideWithDurationNextRunLoop:)
+    [[NSRunLoop currentRunLoop] performSelector: @selector(tocHideWithDuration:)
                                          target: self
                                        argument: duration
                                           order: 0
                                           modes: [NSArray arrayWithObject:@"NSDefaultRunLoopMode"]];
 }
 
--(void)tocHideWithDurationNextRunLoop:(NSNumber *)duration
+-(void)tocHideWithDuration:(NSNumber *)duration
 {
+    if(self.unsafeToToggleTOC || !self.tocVC)return;
+    self.unsafeToToggleTOC = YES;
+
     // Clear alerts
     [self fadeAlert];
-    
+
     // Ensure one exists to be hidden.
     [UIView animateWithDuration: duration.floatValue
                           delay: 0.0f
                         options: UIViewAnimationOptionBeginFromCurrentState
                      animations: ^{
+
+                         // If the top menu isn't hidden, reveal the bottom menu.
+                         if(!ROOT.topMenuHidden){
+                             self.bottomMenuHidden = NO;
+                         }
                          self.webView.transform = CGAffineTransformIdentity;
                          self.bottomBarView.transform = CGAffineTransformIdentity;
-                         self.bottomBarView.alpha = 1.0f;
                          self.webViewLeftConstraint.constant = 0;
-                         [self.view.superview layoutIfNeeded];
+
+                         [self.view layoutIfNeeded];
                      }completion: ^(BOOL done){
-
                          if(self.tocVC) [self tocViewControllerRemove];
-
+                         self.unsafeToToggleTOC = NO;
                      }];
 }
 
--(void)tocShowWithDuration:(NSNumber *)duration
+-(void)tocShowWithDurationNextRunLoop:(NSNumber *)duration
 {
+    if([[SessionSingleton sharedInstance] isCurrentArticleMain]) return;
+
     // iOS 6 can blank out the web view this isn't scheduled for next run loop.
-    [[NSRunLoop currentRunLoop] performSelector: @selector(tocShowWithDurationNextRunLoop:)
+    [[NSRunLoop currentRunLoop] performSelector: @selector(tocShowWithDuration:)
                                          target: self
                                        argument: duration
                                           order: 0
                                           modes: [NSArray arrayWithObject:@"NSDefaultRunLoopMode"]];
 }
 
--(void)tocShowWithDurationNextRunLoop:(NSNumber *)duration
+-(void)tocShowWithDuration:(NSNumber *)duration
 {
-    if(!self.tocButton.enabled) return;
-    
+    if(self.unsafeToToggleTOC || self.tocVC)return;
+    self.unsafeToToggleTOC = YES;
+
     // Clear alerts
     [self fadeAlert];
 
@@ -373,13 +365,15 @@ typedef enum {
                           delay: 0.0f
                         options: UIViewAnimationOptionBeginFromCurrentState
                      animations: ^{
+
+                         self.bottomMenuHidden = YES;
                          self.webView.transform = xf;
                          self.bottomBarView.transform = xf;
-                         self.bottomBarView.alpha = 0.0f;
                          self.webViewLeftConstraint.constant = [self tocGetWidthForWebViewScale:webViewScale];
-                         [self.view.superview layoutIfNeeded];
+                         [self.view layoutIfNeeded];
                      }completion: ^(BOOL done){
                          [self.view setNeedsUpdateConstraints];
+                         self.unsafeToToggleTOC = NO;
                      }];
 }
 
@@ -415,12 +409,12 @@ typedef enum {
 
 -(void)tocHide
 {
-    [self tocHideWithDuration:TOC_TOGGLE_ANIMATION_DURATION];
+    [self tocHideWithDurationNextRunLoop:TOC_TOGGLE_ANIMATION_DURATION];
 }
 
 -(void)tocShow
 {
-    [self tocShowWithDuration:TOC_TOGGLE_ANIMATION_DURATION];
+    [self tocShowWithDurationNextRunLoop:TOC_TOGGLE_ANIMATION_DURATION];
 }
 
 -(void)tocToggle
@@ -597,6 +591,12 @@ typedef enum {
         [keyPath isEqual:@"contentSize"]
         ) {
         [object preventHorizontalScrolling];
+    } else if (
+        (object == self.bottomBarView)
+        &&
+        ([keyPath isEqual:@"bounds"])
+        ) {
+            [self updateWebViewContentAndScrollInsets];
     }
 }
 
@@ -605,6 +605,7 @@ typedef enum {
 -(void)dealloc
 {
     [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+    [self.bottomBarView removeObserver:self forKeyPath:@"bounds"];
 }
 
 #pragma mark Webview obj-c to javascript bridge
@@ -674,14 +675,16 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         [weakSelf tocHide];
         weakSelf.sectionToEditId = [[payload[@"href"] stringByReplacingOccurrencesOfString:@"edit_section_" withString:@""] integerValue];
 
-        [weakSelf.self showSectionEditor];
+        [weakSelf showSectionEditor];
     }];
 
     [self.bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString *messageType, NSDictionary *payload) {
         NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
 
         if (!weakSelf.tocVC) {
-            [weakSelf toggleTopMenu];
+            if (ROOT.topMenuViewController.navBarMode != NAVBAR_MODE_SEARCH) {
+                [ROOT animateTopAndBottomMenuToggle];
+            }
         }
 
         // nonAnchorTouchEndedWithoutDragging is used so TOC may be hidden if user tapped, but did *not* drag.
@@ -693,19 +696,12 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     self.scrollOffset = CGPointZero;
 }
 
-#pragma mark Top menu toggle
-
--(void)toggleTopMenu
-{
-    ROOT.hideTopAndBottomMenus = ! ROOT.hideTopAndBottomMenus;
-}
-
 #pragma mark History
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     // Ensure the web VC is the top VC.
-    [self.navigationController popToViewController:self animated:YES];
+    [NAV popToViewController:self animated:YES];
 
     [self fadeAlert];
 }
@@ -1273,7 +1269,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     NSNumber *langCount = article.languagecount;
     
-    [self updateBottomBarButtonsEnabledStateWithLangCount:langCount];
+    [self.bottomMenuViewController updateBottomBarButtonsEnabledStateWithLangCount:langCount];
+
+    [ROOT.topMenuViewController updateTOCButtonVisibility];
 
     NSArray *sortedSections = [article.section sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     NSMutableArray *sectionTextArray = [@[] mutableCopy];
@@ -1324,112 +1322,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
         if ([self tocDrawerIsOpen]) {
             // Drawer is already open, so just refresh the toc quickly w/o animation.
-            [self tocShowWithDuration:@0.0f];
+            [self tocShowWithDurationNextRunLoop:@0.0f];
         }
     }];
-}
-
-#pragma mark Bottom bar button methods
-
-//TODO: Pull bottomBarView and into own object (and its subviews - the back and forward view/buttons/methods, etc).
-
-- (IBAction)backButtonPushed:(id)sender
-{
-    NSManagedObjectID *historyId = self.adjacentHistoryIDs[@"before"];
-    if (historyId){
-        History *history = (History *)[articleDataContext_.mainContext objectWithID:historyId];
-        [self navigateToPage: history.article.title
-                      domain: history.article.domain
-             discoveryMethod: DISCOVERY_METHOD_SEARCH
-           invalidatingCache: NO];
-    }
-}
-
-- (IBAction)forwardButtonPushed:(id)sender
-{
-    NSManagedObjectID *historyId = self.adjacentHistoryIDs[@"after"];
-    if (historyId){
-        History *history = (History *)[articleDataContext_.mainContext objectWithID:historyId];
-        [self navigateToPage: history.article.title
-                      domain: history.article.domain
-             discoveryMethod: DISCOVERY_METHOD_SEARCH
-           invalidatingCache: NO];
-    }
-}
-
--(NSDictionary *)getAdjacentHistoryIDs
-{
-    __block NSManagedObjectID *currentHistoryId = nil;
-    __block NSManagedObjectID *beforeHistoryId = nil;
-    __block NSManagedObjectID *afterHistoryId = nil;
-    
-    [articleDataContext_.workerContext performBlockAndWait:^(){
-        
-        NSError *error = nil;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName: @"History"
-                                                  inManagedObjectContext: articleDataContext_.workerContext];
-        [fetchRequest setEntity:entity];
-        
-        NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:YES selector:nil];
-        
-        [fetchRequest setSortDescriptors:@[dateSort]];
-        
-        error = nil;
-        NSArray *historyEntities = [articleDataContext_.workerContext executeFetchRequest:fetchRequest error:&error];
-        
-        NSManagedObjectID *currentArticleId = [articleDataContext_.workerContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
-                                                                                               domain: [SessionSingleton sharedInstance].currentArticleDomain];
-        for (NSUInteger i = 0; i < historyEntities.count; i++) {
-            History *history = historyEntities[i];
-            if (history.article.objectID == currentArticleId){
-                currentHistoryId = history.objectID;
-                if (i > 0) {
-                    History *beforeHistory = historyEntities[i - 1];
-                    beforeHistoryId = beforeHistory.objectID;
-                }
-                if ((i + 1) <= (historyEntities.count - 1)) {
-                    History *afterHistory = historyEntities[i + 1];
-                    afterHistoryId = afterHistory.objectID;
-                }
-                break;
-            }
-        }
-    }];
-
-    NSMutableDictionary *result = [@{} mutableCopy];
-    if(beforeHistoryId) result[@"before"] = beforeHistoryId;
-    if(currentHistoryId) result[@"current"] = currentHistoryId;
-    if(afterHistoryId) result[@"after"] = afterHistoryId;
-
-    return result;
-}
-
--(void)updateBottomBarButtonsEnabledStateWithLangCount:(NSNumber *)langCount
-{
-    self.adjacentHistoryIDs = [self getAdjacentHistoryIDs];
-    self.forwardButton.enabled = (self.adjacentHistoryIDs[@"after"]) ? YES : NO;
-    self.backButton.enabled = (self.adjacentHistoryIDs[@"before"]) ? YES : NO;
-    
-    if ([[SessionSingleton sharedInstance] isCurrentArticleMain]) {
-        // Disable the TOC and the article languages buttons if this is the main page.
-        self.tocButton.enabled = NO;
-        self.langButton.enabled = NO;
-    }else{
-        NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
-        self.tocButton.enabled = (currentArticleTitle && (currentArticleTitle.length > 0)) ? YES : NO;
-        self.langButton.enabled = (langCount.integerValue > 1) ? YES : NO;
-    }
-}
-
-- (IBAction)tocButtonPushed:(id)sender
-{
-    [self tocToggle];
-}
-
-- (IBAction)languageButtonPushed:(id)sender
-{
-    [self showLanguages];
 }
 
 #pragma mark Scroll to last section after rotate
@@ -1455,6 +1350,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 
     [self performSelector:@selector(scrollToIndexOfFirstOnscreenSectionBeforeRotate) withObject:nil afterDelay:0.15f];
+    
+    [self updateWebViewContentAndScrollInsets];
 }
 
 -(void)scrollToIndexOfFirstOnscreenSectionBeforeRotate{
@@ -1489,7 +1386,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                      textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
 
                      self.zeroStatusLabel.text = message;
-                     self.zeroStatusLabel.paddingEdgeInsets = UIEdgeInsetsMake(3, 10, 3, 10);
+                     self.zeroStatusLabel.padding = UIEdgeInsetsMake(3, 10, 3, 10);
                      self.zeroStatusLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.93];
 
                      [self showAlert:message];
@@ -1515,7 +1412,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.zeroStatusLabel.text = @"";
-            self.zeroStatusLabel.paddingEdgeInsets = UIEdgeInsetsZero;
+            self.zeroStatusLabel.padding = UIEdgeInsetsZero;
         });
 
         [self showAlert:warnVerbiage];
@@ -1661,6 +1558,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }
 }
 
+#pragma mark Data migration
+
 - (void)migrateDataIfNecessary
 {
     DataMigrator *dataMigrator = [[DataMigrator alloc] init];
@@ -1680,6 +1579,63 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         NSLog(@"No old data to migrate.");
     }
 
+}
+
+#pragma mark Bottom menu bar
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString: @"BottomMenuViewController_embed2"]) {
+		self.bottomMenuViewController = (BottomMenuViewController *) [segue destinationViewController];
+	}
+}
+
+-(void)setBottomMenuHidden:(BOOL)bottomMenuHidden
+{
+    if (self.bottomMenuHidden == bottomMenuHidden) return;
+
+    _bottomMenuHidden = bottomMenuHidden;
+
+    // Fade out the top menu when it is hidden.
+    CGFloat alpha = bottomMenuHidden ? 0.0 : 1.0;
+    
+    self.bottomBarView.alpha = alpha;
+
+    [self updateWebViewContentAndScrollInsets];
+    
+    [self.view setNeedsUpdateConstraints];
+}
+
+-(void)constrainBottomMenu
+{
+    // If visible, constrain bottom of bottomNavBar to bottom of superview.
+    // If hidden, constrain top of bottomNavBar to bottom of superview.
+
+    if (self.bottomBarViewBottomConstraint) {
+        [self.view removeConstraint:self.bottomBarViewBottomConstraint];
+    }
+
+    self.bottomBarViewBottomConstraint =
+    [NSLayoutConstraint constraintWithItem: self.bottomBarView
+                                      attribute: ((self.bottomMenuHidden) ? NSLayoutAttributeTop : NSLayoutAttributeBottom)
+                                      relatedBy: NSLayoutRelationEqual
+                                         toItem: self.view
+                                      attribute: NSLayoutAttributeBottom
+                                     multiplier: 1.0
+                                       constant: 0];
+
+    [self.view addConstraint:self.bottomBarViewBottomConstraint];
+}
+
+-(void)updateWebViewContentAndScrollInsets
+{
+    // Ensure web view can be scrolled to bottom and that scroll indicator doesn't underlap
+    // bottom menu.
+    CGFloat bottomBarHeight = self.bottomBarView.bounds.size.height;
+    if(self.bottomBarView.alpha == 0) bottomBarHeight = 0;
+    UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, bottomBarHeight, 0);
+    self.webView.scrollView.contentInset = insets;
+    self.webView.scrollView.scrollIndicatorInsets = insets;
 }
 
 @end

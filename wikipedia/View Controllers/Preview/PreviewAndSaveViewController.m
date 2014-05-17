@@ -89,7 +89,7 @@ typedef enum {
 
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_PENCIL:
-            [self.navigationController popViewControllerAnimated:YES];
+            [NAV popViewControllerAnimated:YES];
             
             if(ROOT.topMenuViewController.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING){
                 [self logEvent: @{@"action": @"abuseFilterWarningBack"}
@@ -155,7 +155,7 @@ typedef enum {
 
 -(void)htmlAlertWasHidden
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [NAV popViewControllerAnimated:YES];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -264,7 +264,8 @@ typedef enum {
             [self fadeAlert];
 
             [self resetBridge];
-            [self.bridge sendMessage:@"append" withPayload:@{@"html": result}];
+            
+            [self.bridge sendMessage:@"append" withPayload:@{@"html": result ? result : @""}];
 
             isAleadyPreviewing = NO;
             
@@ -324,7 +325,7 @@ typedef enum {
         case PREVIEW_CHOICE_LOGIN_THEN_SAVE:{
             self.saveAutomaticallyIfSignedIn = YES;
             LoginViewController *loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-            [self.navigationController pushViewController:loginVC animated:YES];
+            [NAV pushViewController:loginVC animated:YES];
         }
             break;
         case PREVIEW_CHOICE_SAVE:
@@ -469,7 +470,7 @@ return;
             [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
                 WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
                 [webVC reloadCurrentArticleInvalidatingCache:YES];
-                [self.navigationController popToViewController:webVC animated:YES];
+                [NAV popToViewController:webVC animated:YES];
                 isAleadySaving = NO;
             }];
         }

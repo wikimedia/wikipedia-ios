@@ -133,7 +133,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
 
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_SEARCH;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
 
     [self highlightCheckButton:NO];
 
@@ -275,7 +275,7 @@
         UIViewController *vcBeneathLoginVC = [self.navigationController getVCBeneathVC:loginVC];
 
         if (vcBeneathLoginVC){
-            [self.navigationController popToViewController:vcBeneathLoginVC animated:YES];
+            [NAV popToViewController:vcBeneathLoginVC animated:YES];
         }else{
             [self performSelector:@selector(hide) withObject:nil afterDelay:0.5f];
         }
@@ -390,7 +390,7 @@
 
 -(void)hide
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [NAV popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning

@@ -8,7 +8,6 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSURLRequest+DictionaryRequest.h"
 #import "SearchResultCell.h"
-#import "TopMenuTextField.h"
 #import "SessionSingleton.h"
 #import "UIViewController+Alert.h"
 #import "ArticleDataContextSingleton.h"

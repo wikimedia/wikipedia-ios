@@ -9,8 +9,11 @@
 
 @property (weak, nonatomic) TopMenuViewController *topMenuViewController;
 @property (weak, nonatomic) CenterNavController *centerNavController;
-@property (weak, nonatomic) BottomMenuViewController *bottomMenuViewController;
 
-@property (nonatomic) BOOL hideTopAndBottomMenus;
+@property (nonatomic) BOOL topMenuHidden;
+
+-(void)updateTopMenuVisibilityForViewController:(UIViewController *)viewController;
+
+-(void)animateTopAndBottomMenuToggle;
 
 @end

@@ -153,7 +153,7 @@
 
 -(void)hide
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [NAV popViewControllerAnimated:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -164,7 +164,7 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
 
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_SEARCH;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
 }
 
 - (void)didReceiveMemoryWarning
@@ -327,7 +327,7 @@
             schema: LOG_SCHEMA_LOGIN];
 
     AccountCreationViewController *createAcctVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"AccountCreationViewController"];
-    [self.navigationController pushViewController:createAcctVC animated:YES];
+    [NAV pushViewController:createAcctVC animated:YES];
 }
 
 @end

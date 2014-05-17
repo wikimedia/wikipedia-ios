@@ -21,6 +21,8 @@
     #define NSLog(FORMAT, ...) fprintf(stderr,"\n%s Line %d\n\t%s\n", __PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 #endif
 
-#define NAV ((CenterNavController *)self.navigationController)
+#import "RootViewController.h"
+#import "CenterNavController.h"
 
 #define ROOT ((RootViewController *)[UIApplication sharedApplication].delegate.window.rootViewController)
+#define NAV (ROOT.centerNavController)

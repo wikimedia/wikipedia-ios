@@ -5,4 +5,6 @@
 
 @interface TopMenuLabel : PaddedLabel
 
+-(void)setWikiText:(NSString *)text;
+
 @end

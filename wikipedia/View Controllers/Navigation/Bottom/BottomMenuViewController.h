@@ -5,4 +5,6 @@
 
 @interface BottomMenuViewController : UIViewController
 
+-(void)updateBottomBarButtonsEnabledStateWithLangCount:(NSNumber *)langCount;
+
 @end

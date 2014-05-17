@@ -51,74 +51,79 @@
         }
         return;
     }
-    
-    // Save image to articleData store instead of default NSURLCache store.
-    NSURL *url = cachedResponse.response.URL;
-    NSString *urlStr = [url absoluteString];
-    
-    // Strip "http:" or "https:"
-    urlStr = [urlStr getUrlWithoutScheme];
-    
-    NSData *imageDataToUse = cachedResponse.data;
-    
-    Image *image = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", urlStr];
-    
-    if (!image) {
-        // If an Image object wasn't pre-created by :createSectionImageRecordsForSectionHtml:onContext:" then don't try to cache.
-        [super storeCachedResponse:cachedResponse forRequest:request];
-        return;
-    }
-    
-    /*
-     // Quick debugging filter which makes image blue before saving them to our articleData store.
-     // (locks up occasionally - probably not thread safe - only for testing so no worry for now)
-     CIImage *inputImage = [[CIImage alloc] initWithData:cachedResponse.data];
-     
-     CIFilter *colorMonochrome = [CIFilter filterWithName:@"CIColorMonochrome"];
-     [colorMonochrome setDefaults];
-     [colorMonochrome setValue: inputImage forKey: @"inputImage"];
-     [colorMonochrome setValue: [CIColor colorWithRed:0.6f green:0.6f blue:1.0f alpha:1.0f] forKey: @"inputColor"];
-     
-     CIImage *outputImage = [colorMonochrome valueForKey:@"outputImage"];
-     CIContext *context = [CIContext contextWithOptions:nil];
-     UIImage *outputUIImage = [UIImage imageWithCGImage:[context createCGImage:outputImage fromRect:outputImage.extent]];
-     imageDataToUse = UIImagePNGRepresentation(outputUIImage);
-     */
-    
-    // Another quick debugging indicator which caches a "W" logo image instead of the real image.
-    // (This one has no thread safety issues.)
-    //imageDataToUse = self.debuggingPlaceHolderImageData;
-    
-    NSString *imageFileName = [url lastPathComponent];
 
-    image.imageData.data = imageDataToUse;
-    image.dataSize = @(imageDataToUse.length);
-    image.fileName = imageFileName;
-    image.fileNameNoSizePrefix = [image.fileName getWikiImageFileNameWithoutSizePrefix];
-    image.extension = [url pathExtension];
-    image.imageDescription = nil;
-    image.sourceUrl = urlStr;
-    image.dateRetrieved = [NSDate date];
-    image.dateLastAccessed = [NSDate date];
-    UIImage *img = [UIImage imageWithData:imageDataToUse];
-    image.width = @(img.size.width);
-    image.height = @(img.size.height);
-    image.mimeType = cachedResponse.response.MIMEType;
-    
-    NSError *error = nil;
-    [articleDataContext_.mainContext save:&error];
-    if (error) {
-        NSLog(@"Error re-routing image to articleData store: %@", error);
-    }else{
-        // Broadcast the image data so things like the table of contents can update
-        // itself as images arrive.
-        [[NSNotificationCenter defaultCenter] postNotificationName: @"SectionImageRetrieved"
-                                                            object: nil
-                                                          userInfo: @{
-                                                                      @"fileName": imageFileName,
-                                                                      @"data": imageDataToUse,
-                                                                      }];
-    }
+    [articleDataContext_.mainContext performBlock:^(){
+        
+        // Save image to articleData store instead of default NSURLCache store.
+        NSURL *url = cachedResponse.response.URL;
+        NSString *urlStr = [url absoluteString];
+        
+        // Strip "http:" or "https:"
+        urlStr = [urlStr getUrlWithoutScheme];
+        
+        NSData *imageDataToUse = cachedResponse.data;
+        
+        Image *image = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", urlStr];
+        
+        if (!image) {
+            // If an Image object wasn't pre-created by :createSectionImageRecordsForSectionHtml:onContext:" then don't try to cache.
+            [super storeCachedResponse:cachedResponse forRequest:request];
+            return;
+        }
+        
+        /*
+         // Quick debugging filter which makes image blue before saving them to our articleData store.
+         // (locks up occasionally - probably not thread safe - only for testing so no worry for now)
+         CIImage *inputImage = [[CIImage alloc] initWithData:cachedResponse.data];
+         
+         CIFilter *colorMonochrome = [CIFilter filterWithName:@"CIColorMonochrome"];
+         [colorMonochrome setDefaults];
+         [colorMonochrome setValue: inputImage forKey: @"inputImage"];
+         [colorMonochrome setValue: [CIColor colorWithRed:0.6f green:0.6f blue:1.0f alpha:1.0f] forKey: @"inputColor"];
+         
+         CIImage *outputImage = [colorMonochrome valueForKey:@"outputImage"];
+         CIContext *context = [CIContext contextWithOptions:nil];
+         UIImage *outputUIImage = [UIImage imageWithCGImage:[context createCGImage:outputImage fromRect:outputImage.extent]];
+         imageDataToUse = UIImagePNGRepresentation(outputUIImage);
+         */
+        
+        // Another quick debugging indicator which caches a "W" logo image instead of the real image.
+        // (This one has no thread safety issues.)
+        //imageDataToUse = self.debuggingPlaceHolderImageData;
+        
+        NSString *imageFileName = [url lastPathComponent];
+        
+        image.imageData.data = imageDataToUse;
+        image.dataSize = @(imageDataToUse.length);
+        image.fileName = imageFileName;
+        image.fileNameNoSizePrefix = [image.fileName getWikiImageFileNameWithoutSizePrefix];
+        image.extension = [url pathExtension];
+        image.imageDescription = nil;
+        image.sourceUrl = urlStr;
+        image.dateRetrieved = [NSDate date];
+        image.dateLastAccessed = [NSDate date];
+        UIImage *img = [UIImage imageWithData:imageDataToUse];
+        image.width = @(img.size.width);
+        image.height = @(img.size.height);
+        image.mimeType = cachedResponse.response.MIMEType;
+        
+        NSError *error = nil;
+        [articleDataContext_.mainContext save:&error];
+        if (error) {
+            NSLog(@"Error re-routing image to articleData store: %@", error);
+        }else{
+            // Broadcast the image data so things like the table of contents can update
+            // itself as images arrive.
+            [[NSNotificationCenter defaultCenter] postNotificationName: @"SectionImageRetrieved"
+                                                                object: nil
+                                                              userInfo: @{
+                                                                          @"fileName": imageFileName,
+                                                                          @"data": imageDataToUse,
+                                                                          }];
+        }
+        
+    }];
+
 }
 
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request {

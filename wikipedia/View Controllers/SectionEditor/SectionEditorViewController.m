@@ -127,7 +127,7 @@
 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
 
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_SEARCH;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
 
     [super viewWillDisappear:animated];
 }
@@ -241,7 +241,7 @@
     PreviewAndSaveViewController *previewVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"PreviewViewController"];
     previewVC.sectionID = self.sectionID;
     previewVC.wikiText = self.editTextView.text;
-    [self.navigationController pushViewController:previewVC animated:YES];
+    [NAV pushViewController:previewVC animated:YES];
 }
 
 - (void)cancelPushed:(id)sender
@@ -251,7 +251,7 @@
 
 -(void)hide
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [NAV popViewControllerAnimated:YES];
 }
 
 #pragma mark Keyboard

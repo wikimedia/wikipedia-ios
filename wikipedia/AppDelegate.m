@@ -97,7 +97,7 @@
     // Make buttons look the same on iOS 6 & 7.
     [[UIButton appearance] setBackgroundImage:[UIImage imageNamed:@"clear.png"] forState:UIControlStateNormal];
     [[UIButton appearance] setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-    [[UIButton appearance] setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [[UIButton appearance] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

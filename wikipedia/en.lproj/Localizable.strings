@@ -61,6 +61,7 @@
 "search-loading-section-zero" = "Loading first section of the article...";
 "search-loading-section-remaining" = "Loading the rest of the article...";
 "search-loading-article-loaded" = "Article loaded.";
+"search-cancel" = "Cancel";
 
 "main-menu-language-title" = "Search $1 language wiki";
 "main-menu-language-toggle-show" = "Show languages";

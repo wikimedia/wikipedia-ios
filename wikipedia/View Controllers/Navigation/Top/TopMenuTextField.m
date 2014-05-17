@@ -7,24 +7,23 @@
 @implementation TopMenuTextField
 
 @synthesize placeholder = _placeholder;
-@synthesize placeholderColor = _placeholderColor;
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)init
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (self) {
-        self.placeholderColor = SEARCH_FIELD_PLACEHOLDER_TEXT_COLOR;
+        self.borderStyle = UITextBorderStyleRoundedRect;
     }
     return self;
 }
 
 // Adds left padding without messing up leftView or rightView.
 // From: http://stackoverflow.com/a/14357720
-
 - (CGRect)textRectForBounds:(CGRect)bounds {
     CGRect ret = [super textRectForBounds:bounds];
-    ret.origin.x = ret.origin.x + 10;
-    ret.size.width = ret.size.width - 20;
+    CGFloat sidePadding = 2;
+    ret.origin.x = ret.origin.x + sidePadding;
+    ret.size.width = ret.size.width - (sidePadding * 2);
     return ret;
 }
 
@@ -34,28 +33,18 @@
 
 -(void)setPlaceholder:(NSString *)placeholder
 {
-        _placeholder = placeholder;
-        self.attributedPlaceholder = [self getAttributedPlaceholderForString:(!placeholder) ? @"": placeholder];
-}
-
--(void)setPlaceholderColor:(UIColor *)placeholderColor
-{
-    _placeholderColor = placeholderColor;
-    self.placeholder = self.placeholder;
+    _placeholder = placeholder;
+    self.attributedPlaceholder = [self getAttributedPlaceholderForString:(!placeholder) ? @"": placeholder];
 }
 
 -(NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string
 {
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:string];
-
-    [str addAttribute:NSFontAttributeName
-                value:SEARCH_FONT_HIGHLIGHTED
-                range:NSMakeRange(0, str.length)];
-
-    [str addAttribute:NSForegroundColorAttributeName
-                value:self.placeholderColor
-                range:NSMakeRange(0, str.length)];
-
+    
+    [str addAttributes: @{
+                          NSForegroundColorAttributeName : SEARCH_FIELD_PLACEHOLDER_TEXT_COLOR
+                          }
+                 range: NSMakeRange(0, string.length)];
     return str;
 }
 

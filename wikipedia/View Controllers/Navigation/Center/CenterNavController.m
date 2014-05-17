@@ -12,6 +12,9 @@
 #import "WebViewController.h"
 #import "SectionEditorViewController.h"
 
+#import "RootViewController.h"
+#import "TopMenuViewController.h"
+
 @interface CenterNavController (){
 
 }
@@ -39,16 +42,20 @@
                     animated: (BOOL)animated
 {
     self.isTransitioningBetweenViewControllers = YES;
-
+    
+    [ROOT.topMenuViewController updateTOCButtonVisibility];
     [self fadeAlert];
     [self showHTMLAlert:@"" bannerImage:nil bannerColor:nil];
+    
+    [ROOT updateTopMenuVisibilityForViewController:viewController];
+
 }
 
 - (void)navigationController: (UINavigationController *)navigationController
        didShowViewController: (UIViewController *)viewController
                     animated: (BOOL)animated
 {
-    self.isTransitioningBetweenViewControllers = NO;
+    self.isTransitioningBetweenViewControllers = NO;    
 }
 
 -(void)setIsTransitioningBetweenViewControllers:(BOOL)isTransitioningBetweenViewControllers
@@ -80,7 +87,7 @@
                        domain: domain
               discoveryMethod: discoveryMethod
             invalidatingCache: invalidateCache];
-        [self popToViewController:webVC animated:animated];
+        [NAV popToViewController:webVC animated:animated];
     }
 }
 

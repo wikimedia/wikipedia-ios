@@ -49,7 +49,7 @@
                                                     name: @"NavItemTapped"
                                                   object: nil];
 
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_SEARCH;
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
 
     [super viewWillDisappear:animated];
 }
@@ -68,7 +68,7 @@
 
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_ARROW_LEFT:
-            [self.navigationController popViewControllerAnimated:YES];
+            [NAV popViewControllerAnimated:YES];
             
             break;
         default:

@@ -373,7 +373,7 @@
     [self.navigationController.view.layer addAnimation:[self getTransition] forKey:nil];
 
     // Don't animate - so the transistion set above will be used.
-    [self.navigationController popViewControllerAnimated:NO];
+    [NAV popViewControllerAnimated:NO];
 }
 
 #pragma mark - Transition

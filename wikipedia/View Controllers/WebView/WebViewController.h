@@ -8,9 +8,7 @@
 @interface WebViewController : UIViewController <UIWebViewDelegate, NetworkOpDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-
--(void)tocHide;
--(void)saveWebViewScrollOffset;
+@property (nonatomic) BOOL bottomMenuHidden;
 
 // Reloads the current article from the core data cache.
 // If "invalidateCache" is set to YES the article will be re-downloaded first.
@@ -23,7 +21,11 @@
     invalidatingCache: (BOOL)invalidateCache;
 
 -(void)tocScrollWebViewToPoint: (CGPoint)point
-                   duration: (CGFloat)duration
-                thenHideTOC: (BOOL)hideTOC;
+                      duration: (CGFloat)duration
+                   thenHideTOC: (BOOL)hideTOC;
+
+-(void)tocHide;
+-(void)tocToggle;
+-(void)saveWebViewScrollOffset;
 
 @end
