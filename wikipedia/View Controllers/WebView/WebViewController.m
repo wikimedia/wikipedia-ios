@@ -1302,6 +1302,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         }
         
         self.scrollOffset = scrollOffset;
+
+
+[sectionTextArray addObject:[NSString stringWithFormat:@"THIS MANY LANGS AVAILABLE = %d", langCount.integerValue]];
+
         
         // Join article sections text
         NSString *joint = @""; //@"<div style=\"background-color:#ffffff;height:55px;\"></div>";
