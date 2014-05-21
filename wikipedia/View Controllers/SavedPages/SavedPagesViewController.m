@@ -153,7 +153,7 @@
         savedEntry = (Saved *)[articleDataContext_.mainContext objectWithID:savedEntryId];
     }];
     
-    NSString *title = [savedEntry.article.title cleanWikiTitle];
+    NSString *title = [savedEntry.article.title wikiTitleWithoutUnderscores];
     NSString *language = [NSString stringWithFormat:@"\n%@", savedEntry.article.domainName];
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];

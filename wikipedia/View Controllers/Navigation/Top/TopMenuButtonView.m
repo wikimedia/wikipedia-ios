@@ -42,7 +42,7 @@
 -(void)setEnabled:(BOOL)enabled
 {
     _enabled = enabled;
-    self.alpha = (enabled) ? 1.0 : 0.5;
+    self.alpha = (enabled) ? 1.0 : 0.2;
 }
 
 -(void)constrainLabel

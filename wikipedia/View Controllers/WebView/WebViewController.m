@@ -883,11 +883,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // [[SessionSingleton sharedInstance].zeroConfigState toggleFakeZeroOn];
 }
 
--(NSString *)cleanTitle:(NSString *)title
-{
-    return [title stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-}
-
 #pragma mark Article loading ops
 
 - (void)navigateToPage: (NSString *)title
@@ -895,7 +890,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
        discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
      invalidatingCache: (BOOL)invalidateCache
 {
-    NSString *cleanTitle = [self cleanTitle:title];
+    NSString *cleanTitle = [title wikiTitleWithoutUnderscores];
     
     // Don't try to load nothing. Core data takes exception with such nonsense.
     if (cleanTitle == nil) return;

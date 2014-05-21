@@ -283,7 +283,7 @@
         historyEntry = (History *)[articleDataContext_.mainContext objectWithID:historyEntryId];
     }];
     
-    NSString *title = [historyEntry.article.title cleanWikiTitle];
+    NSString *title = [historyEntry.article.title wikiTitleWithoutUnderscores];
     NSString *language = [NSString stringWithFormat:@"\n%@", historyEntry.article.domainName];
 
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];

@@ -99,9 +99,14 @@
     return [NSString stringWithFormat:@"<%@>", [randStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
 }
 
-- (NSString *)cleanWikiTitle
+- (NSString *)wikiTitleWithoutUnderscores
 {
     return [self stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+}
+
+- (NSString *)wikiTitleWithoutSpaces
+{
+    return [self stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
 @end

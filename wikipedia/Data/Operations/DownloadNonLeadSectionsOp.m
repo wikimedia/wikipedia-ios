@@ -68,7 +68,7 @@
                 NSMutableDictionary *mutableSection = section.mutableCopy;
                 if ([mutableSection[@"fromtitle"] isKindOfClass:[NSString class]]) {
                     NSString *fromTitle = mutableSection[@"fromtitle"];
-                    if ([[title cleanWikiTitle] isEqualToString:[fromTitle cleanWikiTitle]]) {
+                    if ([[title wikiTitleWithoutUnderscores] isEqualToString:[fromTitle wikiTitleWithoutUnderscores]]) {
                         [mutableSection removeObjectForKey:@"fromtitle"];
                     }
                 }else{

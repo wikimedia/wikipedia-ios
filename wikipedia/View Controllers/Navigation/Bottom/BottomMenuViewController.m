@@ -12,6 +12,8 @@
 #import "TopMenuButtonView.h"
 #import "TopMenuLabel.h"
 #import "UIViewController+Alert.h"
+#import "UIView+TemporaryAnimatedXF.h"
+#import "NSString+Extras.h"
 
 typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     BOTTOM_MENU_BUTTON_UNKNOWN = 0,
@@ -70,14 +72,25 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
 #pragma mark Bottom bar button methods
 
-//TODO: Pull bottomBarView and into own object (and its subviews - the back and forward view/buttons/methods, etc).
-
 - (void)buttonPushed:(UITapGestureRecognizer *)sender
 {
-    TopMenuButtonView *tappedButton = (TopMenuButtonView *)sender.view;
-    if (!tappedButton.enabled)return;
+    // If the tapped item was a button, first animate it briefly, then perform action.
+    if([sender.view isKindOfClass:[TopMenuButtonView class]]){
+        TopMenuButtonView *button = (TopMenuButtonView *)sender.view;
+        if (!button.enabled)return;
+        CGFloat animationScale = 1.25f;
+        [button.label animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
+                              afterDelay: 0.0
+                                duration: 0.06f
+                                    then: ^{
+                                        [self performActionForButton:button];
+                                    }];
+    }
+}
 
-    switch (tappedButton.tag) {
+- (void)performActionForButton:(TopMenuButtonView *)button
+{
+    switch (button.tag) {
         case BOTTOM_MENU_BUTTON_PREVIOUS:
             [self backButtonPushed];
             break;
@@ -94,8 +107,31 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
 - (void)shareButtonPushed
 {
-    [self showAlert:@"TODO: hook up share sheet!"];
-    [self fadeAlert];
+    NSString *title = @"";
+    NSURL *URL = nil;
+
+    NSManagedObjectID *articleID =
+    [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+                                                   domain: [SessionSingleton sharedInstance].currentArticleDomain];
+    if (articleID) {
+        Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+        if (article) {
+            NSString *titleWithoutSpaces = [article.title wikiTitleWithoutSpaces];
+            URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@/wiki/%@", article.domain, article.site, titleWithoutSpaces]];
+        }
+    }
+    
+    UIActivityViewController *shareActivityViewController =
+        [[UIActivityViewController alloc] initWithActivityItems: @[title, URL]
+                                          applicationActivities: @[]];
+    
+    [self presentViewController:shareActivityViewController animated:YES completion:^{
+        
+    }];
+    
+    [shareActivityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
+        
+    }];
 }
 
 - (void)backButtonPushed

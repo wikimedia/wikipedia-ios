@@ -185,7 +185,7 @@
                                                   NSMutableArray *orderedResults = @[].mutableCopy;
                                                   for (NSString *title in searchResults) {
                                                       
-                                                      NSString *cleanTitle = [title cleanWikiTitle];
+                                                      NSString *cleanTitle = [title wikiTitleWithoutUnderscores];
                                                       
                                                       [orderedResults addObject:@{@"title": cleanTitle, @"thumbnail": @{}}.mutableCopy];
                                                   }
@@ -384,7 +384,7 @@
     NSString *title = self.searchResultsOrdered[indexPath.row][@"title"];
 
     // Set CurrentArticleTitle so web view knows what to load.
-    title = [title cleanWikiTitle];
+    title = [title wikiTitleWithoutUnderscores];
     
     [self hideKeyboard];
 
