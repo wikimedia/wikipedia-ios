@@ -11,4 +11,6 @@
 
 @property (strong, nonatomic) UIColor *color;
 
+@property (nonatomic) BOOL enabled;
+
 @end

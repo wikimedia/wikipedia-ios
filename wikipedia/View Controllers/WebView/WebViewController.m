@@ -45,6 +45,7 @@
 #import "BottomMenuViewController.h"
 #import "TopMenuButtonView.h"
 #import "TopMenuLabel.h"
+#import "LanguagesTableVC.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.3f
 
@@ -1269,7 +1270,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     NSNumber *langCount = article.languagecount;
     
-    [self.bottomMenuViewController updateBottomBarButtonsEnabledStateWithLangCount:langCount];
+    [self.bottomMenuViewController updateBottomBarButtonsEnabledState];
 
     [ROOT.topMenuViewController updateTOCButtonVisibility];
 
@@ -1636,6 +1637,34 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, bottomBarHeight, 0);
     self.webView.scrollView.contentInset = insets;
     self.webView.scrollView.scrollIndicatorInsets = insets;
+}
+
+#pragma mark Languages
+
+-(void)languageButtonPushed
+{
+    LanguagesTableVC *languagesTableVC =
+        [NAV.storyboard instantiateViewControllerWithIdentifier:@"LanguagesTableVC"];
+
+    languagesTableVC.downloadLanguagesForCurrentArticle = YES;
+    
+    CATransition *transition = [languagesTableVC getTransition];
+    
+    languagesTableVC.selectionBlock = ^(NSDictionary *selectedLangInfo){
+    
+        [NAV.view.layer addAnimation:transition forKey:nil];
+        // Don't animate - so the transistion set above will be used.
+        [NAV loadArticleWithTitle: selectedLangInfo[@"*"]
+                           domain: selectedLangInfo[@"code"]
+                         animated: NO
+                  discoveryMethod: DISCOVERY_METHOD_SEARCH
+                invalidatingCache: NO];
+    };
+    
+    [NAV.view.layer addAnimation:transition forKey:nil];
+
+    // Don't animate - so the transistion set above will be used.
+    [NAV pushViewController:languagesTableVC animated:NO];
 }
 
 @end

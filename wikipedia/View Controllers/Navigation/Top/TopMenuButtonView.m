@@ -6,22 +6,43 @@
 
 @implementation TopMenuButtonView
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        self.clipsToBounds = YES;
-        self.label = [[TopMenuLabel alloc] init];
-        self.label.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addSubview:self.label];
-        [self constrainLabel];
+        [self setup];
     }
     return self;
+}
+
+-(void)setup
+{
+    self.enabled = YES;
+    self.clipsToBounds = YES;
+    self.label = [[TopMenuLabel alloc] init];
+    self.label.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:self.label];
+    [self constrainLabel];
 }
 
 -(void)setColor:(UIColor *)color
 {
     [self.label setTextColor:color];
+}
+
+-(void)setEnabled:(BOOL)enabled
+{
+    _enabled = enabled;
+    self.alpha = (enabled) ? 1.0 : 0.5;
 }
 
 -(void)constrainLabel

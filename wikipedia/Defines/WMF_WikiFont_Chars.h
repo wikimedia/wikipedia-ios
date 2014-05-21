@@ -159,3 +159,14 @@
 /* WIKI_X e900 */
 
 #define WIKIFONT_CHAR_WIKITRAIL                  @"\ue900"
+
+
+
+/* IOS TEMP SUPPLEMENT e950 */
+
+#define WIKIFONT_CHAR_IOS_W                     @"\ue950"
+#define WIKIFONT_CHAR_IOS_TOC                   @"\ue951"
+#define WIKIFONT_CHAR_IOS_SHARE                 @"\ue952"
+#define WIKIFONT_CHAR_IOS_MAGNIFY               @"\ue953"
+#define WIKIFONT_CHAR_IOS_FORWARD               @"\ue954"
+#define WIKIFONT_CHAR_IOS_BACKWARD              @"\ue955"

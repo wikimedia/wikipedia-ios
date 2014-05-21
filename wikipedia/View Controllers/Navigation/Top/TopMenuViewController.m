@@ -308,14 +308,20 @@
     self.buttonEye =        getButton(WIKIFONT_CHAR_EYE,                NAVBAR_BUTTON_EYE);
     self.buttonArrowLeft =  getButton(WIKIFONT_CHAR_ARROW_LEFT,         NAVBAR_BUTTON_ARROW_LEFT);
     self.buttonArrowRight = getButton(WIKIFONT_CHAR_ARROW_LEFT,         NAVBAR_BUTTON_ARROW_RIGHT);
-    self.buttonW =          getButton(WIKIFONT_CHAR_W,                  NAVBAR_BUTTON_LOGO_W);
-    self.buttonTOC =        getButton(WIKIFONT_CHAR_STRIPE_TOC,         NAVBAR_BUTTON_TOC);
-    self.buttonMagnify =    getButton(WIKIFONT_CHAR_MAGNIFYING_GLASS,   NAVBAR_BUTTON_MAGNIFY);
+    self.buttonW =          getButton(WIKIFONT_CHAR_IOS_W,              NAVBAR_BUTTON_LOGO_W);
+    self.buttonTOC =        getButton(WIKIFONT_CHAR_IOS_TOC,            NAVBAR_BUTTON_TOC);
+    self.buttonMagnify =    getButton(WIKIFONT_CHAR_IOS_MAGNIFY,        NAVBAR_BUTTON_MAGNIFY);
     self.buttonBlank =      getButton(@"",                              NAVBAR_BUTTON_BLANK);
     self.buttonCancel =     getButton(@"",                              NAVBAR_BUTTON_CANCEL);
 
     self.buttonCancel.label.font = [UIFont systemFontOfSize:17.0];
     self.buttonCancel.label.text = MWLocalizedString(@"search-cancel", nil);
+
+    // Ensure the cancel button content is hugged more tightly than the search text box.
+    // Otherwise on iOS 6 the cancel button is super wide.
+    [self.buttonCancel.label setContentHuggingPriority: 1000
+                                               forAxis: UILayoutConstraintAxisHorizontal];
+
     self.buttonCancel.label.padding = UIEdgeInsetsMake(0, 5, 0, 5);
     
     self.textField.backgroundColor = [UIColor whiteColor];

@@ -8,15 +8,27 @@
 #import "UINavigationController+SearchNavStack.h"
 #import "SessionSingleton.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
-#import "LanguagesTableVC.h"
+#import "WMF_WikiFont_Chars.h"
+#import "TopMenuButtonView.h"
+#import "TopMenuLabel.h"
+#import "UIViewController+Alert.h"
+
+typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
+    BOTTOM_MENU_BUTTON_UNKNOWN = 0,
+    BOTTOM_MENU_BUTTON_PREVIOUS = 1,
+    BOTTOM_MENU_BUTTON_NEXT = 2,
+    BOTTOM_MENU_BUTTON_SHARE = 3
+};
 
 @interface BottomMenuViewController ()
 
-@property (weak, nonatomic) IBOutlet UIButton *backButton;
-@property (weak, nonatomic) IBOutlet UIButton *forwardButton;
-@property (weak, nonatomic) IBOutlet UIButton *langButton;
+@property (weak, nonatomic) IBOutlet TopMenuButtonView *backButton;
+@property (weak, nonatomic) IBOutlet TopMenuButtonView *forwardButton;
+@property (weak, nonatomic) IBOutlet TopMenuButtonView *rightButton;
 
 @property (strong, nonatomic) NSDictionary *adjacentHistoryIDs;
+
+@property (strong, nonatomic) NSArray *allButtons;
 
 @end
 
@@ -32,13 +44,61 @@
     // Do any additional setup after loading the view.
     
     articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
+
+    [self.backButton.label setWikiText:WIKIFONT_CHAR_IOS_BACKWARD];
+    self.backButton.tag = BOTTOM_MENU_BUTTON_PREVIOUS;
+
+    [self.forwardButton.label setWikiText:WIKIFONT_CHAR_IOS_FORWARD];
+    self.forwardButton.tag = BOTTOM_MENU_BUTTON_NEXT;
+
+    [self.rightButton.label setWikiText:WIKIFONT_CHAR_IOS_SHARE];
+    self.rightButton.tag = BOTTOM_MENU_BUTTON_SHARE;
+
+    self.allButtons = @[self.backButton, self.forwardButton, self.rightButton];
+
+    [self addTapRecognizersToAllButtons];
+}
+
+-(void)addTapRecognizersToAllButtons
+{
+    for (TopMenuButtonView *view in self.allButtons) {
+        [view addGestureRecognizer:
+         [[UITapGestureRecognizer alloc] initWithTarget: self
+                                                 action: @selector(buttonPushed:)]];
+    }
 }
 
 #pragma mark Bottom bar button methods
 
 //TODO: Pull bottomBarView and into own object (and its subviews - the back and forward view/buttons/methods, etc).
 
-- (IBAction)backButtonPushed:(id)sender
+- (void)buttonPushed:(UITapGestureRecognizer *)sender
+{
+    TopMenuButtonView *tappedButton = (TopMenuButtonView *)sender.view;
+    if (!tappedButton.enabled)return;
+
+    switch (tappedButton.tag) {
+        case BOTTOM_MENU_BUTTON_PREVIOUS:
+            [self backButtonPushed];
+            break;
+        case BOTTOM_MENU_BUTTON_NEXT:
+            [self forwardButtonPushed];
+            break;
+        case BOTTOM_MENU_BUTTON_SHARE:
+            [self shareButtonPushed];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)shareButtonPushed
+{
+    [self showAlert:@"TODO: hook up share sheet!"];
+    [self fadeAlert];
+}
+
+- (void)backButtonPushed
 {
     NSManagedObjectID *historyId = self.adjacentHistoryIDs[@"before"];
     if (historyId){
@@ -53,7 +113,7 @@
     }
 }
 
-- (IBAction)forwardButtonPushed:(id)sender
+- (void)forwardButtonPushed
 {
     NSManagedObjectID *historyId = self.adjacentHistoryIDs[@"after"];
     if (historyId){
@@ -116,49 +176,11 @@
     return result;
 }
 
--(void)updateBottomBarButtonsEnabledStateWithLangCount:(NSNumber *)langCount
+-(void)updateBottomBarButtonsEnabledState
 {
     self.adjacentHistoryIDs = [self getAdjacentHistoryIDs];
     self.forwardButton.enabled = (self.adjacentHistoryIDs[@"after"]) ? YES : NO;
     self.backButton.enabled = (self.adjacentHistoryIDs[@"before"]) ? YES : NO;
-    
-    if ([[SessionSingleton sharedInstance] isCurrentArticleMain]) {
-        // Disable the article languages buttons if this is the main page.
-        self.langButton.enabled = NO;
-    }else{
-        self.langButton.enabled = (langCount.integerValue > 1) ? YES : NO;
-    }
-}
-
-- (IBAction)languageButtonPushed:(id)sender
-{
-    [self showLanguages];
-}
-
--(void)showLanguages
-{
-    LanguagesTableVC *languagesTableVC =
-        [NAV.storyboard instantiateViewControllerWithIdentifier:@"LanguagesTableVC"];
-
-    languagesTableVC.downloadLanguagesForCurrentArticle = YES;
-    
-    CATransition *transition = [languagesTableVC getTransition];
-    
-    languagesTableVC.selectionBlock = ^(NSDictionary *selectedLangInfo){
-    
-        [NAV.view.layer addAnimation:transition forKey:nil];
-        // Don't animate - so the transistion set above will be used.
-        [NAV loadArticleWithTitle: selectedLangInfo[@"*"]
-                           domain: selectedLangInfo[@"code"]
-                         animated: NO
-                  discoveryMethod: DISCOVERY_METHOD_SEARCH
-                invalidatingCache: NO];
-    };
-    
-    [NAV.view.layer addAnimation:transition forKey:nil];
-
-    // Don't animate - so the transistion set above will be used.
-    [NAV pushViewController:languagesTableVC animated:NO];
 }
 
 - (void)didReceiveMemoryWarning

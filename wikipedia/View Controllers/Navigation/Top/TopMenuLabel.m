@@ -5,15 +5,29 @@
 
 @implementation TopMenuLabel
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        self.textAlignment = NSTextAlignmentCenter;
-        self.adjustsFontSizeToFitWidth = YES;
-        self.backgroundColor = [UIColor clearColor];
+        [self setup];
     }
     return self;
+}
+
+-(void)setup
+{
+    self.textAlignment = NSTextAlignmentCenter;
+    self.adjustsFontSizeToFitWidth = YES;
+    self.backgroundColor = [UIColor clearColor];
 }
 
 -(void)setWikiText:(NSString *)text
