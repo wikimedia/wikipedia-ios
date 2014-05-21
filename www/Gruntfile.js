@@ -22,7 +22,7 @@ module.exports = function ( grunt ) {
         less: {
             all: {
                 files: [
-                    { src: ["less/pagestyles.less"], dest: "styles.css"}
+                    { src: ["less/pagestyles.less", "less/langbutton.less"], dest: "styles.css"}
                 ]
             }
         },

@@ -62,6 +62,41 @@ bridge.registerListener( "ping", function( payload ) {
     bridge.sendMessage( "pong", payload );
 });
 
+/**
+ * Quickie function to walk from the current element up to parents and match CSS-ish selectors.
+ * Think of it as a reverse element.querySelector :)
+ *
+ * Takes only element names, raw classes, and ids right now. Combines all given.
+ */
+function findParent(element, selector) {
+    var matches = selector.match(/^([a-z0-9]*)(?:\.([a-z0-9-]+))?(?:#([a-z0-9-]+))?$/i);
+    if (matches) {
+        var selectorName = matches[1] || null;
+        var selectorClass = matches[2] || null;
+        var selectorId = matches[3] || null;
+        
+        var candidate = element;
+        while (candidate) {
+            do {
+                if (selectorName && candidate.tagName && selectorName.toLowerCase() !== candidate.tagName.toLowerCase()) {
+                    break;
+                }
+                if (selectorClass && selectorClass !== candidate.className) {
+                    break;
+                }
+                if (selectorId && selectorId !== candidate.id) {
+                    break;
+                }
+                return candidate;
+            } while (false);
+            candidate = candidate.parentNode;
+        }
+    } else {
+        throw new Error("Unexpected findParent selector format: " + selector);
+    }
+    return null;
+}
+
 document.onclick = function() {
 
     /*
@@ -75,15 +110,7 @@ document.onclick = function() {
     encountered.
     */
 
-    var anchorTarget = null;
-    var potentialAnchorTarget = event.target;
-    while (potentialAnchorTarget) {
-        if ( potentialAnchorTarget.tagName === "A" ){
-            anchorTarget = potentialAnchorTarget;
-            break;
-        }
-        potentialAnchorTarget = potentialAnchorTarget.parentNode;
-    }
+    var anchorTarget = findParent(event.target, 'A');
 
     if ( anchorTarget && (anchorTarget.tagName === "A") ) {
         var href = anchorTarget.getAttribute( "href" );
@@ -110,7 +137,9 @@ function touchEnd(event){
         
         if ( event.target.className === "edit_section" ) {
             bridge.sendMessage( 'editClicked', { href: event.target.getAttribute( "id" ) });
-        }else{
+        } else if (findParent(event.target, 'button.mw-language-button')) {
+            bridge.sendMessage( 'langClicked', {} );
+        } else {
             event.preventDefault();
             bridge.sendMessage( 'nonAnchorTouchEndedWithoutDragging', { id: event.target.getAttribute( "id" ), tagName: event.target.tagName});
         }

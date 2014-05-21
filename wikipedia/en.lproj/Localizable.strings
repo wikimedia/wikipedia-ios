@@ -3,6 +3,8 @@
 "article-languages-downloading" = "Loading article languages...";
 "article-languages-filter-placeholder" = "Filter";
 
+"language-button-other-languages" = "Other Languages";
+
 "history-label" = "Browsing History";
 "history-section-today" = "Today";
 "history-section-yesterday" = "Yesterday";

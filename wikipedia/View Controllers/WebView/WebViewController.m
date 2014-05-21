@@ -678,7 +678,12 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
         [weakSelf showSectionEditor];
     }];
-
+    
+    [self.bridge addListener:@"langClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        NSLog(@"Language button pushed");
+        [weakSelf languageButtonPushed];
+    }];
+    
     [self.bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString *messageType, NSDictionary *payload) {
         NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
 
@@ -1304,7 +1309,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         self.scrollOffset = scrollOffset;
 
 
-[sectionTextArray addObject:[NSString stringWithFormat:@"THIS MANY LANGS AVAILABLE = %d", langCount.integerValue]];
+        if (mode != DISPLAY_LEAD_SECTION) {
+            [sectionTextArray addObject: [self renderLanguageButtonForCount: langCount.integerValue]];
+        }
 
         
         // Join article sections text
@@ -1325,6 +1332,19 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             [self tocShowWithDurationNextRunLoop:@0.0f];
         }
     }];
+}
+
+-(NSString *)renderLanguageButtonForCount:(NSInteger)count
+{
+    if (count > 0) {
+        NSString *aa = @"<span class=\"mw-language-icon\">Aあ</span>";
+        NSString *countStr = [NSString stringWithFormat:@"<span class=\"mw-language-count\">%d</span>", (int)count];
+        NSString *otherLanguages = [NSString stringWithFormat:@"<span class=\"mw-language-label\">%@</span>", MWLocalizedString(@"language-button-other-languages", nil)];
+        
+        return [NSString stringWithFormat:@"<button class=\"mw-language-button\"><span class=\"mw-language-items\">%@%@%@</span></button>", aa, countStr, otherLanguages];
+    } else {
+        return @"";
+    }
 }
 
 #pragma mark Scroll to last section after rotate
