@@ -201,9 +201,9 @@ typedef enum {
 {
     [super viewWillAppear:animated];
     
-    if (ROOT.topMenuViewController.navBarMode != NAVBAR_MODE_SEARCH) {
+    //if (ROOT.topMenuViewController.navBarMode != NAVBAR_MODE_SEARCH) {
         ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
-    }
+    //}
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -291,8 +291,10 @@ typedef enum {
     return (self.webViewLeftConstraint.constant == 0) ? NO : YES;
 }
 
--(void)tocHideWithDurationNextRunLoop:(NSNumber *)duration
+-(void)tocHideIfSafeToToggleDuringNextRunLoopWithDuration:(NSNumber *)duration
 {
+    if(self.unsafeToToggleTOC || !self.tocVC) return;
+
     // iOS 6 can blank out the web view this isn't scheduled for next run loop.
     [[NSRunLoop currentRunLoop] performSelector: @selector(tocHideWithDuration:)
                                          target: self
@@ -303,7 +305,6 @@ typedef enum {
 
 -(void)tocHideWithDuration:(NSNumber *)duration
 {
-    if(self.unsafeToToggleTOC || !self.tocVC)return;
     self.unsafeToToggleTOC = YES;
 
     // Clear alerts
@@ -330,9 +331,11 @@ typedef enum {
                      }];
 }
 
--(void)tocShowWithDurationNextRunLoop:(NSNumber *)duration
+-(void)tocShowIfSafeToToggleDuringNextRunLoopWithDuration:(NSNumber *)duration
 {
     if([[SessionSingleton sharedInstance] isCurrentArticleMain]) return;
+
+    if(self.unsafeToToggleTOC || self.tocVC) return;
 
     // iOS 6 can blank out the web view this isn't scheduled for next run loop.
     [[NSRunLoop currentRunLoop] performSelector: @selector(tocShowWithDuration:)
@@ -344,7 +347,6 @@ typedef enum {
 
 -(void)tocShowWithDuration:(NSNumber *)duration
 {
-    if(self.unsafeToToggleTOC || self.tocVC)return;
     self.unsafeToToggleTOC = YES;
 
     // Clear alerts
@@ -410,12 +412,12 @@ typedef enum {
 
 -(void)tocHide
 {
-    [self tocHideWithDurationNextRunLoop:TOC_TOGGLE_ANIMATION_DURATION];
+    [self tocHideIfSafeToToggleDuringNextRunLoopWithDuration:TOC_TOGGLE_ANIMATION_DURATION];
 }
 
 -(void)tocShow
 {
-    [self tocShowWithDurationNextRunLoop:TOC_TOGGLE_ANIMATION_DURATION];
+    [self tocShowIfSafeToToggleDuringNextRunLoopWithDuration:TOC_TOGGLE_ANIMATION_DURATION];
 }
 
 -(void)tocToggle
@@ -1309,7 +1311,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         self.scrollOffset = scrollOffset;
 
 
-        if (mode != DISPLAY_LEAD_SECTION) {
+        if ((mode != DISPLAY_LEAD_SECTION) && ![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
             [sectionTextArray addObject: [self renderLanguageButtonForCount: langCount.integerValue]];
         }
 
@@ -1329,7 +1331,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
         if ([self tocDrawerIsOpen]) {
             // Drawer is already open, so just refresh the toc quickly w/o animation.
-            [self tocShowWithDurationNextRunLoop:@0.0f];
+            // Make sure "tocShowWithDuration:" is allowed to happen even if the TOC
+            // is already onscreen or non-lead sections won't appear in the TOC when
+            // they've been retrieved if the TOC is open.
+            [self tocShowWithDuration:@0.0f];
         }
     }];
 }

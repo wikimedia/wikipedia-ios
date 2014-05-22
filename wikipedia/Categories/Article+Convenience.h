@@ -12,4 +12,6 @@
 // larger than 99 x 99 px.
 - (UIImage *)getThumbnailUsingContext:(NSManagedObjectContext *)context;
 
+- (NSURL *)desktopURL;
+
 @end

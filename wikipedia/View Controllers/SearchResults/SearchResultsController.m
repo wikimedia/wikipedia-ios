@@ -262,11 +262,11 @@
 
     // Set base color and font of the entire result title
     [str addAttribute:NSFontAttributeName
-                value:SEARCH_FONT
+                value:SEARCH_RESULT_FONT
                 range:NSMakeRange(0, str.length)];
 
     [str addAttribute:NSForegroundColorAttributeName
-                value:SEARCH_FONT_COLOR
+                value:SEARCH_RESULT_FONT_COLOR
                 range:NSMakeRange(0, str.length)];
 
     for (NSString *word in self.currentSearchStringWordsToHighlight) {
@@ -278,11 +278,11 @@
                                           ];
 
         [str addAttribute:NSFontAttributeName
-                    value:SEARCH_FONT_HIGHLIGHTED
+                    value:SEARCH_RESULT_FONT_HIGHLIGHTED
                     range:rangeOfThisWordInTitle];
         
         [str addAttribute:NSForegroundColorAttributeName
-                    value:SEARCH_FONT_HIGHLIGHTED_COLOR
+                    value:SEARCH_RESULT_FONT_HIGHLIGHTED_COLOR
                     range:rangeOfThisWordInTitle];
     }
     return str;

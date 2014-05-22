@@ -248,8 +248,8 @@
     self.textField.translatesAutoresizingMaskIntoConstraints = NO;
     self.textField.returnKeyType = UIReturnKeyDone;
     self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.textField.font = SEARCH_FONT;
-    self.textField.textColor = SEARCH_FONT_HIGHLIGHTED_COLOR;
+    self.textField.font = SEARCH_TEXT_FIELD_FONT;
+    self.textField.textColor = SEARCH_TEXT_FIELD_HIGHLIGHTED_COLOR;
     self.textField.tag = NAVBAR_TEXT_FIELD;
     self.textField.clearButtonMode = UITextFieldViewModeNever;
     self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;

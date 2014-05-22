@@ -14,6 +14,7 @@
 #import "UIViewController+Alert.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "NSString+Extras.h"
+#import "Article+Convenience.h"
 
 typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     BOTTOM_MENU_BUTTON_UNKNOWN = 0,
@@ -108,7 +109,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 - (void)shareButtonPushed
 {
     NSString *title = @"";
-    NSURL *URL = nil;
+    NSURL *desktopURL = nil;
 
     NSManagedObjectID *articleID =
     [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
@@ -116,13 +117,18 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     if (articleID) {
         Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
         if (article) {
-            NSString *titleWithoutSpaces = [article.title wikiTitleWithoutSpaces];
-            URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@/wiki/%@", article.domain, article.site, titleWithoutSpaces]];
+            desktopURL = [article desktopURL];
+            title = article.title;
         }
     }
     
+    if (!desktopURL) {
+        NSLog(@"Could not retrieve desktop URL for article.")
+        return;
+    }
+    
     UIActivityViewController *shareActivityViewController =
-        [[UIActivityViewController alloc] initWithActivityItems: @[title, URL]
+        [[UIActivityViewController alloc] initWithActivityItems: @[title, desktopURL]
                                           applicationActivities: @[]];
     
     [self presentViewController:shareActivityViewController animated:YES completion:^{

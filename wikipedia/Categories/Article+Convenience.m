@@ -5,6 +5,7 @@
 #import "ArticleCoreDataObjects.h"
 #import "Image+Convenience.h"
 #import "Defines.h"
+#import "NSString+Extras.h"
 
 @implementation Article (Convenience)
 
@@ -86,6 +87,19 @@
         NSLog(@"error = %@", error);
     }
     return sectionImages;
+}
+
+-(NSURL *)desktopURL
+{
+    NSString *titleWithoutSpaces = [self.title wikiTitleWithoutSpaces];
+    
+    NSString *urlString =
+        [NSString stringWithFormat:@"https://%@.%@/wiki/%@", self.domain, self.site, titleWithoutSpaces];
+    
+    NSString *encodedUrlString =
+        [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    return encodedUrlString ? [NSURL URLWithString:encodedUrlString] : nil;
 }
 
 @end
