@@ -122,3 +122,6 @@
 "credits-gerrit-repo" = "App main (Gerrit)";
 "credits-github-mirror" = "App mirror (GitHub)";
 "credits-external-libraries" = "External";
+
+"share-menu-save-page" = "Save Page";
+"share-menu-page-saved" = "Page Saved";

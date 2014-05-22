@@ -15,6 +15,7 @@
 #import "UIView+TemporaryAnimatedXF.h"
 #import "NSString+Extras.h"
 #import "Article+Convenience.h"
+#import "ShareMenuSavePageActivity.h"
 
 typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     BOTTOM_MENU_BUTTON_UNKNOWN = 0,
@@ -127,16 +128,18 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
         return;
     }
     
+    ShareMenuSavePageActivity *shareMenuSavePageActivity = [[ShareMenuSavePageActivity alloc] init];
+    
     UIActivityViewController *shareActivityViewController =
         [[UIActivityViewController alloc] initWithActivityItems: @[title, desktopURL]
-                                          applicationActivities: @[]];
+                                          applicationActivities: @[shareMenuSavePageActivity]];
     
     [self presentViewController:shareActivityViewController animated:YES completion:^{
         
     }];
     
     [shareActivityViewController setCompletionHandler:^(NSString *activityType, BOOL completed) {
-        
+        NSLog(@"activityType = %@", activityType);
     }];
 }
 

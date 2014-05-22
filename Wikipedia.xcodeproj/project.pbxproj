@@ -41,6 +41,7 @@
 		042A5B36192591520095E172 /* TopMenuTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B31192591520095E172 /* TopMenuTextField.m */; };
 		042A5B37192591520095E172 /* TopMenuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B33192591520095E172 /* TopMenuLabel.m */; };
 		042A5B38192591520095E172 /* TopMenuButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B35192591520095E172 /* TopMenuButtonView.m */; };
+		042B3996192EAEEA0066B270 /* ShareMenuSavePageActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 042B3995192EAEEA0066B270 /* ShareMenuSavePageActivity.m */; };
 		0433542218A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 0433542118A023FE009305F0 /* UIViewController+HideKeyboard.m */; };
 		0433542618A093C5009305F0 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 0433542518A093C5009305F0 /* UIView+RemoveConstraints.m */; };
 		043C668A18BE9A8E00580E9B /* PreviewWikiTextOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 043C668918BE9A8E00580E9B /* PreviewWikiTextOp.m */; };
@@ -231,6 +232,8 @@
 		042A5B33192591520095E172 /* TopMenuLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopMenuLabel.m; sourceTree = "<group>"; };
 		042A5B34192591520095E172 /* TopMenuButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopMenuButtonView.h; sourceTree = "<group>"; };
 		042A5B35192591520095E172 /* TopMenuButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopMenuButtonView.m; sourceTree = "<group>"; };
+		042B3994192EAEEA0066B270 /* ShareMenuSavePageActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareMenuSavePageActivity.h; sourceTree = "<group>"; };
+		042B3995192EAEEA0066B270 /* ShareMenuSavePageActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareMenuSavePageActivity.m; sourceTree = "<group>"; };
 		0433542018A023FE009305F0 /* UIViewController+HideKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HideKeyboard.h"; sourceTree = "<group>"; };
 		0433542118A023FE009305F0 /* UIViewController+HideKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HideKeyboard.m"; sourceTree = "<group>"; };
 		0433542418A093C5009305F0 /* UIView+RemoveConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RemoveConstraints.h"; sourceTree = "<group>"; };
@@ -717,6 +720,8 @@
 				042A5B2B19253E690095E172 /* BottomMenuViewController.m */,
 				04B162EF19284A6F00B1ABC2 /* BottomMenuContainerView.h */,
 				04B162F019284A6F00B1ABC2 /* BottomMenuContainerView.m */,
+				042B3994192EAEEA0066B270 /* ShareMenuSavePageActivity.h */,
+				042B3995192EAEEA0066B270 /* ShareMenuSavePageActivity.m */,
 			);
 			path = Bottom;
 			sourceTree = "<group>";
@@ -1538,6 +1543,7 @@
 				048A26701905E55B00395F53 /* PreviewChoicesMenuView.m in Sources */,
 				04992BC418B6971F00A6C22B /* SearchThumbUrlsOp.m in Sources */,
 				044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */,
+				042B3996192EAEEA0066B270 /* ShareMenuSavePageActivity.m in Sources */,
 				04D34DAB1863D2D600610A87 /* TFHpple.m in Sources */,
 				0429301018604898002A13FC /* SavedPagesViewController.m in Sources */,
 				044213D4191D70E9006C03BF /* BundledJson.m in Sources */,

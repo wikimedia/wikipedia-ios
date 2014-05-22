@@ -111,3 +111,7 @@
 "credits-github-mirror" = "Text for item linking to the app's mirrored GitHub repository";
 "credits-external-libraries" = "Title for area of credits page showing external open source libraries used by app.\n{{Identical|External}}";
 "language-button-other-languages" = "Label for 'other languages' button in content area. Button also shows the number of available languages, but an indeterminate plural should be used here.";
+"share-menu-save-page" = "Button text for saving current page from the share menu";
+"share-menu-page-saved" = "Alert text shown when page saved";
+
+
