@@ -11,5 +11,6 @@
 +(NSString*) formFactor;
 +(NSString*) versionedUserAgent;
 +(NSString*) localizedStringForKey:(NSString *)key;
++(NSString*) relativeTimestamp:(NSDate *)date;
 
 @end

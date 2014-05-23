@@ -125,3 +125,14 @@
 
 "share-menu-save-page" = "Save Page";
 "share-menu-page-saved" = "Page Saved";
+
+"timestamp-just-now" = "just now";
+"timestamp-minutes" = "%d minutes ago";
+"timestamp-hours" = "%d hours ago";
+"timestamp-days" = "%d days ago";
+"timestamp-months" = "%d months ago";
+"timestamp-years" = "%d years ago";
+
+"lastmodified-timestamp" = "Last Modified $1";
+"lastmodified-by" = "by $1";
+"lastmodified-anon" = "by an anonymous user";

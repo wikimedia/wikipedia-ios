@@ -113,5 +113,12 @@
 "language-button-other-languages" = "Label for 'other languages' button in content area. Button also shows the number of available languages, but an indeterminate plural should be used here.";
 "share-menu-save-page" = "Button text for saving current page from the share menu";
 "share-menu-page-saved" = "Alert text shown when page saved";
-
-
+"timestamp-just-now" = "Human-readable approximate timestamp for events in the last couple of minutes";
+"timestamp-minutes" = "Human-readable approximate timestamp for events in the last couple hours, expressed as minutes";
+"timestamp-hours" = "Human-readable approximate timestamp for events in the last couple days, expressed as hours";
+"timestamp-days" = "Human-readable approximate timestamp for events in the last couple months, expressed as days";
+"timestamp-months" = "Human-readable approximate timestamp for events in the last couple years, expressed as months";
+"timestamp-years" = "Human-readable approximate timestamp for events in the distant past, expressed as years";
+"lastmodified-timestamp" = "Marker at page end for last modified time. $1 is placeholder for a human-readable approximate timestamp";
+"lastmodified-by" = "Marker at page end for who last modified the page. $1 is a username.";
+"lastmodified-anon" = "Marker at page end for who last modified the page when anonymous.";

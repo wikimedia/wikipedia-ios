@@ -1271,6 +1271,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:article.domain];
 
     NSNumber *langCount = article.languagecount;
+    NSDate *lastModified = article.lastmodified;
+    NSString *lastModifiedBy = article.lastmodifiedby;
     
     [self.bottomMenuViewController updateBottomBarButtonsEnabledState];
 
@@ -1313,6 +1315,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
         if ((mode != DISPLAY_LEAD_SECTION) && ![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
             [sectionTextArray addObject: [self renderLanguageButtonForCount: langCount.integerValue]];
+            [sectionTextArray addObject: [self renderLastModified:lastModified by:lastModifiedBy]];
         }
 
         
@@ -1354,6 +1357,24 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     } else {
         return @"";
     }
+}
+
+-(NSString *)renderLastModified:(NSDate *)date by:(NSString *)username
+{
+    NSString *langCode = [[NSLocale preferredLanguages] objectAtIndex:0];
+    MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:langCode];
+    NSString *dir = lang.dir;
+
+    NSString *ts = [WikipediaAppUtils relativeTimestamp:date];
+    NSString *lm = [MWLocalizedString(@"lastmodified-timestamp", nil) stringByReplacingOccurrencesOfString:@"$1" withString:ts];
+    NSString *by;
+    if (username && ![username isEqualToString:@""]) {
+        by = [MWLocalizedString(@"lastmodified-by", nil) stringByReplacingOccurrencesOfString:@"$1" withString:username];
+    } else {
+        by = MWLocalizedString(@"lastmodified-anon", nil);
+    }
+
+    return [NSString stringWithFormat:@"<div dir=\"%@\" class=\"mw-last-modified\">%@<br>%@</div>", dir, lm, by];
 }
 
 #pragma mark Scroll to last section after rotate
