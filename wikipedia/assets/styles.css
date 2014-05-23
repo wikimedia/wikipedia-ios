@@ -177,19 +177,37 @@ body[dir=rtl] .edit_section {
   height: 24px;
 }
 .mw-language-icon {
-  text-align: right;
   color: white;
-  padding-right: 12px;
-  border-right: solid 1px #aaa;
   white-space: nowrap;
   font-family: "AvenirNextCondensed-Medium";
 }
-.mw-language-count {
-  text-align: center;
+.mw-language-button[dir=ltr] .mw-language-icon {
+  text-align: right;
+  padding-right: 12px;
+  border-right: solid 1px #aaa;
+}
+.mw-language-button[dir=rtl] .mw-language-icon {
+  text-align: left;
+  border-left: solid 1px #aaa;
   padding-left: 12px;
 }
+.mw-language-count {
+  text-align: center;
+}
+.mw-language-button[dir=ltr] .mw-language-count {
+  padding-left: 12px;
+}
+.mw-language-button[dir=rtl] .mw-language-count {
+  padding-right: 12px;
+}
 .mw-language-label {
+  font-size: 10px;
+}
+.mw-language-button[dir=ltr] .mw-language-label {
   text-align: left;
   padding-left: 12px;
-  font-size: 10px;
+}
+.mw-language-button[dir=rtl] .mw-language-label {
+  text-align: right;
+  padding-right: 12px;
 }

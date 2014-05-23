@@ -1342,11 +1342,15 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 -(NSString *)renderLanguageButtonForCount:(NSInteger)count
 {
     if (count > 0) {
+        NSString *langCode = [[NSLocale preferredLanguages] objectAtIndex:0];
+        MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:langCode];
+        NSString *dir = lang.dir;
+
         NSString *aa = @"<span class=\"mw-language-icon\">Aあ</span>";
         NSString *countStr = [NSString stringWithFormat:@"<span class=\"mw-language-count\">%d</span>", (int)count];
         NSString *otherLanguages = [NSString stringWithFormat:@"<span class=\"mw-language-label\">%@</span>", MWLocalizedString(@"language-button-other-languages", nil)];
         
-        return [NSString stringWithFormat:@"<button class=\"mw-language-button\"><span class=\"mw-language-items\">%@%@%@</span></button>", aa, countStr, otherLanguages];
+        return [NSString stringWithFormat:@"<button dir=\"%@\" class=\"mw-language-button\"><span class=\"mw-language-items\">%@%@%@</span></button>", dir, aa, countStr, otherLanguages];
     } else {
         return @"";
     }
