@@ -16,6 +16,7 @@
 #import "NSString+Extras.h"
 #import "Article+Convenience.h"
 #import "ShareMenuSavePageActivity.h"
+#import "Article+Convenience.h"
 
 typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     BOTTOM_MENU_BUTTON_UNKNOWN = 0,
@@ -120,6 +121,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 {
     NSString *title = @"";
     NSURL *desktopURL = nil;
+    UIImage *image = nil;
 
     NSManagedObjectID *articleID =
     [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
@@ -129,20 +131,30 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
         if (article) {
             desktopURL = [article desktopURL];
             title = article.title;
+            image = [article getThumbnailUsingContext:articleDataContext_.mainContext];
         }
     }
     
     if (!desktopURL) {
-        NSLog(@"Could not retrieve desktop URL for article.")
+        NSLog(@"Could not retrieve desktop URL for article.");
         return;
     }
     
     ShareMenuSavePageActivity *shareMenuSavePageActivity = [[ShareMenuSavePageActivity alloc] init];
-    
+
+    NSMutableArray *activityItemsArray = @[title, desktopURL].mutableCopy;
+    if (image) {
+        [activityItemsArray addObject:image];
+    }
+
     UIActivityViewController *shareActivityVC =
-        [[UIActivityViewController alloc] initWithActivityItems: @[title, desktopURL]
+        [[UIActivityViewController alloc] initWithActivityItems: activityItemsArray
                                           applicationActivities: @[shareMenuSavePageActivity]];
-    NSMutableArray *exclusions = @[UIActivityTypeCopyToPasteboard].mutableCopy;
+    NSMutableArray *exclusions = @[
+        UIActivityTypePrint,
+        UIActivityTypeAssignToContact,
+        UIActivityTypeSaveToCameraRoll
+    ].mutableCopy;
     
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
         [exclusions addObject:UIActivityTypeAirDrop];
