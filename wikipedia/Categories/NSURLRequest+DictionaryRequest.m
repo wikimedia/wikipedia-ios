@@ -62,7 +62,10 @@
 
 +(void) addMCCMNCToRequestIfAppropriate: (NSMutableURLRequest*) req
 {
-    if ([SessionSingleton sharedInstance].zeroConfigState.sentMCCMNC) {
+    /* MCC-MNC logging is only turned with an API hook */
+    if ([SessionSingleton sharedInstance].zeroConfigState.sentMCCMNC ||
+        [req.URL.host rangeOfString:@".m.wikipedia.org"].location == NSNotFound ||
+        [req.URL.relativePath rangeOfString:@"/w/api.php"].location == NSNotFound) {
         return;
     } else {
         CTCarrier *mno = [[[CTTelephonyNetworkInfo alloc] init] subscriberCellularProvider];
