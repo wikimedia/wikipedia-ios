@@ -3,6 +3,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SavedPagesViewController : UITableViewController
+@interface SavedPagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

@@ -7,7 +7,6 @@
 #import "Defines.h"
 #import "UIView+Debugging.h"
 #import "UIView+RemoveConstraints.h"
-#import "MainMenuViewController.h"
 #import "UIViewController+HideKeyboard.h"
 #import "SearchResultsController.h"
 #import "UINavigationController+SearchNavStack.h"
@@ -20,8 +19,8 @@
 #import "UIView+TemporaryAnimatedXF.h"
 //#import "SectionEditorViewController.h"
 
-#import "TopMenuButtonView.h"
-#import "TopMenuLabel.h"
+#import "MenuButtonView.h"
+#import "MenuLabel.h"
 #import "PaddedLabel.h"
 
 #import "WMF_WikiFont_Chars.h"
@@ -30,6 +29,9 @@
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
+
+#import "RootViewController.h"
+#import "TopMenuContainerView.h"
 
 @interface TopMenuViewController (){
 
@@ -43,17 +45,17 @@
 @property (strong, nonatomic) UIView *verticalLine4;
 @property (strong, nonatomic) UIView *verticalLine5;
 @property (strong, nonatomic) UIView *verticalLine6;
-@property (strong, nonatomic) TopMenuButtonView *buttonW;
-@property (strong, nonatomic) TopMenuButtonView *buttonTOC;
-@property (strong, nonatomic) TopMenuButtonView *buttonPencil;
-@property (strong, nonatomic) TopMenuButtonView *buttonCheck;
-@property (strong, nonatomic) TopMenuButtonView *buttonX;
-@property (strong, nonatomic) TopMenuButtonView *buttonEye;
-@property (strong, nonatomic) TopMenuButtonView *buttonArrowLeft;
-@property (strong, nonatomic) TopMenuButtonView *buttonArrowRight;
-@property (strong, nonatomic) TopMenuButtonView *buttonMagnify;
-@property (strong, nonatomic) TopMenuButtonView *buttonBlank;
-@property (strong, nonatomic) TopMenuButtonView *buttonCancel;
+@property (strong, nonatomic) MenuButtonView *buttonW;
+@property (strong, nonatomic) MenuButtonView *buttonTOC;
+@property (strong, nonatomic) MenuButtonView *buttonPencil;
+@property (strong, nonatomic) MenuButtonView *buttonCheck;
+@property (strong, nonatomic) MenuButtonView *buttonX;
+@property (strong, nonatomic) MenuButtonView *buttonEye;
+@property (strong, nonatomic) MenuButtonView *buttonArrowLeft;
+@property (strong, nonatomic) MenuButtonView *buttonArrowRight;
+@property (strong, nonatomic) MenuButtonView *buttonMagnify;
+@property (strong, nonatomic) MenuButtonView *buttonBlank;
+@property (strong, nonatomic) MenuButtonView *buttonCancel;
 @property (strong, nonatomic) UILabel *label;
 
 // Used for constraining container sub-views.
@@ -73,7 +75,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-  
+    
     self.currentSearchResultsOrdered = [@[] mutableCopy];
     self.currentSearchString = @"";
 
@@ -291,9 +293,9 @@
     [self.navBarContainer addSubview:self.verticalLine5];
     [self.navBarContainer addSubview:self.verticalLine6];
 
-    TopMenuButtonView *(^getButton)(NSString *, NavBarItemTag) = ^TopMenuButtonView *(NSString *character, NavBarItemTag tag) {
-        TopMenuButtonView *button = [[TopMenuButtonView alloc] init];
-        button.label.wikiText = character;
+    MenuButtonView *(^getButton)(NSString *, NavBarItemTag) = ^MenuButtonView *(NSString *character, NavBarItemTag tag) {
+        MenuButtonView *button = [[MenuButtonView alloc] init];
+        [button.label setWikiText:character color:[UIColor blackColor] size:34];
         button.translatesAutoresizingMaskIntoConstraints = NO;
 
     [button addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(postNavItemTappedNotification:)]];
@@ -345,7 +347,9 @@
     self.label.text = @"";
     self.label.translatesAutoresizingMaskIntoConstraints = NO;
     self.label.tag = NAVBAR_LABEL;
-    self.label.font = [UIFont boldSystemFontOfSize:15.0];
+    self.label.font = [UIFont systemFontOfSize:21.0];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    
     self.label.adjustsFontSizeToFitWidth = YES;
     self.label.minimumScaleFactor = 0.5f;
     self.label.textColor = [UIColor darkGrayColor];
@@ -459,7 +463,7 @@
         case NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-disallow", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-|";
+                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(60)-|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW:
         case NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY:
@@ -479,16 +483,20 @@
         case NAVBAR_MODE_PAGE_HISTORY:
             self.label.text = MWLocalizedString(@"page-history-title", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-|";
+                @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(60)-|";
             break;        
         case NAVBAR_MODE_CREDITS:
             self.label.text = MWLocalizedString(@"main-menu-credits", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-|";
+                @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(60)-|";
             break;        
         case NAVBAR_MODE_SEARCH:
             self.navBarSubViewsHorizontalVFLString =
             @"H:|-(5)-[NAVBAR_TEXT_FIELD]-(6)-[NAVBAR_BUTTON_CANCEL]-(5)-|";
+            break;
+        case NAVBAR_MODE_X_WITH_LABEL:
+            self.navBarSubViewsHorizontalVFLString =
+            @"H:|-(5)-[NAVBAR_BUTTON_X(50)][NAVBAR_LABEL]-(55)-|";
             break;
         case NAVBAR_MODE_DEFAULT_WITH_TOC:
             self.navBarSubViewsHorizontalVFLString =
@@ -524,9 +532,9 @@
     };
     
     // If the tapped item was a button, first animate it briefly, then post the notication.
-    if([tappedView isKindOfClass:[TopMenuButtonView class]]){
+    if([tappedView isKindOfClass:[MenuButtonView class]]){
         CGFloat animationScale = 1.25f;
-        TopMenuButtonView *button = (TopMenuButtonView *)tappedView;
+        MenuButtonView *button = (MenuButtonView *)tappedView;
         [button.label animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
                             afterDelay: 0.0
                               duration: 0.06f
@@ -546,8 +554,11 @@
     UIView *tappedItem = userInfo[@"tappedItem"];
 
     switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_LOGO_W:
-            [self mainMenuToggle];
+        case NAVBAR_BUTTON_LOGO_W: {
+            UIViewController *topVC = NAV.topViewController;
+            [topVC hideKeyboard];
+            [ROOT togglePrimaryMenu];
+        }
             break;
         case NAVBAR_BUTTON_TOC:{
             WebViewController *webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
@@ -555,8 +566,16 @@
         }
             break;
         case NAVBAR_BUTTON_MAGNIFY:
-        case NAVBAR_BUTTON_BLANK:
-            self.navBarMode = NAVBAR_MODE_SEARCH;
+        case NAVBAR_BUTTON_BLANK: {
+            switch (self.navBarMode) {
+                case NAVBAR_MODE_DEFAULT:
+                case NAVBAR_MODE_DEFAULT_WITH_TOC:
+                    self.navBarMode = NAVBAR_MODE_SEARCH;
+                    break;
+                default:
+                    break;
+            }
+        }
             break;
         case NAVBAR_BUTTON_CANCEL:
             self.navBarMode = NAVBAR_MODE_DEFAULT;
@@ -593,40 +612,6 @@
     }else{
         SearchResultsController *searchResultsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
         [NAV pushViewController:searchResultsVC animated:NO];
-    }
-}
-
--(void)mainMenuToggle
-{
-    UIViewController *topVC = NAV.topViewController;
-
-    [topVC hideKeyboard];
-    
-    MainMenuViewController *mainMenuTableVC = [NAV searchNavStackForViewControllerOfClass:[MainMenuViewController class]];
-    
-    if(mainMenuTableVC){
-
-        CATransition *transition = [CATransition animation];
-        transition.duration = 0.2;
-        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
-        transition.type = kCATransitionFromRight;
-        [transition setType:kCATransitionPush];
-        transition.subtype = kCATransitionFromRight;
-        [NAV.view.layer addAnimation:transition forKey:nil];
-    
-        [NAV popToRootViewControllerAnimated:NO];
-    }else{
-    
-        CATransition *transition = [CATransition animation];
-        transition.duration = 0.2;
-        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
-        transition.type = kCATransitionFromLeft;
-        [transition setType:kCATransitionPush];
-        transition.subtype = kCATransitionFromLeft;
-        [NAV.view.layer addAnimation:transition forKey:nil];
-    
-        MainMenuViewController *mainMenuTableVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainMenuViewController"];
-        [NAV pushViewController:mainMenuTableVC animated:NO];
     }
 }
 
@@ -756,13 +741,13 @@
                        @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor colorWithWhite:0.33 alpha:1.0],
                        @"NAVBAR_BUTTON_COLOR": [UIColor blackColor],
                        @"NAVBAR_LABEL_TEXT_COLOR": [UIColor blackColor],
-                       @"NAVBAR_VERTICAL_LINE_COLOR": [UIColor colorWithWhite:0.78 alpha:1.0],
+                       @"NAVBAR_VERTICAL_LINE_COLOR": [UIColor colorWithWhite:0.88 alpha:1.0],
                        };
         }
             break;
         case NAVBAR_STYLE_NIGHT:{
             output = @{
-                       @"NAVBAR_COLOR": [UIColor colorWithWhite:0.0 alpha:0.9],
+                       @"NAVBAR_COLOR": [UIColor colorWithWhite:0.0 alpha:1.0],
                        @"NAVBAR_TEXT_FIELD_TEXT_COLOR": [UIColor whiteColor],
                        @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor whiteColor],
                        @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor whiteColor],
@@ -790,8 +775,13 @@
         case NAVBAR_BUTTON_ARROW_LEFT:
         case NAVBAR_BUTTON_ARROW_RIGHT:
         case NAVBAR_BUTTON_LOGO_W:
-        case NAVBAR_BUTTON_EYE:{
-            TopMenuButtonView *button = (TopMenuButtonView *)view;
+        case NAVBAR_BUTTON_EYE:
+        case NAVBAR_BUTTON_TOC:
+        case NAVBAR_BUTTON_MAGNIFY:
+        case NAVBAR_BUTTON_BLANK:
+        case NAVBAR_BUTTON_CANCEL:
+        {
+            MenuButtonView *button = (MenuButtonView *)view;
             button.label.textColor = colors[@"NAVBAR_BUTTON_COLOR"];
         }
             break;

@@ -67,7 +67,7 @@
     UIView *tappedItem = userInfo[@"tappedItem"];
 
     switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_ARROW_LEFT:
+        case NAVBAR_BUTTON_X:
             [NAV popViewControllerAnimated:YES];
             
             break;

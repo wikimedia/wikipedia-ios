@@ -15,8 +15,8 @@
 #import "WMF_Colors.h"
 #import "MWLanguageInfo.h"
 
-#import "TopMenuButtonView.h"
-#import "TopMenuLabel.h"
+#import "MenuButtonView.h"
+#import "MenuLabel.h"
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
@@ -83,7 +83,7 @@
     if (lastHightlight == highlight) return;
     lastHightlight = highlight;
 
-    TopMenuButtonView *button = (TopMenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
+    MenuButtonView *button = (MenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
 
     button.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
     

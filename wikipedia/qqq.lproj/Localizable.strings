@@ -60,6 +60,7 @@
 "search-loading-section-remaining" = "Alert text shown when loading remaining article sections";
 "search-loading-article-loaded" = "Alert text shown when the article has been completely loaded";
 "search-cancel" = "Button text for canceling search";
+"main-menu-title" = "Title for menu of secondary items."
 "main-menu-language-title" = "Header text for default search language selection. Parameters:\n* $1 - language domain name";
 "main-menu-language-toggle-show" = "Button text for showing language list";
 "main-menu-language-toggle-hide" = "Button text for hiding language list";

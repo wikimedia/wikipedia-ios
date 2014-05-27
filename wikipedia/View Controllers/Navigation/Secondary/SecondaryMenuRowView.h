@@ -3,7 +3,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainMenuRowView : UIView
+@interface SecondaryMenuRowView : UIView
 
 @property (strong, nonatomic) IBOutlet UILabel *textLabel;
 @property (strong, nonatomic) IBOutlet UILabel *iconLabel;

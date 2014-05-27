@@ -3,8 +3,8 @@
 
 #import "PaddedLabel.h"
 
-@interface TopMenuLabel : PaddedLabel
+@interface MenuLabel : PaddedLabel
 
--(void)setWikiText:(NSString *)text;
+-(void)setWikiText:(NSString *)text color:(UIColor *)color size:(CGFloat)size;
 
 @end

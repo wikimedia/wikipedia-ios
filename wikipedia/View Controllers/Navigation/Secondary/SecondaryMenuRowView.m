@@ -1,13 +1,13 @@
 //  Created by Monte Hurd on 3/27/14.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "MainMenuRowView.h"
+#import "SecondaryMenuRowView.h"
 
-@interface MainMenuRowView()
+@interface SecondaryMenuRowView()
 
 @end
 
-@implementation MainMenuRowView
+@implementation SecondaryMenuRowView
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {

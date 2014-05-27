@@ -3,11 +3,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class TopMenuLabel;
+@class MenuLabel;
 
-@interface TopMenuButtonView : UIView
+@interface MenuButtonView : UIView
 
-@property (strong, nonatomic) TopMenuLabel *label;
+@property (strong, nonatomic) MenuLabel *label;
 
 @property (strong, nonatomic) UIColor *color;
 

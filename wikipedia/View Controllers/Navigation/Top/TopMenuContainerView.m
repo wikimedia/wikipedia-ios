@@ -5,7 +5,17 @@
 
 @implementation TopMenuContainerView
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.showBottomBorder = YES;
+    }
+    return self;
+}
+
 - (void)drawRect:(CGRect)rect {
+    if (!self.showBottomBorder) return;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMaxY(rect));
     CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMaxY(rect));

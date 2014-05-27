@@ -1,9 +1,9 @@
 //  Created by Monte Hurd on 4/27/14.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "TopMenuLabel.h"
+#import "MenuLabel.h"
 
-@implementation TopMenuLabel
+@implementation MenuLabel
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
@@ -30,12 +30,12 @@
     self.backgroundColor = [UIColor clearColor];
 }
 
--(void)setWikiText:(NSString *)text
+-(void)setWikiText:(NSString *)text color:(UIColor *)color size:(CGFloat)size
 {
     NSDictionary *attributes =
     @{
-      NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Regular" size:34],
-      NSForegroundColorAttributeName : [UIColor blackColor],
+      NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Regular" size:size],
+      NSForegroundColorAttributeName : color,
       NSBaselineOffsetAttributeName: @2
       };
     

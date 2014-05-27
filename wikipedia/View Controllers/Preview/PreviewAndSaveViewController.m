@@ -30,8 +30,8 @@
 #import "PaddedLabel.h"
 #import "NSString+Extras.h"
 
-#import "TopMenuButtonView.h"
-#import "TopMenuLabel.h"
+#import "MenuButtonView.h"
+#import "MenuLabel.h"
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
@@ -196,14 +196,14 @@ typedef enum {
     lastHightlight = highlight;
 
 
-    TopMenuButtonView *button = (TopMenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
+    MenuButtonView *button = (MenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
 
     button.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
     
     button.color = highlight ? [UIColor whiteColor] : [UIColor blackColor];
 
 
-    TopMenuButtonView *button2 = (TopMenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
+    MenuButtonView *button2 = (MenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
     
     button2.backgroundColor = highlight ? WMF_COLOR_GREEN : [UIColor clearColor];
     
@@ -212,7 +212,7 @@ typedef enum {
 
 -(void)highlightCaptchaSubmitButton:(BOOL)highlight
 {
-    TopMenuButtonView *button = (TopMenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
+    MenuButtonView *button = (MenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
 
     button.backgroundColor = highlight ? WMF_COLOR_GREEN : [UIColor clearColor];
     

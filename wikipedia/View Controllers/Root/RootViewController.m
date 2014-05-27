@@ -7,6 +7,8 @@
 #import "WebViewController.h"
 
 #import "UINavigationController+SearchNavStack.h"
+#import "PrimaryMenuViewController.h"
+#import "TopMenuContainerView.h"
 
 @interface RootViewController (){
     
@@ -144,6 +146,26 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)togglePrimaryMenu
+{
+    if (
+        self.presentedViewController.isBeingPresented
+        ||
+        self.presentedViewController.isBeingDismissed
+        )
+    {
+        return;
+    }
+
+    if ([self.presentedViewController isMemberOfClass:[PrimaryMenuViewController class]]) {
+        [self dismissViewControllerAnimated:YES completion:^{}];
+    }else{
+        PrimaryMenuViewController *primaryMenuVC =
+            [NAV.storyboard instantiateViewControllerWithIdentifier:@"PrimaryMenuViewController"];
+        [self presentViewController:primaryMenuVC animated:YES completion:^{}];
+    }
 }
 
 @end

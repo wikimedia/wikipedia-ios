@@ -5,4 +5,6 @@
 
 @interface TopMenuContainerView : UIView
 
+@property(nonatomic) BOOL showBottomBorder;
+
 @end

@@ -7,13 +7,16 @@
 #import "ArticleCoreDataObjects.h"
 #import "WebViewController.h"
 #import "SavedPagesResultCell.h"
-#import "SavedPagesTableHeadingLabel.h"
 #import "Defines.h"
 #import "Article+Convenience.h"
 #import "SessionSingleton.h"
 #import "UINavigationController+SearchNavStack.h"
 #import "CenterNavController.h"
 #import "NSString+Extras.h"
+
+#import "TopMenuContainerView.h"
+#import "TopMenuViewController.h"
+#import "MenuLabel.h"
 
 #define SAVED_PAGES_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
 #define SAVED_PAGES_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:1.0f]
@@ -25,22 +28,15 @@
     ArticleDataContextSingleton *articleDataContext_;
 }
 
-@property (strong, atomic) NSMutableArray *savedPagesDataArray;
+@property (strong, nonatomic) NSMutableArray *savedPagesDataArray;
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong, nonatomic) TopMenuViewController *topMenuViewController;
 
 @end
 
 @implementation SavedPagesViewController
-
-#pragma mark - Init
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 #pragma mark - Memory
 
@@ -50,12 +46,91 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Top menu
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([segue.identifier isEqualToString: @"TopMenuViewController_embed_in_SavedPagesViewController"]) {
+		self.topMenuViewController = (TopMenuViewController *) [segue destinationViewController];
+    }
+}
+
+// Handle nav bar taps. (same way as any other view controller would)
+- (void)navItemTappedNotification:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    UIView *tappedItem = userInfo[@"tappedItem"];
+
+    switch (tappedItem.tag) {
+        case NAVBAR_BUTTON_X:
+        case NAVBAR_LABEL:
+            [self hide];
+
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)configureContainedTopMenu
+{
+    self.topMenuViewController.navBarStyle = NAVBAR_STYLE_DAY;
+    self.topMenuViewController.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
+    self.topMenuViewController.navBarContainer.showBottomBorder = NO;
+    
+    MenuLabel *label = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
+    label.text = MWLocalizedString(@"saved-pages-title", nil);
+    label.font = [UIFont systemFontOfSize:21];
+    label.textAlignment = NSTextAlignmentCenter;
+}
+
+#pragma mark - Hiding
+
+-(void)hide
+{
+    // Hide this view controller.
+    if(!(self.isBeingPresented || self.isBeingDismissed)){
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
+    }
+}
+
+-(void)hidePresenter
+{
+    // Hide the black menu which presented this view controller.
+    [self.presentingViewController.presentingViewController dismissViewControllerAnimated: YES
+                                                                               completion: ^{}];
+}
+
 #pragma mark - View lifecycle
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: @"NavItemTapped"
+                                                  object: nil];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Listen for nav bar taps.
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(navItemTappedNotification:)
+                                                 name: @"NavItemTapped"
+                                               object: nil];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    [self configureContainedTopMenu];
+
     articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
 
     self.navigationItem.hidesBackButton = YES;
@@ -70,14 +145,9 @@
     
     [self getSavedPagesData];
 
-    SavedPagesTableHeadingLabel *savedPagesLabel = [[SavedPagesTableHeadingLabel alloc] initWithFrame:CGRectMake(0, 0, 10, 53)];
-    savedPagesLabel.text = MWLocalizedString(@"saved-pages-title", nil);
-    savedPagesLabel.textAlignment = NSTextAlignmentCenter;
-    savedPagesLabel.font = [UIFont boldSystemFontOfSize:20.0];
-    savedPagesLabel.textColor = SAVED_PAGES_TITLE_TEXT_COLOR;
-    self.tableView.tableHeaderView = savedPagesLabel;
-    savedPagesLabel.backgroundColor = [UIColor whiteColor];
-
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 5)];
+    self.tableView.tableHeaderView = headerView;
+    
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     self.tableView.tableFooterView.backgroundColor = [UIColor whiteColor];
     
@@ -219,6 +289,8 @@
                      animated: YES
               discoveryMethod: DISCOVERY_METHOD_SEARCH
             invalidatingCache: NO];
+
+    [self hidePresenter];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

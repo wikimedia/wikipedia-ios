@@ -8,13 +8,16 @@
 #import "ArticleCoreDataObjects.h"
 #import "WebViewController.h"
 #import "HistoryResultCell.h"
-#import "HistoryTableHeadingLabel.h"
 #import "Defines.h"
 #import "Article+Convenience.h"
 #import "UINavigationController+SearchNavStack.h"
 #import "CenterNavController.h"
 #import "NSString+Extras.h"
 #import "WMF_WikiFont_Chars.h"
+
+#import "TopMenuContainerView.h"
+#import "TopMenuViewController.h"
+#import "MenuLabel.h"
 
 #define HISTORY_THUMBNAIL_WIDTH 110
 #define HISTORY_RESULT_HEIGHT 66
@@ -33,6 +36,10 @@
 @property (strong, atomic) NSMutableArray *historyDataArray;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong, nonatomic) TopMenuViewController *topMenuViewController;
+
 @end
 
 @implementation HistoryViewController
@@ -45,11 +52,90 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Top menu
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([segue.identifier isEqualToString: @"TopMenuViewController_embed_in_HistoryViewController"]) {
+		self.topMenuViewController = (TopMenuViewController *) [segue destinationViewController];
+    }
+}
+
+// Handle nav bar taps. (same way as any other view controller would)
+- (void)navItemTappedNotification:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    UIView *tappedItem = userInfo[@"tappedItem"];
+
+    switch (tappedItem.tag) {
+        case NAVBAR_BUTTON_X:
+        case NAVBAR_LABEL:
+            [self hide];
+
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)configureContainedTopMenu
+{
+    self.topMenuViewController.navBarStyle = NAVBAR_STYLE_DAY;
+    self.topMenuViewController.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
+    self.topMenuViewController.navBarContainer.showBottomBorder = NO;
+    
+    MenuLabel *label = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
+    label.text = MWLocalizedString(@"history-label", nil);
+    label.font = [UIFont systemFontOfSize:21];
+    label.textAlignment = NSTextAlignmentCenter;
+}
+
+#pragma mark - Hiding
+
+-(void)hide
+{
+    // Hide this view controller.
+    if(!(self.isBeingPresented || self.isBeingDismissed)){
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
+    }
+}
+
+-(void)hidePresenter
+{
+    // Hide the black menu which presented this view controller.
+    [self.presentingViewController.presentingViewController dismissViewControllerAnimated: YES
+                                                                               completion: ^{}];
+}
+
 #pragma mark - View lifecycle
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: @"NavItemTapped"
+                                                  object: nil];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // Listen for nav bar taps.
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(navItemTappedNotification:)
+                                                 name: @"NavItemTapped"
+                                               object: nil];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [self configureContainedTopMenu];
 
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setLocale:[NSLocale currentLocale]];
@@ -69,13 +155,8 @@
     
     [self getHistoryData];
 
-    HistoryTableHeadingLabel *historyLabel = [[HistoryTableHeadingLabel alloc] initWithFrame:CGRectMake(0, 0, 10, 48)];
-    historyLabel.text = MWLocalizedString(@"history-label", nil);
-    historyLabel.textAlignment = NSTextAlignmentCenter;
-    historyLabel.font = [UIFont boldSystemFontOfSize:20.0];
-    historyLabel.textColor = HISTORY_TEXT_COLOR;
-    self.tableView.tableHeaderView = historyLabel;
-    historyLabel.backgroundColor = [UIColor whiteColor];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 5)];
+    self.tableView.tableHeaderView = headerView;
 
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     self.tableView.tableFooterView.backgroundColor = [UIColor whiteColor];
@@ -349,6 +430,8 @@
                      animated: YES
               discoveryMethod: DISCOVERY_METHOD_SEARCH
             invalidatingCache: NO];
+
+    [self hidePresenter];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

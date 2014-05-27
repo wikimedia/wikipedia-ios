@@ -16,8 +16,8 @@
 #import "WMF_Colors.h"
 #import "UIViewController+LogEvent.h"
 
-#import "TopMenuButtonView.h"
-#import "TopMenuLabel.h"
+#import "MenuButtonView.h"
+#import "MenuLabel.h"
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
@@ -113,7 +113,7 @@
 
 -(void)highlightCheckButton:(BOOL)highlight
 {
-    TopMenuButtonView *checkButton = (TopMenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
+    MenuButtonView *checkButton = (MenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
     
     checkButton.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
     

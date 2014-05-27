@@ -37,7 +37,8 @@ typedef enum {
     NAVBAR_MODE_PAGE_HISTORY = 12,
     NAVBAR_MODE_CREDITS = 13,
     NAVBAR_MODE_EDIT_WIKITEXT_SAVE = 14,
-    NAVBAR_MODE_SEARCH = 15
+    NAVBAR_MODE_SEARCH = 15,
+    NAVBAR_MODE_X_WITH_LABEL = 16
 } NavBarMode;
 
 typedef enum {
@@ -46,6 +47,7 @@ typedef enum {
     NAVBAR_STYLE_NIGHT = 2
 } NavBarStyle;
 
+@class TopMenuContainerView;
 
 @interface TopMenuViewController : UIViewController <UITextFieldDelegate, UISearchBarDelegate>
 
@@ -58,6 +60,6 @@ typedef enum {
 -(id)getNavBarItem:(NavBarItemTag)tag;
 -(void)updateTOCButtonVisibility;
 
-@property (strong, nonatomic) IBOutlet UIView *navBarContainer;
+@property (strong, nonatomic) IBOutlet TopMenuContainerView *navBarContainer;
 
 @end

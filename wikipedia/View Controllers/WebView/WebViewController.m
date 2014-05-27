@@ -43,8 +43,8 @@
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
 #import "BottomMenuViewController.h"
-#import "TopMenuButtonView.h"
-#import "TopMenuLabel.h"
+#import "MenuButtonView.h"
+#import "MenuLabel.h"
 #import "LanguagesTableVC.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.3f
@@ -201,9 +201,8 @@ typedef enum {
 {
     [super viewWillAppear:animated];
     
-    //if (ROOT.topMenuViewController.navBarMode != NAVBAR_MODE_SEARCH) {
-        ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
-    //}
+    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
+    [ROOT.topMenuViewController updateTOCButtonVisibility];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
