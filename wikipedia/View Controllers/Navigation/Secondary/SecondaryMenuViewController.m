@@ -17,18 +17,20 @@
 #import "TabularScrollView.h"
 
 #import "SecondaryMenuRowView.h"
-#import "PageHistoryViewController.h"
-#import "CreditsViewController.h"
 
 #import "WMF_WikiFont_Chars.h"
 
 #import "TopMenuContainerView.h"
 #import "TopMenuViewController.h"
-#import "MenuLabel.h"
+#import "UIViewController+StatusBarHeight.h"
+
+#import "Defines.h"
+#import "ModalMenuAndContentViewController.h"
+#import "UIViewController+PresentModal.h"
 
 #pragma mark - Defines
 
-#define BACKGROUND_COLOR [UIColor colorWithWhite:0.97f alpha:1.0f]
+#define BACKGROUND_COLOR [UIColor colorWithWhite:1.0f alpha:1.0f]
 #define MENU_ICON_COLOR [UIColor blackColor]
 #define MENU_ICON_COLOR_DESELECTED [UIColor lightGrayColor];
 #define MENU_ICON_FONT_SIZE 38
@@ -57,20 +59,21 @@ typedef enum {
 
 @property (strong, nonatomic) NSDictionary *highlightedTextAttributes;
 
-@property (strong, nonatomic) TopMenuViewController *topMenuViewController;
-
 @end
 
 @implementation SecondaryMenuViewController
 
-#pragma mark - Top menu
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
-	if ([segue.identifier isEqualToString: @"TopMenuViewController_embed_in_SecondaryMenuViewController"]) {
-		self.topMenuViewController = (TopMenuViewController *) [segue destinationViewController];
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.title = MWLocalizedString(@"main-menu-title", nil);
+        self.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
     }
+    return self;
 }
+
+#pragma mark - Top menu
 
 // Handle nav bar taps. (same way as any other view controller would)
 - (void)navItemTappedNotification:(NSNotification *)notification
@@ -87,18 +90,6 @@ typedef enum {
         default:
             break;
     }
-}
-
--(void)configureContainedTopMenu
-{
-    self.topMenuViewController.navBarStyle = NAVBAR_STYLE_DAY;
-    self.topMenuViewController.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
-    self.topMenuViewController.navBarContainer.showBottomBorder = NO;
-    
-    MenuLabel *label = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
-    label.text = MWLocalizedString(@"main-menu-title", nil);
-    label.font = [UIFont systemFontOfSize:21];
-    label.textAlignment = NSTextAlignmentCenter;
 }
 
 #pragma mark - Hiding
@@ -124,8 +115,6 @@ typedef enum {
 {
     [super viewDidLoad];
 
-    [self configureContainedTopMenu];
-
     self.highlightedTextAttributes = @{NSFontAttributeName: [UIFont italicSystemFontOfSize:16]};
 
     self.hidePagesSection = NO;
@@ -136,6 +125,20 @@ typedef enum {
     self.scrollView.clipsToBounds = NO;
     
     self.rowViews = @[].mutableCopy;
+    
+    // This needs to be in viewDidLoad.
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                         selector: @selector(languageItemSelectedNotification:)
+                                             name: @"LanguageItemSelected"
+                                           object: nil];
+}
+
+-(void)dealloc
+{
+    // This needs to be in dealloc.
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: @"LanguageItemSelected"
+                                                  object: nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -442,7 +445,6 @@ typedef enum {
                 break;
             case SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE:
                 [self showLanguages];
-                [self hidePresenter];
                 break;
             case SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING:
                 [[SessionSingleton sharedInstance].zeroConfigState toggleWarnWhenLeaving];
@@ -462,18 +464,16 @@ typedef enum {
                 break;
             case SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY:
             {
-                PageHistoryViewController *pageHistoryVC =
-                    [NAV.storyboard instantiateViewControllerWithIdentifier:@"PageHistoryViewController"];
-                [NAV pushViewController:pageHistoryVC animated:YES];
-                [self hidePresenter];
+                [self performModalSequeWithID: @"modal_segue_show_page_history"
+                              transitionStyle: UIModalTransitionStyleCoverVertical
+                                        block: nil];
             }
                 break;
             case SECONDARY_MENU_ROW_INDEX_CREDITS:
             {
-                CreditsViewController *creditsVC =
-                    [NAV.storyboard instantiateViewControllerWithIdentifier:@"CreditsViewController"];
-                [NAV pushViewController:creditsVC animated:YES];
-                [self hidePresenter];
+                [self performModalSequeWithID: @"modal_segue_show_credits"
+                              transitionStyle: UIModalTransitionStyleCoverVertical
+                                        block: nil];
             }
                 break;
             default:
@@ -502,29 +502,27 @@ typedef enum {
 
 -(void)showLanguages
 {
-    LanguagesTableVC *languagesTableVC =
-    [NAV.storyboard instantiateViewControllerWithIdentifier:@"LanguagesTableVC"];
-    
-    languagesTableVC.downloadLanguagesForCurrentArticle = NO;
-    
-    CATransition *transition = [languagesTableVC getTransition];
-    
-    languagesTableVC.selectionBlock = ^(NSDictionary *selectedLangInfo){
+    [self performModalSequeWithID: @"modal_segue_show_languages"
+                  transitionStyle: UIModalTransitionStyleCoverVertical
+                            block: ^(LanguagesTableVC *languagesTableVC){
+                                languagesTableVC.invokingVC = self;
+                            }];
+}
 
-        [self showAlert:MWLocalizedString(@"main-menu-language-selection-saved", nil)];
-        [self fadeAlert];
+- (void)languageItemSelectedNotification:(NSNotification *)notification
+{
+    // Ensure action is only taken if the secondary menu view controller presented the lang picker.
+    LanguagesTableVC *languagesTableVC = notification.object;
+    if (languagesTableVC.invokingVC != self) return;
 
-        [self switchPreferredLanguageToId:selectedLangInfo[@"code"] name:selectedLangInfo[@"name"]];
-        
-        [NAV.view.layer addAnimation:transition forKey:nil];
-        // Don't animate - so the transistion set above will be used.
-        [NAV popViewControllerAnimated:NO];
-
-    };
+    NSDictionary *selectedLangInfo = [notification userInfo];
     
-    [NAV.view.layer addAnimation:transition forKey:nil];
-    // Don't animate - so the transistion set above will be used.
-    [NAV pushViewController:languagesTableVC animated:NO];
+    [self showAlert:MWLocalizedString(@"main-menu-language-selection-saved", nil)];
+    [self fadeAlert];
+    
+    [self switchPreferredLanguageToId:selectedLangInfo[@"code"] name:selectedLangInfo[@"name"]];
+    
+    [self hidePresenter];
 }
 
 -(void)switchPreferredLanguageToId:(NSString *)languageId name:(NSString *)name

@@ -7,8 +7,14 @@
 #import "WebViewController.h"
 
 #import "UINavigationController+SearchNavStack.h"
-#import "PrimaryMenuViewController.h"
 #import "TopMenuContainerView.h"
+#import "UIViewController+StatusBarHeight.h"
+
+#import "Defines.h"
+
+#import "ModalMenuAndContentViewController.h"
+
+#import "UIViewController+PresentModal.h"
 
 @interface RootViewController (){
     
@@ -38,15 +44,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    CGFloat topMenuInitialHeight = 45;
+    [self constrainTopAndCenterContainerHeights];
+}
+
+-(void)constrainTopAndCenterContainerHeights
+{
+    CGFloat topMenuInitialHeight = TOP_MENU_INITIAL_HEIGHT;
     
     // iOS 7 needs to have room for a view behind the top status bar.
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
         topMenuInitialHeight += [self getStatusBarHeight];
     }
     
-    self.centerContainerTopConstraint.constant = topMenuInitialHeight;
     self.topContainerHeightConstraint.constant = topMenuInitialHeight;
+    self.centerContainerTopConstraint.constant = topMenuInitialHeight;
 }
 
 -(void)setTopMenuHidden:(BOOL)topMenuHidden
@@ -124,11 +135,6 @@
     }
 }
 
--(CGFloat)getStatusBarHeight
-{
-    return 20;
-}
-
 -(void)updateTopMenuVisibilityForViewController:(UIViewController *)viewController
 {
     if(![viewController isMemberOfClass:[WebViewController class]]){
@@ -159,12 +165,12 @@
         return;
     }
 
-    if ([self.presentedViewController isMemberOfClass:[PrimaryMenuViewController class]]) {
+    if ([self.presentedViewController isMemberOfClass:[ModalMenuAndContentViewController class]]) {
         [self dismissViewControllerAnimated:YES completion:^{}];
     }else{
-        PrimaryMenuViewController *primaryMenuVC =
-            [NAV.storyboard instantiateViewControllerWithIdentifier:@"PrimaryMenuViewController"];
-        [self presentViewController:primaryMenuVC animated:YES completion:^{}];
+        [self performModalSequeWithID: @"modal_segue_show_primary_menu"
+                      transitionStyle: UIModalTransitionStyleCrossDissolve
+                                block: nil];
     }
 }
 

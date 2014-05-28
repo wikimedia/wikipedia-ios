@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
+#import "TopMenuViewController.h"
 
 @interface CreditsViewController : UIViewController
 
@@ -14,5 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *wikiFontLabel;
 @property (weak, nonatomic) IBOutlet UILabel *hppleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nsdateLabel;
+
+@property (nonatomic) NavBarMode navBarMode;
 
 @end

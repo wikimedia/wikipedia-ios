@@ -17,7 +17,7 @@
 
 #import "TopMenuContainerView.h"
 #import "TopMenuViewController.h"
-#import "MenuLabel.h"
+#import "UIViewController+StatusBarHeight.h"
 
 #define HISTORY_THUMBNAIL_WIDTH 110
 #define HISTORY_RESULT_HEIGHT 66
@@ -38,11 +38,19 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
-@property (strong, nonatomic) TopMenuViewController *topMenuViewController;
-
 @end
 
 @implementation HistoryViewController
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.title = MWLocalizedString(@"history-label", nil);
+        self.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
+    }
+    return self;
+}
 
 #pragma mark - Memory
 
@@ -53,13 +61,6 @@
 }
 
 #pragma mark - Top menu
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-	if ([segue.identifier isEqualToString: @"TopMenuViewController_embed_in_HistoryViewController"]) {
-		self.topMenuViewController = (TopMenuViewController *) [segue destinationViewController];
-    }
-}
 
 // Handle nav bar taps. (same way as any other view controller would)
 - (void)navItemTappedNotification:(NSNotification *)notification
@@ -76,18 +77,6 @@
         default:
             break;
     }
-}
-
--(void)configureContainedTopMenu
-{
-    self.topMenuViewController.navBarStyle = NAVBAR_STYLE_DAY;
-    self.topMenuViewController.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
-    self.topMenuViewController.navBarContainer.showBottomBorder = NO;
-    
-    MenuLabel *label = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
-    label.text = MWLocalizedString(@"history-label", nil);
-    label.font = [UIFont systemFontOfSize:21];
-    label.textAlignment = NSTextAlignmentCenter;
 }
 
 #pragma mark - Hiding
@@ -116,8 +105,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: @"NavItemTapped"
                                                   object: nil];
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -134,8 +121,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    [self configureContainedTopMenu];
 
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setLocale:[NSLocale currentLocale]];

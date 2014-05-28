@@ -17,6 +17,9 @@
 {
     [self recurseSubviewsOfView:self.view];
     for (UIViewController *subVC in self.childViewControllers) {
+        if (subVC.presentedViewController) {
+            [subVC.presentedViewController recurseSubVCs];
+        }
         [subVC recurseSubVCs];
     }
 }

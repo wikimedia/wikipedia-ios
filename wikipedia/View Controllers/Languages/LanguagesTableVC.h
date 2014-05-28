@@ -2,13 +2,14 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
+#import "TopMenuViewController.h"
 
-@interface LanguagesTableVC : UITableViewController<UITextFieldDelegate>
-
--(CATransition *)getTransition;
+@interface LanguagesTableVC : UITableViewController
 
 @property (nonatomic) BOOL downloadLanguagesForCurrentArticle;
 
-@property (nonatomic, copy) void (^selectionBlock)(NSDictionary *);
+@property (nonatomic) NavBarMode navBarMode;
+
+@property (nonatomic, weak) id invokingVC;
 
 @end
