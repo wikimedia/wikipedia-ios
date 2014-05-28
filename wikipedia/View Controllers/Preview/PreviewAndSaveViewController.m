@@ -23,7 +23,6 @@
 #import "Defines.h"
 #import "WMF_Colors.h"
 #import "CommunicationBridge.h"
-#import "UIViewController+LogEvent.h"
 #import "PreviewChoicesMenuView.h"
 #import "PreviewLicenseView.h"
 
@@ -93,8 +92,7 @@ typedef enum {
             [NAV popViewControllerAnimated:YES];
             
             if(ROOT.topMenuViewController.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING){
-                [self logEvent: @{@"action": @"abuseFilterWarningBack"}
-                        schema: LOG_SCHEMA_EDIT];
+                [self.funnel logAbuseFilterWarningBack:@"fixme"]; // @fixme
             }
             
             break;
@@ -104,8 +102,7 @@ typedef enum {
                 switch (ROOT.topMenuViewController.navBarMode) {
                     case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
                         [self save];
-                        [self logEvent: @{@"action": @"abuseFilterWarningIgnore"}
-                                schema: LOG_SCHEMA_EDIT];
+                        [self.funnel logAbuseFilterWarningIgnore:@"fixme"]; // @fixme
                         break;
                     case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
                         [self save];
@@ -150,8 +147,7 @@ typedef enum {
     
     self.previewWebViewBottomConstraint.constant = EDIT_SUMMARY_DOCK_DISTANCE_FROM_BOTTOM;
     
-    [self logEvent: @{@"action": @"preview"}
-            schema: LOG_SCHEMA_EDIT];
+    [self.funnel logPreview];
 }
 
 -(void)htmlAlertWasHidden
@@ -326,12 +322,13 @@ typedef enum {
         case PREVIEW_CHOICE_LOGIN_THEN_SAVE:{
             self.saveAutomaticallyIfSignedIn = YES;
             LoginViewController *loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            loginVC.funnel = [[LoginFunnel alloc] init];
+            [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
             [NAV pushViewController:loginVC animated:YES];
         }
             break;
         case PREVIEW_CHOICE_SAVE:
-            [self logEvent: @{@"action": @"saveAnonExplicit"}
-                    schema: LOG_SCHEMA_EDIT];
+            [self.funnel logSaveAnonExplicit];
 
             [self save];
             break;
@@ -436,15 +433,6 @@ return;
 
 - (void)save
 {
-    [self logEvent: @{@"action": @"saved"}
-            schema: LOG_SCHEMA_EDIT];
-
-    NSString *userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
-    if (userName) {
-        [self logEvent: @{@"userName": userName}
-                schema: LOG_SCHEMA_EDIT];
-    }
-
     NSString *editSummary = [self.editSummaryViewController getSummary];
 
     // Use static flag to prevent save when save already in progress.
@@ -468,6 +456,7 @@ return;
         
         // Mark article for refreshing and reload it.
         if (articleID) {
+            [self.funnel logSavedRevision:0]; // @fixme need revision ID
             [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
                 WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
                 [webVC reloadCurrentArticleInvalidatingCache:YES];
@@ -491,8 +480,7 @@ return;
             {
 
                 if(ROOT.topMenuViewController.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA){
-                    [self logEvent: @{@"action": @"captchaFailure"}
-                            schema: LOG_SCHEMA_EDIT];
+                    [self.funnel logCaptchaFailure];
                 }
             
                 // If the server said a captcha was required, present the captcha image.
@@ -558,8 +546,7 @@ return;
                         bannerImage = @"abuse-filter-disallowed.png";
                         bannerColor = WMF_COLOR_RED;
 
-                        [self logEvent: @{@"action": @"abuseFilterError"}
-                                schema: LOG_SCHEMA_EDIT];
+                        [self.funnel logAbuseFilterError: warningHtml]; // @fixme not sure this is right message
 
                     }else{
                         ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_WARNING;
@@ -569,8 +556,7 @@ return;
                         bannerImage = @"abuse-filter-flag-white.png";
                         bannerColor = WMF_COLOR_ORANGE;
 
-                        [self logEvent: @{@"action": @"abuseFilterWarning"}
-                                schema: LOG_SCHEMA_EDIT];
+                        [self.funnel logAbuseFilterWarning:warningHtml]; // @fixme not sure this is right message
 
                     }
 
@@ -590,12 +576,7 @@ return;
             case WIKITEXT_UPLOAD_ERROR_SERVER:
             case WIKITEXT_UPLOAD_ERROR_UNKNOWN:
 
-                [self logEvent: @{@"action": @"error"}
-                        schema: LOG_SCHEMA_EDIT];
-                
-                [self logEvent: @{@"errorText": error.localizedDescription}
-                        schema: LOG_SCHEMA_EDIT];
-
+                [self.funnel logError:error.localizedDescription]; // @fixme is this right msg?
                 break;
                 
             default:
@@ -620,9 +601,6 @@ return;
                                         //NSLog(@"article.domain = %@", article.domain);
                                         editTokens[article.domain] = editToken;
                                         [SessionSingleton sharedInstance].keychainCredentials.editTokens = editTokens;
-
-                                        [self logEvent: @{@"editSessionToken": editToken}
-                                                schema: LOG_SCHEMA_EDIT];
                                     }
                                 }];
                             }
@@ -694,8 +672,7 @@ return;
 
 -(void)revealCaptcha
 {
-    [self logEvent: @{@"action": @"captchaShown"}
-            schema: LOG_SCHEMA_EDIT];
+    [self.funnel logCaptchaShown];
 
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.35];

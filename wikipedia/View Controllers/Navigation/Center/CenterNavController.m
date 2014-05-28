@@ -126,6 +126,12 @@
     return editVC ? YES : NO;
 }
 
+-(SectionEditorViewController *)editor
+{
+    id editVC = [self searchNavStackForViewControllerOfClass:[SectionEditorViewController class]];
+    return editVC;
+}
+
 #pragma Wikipedia Zero alert dialogs
 
 // Don't call this directly. Use promptFirstTimeZeroOnWithMessageIfAppropriate or promptFirstTimeZeroOffIfAppropriate

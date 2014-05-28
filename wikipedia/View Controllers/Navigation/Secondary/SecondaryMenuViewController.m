@@ -417,6 +417,8 @@ typedef enum {
                 if (!userName) {
                     LoginViewController *loginVC =
                     [NAV.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+                    loginVC.funnel = [[LoginFunnel alloc] init];
+                    [loginVC.funnel logStartFromNavigation];
                     [NAV pushViewController:loginVC animated:YES];
                 }else{
                     

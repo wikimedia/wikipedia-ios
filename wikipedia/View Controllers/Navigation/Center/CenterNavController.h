@@ -1,6 +1,8 @@
 //  Created by Monte Hurd on 12/16/13.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
+#include "SectionEditorViewController.h"
+
 typedef enum {
     DISCOVERY_METHOD_SEARCH = 0,
     DISCOVERY_METHOD_RANDOM = 1,
@@ -10,6 +12,7 @@ typedef enum {
 @interface CenterNavController : UINavigationController <UINavigationControllerDelegate>
 
 @property (nonatomic, readonly) BOOL isEditorOnNavstack;
+@property (nonatomic, readonly) SectionEditorViewController *editor;
 
 -(void)loadArticleWithTitle: (NSString *)title
                      domain: (NSString *)domain

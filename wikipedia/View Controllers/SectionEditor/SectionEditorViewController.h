@@ -3,11 +3,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MWNetworkOp.h"
+#import "EditFunnel.h"
 
 @class NSManagedObjectID;
 
 @interface SectionEditorViewController : UIViewController <UITextViewDelegate, UIScrollViewDelegate, NetworkOpDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) NSManagedObjectID *sectionID;
+@property EditFunnel *funnel;
 
 @end

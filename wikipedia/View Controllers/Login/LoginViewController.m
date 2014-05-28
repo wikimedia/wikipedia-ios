@@ -12,13 +12,13 @@
 #import "NSHTTPCookieStorage+CloneCookie.h"
 #import "AccountCreationViewController.h"
 #import "WMF_Colors.h"
-#import "UIViewController+LogEvent.h"
 
 #import "MenuButtonView.h"
 #import "MenuLabel.h"
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
+#import "CreateAccountFunnel.h"
 
 @interface LoginViewController (){
 
@@ -122,20 +122,12 @@
 
     // Listen for nav bar taps.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navItemTappedNotification:) name:@"NavItemTapped" object:nil];
-
-    [self logEvent: @{@"action": @"start"}
-            schema: LOG_SCHEMA_LOGIN];
-    
-    NSString *source = NAV.isEditorOnNavstack ? @"edit" : @"navigation";
-    [self logEvent: @{@"source": source}
-            schema: LOG_SCHEMA_LOGIN];
 }
 
 -(void)save
 {
     if (NAV.isEditorOnNavstack) {
-        [self logEvent: @{@"action": @"loginAttempt"}
-                schema: LOG_SCHEMA_EDIT];
+        [NAV.editor.funnel logLoginAttempt];
     }
 
     [self loginWithUserName: self.usernameField.text
@@ -217,12 +209,10 @@
                           [self cloneSessionCookies];
                           //printCookies();
 
-                          [self logEvent: @{@"action": @"success"}
-                                  schema: LOG_SCHEMA_LOGIN];
-
+                          [self.funnel logSuccess];
+                          
                           if (NAV.isEditorOnNavstack) {
-                              [self logEvent: @{@"action": @"loginSuccess"}
-                                      schema: LOG_SCHEMA_EDIT];
+                              [NAV.editor.funnel logLoginSuccess];
                           }
                           
                       } cancelledBlock: ^(NSError *error){
@@ -239,17 +229,10 @@
                           [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
 
 
-                          [self logEvent: @{@"action": @"error"}
-                                  schema: LOG_SCHEMA_LOGIN];
-
-                          if (error.localizedDescription) {
-                              [self logEvent: @{@"errorText": error.localizedDescription}
-                                      schema: LOG_SCHEMA_LOGIN];
-                          }
+                          [self.funnel logError:error.localizedDescription];
 
                           if (NAV.isEditorOnNavstack) {
-                              [self logEvent: @{@"action": @"loginFailure"}
-                                      schema: LOG_SCHEMA_EDIT];
+                              [NAV.editor.funnel logLoginFailure];
                           }
                       }];
     
@@ -261,11 +244,6 @@
                                
                                NSLog(@"loginTokenOp token = %@", tokenRetrieved);
                                loginOp.token = tokenRetrieved;
-                               
-                               if (tokenRetrieved) {
-                                   [self logEvent: @{@"loginSessionToken": tokenRetrieved}
-                                           schema: LOG_SCHEMA_LOGIN];
-                               }
                            } cancelledBlock: ^(NSError *error){
                                
                                [self fadeAlert];
@@ -278,13 +256,7 @@
 
                                [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
 
-                               [self logEvent: @{@"action": @"error"}
-                                       schema: LOG_SCHEMA_LOGIN];
-
-                               if (error.localizedDescription) {
-                                   [self logEvent: @{@"errorText": error.localizedDescription}
-                                           schema: LOG_SCHEMA_LOGIN];
-                               }
+                               [self.funnel logError:error.localizedDescription];
                            }];
     
     loginTokenOp.delegate = self;
@@ -323,10 +295,12 @@
 
 - (IBAction)createAccountButtonPushed:(id)sender
 {
-    [self logEvent: @{@"action": @"createAccountAttempt"}
-            schema: LOG_SCHEMA_LOGIN];
+    [self.funnel logCreateAccountAttempt];
 
     AccountCreationViewController *createAcctVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"AccountCreationViewController"];
+    createAcctVC.funnel = [[CreateAccountFunnel alloc] init];
+    [createAcctVC.funnel logStartFromLogin:self.funnel.loginSessionToken];
+    
     [NAV pushViewController:createAcctVC animated:YES];
 }
 

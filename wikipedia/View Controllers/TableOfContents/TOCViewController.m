@@ -45,6 +45,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.funnel = [[ToCInteractionFunnel alloc] init];
 
     self.sectionIds = [@[]mutableCopy];
     self.sectionImageIds = [@{} mutableCopy];
@@ -77,6 +79,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+    [self.funnel logClose];
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: @"SectionImageRetrieved"
                                                   object: nil];
@@ -92,6 +95,7 @@
                                              selector: @selector(sectionImageRetrieved:)
                                                  name: @"SectionImageRetrieved"
                                                object: nil];
+    [self.funnel logOpen];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -192,6 +196,7 @@
         [self unHighlightAllCells];
         [self navigateToSelection: sender
                          duration: TOC_SELECTION_SCROLL_DURATION];
+        [self.funnel logClick];
     }
 }
 

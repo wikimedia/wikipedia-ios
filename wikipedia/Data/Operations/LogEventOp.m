@@ -4,6 +4,7 @@
 #import "LogEventOp.h"
 #import "NSURLRequest+DictionaryRequest.h"
 #import "NSString+Extras.h"
+#import "SessionSingleton.h"
 
 #define LOG_ENDPOINT @"https://bits.wikimedia.org/event.gif"
 
@@ -11,48 +12,29 @@
 
 @implementation LogEventOp
 
--(NSDictionary *)getSchemaData
-{
-    return @{
-        @(LOG_SCHEMA_CREATEACCOUNT): @{
-            @"name": @"MobileWikiAppCreateAccount",
-            @"revision": @8240702
-        },
-        @(LOG_SCHEMA_READINGACTION): @{
-            @"name": @"MobileWikiAppReadingAction",
-            @"revision": @8233801
-        },
-        @(LOG_SCHEMA_EDIT): @{
-            @"name": @"MobileWikiAppEdit",
-            @"revision": @8198182
-        },
-        @(LOG_SCHEMA_LOGIN): @{
-            @"name": @"MobileWikiAppLogin",
-            @"revision": @8234533
-        }
-    };
-}
-
-- (id)initWithSchema: (EventLogSchema)schema
+- (id)initWithSchema: (NSString *)schema
+            revision: (int)revision
                event: (NSDictionary *)event
 {
     self = [super init];
     if (self) {
 
-        NSDictionary *schemaData = [self getSchemaData];
+        SessionSingleton *session = [SessionSingleton sharedInstance];
+        NSString *wiki = [session.domain stringByAppendingString:@"wiki"];
 
         NSDictionary *payload =
         @{
           @"event"    : event,
-          @"revision" : schemaData[@(schema)][@"revision"],
-          @"schema"   : schemaData[@(schema)][@"name"]
+          @"revision" : @(revision),
+          @"schema"   : schema,
+          @"wiki"     : wiki,
           };
 
         NSData *payloadJsonData = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
         NSString *payloadJsonString = [[NSString alloc] initWithData:payloadJsonData encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", payloadJsonString);
         NSString *encodedPayloadJsonString = [payloadJsonString urlEncodedUTF8String];
         NSString *urlString = [NSString stringWithFormat:@"%@?%@;", LOG_ENDPOINT, encodedPayloadJsonString];
-        
         self.request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
         
         self.completionBlock = ^(){

@@ -4,6 +4,7 @@
 #import <UIKit/UIKit.h>
 #import "MWNetworkOp.h"
 #import "CaptchaViewController.h"
+#import "CreateAccountFunnel.h"
 
 @interface AccountCreationViewController : UIViewController <NetworkOpDelegate, CaptchaViewControllerRefresh, UITextFieldDelegate>
 
@@ -12,5 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordRepeatField;
 @property (weak, nonatomic) IBOutlet UITextField *realnameField;
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
+
+@property (strong, nonatomic) CreateAccountFunnel *funnel;
 
 @end

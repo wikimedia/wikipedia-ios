@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
+#import "ToCInteractionFunnel.h"
 
 @class WebViewController;
 
@@ -12,5 +13,7 @@
 -(void)centerCellForWebViewTopMostSectionAnimated:(BOOL)animated;
 
 @property (weak, nonatomic) WebViewController *webVC;
+
+@property (strong, nonatomic) ToCInteractionFunnel *funnel;
 
 @end

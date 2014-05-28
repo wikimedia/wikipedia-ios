@@ -247,6 +247,8 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
         case PRIMARY_MENU_ITEM_LOGIN: {
             LoginViewController *loginVC =
             [NAV.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            loginVC.funnel = [[LoginFunnel alloc] init];
+            [loginVC.funnel logStartFromNavigation];
             [NAV pushViewController:loginVC animated:YES];
             [self hide];
         }

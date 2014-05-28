@@ -241,6 +241,7 @@
     PreviewAndSaveViewController *previewVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"PreviewViewController"];
     previewVC.sectionID = self.sectionID;
     previewVC.wikiText = self.editTextView.text;
+    previewVC.funnel = self.funnel;
     [NAV pushViewController:previewVC animated:YES];
 }
 

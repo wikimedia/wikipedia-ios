@@ -4,6 +4,7 @@
 #import <UIKit/UIKit.h>
 #import "MWNetworkOp.h"
 #import "CaptchaViewController.h"
+#import "EditFunnel.h"
 
 @class NSManagedObjectID;
 
@@ -11,6 +12,7 @@
 
 @property (strong, nonatomic) NSManagedObjectID *sectionID;
 @property (strong, nonatomic) NSString *wikiText;
+@property (strong, nonatomic) EditFunnel *funnel;
 
 -(void)reloadCaptchaPushed:(id)sender;
 

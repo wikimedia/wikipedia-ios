@@ -3,25 +3,13 @@
 
 #import "MWNetworkOp.h"
 
-typedef enum {
-
-    //https://meta.wikimedia.org/wiki/Schema:MobileWikiAppCreateAccount
-    LOG_SCHEMA_CREATEACCOUNT = 0,
-
-    //https://meta.wikimedia.org/wiki/Schema:MobileWikiAppReadingAction
-    LOG_SCHEMA_READINGACTION = 1,
-
-    //https://meta.wikimedia.org/wiki/Schema:MobileWikiAppEdit
-    LOG_SCHEMA_EDIT = 2,
-    
-    //https://meta.wikimedia.org/wiki/Schema:MobileWikiAppLogin
-    LOG_SCHEMA_LOGIN = 3
-    
-} EventLogSchema;
-
 @interface LogEventOp : MWNetworkOp
 
-- (id)initWithSchema: (EventLogSchema)schema
+/**
+ * Most code should not call this directly -- use an EventLoggingFunnel subclass.
+ */
+- (id)initWithSchema: (NSString *)schema
+            revision: (int)revision
                event: (NSDictionary *)event;
 
 @end

@@ -14,7 +14,6 @@
 #import "LoginViewController.h"
 #import "UINavigationController+SearchNavStack.h"
 #import "WMF_Colors.h"
-#import "UIViewController+LogEvent.h"
 
 #import "MenuButtonView.h"
 #import "MenuLabel.h"
@@ -75,9 +74,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navItemTappedNotification:) name:@"NavItemTapped" object:nil];
     
     [self.usernameField becomeFirstResponder];
-
-    [self logEvent: @{@"action": @"start"}
-            schema: LOG_SCHEMA_CREATEACCOUNT];
 
     //[self prepopulateTextFieldsForDebugging];
 }
@@ -156,8 +152,7 @@
             [self.captchaViewController.captchaTextBox performSelector: @selector(becomeFirstResponder)
                                                             withObject: nil afterDelay:0.4f];
             
-            [self logEvent: @{@"action": @"captchaShown"}
-                    schema: LOG_SCHEMA_CREATEACCOUNT];
+            [self.funnel logCaptchaShown];
         }
     }
 }
@@ -316,8 +311,7 @@
                                   
                                   //NSLog(@"AccountCreationOp result = %@", result);
                                   
-                                  [self logEvent: @{@"action": @"success"}
-                                          schema: LOG_SCHEMA_CREATEACCOUNT];
+                                  [self.funnel logSuccess];
 
                                   dispatch_async(dispatch_get_main_queue(), ^(){
                                       [self showAlert:result];
@@ -334,13 +328,7 @@
                               } errorBlock: ^(NSError *error){
                                   [self showAlert:error.localizedDescription];
 
-                                  [self logEvent: @{@"action": @"error"}
-                                          schema: LOG_SCHEMA_CREATEACCOUNT];
-                                  
-                                  if (error.localizedDescription) {
-                                      [self logEvent: @{@"errorText": error.localizedDescription}
-                                              schema: LOG_SCHEMA_CREATEACCOUNT];
-                                  }
+                                  [self.funnel logError:error.localizedDescription];
 
                                   switch (error.code) {
                                       case ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA:{

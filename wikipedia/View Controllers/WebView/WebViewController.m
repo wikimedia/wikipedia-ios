@@ -24,7 +24,6 @@
 #import "UIViewController+HideKeyboard.h"
 #import "UIWebView+HideScrollGradient.h"
 #import "UIWebView+ElementLocation.h"
-#import "UIViewController+LogEvent.h"
 #import "UIView+RemoveConstraints.h"
 #import "UIViewController+Alert.h"
 #import "Section+ImageRecords.h"
@@ -49,6 +48,8 @@
 #import "ModalMenuAndContentViewController.h"
 #import "UIViewController+PresentModal.h"
 #import "Section+DisplayHtml.h"
+
+#import "EditFunnel.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.3f
 
@@ -347,8 +348,8 @@ typedef enum {
 
 -(void)showSectionEditor
 {
-    [self logEvent: @{@"action": @"start"}
-            schema: LOG_SCHEMA_EDIT];
+    EditFunnel *funnel = [[EditFunnel alloc] init];
+    [funnel logStart];
 
     SectionEditorViewController *sectionEditVC =
     [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SectionEditorViewController"];
@@ -364,6 +365,7 @@ typedef enum {
                                                  withPredicateFormat: @"article == %@ AND sectionId == %@", article, @(self.sectionToEditId)];
         
         sectionEditVC.sectionID = section.objectID;
+        sectionEditVC.funnel = funnel;
     }
     
     [NAV pushViewController:sectionEditVC animated:YES];
