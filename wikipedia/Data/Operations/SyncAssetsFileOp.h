@@ -3,20 +3,20 @@
 
 #import "MWNetworkOp.h"
 
-#import "BundledJsonEnum.h"
+#import "AssetsFileEnum.h"
 
-@interface ConfigFileSyncOp : MWNetworkOp
+@interface SyncAssetsFileOp : MWNetworkOp
 
-// Syncs any bundled app json file with a remote file.
+// Syncs /AppData/Documents/assets/ file with a remote file.
 
 // Only does so if age of app file exceeds maxAge or if the file isn't found in app.
 
-// Nice because we can sync any bundled files with any periodicity
+// Nice because we can sync assets files with any periodicity
 // required just by firing these operations off occasionally.
 
 // They self-cancel if maxAge has not been exceeded, so fire away.
 
-- (id)initForBundledJsonFile: (BundledJsonFile)file
-                      maxAge: (CGFloat)maxAge;
+- (id)initForAssetsFile: (AssetsFileEnum)file
+                 maxAge: (CGFloat)maxAge;
 
 @end

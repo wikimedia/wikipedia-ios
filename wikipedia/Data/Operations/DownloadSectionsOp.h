@@ -3,11 +3,12 @@
 
 #import "MWNetworkOp.h"
 
-@interface DownloadNonLeadSectionsOp : MWNetworkOp
+@interface DownloadSectionsOp : MWNetworkOp
 
 - (id)initForPageTitle: (NSString *)title
                 domain: (NSString *)domain
-       completionBlock: (void (^)(NSArray *))completionBlock
+       leadSectionOnly: (BOOL)leadSectionOnly
+       completionBlock: (void (^)(NSDictionary *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock
 ;

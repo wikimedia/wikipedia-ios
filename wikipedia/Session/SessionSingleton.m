@@ -2,8 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SessionSingleton.h"
-#import "BundledPaths.h"
-#import "BundledJson.h"
+#import "AssetsFile.h"
 
 @implementation SessionSingleton
 
@@ -119,7 +118,8 @@
 
 -(NSString *)domainNameForCode:(NSString *)code
 {
-    NSArray *result = [BundledJson arrayFromBundledJsonFile:BUNDLED_JSON_LANGUAGES];
+    AssetsFile *assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_LANGUAGES];
+    NSArray *result = assetsFile.array;
     if (result.count > 0) {
         for (NSDictionary *d in result) {
             if ([d[@"code"] isEqualToString:code]) {
@@ -134,7 +134,8 @@
 
 -(NSString *)mainArticleTitleForCode:(NSString *)code
 {
-    NSDictionary *mainPageNames = [BundledJson dictionaryFromBundledJsonFile:BUNDLED_JSON_MAINPAGES];
+    AssetsFile *assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_MAINPAGES];
+    NSDictionary *mainPageNames = assetsFile.dictionary;
     return mainPageNames[code];
 }
 

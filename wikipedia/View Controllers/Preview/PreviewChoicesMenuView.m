@@ -5,7 +5,7 @@
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
 #import "NSString+FormattedAttributedString.h"
-#import "BundledJson.h"
+#import "AssetsFile.h"
 
 #define PREVIEW_BLUE_COLOR [UIColor colorWithRed:0.13 green:0.42 blue:0.68 alpha:1.0]
 
@@ -98,7 +98,8 @@
 
 -(BOOL)isAnonymousEditingDisabled
 {
-    NSDictionary *iosConfigJson = [BundledJson dictionaryFromBundledJsonFile:BUNDLED_JSON_CONFIG];
+    AssetsFile *assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_CONFIG];
+    NSDictionary *iosConfigJson = assetsFile.dictionary;
     NSNumber *disableAnonEditing = iosConfigJson[@"disableAnonEditing"];
     if (disableAnonEditing && (disableAnonEditing.boolValue == YES)) {
         return YES;

@@ -68,7 +68,8 @@ typedef enum {
 
 -(void)resetBridge
 {
-    self.bridge = [[CommunicationBridge alloc] initWithWebView:self.previewWebView];
+    self.bridge = [[CommunicationBridge alloc] initWithWebView: self.previewWebView
+                                                  htmlFileName: @"preview.html"];
 
     [self.bridge addListener:@"DOMLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
 

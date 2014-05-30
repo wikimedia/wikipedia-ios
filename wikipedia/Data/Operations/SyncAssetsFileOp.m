@@ -1,29 +1,29 @@
 //  Created by Monte Hurd on 5/8/14.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "ConfigFileSyncOp.h"
+#import "SyncAssetsFileOp.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSURLRequest+DictionaryRequest.h"
 
-#import "BundledJson.h"
-#import "BundledPaths.h"
+#import "AssetsFile.h"
 
-@implementation ConfigFileSyncOp
+@implementation SyncAssetsFileOp
 
-- (id)initForBundledJsonFile: (BundledJsonFile)file
-                      maxAge: (CGFloat)maxAge
+- (id)initForAssetsFile: (AssetsFileEnum)file
+                 maxAge: (CGFloat)maxAge
 {
     self = [super init];
     if (self) {
-
-        self.request = [NSURLRequest getRequestWithURL: [BundledPaths bundledJsonFileRemoteUrl:file]
+    
+        AssetsFile *assetsFile = [[AssetsFile alloc] initWithFile:file];
+        self.request = [NSURLRequest getRequestWithURL: assetsFile.url
                                             parameters: nil];
         
-        __weak ConfigFileSyncOp *weakSelf = self;
+        __weak SyncAssetsFileOp *weakSelf = self;
         self.aboutToStart = ^{
             
             // Cancel the operation if the existing file hasn't aged enough.
-            BOOL shouldRefresh = [BundledJson isRefreshNeededForBundledJsonFile:file maxAge:maxAge];
+            BOOL shouldRefresh = [assetsFile isOlderThan:maxAge];
 
             if (!shouldRefresh) {
                 [weakSelf cancel];
@@ -48,7 +48,7 @@
                 NSString *jsonString = [[NSString alloc] initWithData:weakSelf.dataRetrieved encoding:NSUTF8StringEncoding];
                 //NSLog(@"jsonString = %@", jsonString);
                 if (!jsonString) return;
-                NSString *filePath = [BundledPaths bundledJsonFilePath:file];
+                NSString *filePath = assetsFile.path;
                 NSError *error = nil;
                 [jsonString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
                 if (error) {

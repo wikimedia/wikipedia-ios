@@ -18,7 +18,8 @@
 
 #pragma mark Public methods
 
-- (CommunicationBridge *)initWithWebView:(UIWebView *)targetWebView
+- (CommunicationBridge *)initWithWebView: (UIWebView *)targetWebView
+                            htmlFileName: (NSString *)htmlFileName
 {
     self = [super init];
     if (self) {
@@ -30,12 +31,13 @@
         [self addListener:@"DOMLoaded" withBlock:^(NSString *type, NSDictionary *payload) {
             [weakSelf onDOMReady];
         }];
-        [self setupWebView];
+        [self setupWebView:targetWebView htmlFileName:htmlFileName];
     }
     return self;
 }
 
-- (void)addListener:(NSString *)messageType withBlock:(JSListener)block
+- (void)addListener: (NSString *)messageType
+          withBlock: (JSListener)block
 {
     NSMutableArray *listeners = [self listenersForMessageType:messageType];
     if (listeners == nil) {
@@ -45,7 +47,8 @@
     }
 }
 
-- (void)sendMessage:(NSString *)messageType withPayload:(NSDictionary *)payload
+- (void)sendMessage: (NSString *)messageType
+        withPayload: (NSDictionary *)payload
 {
     NSString *js = [NSString stringWithFormat:@"bridge.handleMessage(%@,%@)",
                     [self stringify:messageType],
@@ -96,14 +99,18 @@
 
 #pragma mark Private methods
 
-- (void)setupWebView
+- (void)setupWebView: (UIWebView *)webView
+        htmlFileName: (NSString *)htmlFileName
 {
-    self.webView.delegate = self;
+    webView.delegate = self;
     
-    NSURL *baseURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
-    NSString *indexFilePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html" inDirectory:@"assets"];
-    NSData *data = [NSData dataWithContentsOfFile:indexFilePath];
-    [self.webView loadData:data MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:baseURL];
+    NSArray *documentsPath = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *assetsPath = [[documentsPath firstObject] stringByAppendingPathComponent:@"assets"];
+    NSString *indexHTMLFilePath = [assetsPath stringByAppendingPathComponent:htmlFileName];
+    NSString *encodedAssetsPath = [assetsPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *baseURL = [NSURL URLWithString:[NSString stringWithFormat:@"file:///%@/", encodedAssetsPath]];
+    NSData *indexHTMLFileData = [[NSFileManager defaultManager] contentsAtPath: indexHTMLFilePath];
+    [webView loadData:indexHTMLFileData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:baseURL];
 }
 
 static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
