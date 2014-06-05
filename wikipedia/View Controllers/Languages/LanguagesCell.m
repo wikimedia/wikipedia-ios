@@ -3,7 +3,7 @@
 
 #import "LanguagesCell.h"
 
-#define BACKGROUND_COLOR [UIColor colorWithWhite:0.97f alpha:1.0f]
+#define BACKGROUND_COLOR [UIColor colorWithWhite:1.0f alpha:1.0f]
 
 @implementation LanguagesCell
 

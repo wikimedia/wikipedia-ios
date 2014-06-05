@@ -480,16 +480,6 @@
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
             break;
-        case NAVBAR_MODE_PAGE_HISTORY:
-            self.label.text = MWLocalizedString(@"page-history-title", nil);
-            self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(60)-|";
-            break;        
-        case NAVBAR_MODE_CREDITS:
-            self.label.text = MWLocalizedString(@"main-menu-credits", nil);
-            self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(60)-|";
-            break;        
         case NAVBAR_MODE_SEARCH:
             self.navBarSubViewsHorizontalVFLString =
             @"H:|-(5)-[NAVBAR_TEXT_FIELD]-(6)-[NAVBAR_BUTTON_CANCEL]-(5)-|";
@@ -497,6 +487,10 @@
         case NAVBAR_MODE_X_WITH_LABEL:
             self.navBarSubViewsHorizontalVFLString =
             @"H:|-(5)-[NAVBAR_BUTTON_X(50)][NAVBAR_LABEL]-(55)-|";
+            break;
+        case NAVBAR_MODE_X_WITH_TEXT_FIELD:
+            self.navBarSubViewsHorizontalVFLString =
+            @"H:|-(5)-[NAVBAR_BUTTON_X(50)][NAVBAR_TEXT_FIELD]-(15)-|";
             break;
         case NAVBAR_MODE_DEFAULT_WITH_TOC:
             self.navBarSubViewsHorizontalVFLString =
@@ -641,7 +635,13 @@
     self.textField.text = @"";
     self.textField.rightViewMode = UITextFieldViewModeNever;
     self.lastSearchString = @"";
-    [self clearSearchResults];
+
+    if (self.navBarMode == NAVBAR_MODE_SEARCH) {
+        //[self clearSearchResults];
+    }else{
+        // So NavTextFieldTextChanged notification will fire when text cleared.
+        [self searchStringChanged];
+    }
 }
 
 -(void)clearSearchResults
@@ -659,12 +659,22 @@
     NSString *searchString = self.textField.text;
 
     NSString *trimmedSearchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    self.currentSearchString = trimmedSearchString;
 
-    self.lastSearchString = trimmedSearchString;
-
-    [self showSearchResultsController];
-
+    if (self.navBarMode == NAVBAR_MODE_SEARCH) {
+        
+        self.currentSearchString = trimmedSearchString;
+        
+        self.lastSearchString = trimmedSearchString;
+        
+        [self showSearchResultsController];
+        
+    }else{
+    
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"NavTextFieldTextChanged"
+                                                            object: self
+                                                          userInfo: @{@"text": searchString}];
+    }
+    
     if (trimmedSearchString.length == 0){
         self.textField.rightViewMode = UITextFieldViewModeNever;
         return;
@@ -674,7 +684,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [NAV.topViewController hideKeyboard];
+    [self hideKeyboard];
     return YES;
 }
 

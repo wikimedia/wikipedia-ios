@@ -12,19 +12,22 @@
 #import "SessionSingleton.h"
 
 #import "LoginViewController.h"
-#import "HistoryViewController.h"
-#import "SavedPagesViewController.h"
 #import "PageHistoryViewController.h"
 #import "UIViewController+Alert.h"
 
 #import "QueuesSingleton.h"
 #import "DownloadTitlesForRandomArticlesOp.h"
 
-#import "SecondaryMenuViewController.h"
 #import "TopMenuViewController.h"
 
 #import "TopMenuContainerView.h"
 #import "TopMenuViewController.h"
+#import "UIViewController+StatusBarHeight.h"
+
+#import "Defines.h"
+
+#import "ModalMenuAndContentViewController.h"
+#import "UIViewController+PresentModal.h"
 
 typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     PRIMARY_MENU_ITEM_UNKNOWN = 0,
@@ -43,24 +46,16 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 
 @property (strong, nonatomic) NSMutableArray *tableData;
 
-@property (weak, nonatomic) TopMenuViewController *topMenuViewController;
-
 @end
 
 @implementation PrimaryMenuViewController
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-	if ([segue.identifier isEqualToString: @"TopMenuViewController_embed_in_PrimaryMenuViewController"]) {
-		self.topMenuViewController = (TopMenuViewController *) [segue destinationViewController];
-    }
-}
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super initWithCoder:coder];
     if (self) {
-        self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        self.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
+        self.navBarStyle = NAVBAR_STYLE_NIGHT;
     }
     return self;
 }
@@ -69,17 +64,6 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
-    self.topMenuViewController.navBarStyle = NAVBAR_STYLE_NIGHT;
-    self.topMenuViewController.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
-    self.topMenuViewController.navBarContainer.showBottomBorder = NO;
-
-    /*
-     MenuLabel *label = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
-     label.text = @"Saved Pages";
-     label.font = [UIFont systemFontOfSize:21];
-     label.textAlignment = NSTextAlignmentCenter;
-     */
 
     [self setupTableData];
     //[self randomizeTitles];
@@ -109,10 +93,6 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     [super viewWillAppear:animated];
     
     [[QueuesSingleton sharedInstance].randomArticleQ cancelAllOperations];
-    
-    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -122,8 +102,6 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: @"NavItemTapped"
                                                   object: nil];
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -271,7 +249,6 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
             [NAV.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
             [NAV pushViewController:loginVC animated:YES];
             [self hide];
-            
         }
             break;
         case PRIMARY_MENU_ITEM_RANDOM: {
@@ -280,24 +257,20 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
             [self hide];
         }
             break;
-        case PRIMARY_MENU_ITEM_RECENT: {
-            HistoryViewController *historyVC =
-            [NAV.storyboard instantiateViewControllerWithIdentifier:@"HistoryViewController"];
-            [self presentViewController:historyVC animated:YES completion:^{}];
-        }
+        case PRIMARY_MENU_ITEM_RECENT:
+            [self performModalSequeWithID: @"modal_segue_show_history"
+                          transitionStyle: UIModalTransitionStyleCoverVertical
+                                    block: nil];
             break;
-        case PRIMARY_MENU_ITEM_SAVEDPAGES: {
-            SavedPagesViewController *savedPagesVC =
-            [NAV.storyboard instantiateViewControllerWithIdentifier:@"SavedPagesViewController"];
-            [self presentViewController:savedPagesVC animated:YES completion:^{}];
-        }
+        case PRIMARY_MENU_ITEM_SAVEDPAGES:
+            [self performModalSequeWithID: @"modal_segue_show_saved_pages"
+                          transitionStyle: UIModalTransitionStyleCoverVertical
+                                    block: nil];
             break;
-        case PRIMARY_MENU_ITEM_MORE: {
-            SecondaryMenuViewController *secondaryMenuTableVC =
-            [self.storyboard instantiateViewControllerWithIdentifier:@"SecondaryMenuViewController"];
-            [self presentViewController:secondaryMenuTableVC animated:YES completion:^{}];
-            
-        }
+        case PRIMARY_MENU_ITEM_MORE:
+            [self performModalSequeWithID: @"modal_segue_show_secondary_menu"
+                          transitionStyle: UIModalTransitionStyleCoverVertical
+                                    block: nil];
             break;
         default:
             break;

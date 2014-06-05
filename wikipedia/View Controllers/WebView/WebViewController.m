@@ -47,6 +47,9 @@
 #import "MenuLabel.h"
 #import "LanguagesTableVC.h"
 
+#import "ModalMenuAndContentViewController.h"
+#import "UIViewController+PresentModal.h"
+
 #define TOC_TOGGLE_ANIMATION_DURATION @0.3f
 
 typedef enum {
@@ -183,6 +186,12 @@ typedef enum {
     
     self.bottomBarViewBottomConstraint = nil;
     self.bottomMenuHidden = NO;
+
+    // This needs to be in viewDidLoad.
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(languageItemSelectedNotification:)
+                                                 name: @"LanguageItemSelected"
+                                               object: nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -608,6 +617,11 @@ typedef enum {
 {
     [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
     [self.bottomBarView removeObserver:self forKeyPath:@"bounds"];
+
+    // This needs to be in dealloc.
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: @"LanguageItemSelected"
+                                                  object: nil];
 }
 
 #pragma mark Webview obj-c to javascript bridge
@@ -1691,28 +1705,35 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(void)languageButtonPushed
 {
-    LanguagesTableVC *languagesTableVC =
-        [NAV.storyboard instantiateViewControllerWithIdentifier:@"LanguagesTableVC"];
+    [self performModalSequeWithID: @"modal_segue_show_languages"
+                  transitionStyle: UIModalTransitionStyleCoverVertical
+                            block: ^(LanguagesTableVC *languagesTableVC){
+                                languagesTableVC.downloadLanguagesForCurrentArticle = YES;
+                                languagesTableVC.invokingVC = self;
+                            }];
+}
 
-    languagesTableVC.downloadLanguagesForCurrentArticle = YES;
-    
-    CATransition *transition = [languagesTableVC getTransition];
-    
-    languagesTableVC.selectionBlock = ^(NSDictionary *selectedLangInfo){
-    
-        [NAV.view.layer addAnimation:transition forKey:nil];
-        // Don't animate - so the transistion set above will be used.
-        [NAV loadArticleWithTitle: selectedLangInfo[@"*"]
-                           domain: selectedLangInfo[@"code"]
-                         animated: NO
-                  discoveryMethod: DISCOVERY_METHOD_SEARCH
-                invalidatingCache: NO];
-    };
-    
-    [NAV.view.layer addAnimation:transition forKey:nil];
+- (void)languageItemSelectedNotification:(NSNotification *)notification
+{
+    // Ensure action is only taken if the web view controller presented the lang picker.
+    LanguagesTableVC *languagesTableVC = notification.object;
+    if (languagesTableVC.invokingVC != self) return;
 
-    // Don't animate - so the transistion set above will be used.
-    [NAV pushViewController:languagesTableVC animated:NO];
+    NSDictionary *selectedLangInfo = [notification userInfo];
+
+    [NAV loadArticleWithTitle: selectedLangInfo[@"*"]
+                       domain: selectedLangInfo[@"code"]
+                     animated: NO
+              discoveryMethod: DISCOVERY_METHOD_SEARCH
+            invalidatingCache: NO];
+
+    [self dismissLanguagePicker];
+}
+
+-(void)dismissLanguagePicker
+{
+    [self.presentedViewController dismissViewControllerAnimated: YES
+                                                     completion: ^{}];
 }
 
 @end

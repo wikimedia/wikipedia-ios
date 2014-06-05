@@ -1,7 +1,7 @@
 "article-languages-label" = "Choose language";
 "article-languages-cancel" = "Cancel";
 "article-languages-downloading" = "Loading article languages...";
-"article-languages-filter-placeholder" = "Filter";
+"article-languages-filter-placeholder" = "Language Filter";
 
 "language-button-other-languages" = "Other Languages";
 

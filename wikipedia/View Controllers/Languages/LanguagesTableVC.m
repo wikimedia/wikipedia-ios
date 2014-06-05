@@ -7,8 +7,6 @@
 #import "DownloadLangLinksOp.h"
 #import "QueuesSingleton.h"
 #import "LanguagesCell.h"
-#import "LanguagesSectionHeadingLabel.h"
-#import "CenterNavController.h"
 #import "Defines.h"
 #import "BundledJson.h"
 
@@ -16,7 +14,7 @@
 
 #pragma mark - Defines
 
-#define BACKGROUND_COLOR [UIColor colorWithWhite:0.97f alpha:1.0f]
+#define BACKGROUND_COLOR [UIColor colorWithWhite:1.0f alpha:1.0f]
 
 #pragma mark - Private properties
 
@@ -27,26 +25,32 @@
 
 @property (strong, nonatomic) NSString *filterString;
 @property (strong, nonatomic) UITextField *filterTextField;
-@property (strong, nonatomic) LanguagesSectionHeadingLabel *headingLabel;
-@property (strong, nonatomic) UIButton *cancelButton;
-
-@property (strong, nonatomic) UIView *headerView;
-@property (strong, nonatomic) NSLayoutConstraint *headerViewTopConstraint;
-
-@property (nonatomic) CGFloat scrollViewDragBeganVerticalOffset;
 
 @end
 
 @implementation LanguagesTableVC
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.title = MWLocalizedString(@"article-languages-filter-placeholder", nil);
+
+        //MWLocalizedString(@"article-languages-label", nil);
+
+        self.navBarMode = NAVBAR_MODE_X_WITH_TEXT_FIELD;
+
+        self.downloadLanguagesForCurrentArticle = NO;
+
+    }
+    return self;
+}
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.scrollViewDragBeganVerticalOffset = 0.0f;
-    self.navigationItem.hidesBackButton = YES;
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
@@ -55,7 +59,7 @@
     
     self.view.backgroundColor = BACKGROUND_COLOR;
  
-    self.tableView.contentInset = UIEdgeInsetsMake(115, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0);
 
     self.filterString = @"";
 }
@@ -64,13 +68,10 @@
 {
     [super viewWillAppear:animated];
 
-    [self setupHeaderView];
-
     if(self.downloadLanguagesForCurrentArticle){
         [self downloadLangLinkData];
     }else{
         self.languagesData = [BundledJson arrayFromBundledJsonFile:BUNDLED_JSON_LANGUAGES];
-            self.headerView.hidden = NO;
         [self reloadTableDataFiltered];
     }
 }
@@ -81,180 +82,60 @@
 
     [[QueuesSingleton sharedInstance].langLinksQ cancelAllOperations];
 
-    [self.headerView removeFromSuperview];
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: @"NavItemTapped"
+                                                  object: nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: @"NavTextFieldTextChanged"
+                                                  object: nil];
 
     [super viewWillDisappear:animated];
 }
 
-#pragma mark - Scrolling
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+-(void)viewDidAppear:(BOOL)animated
 {
-    // Hide the keyboard if it was visible when the results are scrolled, but only if
-    // the results have been scrolled in excess of some small distance threshold first.
-    CGFloat distanceScrolled = self.scrollViewDragBeganVerticalOffset - scrollView.contentOffset.y;
-    CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
-    if (fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
-        if (self.filterTextField.isFirstResponder) {
-            //NSLog(@"Keyboard Hidden!");
-            [self.filterTextField resignFirstResponder];
-        }
+    [super viewDidAppear:animated];
+
+    // Listen for nav bar taps.
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(navItemTappedNotification:)
+                                                 name: @"NavItemTapped"
+                                               object: nil];
+
+    // Listen for nav text field text changes.
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(navTextFieldTextChangedNotification:)
+                                                 name: @"NavTextFieldTextChanged"
+                                               object: nil];
+    
+}
+
+#pragma mark - Top menu
+
+// Handle nav bar taps. (same way as any other view controller would)
+- (void)navItemTappedNotification:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    UIView *tappedItem = userInfo[@"tappedItem"];
+
+    switch (tappedItem.tag) {
+        case NAVBAR_BUTTON_X:
+            [self hide];
+
+            break;
+        default:
+            break;
     }
-  
-    // Scroll the headerView to track with the table view.
-    // Comment this line out to have headerView stick to top of page instead
-    // of scrolling away.
-    self.headerViewTopConstraint.constant = -(scrollView.contentOffset.y + self.tableView.contentInset.top);
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+// Handle nav bar taps. (same way as any other view controller would)
+- (void)navTextFieldTextChangedNotification:(NSNotification *)notification
 {
-    self.scrollViewDragBeganVerticalOffset = scrollView.contentOffset.y;
-}
+    NSDictionary *userInfo = [notification userInfo];
+    NSString *text = userInfo[@"text"];
 
-#pragma mark - Header
-
--(void)setupHeaderView
-{
-    self.headerView = [self getHeaderView];
-    self.headingLabel = [self getLanguagesSectionHeadingLabel];
-    self.filterTextField = [self getFilterTextField];
-    self.cancelButton = [self getCancelButton];
-
-    [self.headerView addSubview:self.headingLabel];
-    [self.headerView addSubview:self.filterTextField];
-    [self.headerView addSubview:self.cancelButton];
-
-    [self constrainHeaderSubviews];
-
-    // Insert just beneath the nav bar (so no overlap issues).
-    [self.navigationController.view insertSubview:self.headerView belowSubview:self.navigationController.navigationBar];
-
-    [self constrainHeaderView];
-}
-
--(void)constrainHeaderSubviews
-{
-    NSDictionary *views = @{
-                            @"label": self.headingLabel,
-                            @"textField": self.filterTextField,
-                            @"cancelButton": self.cancelButton
-                            };
-    
-    NSArray *constraints =
-    @[
-      [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-(20)-[label]-(>=0)-[cancelButton]-(10)-|"
-                                              options: 0
-                                              metrics: nil
-                                                views: views
-       ]
-      ,
-      [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-(20)-[textField]-(10)-|"
-                                              options: 0
-                                              metrics: nil
-                                                views: views
-       ]
-      ,
-      [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-(25)-[label]-(15)-[textField]-(10)-|"
-                                              options: 0
-                                              metrics: nil
-                                                views: views]
-      ,
-      @[[NSLayoutConstraint constraintWithItem: self.cancelButton
-                                     attribute: NSLayoutAttributeCenterY
-                                     relatedBy: NSLayoutRelationEqual
-                                        toItem: self.headingLabel
-                                     attribute: NSLayoutAttributeCenterY
-                                    multiplier: 1.0
-                                      constant: 0]]
-      ];
-    
-    [self.headerView addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
-}
-
--(void)constrainHeaderView
-{
-    NSDictionary *views = @{@"headerView": self.headerView};
-
-    self.headerViewTopConstraint =
-    [NSLayoutConstraint constraintWithItem: self.headerView
-                                 attribute: NSLayoutAttributeTop
-                                 relatedBy: NSLayoutRelationEqual
-                                    toItem: self.navigationController.navigationBar
-                                 attribute: NSLayoutAttributeBottom
-                                multiplier: 1.0f
-                                  constant: 0.0f];
-    
-    NSArray *constraints =
-    @[
-      [NSLayoutConstraint constraintsWithVisualFormat: @"H:|[headerView]-(10)-|"
-                                              options: 0
-                                              metrics: nil
-                                                views: views
-       ]
-      ,
-      @[self.headerViewTopConstraint]
-      ];
-
-    [self.navigationController.view addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
-}
-
--(UIView *)getHeaderView
-{
-    UIView *view = [[UIView alloc] init];
-    view.translatesAutoresizingMaskIntoConstraints = NO;
-    view.hidden = YES;
-    view.userInteractionEnabled = YES;
-    view.backgroundColor = BACKGROUND_COLOR;
-    return view;
-}
-
--(UITextField *)getFilterTextField
-{
-    UITextField *textField = [[UITextField alloc] init];
-    textField.delegate = self;
-    [textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-    textField.translatesAutoresizingMaskIntoConstraints = NO;
-    textField.borderStyle = UITextBorderStyleRoundedRect;
-    textField.returnKeyType = UIReturnKeyDone;
-    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    textField.spellCheckingType = UITextSpellCheckingTypeNo;
-    textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    textField.placeholder = MWLocalizedString(@"article-languages-filter-placeholder", nil);
-    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    return textField;
-}
-
--(LanguagesSectionHeadingLabel *)getLanguagesSectionHeadingLabel
-{
-    LanguagesSectionHeadingLabel *label = [[LanguagesSectionHeadingLabel alloc] init];
-    label.translatesAutoresizingMaskIntoConstraints = NO;
-    label.text = MWLocalizedString(@"article-languages-label", nil);
-    return label;
-}
-
--(UIButton *)getCancelButton
-{
-    UIButton *cancelButton = [[UIButton alloc] init];
-    cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
-    cancelButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    cancelButton.userInteractionEnabled = YES;
-    [cancelButton setTitle:MWLocalizedString(@"article-languages-cancel", nil) forState:UIControlStateNormal];
-    [cancelButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [cancelButton addTarget:self action:@selector(hide) forControlEvents: UIControlEventTouchUpInside];
-    [cancelButton setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-    return cancelButton;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [self.filterTextField resignFirstResponder];
-    return YES;
-}
-
--(void)textFieldDidChange:(UITextField *)textField
-{
-    self.filterString = textField.text;
+    self.filterString = text;
     [self reloadTableDataFiltered];
 }
 
@@ -297,7 +178,6 @@
                                       [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
                                           //[self showAlert:@"Language links loaded."];
                                           //[self fadeAlert];
-                                                      self.headerView.hidden = NO;
 
                                           self.languagesData = result;
                                           [self reloadTableDataFiltered];
@@ -363,28 +243,19 @@
 {
     NSDictionary *selectedLangInfo = self.filteredLanguagesData[indexPath.row];
 
-    if(self.selectionBlock) self.selectionBlock(selectedLangInfo);
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"LanguageItemSelected"
+                                                        object: self
+                                                      userInfo: selectedLangInfo];
 }
 
-#pragma mark - Hide
+#pragma mark - Hiding
 
 -(void)hide
 {
-    [self.navigationController.view.layer addAnimation:[self getTransition] forKey:nil];
-
-    // Don't animate - so the transistion set above will be used.
-    [NAV popViewControllerAnimated:NO];
-}
-
-#pragma mark - Transition
-
--(CATransition *)getTransition
-{
-    CATransition *transition = [CATransition animation];
-    transition.duration = 0.25;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionFade;
-    return transition;
+    // Hide this view controller.
+    if(!(self.isBeingPresented || self.isBeingDismissed)){
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
+    }
 }
 
 #pragma mark - Memory

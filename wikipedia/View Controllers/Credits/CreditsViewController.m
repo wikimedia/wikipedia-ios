@@ -13,6 +13,16 @@
 
 @implementation CreditsViewController
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.title = MWLocalizedString(@"main-menu-credits", nil);
+        self.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
+    }
+    return self;
+}
+
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -29,16 +39,7 @@
                                                     name: @"NavItemTapped"
                                                   object: nil];
 
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
-
     [super viewWillDisappear:animated];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_CREDITS;
 }
 
 - (void)navItemTappedNotification:(NSNotification *)notification
@@ -48,11 +49,19 @@
 
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_X:
-            [NAV popViewControllerAnimated:YES];
+            [self hide];
             
             break;
         default:
             break;
+    }
+}
+
+-(void)hide
+{
+    // Hide this view controller.
+    if(!(self.isBeingPresented || self.isBeingDismissed)){
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
     }
 }
 

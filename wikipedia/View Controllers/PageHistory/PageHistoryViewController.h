@@ -3,7 +3,10 @@
 
 #import <UIKit/UIKit.h>
 #import "MWNetworkOp.h"
+#import "TopMenuViewController.h"
 
 @interface PageHistoryViewController : UITableViewController <NetworkOpDelegate>
+
+@property (nonatomic) NavBarMode navBarMode;
 
 @end
