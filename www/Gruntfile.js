@@ -7,7 +7,9 @@ module.exports = function ( grunt ) {
         "less/*.less"
     ];
     var allHTMLFiles = [
-        "index.html"
+        "index.html",
+        "preview.html",
+        "abusefilter.html"
     ];
 
     grunt.initConfig( {
@@ -22,7 +24,7 @@ module.exports = function ( grunt ) {
         less: {
             all: {
                 files: [
-                    { src: ["less/pagestyles.less", "less/langbutton.less", "less/lastmod.less"], dest: "styles.css"}
+                    { src: ["less/langbutton.less", "less/lastmod.less"], dest: "footer.css"}
                 ]
             }
         },
@@ -35,10 +37,7 @@ module.exports = function ( grunt ) {
         copy: {
             main: {
                 files: [
-                    // App files
-                    {src: ["bundle.js", "index.html", "styles.css"], dest: "../wikipedia/assets/"},
-                    // Images
-                    {src: ["images/*"], dest: "../wikipedia/assets/"}
+                    {src: ["index.html", "preview.html", "abusefilter.html", "bundle.js", "footer.css"], dest: "../wikipedia/assets/"}
                 ]
             }
         },
@@ -51,7 +50,7 @@ module.exports = function ( grunt ) {
         // Remove temp files from www folder
         clean : {
             main : {
-                src : [ "styles.css", "bundle.js"]
+                src : [ "footer.css", "bundle.js"]
             }
         }
     } );
@@ -63,5 +62,7 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks( 'grunt-contrib-less' );
     grunt.loadNpmTasks( 'grunt-contrib-clean' );
 
-    grunt.registerTask( 'default', [ 'browserify', 'less', 'copy', 'clean' /*, 'watch' */] );
+    /*grunt.registerTask( 'default', [ 'browserify', 'less', 'copy', 'clean', 'watch'] );*/
+    /*grunt.registerTask( 'default', [ 'browserify', 'less', 'copy', 'clean'] );*/
+    grunt.registerTask( 'default', [ 'browserify', 'less', 'copy', 'clean'] );
 };

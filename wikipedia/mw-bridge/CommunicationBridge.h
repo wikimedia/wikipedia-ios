@@ -10,15 +10,26 @@ typedef void (^JSListener)(NSString *, NSDictionary *);
 @property BOOL isDOMReady;
 
 // Public methods
-- (CommunicationBridge *)initWithWebView:(UIWebView *)webView;
-- (void)addListener:(NSString *)messageType withBlock:(JSListener)block;
-- (void)sendMessage:(NSString *)messageType withPayload:(NSDictionary *)payload;
+- (CommunicationBridge *)initWithWebView: (UIWebView *)targetWebView
+                            htmlFileName: (NSString *)htmlFileName;
+
+- (void)addListener: (NSString *)messageType
+          withBlock: (JSListener)block;
+
+- (void)sendMessage: (NSString *)messageType
+        withPayload: (NSDictionary *)payload;
 
 // Methods reserved for internal and testing
+
 - (NSMutableArray *)listenersForMessageType:(NSString *)messageType;
-- (void)fireEvent:(NSString *)messageType withPayload:(NSDictionary *)payload;
+
+- (void)fireEvent: (NSString *)messageType
+      withPayload: (NSDictionary *)payload;
+
 - (BOOL)isBridgeURL:(NSURL *)url;
+
 - (NSDictionary *)extractBridgePayload:(NSURL *)url;
+
 - (NSString *)stringify:(id)obj;
 
 @end

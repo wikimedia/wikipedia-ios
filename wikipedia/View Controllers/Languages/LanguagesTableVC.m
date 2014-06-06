@@ -8,7 +8,7 @@
 #import "QueuesSingleton.h"
 #import "LanguagesCell.h"
 #import "Defines.h"
-#import "BundledJson.h"
+#import "AssetsFile.h"
 
 #import "UIViewController+Alert.h"
 
@@ -71,7 +71,8 @@
     if(self.downloadLanguagesForCurrentArticle){
         [self downloadLangLinkData];
     }else{
-        self.languagesData = [BundledJson arrayFromBundledJsonFile:BUNDLED_JSON_LANGUAGES];
+        AssetsFile *assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_LANGUAGES];
+        self.languagesData = assetsFile.array;
         [self reloadTableDataFiltered];
     }
 }
@@ -168,11 +169,12 @@
 -(void)downloadLangLinkData
 {
     [self showAlert:MWLocalizedString(@"article-languages-downloading", nil)];
+    AssetsFile *assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_LANGUAGES];
 
     DownloadLangLinksOp *langLinksOp =
     [[DownloadLangLinksOp alloc] initForPageTitle: [SessionSingleton sharedInstance].currentArticleTitle
                                            domain: [SessionSingleton sharedInstance].currentArticleDomain
-                                     allLanguages: [BundledJson arrayFromBundledJsonFile:BUNDLED_JSON_LANGUAGES]
+                                     allLanguages: assetsFile.array
                                   completionBlock: ^(NSArray *result){
                                       
                                       [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {

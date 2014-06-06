@@ -235,7 +235,7 @@
 {
     cell.isHighlighted = YES;
 
-    NSString *elementId = [NSString stringWithFormat:@"content_block_%ld", (long)cell.tag];
+    NSString *elementId = [NSString stringWithFormat:@"section_heading_and_content_block_%ld", (long)cell.tag];
     CGRect r = [self.webVC.webView getWebViewRectForHtmlElementWithId:elementId];
     if (CGRectIsNull(r)) return;
     CGPoint p = r.origin;
@@ -503,7 +503,7 @@ shouldAttemptScrollToImage = NO;
         [self unHighlightAllCells];
 
         NSInteger indexOfFirstOnscreenSection =
-        [self.webVC.webView getIndexOfTopOnScreenElementWithPrefix: @"content_block_"
+        [self.webVC.webView getIndexOfTopOnScreenElementWithPrefix: @"section_heading_and_content_block_"
                                                              count: self.sectionCells.count];
         if (indexOfFirstOnscreenSection < self.sectionCells.count) {
             ((TOCSectionCellView *)self.sectionCells[indexOfFirstOnscreenSection]).isHighlighted = YES;

@@ -7,9 +7,8 @@
 #import "DownloadWikipediaZeroMessageOp.h"
 #import "ArticleDataContextSingleton.h"
 #import "SectionEditorViewController.h"
-#import "DownloadNonLeadSectionsOp.h"
+#import "DownloadSectionsOp.h"
 #import "ArticleCoreDataObjects.h"
-#import "DownloadLeadSectionOp.h"
 #import "CommunicationBridge.h"
 #import "TOCViewController.h"
 #import "SessionSingleton.h"
@@ -38,7 +37,7 @@
 #import "DataMigrator.h"
 #import "ArticleImporter.h"
 
-#import "ConfigFileSyncOp.h"
+#import "SyncAssetsFileOp.h"
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
@@ -49,6 +48,7 @@
 
 #import "ModalMenuAndContentViewController.h"
 #import "UIViewController+PresentModal.h"
+#import "Section+DisplayHtml.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.3f
 
@@ -201,7 +201,7 @@ typedef enum {
     // Don't move this to viewDidLoad - this is because viewDidLoad may only get
     // called very occasionally as app suspend/resume probably doesn't cause
     // viewDidLoad to fire.
-    [self sycnConfigIosJsonIfNecessary];
+    [self downloadAssetsFilesIfNecessary];
 
     //[self.view randomlyColorSubviews];
 }
@@ -209,7 +209,9 @@ typedef enum {
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+
+    [self copyAssetsFolderToAppDataDocuments];
+
     ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
     [ROOT.topMenuViewController updateTOCButtonVisibility];
 }
@@ -221,19 +223,124 @@ typedef enum {
     [super viewWillDisappear:animated];
 }
 
-#pragma mark Sync bundled config/ios.json if necessary
+#pragma mark Copy bundled assets folder and contents to app "AppData/Documents/assets/"
 
--(void)sycnConfigIosJsonIfNecessary
+-(void)copyAssetsFolderToAppDataDocuments
+{
+    /*
+    Some files need to be bunded with releases, but potentially updated between
+    releases as well. These files are placed in the bundled "assets" directory, 
+    which is copied over to the "AppData/Documents/assets/" folder because the 
+    bundle cannot be written to by the running app.
+    
+    The files in "AppData/Documents/assets/" are then accessed instead of their 
+    bundled copies. This way, when newly downloaded versions overwrite the 
+    "AppData/Documents/assets/" files, the new versions actually get used.
+
+    So, this method
+        - Copies bundled assets folder over to "AppData/Documents/assets/"
+            if it's not already there. (Fresh app install)
+     
+        - Copies new files that may be added to bundle assets folder over to
+            "AppData/Documents/assets/". (App update including new bundled files)
+            
+        - Copies files that exist in both the bundle and 
+            "AppData/Documents/assets/" if the bundled file is newer. (App
+            update to files which were bundled in previous release.) Note
+            that when an app update is installed and the app files are written
+            the creation and last modified dates of the bundled files are 
+            probably changed to the current timestamp, which means these
+            updated files will as a matter of course always be newer than
+            any files in "AppData/Documents/assets/". In other words, the
+            date comparison check in this method is probably redundant as the
+            bundled file is always newer.
+    */
+
+    NSString *folderName = @"assets";
+    NSArray *paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:folderName];
+    NSString *bundledPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
+
+    void(^copy)(NSString *, NSString *) = ^void(NSString *path1, NSString *path2) {
+        NSError *error = nil;
+        [[NSFileManager defaultManager] copyItemAtPath:path1 toPath:path2 error:&error];
+        if (error) {
+            NSLog(@"Could not copy '%@' to '%@'", path1, path2);
+        }
+    };
+
+    if (![[NSFileManager defaultManager] fileExistsAtPath:documentsPath]){
+        // "AppData/Documents/assets/" didn't exist so copy bundled assets folder and its contents over to "AppData/Documents/assets/"
+        copy(bundledPath, documentsPath);
+    }else{
+        
+        // "AppData/Documents/assets/" exists, so only copy new or *newer* bundled assets folder files over to "AppData/Documents/assets/"
+        
+        NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:bundledPath];
+        NSString *fileName;
+        while ((fileName = [dirEnum nextObject] )) {
+            
+            NSString *documentsFilePath = [documentsPath stringByAppendingPathComponent:fileName];
+            NSString *bundledFilePath = [bundledPath stringByAppendingPathComponent:fileName];
+            
+            if (![[NSFileManager defaultManager] fileExistsAtPath:documentsFilePath]){
+                // No file in "AppData/Documents/assets/" so copy from bundle
+                copy(bundledFilePath, documentsFilePath);
+            }else{
+                // File exists in "AppData/Documents/assets/" so copy it if bundled file is newer
+                NSError *error1 = nil, *error2 = nil;
+                NSDictionary *fileInDocumentsAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:documentsFilePath error:&error1];
+                NSDictionary *fileInBundleAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:bundledFilePath error:&error2];
+                
+                if (!error1 && !error1) {
+
+                    NSDate *date1 = (NSDate*)fileInBundleAttr[NSFileModificationDate];
+                    NSDate *date2 = (NSDate*)fileInDocumentsAttr[NSFileModificationDate];
+                    
+                    if ([date1 timeIntervalSinceDate:date2] > 0) {
+                        // Bundled file is newer.
+
+                        // Remove existing "AppData/Documents/assets/" file - otherwise the copy will fail.
+                        NSError *error = nil;
+                        [[NSFileManager defaultManager] removeItemAtPath:documentsFilePath error:&error];
+                        
+                        // Copy!
+                        copy(bundledFilePath, documentsFilePath);
+                    }
+                }
+            }
+        }
+    }
+}
+
+#pragma mark Sync config/ios.json if necessary
+
+-(void)downloadAssetsFilesIfNecessary
 {
     // Sync config/ios.json at most once per day.
     CGFloat maxAge = 60 * 60 * 24;
 
-    ConfigFileSyncOp *configSyncOp =
-    [[ConfigFileSyncOp alloc] initForBundledJsonFile: BUNDLED_JSON_CONFIG
-                                              maxAge: maxAge];
+    SyncAssetsFileOp *configSyncOp =
+    [[SyncAssetsFileOp alloc] initForAssetsFile: ASSETS_FILE_CONFIG
+                                         maxAge: maxAge];
     
-    [[QueuesSingleton sharedInstance].bundledFileSyncQ cancelAllOperations];
-    [[QueuesSingleton sharedInstance].bundledFileSyncQ addOperation:configSyncOp];
+    SyncAssetsFileOp *cssSyncOp =
+    [[SyncAssetsFileOp alloc] initForAssetsFile: ASSETS_FILE_CSS
+                                         maxAge: maxAge];
+    
+    SyncAssetsFileOp *abuseFilterCssSyncOp =
+    [[SyncAssetsFileOp alloc] initForAssetsFile: ASSETS_FILE_CSS_ABUSE_FILTER
+                                         maxAge: maxAge];
+    
+    SyncAssetsFileOp *previewCssSyncOp =
+    [[SyncAssetsFileOp alloc] initForAssetsFile: ASSETS_FILE_CSS_PREVIEW
+                                         maxAge: maxAge];
+    
+    [[QueuesSingleton sharedInstance].assetsFileSyncQ cancelAllOperations];
+    [[QueuesSingleton sharedInstance].assetsFileSyncQ addOperation:configSyncOp];
+    [[QueuesSingleton sharedInstance].assetsFileSyncQ addOperation:cssSyncOp];
+    [[QueuesSingleton sharedInstance].assetsFileSyncQ addOperation:abuseFilterCssSyncOp];
+    [[QueuesSingleton sharedInstance].assetsFileSyncQ addOperation:previewCssSyncOp];
 }
 
 #pragma mark Edit section
@@ -640,7 +747,7 @@ typedef enum {
     // Because the bridge is a property now, rather than a private var, ARC should take care of
     // cleanup when the bridge is reset.
 //TODO: confirm this comment ^
-    self.bridge = [[CommunicationBridge alloc] initWithWebView:self.webView];
+    self.bridge = [[CommunicationBridge alloc] initWithWebView:self.webView htmlFileName:@"index.html"];
     [self.bridge addListener:@"DOMLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
         //NSLog(@"QQQ HEY DOMLoaded!");
     }];
@@ -689,7 +796,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     [self.bridge addListener:@"editClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
         [weakSelf tocHide];
-        weakSelf.sectionToEditId = [[payload[@"href"] stringByReplacingOccurrencesOfString:@"edit_section_" withString:@""] integerValue];
+        weakSelf.sectionToEditId = [payload[@"sectionId"] integerValue];
 
         [weakSelf showSectionEditor];
     }];
@@ -818,10 +925,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     // Also test location of second section on page.
     // (would test r with CGRectIsNull(r) to ensure good values were retrieved)
-    CGRect r = [self.webView getScreenRectForHtmlElementWithId:@"content_block_1"];
+    CGRect r = [self.webView getScreenRectForHtmlElementWithId:@"section_heading_and_content_block_1"];
     NSLog(@"r = %@", NSStringFromCGRect(r));
 
-    CGRect r2 = [self.webView getWebViewRectForHtmlElementWithId:@"content_block_1"];
+    CGRect r2 = [self.webView getWebViewRectForHtmlElementWithId:@"section_heading_and_content_block_1"];
     NSLog(@"r2 = %@", NSStringFromCGRect(r2));
 }
 
@@ -992,8 +1099,11 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }
 
     // Retrieve remaining sections op (dependent on first section op)
-    DownloadNonLeadSectionsOp *remainingSectionsOp =
-    [[DownloadNonLeadSectionsOp alloc] initForPageTitle:pageTitle domain:[SessionSingleton sharedInstance].currentArticleDomain completionBlock:^(NSArray *sectionsRetrieved){
+    DownloadSectionsOp *remainingSectionsOp =
+    [[DownloadSectionsOp alloc] initForPageTitle: pageTitle
+                                          domain: [SessionSingleton sharedInstance].currentArticleDomain
+                                 leadSectionOnly: NO
+                                 completionBlock: ^(NSDictionary *results){
         
         // Just in case the article wasn't created during the "parent" operation.
         if (!articleID) return;
@@ -1006,14 +1116,11 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         //Non-lead sections have been retreived so set needsRefresh to NO.
         article.needsRefresh = @NO;
 
-        NSMutableArray *sectionText = [@[] mutableCopy];
+        NSArray *sectionsRetrieved = results[@"sections"];
+
         for (NSDictionary *section in sectionsRetrieved) {
             if (![section[@"id"] isEqual: @0]) {
-                
-                NSString *sectionHTMLWithID = [self surroundHTML:section[@"text"] withDivForSection:section[@"id"]];
-                
-                [sectionText addObject:sectionHTMLWithID];
-                
+                                
                 // Add sections for article
                 Section *thisSection = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_.workerContext];
 
@@ -1066,8 +1173,11 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 
     // Retrieve first section op
-    DownloadLeadSectionOp *firstSectionOp =
-    [[DownloadLeadSectionOp alloc] initForPageTitle:pageTitle domain:[SessionSingleton sharedInstance].currentArticleDomain completionBlock:^(NSDictionary *dataRetrieved){
+    DownloadSectionsOp *firstSectionOp =
+    [[DownloadSectionsOp alloc] initForPageTitle: pageTitle
+                                          domain: [SessionSingleton sharedInstance].currentArticleDomain
+                                 leadSectionOnly: YES
+                                 completionBlock: ^(NSDictionary *dataRetrieved){
 
         Article *article = nil;
 
@@ -1238,37 +1348,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }
 }
 
-#pragma mark HTML added just before display
-
--(NSString *)surroundHTML:(NSString *)html withDivForSection:(NSNumber *)sectionId
-{
-    // Just before section html is sent across the bridge to the web view, add section identifiers around
-    // each section. This will make it easy to identify section offsets for the purpose of scrolling the
-    // web view to a given section. Do not save this html to the core data store - this way it can be changed
-    // later if needed (to a div etc).
-    
-    // Don't show the edit pencil on "main" articles.
-    NSString *editPencilSpan = [[SessionSingleton sharedInstance] isCurrentArticleMain] ?
-        @""
-        :
-        [NSString stringWithFormat:@"<span class='edit_section' id='edit_section_%d'></span>", sectionId.integerValue]
-    ;
-    
-    return [NSString stringWithFormat:
-        @"<div class='content_block' id='content_block_%@'>\
-            %@\
-            %@\
-        </div>\
-        ", sectionId, editPencilSpan, html];
-}
-
--(NSString *)addTitle:(NSString *)title toHTML:(NSString *)html
-{
-    // Add title just before section html is sent across the bridge to the web view.
-    // Do not save this html to the core data store.
-    return [NSString stringWithFormat:@"<h1 id=\"title\">%@</h1>%@", title, html];
-}
-
 #pragma mark Display article from core data
 
 - (void)displayArticle:(NSManagedObjectID *)articleID mode:(DisplayMode)mode
@@ -1302,12 +1381,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
             [section createImageRecordsForHtmlOnContext:articleDataContext_.mainContext];
 
-            NSString *sectionHTML = section.html;
-            if ([section.sectionId isEqualToNumber:@(0)] && ![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
-                sectionHTML = [self addTitle:article.title toHTML:sectionHTML];
-            }
-
-            NSString *sectionHTMLWithID = [self surroundHTML:sectionHTML withDivForSection:section.sectionId];
+            // Structural html added around section html just before display.
+            NSString *sectionHTMLWithID = [section displayHTML];
 
             [sectionTextArray addObject:sectionHTMLWithID];
         }
@@ -1336,6 +1411,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         NSString *joint = @""; //@"<div style=\"background-color:#ffffff;height:55px;\"></div>";
         NSString *htmlStr = [sectionTextArray componentsJoinedByString:joint];
         
+        // NSLog(@"languageInfo = %@", languageInfo.code);
         // Display all sections
         [self.bridge sendMessage: @"setLanguage"
                      withPayload: @{
@@ -1399,7 +1475,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     if (articleID) {
         Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
 
-        self.indexOfFirstOnscreenSectionBeforeRotate = [self.webView getIndexOfTopOnScreenElementWithPrefix:@"content_block_" count:article.section.count];
+        self.indexOfFirstOnscreenSectionBeforeRotate = [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_" count:article.section.count];
     }
     //self.view.alpha = 0.0f;
 
@@ -1419,7 +1495,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(void)scrollToIndexOfFirstOnscreenSectionBeforeRotate{
     if(self.indexOfFirstOnscreenSectionBeforeRotate == -1)return;
-    NSString *elementId = [NSString stringWithFormat:@"content_block_%ld", (long)self.indexOfFirstOnscreenSectionBeforeRotate];
+    NSString *elementId = [NSString stringWithFormat:@"section_heading_and_content_block_%ld", (long)self.indexOfFirstOnscreenSectionBeforeRotate];
     CGRect r = [self.webView getWebViewRectForHtmlElementWithId:elementId];
     if (CGRectIsNull(r)) return;
     CGPoint p = r.origin;

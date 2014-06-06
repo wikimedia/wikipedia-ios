@@ -32,7 +32,7 @@
         self.randomArticleQ = [[NSOperationQueue alloc] init];
         self.eventLoggingQ = [[NSOperationQueue alloc] init];
         self.pageHistoryQ = [[NSOperationQueue alloc] init];
-        self.bundledFileSyncQ = [[NSOperationQueue alloc] init];
+        self.assetsFileSyncQ = [[NSOperationQueue alloc] init];
         //[self setupQMonitorLogging];
     }
     return self;
