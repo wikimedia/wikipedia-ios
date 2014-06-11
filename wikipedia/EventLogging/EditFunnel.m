@@ -26,7 +26,8 @@
 {
     NSMutableDictionary *dict = [eventData mutableCopy];
     dict[@"editSessionToken"] = self.editSessionToken;
-    dict[@"userName"] = [SessionSingleton sharedInstance].keychainCredentials.userName;
+    NSString *userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
+    dict[@"userName"] = userName ? userName : @"";
     //dict[@"pageNS"] = @0; // @todo allow other types or ...? // Android doesn't send this?
     return [NSDictionary dictionaryWithDictionary: dict];
 }
