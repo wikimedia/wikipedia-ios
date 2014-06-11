@@ -57,6 +57,11 @@
     }
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 -(void)hide
 {
     // Hide this view controller.

@@ -49,6 +49,11 @@ typedef enum {
 
 @implementation EditSummaryViewController
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 -(NSString *)getSummary
 {
     NSMutableArray *summaryArray = @[].mutableCopy;

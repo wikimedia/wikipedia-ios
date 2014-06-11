@@ -42,6 +42,8 @@
                     animated: (BOOL)animated
 {
     self.isTransitioningBetweenViewControllers = YES;
+
+    ROOT.statusBarHidden = [viewController prefersStatusBarHidden];
     
     [ROOT.topMenuViewController updateTOCButtonVisibility];
     [self fadeAlert];

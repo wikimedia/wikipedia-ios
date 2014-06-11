@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "TopMenuTextField.h"
+#import "TopMenuTextFieldContainer.h"
 #import "WikipediaAppUtils.h"
 #import "TopMenuViewController.h"
 #import "Defines.h"
@@ -10,14 +11,12 @@
 #import "UIViewController+HideKeyboard.h"
 #import "SearchResultsController.h"
 #import "UINavigationController+SearchNavStack.h"
-//#import "UIButton+ColorMask.h"
 #import "UINavigationController+Alert.h"
 #import "PreviewAndSaveViewController.h"
 
 #import "SessionSingleton.h"
 #import "WebViewController.h"
 #import "UIView+TemporaryAnimatedXF.h"
-//#import "SectionEditorViewController.h"
 
 #import "MenuButtonView.h"
 #import "MenuLabel.h"
@@ -33,18 +32,14 @@
 #import "RootViewController.h"
 #import "TopMenuContainerView.h"
 
+#import "UIViewController+StatusBarHeight.h"
+
 @interface TopMenuViewController (){
 
 }
 
 // Views which go into the container.
-@property (strong, nonatomic) TopMenuTextField *textField;
-@property (strong, nonatomic) UIView *verticalLine1;
-@property (strong, nonatomic) UIView *verticalLine2;
-@property (strong, nonatomic) UIView *verticalLine3;
-@property (strong, nonatomic) UIView *verticalLine4;
-@property (strong, nonatomic) UIView *verticalLine5;
-@property (strong, nonatomic) UIView *verticalLine6;
+@property (strong, nonatomic) TopMenuTextFieldContainer *textFieldContainer;
 @property (strong, nonatomic) MenuButtonView *buttonW;
 @property (strong, nonatomic) MenuButtonView *buttonTOC;
 @property (strong, nonatomic) MenuButtonView *buttonPencil;
@@ -68,6 +63,12 @@
 @end
 
 @implementation TopMenuViewController
+
+-(void)setStatusBarHidden:(BOOL)statusBarHidden
+{
+    _statusBarHidden = statusBarHidden;
+    [self.view setNeedsUpdateConstraints];
+}
 
 #pragma mark View lifecycle
 
@@ -124,8 +125,6 @@
     [super updateViewConstraints];
 
     [self constrainNavBarContainerSubViews];
-
-    [self.navBarContainer layoutIfNeeded];
     
     // Disabled the animations because they're a little funky with the alpha tweening... can revisit later if needed.
     //[self animateNavConstraintChanges];
@@ -161,18 +160,15 @@
     // navBarSubViewsHorizontalVFLString controls which elements are going to be shown.
     [self.navBarContainer addConstraints:
      [NSLayoutConstraint constraintsWithVisualFormat: self.navBarSubViewsHorizontalVFLString
-                                             options: 0
+                                             options: NSLayoutFormatAlignAllCenterY
                                              metrics: self.navBarSubViewMetrics
                                                views: self.navBarSubViews
       ]
      ];
     
-    CGFloat verticalLineTopMargin = 20;
-    CGFloat topMargin = 20;
-    CGFloat bottomMargin = 0;
+    CGFloat topMargin = [self getStatusBarHeight];
     
-    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
-        verticalLineTopMargin = 0;
+    if ((NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) || self.statusBarHidden) {
         topMargin = 0;
     }
     
@@ -181,59 +177,17 @@
     for (NSLayoutConstraint *c in [self.navBarContainer.constraints copy]) {
         UIView *view = (c.firstItem != self.navBarContainer) ? c.firstItem: c.secondItem;
         view.hidden = NO;
-        
-        CGFloat thisTopMargin = topMargin;//(view.tag == NAVBAR_VERTICAL_LINE) ? verticalLineTopMargin : topMargin;
-        CGFloat thisBottomMargin = bottomMargin;//(view.tag == NAVBAR_TEXT_FIELD) ? verticalLineTopMargin : topMargin;
 
-        switch (view.tag) {
-            case NAVBAR_VERTICAL_LINE:
-                thisTopMargin = verticalLineTopMargin;
-                break;
-            case NAVBAR_TEXT_FIELD:
-                thisTopMargin = topMargin + 8;
-                thisBottomMargin = 7;
-                break;
-            default:
-                break;
-        }
-        
         [self.navBarContainer addConstraints:
-         [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-(topMargin)-[view]-(bottomMargin)-|"
+         [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-(topMargin)-[view(TOP_MENU_INITIAL_HEIGHT)]"
                                                  options: 0
                                                  metrics: @{
-                                                    @"topMargin": @(thisTopMargin),
-                                                    @"bottomMargin": @(thisBottomMargin)
+                                                    @"topMargin": @(topMargin),
+                                                    @"TOP_MENU_INITIAL_HEIGHT": @(TOP_MENU_INITIAL_HEIGHT)
                                                     }
                                                    views: NSDictionaryOfVariableBindings(view)
           ]
          ];
-    }
-    
-    // Return can be uncommented here if we re-enable "animateNavConstraintChanges" in the future...
-    return;
-
-    // Constrain the views not being presently shown so when they are shown they'll animate from
-    // the constrained position specified below.
-    for (UIView *view in [self.navBarContainer.subviews copy]) {
-        if (view.hidden) {
-            [self.navBarContainer addConstraint:
-             [NSLayoutConstraint constraintWithItem: view
-                                          attribute: NSLayoutAttributeRight
-                                          relatedBy: NSLayoutRelationEqual
-                                             toItem: self.navBarContainer
-                                          attribute: NSLayoutAttributeLeft
-                                         multiplier: 1.0
-                                           constant: 0.0
-              ]
-            ];
-            [self.navBarContainer addConstraints:
-             [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-(topMargin)-[view]|"
-                                                     options: 0
-                                                     metrics: @{@"topMargin": @((view.tag == NAVBAR_VERTICAL_LINE) ? verticalLineTopMargin : 0)}
-                                                       views: NSDictionaryOfVariableBindings(view)
-              ]
-             ];
-        }
     }
 }
 
@@ -241,57 +195,32 @@
 
 -(void)setupNavbarContainerSubviews
 {
-//    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
-//        self.navigationBar.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:0.97];
-//    }
-
-    self.textField = [[TopMenuTextField alloc] init];
-    self.textField.delegate = self;
-    self.textField.translatesAutoresizingMaskIntoConstraints = NO;
-    self.textField.returnKeyType = UIReturnKeyDone;
-    self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.textField.font = SEARCH_TEXT_FIELD_FONT;
-    self.textField.textColor = SEARCH_TEXT_FIELD_HIGHLIGHTED_COLOR;
-    self.textField.tag = NAVBAR_TEXT_FIELD;
-    self.textField.clearButtonMode = UITextFieldViewModeNever;
-    self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    [self.textField addTarget:self action:@selector(postNavItemTappedNotification:) forControlEvents:UIControlEventTouchUpInside];
-    self.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text", nil);
+    UIEdgeInsets textFieldContainerMargin = UIEdgeInsetsMake(8, 0, 7, 0);
+    self.textFieldContainer = [[TopMenuTextFieldContainer alloc] initWithMargin:textFieldContainerMargin];
+    self.textFieldContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    self.textFieldContainer.textField.delegate = self;
+    self.textFieldContainer.textField.returnKeyType = UIReturnKeyDone;
+    self.textFieldContainer.textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.textFieldContainer.textField.font = SEARCH_TEXT_FIELD_FONT;
+    self.textFieldContainer.textField.textColor = SEARCH_TEXT_FIELD_HIGHLIGHTED_COLOR;
+    self.textFieldContainer.tag = NAVBAR_TEXT_FIELD;
+    self.textFieldContainer.textField.clearButtonMode = UITextFieldViewModeNever;
+    self.textFieldContainer.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    [self.textFieldContainer.textField addTarget:self action:@selector(postNavItemTappedNotification:) forControlEvents:UIControlEventTouchUpInside];
+    self.textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text", nil);
 
     // Perform search when text entered into textField
-    [self.textField addTarget:self action:@selector(searchStringChanged) forControlEvents:UIControlEventEditingChanged];
+    [self.textFieldContainer.textField addTarget:self action:@selector(searchStringChanged) forControlEvents:UIControlEventEditingChanged];
     
-    [self.navBarContainer addSubview:self.textField];
+    [self.navBarContainer addSubview:self.textFieldContainer];
  
     UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 25, 25)];
     clearButton.backgroundColor = [UIColor clearColor];
     [clearButton setImage:[UIImage imageNamed:@"text_field_x_circle_gray.png"] forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearTextFieldText) forControlEvents:UIControlEventTouchUpInside];
     
-    self.textField.rightView = clearButton;
-    self.textField.rightViewMode = UITextFieldViewModeNever;
-
-    UIView *(^getLineView)() = ^UIView *() {
-        UIView *view = [[UIView alloc] init];
-        view.translatesAutoresizingMaskIntoConstraints = NO;
-        view.backgroundColor = [UIColor lightGrayColor];
-        view.tag = NAVBAR_VERTICAL_LINE;
-        return view;
-    };
-    
-    self.verticalLine1 = getLineView();
-    self.verticalLine2 = getLineView();
-    self.verticalLine3 = getLineView();
-    self.verticalLine4 = getLineView();
-    self.verticalLine5 = getLineView();
-    self.verticalLine6 = getLineView();
-    
-    [self.navBarContainer addSubview:self.verticalLine1];
-    [self.navBarContainer addSubview:self.verticalLine2];
-    [self.navBarContainer addSubview:self.verticalLine3];
-    [self.navBarContainer addSubview:self.verticalLine4];
-    [self.navBarContainer addSubview:self.verticalLine5];
-    [self.navBarContainer addSubview:self.verticalLine6];
+    self.textFieldContainer.textField.rightView = clearButton;
+    self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeNever;
 
     MenuButtonView *(^getButton)(NSString *, NavBarItemTag) = ^MenuButtonView *(NSString *character, NavBarItemTag tag) {
         MenuButtonView *button = [[MenuButtonView alloc] init];
@@ -326,7 +255,7 @@
 
     self.buttonCancel.label.padding = UIEdgeInsetsMake(0, 5, 0, 5);
     
-    self.textField.backgroundColor = [UIColor whiteColor];
+    self.textFieldContainer.textField.backgroundColor = [UIColor whiteColor];
 
     // Mirror the left arrow.
     self.buttonArrowRight.transform = CGAffineTransformMakeScale(-1.0, 1.0);
@@ -384,14 +313,8 @@
              @"NAVBAR_BUTTON_BLANK": self.buttonBlank,
              @"NAVBAR_BUTTON_CANCEL": self.buttonCancel,
              @"NAVBAR_BUTTON_EYE": self.buttonEye,
-             @"NAVBAR_TEXT_FIELD": self.textField,
-             @"NAVBAR_LABEL": self.label,
-             @"NAVBAR_VERTICAL_LINE_1": self.verticalLine1,
-             @"NAVBAR_VERTICAL_LINE_2": self.verticalLine2,
-             @"NAVBAR_VERTICAL_LINE_3": self.verticalLine3,
-             @"NAVBAR_VERTICAL_LINE_4": self.verticalLine4,
-             @"NAVBAR_VERTICAL_LINE_5": self.verticalLine5,
-             @"NAVBAR_VERTICAL_LINE_6": self.verticalLine6
+             @"NAVBAR_TEXT_FIELD": self.textFieldContainer,
+             @"NAVBAR_LABEL": self.label
              };
 }
 
@@ -413,8 +336,8 @@
 
     if (navBarMode == NAVBAR_MODE_SEARCH) {
         // Show keyboard if new mode is search.
-        TopMenuTextField *textField = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-        [textField becomeFirstResponder];
+        TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
+        [textFieldContainer.textField becomeFirstResponder];
     }
 
     _navBarMode = navBarMode;
@@ -425,7 +348,7 @@
         case NAVBAR_MODE_EDIT_WIKITEXT:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
+                @"H:|[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
             break;
         case NAVBAR_MODE_LOGIN:
             self.label.text = (!previewAndSaveVC) ?
@@ -434,17 +357,17 @@
                 MWLocalizedString(@"navbar-title-mode-login-and-save", nil)
             ;
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_X(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+                @"H:|[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY:
             self.label.text = @"";
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]|";
+                @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_SAVE:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-save", nil);
             self.navBarSubViewsHorizontalVFLString =
-            @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+            @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_CREATE_ACCOUNT:
             self.label.text = (!previewAndSaveVC) ?
@@ -453,17 +376,17 @@
                 MWLocalizedString(@"navbar-title-mode-create-account-and-save", nil)
             ;
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-warning", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_CHECK(50)]|";
+                @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-disallow", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(60)-|";
+                @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(60)-|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW:
         case NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY:
@@ -473,12 +396,12 @@
                 MWLocalizedString(@"navbar-title-mode-edit-wikitext-summary", nil)
             ;
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
+                @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-captcha", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_PENCIL(50)][NAVBAR_VERTICAL_LINE_1(singlePixel)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_VERTICAL_LINE_2(singlePixel)][NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
+                @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
             break;
         case NAVBAR_MODE_SEARCH:
             self.navBarSubViewsHorizontalVFLString =
@@ -613,18 +536,18 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    self.textField.rightViewMode = UITextFieldViewModeAlways;
+    self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeAlways;
 
-    if (self.textField.text.length == 0){
+    if (self.textFieldContainer.textField.text.length == 0){
         // Remeber user's last search term. Must come before the
         // @"SearchFieldBecameFirstResponder" notification is posted.
-        if (self.lastSearchString.length != 0) self.textField.text = self.lastSearchString;
+        if (self.lastSearchString.length != 0) self.textFieldContainer.textField.text = self.lastSearchString;
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchFieldBecameFirstResponder" object:self userInfo:nil];
     
-    if (self.textField.text.length == 0){
-        self.textField.rightViewMode = UITextFieldViewModeNever;
+    if (self.textFieldContainer.textField.text.length == 0){
+        self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeNever;
     }else{
         [self showSearchResultsController];
     }
@@ -632,8 +555,8 @@
 
 -(void)clearTextFieldText
 {
-    self.textField.text = @"";
-    self.textField.rightViewMode = UITextFieldViewModeNever;
+    self.textFieldContainer.textField.text = @"";
+    self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeNever;
     self.lastSearchString = @"";
 
     if (self.navBarMode == NAVBAR_MODE_SEARCH) {
@@ -656,7 +579,7 @@
 
 - (void)searchStringChanged
 {
-    NSString *searchString = self.textField.text;
+    NSString *searchString = self.textFieldContainer.textField.text;
 
     NSString *trimmedSearchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
@@ -676,10 +599,10 @@
     }
     
     if (trimmedSearchString.length == 0){
-        self.textField.rightViewMode = UITextFieldViewModeNever;
+        self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeNever;
         return;
     }
-    self.textField.rightViewMode = UITextFieldViewModeAlways;
+    self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeAlways;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -697,7 +620,7 @@
     // been told to hide while transistioning between view controllers. Without this, the first time a
     // search term is entered on iOS 6 they keyboard will immediately hide. That's bad.
 
-    self.textField.rightViewMode = UITextFieldViewModeNever;
+    self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeNever;
     
     return (NAV.isTransitioningBetweenViewControllers) ? NO : YES;
 }
@@ -750,8 +673,7 @@
                        @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor lightGrayColor],
                        @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor colorWithWhite:0.33 alpha:1.0],
                        @"NAVBAR_BUTTON_COLOR": [UIColor blackColor],
-                       @"NAVBAR_LABEL_TEXT_COLOR": [UIColor blackColor],
-                       @"NAVBAR_VERTICAL_LINE_COLOR": [UIColor colorWithWhite:0.88 alpha:1.0],
+                       @"NAVBAR_LABEL_TEXT_COLOR": [UIColor blackColor]
                        };
         }
             break;
@@ -762,8 +684,7 @@
                        @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor whiteColor],
                        @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor whiteColor],
                        @"NAVBAR_BUTTON_COLOR": [UIColor whiteColor],
-                       @"NAVBAR_LABEL_TEXT_COLOR": [UIColor whiteColor],
-                       @"NAVBAR_VERTICAL_LINE_COLOR": [UIColor whiteColor]
+                       @"NAVBAR_LABEL_TEXT_COLOR": [UIColor whiteColor]
                        };
         }
             break;
@@ -796,12 +717,12 @@
         }
             break;
         case NAVBAR_TEXT_FIELD:{
-            TopMenuTextField *textField = (TopMenuTextField *)view;
+            TopMenuTextFieldContainer *textFieldContainer = (TopMenuTextFieldContainer *)view;
             
             // Typed text and cursor.
-            textField.textColor = colors[@"NAVBAR_TEXT_FIELD_TEXT_COLOR"];
+            textFieldContainer.textField.textColor = colors[@"NAVBAR_TEXT_FIELD_TEXT_COLOR"];
             if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-                textField.tintColor = colors[@"NAVBAR_TEXT_FIELD_TEXT_COLOR"];
+                textFieldContainer.textField.tintColor = colors[@"NAVBAR_TEXT_FIELD_TEXT_COLOR"];
             }
             
             // Text clear button.
@@ -813,9 +734,6 @@
             UILabel *label = (UILabel *)view;
             label.textColor = colors[@"NAVBAR_LABEL_TEXT_COLOR"];
         }
-            break;
-        case NAVBAR_VERTICAL_LINE:
-            view.backgroundColor = colors[@"NAVBAR_VERTICAL_LINE_COLOR"];
             break;
         default:
             break;
@@ -846,9 +764,9 @@
         // Hide TOC button if web view isn't on top or if current article is the main page.
         self.navBarMode = NAVBAR_MODE_DEFAULT;
     }else{
-        TopMenuTextField *searchTextField = [self getNavBarItem:NAVBAR_TEXT_FIELD];
+        TopMenuTextFieldContainer *searchTextFieldContainer = [self getNavBarItem:NAVBAR_TEXT_FIELD];
         NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
-        self.navBarMode = (!searchTextField.isFirstResponder && currentArticleTitle && (currentArticleTitle.length > 0))
+        self.navBarMode = (!searchTextFieldContainer.textField.isFirstResponder && currentArticleTitle && (currentArticleTitle.length > 0))
                 ?
                 NAVBAR_MODE_DEFAULT_WITH_TOC
                 :

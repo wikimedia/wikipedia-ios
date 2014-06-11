@@ -17,8 +17,7 @@ typedef enum {
     NAVBAR_BUTTON_BLANK = 10,
     NAVBAR_BUTTON_CANCEL = 11,
     NAVBAR_TEXT_FIELD = 12,
-    NAVBAR_LABEL = 13,
-    NAVBAR_VERTICAL_LINE = 14
+    NAVBAR_LABEL = 13
 } NavBarItemTag;
 
 typedef enum {
@@ -60,5 +59,7 @@ typedef enum {
 -(void)updateTOCButtonVisibility;
 
 @property (strong, nonatomic) IBOutlet TopMenuContainerView *navBarContainer;
+
+@property (nonatomic) BOOL statusBarHidden;
 
 @end

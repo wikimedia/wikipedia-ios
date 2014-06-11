@@ -41,6 +41,10 @@
     // Set in the destVC's initWithCoder.
     [self updateTopMenuModeAndStyleForDestViewController:destVC];
 
+    ModalMenuAndContentViewController *modalMenuAndContentVC =
+    (ModalMenuAndContentViewController *)self.parentViewController;
+    modalMenuAndContentVC.statusBarHidden = [destVC prefersStatusBarHidden];
+
     UIView *view = destVC.view;
 
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

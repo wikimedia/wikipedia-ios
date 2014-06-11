@@ -18,4 +18,6 @@
 
 -(void)togglePrimaryMenu;
 
+@property (nonatomic) BOOL statusBarHidden;
+
 @end
