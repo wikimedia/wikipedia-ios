@@ -12,6 +12,8 @@
 @property (nonatomic) NavBarMode navBarMode;
 @property (nonatomic) NavBarStyle navBarStyle;
 
+@property (nonatomic) BOOL statusBarHidden;
+
 @property (nonatomic, copy) void (^block)(id);
 
 @end

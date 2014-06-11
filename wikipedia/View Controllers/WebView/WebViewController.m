@@ -14,6 +14,7 @@
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
 #import "TopMenuTextField.h"
+#import "TopMenuTextFieldContainer.h"
 #import "MWLanguageInfo.h"
 #import "CenterNavController.h"
 #import "Defines.h"
@@ -105,6 +106,11 @@ typedef enum {
     ArticleDataContextSingleton *articleDataContext_;
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return NO;
+}
+
 #pragma mark View lifecycle methods
 
 - (void)viewDidLoad
@@ -186,7 +192,6 @@ typedef enum {
     
     
     self.bottomBarViewBottomConstraint = nil;
-    self.bottomMenuHidden = NO;
 
     // This needs to be in viewDidLoad.
     [[NSNotificationCenter defaultCenter] addObserver: self
@@ -210,6 +215,8 @@ typedef enum {
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    self.bottomMenuHidden = ROOT.topMenuHidden;
 
     [self copyAssetsFolderToAppDataDocuments];
 
@@ -1037,8 +1044,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     // Reset the search field to its placeholder text after 5 seconds.
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        TopMenuTextField *textField = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-        if (!textField.isFirstResponder) textField.text = @"";
+        TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
+        if (!textFieldContainer.textField.isFirstResponder) textFieldContainer.textField.text = @"";
     });
 }
 
@@ -1523,8 +1530,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
              if (message) {
                  dispatch_async(dispatch_get_main_queue(), ^(){
                  
-                     TopMenuTextField *textField = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-                     textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
+                     TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
+                     textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
 
                      self.zeroStatusLabel.text = message;
                      self.zeroStatusLabel.padding = UIEdgeInsetsMake(3, 10, 3, 10);
@@ -1544,8 +1551,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         
     } else {
     
-        TopMenuTextField *textField = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-        textField.placeholder = MWLocalizedString(@"search-field-placeholder-text", nil);
+        TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
+        textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text", nil);
         NSString *warnVerbiage = MWLocalizedString(@"zero-charged-verbiage", nil);
 
         self.zeroStatusLabel.text = warnVerbiage;

@@ -65,6 +65,11 @@ typedef enum {
 
 @implementation PreviewAndSaveViewController
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 -(void)resetBridge
 {
     self.bridge = [[CommunicationBridge alloc] initWithWebView: self.previewWebView

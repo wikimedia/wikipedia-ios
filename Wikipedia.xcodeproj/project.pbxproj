@@ -118,6 +118,7 @@
 		04CCCFF01935093A00E3F60C /* SecondaryMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCCFED1935093A00E3F60C /* SecondaryMenuViewController.m */; };
 		04CCCFF61935094000E3F60C /* PrimaryMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCCFF31935094000E3F60C /* PrimaryMenuViewController.m */; };
 		04CCCFF71935094000E3F60C /* PrimaryMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCCFF51935094000E3F60C /* PrimaryMenuTableViewCell.m */; };
+		04CFA120194900D50088269A /* TopMenuTextFieldContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CFA11F194900D50088269A /* TopMenuTextFieldContainer.m */; };
 		04D122321899B8AC006B9A30 /* AlertWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D122311899B8AC006B9A30 /* AlertWebView.m */; };
 		04D149DD18877343006B4104 /* AlertLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D149DA18877343006B4104 /* AlertLabel.m */; };
 		04D149DF18877343006B4104 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D149DC18877343006B4104 /* UIViewController+Alert.m */; };
@@ -391,6 +392,8 @@
 		04CCCFF31935094000E3F60C /* PrimaryMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrimaryMenuViewController.m; sourceTree = "<group>"; };
 		04CCCFF41935094000E3F60C /* PrimaryMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimaryMenuTableViewCell.h; sourceTree = "<group>"; };
 		04CCCFF51935094000E3F60C /* PrimaryMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrimaryMenuTableViewCell.m; sourceTree = "<group>"; };
+		04CFA11E194900D50088269A /* TopMenuTextFieldContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopMenuTextFieldContainer.h; sourceTree = "<group>"; };
+		04CFA11F194900D50088269A /* TopMenuTextFieldContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopMenuTextFieldContainer.m; sourceTree = "<group>"; };
 		04D122301899B8AC006B9A30 /* AlertWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertWebView.h; sourceTree = "<group>"; };
 		04D122311899B8AC006B9A30 /* AlertWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertWebView.m; sourceTree = "<group>"; };
 		04D149D918877343006B4104 /* AlertLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertLabel.h; sourceTree = "<group>"; };
@@ -776,6 +779,8 @@
 				042A5B2E19257F900095E172 /* TopMenuContainerView.m */,
 				042A5B30192591520095E172 /* TopMenuTextField.h */,
 				042A5B31192591520095E172 /* TopMenuTextField.m */,
+				04CFA11E194900D50088269A /* TopMenuTextFieldContainer.h */,
+				04CFA11F194900D50088269A /* TopMenuTextFieldContainer.m */,
 			);
 			path = Top;
 			sourceTree = "<group>";
@@ -1696,6 +1701,7 @@
 				04D34DD11863F6E600610A87 /* SectionImage.m in Sources */,
 				0447867C1852BBFE0050563B /* NSManagedObjectContext+SimpleFetch.m in Sources */,
 				044BD6A21883302C00FFE4BE /* Image.m in Sources */,
+				04CFA120194900D50088269A /* TopMenuTextFieldContainer.m in Sources */,
 				04293000185FC2C7002A13FC /* QueuesSingleton.m in Sources */,
 				04D34DC91863F6CC00610A87 /* Saved.m in Sources */,
 				04EA3A5B18D25D7700E2F5C4 /* UINavigationController+Alert.m in Sources */,

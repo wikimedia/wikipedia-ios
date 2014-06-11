@@ -37,6 +37,11 @@
 
 @implementation SectionEditorViewController
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

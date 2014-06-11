@@ -60,6 +60,11 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     return self;
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

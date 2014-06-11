@@ -79,6 +79,11 @@
     }
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 #pragma mark - Hiding
 
 -(void)hide

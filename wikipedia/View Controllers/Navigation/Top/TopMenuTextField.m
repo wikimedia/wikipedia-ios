@@ -20,11 +20,8 @@
 // Adds left padding without messing up leftView or rightView.
 // From: http://stackoverflow.com/a/14357720
 - (CGRect)textRectForBounds:(CGRect)bounds {
-    CGRect ret = [super textRectForBounds:bounds];
-    CGFloat sidePadding = 2;
-    ret.origin.x = ret.origin.x + sidePadding;
-    ret.size.width = ret.size.width - (sidePadding * 2);
-    return ret;
+    CGRect rect = [super textRectForBounds:bounds];
+    return CGRectInset(rect, 2, 0);
 }
 
 - (CGRect)editingRectForBounds:(CGRect)bounds {

@@ -62,6 +62,11 @@
     [super viewWillDisappear:animated];
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (void)navItemTappedNotification:(NSNotification *)notification
 {
     NSDictionary *userInfo = [notification userInfo];

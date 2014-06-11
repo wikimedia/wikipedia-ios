@@ -22,42 +22,24 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *centerContainerTopConstraint;
 
-@property (nonatomic) CGFloat initalCenterContainerTopConstraintConstant;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topContainerHeightConstraint;
 
 @end
 
 @implementation RootViewController
 
-- (instancetype)initWithCoder:(NSCoder *)coder
+-(void)constrainTopContainerHeight
 {
-    self = [super initWithCoder:coder];
-    if (self) {
-        self.initalCenterContainerTopConstraintConstant = 0;
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    [self constrainTopAndCenterContainerHeights];
-}
-
--(void)constrainTopAndCenterContainerHeights
-{
-    CGFloat topMenuInitialHeight = TOP_MENU_INITIAL_HEIGHT;
+    CGFloat topMenuHeight = TOP_MENU_INITIAL_HEIGHT;
     
     // iOS 7 needs to have room for a view behind the top status bar.
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-        topMenuInitialHeight += [self getStatusBarHeight];
+        if(!self.statusBarHidden){
+            topMenuHeight += [self getStatusBarHeight];
+        }
     }
-    
-    self.topContainerHeightConstraint.constant = topMenuInitialHeight;
-    self.centerContainerTopConstraint.constant = topMenuInitialHeight;
+
+    self.topContainerHeightConstraint.constant = topMenuHeight;
 }
 
 -(void)setTopMenuHidden:(BOOL)topMenuHidden
@@ -75,23 +57,46 @@
     }
 }
 
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return (self.topMenuViewController.navBarStyle == NAVBAR_STYLE_NIGHT) ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return self.statusBarHidden;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.statusBarHidden = [self.centerNavController.topViewController prefersStatusBarHidden];
+}
+
+-(void)setStatusBarHidden:(BOOL)statusBarHidden
+{
+    _statusBarHidden = statusBarHidden;
+    
+    self.topMenuViewController.statusBarHidden = statusBarHidden;
+    
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
+    [self.view setNeedsUpdateConstraints];
+}
+
 -(void)updateTopMenuVisibilityConstraint
 {
-    // Remember the initial constants so they can be returned to when menu shown again.
-    if (self.initalCenterContainerTopConstraintConstant == 0) {
-        self.initalCenterContainerTopConstraintConstant = self.centerContainerTopConstraint.constant;
-    }
+    // Hides the top menu by raising the center container's top - since the top menu sits on
+    // top of the center container the top menue gets pushed up offscreen. Shows the top menu
+    // by lowering the center container.
+
+    CGFloat topMenuVisibleHeight = TOP_MENU_INITIAL_HEIGHT;
+    CGFloat statusBarHeight = (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) ? [self getStatusBarHeight] : 0;
     
-    // Height for top menu when visible.
-    CGFloat visibleTopMenuHeight = self.initalCenterContainerTopConstraintConstant;
+    if (self.statusBarHidden) statusBarHeight = 0;
     
-    // iOS 7 needs to have room for a view behind the top status bar.
-    CGFloat statusBarHeight = 0;
-    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-        statusBarHeight = [self getStatusBarHeight];
-    }
-    
-    CGFloat topMenuHeight = self.topMenuHidden ? statusBarHeight : visibleTopMenuHeight;
+    CGFloat topMenuHeight = self.topMenuHidden ? statusBarHeight : (topMenuVisibleHeight + statusBarHeight);
     
     self.centerContainerTopConstraint.constant = topMenuHeight;
 }
@@ -106,7 +111,7 @@
             self.topMenuHidden = !self.topMenuHidden;
 
             WebViewController *webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
-            webVC.bottomMenuHidden = !webVC.bottomMenuHidden;
+            webVC.bottomMenuHidden = self.topMenuHidden;
             
             [self.view setNeedsUpdateConstraints];
             //[self.view.superview layoutSubviews];
@@ -121,6 +126,8 @@
 
 -(void)updateViewConstraints
 {
+    [self constrainTopContainerHeight];
+
     [self updateTopMenuVisibilityConstraint];
 
     [super updateViewConstraints];

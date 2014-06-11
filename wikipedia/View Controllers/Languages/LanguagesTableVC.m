@@ -130,6 +130,11 @@
     }
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 // Handle nav bar taps. (same way as any other view controller would)
 - (void)navTextFieldTextChangedNotification:(NSNotification *)notification
 {

@@ -7,6 +7,7 @@
 #import "MenuLabel.h"
 #import "UIViewController+StatusBarHeight.h"
 #import "Defines.h"
+#import "TopMenuTextFieldContainer.h"
 #import "TopMenuTextField.h"
 
 @interface ModalMenuAndContentViewController ()
@@ -30,8 +31,8 @@
     MenuLabel *label = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
     label.text = topMenuText;
     
-    TopMenuTextField *textField = [self.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-    textField.placeholder = topMenuText;
+    TopMenuTextFieldContainer *textFieldContainer = [self.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
+    textFieldContainer.textField.placeholder = topMenuText;
 }
 
 -(void)setNavBarMode:(NavBarMode)navBarMode
@@ -44,6 +45,38 @@
     self.topMenuViewController.navBarStyle = navBarStyle;
 }
 
+-(void)setStatusBarHidden:(BOOL)statusBarHidden
+{
+    _statusBarHidden = statusBarHidden;
+    
+    self.topMenuViewController.statusBarHidden = statusBarHidden;
+    
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
+    [self.view setNeedsUpdateConstraints];
+}
+
+-(void)updateViewConstraints
+{
+    [self constrainTopContainerHeight];
+    [super updateViewConstraints];
+}
+
+-(void)constrainTopContainerHeight
+{
+    CGFloat topMenuHeight = TOP_MENU_INITIAL_HEIGHT;
+    
+    // iOS 7 needs to have room for a view behind the top status bar.
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
+        if(!self.statusBarHidden){
+            topMenuHeight += [self getStatusBarHeight];
+        }
+    }
+
+    self.topContainerHeightConstraint.constant = topMenuHeight;
+}
+
 -(void)configureContainedTopMenu
 {
     self.topMenuViewController.navBarContainer.showBottomBorder = NO;
@@ -51,15 +84,6 @@
     MenuLabel *label = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
     label.font = [UIFont systemFontOfSize:21];
     label.textAlignment = NSTextAlignmentCenter;
-
-    CGFloat topMenuInitialHeight = TOP_MENU_INITIAL_HEIGHT;
-    
-    // iOS 7 needs to have room for a view behind the top status bar.
-    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-        topMenuInitialHeight += [self getStatusBarHeight];
-    }
-    
-    self.topContainerHeightConstraint.constant = topMenuInitialHeight;
 }
 
 - (void)viewDidLoad
@@ -70,29 +94,13 @@
     [self configureContainedTopMenu];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-        switch (self.topMenuViewController.navBarStyle) {
-            case NAVBAR_STYLE_NIGHT:
-                [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-                break;
-                
-            default:
-                [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-                break;
-        }
-    }
-
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return (self.topMenuViewController.navBarStyle == NAVBAR_STYLE_NIGHT) ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
--(void)viewWillDisappear:(BOOL)animated
+- (BOOL)prefersStatusBarHidden
 {
-    [super viewWillDisappear:animated];
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    return self.statusBarHidden;
 }
 
 - (void)didReceiveMemoryWarning

@@ -200,6 +200,25 @@ body {
 .content .thumbborder {
   border: 1px solid #ccc;
 }
+.content img {
+  vertical-align: middle;
+}
+.content .floatright {
+  /* @noflip */
+  clear: right;
+  /* @noflip */
+  float: right;
+  /* @noflip */
+  margin: 0 0 .6em .6em;
+}
+.content .floatleft {
+  /* @noflip */
+  clear: left;
+  /* @noflip */
+  float: left;
+  /* @noflip */
+  margin: 0 .6em .6em 0;
+}
 .content ol ol,
 .content ol ul,
 .content ul ol,
@@ -463,6 +482,10 @@ ul.gallery li.gallerybox > div > div.thumb {
   color: #777;
   font-size: .8em;
   font-style: italic;
+}
+.quotebox {
+  margin: 0 0 0.8em !important;
+  width: auto !important;
 }
 
 /* Copied over from MobileFrontend.
