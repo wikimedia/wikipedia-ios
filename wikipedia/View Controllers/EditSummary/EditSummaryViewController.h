@@ -1,14 +1,16 @@
-//  Created by Monte Hurd on 3/10/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
+//  Created by Monte Hurd on 6/17/14.
+//  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
+#import "TopMenuViewController.h"
 
-@class EditSummaryHandleView;
+@class PreviewAndSaveViewController;
+@interface EditSummaryViewController : UIViewController <UITextFieldDelegate>
 
-@interface EditSummaryViewController : UIViewController <UIGestureRecognizerDelegate, UITextFieldDelegate>
+@property (nonatomic) NavBarMode navBarMode;
 
--(NSString *)getSummary;
+@property (weak, nonatomic) PreviewAndSaveViewController *previewVC;
 
-@property (weak, nonatomic) NSLayoutConstraint *topConstraint;
+@property (strong, nonatomic) NSString *summaryText;
 
 @end

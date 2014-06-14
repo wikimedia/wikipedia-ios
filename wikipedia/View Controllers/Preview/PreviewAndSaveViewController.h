@@ -16,4 +16,6 @@
 
 -(void)reloadCaptchaPushed:(id)sender;
 
+@property (strong, nonatomic) NSString *summaryText;
+
 @end

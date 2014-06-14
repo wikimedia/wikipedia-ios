@@ -132,7 +132,7 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 // Handle nav bar taps. (same way as any other view controller would)

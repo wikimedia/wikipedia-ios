@@ -75,7 +75,7 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 #pragma mark - Hiding

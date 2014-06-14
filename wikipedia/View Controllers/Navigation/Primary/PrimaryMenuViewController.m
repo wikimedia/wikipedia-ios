@@ -2,8 +2,8 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "PrimaryMenuViewController.h"
-#import "MenuButtonView.h"
-#import "MenuLabel.h"
+#import "WikiGlyphButton.h"
+#import "WikiGlyphLabel.h"
 #import "WMF_WikiFont_Chars.h"
 #import "PrimaryMenuTableViewCell.h"
 #import "NSString+extras.h"
@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 
 @interface PrimaryMenuViewController ()
 
-@property (weak, nonatomic) IBOutlet MenuButtonView *moreButton;
+@property (weak, nonatomic) IBOutlet WikiGlyphButton *moreButton;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -62,8 +62,11 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 
 - (BOOL)prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
+
+
+
 
 - (void)viewDidLoad
 {
@@ -75,7 +78,9 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 
     [self.moreButton.label setWikiText: WIKIFONT_CHAR_ELLIPSIS
                                  color: [UIColor darkGrayColor]
-                                  size: 64];
+                                  size: 64
+                        baselineOffset: 2.0
+                                  ];
 
     self.moreButton.label.textAlignment = NSTextAlignmentLeft;
 
@@ -254,7 +259,7 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
             [NAV.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
             loginVC.funnel = [[LoginFunnel alloc] init];
             [loginVC.funnel logStartFromNavigation];
-            [NAV pushViewController:loginVC animated:YES];
+            [ROOT pushViewController:loginVC animated:YES];
             [self hide];
         }
             break;

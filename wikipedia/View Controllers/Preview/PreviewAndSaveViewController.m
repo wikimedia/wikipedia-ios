@@ -17,53 +17,67 @@
 #import "WebViewController.h"
 #import "UINavigationController+SearchNavStack.h"
 #import "PreviewWebView.h"
-#import "EditSummaryViewController.h"
 #import "LoginViewController.h"
 #import "UINavigationController+TopActionSheet.h"
 #import "Defines.h"
 #import "WMF_Colors.h"
 #import "CommunicationBridge.h"
-#import "PreviewChoicesMenuView.h"
-#import "PreviewLicenseView.h"
 
 #import "PaddedLabel.h"
 #import "NSString+Extras.h"
 
-#import "MenuButtonView.h"
-#import "MenuLabel.h"
-
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
 
+#import "MenuButton.h"
+#import "EditSummaryViewController.h"
+#import "UIViewController+PresentModal.h"
+
 typedef enum {
-    PREVIEW_CHOICE_LOGIN_THEN_SAVE = 0,
-    PREVIEW_CHOICE_SAVE = 1,
-    PREVIEW_CHOICE_SHOW_LICENSE = 2
-} PreviewChoices;
+    CANNED_SUMMARY_TYPOS = 0,
+    CANNED_SUMMARY_GRAMMAR = 1,
+    CANNED_SUMMARY_LINKS = 2,
+    CANNED_SUMMARY_OTHER = 3
+} CannedSummaryChoices;
 
 @interface PreviewAndSaveViewController ()
 
 @property (strong, nonatomic) NSString *captchaId;
 @property (strong, nonatomic) CaptchaViewController *captchaViewController;
 @property (weak, nonatomic) IBOutlet UIView *captchaContainer;
-
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIView *scrollContainer;
-
-@property (strong, nonatomic) EditSummaryViewController *editSummaryViewController;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *editSummaryTopConstraint;
+@property (weak, nonatomic) IBOutlet UIScrollView *captchaScrollView;
+@property (weak, nonatomic) IBOutlet UIView *captchaScrollContainer;
 @property (weak, nonatomic) IBOutlet UIView *editSummaryContainer;
-
 @property (nonatomic) BOOL saveAutomaticallyIfSignedIn;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewWebViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet UIWebView *previewWebView;
-
 @property (strong, nonatomic) CommunicationBridge *bridge;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewWebViewHeightConstraint;
+@property (strong, nonatomic) UILabel *aboutLabel;
+@property (strong, nonatomic) MenuButton *cannedSummary01;
+@property (strong, nonatomic) MenuButton *cannedSummary02;
+@property (strong, nonatomic) MenuButton *cannedSummary03;
+@property (strong, nonatomic) MenuButton *cannedSummary04;
+@property (nonatomic) CGFloat borderWidth;
 
 @end
 
 @implementation PreviewAndSaveViewController
+
+-(NSString *)getSummary
+{
+    NSMutableArray *summaryArray = @[].mutableCopy;
+    
+    if (self.summaryText && (self.summaryText.length > 0)) {
+        [summaryArray addObject:self.summaryText];
+    }
+    if (self.cannedSummary01.enabled) [summaryArray addObject:self.cannedSummary01.text];
+    if (self.cannedSummary02.enabled) [summaryArray addObject:self.cannedSummary02.text];
+    if (self.cannedSummary03.enabled) [summaryArray addObject:self.cannedSummary03.text];
+
+    if (self.cannedSummary04.enabled) [summaryArray addObject:self.cannedSummary04.text];
+
+    return [summaryArray componentsJoinedByString:@"; "];
+}
 
 - (BOOL)prefersStatusBarHidden
 {
@@ -93,15 +107,15 @@ typedef enum {
     UIView *tappedItem = userInfo[@"tappedItem"];
 
     switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_PENCIL:
-            [NAV popViewControllerAnimated:YES];
+        case NAVBAR_BUTTON_X:
+            [ROOT popViewControllerAnimated:YES];
             
             if(ROOT.topMenuViewController.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING){
                 [self.funnel logAbuseFilterWarningBack:@"fixme"]; // @fixme
             }
             
             break;
-        case NAVBAR_BUTTON_ARROW_RIGHT: /* for captcha submit button */
+        case NAVBAR_BUTTON_SAVE: /* for captcha submit button */
         case NAVBAR_BUTTON_CHECK:
             {
                 switch (ROOT.topMenuViewController.navBarMode) {
@@ -112,12 +126,8 @@ typedef enum {
                     case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
                         [self save];
                         break;
-                    case NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY:
-                        // Login/SaveAnon buttons are already visible, so fake out a "Save Anonymously" button tap.
-                        [self performPreviewChoiceAction:PREVIEW_CHOICE_SAVE];
-                        break;
                     default:
-                        [self saveOrShowSignInActionSheetsIfNotLoggedIn];
+                        [self save];
                         break;
                 }
             }
@@ -136,6 +146,8 @@ typedef enum {
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    self.summaryText = @"";
     
     self.saveAutomaticallyIfSignedIn = NO;
     
@@ -149,15 +161,140 @@ typedef enum {
                                              selector: @selector(htmlAlertWasHidden)
                                                  name: @"HtmlAlertWasHidden"
                                                object: nil];
-    
-    self.previewWebViewBottomConstraint.constant = EDIT_SUMMARY_DOCK_DISTANCE_FROM_BOTTOM;
-    
+
     [self.funnel logPreview];
+
+    self.borderWidth = 1.0f / [UIScreen mainScreen].scale;
+
+    [self setupEditSummaryContainerSubviews];
+    
+    [self constrainEditSummaryContainerSubviews];
+
+    // Disable the preview web view's scrolling since we're going to size it
+    // such that its internal scroll view isn't ever going to be visble anyway.
+    self.previewWebView.scrollView.scrollEnabled = NO;
+
+    // Observer the web view's contentSize property to enable the web view to expand to the
+    // height of the html content it is displaying so the web view's scroll view doesn't show
+    // any scroll bars. (Expand the web view to the full height of its content so it scrolls
+    // with this view controller's scroll view rather than its own.) Note that to make this
+    // work, the PreviewWebView object also uses a method called
+    // "forceScrollViewContentSizeToReflectActualHTMLHeight".
+    [self.previewWebView.scrollView addObserver: self
+                                     forKeyPath: @"contentSize"
+                                        options: NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial
+                                        context: nil];
+    [self preview];
+}
+
+-(void)dealloc
+{
+    [self.previewWebView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+}
+
+-(void)observeValueForKeyPath: (NSString *)keyPath
+                     ofObject: (id)object
+                       change: (NSDictionary *)change
+                      context: (void *)context
+{
+    if (
+        (object == self.previewWebView.scrollView)
+        &&
+        [keyPath isEqual:@"contentSize"]
+        ) {
+        // Size the web view to the height of the html content it is displaying (gets rid of the web view's scroll bars).
+        // Note: the PreviewWebView class has to call "forceScrollViewContentSizeToReflectActualHTMLHeight" in its
+        // overridden "layoutSubviews" method for the contentSize to be reported accurately such that it reflects the
+        // actual height of the web view content here. Without the web view class calling this method in its
+        // layoutSubviews, the contentSize.height wouldn't change if we, say, rotated the device.
+        self.previewWebViewHeightConstraint.constant = self.previewWebView.scrollView.contentSize.height;
+    }
+}
+
+-(void)constrainEditSummaryContainerSubviews
+{
+    NSDictionary *views = @{
+                            @"aboutLabel": self.aboutLabel,
+                            @"cannedSummary01": self.cannedSummary01,
+                            @"cannedSummary02": self.cannedSummary02,
+                            @"cannedSummary03": self.cannedSummary03,
+                            @"cannedSummary04": self.cannedSummary04
+                            };
+    
+    NSArray *constraints = @[
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[aboutLabel]|" options:0 metrics:nil views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary01]" options:0 metrics:nil views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary02]" options:0 metrics:nil views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary03]" options:0 metrics:nil views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary04]" options:0 metrics:nil views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[aboutLabel]-(5)-[cannedSummary01][cannedSummary02][cannedSummary03][cannedSummary04]-(50)-|" options:0 metrics:nil views:views]
+    ];
+    [self.editSummaryContainer addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
+}
+
+-(void)setupEditSummaryContainerSubviews
+{
+    // Setup the canned edit summary buttons.
+    UIColor *color = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0];
+    UIEdgeInsets padding = UIEdgeInsetsMake(6, 10, 6, 10);
+    UIEdgeInsets margin = UIEdgeInsetsMake(8, 0, 8, 0);
+    CGFloat fontSize = 14;
+    
+    MenuButton * (^setupButton)(NSString *, NSInteger) = ^MenuButton *(NSString *text, NSInteger tag) {
+        MenuButton *button = [[MenuButton alloc] initWithText:text fontSize:fontSize color:color padding:padding margin:margin];
+        button.enabled = NO;
+        button.tag = tag;
+        [button addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonTapped:)]];
+        [self.editSummaryContainer addSubview:button];
+        return button;
+    };
+    
+    self.cannedSummary01 = setupButton(MWLocalizedString(@"edit-summary-choice-fixed-typos", nil), CANNED_SUMMARY_TYPOS);
+    self.cannedSummary02 = setupButton(MWLocalizedString(@"edit-summary-choice-fixed-grammar", nil), CANNED_SUMMARY_GRAMMAR);
+    self.cannedSummary03 = setupButton(MWLocalizedString(@"edit-summary-choice-linked-words", nil), CANNED_SUMMARY_LINKS);
+    self.cannedSummary04 = setupButton(MWLocalizedString(@"edit-summary-choice-other", nil), CANNED_SUMMARY_OTHER);
+
+    // Setup the canned edit summaries label.
+    self.aboutLabel = [[UILabel alloc] init];
+    self.aboutLabel.numberOfLines = 0;
+    self.aboutLabel.font = [UIFont boldSystemFontOfSize:24];
+    self.aboutLabel.textColor = [UIColor darkGrayColor];
+    self.aboutLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.aboutLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    self.aboutLabel.text = MWLocalizedString(@"edit-summary-title", nil);
+    [self.editSummaryContainer addSubview:self.aboutLabel];
+}
+
+-(void)buttonTapped:(UIGestureRecognizer *)recognizer
+{
+    MenuButton *tappedButton = (MenuButton *)recognizer.view;
+    switch (tappedButton.tag) {
+        case CANNED_SUMMARY_OTHER:
+            [self showSummaryOverlay];
+            break;
+            
+        default:
+            tappedButton.enabled = !tappedButton.enabled;
+            
+            break;
+    }
+}
+
+- (void)showSummaryOverlay
+{
+    [self performModalSequeWithID: @"modal_segue_show_edit_summary"
+                  transitionStyle: UIModalTransitionStyleCoverVertical
+                            block: ^(EditSummaryViewController *summaryVC){
+                                // Set the overlay's text field to self.summaryText so it can display
+                                // any existing value (in case user taps "Other" again)
+                                summaryVC.summaryText = self.summaryText;
+                                summaryVC.previewVC = self;
+                            }];
 }
 
 -(void)htmlAlertWasHidden
 {
-    [NAV popViewControllerAnimated:YES];
+    [ROOT popViewControllerAnimated:YES];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -169,56 +306,29 @@ typedef enum {
                                              selector: @selector(navItemTappedNotification:)
                                                  name: @"NavItemTapped"
                                                object: nil];
-   
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(previewChoiceTapped:)
-                                                 name: @"TabularScrollViewItemTapped"
-                                               object: nil];
-
-    [self preview];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    self.scrollView.alpha = 0.0f;
+    self.captchaScrollView.alpha = 0.0f;
 
     ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW;
 
-    [self highlightProgressiveButtons:YES];
+    MenuButton *button = (MenuButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_SAVE];
+    button.enabled = YES;
 
     [self saveAutomaticallyIfNecessary];
+
+    // Highlight the "Other" button if the user entered some "other" text.
+    self.cannedSummary04.enabled = (self.summaryText.length > 0) ? YES : NO;
 
     [super viewWillAppear:animated];
 }
 
--(void)highlightProgressiveButtons:(BOOL)highlight
-{
-    static BOOL lastHightlight = NO;
-    if (lastHightlight == highlight) return;
-    lastHightlight = highlight;
-
-
-    MenuButtonView *button = (MenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
-
-    button.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
-    
-    button.color = highlight ? [UIColor whiteColor] : [UIColor blackColor];
-
-
-    MenuButtonView *button2 = (MenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
-    
-    button2.backgroundColor = highlight ? WMF_COLOR_GREEN : [UIColor clearColor];
-    
-    button2.color = highlight ? [UIColor whiteColor] : [UIColor blackColor];
-}
-
 -(void)highlightCaptchaSubmitButton:(BOOL)highlight
 {
-    MenuButtonView *button = (MenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
-
-    button.backgroundColor = highlight ? WMF_COLOR_GREEN : [UIColor clearColor];
-    
-    button.color = highlight ? [UIColor whiteColor] : [UIColor blackColor];
+    MenuButton *button = (MenuButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_SAVE];
+    button.enabled = highlight;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -232,9 +342,7 @@ typedef enum {
     [self fadeAlert];
 
     // Change the nav bar layout.
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
-
-    [self highlightProgressiveButtons:NO];
+    //ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
 
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: @"TabularScrollViewItemTapped"
@@ -310,135 +418,9 @@ typedef enum {
     }
 }
 
-- (void)previewChoiceTapped:(NSNotification *)notification
-{
-    NSDictionary *userInfo = [notification userInfo];
-    UIView *tappedItem = userInfo[@"tappedItem"];
-
-    UIView *tappedChildView = userInfo[@"tappedChild"];
-    if (tappedChildView) tappedItem = tappedChildView;
-
-    [self performPreviewChoiceAction:tappedItem.tag];
-}
-
--(void)performPreviewChoiceAction:(PreviewChoices)choice
-{
-    switch (choice) {
-        case PREVIEW_CHOICE_LOGIN_THEN_SAVE:{
-            self.saveAutomaticallyIfSignedIn = YES;
-            LoginViewController *loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-            loginVC.funnel = [[LoginFunnel alloc] init];
-            [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
-            [NAV pushViewController:loginVC animated:YES];
-        }
-            break;
-        case PREVIEW_CHOICE_SAVE:
-            [self.funnel logSaveAnonExplicit];
-
-            [self save];
-            break;
-        case PREVIEW_CHOICE_SHOW_LICENSE:
-            NSLog(@"show license here!")
-
-//TODO: this!
-[self showAlert:@"To do: Hook up license copy to this label tap!"];
-[self fadeAlert];
-return;
-
-            break;
-        default:
-            break;
-    }
-    [self highlightProgressiveButtons:NO];
-
-    [self.navigationController topActionSheetHide];
-}
-
-- (BOOL)shouldShowSignInOrSaveAnonActionSheet
-{
-    switch (ROOT.topMenuViewController.navBarMode) {
-        case NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW:
-        case NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY:
-            return YES;
-            break;
-        default:
-            return NO;
-            break;
-    }
-}
-
-- (void)saveOrShowSignInActionSheetsIfNotLoggedIn
-{
-    BOOL userIsloggedIn = [SessionSingleton sharedInstance].keychainCredentials.userName ? YES : NO;
-    
-    if(!userIsloggedIn){
-        
-        if ([self shouldShowSignInOrSaveAnonActionSheet]) {
-            
-            ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY;
-            [self highlightProgressiveButtons:NO];
-            [self showSignInOrSaveAnonActionSheet];
-            
-        }
-    }else{
-        
-        if(
-            (ROOT.topMenuViewController.navBarMode != NAVBAR_MODE_EDIT_WIKITEXT_SAVE)
-            &&
-            (ROOT.topMenuViewController.navBarMode != NAVBAR_MODE_EDIT_WIKITEXT_WARNING)
-          ){
-            
-            ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_SAVE;
-            [self highlightProgressiveButtons:YES];
-            [self showLicenseActionSheet];
-            
-            // Hide edit summary panel here too?
-            
-        }else{
-            
-            [self save];
-            
-        }
-    }
-}
-
--(void)showSignInOrSaveAnonActionSheet
-{
-    UINib *previewChoicesNib = [UINib nibWithNibName:@"PreviewChoicesMenuView" bundle:nil];
-    PreviewChoicesMenuView *previewChoicesView =
-    [[previewChoicesNib instantiateWithOwner:nil options:nil] firstObject];
-    
-    UINib *previewLicenseNib = [UINib nibWithNibName:@"PreviewLicenseView" bundle:nil];
-    PreviewLicenseView *previewLicenseView =
-    [[previewLicenseNib instantiateWithOwner:nil options:nil] firstObject];
-    
-    // Used "topActionSheetShowWithViews:orientation:" as quick way to
-    // get UIScrollView containment for free.
-    [self.navigationController topActionSheetShowWithViews: @[previewChoicesView, previewLicenseView]
-                                               orientation: TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL];
-    
-    previewChoicesView.signInView.tag = PREVIEW_CHOICE_LOGIN_THEN_SAVE;
-    previewChoicesView.saveAnonView.tag = PREVIEW_CHOICE_SAVE;
-    previewLicenseView.tag = PREVIEW_CHOICE_SHOW_LICENSE;
-}
-
--(void)showLicenseActionSheet
-{
-    UINib *previewLicenseNib = [UINib nibWithNibName:@"PreviewLicenseView" bundle:nil];
-    PreviewLicenseView *previewLicenseView =
-    [[previewLicenseNib instantiateWithOwner:nil options:nil] firstObject];
-    
-    previewLicenseView.hideTopDivider = YES;
-    
-    [self.navigationController topActionSheetShowWithViews: @[previewLicenseView]
-                                               orientation: TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL];
-    
-    previewLicenseView.tag = PREVIEW_CHOICE_SHOW_LICENSE;
-}
-
 - (void)save
 {
-    NSString *editSummary = [self.editSummaryViewController getSummary];
+    NSString *editSummary = [self getSummary];
 
     // Use static flag to prevent save when save already in progress.
     static BOOL isAleadySaving = NO;
@@ -465,7 +447,7 @@ return;
             [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
                 WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
                 [webVC reloadCurrentArticleInvalidatingCache:YES];
-                [NAV popToViewController:webVC animated:YES];
+                [ROOT popToViewController:webVC animated:YES];
                 isAleadySaving = NO;
             }];
         }
@@ -556,7 +538,7 @@ return;
                     }else{
                         ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_WARNING;
 
-                        [self highlightProgressiveButtons:YES];
+                        //[self highlightProgressiveButtons:YES];
 
                         bannerImage = @"abuse-filter-flag-white.png";
                         bannerColor = WMF_COLOR_ORANGE;
@@ -654,9 +636,6 @@ return;
 {
 	if ([segue.identifier isEqualToString: @"Preview_Captcha_Embed"]) {
 		self.captchaViewController = (CaptchaViewController *) [segue destinationViewController];
-	}else if ([segue.identifier isEqualToString: @"Preview_Edit_Summary_Embed"]) {
-		self.editSummaryViewController = (EditSummaryViewController *) [segue destinationViewController];
-        self.editSummaryViewController.topConstraint = self.editSummaryTopConstraint;
 	}
 }
 
@@ -685,12 +664,12 @@ return;
                            forView: self.view
                              cache: NO];
     
-    [self.view bringSubviewToFront:self.scrollView];
+    [self.view bringSubviewToFront:self.captchaScrollView];
     
-    self.scrollView.alpha = 1.0f;
-    self.scrollView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.98];
+    self.captchaScrollView.alpha = 1.0f;
+    self.captchaScrollView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.98];
 
-    self.scrollContainer.backgroundColor = [UIColor clearColor];
+    self.captchaScrollContainer.backgroundColor = [UIColor clearColor];
     self.captchaContainer.backgroundColor = [UIColor clearColor];
     
     [UIView commitAnimations];
@@ -743,6 +722,29 @@ return;
         ",
     warningHtml];
 }
+
+/*
+save this and call it if the user taps the blue "Log In" text in the CC text
+            self.saveAutomaticallyIfSignedIn = YES;
+            LoginViewController *loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            loginVC.funnel = [[LoginFunnel alloc] init];
+            [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
+            [ROOT pushViewController:loginVC animated:YES];
+
+
+
+*/
+
+
+/*
+this save call was invoked when old sign-in/save-anon choice was presented and user selected save-anon.
+question: does logSaveAnonExplicit need to be called - maybe in save method if not logged in? check it it already is
+            [self.funnel logSaveAnonExplicit];
+
+            [self save];
+*/
+
+//    BOOL userIsloggedIn = [SessionSingleton sharedInstance].keychainCredentials.userName ? YES : NO;
 
 /*
 #pragma mark - Navigation

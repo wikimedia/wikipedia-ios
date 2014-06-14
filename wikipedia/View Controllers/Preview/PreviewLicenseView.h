@@ -6,6 +6,4 @@
 
 @property (weak, nonatomic) IBOutlet PaddedLabel *licenseTitleLabel;
 
-@property (nonatomic) BOOL hideTopDivider;
-
 @end

@@ -64,7 +64,7 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 - (void)navItemTappedNotification:(NSNotification *)notification

@@ -18,8 +18,8 @@
 #import "WebViewController.h"
 #import "UIView+TemporaryAnimatedXF.h"
 
-#import "MenuButtonView.h"
-#import "MenuLabel.h"
+#import "WikiGlyphButton.h"
+#import "WikiGlyphLabel.h"
 #import "PaddedLabel.h"
 
 #import "WMF_WikiFont_Chars.h"
@@ -34,23 +34,30 @@
 
 #import "UIViewController+StatusBarHeight.h"
 
+#import "MenuButton.h"
+
 @interface TopMenuViewController (){
 
 }
 
 // Views which go into the container.
 @property (strong, nonatomic) TopMenuTextFieldContainer *textFieldContainer;
-@property (strong, nonatomic) MenuButtonView *buttonW;
-@property (strong, nonatomic) MenuButtonView *buttonTOC;
-@property (strong, nonatomic) MenuButtonView *buttonPencil;
-@property (strong, nonatomic) MenuButtonView *buttonCheck;
-@property (strong, nonatomic) MenuButtonView *buttonX;
-@property (strong, nonatomic) MenuButtonView *buttonEye;
-@property (strong, nonatomic) MenuButtonView *buttonArrowLeft;
-@property (strong, nonatomic) MenuButtonView *buttonArrowRight;
-@property (strong, nonatomic) MenuButtonView *buttonMagnify;
-@property (strong, nonatomic) MenuButtonView *buttonBlank;
-@property (strong, nonatomic) MenuButtonView *buttonCancel;
+@property (strong, nonatomic) WikiGlyphButton *buttonW;
+@property (strong, nonatomic) WikiGlyphButton *buttonTOC;
+@property (strong, nonatomic) WikiGlyphButton *buttonPencil;
+@property (strong, nonatomic) WikiGlyphButton *buttonCheck;
+@property (strong, nonatomic) WikiGlyphButton *buttonX;
+@property (strong, nonatomic) WikiGlyphButton *buttonEye;
+@property (strong, nonatomic) WikiGlyphButton *buttonArrowLeft;
+@property (strong, nonatomic) WikiGlyphButton *buttonArrowRight;
+@property (strong, nonatomic) WikiGlyphButton *buttonMagnify;
+@property (strong, nonatomic) WikiGlyphButton *buttonBlank;
+@property (strong, nonatomic) WikiGlyphButton *buttonCancel;
+
+@property (strong, nonatomic) MenuButton *buttonNext;
+@property (strong, nonatomic) MenuButton *buttonSave;
+@property (strong, nonatomic) MenuButton *buttonDone;
+
 @property (strong, nonatomic) UILabel *label;
 
 // Used for constraining container sub-views.
@@ -222,31 +229,62 @@
     self.textFieldContainer.textField.rightView = clearButton;
     self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeNever;
 
-    MenuButtonView *(^getButton)(NSString *, NavBarItemTag) = ^MenuButtonView *(NSString *character, NavBarItemTag tag) {
-        MenuButtonView *button = [[MenuButtonView alloc] init];
-        [button.label setWikiText:character color:[UIColor blackColor] size:34];
+    WikiGlyphButton *(^getWikiGlyphButton)(NSString *, NavBarItemTag) = ^WikiGlyphButton *(NSString *character, NavBarItemTag tag) {
+        WikiGlyphButton *button = [[WikiGlyphButton alloc] init];
+
+        CGFloat size = (tag == NAVBAR_BUTTON_X) ? 30 : 34;
+        CGFloat baselineOffset = (tag == NAVBAR_BUTTON_X) ? 1.5 : 2.0;
+
+        [button.label setWikiText:character color:[UIColor blackColor] size:size baselineOffset:baselineOffset];
         button.translatesAutoresizingMaskIntoConstraints = NO;
 
-    [button addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(postNavItemTappedNotification:)]];
-
+        [button addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget: self
+                                                                             action: @selector(postNavItemTappedNotification:)]];
         button.tag = tag;
         return button;
     };
 
-    self.buttonPencil =     getButton(WIKIFONT_CHAR_PENCIL,             NAVBAR_BUTTON_PENCIL);
-    self.buttonCheck =      getButton(WIKIFONT_CHAR_TICK,               NAVBAR_BUTTON_CHECK);
-    self.buttonX =          getButton(WIKIFONT_CHAR_X,                  NAVBAR_BUTTON_X);
-    self.buttonEye =        getButton(WIKIFONT_CHAR_EYE,                NAVBAR_BUTTON_EYE);
-    self.buttonArrowLeft =  getButton(WIKIFONT_CHAR_ARROW_LEFT,         NAVBAR_BUTTON_ARROW_LEFT);
-    self.buttonArrowRight = getButton(WIKIFONT_CHAR_ARROW_LEFT,         NAVBAR_BUTTON_ARROW_RIGHT);
-    self.buttonW =          getButton(WIKIFONT_CHAR_IOS_W,              NAVBAR_BUTTON_LOGO_W);
-    self.buttonTOC =        getButton(WIKIFONT_CHAR_IOS_TOC,            NAVBAR_BUTTON_TOC);
-    self.buttonMagnify =    getButton(WIKIFONT_CHAR_IOS_MAGNIFY,        NAVBAR_BUTTON_MAGNIFY);
-    self.buttonBlank =      getButton(@"",                              NAVBAR_BUTTON_BLANK);
-    self.buttonCancel =     getButton(@"",                              NAVBAR_BUTTON_CANCEL);
+    self.buttonPencil =     getWikiGlyphButton(WIKIFONT_CHAR_PENCIL,             NAVBAR_BUTTON_PENCIL);
+    self.buttonCheck =      getWikiGlyphButton(WIKIFONT_CHAR_TICK,               NAVBAR_BUTTON_CHECK);
+    self.buttonX =          getWikiGlyphButton(WIKIFONT_CHAR_X,                  NAVBAR_BUTTON_X);
+    self.buttonEye =        getWikiGlyphButton(WIKIFONT_CHAR_EYE,                NAVBAR_BUTTON_EYE);
+    self.buttonArrowLeft =  getWikiGlyphButton(WIKIFONT_CHAR_ARROW_LEFT,         NAVBAR_BUTTON_ARROW_LEFT);
+    self.buttonArrowRight = getWikiGlyphButton(WIKIFONT_CHAR_ARROW_LEFT,         NAVBAR_BUTTON_ARROW_RIGHT);
+    self.buttonW =          getWikiGlyphButton(WIKIFONT_CHAR_IOS_W,              NAVBAR_BUTTON_LOGO_W);
+    self.buttonTOC =        getWikiGlyphButton(WIKIFONT_CHAR_IOS_TOC,            NAVBAR_BUTTON_TOC);
+    self.buttonMagnify =    getWikiGlyphButton(WIKIFONT_CHAR_IOS_MAGNIFY,        NAVBAR_BUTTON_MAGNIFY);
+    self.buttonBlank =      getWikiGlyphButton(@"",                              NAVBAR_BUTTON_BLANK);
+    self.buttonCancel =     getWikiGlyphButton(@"",                              NAVBAR_BUTTON_CANCEL);
 
     self.buttonCancel.label.font = [UIFont systemFontOfSize:17.0];
     self.buttonCancel.label.text = MWLocalizedString(@"search-cancel", nil);
+
+    MenuButton *(^getMenuButton)(NSString *, NavBarItemTag, CGFloat, UIColor *) =
+    ^MenuButton *(NSString *string, NavBarItemTag tag, CGFloat size, UIColor *color) {
+        
+        MenuButton *button = [[MenuButton alloc] initWithText: string
+                                                     fontSize: size
+                                                        color: color
+                                                      padding: UIEdgeInsetsMake(0, 16, 0, 16)
+                                                       margin: UIEdgeInsetsMake(8, 9, 7, 10)];
+        
+        [button addGestureRecognizer:
+         [[UITapGestureRecognizer alloc] initWithTarget: self
+                                                 action: @selector(postNavItemTappedNotification:)]];
+        
+        button.tag = tag;
+        return button;
+    };
+
+    UIColor *blueColor = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0];
+    UIColor *greenColor = [UIColor colorWithRed:0.08 green:0.64 blue:0.46 alpha:1.0];
+
+    self.buttonNext =
+        getMenuButton(MWLocalizedString(@"button-next", nil), NAVBAR_BUTTON_NEXT, 14, blueColor);
+    self.buttonSave =
+        getMenuButton(MWLocalizedString(@"button-save", nil), NAVBAR_BUTTON_SAVE, 14, greenColor);
+    self.buttonDone =
+        getMenuButton(MWLocalizedString(@"button-done", nil), NAVBAR_BUTTON_DONE, 14, blueColor);
 
     // Ensure the cancel button content is hugged more tightly than the search text box.
     // Otherwise on iOS 6 the cancel button is super wide.
@@ -271,6 +309,11 @@
     [self.navBarContainer addSubview:self.buttonMagnify];
     [self.navBarContainer addSubview:self.buttonBlank];
     [self.navBarContainer addSubview:self.buttonCancel];
+
+    [self.navBarContainer addSubview:self.buttonNext];
+    [self.navBarContainer addSubview:self.buttonSave];
+    [self.navBarContainer addSubview:self.buttonDone];
+
 
     self.label = [[UILabel alloc] init];
     self.label.text = @"";
@@ -312,6 +355,9 @@
              @"NAVBAR_BUTTON_MAGNIFY": self.buttonMagnify,
              @"NAVBAR_BUTTON_BLANK": self.buttonBlank,
              @"NAVBAR_BUTTON_CANCEL": self.buttonCancel,
+             @"NAVBAR_BUTTON_NEXT": self.buttonNext,
+             @"NAVBAR_BUTTON_SAVE": self.buttonSave,
+             @"NAVBAR_BUTTON_DONE": self.buttonDone,
              @"NAVBAR_BUTTON_EYE": self.buttonEye,
              @"NAVBAR_TEXT_FIELD": self.textFieldContainer,
              @"NAVBAR_LABEL": self.label
@@ -346,9 +392,9 @@
 
     switch (navBarMode) {
         case NAVBAR_MODE_EDIT_WIKITEXT:
-            self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext", nil);
+            self.label.text = @""; //MWLocalizedString(@"navbar-title-mode-edit-wikitext", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
+                @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_NEXT(50@250)]|";
             break;
         case NAVBAR_MODE_LOGIN:
             self.label.text = (!previewAndSaveVC) ?
@@ -359,15 +405,10 @@
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(50)]|";
             break;
-        case NAVBAR_MODE_EDIT_WIKITEXT_LOGIN_OR_SAVE_ANONYMOUSLY:
-            self.label.text = @"";
-            self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]|";
-            break;
         case NAVBAR_MODE_EDIT_WIKITEXT_SAVE:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-save", nil);
             self.navBarSubViewsHorizontalVFLString =
-            @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(50)]|";
+            @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_SAVE(50@250)]|";
             break;
         case NAVBAR_MODE_CREATE_ACCOUNT:
             self.label.text = (!previewAndSaveVC) ?
@@ -381,27 +422,34 @@
         case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-warning", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(50)]|";
+                @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(50)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-disallow", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(60)-|";
+                @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(60)-|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW:
-        case NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY:
-            self.label.text = (NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW == navBarMode) ?
-                MWLocalizedString(@"navbar-title-mode-edit-wikitext-preview", nil)
-                :
-                MWLocalizedString(@"navbar-title-mode-edit-wikitext-summary", nil)
-            ;
+            self.label.text = @"";
+            //self.label.text = (NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW == navBarMode) ?
+            //    MWLocalizedString(@"navbar-title-mode-edit-wikitext-preview", nil)
+            //    :
+            //    MWLocalizedString(@"navbar-title-mode-edit-wikitext-summary", nil)
+            //;
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
+                @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_SAVE(50@250)]|";
+            break;
+        case NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY:
+            self.label.text = @"";
+            self.navBarSubViewsHorizontalVFLString =
+                @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_DONE(50@250)]|";
+                //@"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
+
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
-            self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-captcha", nil);
+            self.label.text = @""; //MWLocalizedString(@"navbar-title-mode-edit-wikitext-captcha", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
+                @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_SAVE(50@250)]|";
             break;
         case NAVBAR_MODE_SEARCH:
             self.navBarSubViewsHorizontalVFLString =
@@ -449,9 +497,9 @@
     };
     
     // If the tapped item was a button, first animate it briefly, then post the notication.
-    if([tappedView isKindOfClass:[MenuButtonView class]]){
+    if([tappedView isKindOfClass:[WikiGlyphButton class]]){
         CGFloat animationScale = 1.25f;
-        MenuButtonView *button = (MenuButtonView *)tappedView;
+        WikiGlyphButton *button = (WikiGlyphButton *)tappedView;
         [button.label animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
                             afterDelay: 0.0
                               duration: 0.06f
@@ -524,11 +572,11 @@
         if (NAV.topViewController == searchResultsVC) {
             [searchResultsVC refreshSearchResults];
         }else{
-            [NAV popToViewController:searchResultsVC animated:NO];
+            [ROOT popToViewController:searchResultsVC animated:NO];
         }
     }else{
         SearchResultsController *searchResultsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
-        [NAV pushViewController:searchResultsVC animated:NO];
+        [ROOT pushViewController:searchResultsVC animated:NO];
     }
 }
 
@@ -573,7 +621,7 @@
     [searchResultsVC clearSearchResults];
     
     if (NAV.topViewController == searchResultsVC) {
-        [NAV popViewControllerAnimated:NO];
+        [ROOT popViewControllerAnimated:NO];
     }
 }
 
@@ -712,7 +760,7 @@
         case NAVBAR_BUTTON_BLANK:
         case NAVBAR_BUTTON_CANCEL:
         {
-            MenuButtonView *button = (MenuButtonView *)view;
+            WikiGlyphButton *button = (WikiGlyphButton *)view;
             button.label.textColor = colors[@"NAVBAR_BUTTON_COLOR"];
         }
             break;

@@ -94,7 +94,7 @@ typedef enum {
 
 - (BOOL)prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 #pragma mark - Hiding
@@ -424,7 +424,7 @@ typedef enum {
                     [NAV.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
                     loginVC.funnel = [[LoginFunnel alloc] init];
                     [loginVC.funnel logStartFromNavigation];
-                    [NAV pushViewController:loginVC animated:YES];
+                    [ROOT pushViewController:loginVC animated:YES];
                 }else{
                     
                     [SessionSingleton sharedInstance].keychainCredentials.userName = nil;
@@ -443,7 +443,7 @@ typedef enum {
             {
                 SavedPagesViewController *savedPagesVC =
                     [NAV.storyboard instantiateViewControllerWithIdentifier:@"SavedPagesViewController"];
-                [NAV pushViewController:savedPagesVC animated:YES];
+                [ROOT pushViewController:savedPagesVC animated:YES];
             }
                 break;
             case SECONDARY_MENU_ROW_INDEX_SAVE_PAGE:

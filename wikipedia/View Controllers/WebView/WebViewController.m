@@ -42,8 +42,7 @@
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
 #import "BottomMenuViewController.h"
-#import "MenuButtonView.h"
-#import "MenuLabel.h"
+
 #import "LanguagesTableVC.h"
 
 #import "ModalMenuAndContentViewController.h"
@@ -109,6 +108,11 @@ typedef enum {
 - (BOOL)prefersStatusBarHidden
 {
     return NO;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
+{
+    return UIStatusBarAnimationFade;
 }
 
 #pragma mark View lifecycle methods
@@ -374,8 +378,8 @@ typedef enum {
         sectionEditVC.sectionID = section.objectID;
         sectionEditVC.funnel = funnel;
     }
-    
-    [NAV pushViewController:sectionEditVC animated:YES];
+
+    [ROOT pushViewController:sectionEditVC animated:YES];
 }
 
 -(void)searchFieldBecameFirstResponder
@@ -443,6 +447,7 @@ typedef enum {
                          // If the top menu isn't hidden, reveal the bottom menu.
                          if(!ROOT.topMenuHidden){
                              self.bottomMenuHidden = NO;
+                             [self.view setNeedsUpdateConstraints];
                          }
                          self.webView.transform = CGAffineTransformIdentity;
                          self.bottomBarView.transform = CGAffineTransformIdentity;
@@ -494,6 +499,7 @@ typedef enum {
                      animations: ^{
 
                          self.bottomMenuHidden = YES;
+                         [self.view setNeedsUpdateConstraints];
                          self.webView.transform = xf;
                          self.bottomBarView.transform = xf;
                          self.webViewLeftConstraint.constant = [self tocGetWidthForWebViewScale:webViewScale];
@@ -838,7 +844,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     // Ensure the web VC is the top VC.
-    [NAV popToViewController:self animated:YES];
+    [ROOT popToViewController:self animated:YES];
 
     [self fadeAlert];
 }
@@ -1016,7 +1022,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // Dispose of any resources that can be recreated.
     
     // Do not remove the following commented toggle. It's for testing W0 stuff.
-    // [[SessionSingleton sharedInstance].zeroConfigState toggleFakeZeroOn];
+    //[[SessionSingleton sharedInstance].zeroConfigState toggleFakeZeroOn];
 }
 
 #pragma mark Article loading ops
@@ -1750,8 +1756,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     self.bottomBarView.alpha = alpha;
 
     [self updateWebViewContentAndScrollInsets];
-    
-    [self.view setNeedsUpdateConstraints];
 }
 
 -(void)constrainBottomMenu

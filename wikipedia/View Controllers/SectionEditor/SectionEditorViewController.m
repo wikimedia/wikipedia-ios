@@ -15,8 +15,7 @@
 #import "WMF_Colors.h"
 #import "MWLanguageInfo.h"
 
-#import "MenuButtonView.h"
-#import "MenuLabel.h"
+#import "MenuButton.h"
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
@@ -41,6 +40,12 @@
 {
     return YES;
 }
+
+/*
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+*/
 
 - (void)viewDidLoad
 {
@@ -84,15 +89,7 @@
 
 -(void)highlightProgressiveButton:(BOOL)highlight
 {
-    static BOOL lastHightlight = NO;
-    if (lastHightlight == highlight) return;
-    lastHightlight = highlight;
-
-    MenuButtonView *button = (MenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_ARROW_RIGHT];
-
-    button.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
-    
-    button.color = highlight ? [UIColor whiteColor] : [UIColor blackColor];
+    [[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT] setEnabled:highlight];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -144,7 +141,7 @@
     UIView *tappedItem = userInfo[@"tappedItem"];
 
     switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_ARROW_RIGHT:
+        case NAVBAR_BUTTON_NEXT:
             if (![self changesMade]) {
                 [self showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil)];
                 [self fadeAlert];
@@ -247,7 +244,7 @@
     previewVC.sectionID = self.sectionID;
     previewVC.wikiText = self.editTextView.text;
     previewVC.funnel = self.funnel;
-    [NAV pushViewController:previewVC animated:YES];
+    [ROOT pushViewController:previewVC animated:YES];
 }
 
 - (void)cancelPushed:(id)sender
@@ -257,7 +254,8 @@
 
 -(void)hide
 {
-    [NAV popViewControllerAnimated:YES];
+//    [ROOT popViewControllerAnimated:YES];
+    [ROOT popViewControllerAnimated:YES];
 }
 
 #pragma mark Keyboard

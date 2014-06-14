@@ -4,7 +4,7 @@
 #import "ModalMenuAndContentViewController.h"
 
 #import "TopMenuContainerView.h"
-#import "MenuLabel.h"
+#import "WikiGlyphLabel.h"
 #import "UIViewController+StatusBarHeight.h"
 #import "Defines.h"
 #import "TopMenuTextFieldContainer.h"
@@ -12,7 +12,6 @@
 
 @interface ModalMenuAndContentViewController ()
 
-@property (strong, nonatomic) TopMenuViewController *topMenuViewController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topContainerHeightConstraint;
 
 @end
@@ -28,7 +27,7 @@
 
 -(void)setTopMenuText:(NSString *)topMenuText
 {
-    MenuLabel *label = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
+    WikiGlyphLabel *label = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
     label.text = topMenuText;
     
     TopMenuTextFieldContainer *textFieldContainer = [self.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
@@ -81,7 +80,7 @@
 {
     self.topMenuViewController.navBarContainer.showBottomBorder = NO;
     
-    MenuLabel *label = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
+    WikiGlyphLabel *label = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
     label.font = [UIFont systemFontOfSize:21];
     label.textAlignment = NSTextAlignmentCenter;
 }

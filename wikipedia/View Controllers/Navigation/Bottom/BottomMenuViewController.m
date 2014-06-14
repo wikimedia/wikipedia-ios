@@ -9,8 +9,8 @@
 #import "SessionSingleton.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "WMF_WikiFont_Chars.h"
-#import "MenuButtonView.h"
-#import "MenuLabel.h"
+#import "WikiGlyphButton.h"
+#import "WikiGlyphLabel.h"
 #import "UIViewController+Alert.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "NSString+Extras.h"
@@ -27,9 +27,9 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
 @interface BottomMenuViewController ()
 
-@property (weak, nonatomic) IBOutlet MenuButtonView *backButton;
-@property (weak, nonatomic) IBOutlet MenuButtonView *forwardButton;
-@property (weak, nonatomic) IBOutlet MenuButtonView *rightButton;
+@property (weak, nonatomic) IBOutlet WikiGlyphButton *backButton;
+@property (weak, nonatomic) IBOutlet WikiGlyphButton *forwardButton;
+@property (weak, nonatomic) IBOutlet WikiGlyphButton *rightButton;
 
 @property (strong, nonatomic) NSDictionary *adjacentHistoryIDs;
 
@@ -55,17 +55,22 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
     [self.backButton.label setWikiText: WIKIFONT_CHAR_IOS_BACKWARD
                                  color: buttonColor
-                                  size: buttonTextSize];
+                                  size: buttonTextSize
+                        baselineOffset: 2.0];
     self.backButton.tag = BOTTOM_MENU_BUTTON_PREVIOUS;
     
     [self.forwardButton.label setWikiText: WIKIFONT_CHAR_IOS_FORWARD
                                     color: buttonColor
-                                     size: buttonTextSize];
+                                     size: buttonTextSize
+                           baselineOffset: 2.0
+     ];
     self.forwardButton.tag = BOTTOM_MENU_BUTTON_NEXT;
     
     [self.rightButton.label setWikiText: WIKIFONT_CHAR_IOS_SHARE
                                   color: buttonColor
-                                   size: buttonTextSize];
+                                   size: buttonTextSize
+                         baselineOffset: 2.0
+     ];
     self.rightButton.tag = BOTTOM_MENU_BUTTON_SHARE;
 
     self.allButtons = @[self.backButton, self.forwardButton, self.rightButton];
@@ -75,7 +80,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
 -(void)addTapRecognizersToAllButtons
 {
-    for (MenuButtonView *view in self.allButtons) {
+    for (WikiGlyphButton *view in self.allButtons) {
         [view addGestureRecognizer:
          [[UITapGestureRecognizer alloc] initWithTarget: self
                                                  action: @selector(buttonPushed:)]];
@@ -87,8 +92,8 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 - (void)buttonPushed:(UITapGestureRecognizer *)sender
 {
     // If the tapped item was a button, first animate it briefly, then perform action.
-    if([sender.view isKindOfClass:[MenuButtonView class]]){
-        MenuButtonView *button = (MenuButtonView *)sender.view;
+    if([sender.view isKindOfClass:[WikiGlyphButton class]]){
+        WikiGlyphButton *button = (WikiGlyphButton *)sender.view;
         if (!button.enabled)return;
         CGFloat animationScale = 1.25f;
         [button.label animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
@@ -100,7 +105,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     }
 }
 
-- (void)performActionForButton:(MenuButtonView *)button
+- (void)performActionForButton:(WikiGlyphButton *)button
 {
     switch (button.tag) {
         case BOTTOM_MENU_BUTTON_PREVIOUS:

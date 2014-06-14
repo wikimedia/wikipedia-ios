@@ -76,7 +76,7 @@
 "main-menu-account-logout" = "Log out";
 "main-menu-show-title" = "Show me...";
 "main-menu-show-history" = "Recent";
-"main-menu-show-saved" = "Saved pages";
+"main-menu-show-saved" = "Saved articles";
 "main-menu-current-article-save" = "Save $1 for offline reading";
 "main-menu-random" = "Random";
 "main-menu-feedback-heading" = "Feedback";
@@ -84,9 +84,9 @@
 "main-menu-show-page-history" = "History of changes to $1";
 "main-menu-credits" = "Credits";
 
-"saved-pages-title" = "Saved pages";
-"page-history-title" = "Page history";
-"page-history-downloading" = "Loading page history...";
+"saved-pages-title" = "Saved articles";
+"page-history-title" = "Article history";
+"page-history-downloading" = "Loading article history...";
 
 "navbar-title-mode-edit-wikitext" = "Edit";
 "navbar-title-mode-login" = "Sign in";
@@ -100,7 +100,7 @@
 "navbar-title-mode-edit-wikitext-summary" = "Describe your edit";
 "navbar-title-mode-edit-wikitext-save" = "Save";
 
-"edit-summary-choice-linked-words" = "Linked words";
+"edit-summary-choice-linked-words" = "Added links";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-inaccuracy" = "Fixed inaccuracy";
 "edit-summary-choice-fixed-styling" = "Fixed styling";
@@ -111,7 +111,8 @@
 "edit-summary-choice-other" = "Other";
 
 "edit-summary-description" = "A specific summary helps co-editors quickly review your edits. You can also pick from tags below.";
-"edit-summary-field-placeholder-text" = "How did you improve the page?";
+"edit-summary-field-placeholder-text" = "Other ways you improved the article";
+"edit-summary-title" = "How did you improve the article?";
 
 "fetching-random-article" = "Fetching random article";
 
@@ -124,8 +125,8 @@
 "credits-github-mirror" = "App mirror (GitHub)";
 "credits-external-libraries" = "External";
 
-"share-menu-save-page" = "Save Page";
-"share-menu-page-saved" = "Page Saved";
+"share-menu-save-page" = "Save Article";
+"share-menu-page-saved" = "Article Saved";
 
 "timestamp-just-now" = "just now";
 "timestamp-minutes" = "%d minutes ago";
@@ -137,3 +138,7 @@
 "lastmodified-timestamp" = "Last Modified $1";
 "lastmodified-by" = "by $1";
 "lastmodified-anon" = "by an anonymous user";
+
+"button-next" = "Next";
+"button-done" = "Done";
+"button-save" = "Save";

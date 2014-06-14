@@ -12,12 +12,12 @@
 
 @property (nonatomic) BOOL topMenuHidden;
 
--(void)updateTopMenuVisibilityForViewController:(UIViewController *)viewController;
-
 -(void)animateTopAndBottomMenuToggle;
 
 -(void)togglePrimaryMenu;
 
-@property (nonatomic) BOOL statusBarHidden;
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated;
+- (void)popToViewController:(UIViewController *)viewController animated:(BOOL)animated;
 
 @end

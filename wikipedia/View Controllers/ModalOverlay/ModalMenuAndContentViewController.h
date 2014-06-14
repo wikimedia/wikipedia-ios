@@ -16,4 +16,6 @@
 
 @property (nonatomic, copy) void (^block)(id);
 
+@property (strong, nonatomic) TopMenuViewController *topMenuViewController;
+
 @end

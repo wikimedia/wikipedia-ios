@@ -24,6 +24,8 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topContainerHeightConstraint;
 
+@property (strong, nonatomic) UIViewController *topVC;
+
 @end
 
 @implementation RootViewController
@@ -34,7 +36,7 @@
     
     // iOS 7 needs to have room for a view behind the top status bar.
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-        if(!self.statusBarHidden){
+        if(!self.topVC.prefersStatusBarHidden){
             topMenuHeight += [self getStatusBarHeight];
         }
     }
@@ -55,34 +57,85 @@
     for (UIView *v in self.topMenuViewController.navBarContainer.subviews) {
         v.alpha = alpha;
     }
+    
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
     return (self.topMenuViewController.navBarStyle == NAVBAR_STYLE_NIGHT) ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
-- (BOOL)prefersStatusBarHidden
+- (UIViewController *)childViewControllerForStatusBarStyle
 {
-    return self.statusBarHidden;
+    return self.topVC;
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (UIViewController *)childViewControllerForStatusBarHidden
 {
-    [super viewWillAppear:animated];
-    
-    self.statusBarHidden = [self.centerNavController.topViewController prefersStatusBarHidden];
+    return self.topVC;
 }
 
--(void)setStatusBarHidden:(BOOL)statusBarHidden
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    _statusBarHidden = statusBarHidden;
+    [self animateStatusBarHeightChangesForViewController:viewController then:^{
+        [self.centerNavController pushViewController:viewController animated:animated];
+    }];
+}
+
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated
+{
+    NSInteger index = self.centerNavController.viewControllers.count - 2;
+    if (index < 0) return nil;
+    id vcBeneath = self.centerNavController.viewControllers[index];
     
-    self.topMenuViewController.statusBarHidden = statusBarHidden;
+    [self animateStatusBarHeightChangesForViewController:vcBeneath then:^{
+        [self.centerNavController popViewControllerAnimated:animated];
+    }];
+    return vcBeneath;
+}
+
+- (void)popToViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    [self animateStatusBarHeightChangesForViewController:viewController then:^{
+        [self.centerNavController popToViewController:viewController animated:animated];
+    }];
+}
+
+-(void)animateStatusBarHeightChangesForViewController: (UIViewController *)vc
+                                                 then: (void (^)(void))block
+{
+    // Animates changes to the top menu to adjust room for the status bar based on the
+    // wishes of the view controller being presented.
+    CGFloat duration = 0.1;
     
-    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-        [self setNeedsStatusBarAppearanceUpdate];
-    }
-    [self.view setNeedsUpdateConstraints];
+    self.topVC = vc;
+    
+    [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+
+        if(![self.topVC isMemberOfClass:[WebViewController class]]){
+            // Ensure the top menu is shown when navigating away from the web view
+            // (in case when the web view was onscreen the user toggled the chrome to
+            // be hidden).
+            if(self.topMenuHidden) {
+                self.topMenuHidden = NO;
+            }
+        }
+
+        // Allow the top menu to adjust its views' heights based on whether the
+        // top view controller wants the status bar shown or not.
+        self.topMenuViewController.statusBarHidden = self.topVC.prefersStatusBarHidden;
+        
+        [self.view setNeedsUpdateConstraints];
+        
+        // Update status bar according to topVC's wishes.
+        if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+            [self setNeedsStatusBarAppearanceUpdate];
+        }
+        
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL done){
+        block();
+    }];
 }
 
 -(void)updateTopMenuVisibilityConstraint
@@ -94,7 +147,7 @@
     CGFloat topMenuVisibleHeight = TOP_MENU_INITIAL_HEIGHT;
     CGFloat statusBarHeight = (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) ? [self getStatusBarHeight] : 0;
     
-    if (self.statusBarHidden) statusBarHeight = 0;
+    if (self.topVC.prefersStatusBarHidden) statusBarHeight = 0;
     
     CGFloat topMenuHeight = self.topMenuHidden ? statusBarHeight : (topMenuVisibleHeight + statusBarHeight);
     
@@ -112,6 +165,8 @@
 
             WebViewController *webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
             webVC.bottomMenuHidden = self.topMenuHidden;
+            
+            [webVC.view setNeedsUpdateConstraints];
             
             [self.view setNeedsUpdateConstraints];
             //[self.view.superview layoutSubviews];
@@ -140,25 +195,6 @@
 	}else if ([segue.identifier isEqualToString: @"CenterNavController_embed"]) {
 		self.centerNavController = (CenterNavController *) [segue destinationViewController];
     }
-}
-
--(void)updateTopMenuVisibilityForViewController:(UIViewController *)viewController
-{
-    if(![viewController isMemberOfClass:[WebViewController class]]){
-        // Ensure the top menu is shown after navigating away from the web view.
-        
-        self.topMenuHidden = NO;
-        
-        [self.view setNeedsUpdateConstraints];
-        
-        [self.view.superview layoutIfNeeded];
-    }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)togglePrimaryMenu

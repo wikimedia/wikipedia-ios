@@ -5,6 +5,11 @@
 
 @interface MenuLabel : PaddedLabel
 
--(void)setWikiText:(NSString *)text color:(UIColor *)color size:(CGFloat)size;
+- (instancetype)initWithText: (NSString *)text
+                    fontSize: (CGFloat)size
+                       color: (UIColor *)color
+                     padding: (UIEdgeInsets)padding;
+
+@property (strong, nonatomic) UIColor *color;
 
 @end

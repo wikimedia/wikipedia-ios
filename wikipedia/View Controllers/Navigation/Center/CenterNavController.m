@@ -42,22 +42,13 @@
                     animated: (BOOL)animated
 {
     self.isTransitioningBetweenViewControllers = YES;
-
-    ROOT.statusBarHidden = [viewController prefersStatusBarHidden];
-    
-    [ROOT.topMenuViewController updateTOCButtonVisibility];
-    [self fadeAlert];
-    [self showHTMLAlert:@"" bannerImage:nil bannerColor:nil];
-    
-    [ROOT updateTopMenuVisibilityForViewController:viewController];
-
 }
 
 - (void)navigationController: (UINavigationController *)navigationController
        didShowViewController: (UIViewController *)viewController
                     animated: (BOOL)animated
 {
-    self.isTransitioningBetweenViewControllers = NO;    
+    self.isTransitioningBetweenViewControllers = NO;
 }
 
 -(void)setIsTransitioningBetweenViewControllers:(BOOL)isTransitioningBetweenViewControllers
@@ -89,7 +80,7 @@
                        domain: domain
               discoveryMethod: discoveryMethod
             invalidatingCache: invalidateCache];
-        [NAV popToViewController:webVC animated:animated];
+        [ROOT popToViewController:webVC animated:animated];
     }
 }
 

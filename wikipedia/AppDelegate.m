@@ -26,7 +26,20 @@
 
     // Override point for customization after application launch.
 
+    //[self printAllNotificationsToConsole];
+
     return YES;
+}
+
+-(void)printAllNotificationsToConsole
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserverForName: nil
+                        object: nil
+                         queue: nil
+                    usingBlock: ^(NSNotification *notification) {
+                        NSLog(@"NOTIFICATION %@ -> %@", notification.name, notification.userInfo);
+                    }];
 }
 
 -(void)registerStandardUserDefaults

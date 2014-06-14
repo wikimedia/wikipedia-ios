@@ -104,6 +104,7 @@
 "edit-summary-choice-other" = "Button text for quick \"other\" edit summary selection.\n{{Identical|Other}}";
 "edit-summary-description" = "Label text describing the edit summary interface";
 "edit-summary-field-placeholder-text" = "Placeholder text which appears initially in the free-form edit summary text box";
+"edit-summary-title" = "Title for edit summary area of the preview page";
 "fetching-random-article" = "Alert text shown when fetching a random article";
 "article-pull-to-refresh-prompt" = "Label text informing user article may be pulled down to refresh";
 "article-pull-to-refresh-is-refreshing" = "Label text shown when user pulls down on article to refresh";
@@ -123,3 +124,6 @@
 "lastmodified-timestamp" = "Marker at page end for last modified time. $1 is placeholder for a human-readable approximate timestamp";
 "lastmodified-by" = "Marker at page end for who last modified the page. $1 is a username.";
 "lastmodified-anon" = "Marker at page end for who last modified the page when anonymous.";
+"button-next" = "Button text for next button used in various places.";
+"button-done" = "Button text for done button used in various places.";
+"button-save" = "Button text for save button used in various places.";

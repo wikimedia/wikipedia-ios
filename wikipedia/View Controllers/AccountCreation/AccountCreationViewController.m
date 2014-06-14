@@ -15,8 +15,8 @@
 #import "UINavigationController+SearchNavStack.h"
 #import "WMF_Colors.h"
 
-#import "MenuButtonView.h"
-#import "MenuLabel.h"
+#import "WikiGlyphButton.h"
+#import "WikiGlyphLabel.h"
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
@@ -37,7 +37,7 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 - (void)viewDidLoad
@@ -114,7 +114,7 @@
 
 -(void)highlightCheckButton:(BOOL)highlight
 {
-    MenuButtonView *checkButton = (MenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
+    WikiGlyphButton *checkButton = (WikiGlyphButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
     
     checkButton.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
     
@@ -275,7 +275,7 @@
         UIViewController *vcBeneathLoginVC = [self.navigationController getVCBeneathVC:loginVC];
 
         if (vcBeneathLoginVC){
-            [NAV popToViewController:vcBeneathLoginVC animated:YES];
+            [ROOT popToViewController:vcBeneathLoginVC animated:YES];
         }else{
             [self performSelector:@selector(hide) withObject:nil afterDelay:0.5f];
         }
@@ -383,7 +383,7 @@
 
 -(void)hide
 {
-    [NAV popViewControllerAnimated:YES];
+    [ROOT popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning

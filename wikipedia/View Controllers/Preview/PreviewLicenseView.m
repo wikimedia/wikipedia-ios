@@ -15,6 +15,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topDividerHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomDividerHeight;
 
+@property (nonatomic) BOOL hideTopDivider;
+@property (nonatomic) BOOL hideBottomDivider;
+
 @end
 
 @implementation PreviewLicenseView
@@ -23,7 +26,8 @@
 {
     self = [super initWithCoder:coder];
     if (self) {
-        self.hideTopDivider = NO;
+        self.hideTopDivider = YES;
+        self.hideBottomDivider = YES;
     }
     return self;
 }
@@ -35,13 +39,29 @@
 
     self.licenseTitleLabel.text = MWLocalizedString(@"wikitext-upload-save-license", nil);
     
-    self.bottomDividerHeight.constant = 1.0f / [UIScreen mainScreen].scale;
+    self.bottomDividerHeight.constant = self.hideBottomDivider ? 0.0 : 1.0f / [UIScreen mainScreen].scale;
 
-    self.topDividerHeight.constant = self.hideTopDivider ? 0.0 : self.bottomDividerHeight.constant;
-    
+    self.topDividerHeight.constant = self.hideTopDivider ? 0.0 : 1.0f / [UIScreen mainScreen].scale;
+
     [self underlineLicenseName:self.licenseTitleLabel];
 
     //self.licenseTitleLabel.text = [@" abc " randomlyRepeatMaxTimes:100];
+}
+
+- (id) awakeAfterUsingCoder:(NSCoder*)aDecoder {
+
+    BOOL isPlaceholder = ([[self subviews] count] == 0); // From: https://blog.compeople.eu/apps/?p=142
+    if (!isPlaceholder) return self;
+    
+    UINib *previewLicenseViewNib = [UINib nibWithNibName:@"PreviewLicenseView" bundle:nil];
+    
+    PreviewLicenseView *previewLicenseView =
+        [[previewLicenseViewNib instantiateWithOwner:nil options:nil] firstObject];
+    
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    previewLicenseView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    return previewLicenseView;
 }
 
 -(void)underlineLicenseName:(UILabel *)licenseLabel

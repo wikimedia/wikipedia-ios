@@ -53,6 +53,23 @@
     return YES;
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews]; // get width from solved constraints
+
+    [self forceScrollViewContentSizeToReflectActualHTMLHeight];
+}
+
+-(void)forceScrollViewContentSizeToReflectActualHTMLHeight
+{
+    CGRect f = self.frame;
+    f.size = CGSizeMake(f.size.width, 1);
+    self.frame = f;
+    
+    f.size = [self sizeThatFits:CGSizeZero];
+    self.frame = f;
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

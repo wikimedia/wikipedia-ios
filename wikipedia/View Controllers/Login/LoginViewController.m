@@ -13,8 +13,8 @@
 #import "AccountCreationViewController.h"
 #import "WMF_Colors.h"
 
-#import "MenuButtonView.h"
-#import "MenuLabel.h"
+#import "WikiGlyphButton.h"
+#import "WikiGlyphLabel.h"
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
@@ -35,7 +35,7 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 - (void)viewDidLoad
@@ -78,7 +78,7 @@
 
 -(void)highlightCheckButton:(BOOL)highlight
 {
-    MenuButtonView *checkButton = (MenuButtonView *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
+    WikiGlyphButton *checkButton = (WikiGlyphButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
     
     checkButton.backgroundColor = highlight ? WMF_COLOR_GREEN : [UIColor clearColor];
     
@@ -150,7 +150,7 @@
 
 -(void)hide
 {
-    [NAV popViewControllerAnimated:YES];
+    [ROOT popViewControllerAnimated:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -306,7 +306,7 @@
     createAcctVC.funnel = [[CreateAccountFunnel alloc] init];
     [createAcctVC.funnel logStartFromLogin:self.funnel.loginSessionToken];
     
-    [NAV pushViewController:createAcctVC animated:YES];
+    [ROOT pushViewController:createAcctVC animated:YES];
 }
 
 @end

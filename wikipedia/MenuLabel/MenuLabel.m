@@ -3,40 +3,66 @@
 
 #import "MenuLabel.h"
 
-@implementation MenuLabel
+@interface MenuLabel ()
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
+@property (strong, nonatomic) NSString *text;
+
+@property (strong, nonatomic) MenuLabel *label;
+
+@property (nonatomic) CGFloat fontSize;
+
+@property (nonatomic) UIEdgeInsets padding;
+
+@end
+
+@implementation MenuLabel
 
 - (instancetype)init
 {
+    return [self initWithText:@"" fontSize:16 color:[UIColor blackColor] padding:UIEdgeInsetsZero];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    return [self initWithText:@"" fontSize:16 color:[UIColor blackColor] padding:UIEdgeInsetsZero];
+}
+
+- (instancetype)initWithText: (NSString *)text
+                    fontSize: (CGFloat)size
+                       color: (UIColor *)color
+                     padding: (UIEdgeInsets)padding
+{
     self = [super init];
     if (self) {
-        [self setup];
+        self.translatesAutoresizingMaskIntoConstraints = NO;
+        self.padding = padding;
+        self.color = color;
+        self.fontSize = size;
+        self.textAlignment = NSTextAlignmentCenter;
+        self.adjustsFontSizeToFitWidth = YES;
+        self.text = text;
+        self.backgroundColor = [UIColor clearColor];
+
+        self.layer.borderWidth = 2.0 / [UIScreen mainScreen].scale;
+        self.layer.cornerRadius = 2.0;
+        self.layer.masksToBounds = YES;
     }
     return self;
 }
 
--(void)setup
+-(void)setColor:(UIColor *)color
 {
-    self.textAlignment = NSTextAlignmentCenter;
-    self.adjustsFontSizeToFitWidth = YES;
-    self.backgroundColor = [UIColor clearColor];
+    _color = color;
+    // Force the text to use new color.
+    if (self.text) self.text = self.text;
 }
 
--(void)setWikiText:(NSString *)text color:(UIColor *)color size:(CGFloat)size
+-(void)setText:(NSString *)text
 {
     NSDictionary *attributes =
     @{
-      NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Regular" size:size],
-      NSForegroundColorAttributeName : color,
-      NSBaselineOffsetAttributeName: @2
+      NSFontAttributeName: [UIFont systemFontOfSize:self.fontSize],
+      NSForegroundColorAttributeName : self.color
       };
     
     self.attributedText =

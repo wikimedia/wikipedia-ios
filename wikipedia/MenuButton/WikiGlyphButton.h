@@ -3,11 +3,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class MenuLabel;
+@class WikiGlyphLabel;
 
-@interface MenuButtonView : UIView
+@interface WikiGlyphButton : UIView
 
-@property (strong, nonatomic) MenuLabel *label;
+@property (strong, nonatomic) WikiGlyphLabel *label;
 
 @property (strong, nonatomic) UIColor *color;
 

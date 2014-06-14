@@ -1,10 +1,10 @@
 //  Created by Monte Hurd on 4/27/14.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "MenuButtonView.h"
-#import "MenuLabel.h"
+#import "WikiGlyphButton.h"
+#import "WikiGlyphLabel.h"
 
-@implementation MenuButtonView
+@implementation WikiGlyphButton
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
@@ -28,7 +28,7 @@
 {
     self.enabled = YES;
     self.clipsToBounds = YES;
-    self.label = [[MenuLabel alloc] init];
+    self.label = [[WikiGlyphLabel alloc] init];
     self.label.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:self.label];
     [self constrainLabel];
