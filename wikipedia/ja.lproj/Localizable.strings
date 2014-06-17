@@ -4,6 +4,7 @@
 // Author: Shirayuki
 
 "article-languages-cancel" = "キャンセル";
+"history-label" = "最近のもの";
 "history-section-today" = "今日";
 "history-section-yesterday" = "昨日";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -35,6 +36,7 @@
 "main-menu-show-saved" = "保存したページ";
 // Fuzzy
 "main-menu-current-article-save" = "$1をオフラインで読むのため";
+// Fuzzy
 "main-menu-random" = "ランダム記事";
 "main-menu-feedback-heading" = "フィードバック";
 "main-menu-send-feedback" = "フィードバックを送信";

@@ -5,7 +5,9 @@
 "article-languages-label" = "Выберите язык";
 "article-languages-cancel" = "Отмена";
 "article-languages-downloading" = "Загрузка языков статьи…";
+// Fuzzy
 "article-languages-filter-placeholder" = "Фильтр";
+// Fuzzy
 "history-label" = "Просмотр истории";
 "history-section-today" = "Сегодня";
 "history-section-yesterday" = "Вчера";
@@ -67,9 +69,11 @@
 "main-menu-account-login" = "Представиться";
 "main-menu-account-logout" = "Выйти";
 "main-menu-show-title" = "Показать мне…";
+// Fuzzy
 "main-menu-show-history" = "История просмотра";
 "main-menu-show-saved" = "Сохранённые страницы";
 "main-menu-current-article-save" = "Сохранить $1 для чтения в автономном режиме";
+// Fuzzy
 "main-menu-random" = "Случайная статья";
 "main-menu-feedback-heading" = "Обратная связь";
 "main-menu-send-feedback" = "Отправить отзыв";

@@ -1,14 +1,38 @@
 // Messages for Catalan (català)
 // Exported from translatewiki.net
+// Author: Gerardduenas
 // Author: SMP
 // Author: Toniher
 
 "article-languages-label" = "Trieu una llengua";
+"article-languages-cancel" = "Cancel·la";
+"article-languages-downloading" = "Carregant llengües de l'article...";
+// Fuzzy
+"article-languages-filter-placeholder" = "Filtre";
+// Fuzzy
 "history-label" = "Historial de navegació";
 "history-section-today" = "Avui";
 "history-section-yesterday" = "Ahir";
 "history-section-lastweek" = "Darrera setmana";
 "history-section-lastmonth" = "Darrer mes";
+"zero-free-verbiage" = "Accés lliure a la Viquipèdia des del teu operador mòbil (sense càrrecs per transmissió de dades)";
+"zero-charged-verbiage" = "Viquipèdia Zero DESACTIVAT (PODEN APLICAR-SE COSTOS PER TRANSMISSIÓ DE DADES)";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "Sortint de Wikipedia Zero";
+"zero-interstitial-leave-app" = "Desitja continuar? Està sortint de l'aplicaió, es podrien carregar cobrar addicionals";
+"zero-interstitial-continue" = "Continuar";
+"zero-interstitial-cancel" = "Cancel·la";
+"zero-learn-more" = "Voleu saber més sobre la Viquipèdia Zero?";
+"zero-learn-more-learn-more" = "Més informació";
+"zero-learn-more-no-thanks" = "No, gràcies";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"zero-warn-when-leaving" = "Avisar si es surt de Viquipèdia Zero";
+"zero-settings-devmode" = "Zero Devmode";
+"account-creation-captcha-required" = "Verificació de CAPTCHA requerit.";
+"account-creation-captcha-obtaining" = "Obtenint d'un CAPTCHA nou.";
+"account-creation-logging-in" = "Iniciant sessió...";
+"account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen";
+"account-creation-saving" = "Desant...";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";
 "main-menu-language-toggle-show" = "Mostra idiomes";
 "main-menu-language-toggle-hide" = "Amaga idiomes";
@@ -18,8 +42,10 @@
 "main-menu-account-login" = "Inicia la sessió";
 "main-menu-account-logout" = "Finalitza la sessió";
 "main-menu-show-title" = "Mostra'm...";
+// Fuzzy
 "main-menu-show-history" = "Historial de navegació";
 "main-menu-show-saved" = "Pàgines desades";
+// Fuzzy
 "main-menu-random" = "Article a l'atzar";
 "saved-pages-title" = "Pàgines desades";
 "navbar-title-mode-edit-wikitext" = "Modifica";

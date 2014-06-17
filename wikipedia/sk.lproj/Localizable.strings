@@ -5,7 +5,9 @@
 "article-languages-label" = "Zvoliť jazyk";
 "article-languages-cancel" = "Zrušiť";
 "article-languages-downloading" = "Načítam zoznam jazykov...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filter";
+// Fuzzy
 "history-label" = "História prehliadania";
 "history-section-today" = "Dnes";
 "history-section-yesterday" = "Včera";
@@ -64,9 +66,11 @@
 "main-menu-account-login" = "Prihlásiť sa";
 "main-menu-account-logout" = "Odhlásiť sa";
 "main-menu-show-title" = "Ukáž mi...";
+// Fuzzy
 "main-menu-show-history" = "História prehliadania";
 "main-menu-show-saved" = "Uložené stránky";
 "main-menu-current-article-save" = "Uložiť stránku $1 pre offline čítanie";
+// Fuzzy
 "main-menu-random" = "Náhodný článok";
 "main-menu-feedback-heading" = "Spätná väzba";
 "main-menu-send-feedback" = "Poslať spätnú väzbu";

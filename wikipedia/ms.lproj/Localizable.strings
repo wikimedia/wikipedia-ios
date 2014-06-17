@@ -5,7 +5,9 @@
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batalkan";
 "article-languages-downloading" = "Memuatkan bahasa-bahasa rencana...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Tapis";
+// Fuzzy
 "history-label" = "Sejarah Pelayaran";
 "history-section-today" = "Hari ini";
 "history-section-yesterday" = "Semalam";
@@ -67,9 +69,11 @@
 "main-menu-account-login" = "Log masuk";
 "main-menu-account-logout" = "Log keluar";
 "main-menu-show-title" = "Paparkan...";
+// Fuzzy
 "main-menu-show-history" = "Sejarah pelayaran";
 "main-menu-show-saved" = "Laman-laman tersimpan";
 "main-menu-current-article-save" = "Simpan $1 untuk dibaca offline";
+// Fuzzy
 "main-menu-random" = "Rencana rawak";
 "main-menu-feedback-heading" = "Maklum balas";
 "main-menu-send-feedback" = "Kirim maklum balas";

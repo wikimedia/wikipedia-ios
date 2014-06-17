@@ -5,7 +5,9 @@
 "article-languages-label" = "Koho i ka ʻōlelo";
 "article-languages-cancel" = "Hoʻōki";
 "article-languages-downloading" = "Ke hoʻouka nei i nā ʻōlelo ʻatikala...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Kānana";
+// Fuzzy
 "history-label" = "Mōʻaukaki Pūnaewele";
 "history-section-today" = "I kēia lā";
 "history-section-yesterday" = "I nehinei";
@@ -67,9 +69,11 @@
 "main-menu-account-login" = "ʻEʻe";
 "main-menu-account-logout" = "Haʻalele";
 "main-menu-show-title" = "Hōʻike iaʻu...";
+// Fuzzy
 "main-menu-show-history" = "Mōʻaukala Kelena";
 "main-menu-show-saved" = "Kaʻu ʻaoʻao mālama ʻia";
 "main-menu-current-article-save" = "Mālama no ka heluhelu pūnaeweleʻole ʻana";
+// Fuzzy
 "main-menu-random" = "ʻAtikala kaulele";
 "main-menu-feedback-heading" = "Manaʻo";
 "main-menu-send-feedback" = "Hoʻouna i ka manaʻo";

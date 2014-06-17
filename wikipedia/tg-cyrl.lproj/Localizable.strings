@@ -5,7 +5,9 @@
 "article-languages-label" = "Интихоби забон";
 "article-languages-cancel" = "Лағв";
 "article-languages-downloading" = "Кушодани забонҳои мақола...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Филтр";
+// Fuzzy
 "history-label" = "Мурури таърих";
 "history-section-today" = "Имрӯз";
 "history-section-yesterday" = "Дирӯз";
@@ -55,8 +57,10 @@
 "main-menu-account-login" = "Вуруд";
 "main-menu-account-logout" = "Хуруҷ";
 "main-menu-show-title" = "Намоиши...";
+// Fuzzy
 "main-menu-show-history" = "Мурури таърих";
 "main-menu-show-saved" = "Саҳифаҳои захирашуда";
+// Fuzzy
 "main-menu-random" = "Мақолаи тасодуфӣ";
 "main-menu-feedback-heading" = "Пешниҳод";
 "saved-pages-title" = "Саҳифаҳои захирашуда";

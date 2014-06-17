@@ -5,7 +5,9 @@
 "article-languages-label" = "Chọn ngôn ngữ";
 "article-languages-cancel" = "Hủy bỏ";
 "article-languages-downloading" = "Đang tải các ngôn ngữ của bài…";
+// Fuzzy
 "article-languages-filter-placeholder" = "Lọc";
+// Fuzzy
 "history-label" = "Lịch sử Duyệt Trang";
 "history-section-today" = "Hôm nay";
 "history-section-yesterday" = "Hôm qua";
@@ -67,9 +69,11 @@
 "main-menu-account-login" = "Đăng nhập";
 "main-menu-account-logout" = "Đăng xuất";
 "main-menu-show-title" = "Cho tôi xem…";
+// Fuzzy
 "main-menu-show-history" = "Lịch sử đọc bài";
 "main-menu-show-saved" = "Các trang đã lưu";
 "main-menu-current-article-save" = "Lưu $1 để đọc ngoại tuyến";
+// Fuzzy
 "main-menu-random" = "Bài viết Ngẫu nhiên";
 "main-menu-feedback-heading" = "Phản hồi";
 "main-menu-send-feedback" = "Gửi phản hồi";

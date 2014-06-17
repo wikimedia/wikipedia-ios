@@ -5,7 +5,9 @@
 "article-languages-label" = "Sproch auswähle";
 "article-languages-cancel" = "Abbreche";
 "article-languages-downloading" = "Artikelsproche am loode …";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filter";
+// Fuzzy
 "history-label" = "Verloof";
 "history-section-today" = "Heit";
 "history-section-yesterday" = "Gester";
@@ -67,9 +69,11 @@
 "main-menu-account-login" = "Oonmelde";
 "main-menu-account-logout" = "Abmelde";
 "main-menu-show-title" = "Zeich mir …";
+// Fuzzy
 "main-menu-show-history" = "Verloof";
 "main-menu-show-saved" = "Gespeicherte Seite";
 "main-menu-current-article-save" = "$1 zum Offline-Lese speichre";
+// Fuzzy
 "main-menu-random" = "Zufällicher Artikel";
 "main-menu-feedback-heading" = "Rückmeldung (retuarmeldung)";
 "main-menu-send-feedback" = "Rückmeldung sende (retuarmeldung schicke)";

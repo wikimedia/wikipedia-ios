@@ -1,0 +1,67 @@
+// Messages for Indonesian (Bahasa Indonesia)
+// Exported from translatewiki.net
+// Author: Arifin.wijaya
+// Author: C5st4wr6ch
+
+"article-languages-label" = "Pilih bahasa";
+"article-languages-cancel" = "Batal";
+"article-languages-downloading" = "Memuat bahasa artikel...";
+// Fuzzy
+"article-languages-filter-placeholder" = "Penyaring";
+// Fuzzy
+"history-label" = "Riwayat penjelajahan";
+"history-section-today" = "Hari ini";
+"history-section-yesterday" = "Kemarin";
+"history-section-lastweek" = "Minggu lalu";
+"history-section-lastmonth" = "Bulan lalu";
+"zero-free-verbiage" = "Akses Wikipedia gratis dari operator selular (biaya data dibebaskan)";
+"zero-charged-verbiage" = "Wikipedia Zero MATI (BIAYA DATA STANDAR MUNGKIN BERLAKU)";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "Meninggalkan Wikipedia Zero";
+"zero-interstitial-leave-app" = "Lanjutkan ke situs eksternal? Biaya data standar mungkin berlaku.";
+"zero-interstitial-continue" = "Lanjutkan";
+"zero-interstitial-cancel" = "Batal";
+"zero-learn-more" = "Ingin mempelajari lebih lanjut tentang Wikipedia Zero?";
+"zero-learn-more-learn-more" = "Pelajari lebih lanjut";
+"zero-learn-more-no-thanks" = "Tidak, terima kasih";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"zero-warn-when-leaving" = "Peringatkan jika meninggalkan Wikipedia Zero";
+"zero-settings-devmode" = "Zero Devmode";
+"account-creation-captcha-required" = "Verifikasi CAPTCHA diperlukan.";
+"account-creation-captcha-obtaining" = "Memperoleh CAPTCHA baru.";
+"account-creation-logging-in" = "Sedang masuk log...";
+"account-creation-passwords-mismatched" = "Kolom kata sandi tidak cocok.";
+"account-creation-saving" = "Sedang menyimpan...";
+"login-name-not-found" = "Nama pengguna diperlukan untuk masuk log.";
+"login-name-illegal" = "Anda memberikan nama pengguna ilegal.";
+"login-name-does-not-exist" = "Nama pengguna yang Anda berikan tidak ada.";
+"login-password-empty" = "Kata sandi diperlukan untuk masuk log.";
+"login-password-wrong" = "Kata sandi yang Anda berikan tidak benar.";
+"login-throttled" = "Anda telah masuk log berkali-kali dalam waktu singkat.";
+"login-user-blocked" = "Pengguna diblokir.";
+"wikitext-downloading" = "Memuat teks wiki...";
+"wikitext-download-failed" = "Tidak dapat memperoleh revisi terbaru.";
+"wikitext-download-success" = "Teks wiki dimuat.";
+"wikitext-preview-changes" = "Mengambil pratayang perubahan Anda...";
+"wikitext-preview-changes-none" = "Tidak ada perubahan yang dibuat untuk melihat pratayang.";
+"wikitext-upload-result-unknown" = "Tidak dapat menentukan hasil unggah teks wiki.";
+"wikitext-upload-captcha-error" = "Kesalahan verifikasi CAPTCHA.";
+"wikitext-upload-captcha-needed" = "Memerlukan verifikasi CAPTCHA.";
+"wikitext-upload-save" = "Sedang menyimpan...";
+"wikitext-upload-save-sign-in" = "Masuk log dan simpan";
+"wikitext-upload-save-sign-in-benefits" = "Jadi rekan penyunting dapat terhubung dengan Anda & Anda dapat melihat apa artikel yang Anda sunting.";
+"wikitext-upload-save-anonymously" = "Simpan secara anonim";
+"wikitext-upload-save-anonymously-warning" = "Ini memiliki privasi kurang. Alamat IP Anda terlihat dengan suntingan.";
+"wikitext-upload-save-license" = "Dengan menyimpan, Anda setuju untuk merilis kontribusi Anda di bawah lisensi $1.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"search-searching" = "Mencari...";
+"search-no-matches" = "Tidak ada yang cocok untuk kondisi pencarian.";
+"search-field-placeholder-text" = "Telusuri Wikipedia";
+"search-field-placeholder-text-zero" = "Telusuri Wikipedia Zero";
+"search-loading-section-zero" = "Memuat bagian pertama dari artikel...";
+"search-loading-section-remaining" = "Memuat sisa artikel...";
+"search-loading-article-loaded" = "Artikel dimuat.";
+"main-menu-language-title" = "Cari $1 bahasa wiki";
+"main-menu-language-toggle-show" = "Tampilkan bahasa";
+"main-menu-language-toggle-hide" = "Sembunyikan bahasa";
+"page-history-title" = "Versi terdahulu halaman";

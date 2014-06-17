@@ -5,7 +5,9 @@
 "article-languages-label" = "Escoyer llingua";
 "article-languages-cancel" = "Encaboxar";
 "article-languages-downloading" = "Cargando llingües del artículu...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Peñera";
+// Fuzzy
 "history-label" = "Historial de navegación";
 "history-section-today" = "Güei";
 "history-section-yesterday" = "Ayeri";
@@ -46,11 +48,11 @@
 "wikitext-upload-captcha-needed" = "Necesita la comprobación del captcha.";
 "wikitext-upload-save" = "Guardando...";
 "wikitext-upload-save-sign-in" = "Aniciar sesión y guardar";
-// Fuzzy
-"wikitext-upload-save-sign-in-benefits" = "Pa que los co-editores puedan coneutase con vusté y vusté pueda ver los artículos qu'editó";
+"wikitext-upload-save-sign-in-benefits" = "Pa que los co-editores puedan comunicase contigo y tu puedas ver qué artículos editasti.";
 "wikitext-upload-save-anonymously" = "Guardar como anónimu";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Esto tien menor intimidá. La so direición IP ye visible coles ediciones. Al guardar, ta d'alcuerdo con espublizar permanentemente les sos ediciones baxo CC BY-SA 3.0";
+"wikitext-upload-save-anonymously-warning" = "Esto tien menor intimidá. La to direición IP ye visible coles ediciones.";
+"wikitext-upload-save-license" = "Al guardar, aceutes lliberar les tos collaboraciones baxo la llicencia $1.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Buscando...";
 "search-no-matches" = "Nun hebo resultaos pal términu buscáu.";
 "search-field-placeholder-text" = "Guetar na Wikipedia";
@@ -67,13 +69,19 @@
 "main-menu-account-login" = "Aniciar sesión";
 "main-menu-account-logout" = "Salir";
 "main-menu-show-title" = "Amosame...";
+// Fuzzy
 "main-menu-show-history" = "Historial de navegación";
 "main-menu-show-saved" = "Páxines guardaes";
 "main-menu-current-article-save" = "Guardar $1 pa lleer ensin conexón";
+// Fuzzy
 "main-menu-random" = "Artículu al debalu";
 "main-menu-feedback-heading" = "La to opinión";
 "main-menu-send-feedback" = "Unviar el comentariu";
+"main-menu-show-page-history" = "Historial de los cambios a $1";
+"main-menu-credits" = "Créditos";
 "saved-pages-title" = "Páxines guardaes";
+"page-history-title" = "Historial de la páxina";
+"page-history-downloading" = "Cargando l'historial de la páxina...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Entrar";
 "navbar-title-mode-login-and-save" = "Aniciar sesión y guardar";
@@ -84,6 +92,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Vista previa";
 "navbar-title-mode-edit-wikitext-captcha" = "Necesítase una comprobación rápida";
 "navbar-title-mode-edit-wikitext-summary" = "Describa la so edición";
+"navbar-title-mode-edit-wikitext-save" = "Guardar";
 "edit-summary-choice-linked-words" = "Pallabres enllazaes";
 "edit-summary-choice-fixed-grammar" = "Igua gramatical";
 "edit-summary-choice-fixed-inaccuracy" = "Imprecisión correxida";
@@ -98,3 +107,8 @@
 "fetching-random-article" = "Baxando un artículu al debalu";
 "article-pull-to-refresh-prompt" = "Tirar pa refrescar l'artículu";
 "article-pull-to-refresh-is-refreshing" = "Refrescando l'artículu";
+"credits-title" = "Repositorios de códigu abiertu";
+"credits-wikimedia-repos" = "Wikimedia";
+"credits-gerrit-repo" = "Principal de la app (Gerrit)";
+"credits-github-mirror" = "Espeyu de la app (GitHub)";
+"credits-external-libraries" = "Esternu";

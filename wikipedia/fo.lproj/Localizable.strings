@@ -1,0 +1,87 @@
+// Messages for Faroese (føroyskt)
+// Exported from translatewiki.net
+// Author: EileenSanda
+
+"article-languages-label" = "Vel mál";
+"article-languages-cancel" = "Avbrýt";
+"article-languages-downloading" = "Innlesur greinamál...";
+// Fuzzy
+"article-languages-filter-placeholder" = "Filtur";
+// Fuzzy
+"history-label" = "Leitar í søguni";
+"history-section-today" = "Í dag";
+"history-section-yesterday" = "Í gjár";
+"history-section-lastweek" = "Í síðstu viku";
+"history-section-lastmonth" = "Í síðsta mánað";
+"zero-free-verbiage" = "Ókeypis Wikipedia atgongd frá tínum fartelefonveitara (krevur ikki gjald fyri dáta)";
+"zero-charged-verbiage" = "Wikipedia Zero ER ÓVIKIÐ (STANDARD DÁTAGJØLD KUNNU KOMA FYRI)";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "Tú fert nú burtur frá Wikipedia Zero";
+"zero-interstitial-leave-app" = "Heldur tú fram til eina eksterna síðu? Vanligir kostnaðir fyri dáta kunnu koma fyri.";
+"zero-interstitial-continue" = "Halt fram";
+"zero-interstitial-cancel" = "Angra";
+"zero-learn-more" = "Vilt tú vita meira um Wikipedia Zero?";
+"zero-learn-more-learn-more" = "Les meira";
+"zero-learn-more-no-thanks" = "Nei takk";
+"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"zero-warn-when-leaving" = "Ávara meg um eg fari burtur frá Wikipedia Zero";
+"account-creation-captcha-required" = "CAPTCHA váttan verður kravd.";
+"account-creation-captcha-obtaining" = "Heintar ein nýggjan CAPTCHA.";
+"account-creation-logging-in" = "Ritar inn...";
+"account-creation-passwords-mismatched" = "Teigarnar við loyniorði passa ikki saman.";
+"account-creation-saving" = "Goymir...";
+"login-name-not-found" = "Brúkaranavn verður kravt fyri at rita inn.";
+"login-name-illegal" = "Tú valdi eitt ólógligt brúkaranavn.";
+"login-name-does-not-exist" = "Brúkaranavnið ið tú skrivaði finst ikki.";
+"login-password-empty" = "Loyniorð krevst fyri at rita inn.";
+"login-password-wrong" = "Loyniorðið ið tú skrivaði er skeivt.";
+"login-throttled" = "Tú hevur ritað inn ov nógvar ferðir eftir stuttari tíð.";
+"login-user-blocked" = "Brúkarin er sperraður.";
+"wikitext-downloading" = "Innlesur wikitekst...";
+"wikitext-download-failed" = "Tað ber ikki til at heinta seinast versjónina.";
+"wikitext-preview-changes-none" = "Ongar broytingar vóru gjørdar sum kunnu undanskoðast.";
+"wikitext-upload-save" = "Goymir...";
+"wikitext-upload-save-sign-in" = "Rita inn og goym";
+"wikitext-upload-save-sign-in-benefits" = "So aðrir høvundar kunnu koma í samband við teg og tú kanst síggja hvørjar greinar tú hevur rættað.";
+"wikitext-upload-save-anonymously" = "Goym dulnevnt";
+"wikitext-upload-save-anonymously-warning" = "Hetta er minni privat. Tín IP adressa er sjónlig í samband við tínar rættingar.";
+"wikitext-upload-save-license" = "Við at goyma so góðtekur tú at tíni íkøst verða útgivin undir $1 lisensi.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"search-searching" = "Leitar...";
+"search-no-matches" = "Ongi leitiúrslit funnin fyri leitiorðið/leitiorðini.";
+"search-field-placeholder-text" = "Leita í Wikipedia";
+"search-field-placeholder-text-zero" = "Leita í Wikipedia Zero";
+"main-menu-language-toggle-show" = "Vís mál";
+"main-menu-language-toggle-hide" = "Fjal mál";
+"main-menu-language-selection-saved" = "Val av máli er goymt";
+"main-menu-account-title-logged-out" = "Konta";
+"main-menu-account-title-logged-in" = "Innritað/ur sum: $1";
+"main-menu-account-login" = "Rita inn";
+"main-menu-account-logout" = "Útrita";
+"main-menu-show-title" = "Vís mær...";
+// Fuzzy
+"main-menu-show-history" = "Leitar í søguni";
+"main-menu-show-saved" = "Goymdar síður";
+"main-menu-current-article-save" = "Goym $1 fyri offline lesing";
+// Fuzzy
+"main-menu-random" = "Tilvildarlig grein";
+"main-menu-feedback-heading" = "Afturmeldingar";
+"main-menu-send-feedback" = "Send afturmelding";
+"saved-pages-title" = "Goymdar síður";
+"page-history-title" = "Søgan hjá síðuni";
+"page-history-downloading" = "Innlesur søguna hjá síðuni...";
+"navbar-title-mode-edit-wikitext" = "Rætta";
+"navbar-title-mode-login" = "Rita inn";
+"navbar-title-mode-login-and-save" = "Rita inn og goym";
+"navbar-title-mode-create-account" = "Stovna eina kontu";
+"navbar-title-mode-create-account-and-save" = "Stovna konto og goym";
+"navbar-title-mode-edit-wikitext-warning" = "Trupulleikar við at rætta";
+"navbar-title-mode-edit-wikitext-disallow" = "Trupulleikar við at rætta";
+"navbar-title-mode-edit-wikitext-preview" = "Undansýning";
+"navbar-title-mode-edit-wikitext-captcha" = "Skjót váttan krevst";
+"navbar-title-mode-edit-wikitext-summary" = "Skriva stutta frágreiðing um tína rættan";
+"navbar-title-mode-edit-wikitext-save" = "Goym";
+"edit-summary-choice-linked-words" = "Leinkjaði orð";
+"edit-summary-choice-other" = "Annað";
+"article-pull-to-refresh-is-refreshing" = "Dagførir greinina";
+"credits-wikimedia-repos" = "Wikimedia";

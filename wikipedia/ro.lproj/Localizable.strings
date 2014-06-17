@@ -5,7 +5,9 @@
 "article-languages-label" = "Alegere limbă";
 "article-languages-cancel" = "Revocare";
 "article-languages-downloading" = "Se încarcă limbile articolului...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filtru";
+// Fuzzy
 "history-label" = "Istoric de navigare";
 "history-section-today" = "Astăzi";
 "history-section-yesterday" = "Ieri";
@@ -67,9 +69,11 @@
 "main-menu-account-login" = "Autentificare";
 "main-menu-account-logout" = "Închide sesiunea";
 "main-menu-show-title" = "Arată-mi...";
+// Fuzzy
 "main-menu-show-history" = "Istoric de navigare";
 "main-menu-show-saved" = "Pagini salvate";
 "main-menu-current-article-save" = "Salvează $1 pentru lectură off-line";
+// Fuzzy
 "main-menu-random" = "Articol aleatoriu";
 "main-menu-feedback-heading" = "Păreri";
 "main-menu-send-feedback" = "Trimite părerea";

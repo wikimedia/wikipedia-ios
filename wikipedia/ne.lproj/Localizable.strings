@@ -1,0 +1,62 @@
+// Messages for Nepali (नेपाली)
+// Exported from translatewiki.net
+// Author: सरोज कुमार ढकाल
+
+"zero-interstitial-continue" = "जारी राख्ने";
+"search-field-placeholder-text" = "विकिपीडिया खोज्नुहोस्";
+"search-field-placeholder-text-zero" = "विकिपीडिया शून्य खोज्नुहोस्";
+"search-loading-section-zero" = "लेखको पहिलो खण्ड लोड गर्दै...";
+"search-loading-section-remaining" = "लेखको बाँकी भाग लोड गर्दै";
+"search-loading-article-loaded" = "लेख लोड भयो।";
+"main-menu-language-title" = "$1 भाषा विकि खोज्नुहोस्";
+"main-menu-language-toggle-show" = "भाषाहरू देखाउनुहोस्";
+"main-menu-language-toggle-hide" = "भाषाहरू लुकाउनुहोस्";
+"main-menu-language-selection-saved" = "भाषा चयन बचत भयो";
+"main-menu-account-title-logged-out" = "खाता";
+"main-menu-account-title-logged-in" = "$1: को रूपमा प्रवेश भयो";
+"main-menu-account-login" = "प्रवेश";
+"main-menu-account-logout" = "निर्गमन (लग आउट)";
+"main-menu-show-title" = "मलाई देखाउनुहोस्...";
+// Fuzzy
+"main-menu-show-history" = "ब्राउज गरेको इतिहास";
+"main-menu-show-saved" = "संग्रहित पृष्ठहरू";
+"main-menu-current-article-save" = "अफलाइन पढ्नको लागि $1 बचत गर्नुहोस्";
+// Fuzzy
+"main-menu-random" = "कुनै लेख";
+"main-menu-feedback-heading" = "प्रतिक्रिया";
+"main-menu-send-feedback" = "पृष्ठपोषण पठाउनुहोस";
+"main-menu-show-page-history" = "$1 मा परिवर्तनको इतिहास";
+"main-menu-credits" = "श्रेयहरू";
+"saved-pages-title" = "संग्रहित पृष्ठहरू";
+"page-history-title" = "पृष्ठको इतिहास";
+"page-history-downloading" = "पृष्ठ इतिहास लोड गर्दै...";
+"navbar-title-mode-edit-wikitext" = "सम्पादन";
+"navbar-title-mode-login" = "प्रवेश गर्ने";
+"navbar-title-mode-login-and-save" = "प्रवेश र बचत गर्नुहोस्";
+"navbar-title-mode-create-account" = "खाता खोल्नुहोस्";
+"navbar-title-mode-create-account-and-save" = "खाता खोल्नुहोस् र बचत गर्नुहोस्";
+"navbar-title-mode-edit-wikitext-warning" = "कुराहरू सम्पादन गर्नुहोस्";
+"navbar-title-mode-edit-wikitext-disallow" = "कुराहरू सम्पादन गर्नुहोस्";
+"navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
+"navbar-title-mode-edit-wikitext-captcha" = "छिटो पुष्टी आवश्यक छ";
+"navbar-title-mode-edit-wikitext-summary" = "तपाईँको सम्पादनको वर्णन गर्नुहोस्";
+"navbar-title-mode-edit-wikitext-save" = "संग्रह गर्ने";
+"edit-summary-choice-linked-words" = "जोडिएका शब्दहरू";
+"edit-summary-choice-fixed-grammar" = "व्याकरण ठीक बनाइयो";
+"edit-summary-choice-fixed-inaccuracy" = "अशुद्धि ठीक गरियो";
+"edit-summary-choice-fixed-styling" = "स्वरूपण ठीक गरियो";
+"edit-summary-choice-fixed-typos" = "टाइपो ठीक गरियो";
+"edit-summary-choice-added-category" = "वर्ग थपियो";
+"edit-summary-choice-added-missing-info" = "छुटेका जानकारी थपियो";
+"edit-summary-choice-added-clarification" = "स्पष्टिकरण थपियो";
+"edit-summary-choice-other" = "अन्य";
+"edit-summary-description" = "एक विशिष्ट सारांश सह-सम्पादकहरूलाई चाँडै तपाईँका सम्पादनहरू समीक्षा गर्न मद्दत गर्छ। तपाईँले तलका ट्यागहरूबाट पनि छान्न सक्नुहुन्छ।";
+"edit-summary-field-placeholder-text" = "तपाईँले पृष्ठलाई कसरी सुधार गर्नुभयो?";
+"fetching-random-article" = "अनियमित लेख ल्याउँदै";
+"article-pull-to-refresh-prompt" = "लेख ताजा गर्न तान्नुहोस्";
+"article-pull-to-refresh-is-refreshing" = "लेख ताजा गर्दै";
+"credits-title" = "खुल्ला स्रोत रिपोजिटरी";
+"credits-wikimedia-repos" = "विकिमेडिया";
+"credits-gerrit-repo" = "अनुप्रयोग मुख्य (गेरिट)";
+"credits-github-mirror" = "अनुप्रयोग ऐना (गिटहब)";
+"credits-external-libraries" = "बाह्य";

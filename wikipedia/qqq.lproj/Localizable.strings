@@ -7,7 +7,8 @@
 "article-languages-cancel" = "Button text for dismissing the language selector screen.\n{{Identical|Cancel}}";
 "article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text\n{{Identical|Filter}}";
-"history-label" = "Header label for screen showing the users' in-app browsing history";
+"language-button-other-languages" = "Label for 'other languages' button in content area. Button also shows the number of available languages, but an indeterminate plural should be used here.";
+"history-label" = "Header label for screen showing the users' in-app browsing history.\n{{Identical|Recent}}";
 "history-section-today" = "Subsection label for list of articles browsed today.\n{{Identical|Today}}";
 "history-section-yesterday" = "Subsection label for list of articles browsed yesterday.\n{{Identical|Yesterday}}";
 "history-section-lastweek" = "Subsection label for list of articles browsed within the last week.\n{{Identical|Last week}}";
@@ -70,7 +71,7 @@
 "main-menu-account-login" = "Button text for logging in.\n{{Identical|Log in}}";
 "main-menu-account-logout" = "Button text for logging out.\n{{Identical|Log out}}";
 "main-menu-show-title" = "Header informing the user that they can be shown various things";
-"main-menu-show-history" = "Button text for article history interface";
+"main-menu-show-history" = "Button text for article history interface.\n{{Identical|Recent}}";
 "main-menu-show-saved" = "Button text for saved articles interface.\n{{Identical|Saved page}}";
 "main-menu-current-article-save" = "Button text for saving the current article. Parameters:\n* $1 - page title";
 "main-menu-random" = "Button text for fetching a Random article.\n{{Identical|Random article}}";
@@ -111,7 +112,6 @@
 "credits-gerrit-repo" = "Text for item linking to the app's main gerrit repository";
 "credits-github-mirror" = "Text for item linking to the app's mirrored GitHub repository";
 "credits-external-libraries" = "Title for area of credits page showing external open source libraries used by app.\n{{Identical|External}}";
-"language-button-other-languages" = "Label for 'other languages' button in content area. Button also shows the number of available languages, but an indeterminate plural should be used here.";
 "share-menu-save-page" = "Button text for saving current page from the share menu";
 "share-menu-page-saved" = "Alert text shown when page saved";
 "timestamp-just-now" = "Human-readable approximate timestamp for events in the last couple of minutes";

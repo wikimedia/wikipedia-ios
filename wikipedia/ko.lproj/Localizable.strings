@@ -7,7 +7,9 @@
 "article-languages-label" = "언어 선택";
 "article-languages-cancel" = "취소";
 "article-languages-downloading" = "문서 언어를 불러오는 중...";
+// Fuzzy
 "article-languages-filter-placeholder" = "필터";
+// Fuzzy
 "history-label" = "방문 기록 찾아보기";
 "history-section-today" = "오늘";
 "history-section-yesterday" = "어제";
@@ -32,7 +34,7 @@
 "account-creation-passwords-mismatched" = "비밀번호 필드가 일치하지 않습니다.";
 "account-creation-saving" = "저장 중...";
 "login-name-not-found" = "로그인하려면 사용자 이름이 필요합니다.";
-"login-name-illegal" = "부적절한 사용자 이름을 제공했습니다.";
+"login-name-illegal" = "잘못된 사용자 이름을 제공했습니다.";
 "login-name-does-not-exist" = "제공한 사용자 이름이 존재하지 않습니다.";
 "login-password-empty" = "로그인하려면 비밀번호가 필요합니다.";
 "login-password-wrong" = "제공한 비밀번호가 잘못되었습니다.";
@@ -69,9 +71,11 @@
 "main-menu-account-login" = "로그인";
 "main-menu-account-logout" = "로그아웃";
 "main-menu-show-title" = "내개 보여주기...";
+// Fuzzy
 "main-menu-show-history" = "방문 기록 찾아보기";
 "main-menu-show-saved" = "저장된 문서";
 "main-menu-current-article-save" = "오프라인 읽기로 $1 저장하기";
+// Fuzzy
 "main-menu-random" = "임의 문서";
 "main-menu-feedback-heading" = "피드백";
 "main-menu-send-feedback" = "피드백 보내기";

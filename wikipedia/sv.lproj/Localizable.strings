@@ -8,7 +8,9 @@
 "article-languages-label" = "Välj språk";
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Läser in artikelspråk...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filtrera";
+// Fuzzy
 "history-label" = "Webbhistorik";
 "history-section-today" = "Idag";
 "history-section-yesterday" = "Igår";
@@ -70,9 +72,11 @@
 "main-menu-account-login" = "Logga in";
 "main-menu-account-logout" = "Logga ut";
 "main-menu-show-title" = "Visa mig...";
+// Fuzzy
 "main-menu-show-history" = "Webbhistorik";
 "main-menu-show-saved" = "Sparade sidor";
 "main-menu-current-article-save" = "Spara $1 för läsning offline";
+// Fuzzy
 "main-menu-random" = "Slumpartikel";
 "main-menu-feedback-heading" = "Återkoppling";
 "main-menu-send-feedback" = "Skicka återkoppling";

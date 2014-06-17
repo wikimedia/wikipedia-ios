@@ -1,7 +1,9 @@
 // Messages for Portuguese (português)
 // Exported from translatewiki.net
 // Author: SandroHc
+// Author: Vitorvicentevalente
 
 "7Wa-ox-cAd.normalTitle" = "Gravar";
+"AIA-vO-cLI.placeholder" = "Insira o código CAPTCHA da imagem acima";
 "P0o-I6-RDJ.normalTitle" = "Cancelar";
-"QGI-DM-j1P.normalTitle" = "Mostrar outro captcha";
+"QGI-DM-j1P.normalTitle" = "Mostrar outro código CAPTCHA";

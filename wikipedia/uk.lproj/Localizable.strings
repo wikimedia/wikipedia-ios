@@ -5,7 +5,9 @@
 "article-languages-label" = "Вибрати мову";
 "article-languages-cancel" = "Скасувати";
 "article-languages-downloading" = "Завантаження мов статті...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Фільтр";
+// Fuzzy
 "history-label" = "Перегляд Історії";
 "history-section-today" = "Сьогодні";
 "history-section-yesterday" = "Вчора";
@@ -67,9 +69,11 @@
 "main-menu-account-login" = "Вхід";
 "main-menu-account-logout" = "Вихід";
 "main-menu-show-title" = "Показати мені...";
+// Fuzzy
 "main-menu-show-history" = "Історія перегляду";
 "main-menu-show-saved" = "Збережені сторінки";
 "main-menu-current-article-save" = "Зберегти  $1  для читання в автономному режимі";
+// Fuzzy
 "main-menu-random" = "Випадкова стаття";
 "main-menu-feedback-heading" = "Зворотний зв'язок";
 "main-menu-send-feedback" = "Надіслати відгук";

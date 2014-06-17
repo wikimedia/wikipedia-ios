@@ -6,7 +6,9 @@
 "article-languages-label" = "选择语言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "条目语言载入中...";
+// Fuzzy
 "article-languages-filter-placeholder" = "过滤器";
+// Fuzzy
 "history-label" = "浏览历史";
 "history-section-today" = "今天";
 "history-section-yesterday" = "昨天";
@@ -16,7 +18,7 @@
 "zero-charged-verbiage" = "维基百科零已关闭（标准数据可能收费）";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "离开维基百科零";
-"zero-interstitial-leave-app" = "继续到外部站点吗？标准的数据可能会收费。";
+"zero-interstitial-leave-app" = "继续到外部站点吗？可能收取标准流量费用。";
 "zero-interstitial-continue" = "继续";
 "zero-interstitial-cancel" = "取消";
 "zero-learn-more" = "想要了解维基百科零吗？";
@@ -40,19 +42,19 @@
 "wikitext-downloading" = "正在加载维基代码...";
 "wikitext-download-failed" = "无法获取最新的版本。";
 "wikitext-download-success" = "维基代码已加载。";
-"wikitext-preview-changes" = "正在检获取预览...";
+"wikitext-preview-changes" = "正在获取您更改的预览…";
 "wikitext-preview-changes-none" = "没有可供预览的更改";
 "wikitext-upload-result-unknown" = "无法决定wiki文本上传结果。";
 "wikitext-upload-captcha-error" = "验证码验证错误。";
 "wikitext-upload-captcha-needed" = "需要验证码确认。";
 "wikitext-upload-save" = "正在保存...";
 "wikitext-upload-save-sign-in" = "登录并保存";
-// Fuzzy
-"wikitext-upload-save-sign-in-benefits" = "所以共同编辑者可与您联系，以及您可以看见您编辑了哪些条目";
+"wikitext-upload-save-sign-in-benefits" = "所以共同编辑者可与您联系，以及您可以看见您编辑了哪些条目。";
 "wikitext-upload-save-anonymously" = "以匿名方式保存";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "这里有较少的隐私。您的IP地址编辑时是可见的。通过保存，您同意根据CC BY-SA 3.0协议长久不便的发布您的编辑。";
-"search-searching" = "搜寻中⋯";
+"wikitext-upload-save-anonymously-warning" = "这里有较少的隐私。您的IP地址编辑时是可见的。";
+"wikitext-upload-save-license" = "通过保存，您同意将您的贡献根据$1许可协议发布。";
+"wikitext-upload-save-license-name" = "知识共享 署名-相同方式共享 3.0";
+"search-searching" = "搜索中⋯";
 "search-no-matches" = "没有找到匹配的搜索词。";
 "search-field-placeholder-text" = "搜索维基百科";
 "search-field-placeholder-text-zero" = "搜索维基百科零";
@@ -68,13 +70,19 @@
 "main-menu-account-login" = "登录";
 "main-menu-account-logout" = "退出";
 "main-menu-show-title" = "告诉我...";
+// Fuzzy
 "main-menu-show-history" = "浏览历史记录";
 "main-menu-show-saved" = "已保存页面";
 "main-menu-current-article-save" = "保存$1用于离线阅读";
+// Fuzzy
 "main-menu-random" = "随机条目";
 "main-menu-feedback-heading" = "反馈";
 "main-menu-send-feedback" = "发送反馈";
+"main-menu-show-page-history" = "$1的更改历史";
+"main-menu-credits" = "制作人员";
 "saved-pages-title" = "已保存页面";
+"page-history-title" = "页面历史";
+"page-history-downloading" = "加载页面历史...";
 "navbar-title-mode-edit-wikitext" = "编辑";
 "navbar-title-mode-login" = "登录";
 "navbar-title-mode-login-and-save" = "登录并保存";
@@ -85,6 +93,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "预览";
 "navbar-title-mode-edit-wikitext-captcha" = "需要快速认证";
 "navbar-title-mode-edit-wikitext-summary" = "描述您的编辑";
+"navbar-title-mode-edit-wikitext-save" = "保存";
 "edit-summary-choice-linked-words" = "链接词语";
 "edit-summary-choice-fixed-grammar" = "已确定语法";
 "edit-summary-choice-fixed-inaccuracy" = "修正错误";
@@ -101,3 +110,6 @@
 "article-pull-to-refresh-is-refreshing" = "刷新条目";
 "credits-title" = "开源资料库";
 "credits-wikimedia-repos" = "维基媒体基金会";
+"credits-gerrit-repo" = "主应用程序（Gerrit）";
+"credits-github-mirror" = "镜像应用程序（GitHub）";
+"credits-external-libraries" = "外部";

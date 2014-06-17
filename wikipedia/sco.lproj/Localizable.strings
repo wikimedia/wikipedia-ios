@@ -6,7 +6,9 @@
 "article-languages-label" = "Pick yer leid";
 "article-languages-cancel" = "Cancel";
 "article-languages-downloading" = "Laidin the airticle leids...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filter";
+// Fuzzy
 "history-label" = "Yer Browsing Historie";
 "history-section-today" = "The day";
 "history-section-yesterday" = "Yesterday";
@@ -16,7 +18,7 @@
 "zero-charged-verbiage" = "Wikipædia Zero AFF (STAUNDART DATA CHAIRGES MICHT APPLIE)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Leain Wikipædia Zero";
-"zero-interstitial-leave-app" = "Continue til external site? Staundart data chairges micht applie.";
+"zero-interstitial-leave-app" = "Continue tae ootby steid? Staundart data chairges micht applie.";
 "zero-interstitial-continue" = "Continue";
 "zero-interstitial-cancel" = "Cancel";
 "zero-learn-more" = "Want tae learn aneat Wikipædia Zero?";
@@ -31,7 +33,7 @@
 "account-creation-passwords-mismatched" = "Passwaird fields dinna match.";
 "account-creation-saving" = "Hainin...";
 "login-name-not-found" = "Uiser name is needit tae log-in.";
-"login-name-illegal" = "Ye gave aen onlegal uiser name.";
+"login-name-illegal" = "Ye dinna gave ae legal uiser name.";
 "login-name-does-not-exist" = "The uiser name that ye gave disna exeest.";
 "login-password-empty" = "Passwaird is needit tae log-in.";
 "login-password-wrong" = "The passwaird that ye gave is oncorrect.";
@@ -47,11 +49,9 @@
 "wikitext-upload-captcha-needed" = "Need captcha vereefication.";
 "wikitext-upload-save" = "Hainin...";
 "wikitext-upload-save-sign-in" = "Sign in n hain";
-// Fuzzy
-"wikitext-upload-save-sign-in-benefits" = "Sae that co-eediters can connect wi ye & ye can see whit airticles that ye eeditit";
+"wikitext-upload-save-sign-in-benefits" = "Sae that co-eediters can connect wi ye & ye can see whit airticles that ye eeditit.";
 "wikitext-upload-save-anonymously" = "Hain anonimislie";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "This haes less preevacie. Yer IP address is veesible wi eedits. Bi hainin, ye agree tae permenantlie publeesh yer eedits unner CC BY-SA 3.0";
+"wikitext-upload-save-anonymously-warning" = "This haes less preevacie. Yer IP address is veesible wi eedits.";
 "search-searching" = "Rakin...";
 "search-no-matches" = "Naw matches foond fer rake term.";
 "search-field-placeholder-text" = "Rake Wikipædia";
@@ -68,9 +68,11 @@
 "main-menu-account-login" = "Log in";
 "main-menu-account-logout" = "Log oot";
 "main-menu-show-title" = "Shaw me...";
+// Fuzzy
 "main-menu-show-history" = "Brousin histerie";
 "main-menu-show-saved" = "Hained pages";
 "main-menu-current-article-save" = "Hain $1 fer affline readin";
+// Fuzzy
 "main-menu-random" = "Random airticle";
 "main-menu-feedback-heading" = "Feedback";
 "main-menu-send-feedback" = "Send feedback";

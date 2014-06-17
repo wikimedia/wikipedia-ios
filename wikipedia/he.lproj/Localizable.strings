@@ -7,7 +7,9 @@
 "article-languages-label" = "בחירת שפה";
 "article-languages-cancel" = "ביטול";
 "article-languages-downloading" = "טעינת שפות הערך...";
+// Fuzzy
 "article-languages-filter-placeholder" = "סינון";
+// Fuzzy
 "history-label" = "היסטוריית גלישה";
 "history-section-today" = "היום";
 "history-section-yesterday" = "אתמול";
@@ -69,9 +71,11 @@
 "main-menu-account-login" = "כניסה";
 "main-menu-account-logout" = "יציאה";
 "main-menu-show-title" = "תַראו לי...";
+// Fuzzy
 "main-menu-show-history" = "היסטוריית הגלישה";
 "main-menu-show-saved" = "דפים שמורים";
 "main-menu-current-article-save" = "שמירת $1 לקריאה בלי רשת";
+// Fuzzy
 "main-menu-random" = "דף אקראי";
 "main-menu-feedback-heading" = "משוב";
 "main-menu-send-feedback" = "שליחת משוב";

@@ -7,7 +7,9 @@
 "article-languages-label" = "Scegli la lingua";
 "article-languages-cancel" = "Annulla";
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filtra";
+// Fuzzy
 "history-label" = "Naviga nella cronologia";
 "history-section-today" = "Oggi";
 "history-section-yesterday" = "Ieri";
@@ -69,9 +71,11 @@
 "main-menu-account-login" = "Entra";
 "main-menu-account-logout" = "Esci";
 "main-menu-show-title" = "Fammi vedere...";
+// Fuzzy
 "main-menu-show-history" = "Cronologia di navigazione";
 "main-menu-show-saved" = "Pagine salvate";
 "main-menu-current-article-save" = "Salva $1 per la lettura offline";
+// Fuzzy
 "main-menu-random" = "Voce a caso";
 "main-menu-feedback-heading" = "Commenti";
 "main-menu-send-feedback" = "Invia commento";

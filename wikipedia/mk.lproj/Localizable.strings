@@ -6,7 +6,9 @@
 "article-languages-label" = "Изберете јазик";
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Ги вчитувам јазиците на статијата...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Филтер";
+// Fuzzy
 "history-label" = "Историја на прелистување";
 "history-section-today" = "Денес";
 "history-section-yesterday" = "Вчера";
@@ -68,9 +70,11 @@
 "main-menu-account-login" = "Најава";
 "main-menu-account-logout" = "Одјава";
 "main-menu-show-title" = "Покажи ми...";
+// Fuzzy
 "main-menu-show-history" = "Историја на прелистување";
 "main-menu-show-saved" = "Зачувани страници";
 "main-menu-current-article-save" = "Зачувај ја „$1“ за вонмрежно читање";
+// Fuzzy
 "main-menu-random" = "Случајна статија";
 "main-menu-feedback-heading" = "Мислења";
 "main-menu-send-feedback" = "Испрати мислење";

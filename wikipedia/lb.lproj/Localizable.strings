@@ -5,7 +5,9 @@
 "article-languages-label" = "Sprooch eraussichen";
 "article-languages-cancel" = "Ofbriechen";
 "article-languages-downloading" = "Luede vun de Sprooche vum Artikel...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filter";
+// Fuzzy
 "history-label" = "Versiounen";
 "history-section-today" = "Haut";
 "history-section-yesterday" = "Gëschter";
@@ -33,15 +35,18 @@
 "login-throttled" = "Dir hutt a kuerzer Zäit ze dacks probéiert Iech anzeloggen.";
 "login-user-blocked" = "Benotzer ass gespaart.";
 "wikitext-downloading" = "Wikitext gëtt gelueden...";
+"wikitext-download-failed" = "Déi lescht Versioun konnt net opgeruff ginn.";
 "wikitext-download-success" = "Wikitext gelueden.";
 "wikitext-preview-changes-none" = "Et goufe keng Ännerunge gemaach fir ze weisen.";
 "wikitext-upload-captcha-error" = "Feeler beim Nokucke vum CAPTCHA.";
+"wikitext-upload-captcha-needed" = "CAPTCHA-Iwwerpréifung obligatoresch.";
 "wikitext-upload-save" = "Späicheren...";
 "wikitext-upload-save-sign-in" = "Aloggen a späicheren";
 "wikitext-upload-save-anonymously" = "Anonym späicheren";
 "wikitext-upload-save-anonymously-warning" = "Dat huet manner Dateschutz. Är IP-Adress gëtt mat den Ännerunge gewisen.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Sichen...";
+"search-no-matches" = "Näischt fonnt fir de Begrëff no deem Dir sicht.";
 "search-field-placeholder-text" = "Op Wikipedia sichen";
 "search-field-placeholder-text-zero" = "Op Wikipedia Zero sichen";
 "search-loading-section-zero" = "Éischten Abschnitt vum Artikel gëtt gelueden...";
@@ -58,6 +63,7 @@
 "main-menu-show-title" = "Weis mir...";
 "main-menu-show-saved" = "Gespäichert Säiten";
 "main-menu-current-article-save" = "$1 späichere fir off-line ze liesen";
+// Fuzzy
 "main-menu-random" = "Zoufällegen Artikel";
 "main-menu-feedback-heading" = "Feedback";
 "main-menu-send-feedback" = "Feedback schécken";

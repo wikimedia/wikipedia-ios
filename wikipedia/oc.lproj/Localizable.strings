@@ -5,7 +5,9 @@
 "article-languages-label" = "Causir una lenga";
 "article-languages-cancel" = "Anullar";
 "article-languages-downloading" = "Cargament de las lengas de l’article en cors…";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filtrar";
+// Fuzzy
 "history-label" = "Percórrer l'istoric";
 "history-section-today" = "Uèi";
 "history-section-yesterday" = "Ièr";
@@ -41,9 +43,11 @@
 "main-menu-account-login" = "Connexion";
 "main-menu-account-logout" = "Desconnexion";
 "main-menu-show-title" = "M’afichar…";
+// Fuzzy
 "main-menu-show-history" = "Istoric de navigacion";
 "main-menu-show-saved" = "Paginas enregistradas";
 "main-menu-current-article-save" = "Enregistrar $1 per una lectura fòra linha";
+// Fuzzy
 "main-menu-random" = "Article a l'azard";
 "main-menu-feedback-heading" = "Comentari";
 "main-menu-send-feedback" = "Mandar un comentari";

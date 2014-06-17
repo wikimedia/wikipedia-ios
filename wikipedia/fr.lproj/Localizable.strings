@@ -9,7 +9,9 @@
 "article-languages-label" = "Choisir langue";
 "article-languages-cancel" = "Annuler";
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filtre";
+// Fuzzy
 "history-label" = "Histoire de léer";
 "history-section-today" = "Aujourd'hui";
 "history-section-yesterday" = "Hier";
@@ -71,9 +73,11 @@
 "main-menu-account-login" = "Connexion";
 "main-menu-account-logout" = "Déconnexion";
 "main-menu-show-title" = "M’afficher…";
+// Fuzzy
 "main-menu-show-history" = "Historique de navigation";
 "main-menu-show-saved" = "Pages enregistrées";
 "main-menu-current-article-save" = "Enregistrer $1 pour une lecture hors ligne";
+// Fuzzy
 "main-menu-random" = "Article au hasard";
 "main-menu-feedback-heading" = "Commentaire";
 "main-menu-send-feedback" = "Envoyer un commentaire";

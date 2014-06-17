@@ -1,18 +1,24 @@
 // Messages for Bengali (বাংলা)
 // Exported from translatewiki.net
 // Author: Aftab1995
+// Author: Tauhid16
 
 "article-languages-label" = "ভাষা নির্বাচন করুন";
 "article-languages-cancel" = "বাতিল";
+"article-languages-downloading" = "নিবন্ধের ভাষাসমূহ লোড হচ্ছে...";
+// Fuzzy
 "article-languages-filter-placeholder" = "ছাকনী";
+// Fuzzy
 "history-label" = "ব্রাউজের ইতিহাস";
 "history-section-today" = "আজ";
 "history-section-yesterday" = "গতকাল";
 "history-section-lastweek" = "গত সপ্তাহ";
 "history-section-lastmonth" = "গত মাস";
+"zero-free-verbiage" = "মোবাইল অপারেটরদের সৌজন্যে বিনামূল্যে উইকিপিডয়া (ডাটা চার্জ প্রযোজ্য নয়)";
 "zero-charged-verbiage" = "উইকিপিডিয়া জিরো বন্ধ (স্ট্যান্ডার্ড ডাটা চার্জ প্রযোজ্য হতে পারে)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "উইকিপিডিয়া জিরো প্রস্থান হচ্ছে";
+"zero-interstitial-leave-app" = "অন্য ওয়েবসাইটিতে যাবেন? সাধারণ ডাটা চার্জ প্রযোজ্য হবে।";
 "zero-interstitial-continue" = "অগ্রসর হোন";
 "zero-interstitial-cancel" = "বাতিল";
 "zero-learn-more" = "উইকিপিডিয়া জিরো সম্পর্কে জানতে চান?";
@@ -20,28 +26,74 @@
 "zero-learn-more-no-thanks" = "না, ধন্যবাদ";
 "zero-wikipedia-zero-heading" = "উইকিপিডিয়া জিরো";
 "zero-warn-when-leaving" = "উইকিপিডিয়া জিরো প্রস্থানের সময় সতর্ক করো";
+"zero-settings-devmode" = "জিরো ডেভমোড";
 "account-creation-captcha-required" = "ক্যাপচা যাচাইকরণ প্রয়োজন।";
+"account-creation-logging-in" = "প্রবেশ হচ্ছে...";
+"account-creation-passwords-mismatched" = "শব্দচাবি মিলেনি";
+"account-creation-saving" = "সংরক্ষণ হচ্ছে ...";
+"login-name-not-found" = "প্রবেশ করার জন্য ব্যবহারকারী নাম প্রয়োজন।";
+"login-name-illegal" = "আপনি একটি অবৈধ ব্যবহারকারী নাম দিয়েছেন।";
+"login-name-does-not-exist" = "আপনার দেয়া নামে কোনো ব্যবহারকারী নেই।";
+"login-password-empty" = "প্রবেশ করার জন্য শব্দচাবি প্রয়োজন।";
+"login-password-wrong" = "আপনি যেই শব্দচাবিটি দিয়েছেন তা সঠিক নয়।";
+"login-throttled" = "আপনি অল্প সময়ের মাঝে অনেকবার প্রবেশ করেছেন।";
+"login-user-blocked" = "ব্যবহারকারী অবরুদ্ধ।";
+"wikitext-downloading" = "উইকি টেক্সট লোড হচ্ছে...";
+"wikitext-download-failed" = "সর্বশেষ সংস্করণটি পাওয়া সম্ভব হয়নি।";
+"wikitext-download-success" = "উইকি টেক্সট লোড হয়েছে।";
 "wikitext-upload-save" = "সংরক্ষণ হচ্ছে ...";
+"wikitext-upload-save-sign-in" = "প্রবেশ করুন ও সংরক্ষণ করুন";
+"wikitext-upload-save-anonymously" = "নামহীন অবস্থায় সংরক্ষণ করুন";
+"wikitext-upload-save-license" = "সংরক্ষণের দ্বারা, আপনি আপনার অবদান $1 লাইসেন্সের অধীনে প্রকাশে সম্মত হচ্ছেন।";
+"wikitext-upload-save-license-name" = "সিসি বাই-এস ৩.০";
+"search-searching" = "অনুসন্ধান হচ্ছে...";
 "search-field-placeholder-text" = "উইকিপিডিয়া অনুসন্ধান";
 "search-field-placeholder-text-zero" = "উইকিপিডিয়া জিরো অনুসন্ধান";
+"search-loading-section-zero" = "নিবন্ধের প্রথম অনুচ্ছেদ লোড হচ্ছে...";
+"search-loading-section-remaining" = "নিবন্ধের বাকী অংশ লোড হচ্ছে...";
+"search-loading-article-loaded" = "নিবন্ধ লোড হয়েছে।";
 "main-menu-language-title" = "$1 ভাষার উইকিতে অনুসন্ধান";
 "main-menu-language-toggle-show" = "ভাষা দেখাও";
 "main-menu-language-toggle-hide" = "ভাষা আড়াল করো";
+"main-menu-language-selection-saved" = "ভাষা নির্বাচন সংরক্ষণ হয়েছে";
 "main-menu-account-title-logged-out" = "অ্যাকাউন্ট";
 "main-menu-account-title-logged-in" = "$1 হিসাবে প্রবেশ";
 "main-menu-account-login" = "প্রবেশ";
 "main-menu-account-logout" = "প্রস্থান";
 "main-menu-show-title" = "আমাকে দেখাও...";
+// Fuzzy
 "main-menu-show-history" = "ব্রাউজের ইতিহাস";
 "main-menu-show-saved" = "সংরক্ষিত পাতা";
+"main-menu-current-article-save" = "অফলাইন অবস্থায় পড়ার জন্য $1 সংরক্ষণ করুন।";
+// Fuzzy
 "main-menu-random" = "অজানা যেকোনো নিবন্ধ";
 "main-menu-feedback-heading" = "প্রতিক্রিয়া";
 "main-menu-send-feedback" = "প্রতিক্রিয়া পাঠান";
 "main-menu-credits" = "কৃতিত্ব";
 "saved-pages-title" = "সংরক্ষিত পাতা";
 "page-history-title" = "পাতার ইতিহাস";
+"page-history-downloading" = "পাতার ইতিহাস লোড হচ্ছে...";
 "navbar-title-mode-edit-wikitext" = "সম্পাদনা";
+"navbar-title-mode-login" = "প্রবেশ";
+"navbar-title-mode-login-and-save" = "প্রবেশ করুন ও সংরক্ষণ করুন";
+"navbar-title-mode-create-account" = "অ্যাকাউন্ট তৈরি করুন";
+"navbar-title-mode-create-account-and-save" = "অ্যাকাউন্ট তৈরি করুন ও সংরক্ষণ করুন।";
 "navbar-title-mode-edit-wikitext-preview" = "প্রাকদর্শন";
+"navbar-title-mode-edit-wikitext-captcha" = "দ্রুত যাচাইকরণের প্রয়োজন";
+"navbar-title-mode-edit-wikitext-summary" = "আপনার সম্পাদনা বর্ণনা করুন।";
+"navbar-title-mode-edit-wikitext-save" = "সংরক্ষণ";
+"edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
+"edit-summary-choice-fixed-styling" = "নকশা ঠিক করা হয়েছে";
+"edit-summary-choice-fixed-typos" = "টাইপো ঠিক করা হয়েছে";
+"edit-summary-choice-added-category" = "বিষয়শ্রেণী যোগ করা হয়েছে";
+"edit-summary-choice-added-missing-info" = "অনুপস্থিত তথ্য যোগ করা হয়েছে";
 "edit-summary-choice-other" = "অন্যান্য";
+"edit-summary-field-placeholder-text" = "কীভাবে আপনি নিবন্ধনটি উন্নত করেছেন?";
+"fetching-random-article" = "অজানা নিবন্ধ আনা হচ্ছে";
+"article-pull-to-refresh-prompt" = "নিবন্ধ পুনঃসতেজ করতে টানুন";
+"article-pull-to-refresh-is-refreshing" = "নিবন্ধ পুনঃসতেজ হচ্ছে";
+"credits-title" = "মুক্ত উৎসের ভান্ডার";
 "credits-wikimedia-repos" = "উইকিমিডিয়া";
+"credits-gerrit-repo" = "প্রধান অ্যাপ (জেরিট)";
+"credits-github-mirror" = "মিরর অ্যাপ (গিটহাব)";
 "credits-external-libraries" = "বাহ্যিক";

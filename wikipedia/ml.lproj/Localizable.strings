@@ -6,7 +6,9 @@
 "article-languages-label" = "ഭാഷ തിരഞ്ഞെടുക്കുക";
 "article-languages-cancel" = "റദ്ദാക്കുക";
 "article-languages-downloading" = "ലേഖനമുള്ള ഭാഷകൾ എടുക്കുന്നു...";
+// Fuzzy
 "article-languages-filter-placeholder" = "അരിപ്പ";
+// Fuzzy
 "history-label" = "ബ്രൗസിങ് നാൾവഴി";
 "history-section-today" = "ഇന്ന്";
 "history-section-yesterday" = "ഇന്നലെ";
@@ -40,11 +42,11 @@
 "wikitext-upload-captcha-needed" = "കാപ്ച പരിശോധന ആവശ്യമാണ്.";
 "wikitext-upload-save" = "സേവ് ചെയ്യുന്നു...";
 "wikitext-upload-save-sign-in" = "പ്രവേശിക്കുക, സേവ് ചെയ്യുക";
-// Fuzzy
-"wikitext-upload-save-sign-in-benefits" = "അങ്ങനെയെങ്കിൽ മറ്റുപയോക്താക്കൾക്ക് താങ്കളുമായി ബന്ധപ്പെടാനും, താങ്കൾ ഏതൊക്കെ ലേഖനങ്ങളാണ് തിരുത്തിയത് കാണാനും കഴിയും";
+"wikitext-upload-save-sign-in-benefits" = "അങ്ങനെയെങ്കിൽ മറ്റുപയോക്താക്കൾക്ക് താങ്കളുമായി ബന്ധപ്പെടാനും, താങ്കൾ ഏതൊക്കെ ലേഖനങ്ങളാണ് തിരുത്തിയത് കാണാനും കഴിയും.";
 "wikitext-upload-save-anonymously" = "പേര് വെളിപ്പെടുത്താതെ സേവ് ചെയ്യുക";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "ഈ രീതിയ്ക്ക് സ്വകാര്യത കുറവാണ്. താങ്കളുടെ ഐ.പി. വിലാസം തിരുത്തുകൾക്കൊപ്പം കാണാൻ കഴിയുന്നതാണ്. സേവ് ചെയ്യുമ്പോൾ താങ്കളുടെ തിരുത്തുകൾ സി.സി. ബൈ-എസ്.എസ്. 3.0 പ്രകാരം സ്ഥിരമായി പ്രസിദ്ധപ്പെടുത്തുന്നതിനു താങ്കൾ സമ്മതിക്കുന്നുണ്ട്.";
+"wikitext-upload-save-anonymously-warning" = "ഈ രീതിയ്ക്ക് സ്വകാര്യത കുറവാണ്. താങ്കളുടെ ഐ.പി. വിലാസം തിരുത്തുകൾക്കൊപ്പം കാണാൻ കഴിയുന്നതാണ്.";
+"wikitext-upload-save-license" = "മാറ്റങ്ങൾ സേവ് ചെയ്യുമ്പോൾ, താങ്കളുടെ സംഭാവനകൾ $1 അനുമതിപ്രകാരം പ്രസിദ്ധപ്പെടുത്താമെന്ന് താങ്കൾ സമ്മതിക്കുന്നുണ്ട്.";
+"wikitext-upload-save-license-name" = "സി.സി. ബൈ-എസ്.എ. 3.0";
 "search-searching" = "തിരയുന്നു...";
 "search-no-matches" = "തിരഞ്ഞ പദത്തിന് ചേരുന്ന ഫലങ്ങളൊന്നും കിട്ടിയില്ല.";
 "search-field-placeholder-text" = "വിക്കിപീഡിയയിൽ തിരയുക";
@@ -61,13 +63,19 @@
 "main-menu-account-login" = "പ്രവേശിക്കുക";
 "main-menu-account-logout" = "ലോഗൗട്ട്";
 "main-menu-show-title" = "എന്നെ കാണിക്കുക...";
+// Fuzzy
 "main-menu-show-history" = "ബ്രൗസിങ് ഹിസ്റ്ററി";
 "main-menu-show-saved" = "സേവ് ചെയ്തിട്ടുള്ള താളുകൾ";
 "main-menu-current-article-save" = "ഓഫ്‌ലൈനായി വായിക്കാൻ $1 സേവ് ചെയ്യുക";
+// Fuzzy
 "main-menu-random" = "ഏതെങ്കിലും ലേഖനം";
 "main-menu-feedback-heading" = "പ്രതികരണം";
 "main-menu-send-feedback" = "അഭിപ്രായം അറിയിക്കുക";
+"main-menu-show-page-history" = "$1 മാറ്റങ്ങളുടെ നാൾവഴി";
+"main-menu-credits" = "കടപ്പാടുകൾ";
 "saved-pages-title" = "സേവ് ചെയ്ത താളുകൾ";
+"page-history-title" = "താളിന്റെ നാൾവഴി";
+"page-history-downloading" = "താളിന്റെ നാൾവഴി എടുക്കുന്നു...";
 "navbar-title-mode-edit-wikitext" = "തിരുത്തുക";
 "navbar-title-mode-login" = "പ്രവേശിക്കുക";
 "navbar-title-mode-login-and-save" = "പ്രവേശിക്കുക, സേവ് ചെയ്യുക";
@@ -78,6 +86,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "എങ്ങനെയുണ്ടെന്ന് കാണുക";
 "navbar-title-mode-edit-wikitext-captcha" = "ഉടനെ പരിശോധന ആവശ്യമാണ്";
 "navbar-title-mode-edit-wikitext-summary" = "താങ്കളുടെ തിരുത്തിനെ വിശദീകരിക്കുക";
+"navbar-title-mode-edit-wikitext-save" = "സേവ് ചെയ്യുക";
 "edit-summary-choice-linked-words" = "വാക്കുകളിൽ  കണ്ണി ചേർത്തു";
 "edit-summary-choice-fixed-grammar" = "വ്യാകരണം ശരിയാക്കി";
 "edit-summary-choice-fixed-inaccuracy" = "കൃത്യതയില്ലായ്മ ശരിയാക്കി";
@@ -92,3 +101,8 @@
 "fetching-random-article" = "ക്രമരഹിതമായി ലേഖനം എടുക്കുന്നു";
 "article-pull-to-refresh-prompt" = "ലേഖനം വീണ്ടുമെടുക്കാൻ വലിക്കുക";
 "article-pull-to-refresh-is-refreshing" = "ലേഖനം പുതുക്കുന്നു";
+"credits-title" = "ഓപ്പൺ സോഴ്സ് ശേഖരങ്ങൾ";
+"credits-wikimedia-repos" = "വിക്കിമീഡിയ";
+"credits-gerrit-repo" = "ആപ് മെയിൻ (ഗെറിറ്റ്)";
+"credits-github-mirror" = "ആപ് മിറർ (ഗിറ്റ്‌ഹബ്)";
+"credits-external-libraries" = "ബാഹ്യം";

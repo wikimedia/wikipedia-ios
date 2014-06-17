@@ -4,7 +4,9 @@
 
 "article-languages-label" = "Rěč wubrać";
 "article-languages-cancel" = "Přetorhnyć";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filter";
+// Fuzzy
 "history-label" = "Historija";
 "history-section-today" = "Dźensa";
 "history-section-yesterday" = "Wčera";

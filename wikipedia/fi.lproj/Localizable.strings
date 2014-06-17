@@ -7,7 +7,9 @@
 "article-languages-label" = "Valitse kieli";
 "article-languages-cancel" = "Peruuta";
 "article-languages-downloading" = "Ladataan artikkelin kieliä...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Suodatin";
+// Fuzzy
 "history-label" = "Selaushistoria";
 "history-section-today" = "Tänään";
 "history-section-yesterday" = "Eilen";
@@ -47,9 +49,11 @@
 "main-menu-account-login" = "Kirjaudu sisään";
 "main-menu-account-logout" = "Kirjaudu ulos";
 "main-menu-show-title" = "Näytä minulle...";
+// Fuzzy
 "main-menu-show-history" = "Selaushistoria";
 "main-menu-show-saved" = "Tallennetut sivut";
 "main-menu-current-article-save" = "Tallenna $1 offline-tilassa luettavaksi";
+// Fuzzy
 "main-menu-random" = "Satunnainen artikkeli";
 "main-menu-feedback-heading" = "Palaute";
 "main-menu-send-feedback" = "Lähetä palautetta";

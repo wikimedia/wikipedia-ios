@@ -1,12 +1,15 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
+// Author: SPQRobin
 // Author: Siebrand
 // Author: Southparkfan
 
 "article-languages-label" = "Taal kiezen";
 "article-languages-cancel" = "Annuleren";
 "article-languages-downloading" = "Paginatalen aan het laden...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filteren";
+// Fuzzy
 "history-label" = "Door geschiedenis bladeren";
 "history-section-today" = "Vandaag";
 "history-section-yesterday" = "Gisteren";
@@ -47,11 +50,11 @@
 "wikitext-upload-captcha-needed" = "Er is een CAPTCHA-controle nodig.";
 "wikitext-upload-save" = "Aan het opslaan...";
 "wikitext-upload-save-sign-in" = "Aanmelden en opslaan";
-// Fuzzy
 "wikitext-upload-save-sign-in-benefits" = "Zodat mederedacteuren met u kunnen communiceren en zodat u kunt zien welke pagina's u hebt bewerkt.";
 "wikitext-upload-save-anonymously" = "Als anoniem opslaan";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Deze manier kent minder privacy. Uw IP-adres is zichtbaar bij de bewerkingen. Door op te slaan, gaat u akkoord met het permanent publiceren van uw bewerkingen onder de licentie CC BY-SA 3.0.";
+"wikitext-upload-save-anonymously-warning" = "Deze manier kent minder privacy. Uw IP-adres is zichtbaar bij de bewerkingen.";
+"wikitext-upload-save-license" = "Door op te slaan, gaat u akkoord met het vrijgeven van uw bijdragen onder de licentie $1.";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Bezig met zoeken...";
 "search-no-matches" = "Geen overeenkomsten gevonden voor de zoekterm.";
 "search-field-placeholder-text" = "In Wikipedia zoeken";
@@ -68,13 +71,18 @@
 "main-menu-account-login" = "Aanmelden";
 "main-menu-account-logout" = "Afmelden";
 "main-menu-show-title" = "Weergeven...";
+// Fuzzy
 "main-menu-show-history" = "Browsegeschiedenis";
 "main-menu-show-saved" = "Opgeslagen pagina's";
 "main-menu-current-article-save" = "\"$1\" opslaan voor offline lezen";
+// Fuzzy
 "main-menu-random" = "Willekeurige pagina";
 "main-menu-feedback-heading" = "Terugkoppeling";
 "main-menu-send-feedback" = "Terugkoppeling verzenden";
+"main-menu-show-page-history" = "Geschiedenis van wijzigingen aan $1";
 "saved-pages-title" = "Opgeslagen pagina's";
+"page-history-title" = "Paginageschiedenis";
+"page-history-downloading" = "Paginageschiedenis laden...";
 "navbar-title-mode-edit-wikitext" = "Bewerken";
 "navbar-title-mode-login" = "Aanmelden";
 "navbar-title-mode-login-and-save" = "Aanmelden en opslaan";
@@ -85,6 +93,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Voorvertoning";
 "navbar-title-mode-edit-wikitext-captcha" = "Snelle controle nodig";
 "navbar-title-mode-edit-wikitext-summary" = "Beschrijf uw bewerking";
+"navbar-title-mode-edit-wikitext-save" = "Opslaan";
 "edit-summary-choice-linked-words" = "Woorden gekoppeld";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
 "edit-summary-choice-fixed-inaccuracy" = "Onjuistheid gecorrigeerd";
@@ -99,3 +108,4 @@
 "fetching-random-article" = "Willekeurige pagina ophalen";
 "article-pull-to-refresh-prompt" = "Naar beneden trekken om bij te werken";
 "article-pull-to-refresh-is-refreshing" = "Pagina bijwerken";
+"credits-wikimedia-repos" = "Wikimedia";

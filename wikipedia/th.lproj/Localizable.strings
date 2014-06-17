@@ -5,7 +5,9 @@
 "article-languages-label" = "เลือกภาษา";
 "article-languages-cancel" = "ยกเลิก";
 "article-languages-downloading" = "กำลังโหลดภาษาบทความ...";
+// Fuzzy
 "article-languages-filter-placeholder" = "ตัวกรอง";
+// Fuzzy
 "history-label" = "กำลังสืบค้นประวัติ";
 "history-section-today" = "วันนี้";
 "history-section-yesterday" = "เมื่อวานนี้";
@@ -58,9 +60,11 @@
 "main-menu-account-login" = "ล็อกอิน";
 "main-menu-account-logout" = "ล็อกเอาต์";
 "main-menu-show-title" = "แสดงให้ฉัน...";
+// Fuzzy
 "main-menu-show-history" = "กำลังสืบค้นประวัติ";
 "main-menu-show-saved" = "หน้าที่บันทึก";
 "main-menu-current-article-save" = "บันทึก $1 สำหรับการอ่านออฟไลน์";
+// Fuzzy
 "main-menu-random" = "สุ่มบทความ";
 "main-menu-feedback-heading" = "ผลป้อนกลับ";
 "main-menu-send-feedback" = "ส่งผลป้อนกลับ";
