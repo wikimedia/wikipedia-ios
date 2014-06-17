@@ -28,4 +28,14 @@
     return (images.count == 1) ? images[0] : self;
 }
 
+-(void)deleteIfUnused
+{
+    int count = (int)self.sectionImage.count;
+    NSLog(@"section image = %@ is referenced by %d sections", self.fileName, count);
+    if (count < 1) {
+        NSLog(@"deleting unused image %@", self.fileName);
+        [self.managedObjectContext deleteObject:self];
+    }
+}
+
 @end

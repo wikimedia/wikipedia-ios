@@ -190,7 +190,7 @@ body {
   max-width: none !important;
 }
 .content .thumbcaption {
-  margin: 0;
+  margin: .5em 0 0;
   font-size: .8em;
   line-height: 1.5;
   padding: 0 !important;
