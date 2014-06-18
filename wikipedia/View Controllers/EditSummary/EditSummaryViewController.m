@@ -16,6 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomLineHeightConstraint;
 
+@property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
+
 @end
 
 @implementation EditSummaryViewController
@@ -35,8 +37,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.summaryTextField.attributedPlaceholder =
-        [self getAttributedPlaceholderForString:MWLocalizedString(@"edit-summary-field-placeholder-text", nil)];
+    self.placeholderLabel.text = MWLocalizedString(@"edit-summary-field-placeholder-text", nil);
 
     self.summaryTextField.textColor = [UIColor darkGrayColor];
     self.summaryTextField.returnKeyType = UIReturnKeyDone;
@@ -59,6 +60,13 @@
 - (void)textFieldDidChange :(NSNotification *)notification
 {
     [self updateDoneButtonState];
+    
+    [self updatePlaceholderLabelState];
+}
+
+-(void)updatePlaceholderLabelState
+{
+    self.placeholderLabel.hidden = ([self.summaryTextField.text length] == 0) ? NO : YES;
 }
 
 -(void)updateDoneButtonState
@@ -74,21 +82,6 @@
 {
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
     return (newLength > MAX_SUMMARY_LENGTH) ? NO : YES;
-}
-
--(NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string
-{
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:string];
-
-    [str addAttribute:NSFontAttributeName
-                value:[UIFont systemFontOfSize:12.0]
-                range:NSMakeRange(0, str.length)];
-
-    [str addAttribute:NSForegroundColorAttributeName
-                value:[UIColor colorWithWhite:0.55 alpha:1.0]
-                range:NSMakeRange(0, str.length)];
-
-    return str;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -109,6 +102,7 @@
     self.summaryTextField.text = self.summaryText;
     
     [self updateDoneButtonState];
+    [self updatePlaceholderLabelState];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChange:) name:@"UITextFieldTextDidChangeNotification" object:self.summaryTextField];
 }
