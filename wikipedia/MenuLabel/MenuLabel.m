@@ -11,6 +11,8 @@
 
 @property (nonatomic) CGFloat fontSize;
 
+@property (nonatomic) BOOL fontBold;
+
 @property (nonatomic) UIEdgeInsets padding;
 
 @end
@@ -19,16 +21,17 @@
 
 - (instancetype)init
 {
-    return [self initWithText:@"" fontSize:16 color:[UIColor blackColor] padding:UIEdgeInsetsZero];
+    return [self initWithText:@"" fontSize:16 bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
-    return [self initWithText:@"" fontSize:16 color:[UIColor blackColor] padding:UIEdgeInsetsZero];
+    return [self initWithText:@"" fontSize:16 bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero];
 }
 
 - (instancetype)initWithText: (NSString *)text
                     fontSize: (CGFloat)size
+                        bold: (BOOL)bold
                        color: (UIColor *)color
                      padding: (UIEdgeInsets)padding
 {
@@ -36,6 +39,7 @@
     if (self) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
         self.padding = padding;
+        self.fontBold = bold;
         self.color = color;
         self.fontSize = size;
         self.textAlignment = NSTextAlignmentCenter;
@@ -59,9 +63,10 @@
 
 -(void)setText:(NSString *)text
 {
+    UIFont *font = (self.fontBold) ? [UIFont boldSystemFontOfSize:self.fontSize] : [UIFont systemFontOfSize:self.fontSize];
     NSDictionary *attributes =
     @{
-      NSFontAttributeName: [UIFont systemFontOfSize:self.fontSize],
+      NSFontAttributeName: font,
       NSForegroundColorAttributeName : self.color
       };
     

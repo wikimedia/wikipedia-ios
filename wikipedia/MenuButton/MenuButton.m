@@ -17,6 +17,8 @@
 
 @property (nonatomic) CGFloat fontSize;
 
+@property (nonatomic) BOOL fontBold;
+
 @property (nonatomic) UIEdgeInsets padding;
 
 @property (nonatomic) UIEdgeInsets margin;
@@ -27,16 +29,17 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
-    return [self initWithText:@"" fontSize:16 color:[UIColor blackColor] padding:UIEdgeInsetsZero margin:UIEdgeInsetsZero];
+    return [self initWithText:@"" fontSize:16 bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero margin:UIEdgeInsetsZero];
 }
 
 - (instancetype)init
 {
-    return [self initWithText:@"" fontSize:16 color:[UIColor blackColor] padding:UIEdgeInsetsZero margin:UIEdgeInsetsZero];
+    return [self initWithText:@"" fontSize:16 bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero margin:UIEdgeInsetsZero];
 }
 
 - (instancetype)initWithText: (NSString *)text
                     fontSize: (CGFloat)size
+                        bold: (BOOL)bold
                        color: (UIColor *)color
                      padding: (UIEdgeInsets)padding
                       margin: (UIEdgeInsets)margin
@@ -49,7 +52,8 @@
         self.text = text;
         self.enabled = NO;
         self.clipsToBounds = YES;
-        self.label = [[MenuLabel alloc] initWithText:text fontSize:size color:color padding:padding];
+        self.fontBold = bold;
+        self.label = [[MenuLabel alloc] initWithText:text fontSize:size bold:bold color:color padding:padding];
         self.color = color;
         self.oldColor = color;
         [self addSubview:self.label];

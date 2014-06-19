@@ -265,6 +265,7 @@
         
         MenuButton *button = [[MenuButton alloc] initWithText: string
                                                      fontSize: size
+                                                         bold: YES
                                                         color: color
                                                       padding: UIEdgeInsetsMake(0, 16, 0, 16)
                                                        margin: UIEdgeInsetsMake(8, 9, 7, 10)];

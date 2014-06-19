@@ -225,13 +225,17 @@ typedef enum {
                             @"cannedSummary04": self.cannedSummary04
                             };
     
+    NSDictionary *metrics = @{
+                            @"buttonHeight": @(48)
+                            };
+    
     NSArray *constraints = @[
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[aboutLabel]|" options:0 metrics:nil views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary01]" options:0 metrics:nil views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary02]" options:0 metrics:nil views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary03]" options:0 metrics:nil views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary04]" options:0 metrics:nil views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[aboutLabel]-(5)-[cannedSummary01][cannedSummary02][cannedSummary03][cannedSummary04]-(43)-|" options:0 metrics:nil views:views]
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[aboutLabel]|" options:0 metrics:metrics views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary01]" options:0 metrics:metrics views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary02]" options:0 metrics:metrics views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary03]" options:0 metrics:metrics views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary04]" options:0 metrics:metrics views:views],
+        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[aboutLabel]-(5)-[cannedSummary01(buttonHeight)][cannedSummary02(buttonHeight)][cannedSummary03(buttonHeight)][cannedSummary04(buttonHeight)]-(43)-|" options:0 metrics:metrics views:views]
     ];
     [self.editSummaryContainer addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
 }
@@ -245,7 +249,12 @@ typedef enum {
     CGFloat fontSize = 14;
     
     MenuButton * (^setupButton)(NSString *, NSInteger) = ^MenuButton *(NSString *text, NSInteger tag) {
-        MenuButton *button = [[MenuButton alloc] initWithText:text fontSize:fontSize color:color padding:padding margin:margin];
+        MenuButton *button = [[MenuButton alloc] initWithText: text
+                                                     fontSize: fontSize
+                                                         bold: NO
+                                                        color: color
+                                                      padding: padding
+                                                       margin: margin];
         button.enabled = NO;
         button.tag = tag;
         [button addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonTapped:)]];

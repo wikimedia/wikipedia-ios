@@ -7,6 +7,7 @@
 
 - (instancetype)initWithText: (NSString *)text
                     fontSize: (CGFloat)size
+                        bold: (BOOL)bold
                        color: (UIColor *)color
                      padding: (UIEdgeInsets)padding;
 
