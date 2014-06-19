@@ -111,6 +111,7 @@ typedef enum {
     UIView *tappedItem = userInfo[@"tappedItem"];
 
     switch (tappedItem.tag) {
+        case NAVBAR_BUTTON_X:
         case NAVBAR_BUTTON_ARROW_LEFT:
             [ROOT popViewControllerAnimated:YES];
             

@@ -79,10 +79,7 @@
 -(void)highlightCheckButton:(BOOL)highlight
 {
     WikiGlyphButton *checkButton = (WikiGlyphButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
-    
-    checkButton.backgroundColor = highlight ? WMF_COLOR_GREEN : [UIColor clearColor];
-    
-    checkButton.color = highlight ? [UIColor whiteColor] : [UIColor blackColor];
+    checkButton.enabled = highlight;
 }
 
 // Handle nav bar taps.

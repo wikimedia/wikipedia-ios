@@ -54,6 +54,7 @@
 #import "CoreDataHousekeeping.h"
 #import "Article+Convenience.h"
 #import "NSDate-Utilities.h"
+//#import "AccountCreationViewController.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.3f
 
@@ -1040,6 +1041,12 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+
+    /*
+    AccountCreationViewController *createAcctVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"AccountCreationViewController"];
+
+    [ROOT pushViewController:createAcctVC animated:YES];
+    */
     
     //CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
     //[imageHousekeeping performHouseKeeping];

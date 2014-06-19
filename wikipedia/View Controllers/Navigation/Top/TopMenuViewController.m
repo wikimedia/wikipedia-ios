@@ -36,6 +36,7 @@
 #import "UIViewController+StatusBarHeight.h"
 
 #import "MenuButton.h"
+#import "LoginViewController.h"
 
 @interface TopMenuViewController (){
 
@@ -46,7 +47,6 @@
 @property (strong, nonatomic) WikiGlyphButton *buttonW;
 @property (strong, nonatomic) WikiGlyphButton *buttonTOC;
 @property (strong, nonatomic) WikiGlyphButton *buttonPencil;
-@property (strong, nonatomic) WikiGlyphButton *buttonCheck;
 @property (strong, nonatomic) WikiGlyphButton *buttonX;
 @property (strong, nonatomic) WikiGlyphButton *buttonEye;
 @property (strong, nonatomic) WikiGlyphButton *buttonArrowLeft;
@@ -58,6 +58,7 @@
 @property (strong, nonatomic) MenuButton *buttonNext;
 @property (strong, nonatomic) MenuButton *buttonSave;
 @property (strong, nonatomic) MenuButton *buttonDone;
+@property (strong, nonatomic) MenuButton *buttonCheck;
 
 @property (strong, nonatomic) UILabel *label;
 
@@ -246,7 +247,6 @@
     CGFloat baselineOffset = 2.0;
 
     self.buttonPencil =     getWikiGlyphButton(WIKIGLYPH_PENCIL,             NAVBAR_BUTTON_PENCIL, size, baselineOffset);
-    self.buttonCheck =      getWikiGlyphButton(WIKIGLYPH_TICK,               NAVBAR_BUTTON_CHECK, size, baselineOffset);
     self.buttonX =          getWikiGlyphButton(WIKIGLYPH_X,                  NAVBAR_BUTTON_X, size - 4, baselineOffset - 0.5);
     self.buttonEye =        getWikiGlyphButton(WIKIGLYPH_EYE,                NAVBAR_BUTTON_EYE, size, baselineOffset);
     self.buttonArrowLeft =  getWikiGlyphButton(WIKIGLYPH_CARET_LEFT,         NAVBAR_BUTTON_ARROW_LEFT, size, baselineOffset - 2.0);
@@ -260,15 +260,15 @@
     self.buttonCancel.label.font = [UIFont systemFontOfSize:17.0];
     self.buttonCancel.label.text = MWLocalizedString(@"search-cancel", nil);
 
-    MenuButton *(^getMenuButton)(NSString *, NavBarItemTag, CGFloat, UIColor *) =
-    ^MenuButton *(NSString *string, NavBarItemTag tag, CGFloat size, UIColor *color) {
+    MenuButton *(^getMenuButton)(NSString *, NavBarItemTag, CGFloat, UIColor *, UIEdgeInsets, UIEdgeInsets) =
+    ^MenuButton *(NSString *string, NavBarItemTag tag, CGFloat size, UIColor *color, UIEdgeInsets padding, UIEdgeInsets margin) {
         
         MenuButton *button = [[MenuButton alloc] initWithText: string
                                                      fontSize: size
                                                          bold: YES
                                                         color: color
-                                                      padding: UIEdgeInsetsMake(0, 16, 0, 16)
-                                                       margin: UIEdgeInsetsMake(8, 9, 7, 10)];
+                                                      padding: padding
+                                                       margin: margin];
         
         [button addGestureRecognizer:
          [[UITapGestureRecognizer alloc] initWithTarget: self
@@ -280,13 +280,17 @@
 
     UIColor *blueColor = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0];
     UIColor *greenColor = [UIColor colorWithRed:0.08 green:0.64 blue:0.46 alpha:1.0];
+    UIEdgeInsets padding = UIEdgeInsetsMake(0, 16, 0, 16);
+    UIEdgeInsets margin = UIEdgeInsetsMake(8, 9, 7, 10);
 
     self.buttonNext =
-        getMenuButton(MWLocalizedString(@"button-next", nil), NAVBAR_BUTTON_NEXT, 14, blueColor);
+        getMenuButton(MWLocalizedString(@"button-next", nil), NAVBAR_BUTTON_NEXT, 14, blueColor, padding, margin);
     self.buttonSave =
-        getMenuButton(MWLocalizedString(@"button-save", nil), NAVBAR_BUTTON_SAVE, 14, greenColor);
+        getMenuButton(MWLocalizedString(@"button-save", nil), NAVBAR_BUTTON_SAVE, 14, greenColor, padding, margin);
     self.buttonDone =
-        getMenuButton(MWLocalizedString(@"button-done", nil), NAVBAR_BUTTON_DONE, 14, blueColor);
+        getMenuButton(MWLocalizedString(@"button-done", nil), NAVBAR_BUTTON_DONE, 14, blueColor, padding, margin);
+    self.buttonCheck =
+        getMenuButton(WIKIGLYPH_TICK, NAVBAR_BUTTON_CHECK, 25, blueColor, UIEdgeInsetsMake(0, 0, 2, 0), UIEdgeInsetsMake(9, 0, 9, 8));
 
     // Ensure the cancel button content is hugged more tightly than the search text box.
     // Otherwise on iOS 6 the cancel button is super wide.
@@ -321,7 +325,7 @@
     self.label.text = @"";
     self.label.translatesAutoresizingMaskIntoConstraints = NO;
     self.label.tag = NAVBAR_LABEL;
-    self.label.font = [UIFont systemFontOfSize:21.0];
+    self.label.font = [UIFont systemFontOfSize:19.0];
     self.label.textAlignment = NSTextAlignmentCenter;
     
     self.label.adjustsFontSizeToFitWidth = YES;
@@ -391,6 +395,7 @@
     _navBarMode = navBarMode;
 
     PreviewAndSaveViewController *previewAndSaveVC = [NAV searchNavStackForViewControllerOfClass:[PreviewAndSaveViewController class]];
+    LoginViewController *loginVC = [NAV searchNavStackForViewControllerOfClass:[LoginViewController class]];
 
     switch (navBarMode) {
         case NAVBAR_MODE_EDIT_WIKITEXT:
@@ -399,13 +404,15 @@
                 @"H:|-(4)-[NAVBAR_BUTTON_ARROW_LEFT(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_NEXT(50@250)]|";
             break;
         case NAVBAR_MODE_LOGIN:
-            self.label.text = (!previewAndSaveVC) ?
-                MWLocalizedString(@"navbar-title-mode-login", nil)
-                :
-                MWLocalizedString(@"navbar-title-mode-login-and-save", nil)
-            ;
-            self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(50)]|";
+            if(!previewAndSaveVC){
+                self.label.text = MWLocalizedString(@"navbar-title-mode-login", nil);
+                self.navBarSubViewsHorizontalVFLString =
+                    @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(60)]|";
+            }else{
+                self.label.text = MWLocalizedString(@"navbar-title-mode-login-and-save", nil);
+                self.navBarSubViewsHorizontalVFLString =
+                    @"H:|-(4)-[NAVBAR_BUTTON_ARROW_LEFT(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(60)]|";
+            }
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_SAVE:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-save", nil);
@@ -418,13 +425,19 @@
                 :
                 MWLocalizedString(@"navbar-title-mode-create-account-and-save", nil)
             ;
-            self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_ARROW_LEFT(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(50)]|";
+            if(loginVC){
+                self.navBarSubViewsHorizontalVFLString =
+                    @"H:|-(4)-[NAVBAR_BUTTON_ARROW_LEFT(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(60)]|";
+            }else{
+                self.navBarSubViewsHorizontalVFLString =
+                    @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(60)]|";
+            }
+            
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-warning", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(50)]|";
+                @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(60)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-disallow", nil);

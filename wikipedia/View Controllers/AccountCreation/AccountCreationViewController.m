@@ -115,10 +115,7 @@
 -(void)highlightCheckButton:(BOOL)highlight
 {
     WikiGlyphButton *checkButton = (WikiGlyphButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
-    
-    checkButton.backgroundColor = highlight ? WMF_COLOR_BLUE : [UIColor clearColor];
-    
-    checkButton.color = highlight ? [UIColor whiteColor] : [UIColor blackColor];
+    checkButton.enabled = highlight;
 }
 
 -(void)prepopulateTextFieldsForDebugging
@@ -137,6 +134,8 @@
     ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
 
     [self highlightCheckButton:NO];
+
+    [self showAlert:@""];
 
     [super viewWillDisappear:animated];
 }
@@ -251,6 +250,7 @@
         case NAVBAR_BUTTON_CHECK:
             [self save];
             break;
+        case NAVBAR_BUTTON_X:
         case NAVBAR_BUTTON_ARROW_LEFT:
             [self hide];
             break;
