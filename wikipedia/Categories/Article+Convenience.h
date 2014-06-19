@@ -12,6 +12,8 @@
 // larger than 99 x 99 px.
 - (UIImage *)getThumbnailUsingContext:(NSManagedObjectContext *)context;
 
+- (void)ifNoThumbnailUseFirstSectionImageAsThumbnailUsingContext:(NSManagedObjectContext *)context;
+
 - (NSURL *)desktopURL;
 
 @end

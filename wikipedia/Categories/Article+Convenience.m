@@ -102,4 +102,25 @@
     return encodedUrlString ? [NSURL URLWithString:encodedUrlString] : nil;
 }
 
+- (void)ifNoThumbnailUseFirstSectionImageAsThumbnailUsingContext:(NSManagedObjectContext *)context;
+{
+    // If article has no thumbnailImage, use the first section image instead.
+    if (!self.thumbnailImage) {
+        [context performBlockAndWait:^(){
+            NSArray *firstSectionImage = [self getFirstSectionImageLargerThanSize:THUMBNAIL_MINIMUM_SIZE_TO_CACHE usingContext:context];
+            if (firstSectionImage.count == 1) {
+                SectionImage *sectionImage = (SectionImage *)firstSectionImage[0];
+                self.thumbnailImage = sectionImage.image;
+
+                NSError *error = nil;
+                [context save:&error];
+                if (error) {
+                    NSLog(@"\n\nerror = %@\n\n", error);
+                    NSLog(@"\n\nerror = %@\n\n", error.localizedDescription);
+                }
+            }
+        }];
+    }
+}
+
 @end

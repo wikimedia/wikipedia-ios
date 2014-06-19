@@ -3,6 +3,7 @@
 
 #import "AppDelegate.h"
 #import "URLCache.h"
+#import "NSDate-Utilities.h"
 
 @implementation AppDelegate
 
@@ -56,7 +57,8 @@
         @"ZeroWarnWhenLeaving" : @YES,
         @"ZeroOnDialogShownOnce" : @NO,
         @"ZeroOffDialogShownOnce" : @NO,
-        @"FakeZeroOn" : @NO
+        @"FakeZeroOn" : @NO,
+        @"LastHousekeepingDate" : [NSDate date] //[NSDate dateWithDaysBeforeNow:10]
     };
     [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];
 }

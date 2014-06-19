@@ -81,6 +81,7 @@
 		048A26771906268100395F53 /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048A26761906268100395F53 /* PaddedLabel.m */; };
 		0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */; };
 		0493C2D619526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D519526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf */; };
+		0493C2CC1952373100EBB973 /* CoreDataHousekeeping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0493C2CB1952373100EBB973 /* CoreDataHousekeeping.m */; };
 		049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049566C118F5F4CB0058EA12 /* ZeroConfigState.m */; };
 		04992BC018B687AF00A6C22B /* SearchOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04992BBF18B687AF00A6C22B /* SearchOp.m */; };
 		04992BC418B6971F00A6C22B /* SearchThumbUrlsOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04992BC318B6971F00A6C22B /* SearchThumbUrlsOp.m */; };
@@ -319,6 +320,8 @@
 		0493C2D219525F8E00EBB973 /* WikiGlyph_Chars_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikiGlyph_Chars_iOS.h; sourceTree = "<group>"; };
 		0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs.ttf"; sourceTree = "<group>"; };
 		0493C2D519526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs-iOS.ttf"; sourceTree = "<group>"; };
+		0493C2CA1952373100EBB973 /* CoreDataHousekeeping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHousekeeping.h; sourceTree = "<group>"; };
+		0493C2CB1952373100EBB973 /* CoreDataHousekeeping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHousekeeping.m; sourceTree = "<group>"; };
 		049566C018F5F4CB0058EA12 /* ZeroConfigState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZeroConfigState.h; sourceTree = "<group>"; };
 		049566C118F5F4CB0058EA12 /* ZeroConfigState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZeroConfigState.m; sourceTree = "<group>"; };
 		04992BBE18B687AF00A6C22B /* SearchOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchOp.h; sourceTree = "<group>"; };
@@ -920,6 +923,15 @@
 			path = PaddedLabel;
 			sourceTree = "<group>";
 		};
+		0493C2C91952373100EBB973 /* Housekeeping */ = {
+			isa = PBXGroup;
+			children = (
+				0493C2CA1952373100EBB973 /* CoreDataHousekeeping.h */,
+				0493C2CB1952373100EBB973 /* CoreDataHousekeeping.m */,
+			);
+			path = Housekeeping;
+			sourceTree = "<group>";
+		};
 		049566BF18F5F4CB0058EA12 /* Zero */ = {
 			isa = PBXGroup;
 			children = (
@@ -1372,6 +1384,7 @@
 				D4B0ADFF19365F4600F0AC90 /* EventLogging */,
 				0442F57C1900718600F55DF9 /* Fonts */,
 				04D34DA31863D2D600610A87 /* HTML Parsing */,
+				0493C2C91952373100EBB973 /* Housekeeping */,
 				0466F44C183A30CC00EA1FD7 /* Images */,
 				0463639518A844380049EE4F /* Keychain */,
 				04B60509193522650007185A /* MenuButton */,
@@ -1775,6 +1788,7 @@
 				04B78A5318A580AF0050EBF5 /* LoginOp.m in Sources */,
 				04530AF51935BF4D00022512 /* ModalMenuAndContentViewController.m in Sources */,
 				041A3B6218E11ED90079FF1C /* LanguagesTableVC.m in Sources */,
+				0493C2CC1952373100EBB973 /* CoreDataHousekeeping.m in Sources */,
 				04D34DAD1863D2D600610A87 /* TFHppleElement.m in Sources */,
 				043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */,
 				0412CC621925366C0010E616 /* RootViewController.m in Sources */,

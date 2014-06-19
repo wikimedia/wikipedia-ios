@@ -51,6 +51,10 @@
 
 #import "EditFunnel.h"
 
+#import "CoreDataHousekeeping.h"
+#import "Article+Convenience.h"
+#import "NSDate-Utilities.h"
+
 #define TOC_TOGGLE_ANIMATION_DURATION @0.3f
 
 typedef enum {
@@ -213,7 +217,23 @@ typedef enum {
     // viewDidLoad to fire.
     [self downloadAssetsFilesIfNecessary];
 
+    [self performHousekeepingIfNecessary];
+
     //[self.view randomlyColorSubviews];
+}
+
+-(void)performHousekeepingIfNecessary
+{
+    NSDate *lastHousekeepingDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastHousekeepingDate"];
+    NSInteger daysSinceLastHouseKeeping = [[NSDate date] daysAfterDate:lastHousekeepingDate];
+    NSLog(@"daysSinceLastHouseKeeping = %d", daysSinceLastHouseKeeping);
+    if (daysSinceLastHouseKeeping > 1) {
+        NSLog(@"Performing housekeeping...");
+        CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
+        [imageHousekeeping performHouseKeeping];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"LastHousekeepingDate"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -1021,6 +1041,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
     
+    //CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
+    //[imageHousekeeping performHouseKeeping];
+    
     // Do not remove the following commented toggle. It's for testing W0 stuff.
     //[[SessionSingleton sharedInstance].zeroConfigState toggleFakeZeroOn];
 }
@@ -1403,6 +1426,13 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         }
         if (mode == DISPLAY_LEAD_SECTION) break;
     }
+    
+    // If article has no thumbnailImage, use the first section image instead.
+    // Actually sets article.thumbnailImage to point to the image record of the first section
+    // image. That way, if the housekeeping code removes all section images, it won't remove this
+    // particular one because it checks to see if an article is referencing an image before it
+    // removes them.
+    [article ifNoThumbnailUseFirstSectionImageAsThumbnailUsingContext:articleDataContext_.mainContext];
 
     // Pull the scroll offset out so the article object doesn't have to be passed into the block below.
     CGPoint scrollOffset = CGPointMake(article.lastScrollX.floatValue, article.lastScrollY.floatValue);

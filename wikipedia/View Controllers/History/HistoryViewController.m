@@ -18,7 +18,6 @@
 #import "TopMenuContainerView.h"
 #import "TopMenuViewController.h"
 #import "UIViewController+StatusBarHeight.h"
-#import "Image+Convenience.h"
 
 #define HISTORY_THUMBNAIL_WIDTH 110
 #define HISTORY_RESULT_HEIGHT 66
@@ -255,7 +254,6 @@
     //NSLog(@"GARBAGE COUNT = %lu", (unsigned long)garbage.count);
     //NSLog(@"GARBAGE = %@", garbage);
     if (garbage.count == 0) return;
-    NSMutableArray *imagesToCollect = [[NSMutableArray alloc] init];
 
     [articleDataContext_.mainContext performBlockAndWait:^(){
         for (NSManagedObjectID *historyID in garbage) {
@@ -272,34 +270,14 @@
 
             // Article deletes don't cascade to images (intentionally) so delete these manually.
             if (thumb) [articleDataContext_.mainContext deleteObject:thumb];
-            
-            if (article) {
-                // Section images might be used in multiple articles, so list them up
-                // and kill them only after we've cleaned up the sections and can confirm
-                // they are no longer used...
-                for (Section *section in article.section) {
-                    for (SectionImage *sectionImage in section.sectionImage) {
-                        Image *image = sectionImage.image;
-                        [imagesToCollect addObject:image];
-                    }
-                }
-            }
 
             // Delete the article
             if (article) [articleDataContext_.mainContext deleteObject:article];
-        }
 
+        }
         NSError *error = nil;
         [articleDataContext_.mainContext save:&error];
-        if (error) NSLog(@"GARBAGE pass 1 error = %@", error);
-
-        // Now clean up the images that aren't used in remaining pages
-        for (Image *image in imagesToCollect) {
-            [image deleteIfUnused];
-        }
-        // and save again...
-        [articleDataContext_.mainContext save:&error];
-        if (error) NSLog(@"GARBAGE pass 2 error = %@", error);
+        if (error) NSLog(@"GARBAGE error = %@", error);
 
     }];
 }
