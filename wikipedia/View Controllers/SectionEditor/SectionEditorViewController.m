@@ -149,7 +149,7 @@
             }
             [self preview];
             break;
-        case NAVBAR_BUTTON_X:
+        case NAVBAR_BUTTON_ARROW_LEFT:
             [self cancelPushed:nil];
             break;
         case NAVBAR_LABEL:

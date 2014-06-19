@@ -719,6 +719,7 @@
                         <outlet property="captchaScrollContainer" destination="Vcy-cO-aq9" id="IDo-A8-Qm1"/>
                         <outlet property="captchaScrollView" destination="w3I-Dk-osW" id="l8P-Gg-hc7"/>
                         <outlet property="editSummaryContainer" destination="S0n-wB-7Lg" id="Av3-yX-D59"/>
+                        <outlet property="previewLicenseView" destination="3pQ-2n-Y9V" id="AY6-fH-AiY"/>
                         <outlet property="previewWebView" destination="EhD-15-Yw7" id="syP-Dy-I4o"/>
                         <outlet property="previewWebViewHeightConstraint" destination="B1F-i9-AK6" id="4Hg-QS-eBF"/>
                     </connections>

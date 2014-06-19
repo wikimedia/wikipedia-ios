@@ -13,7 +13,7 @@
 #import "UINavigationController+SearchNavStack.h"
 #import "CenterNavController.h"
 #import "NSString+Extras.h"
-#import "WMF_WikiFont_Chars.h"
+#import "WikiGlyph_Chars.h"
 
 #import "TopMenuContainerView.h"
 #import "TopMenuViewController.h"
@@ -550,13 +550,13 @@
     NSString *wikiFontCharacter = nil;;
     switch (discoveryMethod) {
         case DISCOVERY_METHOD_RANDOM:
-            wikiFontCharacter = WIKIFONT_CHAR_DICE;
+            wikiFontCharacter = WIKIGLYPH_DICE;
             break;
         case DISCOVERY_METHOD_LINK:
-            wikiFontCharacter = WIKIFONT_CHAR_LINK;
+            wikiFontCharacter = WIKIGLYPH_LINK;
             break;
         default:
-            wikiFontCharacter = WIKIFONT_CHAR_MAGNIFYING_GLASS;
+            wikiFontCharacter = WIKIGLYPH_MAGNIFYING_GLASS;
             break;
     }
     
@@ -564,7 +564,7 @@
     CGFloat fontSize = 20;
     NSDictionary *attributes =
         @{
-            NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Regular" size:fontSize],
+            NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:fontSize],
             NSForegroundColorAttributeName : iconColor,
             NSBaselineOffsetAttributeName: @1
         };

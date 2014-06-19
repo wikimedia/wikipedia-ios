@@ -4,7 +4,7 @@
 #import "PrimaryMenuViewController.h"
 #import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
-#import "WMF_WikiFont_Chars.h"
+#import "WikiGlyph_Chars.h"
 #import "PrimaryMenuTableViewCell.h"
 #import "NSString+extras.h"
 #import "WikipediaAppUtils.h"
@@ -76,7 +76,7 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     [self setupTableData];
     //[self randomizeTitles];
 
-    [self.moreButton.label setWikiText: WIKIFONT_CHAR_ELLIPSIS
+    [self.moreButton.label setWikiText: WIKIGLYPH_ELLIPSIS
                                  color: [UIColor darkGrayColor]
                                   size: 64
                         baselineOffset: 2.0

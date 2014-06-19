@@ -8,7 +8,7 @@
 #import "UINavigationController+SearchNavStack.h"
 #import "SessionSingleton.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
-#import "WMF_WikiFont_Chars.h"
+#import "WikiGlyph_Chars_iOS.h"
 #import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
 #import "UIViewController+Alert.h"
@@ -53,20 +53,21 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     UIColor *buttonColor = [UIColor blackColor];
     CGFloat buttonTextSize = 34;
 
-    [self.backButton.label setWikiText: WIKIFONT_CHAR_IOS_BACKWARD
+    [self.backButton.label setWikiText: IOS_WIKIGLYPH_BACKWARD
                                  color: buttonColor
                                   size: buttonTextSize
                         baselineOffset: 2.0];
     self.backButton.tag = BOTTOM_MENU_BUTTON_PREVIOUS;
     
-    [self.forwardButton.label setWikiText: WIKIFONT_CHAR_IOS_FORWARD
+    [self.forwardButton.label setWikiText: IOS_WIKIGLYPH_FORWARD
                                     color: buttonColor
                                      size: buttonTextSize
                            baselineOffset: 2.0
      ];
     self.forwardButton.tag = BOTTOM_MENU_BUTTON_NEXT;
-    
-    [self.rightButton.label setWikiText: WIKIFONT_CHAR_IOS_SHARE
+    // self.forwardButton.label.transform = CGAffineTransformMakeScale(-1, 1);
+
+    [self.rightButton.label setWikiText: IOS_WIKIGLYPH_SHARE
                                   color: buttonColor
                                    size: buttonTextSize
                          baselineOffset: 2.0

@@ -32,6 +32,7 @@
 #import "MenuButton.h"
 #import "EditSummaryViewController.h"
 #import "UIViewController+PresentModal.h"
+#import "PreviewLicenseView.h"
 
 typedef enum {
     CANNED_SUMMARY_TYPOS = 0,
@@ -58,6 +59,9 @@ typedef enum {
 @property (strong, nonatomic) MenuButton *cannedSummary03;
 @property (strong, nonatomic) MenuButton *cannedSummary04;
 @property (nonatomic) CGFloat borderWidth;
+
+@property (weak, nonatomic) IBOutlet PreviewLicenseView *previewLicenseView;
+@property (strong, nonatomic) UIGestureRecognizer *previewLabelTapGestureRecognizer;
 
 @end
 
@@ -107,7 +111,7 @@ typedef enum {
     UIView *tappedItem = userInfo[@"tappedItem"];
 
     switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_X:
+        case NAVBAR_BUTTON_ARROW_LEFT:
             [ROOT popViewControllerAnimated:YES];
             
             if(ROOT.topMenuViewController.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING){
@@ -227,7 +231,7 @@ typedef enum {
         [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary02]" options:0 metrics:nil views:views],
         [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary03]" options:0 metrics:nil views:views],
         [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary04]" options:0 metrics:nil views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[aboutLabel]-(5)-[cannedSummary01][cannedSummary02][cannedSummary03][cannedSummary04]-(50)-|" options:0 metrics:nil views:views]
+        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[aboutLabel]-(5)-[cannedSummary01][cannedSummary02][cannedSummary03][cannedSummary04]-(43)-|" options:0 metrics:nil views:views]
     ];
     [self.editSummaryContainer addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
 }
@@ -322,7 +326,32 @@ typedef enum {
     // Highlight the "Other" button if the user entered some "other" text.
     self.cannedSummary04.enabled = (self.summaryText.length > 0) ? YES : NO;
 
+    BOOL userIsloggedIn = [SessionSingleton sharedInstance].keychainCredentials.userName ? YES : NO;
+    if (userIsloggedIn) {
+        self.previewLicenseView.licenseLoginLabel.userInteractionEnabled = NO;
+        self.previewLicenseView.licenseLoginLabel.attributedText = nil;
+    }else{
+        self.previewLicenseView.licenseLoginLabel.userInteractionEnabled = YES;
+    }
+
+    self.previewLabelTapGestureRecognizer =
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(licenseLabelTapped:)];
+    [self.previewLicenseView.licenseLoginLabel addGestureRecognizer:self.previewLabelTapGestureRecognizer];
+
     [super viewWillAppear:animated];
+}
+
+-(void)licenseLabelTapped:(UIGestureRecognizer *)recognizer
+{
+    // Call if user taps the blue "Log In" text in the CC text.
+    self.saveAutomaticallyIfSignedIn = YES;
+    LoginViewController *loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    loginVC.funnel = [[LoginFunnel alloc] init];
+    [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
+
+//TODO: decide if this should be presented as a modal.
+
+    [ROOT pushViewController:loginVC animated:YES];
 }
 
 -(void)highlightCaptchaSubmitButton:(BOOL)highlight
@@ -347,6 +376,8 @@ typedef enum {
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: @"TabularScrollViewItemTapped"
                                                   object: nil];
+
+    [self.previewLicenseView.licenseLoginLabel removeGestureRecognizer:self.previewLabelTapGestureRecognizer];
 
     [super viewWillDisappear:animated];
 }
@@ -722,19 +753,6 @@ typedef enum {
         ",
     warningHtml];
 }
-
-/*
-save this and call it if the user taps the blue "Log In" text in the CC text
-            self.saveAutomaticallyIfSignedIn = YES;
-            LoginViewController *loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-            loginVC.funnel = [[LoginFunnel alloc] init];
-            [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
-            [ROOT pushViewController:loginVC animated:YES];
-
-
-
-*/
-
 
 /*
 this save call was invoked when old sign-in/save-anon choice was presented and user selected save-anon.

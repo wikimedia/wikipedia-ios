@@ -4,8 +4,9 @@
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
 #import "NSString+FormattedAttributedString.h"
+#import "WikiGlyph_Chars.h"
 
-#define PREVIEW_BLUE_COLOR [UIColor colorWithRed:0.13 green:0.42 blue:0.68 alpha:1.0]
+#define PREVIEW_BLUE_COLOR [UIColor colorWithRed:0.2 green:0.4784 blue:1.0 alpha:1.0]
 
 //#import "NSString+Extras.h"
 
@@ -34,16 +35,19 @@
 
 -(void)didMoveToSuperview
 {
-    UIEdgeInsets padding = UIEdgeInsetsZero;
-    self.licenseTitleLabel.padding = padding;
+    self.licenseTitleLabel.padding = UIEdgeInsetsMake(2, 0, 0, 0);
 
     self.licenseTitleLabel.text = MWLocalizedString(@"wikitext-upload-save-license", nil);
-    
+    [self underlineLicenseName:self.licenseTitleLabel];
+
+    self.licenseLoginLabel.text = MWLocalizedString(@"wikitext-upload-save-anonymously-warning", nil);
+    [self underlineSignIn:self.licenseLoginLabel];
+
+    self.licenseCCLabel.attributedText = [self getCCIconAttributedString];
+
     self.bottomDividerHeight.constant = self.hideBottomDivider ? 0.0 : 1.0f / [UIScreen mainScreen].scale;
 
     self.topDividerHeight.constant = self.hideTopDivider ? 0.0 : 1.0f / [UIScreen mainScreen].scale;
-
-    [self underlineLicenseName:self.licenseTitleLabel];
 
     //self.licenseTitleLabel.text = [@" abc " randomlyRepeatMaxTimes:100];
 }
@@ -64,12 +68,33 @@
     return previewLicenseView;
 }
 
--(void)underlineLicenseName:(UILabel *)licenseLabel
+-(void)underlineLicenseName:(UILabel *)label
 {
     NSDictionary *baseAttributes =
         @{
-            NSForegroundColorAttributeName: licenseLabel.textColor,
-            NSFontAttributeName: licenseLabel.font
+            NSForegroundColorAttributeName: label.textColor,
+            NSFontAttributeName: label.font
+        };
+
+    NSDictionary *substitutionAttributes =
+        @{
+            //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+            NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
+        };
+    
+    label.attributedText =
+    [label.text attributedStringWithAttributes: baseAttributes
+                           substitutionStrings: @[MWLocalizedString(@"wikitext-upload-save-license-name", nil)]
+                        substitutionAttributes: @[substitutionAttributes]
+     ];
+}
+
+-(void)underlineSignIn:(UILabel *)label
+{
+    NSDictionary *baseAttributes =
+        @{
+            NSForegroundColorAttributeName: label.textColor,
+            NSFontAttributeName: label.font
         };
 
     NSDictionary *substitutionAttributes =
@@ -78,11 +103,21 @@
             NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
         };
     
-    licenseLabel.attributedText =
-    [licenseLabel.text attributedStringWithAttributes: baseAttributes
-                                  substitutionStrings: @[MWLocalizedString(@"wikitext-upload-save-license-name", nil)]
-                               substitutionAttributes: @[substitutionAttributes]
+    label.attributedText =
+    [label.text attributedStringWithAttributes: baseAttributes
+                           substitutionStrings: @[MWLocalizedString(@"wikitext-upload-save-sign-in", nil)]
+                        substitutionAttributes: @[substitutionAttributes]
      ];
+}
+
+-(NSAttributedString *)getCCIconAttributedString
+{
+    return [[NSAttributedString alloc] initWithString: WIKIGLYPH_CC
+                                           attributes: @{
+                                                         NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:42],
+                                                         NSForegroundColorAttributeName : PREVIEW_BLUE_COLOR,
+                                                         NSBaselineOffsetAttributeName: @1.5
+                                                         }];
 }
 
 @end

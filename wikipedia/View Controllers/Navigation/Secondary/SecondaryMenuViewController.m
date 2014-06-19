@@ -18,7 +18,7 @@
 
 #import "SecondaryMenuRowView.h"
 
-#import "WMF_WikiFont_Chars.h"
+#import "WikiGlyph_Chars.h"
 
 #import "TopMenuContainerView.h"
 #import "TopMenuViewController.h"
@@ -260,7 +260,7 @@ typedef enum {
 
         NSDictionary *attributes =
             @{
-              NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Regular" size:MENU_ICON_FONT_SIZE],
+              NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:MENU_ICON_FONT_SIZE],
               NSForegroundColorAttributeName : iconColor,
               NSBaselineOffsetAttributeName: @2
               };
@@ -307,7 +307,7 @@ typedef enum {
       @{
           @"title": @"",
           @"tag": @(SECONDARY_MENU_ROW_INDEX_LOGIN),
-          @"icon": WIKIFONT_CHAR_USER_SLEEP,
+          @"icon": WIKIGLYPH_USER_SLEEP,
           @"highlighted": @YES,
           }.mutableCopy
       ,
@@ -315,14 +315,14 @@ typedef enum {
       @{
           @"title": MWLocalizedString(@"main-menu-show-saved", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_SAVED_PAGES),
-          @"icon": WIKIFONT_CHAR_BOOKMARK,
+          @"icon": WIKIGLYPH_BOOKMARK,
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": saveArticleTitle,
           @"tag": @(SECONDARY_MENU_ROW_INDEX_SAVE_PAGE),
-          @"icon": WIKIFONT_CHAR_DOWNLOAD,
+          @"icon": WIKIGLYPH_DOWNLOAD,
           @"highlighted": @YES,
           }.mutableCopy
       ,
@@ -331,14 +331,14 @@ typedef enum {
           @"domain": [SessionSingleton sharedInstance].domain,
           @"title": searchWikiTitle,
           @"tag": @(SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE),
-          @"icon": WIKIFONT_CHAR_TRANSLATE,
+          @"icon": WIKIGLYPH_TRANSLATE,
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": pageHistoryTitle,
           @"tag": @(SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY),
-          @"icon": WIKIFONT_CHAR_LINK,
+          @"icon": WIKIGLYPH_LINK,
           @"highlighted": @YES,
           }.mutableCopy
         ,
@@ -346,21 +346,21 @@ typedef enum {
           @"domain": [SessionSingleton sharedInstance].domain,
           @"title": MWLocalizedString(@"main-menu-credits", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_CREDITS),
-          @"icon": WIKIFONT_CHAR_PUZZLE,
+          @"icon": WIKIGLYPH_PUZZLE,
           @"highlighted": @YES,
           }.mutableCopy
         ,
       @{
           @"title": MWLocalizedString(@"main-menu-send-feedback", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK),
-          @"icon": WIKIFONT_CHAR_ENVELOPE,
+          @"icon": WIKIGLYPH_ENVELOPE,
           @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": MWLocalizedString(@"zero-warn-when-leaving", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING),
-          @"icon": WIKIFONT_CHAR_FLAG,
+          @"icon": WIKIGLYPH_FLAG,
           @"highlighted": @([SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving),
           }.mutableCopy
       ].mutableCopy;
@@ -392,10 +392,10 @@ typedef enum {
                             substitutionAttributes: @[self.highlightedTextAttributes]
          ];
         
-        loginIcon = WIKIFONT_CHAR_USER_SMILE;
+        loginIcon = WIKIGLYPH_USER_SMILE;
     }else{
         loginTitle = MWLocalizedString(@"main-menu-account-login", nil);
-        loginIcon = WIKIFONT_CHAR_USER_SLEEP;
+        loginIcon = WIKIGLYPH_USER_SLEEP;
     }
     
     NSMutableDictionary *row = [self getRowWithTag:SECONDARY_MENU_ROW_INDEX_LOGIN];

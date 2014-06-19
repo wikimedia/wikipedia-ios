@@ -48,7 +48,6 @@
 		043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */; };
 		044213C8191C3C2A006C03BF /* SyncAssetsFileOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 044213C7191C3C2A006C03BF /* SyncAssetsFileOp.m */; };
 		0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0442F57A19006DCC00F55DF9 /* PageHistoryLabel.m */; };
-		0442F57E190071A100F55DF9 /* WikiFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0442F57D190071A100F55DF9 /* WikiFont.ttf */; };
 		0447862F185145090050563B /* HistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04478621185145090050563B /* HistoryResultCell.m */; };
 		04478631185145090050563B /* HistoryResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04478622185145090050563B /* HistoryResultPrototypeView.xib */; };
 		04478633185145090050563B /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04478624185145090050563B /* HistoryViewController.m */; };
@@ -80,6 +79,8 @@
 		047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047ED63818C13E4900442BE3 /* PreviewWebView.m */; };
 		047FF5471889078C009DB293 /* Image+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 047FF5461889078C009DB293 /* Image+Convenience.m */; };
 		048A26771906268100395F53 /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048A26761906268100395F53 /* PaddedLabel.m */; };
+		0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */; };
+		0493C2D619526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D519526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf */; };
 		049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049566C118F5F4CB0058EA12 /* ZeroConfigState.m */; };
 		04992BC018B687AF00A6C22B /* SearchOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04992BBF18B687AF00A6C22B /* SearchOp.m */; };
 		04992BC418B6971F00A6C22B /* SearchThumbUrlsOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04992BC318B6971F00A6C22B /* SearchThumbUrlsOp.m */; };
@@ -256,7 +257,6 @@
 		044213C7191C3C2A006C03BF /* SyncAssetsFileOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncAssetsFileOp.m; sourceTree = "<group>"; };
 		0442F57919006DCC00F55DF9 /* PageHistoryLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageHistoryLabel.h; sourceTree = "<group>"; };
 		0442F57A19006DCC00F55DF9 /* PageHistoryLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageHistoryLabel.m; sourceTree = "<group>"; };
-		0442F57D190071A100F55DF9 /* WikiFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WikiFont.ttf; sourceTree = "<group>"; };
 		04478620185145090050563B /* HistoryResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryResultCell.h; sourceTree = "<group>"; };
 		04478621185145090050563B /* HistoryResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryResultCell.m; sourceTree = "<group>"; };
 		04478622185145090050563B /* HistoryResultPrototypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryResultPrototypeView.xib; sourceTree = "<group>"; };
@@ -298,7 +298,7 @@
 		0472BC17193AD88C00C40BDA /* Section+DisplayHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Section+DisplayHtml.m"; sourceTree = "<group>"; };
 		04735E5E18A5B42D00C89C30 /* LoginTokenOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTokenOp.h; sourceTree = "<group>"; };
 		04735E5F18A5B42D00C89C30 /* LoginTokenOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTokenOp.m; sourceTree = "<group>"; };
-		047528A3190F0C2900F2CDA8 /* WMF_WikiFont_Chars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMF_WikiFont_Chars.h; sourceTree = "<group>"; };
+		047528A3190F0C2900F2CDA8 /* WikiGlyph_Chars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikiGlyph_Chars.h; sourceTree = "<group>"; };
 		047528AD19107DAA00F2CDA8 /* Section.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Section.h; sourceTree = "<group>"; };
 		047528AE19107DAA00F2CDA8 /* Section.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Section.m; sourceTree = "<group>"; };
 		047528B01913110000F2CDA8 /* Section+LeadSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Section+LeadSection.h"; sourceTree = "<group>"; };
@@ -316,6 +316,9 @@
 		047FF5461889078C009DB293 /* Image+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Image+Convenience.m"; sourceTree = "<group>"; };
 		048A26751906268100395F53 /* PaddedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddedLabel.h; sourceTree = "<group>"; };
 		048A26761906268100395F53 /* PaddedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddedLabel.m; sourceTree = "<group>"; };
+		0493C2D219525F8E00EBB973 /* WikiGlyph_Chars_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikiGlyph_Chars_iOS.h; sourceTree = "<group>"; };
+		0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs.ttf"; sourceTree = "<group>"; };
+		0493C2D519526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs-iOS.ttf"; sourceTree = "<group>"; };
 		049566C018F5F4CB0058EA12 /* ZeroConfigState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZeroConfigState.h; sourceTree = "<group>"; };
 		049566C118F5F4CB0058EA12 /* ZeroConfigState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZeroConfigState.m; sourceTree = "<group>"; };
 		04992BBE18B687AF00A6C22B /* SearchOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchOp.h; sourceTree = "<group>"; };
@@ -717,7 +720,8 @@
 			children = (
 				04292FFC185FC026002A13FC /* Defines.h */,
 				043F18F118DCDD3A00D8489A /* WMF_Colors.h */,
-				047528A3190F0C2900F2CDA8 /* WMF_WikiFont_Chars.h */,
+				047528A3190F0C2900F2CDA8 /* WikiGlyph_Chars.h */,
+				0493C2D219525F8E00EBB973 /* WikiGlyph_Chars_iOS.h */,
 			);
 			path = Defines;
 			sourceTree = "<group>";
@@ -815,7 +819,8 @@
 		0442F57C1900718600F55DF9 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				0442F57D190071A100F55DF9 /* WikiFont.ttf */,
+				0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */,
+				0493C2D519526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -1594,6 +1599,8 @@
 				D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */,
 				04082B5318ADA25A00FAF3D6 /* text_field_x_circle_gray.png in Resources */,
 				04478631185145090050563B /* HistoryResultPrototypeView.xib in Resources */,
+				0493C2D619526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf in Resources */,
+				0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */,
 				04F27B7618FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib in Resources */,
 				04292FF4185FBA70002A13FC /* SearchResultPrototypeView.xib in Resources */,
 				C9928B8818AD5E1000FCCA9A /* Settings.bundle in Resources */,
@@ -1605,7 +1612,6 @@
 				04123636189C29EA00E0CF8E /* abuse-filter-flag-white.png in Resources */,
 				04090A33187F53E400577EDF /* clear.png in Resources */,
 				0412362E189C29EA00E0CF8E /* abuse-filter-disallowed.png in Resources */,
-				0442F57E190071A100F55DF9 /* WikiFont.ttf in Resources */,
 				04082B5518ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png in Resources */,
 				0466F450183A30CC00EA1FD7 /* logo-search-placeholder@2x.png in Resources */,
 				045A9F0D18F6090E0057EA85 /* assets in Resources */,

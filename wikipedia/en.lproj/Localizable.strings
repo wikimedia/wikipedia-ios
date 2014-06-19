@@ -49,11 +49,11 @@
 "wikitext-upload-captcha-needed" = "Need CAPTCHA verification.";
 "wikitext-upload-save" = "Saving...";
 
-"wikitext-upload-save-sign-in" = "Sign in and save";
+"wikitext-upload-save-sign-in" = "Sign in";
 "wikitext-upload-save-sign-in-benefits" = "So co-editors can connect with you & you can see what articles you edited.";
 "wikitext-upload-save-anonymously" = "Save anonymously";
-"wikitext-upload-save-anonymously-warning" = "This has less privacy. Your IP address is visible with edits.";
-"wikitext-upload-save-license" = "By saving, you agree to release your contributions under the $1 license.";
+"wikitext-upload-save-anonymously-warning" = "Your edits will be attributed to the IP address of your device. If you $1 you will have more privacy.";
+"wikitext-upload-save-license" = "By saving, you agree to irrevocably release your contributions under the $1 license.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 
 "search-searching" = "Searching...";

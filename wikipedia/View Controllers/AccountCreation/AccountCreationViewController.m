@@ -37,7 +37,7 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    return NO;
+    return NAV.isEditorOnNavstack;
 }
 
 - (void)viewDidLoad
