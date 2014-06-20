@@ -54,7 +54,10 @@
 #import "CoreDataHousekeeping.h"
 #import "Article+Convenience.h"
 #import "NSDate-Utilities.h"
-//#import "AccountCreationViewController.h"
+#import "AccountCreationViewController.h"
+
+#import "OnboardingViewController.h"
+#import "TopMenuContainerView.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.3f
 
@@ -220,7 +223,26 @@ typedef enum {
 
     [self performHousekeepingIfNecessary];
 
+    [self showOnboardingIfNecessary];
+
     //[self.view randomlyColorSubviews];
+}
+
+-(void)showOnboardingIfNecessary
+{
+    // For now show the onboarding each time app is started fresh (to allow for easier testing).
+
+//TODO: once this has been tested / signed-off on make a alreadyShowedOnboarding flag that persists across app restarts - i.e. NSUserDefaults.
+
+    static BOOL alreadyShowedOnboarding = NO;
+    if (!alreadyShowedOnboarding) {
+        CGFloat delay = 0.7;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            OnboardingViewController *onboardingVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"OnboardingViewController"];
+            [self presentViewController:onboardingVC animated:YES completion:^{}];
+            alreadyShowedOnboarding = YES;
+        });
+    }
 }
 
 -(void)performHousekeepingIfNecessary
@@ -1041,6 +1063,11 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+
+    /*
+    OnboardingViewController *onboardingVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"OnboardingViewController"];
+    [self presentViewController:onboardingVC animated:YES completion:^{}];
+    */
 
     /*
     AccountCreationViewController *createAcctVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"AccountCreationViewController"];

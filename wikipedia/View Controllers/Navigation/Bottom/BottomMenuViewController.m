@@ -17,6 +17,7 @@
 #import "Article+Convenience.h"
 #import "ShareMenuSavePageActivity.h"
 #import "Article+Convenience.h"
+#import "Defines.h"
 
 typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     BOTTOM_MENU_BUTTON_UNKNOWN = 0,
@@ -75,6 +76,8 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     self.rightButton.tag = BOTTOM_MENU_BUTTON_SHARE;
 
     self.allButtons = @[self.backButton, self.forwardButton, self.rightButton];
+
+    self.view.backgroundColor = CHROME_COLOR;
 
     [self addTapRecognizersToAllButtons];
 }

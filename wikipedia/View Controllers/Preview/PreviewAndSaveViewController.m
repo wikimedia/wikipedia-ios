@@ -225,9 +225,13 @@ typedef enum {
                             @"cannedSummary03": self.cannedSummary03,
                             @"cannedSummary04": self.cannedSummary04
                             };
+
+    // Tighten up the spacing for 3.5 inch screens.
+    CGFloat spaceAboveCC = ([UIScreen mainScreen].bounds.size.height != 480) ? 43 : 4;
     
     NSDictionary *metrics = @{
-                            @"buttonHeight": @(48)
+                            @"buttonHeight": @(48),
+                            @"spaceAboveCC": @(spaceAboveCC)
                             };
     
     NSArray *constraints = @[
@@ -236,7 +240,7 @@ typedef enum {
         [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary02]" options:0 metrics:metrics views:views],
         [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary03]" options:0 metrics:metrics views:views],
         [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[cannedSummary04]" options:0 metrics:metrics views:views],
-        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[aboutLabel]-(5)-[cannedSummary01(buttonHeight)][cannedSummary02(buttonHeight)][cannedSummary03(buttonHeight)][cannedSummary04(buttonHeight)]-(43)-|" options:0 metrics:metrics views:views]
+        [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[aboutLabel]-(5)-[cannedSummary01(buttonHeight)][cannedSummary02(buttonHeight)][cannedSummary03(buttonHeight)][cannedSummary04(buttonHeight)]-(spaceAboveCC)-|" options:0 metrics:metrics views:views]
     ];
     [self.editSummaryContainer addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
 }

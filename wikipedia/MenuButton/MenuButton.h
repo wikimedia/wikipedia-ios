@@ -23,4 +23,6 @@ If not enabled, color is used for border and text color - with transparent backg
 
 @property (strong, nonatomic, readonly) NSString *text;
 
+@property (strong, nonatomic) UIColor *color;
+
 @end

@@ -22,7 +22,8 @@
 
 -(void)logSomethingHappened
 {
+    NSNumber *number = [NSNumber numberWithLong:time(NULL)];
     [self log:@{@"appInstallReadActionID": self.appInstallID,
-                @"clientSideTS": [NSNumber numberWithLong:time(NULL)]}];
+                @"clientSideTS": (number ? number : @"")}];
 }
 @end

@@ -101,6 +101,13 @@
     }];
 }
 
+- (void)popToRootViewControllerAnimated:(BOOL)animated
+{
+    [self animateStatusBarHeightChangesForViewController:self.centerNavController.viewControllers.firstObject then:^{
+        [self.centerNavController popToViewController:self.centerNavController.viewControllers.firstObject animated:animated];
+    }];
+}
+
 -(void)animateStatusBarHeightChangesForViewController: (UIViewController *)vc
                                                  then: (void (^)(void))block
 {

@@ -15,11 +15,13 @@
 #import "UINavigationController+SearchNavStack.h"
 #import "WMF_Colors.h"
 
-#import "WikiGlyphButton.h"
-#import "WikiGlyphLabel.h"
+#import "MenuButton.h"
+#import "PaddedLabel.h"
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
+#import "UINavigationController+SearchNavStack.h"
+#import "PreviewAndSaveViewController.h"
 
 @interface AccountCreationViewController ()
 
@@ -30,6 +32,13 @@
 @property (strong, nonatomic) NSString *captchaId;
 @property (strong, nonatomic) NSString *captchaUrl;
 @property (strong, nonatomic) NSString *token;
+@property (weak, nonatomic) IBOutlet PaddedLabel *loginButton;
+@property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *usernameUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordConfirmUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailUnderlineHeight;
 
 @end
 
@@ -58,6 +67,64 @@
     [self.passwordRepeatField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
     [self.emailField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    self.captchaContainer.alpha = 0;
+
+    self.usernameField.attributedPlaceholder =
+        [self getAttributedPlaceholderForString:MWLocalizedString(@"account-creation-username-placeholder-text", nil)];
+
+    self.passwordField.attributedPlaceholder =
+        [self getAttributedPlaceholderForString:MWLocalizedString(@"account-creation-password-placeholder-text", nil)];
+
+    self.passwordRepeatField.attributedPlaceholder =
+        [self getAttributedPlaceholderForString:MWLocalizedString(@"account-creation-password-confirm-placeholder-text", nil)];
+
+    self.emailField.attributedPlaceholder =
+        [self getAttributedPlaceholderForString:MWLocalizedString(@"account-creation-email-placeholder-text", nil)];
+
+    if ([self.scrollView respondsToSelector:@selector(keyboardDismissMode)]) {
+        self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    }
+
+    self.usernameUnderlineHeight.constant = 1.0f / [UIScreen mainScreen].scale;
+    self.passwordUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
+    self.passwordConfirmUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
+    self.emailUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
+    
+    self.loginButton.textColor = WMF_COLOR_BLUE;
+    self.loginButton.text = MWLocalizedString(@"account-creation-login", nil);
+    self.loginButton.userInteractionEnabled = YES;
+    [self.loginButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginButtonPushed:)]];
+    
+    // Hide the login button if the LoginViewController is on nav stack.
+    self.loginButton.hidden = [NAV searchNavStackForViewControllerOfClass:[LoginViewController class]] ? YES : NO;
+    
+    PreviewAndSaveViewController *previewAndSaveVC = [NAV searchNavStackForViewControllerOfClass:[PreviewAndSaveViewController class]];
+    self.titleLabel.text = (!previewAndSaveVC) ?
+        MWLocalizedString(@"navbar-title-mode-create-account", nil)
+        :
+        MWLocalizedString(@"navbar-title-mode-create-account-and-save", nil)
+    ;
+
+    ((MenuButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT]).color = WMF_COLOR_GREEN;
+    ((MenuButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE]).color = WMF_COLOR_GREEN;
+}
+
+- (void)loginButtonPushed:(id)sender
+{
+    LoginViewController *loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+
+    //[ROOT popToRootViewControllerAnimated:NO];
+
+    [ROOT pushViewController:loginVC animated:YES];
+}
+
+-(NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string
+{
+    return [[NSMutableAttributedString alloc] initWithString: string
+                                                  attributes: @{
+                                                               NSForegroundColorAttributeName : [UIColor lightGrayColor]
+                                                               }];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -67,8 +134,13 @@
     self.showCaptchaContainer = NO;
 
     ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_CREATE_ACCOUNT;
-    
-    [self highlightCheckButton:NO];
+
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(textFieldDidChange:)
+                                                 name: @"UITextFieldTextDidChangeNotification"
+                                               object: self.captchaViewController.captchaTextBox];
+
+    [self highlightProgressiveButton:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -92,8 +164,19 @@
         //(self.emailField.text.length > 0) &&
         [self.passwordField.text isEqualToString:self.passwordRepeatField.text]
     ) ? YES : NO;
-    
-    [self highlightCheckButton:shouldHighlight];
+
+    // Override shouldHighlight if the text changed was the captcha field.
+    if([sender isKindOfClass:[NSNotification class]]){
+        NSNotification *notification = (NSNotification *)sender;
+        if(notification.object == self.captchaViewController.captchaTextBox)
+        {
+            NSString *trimmedCaptchaText =
+            [self.captchaViewController.captchaTextBox.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            shouldHighlight = (trimmedCaptchaText.length > 0) ? YES : NO;
+        }
+    }
+
+    [self highlightProgressiveButton:shouldHighlight];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -104,18 +187,16 @@
         [self.passwordRepeatField becomeFirstResponder];
     }else if(textField == self.passwordRepeatField) {
         [self.emailField becomeFirstResponder];
-    }else if(textField == self.emailField) {
-        [self.realnameField becomeFirstResponder];
-    }else if((textField == self.realnameField) || (textField == self.captchaViewController.captchaTextBox)) {
+    }else if((textField == self.emailField) || (textField == self.captchaViewController.captchaTextBox)) {
         [self save];
     }
     return YES;
 }
 
--(void)highlightCheckButton:(BOOL)highlight
+-(void)highlightProgressiveButton:(BOOL)highlight
 {
-    WikiGlyphButton *checkButton = (WikiGlyphButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
-    checkButton.enabled = highlight;
+    ((MenuButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE]).enabled = highlight;
+    ((MenuButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT]).enabled = highlight;
 }
 
 -(void)prepopulateTextFieldsForDebugging
@@ -123,7 +204,6 @@
     self.usernameField.text = @"acct_creation_test_010";
     self.passwordField.text = @"";
     self.passwordRepeatField.text = @"";
-    self.realnameField.text = @"monte hurd";
     self.emailField.text = @"mhurd@wikimedia.org";
 }
 
@@ -133,9 +213,13 @@
 
     ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
 
-    [self highlightCheckButton:NO];
+    [self highlightProgressiveButton:NO];
 
     [self showAlert:@""];
+
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: @"UITextFieldTextDidChangeNotification"
+                                                  object: self.captchaViewController.captchaTextBox];
 
     [super viewWillDisappear:animated];
 }
@@ -149,15 +233,41 @@
 
 -(void)setShowCaptchaContainer:(BOOL)showCaptchaContainer
 {
-    self.captchaContainer.hidden = !showCaptchaContainer;
-    if (_showCaptchaContainer != showCaptchaContainer) {
-        _showCaptchaContainer = showCaptchaContainer;
-        if (showCaptchaContainer){
-            [self.captchaViewController.captchaTextBox performSelector: @selector(becomeFirstResponder)
-                                                            withObject: nil afterDelay:0.4f];
-            
-            [self.funnel logCaptchaShown];
-        }
+    _showCaptchaContainer = showCaptchaContainer;
+
+    ROOT.topMenuViewController.navBarMode = showCaptchaContainer ? NAVBAR_MODE_CREATE_ACCOUNT_CAPTCHA : NAVBAR_MODE_CREATE_ACCOUNT;
+
+    CGFloat duration = 0.5;
+    
+    if(showCaptchaContainer){
+
+        [self.captchaViewController.captchaTextBox performSelector: @selector(becomeFirstResponder)
+                                                        withObject: nil afterDelay:0.4f];
+        [self.funnel logCaptchaShown];
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            [UIView animateWithDuration:duration animations:^{
+                self.captchaContainer.alpha = 1;
+                [self.scrollView scrollSubViewToTop:self.captchaContainer animated:NO];
+            } completion:^(BOOL done){
+                [self highlightProgressiveButton:NO];
+            }];
+        });
+        
+    }else{
+    
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            [self showAlert:@""];
+            [UIView animateWithDuration:duration animations:^{
+                self.captchaContainer.alpha = 0;
+                [self.scrollView setContentOffset:CGPointZero animated:NO];
+            } completion:^(BOOL done){
+                self.captchaViewController.captchaTextBox.text = @"";
+                self.captchaViewController.captchaImageView.image = nil;
+                // Pretent a text field changed so the progressive button state gets updated.
+                [self textFieldDidChange:nil];
+            }];
+        });
+
     }
 }
 
@@ -189,7 +299,7 @@
             // Main thread
             self.captchaViewController.captchaTextBox.text = @"";
             self.captchaViewController.captchaImageView.image = captchaImage;
-            [self.scrollView scrollSubViewToTop:self.captchaContainer];
+            self.showCaptchaContainer = YES;
             //[self highlightCheckButton:NO];
         });
     });
@@ -247,7 +357,8 @@
     UIView *tappedItem = userInfo[@"tappedItem"];
 
     switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_CHECK:
+        case NAVBAR_BUTTON_NEXT:
+        case NAVBAR_BUTTON_DONE:
             [self save];
             break;
         case NAVBAR_BUTTON_X:
@@ -307,7 +418,7 @@
     [[AccountCreationOp alloc] initWithDomain: [SessionSingleton sharedInstance].domain
                                      userName: self.usernameField.text
                                      password: self.passwordField.text
-                                     realName: self.realnameField.text
+                                     realName: @""
                                         email: self.emailField.text
                                     captchaId: self.captchaId
                                   captchaWord: self.captchaViewController.captchaTextBox.text
@@ -383,7 +494,11 @@
 
 -(void)hide
 {
-    [ROOT popViewControllerAnimated:YES];
+    if (self.showCaptchaContainer) {
+        self.showCaptchaContainer = NO;
+    }else{
+        [ROOT popViewControllerAnimated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning

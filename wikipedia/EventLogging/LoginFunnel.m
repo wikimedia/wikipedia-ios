@@ -41,7 +41,7 @@
 {
     [self log:@{@"action": @"start",
                 @"source": @"edit",
-                @"editSessionToken": editSessionToken}];
+                @"editSessionToken": (editSessionToken ? editSessionToken : @"")}];
 }
 
 -(void)logCreateAccountAttempt
@@ -62,7 +62,7 @@
 -(void)logError:(NSString *)code
 {
     [self log:@{@"action": @"error",
-                @"errorText": code}];
+                @"errorText": (code ? code : @"")}];
 }
 
 -(void)logSuccess

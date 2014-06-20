@@ -31,6 +31,11 @@
 "account-creation-logging-in" = "Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}";
 "account-creation-passwords-mismatched" = "Alert shown if the user doesn't enter the same password in both password boxes";
 "account-creation-saving" = "Alert shown when user saves account creation form.\n{{Identical|Saving}}";
+"account-creation-login" = "Button text for loading the login interface";
+"account-creation-username-placeholder-text" = "Placeholder text which appears initially in the user name text box";
+"account-creation-password-placeholder-text" = "Placeholder text which appears initially in the password text box";
+"account-creation-password-confirm-placeholder-text" = "Placeholder text which appears initially in the password confirmation text box";
+"account-creation-email-placeholder-text" = "Placeholder text which appears initially in the optional email address text box";
 "login-name-not-found" = "Alert text shown when no user name was entered";
 "login-name-illegal" = "Alert text shown when illegal user name entered";
 "login-name-does-not-exist" = "Alert text shown when user name entered was not found";
@@ -38,6 +43,9 @@
 "login-password-wrong" = "Alert text shown when incorrect password entered";
 "login-throttled" = "Alert text shown when too many login attempts fail";
 "login-user-blocked" = "Alert text shown when user name entered is blocked";
+"login-account-creation" = "Button text for loading the account creation interface";
+"login-username-placeholder-text" = "User name field placeholder text";
+"login-password-placeholder-text" = "Password field placeholder text";
 "wikitext-downloading" = "Alert text shown when obtaining latest revision of the section being edited";
 "wikitext-download-failed" = "Alert text shown when unable to obtain latest revision of the section being edited";
 "wikitext-download-success" = "Alert text shown when latest revision of the section being edited has been retrieved";
@@ -127,3 +135,7 @@
 "button-next" = "Button text for next button used in various places.";
 "button-done" = "Button text for done button used in various places.";
 "button-save" = "Button text for save button used in various places.";
+"onboarding-create-account" = "Button text prompting first time users to create an account";
+"onboarding-login" = "Button text prompting first time users to log in";
+"onboarding-already-have-account" = "Button text prompting first time users to log in to existing account. Parameters:\n* $1 - login button text";
+"onboarding-skip" = "Button text allowing first time users to skip the other onboarding choices";

@@ -46,8 +46,9 @@
 
 -(void)logSavedRevision:(int)revID
 {
+    NSNumber *revIDNumber = [NSNumber numberWithInt:revID];
     [self log:@{@"action": @"saved",
-                @"revID": [NSNumber numberWithInt:revID]}];
+                @"revID": (revIDNumber ? revIDNumber : @"")}];
 }
 
 -(void)logLoginAttempt
@@ -78,25 +79,25 @@
 - (void)logAbuseFilterWarning:(NSString *)code
 {
     [self log:@{@"action": @"abuseFilterWarning",
-                @"abuseFilterCode": code}];
+                @"abuseFilterCode": (code ? code : @"")}];
 }
 
 - (void)logAbuseFilterError:(NSString *)code
 {
     [self log:@{@"action": @"abuseFilterError",
-                @"abuseFilterCode": code}];
+                @"abuseFilterCode": (code ? code : @"")}];
 }
 
 -(void)logAbuseFilterWarningIgnore:(NSString *)code
 {
     [self log:@{@"action": @"abuseFilterWarningIgnore",
-                @"abuseFilterCode": code}];
+                @"abuseFilterCode": (code ? code : @"")}];
 }
 
 -(void)logAbuseFilterWarningBack:(NSString *)code
 {
     [self log:@{@"action": @"abuseFilterWarningBack",
-                @"abuseFilterCode": code}];
+                @"abuseFilterCode": (code ? code : @"")}];
 }
 
 - (void)logSaveAnonExplicit
@@ -107,7 +108,7 @@
 - (void)logError:(NSString *)code
 {
     [self log:@{@"action": @"error",
-                @"errorText": code}];
+                @"errorText": (code ? code : @"")}];
 }
 
 @end
