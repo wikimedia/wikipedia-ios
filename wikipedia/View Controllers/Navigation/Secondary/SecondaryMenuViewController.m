@@ -195,7 +195,7 @@ typedef enum {
 
 -(SecondaryMenuRowIndex)getIndexOfRow:(NSDictionary *)row
 {
-    return ((NSNumber *)row[@"tag"]).integerValue;
+    return (SecondaryMenuRowIndex)((NSNumber *)row[@"tag"]).integerValue;
 }
 
 -(SecondaryMenuRowView *)getViewWithTag:(SecondaryMenuRowIndex)tag
@@ -492,7 +492,7 @@ typedef enum {
 
     CGFloat animationScale = 1.28f;
     
-    NSMutableDictionary *row = [self getRowWithTag:tappedItem.tag];
+    NSMutableDictionary *row = [self getRowWithTag:(SecondaryMenuRowIndex)tappedItem.tag];
     
     NSString *icon = [row objectForKey:@"icon"];
     

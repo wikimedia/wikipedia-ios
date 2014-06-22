@@ -15,7 +15,7 @@
     
     for (NSUInteger i = 0; i < substitutionStrings.count; i++) {
         NSRegularExpression *regex =
-        [NSRegularExpression regularExpressionWithPattern: [NSString stringWithFormat:@"\\$%d+", i + 1]
+        [NSRegularExpression regularExpressionWithPattern: [NSString stringWithFormat:@"\\$%lu+", (unsigned long)i + 1]
                                                   options: 0
                                                     error: nil];
         NSArray *matches =
