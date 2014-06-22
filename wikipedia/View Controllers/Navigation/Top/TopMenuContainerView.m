@@ -14,6 +14,12 @@
     return self;
 }
 
+-(void)setShowBottomBorder:(BOOL)showBottomBorder
+{
+    _showBottomBorder = showBottomBorder;
+    [self setNeedsDisplay];
+}
+
 - (void)drawRect:(CGRect)rect {
     if (!self.showBottomBorder) return;
     CGContextRef context = UIGraphicsGetCurrentContext();

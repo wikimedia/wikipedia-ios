@@ -12,12 +12,13 @@
 
 @property (nonatomic) BOOL topMenuHidden;
 
--(void)animateTopAndBottomMenuToggle;
+- (void)animateTopAndBottomMenuToggle;
 
--(void)togglePrimaryMenu;
+- (void)togglePrimaryMenu;
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated;
 - (void)popToViewController:(UIViewController *)viewController animated:(BOOL)animated;
+- (void)popToRootViewControllerAnimated:(BOOL)animated;
 
 @end

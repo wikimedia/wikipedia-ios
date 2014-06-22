@@ -37,6 +37,8 @@
 
 #import "MenuButton.h"
 #import "LoginViewController.h"
+#import "AccountCreationViewController.h"
+#import "WMF_Colors.h"
 
 @interface TopMenuViewController (){
 
@@ -278,19 +280,17 @@
         return button;
     };
 
-    UIColor *blueColor = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0];
-    UIColor *greenColor = [UIColor colorWithRed:0.08 green:0.64 blue:0.46 alpha:1.0];
-    UIEdgeInsets padding = UIEdgeInsetsMake(0, 16, 0, 16);
+    UIEdgeInsets padding = UIEdgeInsetsMake(0, 13, 0, 13);
     UIEdgeInsets margin = UIEdgeInsetsMake(8, 9, 7, 10);
 
     self.buttonNext =
-        getMenuButton(MWLocalizedString(@"button-next", nil), NAVBAR_BUTTON_NEXT, 14, blueColor, padding, margin);
+        getMenuButton(MWLocalizedString(@"button-next", nil), NAVBAR_BUTTON_NEXT, 14, WMF_COLOR_BLUE, padding, margin);
     self.buttonSave =
-        getMenuButton(MWLocalizedString(@"button-save", nil), NAVBAR_BUTTON_SAVE, 14, greenColor, padding, margin);
+        getMenuButton(MWLocalizedString(@"button-save", nil), NAVBAR_BUTTON_SAVE, 14, WMF_COLOR_GREEN, padding, margin);
     self.buttonDone =
-        getMenuButton(MWLocalizedString(@"button-done", nil), NAVBAR_BUTTON_DONE, 14, blueColor, padding, margin);
+        getMenuButton(MWLocalizedString(@"button-done", nil), NAVBAR_BUTTON_DONE, 14, WMF_COLOR_BLUE, padding, margin);
     self.buttonCheck =
-        getMenuButton(WIKIGLYPH_TICK, NAVBAR_BUTTON_CHECK, 25, blueColor, UIEdgeInsetsMake(0, 0, 2, 0), UIEdgeInsetsMake(9, 0, 9, 8));
+        getMenuButton(WIKIGLYPH_TICK, NAVBAR_BUTTON_CHECK, 25, WMF_COLOR_BLUE, UIEdgeInsetsMake(0, 0, 2, 0), UIEdgeInsetsMake(9, 0, 9, 8));
 
     // Ensure the cancel button content is hugged more tightly than the search text box.
     // Otherwise on iOS 6 the cancel button is super wide.
@@ -396,6 +396,7 @@
 
     PreviewAndSaveViewController *previewAndSaveVC = [NAV searchNavStackForViewControllerOfClass:[PreviewAndSaveViewController class]];
     LoginViewController *loginVC = [NAV searchNavStackForViewControllerOfClass:[LoginViewController class]];
+    AccountCreationViewController *acctCreationVC = [NAV searchNavStackForViewControllerOfClass:[AccountCreationViewController class]];
 
     switch (navBarMode) {
         case NAVBAR_MODE_EDIT_WIKITEXT:
@@ -404,14 +405,13 @@
                 @"H:|-(4)-[NAVBAR_BUTTON_ARROW_LEFT(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_NEXT(50@250)]|";
             break;
         case NAVBAR_MODE_LOGIN:
-            if(!previewAndSaveVC){
-                self.label.text = MWLocalizedString(@"navbar-title-mode-login", nil);
+            self.label.text = @"";
+            if((!previewAndSaveVC) && (!acctCreationVC)){
                 self.navBarSubViewsHorizontalVFLString =
-                    @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(60)]|";
+                    @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_DONE(50@250)]|";
             }else{
-                self.label.text = MWLocalizedString(@"navbar-title-mode-login-and-save", nil);
                 self.navBarSubViewsHorizontalVFLString =
-                    @"H:|-(4)-[NAVBAR_BUTTON_ARROW_LEFT(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(60)]|";
+                    @"H:|-(4)-[NAVBAR_BUTTON_ARROW_LEFT(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_DONE(50@250)]|";
             }
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_SAVE:
@@ -420,19 +420,20 @@
             @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_SAVE(50@250)]|";
             break;
         case NAVBAR_MODE_CREATE_ACCOUNT:
-            self.label.text = (!previewAndSaveVC) ?
-                MWLocalizedString(@"navbar-title-mode-create-account", nil)
-                :
-                MWLocalizedString(@"navbar-title-mode-create-account-and-save", nil)
-            ;
+            self.label.text = @"";
             if(loginVC){
                 self.navBarSubViewsHorizontalVFLString =
-                    @"H:|-(4)-[NAVBAR_BUTTON_ARROW_LEFT(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(60)]|";
+                    @"H:|-(4)-[NAVBAR_BUTTON_ARROW_LEFT(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_NEXT(50@250)]|";
             }else{
                 self.navBarSubViewsHorizontalVFLString =
-                    @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(60)]|";
+                    @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_NEXT(50@250)]|";
             }
             
+            break;
+        case NAVBAR_MODE_CREATE_ACCOUNT_CAPTCHA:
+            self.label.text = @"";
+                self.navBarSubViewsHorizontalVFLString =
+                    @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_DONE(50@250)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-warning", nil);
@@ -731,7 +732,7 @@
     switch (navBarStyle) {
         case NAVBAR_STYLE_DAY:{
             output = @{
-                       @"NAVBAR_COLOR": [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0],
+                       @"NAVBAR_COLOR": CHROME_COLOR,
                        @"NAVBAR_TEXT_FIELD_TEXT_COLOR": [UIColor colorWithWhite:0.33 alpha:1.0],
                        @"NAVBAR_TEXT_FIELD_PLACEHOLDER_TEXT_COLOR": [UIColor lightGrayColor],
                        @"NAVBAR_TEXT_CLEAR_BUTTON_COLOR": [UIColor colorWithWhite:0.33 alpha:1.0],

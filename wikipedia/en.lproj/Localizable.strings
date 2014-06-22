@@ -30,6 +30,11 @@
 "account-creation-logging-in" = "Logging in...";
 "account-creation-passwords-mismatched" = "Password fields do not match.";
 "account-creation-saving" = "Saving...";
+"account-creation-login" = "Already have an account? Log in.";
+"account-creation-username-placeholder-text" = "User name";
+"account-creation-password-placeholder-text" = "Password";
+"account-creation-password-confirm-placeholder-text" = "Confirm password";
+"account-creation-email-placeholder-text" = "Email (optional)";
 
 "login-name-not-found" = "User name is required to login.";
 "login-name-illegal" = "You provided an illegal user name.";
@@ -38,6 +43,9 @@
 "login-password-wrong" = "The password you provided is incorrect.";
 "login-throttled" = "You've logged in too many times in a short time.";
 "login-user-blocked" = "User is blocked.";
+"login-account-creation" = "Don't have an account? Join Wikipedia.";
+"login-username-placeholder-text" = "User name";
+"login-password-placeholder-text" = "Password";
 
 "wikitext-downloading" = "Loading wiki text...";
 "wikitext-download-failed" = "Unable to obtain latest revision.";
@@ -49,7 +57,7 @@
 "wikitext-upload-captcha-needed" = "Need CAPTCHA verification.";
 "wikitext-upload-save" = "Saving...";
 
-"wikitext-upload-save-sign-in" = "Sign in";
+"wikitext-upload-save-sign-in" = "Log in";
 "wikitext-upload-save-sign-in-benefits" = "So co-editors can connect with you & you can see what articles you edited.";
 "wikitext-upload-save-anonymously" = "Save anonymously";
 "wikitext-upload-save-anonymously-warning" = "Your edits will be attributed to the IP address of your device. If you $1 you will have more privacy.";
@@ -89,8 +97,8 @@
 "page-history-downloading" = "Loading article history...";
 
 "navbar-title-mode-edit-wikitext" = "Edit";
-"navbar-title-mode-login" = "Sign in";
-"navbar-title-mode-login-and-save" = "Sign in and save";
+"navbar-title-mode-login" = "Log in";
+"navbar-title-mode-login-and-save" = "Log in and save";
 "navbar-title-mode-create-account" = "Create account";
 "navbar-title-mode-create-account-and-save" = "Create account and save";
 "navbar-title-mode-edit-wikitext-warning" = "Edit issues";
@@ -142,3 +150,8 @@
 "button-next" = "Next";
 "button-done" = "Done";
 "button-save" = "Save";
+
+"onboarding-create-account" = "Create account";
+"onboarding-login" = "Log in";
+"onboarding-already-have-account" = "Already have an account? $1";
+"onboarding-skip" = "Skip";

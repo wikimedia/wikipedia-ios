@@ -13,12 +13,15 @@
 #import "AccountCreationViewController.h"
 #import "WMF_Colors.h"
 
-#import "WikiGlyphButton.h"
-#import "WikiGlyphLabel.h"
+#import "MenuButton.h"
+#import "PaddedLabel.h"
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
 #import "CreateAccountFunnel.h"
+#import "UINavigationController+SearchNavStack.h"
+#import "PreviewAndSaveViewController.h"
+#import "SectionEditorViewController.h"
 
 @interface LoginViewController (){
 
@@ -27,7 +30,10 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
-@property (weak, nonatomic) IBOutlet UIButton *createAccountButton;
+@property (weak, nonatomic) IBOutlet PaddedLabel *createAccountButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *usernameUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordUnderlineHeight;
+@property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
 
 @end
 
@@ -44,9 +50,16 @@
     // Do any additional setup after loading the view.
 
     self.navigationItem.hidesBackButton = YES;
-    [self.createAccountButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    [self.createAccountButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateSelected];
-    [self.createAccountButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+
+    self.createAccountButton.textColor = WMF_COLOR_BLUE;
+    self.createAccountButton.text = MWLocalizedString(@"login-account-creation", nil);
+    self.createAccountButton.userInteractionEnabled = YES;
+    [self.createAccountButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createAccountButtonPushed:)]];
+
+    self.usernameField.attributedPlaceholder =
+        [self getAttributedPlaceholderForString:MWLocalizedString(@"login-username-placeholder-text", nil)];
+    self.passwordField.attributedPlaceholder =
+        [self getAttributedPlaceholderForString:MWLocalizedString(@"login-password-placeholder-text", nil)];
 
     UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress)];
     longPressRecognizer.minimumPressDuration = 1.0f;
@@ -56,14 +69,40 @@
         self.scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     }
     
-    [self.usernameField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-    [self.passwordField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];    
+    [self.usernameField addTarget: self
+                           action: @selector(textFieldDidChange:)
+                 forControlEvents: UIControlEventEditingChanged];
+    
+    [self.passwordField addTarget: self
+                           action: @selector(textFieldDidChange:)
+                 forControlEvents: UIControlEventEditingChanged];
+
+    self.usernameUnderlineHeight.constant = 1.0f / [UIScreen mainScreen].scale;
+    self.passwordUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
+
+    // Hide the account creation button if the AccountCreationViewController is on nav stack.
+    self.createAccountButton.hidden = [NAV searchNavStackForViewControllerOfClass:[AccountCreationViewController class]] ? YES : NO;
+
+    PreviewAndSaveViewController *previewAndSaveVC = [NAV searchNavStackForViewControllerOfClass:[PreviewAndSaveViewController class]];
+    self.titleLabel.text = (!previewAndSaveVC) ?
+        MWLocalizedString(@"navbar-title-mode-login", nil)
+        :
+        MWLocalizedString(@"navbar-title-mode-login-and-save", nil)
+    ;
+}
+
+-(NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string
+{
+    return [[NSMutableAttributedString alloc] initWithString: string
+                                                  attributes: @{
+                                                               NSForegroundColorAttributeName : [UIColor lightGrayColor]
+                                                               }];
 }
 
 -(void)textFieldDidChange:(id)sender
 {
     BOOL shouldHighlight = ((self.usernameField.text.length > 0) && (self.passwordField.text.length > 0)) ? YES : NO;
-    [self highlightCheckButton:shouldHighlight];
+    [self highlightProgressiveButton:shouldHighlight];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -76,10 +115,10 @@
     return YES;
 }
 
--(void)highlightCheckButton:(BOOL)highlight
+-(void)highlightProgressiveButton:(BOOL)highlight
 {
-    WikiGlyphButton *checkButton = (WikiGlyphButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_CHECK];
-    checkButton.enabled = highlight;
+    MenuButton *button = (MenuButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE];
+    button.enabled = highlight;
 }
 
 // Handle nav bar taps.
@@ -89,7 +128,7 @@
     UIView *tappedItem = userInfo[@"tappedItem"];
 
     switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_CHECK:
+        case NAVBAR_BUTTON_DONE:
             [self save];
             break;
         case NAVBAR_BUTTON_X:
@@ -113,8 +152,8 @@
     [super viewWillAppear:animated];
     
     ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_LOGIN;
-    
-    [self highlightCheckButton:NO];
+
+    [self highlightProgressiveButton:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -140,19 +179,28 @@
                       loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString: @"$1"
                                                                                    withString: self.usernameField.text];
                       [self showAlert:loggedInMessage];
+                      [self fadeAlert];
 
                       [self performSelector:@selector(hide) withObject:nil afterDelay:1.25f];
+
                   } onFail: nil];
 }
 
 -(void)hide
 {
-    [ROOT popViewControllerAnimated:YES];
+    // If not in editing workflow and account creation is on the nav stack, pop to root.
+    id createAcctVC = [NAV searchNavStackForViewControllerOfClass:[AccountCreationViewController class]];
+    id editingVC = [NAV searchNavStackForViewControllerOfClass:[SectionEditorViewController class]];
+    if (createAcctVC && !editingVC) {
+        [ROOT popToRootViewControllerAnimated:YES];
+    }else{
+        [ROOT popViewControllerAnimated:YES];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [self highlightCheckButton:NO];
+    [self highlightProgressiveButton:NO];
 
     [super viewWillDisappear:animated];
     
@@ -295,7 +343,7 @@
      ];
 }
 
-- (IBAction)createAccountButtonPushed:(id)sender
+- (void)createAccountButtonPushed:(id)sender
 {
     [self.funnel logCreateAccountAttempt];
 

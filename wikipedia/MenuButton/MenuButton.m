@@ -11,8 +11,6 @@
 
 @property (strong, nonatomic) MenuLabel *label;
 
-@property (strong, nonatomic) UIColor *color;
-
 @property (strong, nonatomic) UIColor *oldColor;
 
 @property (nonatomic) CGFloat fontSize;

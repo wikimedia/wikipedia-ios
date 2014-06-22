@@ -34,7 +34,7 @@
 -(void)logStartFromLogin:(NSString *)loginSessionToken
 {
     [self log:@{@"action": @"start",
-                @"loginSessionToken": loginSessionToken}];
+                @"loginSessionToken": (loginSessionToken ? loginSessionToken : @"")}];
 }
 
 -(void)logSuccess
@@ -55,7 +55,7 @@
 - (void)logError:(NSString *)code
 {
     [self log:@{@"action": @"error",
-                @"errorText": code}];
+                @"errorText": (code ? code : @"")}];
 }
 
 @end
