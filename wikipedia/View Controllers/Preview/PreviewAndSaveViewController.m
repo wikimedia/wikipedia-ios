@@ -484,11 +484,12 @@ typedef enum {
     NSString *title = section.fromTitle ? section.fromTitle : section.article.title;
 
     UploadSectionWikiTextOp *uploadWikiTextOp =
-    [[UploadSectionWikiTextOp alloc] initForPageTitle:title domain:section.article.domain section:section.index wikiText:self.wikiText summary:editSummary captchaId:self.captchaId captchaWord:self.captchaViewController.captchaTextBox.text  completionBlock:^(NSString *result){
+    [[UploadSectionWikiTextOp alloc] initForPageTitle:title domain:section.article.domain section:section.index wikiText:self.wikiText summary:editSummary captchaId:self.captchaId captchaWord:self.captchaViewController.captchaTextBox.text  completionBlock:^(NSDictionary *resultDict){
         
+        [self.funnel logSavedRevision:[resultDict[@"newrevid"] intValue]];
+
         // Mark article for refreshing and reload it.
         if (articleID) {
-            [self.funnel logSavedRevision:0]; // @fixme need revision ID
             [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
                 WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
                 [webVC reloadCurrentArticleInvalidatingCache:YES];

@@ -16,7 +16,7 @@
                summary: (NSString *)summary
              captchaId: (NSString *)captchaId
            captchaWord: (NSString *)captchaWord
-       completionBlock: (void (^)(NSString *))completionBlock
+       completionBlock: (void (^)(NSDictionary *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock
 {
@@ -73,7 +73,8 @@
                 weakSelf.error = [NSError errorWithDomain:@"Upload Wikitext Op" code:WIKITEXT_UPLOAD_ERROR_SERVER userInfo:errorDict];
             }
          
-            NSString *result = weakSelf.jsonRetrieved[@"edit"][@"result"];
+            NSDictionary *resultDict = weakSelf.jsonRetrieved[@"edit"];
+            NSString *result = resultDict[@"result"];
 
             if (!weakSelf.error && !result) {
                 NSMutableDictionary *errorDict = [@{} mutableCopy];
@@ -142,7 +143,7 @@
                 return;
             }
 
-            completionBlock(result);
+            completionBlock(resultDict);
         };
     }
     return self;

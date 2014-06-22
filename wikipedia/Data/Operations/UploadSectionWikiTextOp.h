@@ -24,7 +24,7 @@ typedef enum {
                summary: (NSString *)summary
              captchaId: (NSString *)captchaId
            captchaWord: (NSString *)captchaWord
-       completionBlock: (void (^)(NSString *))completionBlock
+       completionBlock: (void (^)(NSDictionary *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock
 ;
