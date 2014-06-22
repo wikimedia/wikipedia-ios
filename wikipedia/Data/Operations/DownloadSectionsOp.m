@@ -7,7 +7,7 @@
 #import "NSURLRequest+DictionaryRequest.h"
 #import "NSString+Extras.h"
 #import "NSObject+Extras.h"
-
+#import "ReadingActionFunnel.h"
 
 @implementation DownloadSectionsOp
 
@@ -42,6 +42,9 @@
             //(if there's more than a single section).
 
             params[@"sections"] = @"0";
+            
+            ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
+            params[@"appInstallID"] = funnel.appInstallID;
         }
     
         self.request = [NSURLRequest getRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]
