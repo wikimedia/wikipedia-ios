@@ -24,6 +24,7 @@ Standard Xcode project stuff: check out the repo, open Wikipedia.xcodeproj in Xc
 
 Note that due to Apple's restrictions on iOS app installation, to run a custom build on a standard iOS device you must pay for a [developer account with Apple](https://developer.apple.com/devcenter/ios/index.action) and register the device with your account.
 
+You'll also need to install [nodejs](http://nodejs.org/) and npm.
 
 # Running tests
 
