@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "Article.h"
+#import "MWPageTitle.h"
 
 @interface Article (Convenience)
 
@@ -15,5 +16,7 @@
 - (void)ifNoThumbnailUseFirstSectionImageAsThumbnailUsingContext:(NSManagedObjectContext *)context;
 
 - (NSURL *)desktopURL;
+
+@property (readonly) MWPageTitle* titleObj;
 
 @end

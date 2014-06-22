@@ -412,7 +412,7 @@
         historyEntry = (History *)[articleDataContext_.mainContext objectWithID:historyEntryId];
     }];
 
-    [NAV loadArticleWithTitle: historyEntry.article.title
+    [NAV loadArticleWithTitle: historyEntry.article.titleObj
                        domain: historyEntry.article.domain
                      animated: YES
               discoveryMethod: DISCOVERY_METHOD_SEARCH

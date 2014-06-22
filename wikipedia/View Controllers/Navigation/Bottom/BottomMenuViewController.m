@@ -189,7 +189,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
         WebViewController *webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
 
-        [webVC navigateToPage: history.article.title
+        [webVC navigateToPage: history.article.titleObj
                       domain: history.article.domain
              discoveryMethod: DISCOVERY_METHOD_SEARCH
            invalidatingCache: NO];
@@ -204,7 +204,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
         WebViewController *webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
 
-        [webVC navigateToPage: history.article.title
+        [webVC navigateToPage: history.article.titleObj
                       domain: history.article.domain
              discoveryMethod: DISCOVERY_METHOD_SEARCH
            invalidatingCache: NO];

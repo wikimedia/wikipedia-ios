@@ -29,6 +29,8 @@
 #import "ModalMenuAndContentViewController.h"
 #import "UIViewController+PresentModal.h"
 
+#import "ArticleCoreDataObjects.h"
+
 typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     PRIMARY_MENU_ITEM_UNKNOWN = 0,
     PRIMARY_MENU_ITEM_LOGIN = 1,
@@ -304,8 +306,9 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
         [[DownloadTitlesForRandomArticlesOp alloc] initForDomain: [SessionSingleton sharedInstance].domain
                                                  completionBlock: ^(NSString *title) {
                                                      if (title) {
+                                                         MWPageTitle *pageTitle = [MWPageTitle titleWithString:title];
                                                          dispatch_async(dispatch_get_main_queue(), ^(){
-                                                             [NAV loadArticleWithTitle: title
+                                                             [NAV loadArticleWithTitle: pageTitle
                                                                                 domain: [SessionSingleton sharedInstance].domain
                                                                               animated: YES
                                                                        discoveryMethod: DISCOVERY_METHOD_RANDOM

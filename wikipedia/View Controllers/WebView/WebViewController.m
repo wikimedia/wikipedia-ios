@@ -18,6 +18,7 @@
 #import "MWLanguageInfo.h"
 #import "CenterNavController.h"
 #import "Defines.h"
+#import "MWPageTitle.h"
 
 #import "UIViewController+SearchChildViewControllers.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
@@ -103,6 +104,8 @@ typedef enum {
 @property (weak, nonatomic) BottomMenuViewController *bottomMenuViewController;
 
 @property (strong, nonatomic) NSLayoutConstraint *bottomBarViewBottomConstraint;
+
+@property (copy) NSString *jumpToFragment;
 
 @end
 
@@ -767,6 +770,11 @@ typedef enum {
         [keyPath isEqual:@"contentSize"]
         ) {
         [object preventHorizontalScrolling];
+        if (self.jumpToFragment) {
+            // See if this works
+            [self.bridge sendMessage:@"scrollToFragment"
+                         withPayload:@{@"hash": self.jumpToFragment}];
+        }
     } else if (
         (object == self.bottomBarView)
         &&
@@ -816,10 +824,12 @@ typedef enum {
         
         [weakSelf tocHide];
         
+        // @todo merge this link title extraction into MWSite
         if ([href hasPrefix:@"/wiki/"]) {
             NSString *title = [href substringWithRange:NSMakeRange(6, href.length - 6)];
+            MWPageTitle *pageTitle = [MWPageTitle titleWithString:title];
 
-            [weakSelf navigateToPage: title
+            [weakSelf navigateToPage: pageTitle
                               domain: [SessionSingleton sharedInstance].currentArticleDomain
                      discoveryMethod: DISCOVERY_METHOD_LINK
                    invalidatingCache: NO];
@@ -1084,12 +1094,12 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 #pragma mark Article loading ops
 
-- (void)navigateToPage: (NSString *)title
+- (void)navigateToPage: (MWPageTitle *)title
                 domain: (NSString *)domain
        discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
      invalidatingCache: (BOOL)invalidateCache
 {
-    NSString *cleanTitle = [title wikiTitleWithoutUnderscores];
+    NSString *cleanTitle = title.text;
     
     // Don't try to load nothing. Core data takes exception with such nonsense.
     if (cleanTitle == nil) return;
@@ -1100,7 +1110,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     // Show loading message
     [self showAlert:MWLocalizedString(@"search-loading-section-zero", nil)];
     
-    [self retrieveArticleForPageTitle: cleanTitle
+    [self retrieveArticleForPageTitle: title
                                domain: domain
                       discoveryMethod: [NAV getStringForDiscoveryMethod:discoveryMethod]
                     invalidatingCache: invalidateCache];
@@ -1113,14 +1123,15 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 }
 
 -(void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache
-{    
-    [self navigateToPage: [SessionSingleton sharedInstance].currentArticleTitle
+{
+    MWPageTitle *title = [MWPageTitle titleWithString:[SessionSingleton sharedInstance].currentArticleTitle];
+    [self navigateToPage: title
                   domain: [SessionSingleton sharedInstance].currentArticleDomain
          discoveryMethod: DISCOVERY_METHOD_SEARCH
        invalidatingCache: invalidateCache];
 }
 
-- (void)retrieveArticleForPageTitle: (NSString *)pageTitle
+- (void)retrieveArticleForPageTitle: (MWPageTitle *)pageTitle
                              domain: (NSString *)domain
                     discoveryMethod: (NSString *)discoveryMethod
                   invalidatingCache: (BOOL)invalidateCache
@@ -1131,7 +1142,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // main context too - so web view controller accessing main context will see changes.)
         
         NSManagedObjectID *articleID =
-        [articleDataContext_.mainContext getArticleIDForTitle: pageTitle
+        [articleDataContext_.mainContext getArticleIDForTitle: pageTitle.prefixedText
                                                        domain: domain];
         
         if (articleID) {
@@ -1151,9 +1162,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [[QueuesSingleton sharedInstance].articleRetrievalQ cancelAllOperations];
     [[QueuesSingleton sharedInstance].searchQ cancelAllOperations];
     [[QueuesSingleton sharedInstance].thumbnailQ cancelAllOperations];
+    self.jumpToFragment = pageTitle.fragment;
 
     __block NSManagedObjectID *articleID =
-    [articleDataContext_.mainContext getArticleIDForTitle: pageTitle
+    [articleDataContext_.mainContext getArticleIDForTitle: pageTitle.prefixedText
                                                    domain: domain];
     BOOL needsRefresh = NO;
 
@@ -1172,7 +1184,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     // Retrieve remaining sections op (dependent on first section op)
     DownloadSectionsOp *remainingSectionsOp =
-    [[DownloadSectionsOp alloc] initForPageTitle: pageTitle
+    [[DownloadSectionsOp alloc] initForPageTitle: pageTitle.prefixedText
                                           domain: [SessionSingleton sharedInstance].currentArticleDomain
                                  leadSectionOnly: NO
                                  completionBlock: ^(NSDictionary *results){
@@ -1246,7 +1258,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     // Retrieve first section op
     DownloadSectionsOp *firstSectionOp =
-    [[DownloadSectionsOp alloc] initForPageTitle: pageTitle
+    [[DownloadSectionsOp alloc] initForPageTitle: pageTitle.prefixedText
                                           domain: [SessionSingleton sharedInstance].currentArticleDomain
                                  leadSectionOnly: YES
                                  completionBlock: ^(NSDictionary *dataRetrieved){
@@ -1258,7 +1270,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         // Redirect if the pageTitle which triggered this call to "retrieveArticleForPageTitle"
         // differs from titleReflectingAnyRedirects.
         if (redirectedTitle.length > 0) {
-            NSString *newTitle = redirectedTitle.copy;
+            MWPageTitle *newTitle = [MWPageTitle titleWithString:redirectedTitle];
             [self retrieveArticleForPageTitle: newTitle
                                        domain: domain
                               discoveryMethod: discoveryMethod
@@ -1271,7 +1283,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                 insertNewObjectForEntityForName:@"Article"
                 inManagedObjectContext:articleDataContext_.workerContext
             ];
-            article.title = pageTitle;
+            article.title = pageTitle.prefixedText;
             article.dateCreated = [NSDate date];
             article.site = [SessionSingleton sharedInstance].site;
             article.domain = [SessionSingleton sharedInstance].currentArticleDomain;
@@ -1470,14 +1482,17 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     // Pull the scroll offset out so the article object doesn't have to be passed into the block below.
     CGPoint scrollOffset = CGPointMake(article.lastScrollX.floatValue, article.lastScrollY.floatValue);
-
+    NSString *jumpToFragment = self.jumpToFragment;
+    
     [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
         if (mode != DISPLAY_APPEND_NON_LEAD_SECTIONS) {
             // See comments inside resetBridge.
             [self resetBridge];
         }
         
-        self.scrollOffset = scrollOffset;
+        if (jumpToFragment == nil) {
+            self.scrollOffset = scrollOffset;
+        }
 
 
         if ((mode != DISPLAY_LEAD_SECTION) && ![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
@@ -1499,7 +1514,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                                    }];
         
         [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];
-
+        // Note: we set the scroll position later, after the size has been calculated
+        
         if ([self tocDrawerIsOpen]) {
             // Drawer is already open, so just refresh the toc quickly w/o animation.
             // Make sure "tocShowWithDuration:" is allowed to happen even if the TOC

@@ -27,6 +27,8 @@
 #import "Defines.h"
 #import "ModalMenuAndContentViewController.h"
 #import "UIViewController+PresentModal.h"
+#import "MWPageTitle.h"
+
 
 #pragma mark - Defines
 
@@ -539,8 +541,9 @@ typedef enum {
     
     NSString *mainArticleTitle = [SessionSingleton sharedInstance].domainMainArticleTitle;
     if (mainArticleTitle) {
+        MWPageTitle *pageTitle = [MWPageTitle titleWithString:mainArticleTitle];
         // Invalidate cache so present day main page article is always retrieved.
-        [NAV loadArticleWithTitle: mainArticleTitle
+        [NAV loadArticleWithTitle: pageTitle
                            domain: languageId
                          animated: YES
                   discoveryMethod: DISCOVERY_METHOD_SEARCH
