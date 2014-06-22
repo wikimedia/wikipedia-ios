@@ -227,7 +227,7 @@ typedef enum {
 {
     NSDate *lastHousekeepingDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastHousekeepingDate"];
     NSInteger daysSinceLastHouseKeeping = [[NSDate date] daysAfterDate:lastHousekeepingDate];
-    NSLog(@"daysSinceLastHouseKeeping = %d", daysSinceLastHouseKeeping);
+    NSLog(@"daysSinceLastHouseKeeping = %ld", (long)daysSinceLastHouseKeeping);
     if (daysSinceLastHouseKeeping > 1) {
         NSLog(@"Performing housekeeping...");
         CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];

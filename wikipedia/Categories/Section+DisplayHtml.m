@@ -13,16 +13,16 @@
 
     return
         [NSString stringWithFormat:@"\
-<div id=\"section_heading_and_content_block_%d\">\
+<div id=\"section_heading_and_content_block_%ld\">\
 %@\
-<div id=\"content_block_%d\">\
+<div id=\"content_block_%ld\">\
 %@\
 </div>\
 </div>\
          ",
-             self.sectionId.integerValue,
+             (long)self.sectionId.integerValue,
              (isMainPage ? @"" : [self getHeaderTag:isMainPage]),
-             self.sectionId.integerValue,
+             (long)self.sectionId.integerValue,
              self.html
          ];
 }
@@ -39,17 +39,17 @@
 
     return
         [NSString stringWithFormat:@"\
-<h%d class=\"section_heading\" data-id=\"%d\" id=\"%@\">\
+<h%ld class=\"section_heading\" data-id=\"%ld\" id=\"%@\">\
 %@\
 %@\
-</h%d>\
+</h%ld>\
             ",
-            headingTagSize,
-            self.sectionId.integerValue,
+            (long)headingTagSize,
+            (long)self.sectionId.integerValue,
             self.anchor,
             title,
             pencilAnchor,
-            headingTagSize
+            (long)headingTagSize
         ];
 }
 
@@ -78,8 +78,8 @@
 -(NSString *)getEditPencilAnchor
 {
     return [NSString stringWithFormat:
-        @"<a class=\"edit_section_button\" data-action=\"edit_section\" data-id=\"%d\"></a>",
-        self.sectionId.integerValue];
+        @"<a class=\"edit_section_button\" data-action=\"edit_section\" data-id=\"%ld\"></a>",
+        (long)self.sectionId.integerValue];
 }
 
 @end

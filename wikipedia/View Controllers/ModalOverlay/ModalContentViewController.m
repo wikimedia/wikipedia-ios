@@ -64,7 +64,7 @@
         [invocation invoke];
         NSUInteger destNavBarMode;
         [invocation getReturnValue:&destNavBarMode];
-        self.navBarMode = destNavBarMode;
+        self.navBarMode = (NavBarMode)destNavBarMode;
     }
 
     selector = NSSelectorFromString(@"navBarStyle");
@@ -76,7 +76,7 @@
         [invocation invoke];
         NSUInteger destNavBarStyle;
         [invocation getReturnValue:&destNavBarStyle];
-        self.navBarStyle = destNavBarStyle;
+        self.navBarStyle = (NavBarStyle)destNavBarStyle;
     }
 }
 
