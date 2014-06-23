@@ -37,6 +37,7 @@ bridge.registerListener( "append", function( payload ) {
     //TODO: later could optimize to only perform actions on elements found
     // within the content div which was appended).
 
+    wikihacks.putWideTablesInDivs();
 /*
     wikihacks.makeTablesNotBlockIfSafeToDoSo();
     wikihacks.reduceWeirdWebkitMargin();
