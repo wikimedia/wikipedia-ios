@@ -42,7 +42,9 @@ bridge.registerListener( "append", function( payload ) {
 /*
     wikihacks.makeTablesNotBlockIfSafeToDoSo();
     wikihacks.reduceWeirdWebkitMargin();
+ */
     wikihacks.hideAudioTags();
+/*
     wikihacks.allowDivWidthsToFlow();
 */
 });
