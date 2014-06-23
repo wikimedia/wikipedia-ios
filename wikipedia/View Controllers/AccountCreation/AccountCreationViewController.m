@@ -373,6 +373,12 @@
 -(void)login
 {
     LoginViewController *loginVC = [self.navigationController searchNavStackForViewControllerOfClass:[LoginViewController class]];
+
+    BOOL loginVCOnNavStack = loginVC ? YES : NO;
+    if (!loginVCOnNavStack) {
+        // Create detached loginVC just for loggin in.
+        loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    }
     
     [self showAlert:MWLocalizedString(@"account-creation-logging-in", nil)];
     
@@ -383,12 +389,15 @@
                                                                      withString: self.usernameField.text];
         [self showAlert:loggedInMessage];
 
-        UIViewController *vcBeneathLoginVC = [self.navigationController getVCBeneathVC:loginVC];
-
-        if (vcBeneathLoginVC){
-            [ROOT popToViewController:vcBeneathLoginVC animated:YES];
+        if (!loginVCOnNavStack) {
+            [ROOT popViewControllerAnimated:YES];
         }else{
-            [self performSelector:@selector(hide) withObject:nil afterDelay:0.5f];
+            UIViewController *vcBeneathLoginVC = [self.navigationController getVCBeneathVC:loginVC];
+            if (vcBeneathLoginVC){
+                [ROOT popToViewController:vcBeneathLoginVC animated:YES];
+            }else{
+                [self performSelector:@selector(hide) withObject:nil afterDelay:0.5f];
+            }
         }
         
     } onFail:^(){
