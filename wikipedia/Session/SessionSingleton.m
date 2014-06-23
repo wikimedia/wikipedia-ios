@@ -35,12 +35,14 @@
 
 -(NSURL *)urlForDomain:(NSString *)domain
 {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.m.%@/w/api.php", domain, [self site]]];
+    NSString *endpoint = self.fallback ? @"" : @".m";
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@%@.%@/w/api.php", domain, endpoint, [self site]]];
 }
 
 -(NSString *)searchApiUrl
 {
-    return [NSString stringWithFormat:@"https://%@.m.%@/w/api.php", [self domain], [self site]];
+    NSString *endpoint = self.fallback ? @"" : @".m";
+    return [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", [self domain], endpoint, [self site]];
 }
 
 -(void)setDomain:(NSString *)domain

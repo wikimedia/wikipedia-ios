@@ -27,6 +27,7 @@
 
 @property (strong, atomic) NSArray *unsupportedCharactersLanguageIds;
 
+@property (nonatomic) BOOL fallback;
 -(NSURL *)urlForDomain:(NSString *)domain;
 -(NSString *)domainNameForCode:(NSString *)code;
 

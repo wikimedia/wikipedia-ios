@@ -1408,6 +1408,20 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
             [articleDataContext_.workerContext deleteObject:article];
         }
+        
+        // @TODO potentially do this in the difFailWithError in MWNetworkOp
+        // It seems safe enough, but we didn't want to cause any sort of memory leak
+        if (error.domain == NSStreamSocketSSLErrorDomain ||
+            (error.domain == NSURLErrorDomain &&
+             (error.code == NSURLErrorSecureConnectionFailed ||
+              error.code == NSURLErrorServerCertificateHasBadDate ||
+              error.code == NSURLErrorServerCertificateUntrusted ||
+              error.code == NSURLErrorServerCertificateHasUnknownRoot ||
+              error.code == NSURLErrorServerCertificateNotYetValid)
+             )
+            ) {
+            [SessionSingleton sharedInstance].fallback = true;
+        }
     }];
 
     firstSectionOp.delegate = self;
