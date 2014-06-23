@@ -7,10 +7,9 @@
 "article-languages-label" = "בחירת שפה";
 "article-languages-cancel" = "ביטול";
 "article-languages-downloading" = "טעינת שפות הערך...";
-// Fuzzy
-"article-languages-filter-placeholder" = "סינון";
-// Fuzzy
-"history-label" = "היסטוריית גלישה";
+"article-languages-filter-placeholder" = "סינון שפה";
+"language-button-other-languages" = "שפות אחרות";
+"history-label" = "לאחרונה";
 "history-section-today" = "היום";
 "history-section-yesterday" = "אתמול";
 "history-section-lastweek" = "בשבוע שעבר";
@@ -49,10 +48,13 @@
 "wikitext-upload-captcha-error" = "שגיאת אימות.";
 "wikitext-upload-captcha-needed" = "נדרש אימות תמונה.";
 "wikitext-upload-save" = "שמירה...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "כניסה ושמירה";
 "wikitext-upload-save-sign-in-benefits" = "כדי שעורכים עמיתים יוכלו להיות בקשר אתך ולראות אילו ערכים ערכת.";
 "wikitext-upload-save-anonymously" = "שמירה אלמונית";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "זה מעניק פחות פרטיות. כתובת ה־IP שלך תוצג עם עריכות.";
+// Fuzzy
 "wikitext-upload-save-license" = "שמירת השינויים מהווה את הסכמתך לפרסום התרומה שלך לפי תנאי רישיון $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "חיפוש...";
@@ -62,6 +64,8 @@
 "search-loading-section-zero" = "טעינת הפסקה הראשונה של הערך...";
 "search-loading-section-remaining" = "טעינת שאר הערך...";
 "search-loading-article-loaded" = "הערך נטען.";
+"search-cancel" = "ביטול";
+"main-menu-title" = "עוד";
 "main-menu-language-title" = "חיפוש בוויקי בשפה $1";
 "main-menu-language-toggle-show" = "הצגת השפות";
 "main-menu-language-toggle-hide" = "הסתרת השפות";
@@ -71,12 +75,10 @@
 "main-menu-account-login" = "כניסה";
 "main-menu-account-logout" = "יציאה";
 "main-menu-show-title" = "תַראו לי...";
-// Fuzzy
-"main-menu-show-history" = "היסטוריית הגלישה";
+"main-menu-show-history" = "לאחרונה";
 "main-menu-show-saved" = "דפים שמורים";
 "main-menu-current-article-save" = "שמירת $1 לקריאה בלי רשת";
-// Fuzzy
-"main-menu-random" = "דף אקראי";
+"main-menu-random" = "אקראי";
 "main-menu-feedback-heading" = "משוב";
 "main-menu-send-feedback" = "שליחת משוב";
 "main-menu-show-page-history" = "היסטוריה של שינויים שנעשו לדף $1";
@@ -85,7 +87,9 @@
 "page-history-title" = "היסטוריית הדף";
 "page-history-downloading" = "טעינת היסטוריית הדף";
 "navbar-title-mode-edit-wikitext" = "עריכה";
+// Fuzzy
 "navbar-title-mode-login" = "כניסה";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "כניסה ושמירה";
 "navbar-title-mode-create-account" = "יצירת חשבון";
 "navbar-title-mode-create-account-and-save" = "יצירת חשבון ושמירה";
@@ -106,6 +110,7 @@
 "edit-summary-choice-other" = "אחר";
 "edit-summary-description" = "תקציר ברור עוזר לעורכים אחרים לסקור במהירות את העריכות שלך. אפשר גם לבחור מתוך התגים להלן.";
 "edit-summary-field-placeholder-text" = "איך שיפרת את הדף הזה?";
+"edit-summary-title" = "איך שיפרת את הערך?";
 "fetching-random-article" = "אחזור ערך אקראי";
 "article-pull-to-refresh-prompt" = "למשוך לרענון הערך";
 "article-pull-to-refresh-is-refreshing" = "מרענן את הערך";
@@ -114,3 +119,17 @@
 "credits-gerrit-repo" = "יישום – ראשי (גריט)";
 "credits-github-mirror" = "יישום – מראה (גיטהאב)";
 "credits-external-libraries" = "חיצוני";
+"share-menu-save-page" = "שמירת דף";
+"share-menu-page-saved" = "הדף נשמר";
+"timestamp-just-now" = "זה עתה";
+"timestamp-minutes" = "לפני %d דקות";
+"timestamp-hours" = "לפני %d שעות";
+"timestamp-days" = "לפני %d ימים";
+"timestamp-months" = "לפני %d חודשים";
+"timestamp-years" = "לפני %d שנים";
+"lastmodified-timestamp" = "שוּנה לאחרונה $1";
+"lastmodified-by" = "על־ידי $1";
+"lastmodified-anon" = "על־ידי משתמש אלמוני";
+"button-next" = "הבא";
+"button-done" = "בוצע";
+"button-save" = "שמירה";

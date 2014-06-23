@@ -47,6 +47,7 @@
 "wikitext-upload-captcha-error" = "Hewa hōʻoia Kapakā.";
 "wikitext-upload-captcha-needed" = "Pono i ka hōʻoia Kapakā.";
 "wikitext-upload-save" = "Mālama nei...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "E ʻeʻe a mālama";
 // Fuzzy
 "wikitext-upload-save-sign-in-benefits" = "No laila hiki i nā luna hoʻoponopono ʻē aʻe ke hoʻokuʻi me ʻoe a hiki iā ʻoe ke ʻike i nā ʻatikala āu i hoʻololi ai";
@@ -79,7 +80,9 @@
 "main-menu-send-feedback" = "Hoʻouna i ka manaʻo";
 "saved-pages-title" = "Nā ʻAoʻao mālama ʻia";
 "navbar-title-mode-edit-wikitext" = "Hoʻololi";
+// Fuzzy
 "navbar-title-mode-login" = "ʻEʻe";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "E ʻeʻe a mālama";
 "navbar-title-mode-create-account" = "E Kāinoa";
 "navbar-title-mode-create-account-and-save" = "E kāinoa a mālama";

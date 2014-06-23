@@ -49,10 +49,13 @@
 "wikitext-upload-captcha-error" = "캡차 확인 오류입니다.";
 "wikitext-upload-captcha-needed" = "캡차 확인이 필요합니다.";
 "wikitext-upload-save" = "저장 중...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "로그인하고 저장하기";
 "wikitext-upload-save-sign-in-benefits" = "공동 편집자가 당신과 연결할 수 있어서 당신이 편집한 문서를 볼 수 있습니다.";
 "wikitext-upload-save-anonymously" = "익명으로 저장하기";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "이는 더 적은 개인 정보를 가집니다. IP 주소가 편집으로 보여집니다.";
+// Fuzzy
 "wikitext-upload-save-license" = "저장하면, $1 라이선스에 따라 기여를 배포하는 데 동의합니다.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "검색 중...";
@@ -85,7 +88,9 @@
 "page-history-title" = "문서 역사";
 "page-history-downloading" = "문서 역사를 불러오는 중...";
 "navbar-title-mode-edit-wikitext" = "편집";
+// Fuzzy
 "navbar-title-mode-login" = "로그인";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "로그인하고 저장하기";
 "navbar-title-mode-create-account" = "계정 만들기";
 "navbar-title-mode-create-account-and-save" = "계정 만들고 저장하기";

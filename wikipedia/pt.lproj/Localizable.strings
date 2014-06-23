@@ -8,10 +8,8 @@
 "article-languages-label" = "Escolher língua";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "A carregar idiomas do artigo...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtro";
-// Fuzzy
-"history-label" = "Navegar pelo histórico";
+"article-languages-filter-placeholder" = "Filtro de idioma";
+"history-label" = "Recentes";
 "history-section-today" = "Hoje";
 "history-section-yesterday" = "Ontem";
 "history-section-lastweek" = "Última semana";
@@ -50,10 +48,13 @@
 "wikitext-upload-captcha-error" = "Erro de verificação do código CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verificação de código CAPTCHA necessária.";
 "wikitext-upload-save" = "A gravar...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Autenticar e gravar";
 "wikitext-upload-save-sign-in-benefits" = "Assim, co-editores poderão contactá-lo e você poderá ver quais artigos editastes.";
 "wikitext-upload-save-anonymously" = "Gravar anonimamente";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Isto significa menos privacidade. O seu endereço de IP está visível nas edições.";
+// Fuzzy
 "wikitext-upload-save-license" = "Ao gravar, concorda em publicar a sua contribuição sob a licença $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "A pesquisar...";
@@ -63,6 +64,8 @@
 "search-loading-section-zero" = "A carregar a primeira secção do artigo...";
 "search-loading-section-remaining" = "A carregar o resto do artigo...";
 "search-loading-article-loaded" = "Artigo carregado.";
+"search-cancel" = "Cancelar";
+"main-menu-title" = "Mais";
 "main-menu-language-title" = "Busca de $1 idioma wiki";
 "main-menu-language-toggle-show" = "Mostrar idiomas";
 "main-menu-language-toggle-hide" = "Ocultar idiomas";
@@ -72,12 +75,10 @@
 "main-menu-account-login" = "Entrar";
 "main-menu-account-logout" = "Sair da conta";
 "main-menu-show-title" = "Mostre-me...";
-// Fuzzy
-"main-menu-show-history" = "Navegar pelo histórico";
+"main-menu-show-history" = "Recentes";
 "main-menu-show-saved" = "Páginas gravadas";
 "main-menu-current-article-save" = "A gravar $1 para leitura offline";
-// Fuzzy
-"main-menu-random" = "Artigo aleatório";
+"main-menu-random" = "Aleatório";
 "main-menu-feedback-heading" = "Comentários";
 "main-menu-send-feedback" = "Enviar comentário";
 "main-menu-show-page-history" = "Histórico de alterações para $1";
@@ -86,7 +87,9 @@
 "page-history-title" = "Histórico da página";
 "page-history-downloading" = "A carregar o histórico da página...";
 "navbar-title-mode-edit-wikitext" = "Editar";
+// Fuzzy
 "navbar-title-mode-login" = "Entrar";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Autenticar e gravar";
 "navbar-title-mode-create-account" = "Criar conta";
 "navbar-title-mode-create-account-and-save" = "Criar conta e gravar";
@@ -107,6 +110,7 @@
 "edit-summary-choice-other" = "Outro";
 "edit-summary-description" = "Um resumo específico ajuda os co-editores a rever suas edições. Você pode escolher também uma das etiquetas abaixo.";
 "edit-summary-field-placeholder-text" = "Como melhorou a página?";
+"edit-summary-title" = "De que forma contribuiu para melhorar a página?";
 "fetching-random-article" = "A obter um artigo aleatório";
 "article-pull-to-refresh-prompt" = "Puxe para actualizar o artigo";
 "article-pull-to-refresh-is-refreshing" = "A actualizar o artigo";
@@ -115,3 +119,14 @@
 "credits-gerrit-repo" = "Rep. principal da aplicação (Gerrit)";
 "credits-github-mirror" = "Mirror da aplicação (GitHub)";
 "credits-external-libraries" = "Externo";
+"share-menu-save-page" = "Gravar página";
+"share-menu-page-saved" = "Página gravada";
+"timestamp-just-now" = "agora mesmo";
+"timestamp-minutes" = "há %d minutos";
+"timestamp-hours" = "há %d horas";
+"timestamp-days" = "há %d dias";
+"timestamp-months" = "há %d meses";
+"lastmodified-by" = "por $1";
+"button-next" = "Seguinte";
+"button-done" = "Feito";
+"button-save" = "Gravar";

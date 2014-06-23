@@ -7,10 +7,9 @@
 "article-languages-label" = "Scegli la lingua";
 "article-languages-cancel" = "Annulla";
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtra";
-// Fuzzy
-"history-label" = "Naviga nella cronologia";
+"article-languages-filter-placeholder" = "Filtra lingua";
+"language-button-other-languages" = "Altre lingue";
+"history-label" = "Recenti";
 "history-section-today" = "Oggi";
 "history-section-yesterday" = "Ieri";
 "history-section-lastweek" = "Ultima settimana";
@@ -49,10 +48,13 @@
 "wikitext-upload-captcha-error" = "Errore nella verifica del CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verifica del CAPTCHA necessaria.";
 "wikitext-upload-save" = "Salvataggio...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Registrati e salva";
 "wikitext-upload-save-sign-in-benefits" = "Così gli altri co-editori potranno connettersi con te e potrete vedere quali articoli avete modificato.";
 "wikitext-upload-save-anonymously" = "Salva in modo anonimo";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Questo ha meno privacy. Il tuo indirizzo IP è visibile con le modifiche.";
+// Fuzzy
 "wikitext-upload-save-license" = "Salvando, accetti di rilasciare il tuo contributo in base alla licenza $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Ricerca in corso...";
@@ -62,6 +64,8 @@
 "search-loading-section-zero" = "Caricamento prima sezione della voce...";
 "search-loading-section-remaining" = "Caricamento del resto della voce...";
 "search-loading-article-loaded" = "Voce caricata.";
+"search-cancel" = "Annulla";
+"main-menu-title" = "Altro";
 "main-menu-language-title" = "Cerca nel wiki in lingua $1";
 "main-menu-language-toggle-show" = "Visualizza lingue";
 "main-menu-language-toggle-hide" = "Nascondi lingue";
@@ -71,12 +75,10 @@
 "main-menu-account-login" = "Entra";
 "main-menu-account-logout" = "Esci";
 "main-menu-show-title" = "Fammi vedere...";
-// Fuzzy
-"main-menu-show-history" = "Cronologia di navigazione";
+"main-menu-show-history" = "Recenti";
 "main-menu-show-saved" = "Pagine salvate";
 "main-menu-current-article-save" = "Salva $1 per la lettura offline";
-// Fuzzy
-"main-menu-random" = "Voce a caso";
+"main-menu-random" = "Casuale";
 "main-menu-feedback-heading" = "Commenti";
 "main-menu-send-feedback" = "Invia commento";
 "main-menu-show-page-history" = "Cronologia delle modifiche a $1";
@@ -85,7 +87,9 @@
 "page-history-title" = "Cronologia della pagina";
 "page-history-downloading" = "Caricamento della cronologia di pagina...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
+// Fuzzy
 "navbar-title-mode-login" = "Accedi";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Accedi e salva";
 "navbar-title-mode-create-account" = "Crea un'utenza";
 "navbar-title-mode-create-account-and-save" = "Crea un'utenza e salva";
@@ -114,3 +118,14 @@
 "credits-gerrit-repo" = "Applicazione principale (Gerrit)";
 "credits-github-mirror" = "Applicazione mirror (GitHub)";
 "credits-external-libraries" = "Esterno";
+"share-menu-save-page" = "Salva la pagina";
+"share-menu-page-saved" = "Pagina salvata";
+"timestamp-just-now" = "proprio ora";
+"timestamp-minutes" = "%d minuti fa";
+"timestamp-hours" = "%d ore fa";
+"timestamp-days" = "%d giorni fa";
+"timestamp-months" = "%d mesi fa";
+"timestamp-years" = "%d anni fa";
+"lastmodified-timestamp" = "Ultima modifica $1";
+"lastmodified-by" = "da $1";
+"lastmodified-anon" = "da un utente anonimo";

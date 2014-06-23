@@ -5,10 +5,9 @@
 "article-languages-label" = "Chọn ngôn ngữ";
 "article-languages-cancel" = "Hủy bỏ";
 "article-languages-downloading" = "Đang tải các ngôn ngữ của bài…";
-// Fuzzy
-"article-languages-filter-placeholder" = "Lọc";
-// Fuzzy
-"history-label" = "Lịch sử Duyệt Trang";
+"article-languages-filter-placeholder" = "Lọc Ngôn ngữ";
+"language-button-other-languages" = "Ngôn ngữ Khác";
+"history-label" = "Gần đây";
 "history-section-today" = "Hôm nay";
 "history-section-yesterday" = "Hôm qua";
 "history-section-lastweek" = "Tuần trước";
@@ -47,10 +46,13 @@
 "wikitext-upload-captcha-error" = "Lỗi khi xác nhận bằng CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Cần xác nhận bằng CAPTCHA.";
 "wikitext-upload-save" = "Đang lưu…";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Đăng nhập và lưu giữ";
 "wikitext-upload-save-sign-in-benefits" = "Để cho những người dùng sửa đổi có thể liên lạc với bạn & bạn có thể xem những bài bạn đã sửa đổi.";
 "wikitext-upload-save-anonymously" = "Lưu vô danh";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Các sửa đổi của bạn sẽ ghi rõ địa chỉ IP của bạn, nên sẽ không bảo vệ quyền riêng tư của bạn.";
+// Fuzzy
 "wikitext-upload-save-license" = "Với việc lưu trang, bạn đồng ý xuất bản các đóng góp của bạn theo giấy phép $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Đang tìm…";
@@ -60,6 +62,8 @@
 "search-loading-section-zero" = "Đang tải phần mở đầu bài…";
 "search-loading-section-remaining" = "Đang tải những phần còn lại của bài…";
 "search-loading-article-loaded" = "Đã tải bài.";
+"search-cancel" = "Hủy bỏ";
+"main-menu-title" = "Khác";
 "main-menu-language-title" = "Tìm kiếm trong phiên bản ngôn ngữ $1";
 "main-menu-language-toggle-show" = "Xem các ngôn ngữ";
 "main-menu-language-toggle-hide" = "Ẩn các ngôn ngữ";
@@ -69,12 +73,10 @@
 "main-menu-account-login" = "Đăng nhập";
 "main-menu-account-logout" = "Đăng xuất";
 "main-menu-show-title" = "Cho tôi xem…";
-// Fuzzy
-"main-menu-show-history" = "Lịch sử đọc bài";
+"main-menu-show-history" = "Gần đây";
 "main-menu-show-saved" = "Các trang đã lưu";
 "main-menu-current-article-save" = "Lưu $1 để đọc ngoại tuyến";
-// Fuzzy
-"main-menu-random" = "Bài viết Ngẫu nhiên";
+"main-menu-random" = "Ngẫu nhiên";
 "main-menu-feedback-heading" = "Phản hồi";
 "main-menu-send-feedback" = "Gửi phản hồi";
 "main-menu-show-page-history" = "Lịch sử các thay đổi vào $1";
@@ -83,7 +85,9 @@
 "page-history-title" = "Lịch sử trang";
 "page-history-downloading" = "Đang tải lịch sử trang…";
 "navbar-title-mode-edit-wikitext" = "Sửa đổi";
+// Fuzzy
 "navbar-title-mode-login" = "Đăng nhập";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Đăng nhập và lưu giữ";
 "navbar-title-mode-create-account" = "Mở Tài khoản";
 "navbar-title-mode-create-account-and-save" = "Mở tài khoản và lưu giữ";
@@ -104,6 +108,7 @@
 "edit-summary-choice-other" = "Khác";
 "edit-summary-description" = "Hãy tóm lược rõ ràng để giúp những người sửa đổi khác dễ xem qua các sửa đổi của bạn. Bạn cũng có thể chọn một thẻ bên dưới.";
 "edit-summary-field-placeholder-text" = "Bạn đã cải thiện trang này như thế nào?";
+"edit-summary-title" = "Bạn đã cải thiện bài này như thế nào?";
 "fetching-random-article" = "Đang lấy bài ngẫu nhiên";
 "article-pull-to-refresh-prompt" = "Kéo để làm mới bài";
 "article-pull-to-refresh-is-refreshing" = "Đang làm mới bài";
@@ -112,3 +117,17 @@
 "credits-gerrit-repo" = "Kho chính của ứng dụng (Gerrit)";
 "credits-github-mirror" = "Kho sao của ứng dụng (GitHub)";
 "credits-external-libraries" = "Bên ngoài";
+"share-menu-save-page" = "Lưu Bài";
+"share-menu-page-saved" = "Đã Lưu Bài";
+"timestamp-just-now" = "hồi nãy";
+"timestamp-minutes" = "%d phút trước";
+"timestamp-hours" = "%d giờ trước";
+"timestamp-days" = "%d ngày trước";
+"timestamp-months" = "%d tháng trước";
+"timestamp-years" = "%d năm trước";
+"lastmodified-timestamp" = "Sửa đổi Lần cuối $1";
+"lastmodified-by" = "bởi $1";
+"lastmodified-anon" = "bởi một người dùng vô danh";
+"button-next" = "Tiếp";
+"button-done" = "Xong";
+"button-save" = "Lưu";

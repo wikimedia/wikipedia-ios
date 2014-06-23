@@ -46,9 +46,12 @@
 "wikitext-upload-captcha-error" = "Problém s overovaním.";
 "wikitext-upload-captcha-needed" = "Je požadované overenie pomocou CAPTCHA.";
 "wikitext-upload-save" = "Ukladám...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Prihlásiť sa a uložiť";
 "wikitext-upload-save-anonymously" = "Uložiť anonymne";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Táto voľba menej chráni vaše súkromie. Vaša IP adresa bude spojená s úpravou.";
+// Fuzzy
 "wikitext-upload-save-license" = "Uložením súhlasíte so zverejnením vašej úpravy pod licenciou $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Hľadám...";
@@ -78,7 +81,9 @@
 "page-history-title" = "História stránky";
 "page-history-downloading" = "Načítavanie histórie stránky...";
 "navbar-title-mode-edit-wikitext" = "Upraviť";
+// Fuzzy
 "navbar-title-mode-login" = "Prihlásiť sa";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Prihlásiť sa a uložiť";
 "navbar-title-mode-create-account" = "Vytvoriť účet";
 "navbar-title-mode-create-account-and-save" = "Vytvoriť účet a uložiť";

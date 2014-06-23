@@ -1,5 +1,6 @@
 // Messages for Swedish (svenska)
 // Exported from translatewiki.net
+// Author: Abbedabb
 // Author: Ainali
 // Author: Jopparn
 // Author: Lokal Profil
@@ -8,19 +9,18 @@
 "article-languages-label" = "Välj språk";
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Läser in artikelspråk...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtrera";
-// Fuzzy
+"article-languages-filter-placeholder" = "Språkfilter";
+"language-button-other-languages" = "Andra språk";
 "history-label" = "Webbhistorik";
 "history-section-today" = "Idag";
 "history-section-yesterday" = "Igår";
 "history-section-lastweek" = "Senaste veckan";
 "history-section-lastmonth" = "Senaste månaden";
-"zero-free-verbiage" = "Gratis Wikipedia-tillgång från din mobiloperatör (avstår från dataavgifter)";
+"zero-free-verbiage" = "Gratis Wikipedia-tillgång från din mobiloperatör (utan dataavgifter)";
 "zero-charged-verbiage" = "Wikipedia Zero INAKTIVERAD (STANDARDDATAAVGIFTER KAN TILLKOMMA)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
-"zero-interstitial-title" = "Lämnar Wikipedia Zero";
-"zero-interstitial-leave-app" = "Fortsätt till en extern webbplats? Standarddataavgifter kan tillkomma.";
+"zero-interstitial-title" = "Du lämnar nu Wikipedia Zero";
+"zero-interstitial-leave-app" = "Fortsätt till en extern webbplats? Avgifter för datatrafik kan tillkomma.";
 "zero-interstitial-continue" = "Fortsätt";
 "zero-interstitial-cancel" = "Avbryt";
 "zero-learn-more" = "Vill du veta mer om Wikipedia Zero?";
@@ -32,7 +32,7 @@
 "account-creation-captcha-required" = "CAPTCHA-verifiering krävs.";
 "account-creation-captcha-obtaining" = "Hämtar en ny CAPTCHA";
 "account-creation-logging-in" = "Loggar in...";
-"account-creation-passwords-mismatched" = "Lösenordsfälten matchar inte.";
+"account-creation-passwords-mismatched" = "Lösenorden matchar inte.";
 "account-creation-saving" = "Sparar...";
 "login-name-not-found" = "Användarnamn krävs för att logga in.";
 "login-name-illegal" = "Du angav ett ogiltigt användarnamn.";
@@ -42,51 +42,56 @@
 "login-throttled" = "Du har loggat in för många gånger på kort tid.";
 "login-user-blocked" = "Användaren är blockerad.";
 "wikitext-downloading" = "Laddar wikitext...";
-"wikitext-download-failed" = "Går inte att hämta senaste sidversion.";
+"wikitext-download-failed" = "Det gick inte att hämta den senaste artikelversionen.";
 "wikitext-download-success" = "Wikitext laddad.";
 "wikitext-preview-changes" = "Hämtar förhandsgranskning av dina ändringar...";
-"wikitext-preview-changes-none" = "Inga ändringar gjordes för att förhandsgranska.";
+"wikitext-preview-changes-none" = "Inga ändringar som behöver förhandsgranskas har gjorts.";
 "wikitext-upload-result-unknown" = "Kunde inte att avgöra wikitextens uppladdningsresultat.";
 "wikitext-upload-captcha-error" = "Captcha-verifieringsfel.";
 "wikitext-upload-captcha-needed" = "Kräver captcha-verifiering.";
 "wikitext-upload-save" = "Sparar...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Logga in och spara";
-"wikitext-upload-save-sign-in-benefits" = "Så medredigerare kan kontakta dig och du kan se vilka artiklar du har redigerat.";
+"wikitext-upload-save-sign-in-benefits" = "Så att andra användare kan kontakta dig och du kan se vilka artiklar du har redigerat.";
 "wikitext-upload-save-anonymously" = "Spara anonymt";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Detta har lägre sekretess. Din IP-adress är synlig i samband med redigeringarna.";
+// Fuzzy
 "wikitext-upload-save-license" = "Genom att spara, samtycker du till att släppa dina bidrag under licensen $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Söker...";
 "search-no-matches" = "Inga matchningar hittades för söktermen.";
 "search-field-placeholder-text" = "Sök på Wikipedia";
 "search-field-placeholder-text-zero" = "Sök på Wikipedia Zero";
-"search-loading-section-zero" = "Laddar första stycket av artikeln...";
+"search-loading-section-zero" = "Laddar artikelns första stycke...";
 "search-loading-section-remaining" = "Laddar resten av artikeln...";
 "search-loading-article-loaded" = "Artikel laddad.";
+"search-cancel" = "Avbryt";
+"main-menu-title" = "Mer";
 "main-menu-language-title" = "Sök wikin på språket $1";
 "main-menu-language-toggle-show" = "Visa språk";
 "main-menu-language-toggle-hide" = "Dölj språk";
 "main-menu-language-selection-saved" = "Språkval sparades";
 "main-menu-account-title-logged-out" = "Konto";
-"main-menu-account-title-logged-in" = "Inloggad som: $1";
+"main-menu-account-title-logged-in" = "Inloggad som $1";
 "main-menu-account-login" = "Logga in";
 "main-menu-account-logout" = "Logga ut";
 "main-menu-show-title" = "Visa mig...";
-// Fuzzy
 "main-menu-show-history" = "Webbhistorik";
-"main-menu-show-saved" = "Sparade sidor";
+"main-menu-show-saved" = "Sparade artiklar";
 "main-menu-current-article-save" = "Spara $1 för läsning offline";
-// Fuzzy
 "main-menu-random" = "Slumpartikel";
-"main-menu-feedback-heading" = "Återkoppling";
-"main-menu-send-feedback" = "Skicka återkoppling";
-"main-menu-show-page-history" = "Historik över ändringar av $1";
+"main-menu-feedback-heading" = "Feedback";
+"main-menu-send-feedback" = "Skicka feedback";
+"main-menu-show-page-history" = "Historik över redigeringar av $1";
 "main-menu-credits" = "Erkännanden";
-"saved-pages-title" = "Sparade sidor";
-"page-history-title" = "Sidhistorik";
-"page-history-downloading" = "Laddar sidhistorik...";
+"saved-pages-title" = "Sparade artiklar";
+"page-history-title" = "Artikelhistorik";
+"page-history-downloading" = "Laddar artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigera";
+// Fuzzy
 "navbar-title-mode-login" = "Logga in";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Logga in och spara";
 "navbar-title-mode-create-account" = "Skapa konto";
 "navbar-title-mode-create-account-and-save" = "Skapa konto och spara";
@@ -96,17 +101,18 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Snabbverifiering krävs";
 "navbar-title-mode-edit-wikitext-summary" = "Beskriv din redigering";
 "navbar-title-mode-edit-wikitext-save" = "Spara";
-"edit-summary-choice-linked-words" = "Länkade ord";
+"edit-summary-choice-linked-words" = "Lade till länkar";
 "edit-summary-choice-fixed-grammar" = "Korrigerade grammatiken";
 "edit-summary-choice-fixed-inaccuracy" = "Åtgärdade felaktighet";
 "edit-summary-choice-fixed-styling" = "Åtgärdade utseendet";
-"edit-summary-choice-fixed-typos" = "Åtgärdade felstavning";
+"edit-summary-choice-fixed-typos" = "Rättade felstavning";
 "edit-summary-choice-added-category" = "Lade till kategori";
 "edit-summary-choice-added-missing-info" = "Lade till saknad information";
 "edit-summary-choice-added-clarification" = "Lade till förtydligande";
 "edit-summary-choice-other" = "Övrigt";
 "edit-summary-description" = "En särskild sammanfattning hjälper medredigerare att snabbt granska dina redigeringar. Du kan också välja en från taggarna nedan.";
-"edit-summary-field-placeholder-text" = "Hur förbättrade du sidan?";
+"edit-summary-field-placeholder-text" = "Hur förbättrade du artikeln?";
+"edit-summary-title" = "Hur förbättrade du artikeln?";
 "fetching-random-article" = "Hämtar slumpartikel";
 "article-pull-to-refresh-prompt" = "Dra för att uppdatera artikeln";
 "article-pull-to-refresh-is-refreshing" = "Uppdaterar artikeln";
@@ -115,3 +121,17 @@
 "credits-gerrit-repo" = "Huvudsaklig app (Gerrit)";
 "credits-github-mirror" = "Speglad app (GitHub)";
 "credits-external-libraries" = "Externa";
+"share-menu-save-page" = "Spara artikel";
+"share-menu-page-saved" = "Artikeln sparades";
+"timestamp-just-now" = "just nu";
+"timestamp-minutes" = "%d minuter sedan";
+"timestamp-hours" = "%d timmar sedan";
+"timestamp-days" = "%d dagar sedan";
+"timestamp-months" = "%d månader sedan";
+"timestamp-years" = "%d år sedan";
+"lastmodified-timestamp" = "Senast ändrad $1";
+"lastmodified-by" = "av $1";
+"lastmodified-anon" = "av en anonym användare";
+"button-next" = "Nästa";
+"button-done" = "Färdig";
+"button-save" = "Spara";

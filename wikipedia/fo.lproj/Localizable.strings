@@ -5,10 +5,9 @@
 "article-languages-label" = "Vel mál";
 "article-languages-cancel" = "Avbrýt";
 "article-languages-downloading" = "Innlesur greinamál...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtur";
-// Fuzzy
-"history-label" = "Leitar í søguni";
+"article-languages-filter-placeholder" = "Málsligt filtur";
+"language-button-other-languages" = "Onnur mál";
+"history-label" = "Nýliga";
 "history-section-today" = "Í dag";
 "history-section-yesterday" = "Í gjár";
 "history-section-lastweek" = "Í síðstu viku";
@@ -39,18 +38,28 @@
 "login-user-blocked" = "Brúkarin er sperraður.";
 "wikitext-downloading" = "Innlesur wikitekst...";
 "wikitext-download-failed" = "Tað ber ikki til at heinta seinast versjónina.";
+"wikitext-download-success" = "Wikitekstur innlisin.";
 "wikitext-preview-changes-none" = "Ongar broytingar vóru gjørdar sum kunnu undanskoðast.";
 "wikitext-upload-save" = "Goymir...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Rita inn og goym";
 "wikitext-upload-save-sign-in-benefits" = "So aðrir høvundar kunnu koma í samband við teg og tú kanst síggja hvørjar greinar tú hevur rættað.";
 "wikitext-upload-save-anonymously" = "Goym dulnevnt";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Hetta er minni privat. Tín IP adressa er sjónlig í samband við tínar rættingar.";
+// Fuzzy
 "wikitext-upload-save-license" = "Við at goyma so góðtekur tú at tíni íkøst verða útgivin undir $1 lisensi.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Leitar...";
 "search-no-matches" = "Ongi leitiúrslit funnin fyri leitiorðið/leitiorðini.";
 "search-field-placeholder-text" = "Leita í Wikipedia";
 "search-field-placeholder-text-zero" = "Leita í Wikipedia Zero";
+"search-loading-section-zero" = "Innlesur fyrsta brot av greinini...";
+"search-loading-section-remaining" = "Innlesur restina av greinini...";
+"search-loading-article-loaded" = "Greinin er innlisin.";
+"search-cancel" = "Avbrót";
+"main-menu-title" = "Meira";
+"main-menu-language-title" = "Leita eftir máli á wiki'ina $1";
 "main-menu-language-toggle-show" = "Vís mál";
 "main-menu-language-toggle-hide" = "Fjal mál";
 "main-menu-language-selection-saved" = "Val av máli er goymt";
@@ -59,19 +68,19 @@
 "main-menu-account-login" = "Rita inn";
 "main-menu-account-logout" = "Útrita";
 "main-menu-show-title" = "Vís mær...";
-// Fuzzy
-"main-menu-show-history" = "Leitar í søguni";
+"main-menu-show-history" = "Seinastu";
 "main-menu-show-saved" = "Goymdar síður";
 "main-menu-current-article-save" = "Goym $1 fyri offline lesing";
-// Fuzzy
-"main-menu-random" = "Tilvildarlig grein";
+"main-menu-random" = "Tilvildarlig";
 "main-menu-feedback-heading" = "Afturmeldingar";
 "main-menu-send-feedback" = "Send afturmelding";
 "saved-pages-title" = "Goymdar síður";
 "page-history-title" = "Søgan hjá síðuni";
 "page-history-downloading" = "Innlesur søguna hjá síðuni...";
 "navbar-title-mode-edit-wikitext" = "Rætta";
+// Fuzzy
 "navbar-title-mode-login" = "Rita inn";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Rita inn og goym";
 "navbar-title-mode-create-account" = "Stovna eina kontu";
 "navbar-title-mode-create-account-and-save" = "Stovna konto og goym";
@@ -85,3 +94,14 @@
 "edit-summary-choice-other" = "Annað";
 "article-pull-to-refresh-is-refreshing" = "Dagførir greinina";
 "credits-wikimedia-repos" = "Wikimedia";
+"share-menu-save-page" = "Goym síðu";
+"share-menu-page-saved" = "Síðan er goymd";
+"timestamp-just-now" = "júst nú";
+"timestamp-minutes" = "%d minuttir síðan";
+"timestamp-hours" = "%d tímar síðan";
+"timestamp-days" = "%d dagar síðan";
+"timestamp-months" = "%d mánaðar síðan";
+"timestamp-years" = "%d ár síðan";
+"lastmodified-timestamp" = "Seinast broytt $1";
+"lastmodified-by" = "av $1";
+"lastmodified-anon" = "av einum ókendum brúkara";

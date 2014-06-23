@@ -48,9 +48,11 @@
 "wikitext-upload-captcha-error" = "Captcha vereefeecation mistak.";
 "wikitext-upload-captcha-needed" = "Need captcha vereefication.";
 "wikitext-upload-save" = "Hainin...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Sign in n hain";
 "wikitext-upload-save-sign-in-benefits" = "Sae that co-eediters can connect wi ye & ye can see whit airticles that ye eeditit.";
 "wikitext-upload-save-anonymously" = "Hain anonimislie";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "This haes less preevacie. Yer IP address is veesible wi eedits.";
 "search-searching" = "Rakin...";
 "search-no-matches" = "Naw matches foond fer rake term.";
@@ -78,7 +80,9 @@
 "main-menu-send-feedback" = "Send feedback";
 "saved-pages-title" = "Hained Pages";
 "navbar-title-mode-edit-wikitext" = "Eedit";
+// Fuzzy
 "navbar-title-mode-login" = "Sign in";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Sign in n hain";
 "navbar-title-mode-create-account" = "Cræft accoont";
 "navbar-title-mode-create-account-and-save" = "Cræft accoont n hain";
@@ -98,6 +102,10 @@
 "edit-summary-choice-other" = "Ither";
 "edit-summary-description" = "Ae speceefic ootline heelps co-eediters quicklie luikower yer eedits.Ye can chuise fae the tags ablo ava.";
 "edit-summary-field-placeholder-text" = "Hou'd ye impruiv the page?";
+"edit-summary-title" = "Hou'd ye impruiv the airticle?";
 "fetching-random-article" = "Gettin random airticle";
 "article-pull-to-refresh-prompt" = "Pul tae refresh the airticle";
 "article-pull-to-refresh-is-refreshing" = "Refreshin the airticle";
+"button-next" = "Nex";
+"button-done" = "Duin";
+"button-save" = "Hain";

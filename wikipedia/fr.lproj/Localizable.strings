@@ -9,10 +9,9 @@
 "article-languages-label" = "Choisir langue";
 "article-languages-cancel" = "Annuler";
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtre";
-// Fuzzy
-"history-label" = "Histoire de léer";
+"article-languages-filter-placeholder" = "Filtre de langue";
+"language-button-other-languages" = "Autres langues";
+"history-label" = "Récent";
 "history-section-today" = "Aujourd'hui";
 "history-section-yesterday" = "Hier";
 "history-section-lastweek" = "La semaine dernière";
@@ -51,10 +50,13 @@
 "wikitext-upload-captcha-error" = "Erreur de vérification du Captcha.";
 "wikitext-upload-captcha-needed" = "Vérification du Captcha nécessaire.";
 "wikitext-upload-save" = "Enregistrement en cours…";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Se connecter et enregistrer";
 "wikitext-upload-save-sign-in-benefits" = "Les co-éditeurs peuvent ainsi interagir directement avec vous et vous pouvez voir quels articles vous avez modifiés.";
 "wikitext-upload-save-anonymously" = "Enregistrer anonymement";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Cette action est moins privée. Votre adresse IP est visible avec les modifications.";
+// Fuzzy
 "wikitext-upload-save-license" = "En enregistrant, vous acceptez de mettre vos modifications sous la licence $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Recherche en cours…";
@@ -64,6 +66,8 @@
 "search-loading-section-zero" = "Chargement de la première section de l’article…";
 "search-loading-section-remaining" = "Chargement du reste de l’article…";
 "search-loading-article-loaded" = "Article chargé.";
+"search-cancel" = "Annuler";
+"main-menu-title" = "Plus";
 "main-menu-language-title" = "Rechercher le wiki de langue $1";
 "main-menu-language-toggle-show" = "Afficher les langues";
 "main-menu-language-toggle-hide" = "Masquer les langues";
@@ -73,12 +77,10 @@
 "main-menu-account-login" = "Connexion";
 "main-menu-account-logout" = "Déconnexion";
 "main-menu-show-title" = "M’afficher…";
-// Fuzzy
-"main-menu-show-history" = "Historique de navigation";
+"main-menu-show-history" = "Récent";
 "main-menu-show-saved" = "Pages enregistrées";
 "main-menu-current-article-save" = "Enregistrer $1 pour une lecture hors ligne";
-// Fuzzy
-"main-menu-random" = "Article au hasard";
+"main-menu-random" = "Au hasard";
 "main-menu-feedback-heading" = "Commentaire";
 "main-menu-send-feedback" = "Envoyer un commentaire";
 "main-menu-show-page-history" = "Historique des modifications de $1";
@@ -87,7 +89,9 @@
 "page-history-title" = "Historique de la page";
 "page-history-downloading" = "Chargement de l’historique de la page…";
 "navbar-title-mode-edit-wikitext" = "Modifier";
+// Fuzzy
 "navbar-title-mode-login" = "Se connecter";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Se connecter et enregistrer";
 "navbar-title-mode-create-account" = "Créer un compte";
 "navbar-title-mode-create-account-and-save" = "Créer un compte et enregistrer";
@@ -108,6 +112,7 @@
 "edit-summary-choice-other" = "Autre";
 "edit-summary-description" = "Un résumé spécifique aide les coéditeurs à relire rapidement vos modifications. Vous pouvez également faire votre choix parmi les balises ci-dessous.";
 "edit-summary-field-placeholder-text" = "Comment avez-vous amélioré la page ?";
+"edit-summary-title" = "Comment avez-vous amélioré cet article ?";
 "fetching-random-article" = "Récupération d’un article au hasard";
 "article-pull-to-refresh-prompt" = "Tirer pour rafraîchir l’article";
 "article-pull-to-refresh-is-refreshing" = "Article rafraîchi";
@@ -116,3 +121,17 @@
 "credits-gerrit-repo" = "Application principale (Gerrit)";
 "credits-github-mirror" = "Application miroir (GitHub)";
 "credits-external-libraries" = "Externe";
+"share-menu-save-page" = "Enregistrer la page";
+"share-menu-page-saved" = "Page enregistrée";
+"timestamp-just-now" = "à l’instant";
+"timestamp-minutes" = "il y a %d minutes";
+"timestamp-hours" = "il y a %d heures";
+"timestamp-days" = "il y a %d jours";
+"timestamp-months" = "il y a %d mois";
+"timestamp-years" = "il y a %d ans";
+"lastmodified-timestamp" = "Dernière modification le $1";
+"lastmodified-by" = "par $1";
+"lastmodified-anon" = "par un utilisateur anonyme";
+"button-next" = "Suivant";
+"button-done" = "Terminé";
+"button-save" = "Enregistrer";

@@ -41,10 +41,13 @@
 "wikitext-upload-captcha-error" = "കാപ്ച പരിശോധനയിൽ പിഴവുണ്ടായി.";
 "wikitext-upload-captcha-needed" = "കാപ്ച പരിശോധന ആവശ്യമാണ്.";
 "wikitext-upload-save" = "സേവ് ചെയ്യുന്നു...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "പ്രവേശിക്കുക, സേവ് ചെയ്യുക";
 "wikitext-upload-save-sign-in-benefits" = "അങ്ങനെയെങ്കിൽ മറ്റുപയോക്താക്കൾക്ക് താങ്കളുമായി ബന്ധപ്പെടാനും, താങ്കൾ ഏതൊക്കെ ലേഖനങ്ങളാണ് തിരുത്തിയത് കാണാനും കഴിയും.";
 "wikitext-upload-save-anonymously" = "പേര് വെളിപ്പെടുത്താതെ സേവ് ചെയ്യുക";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "ഈ രീതിയ്ക്ക് സ്വകാര്യത കുറവാണ്. താങ്കളുടെ ഐ.പി. വിലാസം തിരുത്തുകൾക്കൊപ്പം കാണാൻ കഴിയുന്നതാണ്.";
+// Fuzzy
 "wikitext-upload-save-license" = "മാറ്റങ്ങൾ സേവ് ചെയ്യുമ്പോൾ, താങ്കളുടെ സംഭാവനകൾ $1 അനുമതിപ്രകാരം പ്രസിദ്ധപ്പെടുത്താമെന്ന് താങ്കൾ സമ്മതിക്കുന്നുണ്ട്.";
 "wikitext-upload-save-license-name" = "സി.സി. ബൈ-എസ്.എ. 3.0";
 "search-searching" = "തിരയുന്നു...";
@@ -77,7 +80,9 @@
 "page-history-title" = "താളിന്റെ നാൾവഴി";
 "page-history-downloading" = "താളിന്റെ നാൾവഴി എടുക്കുന്നു...";
 "navbar-title-mode-edit-wikitext" = "തിരുത്തുക";
+// Fuzzy
 "navbar-title-mode-login" = "പ്രവേശിക്കുക";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "പ്രവേശിക്കുക, സേവ് ചെയ്യുക";
 "navbar-title-mode-create-account" = "അംഗത്വമെടുക്കുക";
 "navbar-title-mode-create-account-and-save" = "അംഗത്വമെടുക്കുക, സേവ് ചെയ്യുക";

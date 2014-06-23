@@ -8,8 +8,8 @@
 "article-languages-downloading" = "নিবন্ধের ভাষাসমূহ লোড হচ্ছে...";
 // Fuzzy
 "article-languages-filter-placeholder" = "ছাকনী";
-// Fuzzy
-"history-label" = "ব্রাউজের ইতিহাস";
+"language-button-other-languages" = "অন্যান্য ভাষাসমূহ";
+"history-label" = "সাম্প্রতিক";
 "history-section-today" = "আজ";
 "history-section-yesterday" = "গতকাল";
 "history-section-lastweek" = "গত সপ্তাহ";
@@ -42,8 +42,10 @@
 "wikitext-download-failed" = "সর্বশেষ সংস্করণটি পাওয়া সম্ভব হয়নি।";
 "wikitext-download-success" = "উইকি টেক্সট লোড হয়েছে।";
 "wikitext-upload-save" = "সংরক্ষণ হচ্ছে ...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "প্রবেশ করুন ও সংরক্ষণ করুন";
 "wikitext-upload-save-anonymously" = "নামহীন অবস্থায় সংরক্ষণ করুন";
+// Fuzzy
 "wikitext-upload-save-license" = "সংরক্ষণের দ্বারা, আপনি আপনার অবদান $1 লাইসেন্সের অধীনে প্রকাশে সম্মত হচ্ছেন।";
 "wikitext-upload-save-license-name" = "সিসি বাই-এস ৩.০";
 "search-searching" = "অনুসন্ধান হচ্ছে...";
@@ -52,6 +54,8 @@
 "search-loading-section-zero" = "নিবন্ধের প্রথম অনুচ্ছেদ লোড হচ্ছে...";
 "search-loading-section-remaining" = "নিবন্ধের বাকী অংশ লোড হচ্ছে...";
 "search-loading-article-loaded" = "নিবন্ধ লোড হয়েছে।";
+"search-cancel" = "বাতিল";
+"main-menu-title" = "আরও";
 "main-menu-language-title" = "$1 ভাষার উইকিতে অনুসন্ধান";
 "main-menu-language-toggle-show" = "ভাষা দেখাও";
 "main-menu-language-toggle-hide" = "ভাষা আড়াল করো";
@@ -61,12 +65,10 @@
 "main-menu-account-login" = "প্রবেশ";
 "main-menu-account-logout" = "প্রস্থান";
 "main-menu-show-title" = "আমাকে দেখাও...";
-// Fuzzy
-"main-menu-show-history" = "ব্রাউজের ইতিহাস";
+"main-menu-show-history" = "সাম্প্রতিক";
 "main-menu-show-saved" = "সংরক্ষিত পাতা";
 "main-menu-current-article-save" = "অফলাইন অবস্থায় পড়ার জন্য $1 সংরক্ষণ করুন।";
-// Fuzzy
-"main-menu-random" = "অজানা যেকোনো নিবন্ধ";
+"main-menu-random" = "অজানা";
 "main-menu-feedback-heading" = "প্রতিক্রিয়া";
 "main-menu-send-feedback" = "প্রতিক্রিয়া পাঠান";
 "main-menu-credits" = "কৃতিত্ব";
@@ -74,7 +76,9 @@
 "page-history-title" = "পাতার ইতিহাস";
 "page-history-downloading" = "পাতার ইতিহাস লোড হচ্ছে...";
 "navbar-title-mode-edit-wikitext" = "সম্পাদনা";
+// Fuzzy
 "navbar-title-mode-login" = "প্রবেশ";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "প্রবেশ করুন ও সংরক্ষণ করুন";
 "navbar-title-mode-create-account" = "অ্যাকাউন্ট তৈরি করুন";
 "navbar-title-mode-create-account-and-save" = "অ্যাকাউন্ট তৈরি করুন ও সংরক্ষণ করুন।";
@@ -97,3 +101,12 @@
 "credits-gerrit-repo" = "প্রধান অ্যাপ (জেরিট)";
 "credits-github-mirror" = "মিরর অ্যাপ (গিটহাব)";
 "credits-external-libraries" = "বাহ্যিক";
+"share-menu-save-page" = "পাতা সংরক্ষণ করুন";
+"timestamp-just-now" = "এইমাত্র";
+"timestamp-minutes" = "%d মিনিট আগে";
+"timestamp-hours" = "%d ঘণ্টা আগে";
+"timestamp-days" = "%d দিন আগে";
+"timestamp-months" = "%d মাস আগে";
+"timestamp-years" = "%d বছর আগে";
+"lastmodified-timestamp" = "সর্বশেষ পরিবর্তন $1";
+"lastmodified-by" = "$1 দ্বারা";

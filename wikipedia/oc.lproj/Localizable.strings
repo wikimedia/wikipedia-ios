@@ -53,6 +53,7 @@
 "main-menu-send-feedback" = "Mandar un comentari";
 "saved-pages-title" = "Paginas enregistradas";
 "navbar-title-mode-edit-wikitext" = "Modificar";
+// Fuzzy
 "navbar-title-mode-login" = "Se connectar";
 "navbar-title-mode-create-account" = "Crear un compte";
 "navbar-title-mode-edit-wikitext-warning" = "Modificar los problèmas";

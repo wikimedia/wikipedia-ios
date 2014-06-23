@@ -31,7 +31,9 @@
 "page-history-title" = "पृष्ठको इतिहास";
 "page-history-downloading" = "पृष्ठ इतिहास लोड गर्दै...";
 "navbar-title-mode-edit-wikitext" = "सम्पादन";
+// Fuzzy
 "navbar-title-mode-login" = "प्रवेश गर्ने";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "प्रवेश र बचत गर्नुहोस्";
 "navbar-title-mode-create-account" = "खाता खोल्नुहोस्";
 "navbar-title-mode-create-account-and-save" = "खाता खोल्नुहोस् र बचत गर्नुहोस्";

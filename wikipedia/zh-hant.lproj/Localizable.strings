@@ -40,8 +40,10 @@
 "wikitext-upload-captcha-error" = "驗證碼校驗錯誤。";
 "wikitext-upload-captcha-needed" = "需要驗證碼確認。";
 "wikitext-upload-save" = "儲存中...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "登入並儲存";
 "wikitext-upload-save-anonymously" = "以匿名方式保存";
+// Fuzzy
 "wikitext-upload-save-license" = "按下\"保存更改\"表示您同意依據$1授權協議發表您的貢獻。";
 "wikitext-upload-save-license-name" = "CC姓名標示-相同方式分享3.0";
 "search-searching" = "搜尋中...";
@@ -67,7 +69,9 @@
 "page-history-title" = "頁面歷史";
 "page-history-downloading" = "正在加載頁面歷史……";
 "navbar-title-mode-edit-wikitext" = "編輯";
+// Fuzzy
 "navbar-title-mode-login" = "登入";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "登入並儲存";
 "navbar-title-mode-create-account" = "建立帳號";
 "navbar-title-mode-create-account-and-save" = "建立帳號並儲存";

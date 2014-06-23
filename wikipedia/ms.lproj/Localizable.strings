@@ -47,10 +47,13 @@
 "wikitext-upload-captcha-error" = "Ralat pengesahan CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Pengesahan CAPTCHA diperlukan.";
 "wikitext-upload-save" = "Menyimpan...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Log masuk dan simpan";
 "wikitext-upload-save-sign-in-benefits" = "Supaya penyunting lain boleh berhubungan dengan anda, dan anda dapat meninjau rencana-rencana suntingan anda.";
 "wikitext-upload-save-anonymously" = "Simpan secara awanama";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Begini kurang privasi. Alamat IP anda kelihatan bersama suntingan.";
+// Fuzzy
 "wikitext-upload-save-license" = "Dengan menyimpan, anda setuju untuk melepaskan sumbangan anda di bawah lesen $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Mencari...";
@@ -83,7 +86,9 @@
 "page-history-title" = "Sejarah laman";
 "page-history-downloading" = "Memuatkan sejarah laman...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
+// Fuzzy
 "navbar-title-mode-login" = "Log masuk";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Log masuk dan simpan";
 "navbar-title-mode-create-account" = "Buka akaun";
 "navbar-title-mode-create-account-and-save" = "Cuka akaun dan simpan";

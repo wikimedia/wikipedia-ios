@@ -5,10 +5,9 @@
 "article-languages-label" = "Alegere limbă";
 "article-languages-cancel" = "Revocare";
 "article-languages-downloading" = "Se încarcă limbile articolului...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtru";
-// Fuzzy
-"history-label" = "Istoric de navigare";
+"article-languages-filter-placeholder" = "Filtru de limbă";
+"language-button-other-languages" = "Alte limbi";
+"history-label" = "Recente";
 "history-section-today" = "Astăzi";
 "history-section-yesterday" = "Ieri";
 "history-section-lastweek" = "Săptămâna trecută";
@@ -47,10 +46,13 @@
 "wikitext-upload-captcha-error" = "Eroare de verificare la Captcha.";
 "wikitext-upload-captcha-needed" = "Verificare captcha necesară.";
 "wikitext-upload-save" = "Se salvează...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Autentificare și salvare";
 "wikitext-upload-save-sign-in-benefits" = "Astfel, coeditorii pot interacționa cu dumnevoastră, iar dumnevoastră veți putea vedea articolele pe care le-ați modificat.";
 "wikitext-upload-save-anonymously" = "Salvare ca anonim";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Această opțiune înseamnă mai puțină intimitate. Adresa dumnevoastră IP este vizibilă lângă modificări.";
+// Fuzzy
 "wikitext-upload-save-license" = "Salvând, acceptați să vă publicați modificările sub licența $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Se caută...";
@@ -60,6 +62,8 @@
 "search-loading-section-zero" = "Se încarcă prima secțiune a articolului...";
 "search-loading-section-remaining" = "Se încarcă restul articolului...";
 "search-loading-article-loaded" = "Articol încărcat.";
+"search-cancel" = "Revocare";
+"main-menu-title" = "Mai mult";
 "main-menu-language-title" = "Căutare pe wiki în limba $1";
 "main-menu-language-toggle-show" = "Arată limbile";
 "main-menu-language-toggle-hide" = "Ascunde limbile";
@@ -69,12 +73,10 @@
 "main-menu-account-login" = "Autentificare";
 "main-menu-account-logout" = "Închide sesiunea";
 "main-menu-show-title" = "Arată-mi...";
-// Fuzzy
-"main-menu-show-history" = "Istoric de navigare";
+"main-menu-show-history" = "Recente";
 "main-menu-show-saved" = "Pagini salvate";
 "main-menu-current-article-save" = "Salvează $1 pentru lectură off-line";
-// Fuzzy
-"main-menu-random" = "Articol aleatoriu";
+"main-menu-random" = "Aleatoriu";
 "main-menu-feedback-heading" = "Păreri";
 "main-menu-send-feedback" = "Trimite părerea";
 "main-menu-show-page-history" = "Istoricul modificărilor pentru $1";
@@ -83,7 +85,9 @@
 "page-history-title" = "Istoricul paginii";
 "page-history-downloading" = "Se încarcă istoricul paginii...";
 "navbar-title-mode-edit-wikitext" = "Modificare";
+// Fuzzy
 "navbar-title-mode-login" = "Autentificare";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Autentificare și salvare";
 "navbar-title-mode-create-account" = "Creare cont";
 "navbar-title-mode-create-account-and-save" = "Creare cont și salvare";
@@ -104,6 +108,7 @@
 "edit-summary-choice-other" = "Altele";
 "edit-summary-description" = "O descriere specifică îi ajută pe coeditori să vă revizuiască mai rapid modificările. Puteți, de asemenea, alege dintre etichetele de mai jos.";
 "edit-summary-field-placeholder-text" = "Cum ați îmbunătățit pagina?";
+"edit-summary-title" = "Cum ați îmbunătățit articolul?";
 "fetching-random-article" = "Se preia articolul aleatoriu";
 "article-pull-to-refresh-prompt" = "Trageți pentru a reîncărca articolul";
 "article-pull-to-refresh-is-refreshing" = "Se reîncarcă articolul";
@@ -112,3 +117,17 @@
 "credits-gerrit-repo" = "Aplicația de bază (Gerrit)";
 "credits-github-mirror" = "Aplicația oglindă (GitHub)";
 "credits-external-libraries" = "Externe";
+"share-menu-save-page" = "Salvare articol";
+"share-menu-page-saved" = "Articol salvat";
+"timestamp-just-now" = "chiar acum";
+"timestamp-minutes" = "acum %d minute";
+"timestamp-hours" = "acum %d ore";
+"timestamp-days" = "acum %d zile";
+"timestamp-months" = "acum %d luni";
+"timestamp-years" = "acum %d ani";
+"lastmodified-timestamp" = "Ultima modificare $1";
+"lastmodified-by" = "de către $1";
+"lastmodified-anon" = "de către un utilizator anonim";
+"button-next" = "Înainte";
+"button-done" = "Realizat";
+"button-save" = "Salvare";

@@ -5,10 +5,9 @@
 "article-languages-label" = "Выберите язык";
 "article-languages-cancel" = "Отмена";
 "article-languages-downloading" = "Загрузка языков статьи…";
-// Fuzzy
-"article-languages-filter-placeholder" = "Фильтр";
-// Fuzzy
-"history-label" = "Просмотр истории";
+"article-languages-filter-placeholder" = "Языковой фильтр";
+"language-button-other-languages" = "Другие языки";
+"history-label" = "Недавние";
 "history-section-today" = "Сегодня";
 "history-section-yesterday" = "Вчера";
 "history-section-lastweek" = "На прошлой неделе";
@@ -47,10 +46,13 @@
 "wikitext-upload-captcha-error" = "Ошибка проверки капчи.";
 "wikitext-upload-captcha-needed" = "Нужна проверка капчи.";
 "wikitext-upload-save" = "Сохраняется…";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Войти и сохранить";
 "wikitext-upload-save-sign-in-benefits" = "Так другие участники смогут связаться с вами, и вы сможете видеть, какие статьи вы редактировали.";
 "wikitext-upload-save-anonymously" = "Сохранить анонимно";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Это менее конфиденциально. Ваш IP-адрес виден рядом с вашими правками.";
+// Fuzzy
 "wikitext-upload-save-license" = "Сохраняя, вы соглашаетесь разместить ваш вклад под лицензией $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Поиск…";
@@ -60,6 +62,7 @@
 "search-loading-section-zero" = "Загрузка первого раздела этой статьи…";
 "search-loading-section-remaining" = "Загрузка остальной части этой статьи…";
 "search-loading-article-loaded" = "Статья загружена.";
+"search-cancel" = "Отмена";
 "main-menu-language-title" = "$1 язык для поиска на вики";
 "main-menu-language-toggle-show" = "Показать языки";
 "main-menu-language-toggle-hide" = "Скрыть языки";
@@ -69,12 +72,10 @@
 "main-menu-account-login" = "Представиться";
 "main-menu-account-logout" = "Выйти";
 "main-menu-show-title" = "Показать мне…";
-// Fuzzy
-"main-menu-show-history" = "История просмотра";
+"main-menu-show-history" = "Недавние";
 "main-menu-show-saved" = "Сохранённые страницы";
 "main-menu-current-article-save" = "Сохранить $1 для чтения в автономном режиме";
-// Fuzzy
-"main-menu-random" = "Случайная статья";
+"main-menu-random" = "Случайная";
 "main-menu-feedback-heading" = "Обратная связь";
 "main-menu-send-feedback" = "Отправить отзыв";
 "main-menu-show-page-history" = "История изменений страницы $1";
@@ -83,7 +84,9 @@
 "page-history-title" = "История страницы";
 "page-history-downloading" = "Загрузка страницы истории…";
 "navbar-title-mode-edit-wikitext" = "Править";
+// Fuzzy
 "navbar-title-mode-login" = "Войти";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Войти и сохранить";
 "navbar-title-mode-create-account" = "Создать учётную запись";
 "navbar-title-mode-create-account-and-save" = "Создать учётную запись и сохранить";
@@ -112,3 +115,5 @@
 "credits-gerrit-repo" = "Основной (Gerrit)";
 "credits-github-mirror" = "Зеркало (GitHub)";
 "credits-external-libraries" = "Сторонние";
+"share-menu-save-page" = "Сохранить статью";
+"share-menu-page-saved" = "Статья сохранена";

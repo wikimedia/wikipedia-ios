@@ -47,6 +47,7 @@
 "wikitext-upload-captcha-error" = "Captcha-Üwerprüfungsfehler.";
 "wikitext-upload-captcha-needed" = "Captcha-Üwerprüfung nötich.";
 "wikitext-upload-save" = "Speichere …";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Oonmelde und speichre";
 // Fuzzy
 "wikitext-upload-save-sign-in-benefits" = "Annre Autore / Autorinne könne dich kontaktiere und du kannst siehn, was für Artikel du beoorbeitet host.";
@@ -79,7 +80,9 @@
 "main-menu-send-feedback" = "Rückmeldung sende (retuarmeldung schicke)";
 "saved-pages-title" = "Gespeicherte Seite";
 "navbar-title-mode-edit-wikitext" = "Beoorbeite";
+// Fuzzy
 "navbar-title-mode-login" = "Oonmelde";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Oonmelde und speichre";
 "navbar-title-mode-create-account" = "Benutzerkonto erstelle";
 "navbar-title-mode-create-account-and-save" = "Benutzerkonto erstelle und speichre";

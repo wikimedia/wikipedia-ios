@@ -5,10 +5,9 @@
 "article-languages-label" = "Sprache auswählen";
 "article-languages-cancel" = "Abbrechen";
 "article-languages-downloading" = "Lade Artikelsprachen …";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filter";
-// Fuzzy
-"history-label" = "Verlauf";
+"article-languages-filter-placeholder" = "Sprachfilter";
+"language-button-other-languages" = "Andere Sprachen";
+"history-label" = "Kürzlich";
 "history-section-today" = "Heute";
 "history-section-yesterday" = "Gestern";
 "history-section-lastweek" = "Letzte Woche";
@@ -47,10 +46,13 @@
 "wikitext-upload-captcha-error" = "Captcha-Überprüfungsfehler.";
 "wikitext-upload-captcha-needed" = "Captcha-Überprüfung erforderlich.";
 "wikitext-upload-save" = "Speichere …";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Anmelden und speichern";
 "wikitext-upload-save-sign-in-benefits" = "Andere Autoren können dich kontaktieren und du kannst sehen, welche Artikel du bearbeitet hast.";
 "wikitext-upload-save-anonymously" = "Anonym speichern";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Dies bedeutet weniger Datenschutz. Deine IP-Adresse ist mit den Bearbeitungen einsehbar.";
+// Fuzzy
 "wikitext-upload-save-license" = "Mit dem Speichern stimmst du der Veröffentlichung deiner Beiträge unter der $1-Lizenz zu.";
 "wikitext-upload-save-license-name" = "CC-BY-SA 3.0";
 "search-searching" = "Suche …";
@@ -60,6 +62,8 @@
 "search-loading-section-zero" = "Lade den ersten Abschnitt des Artikels …";
 "search-loading-section-remaining" = "Lade den Rest des Artikels …";
 "search-loading-article-loaded" = "Artikel geladen.";
+"search-cancel" = "Abbrechen";
+"main-menu-title" = "Weitere";
 "main-menu-language-title" = "Sprachwiki $1 durchsuchen";
 "main-menu-language-toggle-show" = "Sprachen anzeigen";
 "main-menu-language-toggle-hide" = "Sprachen ausblenden";
@@ -69,12 +73,10 @@
 "main-menu-account-login" = "Anmelden";
 "main-menu-account-logout" = "Abmelden";
 "main-menu-show-title" = "Zeige mir …";
-// Fuzzy
-"main-menu-show-history" = "Verlauf";
+"main-menu-show-history" = "Kürzlich";
 "main-menu-show-saved" = "Gespeicherte Seiten";
 "main-menu-current-article-save" = "$1 zum Offline-Lesen speichern";
-// Fuzzy
-"main-menu-random" = "Zufälliger Artikel";
+"main-menu-random" = "Zufällig";
 "main-menu-feedback-heading" = "Rückmeldung";
 "main-menu-send-feedback" = "Rückmeldung senden";
 "main-menu-show-page-history" = "Versionsgeschichte der Änderungen an $1";
@@ -83,7 +85,9 @@
 "page-history-title" = "Versionsgeschichte";
 "page-history-downloading" = "Lade Versionsgeschichte …";
 "navbar-title-mode-edit-wikitext" = "Bearbeiten";
+// Fuzzy
 "navbar-title-mode-login" = "Anmelden";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Anmelden und speichern";
 "navbar-title-mode-create-account" = "Benutzerkonto erstellen";
 "navbar-title-mode-create-account-and-save" = "Benutzerkonto erstellen und speichern";
@@ -104,6 +108,7 @@
 "edit-summary-choice-other" = "Andere";
 "edit-summary-description" = "Eine bestimmte Zusammenfassung hilft anderen Autoren, deine Bearbeitungen schnell zu überprüfen. Du kannst auch zwischen den unten stehenden Markierungen wählen.";
 "edit-summary-field-placeholder-text" = "Wie hast du die Seite verbessert?";
+"edit-summary-title" = "Wie hast du den Artikel verbessert?";
 "fetching-random-article" = "Zufälligen Artikel aufrufen";
 "article-pull-to-refresh-prompt" = "Ziehen zum Aktualisieren des Artikels";
 "article-pull-to-refresh-is-refreshing" = "Artikel aktualisieren";
@@ -112,3 +117,17 @@
 "credits-gerrit-repo" = "App-Hauptrepositorium (Gerrit)";
 "credits-github-mirror" = "App-Mirror (GitHub)";
 "credits-external-libraries" = "Extern";
+"share-menu-save-page" = "Seite speichern";
+"share-menu-page-saved" = "Seite gespeichert";
+"timestamp-just-now" = "gerade eben";
+"timestamp-minutes" = "vor %d Minuten";
+"timestamp-hours" = "vor %d Stunden";
+"timestamp-days" = "vor %d Tagen";
+"timestamp-months" = "vor %d Monaten";
+"timestamp-years" = "vor %d Jahren";
+"lastmodified-timestamp" = "Zuletzt geändert $1";
+"lastmodified-by" = "von $1";
+"lastmodified-anon" = "von einem anonymen Benutzer";
+"button-next" = "Nächste";
+"button-done" = "Fertig";
+"button-save" = "Speichern";

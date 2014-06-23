@@ -37,11 +37,14 @@
 "wikitext-upload-captcha-error" = "เกิดข้อผิดพลาดการทวนสอบ CAPTCHA";
 "wikitext-upload-captcha-needed" = "ต้องการการทวนสอบ CAPTCHA";
 "wikitext-upload-save" = "กำลังบันทึก...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "ลงชื่อเข้าใช้และบันทึก";
 // Fuzzy
 "wikitext-upload-save-sign-in-benefits" = "เพื่อที่ผู้ร่วมแก้ไขสามารถติดต่อคุณ และคุณสามารถเห็นบทความที่คุณได้แก้ไขไปแล้วได้";
 "wikitext-upload-save-anonymously" = "บันทึกแบบนิรนาม";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "กรณีนี้มีความเป็นส่วนตัวน้อยกว่า เลขที่อยู่ไอพีของคุณจะมองเห็นได้เมื่อแก้ไข";
+// Fuzzy
 "wikitext-upload-save-license" = "โดยการบันทึก คุณตกลงเผยแพร่การแก้ไขของคุณภายใต้สัญญาอนุญาต $1";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "กำลังค้นหา...";
@@ -70,7 +73,9 @@
 "main-menu-send-feedback" = "ส่งผลป้อนกลับ";
 "saved-pages-title" = "หน้าที่บันทึก";
 "navbar-title-mode-edit-wikitext" = "แก้ไข";
+// Fuzzy
 "navbar-title-mode-login" = "ลงชื่อเข้าใช้";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "ลงชื่อเข้าใช้และบันทึก";
 "navbar-title-mode-create-account" = "สร้างบัญชี";
 "navbar-title-mode-create-account-and-save" = "สร้างบัญชีและบันทึก";

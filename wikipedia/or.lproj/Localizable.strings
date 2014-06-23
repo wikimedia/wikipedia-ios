@@ -47,10 +47,13 @@
 "wikitext-upload-captcha-error" = "CAPTCHA ଦ୍ୱାରା ନିଶ୍ଚିତ କରିବାରେ ଅସୁବିଧା ।";
 "wikitext-upload-captcha-needed" = "CAPTCHA ଦ୍ୱାରା ନିଶ୍ଚିତ କରିବା ଲୋଡ଼ା ।";
 "wikitext-upload-save" = "ସଞ୍ଚୁଛି...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "ଲଗ ଇନ କରି ସାଇତିବେ";
 "wikitext-upload-save-sign-in-benefits" = "ବାକି ସମ୍ପାଦକମାନେ ଆପଣଙ୍କ ସହ ଯୋଗାଯୋଗ କରିପାରିବେ ଏବଂ ଆପଣ ମଧ୍ୟ ନିଜେ କରିଥିବା ସମ୍ପାଦନ ଦେଖିପାରିବେ ।";
 "wikitext-upload-save-anonymously" = "ଅଜଣା ଭାବେ ସାଇତିବେ";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "ଏଥିରେ କମ ଗୋପନୀୟତା ରହିଛି । ଆପଣଙ୍କ ସମ୍ପାଦନା IP ଠିକଣା ସହ ଦେଖାଯିବ ।";
+// Fuzzy
 "wikitext-upload-save-license" = "ସାଇଥିବା ଦ୍ୱାରା ଆପଣ $1 ଲାଇସେନ୍ସରେ ନିଜର ଅବଦାନ ବିତରଣ କଲେ ବୋଲି ସମ୍ମତି ଦେଉଛନ୍ତି ।";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "ଖୋଜୁଛି...";
@@ -83,7 +86,9 @@
 "page-history-title" = "ପୃଷ୍ଠାର ଇତିହାସ";
 "page-history-downloading" = "ପୃଷ୍ଠାର ଇତିହାସ ଆହରଣ କରୁଛି...";
 "navbar-title-mode-edit-wikitext" = "ସମ୍ପାଦନା";
+// Fuzzy
 "navbar-title-mode-login" = "ଲଗଇନ";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "ଲଗ ଇନ କରି ସାଇତିବେ";
 "navbar-title-mode-create-account" = "ଖାତାଟିଏ ଖୋଲନ୍ତୁ";
 "navbar-title-mode-create-account-and-save" = "ଖାତା ଖୋଲି ସାଇତିବେ";

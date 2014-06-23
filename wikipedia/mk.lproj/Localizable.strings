@@ -6,10 +6,9 @@
 "article-languages-label" = "Изберете јазик";
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Ги вчитувам јазиците на статијата...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Филтер";
-// Fuzzy
-"history-label" = "Историја на прелистување";
+"article-languages-filter-placeholder" = "Јазичен филтер";
+"language-button-other-languages" = "Други јазици";
+"history-label" = "Скорешни";
 "history-section-today" = "Денес";
 "history-section-yesterday" = "Вчера";
 "history-section-lastweek" = "Минатата седмица";
@@ -48,10 +47,13 @@
 "wikitext-upload-captcha-error" = "Грешка при проверката со Captcha.";
 "wikitext-upload-captcha-needed" = "Ќе треба потврда со Captcha.";
 "wikitext-upload-save" = "Зачувувам...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Регистрирај ме и зачувај";
 "wikitext-upload-save-sign-in-benefits" = "За да можат другите уредници да се поврзат со вас и да  видите кои статии ги имате уредувано.";
 "wikitext-upload-save-anonymously" = "Зачувај анонимно";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Ова има помалку приватност. Вашата IP-адреса е видлива со уредувањата.";
+// Fuzzy
 "wikitext-upload-save-license" = "Зачувувајќи ги промените, се согласувате со објавувањето на вашите придонеси под лиценцата $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Пребарувам...";
@@ -61,6 +63,8 @@
 "search-loading-section-zero" = "Го вчитувам првиот дел од статијата...";
 "search-loading-section-remaining" = "Го вчитувам остатокот од статијата...";
 "search-loading-article-loaded" = "Статијата е вчитана.";
+"search-cancel" = "Откажи";
+"main-menu-title" = "Повеќе";
 "main-menu-language-title" = "Пребарување на викито на $1";
 "main-menu-language-toggle-show" = "Прикажи јазици";
 "main-menu-language-toggle-hide" = "Скриј јазици";
@@ -70,12 +74,10 @@
 "main-menu-account-login" = "Најава";
 "main-menu-account-logout" = "Одјава";
 "main-menu-show-title" = "Покажи ми...";
-// Fuzzy
-"main-menu-show-history" = "Историја на прелистување";
+"main-menu-show-history" = "Скорешни";
 "main-menu-show-saved" = "Зачувани страници";
 "main-menu-current-article-save" = "Зачувај ја „$1“ за вонмрежно читање";
-// Fuzzy
-"main-menu-random" = "Случајна статија";
+"main-menu-random" = "Случајна";
 "main-menu-feedback-heading" = "Мислења";
 "main-menu-send-feedback" = "Испрати мислење";
 "main-menu-show-page-history" = "Историја на измените на $1";
@@ -84,7 +86,9 @@
 "page-history-title" = "Историја на страницата";
 "page-history-downloading" = "Ја вчитувам историјата...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
+// Fuzzy
 "navbar-title-mode-login" = "Најава";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Регистрирај ме и зачувај";
 "navbar-title-mode-create-account" = "Направи сметка";
 "navbar-title-mode-create-account-and-save" = "Направете сметка и зачувајте";
@@ -105,6 +109,7 @@
 "edit-summary-choice-other" = "Другo";
 "edit-summary-description" = "Објаснителниот опис на поважните направени промени ќе им помогне на другите уредници бргу да ги проверат Вашите уредувања. Можете и да изберете од готовите описи подолу.";
 "edit-summary-field-placeholder-text" = "На кој начин ја подобривте страницата?";
+"edit-summary-title" = "На кој начин ја подобривте статијата?";
 "fetching-random-article" = "Повикувам случајна статија";
 "article-pull-to-refresh-prompt" = "Повлечете за да ја превчитате статијата";
 "article-pull-to-refresh-is-refreshing" = "Превчитување на статијата";
@@ -113,3 +118,17 @@
 "credits-gerrit-repo" = "Главно (Gerrit)";
 "credits-github-mirror" = "Огледално (GitHub)";
 "credits-external-libraries" = "Надворешни";
+"share-menu-save-page" = "Зачувај страница";
+"share-menu-page-saved" = "Страницата е зачувана";
+"timestamp-just-now" = "штотуку";
+"timestamp-minutes" = "пред %d минути";
+"timestamp-hours" = "пред %d часа";
+"timestamp-days" = "пред %d дена";
+"timestamp-months" = "пред %d месеци";
+"timestamp-years" = "пред %d години";
+"lastmodified-timestamp" = "Последена измена: $1";
+"lastmodified-by" = "од $1";
+"lastmodified-anon" = "од аномимен корисник";
+"button-next" = "Следно";
+"button-done" = "Готово";
+"button-save" = "Зачувај";

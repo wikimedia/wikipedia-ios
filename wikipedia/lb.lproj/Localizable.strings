@@ -5,10 +5,9 @@
 "article-languages-label" = "Sprooch eraussichen";
 "article-languages-cancel" = "Ofbriechen";
 "article-languages-downloading" = "Luede vun de Sprooche vum Artikel...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filter";
-// Fuzzy
-"history-label" = "Versiounen";
+"article-languages-filter-placeholder" = "Sproochfilter";
+"language-button-other-languages" = "Aner Sproochen";
+"history-label" = "Rezent";
 "history-section-today" = "Haut";
 "history-section-yesterday" = "Gëschter";
 "history-section-lastweek" = "Lescht Woch";
@@ -41,8 +40,10 @@
 "wikitext-upload-captcha-error" = "Feeler beim Nokucke vum CAPTCHA.";
 "wikitext-upload-captcha-needed" = "CAPTCHA-Iwwerpréifung obligatoresch.";
 "wikitext-upload-save" = "Späicheren...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Aloggen a späicheren";
 "wikitext-upload-save-anonymously" = "Anonym späicheren";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Dat huet manner Dateschutz. Är IP-Adress gëtt mat den Ännerunge gewisen.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Sichen...";
@@ -52,6 +53,8 @@
 "search-loading-section-zero" = "Éischten Abschnitt vum Artikel gëtt gelueden...";
 "search-loading-section-remaining" = "De Rescht vum Artikel lueden...";
 "search-loading-article-loaded" = "Artikel gelueden.";
+"search-cancel" = "Ofbriechen";
+"main-menu-title" = "Méi";
 "main-menu-language-title" = "Sicht an der Wiki op $1";
 "main-menu-language-toggle-show" = "Sprooche weisen";
 "main-menu-language-toggle-hide" = "Sprooche verstoppen";
@@ -61,18 +64,21 @@
 "main-menu-account-login" = "Aloggen";
 "main-menu-account-logout" = "Ausloggen";
 "main-menu-show-title" = "Weis mir...";
+"main-menu-show-history" = "Rezent";
 "main-menu-show-saved" = "Gespäichert Säiten";
 "main-menu-current-article-save" = "$1 späichere fir off-line ze liesen";
-// Fuzzy
-"main-menu-random" = "Zoufällegen Artikel";
+"main-menu-random" = "Zoufälleg";
 "main-menu-feedback-heading" = "Feedback";
 "main-menu-send-feedback" = "Feedback schécken";
 "main-menu-show-page-history" = "Historique vun de Ännerunge vu(n) $1";
+"main-menu-credits" = "Merci";
 "saved-pages-title" = "Gespäichert Säiten";
 "page-history-title" = "Versioune vun dëser Säit";
 "page-history-downloading" = "Lëscht vun de Versioune gëtt gelueden...";
 "navbar-title-mode-edit-wikitext" = "Änneren";
+// Fuzzy
 "navbar-title-mode-login" = "Aloggen";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Aloggen a späicheren";
 "navbar-title-mode-create-account" = "Benotzerkont uleeën";
 "navbar-title-mode-create-account-and-save" = "Benotzerkont uleeën a späicheren";
@@ -91,8 +97,23 @@
 "edit-summary-choice-added-clarification" = "Erklärung derbäigesat";
 "edit-summary-choice-other" = "Anerer";
 "edit-summary-field-placeholder-text" = "Wéi hutt Dir d'Säit verbessert?";
+"edit-summary-title" = "Wéi hutt Dir den Artikel verbessert?";
 "fetching-random-article" = "Zoufällegen Artikel ofrufen";
 "article-pull-to-refresh-prompt" = "Zitt fir den Artikel z'aktualiséieren";
 "article-pull-to-refresh-is-refreshing" = "Artikel aktualiséieren";
 "credits-wikimedia-repos" = "Wikimedia";
 "credits-external-libraries" = "Extern";
+"share-menu-save-page" = "Artikel späicheren";
+"share-menu-page-saved" = "Säit gespäichert";
+"timestamp-just-now" = "grad elo";
+"timestamp-minutes" = "viru(n) %d Minutten";
+"timestamp-hours" = "viru(n) %d Stonnen";
+"timestamp-days" = "viru(n) %d Deeg";
+"timestamp-months" = "viru(n) %d Méint";
+"timestamp-years" = "viru(n) %d Joer";
+"lastmodified-timestamp" = "Lescht Ännerung $1";
+"lastmodified-by" = "vum $1";
+"lastmodified-anon" = "vun engem anonyme Benotzer";
+"button-next" = "Weider";
+"button-done" = "Fäerdeg";
+"button-save" = "Späicheren";

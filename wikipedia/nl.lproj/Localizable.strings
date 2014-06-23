@@ -7,10 +7,9 @@
 "article-languages-label" = "Taal kiezen";
 "article-languages-cancel" = "Annuleren";
 "article-languages-downloading" = "Paginatalen aan het laden...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filteren";
-// Fuzzy
-"history-label" = "Door geschiedenis bladeren";
+"article-languages-filter-placeholder" = "Taal filteren";
+"language-button-other-languages" = "Andere talen";
+"history-label" = "Recent";
 "history-section-today" = "Vandaag";
 "history-section-yesterday" = "Gisteren";
 "history-section-lastweek" = "Afgelopen week";
@@ -49,10 +48,13 @@
 "wikitext-upload-captcha-error" = "Controlefout voor de CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Er is een CAPTCHA-controle nodig.";
 "wikitext-upload-save" = "Aan het opslaan...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Aanmelden en opslaan";
 "wikitext-upload-save-sign-in-benefits" = "Zodat mederedacteuren met u kunnen communiceren en zodat u kunt zien welke pagina's u hebt bewerkt.";
 "wikitext-upload-save-anonymously" = "Als anoniem opslaan";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Deze manier kent minder privacy. Uw IP-adres is zichtbaar bij de bewerkingen.";
+// Fuzzy
 "wikitext-upload-save-license" = "Door op te slaan, gaat u akkoord met het vrijgeven van uw bijdragen onder de licentie $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Bezig met zoeken...";
@@ -62,6 +64,8 @@
 "search-loading-section-zero" = "Het eerste deel van de pagina aan het laden...";
 "search-loading-section-remaining" = "De rest van de pagina aan het laden...";
 "search-loading-article-loaded" = "Pagina geladen.";
+"search-cancel" = "Annuleren";
+"main-menu-title" = "Meer";
 "main-menu-language-title" = "In de taal $1 zoeken";
 "main-menu-language-toggle-show" = "Talen weergeven";
 "main-menu-language-toggle-hide" = "Talen verbergen";
@@ -71,20 +75,21 @@
 "main-menu-account-login" = "Aanmelden";
 "main-menu-account-logout" = "Afmelden";
 "main-menu-show-title" = "Weergeven...";
-// Fuzzy
-"main-menu-show-history" = "Browsegeschiedenis";
+"main-menu-show-history" = "Recent";
 "main-menu-show-saved" = "Opgeslagen pagina's";
 "main-menu-current-article-save" = "\"$1\" opslaan voor offline lezen";
-// Fuzzy
-"main-menu-random" = "Willekeurige pagina";
+"main-menu-random" = "Willekeurig";
 "main-menu-feedback-heading" = "Terugkoppeling";
 "main-menu-send-feedback" = "Terugkoppeling verzenden";
 "main-menu-show-page-history" = "Geschiedenis van wijzigingen aan $1";
+"main-menu-credits" = "Credits";
 "saved-pages-title" = "Opgeslagen pagina's";
 "page-history-title" = "Paginageschiedenis";
 "page-history-downloading" = "Paginageschiedenis laden...";
 "navbar-title-mode-edit-wikitext" = "Bewerken";
+// Fuzzy
 "navbar-title-mode-login" = "Aanmelden";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Aanmelden en opslaan";
 "navbar-title-mode-create-account" = "Gebruiker aanmaken";
 "navbar-title-mode-create-account-and-save" = "Gebruiker aanmaken en opslaan";
@@ -105,7 +110,26 @@
 "edit-summary-choice-other" = "Overige";
 "edit-summary-description" = "Een specifieke samenvatting helpt mederedacteuren bij het snel controleren van uw bewerkingen. U kunt ook kiezen uit de onderstaande standaardteksten.";
 "edit-summary-field-placeholder-text" = "Hoe hebt u de pagina verbeterd?";
+"edit-summary-title" = "Hoe heeft u de pagina verbeterd?";
 "fetching-random-article" = "Willekeurige pagina ophalen";
 "article-pull-to-refresh-prompt" = "Naar beneden trekken om bij te werken";
 "article-pull-to-refresh-is-refreshing" = "Pagina bijwerken";
+"credits-title" = "Vrije bronnen";
 "credits-wikimedia-repos" = "Wikimedia";
+"credits-gerrit-repo" = "App (Gerrit)";
+"credits-github-mirror" = "App mirror (GitHub)";
+"credits-external-libraries" = "Extern";
+"share-menu-save-page" = "Artikel opslaan";
+"share-menu-page-saved" = "Artikel is opgeslagen";
+"timestamp-just-now" = "zojuist";
+"timestamp-minutes" = "%d minuten geleden";
+"timestamp-hours" = "%d uur geleden";
+"timestamp-days" = "%d dagen geleden";
+"timestamp-months" = "%d maanden geleden";
+"timestamp-years" = "%d jaar geleden";
+"lastmodified-timestamp" = "Laatste wijziging op $1";
+"lastmodified-by" = "door $1";
+"lastmodified-anon" = "door een anonieme gebruiker";
+"button-next" = "Volgende";
+"button-done" = "Afgerond";
+"button-save" = "Opslaan";

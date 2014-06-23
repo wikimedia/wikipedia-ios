@@ -1,6 +1,7 @@
 // Messages for Spanish (español)
 // Exported from translatewiki.net
 // Author: Fitoschido
+// Author: Koavf
 // Author: Mcervera
 // Author: VegaDark
 // Author: Vivaelcelta
@@ -9,10 +10,9 @@
 "article-languages-label" = "Elige un idioma";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "Cargando idiomas del artículo…";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtrar";
-// Fuzzy
-"history-label" = "Buscar en el historial";
+"article-languages-filter-placeholder" = "Filtro de idiomas";
+"language-button-other-languages" = "Otros idiomas";
+"history-label" = "Recientes";
 "history-section-today" = "Hoy";
 "history-section-yesterday" = "Ayer";
 "history-section-lastweek" = "La semana pasada";
@@ -51,10 +51,13 @@
 "wikitext-upload-captcha-error" = "Error de verificación CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Necesita verificación CAPTCHA.";
 "wikitext-upload-save" = "Guardando…";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Acceder y guardar";
 "wikitext-upload-save-sign-in-benefits" = "Así los co-editores pueden conectar con usted y usted puede ver que artículos ha editado.";
 "wikitext-upload-save-anonymously" = "Guardar anónimamente";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Esto tiene menos privacidad. Su dirección IP es visible con las ediciones.";
+// Fuzzy
 "wikitext-upload-save-license" = "Guardando, aceptas liberar tus contribuciones bajo la licencia $1";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Buscando…";
@@ -64,6 +67,8 @@
 "search-loading-section-zero" = "Cargando la primera sección del artículo…";
 "search-loading-section-remaining" = "Cargando el resto del artículo…";
 "search-loading-article-loaded" = "Artículo cargado.";
+"search-cancel" = "Cancelar";
+"main-menu-title" = "Más";
 "main-menu-language-title" = "Búsqueda de $1 idioma wiki";
 "main-menu-language-toggle-show" = "Mostrar idiomas";
 "main-menu-language-toggle-hide" = "Ocultar idiomas";
@@ -73,12 +78,10 @@
 "main-menu-account-login" = "Iniciar sesión";
 "main-menu-account-logout" = "Salir";
 "main-menu-show-title" = "Mostrarme…";
-// Fuzzy
-"main-menu-show-history" = "Historial de navegación";
+"main-menu-show-history" = "Recientes";
 "main-menu-show-saved" = "Páginas guardadas";
 "main-menu-current-article-save" = "Guardar $1 para leer sin conexión";
-// Fuzzy
-"main-menu-random" = "Artículo al azar";
+"main-menu-random" = "Al azar";
 "main-menu-feedback-heading" = "Sugerencias";
 "main-menu-send-feedback" = "Enviar sugerencias";
 "main-menu-show-page-history" = "Historial de cambios de $1";
@@ -87,7 +90,9 @@
 "page-history-title" = "Historial de página";
 "page-history-downloading" = "Cargando el historial de la página...";
 "navbar-title-mode-edit-wikitext" = "Editar";
+// Fuzzy
 "navbar-title-mode-login" = "Iniciar sesión";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Acceder y guardar";
 "navbar-title-mode-create-account" = "Crear cuenta";
 "navbar-title-mode-create-account-and-save" = "Crear cuenta y guardar";
@@ -116,3 +121,17 @@
 "credits-gerrit-repo" = "Rep. principal de aplicación (Gerrit)";
 "credits-github-mirror" = "App espejo (GitHub)";
 "credits-external-libraries" = "Externo";
+"share-menu-save-page" = "Guardar artículo";
+"share-menu-page-saved" = "Artículo guardado";
+"timestamp-just-now" = "ahora mismo";
+"timestamp-minutes" = "hace %d minutos";
+"timestamp-hours" = "hace %d horas";
+"timestamp-days" = "hace %d días";
+"timestamp-months" = "hace %d meses";
+"timestamp-years" = "hace %d años";
+"lastmodified-timestamp" = "Última modificación $1";
+"lastmodified-by" = "por $1";
+"lastmodified-anon" = "por un usuario anónimo";
+"button-next" = "Siguiente";
+"button-done" = "Hecho";
+"button-save" = "Guardar";

@@ -47,10 +47,13 @@
 "wikitext-upload-captcha-error" = "Error na comprobación captcha.";
 "wikitext-upload-captcha-needed" = "Necesita la comprobación del captcha.";
 "wikitext-upload-save" = "Guardando...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Aniciar sesión y guardar";
 "wikitext-upload-save-sign-in-benefits" = "Pa que los co-editores puedan comunicase contigo y tu puedas ver qué artículos editasti.";
 "wikitext-upload-save-anonymously" = "Guardar como anónimu";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Esto tien menor intimidá. La to direición IP ye visible coles ediciones.";
+// Fuzzy
 "wikitext-upload-save-license" = "Al guardar, aceutes lliberar les tos collaboraciones baxo la llicencia $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Buscando...";
@@ -83,7 +86,9 @@
 "page-history-title" = "Historial de la páxina";
 "page-history-downloading" = "Cargando l'historial de la páxina...";
 "navbar-title-mode-edit-wikitext" = "Editar";
+// Fuzzy
 "navbar-title-mode-login" = "Entrar";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Aniciar sesión y guardar";
 "navbar-title-mode-create-account" = "Crear una cuenta";
 "navbar-title-mode-create-account-and-save" = "Crear una cuenta y guardar";

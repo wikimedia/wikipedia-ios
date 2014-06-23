@@ -47,6 +47,7 @@
 "wikitext-upload-captcha-error" = "Помилка перевірки CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Потрібна перевірка captcha.";
 "wikitext-upload-save" = "Збереження...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Увійти і зберегти";
 // Fuzzy
 "wikitext-upload-save-sign-in-benefits" = "Так інші учасники зможуть зв'язатися з вами, і ви зможете побачити, які статті ви редагували";
@@ -79,7 +80,9 @@
 "main-menu-send-feedback" = "Надіслати відгук";
 "saved-pages-title" = "Збережені сторінки";
 "navbar-title-mode-edit-wikitext" = "Змінити";
+// Fuzzy
 "navbar-title-mode-login" = "Увійти";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Увійти і зберегти";
 "navbar-title-mode-create-account" = "Створити обліковий запис";
 "navbar-title-mode-create-account-and-save" = "Створити обліковий запис і зберегти";

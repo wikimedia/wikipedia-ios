@@ -27,6 +27,7 @@
 "wikitext-upload-save-anonymously" = "匿名で保存";
 "search-searching" = "検索中...";
 "search-loading-article-loaded" = "記事を読み込みました。";
+"main-menu-title" = "その他";
 "main-menu-language-toggle-show" = "言語を表示";
 "main-menu-language-toggle-hide" = "言語を非表示";
 "main-menu-language-selection-saved" = "言語の選択を保存しました";
@@ -51,3 +52,6 @@
 "edit-summary-choice-other" = "その他";
 "credits-wikimedia-repos" = "ウィキメディア";
 "credits-external-libraries" = "外部";
+"share-menu-page-saved" = "記事を保存しました";
+"button-next" = "次へ";
+"button-save" = "保存";

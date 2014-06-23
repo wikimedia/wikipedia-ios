@@ -48,10 +48,13 @@
 "wikitext-upload-captcha-error" = "Kesalahan verifikasi CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Memerlukan verifikasi CAPTCHA.";
 "wikitext-upload-save" = "Sedang menyimpan...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Masuk log dan simpan";
 "wikitext-upload-save-sign-in-benefits" = "Jadi rekan penyunting dapat terhubung dengan Anda & Anda dapat melihat apa artikel yang Anda sunting.";
 "wikitext-upload-save-anonymously" = "Simpan secara anonim";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Ini memiliki privasi kurang. Alamat IP Anda terlihat dengan suntingan.";
+// Fuzzy
 "wikitext-upload-save-license" = "Dengan menyimpan, Anda setuju untuk merilis kontribusi Anda di bawah lisensi $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Mencari...";

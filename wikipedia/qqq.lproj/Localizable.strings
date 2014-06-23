@@ -6,7 +6,7 @@
 "article-languages-label" = "Header label for per-article language selector screen.\n{{Identical|Choose language}}";
 "article-languages-cancel" = "Button text for dismissing the language selector screen.\n{{Identical|Cancel}}";
 "article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
-"article-languages-filter-placeholder" = "Filter languages text box placeholder text\n{{Identical|Filter}}";
+"article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
 "language-button-other-languages" = "Label for 'other languages' button in content area. Button also shows the number of available languages, but an indeterminate plural should be used here.";
 "history-label" = "Header label for screen showing the users' in-app browsing history.\n{{Identical|Recent}}";
 "history-section-today" = "Subsection label for list of articles browsed today.\n{{Identical|Today}}";
@@ -68,8 +68,8 @@
 "search-loading-section-zero" = "Alert text shown when loading first section of the article";
 "search-loading-section-remaining" = "Alert text shown when loading remaining article sections";
 "search-loading-article-loaded" = "Alert text shown when the article has been completely loaded";
-"search-cancel" = "Button text for canceling search";
-"main-menu-title" = "Title for menu of secondary items.";
+"search-cancel" = "{{Identical|Cancel}}";
+"main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-language-title" = "Header text for default search language selection. Parameters:\n* $1 - language domain name";
 "main-menu-language-toggle-show" = "Button text for showing language list";
 "main-menu-language-toggle-hide" = "Button text for hiding language list";
@@ -82,7 +82,7 @@
 "main-menu-show-history" = "Button text for article history interface.\n{{Identical|Recent}}";
 "main-menu-show-saved" = "Button text for saved articles interface.\n{{Identical|Saved page}}";
 "main-menu-current-article-save" = "Button text for saving the current article. Parameters:\n* $1 - page title";
-"main-menu-random" = "Button text for fetching a Random article.\n{{Identical|Random article}}";
+"main-menu-random" = "Button text for fetching a Random article.\n{{Identical|Random}}";
 "main-menu-feedback-heading" = "Header text for app feedback.\n{{Identical|Feedback}}";
 "main-menu-send-feedback" = "Button text for button to send app feedback.\n{{Identical|Send feedback}}";
 "main-menu-show-page-history" = "Button text for showing history of changes to current article. Parameters:\n* $1 - page title";
@@ -123,7 +123,7 @@
 "credits-external-libraries" = "Title for area of credits page showing external open source libraries used by app.\n{{Identical|External}}";
 "share-menu-save-page" = "Button text for saving current page from the share menu";
 "share-menu-page-saved" = "Alert text shown when page saved";
-"timestamp-just-now" = "Human-readable approximate timestamp for events in the last couple of minutes";
+"timestamp-just-now" = "Human-readable approximate timestamp for events in the last couple of minutes.\n{{Identical|Just now}}";
 "timestamp-minutes" = "Human-readable approximate timestamp for events in the last couple hours, expressed as minutes";
 "timestamp-hours" = "Human-readable approximate timestamp for events in the last couple days, expressed as hours";
 "timestamp-days" = "Human-readable approximate timestamp for events in the last couple months, expressed as days";
@@ -132,9 +132,9 @@
 "lastmodified-timestamp" = "Marker at page end for last modified time. $1 is placeholder for a human-readable approximate timestamp";
 "lastmodified-by" = "Marker at page end for who last modified the page. $1 is a username.";
 "lastmodified-anon" = "Marker at page end for who last modified the page when anonymous.";
-"button-next" = "Button text for next button used in various places.";
-"button-done" = "Button text for done button used in various places.";
-"button-save" = "Button text for save button used in various places.";
+"button-next" = "Button text for next button used in various places.\n{{Identical|Next}}";
+"button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
+"button-save" = "Button text for save button used in various places.\n{{Identical|Save}}";
 "onboarding-create-account" = "Button text prompting first time users to create an account";
 "onboarding-login" = "Button text prompting first time users to log in";
 "onboarding-already-have-account" = "Button text prompting first time users to log in to existing account. Parameters:\n* $1 - login button text";

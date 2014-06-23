@@ -43,6 +43,7 @@
 "wikitext-preview-changes" = "Фарохонии пешнамоиши тағийроти шумо...";
 "wikitext-preview-changes-none" = "Барои пешнамоиш ягон тағйирот нашуд.";
 "wikitext-upload-save" = "Дар ҳоли захиракунӣ...";
+// Fuzzy
 "wikitext-upload-save-sign-in" = "Вуруд ва захира";
 "wikitext-upload-save-anonymously" = "Гумномона захира шавад";
 "search-searching" = "Дар ҳоли ҷустуҷӯ...";
@@ -65,7 +66,9 @@
 "main-menu-feedback-heading" = "Пешниҳод";
 "saved-pages-title" = "Саҳифаҳои захирашуда";
 "navbar-title-mode-edit-wikitext" = "Вироиш";
+// Fuzzy
 "navbar-title-mode-login" = "Вуруд";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Вуруд ва захира";
 "navbar-title-mode-create-account" = "Эҷоди ҳисоб";
 "navbar-title-mode-create-account-and-save" = "Эҷоди ҳисоб ва захира";
