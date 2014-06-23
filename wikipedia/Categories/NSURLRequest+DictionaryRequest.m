@@ -82,7 +82,11 @@
             if (reachabilityFlags == (kSCNetworkReachabilityFlagsIsWWAN
                                       | kSCNetworkReachabilityFlagsReachable
                                       | kSCNetworkReachabilityFlagsTransientConnection)) {
-                NSString *mccMnc = [[NSString alloc] initWithFormat:@"%@-%@", [mno mobileCountryCode], [mno mobileNetworkCode]];
+                // In iOS disentangling network MCC-MNC from SIM MCC-MNC not in API yet.
+                // So let's use the same value for both parts of the field.
+                NSString *mcc = mno.mobileCountryCode ? mno.mobileCountryCode : @"000";
+                NSString *mnc = mno.mobileNetworkCode ? mno.mobileNetworkCode : @"000";
+                NSString *mccMnc = [[NSString alloc] initWithFormat:@"%@-%@,%@-%@", mcc, mnc, mcc, mnc];
                 [SessionSingleton sharedInstance].zeroConfigState.sentMCCMNC = true;
                 [req addValue:mccMnc forHTTPHeaderField:@"X-MCCMNC"];
                 // NSLog(@"%@", mccMnc);
