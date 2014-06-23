@@ -66,7 +66,7 @@
 
 #pragma mark Article
 
--(void)loadArticleWithTitle: (NSString *)title
+-(void)loadArticleWithTitle: (MWPageTitle *)title
                      domain: (NSString *)domain
                    animated: (BOOL)animated
             discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
@@ -74,7 +74,7 @@
 {
     WebViewController *webVC = [self searchNavStackForViewControllerOfClass:[WebViewController class]];
     if (webVC){
-        [SessionSingleton sharedInstance].currentArticleTitle = title;
+        [SessionSingleton sharedInstance].currentArticleTitle = title.prefixedText;
         [SessionSingleton sharedInstance].currentArticleDomain = domain;
         [webVC navigateToPage: title
                        domain: domain

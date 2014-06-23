@@ -32,11 +32,7 @@ static NSString *localLinkPrefix = @"/wiki/";
 {
     if ([path hasPrefix:localLinkPrefix]) {
         NSString *remainder = [path substringFromIndex:localLinkPrefix.length];
-        NSArray *chunks = [remainder componentsSeparatedByString:@"#"];
-        // todo: use the hash
-        NSString *rawTitle = chunks[0];
-        // todo: kill namespaces from here
-        return [MWPageTitle titleFromNamespace:@"" text:rawTitle];
+        return [MWPageTitle titleWithString:remainder];
     } else {
         @throw [NSException exceptionWithName:@"SiteBadLinkFormatException" reason:@"unexpected local link format" userInfo:nil];
     }

@@ -4,6 +4,7 @@
 #import <UIKit/UIKit.h>
 #import "MWNetworkOp.h"
 #import "CenterNavController.h"
+#import "MWPageTitle.h"
 
 @interface WebViewController : UIViewController <UIWebViewDelegate, NetworkOpDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
@@ -15,7 +16,7 @@
 -(void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache;
 
 // If "invalidateCache" is set to YES the article will be re-downloaded first.
--(void)navigateToPage: (NSString *)title
+-(void)navigateToPage: (MWPageTitle *)title
                domain: (NSString *)domain
       discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
     invalidatingCache: (BOOL)invalidateCache;

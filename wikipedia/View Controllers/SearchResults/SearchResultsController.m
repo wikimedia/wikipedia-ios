@@ -393,7 +393,7 @@
     
     [self hideKeyboard];
 
-    [NAV loadArticleWithTitle: title
+    [NAV loadArticleWithTitle: [MWPageTitle titleWithString:title]
                        domain: [SessionSingleton sharedInstance].domain
                      animated: YES
               discoveryMethod: DISCOVERY_METHOD_SEARCH

@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #include "SectionEditorViewController.h"
+#include "MWPageTitle.h"
 
 typedef enum {
     DISCOVERY_METHOD_SEARCH = 0,
@@ -14,7 +15,7 @@ typedef enum {
 @property (nonatomic, readonly) BOOL isEditorOnNavstack;
 @property (nonatomic, readonly) SectionEditorViewController *editor;
 
--(void)loadArticleWithTitle: (NSString *)title
+-(void)loadArticleWithTitle: (MWPageTitle *)title
                      domain: (NSString *)domain
                    animated: (BOOL)animated
             discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod

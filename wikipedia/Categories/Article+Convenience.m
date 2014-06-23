@@ -123,4 +123,11 @@
     }
 }
 
+#pragma mark - Getters
+
+-(MWPageTitle *)titleObj
+{
+    return [MWPageTitle titleWithString:self.title];
+}
+
 @end

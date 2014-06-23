@@ -118,6 +118,7 @@ bridge.registerListener( "setScale", function( payload ) {
 } );
 
 bridge.registerListener( "append", function( payload ) {
+                        console.log('hello append');
     // Append html without losing existing event handlers
     // From: http://stackoverflow.com/a/595825
     var content = document.getElementById("content");
@@ -159,6 +160,12 @@ bridge.registerListener( "clear", function( payload ) {
 
 bridge.registerListener( "ping", function( payload ) {
     bridge.sendMessage( "pong", payload );
+});
+
+bridge.registerListener( "scrollToFragment", function( payload ) {
+    var item = document.getElementById( payload.hash );
+    var rect = item.getBoundingClientRect();
+    window.scroll( 0, rect.top );
 });
 
 /**

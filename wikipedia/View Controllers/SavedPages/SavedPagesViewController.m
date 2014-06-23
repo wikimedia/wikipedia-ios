@@ -274,7 +274,7 @@
         savedEntry = (Saved *)[articleDataContext_.mainContext objectWithID:savedEntryId];
     }];
     
-    [NAV loadArticleWithTitle: savedEntry.article.title
+    [NAV loadArticleWithTitle: savedEntry.article.titleObj
                        domain: savedEntry.article.domain
                      animated: YES
               discoveryMethod: DISCOVERY_METHOD_SEARCH
