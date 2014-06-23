@@ -1,4 +1,5 @@
 
+// this doesn't seem to work on iOS?
 exports.makeTablesNotBlockIfSafeToDoSo = function() {
     // Tables which are narrower than their container look funny - this is caused by table
     // css 'display' being set to 'block'. But this *is needed* when the table content is
@@ -20,6 +21,28 @@ exports.makeTablesNotBlockIfSafeToDoSo = function() {
         }
     }
 }
+
+// this *does* seem to work on ios
+// wrap wide tables in a <div style="overflow-x:auto">...</div>
+exports.putWideTablesInDivs = function() {
+    var tbodies = document.getElementsByTagName('TBODY');
+    for (var i = 0; i < tbodies.length; ++i) {
+        var tbody = tbodies[i];
+        var tbodyRect = tbody.getBoundingClientRect();
+        var parentRect = tbody.parentElement.getBoundingClientRect(); // this doesn't give a useful result, as parent is sized to the table?
+        //if(tbodyRect.width >= parentRect.width){
+            var table = tbody.parentElement;
+            var parent = table.parentElement;
+            var div = document.createElement( 'div' );
+            div.style.overflowX = 'auto';
+            parent.insertBefore( div, table );
+            var oldTable = parent.removeChild( table );
+            div.appendChild( oldTable );
+        //}
+    }
+}
+
+
 
 exports.reduceWeirdWebkitMargin = function() {
     // See the "Tuna" article for tables having weird left margin. This removes it.
