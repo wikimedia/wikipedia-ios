@@ -19,4 +19,6 @@
 
 @property (readonly) MWPageTitle* titleObj;
 
+@property (readonly) BOOL editableBool;
+
 @end

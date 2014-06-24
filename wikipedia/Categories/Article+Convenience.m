@@ -130,4 +130,13 @@
     return [MWPageTitle titleWithString:self.title];
 }
 
+-(BOOL)editableBool
+{
+    if (self.editable == nil) {
+        return YES; // default
+    } else {
+        return [self.editable boolValue];
+    }
+}
+
 @end

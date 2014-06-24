@@ -1,5 +1,10 @@
-//  Created by Monte Hurd on 5/2/14.
-//  Created by Monte Hurd on 4/29/14.
+//
+//  Article.h
+//  Wikipedia
+//
+//  Created by Brion on 6/24/14.
+//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
+//
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
@@ -8,6 +13,7 @@
 
 @interface Article : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * articleId;
 @property (nonatomic, retain) NSDate * dateCreated;
 @property (nonatomic, retain) NSString * domain;
 @property (nonatomic, retain) NSString * domainName;
@@ -20,7 +26,9 @@
 @property (nonatomic, retain) NSString * redirected;
 @property (nonatomic, retain) NSString * site;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSNumber * articleId;
+@property (nonatomic, retain) NSString * protectionStatus;
+@property (nonatomic, retain) NSNumber * editable;
+@property (nonatomic, retain) NSString * displayTitle;
 @property (nonatomic, retain) NSSet *galleryImage;
 @property (nonatomic, retain) NSSet *history;
 @property (nonatomic, retain) NSSet *saved;

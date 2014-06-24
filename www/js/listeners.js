@@ -75,6 +75,10 @@ bridge.registerListener( "scrollToFragment", function( payload ) {
     window.scroll( 0, rect.top );
 });
 
+bridge.registerListener( "setPageProtected", function() {
+    document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
+} );
+
 /**
  * Quickie function to walk from the current element up to parents and match CSS-ish selectors.
  * Think of it as a reverse element.querySelector :)

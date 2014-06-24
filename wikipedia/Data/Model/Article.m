@@ -1,5 +1,10 @@
-//  Created by Monte Hurd on 5/2/14.
-//  Created by Monte Hurd on 4/29/14.
+//
+//  Article.m
+//  Wikipedia
+//
+//  Created by Brion on 6/24/14.
+//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
+//
 
 #import "Article.h"
 #import "GalleryImage.h"
@@ -11,6 +16,7 @@
 
 @implementation Article
 
+@dynamic articleId;
 @dynamic dateCreated;
 @dynamic domain;
 @dynamic domainName;
@@ -23,7 +29,9 @@
 @dynamic redirected;
 @dynamic site;
 @dynamic title;
-@dynamic articleId;
+@dynamic protectionStatus;
+@dynamic editable;
+@dynamic displayTitle;
 @dynamic galleryImage;
 @dynamic history;
 @dynamic saved;

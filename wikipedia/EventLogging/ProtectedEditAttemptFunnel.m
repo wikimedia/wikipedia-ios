@@ -20,7 +20,7 @@
 
 -(void)logProtectionStatus:(NSString *)protectionStatus
 {
-    // @fixme fill this out once we're actually checking status
+    [self log:@{@"protectionStatus": protectionStatus ? protectionStatus : @""}];
 }
 
 @end

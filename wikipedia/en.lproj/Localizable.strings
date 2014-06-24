@@ -159,3 +159,8 @@
 "preference_title_eventlogging_opt_in" = "Send usage reports";
 "preference_summary_eventlogging_opt_in" = "Allow Wikimedia to collect information about how you use the app to make the app better";
 
+"page_protected_autoconfirmed" = "This page has been semi-protected.";
+"page_protected_sysop" = "This page has been fully protected.";
+"page_protected_other" = "This page has been protected to the following levels: $1";
+"page_protected_can_not_edit" = "You do not have the rights to edit this page";
+"page_protected_can_not_edit_title" = "This page is protected";

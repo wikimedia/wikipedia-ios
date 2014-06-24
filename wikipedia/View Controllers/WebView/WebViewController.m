@@ -42,6 +42,7 @@
 #import "UIViewController+ModalPresent.h"
 #import "Section+DisplayHtml.h"
 #import "EditFunnel.h"
+#import "ProtectedEditAttemptFunnel.h"
 #import "CoreDataHousekeeping.h"
 #import "Article+Convenience.h"
 #import "NSDate-Utilities.h"
@@ -96,6 +97,9 @@ typedef enum {
 @property (strong, nonatomic) NSLayoutConstraint *bottomBarViewBottomConstraint;
 
 @property (copy) NSString *jumpToFragment;
+
+@property (nonatomic) BOOL editable;
+@property (copy) NSString *protectionStatus;
 
 @end
 
@@ -902,9 +906,15 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
     [self.bridge addListener:@"editClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
         [weakSelf tocHide];
-        weakSelf.sectionToEditId = [payload[@"sectionId"] integerValue];
-
-        [weakSelf showSectionEditor];
+        
+        if (weakSelf.editable) {
+            weakSelf.sectionToEditId = [payload[@"sectionId"] integerValue];
+            [weakSelf showSectionEditor];
+        } else {
+            ProtectedEditAttemptFunnel *funnel = [[ProtectedEditAttemptFunnel alloc] init];
+            [funnel logProtectionStatus:weakSelf.protectionStatus];
+            [weakSelf showProtectedDialog];
+        }
     }];
     
     [self.bridge addListener:@"langClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
@@ -1348,6 +1358,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         article.lastmodified = dataRetrieved[@"lastmodified"];
         article.lastmodifiedby = dataRetrieved[@"lastmodifiedby"];
         article.articleId = dataRetrieved[@"articleId"];
+        article.editable = dataRetrieved[@"editable"];
+        article.protectionStatus = dataRetrieved[@"protectionStatus"];
+
 
         // Note: Because "retrieveArticleForPageTitle" recurses with the redirected-to title if
         // the lead section op determines a redirect occurred, the "redirected" value below will
@@ -1409,6 +1422,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         section0.html = section0HTML;
         section0.anchor = @"";
         article.section = [NSSet setWithObjects:section0, nil];
+
+        // Save page properties
+                                     // @FIXME
 
         // Don't add multiple history items for the same article or back-forward button
         // behavior becomes a confusing mess.
@@ -1504,6 +1520,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     NSNumber *langCount = article.languagecount;
     NSDate *lastModified = article.lastmodified;
     NSString *lastModifiedBy = article.lastmodifiedby;
+    self.editable = article.editableBool;
+    self.protectionStatus = article.protectionStatus;
     
     [self.bottomMenuViewController updateBottomBarButtonsEnabledState];
 
@@ -1570,6 +1588,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         
         [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];
         // Note: we set the scroll position later, after the size has been calculated
+        
+        if (!self.editable) {
+            [self.bridge sendMessage:@"setPageProtected" withPayload:@{}];
+        }
         
         if ([self tocDrawerIsOpen]) {
             // Drawer is already open, so just refresh the toc quickly w/o animation.
@@ -1958,6 +1980,16 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 {
     [self.presentedViewController dismissViewControllerAnimated: YES
                                                      completion: ^{}];
+}
+
+-(void)showProtectedDialog
+{
+    UIAlertView *alert = [[UIAlertView alloc] init];
+    alert.title = MWLocalizedString(@"page_protected_can_not_edit_title", nil);
+    alert.message = MWLocalizedString(@"page_protected_can_not_edit", nil);
+    [alert addButtonWithTitle:@"OK"];
+    alert.cancelButtonIndex = 0;
+    [alert show];
 }
 
 @end

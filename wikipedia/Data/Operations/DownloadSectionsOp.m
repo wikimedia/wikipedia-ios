@@ -24,7 +24,7 @@
         NSMutableDictionary *params =
         @{
           @"action": @"mobileview",
-          @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount|id",
+          @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount|id|protection|editable",
           @"sectionprop": @"toclevel|line|anchor|level|number|fromtitle|index",
           @"noheadings": @"true",
           @"page": title,
@@ -129,6 +129,20 @@
             
             NSNumber *articleId = weakSelf.jsonRetrieved[@"mobileview"][@"id"];
             if (!articleId || [articleId isNull]) articleId = @0;
+            
+            NSNumber *editable = weakSelf.jsonRetrieved[@"mobileview"][@"editable"];
+            if (!editable || [editable isNull]) editable = @NO;
+            
+            NSString *protectionStatus = @"";
+            id protection = weakSelf.jsonRetrieved[@"mobileview"][@"protection"];
+            // if empty this can be an array instead of an object/dict!
+            // https://bugzilla.wikimedia.org/show_bug.cgi?id=67054
+            if (protection && [protection isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *protectionDict = (NSDictionary *)protection;
+                if (protectionDict[@"edit"] && [protection[@"edit"] count] > 0) {
+                    protectionStatus = protectionDict[@"edit"][0];
+                }
+            }
 
             NSMutableDictionary *output = @{
                                             @"sections": outputSections,
@@ -136,7 +150,9 @@
                                             @"lastmodifiedby": lastmodifiedby,
                                             @"redirected": redirected,
                                             @"languagecount": languagecount,
-                                            @"articleId": articleId
+                                            @"articleId": articleId,
+                                            @"editable": editable,
+                                            @"protectionStatus": protectionStatus
                                             }.mutableCopy;
 
 

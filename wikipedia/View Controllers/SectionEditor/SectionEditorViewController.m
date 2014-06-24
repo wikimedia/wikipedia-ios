@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
 @property (nonatomic) CGRect viewKeyboardRect;
+@property (copy) NSString *protectionStatus;
 
 @end
 
@@ -183,6 +184,7 @@
     [self showAlert:MWLocalizedString(@"wikitext-downloading", nil)];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
     NSString *domain = section.article.domain;
+    self.protectionStatus = section.article.protectionStatus;
 
     // If fromTitle was set, the section was transcluded, so use the title of the page
     // it was transcluded from.
@@ -191,8 +193,23 @@
     DownloadSectionWikiTextOp *downloadWikiTextOp = [[DownloadSectionWikiTextOp alloc] initForPageTitle:title domain:section.article.domain section:section.index completionBlock:^(NSString *revision){
         
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-            [self showAlert:MWLocalizedString(@"wikitext-download-success", nil)];
-            [self fadeAlert];
+            
+            if (self.protectionStatus && [self.protectionStatus length] > 0) {
+                NSString *msg;
+                if ([self.protectionStatus isEqualToString:@"autoconfirmed"]) {
+                    msg = MWLocalizedString(@"page_protected_autoconfirmed", nil);
+                } else if ([self.protectionStatus isEqualToString:@"sysop"]) {
+                    msg = MWLocalizedString(@"page_protected_sysop", nil);
+                } else {
+                    msg = MWLocalizedString(@"page_protected_other", nil);
+                }
+                [self showAlert:msg];
+                
+                [self fadeAlert];
+            } else {
+                [self showAlert:MWLocalizedString(@"wikitext-download-success", nil)];
+                [self fadeAlert];
+            }
             self.unmodifiedWikiText = revision;
             self.editTextView.attributedText = [self getAttributedString:revision];
             //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
