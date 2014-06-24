@@ -157,7 +157,6 @@
 		C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		C958EE3418CE73E600148D13 /* DownloadTitlesForRandomArticlesOp.m in Sources */ = {isa = PBXBuildFile; fileRef = C958EE3318CE73E600148D13 /* DownloadTitlesForRandomArticlesOp.m */; };
 		C9928B8618AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m in Sources */ = {isa = PBXBuildFile; fileRef = C9928B8518AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m */; };
-		C9928B8818AD5E1000FCCA9A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C9928B8718AD5E1000FCCA9A /* Settings.bundle */; };
 		D42E75EB18D11237002EA7E5 /* MWLanguageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D42E75EA18D11237002EA7E5 /* MWLanguageInfo.m */; };
 		D469889518B52DA200DBE014 /* Main_iPhone.strings in Resources */ = {isa = PBXBuildFile; fileRef = D469889318B52DA200DBE014 /* Main_iPhone.strings */; };
 		D46CD8C418A1AC4F0042959E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C018A1AC4F0042959E /* InfoPlist.strings */; };
@@ -472,7 +471,6 @@
 		C958EE3318CE73E600148D13 /* DownloadTitlesForRandomArticlesOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadTitlesForRandomArticlesOp.m; sourceTree = "<group>"; };
 		C9928B8418AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadWikipediaZeroMessageOp.h; sourceTree = "<group>"; };
 		C9928B8518AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadWikipediaZeroMessageOp.m; sourceTree = "<group>"; };
-		C9928B8718AD5E1000FCCA9A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D42E75E918D11237002EA7E5 /* MWLanguageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWLanguageInfo.h; path = "mw-support/MWLanguageInfo.h"; sourceTree = "<group>"; };
 		D42E75EA18D11237002EA7E5 /* MWLanguageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWLanguageInfo.m; path = "mw-support/MWLanguageInfo.m"; sourceTree = "<group>"; };
 		D44F630618DA77FF00EAD1DD /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1478,7 +1476,6 @@
 				D4EE00BB182445670090790F /* mw-support */,
 				C9180EC118AED30C006C1DCA /* mw-utils */,
 				049566BF18F5F4CB0058EA12 /* Zero */,
-				C9928B8718AD5E1000FCCA9A /* Settings.bundle */,
 			);
 			name = Wikipedia;
 			path = wikipedia;
@@ -1705,7 +1702,6 @@
 				04F27B7618FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib in Resources */,
 				04C91CF319554B310035ED1B /* logo-onboarding@2x.png in Resources */,
 				04292FF4185FBA70002A13FC /* SearchResultPrototypeView.xib in Resources */,
-				C9928B8818AD5E1000FCCA9A /* Settings.bundle in Resources */,
 				04B0EA47190B2319007458AF /* PreviewLicenseView.xib in Resources */,
 				04CCCFEF1935093A00E3F60C /* SecondaryMenuRowView.xib in Resources */,
 				047E74141860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */,

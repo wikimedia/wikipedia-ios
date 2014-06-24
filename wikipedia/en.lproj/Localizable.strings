@@ -12,15 +12,16 @@
 "history-section-lastmonth" = "Last month";
 
 "zero-free-verbiage" = "Free Wikipedia access from your mobile operator (data charges waived)";
-"zero-charged-verbiage" = "Wikipedia Zero OFF (STANDARD DATA CHARGES MAY APPLY)";
+"zero-charged-verbiage" = "Wikipedia Zero is off";
+"zero-charged-verbiage-extended" = "Loading other articles may incur data charges. Saved articles stored offline do not use data and are free.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Leaving Wikipedia Zero";
-"zero-interstitial-leave-app" = "Continue to external site? Standard data charges may apply.";
-"zero-interstitial-continue" = "Continue";
-"zero-interstitial-cancel" = "Cancel";
-"zero-learn-more" = "Want to learn about Wikipedia Zero?";
-"zero-learn-more-learn-more" = "Learn more";
-"zero-learn-more-no-thanks" = "No thanks";
+"zero-interstitial-leave-app" = "Data charges may apply. Continue to external site?";
+"zero-interstitial-continue" = "Leave";
+"zero-interstitial-cancel" = "Stay here";
+"zero-learn-more" = "Data charges are waived for this Wikipedia app.";
+"zero-learn-more-learn-more" = "Read more";
+"zero-learn-more-no-thanks" = "Dismiss";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Warn if leaving Wikipedia Zero";
 "zero-settings-devmode" = "Zero devmode";

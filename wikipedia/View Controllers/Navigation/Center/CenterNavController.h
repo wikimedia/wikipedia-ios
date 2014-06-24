@@ -21,8 +21,8 @@ typedef enum {
             discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
           invalidatingCache: (BOOL)invalidateCache;
 
--(void) promptFirstTimeZeroOnWithMessageIfAppropriate:(NSString *) message;
--(void) promptFirstTimeZeroOffIfAppropriate;
+-(void) promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString *) title;
+-(void) promptZeroOff;
 
 -(ArticleDiscoveryMethod)getDiscoveryMethodForString:(NSString *)string;
 -(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method;

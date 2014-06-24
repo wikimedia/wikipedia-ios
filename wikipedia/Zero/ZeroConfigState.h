@@ -9,12 +9,10 @@
 @property (nonatomic) BOOL disposition;
 @property (nonatomic) BOOL sentMCCMNC;
 @property (nonatomic, readonly) BOOL zeroOnDialogShownOnce;
-@property (nonatomic, readonly) BOOL zeroOffDialogShownOnce;
 @property (nonatomic, readonly) BOOL warnWhenLeaving;
 @property (nonatomic, readonly) BOOL fakeZeroOn;
 
 -(void)setZeroOnDialogShownOnce;
--(void)setZeroOffDialogShownOnce;
 -(void)toggleWarnWhenLeaving;
 -(void)toggleFakeZeroOn;
 

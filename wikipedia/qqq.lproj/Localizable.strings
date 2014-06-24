@@ -15,6 +15,7 @@
 "history-section-lastmonth" = "Subsection label for list of articles browsed within the last month.\n{{Identical|Last month}}";
 "zero-free-verbiage" = "Alert text for Wikipedia Zero free data access enabled";
 "zero-charged-verbiage" = "Alert text for Wikipedia Zero free data access disabled";
+"zero-charged-verbiage-extended" = "Extended text describing that further usage of the app may in fact incur data charges because Wikipedia Zero is off, but Saved articles are still free.";
 "zero-webpage-url" = "Url for Wikipedia Zero FAQ";
 "zero-interstitial-title" = "Alert text for leaving Wikipedia Zero";
 "zero-interstitial-leave-app" = "Alert text shown if Wikipedia Zero free data access is enabled and user taps external link";

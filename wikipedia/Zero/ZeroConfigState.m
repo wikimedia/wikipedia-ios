@@ -17,18 +17,6 @@
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroOnDialogShownOnce"];
 }
 
--(void)setZeroOffDialogShownOnce
-{
-    [[NSUserDefaults standardUserDefaults] setObject:@YES
-                                              forKey:@"ZeroOffDialogShownOnce"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
--(BOOL)zeroOffDialogShownOnce
-{
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroOffDialogShownOnce"];
-}
-
 -(void)toggleWarnWhenLeaving
 {
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool: ![self warnWhenLeaving]]

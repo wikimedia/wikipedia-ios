@@ -137,32 +137,30 @@
 
 #pragma Wikipedia Zero alert dialogs
 
-// Don't call this directly. Use promptFirstTimeZeroOnWithMessageIfAppropriate or promptFirstTimeZeroOffIfAppropriate
--(void) promptZeroOnOrOff:(NSString *) message
-{
-    self.wikipediaZeroLearnMoreExternalUrl = MWLocalizedString(@"zero-webpage-url", nil);
-    UIAlertView *dialog = [[UIAlertView alloc]
-                           initWithTitle: (message ? message : MWLocalizedString(@"zero-charged-verbiage", nil))
-                           message:MWLocalizedString(@"zero-learn-more", nil)
-                           delegate:self
-                           cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
-                           otherButtonTitles:MWLocalizedString(@"zero-learn-more-learn-more", nil)
-                           , nil];
-    [dialog show];
-}
-
--(void) promptFirstTimeZeroOnWithMessageIfAppropriate:(NSString *) message {
+-(void) promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString *) title {
     if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce || ![self isTopViewControllerAWebviewController]) {
         [[SessionSingleton sharedInstance].zeroConfigState setZeroOnDialogShownOnce];
-        [self promptZeroOnOrOff:message];
+        self.wikipediaZeroLearnMoreExternalUrl = MWLocalizedString(@"zero-webpage-url", nil);
+        UIAlertView *dialog = [[UIAlertView alloc]
+                               initWithTitle: title
+                               message:MWLocalizedString(@"zero-learn-more", nil)
+                               delegate:self
+                               cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
+                               otherButtonTitles:MWLocalizedString(@"zero-learn-more-learn-more", nil)
+                               , nil];
+        [dialog show];
     }
 }
 
--(void) promptFirstTimeZeroOffIfAppropriate {
-    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOffDialogShownOnce || ![self isTopViewControllerAWebviewController]) {
-        [[SessionSingleton sharedInstance].zeroConfigState setZeroOffDialogShownOnce];
-        [self promptZeroOnOrOff:nil];
-    }
+-(void) promptZeroOff {
+    UIAlertView *dialog = [[UIAlertView alloc]
+                           initWithTitle:MWLocalizedString(@"zero-charged-verbiage", nil)
+                           message:MWLocalizedString(@"zero-charged-verbiage-extended", nil)
+                           delegate:self
+                           cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
+                           otherButtonTitles:nil
+                           , nil];
+    [dialog show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

@@ -1688,20 +1688,20 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         [
          [DownloadWikipediaZeroMessageOp alloc]
          initForDomain: [SessionSingleton sharedInstance].currentArticleDomain
-         completionBlock: ^(NSString *message) {
+         completionBlock: ^(NSString *title) {
          
-             if (message) {
+             if (title) {
                  dispatch_async(dispatch_get_main_queue(), ^(){
                  
                      TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
                      textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
 
-                     self.zeroStatusLabel.text = message;
+                     self.zeroStatusLabel.text = title;
                      self.zeroStatusLabel.padding = UIEdgeInsetsMake(3, 10, 3, 10);
                      self.zeroStatusLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.93];
 
-                     [self showAlert:message];
-                     [NAV promptFirstTimeZeroOnWithMessageIfAppropriate:message];
+                     [self showAlert:title];
+                     [NAV promptFirstTimeZeroOnWithTitleIfAppropriate:title];
                  });
              }
          } cancelledBlock:^(NSError *errorCancel) {
@@ -1727,7 +1727,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         });
 
         [self showAlert:warnVerbiage];
-        [NAV promptFirstTimeZeroOffIfAppropriate];
+        [NAV promptZeroOff];
     }
 }
 
