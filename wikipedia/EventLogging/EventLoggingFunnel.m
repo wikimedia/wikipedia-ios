@@ -9,7 +9,7 @@
 #import "EventLoggingFunnel.h"
 #import "LogEventOp.h"
 #import "QueuesSingleton.h"
-
+#import "SessionSingleton.h"
 
 @implementation EventLoggingFunnel
 
@@ -29,11 +29,13 @@
 
 -(void)log:(NSDictionary *)eventData
 {
-    LogEventOp *logOp = [[LogEventOp alloc] initWithSchema: self.schema
-                                                  revision: self.revision
-                                                     event: [self preprocessData:eventData]];
-    
-    [[QueuesSingleton sharedInstance].eventLoggingQ addOperation:logOp];
+    if ([SessionSingleton sharedInstance].sendUsageReports) {
+        LogEventOp *logOp = [[LogEventOp alloc] initWithSchema: self.schema
+                                                      revision: self.revision
+                                                         event: [self preprocessData:eventData]];
+        
+        [[QueuesSingleton sharedInstance].eventLoggingQ addOperation:logOp];
+    }
 }
 
 -(NSString *)singleUseUUID

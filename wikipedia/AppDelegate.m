@@ -59,7 +59,8 @@
         @"ZeroOffDialogShownOnce" : @NO,
         @"FakeZeroOn" : @NO,
         @"ShowOnboarding" : @YES,
-        @"LastHousekeepingDate" : [NSDate date] //[NSDate dateWithDaysBeforeNow:10]
+        @"LastHousekeepingDate" : [NSDate date], //[NSDate dateWithDaysBeforeNow:10]
+        @"SendUsageReports": @YES
     };
     [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];
 }

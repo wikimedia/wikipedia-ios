@@ -43,8 +43,10 @@
 
             params[@"sections"] = @"0";
             
-            ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
-            params[@"appInstallID"] = funnel.appInstallID;
+            if ([SessionSingleton sharedInstance].sendUsageReports) {
+                ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
+                params[@"appInstallID"] = funnel.appInstallID;
+            }
         }
     
         self.request = [NSURLRequest getRequestWithURL: [[SessionSingleton sharedInstance] urlForDomain:domain]

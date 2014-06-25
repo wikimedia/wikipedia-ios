@@ -139,3 +139,5 @@
 "onboarding-login" = "Button text prompting first time users to log in";
 "onboarding-already-have-account" = "Button text prompting first time users to log in to existing account. Parameters:\n* $1 - login button text";
 "onboarding-skip" = "Button text allowing first time users to skip the other onboarding choices";
+"preference_title_eventlogging_opt_in" = "Title of preference that when checked enables data collection of user behavior.";
+"preference_summary_eventlogging_opt_in" = "Description of preference that when checked enables data collection of user behavior.";

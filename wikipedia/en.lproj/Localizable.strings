@@ -155,3 +155,7 @@
 "onboarding-login" = "Log in";
 "onboarding-already-have-account" = "Already have an account? $1";
 "onboarding-skip" = "Skip";
+
+"preference_title_eventlogging_opt_in" = "Send usage reports";
+"preference_summary_eventlogging_opt_in" = "Allow Wikimedia to collect information about how you use the app to make the app better";
+

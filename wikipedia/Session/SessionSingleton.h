@@ -9,8 +9,10 @@
 
 @interface SessionSingleton : NSObject
 
+// Persistent settings and credentials
 @property (strong, nonatomic) KeychainCredentials *keychainCredentials;
 @property (strong, nonatomic) ZeroConfigState *zeroConfigState;
+@property (nonatomic) BOOL sendUsageReports;
 
 // These 6 persist across app restarts.
 @property (strong, nonatomic) NSString *site;

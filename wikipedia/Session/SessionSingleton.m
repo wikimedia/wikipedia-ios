@@ -158,4 +158,17 @@
     return ([self.currentArticleTitle isEqualToString: mainArticleTitle]);
 }
 
+-(BOOL)sendUsageReports
+{
+    NSNumber *val = [[NSUserDefaults standardUserDefaults] objectForKey:@"SendUsageReports"];
+    return [val boolValue];
+}
+
+-(void)setSendUsageReports:(BOOL)sendUsageReports
+{
+    [[NSUserDefaults standardUserDefaults] setObject:@(sendUsageReports) forKey:@"SendUsageReports"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
 @end

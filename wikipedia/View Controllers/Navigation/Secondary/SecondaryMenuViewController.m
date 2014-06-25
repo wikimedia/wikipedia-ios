@@ -38,7 +38,8 @@ typedef enum {
     SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING = 6,
     SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK = 7,
     SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY = 8,
-    SECONDARY_MENU_ROW_INDEX_CREDITS = 9
+    SECONDARY_MENU_ROW_INDEX_CREDITS = 9,
+    SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS = 10
 } SecondaryMenuRowIndex;
 
 #pragma mark - Private
@@ -53,6 +54,7 @@ typedef enum {
 @property (nonatomic) BOOL hidePagesSection;
 
 @property (strong, nonatomic) NSDictionary *highlightedTextAttributes;
+@property (strong, nonatomic) NSDictionary *summaryTextAttributes;
 
 @end
 
@@ -99,6 +101,10 @@ typedef enum {
     [super viewDidLoad];
 
     self.highlightedTextAttributes = @{NSFontAttributeName: [UIFont italicSystemFontOfSize:16]};
+    self.summaryTextAttributes = @{
+                                   NSFontAttributeName: [UIFont systemFontOfSize:14],
+                                   NSForegroundColorAttributeName: [UIColor colorWithWhite:0.5f alpha:1.0f]
+                                   };
 
     self.hidePagesSection = NO;
     self.navigationItem.hidesBackButton = YES;
@@ -280,6 +286,13 @@ typedef enum {
                                                                     substitutionAttributes: @[self.highlightedTextAttributes]
      ];
     
+    NSString *sendUsageBase = [MWLocalizedString(@"preference_title_eventlogging_opt_in", nil)
+stringByAppendingString:@"\n\n$1"];
+    NSString *sendUsageSummary = MWLocalizedString(@"preference_summary_eventlogging_opt_in", nil);
+    NSAttributedString *sendUsageDataTitle = [sendUsageBase attributedStringWithAttributes:nil
+                                                                       substitutionStrings:@[sendUsageSummary]
+                                                                    substitutionAttributes:@[self.summaryTextAttributes]];
+
     NSMutableArray *rowData =
     @[
       @{
@@ -336,6 +349,13 @@ typedef enum {
           }.mutableCopy
       ,
       @{
+          @"title": sendUsageDataTitle,
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS),
+          @"icon": WIKIGLYPH_FLAG,
+          @"highlighted": @([SessionSingleton sharedInstance].sendUsageReports),
+          }.mutableCopy
+      ,
+      @{
           @"title": MWLocalizedString(@"zero-warn-when-leaving", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING),
           @"icon": WIKIGLYPH_FLAG,
@@ -389,7 +409,8 @@ typedef enum {
     NSDictionary *userInfo = [notification userInfo];
     SecondaryMenuRowView *tappedItem = userInfo[@"tappedItem"];
     
-    if (tappedItem.tag == SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING) animationDuration = 0.0f;
+    if (tappedItem.tag == SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING
+        || tappedItem.tag == SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS) animationDuration = 0.0f;
     
     void(^performTapAction)() = ^(){
     
@@ -434,6 +455,9 @@ typedef enum {
                 break;
             case SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING:
                 [[SessionSingleton sharedInstance].zeroConfigState toggleWarnWhenLeaving];
+                break;
+            case SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS:
+                [SessionSingleton sharedInstance].sendUsageReports = ![SessionSingleton sharedInstance].sendUsageReports;
                 break;
             case SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK:
             {
