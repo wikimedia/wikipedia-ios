@@ -6,7 +6,6 @@
 #import "WikipediaAppUtils.h"
 
 #import "UINavigationController+SearchNavStack.h"
-#import "UINavigationController+Alert.h"
 
 #import "SessionSingleton.h"
 #import "WebViewController.h"
@@ -14,6 +13,7 @@
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
+#import "TopMenuContainerView.h"
 
 @interface CenterNavController (){
 
@@ -41,6 +41,16 @@
       willShowViewController: (UIViewController *)viewController
                     animated: (BOOL)animated
 {
+
+    // The root VC isn't presented with any of the overridden push/pop methods which call
+    // "animateStatusBarHeightChangesForViewController", so just for the root vc set topMenuHidden
+    // here.
+    static BOOL firstTimeSoRootVC = YES;
+    if (firstTimeSoRootVC) {
+        ROOT.topMenuHidden = [ROOT shouldHideTopNavIfNecessaryForViewController:viewController];
+    }
+    firstTimeSoRootVC = NO;
+
     self.isTransitioningBetweenViewControllers = YES;
 }
 

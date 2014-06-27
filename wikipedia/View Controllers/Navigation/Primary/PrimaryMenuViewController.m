@@ -10,26 +10,18 @@
 #import "WikipediaAppUtils.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "SessionSingleton.h"
-
 #import "LoginViewController.h"
 #import "PageHistoryViewController.h"
 #import "UIViewController+Alert.h"
-
 #import "QueuesSingleton.h"
 #import "DownloadTitlesForRandomArticlesOp.h"
-
-#import "TopMenuViewController.h"
-
 #import "TopMenuContainerView.h"
-#import "TopMenuViewController.h"
 #import "UIViewController+StatusBarHeight.h"
-
 #import "Defines.h"
-
 #import "ModalMenuAndContentViewController.h"
-#import "UIViewController+PresentModal.h"
-
+#import "UIViewController+ModalPresent.h"
 #import "ArticleCoreDataObjects.h"
+#import "UIViewController+ModalPop.h"
 
 typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     PRIMARY_MENU_ITEM_UNKNOWN = 0,
@@ -52,14 +44,14 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 
 @implementation PrimaryMenuViewController
 
-- (instancetype)initWithCoder:(NSCoder *)coder
+-(NavBarMode)navBarMode
 {
-    self = [super initWithCoder:coder];
-    if (self) {
-        self.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
-        self.navBarStyle = NAVBAR_STYLE_NIGHT;
-    }
-    return self;
+    return NAVBAR_MODE_X_WITH_LABEL;
+}
+
+-(NavBarStyle)navBarStyle
+{
+    return NAVBAR_STYLE_NIGHT;
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -67,15 +59,12 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     return NO;
 }
 
-
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    [self setupTableData];
+    //[self setupTableData];
     //[self randomizeTitles];
 
     [self.moreButton.label setWikiText: WIKIGLYPH_ELLIPSIS
@@ -103,6 +92,9 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    [self setupTableData];
+    [self.tableView reloadData];
     
     [[QueuesSingleton sharedInstance].randomArticleQ cancelAllOperations];
 }
@@ -136,7 +128,7 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_X:
         case NAVBAR_LABEL:
-            [self hide];
+            [self popModal];
 
             break;
         default:
@@ -257,18 +249,18 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 {
     switch (tag) {
         case PRIMARY_MENU_ITEM_LOGIN: {
-            LoginViewController *loginVC =
-            [NAV.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-            loginVC.funnel = [[LoginFunnel alloc] init];
-            [loginVC.funnel logStartFromNavigation];
-            [ROOT pushViewController:loginVC animated:YES];
-            [self hide];
+            [self performModalSequeWithID: @"modal_segue_show_login"
+                          transitionStyle: UIModalTransitionStyleCoverVertical
+                                    block: ^(LoginViewController *loginVC){
+                                        loginVC.funnel = [[LoginFunnel alloc] init];
+                                        [loginVC.funnel logStartFromNavigation];
+                                    }];
         }
             break;
         case PRIMARY_MENU_ITEM_RANDOM: {
             [self showAlert:MWLocalizedString(@"fetching-random-article", nil)];
             [self fetchRandomArticle];
-            [self hide];
+            [self popModal];
         }
             break;
         case PRIMARY_MENU_ITEM_RECENT:
@@ -288,13 +280,6 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
             break;
         default:
             break;
-    }
-}
-
--(void)hide
-{
-    if(!(self.isBeingPresented || self.isBeingDismissed)){
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
     }
 }
 

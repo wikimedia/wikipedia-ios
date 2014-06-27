@@ -6,6 +6,7 @@
 #import "CenterNavController.h"
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
+#import "UIViewController+ModalPop.h"
 
 @interface CreditsViewController ()
 
@@ -13,14 +14,14 @@
 
 @implementation CreditsViewController
 
-- (instancetype)initWithCoder:(NSCoder *)coder
+-(NavBarMode)navBarMode
 {
-    self = [super initWithCoder:coder];
-    if (self) {
-        self.title = MWLocalizedString(@"main-menu-credits", nil);
-        self.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
-    }
-    return self;
+    return NAVBAR_MODE_X_WITH_LABEL;
+}
+
+-(NSString *)title
+{
+    return MWLocalizedString(@"main-menu-credits", nil);
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -49,7 +50,7 @@
 
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_X:
-            [self hide];
+            [self popModal];
             
             break;
         default:
@@ -60,14 +61,6 @@
 - (BOOL)prefersStatusBarHidden
 {
     return NO;
-}
-
--(void)hide
-{
-    // Hide this view controller.
-    if(!(self.isBeingPresented || self.isBeingDismissed)){
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
-    }
 }
 
 - (void)viewDidLoad

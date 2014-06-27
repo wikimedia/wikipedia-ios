@@ -3,7 +3,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIViewController (PresentModal)
+@interface UIViewController (ModalPresent)
 
 // The "block" parameter is passed the view controller to be shown just before
 // the transition to that same view controller is performed. This allows view

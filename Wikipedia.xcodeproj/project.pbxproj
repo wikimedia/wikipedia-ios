@@ -58,6 +58,8 @@
 		0449E63918AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = 0449E63818AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m */; };
 		044BD6A21883302C00FFE4BE /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 044BD6A11883302C00FFE4BE /* Image.m */; };
 		044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044BD6B418849AD000FFE4BE /* SectionEditorViewController.m */; };
+		0452C803195CB216007925A6 /* UIViewController+ModalsSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0452C802195CB216007925A6 /* UIViewController+ModalsSearch.m */; };
+		0452C810195D0F03007925A6 /* UIViewController+ModalPop.m in Sources */ = {isa = PBXBuildFile; fileRef = 0452C80F195D0F03007925A6 /* UIViewController+ModalPop.m */; };
 		04530AF51935BF4D00022512 /* ModalMenuAndContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04530AF41935BF4D00022512 /* ModalMenuAndContentViewController.m */; };
 		04530AF81935C07500022512 /* ModalContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04530AF71935C07500022512 /* ModalContentViewController.m */; };
 		04530AFB1935C2B500022512 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 04530AFA1935C2B500022512 /* EmptySegue.m */; };
@@ -102,7 +104,7 @@
 		04B91AA718E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AA618E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m */; };
 		04B91AAB18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AAA18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m */; };
 		04B91AB718E4D5B200FFAA1C /* TabularScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AB618E4D5B200FFAA1C /* TabularScrollView.m */; };
-		04C0A0781936786000D55325 /* UIViewController+PresentModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0A0771936786000D55325 /* UIViewController+PresentModal.m */; };
+		04C0A0781936786000D55325 /* UIViewController+ModalPresent.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0A0771936786000D55325 /* UIViewController+ModalPresent.m */; };
 		04C43A9D183440B0006C643B /* MWCrumbyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43A9C183440B0006C643B /* MWCrumbyTest.m */; };
 		04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */; };
 		04C43AA6183440C1006C643B /* MWNetworkOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA3183440C1006C643B /* MWNetworkOp.m */; };
@@ -144,7 +146,6 @@
 		04DB0BE618BC2E1E00B4BCF3 /* CaptchaResetOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DB0BE518BC2E1E00B4BCF3 /* CaptchaResetOp.m */; };
 		04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */; };
 		04DD89B118BFE63A00DD5DAD /* PreviewAndSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD89B018BFE63A00DD5DAD /* PreviewAndSaveViewController.m */; };
-		04EA3A5B18D25D7700E2F5C4 /* UINavigationController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EA3A5A18D25D7700E2F5C4 /* UINavigationController+Alert.m */; };
 		04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */; };
 		04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2ED186FB2D100468738 /* TOCSectionCellView.m */; };
 		04F27B7518FE0F2E00EDD838 /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F27B6F18FE0F2E00EDD838 /* PageHistoryResultCell.m */; };
@@ -283,6 +284,10 @@
 		044BD6A11883302C00FFE4BE /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		044BD6B318849AD000FFE4BE /* SectionEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionEditorViewController.h; sourceTree = "<group>"; };
 		044BD6B418849AD000FFE4BE /* SectionEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionEditorViewController.m; sourceTree = "<group>"; };
+		0452C801195CB216007925A6 /* UIViewController+ModalsSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ModalsSearch.h"; sourceTree = "<group>"; };
+		0452C802195CB216007925A6 /* UIViewController+ModalsSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ModalsSearch.m"; sourceTree = "<group>"; };
+		0452C80E195D0F03007925A6 /* UIViewController+ModalPop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ModalPop.h"; sourceTree = "<group>"; };
+		0452C80F195D0F03007925A6 /* UIViewController+ModalPop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ModalPop.m"; sourceTree = "<group>"; };
 		04530AF31935BF4D00022512 /* ModalMenuAndContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalMenuAndContentViewController.h; sourceTree = "<group>"; };
 		04530AF41935BF4D00022512 /* ModalMenuAndContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalMenuAndContentViewController.m; sourceTree = "<group>"; };
 		04530AF61935C07500022512 /* ModalContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalContentViewController.h; sourceTree = "<group>"; };
@@ -366,8 +371,8 @@
 		04B91AAA18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FormattedAttributedString.m"; sourceTree = "<group>"; };
 		04B91AB518E4D5B200FFAA1C /* TabularScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabularScrollView.h; sourceTree = "<group>"; };
 		04B91AB618E4D5B200FFAA1C /* TabularScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabularScrollView.m; sourceTree = "<group>"; };
-		04C0A0761936786000D55325 /* UIViewController+PresentModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+PresentModal.h"; sourceTree = "<group>"; };
-		04C0A0771936786000D55325 /* UIViewController+PresentModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+PresentModal.m"; sourceTree = "<group>"; };
+		04C0A0761936786000D55325 /* UIViewController+ModalPresent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ModalPresent.h"; sourceTree = "<group>"; };
+		04C0A0771936786000D55325 /* UIViewController+ModalPresent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ModalPresent.m"; sourceTree = "<group>"; };
 		04C43A9B183440B0006C643B /* MWCrumbyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWCrumbyTest.h; sourceTree = "<group>"; };
 		04C43A9C183440B0006C643B /* MWCrumbyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWCrumbyTest.m; sourceTree = "<group>"; };
 		04C43AA0183440C1006C643B /* MWNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -447,8 +452,6 @@
 		04DD89AF18BFE63A00DD5DAD /* PreviewAndSaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewAndSaveViewController.h; sourceTree = "<group>"; };
 		04DD89B018BFE63A00DD5DAD /* PreviewAndSaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewAndSaveViewController.m; sourceTree = "<group>"; };
 		04E9A78218F73C7200F7ECF7 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
-		04EA3A5918D25D7700E2F5C4 /* UINavigationController+Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Alert.h"; sourceTree = "<group>"; };
-		04EA3A5A18D25D7700E2F5C4 /* UINavigationController+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Alert.m"; sourceTree = "<group>"; };
 		04F0E2E8186EDC1A00468738 /* UIWebView+ElementLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+ElementLocation.h"; sourceTree = "<group>"; };
 		04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+ElementLocation.m"; sourceTree = "<group>"; };
 		04F0E2EC186FB2D000468738 /* TOCSectionCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOCSectionCellView.h; sourceTree = "<group>"; };
@@ -1199,8 +1202,12 @@
 				04B91AA618E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m */,
 				0433542018A023FE009305F0 /* UIViewController+HideKeyboard.h */,
 				0433542118A023FE009305F0 /* UIViewController+HideKeyboard.m */,
-				04C0A0761936786000D55325 /* UIViewController+PresentModal.h */,
-				04C0A0771936786000D55325 /* UIViewController+PresentModal.m */,
+				0452C80E195D0F03007925A6 /* UIViewController+ModalPop.h */,
+				0452C80F195D0F03007925A6 /* UIViewController+ModalPop.m */,
+				04C0A0761936786000D55325 /* UIViewController+ModalPresent.h */,
+				04C0A0771936786000D55325 /* UIViewController+ModalPresent.m */,
+				0452C801195CB216007925A6 /* UIViewController+ModalsSearch.h */,
+				0452C802195CB216007925A6 /* UIViewController+ModalsSearch.m */,
 				049B640A18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.h */,
 				049B640B18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m */,
 				040892621935ABBD004CF254 /* UIViewController+StatusBarHeight.h */,
@@ -1253,8 +1260,6 @@
 				04D149DA18877343006B4104 /* AlertLabel.m */,
 				04D122301899B8AC006B9A30 /* AlertWebView.h */,
 				04D122311899B8AC006B9A30 /* AlertWebView.m */,
-				04EA3A5918D25D7700E2F5C4 /* UINavigationController+Alert.h */,
-				04EA3A5A18D25D7700E2F5C4 /* UINavigationController+Alert.m */,
 				04D149DB18877343006B4104 /* UIViewController+Alert.h */,
 				04D149DC18877343006B4104 /* UIViewController+Alert.m */,
 			);
@@ -1804,7 +1809,6 @@
 				04CFA120194900D50088269A /* TopMenuTextFieldContainer.m in Sources */,
 				04293000185FC2C7002A13FC /* QueuesSingleton.m in Sources */,
 				04D34DC91863F6CC00610A87 /* Saved.m in Sources */,
-				04EA3A5B18D25D7700E2F5C4 /* UINavigationController+Alert.m in Sources */,
 				04D34DE11868E21F00610A87 /* Article+Convenience.m in Sources */,
 				04D34DB91863F69500610A87 /* DiscoveryContext.m in Sources */,
 				040892641935ABBD004CF254 /* UIViewController+StatusBarHeight.m in Sources */,
@@ -1839,6 +1843,7 @@
 				0463639318A5CCEB0049EE4F /* EditTokenOp.m in Sources */,
 				0460990A18899A9800B1F2BC /* DownloadSectionWikiTextOp.m in Sources */,
 				D4B0AE0B19366A2C00F0AC90 /* ReadingActionFunnel.m in Sources */,
+				0452C810195D0F03007925A6 /* UIViewController+ModalPop.m in Sources */,
 				041C55D21950B27D006CE0EF /* EditSummaryViewController.m in Sources */,
 				04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				D4B0AE0E19366A5400F0AC90 /* LoginFunnel.m in Sources */,
@@ -1851,11 +1856,12 @@
 				042A5B2C19253E690095E172 /* BottomMenuViewController.m in Sources */,
 				0433542218A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */,
 				C958EE3418CE73E600148D13 /* DownloadTitlesForRandomArticlesOp.m in Sources */,
+				0452C803195CB216007925A6 /* UIViewController+ModalsSearch.m in Sources */,
 				04B91AB718E4D5B200FFAA1C /* TabularScrollView.m in Sources */,
 				04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */,
 				04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */,
 				04D122321899B8AC006B9A30 /* AlertWebView.m in Sources */,
-				04C0A0781936786000D55325 /* UIViewController+PresentModal.m in Sources */,
+				04C0A0781936786000D55325 /* UIViewController+ModalPresent.m in Sources */,
 				D4991449181D51DE00E6073C /* AppDelegate.m in Sources */,
 				D4E8A8A719084F1300DA4765 /* SQLiteHelper.m in Sources */,
 				04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */,

@@ -2,33 +2,26 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SecondaryMenuViewController.h"
-#import "LoginViewController.h"
 #import "HistoryViewController.h"
-#import "SavedPagesViewController.h"
 #import "QueuesSingleton.h"
 #import "SessionSingleton.h"
 #import "WikipediaAppUtils.h"
 #import "LanguagesTableVC.h"
-
 #import "UIViewController+HideKeyboard.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "UIViewController+Alert.h"
 #import "NSString+FormattedAttributedString.h"
 #import "TabularScrollView.h"
-
 #import "SecondaryMenuRowView.h"
-
 #import "WikiGlyph_Chars.h"
-
 #import "TopMenuContainerView.h"
-#import "TopMenuViewController.h"
 #import "UIViewController+StatusBarHeight.h"
-
 #import "Defines.h"
 #import "ModalMenuAndContentViewController.h"
-#import "UIViewController+PresentModal.h"
+#import "UIViewController+ModalPresent.h"
 #import "MWPageTitle.h"
-
+#import "UIViewController+ModalPop.h"
+#import "LoginViewController.h"
 
 #pragma mark - Defines
 
@@ -65,14 +58,14 @@ typedef enum {
 
 @implementation SecondaryMenuViewController
 
-- (instancetype)initWithCoder:(NSCoder *)coder
+-(NavBarMode)navBarMode
 {
-    self = [super initWithCoder:coder];
-    if (self) {
-        self.title = MWLocalizedString(@"main-menu-title", nil);
-        self.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
-    }
-    return self;
+    return NAVBAR_MODE_X_WITH_LABEL;
+}
+
+-(NSString *)title
+{
+    return MWLocalizedString(@"main-menu-title", nil);
 }
 
 #pragma mark - Top menu
@@ -86,7 +79,7 @@ typedef enum {
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_X:
         case NAVBAR_LABEL:
-            [self hide];
+            [self popModal];
 
             break;
         default:
@@ -97,23 +90,6 @@ typedef enum {
 - (BOOL)prefersStatusBarHidden
 {
     return NO;
-}
-
-#pragma mark - Hiding
-
--(void)hide
-{
-    // Hide this view controller.
-    if(!(self.isBeingPresented || self.isBeingDismissed)){
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
-    }
-}
-
--(void)hidePresenter
-{
-    // Hide the black menu which presented this view controller.
-    [self.presentingViewController.presentingViewController dismissViewControllerAnimated: YES
-                                                                               completion: ^{}];
 }
 
 #pragma mark - View lifecycle
@@ -422,11 +398,12 @@ typedef enum {
             {
                 NSString *userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
                 if (!userName) {
-                    LoginViewController *loginVC =
-                    [NAV.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-                    loginVC.funnel = [[LoginFunnel alloc] init];
-                    [loginVC.funnel logStartFromNavigation];
-                    [ROOT pushViewController:loginVC animated:YES];
+                    [self performModalSequeWithID: @"modal_segue_show_login"
+                                  transitionStyle: UIModalTransitionStyleCoverVertical
+                                            block: ^(LoginViewController *loginVC){
+                                                loginVC.funnel = [[LoginFunnel alloc] init];
+                                                [loginVC.funnel logStartFromNavigation];
+                                            }];
                 }else{
                     
                     [SessionSingleton sharedInstance].keychainCredentials.userName = nil;
@@ -438,14 +415,14 @@ typedef enum {
                         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
                     }
                 }
-                [self hidePresenter];
+                [self popModalToRoot];
             }
                 break;
             case SECONDARY_MENU_ROW_INDEX_SAVED_PAGES:
             {
-                SavedPagesViewController *savedPagesVC =
-                    [NAV.storyboard instantiateViewControllerWithIdentifier:@"SavedPagesViewController"];
-                [ROOT pushViewController:savedPagesVC animated:YES];
+                [self performModalSequeWithID: @"modal_segue_show_saved_pages"
+                              transitionStyle: UIModalTransitionStyleCoverVertical
+                                        block: nil];
             }
                 break;
             case SECONDARY_MENU_ROW_INDEX_SAVE_PAGE:
@@ -531,7 +508,7 @@ typedef enum {
     
     [self switchPreferredLanguageToId:selectedLangInfo[@"code"] name:selectedLangInfo[@"name"]];
     
-    [self hidePresenter];
+    [self popModalToRoot];
 }
 
 -(void)switchPreferredLanguageToId:(NSString *)languageId name:(NSString *)name

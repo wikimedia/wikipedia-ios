@@ -10,14 +10,13 @@
 #import "HistoryResultCell.h"
 #import "Defines.h"
 #import "Article+Convenience.h"
-#import "UINavigationController+SearchNavStack.h"
 #import "CenterNavController.h"
 #import "NSString+Extras.h"
 #import "WikiGlyph_Chars.h"
-
 #import "TopMenuContainerView.h"
 #import "TopMenuViewController.h"
 #import "UIViewController+StatusBarHeight.h"
+#import "UIViewController+ModalPop.h"
 
 #define HISTORY_THUMBNAIL_WIDTH 110
 #define HISTORY_RESULT_HEIGHT 66
@@ -42,14 +41,14 @@
 
 @implementation HistoryViewController
 
-- (instancetype)initWithCoder:(NSCoder *)coder
+-(NavBarMode)navBarMode
 {
-    self = [super initWithCoder:coder];
-    if (self) {
-        self.title = MWLocalizedString(@"history-label", nil);
-        self.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
-    }
-    return self;
+    return NAVBAR_MODE_X_WITH_LABEL;
+}
+
+-(NSString *)title
+{
+    return MWLocalizedString(@"history-label", nil);
 }
 
 #pragma mark - Memory
@@ -71,7 +70,7 @@
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_X:
         case NAVBAR_LABEL:
-            [self hide];
+            [self popModal];
 
             break;
         default:
@@ -82,23 +81,6 @@
 - (BOOL)prefersStatusBarHidden
 {
     return NO;
-}
-
-#pragma mark - Hiding
-
--(void)hide
-{
-    // Hide this view controller.
-    if(!(self.isBeingPresented || self.isBeingDismissed)){
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
-    }
-}
-
--(void)hidePresenter
-{
-    // Hide the black menu which presented this view controller.
-    [self.presentingViewController.presentingViewController dismissViewControllerAnimated: YES
-                                                                               completion: ^{}];
 }
 
 #pragma mark - View lifecycle
@@ -418,7 +400,7 @@
               discoveryMethod: DISCOVERY_METHOD_SEARCH
             invalidatingCache: NO];
 
-    [self hidePresenter];
+    [self popModalToRoot];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

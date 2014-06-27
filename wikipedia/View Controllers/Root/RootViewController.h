@@ -21,4 +21,6 @@
 - (void)popToViewController:(UIViewController *)viewController animated:(BOOL)animated;
 - (void)popToRootViewControllerAnimated:(BOOL)animated;
 
+-(BOOL)shouldHideTopNavIfNecessaryForViewController:(UIViewController *)vc;
+
 @end

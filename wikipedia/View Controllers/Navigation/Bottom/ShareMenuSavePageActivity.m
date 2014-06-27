@@ -3,7 +3,6 @@
 
 #import "ShareMenuSavePageActivity.h"
 #import "WikipediaAppUtils.h"
-#import "UINavigationController+Alert.h"
 
 @implementation ShareMenuSavePageActivity
 
@@ -114,9 +113,6 @@
 - (void)performActivity
 {   
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SavePage" object:self userInfo:nil];
-
-    [NAV showAlert:MWLocalizedString(@"share-menu-page-saved", nil)];
-    [NAV fadeAlert];
     
     [self activityDidFinish:YES];
 }

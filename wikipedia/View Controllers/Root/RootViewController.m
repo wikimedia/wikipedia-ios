@@ -5,16 +5,13 @@
 #import "TopMenuViewController.h"
 #import "BottomMenuViewController.h"
 #import "WebViewController.h"
-
 #import "UINavigationController+SearchNavStack.h"
 #import "TopMenuContainerView.h"
 #import "UIViewController+StatusBarHeight.h"
-
 #import "Defines.h"
-
 #import "ModalMenuAndContentViewController.h"
-
-#import "UIViewController+PresentModal.h"
+#import "UIViewController+ModalPresent.h"
+#import "OnboardingViewController.h"
 
 @interface RootViewController (){
     
@@ -36,7 +33,7 @@
     
     // iOS 7 needs to have room for a view behind the top status bar.
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-        if(!self.topVC.prefersStatusBarHidden){
+        if(![self prefersStatusBarHiddenForViewController:self.topVC]){
             topMenuHeight += [self getStatusBarHeight];
         }
     }
@@ -52,7 +49,9 @@
 
     // Fade out the top menu when it is hidden.
     CGFloat alpha = topMenuHidden ? 0.0 : 1.0;
-    
+
+    self.topMenuViewController.navBarContainer.alpha = alpha;
+
     //self.topMenuViewController.navBarContainer.alpha = alpha;
     for (UIView *v in self.topMenuViewController.navBarContainer.subviews) {
         v.alpha = alpha;
@@ -108,29 +107,99 @@
     }];
 }
 
+-(BOOL)shouldHideTopNavIfNecessaryForViewController:(UIViewController *)vc
+{
+    BOOL hideTopNav = NO;
+    if ([vc respondsToSelector:NSSelectorFromString(@"prefersTopNavigationHidden")]) {
+        SEL selector = NSSelectorFromString(@"prefersTopNavigationHidden");
+        if ([vc respondsToSelector:selector]) {
+            NSInvocation *invocation =
+            [NSInvocation invocationWithMethodSignature: [[vc class] instanceMethodSignatureForSelector:selector]];
+            [invocation setSelector:selector];
+            [invocation setTarget:vc];
+            [invocation invoke];
+            BOOL prefersTopNavigationHidden;
+            [invocation getReturnValue:&prefersTopNavigationHidden];
+            hideTopNav = (BOOL)prefersTopNavigationHidden;
+        }
+    }else{
+        hideTopNav = NO;
+    }
+    
+    return hideTopNav;
+}
+
+// A view controller can set navBarMode so its preference will be taken in to
+// account when animating the transition.
+-(BOOL)preferredNavBarModeForViewController:(UIViewController *)vc
+{
+    NavBarMode mode = NAVBAR_MODE_UNKNOWN;
+    if ([vc respondsToSelector:NSSelectorFromString(@"navBarMode")]) {
+        SEL selector = NSSelectorFromString(@"navBarMode");
+        if ([vc respondsToSelector:selector]) {
+            NSInvocation *invocation =
+            [NSInvocation invocationWithMethodSignature: [[vc class] instanceMethodSignatureForSelector:selector]];
+            [invocation setSelector:selector];
+            [invocation setTarget:vc];
+            [invocation invoke];
+            NavBarMode preferredMode;
+            [invocation getReturnValue:&preferredMode];
+            mode = (NavBarMode)preferredMode;
+        }
+    }
+    
+    return mode;
+}
+
+-(BOOL)prefersStatusBarHiddenForViewController:(UIViewController *)vc
+{
+    BOOL prefersHidden = NO;
+    if ([vc respondsToSelector:NSSelectorFromString(@"prefersStatusBarHidden")]) {
+        SEL selector = NSSelectorFromString(@"prefersStatusBarHidden");
+        if ([vc respondsToSelector:selector]) {
+            NSInvocation *invocation =
+            [NSInvocation invocationWithMethodSignature: [[vc class] instanceMethodSignatureForSelector:selector]];
+            [invocation setSelector:selector];
+            [invocation setTarget:vc];
+            [invocation invoke];
+            BOOL prefersStatusBarHidden;
+            [invocation getReturnValue:&prefersStatusBarHidden];
+            prefersHidden = (BOOL)prefersStatusBarHidden;
+        }
+    }else{
+        prefersHidden = NO;
+    }
+    return prefersHidden;
+}
+
 -(void)animateStatusBarHeightChangesForViewController: (UIViewController *)vc
                                                  then: (void (^)(void))block
 {
     // Animates changes to the top menu to adjust room for the status bar based on the
     // wishes of the view controller being presented.
-    CGFloat duration = 0.1;
+    CGFloat duration = 0.15;
+
+    NavBarMode preferredMode = [self preferredNavBarModeForViewController:vc];
+    BOOL prefersStatusBarHidden = [self prefersStatusBarHiddenForViewController:vc];
     
     self.topVC = vc;
-    
+
+    if (preferredMode != NAVBAR_MODE_UNKNOWN) {
+        // Reminder: don't do this as part of the animation block below. The changes to the nav
+        // buttons positions need to not be animated!
+        self.topMenuViewController.navBarMode = preferredMode;
+
+        // Prevent the nav bar buttons from moving around as part of the view push/pop.
+        [self.view.superview layoutIfNeeded];
+    }
+
     [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
 
-        if(![self.topVC isMemberOfClass:[WebViewController class]]){
-            // Ensure the top menu is shown when navigating away from the web view
-            // (in case when the web view was onscreen the user toggled the chrome to
-            // be hidden).
-            if(self.topMenuHidden) {
-                self.topMenuHidden = NO;
-            }
-        }
+        self.topMenuHidden = [self shouldHideTopNavIfNecessaryForViewController:vc];
 
         // Allow the top menu to adjust its views' heights based on whether the
         // top view controller wants the status bar shown or not.
-        self.topMenuViewController.statusBarHidden = self.topVC.prefersStatusBarHidden;
+        self.topMenuViewController.statusBarHidden = prefersStatusBarHidden;//self.topVC.prefersStatusBarHidden;
         
         [self.view setNeedsUpdateConstraints];
         
@@ -139,7 +208,7 @@
             [self setNeedsStatusBarAppearanceUpdate];
         }
         
-        [self.view layoutIfNeeded];
+        [self.view.superview layoutIfNeeded];
     } completion:^(BOOL done){
         block();
     }];
@@ -154,7 +223,7 @@
     CGFloat topMenuVisibleHeight = TOP_MENU_INITIAL_HEIGHT;
     CGFloat statusBarHeight = (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) ? [self getStatusBarHeight] : 0;
     
-    if (self.topVC.prefersStatusBarHidden) statusBarHeight = 0;
+    if ([self prefersStatusBarHiddenForViewController:self.topVC]) statusBarHeight = 0;
     
     CGFloat topMenuHeight = self.topMenuHidden ? statusBarHeight : (topMenuVisibleHeight + statusBarHeight);
     

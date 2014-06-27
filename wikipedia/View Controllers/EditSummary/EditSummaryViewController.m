@@ -5,8 +5,7 @@
 #import "WikipediaAppUtils.h"
 #import "PreviewAndSaveViewController.h"
 #import "MenuButton.h"
-
-#import "ModalMenuAndContentViewController.h"
+#import "UIViewController+ModalPop.h"
 
 #define MAX_SUMMARY_LENGTH 255
 
@@ -71,9 +70,7 @@
 
 -(void)updateDoneButtonState
 {
-    ModalMenuAndContentViewController *modalMenuAndContentVC = (ModalMenuAndContentViewController *)self.parentViewController.parentViewController;
-    TopMenuViewController *topMenuViewController = modalMenuAndContentVC.topMenuViewController;
-    MenuButton *button = (MenuButton *)[topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE];
+    MenuButton *button = (MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE];
     button.enabled = (self.summaryTextField.text.length > 0) ? YES : NO;
 }
 
@@ -129,7 +126,7 @@
 
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_X:
-            [self hide];
+            [self popModal];
             break;
         case NAVBAR_BUTTON_DONE:
             [self save];
@@ -144,21 +141,12 @@
     NSString *trimmedSummary =
         [self.summaryTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     self.previewVC.summaryText = trimmedSummary;
-    [self hide];
+    [self popModal];
 }
 
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
-}
-
--(void)hide
-{
-    // Hide this view controller.
-    if(!(self.isBeingPresented || self.isBeingDismissed)){
-    
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
-    }
 }
 
 - (void)didReceiveMemoryWarning

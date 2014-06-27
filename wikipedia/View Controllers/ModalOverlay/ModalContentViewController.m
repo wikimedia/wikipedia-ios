@@ -45,6 +45,14 @@
     (ModalMenuAndContentViewController *)self.parentViewController;
     modalMenuAndContentVC.statusBarHidden = [destVC prefersStatusBarHidden];
 
+
+    if ([destVC respondsToSelector:@selector(truePresentingVC)]) {
+        [destVC performSelector:@selector(setTruePresentingVC:) withObject:modalMenuAndContentVC.truePresentingVC];
+    }
+    if ([destVC respondsToSelector:@selector(topMenuViewController)]) {
+        [destVC performSelector:@selector(setTopMenuViewController:) withObject:modalMenuAndContentVC.topMenuViewController];
+    }
+
     UIView *view = destVC.view;
 
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

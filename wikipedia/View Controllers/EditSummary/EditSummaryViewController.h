@@ -13,4 +13,7 @@
 
 @property (strong, nonatomic) NSString *summaryText;
 
+@property (weak, nonatomic) id truePresentingVC;
+@property (weak, nonatomic) TopMenuViewController *topMenuViewController;
+
 @end

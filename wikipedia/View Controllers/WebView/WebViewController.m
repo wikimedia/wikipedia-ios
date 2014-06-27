@@ -19,7 +19,6 @@
 #import "CenterNavController.h"
 #import "Defines.h"
 #import "MWPageTitle.h"
-
 #import "UIViewController+SearchChildViewControllers.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "UIScrollView+NoHorizontalScrolling.h"
@@ -31,34 +30,25 @@
 #import "Section+ImageRecords.h"
 #import "Section+LeadSection.h"
 #import "NSString+Extras.h"
-
 #import "PaddedLabel.h"
-//#import "UIView+Debugging.h"
-
 #import "DataMigrator.h"
 #import "ArticleImporter.h"
-
 #import "SyncAssetsFileOp.h"
-
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
 #import "BottomMenuViewController.h"
-
 #import "LanguagesTableVC.h"
-
 #import "ModalMenuAndContentViewController.h"
-#import "UIViewController+PresentModal.h"
+#import "UIViewController+ModalPresent.h"
 #import "Section+DisplayHtml.h"
-
 #import "EditFunnel.h"
-
 #import "CoreDataHousekeeping.h"
 #import "Article+Convenience.h"
 #import "NSDate-Utilities.h"
 #import "AccountCreationViewController.h"
-
 #import "OnboardingViewController.h"
 #import "TopMenuContainerView.h"
+//#import "UIView+Debugging.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.3f
 
@@ -119,6 +109,16 @@ typedef enum {
 - (BOOL)prefersStatusBarHidden
 {
     return NO;
+}
+
+- (BOOL)prefersTopNavigationHidden
+{
+    return [self shouldShowOnboarding];
+}
+
+-(NavBarMode)navBarMode
+{
+    return NAVBAR_MODE_DEFAULT;
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
@@ -213,6 +213,32 @@ typedef enum {
                                              selector: @selector(languageItemSelectedNotification:)
                                                  name: @"LanguageItemSelected"
                                                object: nil];
+
+    self.view.backgroundColor = CHROME_COLOR;
+    
+
+
+
+
+
+
+//TODO: remove these two lines once we're done testing onboarding.
+// These lines allow the onboarding to run on every app cold start.
+[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"ShowOnboarding"];
+[[NSUserDefaults standardUserDefaults] synchronize];
+
+
+
+
+
+}
+
+-(void)showAlert:(NSString *)alertText
+{
+    // Don't show alerts if onboarding onscreen.
+    if ([self shouldShowOnboarding]) return;
+
+    [super showAlert:alertText];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -226,26 +252,34 @@ typedef enum {
 
     [self performHousekeepingIfNecessary];
 
-    [self showOnboardingIfNecessary];
+    if ([self shouldShowOnboarding]) {
+        [self showOnboarding];
+
+        // Ok to show the menu now. (The onboarding view is covering the web view at this point.)
+        ROOT.topMenuHidden = NO;
+
+        self.webView.alpha = 1.0f;
+    }
 
     //[self.view randomlyColorSubviews];
 }
 
--(void)showOnboardingIfNecessary
+-(BOOL)shouldShowOnboarding
 {
-    // For now show the onboarding each time app is started fresh (to allow for easier testing).
+    NSNumber *showOnboarding = [[NSUserDefaults standardUserDefaults] objectForKey:@"ShowOnboarding"];
+    return showOnboarding.boolValue;
+}
 
-//TODO: once this has been tested / signed-off on make a alreadyShowedOnboarding flag that persists across app restarts - i.e. NSUserDefaults.
+-(void)showOnboarding
+{
+    OnboardingViewController *onboardingVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"OnboardingViewController"];
 
-    static BOOL alreadyShowedOnboarding = NO;
-    if (!alreadyShowedOnboarding) {
-        CGFloat delay = 0.7;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            OnboardingViewController *onboardingVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"OnboardingViewController"];
-            [self presentViewController:onboardingVC animated:YES completion:^{}];
-            alreadyShowedOnboarding = YES;
-        });
-    }
+    onboardingVC.truePresentingVC = self;
+    //[onboardingVC.view.layer removeAllAnimations];
+    [self presentViewController:onboardingVC animated:NO completion:^{}];
+
+    [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"ShowOnboarding"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(void)performHousekeepingIfNecessary
@@ -264,6 +298,10 @@ typedef enum {
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    if ([self shouldShowOnboarding]) {
+        self.webView.alpha = 0.0f;
+    }
+
     [super viewWillAppear:animated];
 
     self.bottomMenuHidden = ROOT.topMenuHidden;
@@ -906,6 +944,9 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 -(void)saveCurrentPage
 {
+    [self showAlert:MWLocalizedString(@"share-menu-page-saved", nil)];
+    [self fadeAlert];
+
     NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
                                                                                   domain: [SessionSingleton sharedInstance].currentArticleDomain];
     

@@ -12,16 +12,19 @@
 #import "NSHTTPCookieStorage+CloneCookie.h"
 #import "AccountCreationViewController.h"
 #import "WMF_Colors.h"
-
 #import "MenuButton.h"
 #import "PaddedLabel.h"
-
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
 #import "CreateAccountFunnel.h"
-#import "UINavigationController+SearchNavStack.h"
 #import "PreviewAndSaveViewController.h"
 #import "SectionEditorViewController.h"
+#import "OnboardingViewController.h"
+#import "WebViewController.h"
+#import "UIViewController+ModalPresent.h"
+#import "AccountCreationViewController.h"
+#import "UIViewController+ModalsSearch.h"
+#import "UIViewController+ModalPop.h"
 
 @interface LoginViewController (){
 
@@ -39,6 +42,11 @@
 
 @implementation LoginViewController
 
+-(NavBarMode)navBarMode
+{
+    return NAVBAR_MODE_LOGIN;
+}
+
 - (BOOL)prefersStatusBarHidden
 {
     return NAV.isEditorOnNavstack;
@@ -52,6 +60,7 @@
     self.navigationItem.hidesBackButton = YES;
 
     self.createAccountButton.textColor = WMF_COLOR_BLUE;
+    self.createAccountButton.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     self.createAccountButton.text = MWLocalizedString(@"login-account-creation", nil);
     self.createAccountButton.userInteractionEnabled = YES;
     [self.createAccountButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createAccountButtonPushed:)]];
@@ -80,15 +89,18 @@
     self.usernameUnderlineHeight.constant = 1.0f / [UIScreen mainScreen].scale;
     self.passwordUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
 
-    // Hide the account creation button if the AccountCreationViewController is on nav stack.
-    self.createAccountButton.hidden = [NAV searchNavStackForViewControllerOfClass:[AccountCreationViewController class]] ? YES : NO;
+    // Hide the account creation button if the AccountCreationViewController is on modal stack.
+    self.createAccountButton.hidden = [self searchModalsForViewControllerOfClass:[AccountCreationViewController class]] ? YES : NO;
 
-    PreviewAndSaveViewController *previewAndSaveVC = [NAV searchNavStackForViewControllerOfClass:[PreviewAndSaveViewController class]];
+    /*
+    PreviewAndSaveViewController *previewAndSaveVC = [self searchModalsForViewControllerOfClass:[PreviewAndSaveViewController class]];
     self.titleLabel.text = (!previewAndSaveVC) ?
         MWLocalizedString(@"navbar-title-mode-login", nil)
         :
         MWLocalizedString(@"navbar-title-mode-login-and-save", nil)
     ;
+    */
+    self.titleLabel.text = MWLocalizedString(@"navbar-title-mode-login", nil);
 }
 
 -(NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string
@@ -117,7 +129,7 @@
 
 -(void)highlightProgressiveButton:(BOOL)highlight
 {
-    MenuButton *button = (MenuButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE];
+    MenuButton *button = (MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE];
     button.enabled = highlight;
 }
 
@@ -133,7 +145,7 @@
             break;
         case NAVBAR_BUTTON_X:
         case NAVBAR_BUTTON_ARROW_LEFT:
-            [self hide];
+            [self popModal];
             break;
         default:
             break;
@@ -151,7 +163,7 @@
 {
     [super viewWillAppear:animated];
     
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_LOGIN;
+    self.topMenuViewController.navBarMode = NAVBAR_MODE_LOGIN;
 
     [self highlightProgressiveButton:NO];
 }
@@ -171,6 +183,8 @@
         [NAV.editor.funnel logLoginAttempt];
     }
 
+    id onboardingVC = [self searchModalsForViewControllerOfClass:[OnboardingViewController class]];
+
     [self loginWithUserName: self.usernameField.text
                    password: self.passwordField.text
                   onSuccess: ^{
@@ -181,21 +195,9 @@
                       [self showAlert:loggedInMessage];
                       [self fadeAlert];
 
-                      [self performSelector:@selector(hide) withObject:nil afterDelay:1.25f];
-
+                      [self performSelector:(onboardingVC ? @selector(popModalToRoot) : @selector(popModal)) withObject:nil afterDelay:1.2f];
+                      
                   } onFail: nil];
-}
-
--(void)hide
-{
-    // If not in editing workflow and account creation is on the nav stack, pop to root.
-    id createAcctVC = [NAV searchNavStackForViewControllerOfClass:[AccountCreationViewController class]];
-    id editingVC = [NAV searchNavStackForViewControllerOfClass:[SectionEditorViewController class]];
-    if (createAcctVC && !editingVC) {
-        [ROOT popToRootViewControllerAnimated:YES];
-    }else{
-        [ROOT popViewControllerAnimated:YES];
-    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -205,8 +207,6 @@
     [super viewWillDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
-
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
 }
 
 - (void)didReceiveMemoryWarning
@@ -347,11 +347,12 @@
 {
     [self.funnel logCreateAccountAttempt];
 
-    AccountCreationViewController *createAcctVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"AccountCreationViewController"];
-    createAcctVC.funnel = [[CreateAccountFunnel alloc] init];
-    [createAcctVC.funnel logStartFromLogin:self.funnel.loginSessionToken];
-    
-    [ROOT pushViewController:createAcctVC animated:YES];
+    [self performModalSequeWithID: @"modal_segue_show_create_account"
+                  transitionStyle: UIModalTransitionStyleCoverVertical
+                            block: ^(AccountCreationViewController *createAcctVC){
+                                createAcctVC.funnel = [[CreateAccountFunnel alloc] init];
+                                [createAcctVC.funnel logStartFromLogin:self.funnel.loginSessionToken];
+                            }];
 }
 
 @end

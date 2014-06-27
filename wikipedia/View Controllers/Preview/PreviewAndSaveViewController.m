@@ -17,22 +17,20 @@
 #import "WebViewController.h"
 #import "UINavigationController+SearchNavStack.h"
 #import "PreviewWebView.h"
-#import "LoginViewController.h"
 #import "UINavigationController+TopActionSheet.h"
 #import "Defines.h"
 #import "WMF_Colors.h"
 #import "CommunicationBridge.h"
-
 #import "PaddedLabel.h"
 #import "NSString+Extras.h"
-
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
-
 #import "MenuButton.h"
 #import "EditSummaryViewController.h"
-#import "UIViewController+PresentModal.h"
+#import "UIViewController+ModalPresent.h"
 #import "PreviewLicenseView.h"
+#import "LoginViewController.h"
+#import "UIScrollView+ScrollSubviewToLocation.h"
 
 typedef enum {
     CANNED_SUMMARY_TYPOS = 0,
@@ -49,7 +47,6 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIScrollView *captchaScrollView;
 @property (weak, nonatomic) IBOutlet UIView *captchaScrollContainer;
 @property (weak, nonatomic) IBOutlet UIView *editSummaryContainer;
-@property (nonatomic) BOOL saveAutomaticallyIfSignedIn;
 @property (weak, nonatomic) IBOutlet UIWebView *previewWebView;
 @property (strong, nonatomic) CommunicationBridge *bridge;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewWebViewHeightConstraint;
@@ -59,9 +56,11 @@ typedef enum {
 @property (strong, nonatomic) MenuButton *cannedSummary03;
 @property (strong, nonatomic) MenuButton *cannedSummary04;
 @property (nonatomic) CGFloat borderWidth;
-
 @property (weak, nonatomic) IBOutlet PreviewLicenseView *previewLicenseView;
-@property (strong, nonatomic) UIGestureRecognizer *previewLabelTapGestureRecognizer;
+@property (strong, nonatomic) UIGestureRecognizer *previewLicenseTapGestureRecognizer;
+@property (strong, nonatomic) IBOutlet PaddedLabel *previewLabel;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+//@property (nonatomic) BOOL saveAutomaticallyIfSignedIn;
 
 @end
 
@@ -154,7 +153,11 @@ typedef enum {
 
     self.summaryText = @"";
     
-    self.saveAutomaticallyIfSignedIn = NO;
+    self.previewLabel.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-preview", nil);
+    
+    [self.previewLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewLabelTapped)]];
+    
+    //self.saveAutomaticallyIfSignedIn = NO;
     
     self.previewWebView.scrollView.delegate = self;
     
@@ -190,6 +193,11 @@ typedef enum {
                                         options: NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial
                                         context: nil];
     [self preview];
+}
+
+-(void)previewLabelTapped
+{
+    [self.scrollView scrollSubViewToTop:self.previewLabel animated:YES];
 }
 
 -(void)dealloc
@@ -335,7 +343,7 @@ typedef enum {
     MenuButton *button = (MenuButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_SAVE];
     button.enabled = YES;
 
-    [self saveAutomaticallyIfNecessary];
+    //[self saveAutomaticallyIfNecessary];
 
     // Highlight the "Other" button if the user entered some "other" text.
     self.cannedSummary04.enabled = (self.summaryText.length > 0) ? YES : NO;
@@ -348,9 +356,9 @@ typedef enum {
         self.previewLicenseView.licenseLoginLabel.userInteractionEnabled = YES;
     }
 
-    self.previewLabelTapGestureRecognizer =
+    self.previewLicenseTapGestureRecognizer =
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(licenseLabelTapped:)];
-    [self.previewLicenseView.licenseLoginLabel addGestureRecognizer:self.previewLabelTapGestureRecognizer];
+    [self.previewLicenseView.licenseLoginLabel addGestureRecognizer:self.previewLicenseTapGestureRecognizer];
 
     [super viewWillAppear:animated];
 }
@@ -358,14 +366,13 @@ typedef enum {
 -(void)licenseLabelTapped:(UIGestureRecognizer *)recognizer
 {
     // Call if user taps the blue "Log In" text in the CC text.
-    self.saveAutomaticallyIfSignedIn = YES;
-    LoginViewController *loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    loginVC.funnel = [[LoginFunnel alloc] init];
-    [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
-
-//TODO: decide if this should be presented as a modal.
-
-    [ROOT pushViewController:loginVC animated:YES];
+    //self.saveAutomaticallyIfSignedIn = YES;
+    [self performModalSequeWithID: @"modal_segue_show_login"
+                  transitionStyle: UIModalTransitionStyleCoverVertical
+                            block: ^(LoginViewController *loginVC){
+                                loginVC.funnel = [[LoginFunnel alloc] init];
+                                [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
+                            }];
 }
 
 -(void)highlightCaptchaSubmitButton:(BOOL)highlight
@@ -391,7 +398,7 @@ typedef enum {
                                                     name: @"TabularScrollViewItemTapped"
                                                   object: nil];
 
-    [self.previewLicenseView.licenseLoginLabel removeGestureRecognizer:self.previewLabelTapGestureRecognizer];
+    [self.previewLicenseView.licenseLoginLabel removeGestureRecognizer:self.previewLicenseTapGestureRecognizer];
 
     [super viewWillDisappear:animated];
 }
@@ -451,6 +458,7 @@ typedef enum {
     // Dispose of any resources that can be recreated.
 }
 
+/*
 -(void)saveAutomaticallyIfNecessary
 {
     // Save automatically if user had tapped "sign in and save" previously and if
@@ -462,6 +470,7 @@ typedef enum {
         }
     }
 }
+*/
 
 - (void)save
 {
