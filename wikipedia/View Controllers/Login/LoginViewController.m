@@ -179,10 +179,6 @@
 
 -(void)save
 {
-    if (NAV.isEditorOnNavstack) {
-        [NAV.editor.funnel logLoginAttempt];
-    }
-
     id onboardingVC = [self searchModalsForViewControllerOfClass:[OnboardingViewController class]];
 
     [self loginWithUserName: self.usernameField.text
@@ -261,10 +257,6 @@
 
                           [self.funnel logSuccess];
                           
-                          if (NAV.isEditorOnNavstack) {
-                              [NAV.editor.funnel logLoginSuccess];
-                          }
-                          
                       } cancelledBlock: ^(NSError *error){
                           
                           [self showAlert:error.localizedDescription];
@@ -280,10 +272,6 @@
 
 
                           [self.funnel logError:error.localizedDescription];
-
-                          if (NAV.isEditorOnNavstack) {
-                              [NAV.editor.funnel logLoginFailure];
-                          }
                       }];
     
     LoginTokenOp *loginTokenOp =

@@ -15,7 +15,7 @@
 -(id)init
 {
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppEdit
-    self = [super initWithSchema:@"MobileWikiAppEdit" version:8198182];
+    self = [super initWithSchema:@"MobileWikiAppEdit" version:9003125];
     if (self) {
         self.editSessionToken = [self singleUseUUID];
     }
@@ -26,9 +26,14 @@
 {
     NSMutableDictionary *dict = [eventData mutableCopy];
     dict[@"editSessionToken"] = self.editSessionToken;
-    NSString *userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
-    dict[@"userName"] = userName ? userName : @"";
-    //dict[@"pageNS"] = @0; // @todo allow other types or ...? // Android doesn't send this?
+    NSString *userName = [SessionSingleton sharedInstance].keychainCredentials.userName; // @FIXME send user ID
+    if (!userName || [userName isEqualToString:@""]) {
+        dict[@"userID"] = @0; // not logged in
+    } else {
+        // @FIXME fetch the actual user ID
+        dict[@"userID"] = @(-1);
+    }
+    //dict[@"pageNS"] = @0; // @todo actually get the namespace...
     return [NSDictionary dictionaryWithDictionary: dict];
 }
 
@@ -44,26 +49,17 @@
     [self log:@{@"action": @"preview"}];
 }
 
+-(void)logEditSummaryTap:(NSString *)editSummaryTapped
+{
+    [self log:@{@"action": @"editSummaryTap",
+                @"editSummaryTapped": editSummaryTapped ? editSummaryTapped : @""}];
+}
+
 -(void)logSavedRevision:(int)revID
 {
     NSNumber *revIDNumber = [NSNumber numberWithInt:revID];
     [self log:@{@"action": @"saved",
                 @"revID": (revIDNumber ? revIDNumber : @"")}];
-}
-
--(void)logLoginAttempt
-{
-    [self log:@{@"action": @"loginAttempt"}];
-}
-
--(void)logLoginSuccess
-{
-    [self log:@{@"action": @"loginSuccess"}];
-}
-
--(void)logLoginFailure
-{
-    [self log:@{@"action": @"loginFailure"}];
 }
 
 -(void)logCaptchaShown
@@ -100,9 +96,9 @@
                 @"abuseFilterCode": (code ? code : @"")}];
 }
 
-- (void)logSaveAnonExplicit
+-(void)logSaveAttempt // @FIXME WHAT CALLS THIS
 {
-    [self log:@{@"action": @"saveAnonExplicit"}];
+    [self log:@{@"action": @"saveAttempt"}];
 }
 
 - (void)logError:(NSString *)code
