@@ -15,17 +15,19 @@
 -(id)init;
 -(void)logStart;
 -(void)logPreview;
+/**
+ * Parameter should be one of the string keys defined at
+ * https://meta.wikimedia.org/wiki/Schema_talk:MobileWikiAppEdit#Schema_missing_enum_for_editSummaryTapped
+ */
+-(void)logEditSummaryTap:(NSString *)editSummaryTapped;
 -(void)logSavedRevision:(int)revID;
--(void)logLoginAttempt;
--(void)logLoginSuccess;
--(void)logLoginFailure;
 -(void)logCaptchaShown;
 -(void)logCaptchaFailure;
 -(void)logAbuseFilterWarning:(NSString *)code;
 -(void)logAbuseFilterError:(NSString *)code;
 -(void)logAbuseFilterWarningIgnore:(NSString *)code;
 -(void)logAbuseFilterWarningBack:(NSString *)code;
--(void)logSaveAnonExplicit;
+-(void)logSaveAttempt; // @FIXME USE
 -(void)logError:(NSString *)code;
 
 @end

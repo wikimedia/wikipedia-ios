@@ -294,6 +294,26 @@ typedef enum {
 -(void)buttonTapped:(UIGestureRecognizer *)recognizer
 {
     MenuButton *tappedButton = (MenuButton *)recognizer.view;
+    
+    NSString *summaryKey;
+    switch (tappedButton.tag) {
+        case CANNED_SUMMARY_TYPOS:
+            summaryKey = @"typo";
+            break;
+        case CANNED_SUMMARY_GRAMMAR:
+            summaryKey = @"grammar";
+            break;
+        case CANNED_SUMMARY_LINKS:
+            summaryKey = @"links";
+            break;
+        case CANNED_SUMMARY_OTHER:
+            summaryKey = @"other";
+            break;
+        default:
+            NSLog(@"unrecognized button");
+    }
+    [self.funnel logEditSummaryTap:summaryKey];
+
     switch (tappedButton.tag) {
         case CANNED_SUMMARY_OTHER:
             [self showSummaryOverlay];
@@ -777,14 +797,6 @@ typedef enum {
         ",
     warningHtml];
 }
-
-/*
-this save call was invoked when old sign-in/save-anon choice was presented and user selected save-anon.
-question: does logSaveAnonExplicit need to be called - maybe in save method if not logged in? check it it already is
-            [self.funnel logSaveAnonExplicit];
-
-            [self save];
-*/
 
 //    BOOL userIsloggedIn = [SessionSingleton sharedInstance].keychainCredentials.userName ? YES : NO;
 
