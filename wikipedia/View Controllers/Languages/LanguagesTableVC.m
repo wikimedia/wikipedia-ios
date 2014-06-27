@@ -9,8 +9,8 @@
 #import "LanguagesCell.h"
 #import "Defines.h"
 #import "AssetsFile.h"
-
 #import "UIViewController+Alert.h"
+#import "UIViewController+ModalPop.h"
 
 #pragma mark - Defines
 
@@ -34,16 +34,19 @@
 {
     self = [super initWithCoder:coder];
     if (self) {
-        self.title = MWLocalizedString(@"article-languages-filter-placeholder", nil);
-
-        //MWLocalizedString(@"article-languages-label", nil);
-
-        self.navBarMode = NAVBAR_MODE_X_WITH_TEXT_FIELD;
-
         self.downloadLanguagesForCurrentArticle = NO;
-
     }
     return self;
+}
+
+-(NavBarMode)navBarMode
+{
+    return NAVBAR_MODE_X_WITH_TEXT_FIELD;
+}
+
+-(NSString *)title
+{
+    return MWLocalizedString(@"article-languages-filter-placeholder", nil);
 }
 
 #pragma mark - View lifecycle
@@ -122,7 +125,7 @@
 
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_X:
-            [self hide];
+            [self popModal];
 
             break;
         default:
@@ -253,16 +256,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName: @"LanguageItemSelected"
                                                         object: self
                                                       userInfo: selectedLangInfo];
-}
-
-#pragma mark - Hiding
-
--(void)hide
-{
-    // Hide this view controller.
-    if(!(self.isBeingPresented || self.isBeingDismissed)){
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
-    }
 }
 
 #pragma mark - Memory

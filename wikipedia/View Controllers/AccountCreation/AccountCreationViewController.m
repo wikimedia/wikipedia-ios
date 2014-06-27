@@ -12,16 +12,18 @@
 #import "CaptchaResetOp.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "LoginViewController.h"
-#import "UINavigationController+SearchNavStack.h"
 #import "WMF_Colors.h"
-
 #import "MenuButton.h"
 #import "PaddedLabel.h"
-
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
-#import "UINavigationController+SearchNavStack.h"
 #import "PreviewAndSaveViewController.h"
+#import "OnboardingViewController.h"
+#import "ModalMenuAndContentViewController.h"
+#import "ModalContentViewController.h"
+#import "UIViewController+ModalPresent.h"
+#import "UIViewController+ModalsSearch.h"
+#import "UIViewController+ModalPop.h"
 
 @interface AccountCreationViewController ()
 
@@ -34,19 +36,50 @@
 @property (strong, nonatomic) NSString *token;
 @property (weak, nonatomic) IBOutlet PaddedLabel *loginButton;
 @property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *usernameUnderlineHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordUnderlineHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordConfirmUnderlineHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailUnderlineHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBeneathCaptchaContainer;
 
 @end
 
 @implementation AccountCreationViewController
 
+-(NavBarMode)navBarMode
+{
+    return NAVBAR_MODE_CREATE_ACCOUNT;
+}
+
 - (BOOL)prefersStatusBarHidden
 {
     return NAV.isEditorOnNavstack;
+}
+
+-(void)updateViewConstraints
+{
+    [self adjustScrollLimitForCaptchaVisiblity];
+
+    [super updateViewConstraints];
+}
+
+-(void)adjustScrollLimitForCaptchaVisiblity
+{
+    // Reminder: spaceBeneathCaptchaContainer constraint is space *below* captcha container - that's why below
+    // for the show case we don't have to "convertPoint".
+    self.spaceBeneathCaptchaContainer.constant =
+        (self.showCaptchaContainer)
+        ?
+        (self.view.frame.size.height - (self.captchaContainer.frame.size.height / 2))
+        :
+        (self.view.frame.size.height - [self.loginButton convertPoint:CGPointZero toView:self.scrollView].y) ;
+        ;
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    // Ensure adjustScrollLimitForCaptchaVisiblity gets called again after rotating.
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)viewDidLoad
@@ -57,7 +90,7 @@
     self.captchaId = @"";
     self.captchaUrl = @"";
     self.token = @"";
-    
+    self.scrollView.delegate = self;
     self.navigationItem.hidesBackButton = YES;
     
     [self.usernameField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -92,31 +125,34 @@
     self.emailUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
     
     self.loginButton.textColor = WMF_COLOR_BLUE;
+    self.loginButton.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     self.loginButton.text = MWLocalizedString(@"account-creation-login", nil);
     self.loginButton.userInteractionEnabled = YES;
     [self.loginButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginButtonPushed:)]];
     
-    // Hide the login button if the LoginViewController is on nav stack.
-    self.loginButton.hidden = [NAV searchNavStackForViewControllerOfClass:[LoginViewController class]] ? YES : NO;
+    // Hide the login button if the LoginViewController is on modal stack.
+    self.loginButton.hidden = [self searchModalsForViewControllerOfClass:[LoginViewController class]] ? YES : NO;
     
-    PreviewAndSaveViewController *previewAndSaveVC = [NAV searchNavStackForViewControllerOfClass:[PreviewAndSaveViewController class]];
+    /*
+    id previewAndSaveVC = [self searchModalsForViewControllerOfClass:[PreviewAndSaveViewController class]];
     self.titleLabel.text = (!previewAndSaveVC) ?
         MWLocalizedString(@"navbar-title-mode-create-account", nil)
         :
         MWLocalizedString(@"navbar-title-mode-create-account-and-save", nil)
     ;
+    */
+    
+    self.titleLabel.text = MWLocalizedString(@"navbar-title-mode-create-account", nil);
 
-    ((MenuButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT]).color = WMF_COLOR_GREEN;
-    ((MenuButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE]).color = WMF_COLOR_GREEN;
+    ((MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT]).color = WMF_COLOR_GREEN;
+    ((MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE]).color = WMF_COLOR_GREEN;
 }
 
 - (void)loginButtonPushed:(id)sender
 {
-    LoginViewController *loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-
-    //[ROOT popToRootViewControllerAnimated:NO];
-
-    [ROOT pushViewController:loginVC animated:YES];
+    [self performModalSequeWithID: @"modal_segue_show_login"
+                  transitionStyle: UIModalTransitionStyleCoverVertical
+                            block: nil];
 }
 
 -(NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string
@@ -133,7 +169,7 @@
     
     self.showCaptchaContainer = NO;
 
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_CREATE_ACCOUNT;
+    self.topMenuViewController.navBarMode = NAVBAR_MODE_CREATE_ACCOUNT;
 
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(textFieldDidChange:)
@@ -195,8 +231,8 @@
 
 -(void)highlightProgressiveButton:(BOOL)highlight
 {
-    ((MenuButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE]).enabled = highlight;
-    ((MenuButton *)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT]).enabled = highlight;
+    ((MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE]).enabled = highlight;
+    ((MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT]).enabled = highlight;
 }
 
 -(void)prepopulateTextFieldsForDebugging
@@ -210,8 +246,6 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
-
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
 
     [self highlightProgressiveButton:NO];
 
@@ -235,10 +269,12 @@
 {
     _showCaptchaContainer = showCaptchaContainer;
 
-    ROOT.topMenuViewController.navBarMode = showCaptchaContainer ? NAVBAR_MODE_CREATE_ACCOUNT_CAPTCHA : NAVBAR_MODE_CREATE_ACCOUNT;
+    self.topMenuViewController.navBarMode = showCaptchaContainer ? NAVBAR_MODE_CREATE_ACCOUNT_CAPTCHA : NAVBAR_MODE_CREATE_ACCOUNT;
 
     CGFloat duration = 0.5;
-    
+
+    [self.view setNeedsUpdateConstraints];
+
     if(showCaptchaContainer){
 
         [self.captchaViewController.captchaTextBox performSelector: @selector(becomeFirstResponder)
@@ -363,7 +399,13 @@
             break;
         case NAVBAR_BUTTON_X:
         case NAVBAR_BUTTON_ARROW_LEFT:
-            [self hide];
+        {
+            if (self.showCaptchaContainer) {
+                self.showCaptchaContainer = NO;
+            }else{
+                [self popModal];
+            }
+        }
             break;
         default:
             break;
@@ -372,13 +414,10 @@
 
 -(void)login
 {
-    LoginViewController *loginVC = [self.navigationController searchNavStackForViewControllerOfClass:[LoginViewController class]];
+    id onboardingVC = [self searchModalsForViewControllerOfClass:[OnboardingViewController class]];
 
-    BOOL loginVCOnNavStack = loginVC ? YES : NO;
-    if (!loginVCOnNavStack) {
-        // Create detached loginVC just for loggin in.
-        loginVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    }
+    // Create detached loginVC just for logging in.
+    LoginViewController *loginVC = [[LoginViewController alloc] init];
     
     [self showAlert:MWLocalizedString(@"account-creation-logging-in", nil)];
     
@@ -389,20 +428,15 @@
                                                                      withString: self.usernameField.text];
         [self showAlert:loggedInMessage];
 
-        if (!loginVCOnNavStack) {
-            [ROOT popViewControllerAnimated:YES];
+        if (onboardingVC) {
+            [self popModalToRoot];
         }else{
-            UIViewController *vcBeneathLoginVC = [self.navigationController getVCBeneathVC:loginVC];
-            if (vcBeneathLoginVC){
-                [ROOT popToViewController:vcBeneathLoginVC animated:YES];
-            }else{
-                [self performSelector:@selector(hide) withObject:nil afterDelay:0.5f];
-            }
+            [self.truePresentingVC popModal];
         }
-        
+
     } onFail:^(){
 
-        [self performSelector:@selector(hide) withObject:nil afterDelay:0.5f];
+        [self performSelector:@selector(popModal) withObject:nil afterDelay:0.5f];
 
     }];
 }
@@ -499,15 +533,6 @@
     [[QueuesSingleton sharedInstance].accountCreationQ addOperation:accountCreationTokenOp];
     [[QueuesSingleton sharedInstance].accountCreationQ addOperation:accountCreationOp];
     [QueuesSingleton sharedInstance].loginQ.suspended = NO;
-}
-
--(void)hide
-{
-    if (self.showCaptchaContainer) {
-        self.showCaptchaContainer = NO;
-    }else{
-        [ROOT popViewControllerAnimated:YES];
-    }
 }
 
 - (void)didReceiveMemoryWarning

@@ -11,30 +11,21 @@
 #import "UIViewController+HideKeyboard.h"
 #import "SearchResultsController.h"
 #import "UINavigationController+SearchNavStack.h"
-#import "UINavigationController+Alert.h"
 #import "PreviewAndSaveViewController.h"
-
 #import "SessionSingleton.h"
 #import "WebViewController.h"
 #import "UIView+TemporaryAnimatedXF.h"
-
 #import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
 #import "PaddedLabel.h"
-
 #import "WikiGlyph_Chars.h"
 #import "WikiGlyph_Chars_iOS.h"
-
 #import "CenterNavController.h"
-
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
-
 #import "RootViewController.h"
 #import "TopMenuContainerView.h"
-
 #import "UIViewController+StatusBarHeight.h"
-
 #import "MenuButton.h"
 #import "LoginViewController.h"
 #import "AccountCreationViewController.h"
@@ -56,20 +47,16 @@
 @property (strong, nonatomic) WikiGlyphButton *buttonMagnify;
 @property (strong, nonatomic) WikiGlyphButton *buttonBlank;
 @property (strong, nonatomic) WikiGlyphButton *buttonCancel;
-
 @property (strong, nonatomic) MenuButton *buttonNext;
 @property (strong, nonatomic) MenuButton *buttonSave;
 @property (strong, nonatomic) MenuButton *buttonDone;
 @property (strong, nonatomic) MenuButton *buttonCheck;
-
 @property (strong, nonatomic) UILabel *label;
-
+@property (strong, nonatomic) NSString *lastSearchString;
 // Used for constraining container sub-views.
 @property (strong, nonatomic) NSString *navBarSubViewsHorizontalVFLString;
 @property (strong, nonatomic) NSDictionary *navBarSubViews;
 @property (strong, nonatomic) NSDictionary *navBarSubViewMetrics;
-
-@property (strong, nonatomic) NSString *lastSearchString;
 
 @end
 
@@ -94,12 +81,13 @@
     [self setupNavbarContainerSubviews];
 
     self.navBarStyle = NAVBAR_STYLE_DAY;
-
-    self.navBarMode = NAVBAR_MODE_DEFAULT;
     
     self.navBarSubViews = [self getNavBarSubViews];
     
     self.navBarSubViewMetrics = [self getNavBarSubViewMetrics];
+
+    // This needs to happend *after* navBarSubViews are set up.
+    self.navBarMode = NAVBAR_MODE_DEFAULT;
     
     self.lastSearchString = @"";
 }
@@ -394,9 +382,9 @@
 
     _navBarMode = navBarMode;
 
-    PreviewAndSaveViewController *previewAndSaveVC = [NAV searchNavStackForViewControllerOfClass:[PreviewAndSaveViewController class]];
-    LoginViewController *loginVC = [NAV searchNavStackForViewControllerOfClass:[LoginViewController class]];
-    AccountCreationViewController *acctCreationVC = [NAV searchNavStackForViewControllerOfClass:[AccountCreationViewController class]];
+    //PreviewAndSaveViewController *previewAndSaveVC = [NAV searchNavStackForViewControllerOfClass:[PreviewAndSaveViewController class]];
+    //LoginViewController *loginVC = [NAV searchNavStackForViewControllerOfClass:[LoginViewController class]];
+    //AccountCreationViewController *acctCreationVC = [NAV searchNavStackForViewControllerOfClass:[AccountCreationViewController class]];
 
     switch (navBarMode) {
         case NAVBAR_MODE_EDIT_WIKITEXT:
@@ -406,13 +394,13 @@
             break;
         case NAVBAR_MODE_LOGIN:
             self.label.text = @"";
-            if((!previewAndSaveVC) && (!acctCreationVC)){
+            //if((!previewAndSaveVC) && (!acctCreationVC)){
+            //    self.navBarSubViewsHorizontalVFLString =
+            //        @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_DONE(50@250)]|";
+            //}else{
                 self.navBarSubViewsHorizontalVFLString =
                     @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_DONE(50@250)]|";
-            }else{
-                self.navBarSubViewsHorizontalVFLString =
-                    @"H:|-(4)-[NAVBAR_BUTTON_ARROW_LEFT(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_DONE(50@250)]|";
-            }
+            //}
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_SAVE:
             self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-save", nil);
@@ -421,13 +409,13 @@
             break;
         case NAVBAR_MODE_CREATE_ACCOUNT:
             self.label.text = @"";
-            if(loginVC){
-                self.navBarSubViewsHorizontalVFLString =
-                    @"H:|-(4)-[NAVBAR_BUTTON_ARROW_LEFT(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_NEXT(50@250)]|";
-            }else{
+            //if(loginVC){
                 self.navBarSubViewsHorizontalVFLString =
                     @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_NEXT(50@250)]|";
-            }
+            //}else{
+            //    self.navBarSubViewsHorizontalVFLString =
+            //        @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_NEXT(50@250)]|";
+            //}
             
             break;
         case NAVBAR_MODE_CREATE_ACCOUNT_CAPTCHA:

@@ -8,16 +8,12 @@
 #import "QueuesSingleton.h"
 #import "CenterNavController.h"
 #import "PageHistoryOp.h"
-
-#import "UINavigationController+SearchNavStack.h"
 #import "UIViewController+Alert.h"
 #import "NSDate-Utilities.h"
 #import "NSString+Extras.h"
-
 #import "WikiGlyph_Chars.h"
-
 #import "RootViewController.h"
-#import "TopMenuViewController.h"
+#import "UIViewController+ModalPop.h"
 
 @interface PageHistoryViewController (){
 
@@ -29,14 +25,14 @@
 
 @implementation PageHistoryViewController
 
-- (instancetype)initWithCoder:(NSCoder *)coder
+-(NavBarMode)navBarMode
 {
-    self = [super initWithCoder:coder];
-    if (self) {
-        self.title = MWLocalizedString(@"page-history-title", nil);
-        self.navBarMode = NAVBAR_MODE_X_WITH_LABEL;
-    }
-    return self;
+    return NAVBAR_MODE_X_WITH_LABEL;
+}
+
+-(NSString *)title
+{
+    return MWLocalizedString(@"page-history-title", nil);
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -74,19 +70,11 @@
 
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_X:
-            [self hide];
+            [self popModal];
             
             break;
         default:
             break;
-    }
-}
-
--(void)hide
-{
-    // Hide this view controller.
-    if(!(self.isBeingPresented || self.isBeingDismissed)){
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
     }
 }
 

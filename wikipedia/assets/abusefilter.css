@@ -546,6 +546,22 @@ a.edit_section_button {
   float: right;
   display: inline-float;
 }
+.no-editing a.edit_section_button {
+  display: none;
+}
+.page-protected a.edit_section_button {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAAXVBMVEUAAAD////Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW/Pz8/Pz8/Pz89sbW/Pz89sbW/Pz8/Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW+fZUWwAAAAHXRSTlMAABAQICAwMEBAUFBgYHBwgJCgoLDAwNDQ4ODw8PGFG8cAAAHOSURBVHhe7dTLcoMwDAVQxVCXJAoByiPUEf//mcW0Gh5KFrbojrtidUYM9wKnnfOP4AEe4AGCT3JvmuHR3BOAXcDrc/jN87wLeBvmnCUIATnZEUyeC/A7UYHWjeDdQ48PSL68eNOA6GgEH9Nh3m9GsFGASOTB6S7wufrHeLCkGfycwLMKrGgBwm8UoKknD/cCTffn7QSmk+cup51A6ybP+hsGmUCQvd7CTiCST2dAB0pPAcr6VQY0oPRgCqpB005eydvTglxnPlYLWvZ4ezqQ65zxsVrwwvPg7SlBJJ4HH6sDc64ze0qwWnroSAHKeSDRDL6JBGX9eB4FKUH2Sj5WC9p+PQ8lyA1BPnYVZ4NBnOssvS4NvhBp4dl+45nAV+Yv2q3nwakMBICyztnWAwgEzcpDWgchABR1Fp5DCAXTlVdtPAuBINevEB5/pQBQ1rneeAZCQaTVPERdQsGMVn97UZdgMJ89UeccIsDaA7V55SHEgD0vDtCJukSAKQM5kvBiwAtxRF3iwPKtFwm2TIi6RIJvvGgwe+UhxIO55ByCAqylZ0ED9luvt6ABU1kXUIHLWru2LVoDOrAk6tu6KLKMJSVohaMAtTnA4BzgAf4Asb6U9nmPcP4AAAAASUVORK5CYII=);
+  background-image: url(//bits.beta.wmflabs.org/static-master/extensions/MobileApp/less/../images/edit-locked.png?2014-05-28T01:45:00Z)!ie;
+}
+#mainpage a.edit_section_button {
+  display: none;
+}
+.content-rtl a.edit_section_button {
+  float: left;
+  /* Flip it! */
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
 
 /* FIXME: Copied over from http://en.wikipedia.org/w/index.php?title=MediaWiki:Mobile.css&oldid=609508028
    This fixes some styling issues in the app, primarily hlists.

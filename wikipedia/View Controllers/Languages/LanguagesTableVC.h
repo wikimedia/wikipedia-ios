@@ -12,4 +12,6 @@
 
 @property (nonatomic, weak) id invokingVC;
 
+@property (weak, nonatomic) id truePresentingVC;
+
 @end

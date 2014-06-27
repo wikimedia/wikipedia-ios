@@ -5,10 +5,13 @@
 #import "PaddedLabel.h"
 #import "WMF_Colors.h"
 #import "WikipediaAppUtils.h"
-#import "AccountCreationViewController.h"
-#import "LoginViewController.h"
 #import "Defines.h"
 #import "NSString+FormattedAttributedString.h"
+#import "RootViewController.h"
+#import "TopMenuViewController.h"
+#import "TopMenuContainerView.h"
+#import "UIViewController+ModalPresent.h"
+#import "UIViewController+Alert.h"
 
 @interface OnboardingViewController ()
 
@@ -23,6 +26,16 @@
 
 @implementation OnboardingViewController
 
+- (BOOL)prefersAlertsHidden
+{
+    return YES;
+}
+
+- (BOOL)prefersTopNavigationHidden
+{
+    return YES;
+}
+
 //- (BOOL)prefersStatusBarHidden
 //{
 //    return YES;
@@ -30,7 +43,7 @@
 
 -(void)hide
 {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{}];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewDidLoad
@@ -63,30 +76,36 @@
     [self adjustSpacingForVariousScreenSizes];
 
     [self styleLoginButtonText];
+    
+    self.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
 }
 
 -(void)adjustSpacingForVariousScreenSizes
 {
-    CGFloat multiplier = 1.0;
+    CGFloat aboveMultiplier = 1.0;
+    CGFloat belowMultiplier = 1.0;
     switch ((int)[UIScreen mainScreen].bounds.size.height) {
         case 480:
             // Make everything fit on 3.5 inch screens.
-            multiplier = 0.2;
+            aboveMultiplier = 0.2;
+            belowMultiplier = 0.0;
             break;
         case 1024:
             // Make everything fit on iPad screens.
-            multiplier = 3.0;
+            aboveMultiplier = 3.0;
+            belowMultiplier = 3.0;
             break;
         default:
             break;
     }
-    self.spaceBelowLogoConstraint.constant *= multiplier;
-    self.spaceAboveLogoConstraint.constant *= multiplier;
+
+    self.spaceBelowLogoConstraint.constant = roundf(self.spaceBelowLogoConstraint.constant * belowMultiplier);
+    self.spaceAboveLogoConstraint.constant = roundf(self.spaceAboveLogoConstraint.constant * aboveMultiplier);
 
     // Adjust for iOS 6 status bar height.
-    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
-        self.spaceAboveLogoConstraint.constant -= 20;
-    }
+    //if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
+    //    self.spaceAboveLogoConstraint.constant -= 20;
+    //}
 }
 
 -(void)styleLoginButtonText
@@ -105,24 +124,16 @@
 
 -(void)createAccountButtonTapped
 {
-    [ROOT popToRootViewControllerAnimated:NO];
-
-    AccountCreationViewController *createAcctVC = [NAV.storyboard instantiateViewControllerWithIdentifier:@"AccountCreationViewController"];
-
-    [ROOT pushViewController:createAcctVC animated:NO];
-
-    [self hide];
+    [self performModalSequeWithID: @"modal_segue_show_create_account"
+                  transitionStyle: UIModalTransitionStyleCoverVertical
+                            block: nil];
 }
 
 -(void)loginButtonTapped
 {
-    [ROOT popToRootViewControllerAnimated:NO];
-
-    LoginViewController *loginVC = [NAV.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-
-    [ROOT pushViewController:loginVC animated:NO];
-
-    [self hide];
+    [self performModalSequeWithID: @"modal_segue_show_login"
+                  transitionStyle: UIModalTransitionStyleCoverVertical
+                            block: nil];
 }
 
 -(void)skipButtonTapped

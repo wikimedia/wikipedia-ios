@@ -8,4 +8,6 @@
 
 @property (nonatomic) NavBarMode navBarMode;
 
+@property (weak, nonatomic) id truePresentingVC;
+
 @end

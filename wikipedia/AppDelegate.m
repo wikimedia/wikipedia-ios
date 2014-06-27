@@ -58,6 +58,7 @@
         @"ZeroOnDialogShownOnce" : @NO,
         @"ZeroOffDialogShownOnce" : @NO,
         @"FakeZeroOn" : @NO,
+        @"ShowOnboarding" : @YES,
         @"LastHousekeepingDate" : [NSDate date] //[NSDate dateWithDaysBeforeNow:10]
     };
     [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];

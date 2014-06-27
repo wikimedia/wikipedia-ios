@@ -18,4 +18,6 @@
 
 @property (strong, nonatomic) TopMenuViewController *topMenuViewController;
 
+@property (weak, nonatomic) id truePresentingVC;
+
 @end
