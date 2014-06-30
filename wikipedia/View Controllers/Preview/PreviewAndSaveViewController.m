@@ -70,14 +70,15 @@ typedef enum {
 {
     NSMutableArray *summaryArray = @[].mutableCopy;
     
-    if (self.summaryText && (self.summaryText.length > 0)) {
-        [summaryArray addObject:self.summaryText];
-    }
     if (self.cannedSummary01.enabled) [summaryArray addObject:self.cannedSummary01.text];
     if (self.cannedSummary02.enabled) [summaryArray addObject:self.cannedSummary02.text];
     if (self.cannedSummary03.enabled) [summaryArray addObject:self.cannedSummary03.text];
 
-    if (self.cannedSummary04.enabled) [summaryArray addObject:self.cannedSummary04.text];
+    if (self.cannedSummary04.enabled) {
+        if (self.summaryText && (self.summaryText.length > 0)) {
+            [summaryArray addObject:self.summaryText];
+        }
+    }
 
     return [summaryArray componentsJoinedByString:@"; "];
 }
