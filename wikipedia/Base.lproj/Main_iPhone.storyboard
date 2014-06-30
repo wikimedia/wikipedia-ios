@@ -1057,6 +1057,7 @@
                     <connections>
                         <outlet property="createAccountButton" destination="wkl-j8-wLX" id="Q0x-Lf-aBP"/>
                         <outlet property="loginButton" destination="heA-3K-nhS" id="90C-kg-bai"/>
+                        <outlet property="logoImage" destination="K0v-hf-TOf" id="IDl-op-jI7"/>
                         <outlet property="skipButton" destination="P6J-IE-CiO" id="uVS-3Y-c6m"/>
                         <outlet property="spaceAboveLogoConstraint" destination="0B0-Zk-SGf" id="Xaw-AS-lGs"/>
                         <outlet property="spaceBelowLogoConstraint" destination="nWX-Cw-MAY" id="RnU-fa-AFO"/>

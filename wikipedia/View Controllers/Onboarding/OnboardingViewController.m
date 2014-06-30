@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBelowLogoConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceAboveLogoConstraint;
 
+@property (weak, nonatomic) IBOutlet UIImageView *logoImage;
+
 @end
 
 @implementation OnboardingViewController
@@ -85,10 +87,12 @@
     CGFloat aboveMultiplier = 1.0;
     CGFloat belowMultiplier = 1.0;
     switch ((int)[UIScreen mainScreen].bounds.size.height) {
-        case 480:
+        case 480:{
             // Make everything fit on 3.5 inch screens.
-            aboveMultiplier = 0.2;
+            aboveMultiplier = 1.0;
             belowMultiplier = 0.0;
+            self.logoImage.layer.transform = CATransform3DMakeScale(0.85, 0.85, 1.0);
+            }
             break;
         case 1024:
             // Make everything fit on iPad screens.
