@@ -7,6 +7,7 @@
 "article-languages-cancel" = "Button text for dismissing the language selector screen.\n{{Identical|Cancel}}";
 "article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
+"language-button-text" = "Label for 'other languages' button in content area footer. %d is placeholder for the number of available languages; note that support for PLURAL string marking is not yet available, so make your message generic if possible for now.";
 "language-button-other-languages" = "Label for 'other languages' button in content area. Button also shows the number of available languages, but an indeterminate plural should be used here.";
 "history-label" = "Header label for screen showing the users' in-app browsing history.\n{{Identical|Recent}}";
 "history-section-today" = "Subsection label for list of articles browsed today.\n{{Identical|Today}}";
@@ -142,3 +143,5 @@
 "onboarding-skip" = "Button text allowing first time users to skip the other onboarding choices";
 "preference_title_eventlogging_opt_in" = "Title of preference that when checked enables data collection of user behavior.";
 "preference_summary_eventlogging_opt_in" = "Description of preference that when checked enables data collection of user behavior.";
+"license-footer-text" = "Brief footer text linking to CC-BY-SA license. '$1' is placeholder for the license-footer-name message";
+"license-footer-name" = "License short name; usually leave untranslated as CC-BY-SA 3.0";

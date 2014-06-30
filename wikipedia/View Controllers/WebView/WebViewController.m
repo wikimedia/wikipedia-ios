@@ -49,6 +49,8 @@
 #import "AccountCreationViewController.h"
 #import "OnboardingViewController.h"
 #import "TopMenuContainerView.h"
+#import "WikiGlyph_Chars.h"
+
 //#import "UIView+Debugging.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.3f
@@ -926,6 +928,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         [weakSelf languageButtonPushed];
     }];
     
+    [self.bridge addListener:@"historyClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        [weakSelf historyButtonPushed];
+    }];
+    
     [self.bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString *messageType, NSDictionary *payload) {
         NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
 
@@ -1584,8 +1590,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 
         if ((mode != DISPLAY_LEAD_SECTION) && ![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
-            [sectionTextArray addObject: [self renderLanguageButtonForCount: langCount.integerValue]];
+            [sectionTextArray addObject: [self renderFooterDivider]];
             [sectionTextArray addObject: [self renderLastModified:lastModified by:lastModifiedBy]];
+            [sectionTextArray addObject: [self renderLanguageButtonForCount: langCount.integerValue]];
+            [sectionTextArray addObject: [self renderLicenseFooter]];
         }
 
         
@@ -1618,6 +1626,14 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }];
 }
 
+-(NSString *)renderFooterDivider
+{
+    NSString *langCode = [[NSLocale preferredLanguages] objectAtIndex:0];
+    MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:langCode];
+    NSString *dir = lang.dir;
+    return [NSString stringWithFormat:@"<hr class=\"mw-footer-divider\" dir=\"%@\">", dir];
+}
+
 -(NSString *)renderLanguageButtonForCount:(NSInteger)count
 {
     if (count > 0) {
@@ -1625,11 +1641,15 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:langCode];
         NSString *dir = lang.dir;
 
-        NSString *aa = @"<span class=\"mw-language-icon\">Aあ</span>";
-        NSString *countStr = [NSString stringWithFormat:@"<span class=\"mw-language-count\">%d</span>", (int)count];
-        NSString *otherLanguages = [NSString stringWithFormat:@"<span class=\"mw-language-label\">%@</span>", MWLocalizedString(@"language-button-other-languages", nil)];
+        NSString *icon = WIKIGLYPH_TRANSLATE;
+        NSString *text = [NSString localizedStringWithFormat:MWLocalizedString(@"language-button-text", nil), (int)count];
         
-        return [NSString stringWithFormat:@"<button dir=\"%@\" class=\"mw-language-button\"><span class=\"mw-language-items\">%@%@%@</span></button>", dir, aa, countStr, otherLanguages];
+        return [NSString stringWithFormat:@"<button dir=\"%@\" class=\"mw-language-button mw-footer-button\">"
+                                          @"<div>"
+                                          @"<span><span class=\"mw-footer-icon\">%@</span></span>"
+                                          @"<span>%@</span>"
+                                          @"</div>"
+                                          @"</button>", dir, icon, text];
     } else {
         return @"";
     }
@@ -1640,8 +1660,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     NSString *langCode = [[NSLocale preferredLanguages] objectAtIndex:0];
     MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:langCode];
     NSString *dir = lang.dir;
+    NSString *icon = WIKIGLYPH_PENCIL;
 
     NSString *ts = [WikipediaAppUtils relativeTimestamp:date];
+    NSString *recent = (fabs([date timeIntervalSinceNow]) < 60*60*24) ? @"recent" : @"";
     NSString *lm = [MWLocalizedString(@"lastmodified-timestamp", nil) stringByReplacingOccurrencesOfString:@"$1" withString:ts];
     NSString *by;
     if (username && ![username isEqualToString:@""]) {
@@ -1650,7 +1672,25 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         by = MWLocalizedString(@"lastmodified-anon", nil);
     }
 
-    return [NSString stringWithFormat:@"<div dir=\"%@\" class=\"mw-last-modified\">%@<br>%@</div>", dir, lm, by];
+    return [NSString stringWithFormat:@"<button dir=\"%@\" class=\"mw-last-modified mw-footer-button %@\">"
+            @"<div>"
+            @"<span><span class=\"mw-footer-icon\">%@</span></span>"
+            @"<span>%@<br>%@</span>"
+            @"</div>"
+            @"</button>", dir, recent, icon, lm, by];
+}
+
+-(NSString *)renderLicenseFooter
+{
+    NSString *langCode = [[NSLocale preferredLanguages] objectAtIndex:0];
+    MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:langCode];
+    NSString *dir = lang.dir;
+    
+    NSString *licenseName = MWLocalizedString(@"license-footer-name", nil);
+    NSString *licenseLink = [NSString stringWithFormat:@"<a href=\"https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License\">%@</a>", licenseName];
+    NSString *licenseText = [MWLocalizedString(@"license-footer-text", nil) stringByReplacingOccurrencesOfString:@"$1" withString:licenseLink];
+    
+    return [NSString stringWithFormat:@"<div dir=\"%@\" class=\"mw-license-footer\">%@</div>", dir, licenseText];
 }
 
 #pragma mark Scroll to last section after rotate
@@ -1974,6 +2014,13 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                                 languagesVC.downloadLanguagesForCurrentArticle = YES;
                                 languagesVC.invokingVC = self;
                             }];
+}
+
+-(void)historyButtonPushed
+{
+    [self performModalSequeWithID: @"modal_segue_show_page_history"
+                  transitionStyle: UIModalTransitionStyleCoverVertical
+                            block: nil];
 }
 
 - (void)languageItemSelectedNotification:(NSNotification *)notification
