@@ -48,9 +48,9 @@
 "login-username-placeholder-text" = "User name";
 "login-password-placeholder-text" = "Password";
 
-"wikitext-downloading" = "Loading wiki text...";
+"wikitext-downloading" = "Loading content...";
 "wikitext-download-failed" = "Unable to obtain latest revision.";
-"wikitext-download-success" = "Wiki text loaded.";
+"wikitext-download-success" = "Content loaded.";
 "wikitext-preview-changes" = "Retrieving preview of your changes...";
 "wikitext-preview-changes-none" = "No changes were made to be previewed.";
 "wikitext-upload-result-unknown" = "Unable to determine wikitext upload result.";
