@@ -6,7 +6,7 @@
 #import "QueuesSingleton.h"
 #import "SessionSingleton.h"
 #import "WikipediaAppUtils.h"
-#import "LanguagesTableVC.h"
+#import "LanguagesViewController.h"
 #import "UIViewController+HideKeyboard.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "UIViewController+Alert.h"
@@ -514,16 +514,16 @@ stringByAppendingString:@"\n\n$1"];
 {
     [self performModalSequeWithID: @"modal_segue_show_languages"
                   transitionStyle: UIModalTransitionStyleCoverVertical
-                            block: ^(LanguagesTableVC *languagesTableVC){
-                                languagesTableVC.invokingVC = self;
+                            block: ^(LanguagesViewController *languagesVC){
+                                languagesVC.invokingVC = self;
                             }];
 }
 
 - (void)languageItemSelectedNotification:(NSNotification *)notification
 {
     // Ensure action is only taken if the secondary menu view controller presented the lang picker.
-    LanguagesTableVC *languagesTableVC = notification.object;
-    if (languagesTableVC.invokingVC != self) return;
+    LanguagesViewController *languagesVC = notification.object;
+    if (languagesVC.invokingVC != self) return;
 
     NSDictionary *selectedLangInfo = [notification userInfo];
     

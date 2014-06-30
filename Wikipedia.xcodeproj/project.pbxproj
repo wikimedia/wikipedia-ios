@@ -25,7 +25,7 @@
 		04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 04142A8E184F974E006EF779 /* NSDate-Utilities.m */; };
 		0415581C18ADFA5D00B81A59 /* UIImage+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0415581B18ADFA5C00B81A59 /* UIImage+ColorMask.m */; };
 		041A3B5E18E11ED90079FF1C /* LanguagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5918E11ED90079FF1C /* LanguagesCell.m */; };
-		041A3B6218E11ED90079FF1C /* LanguagesTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5D18E11ED90079FF1C /* LanguagesTableVC.m */; };
+		041A3B6218E11ED90079FF1C /* LanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */; };
 		041C55D21950B27D006CE0EF /* EditSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C55D11950B27D006CE0EF /* EditSummaryViewController.m */; };
 		04272E7B1940EEBC00CC682F /* AssetsFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 04272E791940EEBC00CC682F /* AssetsFile.m */; };
 		04292FF2185FBA70002A13FC /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04292FF0185FBA70002A13FC /* SearchResultCell.m */; };
@@ -215,8 +215,8 @@
 		0415581B18ADFA5C00B81A59 /* UIImage+ColorMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ColorMask.m"; sourceTree = "<group>"; };
 		041A3B5818E11ED90079FF1C /* LanguagesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguagesCell.h; sourceTree = "<group>"; };
 		041A3B5918E11ED90079FF1C /* LanguagesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguagesCell.m; sourceTree = "<group>"; };
-		041A3B5C18E11ED90079FF1C /* LanguagesTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguagesTableVC.h; sourceTree = "<group>"; };
-		041A3B5D18E11ED90079FF1C /* LanguagesTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguagesTableVC.m; sourceTree = "<group>"; };
+		041A3B5C18E11ED90079FF1C /* LanguagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguagesViewController.h; sourceTree = "<group>"; };
+		041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguagesViewController.m; sourceTree = "<group>"; };
 		041C55D01950B27D006CE0EF /* EditSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSummaryViewController.h; sourceTree = "<group>"; };
 		041C55D11950B27D006CE0EF /* EditSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditSummaryViewController.m; sourceTree = "<group>"; };
 		04272E781940EEBC00CC682F /* AssetsFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsFile.h; sourceTree = "<group>"; };
@@ -737,8 +737,8 @@
 		041A3B5718E11ED90079FF1C /* Languages */ = {
 			isa = PBXGroup;
 			children = (
-				041A3B5C18E11ED90079FF1C /* LanguagesTableVC.h */,
-				041A3B5D18E11ED90079FF1C /* LanguagesTableVC.m */,
+				041A3B5C18E11ED90079FF1C /* LanguagesViewController.h */,
+				041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */,
 				041A3B5818E11ED90079FF1C /* LanguagesCell.h */,
 				041A3B5918E11ED90079FF1C /* LanguagesCell.m */,
 			);
@@ -1877,7 +1877,7 @@
 				0400EB0318AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m in Sources */,
 				04B78A5318A580AF0050EBF5 /* LoginOp.m in Sources */,
 				04530AF51935BF4D00022512 /* ModalMenuAndContentViewController.m in Sources */,
-				041A3B6218E11ED90079FF1C /* LanguagesTableVC.m in Sources */,
+				041A3B6218E11ED90079FF1C /* LanguagesViewController.m in Sources */,
 				0493C2CC1952373100EBB973 /* CoreDataHousekeeping.m in Sources */,
 				04D34DAD1863D2D600610A87 /* TFHppleElement.m in Sources */,
 				043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */,

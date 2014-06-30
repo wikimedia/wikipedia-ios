@@ -1,7 +1,7 @@
 //  Created by Monte Hurd on 1/23/14.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "LanguagesTableVC.h"
+#import "LanguagesViewController.h"
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "DownloadLangLinksOp.h"
@@ -18,7 +18,7 @@
 
 #pragma mark - Private properties
 
-@interface LanguagesTableVC ()
+@interface LanguagesViewController ()
 
 @property (strong, nonatomic) NSArray *languagesData;
 @property (strong, nonatomic) NSMutableArray *filteredLanguagesData;
@@ -28,7 +28,7 @@
 
 @end
 
-@implementation LanguagesTableVC
+@implementation LanguagesViewController
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
@@ -187,7 +187,7 @@
                                       
                                       [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
                                           //[self showAlert:@"Language links loaded."];
-                                          //[self fadeAlert];
+                                          [self fadeAlert];
 
                                           self.languagesData = result;
                                           [self reloadTableDataFiltered];
