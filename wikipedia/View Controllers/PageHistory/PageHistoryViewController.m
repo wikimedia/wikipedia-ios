@@ -14,6 +14,7 @@
 #import "WikiGlyph_Chars.h"
 #import "RootViewController.h"
 #import "UIViewController+ModalPop.h"
+#import "Defines.h"
 
 @interface PageHistoryViewController (){
 
@@ -219,7 +220,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
-    view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1.0];
+    view.backgroundColor = CHROME_COLOR;
     view.autoresizesSubviews = YES;
     UILabel *label = [[UILabel alloc] initWithFrame:
                       CGRectMake(10, view.bounds.origin.y, view.bounds.size.width, view.bounds.size.height)

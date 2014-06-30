@@ -4,7 +4,7 @@
 #import <UIKit/UIKit.h>
 #import "TopMenuViewController.h"
 
-@interface LanguagesTableVC : UITableViewController
+@interface LanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) BOOL downloadLanguagesForCurrentArticle;
 
@@ -13,5 +13,7 @@
 @property (nonatomic, weak) id invokingVC;
 
 @property (weak, nonatomic) id truePresentingVC;
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

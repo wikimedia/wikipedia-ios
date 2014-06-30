@@ -5,11 +5,13 @@
 #import "MWNetworkOp.h"
 #import "TopMenuViewController.h"
 
-@interface PageHistoryViewController : UITableViewController <NetworkOpDelegate>
+@interface PageHistoryViewController : UIViewController <NetworkOpDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) NavBarMode navBarMode;
 
 @property (weak, nonatomic) id truePresentingVC;
 @property (weak, nonatomic) TopMenuViewController *topMenuViewController;
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

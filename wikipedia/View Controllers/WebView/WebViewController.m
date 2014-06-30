@@ -37,7 +37,7 @@
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
 #import "BottomMenuViewController.h"
-#import "LanguagesTableVC.h"
+#import "LanguagesViewController.h"
 #import "ModalMenuAndContentViewController.h"
 #import "UIViewController+ModalPresent.h"
 #import "Section+DisplayHtml.h"
@@ -1953,21 +1953,23 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 {
     [self performModalSequeWithID: @"modal_segue_show_languages"
                   transitionStyle: UIModalTransitionStyleCoverVertical
-                            block: ^(LanguagesTableVC *languagesTableVC){
-                                languagesTableVC.downloadLanguagesForCurrentArticle = YES;
-                                languagesTableVC.invokingVC = self;
+                            block: ^(LanguagesViewController *languagesVC){
+                                languagesVC.downloadLanguagesForCurrentArticle = YES;
+                                languagesVC.invokingVC = self;
                             }];
 }
 
 - (void)languageItemSelectedNotification:(NSNotification *)notification
 {
     // Ensure action is only taken if the web view controller presented the lang picker.
-    LanguagesTableVC *languagesTableVC = notification.object;
-    if (languagesTableVC.invokingVC != self) return;
+    LanguagesViewController *languagesVC = notification.object;
+    if (languagesVC.invokingVC != self) return;
 
     NSDictionary *selectedLangInfo = [notification userInfo];
 
-    [NAV loadArticleWithTitle: selectedLangInfo[@"*"]
+    MWPageTitle *pageTitle = [MWPageTitle titleWithString:selectedLangInfo[@"*"]];
+
+    [NAV loadArticleWithTitle: pageTitle
                        domain: selectedLangInfo[@"code"]
                      animated: NO
               discoveryMethod: DISCOVERY_METHOD_SEARCH
