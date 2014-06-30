@@ -60,13 +60,13 @@
             urlString = @"https://bits.wikimedia.org/static-current/extensions/MobileApp/config/ios.json";
             break;
         case ASSETS_FILE_CSS:
-            urlString = @"http://bits.beta.wmflabs.org/en.wikipedia.beta.wmflabs.org/load.php?debug=true&lang=en&modules=mobile.app.pagestyles.ios&only=styles&skin=vector&version=&*";
+            urlString = @"https://bits.wikimedia.org/en.wikipedia.org/load.php?debug=true&lang=en&modules=mobile.app.pagestyles.ios&only=styles&skin=vector";
             break;
         case ASSETS_FILE_CSS_ABUSE_FILTER:
-            urlString = @"http://bits.beta.wmflabs.org/en.wikipedia.beta.wmflabs.org/load.php?debug=true&lang=en&modules=mobile.app.pagestyles.ios&only=styles&skin=vector&version=&*";
+            urlString = @"https://bits.wikimedia.org/en.wikipedia.org/load.php?debug=true&lang=en&modules=mobile.app.pagestyles.ios&only=styles&skin=vector";
             break;
         case ASSETS_FILE_CSS_PREVIEW:
-            urlString = @"http://bits.beta.wmflabs.org/en.wikipedia.beta.wmflabs.org/load.php?debug=true&lang=en&modules=mobile.app.preview&only=styles&skin=vector&version=&*";
+            urlString = @"https://bits.wikimedia.org/en.wikipedia.org/load.php?debug=true&lang=en&modules=mobile.app.preview&only=styles&skin=vector";
             break;
         default:
             break;
