@@ -63,7 +63,8 @@
 +(void) addMCCMNCToRequestIfAppropriate: (NSMutableURLRequest*) req
 {
     /* MCC-MNC logging is only turned with an API hook */
-    if ([SessionSingleton sharedInstance].zeroConfigState.sentMCCMNC ||
+    if (![SessionSingleton sharedInstance].sendUsageReports ||
+        [SessionSingleton sharedInstance].zeroConfigState.sentMCCMNC ||
         [req.URL.host rangeOfString:@".m.wikipedia.org"].location == NSNotFound ||
         [req.URL.relativePath rangeOfString:@"/w/api.php"].location == NSNotFound) {
         return;
