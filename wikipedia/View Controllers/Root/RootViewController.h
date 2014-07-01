@@ -12,7 +12,9 @@
 
 @property (nonatomic) BOOL topMenuHidden;
 
-- (void)animateTopAndBottomMenuToggle;
+@property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
+
+- (void)animateTopAndBottomMenuHidden:(BOOL)hidden;
 
 - (void)togglePrimaryMenu;
 
