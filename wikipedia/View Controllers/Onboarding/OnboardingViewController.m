@@ -107,9 +107,9 @@
     self.spaceAboveLogoConstraint.constant = roundf(self.spaceAboveLogoConstraint.constant * aboveMultiplier);
 
     // Adjust for iOS 6 status bar height.
-    //if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
-    //    self.spaceAboveLogoConstraint.constant -= 20;
-    //}
+    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
+        self.spaceAboveLogoConstraint.constant -= 20;
+    }
 }
 
 -(void)styleLoginButtonText
