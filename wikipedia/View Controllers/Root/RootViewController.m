@@ -50,9 +50,9 @@
     // Fade out the top menu when it is hidden.
     CGFloat alpha = topMenuHidden ? 0.0 : 1.0;
 
-    self.topMenuViewController.navBarContainer.alpha = alpha;
-
+    // Note: don't fade out the navBarContainer or the line at its bottom gets hidden!
     //self.topMenuViewController.navBarContainer.alpha = alpha;
+    
     for (UIView *v in self.topMenuViewController.navBarContainer.subviews) {
         v.alpha = alpha;
     }
@@ -230,14 +230,19 @@
     self.centerContainerTopConstraint.constant = topMenuHeight;
 }
 
--(void)animateTopAndBottomMenuToggle
+-(void)animateTopAndBottomMenuHidden:(BOOL)hidden
 {
+    // Don't toggle if hidden state isn't different or if it's already toggling.
+    if ((self.topMenuHidden == hidden) || self.isAnimatingTopAndBottomMenuHidden) return;
+
+    self.isAnimatingTopAndBottomMenuHidden = YES;
+    
     // Queue it up so web view doesn't get blanked out.
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
 
-        [UIView animateWithDuration:0.15f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        [UIView animateWithDuration:0.12f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             
-            self.topMenuHidden = !self.topMenuHidden;
+            self.topMenuHidden = hidden;
 
             WebViewController *webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
             webVC.bottomMenuHidden = self.topMenuHidden;
@@ -250,6 +255,7 @@
             [self.view.superview layoutIfNeeded];
             
         } completion:^(BOOL done){
+            self.isAnimatingTopAndBottomMenuHidden = NO;
         }];
         
     }];

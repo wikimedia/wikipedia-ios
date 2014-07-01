@@ -868,6 +868,10 @@ typedef enum {
         
         // @todo merge this link title extraction into MWSite
         if ([href hasPrefix:@"/wiki/"]) {
+
+            // Ensure the menu is visible when navigating to new page.
+            [weakSelf animateTopAndBottomMenuReveal];
+        
             NSString *title = [href substringWithRange:NSMakeRange(6, href.length - 6)];
             MWPageTitle *pageTitle = [MWPageTitle titleWithString:title];
 
@@ -925,11 +929,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [self.bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString *messageType, NSDictionary *payload) {
         NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
 
-        if (!weakSelf.tocVC) {
-            if (ROOT.topMenuViewController.navBarMode != NAVBAR_MODE_SEARCH) {
-                [ROOT animateTopAndBottomMenuToggle];
-            }
-        }
+        [weakSelf animateTopAndBottomMenuReveal];
 
         // nonAnchorTouchEndedWithoutDragging is used so TOC may be hidden if user tapped, but did *not* drag.
         // Used because UIWebView is difficult to attach one-finger touch events to.
@@ -1073,25 +1073,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    /*
-    // Hides nav bar when a scroll threshold is exceeded. Probably only want to do this
-    // when the webView's scrollView scrolls. Probably also want to set the status bar to
-    // be not transparent when the nav bar is hidden - if not possible could position a
-    // view just behind it, but above the webView.
-    if (scrollView == self.webView.scrollView) {
-        CGFloat f = scrollViewDragBeganVerticalOffset_ - scrollView.contentOffset.y;
-        if (f < -55 && ![UIApplication sharedApplication].statusBarHidden) {
-            [self.navigationController setNavigationBarHidden:YES animated:YES];
-            //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-            //[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
-        }else if (f > 55 && [UIApplication sharedApplication].statusBarHidden) {
-              [self.navigationController setNavigationBarHidden:NO animated:YES];
-            //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-            //[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
-        }
-    }
-    */
-
     // Hide the keyboard if it was visible when the results are scrolled, but only if
     // the results have been scrolled in excess of some small distance threshold first.
     // This prevents tiny scroll adjustments, which seem to occur occasionally for some
@@ -1104,6 +1085,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         //NSLog(@"Keyboard Hidden!");
     }
     
+    [self adjustTopAndBottomMenuVisibilityOnScroll];
+
     [self updatePullToRefreshForScrollView:scrollView];
 }
 
@@ -1118,7 +1101,39 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     [self saveWebViewScrollOffset];
 }
 
-#pragma Memory
+#pragma mark Menus auto show-hide on scroll / reveal on tap
+
+-(void)adjustTopAndBottomMenuVisibilityOnScroll
+{
+    // This method causes the menus to hide when user scrolls down and show when they scroll up.
+    if (self.webView.scrollView.isDragging && ![self tocDrawerIsOpen]){
+        CGFloat distanceScrolled = scrollViewDragBeganVerticalOffset_ - self.webView.scrollView.contentOffset.y;
+        CGFloat minPixelsScrolled = 20;
+        if (fabsf(distanceScrolled) < minPixelsScrolled) return;
+        [ROOT animateTopAndBottomMenuHidden:((distanceScrolled > 0) ? NO : YES)];
+    }
+}
+
+-(void)animateTopAndBottomMenuReveal
+{
+    // Toggle the menus closed on tap (only if they were showing).
+    if (!self.tocVC) {
+        if (ROOT.topMenuViewController.navBarMode != NAVBAR_MODE_SEARCH) {
+            if (![self tocDrawerIsOpen]){
+                [ROOT animateTopAndBottomMenuHidden:NO];
+            }
+        }
+    }
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    // Called when the title bar is tapped.
+    [self animateTopAndBottomMenuReveal];
+    return YES;
+}
+
+#pragma mark Memory
 
 - (void)didReceiveMemoryWarning
 {
@@ -1800,6 +1815,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 
 - (void)updatePullToRefreshForScrollView:(UIScrollView *)scrollView
 {
+    if (ROOT.isAnimatingTopAndBottomMenuHidden) return;
+
     CGFloat pullDistance = (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) ? 85.0f : 55.0f;
 
     UIGestureRecognizerState state = ((UIPinchGestureRecognizer *)scrollView.pinchGestureRecognizer).state;
