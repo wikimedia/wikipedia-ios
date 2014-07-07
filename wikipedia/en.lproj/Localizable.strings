@@ -89,7 +89,7 @@
 "main-menu-current-article-save" = "Save $1 for offline reading";
 "main-menu-random" = "Random";
 "main-menu-feedback-heading" = "Feedback";
-"main-menu-send-feedback" = "Send feedback";
+"main-menu-send-feedback" = "Send app feedback";
 "main-menu-show-page-history" = "History of changes to $1";
 "main-menu-credits" = "Credits";
 
