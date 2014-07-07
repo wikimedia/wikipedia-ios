@@ -228,10 +228,10 @@ typedef enum {
 
 
 
-//TODO: remove these two lines once we're done testing onboarding.
+// Uncomment these lines only if testing onboarding!
 // These lines allow the onboarding to run on every app cold start.
-[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"ShowOnboarding"];
-[[NSUserDefaults standardUserDefaults] synchronize];
+//[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"ShowOnboarding"];
+//[[NSUserDefaults standardUserDefaults] synchronize];
 
 
 
