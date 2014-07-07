@@ -9,6 +9,9 @@
 #import "WMF_Colors.h"
 #import "UIView+RemoveConstraints.h"
 #import "Section+LeadSection.h"
+#import "NSString+FormattedAttributedString.h"
+#import "WikipediaAppUtils.h"
+#import "SessionSingleton.h"
 
 @interface TOCSectionCellView(){
 
@@ -16,12 +19,8 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
-@property (nonatomic) CGFloat indentMargin;
-@property (nonatomic) CGFloat indentMarginMin;
-
-@property (nonatomic) CGFloat imageIndentMargin;
-@property (nonatomic) CGFloat imageIndentMarginMin;
-@property (nonatomic) CGFloat imageMargin;
+@property (nonatomic) UIEdgeInsets cellMargin;
+@property (nonatomic) UIEdgeInsets imageMargin;
 @property (nonatomic) CGSize imageSize;
 
 @property (nonatomic, strong) NSNumber *tocLevel;
@@ -49,14 +48,9 @@
         
         [self addSubview:self.titleLabel];
         
-        self.indentMargin = 0.0f;
-        self.indentMarginMin = 6.0f;
-
-        self.imageIndentMargin = 0.0f;
-        self.imageIndentMarginMin = 6.0f;
-
-        self.imageMargin = 6.0f;
-        self.imageSize = CGSizeMake(60.0f, 40.0f);
+        self.cellMargin = UIEdgeInsetsMake(8, 12, 8, 10);
+        self.imageMargin = UIEdgeInsetsMake(5, 5, 5, 0);
+        self.imageSize = CGSizeMake(52.5f, 35.0f);
 
         self.isHighlighted = NO;
         
@@ -73,31 +67,73 @@
 -(void)setIsHighlighted:(BOOL)isHighlighted
 {
     if (isHighlighted) {
-        self.backgroundColor = WMF_COLOR_BLUE;
+        self.backgroundColor = [WMF_COLOR_BLUE colorWithAlphaComponent:0.6];
     }else{
-        self.backgroundColor = [UIColor darkGrayColor];
+        self.backgroundColor = [UIColor colorWithRed:0.049 green:0.049 blue:0.049 alpha:1.0];
     }
     
     if (isHighlighted) self.alpha = 1.0f;
     
     _isHighlighted = isHighlighted;
+    
+    [self adjustFontColorForHighlightedState];
+}
+
+-(void)adjustFontColorForHighlightedState
+{
+    // Only changes the text color.
+    NSMutableAttributedString *mutableString =
+        [[NSMutableAttributedString alloc] initWithAttributedString:self.titleLabel.attributedText];
+    
+    UIColor *color = self.isHighlighted ?
+        [UIColor whiteColor]
+        :
+        [UIColor colorWithRed:0.573 green:0.58 blue:0.592 alpha:1];
+    
+    [mutableString addAttributes: @{NSForegroundColorAttributeName : color}
+                           range: NSMakeRange(0, self.titleLabel.attributedText.length)];
+    
+    self.titleLabel.attributedText = mutableString;
 }
 
 -(NSAttributedString *)getAttributedStringForString:(NSString *)str isLeadSection:(BOOL)isLeadSection
 {
-    NSUInteger fontSize = (isLeadSection) ? 22 : 15;
-    
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = NSTextAlignmentLeft;
     
-    return [[NSMutableAttributedString alloc]
-            initWithString:str attributes: @{
-                                             NSFontAttributeName : [UIFont systemFontOfSize:fontSize],
-                                             NSParagraphStyleAttributeName : paragraphStyle,
-                                             NSStrokeWidthAttributeName : @0.0f, //@-1.0f,
-                                             NSStrokeColorAttributeName : [UIColor blackColor],
-                                             NSForegroundColorAttributeName : [UIColor whiteColor],
-                                             }];
+    if (!isLeadSection) {
+        
+        return [[NSMutableAttributedString alloc]
+                initWithString:str attributes: @{
+                                                 NSFontAttributeName : [UIFont systemFontOfSize:15],
+                                                 NSParagraphStyleAttributeName : paragraphStyle,
+                                                 NSStrokeWidthAttributeName : @0.0f, //@-1.0f,
+                                                 NSStrokeColorAttributeName : [UIColor blackColor],
+                                                 NSForegroundColorAttributeName : [UIColor whiteColor],
+                                                 }];
+    }else{
+
+        NSDictionary *topAttributes = @{
+            NSFontAttributeName : [UIFont systemFontOfSize:10],
+            NSKernAttributeName : @(1.5),
+            NSForegroundColorAttributeName : [UIColor whiteColor]
+        };
+        NSDictionary *bottomAttributes = @{
+            NSFontAttributeName : [UIFont fontWithName:@"Times New Roman" size:22],
+            NSForegroundColorAttributeName : [UIColor whiteColor]
+        };
+
+        NSString *heading = MWLocalizedString(@"table-of-contents-heading", nil);
+
+        if ([[SessionSingleton sharedInstance].domain isEqualToString:@"en"]) {
+            heading = [heading uppercaseString];
+        }
+
+        return [@"$1\n$2" attributedStringWithAttributes: @{}
+                                     substitutionStrings: @[heading, str]
+                                  substitutionAttributes: @[topAttributes, bottomAttributes]
+                ];
+    }
 }
 
 -(NSAttributedString *)getAttributedTitleForSection:(Section *)section
@@ -228,15 +264,15 @@
         imageView.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
 
         // Default layout with horizontal row of images beneath title label.
-        constrain(imageView, NSLayoutAttributeBottom, self, NSLayoutAttributeBottom, -self.imageMargin);
+        constrain(imageView, NSLayoutAttributeBottom, self, NSLayoutAttributeBottom, -self.imageMargin.bottom);
         constrain(imageView, NSLayoutAttributeWidth, nil, NSLayoutAttributeNotAnAttribute, self.imageSize.width);
         constrain(imageView, NSLayoutAttributeHeight, nil, NSLayoutAttributeNotAnAttribute, self.imageSize.height);
         if (self.sectionImageViews.firstObject == imageView) {
-            constrain(imageView, NSLayoutAttributeTop, self.titleLabel, NSLayoutAttributeBottom, self.imageMargin);
-            constrain(imageView, NSLayoutAttributeLeft, self, NSLayoutAttributeLeft, (tocLevel.floatValue * self.imageIndentMargin) + self.imageIndentMarginMin);
+            constrain(imageView, NSLayoutAttributeTop, self.titleLabel, NSLayoutAttributeBottom, self.imageMargin.top);
+            constrain(imageView, NSLayoutAttributeLeft, self, NSLayoutAttributeLeft, self.cellMargin.left);
         }
         if (prevImage) {
-            constrain(imageView, NSLayoutAttributeLeft, prevImage, NSLayoutAttributeRight, self.imageMargin);
+            constrain(imageView, NSLayoutAttributeLeft, prevImage, NSLayoutAttributeRight, self.imageMargin.left);
         }
         prevImage = imageView;
 
@@ -252,10 +288,10 @@
             constrain(imageView, NSLayoutAttributeTop, self.titleLabel, NSLayoutAttributeBottom, 0);
         }
         if (self.sectionImageViews.lastObject == imageView) {
-            constrain(imageView, NSLayoutAttributeBottom, self, NSLayoutAttributeBottom, -self.imageMargin);
+            constrain(imageView, NSLayoutAttributeBottom, self, NSLayoutAttributeBottom, -self.imageMargin.bottom);
         }
         if (prevImage) {
-            constrain(imageView, NSLayoutAttributeTop, prevImage, NSLayoutAttributeBottom, self.imageMargin);
+            constrain(imageView, NSLayoutAttributeTop, prevImage, NSLayoutAttributeBottom, self.imageMargin.top);
         }
         prevImage = imageView;
     }
@@ -277,11 +313,10 @@
         [self addConstraint:constraint];
     };
     
-    NSInteger tocLevelToUse = ((self.tocLevel.intValue - 1) < 0) ? 0 : self.tocLevel.intValue - 1;
-    constrainTitleLabel(NSLayoutAttributeLeft, (tocLevelToUse * self.indentMargin) + self.indentMarginMin);
-    constrainTitleLabel(NSLayoutAttributeRight, -5);
-    constrainTitleLabel(NSLayoutAttributeTop, 5);
-    constrainTitleLabel(NSLayoutAttributeBottom, -5);
+    constrainTitleLabel(NSLayoutAttributeLeft, self.cellMargin.left);
+    constrainTitleLabel(NSLayoutAttributeRight, -self.cellMargin.right);
+    constrainTitleLabel(NSLayoutAttributeTop, self.cellMargin.top);
+    constrainTitleLabel(NSLayoutAttributeBottom, -self.cellMargin.bottom);
 
     // The label's instrinsic content size will keep it above "1" height. This allows labels above
     // images to be narrower vertically than a label for a section which has no images.
@@ -387,8 +422,7 @@
 
     [self.titleLabel removeConstraintsOfViewFromView:self];
     
-    NSInteger tocLevelToUse = ((self.tocLevel.intValue - 1) < 0) ? 0 : self.tocLevel.intValue - 1;
-    constrain(self.titleLabel, NSLayoutAttributeLeft, NSLayoutRelationEqual, self, NSLayoutAttributeLeft, (tocLevelToUse * self.indentMargin) + self.indentMarginMin);
+    constrain(self.titleLabel, NSLayoutAttributeLeft, NSLayoutRelationEqual, self, NSLayoutAttributeLeft, self.cellMargin.left);
     constrain(self.titleLabel, NSLayoutAttributeRight, NSLayoutRelationEqual, self, NSLayoutAttributeRight, -5);
     constrain(self.titleLabel, NSLayoutAttributeTop, NSLayoutRelationEqual, self, NSLayoutAttributeTop, 5);
     constrain(self.titleLabel, NSLayoutAttributeBottom, NSLayoutRelationEqual, self, NSLayoutAttributeBottom, -5);

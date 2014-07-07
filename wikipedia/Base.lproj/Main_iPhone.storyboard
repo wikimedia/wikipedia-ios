@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1qV-3k-dN1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1qV-3k-dN1">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -108,7 +108,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.22052375637755106" green="0.22052375637755106" blue="0.22052375637755106" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.047058828175067902" green="0.047058828175067902" blue="0.047058828175067902" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstItem="VGj-z3-9mh" firstAttribute="leading" secondItem="sgu-W1-m18" secondAttribute="leading" id="jVV-fN-1Va"/>
                                     <constraint firstAttribute="bottom" secondItem="VGj-z3-9mh" secondAttribute="bottom" id="jvc-8X-PKF"/>
@@ -1254,9 +1254,9 @@
                         <constraints>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="C8y-0k-FBq" secondAttribute="bottom" id="3Gh-gP-O56"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="3Zs-jL-a48"/>
-                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="F4Q-Xc-ImV" secondAttribute="leading" id="87k-zE-vFH"/>
-                            <constraint firstAttribute="trailing" secondItem="F4Q-Xc-ImV" secondAttribute="trailing" id="D19-HH-fX5"/>
+                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="trailing" secondItem="F4Q-Xc-ImV" secondAttribute="trailing" id="J2p-jy-zrW"/>
                             <constraint firstAttribute="trailing" secondItem="WeL-Mj-Zsh" secondAttribute="trailing" id="QSr-uN-iN4"/>
+                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="F4Q-Xc-ImV" secondAttribute="leading" id="akc-jF-1Pw"/>
                             <constraint firstAttribute="bottom" secondItem="F4Q-Xc-ImV" secondAttribute="bottom" placeholder="YES" id="bOy-uv-taw"/>
                             <constraint firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="myK-xK-1sX"/>
                         </constraints>

@@ -14,7 +14,7 @@
 #import "UIView+RemoveConstraints.h"
 #import "TOCImageView.h"
 
-#define TOC_SECTION_MARGIN (1.0f / [UIScreen mainScreen].scale)
+#define TOC_SECTION_MARGIN 0 //(1.0f / [UIScreen mainScreen].scale)
 #define TOC_SELECTION_OFFSET_Y 48.0f
 #define TOC_DELAY_BETWEEN_SELECTION_AND_ZOOM 0.35f
 #define TOC_TAG_OTHER_LANGUAGES 9999
@@ -569,7 +569,7 @@ shouldAttemptScrollToImage = NO;
     UIView *prevCell = nil;
     for (UIView *cell in self.sectionCells) {
         constrain(cell, NSLayoutAttributeLeft, self.scrollContainer, NSLayoutAttributeLeft, 0.0f);
-        constrain(cell, NSLayoutAttributeRight, self.scrollContainer, NSLayoutAttributeRight, 0.0f);
+        constrain(cell, NSLayoutAttributeRight, self.scrollContainer, NSLayoutAttributeRight, (1.0f / [UIScreen mainScreen].scale));
         if (self.sectionCells.firstObject == cell) {
             constrain(cell, NSLayoutAttributeTop, self.scrollContainer, NSLayoutAttributeTop, TOC_SECTION_MARGIN);
         }

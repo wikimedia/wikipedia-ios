@@ -145,3 +145,4 @@
 "preference_summary_eventlogging_opt_in" = "Description of preference that when checked enables data collection of user behavior.";
 "license-footer-text" = "Brief footer text linking to CC-BY-SA license. '$1' is placeholder for the license-footer-name message";
 "license-footer-name" = "License short name; usually leave untranslated as CC-BY-SA 3.0";
+"table-of-contents-heading" = "Header text appearing above the first section in the table of contents";

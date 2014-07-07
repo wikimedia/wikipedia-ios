@@ -506,7 +506,7 @@ typedef enum {
 
 -(BOOL)tocDrawerIsOpen
 {
-    return (self.webViewLeftConstraint.constant == 0) ? NO : YES;
+    return (self.webViewRightConstraint.constant == 0) ? NO : YES;
 }
 
 -(void)tocHideIfSafeToToggleDuringNextRunLoopWithDuration:(NSNumber *)duration
@@ -535,13 +535,12 @@ typedef enum {
                      animations: ^{
 
                          // If the top menu isn't hidden, reveal the bottom menu.
-                         if(!ROOT.topMenuHidden){
-                             self.bottomMenuHidden = NO;
-                             [self.view setNeedsUpdateConstraints];
-                         }
+                         self.bottomMenuHidden = ROOT.topMenuHidden;
+                         [self.view setNeedsUpdateConstraints];
+                         
                          self.webView.transform = CGAffineTransformIdentity;
                          self.bottomBarView.transform = CGAffineTransformIdentity;
-                         self.webViewLeftConstraint.constant = 0;
+                         self.webViewRightConstraint.constant = 0;
 
                          [self.view layoutIfNeeded];
                      }completion: ^(BOOL done){
@@ -592,7 +591,7 @@ typedef enum {
                          [self.view setNeedsUpdateConstraints];
                          self.webView.transform = xf;
                          self.bottomBarView.transform = xf;
-                         self.webViewLeftConstraint.constant = [self tocGetWidthForWebViewScale:webViewScale];
+                         self.webViewRightConstraint.constant = [self tocGetWidthForWebViewScale:webViewScale];
                          [self.view layoutIfNeeded];
                      }completion: ^(BOOL done){
                          [self.view setNeedsUpdateConstraints];
@@ -652,6 +651,11 @@ typedef enum {
     }
 }
 
+-(BOOL)isDeviceLanguageRTL {
+    // From: http://stackoverflow.com/a/14793934
+    return ([NSLocale characterDirectionForLanguage:[[NSLocale preferredLanguages] objectAtIndex:0]] == NSLocaleLanguageDirectionRightToLeft);
+}
+
 -(void)tocSetupSwipeGestureRecognizers
 {
     self.tocSwipeLeftRecognizer =
@@ -661,12 +665,15 @@ typedef enum {
     self.tocSwipeRightRecognizer =
     [[UISwipeGestureRecognizer alloc] initWithTarget: self
                                               action: @selector(tocSwipeRightHandler:)];
+    
+    // Device rtl value is checked since this is what would cause the other constraints to flip.
+    BOOL isRTL = [self isDeviceLanguageRTL];
 
     [self tocSetupSwipeGestureRecognizer: self.tocSwipeLeftRecognizer
-                            forDirection: UISwipeGestureRecognizerDirectionLeft];
+                            forDirection: (isRTL ? UISwipeGestureRecognizerDirectionRight : UISwipeGestureRecognizerDirectionLeft)];
 
     [self tocSetupSwipeGestureRecognizer: self.tocSwipeRightRecognizer
-                            forDirection: UISwipeGestureRecognizerDirectionRight];
+                            forDirection: (isRTL ? UISwipeGestureRecognizerDirectionLeft : UISwipeGestureRecognizerDirectionRight)];
 }
 
 -(void)tocSetupSwipeGestureRecognizer: (UISwipeGestureRecognizer *)recognizer
@@ -685,13 +692,6 @@ typedef enum {
 
 -(void)tocSwipeLeftHandler:(UISwipeGestureRecognizer *)recognizer
 {
-    if (recognizer.state == UIGestureRecognizerStateEnded){
-        [self tocHide];
-    }
-}
-
--(void)tocSwipeRightHandler:(UISwipeGestureRecognizer *)recognizer
-{
     NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
     if (!currentArticleTitle || (currentArticleTitle.length == 0)) return;
 
@@ -700,13 +700,28 @@ typedef enum {
     }
 }
 
+-(void)tocSwipeRightHandler:(UISwipeGestureRecognizer *)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateEnded){
+        [self tocHide];
+    }
+}
+
 -(CGFloat)tocGetWebViewScaleWhenTOCVisible
 {
+    CGFloat scale = 1.0;
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
-        return (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.67f : 0.72f);
+        scale = (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.67f : 0.72f);
     }else{
-        return (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.45f : 0.65f);
+        scale = (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.49f : 0.65f);
     }
+
+    // Adjust scale so it won't result in fractional pixel width when applied to web view width.
+    // This prevents the web view from jumping a bit w/long pages.
+    NSInteger i = (NSInteger)self.view.frame.size.width * scale;
+    CGFloat cleanScale = (i / self.view.frame.size.width);
+    
+    return cleanScale;
 }
 
 -(CGFloat)tocGetWidthForWebViewScale:(CGFloat)webViewScale
@@ -736,10 +751,10 @@ typedef enum {
     @[
       @[
           [NSLayoutConstraint constraintWithItem: self.tocVC.view
-                                       attribute: NSLayoutAttributeRight
+                                       attribute: NSLayoutAttributeLeading      // "Leading" for rtl langs.
                                        relatedBy: NSLayoutRelationEqual
                                           toItem: self.webView
-                                       attribute: NSLayoutAttributeLeft
+                                       attribute: NSLayoutAttributeTrailing     // "Trailing" for rtl langs.
                                       multiplier: 1.0
                                         constant: 0]
           ]

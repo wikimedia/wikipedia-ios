@@ -168,3 +168,5 @@
 
 "license-footer-text" = "Content is available under $1";
 "license-footer-name" = "CC-BY-SA 3.0";
+
+"table-of-contents-heading" = "Contents";
