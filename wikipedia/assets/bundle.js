@@ -194,7 +194,7 @@ function findParent(element, selector) {
                 if (selectorName && candidate.tagName && selectorName.toLowerCase() !== candidate.tagName.toLowerCase()) {
                     break;
                 }
-                if (selectorClass && selectorClass !== candidate.className) {
+                if (selectorClass && !(candidate.classList && candidate.classList.contains(selectorClass))) {
                     break;
                 }
                 if (selectorId && selectorId !== candidate.id) {
@@ -253,6 +253,8 @@ function touchEnd(event){
             }
         } else if (findParent(event.target, 'button.mw-language-button')) {
             bridge.sendMessage( 'langClicked', {} );
+        } else if (findParent(event.target, 'button.mw-last-modified')) {
+            bridge.sendMessage( 'historyClicked', {} );
         } else {
             var anchorTarget = findParent(event.target, 'A');
             if ( anchorTarget && (anchorTarget.tagName != "A") ) {
