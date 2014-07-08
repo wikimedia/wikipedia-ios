@@ -12,12 +12,13 @@
 #import "NSString+FormattedAttributedString.h"
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
+#import "PaddedLabel.h"
 
 @interface TOCSectionCellView(){
 
 }
 
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) PaddedLabel *titleLabel;
 
 @property (nonatomic) UIEdgeInsets cellMargin;
 @property (nonatomic) UIEdgeInsets imageMargin;
@@ -42,7 +43,7 @@
         self.sectionImageIds = @[];
         self.sectionImageViews = [@[] mutableCopy];
         
-        self.titleLabel = [[UILabel alloc] init];
+        self.titleLabel = [[PaddedLabel alloc] init];
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         self.titleLabel.numberOfLines = 0;
         self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;

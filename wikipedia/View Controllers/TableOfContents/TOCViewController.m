@@ -80,21 +80,23 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [self.funnel logClose];
+    /*
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: @"SectionImageRetrieved"
                                                   object: nil];
-
+    */
     [super viewWillDisappear:animated];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
+    /*
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(sectionImageRetrieved:)
                                                  name: @"SectionImageRetrieved"
                                                object: nil];
+    */
     [self.funnel logOpen];
 }
 
