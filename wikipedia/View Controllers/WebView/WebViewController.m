@@ -711,9 +711,9 @@ typedef enum {
 {
     CGFloat scale = 1.0;
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
-        scale = (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.67f : 0.72f);
+        scale = (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.6f : 0.7f);
     }else{
-        scale = (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.49f : 0.65f);
+        scale = (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.42f : 0.55f);
     }
 
     // Adjust scale so it won't result in fractional pixel width when applied to web view width.

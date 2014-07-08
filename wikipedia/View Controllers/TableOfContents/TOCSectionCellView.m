@@ -25,6 +25,8 @@
 
 @property (nonatomic, strong) NSNumber *tocLevel;
 
+@property (nonatomic) BOOL showImages;
+
 @end
 
 @implementation TOCSectionCellView
@@ -33,24 +35,27 @@
 {
     self = [super init];
     if (self) {
+        self.showImages = NO;
+
         self.tocLevel = @(0);
         self.sectionId = nil;
-        
         self.sectionImageIds = @[];
         self.sectionImageViews = [@[] mutableCopy];
         
         self.titleLabel = [[UILabel alloc] init];
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        self.titleLabel.numberOfLines = 10;
+        self.titleLabel.numberOfLines = 0;
+        self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
         self.titleLabel.backgroundColor = [UIColor clearColor];
         //self.titleLabel.layer.borderWidth = 1.0f;
         
         [self addSubview:self.titleLabel];
-        
-        self.cellMargin = UIEdgeInsetsMake(8, 12, 8, 10);
-        self.imageMargin = UIEdgeInsetsMake(5, 5, 5, 0);
-        self.imageSize = CGSizeMake(52.5f, 35.0f);
+
+        CGFloat topAndBottomSpace = 15;
+        self.cellMargin = UIEdgeInsetsMake(topAndBottomSpace, 12, topAndBottomSpace, 10);
+        self.imageMargin = UIEdgeInsetsMake(5, 5, topAndBottomSpace, 0);
+        self.imageSize = CGSizeMake(45.0f, 30.0f);
 
         self.isHighlighted = NO;
         
@@ -96,16 +101,20 @@
     self.titleLabel.attributedText = mutableString;
 }
 
--(NSAttributedString *)getAttributedStringForString:(NSString *)str isLeadSection:(BOOL)isLeadSection
+-(NSAttributedString *)getAttributedStringForString:(NSString *)str isLeadSection:(BOOL)isLeadSection isFirstLevel:(BOOL)isFirstLevel
 {
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = NSTextAlignmentLeft;
+    paragraphStyle.lineSpacing = 2.5;
     
     if (!isLeadSection) {
-        
+
+        //UIFont *font = isFirstLevel ? [UIFont boldSystemFontOfSize:17] : [UIFont systemFontOfSize:17];
+        UIFont *font = [UIFont systemFontOfSize:17];
+
         return [[NSMutableAttributedString alloc]
                 initWithString:str attributes: @{
-                                                 NSFontAttributeName : [UIFont systemFontOfSize:15],
+                                                 NSFontAttributeName : font,
                                                  NSParagraphStyleAttributeName : paragraphStyle,
                                                  NSStrokeWidthAttributeName : @0.0f, //@-1.0f,
                                                  NSStrokeColorAttributeName : [UIColor blackColor],
@@ -113,13 +122,17 @@
                                                  }];
     }else{
 
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineSpacing = 8;
+
         NSDictionary *topAttributes = @{
-            NSFontAttributeName : [UIFont systemFontOfSize:10],
-            NSKernAttributeName : @(1.5),
-            NSForegroundColorAttributeName : [UIColor whiteColor]
+            NSFontAttributeName : [UIFont systemFontOfSize:10.5],
+            NSKernAttributeName : @(1.25),
+            NSForegroundColorAttributeName : [UIColor whiteColor],
+            NSParagraphStyleAttributeName : paragraphStyle
         };
         NSDictionary *bottomAttributes = @{
-            NSFontAttributeName : [UIFont fontWithName:@"Times New Roman" size:22],
+            NSFontAttributeName : [UIFont fontWithName:@"Times New Roman" size:24],
             NSForegroundColorAttributeName : [UIColor whiteColor]
         };
 
@@ -142,7 +155,10 @@
     
     string = [string getStringWithoutHTML];
     
-    return [self getAttributedStringForString:string isLeadSection:[section isLeadSection]];
+    //NSLog(@"section.level = %@", section.level);
+    BOOL isFirstLevel = [section.level isEqualToString:@"2"];
+
+    return [self getAttributedStringForString:string isLeadSection:[section isLeadSection] isFirstLevel:isFirstLevel];
 }
 
 -(void)setSectionId:(NSManagedObjectID *)sectionId
@@ -155,6 +171,13 @@
 
         self.titleLabel.attributedText = [self getAttributedTitleForSection:section];
 
+        // Add a bit more margin above lead section.
+        if([section isLeadSection]){
+            
+            UIEdgeInsets margin = UIEdgeInsetsMake(self.cellMargin.top * 2.5, self.cellMargin.left, self.cellMargin.bottom, self.cellMargin.right);
+            self.cellMargin = margin;
+        }
+
         // Add tocLevel for debugging.
         //self.titleLabel.text = [NSString stringWithFormat:@"%@-%@ : %@", section.index, section.tocLevel, self.titleLabel.text];
         
@@ -162,7 +185,7 @@
         [self.sectionImageViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         [self.sectionImageViews removeAllObjects];
 
-        if (self.sectionImageIds.count > 0) {
+        if ((self.sectionImageIds.count > 0) && self.showImages) {
             [self addSectionImageViews];
             [self resetSectionImageViewsBorderStyle];
         }
@@ -261,7 +284,7 @@
     for (TOCImageView *imageView in self.sectionImageViews) {
         [imageView removeConstraintsOfViewFromView:self];
 
-        imageView.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
+        //imageView.layer.borderWidth = 1.0 / [UIScreen mainScreen].scale;
 
         // Default layout with horizontal row of images beneath title label.
         constrain(imageView, NSLayoutAttributeBottom, self, NSLayoutAttributeBottom, -self.imageMargin.bottom);
@@ -312,8 +335,14 @@
 
         [self addConstraint:constraint];
     };
+
+    // Indent subsections, but only first 3 levels.
+    NSInteger tocLevelToUse = ((self.tocLevel.intValue - 1) < 0) ? 0 : self.tocLevel.intValue - 1;
+    tocLevelToUse = MIN(tocLevelToUse, 3);
+    CGFloat indent = 15;
+    constrainTitleLabel(NSLayoutAttributeLeft,  self.cellMargin.left + (tocLevelToUse * indent));
     
-    constrainTitleLabel(NSLayoutAttributeLeft, self.cellMargin.left);
+    //constrainTitleLabel(NSLayoutAttributeLeft, self.cellMargin.left);
     constrainTitleLabel(NSLayoutAttributeRight, -self.cellMargin.right);
     constrainTitleLabel(NSLayoutAttributeTop, self.cellMargin.top);
     constrainTitleLabel(NSLayoutAttributeBottom, -self.cellMargin.bottom);
@@ -321,6 +350,10 @@
     // The label's instrinsic content size will keep it above "1" height. This allows labels above
     // images to be narrower vertically than a label for a section which has no images.
     CGFloat minTitleLabelHeight = (self.sectionImageViews.count > 0) ? 1 : 40;
+
+    if (!self.showImages){
+        minTitleLabelHeight = 1;
+    }
 
     NSArray *constraints =
     [NSLayoutConstraint constraintsWithVisualFormat: @"V:[titleLabel(>=height)]"
