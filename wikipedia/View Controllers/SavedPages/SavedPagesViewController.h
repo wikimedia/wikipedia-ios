@@ -3,8 +3,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TopMenuViewController.h"
+#import "PullToRefreshViewController.h"
 
-@interface SavedPagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface SavedPagesViewController : PullToRefreshViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) NavBarMode navBarMode;
 

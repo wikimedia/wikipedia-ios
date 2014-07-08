@@ -82,10 +82,6 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewLeftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewRightConstraint;
 
-@property (weak, nonatomic) NSLayoutConstraint *pullToRefreshViewBottomConstraint;
-@property (strong, nonatomic) UILabel *pullToRefreshLabel;
-@property (strong, nonatomic) UIView *pullToRefreshView;
-
 @property (strong, nonatomic) TOCViewController *tocVC;
 @property (strong, nonatomic) UISwipeGestureRecognizer *tocSwipeLeftRecognizer;
 @property (strong, nonatomic) UISwipeGestureRecognizer *tocSwipeRightRecognizer;
@@ -180,15 +176,14 @@ typedef enum {
     }
 
     // Ensure the keyboard hides if the web view is scrolled
-    self.webView.scrollView.delegate = self;
+    // We already are delegate from PullToRefreshViewController
+    //self.webView.scrollView.delegate = self;
 
     self.webView.backgroundColor = [UIColor whiteColor];
 
     [self.webView hideScrollGradient];
 
     [self reloadCurrentArticleInvalidatingCache:NO];
-    
-    [self setupPullToRefresh];
     
     // Restrict the web view from scrolling horizonally.
     [self.webView.scrollView addObserver: self
@@ -1112,7 +1107,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
     [self adjustTopAndBottomMenuVisibilityOnScroll];
 
-    [self updatePullToRefreshForScrollView:scrollView];
+    [super scrollViewDidScroll:scrollView];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -1813,136 +1808,37 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     }
 }
 
-#pragma mark Pull to refresh
-
--(void)setupPullToRefresh
+-(UIScrollView *)refreshScrollView
 {
-    self.pullToRefreshLabel = [[UILabel alloc] init];
-    self.pullToRefreshLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.pullToRefreshLabel.backgroundColor = [UIColor clearColor];
-    self.pullToRefreshLabel.textAlignment = NSTextAlignmentCenter;
-    self.pullToRefreshLabel.numberOfLines = 2;
-    self.pullToRefreshLabel.font = [UIFont systemFontOfSize:10];
-    self.pullToRefreshLabel.textColor = [UIColor darkGrayColor];
-    
-    self.pullToRefreshView = [[UIView alloc] init];
-    self.pullToRefreshView.alpha = 0.0f;
-    self.pullToRefreshView.backgroundColor = [UIColor clearColor];
-    self.pullToRefreshView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:self.pullToRefreshView];
-    [self.pullToRefreshView addSubview:self.pullToRefreshLabel];
-    
-    [self constrainPullToRefresh];
+    return self.webView.scrollView;
 }
 
--(void)constrainPullToRefresh
+-(NSString *)refreshPromptString
 {
-    self.pullToRefreshViewBottomConstraint =
-        [NSLayoutConstraint constraintWithItem: self.pullToRefreshView
-                                     attribute: NSLayoutAttributeBottom
-                                     relatedBy: NSLayoutRelationEqual
-                                        toItem: self.view
-                                     attribute: NSLayoutAttributeTop
-                                    multiplier: 1.0
-                                      constant: 0];
-    
-    NSDictionary *viewsDictionary = @{
-                                      @"pullToRefreshView": self.pullToRefreshView,
-                                      @"pullToRefreshLabel": self.pullToRefreshLabel,
-                                      @"selfView": self.view
-                                      };
-    
-    NSArray *viewConstraintArrays =
-        @[
-          [NSLayoutConstraint constraintsWithVisualFormat: @"H:|[pullToRefreshView]|"
-                                                  options: 0
-                                                  metrics: nil
-                                                    views: viewsDictionary],
-          @[self.pullToRefreshViewBottomConstraint],
-          [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-[pullToRefreshLabel]-|"
-                                                  options: 0
-                                                  metrics: nil
-                                                    views: viewsDictionary],
-          [NSLayoutConstraint constraintsWithVisualFormat: @"V:|[pullToRefreshLabel]|"
-                                                  options: 0
-                                                  metrics: nil
-                                                    views: viewsDictionary],
-          ];
-    
-    [self.view addConstraints:[viewConstraintArrays valueForKeyPath:@"@unionOfArrays.self"]];
+    return MWLocalizedString(@"article-pull-to-refresh-prompt", nil);
 }
 
-- (void)updatePullToRefreshForScrollView:(UIScrollView *)scrollView
+-(NSString *)refreshRunningString
 {
-    if (ROOT.isAnimatingTopAndBottomMenuHidden) return;
+    return MWLocalizedString(@"article-pull-to-refresh-is-refreshing", nil);
+}
 
-    CGFloat pullDistance = (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) ? 85.0f : 55.0f;
+-(void)refreshWasPulled
+{
+    [self reloadCurrentArticleInvalidatingCache:YES];
+}
 
-    UIGestureRecognizerState state = ((UIPinchGestureRecognizer *)scrollView.pinchGestureRecognizer).state;
-
+-(BOOL)refreshShouldShow
+{
     NSString *title = [SessionSingleton sharedInstance].currentArticleTitle;
-
-    BOOL safeToShow =
-        (!scrollView.decelerating)
-        &&
-        ([QueuesSingleton sharedInstance].articleRetrievalQ.operationCount == 0)
-        &&
-        (![self tocDrawerIsOpen])
-        &&
-        (state == UIGestureRecognizerStatePossible)
-        &&
-        (title && (title.length > 0))
+    
+    return
+    ([QueuesSingleton sharedInstance].articleRetrievalQ.operationCount == 0)
+    &&
+    (![self tocDrawerIsOpen])
+    &&
+    (title && (title.length > 0))
     ;
-
-    //NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
-    if ((scrollView.contentOffset.y < 0.0f)){
-
-        self.pullToRefreshViewBottomConstraint.constant = -scrollView.contentOffset.y;
-        //self.pullToRefreshViewBottomConstraint.constant = -(fmaxf(scrollView.contentOffset.y, -self.pullToRefreshView.frame.size.height));
-
-        if (safeToShow) {
-            self.pullToRefreshView.alpha = 1.0f;
-        }
-
-        NSString *lineOneText = @"";
-        NSString *lineTwoText = MWLocalizedString(@"article-pull-to-refresh-prompt", nil);
-
-        if (scrollView.contentOffset.y > -(pullDistance * 0.35)){
-            lineOneText = @"▫︎ ▫︎ ▫︎ ▫︎ ▫︎";
-        }else if (scrollView.contentOffset.y > -(pullDistance * 0.52)){
-            lineOneText = @"▫︎ ▫︎ ▪︎ ▫︎ ▫︎";
-        }else if (scrollView.contentOffset.y > -(pullDistance * 0.7)){
-            lineOneText = @"▫︎ ▪︎ ▪︎ ▪︎ ▫︎";
-        }else if (scrollView.contentOffset.y > -pullDistance){
-            lineOneText = @"▫︎ ▪︎ ▪︎ ▪︎ ▫︎";
-        }else{
-            lineOneText = @"▪︎ ▪︎ ▪︎ ▪︎ ▪︎";
-            lineTwoText = MWLocalizedString(@"article-pull-to-refresh-is-refreshing", nil);
-        }
-
-        self.pullToRefreshLabel.text = [NSString stringWithFormat:@"%@\n%@", lineOneText, lineTwoText];
-    }
-
-    if (scrollView.contentOffset.y < -pullDistance) {
-        if (safeToShow) {
-            
-            //NSLog(@"REFRESH NOW!!!!!");
-            
-            [self reloadCurrentArticleInvalidatingCache:YES];
-            
-            [UIView animateWithDuration: 0.3f
-                                  delay: 0.6f
-                                options: UIViewAnimationOptionTransitionNone
-                             animations: ^{
-                                 self.pullToRefreshView.alpha = 0.0f;
-                                 self.pullToRefreshViewBottomConstraint.constant = 0;
-                                 [self.view layoutIfNeeded];
-                                 scrollView.panGestureRecognizer.enabled = NO;
-                             } completion: ^(BOOL done){
-                                 scrollView.panGestureRecognizer.enabled = YES;
-                             }];
-        }
-    }
 }
 
 #pragma mark Data migration

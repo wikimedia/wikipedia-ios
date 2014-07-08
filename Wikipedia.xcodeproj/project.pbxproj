@@ -168,6 +168,7 @@
 		D4991449181D51DE00E6073C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4991448181D51DE00E6073C /* AppDelegate.m */; };
 		D499144C181D51DE00E6073C /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D499144A181D51DE00E6073C /* Main_iPhone.storyboard */; };
 		D4991454181D51DE00E6073C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
+		D49B2ED2196C687C002F035D /* PullToRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D49B2ED1196C687C002F035D /* PullToRefreshViewController.m */; };
 		D4B0AE0219365F7C00F0AC90 /* EventLoggingFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE0119365F7C00F0AC90 /* EventLoggingFunnel.m */; };
 		D4B0AE051936604700F0AC90 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE041936604700F0AC90 /* EditFunnel.m */; };
 		D4B0AE0819366A0A00F0AC90 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE0719366A0A00F0AC90 /* CreateAccountFunnel.m */; };
@@ -666,6 +667,8 @@
 		D4991462181D51DF00E6073C /* Wikipedia-Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Wikipedia-Tests-Info.plist"; sourceTree = "<group>"; };
 		D4991464181D51DF00E6073C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D4991466181D51DF00E6073C /* Wikipedia_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Wikipedia_Tests.m; sourceTree = "<group>"; };
+		D49B2ED0196C687C002F035D /* PullToRefreshViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullToRefreshViewController.h; path = PullToRefresh/PullToRefreshViewController.h; sourceTree = "<group>"; };
+		D49B2ED1196C687C002F035D /* PullToRefreshViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullToRefreshViewController.m; path = PullToRefresh/PullToRefreshViewController.m; sourceTree = "<group>"; };
 		D4B0AE0019365F7C00F0AC90 /* EventLoggingFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventLoggingFunnel.h; path = EventLogging/EventLoggingFunnel.h; sourceTree = "<group>"; };
 		D4B0AE0119365F7C00F0AC90 /* EventLoggingFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventLoggingFunnel.m; path = EventLogging/EventLoggingFunnel.m; sourceTree = "<group>"; };
 		D4B0AE031936604700F0AC90 /* EditFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditFunnel.h; path = EventLogging/EditFunnel.h; sourceTree = "<group>"; };
@@ -1100,6 +1103,7 @@
 		04C43AB0183441A4006C643B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D49B2ECF196C684F002F035D /* PullToRefresh */,
 				04A97E8418B81D440046B166 /* AccountCreation */,
 				04B7B9BA18B5569600A63551 /* Captcha */,
 				043DAC481901C3D2001CD17C /* Credits */,
@@ -1511,6 +1515,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D49B2ECF196C684F002F035D /* PullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				D49B2ED0196C687C002F035D /* PullToRefreshViewController.h */,
+				D49B2ED1196C687C002F035D /* PullToRefreshViewController.m */,
+			);
+			name = PullToRefresh;
+			sourceTree = "<group>";
+		};
 		D4B0ADFF19365F4600F0AC90 /* EventLogging */ = {
 			isa = PBXGroup;
 			children = (
@@ -1752,6 +1765,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D49B2ED2196C687C002F035D /* PullToRefreshViewController.m in Sources */,
 				0449E63518A9845C00D51524 /* LoginViewController.m in Sources */,
 				04D149EC18888A0D006B4104 /* DownloadSectionsOp.m in Sources */,
 				04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,

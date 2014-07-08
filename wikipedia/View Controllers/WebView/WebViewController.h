@@ -5,8 +5,9 @@
 #import "MWNetworkOp.h"
 #import "CenterNavController.h"
 #import "MWPageTitle.h"
+#import "PullToRefreshViewController.h"
 
-@interface WebViewController : UIViewController <UIWebViewDelegate, NetworkOpDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
+@interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, NetworkOpDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic) BOOL bottomMenuHidden;

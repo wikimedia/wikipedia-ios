@@ -304,4 +304,11 @@
     }];
 }
 
+#pragma mark - Pull to refresh
+
+- (UIScrollView *)refreshScrollView
+{
+    return self.tableView;
+}
+
 @end
