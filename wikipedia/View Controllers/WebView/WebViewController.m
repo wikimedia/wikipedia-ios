@@ -1702,7 +1702,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     NSString *dir = lang.dir;
     
     NSString *licenseName = MWLocalizedString(@"license-footer-name", nil);
-    NSString *licenseLink = [NSString stringWithFormat:@"<a href=\"https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License\">%@</a>", licenseName];
+    NSString *licenseLink = [NSString stringWithFormat:@"<a href=\"https://en.m.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License\">%@</a>", licenseName];
     NSString *licenseText = [MWLocalizedString(@"license-footer-text", nil) stringByReplacingOccurrencesOfString:@"$1" withString:licenseLink];
     
     return [NSString stringWithFormat:@"<div dir=\"%@\" class=\"mw-license-footer\">%@</div>", dir, licenseText];
