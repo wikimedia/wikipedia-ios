@@ -143,6 +143,7 @@ bridge.registerListener( "append", function( payload ) {
 /*
     wikihacks.allowDivWidthsToFlow();
 */
+    wikihacks.hideRedLinks();
 });
 
 bridge.registerListener( "prepend", function( payload ) {
@@ -321,7 +322,6 @@ exports.putWideTablesInDivs = function() {
 }
 
 
-
 exports.reduceWeirdWebkitMargin = function() {
     // See the "Tuna" article for tables having weird left margin. This removes it.
     var dds = document.getElementsByTagName('DD');
@@ -346,6 +346,17 @@ exports.hideAudioTags = function() {
         var thisAudio = audio[i];
         thisAudio.controls = '';
         thisAudio.style.display = 'none';
+    }
+}
+
+exports.hideRedLinks = function() {
+    var redLinks = document.querySelectorAll( 'a.new' );
+    for ( var i = 0; i < redLinks.length; i++ ) {
+        var redLink = redLinks[i];
+        var replacementSpan = document.createElement( 'span' );
+        replacementSpan.innerHTML = redLink.innerHTML;
+        replacementSpan.setAttribute( 'class', redLink.getAttribute( 'class' ) );
+        redLink.parentNode.replaceChild( replacementSpan, redLink );
     }
 }
 
