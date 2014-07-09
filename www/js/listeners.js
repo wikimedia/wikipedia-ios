@@ -47,6 +47,7 @@ bridge.registerListener( "append", function( payload ) {
 /*
     wikihacks.allowDivWidthsToFlow();
 */
+    wikihacks.hideRedLinks();
 });
 
 bridge.registerListener( "prepend", function( payload ) {
