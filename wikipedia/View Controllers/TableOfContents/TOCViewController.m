@@ -12,7 +12,10 @@
 #import "UIView+Debugging.h"
 #import "SessionSingleton.h"
 #import "UIView+RemoveConstraints.h"
-#import "TOCImageView.h"
+#import "WikipediaAppUtils.h"
+#import "Section+LeadSection.h"
+#import "NSString+FormattedAttributedString.h"
+#import "NSString+Extras.h"
 
 #define TOC_SECTION_MARGIN 0 //(1.0f / [UIScreen mainScreen].scale)
 #define TOC_SELECTION_OFFSET_Y 48.0f
@@ -25,12 +28,6 @@
 
 }
 
-// Array of section ids for the current article.
-@property (strong, nonatomic) NSMutableArray *sectionIds;
-
-// Dict of sectionImage ids for the current article.
-// (key is sectionId, value is array of sectionImage ids)
-@property (strong, nonatomic) NSMutableDictionary *sectionImageIds;
 @property (strong, nonatomic) NSMutableArray *sectionCells;
 
 @property (strong, nonatomic) IBOutlet UIView *scrollContainer;
@@ -48,9 +45,7 @@
     
     self.funnel = [[ToCInteractionFunnel alloc] init];
 
-    self.sectionIds = [@[]mutableCopy];
-    self.sectionImageIds = [@{} mutableCopy];
-    self.sectionCells = [@[]mutableCopy];
+    self.sectionCells = @[].mutableCopy;
 
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
@@ -75,35 +70,22 @@
                       forKeyPath: @"contentSize"
                          options: NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial
                          context: nil];
+
+    [self refreshForCurrentArticle];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [self.funnel logClose];
-    /*
-    [[NSNotificationCenter defaultCenter] removeObserver: self
-                                                    name: @"SectionImageRetrieved"
-                                                  object: nil];
-    */
+
     [super viewWillDisappear:animated];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    /*
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(sectionImageRetrieved:)
-                                                 name: @"SectionImageRetrieved"
-                                               object: nil];
-    */
-    [self.funnel logOpen];
-}
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self refreshForCurrentArticle];
+    [self.funnel logOpen];
 }
 
 #pragma mark Refreshing
@@ -114,17 +96,11 @@
 
     [self.scrollContainer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
-    [self.sectionIds removeAllObjects];
-    [self.sectionImageIds removeAllObjects];
     [self.sectionCells removeAllObjects];
 
-    // Get data for sections and section images.
-    [self getArticleData];
+    [self setupSectionCells];
 
-    // Get cells for section entries in the table of contents.
-    [self getSectionCells];
-    
-    for (UIView *cell in self.sectionCells) {
+    for (TOCSectionCellView *cell in self.sectionCells) {
         [self.scrollContainer addSubview:cell];
     }
 
@@ -132,33 +108,9 @@
     
     // Don't start monitoring scrollView scrolling until view has appeared.
     self.scrollView.delegate = self;
-
-    [self.view setNeedsUpdateConstraints];
 }
 
--(void)sectionImageRetrieved:(NSNotification *)notification
-{
-    // Update the section image views when their respective image is retrieved.
-    NSDictionary *info = [notification userInfo];
-    NSString *fileName = [info objectForKey:@"fileName"] ? info[@"fileName"] : nil;
-    if (!fileName) return;
-    NSData *imageData = [info objectForKey:@"data"] ? (NSData *)info[@"data"] : nil;
-    if (!imageData) return;
-
-    for (TOCSectionCellView *cell in self.sectionCells) {
-        for (TOCImageView *tocImageView in cell.sectionImageViews) {
-            NSString *escapedFileName = [tocImageView.fileName stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            if ([fileName isEqualToString:escapedFileName]) {
-                tocImageView.image = [UIImage imageWithData:imageData];
-                return;
-            }
-        }
-    }
-}
-
-#pragma mark Data retrieval
-
--(void)getArticleData
+-(void)setupSectionCells
 {
     NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
     NSString *currentArticleDomain = [SessionSingleton sharedInstance].currentArticleDomain;
@@ -173,20 +125,72 @@
                     // Get section ids.
                     NSArray *sections = [article getSectionsUsingContext:articleDataContext_.mainContext];
                     for (Section *section in sections) {
-                        [self.sectionIds addObject:section.objectID];
-                    }
-                    // Get section image ids.
-                    NSArray *sectionImages = [article getSectionImagesUsingContext:articleDataContext_.mainContext];
-                    for (SectionImage *sectionImage in sectionImages) {
-                        if (!self.sectionImageIds[sectionImage.section.objectID]) {
-                            self.sectionImageIds[sectionImage.section.objectID] = [@[] mutableCopy];
+                        
+                        NSNumber *tag = section.sectionId;
+                        NSNumber *isLead = @([section isLeadSection]);
+                        NSNumber *sectionLevel = section.tocLevel;
+                        id title = [self getTitleForSection:section];
+                        UIEdgeInsets padding = UIEdgeInsetsZero;
+                        
+                        TOCSectionCellView *cell = [[TOCSectionCellView alloc] init];
+                        
+                        if (isLead.boolValue) {
+                            // Use attributed title only for lead section to add "CONTENTS" text above the title.
+                            cell.attributedText = title;
+                            padding = UIEdgeInsetsMake(37, 12, 14, 10);
+                        }else{
+                            // Faster to not use attributed string for non-lead sections.
+                            cell.text = title;
+                            // Indent subsections, but only first 3 levels.
+                            NSInteger tocLevelToUse = ((sectionLevel.integerValue - 1) < 0) ? 0 : sectionLevel.integerValue - 1;
+                            tocLevelToUse = MIN(tocLevelToUse, 3);
+                            CGFloat indent = 15;
+                            padding = UIEdgeInsetsMake(16, 12 + (tocLevelToUse * indent), 16, 10);
                         }
-                        [self.sectionImageIds[sectionImage.section.objectID] addObject:sectionImage.objectID];
+                        cell.padding = padding;
+                        cell.tag = tag.integerValue;
+                        
+                        [self.sectionCells addObject:cell];
                     }
                 }
             }
         }];
     }
+}
+
+-(id)getTitleForSection:(Section *)section
+{
+    NSString *title = [section isLeadSection] ? section.article.title : section.title;
+    NSString *noHtmlTitle = [title getStringWithoutHTML];
+    id titleToUse = [section isLeadSection] ? [self getLeadSectionAttributedTitleForString:noHtmlTitle] : noHtmlTitle;
+    return titleToUse;
+}
+
+-(NSAttributedString *)getLeadSectionAttributedTitleForString:(NSString *)string
+{
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 8;
+    
+    NSDictionary *contentsHeaderAttributes = @{
+                                    NSFontAttributeName : [UIFont systemFontOfSize:10.5],
+                                    NSKernAttributeName : @(1.25),
+                                    NSParagraphStyleAttributeName : paragraphStyle
+                                    };
+    NSDictionary *sectionTitleAttributes = @{
+                                       NSFontAttributeName : [UIFont fontWithName:@"Times New Roman" size:24]
+                                       };
+    
+    NSString *heading = MWLocalizedString(@"table-of-contents-heading", nil);
+    
+    if ([[SessionSingleton sharedInstance].domain isEqualToString:@"en"]) {
+        heading = [heading uppercaseString];
+    }
+    
+    return [@"$1\n$2" attributedStringWithAttributes: @{}
+                                 substitutionStrings: @[heading, string]
+                              substitutionAttributes: @[contentsHeaderAttributes, sectionTitleAttributes]
+            ];
+    
 }
 
 #pragma mark Hide
@@ -210,19 +214,7 @@
     UIView *view = tapRecognizer.view;
     CGPoint loc = [tapRecognizer locationInView:view];
     UIView *subview = [view hitTest:loc withEvent:nil];
-
-    if ([subview isKindOfClass:[UIImageView class]]) {
-        if ([subview.superview isMemberOfClass:[TOCSectionCellView class]]) {
-            TOCSectionCellView *cell = (TOCSectionCellView*)subview.superview;
-            cell.isHighlighted = YES;
-        }
-
-        [self scrollWebViewToImageForCell: (UIImageView *)subview
-                                 duration: duration
-                              thenHideTOC: YES];
-        //NSLog(@"image tap index = %ld, section index = %ld", (long)subview.tag, (long)subview.superview.tag);
-
-    }else if ([subview isMemberOfClass:[TOCSectionCellView class]]) {
+    if ([subview isMemberOfClass:[TOCSectionCellView class]]) {
 
         [self scrollWebViewToSectionForCell: (TOCSectionCellView *)subview
                                    duration: duration
@@ -230,7 +222,7 @@
         //NSLog(@"section cell tap index = %ld", (long)subview.tag);
 
     }else{
-        // Hide the toc if non-UIImageView non-TOCSectionCellView tapped.
+        // Hide the toc if non-TOCSectionCellView somehow tapped.
         // NSLog(@"Some other part tapped.");
         [self.webVC tocHide];
     }
@@ -252,25 +244,6 @@
                          thenHideTOC: hideTOC];
 }
 
--(void)scrollWebViewToImageForCell: (UIImageView *)imageView
-                          duration: (CGFloat)duration
-                       thenHideTOC: (BOOL)hideTOC
-{
-    NSManagedObjectID *sectionId = self.sectionIds[imageView.superview.tag];
-    NSArray *sectionImageIds = self.sectionImageIds[sectionId];
-    NSManagedObjectID *sectionImageId = sectionImageIds[imageView.tag];
-    
-    ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
-    SectionImage *sectionImage = (SectionImage *)[articleDataContext_.mainContext objectWithID:sectionImageId];
-    
-    CGPoint p = [self.webVC.webView getWebViewCoordsForHtmlImageWithSrc:sectionImage.image.sourceUrl];
-    p.y = p.y - 23;
-
-    [self.webVC tocScrollWebViewToPoint: p
-                               duration: duration
-                            thenHideTOC: hideTOC];
-}
-
 #pragma mark Highlight and scroll to focal cell.
 
 -(void)unHighlightAllCells
@@ -290,17 +263,6 @@
             // In case other non-TOCSectionCellView views are tacked beneath the TOCSectionCellView's...
             if (![cell isMemberOfClass:[TOCSectionCellView class]]) continue;
 
-//TODO: TOCSectionCellView has a "TODO:" about making a section image object for managing their state. Do that.
-// Expecially note the "v.layer.borderColor" stuff below - doesn't belong here.
-            [cell resetSectionImageViewsBorderStyle];
-            
-//TODO: allow this image border highlighting for vertically stacked image layout.
-/*
-NSArray *centerlineIntersectingCellImages = [cell imagesIntersectingYOffset:focalOffset inView:self.scrollView.superview];
-for (UIImageView *v in centerlineIntersectingCellImages) {
-    v.layer.borderColor = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0].CGColor;
-}
-*/
             if ([self isCellFocalCell:cell]) {
                 [self unHighlightAllCells];
                 cell.isHighlighted = YES;
@@ -343,30 +305,10 @@ for (UIImageView *v in centerlineIntersectingCellImages) {
     for (TOCSectionCellView *cell in self.sectionCells) {
         if (cell.isHighlighted) {
 
-            CGFloat focalOffset = [self getSelectionLine];
-            NSArray *centerlineIntersectingCellImages =
-            [cell imagesIntersectingYOffset: focalOffset
-                                     inView: self.scrollView.superview];
-            
-            BOOL shouldAttemptScrollToImage = (centerlineIntersectingCellImages.count > 0) ? YES : NO;
-//TODO: enable scroll to image for vertically stacked image layout.
-shouldAttemptScrollToImage = NO;
-            BOOL shouldAttemptScrollToSection = (!shouldAttemptScrollToImage) ? YES : NO;
-
-            if (shouldAttemptScrollToImage) {
-                UIImageView *i = (UIImageView *)centerlineIntersectingCellImages[0];
-                [self scrollWebViewToImageForCell: i
-                                         duration: TOC_SELECTION_SCROLL_DURATION
-                                      thenHideTOC: NO];
-                    break;
-            }
-
-            if (shouldAttemptScrollToSection){
-                [self scrollWebViewToSectionForCell: cell
-                                           duration: TOC_SELECTION_SCROLL_DURATION
-                                        thenHideTOC: NO];
-                break;
-            }
+            [self scrollWebViewToSectionForCell: cell
+                                       duration: TOC_SELECTION_SCROLL_DURATION
+                                    thenHideTOC: NO];
+            break;
         }
     }
 }
@@ -552,8 +494,8 @@ shouldAttemptScrollToImage = NO;
 -(void)constrainSectionCells
 {
 
-//TODO: have these constraints, but also a set which positions cells offscreen, that way
-// they can be animated between.
+//TODO: possibly have these constraints, but also a set which positions cells offscreen, that way
+// they can be animated between?
 
     [self.scrollContainer removeConstraints:self.scrollContainer.constraints];
     
@@ -585,16 +527,6 @@ shouldAttemptScrollToImage = NO;
     }
 }
 
--(void)getSectionCells
-{
-    for (NSManagedObjectID *sectionId in self.sectionIds) {
-        TOCSectionCellView *cell = [[TOCSectionCellView alloc] init];
-        cell.translatesAutoresizingMaskIntoConstraints = NO;
-        cell.sectionImageIds = self.sectionImageIds[sectionId];
-        cell.sectionId = sectionId;
-        [self.sectionCells addObject:cell];
-    }
-}
 
 /*
 #pragma mark - Navigation

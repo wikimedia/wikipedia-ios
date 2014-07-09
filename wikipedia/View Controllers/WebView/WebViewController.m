@@ -613,6 +613,10 @@ typedef enum {
 
     [self.tocVC didMoveToParentViewController:self];
 
+    // This ensures the toc cells assume the proper height for how many lines of text they're displaying before
+    // toc show animation. Otherwise they grow to their height as part of the show animation.
+    [self.tocVC.view layoutIfNeeded];
+
     // Make the toc's scroll view not scroll until the swipe recognizer fails.
     [self.tocVC.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.tocSwipeLeftRecognizer];
     [self.tocVC.scrollView.panGestureRecognizer requireGestureRecognizerToFail:self.tocSwipeRightRecognizer];
