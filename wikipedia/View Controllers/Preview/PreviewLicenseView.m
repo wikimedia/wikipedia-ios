@@ -10,18 +10,28 @@
 
 //#import "NSString+Extras.h"
 
-@interface PreviewLicenseView(){
-}
+@interface PreviewLicenseView()
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topDividerHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomDividerHeight;
 
 @property (nonatomic) BOOL hideTopDivider;
 @property (nonatomic) BOOL hideBottomDivider;
+@property (readonly) UIActionSheet *sheet;
 
 @end
 
-@implementation PreviewLicenseView
+#define TERMS_LINK @"https://wikimediafoundation.org/wiki/Terms_of_Use"
+#define LICENSE_LINK @"https://creativecommons.org/licenses/by-sa/3.0/"
+
+enum {
+    BUTTON_TERMS = 0,
+    BUTTON_LICENSE = 1
+} EnumActionSheetButtons;
+
+@implementation PreviewLicenseView {
+    UIActionSheet *_sheet;
+}
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
@@ -37,8 +47,9 @@
 {
     self.licenseTitleLabel.padding = UIEdgeInsetsMake(2, 0, 0, 0);
 
-    self.licenseTitleLabel.text = MWLocalizedString(@"wikitext-upload-save-license", nil);
-    [self underlineLicenseName:self.licenseTitleLabel];
+    self.licenseTitleLabel.text = MWLocalizedString(@"wikitext-upload-save-terms-and-license", nil);
+    [self styleLinks:self.licenseTitleLabel];
+    [self.licenseTitleLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(termsLicenseLabelTapped:)]];
 
     self.licenseLoginLabel.text = MWLocalizedString(@"wikitext-upload-save-anonymously-warning", nil);
     [self underlineSignIn:self.licenseLoginLabel];
@@ -68,7 +79,7 @@
     return previewLicenseView;
 }
 
--(void)underlineLicenseName:(UILabel *)label
+-(void)styleLinks:(UILabel *)label
 {
     NSDictionary *baseAttributes =
         @{
@@ -76,7 +87,7 @@
             NSFontAttributeName: label.font
         };
 
-    NSDictionary *substitutionAttributes =
+    NSDictionary *linkAttributes =
         @{
             //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
             NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
@@ -84,9 +95,50 @@
     
     label.attributedText =
     [label.text attributedStringWithAttributes: baseAttributes
-                           substitutionStrings: @[MWLocalizedString(@"wikitext-upload-save-license-name", nil)]
-                        substitutionAttributes: @[substitutionAttributes]
+                           substitutionStrings: @[MWLocalizedString(@"wikitext-upload-save-terms-name", nil),
+                                                  MWLocalizedString(@"wikitext-upload-save-license-name", nil)]
+                        substitutionAttributes: @[linkAttributes, linkAttributes]
      ];
+}
+
+-(void)termsLicenseLabelTapped:(UILabel *)label
+{
+    // @todo on iPad position this against the view
+    [self.sheet showInView:ROOT.view];
+}
+
+-(UIActionSheet *)sheet
+{
+    if (_sheet == nil) {
+        NSString *cancel;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            cancel = MWLocalizedString(@"open-link-title", nil);
+        } else {
+            cancel = MWLocalizedString(@"open-link-cancel", nil);
+        }
+        _sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                             delegate:self
+                                    cancelButtonTitle:cancel
+                               destructiveButtonTitle:nil
+                                    otherButtonTitles:MWLocalizedString(@"wikitext-upload-save-terms-name", nil),
+                                                      MWLocalizedString(@"wikitext-upload-save-license-name", nil),
+                                                      nil];
+    }
+    return _sheet;
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch(buttonIndex) {
+        case BUTTON_TERMS:
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:TERMS_LINK]];
+            break;
+        case BUTTON_LICENSE:
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:LICENSE_LINK]];
+            break;
+        default:
+            NSLog(@"nooooo");
+    }
 }
 
 -(void)underlineSignIn:(UILabel *)label
