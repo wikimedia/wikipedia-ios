@@ -5,6 +5,7 @@
 #import "WikipediaAppUtils.h"
 #import "NSString+FormattedAttributedString.h"
 #import "WikiGlyph_Chars.h"
+#import "RootViewController.h"
 
 #define PREVIEW_BLUE_COLOR [UIColor colorWithRed:0.2 green:0.4784 blue:1.0 alpha:1.0]
 
