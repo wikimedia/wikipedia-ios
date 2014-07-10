@@ -137,6 +137,8 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryResultPrototypeView" bundle:nil] forCellReuseIdentifier:@"HistoryResultCell"];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.emptyOverlay.hidden = ([self.historyDataArray count] > 0);
 }
 
 #pragma mark - History data
@@ -499,6 +501,8 @@
             }
             
             [self.tableView endUpdates];
+            
+            self.emptyOverlay.hidden = ([self.historyDataArray count] > 0);
         }
     }];
 }
