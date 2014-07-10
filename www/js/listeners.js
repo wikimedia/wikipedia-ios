@@ -48,6 +48,7 @@ bridge.registerListener( "append", function( payload ) {
     wikihacks.allowDivWidthsToFlow();
 */
     wikihacks.hideRedLinks();
+    wikihacks.tweakFilePage();
 });
 
 bridge.registerListener( "prepend", function( payload ) {
