@@ -144,6 +144,7 @@ bridge.registerListener( "append", function( payload ) {
     wikihacks.allowDivWidthsToFlow();
 */
     wikihacks.hideRedLinks();
+    wikihacks.tweakFilePage();
 });
 
 bridge.registerListener( "prepend", function( payload ) {
@@ -357,6 +358,32 @@ exports.hideRedLinks = function() {
         replacementSpan.innerHTML = redLink.innerHTML;
         replacementSpan.setAttribute( 'class', redLink.getAttribute( 'class' ) );
         redLink.parentNode.replaceChild( replacementSpan, redLink );
+    }
+}
+
+exports.tweakFilePage = function() {
+    var filetoc = document.getElementById( 'filetoc' );
+    if (filetoc) {
+        // We're on a File: page! Do some quick hacks.
+        // In future, replace entire thing with a custom view most of the time.
+        var content = document.getElementById( 'content' );
+        
+        // Hide edit sections
+        var editSections = content.querySelectorAll('.edit_section_button');
+        for (var i = 0; i < editSections.length; i++) {
+            editSections[i].style.display = 'none';
+        }
+        
+        var fullImageLink = content.querySelector('.fullImageLink a');
+        if (fullImageLink) {
+            // Don't replace the a with a span, as it will break styles
+            // Just disable clicking.
+            // Don't disable touchstart as this breaks scrolling!
+            fullImageLink.href = '';
+            fullImageLink.addEventListener( 'click', function( event ) {
+                event.preventDefault();
+            } );
+        }
     }
 }
 

@@ -896,14 +896,13 @@ typedef enum {
                               domain: [SessionSingleton sharedInstance].currentArticleDomain
                      discoveryMethod: DISCOVERY_METHOD_LINK
                    invalidatingCache: NO];
-        }else if ([href hasPrefix:@"//"]) {
-            href = [@"http:" stringByAppendingString:href];
+        } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
+            // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
+            if ([href hasPrefix:@"//"]) {
+                // Expand protocol-relative link to https -- secure by default!
+                href = [@"https:" stringByAppendingString:href];
+            }
             
-NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to external link: %@", href];
-[weakSelf.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"alert('%@')", msg]];
-
-        } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"]) {
-            // A standard link.
             // TODO: make all of the stuff above parse the URL into parts
             // unless it's /wiki/ or #anchor style.
             // Then validate if it's still in Wikipedia land and branch appropriately.
