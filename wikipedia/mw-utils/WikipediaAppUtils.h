@@ -12,5 +12,10 @@
 +(NSString*) versionedUserAgent;
 +(NSString*) localizedStringForKey:(NSString *)key;
 +(NSString*) relativeTimestamp:(NSDate *)date;
++(NSString*) domainNameForCode:(NSString *)code;
++(NSString*) mainArticleTitleForCode:(NSString *)code;
++(NSString*) wikiLangForSystemLang:(NSString *)code;
+
++(void)copyAssetsFolderToAppDataDocuments;
 
 @end

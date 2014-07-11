@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WikipediaAppUtils.h"
+#import "AssetsFile.h"
 
 @implementation WikipediaAppUtils
 
@@ -85,5 +86,128 @@
         return [NSString stringWithFormat:MWLocalizedString(@"timestamp-years", nil), (int)round(years)];
     }
 }
+
++(NSString *)domainNameForCode:(NSString *)code
+{
+    AssetsFile *assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_LANGUAGES];
+    NSArray *result = assetsFile.array;
+    if (result.count > 0) {
+        for (NSDictionary *d in result) {
+            if ([d[@"code"] isEqualToString:code]) {
+                return d[@"name"];
+            }
+        }
+        return nil;
+    }else{
+        return nil;
+    }
+}
+
+
++(NSString *)mainArticleTitleForCode:(NSString *)code
+{
+    AssetsFile *assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_MAINPAGES];
+    NSDictionary *mainPageNames = assetsFile.dictionary;
+    return mainPageNames[code];
+}
+
++(NSString *)wikiLangForSystemLang:(NSString *)code
+{
+    NSArray *bits = [code componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-_"]];
+    NSString *base = bits[0];
+    // @todo check for mismatches!
+    return base;
+}
+
+#pragma mark Copy bundled assets folder and contents to app "AppData/Documents/assets/"
+
++(void)copyAssetsFolderToAppDataDocuments
+{
+    /*
+     Some files need to be bunded with releases, but potentially updated between
+     releases as well. These files are placed in the bundled "assets" directory,
+     which is copied over to the "AppData/Documents/assets/" folder because the
+     bundle cannot be written to by the running app.
+     
+     The files in "AppData/Documents/assets/" are then accessed instead of their
+     bundled copies. This way, when newly downloaded versions overwrite the
+     "AppData/Documents/assets/" files, the new versions actually get used.
+     
+     So, this method
+     - Copies bundled assets folder over to "AppData/Documents/assets/"
+     if it's not already there. (Fresh app install)
+     
+     - Copies new files that may be added to bundle assets folder over to
+     "AppData/Documents/assets/". (App update including new bundled files)
+     
+     - Copies files that exist in both the bundle and
+     "AppData/Documents/assets/" if the bundled file is newer. (App
+     update to files which were bundled in previous release.) Note
+     that when an app update is installed and the app files are written
+     the creation and last modified dates of the bundled files are
+     probably changed to the current timestamp, which means these
+     updated files will as a matter of course always be newer than
+     any files in "AppData/Documents/assets/". In other words, the
+     date comparison check in this method is probably redundant as the
+     bundled file is always newer.
+     */
+    
+    NSString *folderName = @"assets";
+    NSArray *paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:folderName];
+    NSString *bundledPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
+    
+    void(^copy)(NSString *, NSString *) = ^void(NSString *path1, NSString *path2) {
+        NSError *error = nil;
+        [[NSFileManager defaultManager] copyItemAtPath:path1 toPath:path2 error:&error];
+        if (error) {
+            NSLog(@"Could not copy '%@' to '%@'", path1, path2);
+        }
+    };
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:documentsPath]){
+        // "AppData/Documents/assets/" didn't exist so copy bundled assets folder and its contents over to "AppData/Documents/assets/"
+        copy(bundledPath, documentsPath);
+    }else{
+        
+        // "AppData/Documents/assets/" exists, so only copy new or *newer* bundled assets folder files over to "AppData/Documents/assets/"
+        
+        NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:bundledPath];
+        NSString *fileName;
+        while ((fileName = [dirEnum nextObject] )) {
+            
+            NSString *documentsFilePath = [documentsPath stringByAppendingPathComponent:fileName];
+            NSString *bundledFilePath = [bundledPath stringByAppendingPathComponent:fileName];
+            
+            if (![[NSFileManager defaultManager] fileExistsAtPath:documentsFilePath]){
+                // No file in "AppData/Documents/assets/" so copy from bundle
+                copy(bundledFilePath, documentsFilePath);
+            }else{
+                // File exists in "AppData/Documents/assets/" so copy it if bundled file is newer
+                NSError *error1 = nil, *error2 = nil;
+                NSDictionary *fileInDocumentsAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:documentsFilePath error:&error1];
+                NSDictionary *fileInBundleAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:bundledFilePath error:&error2];
+                
+                if (!error1 && !error1) {
+                    
+                    NSDate *date1 = (NSDate*)fileInBundleAttr[NSFileModificationDate];
+                    NSDate *date2 = (NSDate*)fileInDocumentsAttr[NSFileModificationDate];
+                    
+                    if ([date1 timeIntervalSinceDate:date2] > 0) {
+                        // Bundled file is newer.
+                        
+                        // Remove existing "AppData/Documents/assets/" file - otherwise the copy will fail.
+                        NSError *error = nil;
+                        [[NSFileManager defaultManager] removeItemAtPath:documentsFilePath error:&error];
+                        
+                        // Copy!
+                        copy(bundledFilePath, documentsFilePath);
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 @end

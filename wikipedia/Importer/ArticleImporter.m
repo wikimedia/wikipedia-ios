@@ -7,6 +7,7 @@
 #import "ArticleCoreDataObjects.h"
 #import "SessionSingleton.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
+#import "WikipediaAppUtils.h"
 
 @implementation ArticleImporter
 
@@ -70,7 +71,7 @@
             article.lastmodifiedby = @"";
             article.redirected = @"";
             article.domainName =
-                [[SessionSingleton sharedInstance] domainNameForCode:article.domain];
+                [WikipediaAppUtils domainNameForCode:article.domain];
             
             // Add saved record for article.
             Saved *saved =

@@ -2,7 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SessionSingleton.h"
-#import "AssetsFile.h"
+#import "WikipediaAppUtils.h"
 
 @implementation SessionSingleton
 
@@ -47,7 +47,7 @@
 
 -(void)setDomain:(NSString *)domain
 {
-    self.domainMainArticleTitle = [self mainArticleTitleForCode:domain];
+    self.domainMainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:domain];
 
     [[NSUserDefaults standardUserDefaults] setObject:domain forKey:@"Domain"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -115,35 +115,12 @@
 
 -(NSString *)currentArticleDomainName
 {
-    return [self domainNameForCode:self.currentArticleDomain];
-}
-
--(NSString *)domainNameForCode:(NSString *)code
-{
-    AssetsFile *assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_LANGUAGES];
-    NSArray *result = assetsFile.array;
-    if (result.count > 0) {
-        for (NSDictionary *d in result) {
-            if ([d[@"code"] isEqualToString:code]) {
-                return d[@"name"];
-            }
-        }
-        return nil;
-    }else{
-        return nil;
-    }
-}
-
--(NSString *)mainArticleTitleForCode:(NSString *)code
-{
-    AssetsFile *assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_MAINPAGES];
-    NSDictionary *mainPageNames = assetsFile.dictionary;
-    return mainPageNames[code];
+    return [WikipediaAppUtils domainNameForCode:self.currentArticleDomain];
 }
 
 -(BOOL)isCurrentArticleMain
 {
-    NSString *mainArticleTitle = [self mainArticleTitleForCode: self.currentArticleDomain];
+    NSString *mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode: self.currentArticleDomain];
     // Reminder: Do not do the following instead of the line above:
     //      NSString *mainArticleTitle = self.domainMainArticleTitle;
     // This is because each language domain has its own main page, and self.domainMainArticleTitle

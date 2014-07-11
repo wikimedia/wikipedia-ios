@@ -31,9 +31,7 @@
 
 @property (nonatomic) BOOL fallback;
 -(NSURL *)urlForDomain:(NSString *)domain;
--(NSString *)domainNameForCode:(NSString *)code;
 
--(NSString *)mainArticleTitleForCode:(NSString *)code;
 -(BOOL)isCurrentArticleMain;
 
 + (SessionSingleton *)sharedInstance;

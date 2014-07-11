@@ -4,6 +4,7 @@
 #import "AppDelegate.h"
 #import "URLCache.h"
 #import "NSDate-Utilities.h"
+#import "WikipediaAppUtils.h"
 
 @implementation AppDelegate
 
@@ -18,6 +19,7 @@
                                                          diskPath: nil];
     [NSURLCache setSharedURLCache:urlCache];
 
+    [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
     [self registerStandardUserDefaults];
     [self systemWideStyleOverrides];
 
@@ -45,14 +47,36 @@
 
 -(void)registerStandardUserDefaults
 {
+    NSString *systemLang = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSString *lang = [WikipediaAppUtils wikiLangForSystemLang:systemLang];
+    if (lang == nil) {
+        // Should not happen.
+        NSLog(@"Could not map system language %@ to wiki language; falling back to en", systemLang);
+        lang = @"en";
+    }
+    
+    NSString *langName = [WikipediaAppUtils domainNameForCode:lang];
+    if (langName == nil) {
+        // Should not happen, hopefully.
+        NSLog(@"Could not get localized name of language %@", lang);
+        langName = lang;
+    }
+
+    NSString *mainPage = [WikipediaAppUtils mainArticleTitleForCode:lang];
+    if (mainPage == nil) {
+        // Also should not happen, hopefully.
+        NSLog(@"Could not get main page of language %@", lang);
+        mainPage = @"Main Page";
+    }
+    
     // Register default default values.
     // See: http://stackoverflow.com/a/5397647/135557
     NSDictionary *userDefaultsDefaults = @{
-        @"CurrentArticleTitle": @"Main Page",
-        @"CurrentArticleDomain": @"en",
-        @"Domain": @"en",
-        @"DomainName": @"English",
-        @"DomainMainArticleTitle": @"Main Page",
+        @"CurrentArticleTitle": mainPage,
+        @"CurrentArticleDomain": lang,
+        @"Domain": lang,
+        @"DomainName": langName,
+        @"DomainMainArticleTitle": mainPage,
         @"Site": @"wikipedia.org",
         @"ZeroWarnWhenLeaving" : @YES,
         @"ZeroOnDialogShownOnce" : @NO,
