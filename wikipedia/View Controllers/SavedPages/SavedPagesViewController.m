@@ -126,6 +126,8 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"SavedPagesResultPrototypeView" bundle:nil] forCellReuseIdentifier:@"SavedPagesResultCell"];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.emptyOverlay.hidden = ([self.savedPagesDataArray[0][@"data"] count] > 0);
 }
 
 #pragma mark - SavedPages data
@@ -300,6 +302,8 @@
             [self.savedPagesDataArray[indexPath.section][@"data"] removeObject:savedEntryId];
             
             [self.tableView endUpdates];
+
+            self.emptyOverlay.hidden = ([self.savedPagesDataArray[0][@"data"] count] > 0);
         }
     }];
 }

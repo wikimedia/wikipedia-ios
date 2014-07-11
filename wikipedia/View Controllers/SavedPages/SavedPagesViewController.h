@@ -8,6 +8,7 @@
 @interface SavedPagesViewController : PullToRefreshViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) NavBarMode navBarMode;
+@property (weak, nonatomic) IBOutlet UIView *emptyOverlay;
 
 @property (weak, nonatomic) id truePresentingVC;
 

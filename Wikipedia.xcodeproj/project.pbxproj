@@ -645,7 +645,6 @@
 		D46CD8C718A1AC630042959E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D46CD8C818A1AC730042959E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D46CD8CC18A1ACA20042959E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
-		D46CD8D018A1B0F00042959E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D46CD8D218A1B10A0042959E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D46CD8D318A1B1140042959E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D474CC10182AE033002BDE45 /* SiteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiteTests.m; sourceTree = "<group>"; };
@@ -680,6 +679,7 @@
 		D4B0AE0C19366A5400F0AC90 /* LoginFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginFunnel.h; path = EventLogging/LoginFunnel.h; sourceTree = "<group>"; };
 		D4B0AE0D19366A5400F0AC90 /* LoginFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginFunnel.m; path = EventLogging/LoginFunnel.m; sourceTree = "<group>"; };
 		D4BC22B3181E9E6300CAC673 /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
+		D4C0464E196F48FF007E921C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D4CA33D71959FDEC0093588B /* ArticleData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ArticleData 2.xcdatamodel"; sourceTree = "<group>"; };
 		D4DE203018283FF200148CA2 /* CommunicationBridgeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationBridgeTests.m; sourceTree = "<group>"; };
 		D4E8A8A2190835C100DA4765 /* DataMigrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataMigrator.h; path = wikipedia/DataMigrator.h; sourceTree = SOURCE_ROOT; };
@@ -2113,7 +2113,7 @@
 			children = (
 				D499144B181D51DE00E6073C /* Base */,
 				D46CD8CC18A1ACA20042959E /* fr */,
-				D46CD8D018A1B0F00042959E /* en */,
+				D4C0464E196F48FF007E921C /* en */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";

@@ -1,30 +1,99 @@
 
-/* Class = "IBUIButton"; normalTitle = "Save"; ObjectID = "7Wa-ox-cAd"; */
-"7Wa-ox-cAd.normalTitle" = "Save";
+/* Class = "IBUIButton"; normalTitle = "Show another captcha"; ObjectID = "21c-U6-yfo"; */
+"21c-U6-yfo.normalTitle" = "Show another captcha";
 
-/* Class = "IBUIButton"; normalTitle = "◃"; ObjectID = "8HR-Gs-iaC"; */
-"8HR-Gs-iaC.normalTitle" = "◃";
+/* Class = "IBUILabel"; text = "github repo"; ObjectID = "3gs-D6-glW"; */
+"3gs-D6-glW.text" = "github repo";
 
-/* Class = "IBUITextField"; placeholder = "Enter CAPTCHA text from image above"; ObjectID = "AIA-vO-cLI"; */
-"AIA-vO-cLI.placeholder" = "Enter CAPTCHA text from image above";
+/* Class = "IBUILabel"; text = "wikimedia"; ObjectID = "5KU-bp-5Fs"; */
+"5KU-bp-5Fs.text" = "wikimedia";
 
-/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "P0o-I6-RDJ"; */
-"P0o-I6-RDJ.normalTitle" = "Cancel";
+/* Class = "IBUITextField"; placeholder = "User name"; ObjectID = "5cT-2Y-0Ie"; */
+"5cT-2Y-0Ie.placeholder" = "User name";
 
-/* Class = "IBUIButton"; normalTitle = "Show another CAPTCHA"; ObjectID = "QGI-DM-j1P"; */
-"QGI-DM-j1P.normalTitle" = "Show another CAPTCHA";
+/* Class = "IBUILabel"; text = "NSDate-Extensions"; ObjectID = "6O2-5x-h41"; */
+"6O2-5x-h41.text" = "NSDate-Extensions";
 
-/* Class = "IBUIButton"; normalTitle = "≣"; ObjectID = "UVB-P9-soS"; */
-"UVB-P9-soS.normalTitle" = "≣";
+/* Class = "IBUILabel"; text = "Saved pages are pretty awesome. Think of them as bookmarks that you can read even when you are offline."; ObjectID = "GiD-Rj-wb7"; */
+"GiD-Rj-wb7.text" = "Saved pages are pretty awesome. Think of them as bookmarks that you can read even when you are offline.";
 
-/* Class = "IBUILabel"; text = "Canonical Language"; ObjectID = "Vkd-3W-cSt"; */
-"Vkd-3W-cSt.text" = "Canonical Language";
+/* Class = "IBUILabel"; text = "Preview"; ObjectID = "LfM-01-aCF"; */
+"LfM-01-aCF.text" = "Preview";
 
-/* Class = "IBUIButton"; normalTitle = "Aあ"; ObjectID = "atP-34-Uka"; */
-"atP-34-Uka.normalTitle" = "Aあ";
+/* Class = "IBUILabel"; text = "Skip"; ObjectID = "P6J-IE-CiO"; */
+"P6J-IE-CiO.text" = "Skip";
 
-/* Class = "IBUIButton"; normalTitle = "◃"; ObjectID = "cq9-Zs-YsN"; */
-"cq9-Zs-YsN.normalTitle" = "◃";
+/* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "PCr-0J-fBj"; */
+"PCr-0J-fBj.placeholder" = "Password";
 
-/* Class = "IBUILabel"; text = "Language"; ObjectID = "djd-0J-VZY"; */
-"djd-0J-VZY.text" = "Language";
+/* Class = "IBUILabel"; text = "Canonical Language"; ObjectID = "SER-n4-DZC"; */
+"SER-n4-DZC.text" = "Canonical Language";
+
+/* Class = "IBUITextField"; placeholder = "Re-type password"; ObjectID = "UgH-77-lyp"; */
+"UgH-77-lyp.placeholder" = "Re-type password";
+
+/* Class = "IBUILabel"; text = "No saved pages yet."; ObjectID = "W1c-wQ-1pa"; */
+"W1c-wQ-1pa.text" = "No saved pages yet.";
+
+/* Class = "IBUILabel"; text = "Log in"; ObjectID = "Wff-o9-AdH"; */
+"Wff-o9-AdH.text" = "Log in";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "XkB-Xo-Xq0"; */
+"XkB-Xo-Xq0.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Test Zero Label Text"; ObjectID = "aCV-ih-PXn"; */
+"aCV-ih-PXn.text" = "Test Zero Label Text";
+
+/* Class = "IBUILabel"; text = "No recent pages here."; ObjectID = "aUp-0e-F6i"; */
+"aUp-0e-F6i.text" = "No recent pages here.";
+
+/* Class = "IBUILabel"; text = "Create Account"; ObjectID = "c3c-PU-Exz"; */
+"c3c-PU-Exz.text" = "Create Account";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "cbH-8H-z54"; */
+"cbH-8H-z54.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Hpple"; ObjectID = "eSk-uQ-Ran"; */
+"eSk-uQ-Ran.text" = "Hpple";
+
+/* Class = "IBUITextField"; placeholder = "Enter CAPTCHA text from image above"; ObjectID = "gPg-cg-Yjy"; */
+"gPg-cg-Yjy.placeholder" = "Enter CAPTCHA text from image above";
+
+/* Class = "IBUILabel"; text = "main repo"; ObjectID = "gzT-kN-7kp"; */
+"gzT-kN-7kp.text" = "main repo";
+
+/* Class = "IBUILabel"; text = "Already have an account? Log in"; ObjectID = "heA-3K-nhS"; */
+"heA-3K-nhS.text" = "Already have an account? Log in";
+
+/* Class = "IBUILabel"; text = "You probably deleted all of them. Next time you go to a page you can get back to it from here."; ObjectID = "huU-kO-aYI"; */
+"huU-kO-aYI.text" = "You probably deleted all of them. Next time you go to a page you can get back to it from here.";
+
+/* Class = "IBUILabel"; text = "credits"; ObjectID = "ieH-d1-Ds7"; */
+"ieH-d1-Ds7.text" = "credits";
+
+/* Class = "IBUILabel"; text = "Create Account"; ObjectID = "jiW-Cg-oL3"; */
+"jiW-Cg-oL3.text" = "Create Account";
+
+/* Class = "IBUILabel"; text = "Language"; ObjectID = "jxY-ej-I9e"; */
+"jxY-ej-I9e.text" = "Language";
+
+/* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "kVb-lx-d6C"; */
+"kVb-lx-d6C.placeholder" = "Password";
+
+/* Class = "IBUITextField"; placeholder = "User name"; ObjectID = "mAk-1N-jPC"; */
+"mAk-1N-jPC.placeholder" = "User name";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "nI1-bn-0Ii"; */
+"nI1-bn-0Ii.text" = "Label";
+
+/* Class = "IBUILabel"; text = "WikiFont"; ObjectID = "qQl-8k-ux4"; */
+"qQl-8k-ux4.text" = "WikiFont";
+
+/* Class = "IBUITextField"; placeholder = "Email address (optional)"; ObjectID = "rKI-nq-3p7"; */
+"rKI-nq-3p7.placeholder" = "Email address (optional)";
+
+/* Class = "IBUILabel"; text = "external"; ObjectID = "ven-ec-xzg"; */
+"ven-ec-xzg.text" = "external";
+
+/* Class = "IBUILabel"; text = "Create account"; ObjectID = "wkl-j8-wLX"; */
+"wkl-j8-wLX.text" = "Create account";

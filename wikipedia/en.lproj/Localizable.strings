@@ -89,7 +89,7 @@
 "main-menu-account-logout" = "Log out";
 "main-menu-show-title" = "Show me...";
 "main-menu-show-history" = "Recent";
-"main-menu-show-saved" = "Saved articles";
+"main-menu-show-saved" = "Saved pages";
 "main-menu-current-article-save" = "Save $1 for offline reading";
 "main-menu-random" = "Random";
 "main-menu-feedback-heading" = "Feedback";
@@ -97,7 +97,7 @@
 "main-menu-show-page-history" = "History of changes to $1";
 "main-menu-credits" = "Credits";
 
-"saved-pages-title" = "Saved articles";
+"saved-pages-title" = "Saved pages";
 "page-history-title" = "Article history";
 "page-history-downloading" = "Loading article history...";
 
