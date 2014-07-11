@@ -1,99 +1,36 @@
+// Messages for Message documentation (Message documentation)
+// Exported from translatewiki.net
 
-/* Class = "IBUIButton"; normalTitle = "Show another captcha"; ObjectID = "21c-U6-yfo"; */
 "21c-U6-yfo.normalTitle" = "Label for button on captcha screen to fetch and show another captcha image";
-
-/* Class = "IBUILabel"; text = "github repo"; ObjectID = "3gs-D6-glW"; */
 "3gs-D6-glW.text" = "label for link to project source on github";
-
-/* Class = "IBUILabel"; text = "wikimedia"; ObjectID = "5KU-bp-5Fs"; */
 "5KU-bp-5Fs.text" = "label for links to project source";
-
-/* Class = "IBUITextField"; placeholder = "User name"; ObjectID = "5cT-2Y-0Ie"; */
 "5cT-2Y-0Ie.placeholder" = "Label on login screen ";
-
-/* Class = "IBUILabel"; text = "NSDate-Extensions"; ObjectID = "6O2-5x-h41"; */
 "6O2-5x-h41.text" = "Name of an open-source library used in the project; usually do not translate.";
-
-/* Class = "IBUILabel"; text = "Saved pages are pretty awesome. Think of them as bookmarks that you can access when you are offline."; ObjectID = "GiD-Rj-wb7"; */
 "GiD-Rj-wb7.text" = "Explanatory text shown on saved pages list when no saved pages are present.";
-
-/* Class = "IBUILabel"; text = "Preview"; ObjectID = "LfM-01-aCF"; */
 "LfM-01-aCF.text" = "Button text for 'Preview' button on edit screen";
-
-/* Class = "IBUILabel"; text = "Skip"; ObjectID = "P6J-IE-CiO"; */
 "P6J-IE-CiO.text" = "Button text for 'Skip' button on onboarding screen that offers to log in or sign up";
-
-/* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "PCr-0J-fBj"; */
 "PCr-0J-fBj.placeholder" = "Placeholder label text for password field on create-account screen";
-
-/* Class = "IBUILabel"; text = "Canonical Language"; ObjectID = "SER-n4-DZC"; */
 "SER-n4-DZC.text" = "Unused; do not translate";
-
-/* Class = "IBUITextField"; placeholder = "Re-type password"; ObjectID = "UgH-77-lyp"; */
 "UgH-77-lyp.placeholder" = "Placeholder label text for second password field on create-account screen";
-
-/* Class = "IBUILabel"; text = "No saved pages yet."; ObjectID = "W1c-wQ-1pa"; */
 "W1c-wQ-1pa.text" = "Label text shown on saved pages list when there are no saved pages.";
-
-/* Class = "IBUILabel"; text = "Log in"; ObjectID = "Wff-o9-AdH"; */
 "Wff-o9-AdH.text" = "Button text for 'Log in' button";
-
-/* Class = "IBUILabel"; text = "Label"; ObjectID = "XkB-Xo-Xq0"; */
 "XkB-Xo-Xq0.text" = "Unused; do not translate";
-
-/* Class = "IBUILabel"; text = "Test Zero Label Text"; ObjectID = "aCV-ih-PXn"; */
 "aCV-ih-PXn.text" = "Unused; do not translate";
-
-/* Class = "IBUILabel"; text = "No recent pages yet."; ObjectID = "aUp-0e-F6i"; */
 "aUp-0e-F6i.text" = "Label text shown on 'recent pages' list when there are no recent pages.";
-
-/* Class = "IBUILabel"; text = "Create Account"; ObjectID = "c3c-PU-Exz"; */
 "c3c-PU-Exz.text" = "Button to Create Account on the onboarding screen";
-
-/* Class = "IBUILabel"; text = "Label"; ObjectID = "cbH-8H-z54"; */
 "cbH-8H-z54.text" = "Unused; do not translate";
-
-/* Class = "IBUILabel"; text = "Hpple"; ObjectID = "eSk-uQ-Ran"; */
 "eSk-uQ-Ran.text" = "Name of an open-source library used in the project; usually do not translate.";
-
-/* Class = "IBUITextField"; placeholder = "Enter CAPTCHA text from image above"; ObjectID = "gPg-cg-Yjy"; */
 "gPg-cg-Yjy.placeholder" = "Placeholder for input text on captcha input screen";
-
-/* Class = "IBUILabel"; text = "main repo"; ObjectID = "gzT-kN-7kp"; */
 "gzT-kN-7kp.text" = "label for link to project source on Wikimedia Gerrit";
-
-/* Class = "IBUILabel"; text = "Already have an account? Log in"; ObjectID = "heA-3K-nhS"; */
 "heA-3K-nhS.text" = "Button label on onboarding screen offering to log in instead of creating account";
-
-/* Class = "IBUILabel"; text = "Recent pages are not as awesome as Saved pages. They are not available for Offline Reading."; ObjectID = "huU-kO-aYI"; */
 "huU-kO-aYI.text" = "Explanatory text shown on recent pages list when there are no recent pages";
-
-/* Class = "IBUILabel"; text = "credits"; ObjectID = "ieH-d1-Ds7"; */
 "ieH-d1-Ds7.text" = "placeholder text; do not translate";
-
-/* Class = "IBUILabel"; text = "Create Account"; ObjectID = "jiW-Cg-oL3"; */
 "jiW-Cg-oL3.text" = "Button label to create account";
-
-/* Class = "IBUILabel"; text = "Language"; ObjectID = "jxY-ej-I9e"; */
 "jxY-ej-I9e.text" = "placeholder text; do not translate";
-
-/* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "kVb-lx-d6C"; */
 "kVb-lx-d6C.placeholder" = "Placeholder label for login password field";
-
-/* Class = "IBUITextField"; placeholder = "User name"; ObjectID = "mAk-1N-jPC"; */
 "mAk-1N-jPC.placeholder" = "Placeholder label for login username field";
-
-/* Class = "IBUILabel"; text = "Label"; ObjectID = "nI1-bn-0Ii"; */
 "nI1-bn-0Ii.text" = "placeholder text; do not translate";
-
-/* Class = "IBUILabel"; text = "WikiFont"; ObjectID = "qQl-8k-ux4"; */
 "qQl-8k-ux4.text" = "Name of open-source font project on about screen. Usually do not translate.";
-
-/* Class = "IBUITextField"; placeholder = "Email address (optional)"; ObjectID = "rKI-nq-3p7"; */
 "rKI-nq-3p7.placeholder" = "Placeholder text for email field on create account form";
-
-/* Class = "IBUILabel"; text = "external"; ObjectID = "ven-ec-xzg"; */
 "ven-ec-xzg.text" = "placeholder text; do not translate";
-
-/* Class = "IBUILabel"; text = "Create account"; ObjectID = "wkl-j8-wLX"; */
 "wkl-j8-wLX.text" = "Button label to go to Create Account form from Login form";

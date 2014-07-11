@@ -8,7 +8,6 @@
 "article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
 "language-button-text" = "Label for 'other languages' button in content area footer. %d is placeholder for the number of available languages; note that support for PLURAL string marking is not yet available, so make your message generic if possible for now.";
-"language-button-other-languages" = "Label for 'other languages' button in content area. Button also shows the number of available languages, but an indeterminate plural should be used here.";
 "history-label" = "Header label for screen showing the users' in-app browsing history.\n{{Identical|Recent}}";
 "history-section-today" = "Subsection label for list of articles browsed today.\n{{Identical|Today}}";
 "history-section-yesterday" = "Subsection label for list of articles browsed yesterday.\n{{Identical|Yesterday}}";
@@ -62,7 +61,6 @@
 "wikitext-upload-save-anonymously" = "Button text for saving without logging in";
 "wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - sign in button text";
 "wikitext-upload-save-terms-and-license" = "Button text for information about the Terms of Use and edit license. Parameters:\n$1 - 'Terms of Use' link\n* $2 - license name link";
-"wikitext-upload-save-terms" = "Formal name of site Terms of Use";
 "wikitext-upload-save-license-name" = "Name of license user edits are saved under - presently CC BY-SA 3.0";
 "open-link-title" = "Title for popup menu of terms/license link options.";
 "open-link-cancel" = "Text for cancel button in popup menu of terms/license link options";
@@ -149,3 +147,9 @@
 "license-footer-text" = "Brief footer text linking to CC-BY-SA license. '$1' is placeholder for the license-footer-name message";
 "license-footer-name" = "License short name; usually leave untranslated as CC-BY-SA 3.0";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents";
+"wikitext-upload-save-terms-name" = "Formal name of Wikipedia 'Terms of Use' in local language, used as a link";
+"page_protected_autoconfirmed" = "Brief description of Wikipedia 'autoconfirmed' protection level, shown when editing a page that is protected.";
+"page_protected_sysop" = "Brief description of Wikipedia 'sysop' protection level, shown when editing a page that is protected.";
+"page_protected_other" = "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected.";
+"page_protected_can_not_edit" = "Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.";
+"page_protected_can_not_edit_title" = "Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.";
