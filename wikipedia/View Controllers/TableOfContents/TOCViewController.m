@@ -257,6 +257,11 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    static NSInteger lastOffsetY = 0;
+    NSInteger thisOffsetY = (NSInteger)scrollView.contentOffset.y;
+    if ((thisOffsetY == lastOffsetY) || (thisOffsetY % 2)) return;
+    lastOffsetY = thisOffsetY;
+
     if (scrollView == self.scrollView) {
         for (TOCSectionCellView *cell in self.sectionCells) {
 

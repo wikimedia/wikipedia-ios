@@ -50,6 +50,7 @@
 #import "OnboardingViewController.h"
 #import "TopMenuContainerView.h"
 #import "WikiGlyph_Chars.h"
+#import "UINavigationController+TopActionSheet.h"
 
 //#import "UIView+Debugging.h"
 
@@ -1176,6 +1177,58 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
     // Do not remove the following commented toggle. It's for testing W0 stuff.
     //[[SessionSingleton sharedInstance].zeroConfigState toggleFakeZeroOn];
+
+    //[self toggleImageSheet];
+}
+
+-(void)toggleImageSheet
+{
+    // Quick hack for confirming images for article have routed properly to core data store.
+    // To do this for real, probably need to make separate view controller - could still present
+    // images using save autolayout stacking as "topActionSheetShowWithViews", but would need to
+    // determine which UIImageViews were scrolled offscreen and nil their image property out
+    // until they're not offscreen. Could do separate UIImageView class to make this easier - it
+    // would have a property with the image's core data ImageData NSManagedObjectID. That way
+    // it could simply re-retrieve its image data whenever it needed to.
+    static BOOL showImageSheet = NO;
+    showImageSheet = !showImageSheet;
+    
+    if(showImageSheet){
+        NSManagedObjectContext *ctx = articleDataContext_.mainContext;
+        [ctx performBlockAndWait:^(){
+            NSManagedObjectID *articleID =
+            [ctx getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+                               domain: [SessionSingleton sharedInstance].currentArticleDomain];
+            Article *article = (Article *)[ctx objectWithID:articleID];
+            NSArray *sectionImages = [article getSectionImagesUsingContext:ctx];
+            NSMutableArray *views = @[].mutableCopy;
+            for (SectionImage *sectionImage in sectionImages) {
+                Section *section = sectionImage.section;
+                NSString *title = (section.title.length > 0) ? section.title : [SessionSingleton sharedInstance].currentArticleTitle;
+                //NSLog(@"\n\n\nsection image = %@ \n\tsection = %@ \n\tindex in section = %@ \n\timage size = %@", sectionImage.image.fileName, sectionTitle, sectionImage.index, sectionImage.image.dataSize);
+                if(sectionImage.index.integerValue == 0){
+                    PaddedLabel *label = [[PaddedLabel alloc] init];
+                    label.padding = UIEdgeInsetsMake(20, 20, 10, 20);
+                    label.numberOfLines = 0;
+                    label.textColor = [UIColor darkGrayColor];
+                    label.lineBreakMode = NSLineBreakByWordWrapping;
+                    label.font = [UIFont systemFontOfSize:30];
+                    label.textAlignment = NSTextAlignmentCenter;
+                    title = [title getStringWithoutHTML];
+                    label.text = title;
+                    [views addObject:label];
+                }
+                UIImageView *imageView = [[UIImageView alloc] initWithImage:[[UIImage alloc] initWithData:sectionImage.image.imageData.data]];
+                imageView.contentMode = UIViewContentModeScaleAspectFit;
+                [views addObject:imageView];
+                UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 5)];
+                [views addObject:spacerView];
+            }
+            [NAV topActionSheetShowWithViews:views orientation:TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL];
+        }];
+    }else{
+        [NAV topActionSheetHide];
+    }
 }
 
 #pragma mark Article loading ops
@@ -1195,17 +1248,42 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
     
     // Show loading message
     [self showAlert:MWLocalizedString(@"search-loading-section-zero", nil)];
+
+    if (invalidateCache) [self invalidateCacheForPageTitle:title domain:domain];
+    
+    self.jumpToFragment = title.fragment;
     
     [self retrieveArticleForPageTitle: title
                                domain: domain
-                      discoveryMethod: [NAV getStringForDiscoveryMethod:discoveryMethod]
-                    invalidatingCache: invalidateCache];
+                      discoveryMethod: [NAV getStringForDiscoveryMethod:discoveryMethod]];
 
     // Reset the search field to its placeholder text after 5 seconds.
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
         if (!textFieldContainer.textField.isFirstResponder) textFieldContainer.textField.text = @"";
     });
+}
+
+- (void)invalidateCacheForPageTitle: (MWPageTitle *)pageTitle
+                             domain: (NSString *)domain
+{
+    // Mark article for refreshing so its core data records will be reloaded.
+    // (Needs to be done on worker context as worker context changes bubble up through
+    // main context too - so web view controller accessing main context will see changes.)
+    NSManagedObjectID *articleID =
+    [articleDataContext_.mainContext getArticleIDForTitle: pageTitle.prefixedText
+                                                   domain: domain];
+    if (articleID) {
+        [articleDataContext_.workerContext performBlockAndWait:^(){
+            Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
+            if (article) {
+                article.needsRefresh = @YES;
+                NSError *error = nil;
+                [articleDataContext_.workerContext save:&error];
+                NSLog(@"error = %@", error);
+            }
+        }];
+    }
 }
 
 -(void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache
@@ -1220,35 +1298,11 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
 - (void)retrieveArticleForPageTitle: (MWPageTitle *)pageTitle
                              domain: (NSString *)domain
                     discoveryMethod: (NSString *)discoveryMethod
-                  invalidatingCache: (BOOL)invalidateCache
 {
-    if (invalidateCache) {
-        // Mark article for refreshing so its core data records will be reloaded.
-        // (Needs to be done on worker context as worker context changes bubble up through
-        // main context too - so web view controller accessing main context will see changes.)
-        
-        NSManagedObjectID *articleID =
-        [articleDataContext_.mainContext getArticleIDForTitle: pageTitle.prefixedText
-                                                       domain: domain];
-        
-        if (articleID) {
-            [articleDataContext_.workerContext performBlockAndWait:^(){
-                Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
-                if (article) {
-                    article.needsRefresh = @YES;
-                    NSError *error = nil;
-                    [articleDataContext_.workerContext save:&error];
-                    NSLog(@"error = %@", error);
-                }
-            }];
-        }
-    }
-
     // Cancel any in-progress article retrieval operations
     [[QueuesSingleton sharedInstance].articleRetrievalQ cancelAllOperations];
     [[QueuesSingleton sharedInstance].searchQ cancelAllOperations];
     [[QueuesSingleton sharedInstance].thumbnailQ cancelAllOperations];
-    self.jumpToFragment = pageTitle.fragment;
 
     __block NSManagedObjectID *articleID =
     [articleDataContext_.mainContext getArticleIDForTitle: pageTitle.prefixedText
@@ -1322,6 +1376,8 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
                 thisSection.anchor = (section[@"anchor"]) ? section[@"anchor"] : @"";
 
                 [article addSectionObject:thisSection];
+
+                [thisSection createImageRecordsForHtmlOnContext:articleDataContext_.workerContext];
             }
         }
 
@@ -1359,8 +1415,7 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             MWPageTitle *newTitle = [MWPageTitle titleWithString:redirectedTitle];
             [self retrieveArticleForPageTitle: newTitle
                                        domain: domain
-                              discoveryMethod: discoveryMethod
-                            invalidatingCache: NO];
+                              discoveryMethod: discoveryMethod];
             return;
         }
 
@@ -1456,10 +1511,10 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
         section0.dateRetrieved = [NSDate date];
         section0.html = section0HTML;
         section0.anchor = @"";
-        article.section = [NSSet setWithObjects:section0, nil];
+        
+        [article addSectionObject:section0];
 
-        // Save page properties
-                                     // @FIXME
+        [section0 createImageRecordsForHtmlOnContext:articleDataContext_.workerContext];
 
         // Don't add multiple history items for the same article or back-forward button
         // behavior becomes a confusing mess.
@@ -1570,9 +1625,6 @@ NSString *msg = [NSString stringWithFormat:@"To do: add code for navigating to e
             if ([section isLeadSection]) continue;
         }
         if (section.html){
-
-            [section createImageRecordsForHtmlOnContext:articleDataContext_.mainContext];
-
             // Structural html added around section html just before display.
             NSString *sectionHTMLWithID = [section displayHTML];
 
