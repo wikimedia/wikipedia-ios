@@ -1330,58 +1330,60 @@ typedef enum {
         
         // Just in case the article wasn't created during the "parent" operation.
         if (!articleID) return;
-        
-        // The completion block happens on non-main thread, so must get article from articleID again.
-        // Because "you can only use a context on a thread when the context was created on that thread"
-        // this must happen on workerContext as well (see: http://stackoverflow.com/a/6356201/135557)
-        Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
 
-        //Non-lead sections have been retreived so set needsRefresh to NO.
-        article.needsRefresh = @NO;
+        [articleDataContext_.workerContext performBlockAndWait:^(){
+            // The completion block happens on non-main thread, so must get article from articleID again.
+            // Because "you can only use a context on a thread when the context was created on that thread"
+            // this must happen on workerContext as well (see: http://stackoverflow.com/a/6356201/135557)
+            Article *article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
 
-        NSArray *sectionsRetrieved = results[@"sections"];
+            //Non-lead sections have been retreived so set needsRefresh to NO.
+            article.needsRefresh = @NO;
 
-        for (NSDictionary *section in sectionsRetrieved) {
-            if (![section[@"id"] isEqual: @0]) {
-                                
-                // Add sections for article
-                Section *thisSection = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_.workerContext];
+            NSArray *sectionsRetrieved = results[@"sections"];
 
-                // Section index is a string because transclusion sections indexes will start with "T-".
-                if ([section[@"index"] isKindOfClass:[NSString class]]) {
-                    thisSection.index = section[@"index"];
+            for (NSDictionary *section in sectionsRetrieved) {
+                if (![section[@"id"] isEqual: @0]) {
+                                    
+                    // Add sections for article
+                    Section *thisSection = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_.workerContext];
+
+                    // Section index is a string because transclusion sections indexes will start with "T-".
+                    if ([section[@"index"] isKindOfClass:[NSString class]]) {
+                        thisSection.index = section[@"index"];
+                    }
+
+                    thisSection.title = section[@"line"];
+
+                    if ([section[@"level"] isKindOfClass:[NSString class]]) {
+                        thisSection.level = section[@"level"];
+                    }
+
+                    // Section number, from the api, can be 3.5.2 etc, so it's a string.
+                    if ([section[@"number"] isKindOfClass:[NSString class]]) {
+                        thisSection.number = section[@"number"];
+                    }
+
+                    if (section[@"fromtitle"]) {
+                        thisSection.fromTitle = section[@"fromtitle"];
+                    }
+
+                    thisSection.sectionId = section[@"id"];
+
+                    thisSection.html = section[@"text"];
+                    thisSection.tocLevel = section[@"toclevel"];
+                    thisSection.dateRetrieved = [NSDate date];
+                    thisSection.anchor = (section[@"anchor"]) ? section[@"anchor"] : @"";
+
+                    [article addSectionObject:thisSection];
+
+                    [thisSection createImageRecordsForHtmlOnContext:articleDataContext_.workerContext];
                 }
-
-                thisSection.title = section[@"line"];
-
-                if ([section[@"level"] isKindOfClass:[NSString class]]) {
-                    thisSection.level = section[@"level"];
-                }
-
-                // Section number, from the api, can be 3.5.2 etc, so it's a string.
-                if ([section[@"number"] isKindOfClass:[NSString class]]) {
-                    thisSection.number = section[@"number"];
-                }
-
-                if (section[@"fromtitle"]) {
-                    thisSection.fromTitle = section[@"fromtitle"];
-                }
-
-                thisSection.sectionId = section[@"id"];
-
-                thisSection.html = section[@"text"];
-                thisSection.tocLevel = section[@"toclevel"];
-                thisSection.dateRetrieved = [NSDate date];
-                thisSection.anchor = (section[@"anchor"]) ? section[@"anchor"] : @"";
-
-                [article addSectionObject:thisSection];
-
-                [thisSection createImageRecordsForHtmlOnContext:articleDataContext_.workerContext];
             }
-        }
 
-        NSError *error = nil;
-        [articleDataContext_.workerContext save:&error];
+            NSError *error = nil;
+            [articleDataContext_.workerContext save:&error];
+        }];
         
         [self displayArticle:articleID mode:DISPLAY_APPEND_NON_LEAD_SECTIONS];
         [self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil)];
@@ -1404,7 +1406,6 @@ typedef enum {
                                  leadSectionOnly: YES
                                  completionBlock: ^(NSDictionary *dataRetrieved){
 
-        Article *article = nil;
 
         NSString *redirectedTitle = [dataRetrieved[@"redirected"] copy];
 
@@ -1418,122 +1419,126 @@ typedef enum {
             return;
         }
 
-        if (!articleID) {
-            article = [NSEntityDescription
-                insertNewObjectForEntityForName:@"Article"
-                inManagedObjectContext:articleDataContext_.workerContext
-            ];
-            article.title = pageTitle.prefixedText;
-            article.dateCreated = [NSDate date];
-            article.site = [SessionSingleton sharedInstance].site;
-            article.domain = [SessionSingleton sharedInstance].currentArticleDomain;
-            article.domainName = [SessionSingleton sharedInstance].currentArticleDomainName;
-            articleID = article.objectID;
-        }else{
-            article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
-        }
+        [articleDataContext_.workerContext performBlockAndWait:^(){
+            Article *article = nil;
 
-        if (needsRefresh) {
-            // If and article needs refreshing remove its sections so they get reloaded too.
-            for (Section *thisSection in [article.section copy]) {
-                [articleDataContext_.workerContext deleteObject:thisSection];
+            if (!articleID) {
+                article = [NSEntityDescription
+                    insertNewObjectForEntityForName:@"Article"
+                    inManagedObjectContext:articleDataContext_.workerContext
+                ];
+                article.title = pageTitle.prefixedText;
+                article.dateCreated = [NSDate date];
+                article.site = [SessionSingleton sharedInstance].site;
+                article.domain = [SessionSingleton sharedInstance].currentArticleDomain;
+                article.domainName = [SessionSingleton sharedInstance].currentArticleDomainName;
+                articleID = article.objectID;
+            }else{
+                article = (Article *)[articleDataContext_.workerContext objectWithID:articleID];
             }
-        }
 
-        // If "needsRefresh", an existing article's data is being retrieved again, so these need
-        // to be updated whether a new article record is being inserted or not as data may have
-        // changed since the article record was first created.
-        article.languagecount = dataRetrieved[@"languagecount"];
-        article.lastmodified = dataRetrieved[@"lastmodified"];
-        article.lastmodifiedby = dataRetrieved[@"lastmodifiedby"];
-        article.articleId = dataRetrieved[@"articleId"];
-        article.editable = dataRetrieved[@"editable"];
-        article.protectionStatus = dataRetrieved[@"protectionStatus"];
+            if (needsRefresh) {
+                // If and article needs refreshing remove its sections so they get reloaded too.
+                for (Section *thisSection in [article.section copy]) {
+                    [articleDataContext_.workerContext deleteObject:thisSection];
+                }
+            }
+
+            // If "needsRefresh", an existing article's data is being retrieved again, so these need
+            // to be updated whether a new article record is being inserted or not as data may have
+            // changed since the article record was first created.
+            article.languagecount = dataRetrieved[@"languagecount"];
+            article.lastmodified = dataRetrieved[@"lastmodified"];
+            article.lastmodifiedby = dataRetrieved[@"lastmodifiedby"];
+            article.articleId = dataRetrieved[@"articleId"];
+            article.editable = dataRetrieved[@"editable"];
+            article.protectionStatus = dataRetrieved[@"protectionStatus"];
 
 
-        // Note: Because "retrieveArticleForPageTitle" recurses with the redirected-to title if
-        // the lead section op determines a redirect occurred, the "redirected" value below will
-        // probably never be set.
-        article.redirected = dataRetrieved[@"redirected"];
+            // Note: Because "retrieveArticleForPageTitle" recurses with the redirected-to title if
+            // the lead section op determines a redirect occurred, the "redirected" value below will
+            // probably never be set.
+            article.redirected = dataRetrieved[@"redirected"];
 
-        //NSDateFormatter *anotherDateFormatter = [[NSDateFormatter alloc] init];
-        //[anotherDateFormatter setDateStyle:NSDateFormatterLongStyle];
-        //[anotherDateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        //NSLog(@"formatted lastmodified = %@", [anotherDateFormatter stringFromDate:article.lastmodified]);
+            //NSDateFormatter *anotherDateFormatter = [[NSDateFormatter alloc] init];
+            //[anotherDateFormatter setDateStyle:NSDateFormatterLongStyle];
+            //[anotherDateFormatter setTimeStyle:NSDateFormatterShortStyle];
+            //NSLog(@"formatted lastmodified = %@", [anotherDateFormatter stringFromDate:article.lastmodified]);
 
-        // Associate thumbnail with article.
-        // If search result for this pageTitle had a thumbnail url associated with it, see if
-        // a core data image object exists with a matching sourceURL. If so make the article
-        // thumbnailImage property point to that core data image object. This associates the
-        // search result thumbnail with the article.
-        
-        NSArray *result = [ROOT.topMenuViewController.currentSearchResultsOrdered filteredArrayUsingPredicate:
-            [NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", pageTitle]
-        ];
-        if (result.count == 1) {
-            NSString *thumbURL = result[0][@"thumbnail"][@"source"];
-            thumbURL = [thumbURL getUrlWithoutScheme];
-            Image *thumb = (Image *)[articleDataContext_.workerContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
-            if (thumb) article.thumbnailImage = thumb;
-        }
+            // Associate thumbnail with article.
+            // If search result for this pageTitle had a thumbnail url associated with it, see if
+            // a core data image object exists with a matching sourceURL. If so make the article
+            // thumbnailImage property point to that core data image object. This associates the
+            // search result thumbnail with the article.
+            
+            NSArray *result = [ROOT.topMenuViewController.currentSearchResultsOrdered filteredArrayUsingPredicate:
+                [NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", pageTitle]
+            ];
+            if (result.count == 1) {
+                NSString *thumbURL = result[0][@"thumbnail"][@"source"];
+                thumbURL = [thumbURL getUrlWithoutScheme];
+                Image *thumb = (Image *)[articleDataContext_.workerContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
+                if (thumb) article.thumbnailImage = thumb;
+            }
 
-        article.lastScrollX = @0.0f;
-        article.lastScrollY = @0.0f;
+            article.lastScrollX = @0.0f;
+            article.lastScrollY = @0.0f;
 
-        // Get article section zero html
-        NSArray *sectionsRetrieved = dataRetrieved[@"sections"];
-        NSDictionary *section0Dict = (sectionsRetrieved.count >= 1) ? sectionsRetrieved[0] : nil;
+            // Get article section zero html
+            NSArray *sectionsRetrieved = dataRetrieved[@"sections"];
+            NSDictionary *section0Dict = (sectionsRetrieved.count >= 1) ? sectionsRetrieved[0] : nil;
 
-        // If there was only one section then we have what we need so no refresh
-        // is needed. Otherwise leave needsRefresh set to YES until subsequent sections
-        // have been retrieved. Reminder: "onlyrequestedsections" is not used
-        // by the mobileview query so that sectionsRetrieved.count will
-        // reflect the article's total number of sections here ("sections"
-        // was set to "0" though so only the first section entry actually has
-        // any html). This fixes the bug which caused subsequent sections to never
-        // be retrieved if the article was navigated away from before they had loaded.
-        article.needsRefresh = (sectionsRetrieved.count == 1) ? @NO : @YES;
+            // If there was only one section then we have what we need so no refresh
+            // is needed. Otherwise leave needsRefresh set to YES until subsequent sections
+            // have been retrieved. Reminder: "onlyrequestedsections" is not used
+            // by the mobileview query so that sectionsRetrieved.count will
+            // reflect the article's total number of sections here ("sections"
+            // was set to "0" though so only the first section entry actually has
+            // any html). This fixes the bug which caused subsequent sections to never
+            // be retrieved if the article was navigated away from before they had loaded.
+            article.needsRefresh = (sectionsRetrieved.count == 1) ? @NO : @YES;
 
-        NSString *section0HTML = @"";
-        if (section0Dict && [section0Dict[@"id"] isEqual: @0] && section0Dict[@"text"]) {
-            section0HTML = section0Dict[@"text"];
-        }
+            NSString *section0HTML = @"";
+            if (section0Dict && [section0Dict[@"id"] isEqual: @0] && section0Dict[@"text"]) {
+                section0HTML = section0Dict[@"text"];
+            }
 
-        // Add sections for article
-        Section *section0 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_.workerContext];
-        // Section index is a string because transclusion sections indexes will start with "T-"
-        section0.index = @"0";
-        section0.level = @"0";
-        section0.number = @"0";
-        section0.sectionId = @0;
-        section0.title = @"";
-        section0.dateRetrieved = [NSDate date];
-        section0.html = section0HTML;
-        section0.anchor = @"";
-        
-        [article addSectionObject:section0];
+            // Add sections for article
+            Section *section0 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_.workerContext];
+            // Section index is a string because transclusion sections indexes will start with "T-"
+            section0.index = @"0";
+            section0.level = @"0";
+            section0.number = @"0";
+            section0.sectionId = @0;
+            section0.title = @"";
+            section0.dateRetrieved = [NSDate date];
+            section0.html = section0HTML;
+            section0.anchor = @"";
+            
+            [article addSectionObject:section0];
 
-        [section0 createImageRecordsForHtmlOnContext:articleDataContext_.workerContext];
+            [section0 createImageRecordsForHtmlOnContext:articleDataContext_.workerContext];
 
-        // Don't add multiple history items for the same article or back-forward button
-        // behavior becomes a confusing mess.
-        if(article.history.count == 0){
-            // Add history for article
-            History *history0 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:articleDataContext_.workerContext];
-            history0.dateVisited = [NSDate date];
-            //history0.dateVisited = [NSDate dateWithDaysBeforeNow:31];
-            history0.discoveryMethod = discoveryMethod;
-            [article addHistoryObject:history0];
-        }
+            // Don't add multiple history items for the same article or back-forward button
+            // behavior becomes a confusing mess.
+            if(article.history.count == 0){
+                // Add history for article
+                History *history0 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:articleDataContext_.workerContext];
+                history0.dateVisited = [NSDate date];
+                //history0.dateVisited = [NSDate dateWithDaysBeforeNow:31];
+                history0.discoveryMethod = discoveryMethod;
+                [article addHistoryObject:history0];
+            }
 
-        // Save the article!
-        NSError *error = nil;
-        [articleDataContext_.workerContext save:&error];
+            // Save the article!
+            NSError *error = nil;
+            [articleDataContext_.workerContext save:&error];
 
-        if (error) {
-            NSLog(@"error = %@", error);
-            NSLog(@"error = %@", error.localizedDescription);
-        }
+            if (error) {
+                NSLog(@"error = %@", error);
+                NSLog(@"error = %@", error.localizedDescription);
+            }
+        }];
 
         [self displayArticle:articleID mode:DISPLAY_LEAD_SECTION];
         [self showAlert:MWLocalizedString(@"search-loading-section-remaining", nil)];
