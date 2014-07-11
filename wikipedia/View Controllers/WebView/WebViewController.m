@@ -810,6 +810,26 @@ typedef enum {
                 href = [@"https:" stringByAppendingString:href];
             }
             
+            // check if this is a link to a geocoordinate
+            // if so, launch map view rather than geohack table of map options
+            if ([href hasPrefix:GEOHACK_URL_PREFIX]) {
+                // launch map view
+                NSLog(@"detected tap on geohack link - showing map view");
+                MapViewController *mapVC;
+                mapVC = [[MapViewController alloc] initWithNibName:nil bundle:nil];
+                if (mapVC) {
+                    [mapVC setGeohackURL:href];
+                    [weakSelf presentViewController:mapVC
+                                       animated:YES
+                                     completion:^{
+                                         NSLog(@"map view controller displayed");
+                                     }];
+                }
+                
+                // done; do not open geohack page in Safari (yet)
+                return;
+            }
+            
             // TODO: make all of the stuff above parse the URL into parts
             // unless it's /wiki/ or #anchor style.
             // Then validate if it's still in Wikipedia land and branch appropriately.

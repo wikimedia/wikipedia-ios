@@ -6,6 +6,7 @@
 #import "CenterNavController.h"
 #import "MWPageTitle.h"
 #import "PullToRefreshViewController.h"
+#import "MapViewController.h"
 
 @interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, NetworkOpDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
