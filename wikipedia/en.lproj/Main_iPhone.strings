@@ -2,17 +2,8 @@
 /* Class = "IBUIButton"; normalTitle = "Show another captcha"; ObjectID = "21c-U6-yfo"; */
 "21c-U6-yfo.normalTitle" = "Show another captcha";
 
-/* Class = "IBUILabel"; text = "github repo"; ObjectID = "3gs-D6-glW"; */
-"3gs-D6-glW.text" = "github repo";
-
-/* Class = "IBUILabel"; text = "wikimedia"; ObjectID = "5KU-bp-5Fs"; */
-"5KU-bp-5Fs.text" = "wikimedia";
-
 /* Class = "IBUITextField"; placeholder = "User name"; ObjectID = "5cT-2Y-0Ie"; */
 "5cT-2Y-0Ie.placeholder" = "User name";
-
-/* Class = "IBUILabel"; text = "NSDate-Extensions"; ObjectID = "6O2-5x-h41"; */
-"6O2-5x-h41.text" = "NSDate-Extensions";
 
 /* Class = "IBUILabel"; text = "Saved pages are pretty awesome. Think of them as bookmarks that you can read even when you are offline."; ObjectID = "GiD-Rj-wb7"; */
 "GiD-Rj-wb7.text" = "Saved pages are pretty awesome. Think of them as bookmarks that you can read even when you are offline.";
@@ -53,23 +44,14 @@
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "cbH-8H-z54"; */
 "cbH-8H-z54.text" = "Label";
 
-/* Class = "IBUILabel"; text = "Hpple"; ObjectID = "eSk-uQ-Ran"; */
-"eSk-uQ-Ran.text" = "Hpple";
-
 /* Class = "IBUITextField"; placeholder = "Enter CAPTCHA text from image above"; ObjectID = "gPg-cg-Yjy"; */
 "gPg-cg-Yjy.placeholder" = "Enter CAPTCHA text from image above";
-
-/* Class = "IBUILabel"; text = "main repo"; ObjectID = "gzT-kN-7kp"; */
-"gzT-kN-7kp.text" = "main repo";
 
 /* Class = "IBUILabel"; text = "Already have an account? Log in"; ObjectID = "heA-3K-nhS"; */
 "heA-3K-nhS.text" = "Already have an account? Log in";
 
 /* Class = "IBUILabel"; text = "You probably deleted all of them. Next time you go to a page you can get back to it from here."; ObjectID = "huU-kO-aYI"; */
 "huU-kO-aYI.text" = "You probably deleted all of them. Next time you go to a page you can get back to it from here.";
-
-/* Class = "IBUILabel"; text = "credits"; ObjectID = "ieH-d1-Ds7"; */
-"ieH-d1-Ds7.text" = "credits";
 
 /* Class = "IBUILabel"; text = "Create Account"; ObjectID = "jiW-Cg-oL3"; */
 "jiW-Cg-oL3.text" = "Create Account";
@@ -86,14 +68,8 @@
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "nI1-bn-0Ii"; */
 "nI1-bn-0Ii.text" = "Label";
 
-/* Class = "IBUILabel"; text = "WikiFont"; ObjectID = "qQl-8k-ux4"; */
-"qQl-8k-ux4.text" = "WikiFont";
-
 /* Class = "IBUITextField"; placeholder = "Email address (optional)"; ObjectID = "rKI-nq-3p7"; */
 "rKI-nq-3p7.placeholder" = "Email address (optional)";
-
-/* Class = "IBUILabel"; text = "external"; ObjectID = "ven-ec-xzg"; */
-"ven-ec-xzg.text" = "external";
 
 /* Class = "IBUILabel"; text = "Create account"; ObjectID = "wkl-j8-wLX"; */
 "wkl-j8-wLX.text" = "Create account";

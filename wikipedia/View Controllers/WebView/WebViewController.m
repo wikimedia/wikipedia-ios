@@ -559,11 +559,6 @@ typedef enum {
     }
 }
 
--(BOOL)isDeviceLanguageRTL {
-    // From: http://stackoverflow.com/a/14793934
-    return ([NSLocale characterDirectionForLanguage:[[NSLocale preferredLanguages] objectAtIndex:0]] == NSLocaleLanguageDirectionRightToLeft);
-}
-
 -(void)tocSetupSwipeGestureRecognizers
 {
     self.tocSwipeLeftRecognizer =
@@ -575,7 +570,7 @@ typedef enum {
                                               action: @selector(tocSwipeRightHandler:)];
     
     // Device rtl value is checked since this is what would cause the other constraints to flip.
-    BOOL isRTL = [self isDeviceLanguageRTL];
+    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
 
     [self tocSetupSwipeGestureRecognizer: self.tocSwipeLeftRecognizer
                             forDirection: (isRTL ? UISwipeGestureRecognizerDirectionRight : UISwipeGestureRecognizerDirectionLeft)];

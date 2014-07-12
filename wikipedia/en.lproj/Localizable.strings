@@ -79,7 +79,7 @@
 "search-cancel" = "Cancel";
 
 "main-menu-title" = "More";
-"main-menu-language-title" = "Search $1 language wiki";
+"main-menu-language-title" = "Search $1 Wikipedia";
 "main-menu-language-toggle-show" = "Show languages";
 "main-menu-language-toggle-hide" = "Hide languages";
 "main-menu-language-selection-saved" = "Language selection saved";
@@ -96,6 +96,12 @@
 "main-menu-send-feedback" = "Send app feedback";
 "main-menu-show-page-history" = "History of changes to $1";
 "main-menu-credits" = "Credits";
+"main-menu-zero-faq" = "Wikipedia Zero FAQ";
+"main-menu-privacy-policy" = "Privacy policy";
+"main-menu-license" = "License";
+"main-menu-rate-app" = "Rate app";
+"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-heading-legal" = "Mumbo jumbo";
 
 "saved-pages-title" = "Saved pages";
 "page-history-title" = "Article history";
@@ -133,10 +139,10 @@
 "article-pull-to-refresh-is-refreshing" = "Refreshing article";
 
 "credits-title" = "Open source repositories";
-"credits-wikimedia-repos" = "Wikimedia";
+"credits-wikimedia-repos" = "Wikimedia repositories";
 "credits-gerrit-repo" = "App main (Gerrit)";
 "credits-github-mirror" = "App mirror (GitHub)";
-"credits-external-libraries" = "External";
+"credits-external-libraries" = "External repositories";
 
 "share-menu-save-page" = "Save Article";
 "share-menu-page-saved" = "Article Saved";

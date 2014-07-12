@@ -32,6 +32,7 @@
 
 -(void)setup
 {
+    self.minSubviewHeight = 55.0f;
     self.orientation = TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL;
     self.translatesAutoresizingMaskIntoConstraints = NO;
     self.clipsToBounds = YES;
@@ -260,12 +261,10 @@
                                                                        options: 0
                                                                        metrics: 0
                                                                          views: NSDictionaryOfVariableBindings(view)]];
-        
-        CGFloat minHeight = 55.0f;
-        
+                
         [constraints addObject:[NSLayoutConstraint constraintsWithVisualFormat: @"V:[view(>=height)]"
                                                                        options: 0
-                                                                       metrics: @{@"height": @(minHeight)}
+                                                                       metrics: @{@"height": @(self.minSubviewHeight)}
                                                                          views: NSDictionaryOfVariableBindings(view)]];
         prevView = view;
     }
