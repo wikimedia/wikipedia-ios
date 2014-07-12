@@ -506,7 +506,7 @@
         WikiGlyphButton *button = (WikiGlyphButton *)tappedView;
         [button.label animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
                             afterDelay: 0.0
-                              duration: 0.06f
+                              duration: 0.04f
                                   then: postTapNotification];
     }else{
         // If tapped item not a button, don't animate, just post.

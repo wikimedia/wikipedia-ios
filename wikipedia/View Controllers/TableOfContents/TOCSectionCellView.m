@@ -4,11 +4,22 @@
 #import "TOCSectionCellView.h"
 #import "WMF_Colors.h"
 
+#define SELECTION_INDICATOR_WIDTH 6
+#define SELECTION_INDICATOR_VERTICAL_INSET 10
+
+@interface TOCSectionCellView()
+
+@property (nonatomic) NSInteger level;
+@property (nonatomic) BOOL isLead;
+
+@end
+
 @implementation TOCSectionCellView
 
-- (id)init
+-(id)initWithLevel:(NSInteger)level isLead:(BOOL)isLead
 {
     self = [super init];
+    
     if (self) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
         self.clearsContextBeforeDrawing = NO;
@@ -16,35 +27,70 @@
         self.numberOfLines = 0;
         self.lineBreakMode = NSLineBreakByWordWrapping;
         self.backgroundColor = [UIColor clearColor];
+        self.isSelected = NO;
         self.isHighlighted = NO;
         self.clipsToBounds = NO;
-        self.opaque = YES;
+        self.opaque = NO;
+        self.level = level;
+        self.isLead = isLead;
+
+        self.font = (self.level == 1) ? [UIFont boldSystemFontOfSize:17] : [UIFont systemFontOfSize:17];
+
+        if (self.isLead) self.backgroundColor = WMF_COLOR_BLUE;
+
+        self.textColor = (self.level <= 1) ?
+            [UIColor whiteColor]
+            :
+            [UIColor colorWithRed:0.573 green:0.58 blue:0.592 alpha:1];
     }
+
     return self;
 }
 
 -(void)setIsHighlighted:(BOOL)isHighlighted
 {
-    if (isHighlighted) {
-        self.backgroundColor = [WMF_COLOR_BLUE colorWithAlphaComponent:0.6];
-    }else{
-        self.backgroundColor = [UIColor colorWithRed:0.049 green:0.049 blue:0.049 alpha:1.0];
-    }
-    
-    if (isHighlighted) self.alpha = 1.0f;
-    
     _isHighlighted = isHighlighted;
 
-    self.textColor = isHighlighted ? [UIColor whiteColor] : [UIColor colorWithRed:0.573 green:0.58 blue:0.592 alpha:1];
+    [self setNeedsDisplay];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
+    if (!self.isSelected) return;
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGFloat width = SELECTION_INDICATOR_WIDTH;
+
+    BOOL devoMode = NO;
+    
+    if (!devoMode) {
+        CGContextSetFillColorWithColor(context, WMF_COLOR_BLUE.CGColor);
+        CGRect rectangle = CGRectMake(
+            rect.origin.x,
+            rect.origin.y + SELECTION_INDICATOR_VERTICAL_INSET,
+            width,
+            rect.size.height - (SELECTION_INDICATOR_VERTICAL_INSET * 2.0)
+        );
+        CGContextFillRect(context, rectangle);
+    }else{
+        NSInteger i = (NSInteger)self.level;
+        for (NSInteger j = 0; j < i; j++) {
+            
+            CGFloat vInset = ((j+1) * SELECTION_INDICATOR_VERTICAL_INSET);
+            
+            CGRect rectangle = CGRectMake(rect.origin.x + (width * j), rect.origin.y + vInset, width, rect.size.height - (vInset * 2.0));
+            CGFloat alpha = (1.0 * (1.0 / (j+1)));
+            
+            CGContextSetFillColorWithColor(context, [WMF_COLOR_BLUE colorWithAlphaComponent:alpha].CGColor );
+            //CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor );
+            
+            CGContextFillRect(context, rectangle);
+            //CGContextStrokeRect(context, rectangle);
+        }
+        //width *= self.level;
+    }
 }
-*/
 
 @end

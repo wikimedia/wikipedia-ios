@@ -22,7 +22,9 @@
 #define TOC_DELAY_BETWEEN_SELECTION_AND_ZOOM 0.35f
 #define TOC_TAG_OTHER_LANGUAGES 9999
 
-#define TOC_SELECTION_SCROLL_DURATION 0.3
+#define TOC_SELECTION_SCROLL_DURATION 0.2
+
+#define TOC_SUBSECTION_INDENT 6 //15
 
 @interface TOCViewController (){
 
@@ -132,7 +134,7 @@
                         id title = [self getTitleForSection:section];
                         UIEdgeInsets padding = UIEdgeInsetsZero;
                         
-                        TOCSectionCellView *cell = [[TOCSectionCellView alloc] init];
+                        TOCSectionCellView *cell = [[TOCSectionCellView alloc] initWithLevel:sectionLevel.integerValue isLead:isLead.boolValue];
                         
                         if (isLead.boolValue) {
                             // Use attributed title only for lead section to add "CONTENTS" text above the title.
@@ -144,7 +146,7 @@
                             // Indent subsections, but only first 3 levels.
                             NSInteger tocLevelToUse = ((sectionLevel.integerValue - 1) < 0) ? 0 : sectionLevel.integerValue - 1;
                             tocLevelToUse = MIN(tocLevelToUse, 3);
-                            CGFloat indent = 15;
+                            CGFloat indent = TOC_SUBSECTION_INDENT;
                             padding = UIEdgeInsetsMake(16, 12 + (tocLevelToUse * indent), 16, 10);
                         }
                         cell.padding = padding;
@@ -172,7 +174,7 @@
     paragraphStyle.lineSpacing = 8;
     
     NSDictionary *contentsHeaderAttributes = @{
-                                    NSFontAttributeName : [UIFont systemFontOfSize:10.5],
+                                    NSFontAttributeName : [UIFont boldSystemFontOfSize:10.5],
                                     NSKernAttributeName : @(1.25),
                                     NSParagraphStyleAttributeName : paragraphStyle
                                     };
@@ -199,6 +201,7 @@
 {
     // If tapped, go to section/image selection.
     if ([sender isMemberOfClass:[UITapGestureRecognizer class]]) {
+        [self deSelectAllCells];
         [self unHighlightAllCells];
         [self navigateToSelection: sender
                          duration: TOC_SELECTION_SCROLL_DURATION];
@@ -232,6 +235,7 @@
                             duration: (CGFloat)duration
                          thenHideTOC: (BOOL)hideTOC
 {
+    cell.isSelected = YES;
     cell.isHighlighted = YES;
 
     NSString *elementId = [NSString stringWithFormat:@"section_heading_and_content_block_%ld", (long)cell.tag];
@@ -245,6 +249,15 @@
 }
 
 #pragma mark Highlight and scroll to focal cell.
+
+-(void)deSelectAllCells
+{
+    for (TOCSectionCellView *cell in self.sectionCells) {
+        // In case other non-TOCSectionCellView views are tacked beneath the TOCSectionCellView's...
+        if (![cell isMemberOfClass:[TOCSectionCellView class]]) continue;
+        cell.isSelected = NO;
+    }
+}
 
 -(void)unHighlightAllCells
 {
@@ -262,14 +275,25 @@
     if ((thisOffsetY == lastOffsetY) || (thisOffsetY % 2)) return;
     lastOffsetY = thisOffsetY;
 
+    //BOOL pastFocalCell = NO;
+
     if (scrollView == self.scrollView) {
         for (TOCSectionCellView *cell in self.sectionCells) {
 
             // In case other non-TOCSectionCellView views are tacked beneath the TOCSectionCellView's...
             if (![cell isMemberOfClass:[TOCSectionCellView class]]) continue;
 
+            //if (pastFocalCell) {
+            //  cell.isHighlighted = NO;
+            //}
+
             if ([self isCellFocalCell:cell]) {
+                [self deSelectAllCells];
+
+                //pastFocalCell = YES;
                 [self unHighlightAllCells];
+                
+                cell.isSelected = YES;
                 cell.isHighlighted = YES;
             }
         }
@@ -286,7 +310,7 @@
     p.x -= self.scrollView.frame.origin.x;
     p.y -= self.scrollView.frame.origin.y;
     if ((p.y < focalOffset) && ((p.y + cell.bounds.size.height) > focalOffset)) {
-        if (!cell.isHighlighted || (cell.isHighlighted && (cell.tag == 0))) {
+        if (!cell.isSelected || (cell.isSelected && (cell.tag == 0))) {
             return YES;
         }
     }
@@ -308,7 +332,7 @@
 - (void)scrollViewScrollingEnded:(UIScrollView *)scrollView
 {
     for (TOCSectionCellView *cell in self.sectionCells) {
-        if (cell.isHighlighted) {
+        if (cell.isSelected) {
 
             [self scrollWebViewToSectionForCell: cell
                                        duration: TOC_SELECTION_SCROLL_DURATION
@@ -354,7 +378,7 @@
 -(TOCSectionCellView *)getHighlightedCell
 {
     for (TOCSectionCellView *cell in self.sectionCells) {
-        if (cell.isHighlighted) return cell;
+        if (cell.isSelected) return cell;
     }
     return nil;
 }
@@ -454,13 +478,16 @@
     // Highlight cell for section currently nearest top of webview.
     if (self.sectionCells.count > 0){
 
+        [self deSelectAllCells];
         [self unHighlightAllCells];
 
         NSInteger indexOfFirstOnscreenSection =
         [self.webVC.webView getIndexOfTopOnScreenElementWithPrefix: @"section_heading_and_content_block_"
                                                              count: self.sectionCells.count];
         if (indexOfFirstOnscreenSection < self.sectionCells.count) {
-            ((TOCSectionCellView *)self.sectionCells[indexOfFirstOnscreenSection]).isHighlighted = YES;
+            TOCSectionCellView *cell = ((TOCSectionCellView *)self.sectionCells[indexOfFirstOnscreenSection]);
+            cell.isSelected = YES;
+            cell.isHighlighted = YES;
         }
     }
 }

@@ -54,7 +54,7 @@
 
 //#import "UIView+Debugging.h"
 
-#define TOC_TOGGLE_ANIMATION_DURATION @0.3f
+#define TOC_TOGGLE_ANIMATION_DURATION @0.2f
 
 typedef enum {
     DISPLAY_LEAD_SECTION = 0,
@@ -488,7 +488,7 @@ typedef enum {
 
     [UIView animateWithDuration: duration.floatValue
                           delay: 0.0f
-                        options: UIViewAnimationOptionBeginFromCurrentState
+                        options: 0 // UIViewAnimationOptionBeginFromCurrentState <--Don't do this, can cause toc to jump as it appears (if top/bottom menus visibility changes)
                      animations: ^{
 
                          self.bottomMenuHidden = YES;
