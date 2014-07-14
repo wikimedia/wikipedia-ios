@@ -11,12 +11,13 @@
 
 @property (nonatomic) NSInteger level;
 @property (nonatomic) BOOL isLead;
+@property (nonatomic) BOOL isRTL;
 
 @end
 
 @implementation TOCSectionCellView
 
--(id)initWithLevel:(NSInteger)level isLead:(BOOL)isLead
+-(id)initWithLevel:(NSInteger)level isLead:(BOOL)isLead isRTL:(BOOL)isRTL
 {
     self = [super init];
     
@@ -33,6 +34,7 @@
         self.opaque = NO;
         self.level = level;
         self.isLead = isLead;
+        self.isRTL = isRTL;
 
         self.font = (self.level == 1) ? [UIFont boldSystemFontOfSize:17] : [UIFont systemFontOfSize:17];
 
@@ -67,8 +69,11 @@
     
     if (!devoMode) {
         CGContextSetFillColorWithColor(context, WMF_COLOR_BLUE.CGColor);
+
+        CGFloat originX = (!self.isRTL) ? rect.origin.x : rect.size.width - width;
+
         CGRect rectangle = CGRectMake(
-            rect.origin.x,
+            originX,
             rect.origin.y + SELECTION_INDICATOR_VERTICAL_INSET,
             width,
             rect.size.height - (SELECTION_INDICATOR_VERTICAL_INSET * 2.0)
@@ -79,8 +84,10 @@
         for (NSInteger j = 0; j < i; j++) {
             
             CGFloat vInset = ((j+1) * SELECTION_INDICATOR_VERTICAL_INSET);
+
+            CGFloat originX = (!self.isRTL) ? (rect.origin.x + (width * j)) : ((rect.size.width - width) - (width * j));
             
-            CGRect rectangle = CGRectMake(rect.origin.x + (width * j), rect.origin.y + vInset, width, rect.size.height - (vInset * 2.0));
+            CGRect rectangle = CGRectMake(originX, rect.origin.y + vInset, width, rect.size.height - (vInset * 2.0));
             CGFloat alpha = (1.0 * (1.0 / (j+1)));
             
             CGContextSetFillColorWithColor(context, [WMF_COLOR_BLUE colorWithAlphaComponent:alpha].CGColor );

@@ -121,6 +121,9 @@
         [articleDataContext_.mainContext performBlockAndWait:^{
             NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: currentArticleTitle
                                                                                           domain: currentArticleDomain];
+
+            BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+
             if (articleID) {
                 Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
                 if (article) {
@@ -134,20 +137,40 @@
                         id title = [self getTitleForSection:section];
                         UIEdgeInsets padding = UIEdgeInsetsZero;
                         
-                        TOCSectionCellView *cell = [[TOCSectionCellView alloc] initWithLevel:sectionLevel.integerValue isLead:isLead.boolValue];
+                        TOCSectionCellView *cell = [[TOCSectionCellView alloc] initWithLevel:sectionLevel.integerValue isLead:isLead.boolValue isRTL:isRTL];
                         
                         if (isLead.boolValue) {
                             // Use attributed title only for lead section to add "CONTENTS" text above the title.
                             cell.attributedText = title;
-                            padding = UIEdgeInsetsMake(37, 12, 14, 10);
+
+                            CGFloat topPadding = 37;
+                            CGFloat leadingPadding = 12;
+                            CGFloat bottomPadding = 14;
+                            CGFloat trailingPadding = 10;
+                            if (!isRTL) {
+                                padding = UIEdgeInsetsMake(topPadding, leadingPadding, bottomPadding, trailingPadding);
+                            }else{
+                                padding = UIEdgeInsetsMake(topPadding, trailingPadding, bottomPadding, leadingPadding);
+                            }
+                            
                         }else{
                             // Faster to not use attributed string for non-lead sections.
                             cell.text = title;
+
                             // Indent subsections, but only first 3 levels.
                             NSInteger tocLevelToUse = ((sectionLevel.integerValue - 1) < 0) ? 0 : sectionLevel.integerValue - 1;
                             tocLevelToUse = MIN(tocLevelToUse, 3);
                             CGFloat indent = TOC_SUBSECTION_INDENT;
-                            padding = UIEdgeInsetsMake(16, 12 + (tocLevelToUse * indent), 16, 10);
+                            indent = 12 + (tocLevelToUse * indent);
+
+                            CGFloat vPadding = 16;
+                            CGFloat hPadding = 10;
+                            if (!isRTL) {
+                                padding = UIEdgeInsetsMake(vPadding, indent, vPadding, hPadding);
+                            }else{
+                                padding = UIEdgeInsetsMake(vPadding, hPadding, vPadding, indent);
+                            }
+
                         }
                         cell.padding = padding;
                         cell.tag = tag.integerValue;

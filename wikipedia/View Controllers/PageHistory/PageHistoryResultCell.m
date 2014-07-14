@@ -26,6 +26,12 @@
     //self.backgroundColor = [UIColor greenColor];
     
     self.separatorHeightConstraint.constant = 1.0f / [UIScreen mainScreen].scale;
+
+    self.summaryLabel.textAlignment = NSTextAlignmentNatural;
+    self.nameLabel.textAlignment = NSTextAlignmentNatural;
+    self.timeLabel.textAlignment = NSTextAlignmentNatural;
+    self.deltaLabel.textAlignment = NSTextAlignmentNatural;
+    self.iconLabel.textAlignment = NSTextAlignmentNatural;
 }
 
 -(void)prepareForReuse

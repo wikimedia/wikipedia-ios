@@ -339,7 +339,7 @@
     NSString *language = [NSString stringWithFormat:@"\n%@", historyEntry.article.domainName];
 
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.alignment = NSTextAlignmentLeft;
+    paragraphStyle.alignment = NSTextAlignmentNatural;
 
     NSMutableAttributedString *(^styleText)(NSString *, CGFloat, UIColor *) = ^NSMutableAttributedString *(NSString *str, CGFloat size, UIColor *color){
         return [[NSMutableAttributedString alloc] initWithString:str attributes: @{

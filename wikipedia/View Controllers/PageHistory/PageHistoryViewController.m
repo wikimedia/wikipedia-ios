@@ -15,12 +15,14 @@
 #import "RootViewController.h"
 #import "UIViewController+ModalPop.h"
 #import "Defines.h"
+#import "PaddedLabel.h"
 
 @interface PageHistoryViewController (){
 
 }
 
 @property (strong, nonatomic) __block NSMutableArray *pageHistoryDataArray;
+@property (nonatomic) BOOL isRTL;
 
 @end
 
@@ -82,6 +84,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
 
     self.navigationItem.hidesBackButton = YES;
 
@@ -222,13 +226,21 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = CHROME_COLOR;
     view.autoresizesSubviews = YES;
-    UILabel *label = [[UILabel alloc] initWithFrame:
-                      CGRectMake(10, view.bounds.origin.y, view.bounds.size.width, view.bounds.size.height)
-                      ];
+    PaddedLabel *label = [[PaddedLabel alloc] init];
+
+    CGFloat leadingIndent = 10;
+    if (!self.isRTL) {
+        label.padding = UIEdgeInsetsMake(0, leadingIndent, 0, 0);
+    }else{
+        label.padding = UIEdgeInsetsMake(0, 0, 0, leadingIndent);
+    }
+
     label.font = [UIFont boldSystemFontOfSize:12];
     label.textColor = [UIColor darkGrayColor];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.backgroundColor = [UIColor clearColor];
+    
+    label.textAlignment = NSTextAlignmentNatural;
     
     NSDictionary *sectionDict = self.pageHistoryDataArray[section];
     
