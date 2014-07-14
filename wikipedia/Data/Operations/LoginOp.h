@@ -10,7 +10,7 @@
 - (id)initWithUsername: (NSString *)userName
               password: (NSString *)password
                 domain: (NSString *)domain
-       completionBlock: (void (^)(NSString *))completionBlock
+       completionBlock: (void (^)(NSDictionary *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock
 ;

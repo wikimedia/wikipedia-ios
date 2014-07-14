@@ -244,14 +244,18 @@
     [[LoginOp alloc] initWithUsername: userName
                              password: password
                                domain: [SessionSingleton sharedInstance].domain
-                      completionBlock: ^(NSString *loginResult){
+                      completionBlock: ^(NSDictionary *loginResult){
+                          
+                          NSLog(@"%@", loginResult);
+                          NSString *loginStatus = loginResult[@"login"][@"result"];
                           
                           // Login credentials should only be placed in the keychain if they've been authenticated.
-                          [SessionSingleton sharedInstance].keychainCredentials.userName = userName;
+                          NSString *normalizedUserName = loginResult[@"login"][@"lgusername"];
+                          [SessionSingleton sharedInstance].keychainCredentials.userName = normalizedUserName;
                           [SessionSingleton sharedInstance].keychainCredentials.password = password;
                           
                           //NSString *result = loginResult[@"login"][@"result"];
-                          [self showAlert:loginResult];
+                          [self showAlert:loginStatus];
                           
                           [[NSOperationQueue mainQueue] addOperationWithBlock:successBlock];
                           
