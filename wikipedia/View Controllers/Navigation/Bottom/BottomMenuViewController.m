@@ -18,6 +18,7 @@
 #import "ShareMenuSavePageActivity.h"
 #import "Article+Convenience.h"
 #import "Defines.h"
+#import "WikipediaAppUtils.h"
 
 typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     BOTTOM_MENU_BUTTON_UNKNOWN = 0,
@@ -54,13 +55,15 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     UIColor *buttonColor = [UIColor blackColor];
     CGFloat buttonTextSize = 34;
 
-    [self.backButton.label setWikiText: IOS_WIKIGLYPH_BACKWARD
+    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+
+    [self.backButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_FORWARD : IOS_WIKIGLYPH_BACKWARD
                                  color: buttonColor
                                   size: buttonTextSize
                         baselineOffset: 2.0];
     self.backButton.tag = BOTTOM_MENU_BUTTON_PREVIOUS;
     
-    [self.forwardButton.label setWikiText: IOS_WIKIGLYPH_FORWARD
+    [self.forwardButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD
                                     color: buttonColor
                                      size: buttonTextSize
                            baselineOffset: 2.0
