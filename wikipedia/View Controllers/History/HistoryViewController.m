@@ -342,7 +342,7 @@
     NSString *language = [NSString stringWithFormat:@"\n%@", historyEntry.article.domainName];
 
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.alignment = NSTextAlignmentNatural;
+    paragraphStyle.alignment = [WikipediaAppUtils rtlSafeAlignment];
 
     NSMutableAttributedString *(^styleText)(NSString *, CGFloat, UIColor *) = ^NSMutableAttributedString *(NSString *str, CGFloat size, UIColor *color){
         return [[NSMutableAttributedString alloc] initWithString:str attributes: @{

@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SearchResultCell.h"
+#import "WikipediaAppUtils.h"
 
 @implementation SearchResultCell
 
@@ -60,7 +61,7 @@
     //self.textLabel.layer.borderColor = [UIColor redColor].CGColor;
     //self.backgroundColor = [UIColor greenColor];
 
-    self.textLabel.textAlignment = NSTextAlignmentNatural;
+    self.textLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
 }
 
 -(void)prepareForReuse

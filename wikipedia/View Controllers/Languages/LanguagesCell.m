@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "LanguagesCell.h"
+#import "WikipediaAppUtils.h"
 
 #define BACKGROUND_COLOR [UIColor colorWithWhite:1.0f alpha:1.0f]
 
@@ -29,8 +30,8 @@
     //self.textLabel.layer.borderWidth = 1;
     //self.textLabel.layer.borderColor = [UIColor redColor].CGColor;
     self.backgroundColor = BACKGROUND_COLOR;
-    self.textLabel.textAlignment = NSTextAlignmentNatural;
-    self.canonicalLabel.textAlignment = NSTextAlignmentNatural;}
+    self.textLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+    self.canonicalLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

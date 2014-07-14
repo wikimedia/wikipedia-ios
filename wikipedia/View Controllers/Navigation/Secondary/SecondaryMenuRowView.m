@@ -5,6 +5,7 @@
 #import "PaddedLabel.h"
 #import "Defines.h"
 #import "SessionSingleton.h"
+#import "WikipediaAppUtils.h"
 
 #define MENU_HEADING_FONT_SIZE 13
 #define MENU_SUB_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.5f alpha:1.0f]
@@ -39,6 +40,10 @@
 {
     [super awakeFromNib];
     self.insetTopBorderView.backgroundColor = BORDER_COLOR;
+    
+    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+    
+    self.iconLabel.textAlignment = isRTL ? NSTextAlignmentLeft : NSTextAlignmentRight;
 }
 
 - (void)drawRect:(CGRect)rect

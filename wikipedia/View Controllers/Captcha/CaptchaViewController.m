@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "CaptchaViewController.h"
+#import "WikipediaAppUtils.h"
 
 @interface CaptchaViewController ()
 
@@ -24,7 +25,7 @@
     [self.reloadCaptchaButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
     [self.reloadCaptchaButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
 
-    self.captchaTextBox.textAlignment = NSTextAlignmentNatural;
+    self.captchaTextBox.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
 }
 
 - (void)reloadCaptchaPushed:(id)sender

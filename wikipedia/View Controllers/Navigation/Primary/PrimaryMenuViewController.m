@@ -73,7 +73,7 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
                         baselineOffset: 2.0
                                   ];
 
-    self.moreButton.label.textAlignment = NSTextAlignmentNatural;
+    self.moreButton.label.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
 
     self.moreButton.label.padding = UIEdgeInsetsMake(0, 12, 0, 12);
 

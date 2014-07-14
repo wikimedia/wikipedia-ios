@@ -2,13 +2,14 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "PaddedLabel.h"
+#import "WikipediaAppUtils.h"
 
 @implementation PaddedLabel
 
 -(void)setup
 {
     self.padding = UIEdgeInsetsZero;
-    if(self.textAlignment == NSTextAlignmentLeft) self.textAlignment = NSTextAlignmentNatural;
+    if(self.textAlignment == NSTextAlignmentLeft) self.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder

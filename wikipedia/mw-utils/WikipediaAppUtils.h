@@ -17,6 +17,8 @@
 +(NSString*) wikiLangForSystemLang:(NSString *)code;
 +(BOOL) isDeviceLanguageRTL;
 
++(NSTextAlignment) rtlSafeAlignment;
+
 +(void)copyAssetsFolderToAppDataDocuments;
 
 @end

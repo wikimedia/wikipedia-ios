@@ -37,12 +37,12 @@
     // Do any additional setup after loading the view.
     
     self.placeholderLabel.text = MWLocalizedString(@"edit-summary-field-placeholder-text", nil);
-    self.placeholderLabel.textAlignment = NSTextAlignmentNatural;
+    self.placeholderLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
 
     self.summaryTextField.textColor = [UIColor darkGrayColor];
     self.summaryTextField.returnKeyType = UIReturnKeyDone;
     self.summaryTextField.delegate = self;
-    self.summaryTextField.textAlignment = NSTextAlignmentNatural;
+    self.summaryTextField.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
 
     self.bottomLineHeightConstraint.constant = 1.0f / [UIScreen mainScreen].scale;
 }
