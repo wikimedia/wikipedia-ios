@@ -8,7 +8,7 @@
 -(void)setup
 {
     self.padding = UIEdgeInsetsZero;
-    self.textAlignment = NSTextAlignmentNatural;
+    if(self.textAlignment == NSTextAlignmentLeft) self.textAlignment = NSTextAlignmentNatural;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder

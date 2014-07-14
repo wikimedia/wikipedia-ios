@@ -1,8 +1,8 @@
 #pragma mark Defines
 
-#define SEARCH_THUMBNAIL_WIDTH 110
+#define SEARCH_THUMBNAIL_WIDTH (48 * 3)
 #define SEARCH_RESULT_HEIGHT 60
-#define SEARCH_MAX_RESULTS @"25"
+#define SEARCH_MAX_RESULTS @"24"
 
 #define SEARCH_TEXT_FIELD_FONT [UIFont systemFontOfSize:14.0]
 #define SEARCH_TEXT_FIELD_HIGHLIGHTED_COLOR [UIColor blackColor]
