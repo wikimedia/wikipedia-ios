@@ -29,7 +29,8 @@
     //self.textLabel.layer.borderWidth = 1;
     //self.textLabel.layer.borderColor = [UIColor redColor].CGColor;
     self.backgroundColor = BACKGROUND_COLOR;
-}
+    self.textLabel.textAlignment = NSTextAlignmentNatural;
+    self.canonicalLabel.textAlignment = NSTextAlignmentNatural;}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

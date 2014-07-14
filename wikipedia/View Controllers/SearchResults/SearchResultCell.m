@@ -59,6 +59,8 @@
     //self.textLabel.layer.borderWidth = 1;
     //self.textLabel.layer.borderColor = [UIColor redColor].CGColor;
     //self.backgroundColor = [UIColor greenColor];
+
+    self.textLabel.textAlignment = NSTextAlignmentNatural;
 }
 
 -(void)prepareForReuse
