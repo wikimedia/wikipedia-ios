@@ -39,7 +39,7 @@
 - (id)initWithUsername: (NSString *)userName
               password: (NSString *)password
                 domain: (NSString *)domain
-       completionBlock: (void (^)(NSString *))completionBlock
+       completionBlock: (void (^)(NSDictionary *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock
 {
@@ -95,8 +95,8 @@
                 return;
             }
 
-            //NSDictionary *result = weakSelf.jsonRetrieved;
-            NSString *result = weakSelf.jsonRetrieved[@"login"][@"result"];
+            NSDictionary *result = weakSelf.jsonRetrieved;
+            //NSString *result = weakSelf.jsonRetrieved[@"login"][@"result"];
 
             completionBlock(result);
         };

@@ -190,10 +190,13 @@
     // it was transcluded from.
     NSString *title = section.fromTitle ? section.fromTitle : section.article.title;
 
-    DownloadSectionWikiTextOp *downloadWikiTextOp = [[DownloadSectionWikiTextOp alloc] initForPageTitle:title domain:section.article.domain section:section.index completionBlock:^(NSString *revision){
+    DownloadSectionWikiTextOp *downloadWikiTextOp = [[DownloadSectionWikiTextOp alloc] initForPageTitle:title domain:section.article.domain section:section.index completionBlock:^(NSString *revision, NSDictionary *userInfo) {
         
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
             
+            self.funnel = [[EditFunnel alloc] initWithUserId:[userInfo[@"id"] intValue]];
+            [self.funnel logStart];
+
             if (self.protectionStatus && [self.protectionStatus length] > 0) {
                 NSString *msg;
                 if ([self.protectionStatus isEqualToString:@"autoconfirmed"]) {

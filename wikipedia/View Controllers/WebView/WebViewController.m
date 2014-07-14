@@ -353,9 +353,6 @@ typedef enum {
 
 -(void)showSectionEditor
 {
-    EditFunnel *funnel = [[EditFunnel alloc] init];
-    [funnel logStart];
-
     SectionEditorViewController *sectionEditVC =
     [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SectionEditorViewController"];
 
@@ -370,7 +367,6 @@ typedef enum {
                                                  withPredicateFormat: @"article == %@ AND sectionId == %@", article, @(self.sectionToEditId)];
         
         sectionEditVC.sectionID = section.objectID;
-        sectionEditVC.funnel = funnel;
     }
 
     [ROOT pushViewController:sectionEditVC animated:YES];

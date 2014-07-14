@@ -12,7 +12,7 @@
 - (id)initForPageTitle: (NSString *)title
                 domain: (NSString *)domain
                section: (NSString *)section
-       completionBlock: (void (^)(NSString *))completionBlock
+       completionBlock: (void (^)(NSString *, NSDictionary *))completionBlock
         cancelledBlock: (void (^)(NSError *))cancelledBlock
             errorBlock: (void (^)(NSError *))errorBlock
 {
@@ -26,6 +26,7 @@
                                                            @"rvlimit": @1,
                                                            @"rvsection": section,
                                                            @"titles": title,
+                                                           @"meta": @"userinfo", // we need the local user ID for event logging
                                                            @"format": @"json"
                                                            }
                         ];
@@ -53,6 +54,7 @@
          
             NSString *revision = nil;
             NSDictionary *pages = weakSelf.jsonRetrieved[@"query"][@"pages"];
+            NSDictionary *userInfo = weakSelf.jsonRetrieved[@"query"][@"userinfo"];
             if (pages) {
                 NSDictionary *page = pages[pages.allKeys[0]];
                 if (page) {
@@ -73,7 +75,7 @@
                 return;
             }
             
-            completionBlock(revision);
+            completionBlock(revision, userInfo);
         };
     }
     return self;

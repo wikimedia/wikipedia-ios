@@ -12,13 +12,14 @@
 
 @implementation EditFunnel
 
--(id)init
+-(id)initWithUserId:(int)userId
 {
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppEdit
     self = [super initWithSchema:@"MobileWikiAppEdit" version:9003125];
     if (self) {
         self.editSessionToken = [self singleUseUUID];
     }
+    self.userId = userId;
     return self;
 }
 
@@ -26,13 +27,8 @@
 {
     NSMutableDictionary *dict = [eventData mutableCopy];
     dict[@"editSessionToken"] = self.editSessionToken;
-    NSString *userName = [SessionSingleton sharedInstance].keychainCredentials.userName; // @FIXME send user ID
-    if (!userName || [userName isEqualToString:@""]) {
-        dict[@"userID"] = @0; // not logged in
-    } else {
-        // @FIXME fetch the actual user ID
-        dict[@"userID"] = @(-1);
-    }
+    dict[@"userID"] = @(self.userId);
+
     //dict[@"pageNS"] = @0; // @todo actually get the namespace...
     return [NSDictionary dictionaryWithDictionary: dict];
 }
