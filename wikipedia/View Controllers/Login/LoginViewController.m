@@ -101,6 +101,9 @@
     ;
     */
     self.titleLabel.text = MWLocalizedString(@"navbar-title-mode-login", nil);
+
+    self.usernameField.textAlignment = NSTextAlignmentNatural;
+    self.passwordField.textAlignment = NSTextAlignmentNatural;
 }
 
 -(NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string

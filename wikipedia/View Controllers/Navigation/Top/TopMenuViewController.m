@@ -236,11 +236,14 @@
     CGFloat size = 34;
     CGFloat baselineOffset = 2.0;
 
+    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+    NSString *caret = !isRTL ? WIKIGLYPH_CARET_LEFT: IOS_WIKIGLYPH_FORWARD;
+
     self.buttonPencil =     getWikiGlyphButton(WIKIGLYPH_PENCIL,             NAVBAR_BUTTON_PENCIL, size, baselineOffset);
     self.buttonX =          getWikiGlyphButton(WIKIGLYPH_X,                  NAVBAR_BUTTON_X, size - 4, baselineOffset - 0.5);
     self.buttonEye =        getWikiGlyphButton(WIKIGLYPH_EYE,                NAVBAR_BUTTON_EYE, size, baselineOffset);
-    self.buttonArrowLeft =  getWikiGlyphButton(WIKIGLYPH_CARET_LEFT,         NAVBAR_BUTTON_ARROW_LEFT, size, baselineOffset - 2.0);
-    self.buttonArrowRight = getWikiGlyphButton(WIKIGLYPH_CARET_LEFT,         NAVBAR_BUTTON_ARROW_RIGHT, size, baselineOffset - 2.0);
+    self.buttonArrowLeft =  getWikiGlyphButton(caret,                        NAVBAR_BUTTON_ARROW_LEFT, size, baselineOffset - 2.0);
+    self.buttonArrowRight = getWikiGlyphButton(caret,                        NAVBAR_BUTTON_ARROW_RIGHT, size, baselineOffset - 2.0);
     self.buttonW =          getWikiGlyphButton(IOS_WIKIGLYPH_W,              NAVBAR_BUTTON_LOGO_W, size, baselineOffset);
     self.buttonTOC =        getWikiGlyphButton(IOS_WIKIGLYPH_TOC,            NAVBAR_BUTTON_TOC, size, baselineOffset);
     self.buttonMagnify =    getWikiGlyphButton(IOS_WIKIGLYPH_MAGNIFY,        NAVBAR_BUTTON_MAGNIFY, size, baselineOffset);

@@ -23,6 +23,8 @@
     
     [self.reloadCaptchaButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
     [self.reloadCaptchaButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+
+    self.captchaTextBox.textAlignment = NSTextAlignmentNatural;
 }
 
 - (void)reloadCaptchaPushed:(id)sender

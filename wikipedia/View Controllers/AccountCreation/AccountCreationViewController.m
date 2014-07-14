@@ -146,6 +146,11 @@
 
     ((MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT]).color = WMF_COLOR_GREEN;
     ((MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE]).color = WMF_COLOR_GREEN;
+
+    self.usernameField.textAlignment = NSTextAlignmentNatural;
+    self.passwordField.textAlignment = NSTextAlignmentNatural;
+    self.passwordRepeatField.textAlignment = NSTextAlignmentNatural;
+    self.emailField.textAlignment = NSTextAlignmentNatural;
 }
 
 - (void)loginButtonPushed:(id)sender

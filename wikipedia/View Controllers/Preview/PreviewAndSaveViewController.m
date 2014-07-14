@@ -289,6 +289,8 @@ typedef enum {
     self.aboutLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.aboutLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.aboutLabel.text = MWLocalizedString(@"edit-summary-title", nil);
+    self.aboutLabel.textAlignment = NSTextAlignmentNatural;
+    
     [self.editSummaryContainer addSubview:self.aboutLabel];
 }
 
