@@ -17,6 +17,7 @@
 #import "TopMenuViewController.h"
 #import "UIViewController+StatusBarHeight.h"
 #import "UIViewController+ModalPop.h"
+#import "PaddedLabel.h"
 
 #define HISTORY_THUMBNAIL_WIDTH 110
 #define HISTORY_RESULT_HEIGHT 66
@@ -34,7 +35,7 @@
 
 @property (strong, atomic) NSMutableArray *historyDataArray;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
-
+@property (nonatomic) BOOL isRTL;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -109,6 +110,8 @@
 {
     [super viewDidLoad];
 
+    self.isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+    
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setLocale:[NSLocale currentLocale]];
     [self.dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
@@ -419,7 +422,15 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = HISTORY_DATE_HEADER_BACKGROUND_COLOR;
     view.autoresizesSubviews = YES;
-    UILabel *label = [[UILabel alloc] initWithFrame:view.bounds];
+    PaddedLabel *label = [[PaddedLabel alloc] init];
+
+    CGFloat leadingIndent = HISTORY_DATE_HEADER_LEFT_PADDING;
+    if (!self.isRTL) {
+        label.padding = UIEdgeInsetsMake(0, leadingIndent, 0, 0);
+    }else{
+        label.padding = UIEdgeInsetsMake(0, 0, 0, leadingIndent);
+    }
+
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.backgroundColor = [UIColor clearColor];
 
@@ -435,19 +446,11 @@
 
 -(NSAttributedString *)getAttributedHeaderForTitle:(NSString *)title dateString:(NSString *)dateString
 {
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init] ;
-    paragraphStyle.firstLineHeadIndent = HISTORY_DATE_HEADER_LEFT_PADDING;
-    
     NSString *header = [NSString stringWithFormat:@"%@ %@", title, dateString];
     NSMutableAttributedString *attributedHeader = [[NSMutableAttributedString alloc] initWithString: header];
     
-    NSRange rangeOfHeader = NSMakeRange(0, header.length);
     NSRange rangeOfTitle = NSMakeRange(0, title.length);
     NSRange rangeOfDateString = NSMakeRange(title.length + 1, dateString.length);
-    
-    [attributedHeader addAttributes:@{
-                                      NSParagraphStyleAttributeName: paragraphStyle
-                                      } range:rangeOfHeader];
     
     [attributedHeader addAttributes:@{
                                       NSFontAttributeName : [UIFont boldSystemFontOfSize:12.0],
