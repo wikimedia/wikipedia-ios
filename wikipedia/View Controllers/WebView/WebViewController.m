@@ -779,8 +779,11 @@ typedef enum {
     __weak WebViewController *weakSelf = self;
     [self.bridge addListener:@"linkClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
         NSString *href = payload[@"href"];
-        
-        [weakSelf tocHide];
+
+        if([weakSelf tocDrawerIsOpen]){
+            [weakSelf tocHide];
+            return;
+        }
         
         // @todo merge this link title extraction into MWSite
         if ([href hasPrefix:@"/wiki/"]) {
@@ -824,7 +827,11 @@ typedef enum {
     }];
 
     [self.bridge addListener:@"editClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
-        [weakSelf tocHide];
+
+        if([weakSelf tocDrawerIsOpen]){
+            [weakSelf tocHide];
+            return;
+        }
         
         if (weakSelf.editable) {
             weakSelf.sectionToEditId = [payload[@"sectionId"] integerValue];
@@ -837,11 +844,21 @@ typedef enum {
     }];
     
     [self.bridge addListener:@"langClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        if([weakSelf tocDrawerIsOpen]){
+            [weakSelf tocHide];
+            return;
+        }
+
         NSLog(@"Language button pushed");
         [weakSelf languageButtonPushed];
     }];
     
     [self.bridge addListener:@"historyClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        if([weakSelf tocDrawerIsOpen]){
+            [weakSelf tocHide];
+            return;
+        }
+
         [weakSelf historyButtonPushed];
     }];
     
