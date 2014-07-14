@@ -6,7 +6,6 @@
 "article-languages-cancel" = "Hủy bỏ";
 "article-languages-downloading" = "Đang tải các ngôn ngữ của bài…";
 "article-languages-filter-placeholder" = "Lọc Ngôn ngữ";
-"language-button-other-languages" = "Ngôn ngữ Khác";
 "history-label" = "Gần đây";
 "history-section-today" = "Hôm nay";
 "history-section-yesterday" = "Hôm qua";
@@ -16,10 +15,12 @@
 "zero-charged-verbiage" = "TẮT Wikipedia Miễn phí (CÓ THỂ PHẢI TRẢ PHÍ DỮ LIỆU CHUẨN)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Sắp ra khỏi Wikipedia Miễn phí";
+// Fuzzy
 "zero-interstitial-leave-app" = "Tiếp tục đi vào trang ngoài? Có thể phải trả phí dữ liệu chuẩn.";
 "zero-interstitial-continue" = "Tiếp tục";
 "zero-interstitial-cancel" = "Hủy bỏ";
 "zero-learn-more" = "Muốn tìm hiểu thêm về Wikipedia Miễn phí?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Tìm hiểu thêm";
 "zero-learn-more-no-thanks" = "Thôi";
 "zero-wikipedia-zero-heading" = "Wikipedia Miễn phí";
@@ -30,6 +31,11 @@
 "account-creation-logging-in" = "Đang đăng nhập…";
 "account-creation-passwords-mismatched" = "Mật khẩu không khớp.";
 "account-creation-saving" = "Đang lưu…";
+"account-creation-login" = "Đã có tài khoản? Đăng nhập.";
+"account-creation-username-placeholder-text" = "Tên người dùng";
+"account-creation-password-placeholder-text" = "Mật khẩu";
+"account-creation-password-confirm-placeholder-text" = "Xác nhận mật khẩu";
+"account-creation-email-placeholder-text" = "Thư điện tử (tùy chọn)";
 "login-name-not-found" = "Cần tên người dùng để đăng nhập.";
 "login-name-illegal" = "Bạn đã cung cấp một tên người dùng không hợp lệ.";
 "login-name-does-not-exist" = "Bạn đã cung cấp một tên người dùng không tồn tại.";
@@ -37,6 +43,9 @@
 "login-password-wrong" = "Bạn đã cung cấp mật khẩu sai.";
 "login-throttled" = "Bạn đã thử đăng nhập quá nhiều lần trong một thời gian ngắn.";
 "login-user-blocked" = "Thành viên này đã bị cấm.";
+"login-account-creation" = "Chưa có tài khoản? Hãy tham gia Wikipedia.";
+"login-username-placeholder-text" = "Tên người dùng";
+"login-password-placeholder-text" = "Mật khẩu";
 "wikitext-downloading" = "Đang tải mã wiki…";
 "wikitext-download-failed" = "Không lấy được phiên bản hiện tại.";
 "wikitext-download-success" = "Đã tải mã wiki.";
@@ -46,14 +55,10 @@
 "wikitext-upload-captcha-error" = "Lỗi khi xác nhận bằng CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Cần xác nhận bằng CAPTCHA.";
 "wikitext-upload-save" = "Đang lưu…";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Đăng nhập và lưu giữ";
+"wikitext-upload-save-sign-in" = "Đăng nhập";
 "wikitext-upload-save-sign-in-benefits" = "Để cho những người dùng sửa đổi có thể liên lạc với bạn & bạn có thể xem những bài bạn đã sửa đổi.";
 "wikitext-upload-save-anonymously" = "Lưu vô danh";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Các sửa đổi của bạn sẽ ghi rõ địa chỉ IP của bạn, nên sẽ không bảo vệ quyền riêng tư của bạn.";
-// Fuzzy
-"wikitext-upload-save-license" = "Với việc lưu trang, bạn đồng ý xuất bản các đóng góp của bạn theo giấy phép $1.";
+"wikitext-upload-save-anonymously-warning" = "Các sửa đổi của bạn sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Đang tìm…";
 "search-no-matches" = "Không tìm thấy kết quả cho truy vấn này.";
@@ -85,10 +90,8 @@
 "page-history-title" = "Lịch sử trang";
 "page-history-downloading" = "Đang tải lịch sử trang…";
 "navbar-title-mode-edit-wikitext" = "Sửa đổi";
-// Fuzzy
 "navbar-title-mode-login" = "Đăng nhập";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Đăng nhập và lưu giữ";
+"navbar-title-mode-login-and-save" = "Đăng nhập";
 "navbar-title-mode-create-account" = "Mở Tài khoản";
 "navbar-title-mode-create-account-and-save" = "Mở tài khoản và lưu giữ";
 "navbar-title-mode-edit-wikitext-warning" = "Vấn đề Sửa đổi";
@@ -131,3 +134,7 @@
 "button-next" = "Tiếp";
 "button-done" = "Xong";
 "button-save" = "Lưu";
+"onboarding-create-account" = "Mở tài khoản";
+"onboarding-login" = "Đăng nhập";
+"onboarding-already-have-account" = "Đã mở tài khoản rồi? $1";
+"onboarding-skip" = "Bỏ qua";

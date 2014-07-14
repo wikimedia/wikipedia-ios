@@ -2,13 +2,13 @@
 // Exported from translatewiki.net
 // Author: SPQRobin
 // Author: Siebrand
+// Author: Sjoerddebruin
 // Author: Southparkfan
 
 "article-languages-label" = "Taal kiezen";
 "article-languages-cancel" = "Annuleren";
 "article-languages-downloading" = "Paginatalen aan het laden...";
 "article-languages-filter-placeholder" = "Taal filteren";
-"language-button-other-languages" = "Andere talen";
 "history-label" = "Recent";
 "history-section-today" = "Vandaag";
 "history-section-yesterday" = "Gisteren";
@@ -18,10 +18,12 @@
 "zero-charged-verbiage" = "Wikipedia Zero UIT (ER KUNNEN KOSTEN GEREKEND WORDEN VOOR MOBIELE DATA)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "U verlaat Wikipedia Zero";
+// Fuzzy
 "zero-interstitial-leave-app" = "Doorgaan naar de externe website? Er kunnen kosten gerekend worden voor mobiele data.";
 "zero-interstitial-continue" = "Doorgaan";
 "zero-interstitial-cancel" = "Annuleren";
 "zero-learn-more" = "Meer leren over Wikipedia Zero?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Meer lezen";
 "zero-learn-more-no-thanks" = "Nee, bedankt";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -32,6 +34,11 @@
 "account-creation-logging-in" = "Aan het aanmelden...";
 "account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen";
 "account-creation-saving" = "Aan het opslaan...";
+"account-creation-login" = "Hebt u al een gebruiker? Aanmelden.";
+"account-creation-username-placeholder-text" = "Gebruikersnaam";
+"account-creation-password-placeholder-text" = "Wachtwoord";
+"account-creation-password-confirm-placeholder-text" = "Wachtwoord bevestigen";
+"account-creation-email-placeholder-text" = "E-mail (optioneel)";
 "login-name-not-found" = "U moet een gebruikersnaam opgeven om aan te melden.";
 "login-name-illegal" = "U hebt een ongeldige gebruikersnaam opgegeven.";
 "login-name-does-not-exist" = "De opgegeven gebruikersnaam bestaat niet.";
@@ -39,6 +46,8 @@
 "login-password-wrong" = "Het opgegeven wachtwoord is onjuist.";
 "login-throttled" = "U hebt in korte tijd te vaak geprobeerd om aan te melden.";
 "login-user-blocked" = "Gebruiker is geblokkeerd.";
+"login-username-placeholder-text" = "Gebruikersnaam";
+"login-password-placeholder-text" = "Wachtwoord";
 "wikitext-downloading" = "Wikitekst aan het laden...";
 "wikitext-download-failed" = "De laatste versie kon niet geladen worden.";
 "wikitext-download-success" = "Wikitekst geladen.";
@@ -48,14 +57,11 @@
 "wikitext-upload-captcha-error" = "Controlefout voor de CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Er is een CAPTCHA-controle nodig.";
 "wikitext-upload-save" = "Aan het opslaan...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Aanmelden en opslaan";
+"wikitext-upload-save-sign-in" = "Aanmelden";
 "wikitext-upload-save-sign-in-benefits" = "Zodat mederedacteuren met u kunnen communiceren en zodat u kunt zien welke pagina's u hebt bewerkt.";
 "wikitext-upload-save-anonymously" = "Als anoniem opslaan";
 // Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Deze manier kent minder privacy. Uw IP-adres is zichtbaar bij de bewerkingen.";
-// Fuzzy
-"wikitext-upload-save-license" = "Door op te slaan, gaat u akkoord met het vrijgeven van uw bijdragen onder de licentie $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Bezig met zoeken...";
 "search-no-matches" = "Geen overeenkomsten gevonden voor de zoekterm.";
@@ -87,9 +93,7 @@
 "page-history-title" = "Paginageschiedenis";
 "page-history-downloading" = "Paginageschiedenis laden...";
 "navbar-title-mode-edit-wikitext" = "Bewerken";
-// Fuzzy
 "navbar-title-mode-login" = "Aanmelden";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Aanmelden en opslaan";
 "navbar-title-mode-create-account" = "Gebruiker aanmaken";
 "navbar-title-mode-create-account-and-save" = "Gebruiker aanmaken en opslaan";
@@ -133,3 +137,7 @@
 "button-next" = "Volgende";
 "button-done" = "Afgerond";
 "button-save" = "Opslaan";
+"onboarding-create-account" = "Registreren";
+"onboarding-login" = "Aanmelden";
+"onboarding-already-have-account" = "Hebt u al een gebruiker? $1";
+"onboarding-skip" = "Overslaan";

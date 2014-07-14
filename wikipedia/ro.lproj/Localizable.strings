@@ -6,7 +6,6 @@
 "article-languages-cancel" = "Revocare";
 "article-languages-downloading" = "Se încarcă limbile articolului...";
 "article-languages-filter-placeholder" = "Filtru de limbă";
-"language-button-other-languages" = "Alte limbi";
 "history-label" = "Recente";
 "history-section-today" = "Astăzi";
 "history-section-yesterday" = "Ieri";
@@ -16,10 +15,12 @@
 "zero-charged-verbiage" = "Wikipedia Zero DEZACTIVATĂ (SE POT PERCEPE TARIFE STANDARD PENTRU TRAFICUL DE DATE)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Părăsire Wikipedia Zero";
+// Fuzzy
 "zero-interstitial-leave-app" = "Continuați către site-ul extern? Se pot aplica tarife de date standard.";
 "zero-interstitial-continue" = "Continuă";
 "zero-interstitial-cancel" = "Revocare";
 "zero-learn-more" = "Doriți să aflați mai multe despre Wikipedia Zero?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Aflați mai multe";
 "zero-learn-more-no-thanks" = "Nu, mulțumesc";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -30,6 +31,11 @@
 "account-creation-logging-in" = "Autentificare în curs...";
 "account-creation-passwords-mismatched" = "Câmpurile cu parole nu corespund.";
 "account-creation-saving" = "Se salvează...";
+"account-creation-login" = "Aveți deja un cont? Autentificați-vă.";
+"account-creation-username-placeholder-text" = "Nume de utilizator";
+"account-creation-password-placeholder-text" = "Parolă";
+"account-creation-password-confirm-placeholder-text" = "Confirmare parolă";
+"account-creation-email-placeholder-text" = "E-mail (opțional)";
 "login-name-not-found" = "Numele de utilizator este necesar pentru autentificare.";
 "login-name-illegal" = "Ați introdus un nume de utilizator interzis.";
 "login-name-does-not-exist" = "Numele de utilizator introdus nu există.";
@@ -37,6 +43,9 @@
 "login-password-wrong" = "Parola introdusă este incorectă.";
 "login-throttled" = "V-ați autentificat de prea multe ori într-un interval scurt de timp.";
 "login-user-blocked" = "Utilizatorul este blocat.";
+"login-account-creation" = "Nu aveți un cont? Alăturați-vă Wikipediei.";
+"login-username-placeholder-text" = "Nume de utilizator";
+"login-password-placeholder-text" = "Parolă";
 "wikitext-downloading" = "Se încarcă textul wiki...";
 "wikitext-download-failed" = "Imposibil de obținut ultima versiune.";
 "wikitext-download-success" = "Text wiki încărcat.";
@@ -46,14 +55,10 @@
 "wikitext-upload-captcha-error" = "Eroare de verificare la Captcha.";
 "wikitext-upload-captcha-needed" = "Verificare captcha necesară.";
 "wikitext-upload-save" = "Se salvează...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Autentificare și salvare";
+"wikitext-upload-save-sign-in" = "Autentificare";
 "wikitext-upload-save-sign-in-benefits" = "Astfel, coeditorii pot interacționa cu dumnevoastră, iar dumnevoastră veți putea vedea articolele pe care le-ați modificat.";
 "wikitext-upload-save-anonymously" = "Salvare ca anonim";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Această opțiune înseamnă mai puțină intimitate. Adresa dumnevoastră IP este vizibilă lângă modificări.";
-// Fuzzy
-"wikitext-upload-save-license" = "Salvând, acceptați să vă publicați modificările sub licența $1.";
+"wikitext-upload-save-anonymously-warning" = "Modificările dumneavoastră vor fi atribuite adresei IP a dispozitivului dumneavoastră. Dacă recurgeți la $1 veți beneficia de mai multă confidențialitate.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Se caută...";
 "search-no-matches" = "Nu s-au găsit potriviri pentru termenul căutat.";
@@ -85,9 +90,7 @@
 "page-history-title" = "Istoricul paginii";
 "page-history-downloading" = "Se încarcă istoricul paginii...";
 "navbar-title-mode-edit-wikitext" = "Modificare";
-// Fuzzy
 "navbar-title-mode-login" = "Autentificare";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Autentificare și salvare";
 "navbar-title-mode-create-account" = "Creare cont";
 "navbar-title-mode-create-account-and-save" = "Creare cont și salvare";
@@ -131,3 +134,7 @@
 "button-next" = "Înainte";
 "button-done" = "Realizat";
 "button-save" = "Salvare";
+"onboarding-create-account" = "Creare cont";
+"onboarding-login" = "Autentificare";
+"onboarding-already-have-account" = "Aveți deja un cont? $1";
+"onboarding-skip" = "Omite";

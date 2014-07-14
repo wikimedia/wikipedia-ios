@@ -17,10 +17,12 @@
 "zero-charged-verbiage" = "Wikipedia Zero OFF (CAJ DATA STANDARD MUNGKIN DIKENAKAN)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Keluar dari Wikipedia Zero";
+// Fuzzy
 "zero-interstitial-leave-app" = "Terus ke laman web luaran? Caj data standard mungkin dikenakan.";
 "zero-interstitial-continue" = "Teruskan";
 "zero-interstitial-cancel" = "Batalkan";
 "zero-learn-more" = "Ingin tahu lebih lanjut mengenai Wikipedia Zero?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Ketahui lebih lanjut";
 "zero-learn-more-no-thanks" = "Terima kasih sajalah";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -53,8 +55,6 @@
 "wikitext-upload-save-anonymously" = "Simpan secara awanama";
 // Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Begini kurang privasi. Alamat IP anda kelihatan bersama suntingan.";
-// Fuzzy
-"wikitext-upload-save-license" = "Dengan menyimpan, anda setuju untuk melepaskan sumbangan anda di bawah lesen $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Mencari...";
 "search-no-matches" = "Tiada padanan yang ditemui untuk kata carian.";

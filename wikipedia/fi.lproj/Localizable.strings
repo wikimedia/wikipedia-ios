@@ -9,7 +9,6 @@
 "article-languages-cancel" = "Peruuta";
 "article-languages-downloading" = "Ladataan artikkelin kieliä...";
 "article-languages-filter-placeholder" = "Kielisuodatin";
-"language-button-other-languages" = "Muut kielet";
 // Fuzzy
 "history-label" = "Selaushistoria";
 "history-section-today" = "Tänään";
@@ -21,6 +20,7 @@
 "zero-interstitial-continue" = "Jatka";
 "zero-interstitial-cancel" = "Peruuta";
 "zero-learn-more" = "Haluatko lukea lisää Wikipedia Zerosta?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Lisätietoja";
 "zero-learn-more-no-thanks" = "Ei kiitos";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -30,6 +30,11 @@
 "account-creation-logging-in" = "Kirjaudutaan...";
 "account-creation-passwords-mismatched" = "Salasanat eivät täsmää.";
 "account-creation-saving" = "Tallennetaan...";
+"account-creation-login" = "Onko sinulla jo tunnus? Kirjaudu sisään.";
+"account-creation-username-placeholder-text" = "Käyttäjätunnus";
+"account-creation-password-placeholder-text" = "Salasana";
+"account-creation-password-confirm-placeholder-text" = "Vahvista salasana";
+"account-creation-email-placeholder-text" = "Sähköpostiosoite (vapaaehtoinen)";
 "login-name-not-found" = "Käyttäjänimi vaaditaan kirjautumiseen.";
 "login-name-illegal" = "Antamasi käyttäjänimi ei kelpaa.";
 "login-name-does-not-exist" = "Antamaasi käyttäjänimeä ei ole.";
@@ -37,6 +42,9 @@
 "login-password-wrong" = "Virheellinen salasana.";
 "login-throttled" = "Olet kirjautunut sisään liian monta kertaa lyhyen ajan sisällä.";
 "login-user-blocked" = "Käyttäjä on estetty.";
+"login-account-creation" = "Eikö sinulla ole tunnusta? Liity Wikipediaan.";
+"login-username-placeholder-text" = "Käyttäjätunnus";
+"login-password-placeholder-text" = "Salasana";
 "wikitext-downloading" = "Ladataan wikitekstiä...";
 "wikitext-download-failed" = "Uusimman version hakeminen ei onnistu.";
 "wikitext-download-success" = "Wikiteksti ladattu.";
@@ -45,14 +53,11 @@
 "wikitext-upload-captcha-error" = "Virhe CAPTCHA-varmistuksessa.";
 "wikitext-upload-captcha-needed" = "Vaaditaan CAPTCHA-varmistus.";
 "wikitext-upload-save" = "Tallennetaan...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Kirjaudu sisään ja tallenna";
+"wikitext-upload-save-sign-in" = "Kirjaudu sisään";
 "wikitext-upload-save-sign-in-benefits" = "Jotta muut muokkaajat voivat ottaa yhteyttä sinuun & jotta näet, mitä artikkeleita olet muokannut.";
 "wikitext-upload-save-anonymously" = "Tallenna nimettömänä";
 // Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Tämä on tietoturvaltaan heikompi vaihtoehto. IP-osoitteesi näkyy muokkausten yhteydessä.";
-// Fuzzy
-"wikitext-upload-save-license" = "Tallentamalla sitoudut julkaisemaan muutoksesi $1 -lisenssillä.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Haetaan...";
 "search-no-matches" = "Hakutuloksia ei löytynyt hakusanallasi.";
@@ -84,9 +89,7 @@
 "page-history-title" = "Artikkelin historia";
 "page-history-downloading" = "Ladataan artikkelin historiaa...";
 "navbar-title-mode-edit-wikitext" = "Muokkaa";
-// Fuzzy
 "navbar-title-mode-login" = "Kirjaudu sisään";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Kirjaudu sisään ja tallenna";
 "navbar-title-mode-create-account" = "Luo uusi tunnus";
 "navbar-title-mode-create-account-and-save" = "Luo tunnus ja tallenna";
@@ -125,3 +128,7 @@
 "button-next" = "Seuraava";
 "button-done" = "Valmis";
 "button-save" = "Tallenna";
+"onboarding-create-account" = "Luo tunnus";
+"onboarding-login" = "Kirjaudu sisään";
+"onboarding-already-have-account" = "Onko sinulla jo tunnus? $1";
+"onboarding-skip" = "Ohita";

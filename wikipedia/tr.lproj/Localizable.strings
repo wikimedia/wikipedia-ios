@@ -9,7 +9,6 @@
 "article-languages-cancel" = "İptal";
 "article-languages-downloading" = "Madde dilleri yükleniyor...";
 "article-languages-filter-placeholder" = "Dil Süzgeci";
-"language-button-other-languages" = "Diğer Diller";
 "history-label" = "Geçmiş";
 "history-section-today" = "Bugün";
 "history-section-yesterday" = "Dün";
@@ -19,10 +18,12 @@
 "zero-charged-verbiage" = "Vikipedi Sıfır KAPALI (STANDART VERİ ÜCRETLERİ UYGULANABİLİR)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Vikipedi Sıfır'dan çıkılıyor";
+// Fuzzy
 "zero-interstitial-leave-app" = "Dış bağlantıya gidilsin mi? Standart veri ücretleri uygulanabilir.";
 "zero-interstitial-continue" = "Devam et";
 "zero-interstitial-cancel" = "İptal";
 "zero-learn-more" = "Vikipedi Sıfır hakkında bilgi almak ister misiniz?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Daha fazla bilgi al";
 "zero-learn-more-no-thanks" = "Hayır, teşekkürler";
 "zero-wikipedia-zero-heading" = "Vikipedi Sıfır";
@@ -33,6 +34,11 @@
 "account-creation-logging-in" = "Oturum açılıyor...";
 "account-creation-passwords-mismatched" = "Parola alanları uyuşmuyor.";
 "account-creation-saving" = "Kaydediliyor...";
+"account-creation-login" = "Zaten bir hesabınız var mı? Oturum açın";
+"account-creation-username-placeholder-text" = "Kullanıcı adı";
+"account-creation-password-placeholder-text" = "Parola";
+"account-creation-password-confirm-placeholder-text" = "Parolayı onayla";
+"account-creation-email-placeholder-text" = "E-posta (isteğe bağlı)";
 "login-name-not-found" = "Kullanıcı adı, oturum açmak için gereklidir.";
 "login-name-illegal" = "Geçersiz bir kullanıcı adı girdiniz.";
 "login-name-does-not-exist" = "Kayıtlı böyle bir kullanıcı adı yok.";
@@ -40,20 +46,22 @@
 "login-password-wrong" = "Girdiğiniz parola hatalı.";
 "login-throttled" = "Kısa süre içinde çok fazla oturum açtınız.";
 "login-user-blocked" = "Kullanıcı engellendi.";
+"login-account-creation" = "Hesabınız yok mu? Vikipedi'ye katılın";
+"login-username-placeholder-text" = "Kullanıcı adı";
+"login-password-placeholder-text" = "Parola";
 "wikitext-downloading" = "Viki metni yükleniyor...";
 "wikitext-download-failed" = "En son sürüm getirilemiyor.";
 "wikitext-download-success" = "Viki metni yüklendi.";
 "wikitext-preview-changes" = "Değişikliklerinizin ön izlemesi getiriliyor...";
 "wikitext-preview-changes-none" = "Ön izlemesi yapılacak bir değişiklik yok.";
+"wikitext-upload-result-unknown" = "Vikimetin yükleme sonucu belirlenemiyor.";
 "wikitext-upload-captcha-error" = "CAPTCHA doğrulama hatası.";
 "wikitext-upload-captcha-needed" = "CAPTCHA doğrulaması gerekli.";
 "wikitext-upload-save" = "Kaydediliyor...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Giriş yap ve kaydet";
+"wikitext-upload-save-sign-in" = "Oturum aç";
 "wikitext-upload-save-sign-in-benefits" = "Böylece diğer kullanıcılar sizinle iletişim kurabilir & hangi maddeleri düzenlediğinizi görebilirsiniz.";
 "wikitext-upload-save-anonymously" = "Anonim olarak kaydet";
-// Fuzzy
-"wikitext-upload-save-license" = "Kaydederek, katkılarınızı $1 lisansıyla yayımlamayı kabul etmiş olursunuz.";
+"wikitext-upload-save-anonymously-warning" = "Değişiklikleriniz cihazınızın IP adresiyle yayınlanır. Eğer $1arsanız, daha fazla gizlilik sağlayabilirsiniz.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Aranıyor...";
 "search-no-matches" = "Arama ifadesi için eşleşme bulunamadı.";
@@ -80,13 +88,12 @@
 "main-menu-feedback-heading" = "Geri bildirim";
 "main-menu-send-feedback" = "Geri bildirim gönder";
 "main-menu-show-page-history" = "$1 sayfasının değişiklik geçmişi";
+"main-menu-credits" = "Katkılar";
 "saved-pages-title" = "Kaydedilmiş Sayfalar";
 "page-history-title" = "Sayfa geçmişi";
 "page-history-downloading" = "Sayfa geçmişi yükleniyor...";
 "navbar-title-mode-edit-wikitext" = "Düzenle";
-// Fuzzy
 "navbar-title-mode-login" = "Oturum aç";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Oturum aç ve kaydet";
 "navbar-title-mode-create-account" = "Hesap oluştur";
 "navbar-title-mode-create-account-and-save" = "Hesap oluştur ve kaydet";
@@ -113,6 +120,8 @@
 "article-pull-to-refresh-is-refreshing" = "Madde yenileniyor";
 "credits-title" = "Açık kaynak depoları";
 "credits-wikimedia-repos" = "Wikimedia";
+"credits-gerrit-repo" = "Uygulama ana kaynak (Gerrit)";
+"credits-github-mirror" = "Uygulama alternatif kaynak (GitHub)";
 "credits-external-libraries" = "Dış";
 "share-menu-save-page" = "Makaleyi Kaydet";
 "share-menu-page-saved" = "Makale Kaydedildi";
@@ -128,3 +137,7 @@
 "button-next" = "Sonraki";
 "button-done" = "Tamamlandı";
 "button-save" = "Kaydet";
+"onboarding-create-account" = "Hesap oluştur";
+"onboarding-login" = "Oturum aç";
+"onboarding-already-have-account" = "Zaten bir hesabınız var mı? $1";
+"onboarding-skip" = "Atla";

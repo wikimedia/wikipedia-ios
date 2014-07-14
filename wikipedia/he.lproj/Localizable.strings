@@ -8,7 +8,6 @@
 "article-languages-cancel" = "ביטול";
 "article-languages-downloading" = "טעינת שפות הערך...";
 "article-languages-filter-placeholder" = "סינון שפה";
-"language-button-other-languages" = "שפות אחרות";
 "history-label" = "לאחרונה";
 "history-section-today" = "היום";
 "history-section-yesterday" = "אתמול";
@@ -18,10 +17,12 @@
 "zero-charged-verbiage" = "ויקיפדיה אפס כבויה (ייתכן שיחולו חיובים רגילים על נתונים)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "אנחנו יוצאים מוויקיפדיה אפס";
+// Fuzzy
 "zero-interstitial-leave-app" = "להמשיך לאתר חיצוני? ייתכן שיחולו חיובים רגילים על נתונים.";
 "zero-interstitial-continue" = "להמשיך";
 "zero-interstitial-cancel" = "ביטול";
 "zero-learn-more" = "מעניין אותך לדעת עוד על ויקיפדיה אפס?";
+// Fuzzy
 "zero-learn-more-learn-more" = "מידע נוסף";
 "zero-learn-more-no-thanks" = "לא, תודה";
 "zero-wikipedia-zero-heading" = "ויקיפדיה אפס";
@@ -32,6 +33,11 @@
 "account-creation-logging-in" = "כניסה...";
 "account-creation-passwords-mismatched" = "הססמאות אינן זהות.";
 "account-creation-saving" = "שמירה...";
+"account-creation-login" = "כבר יש לך חשבון? כניסה";
+"account-creation-username-placeholder-text" = "שם המשתמש";
+"account-creation-password-placeholder-text" = "ססמה";
+"account-creation-password-confirm-placeholder-text" = "אימות סיסמה";
+"account-creation-email-placeholder-text" = "דואר אלקטרוני (לא חובה)";
 "login-name-not-found" = "שם המשתמש נדרש כדי להיכנס.";
 "login-name-illegal" = "נתת שם משתמש בלתי־תקין.";
 "login-name-does-not-exist" = "שם המשתמש שנתת אינו קיים.";
@@ -39,6 +45,9 @@
 "login-password-wrong" = "הססמה שנתת אינה נכונה.";
 "login-throttled" = "נכנסת יותר מדי פעמים בזמן קצר.";
 "login-user-blocked" = "המשתמש חסום.";
+"login-account-creation" = "אין לך חשבון? אנו מזמינים אותף להצטרף לוויקיפדיה";
+"login-username-placeholder-text" = "שם המשתמש";
+"login-password-placeholder-text" = "ססמה";
 "wikitext-downloading" = "טעינת טקסט ויקי...";
 "wikitext-download-failed" = "לא ניתן לאחזר את הגרסה החדשה ביותר.";
 "wikitext-download-success" = "טקסט ויקי נטען.";
@@ -48,14 +57,10 @@
 "wikitext-upload-captcha-error" = "שגיאת אימות.";
 "wikitext-upload-captcha-needed" = "נדרש אימות תמונה.";
 "wikitext-upload-save" = "שמירה...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "כניסה ושמירה";
+"wikitext-upload-save-sign-in" = "כניסה";
 "wikitext-upload-save-sign-in-benefits" = "כדי שעורכים עמיתים יוכלו להיות בקשר אתך ולראות אילו ערכים ערכת.";
 "wikitext-upload-save-anonymously" = "שמירה אלמונית";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "זה מעניק פחות פרטיות. כתובת ה־IP שלך תוצג עם עריכות.";
-// Fuzzy
-"wikitext-upload-save-license" = "שמירת השינויים מהווה את הסכמתך לפרסום התרומה שלך לפי תנאי רישיון $1.";
+"wikitext-upload-save-anonymously-warning" = "העריכות שלך תיוחסנה לכתובת ה־IP של המכשיר שלך. רישום באמצעות הכפתור $1 יעניק לך יותר פרטיות.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "חיפוש...";
 "search-no-matches" = "לא נמצאו תוצאות מתאימות למילת החיפוש.";
@@ -87,9 +92,7 @@
 "page-history-title" = "היסטוריית הדף";
 "page-history-downloading" = "טעינת היסטוריית הדף";
 "navbar-title-mode-edit-wikitext" = "עריכה";
-// Fuzzy
 "navbar-title-mode-login" = "כניסה";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "כניסה ושמירה";
 "navbar-title-mode-create-account" = "יצירת חשבון";
 "navbar-title-mode-create-account-and-save" = "יצירת חשבון ושמירה";
@@ -133,3 +136,7 @@
 "button-next" = "הבא";
 "button-done" = "בוצע";
 "button-save" = "שמירה";
+"onboarding-create-account" = "יצירת חשבון";
+"onboarding-login" = "כניסה";
+"onboarding-already-have-account" = "כבר יש לך חשבון? $1";
+"onboarding-skip" = "לדלג";

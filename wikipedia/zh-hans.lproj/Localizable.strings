@@ -7,7 +7,6 @@
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "条目语言载入中...";
 "article-languages-filter-placeholder" = "语言过滤器";
-"language-button-other-languages" = "其他语言";
 "history-label" = "最近";
 "history-section-today" = "今天";
 "history-section-yesterday" = "昨天";
@@ -17,10 +16,12 @@
 "zero-charged-verbiage" = "维基百科零已关闭（标准数据可能收费）";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "离开维基百科零";
+// Fuzzy
 "zero-interstitial-leave-app" = "继续到外部站点吗？可能收取标准流量费用。";
 "zero-interstitial-continue" = "继续";
 "zero-interstitial-cancel" = "取消";
 "zero-learn-more" = "想要了解维基百科零吗？";
+// Fuzzy
 "zero-learn-more-learn-more" = "了解更多";
 "zero-learn-more-no-thanks" = "不，谢谢";
 "zero-wikipedia-zero-heading" = "维基百科零";
@@ -31,6 +32,11 @@
 "account-creation-logging-in" = "正在登录...";
 "account-creation-passwords-mismatched" = "密码字段不匹配。";
 "account-creation-saving" = "正在保存...";
+"account-creation-login" = "已拥有帐户？登录。";
+"account-creation-username-placeholder-text" = "用户名";
+"account-creation-password-placeholder-text" = "密码";
+"account-creation-password-confirm-placeholder-text" = "确认密码";
+"account-creation-email-placeholder-text" = "电子邮件（可选）";
 "login-name-not-found" = "需要用户名。";
 "login-name-illegal" = "您提供了非法用户名。";
 "login-name-does-not-exist" = "您提供的用户名不存在。";
@@ -38,6 +44,9 @@
 "login-password-wrong" = "您提供的密码不正确。";
 "login-throttled" = "在短时间内，您尝试的登录次数过多。";
 "login-user-blocked" = "用户被封禁";
+"login-account-creation" = "没有账户？加入维基百科。";
+"login-username-placeholder-text" = "用户名";
+"login-password-placeholder-text" = "密码";
 "wikitext-downloading" = "正在加载维基代码...";
 "wikitext-download-failed" = "无法获取最新的版本。";
 "wikitext-download-success" = "维基代码已加载。";
@@ -47,14 +56,10 @@
 "wikitext-upload-captcha-error" = "验证码验证错误。";
 "wikitext-upload-captcha-needed" = "需要验证码确认。";
 "wikitext-upload-save" = "正在保存...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "登录并保存";
+"wikitext-upload-save-sign-in" = "登录";
 "wikitext-upload-save-sign-in-benefits" = "所以共同编辑者可与您联系，以及您可以看见您编辑了哪些条目。";
 "wikitext-upload-save-anonymously" = "以匿名方式保存";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "这里有较少的隐私。您的IP地址编辑时是可见的。";
-// Fuzzy
-"wikitext-upload-save-license" = "通过保存，您同意将您的贡献根据$1许可协议发布。";
+"wikitext-upload-save-anonymously-warning" = "您的编辑将作为您设备的IP地址发表。如果您$1您将拥有更多隐私。";
 "wikitext-upload-save-license-name" = "知识共享 署名-相同方式共享 3.0";
 "search-searching" = "搜索中⋯";
 "search-no-matches" = "没有找到匹配的搜索词。";
@@ -86,9 +91,7 @@
 "page-history-title" = "页面历史";
 "page-history-downloading" = "加载页面历史...";
 "navbar-title-mode-edit-wikitext" = "编辑";
-// Fuzzy
 "navbar-title-mode-login" = "登录";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "登录并保存";
 "navbar-title-mode-create-account" = "创建账户";
 "navbar-title-mode-create-account-and-save" = "创建帐户并保存";
@@ -132,3 +135,7 @@
 "button-next" = "下一个";
 "button-done" = "完成";
 "button-save" = "保存";
+"onboarding-create-account" = "创建账户";
+"onboarding-login" = "登录";
+"onboarding-already-have-account" = "已拥有账户？$1";
+"onboarding-skip" = "跳过";

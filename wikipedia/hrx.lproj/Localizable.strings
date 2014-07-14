@@ -17,10 +17,12 @@
 "zero-charged-verbiage" = "Wikipedia Zero AUS (STANDARDDATEÜWERTROOHUNGSGEBÜHRE KÖNNE OONFALLE)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Wikipedia Zero verlosse";
+// Fuzzy
 "zero-interstitial-leave-app" = "Mit der externe Website weiter fortfoohre? Standarddateüwertroohungsgebühre könne oonfalle.";
 "zero-interstitial-continue" = "Fortfoohre (weiter mache)";
 "zero-interstitial-cancel" = "Abbreche";
 "zero-learn-more" = "Etwas üwer Wikipedia Zero erfoohre?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Meahr erfoohre";
 "zero-learn-more-no-thanks" = "Nein danke";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";

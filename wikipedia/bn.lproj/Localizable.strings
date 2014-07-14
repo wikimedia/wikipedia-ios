@@ -8,7 +8,6 @@
 "article-languages-downloading" = "নিবন্ধের ভাষাসমূহ লোড হচ্ছে...";
 // Fuzzy
 "article-languages-filter-placeholder" = "ছাকনী";
-"language-button-other-languages" = "অন্যান্য ভাষাসমূহ";
 "history-label" = "সাম্প্রতিক";
 "history-section-today" = "আজ";
 "history-section-yesterday" = "গতকাল";
@@ -18,10 +17,12 @@
 "zero-charged-verbiage" = "উইকিপিডিয়া জিরো বন্ধ (স্ট্যান্ডার্ড ডাটা চার্জ প্রযোজ্য হতে পারে)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "উইকিপিডিয়া জিরো প্রস্থান হচ্ছে";
+// Fuzzy
 "zero-interstitial-leave-app" = "অন্য ওয়েবসাইটিতে যাবেন? সাধারণ ডাটা চার্জ প্রযোজ্য হবে।";
 "zero-interstitial-continue" = "অগ্রসর হোন";
 "zero-interstitial-cancel" = "বাতিল";
 "zero-learn-more" = "উইকিপিডিয়া জিরো সম্পর্কে জানতে চান?";
+// Fuzzy
 "zero-learn-more-learn-more" = "আরও জানুন";
 "zero-learn-more-no-thanks" = "না, ধন্যবাদ";
 "zero-wikipedia-zero-heading" = "উইকিপিডিয়া জিরো";
@@ -31,6 +32,9 @@
 "account-creation-logging-in" = "প্রবেশ হচ্ছে...";
 "account-creation-passwords-mismatched" = "শব্দচাবি মিলেনি";
 "account-creation-saving" = "সংরক্ষণ হচ্ছে ...";
+"account-creation-username-placeholder-text" = "ব্যবহারকারী নাম";
+"account-creation-password-placeholder-text" = "শব্দচাবি";
+"account-creation-password-confirm-placeholder-text" = "শব্দচাবি নিশ্চিত করুন";
 "login-name-not-found" = "প্রবেশ করার জন্য ব্যবহারকারী নাম প্রয়োজন।";
 "login-name-illegal" = "আপনি একটি অবৈধ ব্যবহারকারী নাম দিয়েছেন।";
 "login-name-does-not-exist" = "আপনার দেয়া নামে কোনো ব্যবহারকারী নেই।";
@@ -38,15 +42,14 @@
 "login-password-wrong" = "আপনি যেই শব্দচাবিটি দিয়েছেন তা সঠিক নয়।";
 "login-throttled" = "আপনি অল্প সময়ের মাঝে অনেকবার প্রবেশ করেছেন।";
 "login-user-blocked" = "ব্যবহারকারী অবরুদ্ধ।";
+"login-username-placeholder-text" = "ব্যবহারকারী নাম";
+"login-password-placeholder-text" = "শব্দচাবি";
 "wikitext-downloading" = "উইকি টেক্সট লোড হচ্ছে...";
 "wikitext-download-failed" = "সর্বশেষ সংস্করণটি পাওয়া সম্ভব হয়নি।";
 "wikitext-download-success" = "উইকি টেক্সট লোড হয়েছে।";
 "wikitext-upload-save" = "সংরক্ষণ হচ্ছে ...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "প্রবেশ করুন ও সংরক্ষণ করুন";
+"wikitext-upload-save-sign-in" = "প্রবেশ";
 "wikitext-upload-save-anonymously" = "নামহীন অবস্থায় সংরক্ষণ করুন";
-// Fuzzy
-"wikitext-upload-save-license" = "সংরক্ষণের দ্বারা, আপনি আপনার অবদান $1 লাইসেন্সের অধীনে প্রকাশে সম্মত হচ্ছেন।";
 "wikitext-upload-save-license-name" = "সিসি বাই-এস ৩.০";
 "search-searching" = "অনুসন্ধান হচ্ছে...";
 "search-field-placeholder-text" = "উইকিপিডিয়া অনুসন্ধান";
@@ -76,9 +79,7 @@
 "page-history-title" = "পাতার ইতিহাস";
 "page-history-downloading" = "পাতার ইতিহাস লোড হচ্ছে...";
 "navbar-title-mode-edit-wikitext" = "সম্পাদনা";
-// Fuzzy
 "navbar-title-mode-login" = "প্রবেশ";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "প্রবেশ করুন ও সংরক্ষণ করুন";
 "navbar-title-mode-create-account" = "অ্যাকাউন্ট তৈরি করুন";
 "navbar-title-mode-create-account-and-save" = "অ্যাকাউন্ট তৈরি করুন ও সংরক্ষণ করুন।";
@@ -110,3 +111,9 @@
 "timestamp-years" = "%d বছর আগে";
 "lastmodified-timestamp" = "সর্বশেষ পরিবর্তন $1";
 "lastmodified-by" = "$1 দ্বারা";
+"button-next" = "পরবর্তী";
+"button-done" = "সম্পন্ন";
+"button-save" = "সংরক্ষণ";
+"onboarding-create-account" = "অ্যাকাউন্ট তৈরি করুন";
+"onboarding-login" = "প্রবেশ";
+"onboarding-skip" = "উপেক্ষা করো";

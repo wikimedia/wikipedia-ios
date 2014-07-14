@@ -10,7 +10,6 @@
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Läser in artikelspråk...";
 "article-languages-filter-placeholder" = "Språkfilter";
-"language-button-other-languages" = "Andra språk";
 "history-label" = "Webbhistorik";
 "history-section-today" = "Idag";
 "history-section-yesterday" = "Igår";
@@ -20,10 +19,12 @@
 "zero-charged-verbiage" = "Wikipedia Zero INAKTIVERAD (STANDARDDATAAVGIFTER KAN TILLKOMMA)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Du lämnar nu Wikipedia Zero";
+// Fuzzy
 "zero-interstitial-leave-app" = "Fortsätt till en extern webbplats? Avgifter för datatrafik kan tillkomma.";
 "zero-interstitial-continue" = "Fortsätt";
 "zero-interstitial-cancel" = "Avbryt";
 "zero-learn-more" = "Vill du veta mer om Wikipedia Zero?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Läs mer";
 "zero-learn-more-no-thanks" = "Nej tack";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -34,6 +35,11 @@
 "account-creation-logging-in" = "Loggar in...";
 "account-creation-passwords-mismatched" = "Lösenorden matchar inte.";
 "account-creation-saving" = "Sparar...";
+"account-creation-login" = "Har du redan ett konto? Logga in.";
+"account-creation-username-placeholder-text" = "Användarnamn";
+"account-creation-password-placeholder-text" = "Lösenord";
+"account-creation-password-confirm-placeholder-text" = "Bekräfta lösenord";
+"account-creation-email-placeholder-text" = "E-post (valfritt)";
 "login-name-not-found" = "Användarnamn krävs för att logga in.";
 "login-name-illegal" = "Du angav ett ogiltigt användarnamn.";
 "login-name-does-not-exist" = "Det användarnamn du angav finns inte.";
@@ -41,8 +47,11 @@
 "login-password-wrong" = "Det lösenord som du angav är felaktigt.";
 "login-throttled" = "Du har loggat in för många gånger på kort tid.";
 "login-user-blocked" = "Användaren är blockerad.";
+"login-account-creation" = "Har du inget konto? Skapa ett.";
+"login-username-placeholder-text" = "Användarnamn";
+"login-password-placeholder-text" = "Lösenord";
 "wikitext-downloading" = "Laddar wikitext...";
-"wikitext-download-failed" = "Det gick inte att hämta den senaste artikelversionen.";
+"wikitext-download-failed" = "Det gick inte att hämta den senaste versionen.";
 "wikitext-download-success" = "Wikitext laddad.";
 "wikitext-preview-changes" = "Hämtar förhandsgranskning av dina ändringar...";
 "wikitext-preview-changes-none" = "Inga ändringar som behöver förhandsgranskas har gjorts.";
@@ -50,14 +59,10 @@
 "wikitext-upload-captcha-error" = "Captcha-verifieringsfel.";
 "wikitext-upload-captcha-needed" = "Kräver captcha-verifiering.";
 "wikitext-upload-save" = "Sparar...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Logga in och spara";
+"wikitext-upload-save-sign-in" = "Logga in";
 "wikitext-upload-save-sign-in-benefits" = "Så att andra användare kan kontakta dig och du kan se vilka artiklar du har redigerat.";
 "wikitext-upload-save-anonymously" = "Spara anonymt";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Detta har lägre sekretess. Din IP-adress är synlig i samband med redigeringarna.";
-// Fuzzy
-"wikitext-upload-save-license" = "Genom att spara, samtycker du till att släppa dina bidrag under licensen $1.";
+"wikitext-upload-save-anonymously-warning" = "Dina redigeringar signeras med din enhets IP-adress. Om du vill undvika att din IP-adress offentliggörs kan du $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Söker...";
 "search-no-matches" = "Inga matchningar hittades för söktermen.";
@@ -89,9 +94,7 @@
 "page-history-title" = "Artikelhistorik";
 "page-history-downloading" = "Laddar artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigera";
-// Fuzzy
 "navbar-title-mode-login" = "Logga in";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Logga in och spara";
 "navbar-title-mode-create-account" = "Skapa konto";
 "navbar-title-mode-create-account-and-save" = "Skapa konto och spara";
@@ -111,7 +114,7 @@
 "edit-summary-choice-added-clarification" = "Lade till förtydligande";
 "edit-summary-choice-other" = "Övrigt";
 "edit-summary-description" = "En särskild sammanfattning hjälper medredigerare att snabbt granska dina redigeringar. Du kan också välja en från taggarna nedan.";
-"edit-summary-field-placeholder-text" = "Hur förbättrade du artikeln?";
+"edit-summary-field-placeholder-text" = "Andra sätt på vilka du förbättrat artikeln";
 "edit-summary-title" = "Hur förbättrade du artikeln?";
 "fetching-random-article" = "Hämtar slumpartikel";
 "article-pull-to-refresh-prompt" = "Dra för att uppdatera artikeln";
@@ -121,7 +124,7 @@
 "credits-gerrit-repo" = "Huvudsaklig app (Gerrit)";
 "credits-github-mirror" = "Speglad app (GitHub)";
 "credits-external-libraries" = "Externa";
-"share-menu-save-page" = "Spara artikel";
+"share-menu-save-page" = "Spara artikeln";
 "share-menu-page-saved" = "Artikeln sparades";
 "timestamp-just-now" = "just nu";
 "timestamp-minutes" = "%d minuter sedan";
@@ -135,3 +138,7 @@
 "button-next" = "Nästa";
 "button-done" = "Färdig";
 "button-save" = "Spara";
+"onboarding-create-account" = "Skapa konto";
+"onboarding-login" = "Logga in";
+"onboarding-already-have-account" = "Har du redan ett konto? $1";
+"onboarding-skip" = "Hoppa över";

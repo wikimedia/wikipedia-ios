@@ -1,0 +1,66 @@
+// Messages for Brazilian Portuguese (português do Brasil)
+// Exported from translatewiki.net
+// Author: Anaclaudiaml
+// Author: Dianakc
+// Author: Luckas
+// Author: Tooguether
+
+"article-languages-label" = "Escolha um idioma";
+"article-languages-cancel" = "Cancelar";
+"history-label" = "Recente";
+"history-section-today" = "Hoje";
+"history-section-yesterday" = "Ontem";
+"history-section-lastweek" = "Semana Passada";
+"history-section-lastmonth" = "Mês Passado";
+"zero-interstitial-continue" = "Continuar";
+"zero-interstitial-cancel" = "Cancelar";
+"zero-learn-more-no-thanks" = "Não, obrigado";
+"zero-wikipedia-zero-heading" = "Wikipédia Zero";
+"account-creation-saving" = "Salvando...";
+"account-creation-username-placeholder-text" = "Nome de usuário";
+"account-creation-password-placeholder-text" = "Senha";
+"account-creation-password-confirm-placeholder-text" = "Confirmar senha";
+"account-creation-email-placeholder-text" = "Email (opcional)";
+"wikitext-upload-save" = "Salvando...";
+"wikitext-upload-save-sign-in" = "Entrar";
+"wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu aparelho. Se você $1 você terá mais privacidade.";
+"search-searching" = "Pesquisando...";
+"search-cancel" = "Cancelar";
+"main-menu-title" = "Mais";
+"main-menu-account-title-logged-out" = "Conta";
+"main-menu-show-history" = "Recente";
+"main-menu-random" = "Aleatório";
+"main-menu-feedback-heading" = "Comentário";
+"main-menu-send-feedback" = "Enviar comentário";
+"main-menu-credits" = "Créditos";
+"saved-pages-title" = "Páginas salvas";
+"page-history-title" = "Histórico da página";
+"navbar-title-mode-edit-wikitext" = "Editar";
+"navbar-title-mode-login" = "Entrar";
+"navbar-title-mode-create-account" = "Criar conta";
+"navbar-title-mode-create-account-and-save" = "Criar conta e salvar";
+"navbar-title-mode-edit-wikitext-preview" = "Pré-visualizar";
+"navbar-title-mode-edit-wikitext-save" = "Salvar";
+"edit-summary-choice-linked-words" = "Links adicionados";
+"edit-summary-choice-fixed-grammar" = "Corrigiu gramática";
+"edit-summary-choice-other" = "Outros";
+"credits-wikimedia-repos" = "Wikimedia";
+"credits-external-libraries" = "Externo";
+"share-menu-save-page" = "Salvar artigo";
+"share-menu-page-saved" = "Artigo salvo";
+"timestamp-just-now" = "agora mesmo";
+"timestamp-minutes" = "%d minutos atrás";
+"timestamp-hours" = "%d horas atrás";
+"timestamp-days" = "%d dias atrás";
+"timestamp-months" = "%d meses atrás";
+"timestamp-years" = "%d anos atrás";
+"lastmodified-timestamp" = "Última modificação $1";
+"lastmodified-by" = "por $1";
+"lastmodified-anon" = "por um usuário anônimo";
+"button-next" = "Seguinte";
+"button-done" = "Pronto";
+"button-save" = "Salvar";
+"onboarding-create-account" = "Criar conta";
+"onboarding-login" = "Entrar";
+"onboarding-already-have-account" = "Já possui uma conta? $1";
+"onboarding-skip" = "Pular";

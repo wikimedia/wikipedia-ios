@@ -6,7 +6,6 @@
 "article-languages-cancel" = "Avbrýt";
 "article-languages-downloading" = "Innlesur greinamál...";
 "article-languages-filter-placeholder" = "Málsligt filtur";
-"language-button-other-languages" = "Onnur mál";
 "history-label" = "Nýliga";
 "history-section-today" = "Í dag";
 "history-section-yesterday" = "Í gjár";
@@ -16,10 +15,12 @@
 "zero-charged-verbiage" = "Wikipedia Zero ER ÓVIKIÐ (STANDARD DÁTAGJØLD KUNNU KOMA FYRI)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Tú fert nú burtur frá Wikipedia Zero";
+// Fuzzy
 "zero-interstitial-leave-app" = "Heldur tú fram til eina eksterna síðu? Vanligir kostnaðir fyri dáta kunnu koma fyri.";
 "zero-interstitial-continue" = "Halt fram";
 "zero-interstitial-cancel" = "Angra";
 "zero-learn-more" = "Vilt tú vita meira um Wikipedia Zero?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Les meira";
 "zero-learn-more-no-thanks" = "Nei takk";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -41,14 +42,10 @@
 "wikitext-download-success" = "Wikitekstur innlisin.";
 "wikitext-preview-changes-none" = "Ongar broytingar vóru gjørdar sum kunnu undanskoðast.";
 "wikitext-upload-save" = "Goymir...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Rita inn og goym";
+"wikitext-upload-save-sign-in" = "Rita inn";
 "wikitext-upload-save-sign-in-benefits" = "So aðrir høvundar kunnu koma í samband við teg og tú kanst síggja hvørjar greinar tú hevur rættað.";
 "wikitext-upload-save-anonymously" = "Goym dulnevnt";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Hetta er minni privat. Tín IP adressa er sjónlig í samband við tínar rættingar.";
-// Fuzzy
-"wikitext-upload-save-license" = "Við at goyma so góðtekur tú at tíni íkøst verða útgivin undir $1 lisensi.";
+"wikitext-upload-save-anonymously-warning" = "Tínar rættingar verða knýttar at tí IP adressuni ið er knýtt at tína eind. Um tú ynskir at $1, so verður tað meira privat.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Leitar...";
 "search-no-matches" = "Ongi leitiúrslit funnin fyri leitiorðið/leitiorðini.";
@@ -78,9 +75,7 @@
 "page-history-title" = "Søgan hjá síðuni";
 "page-history-downloading" = "Innlesur søguna hjá síðuni...";
 "navbar-title-mode-edit-wikitext" = "Rætta";
-// Fuzzy
 "navbar-title-mode-login" = "Rita inn";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Rita inn og goym";
 "navbar-title-mode-create-account" = "Stovna eina kontu";
 "navbar-title-mode-create-account-and-save" = "Stovna konto og goym";
