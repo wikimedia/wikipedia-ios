@@ -1028,6 +1028,21 @@ typedef enum {
     if (self.webView.scrollView.isDragging && ![self tocDrawerIsOpen]){
         CGFloat distanceScrolled = scrollViewDragBeganVerticalOffset_ - self.webView.scrollView.contentOffset.y;
         CGFloat minPixelsScrolled = 20;
+        
+        // Reveal menus if scrolled to near top (100px) or if scroll velocity is a bit fast.
+        // Point is to avoid showing the menu if the user is *slowly* scrolling. This is how
+        // Safari seems to handle things.
+        if (self.webView.scrollView.contentOffset.y > 100){
+            CGPoint scrollVelocity = [self.webView.scrollView.panGestureRecognizer velocityInView:self.view];
+            if (distanceScrolled > 0) {
+                // When pulling down let things scroll a bit faster before menus reveal is triggered.
+                if (scrollVelocity.y < 350.0f) return;
+            }else{
+                // When pushing up set a lower scroll velocity threshold to hide menus.
+                if (scrollVelocity.y > -150.0f) return;
+            }
+        }
+        
         if (fabsf(distanceScrolled) < minPixelsScrolled) return;
         [ROOT animateTopAndBottomMenuHidden:((distanceScrolled > 0) ? NO : YES)];
     }
