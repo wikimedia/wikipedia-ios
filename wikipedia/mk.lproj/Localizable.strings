@@ -7,7 +7,6 @@
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Ги вчитувам јазиците на статијата...";
 "article-languages-filter-placeholder" = "Јазичен филтер";
-"language-button-other-languages" = "Други јазици";
 "history-label" = "Скорешни";
 "history-section-today" = "Денес";
 "history-section-yesterday" = "Вчера";
@@ -17,10 +16,12 @@
 "zero-charged-verbiage" = "Википедија Нулта е ИСКЛУЧЕНА (ПОДАТОЧНИОТ ПРОМЕТ МОЖЕ ДА СЕ НАПЛАЌА СТДАНДАРДНО)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Ја напуштате Википедија Нулта";
+// Fuzzy
 "zero-interstitial-leave-app" = "Да продолжам кон надворешно место? За ова може да се наплаќа по стандардна цена.";
 "zero-interstitial-continue" = "Продолжи";
 "zero-interstitial-cancel" = "Откажи";
 "zero-learn-more" = "Сакате да дознаете повеќе за Википедија Нулта?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Дознајте повеќе";
 "zero-learn-more-no-thanks" = "Не, благодарам";
 "zero-wikipedia-zero-heading" = "Википедија Нулта";
@@ -31,6 +32,11 @@
 "account-creation-logging-in" = "Ве најавувам...";
 "account-creation-passwords-mismatched" = "Лозинките не се совпаѓаат.";
 "account-creation-saving" = "Зачувувам...";
+"account-creation-login" = "Веќе имате сметка? Најавете се";
+"account-creation-username-placeholder-text" = "Корисничко име";
+"account-creation-password-placeholder-text" = "Лозинка";
+"account-creation-password-confirm-placeholder-text" = "Потврда на лозинката";
+"account-creation-email-placeholder-text" = "Е-пошта (незадолжително)";
 "login-name-not-found" = "Се бара корисничко име.";
 "login-name-illegal" = "Внесовте неправилно корисничко име.";
 "login-name-does-not-exist" = "Внесеното корисничко име не постои.";
@@ -38,6 +44,9 @@
 "login-password-wrong" = "Внесената лозинка е неисправна.";
 "login-throttled" = "Направивте премногу обиди за најава за кратко време.";
 "login-user-blocked" = "Корисникот е блокиран";
+"login-account-creation" = "Немате сметка? Приклучете се на Википедија";
+"login-username-placeholder-text" = "Корисничко име";
+"login-password-placeholder-text" = "Лозинка";
 "wikitext-downloading" = "Го вчитувам викитекстот...";
 "wikitext-download-failed" = "Не можам да ја добијам најновата преработка.";
 "wikitext-download-success" = "Викитекстот е вчитан.";
@@ -47,14 +56,10 @@
 "wikitext-upload-captcha-error" = "Грешка при проверката со Captcha.";
 "wikitext-upload-captcha-needed" = "Ќе треба потврда со Captcha.";
 "wikitext-upload-save" = "Зачувувам...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Регистрирај ме и зачувај";
+"wikitext-upload-save-sign-in" = "Најава";
 "wikitext-upload-save-sign-in-benefits" = "За да можат другите уредници да се поврзат со вас и да  видите кои статии ги имате уредувано.";
 "wikitext-upload-save-anonymously" = "Зачувај анонимно";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Ова има помалку приватност. Вашата IP-адреса е видлива со уредувањата.";
-// Fuzzy
-"wikitext-upload-save-license" = "Зачувувајќи ги промените, се согласувате со објавувањето на вашите придонеси под лиценцата $1.";
+"wikitext-upload-save-anonymously-warning" = "Вашите уредувања ќе ѝ бидат припишани на IP-адресата на вашиот уред. Ако направите $1, тогаш ќе имате повеќе приватност.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Пребарувам...";
 "search-no-matches" = "Не пронајдов совпаѓања со бараното.";
@@ -86,10 +91,8 @@
 "page-history-title" = "Историја на страницата";
 "page-history-downloading" = "Ја вчитувам историјата...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
-// Fuzzy
 "navbar-title-mode-login" = "Најава";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Регистрирај ме и зачувај";
+"navbar-title-mode-login-and-save" = "Најави ме и зачувај";
 "navbar-title-mode-create-account" = "Направи сметка";
 "navbar-title-mode-create-account-and-save" = "Направете сметка и зачувајте";
 "navbar-title-mode-edit-wikitext-warning" = "Проблеми со уредувањата";
@@ -132,3 +135,7 @@
 "button-next" = "Следно";
 "button-done" = "Готово";
 "button-save" = "Зачувај";
+"onboarding-create-account" = "Направи сметка";
+"onboarding-login" = "Најава";
+"onboarding-already-have-account" = "Веќе имате сметка? $1";
+"onboarding-skip" = "Прескокни";

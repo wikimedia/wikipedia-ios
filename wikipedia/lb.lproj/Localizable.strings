@@ -6,7 +6,6 @@
 "article-languages-cancel" = "Ofbriechen";
 "article-languages-downloading" = "Luede vun de Sprooche vum Artikel...";
 "article-languages-filter-placeholder" = "Sproochfilter";
-"language-button-other-languages" = "Aner Sproochen";
 "history-label" = "Rezent";
 "history-section-today" = "Haut";
 "history-section-yesterday" = "Gëschter";
@@ -14,10 +13,12 @@
 "history-section-lastmonth" = "Leschte Mount";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Wikipedia Zero verloossen";
+// Fuzzy
 "zero-interstitial-leave-app" = "Virufueren op den externen Internetsite? Déi normal Käschte fir Datentransfer sinn eventuell applicabel.";
 "zero-interstitial-continue" = "Virufueren";
 "zero-interstitial-cancel" = "Ofbriechen";
 "zero-learn-more" = "Wëllt Dir Eppes iwwer Wikipedia Zero gewuer ginn?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Fir méi ze wëssen";
 "zero-learn-more-no-thanks" = "Nee, merci";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -26,6 +27,11 @@
 "account-creation-logging-in" = "Aloggen...";
 "account-creation-passwords-mismatched" = "D'Passwierder sinn net identesch.";
 "account-creation-saving" = "Späicheren...";
+"account-creation-login" = "Hutt Dir schonn e Benotzerkont? Aloggen.";
+"account-creation-username-placeholder-text" = "Benotzernumm";
+"account-creation-password-placeholder-text" = "Passwuert";
+"account-creation-password-confirm-placeholder-text" = "Passwuert confirméieren";
+"account-creation-email-placeholder-text" = "E-Mail (Fakultativ)";
 "login-name-not-found" = "De Benotzernumm ass obligatoresch fir sech anzeloggen.";
 "login-name-illegal" = "Dir hutt e falsche Benotzernumm uginn.";
 "login-name-does-not-exist" = "De Benotzernumm deen Dir uginn hutt gëtt et net.";
@@ -33,6 +39,8 @@
 "login-password-wrong" = "D'Passwuert dat Dir uginn hutt ass net richteg.";
 "login-throttled" = "Dir hutt a kuerzer Zäit ze dacks probéiert Iech anzeloggen.";
 "login-user-blocked" = "Benotzer ass gespaart.";
+"login-username-placeholder-text" = "Benotzernumm";
+"login-password-placeholder-text" = "Passwuert";
 "wikitext-downloading" = "Wikitext gëtt gelueden...";
 "wikitext-download-failed" = "Déi lescht Versioun konnt net opgeruff ginn.";
 "wikitext-download-success" = "Wikitext gelueden.";
@@ -40,11 +48,9 @@
 "wikitext-upload-captcha-error" = "Feeler beim Nokucke vum CAPTCHA.";
 "wikitext-upload-captcha-needed" = "CAPTCHA-Iwwerpréifung obligatoresch.";
 "wikitext-upload-save" = "Späicheren...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Aloggen a späicheren";
+"wikitext-upload-save-sign-in" = "Aloggen";
 "wikitext-upload-save-anonymously" = "Anonym späicheren";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Dat huet manner Dateschutz. Är IP-Adress gëtt mat den Ännerunge gewisen.";
+"wikitext-upload-save-anonymously-warning" = "Är Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Sichen...";
 "search-no-matches" = "Näischt fonnt fir de Begrëff no deem Dir sicht.";
@@ -76,9 +82,7 @@
 "page-history-title" = "Versioune vun dëser Säit";
 "page-history-downloading" = "Lëscht vun de Versioune gëtt gelueden...";
 "navbar-title-mode-edit-wikitext" = "Änneren";
-// Fuzzy
 "navbar-title-mode-login" = "Aloggen";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Aloggen a späicheren";
 "navbar-title-mode-create-account" = "Benotzerkont uleeën";
 "navbar-title-mode-create-account-and-save" = "Benotzerkont uleeën a späicheren";
@@ -117,3 +121,7 @@
 "button-next" = "Weider";
 "button-done" = "Fäerdeg";
 "button-save" = "Späicheren";
+"onboarding-create-account" = "Benotzerkont opmaachen";
+"onboarding-login" = "Aloggen";
+"onboarding-already-have-account" = "Hutt Dir schonn e Benotzerkont? $1";
+"onboarding-skip" = "Iwwersprangen";

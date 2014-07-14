@@ -19,10 +19,12 @@
 "zero-charged-verbiage" = "Wikipedia Zero hep diskarg (Arloet e c'hall bezañ ar mizoù roadennoù standard)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "O kuitaat Wikipedia Zero";
+// Fuzzy
 "zero-interstitial-leave-app" = "Kenderc'hel war-zu ul lec'hienn diavaez ? Ar mizoù roadennoù standard a c'hallo bezañ lakaet da dalvezout.";
 "zero-interstitial-continue" = "Kenderc'hel";
 "zero-interstitial-cancel" = "Nullañ";
 "zero-learn-more" = "C'hoant ho peus da c'houzout hiroc'h diwar-benn Wikipedia Zero ?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Gouzout hiroc'h";
 "zero-learn-more-no-thanks" = "Ne'm bo ket";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -32,12 +34,14 @@
 "account-creation-logging-in" = "O kevreañ ouzh...";
 "account-creation-passwords-mismatched" = "Maeziennoù ar gerioù-tremen ne glotont ket an eil gant egile";
 "account-creation-saving" = "Oc'h enrollañ...";
+"account-creation-username-placeholder-text" = "Anv implijer";
 "login-name-not-found" = "Rekis eo an anv implijer evit kevreañ.";
 "login-name-does-not-exist" = "N'eus ket eus an anv implijer pourchaset";
 "login-password-empty" = "Rekis eo ar ger-tremen evit kevreañ.";
 "login-password-wrong" = "Direizh eo ar ger-tremen pourchaset.";
 "login-throttled" = "Kevreet ho peus meur a wech e berr amzer.";
 "login-user-blocked" = "Prennet eo an implijer";
+"login-password-placeholder-text" = "Ger-tremen";
 "wikitext-downloading" = "O kargañ an destenn wiki...";
 "wikitext-download-failed" = "N'haller ket kaout an azgweladenn ziwezhañ";
 "wikitext-download-success" = "Testenn Wiki karget";
@@ -75,8 +79,7 @@
 "page-history-title" = "Istor ar bajenn";
 "page-history-downloading" = "O kargañ istor ar bajenn...";
 "navbar-title-mode-edit-wikitext" = "Kemmañ";
-// Fuzzy
-"navbar-title-mode-login" = "Enrollañ";
+"navbar-title-mode-login" = "Kevreañ";
 // Fuzzy
 "navbar-title-mode-login-and-save" = "Kevreañ hag enrollañ";
 "navbar-title-mode-create-account" = "Krouiñ ur gont";

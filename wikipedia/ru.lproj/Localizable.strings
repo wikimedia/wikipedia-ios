@@ -6,7 +6,6 @@
 "article-languages-cancel" = "Отмена";
 "article-languages-downloading" = "Загрузка языков статьи…";
 "article-languages-filter-placeholder" = "Языковой фильтр";
-"language-button-other-languages" = "Другие языки";
 "history-label" = "Недавние";
 "history-section-today" = "Сегодня";
 "history-section-yesterday" = "Вчера";
@@ -16,10 +15,12 @@
 "zero-charged-verbiage" = "Wikipedia Zero ВЫКЛЮЧЕНА (МОЖЕТ ВЗИМАТЬСЯ СТАНДАРТНАЯ ПЛАТА ЗА ПЕРЕДАЧУ ДАННЫХ)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Покидаем Wikipedia Zero";
+// Fuzzy
 "zero-interstitial-leave-app" = "Продолжить переход на внешний сайт? За это может взиматься стандартная плата за передачу данных.";
 "zero-interstitial-continue" = "Продолжить";
 "zero-interstitial-cancel" = "Отмена";
 "zero-learn-more" = "Хотите узнать о Wikipedia Zero?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Узнать больше";
 "zero-learn-more-no-thanks" = "Нет, спасибо";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -30,6 +31,11 @@
 "account-creation-logging-in" = "Вход в систему…";
 "account-creation-passwords-mismatched" = "Пароли не совпадают.";
 "account-creation-saving" = "Сохраняется…";
+"account-creation-login" = "Вы уже зарегистрированы? Войдите.";
+"account-creation-username-placeholder-text" = "Имя участника";
+"account-creation-password-placeholder-text" = "Пароль";
+"account-creation-password-confirm-placeholder-text" = "Подтвердите пароль";
+"account-creation-email-placeholder-text" = "Адрес электронной почты (необязательно)";
 "login-name-not-found" = "Для входа требуется имя участника.";
 "login-name-illegal" = "Вы указали некорректное имя участника.";
 "login-name-does-not-exist" = "Имя участника, которое вы указали, не существует.";
@@ -37,6 +43,9 @@
 "login-password-wrong" = "Вы указали неправильный пароль.";
 "login-throttled" = "Вы входили слишком много раз в течение короткого промежутка времени.";
 "login-user-blocked" = "Участник заблокирован.";
+"login-account-creation" = "У вас нет учётной записи? Присоединитесь к Википедии.";
+"login-username-placeholder-text" = "Имя участника";
+"login-password-placeholder-text" = "Пароль";
 "wikitext-downloading" = "Загрузка вики-текста…";
 "wikitext-download-failed" = "Не удаётся получить последнюю версию.";
 "wikitext-download-success" = "Вики-текст загружен.";
@@ -46,14 +55,10 @@
 "wikitext-upload-captcha-error" = "Ошибка проверки капчи.";
 "wikitext-upload-captcha-needed" = "Нужна проверка капчи.";
 "wikitext-upload-save" = "Сохраняется…";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Войти и сохранить";
+"wikitext-upload-save-sign-in" = "Войти";
 "wikitext-upload-save-sign-in-benefits" = "Так другие участники смогут связаться с вами, и вы сможете видеть, какие статьи вы редактировали.";
 "wikitext-upload-save-anonymously" = "Сохранить анонимно";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Это менее конфиденциально. Ваш IP-адрес виден рядом с вашими правками.";
-// Fuzzy
-"wikitext-upload-save-license" = "Сохраняя, вы соглашаетесь разместить ваш вклад под лицензией $1.";
+"wikitext-upload-save-anonymously-warning" = "Ваши правки будут отмечены IP-адресом вашего устройства. Если вы $1, то получите более высокий уровень конфиденциальности.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Поиск…";
 "search-no-matches" = "Не найдены совпадения по заданному критерию поиска.";
@@ -63,6 +68,7 @@
 "search-loading-section-remaining" = "Загрузка остальной части этой статьи…";
 "search-loading-article-loaded" = "Статья загружена.";
 "search-cancel" = "Отмена";
+"main-menu-title" = "Ещё";
 "main-menu-language-title" = "$1 язык для поиска на вики";
 "main-menu-language-toggle-show" = "Показать языки";
 "main-menu-language-toggle-hide" = "Скрыть языки";
@@ -84,9 +90,7 @@
 "page-history-title" = "История страницы";
 "page-history-downloading" = "Загрузка страницы истории…";
 "navbar-title-mode-edit-wikitext" = "Править";
-// Fuzzy
 "navbar-title-mode-login" = "Войти";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Войти и сохранить";
 "navbar-title-mode-create-account" = "Создать учётную запись";
 "navbar-title-mode-create-account-and-save" = "Создать учётную запись и сохранить";
@@ -106,7 +110,8 @@
 "edit-summary-choice-added-clarification" = "Добавлено разъяснение";
 "edit-summary-choice-other" = "Другое";
 "edit-summary-description" = "Точное описание помогает другим участникам быстро проверить ваши правки. Также вы могли бы указать описания с использованием приведённых ниже тегов.";
-"edit-summary-field-placeholder-text" = "Как именно вы улучили страницу?";
+"edit-summary-field-placeholder-text" = "Как именно вы улучшили страницу?";
+"edit-summary-title" = "Как именно вы улучшили страницу?";
 "fetching-random-article" = "Выбор случайной статьи";
 "article-pull-to-refresh-prompt" = "Потяните, чтобы обновить статью";
 "article-pull-to-refresh-is-refreshing" = "Обновление статьи";
@@ -117,3 +122,19 @@
 "credits-external-libraries" = "Сторонние";
 "share-menu-save-page" = "Сохранить статью";
 "share-menu-page-saved" = "Статья сохранена";
+"timestamp-just-now" = "только что";
+"timestamp-minutes" = "%d мин. назад";
+"timestamp-hours" = "%d ч. назад";
+"timestamp-days" = "%d дн. назад";
+"timestamp-months" = "%d мес. назад";
+"timestamp-years" = "%d г. назад";
+"lastmodified-timestamp" = "Последнее изменение: $1";
+"lastmodified-by" = "участником $1";
+"lastmodified-anon" = "анонимным участником";
+"button-next" = "Далее";
+"button-done" = "Готово";
+"button-save" = "Сохранить";
+"onboarding-create-account" = "Создать учётную запись";
+"onboarding-login" = "Войти";
+"onboarding-already-have-account" = "Вы уже зарегистрированы? $1";
+"onboarding-skip" = "Пропустить";

@@ -10,7 +10,6 @@
 "article-languages-cancel" = "Annuler";
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
 "article-languages-filter-placeholder" = "Filtre de langue";
-"language-button-other-languages" = "Autres langues";
 "history-label" = "Récent";
 "history-section-today" = "Aujourd'hui";
 "history-section-yesterday" = "Hier";
@@ -20,10 +19,12 @@
 "zero-charged-verbiage" = "Wikipédia Zéro DÉSACTIVÉ (LES FRAIS STANDARDS PEUVENT ÊTRE APPLIQUÉS)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Sortie de Wikipédia Zéro";
+// Fuzzy
 "zero-interstitial-leave-app" = "Continuer vers un site externe ? Les frais de données standards pourraient s’appliquer.";
 "zero-interstitial-continue" = "Continuer";
 "zero-interstitial-cancel" = "Annuler";
 "zero-learn-more" = "Vous voulez vous renseigenr sur Wikipédia Zéro ?";
+// Fuzzy
 "zero-learn-more-learn-more" = "En savoir plus";
 "zero-learn-more-no-thanks" = "Non merci";
 "zero-wikipedia-zero-heading" = "Wikipédia Zéro";
@@ -34,6 +35,11 @@
 "account-creation-logging-in" = "Connexion en cours…";
 "account-creation-passwords-mismatched" = "Les champs mot de passe ne correspondent pas.";
 "account-creation-saving" = "Enregistrement en cours…";
+"account-creation-login" = "Vous avez déjà un compte ? Connectez-vous.";
+"account-creation-username-placeholder-text" = "Nom d’utilisateur";
+"account-creation-password-placeholder-text" = "Mot de passe";
+"account-creation-password-confirm-placeholder-text" = "Confirmer le mot de passe";
+"account-creation-email-placeholder-text" = "Courriel (facultatif)";
 "login-name-not-found" = "Le nom d’utilisateur est obligatoire pour se connecter.";
 "login-name-illegal" = "Vous avez fourni un nom d’utilisateur non légal.";
 "login-name-does-not-exist" = "Le nom d’utilisateur que vous avez fourni n’existe pas.";
@@ -41,6 +47,9 @@
 "login-password-wrong" = "Le mot de passe que vous avez fourni n’est pas correct.";
 "login-throttled" = "Vous vous êtes connecté trop de fois en peu de temps.";
 "login-user-blocked" = "L’utilisateur est bloqué.";
+"login-account-creation" = "Vous n’avez pas de compte ? Rejoignez Wikipédia.";
+"login-username-placeholder-text" = "Nom d’utilisateur";
+"login-password-placeholder-text" = "Mot de passe";
 "wikitext-downloading" = "Chargement du texte wiki…";
 "wikitext-download-failed" = "Impossible d’obtenir la dernière révision.";
 "wikitext-download-success" = "Texte wiki chargé.";
@@ -50,14 +59,10 @@
 "wikitext-upload-captcha-error" = "Erreur de vérification du Captcha.";
 "wikitext-upload-captcha-needed" = "Vérification du Captcha nécessaire.";
 "wikitext-upload-save" = "Enregistrement en cours…";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Se connecter et enregistrer";
+"wikitext-upload-save-sign-in" = "Se connecter";
 "wikitext-upload-save-sign-in-benefits" = "Les co-éditeurs peuvent ainsi interagir directement avec vous et vous pouvez voir quels articles vous avez modifiés.";
 "wikitext-upload-save-anonymously" = "Enregistrer anonymement";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Cette action est moins privée. Votre adresse IP est visible avec les modifications.";
-// Fuzzy
-"wikitext-upload-save-license" = "En enregistrant, vous acceptez de mettre vos modifications sous la licence $1.";
+"wikitext-upload-save-anonymously-warning" = "Vos modifications seront attribuées à l’adresse IP de votre appareil. Si vous $1, vous aurez davantage de confidentialité.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Recherche en cours…";
 "search-no-matches" = "Aucune correspondance trouvée pour le critère de recherche.";
@@ -89,9 +94,7 @@
 "page-history-title" = "Historique de la page";
 "page-history-downloading" = "Chargement de l’historique de la page…";
 "navbar-title-mode-edit-wikitext" = "Modifier";
-// Fuzzy
 "navbar-title-mode-login" = "Se connecter";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Se connecter et enregistrer";
 "navbar-title-mode-create-account" = "Créer un compte";
 "navbar-title-mode-create-account-and-save" = "Créer un compte et enregistrer";
@@ -135,3 +138,7 @@
 "button-next" = "Suivant";
 "button-done" = "Terminé";
 "button-save" = "Enregistrer";
+"onboarding-create-account" = "Créer un compte";
+"onboarding-login" = "Se connecter";
+"onboarding-already-have-account" = "Vous avez déjà un compte ? $1";
+"onboarding-skip" = "Sauter";

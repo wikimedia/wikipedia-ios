@@ -18,10 +18,12 @@
 "zero-charged-verbiage" = "Wikipædia Zero AFF (STAUNDART DATA CHAIRGES MICHT APPLIE)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Leain Wikipædia Zero";
+// Fuzzy
 "zero-interstitial-leave-app" = "Continue tae ootby steid? Staundart data chairges micht applie.";
 "zero-interstitial-continue" = "Continue";
 "zero-interstitial-cancel" = "Cancel";
 "zero-learn-more" = "Want tae learn aneat Wikipædia Zero?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Learn mair";
 "zero-learn-more-no-thanks" = "Naw thanks";
 "zero-wikipedia-zero-heading" = "Wikipædia Zero";

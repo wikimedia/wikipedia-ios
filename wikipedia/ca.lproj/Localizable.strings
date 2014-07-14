@@ -7,10 +7,8 @@
 "article-languages-label" = "Trieu una llengua";
 "article-languages-cancel" = "Cancel·la";
 "article-languages-downloading" = "Carregant llengües de l'article...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtre";
-// Fuzzy
-"history-label" = "Historial de navegació";
+"article-languages-filter-placeholder" = "Filtre de llengua";
+"history-label" = "Recent";
 "history-section-today" = "Avui";
 "history-section-yesterday" = "Ahir";
 "history-section-lastweek" = "Darrera setmana";
@@ -19,10 +17,12 @@
 "zero-charged-verbiage" = "Viquipèdia Zero DESACTIVAT (PODEN APLICAR-SE COSTOS PER TRANSMISSIÓ DE DADES)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Sortint de Wikipedia Zero";
+// Fuzzy
 "zero-interstitial-leave-app" = "Desitja continuar? Està sortint de l'aplicaió, es podrien carregar cobrar addicionals";
 "zero-interstitial-continue" = "Continuar";
 "zero-interstitial-cancel" = "Cancel·la";
 "zero-learn-more" = "Voleu saber més sobre la Viquipèdia Zero?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Més informació";
 "zero-learn-more-no-thanks" = "No, gràcies";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -33,6 +33,11 @@
 "account-creation-logging-in" = "Iniciant sessió...";
 "account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen";
 "account-creation-saving" = "Desant...";
+"account-creation-username-placeholder-text" = "Nom d'usuari";
+"account-creation-password-placeholder-text" = "Contrasenya";
+"account-creation-password-confirm-placeholder-text" = "Confirma la contrasenya";
+"search-cancel" = "Cancel·la";
+"main-menu-title" = "Més";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";
 "main-menu-language-toggle-show" = "Mostra idiomes";
 "main-menu-language-toggle-hide" = "Amaga idiomes";
@@ -42,8 +47,7 @@
 "main-menu-account-login" = "Inicia la sessió";
 "main-menu-account-logout" = "Finalitza la sessió";
 "main-menu-show-title" = "Mostra'm...";
-// Fuzzy
-"main-menu-show-history" = "Historial de navegació";
+"main-menu-show-history" = "Recent";
 "main-menu-show-saved" = "Pàgines desades";
 // Fuzzy
 "main-menu-random" = "Article a l'atzar";
@@ -54,6 +58,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Previsualització";
 "navbar-title-mode-edit-wikitext-captcha" = "Es necessita verificació";
 "navbar-title-mode-edit-wikitext-summary" = "Descriviu la vostra modificació";
+"navbar-title-mode-edit-wikitext-save" = "Desa";
 "edit-summary-choice-linked-words" = "Paraules enllaçades";
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
 "edit-summary-choice-fixed-inaccuracy" = "Correcció d'una inexactitud";
@@ -65,3 +70,13 @@
 "edit-summary-choice-other" = "Altres";
 "edit-summary-description" = "Un resum específic ajuda els altres usuaris a revisar ràpidament les vostres modificacions. També podeu triar un dels resums que apareixen a continuació.";
 "edit-summary-field-placeholder-text" = "Quina millora heu aportat a la pàgina?";
+"edit-summary-title" = "Com heu millorat l'article?";
+"lastmodified-by" = "per $1";
+"lastmodified-anon" = "per un usuari anònim";
+"button-next" = "Següent";
+"button-done" = "Fet";
+"button-save" = "Desa";
+"onboarding-create-account" = "Crea un compte";
+"onboarding-login" = "Inicia una sessió";
+"onboarding-already-have-account" = "Ja teniu un compte? $1";
+"onboarding-skip" = "Omet";

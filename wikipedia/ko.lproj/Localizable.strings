@@ -7,10 +7,8 @@
 "article-languages-label" = "언어 선택";
 "article-languages-cancel" = "취소";
 "article-languages-downloading" = "문서 언어를 불러오는 중...";
-// Fuzzy
-"article-languages-filter-placeholder" = "필터";
-// Fuzzy
-"history-label" = "방문 기록 찾아보기";
+"article-languages-filter-placeholder" = "언어 필터";
+"history-label" = "최근";
 "history-section-today" = "오늘";
 "history-section-yesterday" = "어제";
 "history-section-lastweek" = "지난 주";
@@ -19,10 +17,12 @@
 "zero-charged-verbiage" = "위키백과 제로 꺼짐 (표준 데이터 요금이 부과될 수 있음)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "위키백과 제로를 떠나고 있습니다";
+// Fuzzy
 "zero-interstitial-leave-app" = "바깥 사이트로 나갈까요? 표준 데이터 요금이 부과될 수 있습니다.";
 "zero-interstitial-continue" = "계속";
 "zero-interstitial-cancel" = "취소";
 "zero-learn-more" = "위키백과 제로에 대해 알고 싶나요?";
+// Fuzzy
 "zero-learn-more-learn-more" = "더 알아보기";
 "zero-learn-more-no-thanks" = "괜찮습니다";
 "zero-wikipedia-zero-heading" = "위키백과 제로";
@@ -33,6 +33,11 @@
 "account-creation-logging-in" = "로그인 중...";
 "account-creation-passwords-mismatched" = "비밀번호 필드가 일치하지 않습니다.";
 "account-creation-saving" = "저장 중...";
+"account-creation-login" = "계정이 이미 있습니까? 로그인하세요.";
+"account-creation-username-placeholder-text" = "사용자 이름";
+"account-creation-password-placeholder-text" = "비밀번호";
+"account-creation-password-confirm-placeholder-text" = "비밀번호 확인";
+"account-creation-email-placeholder-text" = "이메일 (선택 사항)";
 "login-name-not-found" = "로그인하려면 사용자 이름이 필요합니다.";
 "login-name-illegal" = "잘못된 사용자 이름을 제공했습니다.";
 "login-name-does-not-exist" = "제공한 사용자 이름이 존재하지 않습니다.";
@@ -40,6 +45,9 @@
 "login-password-wrong" = "제공한 비밀번호가 잘못되었습니다.";
 "login-throttled" = "짧은 시간에 너무 많이 로그인하려고 했습니다.";
 "login-user-blocked" = "사용자가 차단되었습니다.";
+"login-account-creation" = "계정이 없나요? 위키백과에 가입하세요.";
+"login-username-placeholder-text" = "사용자 이름";
+"login-password-placeholder-text" = "비밀번호";
 "wikitext-downloading" = "위키 텍스트 불러오는 중...";
 "wikitext-download-failed" = "최신 판을 가져올 수 없습니다.";
 "wikitext-download-success" = "위키 텍스트를 불러왔습니다.";
@@ -49,14 +57,11 @@
 "wikitext-upload-captcha-error" = "캡차 확인 오류입니다.";
 "wikitext-upload-captcha-needed" = "캡차 확인이 필요합니다.";
 "wikitext-upload-save" = "저장 중...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "로그인하고 저장하기";
+"wikitext-upload-save-sign-in" = "로그인";
 "wikitext-upload-save-sign-in-benefits" = "공동 편집자가 당신과 연결할 수 있어서 당신이 편집한 문서를 볼 수 있습니다.";
 "wikitext-upload-save-anonymously" = "익명으로 저장하기";
 // Fuzzy
 "wikitext-upload-save-anonymously-warning" = "이는 더 적은 개인 정보를 가집니다. IP 주소가 편집으로 보여집니다.";
-// Fuzzy
-"wikitext-upload-save-license" = "저장하면, $1 라이선스에 따라 기여를 배포하는 데 동의합니다.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "검색 중...";
 "search-no-matches" = "검색어와 일치하는 것을 찾을 수 없습니다.";
@@ -65,6 +70,8 @@
 "search-loading-section-zero" = "문서의 첫 번째 문단을 불러오는 중...";
 "search-loading-section-remaining" = "문서의 나머지 부분을 불러오는 중...";
 "search-loading-article-loaded" = "문서를 불렀습니다.";
+"search-cancel" = "취소";
+"main-menu-title" = "더 보기";
 "main-menu-language-title" = "$1 언어 위키 검색";
 "main-menu-language-toggle-show" = "언어 보기";
 "main-menu-language-toggle-hide" = "언어 숨기기";
@@ -74,12 +81,10 @@
 "main-menu-account-login" = "로그인";
 "main-menu-account-logout" = "로그아웃";
 "main-menu-show-title" = "내개 보여주기...";
-// Fuzzy
-"main-menu-show-history" = "방문 기록 찾아보기";
+"main-menu-show-history" = "최근";
 "main-menu-show-saved" = "저장된 문서";
 "main-menu-current-article-save" = "오프라인 읽기로 $1 저장하기";
-// Fuzzy
-"main-menu-random" = "임의 문서";
+"main-menu-random" = "임의";
 "main-menu-feedback-heading" = "피드백";
 "main-menu-send-feedback" = "피드백 보내기";
 "main-menu-show-page-history" = "$1의 문서 역사";
@@ -88,9 +93,7 @@
 "page-history-title" = "문서 역사";
 "page-history-downloading" = "문서 역사를 불러오는 중...";
 "navbar-title-mode-edit-wikitext" = "편집";
-// Fuzzy
 "navbar-title-mode-login" = "로그인";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "로그인하고 저장하기";
 "navbar-title-mode-create-account" = "계정 만들기";
 "navbar-title-mode-create-account-and-save" = "계정 만들고 저장하기";
@@ -111,6 +114,7 @@
 "edit-summary-choice-other" = "기타";
 "edit-summary-description" = "특정 요약은 당신의 편집을 공동 편집자가 빠르게 검토하는 것을 돕습니다. 또한 아래 태그에서 고를 수 있습니다.";
 "edit-summary-field-placeholder-text" = "어떻게 문서를 개선했나요?";
+"edit-summary-title" = "어떻게 문서를 개선했습니까?";
 "fetching-random-article" = "임의 문서 가져오는 중";
 "article-pull-to-refresh-prompt" = "문서를 새로 고치려면 당기세요";
 "article-pull-to-refresh-is-refreshing" = "문서를 새로 고치는 중";
@@ -119,3 +123,21 @@
 "credits-gerrit-repo" = "앱 메인 (Gerrit)";
 "credits-github-mirror" = "앱 미러 (GitHub)";
 "credits-external-libraries" = "바깥";
+"share-menu-save-page" = "문서 저장";
+"share-menu-page-saved" = "문서가 저장되었습니다";
+"timestamp-just-now" = "방금";
+"timestamp-minutes" = "%d분 전";
+"timestamp-hours" = "%d시간 전";
+"timestamp-days" = "%d일 전";
+"timestamp-months" = "%d개월 전";
+"timestamp-years" = "%d년 전";
+"lastmodified-timestamp" = "$1에 마지막으로 수정됨";
+"lastmodified-by" = "$1님이";
+"lastmodified-anon" = "익명 사용자가";
+"button-next" = "다음";
+"button-done" = "완료";
+"button-save" = "저장";
+"onboarding-create-account" = "계정 만들기";
+"onboarding-login" = "로그인";
+"onboarding-already-have-account" = "계정이 이미 있습니까? $1";
+"onboarding-skip" = "건너뛰기";

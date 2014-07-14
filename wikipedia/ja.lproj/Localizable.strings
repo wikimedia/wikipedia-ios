@@ -13,17 +13,22 @@
 "account-creation-captcha-required" = "CAPTCHA 検証が必要です。";
 "account-creation-logging-in" = "ログイン中...";
 "account-creation-saving" = "保存中...";
+"account-creation-username-placeholder-text" = "利用者名";
+"account-creation-password-confirm-placeholder-text" = "パスワード再入力";
+"account-creation-email-placeholder-text" = "メール (省略可能)";
 "login-name-not-found" = "ログインするには利用者名が必要です。";
 "login-name-does-not-exist" = "指定した利用者名は存在しません。";
 "login-password-empty" = "ログインするにはパスワードが必要です。";
 "login-password-wrong" = "指定したパスワードは正しくありません。";
 "login-user-blocked" = "利用者はブロックされています。";
+"login-username-placeholder-text" = "利用者名";
 "wikitext-downloading" = "ウィキテキストを読込中...";
 "wikitext-download-failed" = "最新の版を取得できません。";
 "wikitext-download-success" = "ウィキテキストを読み込みました。";
 "wikitext-upload-captcha-error" = "CAPTCHA 検証エラーです。";
 "wikitext-upload-captcha-needed" = "CAPTCHA 検証が必要です。";
 "wikitext-upload-save" = "保存中...";
+"wikitext-upload-save-sign-in" = "ログイン";
 "wikitext-upload-save-anonymously" = "匿名で保存";
 "search-searching" = "検索中...";
 "search-loading-article-loaded" = "記事を読み込みました。";
@@ -46,6 +51,8 @@
 "page-history-title" = "ページの履歴";
 "page-history-downloading" = "ページの履歴を読み込み中...";
 "navbar-title-mode-edit-wikitext" = "編集";
+"navbar-title-mode-login" = "ログイン";
+"navbar-title-mode-login-and-save" = "ログインして保存";
 "navbar-title-mode-create-account" = "アカウント作成";
 "navbar-title-mode-create-account-and-save" = "アカウントを作成して保存";
 "navbar-title-mode-edit-wikitext-preview" = "プレビュー";
@@ -55,3 +62,4 @@
 "share-menu-page-saved" = "記事を保存しました";
 "button-next" = "次へ";
 "button-save" = "保存";
+"onboarding-login" = "ログイン";

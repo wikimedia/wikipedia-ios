@@ -1,6 +1,7 @@
 // Messages for Italian (italiano)
 // Exported from translatewiki.net
 // Author: Beta16
+// Author: Gianfranco
 // Author: Nastoshka
 // Author: Ontsed
 
@@ -8,7 +9,6 @@
 "article-languages-cancel" = "Annulla";
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
 "article-languages-filter-placeholder" = "Filtra lingua";
-"language-button-other-languages" = "Altre lingue";
 "history-label" = "Recenti";
 "history-section-today" = "Oggi";
 "history-section-yesterday" = "Ieri";
@@ -18,10 +18,12 @@
 "zero-charged-verbiage" = "Wikipedia Zero NON connessa (si applicano le tariffe standard di connessione)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Stai uscendo da Wikipedia Zero";
+// Fuzzy
 "zero-interstitial-leave-app" = "Continuare su un sito esterno? Potrebbero essere applicati i costi standard di connessione.";
 "zero-interstitial-continue" = "Continua";
 "zero-interstitial-cancel" = "Annulla";
 "zero-learn-more" = "Vuoi conoscere Wikipedia Zero?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Ulteriori informazioni";
 "zero-learn-more-no-thanks" = "No, grazie";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -32,6 +34,11 @@
 "account-creation-logging-in" = "Accesso in corso...";
 "account-creation-passwords-mismatched" = "Le password non corrispondono.";
 "account-creation-saving" = "Salvataggio...";
+"account-creation-login" = "Hai già un'utenza? Accedi.";
+"account-creation-username-placeholder-text" = "Nome utente";
+"account-creation-password-placeholder-text" = "Password";
+"account-creation-password-confirm-placeholder-text" = "Conferma password";
+"account-creation-email-placeholder-text" = "Email (opzionale)";
 "login-name-not-found" = "Il nome utente è necessario per effettuare l'accesso.";
 "login-name-illegal" = "Hai fornito un nome utente non valido.";
 "login-name-does-not-exist" = "Il nome utente fornito non esiste.";
@@ -39,6 +46,9 @@
 "login-password-wrong" = "La password che hai fornito non è corretta.";
 "login-throttled" = "Hai tentato l'accesso troppe volte in breve tempo.";
 "login-user-blocked" = "L'utente è bloccato.";
+"login-account-creation" = "Non hai un'utenza? Iscriviti a Wikipedia.";
+"login-username-placeholder-text" = "Nome utente";
+"login-password-placeholder-text" = "Password";
 "wikitext-downloading" = "Caricamento wiki testo...";
 "wikitext-download-failed" = "Impossibile visualizzare l'ultima versione.";
 "wikitext-download-success" = "Wiki testo caricato.";
@@ -48,14 +58,10 @@
 "wikitext-upload-captcha-error" = "Errore nella verifica del CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verifica del CAPTCHA necessaria.";
 "wikitext-upload-save" = "Salvataggio...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Registrati e salva";
+"wikitext-upload-save-sign-in" = "Accedi";
 "wikitext-upload-save-sign-in-benefits" = "Così gli altri co-editori potranno connettersi con te e potrete vedere quali articoli avete modificato.";
 "wikitext-upload-save-anonymously" = "Salva in modo anonimo";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Questo ha meno privacy. Il tuo indirizzo IP è visibile con le modifiche.";
-// Fuzzy
-"wikitext-upload-save-license" = "Salvando, accetti di rilasciare il tuo contributo in base alla licenza $1.";
+"wikitext-upload-save-anonymously-warning" = "Le tue modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai più privacy.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Ricerca in corso...";
 "search-no-matches" = "Nessuna corrispondenza trovata per il termine di ricerca.";
@@ -87,9 +93,7 @@
 "page-history-title" = "Cronologia della pagina";
 "page-history-downloading" = "Caricamento della cronologia di pagina...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
-// Fuzzy
 "navbar-title-mode-login" = "Accedi";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Accedi e salva";
 "navbar-title-mode-create-account" = "Crea un'utenza";
 "navbar-title-mode-create-account-and-save" = "Crea un'utenza e salva";
@@ -110,6 +114,7 @@
 "edit-summary-choice-other" = "Altro";
 "edit-summary-description" = "Un oggetto compilato in modo chiaro aiuta gli altri utenti a controllare le tue modifiche. Puoi anche sceglierne uno preimpostato dalla lista qui in basso";
 "edit-summary-field-placeholder-text" = "Quali miglioramenti hai apportato?";
+"edit-summary-title" = "Come hai migliorato la voce?";
 "fetching-random-article" = "Recupera voce a caso";
 "article-pull-to-refresh-prompt" = "Tira per aggiornare la voce";
 "article-pull-to-refresh-is-refreshing" = "Aggiornamento voce";
@@ -129,3 +134,10 @@
 "lastmodified-timestamp" = "Ultima modifica $1";
 "lastmodified-by" = "da $1";
 "lastmodified-anon" = "da un utente anonimo";
+"button-next" = "Successivo";
+"button-done" = "Fatto";
+"button-save" = "Salva";
+"onboarding-create-account" = "Crea un'utenza";
+"onboarding-login" = "Accedi";
+"onboarding-already-have-account" = "Hai già un'utenza? $1";
+"onboarding-skip" = "Salta";

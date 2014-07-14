@@ -17,10 +17,12 @@
 "zero-charged-verbiage" = "Wikipedia Zero APAGÁU (PUE APLICASE LA TARIFA ESTÁNDAR POR DATOS)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Saliendo de Wikipedia Zero";
+// Fuzzy
 "zero-interstitial-leave-app" = "¿Siguir al sitiu esternu? Pue aplicase la tarifa estándar por datos.";
 "zero-interstitial-continue" = "Siguir";
 "zero-interstitial-cancel" = "Encaboxar";
 "zero-learn-more" = "¿Quier saber más de Wikipedia Zero?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Más información";
 "zero-learn-more-no-thanks" = "Non, gracies";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -53,8 +55,6 @@
 "wikitext-upload-save-anonymously" = "Guardar como anónimu";
 // Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Esto tien menor intimidá. La to direición IP ye visible coles ediciones.";
-// Fuzzy
-"wikitext-upload-save-license" = "Al guardar, aceutes lliberar les tos collaboraciones baxo la llicencia $1.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Buscando...";
 "search-no-matches" = "Nun hebo resultaos pal términu buscáu.";

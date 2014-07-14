@@ -17,10 +17,12 @@
 "zero-charged-verbiage" = "ଉଇକିପିଡ଼ିଆ ଜିରୋ ବନ୍ଦ (ସାଧାରଣ ଇଣ୍ଟରନେଟ ଦର ଲାଗିବ)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "ଉଇକିପିଡ଼ିଆ ଜିରୋରୁ ବାହାରନ୍ତୁ";
+// Fuzzy
 "zero-interstitial-leave-app" = "ବାହାର ସାଇଟଟିଏ ଦେଖିବା ଚାଲୁ ରଖିବେ? ସାଧାରଣ ଇଣ୍ଟରନେଟ ଦର ଲାଗିପାରେ ।";
 "zero-interstitial-continue" = "ଚାଲୁ ରଖିନ୍ତୁ";
 "zero-interstitial-cancel" = "ବାତିଲ";
 "zero-learn-more" = "ଉଇକିପିଡ଼ିଆ ଜିରୋ ବାବଦରେ ଅଧିକ ଜାଣିବାକୁ ଚାହାଁନ୍ତି?";
+// Fuzzy
 "zero-learn-more-learn-more" = "ଅଧିକ ଜାଣନ୍ତୁ";
 "zero-learn-more-no-thanks" = "ନାଁ, ଧନ୍ୟବାଦ";
 "zero-wikipedia-zero-heading" = "ଉଇକିପିଡ଼ିଆ ଜିରୋ";
@@ -53,8 +55,6 @@
 "wikitext-upload-save-anonymously" = "ଅଜଣା ଭାବେ ସାଇତିବେ";
 // Fuzzy
 "wikitext-upload-save-anonymously-warning" = "ଏଥିରେ କମ ଗୋପନୀୟତା ରହିଛି । ଆପଣଙ୍କ ସମ୍ପାଦନା IP ଠିକଣା ସହ ଦେଖାଯିବ ।";
-// Fuzzy
-"wikitext-upload-save-license" = "ସାଇଥିବା ଦ୍ୱାରା ଆପଣ $1 ଲାଇସେନ୍ସରେ ନିଜର ଅବଦାନ ବିତରଣ କଲେ ବୋଲି ସମ୍ମତି ଦେଉଛନ୍ତି ।";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "ଖୋଜୁଛି...";
 "search-no-matches" = "ଖୋଜା ଶବ୍ଦରୁ କିଛି ଫଳାଫଳ ମିଳିଲା ନାହିଁ ।";

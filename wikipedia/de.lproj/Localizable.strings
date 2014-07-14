@@ -1,12 +1,12 @@
 // Messages for German (Deutsch)
 // Exported from translatewiki.net
+// Author: BodminPill
 // Author: Metalhead64
 
 "article-languages-label" = "Sprache auswählen";
 "article-languages-cancel" = "Abbrechen";
 "article-languages-downloading" = "Lade Artikelsprachen …";
 "article-languages-filter-placeholder" = "Sprachfilter";
-"language-button-other-languages" = "Andere Sprachen";
 "history-label" = "Kürzlich";
 "history-section-today" = "Heute";
 "history-section-yesterday" = "Gestern";
@@ -16,10 +16,12 @@
 "zero-charged-verbiage" = "Wikipedia Zero AUS (STANDARDDATENÜBERTRAGUNGSGEBÜHREN KÖNNEN ANFALLEN)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Wikipedia Zero verlassen";
+// Fuzzy
 "zero-interstitial-leave-app" = "Mit der externen Website fortfahren? Standarddatenübertragungsgebühren können anfallen.";
 "zero-interstitial-continue" = "Fortfahren";
 "zero-interstitial-cancel" = "Abbrechen";
 "zero-learn-more" = "Etwas über Wikipedia Zero erfahren?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Mehr erfahren";
 "zero-learn-more-no-thanks" = "Nein danke";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -30,6 +32,11 @@
 "account-creation-logging-in" = "Anmelden …";
 "account-creation-passwords-mismatched" = "Die Passwortfelder stimmen nicht überein.";
 "account-creation-saving" = "Speichere …";
+"account-creation-login" = "Hast du bereits ein Benutzerkonto? Anmelden.";
+"account-creation-username-placeholder-text" = "Benutzername";
+"account-creation-password-placeholder-text" = "Passwort";
+"account-creation-password-confirm-placeholder-text" = "Passwort bestätigen";
+"account-creation-email-placeholder-text" = "E-Mail (optional)";
 "login-name-not-found" = "Der Benutzername ist zur Anmeldung erforderlich.";
 "login-name-illegal" = "Du hast einen ungültigen Benutzernamen angegeben.";
 "login-name-does-not-exist" = "Der angegebene Benutzername ist nicht vorhanden.";
@@ -37,6 +44,9 @@
 "login-password-wrong" = "Das angegebene Passwort ist falsch.";
 "login-throttled" = "Du hast zu oft in kurzer Zeit vergeblich versucht, dich anzumelden.";
 "login-user-blocked" = "Benutzer ist gesperrt.";
+"login-account-creation" = "Hast du noch kein Benutzerkonto? Tritt der Wikipedia bei.";
+"login-username-placeholder-text" = "Benutzername";
+"login-password-placeholder-text" = "Passwort";
 "wikitext-downloading" = "Lade Wikitext …";
 "wikitext-download-failed" = "Die aktuellste Version konnte nicht abgerufen werden.";
 "wikitext-download-success" = "Wikitext geladen.";
@@ -46,14 +56,10 @@
 "wikitext-upload-captcha-error" = "Captcha-Überprüfungsfehler.";
 "wikitext-upload-captcha-needed" = "Captcha-Überprüfung erforderlich.";
 "wikitext-upload-save" = "Speichere …";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Anmelden und speichern";
+"wikitext-upload-save-sign-in" = "Anmelden";
 "wikitext-upload-save-sign-in-benefits" = "Andere Autoren können dich kontaktieren und du kannst sehen, welche Artikel du bearbeitet hast.";
 "wikitext-upload-save-anonymously" = "Anonym speichern";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Dies bedeutet weniger Datenschutz. Deine IP-Adresse ist mit den Bearbeitungen einsehbar.";
-// Fuzzy
-"wikitext-upload-save-license" = "Mit dem Speichern stimmst du der Veröffentlichung deiner Beiträge unter der $1-Lizenz zu.";
+"wikitext-upload-save-anonymously-warning" = "Deine Bearbeitungen werden der IP-Adresse deines Gerätes zugeordnet. Wenn du „$1“ wählst, verfügst du über mehr Datenschutz.";
 "wikitext-upload-save-license-name" = "CC-BY-SA 3.0";
 "search-searching" = "Suche …";
 "search-no-matches" = "Keine Treffer für diesen Suchbegriff gefunden.";
@@ -85,9 +91,7 @@
 "page-history-title" = "Versionsgeschichte";
 "page-history-downloading" = "Lade Versionsgeschichte …";
 "navbar-title-mode-edit-wikitext" = "Bearbeiten";
-// Fuzzy
 "navbar-title-mode-login" = "Anmelden";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Anmelden und speichern";
 "navbar-title-mode-create-account" = "Benutzerkonto erstellen";
 "navbar-title-mode-create-account-and-save" = "Benutzerkonto erstellen und speichern";
@@ -131,3 +135,7 @@
 "button-next" = "Nächste";
 "button-done" = "Fertig";
 "button-save" = "Speichern";
+"onboarding-create-account" = "Benutzerkonto erstellen";
+"onboarding-login" = "Anmelden";
+"onboarding-already-have-account" = "Hast du bereits ein Benutzerkonto? $1";
+"onboarding-skip" = "Überspringen";

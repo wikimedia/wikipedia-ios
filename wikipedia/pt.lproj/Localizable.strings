@@ -18,10 +18,12 @@
 "zero-charged-verbiage" = "Wikipedia Zero DESACTIVADO (TAXAS DE DADOS PODERÃO SER COBRADAS)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "A deixar a Wikipédia Zero";
+// Fuzzy
 "zero-interstitial-leave-app" = "Continuar para o sítio externo? Poderá ser aplicada a taxa de dados.";
 "zero-interstitial-continue" = "Continuar";
 "zero-interstitial-cancel" = "Cancelar";
 "zero-learn-more" = "Quer saber mais sobre a Wikipédia Zero?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Saiba mais";
 "zero-learn-more-no-thanks" = "Não, obrigado";
 "zero-wikipedia-zero-heading" = "Wikipédia Zero";
@@ -32,6 +34,11 @@
 "account-creation-logging-in" = "A autenticar...";
 "account-creation-passwords-mismatched" = "As palavras-chave não correspondem.";
 "account-creation-saving" = "A gravar...";
+"account-creation-login" = "Já possui uma conta? Inicie sessão.";
+"account-creation-username-placeholder-text" = "Nome de utilizador";
+"account-creation-password-placeholder-text" = "Palavra-passe";
+"account-creation-password-confirm-placeholder-text" = "Confirme a palavra-passe";
+"account-creation-email-placeholder-text" = "Endereço de correio eletrónico (Opcional)";
 "login-name-not-found" = "O nome de utilizador é necessário para iniciar sessão.";
 "login-name-illegal" = "Forneceu um nome de utilizador ilegal.";
 "login-name-does-not-exist" = "O nome de utilizador que forneceu não existe.";
@@ -39,6 +46,9 @@
 "login-password-wrong" = "A palavra-chave que forneceu está incorreta.";
 "login-throttled" = "Iniciou a sessão demasiadas vezes num curto espaço de tempo.";
 "login-user-blocked" = "O utilizador está bloqueado.";
+"login-account-creation" = "Não tem ainda uma conta? Junte-se à Wikipédia.";
+"login-username-placeholder-text" = "Nome de utilizador";
+"login-password-placeholder-text" = "Palavra-passe";
 "wikitext-downloading" = "A carregar texto wiki...";
 "wikitext-download-failed" = "Não é possível obter a revisão mais recente.";
 "wikitext-download-success" = "Texto wiki carregado.";
@@ -48,14 +58,10 @@
 "wikitext-upload-captcha-error" = "Erro de verificação do código CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Verificação de código CAPTCHA necessária.";
 "wikitext-upload-save" = "A gravar...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Autenticar e gravar";
+"wikitext-upload-save-sign-in" = "Entrar";
 "wikitext-upload-save-sign-in-benefits" = "Assim, co-editores poderão contactá-lo e você poderá ver quais artigos editastes.";
 "wikitext-upload-save-anonymously" = "Gravar anonimamente";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Isto significa menos privacidade. O seu endereço de IP está visível nas edições.";
-// Fuzzy
-"wikitext-upload-save-license" = "Ao gravar, concorda em publicar a sua contribuição sob a licença $1.";
+"wikitext-upload-save-anonymously-warning" = "O seu endereço de IP estará visível nas edições. Se $1 terá mais privacidade.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "A pesquisar...";
 "search-no-matches" = "Nenhum resultado encontrado para o termo de pesquisa.";
@@ -87,10 +93,8 @@
 "page-history-title" = "Histórico da página";
 "page-history-downloading" = "A carregar o histórico da página...";
 "navbar-title-mode-edit-wikitext" = "Editar";
-// Fuzzy
 "navbar-title-mode-login" = "Entrar";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Autenticar e gravar";
+"navbar-title-mode-login-and-save" = "Iniciar sessão e gravar";
 "navbar-title-mode-create-account" = "Criar conta";
 "navbar-title-mode-create-account-and-save" = "Criar conta e gravar";
 "navbar-title-mode-edit-wikitext-warning" = "Editar problemas";
@@ -130,3 +134,7 @@
 "button-next" = "Seguinte";
 "button-done" = "Feito";
 "button-save" = "Gravar";
+"onboarding-create-account" = "Criar conta";
+"onboarding-login" = "Entrar";
+"onboarding-already-have-account" = "Já possui uma conta? $1";
+"onboarding-skip" = "Ignorar";

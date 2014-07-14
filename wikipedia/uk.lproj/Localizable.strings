@@ -1,6 +1,7 @@
 // Messages for Ukrainian (українська)
 // Exported from translatewiki.net
 // Author: Andriykopanytsia
+// Author: Base
 
 "article-languages-label" = "Вибрати мову";
 "article-languages-cancel" = "Скасувати";
@@ -17,10 +18,12 @@
 "zero-charged-verbiage" = "Вікіпедія Zero ВИМКНЕНА (МОЖЕ СТЯГУВАТИСЯ СТАНДАРТНА ПЛАТА ЗА ПЕРЕДАЧУ ДАНИХ)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Покидаємо Вікіпедія Zero";
+// Fuzzy
 "zero-interstitial-leave-app" = "Продовжити перехід на зовнішній сайт? За це може стягуватися стандартна плата за передачу даних.";
 "zero-interstitial-continue" = "Продовжити";
 "zero-interstitial-cancel" = "Скасувати";
 "zero-learn-more" = "Хочете дізнатися про Вікіпедія Zero?";
+// Fuzzy
 "zero-learn-more-learn-more" = "Дізнатися більше";
 "zero-learn-more-no-thanks" = "Ні, дякую.";
 "zero-wikipedia-zero-heading" = "Вікіпедія Zero";
@@ -31,6 +34,8 @@
 "account-creation-logging-in" = "Входимо до системи…";
 "account-creation-passwords-mismatched" = "Паролі не збігаються.";
 "account-creation-saving" = "Збереження...";
+"account-creation-login" = "Ви вже зареєстровані? Увійдіть.";
+"account-creation-password-placeholder-text" = "Пароль";
 "login-name-not-found" = "Ім'я користувача необхідний для входу в систему.";
 "login-name-illegal" = "Ви вказали незаконне ім'я користувача.";
 "login-name-does-not-exist" = "Ім'я користувача, яке ви надали не існує.";
@@ -38,6 +43,8 @@
 "login-password-wrong" = "Ви вказали неправильний пароль.";
 "login-throttled" = "Ви увійшли в систему занадто багато разів за короткий час.";
 "login-user-blocked" = "Користувач заблокований.";
+"login-username-placeholder-text" = "Ім'я користувача";
+"login-password-placeholder-text" = "Пароль";
 "wikitext-downloading" = "Завантаження тексту вікі...";
 "wikitext-download-failed" = "Не вдається отримати останню версію програми.";
 "wikitext-download-success" = "Вікі текст завантажений.";
@@ -82,8 +89,7 @@
 "navbar-title-mode-edit-wikitext" = "Змінити";
 // Fuzzy
 "navbar-title-mode-login" = "Увійти";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Увійти і зберегти";
+"navbar-title-mode-login-and-save" = "Увійти та зберегти";
 "navbar-title-mode-create-account" = "Створити обліковий запис";
 "navbar-title-mode-create-account-and-save" = "Створити обліковий запис і зберегти";
 "navbar-title-mode-edit-wikitext-warning" = "Проблеми редагування";
@@ -105,3 +111,8 @@
 "fetching-random-article" = "Вибірка випадкової статті";
 "article-pull-to-refresh-prompt" = "Потягність для оновлення статті";
 "article-pull-to-refresh-is-refreshing" = "Оновлення статті";
+"button-next" = "Далі";
+"button-done" = "Готово";
+"button-save" = "Зберегти";
+"onboarding-login" = "Увійти до системи";
+"onboarding-skip" = "Пропустити";
