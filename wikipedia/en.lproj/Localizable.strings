@@ -154,9 +154,8 @@
 "timestamp-months" = "%d months ago";
 "timestamp-years" = "%d years ago";
 
-"lastmodified-timestamp" = "Last Modified $1";
-"lastmodified-by" = "by $1";
-"lastmodified-anon" = "by an anonymous user";
+"lastmodified-by-user" = "Modified $1 by $2";
+"lastmodified-by-anon" = "Modified $1 by an anonymous user";
 
 "button-next" = "Next";
 "button-done" = "Done";

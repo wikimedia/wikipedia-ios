@@ -1648,20 +1648,22 @@ typedef enum {
 
     NSString *ts = [WikipediaAppUtils relativeTimestamp:date];
     NSString *recent = (fabs([date timeIntervalSinceNow]) < 60*60*24) ? @"recent" : @"";
-    NSString *lm = [MWLocalizedString(@"lastmodified-timestamp", nil) stringByReplacingOccurrencesOfString:@"$1" withString:ts];
-    NSString *by;
+    NSString *lm;
     if (username && ![username isEqualToString:@""]) {
-        by = [MWLocalizedString(@"lastmodified-by", nil) stringByReplacingOccurrencesOfString:@"$1" withString:username];
+        lm = [[MWLocalizedString(@"lastmodified-by-user", nil)
+               stringByReplacingOccurrencesOfString:@"$1" withString:ts]
+                stringByReplacingOccurrencesOfString:@"$2" withString:username];
     } else {
-        by = MWLocalizedString(@"lastmodified-anon", nil);
+        lm = [MWLocalizedString(@"lastmodified-by-anon", nil)
+              stringByReplacingOccurrencesOfString:@"$1" withString:ts];
     }
 
     return [NSString stringWithFormat:@"<button dir=\"%@\" class=\"mw-last-modified mw-footer-button %@\">"
             @"<div>"
             @"<span><span class=\"mw-footer-icon\">%@</span></span>"
-            @"<span>%@<br>%@</span>"
+            @"<span>%@</span>"
             @"</div>"
-            @"</button>", dir, recent, icon, lm, by];
+            @"</button>", dir, recent, icon, lm];
 }
 
 -(NSString *)renderLicenseFooter

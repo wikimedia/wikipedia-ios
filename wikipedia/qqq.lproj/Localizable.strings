@@ -128,9 +128,8 @@
 "timestamp-days" = "Human-readable approximate timestamp for events in the last couple months, expressed as days";
 "timestamp-months" = "Human-readable approximate timestamp for events in the last couple years, expressed as months";
 "timestamp-years" = "Human-readable approximate timestamp for events in the distant past, expressed as years";
-"lastmodified-timestamp" = "Marker at page end for last modified time. $1 is placeholder for a human-readable approximate timestamp";
-"lastmodified-by" = "Marker at page end for who last modified the page. $1 is a username.";
-"lastmodified-anon" = "Marker at page end for who last modified the page when anonymous.";
+"lastmodified-by-user" = "Marker at page end for who last modified the page. $1 is a relative date such as '2 months ago' or 'today', $2 is a username.";
+"lastmodified-by-anon" = "Marker at page end for who last modified the page when anonymous. $1 is a relative date such as '2 months ago' or 'today'.";
 "button-next" = "Button text for next button used in various places.\n{{Identical|Next}}";
 "button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
 "button-save" = "Button text for save button used in various places.\n{{Identical|Save}}";
