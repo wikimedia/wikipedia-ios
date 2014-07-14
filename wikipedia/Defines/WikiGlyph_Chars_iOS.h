@@ -7,3 +7,4 @@
 #define IOS_WIKIGLYPH_MAGNIFY               @"\ue953"
 #define IOS_WIKIGLYPH_FORWARD               @"\ue954"
 #define IOS_WIKIGLYPH_BACKWARD              @"\ue955"
+#define IOS_WIKIGLYPH_DOWN                  @"\ue956"

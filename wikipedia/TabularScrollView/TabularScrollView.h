@@ -14,4 +14,6 @@ typedef enum {
 
 @property (nonatomic)TabularScrollViewOrientation orientation;
 
+@property (nonatomic) CGFloat minSubviewHeight;
+
 @end

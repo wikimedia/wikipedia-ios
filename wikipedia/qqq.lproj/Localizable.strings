@@ -90,6 +90,10 @@
 "main-menu-send-feedback" = "Button text for button to send app feedback.\n{{Identical|Send feedback}}";
 "main-menu-show-page-history" = "Button text for showing history of changes to current article. Parameters:\n* $1 - page title";
 "main-menu-credits" = "Button text for showing credits for external open source libraries used.\n{{Identical|Credit}}";
+"main-menu-zero-faq" = "Button text for showing the Wikipedia Zero Frequently Asked Questions (FAQ) document";
+"main-menu-privacy-policy" = "Button text for showing privacy policy";
+"main-menu-license" = "Button text for showing license";
+"main-menu-rate-app" = "Button text for showing the app in the app store so user can rate the app";
 "saved-pages-title" = "Header text for Saved Pages interface.\n{{Identical|Saved page}}";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Page history}}";
 "page-history-downloading" = "Alert text shown when obtaining revision history of an article";
@@ -153,3 +157,5 @@
 "page_protected_other" = "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected.";
 "page_protected_can_not_edit" = "Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.";
 "page_protected_can_not_edit_title" = "Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.";
+"main-menu-heading-zero" = "Header text for the Wikipedia Zero section of the menu.";
+"main-menu-heading-legal" = "Header text for the legal section of the menu.";

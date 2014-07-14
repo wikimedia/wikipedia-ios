@@ -209,5 +209,9 @@
     }
 }
 
++(BOOL)isDeviceLanguageRTL {
+    // From: http://stackoverflow.com/a/14793934
+    return ([NSLocale characterDirectionForLanguage:[[NSLocale preferredLanguages] objectAtIndex:0]] == NSLocaleLanguageDirectionRightToLeft);
+}
 
 @end

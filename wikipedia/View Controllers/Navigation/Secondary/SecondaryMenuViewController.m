@@ -13,7 +13,7 @@
 #import "NSString+FormattedAttributedString.h"
 #import "TabularScrollView.h"
 #import "SecondaryMenuRowView.h"
-#import "WikiGlyph_Chars.h"
+#import "WikiGlyph_Chars_iOS.h"
 #import "TopMenuContainerView.h"
 #import "UIViewController+StatusBarHeight.h"
 #import "Defines.h"
@@ -22,24 +22,41 @@
 #import "MWPageTitle.h"
 #import "UIViewController+ModalPop.h"
 #import "LoginViewController.h"
+#import "PaddedLabel.h"
 
 #pragma mark - Defines
 
-#define BACKGROUND_COLOR [UIColor colorWithWhite:1.0f alpha:1.0f]
 #define MENU_ICON_COLOR [UIColor blackColor]
-#define MENU_ICON_COLOR_DESELECTED [UIColor lightGrayColor];
-#define MENU_ICON_FONT_SIZE 38
+#define MENU_ICON_FONT_SIZE 24
+
+#define MENU_TITLE_FONT_SIZE 17
+#define MENU_SUB_TITLE_FONT_SIZE 15
+#define MENU_SUB_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.5f alpha:1.0f]
+
+#define URL_ZERO_FAQ @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ"
+#define URL_PRIVACY_POLICY @"https://m.wikimediafoundation.org/wiki/Privacy_Policy"
+#define URL_LICENSE @"https://m.wikimediafoundation.org/wiki/Terms_of_Use"
+#define URL_RATE_APP @"itms-apps://itunes.apple.com/app/id324715238"
 
 typedef enum {
     SECONDARY_MENU_ROW_INDEX_LOGIN = 0,
-    SECONDARY_MENU_ROW_INDEX_SAVED_PAGES = 3,
-    SECONDARY_MENU_ROW_INDEX_SAVE_PAGE = 4,
-    SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE = 5,
-    SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING = 6,
-    SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK = 7,
-    SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY = 8,
-    SECONDARY_MENU_ROW_INDEX_CREDITS = 9,
-    SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS = 10
+    SECONDARY_MENU_ROW_INDEX_SAVED_PAGES = 1,
+    SECONDARY_MENU_ROW_INDEX_SAVE_PAGE = 2,
+    SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE = 3,
+    SECONDARY_MENU_ROW_INDEX_ZERO_FAQ = 4,
+    SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING = 5,
+    SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK = 6,
+    SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY = 7,
+    SECONDARY_MENU_ROW_INDEX_CREDITS = 8,
+    SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS = 9,
+    SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY = 10,
+    SECONDARY_MENU_ROW_INDEX_LICENSE = 11,
+    SECONDARY_MENU_ROW_INDEX_RATE_APP = 12,
+    SECONDARY_MENU_ROW_INDEX_HEADING_ZERO = 13,
+    SECONDARY_MENU_ROW_INDEX_HEADING_LEGAL = 14,
+    SECONDARY_MENU_ROW_INDEX_HEADING_BLANK = 15,
+    SECONDARY_MENU_ROW_INDEX_HEADING_BLANK_2 = 16
+
 } SecondaryMenuRowIndex;
 
 #pragma mark - Private
@@ -54,7 +71,6 @@ typedef enum {
 @property (nonatomic) BOOL hidePagesSection;
 
 @property (strong, nonatomic) NSDictionary *highlightedTextAttributes;
-@property (strong, nonatomic) NSDictionary *summaryTextAttributes;
 
 @end
 
@@ -100,18 +116,15 @@ typedef enum {
 {
     [super viewDidLoad];
 
-    self.highlightedTextAttributes = @{NSFontAttributeName: [UIFont italicSystemFontOfSize:16]};
-    self.summaryTextAttributes = @{
-                                   NSFontAttributeName: [UIFont systemFontOfSize:14],
-                                   NSForegroundColorAttributeName: [UIColor colorWithWhite:0.5f alpha:1.0f]
-                                   };
+    self.highlightedTextAttributes = @{NSFontAttributeName: [UIFont italicSystemFontOfSize:MENU_TITLE_FONT_SIZE]};
 
     self.hidePagesSection = NO;
     self.navigationItem.hidesBackButton = YES;
 
-    self.view.backgroundColor = BACKGROUND_COLOR;
+    self.view.backgroundColor = CHROME_COLOR;
     
     self.scrollView.clipsToBounds = NO;
+    self.scrollView.minSubviewHeight = 45;
     
     self.rowViews = @[].mutableCopy;
     
@@ -222,12 +235,48 @@ typedef enum {
         SecondaryMenuRowView *rowView = [[secondaryMenuRowViewNib instantiateWithOwner:self options:nil] firstObject];
 
         rowView.tag = [self getIndexOfRow:row];
+        rowView.optionSwitch.tag = rowView.tag;
+        
+        rowView.optionSwitch.tintColor = [UIColor colorWithWhite:0.88 alpha:1.0];
+        rowView.optionSwitch.onTintColor = [UIColor blackColor];
+        
+        switch (rowView.tag) {
+            case SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING:
+                rowView.optionSwitch.hidden = NO;
+                [rowView.optionSwitch setOn:[SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving];
+                break;
+            case SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS:
+                rowView.optionSwitch.hidden = NO;
+                [rowView.optionSwitch setOn:[SessionSingleton sharedInstance].sendUsageReports];
+                break;
+            default:
+                break;
+        }
+
+        [rowView.optionSwitch addTarget: self
+                                 action: @selector(switchTapped:)
+                       forControlEvents: UIControlEventValueChanged];
 
         [self.rowViews addObject:rowView];
     }
 
     [self updateLoginRow];
     [self applyRowSettings];
+}
+
+-(void)switchTapped:(UISwitch *)sender
+{
+    //NSLog(@"switch %d tapped isOn %d", sender.tag, sender.isOn);
+    switch (sender.tag) {
+        case SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING:
+            [[SessionSingleton sharedInstance].zeroConfigState toggleWarnWhenLeaving];
+            break;
+        case SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS:
+            [SessionSingleton sharedInstance].sendUsageReports = sender.isOn;
+            break;
+        default:
+            break;
+    }
 }
 
 -(void)applyRowSettings
@@ -238,33 +287,45 @@ typedef enum {
         SecondaryMenuRowIndex index = [self getIndexOfRow:row];
         SecondaryMenuRowView *rowView = [self getViewWithTag:index];
 
-        rowView.highlighted = ((NSNumber *)row[@"highlighted"]).boolValue;
-
-        UIColor *iconColor = rowView.highlighted ? MENU_ICON_COLOR : MENU_ICON_COLOR_DESELECTED;
-
         NSDictionary *attributes =
             @{
-              NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:MENU_ICON_FONT_SIZE],
-              NSForegroundColorAttributeName : iconColor,
+              NSFontAttributeName: [UIFont fontWithName:@"WikiFontGlyphs-iOS" size:MENU_ICON_FONT_SIZE],
+              NSForegroundColorAttributeName : MENU_ICON_COLOR,
               NSBaselineOffsetAttributeName: @2
               };
 
+        NSString *icon = row[@"icon"];
         rowView.iconLabel.attributedText =
-            [[NSAttributedString alloc] initWithString: row[@"icon"]
+            [[NSAttributedString alloc] initWithString: icon
                                             attributes: attributes];
 
         id title = row[@"title"];
         if([title isKindOfClass:[NSString class]]){
+            //title = [NSString stringWithFormat:@"%@ %@ %@", title, title, title];
             rowView.textLabel.text = title;
         }else if([title isKindOfClass:[NSAttributedString class]]){
             rowView.textLabel.attributedText = title;
         }
+
+        NSNumber *rowType = row[@"type"];
+        rowView.rowType = rowType.integerValue;
+    }
+
+    // Let the rows know their relative positions so they can draw
+    // borders appropriately.
+    RowType lastRowType = ROW_TYPE_UNKNOWN;
+    for (SecondaryMenuRowView *view in self.rowViews) {
+        view.rowPosition = (view.rowType != lastRowType) ? ROW_POSITION_TOP : ROW_POSITION_UNKNOWN;
+        lastRowType = view.rowType;
     }
 }
 
 -(void)setRowData
 {
-    NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
+    NSString *ltrSafeCaretCharacter = [WikipediaAppUtils isDeviceLanguageRTL] ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD;
+
+
+    //NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
     
     NSAttributedString *searchWikiTitle =
     [MWLocalizedString(@"main-menu-language-title", nil) attributedStringWithAttributes: nil
@@ -278,43 +339,49 @@ typedef enum {
                                                                           substitutionStrings: @[currentArticleTitle]
                                                                        substitutionAttributes: @[self.highlightedTextAttributes]
      ];
-     */
 
     NSAttributedString *pageHistoryTitle =
     [MWLocalizedString(@"main-menu-show-page-history", nil) attributedStringWithAttributes: nil
                                                                        substitutionStrings: @[currentArticleTitle]
                                                                     substitutionAttributes: @[self.highlightedTextAttributes]
      ];
+    */
     
-    NSString *sendUsageBase = [MWLocalizedString(@"preference_title_eventlogging_opt_in", nil)
-stringByAppendingString:@"\n\n$1"];
-    NSString *sendUsageSummary = MWLocalizedString(@"preference_summary_eventlogging_opt_in", nil);
-    NSAttributedString *sendUsageDataTitle = [sendUsageBase attributedStringWithAttributes:nil
-                                                                       substitutionStrings:@[sendUsageSummary]
-                                                                    substitutionAttributes:@[self.summaryTextAttributes]];
+    NSString *sendUsageBase =
+        [MWLocalizedString(@"preference_title_eventlogging_opt_in", nil) stringByAppendingString:@"\n$1"];
+
+    NSString *sendUsageSummary =
+        MWLocalizedString(@"preference_summary_eventlogging_opt_in", nil);
+
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.paragraphSpacingBefore = 5;
+    //paragraphStyle.lineSpacing = 8;
+    
+    NSDictionary *summaryTextAttributes =
+        @{
+            NSFontAttributeName: [UIFont systemFontOfSize:MENU_SUB_TITLE_FONT_SIZE],
+            NSForegroundColorAttributeName: MENU_SUB_TITLE_TEXT_COLOR,
+            NSParagraphStyleAttributeName : paragraphStyle
+        };
+
+    NSAttributedString *sendUsageDataTitle =
+        [sendUsageBase attributedStringWithAttributes: nil
+                                  substitutionStrings: @[sendUsageSummary]
+                               substitutionAttributes: @[summaryTextAttributes]];
 
     NSMutableArray *rowData =
     @[
-      @{
-          @"title": @"",
-          @"tag": @(SECONDARY_MENU_ROW_INDEX_LOGIN),
-          @"icon": WIKIGLYPH_USER_SLEEP,
-          @"highlighted": @YES,
-          }.mutableCopy
-      ,
       /*
       @{
           @"title": MWLocalizedString(@"main-menu-show-saved", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_SAVED_PAGES),
           @"icon": WIKIGLYPH_BOOKMARK,
-          @"highlighted": @YES,
           }.mutableCopy
       ,
       @{
           @"title": saveArticleTitle,
           @"tag": @(SECONDARY_MENU_ROW_INDEX_SAVE_PAGE),
           @"icon": WIKIGLYPH_DOWNLOAD,
-          @"highlighted": @YES,
           }.mutableCopy
       ,
       */
@@ -322,44 +389,109 @@ stringByAppendingString:@"\n\n$1"];
           @"domain": [SessionSingleton sharedInstance].domain,
           @"title": searchWikiTitle,
           @"tag": @(SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE),
-          @"icon": WIKIGLYPH_TRANSLATE,
-          @"highlighted": @YES,
+          @"icon": IOS_WIKIGLYPH_DOWN,
+          @"type": @(ROW_TYPE_SELECTION),
           }.mutableCopy
       ,
       @{
-          @"title": pageHistoryTitle,
-          @"tag": @(SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY),
-          @"icon": WIKIGLYPH_LINK,
-          @"highlighted": @YES,
-          }.mutableCopy
-        ,
-      @{
-          @"domain": [SessionSingleton sharedInstance].domain,
-          @"title": MWLocalizedString(@"main-menu-credits", nil),
-          @"tag": @(SECONDARY_MENU_ROW_INDEX_CREDITS),
-          @"icon": WIKIGLYPH_PUZZLE,
-          @"highlighted": @YES,
-          }.mutableCopy
-        ,
-      @{
-          @"title": MWLocalizedString(@"main-menu-send-feedback", nil),
-          @"tag": @(SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK),
-          @"icon": WIKIGLYPH_ENVELOPE,
-          @"highlighted": @YES,
+          @"title": MWLocalizedString(@"main-menu-heading-zero", nil),
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_ZERO),
+          @"icon": @"",
+          @"type": @(ROW_TYPE_HEADING),
           }.mutableCopy
       ,
       @{
-          @"title": sendUsageDataTitle,
-          @"tag": @(SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS),
-          @"icon": WIKIGLYPH_FLAG,
-          @"highlighted": @([SessionSingleton sharedInstance].sendUsageReports),
+          @"title": MWLocalizedString(@"main-menu-zero-faq", nil),
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_ZERO_FAQ),
+          @"icon": ltrSafeCaretCharacter,
+          @"type": @(ROW_TYPE_SELECTION),
           }.mutableCopy
       ,
       @{
           @"title": MWLocalizedString(@"zero-warn-when-leaving", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING),
-          @"icon": WIKIGLYPH_FLAG,
-          @"highlighted": @([SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving),
+          @"icon": @"",
+          @"type": @(ROW_TYPE_SELECTION),
+          }.mutableCopy
+      ,
+      /*
+      @{
+          @"title": pageHistoryTitle,
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY),
+          @"icon": WIKIGLYPH_LINK,
+          }.mutableCopy
+        ,
+      */
+      @{
+          @"title": MWLocalizedString(@"main-menu-heading-legal", nil),
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_LEGAL),
+          @"icon": @"",
+          @"type": @(ROW_TYPE_HEADING),
+          }.mutableCopy
+      ,
+      @{
+          @"domain": [SessionSingleton sharedInstance].domain,
+          @"title": MWLocalizedString(@"main-menu-credits", nil),
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_CREDITS),
+          @"icon": IOS_WIKIGLYPH_DOWN,
+          @"type": @(ROW_TYPE_SELECTION),
+          }.mutableCopy
+        ,
+      @{
+          @"title": MWLocalizedString(@"main-menu-privacy-policy", nil),
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY),
+          @"icon": ltrSafeCaretCharacter,
+          @"type": @(ROW_TYPE_SELECTION),
+          }.mutableCopy
+        ,
+      @{
+          @"title": MWLocalizedString(@"main-menu-license", nil),
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_LICENSE),
+          @"icon": ltrSafeCaretCharacter,
+          @"type": @(ROW_TYPE_SELECTION),
+          }.mutableCopy
+        ,
+      /*
+      @{
+          @"title": MWLocalizedString(@"main-menu-send-feedback", nil),
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK),
+          @"icon": WIKIGLYPH_ENVELOPE,
+          }.mutableCopy
+      ,
+      */
+      @{
+          @"title": sendUsageDataTitle,
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS),
+          @"icon": @"",
+          @"type": @(ROW_TYPE_SELECTION),
+          }.mutableCopy
+      ,
+      @{
+          @"title": @"",
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_BLANK),
+          @"icon": @"",
+          @"type": @(ROW_TYPE_HEADING),
+          }.mutableCopy
+      ,
+      @{
+          @"title": MWLocalizedString(@"main-menu-rate-app", nil),
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_RATE_APP),
+          @"icon": @"",
+          @"type": @(ROW_TYPE_SELECTION),
+          }.mutableCopy
+      ,
+      @{
+          @"title": @"",
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_LOGIN),
+          @"icon": @"",
+          @"type": @(ROW_TYPE_SELECTION),
+          }.mutableCopy
+        ,
+     @{
+          @"title": @"",
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_BLANK_2),
+          @"icon": @"",
+          @"type": @(ROW_TYPE_HEADING),
           }.mutableCopy
       ].mutableCopy;
 
@@ -390,10 +522,10 @@ stringByAppendingString:@"\n\n$1"];
                             substitutionAttributes: @[self.highlightedTextAttributes]
          ];
         
-        loginIcon = WIKIGLYPH_USER_SMILE;
+        //loginIcon = WIKIGLYPH_USER_SMILE;
     }else{
         loginTitle = MWLocalizedString(@"main-menu-account-login", nil);
-        loginIcon = WIKIGLYPH_USER_SLEEP;
+        //loginIcon = WIKIGLYPH_USER_SLEEP;
     }
     
     NSMutableDictionary *row = [self getRowWithTag:SECONDARY_MENU_ROW_INDEX_LOGIN];
@@ -453,11 +585,31 @@ stringByAppendingString:@"\n\n$1"];
             case SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE:
                 [self showLanguages];
                 break;
+            case SECONDARY_MENU_ROW_INDEX_ZERO_FAQ:
+            {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_ZERO_FAQ]];
+            }
+                break;
+            case SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY:
+            {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_PRIVACY_POLICY]];
+            }
+                break;
+            case SECONDARY_MENU_ROW_INDEX_LICENSE:
+            {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_LICENSE]];
+            }
+                break;
+            case SECONDARY_MENU_ROW_INDEX_RATE_APP:
+            {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_RATE_APP]];
+            }
+                break;
             case SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING:
-                [[SessionSingleton sharedInstance].zeroConfigState toggleWarnWhenLeaving];
+                // Don't do anything here - only take action for this if the toggle tapped.
                 break;
             case SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS:
-                [SessionSingleton sharedInstance].sendUsageReports = ![SessionSingleton sharedInstance].sendUsageReports;
+                // Don't do anything here - only take action for this if the toggle tapped.
                 break;
             case SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK:
             {

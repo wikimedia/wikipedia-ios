@@ -1,46 +1,68 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SecondaryMenuViewController"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SecondaryMenuRowView"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" restorationIdentifier="MainMenuRowView" id="iN0-l3-epB" customClass="SecondaryMenuRowView">
-            <rect key="frame" x="0.0" y="0.0" width="318" height="59"/>
+        <view contentMode="scaleToFill" restorationIdentifier="SecondaryMenuRowView" id="iN0-l3-epB" customClass="SecondaryMenuRowView">
+            <rect key="frame" x="0.0" y="0.0" width="318" height="72"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="233" translatesAutoresizingMaskIntoConstraints="NO" id="WPC-HU-a4T">
-                    <rect key="frame" x="65" y="1" width="233" height="57"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="230" translatesAutoresizingMaskIntoConstraints="NO" id="WPC-HU-a4T" userLabel="Title Label" customClass="PaddedLabel">
+                    <rect key="frame" x="16" y="5" width="230" height="66"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cA7-gi-Qv0">
-                    <rect key="frame" x="10" y="6" width="47" height="47"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cA7-gi-Qv0" userLabel="Icon Label">
+                    <rect key="frame" x="254" y="5" width="49" height="47"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="47" id="9Pr-gl-Oz8"/>
-                        <constraint firstAttribute="width" constant="47" id="z3r-eR-8Mr"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cKa-G9-Cin">
+                    <rect key="frame" x="254" y="11" width="51" height="31"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </switch>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OS1-tb-6w9" userLabel="Inset Top Border">
+                    <rect key="frame" x="16" y="0.0" width="302" height="4"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="4" id="4um-dc-z9B"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="cA7-gi-Qv0" firstAttribute="top" secondItem="WPC-HU-a4T" secondAttribute="top" constant="5" id="1BX-Ct-i1Q"/>
-                <constraint firstItem="WPC-HU-a4T" firstAttribute="leading" secondItem="cA7-gi-Qv0" secondAttribute="trailing" constant="8" symbolic="YES" id="VKT-qy-eej"/>
-                <constraint firstItem="cA7-gi-Qv0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="fgr-qp-h46"/>
-                <constraint firstItem="WPC-HU-a4T" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="1" id="hnC-l4-TFw"/>
-                <constraint firstAttribute="bottom" secondItem="WPC-HU-a4T" secondAttribute="bottom" constant="1" id="roH-8j-kwK"/>
-                <constraint firstAttribute="trailing" secondItem="WPC-HU-a4T" secondAttribute="trailing" constant="20" id="xxr-8J-xqL"/>
+                <constraint firstItem="OS1-tb-6w9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1Vu-w7-hHK"/>
+                <constraint firstItem="cKa-G9-Cin" firstAttribute="top" secondItem="WPC-HU-a4T" secondAttribute="top" constant="6" id="24k-YD-3S7"/>
+                <constraint firstItem="cA7-gi-Qv0" firstAttribute="width" secondItem="cKa-G9-Cin" secondAttribute="width" id="2Kl-YW-Ui5"/>
+                <constraint firstItem="WPC-HU-a4T" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="Bgr-vc-S9E"/>
+                <constraint firstItem="cA7-gi-Qv0" firstAttribute="top" secondItem="WPC-HU-a4T" secondAttribute="top" id="ClK-9W-DzI"/>
+                <constraint firstItem="cA7-gi-Qv0" firstAttribute="trailing" secondItem="cKa-G9-Cin" secondAttribute="trailing" id="PpK-ZO-HxF"/>
+                <constraint firstItem="cKa-G9-Cin" firstAttribute="leading" secondItem="WPC-HU-a4T" secondAttribute="trailing" constant="8" symbolic="YES" id="TfH-oJ-cJ0"/>
+                <constraint firstItem="WPC-HU-a4T" firstAttribute="leading" secondItem="OS1-tb-6w9" secondAttribute="leading" id="Utt-cA-cSg"/>
+                <constraint firstItem="cKa-G9-Cin" firstAttribute="leading" secondItem="cA7-gi-Qv0" secondAttribute="leading" id="h2E-re-8Rf"/>
+                <constraint firstAttribute="trailing" secondItem="cA7-gi-Qv0" secondAttribute="trailing" constant="15" id="nDT-SQ-pNb"/>
+                <constraint firstAttribute="bottom" secondItem="WPC-HU-a4T" secondAttribute="bottom" constant="1" id="pE9-nQ-1Sq"/>
+                <constraint firstItem="WPC-HU-a4T" firstAttribute="top" secondItem="OS1-tb-6w9" secondAttribute="bottom" constant="1" id="pm1-Qq-J9Y"/>
+                <constraint firstAttribute="trailing" secondItem="OS1-tb-6w9" secondAttribute="trailing" id="xWg-sT-ToU"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="iconLabel" destination="cA7-gi-Qv0" id="cxa-sB-MTo"/>
+                <outlet property="insetTopBorderHeightConstraint" destination="4um-dc-z9B" id="2hy-bd-KfY"/>
+                <outlet property="insetTopBorderView" destination="OS1-tb-6w9" id="qCj-mV-Qrf"/>
+                <outlet property="optionSwitch" destination="cKa-G9-Cin" id="d5E-Il-eye"/>
                 <outlet property="textLabel" destination="WPC-HU-a4T" id="Fvl-u9-cgg"/>
             </connections>
         </view>
