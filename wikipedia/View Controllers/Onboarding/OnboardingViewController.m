@@ -80,6 +80,21 @@
     [self styleLoginButtonText];
     
     self.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+
+    /*
+    // To take splash image uncomment the respective item below and use the same simulator - then use command-s to
+    // take screenshot. Will also need to force onboarding to appear. Will also need to uncomment the
+    // "prefersStatusBarHidden" method.
+    //4 inch
+    UIView *splashImageMask = [[UIView alloc] initWithFrame:CGRectMake(0, 305, 320, 1000)];
+    //3.5 inch
+    UIView *splashImageMask = [[UIView alloc] initWithFrame:CGRectMake(0, 278, 320, 1000)];
+    //iPad
+    UIView *splashImageMask = [[UIView alloc] initWithFrame:CGRectMake(0, 418, 768, 1000)];
+
+    splashImageMask.backgroundColor = CHROME_COLOR;
+    [self.view addSubview:splashImageMask];
+    */
 }
 
 -(void)adjustSpacingForVariousScreenSizes
