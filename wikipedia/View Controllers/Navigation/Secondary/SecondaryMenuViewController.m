@@ -35,7 +35,7 @@
 
 #define URL_ZERO_FAQ @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ"
 #define URL_PRIVACY_POLICY @"https://m.wikimediafoundation.org/wiki/Privacy_Policy"
-#define URL_LICENSE @"https://m.wikimediafoundation.org/wiki/Terms_of_Use"
+#define URL_TERMS @"https://m.wikimediafoundation.org/wiki/Terms_of_Use"
 #define URL_RATE_APP @"itms-apps://itunes.apple.com/app/id324715238"
 
 typedef enum {
@@ -50,7 +50,7 @@ typedef enum {
     SECONDARY_MENU_ROW_INDEX_CREDITS = 8,
     SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS = 9,
     SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY = 10,
-    SECONDARY_MENU_ROW_INDEX_LICENSE = 11,
+    SECONDARY_MENU_ROW_INDEX_TERMS = 11,
     SECONDARY_MENU_ROW_INDEX_RATE_APP = 12,
     SECONDARY_MENU_ROW_INDEX_HEADING_ZERO = 13,
     SECONDARY_MENU_ROW_INDEX_HEADING_LEGAL = 14,
@@ -445,8 +445,8 @@ typedef enum {
           }.mutableCopy
         ,
       @{
-          @"title": MWLocalizedString(@"main-menu-license", nil),
-          @"tag": @(SECONDARY_MENU_ROW_INDEX_LICENSE),
+          @"title": MWLocalizedString(@"main-menu-terms-of-use", nil),
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_TERMS),
           @"icon": ltrSafeCaretCharacter,
           @"type": @(ROW_TYPE_SELECTION),
           }.mutableCopy
@@ -595,9 +595,9 @@ typedef enum {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_PRIVACY_POLICY]];
             }
                 break;
-            case SECONDARY_MENU_ROW_INDEX_LICENSE:
+            case SECONDARY_MENU_ROW_INDEX_TERMS:
             {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_LICENSE]];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_TERMS]];
             }
                 break;
             case SECONDARY_MENU_ROW_INDEX_RATE_APP:

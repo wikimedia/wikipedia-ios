@@ -7,6 +7,7 @@ bridge.registerListener( "setLanguage", function( payload ){
     var body = document.querySelector( "body" );
     body.lang = payload.lang;
     body.dir = payload.dir;
+    document.querySelector('base').href = 'http://' + payload.lang + '.wikipedia.org/';
 } );
 
 bridge.registerListener( "setScale", function( payload ) {
