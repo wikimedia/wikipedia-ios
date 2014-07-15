@@ -156,5 +156,5 @@
 "open-link-cancel" = "Text for cancel button in popup menu of terms/license link options";
 "main-menu-zero-faq" = "Button text for showing the Wikipedia Zero Frequently Asked Questions (FAQ) document";
 "main-menu-privacy-policy" = "Button text for showing privacy policy";
-"main-menu-license" = "Button text for showing license";
 "main-menu-rate-app" = "Button text for showing the app in the app store so user can rate the app";
+"main-menu-terms-of-use" = "Button text for showing site terms of use";
