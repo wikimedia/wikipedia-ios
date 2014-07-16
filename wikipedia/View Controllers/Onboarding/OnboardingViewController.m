@@ -12,6 +12,15 @@
 #import "TopMenuContainerView.h"
 #import "UIViewController+ModalPresent.h"
 #import "UIViewController+Alert.h"
+#import "UIView+Debugging.h"
+
+#define TAKE_SPLASH_SCREENSHOT NO
+
+typedef NS_ENUM(NSUInteger, DisplayMode) {
+    DISPLAY_MODE_UNDEFINED,
+    DISPLAY_MODE_SPLASH,
+    DISPLAY_MODE_NORMAL
+};
 
 @interface OnboardingViewController ()
 
@@ -19,10 +28,19 @@
 @property (weak, nonatomic) IBOutlet PaddedLabel *loginButton;
 @property (weak, nonatomic) IBOutlet PaddedLabel *skipButton;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBelowLogoConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceAboveLogoConstraint;
+@property (nonatomic) CGFloat origSpaceAboveLogoConstraint;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBelowLogoTextImageConstraint;
+@property (nonatomic) CGFloat origSpaceBelowLogoTextImageConstraint;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBetweenLogoImagesConstraint;
+@property (nonatomic) CGFloat origSpaceBetweenLogoImagesConstraint;
 
 @property (weak, nonatomic) IBOutlet UIImageView *logoImage;
+@property (weak, nonatomic) IBOutlet UIImageView *logoTextImage;
+
+@property (nonatomic) DisplayMode displayMode;
 
 @end
 
@@ -38,21 +56,43 @@
     return YES;
 }
 
-//- (BOOL)prefersStatusBarHidden
-//{
-//    return YES;
-//}
+- (BOOL)prefersStatusBarHidden
+{
+    return TAKE_SPLASH_SCREENSHOT;
+}
+
+-(UIModalTransitionStyle)modalTransitionStyle
+{
+    return UIModalTransitionStyleCrossDissolve;
+}
 
 -(void)hide
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    static BOOL once = NO;
+    if (once) return;
+    once = YES;
+
+    if (!TAKE_SPLASH_SCREENSHOT) {
+        [self animateToDisplayMode:DISPLAY_MODE_NORMAL];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
+    self.origSpaceAboveLogoConstraint = self.spaceAboveLogoConstraint.constant;
+    self.origSpaceBelowLogoTextImageConstraint = self.spaceBelowLogoTextImageConstraint.constant;
+    self.origSpaceBetweenLogoImagesConstraint = self.spaceBetweenLogoImagesConstraint.constant;
+
     self.view.backgroundColor = CHROME_COLOR;
     self.createAccountButton.backgroundColor = WMF_COLOR_GREEN;
     self.loginButton.layer.borderWidth = 1.0f / [UIScreen mainScreen].scale;
@@ -75,52 +115,91 @@
     self.createAccountButton.text = MWLocalizedString(@"onboarding-create-account", nil);
     self.skipButton.text = MWLocalizedString(@"onboarding-skip", nil);
 
-    [self adjustSpacingForVariousScreenSizes];
-
     [self styleLoginButtonText];
     
     self.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+}
 
-    /*
-    // To take splash image uncomment the respective item below and use the same simulator - then use command-s to
-    // take screenshot. Will also need to force onboarding to appear. Will also need to uncomment the
-    // "prefersStatusBarHidden" method.
-    //4 inch
-    UIView *splashImageMask = [[UIView alloc] initWithFrame:CGRectMake(0, 305, 320, 1000)];
-    //3.5 inch
-    UIView *splashImageMask = [[UIView alloc] initWithFrame:CGRectMake(0, 278, 320, 1000)];
-    //iPad
-    UIView *splashImageMask = [[UIView alloc] initWithFrame:CGRectMake(0, 418, 768, 1000)];
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 
-    splashImageMask.backgroundColor = CHROME_COLOR;
-    [self.view addSubview:splashImageMask];
-    */
+    static BOOL once = NO;
+    if (once) return;
+    once = YES;
+
+    self.displayMode = DISPLAY_MODE_SPLASH;
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    self.displayMode = self.displayMode;
+}
+
+-(void)setDisplayMode:(DisplayMode)displayMode
+{
+    _displayMode = displayMode;
+    switch (self.displayMode) {
+        case DISPLAY_MODE_SPLASH:
+            // Center the globe image vertically.
+            self.spaceAboveLogoConstraint.constant =
+                (self.view.bounds.size.height / 2.0) - (self.logoImage.bounds.size.height / 2.0);
+            self.createAccountButton.alpha = 0.0;
+            self.loginButton.alpha = 0.0;
+            self.skipButton.alpha = 0.0;
+            self.logoTextImage.alpha = 0.0;
+            self.logoImage.transform = CGAffineTransformIdentity;
+            break;
+        case DISPLAY_MODE_NORMAL:
+            self.spaceAboveLogoConstraint.constant = self.origSpaceAboveLogoConstraint;
+            self.spaceBelowLogoTextImageConstraint.constant = self.origSpaceBelowLogoTextImageConstraint;
+            self.spaceBetweenLogoImagesConstraint.constant = self.origSpaceBetweenLogoImagesConstraint;
+            self.createAccountButton.alpha = 1.0;
+            self.loginButton.alpha = 1.0;
+            self.skipButton.alpha = 1.0;
+            self.logoTextImage.alpha = 1.0;
+            [self adjustSpacingForVariousScreenSizes];
+            break;
+        default:
+            break;
+    }
+    [self.view setNeedsUpdateConstraints];
+    [self.view layoutIfNeeded];
 }
 
 -(void)adjustSpacingForVariousScreenSizes
 {
-    CGFloat aboveMultiplier = 1.0;
+    CGFloat aboveMultiplier = 1.3;
     CGFloat belowMultiplier = 1.0;
+    CGFloat betweenMultiplier = 1.0;
+    //CGFloat imageScale = 1.0;
+    
     switch ((int)[UIScreen mainScreen].bounds.size.height) {
-        case 480:{
+        case 480:
             // Make everything fit on 3.5 inch screens.
-            aboveMultiplier = 1.0;
-            belowMultiplier = 0.0;
-            self.logoImage.layer.transform = CATransform3DMakeScale(0.85, 0.85, 1.0);
-            }
+            aboveMultiplier = 0.65;
+            betweenMultiplier = 0.35;
+            belowMultiplier = 0.25;
             break;
         case 1024:
             // Make everything fit on iPad screens.
             aboveMultiplier = 3.0;
-            belowMultiplier = 3.0;
             break;
         default:
             break;
     }
 
-    self.spaceBelowLogoConstraint.constant = roundf(self.spaceBelowLogoConstraint.constant * belowMultiplier);
-    self.spaceAboveLogoConstraint.constant = roundf(self.spaceAboveLogoConstraint.constant * aboveMultiplier);
+    //self.logoImage.transform = CGAffineTransformMakeScale(imageScale, imageScale);
 
+    self.spaceAboveLogoConstraint.constant =
+        roundf(self.spaceAboveLogoConstraint.constant * aboveMultiplier);
+
+    self.spaceBetweenLogoImagesConstraint.constant =
+        roundf(self.spaceBetweenLogoImagesConstraint.constant * betweenMultiplier);
+
+    self.spaceBelowLogoTextImageConstraint.constant =
+        roundf(self.spaceBelowLogoTextImageConstraint.constant * belowMultiplier);
+    
     // Adjust for iOS 6 status bar height.
     if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
         self.spaceAboveLogoConstraint.constant -= 20;
@@ -164,6 +243,24 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+
+    /*
+    DisplayMode newDisplayMode = DISPLAY_MODE_UNDEFINED;
+    newDisplayMode = (self.displayMode == DISPLAY_MODE_NORMAL) ? DISPLAY_MODE_SPLASH : DISPLAY_MODE_NORMAL;
+    [self animateToDisplayMode:newDisplayMode];
+    */
+}
+
+-(void)animateToDisplayMode:(DisplayMode)displayMode
+{
+    CGFloat delay = 0.5;
+    // Reminder: must have small delay to give web view, which is the root view controller, a bit of time to
+    // do some of its setup stuff - otherwise the animation here will be choppy (web views use main thread
+    // heavily).
+    [UIView animateWithDuration:0.5 delay:delay options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        self.displayMode = displayMode;
+    } completion:^(BOOL done){
+    }];
 }
 
 /*

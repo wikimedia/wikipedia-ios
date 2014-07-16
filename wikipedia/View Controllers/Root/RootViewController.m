@@ -12,6 +12,7 @@
 #import "ModalMenuAndContentViewController.h"
 #import "UIViewController+ModalPresent.h"
 #import "OnboardingViewController.h"
+#import "UIView+RemoveConstraints.h"
 
 @interface RootViewController (){
     
@@ -23,9 +24,123 @@
 
 @property (strong, nonatomic) UIViewController *topVC;
 
+@property (strong, nonatomic) UIImageView *splashImage;
+
+@property (strong, nonatomic) UIView *splashImageBackgroundView;
+
 @end
 
 @implementation RootViewController
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    NSNumber *showingOnboarding = [[NSUserDefaults standardUserDefaults] objectForKey:@"ShowOnboarding"];
+    if (!showingOnboarding.boolValue) {
+        // Add an image view to view w globe image - center it in screen the in view
+        // did appear see if this view is still present, if so animate hiding it and
+        // remove it (and its constraints!).
+        [self splashImageShow];
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    if (self.splashImage) {
+        [self splashImageHide];
+    }
+}
+
+-(void)splashImageShow
+{
+    self.splashImageBackgroundView = [[UIView alloc] init];
+    self.splashImageBackgroundView.backgroundColor = CHROME_COLOR;
+    self.splashImageBackgroundView.translatesAutoresizingMaskIntoConstraints = NO;
+
+    self.splashImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo-onboarding.png"]];
+    self.splashImage.opaque = NO;
+    self.splashImage.translatesAutoresizingMaskIntoConstraints = NO;
+
+    [self.splashImageBackgroundView addSubview:self.splashImage];
+    [self.splashImageBackgroundView addConstraint:
+     [NSLayoutConstraint constraintWithItem: self.splashImage
+                                  attribute: NSLayoutAttributeCenterX
+                                  relatedBy: NSLayoutRelationEqual
+                                     toItem: self.splashImageBackgroundView
+                                  attribute: NSLayoutAttributeCenterX
+                                 multiplier: 1
+                                   constant: 0]];
+    
+    CGFloat vTweak = ([UIScreen mainScreen].scale != 1.0) ? -(1.0f / [UIScreen mainScreen].scale) : 0.0f;
+
+    [self.splashImageBackgroundView addConstraint:
+     [NSLayoutConstraint constraintWithItem: self.splashImage
+                                  attribute: NSLayoutAttributeCenterY
+                                  relatedBy: NSLayoutRelationEqual
+                                     toItem: self.splashImageBackgroundView
+                                  attribute: NSLayoutAttributeCenterY
+                                 multiplier: 1
+                                   constant: vTweak]];
+
+
+    [self.view addSubview:self.splashImageBackgroundView];
+
+    NSDictionary *views = @{@"splashImageBackgroundView": self.splashImageBackgroundView};
+    NSArray *viewConstraintArrays = @
+        [
+         [NSLayoutConstraint constraintsWithVisualFormat: @"H:|[splashImageBackgroundView]|"
+                                                 options: 0
+                                                 metrics: nil
+                                                   views: views],
+         
+         [NSLayoutConstraint constraintsWithVisualFormat: @"V:|[splashImageBackgroundView]|"
+                                                 options: 0
+                                                 metrics: nil
+                                                   views: views]
+     ];
+
+    [self.view addConstraints:[viewConstraintArrays valueForKeyPath:@"@unionOfArrays.self"]];
+}
+
+-(void)splashImageHide
+{
+    CGFloat delay = 0.6;
+    CGFloat duration = 0.3;
+    
+    CFTimeInterval beginTime = CACurrentMediaTime() + delay;
+    [CATransaction begin];
+    [CATransaction setAnimationDuration:duration];
+    [CATransaction setCompletionBlock:^{
+        [self.splashImage removeConstraintsOfViewFromView:self.splashImageBackgroundView];
+        [self.splashImage removeFromSuperview];
+        self.splashImage = nil;
+
+        [self.splashImageBackgroundView removeConstraintsOfViewFromView:self.view];
+        [self.splashImageBackgroundView removeFromSuperview];
+        self.splashImageBackgroundView = nil;
+    }];
+    
+    CABasicAnimation *zoom = [CABasicAnimation animationWithKeyPath:@"transform"];
+    zoom.fillMode = kCAFillModeForwards;
+    zoom.autoreverses = NO;
+    zoom.removedOnCompletion = NO;
+    zoom.beginTime = beginTime;
+    zoom.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(10.0f, 10.0f, 1.0f)];
+    [self.splashImageBackgroundView.layer addAnimation:zoom forKey:@"animateZoom"];
+    
+    CABasicAnimation *fade = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    fade.beginTime = beginTime;
+    fade.autoreverses = NO;
+    fade.removedOnCompletion = NO;
+    fade.fillMode = kCAFillModeForwards;
+    fade.toValue = @(0.0f);
+    [self.splashImageBackgroundView.layer addAnimation:fade forKey:@"animateOpacity"];
+    
+    [CATransaction commit];
+}
 
 -(void)constrainTopContainerHeight
 {

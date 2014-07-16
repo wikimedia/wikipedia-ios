@@ -247,13 +247,6 @@ typedef enum {
 {
     [super viewDidAppear:animated];
 
-    // Don't move this to viewDidLoad - this is because viewDidLoad may only get
-    // called very occasionally as app suspend/resume probably doesn't cause
-    // viewDidLoad to fire.
-    [self downloadAssetsFilesIfNecessary];
-
-    [self performHousekeepingIfNecessary];
-
     if ([self shouldShowOnboarding]) {
         [self showOnboarding];
 
@@ -262,6 +255,13 @@ typedef enum {
 
         self.webView.alpha = 1.0f;
     }
+
+    // Don't move this to viewDidLoad - this is because viewDidLoad may only get
+    // called very occasionally as app suspend/resume probably doesn't cause
+    // viewDidLoad to fire.
+    [self downloadAssetsFilesIfNecessary];
+
+    [self performHousekeepingIfNecessary];
 
     //[self.view randomlyColorSubviews];
 }
