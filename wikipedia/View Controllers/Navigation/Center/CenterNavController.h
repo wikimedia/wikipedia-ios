@@ -19,7 +19,8 @@ typedef enum {
                      domain: (NSString *)domain
                    animated: (BOOL)animated
             discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
-          invalidatingCache: (BOOL)invalidateCache;
+          invalidatingCache: (BOOL)invalidateCache
+                 popToWebVC: (BOOL)popToWebVC;
 
 -(void) promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString *) title;
 -(void) promptZeroOff;

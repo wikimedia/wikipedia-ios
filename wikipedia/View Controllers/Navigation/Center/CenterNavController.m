@@ -81,6 +81,7 @@
                    animated: (BOOL)animated
             discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
           invalidatingCache: (BOOL)invalidateCache
+                 popToWebVC: (BOOL)popToWebVC
 {
     WebViewController *webVC = [self searchNavStackForViewControllerOfClass:[WebViewController class]];
     if (webVC){
@@ -90,7 +91,9 @@
                        domain: domain
               discoveryMethod: discoveryMethod
             invalidatingCache: invalidateCache];
-        [ROOT popToViewController:webVC animated:animated];
+        if (popToWebVC) {
+            [ROOT popToViewController:webVC animated:animated];
+        }
     }
 }
 

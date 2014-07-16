@@ -700,7 +700,8 @@ typedef enum {
                            domain: languageId
                          animated: YES
                   discoveryMethod: DISCOVERY_METHOD_SEARCH
-                invalidatingCache: YES];
+                invalidatingCache: YES
+                       popToWebVC: YES];
     }
 }
 

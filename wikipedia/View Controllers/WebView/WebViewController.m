@@ -1948,7 +1948,8 @@ typedef enum {
                        domain: selectedLangInfo[@"code"]
                      animated: NO
               discoveryMethod: DISCOVERY_METHOD_SEARCH
-            invalidatingCache: NO];
+            invalidatingCache: NO
+                   popToWebVC: YES];
 
     [self dismissLanguagePicker];
 }

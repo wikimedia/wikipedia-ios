@@ -403,7 +403,8 @@
                        domain: historyEntry.article.domain
                      animated: YES
               discoveryMethod: DISCOVERY_METHOD_SEARCH
-            invalidatingCache: NO];
+            invalidatingCache: NO
+                   popToWebVC: YES];
 
     [self popModalToRoot];
 }

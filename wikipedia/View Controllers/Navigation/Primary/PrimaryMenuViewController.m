@@ -297,7 +297,8 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
                                                                                 domain: [SessionSingleton sharedInstance].domain
                                                                               animated: YES
                                                                        discoveryMethod: DISCOVERY_METHOD_RANDOM
-                                                                     invalidatingCache: NO];
+                                                                     invalidatingCache: NO
+                                                                            popToWebVC: NO]; // Don't pop - popModal was already called above.
                                                          });
                                                      }
                                                  } cancelledBlock: ^(NSError *errorCancel) {

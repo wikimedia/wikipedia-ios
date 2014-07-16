@@ -397,7 +397,8 @@
                        domain: [SessionSingleton sharedInstance].domain
                      animated: YES
               discoveryMethod: DISCOVERY_METHOD_SEARCH
-            invalidatingCache: NO];
+            invalidatingCache: NO
+                   popToWebVC: YES];
 }
 
 #pragma mark Memory
