@@ -79,7 +79,7 @@
             break;
         case ROW_TYPE_SELECTION:
             self.insetTopBorderHeightConstraint.constant = 0;
-            self.textLabel.padding = UIEdgeInsetsMake(6, 0, 6, 0);
+            self.textLabel.padding = UIEdgeInsetsMake(10, 0, 10, 0);
             self.backgroundColor = [UIColor whiteColor];
             
             break;
