@@ -322,7 +322,7 @@ typedef enum {
 
 -(void)setRowData
 {
-    NSString *ltrSafeCaretCharacter = [WikipediaAppUtils isDeviceLanguageRTL] ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD;
+    //NSString *ltrSafeCaretCharacter = [WikipediaAppUtils isDeviceLanguageRTL] ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD;
 
 
     //NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
@@ -403,7 +403,7 @@ typedef enum {
       @{
           @"title": MWLocalizedString(@"main-menu-zero-faq", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_ZERO_FAQ),
-          @"icon": ltrSafeCaretCharacter,
+          @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
           }.mutableCopy
       ,
@@ -440,14 +440,14 @@ typedef enum {
       @{
           @"title": MWLocalizedString(@"main-menu-privacy-policy", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY),
-          @"icon": ltrSafeCaretCharacter,
+          @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
           }.mutableCopy
         ,
       @{
           @"title": MWLocalizedString(@"main-menu-terms-of-use", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_TERMS),
-          @"icon": ltrSafeCaretCharacter,
+          @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
           }.mutableCopy
         ,
