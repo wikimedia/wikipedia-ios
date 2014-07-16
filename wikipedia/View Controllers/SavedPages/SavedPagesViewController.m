@@ -262,7 +262,7 @@
                      animated: YES
               discoveryMethod: DISCOVERY_METHOD_SEARCH
             invalidatingCache: NO
-                   popToWebVC: YES];
+                   popToWebVC: NO];
 
     [self popModalToRoot];
 }

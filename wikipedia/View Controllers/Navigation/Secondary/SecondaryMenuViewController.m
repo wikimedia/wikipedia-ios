@@ -701,7 +701,7 @@ typedef enum {
                          animated: YES
                   discoveryMethod: DISCOVERY_METHOD_SEARCH
                 invalidatingCache: YES
-                       popToWebVC: YES];
+                       popToWebVC: NO];
     }
 }
 
