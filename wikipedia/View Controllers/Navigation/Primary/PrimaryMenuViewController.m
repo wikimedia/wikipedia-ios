@@ -258,7 +258,7 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
         }
             break;
         case PRIMARY_MENU_ITEM_RANDOM: {
-            [self showAlert:MWLocalizedString(@"fetching-random-article", nil)];
+            //[self showAlert:MWLocalizedString(@"fetching-random-article", nil)];
             [self fetchRandomArticle];
             [self popModal];
         }
