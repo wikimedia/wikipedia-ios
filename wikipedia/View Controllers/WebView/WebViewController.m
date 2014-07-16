@@ -54,7 +54,7 @@
 
 //#import "UIView+Debugging.h"
 
-#define TOC_TOGGLE_ANIMATION_DURATION @0.2f
+#define TOC_TOGGLE_ANIMATION_DURATION @0.225f
 
 typedef enum {
     DISPLAY_LEAD_SECTION = 0,
