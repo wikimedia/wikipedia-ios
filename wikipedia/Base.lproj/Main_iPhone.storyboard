@@ -833,32 +833,32 @@
                         <viewControllerLayoutGuide type="top" id="Wha-F2-A5d"/>
                         <viewControllerLayoutGuide type="bottom" id="aHG-dq-Url"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="GRM-Ns-1PB">
+                    <view key="view" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="GRM-Ns-1PB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mLM-M6-Y1D">
+                            <scrollView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLM-M6-Y1D">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7jD-Km-GNT" userLabel="Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="475"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="477"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ypf-Xx-Lly">
-                                                <rect key="frame" x="20" y="0.0" width="280" height="475"/>
+                                                <rect key="frame" x="20" y="0.0" width="280" height="477"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-onboarding.png" translatesAutoresizingMaskIntoConstraints="NO" id="K0v-hf-TOf">
+                                                    <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-onboarding.png" translatesAutoresizingMaskIntoConstraints="NO" id="K0v-hf-TOf">
                                                         <rect key="frame" x="35" y="56" width="210" height="192"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     </imageView>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-onboarding-subtitle.png" translatesAutoresizingMaskIntoConstraints="NO" id="21q-p1-vV2">
-                                                        <rect key="frame" x="35" y="264" width="210" height="70"/>
+                                                        <rect key="frame" x="35" y="266" width="210" height="70"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     </imageView>
                                                     <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ay5-1L-SPF" userLabel="Buttons Container">
-                                                        <rect key="frame" x="-12" y="379" width="304" height="76"/>
+                                                        <rect key="frame" x="-12" y="381" width="304" height="76"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <subviews>
                                                             <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create account" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="wkl-j8-wLX" customClass="PaddedLabel">
@@ -909,7 +909,7 @@
                                                     <constraint firstAttribute="centerX" secondItem="ay5-1L-SPF" secondAttribute="centerX" id="eiR-s7-4e3"/>
                                                     <constraint firstItem="ay5-1L-SPF" firstAttribute="top" secondItem="21q-p1-vV2" secondAttribute="bottom" constant="45" id="nWX-Cw-MAY"/>
                                                     <constraint firstAttribute="centerX" secondItem="21q-p1-vV2" secondAttribute="centerX" id="s7I-hO-BX9"/>
-                                                    <constraint firstItem="21q-p1-vV2" firstAttribute="top" secondItem="K0v-hf-TOf" secondAttribute="bottom" constant="16" id="x2S-hf-UQ7"/>
+                                                    <constraint firstItem="21q-p1-vV2" firstAttribute="top" secondItem="K0v-hf-TOf" secondAttribute="bottom" constant="18" id="x2S-hf-UQ7"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -944,9 +944,11 @@
                         <outlet property="createAccountButton" destination="wkl-j8-wLX" id="Q0x-Lf-aBP"/>
                         <outlet property="loginButton" destination="heA-3K-nhS" id="90C-kg-bai"/>
                         <outlet property="logoImage" destination="K0v-hf-TOf" id="IDl-op-jI7"/>
+                        <outlet property="logoTextImage" destination="21q-p1-vV2" id="woA-xt-AfL"/>
                         <outlet property="skipButton" destination="P6J-IE-CiO" id="uVS-3Y-c6m"/>
                         <outlet property="spaceAboveLogoConstraint" destination="0B0-Zk-SGf" id="Xaw-AS-lGs"/>
-                        <outlet property="spaceBelowLogoConstraint" destination="nWX-Cw-MAY" id="RnU-fa-AFO"/>
+                        <outlet property="spaceBelowLogoTextImageConstraint" destination="nWX-Cw-MAY" id="auV-mf-LGZ"/>
+                        <outlet property="spaceBetweenLogoImagesConstraint" destination="x2S-hf-UQ7" id="Wpj-ek-ejd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a0q-Kk-k0T" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1754,7 +1756,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="lfF-8A-MqZ"/>
         <segue reference="ca4-hw-8WK"/>
+        <segue reference="lfF-8A-MqZ"/>
     </inferredMetricsTieBreakers>
 </document>
