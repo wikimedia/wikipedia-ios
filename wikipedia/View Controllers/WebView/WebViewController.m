@@ -237,6 +237,8 @@ typedef enum {
 
 -(void)showAlert:(NSString *)alertText
 {
+    if ([self tocDrawerIsOpen]) return;
+
     // Don't show alerts if onboarding onscreen.
     if ([self shouldShowOnboarding]) return;
 
@@ -472,8 +474,8 @@ typedef enum {
 {
     self.unsafeToToggleTOC = YES;
 
-    // Clear alerts
-    [self fadeAlert];
+    // Hide any alerts immediately.
+    [self hideAlert];
 
     // Ensure the toc is rebuilt from scratch! Very weird toc scroll view
     // resizing issues (can't scroll up to bottom toc entry sometimes, etc)

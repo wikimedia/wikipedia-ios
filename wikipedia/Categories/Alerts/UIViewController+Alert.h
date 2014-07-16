@@ -13,6 +13,8 @@
 
 -(void)fadeAlert;
 
+-(void)hideAlert;
+
 // Shows full screen alert html just beneath the nav bar.
 // Any links open in Safari.
 -(void)showHTMLAlert: (NSString *)html

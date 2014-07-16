@@ -42,6 +42,15 @@
     [self showAlert:@""];
 }
 
+-(void)hideAlert
+{
+    // Hide alert immediately.
+    AlertLabel *alertLabel = [self getExistingViewOfClass:[AlertLabel class] inContainer:self.view];
+    if (alertLabel) {
+        alertLabel.alpha = 0.0;
+    }
+}
+
 -(BOOL)shouldHideAlertForViewController:(UIViewController *)vc
 {
     BOOL hideAlerts = NO;
