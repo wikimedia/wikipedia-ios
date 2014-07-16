@@ -55,18 +55,20 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     UIColor *buttonColor = [UIColor blackColor];
     CGFloat buttonTextSize = 34;
 
+    CGFloat baseLineOffset = (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) ? 2.0 : 8.0;
+
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
 
     [self.backButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_FORWARD : IOS_WIKIGLYPH_BACKWARD
                                  color: buttonColor
                                   size: buttonTextSize
-                        baselineOffset: 2.0];
+                        baselineOffset: baseLineOffset];
     self.backButton.tag = BOTTOM_MENU_BUTTON_PREVIOUS;
     
     [self.forwardButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD
                                     color: buttonColor
                                      size: buttonTextSize
-                           baselineOffset: 2.0
+                           baselineOffset: baseLineOffset
      ];
     self.forwardButton.tag = BOTTOM_MENU_BUTTON_NEXT;
     // self.forwardButton.label.transform = CGAffineTransformMakeScale(-1, 1);
@@ -74,7 +76,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     [self.rightButton.label setWikiText: IOS_WIKIGLYPH_SHARE
                                   color: buttonColor
                                    size: buttonTextSize
-                         baselineOffset: 2.0
+                         baselineOffset: baseLineOffset
      ];
     self.rightButton.tag = BOTTOM_MENU_BUTTON_SHARE;
 

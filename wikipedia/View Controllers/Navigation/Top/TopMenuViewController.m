@@ -213,7 +213,7 @@
     
     [self.navBarContainer addSubview:self.textFieldContainer];
  
-    UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 25, 25)];
+    UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 30, 25)];
     clearButton.backgroundColor = [UIColor clearColor];
     [clearButton setImage:[UIImage imageNamed:@"text_field_x_circle_gray.png"] forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearTextFieldText) forControlEvents:UIControlEventTouchUpInside];
