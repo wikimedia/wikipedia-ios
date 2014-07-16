@@ -4,6 +4,7 @@
 #import "UIViewController+Alert.h"
 #import "AlertLabel.h"
 #import "AlertWebView.h"
+#import "UIView+RemoveConstraints.h"
 
 @implementation UIViewController (Alert)
 
@@ -44,10 +45,12 @@
 
 -(void)hideAlert
 {
-    // Hide alert immediately.
+    // Hide alert immediately. Removes it so any running fade animations don't prevent immediate hide.
     AlertLabel *alertLabel = [self getExistingViewOfClass:[AlertLabel class] inContainer:self.view];
     if (alertLabel) {
-        alertLabel.alpha = 0.0;
+        [alertLabel removeConstraintsOfViewFromView:self.view];
+        [alertLabel removeFromSuperview];
+        alertLabel = nil;
     }
 }
 
