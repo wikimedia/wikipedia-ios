@@ -424,6 +424,10 @@ typedef enum {
 -(void)tocHideWithDuration:(NSNumber *)duration
 {
     self.unsafeToToggleTOC = YES;
+    
+    // Save the scroll position; if we're near the end of the page things will
+    // get reset correctly when we start to zoom out!
+    __block CGPoint origScrollPosition = self.webView.scrollView.contentOffset;
 
     // Clear alerts
     [self fadeAlert];
@@ -446,6 +450,7 @@ typedef enum {
                      }completion: ^(BOOL done){
                          if(self.tocVC) [self tocViewControllerRemove];
                          self.unsafeToToggleTOC = NO;
+                         self.webView.scrollView.contentOffset = origScrollPosition;
                      }];
 }
 
