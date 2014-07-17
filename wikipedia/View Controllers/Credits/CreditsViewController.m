@@ -200,7 +200,7 @@ typedef enum {
 
 -(void)setRowData
 {
-    NSString *ltrSafeCaretCharacter = [WikipediaAppUtils isDeviceLanguageRTL] ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD;
+    NSString *ltrSafeCaretCharacter = @""; //[WikipediaAppUtils isDeviceLanguageRTL] ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD;
     
     NSMutableArray *rowData =
     @[
