@@ -1736,7 +1736,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		04272E75193FF7F000CC682F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
@@ -1744,7 +1744,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/bash;
 			shellScript = "scripts/make-css-assets.bash";
 		};
