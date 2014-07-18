@@ -46,6 +46,17 @@ typedef NS_ENUM(NSUInteger, DisplayMode) {
 
 @implementation OnboardingViewController
 
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ?
+        UIInterfaceOrientationMaskPortrait : UIInterfaceOrientationMaskAll;
+}
+
 - (BOOL)prefersAlertsHidden
 {
     return YES;

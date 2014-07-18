@@ -28,6 +28,8 @@
 
 @property (strong, nonatomic) UIView *splashImageBackgroundView;
 
+@property (nonatomic) BOOL showingOnboarding;
+
 @end
 
 @implementation RootViewController
@@ -36,13 +38,17 @@
 {
     [super viewDidLoad];
 
+    // Need to record ShowOnboarding here because by the time it is needed in viewDidAppear it has changed already.
     NSNumber *showingOnboarding = [[NSUserDefaults standardUserDefaults] objectForKey:@"ShowOnboarding"];
-    if (!showingOnboarding.boolValue) {
-        // Add an image view to view w globe image - center it in screen the in view
-        // did appear see if this view is still present, if so animate hiding it and
-        // remove it (and its constraints!).
-        [self splashImageShow];
-    }
+    self.showingOnboarding = showingOnboarding.boolValue;
+
+    // Add an image view to view w globe image - center it in screen the in view
+    // did appear see if this view is still present, if so animate hiding it and
+    // remove it (and its constraints!).
+    // (Show splash image even if onboarding to prevent flicker between time root
+    // view appears and time onboarding vc's view appears - it's the briefest
+    // interval, but noticeable)
+    [self splashImageShow];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -107,13 +113,7 @@
 
 -(void)splashImageHide
 {
-    CGFloat delay = 0.6;
-    CGFloat duration = 0.3;
-    
-    CFTimeInterval beginTime = CACurrentMediaTime() + delay;
-    [CATransaction begin];
-    [CATransaction setAnimationDuration:duration];
-    [CATransaction setCompletionBlock:^{
+    void (^completionBlock)(void) = ^{
         [self.splashImage removeConstraintsOfViewFromView:self.splashImageBackgroundView];
         [self.splashImage removeFromSuperview];
         self.splashImage = nil;
@@ -121,7 +121,20 @@
         [self.splashImageBackgroundView removeConstraintsOfViewFromView:self.view];
         [self.splashImageBackgroundView removeFromSuperview];
         self.splashImageBackgroundView = nil;
-    }];
+    };
+
+    if (self.showingOnboarding) {
+        completionBlock();
+        return;
+    }
+
+    CGFloat delay = 0.6;
+    CGFloat duration = 0.3;
+    
+    CFTimeInterval beginTime = CACurrentMediaTime() + delay;
+    [CATransaction begin];
+    [CATransaction setAnimationDuration:duration];
+    [CATransaction setCompletionBlock:completionBlock];
     
     CABasicAnimation *zoom = [CABasicAnimation animationWithKeyPath:@"transform"];
     zoom.fillMode = kCAFillModeForwards;
