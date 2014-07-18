@@ -262,13 +262,10 @@
     cell.isHighlighted = YES;
 
     NSString *elementId = [NSString stringWithFormat:@"section_heading_and_content_block_%ld", (long)cell.tag];
-    CGRect r = [self.webVC.webView getWebViewRectForHtmlElementWithId:elementId];
-    if (CGRectIsNull(r)) return;
-    CGPoint p = r.origin;
 
-    [self.webVC tocScrollWebViewToPoint: p
-                            duration: duration
-                         thenHideTOC: hideTOC];
+    [self.webVC tocScrollWebViewToSectionWithElementId: elementId
+                                              duration: duration
+                                           thenHideTOC: hideTOC];
 }
 
 #pragma mark Highlight and scroll to focal cell.

@@ -425,6 +425,9 @@ typedef enum {
 
 -(void)tocHideWithDuration:(NSNumber *)duration
 {
+    // Ensure one exists to be hidden.
+    if (!self.tocVC) return;
+
     self.unsafeToToggleTOC = YES;
     
     // Save the scroll position; if we're near the end of the page things will
@@ -434,7 +437,6 @@ typedef enum {
     // Clear alerts
     [self fadeAlert];
 
-    // Ensure one exists to be hidden.
     [UIView animateWithDuration: duration.floatValue
                           delay: 0.0f
                         options: UIViewAnimationOptionBeginFromCurrentState
@@ -686,11 +688,23 @@ typedef enum {
     return 1.0f - (fabsf(self.tocVC.view.frame.origin.x) / defaultTOCWidth);
 }
 
--(void)tocScrollWebViewToPoint: (CGPoint)point
-                      duration: (CGFloat)duration
-                   thenHideTOC: (BOOL)hideTOC
+-(void)tocScrollWebViewToSectionWithElementId: (NSString *)elementId
+                                     duration: (CGFloat)duration
+                                  thenHideTOC: (BOOL)hideTOC
 {
+    CGRect r = [self.webView getWebViewRectForHtmlElementWithId:elementId];
+    if (CGRectIsNull(r)) return;
+    
+    CGPoint point = r.origin;
+
+    // Leave x unchanged.
     point.x = self.webView.scrollView.contentOffset.x;
+    
+    // Scroll the section up just a tad more so the top of section div is just above top of web view.
+    // This ensures the section that was scrolled to is considered the "current" section. (This is
+    // because the current section is the one intersecting the top of the screen.)
+
+    point.y += 2;
     
     [UIView animateWithDuration: duration
                           delay: 0.0f
@@ -1722,7 +1736,7 @@ typedef enum {
 {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 
-    [self performSelector:@selector(scrollToIndexOfFirstOnscreenSectionBeforeRotate) withObject:nil afterDelay:0.15f];
+    [self performSelector:@selector(scrollToIndexOfFirstOnscreenSectionBeforeRotate) withObject:nil afterDelay:0.1f];
     
     [self updateWebViewContentAndScrollInsets];
 }
@@ -1730,11 +1744,10 @@ typedef enum {
 -(void)scrollToIndexOfFirstOnscreenSectionBeforeRotate{
     if(self.indexOfFirstOnscreenSectionBeforeRotate == -1)return;
     NSString *elementId = [NSString stringWithFormat:@"section_heading_and_content_block_%ld", (long)self.indexOfFirstOnscreenSectionBeforeRotate];
-    CGRect r = [self.webView getWebViewRectForHtmlElementWithId:elementId];
-    if (CGRectIsNull(r)) return;
-    CGPoint p = r.origin;
-    p.x = self.webView.scrollView.contentOffset.x;
-    [self.webView.scrollView setContentOffset:p animated:NO];
+    
+    [self tocScrollWebViewToSectionWithElementId: elementId
+                                        duration: 0.2
+                                     thenHideTOC: NO];
 
     [self.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
 }

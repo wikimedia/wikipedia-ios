@@ -22,9 +22,9 @@
       discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
     invalidatingCache: (BOOL)invalidateCache;
 
--(void)tocScrollWebViewToPoint: (CGPoint)point
-                      duration: (CGFloat)duration
-                   thenHideTOC: (BOOL)hideTOC;
+-(void)tocScrollWebViewToSectionWithElementId: (NSString *)elementId
+                                     duration: (CGFloat)duration
+                                  thenHideTOC: (BOOL)hideTOC;
 
 -(void)tocHide;
 -(void)tocToggle;
