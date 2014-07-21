@@ -23,7 +23,7 @@ Bridge.prototype.registerListener = function( messageType, callback ) {
 
 Bridge.prototype.sendMessage = function( messageType, payload ) {
     var messagePack = { type: messageType, payload: payload };
-    var url = "x-wikipedia-bridge:" + JSON.stringify( messagePack );
+    var url = "x-wikipedia-bridge:" + encodeURIComponent( JSON.stringify( messagePack ) );
     
     // quick iframe version based on http://stackoverflow.com/a/6508343/82439
     // fixme can this be an XHR instead? check Cordova current state

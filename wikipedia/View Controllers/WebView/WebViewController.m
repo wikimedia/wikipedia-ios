@@ -816,7 +816,8 @@ typedef enum {
             // Ensure the menu is visible when navigating to new page.
             [weakSelf animateTopAndBottomMenuReveal];
         
-            NSString *title = [href substringWithRange:NSMakeRange(6, href.length - 6)];
+            NSString *encodedTitle = [href substringWithRange:NSMakeRange(6, href.length - 6)];
+            NSString *title = [encodedTitle stringByRemovingPercentEncoding];
             MWPageTitle *pageTitle = [MWPageTitle titleWithString:title];
 
             [weakSelf navigateToPage: pageTitle
@@ -895,6 +896,10 @@ typedef enum {
         // nonAnchorTouchEndedWithoutDragging is used so TOC may be hidden if user tapped, but did *not* drag.
         // Used because UIWebView is difficult to attach one-finger touch events to.
         [weakSelf tocHide];
+    }];
+    
+    [self.bridge addListener:@"referenceClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        NSLog(@"referenceClicked: %@", payload);
     }];
 
     self.unsafeToScroll = NO;

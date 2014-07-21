@@ -24,7 +24,7 @@ Bridge.prototype.registerListener = function( messageType, callback ) {
 
 Bridge.prototype.sendMessage = function( messageType, payload ) {
     var messagePack = { type: messageType, payload: payload };
-    var url = "x-wikipedia-bridge:" + JSON.stringify( messagePack );
+    var url = "x-wikipedia-bridge:" + encodeURIComponent( JSON.stringify( messagePack ) );
     
     // quick iframe version based on http://stackoverflow.com/a/6508343/82439
     // fixme can this be an XHR instead? check Cordova current state
@@ -97,6 +97,7 @@ exports.getIndexOfFirstOnScreenElementWithTopGreaterThanY = function(elementPref
 var bridge = require("./bridge");
 var wikihacks = require("./wikihacks");
 var transformer = require("./transformer");
+var refs = require("./refs");
 
 //TODO: move makeTablesNotBlockIfSafeToDoSo, hideAudioTags and reduceWeirdWebkitMargin out into own js object.
 
@@ -239,7 +240,10 @@ document.onclick = function() {
 
     if ( anchorTarget && (anchorTarget.tagName === "A") ) {
         var href = anchorTarget.getAttribute( "href" );
-        if ( href[0] === "#" ) {
+        if ( refs.isReference( href ) ) {
+            // Handle reference links with a popup view instead of scrolling about!
+            refs.sendNearbyReferences( anchorTarget );
+        } else if ( href[0] === "#" ) {
             // If it is a link to an anchor in the current page, just scroll to it
             document.getElementById( href.substring( 1 ) ).scrollIntoView();
         } else {
@@ -279,7 +283,7 @@ function touchEnd(event){
 
 document.addEventListener("touchend", touchEnd, "false");
 
-},{"./bridge":1,"./transformer":5,"./wikihacks":7}],4:[function(require,module,exports){
+},{"./bridge":1,"./refs":5,"./transformer":6,"./wikihacks":8}],4:[function(require,module,exports){
 
 var bridge = require("./bridge");
 var elementLocation = require("./elementLocation");
@@ -288,6 +292,128 @@ window.bridge = bridge;
 window.elementLocation = elementLocation;
 
 },{"./bridge":1,"./elementLocation":2}],5:[function(require,module,exports){
+var bridge = require("./bridge");
+
+function isReference( href ) {
+    return ( href.slice( 0, 10 ) === "#cite_note" );
+}
+
+function goDown( element ) {
+    return element.getElementsByTagName( "A" )[0];
+}
+
+/**
+ * Skip over whitespace but not other elements
+ */
+function skipOverWhitespace( skipFunc ) {
+    return (function(element) {
+        do {
+            element = skipFunc( element );
+            if (element && element.nodeType == Node.TEXT_NODE) {
+                if (element.textContent.match(/^\s+$/)) {
+                    // Ignore empty whitespace
+                    continue;
+                } else {
+                    break;
+                }
+            } else {
+                // found an element or ran out
+                break;
+            }
+        } while (true);
+        return element;
+    });
+}
+
+var goLeft = skipOverWhitespace( function( element ) {
+    return element.previousSibling;
+});
+
+var goRight = skipOverWhitespace( function( element ) {
+    return element.nextSibling;
+});
+
+function hasReferenceLink( element ) {
+    try {
+        return isReference( goDown( element ).getAttribute( "href" ) );
+    } catch (e) {
+        return false;
+    }
+}
+
+function collectRefText( sourceNode ) {
+    var href = sourceNode.getAttribute( "href" );
+    var targetId = href.slice(1);
+    var targetNode = document.getElementById( targetId );
+    if ( targetNode === null ) {
+        console.log("reference target not found: " + targetId);
+        return "";
+    }
+
+    // preferably without the back link
+    var refTexts = targetNode.getElementsByClassName( "reference-text" );
+    if ( refTexts.length > 0 ) {
+        targetNode = refTexts[0];
+    }
+
+    return targetNode.innerHTML;
+}
+
+function collectRefLink( sourceNode ) {
+    var node = sourceNode;
+    while (!node.classList || !node.classList.contains('reference')) {
+        node = node.parentNode;
+        if (!node) {
+            return '';
+        }
+    }
+    return node.id;
+}
+
+function sendNearbyReferences( sourceNode ) {
+    var refsIndex = 0;
+    var refs = [];
+    var linkId = [];
+    var linkText = [];
+    var curNode = sourceNode;
+
+    // handle clicked ref:
+    refs.push( collectRefText( curNode ) );
+    linkId.push( collectRefLink( curNode ) );
+    linkText.push( curNode.textContent );
+
+    // go left:
+    curNode = sourceNode.parentElement;
+    while ( hasReferenceLink( goLeft( curNode ) ) ) {
+        refsIndex += 1;
+        curNode = goLeft( curNode );
+        refs.unshift( collectRefText( goDown ( curNode ) ) );
+        linkId.unshift( collectRefLink( curNode ) );
+        linkText.unshift( curNode.textContent );
+    }
+
+    // go right:
+    curNode = sourceNode.parentElement;
+    while ( hasReferenceLink( goRight( curNode ) ) ) {
+        curNode = goRight( curNode );
+        refs.push( collectRefText( goDown ( curNode ) ) );
+        linkId.push( collectRefLink( curNode ) );
+        linkText.push( curNode.textContent );
+    }
+
+    // Special handling for references
+    bridge.sendMessage( 'referenceClicked', {
+        "refs": refs,
+        "refsIndex": refsIndex,
+        "linkId": linkId,
+        "linkText": linkText
+    } );
+}
+
+exports.isReference = isReference;
+exports.sendNearbyReferences = sendNearbyReferences;
+
+},{"./bridge":1}],6:[function(require,module,exports){
 function Transformer() {
 }
 
@@ -311,7 +437,7 @@ Transformer.prototype.transform = function( transform, element ) {
 
 module.exports = new Transformer();
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 var transformer = require("./transformer");
 
 // Move infobox to the bottom of the lead section
@@ -345,7 +471,7 @@ transformer.register( "section", function( content ) {
 	return content;
 } );
 
-},{"./transformer":5}],7:[function(require,module,exports){
+},{"./transformer":6}],8:[function(require,module,exports){
 
 // this doesn't seem to work on iOS?
 exports.makeTablesNotBlockIfSafeToDoSo = function() {
@@ -444,4 +570,4 @@ exports.tweakFilePage = function() {
     }
 }
 
-},{}]},{},[1,2,3,4,5,6,7])
+},{}]},{},[1,2,3,4,5,6,7,8])

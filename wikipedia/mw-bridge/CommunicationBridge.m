@@ -127,7 +127,9 @@ static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
     NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
     NSError *err;
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&err];
-    // fixme throw an exception?
+    if (err) {
+        NSLog(@"JSON ERROR %@", err);
+    }
     return dict;
 }
 
