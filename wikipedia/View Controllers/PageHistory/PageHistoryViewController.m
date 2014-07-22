@@ -22,7 +22,6 @@
 }
 
 @property (strong, nonatomic) __block NSMutableArray *pageHistoryDataArray;
-@property (nonatomic) BOOL isRTL;
 
 @end
 
@@ -84,8 +83,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
 
     self.navigationItem.hidesBackButton = YES;
 
@@ -229,11 +226,7 @@
     PaddedLabel *label = [[PaddedLabel alloc] init];
 
     CGFloat leadingIndent = 10;
-    if (!self.isRTL) {
-        label.padding = UIEdgeInsetsMake(0, leadingIndent, 0, 0);
-    }else{
-        label.padding = UIEdgeInsetsMake(0, 0, 0, leadingIndent);
-    }
+    label.padding = UIEdgeInsetsMake(0, leadingIndent, 0, 0);
 
     label.font = [UIFont boldSystemFontOfSize:12];
     label.textColor = [UIColor darkGrayColor];

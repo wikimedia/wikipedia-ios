@@ -147,11 +147,8 @@
                             CGFloat leadingPadding = 12;
                             CGFloat bottomPadding = 14;
                             CGFloat trailingPadding = 10;
-                            if (!isRTL) {
-                                padding = UIEdgeInsetsMake(topPadding, leadingPadding, bottomPadding, trailingPadding);
-                            }else{
-                                padding = UIEdgeInsetsMake(topPadding, trailingPadding, bottomPadding, leadingPadding);
-                            }
+
+                            padding = UIEdgeInsetsMake(topPadding, leadingPadding, bottomPadding, trailingPadding);
                             
                         }else{
                             // Faster to not use attributed string for non-lead sections.
@@ -165,11 +162,8 @@
 
                             CGFloat vPadding = 16;
                             CGFloat hPadding = 10;
-                            if (!isRTL) {
-                                padding = UIEdgeInsetsMake(vPadding, indent, vPadding, hPadding);
-                            }else{
-                                padding = UIEdgeInsetsMake(vPadding, hPadding, vPadding, indent);
-                            }
+
+                            padding = UIEdgeInsetsMake(vPadding, indent, vPadding, hPadding);
 
                         }
                         cell.padding = padding;

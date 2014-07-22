@@ -35,7 +35,6 @@
 
 @property (strong, atomic) NSMutableArray *historyDataArray;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
-@property (nonatomic) BOOL isRTL;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -109,8 +108,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setLocale:[NSLocale currentLocale]];
@@ -426,11 +423,7 @@
     PaddedLabel *label = [[PaddedLabel alloc] init];
 
     CGFloat leadingIndent = HISTORY_DATE_HEADER_LEFT_PADDING;
-    if (!self.isRTL) {
-        label.padding = UIEdgeInsetsMake(0, leadingIndent, 0, 0);
-    }else{
-        label.padding = UIEdgeInsetsMake(0, 0, 0, leadingIndent);
-    }
+    label.padding = UIEdgeInsetsMake(0, leadingIndent, 0, 0);
 
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.backgroundColor = [UIColor clearColor];

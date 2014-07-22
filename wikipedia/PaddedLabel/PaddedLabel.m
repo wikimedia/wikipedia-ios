@@ -71,4 +71,13 @@
     [self invalidateIntrinsicContentSize];
 }
 
+-(void)setPadding:(UIEdgeInsets)padding
+{
+    if ([WikipediaAppUtils isDeviceLanguageRTL]) {
+        _padding = UIEdgeInsetsMake(padding.top, padding.right, padding.bottom, padding.left);
+    }else{
+        _padding = padding;
+    }
+}
+
 @end
