@@ -31,6 +31,7 @@
 #import "PreviewLicenseView.h"
 #import "LoginViewController.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
+#import "AbuseFilterAlert.h"
 
 typedef enum {
     CANNED_SUMMARY_TYPOS = 0,
@@ -628,12 +629,11 @@ typedef enum {
                     // Hides the license panel. Needed if logged in and a disallow is triggered.
                     [self.navigationController topActionSheetHide];
                     
-                    NSString *restyledWarningHtml = [self restyleAbuseFilterWarningHtml:warningHtml];
                     [self fadeAlert];
-                    [self showHTMLAlert: restyledWarningHtml
-                            bannerImage: [UIImage imageNamed:bannerImage]
-                            bannerColor: bannerColor
-                     ];
+                    AbuseFilterAlertType alertType =
+                        (error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? ABUSE_FILTER_DISALLOW : ABUSE_FILTER_WARNING;
+                    [self showAbuseFilterAlertOfType:alertType];
+
                 });
             }
                 break;
@@ -710,6 +710,25 @@ typedef enum {
     [QueuesSingleton sharedInstance].sectionWikiTextUploadQ.suspended = NO;
 }
 
+-(void)showAbuseFilterAlertOfType:(AbuseFilterAlertType)alertType
+{
+    AbuseFilterAlert *abuseFilterAlert = [[AbuseFilterAlert alloc] initWithType:alertType];
+    
+    [self.view addSubview:abuseFilterAlert];
+    
+    NSDictionary *views = @{@"abuseFilterAlert": abuseFilterAlert};
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"H:|[abuseFilterAlert]|"
+                                                                      options: 0
+                                                                      metrics: nil
+                                                                        views: views]];
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"V:|[abuseFilterAlert]|"
+                                                                      options: 0
+                                                                      metrics: nil
+                                                                        views: views]];
+}
+
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
 	if ([segue.identifier isEqualToString: @"Preview_Captcha_Embed"]) {
@@ -764,41 +783,6 @@ typedef enum {
 -(void)captchaTextFieldDidChange:(UITextField *)textField
 {
     [self highlightCaptchaSubmitButton:(textField.text.length == 0) ? NO : YES];
-}
-
-//TODO: this shouldn't be in the controller. Find it a nice home.
--(NSString *)restyleAbuseFilterWarningHtml:(NSString *)warningHtml
-{
-    // Abuse filter warnings have html :( Re-style as best we can...
-    return [NSString stringWithFormat:
-        @"\
-        <html>\
-        <head>\
-        <style>\
-            *{\
-                background-color:transparent!important;\
-                border-color:transparent!important;\
-                width:auto!important;\
-                font:auto!important;\
-                font-family:sans-serif!important;\
-                font-size:14px!important;\
-                color:rgb(85, 85, 85)!important;\
-                line-height:22px!important;\
-                text-align:left!important;\
-            }\
-            td[style]{background-color:transparent!important;border-style:none!important;}\
-            IMG{zoom:0.5;margin:20px}\
-            body{padding:21px!important;padding-top:16px!important;margin:0px!important;}\
-        </style>\
-        </head>\
-        <body>\
-        <div>\
-            %@\
-        </div>\
-        </body>\
-        </html>\
-        ",
-    warningHtml];
 }
 
 //    BOOL userIsloggedIn = [SessionSingleton sharedInstance].keychainCredentials.userName ? YES : NO;

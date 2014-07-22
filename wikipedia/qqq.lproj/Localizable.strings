@@ -159,3 +159,12 @@
 "main-menu-rate-app" = "Button text for showing the app in the app store so user can rate the app";
 "main-menu-terms-of-use" = "Button text for showing site terms of use";
 "main-menu-show-today" = "Button text for showing mobile version of main page";
+"abuse-filter-warning-heading" = "Header text for unconstructive edit warning";
+"abuse-filter-warning-subheading" = "Subheading text for potentially unconstructive edit warning";
+"abuse-filter-warning-caps" = "Label text for typing in all capitals";
+"abuse-filter-warning-blanking" = "Label text for blanking articles or spamming";
+"abuse-filter-warning-irrelevant" = "Label text for irrelevant external links and images";
+"abuse-filter-warning-repeat" = "Label text for repeating characters";
+"abuse-filter-disallow-heading" = "Header text for disallowed edit warning.";
+"abuse-filter-disallow-unconstructive" = "Label text for unconstructive edit description";
+"abuse-filter-disallow-notable" = "Label text for notable content description";

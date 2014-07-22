@@ -427,14 +427,14 @@
                     @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_DONE(50@250)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
-            self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-warning", nil);
+            //self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-warning", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_CHECK(60)]|";
+                @"H:|-(4)-[NAVBAR_BUTTON_ARROW_LEFT(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_SAVE(50@250)]|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW:
-            self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-disallow", nil);
+            //self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-disallow", nil);
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(60)-|";
+                @"H:|-(4)-[NAVBAR_BUTTON_ARROW_LEFT(50)]-(10)-[NAVBAR_LABEL]-(60)-|";
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW:
             self.label.text = @"";
