@@ -1259,6 +1259,15 @@ typedef enum {
 
     if (articleID) {
         Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+
+        // Update the history dateVisited timestamp only if the article was NOT loaded
+        // via back or forward buttons.
+        if (![discoveryMethod isEqualToString:@"backforward"]) {
+            if (article.history.count > 0) { // There should only be a single history item.
+                History *history = [article.history anyObject];
+                history.dateVisited = [NSDate date];
+            }
+        }
         
         // If article with sections just show them (unless needsRefresh is YES)
         if (article.section.count > 0 && !article.needsRefresh.boolValue) {

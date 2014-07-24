@@ -5,9 +5,10 @@
 #include "MWPageTitle.h"
 
 typedef enum {
-    DISCOVERY_METHOD_SEARCH = 0,
-    DISCOVERY_METHOD_RANDOM = 1,
-    DISCOVERY_METHOD_LINK = 2
+    DISCOVERY_METHOD_SEARCH,
+    DISCOVERY_METHOD_RANDOM,
+    DISCOVERY_METHOD_LINK,
+    DISCOVERY_METHOD_BACKFORWARD
 } ArticleDiscoveryMethod;
 
 @interface CenterNavController : UINavigationController <UINavigationControllerDelegate>

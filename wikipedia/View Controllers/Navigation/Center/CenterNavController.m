@@ -111,6 +111,9 @@
 -(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method
 {
     switch (method) {
+        case DISCOVERY_METHOD_BACKFORWARD:
+            return @"backforward";
+            break;
         case DISCOVERY_METHOD_RANDOM:
             return @"random";
             break;
