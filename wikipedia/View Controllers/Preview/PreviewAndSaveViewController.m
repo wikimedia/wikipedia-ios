@@ -117,7 +117,7 @@ typedef enum {
             [ROOT popViewControllerAnimated:YES];
             
             if(ROOT.topMenuViewController.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING){
-                [self.funnel logAbuseFilterWarningBack:@"fixme"]; // @fixme
+                [self.funnel logAbuseFilterWarningBack:self.abuseFilterCode];
             }
             
             break;
@@ -127,7 +127,7 @@ typedef enum {
                 switch (ROOT.topMenuViewController.navBarMode) {
                     case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
                         [self save];
-                        [self.funnel logAbuseFilterWarningIgnore:@"fixme"]; // @fixme
+                        [self.funnel logAbuseFilterWarningIgnore:self.abuseFilterCode];
                         break;
                     case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
                         [self save];
@@ -516,6 +516,8 @@ typedef enum {
     // it was transcluded from.
     NSString *title = section.fromTitle ? section.fromTitle : section.article.title;
 
+    [self.funnel logSaveAttempt];
+
     UploadSectionWikiTextOp *uploadWikiTextOp =
     [[UploadSectionWikiTextOp alloc] initForPageTitle:title domain:section.article.domain section:section.index wikiText:self.wikiText summary:editSummary captchaId:self.captchaId captchaWord:self.captchaViewController.captchaTextBox.text  completionBlock:^(NSDictionary *resultDict){
         
@@ -600,7 +602,7 @@ typedef enum {
             case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER:
             {
                 dispatch_async(dispatch_get_main_queue(), ^(void){
-                    NSString *warningHtml = error.userInfo[@"warning"];
+                    //NSString *warningHtml = error.userInfo[@"warning"];
                     
                     [self hideKeyboard];
                     
@@ -612,7 +614,8 @@ typedef enum {
                         bannerImage = @"abuse-filter-disallowed.png";
                         bannerColor = WMF_COLOR_RED;
 
-                        [self.funnel logAbuseFilterError: warningHtml]; // @fixme not sure this is right message
+                        self.abuseFilterCode = error.userInfo[@"code"];
+                        [self.funnel logAbuseFilterError:self.abuseFilterCode];
 
                     }else{
                         ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_WARNING;
@@ -622,7 +625,8 @@ typedef enum {
                         bannerImage = @"abuse-filter-flag-white.png";
                         bannerColor = WMF_COLOR_ORANGE;
 
-                        [self.funnel logAbuseFilterWarning:warningHtml]; // @fixme not sure this is right message
+                        self.abuseFilterCode = error.userInfo[@"code"];
+                        [self.funnel logAbuseFilterWarning:self.abuseFilterCode];
 
                     }
 

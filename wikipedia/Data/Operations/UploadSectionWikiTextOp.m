@@ -126,6 +126,7 @@
                                 
                                 // Make the verbose warning available from the error.
                                 errorDict[@"warning"] = weakSelf.jsonRetrieved[@"edit"][@"warning"];
+                                errorDict[@"code"] = abuseFilterCode;
                                 
                                 // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
                                 weakSelf.error = [NSError errorWithDomain:@"Upload Wikitext Op" code:errorType userInfo:errorDict];
