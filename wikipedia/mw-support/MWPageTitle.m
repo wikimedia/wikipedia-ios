@@ -53,6 +53,11 @@
     return _text;
 }
 
+-(NSString *)allCapsText {
+
+    return [_text capitalizedStringWithLocale:[NSLocale currentLocale]];
+}
+
 -(NSString *)fragment
 {
     return _fragment;

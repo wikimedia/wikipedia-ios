@@ -33,6 +33,11 @@
 @property (readonly) NSString *text;
 
 /**
+ * Normalized title component only (decoded, no underscores, all words capitalized)
+ */
+@property (readonly) NSString *allCapsText;
+
+/**
  * Fragment (component after the '#')
  * Warning: fragment may be nil!
  */
