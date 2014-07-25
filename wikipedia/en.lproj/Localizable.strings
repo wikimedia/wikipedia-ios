@@ -166,6 +166,8 @@
 "onboarding-login" = "Log in";
 "onboarding-already-have-account" = "Already have an account? $1";
 "onboarding-skip" = "Skip";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "The Free Encyclopedia";
 
 "preference_title_eventlogging_opt_in" = "Send usage reports";
 "preference_summary_eventlogging_opt_in" = "Allow Wikimedia to collect information about how you use the app to make the app better";
