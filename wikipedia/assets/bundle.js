@@ -96,6 +96,7 @@ exports.getIndexOfFirstOnScreenElementWithTopGreaterThanY = function(elementPref
 },{}],3:[function(require,module,exports){
 var bridge = require("./bridge");
 var wikihacks = require("./wikihacks");
+var transformer = require("./transformer");
 
 //TODO: move makeTablesNotBlockIfSafeToDoSo, hideAudioTags and reduceWeirdWebkitMargin out into own js object.
 
@@ -119,21 +120,30 @@ bridge.registerListener( "setScale", function( payload ) {
 } );
 
 bridge.registerListener( "append", function( payload ) {
-                        console.log('hello append');
     // Append html without losing existing event handlers
     // From: http://stackoverflow.com/a/595825
     var content = document.getElementById("content");
     var newcontent = document.createElement('div');
     newcontent.innerHTML = payload.html;
-
+                        
+    var isFirstSection = true;
     while (newcontent.firstChild) {
-// Quite often this pushes the first image pretty far offscreen... hmmm...
-//      newcontent.firstChild = transforms.transform( "lead", newcontent.firstChild );
-        content.appendChild(newcontent.firstChild);
+        var section = newcontent.removeChild(newcontent.firstChild);
+        if (section.nodeType == Node.ELEMENT_NODE) {
+            if (isFirstSection) {
+                section = transformer.transform( "leadSection", section );
+                isFirstSection = false;
+            }
+            section = transformer.transform( "section", section );
+        }
+        content.appendChild(section);
     }
+
     // Things which need to happen any time data is appended.
     //TODO: later could optimize to only perform actions on elements found
     // within the content div which was appended).
+
+    // TODO: migrate these into common transforms?
 
     wikihacks.putWideTablesInDivs();
 /*
@@ -144,7 +154,6 @@ bridge.registerListener( "append", function( payload ) {
 /*
     wikihacks.allowDivWidthsToFlow();
 */
-    wikihacks.hideRedLinks();
     wikihacks.tweakFilePage();
 });
 
@@ -270,7 +279,7 @@ function touchEnd(event){
 
 document.addEventListener("touchend", touchEnd, "false");
 
-},{"./bridge":1,"./wikihacks":5}],4:[function(require,module,exports){
+},{"./bridge":1,"./transformer":5,"./wikihacks":7}],4:[function(require,module,exports){
 
 var bridge = require("./bridge");
 var elementLocation = require("./elementLocation");
@@ -279,6 +288,64 @@ window.bridge = bridge;
 window.elementLocation = elementLocation;
 
 },{"./bridge":1,"./elementLocation":2}],5:[function(require,module,exports){
+function Transformer() {
+}
+
+var transforms = {};
+
+Transformer.prototype.register = function( transform, fun ) {
+    if ( transform in transforms ) {
+        transforms[transform].push( fun );
+    } else {
+        transforms[transform] = [ fun ];
+    }
+};
+
+Transformer.prototype.transform = function( transform, element ) {
+    var functions = transforms[transform];
+    for ( var i = 0; i < functions.length; i++ ) {
+        element = functions[i](element);
+    }
+    return element;
+};
+
+module.exports = new Transformer();
+
+},{}],6:[function(require,module,exports){
+var transformer = require("./transformer");
+
+// Move infobox to the bottom of the lead section
+transformer.register( "leadSection", function( leadContent ) {
+    var infobox = leadContent.querySelector( "table.infobox" );
+    if ( infobox ) {
+        infobox.parentNode.removeChild( infobox );
+        var pTags = leadContent.getElementsByTagName( "p" );
+        if ( pTags.length ) {
+            pTags[0].appendChild( infobox );
+        } else {
+            leadContent.appendChild( infobox );
+        }
+    }
+    return leadContent;
+} );
+
+transformer.register( "section", function( content ) {
+	return content;
+} );
+
+transformer.register( "section", function( content ) {
+	var redLinks = content.querySelectorAll( 'a.new' );
+	for ( var i = 0; i < redLinks.length; i++ ) {
+		var redLink = redLinks[i];
+		var replacementSpan = document.createElement( 'span' );
+		replacementSpan.innerHTML = redLink.innerHTML;
+		replacementSpan.setAttribute( 'class', redLink.getAttribute( 'class' ) );
+		redLink.parentNode.replaceChild( replacementSpan, redLink );
+	}
+	return content;
+} );
+
+},{"./transformer":5}],7:[function(require,module,exports){
 
 // this doesn't seem to work on iOS?
 exports.makeTablesNotBlockIfSafeToDoSo = function() {
@@ -351,17 +418,6 @@ exports.hideAudioTags = function() {
     }
 }
 
-exports.hideRedLinks = function() {
-    var redLinks = document.querySelectorAll( 'a.new' );
-    for ( var i = 0; i < redLinks.length; i++ ) {
-        var redLink = redLinks[i];
-        var replacementSpan = document.createElement( 'span' );
-        replacementSpan.innerHTML = redLink.innerHTML;
-        replacementSpan.setAttribute( 'class', redLink.getAttribute( 'class' ) );
-        redLink.parentNode.replaceChild( replacementSpan, redLink );
-    }
-}
-
 exports.tweakFilePage = function() {
     var filetoc = document.getElementById( 'filetoc' );
     if (filetoc) {
@@ -388,4 +444,4 @@ exports.tweakFilePage = function() {
     }
 }
 
-},{}]},{},[1,2,3,4,5])
+},{}]},{},[1,2,3,4,5,6,7])

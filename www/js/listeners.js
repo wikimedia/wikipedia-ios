@@ -1,5 +1,6 @@
 var bridge = require("./bridge");
 var wikihacks = require("./wikihacks");
+var transformer = require("./transformer");
 
 //TODO: move makeTablesNotBlockIfSafeToDoSo, hideAudioTags and reduceWeirdWebkitMargin out into own js object.
 
@@ -23,21 +24,30 @@ bridge.registerListener( "setScale", function( payload ) {
 } );
 
 bridge.registerListener( "append", function( payload ) {
-                        console.log('hello append');
     // Append html without losing existing event handlers
     // From: http://stackoverflow.com/a/595825
     var content = document.getElementById("content");
     var newcontent = document.createElement('div');
     newcontent.innerHTML = payload.html;
-
+                        
+    var isFirstSection = true;
     while (newcontent.firstChild) {
-// Quite often this pushes the first image pretty far offscreen... hmmm...
-//      newcontent.firstChild = transforms.transform( "lead", newcontent.firstChild );
-        content.appendChild(newcontent.firstChild);
+        var section = newcontent.removeChild(newcontent.firstChild);
+        if (section.nodeType == Node.ELEMENT_NODE) {
+            if (isFirstSection) {
+                section = transformer.transform( "leadSection", section );
+                isFirstSection = false;
+            }
+            section = transformer.transform( "section", section );
+        }
+        content.appendChild(section);
     }
+
     // Things which need to happen any time data is appended.
     //TODO: later could optimize to only perform actions on elements found
     // within the content div which was appended).
+
+    // TODO: migrate these into common transforms?
 
     wikihacks.putWideTablesInDivs();
 /*
@@ -48,7 +58,6 @@ bridge.registerListener( "append", function( payload ) {
 /*
     wikihacks.allowDivWidthsToFlow();
 */
-    wikihacks.hideRedLinks();
     wikihacks.tweakFilePage();
 });
 
