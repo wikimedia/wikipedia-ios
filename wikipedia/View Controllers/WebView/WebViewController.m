@@ -100,6 +100,10 @@ typedef enum {
 @property (nonatomic) BOOL editable;
 @property (copy) NSString *protectionStatus;
 
+// These are presently only used by updateHistoryDateVisitedForArticleBeingNavigatedFrom method.
+@property (strong, nonatomic) NSString *currentTitle;
+@property (strong, nonatomic) NSString *currentDomain;
+
 @end
 
 #pragma mark Internal variables
@@ -1179,6 +1183,29 @@ typedef enum {
     }
 }
 
+-(void)updateHistoryDateVisitedForArticleBeingNavigatedFrom
+{
+    [articleDataContext_.mainContext performBlockAndWait:^(){
+        NSManagedObjectID *articleID =
+        [articleDataContext_.mainContext getArticleIDForTitle: self.currentTitle
+                                                       domain: self.currentDomain];
+        if (articleID) {
+            Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+            if (article) {
+                if (article.history.count > 0) { // There should only be a single history item.
+                    History *history = [article.history anyObject];
+                    history.dateVisited = [NSDate date];
+                    NSError *error = nil;
+                    [articleDataContext_.mainContext save:&error];
+                    if (error) {
+                        NSLog(@"error = %@", error);
+                    }
+                }
+            }
+        }
+    }];
+}
+
 #pragma mark Article loading ops
 
 - (void)navigateToPage: (MWPageTitle *)title
@@ -1200,6 +1227,15 @@ typedef enum {
     if (invalidateCache) [self invalidateCacheForPageTitle:title domain:domain];
     
     self.jumpToFragment = title.fragment;
+
+    // Update the history dateVisited timestamp of the article *presently shown* by the webView
+    // only if the article to be loaded was NOT loaded via back or forward buttons. The article
+    // being *navigated to* has its history dateVisited updated later in this method.
+    if (discoveryMethod != DISCOVERY_METHOD_BACKFORWARD) {
+        [self updateHistoryDateVisitedForArticleBeingNavigatedFrom];
+    }
+    self.currentTitle = title.text;
+    self.currentDomain = domain;
     
     [self retrieveArticleForPageTitle: title
                                domain: domain
@@ -1260,8 +1296,8 @@ typedef enum {
     if (articleID) {
         Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
 
-        // Update the history dateVisited timestamp only if the article was NOT loaded
-        // via back or forward buttons.
+        // Update the history dateVisited timestamp of the article to be visited only
+        // if the article was NOT loaded via back or forward buttons.
         if (![discoveryMethod isEqualToString:@"backforward"]) {
             if (article.history.count > 0) { // There should only be a single history item.
                 History *history = [article.history anyObject];
