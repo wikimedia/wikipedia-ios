@@ -28,11 +28,11 @@
 -(void)logSavedRevision:(int)revID;
 -(void)logCaptchaShown;
 -(void)logCaptchaFailure;
--(void)logAbuseFilterWarning:(NSString *)code;
--(void)logAbuseFilterError:(NSString *)code;
--(void)logAbuseFilterWarningIgnore:(NSString *)code;
--(void)logAbuseFilterWarningBack:(NSString *)code;
--(void)logSaveAttempt; // @FIXME USE
+-(void)logAbuseFilterWarning:(NSString *)name;
+-(void)logAbuseFilterError:(NSString *)name;
+-(void)logAbuseFilterWarningIgnore:(NSString *)name;
+-(void)logAbuseFilterWarningBack:(NSString *)name;
+-(void)logSaveAttempt;
 -(void)logError:(NSString *)code;
 
 @end

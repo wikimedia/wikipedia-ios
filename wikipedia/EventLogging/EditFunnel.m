@@ -68,31 +68,31 @@
     [self log:@{@"action": @"captchaFailure"}];
 }
 
-- (void)logAbuseFilterWarning:(NSString *)code
+- (void)logAbuseFilterWarning:(NSString *)name
 {
     [self log:@{@"action": @"abuseFilterWarning",
-                @"abuseFilterCode": (code ? code : @"")}];
+                @"abuseFilterName": (name ? name : @"")}];
 }
 
-- (void)logAbuseFilterError:(NSString *)code
+- (void)logAbuseFilterError:(NSString *)name
 {
     [self log:@{@"action": @"abuseFilterError",
-                @"abuseFilterCode": (code ? code : @"")}];
+                @"abuseFilterName": (name ? name : @"")}];
 }
 
--(void)logAbuseFilterWarningIgnore:(NSString *)code
+-(void)logAbuseFilterWarningIgnore:(NSString *)name
 {
     [self log:@{@"action": @"abuseFilterWarningIgnore",
-                @"abuseFilterCode": (code ? code : @"")}];
+                @"abuseFilterName": (name ? name : @"")}];
 }
 
--(void)logAbuseFilterWarningBack:(NSString *)code
+-(void)logAbuseFilterWarningBack:(NSString *)name
 {
     [self log:@{@"action": @"abuseFilterWarningBack",
-                @"abuseFilterCode": (code ? code : @"")}];
+                @"abuseFilterName": (name ? name : @"")}];
 }
 
--(void)logSaveAttempt // @FIXME WHAT CALLS THIS
+-(void)logSaveAttempt
 {
     [self log:@{@"action": @"saveAttempt"}];
 }
