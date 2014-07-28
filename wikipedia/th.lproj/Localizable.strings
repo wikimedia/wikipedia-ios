@@ -13,7 +13,9 @@
 "history-section-yesterday" = "เมื่อวานนี้";
 "history-section-lastweek" = "สัปดาห์ที่แล้ว";
 "history-section-lastmonth" = "เดือนที่แล้ว";
+// Fuzzy
 "zero-interstitial-continue" = "ดำเนินการต่อ";
+// Fuzzy
 "zero-interstitial-cancel" = "ยกเลิก";
 "zero-warn-when-leaving" = "เตือนหากกำลังออก Wikipedia Zero";
 "account-creation-captcha-required" = "ต้องการการทวนสอบ CAPTCHA";
@@ -28,8 +30,10 @@
 "login-password-wrong" = "รหัสผ่านที่คุณกรอกไม่ถูกต้อง";
 "login-throttled" = "คุณล็อกอินมากครั้งเกินไปในเวลาอันสั้น";
 "login-user-blocked" = "ผู้ใช้ถูกบล็อก";
+// Fuzzy
 "wikitext-downloading" = "กำลังโหลดข้อความวิกิ...";
 "wikitext-download-failed" = "ไม่สามารถดึงรุ่นล่าสุดได้";
+// Fuzzy
 "wikitext-download-success" = "โหลดข้อความวิกิแล้ว";
 "wikitext-preview-changes" = "กำลังดึงตัวอย่างการเปลี่ยนแปลงของคุณ...";
 "wikitext-preview-changes-none" = "ไม่มีการเปลี่ยนแปลงใดที่ต้องมีตัวอย่าง";
@@ -68,6 +72,7 @@
 // Fuzzy
 "main-menu-random" = "สุ่มบทความ";
 "main-menu-feedback-heading" = "ผลป้อนกลับ";
+// Fuzzy
 "main-menu-send-feedback" = "ส่งผลป้อนกลับ";
 "saved-pages-title" = "หน้าที่บันทึก";
 "navbar-title-mode-edit-wikitext" = "แก้ไข";

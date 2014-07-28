@@ -12,16 +12,21 @@
 "history-section-lastweek" = "Í síðstu viku";
 "history-section-lastmonth" = "Í síðsta mánað";
 "zero-free-verbiage" = "Ókeypis Wikipedia atgongd frá tínum fartelefonveitara (krevur ikki gjald fyri dáta)";
+// Fuzzy
 "zero-charged-verbiage" = "Wikipedia Zero ER ÓVIKIÐ (STANDARD DÁTAGJØLD KUNNU KOMA FYRI)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Tú fert nú burtur frá Wikipedia Zero";
 // Fuzzy
 "zero-interstitial-leave-app" = "Heldur tú fram til eina eksterna síðu? Vanligir kostnaðir fyri dáta kunnu koma fyri.";
+// Fuzzy
 "zero-interstitial-continue" = "Halt fram";
+// Fuzzy
 "zero-interstitial-cancel" = "Angra";
+// Fuzzy
 "zero-learn-more" = "Vilt tú vita meira um Wikipedia Zero?";
 // Fuzzy
 "zero-learn-more-learn-more" = "Les meira";
+// Fuzzy
 "zero-learn-more-no-thanks" = "Nei takk";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Ávara meg um eg fari burtur frá Wikipedia Zero";
@@ -37,14 +42,17 @@
 "login-password-wrong" = "Loyniorðið ið tú skrivaði er skeivt.";
 "login-throttled" = "Tú hevur ritað inn ov nógvar ferðir eftir stuttari tíð.";
 "login-user-blocked" = "Brúkarin er sperraður.";
+// Fuzzy
 "wikitext-downloading" = "Innlesur wikitekst...";
 "wikitext-download-failed" = "Tað ber ikki til at heinta seinast versjónina.";
+// Fuzzy
 "wikitext-download-success" = "Wikitekstur innlisin.";
 "wikitext-preview-changes-none" = "Ongar broytingar vóru gjørdar sum kunnu undanskoðast.";
 "wikitext-upload-save" = "Goymir...";
 "wikitext-upload-save-sign-in" = "Rita inn";
 "wikitext-upload-save-sign-in-benefits" = "So aðrir høvundar kunnu koma í samband við teg og tú kanst síggja hvørjar greinar tú hevur rættað.";
 "wikitext-upload-save-anonymously" = "Goym dulnevnt";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Tínar rættingar verða knýttar at tí IP adressuni ið er knýtt at tína eind. Um tú ynskir at $1, so verður tað meira privat.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Leitar...";
@@ -70,6 +78,7 @@
 "main-menu-current-article-save" = "Goym $1 fyri offline lesing";
 "main-menu-random" = "Tilvildarlig";
 "main-menu-feedback-heading" = "Afturmeldingar";
+// Fuzzy
 "main-menu-send-feedback" = "Send afturmelding";
 "saved-pages-title" = "Goymdar síður";
 "page-history-title" = "Søgan hjá síðuni";
@@ -97,6 +106,3 @@
 "timestamp-days" = "%d dagar síðan";
 "timestamp-months" = "%d mánaðar síðan";
 "timestamp-years" = "%d ár síðan";
-"lastmodified-timestamp" = "Seinast broytt $1";
-"lastmodified-by" = "av $1";
-"lastmodified-anon" = "av einum ókendum brúkara";

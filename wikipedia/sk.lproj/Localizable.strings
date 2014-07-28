@@ -12,16 +12,21 @@
 "history-section-lastweek" = "Minulý týždeň";
 "history-section-lastmonth" = "Minulý mesiac";
 "zero-free-verbiage" = "Voľný prístup k Wikipédii od vášho mobilného operátora (neplatíte poplatky za prenos dát)";
+// Fuzzy
 "zero-charged-verbiage" = "Wikipédia Zero je VYPNUTÁ (MÔŽU SA OBJAVIŤ ŠTANDARDNÉ POPLATKY ZA PRENOS DÁT)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Opúšťate Wikipédiu Zero";
 // Fuzzy
 "zero-interstitial-leave-app" = "Pokračovať na externú stránku? Môžu sa objaviť štandardné poplatky za prenos dát.";
+// Fuzzy
 "zero-interstitial-continue" = "Pokračovať";
+// Fuzzy
 "zero-interstitial-cancel" = "Zrušiť";
+// Fuzzy
 "zero-learn-more" = "Chcete sa dozvedieť viac o Wikipédii Zero?";
 // Fuzzy
 "zero-learn-more-learn-more" = "Ďalšie informácie";
+// Fuzzy
 "zero-learn-more-no-thanks" = "Nie, ďakujem";
 "zero-wikipedia-zero-heading" = "Wikipédia Zero";
 "zero-warn-when-leaving" = "Upozorniť ma ak opúšťam Wikipédia Zero";
@@ -46,8 +51,10 @@
 "login-account-creation" = "Nemáte ešte účet? Pripojte sa k Wikipédii.";
 "login-username-placeholder-text" = "Používateľské meno";
 "login-password-placeholder-text" = "Heslo";
+// Fuzzy
 "wikitext-downloading" = "Načítavam text...";
 "wikitext-download-failed" = "Nepodarilo sa získať najnovšiu revíziu.";
+// Fuzzy
 "wikitext-download-success" = "Text je načítaný.";
 "wikitext-preview-changes" = "Načítava sa ukážka vykonaných zmien...";
 "wikitext-preview-changes-none" = "Neboli vykonané žiadne zmeny.";
@@ -80,6 +87,7 @@
 "main-menu-current-article-save" = "Uložiť stránku $1 pre offline čítanie";
 "main-menu-random" = "Náhodný článok";
 "main-menu-feedback-heading" = "Spätná väzba";
+// Fuzzy
 "main-menu-send-feedback" = "Poslať spätnú väzbu";
 "saved-pages-title" = "Uložené stránky";
 "page-history-title" = "História stránky";

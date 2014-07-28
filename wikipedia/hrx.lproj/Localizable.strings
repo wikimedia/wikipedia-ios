@@ -14,16 +14,21 @@
 "history-section-lastweek" = "Letzte Woch";
 "history-section-lastmonth" = "Letzter Monat";
 "zero-free-verbiage" = "Kostenloser Wikipedia-Zugriff von deinem Mobilfunknetzbetreiber (uff Gebühre weard verzichtet)";
+// Fuzzy
 "zero-charged-verbiage" = "Wikipedia Zero AUS (STANDARDDATEÜWERTROOHUNGSGEBÜHRE KÖNNE OONFALLE)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Wikipedia Zero verlosse";
 // Fuzzy
 "zero-interstitial-leave-app" = "Mit der externe Website weiter fortfoohre? Standarddateüwertroohungsgebühre könne oonfalle.";
+// Fuzzy
 "zero-interstitial-continue" = "Fortfoohre (weiter mache)";
+// Fuzzy
 "zero-interstitial-cancel" = "Abbreche";
+// Fuzzy
 "zero-learn-more" = "Etwas üwer Wikipedia Zero erfoohre?";
 // Fuzzy
 "zero-learn-more-learn-more" = "Meahr erfoohre";
+// Fuzzy
 "zero-learn-more-no-thanks" = "Nein danke";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Tue warne, wies du Wikipedia Zero verlosse tust";
@@ -40,8 +45,10 @@
 "login-password-wrong" = "Das oongebne Passwort ist falsch.";
 "login-throttled" = "Du host zu oft in koorzer Zeit vergeblich versucht, dich oonzumelde.";
 "login-user-blocked" = "Benutzer ist gesperrt.";
+// Fuzzy
 "wikitext-downloading" = "Wikitext am loode …";
 "wikitext-download-failed" = "Die aktuellste Version konnt net abgeruf sin.";
+// Fuzzy
 "wikitext-download-success" = "Wikitext gelood.";
 "wikitext-preview-changes" = "Ruf den Voarschau von deiner Ännrungen ab …";
 "wikitext-preview-changes-none" = "Do worre ken Ännrunge doorrichgeführt für en Voarschau oonzeiche.";
@@ -79,6 +86,7 @@
 // Fuzzy
 "main-menu-random" = "Zufällicher Artikel";
 "main-menu-feedback-heading" = "Rückmeldung (retuarmeldung)";
+// Fuzzy
 "main-menu-send-feedback" = "Rückmeldung sende (retuarmeldung schicke)";
 "saved-pages-title" = "Gespeicherte Seite";
 "navbar-title-mode-edit-wikitext" = "Beoorbeite";

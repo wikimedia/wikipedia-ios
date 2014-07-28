@@ -2,30 +2,30 @@
 // Exported from translatewiki.net
 // Author: Andriykopanytsia
 // Author: Base
+// Author: Sir-nik
+// Author: Дар'я Козлова
 
 "article-languages-label" = "Вибрати мову";
 "article-languages-cancel" = "Скасувати";
 "article-languages-downloading" = "Завантаження мов статті...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Фільтр";
-// Fuzzy
-"history-label" = "Перегляд Історії";
+"article-languages-filter-placeholder" = "Мовний фільтр";
+"language-button-text" = "Ви можете прочитати цю статтю %d іншою(ими) мовою(ами)";
+"history-label" = "Останні";
 "history-section-today" = "Сьогодні";
 "history-section-yesterday" = "Вчора";
 "history-section-lastweek" = "Минулого тижня";
 "history-section-lastmonth" = "Минулого місяця";
 "zero-free-verbiage" = "Безкоштовний доступ до Вікіпедії у вашого мобільного оператора (оплата за трафік не стягується)";
-"zero-charged-verbiage" = "Вікіпедія Zero ВИМКНЕНА (МОЖЕ СТЯГУВАТИСЯ СТАНДАРТНА ПЛАТА ЗА ПЕРЕДАЧУ ДАНИХ)";
+"zero-charged-verbiage" = "Вікіпедія Zero вимкнена";
+"zero-charged-verbiage-extended" = "Під час завантаження інших статей може стягуватися плата за передачу даних. Збережені статті, що накопичуються автономно, не вимагають передачі даних і є безкоштовними.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Покидаємо Вікіпедія Zero";
-// Fuzzy
-"zero-interstitial-leave-app" = "Продовжити перехід на зовнішній сайт? За це може стягуватися стандартна плата за передачу даних.";
-"zero-interstitial-continue" = "Продовжити";
-"zero-interstitial-cancel" = "Скасувати";
-"zero-learn-more" = "Хочете дізнатися про Вікіпедія Zero?";
-// Fuzzy
-"zero-learn-more-learn-more" = "Дізнатися більше";
-"zero-learn-more-no-thanks" = "Ні, дякую.";
+"zero-interstitial-leave-app" = "Можливе стягнення за передачу даних. Продовжити перехід на зовнішній сайт?";
+"zero-interstitial-continue" = "Перейти";
+"zero-interstitial-cancel" = "Залишитися";
+"zero-learn-more" = "Плату за передачу даних скасовано для цього додатка Вікіпедії.";
+"zero-learn-more-learn-more" = "Читати більше";
+"zero-learn-more-no-thanks" = "Відхилити";
 "zero-wikipedia-zero-heading" = "Вікіпедія Zero";
 "zero-warn-when-leaving" = "Попередити, якщо залишити Вікіпедії Zero";
 "zero-settings-devmode" = "Режим разробника Zero";
@@ -35,7 +35,10 @@
 "account-creation-passwords-mismatched" = "Паролі не збігаються.";
 "account-creation-saving" = "Збереження...";
 "account-creation-login" = "Ви вже зареєстровані? Увійдіть.";
+"account-creation-username-placeholder-text" = "Ім'я користувача";
 "account-creation-password-placeholder-text" = "Пароль";
+"account-creation-password-confirm-placeholder-text" = "Підтвердити пароль";
+"account-creation-email-placeholder-text" = "Електронна пошта (необов'язково)";
 "login-name-not-found" = "Ім'я користувача необхідний для входу в систему.";
 "login-name-illegal" = "Ви вказали незаконне ім'я користувача.";
 "login-name-does-not-exist" = "Ім'я користувача, яке ви надали не існує.";
@@ -43,24 +46,27 @@
 "login-password-wrong" = "Ви вказали неправильний пароль.";
 "login-throttled" = "Ви увійшли в систему занадто багато разів за короткий час.";
 "login-user-blocked" = "Користувач заблокований.";
+"login-account-creation" = "Не маєте облікового запису? Приєднуйтеся до Вікіпедії.";
 "login-username-placeholder-text" = "Ім'я користувача";
 "login-password-placeholder-text" = "Пароль";
-"wikitext-downloading" = "Завантаження тексту вікі...";
+"wikitext-downloading" = "Завантаження змісту...";
 "wikitext-download-failed" = "Не вдається отримати останню версію програми.";
-"wikitext-download-success" = "Вікі текст завантажений.";
+"wikitext-download-success" = "Зміст завантажено.";
 "wikitext-preview-changes" = "Отримання попереднього перегляду змін...";
 "wikitext-preview-changes-none" = "Не було внесено ніяких змін, які можна було б переглянути.";
 "wikitext-upload-result-unknown" = "Не вдається визначити результат завантаження вікі-тексту.";
 "wikitext-upload-captcha-error" = "Помилка перевірки CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Потрібна перевірка captcha.";
 "wikitext-upload-save" = "Збереження...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Увійти і зберегти";
-// Fuzzy
-"wikitext-upload-save-sign-in-benefits" = "Так інші учасники зможуть зв'язатися з вами, і ви зможете побачити, які статті ви редагували";
+"wikitext-upload-save-sign-in" = "Увійти";
+"wikitext-upload-save-sign-in-benefits" = "Так співредактори можуть з'єднатися з Вами і Ви можете бачити, які статті Ви відредагували.";
 "wikitext-upload-save-anonymously" = "Зберегти анонімно";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Це менш конфіденційно. Вашу IP-адресу видно поруч з вашими правками. Зберігаючи, ви погоджуєтесь постійно публікувати ваші правки у відповідності з ліцензією CC BY-SA 3.0";
+"wikitext-upload-save-anonymously-warning" = "Редагування буде приписано ІР-адресі Вашого пристрою. Якщо Ви $1, це буде більш конфіденційно.";
+"wikitext-upload-save-terms-and-license" = "Зберігаючи зміни, Ви погоджуєтесь із $1 й остаточно робите Ваш внесок під ліценцією $2.";
+"wikitext-upload-save-terms-name" = "Умови використання";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"open-link-title" = "Відкрити посилання";
+"open-link-cancel" = "Скасувати";
 "search-searching" = "Пошук...";
 "search-no-matches" = "Збігів не знайдено для пошукового терміну.";
 "search-field-placeholder-text" = "Пошук по Вікіпедії";
@@ -68,6 +74,8 @@
 "search-loading-section-zero" = "Завантаження першого розділі статті...";
 "search-loading-section-remaining" = "Завантаження решти статті...";
 "search-loading-article-loaded" = "Стаття завантажена.";
+"search-cancel" = "Скасувати";
+"main-menu-title" = "Ще";
 "main-menu-language-title" = "$1 мова для пошуку на вікі";
 "main-menu-language-toggle-show" = "Показати мови";
 "main-menu-language-toggle-hide" = "Приховати мови";
@@ -77,17 +85,18 @@
 "main-menu-account-login" = "Вхід";
 "main-menu-account-logout" = "Вихід";
 "main-menu-show-title" = "Показати мені...";
-// Fuzzy
-"main-menu-show-history" = "Історія перегляду";
+"main-menu-show-history" = "Останні";
 "main-menu-show-saved" = "Збережені сторінки";
 "main-menu-current-article-save" = "Зберегти  $1  для читання в автономному режимі";
-// Fuzzy
-"main-menu-random" = "Випадкова стаття";
+"main-menu-random" = "Випадкова";
 "main-menu-feedback-heading" = "Зворотний зв'язок";
-"main-menu-send-feedback" = "Надіслати відгук";
+"main-menu-send-feedback" = "Надіслати відгук про додаток";
+"main-menu-show-page-history" = "Історія змін $1";
+"main-menu-credits" = "Кредити";
 "saved-pages-title" = "Збережені сторінки";
+"page-history-title" = "Історія статті";
+"page-history-downloading" = "Завантаження історії статті...";
 "navbar-title-mode-edit-wikitext" = "Змінити";
-// Fuzzy
 "navbar-title-mode-login" = "Увійти";
 "navbar-title-mode-login-and-save" = "Увійти та зберегти";
 "navbar-title-mode-create-account" = "Створити обліковий запис";
@@ -97,6 +106,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Перегляд";
 "navbar-title-mode-edit-wikitext-captcha" = "Потрібна швидка перевірка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишіть вашу зміну";
+"navbar-title-mode-edit-wikitext-save" = "Зберегти";
 "edit-summary-choice-linked-words" = "Пов'язано слова";
 "edit-summary-choice-fixed-grammar" = "Виправлений правопис";
 "edit-summary-choice-fixed-inaccuracy" = "Виправлена неточність";
@@ -108,11 +118,37 @@
 "edit-summary-choice-other" = "Інше";
 "edit-summary-description" = "Точний опис допомагає іншим учасникам швидко перевірити ваші правки. Також ви могли б вказати опису з використанням наведених нижче тегів.";
 "edit-summary-field-placeholder-text" = "Як ви поліпшили сторінку?";
+"edit-summary-title" = "Як ви вдосконалили статтю?";
 "fetching-random-article" = "Вибірка випадкової статті";
 "article-pull-to-refresh-prompt" = "Потягність для оновлення статті";
 "article-pull-to-refresh-is-refreshing" = "Оновлення статті";
+"credits-title" = "Відкриті сховища";
+"credits-wikimedia-repos" = "Wikimedia";
+"credits-gerrit-repo" = "Основне (Gerrit)";
+"credits-github-mirror" = "Дзеркало додатку (GitHub)";
+"credits-external-libraries" = "Зовнішні";
+"share-menu-save-page" = "Зберегти статтю";
+"share-menu-page-saved" = "Статтю збережено";
+"timestamp-just-now" = "щойно";
+"timestamp-minutes" = "%d хв тому";
+"timestamp-hours" = "%d год тому";
+"timestamp-days" = "%d дн. тому";
+"timestamp-months" = "%d міс. тому";
+"timestamp-years" = "%d р. тому";
 "button-next" = "Далі";
 "button-done" = "Готово";
 "button-save" = "Зберегти";
+"onboarding-create-account" = "Зареєструватися";
 "onboarding-login" = "Увійти до системи";
+"onboarding-already-have-account" = "Вже маєте обліковий запис? $1";
 "onboarding-skip" = "Пропустити";
+"preference_title_eventlogging_opt_in" = "Надсилати звіти про використання";
+"preference_summary_eventlogging_opt_in" = "Дозвольте Wikimedia збирати відомості, про те, як ви користуєтеся застосунком, аби вдосконалити його";
+"page_protected_autoconfirmed" = "Сторінка є частково захищена.";
+"page_protected_sysop" = "Сторінка є повністю захищена.";
+"page_protected_other" = "Цю сторінку захищено на таких рівнях: $1";
+"page_protected_can_not_edit" = "Ви не маєте повноважень для редагування цієї сторінки";
+"page_protected_can_not_edit_title" = "Сторінку захищено";
+"license-footer-text" = "Вміст доступний згідно з $1";
+"license-footer-name" = "CC-BY-SA 3.0";
+"table-of-contents-heading" = "Вміст";

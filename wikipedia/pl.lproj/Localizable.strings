@@ -3,6 +3,7 @@
 // Author: Alan ffm
 // Author: Chrumps
 // Author: Jacenty359
+// Author: Pio387
 // Author: Wiochman
 
 "article-languages-label" = "Wybierz język";
@@ -14,10 +15,12 @@
 "history-section-lastweek" = "Ostatni tydzień";
 "history-section-lastmonth" = "Ostatni miesiąc";
 "zero-interstitial-title" = "Opuszczasz Wikipedię Zero";
-"zero-interstitial-continue" = "Kontynuuj";
-"zero-interstitial-cancel" = "Anuluj";
 // Fuzzy
-"zero-learn-more-learn-more" = "Dowiedz się więcej";
+"zero-interstitial-continue" = "Kontynuuj";
+// Fuzzy
+"zero-interstitial-cancel" = "Anuluj";
+"zero-learn-more-learn-more" = "Czytaj więcej";
+// Fuzzy
 "zero-learn-more-no-thanks" = "Nie, dziękuję";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "account-creation-logging-in" = "Logowanie...";
@@ -40,11 +43,13 @@
 "wikitext-upload-save-sign-in" = "Zaloguj się";
 "wikitext-upload-save-anonymously" = "Zapisz anonimowo";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"open-link-cancel" = "Anuluj";
 "search-searching" = "Wyszukiwanie...";
 "search-field-placeholder-text" = "Szukaj w Wikipedii";
 "search-field-placeholder-text-zero" = "Szukaj w Wikipedii Zero";
 "search-cancel" = "Anuluj";
 "main-menu-title" = "Więcej";
+"main-menu-language-title" = "Przeszukaj $ Wikipedię";
 "main-menu-language-toggle-show" = "Pokaż języki";
 "main-menu-language-toggle-hide" = "Ukryj języki";
 "main-menu-account-title-logged-out" = "Konto";
@@ -52,6 +57,11 @@
 "main-menu-account-logout" = "Wyloguj";
 "main-menu-show-history" = "Ostatnie";
 "main-menu-show-saved" = "Zapisane strony";
+"main-menu-zero-faq" = "Wikipedia Zero FAQ";
+"main-menu-privacy-policy" = "Polityka prywatności";
+"main-menu-terms-of-use" = "Zasady użytkowania";
+"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-show-today" = "Dzisiaj";
 "page-history-title" = "Historia strony";
 "navbar-title-mode-edit-wikitext" = "Edytuj";
 "navbar-title-mode-login" = "Zaloguj się";
@@ -72,8 +82,20 @@
 "timestamp-days" = "%d dni temu";
 "timestamp-months" = "%d miesięcy temu";
 "timestamp-years" = "%d lat temu";
+"lastmodified-by-user" = "$1 zmodyfikowana przez $2";
+"lastmodified-by-anon" = "$ zmodyfikowany przez anonimowego użytkownika";
 "button-done" = "Gotowe";
 "button-save" = "Zapisz";
 "onboarding-create-account" = "Utwórz konto";
 "onboarding-login" = "Zaloguj się";
 "onboarding-skip" = "Pomiń";
+"page_protected_sysop" = "Ta strona jest całkowicie zabezpieczona.";
+"page_protected_can_not_edit_title" = "Ta strona jest zabezpieczona";
+"license-footer-name" = "CC BY-SA 3.0";
+"abuse-filter-warning-heading" = "To wygląda na niekonstruktywną edycję, jesteś pewny, by ją zaspisać?";
+"abuse-filter-warning-caps" = "Pisanie WIELKIMI LITERAMI";
+"abuse-filter-warning-blanking" = "Blankowanie lub spamowanie artykułów";
+"abuse-filter-warning-irrelevant" = "Nieodpowiednie linki zewnętrzne lub obrazy";
+"abuse-filter-warning-repeat" = "Powtaaaarzanie znaków";
+"abuse-filter-disallow-heading" = "Nie możesz zapisać tej edycji. Wróć i popraw ją.";
+"abuse-filter-disallow-unconstructive" = "Zautomatyzowany filtr rozpoznał tę edycję jako potencjalnie niekonstruktywną albo próbę wandalizmu";

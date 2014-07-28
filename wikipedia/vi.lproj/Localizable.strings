@@ -12,16 +12,21 @@
 "history-section-lastweek" = "Tuần trước";
 "history-section-lastmonth" = "Tháng trước";
 "zero-free-verbiage" = "Truy cập Wikipedia miễn phí qua nhà điều hành điện thoại di động (miễn phí dữ liệu)";
+// Fuzzy
 "zero-charged-verbiage" = "TẮT Wikipedia Miễn phí (CÓ THỂ PHẢI TRẢ PHÍ DỮ LIỆU CHUẨN)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Sắp ra khỏi Wikipedia Miễn phí";
 // Fuzzy
 "zero-interstitial-leave-app" = "Tiếp tục đi vào trang ngoài? Có thể phải trả phí dữ liệu chuẩn.";
+// Fuzzy
 "zero-interstitial-continue" = "Tiếp tục";
+// Fuzzy
 "zero-interstitial-cancel" = "Hủy bỏ";
+// Fuzzy
 "zero-learn-more" = "Muốn tìm hiểu thêm về Wikipedia Miễn phí?";
 // Fuzzy
 "zero-learn-more-learn-more" = "Tìm hiểu thêm";
+// Fuzzy
 "zero-learn-more-no-thanks" = "Thôi";
 "zero-wikipedia-zero-heading" = "Wikipedia Miễn phí";
 "zero-warn-when-leaving" = "Cảnh báo khi ra khỏi Wikipedia Miễn phí";
@@ -46,8 +51,10 @@
 "login-account-creation" = "Chưa có tài khoản? Hãy tham gia Wikipedia.";
 "login-username-placeholder-text" = "Tên người dùng";
 "login-password-placeholder-text" = "Mật khẩu";
+// Fuzzy
 "wikitext-downloading" = "Đang tải mã wiki…";
 "wikitext-download-failed" = "Không lấy được phiên bản hiện tại.";
+// Fuzzy
 "wikitext-download-success" = "Đã tải mã wiki.";
 "wikitext-preview-changes" = "Đang lấy bản xem trước các thay đổi của bạn…";
 "wikitext-preview-changes-none" = "Không có thay đổi để xem trước.";
@@ -58,6 +65,7 @@
 "wikitext-upload-save-sign-in" = "Đăng nhập";
 "wikitext-upload-save-sign-in-benefits" = "Để cho những người dùng sửa đổi có thể liên lạc với bạn & bạn có thể xem những bài bạn đã sửa đổi.";
 "wikitext-upload-save-anonymously" = "Lưu vô danh";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Các sửa đổi của bạn sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Đang tìm…";
@@ -83,6 +91,7 @@
 "main-menu-current-article-save" = "Lưu $1 để đọc ngoại tuyến";
 "main-menu-random" = "Ngẫu nhiên";
 "main-menu-feedback-heading" = "Phản hồi";
+// Fuzzy
 "main-menu-send-feedback" = "Gửi phản hồi";
 "main-menu-show-page-history" = "Lịch sử các thay đổi vào $1";
 "main-menu-credits" = "Ghi công";
@@ -128,9 +137,6 @@
 "timestamp-days" = "%d ngày trước";
 "timestamp-months" = "%d tháng trước";
 "timestamp-years" = "%d năm trước";
-"lastmodified-timestamp" = "Sửa đổi Lần cuối $1";
-"lastmodified-by" = "bởi $1";
-"lastmodified-anon" = "bởi một người dùng vô danh";
 "button-next" = "Tiếp";
 "button-done" = "Xong";
 "button-save" = "Lưu";

@@ -1,6 +1,7 @@
 // Messages for Persian (فارسی)
 // Exported from translatewiki.net
 // Author: Ebraminio
+// Author: Fatemi127
 // Author: Mahdiz
 // Author: Reza1615
 // Author: Sahehco
@@ -15,17 +16,15 @@
 "history-section-lastweek" = "هفتهٔ گذشته";
 "history-section-lastmonth" = "ماه گذشته";
 "zero-free-verbiage" = "دسترسی مجانی از تلفن همراه توسط اپراتور تامین شده‌است (هزینهٔ دیتا گرفته نمی‌شود)";
-"zero-charged-verbiage" = "ویکی‌پدیای صفر خاموش (هزینه‌های استاندارد داده ممکن است فعال شود)";
+"zero-charged-verbiage" = "ویکی پدیای صفر خاموش است";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "ترک ویکی‌پدیا صفر";
-// Fuzzy
-"zero-interstitial-leave-app" = "آیا شما قصد دارید وارد سایت دیگری بغیر از ویکی پدیا شوید؟ در اینصورت هزینهٔ استاندارد دیتا دریافت می‌گردد.";
-"zero-interstitial-continue" = "ادامه";
-"zero-interstitial-cancel" = "لغو";
-"zero-learn-more" = "آیا می خواهید دربارهٔ ویکی‌پدیا صفر بدانید؟";
-// Fuzzy
-"zero-learn-more-learn-more" = "اطلاعات بیشتر";
-"zero-learn-more-no-thanks" = "نه ممنون";
+"zero-interstitial-leave-app" = "هزینهٔ استاندارد دیتا دریافت می‌گردد. آیا شما قصد دارید وارد سایت دیگری بغیر از ویکی پدیا شوید؟";
+"zero-interstitial-continue" = "ترک کردن";
+"zero-interstitial-cancel" = "ماندن در اینجا";
+"zero-learn-more" = "هزینه‌های داده برای این برنامه ویکی گرفته نمی‌شود.";
+"zero-learn-more-learn-more" = "بیشتر بخوانید";
+"zero-learn-more-no-thanks" = "پنهان‌سازی";
 "zero-wikipedia-zero-heading" = "ویکی‌پدیای صفر";
 "zero-warn-when-leaving" = "هشدار برای خروج از ویکی‌پدیا صفر";
 "zero-settings-devmode" = "وضعیت برنامه‌نویسی صفر";
@@ -49,9 +48,9 @@
 "login-account-creation" = "حساب کاربری ندارید؟ به ویکی پدیا بپیوندید.";
 "login-username-placeholder-text" = "نام کاربری";
 "login-password-placeholder-text" = "گذرواژه";
-"wikitext-downloading" = "بارگیری متن دانشنامه...";
+"wikitext-downloading" = "بارگیری متن...";
 "wikitext-download-failed" = "آخرین تجدید نظر اخذ نمی‌شود.";
-"wikitext-download-success" = "متن دانشنامه بارگیری شد.";
+"wikitext-download-success" = "متن بارگیری شد.";
 "wikitext-preview-changes" = "بازیابی پیش نمایش تغییرات شما...";
 "wikitext-preview-changes-none" = "تغییری برای پیش نمایش وجود ندارد.";
 "wikitext-upload-result-unknown" = "قادر به تعیین نتیجه بارگذاری متن ویکی نیست.";
@@ -61,8 +60,11 @@
 "wikitext-upload-save-sign-in" = "ورود";
 "wikitext-upload-save-sign-in-benefits" = "بنابراین ویرایشگران همکار می توانند با شما تماس برقرار کنند و شما می‌توانید ببنید چه مقالاتی ویرایش کرده‌اید.";
 "wikitext-upload-save-anonymously" = "ذخیره به صورت ناشناس";
-"wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حفظ حریم بیشتری را رعایت کنید.";
+"wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حریم خصوصی بیشتری را رعایت کنید.";
+"wikitext-upload-save-terms-name" = "شرایط استفاده";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"open-link-title" = "باز کردن پیوند";
+"open-link-cancel" = "لغو";
 "search-searching" = "در حال جستجو...";
 "search-no-matches" = "هیچ موردی برای جستجو یافت نشد.";
 "search-field-placeholder-text" = "جستجوی ویکی‌پدیا";
@@ -86,9 +88,16 @@
 "main-menu-current-article-save" = "ذخیره  $1  برای خواندن آفلاین";
 "main-menu-random" = "تصادفی";
 "main-menu-feedback-heading" = "بازخورد";
-"main-menu-send-feedback" = "فرستادن بازخورد";
+"main-menu-send-feedback" = "فرستادن بازخورد برنامه";
 "main-menu-show-page-history" = "سابقه تغییرات $1";
 "main-menu-credits" = "اعتبارات";
+"main-menu-zero-faq" = "پرسش‌های رایج ویکی‌پدیا صفر";
+"main-menu-privacy-policy" = "سیاست محرمانگی";
+"main-menu-terms-of-use" = "شرایط استفاده";
+"main-menu-rate-app" = "رتبه برنامه";
+"main-menu-heading-zero" = "ویکی‌پدیای صفر";
+"main-menu-heading-legal" = "خرافات";
+"main-menu-show-today" = "امروز";
 "saved-pages-title" = "صفحات ذخیره شده";
 "page-history-title" = "تاریخچهٔ صفحه";
 "page-history-downloading" = "در حال بارگیری صفحه تاریخچه...";
@@ -131,9 +140,8 @@
 "timestamp-days" = "%d روز پیش";
 "timestamp-months" = "%d ماه پیش";
 "timestamp-years" = "%d سال پیش";
-"lastmodified-timestamp" = "آخرین تغییر  $1";
-"lastmodified-by" = "توسط $1";
-"lastmodified-anon" = "توسط کاربر ناشناس";
+"lastmodified-by-user" = "تغییریافته  $1  توسط $2";
+"lastmodified-by-anon" = "تغییریافته  $1  توسط کاربر ناشناس";
 "button-next" = "بعدی";
 "button-done" = "انجام شد";
 "button-save" = "ذخیره";
@@ -141,3 +149,8 @@
 "onboarding-login" = "ورود به سامانه";
 "onboarding-already-have-account" = "حساب کاربری دارید؟ $1.";
 "onboarding-skip" = "رها کردن";
+"preference_title_eventlogging_opt_in" = "ارسال گزارش‌های استفاده";
+"page_protected_can_not_edit_title" = "این صفحه محافظت شده‌است";
+"license-footer-text" = "مطالب زیر تحت شرایط $1 در دسترس است";
+"license-footer-name" = "CC BY-SA 3.0";
+"table-of-contents-heading" = "محتویات";

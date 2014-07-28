@@ -1,5 +1,6 @@
 // Messages for Italian (italiano)
 // Exported from translatewiki.net
+// Author: Bertaz
 // Author: Beta16
 // Author: Gianfranco
 // Author: Nastoshka
@@ -9,23 +10,22 @@
 "article-languages-cancel" = "Annulla";
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
 "article-languages-filter-placeholder" = "Filtra lingua";
+"language-button-text" = "Puoi leggere questa voce in %d altre lingue";
 "history-label" = "Recenti";
 "history-section-today" = "Oggi";
 "history-section-yesterday" = "Ieri";
 "history-section-lastweek" = "Ultima settimana";
 "history-section-lastmonth" = "Ultimo mese";
 "zero-free-verbiage" = "Accesso gratuito a Wikipedia dal vostro operatore di telefonia mobile (tariffa dati non applicata)";
-"zero-charged-verbiage" = "Wikipedia Zero NON connessa (si applicano le tariffe standard di connessione)";
+"zero-charged-verbiage" = "Wikipedia Zero è spento";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Stai uscendo da Wikipedia Zero";
-// Fuzzy
-"zero-interstitial-leave-app" = "Continuare su un sito esterno? Potrebbero essere applicati i costi standard di connessione.";
-"zero-interstitial-continue" = "Continua";
-"zero-interstitial-cancel" = "Annulla";
-"zero-learn-more" = "Vuoi conoscere Wikipedia Zero?";
-// Fuzzy
-"zero-learn-more-learn-more" = "Ulteriori informazioni";
-"zero-learn-more-no-thanks" = "No, grazie";
+"zero-interstitial-leave-app" = "Potrebbero essere applicati i costi di connessione. Continuare su un sito esterno?";
+"zero-interstitial-continue" = "Lascia";
+"zero-interstitial-cancel" = "Resta qui";
+"zero-learn-more" = "I costi di connessione sono gratuiti per questa applicazione Wikipedia";
+"zero-learn-more-learn-more" = "Per saperne di più";
+"zero-learn-more-no-thanks" = "Nascondi";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Avvisa se sto uscendo da Wikipedia Zero";
 "zero-settings-devmode" = "Zero Devmode";
@@ -49,9 +49,9 @@
 "login-account-creation" = "Non hai un'utenza? Iscriviti a Wikipedia.";
 "login-username-placeholder-text" = "Nome utente";
 "login-password-placeholder-text" = "Password";
-"wikitext-downloading" = "Caricamento wiki testo...";
+"wikitext-downloading" = "Caricamento contenuto...";
 "wikitext-download-failed" = "Impossibile visualizzare l'ultima versione.";
-"wikitext-download-success" = "Wiki testo caricato.";
+"wikitext-download-success" = "Contenuto caricato.";
 "wikitext-preview-changes" = "Recupero anteprima delle tue modifiche...";
 "wikitext-preview-changes-none" = "Non sono state apportate modifiche da visualizzare in anteprima.";
 "wikitext-upload-result-unknown" = "Impossibile determinare il risultato del caricamento del wikitesto.";
@@ -61,8 +61,12 @@
 "wikitext-upload-save-sign-in" = "Accedi";
 "wikitext-upload-save-sign-in-benefits" = "Così gli altri co-editori potranno connettersi con te e potrete vedere quali articoli avete modificato.";
 "wikitext-upload-save-anonymously" = "Salva in modo anonimo";
-"wikitext-upload-save-anonymously-warning" = "Le tue modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai più privacy.";
+"wikitext-upload-save-anonymously-warning" = "Le modifiche verranno attribuite all'indirizzo IP del tuo dispositivo. Se $1 avrai maggiore privacy.";
+"wikitext-upload-save-terms-and-license" = "Salvando, accetti le nostre $1, e accetti irrevocabilmente di rilasciare i tuoi contributi con licenza $2.";
+"wikitext-upload-save-terms-name" = "Condizioni d'uso";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"open-link-title" = "Apri collegamento";
+"open-link-cancel" = "Annulla";
 "search-searching" = "Ricerca in corso...";
 "search-no-matches" = "Nessuna corrispondenza trovata per il termine di ricerca.";
 "search-field-placeholder-text" = "Cerca su Wikipedia";
@@ -86,7 +90,7 @@
 "main-menu-current-article-save" = "Salva $1 per la lettura offline";
 "main-menu-random" = "Casuale";
 "main-menu-feedback-heading" = "Commenti";
-"main-menu-send-feedback" = "Invia commento";
+"main-menu-send-feedback" = "Invia commento sull'applicazione";
 "main-menu-show-page-history" = "Cronologia delle modifiche a $1";
 "main-menu-credits" = "Crediti";
 "saved-pages-title" = "Pagine salvate";
@@ -131,9 +135,6 @@
 "timestamp-days" = "%d giorni fa";
 "timestamp-months" = "%d mesi fa";
 "timestamp-years" = "%d anni fa";
-"lastmodified-timestamp" = "Ultima modifica $1";
-"lastmodified-by" = "da $1";
-"lastmodified-anon" = "da un utente anonimo";
 "button-next" = "Successivo";
 "button-done" = "Fatto";
 "button-save" = "Salva";
@@ -141,3 +142,12 @@
 "onboarding-login" = "Accedi";
 "onboarding-already-have-account" = "Hai già un'utenza? $1";
 "onboarding-skip" = "Salta";
+"preference_title_eventlogging_opt_in" = "Invia rapporti sull'utilizzo";
+"preference_summary_eventlogging_opt_in" = "Consenti a Wikimedia di raccogliere informazioni su come usi l'applicazione per renderla migliore";
+"page_protected_autoconfirmed" = "Questa pagina è stata semi-protetta.";
+"page_protected_sysop" = "Questa pagina è stata protetta.";
+"page_protected_other" = "Questa pagina è stata protetta ai seguenti livelli: $1";
+"page_protected_can_not_edit" = "Non hai i diritti per modificare questa pagina";
+"page_protected_can_not_edit_title" = "Questa pagina è protetta";
+"license-footer-name" = "CC BY-SA 3.0";
+"table-of-contents-heading" = "Contenuti";

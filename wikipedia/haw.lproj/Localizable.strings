@@ -14,16 +14,21 @@
 "history-section-lastweek" = "I ka pule aku nei";
 "history-section-lastmonth" = "I ka mahina aku nei";
 "zero-free-verbiage" = "Hiki iā ʻoe ke kele iā Wikipikia me ka uku ʻole ʻana mai kāu ʻoihana ponakaʻa (ʻaʻohe uku ʻikepili)";
+// Fuzzy
 "zero-charged-verbiage" = "Pani ʻo Wikipikia Zero (HANA PAHA I NĀ UKU ʻIKEPILI PAʻAMAU)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Haʻalele mai Wikipikia Zero";
 // Fuzzy
 "zero-interstitial-leave-app" = "Holomua i ke kahua kūwaho? Hana paha i nā uku ʻikepili paʻamau.";
+// Fuzzy
 "zero-interstitial-continue" = "Holomua";
+// Fuzzy
 "zero-interstitial-cancel" = "Hoʻōki";
+// Fuzzy
 "zero-learn-more" = "Makemake e aʻo mai e pili ana Wikipikia Zero?";
 // Fuzzy
 "zero-learn-more-learn-more" = "E aʻo mai";
+// Fuzzy
 "zero-learn-more-no-thanks" = "ʻAʻole";
 "zero-wikipedia-zero-heading" = "Wikipikia Zero";
 "zero-warn-when-leaving" = "E akahele iaʻu inā haʻalele wau mai Wikipikia Zero";
@@ -40,8 +45,10 @@
 "login-password-wrong" = "Hewa ka ʻōlelo hūnā.";
 "login-throttled" = "Ua ʻeʻe hewa i nā manawa nunui i kekahi manawa pōkole.";
 "login-user-blocked" = "Ua pale ‘ia ka mea ho‘ohana";
+// Fuzzy
 "wikitext-downloading" = "HOʻouka nei i ke kikokikona wiki...";
 "wikitext-download-failed" = "Hiki ʻole ke loaʻa ke kāmua houloa.";
+// Fuzzy
 "wikitext-download-success" = "Hoʻouka ʻia ke kikokikona wiki";
 "wikitext-preview-changes" = "Lawe ʻia nei ka nāmua o kāu mau loli...";
 "wikitext-preview-changes-none" = "ʻAʻohe loli a ka nāmua.";
@@ -79,6 +86,7 @@
 // Fuzzy
 "main-menu-random" = "ʻAtikala kaulele";
 "main-menu-feedback-heading" = "Manaʻo";
+// Fuzzy
 "main-menu-send-feedback" = "Hoʻouna i ka manaʻo";
 "saved-pages-title" = "Nā ʻAoʻao mālama ʻia";
 "navbar-title-mode-edit-wikitext" = "Hoʻololi";

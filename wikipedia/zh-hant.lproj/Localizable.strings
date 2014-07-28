@@ -15,15 +15,20 @@
 "history-section-lastweek" = "上週";
 "history-section-lastmonth" = "上月";
 "zero-free-verbiage" = "從閣下的電話公司免費存取維基百科（不需要支出資料費用)";
+// Fuzzy
 "zero-charged-verbiage" = "Wikipedia Zero已被關掉（可能要付標準資料費用）";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 // Fuzzy
 "zero-interstitial-leave-app" = "確定要存取外部網站嗎？可能要付標準資料費用。";
+// Fuzzy
 "zero-interstitial-continue" = "繼續";
+// Fuzzy
 "zero-interstitial-cancel" = "取消";
+// Fuzzy
 "zero-learn-more" = "想要瞭解\"維基百科零\"嗎？";
 // Fuzzy
 "zero-learn-more-learn-more" = "了解更多";
+// Fuzzy
 "zero-learn-more-no-thanks" = "不，謝謝";
 "zero-wikipedia-zero-heading" = "維基百科零";
 "zero-warn-when-leaving" = "離開\"維基百科零\"時提示";
@@ -31,14 +36,16 @@
 "account-creation-logging-in" = "登入中...";
 "account-creation-saving" = "儲存中...";
 "login-name-not-found" = "需要用戶名。";
-"login-name-illegal" = "您提供的用戶名無效。";
-"login-name-does-not-exist" = "您提供的用戶名不存在。";
+"login-name-illegal" = "您提供的使用者名稱無效。";
+"login-name-does-not-exist" = "您提供的使用者名稱不存在。";
 "login-password-empty" = "登入需要密碼。";
 "login-password-wrong" = "閣下提供的密碼不正確。";
 "login-throttled" = "你已經在短時間登入過太多次。";
 "login-user-blocked" = "使用者已被封鎖。";
+// Fuzzy
 "wikitext-downloading" = "正在載入維基代碼……";
 "wikitext-download-failed" = "無法獲取最新的版本。";
+// Fuzzy
 "wikitext-download-success" = "維基代碼已加載。";
 "wikitext-upload-captcha-error" = "驗證碼校驗錯誤。";
 "wikitext-upload-captcha-needed" = "需要驗證碼確認。";

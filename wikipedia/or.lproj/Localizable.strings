@@ -14,16 +14,21 @@
 "history-section-lastweek" = "ଗତ ସପ୍ତାହ";
 "history-section-lastmonth" = "ଗତ ମାସ";
 "zero-free-verbiage" = "ଆପଣଙ୍କ ମୋବାଇଲ ଅପରେଟରଙ୍କ ଠାରୁ ମାଗଣା ଉଇକିପିଡ଼ିଆ ସୁବିଧା (ଇଣ୍ଟରନେଟ ପାଇଁ ପଇସା ଲାଗିବ ନାହିଁ)";
+// Fuzzy
 "zero-charged-verbiage" = "ଉଇକିପିଡ଼ିଆ ଜିରୋ ବନ୍ଦ (ସାଧାରଣ ଇଣ୍ଟରନେଟ ଦର ଲାଗିବ)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "ଉଇକିପିଡ଼ିଆ ଜିରୋରୁ ବାହାରନ୍ତୁ";
 // Fuzzy
 "zero-interstitial-leave-app" = "ବାହାର ସାଇଟଟିଏ ଦେଖିବା ଚାଲୁ ରଖିବେ? ସାଧାରଣ ଇଣ୍ଟରନେଟ ଦର ଲାଗିପାରେ ।";
+// Fuzzy
 "zero-interstitial-continue" = "ଚାଲୁ ରଖିନ୍ତୁ";
+// Fuzzy
 "zero-interstitial-cancel" = "ବାତିଲ";
+// Fuzzy
 "zero-learn-more" = "ଉଇକିପିଡ଼ିଆ ଜିରୋ ବାବଦରେ ଅଧିକ ଜାଣିବାକୁ ଚାହାଁନ୍ତି?";
 // Fuzzy
 "zero-learn-more-learn-more" = "ଅଧିକ ଜାଣନ୍ତୁ";
+// Fuzzy
 "zero-learn-more-no-thanks" = "ନାଁ, ଧନ୍ୟବାଦ";
 "zero-wikipedia-zero-heading" = "ଉଇକିପିଡ଼ିଆ ଜିରୋ";
 "zero-warn-when-leaving" = "ଉଇକିପିଡ଼ିଆ ଜିରୋରୁ ବାହାରିଲେ ଜଣାଇବେ";
@@ -40,8 +45,10 @@
 "login-password-wrong" = "ଆପଣ ଦେଇଥିବା ପାସୱାର୍ଡ଼ଟି ଭୁଲ ।";
 "login-throttled" = "ଆପଣ ଅଳ୍ପ ସମୟରେ ଖୁବ ଅଧିକ ଥର ଲଗ ଇନ କରିଛନ୍ତି ।";
 "login-user-blocked" = "ସଭ୍ୟଙ୍କୁ ଅଟକାଯାଇଛି ।";
+// Fuzzy
 "wikitext-downloading" = "ଉଇକି ଲେଖା ଆହରଣ କରୁଛି...";
 "wikitext-download-failed" = "ଶେଷ ସଂସ୍କରଣ ଆହରଣ କରିବାରେ ବିଫଳ ।";
+// Fuzzy
 "wikitext-download-success" = "ଉଇକି ଲେଖା ଆହରଣ ହୋଇଗଲା ।";
 "wikitext-preview-changes" = "ଆପଣଙ୍କ ବଦଳର ଦେଖଣା ଆହରଣ କରୁଛି...";
 "wikitext-preview-changes-none" = "ଦେଖଣାରେ ଦେଖିବା ଭଳି ଆପଣ କିଛି ବଦଳାଇ ନାହାଁନ୍ତି ।";
@@ -79,6 +86,7 @@
 // Fuzzy
 "main-menu-random" = "ଯାହିତାହି ପ୍ରସଙ୍ଗ";
 "main-menu-feedback-heading" = "ମତାମତ";
+// Fuzzy
 "main-menu-send-feedback" = "ମତାମତ ଦିଅନ୍ତୁ";
 "main-menu-show-page-history" = "$1ରେ ହୋଇଥିବା ବଦଳର ସମ୍ପାଦନା";
 "main-menu-credits" = "ଶ୍ରେୟ";

@@ -2,7 +2,7 @@
 // Exported from translatewiki.net
 
 "21c-U6-yfo.normalTitle" = "Label for button on captcha screen to fetch and show another captcha image";
-"5cT-2Y-0Ie.placeholder" = "Label on login screen ";
+"5cT-2Y-0Ie.placeholder" = "Label on login screen";
 "GiD-Rj-wb7.text" = "Explanatory text shown on saved pages list when no saved pages are present.";
 "LfM-01-aCF.text" = "Button text for 'Preview' button on edit screen";
 "P6J-IE-CiO.text" = "Button text for 'Skip' button on onboarding screen that offers to log in or sign up";

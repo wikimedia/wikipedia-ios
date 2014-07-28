@@ -3,6 +3,7 @@
 // Author: Brion Vibber
 // Author: Gomoko
 // Author: John Trololo
+// Author: Orikrin1998
 // Author: Solucer
 // Author: Wladek92
 
@@ -10,23 +11,23 @@
 "article-languages-cancel" = "Annuler";
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
 "article-languages-filter-placeholder" = "Filtre de langue";
+"language-button-text" = "Vous pouvez lire cet article en %d autres langues";
 "history-label" = "Récent";
 "history-section-today" = "Aujourd'hui";
 "history-section-yesterday" = "Hier";
 "history-section-lastweek" = "La semaine dernière";
 "history-section-lastmonth" = "Mois dernier";
 "zero-free-verbiage" = "Accès libre à Wikipédia de la part de votre opérateur mobile (dispensé de frais de données)";
-"zero-charged-verbiage" = "Wikipédia Zéro DÉSACTIVÉ (LES FRAIS STANDARDS PEUVENT ÊTRE APPLIQUÉS)";
+"zero-charged-verbiage" = "Wikipédia Zéro est désactivé";
+"zero-charged-verbiage-extended" = "Charger d’autres articles pourrait augmenter les frais de données. Les articles enregistrés hors connexion ne consomment pas de données et sont gratuits.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Sortie de Wikipédia Zéro";
-// Fuzzy
-"zero-interstitial-leave-app" = "Continuer vers un site externe ? Les frais de données standards pourraient s’appliquer.";
-"zero-interstitial-continue" = "Continuer";
-"zero-interstitial-cancel" = "Annuler";
-"zero-learn-more" = "Vous voulez vous renseigenr sur Wikipédia Zéro ?";
-// Fuzzy
-"zero-learn-more-learn-more" = "En savoir plus";
-"zero-learn-more-no-thanks" = "Non merci";
+"zero-interstitial-leave-app" = "Des frais de données pourraient s’appliquer. Continuer vers un site externe ?";
+"zero-interstitial-continue" = "Quitter";
+"zero-interstitial-cancel" = "Rester ici";
+"zero-learn-more" = "Les frais de données sont exemptés pour cette application Wikipédia.";
+"zero-learn-more-learn-more" = "Lire la suite";
+"zero-learn-more-no-thanks" = "Rejeter";
 "zero-wikipedia-zero-heading" = "Wikipédia Zéro";
 "zero-warn-when-leaving" = "Avertir en quittant Wikipédia Zéro";
 "zero-settings-devmode" = "Devmode Zéro";
@@ -50,9 +51,9 @@
 "login-account-creation" = "Vous n’avez pas de compte ? Rejoignez Wikipédia.";
 "login-username-placeholder-text" = "Nom d’utilisateur";
 "login-password-placeholder-text" = "Mot de passe";
-"wikitext-downloading" = "Chargement du texte wiki…";
+"wikitext-downloading" = "Chargement du contenu…";
 "wikitext-download-failed" = "Impossible d’obtenir la dernière révision.";
-"wikitext-download-success" = "Texte wiki chargé.";
+"wikitext-download-success" = "Contenu chargé.";
 "wikitext-preview-changes" = "Récupération de l’aperçu de vos modifications…";
 "wikitext-preview-changes-none" = "Aucune modification faite pour l’aperçu.";
 "wikitext-upload-result-unknown" = "Impossible de déterminer le résultat du téléchargement du wikitexte.";
@@ -62,8 +63,12 @@
 "wikitext-upload-save-sign-in" = "Se connecter";
 "wikitext-upload-save-sign-in-benefits" = "Les co-éditeurs peuvent ainsi interagir directement avec vous et vous pouvez voir quels articles vous avez modifiés.";
 "wikitext-upload-save-anonymously" = "Enregistrer anonymement";
-"wikitext-upload-save-anonymously-warning" = "Vos modifications seront attribuées à l’adresse IP de votre appareil. Si vous $1, vous aurez davantage de confidentialité.";
+"wikitext-upload-save-anonymously-warning" = "Les modifications seront attribuées à l’adresse IP de votre appareil. Si vous $1, vous aurez davantage de confidentialité.";
+"wikitext-upload-save-terms-and-license" = "En enregistrant, vous acceptez les $1, et placez de façon irrévocable vos contributions sous la licence $2.";
+"wikitext-upload-save-terms-name" = "Conditions d’utilisation";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"open-link-title" = "Ouvrir le lien";
+"open-link-cancel" = "Annuler";
 "search-searching" = "Recherche en cours…";
 "search-no-matches" = "Aucune correspondance trouvée pour le critère de recherche.";
 "search-field-placeholder-text" = "Rechercher dans Wikipédia";
@@ -87,9 +92,16 @@
 "main-menu-current-article-save" = "Enregistrer $1 pour une lecture hors ligne";
 "main-menu-random" = "Au hasard";
 "main-menu-feedback-heading" = "Commentaire";
-"main-menu-send-feedback" = "Envoyer un commentaire";
+"main-menu-send-feedback" = "Envoyer un commentaire sur l’application";
 "main-menu-show-page-history" = "Historique des modifications de $1";
 "main-menu-credits" = "Remerciements";
+"main-menu-zero-faq" = "FAQ de Wikipédia Zéro";
+"main-menu-privacy-policy" = "Politique de confidentialité";
+"main-menu-terms-of-use" = "Conditions d’utilisation";
+"main-menu-rate-app" = "Noter l’application";
+"main-menu-heading-zero" = "Wikipédia Zéro";
+"main-menu-heading-legal" = "Informations légales";
+"main-menu-show-today" = "Aujourd’hui";
 "saved-pages-title" = "Pages enregistrées";
 "page-history-title" = "Historique de la page";
 "page-history-downloading" = "Chargement de l’historique de la page…";
@@ -132,9 +144,8 @@
 "timestamp-days" = "il y a %d jours";
 "timestamp-months" = "il y a %d mois";
 "timestamp-years" = "il y a %d ans";
-"lastmodified-timestamp" = "Dernière modification le $1";
-"lastmodified-by" = "par $1";
-"lastmodified-anon" = "par un utilisateur anonyme";
+"lastmodified-by-user" = "Modifié $1 par $2";
+"lastmodified-by-anon" = "Modifié $1 par un utilisateur anonyme";
 "button-next" = "Suivant";
 "button-done" = "Terminé";
 "button-save" = "Enregistrer";
@@ -142,3 +153,22 @@
 "onboarding-login" = "Se connecter";
 "onboarding-already-have-account" = "Vous avez déjà un compte ? $1";
 "onboarding-skip" = "Sauter";
+"preference_title_eventlogging_opt_in" = "Envoyer les rapports d’utilisation";
+"preference_summary_eventlogging_opt_in" = "Permettre à Wikimédia de collecter des informations sur la manière dont vous utilisez l’application, afin de la rendre meilleure";
+"page_protected_autoconfirmed" = "Cette page a été semi-protégée.";
+"page_protected_sysop" = "Cette page a été complètement protégée.";
+"page_protected_other" = "Cette page a été protégée pour les niveaux suivants : $1";
+"page_protected_can_not_edit" = "Vous n’avez pas le droit de modifier cette page";
+"page_protected_can_not_edit_title" = "Cette page est protégée";
+"license-footer-text" = "Le contenu est disponible sous $1";
+"license-footer-name" = "CC-BY-SA 3.0";
+"table-of-contents-heading" = "Contenus";
+"abuse-filter-warning-heading" = "Cela semble une modification non constructive ; êtes-vous sûr de vouloir l’enregistrer ?";
+"abuse-filter-warning-subheading" = "Votre modification pourrait contenir un des éléments suivants :";
+"abuse-filter-warning-caps" = "Texte en MAJUSCULES";
+"abuse-filter-warning-blanking" = "Articles vides ou pourriel";
+"abuse-filter-warning-irrelevant" = "Liens ou images externes non pertinents";
+"abuse-filter-warning-repeat" = "Caractères répéééétés";
+"abuse-filter-disallow-heading" = "Vous ne pouvez pas enregistrer cette modification. Veuillez revenir en arrière et la modifier.";
+"abuse-filter-disallow-unconstructive" = "Un filtre automatique a identifié cette modification comme potentiellement non constructive, ou comme une tentative de vandalisme.";
+"abuse-filter-disallow-notable" = "Wikipédia est une encyclopédie et seul du contenu neutre et de valeur y a sa place.";

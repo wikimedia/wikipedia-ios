@@ -13,16 +13,21 @@
 "history-section-lastweek" = "Minggu lalu";
 "history-section-lastmonth" = "Bulan lalu";
 "zero-free-verbiage" = "Akses Wikipedia gratis dari operator selular (biaya data dibebaskan)";
+// Fuzzy
 "zero-charged-verbiage" = "Wikipedia Zero MATI (BIAYA DATA STANDAR MUNGKIN BERLAKU)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Meninggalkan Wikipedia Zero";
 // Fuzzy
 "zero-interstitial-leave-app" = "Lanjutkan ke situs eksternal? Biaya data standar mungkin berlaku.";
+// Fuzzy
 "zero-interstitial-continue" = "Lanjutkan";
+// Fuzzy
 "zero-interstitial-cancel" = "Batal";
+// Fuzzy
 "zero-learn-more" = "Ingin mempelajari lebih lanjut tentang Wikipedia Zero?";
 // Fuzzy
 "zero-learn-more-learn-more" = "Pelajari lebih lanjut";
+// Fuzzy
 "zero-learn-more-no-thanks" = "Tidak, terima kasih";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Peringatkan jika meninggalkan Wikipedia Zero";
@@ -47,8 +52,10 @@
 "login-account-creation" = "Belum punya akun? Bergabung dengan Wikipedia.";
 "login-username-placeholder-text" = "Nama pengguna";
 "login-password-placeholder-text" = "Kata sandi";
+// Fuzzy
 "wikitext-downloading" = "Memuat teks wiki...";
 "wikitext-download-failed" = "Tidak dapat memperoleh revisi terbaru.";
+// Fuzzy
 "wikitext-download-success" = "Teks wiki dimuat.";
 "wikitext-preview-changes" = "Mengambil pratayang perubahan Anda...";
 "wikitext-preview-changes-none" = "Tidak ada perubahan yang dibuat untuk melihat pratayang.";
@@ -59,6 +66,7 @@
 "wikitext-upload-save-sign-in" = "Masuk log";
 "wikitext-upload-save-sign-in-benefits" = "Jadi rekan penyunting dapat terhubung dengan Anda & Anda dapat melihat apa artikel yang Anda sunting.";
 "wikitext-upload-save-anonymously" = "Simpan secara anonim";
+// Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Suntingan Anda akan dihubungkan ke alamat IP perangkat. Jika Anda $1 Anda akan memiliki privasi lebih.";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "search-searching" = "Mencari...";
@@ -84,6 +92,7 @@
 "main-menu-current-article-save" = "Simpan $1 untuk membaca secara luring";
 "main-menu-random" = "Sembarang";
 "main-menu-feedback-heading" = "Umpan balik";
+// Fuzzy
 "main-menu-send-feedback" = "Kirim umpan balik";
 "main-menu-show-page-history" = "Riwayat perubahan $1";
 "main-menu-credits" = "Kredit";
@@ -129,9 +138,6 @@
 "timestamp-days" = "%d hari yang lalu";
 "timestamp-months" = "%d bulan yang lalu";
 "timestamp-years" = "%d tahun yang lalu";
-"lastmodified-timestamp" = "Terakhir Diubah $1";
-"lastmodified-by" = "oleh $1";
-"lastmodified-anon" = "oleh seorang pengguna anonim";
 "button-next" = "Selanjutnya";
 "button-done" = "Selesai";
 "button-save" = "Simpan";

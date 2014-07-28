@@ -5,26 +5,24 @@
 "article-languages-label" = "Escoyer llingua";
 "article-languages-cancel" = "Encaboxar";
 "article-languages-downloading" = "Cargando llingües del artículu...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Peñera";
-// Fuzzy
-"history-label" = "Historial de navegación";
+"article-languages-filter-placeholder" = "Filtru de llingua";
+"language-button-text" = "Pues lleer esti artículu en %d llingües más";
+"history-label" = "De recién";
 "history-section-today" = "Güei";
 "history-section-yesterday" = "Ayeri";
 "history-section-lastweek" = "Cabera selmana";
 "history-section-lastmonth" = "Caberu mes";
 "zero-free-verbiage" = "Accesu llibre a Wikipedia dende l'operador de móviles (facturación de baldre por datos)";
-"zero-charged-verbiage" = "Wikipedia Zero APAGÁU (PUE APLICASE LA TARIFA ESTÁNDAR POR DATOS)";
+"zero-charged-verbiage" = "Wikipedia Zero ta apagáu";
+"zero-charged-verbiage-extended" = "Cargar otros artículos pue implicar cargos por tráficu de datos. Los artículos guardaos pa ver sin conexón nun xeneran tráficu y son de baldre.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Saliendo de Wikipedia Zero";
-// Fuzzy
-"zero-interstitial-leave-app" = "¿Siguir al sitiu esternu? Pue aplicase la tarifa estándar por datos.";
-"zero-interstitial-continue" = "Siguir";
-"zero-interstitial-cancel" = "Encaboxar";
-"zero-learn-more" = "¿Quier saber más de Wikipedia Zero?";
-// Fuzzy
-"zero-learn-more-learn-more" = "Más información";
-"zero-learn-more-no-thanks" = "Non, gracies";
+"zero-interstitial-leave-app" = "Pue aplicase la tarifa de datos. ¿Siguir al sitiu esternu?";
+"zero-interstitial-continue" = "Dir";
+"zero-interstitial-cancel" = "Remanecer equí";
+"zero-learn-more" = "Esta app de Wikipedia ta llibre de cargos por tráficu de datos.";
+"zero-learn-more-learn-more" = "Lleer más";
+"zero-learn-more-no-thanks" = "Descartar";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Avisar si s'abandona Wikipedia Zero";
 "zero-settings-devmode" = "Zero devmode";
@@ -33,6 +31,11 @@
 "account-creation-logging-in" = "Aniciando sesión...";
 "account-creation-passwords-mismatched" = "Los campos de contraseña nun casen.";
 "account-creation-saving" = "Guardando...";
+"account-creation-login" = "¿Yá tienes una cuenta? Anicia sesión.";
+"account-creation-username-placeholder-text" = "Nome d'usuariu";
+"account-creation-password-placeholder-text" = "Contraseña";
+"account-creation-password-confirm-placeholder-text" = "Confirmar la contraseña";
+"account-creation-email-placeholder-text" = "Corréu electrónicu (opcional)";
 "login-name-not-found" = "Ye necesariu un nome d'usuariu p'aniciar sesión.";
 "login-name-illegal" = "Dio un nome d'usuariu illegal.";
 "login-name-does-not-exist" = "El nome d'usuariu que dio nun esiste.";
@@ -40,22 +43,27 @@
 "login-password-wrong" = "La contraseña que dio ye incorreuta.";
 "login-throttled" = "Anició sesión demasiaes veces en poco tiempu.";
 "login-user-blocked" = "L'usuariu ta bloquiáu.";
-"wikitext-downloading" = "Cargando'l testu wiki...";
+"login-account-creation" = "¿Nun tienes una cuenta? Xúnite a Wikipedia.";
+"login-username-placeholder-text" = "Nome d'usuariu";
+"login-password-placeholder-text" = "Contraseña";
+"wikitext-downloading" = "Cargando'l conteníu...";
 "wikitext-download-failed" = "Nun pue algamase la cabera revisión.";
-"wikitext-download-success" = "Cargáu el testu wiki.";
+"wikitext-download-success" = "Cargáu el conteníu.";
 "wikitext-preview-changes" = "Recuperando la vista previa de los cambios...";
 "wikitext-preview-changes-none" = "Nun se ficieron cambios pa una vista previa.";
 "wikitext-upload-result-unknown" = "Nun pudo determinase'l resultáu del unviu del testu wiki.";
 "wikitext-upload-captcha-error" = "Error na comprobación captcha.";
 "wikitext-upload-captcha-needed" = "Necesita la comprobación del captcha.";
 "wikitext-upload-save" = "Guardando...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Aniciar sesión y guardar";
+"wikitext-upload-save-sign-in" = "Aniciar sesión";
 "wikitext-upload-save-sign-in-benefits" = "Pa que los co-editores puedan comunicase contigo y tu puedas ver qué artículos editasti.";
 "wikitext-upload-save-anonymously" = "Guardar como anónimu";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Esto tien menor intimidá. La to direición IP ye visible coles ediciones.";
+"wikitext-upload-save-anonymously-warning" = "Les ediciones atribuiránse a la direición IP del preséu. Si $1 tendrás más intimidá.";
+"wikitext-upload-save-terms-and-license" = "Al guardar, aceutes los $1 y lliberar les tos collaboraciones baxo la llicencia $2.";
+"wikitext-upload-save-terms-name" = "Condiciones d'usu";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"open-link-title" = "Abrir enllaz";
+"open-link-cancel" = "Encaboxar";
 "search-searching" = "Buscando...";
 "search-no-matches" = "Nun hebo resultaos pal términu buscáu.";
 "search-field-placeholder-text" = "Guetar na Wikipedia";
@@ -63,6 +71,8 @@
 "search-loading-section-zero" = "Cargando la primera seición del artículu...";
 "search-loading-section-remaining" = "Cargando'l resto del artículu...";
 "search-loading-article-loaded" = "Artículu cargáu.";
+"search-cancel" = "Encaboxar";
+"main-menu-title" = "Más";
 "main-menu-language-title" = "Guetar la wiki en llingua $1";
 "main-menu-language-toggle-show" = "Amosar llingües";
 "main-menu-language-toggle-hide" = "Anubrir llingües";
@@ -72,23 +82,19 @@
 "main-menu-account-login" = "Aniciar sesión";
 "main-menu-account-logout" = "Salir";
 "main-menu-show-title" = "Amosame...";
-// Fuzzy
-"main-menu-show-history" = "Historial de navegación";
+"main-menu-show-history" = "De recién";
 "main-menu-show-saved" = "Páxines guardaes";
 "main-menu-current-article-save" = "Guardar $1 pa lleer ensin conexón";
-// Fuzzy
-"main-menu-random" = "Artículu al debalu";
+"main-menu-random" = "Al debalu";
 "main-menu-feedback-heading" = "La to opinión";
-"main-menu-send-feedback" = "Unviar el comentariu";
+"main-menu-send-feedback" = "Unviar comentariu sobro la app";
 "main-menu-show-page-history" = "Historial de los cambios a $1";
 "main-menu-credits" = "Créditos";
 "saved-pages-title" = "Páxines guardaes";
 "page-history-title" = "Historial de la páxina";
 "page-history-downloading" = "Cargando l'historial de la páxina...";
 "navbar-title-mode-edit-wikitext" = "Editar";
-// Fuzzy
-"navbar-title-mode-login" = "Entrar";
-// Fuzzy
+"navbar-title-mode-login" = "Aniciar sesión";
 "navbar-title-mode-login-and-save" = "Aniciar sesión y guardar";
 "navbar-title-mode-create-account" = "Crear una cuenta";
 "navbar-title-mode-create-account-and-save" = "Crear una cuenta y guardar";
@@ -109,6 +115,7 @@
 "edit-summary-choice-other" = "Otros";
 "edit-summary-description" = "Un resume específicu ayuda a los co-editores a revisar aína les sos ediciones. Tamién pue esbillar ente les etiquetes d'abaxo.";
 "edit-summary-field-placeholder-text" = "¿Cómo ameyoró la páxina?";
+"edit-summary-title" = "¿Cómo ameyorasti l'artículu?";
 "fetching-random-article" = "Baxando un artículu al debalu";
 "article-pull-to-refresh-prompt" = "Tirar pa refrescar l'artículu";
 "article-pull-to-refresh-is-refreshing" = "Refrescando l'artículu";
@@ -117,3 +124,28 @@
 "credits-gerrit-repo" = "Principal de la app (Gerrit)";
 "credits-github-mirror" = "Espeyu de la app (GitHub)";
 "credits-external-libraries" = "Esternu";
+"share-menu-save-page" = "Guardar artículu";
+"share-menu-page-saved" = "Artículu guardáu";
+"timestamp-just-now" = "agora mesmo";
+"timestamp-minutes" = "hai %d minutos";
+"timestamp-hours" = "hai %d hores";
+"timestamp-days" = "hai %d díes";
+"timestamp-months" = "hai %d meses";
+"timestamp-years" = "hai %d años";
+"button-next" = "Siguiente";
+"button-done" = "Fecho";
+"button-save" = "Guardar";
+"onboarding-create-account" = "Crear una cuenta";
+"onboarding-login" = "Identificase";
+"onboarding-already-have-account" = "¿Yá tienes una cuenta? $1";
+"onboarding-skip" = "Saltar";
+"preference_title_eventlogging_opt_in" = "Unviar informes d'usu";
+"preference_summary_eventlogging_opt_in" = "Permite a Wikimedia collechar información tocante a cómo uses la app p'ameyorala";
+"page_protected_autoconfirmed" = "Esta páxina ta semiprotexida.";
+"page_protected_sysop" = "Esta páxina ta protexida dafechu.";
+"page_protected_other" = "Esta páxina ta protexida colos siguientes niveles: $1";
+"page_protected_can_not_edit" = "Nun tienes los permisos pa editar esta páxina";
+"page_protected_can_not_edit_title" = "Esta páxina ta protexida";
+"license-footer-text" = "El conteníu ta disponible baxo $1";
+"license-footer-name" = "CC-BY-SA 3.0";
+"table-of-contents-heading" = "Conteníu";

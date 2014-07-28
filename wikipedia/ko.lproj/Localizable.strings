@@ -14,16 +14,17 @@
 "history-section-lastweek" = "지난 주";
 "history-section-lastmonth" = "지난 달";
 "zero-free-verbiage" = "이동 통신사에서 무료로 위키백과에 접속하세요 (데이터 요금 면제)";
+// Fuzzy
 "zero-charged-verbiage" = "위키백과 제로 꺼짐 (표준 데이터 요금이 부과될 수 있음)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "위키백과 제로를 떠나고 있습니다";
 // Fuzzy
 "zero-interstitial-leave-app" = "바깥 사이트로 나갈까요? 표준 데이터 요금이 부과될 수 있습니다.";
-"zero-interstitial-continue" = "계속";
-"zero-interstitial-cancel" = "취소";
-"zero-learn-more" = "위키백과 제로에 대해 알고 싶나요?";
+"zero-interstitial-continue" = "떠나기";
+"zero-interstitial-cancel" = "여기에 머물기";
+"zero-learn-more" = "데이터 요금은 이 위키백과 앱에 대해서 면제됩니다.";
+"zero-learn-more-learn-more" = "더 읽어보기";
 // Fuzzy
-"zero-learn-more-learn-more" = "더 알아보기";
 "zero-learn-more-no-thanks" = "괜찮습니다";
 "zero-wikipedia-zero-heading" = "위키백과 제로";
 "zero-warn-when-leaving" = "위키백과 제로를 떠난다면 경고합니다";
@@ -48,8 +49,10 @@
 "login-account-creation" = "계정이 없나요? 위키백과에 가입하세요.";
 "login-username-placeholder-text" = "사용자 이름";
 "login-password-placeholder-text" = "비밀번호";
+// Fuzzy
 "wikitext-downloading" = "위키 텍스트 불러오는 중...";
 "wikitext-download-failed" = "최신 판을 가져올 수 없습니다.";
+// Fuzzy
 "wikitext-download-success" = "위키 텍스트를 불러왔습니다.";
 "wikitext-preview-changes" = "바뀐 내용의 미리 보기를 가져오는 중...";
 "wikitext-preview-changes-none" = "미리 보기에 바뀐 내용이 없습니다.";
@@ -86,6 +89,7 @@
 "main-menu-current-article-save" = "오프라인 읽기로 $1 저장하기";
 "main-menu-random" = "임의";
 "main-menu-feedback-heading" = "피드백";
+// Fuzzy
 "main-menu-send-feedback" = "피드백 보내기";
 "main-menu-show-page-history" = "$1의 문서 역사";
 "main-menu-credits" = "제작진";
@@ -131,9 +135,6 @@
 "timestamp-days" = "%d일 전";
 "timestamp-months" = "%d개월 전";
 "timestamp-years" = "%d년 전";
-"lastmodified-timestamp" = "$1에 마지막으로 수정됨";
-"lastmodified-by" = "$1님이";
-"lastmodified-anon" = "익명 사용자가";
 "button-next" = "다음";
 "button-done" = "완료";
 "button-save" = "저장";

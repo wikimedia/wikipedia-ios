@@ -14,16 +14,21 @@
 "history-section-lastweek" = "Minggu lepas";
 "history-section-lastmonth" = "Bulan lepas";
 "zero-free-verbiage" = "Akses Wikipedia percuma dari operator mudah alih anda (pengecualian caj data)";
+// Fuzzy
 "zero-charged-verbiage" = "Wikipedia Zero OFF (CAJ DATA STANDARD MUNGKIN DIKENAKAN)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Keluar dari Wikipedia Zero";
 // Fuzzy
 "zero-interstitial-leave-app" = "Terus ke laman web luaran? Caj data standard mungkin dikenakan.";
+// Fuzzy
 "zero-interstitial-continue" = "Teruskan";
+// Fuzzy
 "zero-interstitial-cancel" = "Batalkan";
+// Fuzzy
 "zero-learn-more" = "Ingin tahu lebih lanjut mengenai Wikipedia Zero?";
 // Fuzzy
 "zero-learn-more-learn-more" = "Ketahui lebih lanjut";
+// Fuzzy
 "zero-learn-more-no-thanks" = "Terima kasih sajalah";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Pesan apabila keluar dari Wikipedia Zero";
@@ -40,8 +45,10 @@
 "login-password-wrong" = "Kata laluan yang diberikan tidak betul.";
 "login-throttled" = "Anda telah log masuk terlalu banyak kali dalam masa yang singkat.";
 "login-user-blocked" = "Pengguna ini disekat.";
+// Fuzzy
 "wikitext-downloading" = "Memuatkan teks wiki...";
 "wikitext-download-failed" = "Semakan terkini tidak dapat diperoleh.";
+// Fuzzy
 "wikitext-download-success" = "Teks wiki telah dimuatkan.";
 "wikitext-preview-changes" = "Mengoleh pralihat suntingan anda...";
 "wikitext-preview-changes-none" = "Tiada suntingan yang dilakukan untuk pralihat.";
@@ -79,6 +86,7 @@
 // Fuzzy
 "main-menu-random" = "Rencana rawak";
 "main-menu-feedback-heading" = "Maklum balas";
+// Fuzzy
 "main-menu-send-feedback" = "Kirim maklum balas";
 "main-menu-show-page-history" = "Sejarah perubahan $1";
 "main-menu-credits" = "Kredit";
