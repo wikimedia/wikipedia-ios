@@ -270,7 +270,8 @@ function touchEnd(event){
         } else {
             var anchorTarget = findParent(event.target, 'A');
             if ( anchorTarget && (anchorTarget.tagName != "A") ) {
-                event.preventDefault();
+                // Do NOT prevent default behavior -- this is needed to for instance
+                // handle deselection of text.
                 bridge.sendMessage( 'nonAnchorTouchEndedWithoutDragging', { id: event.target.getAttribute( "id" ), tagName: event.target.tagName});
             }
         }
