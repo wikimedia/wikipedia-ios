@@ -32,6 +32,7 @@
 #import "LoginViewController.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "AbuseFilterAlert.h"
+#import "MWLanguageInfo.h"
 
 typedef enum {
     CANNED_SUMMARY_TYPOS = 0,
@@ -439,6 +440,9 @@ typedef enum {
     [self showAlert:MWLocalizedString(@"wikitext-preview-changes", nil)];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
 
+    MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:section.article.domain];
+    NSString *uidir = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
+
     PreviewWikiTextOp *previewWikiTextOp =
     [[PreviewWikiTextOp alloc] initWithDomain: section.article.domain
                                         title: section.article.title
@@ -450,7 +454,14 @@ typedef enum {
             [self fadeAlert];
 
             [self resetBridge];
-            
+
+            [self.bridge sendMessage: @"setLanguage"
+                         withPayload: @{
+                                        @"lang": languageInfo.code,
+                                        @"dir": languageInfo.dir,
+                                        @"uidir": uidir
+                                        }];
+
             [self.bridge sendMessage:@"append" withPayload:@{@"html": result ? result : @""}];
 
             isAleadyPreviewing = NO;
