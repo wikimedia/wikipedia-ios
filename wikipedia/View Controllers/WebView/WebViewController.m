@@ -72,7 +72,7 @@ typedef enum {
 
 @property (nonatomic) BOOL unsafeToScroll;
 
-@property (nonatomic) NSInteger indexOfFirstOnscreenSectionBeforeRotate;
+@property (nonatomic) float relativeScrollOffsetBeforeRotate;
 @property (nonatomic) NSUInteger sectionToEditId;
 
 @property (strong, nonatomic) NSDictionary *adjacentHistoryIDs;
@@ -142,8 +142,6 @@ typedef enum {
     self.zeroStatusLabel.text = @"";
     
     self.sectionToEditId = 0;
-
-    self.indexOfFirstOnscreenSectionBeforeRotate = -1;
 
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(webViewFinishedLoading)
@@ -710,6 +708,15 @@ typedef enum {
 
     point.y += 2;
     
+    [self tocScrollWebViewToPoint:point
+                         duration:duration
+                      thenHideTOC:hideTOC];
+}
+
+-(void)tocScrollWebViewToPoint: (CGPoint)point
+                      duration: (CGFloat)duration
+                   thenHideTOC: (BOOL)hideTOC
+{
     [UIView animateWithDuration: duration
                           delay: 0.0f
                         options: UIViewAnimationOptionBeginFromCurrentState
@@ -1763,14 +1770,17 @@ typedef enum {
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
-                                                                                  domain: [SessionSingleton sharedInstance].currentArticleDomain];
-    if (articleID) {
-        Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-
-        self.indexOfFirstOnscreenSectionBeforeRotate = [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_" count:article.section.count];
-    }
-    //self.view.alpha = 0.0f;
+    NSString *js = @"(function() {"
+                   @"    _topElement = document.elementFromPoint( window.innerWidth / 2, 0 );"
+                   @"    if (_topElement) {"
+                   @"        var rect = _topElement.getBoundingClientRect();"
+                   @"        return rect.top / rect.height;"
+                   @"    } else {"
+                   @"        return 0;"
+                   @"    }"
+                   @"})()";
+    float relativeScrollOffset = [[self.webView stringByEvaluatingJavaScriptFromString:js] floatValue];
+    self.relativeScrollOffsetBeforeRotate = relativeScrollOffset;
 
     [self tocHideWithDuration:@0.0f];
     
@@ -1781,20 +1791,29 @@ typedef enum {
 {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 
-    [self performSelector:@selector(scrollToIndexOfFirstOnscreenSectionBeforeRotate) withObject:nil afterDelay:0.1f];
+    [self scrollToElementOnScreenBeforeRotate];
     
     [self updateWebViewContentAndScrollInsets];
 }
 
--(void)scrollToIndexOfFirstOnscreenSectionBeforeRotate{
-    if(self.indexOfFirstOnscreenSectionBeforeRotate == -1)return;
-    NSString *elementId = [NSString stringWithFormat:@"section_heading_and_content_block_%ld", (long)self.indexOfFirstOnscreenSectionBeforeRotate];
-    
-    [self tocScrollWebViewToSectionWithElementId: elementId
-                                        duration: 0.2
-                                     thenHideTOC: NO];
+-(void)scrollToElementOnScreenBeforeRotate
+{
+    NSString *js = @"(function() {"
+                   @"    if (_topElement) {"
+                   @"        var rect = _topElement.getBoundingClientRect();"
+                   @"        return (window.scrollY + rect.top) - (%f * rect.height);"
+                   @"    } else {"
+                   @"        return 0;"
+                   @"    }"
+                   @"})()";
+    NSString *js2 = [NSString stringWithFormat:js, self.relativeScrollOffsetBeforeRotate, self.relativeScrollOffsetBeforeRotate];
+    int finalScrollOffset = [[self.webView stringByEvaluatingJavaScriptFromString:js2] intValue];
 
-    [self.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
+    CGPoint point = CGPointMake(0, finalScrollOffset);
+
+    [self tocScrollWebViewToPoint:point
+                          duration:0
+                       thenHideTOC:NO];
 }
 
 #pragma mark Wikipedia Zero handling
