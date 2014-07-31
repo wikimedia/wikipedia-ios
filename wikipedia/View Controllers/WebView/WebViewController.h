@@ -11,6 +11,10 @@
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic) BOOL bottomMenuHidden;
+@property (nonatomic) BOOL referencesHidden;
+
+-(void)referencesShow;
+-(void)referencesHide;
 
 // Reloads the current article from the core data cache.
 // If "invalidateCache" is set to YES the article will be re-downloaded first.

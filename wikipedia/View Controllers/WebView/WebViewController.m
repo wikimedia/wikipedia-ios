@@ -51,6 +51,7 @@
 #import "TopMenuContainerView.h"
 #import "WikiGlyph_Chars.h"
 #import "UINavigationController+TopActionSheet.h"
+#import "ReferencesVC.h"
 
 //#import "UIView+Debugging.h"
 
@@ -92,8 +93,12 @@ typedef enum {
 @property (nonatomic) BOOL unsafeToToggleTOC;
 
 @property (weak, nonatomic) BottomMenuViewController *bottomMenuViewController;
+@property (weak, nonatomic) ReferencesVC *referencesVC;
+@property (weak, nonatomic) IBOutlet UIView *referencesContainerView;
 
 @property (strong, nonatomic) NSLayoutConstraint *bottomBarViewBottomConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *referencesContainerViewBottomConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *referencesContainerViewHeightConstraint;
 
 @property (copy) NSString *jumpToFragment;
 
@@ -235,7 +240,8 @@ typedef enum {
 
 
 
-
+//self.referencesContainerView.layer.borderWidth = 10;
+//self.referencesContainerView.layer.borderColor = [UIColor redColor].CGColor;
 
 }
 
@@ -313,6 +319,7 @@ typedef enum {
     [super viewWillAppear:animated];
 
     self.bottomMenuHidden = ROOT.topMenuHidden;
+    self.referencesHidden = YES;
 
     ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
     [ROOT.topMenuViewController updateTOCButtonVisibility];
@@ -451,6 +458,9 @@ typedef enum {
                          [self.view setNeedsUpdateConstraints];
                          
                          self.webView.transform = CGAffineTransformIdentity;
+
+                         self.referencesContainerView.transform = CGAffineTransformIdentity;
+
                          self.bottomBarView.transform = CGAffineTransformIdentity;
                          self.webViewRightConstraint.constant = 0;
 
@@ -501,8 +511,10 @@ typedef enum {
                      animations: ^{
 
                          self.bottomMenuHidden = YES;
+                         self.referencesHidden = YES;
                          [self.view setNeedsUpdateConstraints];
                          self.webView.transform = xf;
+                         self.referencesContainerView.transform = xf;
                          self.bottomBarView.transform = xf;
                          self.webViewRightConstraint.constant = [self tocGetWidthForWebViewScale:webViewScale];
                          [self.view layoutIfNeeded];
@@ -608,7 +620,9 @@ typedef enum {
     if (!currentArticleTitle || (currentArticleTitle.length == 0)) return;
 
     if (recognizer.state == UIGestureRecognizerStateEnded){
-        [self tocShow];
+        if (self.referencesHidden) {
+            [self tocShow];
+        }
     }
 }
 
@@ -809,6 +823,8 @@ typedef enum {
             [weakSelf tocHide];
             return;
         }
+
+        if(!weakSelf.referencesHidden) [weakSelf referencesHide];
         
         // @todo merge this link title extraction into MWSite
         if ([href hasPrefix:@"/wiki/"]) {
@@ -896,10 +912,21 @@ typedef enum {
         // nonAnchorTouchEndedWithoutDragging is used so TOC may be hidden if user tapped, but did *not* drag.
         // Used because UIWebView is difficult to attach one-finger touch events to.
         [weakSelf tocHide];
+
+        [weakSelf referencesHide];
     }];
     
     [self.bridge addListener:@"referenceClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
-        NSLog(@"referenceClicked: %@", payload);
+
+        if([weakSelf tocDrawerIsOpen]){
+            [weakSelf tocHide];
+            return;
+        }
+
+        //NSLog(@"referenceClicked: %@", payload);
+        weakSelf.referencesVC.payload = payload;
+        [weakSelf referencesShow];
+        
     }];
 
     self.unsafeToScroll = NO;
@@ -1089,6 +1116,8 @@ typedef enum {
         
         if (fabsf(distanceScrolled) < minPixelsScrolled) return;
         [ROOT animateTopAndBottomMenuHidden:((distanceScrolled > 0) ? NO : YES)];
+
+        [self referencesHide];
     }
 }
 
@@ -1106,6 +1135,8 @@ typedef enum {
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
 {
+    [self referencesHide];
+
     // Called when the title bar is tapped.
     [self animateTopAndBottomMenuReveal];
     return YES;
@@ -1136,6 +1167,9 @@ typedef enum {
     //[[SessionSingleton sharedInstance].zeroConfigState toggleFakeZeroOn];
 
     //[self toggleImageSheet];
+
+    //ReferencesVC *referencesVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"ReferencesVC"];
+    //[self presentViewController:referencesVC animated:YES completion:^{}];
 }
 
 -(void)toggleImageSheet
@@ -1927,6 +1961,11 @@ typedef enum {
     if ([segue.identifier isEqualToString: @"BottomMenuViewController_embed2"]) {
 		self.bottomMenuViewController = (BottomMenuViewController *) [segue destinationViewController];
 	}
+
+    if ([segue.identifier isEqualToString: @"ReferencesVC_embed"]) {
+        self.referencesVC = (ReferencesVC *) [segue destinationViewController];
+        self.referencesVC.webVC = self;
+    }
 }
 
 -(void)setBottomMenuHidden:(BOOL)bottomMenuHidden
@@ -2028,6 +2067,66 @@ typedef enum {
     [alert addButtonWithTitle:@"OK"];
     alert.cancelButtonIndex = 0;
     [alert show];
+}
+
+#pragma mark Refs
+
+-(void)setReferencesHidden:(BOOL)referencesHidden
+{
+    if (self.referencesHidden == referencesHidden) return;
+
+    _referencesHidden = referencesHidden;
+
+    [self updateReferencesHeightAndBottomConstraints];
+
+    if (referencesHidden) {
+        // Cause the highlighted ref link in the webView to no longer be highlighted.
+        [self.referencesVC reset];
+    }
+
+    // Fade out refs when hidden.
+    CGFloat alpha = referencesHidden ? 0.0 : 1.0;
+    
+    self.referencesContainerView.alpha = alpha;
+}
+
+-(void)updateReferencesHeightAndBottomConstraints
+{
+    CGFloat percentOfHeight = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.4 : 0.6;
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) percentOfHeight *= 0.5;
+    NSNumber *refsHeight = @(self.view.frame.size.height * percentOfHeight);
+    CGFloat f = self.referencesHidden ? refsHeight.integerValue : 0;
+    self.referencesContainerViewBottomConstraint.constant = f;
+    self.referencesContainerViewHeightConstraint.constant = refsHeight.integerValue;
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self updateReferencesHeightAndBottomConstraints];
+}
+
+-(void)referencesShow
+{
+    if (!self.referencesHidden) return;
+    [UIView animateWithDuration: 0.16
+                          delay: 0.0f
+                        options: UIViewAnimationOptionBeginFromCurrentState
+                     animations: ^{
+                         self.referencesHidden = NO;
+                         [self.view layoutIfNeeded];
+                     }completion:nil];
+}
+
+-(void)referencesHide
+{
+    if (self.referencesHidden) return;
+    [UIView animateWithDuration: 0.16
+                          delay: 0.0f
+                        options: UIViewAnimationOptionBeginFromCurrentState
+                     animations: ^{
+                         self.referencesHidden = YES;
+                         [self.view layoutIfNeeded];
+                     }completion:nil];
 }
 
 @end

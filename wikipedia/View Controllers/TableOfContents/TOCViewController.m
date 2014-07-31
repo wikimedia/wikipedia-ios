@@ -64,8 +64,6 @@
     self.scrollContainer.translatesAutoresizingMaskIntoConstraints = NO;
 
     self.scrollContainer.backgroundColor = [UIColor clearColor];
-
-    self.scrollView.scrollsToTop = NO;
     
     // Adjust scrollview content inset when contentSize changes so bottom entry can be scrolled to top.
     [self.scrollView addObserver: self
@@ -76,9 +74,17 @@
     [self refreshForCurrentArticle];
 }
 
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
+{
+    [self.webVC.webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    return YES;
+}
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [self.funnel logClose];
+
+    self.webVC.webView.scrollView.scrollsToTop = YES;
 
     [super viewWillDisappear:animated];
 }
@@ -86,6 +92,9 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
+    self.scrollView.scrollsToTop = YES;
+    self.webVC.webView.scrollView.scrollsToTop = NO;
 
     [self.funnel logOpen];
 }

@@ -134,7 +134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I47-Yh-yr4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-407" y="698"/>
+            <point key="canvasLocation" x="574" y="730"/>
         </scene>
         <!--Page History View Controller-->
         <scene sceneID="nqw-r1-g0T">
@@ -1198,6 +1198,17 @@
                                     <constraint firstItem="SiM-aO-PlN" firstAttribute="top" secondItem="F4Q-Xc-ImV" secondAttribute="top" id="vWw-wM-gCP"/>
                                 </constraints>
                             </view>
+                            <containerView clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gB8-UC-wuQ" userLabel="References Container View">
+                                <rect key="frame" x="0.0" y="308" width="320" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="Z6r-VJ-hik"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="1wG-t8-xjS" kind="embed" identifier="ReferencesVC_embed" id="fwM-jR-p9Z"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -1205,9 +1216,12 @@
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="3Zs-jL-a48"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="trailing" secondItem="F4Q-Xc-ImV" secondAttribute="trailing" id="J2p-jy-zrW"/>
                             <constraint firstAttribute="trailing" secondItem="WeL-Mj-Zsh" secondAttribute="trailing" id="QSr-uN-iN4"/>
+                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="gB8-UC-wuQ" secondAttribute="leading" id="TPG-uM-6qs"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="F4Q-Xc-ImV" secondAttribute="leading" id="akc-jF-1Pw"/>
                             <constraint firstAttribute="bottom" secondItem="F4Q-Xc-ImV" secondAttribute="bottom" placeholder="YES" id="bOy-uv-taw"/>
                             <constraint firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="myK-xK-1sX"/>
+                            <constraint firstItem="gB8-UC-wuQ" firstAttribute="bottom" secondItem="kh9-bI-dsS" secondAttribute="bottom" id="nMr-wt-aMC"/>
+                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="trailing" secondItem="gB8-UC-wuQ" secondAttribute="trailing" id="sLM-fO-nId"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -1217,6 +1231,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bottomBarView" destination="F4Q-Xc-ImV" id="U8K-lV-PiW"/>
+                        <outlet property="referencesContainerView" destination="gB8-UC-wuQ" id="f7G-jI-SWO"/>
+                        <outlet property="referencesContainerViewBottomConstraint" destination="nMr-wt-aMC" id="z1X-xR-f8n"/>
+                        <outlet property="referencesContainerViewHeightConstraint" destination="Z6r-VJ-hik" id="vdX-Ye-y6G"/>
                         <outlet property="webView" destination="WeL-Mj-Zsh" id="UAL-nl-cQD"/>
                         <outlet property="webViewLeftConstraint" destination="3Zs-jL-a48" id="fnl-sG-tsS"/>
                         <outlet property="webViewRightConstraint" destination="QSr-uN-iN4" id="EG4-9F-vyJ"/>
@@ -1423,6 +1440,69 @@
             </objects>
             <point key="canvasLocation" x="-1137" y="-210"/>
         </scene>
+        <!--ReferenceVC-->
+        <scene sceneID="oNi-7F-FeN">
+            <objects>
+                <viewController restorationIdentifier="ReferenceVC" storyboardIdentifier="ReferenceVC" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="Pxx-VU-xla" customClass="ReferenceVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KFQ-nS-ONF"/>
+                        <viewControllerLayoutGuide type="bottom" id="XwI-oB-1rV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rS5-jM-7C5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" allowsInlineMediaPlayback="NO" mediaPlaybackAllowsAirPlay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90R-X9-ZAd">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <dataDetectorType key="dataDetectorTypes"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="90R-X9-ZAd" secondAttribute="trailing" id="4QL-a7-pAf"/>
+                            <constraint firstAttribute="bottom" secondItem="90R-X9-ZAd" secondAttribute="bottom" id="8uv-Uy-4Ox"/>
+                            <constraint firstItem="90R-X9-ZAd" firstAttribute="leading" secondItem="rS5-jM-7C5" secondAttribute="leading" id="b3G-88-nvO"/>
+                            <constraint firstItem="90R-X9-ZAd" firstAttribute="top" secondItem="rS5-jM-7C5" secondAttribute="top" id="jtu-qj-29x"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="300"/>
+                    <connections>
+                        <outlet property="referenceWebView" destination="90R-X9-ZAd" id="NWM-sh-DXF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zcN-5N-Ydk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-478" y="955"/>
+        </scene>
+        <!--ReferencesVC-->
+        <scene sceneID="Qi9-my-V1s">
+            <objects>
+                <viewController restorationIdentifier="ReferencesVC" storyboardIdentifier="ReferencesVC" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="1wG-t8-xjS" customClass="ReferencesVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IrU-sf-pxP"/>
+                        <viewControllerLayoutGuide type="bottom" id="atY-QA-Qs8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="357-00-U3r">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="300"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z8Q-li-V84" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-478" y="559"/>
+        </scene>
         <!--Modal Menu And Content View Controller-->
         <scene sceneID="pAe-va-e4P">
             <objects>
@@ -1626,7 +1706,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heC-Be-Fgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="89" y="434"/>
+            <point key="canvasLocation" x="478" y="501"/>
         </scene>
         <!--Center Nav Controller-->
         <scene sceneID="dor-Wk-JQd">

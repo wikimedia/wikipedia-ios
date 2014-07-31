@@ -82,6 +82,7 @@
 		047E74141860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047E74131860509000916964 /* SavedPagesResultPrototypeView.xib */; };
 		047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047ED63818C13E4900442BE3 /* PreviewWebView.m */; };
 		047FF5471889078C009DB293 /* Image+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 047FF5461889078C009DB293 /* Image+Convenience.m */; };
+		04821CD119895EDC007558F6 /* ReferenceGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04821CD019895EDC007558F6 /* ReferenceGradientView.m */; };
 		048A26771906268100395F53 /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048A26761906268100395F53 /* PaddedLabel.m */; };
 		0493C2CC1952373100EBB973 /* CoreDataHousekeeping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0493C2CB1952373100EBB973 /* CoreDataHousekeeping.m */; };
 		0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */; };
@@ -122,6 +123,8 @@
 		04C91CEF195520990035ED1B /* logo-onboarding-subtitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C91CED195520990035ED1B /* logo-onboarding-subtitle@2x.png */; };
 		04C91CF219554B310035ED1B /* logo-onboarding.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C91CF019554B310035ED1B /* logo-onboarding.png */; };
 		04C91CF319554B310035ED1B /* logo-onboarding@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C91CF119554B310035ED1B /* logo-onboarding@2x.png */; };
+		04CCA0C01983086D000E982A /* ReferencesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA0BF1983086D000E982A /* ReferencesVC.m */; };
+		04CCA0C319830A44000E982A /* ReferenceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA0C219830A44000E982A /* ReferenceVC.m */; };
 		04CCCFEE1935093A00E3F60C /* SecondaryMenuRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCCFEA1935093A00E3F60C /* SecondaryMenuRowView.m */; };
 		04CCCFEF1935093A00E3F60C /* SecondaryMenuRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CCCFEB1935093A00E3F60C /* SecondaryMenuRowView.xib */; };
 		04CCCFF01935093A00E3F60C /* SecondaryMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCCFED1935093A00E3F60C /* SecondaryMenuViewController.m */; };
@@ -330,6 +333,8 @@
 		047ED63818C13E4900442BE3 /* PreviewWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewWebView.m; sourceTree = "<group>"; };
 		047FF5451889078C009DB293 /* Image+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Image+Convenience.h"; sourceTree = "<group>"; };
 		047FF5461889078C009DB293 /* Image+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Image+Convenience.m"; sourceTree = "<group>"; };
+		04821CCF19895EDC007558F6 /* ReferenceGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferenceGradientView.h; sourceTree = "<group>"; };
+		04821CD019895EDC007558F6 /* ReferenceGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferenceGradientView.m; sourceTree = "<group>"; };
 		048A26751906268100395F53 /* PaddedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddedLabel.h; sourceTree = "<group>"; };
 		048A26761906268100395F53 /* PaddedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PaddedLabel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0493C2CA1952373100EBB973 /* CoreDataHousekeeping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHousekeeping.h; sourceTree = "<group>"; };
@@ -406,6 +411,10 @@
 		04C91CED195520990035ED1B /* logo-onboarding-subtitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-onboarding-subtitle@2x.png"; sourceTree = "<group>"; };
 		04C91CF019554B310035ED1B /* logo-onboarding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-onboarding.png"; sourceTree = "<group>"; };
 		04C91CF119554B310035ED1B /* logo-onboarding@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-onboarding@2x.png"; sourceTree = "<group>"; };
+		04CCA0BE1983086D000E982A /* ReferencesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferencesVC.h; sourceTree = "<group>"; };
+		04CCA0BF1983086D000E982A /* ReferencesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferencesVC.m; sourceTree = "<group>"; };
+		04CCA0C119830A44000E982A /* ReferenceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferenceVC.h; sourceTree = "<group>"; };
+		04CCA0C219830A44000E982A /* ReferenceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferenceVC.m; sourceTree = "<group>"; };
 		04CCCFE91935093A00E3F60C /* SecondaryMenuRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondaryMenuRowView.h; sourceTree = "<group>"; };
 		04CCCFEA1935093A00E3F60C /* SecondaryMenuRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondaryMenuRowView.m; sourceTree = "<group>"; };
 		04CCCFEB1935093A00E3F60C /* SecondaryMenuRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondaryMenuRowView.xib; sourceTree = "<group>"; };
@@ -1134,6 +1143,7 @@
 				04F27B6D18FE0F2E00EDD838 /* PageHistory */,
 				04DD89AE18BFE63A00DD5DAD /* Preview */,
 				D49B2ECF196C684F002F035D /* PullToRefresh */,
+				04CCA0BD19830837000E982A /* References */,
 				0412CC5F192536580010E616 /* Root */,
 				04293002186030B0002A13FC /* SavedPages */,
 				04292FEE185FBA70002A13FC /* SearchResults */,
@@ -1246,6 +1256,19 @@
 				04C91CEA195517250035ED1B /* OnboardingViewController.m */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		04CCA0BD19830837000E982A /* References */ = {
+			isa = PBXGroup;
+			children = (
+				04CCA0BE1983086D000E982A /* ReferencesVC.h */,
+				04CCA0BF1983086D000E982A /* ReferencesVC.m */,
+				04CCA0C119830A44000E982A /* ReferenceVC.h */,
+				04CCA0C219830A44000E982A /* ReferenceVC.m */,
+				04821CCF19895EDC007558F6 /* ReferenceGradientView.h */,
+				04821CD019895EDC007558F6 /* ReferenceGradientView.m */,
+			);
+			path = References;
 			sourceTree = "<group>";
 		};
 		04CCCFE81935093A00E3F60C /* Secondary */ = {
@@ -1897,6 +1920,7 @@
 				0429300A18604898002A13FC /* SavedPagesResultCell.m in Sources */,
 				04D34DC11863F6B200610A87 /* History.m in Sources */,
 				04D34DAF1863D2D600610A87 /* XPathQuery.m in Sources */,
+				04821CD119895EDC007558F6 /* ReferenceGradientView.m in Sources */,
 				0472BC18193AD88C00C40BDA /* Section+DisplayHtml.m in Sources */,
 				047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */,
 				04B6925018E77B2A00F88D8A /* UIWebView+HideScrollGradient.m in Sources */,
@@ -1906,6 +1930,7 @@
 				D4B0AE0B19366A2C00F0AC90 /* ReadingActionFunnel.m in Sources */,
 				0452C810195D0F03007925A6 /* UIViewController+ModalPop.m in Sources */,
 				041C55D21950B27D006CE0EF /* EditSummaryViewController.m in Sources */,
+				04CCA0C01983086D000E982A /* ReferencesVC.m in Sources */,
 				04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				D4B0AE0E19366A5400F0AC90 /* LoginFunnel.m in Sources */,
 				043C668A18BE9A8E00580E9B /* PreviewWikiTextOp.m in Sources */,
@@ -1919,6 +1944,7 @@
 				0433542218A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */,
 				C958EE3418CE73E600148D13 /* DownloadTitlesForRandomArticlesOp.m in Sources */,
 				0452C803195CB216007925A6 /* UIViewController+ModalsSearch.m in Sources */,
+				04CCA0C319830A44000E982A /* ReferenceVC.m in Sources */,
 				04B91AB718E4D5B200FFAA1C /* TabularScrollView.m in Sources */,
 				04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */,
 				04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */,
