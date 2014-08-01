@@ -1643,6 +1643,7 @@ typedef enum {
     [SessionSingleton sharedInstance].currentArticleTitle = article.title;
     [SessionSingleton sharedInstance].currentArticleDomain = article.domain;
     MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:article.domain];
+    NSString *uidir = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
 
     NSNumber *langCount = article.languagecount;
     NSDate *lastModified = article.lastmodified;
@@ -1709,7 +1710,8 @@ typedef enum {
         [self.bridge sendMessage: @"setLanguage"
                      withPayload: @{
                                    @"lang": languageInfo.code,
-                                   @"dir": languageInfo.dir
+                                   @"dir": languageInfo.dir,
+                                   @"uidir": uidir
                                    }];
         
         [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];

@@ -6,9 +6,11 @@ var refs = require("./refs");
 //TODO: move makeTablesNotBlockIfSafeToDoSo, hideAudioTags and reduceWeirdWebkitMargin out into own js object.
 
 bridge.registerListener( "setLanguage", function( payload ){
-    var body = document.querySelector( "body" );
-    body.lang = payload.lang;
-    body.dir = payload.dir;
+    var html = document.querySelector( "html" );
+    html.lang = payload.lang;
+    html.dir = payload.dir;
+    html.classList.add( 'content-' + payload.dir );
+    html.classList.add( 'ui-' + payload.uidir );
     document.querySelector('base').href = 'https://' + payload.lang + '.wikipedia.org/';
 } );
 
