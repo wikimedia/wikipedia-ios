@@ -1,12 +1,12 @@
 // Messages for Serbian (Cyrillic script) (српски (ћирилица)‎)
 // Exported from translatewiki.net
+// Author: Fendo99
 // Author: Milicevic01
 // Author: Rancher
 
 "article-languages-label" = "Изаберите језик";
 "article-languages-cancel" = "Откажи";
-// Fuzzy
-"article-languages-filter-placeholder" = "Филтер";
+"article-languages-filter-placeholder" = "Филтер језика";
 // Fuzzy
 "history-label" = "Историја прегледања";
 "history-section-today" = "Данас";
@@ -19,12 +19,26 @@
 "zero-learn-more-no-thanks" = "Не, хвала";
 "account-creation-logging-in" = "Пријављивање...";
 "account-creation-saving" = "Чување...";
+"account-creation-username-placeholder-text" = "Корисничко име";
+"account-creation-password-placeholder-text" = "Лозинка";
+"account-creation-password-confirm-placeholder-text" = "Потврдите лозинку";
+"account-creation-email-placeholder-text" = "Е-пошта (опционо)";
 "login-user-blocked" = "Корисник је блокиран.";
-"wikitext-downloading" = "Учитавам викитекст...";
-"wikitext-download-success" = "Викитекст учитан.";
+"login-username-placeholder-text" = "Корисничко име";
+"login-password-placeholder-text" = "Лозинка";
+"wikitext-downloading" = "Учитавам садржаj...";
+"wikitext-download-success" = "Садржај учитан.";
 "wikitext-upload-save" = "Чување...";
+"wikitext-upload-save-terms-name" = "Услови коришћења";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"open-link-title" = "Учитај везу";
+"open-link-cancel" = "Откажи";
+"search-searching" = "Претражује...";
 "search-field-placeholder-text" = "Претрага Википедије";
+"search-loading-article-loaded" = "Чланак учитан.";
+"search-cancel" = "Откажи";
+"main-menu-title" = "Више";
+"main-menu-language-title" = "Претрага Википедије";
 "main-menu-language-toggle-show" = "Прикажи језике";
 "main-menu-language-toggle-hide" = "Сакрији језике";
 "main-menu-language-selection-saved" = "Избор језика сачуван";
@@ -32,8 +46,8 @@
 "main-menu-account-title-logged-in" = "Пријављен сте као: $1";
 "main-menu-account-login" = "Пријави ме";
 "main-menu-account-logout" = "Одјави ме";
-// Fuzzy
-"main-menu-show-history" = "Историја прегледања";
+"main-menu-show-title" = "Прикажи...";
+"main-menu-show-history" = "Скорашње";
 "main-menu-show-saved" = "Сачуване странице";
 "main-menu-current-article-save" = "Сачувај $1 за ванмрежно читање";
 // Fuzzy
@@ -42,11 +56,14 @@
 "main-menu-send-feedback" = "Пошаљи повратне информације";
 "main-menu-show-page-history" = "Историја измена за $1";
 "main-menu-credits" = "Заслуге";
+"main-menu-rate-app" = "Оцените апликацију";
+"main-menu-show-today" = "Данас";
 "saved-pages-title" = "Сачуване странице";
 "page-history-title" = "Историја странице";
 "page-history-downloading" = "Учитавам историју странице...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
 "navbar-title-mode-login" = "Пријави ме";
+// Fuzzy
 "navbar-title-mode-login-and-save" = "Пријави ме и сачувај";
 "navbar-title-mode-create-account" = "Отвори налог";
 "navbar-title-mode-create-account-and-save" = "Отвори налог и сачувај";
@@ -57,3 +74,7 @@
 "edit-summary-choice-other" = "Друго";
 "edit-summary-field-placeholder-text" = "Како сте унапредили страницу?";
 "credits-wikimedia-repos" = "Викимедија";
+"page_protected_autoconfirmed" = "Ова страница је полузаштићена.";
+"page_protected_can_not_edit_title" = "Ова страница је заштићена";
+"license-footer-text" = "Садржај је доступан под лиценцом $1";
+"table-of-contents-heading" = "Садржај";

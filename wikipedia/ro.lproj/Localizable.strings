@@ -90,6 +90,13 @@
 "main-menu-send-feedback" = "Trimitere părere despre aplicație";
 "main-menu-show-page-history" = "Istoricul modificărilor pentru $1";
 "main-menu-credits" = "Credite";
+"main-menu-zero-faq" = "FAQ Wikipedia Zero";
+"main-menu-privacy-policy" = "Politica de confidențialitate";
+"main-menu-terms-of-use" = "Termeni de utilizare";
+"main-menu-rate-app" = "Evaluează aplicația";
+"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-heading-legal" = "Informații legale";
+"main-menu-show-today" = "Astăzi";
 "saved-pages-title" = "Pagini salvate";
 "page-history-title" = "Istoricul paginii";
 "page-history-downloading" = "Se încarcă istoricul paginii...";
@@ -132,6 +139,8 @@
 "timestamp-days" = "acum %d zile";
 "timestamp-months" = "acum %d luni";
 "timestamp-years" = "acum %d ani";
+"lastmodified-by-user" = "Modificată $1 de $2";
+"lastmodified-by-anon" = "Modificată $1 de către un utilizator anonim";
 "button-next" = "Înainte";
 "button-done" = "Realizat";
 "button-save" = "Salvare";
@@ -149,3 +158,12 @@
 "license-footer-text" = "Conținutul este disponibil sub $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Cuprins";
+"abuse-filter-warning-heading" = "Aceasta pare o modificare neconstructivă. Sigur doriți s-o salvați?";
+"abuse-filter-warning-subheading" = "Modificarea dumnevoastră poate conține una din următoarele probleme:";
+"abuse-filter-warning-caps" = "Scrierea INTEGRALĂ CU MAJUSCULE";
+"abuse-filter-warning-blanking" = "Golirea conținutului sau introducerea de spam";
+"abuse-filter-warning-irrelevant" = "Legături externe sau imagini irelevante";
+"abuse-filter-warning-repeat" = "Caractere repeeeetate";
+"abuse-filter-disallow-heading" = "Nu puteți salva această modificare. Mergeți înapoi și schimbați-o.";
+"abuse-filter-disallow-unconstructive" = "Un filtru automat a identificat această modificare ca potențial neconstructivă sau ca fiind o tentativă de vandalism.";
+"abuse-filter-disallow-notable" = "Wikipedia este o enciclopedie și acceptă doar conținut neutru și notabil.";

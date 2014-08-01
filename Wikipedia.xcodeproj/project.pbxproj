@@ -1646,7 +1646,7 @@
 				ORGANIZATIONNAME = "Wikimedia Foundation";
 				TargetAttributes = {
 					D4991434181D51DE00E6073C = {
-						DevelopmentTeam = D5RR3ZF62D;
+						DevelopmentTeam = AKK7J2GV64;
 					};
 				};
 			};

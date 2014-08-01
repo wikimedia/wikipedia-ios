@@ -6,8 +6,7 @@
 "article-languages-label" = "ভাষা নির্বাচন করুন";
 "article-languages-cancel" = "বাতিল";
 "article-languages-downloading" = "নিবন্ধের ভাষাসমূহ লোড হচ্ছে...";
-// Fuzzy
-"article-languages-filter-placeholder" = "ছাকনী";
+"article-languages-filter-placeholder" = "ভাষা ছাকনী";
 "history-label" = "সাম্প্রতিক";
 "history-section-today" = "আজ";
 "history-section-yesterday" = "গতকাল";
@@ -18,10 +17,8 @@
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "উইকিপিডিয়া জিরো প্রস্থান হচ্ছে";
 "zero-interstitial-leave-app" = "ডাটা চার্জ প্রযোজ্য হতে পারে। অন্য ওয়েবসাইটিতে যেতে চান?";
-// Fuzzy
-"zero-interstitial-continue" = "অগ্রসর হোন";
-// Fuzzy
-"zero-interstitial-cancel" = "বাতিল";
+"zero-interstitial-continue" = "ছেড়ে চলুন";
+"zero-interstitial-cancel" = "এখানে থাকুন";
 "zero-learn-more" = "এই উইকিপিডিয়া অ্যাপের জন্য ডাটা চার্জ প্রযোজ্য নয়।";
 "zero-learn-more-learn-more" = "আরও পড়ুন";
 "zero-learn-more-no-thanks" = "খারিজ";
@@ -87,6 +84,7 @@
 "main-menu-terms-of-use" = "ব্যবহারের শর্তাবলী";
 "main-menu-rate-app" = "অ্যাপটি মূল্যায়ন করুন";
 "main-menu-heading-zero" = "উইকিপিডিয়া জিরো";
+"main-menu-heading-legal" = "আইনী তথ্য";
 "main-menu-show-today" = "আজ";
 "saved-pages-title" = "সংরক্ষিত পাতা";
 "page-history-title" = "পাতার ইতিহাস";
@@ -107,6 +105,7 @@
 "edit-summary-choice-added-missing-info" = "অনুপস্থিত তথ্য যোগ করা হয়েছে";
 "edit-summary-choice-other" = "অন্যান্য";
 "edit-summary-field-placeholder-text" = "কীভাবে আপনি নিবন্ধনটি উন্নত করেছেন?";
+"edit-summary-title" = "কীভাবে আপনি পাতাটি উন্নত করেছেন?";
 "fetching-random-article" = "অজানা নিবন্ধ আনা হচ্ছে";
 "article-pull-to-refresh-prompt" = "নিবন্ধ পুনঃসতেজ করতে টানুন";
 "article-pull-to-refresh-is-refreshing" = "নিবন্ধ পুনঃসতেজ হচ্ছে";
@@ -133,10 +132,13 @@
 "onboarding-already-have-account" = "ইতিমধ্যে একটি অ্যাকাউন্ট আছে? $1";
 "onboarding-skip" = "উপেক্ষা করো";
 "preference_title_eventlogging_opt_in" = "ব্যবহারের রিপোর্ট পাঠান";
+"preference_summary_eventlogging_opt_in" = "অ্যাপ আরও ভালো করতে উইকিমিডিয়াকে আপনি কিভাবে অ্যাপ্লিকেশন ব্যবহার করছেন সেই সম্পর্কে তথ্য সংগ্রহ করার অনুমতি দিন";
 "page_protected_autoconfirmed" = "এই পাতাটি অর্ধ-সুরক্ষিত।";
 "page_protected_sysop" = "এই পাতটি সম্পূর্ণ সুরক্ষিত।";
 "page_protected_other" = "এই পাতাটি নিম্নের মাত্রা অনুযায়ী সুরক্ষিত: $1";
+"page_protected_can_not_edit" = "এই পাতা সম্পাদনা করার অধিকার আপনার নেই।";
 "page_protected_can_not_edit_title" = "এই পাতাটি সুরক্ষিত";
+"license-footer-text" = "বিষয়বস্তু $1-এর অধীনে উপলব্ধ";
 "license-footer-name" = "সিসি বাই-এসএ ৩.০";
 "table-of-contents-heading" = "পরিচ্ছেদসমূহ";
 "abuse-filter-disallow-heading" = "আপনি এই সম্পাদনা সংরক্ষণ করতে পারবেন না। দয়া করে ফিরে যান ও এটি পরিবর্তন করুন।";

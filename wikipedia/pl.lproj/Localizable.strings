@@ -38,10 +38,12 @@
 "login-user-blocked" = "Użytkownik jest zablokowany.";
 "login-username-placeholder-text" = "Nazwa użytkownika";
 "login-password-placeholder-text" = "Hasło";
+"wikitext-downloading" = "Wczytywanie treści...";
 "wikitext-upload-captcha-error" = "Błąd weryfikacji CAPTCHA.";
 "wikitext-upload-save" = "Zapisywanie...";
 "wikitext-upload-save-sign-in" = "Zaloguj się";
 "wikitext-upload-save-anonymously" = "Zapisz anonimowo";
+"wikitext-upload-save-terms-name" = "Warunki użytkowania";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-cancel" = "Anuluj";
 "search-searching" = "Wyszukiwanie...";
@@ -89,7 +91,9 @@
 "onboarding-create-account" = "Utwórz konto";
 "onboarding-login" = "Zaloguj się";
 "onboarding-skip" = "Pomiń";
+"page_protected_autoconfirmed" = "Ta strona została częściowo zabezpieczona.";
 "page_protected_sysop" = "Ta strona jest całkowicie zabezpieczona.";
+"page_protected_can_not_edit" = "Nie masz uprawnień do edytowania tej strony";
 "page_protected_can_not_edit_title" = "Ta strona jest zabezpieczona";
 "license-footer-name" = "CC BY-SA 3.0";
 "abuse-filter-warning-heading" = "To wygląda na niekonstruktywną edycję, jesteś pewny, by ją zaspisać?";

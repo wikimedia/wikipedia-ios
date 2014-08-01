@@ -1,8 +1,25 @@
 // Messages for Simplified Chinese (中文（简体）‎)
 // Exported from translatewiki.net
+// Author: LNDDYL
+// Author: Liuxinyu970226
 // Author: Qiyue2001
 
-"7Wa-ox-cAd.normalTitle" = "保存";
-"AIA-vO-cLI.placeholder" = "从上面的图像输入验证码文本";
-"P0o-I6-RDJ.normalTitle" = "取消";
-"QGI-DM-j1P.normalTitle" = "换一个验证码";
+"21c-U6-yfo.normalTitle" = "显示其他验证码";
+"5cT-2Y-0Ie.placeholder" = "用户名";
+"GiD-Rj-wb7.text" = "保存的页面相当好。想像它们存为书签然后你就可以离线阅读了。";
+"LfM-01-aCF.text" = "预览";
+"P6J-IE-CiO.text" = "跳过";
+"PCr-0J-fBj.placeholder" = "密码";
+"UgH-77-lyp.placeholder" = "重新输入密码";
+"W1c-wQ-1pa.text" = "尚未保存页面。";
+"Wff-o9-AdH.text" = "登录";
+"aUp-0e-F6i.text" = "这里没有最近页面。";
+"c3c-PU-Exz.text" = "创建帐户";
+"gPg-cg-Yjy.placeholder" = "输入上面图片的验证码文字";
+"heA-3K-nhS.text" = "已有帐户？登录";
+"huU-kO-aYI.text" = "您似乎删除了它们全部。下一次您前往一个页面您可从这里返回。";
+"jiW-Cg-oL3.text" = "创建帐户";
+"kVb-lx-d6C.placeholder" = "密码";
+"mAk-1N-jPC.placeholder" = "用户名";
+"rKI-nq-3p7.placeholder" = "电子邮件地址（选填）";
+"wkl-j8-wLX.text" = "创建账户";

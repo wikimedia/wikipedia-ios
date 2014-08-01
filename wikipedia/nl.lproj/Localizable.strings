@@ -1,5 +1,6 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
+// Author: JurgenNL
 // Author: Mathonius
 // Author: SPQRobin
 // Author: Siebrand
@@ -7,7 +8,7 @@
 // Author: Southparkfan
 
 "article-languages-label" = "Taal kiezen";
-"article-languages-cancel" = "Annuleren";
+"article-languages-cancel" = "Annuleer";
 "article-languages-downloading" = "Paginatalen aan het laden...";
 "article-languages-filter-placeholder" = "Taal filteren";
 "language-button-text" = "U kunt dit artikel in %d andere talen lezen";
@@ -18,6 +19,7 @@
 "history-section-lastmonth" = "Afgelopen maand";
 "zero-free-verbiage" = "Gratis toegang tot Wikipedia van uw mobiele provider (geen kosten voor gegevens)";
 "zero-charged-verbiage" = "Wikipedia Zero is uit";
+"zero-charged-verbiage-extended" = "Het laden van andere artikelen kan kosten met zich meebrengen. Opgeslagen artikelen gebruiken geen dataverkeer en zijn dus gratis.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "U verlaat Wikipedia Zero";
 "zero-interstitial-leave-app" = "Er kunnen extra kosten worden verrekend. Doorgaan naar de externe website?";
@@ -27,14 +29,14 @@
 "zero-learn-more-learn-more" = "Lees meer";
 "zero-learn-more-no-thanks" = "Sluiten";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
-"zero-warn-when-leaving" = "Waarschuwen bij het verlaten van Wikipedia Zero";
+"zero-warn-when-leaving" = "Waarschuw bij verlaten Wikipedia Zero";
 "zero-settings-devmode" = "Zero-ontwikkelmodus";
 "account-creation-captcha-required" = "CAPTCHA-controle vereist.";
 "account-creation-captcha-obtaining" = "Nieuwe CAPTCHA aan het ophalen.";
 "account-creation-logging-in" = "Aan het aanmelden...";
-"account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen";
+"account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen.";
 "account-creation-saving" = "Aan het opslaan...";
-"account-creation-login" = "Hebt u al een gebruiker? Aanmelden.";
+"account-creation-login" = "Hebt u al een account? Aanmelden.";
 "account-creation-username-placeholder-text" = "Gebruikersnaam";
 "account-creation-password-placeholder-text" = "Wachtwoord";
 "account-creation-password-confirm-placeholder-text" = "Wachtwoord bevestigen";
@@ -62,40 +64,48 @@
 "wikitext-upload-save-sign-in-benefits" = "Zodat mederedacteuren met u kunnen communiceren en zodat u kunt zien welke pagina's u hebt bewerkt.";
 "wikitext-upload-save-anonymously" = "Als anoniem opslaan";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen zullen worden toegeschreven aan uw IP-adres. Door middel van $1 heeft u meer privacy.";
+"wikitext-upload-save-terms-and-license" = "Door op te slaan gaat u akkoord met de $1 en worden uw bijdragen onherroepelijk vrijgegeven onder de $2-licentie.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Open link";
 "open-link-cancel" = "Annuleren";
 "search-searching" = "Bezig met zoeken...";
 "search-no-matches" = "Geen overeenkomsten gevonden voor de zoekterm.";
-"search-field-placeholder-text" = "In Wikipedia zoeken";
-"search-field-placeholder-text-zero" = "In Wikipedia Zero zoeken";
+"search-field-placeholder-text" = "Zoek in Wikipedia";
+"search-field-placeholder-text-zero" = "Zoek in Wikipedia Zero";
 "search-loading-section-zero" = "Het eerste deel van de pagina aan het laden...";
 "search-loading-section-remaining" = "De rest van de pagina aan het laden...";
 "search-loading-article-loaded" = "Pagina geladen.";
-"search-cancel" = "Annuleren";
+"search-cancel" = "Annuleer";
 "main-menu-title" = "Meer";
-"main-menu-language-title" = "In de taal $1 zoeken";
-"main-menu-language-toggle-show" = "Talen weergeven";
-"main-menu-language-toggle-hide" = "Talen verbergen";
+"main-menu-language-title" = "Zoek in de $1 Wikipedia";
+"main-menu-language-toggle-show" = "Bekijk talen";
+"main-menu-language-toggle-hide" = "Verberg talen";
 "main-menu-language-selection-saved" = "Taalkeuze opgeslagen";
 "main-menu-account-title-logged-out" = "Gebruiker";
 "main-menu-account-title-logged-in" = "Aangemeld als: $1";
 "main-menu-account-login" = "Aanmelden";
 "main-menu-account-logout" = "Afmelden";
 "main-menu-show-title" = "Weergeven...";
-"main-menu-show-history" = "Recent";
+"main-menu-show-history" = "Recent bekeken";
 "main-menu-show-saved" = "Opgeslagen pagina's";
-"main-menu-current-article-save" = "\"$1\" opslaan voor offline lezen";
-"main-menu-random" = "Willekeurig";
+"main-menu-current-article-save" = "$1 opslaan voor offline lezen";
+"main-menu-random" = "Willekeurige pagina";
 "main-menu-feedback-heading" = "Terugkoppeling";
 "main-menu-send-feedback" = "App-terugkoppeling verzenden";
 "main-menu-show-page-history" = "Geschiedenis van wijzigingen aan $1";
 "main-menu-credits" = "Credits";
+"main-menu-zero-faq" = "Veelgestelde vragen over Wikipedia Zero";
+"main-menu-privacy-policy" = "Privacybeleid";
+"main-menu-terms-of-use" = "Gebruiksvoorwaarden";
+"main-menu-rate-app" = "Beoordeel app";
+"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-heading-legal" = "Juridische informatie";
+"main-menu-show-today" = "Vandaag";
 "saved-pages-title" = "Opgeslagen pagina's";
 "page-history-title" = "Paginageschiedenis";
 "page-history-downloading" = "Paginageschiedenis laden...";
-"navbar-title-mode-edit-wikitext" = "Bewerken";
+"navbar-title-mode-edit-wikitext" = "Bewerk";
 "navbar-title-mode-login" = "Aanmelden";
 "navbar-title-mode-login-and-save" = "Aanmelden en opslaan";
 "navbar-title-mode-create-account" = "Gebruiker aanmaken";
@@ -106,7 +116,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Snelle controle nodig";
 "navbar-title-mode-edit-wikitext-summary" = "Beschrijf uw bewerking";
 "navbar-title-mode-edit-wikitext-save" = "Opslaan";
-"edit-summary-choice-linked-words" = "Woorden gekoppeld";
+"edit-summary-choice-linked-words" = "Links toegevoegd";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
 "edit-summary-choice-fixed-inaccuracy" = "Onjuistheid gecorrigeerd";
 "edit-summary-choice-fixed-styling" = "Opmaak gecorrigeerd";
@@ -116,7 +126,7 @@
 "edit-summary-choice-added-clarification" = "Verduidelijking toegevoegd";
 "edit-summary-choice-other" = "Overige";
 "edit-summary-description" = "Een specifieke samenvatting helpt mederedacteuren bij het snel controleren van uw bewerkingen. U kunt ook kiezen uit de onderstaande standaardteksten.";
-"edit-summary-field-placeholder-text" = "Hoe hebt u de pagina verbeterd?";
+"edit-summary-field-placeholder-text" = "Andere manieren waarop u het artikel heeft verbeterd";
 "edit-summary-title" = "Hoe heeft u de pagina verbeterd?";
 "fetching-random-article" = "Willekeurige pagina ophalen";
 "article-pull-to-refresh-prompt" = "Naar beneden trekken om bij te werken";
@@ -124,7 +134,7 @@
 "credits-title" = "Vrije bronnen";
 "credits-wikimedia-repos" = "Wikimedia";
 "credits-gerrit-repo" = "App (Gerrit)";
-"credits-github-mirror" = "App mirror (GitHub)";
+"credits-github-mirror" = "App-mirror (GitHub)";
 "credits-external-libraries" = "Extern";
 "share-menu-save-page" = "Artikel opslaan";
 "share-menu-page-saved" = "Artikel is opgeslagen";
@@ -134,8 +144,10 @@
 "timestamp-days" = "%d dagen geleden";
 "timestamp-months" = "%d maanden geleden";
 "timestamp-years" = "%d jaar geleden";
+"lastmodified-by-user" = "$1 gewijzigd door $2";
+"lastmodified-by-anon" = "$1 gewijzigd door een anonieme gebruiker";
 "button-next" = "Volgende";
-"button-done" = "Afgerond";
+"button-done" = "Gereed";
 "button-save" = "Opslaan";
 "onboarding-create-account" = "Registreren";
 "onboarding-login" = "Aanmelden";
@@ -145,8 +157,18 @@
 "preference_summary_eventlogging_opt_in" = "Sta Wikimedia toe om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
 "page_protected_autoconfirmed" = "Deze pagina is semi-beveiligd.";
 "page_protected_sysop" = "Deze pagina is volledig beveiligd.";
+"page_protected_other" = "Deze pagina is beveiligd op de volgende niveaus: $1";
 "page_protected_can_not_edit" = "U heeft geen rechten om deze pagina te bewerken";
 "page_protected_can_not_edit_title" = "Deze pagina is beveiligd";
 "license-footer-text" = "Inhoud is beschikbaar onder $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Inhoud";
+"abuse-filter-warning-heading" = "Dit lijkt een niet-constructieve bewerking, weet je zeker dat je het wilt opslaan?";
+"abuse-filter-warning-subheading" = "Uw bewerking kan een of meer van het volgende bevatten:";
+"abuse-filter-warning-caps" = "Typen in HOOFDLETTERS";
+"abuse-filter-warning-blanking" = "Het leegmaken van artikelen of het plaatsen van spam";
+"abuse-filter-warning-irrelevant" = "Irrelevante externe links of afbeeldingen";
+"abuse-filter-warning-repeat" = "Herhaaaalende karakters";
+"abuse-filter-disallow-heading" = "U kunt deze bewerking niet opslaan. Ga terug en pas het aan.";
+"abuse-filter-disallow-unconstructive" = "Een geautomatiseerd filter heeft deze bewerking gemarkeerd als onconstructief of vandalistisch.";
+"abuse-filter-disallow-notable" = "Wikipedia is een encylopedie en alleen neutrale relevante inhoud is hier toegestaan.";

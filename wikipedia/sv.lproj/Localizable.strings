@@ -94,6 +94,13 @@
 "main-menu-send-feedback" = "Skicka feedback om appen";
 "main-menu-show-page-history" = "Historik över redigeringar av $1";
 "main-menu-credits" = "Erkännanden";
+"main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
+"main-menu-privacy-policy" = "Integritetspolicy";
+"main-menu-terms-of-use" = "Användarvillkor";
+"main-menu-rate-app" = "Betygsätt app";
+"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-heading-legal" = "Rättslig information";
+"main-menu-show-today" = "Idag";
 "saved-pages-title" = "Sparade artiklar";
 "page-history-title" = "Artikelhistorik";
 "page-history-downloading" = "Laddar artikelhistorik...";
@@ -136,6 +143,8 @@
 "timestamp-days" = "%d dagar sedan";
 "timestamp-months" = "%d månader sedan";
 "timestamp-years" = "%d år sedan";
+"lastmodified-by-user" = "Ändrades $1 av $2";
+"lastmodified-by-anon" = "Ändrades $1 av en anonym användare";
 "button-next" = "Nästa";
 "button-done" = "Färdig";
 "button-save" = "Spara";
@@ -153,3 +162,12 @@
 "license-footer-text" = "Innehållet är tillgängligt under $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Innehåll";
+"abuse-filter-warning-heading" = "Detta ser ut som en icke-konstruktiv redigering. Är du säker på att du vill spara den?";
+"abuse-filter-warning-subheading" = "Din redigering kan innehålla ett eller flera av följande:";
+"abuse-filter-warning-caps" = "Text skriven helt med VERSALER";
+"abuse-filter-warning-blanking" = "Tömmande av artiklar eller spam";
+"abuse-filter-warning-irrelevant" = "Irrelevanta externa länkar eller bilder";
+"abuse-filter-warning-repeat" = "Upprepade tecken";
+"abuse-filter-disallow-heading" = "Du kan inte spara denna redigering. Gå tillbaka och ändra den.";
+"abuse-filter-disallow-unconstructive" = "Ett automatiskt filter har identifierat denna redigering som potentiellt icke-konstruktivt eller ett försök till vandalism.";
+"abuse-filter-disallow-notable" = "Wikipedia är ett uppslagsverk och bara neutralt anmärkningsvärt innehåll hör hemma här.";

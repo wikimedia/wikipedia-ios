@@ -93,6 +93,9 @@
 "main-menu-send-feedback" = "Invia commento sull'applicazione";
 "main-menu-show-page-history" = "Cronologia delle modifiche a $1";
 "main-menu-credits" = "Crediti";
+"main-menu-terms-of-use" = "Condizioni d'uso";
+"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-show-today" = "Oggi";
 "saved-pages-title" = "Pagine salvate";
 "page-history-title" = "Cronologia della pagina";
 "page-history-downloading" = "Caricamento della cronologia di pagina...";
@@ -135,6 +138,8 @@
 "timestamp-days" = "%d giorni fa";
 "timestamp-months" = "%d mesi fa";
 "timestamp-years" = "%d anni fa";
+"lastmodified-by-user" = "Modificata $1 da $2";
+"lastmodified-by-anon" = "Modificata $1 da un utente anonimo";
 "button-next" = "Successivo";
 "button-done" = "Fatto";
 "button-save" = "Salva";

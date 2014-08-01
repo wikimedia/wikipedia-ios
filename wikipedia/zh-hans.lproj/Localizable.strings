@@ -1,5 +1,6 @@
 // Messages for Simplified Chinese (中文（简体）‎)
 // Exported from translatewiki.net
+// Author: LNDDYL
 // Author: Liuxinyu970226
 // Author: Qiyue2001
 
@@ -52,12 +53,12 @@
 "wikitext-download-success" = "内容已加载。";
 "wikitext-preview-changes" = "正在获取您更改的预览…";
 "wikitext-preview-changes-none" = "没有可供预览的更改";
-"wikitext-upload-result-unknown" = "无法决定wiki文本上传结果。";
+"wikitext-upload-result-unknown" = "无法确定wikitext上传结果。";
 "wikitext-upload-captcha-error" = "验证码验证错误。";
 "wikitext-upload-captcha-needed" = "需要验证码确认。";
 "wikitext-upload-save" = "正在保存...";
 "wikitext-upload-save-sign-in" = "登录";
-"wikitext-upload-save-sign-in-benefits" = "所以共同编辑者可与您联系，以及您可以看见您编辑了哪些条目。";
+"wikitext-upload-save-sign-in-benefits" = "所有共同编辑者可与您联系，以及您可以看见您编辑了哪些条目。";
 "wikitext-upload-save-anonymously" = "以匿名方式保存";
 "wikitext-upload-save-anonymously-warning" = "编辑将作为您设备的IP地址发表。如果您$1您将拥有更多隐私。";
 "wikitext-upload-save-terms-and-license" = "通过保存，您同意$1，并义无反顾的根据$2许可协议发表您的贡献。";
@@ -134,7 +135,7 @@
 "credits-external-libraries" = "外部";
 "share-menu-save-page" = "保存条目";
 "share-menu-page-saved" = "条目已保存";
-"timestamp-just-now" = "就是现在";
+"timestamp-just-now" = "刚刚";
 "timestamp-minutes" = "%d分钟前";
 "timestamp-hours" = "%d小时前";
 "timestamp-days" = "%d天前";

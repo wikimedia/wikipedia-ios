@@ -79,7 +79,7 @@
 "search-loading-article-loaded" = "Artículo cargado.";
 "search-cancel" = "Cancelar";
 "main-menu-title" = "Más";
-"main-menu-language-title" = "Búsqueda de $1 idioma wiki";
+"main-menu-language-title" = "Búsqueda en Wikipedia en $1";
 "main-menu-language-toggle-show" = "Mostrar idiomas";
 "main-menu-language-toggle-hide" = "Ocultar idiomas";
 "main-menu-language-selection-saved" = "Selección de idioma guarda";
@@ -133,10 +133,10 @@
 "article-pull-to-refresh-prompt" = "Tire para actualizar el artículo";
 "article-pull-to-refresh-is-refreshing" = "Actualizando el artículo";
 "credits-title" = "Repositorios de código abierto";
-"credits-wikimedia-repos" = "Wikimedia";
+"credits-wikimedia-repos" = "Repositorios de Wikimedia";
 "credits-gerrit-repo" = "Rep. principal de aplicación (Gerrit)";
 "credits-github-mirror" = "App espejo (GitHub)";
-"credits-external-libraries" = "Externo";
+"credits-external-libraries" = "Repositorios externos";
 "share-menu-save-page" = "Guardar artículo";
 "share-menu-page-saved" = "Artículo guardado";
 "timestamp-just-now" = "ahora mismo";

@@ -6,28 +6,23 @@
 "article-languages-cancel" = "Hủy bỏ";
 "article-languages-downloading" = "Đang tải các ngôn ngữ của bài…";
 "article-languages-filter-placeholder" = "Lọc Ngôn ngữ";
+"language-button-text" = "Bạn có thể đọc bài này trong %d ngôn ngữ khác";
 "history-label" = "Gần đây";
 "history-section-today" = "Hôm nay";
 "history-section-yesterday" = "Hôm qua";
 "history-section-lastweek" = "Tuần trước";
 "history-section-lastmonth" = "Tháng trước";
 "zero-free-verbiage" = "Truy cập Wikipedia miễn phí qua nhà điều hành điện thoại di động (miễn phí dữ liệu)";
-// Fuzzy
-"zero-charged-verbiage" = "TẮT Wikipedia Miễn phí (CÓ THỂ PHẢI TRẢ PHÍ DỮ LIỆU CHUẨN)";
+"zero-charged-verbiage" = "Wikipedia Miễn phí đang tắt";
+"zero-charged-verbiage-extended" = "Nếu tải các bài khác, bạn có thể phải trả phí dữ liệu. Các bài được lưu ngoại tuyến không tốn dữ liệu và được xem miễn phí.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Sắp ra khỏi Wikipedia Miễn phí";
-// Fuzzy
-"zero-interstitial-leave-app" = "Tiếp tục đi vào trang ngoài? Có thể phải trả phí dữ liệu chuẩn.";
-// Fuzzy
-"zero-interstitial-continue" = "Tiếp tục";
-// Fuzzy
-"zero-interstitial-cancel" = "Hủy bỏ";
-// Fuzzy
-"zero-learn-more" = "Muốn tìm hiểu thêm về Wikipedia Miễn phí?";
-// Fuzzy
-"zero-learn-more-learn-more" = "Tìm hiểu thêm";
-// Fuzzy
-"zero-learn-more-no-thanks" = "Thôi";
+"zero-interstitial-leave-app" = "Có thể phải trả phí dữ liệu. Tiếp tục đi vào trang ngoài?";
+"zero-interstitial-continue" = "Tiếp tục đi";
+"zero-interstitial-cancel" = "Ở lại đây";
+"zero-learn-more" = "Không phải trả các chi phí dữ liệu khi sử dụng ứng dụng Wikipedia này.";
+"zero-learn-more-learn-more" = "Đọc thêm";
+"zero-learn-more-no-thanks" = "Bỏ qua";
 "zero-wikipedia-zero-heading" = "Wikipedia Miễn phí";
 "zero-warn-when-leaving" = "Cảnh báo khi ra khỏi Wikipedia Miễn phí";
 "zero-settings-devmode" = "Chế độ phát triển Miễn phí";
@@ -51,11 +46,9 @@
 "login-account-creation" = "Chưa có tài khoản? Hãy tham gia Wikipedia.";
 "login-username-placeholder-text" = "Tên người dùng";
 "login-password-placeholder-text" = "Mật khẩu";
-// Fuzzy
-"wikitext-downloading" = "Đang tải mã wiki…";
+"wikitext-downloading" = "Đang tải nội dung…";
 "wikitext-download-failed" = "Không lấy được phiên bản hiện tại.";
-// Fuzzy
-"wikitext-download-success" = "Đã tải mã wiki.";
+"wikitext-download-success" = "Đã tải nội dung.";
 "wikitext-preview-changes" = "Đang lấy bản xem trước các thay đổi của bạn…";
 "wikitext-preview-changes-none" = "Không có thay đổi để xem trước.";
 "wikitext-upload-result-unknown" = "Không thể xác định kết quả tải lên mã wiki.";
@@ -65,9 +58,12 @@
 "wikitext-upload-save-sign-in" = "Đăng nhập";
 "wikitext-upload-save-sign-in-benefits" = "Để cho những người dùng sửa đổi có thể liên lạc với bạn & bạn có thể xem những bài bạn đã sửa đổi.";
 "wikitext-upload-save-anonymously" = "Lưu vô danh";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Các sửa đổi của bạn sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn.";
+"wikitext-upload-save-anonymously-warning" = "Các sửa đổi sẽ ghi rõ địa chỉ IP của thiết bị của bạn. Bạn có thể $1 để bảo vệ quyền riêng tư của bạn một chút hơn.";
+"wikitext-upload-save-terms-and-license" = "Với việc lưu trang, bạn chấp nhận các $1 và phát hành, một cách không thể hủy bỏ, các đóng góp của bạn theo giấy phép $2.";
+"wikitext-upload-save-terms-name" = "Điều khoản Sử dụng";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"open-link-title" = "Mở liên kết";
+"open-link-cancel" = "Hủy bỏ";
 "search-searching" = "Đang tìm…";
 "search-no-matches" = "Không tìm thấy kết quả cho truy vấn này.";
 "search-field-placeholder-text" = "Tìm trong Wikipedia";
@@ -91,10 +87,16 @@
 "main-menu-current-article-save" = "Lưu $1 để đọc ngoại tuyến";
 "main-menu-random" = "Ngẫu nhiên";
 "main-menu-feedback-heading" = "Phản hồi";
-// Fuzzy
-"main-menu-send-feedback" = "Gửi phản hồi";
+"main-menu-send-feedback" = "Gửi phản hồi về ứng dụng";
 "main-menu-show-page-history" = "Lịch sử các thay đổi vào $1";
 "main-menu-credits" = "Ghi công";
+"main-menu-zero-faq" = "Câu thường hỏi về Wikipedia Miễn phí";
+"main-menu-privacy-policy" = "Quy định về quyền riêng tư";
+"main-menu-terms-of-use" = "Điều khoản Sử dụng";
+"main-menu-rate-app" = "Đánh giá ứng dụng";
+"main-menu-heading-zero" = "Wikipedia Miễn phí";
+"main-menu-heading-legal" = "Thông tin pháp luật";
+"main-menu-show-today" = "Hôm nay";
 "saved-pages-title" = "Trang đã Lưu";
 "page-history-title" = "Lịch sử trang";
 "page-history-downloading" = "Đang tải lịch sử trang…";
@@ -137,6 +139,8 @@
 "timestamp-days" = "%d ngày trước";
 "timestamp-months" = "%d tháng trước";
 "timestamp-years" = "%d năm trước";
+"lastmodified-by-user" = "Được thay đổi $1 bởi $2";
+"lastmodified-by-anon" = "Được thay đổi $1 bởi người dùng vô danh";
 "button-next" = "Tiếp";
 "button-done" = "Xong";
 "button-save" = "Lưu";
@@ -144,3 +148,22 @@
 "onboarding-login" = "Đăng nhập";
 "onboarding-already-have-account" = "Đã mở tài khoản rồi? $1";
 "onboarding-skip" = "Bỏ qua";
+"preference_title_eventlogging_opt_in" = "Gửi báo cáo sử dụng";
+"preference_summary_eventlogging_opt_in" = "Cho phép Wikimedia thu thập thông tin về cách bạn sử dụng ứng dụng để giúp cải thiện ứng dụng";
+"page_protected_autoconfirmed" = "Trang này đã bị bán khóa.";
+"page_protected_sysop" = "Trang này đã bị khóa hẳn.";
+"page_protected_other" = "Trang này đã bị khóa ở các mức độ sau: %1";
+"page_protected_can_not_edit" = "Bạn không có quyền sửa đổi trang này.";
+"page_protected_can_not_edit_title" = "Trang này bị khóa";
+"license-footer-text" = "Nội dung được phát hành theo $1";
+"license-footer-name" = "CC BY-SA 3.0";
+"table-of-contents-heading" = "Mục lục";
+"abuse-filter-warning-heading" = "Sửa đổi này có vẻ không có tính xây dựng. Bạn có chắc chắn muốn lưu nó?";
+"abuse-filter-warning-subheading" = "Sửa đổi của bạn có thể có những vấn đề sau:";
+"abuse-filter-warning-caps" = "Viết TOÀN CHỮ HOA";
+"abuse-filter-warning-blanking" = "Tẩy trống bài hoặc thêm rác (spam)";
+"abuse-filter-warning-irrelevant" = "Đặt liên kết ngoài hoặc tập tin không có liên quan";
+"abuse-filter-warning-repeat" = "Ký tự lặp đi lặp lại";
+"abuse-filter-disallow-heading" = "Bạn không thể lưu sửa đổi này. Vui lòng quay lại và thay đổi nó.";
+"abuse-filter-disallow-unconstructive" = "Một bộ lọc tự động đã xác định rằng sửa đổi này có thể không có tính xây dựng hoặc là một âm mưu phá hoại.";
+"abuse-filter-disallow-notable" = "Wikipedia là một bách khoa toàn thư; chỉ có nội dung trung lập và đủ nổi bật được trình bày tại đây.";
