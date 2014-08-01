@@ -5,6 +5,7 @@
 #import "NSURLRequest+DictionaryRequest.h"
 #import "NSString+Extras.h"
 #import "SessionSingleton.h"
+#import "WikipediaAppUtils.h"
 
 #define LOG_ENDPOINT @"https://bits.wikimedia.org/event.gif"
 
@@ -35,7 +36,9 @@
         NSLog(@"%@", payloadJsonString);
         NSString *encodedPayloadJsonString = [payloadJsonString urlEncodedUTF8String];
         NSString *urlString = [NSString stringWithFormat:@"%@?%@;", LOG_ENDPOINT, encodedPayloadJsonString];
-        self.request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
+        [request addValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
+        self.request = request;
         
         self.completionBlock = ^(){
             //NSLog(@"EVENT LOGGING COMPLETED");
