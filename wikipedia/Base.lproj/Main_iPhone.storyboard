@@ -1205,9 +1205,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="Z6r-VJ-hik"/>
                                 </constraints>
-                                <connections>
-                                    <segue destination="1wG-t8-xjS" kind="embed" identifier="ReferencesVC_embed" id="fwM-jR-p9Z"/>
-                                </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

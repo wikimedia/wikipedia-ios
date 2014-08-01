@@ -93,7 +93,7 @@ typedef enum {
 @property (nonatomic) BOOL unsafeToToggleTOC;
 
 @property (weak, nonatomic) BottomMenuViewController *bottomMenuViewController;
-@property (weak, nonatomic) ReferencesVC *referencesVC;
+@property (strong, nonatomic) ReferencesVC *referencesVC;
 @property (weak, nonatomic) IBOutlet UIView *referencesContainerView;
 
 @property (strong, nonatomic) NSLayoutConstraint *bottomBarViewBottomConstraint;
@@ -145,6 +145,7 @@ typedef enum {
     [super viewDidLoad];
 
     self.zeroStatusLabel.text = @"";
+    self.referencesVC = nil;
     
     self.sectionToEditId = 0;
 
@@ -931,8 +932,7 @@ typedef enum {
         }
 
         //NSLog(@"referenceClicked: %@", payload);
-        weakSelf.referencesVC.payload = payload;
-        [weakSelf referencesShow];
+        [weakSelf referencesShow:payload];
         
     }];
 
@@ -1982,11 +1982,6 @@ typedef enum {
     if ([segue.identifier isEqualToString: @"BottomMenuViewController_embed2"]) {
 		self.bottomMenuViewController = (BottomMenuViewController *) [segue destinationViewController];
 	}
-
-    if ([segue.identifier isEqualToString: @"ReferencesVC_embed"]) {
-        self.referencesVC = (ReferencesVC *) [segue destinationViewController];
-        self.referencesVC.webVC = self;
-    }
 }
 
 -(void)setBottomMenuHidden:(BOOL)bottomMenuHidden
@@ -2113,12 +2108,17 @@ typedef enum {
 
 -(void)updateReferencesHeightAndBottomConstraints
 {
+    CGFloat refsHeight = [self getRefsPanelHeight];
+    self.referencesContainerViewBottomConstraint.constant = self.referencesHidden ? refsHeight : 0.0;
+    self.referencesContainerViewHeightConstraint.constant = refsHeight;
+}
+
+-(CGFloat)getRefsPanelHeight
+{
     CGFloat percentOfHeight = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.4 : 0.6;
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) percentOfHeight *= 0.5;
     NSNumber *refsHeight = @(self.view.frame.size.height * percentOfHeight);
-    CGFloat f = self.referencesHidden ? refsHeight.integerValue : 0;
-    self.referencesContainerViewBottomConstraint.constant = f;
-    self.referencesContainerViewHeightConstraint.constant = refsHeight.integerValue;
+    return (CGFloat)refsHeight.integerValue;
 }
 
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -2126,9 +2126,39 @@ typedef enum {
     [self updateReferencesHeightAndBottomConstraints];
 }
 
--(void)referencesShow
+-(void)referencesShow:(NSDictionary *)payload
 {
-    if (!self.referencesHidden) return;
+    if (!self.referencesHidden){
+        self.referencesVC.panelHeight = [self getRefsPanelHeight];
+        self.referencesVC.payload = payload;
+        return;
+    }
+    
+    self.referencesVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"ReferencesVC"];
+    
+    self.referencesVC.webVC = self;
+    [self addChildViewController:self.referencesVC];
+    self.referencesVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.referencesContainerView addSubview:self.referencesVC.view];
+    
+    [self.referencesContainerView addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat: @"V:|[view]|"
+                                             options: 0
+                                             metrics: nil
+                                               views: @{@"view": self.referencesVC.view}]];
+    [self.referencesContainerView addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat: @"H:|[view]|"
+                                             options: 0
+                                             metrics: nil
+                                               views: @{@"view": self.referencesVC.view}]];
+    
+    [self.referencesVC didMoveToParentViewController:self];
+
+    [self.referencesContainerView layoutIfNeeded];
+
+    self.referencesVC.panelHeight = [self getRefsPanelHeight];
+    self.referencesVC.payload = payload;
+    
     [UIView animateWithDuration: 0.16
                           delay: 0.0f
                         options: UIViewAnimationOptionBeginFromCurrentState
@@ -2146,8 +2176,14 @@ typedef enum {
                         options: UIViewAnimationOptionBeginFromCurrentState
                      animations: ^{
                          self.referencesHidden = YES;
+
                          [self.view layoutIfNeeded];
-                     }completion:nil];
+                     }completion:^(BOOL done){
+                         [self.referencesVC willMoveToParentViewController:nil];
+                         [self.referencesVC.view removeFromSuperview];
+                         [self.referencesVC removeFromParentViewController];
+                         self.referencesVC = nil;
+                     }];
 }
 
 @end

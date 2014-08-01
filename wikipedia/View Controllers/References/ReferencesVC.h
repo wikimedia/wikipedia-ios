@@ -12,6 +12,8 @@
 
 @property (weak, nonatomic) WebViewController *webVC;
 
+@property (assign) CGFloat panelHeight;
+
 -(void)reset;
 
 @end
