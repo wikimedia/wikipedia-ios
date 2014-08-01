@@ -296,16 +296,30 @@
     NSNumber *n = self.payload[@"refsIndex"];
     if (!n) return;
     NSArray *a = self.payload[@"linkId"];
-    if (!a) return;
+    if (!a || (a.count == 0)) return;
+    NSString *firstLinkId = a[0];
+    if ([firstLinkId isEqualToString:@"fake_refs_id"]) return;
+
     NSString *elementId = a[n.integerValue];
     if (!elementId) return;
     CGRect r = [self.webVC.webView getScreenRectForHtmlElementWithId:elementId];
     if (!CGRectIsNull(r)) {
-        CGPoint p = CGPointMake(
-                                self.webVC.webView.scrollView.contentOffset.x,
-                                self.webVC.webView.scrollView.contentOffset.y + (r.origin.y - 70)
-                                );
-        [self.webVC.webView.scrollView setContentOffset:p animated:YES];
+
+        CGFloat vSpaceAboveRefsPanel = self.webVC.view.bounds.size.height - self.view.bounds.size.height;
+
+        // Only scroll up if the refs link would be below the refs panel.
+        if ((r.origin.y + r.size.height) > (vSpaceAboveRefsPanel)) {
+            
+            // Calculate the distance needed to scroll the refs link to the vertical center of the
+            // part of the article web view not covered by the refs panel.
+            CGFloat distanceFromVerticalCenter = ((vSpaceAboveRefsPanel) / 2.0) - (r.size.height / 2.0);
+            
+            CGPoint p = CGPointMake(
+                                    self.webVC.webView.scrollView.contentOffset.x,
+                                    self.webVC.webView.scrollView.contentOffset.y + (r.origin.y - distanceFromVerticalCenter)
+                                    );
+            [self.webVC.webView.scrollView setContentOffset:p animated:YES];
+        }
     };
 }
 
