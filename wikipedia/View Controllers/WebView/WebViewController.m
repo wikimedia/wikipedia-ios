@@ -833,7 +833,7 @@ typedef enum {
             [weakSelf animateTopAndBottomMenuReveal];
         
             NSString *encodedTitle = [href substringWithRange:NSMakeRange(6, href.length - 6)];
-            NSString *title = [encodedTitle stringByRemovingPercentEncoding];
+            NSString *title = [encodedTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             MWPageTitle *pageTitle = [MWPageTitle titleWithString:title];
 
             [weakSelf navigateToPage: pageTitle
