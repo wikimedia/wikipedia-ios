@@ -113,6 +113,10 @@
 
             NSString *lastmodifiedDateString = weakSelf.jsonRetrieved[@"mobileview"][@"lastmodified"];
             NSDate *lastmodifiedDate = [lastmodifiedDateString getDateFromIso8601DateString];
+            if (!lastmodifiedDate) {
+                NSLog(@"Bad lastmodified date, will show as recently modified as a workaround");
+                lastmodifiedDate = [[NSDate alloc] init];
+            }
 
             NSDictionary *lastmodifiedbyDict = weakSelf.jsonRetrieved[@"mobileview"][@"lastmodifiedby"];
             NSString *lastmodifiedby = @"";
