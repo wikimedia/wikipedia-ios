@@ -159,6 +159,9 @@
 		04F27B7B18FE19B700EDD838 /* PageHistoryOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F27B7A18FE19B700EDD838 /* PageHistoryOp.m */; };
 		04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F3958F186CF80100B0D6FC /* TOCViewController.m */; };
 		04FD6C7A184EBFCD002CA02F /* ArticleData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04FD6C78184EBFCD002CA02F /* ArticleData.xcdatamodeld */; };
+		AEC8E621197075A200DD85DD /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC8E61F197075A200DD85DD /* MapViewController.m */; };
+		AEC8E622197075A200DD85DD /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEC8E620197075A200DD85DD /* MapViewController.xib */; };
+		AEC8E6251970785A00DD85DD /* WikipediaLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC8E6241970785A00DD85DD /* WikipediaLocation.m */; };
 		C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		C958EE3418CE73E600148D13 /* DownloadTitlesForRandomArticlesOp.m in Sources */ = {isa = PBXBuildFile; fileRef = C958EE3318CE73E600148D13 /* DownloadTitlesForRandomArticlesOp.m */; };
 		C9928B8618AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m in Sources */ = {isa = PBXBuildFile; fileRef = C9928B8518AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m */; };
@@ -480,6 +483,11 @@
 		04F3958E186CF80100B0D6FC /* TOCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOCViewController.h; sourceTree = "<group>"; };
 		04F3958F186CF80100B0D6FC /* TOCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOCViewController.m; sourceTree = "<group>"; };
 		04FD6C79184EBFCD002CA02F /* ArticleData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ArticleData.xcdatamodel; sourceTree = "<group>"; };
+		AEC8E61E197075A200DD85DD /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = MapView/MapViewController.h; sourceTree = "<group>"; };
+		AEC8E61F197075A200DD85DD /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = MapView/MapViewController.m; sourceTree = "<group>"; };
+		AEC8E620197075A200DD85DD /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MapViewController.xib; path = MapView/MapViewController.xib; sourceTree = "<group>"; };
+		AEC8E6231970785A00DD85DD /* WikipediaLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WikipediaLocation.h; path = MapView/WikipediaLocation.h; sourceTree = "<group>"; };
+		AEC8E6241970785A00DD85DD /* WikipediaLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WikipediaLocation.m; path = MapView/WikipediaLocation.m; sourceTree = "<group>"; };
 		C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaAppUtils.h; sourceTree = "<group>"; };
 		C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikipediaAppUtils.m; sourceTree = "<group>"; };
 		C958EE3218CE73E600148D13 /* DownloadTitlesForRandomArticlesOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadTitlesForRandomArticlesOp.h; sourceTree = "<group>"; };
@@ -1137,6 +1145,7 @@
 				0447861F185145090050563B /* History */,
 				041A3B5718E11ED90079FF1C /* Languages */,
 				0449E63218A9844000D51524 /* Login */,
+				AEC8E61D197074FC00DD85DD /* MapView */,
 				04530AF21935BF2900022512 /* ModalOverlay */,
 				042A5B1419253D2A0095E172 /* Navigation */,
 				04C91CE8195517030035ED1B /* Onboarding */,
@@ -1438,6 +1447,18 @@
 			path = TableOfContents;
 			sourceTree = "<group>";
 		};
+		AEC8E61D197074FC00DD85DD /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				AEC8E61E197075A200DD85DD /* MapViewController.h */,
+				AEC8E61F197075A200DD85DD /* MapViewController.m */,
+				AEC8E620197075A200DD85DD /* MapViewController.xib */,
+				AEC8E6231970785A00DD85DD /* WikipediaLocation.h */,
+				AEC8E6241970785A00DD85DD /* WikipediaLocation.m */,
+			);
+			name = MapView;
+			sourceTree = "<group>";
+		};
 		C9180EC118AED30C006C1DCA /* mw-utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -1646,7 +1667,7 @@
 				ORGANIZATIONNAME = "Wikimedia Foundation";
 				TargetAttributes = {
 					D4991434181D51DE00E6073C = {
-						DevelopmentTeam = D5RR3ZF62D;
+						DevelopmentTeam = SLUNTGN77L;
 					};
 				};
 			};
@@ -1768,6 +1789,7 @@
 				04082B5518ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png in Resources */,
 				0466F450183A30CC00EA1FD7 /* logo-search-placeholder@2x.png in Resources */,
 				04C91CF219554B310035ED1B /* logo-onboarding.png in Resources */,
+				AEC8E622197075A200DD85DD /* MapViewController.xib in Resources */,
 				045A9F0D18F6090E0057EA85 /* assets in Resources */,
 				04123638189C29EA00E0CF8E /* abuse-filter-flag-white@2x.png in Resources */,
 				04C91CEF195520990035ED1B /* logo-onboarding-subtitle@2x.png in Resources */,
@@ -1804,7 +1826,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "scripts/run-grunt.sh";
+			shellScript = "#scripts/run-grunt.sh";
 		};
 		D4C16A621970946900CD91AD /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1877,6 +1899,7 @@
 				04FD6C7A184EBFCD002CA02F /* ArticleData.xcdatamodeld in Sources */,
 				048A26771906268100395F53 /* PaddedLabel.m in Sources */,
 				C9928B8618AD5C6A00FCCA9A /* DownloadWikipediaZeroMessageOp.m in Sources */,
+				AEC8E621197075A200DD85DD /* MapViewController.m in Sources */,
 				04B91AAB18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m in Sources */,
 				04735E6018A5B42D00C89C30 /* LoginTokenOp.m in Sources */,
 				043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */,
@@ -1983,6 +2006,7 @@
 				04CCCFEE1935093A00E3F60C /* SecondaryMenuRowView.m in Sources */,
 				0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */,
 				0447862F185145090050563B /* HistoryResultCell.m in Sources */,
+				AEC8E6251970785A00DD85DD /* WikipediaLocation.m in Sources */,
 				04B0EA45190AFDD8007458AF /* ArticleImporter.m in Sources */,
 				042A5B2619253D2A0095E172 /* CenterNavController.m in Sources */,
 				04B162F119284A6F00B1ABC2 /* BottomMenuContainerView.m in Sources */,
