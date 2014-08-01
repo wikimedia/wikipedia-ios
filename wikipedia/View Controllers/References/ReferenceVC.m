@@ -18,6 +18,11 @@
 
 @implementation ReferenceVC
 
+-(void)dealloc
+{
+    NSLog(@"dealloc'ing REFERENCE VC!");
+}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *domain = [SessionSingleton sharedInstance].currentArticleDomain;

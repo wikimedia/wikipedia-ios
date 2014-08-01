@@ -13,7 +13,7 @@
 @property (nonatomic) BOOL bottomMenuHidden;
 @property (nonatomic) BOOL referencesHidden;
 
--(void)referencesShow;
+-(void)referencesShow:(NSDictionary *)payload;
 -(void)referencesHide;
 
 // Reloads the current article from the core data cache.

@@ -146,10 +146,13 @@ document.onclick = function() {
 
     if ( anchorTarget && (anchorTarget.tagName === "A") ) {
         var href = anchorTarget.getAttribute( "href" );
+/*
         if ( refs.isReference( href ) ) {
             // Handle reference links with a popup view instead of scrolling about!
             refs.sendNearbyReferences( anchorTarget );
-        } else if ( href[0] === "#" ) {
+        } else
+*/
+        if ( href[0] === "#" ) {
             // If it is a link to an anchor in the current page, just scroll to it
             document.getElementById( href.substring( 1 ) ).scrollIntoView();
         } else {

@@ -55,6 +55,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    self.panelHeight = 0;
     self.refs = @[@""];
     self.linkIds = @[];
     self.linkText = @[];
@@ -305,7 +306,7 @@
     CGRect r = [self.webVC.webView getScreenRectForHtmlElementWithId:elementId];
     if (!CGRectIsNull(r)) {
 
-        CGFloat vSpaceAboveRefsPanel = self.webVC.view.bounds.size.height - self.view.bounds.size.height;
+        CGFloat vSpaceAboveRefsPanel = self.webVC.view.bounds.size.height - self.panelHeight;
 
         // Only scroll up if the refs link would be below the refs panel.
         if ((r.origin.y + r.size.height) > (vSpaceAboveRefsPanel)) {
