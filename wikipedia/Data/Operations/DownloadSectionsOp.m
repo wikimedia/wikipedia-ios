@@ -113,7 +113,7 @@
 
             NSString *lastmodifiedDateString = weakSelf.jsonRetrieved[@"mobileview"][@"lastmodified"];
             NSDate *lastmodifiedDate = [lastmodifiedDateString getDateFromIso8601DateString];
-            if (!lastmodifiedDate) {
+            if (!lastmodifiedDate || [lastmodifiedDate isNull]) {
                 NSLog(@"Bad lastmodified date, will show as recently modified as a workaround");
                 lastmodifiedDate = [[NSDate alloc] init];
             }
@@ -147,6 +147,7 @@
                     protectionStatus = protectionDict[@"edit"][0];
                 }
             }
+            if (!protectionStatus || [protectionStatus isNull]) protectionStatus = @"";
 
             NSMutableDictionary *output = @{
                                             @"sections": outputSections,
