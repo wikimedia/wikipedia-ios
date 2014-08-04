@@ -309,6 +309,11 @@ typedef enum {
 
         NSNumber *rowType = row[@"type"];
         rowView.rowType = rowType.integerValue;
+        
+        NSNumber *traits = row[@"accessibilityTraits"];
+        if (traits) {
+            rowView.textLabel.accessibilityTraits = traits.integerValue;
+        }
     }
 
     // Let the rows know their relative positions so they can draw
@@ -398,6 +403,7 @@ typedef enum {
           @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_ZERO),
           @"icon": @"",
           @"type": @(ROW_TYPE_HEADING),
+          @"accessibilityTraits": @(UIAccessibilityTraitLink),
           }.mutableCopy
       ,
       @{
@@ -405,6 +411,7 @@ typedef enum {
           @"tag": @(SECONDARY_MENU_ROW_INDEX_ZERO_FAQ),
           @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
+          @"accessibilityTraits": @(UIAccessibilityTraitLink),
           }.mutableCopy
       ,
       @{
@@ -442,6 +449,7 @@ typedef enum {
           @"tag": @(SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY),
           @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
+          @"accessibilityTraits": @(UIAccessibilityTraitLink),
           }.mutableCopy
         ,
       @{
@@ -449,6 +457,7 @@ typedef enum {
           @"tag": @(SECONDARY_MENU_ROW_INDEX_TERMS),
           @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
+          @"accessibilityTraits": @(UIAccessibilityTraitLink),
           }.mutableCopy
         ,
       /*
@@ -478,6 +487,7 @@ typedef enum {
           @"tag": @(SECONDARY_MENU_ROW_INDEX_RATE_APP),
           @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
+          @"accessibilityTraits": @(UIAccessibilityTraitLink),
           }.mutableCopy
       ,
       @{

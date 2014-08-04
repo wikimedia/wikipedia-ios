@@ -57,6 +57,8 @@
         [self addSubview:self.label];
         self.margin = margin;
         [self constrainLabel];
+        self.isAccessibilityElement = YES;
+        self.accessibilityTraits = UIAccessibilityTraitButton;
     }
     return self;
 }

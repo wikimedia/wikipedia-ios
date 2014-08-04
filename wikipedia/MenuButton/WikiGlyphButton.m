@@ -30,6 +30,8 @@
     self.clipsToBounds = YES;
     self.label = [[WikiGlyphLabel alloc] init];
     self.label.translatesAutoresizingMaskIntoConstraints = NO;
+    self.isAccessibilityElement = YES;
+    self.accessibilityTraits = UIAccessibilityTraitButton;
     [self addSubview:self.label];
     [self constrainLabel];
 }
@@ -43,6 +45,11 @@
 {
     _enabled = enabled;
     self.alpha = (enabled) ? 1.0 : 0.2;
+    if (enabled) {
+        self.accessibilityTraits = self.accessibilityTraits & (~UIAccessibilityTraitNotEnabled);
+    } else {
+        self.accessibilityTraits = self.accessibilityTraits | UIAccessibilityTraitNotEnabled;
+    }
 }
 
 -(void)constrainLabel

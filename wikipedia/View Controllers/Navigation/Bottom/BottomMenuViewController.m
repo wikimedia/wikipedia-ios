@@ -63,6 +63,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
                                  color: buttonColor
                                   size: buttonTextSize
                         baselineOffset: baseLineOffset];
+    self.backButton.accessibilityLabel = MWLocalizedString(@"menu-back-accessibility-label", nil);
     self.backButton.tag = BOTTOM_MENU_BUTTON_PREVIOUS;
     
     [self.forwardButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD
@@ -70,6 +71,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
                                      size: buttonTextSize
                            baselineOffset: baseLineOffset
      ];
+    self.forwardButton.accessibilityLabel = MWLocalizedString(@"menu-forward-accessibility-label", nil);
     self.forwardButton.tag = BOTTOM_MENU_BUTTON_NEXT;
     // self.forwardButton.label.transform = CGAffineTransformMakeScale(-1, 1);
 
@@ -79,6 +81,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
                          baselineOffset: baseLineOffset + 1.0
      ];
     self.rightButton.tag = BOTTOM_MENU_BUTTON_SHARE;
+    self.rightButton.accessibilityLabel = MWLocalizedString(@"menu-share-accessibility-label", nil);
 
     self.allButtons = @[self.backButton, self.forwardButton, self.rightButton];
 

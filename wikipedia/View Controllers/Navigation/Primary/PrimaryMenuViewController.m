@@ -73,6 +73,7 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
                                   size: 64
                         baselineOffset: 2.0
                                   ];
+    self.moreButton.accessibilityLabel = MWLocalizedString(@"menu-more-accessibility-label", nil);
 
     self.moreButton.label.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
 

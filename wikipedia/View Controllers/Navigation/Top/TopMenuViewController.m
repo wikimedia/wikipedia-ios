@@ -221,7 +221,7 @@
     self.textFieldContainer.textField.rightView = clearButton;
     self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeNever;
 
-    WikiGlyphButton *(^getWikiGlyphButton)(NSString *, NavBarItemTag, CGFloat, CGFloat) = ^WikiGlyphButton *(NSString *character, NavBarItemTag tag, CGFloat size, CGFloat baselineOffset) {
+    WikiGlyphButton *(^getWikiGlyphButton)(NSString *, NSString *accessLabel, NavBarItemTag, CGFloat, CGFloat) = ^WikiGlyphButton *(NSString *character, NSString *accessLabel, NavBarItemTag tag, CGFloat size, CGFloat baselineOffset) {
         WikiGlyphButton *button = [[WikiGlyphButton alloc] init];
 
         [button.label setWikiText:character color:[UIColor blackColor] size:size baselineOffset:baselineOffset];
@@ -230,6 +230,9 @@
         [button addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget: self
                                                                              action: @selector(postNavItemTappedNotification:)]];
         button.tag = tag;
+        
+        button.accessibilityLabel = accessLabel;
+        button.accessibilityTraits = UIAccessibilityTraitButton;
         return button;
     };
 
@@ -239,16 +242,16 @@
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
     NSString *caret = !isRTL ? WIKIGLYPH_CARET_LEFT: IOS_WIKIGLYPH_FORWARD;
 
-    self.buttonPencil =     getWikiGlyphButton(WIKIGLYPH_PENCIL,             NAVBAR_BUTTON_PENCIL, size, baselineOffset);
-    self.buttonX =          getWikiGlyphButton(WIKIGLYPH_X,                  NAVBAR_BUTTON_X, size - 4, baselineOffset - 0.5);
-    self.buttonEye =        getWikiGlyphButton(WIKIGLYPH_EYE,                NAVBAR_BUTTON_EYE, size, baselineOffset);
-    self.buttonArrowLeft =  getWikiGlyphButton(caret,                        NAVBAR_BUTTON_ARROW_LEFT, size, baselineOffset - 2.0);
-    self.buttonArrowRight = getWikiGlyphButton(caret,                        NAVBAR_BUTTON_ARROW_RIGHT, size, baselineOffset - 2.0);
-    self.buttonW =          getWikiGlyphButton(IOS_WIKIGLYPH_W,              NAVBAR_BUTTON_LOGO_W, size, baselineOffset);
-    self.buttonTOC =        getWikiGlyphButton(IOS_WIKIGLYPH_TOC,            NAVBAR_BUTTON_TOC, size, baselineOffset);
-    self.buttonMagnify =    getWikiGlyphButton(IOS_WIKIGLYPH_MAGNIFY,        NAVBAR_BUTTON_MAGNIFY, size, baselineOffset);
-    self.buttonBlank =      getWikiGlyphButton(@"",                          NAVBAR_BUTTON_BLANK, size, baselineOffset);
-    self.buttonCancel =     getWikiGlyphButton(@"",                          NAVBAR_BUTTON_CANCEL, size, baselineOffset);
+    self.buttonPencil =     getWikiGlyphButton(WIKIGLYPH_PENCIL,      MWLocalizedString(@"menu-edit-accessibility-label", nil),    NAVBAR_BUTTON_PENCIL, size, baselineOffset);
+    self.buttonX =          getWikiGlyphButton(WIKIGLYPH_X,           MWLocalizedString(@"menu-close-accessibility-label", nil),   NAVBAR_BUTTON_X, size - 4, baselineOffset - 0.5);
+    self.buttonEye =        getWikiGlyphButton(WIKIGLYPH_EYE,         MWLocalizedString(@"menu-preview-accessibility-label", nil), NAVBAR_BUTTON_EYE, size, baselineOffset);
+    self.buttonArrowLeft =  getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-back-accessibility-label", nil),    NAVBAR_BUTTON_ARROW_LEFT, size, baselineOffset - 2.0);
+    self.buttonArrowRight = getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-forward-accessibility-label", nil), NAVBAR_BUTTON_ARROW_RIGHT, size, baselineOffset - 2.0);
+    self.buttonW =          getWikiGlyphButton(IOS_WIKIGLYPH_W,       MWLocalizedString(@"menu-w-accessibility-label", nil),       NAVBAR_BUTTON_LOGO_W, size, baselineOffset);
+    self.buttonTOC =        getWikiGlyphButton(IOS_WIKIGLYPH_TOC,     MWLocalizedString(@"menu-toc-accessibility-label", nil),     NAVBAR_BUTTON_TOC, size, baselineOffset);
+    self.buttonMagnify =    getWikiGlyphButton(IOS_WIKIGLYPH_MAGNIFY, MWLocalizedString(@"menu-search-accessibility-label", nil),  NAVBAR_BUTTON_MAGNIFY, size, baselineOffset);
+    self.buttonBlank =      getWikiGlyphButton(@"",                   @"", NAVBAR_BUTTON_BLANK, size, baselineOffset);
+    self.buttonCancel =     getWikiGlyphButton(@"",                   MWLocalizedString(@"menu-cancel-accessibility-label", nil),  NAVBAR_BUTTON_CANCEL, size, baselineOffset);
 
     self.buttonCancel.label.font = [UIFont systemFontOfSize:17.0];
     self.buttonCancel.label.text = MWLocalizedString(@"search-cancel", nil);
