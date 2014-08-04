@@ -91,6 +91,8 @@
 "onboarding-create-account" = "Utwórz konto";
 "onboarding-login" = "Zaloguj się";
 "onboarding-skip" = "Pomiń";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "Wolna Encyklopedia";
 "page_protected_autoconfirmed" = "Ta strona została częściowo zabezpieczona.";
 "page_protected_sysop" = "Ta strona jest całkowicie zabezpieczona.";
 "page_protected_can_not_edit" = "Nie masz uprawnień do edytowania tej strony";

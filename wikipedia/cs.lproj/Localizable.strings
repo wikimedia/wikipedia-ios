@@ -1,6 +1,8 @@
 // Messages for Czech (čeština)
 // Exported from translatewiki.net
 // Author: Chmee2
+// Author: Fitoschido
+// Author: H4nek
 
 "article-languages-label" = "Vybrat jazyk";
 "article-languages-cancel" = "Zrušit";
@@ -33,10 +35,10 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Otevřít odkaz";
 "open-link-cancel" = "Zrušit";
-"search-searching" = "Probíhá hledání...";
+"search-searching" = "Hledání...";
 "search-no-matches" = "Nenalezena shoda pro hledaný výraz.";
-"search-field-placeholder-text" = "Hledání ve Wikipedii";
-"search-field-placeholder-text-zero" = "Hledání ve Wikipedii Zero";
+"search-field-placeholder-text" = "Hledat ve Wikipedii";
+"search-field-placeholder-text-zero" = "Hledat ve Wikipedii Zero";
 "search-cancel" = "Zrušit";
 "main-menu-title" = "Více";
 "main-menu-account-title-logged-out" = "Účet";
@@ -60,4 +62,5 @@
 "onboarding-create-account" = "Vytvořit účet";
 "onboarding-login" = "Přihlásit se";
 "onboarding-skip" = "Přeskočit";
+"onboarding-free-encyclopedia" = "Otevřená encyklopedie";
 "license-footer-name" = "CC BY-SA 3.0";

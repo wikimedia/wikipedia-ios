@@ -148,6 +148,8 @@
 "onboarding-login" = "Autentificare";
 "onboarding-already-have-account" = "Aveți deja un cont? $1";
 "onboarding-skip" = "Omite";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "Enciclopedia liberă";
 "preference_title_eventlogging_opt_in" = "Trimitere rapoarte de utilizare";
 "preference_summary_eventlogging_opt_in" = "Permiteți Wikimediei să adune informații despre modul în care utilizați aplicația pentru a putea îmbunătăți aplicația";
 "page_protected_autoconfirmed" = "Această pagină a fost semiprotejată.";

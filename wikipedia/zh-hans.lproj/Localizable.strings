@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: LNDDYL
 // Author: Liuxinyu970226
+// Author: NigelSoft
 // Author: Qiyue2001
 
 "article-languages-label" = "选择语言";
@@ -150,6 +151,8 @@
 "onboarding-login" = "登录";
 "onboarding-already-have-account" = "已拥有账户？$1";
 "onboarding-skip" = "跳过";
+"onboarding-wikipedia" = "维基百科";
+"onboarding-free-encyclopedia" = "自由的百科全书";
 "preference_title_eventlogging_opt_in" = "发送使用反馈";
 "preference_summary_eventlogging_opt_in" = "允许维基媒体收集有关您如何让程序更好服务于您的信息";
 "page_protected_autoconfirmed" = "此页面已半保护。";

@@ -154,6 +154,8 @@
 "onboarding-login" = "Acceder";
 "onboarding-already-have-account" = "¿Ya tienes una cuenta? $1";
 "onboarding-skip" = "Omitir";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "La enciclopedia libre";
 "preference_title_eventlogging_opt_in" = "Enviar informes de uso";
 "page_protected_autoconfirmed" = "Esta página está semiprotegida.";
 "page_protected_can_not_edit_title" = "Esta página está protegida";

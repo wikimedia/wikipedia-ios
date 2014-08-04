@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Arifin.wijaya
 // Author: C5st4wr6ch
+// Author: Iwan Novirion
 
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batal";
@@ -14,18 +15,18 @@
 "history-section-lastweek" = "Minggu lalu";
 "history-section-lastmonth" = "Bulan lalu";
 "zero-free-verbiage" = "Akses Wikipedia gratis dari operator selular (biaya data dibebaskan)";
-"zero-charged-verbiage" = "Wikipedia Zero dimatikan";
+"zero-charged-verbiage" = "Wikipedia Nol dimatikan";
 "zero-charged-verbiage-extended" = "Pemuatan artikel lain mungkin dikenakan biaya data. Artikel yang disimpan secara luring tidak menggunakan data dan gratis.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
-"zero-interstitial-title" = "Meninggalkan Wikipedia Zero";
+"zero-interstitial-title" = "Meninggalkan Wikipedia Nol";
 "zero-interstitial-leave-app" = "Biaya data mungkin berlaku. Lanjutkan ke situs eksternal?";
 "zero-interstitial-continue" = "Tinggalkan";
 "zero-interstitial-cancel" = "Tetap di sini";
 "zero-learn-more" = "Biaya data dibebaskan untuk aplikasi Wikipedia ini.";
 "zero-learn-more-learn-more" = "Baca lebih lanjut";
 "zero-learn-more-no-thanks" = "Tutup";
-"zero-wikipedia-zero-heading" = "Wikipedia Zero";
-"zero-warn-when-leaving" = "Peringatkan jika meninggalkan Wikipedia Zero";
+"zero-wikipedia-zero-heading" = "Wikipedia Nol";
+"zero-warn-when-leaving" = "Peringatkan jika meninggalkan Wikipedia Nol";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Verifikasi CAPTCHA diperlukan.";
 "account-creation-captcha-obtaining" = "Memperoleh CAPTCHA baru.";
@@ -68,13 +69,13 @@
 "search-searching" = "Mencari...";
 "search-no-matches" = "Tidak ada yang cocok untuk kondisi pencarian.";
 "search-field-placeholder-text" = "Telusuri Wikipedia";
-"search-field-placeholder-text-zero" = "Telusuri Wikipedia Zero";
+"search-field-placeholder-text-zero" = "Telusuri Wikipedia Nol";
 "search-loading-section-zero" = "Memuat bagian pertama dari artikel...";
 "search-loading-section-remaining" = "Memuat sisa artikel...";
 "search-loading-article-loaded" = "Artikel dimuat.";
 "search-cancel" = "Batal";
 "main-menu-title" = "Lainnya";
-"main-menu-language-title" = "Cari $1 bahasa wiki";
+"main-menu-language-title" = "Cari Wikipedia $1";
 "main-menu-language-toggle-show" = "Tampilkan bahasa";
 "main-menu-language-toggle-hide" = "Sembunyikan bahasa";
 "main-menu-language-selection-saved" = "Pilihan bahasa yang disimpan";
@@ -91,11 +92,11 @@
 "main-menu-send-feedback" = "Kirim umpan balik apl";
 "main-menu-show-page-history" = "Riwayat perubahan $1";
 "main-menu-credits" = "Kredit";
-"main-menu-zero-faq" = "Tanya jawab Wikipedia Zero";
+"main-menu-zero-faq" = "Tanya jawab Wikipedia Nol";
 "main-menu-privacy-policy" = "Kebijakan privasi";
 "main-menu-terms-of-use" = "Ketentuan penggunaan";
 "main-menu-rate-app" = "Beri nilai apl";
-"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-heading-zero" = "Wikipedia Nol";
 "main-menu-heading-legal" = "Informasi hukum";
 "main-menu-show-today" = "Hari ini";
 "saved-pages-title" = "Artikel tersimpan";
@@ -128,10 +129,10 @@
 "article-pull-to-refresh-prompt" = "Tarik untuk menyegarkan artikel";
 "article-pull-to-refresh-is-refreshing" = "Menyegarkan artikel";
 "credits-title" = "Gudang kode sumber terbuka";
-"credits-wikimedia-repos" = "Wikimedia";
+"credits-wikimedia-repos" = "Penyimpanan Wikimedia";
 "credits-gerrit-repo" = "Aplikasi utama (Gerrit)";
 "credits-github-mirror" = "Salinan aplikasi (GitHub)";
-"credits-external-libraries" = "Eksternal";
+"credits-external-libraries" = "Penyimpanan eksternal";
 "share-menu-save-page" = "Simpan Artikel";
 "share-menu-page-saved" = "Artikel Disimpan";
 "timestamp-just-now" = "baru saja";
@@ -149,6 +150,8 @@
 "onboarding-login" = "Masuk log";
 "onboarding-already-have-account" = "Sudah memiliki akun? $1";
 "onboarding-skip" = "Lewati";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "Ensiklopedia Bebas";
 "preference_title_eventlogging_opt_in" = "Kirim laporan penggunaan";
 "preference_summary_eventlogging_opt_in" = "Izinkan Wikimedia untuk mengumpulkan informasi tentang bagaimana Anda menggunakan aplikasi untuk membuat aplikasi yang lebih baik";
 "page_protected_autoconfirmed" = "Halaman ini telah dilindungi semi.";

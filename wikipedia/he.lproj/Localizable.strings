@@ -150,6 +150,8 @@
 "onboarding-login" = "כניסה";
 "onboarding-already-have-account" = "כבר יש לך חשבון? $1";
 "onboarding-skip" = "לדלג";
+"onboarding-wikipedia" = "ויקיפדיה";
+"onboarding-free-encyclopedia" = "האנציקלופדיה החופשית";
 "preference_title_eventlogging_opt_in" = "שליחת דיווחי שימוש";
 "preference_summary_eventlogging_opt_in" = "לאפשר לוויקימדיה לאסוף מידע על השימוש שלך ביישום כדי לשפר אותו";
 "page_protected_autoconfirmed" = "על הדף הזה הופעלה הגנה חלקית.";

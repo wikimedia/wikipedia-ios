@@ -57,7 +57,7 @@
 "wikitext-preview-changes" = "Voorbeeld van uw wijzigingen ophalen...";
 "wikitext-preview-changes-none" = "Er zijn geen wijzigingen gemaakt om een voorbeeld van te geven.";
 "wikitext-upload-result-unknown" = "Het was niet mogelijk het resultaat van de geüploade wikitekst te bepalen.";
-"wikitext-upload-captcha-error" = "Controlefout voor de CAPTCHA.";
+"wikitext-upload-captcha-error" = "CAPTCHA-vertificatiefout.";
 "wikitext-upload-captcha-needed" = "Er is een CAPTCHA-controle nodig.";
 "wikitext-upload-save" = "Aan het opslaan...";
 "wikitext-upload-save-sign-in" = "Aanmelden";
@@ -78,7 +78,7 @@
 "search-loading-article-loaded" = "Pagina geladen.";
 "search-cancel" = "Annuleer";
 "main-menu-title" = "Meer";
-"main-menu-language-title" = "Zoek in de $1 Wikipedia";
+"main-menu-language-title" = "Zoek in Wikipedia in het $1";
 "main-menu-language-toggle-show" = "Bekijk talen";
 "main-menu-language-toggle-hide" = "Verberg talen";
 "main-menu-language-selection-saved" = "Taalkeuze opgeslagen";
@@ -86,7 +86,7 @@
 "main-menu-account-title-logged-in" = "Aangemeld als: $1";
 "main-menu-account-login" = "Aanmelden";
 "main-menu-account-logout" = "Afmelden";
-"main-menu-show-title" = "Weergeven...";
+"main-menu-show-title" = "Laat mij...";
 "main-menu-show-history" = "Recent bekeken";
 "main-menu-show-saved" = "Opgeslagen pagina's";
 "main-menu-current-article-save" = "$1 opslaan voor offline lezen";
@@ -132,10 +132,10 @@
 "article-pull-to-refresh-prompt" = "Naar beneden trekken om bij te werken";
 "article-pull-to-refresh-is-refreshing" = "Pagina bijwerken";
 "credits-title" = "Vrije bronnen";
-"credits-wikimedia-repos" = "Wikimedia";
+"credits-wikimedia-repos" = "Wikimedia-bronnen";
 "credits-gerrit-repo" = "App (Gerrit)";
 "credits-github-mirror" = "App-mirror (GitHub)";
-"credits-external-libraries" = "Extern";
+"credits-external-libraries" = "Externe bronnen";
 "share-menu-save-page" = "Artikel opslaan";
 "share-menu-page-saved" = "Artikel is opgeslagen";
 "timestamp-just-now" = "zojuist";
@@ -153,6 +153,8 @@
 "onboarding-login" = "Aanmelden";
 "onboarding-already-have-account" = "Hebt u al een gebruiker? $1";
 "onboarding-skip" = "Overslaan";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "De vrije encyclopedie";
 "preference_title_eventlogging_opt_in" = "Gebruiksrapporten verzenden";
 "preference_summary_eventlogging_opt_in" = "Sta Wikimedia toe om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
 "page_protected_autoconfirmed" = "Deze pagina is semi-beveiligd.";

@@ -148,6 +148,8 @@
 "onboarding-login" = "Войти";
 "onboarding-already-have-account" = "Вы уже зарегистрированы? $1";
 "onboarding-skip" = "Пропустить";
+"onboarding-wikipedia" = "Википедия";
+"onboarding-free-encyclopedia" = "Свободная энциклопедия";
 "preference_title_eventlogging_opt_in" = "Отправлять отчёты об использовании";
 "preference_summary_eventlogging_opt_in" = "Разрешить Викимедиа собирать информацию о том, как вы используете приложение. Это позволит сделать его лучше.";
 "page_protected_autoconfirmed" = "Эта страница была частично защищена.";

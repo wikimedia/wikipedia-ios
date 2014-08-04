@@ -1,9 +1,24 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
 // Author: Siebrand
+// Author: Sjoerddebruin
 // Author: Southparkfan
 
-"7Wa-ox-cAd.normalTitle" = "Opslaan";
-"AIA-vO-cLI.placeholder" = "Los de CAPTCHA hierboven op en vul het antwoord in";
-"P0o-I6-RDJ.normalTitle" = "Annuleren";
-"QGI-DM-j1P.normalTitle" = "Andere CAPTCHA weergeven";
+"21c-U6-yfo.normalTitle" = "Toon andere captcha";
+"5cT-2Y-0Ie.placeholder" = "Gebruikersnaam";
+"GiD-Rj-wb7.text" = "Opgeslagen pagina's zijn best wel vet. Denk aan bladwijzers die u zelfs kunt lezen wanneer u offline bent.";
+"LfM-01-aCF.text" = "Voorvertoning";
+"P6J-IE-CiO.text" = "Sla over";
+"PCr-0J-fBj.placeholder" = "Wachtwoord";
+"UgH-77-lyp.placeholder" = "Herhaal wachtwoord";
+"W1c-wQ-1pa.text" = "Nog geen opgeslagen pagina's.";
+"Wff-o9-AdH.text" = "Aanmelden";
+"aUp-0e-F6i.text" = "Geen recente pagina's.";
+"c3c-PU-Exz.text" = "Account aanmaken";
+"gPg-cg-Yjy.placeholder" = "Vul de CAPTCHA-tekst in";
+"heA-3K-nhS.text" = "Hebt u al een account? Aanmelden.";
+"jiW-Cg-oL3.text" = "Account aanmaken";
+"kVb-lx-d6C.placeholder" = "Wachtwoord";
+"mAk-1N-jPC.placeholder" = "Gebruikersnaam";
+"rKI-nq-3p7.placeholder" = "E-mailadres (optioneel)";
+"wkl-j8-wLX.text" = "Account aanmaken";

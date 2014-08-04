@@ -152,6 +152,8 @@
 "onboarding-login" = "Logga in";
 "onboarding-already-have-account" = "Har du redan ett konto? $1";
 "onboarding-skip" = "Hoppa över";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "Den fria encyklopedin";
 "preference_title_eventlogging_opt_in" = "Skicka användningsrapporter";
 "preference_summary_eventlogging_opt_in" = "Tillåt Wikimedia att samla in information om hur du använder appen. Informationen används för att göra appen bättre.";
 "page_protected_autoconfirmed" = "Denna sida är halvskyddad.";

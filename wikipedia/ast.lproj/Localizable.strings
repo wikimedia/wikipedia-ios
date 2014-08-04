@@ -90,6 +90,13 @@
 "main-menu-send-feedback" = "Unviar comentariu sobro la app";
 "main-menu-show-page-history" = "Historial de los cambios a $1";
 "main-menu-credits" = "Créditos";
+"main-menu-zero-faq" = "FAQ de Wikipedia Zero";
+"main-menu-privacy-policy" = "Política d'intimidá";
+"main-menu-terms-of-use" = "Condiciones d'usu";
+"main-menu-rate-app" = "Calificar app";
+"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-heading-legal" = "Xíriga llegal";
+"main-menu-show-today" = "Güei";
 "saved-pages-title" = "Páxines guardaes";
 "page-history-title" = "Historial de la páxina";
 "page-history-downloading" = "Cargando l'historial de la páxina...";
@@ -132,6 +139,8 @@
 "timestamp-days" = "hai %d díes";
 "timestamp-months" = "hai %d meses";
 "timestamp-years" = "hai %d años";
+"lastmodified-by-user" = "Cambiada $1 por $2";
+"lastmodified-by-anon" = "Cambiada $1 por un usuariu anónimu";
 "button-next" = "Siguiente";
 "button-done" = "Fecho";
 "button-save" = "Guardar";
@@ -139,6 +148,8 @@
 "onboarding-login" = "Identificase";
 "onboarding-already-have-account" = "¿Yá tienes una cuenta? $1";
 "onboarding-skip" = "Saltar";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "La enciclopedia llibre";
 "preference_title_eventlogging_opt_in" = "Unviar informes d'usu";
 "preference_summary_eventlogging_opt_in" = "Permite a Wikimedia collechar información tocante a cómo uses la app p'ameyorala";
 "page_protected_autoconfirmed" = "Esta páxina ta semiprotexida.";
@@ -149,3 +160,12 @@
 "license-footer-text" = "El conteníu ta disponible baxo $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Conteníu";
+"abuse-filter-warning-heading" = "Esto nun paez una edición constructiva. ¿Tas seguro de que quies guardala?";
+"abuse-filter-warning-subheading" = "La to edición pue contener unu o más de los siguientes:";
+"abuse-filter-warning-caps" = "Escribir TOO EN MAYÚSCULES";
+"abuse-filter-warning-blanking" = "Dexar en blanco los artículos o facer spam";
+"abuse-filter-warning-irrelevant" = "Enllaces o imaxes esternos irrelevantes";
+"abuse-filter-warning-repeat" = "Caráuteres repeeeetíos";
+"abuse-filter-disallow-heading" = "Nun pues guardar esta edición. Por favor vuelvi atrás y cámbiala.";
+"abuse-filter-disallow-unconstructive" = "Un filtru automático identificó esta edición como potencialmente non constructiva o como intentu de vandalismu.";
+"abuse-filter-disallow-notable" = "Wikipedia ye una enciclopedia y sólo cabe equí el conteníu neutral y notable.";

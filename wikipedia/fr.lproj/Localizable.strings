@@ -153,6 +153,8 @@
 "onboarding-login" = "Se connecter";
 "onboarding-already-have-account" = "Vous avez déjà un compte ? $1";
 "onboarding-skip" = "Sauter";
+"onboarding-wikipedia" = "Wikipédia";
+"onboarding-free-encyclopedia" = "L’Encyclopédie libre";
 "preference_title_eventlogging_opt_in" = "Envoyer les rapports d’utilisation";
 "preference_summary_eventlogging_opt_in" = "Permettre à Wikimédia de collecter des informations sur la manière dont vous utilisez l’application, afin de la rendre meilleure";
 "page_protected_autoconfirmed" = "Cette page a été semi-protégée.";

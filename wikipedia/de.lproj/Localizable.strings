@@ -149,6 +149,8 @@
 "onboarding-login" = "Anmelden";
 "onboarding-already-have-account" = "Hast du bereits ein Benutzerkonto? $1";
 "onboarding-skip" = "Überspringen";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "Die freie Enzyklopädie";
 "preference_title_eventlogging_opt_in" = "Nutzungsberichte senden";
 "preference_summary_eventlogging_opt_in" = "Wikimedia erlauben, Informationen über deine Verwendung der App zu sammeln, um die App zu verbessern.";
 "page_protected_autoconfirmed" = "Diese Seite wurde halbgesperrt.";

@@ -1,6 +1,7 @@
 // Messages for Scots (Scots)
 // Exported from translatewiki.net
 // Author: AmaryllisGardener
+// Author: Fitoschido
 // Author: John Reid
 
 "article-languages-label" = "Pick yer leid";
@@ -119,3 +120,4 @@
 "button-next" = "Nex";
 "button-done" = "Duin";
 "button-save" = "Hain";
+"onboarding-wikipedia" = "Wikipædia";

@@ -147,6 +147,7 @@
 "onboarding-login" = "Accedi";
 "onboarding-already-have-account" = "Hai già un'utenza? $1";
 "onboarding-skip" = "Salta";
+"onboarding-free-encyclopedia" = "L'enciclopedia libera";
 "preference_title_eventlogging_opt_in" = "Invia rapporti sull'utilizzo";
 "preference_summary_eventlogging_opt_in" = "Consenti a Wikimedia di raccogliere informazioni su come usi l'applicazione per renderla migliore";
 "page_protected_autoconfirmed" = "Questa pagina è stata semi-protetta.";

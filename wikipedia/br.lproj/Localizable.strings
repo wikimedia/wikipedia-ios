@@ -135,6 +135,8 @@
 "onboarding-login" = "Kevreañ";
 "onboarding-already-have-account" = "Ur gont ho peus dija ? $1";
 "onboarding-skip" = "Lezel a-gostez";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "An Holloueziadur digor";
 "preference_title_eventlogging_opt_in" = "Kas danevelloù implij";
 "preference_summary_eventlogging_opt_in" = "Aotren Wikipedia da zastum titouroù diwar-benn an doare ma implijit an arload evit gwellaat anezhañ";
 "page_protected_autoconfirmed" = "Damwarezet eo bet ar bajenn-mañ.";

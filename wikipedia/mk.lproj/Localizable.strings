@@ -149,6 +149,8 @@
 "onboarding-login" = "Најава";
 "onboarding-already-have-account" = "Веќе имате сметка? $1";
 "onboarding-skip" = "Прескокни";
+"onboarding-wikipedia" = "Википедија";
+"onboarding-free-encyclopedia" = "Слободната енциклопедија";
 "preference_title_eventlogging_opt_in" = "Испраќај извештаи за употребата";
 "preference_summary_eventlogging_opt_in" = "Ѝ овозможува на Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
 "page_protected_autoconfirmed" = "Оваа страница е полузаштитена.";
