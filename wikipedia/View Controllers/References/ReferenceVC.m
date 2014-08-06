@@ -136,7 +136,7 @@
 
     [self.referenceWebView loadHTMLString:html baseURL:[NSURL URLWithString:@""]];
     
-    CGFloat topInset = 32;
+    CGFloat topInset = 35;
     
     CGFloat bottomInset = (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) ? 0 : topInset;
 
