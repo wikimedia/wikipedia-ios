@@ -171,3 +171,14 @@
 "abuse-filter-disallow-heading" = "Anda tidak dapat menyimpan suntingan ini. Harap kembali dan mengubahnya.";
 "abuse-filter-disallow-unconstructive" = "Penyaring otomatis telah mengidentifikasi suntingan ini sebagai berpotensi tidak konstruktif, atau potensi vandalisme.";
 "abuse-filter-disallow-notable" = "Wikipedia adalah sebuah ensiklopedia dan hanya netral, konten penting milik di sini.";
+"menu-edit-accessibility-label" = "Sunting";
+"menu-close-accessibility-label" = "Tutup";
+"menu-preview-accessibility-label" = "Pratayang";
+"menu-back-accessibility-label" = "Kembali";
+"menu-forward-accessibility-label" = "Maju";
+"menu-w-accessibility-label" = "Menu";
+"menu-toc-accessibility-label" = "Daftar isi";
+"menu-search-accessibility-label" = "Cari";
+"menu-cancel-accessibility-label" = "Batal";
+"menu-share-accessibility-label" = "Bagikan";
+"menu-more-accessibility-label" = "Pengaturan lainnya";

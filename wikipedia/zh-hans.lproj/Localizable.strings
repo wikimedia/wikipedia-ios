@@ -1,5 +1,6 @@
 // Messages for Simplified Chinese (中文（简体）‎)
 // Exported from translatewiki.net
+// Author: Davidzdh
 // Author: LNDDYL
 // Author: Liuxinyu970226
 // Author: NigelSoft
@@ -11,16 +12,16 @@
 "article-languages-filter-placeholder" = "语言过滤器";
 "language-button-text" = "您可阅读此条目的%d种其他语言版";
 "history-label" = "最近";
-"history-section-today" = "今天";
+"history-section-today" = "今天的首页";
 "history-section-yesterday" = "昨天";
 "history-section-lastweek" = "上周";
 "history-section-lastmonth" = "上月";
-"zero-free-verbiage" = "免费访问维基百科（不需要支出数据费用)";
-"zero-charged-verbiage" = "维基百科零已关闭";
+"zero-free-verbiage" = "免费访问维基百科（不需要支出数据费用）";
+"zero-charged-verbiage" = "已关闭维基百科零";
 "zero-charged-verbiage-extended" = "载入其他条目将可能产生流量费用。已保存条目会离线存储并且免流量费用。";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "离开维基百科零";
-"zero-interstitial-leave-app" = "可能产生流量费用。继续到外部站点吗？";
+"zero-interstitial-leave-app" = "可能产生流量费用。继续访问外部站点吗？";
 "zero-interstitial-continue" = "离开";
 "zero-interstitial-cancel" = "留在这里";
 "zero-learn-more" = "此维基百科应用程序可免流量费用。";
@@ -30,11 +31,11 @@
 "zero-warn-when-leaving" = "离开维基百科零时提示";
 "zero-settings-devmode" = "零开发模式";
 "account-creation-captcha-required" = "需要验证码验证。";
-"account-creation-captcha-obtaining" = "获取一个新的验证码。";
+"account-creation-captcha-obtaining" = "获取新验证码。";
 "account-creation-logging-in" = "正在登录...";
 "account-creation-passwords-mismatched" = "密码字段不匹配。";
 "account-creation-saving" = "正在保存...";
-"account-creation-login" = "已拥有帐户？登录。";
+"account-creation-login" = "已有帐户？请登录。";
 "account-creation-username-placeholder-text" = "用户名";
 "account-creation-password-placeholder-text" = "密码";
 "account-creation-password-confirm-placeholder-text" = "确认密码";
@@ -46,10 +47,10 @@
 "login-password-wrong" = "您提供的密码不正确。";
 "login-throttled" = "在短时间内，您尝试的登录次数过多。";
 "login-user-blocked" = "用户被封禁";
-"login-account-creation" = "没有账户？加入维基百科。";
+"login-account-creation" = "没有账户？注册一个维基百科账号";
 "login-username-placeholder-text" = "用户名";
 "login-password-placeholder-text" = "密码";
-"wikitext-downloading" = "加载内容中…";
+"wikitext-downloading" = "加载中…";
 "wikitext-download-failed" = "无法获取最新的版本。";
 "wikitext-download-success" = "内容已加载。";
 "wikitext-preview-changes" = "正在获取您更改的预览…";
@@ -76,7 +77,7 @@
 "search-loading-article-loaded" = "文章已加载。";
 "search-cancel" = "取消";
 "main-menu-title" = "更多";
-"main-menu-language-title" = "搜索$1语wiki";
+"main-menu-language-title" = "搜索$1语维基";
 "main-menu-language-toggle-show" = "显示语言";
 "main-menu-language-toggle-hide" = "隐藏语言";
 "main-menu-language-selection-saved" = "语言选择已保存";
@@ -87,7 +88,7 @@
 "main-menu-show-title" = "告诉我...";
 "main-menu-show-history" = "最近";
 "main-menu-show-saved" = "已保存页面";
-"main-menu-current-article-save" = "保存$1用于离线阅读";
+"main-menu-current-article-save" = "保存$1以离线阅读";
 "main-menu-random" = "随机";
 "main-menu-feedback-heading" = "反馈";
 "main-menu-send-feedback" = "发送程序反馈";
@@ -99,7 +100,7 @@
 "main-menu-rate-app" = "付费应用程序";
 "main-menu-heading-zero" = "维基百科零";
 "main-menu-heading-legal" = "胡言乱语";
-"main-menu-show-today" = "今天";
+"main-menu-show-today" = "今天的首页";
 "saved-pages-title" = "已保存页面";
 "page-history-title" = "页面历史";
 "page-history-downloading" = "加载页面历史...";
@@ -154,7 +155,7 @@
 "onboarding-wikipedia" = "维基百科";
 "onboarding-free-encyclopedia" = "自由的百科全书";
 "preference_title_eventlogging_opt_in" = "发送使用反馈";
-"preference_summary_eventlogging_opt_in" = "允许维基媒体收集有关您如何让程序更好服务于您的信息";
+"preference_summary_eventlogging_opt_in" = "允许维基媒体收集有关您操作本应用程序的信息，从而改善应用程序";
 "page_protected_autoconfirmed" = "此页面已半保护。";
 "page_protected_sysop" = "此页面已全保护。";
 "page_protected_other" = "此页面已获以下保护：$1";
@@ -171,4 +172,4 @@
 "abuse-filter-warning-repeat" = "重复字符";
 "abuse-filter-disallow-heading" = "您不能保存此编辑。请返回重试。";
 "abuse-filter-disallow-unconstructive" = "自动过滤器已认定此编辑可能不具建设性或存在破坏企图。";
-"abuse-filter-disallow-notable" = "维基百科是一部百科全书，这里只接受中立、知名的内容。";
+"abuse-filter-disallow-notable" = "维基百科是一部百科全书，这里只接受中立、有关注度的内容。";

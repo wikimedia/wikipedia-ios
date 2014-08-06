@@ -1,5 +1,6 @@
 // Messages for Japanese (日本語)
 // Exported from translatewiki.net
+// Author: Barrel0116
 // Author: Dude1717
 // Author: Shirayuki
 
@@ -7,21 +8,34 @@
 "history-label" = "最近のもの";
 "history-section-today" = "今日";
 "history-section-yesterday" = "昨日";
+"history-section-lastweek" = "先週";
+"history-section-lastmonth" = "先月";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+// Fuzzy
 "zero-interstitial-continue" = "続行";
+// Fuzzy
 "zero-interstitial-cancel" = "キャンセル";
+"zero-learn-more-learn-more" = "さらに読む";
+"zero-learn-more-no-thanks" = "非表示";
+"zero-wikipedia-zero-heading" = "ウィキペディアゼロ";
 "account-creation-captcha-required" = "CAPTCHA 検証が必要です。";
 "account-creation-logging-in" = "ログイン中...";
+"account-creation-passwords-mismatched" = "入力したパスワードが一致しません。";
 "account-creation-saving" = "保存中...";
+"account-creation-login" = "アカウントを既にお持ちの場合は、ログインしてください。";
 "account-creation-username-placeholder-text" = "利用者名";
+"account-creation-password-placeholder-text" = "パスワード";
 "account-creation-password-confirm-placeholder-text" = "パスワード再入力";
 "account-creation-email-placeholder-text" = "メール (省略可能)";
 "login-name-not-found" = "ログインするには利用者名が必要です。";
 "login-name-does-not-exist" = "指定した利用者名は存在しません。";
 "login-password-empty" = "ログインするにはパスワードが必要です。";
 "login-password-wrong" = "指定したパスワードは正しくありません。";
+"login-throttled" = "あなたは短時間に何回もログインしようとしました。";
 "login-user-blocked" = "利用者はブロックされています。";
+"login-account-creation" = "アカウントをお持ちではない場合は、こちらからウィキペディアに参加してください。";
 "login-username-placeholder-text" = "利用者名";
+"login-password-placeholder-text" = "パスワード";
 "wikitext-downloading" = "ウィキテキストを読込中...";
 "wikitext-download-failed" = "最新の版を取得できません。";
 "wikitext-download-success" = "ウィキテキストを読み込みました。";
@@ -30,23 +44,40 @@
 "wikitext-upload-save" = "保存中...";
 "wikitext-upload-save-sign-in" = "ログイン";
 "wikitext-upload-save-anonymously" = "匿名で保存";
+"wikitext-upload-save-terms-and-license" = "変更内容を保存すると、あなたは $1 に同意し、自分の投稿内容を $2 ライセンスのもとで公開することに同意したと見なされます。";
+"wikitext-upload-save-terms-name" = "利用規約";
+"wikitext-upload-save-license-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
+"open-link-title" = "リンクを開く";
+"open-link-cancel" = "キャンセル";
 "search-searching" = "検索中...";
+"search-field-placeholder-text" = "ウィキペディア内を検索";
+"search-field-placeholder-text-zero" = "ウィキペディアゼロを検索";
+"search-loading-section-remaining" = "この記事の残りの部分を読み込んでいます。";
 "search-loading-article-loaded" = "記事を読み込みました。";
+"search-cancel" = "キャンセル";
 "main-menu-title" = "その他";
 "main-menu-language-toggle-show" = "言語を表示";
 "main-menu-language-toggle-hide" = "言語を非表示";
 "main-menu-language-selection-saved" = "言語の選択を保存しました";
 "main-menu-account-title-logged-out" = "アカウント";
+"main-menu-account-title-logged-in" = "$1 としてログインしています。";
 "main-menu-account-login" = "ログイン";
 "main-menu-account-logout" = "ログアウト";
+"main-menu-show-history" = "最近閲覧した記事";
 "main-menu-show-saved" = "保存したページ";
-// Fuzzy
-"main-menu-current-article-save" = "$1をオフラインで読むのため";
-// Fuzzy
-"main-menu-random" = "ランダム記事";
+"main-menu-current-article-save" = "$1をオフラインで読むために保存する";
+"main-menu-random" = "おまかせ表示";
 "main-menu-feedback-heading" = "フィードバック";
+// Fuzzy
 "main-menu-send-feedback" = "フィードバックを送信";
+"main-menu-show-page-history" = "$1の変更履歴";
 "main-menu-credits" = "クレジット";
+"main-menu-zero-faq" = "ウィキペディアゼロについてのFAQ";
+"main-menu-privacy-policy" = "プライバシー・ポリシー";
+"main-menu-terms-of-use" = "利用規約";
+"main-menu-rate-app" = "アプリを評価";
+"main-menu-heading-zero" = "ウィキペディア ゼロ";
+"main-menu-show-today" = "今日";
 "saved-pages-title" = "保存したページ";
 "page-history-title" = "ページの履歴";
 "page-history-downloading" = "ページの履歴を読み込み中...";
@@ -56,10 +87,36 @@
 "navbar-title-mode-create-account" = "アカウント作成";
 "navbar-title-mode-create-account-and-save" = "アカウントを作成して保存";
 "navbar-title-mode-edit-wikitext-preview" = "プレビュー";
+"navbar-title-mode-edit-wikitext-save" = "保存";
+"edit-summary-choice-linked-words" = "リンクを追加";
+"edit-summary-choice-added-category" = "カテゴリを追加";
 "edit-summary-choice-other" = "その他";
 "credits-wikimedia-repos" = "ウィキメディア";
-"credits-external-libraries" = "外部";
+"credits-external-libraries" = "外部リポジトリ";
+"share-menu-save-page" = "記事を保存";
 "share-menu-page-saved" = "記事を保存しました";
+"timestamp-just-now" = "ちょうど今";
+"timestamp-minutes" = "%d分前";
+"timestamp-hours" = "%d時間前";
+"timestamp-days" = "%d日前";
+"timestamp-months" = "%dヶ月前";
+"timestamp-years" = "%d年前";
 "button-next" = "次へ";
+"button-done" = "完了";
 "button-save" = "保存";
+"onboarding-create-account" = "アカウントを作成";
 "onboarding-login" = "ログイン";
+"onboarding-already-have-account" = "既にアカウントをお持ちですか？ $1";
+"onboarding-skip" = "スキップ";
+"onboarding-wikipedia" = "ウィキペディア";
+"onboarding-free-encyclopedia" = "フリー百科事典";
+"preference_title_eventlogging_opt_in" = "利用状況レポートを送信";
+"page_protected_autoconfirmed" = "このページは半保護されています。";
+"page_protected_sysop" = "このページは全保護されています。";
+"page_protected_other" = "このページは、次のレベルに保護されています:$1";
+"page_protected_can_not_edit" = "このページを編集する権限がありません";
+"page_protected_can_not_edit_title" = "このページは保護されています";
+"license-footer-text" = "コンテンツは$1の元で利用できます";
+"license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
+"table-of-contents-heading" = "コンテンツ";
+"abuse-filter-disallow-heading" = "この編集は保存できません。戻って変更してください。";

@@ -11,7 +11,7 @@
 "article-languages-filter-placeholder" = "語言篩選器";
 "language-button-text" = "你可以閱讀這此條目的 %d 種其他語言版本";
 "history-label" = "最近";
-"history-section-today" = "今日";
+"history-section-today" = "今日首頁";
 "history-section-yesterday" = "昨日";
 "history-section-lastweek" = "上週";
 "history-section-lastmonth" = "上月";
@@ -99,7 +99,7 @@
 "main-menu-rate-app" = "付費應用程式";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "胡言亂語";
-"main-menu-show-today" = "今日";
+"main-menu-show-today" = "今日首頁";
 "saved-pages-title" = "已儲存頁面";
 "page-history-title" = "頁面歷史";
 "page-history-downloading" = "正在載入頁面歷史……";
@@ -153,6 +153,8 @@
 "onboarding-login" = "登入";
 "onboarding-already-have-account" = "已經擁有帳戶？$1";
 "onboarding-skip" = "略過";
+"onboarding-wikipedia" = "維基百科";
+"onboarding-free-encyclopedia" = "自由的百科全書";
 "preference_title_eventlogging_opt_in" = "傳送使用情況報告";
 "preference_summary_eventlogging_opt_in" = "允許維基媒體收集有關您如何使用該應用程式使應用程式更好的資訊";
 "page_protected_autoconfirmed" = "此頁面已半保護。";

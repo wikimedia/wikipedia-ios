@@ -1,7 +1,19 @@
 // Messages for Japanese (日本語)
 // Exported from translatewiki.net
+// Author: Barrel0116
 // Author: Shirayuki
 
-"7Wa-ox-cAd.normalTitle" = "保存";
-"P0o-I6-RDJ.normalTitle" = "キャンセル";
-"QGI-DM-j1P.normalTitle" = "別の CAPTCHA を表示";
+"21c-U6-yfo.normalTitle" = "別のcaptchaを表示";
+"5cT-2Y-0Ie.placeholder" = "利用者名";
+"LfM-01-aCF.text" = "プレビュー";
+"P6J-IE-CiO.text" = "スキップ";
+"PCr-0J-fBj.placeholder" = "パスワード";
+"UgH-77-lyp.placeholder" = "パスワードを再入力";
+"Wff-o9-AdH.text" = "ログイン";
+"c3c-PU-Exz.text" = "アカウントを作成";
+"heA-3K-nhS.text" = "アカウントを既にお持ちの場合は、ログインしてください";
+"jiW-Cg-oL3.text" = "アカウントを作成";
+"kVb-lx-d6C.placeholder" = "パスワード";
+"mAk-1N-jPC.placeholder" = "利用者名";
+"rKI-nq-3p7.placeholder" = "メールアドレス (省略可能)";
+"wkl-j8-wLX.text" = "アカウント作成";
