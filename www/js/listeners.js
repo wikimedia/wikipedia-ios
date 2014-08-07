@@ -1,5 +1,4 @@
 var bridge = require("./bridge");
-var wikihacks = require("./wikihacks");
 var transformer = require("./transformer");
 var refs = require("./refs");
 
@@ -29,47 +28,20 @@ bridge.registerListener( "setScale", function( payload ) {
 bridge.registerListener( "append", function( payload ) {
     // Append html without losing existing event handlers
     // From: http://stackoverflow.com/a/595825
-    var content = document.getElementById("content");
+
     var newcontent = document.createElement('div');
     newcontent.innerHTML = payload.html;
-                        
-    var isFirstSection = true;
-    while (newcontent.firstChild) {
-        var section = newcontent.removeChild(newcontent.firstChild);
-        if (section.nodeType == Node.ELEMENT_NODE) {
-            if (isFirstSection) {
-                section = transformer.transform( "leadSection", section );
-                isFirstSection = false;
-            }
-            section = transformer.transform( "section", section );
-        }
-        content.appendChild(section);
-    }
 
-    // Things which need to happen any time data is appended.
-    //TODO: later could optimize to only perform actions on elements found
-    // within the content div which was appended).
-
-    // TODO: migrate these into common transforms?
-
-    wikihacks.putWideTablesInDivs();
-/*
-    wikihacks.makeTablesNotBlockIfSafeToDoSo();
-    wikihacks.reduceWeirdWebkitMargin();
- */
-    wikihacks.hideAudioTags();
-/*
-    wikihacks.allowDivWidthsToFlow();
-*/
-    wikihacks.tweakFilePage();
-});
-
-bridge.registerListener( "prepend", function( payload ) {
-    // Prepend html without losing existing event handlers
+    transformer.transform( "relocateInfobox", newcontent );
+    transformer.transform( "hideRedlinks", newcontent );
+    transformer.transform( "disableFilePageEdit", newcontent );
+    transformer.transform( "hideAudioTags", newcontent );
+    transformer.transform( "overflowWideTables", newcontent );
+    
     var content = document.getElementById("content");
-    var newcontent = document.createElement('div');
-    newcontent.innerHTML = payload.html;
-    content.insertBefore(newcontent, content.firstChild);
+    // Ensure we've done transforms *before* appending the new content.
+    // Otherwise the web view dom will thrash.
+    content.appendChild(newcontent);
 });
 
 bridge.registerListener( "remove", function( payload ) {

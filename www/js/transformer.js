@@ -14,9 +14,8 @@ Transformer.prototype.register = function( transform, fun ) {
 Transformer.prototype.transform = function( transform, element ) {
     var functions = transforms[transform];
     for ( var i = 0; i < functions.length; i++ ) {
-        element = functions[i](element);
+        functions[i](element);
     }
-    return element;
 };
 
 module.exports = new Transformer();

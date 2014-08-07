@@ -95,7 +95,6 @@ exports.getIndexOfFirstOnScreenElementWithTopGreaterThanY = function(elementPref
 
 },{}],3:[function(require,module,exports){
 var bridge = require("./bridge");
-var wikihacks = require("./wikihacks");
 var transformer = require("./transformer");
 var refs = require("./refs");
 
@@ -125,47 +124,20 @@ bridge.registerListener( "setScale", function( payload ) {
 bridge.registerListener( "append", function( payload ) {
     // Append html without losing existing event handlers
     // From: http://stackoverflow.com/a/595825
-    var content = document.getElementById("content");
+
     var newcontent = document.createElement('div');
     newcontent.innerHTML = payload.html;
-                        
-    var isFirstSection = true;
-    while (newcontent.firstChild) {
-        var section = newcontent.removeChild(newcontent.firstChild);
-        if (section.nodeType == Node.ELEMENT_NODE) {
-            if (isFirstSection) {
-                section = transformer.transform( "leadSection", section );
-                isFirstSection = false;
-            }
-            section = transformer.transform( "section", section );
-        }
-        content.appendChild(section);
-    }
 
-    // Things which need to happen any time data is appended.
-    //TODO: later could optimize to only perform actions on elements found
-    // within the content div which was appended).
-
-    // TODO: migrate these into common transforms?
-
-    wikihacks.putWideTablesInDivs();
-/*
-    wikihacks.makeTablesNotBlockIfSafeToDoSo();
-    wikihacks.reduceWeirdWebkitMargin();
- */
-    wikihacks.hideAudioTags();
-/*
-    wikihacks.allowDivWidthsToFlow();
-*/
-    wikihacks.tweakFilePage();
-});
-
-bridge.registerListener( "prepend", function( payload ) {
-    // Prepend html without losing existing event handlers
+    transformer.transform( "relocateInfobox", newcontent );
+    transformer.transform( "hideRedlinks", newcontent );
+    transformer.transform( "disableFilePageEdit", newcontent );
+    transformer.transform( "hideAudioTags", newcontent );
+    transformer.transform( "overflowWideTables", newcontent );
+    
     var content = document.getElementById("content");
-    var newcontent = document.createElement('div');
-    newcontent.innerHTML = payload.html;
-    content.insertBefore(newcontent, content.firstChild);
+    // Ensure we've done transforms *before* appending the new content.
+    // Otherwise the web view dom will thrash.
+    content.appendChild(newcontent);
 });
 
 bridge.registerListener( "remove", function( payload ) {
@@ -286,7 +258,7 @@ function touchEnd(event){
 
 document.addEventListener("touchend", touchEnd, "false");
 
-},{"./bridge":1,"./refs":5,"./transformer":6,"./wikihacks":8}],4:[function(require,module,exports){
+},{"./bridge":1,"./refs":5,"./transformer":6}],4:[function(require,module,exports){
 
 var bridge = require("./bridge");
 var elementLocation = require("./elementLocation");
@@ -433,9 +405,8 @@ Transformer.prototype.register = function( transform, fun ) {
 Transformer.prototype.transform = function( transform, element ) {
     var functions = transforms[transform];
     for ( var i = 0; i < functions.length; i++ ) {
-        element = functions[i](element);
+        functions[i](element);
     }
-    return element;
 };
 
 module.exports = new Transformer();
@@ -443,26 +414,46 @@ module.exports = new Transformer();
 },{}],7:[function(require,module,exports){
 var transformer = require("./transformer");
 
-// Move infobox to the bottom of the lead section
-transformer.register( "leadSection", function( leadContent ) {
-    var infobox = leadContent.querySelector( "table.infobox" );
-    if ( infobox ) {
-        infobox.parentNode.removeChild( infobox );
-        var pTags = leadContent.getElementsByTagName( "p" );
-        if ( pTags.length ) {
-            pTags[0].appendChild( infobox );
-        } else {
-            leadContent.appendChild( infobox );
+transformer.register( "relocateInfobox", function( content ) {
+    // Move infobox after first lead section paragraph.
+
+    /*
+    DIV section_heading_and_content_block_0
+        DIV content_block_0
+            P     <-- Move infobox after first P element which is a direct child of content_block_0 DIV.
+
+    Old code had problem with en wiki "Soviet Union" article - it moved the 
+    infobox right after a P element which was contained by a hidden "vcard" TABLE.
+    */
+
+    var block_0 = content.querySelector( "#content_block_0" );
+    if(!block_0) return;
+
+    var infobox = block_0.querySelector( "table.infobox" );
+    if(!infobox) return;
+
+    var allPs = block_0.querySelectorAll( "p" );
+    if(!allPs) return;
+
+    var soughtP = null;
+
+    // Narrow down to first P which is direct child of content_block_0 DIV.
+    for ( var i = 0; i < allPs.length; i++ ) {
+        var thisP = allPs[i];
+        if  (thisP.parentNode == block_0){
+            soughtP = thisP;
+            break;
         }
     }
-    return leadContent;
-} );
+    
+    if (!soughtP) return;
 
-transformer.register( "section", function( content ) {
-	return content;
-} );
+    // Found the first P tag whose direct parent has id of #content_block_0.
+    // Now safe to detach the infobox and stick it after the P.
+    soughtP.appendChild(infobox.parentNode.removeChild(infobox));
+});
 
-transformer.register( "section", function( content ) {
+transformer.register( "hideRedlinks", function( content ) {
 	var redLinks = content.querySelectorAll( 'a.new' );
 	for ( var i = 0; i < redLinks.length; i++ ) {
 		var redLink = redLinks[i];
@@ -471,98 +462,21 @@ transformer.register( "section", function( content ) {
 		replacementSpan.setAttribute( 'class', redLink.getAttribute( 'class' ) );
 		redLink.parentNode.replaceChild( replacementSpan, redLink );
 	}
-	return content;
 } );
 
-},{"./transformer":6}],8:[function(require,module,exports){
-
-// this doesn't seem to work on iOS?
-exports.makeTablesNotBlockIfSafeToDoSo = function() {
-    // Tables which are narrower than their container look funny - this is caused by table
-    // css 'display' being set to 'block'. But this *is needed* when the table content is
-    // wider than the table's container. So conditionally set table display to 'table' if
-    // the table isn't as wide as its container. Result: things which need horizontal
-    // overflow scrolling still can do so, but things which don't need to scroll look
-    // so much better. (See the "San Francisco" article with and without this method for
-    // comparison.)
-    var tbodies = document.getElementsByTagName('TBODY');
-    for (var i = 0; i < tbodies.length; ++i) {
-        var tbody = tbodies[i];
-        var tbodyRect = tbody.getBoundingClientRect();
-        var parentRect = tbody.parentElement.getBoundingClientRect();
-        //var style = window.getComputedStyle(tbody);
-        if(tbodyRect.width < parentRect.width){
-            tbody.parentElement.style.float = "";
-            tbody.parentElement.style.margin = "";
-            tbody.parentElement.style.display = 'table';
-        }
-    }
-}
-
-// this *does* seem to work on ios
-// wrap wide tables in a <div style="overflow-x:auto">...</div>
-exports.putWideTablesInDivs = function() {
-    var tbodies = document.getElementsByTagName('TBODY');
-    for (var i = 0; i < tbodies.length; ++i) {
-        var tbody = tbodies[i];
-        var tbodyRect = tbody.getBoundingClientRect();
-        var parentRect = tbody.parentElement.getBoundingClientRect(); // this doesn't give a useful result, as parent is sized to the table?
-        //if(tbodyRect.width >= parentRect.width){
-            var table = tbody.parentElement;
-            var parent = table.parentElement;
-            var div = document.createElement( 'div' );
-            div.style.overflowX = 'auto';
-            parent.insertBefore( div, table );
-            var oldTable = parent.removeChild( table );
-            div.appendChild( oldTable );
-        //}
-    }
-}
-
-
-exports.reduceWeirdWebkitMargin = function() {
-    // See the "Tuna" article for tables having weird left margin. This removes it.
-    var dds = document.getElementsByTagName('DD');
-    for (var i = 0; i < dds.length; ++i) {
-        dds[i].style["-webkit-margin-start"] = "1px";
-    }
-}
-
-exports.allowDivWidthsToFlow = function() {
-    // See the "San Francisco" article for divs having weird margin issues. This fixes.
-    var divs = document.getElementsByTagName('div');
-    for (var i = 0; i < divs.length; ++i) {
-        divs[i].style.width = "";
-    }
-}
-
-exports.hideAudioTags = function() {
-    // The audio tag can't be completely hidden in css for some reason - need to clear its
-    // "controls" attribute for it to not display a "could not play audio" grey box.
-    var audio = document.getElementsByTagName('AUDIO');
-    for (var i = 0; i < audio.length; ++i) {
-        var thisAudio = audio[i];
-        thisAudio.controls = '';
-        thisAudio.style.display = 'none';
-    }
-}
-
-exports.tweakFilePage = function() {
-    var filetoc = document.getElementById( 'filetoc' );
+transformer.register( "disableFilePageEdit", function( content ) {
+    var filetoc = content.querySelector( '#filetoc' );
     if (filetoc) {
         // We're on a File: page! Do some quick hacks.
         // In future, replace entire thing with a custom view most of the time.
-        var content = document.getElementById( 'content' );
-        
         // Hide edit sections
         var editSections = content.querySelectorAll('.edit_section_button');
         for (var i = 0; i < editSections.length; i++) {
             editSections[i].style.display = 'none';
         }
-        
         var fullImageLink = content.querySelector('.fullImageLink a');
         if (fullImageLink) {
-            // Don't replace the a with a span, as it will break styles
+            // Don't replace the a with a span, as it will break styles.
             // Just disable clicking.
             // Don't disable touchstart as this breaks scrolling!
             fullImageLink.href = '';
@@ -571,6 +485,35 @@ exports.tweakFilePage = function() {
             } );
         }
     }
-}
+} );
 
-},{}]},{},[1,2,3,4,5,6,7,8])
+transformer.register( "hideAudioTags", function( content ) {
+    // The audio tag can't be completely hidden in css for some reason - need to clear its
+    // "controls" attribute for it to not display a "could not play audio" grey box.
+    var audios = content.querySelectorAll('audio');
+    for (var i = 0; i < audios.length; ++i) {
+        var audio = audios[i];
+        audio.controls = '';
+        audio.style.display = 'none';
+    }
+} );
+
+transformer.register( "overflowWideTables", function( content ) {
+    // Wrap tables in a <div style="overflow-x:auto">...</div>
+    var tables = content.querySelectorAll('table');
+    for (var i = 0; i < tables.length; ++i) {
+        var table = tables[i];
+        var parent = table.parentElement;
+        var div = document.createElement( 'div' );
+        div.style.overflowX = 'auto';
+        //div.style.borderWidth = '1px';
+        //div.style.borderStyle = 'solid';
+        //div.style.borderColor = '#00ff00';
+        parent.insertBefore( div, table );
+        var oldTable = parent.removeChild( table );
+        div.appendChild( oldTable );
+    }
+} );
+
+
+},{"./transformer":6}]},{},[1,2,3,4,5,6,7])
