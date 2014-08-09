@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
       }.mutableCopy
      ];
     
-    UIColor *grayColor = UIColorFromRGBWithAlpha(0x999999, 1.0);;
+    UIColor *grayColor = UIColorFromRGBWithAlpha(0x999999, 1.0);
     
     switch (self.alertType) {
         case ABUSE_FILTER_WARNING:

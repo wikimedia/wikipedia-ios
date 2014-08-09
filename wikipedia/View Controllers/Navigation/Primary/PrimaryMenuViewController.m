@@ -30,7 +30,8 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     PRIMARY_MENU_ITEM_RECENT,
     PRIMARY_MENU_ITEM_SAVEDPAGES,
     PRIMARY_MENU_ITEM_MORE,
-    PRIMARY_MENU_ITEM_TODAY
+    PRIMARY_MENU_ITEM_TODAY,
+    PRIMARY_MENU_ITEM_NEARBY
 };
 
 @interface PrimaryMenuViewController ()
@@ -86,7 +87,9 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 
 -(void)addTableHeaderView
 {
-    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 38)];
+    BOOL isThreePointFiveInchScreen = ((int)[UIScreen mainScreen].bounds.size.height == 480);
+    CGFloat topPadding = isThreePointFiveInchScreen ? 5 : 38;
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, topPadding)];
     header.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = header;
 }
@@ -164,6 +167,10 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
         @{
             @"title": MWLocalizedString(@"main-menu-random", nil),
             @"tag": @(PRIMARY_MENU_ITEM_RANDOM)
+        }.mutableCopy,
+        @{
+            @"title": MWLocalizedString(@"main-menu-nearby", nil),
+            @"tag": @(PRIMARY_MENU_ITEM_NEARBY)
         }.mutableCopy,
         @{
             @"title": MWLocalizedString(@"main-menu-show-history", nil),
@@ -282,6 +289,11 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
             break;
         case PRIMARY_MENU_ITEM_SAVEDPAGES:
             [self performModalSequeWithID: @"modal_segue_show_saved_pages"
+                          transitionStyle: UIModalTransitionStyleCoverVertical
+                                    block: nil];
+            break;
+        case PRIMARY_MENU_ITEM_NEARBY:
+            [self performModalSequeWithID: @"modal_segue_show_nearby"
                           transitionStyle: UIModalTransitionStyleCoverVertical
                                     block: nil];
             break;

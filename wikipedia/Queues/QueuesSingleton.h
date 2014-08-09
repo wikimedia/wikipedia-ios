@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSOperationQueue *pageHistoryQ;
 
 @property (strong, nonatomic) NSOperationQueue *assetsFileSyncQ;
+@property (strong, nonatomic) NSOperationQueue *nearbyQ;
 
 + (QueuesSingleton *)sharedInstance;
 

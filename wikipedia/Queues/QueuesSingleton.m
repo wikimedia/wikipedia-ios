@@ -33,6 +33,7 @@
         self.eventLoggingQ = [[NSOperationQueue alloc] init];
         self.pageHistoryQ = [[NSOperationQueue alloc] init];
         self.assetsFileSyncQ = [[NSOperationQueue alloc] init];
+        self.nearbyQ = [[NSOperationQueue alloc] init];
         //[self setupQMonitorLogging];
     }
     return self;

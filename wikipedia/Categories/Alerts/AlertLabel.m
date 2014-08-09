@@ -3,12 +3,6 @@
 
 #import "AlertLabel.h"
 
-@interface AlertLabel()
-
-@property (nonatomic) UIEdgeInsets paddingEdgeInsets;
-
-@end
-
 @implementation AlertLabel
 
 - (id)init
@@ -17,13 +11,13 @@
     if (self) {
         self.alpha = 0.0f;
 
-        self.paddingEdgeInsets = UIEdgeInsetsMake(1, 10, 1, 10);
+        self.padding = UIEdgeInsetsMake(1, 10, 1, 10);
 
         self.minimumScaleFactor = 0.2;
         self.font = [UIFont systemFontOfSize:10];
         self.textAlignment = NSTextAlignmentCenter;
         self.textColor = [UIColor darkGrayColor];
-        self.numberOfLines = 10;
+        self.numberOfLines = 0;
         self.lineBreakMode = NSLineBreakByWordWrapping;
         self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.9];
         self.userInteractionEnabled = YES;
@@ -75,27 +69,6 @@
     CGContextSetLineWidth(context, 1.0f / [UIScreen mainScreen].scale);
 
     CGContextStrokePath(context);
-}
-
-// Label padding edge insets! From: http://stackoverflow.com/a/21934948
-
--(void)drawTextInRect:(CGRect)rect {
-    return [super drawTextInRect:UIEdgeInsetsInsetRect(rect, self.paddingEdgeInsets)];
-}
-
--(CGSize)intrinsicContentSize {
-    UIEdgeInsets insets = self.paddingEdgeInsets;
-
-    // This needs to come before the call to super so the super call can take
-    // into account the padding. Needed because the padding can affect how many
-    // lines are being displayed, which can increase the intrinsicContentSize
-    // height.
-    self.preferredMaxLayoutWidth = self.bounds.size.width - (insets.left + insets.right);
-
-    CGSize contentSize = [super intrinsicContentSize];
-    contentSize.height += insets.top + insets.bottom;
-    contentSize.width += insets.left + insets.right;
-    return contentSize;
 }
 
 @end

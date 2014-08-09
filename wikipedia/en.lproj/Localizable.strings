@@ -108,6 +108,7 @@
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Mumbo jumbo";
 "main-menu-show-today" = "Today";
+"main-menu-nearby" = "Nearby";
 
 "saved-pages-title" = "Saved pages";
 "saved-pages-clear-confirmation-heading" = "Delete all saved items?";
@@ -216,3 +217,21 @@
 "menu-share-accessibility-label" = "Share";
 "menu-more-accessibility-label" = "More settings";
 "menu-trash-accessibility-label" = "Delete";
+
+"nearby-title" = "Nearby";
+"nearby-distance-label-meters" = "$1 meters";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-feet" = "$1 feet";
+"nearby-distance-label-miles" = "$1 miles";
+"nearby-pull-to-refresh-prompt" = "Pull to refresh";
+"nearby-pull-to-refresh-is-refreshing" = "Refreshing";
+"nearby-loading" = "Loading nearby articles...";
+"nearby-loaded" = "Nearby articles loaded";
+"nearby-none" = "No nearby articles found. Pull to refresh or try again later.";
+"nearby-open-in-maps" = "Open in Maps";
+"nearby-cancel" = "Cancel";
+"nearby-location-updates-denied" = "This app does not have permission to receive location updates.";
+"nearby-location-updates-enable" = "To enable location updates open the Settings App and select the following:";
+"nearby-location-updates-settings-menu" = "Privacy > Location Services > Wikipedia";
+"nearby-location-general-error" = "Unable to determine location. Pull to refresh or try again later.";
+"nearby-wifi" = "Enabling wifi can help your device better determine your location.";

@@ -1421,6 +1421,44 @@
             </objects>
             <point key="canvasLocation" x="-1137" y="-210"/>
         </scene>
+        <!--Nearby View Controller-->
+        <scene sceneID="Ngq-5d-7Fe">
+            <objects>
+                <viewController restorationIdentifier="NearbyViewController" storyboardIdentifier="NearbyViewController" id="O3D-bU-RYB" customClass="NearbyViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lWd-XW-AUQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="b0O-Y9-uxP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Y20-F2-l6h">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="UNM-cA-smO">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="O3D-bU-RYB" id="BIW-rD-Jnx"/>
+                                    <outlet property="delegate" destination="O3D-bU-RYB" id="DSy-mw-68t"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="b0O-Y9-uxP" firstAttribute="top" secondItem="UNM-cA-smO" secondAttribute="bottom" id="IL6-81-CYs"/>
+                            <constraint firstItem="UNM-cA-smO" firstAttribute="leading" secondItem="Y20-F2-l6h" secondAttribute="leading" id="NDE-yU-BsV"/>
+                            <constraint firstAttribute="trailing" secondItem="UNM-cA-smO" secondAttribute="trailing" id="OTa-9i-hcI"/>
+                            <constraint firstItem="UNM-cA-smO" firstAttribute="top" secondItem="Y20-F2-l6h" secondAttribute="top" id="kpx-2i-aeH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="UNM-cA-smO" id="1Cr-nz-7Ld"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mef-6q-1qK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-585" y="-3251"/>
+        </scene>
         <!--ReferenceVC-->
         <scene sceneID="oNi-7F-FeN">
             <objects>
@@ -1798,6 +1836,7 @@
                         <segue destination="LsX-JK-bT6" kind="custom" identifier="modal_segue_show_create_account" customClass="EmptySegue" id="FYS-KO-VcP"/>
                         <segue destination="Sst-9G-sfn" kind="custom" identifier="modal_segue_show_page_history" customClass="EmptySegue" id="XIR-ro-Nuv"/>
                         <segue destination="vqp-1K-wjM" kind="custom" identifier="modal_segue_show_languages" customClass="EmptySegue" id="4tK-6e-A2j"/>
+                        <segue destination="O3D-bU-RYB" kind="custom" identifier="modal_segue_show_nearby" customClass="EmptySegue" id="Npp-Oj-MXW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="41a-r2-anV" userLabel="First Responder" sceneMemberID="firstResponder"/>
