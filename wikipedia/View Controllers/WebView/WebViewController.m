@@ -1268,7 +1268,7 @@ typedef enum {
     [self hideKeyboard];
     
     // Show loading message
-    [self showAlert:MWLocalizedString(@"search-loading-section-zero", nil)];
+    //[self showAlert:MWLocalizedString(@"search-loading-section-zero", nil)];
 
     if (invalidateCache) [self invalidateCacheForPageTitle:title domain:domain];
     
@@ -1354,7 +1354,7 @@ typedef enum {
         // If article with sections just show them (unless needsRefresh is YES)
         if (article.section.count > 0 && !article.needsRefresh.boolValue) {
             [self displayArticle:articleID mode:DISPLAY_ALL_SECTIONS];
-            [self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil)];
+            //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil)];
             [self fadeAlert];
             return;
         }
@@ -1426,7 +1426,7 @@ typedef enum {
         }];
         
         [self displayArticle:articleID mode:DISPLAY_APPEND_NON_LEAD_SECTIONS];
-        [self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil)];
+        //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil)];
         [self fadeAlert];
 
     } cancelledBlock:^(NSError *error){
@@ -1581,7 +1581,7 @@ typedef enum {
         }];
 
         [self displayArticle:articleID mode:DISPLAY_LEAD_SECTION];
-        [self showAlert:MWLocalizedString(@"search-loading-section-remaining", nil)];
+        //[self showAlert:MWLocalizedString(@"search-loading-section-remaining", nil)];
 
     } cancelledBlock:^(NSError *error){
 
