@@ -169,3 +169,14 @@
 "abuse-filter-disallow-heading" = "Вы не можете сохранить эту правку. Пожалуйста, вернитесь назад и измените её.";
 "abuse-filter-disallow-unconstructive" = "Автоматизированный фильтр определил эту правку как потенциально деструктивную или как попытку вандализма.";
 "abuse-filter-disallow-notable" = "Википедия — это энциклопедия, и здесь допустимо только нейтральное и значимое содержимое.";
+"menu-edit-accessibility-label" = "Править";
+"menu-close-accessibility-label" = "Закрыть";
+"menu-preview-accessibility-label" = "Предпросмотр";
+"menu-back-accessibility-label" = "Назад";
+"menu-forward-accessibility-label" = "Вперёд";
+"menu-w-accessibility-label" = "Меню";
+"menu-toc-accessibility-label" = "Содержание";
+"menu-search-accessibility-label" = "Поиск";
+"menu-cancel-accessibility-label" = "Отмена";
+"menu-share-accessibility-label" = "Поделиться";
+"menu-more-accessibility-label" = "Дополнительные параметры";

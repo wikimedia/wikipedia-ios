@@ -139,3 +139,13 @@
 "license-footer-text" = "El contingut està disponible sota $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Continguts";
+"menu-edit-accessibility-label" = "Edita";
+"menu-close-accessibility-label" = "Tanca";
+"menu-preview-accessibility-label" = "Vista prèvia";
+"menu-back-accessibility-label" = "Enrere";
+"menu-forward-accessibility-label" = "Endavant";
+"menu-w-accessibility-label" = "Menú";
+"menu-toc-accessibility-label" = "Contingut";
+"menu-search-accessibility-label" = "Cerca";
+"menu-cancel-accessibility-label" = "Cancel·la";
+"menu-share-accessibility-label" = "Comparteix";

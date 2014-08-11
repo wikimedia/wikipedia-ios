@@ -173,3 +173,14 @@
 "abuse-filter-disallow-heading" = "Du kan inte spara denna redigering. Gå tillbaka och ändra den.";
 "abuse-filter-disallow-unconstructive" = "Ett automatiskt filter har identifierat denna redigering som potentiellt icke-konstruktivt eller ett försök till vandalism.";
 "abuse-filter-disallow-notable" = "Wikipedia är ett uppslagsverk och bara neutralt anmärkningsvärt innehåll hör hemma här.";
+"menu-edit-accessibility-label" = "Redigera";
+"menu-close-accessibility-label" = "Stäng";
+"menu-preview-accessibility-label" = "Förhandsvisa";
+"menu-back-accessibility-label" = "Tillbaka";
+"menu-forward-accessibility-label" = "Framåt";
+"menu-w-accessibility-label" = "Meny";
+"menu-toc-accessibility-label" = "Innehåll";
+"menu-search-accessibility-label" = "Sök";
+"menu-cancel-accessibility-label" = "Avbryt";
+"menu-share-accessibility-label" = "Dela";
+"menu-more-accessibility-label" = "Fler inställningar";

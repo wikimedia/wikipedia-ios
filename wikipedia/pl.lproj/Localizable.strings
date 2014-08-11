@@ -4,6 +4,7 @@
 // Author: Chrumps
 // Author: Jacenty359
 // Author: Pio387
+// Author: Ty221
 // Author: Wiochman
 
 "article-languages-label" = "Wybierz język";
@@ -105,3 +106,6 @@
 "abuse-filter-warning-repeat" = "Powtaaaarzanie znaków";
 "abuse-filter-disallow-heading" = "Nie możesz zapisać tej edycji. Wróć i popraw ją.";
 "abuse-filter-disallow-unconstructive" = "Zautomatyzowany filtr rozpoznał tę edycję jako potencjalnie niekonstruktywną albo próbę wandalizmu";
+"menu-back-accessibility-label" = "Cofnij";
+"menu-w-accessibility-label" = "Menu";
+"menu-cancel-accessibility-label" = "Anuluj";

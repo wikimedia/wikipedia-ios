@@ -171,3 +171,14 @@
 "abuse-filter-disallow-heading" = "אין באפשרותך לשמור את העריכה הזאת. נא לחזור ולשנות אותה.";
 "abuse-filter-disallow-unconstructive" = "מסנן אוטומטי זיהה את העריכה הזאת בתור בלתי־מועילה או בתור ניסיון השחתה.";
 "abuse-filter-disallow-notable" = "ויקיפדיה היא אנציקלופדיה ורק תוכן מאוזן ובעל־חשיבות שייך אליה.";
+"menu-edit-accessibility-label" = "עריכה";
+"menu-close-accessibility-label" = "סגירה";
+"menu-preview-accessibility-label" = "תצוגה מקדימה";
+"menu-back-accessibility-label" = "חזרה";
+"menu-forward-accessibility-label" = "קדימה";
+"menu-w-accessibility-label" = "תפריט";
+"menu-toc-accessibility-label" = "תוכן עניינים";
+"menu-search-accessibility-label" = "חיפוש";
+"menu-cancel-accessibility-label" = "ביטול";
+"menu-share-accessibility-label" = "שיתוף";
+"menu-more-accessibility-label" = "הגדרות נוספות";

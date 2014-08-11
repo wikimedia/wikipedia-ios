@@ -150,3 +150,12 @@
 "abuse-filter-warning-subheading" = "E-barzh hoc'h aozadenn e c'hall bezañ unan eus an elfennoù-mañ :";
 "abuse-filter-warning-caps" = "Testenn e PENNLIZHERENNOÙ";
 "abuse-filter-warning-repeat" = "Arouezennoù adskriiiiivet";
+"menu-edit-accessibility-label" = "Kemmañ";
+"menu-close-accessibility-label" = "Serriñ";
+"menu-preview-accessibility-label" = "Rakwelet";
+"menu-back-accessibility-label" = "Distreiñ";
+"menu-forward-accessibility-label" = "Treuzkas";
+"menu-w-accessibility-label" = "Lañser";
+"menu-search-accessibility-label" = "Klask";
+"menu-cancel-accessibility-label" = "Nullañ";
+"menu-share-accessibility-label" = "Rannañ";

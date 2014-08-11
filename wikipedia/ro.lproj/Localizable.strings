@@ -90,7 +90,7 @@
 "main-menu-send-feedback" = "Trimitere părere despre aplicație";
 "main-menu-show-page-history" = "Istoricul modificărilor pentru $1";
 "main-menu-credits" = "Credite";
-"main-menu-zero-faq" = "FAQ Wikipedia Zero";
+"main-menu-zero-faq" = "Într. frecv. Wikipedia Zero";
 "main-menu-privacy-policy" = "Politica de confidențialitate";
 "main-menu-terms-of-use" = "Termeni de utilizare";
 "main-menu-rate-app" = "Evaluează aplicația";
@@ -169,3 +169,14 @@
 "abuse-filter-disallow-heading" = "Nu puteți salva această modificare. Mergeți înapoi și schimbați-o.";
 "abuse-filter-disallow-unconstructive" = "Un filtru automat a identificat această modificare ca potențial neconstructivă sau ca fiind o tentativă de vandalism.";
 "abuse-filter-disallow-notable" = "Wikipedia este o enciclopedie și acceptă doar conținut neutru și notabil.";
+"menu-edit-accessibility-label" = "Modificare";
+"menu-close-accessibility-label" = "Închide";
+"menu-preview-accessibility-label" = "Previzualizare";
+"menu-back-accessibility-label" = "Înapoi";
+"menu-forward-accessibility-label" = "Înainte";
+"menu-w-accessibility-label" = "Meniu";
+"menu-toc-accessibility-label" = "Cuprins";
+"menu-search-accessibility-label" = "Căutare";
+"menu-cancel-accessibility-label" = "Revocare";
+"menu-share-accessibility-label" = "Distribuie";
+"menu-more-accessibility-label" = "Mai multe setări";

@@ -1,8 +1,10 @@
 // Messages for Traditional Chinese (中文（繁體）‎)
 // Exported from translatewiki.net
+// Author: Cathypilot0117
 // Author: Kc kennylau
 // Author: LNDDYL
 // Author: Liuxinyu970226
+// Author: Mikepanhu
 // Author: Simon Shek
 
 "article-languages-label" = "選擇語言";
@@ -16,13 +18,11 @@
 "history-section-lastweek" = "上週";
 "history-section-lastmonth" = "上月";
 "zero-free-verbiage" = "從閣下的電話公司免費存取維基百科（不需要支出資料費用)";
-// Fuzzy
-"zero-charged-verbiage" = "Wikipedia Zero已被關掉（可能要付標準資料費用）";
+"zero-charged-verbiage" = "Wikipedia Zero 已關閉";
 "zero-charged-verbiage-extended" = "載入其他條目將可能產生資料費用。已存儲條目會離線存儲並且免除資料費用。";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "離開Wikipedia Zero";
-// Fuzzy
-"zero-interstitial-leave-app" = "確定要存取外部網站嗎？可能要付標準資料費用。";
+"zero-interstitial-leave-app" = "可能產生數據資料費用。要繼續前往外部網站嗎？";
 "zero-interstitial-continue" = "離開";
 "zero-interstitial-cancel" = "留在這裡";
 "zero-learn-more" = "此維基百科應用程式可免除資料費用。";
@@ -30,6 +30,7 @@
 "zero-learn-more-no-thanks" = "取消";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "離開Wikipedia Zero時提示";
+"zero-settings-devmode" = "Zero 開發模式";
 "account-creation-captcha-required" = "驗證碼校驗錯誤。";
 "account-creation-captcha-obtaining" = "正在獲取一個新的驗證碼。";
 "account-creation-logging-in" = "登入中...";
@@ -104,9 +105,7 @@
 "page-history-title" = "頁面歷史";
 "page-history-downloading" = "正在載入頁面歷史……";
 "navbar-title-mode-edit-wikitext" = "編輯";
-// Fuzzy
 "navbar-title-mode-login" = "登入";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "登入並儲存";
 "navbar-title-mode-create-account" = "建立帳號";
 "navbar-title-mode-create-account-and-save" = "建立帳號並儲存";
@@ -174,3 +173,14 @@
 "abuse-filter-disallow-heading" = "您無法存儲此編輯。請返回並修改它。";
 "abuse-filter-disallow-unconstructive" = "自動篩選器已確定此編輯可能不具建設性或企圖破壞。";
 "abuse-filter-disallow-notable" = "維基百科是一本百科全書，這裏只接受中立的、 知名的內容。";
+"menu-edit-accessibility-label" = "修改";
+"menu-close-accessibility-label" = "關閉";
+"menu-preview-accessibility-label" = "預覽";
+"menu-back-accessibility-label" = "上一頁";
+"menu-forward-accessibility-label" = "轉發";
+"menu-w-accessibility-label" = "清單";
+"menu-toc-accessibility-label" = "內容";
+"menu-search-accessibility-label" = "搜尋";
+"menu-cancel-accessibility-label" = "取消";
+"menu-share-accessibility-label" = "分享";
+"menu-more-accessibility-label" = "更多設定";

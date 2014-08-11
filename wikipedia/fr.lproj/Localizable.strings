@@ -174,3 +174,14 @@
 "abuse-filter-disallow-heading" = "Vous ne pouvez pas enregistrer cette modification. Veuillez revenir en arrière et la modifier.";
 "abuse-filter-disallow-unconstructive" = "Un filtre automatique a identifié cette modification comme potentiellement non constructive, ou comme une tentative de vandalisme.";
 "abuse-filter-disallow-notable" = "Wikipédia est une encyclopédie et seul du contenu neutre et de valeur y a sa place.";
+"menu-edit-accessibility-label" = "Modifier";
+"menu-close-accessibility-label" = "Fermer";
+"menu-preview-accessibility-label" = "Aperçu";
+"menu-back-accessibility-label" = "Retour";
+"menu-forward-accessibility-label" = "Suivant";
+"menu-w-accessibility-label" = "Menu";
+"menu-toc-accessibility-label" = "Contenu";
+"menu-search-accessibility-label" = "Rechercher";
+"menu-cancel-accessibility-label" = "Annuler";
+"menu-share-accessibility-label" = "Partager";
+"menu-more-accessibility-label" = "Plus de paramètres";
