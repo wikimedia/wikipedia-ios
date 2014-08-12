@@ -10,7 +10,6 @@
 
 @property (nonatomic, assign, getter = isOperationStarted) BOOL operationStarted;
 @property (strong, nonatomic) NSURLConnection *connection;
-@property (strong, nonatomic) NSURLResponse *response;
 @property (copy, readwrite) NSNumber *bytesWritten;
 @property (copy, readwrite) NSNumber *bytesExpectedToWrite;
 
@@ -182,6 +181,29 @@
     self.dataRetrievedExpectedLength = (NSUInteger)[response expectedContentLength];
 
     self.response = response;
+}
+
+-(void)setResponse:(NSURLResponse *)response
+{
+    _response = response;
+    
+    [self failIfBadHTTPStatusCode];
+}
+
+-(void)failIfBadHTTPStatusCode
+{
+    if (!self.response) return;
+    
+    // If the response is a server or client error finish with an error.
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)self.response;
+    NSInteger code = httpResponse.statusCode;
+    if ((code >= 400) && (code <= 499)) {
+        [self finishWithError:[NSString stringWithFormat:@"Client error. HTTP Status Code %ld", (long)code]];
+    }else if ((code >= 500) && (code <= 599)) {
+        [self finishWithError:[NSString stringWithFormat:@"Server error. HTTP Status Code %ld", (long)code]];
+    }
+    //NSLog(@"responseStatusCode = %ld", (long)code);
+    //NSLog(@"allHeaderFields = %@", httpResponse.allHeaderFields);
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection

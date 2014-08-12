@@ -35,12 +35,11 @@
         self.completionBlock = ^(){
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             
-            if(weakSelf.isCancelled){
-                return;
-            }
-            
-            if (weakSelf.error) {
-                return;
+            if (weakSelf.isCancelled || weakSelf.error) return;
+
+            if (weakSelf.response) {
+                // Make extra sure that weird responses don't get written.
+                if (((NSHTTPURLResponse *)weakSelf.response).statusCode != 200) return;
             }
 
             // If it got this far, then a refresh was needed and has completed.
