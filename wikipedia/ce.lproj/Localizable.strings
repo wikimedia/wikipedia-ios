@@ -80,3 +80,12 @@
 "abuse-filter-disallow-heading" = "Хьуна цало хӀара нисдар Ӏалашдан. Дехар до, юху гӀой хийца и.";
 "abuse-filter-disallow-unconstructive" = "Авто-литтаро билгалдина хӀара нисдар зуламе.";
 "abuse-filter-disallow-notable" = "Википеди — хӀара ю энциклопеди, кхузахь чулацам нейтральни хила беза.";
+"menu-edit-accessibility-label" = "Тае";
+"menu-close-accessibility-label" = "ДӀачӀагӀа";
+"menu-preview-accessibility-label" = "Хьалха муха ю хьажа";
+"menu-back-accessibility-label" = "Юха";
+"menu-forward-accessibility-label" = "Хьалха";
+"menu-w-accessibility-label" = "Меню";
+"menu-toc-accessibility-label" = "Чулацам";
+"menu-cancel-accessibility-label" = "Цаоьшу";
+"menu-share-accessibility-label" = "Екха";

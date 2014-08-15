@@ -43,7 +43,7 @@
 "login-name-illegal" = "Forneceu um nome de utilizador ilegal.";
 "login-name-does-not-exist" = "O nome de utilizador que forneceu não existe.";
 "login-password-empty" = "A palavra-passe é necessária para iniciar sessão.";
-"login-password-wrong" = "A palavra-chave que forneceu está incorreta.";
+"login-password-wrong" = "A palavra-passe que forneceu está incorreta.";
 "login-throttled" = "Iniciou a sessão demasiadas vezes num curto espaço de tempo.";
 "login-user-blocked" = "O utilizador está bloqueado.";
 "login-account-creation" = "Não tem ainda uma conta? Junte-se à Wikipédia.";
@@ -134,8 +134,8 @@
 "credits-gerrit-repo" = "Rep. principal da aplicação (Gerrit)";
 "credits-github-mirror" = "Mirror da aplicação (GitHub)";
 "credits-external-libraries" = "Externo";
-"share-menu-save-page" = "Gravar página";
-"share-menu-page-saved" = "Página gravada";
+"share-menu-save-page" = "Guardar página";
+"share-menu-page-saved" = "Página guardada";
 "timestamp-just-now" = "agora mesmo";
 "timestamp-minutes" = "há %d minutos";
 "timestamp-hours" = "há %d horas";
@@ -160,8 +160,8 @@
 "page_protected_other" = "Esta página está protegida para os seguintes níveis: $1";
 "page_protected_can_not_edit" = "Não tem permissão para editar esta página";
 "page_protected_can_not_edit_title" = "Esta página está protegida";
-"license-footer-text" = "Conteúdo disponível sob $1";
-"license-footer-name" = "CC-BY-SA 3.0";
+"license-footer-text" = "Conteúdo disponível sob a licença $1";
+"license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Índice";
 "abuse-filter-warning-heading" = "Esta edição poderá não ser construtiva. Tem a certeza que pretende gravá-la?";
 "abuse-filter-warning-subheading" = "A sua edição pode conter um ou mais dos seguintes erros:";
@@ -172,3 +172,14 @@
 "abuse-filter-disallow-heading" = "Não pode gravar esta edição. Por favor, volte atrás e altere-a.";
 "abuse-filter-disallow-unconstructive" = "Um filtro automatizado identificou esta edição como sendo potencialmente inconstrutiva ou uma tentativa de vandalismo.";
 "abuse-filter-disallow-notable" = "A Wikipédia é uma enciclopédia exclusivamente neutra, conteúdo notório pertence aqui.";
+"menu-edit-accessibility-label" = "Editar";
+"menu-close-accessibility-label" = "Fechar";
+"menu-preview-accessibility-label" = "Antevisão";
+"menu-back-accessibility-label" = "Voltar";
+"menu-forward-accessibility-label" = "Seguinte";
+"menu-w-accessibility-label" = "Menu";
+"menu-toc-accessibility-label" = "Índice";
+"menu-search-accessibility-label" = "Pesquisar";
+"menu-cancel-accessibility-label" = "Cancelar";
+"menu-share-accessibility-label" = "Partilhar";
+"menu-more-accessibility-label" = "Mais configurações";

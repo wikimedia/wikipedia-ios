@@ -169,3 +169,14 @@
 "abuse-filter-disallow-heading" = "Nun pues guardar esta edición. Por favor vuelvi atrás y cámbiala.";
 "abuse-filter-disallow-unconstructive" = "Un filtru automático identificó esta edición como potencialmente non constructiva o como intentu de vandalismu.";
 "abuse-filter-disallow-notable" = "Wikipedia ye una enciclopedia y sólo cabe equí el conteníu neutral y notable.";
+"menu-edit-accessibility-label" = "Editar";
+"menu-close-accessibility-label" = "Zarrar";
+"menu-preview-accessibility-label" = "Vista previa";
+"menu-back-accessibility-label" = "Anterior";
+"menu-forward-accessibility-label" = "Siguiente";
+"menu-w-accessibility-label" = "Menú";
+"menu-toc-accessibility-label" = "Conteníu";
+"menu-search-accessibility-label" = "Guetar";
+"menu-cancel-accessibility-label" = "Encaboxar";
+"menu-share-accessibility-label" = "Compartir";
+"menu-more-accessibility-label" = "Más axustes";

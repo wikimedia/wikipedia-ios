@@ -77,7 +77,7 @@
 "search-loading-article-loaded" = "文章已加载。";
 "search-cancel" = "取消";
 "main-menu-title" = "更多";
-"main-menu-language-title" = "搜索$1语维基";
+"main-menu-language-title" = "搜索$1语维基百科";
 "main-menu-language-toggle-show" = "显示语言";
 "main-menu-language-toggle-hide" = "隐藏语言";
 "main-menu-language-selection-saved" = "语言选择已保存";
@@ -173,3 +173,14 @@
 "abuse-filter-disallow-heading" = "您不能保存此编辑。请返回重试。";
 "abuse-filter-disallow-unconstructive" = "自动过滤器已认定此编辑可能不具建设性或存在破坏企图。";
 "abuse-filter-disallow-notable" = "维基百科是一部百科全书，这里只接受中立、有关注度的内容。";
+"menu-edit-accessibility-label" = "编辑";
+"menu-close-accessibility-label" = "关闭";
+"menu-preview-accessibility-label" = "预览";
+"menu-back-accessibility-label" = "返回";
+"menu-forward-accessibility-label" = "前进";
+"menu-w-accessibility-label" = "菜单";
+"menu-toc-accessibility-label" = "内容";
+"menu-search-accessibility-label" = "搜索";
+"menu-cancel-accessibility-label" = "取消";
+"menu-share-accessibility-label" = "分享";
+"menu-more-accessibility-label" = "更多设置";

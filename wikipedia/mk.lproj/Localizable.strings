@@ -170,3 +170,14 @@
 "abuse-filter-disallow-heading" = "Не можете да го зачувате уредувањево. Вратете се и изменето го.";
 "abuse-filter-disallow-unconstructive" = "Автоматски филтер утврди дека ова урадување е потенцијално неконструктивно или претставува обид за вандализам.";
 "abuse-filter-disallow-notable" = "Википедија е енциклопедија, што значи дека тука припаѓаат само неутрални и значајни содржини.";
+"menu-edit-accessibility-label" = "Уреди";
+"menu-close-accessibility-label" = "Затвори";
+"menu-preview-accessibility-label" = "Преглед";
+"menu-back-accessibility-label" = "Назад";
+"menu-forward-accessibility-label" = "Напред";
+"menu-w-accessibility-label" = "Мени";
+"menu-toc-accessibility-label" = "Содржина";
+"menu-search-accessibility-label" = "Пребарај";
+"menu-cancel-accessibility-label" = "Откажи";
+"menu-share-accessibility-label" = "Сподели";
+"menu-more-accessibility-label" = "Повеќе поставки";

@@ -174,3 +174,14 @@
 "abuse-filter-disallow-heading" = "U kunt deze bewerking niet opslaan. Ga terug en pas het aan.";
 "abuse-filter-disallow-unconstructive" = "Een geautomatiseerd filter heeft deze bewerking gemarkeerd als onconstructief of vandalistisch.";
 "abuse-filter-disallow-notable" = "Wikipedia is een encylopedie en alleen neutrale relevante inhoud is hier toegestaan.";
+"menu-edit-accessibility-label" = "Bewerken";
+"menu-close-accessibility-label" = "Sluiten";
+"menu-preview-accessibility-label" = "Voorvertoning";
+"menu-back-accessibility-label" = "Terug";
+"menu-forward-accessibility-label" = "Volgende";
+"menu-w-accessibility-label" = "Menu";
+"menu-toc-accessibility-label" = "Inhoud";
+"menu-search-accessibility-label" = "Zoeken";
+"menu-cancel-accessibility-label" = "Annuleer";
+"menu-share-accessibility-label" = "Delen";
+"menu-more-accessibility-label" = "Meer instellingen";

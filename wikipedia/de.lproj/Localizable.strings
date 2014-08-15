@@ -170,3 +170,14 @@
 "abuse-filter-disallow-heading" = "Du kannst diese Bearbeitung nicht speichern. Bitte gehe zurück und ändere sie ab.";
 "abuse-filter-disallow-unconstructive" = "Ein automatischer Filter hat diese Bearbeitung als potenziell unkonstruktiv oder als Vandalismusversuch identifiziert.";
 "abuse-filter-disallow-notable" = "Wikipedia ist eine Enzyklopädie. Nur neutraler und relevanter Inhalt gehört hierher.";
+"menu-edit-accessibility-label" = "Bearbeiten";
+"menu-close-accessibility-label" = "Schließen";
+"menu-preview-accessibility-label" = "Vorschau";
+"menu-back-accessibility-label" = "Zurück";
+"menu-forward-accessibility-label" = "Vor";
+"menu-w-accessibility-label" = "Menü";
+"menu-toc-accessibility-label" = "Inhalte";
+"menu-search-accessibility-label" = "Suchen";
+"menu-cancel-accessibility-label" = "Abbrechen";
+"menu-share-accessibility-label" = "Teilen";
+"menu-more-accessibility-label" = "Weitere Einstellungen";

@@ -142,3 +142,11 @@
 "page_protected_can_not_edit_title" = "Tämä sivu on suojattu";
 "license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti.";
 "table-of-contents-heading" = "Sisällys";
+"menu-edit-accessibility-label" = "Muokkaa";
+"menu-close-accessibility-label" = "Sulje";
+"menu-preview-accessibility-label" = "Esikatsele";
+"menu-back-accessibility-label" = "Takaisin";
+"menu-toc-accessibility-label" = "Sisällys";
+"menu-search-accessibility-label" = "Hae";
+"menu-cancel-accessibility-label" = "Peru";
+"menu-share-accessibility-label" = "Jaa";
