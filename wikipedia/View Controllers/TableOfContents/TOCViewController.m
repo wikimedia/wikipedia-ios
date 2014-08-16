@@ -2,37 +2,30 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "TOCViewController.h"
-#import "ArticleDataContextSingleton.h"
-#import "NSManagedObjectContext+SimpleFetch.h"
-#import "ArticleCoreDataObjects.h"
-#import "Article+Convenience.h"
 #import "TOCSectionCellView.h"
 #import "WebViewController.h"
 #import "UIWebView+ElementLocation.h"
-#import "UIView+Debugging.h"
-#import "SessionSingleton.h"
 #import "UIView+RemoveConstraints.h"
 #import "WikipediaAppUtils.h"
 #import "Section+LeadSection.h"
-#import "NSString+FormattedAttributedString.h"
-#import "NSString+Extras.h"
+#import "Section+TOC.h"
+//#import "UIView+Debugging.h"
 
-#define TOC_SECTION_MARGIN 0 //(1.0f / [UIScreen mainScreen].scale)
 #define TOC_SELECTION_OFFSET_Y 48.0f
-#define TOC_DELAY_BETWEEN_SELECTION_AND_ZOOM 0.35f
-#define TOC_TAG_OTHER_LANGUAGES 9999
-
-#define TOC_SELECTION_SCROLL_DURATION 0.2
-
-#define TOC_SUBSECTION_INDENT 6 //15
+#define TOC_SELECTION_SCROLL_DURATION 0.23
+#define TOC_SUBSECTION_INDENT 6
 
 @interface TOCViewController (){
 
 }
 
-@property (strong, nonatomic) NSMutableArray *sectionCells;
+@property (strong, nonatomic) NSArray *sectionCells;
 
-@property (strong, nonatomic) IBOutlet UIView *scrollContainer;
+@property (strong, nonatomic) UIView *scrollContainer;
+
+@property (strong, nonatomic) NSArray *tocSectionData;
+
+@property (strong, nonatomic) ToCInteractionFunnel *funnel;
 
 @end
 
@@ -40,30 +33,33 @@
 
 #pragma mark View lifecycle
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.tocSectionData = @[];
+        self.sectionCells = @[];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.funnel = [[ToCInteractionFunnel alloc] init];
+    self.view.hidden = YES;
 
-    self.sectionCells = @[].mutableCopy;
+    self.funnel = [[ToCInteractionFunnel alloc] init];
 
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
 
-    self.view.translatesAutoresizingMaskIntoConstraints = NO;
-
+    self.scrollContainer = nil;
     self.navigationItem.hidesBackButton = YES;
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tocTapped:)];
     [self.view addGestureRecognizer:tap];
-
-    [self constrainScrollContainerWidth];
-    
-    self.scrollContainer.translatesAutoresizingMaskIntoConstraints = NO;
-
-    self.scrollContainer.backgroundColor = [UIColor clearColor];
     
     // Adjust scrollview content inset when contentSize changes so bottom entry can be scrolled to top.
     [self.scrollView addObserver: self
@@ -71,7 +67,6 @@
                          options: NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial
                          context: nil];
 
-    [self refreshForCurrentArticle];
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
@@ -80,18 +75,36 @@
     return YES;
 }
 
--(void)viewWillDisappear:(BOOL)animated
+-(void)didHide
 {
     [self.funnel logClose];
-
+    
+    self.scrollView.scrollsToTop = NO;
     self.webVC.webView.scrollView.scrollsToTop = YES;
-
-    [super viewWillDisappear:animated];
+    
+    self.view.hidden = YES;
 }
 
--(void)viewDidAppear:(BOOL)animated
+-(void)willShow
 {
-    [super viewDidAppear:animated];
+    self.view.hidden = NO;
+    
+    // First set offset to zero - needed if toc opened and devices rotates causing toc
+    // to close. If the toc is then opened in new orientation (and the toc had lots of
+    // items and one near the end had been selected) it has trouble moving the selected
+    // section to the top if offset not zeroed out first.
+    self.scrollView.contentOffset = CGPointZero;
+
+    // Ensure cell ancestor views are sized to whatever width the toc happens to be.
+    [self.view setNeedsLayout];
+    [self.scrollView setNeedsLayout];
+    [self.scrollContainer setNeedsLayout];
+    [self.view layoutIfNeeded];
+    // Ensure the cells are sized to whatever width the toc happens to be.
+    [[self.sectionCells copy] makeObjectsPerformSelector:@selector(layoutIfNeeded)];
+
+    // Now move selected item to top.
+    [self centerCellForWebViewTopMostSectionAnimated:NO];
 
     self.scrollView.scrollsToTop = YES;
     self.webVC.webView.scrollView.scrollsToTop = NO;
@@ -103,122 +116,124 @@
 
 -(void)refreshForCurrentArticle
 {
+    //NSLog(@"%f", CACurrentMediaTime() - begin);
+
     self.scrollView.delegate = nil;
 
-    [self.scrollContainer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-
-    [self.sectionCells removeAllObjects];
+    // Set up the scrollContainer fresh every time!
+    [self setupScrollContainer];
 
     [self setupSectionCells];
-
-    for (TOCSectionCellView *cell in self.sectionCells) {
+    
+    for (TOCSectionCellView *cell in [self.sectionCells copy]) {
         [self.scrollContainer addSubview:cell];
     }
+    
+    // Ensure the scrollContainer is scrolled to the top before its sub-views are constrained.
+    self.scrollView.contentOffset = CGPointMake(0, 0);
 
-    if (self.sectionCells.count == 0) return;
+    [self.view setNeedsUpdateConstraints];
     
     // Don't start monitoring scrollView scrolling until view has appeared.
     self.scrollView.delegate = self;
+
+    //CFTimeInterval begin = CACurrentMediaTime();
+}
+
+-(void)setupScrollContainer
+{
+    if (self.scrollContainer) {
+        [self.scrollContainer removeConstraintsOfViewFromView:self.scrollContainer.superview];
+        [self.scrollContainer removeFromSuperview];
+    }
+
+    self.scrollContainer = [[UIView alloc] init];
+    self.scrollContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    self.scrollContainer.opaque = YES;
+
+    NSDictionary *views = @{@"scrollContainer": self.scrollContainer};
+    [self.scrollView addSubview:self.scrollContainer];
+    
+    [self.scrollContainer.superview addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat: @"H:|[scrollContainer]|"
+                                             options: 0
+                                             metrics: nil
+                                               views: views]];
+
+    [self.scrollContainer.superview addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat: @"V:|[scrollContainer]|"
+                                             options: 0
+                                             metrics: nil
+                                               views: views]];
+    
+    // "constant" is -1.0 to ensure the container width never exceeds the scroll view's width.
+    // This prevents horizontal scrolling within the toc.
+    [self.scrollContainer.superview addConstraint:
+     [NSLayoutConstraint constraintWithItem: self.scrollContainer
+                                  attribute: NSLayoutAttributeWidth
+                                  relatedBy: NSLayoutRelationEqual
+                                     toItem: self.scrollContainer.superview
+                                  attribute: NSLayoutAttributeWidth
+                                 multiplier: 1.0
+                                   constant: -(1.0f / [UIScreen mainScreen].scale)]];
+}
+
+-(void)updateViewConstraints
+{
+    [super updateViewConstraints];
+    [self constrainSectionCells];
 }
 
 -(void)setupSectionCells
 {
-    NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
-    NSString *currentArticleDomain = [SessionSingleton sharedInstance].currentArticleDomain;
-    if(currentArticleTitle && currentArticleDomain) {
-        ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
-        [articleDataContext_.mainContext performBlockAndWait:^{
-            NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: currentArticleTitle
-                                                                                          domain: currentArticleDomain];
+    NSMutableArray *allCells = @[].mutableCopy;
 
-            BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
 
-            if (articleID) {
-                Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-                if (article) {
-                    // Get section ids.
-                    NSArray *sections = [article getSectionsUsingContext:articleDataContext_.mainContext];
-                    for (Section *section in sections) {
-                        
-                        NSNumber *tag = section.sectionId;
-                        NSNumber *isLead = @([section isLeadSection]);
-                        NSNumber *sectionLevel = section.tocLevel;
-                        id title = [self getTitleForSection:section];
-                        UIEdgeInsets padding = UIEdgeInsetsZero;
-                        
-                        TOCSectionCellView *cell = [[TOCSectionCellView alloc] initWithLevel:sectionLevel.integerValue isLead:isLead.boolValue isRTL:isRTL];
-                        
-                        if (isLead.boolValue) {
-                            // Use attributed title only for lead section to add "CONTENTS" text above the title.
-                            cell.attributedText = title;
-
-                            CGFloat topPadding = 37;
-                            CGFloat leadingPadding = 12;
-                            CGFloat bottomPadding = 14;
-                            CGFloat trailingPadding = 10;
-
-                            padding = UIEdgeInsetsMake(topPadding, leadingPadding, bottomPadding, trailingPadding);
-                            
-                        }else{
-                            // Faster to not use attributed string for non-lead sections.
-                            cell.text = title;
-
-                            // Indent subsections, but only first 3 levels.
-                            NSInteger tocLevelToUse = ((sectionLevel.integerValue - 1) < 0) ? 0 : sectionLevel.integerValue - 1;
-                            tocLevelToUse = MIN(tocLevelToUse, 3);
-                            CGFloat indent = TOC_SUBSECTION_INDENT;
-                            indent = 12 + (tocLevelToUse * indent);
-
-                            CGFloat vPadding = 16;
-                            CGFloat hPadding = 10;
-
-                            padding = UIEdgeInsetsMake(vPadding, indent, vPadding, hPadding);
-
-                        }
-                        cell.padding = padding;
-                        cell.tag = tag.integerValue;
-                        
-                        [self.sectionCells addObject:cell];
-                    }
-                }
-            }
-        }];
+    for (NSDictionary *sectionData in [self.tocSectionData copy]) {
+        
+        NSNumber *tag = sectionData[@"id"];
+        NSNumber *isLeadNumber = sectionData[@"isLead"];
+        BOOL isLead = isLeadNumber.boolValue;
+        NSNumber *sectionLevel = sectionData[@"level"];
+        id title = sectionData[@"title"];
+        
+        UIEdgeInsets padding = UIEdgeInsetsZero;
+        
+        TOCSectionCellView *cell = [[TOCSectionCellView alloc] initWithLevel:sectionLevel.integerValue isLead:isLead isRTL:isRTL];
+        
+        if (isLead) {
+            // Use attributed title only for lead section to add "CONTENTS" text above the title.
+            cell.attributedText = title;
+            
+            CGFloat topPadding = 37;
+            CGFloat leadingPadding = 12;
+            CGFloat bottomPadding = 14;
+            CGFloat trailingPadding = 10;
+            
+            padding = UIEdgeInsetsMake(topPadding, leadingPadding, bottomPadding, trailingPadding);
+            
+        }else{
+            // Faster to not use attributed string for non-lead sections.
+            cell.text = title;
+            
+            // Indent subsections, but only first 3 levels.
+            NSInteger tocLevelToUse = ((sectionLevel.integerValue - 1) < 0) ? 0 : sectionLevel.integerValue - 1;
+            tocLevelToUse = MIN(tocLevelToUse, 3);
+            CGFloat indent = TOC_SUBSECTION_INDENT;
+            indent = 12 + (tocLevelToUse * indent);
+            
+            CGFloat vPadding = 16;
+            CGFloat hPadding = 10;
+            
+            padding = UIEdgeInsetsMake(vPadding, indent, vPadding, hPadding);
+        }
+        cell.padding = padding;
+        cell.tag = tag.integerValue;
+        
+        [allCells addObject:cell];
     }
-}
-
--(id)getTitleForSection:(Section *)section
-{
-    NSString *title = [section isLeadSection] ? section.article.title : section.title;
-    NSString *noHtmlTitle = [title getStringWithoutHTML];
-    id titleToUse = [section isLeadSection] ? [self getLeadSectionAttributedTitleForString:noHtmlTitle] : noHtmlTitle;
-    return titleToUse;
-}
-
--(NSAttributedString *)getLeadSectionAttributedTitleForString:(NSString *)string
-{
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineSpacing = 8;
-    
-    NSDictionary *contentsHeaderAttributes = @{
-                                    NSFontAttributeName : [UIFont boldSystemFontOfSize:10.5],
-                                    NSKernAttributeName : @(1.25),
-                                    NSParagraphStyleAttributeName : paragraphStyle
-                                    };
-    NSDictionary *sectionTitleAttributes = @{
-                                       NSFontAttributeName : [UIFont fontWithName:@"Times New Roman" size:24]
-                                       };
-    
-    NSString *heading = MWLocalizedString(@"table-of-contents-heading", nil);
-    
-    if ([[SessionSingleton sharedInstance].domain isEqualToString:@"en"]) {
-        heading = [heading uppercaseString];
-    }
-    
-    return [@"$1\n$2" attributedStringWithAttributes: @{}
-                                 substitutionStrings: @[heading, string]
-                              substitutionAttributes: @[contentsHeaderAttributes, sectionTitleAttributes]
-            ];
-    
+    self.sectionCells = allCells;
 }
 
 #pragma mark Hide
@@ -275,7 +290,7 @@
 
 -(void)deSelectAllCells
 {
-    for (TOCSectionCellView *cell in self.sectionCells) {
+    for (TOCSectionCellView *cell in [self.sectionCells copy]) {
         // In case other non-TOCSectionCellView views are tacked beneath the TOCSectionCellView's...
         if (![cell isMemberOfClass:[TOCSectionCellView class]]) continue;
         cell.isSelected = NO;
@@ -284,7 +299,7 @@
 
 -(void)unHighlightAllCells
 {
-    for (TOCSectionCellView *cell in self.sectionCells) {
+    for (TOCSectionCellView *cell in [self.sectionCells copy]) {
         // In case other non-TOCSectionCellView views are tacked beneath the TOCSectionCellView's...
         if (![cell isMemberOfClass:[TOCSectionCellView class]]) continue;
         cell.isHighlighted = NO;
@@ -301,7 +316,7 @@
     //BOOL pastFocalCell = NO;
 
     if (scrollView == self.scrollView) {
-        for (TOCSectionCellView *cell in self.sectionCells) {
+        for (TOCSectionCellView *cell in [self.sectionCells copy]) {
 
             // In case other non-TOCSectionCellView views are tacked beneath the TOCSectionCellView's...
             if (![cell isMemberOfClass:[TOCSectionCellView class]]) continue;
@@ -354,7 +369,7 @@
 
 - (void)scrollViewScrollingEnded:(UIScrollView *)scrollView
 {
-    for (TOCSectionCellView *cell in self.sectionCells) {
+    for (TOCSectionCellView *cell in [self.sectionCells copy]) {
         if (cell.isSelected) {
 
             [self scrollWebViewToSectionForCell: cell
@@ -369,38 +384,15 @@
 {
     if (!self.scrollView.isDragging) {
         [self updateHighlightedCellToReflectWebView];
-        [self scrollHighlightedCellToSelectionLineWithDuration:(animated ? 0.2f : 0.0f)];
+        [self scrollHighlightedCellToSelectionLineWithDuration:(animated ? TOC_SELECTION_SCROLL_DURATION : 0.0f)];
     }
-}
-
-#pragma mark Constraints
-
--(void)constrainScrollContainerWidth
-{
-    [self.scrollContainer.superview addConstraint:
-     [NSLayoutConstraint constraintWithItem: self.scrollContainer
-                                  attribute: NSLayoutAttributeWidth
-                                  relatedBy: NSLayoutRelationEqual
-                                     toItem: self.scrollContainer.superview
-                                  attribute: NSLayoutAttributeWidth
-                                 multiplier: 1.0
-                                   constant: -(1.0f / [UIScreen mainScreen].scale)]];
-    // "constant" is -1.0 to ensure the container width never exceeds the scroll view's width.
-    // This prevents horizontal scrolling within the toc.
-}
-
--(void)updateViewConstraints
-{
-    [super updateViewConstraints];
-
-    [self constrainSectionCells];
 }
 
 #pragma mark Highlighted cell
 
 -(TOCSectionCellView *)getHighlightedCell
 {
-    for (TOCSectionCellView *cell in self.sectionCells) {
+    for (TOCSectionCellView *cell in [self.sectionCells copy]) {
         if (cell.isSelected) return cell;
     }
     return nil;
@@ -442,7 +434,7 @@
     // gap from being left between the top of the screen and the selected cell. Would need to change
     // this to actually take the value from [self getSelectionLine] into account if the selection
     // is ever moved from near the top of the screen.
-    return view.frame.origin.y - self.scrollView.contentOffset.y - TOC_SECTION_MARGIN /*- [self getSelectionLine]*/;
+    return view.frame.origin.y - self.scrollView.contentOffset.y /*- [self getSelectionLine]*/;
 }
 
 #pragma mark Scroll limits
@@ -474,13 +466,15 @@
 
 -(void)insetToRestrictScrollingTopAndBottomCellsPastCenter
 {
+    if (!self.scrollContainer || (self.scrollContainer.subviews.count == 0)) return;
+
     // Make it so the last TOCSectionCellView can't scroll off top of screen.
     // Assumes a TOCSectionCellView cells come at end.
     UIView *lastView = self.scrollContainer.subviews.lastObject;
 
     // Don't report scrolling when changing inset.
     self.scrollView.delegate = nil;
-    CGFloat insetAmount = self.scrollView.bounds.size.height - lastView.bounds.size.height - (TOC_SECTION_MARGIN * 2.0f);
+    CGFloat insetAmount = self.scrollView.bounds.size.height - lastView.bounds.size.height;
 
     UIEdgeInsets inset = UIEdgeInsetsMake(
         0,
@@ -548,40 +542,73 @@
 
 -(void)constrainSectionCells
 {
+    //CFTimeInterval begin = CACurrentMediaTime();
+    if (self.sectionCells.count == 0) return;
 
-//TODO: possibly have these constraints, but also a set which positions cells offscreen, that way
-// they can be animated between?
-
-    [self.scrollContainer removeConstraints:self.scrollContainer.constraints];
-    
-    void (^constrain)(UIView *, NSLayoutAttribute, UIView *, NSLayoutAttribute, CGFloat) = ^void(UIView *view1, NSLayoutAttribute a1, UIView *view2, NSLayoutAttribute a2, CGFloat constant) {
-        [self.scrollContainer addConstraint:
-         [NSLayoutConstraint constraintWithItem: view1
+    NSLayoutConstraint *(^getConstraint)(UIView *, NSLayoutAttribute, UIView *, NSLayoutAttribute, CGFloat) = ^NSLayoutConstraint *(UIView *view1, NSLayoutAttribute a1, UIView *view2, NSLayoutAttribute a2, CGFloat constant) {
+         return [NSLayoutConstraint constraintWithItem: view1
                                       attribute: a1
                                       relatedBy: NSLayoutRelationEqual
                                          toItem: view2
                                       attribute: a2
                                      multiplier: 1.0
-                                       constant: constant]];
+                                       constant: constant];
     };
 
+    CGFloat scale = (1.0f / [UIScreen mainScreen].scale);
+    NSMutableArray *newConstraints = @[].mutableCopy;
     UIView *prevCell = nil;
-    for (UIView *cell in self.sectionCells) {
-        constrain(cell, NSLayoutAttributeLeft, self.scrollContainer, NSLayoutAttributeLeft, 0.0f);
-        constrain(cell, NSLayoutAttributeRight, self.scrollContainer, NSLayoutAttributeRight, (1.0f / [UIScreen mainScreen].scale));
+    for (UIView *cell in [self.sectionCells copy]) {
+        [newConstraints addObject:getConstraint(cell, NSLayoutAttributeLeft, self.scrollContainer, NSLayoutAttributeLeft, 0.0f)];
+        [newConstraints addObject:getConstraint(cell, NSLayoutAttributeRight, self.scrollContainer, NSLayoutAttributeRight, scale)];
         if (self.sectionCells.firstObject == cell) {
-            constrain(cell, NSLayoutAttributeTop, self.scrollContainer, NSLayoutAttributeTop, TOC_SECTION_MARGIN);
+            [newConstraints addObject:getConstraint(cell, NSLayoutAttributeTop, self.scrollContainer, NSLayoutAttributeTop, 0.0f)];
         }
         if (self.sectionCells.lastObject == cell) {
-            constrain(cell, NSLayoutAttributeBottom, self.scrollContainer, NSLayoutAttributeBottom, -TOC_SECTION_MARGIN);
+            [newConstraints addObject:getConstraint(cell, NSLayoutAttributeBottom, self.scrollContainer, NSLayoutAttributeBottom, 0.0f)];
         }
         if (prevCell) {
-            constrain(cell, NSLayoutAttributeTop, prevCell, NSLayoutAttributeBottom, TOC_SECTION_MARGIN);
+            [newConstraints addObject:getConstraint(cell, NSLayoutAttributeTop, prevCell, NSLayoutAttributeBottom, 0.0f)];
         }
         prevCell = cell;
     }
+
+    if (newConstraints.count > 0) {
+        [self.scrollContainer addConstraints:newConstraints];
+    }
+
+    //NSLog(@"%f", CACurrentMediaTime() - begin);
 }
 
+-(void)setTocSectionDataForSections:(NSSet *)sections
+{
+    // Keeps self.tocSectionData updated with toc data for the current article.
+    // Makes it so the toc data is ready to go as soon as the article is displayed
+    // so we don't have to go back though core data to get it when user taps toc
+    // button. MUCH faster.
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sectionId" ascending:YES];
+    NSArray *sortedSection = [sections sortedArrayUsingDescriptors:@[sort]];
+
+    NSMutableArray *allSectionData = @[].mutableCopy;
+    for (Section *section in [sortedSection copy]) {
+    
+        NSString *title = [section tocTitle];
+        if (!section.sectionId || !section.tocLevel || !title) continue;
+
+        NSDictionary *sectionDict =
+        @{
+          @"id": section.sectionId,
+          @"isLead": @([section isLeadSection]),
+          @"level": section.tocLevel,
+          @"title": title
+        };
+        
+        [allSectionData addObject:sectionDict];
+
+    }
+    self.tocSectionData = allSectionData;
+    [self refreshForCurrentArticle];
+}
 
 /*
 #pragma mark - Navigation

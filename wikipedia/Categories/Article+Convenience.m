@@ -35,24 +35,8 @@
 
 -(NSArray *)getSectionsUsingContext:(NSManagedObjectContext *)context
 {
-    NSPredicate * predicate = [NSPredicate predicateWithFormat:@"article == %@", self];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName: @"Section"
-                                              inManagedObjectContext: context];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setPredicate:predicate];
-    
-    // Sort by section.
-    NSSortDescriptor *sectionSort = [[NSSortDescriptor alloc] initWithKey:@"sectionId" ascending:YES selector:nil];
-    [fetchRequest setSortDescriptors:@[sectionSort]];
-    
-    NSError *error = nil;
-    NSArray *sections = [context executeFetchRequest:fetchRequest error:&error];
-    if (error) {
-        NSLog(@"error = %@", error);
-    }
-    return sections;
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sectionId" ascending:YES];
+    return [self.section sortedArrayUsingDescriptors:@[sort]];
 }
 
 -(UIImage *)getThumbnailUsingContext:(NSManagedObjectContext *)context

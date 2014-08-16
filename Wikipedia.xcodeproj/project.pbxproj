@@ -26,6 +26,7 @@
 		041A3B5E18E11ED90079FF1C /* LanguagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5918E11ED90079FF1C /* LanguagesCell.m */; };
 		041A3B6218E11ED90079FF1C /* LanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */; };
 		041C55D21950B27D006CE0EF /* EditSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C55D11950B27D006CE0EF /* EditSummaryViewController.m */; };
+		041C6206199ED2A20061516F /* Section+TOC.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C6205199ED2A20061516F /* Section+TOC.m */; };
 		04224500197F5E09005DD0BF /* AbuseFilterAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 042244FC197F5E09005DD0BF /* AbuseFilterAlert.m */; };
 		04224501197F5E09005DD0BF /* BulletedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042244FE197F5E09005DD0BF /* BulletedLabel.m */; };
 		04224502197F5E09005DD0BF /* BulletedLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042244FF197F5E09005DD0BF /* BulletedLabel.xib */; };
@@ -223,6 +224,8 @@
 		041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguagesViewController.m; sourceTree = "<group>"; };
 		041C55D01950B27D006CE0EF /* EditSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSummaryViewController.h; sourceTree = "<group>"; };
 		041C55D11950B27D006CE0EF /* EditSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EditSummaryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		041C6204199ED2A20061516F /* Section+TOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Section+TOC.h"; sourceTree = "<group>"; };
+		041C6205199ED2A20061516F /* Section+TOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Section+TOC.m"; sourceTree = "<group>"; };
 		042244FB197F5E09005DD0BF /* AbuseFilterAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbuseFilterAlert.h; sourceTree = "<group>"; };
 		042244FC197F5E09005DD0BF /* AbuseFilterAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbuseFilterAlert.m; sourceTree = "<group>"; };
 		042244FD197F5E09005DD0BF /* BulletedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletedLabel.h; sourceTree = "<group>"; };
@@ -1208,6 +1211,8 @@
 				0472BC17193AD88C00C40BDA /* Section+DisplayHtml.m */,
 				04A81E8418871EB000EEBADB /* Section+ImageRecords.h */,
 				04A81E8518871EB000EEBADB /* Section+ImageRecords.m */,
+				041C6204199ED2A20061516F /* Section+TOC.h */,
+				041C6205199ED2A20061516F /* Section+TOC.m */,
 				047528B01913110000F2CDA8 /* Section+LeadSection.h */,
 				047528B11913110000F2CDA8 /* Section+LeadSection.m */,
 				047801BC18AE987900DBB747 /* UIButton+ColorMask.h */,
@@ -1982,6 +1987,7 @@
 				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
 				04CCCFEE1935093A00E3F60C /* SecondaryMenuRowView.m in Sources */,
 				0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */,
+				041C6206199ED2A20061516F /* Section+TOC.m in Sources */,
 				0447862F185145090050563B /* HistoryResultCell.m in Sources */,
 				04B0EA45190AFDD8007458AF /* ArticleImporter.m in Sources */,
 				042A5B2619253D2A0095E172 /* CenterNavController.m in Sources */,

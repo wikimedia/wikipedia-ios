@@ -339,7 +339,7 @@
 
 -(id)getNavBarItem:(NavBarItemTag)tag
 {
-    for (UIView *view in self.navBarContainer.subviews) {
+    for (UIView *view in [self.navBarContainer.subviews copy]) {
         if (view.tag == tag) return view;
     }
     return nil;

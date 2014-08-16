@@ -97,24 +97,7 @@
                             <scrollView contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgu-W1-m18" userLabel="TOC Scroll View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VGj-z3-9mh" userLabel="Scroll Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="320" placeholder="YES" id="A8D-SF-YFI"/>
-                                            <constraint firstAttribute="height" constant="768" placeholder="YES" id="E5c-CM-Mg4"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
                                 <color key="backgroundColor" red="0.047058828175067902" green="0.047058828175067902" blue="0.047058828175067902" alpha="1" colorSpace="deviceRGB"/>
-                                <constraints>
-                                    <constraint firstItem="VGj-z3-9mh" firstAttribute="leading" secondItem="sgu-W1-m18" secondAttribute="leading" id="jVV-fN-1Va"/>
-                                    <constraint firstAttribute="bottom" secondItem="VGj-z3-9mh" secondAttribute="bottom" id="jvc-8X-PKF"/>
-                                    <constraint firstAttribute="trailing" secondItem="VGj-z3-9mh" secondAttribute="trailing" id="lRf-aE-j7a"/>
-                                    <constraint firstItem="VGj-z3-9mh" firstAttribute="top" secondItem="sgu-W1-m18" secondAttribute="top" id="wUS-Kd-nWK"/>
-                                </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -128,7 +111,6 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="504"/>
                     <connections>
-                        <outlet property="scrollContainer" destination="VGj-z3-9mh" id="sBf-vm-TJH"/>
                         <outlet property="scrollView" destination="sgu-W1-m18" id="287-9B-G7M"/>
                     </connections>
                 </viewController>
@@ -1157,6 +1139,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="508"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="508" placeholder="YES" id="vpd-JA-MM4"/>
+                                </constraints>
                                 <dataDetectorType key="dataDetectorTypes"/>
                                 <connections>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="Pmz-tr-TG8"/>
@@ -1216,7 +1201,6 @@
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="gB8-UC-wuQ" secondAttribute="leading" id="TPG-uM-6qs"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="F4Q-Xc-ImV" secondAttribute="leading" id="akc-jF-1Pw"/>
                             <constraint firstAttribute="bottom" secondItem="F4Q-Xc-ImV" secondAttribute="bottom" placeholder="YES" id="bOy-uv-taw"/>
-                            <constraint firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="myK-xK-1sX"/>
                             <constraint firstItem="gB8-UC-wuQ" firstAttribute="bottom" secondItem="kh9-bI-dsS" secondAttribute="bottom" id="nMr-wt-aMC"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="trailing" secondItem="gB8-UC-wuQ" secondAttribute="trailing" id="sLM-fO-nId"/>
                         </constraints>

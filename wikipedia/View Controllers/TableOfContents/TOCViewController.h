@@ -14,6 +14,9 @@
 
 @property (weak, nonatomic) WebViewController *webVC;
 
-@property (strong, nonatomic) ToCInteractionFunnel *funnel;
+-(void)setTocSectionDataForSections:(NSSet *)sections;
+
+-(void)willShow;
+-(void)didHide;
 
 @end
