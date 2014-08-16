@@ -31,6 +31,7 @@ delegate or controller to marshal inter-op communications (although nothing abou
 @property (weak) id <NetworkOpDelegate> delegate;
 
 @property (copy) NSURLRequest *request;
+@property (strong, nonatomic) NSURLResponse *response;
 
 @property (copy, readonly) NSMutableData *dataRetrieved;
 @property (nonatomic) NSUInteger dataRetrievedExpectedLength;
