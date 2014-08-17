@@ -53,6 +53,7 @@
 #import "UINavigationController+TopActionSheet.h"
 #import "ReferencesVC.h"
 #import "WMF_Colors.h"
+#import "NSArray+Predicate.h"
 
 //#import "UIView+Debugging.h"
 
@@ -1634,12 +1635,12 @@ typedef enum {
             // a core data image object exists with a matching sourceURL. If so make the article
             // thumbnailImage property point to that core data image object. This associates the
             // search result thumbnail with the article.
-            
-            NSArray *result = [ROOT.topMenuViewController.currentSearchResultsOrdered filteredArrayUsingPredicate:
-                [NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", pageTitle]
-            ];
-            if (result.count == 1) {
-                NSString *thumbURL = result[0][@"thumbnail"][@"source"];
+            NSPredicate *articlePredicate =
+                [NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", pageTitle.text];
+            NSDictionary *articleDictFromSearchResults =
+                [ROOT.topMenuViewController.currentSearchResultsOrdered firstMatchForPredicate:articlePredicate];
+            if (articleDictFromSearchResults) {
+                NSString *thumbURL = articleDictFromSearchResults[@"thumbnail"][@"source"];
                 thumbURL = [thumbURL getUrlWithoutScheme];
                 Image *thumb = (Image *)[articleDataContext_.workerContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
                 if (thumb) article.thumbnailImage = thumb;

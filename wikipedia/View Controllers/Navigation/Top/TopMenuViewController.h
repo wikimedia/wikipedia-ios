@@ -56,7 +56,7 @@ typedef enum {
 @interface TopMenuViewController : UIViewController <UITextFieldDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) NSString *currentSearchString;
-@property (strong, atomic) NSMutableArray *currentSearchResultsOrdered;
+@property (strong, atomic) NSArray *currentSearchResultsOrdered;
 
 @property (nonatomic) NavBarStyle navBarStyle;
 @property (nonatomic) NavBarMode navBarMode;

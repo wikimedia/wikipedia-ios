@@ -236,7 +236,7 @@
 
     // Set thumbnail placeholder
 //TODO: don't load thumb from file every time in loop if no image found. fix here and in search
-    cell.imageView.image = [UIImage imageNamed:@"logo-search-placeholder.png"];
+    cell.imageView.image = [UIImage imageNamed:@"logo-placeholder-search.png"];
     cell.useField = NO;
 
     //if (!thumbURL){

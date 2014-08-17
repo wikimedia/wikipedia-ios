@@ -8,7 +8,6 @@
 
 #pragma mark - Private properties
 
-@property (nonatomic, assign, getter = isOperationStarted) BOOL operationStarted;
 @property (strong, nonatomic) NSURLConnection *connection;
 @property (copy, readwrite) NSNumber *bytesWritten;
 @property (copy, readwrite) NSNumber *bytesExpectedToWrite;
@@ -20,7 +19,6 @@
     // In concurrent operations, we have to manage the operation's state
     BOOL executing_;
     BOOL finished_;
-    BOOL runLoopRunningIndefinitely_;
 }
 
 #pragma mark - Init / dealloc
@@ -43,7 +41,7 @@
     //NSLog(@"NETWORK OP INIT'ED: TAG = %d, POINTER = %p", self.tag, self);
 
     if (self) {
-        self.cancelDependentOpsIfThisOpFails = YES;
+        self.cancelIfDependentOpsFailed = YES;
         self.error = nil;
         self.connection = nil;
         self.response = nil;
@@ -59,7 +57,6 @@
         self.aboutToStart = nil;
         self.aboutToDealloc = nil;
         self.tag = NSUIntegerMax;
-        runLoopRunningIndefinitely_ = NO;
         self.dataRetrievedExpectedLength = 0;
     }
     return self;
@@ -86,7 +83,7 @@
 -(void)start
 {
 
-    if (self.cancelDependentOpsIfThisOpFails) {
+    if (self.cancelIfDependentOpsFailed) {
         // Don't start if *any* parent op failed or had an error.
         // "Dependent" for MWNetworkOp means dependent on its success!
         // This is so failures cascade automatically.
@@ -113,36 +110,29 @@
         return;
     }
 
-    @autoreleasepool {
-
-        //NSLog(@"STARTED: TAG = %d", self.tag);
-        [self setOperationStarted:YES];  // See: http://stackoverflow.com/a/8152855/135557
-
-        //NSLog(@"NETWORK OP STARTED: TAG = %d, POINTER = %p", self.tag, self);
-
-        self.startedTime = [NSDate timeIntervalSinceReferenceDate];
-
-        if ([(NSObject *)self.delegate respondsToSelector:@selector(opStarted:)]){
-            [(NSObject *)self.delegate performSelectorOnMainThread:@selector(opStarted:) withObject:self waitUntilDone:NO];
-        }
-        // The autoreleasepool is needed to keep the thread from exiting before NSURLConnection finishes
-        // See: http://stackoverflow.com/q/1728631/135557 for more info
-        
-        // From this point on, the operation is officially executing--remember, isExecuting
-        // needs to be KVO compliant!
-        [self willChangeValueForKey:@"isExecuting"];
-        executing_ = YES;
-        [self didChangeValueForKey:@"isExecuting"];
-        
-        // Create the NSURLConnection. Could have done so in init, but delayed until now in case the
-        // operation was never enqueued or was cancelled before starting
-
-        self.connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self];
-        //NSLog(@"self.request.HTTPBody = %@", [NSString stringWithCString:[self.request.HTTPBody bytes] encoding:NSUTF8StringEncoding]);
-
-        CFRunLoopRun(); // Avoid thread exiting
-        runLoopRunningIndefinitely_ = YES;
+    self.startedTime = [NSDate timeIntervalSinceReferenceDate];
+    
+    if ([(NSObject *)self.delegate respondsToSelector:@selector(opStarted:)]){
+        [(NSObject *)self.delegate performSelectorOnMainThread:@selector(opStarted:) withObject:self waitUntilDone:NO];
     }
+    // The autoreleasepool is needed to keep the thread from exiting before NSURLConnection finishes
+    // See: http://stackoverflow.com/q/1728631/135557 for more info
+    
+    // From this point on, the operation is officially executing--remember, isExecuting
+    // needs to be KVO compliant!
+    [self willChangeValueForKey:@"isExecuting"];
+    executing_ = YES;
+    [self didChangeValueForKey:@"isExecuting"];
+    
+    // Create the NSURLConnection. Could have done so in init, but delayed until now in case the
+    // operation was never enqueued or was cancelled before starting
+    
+    self.connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self];
+    //NSLog(@"self.request.HTTPBody = %@", [NSString stringWithCString:[self.request.HTTPBody bytes] encoding:NSUTF8StringEncoding]);
+
+    // Keep the thread from exiting before the NSURLConnection finishes.
+    NSDate *distantFutureDate = [NSDate distantFuture];
+    while(!self.isFinished){[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:distantFutureDate];}
 }
 
 -(BOOL)isExecuting
@@ -255,17 +245,6 @@
 
 -(void)finish
 {
-    // This needs to happen whether the operation started or not. Any dependencies retained
-    // by this op can prevent this op from being dealloc'ed!
-    for (id op in [self.dependencies copy]) {
-        [self removeDependency:op];
-    }
-    self.request = nil;
-    self.aboutToStart = nil;
-    self.response = nil;
-
-    //if (![self isOperationStarted]) return;
-
     //NSLog(@"NETWORK OP FINISHED: TAG = %d, POINTER = %p, ERROR = %@", self.tag, self, self.error);
 
     self.finishedTime = [NSDate timeIntervalSinceReferenceDate];
@@ -290,7 +269,8 @@
     
     // Checking self.isExecuting ensures completionBlocks are not called for ops that never started. Can't complete
     // something if you never started it!
-    if(self.completionBlock && self.isExecuting) self.completionBlock();
+    BOOL actuallyStarted = self.isExecuting;
+    if(self.completionBlock && actuallyStarted) self.completionBlock();
     self.completionBlock = nil;
 
 	// Alert anyone that we are finished
@@ -298,17 +278,12 @@
 	executing_ = NO;
 	[self didChangeValueForKey:@"isExecuting"];
 
-	[self willChangeValueForKey:@"isFinished"];
-	finished_  = YES;
-	[self didChangeValueForKey:@"isFinished"];
-
-    // Added extra runLoopSetToIndefinite_ check to ensure run loop is only stopped
-    // if CFRunLoopRun() was actually called.
-    if (runLoopRunningIndefinitely_) {
-        // Now safe for the thread to exit - needed because of the @autoreleasepool
-        // See: http://stackoverflow.com/a/1730053/135557 for more info
-        CFRunLoopStop(CFRunLoopGetCurrent());
+    if (actuallyStarted) { // <-- This prevents iOS 6 "went isFinished=YES without being started by the queue it is in" bug
+        [self willChangeValueForKey:@"isFinished"];
+        finished_  = YES;
+        [self didChangeValueForKey:@"isFinished"];
     }
+
 }
 
 -(void)finishWithError:(NSString *)description
