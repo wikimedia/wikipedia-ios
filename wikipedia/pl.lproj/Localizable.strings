@@ -106,6 +106,9 @@
 "abuse-filter-warning-repeat" = "Powtaaaarzanie znaków";
 "abuse-filter-disallow-heading" = "Nie możesz zapisać tej edycji. Wróć i popraw ją.";
 "abuse-filter-disallow-unconstructive" = "Zautomatyzowany filtr rozpoznał tę edycję jako potencjalnie niekonstruktywną albo próbę wandalizmu";
+"menu-close-accessibility-label" = "Zamknij";
+"menu-preview-accessibility-label" = "Podgląd";
 "menu-back-accessibility-label" = "Cofnij";
 "menu-w-accessibility-label" = "Menu";
 "menu-cancel-accessibility-label" = "Anuluj";
+"menu-more-accessibility-label" = "Więcej ustawień";

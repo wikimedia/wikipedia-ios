@@ -172,3 +172,14 @@
 "abuse-filter-disallow-heading" = "Bu düzenlemeyi kaydedemezsiniz. Lütfen geri dönüp değiştirin.";
 "abuse-filter-disallow-unconstructive" = "Bir otomatik filtre, bu değişikliği, potansiyel olarak yıkıcı ya da vandalizm girişimi olarak belirledi.";
 "abuse-filter-disallow-notable" = "Vikipedi bir ansiklopedidir ve sadece tarafsız, kayda değer içerik burada yer alabilir.";
+"menu-edit-accessibility-label" = "Değiştir";
+"menu-close-accessibility-label" = "Kapat";
+"menu-preview-accessibility-label" = "Ön izleme";
+"menu-back-accessibility-label" = "Geri";
+"menu-forward-accessibility-label" = "İleri";
+"menu-w-accessibility-label" = "Menü";
+"menu-toc-accessibility-label" = "Konu başlıkları";
+"menu-search-accessibility-label" = "Ara";
+"menu-cancel-accessibility-label" = "İptal";
+"menu-share-accessibility-label" = "Paylaş";
+"menu-more-accessibility-label" = "Diğer ayarlar";

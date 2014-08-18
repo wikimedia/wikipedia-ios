@@ -1,9 +1,11 @@
 // Messages for Catalan (català)
 // Exported from translatewiki.net
+// Author: Fitoschido
 // Author: Toniher
 
 "21c-U6-yfo.normalTitle" = "Mostra un altre captcha";
 "5cT-2Y-0Ie.placeholder" = "Nom d'usuari";
+"LfM-01-aCF.text" = "Previsualitza";
 "P6J-IE-CiO.text" = "Omet";
 "PCr-0J-fBj.placeholder" = "Contrasenya";
 "UgH-77-lyp.placeholder" = "Torna a escriure la contrasenya";

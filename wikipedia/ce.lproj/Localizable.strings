@@ -19,7 +19,7 @@
 "account-creation-logging-in" = "Системан чудахар...";
 "account-creation-username-placeholder-text" = "Декъашхочун цӀе";
 "account-creation-password-placeholder-text" = "Пароль";
-"account-creation-password-confirm-placeholder-text" = "Бакъ йе пароль";
+"account-creation-password-confirm-placeholder-text" = "Бакъе пароль";
 "account-creation-email-placeholder-text" = "Электронан почтан адрес (ца хилча бе яц)";
 "login-password-empty" = "Системин чудаха оьшуш ю пароль.";
 "login-username-placeholder-text" = "Декъашхочун цӀе";

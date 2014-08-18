@@ -1,6 +1,7 @@
 // Messages for Traditional Chinese (中文（繁體）‎)
 // Exported from translatewiki.net
 // Author: Cathypilot0117
+// Author: Cwlin0416
 // Author: Kc kennylau
 // Author: LNDDYL
 // Author: Liuxinyu970226
@@ -37,7 +38,7 @@
 "account-creation-passwords-mismatched" = "密碼欄位不匹配。";
 "account-creation-saving" = "儲存中...";
 "account-creation-login" = "已經擁有帳戶？請登入。";
-"account-creation-username-placeholder-text" = "使用者名稱";
+"account-creation-username-placeholder-text" = "用戶名";
 "account-creation-password-placeholder-text" = "密碼";
 "account-creation-password-confirm-placeholder-text" = "確認密碼";
 "account-creation-email-placeholder-text" = "電子郵件（可選）";
@@ -47,9 +48,9 @@
 "login-password-empty" = "登入需要密碼。";
 "login-password-wrong" = "閣下提供的密碼不正確。";
 "login-throttled" = "你已經在短時間登入過太多次。";
-"login-user-blocked" = "使用者已被封鎖。";
+"login-user-blocked" = "用戶已被封鎖。";
 "login-account-creation" = "沒有維基百科帳戶嗎？加入維基百科。";
-"login-username-placeholder-text" = "使用者名稱";
+"login-username-placeholder-text" = "用戶名";
 "login-password-placeholder-text" = "密碼";
 "wikitext-downloading" = "正在載入內容…";
 "wikitext-download-failed" = "無法獲取最新的版本。";
@@ -131,7 +132,7 @@
 "article-pull-to-refresh-prompt" = "拖拽以重新整理條目";
 "article-pull-to-refresh-is-refreshing" = "重新整理條目中";
 "credits-title" = "開源資料庫";
-"credits-wikimedia-repos" = "維基媒體";
+"credits-wikimedia-repos" = "維基媒體儲存庫";
 "credits-gerrit-repo" = "主應用程式（Gerrit)";
 "credits-github-mirror" = "映像應用程式（GitHub)";
 "credits-external-libraries" = "外部";
