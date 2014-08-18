@@ -18,6 +18,9 @@
 #import "UIViewController+StatusBarHeight.h"
 #import "UIViewController+ModalPop.h"
 #import "PaddedLabel.h"
+#import "MenuButton.h"
+#import "TopMenuViewController.h"
+#import "CoreDataHousekeeping.h"
 
 #define HISTORY_THUMBNAIL_WIDTH 110
 #define HISTORY_RESULT_HEIGHT 66
@@ -43,7 +46,7 @@
 
 -(NavBarMode)navBarMode
 {
-    return NAVBAR_MODE_X_WITH_LABEL;
+    return NAVBAR_MODE_PAGES_HISTORY;
 }
 
 -(NSString *)title
@@ -72,6 +75,9 @@
         case NAVBAR_LABEL:
             [self popModal];
 
+            break;
+        case NAVBAR_BUTTON_TRASH:
+            [self showDeleteAllDialog];
             break;
         default:
             break;
@@ -138,7 +144,7 @@
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.emptyOverlay.hidden = ([self.historyDataArray count] > 0);
+    [self setEmptyOverlayAndTrashIconVisibility];
 }
 
 #pragma mark - History data
@@ -242,21 +248,9 @@
     [articleDataContext_.mainContext performBlockAndWait:^(){
         for (NSManagedObjectID *historyID in garbage) {
             History *history = (History *)[articleDataContext_.mainContext objectWithID:historyID];
-            Article *article = history.article;
-            Image *thumb = history.article.thumbnailImage;
-            
-            // Delete the expired history record
-            [articleDataContext_.mainContext deleteObject:history];
 
-            BOOL isSaved = (article.saved.count > 0) ? YES : NO;
-
-            if (isSaved) continue;
-
-            // Article deletes don't cascade to images (intentionally) so delete these manually.
-            if (thumb) [articleDataContext_.mainContext deleteObject:thumb];
-
-            // Delete the article
-            if (article) [articleDataContext_.mainContext deleteObject:article];
+            NSManagedObject *objectToDelete = [self objectToDeleteForHistoryItem:history];
+            [articleDataContext_.mainContext deleteObject:objectToDelete];
 
         }
         NSError *error = nil;
@@ -264,6 +258,12 @@
         if (error) NSLog(@"GARBAGE error = %@", error);
 
     }];
+
+    // Remove any orphaned images.
+    CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
+    [imageHousekeeping performHouseKeeping];
+    
+    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
 }
 
 #pragma mark - History section titles
@@ -488,7 +488,9 @@
             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             
             NSError *error = nil;
-            [articleDataContext_.mainContext deleteObject:historyEntry];
+
+            NSManagedObject *objectToDelete = [self objectToDeleteForHistoryItem:historyEntry];
+            [articleDataContext_.mainContext deleteObject:objectToDelete];
             [articleDataContext_.mainContext save:&error];
             
             if (itemsInSection == 1) {
@@ -499,9 +501,15 @@
             
             [self.tableView endUpdates];
             
-            self.emptyOverlay.hidden = ([self.historyDataArray count] > 0);
+            [self setEmptyOverlayAndTrashIconVisibility];
         }
     }];
+
+    // Remove any orphaned images.
+    CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
+    [imageHousekeeping performHouseKeeping];
+    
+    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
 }
 
 #pragma mark - Discovery method icons
@@ -532,6 +540,77 @@
     
     return [[NSAttributedString alloc] initWithString: wikiFontCharacter
                                            attributes: attributes];
+}
+
+-(void)deleteAllHistoryItems
+{
+    [articleDataContext_.mainContext performBlockAndWait:^(){
+        
+        // Delete all entites - from: http://stackoverflow.com/a/1383645
+        NSFetchRequest * historyFetch = [[NSFetchRequest alloc] init];
+        [historyFetch setEntity:[NSEntityDescription entityForName:@"History" inManagedObjectContext:articleDataContext_.mainContext]];
+
+        //[historyFetch setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+        
+        NSError *error = nil;
+        NSArray *historyRecords =
+            [articleDataContext_.mainContext executeFetchRequest:historyFetch error:&error];
+
+        for (History *historyRecord in historyRecords) {
+            NSManagedObject *objectToDelete = [self objectToDeleteForHistoryItem:historyRecord];
+            [articleDataContext_.mainContext deleteObject:objectToDelete];
+        }
+        NSError *saveError = nil;
+        [articleDataContext_.mainContext save:&saveError];
+        
+    }];
+
+    // Remove any orphaned images.
+    CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
+    [imageHousekeeping performHouseKeeping];
+    
+    [self.historyDataArray removeAllObjects];
+    [self.tableView reloadData];
+    
+    [self setEmptyOverlayAndTrashIconVisibility];
+        
+    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
+}
+
+-(NSManagedObject *)objectToDeleteForHistoryItem:(History *)history
+{
+    // If there's a saved page record, just delete the history record, so the
+    // saved page data isn't disturbed. If the page isn't saved it's safe to
+    // delete the article (which will cascade to delete the history record too).
+    return (history.article.saved.count > 0) ? history : history.article;
+}
+
+-(void)setEmptyOverlayAndTrashIconVisibility
+{
+    BOOL historyItemFound = ([self.historyDataArray count] > 0);
+    
+    self.emptyOverlay.hidden = historyItemFound;
+
+    MenuButton *trashButton = (MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TRASH];
+    trashButton.alpha = historyItemFound ? 1.0 : 0.0;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.cancelButtonIndex != buttonIndex) {
+        [self deleteAllHistoryItems];
+    }
+}
+
+-(void)showDeleteAllDialog
+{
+    UIAlertView *dialog =
+    [[UIAlertView alloc] initWithTitle: MWLocalizedString(@"history-clear-confirmation-heading", nil)
+                               message: MWLocalizedString(@"history-clear-confirmation-sub-heading", nil)
+                              delegate: self
+                     cancelButtonTitle: MWLocalizedString(@"history-clear-cancel", nil)
+                     otherButtonTitles: MWLocalizedString(@"history-clear-delete-all", nil), nil];
+    [dialog show];
 }
 
 @end

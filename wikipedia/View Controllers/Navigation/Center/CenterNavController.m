@@ -15,6 +15,9 @@
 #import "TopMenuViewController.h"
 #import "TopMenuContainerView.h"
 
+#import "ArticleDataContextSingleton.h"
+#import "NSManagedObjectContext+SimpleFetch.h"
+
 @interface CenterNavController (){
 
 }
@@ -180,6 +183,37 @@
 -(BOOL) isTopViewControllerAWebviewController
 {
     return [[self topViewController] isMemberOfClass:[WebViewController class]];
+}
+
+-(void)loadTodaysArticle
+{
+    NSString *mainArticleTitle = [SessionSingleton sharedInstance].domainMainArticleTitle;
+    if (mainArticleTitle) {
+        MWPageTitle *pageTitle = [MWPageTitle titleWithString:mainArticleTitle];
+        // Invalidate cache so present day main page article is always retrieved.
+        [self loadArticleWithTitle: pageTitle
+                            domain: [SessionSingleton sharedInstance].domain
+                          animated: YES
+                   discoveryMethod: DISCOVERY_METHOD_SEARCH
+                 invalidatingCache: YES
+                        popToWebVC: NO];
+    }
+}
+
+-(void)loadTodaysArticleIfNoCoreDataForCurrentArticle
+{
+    // This is needed otherwise things like TOC won't work after article core data is removed.
+    // (Only used by History and Saved Pages after they delete data)
+    NSManagedObjectContext *ctx = [ArticleDataContextSingleton sharedInstance].mainContext;
+    __block NSManagedObjectID *articleID = nil;
+    [ctx performBlockAndWait:^(){
+        articleID =
+            [ctx getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+                               domain: [SessionSingleton sharedInstance].currentArticleDomain];
+    }];
+    if (!articleID) {
+        [NAV loadTodaysArticle];
+    }
 }
 
 @end

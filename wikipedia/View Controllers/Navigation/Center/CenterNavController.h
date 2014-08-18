@@ -23,6 +23,9 @@ typedef enum {
           invalidatingCache: (BOOL)invalidateCache
                  popToWebVC: (BOOL)popToWebVC;
 
+-(void)loadTodaysArticle;
+-(void)loadTodaysArticleIfNoCoreDataForCurrentArticle;
+
 -(void) promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString *) title;
 -(void) promptZeroOff;
 

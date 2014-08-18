@@ -15,6 +15,9 @@
 #import "TopMenuContainerView.h"
 #import "UIViewController+StatusBarHeight.h"
 #import "UIViewController+ModalPop.h"
+#import "MenuButton.h"
+#import "TopMenuViewController.h"
+#import "CoreDataHousekeeping.h"
 
 #define SAVED_PAGES_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
 #define SAVED_PAGES_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:1.0f]
@@ -36,7 +39,7 @@
 
 -(NavBarMode)navBarMode
 {
-    return NAVBAR_MODE_X_WITH_LABEL;
+    return NAVBAR_MODE_PAGES_SAVED;
 }
 
 -(NSString *)title
@@ -65,6 +68,9 @@
         case NAVBAR_LABEL:
             [self popModal];
 
+            break;
+        case NAVBAR_BUTTON_TRASH:
+            [self showDeleteAllDialog];
             break;
         default:
             break;
@@ -127,7 +133,7 @@
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.emptyOverlay.hidden = ([self.savedPagesDataArray[0][@"data"] count] > 0);
+    [self setEmptyOverlayAndTrashIconVisibility];
 }
 
 #pragma mark - SavedPages data
@@ -297,16 +303,88 @@
             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             
             NSError *error = nil;
-            [articleDataContext_.mainContext deleteObject:savedEntry];
+            // Delete the article record. The "Saved" record will be automatically removed by
+            // core data.
+            [articleDataContext_.mainContext deleteObject:savedEntry.article];
             [articleDataContext_.mainContext save:&error];
             
             [self.savedPagesDataArray[indexPath.section][@"data"] removeObject:savedEntryId];
             
             [self.tableView endUpdates];
 
-            self.emptyOverlay.hidden = ([self.savedPagesDataArray[0][@"data"] count] > 0);
+            [self setEmptyOverlayAndTrashIconVisibility];
         }
     }];
+
+    // Remove any orphaned images.
+    CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
+    [imageHousekeeping performHouseKeeping];
+    
+    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
+}
+
+-(void)deleteAllSavedPages
+{
+    [articleDataContext_.mainContext performBlockAndWait:^(){
+        
+        // Delete all entites - from: http://stackoverflow.com/a/1383645
+        NSFetchRequest * savedFetch = [[NSFetchRequest alloc] init];
+        [savedFetch setEntity:[NSEntityDescription entityForName:@"Saved" inManagedObjectContext:articleDataContext_.mainContext]];
+
+        //[savedFetch setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+        
+        NSError *error = nil;
+        NSArray *savedRecords =
+            [articleDataContext_.mainContext executeFetchRequest:savedFetch error:&error];
+        
+        // Delete the article record. The "Saved" record will be automatically removed by
+        // core data.
+        for (Saved *savedRecord in savedRecords) {
+            [articleDataContext_.mainContext deleteObject:savedRecord.article];
+        }
+        NSError *saveError = nil;
+        [articleDataContext_.mainContext save:&saveError];
+        
+    }];
+
+    // Remove any orphaned images.
+    CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
+    [imageHousekeeping performHouseKeeping];
+    
+    [self.savedPagesDataArray[0][@"data"] removeAllObjects];
+    [self.tableView reloadData];
+    
+    [self setEmptyOverlayAndTrashIconVisibility];
+    
+    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
+}
+
+-(void)setEmptyOverlayAndTrashIconVisibility
+{
+    BOOL savedPageFound = ([self.savedPagesDataArray[0][@"data"] count] > 0);
+    
+    self.emptyOverlay.hidden = savedPageFound;
+
+    MenuButton *trashButton = (MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TRASH];
+    trashButton.alpha = savedPageFound ? 1.0 : 0.0;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.cancelButtonIndex != buttonIndex) {
+        [self deleteAllSavedPages];
+    }
+}
+
+-(void)showDeleteAllDialog
+{
+    UIAlertView *dialog =
+    [[UIAlertView alloc] initWithTitle: MWLocalizedString(@"saved-pages-clear-confirmation-heading", nil)
+                               message: MWLocalizedString(@"saved-pages-clear-confirmation-sub-heading", nil)
+                              delegate: self
+                     cancelButtonTitle: MWLocalizedString(@"saved-pages-clear-cancel", nil)
+                     otherButtonTitles: MWLocalizedString(@"saved-pages-clear-delete-all", nil), nil];
+    [dialog show];
 }
 
 #pragma mark - Pull to refresh

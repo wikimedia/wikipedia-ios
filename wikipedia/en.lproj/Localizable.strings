@@ -11,6 +11,11 @@
 "history-section-lastweek" = "Last week";
 "history-section-lastmonth" = "Last month";
 
+"history-clear-confirmation-heading" = "Delete all recent items?";
+"history-clear-confirmation-sub-heading" = "This action cannot be undone!";
+"history-clear-cancel" = "Cancel";
+"history-clear-delete-all" = "Delete All";
+
 "zero-free-verbiage" = "Free Wikipedia access from your mobile operator (data charges waived)";
 "zero-charged-verbiage" = "Wikipedia Zero is off";
 "zero-charged-verbiage-extended" = "Loading other articles may incur data charges. Saved articles stored offline do not use data and are free.";
@@ -105,6 +110,11 @@
 "main-menu-show-today" = "Today";
 
 "saved-pages-title" = "Saved pages";
+"saved-pages-clear-confirmation-heading" = "Delete all saved items?";
+"saved-pages-clear-confirmation-sub-heading" = "This action cannot be undone!";
+"saved-pages-clear-cancel" = "Cancel";
+"saved-pages-clear-delete-all" = "Delete All";
+
 "page-history-title" = "Article history";
 "page-history-downloading" = "Loading article history...";
 
@@ -205,3 +215,4 @@
 "menu-cancel-accessibility-label" = "Cancel";
 "menu-share-accessibility-label" = "Share";
 "menu-more-accessibility-label" = "More settings";
+"menu-trash-accessibility-label" = "Delete";

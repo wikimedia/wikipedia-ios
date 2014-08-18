@@ -271,7 +271,7 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
             break;
         case PRIMARY_MENU_ITEM_TODAY: {
             //[self showAlert:MWLocalizedString(@"fetching-today-article", nil)];
-            [self fetchTodaysArticle];
+            [NAV loadTodaysArticle];
             [self popModal];
         }
             break;
@@ -292,21 +292,6 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
             break;
         default:
             break;
-    }
-}
-
--(void)fetchTodaysArticle
-{
-    NSString *mainArticleTitle = [SessionSingleton sharedInstance].domainMainArticleTitle;
-    if (mainArticleTitle) {
-        MWPageTitle *pageTitle = [MWPageTitle titleWithString:mainArticleTitle];
-        // Invalidate cache so present day main page article is always retrieved.
-        [NAV loadArticleWithTitle: pageTitle
-                           domain: [SessionSingleton sharedInstance].domain
-                         animated: YES
-                  discoveryMethod: DISCOVERY_METHOD_SEARCH
-                invalidatingCache: YES
-                       popToWebVC: NO];
     }
 }
 

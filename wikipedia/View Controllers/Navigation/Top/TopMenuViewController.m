@@ -47,6 +47,7 @@
 @property (strong, nonatomic) WikiGlyphButton *buttonMagnify;
 @property (strong, nonatomic) WikiGlyphButton *buttonBlank;
 @property (strong, nonatomic) WikiGlyphButton *buttonCancel;
+@property (strong, nonatomic) WikiGlyphButton *buttonTrash;
 @property (strong, nonatomic) MenuButton *buttonNext;
 @property (strong, nonatomic) MenuButton *buttonSave;
 @property (strong, nonatomic) MenuButton *buttonDone;
@@ -252,6 +253,7 @@
     self.buttonMagnify =    getWikiGlyphButton(IOS_WIKIGLYPH_MAGNIFY, MWLocalizedString(@"menu-search-accessibility-label", nil),  NAVBAR_BUTTON_MAGNIFY, size, baselineOffset);
     self.buttonBlank =      getWikiGlyphButton(@"",                   @"", NAVBAR_BUTTON_BLANK, size, baselineOffset);
     self.buttonCancel =     getWikiGlyphButton(@"",                   MWLocalizedString(@"menu-cancel-accessibility-label", nil),  NAVBAR_BUTTON_CANCEL, size, baselineOffset);
+    self.buttonTrash =      getWikiGlyphButton(WIKIGLYPH_TRASH,       MWLocalizedString(@"menu-trash-accessibility-label", nil),   NAVBAR_BUTTON_TRASH, size - 4, baselineOffset - 0.5);
 
     self.buttonCancel.label.font = [UIFont systemFontOfSize:17.0];
     self.buttonCancel.label.text = MWLocalizedString(@"search-cancel", nil);
@@ -309,6 +311,7 @@
     [self.navBarContainer addSubview:self.buttonMagnify];
     [self.navBarContainer addSubview:self.buttonBlank];
     [self.navBarContainer addSubview:self.buttonCancel];
+    [self.navBarContainer addSubview:self.buttonTrash];
 
     [self.navBarContainer addSubview:self.buttonNext];
     [self.navBarContainer addSubview:self.buttonSave];
@@ -359,6 +362,7 @@
              @"NAVBAR_BUTTON_SAVE": self.buttonSave,
              @"NAVBAR_BUTTON_DONE": self.buttonDone,
              @"NAVBAR_BUTTON_EYE": self.buttonEye,
+             @"NAVBAR_BUTTON_TRASH": self.buttonTrash,
              @"NAVBAR_TEXT_FIELD": self.textFieldContainer,
              @"NAVBAR_LABEL": self.label
              };
@@ -468,6 +472,11 @@
         case NAVBAR_MODE_X_WITH_LABEL:
             self.navBarSubViewsHorizontalVFLString =
             @"H:|-(5)-[NAVBAR_BUTTON_X(50)][NAVBAR_LABEL]-(55)-|";
+            break;
+        case NAVBAR_MODE_PAGES_HISTORY:
+        case NAVBAR_MODE_PAGES_SAVED:
+            self.navBarSubViewsHorizontalVFLString =
+            @"H:|-(5)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_TRASH(50@250)]-(5)-|";
             break;
         case NAVBAR_MODE_X_WITH_TEXT_FIELD:
             self.navBarSubViewsHorizontalVFLString =

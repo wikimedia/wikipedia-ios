@@ -17,6 +17,10 @@
 "history-section-yesterday" = "Subsection label for list of articles browsed yesterday.\n{{Identical|Yesterday}}";
 "history-section-lastweek" = "Subsection label for list of articles browsed within the last week.\n{{Identical|Last week}}";
 "history-section-lastmonth" = "Subsection label for list of articles browsed within the last month.\n{{Identical|Last month}}";
+"history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
+"history-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
+"history-clear-cancel" = "Button text for cancelling delete all action";
+"history-clear-delete-all" = "Button text for confirming delete all action";
 "zero-free-verbiage" = "Alert text for Wikipedia Zero free data access enabled";
 "zero-charged-verbiage" = "Alert text for Wikipedia Zero free data access disabled";
 "zero-charged-verbiage-extended" = "Extended text describing that further usage of the app may in fact incur data charges because Wikipedia Zero is off, but Saved articles are still free.";
@@ -103,6 +107,10 @@
 "main-menu-heading-legal" = "Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.";
 "main-menu-show-today" = "Button text for showing mobile version of main page\n{{Identical|Today}}";
 "saved-pages-title" = "Header text for Saved Pages interface.\n{{Identical|Saved page}}";
+"saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
+"saved-pages-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
+"saved-pages-clear-cancel" = "Button text for cancelling delete all action";
+"saved-pages-clear-delete-all" = "Button text for confirming delete all action";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Page history}}";
 "page-history-downloading" = "Alert text shown when obtaining revision history of an article";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited.\n{{Identical|Edit}}";
@@ -185,3 +193,4 @@
 "menu-cancel-accessibility-label" = "Accessible label text for toolbar cancel button\n{{Identical|Cancel}}";
 "menu-share-accessibility-label" = "Accessible label text for toolbar share button\n{{Identical|Share}}";
 "menu-more-accessibility-label" = "Accessible label for more/... button in 'W' menu";
+"menu-trash-accessibility-label" = "Accessible label for trash button";

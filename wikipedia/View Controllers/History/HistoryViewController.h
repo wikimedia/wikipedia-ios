@@ -4,11 +4,12 @@
 #import <UIKit/UIKit.h>
 #import "TopMenuViewController.h"
 
-@interface HistoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface HistoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic) NavBarMode navBarMode;
 
 @property (weak, nonatomic) id truePresentingVC;
 @property (weak, nonatomic) IBOutlet UIView *emptyOverlay;
+@property (weak, nonatomic) TopMenuViewController *topMenuViewController;
 
 @end
