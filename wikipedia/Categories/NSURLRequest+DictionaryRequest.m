@@ -31,7 +31,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
     [request addValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:@"" forHTTPHeaderField:@"Accept-Encoding"];
+    [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
     [request addValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     // NSLog(@"%@", [WikipediaAppUtils versionedUserAgent]);
     [self addMCCMNCToRequestIfAppropriate:request];
@@ -46,7 +46,7 @@
     body = [[url.absoluteString stringByAppendingString:@"?"] stringByAppendingString:body];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:body]];
     [request setHTTPMethod:@"GET"];
-    [request addValue:@"" forHTTPHeaderField:@"Accept-Encoding"];
+    [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
     [request addValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     // NSLog(@"%@", [WikipediaAppUtils versionedUserAgent]);
     [request addValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
