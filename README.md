@@ -2,7 +2,9 @@
 
 New (late 2013) native rewrite of the [Wikipedia reader application](https://www.mediawiki.org/wiki/Wikimedia_Apps/Wikipedia) for iOS.
 
-This version has not yet been deployed to the App Store -- the source of the older app currently in the store is in the [WikipediaMobile project on GitHub](https://github.com/wikimedia/WikipediaMobile).
+This version was first deployed to the App Store July 31st, 2014 with Wikipedia Mobile version 4.0.
+
+The source of the old app previously in the store is in the [WikipediaMobile project on GitHub](https://github.com/wikimedia/WikipediaMobile).
 
 * OS target: iOS 6.0 or higher
 * Device target: primary iPhone/iPod, secondary iPad
