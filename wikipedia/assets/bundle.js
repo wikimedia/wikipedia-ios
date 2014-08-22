@@ -198,33 +198,10 @@ function findParent(element, selector) {
 }
 
 document.onclick = function() {
-
-    /*
-    If the clicked object was not an anchor, the object may have been
-    an html tag styling the anchor text, such as the bold tags in the
-    following:
-
-    <a href="/wiki/Castlevania:_Aria_of_Sorrow" title="Castlevania: Aria of Sorrow"><b>Full article...</b></a>
-
-    To handle these cases just walk ancestors until an anchor tag is
-    encountered.
-    */
-
-    var anchorTarget = findParent(event.target, 'A');
-
-    if ( anchorTarget && (anchorTarget.tagName === "A") ) {
-        var href = anchorTarget.getAttribute( "href" );
-        if ( refs.isReference( href ) ) {
-            // Handle reference links with a popup view instead of scrolling about!
-            refs.sendNearbyReferences( anchorTarget );
-        } else if ( href[0] === "#" ) {
-            // If it is a link to an anchor in the current page, just scroll to it
-            document.getElementById( href.substring( 1 ) ).scrollIntoView();
-        } else {
-            bridge.sendMessage( 'linkClicked', { href: anchorTarget.getAttribute( "href" ) });
-        }
-    }
-    event.preventDefault();
+    // Reminder: resist adding any click/tap handling here - they can
+    // "fight" with items in the touchEndedWithoutDragging handler.
+    // Add click/tap handling to touchEndedWithoutDragging instead.
+    event.preventDefault(); // <-- Do not remove!
 }
 
 touchDownY = 0.0;
@@ -233,30 +210,54 @@ function touchStart(event){
 }
 document.addEventListener("touchstart", touchStart, "false");
 
-function touchEnd(event){
+function handleTouchEnded(event){
     var touchobj = event.changedTouches[0];
     touchEndY = parseInt(touchobj.clientY);
     if (((touchDownY - touchEndY) == 0) && (event.changedTouches.length == 1)) {
-        if (event.target.tagName === "A") {
-            if (event.target.className === "edit_section_button") {
-                bridge.sendMessage( 'editClicked', { sectionId: event.target.getAttribute( "data-id" ) });
-            }
-        } else if (findParent(event.target, 'button.mw-language-button')) {
-            bridge.sendMessage( 'langClicked', {} );
-        } else if (findParent(event.target, 'button.mw-last-modified')) {
-            bridge.sendMessage( 'historyClicked', {} );
+        // None of our tap events should fire if the user dragged the page at all.
+        touchEndedWithoutDragging(event);
+    }
+}
+
+function touchEndedWithoutDragging(event){
+    // Refactored to keep number of findParent calls to a minimum.
+    var anchorTarget = findParent(event.target, 'A');
+    var anchorTargetFound = anchorTarget && (anchorTarget.tagName === "A") ? true : false;
+
+    // Handle A tag taps.
+    if(anchorTargetFound){
+        var href = anchorTarget.getAttribute( "href" );
+        if (anchorTarget.className === "edit_section_button") {
+            bridge.sendMessage( 'editClicked', { sectionId: anchorTarget.getAttribute( "data-id" ) });
+        } else if ( refs.isReference( href ) ) {
+            // Handle reference links with a popup view instead of scrolling about!
+            refs.sendNearbyReferences( anchorTarget );
+        } else if ( href[0] === "#" ) {
+            // If it is a link to an anchor in the current page, just scroll to it
+            document.getElementById( href.substring( 1 ) ).scrollIntoView();
         } else {
-            var anchorTarget = findParent(event.target, 'A');
-            if ( anchorTarget && (anchorTarget.tagName != "A") ) {
-                // Do NOT prevent default behavior -- this is needed to for instance
-                // handle deselection of text.
-                bridge.sendMessage( 'nonAnchorTouchEndedWithoutDragging', { id: event.target.getAttribute( "id" ), tagName: event.target.tagName});
+            bridge.sendMessage( 'linkClicked', { href: anchorTarget.getAttribute( "href" ) });
+        }
+    
+    // Handle BUTTON tag taps.
+    }else{
+        var buttonTarget = findParent(event.target, 'BUTTON');
+        var buttonTargetFound = buttonTarget && (buttonTarget.tagName === "BUTTON") ? true : false;
+        if(buttonTargetFound){
+            if (buttonTarget.id === "mw-language-button") {
+                bridge.sendMessage( 'langClicked', {} );
+            }else if (buttonTarget.id === "mw-last-modified") {
+                bridge.sendMessage( 'historyClicked', {} );
             }
+        }else{
+            // Do NOT prevent default behavior -- this is needed to for instance
+            // handle deselection of text.
+            bridge.sendMessage( 'nonAnchorTouchEndedWithoutDragging', { id: event.target.getAttribute( "id" ), tagName: event.target.tagName});
         }
     }
 }
 
-document.addEventListener("touchend", touchEnd, "false");
+document.addEventListener("touchend", handleTouchEnded, "false");
 
 },{"./bridge":1,"./refs":5,"./transformer":6}],4:[function(require,module,exports){
 

@@ -1756,7 +1756,7 @@ typedef enum {
         NSString *icon = WIKIGLYPH_TRANSLATE;
         NSString *text = [NSString localizedStringWithFormat:MWLocalizedString(@"language-button-text", nil), (int)count];
         
-        return [NSString stringWithFormat:@"<button dir=\"%@\" class=\"mw-language-button mw-footer-button\">"
+        return [NSString stringWithFormat:@"<button id=\"mw-language-button\" dir=\"%@\" class=\"mw-language-button mw-footer-button\">"
                                           @"<div>"
                                           @"<span><span class=\"mw-footer-icon\">%@</span></span>"
                                           @"<span>%@</span>"
@@ -1786,7 +1786,7 @@ typedef enum {
               stringByReplacingOccurrencesOfString:@"$1" withString:ts];
     }
 
-    return [NSString stringWithFormat:@"<button dir=\"%@\" class=\"mw-last-modified mw-footer-button %@\">"
+    return [NSString stringWithFormat:@"<button id=\"mw-last-modified\" dir=\"%@\" class=\"mw-last-modified mw-footer-button %@\">"
             @"<div>"
             @"<span><span class=\"mw-footer-icon\">%@</span></span>"
             @"<span>%@</span>"
