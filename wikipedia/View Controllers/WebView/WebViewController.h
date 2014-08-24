@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic) BOOL bottomMenuHidden;
 @property (nonatomic) BOOL referencesHidden;
+@property (nonatomic) BOOL scrollingToTop;
 
 -(void)referencesShow:(NSDictionary *)payload;
 -(void)referencesHide;

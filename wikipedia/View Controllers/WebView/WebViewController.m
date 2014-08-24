@@ -144,6 +144,7 @@ typedef enum {
 {
     [super viewDidLoad];
 
+    self.scrollingToTop = NO;
     self.zeroStatusLabel.text = @"";
     self.referencesVC = nil;
     
@@ -1099,6 +1100,7 @@ typedef enum {
 {
     [self.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
     [self saveWebViewScrollOffset];
+    self.scrollingToTop = NO;
 }
 
 #pragma mark Menus auto show-hide on scroll / reveal on tap
@@ -1142,6 +1144,7 @@ typedef enum {
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
 {
+    self.scrollingToTop = YES;
     [self referencesHide];
 
     // Called when the title bar is tapped.
