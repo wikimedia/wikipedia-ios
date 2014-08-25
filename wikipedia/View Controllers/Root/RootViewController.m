@@ -374,6 +374,17 @@
 
             WebViewController *webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
             webVC.bottomMenuHidden = self.topMenuHidden;
+
+            if (!hidden && !webVC.scrollingToTop) {
+                // When showing the menu it pushes the webview's origin.y down by the height of the top menu.
+                // This is kind of annoying as it makes the web view text jump. So here the web view's scroll
+                // view is scrolled up by the same amount the web was moved down.
+                webVC.webView.scrollView.contentOffset =
+                    CGPointMake(
+                        webVC.webView.scrollView.contentOffset.x,
+                        webVC.webView.scrollView.contentOffset.y + TOP_MENU_INITIAL_HEIGHT
+                    );
+            }
             
             [webVC.view setNeedsUpdateConstraints];
             
