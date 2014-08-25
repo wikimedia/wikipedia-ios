@@ -175,7 +175,9 @@
 "menu-close-accessibility-label" = "Cerrar";
 "menu-preview-accessibility-label" = "Previsualizar";
 "menu-back-accessibility-label" = "Volver";
+"menu-forward-accessibility-label" = "Adelante";
 "menu-w-accessibility-label" = "Menú";
+"menu-toc-accessibility-label" = "Contenido";
 "menu-search-accessibility-label" = "Buscar";
 "menu-cancel-accessibility-label" = "Cancelar";
 "menu-share-accessibility-label" = "Compartir";

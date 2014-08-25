@@ -114,3 +114,5 @@
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Садржај";
 "abuse-filter-disallow-heading" = "Не можете да сачувате ову измену. Вратите се назад и промените је.";
+"menu-close-accessibility-label" = "Затвори";
+"menu-cancel-accessibility-label" = "Откажи";

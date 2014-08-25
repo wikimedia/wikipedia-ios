@@ -13,8 +13,7 @@
 "history-section-lastweek" = "Minulý týždeň";
 "history-section-lastmonth" = "Minulý mesiac";
 "zero-free-verbiage" = "Voľný prístup k Wikipédii od vášho mobilného operátora (neplatíte poplatky za prenos dát)";
-// Fuzzy
-"zero-charged-verbiage" = "Wikipédia Zero je VYPNUTÁ (MÔŽU SA OBJAVIŤ ŠTANDARDNÉ POPLATKY ZA PRENOS DÁT)";
+"zero-charged-verbiage" = "Wikipédia Zero je vypnutá";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Opúšťate Wikipédiu Zero";
 // Fuzzy
