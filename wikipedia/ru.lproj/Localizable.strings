@@ -12,6 +12,10 @@
 "history-section-yesterday" = "Вчера";
 "history-section-lastweek" = "На прошлой неделе";
 "history-section-lastmonth" = "В прошлом месяце";
+"history-clear-confirmation-heading" = "Удалить все недавние элементы?";
+"history-clear-confirmation-sub-heading" = "Это действие не может быть отменено!";
+"history-clear-cancel" = "Отмена";
+"history-clear-delete-all" = "Удалить всё";
 "zero-free-verbiage" = "Бесплатный доступ к Википедии у вашего мобильного оператора (оплата за трафик не взимается)";
 "zero-charged-verbiage" = "Wikipedia Zero выключена";
 "zero-charged-verbiage-extended" = "При загрузке других статей может взиматься плата за передачу данных. Сохранённые статьи, хранящиеся автономно, не требуют передачи данных и поэтому бесплатны.";
@@ -98,6 +102,10 @@
 "main-menu-heading-legal" = "Муть какая-то";
 "main-menu-show-today" = "Сегодня";
 "saved-pages-title" = "Сохранённые страницы";
+"saved-pages-clear-confirmation-heading" = "Удалить все сохранённые элементы?";
+"saved-pages-clear-confirmation-sub-heading" = "Это действие не может быть отменено!";
+"saved-pages-clear-cancel" = "Отмена";
+"saved-pages-clear-delete-all" = "Удалить всё";
 "page-history-title" = "История страницы";
 "page-history-downloading" = "Загрузка страницы истории…";
 "navbar-title-mode-edit-wikitext" = "Править";
@@ -180,3 +188,4 @@
 "menu-cancel-accessibility-label" = "Отмена";
 "menu-share-accessibility-label" = "Поделиться";
 "menu-more-accessibility-label" = "Дополнительные параметры";
+"menu-trash-accessibility-label" = "Удалить";

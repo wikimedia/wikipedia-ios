@@ -12,6 +12,10 @@
 "history-section-yesterday" = "Ayeri";
 "history-section-lastweek" = "Cabera selmana";
 "history-section-lastmonth" = "Caberu mes";
+"history-clear-confirmation-heading" = "¿Desaniciar tolos elementos recientes?";
+"history-clear-confirmation-sub-heading" = "¡Esata aición nun pue desfacese!";
+"history-clear-cancel" = "Encaboxar";
+"history-clear-delete-all" = "Desaniciar too";
 "zero-free-verbiage" = "Accesu llibre a Wikipedia dende l'operador de móviles (facturación de baldre por datos)";
 "zero-charged-verbiage" = "Wikipedia Zero ta apagáu";
 "zero-charged-verbiage-extended" = "Cargar otros artículos pue implicar cargos por tráficu de datos. Los artículos guardaos pa ver sin conexón nun xeneran tráficu y son de baldre.";
@@ -98,6 +102,10 @@
 "main-menu-heading-legal" = "Xíriga llegal";
 "main-menu-show-today" = "Güei";
 "saved-pages-title" = "Páxines guardaes";
+"saved-pages-clear-confirmation-heading" = "¿Desaniciar tolos elementos guardaos?";
+"saved-pages-clear-confirmation-sub-heading" = "¡Esata aición nun pue desfacese!";
+"saved-pages-clear-cancel" = "Encaboxar";
+"saved-pages-clear-delete-all" = "Desaniciar too";
 "page-history-title" = "Historial de la páxina";
 "page-history-downloading" = "Cargando l'historial de la páxina...";
 "navbar-title-mode-edit-wikitext" = "Editar";
@@ -180,3 +188,4 @@
 "menu-cancel-accessibility-label" = "Encaboxar";
 "menu-share-accessibility-label" = "Compartir";
 "menu-more-accessibility-label" = "Más axustes";
+"menu-trash-accessibility-label" = "Desaniciar";

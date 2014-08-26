@@ -1,5 +1,6 @@
 // Messages for Persian (فارسی)
 // Exported from translatewiki.net
+// Author: Alirezaaa
 // Author: Ebraminio
 // Author: Fatemi127
 // Author: Mahdiz
@@ -154,3 +155,5 @@
 "license-footer-text" = "مطالب زیر تحت شرایط $1 در دسترس است";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "محتویات";
+"menu-close-accessibility-label" = "بستن";
+"menu-preview-accessibility-label" = "پیش‌نمایش";
