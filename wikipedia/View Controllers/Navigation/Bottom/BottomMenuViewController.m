@@ -9,6 +9,7 @@
 #import "SessionSingleton.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "WikiGlyph_Chars_iOS.h"
+#import "WikiGlyph_Chars.h"
 #import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
 #import "UIViewController+Alert.h"
@@ -21,16 +22,18 @@
 #import "WikipediaAppUtils.h"
 
 typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
-    BOTTOM_MENU_BUTTON_UNKNOWN = 0,
-    BOTTOM_MENU_BUTTON_PREVIOUS = 1,
-    BOTTOM_MENU_BUTTON_NEXT = 2,
-    BOTTOM_MENU_BUTTON_SHARE = 3
+    BOTTOM_MENU_BUTTON_UNKNOWN,
+    BOTTOM_MENU_BUTTON_PREVIOUS,
+    BOTTOM_MENU_BUTTON_NEXT,
+    BOTTOM_MENU_BUTTON_SHARE,
+    BOTTOM_MENU_BUTTON_SAVE
 };
 
 @interface BottomMenuViewController ()
 
 @property (weak, nonatomic) IBOutlet WikiGlyphButton *backButton;
 @property (weak, nonatomic) IBOutlet WikiGlyphButton *forwardButton;
+@property (weak, nonatomic) IBOutlet WikiGlyphButton *saveButton;
 @property (weak, nonatomic) IBOutlet WikiGlyphButton *rightButton;
 
 @property (strong, nonatomic) NSDictionary *adjacentHistoryIDs;
@@ -55,21 +58,19 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     UIColor *buttonColor = [UIColor blackColor];
     CGFloat buttonTextSize = 34;
 
-    CGFloat baseLineOffset = (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) ? 2.0 : 7.0;
-
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
 
     [self.backButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_FORWARD : IOS_WIKIGLYPH_BACKWARD
                                  color: buttonColor
                                   size: buttonTextSize
-                        baselineOffset: baseLineOffset];
+                        baselineOffset: 0];
     self.backButton.accessibilityLabel = MWLocalizedString(@"menu-back-accessibility-label", nil);
     self.backButton.tag = BOTTOM_MENU_BUTTON_PREVIOUS;
     
     [self.forwardButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD
                                     color: buttonColor
                                      size: buttonTextSize
-                           baselineOffset: baseLineOffset
+                           baselineOffset: 0
      ];
     self.forwardButton.accessibilityLabel = MWLocalizedString(@"menu-forward-accessibility-label", nil);
     self.forwardButton.tag = BOTTOM_MENU_BUTTON_NEXT;
@@ -78,12 +79,20 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     [self.rightButton.label setWikiText: IOS_WIKIGLYPH_SHARE
                                   color: buttonColor
                                    size: buttonTextSize
-                         baselineOffset: baseLineOffset + 1.0
+                         baselineOffset: 0
      ];
     self.rightButton.tag = BOTTOM_MENU_BUTTON_SHARE;
     self.rightButton.accessibilityLabel = MWLocalizedString(@"menu-share-accessibility-label", nil);
 
-    self.allButtons = @[self.backButton, self.forwardButton, self.rightButton];
+    [self.saveButton.label setWikiText: IOS_WIKIGLYPH_STAR_OUTLINE
+                                 color: buttonColor
+                                  size: buttonTextSize
+                        baselineOffset: 0
+     ];
+    self.saveButton.tag = BOTTOM_MENU_BUTTON_SAVE;
+    self.saveButton.accessibilityLabel = MWLocalizedString(@"share-menu-save-page", nil);
+
+    self.allButtons = @[self.backButton, self.forwardButton, self.rightButton, self.saveButton];
 
     self.view.backgroundColor = CHROME_COLOR;
 
@@ -129,6 +138,10 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
         case BOTTOM_MENU_BUTTON_SHARE:
             [self shareButtonPushed];
             break;
+        case BOTTOM_MENU_BUTTON_SAVE:
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SavePage" object:self userInfo:nil];
+            [self updateBottomBarButtonsEnabledState];
+            break;
         default:
             break;
     }
@@ -157,7 +170,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
         return;
     }
     
-    ShareMenuSavePageActivity *shareMenuSavePageActivity = [[ShareMenuSavePageActivity alloc] init];
+    //ShareMenuSavePageActivity *shareMenuSavePageActivity = [[ShareMenuSavePageActivity alloc] init];
 
     NSMutableArray *activityItemsArray = @[title, desktopURL].mutableCopy;
     if (image) {
@@ -166,7 +179,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
     UIActivityViewController *shareActivityVC =
         [[UIActivityViewController alloc] initWithActivityItems: activityItemsArray
-                                          applicationActivities: @[shareMenuSavePageActivity]];
+                                          applicationActivities: @[/*shareMenuSavePageActivity*/]];
     NSMutableArray *exclusions = @[
         UIActivityTypePrint,
         UIActivityTypeAssignToContact,
@@ -272,12 +285,32 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     self.adjacentHistoryIDs = [self getAdjacentHistoryIDs];
     self.forwardButton.enabled = (self.adjacentHistoryIDs[@"after"]) ? YES : NO;
     self.backButton.enabled = (self.adjacentHistoryIDs[@"before"]) ? YES : NO;
+
+    [self.saveButton.label setWikiText: [self isCurrentArticleSaved] ? IOS_WIKIGLYPH_STAR : IOS_WIKIGLYPH_STAR_OUTLINE
+                                 color: [UIColor blackColor]
+                                  size: 34
+                        baselineOffset: 0];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(BOOL)isCurrentArticleSaved
+{
+    __block BOOL result = NO;
+    [articleDataContext_.mainContext performBlockAndWait:^(){
+        NSManagedObjectID *currentArticleId =
+        [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+                                                         domain: [SessionSingleton sharedInstance].currentArticleDomain];
+        Article *article = (Article *)[articleDataContext_.mainContext objectWithID:currentArticleId];
+        if (article && (article.saved.count == 1)){
+            result = YES;
+        }
+    }];
+    return result;
 }
 
 /*

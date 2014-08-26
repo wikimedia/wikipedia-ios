@@ -4,6 +4,14 @@
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars_iOS.h"
 
+@interface WikiGlyphLabel()
+
+@property(nonatomic, strong) UIColor *color;
+@property(nonatomic) CGFloat size;
+@property(nonatomic) CGFloat baselineOffset;
+
+@end
+
 @implementation WikiGlyphLabel
 
 - (instancetype)initWithCoder:(NSCoder *)coder
@@ -33,16 +41,24 @@
 
 -(void)setWikiText:(NSString *)text color:(UIColor *)color size:(CGFloat)size baselineOffset:(CGFloat)baselineOffset
 {
+    self.color = color;
+    self.size = size;
+    self.baselineOffset = baselineOffset;
+
     // Temp hack for supplemental iOS wikifont.
     BOOL isIOSFontChar = NO;
 
     if (
         [text isEqualToString:IOS_WIKIGLYPH_W] ||
-        [text isEqualToString:IOS_WIKIGLYPH_TOC] ||
+        [text isEqualToString:IOS_WIKIGLYPH_TOC_COLLAPSED] ||
+        [text isEqualToString:IOS_WIKIGLYPH_TOC_EXPANDED] ||
         [text isEqualToString:IOS_WIKIGLYPH_SHARE] ||
         [text isEqualToString:IOS_WIKIGLYPH_MAGNIFY] ||
         [text isEqualToString:IOS_WIKIGLYPH_FORWARD] ||
-        [text isEqualToString:IOS_WIKIGLYPH_BACKWARD]
+        [text isEqualToString:IOS_WIKIGLYPH_BACKWARD] ||
+        [text isEqualToString:IOS_WIKIGLYPH_STAR] ||
+        [text isEqualToString:IOS_WIKIGLYPH_STAR_OUTLINE] ||
+        [text isEqualToString:IOS_WIKIGLYPH_RELOAD]
         ) {
         isIOSFontChar = YES;
     }

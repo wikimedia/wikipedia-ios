@@ -38,6 +38,7 @@
 
 -(void)setColor:(UIColor *)color
 {
+    _color = color;
     [self.label setTextColor:color];
 }
 

@@ -54,6 +54,9 @@
 #import "ReferencesVC.h"
 #import "WMF_Colors.h"
 #import "NSArray+Predicate.h"
+#import "WikiGlyphButton.h"
+#import "WikiGlyphLabel.h"
+#import "WikiGlyph_Chars_iOS.h"
 
 //#import "UIView+Debugging.h"
 
@@ -562,6 +565,12 @@ typedef enum {
                          [self.tocVC didHide];
                          self.unsafeToToggleTOC = NO;
                          self.webView.scrollView.contentOffset = origScrollPosition;
+                         
+                         WikiGlyphButton *tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
+                         [tocButton.label setWikiText: IOS_WIKIGLYPH_TOC_COLLAPSED
+                                                color: tocButton.label.color
+                                                 size: tocButton.label.size
+                                       baselineOffset: tocButton.label.baselineOffset];
                      }];
 }
 
@@ -604,6 +613,13 @@ typedef enum {
                          [self.view layoutIfNeeded];
                      }completion: ^(BOOL done){
                          self.unsafeToToggleTOC = NO;
+
+                         WikiGlyphButton *tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
+                         [tocButton.label setWikiText: IOS_WIKIGLYPH_TOC_EXPANDED
+                                                color: tocButton.label.color
+                                                 size: tocButton.label.size
+                                       baselineOffset: tocButton.label.baselineOffset];
+                         
                      }];
 }
 
@@ -1063,30 +1079,30 @@ typedef enum {
 
 -(void)saveCurrentPage
 {
-    [self showAlert:MWLocalizedString(@"share-menu-page-saved", nil)];
-    [self fadeAlert];
-
-    NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
-                                                                                  domain: [SessionSingleton sharedInstance].currentArticleDomain];
-    
-    if (!articleID) return;
-    
-    Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-    
-    Saved *alreadySaved = (Saved *)[articleDataContext_.mainContext getEntityForName: @"Saved" withPredicateFormat: @"article == %@", article];
-    
-    NSLog(@"SAVE PAGE FOR %@, alreadySaved = %@", article.title, alreadySaved);
-    if (article && !alreadySaved) {
-        NSLog(@"SAVED PAGE %@", article.title);
-        // Save!
-        Saved *saved = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:articleDataContext_.mainContext];
-        saved.dateSaved = [NSDate date];
-        [article addSavedObject:saved];
-        
+    [articleDataContext_.mainContext performBlockAndWait:^(){
+        NSManagedObjectID *articleID = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+                                                                                      domain: [SessionSingleton sharedInstance].currentArticleDomain];
+        if (!articleID) return;
+        Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+        if (!article) return;
+        if (article.saved.count == 0) {
+            // Save!
+            [self showAlert:MWLocalizedString(@"share-menu-page-saved", nil)];
+            [self fadeAlert];
+            Saved *saved = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:articleDataContext_.mainContext];
+            saved.dateSaved = [NSDate date];
+            [article addSavedObject:saved];
+        }else{
+            // Unsave!
+            //[articleDataContext_.mainContext deleteObject:article.saved.anyObject];
+            for (id obj in article.saved.copy) {
+                [articleDataContext_.mainContext deleteObject:obj];
+            }
+        }
         NSError *error = nil;
         [articleDataContext_.mainContext save:&error];
         NSLog(@"SAVE PAGE ERROR = %@", error);
-    }
+    }];
 }
 
 #pragma mark Web view scroll offset recording
