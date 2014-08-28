@@ -31,24 +31,15 @@
 
         [self setupMasterContext];
         
-        // Setup main and worker contexts.
+        // Setup main context.
         self.mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         self.mainContext.parentContext = self.masterContext;
-        
-        self.workerContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        self.workerContext.parentContext = self.mainContext;
         
         // Ensure object changes saved to mainContext bubble up to masterContext.
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(propagateMainSavesToMaster)
                                                      name:NSManagedObjectContextDidSaveNotification
                                                    object:self.mainContext];
-        
-        // Ensure object changes saved to workerContext bubble up to mainContext.
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(propagateWorkerSavesToMain)
-                                                     name:NSManagedObjectContextDidSaveNotification
-                                                   object:self.workerContext];
     }
     return self;
 }
@@ -92,15 +83,6 @@
         NSError *masterError = nil;
         if (![self.masterContext save:&masterError]) {
             NSLog(@"Error saving to master context = %@", masterError);
-        }
-    }];
-}
-
-- (void)propagateWorkerSavesToMain{
-    [self.mainContext performBlock:^{
-        NSError *mainError = nil;
-        if (![self.mainContext save:&mainError]) {
-            NSLog(@"Error saving to main context = %@", mainError);
         }
     }];
 }

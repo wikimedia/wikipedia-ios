@@ -225,12 +225,12 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     __block NSManagedObjectID *beforeHistoryId = nil;
     __block NSManagedObjectID *afterHistoryId = nil;
     
-    [articleDataContext_.workerContext performBlockAndWait:^(){
+    [articleDataContext_.mainContext performBlockAndWait:^(){
         
         NSError *error = nil;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName: @"History"
-                                                  inManagedObjectContext: articleDataContext_.workerContext];
+                                                  inManagedObjectContext: articleDataContext_.mainContext];
         [fetchRequest setEntity:entity];
         
         NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:YES selector:nil];
@@ -238,9 +238,9 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
         [fetchRequest setSortDescriptors:@[dateSort]];
         
         error = nil;
-        NSArray *historyEntities = [articleDataContext_.workerContext executeFetchRequest:fetchRequest error:&error];
+        NSArray *historyEntities = [articleDataContext_.mainContext executeFetchRequest:fetchRequest error:&error];
         
-        NSManagedObjectID *currentArticleId = [articleDataContext_.workerContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+        NSManagedObjectID *currentArticleId = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
                                                                                                domain: [SessionSingleton sharedInstance].currentArticleDomain];
         for (NSUInteger i = 0; i < historyEntities.count; i++) {
             History *history = historyEntities[i];

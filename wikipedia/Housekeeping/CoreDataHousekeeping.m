@@ -18,7 +18,7 @@
 {
     self = [super init];
     if (self) {
-        context_ = [ArticleDataContextSingleton sharedInstance].workerContext;
+        context_ = [ArticleDataContextSingleton sharedInstance].mainContext;
     }
     return self;
 }

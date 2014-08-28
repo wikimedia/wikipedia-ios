@@ -122,7 +122,7 @@
             }
 
             // Prepare placeholder Image records.
-            [[ArticleDataContextSingleton sharedInstance].workerContext performBlockAndWait:^(){
+            [[ArticleDataContextSingleton sharedInstance].mainContext performBlockAndWait:^(){
                 for (NSDictionary *page in output) {
                     // If url thumb found, prepare a core data Image object so URLCache
                     // will know this is an image to intercept.
@@ -132,7 +132,7 @@
                         NSNumber *height = thumbData[@"height"];
                         NSNumber *width = thumbData[@"width"];
                         if (src && height && width) {
-                            [weakSelf insertPlaceHolderImageEntityIntoContext: [ArticleDataContextSingleton sharedInstance].workerContext
+                            [weakSelf insertPlaceHolderImageEntityIntoContext: [ArticleDataContextSingleton sharedInstance].mainContext
                                                               forImageWithUrl: src
                                                                         width: width
                                                                        height: height];
@@ -140,7 +140,7 @@
                     }
                 }
                 NSError *error = nil;
-                [[ArticleDataContextSingleton sharedInstance].workerContext save:&error];
+                [[ArticleDataContextSingleton sharedInstance].mainContext save:&error];
             }];
             
             completionBlock(output);
