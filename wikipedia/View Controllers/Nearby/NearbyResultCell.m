@@ -60,6 +60,8 @@
                                                                                                       withString: distanceIntString];
         }
     }else{
+        // Meters to feet.
+        distance = @(distance.floatValue * 3.28084f);
         
         // Show in miles if over 0.1 miles.
         if (distance.floatValue > (5279.0f / 10.0f)) {
