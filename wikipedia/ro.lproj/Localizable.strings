@@ -139,8 +139,8 @@
 "timestamp-days" = "acum %d zile";
 "timestamp-months" = "acum %d luni";
 "timestamp-years" = "acum %d ani";
-"lastmodified-by-user" = "Modificată $1 de $2";
-"lastmodified-by-anon" = "Modificată $1 de către un utilizator anonim";
+"lastmodified-by-user" = "Modificat $1 de $2";
+"lastmodified-by-anon" = "Modificat $1 de către un utilizator anonim";
 "button-next" = "Înainte";
 "button-done" = "Realizat";
 "button-save" = "Salvare";

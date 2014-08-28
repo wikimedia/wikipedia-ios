@@ -24,9 +24,7 @@
 "zero-interstitial-cancel" = "Zrušiť";
 // Fuzzy
 "zero-learn-more" = "Chcete sa dozvedieť viac o Wikipédii Zero?";
-// Fuzzy
 "zero-learn-more-learn-more" = "Ďalšie informácie";
-// Fuzzy
 "zero-learn-more-no-thanks" = "Nie, ďakujem";
 "zero-wikipedia-zero-heading" = "Wikipédia Zero";
 "zero-warn-when-leaving" = "Upozorniť ma ak opúšťam Wikipédia Zero";
@@ -51,11 +49,9 @@
 "login-account-creation" = "Nemáte ešte účet? Pripojte sa k Wikipédii.";
 "login-username-placeholder-text" = "Používateľské meno";
 "login-password-placeholder-text" = "Heslo";
-// Fuzzy
-"wikitext-downloading" = "Načítavam text...";
+"wikitext-downloading" = "Načítavam obsah...";
 "wikitext-download-failed" = "Nepodarilo sa získať najnovšiu revíziu.";
-// Fuzzy
-"wikitext-download-success" = "Text je načítaný.";
+"wikitext-download-success" = "Obsah je načítaný.";
 "wikitext-preview-changes" = "Načítava sa ukážka vykonaných zmien...";
 "wikitext-preview-changes-none" = "Neboli vykonané žiadne zmeny.";
 "wikitext-upload-captcha-error" = "Problém s overovaním.";
@@ -95,6 +91,7 @@
 "main-menu-zero-faq" = "Wikipédia Zero FAQ";
 "main-menu-privacy-policy" = "Ochrana osobných údajov";
 "main-menu-terms-of-use" = "Podmienky používania";
+"main-menu-rate-app" = "Ohodnoťte aplikáciu";
 "main-menu-heading-zero" = "Wikipédia Zero";
 "main-menu-show-today" = "Dnes";
 "saved-pages-title" = "Uložené stránky";
@@ -130,3 +127,20 @@
 "onboarding-login" = "Prihlásiť sa";
 "onboarding-already-have-account" = "Máte už vytvorený účet? $1";
 "onboarding-skip" = "Preskočiť";
+"onboarding-wikipedia" = "Wikipédia";
+"onboarding-free-encyclopedia" = "Slobodná encyklopédia";
+"page_protected_autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
+"page_protected_sysop" = "Táto stránka je zamknutá.";
+"page_protected_can_not_edit" = "Nemáte právo upraviť túto stránku";
+"page_protected_can_not_edit_title" = "Táto stránka je zamknutá";
+"license-footer-text" = "Obsah je k dispozícii v rámci $1";
+"menu-edit-accessibility-label" = "Upraviť";
+"menu-close-accessibility-label" = "Zavrieť";
+"menu-preview-accessibility-label" = "Náhľad";
+"menu-back-accessibility-label" = "Späť";
+"menu-forward-accessibility-label" = "Dopredu";
+"menu-w-accessibility-label" = "Menu";
+"menu-search-accessibility-label" = "Hľadať";
+"menu-cancel-accessibility-label" = "Zrušiť";
+"menu-share-accessibility-label" = "Zdieľať";
+"menu-more-accessibility-label" = "Ďalšie nastavenia";

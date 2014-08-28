@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Bertaz
 // Author: Beta16
+// Author: Giacomo Checchin
 // Author: Gianfranco
 // Author: Nastoshka
 // Author: Ontsed
@@ -16,6 +17,10 @@
 "history-section-yesterday" = "Ieri";
 "history-section-lastweek" = "Ultima settimana";
 "history-section-lastmonth" = "Ultimo mese";
+"history-clear-confirmation-heading" = "Cancellare tutti gli elementi recenti?";
+"history-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
+"history-clear-cancel" = "Annulla";
+"history-clear-delete-all" = "Cancella tutto";
 "zero-free-verbiage" = "Accesso gratuito a Wikipedia dal vostro operatore di telefonia mobile (tariffa dati non applicata)";
 "zero-charged-verbiage" = "Wikipedia Zero è spento";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -93,10 +98,18 @@
 "main-menu-send-feedback" = "Invia commento sull'applicazione";
 "main-menu-show-page-history" = "Cronologia delle modifiche a $1";
 "main-menu-credits" = "Crediti";
+"main-menu-zero-faq" = "FAQ di Wikipedia Zero";
+"main-menu-privacy-policy" = "Informativa sulla privacy";
 "main-menu-terms-of-use" = "Condizioni d'uso";
+"main-menu-rate-app" = "Valuta app";
 "main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-heading-legal" = "Mumbo jumbo";
 "main-menu-show-today" = "Oggi";
 "saved-pages-title" = "Pagine salvate";
+"saved-pages-clear-confirmation-heading" = "Cancellare tutti gli elementi salvati?";
+"saved-pages-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
+"saved-pages-clear-cancel" = "Annulla";
+"saved-pages-clear-delete-all" = "Cancella tutto";
 "page-history-title" = "Cronologia della pagina";
 "page-history-downloading" = "Caricamento della cronologia di pagina...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
@@ -147,6 +160,7 @@
 "onboarding-login" = "Accedi";
 "onboarding-already-have-account" = "Hai già un'utenza? $1";
 "onboarding-skip" = "Salta";
+"onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "L'enciclopedia libera";
 "preference_title_eventlogging_opt_in" = "Invia rapporti sull'utilizzo";
 "preference_summary_eventlogging_opt_in" = "Consenti a Wikimedia di raccogliere informazioni su come usi l'applicazione per renderla migliore";
@@ -155,5 +169,25 @@
 "page_protected_other" = "Questa pagina è stata protetta ai seguenti livelli: $1";
 "page_protected_can_not_edit" = "Non hai i diritti per modificare questa pagina";
 "page_protected_can_not_edit_title" = "Questa pagina è protetta";
+"license-footer-text" = "Il contenuto è disponibile in base alla licenza $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contenuti";
+"abuse-filter-warning-heading" = "Questa potrebbe essere una modifica inutile, sei sicuro di volerla salvare?";
+"abuse-filter-warning-subheading" = "La tua modifica potrebbe contenere uno o più dei seguenti elementi:";
+"abuse-filter-warning-caps" = "Scritte tutte in MAIUSCOLO";
+"abuse-filter-warning-blanking" = "Articolo vuoto o di spam";
+"abuse-filter-warning-irrelevant" = "Collegamenti esterni o immagini non pertinenti";
+"abuse-filter-warning-repeat" = "Caratteri ripeeeeeeetuti";
+"abuse-filter-disallow-heading" = "Non puoi salvare questa modifica. Per favore torna indietro e modificala.";
+"menu-edit-accessibility-label" = "Modifica";
+"menu-close-accessibility-label" = "Chiudi";
+"menu-preview-accessibility-label" = "Anteprima";
+"menu-back-accessibility-label" = "Indietro";
+"menu-forward-accessibility-label" = "Avanti";
+"menu-w-accessibility-label" = "Menu";
+"menu-toc-accessibility-label" = "Indice";
+"menu-search-accessibility-label" = "Ricerca";
+"menu-cancel-accessibility-label" = "Annulla";
+"menu-share-accessibility-label" = "Condividi";
+"menu-more-accessibility-label" = "Ulteriori impostazioni";
+"menu-trash-accessibility-label" = "Cancella";

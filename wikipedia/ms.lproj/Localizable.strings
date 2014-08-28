@@ -1,14 +1,14 @@
 // Messages for Malay (Bahasa Melayu)
 // Exported from translatewiki.net
 // Author: Anakmalaysia
+// Author: Aviator
 
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batalkan";
 "article-languages-downloading" = "Memuatkan bahasa-bahasa rencana...";
 // Fuzzy
 "article-languages-filter-placeholder" = "Tapis";
-// Fuzzy
-"history-label" = "Sejarah Pelayaran";
+"history-label" = "Terkini";
 "history-section-today" = "Hari ini";
 "history-section-yesterday" = "Semalam";
 "history-section-lastweek" = "Minggu lepas";
@@ -38,6 +38,10 @@
 "account-creation-logging-in" = "Sedang log masuk...";
 "account-creation-passwords-mismatched" = "Kata laluan tidak sepadan.";
 "account-creation-saving" = "Menyimpan...";
+"account-creation-username-placeholder-text" = "Nama pengguna";
+"account-creation-password-placeholder-text" = "Kata laluan";
+"account-creation-password-confirm-placeholder-text" = "Sahkan kata laluan";
+"account-creation-email-placeholder-text" = "E-mel (pilihan)";
 "login-name-not-found" = "Nama pengguna diperlukan untuk log masuk.";
 "login-name-illegal" = "Nama pengguna yang diberikan tidak sah.";
 "login-name-does-not-exist" = "Nama pengguna yang diberikan tidak wujud.";
@@ -45,24 +49,27 @@
 "login-password-wrong" = "Kata laluan yang diberikan tidak betul.";
 "login-throttled" = "Anda telah log masuk terlalu banyak kali dalam masa yang singkat.";
 "login-user-blocked" = "Pengguna ini disekat.";
-// Fuzzy
-"wikitext-downloading" = "Memuatkan teks wiki...";
+"login-account-creation" = "Tiada akaun? Sertai Wikipedia.";
+"login-username-placeholder-text" = "Nama pengguna";
+"login-password-placeholder-text" = "Kata laluan";
+"wikitext-downloading" = "Memuat kandungan...";
 "wikitext-download-failed" = "Semakan terkini tidak dapat diperoleh.";
-// Fuzzy
-"wikitext-download-success" = "Teks wiki telah dimuatkan.";
+"wikitext-download-success" = "Kandungan telah dimuat.";
 "wikitext-preview-changes" = "Mengoleh pralihat suntingan anda...";
 "wikitext-preview-changes-none" = "Tiada suntingan yang dilakukan untuk pralihat.";
 "wikitext-upload-result-unknown" = "Hasil muat naikan teks wiki tidak dapat ditentukan.";
 "wikitext-upload-captcha-error" = "Ralat pengesahan CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Pengesahan CAPTCHA diperlukan.";
 "wikitext-upload-save" = "Menyimpan...";
-// Fuzzy
-"wikitext-upload-save-sign-in" = "Log masuk dan simpan";
+"wikitext-upload-save-sign-in" = "Log masuk";
 "wikitext-upload-save-sign-in-benefits" = "Supaya penyunting lain boleh berhubungan dengan anda, dan anda dapat meninjau rencana-rencana suntingan anda.";
 "wikitext-upload-save-anonymously" = "Simpan secara awanama";
 // Fuzzy
 "wikitext-upload-save-anonymously-warning" = "Begini kurang privasi. Alamat IP anda kelihatan bersama suntingan.";
+"wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"open-link-title" = "Buka pautan";
+"open-link-cancel" = "Batal";
 "search-searching" = "Mencari...";
 "search-no-matches" = "Tiada padanan yang ditemui untuk kata carian.";
 "search-field-placeholder-text" = "Cari dalam Wikipedia";
@@ -70,6 +77,8 @@
 "search-loading-section-zero" = "Memuatkan bahagian pertama rencana...";
 "search-loading-section-remaining" = "Memuatkan isi kandungan selebihnya...";
 "search-loading-article-loaded" = "Rencana telah dimuatkan.";
+"search-cancel" = "Batal";
+"main-menu-title" = "Lagi";
 "main-menu-language-title" = "Cari dalam wiki bahasa $1";
 "main-menu-language-toggle-show" = "Paparkan bahasa";
 "main-menu-language-toggle-hide" = "Sorokkan bahasa";
@@ -79,24 +88,23 @@
 "main-menu-account-login" = "Log masuk";
 "main-menu-account-logout" = "Log keluar";
 "main-menu-show-title" = "Paparkan...";
-// Fuzzy
-"main-menu-show-history" = "Sejarah pelayaran";
+"main-menu-show-history" = "Terkini";
 "main-menu-show-saved" = "Laman-laman tersimpan";
 "main-menu-current-article-save" = "Simpan $1 untuk dibaca offline";
-// Fuzzy
-"main-menu-random" = "Rencana rawak";
+"main-menu-random" = "Rawak";
 "main-menu-feedback-heading" = "Maklum balas";
 // Fuzzy
 "main-menu-send-feedback" = "Kirim maklum balas";
 "main-menu-show-page-history" = "Sejarah perubahan $1";
 "main-menu-credits" = "Kredit";
+"main-menu-zero-faq" = "Soalan Lazim Wikipedia Zero";
+"main-menu-privacy-policy" = "Dasar privasi";
+"main-menu-terms-of-use" = "Syarat-syarat penggunaan";
 "saved-pages-title" = "Laman Tersimpan";
 "page-history-title" = "Sejarah laman";
 "page-history-downloading" = "Memuatkan sejarah laman...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
-// Fuzzy
 "navbar-title-mode-login" = "Log masuk";
-// Fuzzy
 "navbar-title-mode-login-and-save" = "Log masuk dan simpan";
 "navbar-title-mode-create-account" = "Buka akaun";
 "navbar-title-mode-create-account-and-save" = "Cuka akaun dan simpan";
@@ -125,3 +133,37 @@
 "credits-gerrit-repo" = "Utama (Gerrit)";
 "credits-github-mirror" = "Cermin (GitHub)";
 "credits-external-libraries" = "Luaran";
+"share-menu-save-page" = "Simpan Rencana";
+"share-menu-page-saved" = "Rencana Disimpan";
+"timestamp-just-now" = "sebentar tadi";
+"timestamp-minutes" = "%d minit yang lalu";
+"timestamp-hours" = "%d jam yang lalu";
+"timestamp-days" = "%d hari yang lalu";
+"timestamp-months" = "%d bulan yang lalu";
+"timestamp-years" = "%d tahun yang lalu";
+"lastmodified-by-user" = "Diubah pada $1 oleh $2";
+"lastmodified-by-anon" = "Diubah pada $1 oleh pengguna tanpa nama";
+"button-done" = "Siap";
+"button-save" = "Simpan";
+"onboarding-create-account" = "Buka akaun";
+"onboarding-login" = "Log masuk";
+"onboarding-already-have-account" = "Sudah mempunyai akaun? $1";
+"onboarding-skip" = "Langkau";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "Ensiklopedia Bebas";
+"preference_title_eventlogging_opt_in" = "Kirim laporan penggunaan";
+"page_protected_autoconfirmed" = "Laman ini telah diberi perlindungan separa.";
+"page_protected_sysop" = "Laman ini telah diberi perlindungan penuh.";
+"license-footer-text" = "Kandungan disediakan dengan $1";
+"table-of-contents-heading" = "Kandungan";
+"menu-edit-accessibility-label" = "Sunting";
+"menu-close-accessibility-label" = "Tutup";
+"menu-preview-accessibility-label" = "Pralihat";
+"menu-back-accessibility-label" = "Undur";
+"menu-forward-accessibility-label" = "Maju";
+"menu-w-accessibility-label" = "Menu";
+"menu-toc-accessibility-label" = "Kandungan";
+"menu-search-accessibility-label" = "Cari";
+"menu-cancel-accessibility-label" = "Batal";
+"menu-share-accessibility-label" = "Kongsi";
+"menu-more-accessibility-label" = "Lagi tetapan";

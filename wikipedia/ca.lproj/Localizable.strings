@@ -36,7 +36,7 @@
 "account-creation-captcha-obtaining" = "Obtenint d'un CAPTCHA nou.";
 "account-creation-logging-in" = "Iniciant sessió...";
 "account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen";
-"account-creation-saving" = "Desant...";
+"account-creation-saving" = "S’està desant…";
 "account-creation-login" = "Ja teniu un compte? Inicia una sessió.";
 "account-creation-username-placeholder-text" = "Nom d'usuari";
 "account-creation-password-placeholder-text" = "Contrasenya";

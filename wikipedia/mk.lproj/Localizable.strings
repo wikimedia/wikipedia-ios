@@ -13,6 +13,10 @@
 "history-section-yesterday" = "Вчера";
 "history-section-lastweek" = "Минатата седмица";
 "history-section-lastmonth" = "Минатиот месец";
+"history-clear-confirmation-heading" = "Да ги избришам сите скорешни ставки?";
+"history-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
+"history-clear-cancel" = "Откажи";
+"history-clear-delete-all" = "Избриши ги сите";
 "zero-free-verbiage" = "Бесплатнен пристап до Википедија преку Вашиот мобилен оператор (податочниот сообраќај не се наплаќа)";
 "zero-charged-verbiage" = "Википедија Нулта е исклучена";
 "zero-charged-verbiage-extended" = "Вчитувањето на други статии може да повлече наплата за податочниот промет. Статиите зачувани на уредот не предизвикуваат податочен промет и се бесплатни.";
@@ -99,6 +103,10 @@
 "main-menu-heading-legal" = "Правни работи";
 "main-menu-show-today" = "Денес";
 "saved-pages-title" = "Зачувани страници";
+"saved-pages-clear-confirmation-heading" = "Да ги избришам сите зачувани ставки?";
+"saved-pages-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
+"saved-pages-clear-cancel" = "Откажи";
+"saved-pages-clear-delete-all" = "Избриши ги сите";
 "page-history-title" = "Историја на страницата";
 "page-history-downloading" = "Ја вчитувам историјата...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
@@ -181,3 +189,4 @@
 "menu-cancel-accessibility-label" = "Откажи";
 "menu-share-accessibility-label" = "Сподели";
 "menu-more-accessibility-label" = "Повеќе поставки";
+"menu-trash-accessibility-label" = "Избриши";

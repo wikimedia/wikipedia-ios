@@ -8,12 +8,14 @@
 "LfM-01-aCF.text" = "Anteprima";
 "P6J-IE-CiO.text" = "Salta";
 "PCr-0J-fBj.placeholder" = "Password";
+"UgH-77-lyp.placeholder" = "Reinserisci la password";
 "W1c-wQ-1pa.text" = "Nessuna pagina salvata ancora.";
 "Wff-o9-AdH.text" = "Entra";
 "aUp-0e-F6i.text" = "Nessuna pagina recente qui.";
 "c3c-PU-Exz.text" = "Crea un'utenza";
 "gPg-cg-Yjy.placeholder" = "Inserisci il testo captcha dall'immagine sopra";
 "heA-3K-nhS.text" = "Hai già un'utenza? Accedi";
+"huU-kO-aYI.text" = "Probabilmente hai cancellato tutto. La prossima volta che vai in una pagina, puoi tornarci da qui.";
 "jiW-Cg-oL3.text" = "Registrati";
 "kVb-lx-d6C.placeholder" = "Password";
 "mAk-1N-jPC.placeholder" = "Nome utente";

@@ -15,6 +15,9 @@
 "history-section-yesterday" = "Ontem";
 "history-section-lastweek" = "Última semana";
 "history-section-lastmonth" = "Último mês";
+"history-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
+"history-clear-cancel" = "Cancelar";
+"history-clear-delete-all" = "Apagar tudo";
 "zero-free-verbiage" = "Acesso gratuito à Wikipédia disponibilizado pela sua operadora (sem taxa de dados cobrada)";
 "zero-charged-verbiage" = "Wikipédia Zero está desativada";
 "zero-charged-verbiage-extended" = "A leitura de outros artigos podem incorrer em taxas de dados. Artigos gravados e armazenados off-line não usam dados e o seu acesso é gratuito.";
@@ -101,6 +104,9 @@
 "main-menu-heading-legal" = "Informação legal";
 "main-menu-show-today" = "Hoje";
 "saved-pages-title" = "Páginas guardadas";
+"saved-pages-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
+"saved-pages-clear-cancel" = "Cancelar";
+"saved-pages-clear-delete-all" = "Apagar tudo";
 "page-history-title" = "Histórico da página";
 "page-history-downloading" = "A carregar o histórico da página...";
 "navbar-title-mode-edit-wikitext" = "Editar";
@@ -183,3 +189,4 @@
 "menu-cancel-accessibility-label" = "Cancelar";
 "menu-share-accessibility-label" = "Partilhar";
 "menu-more-accessibility-label" = "Mais configurações";
+"menu-trash-accessibility-label" = "Apagar";

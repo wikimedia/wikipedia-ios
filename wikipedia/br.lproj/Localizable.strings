@@ -1,6 +1,7 @@
 // Messages for Breton (brezhoneg)
 // Exported from translatewiki.net
 // Author: Fohanno
+// Author: Fulup
 // Author: Gwenn-Ael
 // Author: Y-M D
 
@@ -16,6 +17,7 @@
 "history-section-lastmonth" = "Er miz paseet";
 "zero-free-verbiage" = "Moned frank da Wikipedia eus hoc'h oberataer hezoug (mizoù roadennoù null)";
 "zero-charged-verbiage" = "Wikipedia Zero n'a ket en-dro";
+"zero-charged-verbiage-extended" = "Kargañ pennadoù all a c'hallfe kreskiñ ar mizoù. Ne vez ket bevezet roadennoù gant ar pennadoù enrollet ezlinenn ha digoust int.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "O kuitaat Wikipedia Zero";
 "zero-interstitial-leave-app" = "Gallout a ra bezañ mizoù da baeañ evit ar roadennoù. Mont d'al lec'hienn diavaez ?";
@@ -39,7 +41,7 @@
 "account-creation-email-placeholder-text" = "Postel (diret)";
 "login-name-not-found" = "Rekis eo an anv implijer evit kevreañ.";
 "login-name-illegal" = "Roet ho peus un anv implijer dilezenn.";
-"login-name-does-not-exist" = "N'eus ket eus an anv implijer pourchaset";
+"login-name-does-not-exist" = "N'eus ket eus an anv implijer roet";
 "login-password-empty" = "Rekis eo ar ger-tremen evit kevreañ.";
 "login-password-wrong" = "Direizh eo ar ger-tremen pourchaset.";
 "login-throttled" = "Kevreet ho peus meur a wech e berr amzer.";
@@ -50,11 +52,17 @@
 "wikitext-downloading" = "O kargañ un endalc'had...";
 "wikitext-download-failed" = "N'haller ket kaout an azgweladenn ziwezhañ";
 "wikitext-download-success" = "Endalc'had karget";
+"wikitext-preview-changes" = "Adtapout an alberz eus ho kemmoù";
+"wikitext-preview-changes-none" = "N'eus bet graet kemm ebet evit an alberz.";
+"wikitext-upload-result-unknown" = "N'haller ket termenañ disoc'h pellgargañ ar wikitestenn.";
 "wikitext-upload-captcha-error" = "Fazi gwiriañ Captcha";
 "wikitext-upload-captcha-needed" = "Ezhomm gwiriañ captcha";
 "wikitext-upload-save" = "Oc'h enrollañ...";
 "wikitext-upload-save-sign-in" = "Kevreañ";
+"wikitext-upload-save-sign-in-benefits" = "Evel-se e c'hall ar genembannerien labourat war-eeun ganeoc'h ha gallout a reot gwelet peseurt pennadoù ho peus kemmet.";
 "wikitext-upload-save-anonymously" = "Enrollañ ent dianav";
+"wikitext-upload-save-anonymously-warning" = "Ar c'hemmoù a vo roet da chomlec'h IP hoc'h ardivink. M'ho peus $1 ho po muioc'h a zegasadennoù e kuzhut.";
+"wikitext-upload-save-terms-and-license" = "Pa'z enrollit e tegemerit ar $1, ha lakait ho tegasadennoù dindan an aotre-implijout $2 en un doare didorradus.";
 "wikitext-upload-save-terms-name" = "Termenoù implijout";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Digeriñ al liamm";
@@ -90,6 +98,7 @@
 "main-menu-terms-of-use" = "Termenoù implijout";
 "main-menu-rate-app" = "Notañ an arload";
 "main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-heading-legal" = "Titouroù lezennel";
 "main-menu-show-today" = "Hiziv";
 "saved-pages-title" = "Pajennoù saveteet";
 "page-history-title" = "Istor ar bajenn";
@@ -99,21 +108,28 @@
 "navbar-title-mode-login-and-save" = "Kevreañ hag enrollañ";
 "navbar-title-mode-create-account" = "Krouiñ ur gont";
 "navbar-title-mode-create-account-and-save" = "Krouiñ ur gont hag enrollañ";
+"navbar-title-mode-edit-wikitext-warning" = "Kemmañ ar c'hudennoù";
+"navbar-title-mode-edit-wikitext-disallow" = "Kemmañ ar c'hudennoù";
 "navbar-title-mode-edit-wikitext-preview" = "Rakwelet";
+"navbar-title-mode-edit-wikitext-captcha" = "Gwiriañ buan zo ezhomm";
 "navbar-title-mode-edit-wikitext-summary" = "Deskrivit ho kemm";
 "navbar-title-mode-edit-wikitext-save" = "Enrollañ";
 "edit-summary-choice-linked-words" = "Gerioù liammet";
 "edit-summary-choice-fixed-grammar" = "Fazi yezhadur reizhet";
+"edit-summary-choice-fixed-inaccuracy" = "Direizhded reizhet";
+"edit-summary-choice-fixed-styling" = "Reizhañ ar stil";
 "edit-summary-choice-fixed-typos" = "Vi-koukoug reizhet";
 "edit-summary-choice-added-category" = "Rummad ouzhpennet";
 "edit-summary-choice-added-missing-info" = "Ouzhpennet eo bet an titour a vanke";
 "edit-summary-choice-added-clarification" = "Resisadur bet ouzhpennet";
 "edit-summary-choice-other" = "All";
-"edit-summary-field-placeholder-text" = "Penaos ho peus gwellaet ar bajenn ?";
-"edit-summary-title" = "Penaos ho peus gwellaet ar pennad-mañ ?";
+"edit-summary-description" = "Un diverradenn a-ziforc'h a sikour ar genembannerien da adlenn buan ho kemmoù. Gallout a reot ivez dibab e-touez ar balizennoù amañ dindan.";
+"edit-summary-field-placeholder-text" = "Doareoù all m'eo bet gwellaet ar pennad ganeoc'h";
+"edit-summary-title" = "Penaos eo bet gwellaet ar pennad-mañ ganeoc'h ?";
 "fetching-random-article" = "Tapout ur pennad evel ma teu e teu";
 "article-pull-to-refresh-prompt" = "Sachañ evit freskaat ar pennad";
 "article-pull-to-refresh-is-refreshing" = "O freskaat ar pennad";
+"credits-title" = "Dastumlec'hioù Open source";
 "credits-wikimedia-repos" = "Wikimedia";
 "credits-gerrit-repo" = "Arload pennañ (Gerrit)";
 "credits-github-mirror" = "Arload melezour (GitHub)";
@@ -133,7 +149,7 @@
 "button-save" = "Enrollañ";
 "onboarding-create-account" = "Krouiñ ur gont";
 "onboarding-login" = "Kevreañ";
-"onboarding-already-have-account" = "Ur gont ho peus dija ? $1";
+"onboarding-already-have-account" = "Ur gont hoc'h eus c'hoazh ? $1";
 "onboarding-skip" = "Lezel a-gostez";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "An Holloueziadur digor";
@@ -141,6 +157,7 @@
 "preference_summary_eventlogging_opt_in" = "Aotren Wikipedia da zastum titouroù diwar-benn an doare ma implijit an arload evit gwellaat anezhañ";
 "page_protected_autoconfirmed" = "Damwarezet eo bet ar bajenn-mañ.";
 "page_protected_sysop" = "Gwarezet penn-da-benn eo bet ar bajenn-mañ.";
+"page_protected_other" = "Gwarezet eo bet ar bajenn-mañ gant al liveoù-mañ : $1";
 "page_protected_can_not_edit" = "N'ho peus ket gwir da aozañ ar bajenn-mañ";
 "page_protected_can_not_edit_title" = "Gwarezet eo ar bajenn-mañ";
 "license-footer-text" = "An endalc'had a c'haller kavout dindan $1";
@@ -149,13 +166,20 @@
 "abuse-filter-warning-heading" = "War a seblant ne vez ket degaset kalz a dra gant an aozadenn-mañ. Ha sur oc'h e fell deoc'h enrollañ anezhi ?";
 "abuse-filter-warning-subheading" = "E-barzh hoc'h aozadenn e c'hall bezañ unan eus an elfennoù-mañ :";
 "abuse-filter-warning-caps" = "Testenn e PENNLIZHERENNOÙ";
+"abuse-filter-warning-blanking" = "Pennadoù goullo pe posteloù strobus";
+"abuse-filter-warning-irrelevant" = "Liammoù pe skeudennoù diavaez diazaz";
 "abuse-filter-warning-repeat" = "Arouezennoù adskriiiiivet";
+"abuse-filter-disallow-heading" = "Ne c'hallit ket enrollañ ar c'hemm-mañ. Distroit ha kemmit anezhañ.";
+"abuse-filter-disallow-unconstructive" = "Ur sil emgefreek en deus anavezet ar c'hemm-mañ evel unan na zegaso ket kalz a dra, pe evel unan a glask degas drast.";
+"abuse-filter-disallow-notable" = "Un holloueziadur eo Wikipedia. N'eus nemet traoù neptu pe traoù a dalvouegezh a c'haller lakaat e-barzh.";
 "menu-edit-accessibility-label" = "Kemmañ";
 "menu-close-accessibility-label" = "Serriñ";
 "menu-preview-accessibility-label" = "Rakwelet";
 "menu-back-accessibility-label" = "Distreiñ";
 "menu-forward-accessibility-label" = "Treuzkas";
 "menu-w-accessibility-label" = "Lañser";
+"menu-toc-accessibility-label" = "Endalc'had";
 "menu-search-accessibility-label" = "Klask";
 "menu-cancel-accessibility-label" = "Nullañ";
 "menu-share-accessibility-label" = "Rannañ";
+"menu-more-accessibility-label" = "Muioc'h a arventennoù";

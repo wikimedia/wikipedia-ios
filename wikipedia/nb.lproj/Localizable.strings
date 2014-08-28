@@ -148,6 +148,8 @@
 "onboarding-login" = "Logg inn";
 "onboarding-already-have-account" = "Har du allerede en konto? $1";
 "onboarding-skip" = "Hopp over";
+"onboarding-wikipedia" = "Wikipedia";
+"onboarding-free-encyclopedia" = "Den frie encyklopedi";
 "preference_title_eventlogging_opt_in" = "Send bruksrapporter";
 "preference_summary_eventlogging_opt_in" = "Tillatt at Wikimedia samler informasjon om hvordan du bruker appen for å gjøre den bedre";
 "page_protected_autoconfirmed" = "Denne siden er delvis beskyttet.";
@@ -167,3 +169,14 @@
 "abuse-filter-disallow-heading" = "Endringen kan ikke lagres. Vennligst gå tilbake og endre den.";
 "abuse-filter-disallow-unconstructive" = "Redigeringen har blitt automatisk identifisert som potensielt destruktiv eller et forsøk på vandalisme.";
 "abuse-filter-disallow-notable" = "Wikipedia er en encyklopedi og kun nøytralt og relevant innhold hører hjemme her.";
+"menu-edit-accessibility-label" = "Rediger";
+"menu-close-accessibility-label" = "Lukk";
+"menu-preview-accessibility-label" = "Forhåndsvis";
+"menu-back-accessibility-label" = "Tilbake";
+"menu-forward-accessibility-label" = "Frem";
+"menu-w-accessibility-label" = "Meny";
+"menu-toc-accessibility-label" = "Innhold";
+"menu-search-accessibility-label" = "Søk";
+"menu-cancel-accessibility-label" = "Avbryt";
+"menu-share-accessibility-label" = "Del";
+"menu-more-accessibility-label" = "Flere innstillinger";

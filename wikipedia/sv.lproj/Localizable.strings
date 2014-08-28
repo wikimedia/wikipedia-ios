@@ -16,6 +16,10 @@
 "history-section-yesterday" = "Igår";
 "history-section-lastweek" = "Senaste veckan";
 "history-section-lastmonth" = "Senaste månaden";
+"history-clear-confirmation-heading" = "Radera alla senaste objekt?";
+"history-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
+"history-clear-cancel" = "Avbryt";
+"history-clear-delete-all" = "Radera alla";
 "zero-free-verbiage" = "Gratis Wikipedia-tillgång från din mobiloperatör (utan dataavgifter)";
 "zero-charged-verbiage" = "Wikipedia Zero är avstängt";
 "zero-charged-verbiage-extended" = "Att ladda andra artiklar kan medföra datakostnader. Sparade artiklar som lagras offline använder inte data och är gratis.";
@@ -102,6 +106,10 @@
 "main-menu-heading-legal" = "Rättslig information";
 "main-menu-show-today" = "Idag";
 "saved-pages-title" = "Sparade artiklar";
+"saved-pages-clear-confirmation-heading" = "Radera alla sparade objekt?";
+"saved-pages-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
+"saved-pages-clear-cancel" = "Avbryt";
+"saved-pages-clear-delete-all" = "Radera alla";
 "page-history-title" = "Artikelhistorik";
 "page-history-downloading" = "Laddar artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigera";
@@ -184,3 +192,4 @@
 "menu-cancel-accessibility-label" = "Avbryt";
 "menu-share-accessibility-label" = "Dela";
 "menu-more-accessibility-label" = "Fler inställningar";
+"menu-trash-accessibility-label" = "Radera";
