@@ -16,6 +16,10 @@
 "history-section-yesterday" = "昨天";
 "history-section-lastweek" = "上周";
 "history-section-lastmonth" = "上月";
+"history-clear-confirmation-heading" = "删除所有最近项目？";
+"history-clear-confirmation-sub-heading" = "此操作不能撤销！";
+"history-clear-cancel" = "取消";
+"history-clear-delete-all" = "删除全部";
 "zero-free-verbiage" = "免费访问维基百科（不需要支出数据费用）";
 "zero-charged-verbiage" = "已关闭维基百科零";
 "zero-charged-verbiage-extended" = "载入其他条目将可能产生流量费用。已保存条目会离线存储并且免流量费用。";
@@ -102,6 +106,10 @@
 "main-menu-heading-legal" = "胡言乱语";
 "main-menu-show-today" = "今天的首页";
 "saved-pages-title" = "已保存页面";
+"saved-pages-clear-confirmation-heading" = "删除所有保存的项目？";
+"saved-pages-clear-confirmation-sub-heading" = "此操作不能撤销！";
+"saved-pages-clear-cancel" = "取消";
+"saved-pages-clear-delete-all" = "删除全部";
 "page-history-title" = "页面历史";
 "page-history-downloading" = "加载页面历史...";
 "navbar-title-mode-edit-wikitext" = "编辑";
@@ -184,3 +192,4 @@
 "menu-cancel-accessibility-label" = "取消";
 "menu-share-accessibility-label" = "分享";
 "menu-more-accessibility-label" = "更多设置";
+"menu-trash-accessibility-label" = "删除";

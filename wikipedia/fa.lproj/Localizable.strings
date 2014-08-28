@@ -16,6 +16,10 @@
 "history-section-yesterday" = "دیروز";
 "history-section-lastweek" = "هفتهٔ گذشته";
 "history-section-lastmonth" = "ماه گذشته";
+"history-clear-confirmation-heading" = "همه موارد اخیر حذف شوند؟";
+"history-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
+"history-clear-cancel" = "لغو";
+"history-clear-delete-all" = "حذف همه";
 "zero-free-verbiage" = "دسترسی مجانی از تلفن همراه توسط اپراتور تامین شده‌است (هزینهٔ دیتا گرفته نمی‌شود)";
 "zero-charged-verbiage" = "ویکی پدیای صفر خاموش است";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -100,6 +104,10 @@
 "main-menu-heading-legal" = "خرافات";
 "main-menu-show-today" = "امروز";
 "saved-pages-title" = "صفحات ذخیره شده";
+"saved-pages-clear-confirmation-heading" = "همه موارد ذخیره‌شده حذف شوند؟";
+"saved-pages-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
+"saved-pages-clear-cancel" = "لغو";
+"saved-pages-clear-delete-all" = "حذف همه";
 "page-history-title" = "تاریخچهٔ صفحه";
 "page-history-downloading" = "در حال بارگیری صفحه تاریخچه...";
 "navbar-title-mode-edit-wikitext" = "ویرایش";
@@ -157,3 +165,4 @@
 "table-of-contents-heading" = "محتویات";
 "menu-close-accessibility-label" = "بستن";
 "menu-preview-accessibility-label" = "پیش‌نمایش";
+"menu-trash-accessibility-label" = "حذف";

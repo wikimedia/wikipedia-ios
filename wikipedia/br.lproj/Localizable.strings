@@ -15,6 +15,10 @@
 "history-section-yesterday" = "Dec'h";
 "history-section-lastweek" = "Er sizhun paseet";
 "history-section-lastmonth" = "Er miz paseet";
+"history-clear-confirmation-heading" = "Lemel an holl elfennoù nevez ?";
+"history-clear-confirmation-sub-heading" = "Ne c'hall ket an ober-mañ bezañ nullet !";
+"history-clear-cancel" = "Nullañ";
+"history-clear-delete-all" = "Lemel pep tra";
 "zero-free-verbiage" = "Moned frank da Wikipedia eus hoc'h oberataer hezoug (mizoù roadennoù null)";
 "zero-charged-verbiage" = "Wikipedia Zero n'a ket en-dro";
 "zero-charged-verbiage-extended" = "Kargañ pennadoù all a c'hallfe kreskiñ ar mizoù. Ne vez ket bevezet roadennoù gant ar pennadoù enrollet ezlinenn ha digoust int.";
@@ -101,6 +105,10 @@
 "main-menu-heading-legal" = "Titouroù lezennel";
 "main-menu-show-today" = "Hiziv";
 "saved-pages-title" = "Pajennoù saveteet";
+"saved-pages-clear-confirmation-heading" = "Lemel an holl elfennoù enrollet ?";
+"saved-pages-clear-confirmation-sub-heading" = "Ne c'hall ket an ober-mañ bezañ nullet !";
+"saved-pages-clear-cancel" = "Nullañ";
+"saved-pages-clear-delete-all" = "Lemel pep tra";
 "page-history-title" = "Istor ar bajenn";
 "page-history-downloading" = "O kargañ istor ar bajenn...";
 "navbar-title-mode-edit-wikitext" = "Kemmañ";
@@ -183,3 +191,4 @@
 "menu-cancel-accessibility-label" = "Nullañ";
 "menu-share-accessibility-label" = "Rannañ";
 "menu-more-accessibility-label" = "Muioc'h a arventennoù";
+"menu-trash-accessibility-label" = "Lemel";

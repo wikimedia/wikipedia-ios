@@ -12,6 +12,10 @@
 "history-section-yesterday" = "Gëschter";
 "history-section-lastweek" = "Lescht Woch";
 "history-section-lastmonth" = "Leschte Mount";
+"history-clear-confirmation-heading" = "All rezent Elementer läschen?";
+"history-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
+"history-clear-cancel" = "Ofbriechen";
+"history-clear-delete-all" = "All läschen";
 "zero-charged-verbiage" = "Wikipedia Zero ass aus";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Wikipedia Zero verloossen";
@@ -93,6 +97,10 @@
 "main-menu-heading-legal" = "Rechtlech Informatioun";
 "main-menu-show-today" = "Haut";
 "saved-pages-title" = "Gespäichert Säiten";
+"saved-pages-clear-confirmation-heading" = "All gespäichert Elementer läschen?";
+"saved-pages-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
+"saved-pages-clear-cancel" = "Ofbriechen";
+"saved-pages-clear-delete-all" = "All läschen";
 "page-history-title" = "Versioune vun dëser Säit";
 "page-history-downloading" = "Lëscht vun de Versioune gëtt gelueden...";
 "navbar-title-mode-edit-wikitext" = "Änneren";
@@ -172,3 +180,4 @@
 "menu-cancel-accessibility-label" = "Ofbriechen";
 "menu-share-accessibility-label" = "Deelen";
 "menu-more-accessibility-label" = "Méi Astellungen";
+"menu-trash-accessibility-label" = "Läschen";
