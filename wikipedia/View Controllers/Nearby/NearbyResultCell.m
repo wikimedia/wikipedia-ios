@@ -55,7 +55,7 @@
                                                                                                   withString: distanceIntString];
         // Show in meters if under 0.1 km.
         }else{
-            NSString *distanceIntString = [NSString stringWithFormat:@"%d", distance.integerValue];
+            NSString *distanceIntString = [NSString stringWithFormat:@"%d", distance.intValue];
             return [MWLocalizedString(@"nearby-distance-label-meters", nil) stringByReplacingOccurrencesOfString: @"$1"
                                                                                                       withString: distanceIntString];
         }
@@ -71,7 +71,7 @@
                                                                                                      withString: distanceIntString];
         // Show in feet if under 0.1 miles.
         }else{
-            NSString *distanceIntString = [NSString stringWithFormat:@"%d", distance.integerValue];
+            NSString *distanceIntString = [NSString stringWithFormat:@"%d", distance.intValue];
             return [MWLocalizedString(@"nearby-distance-label-feet", nil) stringByReplacingOccurrencesOfString: @"$1"
                                                                                                     withString: distanceIntString];
         }
