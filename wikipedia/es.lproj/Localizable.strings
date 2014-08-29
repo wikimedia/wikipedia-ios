@@ -18,6 +18,10 @@
 "history-section-yesterday" = "Ayer";
 "history-section-lastweek" = "La semana pasada";
 "history-section-lastmonth" = "Último mes";
+"history-clear-confirmation-heading" = "¿Borrar todos los elemento recientes?";
+"history-clear-confirmation-sub-heading" = "¡Esta acción no se puede deshacer!";
+"history-clear-cancel" = "Cancelar";
+"history-clear-delete-all" = "Borrar todo";
 "zero-free-verbiage" = "Acceso gratuito a Wikipedia de tu operador móvil (sin cargos por datos)";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivado";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -104,6 +108,10 @@
 "main-menu-heading-legal" = "Palabrerío";
 "main-menu-show-today" = "Hoy";
 "saved-pages-title" = "Páginas guardadas";
+"saved-pages-clear-confirmation-heading" = "¿Borrar todos los elemento guardados?";
+"saved-pages-clear-confirmation-sub-heading" = "¡Esta acción no se puede deshacer!";
+"saved-pages-clear-cancel" = "Cancelar";
+"saved-pages-clear-delete-all" = "Borrar todo";
 "page-history-title" = "Historial de página";
 "page-history-downloading" = "Cargando el historial de la página...";
 "navbar-title-mode-edit-wikitext" = "Editar";
@@ -182,3 +190,4 @@
 "menu-cancel-accessibility-label" = "Cancelar";
 "menu-share-accessibility-label" = "Compartir";
 "menu-more-accessibility-label" = "Más opciones";
+"menu-trash-accessibility-label" = "Borrar";

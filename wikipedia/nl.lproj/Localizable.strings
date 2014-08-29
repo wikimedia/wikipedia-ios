@@ -19,8 +19,8 @@
 "history-section-lastmonth" = "Afgelopen maand";
 "history-clear-confirmation-heading" = "Alle recente items verwijderen?";
 "history-clear-confirmation-sub-heading" = "Deze actie kan niet ongedaan worden gemaakt!";
-"history-clear-cancel" = "Annuleer";
-"history-clear-delete-all" = "Verwijder alles";
+"history-clear-cancel" = "Annuleren";
+"history-clear-delete-all" = "Alles verwijderen";
 "zero-free-verbiage" = "Gratis toegang tot Wikipedia van uw mobiele provider (geen kosten voor gegevens)";
 "zero-charged-verbiage" = "Wikipedia Zero is uit";
 "zero-charged-verbiage-extended" = "Het laden van andere artikelen kan kosten met zich meebrengen. Opgeslagen artikelen gebruiken geen dataverkeer en zijn dus gratis.";
@@ -109,8 +109,8 @@
 "saved-pages-title" = "Opgeslagen pagina's";
 "saved-pages-clear-confirmation-heading" = "Alle opgeslagen items verwijderen?";
 "saved-pages-clear-confirmation-sub-heading" = "Deze actie kan niet ongedaan worden gemaakt!";
-"saved-pages-clear-cancel" = "Annuleer";
-"saved-pages-clear-delete-all" = "Verwijder alles";
+"saved-pages-clear-cancel" = "Annuleren";
+"saved-pages-clear-delete-all" = "Alles verwijderen";
 "page-history-title" = "Paginageschiedenis";
 "page-history-downloading" = "Paginageschiedenis laden...";
 "navbar-title-mode-edit-wikitext" = "Bewerk";
@@ -193,4 +193,4 @@
 "menu-cancel-accessibility-label" = "Annuleer";
 "menu-share-accessibility-label" = "Delen";
 "menu-more-accessibility-label" = "Meer instellingen";
-"menu-trash-accessibility-label" = "Verwijder";
+"menu-trash-accessibility-label" = "Verwijderen";

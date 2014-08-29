@@ -19,7 +19,7 @@
 "history-section-lastmonth" = "Subsection label for list of articles browsed within the last month.\n{{Identical|Last month}}";
 "history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "history-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
-"history-clear-cancel" = "Button text for cancelling delete all action";
+"history-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "history-clear-delete-all" = "Button text for confirming delete all action";
 "zero-free-verbiage" = "Alert text for Wikipedia Zero free data access enabled";
 "zero-charged-verbiage" = "Alert text for Wikipedia Zero free data access disabled";
@@ -110,8 +110,8 @@
 "saved-pages-title" = "Header text for Saved Pages interface.\n{{Identical|Saved page}}";
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "saved-pages-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
-"saved-pages-clear-cancel" = "Button text for cancelling delete all action";
-"saved-pages-clear-delete-all" = "Button text for confirming delete all action";
+"saved-pages-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
+"saved-pages-clear-delete-all" = "Button text for confirming delete all action\n{{Identical|Delete all}}";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Page history}}";
 "page-history-downloading" = "Alert text shown when obtaining revision history of an article";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited.\n{{Identical|Edit}}";
@@ -194,7 +194,7 @@
 "menu-cancel-accessibility-label" = "Accessible label text for toolbar cancel button\n{{Identical|Cancel}}";
 "menu-share-accessibility-label" = "Accessible label text for toolbar share button\n{{Identical|Share}}";
 "menu-more-accessibility-label" = "Accessible label for more/... button in 'W' menu";
-"menu-trash-accessibility-label" = "Accessible label for trash button";
+"menu-trash-accessibility-label" = "Accessible label for trash button\n{{Identical|Delete}}";
 "nearby-title" = "Title for page showing nearby geotagged articles";
 "nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles. $1 is the number of meters.";
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles. $1 is the number of kilometers";

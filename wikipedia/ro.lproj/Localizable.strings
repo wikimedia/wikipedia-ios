@@ -12,6 +12,10 @@
 "history-section-yesterday" = "Ieri";
 "history-section-lastweek" = "Săptămâna trecută";
 "history-section-lastmonth" = "Luna trecută";
+"history-clear-confirmation-heading" = "Ștergeți toate elementele recente?";
+"history-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";
+"history-clear-cancel" = "Revocare";
+"history-clear-delete-all" = "Șterge tot";
 "zero-free-verbiage" = "Acces gratuit la Wikipedia de la operatorul dumneavoastră de telefonie mobilă (traficul de date nu va fi taxat)";
 "zero-charged-verbiage" = "Wikipedia Zero este dezactivată";
 "zero-charged-verbiage-extended" = "Încărcarea altor articole poate însemna taxarea traficului de date. Articolele salvate și stocate off-line nu folosesc traficul de date și sunt gratuite.";
@@ -98,6 +102,10 @@
 "main-menu-heading-legal" = "Informații legale";
 "main-menu-show-today" = "Astăzi";
 "saved-pages-title" = "Pagini salvate";
+"saved-pages-clear-confirmation-heading" = "Ștergeți toate elementele salvate?";
+"saved-pages-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";
+"saved-pages-clear-cancel" = "Revocare";
+"saved-pages-clear-delete-all" = "Șterge tot";
 "page-history-title" = "Istoricul paginii";
 "page-history-downloading" = "Se încarcă istoricul paginii...";
 "navbar-title-mode-edit-wikitext" = "Modificare";
@@ -180,3 +188,4 @@
 "menu-cancel-accessibility-label" = "Revocare";
 "menu-share-accessibility-label" = "Distribuie";
 "menu-more-accessibility-label" = "Mai multe setări";
+"menu-trash-accessibility-label" = "Șterge";
