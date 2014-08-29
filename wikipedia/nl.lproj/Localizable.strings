@@ -19,7 +19,7 @@
 "history-section-lastmonth" = "Afgelopen maand";
 "history-clear-confirmation-heading" = "Alle recente items verwijderen?";
 "history-clear-confirmation-sub-heading" = "Deze actie kan niet ongedaan worden gemaakt!";
-"history-clear-cancel" = "Annuleren";
+"history-clear-cancel" = "Annuleer";
 "history-clear-delete-all" = "Alles verwijderen";
 "zero-free-verbiage" = "Gratis toegang tot Wikipedia van uw mobiele provider (geen kosten voor gegevens)";
 "zero-charged-verbiage" = "Wikipedia Zero is uit";
@@ -106,6 +106,7 @@
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Juridische informatie";
 "main-menu-show-today" = "Vandaag";
+"main-menu-nearby" = "In de buurt";
 "saved-pages-title" = "Opgeslagen pagina's";
 "saved-pages-clear-confirmation-heading" = "Alle opgeslagen items verwijderen?";
 "saved-pages-clear-confirmation-sub-heading" = "Deze actie kan niet ongedaan worden gemaakt!";
@@ -194,3 +195,20 @@
 "menu-share-accessibility-label" = "Delen";
 "menu-more-accessibility-label" = "Meer instellingen";
 "menu-trash-accessibility-label" = "Verwijderen";
+"nearby-title" = "In de buurt";
+"nearby-distance-label-meters" = "$1 meter";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-feet" = "$1 voet";
+"nearby-distance-label-miles" = "$1 mijl";
+"nearby-pull-to-refresh-prompt" = "Naar beneden trekken om bij te werken";
+"nearby-pull-to-refresh-is-refreshing" = "Bijwerken";
+"nearby-loading" = "Pagina's in de buurt laden...";
+"nearby-loaded" = "Pagina's in de buurt geladen";
+"nearby-none" = "Geen pagina's in de buurt gevonden. Trek naar beneden om bij te werken of probeer het later opnieuw.";
+"nearby-open-in-maps" = "Open in Maps";
+"nearby-cancel" = "Annuleer";
+"nearby-location-updates-denied" = "Deze app heeft geen toestemming om locatievoorzieningen te gebruiken.";
+"nearby-location-updates-enable" = "Om locatievoorzieningen in te schakelen, opent u de Instellingen-app en kiest u het volgende:";
+"nearby-location-updates-settings-menu" = "Privacy > Locatievoorzieningen > Wikipedia";
+"nearby-location-general-error" = "Kan locatie niet bepalen. Trek naar beneden om bij te werken of probeer het later opnieuw.";
+"nearby-wifi" = "Het inschakelen van Wi-Fi zorgt voor een nauwkeurige locatie.";

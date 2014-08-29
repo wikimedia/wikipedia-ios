@@ -46,7 +46,9 @@
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Цхьа гӀучӀа бу";
 "main-menu-show-today" = "Тахана";
+"main-menu-nearby" = "Уллехь";
 "saved-pages-title" = "Ӏалашйина агӀонаш";
+"saved-pages-clear-cancel" = "Цаоьшу";
 "page-history-title" = "АгӀона истори";
 "page-history-downloading" = "Историн агӀо гучуяккхар...";
 "navbar-title-mode-login" = "ЧугӀо";
@@ -89,3 +91,12 @@
 "menu-toc-accessibility-label" = "Чулацам";
 "menu-cancel-accessibility-label" = "Цаоьшу";
 "menu-share-accessibility-label" = "Екха";
+"menu-trash-accessibility-label" = "ДӀаяккха";
+"nearby-title" = "Уллехь";
+"nearby-distance-label-meters" = "$1 м";
+"nearby-distance-label-km" = "$1 км";
+"nearby-distance-label-feet" = "$1 фут";
+"nearby-distance-label-miles" = "$1 миль";
+"nearby-pull-to-refresh-prompt" = "ТӀеоза, карлаяккха";
+"nearby-pull-to-refresh-is-refreshing" = "Карлаяккхар";
+"nearby-cancel" = "Цаоьшу";

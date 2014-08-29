@@ -101,6 +101,7 @@
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Муть какая-то";
 "main-menu-show-today" = "Сегодня";
+"main-menu-nearby" = "Рядом";
 "saved-pages-title" = "Сохранённые страницы";
 "saved-pages-clear-confirmation-heading" = "Удалить все сохранённые элементы?";
 "saved-pages-clear-confirmation-sub-heading" = "Это действие не может быть отменено!";
@@ -189,3 +190,13 @@
 "menu-share-accessibility-label" = "Поделиться";
 "menu-more-accessibility-label" = "Дополнительные параметры";
 "menu-trash-accessibility-label" = "Удалить";
+"nearby-title" = "Рядом";
+"nearby-distance-label-meters" = "$1 м";
+"nearby-distance-label-km" = "$1 км";
+"nearby-distance-label-feet" = "$1 фут";
+"nearby-distance-label-miles" = "$1 миля";
+"nearby-pull-to-refresh-prompt" = "Потяните, чтобы обновить";
+"nearby-pull-to-refresh-is-refreshing" = "Обновление";
+"nearby-open-in-maps" = "Открыть на Картах";
+"nearby-cancel" = "Отмена";
+"nearby-location-updates-denied" = "У этого приложения нет разрешения на обновление сведений о местоположении.";

@@ -65,6 +65,7 @@
 "main-menu-terms-of-use" = "Zasady użytkowania";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-show-today" = "Dzisiaj";
+"main-menu-nearby" = "W pobliżu";
 "page-history-title" = "Historia strony";
 "navbar-title-mode-edit-wikitext" = "Edytuj";
 "navbar-title-mode-login" = "Zaloguj się";
@@ -112,3 +113,10 @@
 "menu-w-accessibility-label" = "Menu";
 "menu-cancel-accessibility-label" = "Anuluj";
 "menu-more-accessibility-label" = "Więcej ustawień";
+"nearby-title" = "W pobliżu";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-feet" = "$1 stopy";
+"nearby-distance-label-miles" = "$1 mile";
+"nearby-pull-to-refresh-is-refreshing" = "Odświeżanie";
+"nearby-cancel" = "Anuluj";

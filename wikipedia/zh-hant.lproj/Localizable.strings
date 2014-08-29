@@ -3,6 +3,7 @@
 // Author: Cathypilot0117
 // Author: Cwlin0416
 // Author: Kc kennylau
+// Author: LEEJACK
 // Author: LNDDYL
 // Author: Liuxinyu970226
 // Author: Mikepanhu
@@ -18,6 +19,10 @@
 "history-section-yesterday" = "昨日";
 "history-section-lastweek" = "上週";
 "history-section-lastmonth" = "上月";
+"history-clear-confirmation-heading" = "刪除所有最近項目？";
+"history-clear-confirmation-sub-heading" = "此操作不能復原！";
+"history-clear-cancel" = "取消";
+"history-clear-delete-all" = "删除全部";
 "zero-free-verbiage" = "從閣下的電話公司免費存取維基百科（不需要支出資料費用)";
 "zero-charged-verbiage" = "Wikipedia Zero 已關閉";
 "zero-charged-verbiage-extended" = "載入其他條目將可能產生資料費用。已存儲條目會離線存儲並且免除資料費用。";
@@ -62,6 +67,7 @@
 "wikitext-upload-captcha-needed" = "需要驗證碼確認。";
 "wikitext-upload-save" = "儲存中...";
 "wikitext-upload-save-sign-in" = "登入";
+"wikitext-upload-save-sign-in-benefits" = "這使共同編輯者可與您聯繫，以及您可以看見您編輯了哪些條目。";
 "wikitext-upload-save-anonymously" = "以匿名方式存儲";
 "wikitext-upload-save-anonymously-warning" = "編輯將作爲您的裝置的IP位址發佈。如果您$1，您將擁有更多隱私。";
 "wikitext-upload-save-terms-and-license" = "儲存變更，代表您同意 $1 以 $2 授權條款發佈您的貢獻。";
@@ -102,7 +108,12 @@
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "胡言亂語";
 "main-menu-show-today" = "今日首頁";
+"main-menu-nearby" = "附近";
 "saved-pages-title" = "已儲存頁面";
+"saved-pages-clear-confirmation-heading" = "删除所有已保存的项目？";
+"saved-pages-clear-confirmation-sub-heading" = "此操作不能復原！";
+"saved-pages-clear-cancel" = "取消";
+"saved-pages-clear-delete-all" = "删除全部";
 "page-history-title" = "頁面歷史";
 "page-history-downloading" = "正在載入頁面歷史……";
 "navbar-title-mode-edit-wikitext" = "編輯";
@@ -185,3 +196,21 @@
 "menu-cancel-accessibility-label" = "取消";
 "menu-share-accessibility-label" = "分享";
 "menu-more-accessibility-label" = "更多設定";
+"menu-trash-accessibility-label" = "刪除";
+"nearby-title" = "附近";
+"nearby-distance-label-meters" = "$1米";
+"nearby-distance-label-km" = "$1千米";
+"nearby-distance-label-feet" = "$1英尺";
+"nearby-distance-label-miles" = "$1英里";
+"nearby-pull-to-refresh-prompt" = "拉下以刷新";
+"nearby-pull-to-refresh-is-refreshing" = "刷新";
+"nearby-loading" = "附近條目載入中…";
+"nearby-loaded" = "已加載附近條目";
+"nearby-none" = "沒有找到附近的條目。拉下刷新或稍後重試。";
+"nearby-open-in-maps" = "在地圖中打開";
+"nearby-cancel" = "取消";
+"nearby-location-updates-denied" = "此應用程序沒有授予接收位置更新的權限。";
+"nearby-location-updates-enable" = "要啟用位置更新，打開設置應用程序並設置以下選項：";
+"nearby-location-updates-settings-menu" = "隱私 > 位置服務 > 維基百科";
+"nearby-location-general-error" = "無法確定位置。拉下刷新或稍後重試。";
+"nearby-wifi" = "開啟wifi可以幫助您的設備更好地確定您的位置。";
