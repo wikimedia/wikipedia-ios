@@ -21,6 +21,6 @@
 
 #define EDIT_SUMMARY_DOCK_DISTANCE_FROM_BOTTOM 68.0f
 
-#define TOP_MENU_INITIAL_HEIGHT 45 
+#define TOP_MENU_INITIAL_HEIGHT 46 
 
 #define CHROME_COLOR [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0]

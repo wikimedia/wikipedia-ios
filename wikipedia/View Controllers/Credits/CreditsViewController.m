@@ -161,7 +161,7 @@ typedef enum {
             @{
               NSFontAttributeName: [UIFont fontWithName:@"WikiFontGlyphs-iOS" size:MENU_ICON_FONT_SIZE],
               NSForegroundColorAttributeName : MENU_ICON_COLOR,
-              NSBaselineOffsetAttributeName: @2
+              NSBaselineOffsetAttributeName: @0
               };
 
         NSString *icon = row[@"icon"];

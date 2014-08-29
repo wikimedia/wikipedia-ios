@@ -222,10 +222,11 @@
     self.textFieldContainer.textField.rightView = clearButton;
     self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeNever;
 
-    WikiGlyphButton *(^getWikiGlyphButton)(NSString *, NSString *accessLabel, NavBarItemTag, CGFloat, CGFloat) = ^WikiGlyphButton *(NSString *character, NSString *accessLabel, NavBarItemTag tag, CGFloat size, CGFloat baselineOffset) {
+    WikiGlyphButton *(^getWikiGlyphButton)(NSString *, NSString *accessLabel, NavBarItemTag, CGFloat) =
+    ^WikiGlyphButton *(NSString *character, NSString *accessLabel, NavBarItemTag tag, CGFloat size) {
         WikiGlyphButton *button = [[WikiGlyphButton alloc] init];
 
-        [button.label setWikiText:character color:[UIColor blackColor] size:size baselineOffset:baselineOffset];
+        [button.label setWikiText:character color:[UIColor blackColor] size:size baselineOffset:0];
         button.translatesAutoresizingMaskIntoConstraints = NO;
 
         [button addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget: self
@@ -238,22 +239,21 @@
     };
 
     CGFloat size = 34;
-    CGFloat baselineOffset = 2.0;
 
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
     NSString *caret = !isRTL ? WIKIGLYPH_CARET_LEFT: IOS_WIKIGLYPH_FORWARD;
 
-    self.buttonPencil =     getWikiGlyphButton(WIKIGLYPH_PENCIL,      MWLocalizedString(@"menu-edit-accessibility-label", nil),    NAVBAR_BUTTON_PENCIL, size, baselineOffset);
-    self.buttonX =          getWikiGlyphButton(WIKIGLYPH_X,           MWLocalizedString(@"menu-close-accessibility-label", nil),   NAVBAR_BUTTON_X, size - 4, baselineOffset - 0.5);
-    self.buttonEye =        getWikiGlyphButton(WIKIGLYPH_EYE,         MWLocalizedString(@"menu-preview-accessibility-label", nil), NAVBAR_BUTTON_EYE, size, baselineOffset);
-    self.buttonArrowLeft =  getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-back-accessibility-label", nil),    NAVBAR_BUTTON_ARROW_LEFT, size, baselineOffset - 2.0);
-    self.buttonArrowRight = getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-forward-accessibility-label", nil), NAVBAR_BUTTON_ARROW_RIGHT, size, baselineOffset - 2.0);
-    self.buttonW =          getWikiGlyphButton(IOS_WIKIGLYPH_W,       MWLocalizedString(@"menu-w-accessibility-label", nil),       NAVBAR_BUTTON_LOGO_W, size, baselineOffset);
-    self.buttonTOC =        getWikiGlyphButton(IOS_WIKIGLYPH_TOC,     MWLocalizedString(@"menu-toc-accessibility-label", nil),     NAVBAR_BUTTON_TOC, size, baselineOffset);
-    self.buttonMagnify =    getWikiGlyphButton(IOS_WIKIGLYPH_MAGNIFY, MWLocalizedString(@"menu-search-accessibility-label", nil),  NAVBAR_BUTTON_MAGNIFY, size, baselineOffset);
-    self.buttonBlank =      getWikiGlyphButton(@"",                   @"", NAVBAR_BUTTON_BLANK, size, baselineOffset);
-    self.buttonCancel =     getWikiGlyphButton(@"",                   MWLocalizedString(@"menu-cancel-accessibility-label", nil),  NAVBAR_BUTTON_CANCEL, size, baselineOffset);
-    self.buttonTrash =      getWikiGlyphButton(WIKIGLYPH_TRASH,       MWLocalizedString(@"menu-trash-accessibility-label", nil),   NAVBAR_BUTTON_TRASH, size - 4, baselineOffset - 0.5);
+    self.buttonPencil =     getWikiGlyphButton(WIKIGLYPH_PENCIL,      MWLocalizedString(@"menu-edit-accessibility-label", nil),    NAVBAR_BUTTON_PENCIL, size);
+    self.buttonX =          getWikiGlyphButton(WIKIGLYPH_X,           MWLocalizedString(@"menu-close-accessibility-label", nil),   NAVBAR_BUTTON_X, size);
+    self.buttonEye =        getWikiGlyphButton(WIKIGLYPH_EYE,         MWLocalizedString(@"menu-preview-accessibility-label", nil), NAVBAR_BUTTON_EYE, size);
+    self.buttonArrowLeft =  getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-back-accessibility-label", nil),    NAVBAR_BUTTON_ARROW_LEFT, size);
+    self.buttonArrowRight = getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-forward-accessibility-label", nil), NAVBAR_BUTTON_ARROW_RIGHT, size);
+    self.buttonW =          getWikiGlyphButton(IOS_WIKIGLYPH_W,       MWLocalizedString(@"menu-w-accessibility-label", nil),       NAVBAR_BUTTON_LOGO_W, size);
+    self.buttonTOC =        getWikiGlyphButton(IOS_WIKIGLYPH_TOC_COLLAPSED,     MWLocalizedString(@"menu-toc-accessibility-label", nil),     NAVBAR_BUTTON_TOC, size);
+    self.buttonMagnify =    getWikiGlyphButton(IOS_WIKIGLYPH_MAGNIFY, MWLocalizedString(@"menu-search-accessibility-label", nil),  NAVBAR_BUTTON_MAGNIFY, size);
+    self.buttonBlank =      getWikiGlyphButton(@"",                   @"", NAVBAR_BUTTON_BLANK, size);
+    self.buttonCancel =     getWikiGlyphButton(@"",                   MWLocalizedString(@"menu-cancel-accessibility-label", nil),  NAVBAR_BUTTON_CANCEL, size);
+    self.buttonTrash =      getWikiGlyphButton(WIKIGLYPH_TRASH,       MWLocalizedString(@"menu-trash-accessibility-label", nil),   NAVBAR_BUTTON_TRASH, size);
 
     self.buttonCancel.label.font = [UIFont systemFontOfSize:17.0];
     self.buttonCancel.label.text = MWLocalizedString(@"search-cancel", nil);
@@ -467,28 +467,28 @@
             break;
         case NAVBAR_MODE_SEARCH:
             self.navBarSubViewsHorizontalVFLString =
-            @"H:|-(5)-[NAVBAR_TEXT_FIELD]-(6)-[NAVBAR_BUTTON_CANCEL]-(5)-|";
+            @"H:|-(6)-[NAVBAR_TEXT_FIELD]-(6)-[NAVBAR_BUTTON_CANCEL]-(6)-|";
             break;
         case NAVBAR_MODE_X_WITH_LABEL:
             self.navBarSubViewsHorizontalVFLString =
-            @"H:|-(5)-[NAVBAR_BUTTON_X(50)][NAVBAR_LABEL]-(55)-|";
+            @"H:|-(6)-[NAVBAR_BUTTON_X(50)][NAVBAR_LABEL]-(56)-|";
             break;
         case NAVBAR_MODE_PAGES_HISTORY:
         case NAVBAR_MODE_PAGES_SAVED:
             self.navBarSubViewsHorizontalVFLString =
-            @"H:|-(5)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_TRASH(50@250)]-(5)-|";
+            @"H:|-(6)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_TRASH(50@250)]-(6)-|";
             break;
         case NAVBAR_MODE_X_WITH_TEXT_FIELD:
             self.navBarSubViewsHorizontalVFLString =
-            @"H:|-(5)-[NAVBAR_BUTTON_X(50)][NAVBAR_TEXT_FIELD]-(15)-|";
+            @"H:|-(6)-[NAVBAR_BUTTON_X(50)][NAVBAR_TEXT_FIELD]-(16)-|";
             break;
         case NAVBAR_MODE_DEFAULT_WITH_TOC:
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_LOGO_W(65)][NAVBAR_BUTTON_MAGNIFY(35)][NAVBAR_BUTTON_BLANK]-(10)-[NAVBAR_BUTTON_TOC(50)]-(3)-|";
+                @"H:|[NAVBAR_BUTTON_LOGO_W(66)][NAVBAR_BUTTON_MAGNIFY(36)][NAVBAR_BUTTON_BLANK]-(10)-[NAVBAR_BUTTON_TOC(62)]|";
             break;
         default: //NAVBAR_MODE_DEFAULT
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|[NAVBAR_BUTTON_LOGO_W(65)][NAVBAR_BUTTON_MAGNIFY(35)][NAVBAR_BUTTON_BLANK]-(10)-|";
+                @"H:|[NAVBAR_BUTTON_LOGO_W(66)][NAVBAR_BUTTON_MAGNIFY(36)][NAVBAR_BUTTON_BLANK]-(10)-|";
             break;
     }
 

@@ -535,7 +535,7 @@
         @{
             NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:fontSize],
             NSForegroundColorAttributeName : iconColor,
-            NSBaselineOffsetAttributeName: @1
+            NSBaselineOffsetAttributeName: @0
         };
     
     return [[NSAttributedString alloc] initWithString: wikiFontCharacter
