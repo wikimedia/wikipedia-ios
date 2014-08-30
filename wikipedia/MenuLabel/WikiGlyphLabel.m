@@ -58,6 +58,8 @@
         [text isEqualToString:IOS_WIKIGLYPH_BACKWARD] ||
         [text isEqualToString:IOS_WIKIGLYPH_STAR] ||
         [text isEqualToString:IOS_WIKIGLYPH_STAR_OUTLINE] ||
+        [text isEqualToString:IOS_WIKIGLYPH_HEART_OUTLINE] ||
+        [text isEqualToString:IOS_WIKIGLYPH_HEART] ||
         [text isEqualToString:IOS_WIKIGLYPH_RELOAD]
         ) {
         isIOSFontChar = YES;

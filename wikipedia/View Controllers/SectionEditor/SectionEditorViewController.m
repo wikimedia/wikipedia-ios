@@ -153,14 +153,6 @@
         case NAVBAR_BUTTON_ARROW_LEFT:
             [self cancelPushed:nil];
             break;
-        case NAVBAR_LABEL:
-        case NAVBAR_BUTTON_PENCIL:
-            [self showHTMLAlert: @""
-                    bannerImage: nil
-                    bannerColor: nil
-             ];
-            break;
-
         default:
             break;
     }

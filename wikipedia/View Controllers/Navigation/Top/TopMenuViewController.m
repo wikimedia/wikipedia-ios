@@ -243,7 +243,6 @@
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
     NSString *caret = !isRTL ? WIKIGLYPH_CARET_LEFT: IOS_WIKIGLYPH_FORWARD;
 
-    self.buttonPencil =     getWikiGlyphButton(WIKIGLYPH_PENCIL,      MWLocalizedString(@"menu-edit-accessibility-label", nil),    NAVBAR_BUTTON_PENCIL, size);
     self.buttonX =          getWikiGlyphButton(WIKIGLYPH_X,           MWLocalizedString(@"menu-close-accessibility-label", nil),   NAVBAR_BUTTON_X, size);
     self.buttonEye =        getWikiGlyphButton(WIKIGLYPH_EYE,         MWLocalizedString(@"menu-preview-accessibility-label", nil), NAVBAR_BUTTON_EYE, size);
     self.buttonArrowLeft =  getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-back-accessibility-label", nil),    NAVBAR_BUTTON_ARROW_LEFT, size);
@@ -349,7 +348,6 @@
 {
     return @{
              @"NAVBAR_BUTTON_X": self.buttonX,
-             @"NAVBAR_BUTTON_PENCIL": self.buttonPencil,
              @"NAVBAR_BUTTON_CHECK": self.buttonCheck,
              @"NAVBAR_BUTTON_ARROW_LEFT": self.buttonArrowLeft,
              @"NAVBAR_BUTTON_ARROW_RIGHT": self.buttonArrowRight,
@@ -412,11 +410,6 @@
                     @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(16)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_DONE(50@250)]|";
             //}
             break;
-        case NAVBAR_MODE_EDIT_WIKITEXT_SAVE:
-            self.label.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-save", nil);
-            self.navBarSubViewsHorizontalVFLString =
-            @"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_SAVE(50@250)]|";
-            break;
         case NAVBAR_MODE_CREATE_ACCOUNT:
             self.label.text = @"";
             //if(loginVC){
@@ -457,7 +450,6 @@
             self.label.text = @"";
             self.navBarSubViewsHorizontalVFLString =
                 @"H:|-(4)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_DONE(50@250)]|";
-                //@"H:|[NAVBAR_BUTTON_PENCIL(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_ARROW_RIGHT(50)]|";
 
             break;
         case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
@@ -768,7 +760,6 @@
 
     switch (view.tag) {
         case NAVBAR_BUTTON_X:
-        case NAVBAR_BUTTON_PENCIL:
         case NAVBAR_BUTTON_CHECK:
         case NAVBAR_BUTTON_ARROW_LEFT:
         case NAVBAR_BUTTON_ARROW_RIGHT:

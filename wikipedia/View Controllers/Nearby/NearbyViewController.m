@@ -245,7 +245,7 @@
         
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
             //[self showAlert:MWLocalizedString(@"nearby-loaded", nil)];
-            [self showAlert:@""];
+            [self fadeAlert];
             
             self.nearbyDataArray = @[result];
             [self calculateDistances];

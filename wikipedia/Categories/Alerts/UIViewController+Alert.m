@@ -3,7 +3,6 @@
 
 #import "UIViewController+Alert.h"
 #import "AlertLabel.h"
-#import "AlertWebView.h"
 #import "UIView+RemoveConstraints.h"
 
 @implementation UIViewController (Alert)
@@ -23,6 +22,8 @@
         if (!alertLabel) {
             alertLabel = [[AlertLabel alloc] init];
             alertLabel.translatesAutoresizingMaskIntoConstraints = NO;
+            //alertLabel.layer.cornerRadius = 3.0f;
+            //alertLabel.clipsToBounds = YES;
             [alertContainer addSubview:alertLabel];
             [self constrainAlertView:alertLabel fullScreen:NO];
         }
@@ -99,61 +100,17 @@
 }
 */
 
--(void)showHTMLAlert: (NSString *)html
-      bannerImage: (UIImage *)bannerImage
-      bannerColor: (UIColor *)bannerColor
-{
-    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-        AlertWebView *alertWebView = nil;
-        
-        //UIView *alertContainer = self.view;
-        // Tack html alert on to the view controller's view so html alert animates sliding
-        // offscreen when the view does.
-        UIView *alertContainer = self.view;
-
-        // Remove existing alert web view if any.
-        alertWebView = [self getExistingViewOfClass:[AlertWebView class] inContainer:alertContainer];
-        if (alertWebView) {
-            [alertWebView removeFromSuperview];
-            alertWebView = nil;
-        }
-        
-        if (!html || html.length == 0){
-            if (!bannerImage) {
-                return;
-            }
-        }
-
-        alertWebView = [[AlertWebView alloc] initWithHtml: html
-                                              bannerImage: bannerImage
-                                              bannerColor: bannerColor
-                        ];
-
-        alertWebView.translatesAutoresizingMaskIntoConstraints = NO;
-
-        if (alertContainer) {
-            [alertContainer addSubview:alertWebView];
-            [self constrainAlertView:alertWebView fullScreen:YES];
-        }
-    }];
-}
-
--(void)hideHTMLAlert
-{
-    [self showHTMLAlert:nil bannerImage:nil bannerColor:nil];
-}
-
 -(void)constrainAlertView:(UIView *)view fullScreen:(BOOL)isFullScreen
 {
-    CGFloat topMargin = 0;//[self isTopNavHiddenForViewController:self] ? 20 : 0;
+    CGFloat margin = 0;
 
     NSDictionary *views = NSDictionaryOfVariableBindings(view);
-    NSDictionary *metrics = @{@"space": @(topMargin)};
+    NSDictionary *metrics = @{@"space": @(margin)};
 
     [self.view addConstraints:
-     [NSLayoutConstraint constraintsWithVisualFormat: @"H:|[view]|"
+     [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-(space)-[view]-(space)-|"
                                              options: 0
-                                             metrics: nil
+                                             metrics: metrics
                                                views: views
       ]
      ];
@@ -171,7 +128,7 @@
 
 -(id)getExistingViewOfClass:(Class)class inContainer:(UIView *)container
 {
-    for (id view in container.subviews) {
+    for (id view in container.subviews.copy) {
         if ([view isMemberOfClass:class]) return view;
     }
     return nil;
