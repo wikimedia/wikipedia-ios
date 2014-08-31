@@ -156,39 +156,41 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
         [self.tableData addObject:@{
             @"title": MWLocalizedString(@"main-menu-account-login", nil),
             @"tag": @(PRIMARY_MENU_ITEM_LOGIN)
-        }.mutableCopy];
+        }];
     }
 
     [self.tableData addObjectsFromArray: @[
         @{
             @"title": MWLocalizedString(@"main-menu-show-today", nil),
             @"tag": @(PRIMARY_MENU_ITEM_TODAY)
-        }.mutableCopy,
+        },
         @{
             @"title": MWLocalizedString(@"main-menu-random", nil),
             @"tag": @(PRIMARY_MENU_ITEM_RANDOM)
-        }.mutableCopy,
+        },
         @{
             @"title": MWLocalizedString(@"main-menu-nearby", nil),
             @"tag": @(PRIMARY_MENU_ITEM_NEARBY)
-        }.mutableCopy,
+        },
         @{
             @"title": MWLocalizedString(@"main-menu-show-history", nil),
             @"tag": @(PRIMARY_MENU_ITEM_RECENT)
-        }.mutableCopy,
+        },
         @{
             @"title": MWLocalizedString(@"main-menu-show-saved", nil),
             @"tag": @(PRIMARY_MENU_ITEM_SAVEDPAGES)
-        }.mutableCopy
+        }
     ]];
 }
 
+/*
 -(void)randomizeTitles
 {
     for (NSMutableDictionary *rowData in self.tableData) {
         rowData[@"title"] = [@"abc " randomlyRepeatMaxTimes:50];
     }
 }
+*/
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -201,7 +203,7 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 
     PrimaryMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
 
-    NSMutableDictionary *rowData = [self.tableData objectAtIndex:indexPath.row];
+    NSDictionary *rowData = [self.tableData objectAtIndex:indexPath.row];
     cell.label.text = rowData[@"title"];
 
     // Set "tag" so if this item is tapped we can have a pointer to the label
