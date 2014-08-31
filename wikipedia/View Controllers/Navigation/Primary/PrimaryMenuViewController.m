@@ -82,7 +82,7 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 
     [self addTableHeaderView];
     
-    [self.moreButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moreButtonTapped)]];
+    [self.moreButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moreButtonTapped:)]];
 }
 
 -(void)addTableHeaderView
@@ -243,9 +243,11 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     [self animateView:cell thenPerformActionForItem:tagNumber.integerValue];
 }
 
--(void)moreButtonTapped
+-(void)moreButtonTapped:(UITapGestureRecognizer *)recognizer
 {
-    [self animateView:self.moreButton thenPerformActionForItem:PRIMARY_MENU_ITEM_MORE];
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [self animateView:self.moreButton thenPerformActionForItem:PRIMARY_MENU_ITEM_MORE];
+    }
 }
 
 -(void)animateView:(UIView *)view thenPerformActionForItem:(PrimaryMenuItemTag)tag
@@ -271,13 +273,13 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
         }
             break;
         case PRIMARY_MENU_ITEM_RANDOM: {
-            //[self showAlert:MWLocalizedString(@"fetching-random-article", nil)];
+            //[self showAlert:MWLocalizedString(@"fetching-random-article", nil) type:ALERT_TYPE_TOP duration:-1];
             [self fetchRandomArticle];
             [self popModal];
         }
             break;
         case PRIMARY_MENU_ITEM_TODAY: {
-            //[self showAlert:MWLocalizedString(@"fetching-today-article", nil)];
+            //[self showAlert:MWLocalizedString(@"fetching-today-article", nil) type:ALERT_TYPE_TOP duration:-1];
             [NAV loadTodaysArticle];
             [self popModal];
         }
@@ -328,7 +330,7 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
                                                  } cancelledBlock: ^(NSError *errorCancel) {
                                                     [self fadeAlert];
                                                  } errorBlock: ^(NSError *error) {
-                                                    [self showAlert:error.localizedDescription];
+                                                    [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                                                  }];
 
     [[QueuesSingleton sharedInstance].randomArticleQ addOperation:downloadTitlesForRandomArticlesOp];

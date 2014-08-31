@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "TopMenuContainerView.h"
+#import "Defines.h"
 
 @implementation TopMenuContainerView
 
@@ -21,12 +22,13 @@
 }
 
 - (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
     if (!self.showBottomBorder) return;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMaxY(rect));
     CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMaxY(rect));
-    CGContextSetStrokeColorWithColor(context, [[UIColor lightGrayColor] CGColor] );
-    CGContextSetLineWidth(context, 1.0f / [UIScreen mainScreen].scale);
+    CGContextSetStrokeColorWithColor(context, CHROME_OUTLINE_COLOR.CGColor);
+    CGContextSetLineWidth(context, CHROME_OUTLINE_WIDTH);
     CGContextStrokePath(context);
 }
 

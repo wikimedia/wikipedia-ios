@@ -102,10 +102,11 @@ enum {
      ];
 }
 
--(void)termsLicenseLabelTapped:(UILabel *)label
+-(void)termsLicenseLabelTapped:(UITapGestureRecognizer *)recognizer
 {
-    // @todo on iPad position this against the view
-    [self.sheet showInView:ROOT.view];
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [self.sheet showInView:ROOT.view];
+    }
 }
 
 -(UIActionSheet *)sheet

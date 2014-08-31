@@ -242,11 +242,14 @@
 {
     // If tapped, go to section/image selection.
     if ([sender isMemberOfClass:[UITapGestureRecognizer class]]) {
-        [self deSelectAllCells];
-        [self unHighlightAllCells];
-        [self navigateToSelection: sender
-                         duration: TOC_SELECTION_SCROLL_DURATION];
-        [self.funnel logClick];
+        // We only want to take action when the tap recognizer is in Ended state.
+        if (((UITapGestureRecognizer *)sender).state == UIGestureRecognizerStateEnded){
+            [self deSelectAllCells];
+            [self unHighlightAllCells];
+            [self navigateToSelection: sender
+                             duration: TOC_SELECTION_SCROLL_DURATION];
+            [self.funnel logClick];
+        }
     }
 }
 

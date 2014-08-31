@@ -8,7 +8,7 @@
 -(void)hideScrollGradient
 {
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) return;
-    for (UIView *view in self.scrollView.subviews) {
+    for (UIView *view in self.scrollView.subviews.copy) {
         if ([view isKindOfClass:[UIImageView class]]) {
             view.hidden = YES;
         }

@@ -141,13 +141,13 @@
     self.prevButton.hidden = YES;
     [self.topContainerView addSubview:self.prevButton];
 
-    UITapGestureRecognizer *prevTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(prevButtonTap)];
+    UITapGestureRecognizer *prevTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(prevButtonTap:)];
     [self.prevButton addGestureRecognizer:prevTap];
 
-    UITapGestureRecognizer *nextTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextButtonTap)];
+    UITapGestureRecognizer *nextTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextButtonTap:)];
     [self.nextButton addGestureRecognizer:nextTap];
 
-    UITapGestureRecognizer *xTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(xButtonTap)];
+    UITapGestureRecognizer *xTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(xButtonTap:)];
     [self.xButton addGestureRecognizer:xTap];
 
     //self.nextButton.layer.borderWidth = 1;
@@ -181,9 +181,11 @@
     //self.topContainerView.layer.borderColor = [UIColor whiteColor].CGColor;
 }
 
--(void)xButtonTap
+-(void)xButtonTap:(UITapGestureRecognizer *)recognizer
 {
-    [self.webVC referencesHide];
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [self.webVC referencesHide];
+    }
 }
 
 -(void)setupConstraints
@@ -459,40 +461,46 @@
     }
 }
 
--(void)prevButtonTap
+-(void)prevButtonTap:(UITapGestureRecognizer *)recognizer
 {
-    if (!self.prevButton.enabled) return;
-
-    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
-
-    UIPageViewControllerNavigationDirection dir = isRTL
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        
+        if (!self.prevButton.enabled) return;
+        
+        BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+        
+        UIPageViewControllerNavigationDirection dir = isRTL
         ?
         UIPageViewControllerNavigationDirectionForward
         :
         UIPageViewControllerNavigationDirectionReverse;
-    
-    [self setViewControllers: @[[self viewControllerAtIndex:(--self.topPageControl.currentPage)]]
-                   direction: dir
-                    animated: YES
-                  completion: nil];
+        
+        [self setViewControllers: @[[self viewControllerAtIndex:(--self.topPageControl.currentPage)]]
+                       direction: dir
+                        animated: YES
+                      completion: nil];
+    }
 }
 
--(void)nextButtonTap
+-(void)nextButtonTap:(UITapGestureRecognizer *)recognizer
 {
-    if (!self.nextButton.enabled) return;
-
-    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
-
-    UIPageViewControllerNavigationDirection dir = isRTL
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        
+        if (!self.nextButton.enabled) return;
+        
+        BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+        
+        UIPageViewControllerNavigationDirection dir = isRTL
         ?
         UIPageViewControllerNavigationDirectionReverse
         :
         UIPageViewControllerNavigationDirectionForward;
-
-    [self setViewControllers: @[[self viewControllerAtIndex:(++self.topPageControl.currentPage)]]
-                   direction: dir
-                    animated: YES
-                  completion: nil];
+        
+        [self setViewControllers: @[[self viewControllerAtIndex:(++self.topPageControl.currentPage)]]
+                       direction: dir
+                        animated: YES
+                      completion: nil];
+    }
 }
 
 /*

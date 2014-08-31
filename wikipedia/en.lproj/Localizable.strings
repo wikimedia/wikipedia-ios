@@ -156,8 +156,9 @@
 "credits-github-mirror" = "App mirror (GitHub)";
 "credits-external-libraries" = "External repositories";
 
-"share-menu-save-page" = "Save Article";
-"share-menu-page-saved" = "Article Saved";
+"share-menu-save-page" = "Save page";
+"share-menu-page-saved" = "$1 saved for offline reading.";
+"share-menu-page-saved-access" = "Tip: to access your saved pages, tap $1 above or long-press $2 below.";
 
 "timestamp-just-now" = "just now";
 "timestamp-minutes" = "%d minutes ago";

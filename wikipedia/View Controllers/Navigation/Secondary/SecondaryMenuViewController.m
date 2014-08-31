@@ -689,8 +689,7 @@ typedef enum {
 
     NSDictionary *selectedLangInfo = [notification userInfo];
     
-    [self showAlert:MWLocalizedString(@"main-menu-language-selection-saved", nil)];
-    [self fadeAlert];
+    [self showAlert:MWLocalizedString(@"main-menu-language-selection-saved", nil) type:ALERT_TYPE_TOP duration:1];
     
     [self switchPreferredLanguageToId:selectedLangInfo[@"code"] name:selectedLangInfo[@"name"]];
     

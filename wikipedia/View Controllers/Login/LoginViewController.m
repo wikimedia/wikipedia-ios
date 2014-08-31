@@ -191,8 +191,7 @@
                       NSString *loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
                       loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString: @"$1"
                                                                                    withString: self.usernameField.text];
-                      [self showAlert:loggedInMessage];
-                      [self fadeAlert];
+                      [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:1.0f];
 
                       [self performSelector:(onboardingVC ? @selector(popModalToRoot) : @selector(popModal)) withObject:nil afterDelay:1.2f];
                       
@@ -255,7 +254,7 @@
                           [SessionSingleton sharedInstance].keychainCredentials.password = password;
                           
                           //NSString *result = loginResult[@"login"][@"result"];
-                          [self showAlert:loginStatus];
+                          [self showAlert:loginStatus type:ALERT_TYPE_TOP duration:-1];
                           
                           [[NSOperationQueue mainQueue] addOperationWithBlock:successBlock];
                           
@@ -266,14 +265,14 @@
                           
                       } cancelledBlock: ^(NSError *error){
                           
-                          [self showAlert:error.localizedDescription];
+                          [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
 
                           [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
 
                           
                       } errorBlock: ^(NSError *error){
                           
-                          [self showAlert:error.localizedDescription];
+                          [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
 
                           [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
 
@@ -297,7 +296,7 @@
                                
                            } errorBlock: ^(NSError *error){
                                
-                               [self showAlert:error.localizedDescription];
+                               [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
 
                                [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
 
@@ -338,16 +337,18 @@
      ];
 }
 
-- (void)createAccountButtonPushed:(id)sender
+- (void)createAccountButtonPushed:(UITapGestureRecognizer *)recognizer
 {
-    [self.funnel logCreateAccountAttempt];
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [self.funnel logCreateAccountAttempt];
 
-    [self performModalSequeWithID: @"modal_segue_show_create_account"
-                  transitionStyle: UIModalTransitionStyleCoverVertical
-                            block: ^(AccountCreationViewController *createAcctVC){
-                                createAcctVC.funnel = [[CreateAccountFunnel alloc] init];
-                                [createAcctVC.funnel logStartFromLogin:self.funnel.loginSessionToken];
-                            }];
+        [self performModalSequeWithID: @"modal_segue_show_create_account"
+                      transitionStyle: UIModalTransitionStyleCoverVertical
+                                block: ^(AccountCreationViewController *createAcctVC){
+                                    createAcctVC.funnel = [[CreateAccountFunnel alloc] init];
+                                    [createAcctVC.funnel logStartFromLogin:self.funnel.loginSessionToken];
+                                }];
+    }
 }
 
 @end

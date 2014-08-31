@@ -16,7 +16,7 @@
 -(void)recurseSubVCs
 {
     [self recurseSubviewsOfView:self.view];
-    for (UIViewController *subVC in self.childViewControllers) {
+    for (UIViewController *subVC in self.childViewControllers.copy) {
         if (subVC.presentedViewController) {
             [subVC.presentedViewController recurseSubVCs];
         }
@@ -35,7 +35,7 @@
             }
         }
     }
-    for (UIView *subView in view.subviews) {
+    for (UIView *subView in view.subviews.copy) {
         [self recurseSubviewsOfView:subView];
     }
 }

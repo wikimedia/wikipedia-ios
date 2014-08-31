@@ -7,12 +7,23 @@
 
 -(id)getFirstSubviewOfClass:(Class)class
 {
-    for (id view in self.subviews) {
+    for (id view in self.subviews.copy) {
         if([view isMemberOfClass:class]){
             return view;
         }
     }
     return nil;
+}
+
+-(NSArray *)getSubviewsOfClass:(Class)class
+{
+    NSMutableArray *output = @[].mutableCopy;
+    for (id view in self.subviews.copy) {
+        if([view isMemberOfClass:class]){
+            [output addObject:view];
+        }
+    }
+    return output;
 }
 
 @end

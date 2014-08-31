@@ -57,6 +57,7 @@
 #import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars_iOS.h"
+#import "NSString+FormattedAttributedString.h"
 
 //#import "UIView+Debugging.h"
 
@@ -115,7 +116,6 @@ typedef enum {
 
 @property (nonatomic) BOOL unsafeToToggleTOC;
 
-@property (weak, nonatomic) BottomMenuViewController *bottomMenuViewController;
 @property (strong, nonatomic) ReferencesVC *referencesVC;
 @property (weak, nonatomic) IBOutlet UIView *referencesContainerView;
 
@@ -291,14 +291,14 @@ typedef enum {
     //self.referencesContainerView.layer.borderColor = [UIColor redColor].CGColor;
 }
 
--(void)showAlert:(NSString *)alertText
+-(void)showAlert:(id)alertText type:(AlertType)type duration:(CGFloat)duration
 {
     if ([self tocDrawerIsOpen]) return;
 
     // Don't show alerts if onboarding onscreen.
     if ([self shouldShowOnboarding]) return;
 
-    [super showAlert:alertText];
+    [super showAlert:alertText type:type duration:duration];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -1086,9 +1086,10 @@ typedef enum {
         Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
         if (!article) return;
         if (article.saved.count == 0) {
-            // Save!
-            [self showAlert:MWLocalizedString(@"share-menu-page-saved", nil)];
-            [self fadeAlert];
+            // Show alert.
+            [self showPageSavedAlertMessageForTitle:article.title];
+
+            // Actually perform the save.
             Saved *saved = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:articleDataContext_.mainContext];
             saved.dateSaved = [NSDate date];
             [article addSavedObject:saved];
@@ -1098,11 +1099,51 @@ typedef enum {
             for (id obj in article.saved.copy) {
                 [articleDataContext_.mainContext deleteObject:obj];
             }
+            [self fadeAlert];
         }
         NSError *error = nil;
         [articleDataContext_.mainContext save:&error];
         NSLog(@"SAVE PAGE ERROR = %@", error);
     }];
+}
+
+-(void)showPageSavedAlertMessageForTitle:(NSString *)title
+{
+    // First show saved message.
+    NSString *savedMessage = MWLocalizedString(@"share-menu-page-saved", nil);
+    
+    NSMutableAttributedString *attributedSavedMessage =
+    [savedMessage attributedStringWithAttributes: @{}
+                             substitutionStrings: @[title]
+                          substitutionAttributes: @[@{NSFontAttributeName: [UIFont italicSystemFontOfSize:ALERT_FONT_SIZE]}]].mutableCopy;
+    
+    CGFloat duration = 2.0;
+    BOOL AccessSavedPagesMessageShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"AccessSavedPagesMessageShown"];
+    
+    //AccessSavedPagesMessageShown = NO;
+    
+    if (!AccessSavedPagesMessageShown) {
+        duration = -1;
+        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"AccessSavedPagesMessageShown"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        NSString *accessMessage = [NSString stringWithFormat:@"\n%@", MWLocalizedString(@"share-menu-page-saved-access", nil)];
+        
+        NSDictionary *d = @{
+                            NSFontAttributeName: [UIFont fontWithName:@"WikiFontGlyphs-iOS" size:ALERT_FONT_SIZE],
+                            NSBaselineOffsetAttributeName : @2
+                            };
+        
+        NSAttributedString *attributedAccessMessage =
+        [accessMessage attributedStringWithAttributes: @{}
+                                  substitutionStrings: @[IOS_WIKIGLYPH_W, IOS_WIKIGLYPH_HEART]
+                               substitutionAttributes: @[d, d]];
+        
+        
+        [attributedSavedMessage appendAttributedString:attributedAccessMessage];
+    }
+    
+    [self showAlert:attributedSavedMessage type:ALERT_TYPE_BOTTOM duration:duration];
 }
 
 #pragma mark Web view scroll offset recording
@@ -1405,7 +1446,7 @@ typedef enum {
     [self hideKeyboard];
     
     // Show loading message
-    //[self showAlert:MWLocalizedString(@"search-loading-section-zero", nil)];
+    //[self showAlert:MWLocalizedString(@"search-loading-section-zero", nil) type:ALERT_TYPE_TOP duration:-1];
 
     if (invalidateCache) [self invalidateCacheForPageTitle:title domain:domain];
     
@@ -1490,7 +1531,7 @@ typedef enum {
         if (article.section.count > 0 && !article.needsRefresh.boolValue) {
             [self.tocVC setTocSectionDataForSections:article.section];
             [self displayArticle:articleID mode:DISPLAY_ALL_SECTIONS];
-            //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil)];
+            //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
             [self fadeAlert];
             return;
         }
@@ -1565,14 +1606,14 @@ typedef enum {
         }];
         
         [self displayArticle:articleID mode:DISPLAY_APPEND_NON_LEAD_SECTIONS];
-        //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil)];
-        [self fadeAlert];
+        //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
+        //[self fadeAlert];
 
     } cancelledBlock:^(NSError *error){
         [self fadeAlert];
     } errorBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg];
+        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
     }];
 
     remainingSectionsOp.delegate = self;
@@ -1722,7 +1763,7 @@ typedef enum {
         }];
 
         [self displayArticle:articleID mode:DISPLAY_LEAD_SECTION];
-        //[self showAlert:MWLocalizedString(@"search-loading-section-remaining", nil)];
+        //[self showAlert:MWLocalizedString(@"search-loading-section-remaining", nil) type:ALERT_TYPE_TOP duration:-1];
 
     } cancelledBlock:^(NSError *error){
 
@@ -1734,7 +1775,7 @@ typedef enum {
 
     } errorBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg];
+        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
         if (articleID) {
             // Remove the article so it doesn't get saved.
             Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
@@ -2019,7 +2060,7 @@ typedef enum {
                      self.zeroStatusLabel.padding = UIEdgeInsetsMake(3, 10, 3, 10);
                      self.zeroStatusLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.93];
 
-                     [self showAlert:title];
+                     [self showAlert:title type:ALERT_TYPE_TOP duration:-1];
                      [NAV promptFirstTimeZeroOnWithTitleIfAppropriate:title];
                  });
              }
@@ -2045,7 +2086,7 @@ typedef enum {
             self.zeroStatusLabel.padding = UIEdgeInsetsZero;
         });
 
-        [self showAlert:warnVerbiage];
+        [self showAlert:warnVerbiage type:ALERT_TYPE_TOP duration:-1];
         [NAV promptZeroOff];
     }
 }
@@ -2082,13 +2123,7 @@ typedef enum {
 {
     NSString *title = [SessionSingleton sharedInstance].currentArticleTitle;
     
-    return
-    ([QueuesSingleton sharedInstance].articleRetrievalQ.operationCount == 0)
-    &&
-    (![self tocDrawerIsOpen])
-    &&
-    (title && (title.length > 0))
-    ;
+    return (![self tocDrawerIsOpen]) && (title && (title.length > 0));
 }
 
 #pragma mark Data migration

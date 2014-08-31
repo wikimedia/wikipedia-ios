@@ -24,3 +24,10 @@
 #define TOP_MENU_INITIAL_HEIGHT 46 
 
 #define CHROME_COLOR [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0]
+
+#define ALERT_FONT_SIZE 12
+#define ALERT_BACKGROUND_COLOR [UIColor colorWithRed:(0.94 * 0.85) green:(0.94 * 0.85) blue:(0.96 * 0.85) alpha:1.0]
+#define ALERT_PADDING UIEdgeInsetsMake(2, 10, 2, 10)
+
+#define CHROME_OUTLINE_COLOR ALERT_BACKGROUND_COLOR
+#define CHROME_OUTLINE_WIDTH (1.0f / [UIScreen mainScreen].scale)

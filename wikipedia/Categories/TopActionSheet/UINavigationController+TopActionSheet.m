@@ -3,6 +3,7 @@
 
 #import "UINavigationController+TopActionSheet.h"
 #import "UIView+RemoveConstraints.h"
+#import "UIView+SearchSubviews.h"
 
 #define ANIMATION_DURATION 0.23f
 
@@ -16,7 +17,7 @@
         UIView *superView = self.view;
         
         // Reuse existing container if any.
-        containerView = [self getExistingViewOfClass:[TabularScrollView class] inContainer:superView];
+        containerView = [superView getFirstSubviewOfClass:[TabularScrollView class]];
 
         // Remove container view if no views were specified.
         if (!views || (views.count == 0)) {
@@ -66,7 +67,7 @@
 -(void)topActionSheetChangeOrientation:(TabularScrollViewOrientation)orientation
 {
     [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-        TabularScrollView *containerView = [self getExistingViewOfClass:[TabularScrollView class] inContainer:self.view];
+        TabularScrollView *containerView = [self.view getFirstSubviewOfClass:[TabularScrollView class]];
 
         [containerView setOrientation:orientation];
             
@@ -105,14 +106,6 @@
     [self.view addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
 
     [self.view setNeedsUpdateConstraints];
-}
-
--(id)getExistingViewOfClass:(Class)class inContainer:(UIView *)container
-{
-    for (id view in container.subviews) {
-        if ([view isMemberOfClass:class]) return view;
-    }
-    return nil;
 }
 
 @end

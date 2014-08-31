@@ -493,6 +493,9 @@
 {
     UIView *tappedView = nil;
     if([sender isKindOfClass:[UIGestureRecognizer class]]){
+        // We only want to take action when the tap recognizer is in Ended state.
+        if (((UIGestureRecognizer *)sender).state != UIGestureRecognizerStateEnded) return;
+
         tappedView = ((UIGestureRecognizer *)sender).view;
     }else{
         tappedView = sender;

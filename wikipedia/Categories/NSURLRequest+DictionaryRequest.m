@@ -15,7 +15,7 @@
 {
     NSMutableString *body = [NSMutableString string];
     
-    for (NSString *key in parameters) {
+    for (NSString *key in parameters.copy) {
         NSString *val = [parameters objectForKey:key];
         if ([body length])
             [body appendString:@"&"];

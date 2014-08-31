@@ -158,7 +158,7 @@ typedef enum {
     
     self.previewLabel.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-preview", nil);
     
-    [self.previewLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewLabelTapped)]];
+    [self.previewLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewLabelTapped:)]];
     
     //self.saveAutomaticallyIfSignedIn = NO;
     
@@ -198,9 +198,11 @@ typedef enum {
     [self preview];
 }
 
--(void)previewLabelTapped
+-(void)previewLabelTapped:(UITapGestureRecognizer *)recognizer
 {
-    [self.scrollView scrollSubViewToTop:self.previewLabel animated:YES];
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [self.scrollView scrollSubViewToTop:self.previewLabel animated:YES];
+    }
 }
 
 -(void)dealloc
@@ -298,36 +300,39 @@ typedef enum {
 
 -(void)buttonTapped:(UIGestureRecognizer *)recognizer
 {
-    MenuButton *tappedButton = (MenuButton *)recognizer.view;
-    
-    NSString *summaryKey;
-    switch (tappedButton.tag) {
-        case CANNED_SUMMARY_TYPOS:
-            summaryKey = @"typo";
-            break;
-        case CANNED_SUMMARY_GRAMMAR:
-            summaryKey = @"grammar";
-            break;
-        case CANNED_SUMMARY_LINKS:
-            summaryKey = @"links";
-            break;
-        case CANNED_SUMMARY_OTHER:
-            summaryKey = @"other";
-            break;
-        default:
-            NSLog(@"unrecognized button");
-    }
-    [self.funnel logEditSummaryTap:summaryKey];
-
-    switch (tappedButton.tag) {
-        case CANNED_SUMMARY_OTHER:
-            [self showSummaryOverlay];
-            break;
-            
-        default:
-            tappedButton.enabled = !tappedButton.enabled;
-            
-            break;
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        
+        MenuButton *tappedButton = (MenuButton *)recognizer.view;
+        
+        NSString *summaryKey;
+        switch (tappedButton.tag) {
+            case CANNED_SUMMARY_TYPOS:
+                summaryKey = @"typo";
+                break;
+            case CANNED_SUMMARY_GRAMMAR:
+                summaryKey = @"grammar";
+                break;
+            case CANNED_SUMMARY_LINKS:
+                summaryKey = @"links";
+                break;
+            case CANNED_SUMMARY_OTHER:
+                summaryKey = @"other";
+                break;
+            default:
+                NSLog(@"unrecognized button");
+        }
+        [self.funnel logEditSummaryTap:summaryKey];
+        
+        switch (tappedButton.tag) {
+            case CANNED_SUMMARY_OTHER:
+                [self showSummaryOverlay];
+                break;
+                
+            default:
+                tappedButton.enabled = !tappedButton.enabled;
+                
+                break;
+        }
     }
 }
 
@@ -390,14 +395,16 @@ typedef enum {
 
 -(void)licenseLabelTapped:(UIGestureRecognizer *)recognizer
 {
-    // Call if user taps the blue "Log In" text in the CC text.
-    //self.saveAutomaticallyIfSignedIn = YES;
-    [self performModalSequeWithID: @"modal_segue_show_login"
-                  transitionStyle: UIModalTransitionStyleCoverVertical
-                            block: ^(LoginViewController *loginVC){
-                                loginVC.funnel = [[LoginFunnel alloc] init];
-                                [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
-                            }];
+    if (recognizer.state == UIGestureRecognizerStateEnded) {        
+        // Call if user taps the blue "Log In" text in the CC text.
+        //self.saveAutomaticallyIfSignedIn = YES;
+        [self performModalSequeWithID: @"modal_segue_show_login"
+                      transitionStyle: UIModalTransitionStyleCoverVertical
+                                block: ^(LoginViewController *loginVC){
+                                    loginVC.funnel = [[LoginFunnel alloc] init];
+                                    [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
+                                }];
+    }
 }
 
 -(void)highlightCaptchaSubmitButton:(BOOL)highlight
@@ -437,7 +444,7 @@ typedef enum {
     if (isAleadyPreviewing) return;
     isAleadyPreviewing = YES;
 
-    [self showAlert:MWLocalizedString(@"wikitext-preview-changes", nil)];
+    [self showAlert:MWLocalizedString(@"wikitext-preview-changes", nil) type:ALERT_TYPE_TOP duration:-1];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
 
     MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:section.article.domain];
@@ -470,13 +477,13 @@ typedef enum {
         
     } cancelledBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg];
+        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
         isAleadyPreviewing = NO;
         
     } errorBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;
         
-        [self showAlert:errorMsg];
+        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
         
         isAleadyPreviewing = NO;
     }];
@@ -518,7 +525,7 @@ typedef enum {
 
     ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
 
-    [self showAlert:MWLocalizedString(@"wikitext-upload-save", nil)];
+    [self showAlert:MWLocalizedString(@"wikitext-upload-save", nil) type:ALERT_TYPE_TOP duration:-1];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
 
     NSManagedObjectID *articleID = section.article.objectID;
@@ -546,13 +553,13 @@ typedef enum {
 
     } cancelledBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg];
+        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
         isAleadySaving = NO;
         
     } errorBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;
         
-        [self showAlert:errorMsg];
+        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
 
         switch (error.code) {
             case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
@@ -577,7 +584,7 @@ typedef enum {
                                                                                 withObject: nil
                                                                                 afterDelay: 0.4f];
 
-                                [self.captchaViewController showAlert:errorMsg];
+                                [self.captchaViewController showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
 
                                 self.captchaViewController.captchaImageView.image = nil;
 
@@ -693,7 +700,7 @@ typedef enum {
                             
                         } errorBlock: ^(NSError *error){
                             
-                            [self showAlert:error.localizedDescription];
+                            [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                             isAleadySaving = NO;
                             
                         }];

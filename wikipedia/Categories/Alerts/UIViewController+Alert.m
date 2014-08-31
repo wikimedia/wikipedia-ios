@@ -2,57 +2,48 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "UIViewController+Alert.h"
-#import "AlertLabel.h"
 #import "UIView+RemoveConstraints.h"
+#import "UIView+SearchSubviews.h"
+#import "WebViewController.h"
+#import "BottomMenuViewController.h"
+#import "Defines.h"
 
 @implementation UIViewController (Alert)
 
--(void)showAlert:(NSString *)alertText
+-(void)showAlert:(id)alertText type:(AlertType)type duration:(CGFloat)duration
 {
     [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-        AlertLabel *alertLabel = nil;
+        [self fadeAlert];
         
-        // Tack these alerts to the nav controller's view.
-        UIView *alertContainer = self.view;
+        if ([self shouldHideAlertForViewController:self]) return;
         
-        // Reuse existing alert label if any.
-        alertLabel = [self getExistingViewOfClass:[AlertLabel class] inContainer:alertContainer];
+        AlertLabel *newAlertLabel =
+        [[AlertLabel alloc] initWithText: alertText
+                                duration: duration
+                                 padding: ALERT_PADDING
+                                 type:type];
         
-        // If none to reuse, add one.
-        if (!alertLabel) {
-            alertLabel = [[AlertLabel alloc] init];
-            alertLabel.translatesAutoresizingMaskIntoConstraints = NO;
-            //alertLabel.layer.cornerRadius = 3.0f;
-            //alertLabel.clipsToBounds = YES;
-            [alertContainer addSubview:alertLabel];
-            [self constrainAlertView:alertLabel fullScreen:NO];
-        }
-
-        BOOL hide = [self shouldHideAlertForViewController:self];
-
-        if (hide) {
-            alertLabel.alpha = 0.0;
-        }else{
-            alertLabel.text = alertText;
-        }
-
+        newAlertLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        //newAlertLabel.layer.cornerRadius = 3.0f;
+        //newAlertLabel.clipsToBounds = YES;
+        [self.view addSubview:newAlertLabel];
+        
+        [self constrainAlertView:newAlertLabel type:type];
     }];
 }
 
 -(void)fadeAlert
 {
-    [self showAlert:@""];
+    // Fade existing alert labels if any.
+    NSArray *alertLabels = [self.view getSubviewsOfClass:[AlertLabel class]];
+    [alertLabels makeObjectsPerformSelector:@selector(fade)];
 }
 
 -(void)hideAlert
 {
-    // Hide alert immediately. Removes it so any running fade animations don't prevent immediate hide.
-    AlertLabel *alertLabel = [self getExistingViewOfClass:[AlertLabel class] inContainer:self.view];
-    if (alertLabel) {
-        [alertLabel removeConstraintsOfViewFromView:self.view];
-        [alertLabel removeFromSuperview];
-        alertLabel = nil;
-    }
+    // Hide existing alert labels if any.
+    NSArray *alertLabels = [self.view getSubviewsOfClass:[AlertLabel class]];
+    [alertLabels makeObjectsPerformSelector:@selector(hide)];
 }
 
 -(BOOL)shouldHideAlertForViewController:(UIViewController *)vc
@@ -100,38 +91,55 @@
 }
 */
 
--(void)constrainAlertView:(UIView *)view fullScreen:(BOOL)isFullScreen
+-(void)constrainAlertView: (UIView *)view type:(AlertType)type;
 {
+    [view removeConstraintsOfViewFromView:self.view];
+
     CGFloat margin = 0;
 
-    NSDictionary *views = NSDictionaryOfVariableBindings(view);
+    NSMutableDictionary *views = @{@"view": view}.mutableCopy;
     NSDictionary *metrics = @{@"space": @(margin)};
 
-    [self.view addConstraints:
-     [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-(space)-[view]-(space)-|"
-                                             options: 0
-                                             metrics: metrics
-                                               views: views
-      ]
-     ];
-    
-    NSString *verticalConstraint = [NSString stringWithFormat:@"V:|-(space)-[view]%@", (isFullScreen) ? @"|": @""];
-    
-    [self.view addConstraints:
-     [NSLayoutConstraint constraintsWithVisualFormat: verticalConstraint
-                                             options: 0
-                                             metrics: metrics
-                                               views: views
-      ]
-     ];
-}
 
--(id)getExistingViewOfClass:(Class)class inContainer:(UIView *)container
-{
-    for (id view in container.subviews.copy) {
-        if ([view isMemberOfClass:class]) return view;
+    UIView *bottomMenuView = nil;
+    if([self isMemberOfClass:[WebViewController class]]){
+        WebViewController *webVC = (WebViewController *)self;
+        bottomMenuView = webVC.bottomMenuViewController.view;
+        if (bottomMenuView) {
+            views[@"bottomMenuView"] = bottomMenuView;
+        }
     }
-    return nil;
+
+    NSString *verticalFormatString = @"";
+    switch (type) {
+        case ALERT_TYPE_BOTTOM:
+            if (bottomMenuView) {
+                verticalFormatString = @"V:[view]-(space)-[bottomMenuView]";
+            }else{
+                verticalFormatString = @"V:[view]-(space)-|";
+            }
+            break;
+        case ALERT_TYPE_FULLSCREEN:
+            verticalFormatString = @"V:|-(space)-[view]-(space)-|";
+            break;
+        default: // ALERT_TYPE_TOP
+            verticalFormatString = @"V:|-(space)-[view]";
+            break;
+    }
+    
+    NSArray *viewConstraintArrays =
+    @[
+      [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-(space)-[view]-(space)-|"
+                                              options: 0
+                                              metrics: metrics
+                                                views: views],
+      [NSLayoutConstraint constraintsWithVisualFormat: verticalFormatString
+                                              options: 0
+                                              metrics: metrics
+                                                views: views]
+      ];
+
+    [self.view addConstraints:[viewConstraintArrays valueForKeyPath:@"@unionOfArrays.self"]];
 }
 
 @end

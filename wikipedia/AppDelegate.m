@@ -83,7 +83,8 @@
         @"FakeZeroOn" : @NO,
         @"ShowOnboarding" : @YES,
         @"LastHousekeepingDate" : [NSDate date], //[NSDate dateWithDaysBeforeNow:10]
-        @"SendUsageReports": @YES
+        @"SendUsageReports": @YES,
+        @"AccessSavedPagesMessageShown": @NO
     };
     [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];
 }

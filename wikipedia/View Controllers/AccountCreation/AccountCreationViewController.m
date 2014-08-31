@@ -153,11 +153,13 @@
     self.emailField.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
 }
 
-- (void)loginButtonPushed:(id)sender
+- (void)loginButtonPushed:(UITapGestureRecognizer *)recognizer
 {
-    [self performModalSequeWithID: @"modal_segue_show_login"
-                  transitionStyle: UIModalTransitionStyleCoverVertical
-                            block: nil];
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [self performModalSequeWithID: @"modal_segue_show_login"
+                      transitionStyle: UIModalTransitionStyleCoverVertical
+                                block: nil];
+    }
 }
 
 -(NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string
@@ -350,8 +352,7 @@
 {
     self.captchaViewController.captchaTextBox.text = @"";
 
-    [self showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil)];
-    [self fadeAlert];
+    [self showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) type:ALERT_TYPE_TOP duration:1];
 
     CaptchaResetOp *captchaResetOp =
     [[CaptchaResetOp alloc] initWithDomain: [SessionSingleton sharedInstance].domain
@@ -381,7 +382,7 @@
                                [self fadeAlert];
                                
                            } errorBlock: ^(NSError *error){
-                               [self showAlert:error.localizedDescription];
+                               [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                                
                            }];
     
@@ -424,14 +425,14 @@
     // Create detached loginVC just for logging in.
     LoginViewController *loginVC = [[LoginViewController alloc] init];
     
-    [self showAlert:MWLocalizedString(@"account-creation-logging-in", nil)];
+    [self showAlert:MWLocalizedString(@"account-creation-logging-in", nil) type:ALERT_TYPE_TOP duration:-1];
     
     [loginVC loginWithUserName:self.usernameField.text password:self.passwordField.text onSuccess:^{
 
         NSString *loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
         loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString: @"$1"
                                                                      withString: self.usernameField.text];
-        [self showAlert:loggedInMessage];
+        [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:-1];
 
         if (onboardingVC) {
             [self popModalToRoot];
@@ -454,13 +455,13 @@
 
     // Verify passwords fields match.
     if (![self.passwordField.text isEqualToString:self.passwordRepeatField.text]) {
-        [self showAlert:MWLocalizedString(@"account-creation-passwords-mismatched", nil)];
+        [self showAlert:MWLocalizedString(@"account-creation-passwords-mismatched", nil) type:ALERT_TYPE_TOP duration:-1];
         isAleadySaving = NO;
         return;
     }
 
     // Save!
-    [self showAlert:MWLocalizedString(@"account-creation-saving", nil)];
+    [self showAlert:MWLocalizedString(@"account-creation-saving", nil) type:ALERT_TYPE_TOP duration:-1];
 
     AccountCreationOp *accountCreationOp =
     [[AccountCreationOp alloc] initWithDomain: [SessionSingleton sharedInstance].domain
@@ -478,8 +479,7 @@
                                   [self.funnel logSuccess];
 
                                   dispatch_async(dispatch_get_main_queue(), ^(){
-                                      [self showAlert:result];
-                                      [self fadeAlert];
+                                      [self showAlert:result type:ALERT_TYPE_TOP duration:1];
                                       [self performSelector:@selector(login) withObject:nil afterDelay:0.6f];
                                       isAleadySaving = NO;
                                   });
@@ -490,7 +490,7 @@
                                   isAleadySaving = NO;
                                   
                               } errorBlock: ^(NSError *error){
-                                  [self showAlert:error.localizedDescription];
+                                  [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
 
                                   [self.funnel logError:error.localizedDescription];
 
@@ -522,7 +522,7 @@
                                         isAleadySaving = NO;
                                     }
                                         errorBlock: ^(NSError *error){
-                                            [self showAlert:error.localizedDescription];
+                                            [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                                             isAleadySaving = NO;
                                         }];
 
