@@ -2123,7 +2123,11 @@ typedef enum {
 {
     NSString *title = [SessionSingleton sharedInstance].currentArticleTitle;
     
-    return (![self tocDrawerIsOpen]) && (title && (title.length > 0));
+    return (![self tocDrawerIsOpen])
+        &&
+        (title && (title.length > 0))
+        &&
+        (!ROOT.isAnimatingTopAndBottomMenuHidden);
 }
 
 #pragma mark Data migration
