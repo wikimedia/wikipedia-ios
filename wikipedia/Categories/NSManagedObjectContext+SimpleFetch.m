@@ -40,7 +40,7 @@
 -(NSManagedObjectID *)getArticleIDForTitle:(NSString *)title domain:(NSString *)domain
 {
     Article *article = (Article *)[self getEntityForName: @"Article" withPredicateFormat: @"\
-                       title ==[c] %@ \
+                       title == %@ \
                        AND \
                        site == %@ \
                        AND \
