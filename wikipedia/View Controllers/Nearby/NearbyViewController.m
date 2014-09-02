@@ -114,6 +114,17 @@
         self.nearbyDataArray = @[@[]];
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.activityType = CLActivityTypeFitness;
+
+        // Needed by iOS 8.
+        SEL selector = NSSelectorFromString(@"requestWhenInUseAuthorization");
+        if ([self.locationManager respondsToSelector:selector]) {
+            NSInvocation *invocation =
+            [NSInvocation invocationWithMethodSignature: [[self.locationManager class] instanceMethodSignatureForSelector:selector]];
+            [invocation setSelector:selector];
+            [invocation setTarget:self.locationManager];
+            [invocation invoke];
+        }
+        
         self.imageFetchQ = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         self.placeholderImage = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
         NSArray *cachePaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
