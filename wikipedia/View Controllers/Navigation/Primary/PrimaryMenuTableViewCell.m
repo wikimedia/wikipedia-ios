@@ -6,13 +6,14 @@
 
 @implementation PrimaryMenuTableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+-(void)didMoveToSuperview
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+        // Needed by iOS 8. The table view and its cells were made transparent to make
+        // iOS 6 fade animation more smooth. Unfortunately iOS 8 makes the table cells
+        // white for some reason...
+        self.backgroundColor = [UIColor blackColor];
     }
-    return self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

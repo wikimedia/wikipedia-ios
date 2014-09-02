@@ -1581,32 +1581,33 @@
                         <viewControllerLayoutGuide type="top" id="l0x-rC-7XB"/>
                         <viewControllerLayoutGuide type="bottom" id="ms6-Ce-U0I"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="T6V-mj-ox6">
+                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="T6V-mj-ox6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="k1z-U9-PgQ">
+                            <tableView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="k1z-U9-PgQ">
                                 <rect key="frame" x="15" y="0.0" width="290" height="518"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="PrimaryTableViewCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="PrimaryMenuCell" rowHeight="60" id="Df6-ew-Wsc" customClass="PrimaryMenuTableViewCell">
+                                    <tableViewCell opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" restorationIdentifier="PrimaryTableViewCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="PrimaryMenuCell" rowHeight="60" id="Df6-ew-Wsc" customClass="PrimaryMenuTableViewCell">
                                         <rect key="frame" x="0.0" y="22" width="290" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Df6-ew-Wsc" id="wvE-rA-5oS">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Df6-ew-Wsc" id="wvE-rA-5oS">
                                             <rect key="frame" x="0.0" y="0.0" width="290" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="nI1-bn-0Ii" customClass="PaddedLabel">
+                                                <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="nI1-bn-0Ii" customClass="PaddedLabel">
                                                     <rect key="frame" x="5" y="13" width="280" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="nI1-bn-0Ii" secondAttribute="trailing" constant="5" id="0EP-ii-jOg"/>
                                                 <constraint firstItem="nI1-bn-0Ii" firstAttribute="leading" secondItem="wvE-rA-5oS" secondAttribute="leading" constant="5" id="XLU-mr-ZED"/>
@@ -1614,6 +1615,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="nI1-bn-0Ii" secondAttribute="bottom" constant="13" id="xnt-op-6hi"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="label" destination="nI1-bn-0Ii" id="x66-p3-svk"/>
                                         </connections>
@@ -1625,10 +1627,10 @@
                                     <outlet property="delegate" destination="kv0-ra-y1C" id="eFw-8y-9Cu"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="724-e2-4qa" userLabel="More Button" customClass="WikiGlyphButton">
+                            <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="724-e2-4qa" userLabel="More Button" customClass="WikiGlyphButton">
                                 <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.93000000000000005" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="KaQ-m0-QVN"/>
                                 </constraints>
