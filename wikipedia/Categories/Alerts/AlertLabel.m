@@ -2,6 +2,8 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "AlertLabel.h"
+#import "WMF_Colors.h"
+#import "Defines.h"
 
 @implementation AlertLabel
 
@@ -16,10 +18,10 @@
         self.minimumScaleFactor = 0.2;
         self.font = [UIFont systemFontOfSize:10];
         self.textAlignment = NSTextAlignmentCenter;
-        self.textColor = [UIColor darkGrayColor];
+        self.textColor = [UIColor colorWithWhite:0.0 alpha:1.0];
         self.numberOfLines = 0;
         self.lineBreakMode = NSLineBreakByWordWrapping;
-        self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.9];
+        self.backgroundColor = CHROME_COLOR;
         self.userInteractionEnabled = YES;
 
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];

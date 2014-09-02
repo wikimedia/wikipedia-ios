@@ -199,7 +199,7 @@ body {
   font-size: .8em;
   line-height: 1.5;
   padding: 0 !important;
-  color: #777;
+  color: #555;
   width: auto !important;
 }
 .content .thumbborder {
@@ -283,7 +283,7 @@ i {
 }
 a.external {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVElEQVR42n3PgQkAIAhEUXdqJ3dqJ3e6IoTPUSQcgj4EQ5IlUiLE0Jil3PECXhcHGBhZ8kg4hwxAu3MZeCGeyFnAXp4hqNQPnt7QL0nADpD6wHccLvnAKksq8iiaAAAAAElFTkSuQmCC);
-  background-image: url(//bits.wikimedia.org/static-1.24wmf15/extensions/MobileApp/../MobileFrontend/less/content/images/external-link-ltr-icon.png?2014-07-24T17:20:00Z)!ie;
+  background-image: url(//bits.wikimedia.org/static-1.24wmf18/extensions/MobileApp/../MobileFrontend/less/content/images/external-link-ltr-icon.png?2014-08-21T15:38:20Z)!ie;
   /* We don't need the !ie hack because this old IE uses the fallback already */
   background-image: -webkit-linear-gradient(transparent,transparent), url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+PGRlZnM+PG1hcmtlciBvcmllbnQ9ImF1dG8iIG92ZXJmbG93PSJ2aXNpYmxlIj48cGF0aCBkPSJNLS45NTgtNC4yNTljLTEuMTM0IDAtMi4wNTYuOTIyLTIuMDU2IDIuMDU2IDAgLjM5NC4xNDMuNzM2LjMzNiAxLjA0OWwtLjA3LjA1NmMtLjM3My0uNTEzLS45NTQtLjg2Ny0xLjYzNi0uODY3LTEuMTM0IDAtMi4wNTYuOTIyLTIuMDU2IDIuMDU2cy45MjIgMi4wNTYgMi4wNTYgMi4wNTZjLjU5NiAwIDEuMTIxLS4yNjUgMS40OTYtLjY3MS0uMDc1LjIxMy0uMTI2LjQzMy0uMTI2LjY3MSAwIDEuMTM0LjkyMiAyLjA1NiAyLjA1NiAyLjA1NnMyLjA1Ni0uOTIyIDIuMDU2LTIuMDU2YzAtLjQ3Ni0uMTg5LS44OTYtLjQ2Mi0xLjI0NS44MTMuMTU4IDEuNjI3LjQ3NyAyLjIyNCAxLjM5OS0uNDQzLS40NDMtLjcyNy0xLjI0OC0uNzI3LTIuMzM2bC0uMzc4LS4wMjguMzUtLjAxNGMwLTEuMDg3LjI3LTEuODkzLjcxMy0yLjMzNi0uNTc1Ljg4OS0xLjM1NCAxLjIxNi0yLjE0IDEuMzg1LjI0My0uMzM3LjQyLS43MjguNDItMS4xNzUgMC0xLjEzNC0uOTIyLTIuMDU2LTIuMDU2LTIuMDU2eiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iTmFOIi8+PC9tYXJrZXI+PG1hcmtlciBvcmllbnQ9ImF1dG8iIG92ZXJmbG93PSJ2aXNpYmxlIj48cGF0aCBkPSJNMC0yLjgyOGwtMi44MjggMi44MjggMi44MjggMi44MjggMi44MjgtMi44MjgtMi44MjgtMi44Mjh6IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSJOYU4iLz48L21hcmtlcj48bWFya2VyIG9yaWVudD0iYXV0byIgb3ZlcmZsb3c9InZpc2libGUiPjxwYXRoIGQ9Ik0xMCAwbDQtNC0xNCA0IDE0IDQtNC00eiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iTmFOIi8+PC9tYXJrZXI+PC9kZWZzPjxwYXRoIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzA2YyIgZD0iTS41IDMuNTE4aDUuOTgydjUuOTgyaC01Ljk4MnoiLz48cGF0aCBkPSJNNC43NTUtLjE2aDUuMjM0djUuMzlsLTEuNTcxIDEuNTQ0LTEuMzEtMS4zMS0yLjcyNSAyLjcyNS0yLjY4OC0yLjY4OCAyLjgwOC0yLjgwOC0xLjMxLTEuMzF6IiBmaWxsPSIjMDZmIi8+PHBhdGggZD0iTTguOTg0Ljg0NWwuMDIyIDQuODg0LTEuODE3LTEuODE3LTIuODgxIDIuODgxLTEuMjI3LTEuMjI3IDIuODgxLTIuODgxLTEuODUtMS44NTF6IiBmaWxsPSIjZmZmIi8+PC9zdmc+);
   background-image: linear-gradient(transparent,transparent), url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+PGRlZnM+PG1hcmtlciBvcmllbnQ9ImF1dG8iIG92ZXJmbG93PSJ2aXNpYmxlIj48cGF0aCBkPSJNLS45NTgtNC4yNTljLTEuMTM0IDAtMi4wNTYuOTIyLTIuMDU2IDIuMDU2IDAgLjM5NC4xNDMuNzM2LjMzNiAxLjA0OWwtLjA3LjA1NmMtLjM3My0uNTEzLS45NTQtLjg2Ny0xLjYzNi0uODY3LTEuMTM0IDAtMi4wNTYuOTIyLTIuMDU2IDIuMDU2cy45MjIgMi4wNTYgMi4wNTYgMi4wNTZjLjU5NiAwIDEuMTIxLS4yNjUgMS40OTYtLjY3MS0uMDc1LjIxMy0uMTI2LjQzMy0uMTI2LjY3MSAwIDEuMTM0LjkyMiAyLjA1NiAyLjA1NiAyLjA1NnMyLjA1Ni0uOTIyIDIuMDU2LTIuMDU2YzAtLjQ3Ni0uMTg5LS44OTYtLjQ2Mi0xLjI0NS44MTMuMTU4IDEuNjI3LjQ3NyAyLjIyNCAxLjM5OS0uNDQzLS40NDMtLjcyNy0xLjI0OC0uNzI3LTIuMzM2bC0uMzc4LS4wMjguMzUtLjAxNGMwLTEuMDg3LjI3LTEuODkzLjcxMy0yLjMzNi0uNTc1Ljg4OS0xLjM1NCAxLjIxNi0yLjE0IDEuMzg1LjI0My0uMzM3LjQyLS43MjguNDItMS4xNzUgMC0xLjEzNC0uOTIyLTIuMDU2LTIuMDU2LTIuMDU2eiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iTmFOIi8+PC9tYXJrZXI+PG1hcmtlciBvcmllbnQ9ImF1dG8iIG92ZXJmbG93PSJ2aXNpYmxlIj48cGF0aCBkPSJNMC0yLjgyOGwtMi44MjggMi44MjggMi44MjggMi44MjggMi44MjgtMi44MjgtMi44MjgtMi44Mjh6IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSJOYU4iLz48L21hcmtlcj48bWFya2VyIG9yaWVudD0iYXV0byIgb3ZlcmZsb3c9InZpc2libGUiPjxwYXRoIGQ9Ik0xMCAwbDQtNC0xNCA0IDE0IDQtNC00eiIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iTmFOIi8+PC9tYXJrZXI+PC9kZWZzPjxwYXRoIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzA2YyIgZD0iTS41IDMuNTE4aDUuOTgydjUuOTgyaC01Ljk4MnoiLz48cGF0aCBkPSJNNC43NTUtLjE2aDUuMjM0djUuMzlsLTEuNTcxIDEuNTQ0LTEuMzEtMS4zMS0yLjcyNSAyLjcyNS0yLjY4OC0yLjY4OCAyLjgwOC0yLjgwOC0xLjMxLTEuMzF6IiBmaWxsPSIjMDZmIi8+PHBhdGggZD0iTTguOTg0Ljg0NWwuMDIyIDQuODg0LTEuODE3LTEuODE3LTIuODgxIDIuODgxLTEuMjI3LTEuMjI3IDIuODgxLTIuODgxLTEuODUtMS44NTF6IiBmaWxsPSIjZmZmIi8+PC9zdmc+);
@@ -541,7 +541,7 @@ a.edit_section_button {
   height: 32px;
   width: 32px;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAANlBMVEUAAAD///9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW9sbW+FiFraAAAAEXRSTlMAABAgMEBQYHCAkKCwwNDg8InUWv0AAAGfSURBVHhe7djBjsIgFIXhOwjFeltK3/9lJ4J6SG5dHGgyyaRn1dUXlb8slJ+T9//AC7zACxRiLu37EqXsDPCW9ue2cBLo8/7a/RQwFK9OTwDj3k6Hwbk6Mb/EeRDUojyaHzKMgG4pRmy/ehoAXcklT3h+buoGffU8vDJlQJtfuuG5busEY/Xc28N4EPkp7EHwUaODjSkLIr8Iu/VIELkE2Bj9psDzSBuLQoLIxX1sLEfhQHirQ9rwvLAgcoHdejx4b3IJ8PDOcCBysfklJzToipc9Piu2OKFA5LL5o/xUhAZ9Qi7W40Dkspj8as48OGXkYj0ORH73w/yC8OCMXA5y5sE2lwgPh86Bbi3h+i8506Brc3kYjwb9VkL7lh8N+jaXxXg0GBGayW8WCoSXq+dNzjyIXGx+UXhQm1yCyZkHA8JAfvBosF6h21RvU3vb86B+4lCTcxf4rkTV3PZ9IAiTcxcYvnm94P3Qi9IN6rHXDybL5SAD4IHnZQAMxtu8jIA4E+Q8BKr1xkCcybrOcwhOBsE3JOT+4G+WC7zAC7zAXxMIT+qGYJfyAAAAAElFTkSuQmCC);
-  background-image: url(//bits.wikimedia.org/static-1.24wmf15/extensions/MobileApp/less/../images/edit.png?2014-07-24T17:20:00Z)!ie;
+  background-image: url(//bits.wikimedia.org/static-1.24wmf18/extensions/MobileApp/less/../images/edit.png?2014-08-21T15:38:20Z)!ie;
   background-size: 32px 32px;
   float: right;
   display: inline-float;
@@ -551,7 +551,7 @@ a.edit_section_button {
 }
 .page-protected a.edit_section_button {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAAXVBMVEUAAAD////Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW/Pz8/Pz8/Pz89sbW/Pz89sbW/Pz8/Pz89sbW/Pz89sbW/Pz89sbW/Pz89sbW+fZUWwAAAAHXRSTlMAABAQICAwMEBAUFBgYHBwgJCgoLDAwNDQ4ODw8PGFG8cAAAHOSURBVHhe7dTLcoMwDAVQxVCXJAoByiPUEf//mcW0Gh5KFrbojrtidUYM9wKnnfOP4AEe4AGCT3JvmuHR3BOAXcDrc/jN87wLeBvmnCUIATnZEUyeC/A7UYHWjeDdQ48PSL68eNOA6GgEH9Nh3m9GsFGASOTB6S7wufrHeLCkGfycwLMKrGgBwm8UoKknD/cCTffn7QSmk+cup51A6ybP+hsGmUCQvd7CTiCST2dAB0pPAcr6VQY0oPRgCqpB005eydvTglxnPlYLWvZ4ezqQ65zxsVrwwvPg7SlBJJ4HH6sDc64ze0qwWnroSAHKeSDRDL6JBGX9eB4FKUH2Sj5WC9p+PQ8lyA1BPnYVZ4NBnOssvS4NvhBp4dl+45nAV+Yv2q3nwakMBICyztnWAwgEzcpDWgchABR1Fp5DCAXTlVdtPAuBINevEB5/pQBQ1rneeAZCQaTVPERdQsGMVn97UZdgMJ89UeccIsDaA7V55SHEgD0vDtCJukSAKQM5kvBiwAtxRF3iwPKtFwm2TIi6RIJvvGgwe+UhxIO55ByCAqylZ0ED9luvt6ABU1kXUIHLWru2LVoDOrAk6tu6KLKMJSVohaMAtTnA4BzgAf4Asb6U9nmPcP4AAAAASUVORK5CYII=);
-  background-image: url(//bits.wikimedia.org/static-1.24wmf15/extensions/MobileApp/less/../images/edit-locked.png?2014-07-24T17:20:00Z)!ie;
+  background-image: url(//bits.wikimedia.org/static-1.24wmf18/extensions/MobileApp/less/../images/edit-locked.png?2014-08-21T15:38:20Z)!ie;
 }
 #mainpage a.edit_section_button {
   display: none;
@@ -833,23 +833,22 @@ sup.reference a {
   display: none;
 }
 #li-coordinates {
-  background-image: url("float: right;
-    display: none;
-    -webkit-background-size: auto 30px;
-    background-size: auto 30px;
+  background-image: url(//upload.wikimedia.org/wikipedia/commons/thumb/5/57/Edge-firefox.png/80px-Edge-firefox.png);
+  float: right;
+  display: none;
+  -webkit-background-size: auto 30px;
+  background-size: auto 30px;
 }
-
 .client-js .content_block.coordinates {
-    display: none;
-    text-align: right;
-    margin-bottom: 0.5em;
-    font-size: smaller;
+  display: none;
+  text-align: right;
+  margin-bottom: 0.5em;
+  font-size: smaller;
 }
-
 .client-js .content_block.coordinates .latitude {
-    display:none;
-    padding-left: 20px;
-    background-image: url(//upload.wikimedia.org/wikipedia/commons/thumb/5/57/Edge-firefox.png/50px-Edge-firefox.png");
+  display: none;
+  padding-left: 20px;
+  background-image: url(//upload.wikimedia.org/wikipedia/commons/thumb/5/57/Edge-firefox.png/50px-Edge-firefox.png);
   background-repeat: no-repeat;
   -webkit-background-size: auto 15px;
   background-size: auto 15px;

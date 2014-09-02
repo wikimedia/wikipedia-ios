@@ -1791,7 +1791,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				04D3082C19991CB60034F106 /* logo-placeholder-nearby@2x.png in Resources */,
-				0466F44F183A30CC00EA1FD7 /* logo-search-placeholder.png in Resources */,
 				D46CD8C418A1AC4F0042959E /* InfoPlist.strings in Resources */,
 				045EFF1B19A25FEB00D0EDBB /* logo-placeholder-search@2x.png in Resources */,
 				D4991454181D51DE00E6073C /* Images.xcassets in Resources */,

@@ -20,6 +20,7 @@
 #import "Article+Convenience.h"
 #import "Defines.h"
 #import "WikipediaAppUtils.h"
+#import "WMF_Colors.h"
 
 typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     BOTTOM_MENU_BUTTON_UNKNOWN,
@@ -84,7 +85,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     self.rightButton.tag = BOTTOM_MENU_BUTTON_SHARE;
     self.rightButton.accessibilityLabel = MWLocalizedString(@"menu-share-accessibility-label", nil);
 
-    [self.saveButton.label setWikiText: IOS_WIKIGLYPH_STAR_OUTLINE
+    [self.saveButton.label setWikiText: IOS_WIKIGLYPH_HEART_OUTLINE
                                  color: buttonColor
                                   size: buttonTextSize
                         baselineOffset: 0
@@ -286,8 +287,15 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     self.forwardButton.enabled = (self.adjacentHistoryIDs[@"after"]) ? YES : NO;
     self.backButton.enabled = (self.adjacentHistoryIDs[@"before"]) ? YES : NO;
 
-    [self.saveButton.label setWikiText: [self isCurrentArticleSaved] ? IOS_WIKIGLYPH_STAR : IOS_WIKIGLYPH_STAR_OUTLINE
-                                 color: [UIColor blackColor]
+    NSString *saveIconString = IOS_WIKIGLYPH_HEART_OUTLINE;
+    UIColor *saveIconColor = [UIColor blackColor];
+    if([self isCurrentArticleSaved]){
+        saveIconString = IOS_WIKIGLYPH_HEART;
+        saveIconColor = UIColorFromRGBWithAlpha(0xf27072, 1.0);
+    }
+    
+    [self.saveButton.label setWikiText: saveIconString
+                                 color: saveIconColor
                                   size: 34
                         baselineOffset: 0];
 }

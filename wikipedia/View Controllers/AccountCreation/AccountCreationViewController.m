@@ -254,7 +254,7 @@
 
     [self highlightProgressiveButton:NO];
 
-    [self showAlert:@""];
+    [self fadeAlert];
 
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: @"UITextFieldTextDidChangeNotification"
@@ -297,7 +297,7 @@
     }else{
     
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            [self showAlert:@""];
+            [self fadeAlert];
             [UIView animateWithDuration:duration animations:^{
                 self.captchaContainer.alpha = 0;
                 [self.scrollView setContentOffset:CGPointZero animated:NO];
