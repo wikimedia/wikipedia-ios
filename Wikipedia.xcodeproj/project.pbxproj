@@ -27,6 +27,8 @@
 		041A3B6218E11ED90079FF1C /* LanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */; };
 		041C55D21950B27D006CE0EF /* EditSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C55D11950B27D006CE0EF /* EditSummaryViewController.m */; };
 		041C6206199ED2A20061516F /* Section+TOC.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C6205199ED2A20061516F /* Section+TOC.m */; };
+		041E588219B2D2C500AC140C /* logo-placeholder-saved.png in Resources */ = {isa = PBXBuildFile; fileRef = 041E588019B2D2C500AC140C /* logo-placeholder-saved.png */; };
+		041E588319B2D2C500AC140C /* logo-placeholder-saved@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041E588119B2D2C500AC140C /* logo-placeholder-saved@2x.png */; };
 		041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041EFC361996A1F800B2CB28 /* MapKit.framework */; };
 		04224500197F5E09005DD0BF /* AbuseFilterAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 042244FC197F5E09005DD0BF /* AbuseFilterAlert.m */; };
 		04224501197F5E09005DD0BF /* BulletedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042244FE197F5E09005DD0BF /* BulletedLabel.m */; };
@@ -234,6 +236,8 @@
 		041C55D11950B27D006CE0EF /* EditSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EditSummaryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		041C6204199ED2A20061516F /* Section+TOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Section+TOC.h"; sourceTree = "<group>"; };
 		041C6205199ED2A20061516F /* Section+TOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Section+TOC.m"; sourceTree = "<group>"; };
+		041E588019B2D2C500AC140C /* logo-placeholder-saved.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-placeholder-saved.png"; sourceTree = "<group>"; };
+		041E588119B2D2C500AC140C /* logo-placeholder-saved@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-placeholder-saved@2x.png"; sourceTree = "<group>"; };
 		041EFC361996A1F800B2CB28 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		042244FB197F5E09005DD0BF /* AbuseFilterAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbuseFilterAlert.h; sourceTree = "<group>"; };
 		042244FC197F5E09005DD0BF /* AbuseFilterAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbuseFilterAlert.m; sourceTree = "<group>"; };
@@ -1022,6 +1026,8 @@
 				04C91CF119554B310035ED1B /* logo-onboarding@2x.png */,
 				045EFF1819A25FEB00D0EDBB /* logo-placeholder-search.png */,
 				045EFF1919A25FEB00D0EDBB /* logo-placeholder-search@2x.png */,
+				041E588019B2D2C500AC140C /* logo-placeholder-saved.png */,
+				041E588119B2D2C500AC140C /* logo-placeholder-saved@2x.png */,
 				04D3082919991CB60034F106 /* logo-placeholder-nearby.png */,
 				04D3082A19991CB60034F106 /* logo-placeholder-nearby@2x.png */,
 				04090A32187F53E400577EDF /* clear.png */,
@@ -1811,6 +1817,7 @@
 				04123630189C29EA00E0CF8E /* abuse-filter-disallowed@2x.png in Resources */,
 				D4BC22B4181E9E6300CAC673 /* empty.png in Resources */,
 				04123636189C29EA00E0CF8E /* abuse-filter-flag-white.png in Resources */,
+				041E588319B2D2C500AC140C /* logo-placeholder-saved@2x.png in Resources */,
 				04090A33187F53E400577EDF /* clear.png in Resources */,
 				0412362E189C29EA00E0CF8E /* abuse-filter-disallowed.png in Resources */,
 				0485FECF1994D5AE00141361 /* NearbyResultCell.xib in Resources */,
@@ -1822,6 +1829,7 @@
 				04C91CEE195520990035ED1B /* logo-onboarding-subtitle.png in Resources */,
 				045EFF1A19A25FEB00D0EDBB /* logo-placeholder-search.png in Resources */,
 				04224502197F5E09005DD0BF /* BulletedLabel.xib in Resources */,
+				041E588219B2D2C500AC140C /* logo-placeholder-saved.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

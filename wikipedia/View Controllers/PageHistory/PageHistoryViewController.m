@@ -103,7 +103,7 @@
     
     __weak PageHistoryViewController *weakSelf = self;
 
-    [self showAlert:MWLocalizedString(@"page-history-downloading", nil)];
+    [self showAlert:MWLocalizedString(@"page-history-downloading", nil) type:ALERT_TYPE_TOP duration:-1];
 
     PageHistoryOp *pageHistoryOp =
     [[PageHistoryOp alloc] initWithDomain: [SessionSingleton sharedInstance].currentArticleDomain
@@ -121,7 +121,7 @@
                                [self fadeAlert];
                            }
                                errorBlock: ^(NSError *error){
-                                   [self showAlert:error.localizedDescription];
+                                   [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                                }];
     pageHistoryOp.delegate = self;
     [[QueuesSingleton sharedInstance].pageHistoryQ addOperation:pageHistoryOp];

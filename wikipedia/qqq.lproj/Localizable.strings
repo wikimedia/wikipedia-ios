@@ -146,7 +146,8 @@
 "credits-github-mirror" = "Text for item linking to the app's mirrored GitHub repository";
 "credits-external-libraries" = "Title for area of credits page showing external open source libraries used by app.\n{{Identical|External}}";
 "share-menu-save-page" = "Button text for saving current page from the share menu";
-"share-menu-page-saved" = "Alert text shown when page saved";
+"share-menu-page-saved" = "Alert text shown when page saved for offline reading. $1 is the name of the page being saved";
+"share-menu-page-saved-access" = "Reminder to user of ways to access saved pages. $1 is the main menu W icon, $2 is the save page heart icon";
 "timestamp-just-now" = "Human-readable approximate timestamp for events in the last couple of minutes.\n{{Identical|Just now}}";
 "timestamp-minutes" = "Human-readable approximate timestamp for events in the last couple hours, expressed as minutes";
 "timestamp-hours" = "Human-readable approximate timestamp for events in the last couple days, expressed as hours";

@@ -231,7 +231,7 @@
             break;
     }
     
-    [self showAlert:errorMessage];
+    [self showAlert:errorMessage type:ALERT_TYPE_TOP duration:-1];
 }
 
 -(void)downloadData
@@ -239,12 +239,12 @@
     CLLocationDegrees lat1 = self.deviceLocation.coordinate.latitude;
     CLLocationDegrees long1 = self.deviceLocation.coordinate.longitude;
 
-    [self showAlert:MWLocalizedString(@"nearby-loading", nil)];
+    [self showAlert:MWLocalizedString(@"nearby-loading", nil) type:ALERT_TYPE_TOP duration:-1];
     
     NearbyOp *nearbyOp = [[NearbyOp alloc] initWithLatitude:lat1 longitude:long1 completionBlock:^(NSArray *result){
         
         [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-            //[self showAlert:MWLocalizedString(@"nearby-loaded", nil)];
+            //[self showAlert:MWLocalizedString(@"nearby-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
             [self fadeAlert];
             
             self.nearbyDataArray = @[result];
@@ -260,11 +260,11 @@
         
     } cancelledBlock:^(NSError *error){
         NSLog(@"nearby op error = %@", error);
-        //[self showAlert:error.localizedDescription];
+        //[self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
 
     } errorBlock:^(NSError *error){
         NSLog(@"nearby op error = %@", error);
-        [self showAlert:error.localizedDescription];
+        [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
     }];
    
     [[QueuesSingleton sharedInstance].nearbyQ cancelAllOperations];

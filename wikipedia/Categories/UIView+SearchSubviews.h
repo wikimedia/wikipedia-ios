@@ -7,4 +7,6 @@
 
 -(id)getFirstSubviewOfClass:(Class)class;
 
+-(NSArray *)getSubviewsOfClass:(Class)class;
+
 @end

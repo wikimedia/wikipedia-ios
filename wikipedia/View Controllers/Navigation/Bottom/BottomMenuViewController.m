@@ -21,6 +21,9 @@
 #import "Defines.h"
 #import "WikipediaAppUtils.h"
 #import "WMF_Colors.h"
+#import "UIViewController+ModalPresent.h"
+#import "UIViewController+ModalsSearch.h"
+#import "UIViewController+ModalPop.h"
 
 typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     BOTTOM_MENU_BUTTON_UNKNOWN,
@@ -98,6 +101,12 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     self.view.backgroundColor = CHROME_COLOR;
 
     [self addTapRecognizersToAllButtons];
+    
+    UILongPressGestureRecognizer *longPressRecognizer =
+    [[UILongPressGestureRecognizer alloc] initWithTarget: self
+                                                  action: @selector(saveButtonLongPressed:)];
+    longPressRecognizer.minimumPressDuration = 0.5f;
+    [self.saveButton addGestureRecognizer:longPressRecognizer];
 }
 
 -(void)addTapRecognizersToAllButtons
@@ -111,19 +120,21 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
 #pragma mark Bottom bar button methods
 
-- (void)buttonPushed:(UITapGestureRecognizer *)sender
+- (void)buttonPushed:(UITapGestureRecognizer *)recognizer
 {
-    // If the tapped item was a button, first animate it briefly, then perform action.
-    if([sender.view isKindOfClass:[WikiGlyphButton class]]){
-        WikiGlyphButton *button = (WikiGlyphButton *)sender.view;
-        if (!button.enabled)return;
-        CGFloat animationScale = 1.25f;
-        [button.label animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
-                              afterDelay: 0.0
-                                duration: 0.06f
-                                    then: ^{
-                                        [self performActionForButton:button];
-                                    }];
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        // If the tapped item was a button, first animate it briefly, then perform action.
+        if([recognizer.view isKindOfClass:[WikiGlyphButton class]]){
+            WikiGlyphButton *button = (WikiGlyphButton *)recognizer.view;
+            if (!button.enabled)return;
+            CGFloat animationScale = 1.25f;
+            [button.label animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
+                                  afterDelay: 0.0
+                                    duration: 0.06f
+                                        then: ^{
+                                            [self performActionForButton:button];
+                                        }];
+        }
     }
 }
 
@@ -145,6 +156,15 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
             break;
         default:
             break;
+    }
+}
+
+-(void)saveButtonLongPressed:(UILongPressGestureRecognizer *)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateBegan){
+        [self performModalSequeWithID: @"modal_segue_show_saved_pages"
+                      transitionStyle: UIModalTransitionStyleCoverVertical
+                                block: nil];
     }
 }
 
@@ -211,6 +231,8 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
         WebViewController *webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
 
+        [webVC showAlert:history.article.titleObj.text type:ALERT_TYPE_BOTTOM duration:0.8];
+
         [webVC navigateToPage: history.article.titleObj
                       domain: history.article.domain
              discoveryMethod: DISCOVERY_METHOD_BACKFORWARD
@@ -225,6 +247,8 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
         History *history = (History *)[articleDataContext_.mainContext objectWithID:historyId];
 
         WebViewController *webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
+
+        [webVC showAlert:history.article.titleObj.text type:ALERT_TYPE_BOTTOM duration:0.8];
 
         [webVC navigateToPage: history.article.titleObj
                       domain: history.article.domain

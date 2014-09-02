@@ -117,11 +117,11 @@ typedef NS_ENUM(NSUInteger, DisplayMode) {
     self.loginButton.layer.cornerRadius = cornerRadius;
     self.createAccountButton.layer.cornerRadius = cornerRadius;
     
-    [self.skipButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(skipButtonTapped)]];
+    [self.skipButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(skipButtonTapped:)]];
 
-    [self.createAccountButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createAccountButtonTapped)]];
+    [self.createAccountButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(createAccountButtonTapped:)]];
 
-    [self.loginButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginButtonTapped)]];
+    [self.loginButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginButtonTapped:)]];
 
     self.createAccountButton.text = MWLocalizedString(@"onboarding-create-account", nil);
     self.skipButton.text = MWLocalizedString(@"onboarding-skip", nil);
@@ -231,23 +231,29 @@ typedef NS_ENUM(NSUInteger, DisplayMode) {
                         substitutionAttributes: @[@{NSForegroundColorAttributeName : WMF_COLOR_BLUE}]];
 }
 
--(void)createAccountButtonTapped
+-(void)createAccountButtonTapped:(UITapGestureRecognizer *)recognizer
 {
-    [self performModalSequeWithID: @"modal_segue_show_create_account"
-                  transitionStyle: UIModalTransitionStyleCoverVertical
-                            block: nil];
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [self performModalSequeWithID: @"modal_segue_show_create_account"
+                      transitionStyle: UIModalTransitionStyleCoverVertical
+                                block: nil];
+    }
 }
 
--(void)loginButtonTapped
+-(void)loginButtonTapped:(UITapGestureRecognizer *)recognizer
 {
-    [self performModalSequeWithID: @"modal_segue_show_login"
-                  transitionStyle: UIModalTransitionStyleCoverVertical
-                            block: nil];
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [self performModalSequeWithID: @"modal_segue_show_login"
+                      transitionStyle: UIModalTransitionStyleCoverVertical
+                                block: nil];
+    }
 }
 
--(void)skipButtonTapped
+-(void)skipButtonTapped:(UITapGestureRecognizer *)recognizer
 {
-    [self hide];
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        [self hide];
+    }
 }
 
 - (void)didReceiveMemoryWarning

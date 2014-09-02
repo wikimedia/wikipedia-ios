@@ -14,6 +14,8 @@
 @property (nonatomic) BOOL referencesHidden;
 @property (nonatomic) BOOL scrollingToTop;
 
+@property (weak, nonatomic) BottomMenuViewController *bottomMenuViewController;
+
 -(void)referencesShow:(NSDictionary *)payload;
 -(void)referencesHide;
 

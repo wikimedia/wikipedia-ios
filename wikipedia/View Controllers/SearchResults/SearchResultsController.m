@@ -135,7 +135,7 @@
     [self clearSearchResults];
     
     // Show "Searching..." message.
-    [self showAlert:MWLocalizedString(@"search-searching", nil)];
+    [self showAlert:MWLocalizedString(@"search-searching", nil) type:ALERT_TYPE_TOP duration:-1];
     
     // Search for titles op.
     SearchOp *searchOp =
@@ -160,7 +160,7 @@
                              
                          } errorBlock: ^(NSError *error){
                              
-                             [self showAlert:error.localizedDescription];
+                             [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                              
                          }];
     

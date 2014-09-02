@@ -75,7 +75,7 @@
     NSData *stringData = [self dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *parser = [TFHpple hppleWithHTMLData:stringData];
     NSArray *textNodes = [parser searchWithXPathQuery:@"//text()"];
-    NSMutableArray *results = [@[] mutableCopy];
+    NSMutableArray *results = @[].mutableCopy;
     for (TFHppleElement *node in textNodes) {
         if(node.isTextNode) [results addObject:node.raw];
     }

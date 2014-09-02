@@ -176,7 +176,7 @@
 
 -(void)downloadLangLinkData
 {
-    [self showAlert:MWLocalizedString(@"article-languages-downloading", nil)];
+    [self showAlert:MWLocalizedString(@"article-languages-downloading", nil) type:ALERT_TYPE_TOP duration:-1];
     AssetsFile *assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_LANGUAGES];
 
     DownloadLangLinksOp *langLinksOp =
@@ -199,7 +199,7 @@
                                       
                                   } errorBlock: ^(NSError *error){
                                       //NSString *errorMsg = error.localizedDescription;
-                                      [self showAlert:error.localizedDescription];
+                                      [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                                       
                                   }];
     

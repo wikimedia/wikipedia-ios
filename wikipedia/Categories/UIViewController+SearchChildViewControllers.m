@@ -7,7 +7,7 @@
 
 -(id)searchForChildViewControllerOfClass:(Class)aClass
 {
-    for (UIViewController *vc in self.childViewControllers) {
+    for (UIViewController *vc in self.childViewControllers.copy) {
         if ([vc isMemberOfClass:aClass]) return vc;
     }
     return nil;

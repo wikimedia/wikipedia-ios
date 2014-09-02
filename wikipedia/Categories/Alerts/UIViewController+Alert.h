@@ -2,14 +2,13 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
+#import "AlertLabel.h"
 
 // Category for showing alerts from any view controller.
 
 @interface UIViewController (Alert)
 
-// Shows alert text just beneath the nav bar.
-// Fades out alert if alertText set to zero length string.
--(void)showAlert:(NSString *)alertText;
+-(void)showAlert:(id)alertText type:(AlertType)type duration:(CGFloat)duration;
 
 -(void)fadeAlert;
 

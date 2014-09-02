@@ -144,8 +144,7 @@
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_NEXT:
             if (![self changesMade]) {
-                [self showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil)];
-                [self fadeAlert];
+                [self showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) type:ALERT_TYPE_TOP duration:1];
                 break;
             }
             [self preview];
@@ -173,7 +172,7 @@
 
 -(void)loadLatestWikiTextForSectionFromServer
 {
-    [self showAlert:MWLocalizedString(@"wikitext-downloading", nil)];
+    [self showAlert:MWLocalizedString(@"wikitext-downloading", nil) type:ALERT_TYPE_TOP duration:-1];
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
     NSString *domain = section.article.domain;
     self.protectionStatus = section.article.protectionStatus;
@@ -198,11 +197,9 @@
                 } else {
                     msg = MWLocalizedString(@"page_protected_other", nil);
                 }
-                [self showAlert:msg];
-                
-                [self fadeAlert];
+                [self showAlert:msg type:ALERT_TYPE_TOP duration:1];
             } else {
-                [self showAlert:MWLocalizedString(@"wikitext-download-success", nil)];
+                //[self showAlert:MWLocalizedString(@"wikitext-download-success", nil) type:ALERT_TYPE_TOP duration:1];
                 [self fadeAlert];
             }
             self.unmodifiedWikiText = revision;
@@ -220,11 +217,11 @@
         
     } cancelledBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg];
+        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
         
     } errorBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg];
+        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
         
     }];
 

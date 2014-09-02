@@ -112,6 +112,7 @@
     
     if([sender isKindOfClass:[UIGestureRecognizer class]]){
         UIGestureRecognizer *recognizer = (UIGestureRecognizer *)sender;
+        if (recognizer.state != UIGestureRecognizerStateEnded) return;
         tappedView = recognizer.view;
         CGPoint loc = [recognizer locationInView:tappedView];
         tappedChildView = [tappedView hitTest:loc withEvent:nil];
