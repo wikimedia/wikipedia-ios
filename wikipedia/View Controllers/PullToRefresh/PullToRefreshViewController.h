@@ -1,17 +1,10 @@
-//
-//  PullToRefreshViewController.h
-//  Wikipedia
-//
 //  Created by Brion on 7/8/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
+//  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
 
 @interface PullToRefreshViewController : UIViewController <UIScrollViewDelegate>
 
-@property (weak, nonatomic) NSLayoutConstraint *pullToRefreshViewBottomConstraint;
-@property (strong, nonatomic) UILabel *pullToRefreshLabel;
 @property (strong, nonatomic) UIView *pullToRefreshView;
 
 /**
