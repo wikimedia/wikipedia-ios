@@ -220,7 +220,7 @@
 "menu-trash-accessibility-label" = "Delete";
 
 "nearby-title" = "Nearby";
-"nearby-distance-label-meters" = "$1 meters";
+"nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-feet" = "$1 feet";
 "nearby-distance-label-miles" = "$1 miles";

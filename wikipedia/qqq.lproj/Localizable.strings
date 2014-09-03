@@ -197,10 +197,10 @@
 "menu-more-accessibility-label" = "Accessible label for more/... button in 'W' menu";
 "menu-trash-accessibility-label" = "Accessible label for trash button\n{{Identical|Delete}}";
 "nearby-title" = "Title for page showing nearby geotagged articles\n{{Identical|Nearby}}";
-"nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles. $1 is the number of meters.";
-"nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles. $1 is the number of kilometers";
-"nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles. $1 is the number of feet";
-"nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles. $1 is the number of miles";
+"nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles. $1 is the number of meters. (The iOS app doesn't support pluralization syntax yet.)";
+"nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles. $1 is the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)";
+"nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles. $1 is the number of feet. (The iOS app doesn't support pluralization syntax yet.)";
+"nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles. $1 is the number of miles. (The iOS app doesn't support pluralization syntax yet.)";
 "nearby-pull-to-refresh-prompt" = "Shown when user pulls down to refresh list of nearby articles";
 "nearby-pull-to-refresh-is-refreshing" = "Shown when refreshing list of nearby articles";
 "nearby-loading" = "Show when downloading list of nearby articles";
