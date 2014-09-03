@@ -1,5 +1,7 @@
 // Messages for Russian (русский)
 // Exported from translatewiki.net
+// Author: Alexandr Efremov
+// Author: Bsitzmann
 // Author: Okras
 
 "article-languages-label" = "Выберите язык";
@@ -191,12 +193,20 @@
 "menu-more-accessibility-label" = "Дополнительные параметры";
 "menu-trash-accessibility-label" = "Удалить";
 "nearby-title" = "Рядом";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фут";
+// Fuzzy
 "nearby-distance-label-miles" = "$1 миля";
 "nearby-pull-to-refresh-prompt" = "Потяните, чтобы обновить";
 "nearby-pull-to-refresh-is-refreshing" = "Обновление";
+"nearby-loading" = "Загрузка статьи рядом...";
 "nearby-open-in-maps" = "Открыть на Картах";
 "nearby-cancel" = "Отмена";
 "nearby-location-updates-denied" = "У этого приложения нет разрешения на обновление сведений о местоположении.";
+"nearby-location-updates-enable" = "Чтобы включить обновление данных о местоположении, откройте настройки приложения и выберите следующее:";
+"nearby-location-updates-settings-menu" = "Приватность > Службы геолокации > Википедия";
+"nearby-location-general-error" = "Не удаётся определить местоположение. Потяните, чтобы обновить или повторите попытку позже.";
+"nearby-wifi" = "Включение Wi-Fi может помочь устройству лучше определить ваше местоположение.";

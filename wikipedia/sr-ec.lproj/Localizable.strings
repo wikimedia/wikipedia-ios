@@ -12,6 +12,7 @@
 "history-section-yesterday" = "Јуче";
 "history-section-lastweek" = "Прошле недеље";
 "history-section-lastmonth" = "Прошлог месеца";
+"history-clear-cancel" = "Откажи";
 "zero-interstitial-continue" = "Настави";
 "zero-interstitial-cancel" = "Откажи";
 "zero-learn-more-learn-more" = "Сазнајте више";
@@ -71,6 +72,7 @@
 "main-menu-rate-app" = "Оцените апликацију";
 "main-menu-show-today" = "Данас";
 "saved-pages-title" = "Сачуване странице";
+"saved-pages-clear-cancel" = "Откажи";
 "page-history-title" = "Историја странице";
 "page-history-downloading" = "Учитавам историју странице...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
@@ -116,3 +118,5 @@
 "abuse-filter-disallow-heading" = "Не можете да сачувате ову измену. Вратите се назад и промените је.";
 "menu-close-accessibility-label" = "Затвори";
 "menu-cancel-accessibility-label" = "Откажи";
+"nearby-distance-label-km" = "$1 km";
+"nearby-cancel" = "Откажи";

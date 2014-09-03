@@ -1,5 +1,6 @@
 // Messages for Chechen (нохчийн)
 // Exported from translatewiki.net
+// Author: Bsitzmann
 // Author: Умар
 
 "article-languages-label" = "Харжа мотт";
@@ -93,8 +94,10 @@
 "menu-share-accessibility-label" = "Екха";
 "menu-trash-accessibility-label" = "ДӀаяккха";
 "nearby-title" = "Уллехь";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 фут";
 "nearby-distance-label-miles" = "$1 миль";
 "nearby-pull-to-refresh-prompt" = "ТӀеоза, карлаяккха";

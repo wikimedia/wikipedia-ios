@@ -1,6 +1,7 @@
 // Messages for Macedonian (македонски)
 // Exported from translatewiki.net
 // Author: Bjankuloski06
+// Author: Bsitzmann
 // Author: Монтехристо
 
 "article-languages-label" = "Изберете јазик";
@@ -192,9 +193,12 @@
 "menu-more-accessibility-label" = "Повеќе поставки";
 "menu-trash-accessibility-label" = "Избриши";
 "nearby-title" = "Во близина";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-km" = "$1 км";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 стапки";
+// Fuzzy
 "nearby-distance-label-miles" = "$1 милји";
 "nearby-pull-to-refresh-prompt" = "Потегнете за да превчитате";
 "nearby-pull-to-refresh-is-refreshing" = "Превчитувам";

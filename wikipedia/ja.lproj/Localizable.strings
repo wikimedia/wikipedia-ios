@@ -15,6 +15,9 @@
 "history-section-yesterday" = "昨日";
 "history-section-lastweek" = "先週";
 "history-section-lastmonth" = "先月";
+"history-clear-confirmation-sub-heading" = "この操作は取り消せません!";
+"history-clear-cancel" = "キャンセル";
+"history-clear-delete-all" = "すべて削除";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-continue" = "外部へ移動";
 "zero-interstitial-cancel" = "移動しない";
@@ -41,7 +44,7 @@
 "login-account-creation" = "アカウントをお持ちではない場合は、こちらからウィキペディアに参加してください。";
 "login-username-placeholder-text" = "利用者名";
 "login-password-placeholder-text" = "パスワード";
-"wikitext-downloading" = "ウィキテキストを読込中...";
+"wikitext-downloading" = "本文を読み込み中...";
 "wikitext-download-failed" = "最新の版を取得できません。";
 "wikitext-download-success" = "ウィキテキストを読み込みました。";
 "wikitext-preview-changes" = "あなたの編集のプレビューを取得中...";
@@ -93,6 +96,9 @@
 "main-menu-heading-legal" = "法的な事柄";
 "main-menu-show-today" = "今日";
 "saved-pages-title" = "保存したページ";
+"saved-pages-clear-confirmation-sub-heading" = "この操作は取り消せません!";
+"saved-pages-clear-cancel" = "キャンセル";
+"saved-pages-clear-delete-all" = "すべて削除";
 "page-history-title" = "ページの履歴";
 "page-history-downloading" = "ページの履歴を読み込み中...";
 "navbar-title-mode-edit-wikitext" = "編集";
@@ -130,7 +136,7 @@
 "timestamp-minutes" = "%d分前";
 "timestamp-hours" = "%d時間前";
 "timestamp-days" = "%d日前";
-"timestamp-months" = "%dヶ月前";
+"timestamp-months" = "%dか月前";
 "timestamp-years" = "%d年前";
 "lastmodified-by-user" = "$1に $2 により変更";
 "lastmodified-by-anon" = "$1に匿名利用者により変更";
@@ -150,7 +156,7 @@
 "page_protected_other" = "このページは、次のレベルに保護されています:$1";
 "page_protected_can_not_edit" = "このページを編集する権限がありません";
 "page_protected_can_not_edit_title" = "このページは保護されています";
-"license-footer-text" = "コンテンツは$1の元で利用できます";
+"license-footer-text" = "コンテンツは$1のもとで利用できます";
 "license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
 "table-of-contents-heading" = "コンテンツ";
 "abuse-filter-warning-heading" = "これは建設的な編集ではないかもしれません。それでも保存しますか？";
@@ -173,3 +179,10 @@
 "menu-cancel-accessibility-label" = "キャンセル";
 "menu-share-accessibility-label" = "共有";
 "menu-more-accessibility-label" = "その他の設定";
+"menu-trash-accessibility-label" = "削除";
+"nearby-distance-label-meters" = "$1 メートル";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-feet" = "$1 フィート";
+"nearby-distance-label-miles" = "$1 マイル";
+"nearby-cancel" = "キャンセル";
+"nearby-location-updates-settings-menu" = "プライバシー > 位置情報サービス > ウィキペディア";

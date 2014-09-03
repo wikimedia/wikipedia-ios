@@ -107,6 +107,7 @@
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Palabrerío";
 "main-menu-show-today" = "Hoy";
+"main-menu-nearby" = "Cercanos";
 "saved-pages-title" = "Páginas guardadas";
 "saved-pages-clear-confirmation-heading" = "¿Borrar todos los elemento guardados?";
 "saved-pages-clear-confirmation-sub-heading" = "¡Esta acción no se puede deshacer!";
@@ -191,3 +192,14 @@
 "menu-share-accessibility-label" = "Compartir";
 "menu-more-accessibility-label" = "Más opciones";
 "menu-trash-accessibility-label" = "Borrar";
+"nearby-title" = "Cercanos";
+"nearby-distance-label-meters" = "$1 metros";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-feet" = "$1 pies";
+"nearby-distance-label-miles" = "$1 millas";
+"nearby-loading" = "Cargando artículos cercanos...";
+"nearby-loaded" = "Se cargaron los artículos cercanos";
+"nearby-cancel" = "Cancelar";
+"nearby-location-updates-denied" = "Esta aplicación no tiene permiso para recibir actualizaciones de localización.";
+"nearby-location-updates-settings-menu" = "Privacidad > Servicios de localización > Wikipedia";
+"nearby-wifi" = "Activar wifi puede ayudar a que tu dispositivo determine mejor tu ubicación.";

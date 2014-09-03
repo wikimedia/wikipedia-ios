@@ -95,6 +95,7 @@
 "main-menu-heading-zero" = "Wikipédia Zero";
 "main-menu-show-today" = "Dnes";
 "saved-pages-title" = "Uložené stránky";
+"saved-pages-clear-cancel" = "Zrušiť";
 "page-history-title" = "História stránky";
 "page-history-downloading" = "Načítavanie histórie stránky...";
 "navbar-title-mode-edit-wikitext" = "Upraviť";
@@ -144,3 +145,4 @@
 "menu-cancel-accessibility-label" = "Zrušiť";
 "menu-share-accessibility-label" = "Zdieľať";
 "menu-more-accessibility-label" = "Ďalšie nastavenia";
+"nearby-cancel" = "Zrušiť";

@@ -96,6 +96,7 @@
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Rechtlech Informatioun";
 "main-menu-show-today" = "Haut";
+"main-menu-nearby" = "An der Noperschaft";
 "saved-pages-title" = "Gespäichert Säiten";
 "saved-pages-clear-confirmation-heading" = "All gespäichert Elementer läschen?";
 "saved-pages-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
@@ -181,3 +182,15 @@
 "menu-share-accessibility-label" = "Deelen";
 "menu-more-accessibility-label" = "Méi Astellungen";
 "menu-trash-accessibility-label" = "Läschen";
+"nearby-title" = "Nobäi";
+"nearby-distance-label-meters" = "$1 Meter";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-feet" = "$1 Féiss";
+"nearby-distance-label-miles" = "$1 Meilen";
+"nearby-pull-to-refresh-prompt" = "Drécke fir z'aktualiséieren";
+"nearby-pull-to-refresh-is-refreshing" = "Aktualiséieren";
+"nearby-loading" = "Artikelen aus der Noperschaft gi gelueden..";
+"nearby-loaded" = "Artikelen aus der Noperschaft gelueden";
+"nearby-none" = "Keng Artikelen aus der Noperschaft fonnt. Zitt fir z'akutaliséieren oder probéiert méi spéit nach eng Kéier.";
+"nearby-open-in-maps" = "Op der Kaart opmaachen";
+"nearby-cancel" = "Ofbriechen";

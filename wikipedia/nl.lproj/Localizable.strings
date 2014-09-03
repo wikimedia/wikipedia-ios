@@ -20,7 +20,7 @@
 "history-clear-confirmation-heading" = "Alle recente items verwijderen?";
 "history-clear-confirmation-sub-heading" = "Deze actie kan niet ongedaan worden gemaakt!";
 "history-clear-cancel" = "Annuleer";
-"history-clear-delete-all" = "Alles verwijderen";
+"history-clear-delete-all" = "Verwijder alles";
 "zero-free-verbiage" = "Gratis toegang tot Wikipedia van uw mobiele provider (geen kosten voor gegevens)";
 "zero-charged-verbiage" = "Wikipedia Zero is uit";
 "zero-charged-verbiage-extended" = "Het laden van andere artikelen kan kosten met zich meebrengen. Opgeslagen artikelen gebruiken geen dataverkeer en zijn dus gratis.";
@@ -72,7 +72,7 @@
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Open link";
-"open-link-cancel" = "Annuleren";
+"open-link-cancel" = "Annuleer";
 "search-searching" = "Bezig met zoeken...";
 "search-no-matches" = "Geen overeenkomsten gevonden voor de zoekterm.";
 "search-field-placeholder-text" = "Zoek in Wikipedia";
@@ -110,8 +110,8 @@
 "saved-pages-title" = "Opgeslagen pagina's";
 "saved-pages-clear-confirmation-heading" = "Alle opgeslagen items verwijderen?";
 "saved-pages-clear-confirmation-sub-heading" = "Deze actie kan niet ongedaan worden gemaakt!";
-"saved-pages-clear-cancel" = "Annuleren";
-"saved-pages-clear-delete-all" = "Alles verwijderen";
+"saved-pages-clear-cancel" = "Annuleer";
+"saved-pages-clear-delete-all" = "Verwijder alles";
 "page-history-title" = "Paginageschiedenis";
 "page-history-downloading" = "Paginageschiedenis laden...";
 "navbar-title-mode-edit-wikitext" = "Bewerk";
@@ -145,8 +145,8 @@
 "credits-gerrit-repo" = "App (Gerrit)";
 "credits-github-mirror" = "App-mirror (GitHub)";
 "credits-external-libraries" = "Externe bronnen";
-"share-menu-save-page" = "Artikel opslaan";
-"share-menu-page-saved" = "Artikel is opgeslagen";
+"share-menu-save-page" = "Sla artikel op";
+"share-menu-page-saved" = "Artikel opgeslagen";
 "timestamp-just-now" = "zojuist";
 "timestamp-minutes" = "%d minuten geleden";
 "timestamp-hours" = "%d uur geleden";
@@ -161,7 +161,7 @@
 "onboarding-create-account" = "Registreren";
 "onboarding-login" = "Aanmelden";
 "onboarding-already-have-account" = "Hebt u al een gebruiker? $1";
-"onboarding-skip" = "Overslaan";
+"onboarding-skip" = "Sla over";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "De vrije encyclopedie";
 "preference_title_eventlogging_opt_in" = "Gebruiksrapporten verzenden";
@@ -183,7 +183,7 @@
 "abuse-filter-disallow-heading" = "U kunt deze bewerking niet opslaan. Ga terug en pas het aan.";
 "abuse-filter-disallow-unconstructive" = "Een geautomatiseerd filter heeft deze bewerking gemarkeerd als onconstructief of vandalistisch.";
 "abuse-filter-disallow-notable" = "Wikipedia is een encylopedie en alleen neutrale relevante inhoud is hier toegestaan.";
-"menu-edit-accessibility-label" = "Bewerken";
+"menu-edit-accessibility-label" = "Bewerk";
 "menu-close-accessibility-label" = "Sluiten";
 "menu-preview-accessibility-label" = "Voorvertoning";
 "menu-back-accessibility-label" = "Terug";
@@ -194,7 +194,7 @@
 "menu-cancel-accessibility-label" = "Annuleer";
 "menu-share-accessibility-label" = "Delen";
 "menu-more-accessibility-label" = "Meer instellingen";
-"menu-trash-accessibility-label" = "Verwijderen";
+"menu-trash-accessibility-label" = "Verwijder";
 "nearby-title" = "In de buurt";
 "nearby-distance-label-meters" = "$1 meter";
 "nearby-distance-label-km" = "$1 km";

@@ -1,6 +1,7 @@
 // Messages for Polish (polski)
 // Exported from translatewiki.net
 // Author: Alan ffm
+// Author: Bsitzmann
 // Author: Chrumps
 // Author: Jacenty359
 // Author: Pio387
@@ -114,9 +115,12 @@
 "menu-cancel-accessibility-label" = "Anuluj";
 "menu-more-accessibility-label" = "Więcej ustawień";
 "nearby-title" = "W pobliżu";
+// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
+// Fuzzy
 "nearby-distance-label-feet" = "$1 stopy";
+// Fuzzy
 "nearby-distance-label-miles" = "$1 mile";
 "nearby-pull-to-refresh-is-refreshing" = "Odświeżanie";
 "nearby-cancel" = "Anuluj";

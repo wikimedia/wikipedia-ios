@@ -97,6 +97,7 @@
 "main-menu-heading-zero" = "উইকিপিডিয়া জিরো";
 "main-menu-heading-legal" = "আইনী তথ্য";
 "main-menu-show-today" = "আজ";
+"main-menu-nearby" = "কাছাকাছি";
 "saved-pages-title" = "সংরক্ষিত পাতা";
 "page-history-title" = "পাতার ইতিহাস";
 "page-history-downloading" = "পাতার ইতিহাস লোড হচ্ছে...";
@@ -180,3 +181,12 @@
 "menu-cancel-accessibility-label" = "বাতিল";
 "menu-share-accessibility-label" = "বণ্টন";
 "menu-more-accessibility-label" = "আরো সেটিংস";
+"nearby-title" = "কাছাকাছি";
+"nearby-distance-label-meters" = "$1 মিটার";
+"nearby-distance-label-km" = "$1 কিমি";
+"nearby-distance-label-feet" = "$1 ফুট";
+"nearby-distance-label-miles" = "$1 মাইল";
+"nearby-pull-to-refresh-prompt" = "পুনঃসতেজ করতে টানুন";
+"nearby-pull-to-refresh-is-refreshing" = "পুনঃসতেজ হচ্ছে";
+"nearby-open-in-maps" = "মানচিত্রে খুলুন";
+"nearby-cancel" = "বাতিল";
