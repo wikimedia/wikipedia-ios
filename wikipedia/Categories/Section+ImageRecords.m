@@ -50,14 +50,49 @@
         
         NSString *alt = imageNode.attributes[@"alt"];
         NSString *src = imageNode.attributes[@"src"];
+        int density = 1;
+
+        // This is a horrible hack to compensate for iOS 8 WebKit's srcset
+        // handling and the way we currently handle image caching which
+        // doesn't quite handle that right.
+        //
+        // WebKit on iOS 8 and later understands the new img 'srcset' attribute
+        // which can provide alternate-resolution versions for different device
+        // pixel ratios (and in theory some other size-based alternates, but we
+        // don't use that stuff). MediaWiki/Wikipedia uses this to specify image
+        // versions at 1.5x and 2x density levels, which the browser should use
+        // as appropriate in preference to the 'src' URL which is assumed to be
+        // at 1x density.
+        //
+        // On iOS 7 and earlier, or on non-Retina devices on iOS 8, the 1x image
+        // URL from the 'src' attribute is still used as-is.
+        //
+        // By making sure we pick the same version that WebKit will pick up later,
+        // here we ensure that the correct entries will be cached.
+        //
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            if ([UIScreen mainScreen].scale > 1.0f) {
+                NSString *srcSet = imageNode.attributes[@"srcset"];
+                for (NSString *subSrc in [srcSet componentsSeparatedByString:@","]) {
+                    NSString *trimmed = [subSrc stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
+                    NSArray *parts = [trimmed componentsSeparatedByString:@" "];
+                    if (parts.count == 2 && [parts[1] isEqualToString:@"2x"]) {
+                        // Quick hack to shortcut relevant syntax :P
+                        src = parts[0];
+                        density = 2;
+                        break;
+                    }
+                }
+            }
+        }
         
         Image *image = (Image *)[context getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", src];
         
         if (image) {
             // If Image record already exists, update its attributes.
             image.alt = alt;
-            image.height = @(height.integerValue);
-            image.width = @(width.integerValue);
+            image.height = @(height.integerValue * density);
+            image.width = @(width.integerValue * density);
         }else{
             // If no Image record, create one setting its "data" attribute to nil. This allows the record to be
             // created so it can be associated with the section in which this , then when the URLCache intercepts the request for this image
@@ -82,8 +117,8 @@
             image.sourceUrl = src;
             image.dateRetrieved = [NSDate date];
             image.dateLastAccessed = [NSDate date];
-            image.width = @(width.integerValue);
-            image.height = @(height.integerValue);
+            image.width = @(width.integerValue * density);
+            image.height = @(height.integerValue * density);
             image.mimeType = [image.extension getImageMimeTypeForExtension];
         }
         
