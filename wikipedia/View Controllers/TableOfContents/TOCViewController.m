@@ -33,6 +33,17 @@
 
 #pragma mark View lifecycle
 
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // This prevents iOS 6 on old devices from shifting the scrollContainer up after
+    // another view controller's view is pushed, then popped, then the TOC shown again.
+    // For instance, when edit pencil is tapped then back, then toc button tapped.
+    self.scrollView.contentOffset = CGPointZero;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super initWithCoder:coder];
@@ -55,18 +66,16 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
 
+    // Add bottom inset so last TOC cell can be scrolled up near top.
+    // Otherwise table would restrict it to not being scrolled up past
+    // bottom. The "limitVerticalScrolling:" method depends on this.
+    self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 2000, 0);
+
     self.scrollContainer = nil;
     self.navigationItem.hidesBackButton = YES;
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tocTapped:)];
     [self.view addGestureRecognizer:tap];
-    
-    // Adjust scrollview content inset when contentSize changes so bottom entry can be scrolled to top.
-    [self.scrollView addObserver: self
-                      forKeyPath: @"contentSize"
-                         options: NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial
-                         context: nil];
-
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
@@ -116,7 +125,6 @@
 
 -(void)refreshForCurrentArticle
 {
-    //NSLog(@"%f", CACurrentMediaTime() - begin);
 
     self.scrollView.delegate = nil;
 
@@ -125,12 +133,12 @@
 
     [self setupSectionCells];
     
-    for (TOCSectionCellView *cell in [self.sectionCells copy]) {
+    for (TOCSectionCellView *cell in self.sectionCells.copy) {
         [self.scrollContainer addSubview:cell];
     }
     
     // Ensure the scrollContainer is scrolled to the top before its sub-views are constrained.
-    self.scrollView.contentOffset = CGPointMake(0, 0);
+    self.scrollView.contentOffset = CGPointZero;
 
     [self.view setNeedsUpdateConstraints];
     
@@ -150,6 +158,15 @@
     self.scrollContainer = [[UIView alloc] init];
     self.scrollContainer.translatesAutoresizingMaskIntoConstraints = NO;
     self.scrollContainer.opaque = YES;
+
+    // Need to reset the offset mostly for iOS 6 to ensure top TOC section cell doesn't get stuck
+    // such that its top half can't be scrolled onscreen. Without this, if you load and article
+    // like "Food", then load "Mutual and Balanced Force Reductions" (ie an article with a longer
+    // title - so long that it will wrap to more lines than the previous article's title) then
+    // quit app, restart, "Mutual and Balanced Force Reductions" should load, now back up to
+    // "Food", then go forward to "Mutual and Balanced Force Reductions" again. On an old iOS 6
+    // device the top TOC section cell will be stuck - you can't scroll it completely onscreen.
+    self.scrollView.contentOffset = CGPointZero;
 
     NSDictionary *views = @{@"scrollContainer": self.scrollContainer};
     [self.scrollView addSubview:self.scrollContainer];
@@ -311,11 +328,6 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    static NSInteger lastOffsetY = 0;
-    NSInteger thisOffsetY = (NSInteger)scrollView.contentOffset.y;
-    if ((thisOffsetY == lastOffsetY) || (thisOffsetY % 2)) return;
-    lastOffsetY = thisOffsetY;
-
     //BOOL pastFocalCell = NO;
 
     if (scrollView == self.scrollView) {
@@ -338,6 +350,29 @@
                 cell.isHighlighted = YES;
             }
         }
+        
+        if ((self.sectionCells.count > 0)) {
+            [self limitVerticalScrolling:self.scrollView];
+        }
+    }
+}
+
+-(void)limitVerticalScrolling:(UIScrollView *)scrollView
+{
+    // Prevents last cell from being scrolled up completely offscreen.
+    UIView *lastCell = self.scrollContainer.subviews.lastObject;
+    CGRect r = [lastCell.superview convertRect:lastCell.frame toView:self.view];
+    if (r.origin.y < 0) {
+        [scrollView setContentOffset:CGPointMake(0, lastCell.frame.origin.y) animated:NO];
+        return;
+    }
+    
+    // Prevents top of first cell from being scrolled down past screen top.
+    // (eliminates top "bounce" - the bounce takes too long imo)
+    UIView *firstCell = self.scrollContainer.subviews.firstObject;
+    r = [firstCell.superview convertRect:firstCell.frame toView:self.view];
+    if (r.origin.y > 0) {
+        [scrollView setContentOffset:CGPointMake(0, firstCell.frame.origin.y) animated:NO];
     }
 }
 
@@ -372,6 +407,8 @@
 
 - (void)scrollViewScrollingEnded:(UIScrollView *)scrollView
 {
+    [self scrollViewDidScroll:scrollView];
+
     for (TOCSectionCellView *cell in [self.sectionCells copy]) {
         if (cell.isSelected) {
 
@@ -467,32 +504,6 @@
                      }];
 }
 
--(void)insetToRestrictScrollingTopAndBottomCellsPastCenter
-{
-    if (!self.scrollContainer || (self.scrollContainer.subviews.count == 0)) return;
-
-    // Make it so the last TOCSectionCellView can't scroll off top of screen.
-    // Assumes a TOCSectionCellView cells come at end.
-    UIView *lastView = self.scrollContainer.subviews.lastObject;
-
-    // Don't report scrolling when changing inset.
-    self.scrollView.delegate = nil;
-    CGFloat insetAmount = self.scrollView.bounds.size.height - lastView.bounds.size.height;
-
-    UIEdgeInsets inset = UIEdgeInsetsMake(
-        0,
-        0,
-        insetAmount,
-        0
-    );
-    
-    if(!UIEdgeInsetsEqualToEdgeInsets(inset, self.scrollView.contentInset)){
-        self.scrollView.contentInset = inset;
-    }
-    
-    self.scrollView.delegate = self;
-}
-
 -(void)updateHighlightedCellToReflectWebView
 {
     // Highlight cell for section currently nearest top of webview.
@@ -504,33 +515,21 @@
         NSInteger indexOfFirstOnscreenSection =
         [self.webVC.webView getIndexOfTopOnScreenElementWithPrefix: @"section_heading_and_content_block_"
                                                              count: self.sectionCells.count];
+
+        //NSLog(@"indexOfFirstOnscreenSection = %ld sectionCells.count = %ld", indexOfFirstOnscreenSection, self.sectionCells.count);
+        
+        // Set to the last cell index if no match.
+        // (We may have added extra html at bottom of article at display time.)
+        if (indexOfFirstOnscreenSection == -1) {
+            indexOfFirstOnscreenSection = self.sectionCells.count - 1;
+        }
+
         if (indexOfFirstOnscreenSection < self.sectionCells.count) {
             TOCSectionCellView *cell = ((TOCSectionCellView *)self.sectionCells[indexOfFirstOnscreenSection]);
             cell.isSelected = YES;
             cell.isHighlighted = YES;
         }
     }
-}
-
--(void)observeValueForKeyPath: (NSString *)keyPath
-                     ofObject: (id)object
-                       change: (NSDictionary *)change
-                      context: (void *)context
-{
-    if (
-        (object == self.scrollView)
-        &&
-        [keyPath isEqual:@"contentSize"]
-        ) {
-        [self insetToRestrictScrollingTopAndBottomCellsPastCenter];
-    }
-}
-
--(void)dealloc
-{
-    // NSLog(@"tocVC dealloc");
-
-    [self.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 
 #pragma mark Memory

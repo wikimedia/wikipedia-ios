@@ -160,7 +160,7 @@
     self.isAnimatingHide = YES;
     [UIView animateWithDuration: 0.3f
                           delay: 0.6f
-                        options: UIViewAnimationOptionTransitionNone
+                        options: UIViewAnimationOptionBeginFromCurrentState
                      animations: ^{
                          self.pullToRefreshView.alpha = 0.0f;
                          self.pullToRefreshViewBottomConstraint.constant = 0;

@@ -1140,9 +1140,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="508"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="508" placeholder="YES" id="vpd-JA-MM4"/>
-                                </constraints>
                                 <dataDetectorType key="dataDetectorTypes"/>
                                 <connections>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="Pmz-tr-TG8"/>
@@ -1195,8 +1192,9 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="C8y-0k-FBq" secondAttribute="bottom" id="3Gh-gP-O56"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="3Zs-jL-a48"/>
+                            <constraint firstItem="WeL-Mj-Zsh" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="D7t-vR-6cB"/>
+                            <constraint firstAttribute="bottom" secondItem="WeL-Mj-Zsh" secondAttribute="bottom" id="GWO-jz-Ox4"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="trailing" secondItem="F4Q-Xc-ImV" secondAttribute="trailing" id="J2p-jy-zrW"/>
                             <constraint firstAttribute="trailing" secondItem="WeL-Mj-Zsh" secondAttribute="trailing" id="QSr-uN-iN4"/>
                             <constraint firstItem="WeL-Mj-Zsh" firstAttribute="leading" secondItem="gB8-UC-wuQ" secondAttribute="leading" id="TPG-uM-6qs"/>

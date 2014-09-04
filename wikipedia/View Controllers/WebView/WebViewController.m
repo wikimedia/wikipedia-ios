@@ -71,6 +71,8 @@
 #define SCROLL_INDICATOR_BORDER_COLOR [UIColor lightGrayColor]
 #define SCROLL_INDICATOR_BACKGROUND_COLOR [UIColor whiteColor]
 
+#define BOTTOM_SCROLL_LIMIT_HEIGHT 2000
+
 // This controls how fast the swipe has to be (side-to-side).
 #define TOC_SWIPE_TRIGGER_MIN_X_VELOCITY 600.0f
 // This controls what angle from the horizontal axis will trigger the swipe.
@@ -102,7 +104,6 @@ typedef enum {
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewLeftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewRightConstraint;
-@property (strong, nonatomic) NSLayoutConstraint *webViewHeightConstraint;
 
 @property (strong, nonatomic) UIView *scrollIndicatorView;
 @property (strong, nonatomic) NSLayoutConstraint *scrollIndicatorViewTopConstraint;
@@ -163,41 +164,12 @@ typedef enum {
 
 #pragma mark View lifecycle methods
 
--(void)constrainWebViewHeight
-{
-    // It's important that the web view height be constrained to a multiple of the
-    // self.view's height and that this constraint not be changed - especially during
-    // toc show/hide animations. The height is fixed rather than being constrained to
-    // the bottom of self.view so the web view content doesn't shift around when the
-    // toc is revealed/hidden. This was especially problematic when toggling the toc
-    // when near the bottom of an article.
-    CGFloat heightMultiple = 3.0f;
-
-    self.webViewHeightConstraint = [NSLayoutConstraint constraintWithItem: self.webView
-                                                                attribute: NSLayoutAttributeHeight
-                                                                relatedBy: NSLayoutRelationEqual
-                                                                   toItem: nil
-                                                                attribute: NSLayoutAttributeNotAnAttribute
-                                                               multiplier: 1.0
-                                                                 constant: self.view.frame.size.height * heightMultiple];
-    
-    [self.view addConstraint:self.webViewHeightConstraint];
-    
-    // Set the bottom inset to 0.5 screen height less than the height multiple.
-    // This allows the bottom of the article to be scrolled halfway up the page.
-    heightMultiple -= 0.5f;
-    
-    UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, (self.view.frame.size.height * heightMultiple), 0);
-    self.webView.scrollView.contentInset = insets;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     self.scrollingToTop = NO;
 
-    [self constrainWebViewHeight];
     [self scrollIndicatorSetup];
 
     self.panSwipeRecognizer = nil;
@@ -289,6 +261,9 @@ typedef enum {
 
     //self.referencesContainerView.layer.borderWidth = 10;
     //self.referencesContainerView.layer.borderColor = [UIColor redColor].CGColor;
+
+    // Ensure toc show/hide animation scales the web view w/o vertical motion.
+    self.webView.layer.anchorPoint = CGPointZero;
 }
 
 -(void)showAlert:(id)alertText type:(AlertType)type duration:(CGFloat)duration
@@ -436,9 +411,12 @@ typedef enum {
 
 -(void)scrollIndicatorMove
 {
+    CGFloat f = self.webView.scrollView.contentSize.height - BOTTOM_SCROLL_LIMIT_HEIGHT;
+    if (f == 0) f = 0.00001f;
     //self.scrollIndicatorView.alpha = [self tocDrawerIsOpen] ? 0.0f : 1.0f;
-    CGFloat percent = self.webView.scrollView.contentOffset.y / (self.webView.scrollView.contentSize.height + 0.0001f);
-    self.scrollIndicatorViewTopConstraint.constant = (percent * self.bottomBarView.frame.origin.y) + 2.0f;
+    CGFloat percent = self.webView.scrollView.contentOffset.y / f;
+    //NSLog(@"percent = %f", percent);
+    self.scrollIndicatorViewTopConstraint.constant = percent * (self.bottomBarView.frame.origin.y - SCROLL_INDICATOR_HEIGHT) + 8.0;
 }
 
 #pragma mark Sync config/ios.json if necessary
@@ -535,92 +513,139 @@ typedef enum {
 {
     if (![self tocDrawerIsOpen]) return;
 
-    self.unsafeToToggleTOC = YES;
-    
-    // Save the scroll position; if we're near the end of the page things will
-    // get reset correctly when we start to zoom out!
-    __block CGPoint origScrollPosition = self.webView.scrollView.contentOffset;
+    // Throwing on mainQ prevents iOS 6 bug on old devices which would cause the web
+    // view to blank out if it was tapped when the toc was open.
+    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+        
+        self.unsafeToToggleTOC = YES;
+        
+        // Save the scroll position; if we're near the end of the page things will
+        // get reset correctly when we start to zoom out!
+        __block CGPoint origScrollPosition = self.webView.scrollView.contentOffset;
+        
+        // Clear alerts
+        [self fadeAlert];
+        
+        [self.view setNeedsUpdateConstraints];
+        [UIView animateWithDuration: duration.floatValue
+                              delay: 0.0f
+                            options: UIViewAnimationOptionBeginFromCurrentState
+                         animations: ^{
+                             self.scrollIndicatorView.alpha = 1.0;
+                             // If the top menu isn't hidden, reveal the bottom menu.
+                             self.bottomMenuHidden = ROOT.topMenuHidden;
+                             
+                             self.webView.transform = CGAffineTransformIdentity;
+                             
+                             self.referencesContainerView.transform = CGAffineTransformIdentity;
+                             
+                             self.bottomBarView.transform = CGAffineTransformIdentity;
+                             self.webViewRightConstraint.constant = 0;
+                             
+                             [self.view layoutIfNeeded];
+                         }completion: ^(BOOL done){
+                             [self.tocVC didHide];
+                             self.unsafeToToggleTOC = NO;
+                             self.webView.scrollView.contentOffset = origScrollPosition;
+                             
+                             BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
 
-    // Clear alerts
-    [self fadeAlert];
-
-    [self.view setNeedsUpdateConstraints];
-    [UIView animateWithDuration: duration.floatValue
-                          delay: 0.0f
-                        options: UIViewAnimationOptionBeginFromCurrentState
-                     animations: ^{
-
-                         // If the top menu isn't hidden, reveal the bottom menu.
-                         self.bottomMenuHidden = ROOT.topMenuHidden;
-                         
-                         self.webView.transform = CGAffineTransformIdentity;
-
-                         self.referencesContainerView.transform = CGAffineTransformIdentity;
-
-                         self.bottomBarView.transform = CGAffineTransformIdentity;
-                         self.webViewRightConstraint.constant = 0;
-
-                         [self.view layoutIfNeeded];
-                     }completion: ^(BOOL done){
-                         [self.tocVC didHide];
-                         self.unsafeToToggleTOC = NO;
-                         self.webView.scrollView.contentOffset = origScrollPosition;
-                         
-                         WikiGlyphButton *tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
-                         [tocButton.label setWikiText: IOS_WIKIGLYPH_TOC_COLLAPSED
-                                                color: tocButton.label.color
-                                                 size: tocButton.label.size
-                                       baselineOffset: tocButton.label.baselineOffset];
-                     }];
+                             WikiGlyphButton *tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
+                             [tocButton.label setWikiText: (isRTL ? IOS_WIKIGLYPH_TOC_EXPANDED: IOS_WIKIGLYPH_TOC_COLLAPSED)
+                                                    color: tocButton.label.color
+                                                     size: tocButton.label.size
+                                           baselineOffset: tocButton.label.baselineOffset];
+                         }];
+    }];
 }
 
 -(void)tocShowWithDuration:(NSNumber *)duration
 {
     if ([self tocDrawerIsOpen]) return;
 
-    self.unsafeToToggleTOC = YES;
+    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+        
+        self.unsafeToToggleTOC = YES;
+        
+        // Hide any alerts immediately.
+        [self hideAlert];
+        
+        [self.tocVC willShow];
+        
+        CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
+        CGAffineTransform xf = CGAffineTransformMakeScale(webViewScale, webViewScale);
+        CGFloat tocWidth = [self tocGetWidthForWebViewScale:webViewScale];
+        
+        [self.view setNeedsUpdateConstraints];
+        [UIView animateWithDuration: duration.floatValue
+                              delay: 0.0f
+                            options: UIViewAnimationOptionBeginFromCurrentState
+                         animations: ^{
+                             self.scrollIndicatorView.alpha = 0.0;
+                             self.bottomMenuHidden = YES;
+                             self.referencesHidden = YES;
+                             self.webView.transform = xf;
+                             self.referencesContainerView.transform = xf;
+                             self.bottomBarView.transform = xf;
+                             self.webViewRightConstraint.constant = tocWidth;
+                             
+                             [self.view layoutIfNeeded];
+                             
+                         }completion: ^(BOOL done){
+                             self.unsafeToToggleTOC = NO;
+                             
+                             BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
 
-    // Hide any alerts immediately.
-    [self hideAlert];
+                             WikiGlyphButton *tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
+                             [tocButton.label setWikiText: (isRTL ? IOS_WIKIGLYPH_TOC_COLLAPSED: IOS_WIKIGLYPH_TOC_EXPANDED)
+                                                    color: tocButton.label.color
+                                                     size: tocButton.label.size
+                                           baselineOffset: tocButton.label.baselineOffset];
+                         }];
+    }];
+}
 
+-(void)tocUpdateLayoutAfterRotate
+{
     // setNeedsUpdateConstraints causes updateViewConstraints to be called which is needed because
     // it calls tocConstrainView which sets the width of the toc view. Needed before the animation
     // block below because the device may have been rotated so the toc view may need new width.
-    // We want this new width set before the animation begins.
+    // We want this new width set before the animation begins. (Easy to test with the "Beach Boys"
+    // article. Load it, open and close toc, rotate and do same. Without setNeedsUpdateConstraints
+    // and layoutIfNeeded the toc entries will shift.)
     [self.view setNeedsUpdateConstraints];
     // Layout to ensure that the width is in place before the toc view starts to animate to being
     // onscreen.
     [self.view layoutIfNeeded];
-    // Among other things, the willShow method then makes the toc cells be the correct size for
-    // the current (potentially new) toc view width.
-    [self.tocVC willShow];
-    
-    CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
-    CGAffineTransform xf = CGAffineTransformMakeScale(webViewScale, webViewScale);
+}
 
-    [self.view setNeedsUpdateConstraints];
-    [UIView animateWithDuration: duration.floatValue
-                          delay: 0.0f
-                        options: 0 // UIViewAnimationOptionBeginFromCurrentState <--Don't do this, can cause toc to jump as it appears (if top/bottom menus visibility changes)
-                     animations: ^{
+- (void)viewDidLayoutSubviews
+{
+    // viewDidLayoutSubviews is called after autolayout has done its thing. So here we can safely make changes
+    // directly to a frame without worrying that autolayout will blast them. Note that the web view frame
+    // adjustment below needs to happen not only when layoutIfNeeded is called from the "tocShowWithDuration:"
+    // animation block, but also any other time subviews are laid out when the toc is onscreen! That's the
+    // reason why this code is not to be placed directly in the animation block itself.
+    [self resizeWebViewFrame];
+}
 
-                         self.bottomMenuHidden = YES;
-                         self.referencesHidden = YES;
-                         self.webView.transform = xf;
-                         self.referencesContainerView.transform = xf;
-                         self.bottomBarView.transform = xf;
-                         self.webViewRightConstraint.constant = [self tocGetWidthForWebViewScale:webViewScale];
-                         [self.view layoutIfNeeded];
-                     }completion: ^(BOOL done){
-                         self.unsafeToToggleTOC = NO;
+-(void)resizeWebViewFrame
+{
+    //NSLog(@"self.webView.frame = %@", NSStringFromCGRect(self.webView.frame));
+    CGFloat scale = ([self tocDrawerIsOpen]) ? [self tocGetWebViewScaleWhenTOCVisible] : 1.0f;
 
-                         WikiGlyphButton *tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
-                         [tocButton.label setWikiText: IOS_WIKIGLYPH_TOC_EXPANDED
-                                                color: tocButton.label.color
-                                                 size: tocButton.label.size
-                                       baselineOffset: tocButton.label.baselineOffset];
-                         
-                     }];
+    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+
+    CGRect newFrame = CGRectMake(
+        (isRTL ? self.view.frame.size.width - self.view.frame.size.width * scale : 0),
+        0.0,
+        self.view.frame.size.width * scale,
+        self.view.frame.size.height
+    );
+
+    if (!CGRectEqualToRect(newFrame, self.webView.frame)) {
+        self.webView.frame = newFrame;
+    }
 }
 
 - (void)tocViewControllerSetup
@@ -1040,7 +1065,8 @@ typedef enum {
     [self.bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString *messageType, NSDictionary *payload) {
         NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
 
-        [weakSelf animateTopAndBottomMenuReveal];
+        // Tiny delay prevents menus from occasionally appearing when user swipes to reveal toc.
+        [weakSelf performSelector:@selector(animateTopAndBottomMenuReveal) withObject:nil afterDelay:0.05];
 
         // nonAnchorTouchEndedWithoutDragging is used so TOC may be hidden if user tapped, but did *not* drag.
         // Used because UIWebView is difficult to attach one-finger touch events to.
@@ -1243,10 +1269,34 @@ typedef enum {
     [self.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
 }
 
+#pragma mark Web view limit scroll up
+
+- (void)limitScrollUp:(UIScrollView *)webScrollView
+{
+    // When trying to scroll the bottom of the web view article all the way to
+    // the top, this is the minimum amount that will be allowed to be onscreen
+    // before we limit scrolling.
+    CGFloat onscreenMinHeight = 210;
+    
+    CGFloat offsetMaxY = BOTTOM_SCROLL_LIMIT_HEIGHT + onscreenMinHeight;
+    
+    if ((webScrollView.contentSize.height - webScrollView.contentOffset.y) < offsetMaxY){
+        CGPoint p = CGPointMake(webScrollView.contentOffset.x,
+                                webScrollView.contentSize.height - offsetMaxY);
+
+        // This limits scrolling!
+        [webScrollView setContentOffset:p animated: NO];
+    }
+}
+
 #pragma mark Scroll hiding keyboard threshold
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (scrollView == self.webView.scrollView) {
+        [self limitScrollUp:scrollView];
+    }
+
     // Hide the keyboard if it was visible when the results are scrolled, but only if
     // the results have been scrolled in excess of some small distance threshold first.
     // This prevents tiny scroll adjustments, which seem to occur occasionally for some
@@ -1258,12 +1308,14 @@ typedef enum {
         [self hideKeyboard];
         //NSLog(@"Keyboard Hidden!");
     }
-    
-    [self adjustTopAndBottomMenuVisibilityOnScroll];
 
     [self scrollIndicatorMove];
 
-    [super scrollViewDidScroll:scrollView];
+    if (![self tocDrawerIsOpen]){
+        [self adjustTopAndBottomMenuVisibilityOnScroll];
+        // No need to report scroll event to pull to refresh super vc if toc open.
+        [super scrollViewDidScroll:scrollView];
+    }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -1310,9 +1362,7 @@ typedef enum {
     // Toggle the menus closed on tap (only if they were showing).
     if (![self tocDrawerIsOpen]) {
         if (ROOT.topMenuViewController.navBarMode != NAVBAR_MODE_SEARCH) {
-            if (![self tocDrawerIsOpen]){
-                [ROOT animateTopAndBottomMenuHidden:NO];
-            }
+            [ROOT animateTopAndBottomMenuHidden:NO];
         }
     }
 }
@@ -1613,7 +1663,9 @@ typedef enum {
         [self fadeAlert];
     } errorBlock:^(NSError *error){
         NSString *errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+        if(error.code != 555){ // Quick hack for hiding MWNetworkOp cancel messages.
+            [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+        }
     }];
 
     remainingSectionsOp.delegate = self;
@@ -1887,6 +1939,10 @@ typedef enum {
             [sectionTextArray addObject: [self renderLastModified:lastModified by:lastModifiedBy]];
             [sectionTextArray addObject: [self renderLanguageButtonForCount: langCount.integerValue]];
             [sectionTextArray addObject: [self renderLicenseFooter]];
+
+            // This is important! Ensures bottom of web view article can be scrolled closer to the top of
+            // the screen. Works in conjunction with "limitScrollUp:" method.
+            [sectionTextArray addObject: [NSString stringWithFormat:@"<div style='height:%d;background-color:white;'></div>", BOTTOM_SCROLL_LIMIT_HEIGHT]];
         }
 
         
@@ -2014,6 +2070,8 @@ typedef enum {
 {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 
+    [self tocUpdateLayoutAfterRotate];
+
     [self scrollToElementOnScreenBeforeRotate];
 }
 
@@ -2060,7 +2118,7 @@ typedef enum {
                      self.zeroStatusLabel.padding = UIEdgeInsetsMake(3, 10, 3, 10);
                      self.zeroStatusLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.93];
 
-                     [self showAlert:title type:ALERT_TYPE_TOP duration:-1];
+                     [self showAlert:title type:ALERT_TYPE_TOP duration:2];
                      [NAV promptFirstTimeZeroOnWithTitleIfAppropriate:title];
                  });
              }
