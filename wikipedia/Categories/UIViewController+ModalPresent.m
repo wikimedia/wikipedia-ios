@@ -14,6 +14,7 @@
     [NAV.storyboard instantiateViewControllerWithIdentifier:@"ModalMenuAndContentViewController"];
 
     modalMenuAndContentVC.modalTransitionStyle = style;
+    //modalMenuAndContentVC.title = identifier; // quick hack for debug help
 
     // Here so "modalStackContainsViewControllerOfClass" can check which view
     // ModalMenuAndContentViewController presented.

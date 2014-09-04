@@ -56,11 +56,6 @@
     [self.view setNeedsUpdateConstraints];
 }
 
--(UIModalTransitionStyle)modalTransitionStyle
-{
-    return self.presentedViewController.modalTransitionStyle;
-}
-
 -(void)updateViewConstraints
 {
     [self constrainTopContainerHeight];
