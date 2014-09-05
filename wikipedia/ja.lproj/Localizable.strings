@@ -130,7 +130,7 @@
 "credits-title" = "オープンソースのリポジトリ";
 "credits-wikimedia-repos" = "ウィキメディア";
 "credits-external-libraries" = "外部リポジトリ";
-"share-menu-save-page" = "記事を保存";
+"share-menu-save-page" = "ページを保存";
 "share-menu-page-saved" = "記事を保存しました";
 "timestamp-just-now" = "ちょうど今";
 "timestamp-minutes" = "%d分前";
@@ -180,7 +180,7 @@
 "menu-share-accessibility-label" = "共有";
 "menu-more-accessibility-label" = "その他の設定";
 "menu-trash-accessibility-label" = "削除";
-"nearby-distance-label-meters" = "$1 メートル";
+"nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-feet" = "$1 フィート";
 "nearby-distance-label-miles" = "$1 マイル";

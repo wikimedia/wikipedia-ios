@@ -4,6 +4,7 @@
 // Author: Ainali
 // Author: Jopparn
 // Author: Lokal Profil
+// Author: Platinawolf
 // Author: WikiPhoenix
 
 "article-languages-label" = "Välj språk";
@@ -144,7 +145,7 @@
 "credits-github-mirror" = "Speglad app (GitHub)";
 "credits-external-libraries" = "Externa";
 "share-menu-save-page" = "Spara artikeln";
-"share-menu-page-saved" = "Artikeln sparades";
+"share-menu-page-saved" = "Artikeln sparades för offline-läsning.";
 "timestamp-just-now" = "just nu";
 "timestamp-minutes" = "%d minuter sedan";
 "timestamp-hours" = "%d timmar sedan";
@@ -193,3 +194,10 @@
 "menu-share-accessibility-label" = "Dela";
 "menu-more-accessibility-label" = "Fler inställningar";
 "menu-trash-accessibility-label" = "Radera";
+"nearby-title" = "I närheten";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-feet" = "$1 fot";
+"nearby-pull-to-refresh-prompt" = "Dra för att uppdatera";
+"nearby-pull-to-refresh-is-refreshing" = "Uppdaterar";
+"nearby-cancel" = "Avbryt";

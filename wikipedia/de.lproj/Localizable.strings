@@ -143,6 +143,7 @@
 "credits-external-libraries" = "Extern";
 "share-menu-save-page" = "Seite speichern";
 "share-menu-page-saved" = "Seite gespeichert";
+"share-menu-page-saved-access" = "Tipp: Um auf deine gespeicherten Seiten zuzugreifen, tippe oben auf $1 oder halte unten $2 gedrückt.";
 "timestamp-just-now" = "gerade eben";
 "timestamp-minutes" = "vor %d Minuten";
 "timestamp-hours" = "vor %d Stunden";

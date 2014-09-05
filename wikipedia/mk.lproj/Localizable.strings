@@ -144,6 +144,7 @@
 "credits-external-libraries" = "Надворешни";
 "share-menu-save-page" = "Зачувај страница";
 "share-menu-page-saved" = "Страницата е зачувана";
+"share-menu-page-saved-access" = "Совет: за да дојдете до вашите зачувани страници, допрете го $1 погоре или подржете на $2 подолу.";
 "timestamp-just-now" = "штотуку";
 "timestamp-minutes" = "пред %d минути";
 "timestamp-hours" = "пред %d часа";
@@ -193,12 +194,9 @@
 "menu-more-accessibility-label" = "Повеќе поставки";
 "menu-trash-accessibility-label" = "Избриши";
 "nearby-title" = "Во близина";
-// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-km" = "$1 км";
-// Fuzzy
 "nearby-distance-label-feet" = "$1 стапки";
-// Fuzzy
 "nearby-distance-label-miles" = "$1 милји";
 "nearby-pull-to-refresh-prompt" = "Потегнете за да превчитате";
 "nearby-pull-to-refresh-is-refreshing" = "Превчитувам";

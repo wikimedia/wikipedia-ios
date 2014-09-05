@@ -147,6 +147,7 @@
 "credits-external-libraries" = "خارجی";
 "share-menu-save-page" = "ذخیره مقاله";
 "share-menu-page-saved" = "مقاله ذخیره شده";
+"share-menu-page-saved-access" = "ترفند:برای دسترسی به صفحهٔ ذخیره شده، $1 بالا را انگشت بزنید یا به مدت زیاد بر روی $2 پائین انگشتتان را نگه‌دارید.";
 "timestamp-just-now" = "هم‌اکنون";
 "timestamp-minutes" = "%d دقیقه پیش";
 "timestamp-hours" = "%d ساعت پیش";

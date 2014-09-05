@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Alexandr Efremov
 // Author: Bsitzmann
+// Author: Kopcap94
 // Author: Okras
 
 "article-languages-label" = "Выберите язык";
@@ -144,6 +145,7 @@
 "credits-external-libraries" = "Сторонние";
 "share-menu-save-page" = "Сохранить статью";
 "share-menu-page-saved" = "Статья сохранена";
+"share-menu-page-saved-access" = "Совет: чтобы получить доступ к вашим сохраненным страницам, нажмите на $1 выше или зажмите $2 ниже.";
 "timestamp-just-now" = "только что";
 "timestamp-minutes" = "%d мин. назад";
 "timestamp-hours" = "%d ч. назад";
@@ -193,13 +195,10 @@
 "menu-more-accessibility-label" = "Дополнительные параметры";
 "menu-trash-accessibility-label" = "Удалить";
 "nearby-title" = "Рядом";
-// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-km" = "$1 км";
-// Fuzzy
-"nearby-distance-label-feet" = "$1 фут";
-// Fuzzy
-"nearby-distance-label-miles" = "$1 миля";
+"nearby-distance-label-feet" = "$1 фут.";
+"nearby-distance-label-miles" = "$1 мил.";
 "nearby-pull-to-refresh-prompt" = "Потяните, чтобы обновить";
 "nearby-pull-to-refresh-is-refreshing" = "Обновление";
 "nearby-loading" = "Загрузка статьи рядом...";

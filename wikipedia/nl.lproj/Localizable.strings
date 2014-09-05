@@ -147,6 +147,7 @@
 "credits-external-libraries" = "Externe bronnen";
 "share-menu-save-page" = "Sla artikel op";
 "share-menu-page-saved" = "Artikel opgeslagen";
+"share-menu-page-saved-access" = "Tip: om uw opgeslagen pagina's te bekijken, klikt u op $1 bovenaan of houdt u de $2 langgedrukt in.";
 "timestamp-just-now" = "zojuist";
 "timestamp-minutes" = "%d minuten geleden";
 "timestamp-hours" = "%d uur geleden";

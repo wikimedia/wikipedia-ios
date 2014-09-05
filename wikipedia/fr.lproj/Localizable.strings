@@ -147,6 +147,7 @@
 "credits-external-libraries" = "Externe";
 "share-menu-save-page" = "Enregistrer la page";
 "share-menu-page-saved" = "Page enregistrée";
+"share-menu-page-saved-access" = "Conseil : pour accéder à vos pages enregistrées, tapez $1 ci-dessus ou appuyez longuement sur $2 ci-dessous.";
 "timestamp-just-now" = "à l’instant";
 "timestamp-minutes" = "il y a %d minutes";
 "timestamp-hours" = "il y a %d heures";

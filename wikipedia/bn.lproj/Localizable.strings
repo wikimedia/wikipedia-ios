@@ -13,6 +13,8 @@
 "history-section-yesterday" = "গতকাল";
 "history-section-lastweek" = "গত সপ্তাহ";
 "history-section-lastmonth" = "গত মাস";
+"history-clear-cancel" = "বাতিল";
+"history-clear-delete-all" = "সব মুছে ফেলুন";
 "zero-free-verbiage" = "মোবাইল অপারেটরদের সৌজন্যে বিনামূল্যে উইকিপিডয়া (ডাটা চার্জ প্রযোজ্য নয়)";
 "zero-charged-verbiage" = "উইকিপিডিয়া জিরো নিষ্ক্রিয়";
 "zero-charged-verbiage-extended" = "অন্যান্য নিবন্ধ লোড করলে ডেটা চার্জ বহন করতে হতে পারে। সংরক্ষিত নিবন্ধ সংরক্ষণ করলে অফলাইনে তা ডেটা ব্যবহার করে না এবং তা বিনামূল্যে।";
@@ -99,6 +101,8 @@
 "main-menu-show-today" = "আজ";
 "main-menu-nearby" = "কাছাকাছি";
 "saved-pages-title" = "সংরক্ষিত পাতা";
+"saved-pages-clear-cancel" = "বাতিল";
+"saved-pages-clear-delete-all" = "সব মুছে ফেলুন";
 "page-history-title" = "পাতার ইতিহাস";
 "page-history-downloading" = "পাতার ইতিহাস লোড হচ্ছে...";
 "navbar-title-mode-edit-wikitext" = "সম্পাদনা";
@@ -181,6 +185,7 @@
 "menu-cancel-accessibility-label" = "বাতিল";
 "menu-share-accessibility-label" = "বণ্টন";
 "menu-more-accessibility-label" = "আরো সেটিংস";
+"menu-trash-accessibility-label" = "অপসারণ";
 "nearby-title" = "কাছাকাছি";
 "nearby-distance-label-meters" = "$1 মিটার";
 "nearby-distance-label-km" = "$1 কিমি";
