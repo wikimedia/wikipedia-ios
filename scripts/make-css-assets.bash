@@ -2,7 +2,7 @@
 
 #echo $PWD
 
-PREFIX="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=true&lang=en&only=styles&skin=vector&modules="
+PREFIX="http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&only=styles&skin=vector&modules="
 
 cd "wikipedia/assets/" && {
     curl -L -f -o 'styles.css'       "${PREFIX}mobile.app.pagestyles.ios"
