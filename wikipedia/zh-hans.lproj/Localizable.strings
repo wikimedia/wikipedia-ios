@@ -146,6 +146,7 @@
 "credits-external-libraries" = "外部";
 "share-menu-save-page" = "保存条目";
 "share-menu-page-saved" = "条目已保存";
+"share-menu-page-saved-access" = "提示：要访问您保存的页面，在上面轻触$1或在下面按住$2。";
 "timestamp-just-now" = "刚刚";
 "timestamp-minutes" = "%d分钟前";
 "timestamp-hours" = "%d小时前";

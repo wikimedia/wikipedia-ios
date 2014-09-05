@@ -144,6 +144,7 @@
 "credits-external-libraries" = "חיצוני";
 "share-menu-save-page" = "שמירת דף";
 "share-menu-page-saved" = "הדף נשמר";
+"share-menu-page-saved-access" = "עצה: כדי לגשת לדפים השמורים שלך, יש ללחוץ על $1 למעלה או לעשות לחיצה ארוכה על $2 למטה.";
 "timestamp-just-now" = "זה עתה";
 "timestamp-minutes" = "לפני %d דקות";
 "timestamp-hours" = "לפני %d שעות";

@@ -82,6 +82,8 @@
 "credits-wikimedia-repos" = "Wikimedia";
 "credits-github-mirror" = "Lustrzana kopia aplikacji (Github)";
 "credits-external-libraries" = "Zewnętrzny";
+"share-menu-save-page" = "Zapisz stronę";
+"share-menu-page-saved" = "Zapisano do czytania w trybie offline.";
 "timestamp-minutes" = "%d minuty temu";
 "timestamp-hours" = "%d godzin temu";
 "timestamp-days" = "%d dni temu";
@@ -115,7 +117,6 @@
 "menu-cancel-accessibility-label" = "Anuluj";
 "menu-more-accessibility-label" = "Więcej ustawień";
 "nearby-title" = "W pobliżu";
-// Fuzzy
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
 // Fuzzy

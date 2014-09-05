@@ -145,6 +145,7 @@
 "credits-external-libraries" = "Diavaez";
 "share-menu-save-page" = "Enrollañ ar pennad";
 "share-menu-page-saved" = "Pennad enrollet";
+"share-menu-page-saved-access" = "Ali : evit monet d'ho pajennoù enrollet, bizskrivañ $1 amañ a-us pe pouezit pell war $2 amañ dindan.";
 "timestamp-just-now" = "bremañ end-eeun";
 "timestamp-minutes" = "%d munut zo";
 "timestamp-hours" = "%d eur zo";
