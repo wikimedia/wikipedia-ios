@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Bertaz
 // Author: Beta16
+// Author: Brion
 // Author: Giacomo Checchin
 // Author: Gianfranco
 // Author: Nastoshka
@@ -194,8 +195,8 @@
 "menu-more-accessibility-label" = "Ulteriori impostazioni";
 "menu-trash-accessibility-label" = "Cancella";
 "nearby-title" = "Nelle vicinanze";
-"nearby-distance-label-meters" = "$1&nbsp;m";
-"nearby-distance-label-km" = "$1&nbsp;km";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-feet" = "$1 piedi";
 "nearby-distance-label-miles" = "$1 miglia";
 "nearby-pull-to-refresh-prompt" = "Trascina in basso per aggiornare";
