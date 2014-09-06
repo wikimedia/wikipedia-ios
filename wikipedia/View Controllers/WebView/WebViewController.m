@@ -860,6 +860,10 @@ typedef enum {
                                      duration: (CGFloat)duration
                                   thenHideTOC: (BOOL)hideTOC
 {
+    if ([elementId isEqualToString:@"section_heading_and_content_block_0"]) {
+        // quick hack special case for top/bottom oddity
+        [self tocScrollWebViewToPoint:CGPointZero duration:duration thenHideTOC:hideTOC];
+    }
     CGRect r = [self.webView getWebViewRectForHtmlElementWithId:elementId];
     if (CGRectIsNull(r)) return;
 
