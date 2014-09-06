@@ -1939,11 +1939,13 @@ typedef enum {
         }
 
 
-        if ((mode != DISPLAY_LEAD_SECTION) && ![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
-            [sectionTextArray addObject: [self renderFooterDivider]];
-            [sectionTextArray addObject: [self renderLastModified:lastModified by:lastModifiedBy]];
-            [sectionTextArray addObject: [self renderLanguageButtonForCount: langCount.integerValue]];
-            [sectionTextArray addObject: [self renderLicenseFooter]];
+        if ((mode != DISPLAY_LEAD_SECTION)) {
+            if (![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
+                [sectionTextArray addObject: [self renderFooterDivider]];
+                [sectionTextArray addObject: [self renderLastModified:lastModified by:lastModifiedBy]];
+                [sectionTextArray addObject: [self renderLanguageButtonForCount: langCount.integerValue]];
+                [sectionTextArray addObject: [self renderLicenseFooter]];
+            }
 
             // This is important! Ensures bottom of web view article can be scrolled closer to the top of
             // the screen. Works in conjunction with "limitScrollUp:" method.
