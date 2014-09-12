@@ -1,7 +1,0 @@
-from: 
-
-	http://throwachair.com/2013/10/26/generate-all-your-ios-app-icons-with-svg-and-inkscape/
-
-cd to this dir then run:
-
-	ruby -e '[29,40,50,57,58,72,76,80,100,114,120,144,152].each { |x| `/Applications/Inkscape.app/Contents/Resources/bin/inkscape --export-png icon#{x}.png -w #{x} icon.svg` }'

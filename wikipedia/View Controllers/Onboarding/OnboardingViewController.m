@@ -53,6 +53,7 @@ typedef NS_ENUM(NSUInteger, DisplayMode) {
 
 - (NSUInteger)supportedInterfaceOrientations
 {
+    //return UIInterfaceOrientationMaskAll;
     return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ?
         UIInterfaceOrientationMaskPortrait : UIInterfaceOrientationMaskAll;
 }
