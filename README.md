@@ -1,41 +1,38 @@
 # Wikipedia-iOS
 
-New (late 2013) native rewrite of the [Wikipedia reader application](https://www.mediawiki.org/wiki/Wikimedia_Apps/Wikipedia) for iOS.
+Native rewrite of the [Wikipedia reader application](https://www.mediawiki.org/wiki/Wikimedia_Apps/Wikipedia) for iOS.
 
-This version has not yet been deployed to the App Store -- the source of the older app currently in the store is in the [WikipediaMobile project on GitHub](https://github.com/wikimedia/WikipediaMobile).
+Previous PhoneGap based app source: [WikipediaMobile project on GitHub](https://github.com/wikimedia/WikipediaMobile).
 
 * OS target: iOS 6.0 or higher
-* Device target: primary iPhone/iPod, secondary iPad
+* Device target: iPhone, iPod, iPad
 * License: MIT-style
 * Source repo:
   * git clone https://git.wikimedia.org/git/apps/ios/wikipedia.git
   * Browse: https://git.wikimedia.org/summary/apps%2Fios%2Fwikipedia
   * Github mirror: https://github.com/wikimedia/apps-ios-wikipedia
 * Code review: https://gerrit.wikimedia.org/r/#/q/project:apps/ios/wikipedia,n,z
-* Bugs: https://bugzilla.wikimedia.org/
+* Bugs: https://bugzilla.wikimedia.org/enter_bug.cgi?product=Wikipedia%20App
 * IRC chat: #wikimedia-mobile on irc.freenode.net
 
 
 # Building
 
-Requires [Xcode 5 or higher](https://itunes.apple.com/us/app/xcode/id497799835) on Mac OS X, with the bundled iOS 7 SDK. You may need to get Xcode 5.1 beta with iOS 7.1 beta to support the latest storyboard - it's available at [developer.apple.com](https://developer.apple.com/) after signing in with your Apple ID.
+Requires [Xcode 6 or higher](https://itunes.apple.com/us/app/xcode/id497799835) on Mac OS X - available at [developer.apple.com](https://developer.apple.com/) after signing in with your Apple ID.
 
-Standard Xcode project stuff: check out the repo, open Wikipedia.xcodeproj in Xcode 5, pick a device or simulator target and hit ⌘R.
+Standard Xcode project stuff: check out the repo, open Wikipedia.xcodeproj in Xcode, pick a device or simulator target and hit ⌘R.
 
 Note that due to Apple's restrictions on iOS app installation, to run a custom build on a standard iOS device you must pay for a [developer account with Apple](https://developer.apple.com/devcenter/ios/index.action) and register the device with your account.
 
-You'll also need to install [nodejs](http://nodejs.org/) and npm.
+You'll also need to install the following (used by build scripts):
 
-# Running tests
-
-In Xcode, hit ⌘U to run tests. Note that tests must run on iOS 7 simulator or device -- they do not run successfully on iOS 6.x.
+* [nodejs](http://nodejs.org/) and npm
+* [Inkscape](http://www.inkscape.org/en/download/mac-os/)
 
 
 # Filing Bugs
 
-Please file bugs at [bugzilla.wikimedia.org](https://bugzilla.wikimedia.org/); use the "Wikipedia App" component.
-
-Note that existing bug reports for other versions of the app may be mixed in there; this requires some cleanup.
+Please file bugs at [bugzilla.wikimedia.org](https://bugzilla.wikimedia.org/enter_bug.cgi?product=Wikipedia%20App); use the "iOS App" component.
 
 
 # Submitting patches
@@ -67,7 +64,7 @@ We'll be working with the Wikimedia Foundation's Design team on UI design, with 
 
 The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps team](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team), starting at the end of October 2013. The team operates on an "agile"-style process with 2-week sprints, and checkin scrums on Monday/Wednesday/Friday at 10:15am US Pacific Time.
 
-In addition to a general bug pool in Bugzilla, we'll be tracking ongoing work on the [backlog board](https://trello.com/b/h0B6QYBo/wikipedia-app-backlog) and active sprint boards on Trello.
+In addition to a general bug pool in Bugzilla, we'll be tracking ongoing work on the [backlog board](https://trello.com/b/h0B6QYBo/mobile-app-backlog) and active sprint boards on Trello.
 
 Volunteer contributions are welcome!
 
