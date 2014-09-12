@@ -12,18 +12,16 @@
 "history-section-yesterday" = "Včera";
 "history-section-lastweek" = "Minulý týždeň";
 "history-section-lastmonth" = "Minulý mesiac";
+"history-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
+"history-clear-cancel" = "Zrušiť";
 "zero-free-verbiage" = "Voľný prístup k Wikipédii od vášho mobilného operátora (neplatíte poplatky za prenos dát)";
 "zero-charged-verbiage" = "Wikipédia Zero je vypnutá";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Opúšťate Wikipédiu Zero";
-// Fuzzy
-"zero-interstitial-leave-app" = "Pokračovať na externú stránku? Môžu sa objaviť štandardné poplatky za prenos dát.";
-// Fuzzy
+"zero-interstitial-leave-app" = "Môžu sa objaviť poplatky za prenos dát. Pokračovať na externú stránku?";
 "zero-interstitial-continue" = "Pokračovať";
-// Fuzzy
-"zero-interstitial-cancel" = "Zrušiť";
-// Fuzzy
-"zero-learn-more" = "Chcete sa dozvedieť viac o Wikipédii Zero?";
+"zero-interstitial-cancel" = "Zostať tu";
+"zero-learn-more" = "Táto aplikácia je oslobodená od poplatkov za prenos dát.";
 "zero-learn-more-learn-more" = "Ďalšie informácie";
 "zero-learn-more-no-thanks" = "Nie, ďakujem";
 "zero-wikipedia-zero-heading" = "Wikipédia Zero";
@@ -74,6 +72,7 @@
 "search-loading-article-loaded" = "Článok je načítaný.";
 "search-cancel" = "Zrušiť";
 "main-menu-title" = "Viac";
+"main-menu-language-title" = "Hľadať vo Wikipédii";
 "main-menu-language-toggle-show" = "Ukázať jazyky";
 "main-menu-language-toggle-hide" = "Skryť jazyky";
 "main-menu-language-selection-saved" = "Výber jazyka bol uložený";
@@ -117,10 +116,13 @@
 "edit-summary-choice-added-clarification" = "Pridané objasnenie";
 "edit-summary-choice-other" = "iné";
 "edit-summary-field-placeholder-text" = "Ako ste vylepšili článok?";
+"edit-summary-title" = "Ako ste vylepšili článok?";
 "fetching-random-article" = "Nahrávam náhodný článok";
 "article-pull-to-refresh-prompt" = "Potiahnutím obnovíte článok";
 "article-pull-to-refresh-is-refreshing" = "Obnovujem článok";
 "credits-wikimedia-repos" = "Wikimédia";
+"share-menu-save-page" = "Uložiť stránku";
+"timestamp-just-now" = "práve teraz";
 "button-next" = "Ďalej";
 "button-done" = "Hotovo";
 "button-save" = "Uložiť";
@@ -130,6 +132,7 @@
 "onboarding-skip" = "Preskočiť";
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "Slobodná encyklopédia";
+"preference_title_eventlogging_opt_in" = "Odoslať správu o používaní";
 "page_protected_autoconfirmed" = "Táto stránka je čiastočne zamknutá.";
 "page_protected_sysop" = "Táto stránka je zamknutá.";
 "page_protected_can_not_edit" = "Nemáte právo upraviť túto stránku";

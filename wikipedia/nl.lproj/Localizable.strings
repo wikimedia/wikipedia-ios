@@ -161,7 +161,7 @@
 "button-save" = "Opslaan";
 "onboarding-create-account" = "Registreren";
 "onboarding-login" = "Aanmelden";
-"onboarding-already-have-account" = "Hebt u al een gebruiker? $1";
+"onboarding-already-have-account" = "Hebt u al een account? $1";
 "onboarding-skip" = "Sla over";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "De vrije encyclopedie";

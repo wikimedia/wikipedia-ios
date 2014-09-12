@@ -163,7 +163,7 @@
 "onboarding-login" = "{{Identical|Log in}}";
 "onboarding-already-have-account" = "Button text prompting first time users to log in to existing account. Parameters:\n* $1 - login button text";
 "onboarding-skip" = "Button text allowing first time users to skip the other onboarding choices";
-"onboarding-wikipedia" = "Wikipedia logo text";
+"onboarding-wikipedia" = "Wikipedia logo text\n{{Identical|Wikipedia}}";
 "onboarding-free-encyclopedia" = "Subtext for the Wikipedia logo";
 "preference_title_eventlogging_opt_in" = "Title of preference that when checked enables data collection of user behavior.";
 "preference_summary_eventlogging_opt_in" = "Description of preference that when checked enables data collection of user behavior.";
@@ -197,10 +197,10 @@
 "menu-more-accessibility-label" = "Accessible label for more/... button in 'W' menu";
 "menu-trash-accessibility-label" = "Accessible label for trash button\n{{Identical|Delete}}";
 "nearby-title" = "Title for page showing nearby geotagged articles\n{{Identical|Nearby}}";
-"nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles. $1 is the number of meters. (The iOS app doesn't support pluralization syntax yet.)";
-"nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles. $1 is the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)";
-"nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles. $1 is the number of feet. (The iOS app doesn't support pluralization syntax yet.)";
-"nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles. $1 is the number of miles. (The iOS app doesn't support pluralization syntax yet.)";
+"nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* $1 - the number of meters. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
+"nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
+"nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
+"nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-pull-to-refresh-prompt" = "Shown when user pulls down to refresh list of nearby articles";
 "nearby-pull-to-refresh-is-refreshing" = "Shown when refreshing list of nearby articles";
 "nearby-loading" = "Show when downloading list of nearby articles";

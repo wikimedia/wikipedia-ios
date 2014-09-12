@@ -202,6 +202,8 @@
 "nearby-pull-to-refresh-prompt" = "Потяните, чтобы обновить";
 "nearby-pull-to-refresh-is-refreshing" = "Обновление";
 "nearby-loading" = "Загрузка статьи рядом...";
+"nearby-loaded" = "Ближайшие статьи загружены";
+"nearby-none" = "Статьи не находятся в непосредственной близости. Перетащите, чтобы перезагрузить и попробуйте еще раз.";
 "nearby-open-in-maps" = "Открыть на Картах";
 "nearby-cancel" = "Отмена";
 "nearby-location-updates-denied" = "У этого приложения нет разрешения на обновление сведений о местоположении.";

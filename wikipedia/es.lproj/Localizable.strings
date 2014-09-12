@@ -146,8 +146,8 @@
 "credits-gerrit-repo" = "Rep. principal de aplicación (Gerrit)";
 "credits-github-mirror" = "App espejo (GitHub)";
 "credits-external-libraries" = "Repositorios externos";
-"share-menu-save-page" = "Guardar artículo";
-"share-menu-page-saved" = "Artículo guardado";
+"share-menu-save-page" = "Guardar página";
+"share-menu-page-saved" = "Guardado para leer sin conexión.";
 "timestamp-just-now" = "ahora mismo";
 "timestamp-minutes" = "hace %d minutos";
 "timestamp-hours" = "hace %d horas";
@@ -193,7 +193,7 @@
 "menu-more-accessibility-label" = "Más opciones";
 "menu-trash-accessibility-label" = "Borrar";
 "nearby-title" = "Cercanos";
-"nearby-distance-label-meters" = "$1 metros";
+"nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-feet" = "$1 pies";
 "nearby-distance-label-miles" = "$1 millas";

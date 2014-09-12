@@ -195,3 +195,6 @@
 "nearby-none" = "Keng Artikelen aus der Noperschaft fonnt. Zitt fir z'akutaliséieren oder probéiert méi spéit nach eng Kéier.";
 "nearby-open-in-maps" = "Op der Kaart opmaachen";
 "nearby-cancel" = "Ofbriechen";
+"nearby-location-updates-denied" = "Dës App huet net d'Recht fir Aktualisatiounen iwwer d'Plaz wou e grad ass ze kréien.";
+"nearby-location-general-error" = "D'Plaz wou Dir sidd konnt net festgestallt ginn. Dréckt fir z'aktualiséieren oder probéiert méi spéit nach eng Kéier.";
+"nearby-wifi" = "D'Aschalte vum Wifi kann Ärem Apparat hëllefen d'Plaz wou Dir sidd besser festzeleeën.";

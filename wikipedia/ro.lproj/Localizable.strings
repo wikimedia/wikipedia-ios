@@ -142,6 +142,7 @@
 "credits-external-libraries" = "Externe";
 "share-menu-save-page" = "Salvare articol";
 "share-menu-page-saved" = "Articol salvat";
+"share-menu-page-saved-access" = "Sfat: pentru a vă accesa paginile salvate, atingeți simbolul $1 de mai sus sau apăsați prelung simbolul $2 de mai jos.";
 "timestamp-just-now" = "chiar acum";
 "timestamp-minutes" = "acum %d minute";
 "timestamp-hours" = "acum %d ore";

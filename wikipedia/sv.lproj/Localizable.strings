@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Abbedabb
 // Author: Ainali
+// Author: Freked
 // Author: Jopparn
 // Author: Lokal Profil
 // Author: Platinawolf
@@ -106,6 +107,7 @@
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Rättslig information";
 "main-menu-show-today" = "Idag";
+"main-menu-nearby" = "I närheten";
 "saved-pages-title" = "Sparade artiklar";
 "saved-pages-clear-confirmation-heading" = "Radera alla sparade objekt?";
 "saved-pages-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
@@ -145,7 +147,8 @@
 "credits-github-mirror" = "Speglad app (GitHub)";
 "credits-external-libraries" = "Externa";
 "share-menu-save-page" = "Spara artikeln";
-"share-menu-page-saved" = "Artikeln sparades för offline-läsning.";
+"share-menu-page-saved" = "Sparade för offline-läsning.";
+"share-menu-page-saved-access" = "Tips: för att komma åt dina sparade sidor, klicka på $1 ovan eller tryck länge på $2 nedan.";
 "timestamp-just-now" = "just nu";
 "timestamp-minutes" = "%d minuter sedan";
 "timestamp-hours" = "%d timmar sedan";
@@ -198,6 +201,16 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-feet" = "$1 fot";
+"nearby-distance-label-miles" = "$1 engelska mil";
 "nearby-pull-to-refresh-prompt" = "Dra för att uppdatera";
 "nearby-pull-to-refresh-is-refreshing" = "Uppdaterar";
+"nearby-loading" = "Laddar artiklar i närheten...";
+"nearby-loaded" = "Närliggande artiklar laddade";
+"nearby-none" = "Inga artiklar i närheten återfanns. Dra för att uppdatera eller försök igen senare.";
+"nearby-open-in-maps" = "Öppna i Kartor";
 "nearby-cancel" = "Avbryt";
+"nearby-location-updates-denied" = "Denna app har inte behörighet att få platsuppdateringar.";
+"nearby-location-updates-enable" = "För att aktivera platsuppdateringar öppna app-inställningarna och välj följande:";
+"nearby-location-updates-settings-menu" = "Sekretess > Platstjänster > Wikipedia";
+"nearby-location-general-error" = "Det gick inte att bestämma plats. Dra för att uppdatera eller försök igen senare.";
+"nearby-wifi" = "Att aktivera wifi kan hjälpa din enhet att bättre avgöra din position.";

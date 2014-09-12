@@ -5,6 +5,7 @@
 // Author: Liuxinyu970226
 // Author: NigelSoft
 // Author: Qiyue2001
+// Author: 王庭茂
 
 "article-languages-label" = "选择语言";
 "article-languages-cancel" = "取消";
@@ -140,12 +141,12 @@
 "article-pull-to-refresh-prompt" = "拖拽以刷新条目";
 "article-pull-to-refresh-is-refreshing" = "刷新条目";
 "credits-title" = "开源资料库";
-"credits-wikimedia-repos" = "维基媒体基金会";
+"credits-wikimedia-repos" = "维基媒体存储库";
 "credits-gerrit-repo" = "主应用程序（Gerrit）";
 "credits-github-mirror" = "镜像应用程序（GitHub）";
 "credits-external-libraries" = "外部";
 "share-menu-save-page" = "保存条目";
-"share-menu-page-saved" = "条目已保存";
+"share-menu-page-saved" = "页面已保存";
 "share-menu-page-saved-access" = "提示：要访问您保存的页面，在上面轻触$1或在下面按住$2。";
 "timestamp-just-now" = "刚刚";
 "timestamp-minutes" = "%d分钟前";
