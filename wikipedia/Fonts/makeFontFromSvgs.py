@@ -1,5 +1,8 @@
 #!/usr/local/bin/fontforge
 
+# Created by Monte Hurd on 9/1/14.
+# Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
+#
 # Makes "./font.ttf" from svg files found in "./svgs/".
 # Svg's must be named according to following convention:
 #     "UNICODE_CHAR GLYPH_NAME LEFT_BEARING RIGHT_BEARING BASELINE_OFFSET.svg"

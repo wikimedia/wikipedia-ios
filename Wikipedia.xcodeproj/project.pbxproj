@@ -1217,32 +1217,6 @@
 			isa = PBXGroup;
 			children = (
 				043F18DA18D9691D00D8489A /* TopActionSheet */,
-				04B91AA518E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.h */,
-				04B91AA618E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m */,
-				04DB0BE818BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.h */,
-				04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */,
-				04C695D018ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.h */,
-				04C695D118ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m */,
-				0415581A18ADFA5C00B81A59 /* UIImage+ColorMask.h */,
-				0415581B18ADFA5C00B81A59 /* UIImage+ColorMask.m */,
-				047801BC18AE987900DBB747 /* UIButton+ColorMask.h */,
-				047801BD18AE987900DBB747 /* UIButton+ColorMask.m */,
-				0433542418A093C5009305F0 /* UIView+RemoveConstraints.h */,
-				0433542518A093C5009305F0 /* UIView+RemoveConstraints.m */,
-				0400EB0118AAEEC60043ECE2 /* UINavigationController+SearchNavStack.h */,
-				0400EB0218AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m */,
-				049B640A18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.h */,
-				049B640B18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m */,
-				0433542018A023FE009305F0 /* UIViewController+HideKeyboard.h */,
-				0433542118A023FE009305F0 /* UIViewController+HideKeyboard.m */,
-				04090A39187FB7D000577EDF /* UIView+Debugging.h */,
-				04090A3A187FB7D000577EDF /* UIView+Debugging.m */,
-				04C695CC18ED08D900D9F2DA /* UIView+SearchSubviews.h */,
-				04C695CD18ED08D900D9F2DA /* UIView+SearchSubviews.m */,
-				04B6924E18E77B2A00F88D8A /* UIWebView+HideScrollGradient.h */,
-				04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */,
-				04F0E2E8186EDC1A00468738 /* UIWebView+ElementLocation.h */,
-				04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */,
 				04D34DDF1868E21F00610A87 /* Article+Convenience.h */,
 				04D34DE01868E21F00610A87 /* Article+Convenience.m */,
 				047FF5451889078C009DB293 /* Image+Convenience.h */,
@@ -1690,6 +1664,7 @@
 				04272E75193FF7F000CC682F /* ShellScript */,
 				D4C16A621970946900CD91AD /* ShellScript */,
 				D4C16A631970949A00CD91AD /* ShellScript */,
+				046F268119C387BD00D7ACB3 /* ShellScript */,
 				D4991433181D51DE00E6073C /* Resources */,
 			);
 			buildRules = (
@@ -1875,6 +1850,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "scripts/run-grunt.sh";
+		};
+		046F268119C387BD00D7ACB3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/wikipedia/Images.xcassets/AppIcon.appiconset/icon.svg",
+				"$(SRCROOT)/wikipedia/Images.xcassets/RecentPagesEmpty.imageset/recent.svg",
+				"$(SRCROOT)/wikipedia/Images.xcassets/SavedPagesEmpty.imageset/savedpages.svg",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "scripts/icon-svgs-to-pngs.sh";
 		};
 		D4C16A621970946900CD91AD /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

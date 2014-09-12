@@ -1,5 +1,8 @@
 #!/usr/local/bin/fontforge
 
+# Created by Monte Hurd on 9/1/14.
+# Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
+#
 # Extracts svg for each glyph in "./font.ttf" to "./svgs/" folder.
 # Also extracts font settings to "./font.json" file.
 

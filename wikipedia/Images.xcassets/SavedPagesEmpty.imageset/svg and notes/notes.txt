@@ -1,7 +1,0 @@
-from: 
-
-	http://throwachair.com/2013/10/26/generate-all-your-ios-app-icons-with-svg-and-inkscape/
-
-cd to this dir then run:
-
-	ruby -e '[120,240].each { |x| `/Applications/Inkscape.app/Contents/Resources/bin/inkscape --export-png ../savedpages#{x}.png -w #{x} savedpages.svg` }'

@@ -31,6 +31,11 @@
 
     //[self printAllNotificationsToConsole];
 
+#if TARGET_IPHONE_SIMULATOR
+    // From: http://pinkstone.co.uk/where-is-the-documents-directory-for-the-ios-8-simulator/
+    NSLog(@"\n\n\nSimulator Documents Directory:\n%@\n\n\n", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
+#endif
+
     return YES;
 }
 
