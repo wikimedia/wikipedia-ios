@@ -58,6 +58,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    self.view.translatesAutoresizingMaskIntoConstraints = NO;
     
     self.view.hidden = YES;
 

@@ -102,8 +102,8 @@ typedef enum {
 
 @property (weak, nonatomic) IBOutlet UIView *bottomBarView;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewLeftConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewRightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tocViewWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tocViewLeadingConstraint;
 
 @property (strong, nonatomic) UIView *scrollIndicatorView;
 @property (strong, nonatomic) NSLayoutConstraint *scrollIndicatorViewTopConstraint;
@@ -222,7 +222,7 @@ typedef enum {
 
     [self.webView hideScrollGradient];
 
-    [self tocViewControllerSetup];
+    [self tocSetupSwipeGestureRecognizers];
 
     [self reloadCurrentArticleInvalidatingCache:NO];
     
@@ -263,7 +263,25 @@ typedef enum {
     //self.referencesContainerView.layer.borderColor = [UIColor redColor].CGColor;
 
     // Ensure toc show/hide animation scales the web view w/o vertical motion.
-    self.webView.layer.anchorPoint = CGPointZero;
+    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+    self.webView.scrollView.layer.anchorPoint = CGPointMake((isRTL ? 1.0 : 0.0), 0.0);
+
+    /*
+    self.webView.scrollView.layer.borderWidth = 6;
+    self.webView.scrollView.layer.borderColor = [UIColor redColor].CGColor;
+    self.webView.layer.borderWidth = 2;
+    self.webView.layer.borderColor = [UIColor greenColor].CGColor;
+    */
+
+    [self tocUpdateViewLayout];
+}
+
+-(void)tocUpdateViewLayout
+{
+    CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
+    CGFloat tocWidth = [self tocGetWidthForWebViewScale:webViewScale];
+    self.tocViewLeadingConstraint.constant = 0;
+    self.tocViewWidthConstraint.constant = tocWidth;
 }
 
 -(void)showAlert:(id)alertText type:(AlertType)type duration:(CGFloat)duration
@@ -484,8 +502,6 @@ typedef enum {
     [super updateViewConstraints];
 
     [self constrainBottomMenu];
-    
-    [self tocConstrainView];
 }
 
 #pragma mark Angle from velocity vector
@@ -506,16 +522,18 @@ typedef enum {
 
 -(BOOL)tocDrawerIsOpen
 {
-    return (self.webViewRightConstraint.constant == 0) ? NO : YES;
+    return !CGAffineTransformIsIdentity(self.webView.scrollView.transform);
 }
 
 -(void)tocHideWithDuration:(NSNumber *)duration
 {
-    if (![self tocDrawerIsOpen]) return;
-
-    // Throwing on mainQ prevents iOS 6 bug on old devices which would cause the web
-    // view to blank out if it was tapped when the toc was open.
-    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+    if ([self tocDrawerIsOpen]){
+ 
+        // Note: don't put this on the mainQueue. It can cause problems
+        // if the toc needs to be hidden with 0 duration, such as when
+        // the device is rotated. (could wrap this in a block and add
+        // it to mainQueue if duration not 0, or directly call the block
+        // if duration is 0, but I don't think we need to.)
         
         self.unsafeToToggleTOC = YES;
         
@@ -526,7 +544,6 @@ typedef enum {
         // Clear alerts
         [self fadeAlert];
         
-        [self.view setNeedsUpdateConstraints];
         [UIView animateWithDuration: duration.floatValue
                               delay: 0.0f
                             options: UIViewAnimationOptionBeginFromCurrentState
@@ -535,12 +552,13 @@ typedef enum {
                              // If the top menu isn't hidden, reveal the bottom menu.
                              self.bottomMenuHidden = ROOT.topMenuHidden;
                              
-                             self.webView.transform = CGAffineTransformIdentity;
+                             self.webView.scrollView.transform = CGAffineTransformIdentity;
                              
                              self.referencesContainerView.transform = CGAffineTransformIdentity;
                              
                              self.bottomBarView.transform = CGAffineTransformIdentity;
-                             self.webViewRightConstraint.constant = 0;
+
+                             self.tocViewLeadingConstraint.constant = 0;
                              
                              [self.view layoutIfNeeded];
                          }completion: ^(BOOL done){
@@ -556,7 +574,7 @@ typedef enum {
                                                      size: tocButton.label.size
                                            baselineOffset: tocButton.label.baselineOffset];
                          }];
-    }];
+    }
 }
 
 -(void)tocShowWithDuration:(NSNumber *)duration
@@ -572,11 +590,9 @@ typedef enum {
         
         [self.tocVC willShow];
         
-        CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
-        CGAffineTransform xf = CGAffineTransformMakeScale(webViewScale, webViewScale);
-        CGFloat tocWidth = [self tocGetWidthForWebViewScale:webViewScale];
-        
-        [self.view setNeedsUpdateConstraints];
+        [self tocUpdateViewLayout];
+        [self.view layoutIfNeeded];
+
         [UIView animateWithDuration: duration.floatValue
                               delay: 0.0f
                             options: UIViewAnimationOptionBeginFromCurrentState
@@ -584,11 +600,26 @@ typedef enum {
                              self.scrollIndicatorView.alpha = 0.0;
                              self.bottomMenuHidden = YES;
                              self.referencesHidden = YES;
-                             self.webView.transform = xf;
+
+                             CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
+                             CGAffineTransform xf = CGAffineTransformMakeScale(webViewScale, webViewScale);
+
+                             self.webView.scrollView.transform = xf;
                              self.referencesContainerView.transform = xf;
                              self.bottomBarView.transform = xf;
-                             self.webViewRightConstraint.constant = tocWidth;
-                             
+
+                             CGFloat tocWidth = [self tocGetWidthForWebViewScale:webViewScale];
+                             self.tocViewLeadingConstraint.constant = -tocWidth;
+
+                             // Scroll down by one pixel during the animation. This is a hack fix to cause
+                             // the web scroll view to not sometimes have a small bit of blank white space
+                             // at the bottom after this toc show animation finishes.
+                             self.webView.scrollView.contentOffset =
+                                 CGPointMake(
+                                     self.webView.scrollView.contentOffset.x,
+                                     self.webView.scrollView.contentOffset.y - 1.0
+                                 );
+
                              [self.view layoutIfNeeded];
                              
                          }completion: ^(BOOL done){
@@ -605,61 +636,32 @@ typedef enum {
     }];
 }
 
--(void)tocUpdateLayoutAfterRotate
-{
-    // setNeedsUpdateConstraints causes updateViewConstraints to be called which is needed because
-    // it calls tocConstrainView which sets the width of the toc view. Needed before the animation
-    // block below because the device may have been rotated so the toc view may need new width.
-    // We want this new width set before the animation begins. (Easy to test with the "Beach Boys"
-    // article. Load it, open and close toc, rotate and do same. Without setNeedsUpdateConstraints
-    // and layoutIfNeeded the toc entries will shift.)
-    [self.view setNeedsUpdateConstraints];
-    // Layout to ensure that the width is in place before the toc view starts to animate to being
-    // onscreen.
-    [self.view layoutIfNeeded];
-}
-
 - (void)viewDidLayoutSubviews
 {
-    // viewDidLayoutSubviews is called after autolayout has done its thing. So here we can safely make changes
-    // directly to a frame without worrying that autolayout will blast them. Note that the web view frame
-    // adjustment below needs to happen not only when layoutIfNeeded is called from the "tocShowWithDuration:"
-    // animation block, but also any other time subviews are laid out when the toc is onscreen! That's the
-    // reason why this code is not to be placed directly in the animation block itself.
-    [self resizeWebViewFrame];
+    [self increaseWebViewScrollViewHeight];
+    
+    // See: http://stackoverflow.com/a/17419858
+    [self.view layoutSubviews];
 }
 
--(void)resizeWebViewFrame
+-(void)increaseWebViewScrollViewHeight
 {
-    //NSLog(@"self.webView.frame = %@", NSStringFromCGRect(self.webView.frame));
-    CGFloat scale = ([self tocDrawerIsOpen]) ? [self tocGetWebViewScaleWhenTOCVisible] : 1.0f;
-
-    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
-
-    CGRect newFrame = CGRectMake(
-        (isRTL ? self.view.frame.size.width - self.view.frame.size.width * scale : 0),
-        0.0,
-        self.view.frame.size.width * scale,
-        self.view.frame.size.height
-    );
-
-    if (!CGRectEqualToRect(newFrame, self.webView.frame)) {
-        self.webView.frame = newFrame;
+    // Reminder: can't do this when isDragging or isDecelerating
+    // because pull to refresh won't work.
+    if (!self.webView.scrollView.isDragging && !self.webView.scrollView.isDecelerating) {
+        // When the TOC is shown, the self.webView.scrollView.transform is changed, but this
+        // causes the height of the scrollView to be reduced, which doesn't mess anything up
+        // visually, but does cause the area beneath the scrollView to no longer respond to
+        // drag events. Turn on border for scrollView to see this (and comment out call to
+        // this method). So here *only* the scrollView's height is updated.
+        self.webView.scrollView.frame =
+        CGRectMake(
+                   self.webView.scrollView.frame.origin.x,
+                   self.webView.scrollView.frame.origin.y,
+                   self.webView.scrollView.frame.size.width,
+                   self.webView.frame.size.height
+                   );
     }
-}
-
-- (void)tocViewControllerSetup
-{
-    self.tocVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"TOCViewController"];
-    self.tocVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-    self.tocVC.webVC = self;
-
-    [self addChildViewController:self.tocVC];
-    [self.view addSubview:self.tocVC.view];
-    [self.view setNeedsUpdateConstraints];
-    [self.tocVC didMoveToParentViewController:self];
-
-    [self tocSetupSwipeGestureRecognizers];
 }
 
 -(void)tocHide
@@ -801,46 +803,6 @@ typedef enum {
     return self.view.frame.size.width * (1.0f - webViewScale);
 }
 
--(void)tocConstrainView
-{
-    CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
-    
-    NSDictionary *views = @{
-                            @"view": self.view,
-                            @"tocView": self.tocVC.view,
-                            @"webView": self.webView
-                            };
-    
-    NSDictionary *metrics = @{
-                              @"tocInitialWidth": @([self tocGetWidthForWebViewScale:webViewScale])
-                              };
-    
-    NSArray *constraints =
-    @[
-      @[
-          [NSLayoutConstraint constraintWithItem: self.tocVC.view
-                                       attribute: NSLayoutAttributeLeading      // "Leading" for rtl langs.
-                                       relatedBy: NSLayoutRelationEqual
-                                          toItem: self.webView
-                                       attribute: NSLayoutAttributeTrailing     // "Trailing" for rtl langs.
-                                      multiplier: 1.0
-                                        constant: 0]
-          ]
-      ,
-      [NSLayoutConstraint constraintsWithVisualFormat: @"H:[tocView(==tocInitialWidth@1000)]"
-                                              options: 0
-                                              metrics: metrics
-                                                views: views]
-      ,
-      [NSLayoutConstraint constraintsWithVisualFormat: @"V:|[tocView]|"
-                                              options: 0
-                                              metrics: metrics
-                                                views: views]
-      ];
-    
-    [self.tocVC.view removeConstraintsOfViewFromView:self.view];
-    [self.view addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
-}
 
 -(CGFloat)tocGetPercentOnscreen
 {
@@ -860,11 +822,6 @@ typedef enum {
                                      duration: (CGFloat)duration
                                   thenHideTOC: (BOOL)hideTOC
 {
-    if ([elementId isEqualToString:@"section_heading_and_content_block_0"]) {
-        // quick hack special case for top/bottom oddity
-        [self tocScrollWebViewToPoint:CGPointZero duration:duration thenHideTOC:hideTOC];
-        return;
-    }
     CGRect r = [self.webView getWebViewRectForHtmlElementWithId:elementId];
     if (CGRectIsNull(r)) return;
 
@@ -2077,7 +2034,7 @@ typedef enum {
 {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 
-    [self tocUpdateLayoutAfterRotate];
+    [self tocUpdateViewLayout];
 
     [self scrollToElementOnScreenBeforeRotate];
 }
@@ -2225,6 +2182,11 @@ typedef enum {
     if ([segue.identifier isEqualToString: @"BottomMenuViewController_embed2"]) {
 		self.bottomMenuViewController = (BottomMenuViewController *) [segue destinationViewController];
 	}
+
+    if ([segue.identifier isEqualToString: @"TOCViewController_embed"]) {
+		self.tocVC = (TOCViewController*) [segue destinationViewController];
+        self.tocVC.webVC = self;
+	}
 }
 
 -(void)setBottomMenuHidden:(BOOL)bottomMenuHidden
@@ -2353,6 +2315,11 @@ typedef enum {
 
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+    // Reminder: do tocHideWithDuration in willRotateToInterfaceOrientation, not here
+    // (even though it makes the toc animate offscreen nicely if it was onscreen) as
+    // it messes up in rtl langs for some reason, blanking out the screen.
+    //[self tocHideWithDuration:@0.0f];
+
     [self updateReferencesHeightAndBottomConstraints];
 }
 
