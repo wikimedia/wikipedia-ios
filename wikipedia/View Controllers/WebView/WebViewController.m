@@ -566,10 +566,8 @@ typedef enum {
                              self.unsafeToToggleTOC = NO;
                              self.webView.scrollView.contentOffset = origScrollPosition;
                              
-                             BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
-
                              WikiGlyphButton *tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
-                             [tocButton.label setWikiText: (isRTL ? IOS_WIKIGLYPH_TOC_EXPANDED: IOS_WIKIGLYPH_TOC_COLLAPSED)
+                             [tocButton.label setWikiText: IOS_WIKIGLYPH_TOC_COLLAPSED
                                                     color: tocButton.label.color
                                                      size: tocButton.label.size
                                            baselineOffset: tocButton.label.baselineOffset];
@@ -625,10 +623,8 @@ typedef enum {
                          }completion: ^(BOOL done){
                              self.unsafeToToggleTOC = NO;
                              
-                             BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
-
                              WikiGlyphButton *tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
-                             [tocButton.label setWikiText: (isRTL ? IOS_WIKIGLYPH_TOC_COLLAPSED: IOS_WIKIGLYPH_TOC_EXPANDED)
+                             [tocButton.label setWikiText: IOS_WIKIGLYPH_TOC_EXPANDED
                                                     color: tocButton.label.color
                                                      size: tocButton.label.size
                                            baselineOffset: tocButton.label.baselineOffset];

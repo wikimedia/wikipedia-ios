@@ -242,18 +242,21 @@
 
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
     NSString *caret = !isRTL ? WIKIGLYPH_CARET_LEFT: IOS_WIKIGLYPH_FORWARD;
-    NSString *toc = !isRTL ? IOS_WIKIGLYPH_TOC_COLLAPSED: IOS_WIKIGLYPH_TOC_EXPANDED;
 
     self.buttonX =          getWikiGlyphButton(WIKIGLYPH_X,           MWLocalizedString(@"menu-close-accessibility-label", nil),   NAVBAR_BUTTON_X, size);
     self.buttonEye =        getWikiGlyphButton(WIKIGLYPH_EYE,         MWLocalizedString(@"menu-preview-accessibility-label", nil), NAVBAR_BUTTON_EYE, size);
     self.buttonArrowLeft =  getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-back-accessibility-label", nil),    NAVBAR_BUTTON_ARROW_LEFT, size);
     self.buttonArrowRight = getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-forward-accessibility-label", nil), NAVBAR_BUTTON_ARROW_RIGHT, size);
     self.buttonW =          getWikiGlyphButton(IOS_WIKIGLYPH_W,       MWLocalizedString(@"menu-w-accessibility-label", nil),       NAVBAR_BUTTON_LOGO_W, size);
-    self.buttonTOC =        getWikiGlyphButton(toc,                   MWLocalizedString(@"menu-toc-accessibility-label", nil),     NAVBAR_BUTTON_TOC, size);
+    self.buttonTOC =        getWikiGlyphButton(IOS_WIKIGLYPH_TOC_COLLAPSED, MWLocalizedString(@"menu-toc-accessibility-label", nil),     NAVBAR_BUTTON_TOC, size);
     self.buttonMagnify =    getWikiGlyphButton(IOS_WIKIGLYPH_MAGNIFY, MWLocalizedString(@"menu-search-accessibility-label", nil),  NAVBAR_BUTTON_MAGNIFY, size);
     self.buttonBlank =      getWikiGlyphButton(@"",                   @"", NAVBAR_BUTTON_BLANK, size);
     self.buttonCancel =     getWikiGlyphButton(@"",                   MWLocalizedString(@"menu-cancel-accessibility-label", nil),  NAVBAR_BUTTON_CANCEL, size);
     self.buttonTrash =      getWikiGlyphButton(WIKIGLYPH_TRASH,       MWLocalizedString(@"menu-trash-accessibility-label", nil),   NAVBAR_BUTTON_TRASH, size);
+    
+    if (isRTL) {
+        self.buttonTOC.transform = CGAffineTransformScale(CGAffineTransformIdentity, -1.0, 1.0);
+    }
 
     self.buttonCancel.label.font = [UIFont systemFontOfSize:17.0];
     self.buttonCancel.label.text = MWLocalizedString(@"search-cancel", nil);
