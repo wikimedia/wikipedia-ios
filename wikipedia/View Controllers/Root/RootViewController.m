@@ -418,6 +418,23 @@
     }
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    // iOS 8 on phones hides the status bar in landscape mode. Surprise!
+    // Make sure we update the top menu item positioning to match.
+    [self.view setNeedsUpdateConstraints];
+    [self.topMenuViewController.view setNeedsUpdateConstraints];
+}
+
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    // iOS 8 on phones hides the status bar in landscape mode. Surprise!
+    // Make sure we update the top menu item positioning to match.
+    // We already did it before rotation, but sometimes this leaves us wrong.
+    // Not sure why. Sigh.
+    [self.view setNeedsUpdateConstraints];
+}
+
 -(void)togglePrimaryMenu
 {
     if (

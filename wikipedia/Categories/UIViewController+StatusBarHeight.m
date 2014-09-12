@@ -7,7 +7,9 @@
 
 -(CGFloat)getStatusBarHeight
 {
-    return 20;
+    CGSize size = [UIApplication sharedApplication].statusBarFrame.size;
+    CGFloat val = MIN(size.width, size.height);
+    return val;
 }
 
 @end
