@@ -179,6 +179,7 @@
 		D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
 		D474CC15182AE196002BDE45 /* MWSite.m in Sources */ = {isa = PBXBuildFile; fileRef = D474CC14182AE196002BDE45 /* MWSite.m */; };
 		D47FEE2019C8CB0000B998C8 /* Main_iPhone.strings in Resources */ = {isa = PBXBuildFile; fileRef = D47FEE1E19C8CB0000B998C8 /* Main_iPhone.strings */; };
+		D47BF5D4197870390067C3BC /* SavedPagesFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D47BF5D3197870390067C3BC /* SavedPagesFunnel.m */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -644,6 +645,8 @@
 		D47FEE2619C8CB6B00B998C8 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D47FEE2719C8CBB400B998C8 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D47FEE2819C8CC2600B998C8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D47BF5D2197870390067C3BC /* SavedPagesFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SavedPagesFunnel.h; path = EventLogging/SavedPagesFunnel.h; sourceTree = "<group>"; };
+		D47BF5D3197870390067C3BC /* SavedPagesFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SavedPagesFunnel.m; path = EventLogging/SavedPagesFunnel.m; sourceTree = "<group>"; };
 		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1632,6 +1635,8 @@
 				D4F277FA194235A00032BA38 /* ProtectedEditAttemptFunnel.m */,
 				D4F277FC194235B50032BA38 /* ToCInteractionFunnel.h */,
 				D4F277FD194235B50032BA38 /* ToCInteractionFunnel.m */,
+				D47BF5D2197870390067C3BC /* SavedPagesFunnel.h */,
+				D47BF5D3197870390067C3BC /* SavedPagesFunnel.m */,
 			);
 			name = EventLogging;
 			sourceTree = "<group>";
@@ -2060,6 +2065,7 @@
 				04C43A9D183440B0006C643B /* MWCrumbyTest.m in Sources */,
 				D4991445181D51DE00E6073C /* main.m in Sources */,
 				04CFA123194B94980088269A /* MenuButton.m in Sources */,
+				D47BF5D4197870390067C3BC /* SavedPagesFunnel.m in Sources */,
 				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
 				04CCCFEE1935093A00E3F60C /* SecondaryMenuRowView.m in Sources */,
 				0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */,

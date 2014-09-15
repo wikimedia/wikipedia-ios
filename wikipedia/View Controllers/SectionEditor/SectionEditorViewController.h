@@ -4,6 +4,7 @@
 #import <UIKit/UIKit.h>
 #import "MWNetworkOp.h"
 #import "EditFunnel.h"
+#import "SavedPagesFunnel.h"
 
 @class NSManagedObjectID;
 
@@ -11,5 +12,6 @@
 
 @property (strong, nonatomic) NSManagedObjectID *sectionID;
 @property EditFunnel *funnel;
+@property SavedPagesFunnel *savedPagesFunnel;
 
 @end

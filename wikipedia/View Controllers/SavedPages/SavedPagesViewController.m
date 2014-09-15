@@ -18,6 +18,7 @@
 #import "MenuButton.h"
 #import "TopMenuViewController.h"
 #import "CoreDataHousekeeping.h"
+#import "SavedPagesFunnel.h"
 
 #define SAVED_PAGES_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
 #define SAVED_PAGES_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:1.0f]
@@ -32,6 +33,8 @@
 @property (strong, nonatomic) NSMutableArray *savedPagesDataArray;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong, nonatomic) SavedPagesFunnel *funnel;
 
 @end
 
@@ -109,6 +112,8 @@
     [super viewDidLoad];
 
     articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
+    
+    self.funnel = [[SavedPagesFunnel alloc] init];
 
     self.navigationItem.hidesBackButton = YES;
     
@@ -313,6 +318,8 @@
             [self.tableView endUpdates];
 
             [self setEmptyOverlayAndTrashIconVisibility];
+            
+            [self.funnel logDelete];
         }
     }];
 
@@ -341,6 +348,7 @@
         // core data.
         for (Saved *savedRecord in savedRecords) {
             [articleDataContext_.mainContext deleteObject:savedRecord.article];
+            [self.funnel logDelete];
         }
         NSError *saveError = nil;
         [articleDataContext_.mainContext save:&saveError];

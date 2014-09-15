@@ -8,6 +8,7 @@
 #import "SessionSingleton.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "WikipediaAppUtils.h"
+#import "SavedPagesFunnel.h"
 
 @implementation ArticleImporter
 
@@ -18,6 +19,7 @@
 
     [context performBlock:^{
     
+        SavedPagesFunnel *funnel = [[SavedPagesFunnel alloc] init];
         NSError *error = nil;
         for (NSDictionary *articleDict in articleDictionaries) {
             
@@ -82,6 +84,7 @@
             
             [article addSavedObject:saved];
             
+            [funnel logImportOnSubdomain:lang];
         }
         
         // Save all the additions from the loop above in one go.

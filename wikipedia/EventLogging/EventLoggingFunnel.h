@@ -47,11 +47,22 @@
  * get run through preprocessData: and then sent off to the
  * background logging operation queue.
  *
- * For convenience, derivded classes should contain specific
+ * The current wiki as recorded in the SessionSingleton will
+ * be used as the target of the logging request.
+ *
+ * For convenience, derived classes should contain specific
  * log* methods for each potential logging action variant for
  * readibility in calling code (and type safety on params!)
  */
 -(void)log:(NSDictionary *)eventData;
+
+/**
+ * In some cases logging should go to a specific wiki
+ * other than the one in the session. Call this as necessary.
+ *
+ * Wiki parameter is a dbname, not a domain or hostname!
+ */
+-(void)log:(NSDictionary *)eventData wiki:(NSString *)wiki;
 
 
 /**

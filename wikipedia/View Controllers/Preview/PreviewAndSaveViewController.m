@@ -535,6 +535,9 @@ typedef enum {
     NSString *title = section.fromTitle ? section.fromTitle : section.article.title;
 
     [self.funnel logSaveAttempt];
+    if (self.savedPagesFunnel) {
+        [self.savedPagesFunnel logEditAttempt];
+    }
 
     UploadSectionWikiTextOp *uploadWikiTextOp =
     [[UploadSectionWikiTextOp alloc] initForPageTitle:title domain:section.article.domain section:section.index wikiText:self.wikiText summary:editSummary captchaId:self.captchaId captchaWord:self.captchaViewController.captchaTextBox.text  completionBlock:^(NSDictionary *resultDict){

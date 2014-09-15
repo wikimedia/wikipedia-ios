@@ -29,10 +29,18 @@
 
 -(void)log:(NSDictionary *)eventData
 {
+    SessionSingleton *session = [SessionSingleton sharedInstance];
+    NSString *wiki = [session.domain stringByAppendingString:@"wiki"];
+    [self log:eventData forWiki:wiki];
+}
+
+-(void)log:(NSDictionary *)eventData forWiki:(NSString *)wiki
+{
     if ([SessionSingleton sharedInstance].sendUsageReports) {
         LogEventOp *logOp = [[LogEventOp alloc] initWithSchema: self.schema
                                                       revision: self.revision
-                                                         event: [self preprocessData:eventData]];
+                                                         event: [self preprocessData:eventData]
+                                                          wiki: wiki];
         
         [[QueuesSingleton sharedInstance].eventLoggingQ addOperation:logOp];
     }

@@ -58,6 +58,7 @@
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars_iOS.h"
 #import "NSString+FormattedAttributedString.h"
+#import "SavedPagesFunnel.h"
 
 //#import "UIView+Debugging.h"
 
@@ -1069,6 +1070,8 @@ typedef enum {
         if (!articleID) return;
         Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
         if (!article) return;
+
+        SavedPagesFunnel *funnel = [[SavedPagesFunnel alloc] init];
         if (article.saved.count == 0) {
             // Show alert.
             [self showPageSavedAlertMessageForTitle:article.title];
@@ -1077,6 +1080,7 @@ typedef enum {
             Saved *saved = [NSEntityDescription insertNewObjectForEntityForName:@"Saved" inManagedObjectContext:articleDataContext_.mainContext];
             saved.dateSaved = [NSDate date];
             [article addSavedObject:saved];
+            [funnel logSaveNew];
         }else{
             // Unsave!
             //[articleDataContext_.mainContext deleteObject:article.saved.anyObject];
@@ -1084,6 +1088,7 @@ typedef enum {
                 [articleDataContext_.mainContext deleteObject:obj];
             }
             [self fadeAlert];
+            [funnel logDelete];
         }
         NSError *error = nil;
         [articleDataContext_.mainContext save:&error];

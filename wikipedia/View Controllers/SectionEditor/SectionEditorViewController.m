@@ -253,6 +253,7 @@
     previewVC.sectionID = self.sectionID;
     previewVC.wikiText = self.editTextView.text;
     previewVC.funnel = self.funnel;
+    previewVC.savedPagesFunnel = self.savedPagesFunnel;
     [ROOT pushViewController:previewVC animated:YES];
 }
 

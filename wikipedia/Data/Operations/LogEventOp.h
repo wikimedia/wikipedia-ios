@@ -10,6 +10,7 @@
  */
 - (id)initWithSchema: (NSString *)schema
             revision: (int)revision
-               event: (NSDictionary *)event;
+               event: (NSDictionary *)event
+                wiki: (NSString *)wiki;
 
 @end

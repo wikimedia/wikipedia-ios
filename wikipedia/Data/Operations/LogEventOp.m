@@ -16,19 +16,17 @@
 - (id)initWithSchema: (NSString *)schema
             revision: (int)revision
                event: (NSDictionary *)event
+                wiki: (NSString *)wiki
 {
     self = [super init];
     if (self) {
-
-        SessionSingleton *session = [SessionSingleton sharedInstance];
-        NSString *wiki = [session.domain stringByAppendingString:@"wiki"];
 
         NSDictionary *payload =
         @{
           @"event"    : event,
           @"revision" : @(revision),
           @"schema"   : schema,
-          @"wiki"     : wiki,
+          @"wiki"     : wiki
           };
 
         NSData *payloadJsonData = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
