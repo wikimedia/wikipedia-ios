@@ -178,6 +178,7 @@
 		D46CD8C418A1AC4F0042959E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C018A1AC4F0042959E /* InfoPlist.strings */; };
 		D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
 		D474CC15182AE196002BDE45 /* MWSite.m in Sources */ = {isa = PBXBuildFile; fileRef = D474CC14182AE196002BDE45 /* MWSite.m */; };
+		D47FEE2019C8CB0000B998C8 /* Main_iPhone.strings in Resources */ = {isa = PBXBuildFile; fileRef = D47FEE1E19C8CB0000B998C8 /* Main_iPhone.strings */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -634,6 +635,15 @@
 		D474CC12182AE07C002BDE45 /* WikipediaApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaApp.h; sourceTree = "<group>"; };
 		D474CC13182AE196002BDE45 /* MWSite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWSite.h; path = "mw-support/MWSite.h"; sourceTree = "<group>"; };
 		D474CC14182AE196002BDE45 /* MWSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWSite.m; path = "mw-support/MWSite.m"; sourceTree = "<group>"; };
+		D47FEE1F19C8CB0000B998C8 /* av */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = av; path = av.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		D47FEE2119C8CB0F00B998C8 /* bcl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bcl; path = bcl.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		D47FEE2219C8CB2200B998C8 /* bto */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bto; path = bto.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D47FEE2319C8CB3400B998C8 /* ce */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ce; path = ce.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D47FEE2419C8CB6B00B998C8 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D47FEE2519C8CB6B00B998C8 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D47FEE2619C8CB6B00B998C8 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		D47FEE2719C8CBB400B998C8 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		D47FEE2819C8CC2600B998C8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1522,6 +1532,7 @@
 		D499143E181D51DE00E6073C /* Wikipedia */ = {
 			isa = PBXGroup;
 			children = (
+				D47FEE1E19C8CB0000B998C8 /* Main_iPhone.strings */,
 				D4BC22B3181E9E6300CAC673 /* empty.png */,
 				D4991447181D51DE00E6073C /* AppDelegate.h */,
 				D4991448181D51DE00E6073C /* AppDelegate.m */,
@@ -1768,6 +1779,9 @@
 				zza,
 				tg,
 				qqq,
+				av,
+				bto,
+				cs,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
@@ -1812,6 +1826,7 @@
 				04082B5518ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png in Resources */,
 				04C91CF219554B310035ED1B /* logo-onboarding.png in Resources */,
 				045A9F0D18F6090E0057EA85 /* assets in Resources */,
+				D47FEE2019C8CB0000B998C8 /* Main_iPhone.strings in Resources */,
 				04123638189C29EA00E0CF8E /* abuse-filter-flag-white@2x.png in Resources */,
 				04C91CEF195520990035ED1B /* logo-onboarding-subtitle@2x.png in Resources */,
 				04C91CEE195520990035ED1B /* logo-onboarding-subtitle.png in Resources */,
@@ -2133,6 +2148,8 @@
 				D4679084195AD48900C4E44D /* tg-cyrl */,
 				D4679087195AD49300C4E44D /* th */,
 				D4C16A6419709CDF00CD91AD /* qqq */,
+				D47FEE2219C8CB2200B998C8 /* bto */,
+				D47FEE2419C8CB6B00B998C8 /* cs */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2185,6 +2202,9 @@
 				D467908B195AD4A500C4E44D /* zh-hans */,
 				D467908C195AD4AB00C4E44D /* zh-hant */,
 				D4C16A6519709CDF00CD91AD /* qqq */,
+				D47FEE2319C8CB3400B998C8 /* ce */,
+				D47FEE2519C8CB6B00B998C8 /* cs */,
+				D47FEE2819C8CC2600B998C8 /* pt-BR */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2256,6 +2276,10 @@
 				D4C16A6019708AFB00CD91AD /* pt-BR */,
 				D4C16A6119708B0E00CD91AD /* krc */,
 				D442F58619709E540013A2CA /* qqq */,
+				D47FEE1F19C8CB0000B998C8 /* av */,
+				D47FEE2119C8CB0F00B998C8 /* bcl */,
+				D47FEE2619C8CB6B00B998C8 /* cs */,
+				D47FEE2719C8CBB400B998C8 /* ta */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
