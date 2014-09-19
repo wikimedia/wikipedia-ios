@@ -27,6 +27,7 @@ Note that due to Apple's restrictions on iOS app installation, to run a custom b
 You'll also need to install the following (used by build scripts):
 
 * [nodejs](http://nodejs.org/) and npm
+* grunt-cli (run 'npm install -g grunt-cli') 
 * [Inkscape](http://www.inkscape.org/en/download/mac-os/)
 
 
