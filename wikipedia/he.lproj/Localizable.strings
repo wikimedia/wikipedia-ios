@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Amire80
 // Author: Inkbug
+// Author: Matanya
 // Author: איתן96
 
 "article-languages-label" = "בחירת שפה";
@@ -126,7 +127,7 @@
 "edit-summary-choice-fixed-grammar" = "תיקנתי דקדוק";
 "edit-summary-choice-fixed-inaccuracy" = "תיקנתי טעויות";
 "edit-summary-choice-fixed-styling" = "תיקנתי עיצוב";
-"edit-summary-choice-fixed-typos" = "תיקנתי שגיאות כתיב";
+"edit-summary-choice-fixed-typos" = "תיקנתי טעות הקלדה";
 "edit-summary-choice-added-category" = "הוספתי קטגוריה";
 "edit-summary-choice-added-missing-info" = "הוספתי מידע חסר";
 "edit-summary-choice-added-clarification" = "הוספתי הבהרה";

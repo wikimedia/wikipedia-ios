@@ -200,9 +200,9 @@
 "nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* $1 - the number of meters. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
-"nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
+"nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}\n{{Identical|Mile}}";
 "nearby-pull-to-refresh-prompt" = "Shown when user pulls down to refresh list of nearby articles";
-"nearby-pull-to-refresh-is-refreshing" = "Shown when refreshing list of nearby articles";
+"nearby-pull-to-refresh-is-refreshing" = "Shown when refreshing list of nearby articles\n{{Identical|Refreshing}}";
 "nearby-loading" = "Show when downloading list of nearby articles";
 "nearby-loaded" = "Shown when nearby articles list has loaded successfully";
 "nearby-none" = "Shown when no nearby articles were found";

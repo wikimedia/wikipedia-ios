@@ -15,6 +15,7 @@
 "history-section-yesterday" = "Ontem";
 "history-section-lastweek" = "Última semana";
 "history-section-lastmonth" = "Último mês";
+"history-clear-confirmation-heading" = "Eliminar todos os itens recentes?";
 "history-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
 "history-clear-cancel" = "Cancelar";
 "history-clear-delete-all" = "Apagar tudo";
@@ -105,6 +106,7 @@
 "main-menu-show-today" = "Hoje";
 "main-menu-nearby" = "Nas redondezas";
 "saved-pages-title" = "Páginas guardadas";
+"saved-pages-clear-confirmation-heading" = "Eliminar todos os itens gravados?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
 "saved-pages-clear-cancel" = "Cancelar";
 "saved-pages-clear-delete-all" = "Apagar tudo";

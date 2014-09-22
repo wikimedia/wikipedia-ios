@@ -198,7 +198,7 @@
 "menu-more-accessibility-label" = "更多設定";
 "menu-trash-accessibility-label" = "刪除";
 "nearby-title" = "附近";
-"nearby-distance-label-meters" = "$1米";
+"nearby-distance-label-meters" = "$1 米";
 "nearby-distance-label-km" = "$1千米";
 "nearby-distance-label-feet" = "$1英尺";
 "nearby-distance-label-miles" = "$1英里";
