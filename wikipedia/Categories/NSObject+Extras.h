@@ -7,4 +7,6 @@
 
 -(BOOL)isNull;
 
+-(BOOL)isDict;
+
 @end

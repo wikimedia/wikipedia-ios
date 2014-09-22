@@ -5,8 +5,6 @@
 #import "WikipediaAppUtils.h"
 #import "Defines.h"
 #import "QueuesSingleton.h"
-#import "MWNetworkActivityIndicatorManager.h"
-#import "NSURLRequest+DictionaryRequest.h"
 #import "SearchResultCell.h"
 #import "SessionSingleton.h"
 #import "UIViewController+Alert.h"
@@ -15,8 +13,8 @@
 #import "NSString+Extras.h"
 #import "UIViewController+HideKeyboard.h"
 #import "CenterNavController.h"
-#import "SearchOp.h"
-
+#import "SearchResultFetcher.h"
+#import "ThumbnailFetcher.h"
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
 
@@ -79,8 +77,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[QueuesSingleton sharedInstance].thumbnailQ cancelAllOperations];
-    [[QueuesSingleton sharedInstance].searchQ cancelAllOperations];
+    [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
 }
 
 -(void)refreshSearchResults
@@ -123,11 +120,76 @@
     self.searchResultsOrdered = @[];
     [self.searchResultsTable reloadData];
     
-    [[QueuesSingleton sharedInstance].articleRetrievalQ cancelAllOperations];
-    [[QueuesSingleton sharedInstance].thumbnailQ cancelAllOperations];
+    [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
     
-    // Cancel any in-progress article retrieval operations
-    [[QueuesSingleton sharedInstance].searchQ cancelAllOperations];
+    // Cancel any in-progress searches.
+    [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
+}
+
+- (void)fetchFinished: (id)sender
+             userData: (id)userData
+               status: (FetchFinalStatus)status
+                error: (NSError *)error;
+{
+    
+    
+    if ([sender isKindOfClass:[SearchResultFetcher class]]) {
+        
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+                [self fadeAlert];
+                self.searchResultsOrdered = userData;
+                ROOT.topMenuViewController.currentSearchResultsOrdered = self.searchResultsOrdered.copy;
+                
+                // We have search titles! Show them right away!
+                // NSLog(@"FIRE ONE! Show search result titles.");
+                [self.searchResultsTable reloadData];
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                [self fadeAlert];
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                break;
+        }
+    }
+
+    if ([sender isKindOfClass:[ThumbnailFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+                NSString *fileName = [[sender url] lastPathComponent];
+                
+                // See if cache file found, show it instead of downloading if found.
+                NSString *cacheFilePath = [self.cachePath stringByAppendingPathComponent:fileName];
+                
+                // Save cache file.
+                [userData writeToFile:cacheFilePath atomically:YES];
+                
+                // Then see if cell for this image name is still onscreen and set its image if so.
+                UIImage *image = [UIImage imageWithData:userData];
+                
+                // Check if cell still onscreen! This is important!
+                NSArray *visibleRowIndexPaths = [self.searchResultsTable indexPathsForVisibleRows];
+                for (NSIndexPath *thisIndexPath in visibleRowIndexPaths.copy) {
+                    
+                    NSDictionary *rowData = self.searchResultsOrdered[thisIndexPath.row];
+                    NSString *url = rowData[@"thumbnail"][@"source"];
+                    if ([url.lastPathComponent isEqualToString:fileName]) {
+                        SearchResultCell *cell = (SearchResultCell *)[self.searchResultsTable cellForRowAtIndexPath:thisIndexPath];
+                        cell.imageView.image = image;
+                        [cell setNeedsDisplay];
+                        break;
+                    }
+                }
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                break;
+        }
+    }
 }
 
 - (void)searchForTerm:(NSString *)searchTerm
@@ -137,35 +199,10 @@
     // Show "Searching..." message.
     [self showAlert:MWLocalizedString(@"search-searching", nil) type:ALERT_TYPE_TOP duration:-1];
     
-    // Search for titles op.
-    SearchOp *searchOp =
-    [[SearchOp alloc] initWithSearchTerm: searchTerm
-                         completionBlock: ^(NSArray *searchResults){
-                             
-                             [self fadeAlert];
-                             
-                             self.searchResultsOrdered = searchResults;
-                             
-                             ROOT.topMenuViewController.currentSearchResultsOrdered = self.searchResultsOrdered.copy;
-                             
-                             dispatch_async(dispatch_get_main_queue(), ^(){
-                                 // We have search titles! Show them right away!
-                                 // NSLog(@"FIRE ONE! Show search result titles.");
-                                 [self.searchResultsTable reloadData];
-                             });
-                             
-                         } cancelledBlock: ^(NSError *error){
-                             
-                             [self fadeAlert];
-                             
-                         } errorBlock: ^(NSError *error){
-                             
-                             [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-                             
-                         }];
-    
-    searchOp.delegate = self;
-    [[QueuesSingleton sharedInstance].searchQ addOperation:searchOp];
+    // Search for titles.
+    (void)[[SearchResultFetcher alloc] initAndSearchForTerm: searchTerm
+                                                withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
+                                         thenNotifyDelegate: self];
 }
 
 #pragma mark Search term highlighting
@@ -245,55 +282,17 @@
 
     // See if cache file found, show it instead of downloading if found.
     NSString *cacheFilePath = [self.cachePath stringByAppendingPathComponent:fileName];
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:cacheFilePath isDirectory:NO];
+    BOOL isDirectory = NO;
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:cacheFilePath isDirectory:&isDirectory];
     if (fileExists) {
         cell.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfFile:cacheFilePath]];
-        return cell;
+    }else{
+        // No thumb found so fetch it.
+        (void)[[ThumbnailFetcher alloc] initAndFetchThumbnailFromURL: thumbURL
+                                                         withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
+                                                  thenNotifyDelegate: self];
     }
-
-    MWNetworkOp *thumbnailOp = [[MWNetworkOp alloc] init];
-    thumbnailOp.delegate = self;
-
-    //NSLog(@"thumbURL  = %@", thumbURL);
-
-    thumbnailOp.request = [NSURLRequest requestWithURL:[NSURL URLWithString:thumbURL]];
     
-    __weak MWNetworkOp *weakThumbnailOp = thumbnailOp;
-    thumbnailOp.aboutToStart = ^{
-        //NSLog(@"thumbnail op aboutToStart with request %@", weakThumbnailOp.request);
-        [[MWNetworkActivityIndicatorManager sharedManager] push];
-    };
-    
-    thumbnailOp.completionBlock = ^(){
-        [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        if(weakThumbnailOp.isCancelled){
-            //NSLog(@"thumbnail op completionBlock bailed (because op was cancelled) for %@", searchTerm);
-            return;
-        }
-        
-        // Save cache file.
-        [weakThumbnailOp.dataRetrieved writeToFile:cacheFilePath atomically:YES];
-        
-        // Then see if cell for this image name is still onscreen and set its image if so.
-        UIImage *image = [UIImage imageWithData:weakThumbnailOp.dataRetrieved];
-        dispatch_sync(dispatch_get_main_queue(), ^(){
-            //Check if cell still onscreen!
-            NSArray *visibleRowIndexPaths = [self.searchResultsTable indexPathsForVisibleRows];
-            for (NSIndexPath *thisIndexPath in visibleRowIndexPaths.copy) {
-                NSDictionary *rowData = self.searchResultsOrdered[thisIndexPath.row];
-                NSString *url = rowData[@"thumbnail"][@"source"];
-                if ([url.lastPathComponent isEqualToString:fileName]) {
-                    SearchResultCell *cell = (SearchResultCell *)[self.searchResultsTable cellForRowAtIndexPath:thisIndexPath];
-                    cell.imageView.image = image;
-                    [cell setNeedsDisplay];
-                    break;
-                }
-            }
-        });
-    };
-    [[QueuesSingleton sharedInstance].thumbnailQ addOperation:thumbnailOp];
-
-    //[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     return cell;
 }
 

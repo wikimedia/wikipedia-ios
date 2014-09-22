@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class GalleryImage, History, Image, Saved, Section;
+@class GalleryImage, History, Image, Saved, Section, Article;
 
 @interface Article : NSManagedObject
 
@@ -34,6 +34,7 @@
 @property (nonatomic, retain) NSSet *saved;
 @property (nonatomic, retain) NSSet *section;
 @property (nonatomic, retain) Image *thumbnailImage;
+
 @end
 
 @interface Article (CoreDataGeneratedAccessors)

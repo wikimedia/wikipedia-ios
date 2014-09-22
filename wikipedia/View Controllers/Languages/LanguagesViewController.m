@@ -4,7 +4,7 @@
 #import "LanguagesViewController.h"
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
-#import "DownloadLangLinksOp.h"
+#import "LanguageLinksFetcher.h"
 #import "QueuesSingleton.h"
 #import "LanguagesCell.h"
 #import "Defines.h"
@@ -85,7 +85,7 @@
 {
     [self.filterTextField resignFirstResponder];
 
-    [[QueuesSingleton sharedInstance].langLinksQ cancelAllOperations];
+    [[QueuesSingleton sharedInstance].languageLinksFetcher.operationQueue cancelAllOperations];
 
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: @"NavItemTapped"
@@ -175,37 +175,43 @@
 
 #pragma mark - Article lang list download op
 
+- (void)fetchFinished: (id)sender
+             userData: (id)userData
+               status: (FetchFinalStatus)status
+                error: (NSError *)error
+{
+    if ([sender isKindOfClass:[LanguageLinksFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+                //[self showAlert:@"Language links loaded."];
+                [self fadeAlert];
+                
+                self.languagesData = userData;
+                [self reloadTableDataFiltered];
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                [self fadeAlert];
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                break;
+        }
+    }
+}
+
 -(void)downloadLangLinkData
 {
     [self showAlert:MWLocalizedString(@"article-languages-downloading", nil) type:ALERT_TYPE_TOP duration:-1];
     AssetsFile *assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_LANGUAGES];
 
-    DownloadLangLinksOp *langLinksOp =
-    [[DownloadLangLinksOp alloc] initForPageTitle: [SessionSingleton sharedInstance].currentArticleTitle
-                                           domain: [SessionSingleton sharedInstance].currentArticleDomain
-                                     allLanguages: assetsFile.array
-                                  completionBlock: ^(NSArray *result){
-                                      
-                                      [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-                                          //[self showAlert:@"Language links loaded."];
-                                          [self fadeAlert];
-
-                                          self.languagesData = result;
-                                          [self reloadTableDataFiltered];
-                                      }];
-                                      
-                                  } cancelledBlock: ^(NSError *error){
-                                      //NSString *errorMsg = error.localizedDescription;
-                                      [self fadeAlert];
-                                      
-                                  } errorBlock: ^(NSError *error){
-                                      //NSString *errorMsg = error.localizedDescription;
-                                      [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-                                      
-                                  }];
+    [[QueuesSingleton sharedInstance].languageLinksFetcher.operationQueue cancelAllOperations];
     
-    [[QueuesSingleton sharedInstance].langLinksQ cancelAllOperations];
-    [[QueuesSingleton sharedInstance].langLinksQ addOperation:langLinksOp];
+    (void)[[LanguageLinksFetcher alloc] initAndFetchLanguageLinksForPageTitle:[SessionSingleton sharedInstance].currentArticleTitle
+                                                                       domain:[SessionSingleton sharedInstance].currentArticleDomain
+                                                                 allLanguages:assetsFile.array
+                                                                  withManager:[QueuesSingleton sharedInstance].languageLinksFetcher
+                                                           thenNotifyDelegate:self];
 }
 
 #pragma mark - Table protocol methods

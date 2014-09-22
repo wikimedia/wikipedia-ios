@@ -10,4 +10,9 @@
     return [self isKindOfClass:[NSNull class]];
 }
 
+-(BOOL)isDict
+{
+    return [self isKindOfClass:[NSDictionary class]];
+}
+
 @end

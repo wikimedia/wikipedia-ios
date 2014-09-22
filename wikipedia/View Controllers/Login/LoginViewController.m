@@ -5,8 +5,8 @@
 #import "LoginViewController.h"
 #import "CenterNavController.h"
 #import "QueuesSingleton.h"
-#import "LoginTokenOp.h"
-#import "LoginOp.h"
+#import "LoginTokenFetcher.h"
+#import "AccountLogin.h"
 #import "SessionSingleton.h"
 #import "UIViewController+Alert.h"
 #import "NSHTTPCookieStorage+CloneCookie.h"
@@ -42,6 +42,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *loginContainerView;
 
+@property (nonatomic, copy) void (^successBlock)();
+@property (nonatomic, copy) void (^failBlock)();
+
 @end
 
 @implementation LoginViewController
@@ -60,6 +63,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    self.successBlock = ^(){};
+    self.failBlock = ^(){};
 
     self.titleLabel.font = [UIFont boldSystemFontOfSize:23.0f * MENUS_SCALE_MULTIPLIER];
     self.usernameField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
@@ -114,7 +120,21 @@
     self.usernameField.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
     self.passwordField.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
 
-    [self adjustConstraintsScaleForViews:@[self.loginContainerView, self.titleLabel, self.usernameField, self.passwordField, self.createAccountButton]];
+    if (self.loginContainerView) {
+        // Only do this if self.loginContainerView is not nil. This is because the
+        // account areation view controller can create a "detached" instance of the
+        // login view controller after it creates an account - which it uses to
+        // login to the new account. (This detached object object won't have views
+        // so the array below will cause a crash.)
+        [self adjustConstraintsScaleForViews:
+         @[
+           self.loginContainerView,
+           self.titleLabel,
+           self.usernameField,
+           self.passwordField,
+           self.createAccountButton]
+         ];
+    }
 }
 
 -(NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string
@@ -224,6 +244,80 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)fetchFinished: (id)sender
+             userData: (id)userData
+               status: (FetchFinalStatus)status
+                error: (NSError *)error
+{
+    if ([sender isKindOfClass:[LoginTokenFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+                
+                (void)[[AccountLogin alloc] initAndLoginForDomain: [sender domain]
+                                                         userName: [sender userName]
+                                                         password: [sender password]
+                                                            token: [sender token]
+                                                      withManager: [QueuesSingleton sharedInstance].loginFetchManager
+                                               thenNotifyDelegate: self];
+
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+
+                [self fadeAlert];
+                self.failBlock();
+                
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+
+                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                self.failBlock();
+                [self.funnel logError:error.localizedDescription];
+                
+                break;
+        }
+    }
+
+    if ([sender isKindOfClass:[AccountLogin class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+
+                //NSLog(@"%@", userData);
+                NSString *loginStatus = userData[@"login"][@"result"];
+                
+                // Login credentials should only be placed in the keychain if they've been authenticated.
+                NSString *normalizedUserName = userData[@"login"][@"lgusername"];
+                [SessionSingleton sharedInstance].keychainCredentials.userName = normalizedUserName;
+                [SessionSingleton sharedInstance].keychainCredentials.password = userData[@"password"];
+                
+                //NSString *result = loginResult[@"login"][@"result"];
+                [self showAlert:loginStatus type:ALERT_TYPE_TOP duration:-1];
+                
+                self.successBlock();
+                
+                [self cloneSessionCookies];
+                //printCookies();
+                
+                [self.funnel logSuccess];
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+
+                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                self.failBlock();
+                
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+
+                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                self.failBlock();
+                [self.funnel logError:error.localizedDescription];
+
+                break;
+        }
+    }
+}
+
 -(void)loginWithUserName: (NSString *)userName
                 password: (NSString *)password
                onSuccess: (void (^)(void))successBlock
@@ -235,9 +329,9 @@
     if (!userName) userName = @"";
     if (!password) password = @"";
 
-    if (!successBlock) successBlock = ^(){};
-    if (!failBlock) failBlock = ^(){};
-
+    self.successBlock = (!successBlock) ? ^(){} : successBlock;
+    self.failBlock = (!failBlock) ? ^(){} : failBlock;
+    
     /*
     void (^printCookies)() =  ^void(){
         NSLog(@"\n\n\n\n\n\n\n\n\n\n");
@@ -249,82 +343,13 @@
      */
     
     //[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-    
-    LoginOp *loginOp =
-    [[LoginOp alloc] initWithUsername: userName
-                             password: password
-                               domain: [SessionSingleton sharedInstance].domain
-                      completionBlock: ^(NSDictionary *loginResult){
-                          
-                          NSLog(@"%@", loginResult);
-                          NSString *loginStatus = loginResult[@"login"][@"result"];
-                          
-                          // Login credentials should only be placed in the keychain if they've been authenticated.
-                          NSString *normalizedUserName = loginResult[@"login"][@"lgusername"];
-                          [SessionSingleton sharedInstance].keychainCredentials.userName = normalizedUserName;
-                          [SessionSingleton sharedInstance].keychainCredentials.password = password;
-                          
-                          //NSString *result = loginResult[@"login"][@"result"];
-                          [self showAlert:loginStatus type:ALERT_TYPE_TOP duration:-1];
-                          
-                          [[NSOperationQueue mainQueue] addOperationWithBlock:successBlock];
-                          
-                          [self cloneSessionCookies];
-                          //printCookies();
 
-                          [self.funnel logSuccess];
-                          
-                      } cancelledBlock: ^(NSError *error){
-                          
-                          [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-
-                          [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
-
-                          
-                      } errorBlock: ^(NSError *error){
-                          
-                          [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-
-                          [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
-
-
-                          [self.funnel logError:error.localizedDescription];
-                      }];
-    
-    LoginTokenOp *loginTokenOp =
-    [[LoginTokenOp alloc] initWithUsername: userName
-                                  password: password
-                                    domain: [SessionSingleton sharedInstance].domain
-                           completionBlock: ^(NSString *tokenRetrieved){
-                               
-                               NSLog(@"loginTokenOp token = %@", tokenRetrieved);
-                               loginOp.token = tokenRetrieved;
-                           } cancelledBlock: ^(NSError *error){
-                               
-                               [self fadeAlert];
-
-                               [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
-                               
-                           } errorBlock: ^(NSError *error){
-                               
-                               [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-
-                               [[NSOperationQueue mainQueue] addOperationWithBlock:failBlock];
-
-                               [self.funnel logError:error.localizedDescription];
-                           }];
-    
-    loginTokenOp.delegate = self;
-    loginOp.delegate = self;
-    
-    // The loginTokenOp needs to succeed before the loginOp can begin.
-    [loginOp addDependency:loginTokenOp];
-    
-    [[QueuesSingleton sharedInstance].loginQ cancelAllOperations];
-    [QueuesSingleton sharedInstance].loginQ.suspended = YES;
-    [[QueuesSingleton sharedInstance].loginQ addOperation:loginTokenOp];
-    [[QueuesSingleton sharedInstance].loginQ addOperation:loginOp];
-    [QueuesSingleton sharedInstance].loginQ.suspended = NO;
+    [[QueuesSingleton sharedInstance].loginFetchManager.operationQueue cancelAllOperations];
+    (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain: [SessionSingleton sharedInstance].domain
+                                                       userName: userName
+                                                       password: password
+                                                    withManager: [QueuesSingleton sharedInstance].loginFetchManager
+                                             thenNotifyDelegate: self];
 }
 
 -(void)cloneSessionCookies

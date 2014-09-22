@@ -9,7 +9,7 @@
 #import "Defines.h"
 #import "UIViewController+Alert.h"
 #import "QueuesSingleton.h"
-#import "DownloadSectionWikiTextOp.h"
+#import "WikiTextSectionFetcher.h"
 #import "CenterNavController.h"
 #import "PreviewAndSaveViewController.h"
 #import "WMF_Colors.h"
@@ -31,7 +31,6 @@
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
 @property (nonatomic) CGRect viewKeyboardRect;
-@property (copy) NSString *protectionStatus;
 
 @end
 
@@ -170,63 +169,83 @@
     }
 }
 
+- (void)fetchFinished: (id)sender
+             userData: (id)userData
+               status: (FetchFinalStatus)status
+                error: (NSError *)error
+{
+    if ([sender isKindOfClass:[WikiTextSectionFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+                
+                WikiTextSectionFetcher *wikiTextSectionFetcher = (WikiTextSectionFetcher *)sender;
+                NSDictionary *resultsDict = (NSDictionary *)userData;
+                NSString *revision = resultsDict[@"revision"];
+                NSDictionary *userInfo = resultsDict[@"userInfo"];
+                
+                self.funnel = [[EditFunnel alloc] initWithUserId:[userInfo[@"id"] intValue]];
+                [self.funnel logStart];
+
+                NSString *protectionStatus = wikiTextSectionFetcher.section.article.protectionStatus;
+
+                if (protectionStatus && [protectionStatus length] > 0) {
+                    NSString *msg;
+                    if ([protectionStatus isEqualToString:@"autoconfirmed"]) {
+                        msg = MWLocalizedString(@"page_protected_autoconfirmed", nil);
+                    } else if ([protectionStatus isEqualToString:@"sysop"]) {
+                        msg = MWLocalizedString(@"page_protected_sysop", nil);
+                    } else {
+                        msg = MWLocalizedString(@"page_protected_other", nil);
+                    }
+                    [self showAlert:msg type:ALERT_TYPE_TOP duration:1];
+                } else {
+                    //[self showAlert:MWLocalizedString(@"wikitext-download-success", nil) type:ALERT_TYPE_TOP duration:1];
+                    [self fadeAlert];
+                }
+                self.unmodifiedWikiText = revision;
+                self.editTextView.attributedText = [self getAttributedString:revision];
+                //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
+                
+                MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:wikiTextSectionFetcher.domain];
+                UITextRange *range = [self.editTextView textRangeFromPosition:self.editTextView.beginningOfDocument toPosition: self.editTextView.endOfDocument];
+                if ([lang.dir isEqualToString:@"rtl"]) {
+                    [self.editTextView setBaseWritingDirection:UITextWritingDirectionRightToLeft forRange:range];
+                } else {
+                    [self.editTextView setBaseWritingDirection:UITextWritingDirectionLeftToRight forRange:range];
+                }
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:{
+                NSString *errorMsg = error.localizedDescription;
+                [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+            }
+                break;
+            case FETCH_FINAL_STATUS_FAILED:{
+                NSString *errorMsg = error.localizedDescription;
+                [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+            }
+                break;
+        }
+    }
+}
+
 -(void)loadLatestWikiTextForSectionFromServer
 {
     [self showAlert:MWLocalizedString(@"wikitext-downloading", nil) type:ALERT_TYPE_TOP duration:-1];
+
     Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
-    NSString *domain = section.article.domain;
-    self.protectionStatus = section.article.protectionStatus;
 
     // If fromTitle was set, the section was transcluded, so use the title of the page
     // it was transcluded from.
     NSString *title = section.fromTitle ? section.fromTitle : section.article.title;
 
-    DownloadSectionWikiTextOp *downloadWikiTextOp = [[DownloadSectionWikiTextOp alloc] initForPageTitle:title domain:section.article.domain section:section.index completionBlock:^(NSString *revision, NSDictionary *userInfo) {
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-            
-            self.funnel = [[EditFunnel alloc] initWithUserId:[userInfo[@"id"] intValue]];
-            [self.funnel logStart];
+    [[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager.operationQueue cancelAllOperations];
 
-            if (self.protectionStatus && [self.protectionStatus length] > 0) {
-                NSString *msg;
-                if ([self.protectionStatus isEqualToString:@"autoconfirmed"]) {
-                    msg = MWLocalizedString(@"page_protected_autoconfirmed", nil);
-                } else if ([self.protectionStatus isEqualToString:@"sysop"]) {
-                    msg = MWLocalizedString(@"page_protected_sysop", nil);
-                } else {
-                    msg = MWLocalizedString(@"page_protected_other", nil);
-                }
-                [self showAlert:msg type:ALERT_TYPE_TOP duration:1];
-            } else {
-                //[self showAlert:MWLocalizedString(@"wikitext-download-success", nil) type:ALERT_TYPE_TOP duration:1];
-                [self fadeAlert];
-            }
-            self.unmodifiedWikiText = revision;
-            self.editTextView.attributedText = [self getAttributedString:revision];
-            //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
-            
-            MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:domain];
-            UITextRange *range = [self.editTextView textRangeFromPosition:self.editTextView.beginningOfDocument toPosition: self.editTextView.endOfDocument];
-            if ([lang.dir isEqualToString:@"rtl"]) {
-                [self.editTextView setBaseWritingDirection:UITextWritingDirectionRightToLeft forRange:range];
-            } else {
-                [self.editTextView setBaseWritingDirection:UITextWritingDirectionLeftToRight forRange:range];
-            }
-        }];
-        
-    } cancelledBlock:^(NSError *error){
-        NSString *errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-        
-    } errorBlock:^(NSError *error){
-        NSString *errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-        
-    }];
-
-    [[QueuesSingleton sharedInstance].sectionWikiTextDownloadQ cancelAllOperations];
-    [[QueuesSingleton sharedInstance].sectionWikiTextDownloadQ addOperation:downloadWikiTextOp];
+    (void)[[WikiTextSectionFetcher alloc] initAndFetchWikiTextForSection: section
+                                                                   title: title
+                                                                  domain: section.article.domain
+                                                             withManager: [QueuesSingleton sharedInstance].sectionWikiTextDownloadManager
+                                                      thenNotifyDelegate: self];
 }
 
 -(NSAttributedString *)getAttributedString:(NSString *)string

@@ -13,7 +13,6 @@
 #import "Saved.h"
 #import "Section.h"
 
-
 @implementation Article
 
 @dynamic articleId;

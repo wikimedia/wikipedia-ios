@@ -3,7 +3,8 @@
 
 #import "NearbyViewController.h"
 #import "NearbyResultCell.h"
-#import "NearbyOp.h"
+#import "NearbyFetcher.h"
+#import "ThumbnailFetcher.h"
 #import "QueuesSingleton.h"
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
@@ -15,39 +16,27 @@
 #import "UIViewController+Alert.h"
 #import "NSString+Extras.h"
 #import <MapKit/MapKit.h>
-#import "MWNetworkActivityIndicatorManager.h"
 #import "Defines.h"
 
 @interface NearbyViewController ()
 
 @property (strong, nonatomic) NSArray *nearbyDataArray;
-
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-
 @property (strong, nonatomic) CLLocationManager *locationManager;
-
 @property (strong, nonatomic) CLLocation *deviceLocation;
-
 @property (strong, nonatomic) CLHeading *deviceHeading;
-
 @property (nonatomic) dispatch_queue_t imageFetchQ;
-
 @property (strong, nonatomic) UIActionSheet *actionSheet;
-
 @property (strong, nonatomic) NSIndexPath *longPressIndexPath;
-
 @property (nonatomic) BOOL refreshNeeded;
-
 @property (nonatomic, strong) UIImage *placeholderImage;
-
 @property (nonatomic, strong) NSString *cachePath;
-
 @property (nonatomic) BOOL headingAvailable;
 
 @end
 
 /*
-    // NearbyOp returns data formatted as follows:
+    // NearbyFetcher returns data formatted as follows:
 
 	self.nearbyDataArray = (
         (
@@ -164,7 +153,7 @@
         [self.locationManager stopUpdatingHeading];
     }
 
-    [[QueuesSingleton sharedInstance].nearbyQ cancelAllOperations];
+    [[QueuesSingleton sharedInstance].nearbyFetchManager.operationQueue cancelAllOperations];
 
     [super viewWillDisappear:animated];
 
@@ -246,41 +235,90 @@
     [self showAlert:errorMessage type:ALERT_TYPE_TOP duration:-1];
 }
 
+- (void)fetchFinished: (id)sender
+             userData: (id)userData
+               status: (FetchFinalStatus)status
+                error: (NSError *)error
+{
+    if ([sender isKindOfClass:[NearbyFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+                
+                //[self showAlert:MWLocalizedString(@"nearby-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
+                [self fadeAlert];
+                
+                self.nearbyDataArray = @[userData];
+                [self calculateDistances];
+                
+                NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey: @"distance.doubleValue"
+                                                                               ascending: YES];
+                NSArray *arraySortedByDistance = [self.nearbyDataArray[0] sortedArrayUsingDescriptors:@[sortDescriptor]];
+                self.nearbyDataArray = @[arraySortedByDistance];
+                
+                [self.tableView reloadData];
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                NSLog(@"nearby op error = %@", error);
+                //[self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                NSLog(@"nearby op error = %@", error);
+                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                break;
+        }
+    }
+
+    if ([sender isKindOfClass:[ThumbnailFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+        
+                NSString *fileName = [[sender url] lastPathComponent];
+                
+                // See if cache file found, show it instead of downloading if found.
+                NSString *cacheFilePath = [self.cachePath stringByAppendingPathComponent:fileName];
+                
+                // Save cache file.
+                [userData writeToFile:cacheFilePath atomically:YES];
+                
+                // Then see if cell for this image name is still onscreen and set its image if so.
+                UIImage *image = [UIImage imageWithData:userData];
+                
+                // Check if cell still onscreen! This is important!
+                NSArray *visibleRowIndexPaths = [self.tableView indexPathsForVisibleRows];
+                for (NSIndexPath *thisIndexPath in visibleRowIndexPaths.copy) {
+                    NSArray *sectionData = self.nearbyDataArray[thisIndexPath.section];
+                    NSDictionary *rowData = sectionData[thisIndexPath.row];
+                    NSString *url = rowData[@"thumbnail"][@"source"];
+                    if ([url.lastPathComponent isEqualToString:fileName]) {
+                        NearbyResultCell *cell = (NearbyResultCell *)[self.tableView cellForRowAtIndexPath:thisIndexPath];
+                        [cell.thumbView setImage:image isPlaceHolder:NO];
+                        [cell setNeedsDisplay];
+                        break;
+                    }
+                }
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                
+                break;
+        }
+    }
+}
+
 -(void)downloadData
 {
-    CLLocationDegrees lat1 = self.deviceLocation.coordinate.latitude;
-    CLLocationDegrees long1 = self.deviceLocation.coordinate.longitude;
-
     [self showAlert:MWLocalizedString(@"nearby-loading", nil) type:ALERT_TYPE_TOP duration:-1];
-    
-    NearbyOp *nearbyOp = [[NearbyOp alloc] initWithLatitude:lat1 longitude:long1 completionBlock:^(NSArray *result){
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-            //[self showAlert:MWLocalizedString(@"nearby-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
-            [self fadeAlert];
-            
-            self.nearbyDataArray = @[result];
-            [self calculateDistances];
 
-            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey: @"distance.doubleValue"
-                                                                           ascending: YES];
-            NSArray *arraySortedByDistance = [self.nearbyDataArray[0] sortedArrayUsingDescriptors:@[sortDescriptor]];
-            self.nearbyDataArray = @[arraySortedByDistance];
-            
-            [self.tableView reloadData];
-        }];
-        
-    } cancelledBlock:^(NSError *error){
-        NSLog(@"nearby op error = %@", error);
-        //[self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+    [[QueuesSingleton sharedInstance].nearbyFetchManager.operationQueue cancelAllOperations];
 
-    } errorBlock:^(NSError *error){
-        NSLog(@"nearby op error = %@", error);
-        [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-    }];
-   
-    [[QueuesSingleton sharedInstance].nearbyQ cancelAllOperations];
-    [[QueuesSingleton sharedInstance].nearbyQ addOperation:nearbyOp];
+    (void)[[NearbyFetcher alloc] initAndFetchNearbyForLatitude: self.deviceLocation.coordinate.latitude
+                                                     longitude: self.deviceLocation.coordinate.longitude
+                                                   withManager: [QueuesSingleton sharedInstance].nearbyFetchManager
+                                            thenNotifyDelegate: self];
 }
 
 - (void)locationManager: (CLLocationManager *)manager
@@ -445,53 +483,17 @@
 
     // See if cache file found, show it instead of downloading if found.
     NSString *cacheFilePath = [self.cachePath stringByAppendingPathComponent:fileName];
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:cacheFilePath isDirectory:NO];
+    BOOL isDirectory = NO;
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:cacheFilePath isDirectory:&isDirectory];
     if (fileExists) {
         [cell.thumbView setImage:[UIImage imageWithData:[NSData dataWithContentsOfFile:cacheFilePath]] isPlaceHolder:NO];
-        return cell;
+    }else{
+        // No thumb found so fetch it.
+        (void)[[ThumbnailFetcher alloc] initAndFetchThumbnailFromURL: url
+                                                         withManager: [QueuesSingleton sharedInstance].nearbyFetchManager
+                                                  thenNotifyDelegate: self];
     }
-
-    MWNetworkOp *thumbnailOp = [[MWNetworkOp alloc] init];
-    thumbnailOp.delegate = self;
-    thumbnailOp.request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     
-    __weak MWNetworkOp *weakThumbnailOp = thumbnailOp;
-    thumbnailOp.aboutToStart = ^{
-        //NSLog(@"thumbnail op aboutToStart with request %@", weakThumbnailOp.request);
-        [[MWNetworkActivityIndicatorManager sharedManager] push];
-    };
-    thumbnailOp.completionBlock = ^(){
-        [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        if(weakThumbnailOp.isCancelled){
-            //NSLog(@"thumbnail op completionBlock bailed (because op was cancelled) for %@", searchTerm);
-            return;
-        }
-
-        // Save cache file.
-        [weakThumbnailOp.dataRetrieved writeToFile:cacheFilePath atomically:YES];
-        
-        // Then see if cell for this image name is still onscreen and set its image if so.
-        UIImage *image = [UIImage imageWithData:weakThumbnailOp.dataRetrieved];
-        
-        dispatch_sync(dispatch_get_main_queue(), ^(){
-            //Check if cell still onscreen!
-            NSArray *visibleRowIndexPaths = [self.tableView indexPathsForVisibleRows];
-            for (NSIndexPath *thisIndexPath in visibleRowIndexPaths.copy) {
-                NSArray *sectionData = self.nearbyDataArray[thisIndexPath.section];
-                NSDictionary *rowData = sectionData[thisIndexPath.row];
-                NSString *url = rowData[@"thumbnail"][@"source"];
-                if ([url.lastPathComponent isEqualToString:fileName]) {
-                    NearbyResultCell *cell = (NearbyResultCell *)[self.tableView cellForRowAtIndexPath:thisIndexPath];
-                        [cell.thumbView setImage:image isPlaceHolder:NO];
-                    [cell setNeedsDisplay];
-                    break;
-                }
-            }
-        });
-    };
-    [[QueuesSingleton sharedInstance].nearbyQ addOperation:thumbnailOp];
-
-    //[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     return cell;
 }
 

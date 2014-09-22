@@ -5,9 +5,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import "PullToRefreshViewController.h"
 #import "TopMenuViewController.h"
-#import "MWNetworkOp.h"
+#import "FetcherBase.h"
 
-@interface NearbyViewController : PullToRefreshViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate, NetworkOpDelegate>
+@interface NearbyViewController : PullToRefreshViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate, FetchFinishedDelegate>
 
 @property (nonatomic) NavBarMode navBarMode;
 @property (weak, nonatomic) id truePresentingVC;

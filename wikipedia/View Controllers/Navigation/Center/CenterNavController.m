@@ -4,23 +4,19 @@
 #import "CenterNavController.h"
 #import "Defines.h"
 #import "WikipediaAppUtils.h"
-
 #import "UINavigationController+SearchNavStack.h"
-
 #import "SessionSingleton.h"
 #import "WebViewController.h"
 #import "SectionEditorViewController.h"
-
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
 #import "TopMenuContainerView.h"
-
 #import "ArticleDataContextSingleton.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
+#import "QueuesSingleton.h"
+#import "RandomArticleFetcher.h"
 
-@interface CenterNavController (){
-
-}
+@interface CenterNavController ()
 
 @property (strong, nonatomic) NSString *wikipediaZeroLearnMoreExternalUrl;
 
@@ -214,6 +210,44 @@
     }];
     if (!articleID) {
         [NAV loadTodaysArticle];
+    }
+}
+
+-(void)loadRandomArticle
+{
+    [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
+
+    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain: [SessionSingleton sharedInstance].domain
+                                                               withManager: [QueuesSingleton sharedInstance].articleFetchManager
+                                                        thenNotifyDelegate: self];
+}
+
+- (void)fetchFinished: (id)sender
+             userData: (id)userData
+               status: (FetchFinalStatus)status
+                error: (NSError *)error
+{
+    if ([sender isKindOfClass:[RandomArticleFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+                NSString *title = (NSString *)userData;
+                if (title) {
+                    MWPageTitle *pageTitle = [MWPageTitle titleWithString:title];
+                    [NAV loadArticleWithTitle: pageTitle
+                                       domain: [SessionSingleton sharedInstance].domain
+                                     animated: YES
+                              discoveryMethod: DISCOVERY_METHOD_RANDOM
+                            invalidatingCache: NO
+                                   popToWebVC: NO]; // Don't pop - popModal has already been called.
+                }
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                //[NAV showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                break;
+        }
     }
 }
 

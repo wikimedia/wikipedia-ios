@@ -3,16 +3,16 @@
 
 #import "PreviewAndSaveViewController.h"
 #import "WikipediaAppUtils.h"
-#import "PreviewWikiTextOp.h"
+#import "PreviewHtmlFetcher.h"
 #import "UIViewController+Alert.h"
 #import "ArticleCoreDataObjects.h"
 #import "ArticleDataContextSingleton.h"
 #import "QueuesSingleton.h"
 #import "CenterNavController.h"
-#import "UploadSectionWikiTextOp.h"
+#import "WikiTextSectionUploader.h"
 #import "CaptchaViewController.h"
 #import "UIViewController+HideKeyboard.h"
-#import "EditTokenOp.h"
+#import "EditTokenFetcher.h"
 #import "SessionSingleton.h"
 #import "WebViewController.h"
 #import "UINavigationController+SearchNavStack.h"
@@ -440,63 +440,245 @@ typedef enum {
     [super viewWillDisappear:animated];
 }
 
+- (void)fetchFinished: (id)sender
+             userData: (id)userData
+               status: (FetchFinalStatus)status
+                error: (NSError *)error
+{
+    if ([sender isKindOfClass:[PreviewHtmlFetcher class]]) {
+        
+        Section *section = (Section *)[[ArticleDataContextSingleton sharedInstance].mainContext objectWithID:self.sectionID];
+        MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:section.article.domain];
+        NSString *uidir = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
+        
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+                [self fadeAlert];
+                [self resetBridge];
+                [self.bridge sendMessage: @"setLanguage"
+                             withPayload: @{
+                                            @"lang": languageInfo.code,
+                                            @"dir": languageInfo.dir,
+                                            @"uidir": uidir
+                                            }];
+                [self.bridge sendMessage:@"append" withPayload:@{@"html": userData ? userData : @""}];
+            }
+                break;
+            case FETCH_FINAL_STATUS_FAILED:{
+                NSString *errorMsg = error.localizedDescription;
+                [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:{
+                NSString *errorMsg = error.localizedDescription;
+                [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+            }
+                break;
+        }
+        
+    }else if ([sender isKindOfClass:[EditTokenFetcher class]]) {
+        
+        EditTokenFetcher *tokenFetcher = (EditTokenFetcher *)sender;
+        
+        void (^upload)() = ^void() {
+            NSMutableDictionary *editTokens = [SessionSingleton sharedInstance].keychainCredentials.editTokens;
+            NSString *editToken = editTokens[tokenFetcher.domain];
+            (void)[[WikiTextSectionUploader alloc] initAndUploadWikiText: tokenFetcher.wikiText
+                                                            forPageTitle: tokenFetcher.title
+                                                                  domain: tokenFetcher.domain
+                                                                 section: tokenFetcher.section
+                                                                 summary: tokenFetcher.summary
+                                                               captchaId: tokenFetcher.captchaId
+                                                             captchaWord: tokenFetcher.captchaWord
+                                                               articleID: tokenFetcher.articleID
+                                                                   token: editToken
+                                                             withManager: [QueuesSingleton sharedInstance].sectionWikiTextUploadManager
+                                                      thenNotifyDelegate: self];
+        };
+        
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+                NSMutableDictionary *editTokens =
+                [SessionSingleton sharedInstance].keychainCredentials.editTokens;
+                //NSLog(@"article.domain = %@", article.domain);
+                NSString *domain = [sender domain];
+                if (domain && tokenFetcher.token) {
+                    editTokens[domain] = tokenFetcher.token;
+                    [SessionSingleton sharedInstance].keychainCredentials.editTokens = editTokens;
+                }
+                upload();
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                [self fadeAlert];
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                
+                // Still try the uploadWikiTextOp even if EditTokenFetcher fails to get a token.
+                // EditTokenFetcher return an anonymous "+\" edit token if it doesn't find an edit token.
+                upload();
+                
+                break;
+        }
+        
+    } else if ([sender isKindOfClass:[WikiTextSectionUploader class]]) {
+        
+        WikiTextSectionUploader *uploader = (WikiTextSectionUploader *)sender;
+        
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+                
+                [self.funnel logSavedRevision:[userData[@"newrevid"] intValue]];
+                
+                // Mark article for refreshing and reload it.
+                if (uploader.articleID) {
+                    
+                    WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
+                    [webVC reloadCurrentArticleInvalidatingCache:YES];
+                    [ROOT popToViewController:webVC animated:YES];
+                }
+            }
+                break;
+                
+            case FETCH_FINAL_STATUS_CANCELLED:{
+                
+                NSString *errorMsg = error.localizedDescription;
+                [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+            }
+                break;
+                
+            case FETCH_FINAL_STATUS_FAILED:{
+                
+                NSString *errorMsg = error.localizedDescription;
+                
+                [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+                
+                switch (error.code) {
+                    case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
+                    {
+                        
+                        if(ROOT.topMenuViewController.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA){
+                            [self.funnel logCaptchaFailure];
+                        }
+                        
+                        // If the server said a captcha was required, present the captcha image.
+                        NSString *captchaUrl = error.userInfo[@"captchaUrl"];
+                        NSString *captchaId = error.userInfo[@"captchaId"];
+                        if (uploader.articleID) {
+                            [[ArticleDataContextSingleton sharedInstance].mainContext performBlockAndWait:^(){
+                                Article *article = (Article *)[[ArticleDataContextSingleton sharedInstance].mainContext objectWithID:uploader.articleID];
+                                if (article) {
+                                    [UIView animateWithDuration:0.2f animations:^{
+                                        
+                                        [self revealCaptcha];
+                                        
+                                        [self.captchaViewController.captchaTextBox performSelector: @selector(becomeFirstResponder)
+                                                                                        withObject: nil
+                                                                                        afterDelay: 0.4f];
+                                        
+                                        [self.captchaViewController showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+                                        
+                                        self.captchaViewController.captchaImageView.image = nil;
+                                        
+                                        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                                            // Background thread.
+                                            
+                                            NSURL *captchaImageUrl = [NSURL URLWithString:
+                                                                      [NSString stringWithFormat:@"https://%@.m.%@%@", article.domain, article.site, captchaUrl]
+                                                                      ];
+                                            
+                                            UIImage *captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
+                                            
+                                            dispatch_async(dispatch_get_main_queue(), ^(void){
+                                                // Main thread.
+                                                self.captchaViewController.captchaTextBox.text = @"";
+                                                self.captchaViewController.captchaImageView.image = captchaImage;
+                                                self.captchaId = captchaId;
+                                                
+                                                [self.view layoutIfNeeded];
+                                            });
+                                        });
+                                        
+                                    } completion:^(BOOL done){
+                                    }];
+                                }
+                            }];
+                        }
+                    }
+                        break;
+                        
+                    case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED:
+                    case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING:
+                    case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER:
+                    {
+                        //NSString *warningHtml = error.userInfo[@"warning"];
+                        
+                        [self hideKeyboard];
+                        
+                        NSString *bannerImage = nil;
+                        UIColor *bannerColor = nil;
+                        
+                        if ((error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED)) {
+                            ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW;
+                            bannerImage = @"abuse-filter-disallowed.png";
+                            bannerColor = WMF_COLOR_RED;
+                            
+                            self.abuseFilterCode = error.userInfo[@"code"];
+                            [self.funnel logAbuseFilterError:self.abuseFilterCode];
+                            
+                        }else{
+                            ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_WARNING;
+                            
+                            //[self highlightProgressiveButtons:YES];
+                            
+                            bannerImage = @"abuse-filter-flag-white.png";
+                            bannerColor = WMF_COLOR_ORANGE;
+                            
+                            self.abuseFilterCode = error.userInfo[@"code"];
+                            [self.funnel logAbuseFilterWarning:self.abuseFilterCode];
+                            
+                        }
+                        
+                        // Hides the license panel. Needed if logged in and a disallow is triggered.
+                        [self.navigationController topActionSheetHide];
+                        
+                        [self fadeAlert];
+                        AbuseFilterAlertType alertType =
+                        (error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? ABUSE_FILTER_DISALLOW : ABUSE_FILTER_WARNING;
+                        [self showAbuseFilterAlertOfType:alertType];
+                        
+                    }
+                        break;
+                        
+                    case WIKITEXT_UPLOAD_ERROR_SERVER:
+                    case WIKITEXT_UPLOAD_ERROR_UNKNOWN:
+                        
+                        [self.funnel logError:error.localizedDescription]; // @fixme is this right msg?
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+                break;
+        }
+    }
+}
+
 - (void)preview
 {
-    ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
-
-    // Use static flag to prevent preview when preview already in progress.
-    static BOOL isAleadyPreviewing = NO;
-    if (isAleadyPreviewing) return;
-    isAleadyPreviewing = YES;
-
     [self showAlert:MWLocalizedString(@"wikitext-preview-changes", nil) type:ALERT_TYPE_TOP duration:-1];
-    Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
+ 
+    Section *section = (Section *)[[ArticleDataContextSingleton sharedInstance].mainContext objectWithID:self.sectionID];
 
-    MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:section.article.domain];
-    NSString *uidir = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
+    [[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager.operationQueue cancelAllOperations];
 
-    PreviewWikiTextOp *previewWikiTextOp =
-    [[PreviewWikiTextOp alloc] initWithDomain: section.article.domain
-                                        title: section.article.title
-                                     wikiText: self.wikiText
-                              completionBlock: ^(NSString *result){
-
-        [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-
-            [self fadeAlert];
-
-            [self resetBridge];
-
-            [self.bridge sendMessage: @"setLanguage"
-                         withPayload: @{
-                                        @"lang": languageInfo.code,
-                                        @"dir": languageInfo.dir,
-                                        @"uidir": uidir
-                                        }];
-
-            [self.bridge sendMessage:@"append" withPayload:@{@"html": result ? result : @""}];
-
-            isAleadyPreviewing = NO;
-            
-        }];
-        
-    } cancelledBlock:^(NSError *error){
-        NSString *errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-        isAleadyPreviewing = NO;
-        
-    } errorBlock:^(NSError *error){
-        NSString *errorMsg = error.localizedDescription;
-        
-        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-        
-        isAleadyPreviewing = NO;
-    }];
-
-    previewWikiTextOp.delegate = self;
-
-    [[QueuesSingleton sharedInstance].sectionWikiTextPreviewQ cancelAllOperations];
-    [[QueuesSingleton sharedInstance].sectionWikiTextPreviewQ addOperation:previewWikiTextOp];
+    (void)[[PreviewHtmlFetcher alloc] initAndFetchHtmlForWikiText: self.wikiText
+                                                            title: section.article.title
+                                                           domain: section.article.domain
+                                                      withManager: [QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
+                                               thenNotifyDelegate: self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -521,223 +703,41 @@ typedef enum {
 
 - (void)save
 {
-    NSString *editSummary = [self getSummary];
 
-    // Use static flag to prevent save when save already in progress.
-    static BOOL isAleadySaving = NO;
-    if (isAleadySaving) return;
-    isAleadySaving = YES;
-
-    ArticleDataContextSingleton *articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
+//TODO: maybe? if we have credentials, yet the edit token retrieved for an edit
+// is an anonymous token (i think this happens if you try to get an edit token
+// and your login session has expired), need to pop up alert asking user if they
+// want to log in before continuing with their edit
 
     [self showAlert:MWLocalizedString(@"wikitext-upload-save", nil) type:ALERT_TYPE_TOP duration:-1];
-    Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
-
-    NSManagedObjectID *articleID = section.article.objectID;
-
-    // If fromTitle was set, the section was transcluded, so use the title of the page
-    // it was transcluded from.
-    NSString *title = section.fromTitle ? section.fromTitle : section.article.title;
 
     [self.funnel logSaveAttempt];
     if (self.savedPagesFunnel) {
         [self.savedPagesFunnel logEditAttempt];
     }
 
-    UploadSectionWikiTextOp *uploadWikiTextOp =
-    [[UploadSectionWikiTextOp alloc] initForPageTitle:title domain:section.article.domain section:section.index wikiText:self.wikiText summary:editSummary captchaId:self.captchaId captchaWord:self.captchaViewController.captchaTextBox.text  completionBlock:^(NSDictionary *resultDict){
-        
-        [self.funnel logSavedRevision:[resultDict[@"newrevid"] intValue]];
+    [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager.operationQueue cancelAllOperations];
 
-        // Mark article for refreshing and reload it.
-        if (articleID) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-                WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
-                [webVC reloadCurrentArticleInvalidatingCache:YES];
-                [ROOT popToViewController:webVC animated:YES];
-                isAleadySaving = NO;
-            }];
-        }
+    Section *section = (Section *)[[ArticleDataContextSingleton sharedInstance].mainContext objectWithID:self.sectionID];
 
-    } cancelledBlock:^(NSError *error){
-        NSString *errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-        isAleadySaving = NO;
-        
-    } errorBlock:^(NSError *error){
-        NSString *errorMsg = error.localizedDescription;
-        
-        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+    // If fromTitle was set, the section was transcluded, so use the title of the page
+    // it was transcluded from.
+    NSString *title = section.fromTitle ? section.fromTitle : section.article.title;
 
-        switch (error.code) {
-            case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
-            {
-
-                if(ROOT.topMenuViewController.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA){
-                    [self.funnel logCaptchaFailure];
-                }
-            
-                // If the server said a captcha was required, present the captcha image.
-                NSString *captchaUrl = error.userInfo[@"captchaUrl"];
-                NSString *captchaId = error.userInfo[@"captchaId"];
-                if (articleID) {
-                    [articleDataContext_.mainContext performBlockAndWait:^(){
-                        Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-                        if (article) {
-                            [UIView animateWithDuration:0.2f animations:^{
-
-                                [self revealCaptcha];
-
-                                [self.captchaViewController.captchaTextBox performSelector: @selector(becomeFirstResponder)
-                                                                                withObject: nil
-                                                                                afterDelay: 0.4f];
-
-                                [self.captchaViewController showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-
-                                self.captchaViewController.captchaImageView.image = nil;
-
-                                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                                    // Background thread.
-                                    
-                                    NSURL *captchaImageUrl = [NSURL URLWithString:
-                                                              [NSString stringWithFormat:@"https://%@.m.%@%@", article.domain, article.site, captchaUrl]
-                                                              ];
-                                    
-                                    UIImage *captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
-                                    
-                                    dispatch_async(dispatch_get_main_queue(), ^(void){
-                                        // Main thread.
-                                        self.captchaViewController.captchaTextBox.text = @"";
-                                        self.captchaViewController.captchaImageView.image = captchaImage;
-                                        self.captchaId = captchaId;
-                                        
-                                        [self.view layoutIfNeeded];
-                                    });
-                                });
-
-                            } completion:^(BOOL done){
-                            }];
-                        }
-                    }];
-                }
-            }
-                break;
-                
-            case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED:
-            case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_WARNING:
-            case WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_OTHER:
-            {
-                dispatch_async(dispatch_get_main_queue(), ^(void){
-                    //NSString *warningHtml = error.userInfo[@"warning"];
-                    
-                    [self hideKeyboard];
-                    
-                    NSString *bannerImage = nil;
-                    UIColor *bannerColor = nil;
-                    
-                    if ((error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED)) {
-                        ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW;
-                        bannerImage = @"abuse-filter-disallowed.png";
-                        bannerColor = WMF_COLOR_RED;
-
-                        self.abuseFilterCode = error.userInfo[@"code"];
-                        [self.funnel logAbuseFilterError:self.abuseFilterCode];
-
-                    }else{
-                        ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_WARNING;
-
-                        //[self highlightProgressiveButtons:YES];
-
-                        bannerImage = @"abuse-filter-flag-white.png";
-                        bannerColor = WMF_COLOR_ORANGE;
-
-                        self.abuseFilterCode = error.userInfo[@"code"];
-                        [self.funnel logAbuseFilterWarning:self.abuseFilterCode];
-
-                    }
-
-                    // Hides the license panel. Needed if logged in and a disallow is triggered.
-                    [self.navigationController topActionSheetHide];
-                    
-                    [self fadeAlert];
-                    AbuseFilterAlertType alertType =
-                        (error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? ABUSE_FILTER_DISALLOW : ABUSE_FILTER_WARNING;
-                    [self showAbuseFilterAlertOfType:alertType];
-
-                });
-            }
-                break;
-
-            case WIKITEXT_UPLOAD_ERROR_SERVER:
-            case WIKITEXT_UPLOAD_ERROR_UNKNOWN:
-
-                [self.funnel logError:error.localizedDescription]; // @fixme is this right msg?
-                break;
-                
-            default:
-                break;
-        }
-        isAleadySaving = NO;
-    }];
-
-    EditTokenOp *editTokenOp =
-    [[EditTokenOp alloc] initWithDomain: section.article.domain
-                        completionBlock: ^(NSDictionary *result){
-                            //NSLog(@"editTokenOp result = %@", result);
-                            //NSLog(@"editTokenOp result tokens = %@", result[@"tokens"][@"edittoken"]);
-
-                            if (articleID) {
-                                [articleDataContext_.mainContext performBlockAndWait:^(){
-                                    Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-                                    if (article) {
-                                        NSString *editToken = result[@"tokens"][@"edittoken"];
-                                        NSMutableDictionary *editTokens =
-                                            [SessionSingleton sharedInstance].keychainCredentials.editTokens;
-                                        //NSLog(@"article.domain = %@", article.domain);
-                                        editTokens[article.domain] = editToken;
-                                        [SessionSingleton sharedInstance].keychainCredentials.editTokens = editTokens;
-                                    }
-                                }];
-                            }
-
-                        } cancelledBlock: ^(NSError *error){
-                            
-                            [self fadeAlert];
-                            
-                            isAleadySaving = NO;
-                            
-                        } errorBlock: ^(NSError *error){
-                            
-                            [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-                            isAleadySaving = NO;
-                            
-                        }];
-
-//TODO: if we have credentials, yet the edit token retrieved for an edit is
-// an anonymous token (i think this happens if you try to get an edit token
-// and your login session has expired), need to pop up alert asking user if they
-// want to log in before continuing with their edit. In this scenario would
-// probably need cancelIfDependentOpsFailed set to YES, then if the user
-// says they don't want to login in (ie continue anon editing) then we would
-// want cancelIfDependentOpsFailed set to NO.
-
-    editTokenOp.delegate = self;
-    uploadWikiTextOp.delegate = self;
-    
-    // Still try the uploadWikiTextOp even if editTokenOp fails to get a token. uploadWikiTextOp
-    // will use an anonymous "+\" edit token if it doesn't find an edit token.
-    editTokenOp.cancelIfDependentOpsFailed = NO;
-    
-    // Try to get an edit token for the page's domain before trying to upload the changes.
-    [uploadWikiTextOp addDependency:editTokenOp];
-    
-    [[QueuesSingleton sharedInstance].sectionWikiTextUploadQ cancelAllOperations];
-    [QueuesSingleton sharedInstance].sectionWikiTextUploadQ.suspended = YES;
-    
-    [[QueuesSingleton sharedInstance].sectionWikiTextUploadQ addOperation:editTokenOp];
-    [[QueuesSingleton sharedInstance].sectionWikiTextUploadQ addOperation:uploadWikiTextOp];
-    
-    [QueuesSingleton sharedInstance].sectionWikiTextUploadQ.suspended = NO;
+    // First try to get an edit token for the page's domain before trying to upload the changes.
+    // Only the domain is used to actually fetch the token, the other values are
+    // parked in EditTokenFetcher so the actual uploader can have quick read-only
+    // access to the exact params which kicked off the token request.
+    (void)[[EditTokenFetcher alloc] initAndFetchEditTokenForWikiText: self.wikiText
+                                                           pageTitle: title
+                                                              domain: section.article.domain
+                                                             section: section.index
+                                                             summary: [self getSummary]
+                                                           captchaId: self.captchaId
+                                                         captchaWord: self.captchaViewController.captchaTextBox.text
+                                                           articleID: section.article.objectID
+                                                         withManager: [QueuesSingleton sharedInstance].sectionWikiTextUploadManager
+                                                  thenNotifyDelegate: self];
 }
 
 -(void)showAbuseFilterAlertOfType:(AbuseFilterAlertType)alertType

@@ -7,7 +7,7 @@
 #import "WikipediaAppUtils.h"
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#include <SystemConfiguration/SystemConfiguration.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 
 @implementation NSURLRequest (DictionaryRequest)
 

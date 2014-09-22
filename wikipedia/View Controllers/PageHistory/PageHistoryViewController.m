@@ -7,7 +7,6 @@
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
 #import "CenterNavController.h"
-#import "PageHistoryOp.h"
 #import "UIViewController+Alert.h"
 #import "NSDate-Utilities.h"
 #import "NSString+Extras.h"
@@ -16,6 +15,7 @@
 #import "UIViewController+ModalPop.h"
 #import "Defines.h"
 #import "PaddedLabel.h"
+#import "FetcherBase.h"
 
 @interface PageHistoryViewController (){
 
@@ -51,7 +51,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [[QueuesSingleton sharedInstance].pageHistoryQ cancelAllOperations];
+    [[QueuesSingleton sharedInstance].pageHistoryFetchManager.operationQueue cancelAllOperations];
 
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: @"NavItemTapped"
@@ -97,34 +97,39 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
+- (void)fetchFinished: (id)sender
+             userData: (id)userData
+               status: (FetchFinalStatus)status
+                error: (NSError *)error;
+{
+    if ([sender isKindOfClass:[PageHistoryFetcher class]]) {
+        NSMutableArray *pageHistoryDataArray = (NSMutableArray *)userData;
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:
+
+                self.pageHistoryDataArray = pageHistoryDataArray;
+                [self fadeAlert];
+                [self.tableView reloadData];
+            
+            break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                [self fadeAlert];
+
+            break;
+            case FETCH_FINAL_STATUS_FAILED:
+                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+            break;
+
+        }
+    }
+}
+
 -(void)getPageHistoryData
 {
-    [[QueuesSingleton sharedInstance].pageHistoryQ cancelAllOperations];
-    
-    __weak PageHistoryViewController *weakSelf = self;
-
-    [self showAlert:MWLocalizedString(@"page-history-downloading", nil) type:ALERT_TYPE_TOP duration:-1];
-
-    PageHistoryOp *pageHistoryOp =
-    [[PageHistoryOp alloc] initWithDomain: [SessionSingleton sharedInstance].currentArticleDomain
-                                    title: [SessionSingleton sharedInstance].currentArticleTitle
-                          completionBlock: ^(NSMutableArray * result){
-                              
-                              weakSelf.pageHistoryDataArray = result;
-                              
-                              dispatch_async(dispatch_get_main_queue(), ^(void){
-                                  [self fadeAlert];
-                                  [weakSelf.tableView reloadData];
-                              });
-                          }
-                           cancelledBlock: ^(NSError *error){
-                               [self fadeAlert];
-                           }
-                               errorBlock: ^(NSError *error){
-                                   [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-                               }];
-    pageHistoryOp.delegate = self;
-    [[QueuesSingleton sharedInstance].pageHistoryQ addOperation:pageHistoryOp];
+    (void)[[PageHistoryFetcher alloc] initAndFetchHistoryForTitle: [SessionSingleton sharedInstance].currentArticleTitle
+                                                           domain: [SessionSingleton sharedInstance].currentArticleDomain
+                                                      withManager: [QueuesSingleton sharedInstance].pageHistoryFetchManager
+                                               thenNotifyDelegate: self];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

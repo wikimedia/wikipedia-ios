@@ -1,8 +1,9 @@
 //  Created by Monte Hurd on 12/16/13.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#include "SectionEditorViewController.h"
-#include "MWPageTitle.h"
+#import "SectionEditorViewController.h"
+#import "MWPageTitle.h"
+#import "FetcherBase.h"
 
 typedef enum {
     DISCOVERY_METHOD_SEARCH,
@@ -11,7 +12,7 @@ typedef enum {
     DISCOVERY_METHOD_BACKFORWARD
 } ArticleDiscoveryMethod;
 
-@interface CenterNavController : UINavigationController <UINavigationControllerDelegate>
+@interface CenterNavController : UINavigationController <UINavigationControllerDelegate, FetchFinishedDelegate>
 
 @property (nonatomic, readonly) BOOL isEditorOnNavstack;
 @property (nonatomic, readonly) SectionEditorViewController *editor;
@@ -25,6 +26,7 @@ typedef enum {
 
 -(void)loadTodaysArticle;
 -(void)loadTodaysArticleIfNoCoreDataForCurrentArticle;
+-(void)loadRandomArticle;
 
 -(void) promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString *) title;
 -(void) promptZeroOff;

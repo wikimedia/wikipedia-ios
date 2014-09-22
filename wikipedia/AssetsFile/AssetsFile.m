@@ -110,7 +110,8 @@
 // Returns YES if the local version of the config file doesn't exist or is older than maxAge.
 - (BOOL)isOlderThan:(CGFloat)maxAge
 {
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.path isDirectory:NO];
+    BOOL isDirectory = NO;
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.path isDirectory:&isDirectory];
     if (!fileExists){
         NSLog(@"REFRESH NEEDED");
         return YES;

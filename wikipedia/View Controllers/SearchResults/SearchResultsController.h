@@ -2,9 +2,9 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
-#import "MWNetworkOp.h"
+#import "FetcherBase.h"
 
-@interface SearchResultsController : UIViewController <UITableViewDelegate, NetworkOpDelegate>
+@interface SearchResultsController : UIViewController <UITableViewDelegate, FetchFinishedDelegate>
 
 // Presents a view controller which, in its viewWillAppear method, does a
 // search for the NavController's currentSearchString and presents a list

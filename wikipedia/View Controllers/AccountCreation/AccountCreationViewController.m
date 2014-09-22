@@ -7,9 +7,9 @@
 #import "QueuesSingleton.h"
 #import "SessionSingleton.h"
 #import "UIViewController+Alert.h"
-#import "AccountCreationOp.h"
-#import "AccountCreationTokenOp.h"
-#import "CaptchaResetOp.h"
+#import "AccountCreationTokenFetcher.h"
+#import "AccountCreator.h"
+#import "CaptchaResetter.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "LoginViewController.h"
 #import "WMF_Colors.h"
@@ -36,7 +36,6 @@
 @property (nonatomic) BOOL showCaptchaContainer;
 @property (strong, nonatomic) NSString *captchaId;
 @property (strong, nonatomic) NSString *captchaUrl;
-@property (strong, nonatomic) NSString *token;
 @property (weak, nonatomic) IBOutlet PaddedLabel *loginButton;
 @property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *usernameUnderlineHeight;
@@ -46,6 +45,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBeneathCaptchaContainer;
 
 @property (weak, nonatomic) IBOutlet UIView *createAccountContainerView;
+
+@property (strong, nonatomic) LoginViewController *detachedloginVC;
 
 @end
 
@@ -109,7 +110,6 @@
 
     self.captchaId = @"";
     self.captchaUrl = @"";
-    self.token = @"";
     self.scrollView.delegate = self;
     self.navigationItem.hidesBackButton = YES;
     
@@ -376,42 +376,11 @@
 
     [self showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) type:ALERT_TYPE_TOP duration:1];
 
-    CaptchaResetOp *captchaResetOp =
-    [[CaptchaResetOp alloc] initWithDomain: [SessionSingleton sharedInstance].domain
-                           completionBlock: ^(NSDictionary *result){
-                               
-                               self.captchaId = result[@"index"];
-                               
-                               NSString *oldCaptchaUrl = self.captchaUrl;
-                               
-                               NSError *error = nil;
-                               NSRegularExpression *regex =
-                               [NSRegularExpression regularExpressionWithPattern: @"wpCaptchaId=([^&]*)"
-                                                                         options: NSRegularExpressionCaseInsensitive
-                                                                           error: &error];
-                               if (!error) {
-                                   NSString *newCaptchaUrl =
-                                   [regex stringByReplacingMatchesInString: oldCaptchaUrl
-                                                                   options: 0
-                                                                     range: NSMakeRange(0, [oldCaptchaUrl length])
-                                                              withTemplate: [NSString stringWithFormat:@"wpCaptchaId=%@", self.captchaId]];
-                                   
-                                   self.captchaUrl = newCaptchaUrl;
-                               }
-                               
-                           } cancelledBlock: ^(NSError *error){
-                               
-                               [self fadeAlert];
-                               
-                           } errorBlock: ^(NSError *error){
-                               [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-                               
-                           }];
+    [[QueuesSingleton sharedInstance].accountCreationFetchManager.operationQueue cancelAllOperations];
     
-    captchaResetOp.delegate = self;
-
-    [[QueuesSingleton sharedInstance].accountCreationQ cancelAllOperations];
-    [[QueuesSingleton sharedInstance].accountCreationQ addOperation:captchaResetOp];
+    (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain: [SessionSingleton sharedInstance].domain
+                                                    withManager: [QueuesSingleton sharedInstance].accountCreationFetchManager
+                                             thenNotifyDelegate: self];
 }
 
 // Handle nav bar taps.
@@ -442,19 +411,19 @@
 
 -(void)login
 {
-    id onboardingVC = [self searchModalsForViewControllerOfClass:[OnboardingViewController class]];
-
     // Create detached loginVC just for logging in.
-    LoginViewController *loginVC = [[LoginViewController alloc] init];
+    self.detachedloginVC = [[LoginViewController alloc] init];
     
     [self showAlert:MWLocalizedString(@"account-creation-logging-in", nil) type:ALERT_TYPE_TOP duration:-1];
     
-    [loginVC loginWithUserName:self.usernameField.text password:self.passwordField.text onSuccess:^{
+    [self.detachedloginVC loginWithUserName:self.usernameField.text password:self.passwordField.text onSuccess:^{
 
         NSString *loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
         loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString: @"$1"
                                                                      withString: self.usernameField.text];
         [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:-1];
+
+        id onboardingVC = [self searchModalsForViewControllerOfClass:[OnboardingViewController class]];
 
         if (onboardingVC) {
             [self popModalToRoot];
@@ -469,97 +438,116 @@
     }];
 }
 
+- (void)fetchFinished: (id)sender
+             userData: (id)userData
+               status: (FetchFinalStatus)status
+                error: (NSError *)error
+{
+    if ([sender isKindOfClass:[AccountCreationTokenFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:
+                //NSLog(@"userData = %@", userData);
+                // Pull data for all the fields which were originally passed to the token
+                // fetcher from the userData returned from it. This is to make extra sure
+                // the account creation is working with the same data as the token retrieval.
+                (void)[[AccountCreator alloc] initAndCreateAccountForUserName: [sender userName]
+                                                                             realName: @""
+                                                                               domain: [sender domain]
+                                                                             password: [sender password]
+                                                                                email: [sender email]
+                                                                            captchaId: self.captchaId
+                                                                          captchaWord: self.captchaViewController.captchaTextBox.text
+                                                                                token: [sender token]
+                                                                          withManager: [QueuesSingleton sharedInstance].accountCreationFetchManager
+                                                                   thenNotifyDelegate: self];
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                [self fadeAlert];
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                [self.funnel logError:error.localizedDescription];
+                break;
+        }
+    }
+
+    if ([sender isKindOfClass:[AccountCreator class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:
+                [self.funnel logSuccess];
+                [self showAlert:userData type:ALERT_TYPE_TOP duration:1];
+                [self performSelector:@selector(login) withObject:nil afterDelay:0.6f];
+                //isAleadySaving = NO;
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                [self fadeAlert];
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                [self.funnel logError:error.localizedDescription];
+
+                if (error.code == ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA) {
+                    self.captchaId = error.userInfo[@"captchaId"];
+                    self.captchaUrl = error.userInfo[@"captchaUrl"];
+                    self.showCaptchaContainer = YES;
+                }
+                break;
+        }
+    }
+
+    if ([sender isKindOfClass:[CaptchaResetter class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+                
+                self.captchaId = userData[@"index"];
+                
+                NSString *oldCaptchaUrl = self.captchaUrl;
+                
+                NSError *error = nil;
+                NSRegularExpression *regex =
+                [NSRegularExpression regularExpressionWithPattern: @"wpCaptchaId=([^&]*)"
+                                                          options: NSRegularExpressionCaseInsensitive
+                                                            error: &error];
+                if (!error) {
+                    NSString *newCaptchaUrl =
+                    [regex stringByReplacingMatchesInString: oldCaptchaUrl
+                                                    options: 0
+                                                      range: NSMakeRange(0, [oldCaptchaUrl length])
+                                               withTemplate: [NSString stringWithFormat:@"wpCaptchaId=%@", self.captchaId]];
+                    
+                    self.captchaUrl = newCaptchaUrl;
+                }
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                [self fadeAlert];
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                break;
+        }
+    }
+}
+
 -(void)save
 {
-    static BOOL isAleadySaving = NO;
-    if (isAleadySaving) return;
-    isAleadySaving = YES;
-
     // Verify passwords fields match.
     if (![self.passwordField.text isEqualToString:self.passwordRepeatField.text]) {
         [self showAlert:MWLocalizedString(@"account-creation-passwords-mismatched", nil) type:ALERT_TYPE_TOP duration:-1];
-        isAleadySaving = NO;
         return;
     }
 
     // Save!
     [self showAlert:MWLocalizedString(@"account-creation-saving", nil) type:ALERT_TYPE_TOP duration:-1];
 
-    AccountCreationOp *accountCreationOp =
-    [[AccountCreationOp alloc] initWithDomain: [SessionSingleton sharedInstance].domain
-                                     userName: self.usernameField.text
-                                     password: self.passwordField.text
-                                     realName: @""
-                                        email: self.emailField.text
-                                    captchaId: self.captchaId
-                                  captchaWord: self.captchaViewController.captchaTextBox.text
-     
-                              completionBlock: ^(NSString *result){
-                                  
-                                  //NSLog(@"AccountCreationOp result = %@", result);
-                                  
-                                  [self.funnel logSuccess];
+    [[QueuesSingleton sharedInstance].accountCreationFetchManager.operationQueue cancelAllOperations];
 
-                                  dispatch_async(dispatch_get_main_queue(), ^(){
-                                      [self showAlert:result type:ALERT_TYPE_TOP duration:1];
-                                      [self performSelector:@selector(login) withObject:nil afterDelay:0.6f];
-                                      isAleadySaving = NO;
-                                  });
-                                  
-                              } cancelledBlock: ^(NSError *error){
-                                  
-                                  [self fadeAlert];
-                                  isAleadySaving = NO;
-                                  
-                              } errorBlock: ^(NSError *error){
-                                  [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-
-                                  [self.funnel logError:error.localizedDescription];
-
-                                  switch (error.code) {
-                                      case ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA:{
-                                          self.captchaId = error.userInfo[@"captchaId"];
-                                          dispatch_async(dispatch_get_main_queue(), ^(){
-                                              self.captchaUrl = error.userInfo[@"captchaUrl"];
-                                              self.showCaptchaContainer = YES;
-                                          });
-                                      }
-                                          break;
-                                      default:
-                                          break;
-                                  }
-                                  
-                                  isAleadySaving = NO;
-                              }];
-
-    AccountCreationTokenOp *accountCreationTokenOp =
-    [[AccountCreationTokenOp alloc] initWithDomain: [SessionSingleton sharedInstance].domain
-                                          userName: self.usernameField.text
-                                          password: self.passwordField.text
-                                   completionBlock: ^(NSString *token){
-                                       accountCreationOp.token = token;
-                                   }
-                                    cancelledBlock: ^(NSError *error){
-                                        [self fadeAlert];
-                                        isAleadySaving = NO;
-                                    }
-                                        errorBlock: ^(NSError *error){
-                                            [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-                                            isAleadySaving = NO;
-                                        }];
-
-    accountCreationOp.delegate = self;
-    accountCreationTokenOp.delegate = self;
-
-    // The accountCreationTokenOp needs to succeed before the accountCreationOp can begin.
-    [accountCreationOp addDependency:accountCreationTokenOp];
-
-    [[QueuesSingleton sharedInstance].accountCreationQ cancelAllOperations];
-    
-    [QueuesSingleton sharedInstance].loginQ.suspended = YES;
-    [[QueuesSingleton sharedInstance].accountCreationQ addOperation:accountCreationTokenOp];
-    [[QueuesSingleton sharedInstance].accountCreationQ addOperation:accountCreationOp];
-    [QueuesSingleton sharedInstance].loginQ.suspended = NO;
+    (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain: [SessionSingleton sharedInstance].domain
+                                                                 userName: self.usernameField.text
+                                                                 password: self.passwordField.text
+                                                                    email: self.emailField.text
+                                                              withManager: [QueuesSingleton sharedInstance].accountCreationFetchManager
+                                                       thenNotifyDelegate: self];
 }
 
 - (void)didReceiveMemoryWarning

@@ -3,8 +3,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TopMenuViewController.h"
+#import "FetcherBase.h"
 
-@interface LanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface LanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, FetchFinishedDelegate>
 
 @property (nonatomic) BOOL downloadLanguagesForCurrentArticle;
 

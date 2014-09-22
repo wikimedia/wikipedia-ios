@@ -3,10 +3,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "MWNetworkOp.h"
 #import "LoginFunnel.h"
+#import "FetcherBase.h"
 
-@interface LoginViewController : UIViewController <NetworkOpDelegate>
+@interface LoginViewController : UIViewController <FetchFinishedDelegate>
 
 - (IBAction)createAccountButtonPushed:(id)sender;
 

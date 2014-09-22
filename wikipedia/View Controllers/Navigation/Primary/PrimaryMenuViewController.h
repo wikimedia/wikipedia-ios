@@ -3,6 +3,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TopMenuViewController.h"
+#import "FetcherBase.h"
 
 @interface PrimaryMenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

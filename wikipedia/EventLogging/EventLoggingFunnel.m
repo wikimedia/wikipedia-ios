@@ -7,7 +7,7 @@
 //
 
 #import "EventLoggingFunnel.h"
-#import "LogEventOp.h"
+#import "EventLogger.h"
 #import "QueuesSingleton.h"
 #import "SessionSingleton.h"
 
@@ -37,12 +37,10 @@
 -(void)log:(NSDictionary *)eventData forWiki:(NSString *)wiki
 {
     if ([SessionSingleton sharedInstance].sendUsageReports) {
-        LogEventOp *logOp = [[LogEventOp alloc] initWithSchema: self.schema
-                                                      revision: self.revision
-                                                         event: [self preprocessData:eventData]
-                                                          wiki: wiki];
-        
-        [[QueuesSingleton sharedInstance].eventLoggingQ addOperation:logOp];
+        (void)[[EventLogger alloc] initAndLogEvent:[self preprocessData:eventData]
+                                        forSchema: self.schema
+                                         revision: self.revision
+                                             wiki: wiki];
     }
 }
 

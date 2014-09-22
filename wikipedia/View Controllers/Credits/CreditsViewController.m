@@ -19,6 +19,8 @@
 #define URL_APP_WIKIFONT @"https://github.com/munmay/WikiFont"
 #define URL_APP_HPPLE @"https://github.com/topfunky/hpple"
 #define URL_APP_NSDATE @"https://github.com/erica/NSDate-Extensions"
+#define URL_APP_AFNETWORKING @"https://github.com/AFNetworking/AFNetworking"
+#define URL_APP_COCOAPODS @"http://cocoapods.org"
 
 #define MENU_ICON_COLOR [UIColor blackColor]
 #define MENU_ICON_FONT_SIZE 24
@@ -31,6 +33,8 @@ typedef enum {
     CREDITS_ROW_INDEX_REPO_WIKIFONT,
     CREDITS_ROW_INDEX_REPO_HPPLE,
     CREDITS_ROW_INDEX_REPO_NSDATE,
+    CREDITS_ROW_INDEX_REPO_AFNETWORKING,
+    CREDITS_ROW_INDEX_REPO_COCOAPODS,
     CREDITS_ROW_INDEX_HEADING_BLANK
 } CeditsRowIndex;
 
@@ -258,6 +262,22 @@ typedef enum {
           @"icon": ltrSafeCaretCharacter,
           @"type": @(ROW_TYPE_SELECTION),
           @"url": URL_APP_NSDATE,
+          }.mutableCopy
+      ,
+      @{
+          @"title": @"AFNetworking",
+          @"tag": @(CREDITS_ROW_INDEX_REPO_AFNETWORKING),
+          @"icon": ltrSafeCaretCharacter,
+          @"type": @(ROW_TYPE_SELECTION),
+          @"url": URL_APP_AFNETWORKING,
+          }.mutableCopy
+      ,
+      @{
+          @"title": @"Cocoapods",
+          @"tag": @(CREDITS_ROW_INDEX_REPO_COCOAPODS),
+          @"icon": ltrSafeCaretCharacter,
+          @"type": @(ROW_TYPE_SELECTION),
+          @"url": URL_APP_COCOAPODS,
           }.mutableCopy
       ,
       @{

@@ -4,10 +4,9 @@
 #import "WebViewController.h"
 
 #import "WikipediaAppUtils.h"
-#import "DownloadWikipediaZeroMessageOp.h"
+#import "WikipediaZeroMessageFetcher.h"
 #import "ArticleDataContextSingleton.h"
 #import "SectionEditorViewController.h"
-#import "DownloadSectionsOp.h"
 #import "ArticleCoreDataObjects.h"
 #import "CommunicationBridge.h"
 #import "TOCViewController.h"
@@ -33,7 +32,6 @@
 #import "PaddedLabel.h"
 #import "DataMigrator.h"
 #import "ArticleImporter.h"
-#import "SyncAssetsFileOp.h"
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
 #import "BottomMenuViewController.h"
@@ -59,6 +57,9 @@
 #import "WikiGlyph_Chars_iOS.h"
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"
+
+#import "ArticleFetcher.h"
+#import "AssetsFileFetcher.h"
 
 //#import "UIView+Debugging.h"
 
@@ -182,7 +183,9 @@ typedef enum {
 
     self.panSwipeRecognizer = nil;
 
+    self.zeroStatusLabel.font = [UIFont systemFontOfSize:ALERT_FONT_SIZE];
     self.zeroStatusLabel.text = @"";
+    
     self.referencesVC = nil;
     
     self.sectionToEditId = 0;
@@ -377,6 +380,8 @@ typedef enum {
 -(void)viewWillDisappear:(BOOL)animated
 {
     [self tocHideWithDuration:TOC_TOGGLE_ANIMATION_DURATION];
+
+    [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
     
     [super viewWillDisappear:animated];
 }
@@ -454,27 +459,18 @@ typedef enum {
     // Sync config/ios.json at most once per day.
     CGFloat maxAge = 60 * 60 * 24;
 
-    SyncAssetsFileOp *configSyncOp =
-    [[SyncAssetsFileOp alloc] initForAssetsFile: ASSETS_FILE_CONFIG
-                                         maxAge: maxAge];
+    [[QueuesSingleton sharedInstance].assetsFetchManager.operationQueue cancelAllOperations];
+
+    void (^fetch)(AssetsFileEnum) = ^void(AssetsFileEnum type) {
+        (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFile: type
+                                                    withManager: [QueuesSingleton sharedInstance].assetsFetchManager
+                                                         maxAge: maxAge];
+    };
     
-    SyncAssetsFileOp *cssSyncOp =
-    [[SyncAssetsFileOp alloc] initForAssetsFile: ASSETS_FILE_CSS
-                                         maxAge: maxAge];
-    
-    SyncAssetsFileOp *abuseFilterCssSyncOp =
-    [[SyncAssetsFileOp alloc] initForAssetsFile: ASSETS_FILE_CSS_ABUSE_FILTER
-                                         maxAge: maxAge];
-    
-    SyncAssetsFileOp *previewCssSyncOp =
-    [[SyncAssetsFileOp alloc] initForAssetsFile: ASSETS_FILE_CSS_PREVIEW
-                                         maxAge: maxAge];
-    
-    [[QueuesSingleton sharedInstance].assetsFileSyncQ cancelAllOperations];
-    [[QueuesSingleton sharedInstance].assetsFileSyncQ addOperation:configSyncOp];
-    [[QueuesSingleton sharedInstance].assetsFileSyncQ addOperation:cssSyncOp];
-    [[QueuesSingleton sharedInstance].assetsFileSyncQ addOperation:abuseFilterCssSyncOp];
-    [[QueuesSingleton sharedInstance].assetsFileSyncQ addOperation:previewCssSyncOp];
+    fetch(ASSETS_FILE_CONFIG);
+    fetch(ASSETS_FILE_CSS);
+    fetch(ASSETS_FILE_CSS_ABUSE_FILTER);
+    fetch(ASSETS_FILE_CSS_PREVIEW);
 }
 
 #pragma mark Edit section
@@ -1360,6 +1356,8 @@ typedef enum {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 
+    //[self downloadAssetsFilesIfNecessary];
+
     /*
     OnboardingViewController *onboardingVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"OnboardingViewController"];
     [self presentViewController:onboardingVC animated:YES completion:^{}];
@@ -1381,6 +1379,8 @@ typedef enum {
 
     //ReferencesVC *referencesVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"ReferencesVC"];
     //[self presentViewController:referencesVC animated:YES completion:^{}];
+
+    //NSLog(@"articleFetchManager.operationCount = %lu", (unsigned long)[QueuesSingleton sharedInstance].articleFetchManager.operationQueue.operationCount);
 }
 
 -(void)toggleImageSheet
@@ -1531,330 +1531,241 @@ typedef enum {
     showLoadingIndicator: YES];
 }
 
+- (void)fetchFinished: (id)sender
+             userData: (id)userData
+               status: (FetchFinalStatus)status
+                error: (NSError *)error
+{
+    if ([sender isKindOfClass:[ArticleFetcher class]]) {
+        
+        ArticleFetcher *articleFetcher = (ArticleFetcher *)sender;
+        Article *article = articleFetcher.article;
+        
+        NSNumber *articleSectionType = (NSNumber *)userData;
+        
+        switch (articleSectionType.integerValue) {
+            case ARTICLE_SECTION_TYPE_LEAD:
+                
+                switch (status) {
+                    case FETCH_FINAL_STATUS_SUCCEEDED:
+                    {
+                        // Redirect if necessary.
+                        NSString *redirectedTitle = article.redirected;
+                        if (redirectedTitle.length > 0) {
+                            // Get discovery method for call to "retrieveArticleForPageTitle:".
+                            // There should only be a single history item (at most).
+                            History *history = [article.history anyObject];
+                            // Get the article's discovery method string.
+                            NSString *discoveryMethod =
+                            (history) ? history.discoveryMethod : [NAV getStringForDiscoveryMethod:DISCOVERY_METHOD_SEARCH];
+                            
+                            // Remove the article so it doesn't get saved.
+                            [article.managedObjectContext deleteObject:article];
+                            
+                            // Redirect!
+                            [self retrieveArticleForPageTitle: [MWPageTitle titleWithString:redirectedTitle]
+                                                       domain: article.domain
+                                              discoveryMethod: discoveryMethod];
+                            return;
+                        }
+                        
+                        // Associate thumbnail with article.
+                        // If search result for this pageTitle had a thumbnail url associated with it, see if
+                        // a core data image object exists with a matching sourceURL. If so make the article
+                        // thumbnailImage property point to that core data image object. This associates the
+                        // search result thumbnail with the article.
+                        NSPredicate *articlePredicate =
+                        [NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", article.titleObj.text];
+                        NSDictionary *articleDictFromSearchResults =
+                        [ROOT.topMenuViewController.currentSearchResultsOrdered firstMatchForPredicate:articlePredicate];
+                        if (articleDictFromSearchResults) {
+                            NSString *thumbURL = articleDictFromSearchResults[@"thumbnail"][@"source"];
+                            thumbURL = [thumbURL getUrlWithoutScheme];
+                            Image *thumb = (Image *)[article.managedObjectContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
+                            if (thumb) article.thumbnailImage = thumb;
+                        }
+                        
+                        // Actually save the article record.
+                        NSError *err = nil;
+                        [article.managedObjectContext save:&err];
+                        if (err) NSLog(@"Lead section save error = %@", err);
+                        
+                        // Update the toc and web view.
+                        [self.tocVC setTocSectionDataForSections:article.section];
+                        [self displayArticle:article.objectID mode:DISPLAY_LEAD_SECTION];
+                        
+                    }
+                        break;
+                    case FETCH_FINAL_STATUS_FAILED:
+                    {
+                        NSString *errorMsg = error.localizedDescription;
+                        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+                        
+                        // Remove the article so it doesn't get saved.
+                        [article.managedObjectContext deleteObject:article];
+                    }
+                        break;
+                    case FETCH_FINAL_STATUS_CANCELLED:
+                    {
+                        // Remove the article so it doesn't get saved.
+                        [article.managedObjectContext deleteObject:article];
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+                break;
+                
+            case ARTICLE_SECTION_TYPE_NON_LEAD:
+                
+                switch (status) {
+                    case FETCH_FINAL_STATUS_SUCCEEDED:
+                    {
+                        // Save the article record.
+                        NSError *err = nil;
+                        [article.managedObjectContext save:&err];
+                        if (err) NSLog(@"Non-lead section save error = %@", err);
+                        
+                        // Update the toc and web view.
+                        [self.tocVC setTocSectionDataForSections:article.section];
+                        [self displayArticle:article.objectID mode:DISPLAY_APPEND_NON_LEAD_SECTIONS];
+                        
+                    }
+                        break;
+                    case FETCH_FINAL_STATUS_FAILED:
+                    {
+                        NSString *errorMsg = error.localizedDescription;
+                        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+                    }
+                        break;
+                    case FETCH_FINAL_STATUS_CANCELLED:
+                        [self fadeAlert];
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+                break;
+            default:
+                break;
+        }
+
+    } else if ([sender isKindOfClass:[WikipediaZeroMessageFetcher class]]) {
+
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:
+            {
+                NSString *title = (NSString *)userData;
+                if (title) {
+                    TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
+                    textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
+                    
+                    //[self showAlert:title type:ALERT_TYPE_TOP duration:2];
+                    self.zeroStatusLabel.text = title;
+                    self.zeroStatusLabel.padding = UIEdgeInsetsMake(3, 10, 3, 10);
+                    self.zeroStatusLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.93];
+                    
+                    [NAV promptFirstTimeZeroOnWithTitleIfAppropriate:title];
+                }
+            }
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+            {
+                
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+            {
+                
+            }
+                break;
+        }
+    }
+
+}
+
 - (void)retrieveArticleForPageTitle: (MWPageTitle *)pageTitle
                              domain: (NSString *)domain
                     discoveryMethod: (NSString *)discoveryMethod
 {
-    // Cancel any in-progress article retrieval operations
-    [[QueuesSingleton sharedInstance].articleRetrievalQ cancelAllOperations];
-    [[QueuesSingleton sharedInstance].searchQ cancelAllOperations];
-    [[QueuesSingleton sharedInstance].thumbnailQ cancelAllOperations];
+    // Cancel certain in-progress fetches.
+    [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
+    [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
 
-    __block NSManagedObjectID *articleID =
-    [articleDataContext_.mainContext getArticleIDForTitle: pageTitle.prefixedText
-                                                   domain: domain];
-    BOOL needsRefresh = NO;
-
-    if (articleID) {
-        Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-
-        // Update the history dateVisited timestamp of the article to be visited only
-        // if the article was NOT loaded via back or forward buttons.
-        if (![discoveryMethod isEqualToString:@"backforward"]) {
-            if (article.history.count > 0) { // There should only be a single history item.
-                History *history = [article.history anyObject];
-                history.dateVisited = [NSDate date];
-            }
-        }
+    [articleDataContext_.mainContext performBlockAndWait:^(){
         
-        // If article with sections just show them (unless needsRefresh is YES)
-        if (article.section.count > 0 && !article.needsRefresh.boolValue) {
-            [self.tocVC setTocSectionDataForSections:article.section];
-            [self displayArticle:articleID mode:DISPLAY_ALL_SECTIONS];
-            //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
-            [self fadeAlert];
-            return;
-        }
-        needsRefresh = article.needsRefresh.boolValue;
-    }
-
-    // Retrieve remaining sections op (dependent on first section op)
-    DownloadSectionsOp *remainingSectionsOp =
-    [[DownloadSectionsOp alloc] initForPageTitle: pageTitle.prefixedText
-                                          domain: [SessionSingleton sharedInstance].currentArticleDomain
-                                 leadSectionOnly: NO
-                                 completionBlock: ^(NSDictionary *results){
+        __block NSManagedObjectID *articleID =
+        [articleDataContext_.mainContext getArticleIDForTitle: pageTitle.prefixedText
+                                                       domain: domain];
+        BOOL needsRefresh = NO;
         
-        // Just in case the article wasn't created during the "parent" operation.
-        if (!articleID) return;
-
-        [articleDataContext_.mainContext performBlockAndWait:^(){
-            // The completion block happens on non-main thread, so must get article from articleID again.
-            // Because "you can only use a context on a thread when the context was created on that thread"
-            // this must happen on mainContext as well (see: http://stackoverflow.com/a/6356201/135557)
-            Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-
-            //Non-lead sections have been retreived so set needsRefresh to NO.
-            article.needsRefresh = @NO;
-
-            NSArray *sectionsRetrieved = results[@"sections"];
-
-            for (NSDictionary *section in sectionsRetrieved) {
-                if (![section[@"id"] isEqual: @0]) {
-                                    
-                    // Add sections for article
-                    Section *thisSection = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_.mainContext];
-
-                    // Section index is a string because transclusion sections indexes will start with "T-".
-                    if ([section[@"index"] isKindOfClass:[NSString class]]) {
-                        thisSection.index = section[@"index"];
-                    }
-
-                    thisSection.title = section[@"line"];
-
-                    if ([section[@"level"] isKindOfClass:[NSString class]]) {
-                        thisSection.level = section[@"level"];
-                    }
-
-                    // Section number, from the api, can be 3.5.2 etc, so it's a string.
-                    if ([section[@"number"] isKindOfClass:[NSString class]]) {
-                        thisSection.number = section[@"number"];
-                    }
-
-                    if (section[@"fromtitle"]) {
-                        thisSection.fromTitle = section[@"fromtitle"];
-                    }
-
-                    thisSection.sectionId = section[@"id"];
-
-                    thisSection.html = section[@"text"];
-                    thisSection.tocLevel = section[@"toclevel"];
-                    thisSection.dateRetrieved = [NSDate date];
-                    thisSection.anchor = (section[@"anchor"]) ? section[@"anchor"] : @"";
-
-                    [article addSectionObject:thisSection];
-
-                    [thisSection createImageRecordsForHtmlOnContext:articleDataContext_.mainContext];
-                }
-            }
-
-            NSError *error = nil;
-            [articleDataContext_.mainContext save:&error];
-
-            [self.tocVC setTocSectionDataForSections:article.section];
-
-        }];
-        
-        [self displayArticle:articleID mode:DISPLAY_APPEND_NON_LEAD_SECTIONS];
-        //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
-        //[self fadeAlert];
-
-    } cancelledBlock:^(NSError *error){
-        [self fadeAlert];
-    } errorBlock:^(NSError *error){
-        NSString *errorMsg = error.localizedDescription;
-        if(error.code != 555){ // Quick hack for hiding MWNetworkOp cancel messages.
-            [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-        }
-    }];
-
-    remainingSectionsOp.delegate = self;
-
-
-    // Retrieve first section op
-    DownloadSectionsOp *firstSectionOp =
-    [[DownloadSectionsOp alloc] initForPageTitle: pageTitle.prefixedText
-                                          domain: [SessionSingleton sharedInstance].currentArticleDomain
-                                 leadSectionOnly: YES
-                                 completionBlock: ^(NSDictionary *dataRetrieved){
-
-
-        NSString *redirectedTitle = [dataRetrieved[@"redirected"] copy];
-
-        // Redirect if the pageTitle which triggered this call to "retrieveArticleForPageTitle"
-        // differs from titleReflectingAnyRedirects.
-        if (redirectedTitle.length > 0) {
-            MWPageTitle *newTitle = [MWPageTitle titleWithString:redirectedTitle];
-            [self retrieveArticleForPageTitle: newTitle
-                                       domain: domain
-                              discoveryMethod: discoveryMethod];
-            return;
-        }
-
-        [articleDataContext_.mainContext performBlockAndWait:^(){
-            Article *article = nil;
-
-            if (!articleID) {
-                article = [NSEntityDescription
-                    insertNewObjectForEntityForName:@"Article"
-                    inManagedObjectContext:articleDataContext_.mainContext
-                ];
-                article.title = pageTitle.prefixedText;
-                article.dateCreated = [NSDate date];
-                article.site = [SessionSingleton sharedInstance].site;
-                article.domain = [SessionSingleton sharedInstance].currentArticleDomain;
-                article.domainName = [SessionSingleton sharedInstance].currentArticleDomainName;
-                articleID = article.objectID;
-            }else{
-                article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-            }
-
-            if (needsRefresh) {
-                // If and article needs refreshing remove its sections so they get reloaded too.
-                for (Section *thisSection in [article.section copy]) {
-                    [articleDataContext_.mainContext deleteObject:thisSection];
-                }
-            }
-
-            // If "needsRefresh", an existing article's data is being retrieved again, so these need
-            // to be updated whether a new article record is being inserted or not as data may have
-            // changed since the article record was first created.
-            article.languagecount = dataRetrieved[@"languagecount"];
-            article.lastmodified = dataRetrieved[@"lastmodified"];
-            article.lastmodifiedby = dataRetrieved[@"lastmodifiedby"];
-            article.articleId = dataRetrieved[@"articleId"];
-            article.editable = dataRetrieved[@"editable"];
-            article.protectionStatus = dataRetrieved[@"protectionStatus"];
-            article.displayTitle = dataRetrieved[@"displaytitle"];
-
-
-            // Note: Because "retrieveArticleForPageTitle" recurses with the redirected-to title if
-            // the lead section op determines a redirect occurred, the "redirected" value below will
-            // probably never be set.
-            article.redirected = dataRetrieved[@"redirected"];
-
-            //NSDateFormatter *anotherDateFormatter = [[NSDateFormatter alloc] init];
-            //[anotherDateFormatter setDateStyle:NSDateFormatterLongStyle];
-            //[anotherDateFormatter setTimeStyle:NSDateFormatterShortStyle];
-            //NSLog(@"formatted lastmodified = %@", [anotherDateFormatter stringFromDate:article.lastmodified]);
-
-            // Associate thumbnail with article.
-            // If search result for this pageTitle had a thumbnail url associated with it, see if
-            // a core data image object exists with a matching sourceURL. If so make the article
-            // thumbnailImage property point to that core data image object. This associates the
-            // search result thumbnail with the article.
-            NSPredicate *articlePredicate =
-                [NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", pageTitle.text];
-            NSDictionary *articleDictFromSearchResults =
-                [ROOT.topMenuViewController.currentSearchResultsOrdered firstMatchForPredicate:articlePredicate];
-            if (articleDictFromSearchResults) {
-                NSString *thumbURL = articleDictFromSearchResults[@"thumbnail"][@"source"];
-                thumbURL = [thumbURL getUrlWithoutScheme];
-                Image *thumb = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
-                if (thumb) article.thumbnailImage = thumb;
-            }
-
-            article.lastScrollX = @0.0f;
-            article.lastScrollY = @0.0f;
-
-            // Get article section zero html
-            NSArray *sectionsRetrieved = dataRetrieved[@"sections"];
-            NSDictionary *section0Dict = (sectionsRetrieved.count >= 1) ? sectionsRetrieved[0] : nil;
-
-            // If there was only one section then we have what we need so no refresh
-            // is needed. Otherwise leave needsRefresh set to YES until subsequent sections
-            // have been retrieved. Reminder: "onlyrequestedsections" is not used
-            // by the mobileview query so that sectionsRetrieved.count will
-            // reflect the article's total number of sections here ("sections"
-            // was set to "0" though so only the first section entry actually has
-            // any html). This fixes the bug which caused subsequent sections to never
-            // be retrieved if the article was navigated away from before they had loaded.
-            article.needsRefresh = (sectionsRetrieved.count == 1) ? @NO : @YES;
-
-            NSString *section0HTML = @"";
-            if (section0Dict && [section0Dict[@"id"] isEqual: @0] && section0Dict[@"text"]) {
-                section0HTML = section0Dict[@"text"];
-            }
-
-            // Add sections for article
-            Section *section0 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:articleDataContext_.mainContext];
-            // Section index is a string because transclusion sections indexes will start with "T-"
-            section0.index = @"0";
-            section0.level = @"0";
-            section0.number = @"0";
-            section0.sectionId = @0;
-            section0.title = @"";
-            section0.dateRetrieved = [NSDate date];
-            section0.html = section0HTML;
-            section0.anchor = @"";
+        Article *article = nil;
+        if (articleID) {
+            article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
             
-            [article addSectionObject:section0];
-
-            [section0 createImageRecordsForHtmlOnContext:articleDataContext_.mainContext];
-
-            // Don't add multiple history items for the same article or back-forward button
-            // behavior becomes a confusing mess.
-            if(article.history.count == 0){
-                // Add history for article
-                History *history0 = [NSEntityDescription insertNewObjectForEntityForName:@"History" inManagedObjectContext:articleDataContext_.mainContext];
-                history0.dateVisited = [NSDate date];
-                //history0.dateVisited = [NSDate dateWithDaysBeforeNow:31];
-                history0.discoveryMethod = discoveryMethod;
-                [article addHistoryObject:history0];
+            // Update the history dateVisited timestamp of the article to be visited only
+            // if the article was NOT loaded via back or forward buttons.
+            if (![discoveryMethod isEqualToString:@"backforward"]) {
+                if (article.history.count > 0) { // There should only be a single history item.
+                    History *history = [article.history anyObject];
+                    history.dateVisited = [NSDate date];
+                }
             }
-
-            // Save the article!
-            NSError *error = nil;
-            [articleDataContext_.mainContext save:&error];
-
-            [self.tocVC setTocSectionDataForSections:article.section];
-
-            if (error) {
-                NSLog(@"error = %@", error);
-                NSLog(@"error = %@", error.localizedDescription);
+            
+            // If article with sections just show them (unless needsRefresh is YES)
+            if (article.section.count > 0 && !article.needsRefresh.boolValue) {
+                [self.tocVC setTocSectionDataForSections:article.section];
+                [self displayArticle:articleID mode:DISPLAY_ALL_SECTIONS];
+                //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
+                [self fadeAlert];
+                return;
             }
-        }];
-
-        [self displayArticle:articleID mode:DISPLAY_LEAD_SECTION];
-        //[self showAlert:MWLocalizedString(@"search-loading-section-remaining", nil) type:ALERT_TYPE_TOP duration:-1];
-
-    } cancelledBlock:^(NSError *error){
-
-        [self loadingIndicatorHide];
-
-        // Remove the article so it doesn't get saved.
-        if (articleID) {
-            Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-            [articleDataContext_.mainContext deleteObject:article];
-        }
-
-    } errorBlock:^(NSError *error){
-
-        [self loadingIndicatorHide];
-
-        NSString *errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-        if (articleID) {
-            // Remove the article so it doesn't get saved.
-            Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-            [articleDataContext_.mainContext deleteObject:article];
+            needsRefresh = article.needsRefresh.boolValue;
+            
+        }else{
+            
+            article = [NSEntityDescription
+                       insertNewObjectForEntityForName:@"Article"
+                       inManagedObjectContext:articleDataContext_.mainContext
+                       ];
+            article.lastmodifiedby = @"";
+            article.redirected = @"";
+            article.title = pageTitle.prefixedText;
+            article.dateCreated = [NSDate date];
+            article.site = [SessionSingleton sharedInstance].site;
+            article.domain = [SessionSingleton sharedInstance].currentArticleDomain;
+            article.domainName = [SessionSingleton sharedInstance].currentArticleDomainName;
+            articleID = article.objectID;
+            
+            // Add history record.
+            // Note: don't add multiple history items for the same article or back-forward
+            // button behavior becomes a confusing mess.
+            History *newHistory =
+            [NSEntityDescription insertNewObjectForEntityForName: @"History"
+                                          inManagedObjectContext: article.managedObjectContext];
+            newHistory.dateVisited = [NSDate date];
+            //newHistory.dateVisited = [NSDate dateWithDaysBeforeNow:31];
+            newHistory.discoveryMethod = discoveryMethod;
+            [article addHistoryObject:newHistory];
         }
         
-        // @TODO potentially do this in the difFailWithError in MWNetworkOp
-        // It seems safe enough, but we didn't want to cause any sort of memory leak
-        if (error.domain == NSStreamSocketSSLErrorDomain ||
-            (error.domain == NSURLErrorDomain &&
-             (error.code == NSURLErrorSecureConnectionFailed ||
-              error.code == NSURLErrorServerCertificateHasBadDate ||
-              error.code == NSURLErrorServerCertificateUntrusted ||
-              error.code == NSURLErrorServerCertificateHasUnknownRoot ||
-              error.code == NSURLErrorServerCertificateNotYetValid)
-             )
-            ) {
-            [SessionSingleton sharedInstance].fallback = true;
+        if (needsRefresh) {
+            // If and article needs refreshing remove its sections so they get reloaded too.
+            for (Section *thisSection in [article.section copy]) {
+                [articleDataContext_.mainContext deleteObject:thisSection];
+            }
         }
+        
+        // "fetchFinished:" above will be notified when articleFetcher has actually retrieved some data.
+        // Note: cast to void to avoid compiler warning: http://stackoverflow.com/a/7915839
+        (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle: article
+                                                         withManager: [QueuesSingleton sharedInstance].articleFetchManager
+                                                  thenNotifyDelegate: self];
+
     }];
-
-    firstSectionOp.delegate = self;
-    
-    
-    // Retrieval of remaining sections depends on retrieving first section
-    [remainingSectionsOp addDependency:firstSectionOp];
-    
-    [[QueuesSingleton sharedInstance].articleRetrievalQ addOperation:remainingSectionsOp];
-    [[QueuesSingleton sharedInstance].articleRetrievalQ addOperation:firstSectionOp];
-}
-
-#pragma mark Progress report
-
--(void)opProgressed:(MWNetworkOp *)op;
-{
-    return;
-    if (op.dataRetrieved.length) {
-        NSLog(@"Receive progress: %lu of %lu", (unsigned long)op.dataRetrieved.length, (unsigned long)op.dataRetrievedExpectedLength);
-    }else{
-        NSLog(@"Send progress: %@ of %@", op.bytesWritten, op.bytesExpectedToWrite);
-    }
 }
 
 #pragma mark Display article from core data
@@ -1919,12 +1830,12 @@ typedef enum {
             self.scrollOffset = scrollOffset;
         }
 
-
         if (mode != DISPLAY_APPEND_NON_LEAD_SECTIONS) {
             if (![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
                 if (mode == DISPLAY_LEAD_SECTION) {
                     [sectionTextArray addObject: [NSString stringWithFormat:@"<div id='nonLeadSectionsInjectionPoint' style='margin-top:2em;margin-bottom:2em;'>%@</div>", MWLocalizedString(@"search-loading-section-remaining", nil)]];
                 }
+
                 [sectionTextArray addObject: [self renderFooterDivider]];
                 [sectionTextArray addObject: [self renderLastModified:lastModified by:lastModifiedBy]];
                 [sectionTextArray addObject: [self renderLanguageButtonForCount: langCount.integerValue]];
@@ -1961,7 +1872,6 @@ typedef enum {
                                    @"dir": languageInfo.dir,
                                    @"uidir": uidir
                                    }];
-        
         if (mode != DISPLAY_APPEND_NON_LEAD_SECTIONS) {
         
             [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];
@@ -1972,6 +1882,8 @@ typedef enum {
             [self.bridge sendMessage:@"injectNonLeadSections" withPayload:@{@"html": htmlStr}];
         }
         // Note: we set the scroll position later, after the size has been calculated
+
+
         
         if (!self.editable) {
             [self.bridge sendMessage:@"setPageProtected" withPayload:@{}];
@@ -2110,52 +2022,28 @@ typedef enum {
 
 -(void)zeroStateChanged: (NSNotification*) notification
 {
-    [[QueuesSingleton sharedInstance].zeroRatedMessageStringQ cancelAllOperations];
+    [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
 
     if ([[[notification userInfo] objectForKey:@"state"] boolValue]) {
-        DownloadWikipediaZeroMessageOp *zeroMessageRetrievalOp =
-        [
-         [DownloadWikipediaZeroMessageOp alloc]
-         initForDomain: [SessionSingleton sharedInstance].currentArticleDomain
-         completionBlock: ^(NSString *title) {
-         
-             if (title) {
-                 dispatch_async(dispatch_get_main_queue(), ^(){
-                 
-                     TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-                     textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
-
-                     self.zeroStatusLabel.text = title;
-                     self.zeroStatusLabel.padding = UIEdgeInsetsMake(3, 10, 3, 10);
-                     self.zeroStatusLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.93];
-
-                     [self showAlert:title type:ALERT_TYPE_TOP duration:2];
-                     [NAV promptFirstTimeZeroOnWithTitleIfAppropriate:title];
-                 });
-             }
-         } cancelledBlock:^(NSError *errorCancel) {
-             NSLog(@"error w0 cancel");
-         } errorBlock:^(NSError *errorError) {
-             NSLog(@"error w0 error");
-         }];
-
-        [[QueuesSingleton sharedInstance].zeroRatedMessageStringQ addOperation:zeroMessageRetrievalOp];
-        
+        (void)[[WikipediaZeroMessageFetcher alloc] initAndFetchMessageForDomain: [SessionSingleton sharedInstance].currentArticleDomain
+                                                                    withManager: [QueuesSingleton sharedInstance].zeroRatedMessageFetchManager
+                                                             thenNotifyDelegate: self];
     } else {
-    
         TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
         textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text", nil);
         NSString *warnVerbiage = MWLocalizedString(@"zero-charged-verbiage", nil);
 
+        CGFloat duration = 5.0f;
+
+        //[self showAlert:warnVerbiage type:ALERT_TYPE_TOP duration:duration];
         self.zeroStatusLabel.text = warnVerbiage;
         self.zeroStatusLabel.backgroundColor = [UIColor redColor];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.zeroStatusLabel.text = @"";
             self.zeroStatusLabel.padding = UIEdgeInsetsZero;
         });
 
-        [self showAlert:warnVerbiage type:ALERT_TYPE_TOP duration:-1];
         [NAV promptZeroOff];
     }
 }
