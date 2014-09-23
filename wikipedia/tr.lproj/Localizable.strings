@@ -145,6 +145,7 @@
 "credits-external-libraries" = "Dış veri havuzları";
 "share-menu-save-page" = "Makaleyi Kaydet";
 "share-menu-page-saved" = "Makale Kaydedildi";
+"share-menu-page-saved-access" = "İpucu: Kaydedilen sayfalarınıza erişmek için, üstteki $1 tuşuna dokunun veya aşağıdaki $2 tuşuna uzun basın.";
 "timestamp-just-now" = "hemen şimdi";
 "timestamp-minutes" = "%d dakika önce";
 "timestamp-hours" = "%d saat önce";

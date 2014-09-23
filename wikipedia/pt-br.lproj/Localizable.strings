@@ -1,5 +1,6 @@
 // Messages for Brazilian Portuguese (português do Brasil)
 // Exported from translatewiki.net
+// Author: !Silent
 // Author: Anaclaudiaml
 // Author: Dianakc
 // Author: Luckas
@@ -7,39 +8,69 @@
 
 "article-languages-label" = "Escolha um idioma";
 "article-languages-cancel" = "Cancelar";
+"article-languages-downloading" = "Carregando os idiomas do artigo...";
+"article-languages-filter-placeholder" = "Filtro de idioma";
+"language-button-text" = "Você pode ler este artigo em %d outros idiomas";
 "history-label" = "Recente";
 "history-section-today" = "Hoje";
 "history-section-yesterday" = "Ontem";
 "history-section-lastweek" = "Semana Passada";
 "history-section-lastmonth" = "Mês Passado";
-"zero-interstitial-continue" = "Continuar";
-"zero-interstitial-cancel" = "Cancelar";
-"zero-learn-more-no-thanks" = "Não, obrigado";
+"history-clear-confirmation-heading" = "Excluir todos os itens recentes?";
+"history-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
+"history-clear-cancel" = "Cancelar";
+"history-clear-delete-all" = "Excluir tudo";
+"zero-free-verbiage" = "Acesso gratuito à Wikipédia disponibilizado pela sua operadora (sem tarifa de dados cobrada)";
+"zero-charged-verbiage" = "Wikipédia Zero está desativada";
+"zero-charged-verbiage-extended" = "A leitura de outros artigos podem ocasionar em tarifas de dados. Artigos salvos e armazenados ''off-line'' não usam dados e o seu acesso é gratuito.";
+"zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
+"zero-interstitial-title" = "Deixando a Wikipédia Zero";
+"zero-interstitial-leave-app" = "Poderá ser aplicada tarifa de dados. Continuar para o site externo?";
+"zero-interstitial-continue" = "Sair";
+"zero-interstitial-cancel" = "Ficar aqui";
+"zero-learn-more-learn-more" = "Ler mais";
+"zero-learn-more-no-thanks" = "Dispensar";
 "zero-wikipedia-zero-heading" = "Wikipédia Zero";
+"account-creation-logging-in" = "Autenticando...";
 "account-creation-saving" = "Salvando...";
 "account-creation-username-placeholder-text" = "Nome de usuário";
 "account-creation-password-placeholder-text" = "Senha";
 "account-creation-password-confirm-placeholder-text" = "Confirmar senha";
 "account-creation-email-placeholder-text" = "Email (opcional)";
+"login-user-blocked" = "O usuário está bloqueado.";
+"login-username-placeholder-text" = "Nome de usuário";
+"login-password-placeholder-text" = "Senha";
+"wikitext-downloading" = "Carregando conteúdo...";
+"wikitext-download-success" = "Conteúdo carregado.";
+"wikitext-upload-captcha-error" = "Erro de verificação do CAPTCHA.";
+"wikitext-upload-captcha-needed" = "Verificação de código CAPTCHA necessária.";
 "wikitext-upload-save" = "Salvando...";
 "wikitext-upload-save-sign-in" = "Entrar";
-"wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu aparelho. Se você $1 você terá mais privacidade.";
+"wikitext-upload-save-sign-in-benefits" = "Assim, co-editores poderão contactá-lo e verá quais artigos você editou.";
+"wikitext-upload-save-anonymously-warning" = "Suas edições serão atribuídas ao endereço de IP de seu dispositivo. Se você $1 você terá mais privacidade.";
+"open-link-title" = "Abrir link";
+"open-link-cancel" = "Cancelar";
 "search-searching" = "Pesquisando...";
+"search-loading-article-loaded" = "Artigo carregado.";
 "search-cancel" = "Cancelar";
 "main-menu-title" = "Mais";
 "main-menu-account-title-logged-out" = "Conta";
 "main-menu-show-history" = "Recente";
 "main-menu-random" = "Aleatório";
 "main-menu-feedback-heading" = "Comentário";
-"main-menu-send-feedback" = "Enviar comentário";
+"main-menu-send-feedback" = "Enviar um comentário sobre o app";
 "main-menu-credits" = "Créditos";
+"main-menu-show-today" = "Hoje";
 "saved-pages-title" = "Páginas salvas";
+"saved-pages-clear-cancel" = "Cancelar";
+"saved-pages-clear-delete-all" = "Excluir tudo";
 "page-history-title" = "Histórico da página";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Entrar";
 "navbar-title-mode-create-account" = "Criar conta";
 "navbar-title-mode-create-account-and-save" = "Criar conta e salvar";
 "navbar-title-mode-edit-wikitext-preview" = "Pré-visualizar";
+"navbar-title-mode-edit-wikitext-summary" = "Descreva sua edição";
 "navbar-title-mode-edit-wikitext-save" = "Salvar";
 "edit-summary-choice-linked-words" = "Links adicionados";
 "edit-summary-choice-fixed-grammar" = "Corrigiu gramática";
@@ -54,9 +85,6 @@
 "timestamp-days" = "%d dias atrás";
 "timestamp-months" = "%d meses atrás";
 "timestamp-years" = "%d anos atrás";
-"lastmodified-timestamp" = "Última modificação $1";
-"lastmodified-by" = "por $1";
-"lastmodified-anon" = "por um usuário anônimo";
 "button-next" = "Seguinte";
 "button-done" = "Pronto";
 "button-save" = "Salvar";
