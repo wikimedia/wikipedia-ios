@@ -44,6 +44,8 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
 @property (strong, nonatomic) NSArray *allButtons;
 
+@property (strong, nonatomic) UIPopoverController *popover;
+
 @end
 
 @implementation BottomMenuViewController{
@@ -214,9 +216,16 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
     shareActivityVC.excludedActivityTypes = exclusions;
 
-    [self presentViewController:shareActivityVC animated:YES completion:^{
-        
-    }];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [self presentViewController:shareActivityVC animated:YES completion:nil];
+    } else {
+        // iPad crashes if you present share dialog modally. Whee!
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:shareActivityVC];
+        [self.popover presentPopoverFromRect:self.saveButton.frame
+                                 inView:self.view
+               permittedArrowDirections:UIPopoverArrowDirectionAny
+                               animated:YES];
+    }
     
     [shareActivityVC setCompletionHandler:^(NSString *activityType, BOOL completed) {
         NSLog(@"activityType = %@", activityType);
