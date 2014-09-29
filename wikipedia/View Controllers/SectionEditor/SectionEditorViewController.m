@@ -20,9 +20,9 @@
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
 
-#define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f]
-#define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN 25.0f
-#define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX 25.0f
+#define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f * MENUS_SCALE_MULTIPLIER]
+#define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f * MENUS_SCALE_MULTIPLIER)
+#define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f * MENUS_SCALE_MULTIPLIER)
 
 @interface SectionEditorViewController (){
     ArticleDataContextSingleton *articleDataContext_;

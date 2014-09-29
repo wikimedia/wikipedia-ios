@@ -22,6 +22,7 @@
 #import "UIViewController+ModalPresent.h"
 #import "ArticleCoreDataObjects.h"
 #import "UIViewController+ModalPop.h"
+#import "NSObject+ConstraintsScale.h"
 
 typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     PRIMARY_MENU_ITEM_UNKNOWN,
@@ -36,7 +37,7 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 
 @interface PrimaryMenuViewController ()
 
-@property (weak, nonatomic) IBOutlet WikiGlyphButton *moreButton;
+@property (weak, nonatomic) IBOutlet PaddedLabel *moreButton;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -69,20 +70,20 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     //[self setupTableData];
     //[self randomizeTitles];
 
-    [self.moreButton.label setWikiText: WIKIGLYPH_ELLIPSIS
-                                 color: [UIColor darkGrayColor]
-                                  size: 64
-                        baselineOffset: 2.0
-                                  ];
+    self.moreButton.text = MWLocalizedString(@"main-menu-more", nil);
+    if ([[SessionSingleton sharedInstance].domain isEqualToString:@"en"]) {
+        self.moreButton.text = [self.moreButton.text uppercaseString];
+    }
     self.moreButton.accessibilityLabel = MWLocalizedString(@"menu-more-accessibility-label", nil);
-
-    self.moreButton.label.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
-
-    self.moreButton.label.padding = UIEdgeInsetsMake(0, 12, 0, 12);
-
-    [self addTableHeaderView];
+    self.moreButton.padding = UIEdgeInsetsMake(7, 17, 7, 17);
+    self.moreButton.font = [UIFont systemFontOfSize:16.0 * MENUS_SCALE_MULTIPLIER];
     
+    self.moreButton.userInteractionEnabled = YES;
     [self.moreButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moreButtonTapped:)]];
+
+    [self adjustConstraintsScaleForViews:@[self.tableView, self.moreButton, self.moreButton.superview]];
+    
+    [self addTableHeaderView];    
 }
 
 -(void)addTableHeaderView

@@ -6,6 +6,7 @@
 #import "PreviewAndSaveViewController.h"
 #import "MenuButton.h"
 #import "UIViewController+ModalPop.h"
+#import "Defines.h"
 
 #define MAX_SUMMARY_LENGTH 255
 
@@ -38,11 +39,13 @@
     
     self.placeholderLabel.text = MWLocalizedString(@"edit-summary-field-placeholder-text", nil);
     self.placeholderLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+    self.placeholderLabel.font = SEARCH_TEXT_FIELD_FONT;
 
     self.summaryTextField.textColor = [UIColor darkGrayColor];
     self.summaryTextField.returnKeyType = UIReturnKeyDone;
     self.summaryTextField.delegate = self;
     self.summaryTextField.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+    self.summaryTextField.font = SEARCH_TEXT_FIELD_FONT;
 
     self.bottomLineHeightConstraint.constant = 1.0f / [UIScreen mainScreen].scale;
 }

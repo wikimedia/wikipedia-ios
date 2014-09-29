@@ -134,6 +134,8 @@ typedef enum {
 @property (strong, nonatomic) NSString *currentTitle;
 @property (strong, nonatomic) NSString *currentDomain;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomNavHeightConstraint;
+
 @end
 
 #pragma mark Internal variables
@@ -169,6 +171,8 @@ typedef enum {
 {
     [super viewDidLoad];
 
+    self.bottomNavHeightConstraint.constant = CHROME_MENUS_HEIGHT;
+    
     self.scrollingToTop = NO;
 
     [self scrollIndicatorSetup];
@@ -2310,7 +2314,7 @@ typedef enum {
 {
     CGFloat percentOfHeight = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.4 : 0.6;
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) percentOfHeight *= 0.5;
-    NSNumber *refsHeight = @(self.view.frame.size.height * percentOfHeight);
+    NSNumber *refsHeight = @((self.view.frame.size.height * MENUS_SCALE_MULTIPLIER) * percentOfHeight);
     return (CGFloat)refsHeight.integerValue;
 }
 

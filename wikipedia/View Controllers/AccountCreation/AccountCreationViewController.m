@@ -24,6 +24,9 @@
 #import "UIViewController+ModalPresent.h"
 #import "UIViewController+ModalsSearch.h"
 #import "UIViewController+ModalPop.h"
+#import "Defines.h"
+#import "UIView+Debugging.h"
+#import "NSObject+ConstraintsScale.h"
 
 @interface AccountCreationViewController ()
 
@@ -42,6 +45,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailUnderlineHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBeneathCaptchaContainer;
 
+@property (weak, nonatomic) IBOutlet UIView *createAccountContainerView;
+
 @end
 
 @implementation AccountCreationViewController
@@ -54,6 +59,12 @@
 - (BOOL)prefersStatusBarHidden
 {
     return NAV.isEditorOnNavstack;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    // Disable horizontal scrolling.
+    scrollView.contentOffset = CGPointMake(0.0, scrollView.contentOffset.y);
 }
 
 -(void)updateViewConstraints
@@ -86,6 +97,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:23.0f * MENUS_SCALE_MULTIPLIER];
+    self.usernameField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
+    self.passwordField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
+    self.passwordRepeatField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
+    self.emailField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
+    self.loginButton.font = [UIFont boldSystemFontOfSize:14.0f * MENUS_SCALE_MULTIPLIER];
+
+    [self adjustConstraintsScaleForViews:@[self.createAccountContainerView, self.captchaContainer, self.titleLabel, self.usernameField, self.passwordField, self.passwordRepeatField, self.emailField, self.loginButton]];
 
     self.captchaId = @"";
     self.captchaUrl = @"";
@@ -151,6 +171,8 @@
     self.passwordField.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
     self.passwordRepeatField.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
     self.emailField.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+
+    //[self.view randomlyColorSubviews];
 }
 
 - (void)loginButtonPushed:(UITapGestureRecognizer *)recognizer

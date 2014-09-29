@@ -3,9 +3,11 @@
 
 #import "TOCSectionCellView.h"
 #import "WMF_Colors.h"
+#import "UIView+ConstraintsScale.h"
+#import "Defines.h"
 
-#define SELECTION_INDICATOR_WIDTH 6
-#define SELECTION_INDICATOR_VERTICAL_INSET 10
+#define SELECTION_INDICATOR_WIDTH (6.0 * MENUS_SCALE_MULTIPLIER)
+#define SELECTION_INDICATOR_VERTICAL_INSET (10.0 * MENUS_SCALE_MULTIPLIER)
 
 @interface TOCSectionCellView()
 
@@ -36,7 +38,7 @@
         self.isLead = isLead;
         self.isRTL = isRTL;
 
-        self.font = (self.level == 1) ? [UIFont boldSystemFontOfSize:17] : [UIFont systemFontOfSize:17];
+        self.font = (self.level == 1) ? [UIFont boldSystemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER] : [UIFont systemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER];
 
         if (self.isLead) self.backgroundColor = WMF_COLOR_BLUE;
 

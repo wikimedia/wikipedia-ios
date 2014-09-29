@@ -11,6 +11,7 @@
 #import "AssetsFile.h"
 #import "UIViewController+Alert.h"
 #import "UIViewController+ModalPop.h"
+#import "UIView+ConstraintsScale.h"
 
 #pragma mark - Defines
 
@@ -62,7 +63,7 @@
     
     self.view.backgroundColor = BACKGROUND_COLOR;
  
-    self.tableView.contentInset = UIEdgeInsetsMake(15, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(15.0 * MENUS_SCALE_MULTIPLIER, 0, 0, 0);
 
     self.filterString = @"";
 }
@@ -223,7 +224,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 48;
+    return 48.0 * MENUS_SCALE_MULTIPLIER;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;

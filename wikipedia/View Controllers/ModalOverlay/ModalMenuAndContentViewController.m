@@ -64,7 +64,7 @@
 
 -(void)constrainTopContainerHeight
 {
-    CGFloat topMenuHeight = TOP_MENU_INITIAL_HEIGHT;
+    CGFloat topMenuHeight = CHROME_MENUS_HEIGHT;
     
     // iOS 7 needs to have room for a view behind the top status bar.
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
@@ -81,7 +81,7 @@
     self.topMenuViewController.navBarContainer.showBottomBorder = NO;
     
     WikiGlyphLabel *label = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
-    label.font = [UIFont systemFontOfSize:21];
+    label.font = [UIFont systemFontOfSize:21.0 * MENUS_SCALE_MULTIPLIER];
     label.textAlignment = NSTextAlignmentCenter;
 }
 

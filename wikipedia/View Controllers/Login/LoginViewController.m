@@ -25,6 +25,8 @@
 #import "AccountCreationViewController.h"
 #import "UIViewController+ModalsSearch.h"
 #import "UIViewController+ModalPop.h"
+#import "Defines.h"
+#import "NSObject+ConstraintsScale.h"
 
 @interface LoginViewController (){
 
@@ -37,6 +39,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *usernameUnderlineHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordUnderlineHeight;
 @property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *loginContainerView;
 
 @end
 
@@ -56,6 +60,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:23.0f * MENUS_SCALE_MULTIPLIER];
+    self.usernameField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
+    self.passwordField.font = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
+    self.createAccountButton.font = [UIFont boldSystemFontOfSize:14.0f * MENUS_SCALE_MULTIPLIER];
 
     self.navigationItem.hidesBackButton = YES;
 
@@ -104,6 +113,8 @@
 
     self.usernameField.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
     self.passwordField.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+
+    [self adjustConstraintsScaleForViews:@[self.loginContainerView, self.titleLabel, self.usernameField, self.passwordField, self.createAccountButton]];
 }
 
 -(NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string

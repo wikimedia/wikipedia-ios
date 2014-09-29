@@ -2,6 +2,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "PullToRefreshViewController.h"
+#import "Defines.h"
 
 @interface PullToRefreshViewController ()
 
@@ -50,7 +51,7 @@
     self.pullToRefreshLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.pullToRefreshLabel.textAlignment = NSTextAlignmentCenter;
     self.pullToRefreshLabel.numberOfLines = 2;
-    self.pullToRefreshLabel.font = [UIFont systemFontOfSize:10];
+    self.pullToRefreshLabel.font = [UIFont systemFontOfSize:10.0 * MENUS_SCALE_MULTIPLIER];
     self.pullToRefreshLabel.textColor = [UIColor darkGrayColor];
     
     self.pullToRefreshView = [[UIView alloc] init];
@@ -103,6 +104,8 @@
 - (void)updatePullToRefreshForScrollView:(UIScrollView *)scrollView
 {
     CGFloat pullDistance = (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) ? 85.0f : 55.0f;
+    
+    pullDistance *= MENUS_SCALE_MULTIPLIER;
     
     UIPanGestureRecognizer *panRecognizer = scrollView.panGestureRecognizer;
     //CGPoint translation = [panRecognizer translationInView:self.view];

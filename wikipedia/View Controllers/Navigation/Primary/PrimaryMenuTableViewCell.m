@@ -3,8 +3,16 @@
 
 #import "PrimaryMenuTableViewCell.h"
 #import "PaddedLabel.h"
+#import "Defines.h"
+#import "NSObject+ConstraintsScale.h"
 
 @implementation PrimaryMenuTableViewCell
+
+-(void)awakeFromNib
+{
+    self.label.font = [UIFont systemFontOfSize:27.0f * MENUS_SCALE_MULTIPLIER];
+    [self adjustConstraintsScaleForViews:@[self.label]];
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

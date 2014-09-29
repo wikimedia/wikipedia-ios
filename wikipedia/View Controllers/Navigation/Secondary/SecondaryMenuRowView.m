@@ -6,8 +6,9 @@
 #import "Defines.h"
 #import "SessionSingleton.h"
 #import "WikipediaAppUtils.h"
+#import "NSObject+ConstraintsScale.h"
 
-#define MENU_HEADING_FONT_SIZE 13
+#define MENU_HEADING_FONT_SIZE (13.0 * MENUS_SCALE_MULTIPLIER)
 #define MENU_SUB_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.5f alpha:1.0f]
 #define BORDER_COLOR [UIColor colorWithWhite:0.7f alpha:1.0f]
 
@@ -44,6 +45,11 @@
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
     
     self.iconLabel.textAlignment = isRTL ? NSTextAlignmentLeft : NSTextAlignmentRight;
+    
+    self.textLabel.font = [UIFont systemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER];
+    self.iconLabel.font = [UIFont systemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER];
+
+    [self adjustConstraintsScaleForViews:@[self.iconLabel, self.optionSwitch]];
 }
 
 - (void)drawRect:(CGRect)rect

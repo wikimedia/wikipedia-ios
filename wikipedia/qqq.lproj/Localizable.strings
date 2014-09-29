@@ -107,6 +107,7 @@
 "main-menu-heading-legal" = "Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.";
 "main-menu-show-today" = "Button text for showing mobile version of main page\n{{Identical|Today}}";
 "main-menu-nearby" = "Button for showing nearby articles.\n{{Identical|Nearby}}";
+"main-menu-more" = "Button for showing additional settings and menu items.";
 "saved-pages-title" = "Header text for Saved Pages interface.\n{{Identical|Saved page}}";
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "saved-pages-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";

@@ -24,6 +24,7 @@
 #import "UIViewController+ModalPresent.h"
 #import "UIViewController+ModalsSearch.h"
 #import "UIViewController+ModalPop.h"
+#import "NSObject+ConstraintsScale.h"
 
 typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     BOTTOM_MENU_BUTTON_UNKNOWN,
@@ -62,20 +63,19 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
 
     UIColor *buttonColor = [UIColor blackColor];
-    CGFloat buttonTextSize = 34;
 
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
 
     [self.backButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_FORWARD : IOS_WIKIGLYPH_BACKWARD
                                  color: buttonColor
-                                  size: buttonTextSize
+                                  size: MENU_BOTTOM_GLYPH_FONT_SIZE
                         baselineOffset: 0];
     self.backButton.accessibilityLabel = MWLocalizedString(@"menu-back-accessibility-label", nil);
     self.backButton.tag = BOTTOM_MENU_BUTTON_PREVIOUS;
     
     [self.forwardButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD
                                     color: buttonColor
-                                     size: buttonTextSize
+                                     size: MENU_BOTTOM_GLYPH_FONT_SIZE
                            baselineOffset: 0
      ];
     self.forwardButton.accessibilityLabel = MWLocalizedString(@"menu-forward-accessibility-label", nil);
@@ -84,7 +84,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
     [self.rightButton.label setWikiText: IOS_WIKIGLYPH_SHARE
                                   color: buttonColor
-                                   size: buttonTextSize
+                                   size: MENU_BOTTOM_GLYPH_FONT_SIZE
                          baselineOffset: 0
      ];
     self.rightButton.tag = BOTTOM_MENU_BUTTON_SHARE;
@@ -92,7 +92,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
     [self.saveButton.label setWikiText: IOS_WIKIGLYPH_HEART_OUTLINE
                                  color: buttonColor
-                                  size: buttonTextSize
+                                  size: MENU_BOTTOM_GLYPH_FONT_SIZE
                         baselineOffset: 0
      ];
     self.saveButton.tag = BOTTOM_MENU_BUTTON_SAVE;
@@ -109,6 +109,8 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
                                                   action: @selector(saveButtonLongPressed:)];
     longPressRecognizer.minimumPressDuration = 0.5f;
     [self.saveButton addGestureRecognizer:longPressRecognizer];
+
+    [self adjustConstraintsScaleForViews:@[self.backButton, self.forwardButton, self.saveButton, self.rightButton]];
 }
 
 -(void)addTapRecognizersToAllButtons
@@ -329,7 +331,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     
     [self.saveButton.label setWikiText: saveIconString
                                  color: saveIconColor
-                                  size: 34
+                                  size: MENU_BOTTOM_GLYPH_FONT_SIZE
                         baselineOffset: 0];
 }
 

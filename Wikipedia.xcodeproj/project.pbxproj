@@ -90,6 +90,7 @@
 		047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047ED63818C13E4900442BE3 /* PreviewWebView.m */; };
 		047FF5471889078C009DB293 /* Image+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 047FF5461889078C009DB293 /* Image+Convenience.m */; };
 		04821CD119895EDC007558F6 /* ReferenceGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04821CD019895EDC007558F6 /* ReferenceGradientView.m */; };
+		0484E3DE19D9D19B0085D18D /* UIView+ConstraintsScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484E3DD19D9D19B0085D18D /* UIView+ConstraintsScale.m */; };
 		0485FECF1994D5AE00141361 /* NearbyResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0485FECD1994D5AE00141361 /* NearbyResultCell.xib */; };
 		0485FED21994E22400141361 /* NearbyOp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485FED11994E22400141361 /* NearbyOp.m */; };
 		048A26771906268100395F53 /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048A26761906268100395F53 /* PaddedLabel.m */; };
@@ -103,6 +104,7 @@
 		04A81E8618871EB000EEBADB /* Section+ImageRecords.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A81E8518871EB000EEBADB /* Section+ImageRecords.m */; };
 		04A97E8718B81D5D0046B166 /* AccountCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A97E8618B81D5D0046B166 /* AccountCreationViewController.m */; };
 		04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C6F1891B302002D5487 /* NSObject+Extras.m */; };
+		04AE520519DB5E0900F89B92 /* NSObject+ConstraintsScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE520419DB5E0900F89B92 /* NSObject+ConstraintsScale.m */; };
 		04B0EA45190AFDD8007458AF /* ArticleImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0EA44190AFDD8007458AF /* ArticleImporter.m */; };
 		04B0EA47190B2319007458AF /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B0EA46190B2319007458AF /* PreviewLicenseView.xib */; };
 		04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0EA49190B2348007458AF /* PreviewLicenseView.m */; };
@@ -178,8 +180,8 @@
 		D46CD8C418A1AC4F0042959E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C018A1AC4F0042959E /* InfoPlist.strings */; };
 		D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
 		D474CC15182AE196002BDE45 /* MWSite.m in Sources */ = {isa = PBXBuildFile; fileRef = D474CC14182AE196002BDE45 /* MWSite.m */; };
-		D47FEE2019C8CB0000B998C8 /* Main_iPhone.strings in Resources */ = {isa = PBXBuildFile; fileRef = D47FEE1E19C8CB0000B998C8 /* Main_iPhone.strings */; };
 		D47BF5D4197870390067C3BC /* SavedPagesFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D47BF5D3197870390067C3BC /* SavedPagesFunnel.m */; };
+		D47FEE2019C8CB0000B998C8 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -360,6 +362,8 @@
 		047FF5461889078C009DB293 /* Image+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Image+Convenience.m"; sourceTree = "<group>"; };
 		04821CCF19895EDC007558F6 /* ReferenceGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferenceGradientView.h; sourceTree = "<group>"; };
 		04821CD019895EDC007558F6 /* ReferenceGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferenceGradientView.m; sourceTree = "<group>"; };
+		0484E3DC19D9D19B0085D18D /* UIView+ConstraintsScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ConstraintsScale.h"; sourceTree = "<group>"; };
+		0484E3DD19D9D19B0085D18D /* UIView+ConstraintsScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ConstraintsScale.m"; sourceTree = "<group>"; };
 		0485FECD1994D5AE00141361 /* NearbyResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NearbyResultCell.xib; sourceTree = "<group>"; };
 		0485FED01994E22400141361 /* NearbyOp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyOp.h; sourceTree = "<group>"; };
 		0485FED11994E22400141361 /* NearbyOp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyOp.m; sourceTree = "<group>"; };
@@ -384,6 +388,8 @@
 		04A97E8618B81D5D0046B166 /* AccountCreationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AccountCreationViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		04AE1C6E1891B302002D5487 /* NSObject+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extras.h"; sourceTree = "<group>"; };
 		04AE1C6F1891B302002D5487 /* NSObject+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extras.m"; sourceTree = "<group>"; };
+		04AE520319DB5E0900F89B92 /* NSObject+ConstraintsScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ConstraintsScale.h"; sourceTree = "<group>"; };
+		04AE520419DB5E0900F89B92 /* NSObject+ConstraintsScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ConstraintsScale.m"; sourceTree = "<group>"; };
 		04B0EA43190AFDD8007458AF /* ArticleImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleImporter.h; sourceTree = "<group>"; };
 		04B0EA44190AFDD8007458AF /* ArticleImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleImporter.m; sourceTree = "<group>"; };
 		04B0EA46190B2319007458AF /* PreviewLicenseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviewLicenseView.xib; sourceTree = "<group>"; };
@@ -636,6 +642,8 @@
 		D474CC12182AE07C002BDE45 /* WikipediaApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaApp.h; sourceTree = "<group>"; };
 		D474CC13182AE196002BDE45 /* MWSite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWSite.h; path = "mw-support/MWSite.h"; sourceTree = "<group>"; };
 		D474CC14182AE196002BDE45 /* MWSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWSite.m; path = "mw-support/MWSite.m"; sourceTree = "<group>"; };
+		D47BF5D2197870390067C3BC /* SavedPagesFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SavedPagesFunnel.h; path = EventLogging/SavedPagesFunnel.h; sourceTree = "<group>"; };
+		D47BF5D3197870390067C3BC /* SavedPagesFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SavedPagesFunnel.m; path = EventLogging/SavedPagesFunnel.m; sourceTree = "<group>"; };
 		D47FEE1F19C8CB0000B998C8 /* av */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = av; path = av.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D47FEE2119C8CB0F00B998C8 /* bcl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bcl; path = bcl.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D47FEE2219C8CB2200B998C8 /* bto */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bto; path = bto.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -645,8 +653,6 @@
 		D47FEE2619C8CB6B00B998C8 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D47FEE2719C8CBB400B998C8 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D47FEE2819C8CC2600B998C8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		D47BF5D2197870390067C3BC /* SavedPagesFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SavedPagesFunnel.h; path = EventLogging/SavedPagesFunnel.h; sourceTree = "<group>"; };
-		D47BF5D3197870390067C3BC /* SavedPagesFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SavedPagesFunnel.m; path = EventLogging/SavedPagesFunnel.m; sourceTree = "<group>"; };
 		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1270,6 +1276,10 @@
 				04C695D118ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m */,
 				04DB0BE818BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.h */,
 				04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */,
+				0484E3DC19D9D19B0085D18D /* UIView+ConstraintsScale.h */,
+				0484E3DD19D9D19B0085D18D /* UIView+ConstraintsScale.m */,
+				04AE520319DB5E0900F89B92 /* NSObject+ConstraintsScale.h */,
+				04AE520419DB5E0900F89B92 /* NSObject+ConstraintsScale.m */,
 				04090A39187FB7D000577EDF /* UIView+Debugging.h */,
 				04090A3A187FB7D000577EDF /* UIView+Debugging.m */,
 				0433542418A093C5009305F0 /* UIView+RemoveConstraints.h */,
@@ -1535,7 +1545,6 @@
 		D499143E181D51DE00E6073C /* Wikipedia */ = {
 			isa = PBXGroup;
 			children = (
-				D47FEE1E19C8CB0000B998C8 /* Main_iPhone.strings */,
 				D4BC22B3181E9E6300CAC673 /* empty.png */,
 				D4991447181D51DE00E6073C /* AppDelegate.h */,
 				D4991448181D51DE00E6073C /* AppDelegate.m */,
@@ -1831,7 +1840,7 @@
 				04082B5518ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png in Resources */,
 				04C91CF219554B310035ED1B /* logo-onboarding.png in Resources */,
 				045A9F0D18F6090E0057EA85 /* assets in Resources */,
-				D47FEE2019C8CB0000B998C8 /* Main_iPhone.strings in Resources */,
+				D47FEE2019C8CB0000B998C8 /* (null) in Resources */,
 				04123638189C29EA00E0CF8E /* abuse-filter-flag-white@2x.png in Resources */,
 				04C91CEF195520990035ED1B /* logo-onboarding-subtitle@2x.png in Resources */,
 				04C91CEE195520990035ED1B /* logo-onboarding-subtitle.png in Resources */,
@@ -2009,6 +2018,7 @@
 				047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */,
 				04B6925018E77B2A00F88D8A /* UIWebView+HideScrollGradient.m in Sources */,
 				047E95511996DD030046A122 /* NearbyViewController.m in Sources */,
+				04AE520519DB5E0900F89B92 /* NSObject+ConstraintsScale.m in Sources */,
 				04CCCFF01935093A00E3F60C /* SecondaryMenuViewController.m in Sources */,
 				0463639318A5CCEB0049EE4F /* EditTokenOp.m in Sources */,
 				0460990A18899A9800B1F2BC /* DownloadSectionWikiTextOp.m in Sources */,
@@ -2027,6 +2037,7 @@
 				04B6050C193522650007185A /* WikiGlyphButton.m in Sources */,
 				042A5B2C19253E690095E172 /* BottomMenuViewController.m in Sources */,
 				0433542218A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */,
+				0484E3DE19D9D19B0085D18D /* UIView+ConstraintsScale.m in Sources */,
 				C958EE3418CE73E600148D13 /* DownloadTitlesForRandomArticlesOp.m in Sources */,
 				0452C803195CB216007925A6 /* UIViewController+ModalsSearch.m in Sources */,
 				04CCA0C319830A44000E982A /* ReferenceVC.m in Sources */,

@@ -30,6 +30,7 @@
 #import "LoginViewController.h"
 #import "AccountCreationViewController.h"
 #import "WMF_Colors.h"
+#import "UIView+ConstraintsScale.h"
 
 @interface TopMenuViewController (){
 
@@ -179,15 +180,24 @@
         view.hidden = NO;
 
         [self.navBarContainer addConstraints:
-         [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-(topMargin)-[view(TOP_MENU_INITIAL_HEIGHT)]"
+         [NSLayoutConstraint constraintsWithVisualFormat: @"V:|-(topMargin)-[view(CHROME_MENUS_HEIGHT)]"
                                                  options: 0
                                                  metrics: @{
                                                     @"topMargin": @(topMargin),
-                                                    @"TOP_MENU_INITIAL_HEIGHT": @(TOP_MENU_INITIAL_HEIGHT)
+                                                    @"CHROME_MENUS_HEIGHT": @(CHROME_MENUS_HEIGHT)
                                                     }
                                                    views: NSDictionaryOfVariableBindings(view)
           ]
          ];
+    }
+
+    // Adjust constraints relative to screen size.
+    for (id v in [self.navBarContainer.subviews copy]) {
+        if ([v isMemberOfClass:[WikiGlyphButton class]] || [v isMemberOfClass:[MenuButton class]]){
+            [v adjustConstraintsFor:NSLayoutAttributeLeading byMultiplier:MENUS_SCALE_MULTIPLIER];
+            [v adjustConstraintsFor:NSLayoutAttributeTrailing byMultiplier:MENUS_SCALE_MULTIPLIER];
+            [v adjustConstraintsFor:NSLayoutAttributeWidth byMultiplier:MENUS_SCALE_MULTIPLIER];
+        }
     }
 }
 
@@ -238,7 +248,7 @@
         return button;
     };
 
-    CGFloat size = 34;
+    CGFloat size = MENU_TOP_GLYPH_FONT_SIZE;
 
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
     NSString *caret = !isRTL ? WIKIGLYPH_CARET_LEFT: IOS_WIKIGLYPH_FORWARD;
@@ -258,7 +268,7 @@
         self.buttonTOC.transform = CGAffineTransformScale(CGAffineTransformIdentity, -1.0, 1.0);
     }
 
-    self.buttonCancel.label.font = [UIFont systemFontOfSize:17.0];
+    self.buttonCancel.label.font = [UIFont systemFontOfSize:MENU_TOP_FONT_SIZE_CANCEL];
     self.buttonCancel.label.text = MWLocalizedString(@"search-cancel", nil);
 
     MenuButton *(^getMenuButton)(NSString *, NavBarItemTag, CGFloat, UIColor *, UIEdgeInsets, UIEdgeInsets) =
@@ -283,13 +293,13 @@
     UIEdgeInsets margin = UIEdgeInsetsMake(8, 9, 7, 10);
 
     self.buttonNext =
-        getMenuButton(MWLocalizedString(@"button-next", nil), NAVBAR_BUTTON_NEXT, 14, WMF_COLOR_BLUE, padding, margin);
+        getMenuButton(MWLocalizedString(@"button-next", nil), NAVBAR_BUTTON_NEXT, MENU_TOP_FONT_SIZE_NEXT, WMF_COLOR_BLUE, padding, margin);
     self.buttonSave =
-        getMenuButton(MWLocalizedString(@"button-save", nil), NAVBAR_BUTTON_SAVE, 14, WMF_COLOR_GREEN, padding, margin);
+        getMenuButton(MWLocalizedString(@"button-save", nil), NAVBAR_BUTTON_SAVE, MENU_TOP_FONT_SIZE_SAVE, WMF_COLOR_GREEN, padding, margin);
     self.buttonDone =
-        getMenuButton(MWLocalizedString(@"button-done", nil), NAVBAR_BUTTON_DONE, 14, WMF_COLOR_BLUE, padding, margin);
+        getMenuButton(MWLocalizedString(@"button-done", nil), NAVBAR_BUTTON_DONE, MENU_TOP_FONT_SIZE_DONE, WMF_COLOR_BLUE, padding, margin);
     self.buttonCheck =
-        getMenuButton(WIKIGLYPH_TICK, NAVBAR_BUTTON_CHECK, 25, WMF_COLOR_BLUE, UIEdgeInsetsMake(0, 0, 2, 0), UIEdgeInsetsMake(9, 0, 9, 8));
+        getMenuButton(WIKIGLYPH_TICK, NAVBAR_BUTTON_CHECK, MENU_TOP_FONT_SIZE_CHECK, WMF_COLOR_BLUE, UIEdgeInsetsMake(0, 0, 2, 0), UIEdgeInsetsMake(9, 0, 9, 8));
 
     // Ensure the cancel button content is hugged more tightly than the search text box.
     // Otherwise on iOS 6 the cancel button is super wide.

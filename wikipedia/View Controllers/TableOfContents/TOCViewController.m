@@ -9,11 +9,13 @@
 #import "WikipediaAppUtils.h"
 #import "Section+LeadSection.h"
 #import "Section+TOC.h"
+#import "UIView+ConstraintsScale.h"
+#import "Defines.h"
 //#import "UIView+Debugging.h"
 
-#define TOC_SELECTION_OFFSET_Y 48.0f
+#define TOC_SELECTION_OFFSET_Y (48.0f * MENUS_SCALE_MULTIPLIER)
 #define TOC_SELECTION_SCROLL_DURATION 0.23
-#define TOC_SUBSECTION_INDENT 6
+#define TOC_SUBSECTION_INDENT (6.0f * MENUS_SCALE_MULTIPLIER)
 
 @interface TOCViewController (){
 

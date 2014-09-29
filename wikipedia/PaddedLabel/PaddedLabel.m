@@ -3,6 +3,7 @@
 
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
+#import "Defines.h"
 
 @implementation PaddedLabel
 
@@ -73,6 +74,15 @@
 
 -(void)setPadding:(UIEdgeInsets)padding
 {
+    // Adjust padding for scale.
+    padding = UIEdgeInsetsMake(
+        ceil(((CGFloat)padding.top) * MENUS_SCALE_MULTIPLIER),
+        ceil(((CGFloat)padding.left) * MENUS_SCALE_MULTIPLIER),
+        ceil(((CGFloat)padding.bottom) * MENUS_SCALE_MULTIPLIER),
+        ceil(((CGFloat)padding.right) * MENUS_SCALE_MULTIPLIER)
+    );
+
+    // Adjust for RTL langs.
     if ([WikipediaAppUtils isDeviceLanguageRTL]) {
         _padding = UIEdgeInsetsMake(padding.top, padding.right, padding.bottom, padding.left);
     }else{

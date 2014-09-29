@@ -15,6 +15,8 @@
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"
 #import "UIWebView+ElementLocation.h"
+#import "Defines.h"
+#import "NSObject+ConstraintsScale.h"
 
 // Show prev-next buttons instead of page dots if number of refs exceeds this number.
 #define PAGE_CONTROL_MAX_REFS 10
@@ -115,7 +117,7 @@
     self.xButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.xButton.label setWikiText: WIKIGLYPH_X
                               color: [UIColor darkGrayColor]
-                               size: 22
+                               size: 22.0 * MENUS_SCALE_MULTIPLIER
                      baselineOffset: 0];
     self.xButton.label.textAlignment = NSTextAlignmentCenter;
     self.xButton.userInteractionEnabled = YES;
@@ -127,7 +129,7 @@
     self.nextButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.nextButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD
                                  color: [UIColor darkGrayColor]
-                                  size: 24
+                                  size: 24.0 * MENUS_SCALE_MULTIPLIER
                         baselineOffset: 2.0];
     self.nextButton.hidden = YES;
     [self.topContainerView addSubview:self.nextButton];
@@ -136,7 +138,7 @@
     self.prevButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.prevButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_FORWARD : IOS_WIKIGLYPH_BACKWARD
                                  color: [UIColor darkGrayColor]
-                                  size: 24
+                                  size: 24.0 * MENUS_SCALE_MULTIPLIER
                         baselineOffset: 2.0];
     self.prevButton.hidden = YES;
     [self.topContainerView addSubview:self.prevButton];
@@ -249,6 +251,8 @@
                                                                       options: 0
                                                                       metrics: metrics
                                                                         views: views]];
+
+    [self adjustConstraintsScaleForViews:@[self.xButton, self.nextButton, self.prevButton, self.topContainerView, self.topPageControl]];
 }
 
 -(NSArray *)refs

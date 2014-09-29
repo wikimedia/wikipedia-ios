@@ -3,6 +3,8 @@
 
 #import "PageHistoryResultCell.h"
 #import "WikipediaAppUtils.h"
+#import "NSObject+ConstraintsScale.h"
+#import "Defines.h"
 
 @implementation PageHistoryResultCell
 
@@ -33,6 +35,14 @@
     self.timeLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
     self.deltaLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
     self.iconLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+
+    self.summaryLabel.font = [UIFont systemFontOfSize:12.0 * MENUS_SCALE_MULTIPLIER];
+    self.nameLabel.font = [UIFont systemFontOfSize:12.0 * MENUS_SCALE_MULTIPLIER];
+    self.timeLabel.font = [UIFont systemFontOfSize:12.0 * MENUS_SCALE_MULTIPLIER];
+    self.deltaLabel.font = [UIFont systemFontOfSize:12.0 * MENUS_SCALE_MULTIPLIER];
+    self.iconLabel.font = [UIFont systemFontOfSize:12.0 * MENUS_SCALE_MULTIPLIER];
+
+    [self adjustConstraintsScaleForViews:@[self.summaryLabel, self.nameLabel, self.timeLabel, self.deltaLabel, self.iconLabel]];
 }
 
 -(void)prepareForReuse

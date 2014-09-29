@@ -19,11 +19,13 @@
 #import "TopMenuViewController.h"
 #import "CoreDataHousekeeping.h"
 #import "SavedPagesFunnel.h"
+#import "NSObject+ConstraintsScale.h"
+#import "PaddedLabel.h"
 
 #define SAVED_PAGES_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
 #define SAVED_PAGES_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:1.0f]
 #define SAVED_PAGES_LANGUAGE_COLOR [UIColor colorWithWhite:0.0f alpha:0.4f]
-#define SAVED_PAGES_RESULT_HEIGHT 116
+#define SAVED_PAGES_RESULT_HEIGHT (116.0 * MENUS_SCALE_MULTIPLIER)
 
 @interface SavedPagesViewController ()
 {
@@ -35,6 +37,12 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) SavedPagesFunnel *funnel;
+
+@property (strong, nonatomic) IBOutlet UIImageView *emptyImage;
+@property (strong, nonatomic) IBOutlet PaddedLabel *emptyTitle;
+@property (strong, nonatomic) IBOutlet PaddedLabel *emptyDescription;
+
+@property (strong, nonatomic) IBOutlet UIView *emptyContainerView;
 
 @end
 
@@ -127,10 +135,10 @@
     
     [self getSavedPagesData];
 
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 5)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 5.0 * MENUS_SCALE_MULTIPLIER)];
     self.tableView.tableHeaderView = headerView;
     
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 10.0 * MENUS_SCALE_MULTIPLIER)];
     self.tableView.tableFooterView.backgroundColor = [UIColor whiteColor];
     
     // Register the Saved Pages results cell for reuse
@@ -139,6 +147,11 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self setEmptyOverlayAndTrashIconVisibility];
+
+    [self adjustConstraintsScaleForViews:@[self.emptyImage, self.emptyTitle, self.emptyDescription, self.emptyContainerView]];
+    
+    self.emptyTitle.font = [UIFont boldSystemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER];
+    self.emptyDescription.font = [UIFont systemFontOfSize:14.0 * MENUS_SCALE_MULTIPLIER];
 }
 
 #pragma mark - SavedPages data
@@ -215,14 +228,14 @@
 
     NSMutableAttributedString *(^styleText)(NSString *, CGFloat, UIColor *) = ^NSMutableAttributedString *(NSString *str, CGFloat size, UIColor *color){
         return [[NSMutableAttributedString alloc] initWithString:str attributes: @{
-            NSFontAttributeName : [UIFont fontWithName:@"Georgia" size:size],
+            NSFontAttributeName : [UIFont fontWithName:@"Georgia" size:size * MENUS_SCALE_MULTIPLIER],
             NSParagraphStyleAttributeName : paragraphStyle,
             NSForegroundColorAttributeName : color,
         }];
     };
 
-    NSMutableAttributedString *attributedTitle = styleText(title, 22, SAVED_PAGES_TEXT_COLOR);
-    NSMutableAttributedString *attributedLanguage = styleText(language, 10, SAVED_PAGES_LANGUAGE_COLOR);
+    NSMutableAttributedString *attributedTitle = styleText(title, 22.0, SAVED_PAGES_TEXT_COLOR);
+    NSMutableAttributedString *attributedLanguage = styleText(language, 10.0, SAVED_PAGES_LANGUAGE_COLOR);
     
     [attributedTitle appendAttributedString:attributedLanguage];
     cell.textLabel.attributedText = attributedTitle;

@@ -3,6 +3,7 @@
 
 #import "MenuLabel.h"
 #import "WikiGlyph_Chars.h"
+#import "Defines.h"
 
 @interface MenuLabel ()
 
@@ -22,12 +23,12 @@
 
 - (instancetype)init
 {
-    return [self initWithText:@"" fontSize:16 bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero];
+    return [self initWithText:@"" fontSize:16.0 * MENUS_SCALE_MULTIPLIER bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
-    return [self initWithText:@"" fontSize:16 bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero];
+    return [self initWithText:@"" fontSize:16.0 * MENUS_SCALE_MULTIPLIER bold:NO color:[UIColor blackColor] padding:UIEdgeInsetsZero];
 }
 
 - (instancetype)initWithText: (NSString *)text
@@ -42,7 +43,7 @@
         self.padding = padding;
         self.fontBold = bold;
         self.color = color;
-        self.fontSize = size;
+        self.fontSize = size * MENUS_SCALE_MULTIPLIER;
         self.textAlignment = NSTextAlignmentCenter;
         self.adjustsFontSizeToFitWidth = YES;
         self.text = text;

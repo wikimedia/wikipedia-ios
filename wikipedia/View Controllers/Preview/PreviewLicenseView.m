@@ -6,6 +6,8 @@
 #import "NSString+FormattedAttributedString.h"
 #import "WikiGlyph_Chars.h"
 #import "RootViewController.h"
+#import "Defines.h"
+#import "NSObject+ConstraintsScale.h"
 
 #define PREVIEW_BLUE_COLOR [UIColor colorWithRed:0.2 green:0.4784 blue:1.0 alpha:1.0]
 
@@ -48,6 +50,9 @@ enum {
 {
     self.licenseTitleLabel.padding = UIEdgeInsetsMake(2, 0, 0, 0);
 
+    self.licenseTitleLabel.font = [UIFont systemFontOfSize:11.0 * MENUS_SCALE_MULTIPLIER];
+    self.licenseLoginLabel.font = [UIFont systemFontOfSize:11.0 * MENUS_SCALE_MULTIPLIER];
+
     self.licenseTitleLabel.text = MWLocalizedString(@"wikitext-upload-save-terms-and-license", nil);
     [self styleLinks:self.licenseTitleLabel];
     [self.licenseTitleLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(termsLicenseLabelTapped:)]];
@@ -56,6 +61,8 @@ enum {
     [self underlineSignIn:self.licenseLoginLabel];
 
     self.licenseCCLabel.attributedText = [self getCCIconAttributedString];
+
+    [self adjustConstraintsScaleForViews:@[self.licenseCCLabel, self.licenseTitleLabel, self.licenseLoginLabel]];
 
     self.bottomDividerHeight.constant = self.hideBottomDivider ? 0.0 : 1.0f / [UIScreen mainScreen].scale;
 
@@ -168,7 +175,7 @@ enum {
 {
     return [[NSAttributedString alloc] initWithString: WIKIGLYPH_CC
                                            attributes: @{
-                                                         NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:42],
+                                                         NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:42.0 * MENUS_SCALE_MULTIPLIER],
                                                          NSForegroundColorAttributeName : PREVIEW_BLUE_COLOR,
                                                          NSBaselineOffsetAttributeName: @1.5
                                                          }];

@@ -3,6 +3,8 @@
 
 #import "LanguagesCell.h"
 #import "WikipediaAppUtils.h"
+#import "UIView+ConstraintsScale.h"
+#import "Defines.h"
 
 #define BACKGROUND_COLOR [UIColor colorWithWhite:1.0f alpha:1.0f]
 
@@ -31,7 +33,11 @@
     //self.textLabel.layer.borderColor = [UIColor redColor].CGColor;
     self.backgroundColor = BACKGROUND_COLOR;
     self.textLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
-    self.canonicalLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];}
+    self.canonicalLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+
+    self.textLabel.font = [UIFont systemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER];
+    self.canonicalLabel.font = [UIFont systemFontOfSize:12.0 * MENUS_SCALE_MULTIPLIER];
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

@@ -2,6 +2,8 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SavedPagesResultCell.h"
+#import "Defines.h"
+#import "NSObject+ConstraintsScale.h"
 
 @implementation SavedPagesResultCell
 
@@ -54,6 +56,8 @@
     //self.textLabel.layer.borderWidth = 1;
     //self.textLabel.layer.borderColor = [UIColor redColor].CGColor;
     //self.backgroundColor = [UIColor greenColor];
+    
+    [self adjustConstraintsScaleForViews:@[self.imageView, self.textLabel]];
 }
 
 -(void)prepareForReuse

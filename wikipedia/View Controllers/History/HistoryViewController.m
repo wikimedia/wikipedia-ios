@@ -21,15 +21,14 @@
 #import "MenuButton.h"
 #import "TopMenuViewController.h"
 #import "CoreDataHousekeeping.h"
+#import "NSObject+ConstraintsScale.h"
 
-#define HISTORY_THUMBNAIL_WIDTH 110
-#define HISTORY_RESULT_HEIGHT 66
+#define HISTORY_RESULT_HEIGHT (66.0 * MENUS_SCALE_MULTIPLIER)
 #define HISTORY_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
 #define HISTORY_LANGUAGE_COLOR [UIColor colorWithWhite:0.0f alpha:0.4f]
 #define HISTORY_DATE_HEADER_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.6f]
 #define HISTORY_DATE_HEADER_BACKGROUND_COLOR [UIColor colorWithWhite:1.0f alpha:0.97f]
-#define HISTORY_DATE_HEADER_HEIGHT 51.0f
-#define HISTORY_DATE_HEADER_LEFT_PADDING 37.0f
+#define HISTORY_DATE_HEADER_LEFT_PADDING (37.0f * MENUS_SCALE_MULTIPLIER)
 
 @interface HistoryViewController ()
 {
@@ -39,6 +38,12 @@
 @property (strong, atomic) NSMutableArray *historyDataArray;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong, nonatomic) IBOutlet UIImageView *emptyImage;
+@property (strong, nonatomic) IBOutlet PaddedLabel *emptyTitle;
+@property (strong, nonatomic) IBOutlet PaddedLabel *emptyDescription;
+
+@property (strong, nonatomic) IBOutlet UIView *emptyContainerView;
 
 @end
 
@@ -133,10 +138,10 @@
     
     [self getHistoryData];
 
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 5)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 5.0 * MENUS_SCALE_MULTIPLIER)];
     self.tableView.tableHeaderView = headerView;
 
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 10.0 * MENUS_SCALE_MULTIPLIER)];
     self.tableView.tableFooterView.backgroundColor = [UIColor whiteColor];
     
     // Register the history results cell for reuse
@@ -145,6 +150,11 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self setEmptyOverlayAndTrashIconVisibility];
+
+    [self adjustConstraintsScaleForViews:@[self.emptyImage, self.emptyTitle, self.emptyDescription, self.emptyContainerView]];
+
+    self.emptyTitle.font = [UIFont boldSystemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER];
+    self.emptyDescription.font = [UIFont systemFontOfSize:14.0 * MENUS_SCALE_MULTIPLIER];
 }
 
 #pragma mark - History data
@@ -343,14 +353,14 @@
 
     NSMutableAttributedString *(^styleText)(NSString *, CGFloat, UIColor *) = ^NSMutableAttributedString *(NSString *str, CGFloat size, UIColor *color){
         return [[NSMutableAttributedString alloc] initWithString:str attributes: @{
-            NSFontAttributeName : [UIFont boldSystemFontOfSize:size],
+            NSFontAttributeName : [UIFont boldSystemFontOfSize:size * MENUS_SCALE_MULTIPLIER],
             NSParagraphStyleAttributeName : paragraphStyle,
             NSForegroundColorAttributeName : color,
         }];
     };
 
-    NSMutableAttributedString *attributedTitle = styleText(title, 15, HISTORY_TEXT_COLOR);
-    NSMutableAttributedString *attributedLanguage = styleText(language, 8, HISTORY_LANGUAGE_COLOR);
+    NSMutableAttributedString *attributedTitle = styleText(title, 15.0, HISTORY_TEXT_COLOR);
+    NSMutableAttributedString *attributedLanguage = styleText(language, 8.0, HISTORY_LANGUAGE_COLOR);
     
     [attributedTitle appendAttributedString:attributedLanguage];
     cell.textLabel.attributedText = attributedTitle;
@@ -447,12 +457,12 @@
     NSRange rangeOfDateString = NSMakeRange(title.length + 1, dateString.length);
     
     [attributedHeader addAttributes:@{
-                                      NSFontAttributeName : [UIFont boldSystemFontOfSize:12.0],
+                                      NSFontAttributeName : [UIFont boldSystemFontOfSize:12.0 * MENUS_SCALE_MULTIPLIER],
                                       NSForegroundColorAttributeName : HISTORY_DATE_HEADER_TEXT_COLOR
                                       } range:rangeOfTitle];
     
     [attributedHeader addAttributes:@{
-                                      NSFontAttributeName : [UIFont systemFontOfSize:12.0],
+                                      NSFontAttributeName : [UIFont systemFontOfSize:12.0 * MENUS_SCALE_MULTIPLIER],
                                       NSForegroundColorAttributeName : HISTORY_DATE_HEADER_TEXT_COLOR
                                       } range:rangeOfDateString];
     return attributedHeader;
@@ -530,7 +540,7 @@
     }
     
     UIColor *iconColor = [UIColor lightGrayColor];
-    CGFloat fontSize = 20;
+    CGFloat fontSize = 20.0 * MENUS_SCALE_MULTIPLIER;
     NSDictionary *attributes =
         @{
             NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:fontSize],

@@ -33,6 +33,7 @@
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "AbuseFilterAlert.h"
 #import "MWLanguageInfo.h"
+#import "NSObject+ConstraintsScale.h"
 
 typedef enum {
     CANNED_SUMMARY_TYPOS = 0,
@@ -156,6 +157,8 @@ typedef enum {
 
     self.summaryText = @"";
     
+    self.previewLabel.font = [UIFont boldSystemFontOfSize:15.0 * MENUS_SCALE_MULTIPLIER];
+
     self.previewLabel.text = MWLocalizedString(@"navbar-title-mode-edit-wikitext-preview", nil);
     
     [self.previewLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewLabelTapped:)]];
@@ -256,6 +259,8 @@ typedef enum {
         [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(40)-[aboutLabel]-(5)-[cannedSummary01(buttonHeight)][cannedSummary02(buttonHeight)][cannedSummary03(buttonHeight)][cannedSummary04(buttonHeight)]-(spaceAboveCC)-|" options:0 metrics:metrics views:views]
     ];
     [self.editSummaryContainer addConstraints:[constraints valueForKeyPath:@"@unionOfArrays.self"]];
+
+    [self adjustConstraintsScaleForViews:@[self.cannedSummary01, self.cannedSummary02, self.cannedSummary03, self.cannedSummary04, self.editSummaryContainer, self.aboutLabel]];
 }
 
 -(void)setupEditSummaryContainerSubviews
@@ -264,7 +269,7 @@ typedef enum {
     UIColor *color = [UIColor colorWithRed:0.03 green:0.48 blue:0.92 alpha:1.0];
     UIEdgeInsets padding = UIEdgeInsetsMake(6, 10, 6, 10);
     UIEdgeInsets margin = UIEdgeInsetsMake(8, 0, 8, 0);
-    CGFloat fontSize = 14;
+    CGFloat fontSize = 14.0;
     
     MenuButton * (^setupButton)(NSString *, NSInteger) = ^MenuButton *(NSString *text, NSInteger tag) {
         MenuButton *button = [[MenuButton alloc] initWithText: text
@@ -288,7 +293,7 @@ typedef enum {
     // Setup the canned edit summaries label.
     self.aboutLabel = [[UILabel alloc] init];
     self.aboutLabel.numberOfLines = 0;
-    self.aboutLabel.font = [UIFont boldSystemFontOfSize:24];
+    self.aboutLabel.font = [UIFont boldSystemFontOfSize:24.0 * MENUS_SCALE_MULTIPLIER];
     self.aboutLabel.textColor = [UIColor darkGrayColor];
     self.aboutLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.aboutLabel.translatesAutoresizingMaskIntoConstraints = NO;

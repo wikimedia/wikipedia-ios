@@ -16,6 +16,7 @@
 #import "NSString+Extras.h"
 #import <MapKit/MapKit.h>
 #import "MWNetworkActivityIndicatorManager.h"
+#import "Defines.h"
 
 @interface NearbyViewController ()
 
@@ -558,7 +559,8 @@
     cell.bounds = CGRectMake(0.0f, 0.0f, tableView.bounds.size.width, cell.bounds.size.height * 10);
     [cell setNeedsLayout];
     [cell layoutIfNeeded];
-    return ([cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1.0f);
+    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    return height + 1.0f;
 
     // Note: for this to work the any UILabels used in the cell should use a class which updates the
     // label's preferredMaxLayoutWidth. PaddedLabel does this. Otherwise some words may get cut off when

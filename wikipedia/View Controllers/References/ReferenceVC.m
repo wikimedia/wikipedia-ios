@@ -7,6 +7,7 @@
 #import "MWLanguageInfo.h"
 #import "WikipediaAppUtils.h"
 #import "UIWebView+ElementLocation.h"
+#import "Defines.h"
 
 #define REFERENCE_LINK_COLOR @"#2b6fb2"
 
@@ -102,6 +103,9 @@
     MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
     NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
 
+    CGFloat fontSize = 14.0 * MENUS_SCALE_MULTIPLIER;
+    CGFloat padding = 10.0 * MENUS_SCALE_MULTIPLIER;
+
     NSString *html = [NSString stringWithFormat:@"\
 <html>\
 <head>\
@@ -110,7 +114,7 @@
     *{\
         color:#999;\
         font-family:'Helvetica Neue';\
-        font-size:14pt;\
+        font-size:%fpt;\
         font-weight:normal;\
         line-height:148%%;\
         font-style:normal;\
@@ -119,8 +123,8 @@
         word-break: break-word;\
      }\
     BODY{\
-        padding-left:10;\
-        padding-right:10;\
+        padding-left:%f;\
+        padding-right:%f;\
      }\
     A, A *{\
         color:%@;\
@@ -132,11 +136,11 @@
 %@ %@\
 </body>\
 </html>\
-", baseUrl, REFERENCE_LINK_COLOR, languageInfo.code, languageInfo.dir, self.linkText, self.html];
+", baseUrl, fontSize, padding, padding, REFERENCE_LINK_COLOR, languageInfo.code, languageInfo.dir, self.linkText, self.html];
 
     [self.referenceWebView loadHTMLString:html baseURL:[NSURL URLWithString:@""]];
     
-    CGFloat topInset = 35;
+    CGFloat topInset = 35.0 * MENUS_SCALE_MULTIPLIER;
     
     CGFloat bottomInset = (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) ? 0 : topInset;
 

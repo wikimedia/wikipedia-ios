@@ -6,6 +6,8 @@
 #import "WikipediaAppUtils.h"
 #import "UIView+Debugging.h"
 #import "WMF_Colors.h"
+#import "Defines.h"
+#import "NSObject+ConstraintsScale.h"
 
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
@@ -29,6 +31,20 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
+}
+
+- (void)awakeFromNib
+{
+    //[self randomlyColorSubviews];
+    // self.distanceLabel.textColor = [UIColor whiteColor];
+    self.distanceLabel.backgroundColor = WMF_COLOR_GREEN;
+    self.distanceLabel.layer.cornerRadius = 2.0f;
+    self.distanceLabel.padding = UIEdgeInsetsMake(0, 7, 0, 7);
+
+    self.titleLabel.font = [UIFont systemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER];
+    self.distanceLabel.font = [UIFont systemFontOfSize:13.0 * MENUS_SCALE_MULTIPLIER];
+
+    [self adjustConstraintsScaleForViews:@[self.titleLabel, self.distanceLabel, self.thumbView]];
 }
 
 -(void)setDistance:(NSNumber *)distance
@@ -146,15 +162,6 @@
     angleRadians = DEGREES_TO_RADIANS(angleDegrees);
 
     [self.thumbView drawTickAtHeading:angleRadians];    
-}
-
-- (void)awakeFromNib
-{
-    //[self randomlyColorSubviews];
-    // self.distanceLabel.textColor = [UIColor whiteColor];
-    self.distanceLabel.backgroundColor = WMF_COLOR_GREEN;
-    self.distanceLabel.layer.cornerRadius = 2.0f;
-    self.distanceLabel.padding = UIEdgeInsetsMake(0, 7, 0, 7);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

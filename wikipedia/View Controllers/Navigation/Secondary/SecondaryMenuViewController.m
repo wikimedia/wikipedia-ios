@@ -27,10 +27,10 @@
 #pragma mark - Defines
 
 #define MENU_ICON_COLOR [UIColor blackColor]
-#define MENU_ICON_FONT_SIZE 24
+#define MENU_ICON_FONT_SIZE (24.0 * MENUS_SCALE_MULTIPLIER)
 
-#define MENU_TITLE_FONT_SIZE 17
-#define MENU_SUB_TITLE_FONT_SIZE 15
+#define MENU_TITLE_FONT_SIZE (17.0 * MENUS_SCALE_MULTIPLIER)
+#define MENU_SUB_TITLE_FONT_SIZE (15.0 * MENUS_SCALE_MULTIPLIER)
 #define MENU_SUB_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.5f alpha:1.0f]
 
 #define URL_ZERO_FAQ @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ"

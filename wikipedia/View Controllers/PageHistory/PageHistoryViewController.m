@@ -88,7 +88,7 @@
 
     self.pageHistoryDataArray = @[].mutableCopy;
 
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 10.0 * MENUS_SCALE_MULTIPLIER)];
     self.tableView.tableFooterView.backgroundColor = [UIColor whiteColor];
     
     [self.tableView registerNib:[UINib nibWithNibName: @"PageHistoryResultPrototypeView" bundle: nil]
@@ -179,7 +179,7 @@
     cell.iconLabel.attributedText =
     [[NSAttributedString alloc] initWithString: row[@"anon"] ? WIKIGLYPH_USER_SLEEP : WIKIGLYPH_USER_SMILE
                                     attributes: @{
-                                                  NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:23],
+                                                  NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:23.0 * MENUS_SCALE_MULTIPLIER],
                                                   NSForegroundColorAttributeName : [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0],
                                                   NSBaselineOffsetAttributeName: @1
                                                   }];
@@ -225,10 +225,10 @@
     view.autoresizesSubviews = YES;
     PaddedLabel *label = [[PaddedLabel alloc] init];
 
-    CGFloat leadingIndent = 10;
+    CGFloat leadingIndent = 10.0 * MENUS_SCALE_MULTIPLIER;
     label.padding = UIEdgeInsetsMake(0, leadingIndent, 0, 0);
 
-    label.font = [UIFont boldSystemFontOfSize:12];
+    label.font = [UIFont boldSystemFontOfSize:12.0 * MENUS_SCALE_MULTIPLIER];
     label.textColor = [UIColor darkGrayColor];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.backgroundColor = [UIColor clearColor];
@@ -252,7 +252,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 27;
+    return 27.0 * MENUS_SCALE_MULTIPLIER;
 }
 
 - (void)didReceiveMemoryWarning

@@ -8,6 +8,7 @@
 #import "SessionSingleton.h"
 #import "NSString+FormattedAttributedString.h"
 #import "NSString+Extras.h"
+#import "Defines.h"
 
 @implementation Section (TOC)
 
@@ -27,15 +28,15 @@
 -(NSAttributedString *)getLeadSectionAttributedTitleForString:(NSString *)string
 {
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineSpacing = 8;
+    paragraphStyle.lineSpacing = ceil(8.0 * MENUS_SCALE_MULTIPLIER);
     
     NSDictionary *contentsHeaderAttributes = @{
-                                    NSFontAttributeName : [UIFont boldSystemFontOfSize:10.5],
+                                    NSFontAttributeName : [UIFont boldSystemFontOfSize:10.5 * MENUS_SCALE_MULTIPLIER],
                                     NSKernAttributeName : @(1.25),
                                     NSParagraphStyleAttributeName : paragraphStyle
                                     };
     NSDictionary *sectionTitleAttributes = @{
-                                       NSFontAttributeName : [UIFont fontWithName:@"Times New Roman" size:24]
+                                       NSFontAttributeName : [UIFont fontWithName:@"Times New Roman" size:24.0 * MENUS_SCALE_MULTIPLIER]
                                        };
     
     NSString *heading = MWLocalizedString(@"table-of-contents-heading", nil);

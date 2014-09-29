@@ -176,7 +176,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                 viewData[@"bottomPadding"] = @0;
                 viewData[@"leftPadding"] = @0;
                 viewData[@"rightPadding"] = @0;
-                viewData[@"fontSize"] = @((self.alertType == ABUSE_FILTER_DISALLOW) ? 74 : 70);
+                viewData[@"fontSize"] = @((self.alertType == ABUSE_FILTER_DISALLOW) ? (74.0 * MENUS_SCALE_MULTIPLIER) : (70.0 * MENUS_SCALE_MULTIPLIER));
                 break;
             case VIEW_TYPE_HEADING:
                 viewData[@"topPadding"] = @35;
@@ -185,7 +185,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                 viewData[@"rightPadding"] = @20;
                 viewData[@"lineSpacing"] = @3;
                 viewData[@"kearning"] = @0.4;
-                viewData[@"font"] = [UIFont boldSystemFontOfSize:23];
+                viewData[@"font"] = [UIFont boldSystemFontOfSize:23.0 * MENUS_SCALE_MULTIPLIER];
                 break;
             case VIEW_TYPE_SUBHEADING:
                 viewData[@"topPadding"] = @0;
@@ -194,7 +194,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                 viewData[@"rightPadding"] = @20;
                 viewData[@"lineSpacing"] = @2;
                 viewData[@"kearning"] = @0;
-                viewData[@"font"] = [UIFont systemFontOfSize:16];
+                viewData[@"font"] = [UIFont systemFontOfSize:16.0 * MENUS_SCALE_MULTIPLIER];
                 break;
             case VIEW_TYPE_ITEM:
                 viewData[@"topPadding"] = @0;
@@ -204,7 +204,7 @@ typedef NS_ENUM(NSInteger, ViewType) {
                 viewData[@"lineSpacing"] = @6;
                 viewData[@"kearning"] = @0;
                 viewData[@"bulletType"] = (self.alertType == ABUSE_FILTER_WARNING) ? @(BULLET_TYPE_ROUND) : @(BULLET_TYPE_NONE);
-                viewData[@"font"] = [UIFont systemFontOfSize:16];
+                viewData[@"font"] = [UIFont systemFontOfSize:16.0 * MENUS_SCALE_MULTIPLIER];
                 break;
             default:
                 break;
@@ -237,18 +237,22 @@ typedef NS_ENUM(NSInteger, ViewType) {
                               size: fontSize.floatValue
                     baselineOffset: baselineOffset.floatValue];
                 
-                CGFloat iconHeight = 78.0;
+                CGFloat iconHeight = 78.0 * MENUS_SCALE_MULTIPLIER;
+                CGFloat topBarHeight = 125.0 * MENUS_SCALE_MULTIPLIER;
                 label.layer.cornerRadius = iconHeight / 2.0;
                 label.clipsToBounds = YES;
                 
                 [view addSubview:label];
                 
                 NSDictionary *views = @{@"label": label, @"v1": view};
-                NSDictionary *metrics = @{@"iconHeight": @(iconHeight)};
+                NSDictionary *metrics = @{
+                    @"iconHeight": @(iconHeight),
+                    @"topBarHeight": @(topBarHeight)
+                };
                 
-                [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"V:[v1(125)]"
+                [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"V:[v1(topBarHeight)]"
                                                                              options: 0
-                                                                             metrics: nil
+                                                                             metrics: metrics
                                                                                views: views]];
                 
                 [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"V:[label(iconHeight)]"

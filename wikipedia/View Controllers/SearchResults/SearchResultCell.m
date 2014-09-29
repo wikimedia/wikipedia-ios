@@ -3,6 +3,7 @@
 
 #import "SearchResultCell.h"
 #import "WikipediaAppUtils.h"
+#import "NSObject+ConstraintsScale.h"
 
 @implementation SearchResultCell
 
@@ -62,6 +63,8 @@
     //self.backgroundColor = [UIColor greenColor];
 
     self.textLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+    
+    [self adjustConstraintsScaleForViews:@[self.textLabel, self.imageView]];
 }
 
 -(void)prepareForReuse

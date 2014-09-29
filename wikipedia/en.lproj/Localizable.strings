@@ -109,6 +109,7 @@
 "main-menu-heading-legal" = "Mumbo jumbo";
 "main-menu-show-today" = "Today";
 "main-menu-nearby" = "Nearby";
+"main-menu-more" = "More...";
 
 "saved-pages-title" = "Saved pages";
 "saved-pages-clear-confirmation-heading" = "Delete all saved items?";

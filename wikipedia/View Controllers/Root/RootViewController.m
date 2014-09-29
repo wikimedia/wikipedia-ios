@@ -157,7 +157,7 @@
 
 -(void)constrainTopContainerHeight
 {
-    CGFloat topMenuHeight = TOP_MENU_INITIAL_HEIGHT;
+    CGFloat topMenuHeight = CHROME_MENUS_HEIGHT;
     
     // iOS 7 needs to have room for a view behind the top status bar.
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
@@ -348,7 +348,7 @@
     // top of the center container the top menue gets pushed up offscreen. Shows the top menu
     // by lowering the center container.
 
-    CGFloat topMenuVisibleHeight = TOP_MENU_INITIAL_HEIGHT;
+    CGFloat topMenuVisibleHeight = CHROME_MENUS_HEIGHT;
     CGFloat statusBarHeight = (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) ? [self getStatusBarHeight] : 0;
     
     if ([self prefersStatusBarHiddenForViewController:self.topVC]) statusBarHeight = 0;
@@ -382,7 +382,7 @@
                 webVC.webView.scrollView.contentOffset =
                     CGPointMake(
                         webVC.webView.scrollView.contentOffset.x,
-                        webVC.webView.scrollView.contentOffset.y + TOP_MENU_INITIAL_HEIGHT
+                        webVC.webView.scrollView.contentOffset.y + CHROME_MENUS_HEIGHT
                     );
             }
             

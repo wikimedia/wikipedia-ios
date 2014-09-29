@@ -3,6 +3,8 @@
 
 #import "CaptchaViewController.h"
 #import "WikipediaAppUtils.h"
+#import "NSObject+ConstraintsScale.h"
+#import "Defines.h"
 
 @interface CaptchaViewController ()
 
@@ -26,6 +28,11 @@
     [self.reloadCaptchaButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
 
     self.captchaTextBox.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+
+    [self adjustConstraintsScaleForViews:@[self.captchaImageView, self.captchaTextBox, self.reloadCaptchaButton]];
+    
+    self.reloadCaptchaButton.titleLabel.font = [UIFont systemFontOfSize:15.0 * MENUS_SCALE_MULTIPLIER];
+    self.captchaTextBox.font = [UIFont systemFontOfSize:15.0 * MENUS_SCALE_MULTIPLIER];
 }
 
 - (void)reloadCaptchaPushed:(id)sender

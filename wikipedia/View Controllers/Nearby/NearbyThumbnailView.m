@@ -3,8 +3,9 @@
 
 #import "NearbyThumbnailView.h"
 #import "WMF_Colors.h"
+#import "Defines.h"
 
-#define NEARBY_IMAGE_PADDING 16.0f
+#define NEARBY_IMAGE_PADDING (16.0f * MENUS_SCALE_MULTIPLIER)
 
 #define NEARBY_IMAGE_BORDER_WIDTH 1.0f
 #define NEARBY_IMAGE_BORDER_COLOR [UIColor colorWithWhite:0.9 alpha:1.0].CGColor
@@ -45,6 +46,7 @@
         self.thumbImageView.opaque = YES;
         self.thumbImageView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
         self.thumbImageView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.thumbImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:self.thumbImageView];
         [self constrainImageView];
         self.isPlaceholder = NO;
@@ -65,12 +67,6 @@
     [super layoutSubviews];
 
     self.thumbImageView.layer.cornerRadius = (self.thumbImageView.frame.size.width / 2.0f);
-
-    if (self.isPlaceholder) {
-        self.thumbImageView.contentMode = UIViewContentModeCenter;
-    }else{
-        self.thumbImageView.contentMode = UIViewContentModeScaleAspectFill;
-    }
 }
 
 -(void)constrainImageView
