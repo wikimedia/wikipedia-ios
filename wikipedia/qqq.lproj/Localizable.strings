@@ -173,7 +173,7 @@
 "page_protected_other" = "Brief description of Wikipedia unknown protection level, shown when editing a page that is protected.";
 "page_protected_can_not_edit" = "Text of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.";
 "page_protected_can_not_edit_title" = "Title of alert dialog shown when trying to edit a page that is protected beyond what the user can edit.";
-"license-footer-text" = "Brief footer text linking to CC-BY-SA license. '$1' is placeholder for the license-footer-name message";
+"license-footer-text" = "Brief footer text linking to CC-BY-SA license. '$1' is placeholder for the {{msg-wm|Wikipedia-ios-license-footer-name}} message";
 "license-footer-name" = "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents\n{{Identical|Content}}";
 "abuse-filter-warning-heading" = "Header text for unconstructive edit warning";

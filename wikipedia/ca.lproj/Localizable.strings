@@ -15,6 +15,8 @@
 "history-section-yesterday" = "Ahir";
 "history-section-lastweek" = "Darrera setmana";
 "history-section-lastmonth" = "Darrer mes";
+"history-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
+"history-clear-cancel" = "Cancel·la";
 "zero-free-verbiage" = "Accés lliure a la Viquipèdia des del teu operador mòbil (sense càrrecs per transmissió de dades)";
 // Fuzzy
 "zero-charged-verbiage" = "Viquipèdia Zero DESACTIVAT (PODEN APLICAR-SE COSTOS PER TRANSMISSIÓ DE DADES)";
@@ -43,6 +45,9 @@
 "account-creation-password-confirm-placeholder-text" = "Confirma la contrasenya";
 "account-creation-email-placeholder-text" = "Adreça electrònica (opcional)";
 "login-name-not-found" = "Cal el nom d'usuari per iniciar una sessió.";
+"login-name-does-not-exist" = "El nom d'usuari que heu proporcionat no existeix.";
+"login-password-wrong" = "La contrasenya que heu proporcionat no és correcta.";
+"login-throttled" = "Heu iniciat una sessió massa vegades en un temps curt.";
 "login-user-blocked" = "L'usuari està blocat.";
 "login-account-creation" = "No teniu un compte? Uniu-vos a la Viquipèdia.";
 "login-username-placeholder-text" = "Nom d'usuari";
@@ -59,6 +64,7 @@
 "open-link-title" = "Obre l'enllaç";
 "open-link-cancel" = "Cancel·la";
 "search-searching" = "S'està cercant...";
+"search-no-matches" = "No s'han trobat coincidències del terme de cerca.";
 "search-field-placeholder-text" = "Cerca a la Viquipèdia";
 "search-field-placeholder-text-zero" = "Cerca a la Viquipèdia Zero";
 "search-loading-section-zero" = "S'està carregant la primera secció de l'article...";
@@ -86,7 +92,10 @@
 "main-menu-terms-of-use" = "Condicions d’ús";
 "main-menu-rate-app" = "Puntua l'aplicació";
 "main-menu-show-today" = "Avui";
+"main-menu-nearby" = "A prop";
 "saved-pages-title" = "Pàgines desades";
+"saved-pages-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
+"saved-pages-clear-cancel" = "Cancel·la";
 "page-history-title" = "Historial de l'article";
 "page-history-downloading" = "S'està carregant l'historial de l'article...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
@@ -150,3 +159,6 @@
 "menu-cancel-accessibility-label" = "Cancel·la";
 "menu-share-accessibility-label" = "Comparteix";
 "menu-more-accessibility-label" = "Més paràmetres";
+"nearby-loaded" = "S'han carregat articles propers";
+"nearby-none" = "No s'han trobat articles propers. Arrossegueu per refrescar o torneu-ho a provar més tard.";
+"nearby-cancel" = "Cancel·la";

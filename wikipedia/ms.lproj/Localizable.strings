@@ -6,30 +6,28 @@
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batalkan";
 "article-languages-downloading" = "Memuatkan bahasa-bahasa rencana...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Tapis";
+"article-languages-filter-placeholder" = "Tapis Bahasa";
+"language-button-text" = "Anda boleh membaca rencana ini dalam %d bahasa lain";
 "history-label" = "Terkini";
 "history-section-today" = "Hari ini";
 "history-section-yesterday" = "Semalam";
 "history-section-lastweek" = "Minggu lepas";
 "history-section-lastmonth" = "Bulan lepas";
+"history-clear-confirmation-heading" = "Padamkan semua item terbaru?";
+"history-clear-confirmation-sub-heading" = "Tindakan ini tidak boleh dipulihkan!";
+"history-clear-cancel" = "Batalkan";
+"history-clear-delete-all" = "Padam Semua";
 "zero-free-verbiage" = "Akses Wikipedia percuma dari operator mudah alih anda (pengecualian caj data)";
-// Fuzzy
-"zero-charged-verbiage" = "Wikipedia Zero OFF (CAJ DATA STANDARD MUNGKIN DIKENAKAN)";
+"zero-charged-verbiage" = "Wikipedia Zero off";
+"zero-charged-verbiage-extended" = "Tindakan memuatkan rencana lain mungkin dikenakan caj data. Rencana-rencana yang tersimpan secara 'offline' tidak menelan data, dan oleh itu percuma.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Keluar dari Wikipedia Zero";
-// Fuzzy
-"zero-interstitial-leave-app" = "Terus ke laman web luaran? Caj data standard mungkin dikenakan.";
-// Fuzzy
-"zero-interstitial-continue" = "Teruskan";
-// Fuzzy
-"zero-interstitial-cancel" = "Batalkan";
-// Fuzzy
-"zero-learn-more" = "Ingin tahu lebih lanjut mengenai Wikipedia Zero?";
-// Fuzzy
-"zero-learn-more-learn-more" = "Ketahui lebih lanjut";
-// Fuzzy
-"zero-learn-more-no-thanks" = "Terima kasih sajalah";
+"zero-interstitial-leave-app" = "Caj data mungkin dikenakan. Terus ke laman web luaran?";
+"zero-interstitial-continue" = "Ya";
+"zero-interstitial-cancel" = "Tidak";
+"zero-learn-more" = "Caj data akan dikecualikan bagi aplikasi Wikipedia ini.";
+"zero-learn-more-learn-more" = "Baca lagi";
+"zero-learn-more-no-thanks" = "Singkir";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
 "zero-warn-when-leaving" = "Pesan apabila keluar dari Wikipedia Zero";
 "zero-settings-devmode" = "Zero Devmode";
@@ -38,6 +36,7 @@
 "account-creation-logging-in" = "Sedang log masuk...";
 "account-creation-passwords-mismatched" = "Kata laluan tidak sepadan.";
 "account-creation-saving" = "Menyimpan...";
+"account-creation-login" = "Sudah ada akaun? Log masuk.";
 "account-creation-username-placeholder-text" = "Nama pengguna";
 "account-creation-password-placeholder-text" = "Kata laluan";
 "account-creation-password-confirm-placeholder-text" = "Sahkan kata laluan";
@@ -64,8 +63,8 @@
 "wikitext-upload-save-sign-in" = "Log masuk";
 "wikitext-upload-save-sign-in-benefits" = "Supaya penyunting lain boleh berhubungan dengan anda, dan anda dapat meninjau rencana-rencana suntingan anda.";
 "wikitext-upload-save-anonymously" = "Simpan secara awanama";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Begini kurang privasi. Alamat IP anda kelihatan bersama suntingan.";
+"wikitext-upload-save-anonymously-warning" = "Suntingan akan diatribusikan kepada alamat IP peranti anda. Jika anda $1, anda akan dapat lebih banyak privasi.";
+"wikitext-upload-save-terms-and-license" = "Dengan menyimpan, anda akur kepada $1 dan melepaskan sumbangan anda di bawah lesen $2 tanpa boleh menarik baliknya.";
 "wikitext-upload-save-terms-name" = "Syarat-Syarat Penggunaan";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Buka pautan";
@@ -93,14 +92,21 @@
 "main-menu-current-article-save" = "Simpan $1 untuk dibaca offline";
 "main-menu-random" = "Rawak";
 "main-menu-feedback-heading" = "Maklum balas";
-// Fuzzy
-"main-menu-send-feedback" = "Kirim maklum balas";
+"main-menu-send-feedback" = "Hantar maklum balas aplikasi";
 "main-menu-show-page-history" = "Sejarah perubahan $1";
 "main-menu-credits" = "Kredit";
 "main-menu-zero-faq" = "Soalan Lazim Wikipedia Zero";
 "main-menu-privacy-policy" = "Dasar privasi";
 "main-menu-terms-of-use" = "Syarat-syarat penggunaan";
+"main-menu-rate-app" = "Beri nilai aplikasi";
+"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-show-today" = "Hari ini";
+"main-menu-nearby" = "Berdekatan";
 "saved-pages-title" = "Laman Tersimpan";
+"saved-pages-clear-confirmation-heading" = "Padamkan semua item tersimpan?";
+"saved-pages-clear-confirmation-sub-heading" = "Tindakan ini tidak boleh dipulihkan!";
+"saved-pages-clear-cancel" = "Batalkan";
+"saved-pages-clear-delete-all" = "Padam Semua";
 "page-history-title" = "Sejarah laman";
 "page-history-downloading" = "Memuatkan sejarah laman...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
@@ -125,6 +131,7 @@
 "edit-summary-choice-other" = "Lain-lain";
 "edit-summary-description" = "Ringkasan yang khusus membantu penyunting lain untuk menyemak suntingan anda dengan cepat. Anda juga boleh memilih dari antara teg-teg yang berikut.";
 "edit-summary-field-placeholder-text" = "Bagaimanakah anda telah menambah baik halaman ini?";
+"edit-summary-title" = "Bagaimana anda perbaiki rencana ini?";
 "fetching-random-article" = "Memperoleh rencana rawak";
 "article-pull-to-refresh-prompt" = "Tarik untuk muat semula rencana";
 "article-pull-to-refresh-is-refreshing" = "Rencana sedang dimuatkan semula";
@@ -143,6 +150,7 @@
 "timestamp-years" = "%d tahun yang lalu";
 "lastmodified-by-user" = "Diubah pada $1 oleh $2";
 "lastmodified-by-anon" = "Diubah pada $1 oleh pengguna tanpa nama";
+"button-next" = "Seterusnya";
 "button-done" = "Siap";
 "button-save" = "Simpan";
 "onboarding-create-account" = "Buka akaun";
@@ -154,7 +162,9 @@
 "preference_title_eventlogging_opt_in" = "Kirim laporan penggunaan";
 "page_protected_autoconfirmed" = "Laman ini telah diberi perlindungan separa.";
 "page_protected_sysop" = "Laman ini telah diberi perlindungan penuh.";
+"page_protected_can_not_edit_title" = "Halaman ini dilindungi";
 "license-footer-text" = "Kandungan disediakan dengan $1";
+"license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Kandungan";
 "menu-edit-accessibility-label" = "Sunting";
 "menu-close-accessibility-label" = "Tutup";
@@ -167,3 +177,13 @@
 "menu-cancel-accessibility-label" = "Batal";
 "menu-share-accessibility-label" = "Kongsi";
 "menu-more-accessibility-label" = "Lagi tetapan";
+"menu-trash-accessibility-label" = "Padamkan";
+"nearby-title" = "Berdekatan";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-feet" = "$1 kaki";
+"nearby-distance-label-miles" = "$1 batu";
+"nearby-pull-to-refresh-prompt" = "Tarik untuk kemas kini";
+"nearby-pull-to-refresh-is-refreshing" = "Memuat semula";
+"nearby-loading" = "Memuatkan rencana berdekatan...";
+"nearby-cancel" = "Batalkan";

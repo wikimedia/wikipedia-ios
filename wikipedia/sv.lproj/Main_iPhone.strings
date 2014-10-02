@@ -1,8 +1,9 @@
 // Messages for Swedish (svenska)
 // Exported from translatewiki.net
+// Author: Jopparn
 // Author: WikiPhoenix
 
-"21c-U6-yfo.normalTitle" = "Visa en annan CAPTCHA";
+"21c-U6-yfo.normalTitle" = "Visa en annan captcha";
 "5cT-2Y-0Ie.placeholder" = "Användarnamn";
 "GiD-Rj-wb7.text" = "Sparade sidor är väldigt händigt. Tänk på dem som bokmärken som du kan läsa även när du inte är ansluten.";
 "LfM-01-aCF.text" = "Förhandsvisa";
