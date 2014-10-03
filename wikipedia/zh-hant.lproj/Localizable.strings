@@ -38,7 +38,7 @@
 "zero-warn-when-leaving" = "離開Wikipedia Zero時提示";
 "zero-settings-devmode" = "Zero 開發模式";
 "account-creation-captcha-required" = "驗證碼校驗錯誤。";
-"account-creation-captcha-obtaining" = "正在獲取一個新的驗證碼。";
+"account-creation-captcha-obtaining" = "正在取得一個新的驗證碼。";
 "account-creation-logging-in" = "登入中...";
 "account-creation-passwords-mismatched" = "密碼欄位不匹配。";
 "account-creation-saving" = "儲存中...";
@@ -60,7 +60,7 @@
 "wikitext-downloading" = "正在載入內容…";
 "wikitext-download-failed" = "無法獲取最新的版本。";
 "wikitext-download-success" = "內容已加載。";
-"wikitext-preview-changes" = "正在獲取您的修改預覽...";
+"wikitext-preview-changes" = "正在取得您的修改預覽...";
 "wikitext-preview-changes-none" = "沒有可供預覽的修改。";
 "wikitext-upload-result-unknown" = "無法確定wikitext上載結果。";
 "wikitext-upload-captcha-error" = "驗證碼校驗錯誤。";
@@ -139,7 +139,7 @@
 "edit-summary-description" = "具體的摘要可以幫助共同編輯者更方便和快捷地檢視閣下的編輯，而閣下也可以從下面的標記中選擇一個合適的編輯摘要。";
 "edit-summary-field-placeholder-text" = "閣下為改善此頁面做了甚麼？";
 "edit-summary-title" = "您如何改善此頁面？";
-"fetching-random-article" = "正在獲取隨機條目";
+"fetching-random-article" = "正在取得隨機條目";
 "article-pull-to-refresh-prompt" = "拖拽以重新整理條目";
 "article-pull-to-refresh-is-refreshing" = "重新整理條目中";
 "credits-title" = "開源資料庫";
@@ -149,6 +149,7 @@
 "credits-external-libraries" = "外部";
 "share-menu-save-page" = "存儲條目";
 "share-menu-page-saved" = "條目已存儲";
+"share-menu-page-saved-access" = "提示：要存取您儲存的頁面，在上面點選$1或在下面長按$2。";
 "timestamp-just-now" = "剛剛";
 "timestamp-minutes" = "%d分鐘前";
 "timestamp-hours" = "%d小時前";
@@ -174,7 +175,7 @@
 "page_protected_can_not_edit" = "您沒有權限編輯此頁面";
 "page_protected_can_not_edit_title" = "此頁面受到保護";
 "license-footer-text" = "內容根據$1可用";
-"license-footer-name" = "CC姓名標示-相同方式分享3.0";
+"license-footer-name" = "創用CC 姓名標示-相同方式分享 3.0";
 "table-of-contents-heading" = "內容";
 "abuse-filter-warning-heading" = "這可能是沒有建設性的編輯。你確定你想要存儲它？";
 "abuse-filter-warning-subheading" = "您的編輯可能包含下列情況之一：";

@@ -101,6 +101,7 @@
 "main-menu-show-today" = "আজ";
 "main-menu-nearby" = "কাছাকাছি";
 "saved-pages-title" = "সংরক্ষিত পাতা";
+"saved-pages-clear-confirmation-heading" = "সংরক্ষিত সব আইটেম অপসারণ করবেন?";
 "saved-pages-clear-cancel" = "বাতিল";
 "saved-pages-clear-delete-all" = "সব মুছে ফেলুন";
 "page-history-title" = "পাতার ইতিহাস";
@@ -193,5 +194,9 @@
 "nearby-distance-label-miles" = "$1 মাইল";
 "nearby-pull-to-refresh-prompt" = "পুনঃসতেজ করতে টানুন";
 "nearby-pull-to-refresh-is-refreshing" = "পুনঃসতেজ হচ্ছে";
+"nearby-loading" = "কাছাকাছি নিবন্ধ লোড হচ্ছে...";
+"nearby-loaded" = "কাছাকাছি নিবন্ধ লোড হয়েছে";
 "nearby-open-in-maps" = "মানচিত্রে খুলুন";
 "nearby-cancel" = "বাতিল";
+"nearby-location-updates-settings-menu" = "গোপনীয়তা > অবস্থান পরিষেবা > উইকিপিডিয়া";
+"nearby-location-general-error" = "অবস্থান নির্ণয় করা যাচ্ছে না। পুনঃসতেজ করতে টানুন বা পরে আবার চেষ্টা করুন।";

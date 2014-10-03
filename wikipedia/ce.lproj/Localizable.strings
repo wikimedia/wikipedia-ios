@@ -86,7 +86,7 @@
 "abuse-filter-disallow-notable" = "Википеди — хӀара ю энциклопеди, кхузахь чулацам нейтральни хила беза.";
 "menu-edit-accessibility-label" = "Тае";
 "menu-close-accessibility-label" = "ДӀачӀагӀа";
-"menu-preview-accessibility-label" = "Хьалха муха ю хьажа";
+"menu-preview-accessibility-label" = "Хьалха хьажар";
 "menu-back-accessibility-label" = "Юха";
 "menu-forward-accessibility-label" = "Хьалха";
 "menu-w-accessibility-label" = "Меню";
@@ -95,7 +95,6 @@
 "menu-share-accessibility-label" = "Екха";
 "menu-trash-accessibility-label" = "ДӀаяккха";
 "nearby-title" = "Уллехь";
-// Fuzzy
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-km" = "$1 км";
 // Fuzzy

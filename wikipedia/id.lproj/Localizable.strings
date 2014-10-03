@@ -1,6 +1,7 @@
 // Messages for Indonesian (Bahasa Indonesia)
 // Exported from translatewiki.net
 // Author: Arifin.wijaya
+// Author: Bennylin
 // Author: C5st4wr6ch
 // Author: Iwan Novirion
 
@@ -37,7 +38,7 @@
 "account-creation-username-placeholder-text" = "Nama pengguna";
 "account-creation-password-placeholder-text" = "Kata sandi";
 "account-creation-password-confirm-placeholder-text" = "Konfirmasi kata sandi";
-"account-creation-email-placeholder-text" = "Surel (opsional)";
+"account-creation-email-placeholder-text" = "Alamat surel/email (dianjurkan untuk diisi)";
 "login-name-not-found" = "Nama pengguna diperlukan untuk masuk log.";
 "login-name-illegal" = "Anda memberikan nama pengguna ilegal.";
 "login-name-does-not-exist" = "Nama pengguna yang Anda berikan tidak ada.";
