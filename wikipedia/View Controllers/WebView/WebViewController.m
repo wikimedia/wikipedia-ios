@@ -1073,7 +1073,7 @@ typedef enum {
                                                                                       domain: [SessionSingleton sharedInstance].currentArticleDomain];
         if (!articleID) return;
         Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-        if (!article) return;
+        if (!article || !article.title || !article.domain) return;
 
         SavedPagesFunnel *funnel = [[SavedPagesFunnel alloc] init];
         if (article.saved.count == 0) {
@@ -1901,8 +1901,11 @@ typedef enum {
         }
 
 
-        if ((mode != DISPLAY_LEAD_SECTION)) {
+        if (mode != DISPLAY_APPEND_NON_LEAD_SECTIONS) {
             if (![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
+                if (mode == DISPLAY_LEAD_SECTION) {
+                    [sectionTextArray addObject: [NSString stringWithFormat:@"<div id='nonLeadSectionsInjectionPoint' style='margin-top:2em;margin-bottom:2em;'>%@</div>", MWLocalizedString(@"search-loading-section-remaining", nil)]];
+                }
                 [sectionTextArray addObject: [self renderFooterDivider]];
                 [sectionTextArray addObject: [self renderLastModified:lastModified by:lastModifiedBy]];
                 [sectionTextArray addObject: [self renderLanguageButtonForCount: langCount.integerValue]];
@@ -1918,6 +1921,18 @@ typedef enum {
         // Join article sections text
         NSString *joint = @""; //@"<div style=\"background-color:#ffffff;height:55px;\"></div>";
         NSString *htmlStr = [sectionTextArray componentsJoinedByString:joint];
+
+        // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
+        BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && htmlStr);
+        if (!safeToCrossBridge) {
+            NSLog(@"\n\nUnsafe to cross JS bridge!");
+            NSLog(@"\tlanguageInfo.code = %@", languageInfo.code);
+            NSLog(@"\tlanguageInfo.dir = %@", languageInfo.dir);
+            NSLog(@"\tuidir = %@", uidir);
+            NSLog(@"\thtmlStr is nil = %d\n\n", (htmlStr == nil));
+            //TODO: output "could not load page" alert and/or show last page?
+            return;
+        }
         
         // NSLog(@"languageInfo = %@", languageInfo.code);
         // Display all sections
@@ -1928,7 +1943,11 @@ typedef enum {
                                    @"uidir": uidir
                                    }];
         
-        [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];
+        if (mode != DISPLAY_APPEND_NON_LEAD_SECTIONS) {
+            [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];
+        }else{
+            [self.bridge sendMessage:@"injectNonLeadSections" withPayload:@{@"html": htmlStr}];
+        }
         // Note: we set the scroll position later, after the size has been calculated
         
         if (!self.editable) {

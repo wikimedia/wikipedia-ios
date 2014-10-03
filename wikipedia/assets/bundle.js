@@ -140,6 +140,25 @@ bridge.registerListener( "append", function( payload ) {
     content.appendChild(newcontent);
 });
 
+bridge.registerListener( "injectNonLeadSections", function( payload ) {
+    // Append html without losing existing event handlers
+    // From: http://stackoverflow.com/a/595825
+
+    var newcontent = document.createElement('div');
+    newcontent.innerHTML = payload.html;
+
+    //transformer.transform( "relocateInfobox", newcontent );
+    transformer.transform( "hideRedlinks", newcontent );
+    transformer.transform( "disableFilePageEdit", newcontent );
+    transformer.transform( "hideAudioTags", newcontent );
+    transformer.transform( "overflowWideTables", newcontent );
+    
+    var content = document.getElementById("nonLeadSectionsInjectionPoint");
+    // Ensure we've done transforms *before* injecting the new content.
+    // Otherwise the web view dom will thrash.
+    content.parentNode.replaceChild(newcontent, content);
+});
+
 bridge.registerListener( "remove", function( payload ) {
     document.getElementById( "content" ).removeChild(document.getElementById(payload.element));
 });

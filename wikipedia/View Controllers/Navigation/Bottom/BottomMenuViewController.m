@@ -348,9 +348,11 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
         NSManagedObjectID *currentArticleId =
         [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
                                                          domain: [SessionSingleton sharedInstance].currentArticleDomain];
-        Article *article = (Article *)[articleDataContext_.mainContext objectWithID:currentArticleId];
-        if (article && (article.saved.count == 1)){
-            result = YES;
+        if (currentArticleId) {
+            Article *article = (Article *)[articleDataContext_.mainContext objectWithID:currentArticleId];
+            if (article && (article.saved.count == 1)){
+                result = YES;
+            }
         }
     }];
     return result;
