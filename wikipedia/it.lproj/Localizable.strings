@@ -107,6 +107,7 @@
 "main-menu-heading-legal" = "Mumbo jumbo";
 "main-menu-show-today" = "Oggi";
 "main-menu-nearby" = "Nelle vicinanze";
+"main-menu-more" = "Altro...";
 "saved-pages-title" = "Pagine salvate";
 "saved-pages-clear-confirmation-heading" = "Cancellare tutti gli elementi salvati?";
 "saved-pages-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
@@ -200,5 +201,6 @@
 "nearby-distance-label-feet" = "$1 piedi";
 "nearby-distance-label-miles" = "$1 miglia";
 "nearby-pull-to-refresh-prompt" = "Trascina in basso per aggiornare";
+"nearby-open-in-maps" = "Apri in Maps";
 "nearby-cancel" = "Annulla";
 "nearby-wifi" = "Abilitando il WiFi, aiuti il dispositivo a determinar meglio la tua posizione.";
