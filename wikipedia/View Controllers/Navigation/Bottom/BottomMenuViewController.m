@@ -104,11 +104,24 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
     [self addTapRecognizersToAllButtons];
     
-    UILongPressGestureRecognizer *longPressRecognizer =
+    UILongPressGestureRecognizer *saveLongPressRecognizer =
     [[UILongPressGestureRecognizer alloc] initWithTarget: self
                                                   action: @selector(saveButtonLongPressed:)];
-    longPressRecognizer.minimumPressDuration = 0.5f;
-    [self.saveButton addGestureRecognizer:longPressRecognizer];
+    saveLongPressRecognizer.minimumPressDuration = 0.5f;
+    [self.saveButton addGestureRecognizer:saveLongPressRecognizer];
+
+    UILongPressGestureRecognizer *backLongPressRecognizer =
+    [[UILongPressGestureRecognizer alloc] initWithTarget: self
+                                                  action: @selector(backForwardButtonsLongPressed:)];
+    backLongPressRecognizer.minimumPressDuration = 0.5f;
+    [self.backButton addGestureRecognizer:backLongPressRecognizer];
+
+
+    UILongPressGestureRecognizer *forwardLongPressRecognizer =
+    [[UILongPressGestureRecognizer alloc] initWithTarget: self
+                                                  action: @selector(backForwardButtonsLongPressed:)];
+    forwardLongPressRecognizer.minimumPressDuration = 0.5f;
+    [self.forwardButton addGestureRecognizer:forwardLongPressRecognizer];
 
     [self adjustConstraintsScaleForViews:@[self.backButton, self.forwardButton, self.saveButton, self.rightButton]];
 }
@@ -167,6 +180,15 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 {
     if (recognizer.state == UIGestureRecognizerStateBegan){
         [self performModalSequeWithID: @"modal_segue_show_saved_pages"
+                      transitionStyle: UIModalTransitionStyleCoverVertical
+                                block: nil];
+    }
+}
+
+-(void)backForwardButtonsLongPressed:(UILongPressGestureRecognizer *)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateBegan){
+        [self performModalSequeWithID: @"modal_segue_show_history"
                       transitionStyle: UIModalTransitionStyleCoverVertical
                                 block: nil];
     }
