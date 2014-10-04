@@ -1462,6 +1462,9 @@ typedef enum {
     
     [self hideKeyboard];
     
+    //clear the contents of the webview
+    [self.webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('content').innerHTML = '';"];
+    
     // Show loading message
     //[self showAlert:MWLocalizedString(@"search-loading-section-zero", nil) type:ALERT_TYPE_TOP duration:-1];
 
