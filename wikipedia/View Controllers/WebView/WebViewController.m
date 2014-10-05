@@ -1705,6 +1705,7 @@ typedef enum {
             article.articleId = dataRetrieved[@"articleId"];
             article.editable = dataRetrieved[@"editable"];
             article.protectionStatus = dataRetrieved[@"protectionStatus"];
+            article.displayTitle = dataRetrieved[@"displaytitle"];
 
 
             // Note: Because "retrieveArticleForPageTitle" recurses with the redirected-to title if

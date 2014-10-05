@@ -24,7 +24,7 @@
         NSMutableDictionary *params =
         @{
           @"action": @"mobileview",
-          @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount|id|protection|editable",
+          @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount|id|protection|editable|displaytitle",
           @"sectionprop": @"toclevel|line|anchor|level|number|fromtitle|index",
           @"noheadings": @"true",
           @"page": title,
@@ -137,6 +137,9 @@
             NSNumber *editable = weakSelf.jsonRetrieved[@"mobileview"][@"editable"];
             if (!editable || [editable isNull]) editable = @NO;
             
+            NSString *displaytitle = weakSelf.jsonRetrieved[@"mobileview"][@"displaytitle"];
+            if (!displaytitle || [displaytitle isNull]) displaytitle = @"";
+            
             NSString *protectionStatus = @"";
             id protection = weakSelf.jsonRetrieved[@"mobileview"][@"protection"];
             // if empty this can be an array instead of an object/dict!
@@ -154,6 +157,7 @@
                                             @"lastmodified": lastmodifiedDate,
                                             @"lastmodifiedby": lastmodifiedby,
                                             @"redirected": redirected,
+                                            @"displaytitle": displaytitle,
                                             @"languagecount": languagecount,
                                             @"articleId": articleId,
                                             @"editable": editable,

@@ -33,7 +33,7 @@
     NSString *pencilAnchor = isMainPage ? @"" : [self getEditPencilAnchor];
     
     // Use the article's title for lead section header text.
-    NSString *title = ([self.sectionId isEqualToNumber:@(0)]) ? self.article.title : self.title;
+    NSString *title = [self getHeaderTitle];
     
     NSInteger headingTagSize = [self getHeadingTagSize];
 
@@ -51,6 +51,18 @@
             pencilAnchor,
             (long)headingTagSize
         ];
+}
+
+-(NSString*)getHeaderTitle{
+    if ([self.sectionId isEqualToNumber:@(0)]) {
+        if (self.article.displayTitle != nil && self.article.displayTitle.length > 0) {
+            return self.article.displayTitle;
+        }else{
+            return self.article.title;
+        }
+    }else{
+        return self.title;
+    }
 }
 
 -(NSInteger)getHeadingTagSize
