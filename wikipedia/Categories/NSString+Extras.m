@@ -64,6 +64,7 @@
 {
     // See: https://www.mediawiki.org/wiki/Manual:WfTimestamp
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
     return  [formatter dateFromString:self];
 }
