@@ -4,6 +4,7 @@
 // Author: Meelo
 // Author: Sayginer
 // Author: Sucsuzz
+// Author: Violetanka
 
 "article-languages-label" = "Dil seçin";
 "article-languages-cancel" = "İptal";
@@ -105,6 +106,7 @@
 "main-menu-heading-legal" = "Yasal bilgi";
 "main-menu-show-today" = "Bugün";
 "main-menu-nearby" = "Yakınındakiler";
+"main-menu-more" = "Daha fazla...";
 "saved-pages-title" = "Kaydedilen sayfalar";
 "saved-pages-clear-confirmation-heading" = "Tüm kayıtlı ögeler silinsin mi?";
 "saved-pages-clear-confirmation-sub-heading" = "Bu eylem geri alınamaz!";

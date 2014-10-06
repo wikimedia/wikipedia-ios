@@ -3,6 +3,7 @@
 // Author: Alirezaaa
 // Author: Ebraminio
 // Author: Fatemi127
+// Author: Hosseinblue
 // Author: Mahdiz
 // Author: Reza1615
 // Author: Sahehco
@@ -107,6 +108,7 @@
 "main-menu-heading-legal" = "خرافات";
 "main-menu-show-today" = "امروز";
 "main-menu-nearby" = "در نزدیکی";
+"main-menu-more" = "بیشتر...";
 "saved-pages-title" = "صفحات ذخیره شده";
 "saved-pages-clear-confirmation-heading" = "همه موارد ذخیره‌شده حذف شوند؟";
 "saved-pages-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";

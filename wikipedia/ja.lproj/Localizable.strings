@@ -106,6 +106,7 @@
 "main-menu-heading-legal" = "法的な事柄";
 "main-menu-show-today" = "今日";
 "main-menu-nearby" = "付近";
+"main-menu-more" = "その他...";
 "saved-pages-title" = "保存したページ";
 "saved-pages-clear-confirmation-heading" = "保存した項目をすべて削除しますか？";
 "saved-pages-clear-confirmation-sub-heading" = "この操作は取り消せません!";
