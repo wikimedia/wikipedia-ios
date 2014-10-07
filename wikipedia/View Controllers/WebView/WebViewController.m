@@ -1847,7 +1847,7 @@ typedef enum {
 
     Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
 
-    if (!article) return;
+    if (!article || !article.title || !article.domain) return;
     [SessionSingleton sharedInstance].currentArticleTitle = article.title;
     [SessionSingleton sharedInstance].currentArticleDomain = article.domain;
     MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:article.domain];
