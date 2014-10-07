@@ -93,7 +93,8 @@
         [webVC navigateToPage: title
                        domain: domain
               discoveryMethod: discoveryMethod
-            invalidatingCache: invalidateCache];
+            invalidatingCache: invalidateCache
+         showLoadingIndicator: YES];
         if (popToWebVC) {
             [ROOT popToViewController:webVC animated:animated];
         }

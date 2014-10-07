@@ -62,7 +62,8 @@
                     [self.webVC navigateToPage: pageTitle
                                         domain: [SessionSingleton sharedInstance].currentArticleDomain
                                discoveryMethod: DISCOVERY_METHOD_LINK
-                             invalidatingCache: NO];
+                             invalidatingCache: NO
+                          showLoadingIndicator: YES];
                     [self.webVC referencesHide];
                     return NO;
                 }
