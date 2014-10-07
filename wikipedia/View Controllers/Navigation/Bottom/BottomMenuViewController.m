@@ -269,7 +269,8 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
         [webVC navigateToPage: history.article.titleObj
                       domain: history.article.domain
              discoveryMethod: DISCOVERY_METHOD_BACKFORWARD
-           invalidatingCache: NO];
+            invalidatingCache: NO
+         showLoadingIndicator: NO];
     }
 }
 
@@ -286,7 +287,8 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
         [webVC navigateToPage: history.article.titleObj
                       domain: history.article.domain
              discoveryMethod: DISCOVERY_METHOD_BACKFORWARD
-           invalidatingCache: NO];
+            invalidatingCache: NO
+         showLoadingIndicator: NO];
     }
 }
 

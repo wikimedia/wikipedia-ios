@@ -136,6 +136,9 @@ typedef enum {
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomNavHeightConstraint;
 
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) UIView *activityIndicatorBackgroundView;
+
 @end
 
 #pragma mark Internal variables
@@ -279,6 +282,8 @@ typedef enum {
     */
 
     [self tocUpdateViewLayout];
+    
+    [self loadingIndicatorAdd];
 }
 
 -(void)tocUpdateViewLayout
@@ -677,6 +682,9 @@ typedef enum {
     // Prevent toc reveal if pull to refresh in effect.
     if (self.webView.scrollView.contentOffset.y < 0) return;
 
+    // Prevent toc reveal if loading article.
+    if (self.activityIndicator.isAnimating) return;
+
     NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
     if (!currentArticleTitle || (currentArticleTitle.length == 0)) return;
     if (!self.referencesHidden) return;
@@ -960,7 +968,8 @@ typedef enum {
             [weakSelf navigateToPage: pageTitle
                               domain: [SessionSingleton sharedInstance].currentArticleDomain
                      discoveryMethod: DISCOVERY_METHOD_LINK
-                   invalidatingCache: NO];
+                   invalidatingCache: NO
+                showLoadingIndicator: YES];
         } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
             // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
             if ([href hasPrefix:@"//"]) {
@@ -1449,10 +1458,11 @@ typedef enum {
 
 #pragma mark Article loading ops
 
-- (void)navigateToPage: (MWPageTitle *)title
-                domain: (NSString *)domain
-       discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
-     invalidatingCache: (BOOL)invalidateCache
+-(void)navigateToPage: (MWPageTitle *)title
+               domain: (NSString *)domain
+      discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
+    invalidatingCache: (BOOL)invalidateCache
+ showLoadingIndicator: (BOOL)showLoadingIndicator
 {
     NSString *cleanTitle = title.text;
     
@@ -1462,8 +1472,7 @@ typedef enum {
     
     [self hideKeyboard];
     
-    //clear the contents of the webview
-    [self.webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('content').innerHTML = '';"];
+    if(showLoadingIndicator) [self loadingIndicatorShow];
     
     // Show loading message
     //[self showAlert:MWLocalizedString(@"search-loading-section-zero", nil) type:ALERT_TYPE_TOP duration:-1];
@@ -1518,7 +1527,8 @@ typedef enum {
     [self navigateToPage: title
                   domain: [SessionSingleton sharedInstance].currentArticleDomain
          discoveryMethod: DISCOVERY_METHOD_SEARCH
-       invalidatingCache: invalidateCache];
+       invalidatingCache: invalidateCache
+    showLoadingIndicator: YES];
 }
 
 - (void)retrieveArticleForPageTitle: (MWPageTitle *)pageTitle
@@ -1789,6 +1799,8 @@ typedef enum {
 
     } cancelledBlock:^(NSError *error){
 
+        [self loadingIndicatorHide];
+
         // Remove the article so it doesn't get saved.
         if (articleID) {
             Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
@@ -1796,6 +1808,9 @@ typedef enum {
         }
 
     } errorBlock:^(NSError *error){
+
+        [self loadingIndicatorHide];
+
         NSString *errorMsg = error.localizedDescription;
         [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
         if (articleID) {
@@ -1947,7 +1962,11 @@ typedef enum {
                                    }];
         
         if (mode != DISPLAY_APPEND_NON_LEAD_SECTIONS) {
+        
             [self.bridge sendMessage:@"append" withPayload:@{@"html": htmlStr}];
+
+            [self loadingIndicatorHide];
+
         }else{
             [self.bridge sendMessage:@"injectNonLeadSections" withPayload:@{@"html": htmlStr}];
         }
@@ -2427,6 +2446,107 @@ typedef enum {
                          [self.referencesVC.view removeFromSuperview];
                          [self.referencesVC removeFromParentViewController];
                          self.referencesVC = nil;
+                     }];
+}
+
+#pragma mark Loading Indicator
+
+-(void)loadingIndicatorAdd
+{
+    self.activityIndicatorBackgroundView = [[UIView alloc] init];
+    self.activityIndicatorBackgroundView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.activityIndicatorBackgroundView.userInteractionEnabled = YES;
+    self.activityIndicatorBackgroundView.backgroundColor = [UIColor whiteColor];
+    self.activityIndicatorBackgroundView.alpha = 0.0;
+    [self.view insertSubview:self.activityIndicatorBackgroundView belowSubview:self.bottomBarView];
+
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.activityIndicator.color = [UIColor whiteColor];
+    self.activityIndicator.alpha = 0.0;
+    [self.view addSubview:self.activityIndicator];
+    self.activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    CGFloat activityIndicatorWidth = 100.0;
+    CGFloat activityIndicatorCornerRadius = 10.0; //activityIndicatorWidth / 2.0f
+
+    NSDictionary *views = @{
+        @"activityIndicator": self.activityIndicator,
+        @"activityIndicatorBackgroundView": self.activityIndicatorBackgroundView
+    };
+    
+    NSDictionary *metrics = @{@"width": @(activityIndicatorWidth)};
+
+    self.activityIndicator.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.85];
+    self.activityIndicator.layer.cornerRadius = activityIndicatorCornerRadius;
+    
+    [self.view addConstraint: [NSLayoutConstraint constraintWithItem: self.activityIndicator
+                                                           attribute: NSLayoutAttributeCenterX
+                                                           relatedBy: NSLayoutRelationEqual
+                                                              toItem: self.view
+                                                           attribute: NSLayoutAttributeCenterX
+                                                          multiplier: 1
+                                                            constant: 0]];
+    
+    [self.view addConstraint: [NSLayoutConstraint constraintWithItem: self.activityIndicator
+                                                           attribute: NSLayoutAttributeCenterY
+                                                           relatedBy: NSLayoutRelationEqual
+                                                              toItem: self.view
+                                                           attribute: NSLayoutAttributeCenterY
+                                                          multiplier: 1
+                                                            constant: 0]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"H:[activityIndicator(width)]"
+                                                                 options: 0
+                                                                 metrics: metrics
+                                                                   views: views]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"V:[activityIndicator(width)]"
+                                                                 options: 0
+                                                                 metrics: metrics
+                                                                   views: views]];
+
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"H:|[activityIndicatorBackgroundView]|"
+                                                                 options: 0
+                                                                 metrics: metrics
+                                                                   views: views]];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"V:|[activityIndicatorBackgroundView]|"
+                                                                 options: 0
+                                                                 metrics: metrics
+                                                                   views: views]];
+}
+
+-(void)loadingIndicatorShow
+{
+    [self.activityIndicator startAnimating];
+
+    [UIView animateWithDuration:0.15
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^ {
+
+                        self.activityIndicatorBackgroundView.alpha = 0.7;
+                        self.activityIndicator.alpha = 1.0;
+
+                     }
+                     completion:^(BOOL finished) {
+                     }];
+}
+
+-(void)loadingIndicatorHide
+{
+    [self.activityIndicator stopAnimating];
+
+    [UIView animateWithDuration:0.15
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^ {
+
+                        self.activityIndicatorBackgroundView.alpha = 0.0;
+                        self.activityIndicator.alpha = 0.0;
+
+                     }
+                     completion:^(BOOL finished) {
                      }];
 }
 

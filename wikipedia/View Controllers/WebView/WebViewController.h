@@ -27,7 +27,8 @@
 -(void)navigateToPage: (MWPageTitle *)title
                domain: (NSString *)domain
       discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
-    invalidatingCache: (BOOL)invalidateCache;
+    invalidatingCache: (BOOL)invalidateCache
+ showLoadingIndicator: (BOOL)showLoadingIndicator;
 
 -(void)tocScrollWebViewToSectionWithElementId: (NSString *)elementId
                                      duration: (CGFloat)duration
