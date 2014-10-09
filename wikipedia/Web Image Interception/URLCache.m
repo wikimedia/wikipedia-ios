@@ -148,29 +148,34 @@
     
     // Strip "http:" or "https:"
     imageURL = [imageURL getUrlWithoutScheme];
-    
-    Image *imageFromDB = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", imageURL];
 
-    // If a core data Image was found, but its data length is zero, the Image record was probably
-    // created when the section html was parsed to create sectionImage records, in which case
-    // a request needs to actually be made, so set cachedResponse to nil so this happens.
-    // NSLog(@"imageFromDB.data = %@", imageFromDB.data);
-    if (imageFromDB && (imageFromDB.imageData.data.length == 0)) {
-        cachedResponse = nil;
-    }else if (imageFromDB) {
-        //NSLog(@"CACHED IMAGE FOUND!!!!!! requestURL = %@", imageURL);
-        NSData *imgData = imageFromDB.imageData.data;
-        NSURLResponse *response = [[NSURLResponse alloc] initWithURL:requestURL MIMEType:imageFromDB.mimeType expectedContentLength:imgData.length textEncodingName:nil];
-        cachedResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:imgData];
+    [articleDataContext_.mainContext performBlockAndWait:^(){
         
-        imageFromDB.dateLastAccessed = [NSDate date];
+        Image *imageFromDB = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", imageURL];
         
-        NSError *error = nil;
-        [articleDataContext_.mainContext save:&error];
-        if (error) {
-            NSLog(@"Error updating image dateLastAccessed in articleData store: %@", error);
+        // If a core data Image was found, but its data length is zero, the Image record was probably
+        // created when the section html was parsed to create sectionImage records, in which case
+        // a request needs to actually be made, so set cachedResponse to nil so this happens.
+        // NSLog(@"imageFromDB.data = %@", imageFromDB.data);
+        if (imageFromDB && (imageFromDB.imageData.data.length == 0)) {
+            cachedResponse = nil;
+        }else if (imageFromDB) {
+            //NSLog(@"CACHED IMAGE FOUND!!!!!! requestURL = %@", imageURL);
+            NSData *imgData = imageFromDB.imageData.data;
+            NSURLResponse *response = [[NSURLResponse alloc] initWithURL:requestURL MIMEType:imageFromDB.mimeType expectedContentLength:imgData.length textEncodingName:nil];
+            cachedResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:imgData];
+            
+            imageFromDB.dateLastAccessed = [NSDate date];
+            
+            NSError *error = nil;
+            [articleDataContext_.mainContext save:&error];
+            if (error) {
+                NSLog(@"Error updating image dateLastAccessed in articleData store: %@", error);
+            }
         }
-    }
+        
+    }];
+
     if (cachedResponse) return cachedResponse;
 
     //NSLog(@"CACHED IMAGE NOT FOUND!!!!! request.URL = %@", imageURL);
