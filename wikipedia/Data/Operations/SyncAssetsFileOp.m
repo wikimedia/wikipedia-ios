@@ -47,6 +47,9 @@
                 NSString *jsonString = [[NSString alloc] initWithData:weakSelf.dataRetrieved encoding:NSUTF8StringEncoding];
                 //NSLog(@"jsonString = %@", jsonString);
                 if (!jsonString || (jsonString.length == 0)) return;
+
+                if ([jsonString hasPrefix:@"/*\nInternal error\n*"]) return;
+                
                 NSString *filePath = assetsFile.path;
                 NSError *error = nil;
                 [jsonString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
