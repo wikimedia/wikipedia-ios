@@ -236,4 +236,4 @@
 "nearby-location-updates-enable" = "To enable location updates open the Settings App and select the following:";
 "nearby-location-updates-settings-menu" = "Privacy > Location Services > Wikipedia";
 "nearby-location-general-error" = "Unable to determine location. Pull to refresh or try again later.";
-"nearby-wifi" = "Enabling wifi can help your device better determine your location.";
+"nearby-wifi" = "Enabling Wi-Fi can help your device better determine your location.";
