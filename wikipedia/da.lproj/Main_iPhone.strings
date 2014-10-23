@@ -1,6 +1,24 @@
 // Messages for Danish (dansk)
 // Exported from translatewiki.net
+// Author: Christian List
 // Author: Gorbi
 
-"7Wa-ox-cAd.normalTitle" = "Gem";
-"P0o-I6-RDJ.normalTitle" = "Annullér";
+"21c-U6-yfo.normalTitle" = "Vis en anden captcha";
+"5cT-2Y-0Ie.placeholder" = "Brugernavn";
+"GiD-Rj-wb7.text" = "Gemte sider er temmelig praktiske. Tænk på dem som bogmærker, som du kan læse, selv når du er offline.";
+"LfM-01-aCF.text" = "Forhåndsvis";
+"P6J-IE-CiO.text" = "Spring over";
+"PCr-0J-fBj.placeholder" = "Adgangskode";
+"UgH-77-lyp.placeholder" = "Gentag adgangskode";
+"W1c-wQ-1pa.text" = "Ingen gemte sider endnu.";
+"Wff-o9-AdH.text" = "Log på";
+"aUp-0e-F6i.text" = "Ingen nye sider her.";
+"c3c-PU-Exz.text" = "Opret konto";
+"gPg-cg-Yjy.placeholder" = "Indtast CAPTCHA teksten fra billedet ovenfor";
+"heA-3K-nhS.text" = "Har du allerede en konto? Log på";
+"huU-kO-aYI.text" = "Du har sikkert slettet dem alle. Næste gang du går til en side, kan du komme tilbage til den her.";
+"jiW-Cg-oL3.text" = "Opret konto";
+"kVb-lx-d6C.placeholder" = "Adgangskode";
+"mAk-1N-jPC.placeholder" = "Brugernavn";
+"rKI-nq-3p7.placeholder" = "E-mailadresse (valgfri)";
+"wkl-j8-wLX.text" = "Opret konto";

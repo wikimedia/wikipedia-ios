@@ -21,7 +21,7 @@
 // Fuzzy
 "zero-charged-verbiage" = "Viquipèdia Zero DESACTIVAT (PODEN APLICAR-SE COSTOS PER TRANSMISSIÓ DE DADES)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
-"zero-interstitial-title" = "Sortint de Wikipedia Zero";
+"zero-interstitial-title" = "Sortida de Wikipedia Zero";
 // Fuzzy
 "zero-interstitial-leave-app" = "Desitja continuar? Està sortint de l'aplicaió, es podrien carregar cobrar addicionals";
 // Fuzzy
@@ -93,6 +93,7 @@
 "main-menu-rate-app" = "Puntua l'aplicació";
 "main-menu-show-today" = "Avui";
 "main-menu-nearby" = "A prop";
+"main-menu-more" = "Més...";
 "saved-pages-title" = "Pàgines desades";
 "saved-pages-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "saved-pages-clear-cancel" = "Cancel·la";
@@ -148,6 +149,10 @@
 "license-footer-text" = "El contingut està disponible sota $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Continguts";
+"abuse-filter-warning-irrelevant" = "Enllaços externs o imatges no rellevants";
+"abuse-filter-warning-repeat" = "Caràcters repeeetits";
+"abuse-filter-disallow-heading" = "No podeu desar la modificació. Aneu enrere i canvieu-ho.";
+"abuse-filter-disallow-unconstructive" = "Un filtre automàtic ha identificat la modificació com a potencialment inconstructiva o bé com a intent de vandalisme.";
 "menu-edit-accessibility-label" = "Edita";
 "menu-close-accessibility-label" = "Tanca";
 "menu-preview-accessibility-label" = "Vista prèvia";
@@ -161,4 +166,7 @@
 "menu-more-accessibility-label" = "Més paràmetres";
 "nearby-loaded" = "S'han carregat articles propers";
 "nearby-none" = "No s'han trobat articles propers. Arrossegueu per refrescar o torneu-ho a provar més tard.";
+"nearby-open-in-maps" = "Obre-ho al Mapes";
 "nearby-cancel" = "Cancel·la";
+"nearby-location-updates-denied" = "L'aplicació no té permisos per rebre actualitzacions d'ubicació.";
+"nearby-location-general-error" = "No es pot determinar la ubicació. Arrossegueu per refrescar-la o torneu-ho a provar més endavant.";

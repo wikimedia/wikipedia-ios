@@ -50,7 +50,7 @@
 "login-password-wrong" = "הססמה שנתת אינה נכונה.";
 "login-throttled" = "נכנסת יותר מדי פעמים בזמן קצר.";
 "login-user-blocked" = "המשתמש חסום.";
-"login-account-creation" = "אין לך חשבון? אנו מזמינים אותף להצטרף לוויקיפדיה";
+"login-account-creation" = "אין לך חשבון? אנו מזמינים אותך להצטרף לוויקיפדיה";
 "login-username-placeholder-text" = "שם המשתמש";
 "login-password-placeholder-text" = "ססמה";
 "wikitext-downloading" = "טעינת תוכן...";

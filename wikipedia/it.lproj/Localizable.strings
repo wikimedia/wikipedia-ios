@@ -7,6 +7,7 @@
 // Author: Gianfranco
 // Author: Nastoshka
 // Author: Ontsed
+// Author: Peg60
 
 "article-languages-label" = "Scegli la lingua";
 "article-languages-cancel" = "Annulla";
@@ -24,6 +25,7 @@
 "history-clear-delete-all" = "Cancella tutto";
 "zero-free-verbiage" = "Accesso gratuito a Wikipedia dal vostro operatore di telefonia mobile (tariffa dati non applicata)";
 "zero-charged-verbiage" = "Wikipedia Zero è spento";
+"zero-charged-verbiage-extended" = "Scaricare altri articoli può comportare tariffe dati. Gli articoli salvati archiviati offline non utilizzano dati mobili e sono gratuiti.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Stai uscendo da Wikipedia Zero";
 "zero-interstitial-leave-app" = "Potrebbero essere applicati i costi di connessione. Continuare su un sito esterno?";
@@ -183,6 +185,8 @@
 "abuse-filter-warning-irrelevant" = "Collegamenti esterni o immagini non pertinenti";
 "abuse-filter-warning-repeat" = "Caratteri ripeeeeeeetuti";
 "abuse-filter-disallow-heading" = "Non puoi salvare questa modifica. Per favore torna indietro e modificala.";
+"abuse-filter-disallow-unconstructive" = "Un filtro automatico ha identificato questa modifica come potenzialmente inconcludente o un tentativo di vandalismo.";
+"abuse-filter-disallow-notable" = "Wikipedia è un'enciclopedia e devono esserci solo contenuti neutrali e degni di nota.";
 "menu-edit-accessibility-label" = "Modifica";
 "menu-close-accessibility-label" = "Chiudi";
 "menu-preview-accessibility-label" = "Anteprima";
@@ -201,6 +205,14 @@
 "nearby-distance-label-feet" = "$1 piedi";
 "nearby-distance-label-miles" = "$1 miglia";
 "nearby-pull-to-refresh-prompt" = "Trascina in basso per aggiornare";
+"nearby-pull-to-refresh-is-refreshing" = "Aggiornamento in corso...";
+"nearby-loading" = "Caricamento delle voci nelle vicinanze...";
+"nearby-loaded" = "Voci nelle vicinanze caricati";
+"nearby-none" = "Nessuna voce trovata nelle vicinanze. Tira per aggiornare o riprova più tardi.";
 "nearby-open-in-maps" = "Apri in Maps";
 "nearby-cancel" = "Annulla";
+"nearby-location-updates-denied" = "Questa app non ha il permesso di ricevere aggiornamenti di posizione.";
+"nearby-location-updates-enable" = "Per abilitare gli aggiornamenti di posizione apri l'app \"Impostazioni\" e seleziona:";
+"nearby-location-updates-settings-menu" = "Privacy > Localizzazione > Wikipedia";
+"nearby-location-general-error" = "Impossibile determinare la posizione. Tira su per ricaricare o riprova più tardi.";
 "nearby-wifi" = "Abilitando il WiFi, aiuti il dispositivo a determinar meglio la tua posizione.";

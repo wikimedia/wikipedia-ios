@@ -6,6 +6,7 @@
 // Author: Liuxinyu970226
 // Author: Robby
 // Author: Shirayuki
+// Author: Siebrand
 
 "article-languages-label" = "Header label for per-article language selector screen.\n{{Identical|Choose language}}";
 "article-languages-cancel" = "Button text for dismissing the language selector screen.\n{{Identical|Cancel}}";
@@ -163,7 +164,7 @@
 "onboarding-create-account" = "Button text prompting first time users to create an account";
 "onboarding-login" = "{{Identical|Log in}}";
 "onboarding-already-have-account" = "Button text prompting first time users to log in to existing account. Parameters:\n* $1 - login button text";
-"onboarding-skip" = "Button text allowing first time users to skip the other onboarding choices";
+"onboarding-skip" = "Button text allowing first time users to skip the other onboarding choices\n{{Identical|Skip}}";
 "onboarding-wikipedia" = "Wikipedia logo text\n{{Identical|Wikipedia}}";
 "onboarding-free-encyclopedia" = "Subtext for the Wikipedia logo";
 "preference_title_eventlogging_opt_in" = "Title of preference that when checked enables data collection of user behavior.";
@@ -203,10 +204,10 @@
 "nearby-distance-label-feet" = "Label for showing distance in feet to nearby geotagged articles.\n\nParameters:\n* $1 - the number of feet. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-miles" = "Label for showing distance in miles to nearby geotagged articles.\n\nParamaeters:\n* $1 - the number of miles. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}\n{{Identical|Mile}}";
 "nearby-pull-to-refresh-prompt" = "Shown when user pulls down to refresh list of nearby articles";
-"nearby-pull-to-refresh-is-refreshing" = "Shown when refreshing list of nearby articles\n{{Identical|Refreshing}}";
+"nearby-pull-to-refresh-is-refreshing" = "Shown when refreshing list of nearby articles.";
 "nearby-loading" = "Show when downloading list of nearby articles";
 "nearby-loaded" = "Shown when nearby articles list has loaded successfully";
-"nearby-none" = "Shown when no nearby articles were found";
+"nearby-none" = "Shown when no nearby pages (in a geographical way) were found.";
 "nearby-open-in-maps" = "Title for button for opening nearby article's coordinates in maps app";
 "nearby-cancel" = "Cancel button for menu presented when user long-presses on nearby article item\n{{Identical|Cancel}}";
 "nearby-location-updates-denied" = "Alert text explaining that the app does not have permission to receive location updates";

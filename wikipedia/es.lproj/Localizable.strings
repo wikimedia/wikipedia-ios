@@ -16,7 +16,7 @@
 "history-label" = "Recientes";
 "history-section-today" = "Hoy";
 "history-section-yesterday" = "Ayer";
-"history-section-lastweek" = "La semana pasada";
+"history-section-lastweek" = "Última semana";
 "history-section-lastmonth" = "Último mes";
 "history-clear-confirmation-heading" = "¿Borrar todos los elemento recientes?";
 "history-clear-confirmation-sub-heading" = "¡Esta acción no se puede deshacer!";
@@ -24,10 +24,10 @@
 "history-clear-delete-all" = "Borrar todo";
 "zero-free-verbiage" = "Acceso gratuito a Wikipedia de tu operador móvil (sin cargos por datos)";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivado";
+"zero-charged-verbiage-extended" = "Cargar otros artículos puede incurrir en cargos por datos. Los artículos almacenados sin conexión no utilizan datos y son gratis.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Salir de Wikipedia Zero";
-// Fuzzy
-"zero-interstitial-leave-app" = "¿Continuar a sitio externo? Pueden aplicarse cargos de datos estándar.";
+"zero-interstitial-leave-app" = "Pueden aplicarse cargos por datos. ¿Continuar a sitio externo?";
 "zero-interstitial-continue" = "Continuar";
 "zero-interstitial-cancel" = "Permanecer aquí";
 "zero-learn-more" = "Esta aplicación de Wikipedia está exenta de cargos por uso de datos.";
@@ -86,7 +86,7 @@
 "main-menu-language-title" = "Búsqueda en Wikipedia en $1";
 "main-menu-language-toggle-show" = "Mostrar idiomas";
 "main-menu-language-toggle-hide" = "Ocultar idiomas";
-"main-menu-language-selection-saved" = "Selección de idioma guarda";
+"main-menu-language-selection-saved" = "Se guardó la selección de idioma.";
 "main-menu-account-title-logged-out" = "Cuenta";
 "main-menu-account-title-logged-in" = "Sesión iniciada como: $1";
 "main-menu-account-login" = "Iniciar sesión";
@@ -96,7 +96,7 @@
 "main-menu-show-saved" = "Páginas guardadas";
 "main-menu-current-article-save" = "Guardar $1 para leer sin conexión";
 "main-menu-random" = "Al azar";
-"main-menu-feedback-heading" = "Sugerencias";
+"main-menu-feedback-heading" = "Comentarios";
 "main-menu-send-feedback" = "Enviar comentarios para la aplicación";
 "main-menu-show-page-history" = "Historial de cambios de $1";
 "main-menu-credits" = "Créditos";
@@ -108,6 +108,7 @@
 "main-menu-heading-legal" = "Palabrerío";
 "main-menu-show-today" = "Hoy";
 "main-menu-nearby" = "Cercanos";
+"main-menu-more" = "Más…";
 "saved-pages-title" = "Páginas guardadas";
 "saved-pages-clear-confirmation-heading" = "¿Borrar todos los elemento guardados?";
 "saved-pages-clear-confirmation-sub-heading" = "¡Esta acción no se puede deshacer!";
@@ -120,13 +121,13 @@
 "navbar-title-mode-login-and-save" = "Acceder y guardar";
 "navbar-title-mode-create-account" = "Crear cuenta";
 "navbar-title-mode-create-account-and-save" = "Crear cuenta y guardar";
-"navbar-title-mode-edit-wikitext-warning" = "Editar problema";
-"navbar-title-mode-edit-wikitext-disallow" = "Editar problemas";
+"navbar-title-mode-edit-wikitext-warning" = "Problemas de edición";
+"navbar-title-mode-edit-wikitext-disallow" = "Problemas de edición";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualización";
 "navbar-title-mode-edit-wikitext-captcha" = "Es necesaria una verificación rápida";
 "navbar-title-mode-edit-wikitext-summary" = "Describe tu modificación";
 "navbar-title-mode-edit-wikitext-save" = "Guardar";
-"edit-summary-choice-linked-words" = "Palabras enlazadas";
+"edit-summary-choice-linked-words" = "Enlaces añadidos";
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
 "edit-summary-choice-fixed-inaccuracy" = "Imprecisión corregida";
 "edit-summary-choice-fixed-styling" = "Estilo corregido";
@@ -136,7 +137,7 @@
 "edit-summary-choice-added-clarification" = "Aclaración añadida";
 "edit-summary-choice-other" = "Otro";
 "edit-summary-description" = "Un resumen específico ayuda a los co-editores a revisar rápidamente sus ediciones. También puede escoger entre las etiquetas de abajo.";
-"edit-summary-field-placeholder-text" = "¿Cómo mejoraste la página?";
+"edit-summary-field-placeholder-text" = "Otras formas en las que mejoraste la página";
 "edit-summary-title" = "¿Cómo has mejorado el artículo?";
 "fetching-random-article" = "Obteniendo artículo al azar";
 "article-pull-to-refresh-prompt" = "Tire para actualizar el artículo";
@@ -148,7 +149,8 @@
 "credits-external-libraries" = "Repositorios externos";
 "share-menu-save-page" = "Guardar página";
 "share-menu-page-saved" = "Guardado para leer sin conexión.";
-"timestamp-just-now" = "ahora mismo";
+"share-menu-page-saved-access" = "Consejo: para acceder a tus páginas guardadas, pulsa $1 arriba o mantén apretado $2 abajo.";
+"timestamp-just-now" = "recién";
 "timestamp-minutes" = "hace %d minutos";
 "timestamp-hours" = "hace %d horas";
 "timestamp-days" = "hace %d días";
@@ -166,7 +168,11 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "La enciclopedia libre";
 "preference_title_eventlogging_opt_in" = "Enviar informes de uso";
+"preference_summary_eventlogging_opt_in" = "Permitir que Wikimedia recopile información acerca de cómo utilizas la aplicación para mejorarla";
 "page_protected_autoconfirmed" = "Esta página está semiprotegida.";
+"page_protected_sysop" = "Esta página está totalmente protegida.";
+"page_protected_other" = "Esta página ha sido protegida a los siguientes niveles: $1";
+"page_protected_can_not_edit" = "No tienes permisos para editar esta página";
 "page_protected_can_not_edit_title" = "Esta página está protegida";
 "license-footer-text" = "El contenido está disponible bajo la $1";
 "license-footer-name" = "CC-BY-SA 3.0";
@@ -197,9 +203,15 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-feet" = "$1 pies";
 "nearby-distance-label-miles" = "$1 millas";
+"nearby-pull-to-refresh-prompt" = "Tira para actualizar";
+"nearby-pull-to-refresh-is-refreshing" = "Actualizando";
 "nearby-loading" = "Cargando artículos cercanos...";
 "nearby-loaded" = "Se cargaron los artículos cercanos";
+"nearby-none" = "No se encontraron artículos cercanos. Tira para actualizar o inténtalo más tarde.";
+"nearby-open-in-maps" = "Abrir en Mapas";
 "nearby-cancel" = "Cancelar";
 "nearby-location-updates-denied" = "Esta aplicación no tiene permiso para recibir actualizaciones de localización.";
+"nearby-location-updates-enable" = "Para activar las actualizaciones de ubicación abre la aplicación de preferencias y selecciona lo siguiente:";
 "nearby-location-updates-settings-menu" = "Privacidad > Servicios de localización > Wikipedia";
+"nearby-location-general-error" = "No se puede determinar la ubicación. Tira para actualizar o inténtalo más tarde.";
 "nearby-wifi" = "Activar wifi puede ayudar a que tu dispositivo determine mejor tu ubicación.";

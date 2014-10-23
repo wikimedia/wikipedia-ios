@@ -93,6 +93,7 @@
 "main-menu-rate-app" = "Ohodnoťte aplikáciu";
 "main-menu-heading-zero" = "Wikipédia Zero";
 "main-menu-show-today" = "Dnes";
+"main-menu-more" = "Zobraziť viac...";
 "saved-pages-title" = "Uložené stránky";
 "saved-pages-clear-cancel" = "Zrušiť";
 "page-history-title" = "História stránky";
@@ -148,4 +149,7 @@
 "menu-cancel-accessibility-label" = "Zrušiť";
 "menu-share-accessibility-label" = "Zdieľať";
 "menu-more-accessibility-label" = "Ďalšie nastavenia";
+"menu-trash-accessibility-label" = "Vymazať";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-km" = "$1 km";
 "nearby-cancel" = "Zrušiť";

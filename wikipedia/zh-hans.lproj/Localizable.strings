@@ -213,4 +213,4 @@
 "nearby-location-updates-enable" = "要启用位置更新，打开设置应用程序并设置以下选项：";
 "nearby-location-updates-settings-menu" = "隐私 > 位置服务 > 维基百科";
 "nearby-location-general-error" = "无法确定位置。下拉刷新或稍后重试。";
-"nearby-wifi" = "启用wiki可使您的设备更好的确定您的位置。";
+"nearby-wifi" = "启用Wi-Fi可使您的设备更好的确定您的位置。";

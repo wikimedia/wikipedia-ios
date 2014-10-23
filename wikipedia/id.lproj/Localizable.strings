@@ -4,6 +4,7 @@
 // Author: Bennylin
 // Author: C5st4wr6ch
 // Author: Iwan Novirion
+// Author: Relly Komaruzaman
 
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batal";
@@ -15,6 +16,7 @@
 "history-section-yesterday" = "Kemarin";
 "history-section-lastweek" = "Minggu lalu";
 "history-section-lastmonth" = "Bulan lalu";
+"history-clear-cancel" = "Batalkan";
 "zero-free-verbiage" = "Akses Wikipedia gratis dari operator selular (biaya data dibebaskan)";
 "zero-charged-verbiage" = "Wikipedia Nol dimatikan";
 "zero-charged-verbiage-extended" = "Pemuatan artikel lain mungkin dikenakan biaya data. Artikel yang disimpan secara luring tidak menggunakan data dan gratis.";
@@ -34,13 +36,13 @@
 "account-creation-logging-in" = "Sedang masuk log...";
 "account-creation-passwords-mismatched" = "Kolom kata sandi tidak cocok.";
 "account-creation-saving" = "Sedang menyimpan...";
-"account-creation-login" = "Sudah memiliki akun? Masuk.";
+"account-creation-login" = "Sudah memiliki akun? Silakan masuk log.";
 "account-creation-username-placeholder-text" = "Nama pengguna";
 "account-creation-password-placeholder-text" = "Kata sandi";
 "account-creation-password-confirm-placeholder-text" = "Konfirmasi kata sandi";
 "account-creation-email-placeholder-text" = "Alamat surel/email (dianjurkan untuk diisi)";
 "login-name-not-found" = "Nama pengguna diperlukan untuk masuk log.";
-"login-name-illegal" = "Anda memberikan nama pengguna ilegal.";
+"login-name-illegal" = "Anda memberikan nama pengguna yang tidak sah.";
 "login-name-does-not-exist" = "Nama pengguna yang Anda berikan tidak ada.";
 "login-password-empty" = "Kata sandi diperlukan untuk masuk log.";
 "login-password-wrong" = "Kata sandi yang Anda berikan tidak benar.";

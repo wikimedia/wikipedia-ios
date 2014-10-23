@@ -83,7 +83,7 @@
 "search-loading-article-loaded" = "Artikel laddad.";
 "search-cancel" = "Avbryt";
 "main-menu-title" = "Mer";
-"main-menu-language-title" = "Sök wikin på språket $1";
+"main-menu-language-title" = "Sök $1.Wikipedia";
 "main-menu-language-toggle-show" = "Visa språk";
 "main-menu-language-toggle-hide" = "Dölj språk";
 "main-menu-language-selection-saved" = "Språkval sparades";
@@ -108,6 +108,7 @@
 "main-menu-heading-legal" = "Rättslig information";
 "main-menu-show-today" = "Idag";
 "main-menu-nearby" = "I närheten";
+"main-menu-more" = "Mer...";
 "saved-pages-title" = "Sparade artiklar";
 "saved-pages-clear-confirmation-heading" = "Radera alla sparade objekt?";
 "saved-pages-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";

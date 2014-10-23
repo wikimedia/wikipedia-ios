@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Arifin.wijaya
 // Author: Bennylin
+// Author: Relly Komaruzaman
 
 "21c-U6-yfo.normalTitle" = "Tampilkan captcha yang lain";
 "5cT-2Y-0Ie.placeholder" = " Nama pengguna";
@@ -15,8 +16,8 @@
 "aUp-0e-F6i.text" = "Tidak ada halaman terbaru di sini.";
 "c3c-PU-Exz.text" = "Buat Akun";
 "gPg-cg-Yjy.placeholder" = "Masukkan teks CAPTCHA dari gambar di atas";
-"heA-3K-nhS.text" = "Sudah memiliki akun? Masuk log";
-"huU-kO-aYI.text" = "Anda mungkin menghapus mereka semua. Lain kali Anda pergi ke halaman Anda dapat kembali ke sana dari sini.";
+"heA-3K-nhS.text" = "Sudah memiliki akun? Silakan masuk log";
+"huU-kO-aYI.text" = "Anda mungkin telah menghapusnya. Lain kali Anda pergi ke halaman Anda dapat kembali ke sana dari sini.";
 "jiW-Cg-oL3.text" = "Buat Akun";
 "kVb-lx-d6C.placeholder" = "Kata sandi";
 "mAk-1N-jPC.placeholder" = "Nama pengguna";

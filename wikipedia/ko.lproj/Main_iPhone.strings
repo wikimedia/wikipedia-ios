@@ -1,8 +1,22 @@
 // Messages for Korean (한국어)
 // Exported from translatewiki.net
 // Author: Priviet
+// Author: 아라
 
-"7Wa-ox-cAd.normalTitle" = "저장";
-"AIA-vO-cLI.placeholder" = "위 그림의 캡챠 텍스트를 입력하세요";
-"P0o-I6-RDJ.normalTitle" = "취소";
-"QGI-DM-j1P.normalTitle" = "다른 캡챠 보이기";
+"21c-U6-yfo.normalTitle" = "다른 캡차 보이기";
+"5cT-2Y-0Ie.placeholder" = "사용자 이름";
+"LfM-01-aCF.text" = "미리 보기";
+"P6J-IE-CiO.text" = "건너뛰기";
+"PCr-0J-fBj.placeholder" = "비밀번호";
+"UgH-77-lyp.placeholder" = "비밀번호 다시 입력";
+"W1c-wQ-1pa.text" = "저장된 문서가 아직 없습니다.";
+"Wff-o9-AdH.text" = "로그인";
+"aUp-0e-F6i.text" = "여기에 최근 문서가 없습니다.";
+"c3c-PU-Exz.text" = "계정 만들기";
+"gPg-cg-Yjy.placeholder" = "위 그림에 있는 캡차 텍스트를 입력하세요";
+"heA-3K-nhS.text" = "계정이 이미 있습니까? 로그인하세요";
+"jiW-Cg-oL3.text" = "계정 만들기";
+"kVb-lx-d6C.placeholder" = "비밀번호";
+"mAk-1N-jPC.placeholder" = "사용자 이름";
+"rKI-nq-3p7.placeholder" = "이메일 주소 (선택 사항)";
+"wkl-j8-wLX.text" = "계정 만들기";

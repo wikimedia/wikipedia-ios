@@ -209,7 +209,7 @@
 "nearby-open-in-maps" = "マップで開く";
 "nearby-cancel" = "キャンセル";
 "nearby-location-updates-denied" = "このアプリには位置情報の更新を受け取る許可がありません。";
-"nearby-location-updates-enable" = "位置情報の更新を有効にするには、設定アプリを開いて以下の様に選択してください:";
+"nearby-location-updates-enable" = "位置情報の更新を有効にするには、設定アプリを開いて以下のように選択してください:";
 "nearby-location-updates-settings-menu" = "プライバシー > 位置情報サービス > ウィキペディア";
 "nearby-location-general-error" = "位置を確定できません。引っ張って更新するか、後ほどもう一度試してみてください。";
 "nearby-wifi" = "Wi-Fi を有効にすると、位置情報の精度をより高めることができます。";

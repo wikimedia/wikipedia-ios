@@ -43,7 +43,7 @@
 "account-creation-passwords-mismatched" = "密碼欄位不匹配。";
 "account-creation-saving" = "儲存中...";
 "account-creation-login" = "已經擁有帳戶？請登入。";
-"account-creation-username-placeholder-text" = "用戶名";
+"account-creation-username-placeholder-text" = "使用者名稱";
 "account-creation-password-placeholder-text" = "密碼";
 "account-creation-password-confirm-placeholder-text" = "確認密碼";
 "account-creation-email-placeholder-text" = "電子郵件（可選）";
@@ -55,7 +55,7 @@
 "login-throttled" = "你已經在短時間登入過太多次。";
 "login-user-blocked" = "用戶已被封鎖。";
 "login-account-creation" = "沒有維基百科帳戶嗎？加入維基百科。";
-"login-username-placeholder-text" = "用戶名";
+"login-username-placeholder-text" = "使用者名稱";
 "login-password-placeholder-text" = "密碼";
 "wikitext-downloading" = "正在載入內容…";
 "wikitext-download-failed" = "無法獲取最新的版本。";
@@ -187,7 +187,7 @@
 "abuse-filter-disallow-heading" = "您無法存儲此編輯。請返回並修改它。";
 "abuse-filter-disallow-unconstructive" = "自動篩選器已確定此編輯可能不具建設性或企圖破壞。";
 "abuse-filter-disallow-notable" = "維基百科是一本百科全書，這裏只接受中立的、 知名的內容。";
-"menu-edit-accessibility-label" = "修改";
+"menu-edit-accessibility-label" = "編輯";
 "menu-close-accessibility-label" = "關閉";
 "menu-preview-accessibility-label" = "預覽";
 "menu-back-accessibility-label" = "上一頁";
@@ -211,8 +211,8 @@
 "nearby-none" = "沒有找到附近的條目。拉下刷新或稍後重試。";
 "nearby-open-in-maps" = "在地圖中打開";
 "nearby-cancel" = "取消";
-"nearby-location-updates-denied" = "此應用程序沒有授予接收位置更新的權限。";
-"nearby-location-updates-enable" = "要啟用位置更新，打開設置應用程序並設置以下選項：";
+"nearby-location-updates-denied" = "此應用程式沒有授予接收位置更新的權限。";
+"nearby-location-updates-enable" = "要啟用位置更新，開啟設定應用程式並設定以下選項：";
 "nearby-location-updates-settings-menu" = "隱私 > 位置服務 > 維基百科";
 "nearby-location-general-error" = "無法確定位置。拉下刷新或稍後重試。";
-"nearby-wifi" = "開啟wifi可以幫助您的設備更好地確定您的位置。";
+"nearby-wifi" = "開啟Wi-Fi可以幫助您的裝置更好地確定您的位置。";
