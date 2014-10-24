@@ -2,8 +2,6 @@
 
 Native rewrite of the [Wikipedia reader application](https://www.mediawiki.org/wiki/Wikimedia_Apps/Wikipedia) for iOS.
 
-Previous PhoneGap based app source: [WikipediaMobile project on GitHub](https://github.com/wikimedia/WikipediaMobile).
-
 * OS target: iOS 6.0 or higher
 * Device target: iPhone, iPod, iPad
 * License: MIT-style
@@ -27,7 +25,7 @@ Note that due to Apple's restrictions on iOS app installation, to run a custom b
 You'll also need to install the following (used by build scripts):
 
 * [nodejs](http://nodejs.org/) and npm
-* grunt-cli (run 'npm install -g grunt-cli') 
+* grunt-cli (run 'sudo npm install -g grunt-cli') 
 * [Inkscape](http://www.inkscape.org/en/download/mac-os/)
 
 
@@ -53,12 +51,6 @@ The majority of app logic and UI will be in the native layer; we expect to use t
 
 Components of the app will be relatively self-contained, communicating via NSNotificationCenter as a messaging bus to avoid over-close coupling of parts and to make test-driven development more feasible.
 
-
-# Design
-
-A major complaint about the currently deployed Wikipedia app is its non-iOS-y UI appearance and behavior.
-
-We'll be working with the Wikimedia Foundation's Design team on UI design, with an eye to coordinating the look & branding with mobile web and Android while keeping a nice native iOS 7 feel.
 
 
 # Development team
