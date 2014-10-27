@@ -40,7 +40,8 @@
 {
     if (![self isMIMETypeRerouted:cachedResponse.response.MIMEType]) {
         [super storeCachedResponse:cachedResponse forRequest:request];
-        if ([cachedResponse.response.MIMEType rangeOfString:@"application/json"].location != NSNotFound) {
+        if ([[request URL].host hasSuffix:@".m.wikipedia.org"] &&
+            [cachedResponse.response.MIMEType rangeOfString:@"application/json"].location != NSNotFound) {
             // NSData *data = cachedResponse.data;
             // NSString *newStr = [[NSString alloc] initWithData:data
             //                                          encoding:NSUTF8StringEncoding];

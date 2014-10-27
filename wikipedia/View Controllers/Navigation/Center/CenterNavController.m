@@ -144,7 +144,7 @@
 #pragma Wikipedia Zero alert dialogs
 
 -(void) promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString *) title {
-    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce || ![self isTopViewControllerAWebviewController]) {
+    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce) {
         [[SessionSingleton sharedInstance].zeroConfigState setZeroOnDialogShownOnce];
         self.wikipediaZeroLearnMoreExternalUrl = MWLocalizedString(@"zero-webpage-url", nil);
         UIAlertView *dialog = [[UIAlertView alloc]
