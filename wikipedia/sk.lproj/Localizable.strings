@@ -7,6 +7,7 @@
 "article-languages-cancel" = "Zrušiť";
 "article-languages-downloading" = "Načítam zoznam jazykov...";
 "article-languages-filter-placeholder" = "Filter";
+"language-button-text" = "Tento článok si môžete prečítať v %d ďalších jazykoch";
 "history-label" = "Nedávna história prehliadania";
 "history-section-today" = "Dnes";
 "history-section-yesterday" = "Včera";

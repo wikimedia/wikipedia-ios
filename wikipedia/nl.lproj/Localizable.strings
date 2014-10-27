@@ -71,7 +71,7 @@
 "wikitext-upload-save-terms-and-license" = "Door op te slaan gaat u akkoord met de $1 en worden uw bijdragen onherroepelijk vrijgegeven onder de $2-licentie.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
-"open-link-title" = "Open link";
+"open-link-title" = "Koppeling openen";
 "open-link-cancel" = "Annuleer";
 "search-searching" = "Bezig met zoeken...";
 "search-no-matches" = "Geen overeenkomsten gevonden voor de zoekterm.";
@@ -126,7 +126,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Snelle controle nodig";
 "navbar-title-mode-edit-wikitext-summary" = "Beschrijf uw bewerking";
 "navbar-title-mode-edit-wikitext-save" = "Opslaan";
-"edit-summary-choice-linked-words" = "Links toegevoegd";
+"edit-summary-choice-linked-words" = "Koppelingen toegevoegd";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
 "edit-summary-choice-fixed-inaccuracy" = "Onjuistheid gecorrigeerd";
 "edit-summary-choice-fixed-styling" = "Opmaak gecorrigeerd";
@@ -180,7 +180,7 @@
 "abuse-filter-warning-subheading" = "Uw bewerking kan een of meer van het volgende bevatten:";
 "abuse-filter-warning-caps" = "Typen in HOOFDLETTERS";
 "abuse-filter-warning-blanking" = "Het leegmaken van artikelen of het plaatsen van spam";
-"abuse-filter-warning-irrelevant" = "Irrelevante externe links of afbeeldingen";
+"abuse-filter-warning-irrelevant" = "Irrelevante externe koppelingen of afbeeldingen";
 "abuse-filter-warning-repeat" = "Herhaaaalende karakters";
 "abuse-filter-disallow-heading" = "U kunt deze bewerking niet opslaan. Ga terug en pas het aan.";
 "abuse-filter-disallow-unconstructive" = "Een geautomatiseerd filter heeft deze bewerking gemarkeerd als onconstructief of vandalistisch.";
