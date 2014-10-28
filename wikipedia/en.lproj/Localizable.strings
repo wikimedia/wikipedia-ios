@@ -101,6 +101,7 @@
 "main-menu-send-feedback" = "Send app feedback";
 "main-menu-show-page-history" = "History of changes to $1";
 "main-menu-credits" = "Credits";
+"main-menu-about" = "About the Wikipedia app";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-menu-privacy-policy" = "Privacy policy";
 "main-menu-terms-of-use" = "Terms of use";
@@ -156,6 +157,17 @@
 "credits-gerrit-repo" = "App main (Gerrit)";
 "credits-github-mirror" = "App mirror (GitHub)";
 "credits-external-libraries" = "External repositories";
+
+"about-title" = "About";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "contributors";
+"about-translators" = "translators";
+"about-translators-details" = "This app was translated by the volunteer translators at $1";
+"about-libraries" = "libraries used";
+"about-repositories" = "repositories";
+"about-send-feedback" = "Send app feedback";
+"about-product-of" = "A product of the $1";
+"about-wikimedia-foundation" = "Wikimedia Foundation";
 
 "share-menu-save-page" = "Save page";
 "share-menu-page-saved" = "Saved for offline reading.";

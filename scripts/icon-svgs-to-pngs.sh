@@ -7,3 +7,7 @@ ruby -e '[87,120,180].each { |x| `/Applications/Inkscape.app/Contents/Resources/
 ruby -e '[120,240,360].each { |x| `/Applications/Inkscape.app/Contents/Resources/bin/inkscape --export-png "wikipedia/Images.xcassets/RecentPagesEmpty.imageset/recent#{x}.png" -w #{x} '"$SCRIPT_INPUT_FILE_1"'` }'
 
 ruby -e '[120,240,360].each { |x| `/Applications/Inkscape.app/Contents/Resources/bin/inkscape --export-png "wikipedia/Images.xcassets/SavedPagesEmpty.imageset/savedpages#{x}.png" -w #{x} '"$SCRIPT_INPUT_FILE_2"'` }'
+
+ruby -e '[60,120,180].each { |x| `/Applications/Inkscape.app/Contents/Resources/bin/inkscape --export-png "wikipedia/Images.xcassets/WMFLogo_60.imageset/wmflogo_#{x}.png" -w #{x} '"$SCRIPT_INPUT_FILE_3"'` }'
+
+ruby -e '[60,120,180].each { |x| `/Applications/Inkscape.app/Contents/Resources/bin/inkscape --export-png "www/images/wmflogo_#{x}.png" -w #{x} '"$SCRIPT_INPUT_FILE_3"'` }'

@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "CommunicationBridge.h"
+#import "UIWebView+LoadAssetsHtml.h"
 
 @interface CommunicationBridge (){
 
@@ -103,14 +104,8 @@
         htmlFileName: (NSString *)htmlFileName
 {
     webView.delegate = self;
-    
-    NSArray *documentsPath = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *assetsPath = [[documentsPath firstObject] stringByAppendingPathComponent:@"assets"];
-    NSString *indexHTMLFilePath = [assetsPath stringByAppendingPathComponent:htmlFileName];
-    NSString *encodedAssetsPath = [assetsPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *baseURL = [NSURL URLWithString:[NSString stringWithFormat:@"file:///%@/", encodedAssetsPath]];
-    NSData *indexHTMLFileData = [[NSFileManager defaultManager] contentsAtPath: indexHTMLFilePath];
-    [webView loadData:indexHTMLFileData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:baseURL];
+
+    [webView loadHTMLFromAssetsFile:htmlFileName];
 }
 
 static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";

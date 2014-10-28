@@ -38,26 +38,26 @@
 #define URL_TERMS @"https://m.wikimediafoundation.org/wiki/Terms_of_Use"
 #define URL_RATE_APP @"itms-apps://itunes.apple.com/app/id324715238"
 
-typedef enum {
-    SECONDARY_MENU_ROW_INDEX_LOGIN = 0,
-    SECONDARY_MENU_ROW_INDEX_SAVED_PAGES = 1,
-    SECONDARY_MENU_ROW_INDEX_SAVE_PAGE = 2,
-    SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE = 3,
-    SECONDARY_MENU_ROW_INDEX_ZERO_FAQ = 4,
-    SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING = 5,
-    SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK = 6,
-    SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY = 7,
-    SECONDARY_MENU_ROW_INDEX_CREDITS = 8,
-    SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS = 9,
-    SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY = 10,
-    SECONDARY_MENU_ROW_INDEX_TERMS = 11,
-    SECONDARY_MENU_ROW_INDEX_RATE_APP = 12,
-    SECONDARY_MENU_ROW_INDEX_HEADING_ZERO = 13,
-    SECONDARY_MENU_ROW_INDEX_HEADING_LEGAL = 14,
-    SECONDARY_MENU_ROW_INDEX_HEADING_BLANK = 15,
-    SECONDARY_MENU_ROW_INDEX_HEADING_BLANK_2 = 16
-
-} SecondaryMenuRowIndex;
+typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
+    SECONDARY_MENU_ROW_INDEX_LOGIN,
+    SECONDARY_MENU_ROW_INDEX_SAVED_PAGES,
+    SECONDARY_MENU_ROW_INDEX_SAVE_PAGE,
+    SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE,
+    SECONDARY_MENU_ROW_INDEX_ZERO_FAQ,
+    SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING,
+    SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK,
+    SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY,
+    SECONDARY_MENU_ROW_INDEX_CREDITS,
+    SECONDARY_MENU_ROW_INDEX_ABOUT,
+    SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS,
+    SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY,
+    SECONDARY_MENU_ROW_INDEX_TERMS,
+    SECONDARY_MENU_ROW_INDEX_RATE_APP,
+    SECONDARY_MENU_ROW_INDEX_HEADING_ZERO,
+    SECONDARY_MENU_ROW_INDEX_HEADING_LEGAL,
+    SECONDARY_MENU_ROW_INDEX_HEADING_BLANK,
+    SECONDARY_MENU_ROW_INDEX_HEADING_BLANK_2
+};
 
 #pragma mark - Private
 
@@ -436,10 +436,20 @@ typedef enum {
           @"type": @(ROW_TYPE_HEADING),
           }.mutableCopy
       ,
+      /*
       @{
           @"domain": [SessionSingleton sharedInstance].domain,
           @"title": MWLocalizedString(@"main-menu-credits", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_CREDITS),
+          @"icon": IOS_WIKIGLYPH_DOWN,
+          @"type": @(ROW_TYPE_SELECTION),
+          }.mutableCopy
+        ,
+        */
+      @{
+          @"domain": [SessionSingleton sharedInstance].domain,
+          @"title": MWLocalizedString(@"main-menu-about", nil),
+          @"tag": @(SECONDARY_MENU_ROW_INDEX_ABOUT),
           @"icon": IOS_WIKIGLYPH_DOWN,
           @"type": @(ROW_TYPE_SELECTION),
           }.mutableCopy
@@ -641,9 +651,18 @@ typedef enum {
                                         block: nil];
             }
                 break;
+            /*
             case SECONDARY_MENU_ROW_INDEX_CREDITS:
             {
                 [self performModalSequeWithID: @"modal_segue_show_credits"
+                              transitionStyle: UIModalTransitionStyleCoverVertical
+                                        block: nil];
+            }
+                break;
+            */
+            case SECONDARY_MENU_ROW_INDEX_ABOUT:
+            {
+                [self performModalSequeWithID: @"modal_segue_show_about"
                               transitionStyle: UIModalTransitionStyleCoverVertical
                                         block: nil];
             }

@@ -5,6 +5,7 @@
         <development version="5100" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Languages View Controller-->
@@ -113,7 +114,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I47-Yh-yr4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="324" y="251"/>
+            <point key="canvasLocation" x="522" y="-162"/>
         </scene>
         <!--Page History View Controller-->
         <scene sceneID="nqw-r1-g0T">
@@ -1021,7 +1022,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lwh-ga-zh6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="111" y="-1469"/>
+            <point key="canvasLocation" x="111" y="-899"/>
         </scene>
         <!--Search Results Controller-->
         <scene sceneID="Jmf-xS-W4M">
@@ -1060,7 +1061,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QYs-yc-yzW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="629" y="-164"/>
+            <point key="canvasLocation" x="941" y="-130"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="ufC-wZ-h7g">
@@ -1396,7 +1397,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mef-6q-1qK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-585" y="-3251"/>
+            <point key="canvasLocation" x="111" y="-1530"/>
         </scene>
         <!--ReferenceVC-->
         <scene sceneID="oNi-7F-FeN">
@@ -1682,7 +1683,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heC-Be-Fgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="478" y="501"/>
+            <point key="canvasLocation" x="89" y="250"/>
         </scene>
         <!--Center Nav Controller-->
         <scene sceneID="dor-Wk-JQd">
@@ -1764,6 +1765,39 @@
             </objects>
             <point key="canvasLocation" x="111" y="-6277"/>
         </scene>
+        <!--About View Controller-->
+        <scene sceneID="1T4-cp-JUc">
+            <objects>
+                <viewController restorationIdentifier="AboutViewController" storyboardIdentifier="AboutViewController" id="XBx-HT-7Nb" customClass="AboutViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6Pt-o7-LWr"/>
+                        <viewControllerLayoutGuide type="bottom" id="bm9-VB-zc0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0dn-de-ub8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RuO-Uu-LzH">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RuO-Uu-LzH" firstAttribute="bottom" secondItem="0dn-de-ub8" secondAttribute="bottomMargin" id="B5e-Py-Wnj"/>
+                            <constraint firstItem="RuO-Uu-LzH" firstAttribute="leading" secondItem="0dn-de-ub8" secondAttribute="leading" id="RhE-aT-0we"/>
+                            <constraint firstItem="RuO-Uu-LzH" firstAttribute="top" secondItem="0dn-de-ub8" secondAttribute="topMargin" id="Ui3-Iv-6ZS"/>
+                            <constraint firstAttribute="trailing" secondItem="RuO-Uu-LzH" secondAttribute="trailing" id="m6K-i2-U2o"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="RuO-Uu-LzH" id="wmz-k2-G2w"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MUa-PK-2vN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-585" y="-3155"/>
+        </scene>
         <!--Modal Content View Controller-->
         <scene sceneID="ucp-TA-lD3">
             <objects>
@@ -1790,6 +1824,7 @@
                         <segue destination="Sst-9G-sfn" kind="custom" identifier="modal_segue_show_page_history" customClass="EmptySegue" id="XIR-ro-Nuv"/>
                         <segue destination="vqp-1K-wjM" kind="custom" identifier="modal_segue_show_languages" customClass="EmptySegue" id="4tK-6e-A2j"/>
                         <segue destination="O3D-bU-RYB" kind="custom" identifier="modal_segue_show_nearby" customClass="EmptySegue" id="Npp-Oj-MXW"/>
+                        <segue destination="XBx-HT-7Nb" kind="custom" identifier="modal_segue_show_about" customClass="EmptySegue" id="4K1-vh-0Ac"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="41a-r2-anV" userLabel="First Responder" sceneMemberID="firstResponder"/>

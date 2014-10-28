@@ -46,6 +46,7 @@
 		042B3996192EAEEA0066B270 /* ShareMenuSavePageActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 042B3995192EAEEA0066B270 /* ShareMenuSavePageActivity.m */; };
 		0433542218A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 0433542118A023FE009305F0 /* UIViewController+HideKeyboard.m */; };
 		0433542618A093C5009305F0 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 0433542518A093C5009305F0 /* UIView+RemoveConstraints.m */; };
+		0439317619FB092600386E8F /* UIWebView+LoadAssetsHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 0439317519FB092600386E8F /* UIWebView+LoadAssetsHtml.m */; };
 		043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043DAC4A1901C3EE001CD17C /* CreditsViewController.m */; };
 		043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18DC18D9691D00D8489A /* TopActionSheetLabel.m */; };
 		043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */; };
@@ -66,6 +67,7 @@
 		04530AF81935C07500022512 /* ModalContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04530AF71935C07500022512 /* ModalContentViewController.m */; };
 		04530AFB1935C2B500022512 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 04530AFA1935C2B500022512 /* EmptySegue.m */; };
 		045A9F0D18F6090E0057EA85 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 045A9F0C18F6090E0057EA85 /* assets */; };
+		045D872119FAD2FA0035C1F9 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D872019FAD2FA0035C1F9 /* AboutViewController.m */; };
 		045EFF1A19A25FEB00D0EDBB /* logo-placeholder-search.png in Resources */ = {isa = PBXBuildFile; fileRef = 045EFF1819A25FEB00D0EDBB /* logo-placeholder-search.png */; };
 		045EFF1B19A25FEB00D0EDBB /* logo-placeholder-search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045EFF1919A25FEB00D0EDBB /* logo-placeholder-search@2x.png */; };
 		0460F8DC19B0F932001BC59B /* CenteredPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0460F8DB19B0F932001BC59B /* CenteredPathView.m */; };
@@ -81,6 +83,7 @@
 		047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047ED63818C13E4900442BE3 /* PreviewWebView.m */; };
 		047FF5471889078C009DB293 /* Image+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 047FF5461889078C009DB293 /* Image+Convenience.m */; };
 		04821CD119895EDC007558F6 /* ReferenceGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04821CD019895EDC007558F6 /* ReferenceGradientView.m */; };
+		0484411E19FF15AF00FD26C5 /* AboutViewController.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0484411D19FF15AF00FD26C5 /* AboutViewController.plist */; };
 		0484E3DE19D9D19B0085D18D /* UIView+ConstraintsScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484E3DD19D9D19B0085D18D /* UIView+ConstraintsScale.m */; };
 		0485FECF1994D5AE00141361 /* NearbyResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0485FECD1994D5AE00141361 /* NearbyResultCell.xib */; };
 		0487041419F7683300B7D307 /* Cocoapods Notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0487041319F7683300B7D307 /* Cocoapods Notes.txt */; };
@@ -312,6 +315,8 @@
 		0433542118A023FE009305F0 /* UIViewController+HideKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HideKeyboard.m"; sourceTree = "<group>"; };
 		0433542418A093C5009305F0 /* UIView+RemoveConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RemoveConstraints.h"; sourceTree = "<group>"; };
 		0433542518A093C5009305F0 /* UIView+RemoveConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RemoveConstraints.m"; sourceTree = "<group>"; };
+		0439317419FB092600386E8F /* UIWebView+LoadAssetsHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+LoadAssetsHtml.h"; sourceTree = "<group>"; };
+		0439317519FB092600386E8F /* UIWebView+LoadAssetsHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+LoadAssetsHtml.m"; sourceTree = "<group>"; };
 		043DAC491901C3EE001CD17C /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
 		043DAC4A1901C3EE001CD17C /* CreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsViewController.m; sourceTree = "<group>"; };
 		043F18DB18D9691D00D8489A /* TopActionSheetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopActionSheetLabel.h; sourceTree = "<group>"; };
@@ -352,6 +357,8 @@
 		04530AF91935C2B500022512 /* EmptySegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptySegue.h; sourceTree = "<group>"; };
 		04530AFA1935C2B500022512 /* EmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptySegue.m; sourceTree = "<group>"; };
 		045A9F0C18F6090E0057EA85 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		045D871F19FAD2FA0035C1F9 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		045D872019FAD2FA0035C1F9 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		045EFF1819A25FEB00D0EDBB /* logo-placeholder-search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-placeholder-search.png"; sourceTree = "<group>"; };
 		045EFF1919A25FEB00D0EDBB /* logo-placeholder-search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-placeholder-search@2x.png"; sourceTree = "<group>"; };
 		0460F8DA19B0F932001BC59B /* CenteredPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenteredPathView.h; sourceTree = "<group>"; };
@@ -381,6 +388,7 @@
 		047FF5461889078C009DB293 /* Image+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Image+Convenience.m"; sourceTree = "<group>"; };
 		04821CCF19895EDC007558F6 /* ReferenceGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferenceGradientView.h; sourceTree = "<group>"; };
 		04821CD019895EDC007558F6 /* ReferenceGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferenceGradientView.m; sourceTree = "<group>"; };
+		0484411D19FF15AF00FD26C5 /* AboutViewController.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AboutViewController.plist; sourceTree = "<group>"; };
 		0484E3DC19D9D19B0085D18D /* UIView+ConstraintsScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ConstraintsScale.h"; sourceTree = "<group>"; };
 		0484E3DD19D9D19B0085D18D /* UIView+ConstraintsScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ConstraintsScale.m"; sourceTree = "<group>"; };
 		0485FECD1994D5AE00141361 /* NearbyResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NearbyResultCell.xib; sourceTree = "<group>"; };
@@ -1040,6 +1048,16 @@
 			path = ModalOverlay;
 			sourceTree = "<group>";
 		};
+		045D871D19FAD2D00035C1F9 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				045D871F19FAD2FA0035C1F9 /* AboutViewController.h */,
+				045D872019FAD2FA0035C1F9 /* AboutViewController.m */,
+				0484411D19FF15AF00FD26C5 /* AboutViewController.plist */,
+			);
+			path = About;
+			sourceTree = "<group>";
+		};
 		0460F8D919B0F90E001BC59B /* CenteredPathView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1283,6 +1301,7 @@
 		04C43AB0183441A4006C643B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				045D871D19FAD2D00035C1F9 /* About */,
 				04A97E8418B81D440046B166 /* AccountCreation */,
 				04B7B9BA18B5569600A63551 /* Captcha */,
 				043DAC481901C3D2001CD17C /* Credits */,
@@ -1378,6 +1397,8 @@
 				04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */,
 				04B6924E18E77B2A00F88D8A /* UIWebView+HideScrollGradient.h */,
 				04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */,
+				0439317419FB092600386E8F /* UIWebView+LoadAssetsHtml.h */,
+				0439317519FB092600386E8F /* UIWebView+LoadAssetsHtml.m */,
 				04D149D818877343006B4104 /* Alerts */,
 			);
 			path = Categories;
@@ -1684,11 +1705,11 @@
 				048702AE19F75B0800B7D307 /* ShellScript */,
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
+				046F268119C387BD00D7ACB3 /* ShellScript */,
 				04272E7619404CDF00CC682F /* ShellScript */,
 				04272E75193FF7F000CC682F /* ShellScript */,
 				D4C16A621970946900CD91AD /* ShellScript */,
 				D4C16A631970949A00CD91AD /* ShellScript */,
-				046F268119C387BD00D7ACB3 /* ShellScript */,
 				D4991433181D51DE00E6073C /* Resources */,
 			);
 			buildRules = (
@@ -1875,6 +1896,7 @@
 				D47FEE2019C8CB0000B998C8 /* (null) in Resources */,
 				04123638189C29EA00E0CF8E /* abuse-filter-flag-white@2x.png in Resources */,
 				04C91CEF195520990035ED1B /* logo-onboarding-subtitle@2x.png in Resources */,
+				0484411E19FF15AF00FD26C5 /* AboutViewController.plist in Resources */,
 				04C91CEE195520990035ED1B /* logo-onboarding-subtitle.png in Resources */,
 				045EFF1A19A25FEB00D0EDBB /* logo-placeholder-search.png in Resources */,
 				04224502197F5E09005DD0BF /* BulletedLabel.xib in Resources */,
@@ -1921,6 +1943,7 @@
 				"$(SRCROOT)/wikipedia/Images.xcassets/AppIcon.appiconset/icon.svg",
 				"$(SRCROOT)/wikipedia/Images.xcassets/RecentPagesEmpty.imageset/recent.svg",
 				"$(SRCROOT)/wikipedia/Images.xcassets/SavedPagesEmpty.imageset/savedpages.svg",
+				"$(SRCROOT)/wikipedia/Images.xcassets/WMFLogo_60.imageset/wmf_logo.svg",
 			);
 			outputPaths = (
 			);
@@ -1988,6 +2011,7 @@
 				042A5B36192591520095E172 /* TopMenuTextField.m in Sources */,
 				04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */,
 				04B7B9BD18B5570E00A63551 /* CaptchaViewController.m in Sources */,
+				045D872119FAD2FA0035C1F9 /* AboutViewController.m in Sources */,
 				04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */,
 				0447863D185145090050563B /* WebViewController.m in Sources */,
 				0487048A19F8262600B7D307 /* PreviewHtmlFetcher.m in Sources */,
@@ -2094,6 +2118,7 @@
 				04C9509D19EF02980013F3C0 /* EventLogger.m in Sources */,
 				D4E8A8A719084F1300DA4765 /* SQLiteHelper.m in Sources */,
 				04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */,
+				0439317619FB092600386E8F /* UIWebView+LoadAssetsHtml.m in Sources */,
 				04B91AA718E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m in Sources */,
 				04224500197F5E09005DD0BF /* AbuseFilterAlert.m in Sources */,
 				D4B0AE0819366A0A00F0AC90 /* CreateAccountFunnel.m in Sources */,

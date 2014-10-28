@@ -37,8 +37,14 @@ module.exports = function ( grunt ) {
         copy: {
             main: {
                 files: [
-                    {src: ["index.html", "preview.html", "abusefilter.html", "bundle.js", "footer.css"], dest: "../wikipedia/assets/"}
+                    {src: ["index.html", "preview.html", "abusefilter.html", "about.html", "bundle.js", "footer.css"], dest: "../wikipedia/assets/"}
                 ]
+            },
+            files: {
+                cwd: 'images',  // folder to copy
+                src: '**/*',    // copy all files and subfolders
+                dest: '../wikipedia/assets/images', // destination folder
+                expand: true    // required when using cwd
             }
         },
         watch: {

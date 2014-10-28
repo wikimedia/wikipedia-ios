@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>urls</key>
+	<dict>
+		<key>feedback</key>
+		<string>mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:$1</string>
+		<key>twn</key>
+		<string>http://translatewiki.net</string>
+		<key>wmf</key>
+		<string>http://wikimediafoundation.org</string>
+	</dict>
+	<key>libraries</key>
+	<dict>
+		<key>WikiFont</key>
+		<string>https://github.com/munmay/WikiFont</string>
+		<key>HPPLE</key>
+		<string>https://github.com/topfunky/hpple</string>
+		<key>NSDate-Extensions</key>
+		<string>https://github.com/erica/NSDate-Extensions</string>
+		<key>AFNetworking</key>
+		<string>https://github.com/AFNetworking/AFNetworking</string>
+		<key>CocoaPods</key>
+		<string>http://cocoapods.org</string>
+	</dict>
+	<key>repositories</key>
+	<dict>
+		<key>GitHub</key>
+		<string>https://github.com/wikimedia/apps-ios-wikipedia</string>
+		<key>Gerrit</key>
+		<string>https://gerrit.wikimedia.org/r/#/q/project:apps/ios/wikipedia,n,z</string>
+	</dict>
+	<key>contributors</key>
+	<array>
+		<string>Adam Baso</string>
+		<string>Amir E. Aharoni</string>
+		<string>Anirudh S</string>
+		<string>Bernd Sitzmann</string>
+		<string>Brion Vibber</string>
+		<string>Dan Garry</string>
+		<string>Dmitry Brant</string>
+		<string>Kenan Wang</string>
+		<string>Maryana Pinchuk</string>
+		<string>Max Semenik</string>
+		<string>Moiz Syed</string>
+		<string>Monte Hurd</string>
+		<string>Mun May Tee</string>
+		<string>Nicole Borrelli</string>
+		<string>Niklas Laxström</string>
+		<string>Thomas PT</string>
+		<string>Tomasz Finc</string>
+		<string>Vibha Bamba</string>
+		<string>Yuvi Panda</string>
+	</array>
+</dict>
+</plist>
