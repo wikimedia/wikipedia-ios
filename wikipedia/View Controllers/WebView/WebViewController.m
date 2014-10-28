@@ -1844,7 +1844,10 @@ typedef enum {
 
             // This is important! Ensures bottom of web view article can be scrolled closer to the top of
             // the screen. Works in conjunction with "limitScrollUp:" method.
-            [sectionTextArray addObject: [NSString stringWithFormat:@"<div style='height:%d;background-color:white;'></div>", BOTTOM_SCROLL_LIMIT_HEIGHT]];
+            // Note: had to add "px" to the height because we added "<!DOCTYPE html>" to the top
+            // of the index.html - it won't actually give the div height w/o this now (no longer
+            // using quirks mode now that doctype specified).
+            [sectionTextArray addObject: [NSString stringWithFormat:@"<div style='height:%dpx;background-color:white;'></div>", BOTTOM_SCROLL_LIMIT_HEIGHT]];
         }
 
         
