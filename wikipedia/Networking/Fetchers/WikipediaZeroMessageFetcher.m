@@ -8,6 +8,7 @@
 #import "NSObject+Extras.h"
 #import "Defines.h"
 #import "WikipediaAppUtils.h"
+#import "WMF_Colors.h"
 
 @interface WikipediaZeroMessageFetcher()
 
@@ -42,8 +43,17 @@
 
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
         
-        // Fake out an error if non-dictionary response received.
-        if(![responseObject isDict]){
+        // If we're simulating with memory warnings in WebViewcontroller.m,
+        // don't trigger an error for non-dictionary responses, but rather
+        // simulate a received message.
+        // But if we're not simulating, force an error on non-dictionary responses.
+        if ([SessionSingleton sharedInstance].zeroConfigState.fakeZeroOn) {
+            responseObject = @{
+                     @"message": @"Free Wikipedia by Test Operator",
+                     @"foreground": @"#00FF00",
+                     @"background": @"#ff69b4"
+                     };
+        } else if (![responseObject isDict]) {
             responseObject = @{@"error": @{@"info": @"Wikipedia Zero message not found."}};
         }
 
@@ -59,7 +69,7 @@
                                     userInfo: errorDict];
         }
 
-        NSString *output = @"";
+        NSDictionary *output;
         if (!error) {
             output = [self getSanitizedResponse:responseObject];
         }
@@ -88,18 +98,46 @@
              };
 }
 
--(NSString *)getSanitizedResponse:(NSDictionary *)rawResponse
+-(NSDictionary *)getSanitizedResponse:(NSDictionary *)rawResponse
 {
-    NSString *zeroRatedMessage = rawResponse.count > 0 ? [rawResponse objectForKey:@"message"] : nil;
-    
-    // For testing Wikipedia Zero visual flourishes.
-    // Go to WebViewController.m and uncomment the W0 part,
+    // For testing Wikipedia Zero visual flourishes,
+    // go to WebViewController.m and uncomment the W0 part,
     // then when running the app in the simulator fire the
     // memory warning to toggle the fake state on or off.
-    if ([SessionSingleton sharedInstance].zeroConfigState.fakeZeroOn) {
-        zeroRatedMessage = @"Free Wikipedia by Test Operator";
+    if (rawResponse.count == 0) {
+        return nil;
     }
-    return zeroRatedMessage;
+    
+    NSString *message = rawResponse[@"message"];
+    UIColor *foreground = [self UIColorFromHexString:rawResponse[@"foreground"]];
+    UIColor *background = [self UIColorFromHexString:rawResponse[@"background"]];
+    
+    if (message && foreground && background) {
+        return @{
+                 @"message": message,
+                 @"foreground": foreground,
+                 @"background": background
+                 };
+    }
+    return nil;
+}
+
+-(UIColor *)UIColorFromHexString:(NSString*)hexString
+{
+    if (hexString && [hexString hasPrefix:@"#"] && hexString.length == 7) {
+        @try {
+            // Tip from https://stackoverflow.com/questions/3010216/how-can-i-convert-rgb-hex-string-into-uicolor-in-objective-c/13648705#13648705
+            NSScanner *scanner = [NSScanner scannerWithString:[hexString substringWithRange:NSMakeRange(1, 6)]];
+            unsigned hex;
+            if (![scanner scanHexInt:&hex]) return nil;
+            return UIColorFromRGBWithAlpha(hex,1.0);
+        }
+        
+        @catch (NSException *e) {
+            return nil;
+        }
+    }
+    return nil;
 }
 
 /*

@@ -1658,15 +1658,17 @@ typedef enum {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:
             {
-                NSString *title = (NSString *)userData;
-                if (title) {
+                NSDictionary *banner = (NSDictionary*)userData;
+                if (banner) {
                     TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
                     textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
                     
                     //[self showAlert:title type:ALERT_TYPE_TOP duration:2];
+                    NSString *title = banner[@"message"];
                     self.zeroStatusLabel.text = title;
                     self.zeroStatusLabel.padding = UIEdgeInsetsMake(3, 10, 3, 10);
-                    self.zeroStatusLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.93];
+                    self.zeroStatusLabel.textColor = banner[@"foreground"];
+                    self.zeroStatusLabel.backgroundColor = banner[@"background"];
                     
                     [NAV promptFirstTimeZeroOnWithTitleIfAppropriate:title];
                 }
@@ -2041,6 +2043,7 @@ typedef enum {
         //[self showAlert:warnVerbiage type:ALERT_TYPE_TOP duration:duration];
         self.zeroStatusLabel.text = warnVerbiage;
         self.zeroStatusLabel.backgroundColor = [UIColor redColor];
+        self.zeroStatusLabel.textColor = [UIColor whiteColor];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.zeroStatusLabel.text = @"";
