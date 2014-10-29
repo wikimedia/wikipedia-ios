@@ -158,7 +158,7 @@
     setDivHTML(@"feedback_body", [self getLinkHTMLForURL:self.feedbackURL title:MWLocalizedString(@"about-send-feedback", nil)]);
     
     NSString *twnUrl = self.urls[@"twn"];
-    NSString *translatorsLink = [self getLinkHTMLForURL:twnUrl title:twnUrl];
+    NSString *translatorsLink = [self getLinkHTMLForURL:twnUrl title:[twnUrl substringFromIndex:7]];
     NSString *translatorDetails =
     [MWLocalizedString(@"about-translators-details", nil) stringByReplacingOccurrencesOfString: @"$1"
                                                                                     withString: translatorsLink];

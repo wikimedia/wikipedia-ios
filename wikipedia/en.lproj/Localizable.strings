@@ -162,7 +162,7 @@
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "contributors";
 "about-translators" = "translators";
-"about-translators-details" = "This app was translated by the volunteer translators at $1";
+"about-translators-details" = "Translated by volunteers at $1";
 "about-libraries" = "libraries used";
 "about-repositories" = "repositories";
 "about-send-feedback" = "Send app feedback";
