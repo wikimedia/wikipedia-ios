@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Davidzdh
 // Author: LNDDYL
+// Author: Linforest
 // Author: Liuxinyu970226
 // Author: NigelSoft
 // Author: Qiyue2001
@@ -99,6 +100,7 @@
 "main-menu-send-feedback" = "发送程序反馈";
 "main-menu-show-page-history" = "$1的更改历史";
 "main-menu-credits" = "制作人员";
+"main-menu-about" = "关于维基百科应用程序";
 "main-menu-zero-faq" = "Wikipedia Zero常见问题";
 "main-menu-privacy-policy" = "隐私政策";
 "main-menu-terms-of-use" = "使用条款";
@@ -146,6 +148,16 @@
 "credits-gerrit-repo" = "主应用程序（Gerrit）";
 "credits-github-mirror" = "镜像应用程序（GitHub）";
 "credits-external-libraries" = "外部";
+"about-title" = "关于";
+"about-wikipedia" = "维基百科";
+"about-contributors" = "贡献者";
+"about-translators" = "译者";
+"about-translators-details" = "该应用程序是由$1的志愿翻译人员翻译的";
+"about-libraries" = "所使用的库";
+"about-repositories" = "存储库";
+"about-send-feedback" = "发送应用程序反馈信息";
+"about-product-of" = "$1的产品";
+"about-wikimedia-foundation" = "维基媒体基金会";
 "share-menu-save-page" = "保存条目";
 "share-menu-page-saved" = "页面已保存";
 "share-menu-page-saved-access" = "提示：要访问您保存的页面，在上面轻触$1或在下面按住$2。";

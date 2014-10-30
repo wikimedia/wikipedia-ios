@@ -94,6 +94,7 @@
 "main-menu-send-feedback" = "Trimitere părere despre aplicație";
 "main-menu-show-page-history" = "Istoricul modificărilor pentru $1";
 "main-menu-credits" = "Credite";
+"main-menu-about" = "Despre aplicația Wikipedia";
 "main-menu-zero-faq" = "Într. frecv. Wikipedia Zero";
 "main-menu-privacy-policy" = "Politica de confidențialitate";
 "main-menu-terms-of-use" = "Termeni de utilizare";
@@ -141,6 +142,16 @@
 "credits-gerrit-repo" = "Aplicația de bază (Gerrit)";
 "credits-github-mirror" = "Aplicația oglindă (GitHub)";
 "credits-external-libraries" = "Externe";
+"about-title" = "Despre";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "contribuitori";
+"about-translators" = "traducători";
+"about-translators-details" = "Această aplicație a fost tradusă de traducătorii voluntari de la $1";
+"about-libraries" = "biblioteci utilizate";
+"about-repositories" = "depozite";
+"about-send-feedback" = "Trimiteți o părere despre aplicație";
+"about-product-of" = "Un produs al $1";
+"about-wikimedia-foundation" = "Fundației Wikimedia";
 "share-menu-save-page" = "Salvare articol";
 "share-menu-page-saved" = "Articol salvat";
 "share-menu-page-saved-access" = "Sfat: pentru a vă accesa paginile salvate, atingeți simbolul $1 de mai sus sau apăsați prelung simbolul $2 de mai jos.";

@@ -100,6 +100,7 @@
 "main-menu-send-feedback" = "Skicka feedback om appen";
 "main-menu-show-page-history" = "Historik över redigeringar av $1";
 "main-menu-credits" = "Erkännanden";
+"main-menu-about" = "Om Wikipedia-appen";
 "main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
 "main-menu-privacy-policy" = "Integritetspolicy";
 "main-menu-terms-of-use" = "Användarvillkor";
@@ -147,6 +148,16 @@
 "credits-gerrit-repo" = "Huvudsaklig app (Gerrit)";
 "credits-github-mirror" = "Speglad app (GitHub)";
 "credits-external-libraries" = "Externa";
+"about-title" = "Om";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "Bidragsgivare";
+"about-translators" = "Översättare";
+"about-translators-details" = "Denna app översattes av frivilliga översättare på $1";
+"about-libraries" = "Bibliotek som använts";
+"about-repositories" = "Förvar";
+"about-send-feedback" = "Skicka återkoppling om appen";
+"about-product-of" = "En produkt av $1";
+"about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Spara artikeln";
 "share-menu-page-saved" = "Sparade för offline-läsning.";
 "share-menu-page-saved-access" = "Tips: för att komma åt dina sparade sidor, klicka på $1 ovan eller tryck länge på $2 nedan.";

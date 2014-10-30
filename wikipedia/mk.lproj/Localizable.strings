@@ -96,6 +96,7 @@
 "main-menu-send-feedback" = "Испрати мислење за прилогот";
 "main-menu-show-page-history" = "Историја на измените на $1";
 "main-menu-credits" = "Признанија";
+"main-menu-about" = "За прилогот „Википедија“";
 "main-menu-zero-faq" = "ЧПП за Википедија Нулта";
 "main-menu-privacy-policy" = "Заштита на личните податоци";
 "main-menu-terms-of-use" = "Услови на употреба";
@@ -143,6 +144,16 @@
 "credits-gerrit-repo" = "Главно (Gerrit)";
 "credits-github-mirror" = "Огледално (GitHub)";
 "credits-external-libraries" = "Надворешни";
+"about-title" = "За прилогот";
+"about-wikipedia" = "Википедија";
+"about-contributors" = "учесници";
+"about-translators" = "преведувачи";
+"about-translators-details" = "Прилогов го преведоа доброволни преведувачи на $1";
+"about-libraries" = "користени библиотеки";
+"about-repositories" = "складишта";
+"about-send-feedback" = "Испрати мислење за прилогот";
+"about-product-of" = "Производ на $1";
+"about-wikimedia-foundation" = "Фондацијата Викимедија";
 "share-menu-save-page" = "Зачувај страница";
 "share-menu-page-saved" = "Страницата е зачувана";
 "share-menu-page-saved-access" = "Совет: за да дојдете до вашите зачувани страници, допрете го $1 погоре или подржете на $2 подолу.";

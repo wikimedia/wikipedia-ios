@@ -120,6 +120,9 @@
 "credits-wikimedia-repos" = "Wikimedia";
 "credits-github-mirror" = "Lustrzana kopia aplikacji (Github)";
 "credits-external-libraries" = "Zewnętrzny";
+"about-wikipedia" = "Wikipedia";
+"about-translators" = "tłumacze";
+"about-repositories" = "repozytoria";
 "share-menu-save-page" = "Zapisz stronę";
 "share-menu-page-saved" = "Zapisano do czytania w trybie offline.";
 "timestamp-just-now" = "po prostu teraz";

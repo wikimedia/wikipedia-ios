@@ -4,6 +4,7 @@
 // Author: Dude1717
 // Author: Fryed-peach
 // Author: Shirayuki
+// Author: SkyDaisy9
 // Author: Takot
 
 "article-languages-label" = "言語を選択";
@@ -98,6 +99,7 @@
 "main-menu-send-feedback" = "アプリのフィードバックを送る";
 "main-menu-show-page-history" = "$1の変更履歴";
 "main-menu-credits" = "クレジット";
+"main-menu-about" = "ウィキペディア・アプリについて";
 "main-menu-zero-faq" = "ウィキペディアゼロについてのFAQ";
 "main-menu-privacy-policy" = "プライバシー・ポリシー";
 "main-menu-terms-of-use" = "利用規約";
@@ -145,6 +147,16 @@
 "credits-gerrit-repo" = "アプリ・メイン (Gerrit)";
 "credits-github-mirror" = "アプリ・ミラー (GitHub)";
 "credits-external-libraries" = "外部リポジトリ";
+"about-title" = "このアプリについて";
+"about-wikipedia" = "ウィキペディアについて";
+"about-contributors" = "貢献者";
+"about-translators" = "翻訳者";
+"about-translators-details" = "このアプリは$1においてボランティア翻訳者により翻訳されました。";
+"about-libraries" = "使用ライブラリについて";
+"about-repositories" = "リポジトリについて";
+"about-send-feedback" = "フィードバックを送信";
+"about-product-of" = "$1の製品について";
+"about-wikimedia-foundation" = "ウィキメディア財団";
 "share-menu-save-page" = "ページを保存";
 "share-menu-page-saved" = "記事を保存しました";
 "share-menu-page-saved-access" = "ヒント: 保存したページにアクセスするには、上部の$1をタップするか、下部の$2を長押しします。";

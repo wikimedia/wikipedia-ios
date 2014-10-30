@@ -97,6 +97,7 @@
 "main-menu-send-feedback" = "שליחת משוב על היישום";
 "main-menu-show-page-history" = "היסטוריה של שינויים שנעשו לדף $1";
 "main-menu-credits" = "קרדיטים";
+"main-menu-about" = "אודות יישום ויקיפדיה";
 "main-menu-zero-faq" = "שו\"ת ויקיפדיה אפס";
 "main-menu-privacy-policy" = "מדיניות פרטיות";
 "main-menu-terms-of-use" = "תנאי שימוש";
@@ -144,6 +145,16 @@
 "credits-gerrit-repo" = "יישום – ראשי (גריט)";
 "credits-github-mirror" = "יישום – מראה (גיטהאב)";
 "credits-external-libraries" = "חיצוני";
+"about-title" = "אודות";
+"about-wikipedia" = "ויקיפדיה";
+"about-contributors" = "תורמים";
+"about-translators" = "מתרגמים";
+"about-translators-details" = "היישום הזה תורגם על־ידי מתרגמים מתנדבים באתר $1";
+"about-libraries" = "ספריות בשימוש";
+"about-repositories" = "מאגרים";
+"about-send-feedback" = "שליחת משוב על היישום";
+"about-product-of" = "מוצר של $1";
+"about-wikimedia-foundation" = "קרן ויקימדיה";
 "share-menu-save-page" = "שמירת דף";
 "share-menu-page-saved" = "הדף נשמר";
 "share-menu-page-saved-access" = "עצה: כדי לגשת לדפים השמורים שלך, יש ללחוץ על $1 למעלה או לעשות לחיצה ארוכה על $2 למטה.";

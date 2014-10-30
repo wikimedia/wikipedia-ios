@@ -97,6 +97,7 @@
 "main-menu-send-feedback" = "Enviar comentários sobre a aplicação";
 "main-menu-show-page-history" = "Histórico de alterações para $1";
 "main-menu-credits" = "Créditos";
+"main-menu-about" = "Sobre a aplicação da Wikipédia";
 "main-menu-zero-faq" = "Perguntas frequentes sobre a Wikipédia Zero";
 "main-menu-privacy-policy" = "Política de privacidade";
 "main-menu-terms-of-use" = "Condições de uso";
@@ -144,6 +145,16 @@
 "credits-gerrit-repo" = "Rep. principal da aplicação (Gerrit)";
 "credits-github-mirror" = "Mirror da aplicação (GitHub)";
 "credits-external-libraries" = "Externo";
+"about-title" = "Sobre";
+"about-wikipedia" = "Wikipédia";
+"about-contributors" = "contribuidores";
+"about-translators" = "tradutores";
+"about-translators-details" = "Esta aplicação foi traduzida por tradutores voluntários em $1";
+"about-libraries" = "bibliotecas usadas";
+"about-repositories" = "repositórios";
+"about-send-feedback" = "Enviar comentários sobre a aplicação";
+"about-product-of" = "Um produto da $1";
+"about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Guardar página";
 "share-menu-page-saved" = "Página guardada";
 "share-menu-page-saved-access" = "Dica: Para aceder às suas páginas guardadas, toque em $1 acima ou pressione $2 abaixo.";

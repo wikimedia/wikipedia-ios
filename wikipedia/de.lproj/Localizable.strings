@@ -95,6 +95,7 @@
 "main-menu-send-feedback" = "App-Rückmeldung senden";
 "main-menu-show-page-history" = "Versionsgeschichte der Änderungen an $1";
 "main-menu-credits" = "Danksagungen";
+"main-menu-about" = "Über die Wikipedia-App";
 "main-menu-zero-faq" = "FAQ zu Wikipedia Zero";
 "main-menu-privacy-policy" = "Datenschutzrichtlinie";
 "main-menu-terms-of-use" = "Nutzungsbedingungen";
@@ -142,6 +143,16 @@
 "credits-gerrit-repo" = "App-Hauptrepositorium (Gerrit)";
 "credits-github-mirror" = "App-Mirror (GitHub)";
 "credits-external-libraries" = "Extern";
+"about-title" = "Über";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "Autoren";
+"about-translators" = "Übersetzer";
+"about-translators-details" = "Diese App wurde von freiwilligen Übersetzern auf $1 übersetzt";
+"about-libraries" = "Verwendete Bibliotheken";
+"about-repositories" = "Repositorien";
+"about-send-feedback" = "App-Rückmeldung senden";
+"about-product-of" = "Ein Produkt der $1";
+"about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Seite speichern";
 "share-menu-page-saved" = "Seite gespeichert";
 "share-menu-page-saved-access" = "Tipp: Um auf deine gespeicherten Seiten zuzugreifen, tippe oben auf $1 oder halte unten $2 gedrückt.";

@@ -75,7 +75,7 @@
 "open-link-title" = "Abrir enlace";
 "open-link-cancel" = "Cancelar";
 "search-searching" = "Buscando…";
-"search-no-matches" = "No hay coincidencias encontradas para el término de búsqueda.";
+"search-no-matches" = "No se encontraron coincidencias para el término de búsqueda.";
 "search-field-placeholder-text" = "Buscar en Wikipedia";
 "search-field-placeholder-text-zero" = "Buscar en Wikipedia Zero";
 "search-loading-section-zero" = "Cargando la primera sección del artículo…";
@@ -100,6 +100,7 @@
 "main-menu-send-feedback" = "Enviar comentarios para la aplicación";
 "main-menu-show-page-history" = "Historial de cambios de $1";
 "main-menu-credits" = "Créditos";
+"main-menu-about" = "Acerca de la aplicación de Wikipedia";
 "main-menu-zero-faq" = "P+F de Wikipedia Zero";
 "main-menu-privacy-policy" = "Política de privacidad";
 "main-menu-terms-of-use" = "Términos de uso";
@@ -136,7 +137,7 @@
 "edit-summary-choice-added-missing-info" = "Añadida información faltante";
 "edit-summary-choice-added-clarification" = "Aclaración añadida";
 "edit-summary-choice-other" = "Otro";
-"edit-summary-description" = "Un resumen específico ayuda a los co-editores a revisar rápidamente sus ediciones. También puede escoger entre las etiquetas de abajo.";
+"edit-summary-description" = "Un resumen específico ayuda a los co-editores a revisar rápidamente tus ediciones. También puedes escoger entre las etiquetas de abajo.";
 "edit-summary-field-placeholder-text" = "Otras formas en las que mejoraste la página";
 "edit-summary-title" = "¿Cómo has mejorado el artículo?";
 "fetching-random-article" = "Obteniendo artículo al azar";
@@ -147,6 +148,16 @@
 "credits-gerrit-repo" = "Rep. principal de aplicación (Gerrit)";
 "credits-github-mirror" = "App espejo (GitHub)";
 "credits-external-libraries" = "Repositorios externos";
+"about-title" = "Acerca de";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "colaboradores";
+"about-translators" = "traductores";
+"about-translators-details" = "Esta aplicación fue traducida por los traductores voluntarios en $1";
+"about-libraries" = "bibliotecas usadas";
+"about-repositories" = "repositorios";
+"about-send-feedback" = "Enviar comentarios sobre la aplicación";
+"about-product-of" = "Un producto de la $1";
+"about-wikimedia-foundation" = "Fundación Wikimedia";
 "share-menu-save-page" = "Guardar página";
 "share-menu-page-saved" = "Guardado para leer sin conexión.";
 "share-menu-page-saved-access" = "Consejo: para acceder a tus páginas guardadas, pulsa $1 arriba o mantén apretado $2 abajo.";

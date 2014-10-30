@@ -1,5 +1,6 @@
 // Messages for Message documentation (Message documentation)
 // Exported from translatewiki.net
+// Author: Amire80
 // Author: Brion
 // Author: Csega
 // Author: Jack Phoenix
@@ -71,7 +72,7 @@
 "wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - sign in button text";
 "wikitext-upload-save-terms-and-license" = "Button text for information about the Terms of Use and edit license. Parameters:\n* $1 - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* $2 - license name link";
 "wikitext-upload-save-terms-name" = "This message is used as $1 in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].\n{{Identical|Terms of use}}";
-"wikitext-upload-save-license-name" = "Name of license user edits are saved under - presently CC BY-SA 3.0";
+"wikitext-upload-save-license-name" = "Name of license user edits are saved under - presently CC BY-SA 3.0\n{{Identical|CC BY-SA}}";
 "open-link-title" = "Title for popup menu of terms/license link options.";
 "open-link-cancel" = "Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}";
 "search-searching" = "Alert text shown when results for search term are being retrieved";
@@ -100,6 +101,7 @@
 "main-menu-send-feedback" = "Button text for button to send app feedback.\n{{Identical|Send app feedback}}";
 "main-menu-show-page-history" = "Button text for showing history of changes to current article. Parameters:\n* $1 - page title";
 "main-menu-credits" = "Button text for showing credits for external open source libraries used.\n{{Identical|Credit}}";
+"main-menu-about" = "Button for showing information about the app.";
 "main-menu-zero-faq" = "Button text for showing the Wikipedia Zero Frequently Asked Questions (FAQ) document";
 "main-menu-privacy-policy" = "Button text for showing privacy policy\n{{Identical|Privacy policy}}";
 "main-menu-terms-of-use" = "Button text for showing site terms of use";
@@ -109,7 +111,6 @@
 "main-menu-show-today" = "Button text for showing mobile version of main page\n{{Identical|Today}}";
 "main-menu-nearby" = "Button for showing nearby articles.\n{{Identical|Nearby}}";
 "main-menu-more" = "Button for showing additional settings and menu items.\n{{Identical|More}}";
-"main-menu-about" = "Button for showing information about the app.";
 "saved-pages-title" = "Header text for Saved Pages interface.\n{{Identical|Saved page}}";
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "saved-pages-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
@@ -156,8 +157,8 @@
 "about-libraries" = "Label text for libraries section of the about page";
 "about-repositories" = "Label text for repositories section of the about page";
 "about-send-feedback" = "Link text for sending app feedback";
-"about-product-of" = "Description of who produced the app. $1 is the name of the foundation";
-"about-wikimedia-foundation" = "Name of the Wikimedia Foundation. Used by 'about-product-of'.";
+"about-product-of" = "Description of who produced the app. $1 is the message {{msg-wikimedia|wikipedia-ios-about-wikimedia-foundation}}.";
+"about-wikimedia-foundation" = "Name of the Wikimedia Foundation. Used by the message {{Msg-wikimedia|wikipedia-ios-about-product-of}}.";
 "share-menu-save-page" = "Button text for saving current page from the share menu";
 "share-menu-page-saved" = "Alert text shown when page saved for offline reading.\n\nSee also:\n* {{msg-wm|Wikipedia-ios-share-menu-page-saved-access}}";
 "share-menu-page-saved-access" = "Reminder to user of ways to access saved pages. Parameters:\n* $1 - the main menu W icon\n* $2 - the save page heart icon\nSee also:\n* {{msg-wm|Wikipedia-ios-share-menu-page-saved}}";

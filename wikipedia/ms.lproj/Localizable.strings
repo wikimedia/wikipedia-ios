@@ -95,6 +95,7 @@
 "main-menu-send-feedback" = "Hantar maklum balas aplikasi";
 "main-menu-show-page-history" = "Sejarah perubahan $1";
 "main-menu-credits" = "Kredit";
+"main-menu-about" = "Tentang aplikasi Wikipedia";
 "main-menu-zero-faq" = "Soalan Lazim Wikipedia Zero";
 "main-menu-privacy-policy" = "Dasar privasi";
 "main-menu-terms-of-use" = "Syarat-syarat penggunaan";
@@ -142,6 +143,16 @@
 "credits-gerrit-repo" = "Utama (Gerrit)";
 "credits-github-mirror" = "Cermin (GitHub)";
 "credits-external-libraries" = "Luaran";
+"about-title" = "Perihal";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "penyumbang";
+"about-translators" = "penterjemah";
+"about-translators-details" = "Aplikasi ini diterjemahkan oleh para penterjemah sukarela di $1";
+"about-libraries" = "perpustakaan yang digunakan";
+"about-repositories" = "repositori";
+"about-send-feedback" = "Hantar maklum balas aplikasi";
+"about-product-of" = "Keluaran $1";
+"about-wikimedia-foundation" = "Yayasan Wikimedia";
 "share-menu-save-page" = "Simpan Rencana";
 "share-menu-page-saved" = "Rencana Disimpan";
 "share-menu-page-saved-access" = "Tip: untuk mengakses laman-laman simpanan anda, ketik $1 di atas atau tekan lama-lama $2 di bawah.";

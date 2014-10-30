@@ -97,6 +97,7 @@
 "main-menu-send-feedback" = "Отправить отзыв о приложении";
 "main-menu-show-page-history" = "История изменений страницы $1";
 "main-menu-credits" = "Создатели";
+"main-menu-about" = "О приложении «Википедия»";
 "main-menu-zero-faq" = "ЧаВо по Wikipedia Zero";
 "main-menu-privacy-policy" = "Политика конфиденциальности";
 "main-menu-terms-of-use" = "Условия использования";
@@ -144,6 +145,16 @@
 "credits-gerrit-repo" = "Основной (Gerrit)";
 "credits-github-mirror" = "Зеркало (GitHub)";
 "credits-external-libraries" = "Сторонние";
+"about-title" = "О приложении";
+"about-wikipedia" = "Википедия";
+"about-contributors" = "авторы";
+"about-translators" = "переводчики";
+"about-translators-details" = "Это приложение было переведено добровольцами на $1";
+"about-libraries" = "использованые библиотеки";
+"about-repositories" = "репозитории";
+"about-send-feedback" = "Отправить отзыв о приложении";
+"about-product-of" = "Продукт $1";
+"about-wikimedia-foundation" = "Фонда Викимедиа";
 "share-menu-save-page" = "Сохранить статью";
 "share-menu-page-saved" = "Статья сохранена";
 "share-menu-page-saved-access" = "Совет: чтобы получить доступ к вашим сохраненным страницам, нажмите на $1 выше или зажмите $2 ниже.";

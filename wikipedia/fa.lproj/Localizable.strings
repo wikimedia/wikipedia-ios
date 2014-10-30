@@ -100,6 +100,7 @@
 "main-menu-send-feedback" = "فرستادن بازخورد برنامه";
 "main-menu-show-page-history" = "سابقه تغییرات $1";
 "main-menu-credits" = "اعتبارات";
+"main-menu-about" = "دربارهٔ نرم‌افزار ویکی‌پدیا";
 "main-menu-zero-faq" = "پرسش‌های رایج ویکی‌پدیا صفر";
 "main-menu-privacy-policy" = "سیاست محرمانگی";
 "main-menu-terms-of-use" = "شرایط استفاده";
@@ -147,6 +148,16 @@
 "credits-gerrit-repo" = "نرم‌افزار اصلی (گرت)";
 "credits-github-mirror" = "نرم‌افزار مشابه (GitHub)";
 "credits-external-libraries" = "خارجی";
+"about-title" = "درباره";
+"about-wikipedia" = "ویکی‌پدیا";
+"about-contributors" = "مشارکت‌کنندگان";
+"about-translators" = "مترجم‌ها";
+"about-translators-details" = "این برنامه توسط مترجمان داوطلب در $1 ترجمه شده‌است";
+"about-libraries" = "کتابخانه‌های استفاده‌شده";
+"about-repositories" = "مخازن";
+"about-send-feedback" = "فرستادن بازخورد برنامه";
+"about-product-of" = "محصول $1";
+"about-wikimedia-foundation" = "بنیاد ویکی‌مدیا";
 "share-menu-save-page" = "ذخیره مقاله";
 "share-menu-page-saved" = "مقاله ذخیره شده";
 "share-menu-page-saved-access" = "ترفند:برای دسترسی به صفحهٔ ذخیره شده، $1 بالا را انگشت بزنید یا به مدت زیاد بر روی $2 پائین انگشتتان را نگه‌دارید.";
