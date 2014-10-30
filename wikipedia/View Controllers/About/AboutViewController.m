@@ -151,6 +151,7 @@
     setDivHTML(@"contributors_title", MWLocalizedString(@"about-contributors", nil));
     setDivHTML(@"contributors_body", self.contributors);
     setDivHTML(@"translators_title", MWLocalizedString(@"about-translators", nil));
+    setDivHTML(@"testers_title", MWLocalizedString(@"about-testers", nil));
     setDivHTML(@"libraries_title", MWLocalizedString(@"about-libraries", nil));
     setDivHTML(@"libraries_body", self.libraryLinks);
     setDivHTML(@"repositories_title", MWLocalizedString(@"about-repositories", nil));
@@ -163,6 +164,13 @@
     [MWLocalizedString(@"about-translators-details", nil) stringByReplacingOccurrencesOfString: @"$1"
                                                                                     withString: translatorsLink];
     setDivHTML(@"translators_body", translatorDetails);
+    
+    NSString *tsgUrl = self.urls[@"tsg"];
+    NSString *tsgLink = [self getLinkHTMLForURL:tsgUrl title:[tsgUrl substringFromIndex:7]];
+    NSString *tsgDetails =
+    [MWLocalizedString(@"about-testers-details", nil) stringByReplacingOccurrencesOfString: @"$1"
+                                                                                    withString: tsgLink];
+    setDivHTML(@"testers_body", tsgDetails);
     
     NSString *wmfUrl = self.urls[@"wmf"];
     NSString *foundation = [self getLinkHTMLForURL:wmfUrl title:MWLocalizedString(@"about-wikimedia-foundation", nil)];

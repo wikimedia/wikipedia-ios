@@ -4,6 +4,8 @@
 <dict>
 	<key>urls</key>
 	<dict>
+		<key>tsg</key>
+		<string>http://specialistsguild.org</string>
 		<key>feedback</key>
 		<string>mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:$1</string>
 		<key>twn</key>

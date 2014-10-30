@@ -161,6 +161,8 @@
 "about-title" = "About";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "contributors";
+"about-testers" = "testers";
+"about-testers-details" = "QA tested by $1";
 "about-translators" = "translators";
 "about-translators-details" = "Translated by volunteers at $1";
 "about-libraries" = "libraries used";
