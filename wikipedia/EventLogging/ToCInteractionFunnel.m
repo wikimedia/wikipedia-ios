@@ -14,9 +14,9 @@
 {
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppToCInteraction
     self = [super initWithSchema:@"MobileWikiAppToCInteraction"
-                         version:8461467];
+                         version:10375484];
     if (self) {
-        self.tocInteractionToken = [self persistentUUID:@"ToCInteraction"];
+        self.appInstallID = [self persistentUUID:@"ReadingAction"];
     }
     return self;
 }
@@ -24,7 +24,7 @@
 -(NSDictionary *)preprocessData:(NSDictionary *)eventData
 {
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[@"tocInteractionToken"] = self.tocInteractionToken;
+    dict[@"appInstallID"] = self.appInstallID;
     return [NSDictionary dictionaryWithDictionary: dict];
 }
 

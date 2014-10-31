@@ -13,9 +13,9 @@
 -(id)init
 {
     // http://meta.wikimedia.org/wiki/Schema:MobileWikiAppSavedPages
-    self = [super initWithSchema:@"MobileWikiAppSavedPages" version:8909354];
+    self = [super initWithSchema:@"MobileWikiAppSavedPages" version:10375480];
     if (self) {
-        self.appInstallID = [self persistentUUID:@"SavedPages"];
+        self.appInstallID = [self persistentUUID:@"ReadingAction"];
     }
     return self;
 }
