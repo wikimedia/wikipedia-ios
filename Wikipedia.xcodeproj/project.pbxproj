@@ -26,7 +26,7 @@
 		041A3B5E18E11ED90079FF1C /* LanguagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5918E11ED90079FF1C /* LanguagesCell.m */; };
 		041A3B6218E11ED90079FF1C /* LanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */; };
 		041C55D21950B27D006CE0EF /* EditSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C55D11950B27D006CE0EF /* EditSummaryViewController.m */; };
-		041C6206199ED2A20061516F /* Section+TOC.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C6205199ED2A20061516F /* Section+TOC.m */; };
+		041C6206199ED2A20061516F /* MWKSection+TOC.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C6205199ED2A20061516F /* MWKSection+TOC.m */; };
 		041E588219B2D2C500AC140C /* logo-placeholder-saved.png in Resources */ = {isa = PBXBuildFile; fileRef = 041E588019B2D2C500AC140C /* logo-placeholder-saved.png */; };
 		041E588319B2D2C500AC140C /* logo-placeholder-saved@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 041E588119B2D2C500AC140C /* logo-placeholder-saved@2x.png */; };
 		041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041EFC361996A1F800B2CB28 /* MapKit.framework */; };
@@ -77,9 +77,8 @@
 		0460F8DC19B0F932001BC59B /* CenteredPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0460F8DB19B0F932001BC59B /* CenteredPathView.m */; };
 		0462A6D11A1FE016009412D4 /* SearchResultAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 0462A6D01A1FE016009412D4 /* SearchResultAttributedString.m */; };
 		0463639818A844570049EE4F /* KeychainCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463639718A844570049EE4F /* KeychainCredentials.m */; };
-		0472BC18193AD88C00C40BDA /* Section+DisplayHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472BC17193AD88C00C40BDA /* Section+DisplayHtml.m */; };
+		0472BC18193AD88C00C40BDA /* MWKSection+DisplayHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472BC17193AD88C00C40BDA /* MWKSection+DisplayHtml.m */; };
 		047528AF19107DAA00F2CDA8 /* Section.m in Sources */ = {isa = PBXBuildFile; fileRef = 047528AE19107DAA00F2CDA8 /* Section.m */; };
-		047528B21913110000F2CDA8 /* Section+LeadSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 047528B11913110000F2CDA8 /* Section+LeadSection.m */; };
 		047528B5191465C400F2CDA8 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 047528B4191465C400F2CDA8 /* Article.m */; };
 		047801BE18AE987900DBB747 /* UIButton+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 047801BD18AE987900DBB747 /* UIButton+ColorMask.m */; };
 		047E74141860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047E74131860509000916964 /* SavedPagesResultPrototypeView.xib */; };
@@ -119,7 +118,7 @@
 		049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049566C118F5F4CB0058EA12 /* ZeroConfigState.m */; };
 		049B640C18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 049B640B18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m */; };
 		04A70FD7185BB6C300E24515 /* URLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A70FD6185BB6C300E24515 /* URLCache.m */; };
-		04A81E8618871EB000EEBADB /* Section+ImageRecords.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A81E8518871EB000EEBADB /* Section+ImageRecords.m */; };
+		04A81E8618871EB000EEBADB /* MWKSection+ImageRecords.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A81E8518871EB000EEBADB /* MWKSection+ImageRecords.m */; };
 		04A97E8718B81D5D0046B166 /* AccountCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A97E8618B81D5D0046B166 /* AccountCreationViewController.m */; };
 		04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C6F1891B302002D5487 /* NSObject+Extras.m */; };
 		04AE520519DB5E0900F89B92 /* NSObject+ConstraintsScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE520419DB5E0900F89B92 /* NSObject+ConstraintsScale.m */; };
@@ -190,9 +189,9 @@
 		D42E75EB18D11237002EA7E5 /* MWLanguageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D42E75EA18D11237002EA7E5 /* MWLanguageInfo.m */; };
 		D46CD8C418A1AC4F0042959E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C018A1AC4F0042959E /* InfoPlist.strings */; };
 		D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
-		D474CC15182AE196002BDE45 /* MWSite.m in Sources */ = {isa = PBXBuildFile; fileRef = D474CC14182AE196002BDE45 /* MWSite.m */; };
 		D47BF5D4197870390067C3BC /* SavedPagesFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D47BF5D3197870390067C3BC /* SavedPagesFunnel.m */; };
 		D47FEE2019C8CB0000B998C8 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		D497FCFB1A080810004A36A5 /* libMediaWikiKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D497FCF51A0807EE004A36A5 /* libMediaWikiKit.a */; };
 		D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4991438181D51DE00E6073C /* Foundation.framework */; };
 		D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143A181D51DE00E6073C /* CoreGraphics.framework */; };
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
@@ -213,12 +212,32 @@
 		D4E8A8A4190835C100DA4765 /* DataMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E8A8A3190835C100DA4765 /* DataMigrator.m */; };
 		D4E8A8A719084F1300DA4765 /* SQLiteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E8A8A619084F1300DA4765 /* SQLiteHelper.m */; };
 		D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */; };
-		D4EE00B9182443FC0090790F /* MWPageTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE00B8182443FC0090790F /* MWPageTitle.m */; };
 		D4F277FB194235A00032BA38 /* ProtectedEditAttemptFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F277FA194235A00032BA38 /* ProtectedEditAttemptFunnel.m */; };
 		D4F277FE194235B50032BA38 /* ToCInteractionFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F277FD194235B50032BA38 /* ToCInteractionFunnel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D497FCF41A0807EE004A36A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D497FCEF1A0807ED004A36A5 /* MediaWikiKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D48405A219E473E6006F4139;
+			remoteInfo = MediaWikiKit;
+		};
+		D497FCF61A0807EE004A36A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D497FCEF1A0807ED004A36A5 /* MediaWikiKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D48405AD19E473E7006F4139;
+			remoteInfo = MediaWikiKitTests;
+		};
+		D497FCF91A080800004A36A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D497FCEF1A0807ED004A36A5 /* MediaWikiKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D48405A119E473E6006F4139;
+			remoteInfo = MediaWikiKit;
+		};
 		D4AD974419F99CD700957451 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D4AD973E19F99CD700957451 /* Pods.xcodeproj */;
@@ -289,8 +308,8 @@
 		041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguagesViewController.m; sourceTree = "<group>"; };
 		041C55D01950B27D006CE0EF /* EditSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSummaryViewController.h; sourceTree = "<group>"; };
 		041C55D11950B27D006CE0EF /* EditSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EditSummaryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		041C6204199ED2A20061516F /* Section+TOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Section+TOC.h"; sourceTree = "<group>"; };
-		041C6205199ED2A20061516F /* Section+TOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Section+TOC.m"; sourceTree = "<group>"; };
+		041C6204199ED2A20061516F /* MWKSection+TOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSection+TOC.h"; sourceTree = "<group>"; };
+		041C6205199ED2A20061516F /* MWKSection+TOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+TOC.m"; sourceTree = "<group>"; };
 		041E588019B2D2C500AC140C /* logo-placeholder-saved.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-placeholder-saved.png"; sourceTree = "<group>"; };
 		041E588119B2D2C500AC140C /* logo-placeholder-saved@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-placeholder-saved@2x.png"; sourceTree = "<group>"; };
 		041EFC361996A1F800B2CB28 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -388,13 +407,11 @@
 		0463639618A844570049EE4F /* KeychainCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainCredentials.h; sourceTree = "<group>"; };
 		0463639718A844570049EE4F /* KeychainCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainCredentials.m; sourceTree = "<group>"; };
 		04649CA619F72B360071E8FA /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
-		0472BC16193AD88C00C40BDA /* Section+DisplayHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Section+DisplayHtml.h"; sourceTree = "<group>"; };
-		0472BC17193AD88C00C40BDA /* Section+DisplayHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Section+DisplayHtml.m"; sourceTree = "<group>"; };
+		0472BC16193AD88C00C40BDA /* MWKSection+DisplayHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSection+DisplayHtml.h"; sourceTree = "<group>"; };
+		0472BC17193AD88C00C40BDA /* MWKSection+DisplayHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+DisplayHtml.m"; sourceTree = "<group>"; };
 		047528A3190F0C2900F2CDA8 /* WikiGlyph_Chars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikiGlyph_Chars.h; sourceTree = "<group>"; };
 		047528AD19107DAA00F2CDA8 /* Section.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Section.h; sourceTree = "<group>"; };
 		047528AE19107DAA00F2CDA8 /* Section.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Section.m; sourceTree = "<group>"; };
-		047528B01913110000F2CDA8 /* Section+LeadSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Section+LeadSection.h"; sourceTree = "<group>"; };
-		047528B11913110000F2CDA8 /* Section+LeadSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Section+LeadSection.m"; sourceTree = "<group>"; };
 		047528B3191465C400F2CDA8 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
 		047528B4191465C400F2CDA8 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		047801BC18AE987900DBB747 /* UIButton+ColorMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ColorMask.h"; sourceTree = "<group>"; };
@@ -468,8 +485,8 @@
 		049B640B18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SearchChildViewControllers.m"; sourceTree = "<group>"; };
 		04A70FD5185BB6C300E24515 /* URLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLCache.h; sourceTree = "<group>"; };
 		04A70FD6185BB6C300E24515 /* URLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLCache.m; sourceTree = "<group>"; };
-		04A81E8418871EB000EEBADB /* Section+ImageRecords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Section+ImageRecords.h"; sourceTree = "<group>"; };
-		04A81E8518871EB000EEBADB /* Section+ImageRecords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Section+ImageRecords.m"; sourceTree = "<group>"; };
+		04A81E8418871EB000EEBADB /* MWKSection+ImageRecords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSection+ImageRecords.h"; sourceTree = "<group>"; };
+		04A81E8518871EB000EEBADB /* MWKSection+ImageRecords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+ImageRecords.m"; sourceTree = "<group>"; };
 		04A97E8518B81D5D0046B166 /* AccountCreationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCreationViewController.h; sourceTree = "<group>"; };
 		04A97E8618B81D5D0046B166 /* AccountCreationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AccountCreationViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		04AE1C6E1891B302002D5487 /* NSObject+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extras.h"; sourceTree = "<group>"; };
@@ -707,8 +724,6 @@
 		D46CD8D218A1B10A0042959E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D46CD8D318A1B1140042959E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D474CC12182AE07C002BDE45 /* WikipediaApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaApp.h; sourceTree = "<group>"; };
-		D474CC13182AE196002BDE45 /* MWSite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWSite.h; path = "mw-support/MWSite.h"; sourceTree = "<group>"; };
-		D474CC14182AE196002BDE45 /* MWSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWSite.m; path = "mw-support/MWSite.m"; sourceTree = "<group>"; };
 		D47BF5D2197870390067C3BC /* SavedPagesFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SavedPagesFunnel.h; path = EventLogging/SavedPagesFunnel.h; sourceTree = "<group>"; };
 		D47BF5D3197870390067C3BC /* SavedPagesFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SavedPagesFunnel.m; path = EventLogging/SavedPagesFunnel.m; sourceTree = "<group>"; };
 		D47FEE1F19C8CB0000B998C8 /* av */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = av; path = av.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
@@ -720,6 +735,7 @@
 		D47FEE2619C8CB6B00B998C8 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D47FEE2719C8CBB400B998C8 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D47FEE2819C8CC2600B998C8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D497FCEF1A0807ED004A36A5 /* MediaWikiKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MediaWikiKit.xcodeproj; path = MediaWikiKit/MediaWikiKit.xcodeproj; sourceTree = "<group>"; };
 		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -815,8 +831,6 @@
 		D4E8A8A519084F1300DA4765 /* SQLiteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteHelper.h; sourceTree = "<group>"; };
 		D4E8A8A619084F1300DA4765 /* SQLiteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteHelper.m; sourceTree = "<group>"; };
 		D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		D4EE00B7182443FC0090790F /* MWPageTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWPageTitle.h; path = "mw-support/MWPageTitle.h"; sourceTree = "<group>"; };
-		D4EE00B8182443FC0090790F /* MWPageTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWPageTitle.m; path = "mw-support/MWPageTitle.m"; sourceTree = "<group>"; };
 		D4F277F9194235A00032BA38 /* ProtectedEditAttemptFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProtectedEditAttemptFunnel.h; path = EventLogging/ProtectedEditAttemptFunnel.h; sourceTree = "<group>"; };
 		D4F277FA194235A00032BA38 /* ProtectedEditAttemptFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProtectedEditAttemptFunnel.m; path = EventLogging/ProtectedEditAttemptFunnel.m; sourceTree = "<group>"; };
 		D4F277FC194235B50032BA38 /* ToCInteractionFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToCInteractionFunnel.h; path = EventLogging/ToCInteractionFunnel.h; sourceTree = "<group>"; };
@@ -829,6 +843,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D497FCFB1A080810004A36A5 /* libMediaWikiKit.a in Frameworks */,
 				D4AD975019F99E9000957451 /* libPods-hpple.a in Frameworks */,
 				D4AD974E19F99E7C00957451 /* libPods-AFNetworking.a in Frameworks */,
 				D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */,
@@ -1394,14 +1409,12 @@
 				04C43ABB183442FC006C643B /* NSString+Extras.m */,
 				04B91AA918E3D9E200FFAA1C /* NSString+FormattedAttributedString.h */,
 				04B91AAA18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m */,
-				0472BC16193AD88C00C40BDA /* Section+DisplayHtml.h */,
-				0472BC17193AD88C00C40BDA /* Section+DisplayHtml.m */,
-				04A81E8418871EB000EEBADB /* Section+ImageRecords.h */,
-				04A81E8518871EB000EEBADB /* Section+ImageRecords.m */,
-				041C6204199ED2A20061516F /* Section+TOC.h */,
-				041C6205199ED2A20061516F /* Section+TOC.m */,
-				047528B01913110000F2CDA8 /* Section+LeadSection.h */,
-				047528B11913110000F2CDA8 /* Section+LeadSection.m */,
+				0472BC16193AD88C00C40BDA /* MWKSection+DisplayHtml.h */,
+				0472BC17193AD88C00C40BDA /* MWKSection+DisplayHtml.m */,
+				04A81E8418871EB000EEBADB /* MWKSection+ImageRecords.h */,
+				04A81E8518871EB000EEBADB /* MWKSection+ImageRecords.m */,
+				041C6204199ED2A20061516F /* MWKSection+TOC.h */,
+				041C6205199ED2A20061516F /* MWKSection+TOC.m */,
 				047801BC18AE987900DBB747 /* UIButton+ColorMask.h */,
 				047801BD18AE987900DBB747 /* UIButton+ColorMask.m */,
 				0415581A18ADFA5C00B81A59 /* UIImage+ColorMask.h */,
@@ -1599,6 +1612,15 @@
 			path = "mw-utils";
 			sourceTree = "<group>";
 		};
+		D497FCF01A0807ED004A36A5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D497FCF51A0807EE004A36A5 /* libMediaWikiKit.a */,
+				D497FCF71A0807EE004A36A5 /* MediaWikiKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
@@ -1608,6 +1630,7 @@
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
 				0487041319F7683300B7D307 /* Cocoapods Notes.txt */,
+				D497FCEF1A0807ED004A36A5 /* MediaWikiKit.xcodeproj */,
 				D4AD973E19F99CD700957451 /* Pods.xcodeproj */,
 			);
 			sourceTree = "<group>";
@@ -1746,10 +1769,6 @@
 			isa = PBXGroup;
 			children = (
 				D474CC12182AE07C002BDE45 /* WikipediaApp.h */,
-				D4EE00B7182443FC0090790F /* MWPageTitle.h */,
-				D4EE00B8182443FC0090790F /* MWPageTitle.m */,
-				D474CC13182AE196002BDE45 /* MWSite.h */,
-				D474CC14182AE196002BDE45 /* MWSite.m */,
 				D42E75E918D11237002EA7E5 /* MWLanguageInfo.h */,
 				D42E75EA18D11237002EA7E5 /* MWLanguageInfo.m */,
 			);
@@ -1776,6 +1795,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D497FCFA1A080800004A36A5 /* PBXTargetDependency */,
 				D4AD974D19F99E4600957451 /* PBXTargetDependency */,
 				D4AD974B19F99E4200957451 /* PBXTargetDependency */,
 			);
@@ -1885,6 +1905,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = D497FCF01A0807ED004A36A5 /* Products */;
+					ProjectRef = D497FCEF1A0807ED004A36A5 /* MediaWikiKit.xcodeproj */;
+				},
+				{
 					ProductGroup = D4AD973F19F99CD700957451 /* Products */;
 					ProjectRef = D4AD973E19F99CD700957451 /* Pods.xcodeproj */;
 				},
@@ -1897,6 +1921,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D497FCF51A0807EE004A36A5 /* libMediaWikiKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMediaWikiKit.a;
+			remoteRef = D497FCF41A0807EE004A36A5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D497FCF71A0807EE004A36A5 /* MediaWikiKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MediaWikiKitTests.xctest;
+			remoteRef = D497FCF61A0807EE004A36A5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D4AD974519F99CD700957451 /* libPods.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2093,7 +2131,6 @@
 				0487047E19F8262600B7D307 /* AccountCreationTokenFetcher.m in Sources */,
 				049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */,
 				04F27B7518FE0F2E00EDD838 /* PageHistoryResultCell.m in Sources */,
-				D474CC15182AE196002BDE45 /* MWSite.m in Sources */,
 				0463639818A844570049EE4F /* KeychainCredentials.m in Sources */,
 				04414DDB1A140FAF00A41B4E /* SearchDidYouMeanButton.m in Sources */,
 				047528AF19107DAA00F2CDA8 /* Section.m in Sources */,
@@ -2108,7 +2145,6 @@
 				04B91AAB18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m in Sources */,
 				043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */,
 				04414DDF1A1420EB00A41B4E /* WikiDataShortDescriptionFetcher.m in Sources */,
-				D4EE00B9182443FC0090790F /* MWPageTitle.m in Sources */,
 				04D308281998A8AA0034F106 /* NearbyThumbnailView.m in Sources */,
 				04292FF2185FBA70002A13FC /* SearchResultCell.m in Sources */,
 				04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */,
@@ -2143,7 +2179,7 @@
 				043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */,
 				D42E75EB18D11237002EA7E5 /* MWLanguageInfo.m in Sources */,
 				043F8BF21A11699A00D1AE44 /* UIView+RoundCorners.m in Sources */,
-				04A81E8618871EB000EEBADB /* Section+ImageRecords.m in Sources */,
+				04A81E8618871EB000EEBADB /* MWKSection+ImageRecords.m in Sources */,
 				0487048019F8262600B7D307 /* AccountLogin.m in Sources */,
 				047FF5471889078C009DB293 /* Image+Convenience.m in Sources */,
 				04D149DD18877343006B4104 /* AlertLabel.m in Sources */,
@@ -2154,7 +2190,7 @@
 				04D34DC11863F6B200610A87 /* History.m in Sources */,
 				04821CD119895EDC007558F6 /* ReferenceGradientView.m in Sources */,
 				0460F8DC19B0F932001BC59B /* CenteredPathView.m in Sources */,
-				0472BC18193AD88C00C40BDA /* Section+DisplayHtml.m in Sources */,
+				0472BC18193AD88C00C40BDA /* MWKSection+DisplayHtml.m in Sources */,
 				047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */,
 				04B6925018E77B2A00F88D8A /* UIWebView+HideScrollGradient.m in Sources */,
 				047E95511996DD030046A122 /* NearbyViewController.m in Sources */,
@@ -2170,7 +2206,6 @@
 				D4B0AE0E19366A5400F0AC90 /* LoginFunnel.m in Sources */,
 				0487048919F8262600B7D307 /* PageHistoryFetcher.m in Sources */,
 				040E5C841846AC13007AFE6F /* ArticleDataContextSingleton.m in Sources */,
-				047528B21913110000F2CDA8 /* Section+LeadSection.m in Sources */,
 				04C757671A1A9E1B0084AC39 /* RecentSearchesViewController.m in Sources */,
 				04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */,
 				04224501197F5E09005DD0BF /* BulletedLabel.m in Sources */,
@@ -2220,7 +2255,7 @@
 				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
 				04CCCFEE1935093A00E3F60C /* SecondaryMenuRowView.m in Sources */,
 				0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */,
-				041C6206199ED2A20061516F /* Section+TOC.m in Sources */,
+				041C6206199ED2A20061516F /* MWKSection+TOC.m in Sources */,
 				0447862F185145090050563B /* HistoryResultCell.m in Sources */,
 				04B0EA45190AFDD8007458AF /* ArticleImporter.m in Sources */,
 				042A5B2619253D2A0095E172 /* CenterNavController.m in Sources */,
@@ -2233,6 +2268,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D497FCFA1A080800004A36A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MediaWikiKit;
+			targetProxy = D497FCF91A080800004A36A5 /* PBXContainerItemProxy */;
+		};
 		D4AD974B19F99E4200957451 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-AFNetworking";
@@ -2508,6 +2548,7 @@
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
 					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
+					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -2604,6 +2645,7 @@
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
 					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
+					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -2629,6 +2671,7 @@
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
 					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
+					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;

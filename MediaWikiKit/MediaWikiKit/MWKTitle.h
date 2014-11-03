@@ -1,25 +1,34 @@
 //  Created by Brion on 11/1/13.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
+#pragma once
+
 #import <Foundation/Foundation.h>
 
-@interface MWPageTitle : NSObject
+#import "MWKSite.h"
+
+@interface MWKTitle : NSObject <NSCopying>
 
 /**
- * Initialize a new MWPageTitle object from string input
+ * Initialize a new MWKTitle object from string input
  */
--(id)initWithString:(NSString *)str;
+-(instancetype)initWithString:(NSString *)str site:(MWKSite *)site;
 
 /**
- * Create a new MWPageTitle object from string input
+ * Create a new MWKTitle object from string input
  */
-+(MWPageTitle *)titleWithString:(NSString *)str;
++(MWKTitle *)titleWithString:(NSString *)str site:(MWKSite *)site;
 
 /**
  * Normalize a title string portion to text form
  */
 +(NSString *)normalize:(NSString *)str;
 
+
+/**
+ * The site this title belongs to
+ */
+@property (readonly) MWKSite *site;
 
 /**
  * Normalized namespace (decoded, no underscores)
@@ -63,6 +72,14 @@
  */
 @property (readonly) NSString *fragmentForURL;
 
+/**
+ * Absolute URL to mobile view of this article
+ */
+@property (readonly) NSURL *mobileURL;
 
+/**
+ * Absolute URL to desktop view of this article
+ */
+@property (readonly) NSURL *desktopURL;
 
 @end

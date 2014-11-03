@@ -75,55 +75,22 @@
 
 #pragma mark Article
 
--(void)loadArticleWithTitle: (MWPageTitle *)title
-                     domain: (NSString *)domain
+-(void)loadArticleWithTitle: (MWKTitle *)title
                    animated: (BOOL)animated
-            discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
+            discoveryMethod: (MWKHistoryDiscoveryMethod)discoveryMethod
           invalidatingCache: (BOOL)invalidateCache
                  popToWebVC: (BOOL)popToWebVC
 {
     WebViewController *webVC = [self searchNavStackForViewControllerOfClass:[WebViewController class]];
     if (webVC){
-        [SessionSingleton sharedInstance].currentArticleTitle = title.prefixedText;
-        [SessionSingleton sharedInstance].currentArticleDomain = domain;
+        [SessionSingleton sharedInstance].title = title;
         [webVC navigateToPage: title
-                       domain: domain
               discoveryMethod: discoveryMethod
             invalidatingCache: invalidateCache
          showLoadingIndicator: YES];
         if (popToWebVC) {
             [ROOT popToViewController:webVC animated:animated];
         }
-    }
-}
-
--(ArticleDiscoveryMethod)getDiscoveryMethodForString:(NSString *)string
-{
-    if ([string isEqualToString:@"random"]) {
-        return DISCOVERY_METHOD_RANDOM;
-    }else if ([string isEqualToString:@"link"]) {
-        return DISCOVERY_METHOD_LINK;
-    }else {
-        return DISCOVERY_METHOD_SEARCH;
-    }
-}
-
--(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method
-{
-    switch (method) {
-        case DISCOVERY_METHOD_BACKFORWARD:
-            return @"backforward";
-            break;
-        case DISCOVERY_METHOD_RANDOM:
-            return @"random";
-            break;
-        case DISCOVERY_METHOD_LINK:
-            return @"link";
-            break;
-        case DISCOVERY_METHOD_SEARCH:
-        default:
-            return @"search";
-            break;
     }
 }
 
@@ -186,12 +153,11 @@
 {
     NSString *mainArticleTitle = [SessionSingleton sharedInstance].domainMainArticleTitle;
     if (mainArticleTitle) {
-        MWPageTitle *pageTitle = [MWPageTitle titleWithString:mainArticleTitle];
+        MWKTitle *pageTitle = [[SessionSingleton sharedInstance].site titleWithString:mainArticleTitle];
         // Invalidate cache so present day main page article is always retrieved.
         [self loadArticleWithTitle: pageTitle
-                            domain: [SessionSingleton sharedInstance].domain
                           animated: YES
-                   discoveryMethod: DISCOVERY_METHOD_SEARCH
+                   discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
                  invalidatingCache: YES
                         popToWebVC: NO];
     }
@@ -201,6 +167,7 @@
 {
     // This is needed otherwise things like TOC won't work after article core data is removed.
     // (Only used by History and Saved Pages after they delete data)
+    /*
     NSManagedObjectContext *ctx = [ArticleDataContextSingleton sharedInstance].mainContext;
     __block NSManagedObjectID *articleID = nil;
     [ctx performBlockAndWait:^(){
@@ -211,13 +178,15 @@
     if (!articleID) {
         [self loadTodaysArticle];
     }
+     */
+    [self loadTodaysArticle];
 }
 
 -(void)loadRandomArticle
 {
     [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
 
-    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain: [SessionSingleton sharedInstance].domain
+    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain: [SessionSingleton sharedInstance].site.language
                                                                withManager: [QueuesSingleton sharedInstance].articleFetchManager
                                                         thenNotifyDelegate: self];
 }
@@ -232,11 +201,10 @@
             case FETCH_FINAL_STATUS_SUCCEEDED:{
                 NSString *title = (NSString *)fetchedData;
                 if (title) {
-                    MWPageTitle *pageTitle = [MWPageTitle titleWithString:title];
+                    MWKTitle *pageTitle = [[SessionSingleton sharedInstance].site titleWithString:title];
                     [self loadArticleWithTitle: pageTitle
-                                       domain: [SessionSingleton sharedInstance].domain
                                      animated: YES
-                              discoveryMethod: DISCOVERY_METHOD_RANDOM
+                              discoveryMethod: MWK_DISCOVERY_METHOD_RANDOM
                             invalidatingCache: NO
                                    popToWebVC: NO]; // Don't pop - popModal has already been called.
                 }
@@ -253,17 +221,15 @@
 
 -(void)switchPreferredLanguageToId:(NSString *)languageId name:(NSString *)name
 {
-    [SessionSingleton sharedInstance].domain = languageId;
-    [SessionSingleton sharedInstance].domainName = name;
-    
     NSString *mainArticleTitle = [SessionSingleton sharedInstance].domainMainArticleTitle;
     if (mainArticleTitle) {
-        MWPageTitle *pageTitle = [MWPageTitle titleWithString:mainArticleTitle];
+        MWKSite *site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:languageId];
+        MWKTitle *pageTitle = [site titleWithString:mainArticleTitle];
+        
         // Invalidate cache so present day main page article is always retrieved.
         [self loadArticleWithTitle: pageTitle
-                            domain: languageId
                           animated: YES
-                   discoveryMethod: DISCOVERY_METHOD_SEARCH
+                   discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
                  invalidatingCache: YES
                         popToWebVC: NO];
     }

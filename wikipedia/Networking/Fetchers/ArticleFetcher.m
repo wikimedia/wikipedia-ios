@@ -2,14 +2,11 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "ArticleFetcher.h"
-#import "Article.h"
+//#import "Article.h"
+#import "Defines.h"
 #import "Section.h"
 #import "QueuesSingleton.h"
-#import "ArticleDataContextSingleton.h"
-#import "ArticleCoreDataObjects.h"
-#import "MWPageTitle.h"
-#import "Section+ImageRecords.h"
-#import "Section+LeadSection.h"
+#import "MWKSection+ImageRecords.h"
 #import "NSString+Extras.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "SessionSingleton.h"
@@ -21,22 +18,27 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 
+#import <TFHpple.h>
+
 @interface ArticleFetcher()
 
 // The Article object to be updated with the downloaded data.
-@property (nonatomic, strong) Article *article;
+@property (nonatomic, strong) MWKArticleStore *articleStore;
 
 @end
 
 @implementation ArticleFetcher
 
--(instancetype)initAndFetchSectionsForArticle: (Article *)article
-                                  withManager: (AFHTTPRequestOperationManager *)manager
-                           thenNotifyDelegate: (id <FetchFinishedDelegate>) delegate
+-(instancetype)initAndFetchSectionsForArticleStore: (MWKArticleStore *)articleStore
+                                       withManager: (AFHTTPRequestOperationManager *)manager
+                                thenNotifyDelegate: (id <FetchFinishedDelegate>) delegate
 {
     self = [super init];
+    assert(articleStore != nil);
+    assert(manager != nil);
+    assert(delegate != nil);
     if (self) {
-        self.article = article;
+        self.articleStore = articleStore;
         self.fetchFinishedDelegate = delegate;
         [self fetchWithManager:manager];
     }
@@ -45,10 +47,10 @@
 
 -(void)fetchWithManager:(AFHTTPRequestOperationManager *)manager
 {
-    NSString *title = self.article.title;
-    NSString *domain = self.article.domain;
+    NSString *title = self.articleStore.title.prefixedText;
+    NSString *subdomain = self.articleStore.title.site.language;
     
-    if (!self.article) {
+    if (!self.articleStore) {
         NSLog(@"NO ARTICLE DELEGATE");
         return;
     }
@@ -56,7 +58,7 @@
         NSLog(@"NO DOWNLOAD DELEGATE");
         return;
     }
-    if(!domain){
+    if(!subdomain){
         NSLog(@"NO DOMAIN");
         return;
     }
@@ -65,7 +67,7 @@
         return;
     }
 
-    NSURL *url = [[SessionSingleton sharedInstance] urlForDomain:domain];
+    NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:subdomain];
     
     // First retrieve lead section data, then get the remaining sections data.
 
@@ -83,10 +85,11 @@
         // Clear any MCCMNC header - needed because manager is a singleton.
         [self removeMCCMNCHeaderFromRequestSerializer:manager.requestSerializer];
         
-        NSDictionary *sectionResults = [self prepareResultsFromResponse:responseObject forTitle:title];
+        //NSDictionary *leadSectionResults = [self prepareResultsFromResponse:responseObject forTitle:title];
+        [self.articleStore importMobileViewJSON:responseObject];
         
-        [self applyResultsForLeadSection:sectionResults];
-        [self applyResultsForNonLeadSections:sectionResults];
+        //[self applyResultsForLeadSection:leadSectionResults];
+        [self createImageRecordsForSection:0];
 
         [self finishWithError: nil
                   fetchedData: nil];
@@ -124,10 +127,11 @@
     return params;
 }
 
+/*
 -(NSDictionary *)prepareResultsFromResponse:(NSDictionary *)response forTitle:(NSString *)title
 {
     // Returns results dictionary with sanitized info from response.
-    
+
     NSArray *sections = response[@"mobileview"][@"sections"];
     
     NSMutableArray *outputSections = @[].mutableCopy;
@@ -202,10 +206,11 @@
                                     @"editable": editable,
                                     @"protectionStatus": protectionStatus
                                     }.mutableCopy;
-    
     return output;
 }
+ */
 
+/*
 -(void)applyResultsForLeadSection:(NSDictionary *)results
 {
     // Updates the article with the lead section data which was retrieved.
@@ -272,7 +277,9 @@
         [section0 createImageRecordsForHtmlOnContext:self.article.managedObjectContext];
     }];
 }
+*/
 
+/*
 -(void)applyResultsForNonLeadSections:(NSDictionary *)results
 {
     // Updates the article with the non-lead section data which was retrieved.
@@ -324,6 +331,7 @@
         }
     }];
 }
+*/
 
 // Add the MCC-MNC code asn HTTP (protocol) header once per session when user using cellular data connection.
 // Logging will be done in its own file with specific fields. See the following URL for details.
@@ -390,5 +398,148 @@
     NSLog(@"DEALLOC'ING ARTICLE FETCHER!");
 }
 */
+
+-(void)createImageRecordsForSection:(int)sectionId
+{
+    NSString *html = [self.articleStore sectionTextAtIndex:sectionId];
+    
+    // Parse the section html extracting the image urls (in order)
+    // See: http://www.raywenderlich.com/14172/how-to-parse-html-on-ios
+    // for TFHpple details.
+    
+    // Call *after* article record created but before section html sent across bridge.
+    
+    // Reminder: don't do "context performBlockAndWait" here - createImageRecordsForHtmlOnContext gets
+    // called in a loop which is encompassed by such a block already!
+    
+    if (html.length == 0) return;
+    
+    NSData *sectionHtmlData = [html dataUsingEncoding:NSUTF8StringEncoding];
+    TFHpple *sectionParser = [TFHpple hppleWithHTMLData:sectionHtmlData];
+    //NSString *imageXpathQuery = @"//img[@src]";
+    NSString *imageXpathQuery = @"//img[@src][not(ancestor::table[@class='navbox'])]";
+    // ^ the navbox exclusion prevents images from the hidden navbox table from appearing
+    // in the last section's TOC cell.
+    
+    NSArray *imageNodes = [sectionParser searchWithXPathQuery:imageXpathQuery];
+    NSUInteger imageIndexInSection = 0;
+    
+    for (TFHppleElement *imageNode in imageNodes) {
+        
+        NSString *height = imageNode.attributes[@"height"];
+        NSString *width = imageNode.attributes[@"width"];
+        
+        if (
+            height.integerValue < THUMBNAIL_MINIMUM_SIZE_TO_CACHE.width
+            ||
+            width.integerValue < THUMBNAIL_MINIMUM_SIZE_TO_CACHE.height
+            )
+        {
+            //NSLog(@"SKIPPING - IMAGE TOO SMALL");
+            continue;
+        }
+        
+        NSString *alt = imageNode.attributes[@"alt"];
+        NSString *src = imageNode.attributes[@"src"];
+        int density = 1;
+        
+        // This is a horrible hack to compensate for iOS 8 WebKit's srcset
+        // handling and the way we currently handle image caching which
+        // doesn't quite handle that right.
+        //
+        // WebKit on iOS 8 and later understands the new img 'srcset' attribute
+        // which can provide alternate-resolution versions for different device
+        // pixel ratios (and in theory some other size-based alternates, but we
+        // don't use that stuff). MediaWiki/Wikipedia uses this to specify image
+        // versions at 1.5x and 2x density levels, which the browser should use
+        // as appropriate in preference to the 'src' URL which is assumed to be
+        // at 1x density.
+        //
+        // On iOS 7 and earlier, or on non-Retina devices on iOS 8, the 1x image
+        // URL from the 'src' attribute is still used as-is.
+        //
+        // By making sure we pick the same version that WebKit will pick up later,
+        // here we ensure that the correct entries will be cached.
+        //
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            if ([UIScreen mainScreen].scale > 1.0f) {
+                NSString *srcSet = imageNode.attributes[@"srcset"];
+                for (NSString *subSrc in [srcSet componentsSeparatedByString:@","]) {
+                    NSString *trimmed = [subSrc stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
+                    NSArray *parts = [trimmed componentsSeparatedByString:@" "];
+                    if (parts.count == 2 && [parts[1] isEqualToString:@"2x"]) {
+                        // Quick hack to shortcut relevant syntax :P
+                        src = parts[0];
+                        density = 2;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        MWKImage *image = [self.articleStore imageWithURL:src];
+        //Image *image = (Image *)[context getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", src];
+        
+        if (image) {
+            // If Image record already exists, update its attributes.
+            /*
+            image.alt = alt;
+            image.height = @(height.integerValue * density);
+            image.width = @(width.integerValue * density);
+             */
+        }else{
+            // If no Image record, create one setting its "data" attribute to nil. This allows the record to be
+            // created so it can be associated with the section in which this , then when the URLCache intercepts the request for this image
+            //image = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:context];
+            image = [self.articleStore importImageURL:src];
+            
+            /*
+             Moved imageData into own entity:
+             "For small to modest sized BLOBs (and CLOBs), you should create a separate
+             entity for the data and create a to-one relationship in place of the attribute."
+             See: http://stackoverflow.com/a/9288796/135557
+             
+             This allows core data to lazily load the image blob data only when it's needed.
+             */
+            /*
+            image.imageData = [NSEntityDescription insertNewObjectForEntityForName:@"ImageData" inManagedObjectContext:context];
+            
+            image.imageData.data = [[NSData alloc] init];
+            image.dataSize = @(image.imageData.data.length);
+            image.fileName = [src lastPathComponent];
+            image.fileNameNoSizePrefix = [image.fileName getWikiImageFileNameWithoutSizePrefix];
+            image.extension = [src pathExtension];
+            image.imageDescription = nil;
+            image.sourceUrl = src;
+            image.dateRetrieved = [NSDate date];
+            image.dateLastAccessed = [NSDate date];
+            image.width = @(width.integerValue * density);
+            image.height = @(height.integerValue * density);
+            image.mimeType = [image.extension getImageMimeTypeForExtension];
+            */
+        }
+        
+        // If imageSection doesn't already exist with the same index and image, create sectionImage record
+        // associating the image record (from line above) with section record and setting its index to the
+        // order from img tag parsing.
+        /*
+        SectionImage *sectionImage = (SectionImage *)[context getEntityForName: @"SectionImage"
+                                                           withPredicateFormat: @"section == %@ AND index == %@ AND image.sourceUrl == %@",
+                                                      self, @(imageIndexInSection), src
+                                                      ];
+        if (!sectionImage) {
+            sectionImage = [NSEntityDescription insertNewObjectForEntityForName:@"SectionImage" inManagedObjectContext:context];
+            sectionImage.image = image;
+            sectionImage.index = @(imageIndexInSection);
+            sectionImage.section = self;
+        }
+         */
+        imageIndexInSection ++;
+    }
+    
+    // Reminder: don't do "context save" here - createImageRecordsForHtmlOnContext gets
+    // called in a loop after which save is called. This method *only* creates - the caller
+    // is responsible for saving.
+}
 
 @end

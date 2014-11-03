@@ -2,25 +2,18 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SectionEditorViewController.h"
-#import "MWPageTitle.h"
 #import "FetcherBase.h"
 
-typedef enum {
-    DISCOVERY_METHOD_SEARCH,
-    DISCOVERY_METHOD_RANDOM,
-    DISCOVERY_METHOD_LINK,
-    DISCOVERY_METHOD_BACKFORWARD
-} ArticleDiscoveryMethod;
+#import "MediaWikiKit.h"
 
 @interface CenterNavController : UINavigationController <UINavigationControllerDelegate, FetchFinishedDelegate>
 
 @property (nonatomic, readonly) BOOL isEditorOnNavstack;
 @property (nonatomic, readonly) SectionEditorViewController *editor;
 
--(void)loadArticleWithTitle: (MWPageTitle *)title
-                     domain: (NSString *)domain
+-(void)loadArticleWithTitle: (MWKTitle *)title
                    animated: (BOOL)animated
-            discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
+            discoveryMethod: (MWKHistoryDiscoveryMethod)discoveryMethod
           invalidatingCache: (BOOL)invalidateCache
                  popToWebVC: (BOOL)popToWebVC;
 
@@ -31,8 +24,8 @@ typedef enum {
 -(void) promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString *) title;
 -(void) promptZeroOff;
 
--(ArticleDiscoveryMethod)getDiscoveryMethodForString:(NSString *)string;
--(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method;
+//-(ArticleDiscoveryMethod)getDiscoveryMethodForString:(NSString *)string;
+//-(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method;
 
 -(void)switchPreferredLanguageToId:(NSString *)languageId name:(NSString *)name;
 

@@ -3,7 +3,6 @@
 
 #import <UIKit/UIKit.h>
 #import "CenterNavController.h"
-#import "MWPageTitle.h"
 #import "PullToRefreshViewController.h"
 #import "Article.h"
 #import "ArticleFetcher.h"
@@ -27,9 +26,8 @@
 -(void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache;
 
 // If "invalidateCache" is set to YES the article will be re-downloaded first.
--(void)navigateToPage: (MWPageTitle *)title
-               domain: (NSString *)domain
-      discoveryMethod: (ArticleDiscoveryMethod)discoveryMethod
+-(void)navigateToPage: (MWKTitle *)title
+      discoveryMethod: (MWKHistoryDiscoveryMethod)discoveryMethod
     invalidatingCache: (BOOL)invalidateCache
  showLoadingIndicator: (BOOL)showLoadingIndicator;
 

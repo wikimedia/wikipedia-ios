@@ -22,6 +22,7 @@
 #import "TopMenuViewController.h"
 #import "CoreDataHousekeeping.h"
 #import "NSObject+ConstraintsScale.h"
+#import "SessionSingleton.h"
 
 #define HISTORY_RESULT_HEIGHT (80.0 * MENUS_SCALE_MULTIPLIER)
 #define HISTORY_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
@@ -32,7 +33,8 @@
 
 @interface HistoryViewController ()
 {
-    ArticleDataContextSingleton *articleDataContext_;
+    MWKUserDataStore *userDataStore;
+    MWKHistoryList *historyList;
 }
 
 @property (strong, atomic) NSMutableArray *historyDataArray;
@@ -125,7 +127,8 @@
     [self.dateFormatter setLocale:[NSLocale currentLocale]];
     [self.dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
 
-    articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
+    userDataStore = [SessionSingleton sharedInstance].userDataStore;
+    historyList = userDataStore.historyList;
 
     self.navigationItem.hidesBackButton = YES;
     
@@ -162,19 +165,8 @@
 
 -(void)getHistoryData
 {
-    NSError *error = nil;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName: @"History"
-                                              inManagedObjectContext: articleDataContext_.mainContext];
-    [fetchRequest setEntity:entity];
-    
     // For now fetch all history records - history entries older than 30 days will
     // be placed into "garbage" array below and removed.
-    //[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"dateVisited > %@", [[NSDate date] dateBySubtractingDays:30]]];
-
-    NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:NO selector:nil];
-
-    [fetchRequest setSortDescriptors:@[dateSort]];
 
     NSMutableArray *today = [@[] mutableCopy];
     NSMutableArray *yesterday = [@[] mutableCopy];
@@ -182,10 +174,8 @@
     NSMutableArray *lastMonth = [@[] mutableCopy];
     NSMutableArray *garbage = [@[] mutableCopy];
 
-    error = nil;
-    NSArray *historyEntities = [articleDataContext_.mainContext executeFetchRequest:fetchRequest error:&error];
-    //XCTAssert(error == nil, @"Could not fetch.");
-    for (History *history in historyEntities) {
+    for (int i = 0; i < historyList.length; i++) {
+        MWKHistoryEntry *history = [historyList entryAtIndex:i];
         /*
         NSLog(@"HISTORY:\n\t\
             article: %@\n\t\
@@ -202,17 +192,17 @@
             history.article.thumbnailImage.fileName
         );
         */
-        if ([history.dateVisited isToday]) {
-            [today addObject:history.objectID];
-        }else if ([history.dateVisited isYesterday]) {
-            [yesterday addObject:history.objectID];
-        }else if ([history.dateVisited isLaterThanDate:[[NSDate date] dateBySubtractingDays:7]]) {
-            [lastWeek addObject:history.objectID];
-        }else if ([history.dateVisited isLaterThanDate:[[NSDate date] dateBySubtractingDays:30]]) {
-            [lastMonth addObject:history.objectID];
+        if ([history.date isToday]) {
+            [today addObject:history];
+        }else if ([history.date isYesterday]) {
+            [yesterday addObject:history];
+        }else if ([history.date isLaterThanDate:[[NSDate date] dateBySubtractingDays:7]]) {
+            [lastWeek addObject:history];
+        }else if ([history.date isLaterThanDate:[[NSDate date] dateBySubtractingDays:30]]) {
+            [lastMonth addObject:history];
         }else{
             // Older than 30 days == Garbage! Remove!
-            [garbage addObject:history.objectID];
+            [garbage addObject:history];
         }
     }
     
@@ -256,19 +246,10 @@
     //NSLog(@"GARBAGE = %@", garbage);
     if (garbage.count == 0) return;
 
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        for (NSManagedObjectID *historyID in garbage) {
-            History *history = (History *)[articleDataContext_.mainContext objectWithID:historyID];
-
-            NSManagedObject *objectToDelete = [self objectToDeleteForHistoryItem:history];
-            [articleDataContext_.mainContext deleteObject:objectToDelete];
-
-        }
-        NSError *error = nil;
-        [articleDataContext_.mainContext save:&error];
-        if (error) NSLog(@"GARBAGE error = %@", error);
-
-    }];
+    for (MWKHistoryEntry *entry in garbage) {
+        [historyList removeEntry:entry];
+    }
+    [userDataStore save];
 
     // Remove any orphaned images.
     CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
@@ -340,14 +321,10 @@
     NSDictionary *dict = self.historyDataArray[indexPath.section];
     NSArray *array = [dict objectForKey:@"data"];
     
-    __block History *historyEntry = nil;
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        NSManagedObjectID *historyEntryId = (NSManagedObjectID *)array[indexPath.row];
-        historyEntry = (History *)[articleDataContext_.mainContext objectWithID:historyEntryId];
-    }];
+    MWKHistoryEntry *historyEntry = array[indexPath.row];
     
-    NSString *title = [historyEntry.article.title wikiTitleWithoutUnderscores];
-    NSString *language = [NSString stringWithFormat:@"\n%@", historyEntry.article.domainName];
+    NSString *title = [historyEntry.title prefixedText];
+    NSString *language = [NSString stringWithFormat:@"\n%@", historyEntry.title.site.language]; // languageName
 
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = [WikipediaAppUtils rtlSafeAlignment];
@@ -366,10 +343,10 @@
     [attributedTitle appendAttributedString:attributedLanguage];
     cell.textLabel.attributedText = attributedTitle;
 
-    ArticleDiscoveryMethod discoveryMethod = [NAV getDiscoveryMethodForString:historyEntry.discoveryMethod];
-    cell.methodLabel.attributedText = [self getIconLabelAttributedStringForDiscoveryMethod:discoveryMethod];
+    cell.methodLabel.attributedText = [self getIconLabelAttributedStringForDiscoveryMethod:historyEntry.discoveryMethod];
 
-    UIImage *thumbImage = [historyEntry.article getThumbnailUsingContext:articleDataContext_.mainContext];
+    MWKArticleStore *articleStore = [[SessionSingleton sharedInstance].dataStore articleStoreWithTitle:historyEntry.title];
+    UIImage *thumbImage = [articleStore UIImageWithImage:articleStore.thumbnailImage];
     if(thumbImage){
         cell.imageView.image = thumbImage;
         cell.useField = YES;
@@ -401,16 +378,11 @@
     NSArray *array = dict[@"data"];
     selectedCell = array[indexPath.row];
     
-    __block History *historyEntry = nil;
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        NSManagedObjectID *historyEntryId = (NSManagedObjectID *)array[indexPath.row];
-        historyEntry = (History *)[articleDataContext_.mainContext objectWithID:historyEntryId];
-    }];
+    MWKHistoryEntry *historyEntry = [[SessionSingleton sharedInstance].userDataStore.historyList entryAtIndex:indexPath.row];
 
-    [NAV loadArticleWithTitle: historyEntry.article.titleObj
-                       domain: historyEntry.article.domain
+    [NAV loadArticleWithTitle: historyEntry.title
                      animated: YES
-              discoveryMethod: DISCOVERY_METHOD_SEARCH
+              discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
             invalidatingCache: NO
                    popToWebVC: NO];
 
@@ -484,37 +456,25 @@
 
 -(void)deleteHistoryForIndexPath:(NSIndexPath *)indexPath
 {
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        NSManagedObjectID *historyEntryId = (NSManagedObjectID *)self.historyDataArray[indexPath.section][@"data"][indexPath.row];
-        History *historyEntry = (History *)[articleDataContext_.mainContext objectWithID:historyEntryId];
-        if (historyEntry) {
-            
-            [self.tableView beginUpdates];
+    MWKHistoryEntry *historyEntry = self.historyDataArray[indexPath.section][@"data"][indexPath.row];
+    if (historyEntry) {
+        
+        [self.tableView beginUpdates];
 
-            NSUInteger itemsInSection = [(NSArray *)self.historyDataArray[indexPath.section][@"data"] count];
-            
-            if (itemsInSection == 1) {
-                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
-            }
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            
-            NSError *error = nil;
-
-            NSManagedObject *objectToDelete = [self objectToDeleteForHistoryItem:historyEntry];
-            [articleDataContext_.mainContext deleteObject:objectToDelete];
-            [articleDataContext_.mainContext save:&error];
-            
-            if (itemsInSection == 1) {
-                [self.historyDataArray removeObjectAtIndex:indexPath.section];
-            }else{
-                [self.historyDataArray[indexPath.section][@"data"] removeObject:historyEntryId];
-            }
-            
-            [self.tableView endUpdates];
-            
-            [self setEmptyOverlayAndTrashIconVisibility];
+        NSUInteger itemsInSection = [(NSArray *)self.historyDataArray[indexPath.section][@"data"] count];
+        
+        if (itemsInSection == 1) {
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
         }
-    }];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        [historyList removeEntry:historyEntry];
+        [userDataStore save];
+        
+        [self.tableView endUpdates];
+        
+        [self setEmptyOverlayAndTrashIconVisibility];
+    }
 
     // Remove any orphaned images.
     CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
@@ -525,14 +485,14 @@
 
 #pragma mark - Discovery method icons
 
--(NSAttributedString *)getIconLabelAttributedStringForDiscoveryMethod:(ArticleDiscoveryMethod)discoveryMethod
+-(NSAttributedString *)getIconLabelAttributedStringForDiscoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
 {
     NSString *wikiFontCharacter = nil;
     switch (discoveryMethod) {
-        case DISCOVERY_METHOD_RANDOM:
+        case MWK_DISCOVERY_METHOD_RANDOM:
             wikiFontCharacter = WIKIGLYPH_DICE;
             break;
-        case DISCOVERY_METHOD_LINK:
+        case MWK_DISCOVERY_METHOD_LINK:
             wikiFontCharacter = WIKIGLYPH_LINK;
             break;
         default:
@@ -555,26 +515,8 @@
 
 -(void)deleteAllHistoryItems
 {
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        
-        // Delete all entites - from: http://stackoverflow.com/a/1383645
-        NSFetchRequest * historyFetch = [[NSFetchRequest alloc] init];
-        [historyFetch setEntity:[NSEntityDescription entityForName:@"History" inManagedObjectContext:articleDataContext_.mainContext]];
-
-        //[historyFetch setIncludesPropertyValues:NO]; //only fetch the managedObjectID
-        
-        NSError *error = nil;
-        NSArray *historyRecords =
-            [articleDataContext_.mainContext executeFetchRequest:historyFetch error:&error];
-
-        for (History *historyRecord in historyRecords) {
-            NSManagedObject *objectToDelete = [self objectToDeleteForHistoryItem:historyRecord];
-            [articleDataContext_.mainContext deleteObject:objectToDelete];
-        }
-        NSError *saveError = nil;
-        [articleDataContext_.mainContext save:&saveError];
-        
-    }];
+    [historyList removeAllEntries];
+    [userDataStore save];
 
     // Remove any orphaned images.
     CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
@@ -586,14 +528,6 @@
     [self setEmptyOverlayAndTrashIconVisibility];
         
     [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
-}
-
--(NSManagedObject *)objectToDeleteForHistoryItem:(History *)history
-{
-    // If there's a saved page record, just delete the history record, so the
-    // saved page data isn't disturbed. If the page isn't saved it's safe to
-    // delete the article (which will cascade to delete the history record too).
-    return (history.article.saved.count > 0) ? history : history.article;
 }
 
 -(void)setEmptyOverlayAndTrashIconVisibility

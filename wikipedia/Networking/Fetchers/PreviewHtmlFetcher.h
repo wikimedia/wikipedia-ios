@@ -10,8 +10,7 @@
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
 -(instancetype)initAndFetchHtmlForWikiText: (NSString *)wikiText
-                                     title: (NSString *)title
-                                    domain: (NSString *)domain
+                                     title: (MWKTitle *)title
                                withManager: (AFHTTPRequestOperationManager *)manager
                         thenNotifyDelegate: (id <FetchFinishedDelegate>) delegate;
 @end

@@ -54,7 +54,7 @@
             [self.webView setOpaque:NO];
         }
         
-        NSURL *baseUrl = [[SessionSingleton sharedInstance] urlForDomain:[SessionSingleton sharedInstance].currentArticleDomain];
+        NSURL *baseUrl = [[SessionSingleton sharedInstance] urlForLanguage:[SessionSingleton sharedInstance].site.language];
         
         [self.webView loadHTMLString:html baseURL:baseUrl];
     }

@@ -19,7 +19,6 @@
 #import "Defines.h"
 #import "ModalMenuAndContentViewController.h"
 #import "UIViewController+ModalPresent.h"
-#import "MWPageTitle.h"
 #import "UIViewController+ModalPop.h"
 #import "LoginViewController.h"
 #import "PaddedLabel.h"
@@ -133,10 +132,9 @@ typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
 {
     [super viewWillAppear:animated];
 
-    NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
+    MWKTitle *currentArticleTitle = [SessionSingleton sharedInstance].title;
 
-    self.hidePagesSection =
-        (!currentArticleTitle || (currentArticleTitle.length == 0)) ? YES : NO;
+    self.hidePagesSection = (currentArticleTitle == nil);
     
     [self.rowViews removeAllObjects];
 
@@ -320,7 +318,7 @@ typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
     
     NSAttributedString *searchWikiTitle =
     [MWLocalizedString(@"main-menu-language-title", nil) attributedStringWithAttributes: nil
-                                                                    substitutionStrings: @[[SessionSingleton sharedInstance].domainName]
+                                                                    substitutionStrings: @[[SessionSingleton sharedInstance].site.language]
                                                                  substitutionAttributes: @[self.highlightedTextAttributes]
      ];
     
@@ -377,7 +375,7 @@ typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
       ,
       */
       @{
-          @"domain": [SessionSingleton sharedInstance].domain,
+          @"domain": [SessionSingleton sharedInstance].site.language,
           @"title": searchWikiTitle,
           @"tag": @(SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE),
           @"icon": IOS_WIKIGLYPH_DOWN,
@@ -433,7 +431,7 @@ typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
         ,
         */
       @{
-          @"domain": [SessionSingleton sharedInstance].domain,
+          @"domain": [SessionSingleton sharedInstance].site.language,
           @"title": MWLocalizedString(@"main-menu-about", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_ABOUT),
           @"icon": IOS_WIKIGLYPH_DOWN,
@@ -700,6 +698,7 @@ typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
 
 -(void)animateArticleTitleMovingToSavedPages
 {
+    /*
     UILabel *savedPagesLabel = [self getViewWithTag:SECONDARY_MENU_ROW_INDEX_SAVED_PAGES].textLabel;
     UILabel *articleTitleLabel = [self getViewWithTag:SECONDARY_MENU_ROW_INDEX_SAVE_PAGE].textLabel;
     
@@ -733,6 +732,7 @@ typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
                              afterDelay: 0.32
                                duration: 0.16
                                    then: nil];
+     */
 }
 
 -(UILabel *)getLabelCopyToAnimate:(UILabel *)labelToCopy

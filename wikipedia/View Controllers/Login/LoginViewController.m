@@ -345,7 +345,7 @@
     //[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
 
     [[QueuesSingleton sharedInstance].loginFetchManager.operationQueue cancelAllOperations];
-    (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain: [SessionSingleton sharedInstance].domain
+    (void)[[LoginTokenFetcher alloc] initAndFetchTokenForDomain: [SessionSingleton sharedInstance].site.language
                                                        userName: userName
                                                        password: password
                                                     withManager: [QueuesSingleton sharedInstance].loginFetchManager
@@ -359,7 +359,7 @@
     // long as we can to lessen number of server requests. Uses user tokens as templates for copying
     // session tokens. See "recreateCookie:usingCookieAsTemplate:" for details.
 
-    NSString *domain = [SessionSingleton sharedInstance].domain;
+    NSString *domain = [SessionSingleton sharedInstance].site.language;
 
     NSString *cookie1Name = [NSString stringWithFormat:@"%@wikiSession", domain];
     NSString *cookie2Name = [NSString stringWithFormat:@"%@wikiUserID", domain];

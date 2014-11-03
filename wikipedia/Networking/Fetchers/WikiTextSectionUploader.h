@@ -18,13 +18,11 @@ typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrors) {
 @interface WikiTextSectionUploader : FetcherBase
 
 @property (strong, nonatomic, readonly) NSString *wikiText;
-@property (strong, nonatomic, readonly) NSString *title;
-@property (strong, nonatomic, readonly) NSString *domain;
+@property (strong, nonatomic, readonly) MWKTitle *title;
 @property (strong, nonatomic, readonly) NSString *section;
 @property (strong, nonatomic, readonly) NSString *summary;
 @property (strong, nonatomic, readonly) NSString *captchaId;
 @property (strong, nonatomic, readonly) NSString *captchaWord;
-@property (strong, nonatomic, readonly) NSManagedObjectID *articleID;
 @property (strong, nonatomic, readonly) NSString *token;
 
 // Kick-off method. Results are reported to "delegate" via the
@@ -33,13 +31,11 @@ typedef NS_ENUM(NSInteger, WikiTextSectionUploaderErrors) {
 // Note: "section" parameter needs to be a string because the
 // api returns transcluded section indexes with a "T-" prefix
 -(instancetype)initAndUploadWikiText: (NSString *)wikiText
-                        forPageTitle: (NSString *)title
-                              domain: (NSString *)domain
+                        forPageTitle: (MWKTitle *)title
                              section: (NSString *)section
                              summary: (NSString *)summary
                            captchaId: (NSString *)captchaId
                          captchaWord: (NSString *)captchaWord
-                           articleID: (NSManagedObjectID *)articleID
                                token: (NSString *)token
                          withManager: (AFHTTPRequestOperationManager *)manager
                   thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate;

@@ -6,11 +6,11 @@
 #import "EditFunnel.h"
 #import "FetcherBase.h"
 
-@class NSManagedObjectID;
+@class MWKSection;
 
 @interface PreviewAndSaveViewController : UIViewController <FetchFinishedDelegate, UITextFieldDelegate, CaptchaViewControllerRefresh, UIScrollViewDelegate>
 
-@property (strong, nonatomic) NSManagedObjectID *sectionID;
+@property (strong, nonatomic) MWKSection *section;
 @property (strong, nonatomic) NSString *wikiText;
 @property (strong, nonatomic) EditFunnel *funnel;
 @property (strong, nonatomic) SavedPagesFunnel *savedPagesFunnel;

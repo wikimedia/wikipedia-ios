@@ -11,16 +11,14 @@
 
 @interface LanguageLinksFetcher()
 
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *domain;
+@property (strong, nonatomic) MWKTitle *title;
 @property (strong, nonatomic) NSArray *allLanguages;
 
 @end
 
 @implementation LanguageLinksFetcher
 
--(instancetype)initAndFetchLanguageLinksForPageTitle: (NSString *)title
-                                              domain: (NSString *)domain
+-(instancetype)initAndFetchLanguageLinksForPageTitle: (MWKTitle *)title
                                         allLanguages: (NSArray *)allLanguages
                                          withManager: (AFHTTPRequestOperationManager *)manager
                                   thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate
@@ -28,8 +26,8 @@
     self = [super init];
     if (self) {
 
-        self.title = title ? title : @"";
-        self.domain = domain ? domain : @"";
+        self.title = title;
+        assert(title != nil);
         self.allLanguages = allLanguages;
 
         self.fetchFinishedDelegate = delegate;
@@ -40,7 +38,7 @@
 
 - (void)fetchWithManager: (AFHTTPRequestOperationManager *)manager
 {
-    NSURL *url = [[SessionSingleton sharedInstance] urlForDomain:self.domain];
+    NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:self.title.site.language];
 
     NSDictionary *params = [self getParams];
     
@@ -91,7 +89,7 @@
     return @{
              @"action": @"query",
              @"prop": @"langlinks",
-             @"titles": self.title,
+             @"titles": self.title.prefixedText,
              @"lllimit": @"500",
              @"redirects": @"",
              @"format": @"json"

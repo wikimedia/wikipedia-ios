@@ -2,14 +2,15 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "URLCache.h"
-#import "ArticleDataContextSingleton.h"
-#import "ArticleCoreDataObjects.h"
-#import "NSManagedObjectContext+SimpleFetch.h"
+//#import "ArticleDataContextSingleton.h"
+//#import "ArticleCoreDataObjects.h"
+//#import "NSManagedObjectContext+SimpleFetch.h"
 #import "NSString+Extras.h"
 #import "SessionSingleton.h"
 
 @interface URLCache (){
-    ArticleDataContextSingleton *articleDataContext_;
+    //ArticleDataContextSingleton *articleDataContext_;
+    MWKArticleStore *articleStore;
 }
 
 // Reminder: When using this debugging image to test caching (i.e. seeing if article images
@@ -28,7 +29,8 @@
 {
     self = [super initWithMemoryCapacity:memoryCapacity diskCapacity:diskCapacity diskPath:path];
     if (self) {
-        articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
+        //articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
+        articleStore = [SessionSingleton sharedInstance].articleStore;
         //self.debuggingPlaceHolderImageData = UIImagePNGRepresentation([UIImage imageNamed:@"logo-onboarding-subtitle.png"]);
     }
     return self;
@@ -59,77 +61,53 @@
         return;
     }
 
-    [articleDataContext_.mainContext performBlock:^(){
-        
-        // Save image to articleData store instead of default NSURLCache store.
-        NSURL *url = cachedResponse.response.URL;
-        NSString *urlStr = [url absoluteString];
-        
-        // Strip "http:" or "https:"
-        urlStr = [urlStr getUrlWithoutScheme];
-        
-        NSData *imageDataToUse = cachedResponse.data;
-        
-        Image *image = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", urlStr];
-        
-        if (!image) {
-            // If an Image object wasn't pre-created by :createSectionImageRecordsForSectionHtml:onContext:" then don't try to cache.
-            [super storeCachedResponse:cachedResponse forRequest:request];
-            return;
-        }
-        
-        /*
-         // Quick debugging filter which makes image blue before saving them to our articleData store.
-         // (locks up occasionally - probably not thread safe - only for testing so no worry for now)
-         CIImage *inputImage = [[CIImage alloc] initWithData:cachedResponse.data];
-         
-         CIFilter *colorMonochrome = [CIFilter filterWithName:@"CIColorMonochrome"];
-         [colorMonochrome setDefaults];
-         [colorMonochrome setValue: inputImage forKey: @"inputImage"];
-         [colorMonochrome setValue: [CIColor colorWithRed:0.6f green:0.6f blue:1.0f alpha:1.0f] forKey: @"inputColor"];
-         
-         CIImage *outputImage = [colorMonochrome valueForKey:@"outputImage"];
-         CIContext *context = [CIContext contextWithOptions:nil];
-         UIImage *outputUIImage = [UIImage imageWithCGImage:[context createCGImage:outputImage fromRect:outputImage.extent]];
-         imageDataToUse = UIImagePNGRepresentation(outputUIImage);
-         */
-        
-        // Another quick debugging indicator which caches a test image instead of the real image.
-        // (This one has no thread safety issues.)
-        //imageDataToUse = self.debuggingPlaceHolderImageData;
-        
-        NSString *imageFileName = [url lastPathComponent];
-        
-        image.imageData.data = imageDataToUse;
-        image.dataSize = @(imageDataToUse.length);
-        image.fileName = imageFileName;
-        image.fileNameNoSizePrefix = [image.fileName getWikiImageFileNameWithoutSizePrefix];
-        image.extension = [url pathExtension];
-        image.imageDescription = nil;
-        image.sourceUrl = urlStr;
-        image.dateRetrieved = [NSDate date];
-        image.dateLastAccessed = [NSDate date];
-        UIImage *img = [UIImage imageWithData:imageDataToUse];
-        image.width = @(img.size.width);
-        image.height = @(img.size.height);
-        image.mimeType = cachedResponse.response.MIMEType;
-        
-        NSError *error = nil;
-        [articleDataContext_.mainContext save:&error];
-        if (error) {
-            NSLog(@"Error re-routing image to articleData store: %@", error);
-        }else{
-            // Broadcast the image data so things like the table of contents can update
-            // itself as images arrive.
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"SectionImageRetrieved"
-                                                                object: nil
-                                                              userInfo: @{
-                                                                          @"fileName": imageFileName,
-                                                                          @"data": imageDataToUse,
-                                                                          }];
-        }
-        
-    }];
+    // Save image to articleData store instead of default NSURLCache store.
+    NSURL *url = cachedResponse.response.URL;
+    NSString *urlStr = [url absoluteString];
+    
+    // Strip "http:" or "https:"
+    urlStr = [urlStr getUrlWithoutScheme];
+    
+    NSData *imageDataToUse = cachedResponse.data;
+    
+    MWKImage *image = [articleStore imageWithURL:urlStr];
+    
+    if (!image) {
+        // If an Image object wasn't pre-created by :createSectionImageRecordsForSectionHtml:onContext:" then don't try to cache.
+        [super storeCachedResponse:cachedResponse forRequest:request];
+        return;
+    }
+    
+    /*
+     // Quick debugging filter which makes image blue before saving them to our articleData store.
+     // (locks up occasionally - probably not thread safe - only for testing so no worry for now)
+     CIImage *inputImage = [[CIImage alloc] initWithData:cachedResponse.data];
+     
+     CIFilter *colorMonochrome = [CIFilter filterWithName:@"CIColorMonochrome"];
+     [colorMonochrome setDefaults];
+     [colorMonochrome setValue: inputImage forKey: @"inputImage"];
+     [colorMonochrome setValue: [CIColor colorWithRed:0.6f green:0.6f blue:1.0f alpha:1.0f] forKey: @"inputColor"];
+     
+     CIImage *outputImage = [colorMonochrome valueForKey:@"outputImage"];
+     CIContext *context = [CIContext contextWithOptions:nil];
+     UIImage *outputUIImage = [UIImage imageWithCGImage:[context createCGImage:outputImage fromRect:outputImage.extent]];
+     imageDataToUse = UIImagePNGRepresentation(outputUIImage);
+     */
+    
+    // Another quick debugging indicator which caches a "W" logo image instead of the real image.
+    // (This one has no thread safety issues.)
+    //imageDataToUse = self.debuggingPlaceHolderImageData;
+
+    [articleStore importImageData:imageDataToUse image:image mimeType:cachedResponse.response.MIMEType];
+    
+    // Broadcast the image data so things like the table of contents can update
+    // itself as images arrive.
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"SectionImageRetrieved"
+                                                        object: nil
+                                                      userInfo: @{
+                                                                  @"fileName": image.fileName,
+                                                                  @"data": imageDataToUse,
+                                                                  }];
 
 }
 
@@ -154,34 +132,23 @@
     NSString *imageURL = requestURL.absoluteString;
     
     // Strip "http:" or "https:"
-    imageURL = [imageURL getUrlWithoutScheme];
+    //imageURL = [imageURL getUrlWithoutScheme];
 
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        
-        Image *imageFromDB = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", imageURL];
-        
-        // If a core data Image was found, but its data length is zero, the Image record was probably
-        // created when the section html was parsed to create sectionImage records, in which case
-        // a request needs to actually be made, so set cachedResponse to nil so this happens.
-        // NSLog(@"imageFromDB.data = %@", imageFromDB.data);
-        if (imageFromDB && (imageFromDB.imageData.data.length == 0)) {
-            cachedResponse = nil;
-        }else if (imageFromDB) {
-            //NSLog(@"CACHED IMAGE FOUND!!!!!! requestURL = %@", imageURL);
-            NSData *imgData = imageFromDB.imageData.data;
-            NSURLResponse *response = [[NSURLResponse alloc] initWithURL:requestURL MIMEType:imageFromDB.mimeType expectedContentLength:imgData.length textEncodingName:nil];
-            cachedResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:imgData];
-            
-            imageFromDB.dateLastAccessed = [NSDate date];
-            
-            NSError *error = nil;
-            [articleDataContext_.mainContext save:&error];
-            if (error) {
-                NSLog(@"Error updating image dateLastAccessed in articleData store: %@", error);
-            }
-        }
-        
-    }];
+    //Image *imageFromDB = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", imageURL];
+    MWKImage *imageFromDB = [articleStore imageWithURL:imageURL];
+    
+    // If a core data Image was found, but its data length is zero, the Image record was probably
+    // created when the section html was parsed to create sectionImage records, in which case
+    // a request needs to actually be made, so set cachedResponse to nil so this happens.
+    // NSLog(@"imageFromDB.data = %@", imageFromDB.data);
+    if (imageFromDB && !imageFromDB.dateRetrieved) {
+        cachedResponse = nil;
+    }else if (imageFromDB) {
+        NSData *imageData = [articleStore imageDataWithImage:imageFromDB];
+        //NSLog(@"CACHED IMAGE FOUND!!!!!! requestURL = %@", imageURL);
+        NSURLResponse *response = [[NSURLResponse alloc] initWithURL:requestURL MIMEType:imageFromDB.mimeType expectedContentLength:imageData.length textEncodingName:nil];
+        cachedResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:imageData];
+    }
 
     if (cachedResponse) return cachedResponse;
 

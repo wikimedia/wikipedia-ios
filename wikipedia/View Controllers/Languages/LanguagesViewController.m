@@ -207,8 +207,7 @@
 
     [[QueuesSingleton sharedInstance].languageLinksFetcher.operationQueue cancelAllOperations];
     
-    (void)[[LanguageLinksFetcher alloc] initAndFetchLanguageLinksForPageTitle:[SessionSingleton sharedInstance].currentArticleTitle
-                                                                       domain:[SessionSingleton sharedInstance].currentArticleDomain
+    (void)[[LanguageLinksFetcher alloc] initAndFetchLanguageLinksForPageTitle:[SessionSingleton sharedInstance].title
                                                                  allLanguages:assetsFile.array
                                                                   withManager:[QueuesSingleton sharedInstance].languageLinksFetcher
                                                            thenNotifyDelegate:self];

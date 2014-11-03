@@ -14,7 +14,7 @@
 
 @property (weak, nonatomic) WebViewController *webVC;
 
--(void)setTocSectionDataForSections:(NSSet *)sections;
+-(void)setTocSectionDataForSections:(NSArray *)sections;
 
 -(void)willShow;
 -(void)didHide;

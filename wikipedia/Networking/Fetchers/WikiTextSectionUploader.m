@@ -11,13 +11,11 @@
 @interface WikiTextSectionUploader()
 
 @property (strong, nonatomic) NSString *wikiText;
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *domain;
+@property (strong, nonatomic) MWKTitle *title;
 @property (strong, nonatomic) NSString *section;
 @property (strong, nonatomic) NSString *summary;
 @property (strong, nonatomic) NSString *captchaId;
 @property (strong, nonatomic) NSString *captchaWord;
-@property (strong, nonatomic) NSManagedObjectID *articleID;
 @property (strong, nonatomic) NSString *token;
 
 @end
@@ -25,13 +23,11 @@
 @implementation WikiTextSectionUploader
 
 -(instancetype)initAndUploadWikiText: (NSString *)wikiText
-                        forPageTitle: (NSString *)title
-                              domain: (NSString *)domain
+                        forPageTitle: (MWKTitle *)title
                              section: (NSString *)section
                              summary: (NSString *)summary
                            captchaId: (NSString *)captchaId
                          captchaWord: (NSString *)captchaWord
-                           articleID: (NSManagedObjectID *)articleID
                                token: (NSString *)token
                          withManager: (AFHTTPRequestOperationManager *)manager
                   thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate
@@ -40,13 +36,12 @@
     if (self) {
 
         self.wikiText = wikiText ? wikiText : @"";
-        self.title = title ? title : @"";
-        self.domain = domain ? domain : @"";
+        self.title = title;
+        assert(title != nil);
         self.section = section ? section : @"";
         self.summary = summary ? summary : @"";
         self.captchaId = captchaId ? captchaId : @"";
         self.captchaWord = captchaWord ? captchaWord : @"";
-        self.articleID = articleID;
         self.token = token ? token : @"";
 
         self.fetchFinishedDelegate = delegate;
@@ -57,7 +52,7 @@
 
 - (void)uploadWithManager: (AFHTTPRequestOperationManager *)manager
 {
-    NSURL *url = [[SessionSingleton sharedInstance] urlForDomain:self.domain];
+    NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:self.title.site.language];
 
     NSDictionary *params = [self getParams];
     
@@ -179,7 +174,7 @@
       @"text": self.wikiText,
       @"summary": self.summary,
       @"section": self.section,
-      @"title": self.title,
+      @"title": self.title.prefixedText,
       @"format": @"json"
       }.mutableCopy;
     

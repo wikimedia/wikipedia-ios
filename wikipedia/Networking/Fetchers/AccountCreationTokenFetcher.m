@@ -43,7 +43,7 @@
 
 - (void)fetchTokenWithManager: (AFHTTPRequestOperationManager *)manager
 {
-    NSURL *url = [[SessionSingleton sharedInstance] urlForDomain:self.domain];
+    NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
 
     NSDictionary *params = [self getParams];
     

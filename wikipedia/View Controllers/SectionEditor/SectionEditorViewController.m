@@ -186,13 +186,14 @@
                 self.funnel = [[EditFunnel alloc] initWithUserId:[userInfo[@"id"] intValue]];
                 [self.funnel logStart];
 
-                NSString *protectionStatus = wikiTextSectionFetcher.section.article.protectionStatus;
+                MWKProtectionStatus *protectionStatus = wikiTextSectionFetcher.section.article.protection;
 
-                if (protectionStatus && [protectionStatus length] > 0) {
+                if (protectionStatus && [[protectionStatus allowedGroupsForAction:@"edit"] count] > 0) {
+                    NSArray *groups = [protectionStatus allowedGroupsForAction:@"edit"];
                     NSString *msg;
-                    if ([protectionStatus isEqualToString:@"autoconfirmed"]) {
+                    if ([groups indexOfObject:@"autoconfirmed"] != NSNotFound) {
                         msg = MWLocalizedString(@"page_protected_autoconfirmed", nil);
-                    } else if ([protectionStatus isEqualToString:@"sysop"]) {
+                    } else if ([groups indexOfObject:@"sysop"] != NSNotFound) {
                         msg = MWLocalizedString(@"page_protected_sysop", nil);
                     } else {
                         msg = MWLocalizedString(@"page_protected_other", nil);
@@ -206,7 +207,7 @@
                 self.editTextView.attributedText = [self getAttributedString:revision];
                 //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
                 
-                MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:wikiTextSectionFetcher.domain];
+                MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:wikiTextSectionFetcher.section.article.site.domain];
                 UITextRange *range = [self.editTextView textRangeFromPosition:self.editTextView.beginningOfDocument toPosition: self.editTextView.endOfDocument];
                 if ([lang.dir isEqualToString:@"rtl"]) {
                     [self.editTextView setBaseWritingDirection:UITextWritingDirectionRightToLeft forRange:range];
@@ -233,17 +234,9 @@
 {
     [self showAlert:MWLocalizedString(@"wikitext-downloading", nil) type:ALERT_TYPE_TOP duration:-1];
 
-    Section *section = (Section *)[articleDataContext_.mainContext objectWithID:self.sectionID];
-
-    // If fromTitle was set, the section was transcluded, so use the title of the page
-    // it was transcluded from.
-    NSString *title = section.fromTitle ? section.fromTitle : section.article.title;
-
     [[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager.operationQueue cancelAllOperations];
 
-    (void)[[WikiTextSectionFetcher alloc] initAndFetchWikiTextForSection: section
-                                                                   title: title
-                                                                  domain: section.article.domain
+    (void)[[WikiTextSectionFetcher alloc] initAndFetchWikiTextForSection: self.section
                                                              withManager: [QueuesSingleton sharedInstance].sectionWikiTextDownloadManager
                                                       thenNotifyDelegate: self];
 }
@@ -269,7 +262,7 @@
 - (void)preview
 {
     PreviewAndSaveViewController *previewVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"PreviewViewController"];
-    previewVC.sectionID = self.sectionID;
+    previewVC.section = self.section;
     previewVC.wikiText = self.editTextView.text;
     previewVC.funnel = self.funnel;
     previewVC.savedPagesFunnel = self.savedPagesFunnel;

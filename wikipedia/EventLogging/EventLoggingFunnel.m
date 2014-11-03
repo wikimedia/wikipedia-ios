@@ -30,7 +30,7 @@
 -(void)log:(NSDictionary *)eventData
 {
     SessionSingleton *session = [SessionSingleton sharedInstance];
-    NSString *wiki = [session.domain stringByAppendingString:@"wiki"];
+    NSString *wiki = [session.site.language stringByAppendingString:@"wiki"];
     [self log:eventData forWiki:wiki];
 }
 

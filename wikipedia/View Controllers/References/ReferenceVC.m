@@ -28,7 +28,7 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSString *domain = [SessionSingleton sharedInstance].currentArticleDomain;
+    NSString *domain = [SessionSingleton sharedInstance].site.language;
     MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
     NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
 
@@ -60,10 +60,9 @@
                     NSString *href = requestURL.path;
                     NSString *encodedTitle = [href substringWithRange:NSMakeRange(6, href.length - 6)];
                     NSString *title = [encodedTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                    MWPageTitle *pageTitle = [MWPageTitle titleWithString:title];
+                    MWKTitle *pageTitle = [[SessionSingleton sharedInstance].site titleWithString:title];
                     [self.webVC navigateToPage: pageTitle
-                                        domain: [SessionSingleton sharedInstance].currentArticleDomain
-                               discoveryMethod: DISCOVERY_METHOD_LINK
+                               discoveryMethod: MWK_DISCOVERY_METHOD_LINK
                              invalidatingCache: NO
                           showLoadingIndicator: YES];
                     [self.webVC referencesHide];
@@ -102,7 +101,7 @@
     self.referenceWebView.scrollView.scrollsToTop = NO;
     self.referenceWebView.delegate = self;
 
-    NSString *domain = [SessionSingleton sharedInstance].currentArticleDomain;
+    NSString *domain = [SessionSingleton sharedInstance].site.language;
     MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
     NSString *baseUrl = [NSString stringWithFormat:@"https://%@.wikipedia.org/", languageInfo.code];
 

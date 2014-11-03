@@ -1,13 +1,12 @@
 //  Created by Monte Hurd on 5/31/14.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "Section+DisplayHtml.h"
+#import "MWKSection+DisplayHtml.h"
 #import "SessionSingleton.h"
-#import "ArticleCoreDataObjects.h"
 
-@implementation Section (DisplayHtml)
+@implementation MWKSection (DisplayHtml)
 
--(NSString *)displayHTML
+-(NSString *)displayHTML:(NSString *)html
 {
     BOOL isMainPage = [[SessionSingleton sharedInstance] isCurrentArticleMain];
 
@@ -20,10 +19,10 @@
 </div>\
 </div>\
          ",
-             (long)self.sectionId.integerValue,
+             (long)self.sectionId,
              (isMainPage ? @"" : [self getHeaderTag:isMainPage]),
-             (long)self.sectionId.integerValue,
-             self.html
+             (long)self.sectionId,
+             html
          ];
 }
 
@@ -45,7 +44,7 @@
 </h%ld>\
             ",
             (long)headingTagSize,
-            (long)self.sectionId.integerValue,
+            (long)self.sectionId,
             self.anchor,
             title,
             pencilAnchor,
@@ -54,14 +53,14 @@
 }
 
 -(NSString*)getHeaderTitle{
-    if ([self.sectionId isEqualToNumber:@(0)]) {
-        if (self.article.displayTitle != nil && self.article.displayTitle.length > 0) {
-            return self.article.displayTitle;
+    if (self.sectionId == 0) {
+        if (self.article.displaytitle != nil && self.article.displaytitle.length > 0) {
+            return self.article.displaytitle;
         }else{
-            return self.article.title;
+            return [self.article.title prefixedText];
         }
     }else{
-        return self.title;
+        return self.line; // ??
     }
 }
 
@@ -91,7 +90,7 @@
 {
     return [NSString stringWithFormat:
         @"<a class=\"edit_section_button\" data-action=\"edit_section\" data-id=\"%ld\"></a>",
-        (long)self.sectionId.integerValue];
+        (long)self.sectionId];
 }
 
 @end

@@ -4,7 +4,11 @@
 #import "SessionSingleton.h"
 #import "WikipediaAppUtils.h"
 
-@implementation SessionSingleton
+@implementation SessionSingleton {
+    MWKTitle *_title;
+    MWKArticleStore *_articleStore;
+    MWKUserDataStore *_userDataStore;
+}
 
 + (SessionSingleton *)sharedInstance
 {
@@ -29,28 +33,40 @@
         // Wiki language character sets that iOS doesn't seem to render properly...
         self.unsupportedCharactersLanguageIds = [@"my am km dv lez arc got ti" componentsSeparatedByString:@" "];
 
+        NSString *documentsFolder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+        NSString *basePath = [documentsFolder stringByAppendingPathComponent:@"Data"];
+        _dataStore = [[MWKDataStore alloc] initWithBasePath:basePath];
+        _userDataStore = [self.dataStore userDataStore];
+        
+        _title = nil;
+        _articleStore = nil;
     }
     return self;
 }
 
--(NSURL *)urlForDomain:(NSString *)domain
+-(NSURL *)urlForLanguage:(NSString *)language
 {
     NSString *endpoint = self.fallback ? @"" : @".m";
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@%@.%@/w/api.php", domain, endpoint, [self site]]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@%@.%@/w/api.php", language, endpoint, self.site.domain]];
 }
 
 -(NSString *)searchApiUrl
 {
     NSString *endpoint = self.fallback ? @"" : @".m";
-    return [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", [self domain], endpoint, [self site]];
+    return [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", self.site.language, endpoint, self.site.domain];
 }
 
--(void)setDomain:(NSString *)domain
+/*
+-(void)setSite:(NSString *)domain
 {
     self.domainMainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:domain];
 
     [[NSUserDefaults standardUserDefaults] setObject:domain forKey:@"Domain"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    _currentSite = nil;
+    _currentTitle = nil;
+    _currentArticleStore = nil;
 }
 
 -(NSString *)domain
@@ -84,6 +100,10 @@
 {
     [[NSUserDefaults standardUserDefaults] setObject:site forKey:@"Site"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+
+    _currentSite = nil;
+    _currentTitle = nil;
+    _currentArticleStore = nil;
 }
 
 -(NSString *)site
@@ -117,10 +137,11 @@
 {
     return [WikipediaAppUtils domainNameForCode:self.currentArticleDomain];
 }
+*/
 
 -(BOOL)isCurrentArticleMain
 {
-    NSString *mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode: self.currentArticleDomain];
+    NSString *mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode: self.site.language];
     // Reminder: Do not do the following instead of the line above:
     //      NSString *mainArticleTitle = self.domainMainArticleTitle;
     // This is because each language domain has its own main page, and self.domainMainArticleTitle
@@ -132,7 +153,40 @@
     // switched their search language from "en" to "fr", then hit back button - the "en" main
     // page would erroneously display edit pencil icons.
     if (!mainArticleTitle) return NO;
-    return ([self.currentArticleTitle isEqualToString: mainArticleTitle]);
+    return ([self.title.prefixedText isEqualToString: mainArticleTitle]);
+}
+
+-(MWKTitle *)title
+{
+    if (_title == nil) {
+        NSString *lang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleDomain"];
+        NSString *title = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
+        MWKSite *site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:lang];
+        _title = [site titleWithString:title];
+    }
+    assert(_title != nil);
+    return _title;
+}
+
+-(MWKSite *)site
+{
+    return self.title.site;
+}
+
+- (MWKArticleStore *)articleStore
+{
+    assert(self.dataStore != nil);
+    if (_articleStore == nil) {
+        _articleStore = [self.dataStore articleStoreWithTitle:self.title];
+    }
+    assert(_articleStore != nil);
+    return _articleStore;
+}
+
+-(void)setTitle:(MWKTitle *)title
+{
+    _title = title;
+    _articleStore = nil;
 }
 
 -(BOOL)sendUsageReports

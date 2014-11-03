@@ -109,10 +109,10 @@
 
 #pragma mark - Getters
 
--(MWPageTitle *)titleObj
-{
-    return [MWPageTitle titleWithString:self.title];
-}
+//-(MWPageTitle *)titleObj
+//{
+//    return [MWPageTitle titleWithString:self.title];
+//}
 
 -(BOOL)editableBool
 {

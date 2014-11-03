@@ -11,25 +11,19 @@
 
 @interface WikiTextSectionFetcher()
 
-@property (strong, nonatomic) Section *section;
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *domain;
+@property (strong, nonatomic) MWKSection *section;
 
 @end
 
 @implementation WikiTextSectionFetcher
 
--(instancetype)initAndFetchWikiTextForSection: (Section *)section
-                                        title: (NSString *)title
-                                       domain: (NSString *)domain
+-(instancetype)initAndFetchWikiTextForSection: (MWKSection *)section
                                   withManager: (AFHTTPRequestOperationManager *)manager
                            thenNotifyDelegate: (id <FetchFinishedDelegate>) delegate
 {
     self = [super init];
     if (self) {
         self.section = section;
-        self.title = title ? title : @"";
-        self.domain = domain ? domain : @"";
         self.fetchFinishedDelegate = delegate;
         [self fetchWikiTextWithManager:manager];
     }
@@ -38,7 +32,7 @@
 
 - (void)fetchWikiTextWithManager: (AFHTTPRequestOperationManager *)manager
 {
-    NSURL *url = [[SessionSingleton sharedInstance] urlForDomain:self.domain];
+    NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:self.section.site.language];
 
     NSDictionary *params = [self getParams];
     
@@ -99,7 +93,7 @@
              @"rvprop": @"content",
              @"rvlimit": @1,
              @"rvsection": self.section.index,
-             @"titles": self.title,
+             @"titles": self.section.fromtitle.prefixedText,
              @"meta": @"userinfo", // we need the local user ID for event logging
              @"format": @"json"
              };

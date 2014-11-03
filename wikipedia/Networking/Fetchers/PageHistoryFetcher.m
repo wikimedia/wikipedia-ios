@@ -11,25 +11,23 @@
 
 @implementation PageHistoryFetcher
 
--(instancetype)initAndFetchHistoryForTitle: (NSString *)title
-                                    domain: (NSString *)domain
+-(instancetype)initAndFetchHistoryForTitle: (MWKTitle *)title
                                withManager: (AFHTTPRequestOperationManager *)manager
                         thenNotifyDelegate: (id <FetchFinishedDelegate>) delegate
 {
     self = [super init];
     if (self) {
         self.fetchFinishedDelegate = delegate;
-        [self fetchPageHistoryForTitle:title domain:domain withManager:manager];
+        [self fetchPageHistoryForTitle:title withManager:manager];
     }
     return self;
 }
 
-- (void)fetchPageHistoryForTitle: (NSString *)title
-                          domain: (NSString *)domain
+- (void)fetchPageHistoryForTitle: (MWKTitle *)title
                      withManager: (AFHTTPRequestOperationManager *)manager
 {
 
-    NSURL *url = [[SessionSingleton sharedInstance] urlForDomain:domain];
+    NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:title.site.language];
 
     NSDictionary *params = [self getParamsForTitle:title];
     
@@ -74,7 +72,7 @@
     }];
 }
 
--(NSDictionary *)getParamsForTitle:(NSString *)title
+-(NSDictionary *)getParamsForTitle:(MWKTitle *)title
 {
     NSMutableDictionary *params = @{
                                     @"action": @"query",
@@ -82,7 +80,7 @@
                                     @"rvprop": @"ids|timestamp|user|size|parsedcomment",
                                     @"rvlimit": @50,
                                     @"rvdir": @"older",
-                                    @"titles": title,
+                                    @"titles": title.prefixedText,
                                     @"format": @"json"
                                     //,@"rvdiffto": @(-1) // Add this to fake out "error" api response.
                                     }.mutableCopy;

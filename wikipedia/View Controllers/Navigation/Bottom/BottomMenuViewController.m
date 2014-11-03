@@ -15,7 +15,6 @@
 #import "UIViewController+Alert.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "NSString+Extras.h"
-#import "Article+Convenience.h"
 #import "ShareMenuSavePageActivity.h"
 #import "Article+Convenience.h"
 #import "Defines.h"
@@ -41,7 +40,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 @property (weak, nonatomic) IBOutlet WikiGlyphButton *saveButton;
 @property (weak, nonatomic) IBOutlet WikiGlyphButton *rightButton;
 
-@property (strong, nonatomic) NSDictionary *adjacentHistoryIDs;
+@property (strong, nonatomic) NSDictionary *adjacentHistoryEntries;
 
 @property (strong, nonatomic) NSArray *allButtons;
 
@@ -200,15 +199,20 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     NSURL *desktopURL = nil;
     UIImage *image = nil;
 
-    NSManagedObjectID *articleID =
-    [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
-                                                   domain: [SessionSingleton sharedInstance].currentArticleDomain];
-    if (articleID) {
-        Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
+    MWKArticleStore *articleStore = [SessionSingleton sharedInstance].articleStore;
+    if (articleStore) {
+        MWKArticle *article = articleStore.article;
         if (article) {
-            desktopURL = [article desktopURL];
-            title = article.title;
-            image = [article getThumbnailUsingContext:articleDataContext_.mainContext];
+            desktopURL = article.title.desktopURL;
+            title = article.title.prefixedText;
+            
+            MWKImage *thumbnail = articleStore.thumbnailImage;
+            if (thumbnail) {
+                NSData *data = [articleStore imageDataWithImage:thumbnail];
+                if (data) {
+                    image = [UIImage imageWithData:data];
+                }
+            }
         }
     }
     
@@ -258,17 +262,14 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
 - (void)backButtonPushed
 {
-    NSManagedObjectID *historyId = self.adjacentHistoryIDs[@"before"];
-    if (historyId){
-        History *history = (History *)[articleDataContext_.mainContext objectWithID:historyId];
-
+    MWKHistoryEntry *historyEntry = self.adjacentHistoryEntries[@"before"];
+    if (historyEntry){
         WebViewController *webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
 
-        [webVC showAlert:history.article.titleObj.text type:ALERT_TYPE_BOTTOM duration:0.8];
+        [webVC showAlert:historyEntry.title.prefixedText type:ALERT_TYPE_BOTTOM duration:0.8];
 
-        [webVC navigateToPage: history.article.titleObj
-                      domain: history.article.domain
-             discoveryMethod: DISCOVERY_METHOD_BACKFORWARD
+        [webVC navigateToPage: historyEntry.title
+              discoveryMethod: MWK_DISCOVERY_METHOD_BACKFORWARD
             invalidatingCache: NO
          showLoadingIndicator: YES];
     }
@@ -276,75 +277,41 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
 - (void)forwardButtonPushed
 {
-    NSManagedObjectID *historyId = self.adjacentHistoryIDs[@"after"];
-    if (historyId){
-        History *history = (History *)[articleDataContext_.mainContext objectWithID:historyId];
-
+    MWKHistoryEntry *historyEntry = self.adjacentHistoryEntries[@"after"];
+    if (historyEntry){
         WebViewController *webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
 
-        [webVC showAlert:history.article.titleObj.text type:ALERT_TYPE_BOTTOM duration:0.8];
+        [webVC showAlert:historyEntry.title.prefixedText type:ALERT_TYPE_BOTTOM duration:0.8];
 
-        [webVC navigateToPage: history.article.titleObj
-                      domain: history.article.domain
-             discoveryMethod: DISCOVERY_METHOD_BACKFORWARD
+        [webVC navigateToPage: historyEntry.title
+             discoveryMethod: MWK_DISCOVERY_METHOD_BACKFORWARD
             invalidatingCache: NO
          showLoadingIndicator: YES];
     }
 }
 
--(NSDictionary *)getAdjacentHistoryIDs
+-(NSDictionary *)getAdjacentHistoryEntries
 {
-    __block NSManagedObjectID *currentHistoryId = nil;
-    __block NSManagedObjectID *beforeHistoryId = nil;
-    __block NSManagedObjectID *afterHistoryId = nil;
-    
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        
-        NSError *error = nil;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName: @"History"
-                                                  inManagedObjectContext: articleDataContext_.mainContext];
-        [fetchRequest setEntity:entity];
-        
-        NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:YES selector:nil];
-        
-        [fetchRequest setSortDescriptors:@[dateSort]];
-        
-        error = nil;
-        NSArray *historyEntities = [articleDataContext_.mainContext executeFetchRequest:fetchRequest error:&error];
-        
-        NSManagedObjectID *currentArticleId = [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
-                                                                                               domain: [SessionSingleton sharedInstance].currentArticleDomain];
-        for (NSUInteger i = 0; i < historyEntities.count; i++) {
-            History *history = historyEntities[i];
-            if (history.article.objectID == currentArticleId){
-                currentHistoryId = history.objectID;
-                if (i > 0) {
-                    History *beforeHistory = historyEntities[i - 1];
-                    beforeHistoryId = beforeHistory.objectID;
-                }
-                if ((i + 1) <= (historyEntities.count - 1)) {
-                    History *afterHistory = historyEntities[i + 1];
-                    afterHistoryId = afterHistory.objectID;
-                }
-                break;
-            }
-        }
-    }];
+    SessionSingleton *session = [SessionSingleton sharedInstance];
+    MWKHistoryList *historyList = session.userDataStore.historyList;
+
+    MWKHistoryEntry *currentHistoryEntry = [historyList entryForTitle:session.title];
+    MWKHistoryEntry *beforeHistoryEntry = [historyList entryBeforeEntry:currentHistoryEntry];
+    MWKHistoryEntry *afterHistoryEntry = [historyList entryAfterEntry:currentHistoryEntry];
 
     NSMutableDictionary *result = [@{} mutableCopy];
-    if(beforeHistoryId) result[@"before"] = beforeHistoryId;
-    if(currentHistoryId) result[@"current"] = currentHistoryId;
-    if(afterHistoryId) result[@"after"] = afterHistoryId;
+    if(beforeHistoryEntry) result[@"before"] = beforeHistoryEntry;
+    if(currentHistoryEntry) result[@"current"] = currentHistoryEntry;
+    if(afterHistoryEntry) result[@"after"] = afterHistoryEntry;
 
     return result;
 }
 
 -(void)updateBottomBarButtonsEnabledState
 {
-    self.adjacentHistoryIDs = [self getAdjacentHistoryIDs];
-    self.forwardButton.enabled = (self.adjacentHistoryIDs[@"after"]) ? YES : NO;
-    self.backButton.enabled = (self.adjacentHistoryIDs[@"before"]) ? YES : NO;
+    self.adjacentHistoryEntries = [self getAdjacentHistoryEntries];
+    self.forwardButton.enabled = (self.adjacentHistoryEntries[@"after"]) ? YES : NO;
+    self.backButton.enabled = (self.adjacentHistoryEntries[@"before"]) ? YES : NO;
 
     NSString *saveIconString = IOS_WIKIGLYPH_HEART_OUTLINE;
     UIColor *saveIconColor = [UIColor blackColor];
@@ -367,19 +334,8 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
 -(BOOL)isCurrentArticleSaved
 {
-    __block BOOL result = NO;
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        NSManagedObjectID *currentArticleId =
-        [articleDataContext_.mainContext getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
-                                                         domain: [SessionSingleton sharedInstance].currentArticleDomain];
-        if (currentArticleId) {
-            Article *article = (Article *)[articleDataContext_.mainContext objectWithID:currentArticleId];
-            if (article && (article.saved.count == 1)){
-                result = YES;
-            }
-        }
-    }];
-    return result;
+    SessionSingleton *session = [SessionSingleton sharedInstance];
+    return [session.userDataStore.savedPageList isSaved:session.title];
 }
 
 /*

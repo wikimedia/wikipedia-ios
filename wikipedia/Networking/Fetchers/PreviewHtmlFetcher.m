@@ -10,25 +10,23 @@
 @implementation PreviewHtmlFetcher
 
 -(instancetype)initAndFetchHtmlForWikiText: (NSString *)wikiText
-                                     title: (NSString *)title
-                                    domain: (NSString *)domain
+                                     title: (MWKTitle *)title
                                withManager: (AFHTTPRequestOperationManager *)manager
                         thenNotifyDelegate: (id <FetchFinishedDelegate>) delegate
 {
     self = [super init];
     if (self) {
         self.fetchFinishedDelegate = delegate;
-        [self fetchPreviewForWikiText:wikiText title:title domain:domain withManager:manager];
+        [self fetchPreviewForWikiText:wikiText title:title withManager:manager];
     }
     return self;
 }
 
 - (void)fetchPreviewForWikiText: (NSString *)wikiText
-                          title: (NSString *)title
-                         domain: (NSString *)domain
+                          title: (MWKTitle *)title
                     withManager: (AFHTTPRequestOperationManager *)manager
 {
-    NSURL *url = [[SessionSingleton sharedInstance] urlForDomain:domain];
+    NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:title.site.language];
 
     NSDictionary *params = [self getParamsForTitle:title wikiText:wikiText];
     
@@ -74,14 +72,14 @@
     }];
 }
 
--(NSDictionary *)getParamsForTitle:(NSString *)title wikiText:(NSString *)wikiText
+-(NSDictionary *)getParamsForTitle:(MWKTitle *)title wikiText:(NSString *)wikiText
 {
     return @{
              @"action": @"parse",
              @"sectionpreview": @"true",
              @"pst": @"true",
              @"mobileformat": @"true",
-             @"title": (title ? title : @""),
+             @"title": (title ? title.prefixedText : @""),
              @"prop": @"text",
              @"text": (wikiText ? wikiText : @""),
              @"format": @"json"

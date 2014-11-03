@@ -13,13 +13,11 @@ typedef NS_ENUM(NSInteger, LanguageLinksFetchErrorType) {
 
 @interface LanguageLinksFetcher : FetcherBase
 
-@property (strong, nonatomic, readonly) NSString *title;
-@property (strong, nonatomic, readonly) NSString *domain;
+@property (strong, nonatomic, readonly) MWKTitle *title;
 @property (strong, nonatomic, readonly) NSArray *allLanguages;
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
--(instancetype)initAndFetchLanguageLinksForPageTitle: (NSString *)title
-                                              domain: (NSString *)domain
+-(instancetype)initAndFetchLanguageLinksForPageTitle: (MWKTitle *)title
                                         allLanguages: (NSArray *)allLanguages
                                          withManager: (AFHTTPRequestOperationManager *)manager
                                   thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate;

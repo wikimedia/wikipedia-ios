@@ -28,7 +28,7 @@
     if (self) {
         self.searchType = searchType;
         self.wikiDataIds = wikiDataIds;
-        self.domain = [SessionSingleton sharedInstance].domain;
+        self.domain = [SessionSingleton sharedInstance].site.language;
         self.fetchFinishedDelegate = delegate;
         [self fetchWithManager:manager];
     }

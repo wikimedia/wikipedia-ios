@@ -447,8 +447,7 @@ typedef enum {
 {
     if ([sender isKindOfClass:[PreviewHtmlFetcher class]]) {
         
-        Section *section = (Section *)[[ArticleDataContextSingleton sharedInstance].mainContext objectWithID:self.sectionID];
-        MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:section.article.domain];
+        MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:self.section.site.language];
         NSString *uidir = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
         
         switch (status) {
@@ -483,15 +482,13 @@ typedef enum {
         
         void (^upload)() = ^void() {
             NSMutableDictionary *editTokens = [SessionSingleton sharedInstance].keychainCredentials.editTokens;
-            NSString *editToken = editTokens[tokenFetcher.domain];
+            NSString *editToken = editTokens[tokenFetcher.title.site.language];
             (void)[[WikiTextSectionUploader alloc] initAndUploadWikiText: tokenFetcher.wikiText
                                                             forPageTitle: tokenFetcher.title
-                                                                  domain: tokenFetcher.domain
                                                                  section: tokenFetcher.section
                                                                  summary: tokenFetcher.summary
                                                                captchaId: tokenFetcher.captchaId
                                                              captchaWord: tokenFetcher.captchaWord
-                                                               articleID: tokenFetcher.articleID
                                                                    token: editToken
                                                              withManager: [QueuesSingleton sharedInstance].sectionWikiTextUploadManager
                                                       thenNotifyDelegate: self];
@@ -533,12 +530,12 @@ typedef enum {
                 [self.funnel logSavedRevision:[fetchedData[@"newrevid"] intValue]];
                 
                 // Mark article for refreshing and reload it.
-                if (uploader.articleID) {
+                //if (uploader.articleID) {
                     
                     WebViewController *webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
                     [webVC reloadCurrentArticleInvalidatingCache:YES];
                     [ROOT popToViewController:webVC animated:YES];
-                }
+                //}
             }
                 break;
                 
@@ -566,46 +563,40 @@ typedef enum {
                         // If the server said a captcha was required, present the captcha image.
                         NSString *captchaUrl = error.userInfo[@"captchaUrl"];
                         NSString *captchaId = error.userInfo[@"captchaId"];
-                        if (uploader.articleID) {
-                            [[ArticleDataContextSingleton sharedInstance].mainContext performBlockAndWait:^(){
-                                Article *article = (Article *)[[ArticleDataContextSingleton sharedInstance].mainContext objectWithID:uploader.articleID];
-                                if (article) {
-                                    [UIView animateWithDuration:0.2f animations:^{
-                                        
-                                        [self revealCaptcha];
-                                        
-                                        [self.captchaViewController.captchaTextBox performSelector: @selector(becomeFirstResponder)
-                                                                                        withObject: nil
-                                                                                        afterDelay: 0.4f];
-                                        
-                                        [self.captchaViewController showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-                                        
-                                        self.captchaViewController.captchaImageView.image = nil;
-                                        
-                                        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                                            // Background thread.
-                                            
-                                            NSURL *captchaImageUrl = [NSURL URLWithString:
-                                                                      [NSString stringWithFormat:@"https://%@.m.%@%@", article.domain, article.site, captchaUrl]
-                                                                      ];
-                                            
-                                            UIImage *captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
-                                            
-                                            dispatch_async(dispatch_get_main_queue(), ^(void){
-                                                // Main thread.
-                                                self.captchaViewController.captchaTextBox.text = @"";
-                                                self.captchaViewController.captchaImageView.image = captchaImage;
-                                                self.captchaId = captchaId;
-                                                
-                                                [self.view layoutIfNeeded];
-                                            });
-                                        });
-                                        
-                                    } completion:^(BOOL done){
-                                    }];
-                                }
-                            }];
-                        }
+                        MWKArticle *article = self.section.article;
+                        [UIView animateWithDuration:0.2f animations:^{
+                            
+                            [self revealCaptcha];
+                            
+                            [self.captchaViewController.captchaTextBox performSelector: @selector(becomeFirstResponder)
+                                                                            withObject: nil
+                                                                            afterDelay: 0.4f];
+                            
+                            [self.captchaViewController showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+                            
+                            self.captchaViewController.captchaImageView.image = nil;
+                            
+                            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+                                // Background thread.
+                                
+                                NSURL *captchaImageUrl = [NSURL URLWithString:
+                                                          [NSString stringWithFormat:@"https://%@.m.%@%@", article.site.language, article.site.domain, captchaUrl]
+                                                          ];
+                                
+                                UIImage *captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^(void){
+                                    // Main thread.
+                                    self.captchaViewController.captchaTextBox.text = @"";
+                                    self.captchaViewController.captchaImageView.image = captchaImage;
+                                    self.captchaId = captchaId;
+                                    
+                                    [self.view layoutIfNeeded];
+                                });
+                            });
+                            
+                        } completion:^(BOOL done){
+                        }];
                     }
                         break;
                         
@@ -671,13 +662,10 @@ typedef enum {
 {
     [self showAlert:MWLocalizedString(@"wikitext-preview-changes", nil) type:ALERT_TYPE_TOP duration:-1];
  
-    Section *section = (Section *)[[ArticleDataContextSingleton sharedInstance].mainContext objectWithID:self.sectionID];
-
     [[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager.operationQueue cancelAllOperations];
 
     (void)[[PreviewHtmlFetcher alloc] initAndFetchHtmlForWikiText: self.wikiText
-                                                            title: section.article.title
-                                                           domain: section.article.domain
+                                                            title: self.section.article.title
                                                       withManager: [QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager
                                                thenNotifyDelegate: self];
 }
@@ -719,24 +707,19 @@ typedef enum {
 
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager.operationQueue cancelAllOperations];
 
-    Section *section = (Section *)[[ArticleDataContextSingleton sharedInstance].mainContext objectWithID:self.sectionID];
-
     // If fromTitle was set, the section was transcluded, so use the title of the page
     // it was transcluded from.
-    NSString *title = section.fromTitle ? section.fromTitle : section.article.title;
 
     // First try to get an edit token for the page's domain before trying to upload the changes.
     // Only the domain is used to actually fetch the token, the other values are
     // parked in EditTokenFetcher so the actual uploader can have quick read-only
     // access to the exact params which kicked off the token request.
     (void)[[EditTokenFetcher alloc] initAndFetchEditTokenForWikiText: self.wikiText
-                                                           pageTitle: title
-                                                              domain: section.article.domain
-                                                             section: section.index
+                                                           pageTitle: self.section.fromtitle
+                                                             section: self.section.index
                                                              summary: [self getSummary]
                                                            captchaId: self.captchaId
                                                          captchaWord: self.captchaViewController.captchaTextBox.text
-                                                           articleID: section.article.objectID
                                                          withManager: [QueuesSingleton sharedInstance].sectionWikiTextUploadManager
                                                   thenNotifyDelegate: self];
 }

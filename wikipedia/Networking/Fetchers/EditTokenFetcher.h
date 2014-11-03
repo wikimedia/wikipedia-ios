@@ -14,13 +14,11 @@ typedef NS_ENUM(NSInteger, EditTokenErrorType) {
 @interface EditTokenFetcher : FetcherBase
 
 @property (strong, nonatomic, readonly) NSString *wikiText;
-@property (strong, nonatomic, readonly) NSString *title;
-@property (strong, nonatomic, readonly) NSString *domain;
+@property (strong, nonatomic, readonly) MWKTitle *title;
 @property (strong, nonatomic, readonly) NSString *section;
 @property (strong, nonatomic, readonly) NSString *summary;
 @property (strong, nonatomic, readonly) NSString *captchaId;
 @property (strong, nonatomic, readonly) NSString *captchaWord;
-@property (strong, nonatomic, readonly) NSManagedObjectID *articleID;
 @property (strong, nonatomic, readonly) NSString *token;
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
@@ -29,13 +27,11 @@ typedef NS_ENUM(NSInteger, EditTokenErrorType) {
 // parked here so the actual uploader can have quick read-only access to the
 // exact params which kicked off the token request.
 -(instancetype)initAndFetchEditTokenForWikiText: (NSString *)wikiText
-                                      pageTitle: (NSString *)title
-                                         domain: (NSString *)domain
+                                      pageTitle: (MWKTitle *)title
                                         section: (NSString *)section
                                         summary: (NSString *)summary
                                       captchaId: (NSString *)captchaId
                                     captchaWord: (NSString *)captchaWord
-                                      articleID: (NSManagedObjectID *)articleID
                                     withManager: (AFHTTPRequestOperationManager *)manager
                              thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate;
 

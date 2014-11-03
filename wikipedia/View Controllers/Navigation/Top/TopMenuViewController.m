@@ -832,8 +832,8 @@
         self.navBarMode = NAVBAR_MODE_DEFAULT;
     }else{
         TopMenuTextFieldContainer *searchTextFieldContainer = [self getNavBarItem:NAVBAR_TEXT_FIELD];
-        NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
-        self.navBarMode = (!searchTextFieldContainer.textField.isFirstResponder && currentArticleTitle && (currentArticleTitle.length > 0))
+        MWKTitle *currentArticleTitle = [SessionSingleton sharedInstance].title;
+        self.navBarMode = (!searchTextFieldContainer.textField.isFirstResponder && currentArticleTitle)
                 ?
                 NAVBAR_MODE_DEFAULT_WITH_TOC
                 :

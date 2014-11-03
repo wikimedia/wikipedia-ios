@@ -10,18 +10,14 @@ typedef NS_ENUM(NSInteger, WikiTextFetcherErrorType) {
     WIKITEXT_FETCHER_ERROR_INCOMPLETE = 2
 };
 
-@class AFHTTPRequestOperationManager, Section;
+@class AFHTTPRequestOperationManager;
 
 @interface WikiTextSectionFetcher : FetcherBase
 
-@property (strong, nonatomic, readonly) Section *section;
-@property (strong, nonatomic, readonly) NSString *title;
-@property (strong, nonatomic, readonly) NSString *domain;
+@property (strong, nonatomic, readonly) MWKSection *section;
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
--(instancetype)initAndFetchWikiTextForSection: (Section *)section
-                                        title: (NSString *)title
-                                       domain: (NSString *)domain
+-(instancetype)initAndFetchWikiTextForSection: (MWKSection *)section
                                   withManager: (AFHTTPRequestOperationManager *)manager
                            thenNotifyDelegate: (id <FetchFinishedDelegate>) delegate;
 @end

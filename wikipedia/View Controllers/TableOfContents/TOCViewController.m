@@ -7,8 +7,7 @@
 #import "UIWebView+ElementLocation.h"
 #import "UIView+RemoveConstraints.h"
 #import "WikipediaAppUtils.h"
-#import "Section+LeadSection.h"
-#import "Section+TOC.h"
+#import "MWKSection+TOC.h"
 #import "UIView+ConstraintsScale.h"
 #import "Defines.h"
 //#import "UIView+Debugging.h"
@@ -586,26 +585,24 @@
     //NSLog(@"%f", CACurrentMediaTime() - begin);
 }
 
--(void)setTocSectionDataForSections:(NSSet *)sections
+-(void)setTocSectionDataForSections:(NSArray *)sections
 {
     // Keeps self.tocSectionData updated with toc data for the current article.
     // Makes it so the toc data is ready to go as soon as the article is displayed
     // so we don't have to go back though core data to get it when user taps toc
     // button. MUCH faster.
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sectionId" ascending:YES];
-    NSArray *sortedSection = [sections sortedArrayUsingDescriptors:@[sort]];
 
     NSMutableArray *allSectionData = @[].mutableCopy;
-    for (Section *section in [sortedSection copy]) {
+    for (MWKSection *section in [sections copy]) {
     
         NSString *title = [section tocTitle];
-        if (!section.sectionId || !section.tocLevel || !title) continue;
+        if (!section.sectionId || !section.level || !title) continue;
 
         NSDictionary *sectionDict =
         @{
-          @"id": section.sectionId,
+          @"id": @(section.sectionId),
           @"isLead": @([section isLeadSection]),
-          @"level": section.tocLevel,
+          @"level": section.level,
           @"title": title
         };
         

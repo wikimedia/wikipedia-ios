@@ -29,10 +29,9 @@
 
 @interface SavedPagesViewController ()
 {
-    ArticleDataContextSingleton *articleDataContext_;
+    MWKSavedPageList *savedPageList;
+    MWKUserDataStore *userDataStore;
 }
-
-@property (strong, nonatomic) NSMutableArray *savedPagesDataArray;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
@@ -120,7 +119,8 @@
 {
     [super viewDidLoad];
 
-    articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
+    userDataStore = [SessionSingleton sharedInstance].userDataStore;
+    savedPageList = userDataStore.savedPageList;
     
     self.funnel = [[SavedPagesFunnel alloc] init];
 
@@ -132,10 +132,6 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.savedPagesDataArray = [[NSMutableArray alloc] init];
-    
-    [self getSavedPagesData];
-
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 5.0 * MENUS_SCALE_MULTIPLIER)];
     self.tableView.tableHeaderView = headerView;
     
@@ -155,42 +151,6 @@
     self.emptyDescription.font = [UIFont systemFontOfSize:14.0 * MENUS_SCALE_MULTIPLIER];
 }
 
-#pragma mark - SavedPages data
-
--(void)getSavedPagesData
-{
-    NSError *error = nil;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName: @"Saved"
-                                              inManagedObjectContext: articleDataContext_.mainContext];
-    [fetchRequest setEntity:entity];
-    
-    // For now fetch all Saved Pages records.
-    NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"dateSaved" ascending:NO selector:nil];
-
-    [fetchRequest setSortDescriptors:@[dateSort]];
-
-    NSMutableArray *pages = [@[] mutableCopy];
-
-    error = nil;
-    NSArray *savedPagesEntities = [articleDataContext_.mainContext executeFetchRequest:fetchRequest error:&error];
-    //XCTAssert(error == nil, @"Could not fetch.");
-    for (Saved *savedPage in savedPagesEntities) {
-        /*
-        NSLog(@"SAVED:\n\t\
-              article: %@\n\t\
-              date: %@\n\t\
-              image: %@",
-              savedPage.article.title,
-              savedPage.dateSaved,
-              savedPage.article.thumbnailImage.fileName
-              );
-        */
-        [pages addObject:savedPage.objectID];
-    }
-    
-    [self.savedPagesDataArray addObject:[@{@"data": pages} mutableCopy]];
-}
 
 #pragma mark - Table view data source
 
@@ -201,10 +161,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //Number of rows it should expect should be based on the section
-    NSDictionary *dict = self.savedPagesDataArray[section];
-    NSArray *array = [dict objectForKey:@"data"];
-    return [array count];
+    return savedPageList.length;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -212,17 +169,10 @@
     static NSString *cellID = @"SavedPagesResultCell";
     SavedPagesResultCell *cell = (SavedPagesResultCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
     
-    NSDictionary *dict = self.savedPagesDataArray[indexPath.section];
-    NSArray *array = [dict objectForKey:@"data"];
-
-    __block Saved *savedEntry = nil;
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        NSManagedObjectID *savedEntryId = (NSManagedObjectID *)array[indexPath.row];
-        savedEntry = (Saved *)[articleDataContext_.mainContext objectWithID:savedEntryId];
-    }];
+    MWKSavedPageEntry *savedEntry = [savedPageList entryAtIndex:indexPath.row];
     
-    NSString *title = [savedEntry.article.title wikiTitleWithoutUnderscores];
-    NSString *language = [NSString stringWithFormat:@"\n%@", savedEntry.article.domainName];
+    NSString *title = savedEntry.title.prefixedText;
+    NSString *language = [NSString stringWithFormat:@"\n%@", /* @TODO pretty language savedEntry.article.domainName*/savedEntry.site.language];
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = [WikipediaAppUtils rtlSafeAlignment];
@@ -243,7 +193,8 @@
     
     cell.methodImageView.image = nil;
 
-    UIImage *thumbImage = [savedEntry.article getThumbnailUsingContext:articleDataContext_.mainContext];
+    MWKArticleStore *articleStore = [userDataStore.dataStore articleStoreWithTitle:savedEntry.title];
+    UIImage *thumbImage = articleStore.thumbnailUIImage;
     
     if(thumbImage){
         cell.imageView.image = thumbImage;
@@ -271,21 +222,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *selectedCell = nil;
-    NSDictionary *dict = self.savedPagesDataArray[indexPath.section];
-    NSArray *array = dict[@"data"];
-    selectedCell = array[indexPath.row];
-
-    __block Saved *savedEntry = nil;
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        NSManagedObjectID *savedEntryId = (NSManagedObjectID *)array[indexPath.row];
-        savedEntry = (Saved *)[articleDataContext_.mainContext objectWithID:savedEntryId];
-    }];
+    MWKSavedPageEntry *savedEntry = [savedPageList entryAtIndex:indexPath.row];
     
-    [NAV loadArticleWithTitle: savedEntry.article.titleObj
-                       domain: savedEntry.article.domain
+    [NAV loadArticleWithTitle: savedEntry.title
                      animated: YES
-              discoveryMethod: DISCOVERY_METHOD_SEARCH
+              discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
             invalidatingCache: NO
                    popToWebVC: NO];
 
@@ -312,30 +253,23 @@
 
 -(void)deleteSavedPageForIndexPath:(NSIndexPath *)indexPath
 {
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        NSManagedObjectID *savedEntryId = (NSManagedObjectID *)self.savedPagesDataArray[indexPath.section][@"data"][indexPath.row];
-        Saved *savedEntry = (Saved *)[articleDataContext_.mainContext objectWithID:savedEntryId];
-        if (savedEntry) {
-            
-            [self.tableView beginUpdates];
+    MWKSavedPageEntry *savedEntry = [savedPageList entryAtIndex:indexPath.row];
+    if (savedEntry) {
+        
+        [self.tableView beginUpdates];
 
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            
-            NSError *error = nil;
-            // Delete the article record. The "Saved" record will be automatically removed by
-            // core data.
-            [articleDataContext_.mainContext deleteObject:savedEntry.article];
-            [articleDataContext_.mainContext save:&error];
-            
-            [self.savedPagesDataArray[indexPath.section][@"data"] removeObject:savedEntryId];
-            
-            [self.tableView endUpdates];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        // Delete the saved record.
+        [savedPageList removeEntry:savedEntry];
+        [userDataStore save];
+        
+        [self.tableView endUpdates];
 
-            [self setEmptyOverlayAndTrashIconVisibility];
-            
-            [self.funnel logDelete];
-        }
-    }];
+        [self setEmptyOverlayAndTrashIconVisibility];
+        
+        [self.funnel logDelete];
+    }
 
     // Remove any orphaned images.
     CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
@@ -346,34 +280,13 @@
 
 -(void)deleteAllSavedPages
 {
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        
-        // Delete all entites - from: http://stackoverflow.com/a/1383645
-        NSFetchRequest * savedFetch = [[NSFetchRequest alloc] init];
-        [savedFetch setEntity:[NSEntityDescription entityForName:@"Saved" inManagedObjectContext:articleDataContext_.mainContext]];
-
-        //[savedFetch setIncludesPropertyValues:NO]; //only fetch the managedObjectID
-        
-        NSError *error = nil;
-        NSArray *savedRecords =
-            [articleDataContext_.mainContext executeFetchRequest:savedFetch error:&error];
-        
-        // Delete the article record. The "Saved" record will be automatically removed by
-        // core data.
-        for (Saved *savedRecord in savedRecords) {
-            [articleDataContext_.mainContext deleteObject:savedRecord.article];
-            [self.funnel logDelete];
-        }
-        NSError *saveError = nil;
-        [articleDataContext_.mainContext save:&saveError];
-        
-    }];
+    [savedPageList removeAllEntries];
+    [userDataStore save];
 
     // Remove any orphaned images.
     CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
     [imageHousekeeping performHouseKeeping];
     
-    [self.savedPagesDataArray[0][@"data"] removeAllObjects];
     [self.tableView reloadData];
     
     [self setEmptyOverlayAndTrashIconVisibility];
@@ -383,7 +296,7 @@
 
 -(void)setEmptyOverlayAndTrashIconVisibility
 {
-    BOOL savedPageFound = ([self.savedPagesDataArray[0][@"data"] count] > 0);
+    BOOL savedPageFound = (savedPageList.length > 0);
     
     self.emptyOverlay.hidden = savedPageFound;
 

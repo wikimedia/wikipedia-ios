@@ -26,3 +26,5 @@
 
 #define ROOT ((RootViewController *)[UIApplication sharedApplication].delegate.window.rootViewController)
 #define NAV ROOT.centerNavController
+
+#import "MediaWikiKit.h"

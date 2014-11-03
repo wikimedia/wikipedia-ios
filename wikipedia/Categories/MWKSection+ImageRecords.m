@@ -1,16 +1,14 @@
 //  Created by Monte Hurd on 1/15/14.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "Section+ImageRecords.h"
+#import "MWKSection+ImageRecords.h"
 #import "TFHpple.h"
-#import "ArticleCoreDataObjects.h"
 #import "Defines.h"
-#import "NSManagedObjectContext+SimpleFetch.h"
 #import "NSString+Extras.h"
 
-@implementation Section (ImageRecords)
+@implementation MWKSection (ImageRecords)
 
--(void)createImageRecordsForHtmlOnContext:(NSManagedObjectContext *)context
+-(void)createImageRecordsForHtmlOnArticleStore:(MWKArticleStore *)articleStore
 {
     // Parse the section html extracting the image urls (in order)
     // See: http://www.raywenderlich.com/14172/how-to-parse-html-on-ios
@@ -21,9 +19,10 @@
     // Reminder: don't do "context performBlockAndWait" here - createImageRecordsForHtmlOnContext gets
     // called in a loop which is encompassed by such a block already!
     
-    if (self.html.length == 0) return;
+    NSString *html = [articleStore sectionTextAtIndex:self.sectionId];
+    if (html.length == 0) return;
     
-    NSData *sectionHtmlData = [self.html dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *sectionHtmlData = [html dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *sectionParser = [TFHpple hppleWithHTMLData:sectionHtmlData];
     //NSString *imageXpathQuery = @"//img[@src]";
     NSString *imageXpathQuery = @"//img[@src][not(ancestor::table[@class='navbox'])]";
@@ -86,45 +85,23 @@
             }
         }
         
-        Image *image = (Image *)[context getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", src];
+        MWKImage *image = [articleStore imageWithURL:src];
         
         if (image) {
             // If Image record already exists, update its attributes.
-            image.alt = alt;
-            image.height = @(height.integerValue * density);
-            image.width = @(width.integerValue * density);
+            //image.alt = alt;
+            //image.height = @(height.integerValue * density);
+            //image.width = @(width.integerValue * density);
         }else{
             // If no Image record, create one setting its "data" attribute to nil. This allows the record to be
             // created so it can be associated with the section in which this , then when the URLCache intercepts the request for this image
-            image = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:context];
-            
-            /*
-             Moved imageData into own entity:
-             "For small to modest sized BLOBs (and CLOBs), you should create a separate
-             entity for the data and create a to-one relationship in place of the attribute."
-             See: http://stackoverflow.com/a/9288796/135557
-             
-             This allows core data to lazily load the image blob data only when it's needed.
-             */
-            image.imageData = [NSEntityDescription insertNewObjectForEntityForName:@"ImageData" inManagedObjectContext:context];
-            
-            image.imageData.data = [[NSData alloc] init];
-            image.dataSize = @(image.imageData.data.length);
-            image.fileName = [src lastPathComponent];
-            image.fileNameNoSizePrefix = [image.fileName getWikiImageFileNameWithoutSizePrefix];
-            image.extension = [src pathExtension];
-            image.imageDescription = nil;
-            image.sourceUrl = src;
-            image.dateRetrieved = [NSDate date];
-            image.dateLastAccessed = [NSDate date];
-            image.width = @(width.integerValue * density);
-            image.height = @(height.integerValue * density);
-            image.mimeType = [image.extension getImageMimeTypeForExtension];
+            image = [articleStore importImageURL:src];
         }
         
         // If imageSection doesn't already exist with the same index and image, create sectionImage record
         // associating the image record (from line above) with section record and setting its index to the
         // order from img tag parsing.
+        /*
         SectionImage *sectionImage = (SectionImage *)[context getEntityForName: @"SectionImage"
                                                            withPredicateFormat: @"section == %@ AND index == %@ AND image.sourceUrl == %@",
                                                       self, @(imageIndexInSection), src
@@ -136,6 +113,7 @@
             sectionImage.section = self;
         }
         imageIndexInSection ++;
+         */
     }
     
     // Reminder: don't do "context save" here - createImageRecordsForHtmlOnContext gets

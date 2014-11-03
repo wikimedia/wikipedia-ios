@@ -32,7 +32,7 @@
 
 - (void)fetchWithManager: (AFHTTPRequestOperationManager *)manager
 {
-    NSString *url = [[SessionSingleton sharedInstance] urlForDomain:self.domain].absoluteString;
+    NSString *url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain].absoluteString;
 
     NSDictionary *params = [self getParams];
     

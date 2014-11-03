@@ -79,7 +79,7 @@
             self.textLabel.font = [UIFont systemFontOfSize:MENU_HEADING_FONT_SIZE];
             self.showBottomBorder = YES;
             self.showTopBorder = YES;
-            if ([[SessionSingleton sharedInstance].domain isEqualToString:@"en"]) {
+            if ([[SessionSingleton sharedInstance].site.language isEqualToString:@"en"]) {
                 self.textLabel.text = [self.textLabel.text uppercaseString];
             }
             break;
