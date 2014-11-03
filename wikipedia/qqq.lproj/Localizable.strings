@@ -134,7 +134,7 @@
 "edit-summary-choice-fixed-inaccuracy" = "Button text for quick 'fixed inaccuracy' edit summary selection";
 "edit-summary-choice-fixed-styling" = "Button text for quick 'fixed styling' edit summary selection";
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";
-"edit-summary-choice-added-category" = "Button text for quick 'added category' edit summary selection";
+"edit-summary-choice-added-category" = "Button text for quick 'added category' edit summary selection\n{{Identical|Add category}}";
 "edit-summary-choice-added-missing-info" = "Button text for quick 'added missing info' edit summary selection";
 "edit-summary-choice-added-clarification" = "Button text for quick 'added clarification' edit summary selection";
 "edit-summary-choice-other" = "Button text for quick \"other\" edit summary selection.\n{{Identical|Other}}";
@@ -149,13 +149,13 @@
 "credits-gerrit-repo" = "Text for item linking to the app's main gerrit repository";
 "credits-github-mirror" = "Text for item linking to the app's mirrored GitHub repository";
 "credits-external-libraries" = "Title for area of credits page showing external open source libraries used by app.\n{{Identical|External}}";
-"about-title" = "Title for credits page";
-"about-wikipedia" = "Wikipedia";
-"about-contributors" = "Label text for contributors section of the about page";
-"about-translators" = "Label text for translators section of the about page";
+"about-title" = "Title for credits page\n{{Identical|About}}";
+"about-wikipedia" = "Wikipedia\n{{Identical|Wikipedia}}";
+"about-contributors" = "Label text for contributors section of the about page\n{{Identical|Contributor}}";
+"about-translators" = "Label text for translators section of the about page\n{{Identical|Translator}}";
 "about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";
 "about-libraries" = "Label text for libraries section of the about page";
-"about-repositories" = "Label text for repositories section of the about page";
+"about-repositories" = "Label text for repositories section of the about page\n{{Identical|Repository}}";
 "about-send-feedback" = "Link text for sending app feedback";
 "about-product-of" = "Description of who produced the app. $1 is the message {{msg-wikimedia|wikipedia-ios-about-wikimedia-foundation}}.";
 "about-wikimedia-foundation" = "Name of the Wikimedia Foundation. Used by the message {{Msg-wikimedia|wikipedia-ios-about-product-of}}.";

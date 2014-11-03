@@ -95,6 +95,7 @@
 "main-menu-send-feedback" = "Send tilbagemelding om app";
 "main-menu-show-page-history" = "Historik over redigeringer af $1";
 "main-menu-credits" = "Krediteringer";
+"main-menu-about" = "Om Wikipedia-appen";
 "main-menu-zero-faq" = "Ofte stillede spørgsmål om Wikipedia Zero";
 "main-menu-privacy-policy" = "Behandling af personlige oplysninger";
 "main-menu-terms-of-use" = "Vilkår for anvendelse";
@@ -142,6 +143,15 @@
 "credits-gerrit-repo" = "App main (Gerrit)";
 "credits-github-mirror" = "App mirror (GitHub)";
 "credits-external-libraries" = "Eksterne arkiver";
+"about-title" = "Om";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "bidragsydere";
+"about-translators" = "oversættere";
+"about-translators-details" = "Oversat af frivillige på $1";
+"about-libraries" = "anvendte biblioteker";
+"about-send-feedback" = "Send tilbagemelding om app";
+"about-product-of" = "Et produkt af $1";
+"about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Gem side";
 "share-menu-page-saved" = "Gemt til læsning offline.";
 "share-menu-page-saved-access" = "Tip: for at få adgang til dine gemte sider, tryk på $1 ovenfor eller tryk længe på $2 nedenfor.";

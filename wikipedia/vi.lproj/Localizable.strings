@@ -94,6 +94,7 @@
 "main-menu-send-feedback" = "Gửi phản hồi về ứng dụng";
 "main-menu-show-page-history" = "Lịch sử các thay đổi vào $1";
 "main-menu-credits" = "Ghi công";
+"main-menu-about" = "Giới thiệu về ứng dụng Wikipedia";
 "main-menu-zero-faq" = "Câu thường hỏi về Wikipedia Miễn phí";
 "main-menu-privacy-policy" = "Quy định về quyền riêng tư";
 "main-menu-terms-of-use" = "Điều khoản Sử dụng";
@@ -141,6 +142,16 @@
 "credits-gerrit-repo" = "Kho chính của ứng dụng (Gerrit)";
 "credits-github-mirror" = "Kho sao của ứng dụng (GitHub)";
 "credits-external-libraries" = "Bên ngoài";
+"about-title" = "Giới thiệu";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "người đóng góp";
+"about-translators" = "biên dịch viên";
+"about-translators-details" = "Biên dịch bởi những người tình nguyện tại $1";
+"about-libraries" = "thư viện được sử dụng";
+"about-repositories" = "kho mã nguồn";
+"about-send-feedback" = "Gửi phản hồi về ứng dụng";
+"about-product-of" = "Sản phẩm của $1";
+"about-wikimedia-foundation" = "Quỹ Wikimedia";
 "share-menu-save-page" = "Lưu Bài";
 "share-menu-page-saved" = "Đã Lưu Bài";
 "share-menu-page-saved-access" = "Mẹo: Để truy cập các trang đã lưu của bạn, chạm vào $1 bên trên hoặc bấm lâu $2 bên dưới.";

@@ -94,6 +94,7 @@
 "main-menu-send-feedback" = "Gi tilbakemelding på appen";
 "main-menu-show-page-history" = "Endringshistorikk for $";
 "main-menu-credits" = "Kreditering";
+"main-menu-about" = "Om Wikipedia-appen";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-menu-privacy-policy" = "Personvernpolitikk";
 "main-menu-terms-of-use" = "Bruksvilkår";
@@ -102,6 +103,7 @@
 "main-menu-heading-legal" = "Mumbo jumbo";
 "main-menu-show-today" = "I dag";
 "main-menu-nearby" = "I nærheten";
+"main-menu-more" = "Mer…";
 "saved-pages-title" = "Lagrede sider";
 "saved-pages-clear-confirmation-heading" = "Fjerne alle lagrede sider?";
 "saved-pages-clear-confirmation-sub-heading" = "Handlingen kan ikke angres!";
@@ -140,6 +142,16 @@
 "credits-gerrit-repo" = "App main (Gerrit)";
 "credits-github-mirror" = "App mirror (GitHub)";
 "credits-external-libraries" = "Eksterne kodelagre";
+"about-title" = "Om";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "bidragsytere";
+"about-translators" = "oversettere";
+"about-translators-details" = "Oversatt av frivillige på $1";
+"about-libraries" = "bibliotek brukt";
+"about-repositories" = "lagre";
+"about-send-feedback" = "Gi tilbakemelding på appen";
+"about-product-of" = "Et produkt fra $1";
+"about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Lagre artikkel";
 "share-menu-page-saved" = "Artikkelen ble lagret";
 "share-menu-page-saved-access" = "Tips: for å åpne lagrede sider, trykk på $1 over eller trykk lenge på $2 under.";

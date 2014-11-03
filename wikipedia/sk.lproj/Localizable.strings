@@ -89,6 +89,7 @@
 "main-menu-feedback-heading" = "Spätná väzba";
 "main-menu-send-feedback" = "Odoslať spätnú väzbu";
 "main-menu-show-page-history" = "História zmien článku $1";
+"main-menu-about" = "O aplikácií";
 "main-menu-zero-faq" = "Wikipédia Zero FAQ";
 "main-menu-privacy-policy" = "Ochrana osobných údajov";
 "main-menu-terms-of-use" = "Podmienky používania";
@@ -125,7 +126,16 @@
 "article-pull-to-refresh-prompt" = "Potiahnutím obnovíte článok";
 "article-pull-to-refresh-is-refreshing" = "Obnovujem článok";
 "credits-wikimedia-repos" = "Wikimédia";
-"share-menu-save-page" = "Uložiť stránku";
+"about-title" = "O aplikácii";
+"about-wikipedia" = "Wikipédia";
+"about-contributors" = "Prispievatelia";
+"about-translators" = "Prekladatelia";
+"about-translators-details" = "Preložené dobrovoľníkmi na $1";
+"about-libraries" = "Použité knižnice";
+"about-send-feedback" = "Odoslať spätnú väzbu";
+"about-product-of" = "Produkt $1";
+"about-wikimedia-foundation" = "Nadácie Wikimédia";
+"share-menu-save-page" = "Uložiť článok";
 "timestamp-just-now" = "práve teraz";
 "button-next" = "Ďalej";
 "button-done" = "Hotovo";
