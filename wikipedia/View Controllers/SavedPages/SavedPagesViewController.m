@@ -102,6 +102,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: @"NavItemTapped"
                                                   object: nil];
+    self.tableView.editing = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated
