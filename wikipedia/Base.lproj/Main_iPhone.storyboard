@@ -1037,26 +1037,64 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="UDb-fF-26c" userLabel="Search Results Table">
-                                <rect key="frame" x="0.0" y="23" width="320" height="545"/>
+                                <rect key="frame" x="0.0" y="94" width="320" height="474"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="UCb-NU-Wd1" id="d6q-hM-xrO"/>
                                     <outlet property="delegate" destination="UCb-NU-Wd1" id="3fY-ed-zZA"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="aFR-q9-lSB" userLabel="Did you mean" customClass="SearchDidYouMeanButton">
+                                <rect key="frame" x="0.0" y="74" width="320" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" placeholder="YES" id="xuN-bg-efp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1zy-br-xtt" userLabel="Search type chooser" customClass="SearchTypeMenu">
+                                <rect key="frame" x="0.0" y="20" width="320" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" placeholder="YES" id="JQ0-Ku-oZd"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="qGO-gm-tk1" userLabel="Search message" customClass="SearchMessageLabel">
+                                <rect key="frame" x="0.0" y="54" width="320" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" placeholder="YES" id="gid-uW-32t"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="UDb-fF-26c" secondAttribute="trailing" id="8iQ-EE-WSL"/>
+                            <constraint firstAttribute="trailing" secondItem="aFR-q9-lSB" secondAttribute="trailing" id="95k-Ww-jOv"/>
+                            <constraint firstItem="1zy-br-xtt" firstAttribute="leading" secondItem="cHA-KW-7GQ" secondAttribute="leading" id="AgE-0a-AzY"/>
+                            <constraint firstItem="1zy-br-xtt" firstAttribute="top" secondItem="5d1-LQ-hdg" secondAttribute="bottom" id="MxV-Qg-Gcb"/>
+                            <constraint firstAttribute="trailing" secondItem="1zy-br-xtt" secondAttribute="trailing" id="eca-A5-XTy"/>
+                            <constraint firstItem="aFR-q9-lSB" firstAttribute="top" secondItem="qGO-gm-tk1" secondAttribute="bottom" id="gSR-XQ-llq"/>
+                            <constraint firstItem="UDb-fF-26c" firstAttribute="top" secondItem="aFR-q9-lSB" secondAttribute="bottom" id="hSd-jO-RBX"/>
                             <constraint firstItem="UDb-fF-26c" firstAttribute="leading" secondItem="cHA-KW-7GQ" secondAttribute="leading" id="k2d-Va-Z7i"/>
                             <constraint firstAttribute="bottom" secondItem="UDb-fF-26c" secondAttribute="bottom" id="nV4-If-H3w"/>
-                            <constraint firstItem="UDb-fF-26c" firstAttribute="top" secondItem="5d1-LQ-hdg" secondAttribute="bottom" constant="3" id="yTL-Ts-C28"/>
+                            <constraint firstItem="qGO-gm-tk1" firstAttribute="top" secondItem="1zy-br-xtt" secondAttribute="bottom" id="qHB-b4-GB9"/>
+                            <constraint firstItem="qGO-gm-tk1" firstAttribute="leading" secondItem="cHA-KW-7GQ" secondAttribute="leading" id="smd-mw-REn"/>
+                            <constraint firstItem="aFR-q9-lSB" firstAttribute="leading" secondItem="cHA-KW-7GQ" secondAttribute="leading" id="xFF-p3-UNW"/>
+                            <constraint firstAttribute="trailing" secondItem="qGO-gm-tk1" secondAttribute="trailing" id="y7q-ug-Hkf"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="QBz-b3-b1v"/>
                     <connections>
+                        <outlet property="didYouMeanButton" destination="aFR-q9-lSB" id="CQQ-31-bDW"/>
+                        <outlet property="searchMessageLabel" destination="qGO-gm-tk1" id="DH9-IO-oHQ"/>
                         <outlet property="searchResultsTable" destination="UDb-fF-26c" id="fei-ea-uQk"/>
+                        <outlet property="searchTypeMenu" destination="1zy-br-xtt" id="rGb-CP-7Kp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QYs-yc-yzW" userLabel="First Responder" sceneMemberID="firstResponder"/>
