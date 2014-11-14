@@ -91,7 +91,7 @@
 "main-menu-account-title-logged-out" = "Header text used when account is not logged in.\n{{Identical|Account}}";
 "main-menu-account-title-logged-in" = "Header text used when account is logged in";
 "main-menu-account-login" = "Button text for logging in.\n{{Identical|Log in}}";
-"main-menu-account-logout" = "Button text for logging out.\n{{Identical|Log out}}";
+"main-menu-account-logout" = "Button text for logging out. The username of the user who is currently logged in is displayed after the message, e.g. Log out ExampleUserName.\n{{Identical|Log out}}";
 "main-menu-show-title" = "Header informing the user that they can be shown various things";
 "main-menu-show-history" = "Button text for article history interface.\n{{Identical|Recent}}";
 "main-menu-show-saved" = "Button text for saved articles interface.\n{{Identical|Saved page}}";
