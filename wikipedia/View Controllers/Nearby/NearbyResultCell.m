@@ -12,13 +12,74 @@
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 
+#define FONT [UIFont systemFontOfSize:17]
+#define FONT_COLOR [UIColor blackColor]
+
+#define DESCRIPTION_FONT [UIFont systemFontOfSize:14]
+#define DESCRIPTION_FONT_COLOR [UIColor grayColor]
+#define PADDING_ABOVE_DESCRIPTION 2.0f
+
 @interface NearbyResultCell()
 
 @property (weak, nonatomic) IBOutlet PaddedLabel *distanceLabel;
+@property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
+
+@property (strong, nonatomic) NSDictionary *attributesTitle;
+@property (strong, nonatomic) NSDictionary *attributesDescription;
 
 @end
 
 @implementation NearbyResultCell
+
+-(void)setTitle: (NSString *)title
+    description: (NSString *)description
+{
+    self.titleLabel.attributedText = [self getAttributedTitle: title
+                                          wikiDataDescription: description];
+}
+
+-(NSAttributedString *)getAttributedTitle: (NSString *)title
+                      wikiDataDescription: (NSString *)description
+{
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:title];
+
+    // Set base color and font of the entire result title.
+    [str setAttributes: self.attributesTitle
+                 range: NSMakeRange(0, str.length)];
+
+    // Style and append the Wikidata description.
+    if ((description.length > 0)) {
+        NSMutableAttributedString *attributedDesc = [[NSMutableAttributedString alloc] initWithString:description];
+
+        [attributedDesc setAttributes: self.attributesDescription
+                                range: NSMakeRange(0, attributedDesc.length)];
+        
+        NSAttributedString *newline = [[NSMutableAttributedString alloc] initWithString:@"\n"];
+        [str appendAttributedString:newline];
+        [str appendAttributedString:attributedDesc];
+    }
+
+    return str;
+}
+
+-(void)setupStringAttributes
+{
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.paragraphSpacingBefore = PADDING_ABOVE_DESCRIPTION;
+    
+    self.attributesDescription =
+    @{
+      NSFontAttributeName : DESCRIPTION_FONT,
+      NSForegroundColorAttributeName : DESCRIPTION_FONT_COLOR,
+      NSParagraphStyleAttributeName : paragraphStyle
+      };
+    
+    self.attributesTitle =
+    @{
+      NSFontAttributeName : FONT,
+      NSForegroundColorAttributeName : FONT_COLOR
+      };
+}
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
@@ -45,6 +106,8 @@
     self.distanceLabel.font = [UIFont systemFontOfSize:13.0 * MENUS_SCALE_MULTIPLIER];
 
     [self adjustConstraintsScaleForViews:@[self.titleLabel, self.distanceLabel, self.thumbView]];
+    
+    [self setupStringAttributes];
 }
 
 -(void)setDistance:(NSNumber *)distance

@@ -4,6 +4,8 @@
 #import "NSString+Extras.h"
 #import "TFHpple.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "SessionSingleton.h"
+#import "MWLanguageInfo.h"
 
 @implementation NSString (Extras)
 
@@ -108,6 +110,38 @@
 - (NSString *)wikiTitleWithoutSpaces
 {
     return [self stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+}
+
+- (NSString *)capitalizeFirstLetter
+{
+    // Capitalize first character of WikiData description.
+    if (self.length > 1){
+        NSString *firstChar = [self substringToIndex:1];
+        NSString *remainingChars = [self substringFromIndex:1];
+        NSLocale *locale = [self getLocaleForCurrentSearchDomain];
+        firstChar = [firstChar capitalizedStringWithLocale:locale];
+        return [firstChar stringByAppendingString:remainingChars];
+    }
+    return self;
+}
+
+-(NSLocale *)getLocaleForCurrentSearchDomain
+{
+    NSString *domain = [SessionSingleton sharedInstance].domain;
+
+    MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
+    
+    NSString *code = languageInfo.code;
+
+    NSLocale *locale = nil;
+
+    if (code && [[NSLocale availableLocaleIdentifiers] containsObject:code]){
+        locale = [[NSLocale alloc] initWithLocaleIdentifier:code];
+    }
+    
+    if(!locale) locale = [NSLocale currentLocale];
+    
+    return locale;
 }
 
 @end

@@ -17,6 +17,8 @@
 #import "NSString+Extras.h"
 #import <MapKit/MapKit.h>
 #import "Defines.h"
+#import "WikiDataShortDescriptionFetcher.h"
+#import "NSString+Extras.h"
 
 @interface NearbyViewController ()
 
@@ -256,6 +258,23 @@
                 self.nearbyDataArray = @[arraySortedByDistance];
                 
                 [self.tableView reloadData];
+
+                // Get WikiData Id's to pass to WikiDataShortDescriptionFetcher.
+                NSMutableArray *wikiDataIds = @[].mutableCopy;
+                NSMutableDictionary *rowsData = (NSMutableDictionary *)self.nearbyDataArray[0];
+                for (NSDictionary *page in rowsData) {
+                    id wikiDataId = page[@"wikibase_item"];
+                    if(wikiDataId && [wikiDataId isKindOfClass:[NSString class]]){
+                        [wikiDataIds addObject:wikiDataId];
+                    }
+                }
+
+                // Fetch WikiData short descriptions.
+                if (wikiDataIds.count > 0){
+                    (void)[[WikiDataShortDescriptionFetcher alloc] initAndFetchDescriptionsForIds: wikiDataIds
+                                                                                      withManager: [QueuesSingleton sharedInstance].nearbyFetchManager
+                                                                               thenNotifyDelegate: self];
+                }
             }
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
@@ -267,9 +286,7 @@
                 [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                 break;
         }
-    }
-
-    if ([sender isKindOfClass:[ThumbnailFetcher class]]) {
+    }else if ([sender isKindOfClass:[ThumbnailFetcher class]]) {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:{
         
@@ -304,6 +321,33 @@
                 break;
             case FETCH_FINAL_STATUS_FAILED:
                 
+                break;
+        }
+    }else if ([sender isKindOfClass:[WikiDataShortDescriptionFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+                NSDictionary *wikiDataShortDescriptions = (NSDictionary *)userData;
+
+                // Add wikidata descriptions to respective search results.
+                NSMutableDictionary *rowsData = (NSMutableDictionary *)self.nearbyDataArray[0];
+                for (NSMutableDictionary *d in rowsData) {
+                    NSString *wikiDataId = d[@"wikibase_item"];
+                    if(wikiDataId){
+                        if ([wikiDataShortDescriptions objectForKey:wikiDataId]) {
+                            NSString *shortDesc = wikiDataShortDescriptions[wikiDataId];
+                            if (shortDesc) {
+                                d[@"wikidata_description"] = [shortDesc capitalizeFirstLetter];
+                            }
+                        }
+                    }
+                }
+                
+                [self.tableView reloadData];
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
                 break;
         }
     }
@@ -465,7 +509,7 @@
     NSArray *sectionData = self.nearbyDataArray[indexPath.section];
     NSDictionary *rowData = sectionData[indexPath.row];
     
-    cell.titleLabel.text = rowData[@"title"];
+    [cell setTitle:rowData[@"title"] description:rowData[@"wikidata_description"]];
     
     [self updateLocationDataOfCell:cell atIndexPath:indexPath];
 

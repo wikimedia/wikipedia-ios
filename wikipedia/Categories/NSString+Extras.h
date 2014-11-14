@@ -17,4 +17,6 @@
 - (NSString *)wikiTitleWithoutUnderscores;
 - (NSString *)wikiTitleWithoutSpaces;
 
+- (NSString *)capitalizeFirstLetter;
+
 @end

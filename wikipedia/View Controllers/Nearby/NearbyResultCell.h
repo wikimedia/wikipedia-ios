@@ -9,7 +9,6 @@
 @interface NearbyResultCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet NearbyThumbnailView *thumbView;
-@property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
 
 @property (strong, nonatomic) NSNumber *distance;
 @property (strong, nonatomic) CLLocation *location;
@@ -19,5 +18,8 @@
 @property (nonatomic) UIInterfaceOrientation interfaceOrientation;
 
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPressRecognizer;
+
+-(void)setTitle: (NSString *)title
+    description: (NSString *)description;
 
 @end

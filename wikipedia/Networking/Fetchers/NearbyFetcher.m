@@ -107,7 +107,8 @@
 {
     return @{
              @"action": @"query",
-             @"prop": @"coordinates|pageimages",
+             @"prop": @"coordinates|pageimages|pageprops",
+             @"ppprop": @"wikibase_item",
              @"colimit": @"50",
              @"pithumbsize" : @(SEARCH_THUMBNAIL_WIDTH),
              @"pilimit": @"50",
@@ -142,7 +143,12 @@
                 if(pageImage)d[@"pageimage"] = pageImage;
                 if(thumbnail)d[@"thumbnail"] = thumbnail;
                 if(title)d[@"title"] = title;
-                
+                id pageprops = page[@"pageprops"];
+                if ([pageprops isKindOfClass:[NSDictionary class]]) {
+                    if ([pageprops objectForKey:@"wikibase_item"]) {
+                        d[@"wikibase_item"] = pageprops[@"wikibase_item"];
+                    }
+                }
                 [nearbyResults addObject:d];
             }
         }

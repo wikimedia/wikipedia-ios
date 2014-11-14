@@ -5,6 +5,7 @@
 #import "WikipediaAppUtils.h"
 #import "NSObject+ConstraintsScale.h"
 #import "Defines.h"
+#import "NSString+Extras.h"
 
 #define PADDING_ABOVE_DESCRIPTION 2.0f
 
@@ -151,12 +152,7 @@
     }
     
     // Capitalize first character of WikiData description.
-    if (description.length > 1){
-        NSString *firstChar = [description substringToIndex:1];
-        NSString *remaininChars = [description substringFromIndex:1];
-        firstChar = [firstChar capitalizedStringWithLocale:[NSLocale currentLocale]];
-        description = [firstChar stringByAppendingString:remaininChars];
-    }
+    description = [description capitalizeFirstLetter];
     
     // Style and append the wikidata description.
     if ((description.length > 0)) {
