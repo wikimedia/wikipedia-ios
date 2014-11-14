@@ -61,3 +61,7 @@ typedef NS_ENUM(NSInteger, SearchType) {
     SEARCH_TYPE_TITLES,
     SEARCH_TYPE_IN_ARTCILES
 };
+
+#define SEARCH_DELAY_PREFIX 0.3
+#define SEARCH_DELAY_FULL_TEXT 1.0
+
