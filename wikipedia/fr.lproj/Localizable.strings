@@ -150,6 +150,8 @@
 "about-title" = "À propos";
 "about-wikipedia" = "Wikipédia";
 "about-contributors" = "contributeurs";
+"about-testers" = "testeurs";
+"about-testers-details" = "AQ testée par $1";
 "about-translators" = "traducteurs";
 "about-translators-details" = "Cette application a été traduite par des traducteurs bénévoles sur $1";
 "about-libraries" = "bibliothèques utilisées";

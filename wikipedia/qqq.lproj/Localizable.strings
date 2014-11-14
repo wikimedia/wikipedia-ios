@@ -152,10 +152,10 @@
 "about-title" = "Title for credits page\n{{Identical|About}}";
 "about-wikipedia" = "Wikipedia\n{{Identical|Wikipedia}}";
 "about-contributors" = "Label text for contributors section of the about page\n{{Identical|Contributor}}";
-"about-translators" = "Label text for translators section of the about page\n{{Identical|Translator}}";
-"about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";
 "about-testers" = "Label text for testers section of the about page";
 "about-testers-details" = "Description of the QA testers. $1 is specialistsguild.org, the website of the testing group.";
+"about-translators" = "Label text for translators section of the about page\n{{Identical|Translator}}";
+"about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";
 "about-libraries" = "Label text for libraries section of the about page";
 "about-repositories" = "Label text for repositories section of the about page\n{{Identical|Repository}}";
 "about-send-feedback" = "Link text for sending app feedback";

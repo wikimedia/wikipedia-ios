@@ -146,6 +146,8 @@
 "about-title" = "Über";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "Autoren";
+"about-testers" = "Tester";
+"about-testers-details" = "QS getestet durch $1";
 "about-translators" = "Übersetzer";
 "about-translators-details" = "Diese App wurde von freiwilligen Übersetzern auf $1 übersetzt";
 "about-libraries" = "Verwendete Bibliotheken";

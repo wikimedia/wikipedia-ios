@@ -145,6 +145,8 @@
 "about-title" = "Despre";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "contribuitori";
+"about-testers" = "testeri";
+"about-testers-details" = "QA testată de $1";
 "about-translators" = "traducători";
 "about-translators-details" = "Această aplicație a fost tradusă de traducătorii voluntari de la $1";
 "about-libraries" = "biblioteci utilizate";

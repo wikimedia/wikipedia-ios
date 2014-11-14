@@ -1,5 +1,6 @@
 // Messages for Vietnamese (Tiếng Việt)
 // Exported from translatewiki.net
+// Author: Max20091
 // Author: Minh Nguyen
 
 "article-languages-label" = "Chọn ngôn ngữ";
@@ -146,7 +147,7 @@
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "người đóng góp";
 "about-translators" = "biên dịch viên";
-"about-translators-details" = "Biên dịch bởi những người tình nguyện tại $1";
+"about-translators-details" = "Biên dịch bởi những tình nguyện viên tại $1";
 "about-libraries" = "thư viện được sử dụng";
 "about-repositories" = "kho mã nguồn";
 "about-send-feedback" = "Gửi phản hồi về ứng dụng";

@@ -148,6 +148,8 @@
 "about-title" = "אודות";
 "about-wikipedia" = "ויקיפדיה";
 "about-contributors" = "תורמים";
+"about-testers" = "בודקים";
+"about-testers-details" = "בקרת איכות של $1";
 "about-translators" = "מתרגמים";
 "about-translators-details" = "היישום הזה תורגם על־ידי מתרגמים מתנדבים באתר $1";
 "about-libraries" = "ספריות בשימוש";

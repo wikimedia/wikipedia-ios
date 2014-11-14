@@ -151,6 +151,8 @@
 "about-title" = "Acerca de";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "colaboradores";
+"about-testers" = "probadores";
+"about-testers-details" = "QA probado por $1";
 "about-translators" = "traductores";
 "about-translators-details" = "Esta aplicación fue traducida por los traductores voluntarios en $1";
 "about-libraries" = "bibliotecas usadas";

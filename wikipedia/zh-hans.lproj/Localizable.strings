@@ -186,7 +186,7 @@
 "page_protected_can_not_edit" = "您没有权限编辑此页";
 "page_protected_can_not_edit_title" = "此页面受到保护";
 "license-footer-text" = "内容根据$1可用";
-"license-footer-name" = "知识共享 署名-相同方式共享 3.0";
+"license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "内容";
 "abuse-filter-warning-heading" = "这看起来是没有建设性的编辑，您确定要保存它？";
 "abuse-filter-warning-subheading" = "您的编辑可能包含以下情况之一：";

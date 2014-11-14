@@ -133,6 +133,10 @@
 "credits-gerrit-repo" = "Haapt App (Gerrit)";
 "credits-github-mirror" = "Mirror App (GitHub)";
 "credits-external-libraries" = "Extern";
+"about-title" = "Iwwer";
+"about-wikipedia" = "Wikipedia";
+"about-translators-details" = "Vu Fräiwëllegen op $1 iwwersat";
+"about-send-feedback" = "Feedback vun der App schécken";
 "share-menu-save-page" = "Artikel späicheren";
 "share-menu-page-saved" = "Säit gespäichert";
 "share-menu-page-saved-access" = "Tipp: fir op Är gespäichert Säiten ze goen, tippt $1 hei driwwer oder dréckt laang op $2 hei drënner.";

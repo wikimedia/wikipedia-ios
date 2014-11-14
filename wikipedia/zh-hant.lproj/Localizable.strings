@@ -173,7 +173,7 @@
 "button-next" = "下一步";
 "button-done" = "已完成";
 "button-save" = "儲存";
-"onboarding-create-account" = "建立帳戶";
+"onboarding-create-account" = "建立帳號";
 "onboarding-login" = "登入";
 "onboarding-already-have-account" = "已經擁有帳戶？$1";
 "onboarding-skip" = "略過";

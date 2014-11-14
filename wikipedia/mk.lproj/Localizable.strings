@@ -147,6 +147,8 @@
 "about-title" = "За прилогот";
 "about-wikipedia" = "Википедија";
 "about-contributors" = "учесници";
+"about-testers" = "испробувачи";
+"about-testers-details" = "Квалитетот е испробан од $1";
 "about-translators" = "преведувачи";
 "about-translators-details" = "Прилогов го преведоа доброволни преведувачи на $1";
 "about-libraries" = "користени библиотеки";

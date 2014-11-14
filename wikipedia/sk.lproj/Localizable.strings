@@ -98,8 +98,10 @@
 "main-menu-show-today" = "Dnes";
 "main-menu-more" = "Zobraziť viac...";
 "saved-pages-title" = "Uložené stránky";
+"saved-pages-clear-confirmation-heading" = "Vymazať všetky uložené stránky?";
 "saved-pages-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
 "saved-pages-clear-cancel" = "Zrušiť";
+"saved-pages-clear-delete-all" = "Vymazať všetky";
 "page-history-title" = "História stránky";
 "page-history-downloading" = "Načítavanie histórie stránky...";
 "navbar-title-mode-edit-wikitext" = "Upraviť";
@@ -154,6 +156,7 @@
 "page_protected_can_not_edit_title" = "Táto stránka je zamknutá";
 "license-footer-text" = "Obsah je k dispozícii v rámci $1";
 "license-footer-name" = "CC BY-SA 3.0";
+"abuse-filter-disallow-notable" = "Wikipédia je encyklopédia a patrí sem iba neutrálny a hodnotný obsah.";
 "menu-edit-accessibility-label" = "Upraviť";
 "menu-close-accessibility-label" = "Zavrieť";
 "menu-preview-accessibility-label" = "Náhľad";

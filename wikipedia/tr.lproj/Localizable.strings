@@ -98,6 +98,7 @@
 "main-menu-send-feedback" = "Uygulama geri bildirimi gönder";
 "main-menu-show-page-history" = "$1 sayfasının değişiklik geçmişi";
 "main-menu-credits" = "Katkılar";
+"main-menu-about" = "Wikipedia uygulaması hakkında";
 "main-menu-zero-faq" = "Wikipedia Zero SSS";
 "main-menu-privacy-policy" = "Gizlilik politikası";
 "main-menu-terms-of-use" = "Kullanım koşulları";
@@ -145,6 +146,16 @@
 "credits-gerrit-repo" = "Uygulama ana kaynak (Gerrit)";
 "credits-github-mirror" = "Uygulama alternatif kaynak (GitHub)";
 "credits-external-libraries" = "Dış veri havuzları";
+"about-title" = "Hakkında";
+"about-wikipedia" = "Vikipedi";
+"about-contributors" = "katkıda bulunanlar";
+"about-translators" = "çevirmenler";
+"about-translators-details" = "$1'deki gönüllülerce tercüme edilmiştir";
+"about-libraries" = "kullanılan kütüphaneler";
+"about-repositories" = "veri havuzları";
+"about-send-feedback" = "Uygulama geri bildirimi gönder";
+"about-product-of" = "Bir $1 ürünü";
+"about-wikimedia-foundation" = "Wikimedia Vakfı";
 "share-menu-save-page" = "Makaleyi Kaydet";
 "share-menu-page-saved" = "Makale Kaydedildi";
 "share-menu-page-saved-access" = "İpucu: Kaydedilen sayfalarınıza erişmek için, üstteki $1 tuşuna dokunun veya aşağıdaki $2 tuşuna uzun basın.";
