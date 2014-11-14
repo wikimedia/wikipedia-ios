@@ -8,6 +8,8 @@
 #import "Article.h"
 #import "ArticleFetcher.h"
 
+@class BottomMenuViewController;
+
 @interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, FetchFinishedDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0400EB0318AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0400EB0218AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m */; };
+		04038E701A15734B00DBD1DF /* SearchMessageLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04038E6F1A15734B00DBD1DF /* SearchMessageLabel.m */; };
 		04082B5318ADA25A00FAF3D6 /* text_field_x_circle_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 04082B5118ADA25A00FAF3D6 /* text_field_x_circle_gray.png */; };
 		04082B5518ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04082B5218ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png */; };
 		040892641935ABBD004CF254 /* UIViewController+StatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 040892631935ABBD004CF254 /* UIViewController+StatusBarHeight.m */; };
@@ -50,6 +51,10 @@
 		043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043DAC4A1901C3EE001CD17C /* CreditsViewController.m */; };
 		043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18DC18D9691D00D8489A /* TopActionSheetLabel.m */; };
 		043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */; };
+		043F8BEF1A1146B300D1AE44 /* SearchTypeMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F8BEE1A1146B300D1AE44 /* SearchTypeMenu.m */; };
+		043F8BF21A11699A00D1AE44 /* UIView+RoundCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F8BF11A11699A00D1AE44 /* UIView+RoundCorners.m */; };
+		04414DDB1A140FAF00A41B4E /* SearchDidYouMeanButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 04414DDA1A140FAF00A41B4E /* SearchDidYouMeanButton.m */; };
+		04414DDF1A1420EB00A41B4E /* WikiDataShortDescriptionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 04414DDE1A1420EB00A41B4E /* WikiDataShortDescriptionFetcher.m */; };
 		0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0442F57A19006DCC00F55DF9 /* PageHistoryLabel.m */; };
 		0447862F185145090050563B /* HistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04478621185145090050563B /* HistoryResultCell.m */; };
 		04478631185145090050563B /* HistoryResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04478622185145090050563B /* HistoryResultPrototypeView.xib */; };
@@ -248,6 +253,8 @@
 /* Begin PBXFileReference section */
 		0400EB0118AAEEC60043ECE2 /* UINavigationController+SearchNavStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SearchNavStack.h"; sourceTree = "<group>"; };
 		0400EB0218AAEEC60043ECE2 /* UINavigationController+SearchNavStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SearchNavStack.m"; sourceTree = "<group>"; };
+		04038E6E1A15734B00DBD1DF /* SearchMessageLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchMessageLabel.h; sourceTree = "<group>"; };
+		04038E6F1A15734B00DBD1DF /* SearchMessageLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchMessageLabel.m; sourceTree = "<group>"; };
 		04082B5118ADA25A00FAF3D6 /* text_field_x_circle_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = text_field_x_circle_gray.png; sourceTree = "<group>"; };
 		04082B5218ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text_field_x_circle_gray@2x.png"; sourceTree = "<group>"; };
 		040892621935ABBD004CF254 /* UIViewController+StatusBarHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+StatusBarHeight.h"; sourceTree = "<group>"; };
@@ -324,6 +331,14 @@
 		043F18DF18D9691D00D8489A /* UINavigationController+TopActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+TopActionSheet.h"; sourceTree = "<group>"; };
 		043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+TopActionSheet.m"; sourceTree = "<group>"; };
 		043F18F118DCDD3A00D8489A /* WMF_Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMF_Colors.h; sourceTree = "<group>"; };
+		043F8BED1A1146B300D1AE44 /* SearchTypeMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTypeMenu.h; sourceTree = "<group>"; };
+		043F8BEE1A1146B300D1AE44 /* SearchTypeMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTypeMenu.m; sourceTree = "<group>"; };
+		043F8BF01A11699A00D1AE44 /* UIView+RoundCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RoundCorners.h"; sourceTree = "<group>"; };
+		043F8BF11A11699A00D1AE44 /* UIView+RoundCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RoundCorners.m"; sourceTree = "<group>"; };
+		04414DD91A140FAF00A41B4E /* SearchDidYouMeanButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDidYouMeanButton.h; sourceTree = "<group>"; };
+		04414DDA1A140FAF00A41B4E /* SearchDidYouMeanButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDidYouMeanButton.m; sourceTree = "<group>"; };
+		04414DDD1A1420EB00A41B4E /* WikiDataShortDescriptionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikiDataShortDescriptionFetcher.h; sourceTree = "<group>"; };
+		04414DDE1A1420EB00A41B4E /* WikiDataShortDescriptionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikiDataShortDescriptionFetcher.m; sourceTree = "<group>"; };
 		0442F57919006DCC00F55DF9 /* PageHistoryLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageHistoryLabel.h; sourceTree = "<group>"; };
 		0442F57A19006DCC00F55DF9 /* PageHistoryLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageHistoryLabel.m; sourceTree = "<group>"; };
 		04478620185145090050563B /* HistoryResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryResultCell.h; sourceTree = "<group>"; };
@@ -882,6 +897,12 @@
 				04292FEF185FBA70002A13FC /* SearchResultCell.h */,
 				04292FF0185FBA70002A13FC /* SearchResultCell.m */,
 				04292FF1185FBA70002A13FC /* SearchResultPrototypeView.xib */,
+				043F8BED1A1146B300D1AE44 /* SearchTypeMenu.h */,
+				043F8BEE1A1146B300D1AE44 /* SearchTypeMenu.m */,
+				04414DD91A140FAF00A41B4E /* SearchDidYouMeanButton.h */,
+				04414DDA1A140FAF00A41B4E /* SearchDidYouMeanButton.m */,
+				04038E6E1A15734B00DBD1DF /* SearchMessageLabel.h */,
+				04038E6F1A15734B00DBD1DF /* SearchMessageLabel.m */,
 			);
 			path = SearchResults;
 			sourceTree = "<group>";
@@ -1164,6 +1185,8 @@
 				0487047319F8262600B7D307 /* RandomArticleFetcher.m */,
 				0487047419F8262600B7D307 /* SearchResultFetcher.h */,
 				0487047519F8262600B7D307 /* SearchResultFetcher.m */,
+				04414DDD1A1420EB00A41B4E /* WikiDataShortDescriptionFetcher.h */,
+				04414DDE1A1420EB00A41B4E /* WikiDataShortDescriptionFetcher.m */,
 				0487047619F8262600B7D307 /* ThumbnailFetcher.h */,
 				0487047719F8262600B7D307 /* ThumbnailFetcher.m */,
 				0487047819F8262600B7D307 /* WikipediaZeroMessageFetcher.h */,
@@ -1381,6 +1404,8 @@
 				04C695CD18ED08D900D9F2DA /* UIView+SearchSubviews.m */,
 				04B91AA518E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.h */,
 				04B91AA618E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m */,
+				043F8BF01A11699A00D1AE44 /* UIView+RoundCorners.h */,
+				043F8BF11A11699A00D1AE44 /* UIView+RoundCorners.m */,
 				0433542018A023FE009305F0 /* UIViewController+HideKeyboard.h */,
 				0433542118A023FE009305F0 /* UIViewController+HideKeyboard.m */,
 				0452C80E195D0F03007925A6 /* UIViewController+ModalPop.h */,
@@ -2005,6 +2030,7 @@
 				D49B2ED2196C687C002F035D /* PullToRefreshViewController.m in Sources */,
 				0449E63518A9845C00D51524 /* LoginViewController.m in Sources */,
 				04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
+				043F8BEF1A1146B300D1AE44 /* SearchTypeMenu.m in Sources */,
 				0487048B19F8262600B7D307 /* RandomArticleFetcher.m in Sources */,
 				04D34DBD1863F6A400610A87 /* GalleryImage.m in Sources */,
 				047E95501996DD030046A122 /* NearbyResultCell.m in Sources */,
@@ -2019,6 +2045,7 @@
 				04CFA126194B94A10088269A /* MenuLabel.m in Sources */,
 				04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */,
 				0487047F19F8262600B7D307 /* AccountCreator.m in Sources */,
+				04038E701A15734B00DBD1DF /* SearchMessageLabel.m in Sources */,
 				0487048619F8262600B7D307 /* LanguageLinksFetcher.m in Sources */,
 				0449E63918AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m in Sources */,
 				04C695CE18ED08D900D9F2DA /* UIView+SearchSubviews.m in Sources */,
@@ -2029,6 +2056,7 @@
 				04F27B7518FE0F2E00EDD838 /* PageHistoryResultCell.m in Sources */,
 				D474CC15182AE196002BDE45 /* MWSite.m in Sources */,
 				0463639818A844570049EE4F /* KeychainCredentials.m in Sources */,
+				04414DDB1A140FAF00A41B4E /* SearchDidYouMeanButton.m in Sources */,
 				047528AF19107DAA00F2CDA8 /* Section.m in Sources */,
 				04530AFB1935C2B500022512 /* EmptySegue.m in Sources */,
 				044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */,
@@ -2040,6 +2068,7 @@
 				048A26771906268100395F53 /* PaddedLabel.m in Sources */,
 				04B91AAB18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m in Sources */,
 				043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */,
+				04414DDF1A1420EB00A41B4E /* WikiDataShortDescriptionFetcher.m in Sources */,
 				D4EE00B9182443FC0090790F /* MWPageTitle.m in Sources */,
 				04D308281998A8AA0034F106 /* NearbyThumbnailView.m in Sources */,
 				04292FF2185FBA70002A13FC /* SearchResultCell.m in Sources */,
@@ -2073,6 +2102,7 @@
 				041A3B5E18E11ED90079FF1C /* LanguagesCell.m in Sources */,
 				043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */,
 				D42E75EB18D11237002EA7E5 /* MWLanguageInfo.m in Sources */,
+				043F8BF21A11699A00D1AE44 /* UIView+RoundCorners.m in Sources */,
 				04A81E8618871EB000EEBADB /* Section+ImageRecords.m in Sources */,
 				0487048019F8262600B7D307 /* AccountLogin.m in Sources */,
 				047FF5471889078C009DB293 /* Image+Convenience.m in Sources */,

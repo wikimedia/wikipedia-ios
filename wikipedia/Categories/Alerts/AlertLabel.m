@@ -24,7 +24,7 @@
 
         self.font = [UIFont systemFontOfSize:ALERT_FONT_SIZE];
         self.textAlignment = NSTextAlignmentCenter;
-        self.textColor = [UIColor colorWithWhite:0.0 alpha:1.0];
+        self.textColor = ALERT_TEXT_COLOR;
 
         if([text isKindOfClass:[NSAttributedString class]]){
             self.attributedText = text;

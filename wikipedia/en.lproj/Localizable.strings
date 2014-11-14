@@ -82,6 +82,9 @@
 "search-loading-section-remaining" = "Loading the rest of the article...";
 "search-loading-article-loaded" = "Article loaded.";
 "search-cancel" = "Cancel";
+"search-titles" = "Titles";
+"search-within-articles" = "Within articles";
+"search-did-you-mean" = "Did you mean $1?";
 
 "main-menu-title" = "More";
 "main-menu-language-title" = "Search $1 Wikipedia";

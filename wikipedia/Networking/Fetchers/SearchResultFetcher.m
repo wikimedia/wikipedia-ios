@@ -6,7 +6,6 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSObject+Extras.h"
-#import "Defines.h"
 #import "NSString+Extras.h"
 #import "WikipediaAppUtils.h"
 #import "ArticleDataContextSingleton.h"
@@ -16,28 +15,38 @@
 @interface SearchResultFetcher()
 
 @property (strong, nonatomic) NSString *domain;
+@property (nonatomic, strong) NSString *searchTerm;
+@property (nonatomic) SearchType searchType;
+
+@property (nonatomic, strong) NSArray *searchResults;
+@property (nonatomic, strong) NSString *searchSuggestion;
 
 @end
 
 @implementation SearchResultFetcher
 
 -(instancetype)initAndSearchForTerm: (NSString *)searchTerm
+                         searchType: (SearchType)searchType
                         withManager: (AFHTTPRequestOperationManager *)manager
-                 thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate;
+                 thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate
 {
     self = [super init];
     if (self) {
+        self.searchResults = @[];
+        self.searchSuggestion = nil;
+        self.searchTerm = searchTerm ? searchTerm : @"";
+        self.searchType = searchType;
         self.fetchFinishedDelegate = delegate;
-        [self searchForTerm:searchTerm withManager:manager];
+        [self searchWithManager:manager];
     }
     return self;
 }
 
-- (void)searchForTerm:(NSString *)searchTerm withManager:(AFHTTPRequestOperationManager *)manager
+- (void)searchWithManager:(AFHTTPRequestOperationManager *)manager
 {
     NSString *url = [SessionSingleton sharedInstance].searchApiUrl;
 
-    NSDictionary *params = [self getParamsForTerm:searchTerm];
+    NSDictionary *params = [self getParams];
     
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
@@ -56,7 +65,7 @@
             responseObject = jsonError ? @{} : responseObject;
         }
         
-        //NSLog(@"CAPTCHA RESETTER DATA RETRIEVED = %@", responseObject);
+        // NSLog(@"\n\nDATA RETRIEVED = %@\n\n", responseObject);
         
         // Handle case where response is received, but API reports error.
         NSError *error = nil;
@@ -68,25 +77,25 @@
                                     userInfo: errorDict];
         }
 
-        NSArray *output = @[];
         if (!error) {
-            output = [self getSanitizedResponse:responseObject forSearchTerm:searchTerm];
+            self.searchResults = [self getSanitizedResponse:responseObject];
+            self.searchSuggestion = [self getSearchSuggestionFromResponse:responseObject];
         }
 
         // If no matches set error.
-        if (output.count == 0) {
+        if (self.searchResults.count == 0) {
             NSMutableDictionary *errorDict = @{}.mutableCopy;
             
             errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"search-no-matches", nil);
             
             // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
             error = [NSError errorWithDomain:@"Search Result Fetcher" code:SEARCH_RESULT_ERROR_NO_MATCHES userInfo:errorDict];
+        }else{
+            [self preparePlaceholderImageRecordsForSearchResults:self.searchResults];
         }
 
-        if (!error) [self preparePlaceholderImageRecordsForOutput:output];
-
         [self finishWithError: error
-                     userData: output];
+                     userData: nil];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -99,37 +108,72 @@
     }];
 }
 
--(NSDictionary *)getParamsForTerm:(NSString *)searchTerm
+-(NSDictionary *)getParams
 {
-    // Based on https://gerrit.wikimedia.org/r/#/c/158011/2/javascripts/modules/search/SearchApi.js
-    return @{
-             @"action": @"query",
-             @"generator": @"prefixsearch",
-             @"gpssearch": (searchTerm ? searchTerm : @""),
-             @"gpsnamespace": @0,
-             @"gpslimit": @(SEARCH_MAX_RESULTS),
-             @"prop": @"pageimages",
-             @"piprop": @"thumbnail",
-             @"pithumbsize" : @(SEARCH_THUMBNAIL_WIDTH),
-             @"pilimit": @(SEARCH_MAX_RESULTS),
-             @"list": @"prefixsearch",
-             @"pssearch": (searchTerm ? searchTerm : @""),
-             @"pslimit": @(SEARCH_MAX_RESULTS),
-             @"format": @"json"
-             };
+    switch (self.searchType) {
+        case SEARCH_TYPE_TITLES:
+            // Based on https://gerrit.wikimedia.org/r/#/c/158011/2/javascripts/modules/search/SearchApi.js
+            return @{
+                     @"action": @"query",
+                     @"generator": @"prefixsearch",
+                     @"gpssearch": self.searchTerm,
+                     @"gpsnamespace": @0,
+                     @"gpslimit": @(SEARCH_MAX_RESULTS),
+                     @"prop": @"pageprops|pageimages",
+                     @"ppprop": @"wikibase_item",
+                     @"piprop": @"thumbnail",
+                     @"pithumbsize" : @(SEARCH_THUMBNAIL_WIDTH),
+                     @"pilimit": @(SEARCH_MAX_RESULTS),
+                     @"list": @"prefixsearch",
+                     @"pssearch": self.searchTerm,
+                     @"pslimit": @(SEARCH_MAX_RESULTS),
+                     @"format": @"json"
+                     };
+            break;
+            
+        case SEARCH_TYPE_IN_ARTCILES:
+            return @{
+                     @"action": @"query",
+                     @"prop": @"pageprops|pageimages",
+                     @"ppprop": @"wikibase_item",
+                     @"generator": @"search",
+                     @"gsrsearch": self.searchTerm,
+                     @"gsrnamespace": @0,
+                     @"gsrwhat": @"text",
+                     @"gsrinfo": @"",
+                     @"gsrprop": @"redirecttitle",
+                     @"gsroffset": @0,
+                     @"gsrlimit": @(SEARCH_MAX_RESULTS),
+                     @"list": @"search",
+                     @"srsearch": self.searchTerm,
+                     @"srnamespace": @0,
+                     @"srwhat": @"text",
+                     @"srinfo": @"suggestion",
+                     @"srprop": @"",
+                     @"sroffset": @0,
+                     @"srlimit": @(SEARCH_MAX_RESULTS),
+                     @"piprop": @"thumbnail",
+                     @"pithumbsize" : @(SEARCH_THUMBNAIL_WIDTH),
+                     @"pilimit": @(SEARCH_MAX_RESULTS),
+                     @"format": @"json"
+                     };
+            break;
+    }
 }
 
--(NSArray *)getSanitizedResponse:(NSDictionary *)rawResponse forSearchTerm:(NSString *)searchTerm
+-(NSArray *)getSanitizedResponse:(NSDictionary *)rawResponse
 {
     // Make output array contain just dictionaries for each result.
     NSMutableArray *output = @[].mutableCopy;
-    NSDictionary *jsonDict = (NSDictionary *)rawResponse;
-    if (jsonDict.count > 0) {
-        NSDictionary *query = (NSDictionary *)jsonDict[@"query"];
+    if (rawResponse.count > 0) {
+        NSDictionary *query = (NSDictionary *)rawResponse[@"query"];
         if (query) {
         
             NSDictionary *pages = (NSDictionary *)query[@"pages"];
-            NSArray *pagesOrdered = (NSArray *)query[@"prefixsearch"];
+            
+            NSString *searchTypeString = (self.searchType == SEARCH_TYPE_TITLES) ? @"prefixsearch" : @"search";
+            
+            NSArray *pagesOrdered = (NSArray *)query[searchTypeString];
             
             if (pages && pagesOrdered) {
 
@@ -143,20 +187,33 @@
                     // Add thumb placeholder.
                     mutablePrefixPage[@"thumbnail"] = @{}.mutableCopy;
                     
-                    // Grab the thumbnail info from the non-prefixsearch result for this pageid.
+                    // Grab thumbnail and pageprops info from non-prefixsearch result for this pageid.
                     for (NSDictionary *page in pages.allValues) {
-                        id pageId = page[@"pageid"];
-                        id prefixPageId = mutablePrefixPage[@"pageid"];
-                        if (pageId && prefixPageId && [prefixPageId isKindOfClass:[NSNumber class]] && [pageId isKindOfClass:[NSNumber class]]){
-                            if ([prefixPageId isEqualToNumber:pageId]) {
+
+                        // Grab thumbnail info.
+                        id pageTitle = page[@"title"];
+                        id prefixPageTitle = mutablePrefixPage[@"title"];
+                        if (pageTitle && prefixPageTitle && [prefixPageTitle isKindOfClass:[NSString class]] && [pageTitle isKindOfClass:[NSString class]]){
+                            if ([prefixPageTitle isEqualToString:pageTitle]) {
+                                
                                 if (page[@"thumbnail"]){
                                     mutablePrefixPage[@"thumbnail"] = page[@"thumbnail"];
-                                    break;
                                 }
+                                
+                                // Grab wiki data id.
+                                id pageprops = page[@"pageprops"];
+                                if (pageprops && [pageprops isKindOfClass:[NSDictionary class]]){
+                                    if (pageprops[@"wikibase_item"]){
+                                        mutablePrefixPage[@"wikibase_item"] = pageprops[@"wikibase_item"];
+                                    }
+                                }
+                                
+                                break;
                             }
                         }
+                        
                     }
-                    
+
                     mutablePrefixPage[@"title"] = mutablePrefixPage[@"title"] ? [mutablePrefixPage[@"title"] wikiTitleWithoutUnderscores] : @"";
                     
                     if (mutablePrefixPage) [output addObject:mutablePrefixPage];
@@ -168,13 +225,31 @@
     return output;
 }
 
+-(NSString *)getSearchSuggestionFromResponse:(NSDictionary *)rawResponse
+{
+    NSString *output = nil;
+    if (rawResponse.count > 0) {
+        NSDictionary *query = (NSDictionary *)rawResponse[@"query"];
+        if (query) {
+            NSDictionary *searchinfo = (NSDictionary *)query[@"searchinfo"];
+            if (searchinfo[@"suggestion"]) {
+                NSString *suggestion = searchinfo[@"suggestion"];
+                if ([suggestion isKindOfClass:[NSString class]] && suggestion.length > 0) {
+                    output = suggestion;
+                }
+            }
+        }
+    }
+    return output;
+}
+
 #pragma mark Core data Image record placeholder for thumbnail (so they get cached)
 
--(void)preparePlaceholderImageRecordsForOutput:(NSArray *)output
+-(void)preparePlaceholderImageRecordsForSearchResults:(NSArray *)searchResults
 {
     // Prepare placeholder Image records.
     [[ArticleDataContextSingleton sharedInstance].mainContext performBlockAndWait:^(){
-        for (NSDictionary *page in output) {
+        for (NSDictionary *page in searchResults) {
             // If url thumb found, prepare a core data Image object so URLCache
             // will know this is an image to intercept.
             NSDictionary *thumbData = page[@"thumbnail"];

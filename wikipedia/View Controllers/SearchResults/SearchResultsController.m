@@ -17,18 +17,29 @@
 #import "ThumbnailFetcher.h"
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
+#import "SearchTypeMenu.h"
+#import "TopMenuTextFieldContainer.h"
+#import "TopMenuTextField.h"
+#import "SearchDidYouMeanButton.h"
+#import "WikiDataShortDescriptionFetcher.h"
+#import "SearchMessageLabel.h"
 
 @interface SearchResultsController (){
     CGFloat scrollViewDragBeganVerticalOffset_;
     ArticleDataContextSingleton *articleDataContext_;
 }
 
-@property (strong, atomic) NSArray *searchResultsOrdered;
-@property (weak, nonatomic) IBOutlet UITableView *searchResultsTable;
-@property (strong, nonatomic) NSArray *currentSearchStringWordsToHighlight;
+@property (nonatomic, strong) NSArray *searchResultsOrdered;
+@property (nonatomic, strong) NSString *searchSuggestion;
+@property (nonatomic, weak) IBOutlet UITableView *searchResultsTable;
+@property (nonatomic, strong) NSArray *currentSearchStringWordsToHighlight;
 
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic, strong) NSString *cachePath;
+
+@property (nonatomic, weak) IBOutlet SearchTypeMenu *searchTypeMenu;
+@property (nonatomic, weak) IBOutlet SearchDidYouMeanButton *didYouMeanButton;
+@property (nonatomic, weak) IBOutlet SearchMessageLabel *searchMessageLabel;
 
 @end
 
@@ -58,6 +69,7 @@
     scrollViewDragBeganVerticalOffset_ = 0.0f;
 
     self.searchResultsOrdered = [[NSMutableArray alloc] init];
+    self.searchSuggestion = nil;
     self.navigationItem.hidesBackButton = YES;
 
     // Register the search results cell for reuse
@@ -65,6 +77,34 @@
 
     // Turn off the separator since one gets added in SearchResultCell.m
     self.searchResultsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    // Observe searchTypeMenu's searchType, refresh results if it changes - ie user tapped "Titles" or "Within articles".
+    [self.searchTypeMenu addObserver: self
+                          forKeyPath: @"searchType"
+                             options: NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                             context: nil];
+
+    self.didYouMeanButton.userInteractionEnabled = YES;
+    [self.didYouMeanButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didYouMeanButtonPushed)]];
+}
+
+-(void)didYouMeanButtonPushed
+{
+    // Fake out user having typed in the "did you mean" term.
+    [self.didYouMeanButton hide];
+    TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
+    textFieldContainer.textField.text = self.searchSuggestion;
+    [textFieldContainer.textField sendActionsForControlEvents:UIControlEventEditingChanged];
+}
+
+- (void)observeValueForKeyPath: (NSString *)keyPath
+                      ofObject: (id)object
+                        change: (NSDictionary *)change
+                       context: (void *)context
+{
+    if ((object == self.searchTypeMenu) && [keyPath isEqualToString:@"searchType"]) {
+        [self refreshSearchResults];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -77,6 +117,9 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+
+    [self.searchTypeMenu removeObserver:self forKeyPath:@"searchType"];
+    
     [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
 }
 
@@ -117,7 +160,9 @@
 
 -(void)clearSearchResults
 {
+    [self.didYouMeanButton hide];
     self.searchResultsOrdered = @[];
+    self.searchSuggestion = nil;
     [self.searchResultsTable reloadData];
     
     [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
@@ -131,31 +176,59 @@
                status: (FetchFinalStatus)status
                 error: (NSError *)error;
 {
-    
-    
     if ([sender isKindOfClass:[SearchResultFetcher class]]) {
         
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:{
                 [self fadeAlert];
-                self.searchResultsOrdered = userData;
+                [self.searchMessageLabel hide];
+
+                self.searchResultsOrdered = ((SearchResultFetcher *)sender).searchResults;
+
+                //NSLog(@"self.searchResultsOrdered = %@", self.searchResultsOrdered);
+                
                 ROOT.topMenuViewController.currentSearchResultsOrdered = self.searchResultsOrdered.copy;
                 
                 // We have search titles! Show them right away!
                 // NSLog(@"FIRE ONE! Show search result titles.");
                 [self.searchResultsTable reloadData];
+
+                // Get WikiData Id's to pass to WikiDataShortDescriptionFetcher.
+                NSMutableArray *wikiDataIds = @[].mutableCopy;
+                for (NSDictionary *page in self.searchResultsOrdered) {
+                    id wikiDataId = page[@"wikibase_item"];
+                    if(wikiDataId && [wikiDataId isKindOfClass:[NSString class]]){
+                        [wikiDataIds addObject:wikiDataId];
+                    }
+                }
+
+                // Fetch WikiData short descriptions.
+                if (wikiDataIds.count > 0){
+                    (void)[[WikiDataShortDescriptionFetcher alloc] initAndFetchDescriptionsForIds: wikiDataIds
+                                                                                      withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
+                                                                               thenNotifyDelegate: self];
+                }
+
             }
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
                 [self fadeAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                [self.searchMessageLabel showWithText:error.localizedDescription];
+                //[self showAlert:error.localizedDescription type:ALERT_TYPE_MIDDLE duration:-1];
                 break;
         }
-    }
-
-    if ([sender isKindOfClass:[ThumbnailFetcher class]]) {
+        
+        // Show search suggestion if necessary.
+        // Search suggestion can be returned if zero or more search results found.
+        // That's why this is here in not in the "SUCCEEDED" case above.
+        self.searchSuggestion = ((SearchResultFetcher *)sender).searchSuggestion;
+        if (self.searchSuggestion) {
+            [self.didYouMeanButton showWithText: MWLocalizedString(@"search-did-you-mean", nil)
+                                           term: self.searchSuggestion];
+        }
+    }else if ([sender isKindOfClass:[ThumbnailFetcher class]]) {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:{
                 NSString *fileName = [[sender url] lastPathComponent];
@@ -189,55 +262,51 @@
             case FETCH_FINAL_STATUS_FAILED:
                 break;
         }
+    }else if ([sender isKindOfClass:[WikiDataShortDescriptionFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:{
+                NSDictionary *wikiDataShortDescriptions = (NSDictionary *)userData;
+
+                // Add wikidata descriptions to respective search results.
+                for (NSMutableDictionary *d in self.searchResultsOrdered) {
+                    NSString *wikiDataId = d[@"wikibase_item"];
+                    if(wikiDataId){
+                        if ([wikiDataShortDescriptions objectForKey:wikiDataId]) {
+                            NSString *shortDesc = wikiDataShortDescriptions[wikiDataId];
+                            if (shortDesc) {
+                                d[@"wikidata_description"] = shortDesc;
+                            }
+                        }
+                    }
+                }
+                
+                [self.searchResultsTable reloadData];
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                break;
+        }
     }
 }
 
 - (void)searchForTerm:(NSString *)searchTerm
 {
     [self clearSearchResults];
+
+    [self.searchMessageLabel hide];
     
     // Show "Searching..." message.
-    [self showAlert:MWLocalizedString(@"search-searching", nil) type:ALERT_TYPE_TOP duration:-1];
+    [self.searchMessageLabel showWithText:MWLocalizedString(@"search-searching", nil)];
+    
+    //[self showAlert:MWLocalizedString(@"search-searching", nil) type:ALERT_TYPE_MIDDLE duration:-1];
     
     // Search for titles.
     (void)[[SearchResultFetcher alloc] initAndSearchForTerm: searchTerm
+                                                 searchType: self.searchTypeMenu.searchType
                                                 withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
                                          thenNotifyDelegate: self];
-}
-
-#pragma mark Search term highlighting
-
--(NSAttributedString *)getAttributedTitle:(NSString *)title
-{
-    // Returns attributed string of title with the current search term highlighted.
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:title];
-
-    // Set base color and font of the entire result title
-    [str addAttribute:NSFontAttributeName
-                value:SEARCH_RESULT_FONT
-                range:NSMakeRange(0, str.length)];
-
-    [str addAttribute:NSForegroundColorAttributeName
-                value:SEARCH_RESULT_FONT_COLOR
-                range:NSMakeRange(0, str.length)];
-
-    for (NSString *word in self.currentSearchStringWordsToHighlight.copy) {
-        // Search term highlighting
-        NSRange rangeOfThisWordInTitle = [title rangeOfString: word
-                                                      options: NSCaseInsensitiveSearch |
-                                                               NSDiacriticInsensitiveSearch |
-                                                               NSWidthInsensitiveSearch
-                                          ];
-
-        [str addAttribute:NSFontAttributeName
-                    value:SEARCH_RESULT_FONT_HIGHLIGHTED
-                    range:rangeOfThisWordInTitle];
-        
-        [str addAttribute:NSForegroundColorAttributeName
-                    value:SEARCH_RESULT_FONT_HIGHLIGHTED_COLOR
-                    range:rangeOfThisWordInTitle];
-    }
-    return str;
 }
 
 #pragma mark Search results table methods (requests actual thumb image data)
@@ -266,7 +335,9 @@
 
     NSString *title = self.searchResultsOrdered[indexPath.row][@"title"];
 
-    cell.textLabel.attributedText = [self getAttributedTitle:title];
+    NSString *wikidata_description = self.searchResultsOrdered[indexPath.row][@"wikidata_description"];
+
+    [cell setTitle:title description:wikidata_description highlightWords:self.currentSearchStringWordsToHighlight];
     
     NSString *thumbURL = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"source"];
 

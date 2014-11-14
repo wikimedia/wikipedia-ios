@@ -12,7 +12,7 @@
 
 
 #define SEARCH_THUMBNAIL_WIDTH (48 * 3)
-#define SEARCH_RESULT_HEIGHT (60.0 * MENUS_SCALE_MULTIPLIER)
+#define SEARCH_RESULT_HEIGHT (74.0 * MENUS_SCALE_MULTIPLIER)
 #define SEARCH_MAX_RESULTS 24
 
 #define SEARCH_TEXT_FIELD_FONT [UIFont systemFontOfSize:(14.0 * MENUS_SCALE_MULTIPLIER)]
@@ -21,10 +21,15 @@
 #define SEARCH_RESULT_FONT [UIFont systemFontOfSize:(16.0 * MENUS_SCALE_MULTIPLIER)]
 #define SEARCH_RESULT_FONT_COLOR [UIColor colorWithWhite:0.0 alpha:0.85]
 
+#define SEARCH_RESULT_DESCRIPTION_FONT [UIFont systemFontOfSize:(12.0 * MENUS_SCALE_MULTIPLIER)]
+#define SEARCH_RESULT_DESCRIPTION_FONT_COLOR [UIColor colorWithWhite:0.0 alpha:0.6]
+
 #define SEARCH_RESULT_FONT_HIGHLIGHTED [UIFont boldSystemFontOfSize:(16.0 * MENUS_SCALE_MULTIPLIER)]
 #define SEARCH_RESULT_FONT_HIGHLIGHTED_COLOR [UIColor blackColor]
 
 #define SEARCH_FIELD_PLACEHOLDER_TEXT_COLOR [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0]
+
+#define SEARCH_BUTTON_BACKGROUND_COLOR [UIColor grayColor]
 
 #define HIDE_KEYBOARD_ON_SCROLL_THRESHOLD 55.0f
 
@@ -45,9 +50,14 @@
 #define CHROME_COLOR [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0]
 
 #define ALERT_FONT_SIZE (12.0 * MENUS_SCALE_MULTIPLIER)
-#define ALERT_BACKGROUND_COLOR [UIColor colorWithRed:(0.94 * 0.85) green:(0.94 * 0.85) blue:(0.96 * 0.85) alpha:1.0]
-#define ALERT_PADDING UIEdgeInsetsMake(2, 10, 2, 10)
+#define ALERT_BACKGROUND_COLOR [UIColor grayColor]
+#define ALERT_TEXT_COLOR [UIColor whiteColor]
+#define ALERT_PADDING UIEdgeInsetsMake(2.0, 10.0, 2.0, 10.0)
 
 #define CHROME_OUTLINE_COLOR ALERT_BACKGROUND_COLOR
 #define CHROME_OUTLINE_WIDTH (1.0f / [UIScreen mainScreen].scale)
 
+typedef NS_ENUM(NSInteger, SearchType) {
+    SEARCH_TYPE_TITLES,
+    SEARCH_TYPE_IN_ARTCILES
+};

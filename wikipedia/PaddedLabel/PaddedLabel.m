@@ -7,6 +7,14 @@
 
 @implementation PaddedLabel
 
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    // This fixes problem with PaddedLabels used by UITableViewCells not sizing to their text
+    // properly as table cells are recycled by the table.
+    [self invalidateIntrinsicContentSize];
+}
+
 -(void)setup
 {
     self.padding = UIEdgeInsetsZero;
@@ -72,6 +80,12 @@
     [self invalidateIntrinsicContentSize];
 }
 
+-(void)setAttributedText:(NSAttributedString *)attributedText
+{
+    [super setAttributedText:attributedText];
+    [self invalidateIntrinsicContentSize];
+}
+
 -(void)setPadding:(UIEdgeInsets)padding
 {
     // Adjust padding for scale.
@@ -88,6 +102,8 @@
     }else{
         _padding = padding;
     }
+    
+    [self invalidateIntrinsicContentSize];
 }
 
 @end

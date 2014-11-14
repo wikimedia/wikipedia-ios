@@ -24,8 +24,6 @@
                                  type:type];
         
         newAlertLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        //newAlertLabel.layer.cornerRadius = 3.0f;
-        //newAlertLabel.clipsToBounds = YES;
         [self.view addSubview:newAlertLabel];
         
         [self constrainAlertView:newAlertLabel type:type];
@@ -99,7 +97,6 @@
 
     NSMutableDictionary *views = @{@"view": view}.mutableCopy;
     NSDictionary *metrics = @{@"space": @(margin)};
-
 
     UIView *bottomMenuView = nil;
     if([self isMemberOfClass:[WebViewController class]]){
