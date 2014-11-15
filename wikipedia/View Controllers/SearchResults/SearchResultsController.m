@@ -41,6 +41,8 @@
 @property (nonatomic, weak) IBOutlet SearchDidYouMeanButton *didYouMeanButton;
 @property (nonatomic, weak) IBOutlet SearchMessageLabel *searchMessageLabel;
 
+@property (nonatomic, strong) NSTimer *delayedSearchTimer;
+
 @end
 
 @implementation SearchResultsController
@@ -103,7 +105,7 @@
                        context: (void *)context
 {
     if ((object == self.searchTypeMenu) && [keyPath isEqualToString:@"searchType"]) {
-        [self refreshSearchResults];
+        [self refreshSearchResultsAfterDelay:@0.0f];
     }
 }
 
@@ -118,13 +120,43 @@
 {
     [super viewWillDisappear:animated];
 
+    [self cancelDelayedSearch];
+    
     [self.searchTypeMenu removeObserver:self forKeyPath:@"searchType"];
     
     [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
 }
 
+-(void)cancelDelayedSearch
+{
+    if (self.delayedSearchTimer) {
+        [self.delayedSearchTimer invalidate];
+        self.delayedSearchTimer = nil;
+    }
+}
+
 -(void)refreshSearchResults
 {
+    CGFloat delay = (self.searchTypeMenu.searchType == SEARCH_TYPE_TITLES) ? SEARCH_DELAY_PREFIX : SEARCH_DELAY_FULL_TEXT;
+    
+    [self refreshSearchResultsAfterDelay:@(delay)];
+}
+
+-(void)refreshSearchResultsAfterDelay:(NSNumber *)delay
+{
+    [self cancelDelayedSearch];
+
+    self.delayedSearchTimer = [NSTimer scheduledTimerWithTimeInterval: delay.floatValue
+                                                  target: self
+                                                selector: @selector(performSearch)
+                                                userInfo: nil
+                                                 repeats: NO];
+}
+
+-(void)performSearch
+{
+    if (self.navigationController.topViewController != self) return;
+
     if (ROOT.topMenuViewController.currentSearchString.length == 0) return;
     
     [self updateWordsToHighlight];
