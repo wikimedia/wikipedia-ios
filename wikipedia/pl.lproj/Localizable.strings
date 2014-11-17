@@ -175,3 +175,4 @@
 "nearby-distance-label-miles" = "$1 mile";
 "nearby-pull-to-refresh-is-refreshing" = "Odświeżanie";
 "nearby-cancel" = "Anuluj";
+"nearby-wifi" = "Uruchomienie Wi-Fi może pomóc urządzeniu lepiej określić twoją lokalizację.";

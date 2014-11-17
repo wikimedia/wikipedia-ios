@@ -1,6 +1,7 @@
 // Messages for Norwegian Bokmål (norsk bokmål)
 // Exported from translatewiki.net
 // Author: Danmichaelo
+// Author: Laaknor
 
 "article-languages-label" = "Velg språk";
 "article-languages-cancel" = "Avbryt";
@@ -145,6 +146,8 @@
 "about-title" = "Om";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "bidragsytere";
+"about-testers" = "testere";
+"about-testers-details" = "Kvalitetssikret av $1";
 "about-translators" = "oversettere";
 "about-translators-details" = "Oversatt av frivillige på $1";
 "about-libraries" = "bibliotek brukt";

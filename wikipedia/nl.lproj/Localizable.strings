@@ -150,6 +150,8 @@
 "about-title" = "Over";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "bijdragers";
+"about-testers" = "testers";
+"about-testers-details" = "Getest door $1";
 "about-translators" = "vertalers";
 "about-translators-details" = "Dit app is vertaald door de vrijwillige vertalers van $1";
 "about-libraries" = "gebruikte bibliotheken";

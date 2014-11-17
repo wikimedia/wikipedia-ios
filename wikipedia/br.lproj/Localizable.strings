@@ -97,6 +97,7 @@
 "main-menu-send-feedback" = "Kasit hoc'h evezhiadennoù diwar-benn an arload";
 "main-menu-show-page-history" = "Istor ar c'hemmoù da $1";
 "main-menu-credits" = "Kredoù";
+"main-menu-about" = "Diwar-benn an arload Wikipedia";
 "main-menu-zero-faq" = "FAG Wikipedia Zero";
 "main-menu-privacy-policy" = "Reolennoù prevezded";
 "main-menu-terms-of-use" = "Termenoù implijout";
@@ -144,6 +145,18 @@
 "credits-gerrit-repo" = "Arload pennañ (Gerrit)";
 "credits-github-mirror" = "Arload melezour (GitHub)";
 "credits-external-libraries" = "Diavaez";
+"about-title" = "Diwar-benn";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "kenlabourerien";
+"about-testers" = "prouaderioù";
+"about-testers-details" = "AQ prouet gant $1";
+"about-translators" = "troerien";
+"about-translators-details" = "Troet eo bet an arload-mañ gant troerien a-youl vat e $1";
+"about-libraries" = "levraouegoù implijet";
+"about-repositories" = "Reizhiadoù daveiñ";
+"about-send-feedback" = "Kas un ali diwar-benn an arload";
+"about-product-of" = "Ur produ eus an $1";
+"about-wikimedia-foundation" = "Diazezadur Wikimedia";
 "share-menu-save-page" = "Enrollañ ar pennad";
 "share-menu-page-saved" = "Pennad enrollet";
 "share-menu-page-saved-access" = "Ali : evit monet d'ho pajennoù enrollet, bizskrivañ $1 amañ a-us pe pouezit pell war $2 amañ dindan.";

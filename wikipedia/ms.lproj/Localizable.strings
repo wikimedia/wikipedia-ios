@@ -146,6 +146,8 @@
 "about-title" = "Perihal";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "penyumbang";
+"about-testers" = "penguji";
+"about-testers-details" = "QA diuji oleh $1";
 "about-translators" = "penterjemah";
 "about-translators-details" = "Aplikasi ini diterjemahkan oleh para penterjemah sukarela di $1";
 "about-libraries" = "perpustakaan yang digunakan";

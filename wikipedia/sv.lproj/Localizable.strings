@@ -151,6 +151,8 @@
 "about-title" = "Om";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "Bidragsgivare";
+"about-testers" = "Testare";
+"about-testers-details" = "Kvalitetssäkringstestad av $1";
 "about-translators" = "Översättare";
 "about-translators-details" = "Denna app översattes av frivilliga översättare på $1";
 "about-libraries" = "Bibliotek som använts";
