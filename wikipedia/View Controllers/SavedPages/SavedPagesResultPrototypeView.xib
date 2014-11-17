@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="171" translatesAutoresizingMaskIntoConstraints="NO" id="v0D-Yl-KZk">
-                        <rect key="frame" x="129" y="5" width="171" height="110"/>
+                        <rect key="frame" x="123" y="5" width="177" height="110"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="110" id="Jj0-aB-4XH"/>
                         </constraints>
@@ -22,7 +23,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UJM-gJ-lCo">
-                        <rect key="frame" x="6" y="5" width="110" height="110"/>
+                        <rect key="frame" x="0.0" y="5" width="110" height="110"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="110" id="9hS-dG-FyP"/>
                             <constraint firstAttribute="width" constant="110" id="EFl-R6-z9N"/>
@@ -31,7 +32,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="v0D-Yl-KZk" secondAttribute="trailing" constant="20" symbolic="YES" id="IHt-As-KaF"/>
-                    <constraint firstItem="UJM-gJ-lCo" firstAttribute="leading" secondItem="RvZ-qs-wTo" secondAttribute="leading" constant="6" id="IXj-4U-VAr"/>
+                    <constraint firstItem="UJM-gJ-lCo" firstAttribute="leading" secondItem="RvZ-qs-wTo" secondAttribute="leading" id="IXj-4U-VAr"/>
                     <constraint firstAttribute="centerY" secondItem="v0D-Yl-KZk" secondAttribute="centerY" id="LTN-n1-w4t"/>
                     <constraint firstAttribute="centerY" secondItem="UJM-gJ-lCo" secondAttribute="centerY" id="PDX-Qa-XDm"/>
                     <constraint firstItem="v0D-Yl-KZk" firstAttribute="leading" secondItem="UJM-gJ-lCo" secondAttribute="trailing" constant="13" id="p37-ZO-QaS"/>
