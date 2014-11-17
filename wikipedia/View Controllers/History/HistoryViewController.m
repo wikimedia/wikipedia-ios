@@ -23,7 +23,7 @@
 #import "CoreDataHousekeeping.h"
 #import "NSObject+ConstraintsScale.h"
 
-#define HISTORY_RESULT_HEIGHT (66.0 * MENUS_SCALE_MULTIPLIER)
+#define HISTORY_RESULT_HEIGHT (80.0 * MENUS_SCALE_MULTIPLIER)
 #define HISTORY_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
 #define HISTORY_LANGUAGE_COLOR [UIColor colorWithWhite:0.0f alpha:0.4f]
 #define HISTORY_DATE_HEADER_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.6f]
