@@ -110,7 +110,7 @@
     return output;
 }
 
--(NSString *)feedbackUrl
+-(NSString *)feedbackURL
 {
     NSString *feedbackUrl = self.urls[@"feedback"];
     feedbackUrl = [feedbackUrl stringByReplacingOccurrencesOfString:@"$1" withString:[WikipediaAppUtils versionedUserAgent]];
