@@ -1,6 +1,7 @@
 // Messages for South Azerbaijani (تورکجه)
 // Exported from translatewiki.net
 // Author: Arjanizary
+// Author: Koroğlu
 
 "article-languages-label" = "دیل سئچ";
 "article-languages-cancel" = "پوْز";
@@ -15,16 +16,16 @@
 "zero-interstitial-cancel" = "بوردا قال";
 "account-creation-saving" = "ساخلانیلیر...";
 "account-creation-login" = "اؤنجه‌دن حسابینیز وارمی؟ گیرینیز.";
-"account-creation-username-placeholder-text" = "ایستیفاده‌چی آدی";
+"account-creation-username-placeholder-text" = "ایشلدن آدی";
 "account-creation-password-placeholder-text" = "رمز";
 "login-user-blocked" = "ایستیفاده‌چی باغلانیب.";
-"login-username-placeholder-text" = "ایستیفاده‌چی آدی";
+"login-username-placeholder-text" = "ایشلدن آدی";
 "login-password-placeholder-text" = "رمز";
 "wikitext-upload-save" = "ساخلانیلیر...";
 "wikitext-upload-save-sign-in" = "گیریش";
 "wikitext-upload-save-anonymously" = "آدسیز ساخلا";
 "open-link-cancel" = "پوْز";
-"search-searching" = "آخداریلیر...";
+"search-searching" = "آختاریلیر...";
 "search-field-placeholder-text" = "ویکی‌پئدیادا آختار";
 "search-loading-section-zero" = "مقاله‌نین ایلک بؤلومو یوکله‌نیر...";
 "search-loading-section-remaining" = "مقاله‌نین قالانی یوکله‌نیر...";

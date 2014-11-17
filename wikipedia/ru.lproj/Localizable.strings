@@ -148,6 +148,8 @@
 "about-title" = "О приложении";
 "about-wikipedia" = "Википедия";
 "about-contributors" = "авторы";
+"about-testers" = "тестеры";
+"about-testers-details" = "В/А, протестированные $1";
 "about-translators" = "переводчики";
 "about-translators-details" = "Это приложение было переведено добровольцами на $1";
 "about-libraries" = "использованые библиотеки";

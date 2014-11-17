@@ -150,6 +150,8 @@
 "about-title" = "このアプリについて";
 "about-wikipedia" = "ウィキペディアについて";
 "about-contributors" = "貢献者";
+"about-testers" = "テスター";
+"about-testers-details" = "$1 によって品質保証テストされました";
 "about-translators" = "翻訳者";
 "about-translators-details" = "このアプリは$1においてボランティア翻訳者により翻訳されました。";
 "about-libraries" = "使用ライブラリについて";

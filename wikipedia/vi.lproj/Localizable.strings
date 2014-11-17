@@ -146,6 +146,8 @@
 "about-title" = "Giới thiệu";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "người đóng góp";
+"about-testers" = "kiểm thử viên";
+"about-testers-details" = "Do kiểm thử viên tại $1 đảm bảo chất lượng";
 "about-translators" = "biên dịch viên";
 "about-translators-details" = "Biên dịch bởi những tình nguyện viên tại $1";
 "about-libraries" = "thư viện được sử dụng";
