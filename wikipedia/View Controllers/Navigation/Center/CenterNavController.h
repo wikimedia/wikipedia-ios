@@ -37,5 +37,3 @@ typedef enum {
 @property (nonatomic) BOOL isTransitioningBetweenViewControllers;
 
 @end
-
-//TODO: maybe use currentTopMenuTextFieldText instead of currentSearchString?

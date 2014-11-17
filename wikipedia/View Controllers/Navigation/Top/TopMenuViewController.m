@@ -54,7 +54,6 @@
 @property (strong, nonatomic) MenuButton *buttonDone;
 @property (strong, nonatomic) MenuButton *buttonCheck;
 @property (strong, nonatomic) UILabel *label;
-@property (strong, nonatomic) NSString *lastSearchString;
 // Used for constraining container sub-views.
 @property (strong, nonatomic) NSString *navBarSubViewsHorizontalVFLString;
 @property (strong, nonatomic) NSDictionary *navBarSubViews;
@@ -76,9 +75,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.currentSearchResultsOrdered = @[];
-    self.currentSearchString = @"";
+
+    self.searchResultsController = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
 
     [self setupNavbarContainerSubviews];
 
@@ -90,8 +88,6 @@
 
     // This needs to happend *after* navBarSubViews are set up.
     self.navBarMode = NAVBAR_MODE_DEFAULT;
-    
-    self.lastSearchString = @"";
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -230,7 +226,7 @@
     [clearButton addTarget:self action:@selector(clearTextFieldText) forControlEvents:UIControlEventTouchUpInside];
     
     self.textFieldContainer.textField.rightView = clearButton;
-    self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeNever;
+    [self updateClearButtonVisibility];
 
     WikiGlyphButton *(^getWikiGlyphButton)(NSString *, NSString *accessLabel, NavBarItemTag, CGFloat) =
     ^WikiGlyphButton *(NSString *character, NSString *accessLabel, NavBarItemTag tag, CGFloat size) {
@@ -573,7 +569,7 @@
         case NAVBAR_BUTTON_CANCEL:
             self.navBarMode = NAVBAR_MODE_DEFAULT;
             [self updateTOCButtonVisibility];
-            [self clearSearchResults];
+            [self hideSearchResultsController];
             break;
         default:
             break;
@@ -594,17 +590,17 @@
 
 -(void)showSearchResultsController
 {
-    SearchResultsController *searchResultsVC = [NAV searchNavStackForViewControllerOfClass:[SearchResultsController class]];
-
-    if(searchResultsVC){
-        if (NAV.topViewController == searchResultsVC) {
-            [searchResultsVC refreshSearchResults];
-        }else{
-            [ROOT popToViewController:searchResultsVC animated:NO];
-        }
+    if([NAV.viewControllers containsObject:self.searchResultsController]){
+        [ROOT popToViewController:self.searchResultsController animated:NO];
     }else{
-        SearchResultsController *searchResultsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
-        [ROOT pushViewController:searchResultsVC animated:NO];
+        [ROOT pushViewController:self.searchResultsController animated:NO];
+    }
+}
+
+-(void)hideSearchResultsController
+{
+    if (NAV.topViewController == self.searchResultsController) {
+        [ROOT popViewControllerAnimated:NO];
     }
 }
 
@@ -612,45 +608,29 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeAlways;
-
     if (self.textFieldContainer.textField.text.length == 0){
-        // Remeber user's last search term. Must come before the
+        // Remember user's last search term. Must come before the
         // @"SearchFieldBecameFirstResponder" notification is posted.
-        if (self.lastSearchString.length != 0) self.textFieldContainer.textField.text = self.lastSearchString;
+        if (self.searchResultsController.searchString.length != 0){
+            self.textFieldContainer.textField.text = self.searchResultsController.searchString;
+        }
     }
+
+    [self.textFieldContainer.textField selectAll:nil];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchFieldBecameFirstResponder" object:self userInfo:nil];
+
+    [self showSearchResultsController];
     
-    if (self.textFieldContainer.textField.text.length == 0){
-        self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeNever;
-    }else{
-        [self showSearchResultsController];
-    }
+    [self updateClearButtonVisibility];
 }
 
 -(void)clearTextFieldText
 {
     self.textFieldContainer.textField.text = @"";
-    self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeNever;
-    self.lastSearchString = @"";
-
-    if (self.navBarMode == NAVBAR_MODE_SEARCH) {
-        //[self clearSearchResults];
-    }else{
-        // So NavTextFieldTextChanged notification will fire when text cleared.
-        [self searchStringChanged];
-    }
-}
-
--(void)clearSearchResults
-{
-    SearchResultsController *searchResultsVC = [NAV searchNavStackForViewControllerOfClass:[SearchResultsController class]];
-    [searchResultsVC clearSearchResults];
-    
-    if (NAV.topViewController == searchResultsVC) {
-        [ROOT popViewControllerAnimated:NO];
-    }
+    [self updateClearButtonVisibility];
+    self.searchResultsController.searchString = @"";
+    [self.searchResultsController clearSearchResults];
 }
 
 - (void)searchStringChanged
@@ -661,11 +641,9 @@
 
     if (self.navBarMode == NAVBAR_MODE_SEARCH) {
         
-        self.currentSearchString = trimmedSearchString;
+        self.searchResultsController.searchString = trimmedSearchString;
         
-        self.lastSearchString = trimmedSearchString;
-        
-        [self showSearchResultsController];
+        [self.searchResultsController search];
         
     }else{
     
@@ -674,11 +652,7 @@
                                                           userInfo: @{@"text": searchString}];
     }
     
-    if (trimmedSearchString.length == 0){
-        self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeNever;
-        return;
-    }
-    self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeAlways;
+    [self updateClearButtonVisibility];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -696,9 +670,15 @@
     // been told to hide while transistioning between view controllers. Without this, the first time a
     // search term is entered on iOS 6 they keyboard will immediately hide. That's bad.
 
-    self.textFieldContainer.textField.rightViewMode = UITextFieldViewModeNever;
+    [self updateClearButtonVisibility];
     
     return (NAV.isTransitioningBetweenViewControllers) ? NO : YES;
+}
+
+-(void)updateClearButtonVisibility
+{
+    self.textFieldContainer.textField.rightViewMode =
+        (self.textFieldContainer.textField.text.length == 0) ? UITextFieldViewModeNever : UITextFieldViewModeAlways;
 }
 
 #pragma mark Memory

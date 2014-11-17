@@ -49,12 +49,11 @@ typedef enum {
     NAVBAR_STYLE_NIGHT
 } NavBarStyle;
 
-@class TopMenuContainerView;
+@class TopMenuContainerView, SearchResultsController;
 
 @interface TopMenuViewController : UIViewController <UITextFieldDelegate, UISearchBarDelegate>
 
-@property (strong, nonatomic) NSString *currentSearchString;
-@property (strong, atomic) NSArray *currentSearchResultsOrdered;
+@property (strong, nonatomic) SearchResultsController *searchResultsController;
 
 @property (nonatomic) NavBarStyle navBarStyle;
 @property (nonatomic) NavBarMode navBarMode;

@@ -29,10 +29,9 @@
     ArticleDataContextSingleton *articleDataContext_;
 }
 
-@property (nonatomic, strong) NSArray *searchResultsOrdered;
 @property (nonatomic, strong) NSString *searchSuggestion;
 @property (nonatomic, weak) IBOutlet UITableView *searchResultsTable;
-@property (nonatomic, strong) NSArray *currentSearchStringWordsToHighlight;
+@property (nonatomic, strong) NSArray *searchStringWordsToHighlight;
 
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic, strong) NSString *cachePath;
@@ -56,6 +55,8 @@
 {
     [super viewDidLoad];
 
+    self.searchString = @"";
+    
     self.placeholderImage = [UIImage imageNamed:@"logo-placeholder-search.png"];
     
     // NSCachesDirectory can be used as temp storage. iOS will clear this directory if it needs to so
@@ -64,13 +65,13 @@
     NSArray *cachePaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     self.cachePath = [cachePaths objectAtIndex:0];
 
-    self.currentSearchStringWordsToHighlight = @[];
+    self.searchStringWordsToHighlight = @[];
     
     articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
 
     scrollViewDragBeganVerticalOffset_ = 0.0f;
 
-    self.searchResultsOrdered = [[NSMutableArray alloc] init];
+    self.searchResults = @[];
     self.searchSuggestion = nil;
     self.navigationItem.hidesBackButton = YES;
 
@@ -90,13 +91,18 @@
     [self.didYouMeanButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didYouMeanButtonPushed)]];
 }
 
+-(void)dealloc
+{
+    [self.searchTypeMenu removeObserver:self forKeyPath:@"searchType"];
+}
+
 -(void)didYouMeanButtonPushed
 {
-    // Fake out user having typed in the "did you mean" term.
     [self.didYouMeanButton hide];
     TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
     textFieldContainer.textField.text = self.searchSuggestion;
-    [textFieldContainer.textField sendActionsForControlEvents:UIControlEventEditingChanged];
+    self.searchString = self.searchSuggestion;
+    [self searchAfterDelay:@0.0f];
 }
 
 - (void)observeValueForKeyPath: (NSString *)keyPath
@@ -105,15 +111,8 @@
                        context: (void *)context
 {
     if ((object == self.searchTypeMenu) && [keyPath isEqualToString:@"searchType"]) {
-        [self refreshSearchResultsAfterDelay:@0.0f];
+        [self searchAfterDelay:@0.0f];
     }
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [self refreshSearchResults];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -122,9 +121,17 @@
 
     [self cancelDelayedSearch];
     
-    [self.searchTypeMenu removeObserver:self forKeyPath:@"searchType"];
-    
     [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    // Important to only auto-search when the view appears if-and-only-if it isn't already showing results!
+    if ((self.searchString.length > 0) && (self.searchResults.count == 0)) {
+        [self searchAfterDelay:@0.0f];
+    }
 }
 
 -(void)cancelDelayedSearch
@@ -135,14 +142,18 @@
     }
 }
 
--(void)refreshSearchResults
+-(void)search
 {
-    CGFloat delay = (self.searchTypeMenu.searchType == SEARCH_TYPE_TITLES) ? SEARCH_DELAY_PREFIX : SEARCH_DELAY_FULL_TEXT;
-    
-    [self refreshSearchResultsAfterDelay:@(delay)];
+    if (self.searchString.length == 0) {
+        [self clearSearchResults];
+    }else{
+        CGFloat delay = (self.searchTypeMenu.searchType == SEARCH_TYPE_TITLES) ? SEARCH_DELAY_PREFIX : SEARCH_DELAY_FULL_TEXT;
+        
+        [self searchAfterDelay:@(delay)];
+    }
 }
 
--(void)refreshSearchResultsAfterDelay:(NSNumber *)delay
+-(void)searchAfterDelay:(NSNumber *)delay
 {
     [self cancelDelayedSearch];
 
@@ -157,22 +168,22 @@
 {
     if (self.navigationController.topViewController != self) return;
 
-    if (ROOT.topMenuViewController.currentSearchString.length == 0) return;
+    if (self.searchString.length == 0) return;
     
     [self updateWordsToHighlight];
     
-    [self searchForTerm:ROOT.topMenuViewController.currentSearchString];
+    [self searchForTerm:self.searchString];
 }
 
 -(void)updateWordsToHighlight
 {
-    // Call this only when currentSearchString is updated. Keeps the list of words to highlight up to date.
-    // Get the words by splitting currentSearchString on a combination of whitespace and punctuation
+    // Call this only when searchString is updated. Keeps the list of words to highlight up to date.
+    // Get the words by splitting searchString on a combination of whitespace and punctuation
     // character sets so search term words get highlighted even if the puncuation in the result is slightly
     // different from the punctuation in the retrieved search result title.
     NSMutableCharacterSet *charSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
     [charSet formUnionWithCharacterSet:[NSMutableCharacterSet punctuationCharacterSet]];
-    self.currentSearchStringWordsToHighlight = [ROOT.topMenuViewController.currentSearchString componentsSeparatedByCharactersInSet:charSet];
+    self.searchStringWordsToHighlight = [self.searchString componentsSeparatedByCharactersInSet:charSet];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -192,8 +203,9 @@
 
 -(void)clearSearchResults
 {
+    [self.searchMessageLabel hide];
     [self.didYouMeanButton hide];
-    self.searchResultsOrdered = @[];
+    self.searchResults = @[];
     self.searchSuggestion = nil;
     [self.searchResultsTable reloadData];
     
@@ -215,11 +227,9 @@
                 [self fadeAlert];
                 [self.searchMessageLabel hide];
 
-                self.searchResultsOrdered = ((SearchResultFetcher *)sender).searchResults;
+                self.searchResults = ((SearchResultFetcher *)sender).searchResults;
 
                 //NSLog(@"self.searchResultsOrdered = %@", self.searchResultsOrdered);
-                
-                ROOT.topMenuViewController.currentSearchResultsOrdered = self.searchResultsOrdered.copy;
                 
                 // We have search titles! Show them right away!
                 // NSLog(@"FIRE ONE! Show search result titles.");
@@ -227,7 +237,7 @@
 
                 // Get WikiData Id's to pass to WikiDataShortDescriptionFetcher.
                 NSMutableArray *wikiDataIds = @[].mutableCopy;
-                for (NSDictionary *page in self.searchResultsOrdered) {
+                for (NSDictionary *page in self.searchResults) {
                     id wikiDataId = page[@"wikibase_item"];
                     if(wikiDataId && [wikiDataId isKindOfClass:[NSString class]]){
                         [wikiDataIds addObject:wikiDataId];
@@ -278,7 +288,7 @@
                 NSArray *visibleRowIndexPaths = [self.searchResultsTable indexPathsForVisibleRows];
                 for (NSIndexPath *thisIndexPath in visibleRowIndexPaths.copy) {
                     
-                    NSDictionary *rowData = self.searchResultsOrdered[thisIndexPath.row];
+                    NSDictionary *rowData = self.searchResults[thisIndexPath.row];
                     NSString *url = rowData[@"thumbnail"][@"source"];
                     if ([url.lastPathComponent isEqualToString:fileName]) {
                         SearchResultCell *cell = (SearchResultCell *)[self.searchResultsTable cellForRowAtIndexPath:thisIndexPath];
@@ -300,7 +310,7 @@
                 NSDictionary *wikiDataShortDescriptions = (NSDictionary *)userData;
 
                 // Add wikidata descriptions to respective search results.
-                for (NSMutableDictionary *d in self.searchResultsOrdered) {
+                for (NSMutableDictionary *d in self.searchResults) {
                     NSString *wikiDataId = d[@"wikibase_item"];
                     if(wikiDataId){
                         if ([wikiDataShortDescriptions objectForKey:wikiDataId]) {
@@ -345,7 +355,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.searchResultsOrdered.count;
+    return self.searchResults.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -365,13 +375,13 @@
     static NSString *cellID = @"SearchResultCell";
     SearchResultCell *cell = (SearchResultCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
 
-    NSString *title = self.searchResultsOrdered[indexPath.row][@"title"];
+    NSString *title = self.searchResults[indexPath.row][@"title"];
 
-    NSString *wikidata_description = self.searchResultsOrdered[indexPath.row][@"wikidata_description"];
+    NSString *wikidata_description = self.searchResults[indexPath.row][@"wikidata_description"];
 
-    [cell setTitle:title description:wikidata_description highlightWords:self.currentSearchStringWordsToHighlight];
+    [cell setTitle:title description:wikidata_description highlightWords:self.searchStringWordsToHighlight];
     
-    NSString *thumbURL = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"source"];
+    NSString *thumbURL = self.searchResults[indexPath.row][@"thumbnail"][@"source"];
 
     // Set thumbnail placeholder
     cell.imageView.image = self.placeholderImage;
@@ -401,7 +411,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *title = self.searchResultsOrdered[indexPath.row][@"title"];
+    NSString *title = self.searchResults[indexPath.row][@"title"];
 
     // Set CurrentArticleTitle so web view knows what to load.
     title = [title wikiTitleWithoutUnderscores];

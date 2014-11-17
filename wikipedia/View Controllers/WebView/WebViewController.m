@@ -57,6 +57,7 @@
 #import "WikiGlyph_Chars_iOS.h"
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"
+#import "SearchResultsController.h"
 
 #import "ArticleFetcher.h"
 #import "AssetsFileFetcher.h"
@@ -1494,11 +1495,13 @@ typedef enum {
                                domain: domain
                       discoveryMethod: [NAV getStringForDiscoveryMethod:discoveryMethod]];
 
+    /*
     // Reset the search field to its placeholder text after 5 seconds.
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
         if (!textFieldContainer.textField.isFirstResponder) textFieldContainer.textField.text = @"";
     });
+    */
 }
 
 - (void)invalidateCacheForPageTitle: (MWPageTitle *)pageTitle
@@ -1577,7 +1580,7 @@ typedef enum {
                         NSPredicate *articlePredicate =
                         [NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", article.titleObj.text];
                         NSDictionary *articleDictFromSearchResults =
-                        [ROOT.topMenuViewController.currentSearchResultsOrdered firstMatchForPredicate:articlePredicate];
+                        [ROOT.topMenuViewController.searchResultsController.searchResults firstMatchForPredicate:articlePredicate];
                         if (articleDictFromSearchResults) {
                             NSString *thumbURL = articleDictFromSearchResults[@"thumbnail"][@"source"];
                             thumbURL = [thumbURL getUrlWithoutScheme];
