@@ -205,7 +205,7 @@
     self.textFieldContainer = [[TopMenuTextFieldContainer alloc] initWithMargin:textFieldContainerMargin];
     self.textFieldContainer.translatesAutoresizingMaskIntoConstraints = NO;
     self.textFieldContainer.textField.delegate = self;
-    self.textFieldContainer.textField.returnKeyType = UIReturnKeyDone;
+    self.textFieldContainer.textField.returnKeyType = UIReturnKeyGo;
     self.textFieldContainer.textField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.textFieldContainer.textField.font = SEARCH_TEXT_FIELD_FONT;
     self.textFieldContainer.textField.textColor = SEARCH_TEXT_FIELD_HIGHLIGHTED_COLOR;
@@ -661,6 +661,10 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    if (self.navBarMode == NAVBAR_MODE_SEARCH) {
+        [self.searchResultsController doneTapped];
+    }
+
     [self hideKeyboard];
     return YES;
 }

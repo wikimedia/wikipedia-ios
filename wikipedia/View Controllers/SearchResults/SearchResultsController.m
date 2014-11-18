@@ -24,6 +24,7 @@
 #import "WikiDataShortDescriptionFetcher.h"
 #import "SearchMessageLabel.h"
 #import "RecentSearchesViewController.h"
+#import "NSArray+Predicate.h"
 
 @interface SearchResultsController (){
     CGFloat scrollViewDragBeganVerticalOffset_;
@@ -457,15 +458,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self saveSearchTermToRecentList];
+    [self hideKeyboard];
 
     NSString *title = self.searchResults[indexPath.row][@"title"];
+
+    [self loadArticleWithTitle:title];
+}
+
+-(void)loadArticleWithTitle:(NSString *)title
+{
+    [self saveSearchTermToRecentList];
 
     // Set CurrentArticleTitle so web view knows what to load.
     title = [title wikiTitleWithoutUnderscores];
     
-    [self hideKeyboard];
-
     [NAV loadArticleWithTitle: [MWPageTitle titleWithString:title]
                        domain: [SessionSingleton sharedInstance].domain
                      animated: YES
@@ -474,11 +480,36 @@
                    popToWebVC: YES];
 }
 
+-(void)doneTapped
+{
+    if(self.searchResults.count == 0) return;
+
+    // If there is an exact match in the search results for the current search term,
+    // load that article.
+    if ([self perfectSearchStringTitleMatchFoundInSearchResults]){
+        [self loadArticleWithTitle:self.searchString];
+    }else{
+        // Else load title of first result.
+        NSDictionary *firstItem = self.searchResults.firstObject;
+        if (firstItem[@"title"]) [self loadArticleWithTitle:firstItem[@"title"]];
+    }
+}
+
 -(void)saveSearchTermToRecentList
 {
     [self.recentSearchesViewController saveTerm: self.searchString
                                       forDomain: [SessionSingleton sharedInstance].domain
                                            type: self.searchTypeMenu.searchType];
+}
+
+-(BOOL)perfectSearchStringTitleMatchFoundInSearchResults
+{
+    if(self.searchResults.count == 0) return NO;
+    id perfectMatch =
+        [self.searchResults firstMatchForPredicate:[NSPredicate predicateWithFormat:@"(title == %@)", self.searchString]];
+    
+    BOOL perfectMatchFound = perfectMatch ? YES : NO;
+    return perfectMatchFound;
 }
 
 #pragma mark Memory
