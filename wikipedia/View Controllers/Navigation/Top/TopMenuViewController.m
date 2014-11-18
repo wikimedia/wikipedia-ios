@@ -567,6 +567,9 @@
         }
             break;
         case NAVBAR_BUTTON_CANCEL:
+
+            [self.searchResultsController saveSearchTermToRecentList];
+        
             self.navBarMode = NAVBAR_MODE_DEFAULT;
             [self updateTOCButtonVisibility];
             [self hideSearchResultsController];
@@ -627,6 +630,7 @@
 
 -(void)clearTextFieldText
 {
+    [self.searchResultsController saveSearchTermToRecentList];
     self.textFieldContainer.textField.text = @"";
     [self updateClearButtonVisibility];
     self.searchResultsController.searchString = @"";

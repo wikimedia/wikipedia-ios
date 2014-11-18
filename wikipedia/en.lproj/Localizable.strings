@@ -86,6 +86,12 @@
 "search-within-articles" = "Within articles";
 "search-did-you-mean" = "Did you mean $1?";
 
+"search-recent-title" = "Recent searches";
+"search-recent-clear-confirmation-heading" = "Delete all recent searches?";
+"search-recent-clear-confirmation-sub-heading" = "This action cannot be undone!";
+"search-recent-clear-cancel" = "Cancel";
+"search-recent-clear-delete-all" = "Delete All";
+
 "main-menu-title" = "More";
 "main-menu-language-title" = "Search $1 Wikipedia";
 "main-menu-language-toggle-show" = "Show languages";

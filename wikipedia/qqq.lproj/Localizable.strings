@@ -86,6 +86,11 @@
 "search-titles" = "Button text for performing search of article titles";
 "search-within-articles" = "Button text for performing search of article content";
 "search-did-you-mean" = "Button text for searching for an alternate spelling of the search term. Parameters:\n* $1 - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'";
+"search-recent-title" = "Title for list of recent search terms";
+"search-recent-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
+"search-recent-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
+"search-recent-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
+"search-recent-clear-delete-all" = "Button text for confirming delete all action\n{{Identical|Delete all}}";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-language-title" = "Header text for default search language selection. Parameters:\n* $1 - language domain name";
 "main-menu-language-toggle-show" = "Button text for showing language list";

@@ -141,6 +141,9 @@
 		04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43ABB183442FC006C643B /* NSString+Extras.m */; };
 		04C695CE18ED08D900D9F2DA /* UIView+SearchSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C695CD18ED08D900D9F2DA /* UIView+SearchSubviews.m */; };
 		04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C695D118ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m */; };
+		04C757671A1A9E1B0084AC39 /* RecentSearchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C757651A1A9E1B0084AC39 /* RecentSearchesViewController.m */; };
+		04C7576E1A1AA2D00084AC39 /* RecentSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C7576C1A1AA2D00084AC39 /* RecentSearchCell.m */; };
+		04C7576F1A1AA2D00084AC39 /* RecentSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C7576D1A1AA2D00084AC39 /* RecentSearchCell.xib */; };
 		04C91CEB195517250035ED1B /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C91CEA195517250035ED1B /* OnboardingViewController.m */; };
 		04C91CEE195520990035ED1B /* logo-onboarding-subtitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C91CEC195520990035ED1B /* logo-onboarding-subtitle.png */; };
 		04C91CEF195520990035ED1B /* logo-onboarding-subtitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C91CED195520990035ED1B /* logo-onboarding-subtitle@2x.png */; };
@@ -504,6 +507,11 @@
 		04C695CD18ED08D900D9F2DA /* UIView+SearchSubviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SearchSubviews.m"; sourceTree = "<group>"; };
 		04C695D018ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+NoHorizontalScrolling.h"; sourceTree = "<group>"; };
 		04C695D118ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+NoHorizontalScrolling.m"; sourceTree = "<group>"; };
+		04C757641A1A9E1B0084AC39 /* RecentSearchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentSearchesViewController.h; sourceTree = "<group>"; };
+		04C757651A1A9E1B0084AC39 /* RecentSearchesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentSearchesViewController.m; sourceTree = "<group>"; };
+		04C7576B1A1AA2D00084AC39 /* RecentSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentSearchCell.h; sourceTree = "<group>"; };
+		04C7576C1A1AA2D00084AC39 /* RecentSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentSearchCell.m; sourceTree = "<group>"; };
+		04C7576D1A1AA2D00084AC39 /* RecentSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentSearchCell.xib; sourceTree = "<group>"; };
 		04C91CE9195517250035ED1B /* OnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingViewController.h; sourceTree = "<group>"; };
 		04C91CEA195517250035ED1B /* OnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingViewController.m; sourceTree = "<group>"; };
 		04C91CEC195520990035ED1B /* logo-onboarding-subtitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-onboarding-subtitle.png"; sourceTree = "<group>"; };
@@ -1339,6 +1347,7 @@
 				04F27B6D18FE0F2E00EDD838 /* PageHistory */,
 				04DD89AE18BFE63A00DD5DAD /* Preview */,
 				D49B2ECF196C684F002F035D /* PullToRefresh */,
+				04C757621A1A9DC50084AC39 /* RecentSearches */,
 				04CCA0BD19830837000E982A /* References */,
 				0412CC5F192536580010E616 /* Root */,
 				04293002186030B0002A13FC /* SavedPages */,
@@ -1427,6 +1436,18 @@
 				04D149D818877343006B4104 /* Alerts */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		04C757621A1A9DC50084AC39 /* RecentSearches */ = {
+			isa = PBXGroup;
+			children = (
+				04C757641A1A9E1B0084AC39 /* RecentSearchesViewController.h */,
+				04C757651A1A9E1B0084AC39 /* RecentSearchesViewController.m */,
+				04C7576B1A1AA2D00084AC39 /* RecentSearchCell.h */,
+				04C7576C1A1AA2D00084AC39 /* RecentSearchCell.m */,
+				04C7576D1A1AA2D00084AC39 /* RecentSearchCell.xib */,
+			);
+			path = RecentSearches;
 			sourceTree = "<group>";
 		};
 		04C91CE8195517030035ED1B /* Onboarding */ = {
@@ -1911,6 +1932,7 @@
 				04123630189C29EA00E0CF8E /* abuse-filter-disallowed@2x.png in Resources */,
 				D4BC22B4181E9E6300CAC673 /* empty.png in Resources */,
 				04123636189C29EA00E0CF8E /* abuse-filter-flag-white.png in Resources */,
+				04C7576F1A1AA2D00084AC39 /* RecentSearchCell.xib in Resources */,
 				041E588319B2D2C500AC140C /* logo-placeholder-saved@2x.png in Resources */,
 				04090A33187F53E400577EDF /* clear.png in Resources */,
 				0412362E189C29EA00E0CF8E /* abuse-filter-disallowed.png in Resources */,
@@ -2131,6 +2153,7 @@
 				0487048919F8262600B7D307 /* PageHistoryFetcher.m in Sources */,
 				040E5C841846AC13007AFE6F /* ArticleDataContextSingleton.m in Sources */,
 				047528B21913110000F2CDA8 /* Section+LeadSection.m in Sources */,
+				04C757671A1A9E1B0084AC39 /* RecentSearchesViewController.m in Sources */,
 				04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */,
 				04224501197F5E09005DD0BF /* BulletedLabel.m in Sources */,
 				04B6050C193522650007185A /* WikiGlyphButton.m in Sources */,
@@ -2158,6 +2181,7 @@
 				04A97E8718B81D5D0046B166 /* AccountCreationViewController.m in Sources */,
 				04530AF81935C07500022512 /* ModalContentViewController.m in Sources */,
 				0487048219F8262600B7D307 /* AssetsFileFetcher.m in Sources */,
+				04C7576E1A1AA2D00084AC39 /* RecentSearchCell.m in Sources */,
 				04292FF8185FBB0B002A13FC /* SearchResultsController.m in Sources */,
 				04478633185145090050563B /* HistoryViewController.m in Sources */,
 				D4B0AE051936604700F0AC90 /* EditFunnel.m in Sources */,

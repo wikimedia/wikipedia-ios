@@ -23,6 +23,7 @@
 #import "SearchDidYouMeanButton.h"
 #import "WikiDataShortDescriptionFetcher.h"
 #import "SearchMessageLabel.h"
+#import "RecentSearchesViewController.h"
 
 @interface SearchResultsController (){
     CGFloat scrollViewDragBeganVerticalOffset_;
@@ -42,9 +43,46 @@
 
 @property (nonatomic, strong) NSTimer *delayedSearchTimer;
 
+@property (strong, nonatomic) RecentSearchesViewController *recentSearchesViewController;
+
+@property (nonatomic, weak) IBOutlet UIView *recentSearchesContainer;
+
 @end
 
 @implementation SearchResultsController
+
+-(void)setSearchString:(NSString *)searchString
+{
+    _searchString = searchString;
+    
+    [self updateRecentSearchesContainerVisibility];
+}
+
+-(void)updateRecentSearchesContainerVisibility
+{
+    BOOL shouldHide = (
+        (self.searchString.length == 0)
+        &&
+        (self.recentSearchesViewController.recentSearchesItemCount.integerValue > 0)
+    ) ? NO : YES;
+
+    if (self.recentSearchesContainer.hidden == shouldHide) return;
+
+    [UIView transitionWithView: self.recentSearchesContainer
+                      duration: 0.25
+                       options: UIViewAnimationOptionTransitionCrossDissolve
+                    animations: NULL
+                    completion: NULL];
+    
+    self.recentSearchesContainer.hidden = shouldHide;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString: @"RecentSearchesViewController_embed"]) {
+		self.recentSearchesViewController = (RecentSearchesViewController *) [segue destinationViewController];
+	}
+}
 
 - (BOOL)prefersStatusBarHidden
 {
@@ -89,11 +127,17 @@
 
     self.didYouMeanButton.userInteractionEnabled = YES;
     [self.didYouMeanButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didYouMeanButtonPushed)]];
+
+    [self.recentSearchesViewController addObserver: self
+                                        forKeyPath: @"recentSearchesItemCount"
+                                           options: NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                                           context: nil];
 }
 
 -(void)dealloc
 {
     [self.searchTypeMenu removeObserver:self forKeyPath:@"searchType"];
+    [self.recentSearchesViewController removeObserver:self forKeyPath: @"recentSearchesItemCount"];
 }
 
 -(void)didYouMeanButtonPushed
@@ -112,6 +156,8 @@
 {
     if ((object == self.searchTypeMenu) && [keyPath isEqualToString:@"searchType"]) {
         [self searchAfterDelay:@0.0f];
+    }else if ((object == self.recentSearchesViewController) && [keyPath isEqualToString:@"recentSearchesItemCount"]) {
+        [self updateRecentSearchesContainerVisibility];
     }
 }
 
@@ -411,6 +457,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self saveSearchTermToRecentList];
+
     NSString *title = self.searchResults[indexPath.row][@"title"];
 
     // Set CurrentArticleTitle so web view knows what to load.
@@ -424,6 +472,13 @@
               discoveryMethod: DISCOVERY_METHOD_SEARCH
             invalidatingCache: NO
                    popToWebVC: YES];
+}
+
+-(void)saveSearchTermToRecentList
+{
+    [self.recentSearchesViewController saveTerm: self.searchString
+                                      forDomain: [SessionSingleton sharedInstance].domain
+                                           type: self.searchTypeMenu.searchType];
 }
 
 #pragma mark Memory
