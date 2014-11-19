@@ -259,10 +259,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *selectedLangInfo = self.filteredLanguagesData[indexPath.row];
-
-    [[NSNotificationCenter defaultCenter] postNotificationName: @"LanguageItemSelected"
-                                                        object: self
-                                                      userInfo: selectedLangInfo];
+    [self.languageSelectionDelegate languageSelected:selectedLangInfo sender:self];
 }
 
 #pragma mark - Memory

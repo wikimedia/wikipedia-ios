@@ -34,6 +34,8 @@ typedef enum {
 -(ArticleDiscoveryMethod)getDiscoveryMethodForString:(NSString *)string;
 -(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method;
 
+-(void)switchPreferredLanguageToId:(NSString *)languageId name:(NSString *)name;
+
 @property (nonatomic) BOOL isTransitioningBetweenViewControllers;
 
 @end

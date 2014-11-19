@@ -25,4 +25,4 @@
 #import "CenterNavController.h"
 
 #define ROOT ((RootViewController *)[UIApplication sharedApplication].delegate.window.rootViewController)
-#define NAV (ROOT.centerNavController)
+#define NAV ROOT.centerNavController
