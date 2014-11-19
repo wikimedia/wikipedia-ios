@@ -48,6 +48,8 @@
 
 @property (nonatomic, weak) IBOutlet UIView *recentSearchesContainer;
 
+@property (nonatomic) BOOL ignoreScrollEvents;
+
 @end
 
 @implementation SearchResultsController
@@ -94,6 +96,7 @@
 {
     [super viewDidLoad];
 
+    self.ignoreScrollEvents = NO;
     self.searchString = @"";
     
     self.placeholderImage = [UIImage imageNamed:@"logo-placeholder-search.png"];
@@ -235,6 +238,8 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (self.ignoreScrollEvents) return;
+    
     // Hide the keyboard if it was visible when the results are scrolled, but only if
     // the results have been scrolled in excess of some small distance threshold first.
     // This prevents tiny scroll adjustments, which seem to occur occasionally for some
@@ -304,7 +309,7 @@
                 [self fadeAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [self.searchMessageLabel showWithText:error.localizedDescription];
+                //[self.searchMessageLabel showWithText:error.localizedDescription];
                 //[self showAlert:error.localizedDescription type:ALERT_TYPE_MIDDLE duration:-1];
                 break;
         }
@@ -380,14 +385,29 @@
     }
 }
 
+-(void)scrollTableToTop
+{
+    if ([self.searchResultsTable numberOfRowsInSection:0] > 0) {
+        // Ignore scroll event so keyboard doesn't disappear.
+        self.ignoreScrollEvents = YES;
+        [UIView animateWithDuration:0.15f animations:^{
+            [self.searchResultsTable scrollToRowAtIndexPath: [NSIndexPath indexPathForRow:0 inSection:0]
+                                           atScrollPosition: UITableViewScrollPositionTop
+                                                   animated: NO];
+        } completion:^(BOOL done){
+            self.ignoreScrollEvents = NO;
+        }];
+    }
+}
+
 - (void)searchForTerm:(NSString *)searchTerm
 {
-    [self clearSearchResults];
+    [self scrollTableToTop];
 
     [self.searchMessageLabel hide];
     
     // Show "Searching..." message.
-    [self.searchMessageLabel showWithText:MWLocalizedString(@"search-searching", nil)];
+    //[self.searchMessageLabel showWithText:MWLocalizedString(@"search-searching", nil)];
     
     //[self showAlert:MWLocalizedString(@"search-searching", nil) type:ALERT_TYPE_MIDDLE duration:-1];
     

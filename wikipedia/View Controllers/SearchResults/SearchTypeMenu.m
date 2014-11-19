@@ -11,10 +11,10 @@
 #define CORNER_RADIUS (2.0f * MENUS_SCALE_MULTIPLIER)
 #define CORNERS_LEFT (UIRectCornerTopLeft|UIRectCornerBottomLeft)
 #define CORNERS_RIGHT (UIRectCornerTopRight|UIRectCornerBottomRight)
-#define BACKGROUND_COLOR SEARCH_BUTTON_BACKGROUND_COLOR
+#define BACKGROUND_COLOR [UIColor whiteColor]
 #define BORDER_WIDTH (1.0f / [UIScreen mainScreen].scale)
 #define BUTTON_PADDING (UIEdgeInsetsMake(6.0f, 6.0f, 6.0f, 6.0f))
-#define BUTTON_MARGIN (UIEdgeInsetsMake(6.0f, 12.0f, 4.0f, 12.0f))
+#define BUTTON_MARGIN (UIEdgeInsetsMake(10.0f, 12.0f, 10.0f, 12.0f))
 
 @interface SearchTypeMenu()
 
@@ -30,17 +30,17 @@
     _searchType = type;
     switch (type) {
         case SEARCH_TYPE_TITLES:
-            self.searchButtonTitles.backgroundColor = BACKGROUND_COLOR;
+            self.searchButtonTitles.backgroundColor = SEARCH_BUTTON_BACKGROUND_COLOR;
             self.searchButtonWithinArticles.backgroundColor = [UIColor whiteColor];
             self.searchButtonTitles.textColor = [UIColor whiteColor];
-            self.searchButtonWithinArticles.textColor = BACKGROUND_COLOR;
+            self.searchButtonWithinArticles.textColor = SEARCH_BUTTON_BACKGROUND_COLOR;
             self.searchButtonTitles.font = [UIFont boldSystemFontOfSize:FONT_SIZE];
             self.searchButtonWithinArticles.font = [UIFont systemFontOfSize:FONT_SIZE];
             break;
         case SEARCH_TYPE_IN_ARTCILES:
             self.searchButtonTitles.backgroundColor = [UIColor whiteColor];
-            self.searchButtonWithinArticles.backgroundColor = BACKGROUND_COLOR;
-            self.searchButtonTitles.textColor = BACKGROUND_COLOR;
+            self.searchButtonWithinArticles.backgroundColor = SEARCH_BUTTON_BACKGROUND_COLOR;
+            self.searchButtonTitles.textColor = SEARCH_BUTTON_BACKGROUND_COLOR;
             self.searchButtonWithinArticles.textColor = [UIColor whiteColor];
             self.searchButtonTitles.font = [UIFont systemFontOfSize:FONT_SIZE];
             self.searchButtonWithinArticles.font = [UIFont boldSystemFontOfSize:FONT_SIZE];
@@ -70,6 +70,8 @@
 
 -(void)didMoveToSuperview
 {
+    self.backgroundColor = BACKGROUND_COLOR;
+
     self.searchButtonTitles = [[PaddedLabel alloc] init];
     self.searchButtonWithinArticles = [[PaddedLabel alloc] init];
 
@@ -142,6 +144,10 @@
 {
     [super drawRect:rect];
 
+    // Makes very small gradient at bottom of menu so search results scrolling underneath
+    // the menu blend more seamlessly.
+    //[self drawGradientBackground:rect];
+
     // Hack to draw rounded borders exactly how we want them.
     [self drawRoundedBorders];
 }
@@ -150,7 +156,7 @@
 {
     // Hack to draw rounded borders (with inside curve rounding).
 
-    [BACKGROUND_COLOR set];
+    [SEARCH_BUTTON_BACKGROUND_COLOR set];
     
     CGContextRef currentContext = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(currentContext, BORDER_WIDTH);
@@ -171,6 +177,41 @@
     CGContextAddPath(currentContext, path2.CGPath);
 
     CGContextDrawPath(currentContext, kCGPathStroke);
+}
+
+- (void)drawGradientBackground:(CGRect)rect
+{
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+
+    // Make the gradient begin just above the bottom.
+    CGFloat gradientHeight = CGRectGetMaxY(rect) - (2.0 * MENUS_SCALE_MULTIPLIER);
+
+    // Draw top part in white.
+    CGRect topHalfRect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, gradientHeight);
+    CGContextSetRGBFillColor(ctx, 1.0, 1.0, 1.0, 1.0);
+    CGContextSetRGBStrokeColor(ctx, 1.0, 1.0, 1.0, 1.0);
+    CGContextFillRect(ctx, topHalfRect);
+
+    // Draw white to transparent gradient of gradientHeight at bottom of rect.
+    // Gradient drawing based on: http://stackoverflow.com/a/422208
+    CGGradientRef gradient;
+    CGColorSpaceRef rgbSpace;
+    size_t locationCount = 2;
+    CGFloat locations[2] = { 0.0, 1.0 };
+    CGFloat colorComponents[8] = {
+        1.0, 1.0, 1.0, 1.0,    // starting color
+        1.0, 1.0, 1.0, 0.0     // ending color
+    };
+
+    rgbSpace = CGColorSpaceCreateDeviceRGB();
+    gradient = CGGradientCreateWithColorComponents(rgbSpace, colorComponents, locations, locationCount);
+
+    CGPoint midCenter = CGPointMake(CGRectGetMidX(rect), gradientHeight);
+    CGPoint bottomCenter = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
+    CGContextDrawLinearGradient(ctx, gradient, midCenter, bottomCenter, 0);
+
+    CGGradientRelease(gradient);
+    CGColorSpaceRelease(rgbSpace);
 }
 
 @end
