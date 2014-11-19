@@ -87,7 +87,7 @@ typedef enum {
     DISPLAY_ALL_SECTIONS = 2
 } DisplayMode;
 
-@interface WebViewController (){
+@interface WebViewController () <LanguageSelectionDelegate>{
 
 }
 
@@ -254,12 +254,6 @@ typedef enum {
     
     
     self.bottomBarViewBottomConstraint = nil;
-
-    // This needs to be in viewDidLoad.
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(languageItemSelectedNotification:)
-                                                 name: @"LanguageItemSelected"
-                                               object: nil];
 
     self.view.backgroundColor = CHROME_COLOR;
 
@@ -913,11 +907,6 @@ typedef enum {
 -(void)dealloc
 {
     [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
-
-    // This needs to be in dealloc.
-    [[NSNotificationCenter defaultCenter] removeObserver: self
-                                                    name: @"LanguageItemSelected"
-                                                  object: nil];
 }
 
 #pragma mark Webview obj-c to javascript bridge
@@ -2175,6 +2164,7 @@ typedef enum {
                             block: ^(LanguagesViewController *languagesVC){
                                 languagesVC.downloadLanguagesForCurrentArticle = YES;
                                 languagesVC.invokingVC = self;
+                                languagesVC.languageSelectionDelegate = self;
                             }];
 }
 
@@ -2185,18 +2175,10 @@ typedef enum {
                             block: nil];
 }
 
-- (void)languageItemSelectedNotification:(NSNotification *)notification
+- (void)languageSelected:(NSDictionary *)langData sender:(LanguagesViewController *)sender
 {
-    // Ensure action is only taken if the web view controller presented the lang picker.
-    LanguagesViewController *languagesVC = notification.object;
-    if (languagesVC.invokingVC != self) return;
-
-    NSDictionary *selectedLangInfo = [notification userInfo];
-
-    MWPageTitle *pageTitle = [MWPageTitle titleWithString:selectedLangInfo[@"*"]];
-
-    [NAV loadArticleWithTitle: pageTitle
-                       domain: selectedLangInfo[@"code"]
+    [NAV loadArticleWithTitle: [MWPageTitle titleWithString:langData[@"*"]]
+                       domain: langData[@"code"]
                      animated: NO
               discoveryMethod: DISCOVERY_METHOD_SEARCH
             invalidatingCache: NO

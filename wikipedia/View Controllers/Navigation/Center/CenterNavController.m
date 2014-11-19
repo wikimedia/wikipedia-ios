@@ -209,7 +209,7 @@
                                domain: [SessionSingleton sharedInstance].currentArticleDomain];
     }];
     if (!articleID) {
-        [NAV loadTodaysArticle];
+        [self loadTodaysArticle];
     }
 }
 
@@ -233,7 +233,7 @@
                 NSString *title = (NSString *)userData;
                 if (title) {
                     MWPageTitle *pageTitle = [MWPageTitle titleWithString:title];
-                    [NAV loadArticleWithTitle: pageTitle
+                    [self loadArticleWithTitle: pageTitle
                                        domain: [SessionSingleton sharedInstance].domain
                                      animated: YES
                               discoveryMethod: DISCOVERY_METHOD_RANDOM
@@ -245,9 +245,27 @@
             case FETCH_FINAL_STATUS_CANCELLED:
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                //[NAV showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                //[self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                 break;
         }
+    }
+}
+
+-(void)switchPreferredLanguageToId:(NSString *)languageId name:(NSString *)name
+{
+    [SessionSingleton sharedInstance].domain = languageId;
+    [SessionSingleton sharedInstance].domainName = name;
+    
+    NSString *mainArticleTitle = [SessionSingleton sharedInstance].domainMainArticleTitle;
+    if (mainArticleTitle) {
+        MWPageTitle *pageTitle = [MWPageTitle titleWithString:mainArticleTitle];
+        // Invalidate cache so present day main page article is always retrieved.
+        [self loadArticleWithTitle: pageTitle
+                            domain: languageId
+                          animated: YES
+                   discoveryMethod: DISCOVERY_METHOD_SEARCH
+                 invalidatingCache: YES
+                        popToWebVC: NO];
     }
 }
 
