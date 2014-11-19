@@ -15,23 +15,48 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wta-pq-kUh" customClass="PaddedLabel">
-                        <rect key="frame" x="16" y="5" width="306" height="65"/>
+                        <rect key="frame" x="46" y="5" width="276" height="65"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WF0-wK-GT2" userLabel="Top Border View">
+                        <rect key="frame" x="0.0" y="0.0" width="338" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="UG4-bJ-juH"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F9j-lW-tit" userLabel="Icon Label" customClass="PaddedLabel">
+                        <rect key="frame" x="4" y="1" width="42" height="74"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="42" id="T4U-j3-9Dg"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="F9j-lW-tit" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="JZH-iR-XHj"/>
                     <constraint firstAttribute="trailing" secondItem="wta-pq-kUh" secondAttribute="trailing" constant="16" id="MV9-8w-9zF"/>
                     <constraint firstAttribute="bottom" secondItem="wta-pq-kUh" secondAttribute="bottom" constant="5" id="PAe-5m-TPy"/>
+                    <constraint firstItem="F9j-lW-tit" firstAttribute="top" secondItem="WF0-wK-GT2" secondAttribute="bottom" id="bo9-ya-ZLL"/>
                     <constraint firstItem="wta-pq-kUh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="bpt-P4-5gw"/>
-                    <constraint firstItem="wta-pq-kUh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cwt-bk-d96"/>
+                    <constraint firstAttribute="bottom" secondItem="F9j-lW-tit" secondAttribute="bottom" id="bwU-R8-o2O"/>
+                    <constraint firstItem="wta-pq-kUh" firstAttribute="leading" secondItem="F9j-lW-tit" secondAttribute="trailing" id="cpq-KU-YXd"/>
+                    <constraint firstItem="WF0-wK-GT2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="dxN-m0-hNz"/>
+                    <constraint firstAttribute="trailing" secondItem="WF0-wK-GT2" secondAttribute="trailing" id="hx6-pp-9Dy"/>
+                    <constraint firstItem="WF0-wK-GT2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="o4x-vq-EsY"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="iconLabel" destination="F9j-lW-tit" id="xhd-Oy-3St"/>
                 <outlet property="label" destination="wta-pq-kUh" id="jn4-Gb-08f"/>
+                <outlet property="topBorderHeightConstraint" destination="UG4-bJ-juH" id="S5E-cW-8wo"/>
+                <outlet property="topBorderView" destination="WF0-wK-GT2" id="V8V-gw-Ee3"/>
             </connections>
-            <point key="canvasLocation" x="250" y="324"/>
+            <point key="canvasLocation" x="250" y="323"/>
         </tableViewCell>
     </objects>
 </document>
