@@ -309,6 +309,12 @@
                 [self fadeAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
+
+                if(error.code == SEARCH_RESULT_ERROR_NO_MATCHES){
+                    [self clearSearchResults];
+                    [self.searchMessageLabel showWithText:error.localizedDescription];
+                }
+            
                 //[self.searchMessageLabel showWithText:error.localizedDescription];
                 //[self showAlert:error.localizedDescription type:ALERT_TYPE_MIDDLE duration:-1];
                 break;
@@ -405,6 +411,8 @@
     [self scrollTableToTop];
 
     [self.searchMessageLabel hide];
+
+    [self.didYouMeanButton hide];
     
     // Show "Searching..." message.
     //[self.searchMessageLabel showWithText:MWLocalizedString(@"search-searching", nil)];
