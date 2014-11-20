@@ -241,14 +241,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D4AD973E19F99CD700957451 /* Pods.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = FDC9A847FCE7AA138C7D5622;
+			remoteGlobalIDString = A5B494F18AE3AC7062EECDDB;
 			remoteInfo = "Pods-AFNetworking";
 		};
 		D4AD974C19F99E4600957451 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D4AD973E19F99CD700957451 /* Pods.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = E5A0C6369E917827A057D39A;
+			remoteGlobalIDString = C73D7690357B1F8585BBD225;
 			remoteInfo = "Pods-hpple";
 		};
 /* End PBXContainerItemProxy section */
