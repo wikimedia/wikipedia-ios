@@ -24,6 +24,7 @@
 #define TRASH_COLOR [UIColor grayColor]
 #define TRASH_DISABLED_COLOR [UIColor lightGrayColor]
 #define PLIST_FILE_NAME @"Recent.plist"
+#define LIMIT 100
 
 @interface RecentSearchesViewController ()
 
@@ -103,6 +104,10 @@
                                         @"timestamp": [NSDate date],
                                         @"type": @(searchType)
                                         } atIndex:0];
+
+    if(self.tableDataArray.count > LIMIT){
+        self.tableDataArray = [self.tableDataArray subarrayWithRange:NSMakeRange(0, LIMIT)].mutableCopy;
+    }
     
     [self saveDataArrayToFile];
     [self.table reloadData];
