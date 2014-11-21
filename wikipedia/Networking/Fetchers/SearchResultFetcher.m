@@ -130,6 +130,7 @@
                      @"list": @"prefixsearch",
                      @"pssearch": self.searchTerm,
                      @"pslimit": @(SEARCH_MAX_RESULTS),
+                     @"psnamespace": @0,
                      @"format": @"json"
                      };
             break;
