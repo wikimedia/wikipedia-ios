@@ -57,11 +57,6 @@
 #define CHROME_OUTLINE_COLOR ALERT_BACKGROUND_COLOR
 #define CHROME_OUTLINE_WIDTH (1.0f / [UIScreen mainScreen].scale)
 
-typedef NS_ENUM(NSInteger, SearchType) {
-    SEARCH_TYPE_TITLES,
-    SEARCH_TYPE_IN_ARTCILES
-};
-
 #define SEARCH_DELAY_PREFIX 0.4
 #define SEARCH_DELAY_FULL_TEXT 1.0
 

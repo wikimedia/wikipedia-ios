@@ -150,7 +150,7 @@
     TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
     textFieldContainer.textField.text = self.searchSuggestion;
     self.searchString = self.searchSuggestion;
-    [self searchAfterDelay:@0.0f];
+    [self searchAfterDelay:@0.0f reason:SEARCH_REASON_DID_YOU_MEAN_TAPPED];
 }
 
 - (void)observeValueForKeyPath: (NSString *)keyPath
@@ -159,7 +159,7 @@
                        context: (void *)context
 {
     if ((object == self.searchTypeMenu) && [keyPath isEqualToString:@"searchType"]) {
-        [self searchAfterDelay:@0.0f];
+        [self searchAfterDelay:@0.0f reason:SEARCH_REASON_SEARCH_TYPE_MENU_TAPPED];
     }else if ((object == self.recentSearchesViewController) && [keyPath isEqualToString:@"recentSearchesItemCount"]) {
         [self updateRecentSearchesContainerVisibility];
     }
@@ -180,7 +180,7 @@
 
     // Important to only auto-search when the view appears if-and-only-if it isn't already showing results!
     if ((self.searchString.length > 0) && (self.searchResults.count == 0)) {
-        [self searchAfterDelay:@0.0f];
+        [self searchAfterDelay:@0.05f reason:SEARCH_REASON_VIEW_APPEARED];
     }
 }
 
@@ -199,30 +199,42 @@
     }else{
         CGFloat delay = (self.searchTypeMenu.searchType == SEARCH_TYPE_TITLES) ? SEARCH_DELAY_PREFIX : SEARCH_DELAY_FULL_TEXT;
         
-        [self searchAfterDelay:@(delay)];
+        [self searchAfterDelay:@(delay) reason:SEARCH_REASON_SEARCH_STRING_CHANGED];
     }
 }
 
--(void)searchAfterDelay:(NSNumber *)delay
+-(void)searchAfterDelay:(NSNumber *)delay reason:(SearchReason)reason
 {
     [self cancelDelayedSearch];
 
     self.delayedSearchTimer = [NSTimer scheduledTimerWithTimeInterval: delay.floatValue
-                                                  target: self
-                                                selector: @selector(performSearch)
-                                                userInfo: nil
-                                                 repeats: NO];
+                                                               target: self
+                                                             selector: @selector(performSearch:)
+                                                             userInfo: @{@"reason": @(reason)}
+                                                              repeats: NO];
 }
 
--(void)performSearch
+-(void)performSearch:(NSTimer *)timer
 {
+    // Reminder: do not call "performSearch:" directly - only "searchAfterDelay:reason:" should do so.
+    // To search call "searchAfterDelay:reason:" - this is because it ensures delayed searches get cancelled.
+
+    SearchReason reason = ((NSNumber *)timer.userInfo[@"reason"]).integerValue;
+
     if (self.navigationController.topViewController != self) return;
 
     if (self.searchString.length == 0) return;
+
+    if (reason == SEARCH_REASON_NO_PREFIX_RESULTS) {
+        // Switch to in-article search.
+        self.searchTypeMenu.searchType = SEARCH_TYPE_IN_ARTCILES;
+        // Show "Searching..." message.
+        [self.searchMessageLabel showWithText:MWLocalizedString(@"search-searching", nil)];
+    }
     
     [self updateWordsToHighlight];
     
-    [self searchForTerm:self.searchString];
+    [self searchForTerm:self.searchString reason:reason];
 }
 
 -(void)updateWordsToHighlight
@@ -273,13 +285,15 @@
                 error: (NSError *)error;
 {
     if ([sender isKindOfClass:[SearchResultFetcher class]]) {
+
+        SearchResultFetcher *searchResultFetcher = (SearchResultFetcher *)sender;
         
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:{
                 [self fadeAlert];
                 [self.searchMessageLabel hide];
 
-                self.searchResults = ((SearchResultFetcher *)sender).searchResults;
+                self.searchResults = searchResultFetcher.searchResults;
 
                 //NSLog(@"self.searchResultsOrdered = %@", self.searchResultsOrdered);
                 
@@ -313,6 +327,23 @@
                 if(error.code == SEARCH_RESULT_ERROR_NO_MATCHES){
                     [self clearSearchResults];
                     [self.searchMessageLabel showWithText:error.localizedDescription];
+
+                    // If this set of results came from a title search and no results were found,
+                    // switch to in-article and re-run the search. But don't do so if the search
+                    // is being triggered by a change in the search type menu selection.
+                    if(
+                       (searchResultFetcher.searchType == SEARCH_TYPE_TITLES)
+                       &&
+                       (searchResultFetcher.searchReason != SEARCH_REASON_SEARCH_TYPE_MENU_TAPPED)
+                       ){
+                        // Note: the search button is not switched until "performSearch:" is
+                        // invoked as a result of the "searchAfterDelay:reason:" call below.
+                        // That way the users can see the "No search results" message in association
+                        // with the "Titles" button briefly before the in-article search is
+                        // automatically kicked off.
+                        [self searchAfterDelay:@1.08f reason:SEARCH_REASON_NO_PREFIX_RESULTS];
+                        return;
+                    }
                 }
             
                 //[self.searchMessageLabel showWithText:error.localizedDescription];
@@ -323,7 +354,7 @@
         // Show search suggestion if necessary.
         // Search suggestion can be returned if zero or more search results found.
         // That's why this is here in not in the "SUCCEEDED" case above.
-        self.searchSuggestion = ((SearchResultFetcher *)sender).searchSuggestion;
+        self.searchSuggestion = searchResultFetcher.searchSuggestion;
         if (self.searchSuggestion) {
             [self.didYouMeanButton showWithText: MWLocalizedString(@"search-did-you-mean", nil)
                                            term: self.searchSuggestion];
@@ -406,11 +437,12 @@
     }
 }
 
-- (void)searchForTerm:(NSString *)searchTerm
+- (void)searchForTerm:(NSString *)searchTerm reason:(SearchReason)reason
 {
-    [self scrollTableToTop];
+    // Reminder: do not call "searchForTerm:reason:" directly - only "performSearch:" should do so.
+    // To search call "searchAfterDelay:reason:" - this is because it ensures delayed searches get cancelled.
 
-    [self.searchMessageLabel hide];
+    [self scrollTableToTop];
 
     [self.didYouMeanButton hide];
     
@@ -419,9 +451,10 @@
     
     //[self showAlert:MWLocalizedString(@"search-searching", nil) type:ALERT_TYPE_MIDDLE duration:-1];
     
-    // Search for titles.
+    // Search! Only call this here!
     (void)[[SearchResultFetcher alloc] initAndSearchForTerm: searchTerm
                                                  searchType: self.searchTypeMenu.searchType
+                                               searchReason: reason
                                                 withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
                                          thenNotifyDelegate: self];
 }

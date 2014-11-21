@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSString *domain;
 @property (nonatomic, strong) NSString *searchTerm;
 @property (nonatomic) SearchType searchType;
+@property (nonatomic) SearchReason searchReason;
 
 @property (nonatomic, strong) NSArray *searchResults;
 @property (nonatomic, strong) NSString *searchSuggestion;
@@ -27,6 +28,7 @@
 
 -(instancetype)initAndSearchForTerm: (NSString *)searchTerm
                          searchType: (SearchType)searchType
+                       searchReason: (SearchReason)searchReason
                         withManager: (AFHTTPRequestOperationManager *)manager
                  thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate
 {
@@ -36,6 +38,7 @@
         self.searchSuggestion = nil;
         self.searchTerm = searchTerm ? searchTerm : @"";
         self.searchType = searchType;
+        self.searchReason = searchReason;
         self.fetchFinishedDelegate = delegate;
         [self searchWithManager:manager];
     }

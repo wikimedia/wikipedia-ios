@@ -6,6 +6,8 @@
 #import "NSObject+ConstraintsScale.h"
 #import "UIView+RoundCorners.h"
 #import "WikipediaAppUtils.h"
+#import "Defines.h"
+#import "SearchResultFetcher.h"
 
 #define FONT_SIZE (14.0f * MENUS_SCALE_MULTIPLIER)
 #define CORNER_RADIUS (2.0f * MENUS_SCALE_MULTIPLIER)

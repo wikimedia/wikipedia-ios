@@ -3,6 +3,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Defines.h"
+#import "SearchResultFetcher.h"
 
 @interface RecentSearchesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
