@@ -441,7 +441,7 @@ typedef enum {
 }
 
 - (void)fetchFinished: (id)sender
-             userData: (id)userData
+          fetchedData: (id)fetchedData
                status: (FetchFinalStatus)status
                 error: (NSError *)error
 {
@@ -461,7 +461,7 @@ typedef enum {
                                             @"dir": languageInfo.dir,
                                             @"uidir": uidir
                                             }];
-                [self.bridge sendMessage:@"append" withPayload:@{@"html": userData ? userData : @""}];
+                [self.bridge sendMessage:@"append" withPayload:@{@"html": fetchedData ? fetchedData : @""}];
             }
                 break;
             case FETCH_FINAL_STATUS_FAILED:{
@@ -529,7 +529,7 @@ typedef enum {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:{
                 
-                [self.funnel logSavedRevision:[userData[@"newrevid"] intValue]];
+                [self.funnel logSavedRevision:[fetchedData[@"newrevid"] intValue]];
                 
                 // Mark article for refreshing and reload it.
                 if (uploader.articleID) {

@@ -7,7 +7,7 @@
 @implementation FetcherBase
 
 - (void)finishWithError: (NSError *)error
-               userData: (id)userData
+            fetchedData: (id)fetchedData
 {
     [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
     
@@ -15,7 +15,7 @@
         //TODO: this could also be a good place to log error.domain string and error.code?
     
         [self.fetchFinishedDelegate fetchFinished: self
-                                         userData: userData
+                                      fetchedData: fetchedData
                                            status: [self getStatusFromError:error]
                                             error: error];
     }];

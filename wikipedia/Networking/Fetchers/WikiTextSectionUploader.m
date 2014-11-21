@@ -152,7 +152,7 @@
         }
 
         [self finishWithError: error
-                     userData: resultDict];
+                  fetchedData: resultDict];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -161,7 +161,7 @@
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         [self finishWithError: error
-                     userData: nil];
+                  fetchedData: nil];
     }];
 }
 

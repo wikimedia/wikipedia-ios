@@ -176,7 +176,7 @@
 #pragma mark - Article lang list download op
 
 - (void)fetchFinished: (id)sender
-             userData: (id)userData
+          fetchedData: (id)fetchedData
                status: (FetchFinalStatus)status
                 error: (NSError *)error
 {
@@ -186,7 +186,7 @@
                 //[self showAlert:@"Language links loaded."];
                 [self fadeAlert];
                 
-                self.languagesData = userData;
+                self.languagesData = fetchedData;
                 [self reloadTableDataFiltered];
             }
                 break;

@@ -170,7 +170,7 @@
 }
 
 - (void)fetchFinished: (id)sender
-             userData: (id)userData
+          fetchedData: (id)fetchedData
                status: (FetchFinalStatus)status
                 error: (NSError *)error
 {
@@ -179,7 +179,7 @@
             case FETCH_FINAL_STATUS_SUCCEEDED:{
                 
                 WikiTextSectionFetcher *wikiTextSectionFetcher = (WikiTextSectionFetcher *)sender;
-                NSDictionary *resultsDict = (NSDictionary *)userData;
+                NSDictionary *resultsDict = (NSDictionary *)fetchedData;
                 NSString *revision = resultsDict[@"revision"];
                 NSDictionary *userInfo = resultsDict[@"userInfo"];
                 

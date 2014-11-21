@@ -268,7 +268,7 @@
 }
 
 - (void)fetchFinished: (id)sender
-             userData: (id)userData
+          fetchedData: (id)fetchedData
                status: (FetchFinalStatus)status
                 error: (NSError *)error;
 {
@@ -337,10 +337,10 @@
                 NSString *cacheFilePath = [self.cachePath stringByAppendingPathComponent:fileName];
                 
                 // Save cache file.
-                [userData writeToFile:cacheFilePath atomically:YES];
+                [fetchedData writeToFile:cacheFilePath atomically:YES];
                 
                 // Then see if cell for this image name is still onscreen and set its image if so.
-                UIImage *image = [UIImage imageWithData:userData];
+                UIImage *image = [UIImage imageWithData:fetchedData];
                 
                 // Check if cell still onscreen! This is important!
                 NSArray *visibleRowIndexPaths = [self.searchResultsTable indexPathsForVisibleRows];
@@ -365,7 +365,7 @@
     }else if ([sender isKindOfClass:[WikiDataShortDescriptionFetcher class]]) {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:{
-                NSDictionary *wikiDataShortDescriptions = (NSDictionary *)userData;
+                NSDictionary *wikiDataShortDescriptions = (NSDictionary *)fetchedData;
 
                 // Add wikidata descriptions to respective search results.
                 for (NSMutableDictionary *d in self.searchResults) {

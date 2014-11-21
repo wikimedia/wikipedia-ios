@@ -223,14 +223,14 @@
 }
 
 - (void)fetchFinished: (id)sender
-             userData: (id)userData
+          fetchedData: (id)fetchedData
                status: (FetchFinalStatus)status
                 error: (NSError *)error
 {
     if ([sender isKindOfClass:[RandomArticleFetcher class]]) {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:{
-                NSString *title = (NSString *)userData;
+                NSString *title = (NSString *)fetchedData;
                 if (title) {
                     MWPageTitle *pageTitle = [MWPageTitle titleWithString:title];
                     [self loadArticleWithTitle: pageTitle

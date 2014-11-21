@@ -1524,7 +1524,7 @@ typedef enum {
 }
 
 - (void)fetchFinished: (id)sender
-             userData: (id)userData
+          fetchedData: (id)fetchedData
                status: (FetchFinalStatus)status
                 error: (NSError *)error
 {
@@ -1533,7 +1533,7 @@ typedef enum {
         ArticleFetcher *articleFetcher = (ArticleFetcher *)sender;
         Article *article = articleFetcher.article;
         
-        NSNumber *articleSectionType = (NSNumber *)userData;
+        NSNumber *articleSectionType = (NSNumber *)fetchedData;
         
         switch (articleSectionType.integerValue) {
             case ARTICLE_SECTION_TYPE_LEAD:
@@ -1650,7 +1650,7 @@ typedef enum {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:
             {
-                NSDictionary *banner = (NSDictionary*)userData;
+                NSDictionary *banner = (NSDictionary*)fetchedData;
                 if (banner) {
                     TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
                     textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);

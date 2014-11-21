@@ -439,16 +439,16 @@
 }
 
 - (void)fetchFinished: (id)sender
-             userData: (id)userData
+          fetchedData: (id)fetchedData
                status: (FetchFinalStatus)status
                 error: (NSError *)error
 {
     if ([sender isKindOfClass:[AccountCreationTokenFetcher class]]) {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:
-                //NSLog(@"userData = %@", userData);
+                //NSLog(@"fetchedData = %@", fetchedData);
                 // Pull data for all the fields which were originally passed to the token
-                // fetcher from the userData returned from it. This is to make extra sure
+                // fetcher from the fetchedData returned from it. This is to make extra sure
                 // the account creation is working with the same data as the token retrieval.
                 (void)[[AccountCreator alloc] initAndCreateAccountForUserName: [sender userName]
                                                                              realName: @""
@@ -475,7 +475,7 @@
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:
                 [self.funnel logSuccess];
-                [self showAlert:userData type:ALERT_TYPE_TOP duration:1];
+                [self showAlert:fetchedData type:ALERT_TYPE_TOP duration:1];
                 [self performSelector:@selector(login) withObject:nil afterDelay:0.6f];
                 //isAleadySaving = NO;
                 break;
@@ -499,7 +499,7 @@
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:{
                 
-                self.captchaId = userData[@"index"];
+                self.captchaId = fetchedData[@"index"];
                 
                 NSString *oldCaptchaUrl = self.captchaUrl;
                 

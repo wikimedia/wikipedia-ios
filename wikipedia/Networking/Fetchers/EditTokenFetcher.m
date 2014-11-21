@@ -90,7 +90,7 @@
         self.token = output[@"token"] ? output[@"token"] : @"";
 
         [self finishWithError: error
-                     userData: output];
+                  fetchedData: output];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -99,7 +99,7 @@
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         [self finishWithError: error
-                     userData: nil];
+                  fetchedData: nil];
     }];
 }
 

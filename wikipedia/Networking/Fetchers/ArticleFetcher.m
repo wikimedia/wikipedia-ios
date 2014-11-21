@@ -82,14 +82,14 @@
             [self applyResultsForNonLeadSections:nonLeadSectionsResults];
 
             [self finishWithError: nil
-                         userData: @(ARTICLE_SECTION_TYPE_NON_LEAD)];
+                      fetchedData: @(ARTICLE_SECTION_TYPE_NON_LEAD)];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             NSLog(@"Error: %@", error);
 
             [self finishWithError: error
-                         userData: @(ARTICLE_SECTION_TYPE_NON_LEAD)];
+                      fetchedData: @(ARTICLE_SECTION_TYPE_NON_LEAD)];
 
         }];
     };
@@ -116,7 +116,7 @@
         [self applyResultsForLeadSection:leadSectionResults];
 
         [self finishWithError: nil
-                     userData: @(ARTICLE_SECTION_TYPE_LEAD)];
+                  fetchedData: @(ARTICLE_SECTION_TYPE_LEAD)];
         
 
         // Now that lead section data has been retrieved, get the remaining sections data.
@@ -130,7 +130,7 @@
         [self removeMCCMNCHeaderFromRequestSerializer:manager.requestSerializer];
 
         [self finishWithError: error
-                     userData: @(ARTICLE_SECTION_TYPE_LEAD)];
+                  fetchedData: @(ARTICLE_SECTION_TYPE_LEAD)];
 
     }];
 }

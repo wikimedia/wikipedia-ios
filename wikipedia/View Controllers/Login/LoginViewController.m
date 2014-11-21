@@ -245,7 +245,7 @@
 }
 
 - (void)fetchFinished: (id)sender
-             userData: (id)userData
+          fetchedData: (id)fetchedData
                status: (FetchFinalStatus)status
                 error: (NSError *)error
 {
@@ -282,13 +282,13 @@
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:{
 
-                //NSLog(@"%@", userData);
-                NSString *loginStatus = userData[@"login"][@"result"];
+                //NSLog(@"%@", fetchedData);
+                NSString *loginStatus = fetchedData[@"login"][@"result"];
                 
                 // Login credentials should only be placed in the keychain if they've been authenticated.
-                NSString *normalizedUserName = userData[@"login"][@"lgusername"];
+                NSString *normalizedUserName = fetchedData[@"login"][@"lgusername"];
                 [SessionSingleton sharedInstance].keychainCredentials.userName = normalizedUserName;
-                [SessionSingleton sharedInstance].keychainCredentials.password = userData[@"password"];
+                [SessionSingleton sharedInstance].keychainCredentials.password = fetchedData[@"password"];
                 
                 //NSString *result = loginResult[@"login"][@"result"];
                 [self showAlert:loginStatus type:ALERT_TYPE_TOP duration:-1];

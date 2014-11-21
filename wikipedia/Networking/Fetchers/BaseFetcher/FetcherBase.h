@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, FetchFinalStatus) {
 @protocol FetchFinishedDelegate <NSObject>
 
 - (void)fetchFinished: (id)sender
-             userData: (id)userData
+          fetchedData: (id)fetchedData
                status: (FetchFinalStatus)status
                 error: (NSError *)error;
 
@@ -37,7 +37,7 @@ typedef NS_ENUM(NSInteger, FetchFinalStatus) {
 // Note: FetchFinalStatus is not explicitly passed to this method - it determines
 // the status base on introspection of error.
 - (void)finishWithError: (NSError *)error
-               userData: (id)userData;
+            fetchedData: (id)fetchedData;
 
 
 
