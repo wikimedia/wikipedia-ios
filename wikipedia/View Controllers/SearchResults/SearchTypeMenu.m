@@ -39,13 +39,15 @@
             self.searchButtonTitles.font = [UIFont boldSystemFontOfSize:FONT_SIZE];
             self.searchButtonWithinArticles.font = [UIFont systemFontOfSize:FONT_SIZE];
             break;
-        case SEARCH_TYPE_IN_ARTCILES:
+        case SEARCH_TYPE_IN_ARTICLES:
             self.searchButtonTitles.backgroundColor = [UIColor whiteColor];
             self.searchButtonWithinArticles.backgroundColor = SEARCH_BUTTON_BACKGROUND_COLOR;
             self.searchButtonTitles.textColor = SEARCH_BUTTON_BACKGROUND_COLOR;
             self.searchButtonWithinArticles.textColor = [UIColor whiteColor];
             self.searchButtonTitles.font = [UIFont systemFontOfSize:FONT_SIZE];
             self.searchButtonWithinArticles.font = [UIFont boldSystemFontOfSize:FONT_SIZE];
+            break;
+        default:
             break;
     }
 }
@@ -81,7 +83,7 @@
     [self setupButton:self.searchButtonWithinArticles];
 
     self.searchButtonTitles.tag = SEARCH_TYPE_TITLES;
-    self.searchButtonWithinArticles.tag = SEARCH_TYPE_IN_ARTCILES;
+    self.searchButtonWithinArticles.tag = SEARCH_TYPE_IN_ARTICLES;
 
     [self addSubview:self.searchButtonTitles];
     [self addSubview:self.searchButtonWithinArticles];

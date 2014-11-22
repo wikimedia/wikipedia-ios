@@ -209,9 +209,13 @@
     }
 }
 
-+(BOOL)isDeviceLanguageRTL {
-    // From: http://stackoverflow.com/a/14793934
-    return ([NSLocale characterDirectionForLanguage:[[NSLocale preferredLanguages] objectAtIndex:0]] == NSLocaleLanguageDirectionRightToLeft);
++(BOOL)isDeviceLanguageRTL
+{
+    // Official way to determine current device user interface direction:
+    // "For iOS apps, to determine whether the language is right-to-left,
+    // send userInterfaceLayoutDirection to the shared application object"
+    // http://stackoverflow.com/a/25500099/135557
+    return ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
 }
 
 +(NSTextAlignment)rtlSafeAlignment

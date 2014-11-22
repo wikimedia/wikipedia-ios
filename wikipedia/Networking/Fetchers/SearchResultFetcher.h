@@ -13,7 +13,8 @@ typedef NS_ENUM(NSInteger, SearchResultFetcherErrorType) {
 
 typedef NS_ENUM(NSInteger, SearchType) {
     SEARCH_TYPE_TITLES,
-    SEARCH_TYPE_IN_ARTCILES
+    SEARCH_TYPE_IN_ARTICLES,
+    SEARCH_TYPE_NEARBY // Placeholder
 };
 
 typedef NS_ENUM(NSInteger, SearchReason) {

@@ -25,6 +25,10 @@
 #import "SearchMessageLabel.h"
 #import "RecentSearchesViewController.h"
 #import "NSArray+Predicate.h"
+#import "SearchResultAttributedString.h"
+#import "UITableView+DynamicCellHeight.h"
+
+#define TABLE_CELL_ID @"SearchResultCell"
 
 @interface SearchResultsController (){
     CGFloat scrollViewDragBeganVerticalOffset_;
@@ -50,9 +54,59 @@
 
 @property (nonatomic) BOOL ignoreScrollEvents;
 
+@property (strong, nonatomic) NSDictionary *attributesTitle;
+@property (strong, nonatomic) NSDictionary *attributesDescription;
+@property (strong, nonatomic) NSDictionary *attributesHighlight;
+@property (strong, nonatomic) NSDictionary *attributesSnippet;
+@property (strong, nonatomic) NSDictionary *attributesSnippetHighlight;
+
+@property (strong, nonatomic) SearchResultCell *offScreenSizingCell;
+
 @end
 
 @implementation SearchResultsController
+
+-(void)setupStringAttributes
+{
+    NSMutableParagraphStyle *descriptionParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    descriptionParagraphStyle.paragraphSpacingBefore = SEARCH_RESULT_PADDING_ABOVE_DESCRIPTION;
+
+    NSMutableParagraphStyle *snippetParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    snippetParagraphStyle.paragraphSpacingBefore = SEARCH_RESULT_PADDING_ABOVE_SNIPPET;
+    
+    self.attributesDescription =
+    @{
+      NSFontAttributeName : SEARCH_RESULT_DESCRIPTION_FONT,
+      NSForegroundColorAttributeName : SEARCH_RESULT_DESCRIPTION_FONT_COLOR,
+      NSParagraphStyleAttributeName : descriptionParagraphStyle
+      };
+    
+    self.attributesTitle =
+    @{
+      NSFontAttributeName : SEARCH_RESULT_FONT,
+      NSForegroundColorAttributeName : SEARCH_RESULT_FONT_COLOR
+      };
+
+    self.attributesSnippet =
+    @{
+      NSParagraphStyleAttributeName : snippetParagraphStyle,
+      NSFontAttributeName : SEARCH_RESULT_SNIPPET_FONT,
+      NSForegroundColorAttributeName : SEARCH_RESULT_SNIPPET_FONT_COLOR
+      };
+
+    self.attributesSnippetHighlight =
+    @{
+      NSParagraphStyleAttributeName : snippetParagraphStyle,
+      NSFontAttributeName : SEARCH_RESULT_SNIPPET_FONT,
+      NSForegroundColorAttributeName : SEARCH_RESULT_SNIPPET_HIGHLIGHT_COLOR
+      };
+    
+    self.attributesHighlight =
+    @{
+      NSFontAttributeName : SEARCH_RESULT_FONT_HIGHLIGHTED,
+      NSForegroundColorAttributeName : SEARCH_RESULT_FONT_HIGHLIGHTED_COLOR
+      };
+}
 
 -(void)setSearchString:(NSString *)searchString
 {
@@ -96,6 +150,8 @@
 {
     [super viewDidLoad];
 
+    [self setupStringAttributes];
+
     self.ignoreScrollEvents = NO;
     self.searchString = @"";
     
@@ -118,7 +174,7 @@
     self.navigationItem.hidesBackButton = YES;
 
     // Register the search results cell for reuse
-    [self.searchResultsTable registerNib:[UINib nibWithNibName:@"SearchResultPrototypeView" bundle:nil] forCellReuseIdentifier:@"SearchResultCell"];
+    [self.searchResultsTable registerNib:[UINib nibWithNibName:@"SearchResultPrototypeView" bundle:nil] forCellReuseIdentifier:TABLE_CELL_ID];
 
     // Turn off the separator since one gets added in SearchResultCell.m
     self.searchResultsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -136,6 +192,9 @@
                                         forKeyPath: @"recentSearchesItemCount"
                                            options: NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
                                            context: nil];
+
+    // Single off-screen cell for determining dynamic cell height.
+    self.offScreenSizingCell = (SearchResultCell *)[self.searchResultsTable dequeueReusableCellWithIdentifier:TABLE_CELL_ID];
 }
 
 -(void)dealloc
@@ -227,7 +286,7 @@
 
     if (reason == SEARCH_REASON_NO_PREFIX_RESULTS) {
         // Switch to in-article search.
-        self.searchTypeMenu.searchType = SEARCH_TYPE_IN_ARTCILES;
+        self.searchTypeMenu.searchType = SEARCH_TYPE_IN_ARTICLES;
         // Show "Searching..." message.
         [self.searchMessageLabel showWithText:MWLocalizedString(@"search-searching", nil)];
     }
@@ -279,6 +338,26 @@
     [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
 }
 
+-(void)updateAttributeTextForSearchType: (SearchType) searchType
+{
+    for (NSMutableDictionary *result in self.searchResults) {
+        //TODO: change name of "SearchResultAttributedString" to "SearchResultStringStyler" or something... it's an NSObject!
+        SearchResultAttributedString *attributedResult =
+        [SearchResultAttributedString initWithTitle: result[@"title"]
+                                            snippet: result[@"snippet"]
+                                wikiDataDescription: result[@"wikidata_description"]
+                                     highlightWords: self.searchStringWordsToHighlight
+                                         searchType: searchType
+                                    attributesTitle: self.attributesTitle
+                              attributesDescription: self.attributesDescription
+                                attributesHighlight: self.attributesHighlight
+                                  attributesSnippet: self.attributesSnippet
+                         attributesSnippetHighlight: self.attributesSnippetHighlight];
+        
+        result[@"attributedText"] = attributedResult;
+    }
+}
+
 - (void)fetchFinished: (id)sender
           fetchedData: (id)fetchedData
                status: (FetchFinalStatus)status
@@ -296,6 +375,8 @@
                 self.searchResults = searchResultFetcher.searchResults;
 
                 //NSLog(@"self.searchResultsOrdered = %@", self.searchResultsOrdered);
+
+                [self updateAttributeTextForSearchType:searchResultFetcher.searchType];
                 
                 // We have search titles! Show them right away!
                 // NSLog(@"FIRE ONE! Show search result titles.");
@@ -313,6 +394,7 @@
                 // Fetch WikiData short descriptions.
                 if (wikiDataIds.count > 0){
                     (void)[[WikiDataShortDescriptionFetcher alloc] initAndFetchDescriptionsForIds: wikiDataIds
+                                                                                       searchType: searchResultFetcher.searchType
                                                                                       withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
                                                                                thenNotifyDelegate: self];
                 }
@@ -344,6 +426,8 @@
                         [self searchAfterDelay:@1.08f reason:SEARCH_REASON_NO_PREFIX_RESULTS];
                         return;
                     }
+                }else{
+                    [self.searchMessageLabel showWithText:error.localizedDescription];
                 }
             
                 //[self.searchMessageLabel showWithText:error.localizedDescription];
@@ -381,7 +465,7 @@
                     NSString *url = rowData[@"thumbnail"][@"source"];
                     if ([url.lastPathComponent isEqualToString:fileName]) {
                         SearchResultCell *cell = (SearchResultCell *)[self.searchResultsTable cellForRowAtIndexPath:thisIndexPath];
-                        cell.imageView.image = image;
+                        cell.resultImageView.image = image;
                         [cell setNeedsDisplay];
                         break;
                     }
@@ -394,6 +478,7 @@
                 break;
         }
     }else if ([sender isKindOfClass:[WikiDataShortDescriptionFetcher class]]) {
+        WikiDataShortDescriptionFetcher *wikiDataShortDescriptionFetcher = (WikiDataShortDescriptionFetcher*)sender;
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:{
                 NSDictionary *wikiDataShortDescriptions = (NSDictionary *)fetchedData;
@@ -410,6 +495,8 @@
                         }
                     }
                 }
+
+                [self updateAttributeTextForSearchType:wikiDataShortDescriptionFetcher.searchType];
                 
                 [self.searchResultsTable reloadData];
             }
@@ -468,32 +555,27 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return SEARCH_RESULT_HEIGHT;
-    
-    /*
-    NSString *height = self.searchResultsOrdered[indexPath.row][@"thumbnail"][@"height"];
-    float h = (height) ? [height floatValue]: SEARCH_THUMBNAIL_WIDTH;
-    //if (h < SEARCH_THUMBNAIL_WIDTH) h = SEARCH_THUMBNAIL_WIDTH;
-    return h;
-    */
+    // Update the sizing cell with any data which could change the cell height.
+    self.offScreenSizingCell.resultLabel.attributedText = self.searchResults[indexPath.row][@"attributedText"];
+
+    // Determine height for the current configuration of the sizing cell.
+    return [tableView heightForSizingCell:self.offScreenSizingCell];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellID = @"SearchResultCell";
+    static NSString *cellID = TABLE_CELL_ID;
     SearchResultCell *cell = (SearchResultCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
 
-    NSString *title = self.searchResults[indexPath.row][@"title"];
-
-    NSString *wikidata_description = self.searchResults[indexPath.row][@"wikidata_description"];
-
-    [cell setTitle:title description:wikidata_description highlightWords:self.searchStringWordsToHighlight];
-    
     NSString *thumbURL = self.searchResults[indexPath.row][@"thumbnail"][@"source"];
 
+    // For performance reasons, "attributedText" is build when data is retrieved, not here when the cell
+    // is about to be displayed.
+    cell.resultLabel.attributedText = self.searchResults[indexPath.row][@"attributedText"];
+    
     // Set thumbnail placeholder
-    cell.imageView.image = self.placeholderImage;
-    cell.useField = NO;
+    cell.resultImageView.image = self.placeholderImage;
+
     if (!thumbURL){
         // Don't bother downloading if no thumbURL
         return cell;
@@ -506,7 +588,7 @@
     BOOL isDirectory = NO;
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:cacheFilePath isDirectory:&isDirectory];
     if (fileExists) {
-        cell.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfFile:cacheFilePath]];
+        cell.resultImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfFile:cacheFilePath]];
     }else{
         // No thumb found so fetch it.
         (void)[[ThumbnailFetcher alloc] initAndFetchThumbnailFromURL: thumbURL

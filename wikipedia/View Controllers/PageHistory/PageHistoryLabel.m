@@ -2,17 +2,13 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "PageHistoryLabel.h"
+#import "Defines.h"
 
 @implementation PageHistoryLabel
 
--(void)setBounds:(CGRect)bounds
+-(void)didMoveToSuperview
 {
-    [super setBounds:bounds];
-
-    // This is needed for iOS 6 which doesn't seem to keep label preferredMaxLayoutWidth
-    // in sync with its width, which means the label won't grow vertically to encompass
-    // its text if the label's width constraint changes.
-    self.preferredMaxLayoutWidth = self.bounds.size.width;
+    self.font = [UIFont systemFontOfSize:12.0f * MENUS_SCALE_MULTIPLIER];
 }
 
 @end

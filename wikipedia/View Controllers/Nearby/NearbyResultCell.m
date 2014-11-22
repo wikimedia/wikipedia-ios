@@ -4,20 +4,26 @@
 #import "NearbyResultCell.h"
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
-#import "UIView+Debugging.h"
 #import "WMF_Colors.h"
 #import "Defines.h"
 #import "NSObject+ConstraintsScale.h"
+#import "UIView+Debugging.h"
 
-#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
-#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
+#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0f / M_PI))
+#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0f * M_PI)
 
-#define FONT [UIFont systemFontOfSize:17]
-#define FONT_COLOR [UIColor blackColor]
+#define TITLE_FONT [UIFont systemFontOfSize:(17.0f * MENUS_SCALE_MULTIPLIER)]
+#define TITLE_FONT_COLOR [UIColor blackColor]
 
-#define DESCRIPTION_FONT [UIFont systemFontOfSize:14]
+#define DISTANCE_FONT [UIFont systemFontOfSize:(13.0f * MENUS_SCALE_MULTIPLIER)]
+#define DISTANCE_FONT_COLOR [UIColor whiteColor]
+#define DISTANCE_BACKGROUND_COLOR WMF_COLOR_GREEN
+#define DISTANCE_CORNER_RADIUS (2.0f * MENUS_SCALE_MULTIPLIER)
+#define DISTANCE_PADDING UIEdgeInsetsMake(0.0f, 7.0f, 0.0f, 7.0f)
+
+#define DESCRIPTION_FONT [UIFont systemFontOfSize:(14.0f * MENUS_SCALE_MULTIPLIER)]
 #define DESCRIPTION_FONT_COLOR [UIColor grayColor]
-#define PADDING_ABOVE_DESCRIPTION 2.0f
+#define DESCRIPTION_TOP_PADDING (2.0f * MENUS_SCALE_MULTIPLIER)
 
 @interface NearbyResultCell()
 
@@ -65,7 +71,7 @@
 -(void)setupStringAttributes
 {
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.paragraphSpacingBefore = PADDING_ABOVE_DESCRIPTION;
+    paragraphStyle.paragraphSpacingBefore = DESCRIPTION_TOP_PADDING;
     
     self.attributesDescription =
     @{
@@ -76,8 +82,8 @@
     
     self.attributesTitle =
     @{
-      NSFontAttributeName : FONT,
-      NSForegroundColorAttributeName : FONT_COLOR
+      NSFontAttributeName : TITLE_FONT,
+      NSForegroundColorAttributeName : TITLE_FONT_COLOR
       };
 }
 
@@ -96,18 +102,17 @@
 
 - (void)awakeFromNib
 {
-    //[self randomlyColorSubviews];
-    // self.distanceLabel.textColor = [UIColor whiteColor];
-    self.distanceLabel.backgroundColor = WMF_COLOR_GREEN;
-    self.distanceLabel.layer.cornerRadius = 2.0f;
-    self.distanceLabel.padding = UIEdgeInsetsMake(0, 7, 0, 7);
-
-    self.titleLabel.font = [UIFont systemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER];
-    self.distanceLabel.font = [UIFont systemFontOfSize:13.0 * MENUS_SCALE_MULTIPLIER];
+    self.distanceLabel.textColor = DISTANCE_FONT_COLOR;
+    self.distanceLabel.backgroundColor = DISTANCE_BACKGROUND_COLOR;
+    self.distanceLabel.layer.cornerRadius = DISTANCE_CORNER_RADIUS;
+    self.distanceLabel.padding = DISTANCE_PADDING;
+    self.distanceLabel.font = DISTANCE_FONT;
 
     [self adjustConstraintsScaleForViews:@[self.titleLabel, self.distanceLabel, self.thumbView]];
     
     [self setupStringAttributes];
+
+    //[self randomlyColorSubviews];
 }
 
 -(void)setDistance:(NSNumber *)distance

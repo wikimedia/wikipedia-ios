@@ -223,7 +223,7 @@
     UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 30.0f * MENUS_SCALE_MULTIPLIER, 25.0f * MENUS_SCALE_MULTIPLIER)];
     clearButton.backgroundColor = [UIColor clearColor];
     [clearButton setImage:[UIImage imageNamed:@"text_field_x_circle_gray.png"] forState:UIControlStateNormal];
-    [clearButton addTarget:self action:@selector(clearTextFieldText) forControlEvents:UIControlEventTouchUpInside];
+    [clearButton addTarget:self action:@selector(clearTextFieldText:) forControlEvents:UIControlEventTouchUpInside];
     
     self.textFieldContainer.textField.rightView = clearButton;
     [self updateClearButtonVisibility];
@@ -628,13 +628,17 @@
     [self updateClearButtonVisibility];
 }
 
--(void)clearTextFieldText
+-(void)clearTextFieldText:(id)sender
 {
     [self.searchResultsController saveSearchTermToRecentList];
     self.textFieldContainer.textField.text = @"";
     [self updateClearButtonVisibility];
-    self.searchResultsController.searchString = @"";
-    [self.searchResultsController clearSearchResults];
+
+    if (self.navBarMode == NAVBAR_MODE_SEARCH) {
+        self.searchResultsController.searchString = @"";
+        [self.searchResultsController clearSearchResults];
+        [self.textFieldContainer.textField becomeFirstResponder];
+    }
 }
 
 - (void)searchStringChanged

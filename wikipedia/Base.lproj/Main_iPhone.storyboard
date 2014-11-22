@@ -1645,7 +1645,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="nI1-bn-0Ii" customClass="PaddedLabel">
-                                                    <rect key="frame" x="5" y="13" width="280" height="34"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="290" height="60"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1654,10 +1654,10 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="nI1-bn-0Ii" secondAttribute="trailing" constant="5" id="0EP-ii-jOg"/>
-                                                <constraint firstItem="nI1-bn-0Ii" firstAttribute="leading" secondItem="wvE-rA-5oS" secondAttribute="leading" constant="5" id="XLU-mr-ZED"/>
-                                                <constraint firstItem="nI1-bn-0Ii" firstAttribute="top" secondItem="wvE-rA-5oS" secondAttribute="top" constant="13" id="gXX-iv-nTK"/>
-                                                <constraint firstAttribute="bottom" secondItem="nI1-bn-0Ii" secondAttribute="bottom" constant="13" id="xnt-op-6hi"/>
+                                                <constraint firstAttribute="trailing" secondItem="nI1-bn-0Ii" secondAttribute="trailing" id="0EP-ii-jOg"/>
+                                                <constraint firstItem="nI1-bn-0Ii" firstAttribute="leading" secondItem="wvE-rA-5oS" secondAttribute="leading" id="XLU-mr-ZED"/>
+                                                <constraint firstItem="nI1-bn-0Ii" firstAttribute="top" secondItem="wvE-rA-5oS" secondAttribute="top" id="gXX-iv-nTK"/>
+                                                <constraint firstAttribute="bottom" secondItem="nI1-bn-0Ii" secondAttribute="bottom" id="xnt-op-6hi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

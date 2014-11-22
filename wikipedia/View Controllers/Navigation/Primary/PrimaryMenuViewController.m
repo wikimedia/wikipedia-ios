@@ -2,25 +2,20 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "PrimaryMenuViewController.h"
-#import "WikiGlyphButton.h"
-#import "WikiGlyphLabel.h"
-#import "WikiGlyph_Chars.h"
 #import "PrimaryMenuTableViewCell.h"
-#import "NSString+extras.h"
 #import "WikipediaAppUtils.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "SessionSingleton.h"
 #import "LoginViewController.h"
-#import "PageHistoryViewController.h"
 #import "UIViewController+Alert.h"
-#import "TopMenuContainerView.h"
-#import "UIViewController+StatusBarHeight.h"
 #import "Defines.h"
-#import "ModalMenuAndContentViewController.h"
 #import "UIViewController+ModalPresent.h"
-#import "ArticleCoreDataObjects.h"
 #import "UIViewController+ModalPop.h"
 #import "NSObject+ConstraintsScale.h"
+#import "UITableView+DynamicCellHeight.h"
+#import "UIScreen+Extras.h"
+
+#define TABLE_CELL_ID @"PrimaryMenuCell"
 
 typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     PRIMARY_MENU_ITEM_UNKNOWN,
@@ -40,6 +35,8 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSMutableArray *tableData;
+
+@property (strong, nonatomic) PrimaryMenuTableViewCell *offScreenSizingCell;
 
 @end
 
@@ -81,13 +78,15 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 
     [self adjustConstraintsScaleForViews:@[self.tableView, self.moreButton, self.moreButton.superview]];
     
-    [self addTableHeaderView];    
+    [self addTableHeaderView];
+
+    // Single off-screen cell for determining dynamic cell height.
+    self.offScreenSizingCell = (PrimaryMenuTableViewCell *)[self.tableView dequeueReusableCellWithIdentifier:TABLE_CELL_ID];
 }
 
 -(void)addTableHeaderView
 {
-    BOOL isThreePointFiveInchScreen = ((int)[UIScreen mainScreen].bounds.size.height == 480);
-    CGFloat topPadding = isThreePointFiveInchScreen ? 5 : 38;
+    CGFloat topPadding = [[UIScreen mainScreen] isThreePointFiveInchScreen] ? 5 : 38;
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, topPadding)];
     header.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = header;
@@ -196,10 +195,17 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellId = @"PrimaryMenuCell";
+    static NSString *cellId = TABLE_CELL_ID;
 
     PrimaryMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
 
+    [self updateViewsInCell:cell forIndexPath:indexPath];
+    
+    return cell;
+}
+
+-(void)updateViewsInCell:(PrimaryMenuTableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
+{
     NSDictionary *rowData = [self.tableData objectAtIndex:indexPath.row];
     cell.label.text = rowData[@"title"];
 
@@ -208,27 +214,15 @@ typedef NS_ENUM(NSInteger, PrimaryMenuItemTag) {
     // this is needed because table cells get reused.
     NSNumber *tagNumber = rowData[@"tag"];
     cell.label.tag = tagNumber.integerValue;
-    
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Getting dynamic cell height which respects auto layout constraints is tricky.
+    // Update the sizing cell with any data which could change the cell height.
+    [self updateViewsInCell:self.offScreenSizingCell forIndexPath:indexPath];
 
-    // First get the cell configured exactly as it is for display.
-    PrimaryMenuTableViewCell *cell =
-        (PrimaryMenuTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-
-    // Then coax the cell into taking on the size that would satisfy its layout constraints (and
-    // return that size's height).
-    // From: http://stackoverflow.com/a/18746930/135557
-    [cell setNeedsUpdateConstraints];
-    [cell updateConstraintsIfNeeded];
-    cell.bounds = CGRectMake(0.0f, 0.0f, tableView.bounds.size.width, cell.bounds.size.height);
-    [cell setNeedsLayout];
-    [cell layoutIfNeeded];
-    return ([cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1.0f);
+    // Determine height for the current configuration of the sizing cell.
+    return [tableView heightForSizingCell:self.offScreenSizingCell];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

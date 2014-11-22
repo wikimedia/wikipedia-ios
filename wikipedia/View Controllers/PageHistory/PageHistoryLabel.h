@@ -2,7 +2,8 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
+#import "PaddedLabel.h"
 
-@interface PageHistoryLabel : UILabel
+@interface PageHistoryLabel : PaddedLabel
 
 @end

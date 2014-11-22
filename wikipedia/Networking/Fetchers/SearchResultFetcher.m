@@ -12,6 +12,8 @@
 #import "ArticleCoreDataObjects.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 
+#define GET_SNIPPET_WITH_IN_ARTICLE_RESULTS YES
+
 @interface SearchResultFetcher()
 
 @property (strong, nonatomic) NSString *domain;
@@ -21,6 +23,8 @@
 
 @property (nonatomic, strong) NSArray *searchResults;
 @property (nonatomic, strong) NSString *searchSuggestion;
+
+@property (nonatomic, strong) NSRegularExpression *spaceCollapsingRegex;
 
 @end
 
@@ -40,6 +44,8 @@
         self.searchType = searchType;
         self.searchReason = searchReason;
         self.fetchFinishedDelegate = delegate;
+        self.spaceCollapsingRegex =
+            [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}+" options:NSRegularExpressionCaseInsensitive error:nil];
         [self searchWithManager:manager];
     }
     return self;
@@ -135,7 +141,7 @@
                      };
             break;
             
-        case SEARCH_TYPE_IN_ARTCILES:
+        case SEARCH_TYPE_IN_ARTICLES:
             return @{
                      @"action": @"query",
                      @"prop": @"pageprops|pageimages",
@@ -153,7 +159,7 @@
                      @"srnamespace": @0,
                      @"srwhat": @"text",
                      @"srinfo": @"suggestion",
-                     @"srprop": @"",
+                     @"srprop": (GET_SNIPPET_WITH_IN_ARTICLE_RESULTS ? @"snippet" : @""),
                      @"sroffset": @0,
                      @"srlimit": @(SEARCH_MAX_RESULTS),
                      @"piprop": @"thumbnail",
@@ -161,6 +167,9 @@
                      @"pilimit": @(SEARCH_MAX_RESULTS),
                      @"format": @"json"
                      };
+            break;
+        default:
+            return @{};
             break;
     }
 }
@@ -191,6 +200,17 @@
                     // Add thumb placeholder.
                     mutablePrefixPage[@"thumbnail"] = @{}.mutableCopy;
                     
+                    NSString *snippet = prefixPage[@"snippet"] ? prefixPage[@"snippet"] : @"";
+                    // Strip HTML and collapse repeating spaces in snippet.
+                    if (snippet.length > 0) {
+                        snippet = [snippet getStringWithoutHTML];
+                        snippet = [self.spaceCollapsingRegex stringByReplacingMatchesInString: snippet
+                                                                                      options: 0
+                                                                                        range: NSMakeRange(0, [snippet length])
+                                                                                 withTemplate: @" "];
+                    }
+                    mutablePrefixPage[@"snippet"] = snippet;
+
                     // Grab thumbnail and pageprops info from non-prefixsearch result for this pageid.
                     for (NSDictionary *page in pages.allValues) {
 

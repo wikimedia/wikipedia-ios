@@ -19,6 +19,9 @@
 #import "Defines.h"
 #import "WikiDataShortDescriptionFetcher.h"
 #import "NSString+Extras.h"
+#import "UITableView+DynamicCellHeight.h"
+
+#define TABLE_CELL_ID @"NearbyResultCell"
 
 @interface NearbyViewController ()
 
@@ -34,6 +37,7 @@
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic, strong) NSString *cachePath;
 @property (nonatomic) BOOL headingAvailable;
+@property (strong, nonatomic) NearbyResultCell *offScreenSizingCell;
 
 @end
 
@@ -82,7 +86,7 @@
 @implementation NearbyViewController
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *rowData = self.nearbyDataArray[indexPath.section][indexPath.row];
+    NSDictionary *rowData = [self getRowDataForIndexPath:indexPath];
     NSString *title = rowData[@"title"];
     [NAV loadArticleWithTitle: [MWPageTitle titleWithString:title]
                        domain: [SessionSingleton sharedInstance].domain
@@ -272,6 +276,7 @@
                 // Fetch WikiData short descriptions.
                 if (wikiDataIds.count > 0){
                     (void)[[WikiDataShortDescriptionFetcher alloc] initAndFetchDescriptionsForIds: wikiDataIds
+                                                                                       searchType: SEARCH_TYPE_NEARBY
                                                                                       withManager: [QueuesSingleton sharedInstance].nearbyFetchManager
                                                                                thenNotifyDelegate: self];
                 }
@@ -304,8 +309,7 @@
                 // Check if cell still onscreen! This is important!
                 NSArray *visibleRowIndexPaths = [self.tableView indexPathsForVisibleRows];
                 for (NSIndexPath *thisIndexPath in visibleRowIndexPaths.copy) {
-                    NSArray *sectionData = self.nearbyDataArray[thisIndexPath.section];
-                    NSDictionary *rowData = sectionData[thisIndexPath.row];
+                    NSDictionary *rowData = [self getRowDataForIndexPath:thisIndexPath];
                     NSString *url = rowData[@"thumbnail"][@"source"];
                     if ([url.lastPathComponent isEqualToString:fileName]) {
                         NearbyResultCell *cell = (NearbyResultCell *)[self.tableView cellForRowAtIndexPath:thisIndexPath];
@@ -455,7 +459,10 @@
     
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 19)];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"NearbyResultCell" bundle:nil] forCellReuseIdentifier:@"NearbyResultCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:TABLE_CELL_ID bundle:nil] forCellReuseIdentifier:TABLE_CELL_ID];
+
+    // Single off-screen cell for determining dynamic cell height.
+    self.offScreenSizingCell = (NearbyResultCell *)[self.tableView dequeueReusableCellWithIdentifier:TABLE_CELL_ID];
 }
 
 - (void)didReceiveMemoryWarning
@@ -472,7 +479,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSArray *sectionArray = self.nearbyDataArray[section];
-    return [sectionArray count];
+    return sectionArray.count;
 }
 
 -(void)updateLocationDataOfCell:(NearbyResultCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -483,8 +490,7 @@
 
     cell.interfaceOrientation = self.interfaceOrientation;
 
-    NSArray *array = self.nearbyDataArray[indexPath.section];
-    NSDictionary *rowData = array[indexPath.row];
+    NSDictionary *rowData = [self getRowDataForIndexPath:indexPath];
 
     NSNumber *distance = rowData[@"distance"];
     cell.distance = distance;
@@ -498,7 +504,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellID = @"NearbyResultCell";
+    static NSString *cellID = TABLE_CELL_ID;
     NearbyResultCell *cell = (NearbyResultCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
 
     if (!cell.longPressRecognizer) {
@@ -506,13 +512,9 @@
         [cell addGestureRecognizer:cell.longPressRecognizer];
     }
     
-    NSArray *sectionData = self.nearbyDataArray[indexPath.section];
-    NSDictionary *rowData = sectionData[indexPath.row];
-    
-    [cell setTitle:rowData[@"title"] description:rowData[@"wikidata_description"]];
-    
-    [self updateLocationDataOfCell:cell atIndexPath:indexPath];
+    [self updateViewsInCell:cell forIndexPath:indexPath];
 
+    NSDictionary *rowData = [self getRowDataForIndexPath:indexPath];
     NSString *url = rowData[@"thumbnail"][@"source"];
 
     // Set thumbnail placeholder
@@ -539,6 +541,29 @@
     }
     
     return cell;
+}
+
+-(NSDictionary *)getRowDataForIndexPath:(NSIndexPath *)indexPath
+{
+    return self.nearbyDataArray[indexPath.section][indexPath.row];
+}
+
+-(void)updateViewsInCell:(NearbyResultCell *)cell forIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *rowData = [self getRowDataForIndexPath:indexPath];
+    
+    [cell setTitle:rowData[@"title"] description:rowData[@"wikidata_description"]];
+    
+    [self updateLocationDataOfCell:cell atIndexPath:indexPath];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Update the sizing cell with any data which could change the cell height.
+    [self updateViewsInCell:self.offScreenSizingCell forIndexPath:indexPath];
+
+    // Determine height for the current configuration of the sizing cell.
+    return [tableView heightForSizingCell:self.offScreenSizingCell];
 }
 
 -(void)longPressHappened:(UILongPressGestureRecognizer *)gestureRecognizer
@@ -579,39 +604,13 @@
 {
     if (buttonIndex == actionSheet.cancelButtonIndex) return;
     
-    NSArray *sectionData = self.nearbyDataArray[self.longPressIndexPath.section];
-    NSDictionary *rowData = sectionData[self.longPressIndexPath.row];
+    NSDictionary *rowData = [self getRowDataForIndexPath:self.longPressIndexPath];
 
     NSNumber *lat = rowData[@"coordinates"][@"lat"];
     NSNumber *lon = rowData[@"coordinates"][@"lon"];
     NSString *title = rowData[@"title"];
 
     [self openInMaps:CLLocationCoordinate2DMake(lat.doubleValue, lon.doubleValue) withTitle:title];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Getting dynamic cell height which respects auto layout constraints is tricky.
-
-    // First get the cell configured exactly as it is for display.
-    NearbyResultCell *cell =
-        (NearbyResultCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-
-    // Then coax the cell into taking on the size that would satisfy its layout constraints (and
-    // return that size's height).
-    // From: http://stackoverflow.com/a/18746930/135557
-    [cell setNeedsUpdateConstraints];
-    [cell updateConstraintsIfNeeded];
-    cell.bounds = CGRectMake(0.0f, 0.0f, tableView.bounds.size.width, cell.bounds.size.height * 10);
-    [cell setNeedsLayout];
-    [cell layoutIfNeeded];
-    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-    return height + 1.0f;
-
-    // Note: for this to work the any UILabels used in the cell should use a class which updates the
-    // label's preferredMaxLayoutWidth. PaddedLabel does this. Otherwise some words may get cut off when
-    // lines wrap.
-    // For more info: http://stackoverflow.com/a/17493152/135557
 }
 
 /*

@@ -5,11 +5,14 @@
 #import "PaddedLabel.h"
 #import "Defines.h"
 #import "NSObject+ConstraintsScale.h"
+#import "UIScreen+Extras.h"
 
 @implementation PrimaryMenuTableViewCell
 
 -(void)awakeFromNib
 {
+    CGFloat verticalPadding = [[UIScreen mainScreen] isThreePointFiveInchScreen] ? 9 : 13;
+    self.label.padding = UIEdgeInsetsMake(verticalPadding, 5, verticalPadding, 5);
     self.label.font = [UIFont systemFontOfSize:27.0f * MENUS_SCALE_MULTIPLIER];
     [self adjustConstraintsScaleForViews:@[self.label]];
 }

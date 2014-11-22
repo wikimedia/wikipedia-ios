@@ -6,22 +6,20 @@
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
-#import "CenterNavController.h"
 #import "UIViewController+Alert.h"
 #import "NSDate-Utilities.h"
-#import "NSString+Extras.h"
 #import "WikiGlyph_Chars.h"
-#import "RootViewController.h"
 #import "UIViewController+ModalPop.h"
 #import "Defines.h"
 #import "PaddedLabel.h"
-#import "FetcherBase.h"
+#import "UITableView+DynamicCellHeight.h"
 
-@interface PageHistoryViewController (){
+#define TABLE_CELL_ID @"PageHistoryResultCell"
 
-}
+@interface PageHistoryViewController ()
 
 @property (strong, nonatomic) __block NSMutableArray *pageHistoryDataArray;
+@property (strong, nonatomic) PageHistoryResultCell *offScreenSizingCell;
 
 @end
 
@@ -92,7 +90,10 @@
     self.tableView.tableFooterView.backgroundColor = [UIColor whiteColor];
     
     [self.tableView registerNib:[UINib nibWithNibName: @"PageHistoryResultPrototypeView" bundle: nil]
-         forCellReuseIdentifier: @"PageHistoryResultCell"];
+         forCellReuseIdentifier: TABLE_CELL_ID];
+
+    // Single off-screen cell for determining dynamic cell height.
+    self.offScreenSizingCell = (PageHistoryResultCell *)[self.tableView dequeueReusableCellWithIdentifier:TABLE_CELL_ID];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
@@ -146,71 +147,35 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellID = @"PageHistoryResultCell";
+    static NSString *cellID = TABLE_CELL_ID;
     PageHistoryResultCell *cell = (PageHistoryResultCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
+
+    [self updateViewsInCell:cell forIndexPath:indexPath];
     
+    return cell;
+}
+
+-(void)updateViewsInCell:(PageHistoryResultCell *)cell forIndexPath:(NSIndexPath *)indexPath
+{
     NSDictionary *sectionDict = self.pageHistoryDataArray[indexPath.section];
     NSArray *rows = sectionDict[@"revisions"];
     NSDictionary *row = rows[indexPath.row];
     
-    cell.separatorHeightConstraint.constant =
-        (rows.count == 1) ? 0.0f : (1.0f / [UIScreen mainScreen].scale);
-
-    NSDate *timeStamp = [row[@"timestamp"] getDateFromIso8601DateString];
-    
-    NSString *formattedTime =
-        [NSDateFormatter localizedStringFromDate: timeStamp
-                                       dateStyle: NSDateFormatterNoStyle
-                                       timeStyle: NSDateFormatterShortStyle];
-    
-    NSString *commentNoHTML = [row[@"parsedcomment"] getStringWithoutHTML];
-
-    NSNumber *delta = row[@"characterDelta"];
-    
-    cell.summaryLabel.text = commentNoHTML;
-    cell.timeLabel.text = formattedTime;
-
-    cell.deltaLabel.text =
-        [NSString stringWithFormat:@"%@%@", (delta.integerValue > 0) ? @"+" : @"", delta.stringValue];
-    
-    cell.deltaLabel.textColor =
-        (delta.integerValue > 0)
-        ?
-        [UIColor colorWithRed:0.00 green:0.69 blue:0.49 alpha:1.0]
-        :
-        [UIColor colorWithRed:0.95 green:0.00 blue:0.00 alpha:1.0]
-        ;
-
-    cell.iconLabel.attributedText =
-    [[NSAttributedString alloc] initWithString: row[@"anon"] ? WIKIGLYPH_USER_SLEEP : WIKIGLYPH_USER_SMILE
-                                    attributes: @{
-                                                  NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:23.0 * MENUS_SCALE_MULTIPLIER],
-                                                  NSForegroundColorAttributeName : [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0],
-                                                  NSBaselineOffsetAttributeName: @1
-                                                  }];
-    
-    cell.nameLabel.text = row[@"user"];
-
-    return cell;
+    [cell setName: row[@"user"]
+             time: row[@"timestamp"]
+            delta: row[@"characterDelta"]
+             icon: row[@"anon"] ? WIKIGLYPH_USER_SLEEP : WIKIGLYPH_USER_SMILE
+          summary: row[@"parsedcomment"]
+        separator: (rows.count > 1)];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Getting dynamic cell height which respects auto layout constraints is tricky.
+    // Update the sizing cell with any data which could change the cell height.
+    [self updateViewsInCell:self.offScreenSizingCell forIndexPath:indexPath];
 
-    // First get the cell configured exactly as it is for display.
-    PageHistoryResultCell *cell =
-        (PageHistoryResultCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-
-    // Then coax the cell into taking on the size that would satisfy its layout constraints (and
-    // return that size's height).
-    // From: http://stackoverflow.com/a/18746930/135557
-    [cell setNeedsUpdateConstraints];
-    [cell updateConstraintsIfNeeded];
-    cell.bounds = CGRectMake(0.0f, 0.0f, tableView.bounds.size.width, cell.bounds.size.height);
-    [cell setNeedsLayout];
-    [cell layoutIfNeeded];
-    return ([cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1.0f);
+    // Determine height for the current configuration of the sizing cell.
+    return [tableView heightForSizingCell:self.offScreenSizingCell];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

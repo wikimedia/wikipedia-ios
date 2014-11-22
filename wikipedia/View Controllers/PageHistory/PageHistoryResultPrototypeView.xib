@@ -1,31 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" restorationIdentifier="PageHistoryResultCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="PageHistoryResultCell" rowHeight="81" id="fUc-GS-qa2" customClass="PageHistoryResultCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="PageHistoryResultCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="PageHistoryResultCell" rowHeight="108" id="fUc-GS-qa2" customClass="PageHistoryResultCell">
+            <rect key="frame" x="0.0" y="0.0" width="334" height="108"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fUc-GS-qa2" id="RvZ-qs-wa2">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="summary" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="211" translatesAutoresizingMaskIntoConstraints="NO" id="v0D-Yl-Ka2" userLabel="Summary Label" customClass="PageHistoryLabel">
-                        <rect key="frame" x="89" y="41" width="211" height="23"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="name" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="187" translatesAutoresizingMaskIntoConstraints="NO" id="QOP-WQ-T6H" customClass="PageHistoryLabel">
-                        <rect key="frame" x="113" y="16" width="187" height="20"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSf-fV-fXN" customClass="PageHistoryLabel">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSf-fV-fXN" userLabel="Time Label" customClass="PageHistoryLabel">
                         <rect key="frame" x="10" y="18" width="60" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="PNz-d5-Xcq"/>
@@ -33,18 +22,30 @@
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="delta" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdZ-td-0Go" customClass="PageHistoryLabel">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="delta" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdZ-td-0Go" userLabel="Delta Label" customClass="PageHistoryLabel">
                         <rect key="frame" x="10" y="41" width="60" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="icon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jE-fZ-qIN" customClass="PageHistoryLabel">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="icon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jE-fZ-qIN" userLabel="Icon Label" customClass="PageHistoryLabel">
                         <rect key="frame" x="85" y="18" width="26" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="name" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="187" translatesAutoresizingMaskIntoConstraints="NO" id="QOP-WQ-T6H" userLabel="Name  Label" customClass="PageHistoryLabel">
+                        <rect key="frame" x="113" y="16" width="201" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="summary" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="211" translatesAutoresizingMaskIntoConstraints="NO" id="v0D-Yl-Ka2" userLabel="Summary Label" customClass="PageHistoryLabel">
+                        <rect key="frame" x="89" y="41" width="225" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rgf-YA-K8q" userLabel="Separator">
-                        <rect key="frame" x="0.0" y="79" width="320" height="1"/>
+                        <rect key="frame" x="0.0" y="106" width="334" height="1"/>
                         <color key="backgroundColor" red="0.89437181122448983" green="0.89437181122448983" blue="0.89437181122448983" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="POC-K0-csn"/>
@@ -66,7 +67,7 @@
                     <constraint firstItem="2jE-fZ-qIN" firstAttribute="leading" secondItem="aSf-fV-fXN" secondAttribute="trailing" constant="15" id="XdY-6K-J24"/>
                     <constraint firstItem="Rgf-YA-K8q" firstAttribute="leading" secondItem="RvZ-qs-wa2" secondAttribute="leading" id="a4O-1b-uoH"/>
                     <constraint firstItem="fdZ-td-0Go" firstAttribute="top" secondItem="v0D-Yl-Ka2" secondAttribute="top" id="bX6-Dq-Dsa"/>
-                    <constraint firstAttribute="bottom" secondItem="v0D-Yl-Ka2" secondAttribute="bottom" constant="16" id="ef4-v4-uvF"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="v0D-Yl-Ka2" secondAttribute="bottom" constant="16" id="ef4-v4-uvF"/>
                     <constraint firstItem="fdZ-td-0Go" firstAttribute="width" secondItem="aSf-fV-fXN" secondAttribute="width" id="iQa-VB-pH8"/>
                     <constraint firstItem="QOP-WQ-T6H" firstAttribute="leading" secondItem="2jE-fZ-qIN" secondAttribute="trailing" constant="2" id="imx-pe-ra4"/>
                     <constraint firstItem="2jE-fZ-qIN" firstAttribute="centerY" secondItem="QOP-WQ-T6H" secondAttribute="centerY" id="nKh-Sb-0W5"/>
@@ -82,6 +83,7 @@
                 <outlet property="summaryLabel" destination="v0D-Yl-Ka2" id="s6n-Kk-sBi"/>
                 <outlet property="timeLabel" destination="aSf-fV-fXN" id="x7J-ha-2Vc"/>
             </connections>
+            <point key="canvasLocation" x="55" y="118"/>
         </tableViewCell>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

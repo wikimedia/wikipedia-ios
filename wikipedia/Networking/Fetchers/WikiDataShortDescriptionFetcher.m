@@ -13,17 +13,20 @@
 
 @property (nonatomic, strong) NSArray *wikiDataIds;
 @property (nonatomic, strong) NSString *domain;
+@property (nonatomic) SearchType searchType;
 
 @end
 
 @implementation WikiDataShortDescriptionFetcher
 
 -(instancetype)initAndFetchDescriptionsForIds: (NSArray *)wikiDataIds
+                                   searchType: (SearchType)searchType
                                   withManager: (AFHTTPRequestOperationManager *)manager
                            thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate
 {
     self = [super init];
     if (self) {
+        self.searchType = searchType;
         self.wikiDataIds = wikiDataIds;
         self.domain = [SessionSingleton sharedInstance].domain;
         self.fetchFinishedDelegate = delegate;

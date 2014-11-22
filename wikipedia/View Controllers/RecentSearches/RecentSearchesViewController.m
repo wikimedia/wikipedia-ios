@@ -15,6 +15,7 @@
 #import "TopMenuViewController.h"
 #import "RootViewController.h"
 #import "UIViewController+HideKeyboard.h"
+#import "UIView+TemporaryAnimatedXF.h"
 
 #define CELL_HEIGHT (48.0 * MENUS_SCALE_MULTIPLIER)
 #define HEADING_FONT_SIZE (16.0 * MENUS_SCALE_MULTIPLIER)
@@ -83,7 +84,7 @@
     self.trashButton.accessibilityTraits = UIAccessibilityTraitButton;
     
     [self.trashButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget: self
-                                                                                   action: @selector(showDeleteAllDialog)]];
+                                                                                   action: @selector(trashButtonTapped)]];
 }
 
 -(void)saveTerm: (NSString *)term
@@ -176,10 +177,20 @@
     }
 }
 
--(void)showDeleteAllDialog
+-(void)trashButtonTapped
 {
     if(!self.trashButton.enabled) return;
 
+    [self.trashButton animateAndRewindXF: CATransform3DMakeScale(1.2f, 1.2f, 1.0f)
+                              afterDelay: 0.0
+                                duration: 0.1
+                                    then: ^{
+                                        [self showDeleteAllDialog];
+                                    }];
+}
+
+-(void)showDeleteAllDialog
+{
     UIAlertView *dialog =
     [[UIAlertView alloc] initWithTitle: MWLocalizedString(@"search-recent-clear-confirmation-heading", nil)
                                message: MWLocalizedString(@"search-recent-clear-confirmation-sub-heading", nil)
@@ -255,9 +266,17 @@
 {
     TopMenuTextFieldContainer *textFieldContainer =
         [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
+    
     NSString *term = self.tableDataArray[indexPath.row][@"term"];
     textFieldContainer.textField.text = term;
-    [textFieldContainer.textField sendActionsForControlEvents:UIControlEventEditingChanged];
+
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell animateAndRewindXF: CATransform3DMakeScale(1.025f, 1.0f, 1.0f)
+                  afterDelay: 0.0
+                    duration: 0.1
+                        then: ^{
+                            [textFieldContainer.textField sendActionsForControlEvents:UIControlEventEditingChanged];
+                        }];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
