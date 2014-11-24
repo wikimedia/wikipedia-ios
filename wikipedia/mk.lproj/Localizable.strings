@@ -78,6 +78,9 @@
 "search-loading-section-remaining" = "Го вчитувам остатокот од статијата...";
 "search-loading-article-loaded" = "Статијата е вчитана.";
 "search-cancel" = "Откажи";
+"search-titles" = "Наслови";
+"search-within-articles" = "Во статиите";
+"search-did-you-mean" = "Дали мислевте на $1?";
 "main-menu-title" = "Повеќе";
 "main-menu-language-title" = "Пребарување на викито на $1";
 "main-menu-language-toggle-show" = "Прикажи јазици";

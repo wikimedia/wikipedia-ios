@@ -81,6 +81,9 @@
 "search-loading-section-remaining" = "De rest van de pagina aan het laden...";
 "search-loading-article-loaded" = "Pagina geladen.";
 "search-cancel" = "Annuleren";
+"search-titles" = "Paginanamen";
+"search-within-articles" = "In paginatekst";
+"search-did-you-mean" = "Bedoelde u $1?";
 "main-menu-title" = "Meer";
 "main-menu-language-title" = "Zoeken in Wikipedia in het $1";
 "main-menu-language-toggle-show" = "Talen bekijken";

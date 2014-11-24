@@ -81,6 +81,9 @@
 "search-loading-section-remaining" = "S'està carregant la resta de l'article...";
 "search-loading-article-loaded" = "S'ha carregat l'article.";
 "search-cancel" = "Cancel·la";
+"search-titles" = "Títols";
+"search-within-articles" = "Dins d'articles";
+"search-did-you-mean" = "Volíeu dir: $1?";
 "main-menu-title" = "Més";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";
 "main-menu-language-toggle-show" = "Mostra idiomes";
@@ -150,6 +153,8 @@
 "about-title" = "Quant a";
 "about-wikipedia" = "Viquipèdia";
 "about-contributors" = "col·laboradors";
+"about-testers" = "provadors";
+"about-testers-details" = "Provat per $1";
 "about-translators" = "traductors";
 "about-translators-details" = "Traduït per voluntaris a $1";
 "about-libraries" = "biblioteques utilitzades";

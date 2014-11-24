@@ -49,6 +49,8 @@
 "search-field-placeholder-text" = "Претрага Википедије";
 "search-loading-article-loaded" = "Чланак учитан.";
 "search-cancel" = "Откажи";
+"search-titles" = "Наслови";
+"search-did-you-mean" = "Да ли сте мислили на $1?";
 "main-menu-title" = "Више";
 "main-menu-language-title" = "Претрага Википедије";
 "main-menu-language-toggle-show" = "Прикажи језике";

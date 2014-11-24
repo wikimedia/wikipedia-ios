@@ -71,6 +71,8 @@
 "search-loading-section-remaining" = "De Rescht vum Artikel lueden...";
 "search-loading-article-loaded" = "Artikel gelueden.";
 "search-cancel" = "Ofbriechen";
+"search-titles" = "Titelen";
+"search-did-you-mean" = "Mengt Dir $1?";
 "main-menu-title" = "Méi";
 "main-menu-language-title" = "Sicht an der Wiki op $1";
 "main-menu-language-toggle-show" = "Sprooche weisen";

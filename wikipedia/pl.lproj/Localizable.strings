@@ -67,6 +67,9 @@
 "search-loading-section-zero" = "Ładowanie pierwszej sekcji artykułu...";
 "search-loading-article-loaded" = "Załadowana artykuł.";
 "search-cancel" = "Anuluj";
+"search-titles" = "Tytuły";
+"search-within-articles" = "W artykułach";
+"search-did-you-mean" = "Czy chodziło Ci o $1?";
 "main-menu-title" = "Więcej";
 "main-menu-language-title" = "Przeszukaj $ Wikipedię";
 "main-menu-language-toggle-show" = "Pokaż języki";

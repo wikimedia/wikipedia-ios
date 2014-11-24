@@ -82,6 +82,9 @@
 "search-loading-section-remaining" = "Laddar resten av artikeln...";
 "search-loading-article-loaded" = "Artikel laddad.";
 "search-cancel" = "Avbryt";
+"search-titles" = "Titlar";
+"search-within-articles" = "Inom artiklar";
+"search-did-you-mean" = "Menade du $1?";
 "main-menu-title" = "Mer";
 "main-menu-language-title" = "Sök $1.Wikipedia";
 "main-menu-language-toggle-show" = "Visa språk";

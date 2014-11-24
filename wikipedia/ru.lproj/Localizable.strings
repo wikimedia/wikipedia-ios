@@ -79,6 +79,9 @@
 "search-loading-section-remaining" = "Загрузка остальной части этой статьи…";
 "search-loading-article-loaded" = "Статья загружена.";
 "search-cancel" = "Отмена";
+"search-titles" = "Заголовки";
+"search-within-articles" = "Внутри статей";
+"search-did-you-mean" = "Возможно, вы имели в виду $1?";
 "main-menu-title" = "Ещё";
 "main-menu-language-title" = "$1 язык для поиска на вики";
 "main-menu-language-toggle-show" = "Показать языки";
