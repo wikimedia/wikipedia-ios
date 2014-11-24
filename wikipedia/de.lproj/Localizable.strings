@@ -77,6 +77,9 @@
 "search-loading-section-remaining" = "Lade den Rest des Artikels …";
 "search-loading-article-loaded" = "Artikel geladen.";
 "search-cancel" = "Abbrechen";
+"search-titles" = "Titel";
+"search-within-articles" = "Innerhalb Artikeln";
+"search-did-you-mean" = "Meintest du $1?";
 "main-menu-title" = "Weitere";
 "main-menu-language-title" = "Sprachwiki $1 durchsuchen";
 "main-menu-language-toggle-show" = "Sprachen anzeigen";

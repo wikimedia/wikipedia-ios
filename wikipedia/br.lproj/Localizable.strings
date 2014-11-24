@@ -79,6 +79,9 @@
 "search-loading-section-remaining" = "O kargañ ar peurrest eus ar rannskrid...";
 "search-loading-article-loaded" = "Pennad karget.";
 "search-cancel" = "Nullañ";
+"search-titles" = "Titloù";
+"search-within-articles" = "Er pennadoù";
+"search-did-you-mean" = "N'ho poa ket soñjet kentoc'h e : $1";
 "main-menu-title" = "Muioc'h";
 "main-menu-language-title" = "Furchal $1 Wikipedia";
 "main-menu-language-toggle-show" = "Diskouez ar yezhoù";

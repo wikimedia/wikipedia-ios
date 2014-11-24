@@ -83,8 +83,8 @@
 "search-loading-section-remaining" = "Alert text shown when loading remaining article sections";
 "search-loading-article-loaded" = "Alert text shown when the article has been completely loaded";
 "search-cancel" = "{{Identical|Cancel}}";
-"search-titles" = "Button text for performing search of article titles";
-"search-within-articles" = "Button text for performing search of article content";
+"search-titles" = "Button text for performing search of article titles. Appears under the search box next to {{msg-wikimedia|Wikipedia-ios-search-within-articles}}.\n{{Identical|Title}}";
+"search-within-articles" = "Button text for performing search of article content. Appears under the search box next to {{msg-wikimedia|Wikipedia-ios-search-titles}}.";
 "search-did-you-mean" = "Button text for searching for an alternate spelling of the search term. Parameters:\n* $1 - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'";
 "search-recent-title" = "Title for list of recent search terms";
 "search-recent-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";

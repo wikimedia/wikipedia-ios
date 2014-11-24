@@ -79,6 +79,9 @@
 "search-loading-section-remaining" = "טעינת שאר הערך...";
 "search-loading-article-loaded" = "הערך נטען.";
 "search-cancel" = "ביטול";
+"search-titles" = "בכותרות";
+"search-within-articles" = "בתוכן הערכים";
+"search-did-you-mean" = "האם התכוונת לחפש $1?";
 "main-menu-title" = "עוד";
 "main-menu-language-title" = "חיפוש בוויקי בשפה $1";
 "main-menu-language-toggle-show" = "הצגת השפות";

@@ -76,6 +76,9 @@
 "search-loading-section-remaining" = "Se încarcă restul articolului...";
 "search-loading-article-loaded" = "Articol încărcat.";
 "search-cancel" = "Revocare";
+"search-titles" = "Titluri";
+"search-within-articles" = "În conținutul articolelor";
+"search-did-you-mean" = "V-ați referit la $1?";
 "main-menu-title" = "Mai mult";
 "main-menu-language-title" = "Căutare pe wiki în limba $1";
 "main-menu-language-toggle-show" = "Arată limbile";

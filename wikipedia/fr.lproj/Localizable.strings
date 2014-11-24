@@ -3,6 +3,7 @@
 // Author: Brion Vibber
 // Author: Gomoko
 // Author: John Trololo
+// Author: Macofe
 // Author: Orikrin1998
 // Author: Solucer
 // Author: Wladek92
@@ -81,6 +82,9 @@
 "search-loading-section-remaining" = "Chargement du reste de l’article…";
 "search-loading-article-loaded" = "Article chargé.";
 "search-cancel" = "Annuler";
+"search-titles" = "Titres";
+"search-within-articles" = "Dans les articles";
+"search-did-you-mean" = "Vouliez-vous dire $1 ?";
 "main-menu-title" = "Plus";
 "main-menu-language-title" = "Rechercher le wiki de langue $1";
 "main-menu-language-toggle-show" = "Afficher les langues";

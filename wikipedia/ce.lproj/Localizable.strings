@@ -33,6 +33,9 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Хьажорг схьаелла";
 "open-link-cancel" = "Цаоьшу";
+"search-titles" = "Корташ";
+"search-within-articles" = "Яззамашкахь";
+"search-did-you-mean" = "Хила мега ахьа лоьхарг: $1";
 "main-menu-title" = "Кхин";
 "main-menu-language-title" = "$1 вики чухула лахаран мотт";
 "main-menu-account-login" = "ЧугӀо";
@@ -59,6 +62,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Хьалха муха ю хьажар";
 "credits-wikimedia-repos" = "Викимедиа";
 "credits-external-libraries" = "АгӀонгара";
+"about-testers" = "тестераш";
 "share-menu-save-page" = "Ӏалашъе агӀо";
 "share-menu-page-saved" = "АгӀо Ӏалашйина";
 "timestamp-days" = "%d де хьалха";

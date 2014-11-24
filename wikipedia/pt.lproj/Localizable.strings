@@ -79,6 +79,8 @@
 "search-loading-section-remaining" = "A carregar o resto do artigo...";
 "search-loading-article-loaded" = "Artigo carregado.";
 "search-cancel" = "Cancelar";
+"search-titles" = "Títulos";
+"search-did-you-mean" = "Será que quis dizer $1?";
 "main-menu-title" = "Mais";
 "main-menu-language-title" = "Pesquisar na Wikipédia em $1";
 "main-menu-language-toggle-show" = "Mostrar idiomas";

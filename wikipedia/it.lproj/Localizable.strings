@@ -5,6 +5,7 @@
 // Author: Brion
 // Author: Giacomo Checchin
 // Author: Gianfranco
+// Author: Macofe
 // Author: Nastoshka
 // Author: Ontsed
 // Author: Peg60
@@ -83,6 +84,7 @@
 "search-loading-section-remaining" = "Caricamento del resto della voce...";
 "search-loading-article-loaded" = "Voce caricata.";
 "search-cancel" = "Annulla";
+"search-titles" = "Titoli";
 "main-menu-title" = "Altro";
 "main-menu-language-title" = "Cerca nel wiki in lingua $1";
 "main-menu-language-toggle-show" = "Visualizza lingue";
@@ -148,6 +150,10 @@
 "credits-gerrit-repo" = "Applicazione principale (Gerrit)";
 "credits-github-mirror" = "Applicazione mirror (GitHub)";
 "credits-external-libraries" = "Esterno";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "collaboratori";
+"about-translators" = "traduttori";
+"about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Salva la pagina";
 "share-menu-page-saved" = "Pagina salvata";
 "share-menu-page-saved-access" = "Suggerimento: per accedere alle pagine salvate, tocca $1 sopra o premi a lungo $2 sotto.";
