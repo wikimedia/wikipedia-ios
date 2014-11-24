@@ -79,7 +79,7 @@
 "search-cancel" = "Hủy bỏ";
 "search-titles" = "Tên trang";
 "search-within-articles" = "Nội dung bài";
-"search-did-you-mean" = "Có phải bạn muốn tìm “%s”?";
+"search-did-you-mean" = "Có phải bạn muốn tìm “$1”?";
 "main-menu-title" = "Khác";
 "main-menu-language-title" = "Tìm kiếm trong phiên bản ngôn ngữ $1";
 "main-menu-language-toggle-show" = "Xem các ngôn ngữ";
