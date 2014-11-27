@@ -2,7 +2,16 @@ var bridge = require("./bridge");
 var transformer = require("./transformer");
 var refs = require("./refs");
 
-//TODO: move makeTablesNotBlockIfSafeToDoSo, hideAudioTags and reduceWeirdWebkitMargin out into own js object.
+// DOMContentLoaded fires before window.onload! That's good!
+// See: http://stackoverflow.com/a/3698214/135557
+document.addEventListener("DOMContentLoaded", function(event) {
+
+    transformer.transform( "relocateInfobox", document );
+    transformer.transform( "hideRedlinks", document );
+    transformer.transform( "disableFilePageEdit", document );
+
+    bridge.sendMessage( "DOMContentLoaded", {} );
+});
 
 bridge.registerListener( "setLanguage", function( payload ){
     var html = document.querySelector( "html" );
@@ -24,56 +33,6 @@ bridge.registerListener( "setScale", function( payload ) {
     var content = contentSettings.join(", ");
     document.getElementById("viewport").setAttribute('content', content);
 } );
-
-bridge.registerListener( "append", function( payload ) {
-    // Append html without losing existing event handlers
-    // From: http://stackoverflow.com/a/595825
-
-    var newcontent = document.createElement('div');
-    newcontent.innerHTML = payload.html;
-
-    transformer.transform( "relocateInfobox", newcontent );
-    transformer.transform( "hideRedlinks", newcontent );
-    transformer.transform( "disableFilePageEdit", newcontent );
-    transformer.transform( "hideAudioTags", newcontent );
-    transformer.transform( "overflowWideTables", newcontent );
-    
-    var content = document.getElementById("content");
-    // Ensure we've done transforms *before* appending the new content.
-    // Otherwise the web view dom will thrash.
-    content.appendChild(newcontent);
-});
-
-bridge.registerListener( "injectNonLeadSections", function( payload ) {
-    // Append html without losing existing event handlers
-    // From: http://stackoverflow.com/a/595825
-
-    var newcontent = document.createElement('div');
-    newcontent.innerHTML = payload.html;
-
-    //transformer.transform( "relocateInfobox", newcontent );
-    transformer.transform( "hideRedlinks", newcontent );
-    transformer.transform( "disableFilePageEdit", newcontent );
-    transformer.transform( "hideAudioTags", newcontent );
-    transformer.transform( "overflowWideTables", newcontent );
-    
-    var content = document.getElementById("nonLeadSectionsInjectionPoint");
-    // Ensure we've done transforms *before* injecting the new content.
-    // Otherwise the web view dom will thrash.
-    content.parentNode.replaceChild(newcontent, content);
-});
-
-bridge.registerListener( "remove", function( payload ) {
-    document.getElementById( "content" ).removeChild(document.getElementById(payload.element));
-});
-
-bridge.registerListener( "clear", function( payload ) {
-    document.getElementById( "content" ).innerHTML = '';
-});
-
-bridge.registerListener( "ping", function( payload ) {
-    bridge.sendMessage( "pong", payload );
-});
 
 bridge.registerListener( "scrollToFragment", function( payload ) {
     var item = document.getElementById( payload.hash );
@@ -150,7 +109,7 @@ function touchEndedWithoutDragging(event){
     // Handle A tag taps.
     if(anchorTargetFound){
         var href = anchorTarget.getAttribute( "href" );
-        if (anchorTarget.className === "edit_section_button") {
+        if (anchorTarget.getAttribute( "data-action" ) === "edit_section") {
             bridge.sendMessage( 'editClicked', { sectionId: anchorTarget.getAttribute( "data-id" ) });
         } else if ( refs.isReference( href ) ) {
             // Handle reference links with a popup view instead of scrolling about!

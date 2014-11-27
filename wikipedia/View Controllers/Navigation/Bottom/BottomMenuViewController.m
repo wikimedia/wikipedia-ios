@@ -270,7 +270,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
                       domain: history.article.domain
              discoveryMethod: DISCOVERY_METHOD_BACKFORWARD
             invalidatingCache: NO
-         showLoadingIndicator: NO];
+         showLoadingIndicator: YES];
     }
 }
 
@@ -288,7 +288,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
                       domain: history.article.domain
              discoveryMethod: DISCOVERY_METHOD_BACKFORWARD
             invalidatingCache: NO
-         showLoadingIndicator: NO];
+         showLoadingIndicator: YES];
     }
 }
 

@@ -35,8 +35,3 @@ Bridge.prototype.sendMessage = function( messageType, payload ) {
 };
 
 module.exports = new Bridge();
-
-// FIXME: Move this to somwehere else, eh?
-window.onload = function() {
-    module.exports.sendMessage( "DOMLoaded", {} );
-};

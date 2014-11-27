@@ -67,37 +67,9 @@
 
     NSURL *url = [[SessionSingleton sharedInstance] urlForDomain:domain];
     
-    void (^getNonLeadSections)() = ^void() {
-        // Get the remaining sections data.
-        NSDictionary *params = [self getParamsForTitle:title leadSectionOnly:NO];
-        
-        [[MWNetworkActivityIndicatorManager sharedManager] push];
-
-        [manager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            //NSLog(@"JSON: %@", responseObject);
-            
-            NSDictionary *nonLeadSectionsResults = [self prepareResultsFromResponse:responseObject forTitle:title];
-            
-            [self applyResultsForNonLeadSections:nonLeadSectionsResults];
-
-            [self finishWithError: nil
-                      fetchedData: @(ARTICLE_SECTION_TYPE_NON_LEAD)];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            NSLog(@"Error: %@", error);
-
-            [self finishWithError: error
-                      fetchedData: @(ARTICLE_SECTION_TYPE_NON_LEAD)];
-
-        }];
-    };
-    
-    
     // First retrieve lead section data, then get the remaining sections data.
 
-    NSDictionary *params = [self getParamsForTitle:title leadSectionOnly:YES];
+    NSDictionary *params = [self getParamsForTitle:title];
     
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
@@ -111,16 +83,13 @@
         // Clear any MCCMNC header - needed because manager is a singleton.
         [self removeMCCMNCHeaderFromRequestSerializer:manager.requestSerializer];
         
-        NSDictionary *leadSectionResults = [self prepareResultsFromResponse:responseObject forTitle:title];
+        NSDictionary *sectionResults = [self prepareResultsFromResponse:responseObject forTitle:title];
         
-        [self applyResultsForLeadSection:leadSectionResults];
+        [self applyResultsForLeadSection:sectionResults];
+        [self applyResultsForNonLeadSections:sectionResults];
 
         [self finishWithError: nil
-                  fetchedData: @(ARTICLE_SECTION_TYPE_LEAD)];
-        
-
-        // Now that lead section data has been retrieved, get the remaining sections data.
-        getNonLeadSections();
+                  fetchedData: nil];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -130,39 +99,28 @@
         [self removeMCCMNCHeaderFromRequestSerializer:manager.requestSerializer];
 
         [self finishWithError: error
-                  fetchedData: @(ARTICLE_SECTION_TYPE_LEAD)];
+                  fetchedData: nil];
 
     }];
 }
 
--(NSDictionary *)getParamsForTitle:(NSString *)title leadSectionOnly:(BOOL)leadSectionOnly
+-(NSDictionary *)getParamsForTitle:(NSString *)title
 {
     NSMutableDictionary *params = @{
     @"format": @"json",
     @"action": @"mobileview",
     @"sectionprop": @"toclevel|line|anchor|level|number|fromtitle|index",
     @"noheadings": @"true",
+    @"sections": @"all",
     @"page": title,
     @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount|id|protection|editable|displaytitle",
     }.mutableCopy;
 
-    if (!leadSectionOnly) {
-        params[@"onlyrequestedsections"] = @"1";
-        params[@"sections"] = @"1-";
-    }else{
-
-        //Reminder: do not set @"onlyrequestedsections": @"1" for lead section.
-        //Need to see keys for the subsequent sections so the "needsRefresh"
-        //value can be left YES until subsequent sections have been retrieved
-        //(if there's more than a single section).
-
-        params[@"sections"] = @"0";
-        
-        if ([SessionSingleton sharedInstance].sendUsageReports) {
-            ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
-            params[@"appInstallID"] = funnel.appInstallID;
-        }
+    if ([SessionSingleton sharedInstance].sendUsageReports) {
+        ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
+        params[@"appInstallID"] = funnel.appInstallID;
     }
+
     return params;
 }
 

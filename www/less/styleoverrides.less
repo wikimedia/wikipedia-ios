@@ -1,0 +1,68 @@
+/* Use sparingly so we don't diverge too much. */
+
+
+
+
+/* This was added so ref link taps don't show underline. Move upstream later if possible. */
+a:hover {
+    text-decoration: none !important;
+}
+
+
+
+
+
+/* The edit pencil needs to be forced to be a bit bigger. */
+.edit_section_button {
+    display:inline-block !important;
+    width:52px !important;
+    height:42px !important;
+    background-size: 36px 36px !important;
+    background-repeat: no-repeat !important;
+    background-position:center !important;
+}
+
+
+
+
+
+/*  -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+Experimental attempt at getting rid of hideous gray and black borders everywhere
+while still retaining visual separation between elements.
+
+I like to think this makes 10 things look better for every 1 it doesn't...
+
+Forces consistent, white spacing with specific elements. Note: this has no effect
+if border-style was none. Used 3px to maintain visual separation. Used white to 
+convert all hideous gray borders into far less hideous white spacing. White has an
+added benefit of making nested borders not look so awful as they blend with each
+other and the background.
+*/
+
+table,tr,tbody,td,th,div,span {
+    border-width: 2px !important;
+    border-color: #fff !important;
+}
+td {
+    /*
+    Only if the background color isn't set, set a slight gray. This is done to work
+    in conjunction with experimental white border styling. (If we don't do a slight
+    gray for unset td background colors, the white border styling doesn't stand out
+    against the body tag's white background.)
+    */
+    background-color: #f7f7f7; /* Don't use important keyword for this one! */
+}
+hr:not(.mw-footer-divider) {
+    border-width: 0px !important;
+    height: 2px !important;
+    background-color: #fff !important;
+}
+img {
+    border-width: 1px !important;
+    border-color: #fff !important;
+}
+/*  -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   */
+
+
+
+

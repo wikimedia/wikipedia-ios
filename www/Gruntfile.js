@@ -23,8 +23,14 @@ module.exports = function ( grunt ) {
         },
         less: {
             all: {
+                options: {
+                    compress: true,
+                    yuicompress: true,
+                    optimization: 2
+                },
                 files: [
-                    { src: ["less/langbutton.less", "less/lastmod.less"], dest: "footer.css"}
+                    { src: ["less/langbutton.less", "less/lastmod.less"], dest: "footer.css"},
+                    { src: ["less/styleoverrides.less"], dest: "styleoverrides.css"}
                 ]
             }
         },
@@ -37,7 +43,7 @@ module.exports = function ( grunt ) {
         copy: {
             main: {
                 files: [
-                    {src: ["index.html", "preview.html", "abusefilter.html", "about.html", "bundle.js", "footer.css"], dest: "../wikipedia/assets/"}
+                    {src: ["index.html", "preview.html", "abusefilter.html", "about.html", "bundle.js", "footer.css", "styleoverrides.css"], dest: "../wikipedia/assets/"}
                 ]
             },
             files: {
@@ -56,7 +62,7 @@ module.exports = function ( grunt ) {
         // Remove temp files from www folder
         clean : {
             main : {
-                src : [ "footer.css", "bundle.js"]
+                src : [ "footer.css", "bundle.js", "styleoverrides.css"]
             }
         }
     } );

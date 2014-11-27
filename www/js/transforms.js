@@ -60,10 +60,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	var redLinks = content.querySelectorAll( 'a.new' );
 	for ( var i = 0; i < redLinks.length; i++ ) {
 		var redLink = redLinks[i];
-		var replacementSpan = document.createElement( 'span' );
-		replacementSpan.innerHTML = redLink.innerHTML;
-		replacementSpan.setAttribute( 'class', redLink.getAttribute( 'class' ) );
-		redLink.parentNode.replaceChild( replacementSpan, redLink );
+        redLink.style.color = 'inherit';
 	}
 } );
 
@@ -87,34 +84,6 @@ transformer.register( "disableFilePageEdit", function( content ) {
                 event.preventDefault();
             } );
         }
-    }
-} );
-
-transformer.register( "hideAudioTags", function( content ) {
-    // The audio tag can't be completely hidden in css for some reason - need to clear its
-    // "controls" attribute for it to not display a "could not play audio" grey box.
-    var audios = content.querySelectorAll('audio');
-    for (var i = 0; i < audios.length; ++i) {
-        var audio = audios[i];
-        audio.controls = '';
-        audio.style.display = 'none';
-    }
-} );
-
-transformer.register( "overflowWideTables", function( content ) {
-    // Wrap tables in a <div style="overflow-x:auto">...</div>
-    var tables = content.querySelectorAll('table');
-    for (var i = 0; i < tables.length; ++i) {
-        var table = tables[i];
-        var parent = table.parentElement;
-        var div = document.createElement( 'div' );
-        div.style.overflowX = 'auto';
-        //div.style.borderWidth = '1px';
-        //div.style.borderStyle = 'solid';
-        //div.style.borderColor = '#00ff00';
-        parent.insertBefore( div, table );
-        var oldTable = parent.removeChild( table );
-        div.appendChild( oldTable );
     }
 } );
 

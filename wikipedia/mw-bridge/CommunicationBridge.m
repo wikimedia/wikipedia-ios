@@ -4,35 +4,31 @@
 #import "CommunicationBridge.h"
 #import "UIWebView+LoadAssetsHtml.h"
 
-@interface CommunicationBridge (){
-
-}
+@interface CommunicationBridge ()
 
 @property (strong, nonatomic) UIWebView *webView;
 @property (strong, nonatomic) NSMutableDictionary *listenersByEvent;
 @property (strong, nonatomic) NSMutableArray *queuedMessages;
+@property BOOL shouldQueueMessages;
 
 @end
 
-@implementation CommunicationBridge {
-}
+@implementation CommunicationBridge
 
-#pragma mark Public methods
-
-- (CommunicationBridge *)initWithWebView: (UIWebView *)targetWebView
-                            htmlFileName: (NSString *)htmlFileName
+- (CommunicationBridge *)initWithWebView: (UIWebView *)targetWebView;
 {
     self = [super init];
     if (self) {
+        self.shouldQueueMessages = YES;
         self.webView = targetWebView;
-        self.listenersByEvent = [[NSMutableDictionary alloc] init];
-        self.queuedMessages = [[NSMutableArray alloc] init];
+        self.listenersByEvent = @{}.mutableCopy;
+        self.queuedMessages = @[].mutableCopy;
 
         __weak CommunicationBridge *weakSelf = self;
-        [self addListener:@"DOMLoaded" withBlock:^(NSString *type, NSDictionary *payload) {
-            [weakSelf onDOMReady];
+        [self addListener:@"DOMContentLoaded" withBlock:^(NSString *type, NSDictionary *payload) {
+            [weakSelf sendQueuedMessages];
         }];
-        [self setupWebView:targetWebView htmlFileName:htmlFileName];
+        targetWebView.delegate = self;
     }
     return self;
 }
@@ -54,17 +50,13 @@
     NSString *js = [NSString stringWithFormat:@"bridge.handleMessage(%@,%@)",
                     [self stringify:messageType],
                     [self stringify:payload]];
-    //NSLog(@"QQQ sending: %@", js);
-    if (self.isDOMReady) {
-        [self sendRawMessage:js];
-    } else {
+    if (self.shouldQueueMessages) {
         [self.queuedMessages addObject:js];
+    } else {
+        [self sendRawMessage:js];
     }
 }
 
-#pragma mark Internal and testing methods
-
-// Methods reserved for internal and testing
 - (NSMutableArray *)listenersForMessageType:(NSString *)messageType
 {
     return self.listenersByEvent[messageType];
@@ -97,17 +89,6 @@
     }
 }
 
-
-#pragma mark Private methods
-
-- (void)setupWebView: (UIWebView *)webView
-        htmlFileName: (NSString *)htmlFileName
-{
-    webView.delegate = self;
-
-    [webView loadHTMLFromAssetsFile:htmlFileName];
-}
-
 static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
 
 - (BOOL)isBridgeURL:(NSURL *)url
@@ -133,11 +114,10 @@ static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
     [self.webView stringByEvaluatingJavaScriptFromString:js];
 }
 
-#pragma mark UIWebViewDelegate methods
-
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    //NSLog(@"QQQ %@", request.URL);
+    self.shouldQueueMessages = YES;
+
     if ([self isBridgeURL:request.URL]) {
         NSDictionary *message = [self extractBridgePayload:request.URL];
         NSString *messageType = message[@"type"];
@@ -148,13 +128,18 @@ static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
     return YES;
 }
 
-- (void)onDOMReady
+- (void)sendQueuedMessages
 {
-    self.isDOMReady = YES;
-    for (NSString *js in self.queuedMessages) {
+    self.shouldQueueMessages = NO;
+    for (NSString *js in self.queuedMessages.copy) {
         [self sendRawMessage:js];
     }
     [self.queuedMessages removeAllObjects];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    self.shouldQueueMessages = YES;
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -162,15 +147,10 @@ static NSString *bridgeURLPrefix = @"x-wikipedia-bridge:";
     NSLog(@"webView failed to load: %@", error);
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
+- (void)loadHTML:(NSString *)string withAssetsFile:(NSString *)fileName
 {
-    //NSLog(@"webView finished load");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"WebViewFinishedLoading" object:self userInfo:nil];
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-    //NSLog(@"webView started load");
+    self.shouldQueueMessages = YES;
+    [self.webView loadHTML:string withAssetsFile:fileName];
 }
 
 @end
