@@ -37,11 +37,6 @@ Bridge.prototype.sendMessage = function( messageType, payload ) {
 
 module.exports = new Bridge();
 
-// FIXME: Move this to somwehere else, eh?
-window.onload = function() {
-    module.exports.sendMessage( "DOMLoaded", {} );
-};
-
 },{}],2:[function(require,module,exports){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
@@ -98,7 +93,16 @@ var bridge = require("./bridge");
 var transformer = require("./transformer");
 var refs = require("./refs");
 
-//TODO: move makeTablesNotBlockIfSafeToDoSo, hideAudioTags and reduceWeirdWebkitMargin out into own js object.
+// DOMContentLoaded fires before window.onload! That's good!
+// See: http://stackoverflow.com/a/3698214/135557
+document.addEventListener("DOMContentLoaded", function(event) {
+
+    transformer.transform( "relocateInfobox", document );
+    transformer.transform( "hideRedlinks", document );
+    transformer.transform( "disableFilePageEdit", document );
+
+    bridge.sendMessage( "DOMContentLoaded", {} );
+});
 
 bridge.registerListener( "setLanguage", function( payload ){
     var html = document.querySelector( "html" );
@@ -120,56 +124,6 @@ bridge.registerListener( "setScale", function( payload ) {
     var content = contentSettings.join(", ");
     document.getElementById("viewport").setAttribute('content', content);
 } );
-
-bridge.registerListener( "append", function( payload ) {
-    // Append html without losing existing event handlers
-    // From: http://stackoverflow.com/a/595825
-
-    var newcontent = document.createElement('div');
-    newcontent.innerHTML = payload.html;
-
-    transformer.transform( "relocateInfobox", newcontent );
-    transformer.transform( "hideRedlinks", newcontent );
-    transformer.transform( "disableFilePageEdit", newcontent );
-    transformer.transform( "hideAudioTags", newcontent );
-    transformer.transform( "overflowWideTables", newcontent );
-    
-    var content = document.getElementById("content");
-    // Ensure we've done transforms *before* appending the new content.
-    // Otherwise the web view dom will thrash.
-    content.appendChild(newcontent);
-});
-
-bridge.registerListener( "injectNonLeadSections", function( payload ) {
-    // Append html without losing existing event handlers
-    // From: http://stackoverflow.com/a/595825
-
-    var newcontent = document.createElement('div');
-    newcontent.innerHTML = payload.html;
-
-    //transformer.transform( "relocateInfobox", newcontent );
-    transformer.transform( "hideRedlinks", newcontent );
-    transformer.transform( "disableFilePageEdit", newcontent );
-    transformer.transform( "hideAudioTags", newcontent );
-    transformer.transform( "overflowWideTables", newcontent );
-    
-    var content = document.getElementById("nonLeadSectionsInjectionPoint");
-    // Ensure we've done transforms *before* injecting the new content.
-    // Otherwise the web view dom will thrash.
-    content.parentNode.replaceChild(newcontent, content);
-});
-
-bridge.registerListener( "remove", function( payload ) {
-    document.getElementById( "content" ).removeChild(document.getElementById(payload.element));
-});
-
-bridge.registerListener( "clear", function( payload ) {
-    document.getElementById( "content" ).innerHTML = '';
-});
-
-bridge.registerListener( "ping", function( payload ) {
-    bridge.sendMessage( "pong", payload );
-});
 
 bridge.registerListener( "scrollToFragment", function( payload ) {
     var item = document.getElementById( payload.hash );
@@ -246,7 +200,7 @@ function touchEndedWithoutDragging(event){
     // Handle A tag taps.
     if(anchorTargetFound){
         var href = anchorTarget.getAttribute( "href" );
-        if (anchorTarget.className === "edit_section_button") {
+        if (anchorTarget.getAttribute( "data-action" ) === "edit_section") {
             bridge.sendMessage( 'editClicked', { sectionId: anchorTarget.getAttribute( "data-id" ) });
         } else if ( refs.isReference( href ) ) {
             // Handle reference links with a popup view instead of scrolling about!
@@ -494,10 +448,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	var redLinks = content.querySelectorAll( 'a.new' );
 	for ( var i = 0; i < redLinks.length; i++ ) {
 		var redLink = redLinks[i];
-		var replacementSpan = document.createElement( 'span' );
-		replacementSpan.innerHTML = redLink.innerHTML;
-		replacementSpan.setAttribute( 'class', redLink.getAttribute( 'class' ) );
-		redLink.parentNode.replaceChild( replacementSpan, redLink );
+        redLink.style.color = 'inherit';
 	}
 } );
 
@@ -521,34 +472,6 @@ transformer.register( "disableFilePageEdit", function( content ) {
                 event.preventDefault();
             } );
         }
-    }
-} );
-
-transformer.register( "hideAudioTags", function( content ) {
-    // The audio tag can't be completely hidden in css for some reason - need to clear its
-    // "controls" attribute for it to not display a "could not play audio" grey box.
-    var audios = content.querySelectorAll('audio');
-    for (var i = 0; i < audios.length; ++i) {
-        var audio = audios[i];
-        audio.controls = '';
-        audio.style.display = 'none';
-    }
-} );
-
-transformer.register( "overflowWideTables", function( content ) {
-    // Wrap tables in a <div style="overflow-x:auto">...</div>
-    var tables = content.querySelectorAll('table');
-    for (var i = 0; i < tables.length; ++i) {
-        var table = tables[i];
-        var parent = table.parentElement;
-        var div = document.createElement( 'div' );
-        div.style.overflowX = 'auto';
-        //div.style.borderWidth = '1px';
-        //div.style.borderStyle = 'solid';
-        //div.style.borderColor = '#00ff00';
-        parent.insertBefore( div, table );
-        var oldTable = parent.removeChild( table );
-        div.appendChild( oldTable );
     }
 } );
 

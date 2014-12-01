@@ -91,14 +91,12 @@ typedef enum {
     return YES;
 }
 
--(void)resetBridge
+-(void)setupBridge
 {
-    self.bridge = [[CommunicationBridge alloc] initWithWebView: self.previewWebView
-                                                  htmlFileName: @"preview.html"];
+    self.bridge = [[CommunicationBridge alloc] initWithWebView: self.previewWebView];
 
-    [self.bridge addListener:@"DOMLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
-
-    }];
+    //[self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString *messageType, NSDictionary *payload) {
+    //}];
 
     __weak PreviewAndSaveViewController *weakSelf = self;
 
@@ -164,6 +162,8 @@ typedef enum {
     [self.previewLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(previewLabelTapped:)]];
     
     //self.saveAutomaticallyIfSignedIn = NO;
+
+    [self setupBridge];
     
     self.previewWebView.scrollView.delegate = self;
     
@@ -454,14 +454,15 @@ typedef enum {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:{
                 [self fadeAlert];
-                [self resetBridge];
+
+                [self.bridge loadHTML:fetchedData withAssetsFile:@"preview.html"];
+
                 [self.bridge sendMessage: @"setLanguage"
                              withPayload: @{
                                             @"lang": languageInfo.code,
                                             @"dir": languageInfo.dir,
                                             @"uidir": uidir
                                             }];
-                [self.bridge sendMessage:@"append" withPayload:@{@"html": fetchedData ? fetchedData : @""}];
             }
                 break;
             case FETCH_FINAL_STATUS_FAILED:{

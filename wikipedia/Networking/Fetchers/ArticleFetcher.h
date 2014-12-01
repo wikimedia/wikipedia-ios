@@ -4,11 +4,6 @@
 #import <Foundation/Foundation.h>
 #import "FetcherBase.h"
 
-typedef NS_ENUM(NSInteger, ArticleSectionType) {
-    ARTICLE_SECTION_TYPE_LEAD,
-    ARTICLE_SECTION_TYPE_NON_LEAD
-};
-
 @class Article, AFHTTPRequestOperationManager;
 
 @interface ArticleFetcher : FetcherBase

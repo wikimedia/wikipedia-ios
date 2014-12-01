@@ -7,11 +7,7 @@ typedef void (^JSListener)(NSString *, NSDictionary *);
 
 @interface CommunicationBridge : NSObject <UIWebViewDelegate>
 
-@property BOOL isDOMReady;
-
-// Public methods
-- (CommunicationBridge *)initWithWebView: (UIWebView *)targetWebView
-                            htmlFileName: (NSString *)htmlFileName;
+- (CommunicationBridge *)initWithWebView: (UIWebView *)targetWebView;
 
 - (void)addListener: (NSString *)messageType
           withBlock: (JSListener)block;
@@ -19,17 +15,9 @@ typedef void (^JSListener)(NSString *, NSDictionary *);
 - (void)sendMessage: (NSString *)messageType
         withPayload: (NSDictionary *)payload;
 
-// Methods reserved for internal and testing
-
-- (NSMutableArray *)listenersForMessageType:(NSString *)messageType;
-
-- (void)fireEvent: (NSString *)messageType
-      withPayload: (NSDictionary *)payload;
-
-- (BOOL)isBridgeURL:(NSURL *)url;
-
-- (NSDictionary *)extractBridgePayload:(NSURL *)url;
-
-- (NSString *)stringify:(id)obj;
+// This method calls the "loadHTML:withAssetsFile:" category method on
+// UIWebView, but first it enables message queueing so subsequent calls
+// to "sendMessage:withPayload:" are queued until the html load completes.
+- (void)loadHTML:(NSString *)string withAssetsFile:(NSString *)fileName;
 
 @end
