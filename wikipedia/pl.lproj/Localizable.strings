@@ -70,6 +70,9 @@
 "search-titles" = "Tytuły";
 "search-within-articles" = "W artykułach";
 "search-did-you-mean" = "Czy chodziło Ci o $1?";
+"search-recent-title" = "Ostatnie wyszukiwania";
+"search-recent-clear-confirmation-heading" = "Usunąć wszystkie ostatnie wyszukiwania?";
+"search-recent-clear-cancel" = "Anuluj";
 "main-menu-title" = "Więcej";
 "main-menu-language-title" = "Przeszukaj $ Wikipedię";
 "main-menu-language-toggle-show" = "Pokaż języki";

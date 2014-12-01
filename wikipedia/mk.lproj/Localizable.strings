@@ -81,6 +81,11 @@
 "search-titles" = "Наслови";
 "search-within-articles" = "Во статиите";
 "search-did-you-mean" = "Дали мислевте на $1?";
+"search-recent-title" = "Скорешни пребарувања";
+"search-recent-clear-confirmation-heading" = "Да ги избришам сите скорешни пребарувања?";
+"search-recent-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
+"search-recent-clear-cancel" = "Откажи";
+"search-recent-clear-delete-all" = "Избриши ги сите";
 "main-menu-title" = "Повеќе";
 "main-menu-language-title" = "Пребарување на викито на $1";
 "main-menu-language-toggle-show" = "Прикажи јазици";

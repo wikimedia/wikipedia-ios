@@ -85,6 +85,11 @@
 "search-titles" = "Titres";
 "search-within-articles" = "Dans les articles";
 "search-did-you-mean" = "Vouliez-vous dire $1 ?";
+"search-recent-title" = "Recherches récentes";
+"search-recent-clear-confirmation-heading" = "Supprimer toutes les recherches récentes ?";
+"search-recent-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
+"search-recent-clear-cancel" = "Annuler";
+"search-recent-clear-delete-all" = "Supprimer tout";
 "main-menu-title" = "Plus";
 "main-menu-language-title" = "Rechercher le wiki de langue $1";
 "main-menu-language-toggle-show" = "Afficher les langues";

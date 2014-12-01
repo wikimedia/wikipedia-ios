@@ -82,6 +82,11 @@
 "search-titles" = "Заголовки";
 "search-within-articles" = "Внутри статей";
 "search-did-you-mean" = "Возможно, вы имели в виду $1?";
+"search-recent-title" = "Последние поисковые запросы";
+"search-recent-clear-confirmation-heading" = "Удалить все последние поисковые запросы?";
+"search-recent-clear-confirmation-sub-heading" = "Это действие не может быть отменено!";
+"search-recent-clear-cancel" = "Отмена";
+"search-recent-clear-delete-all" = "Удалить всё";
 "main-menu-title" = "Ещё";
 "main-menu-language-title" = "$1 язык для поиска на вики";
 "main-menu-language-toggle-show" = "Показать языки";

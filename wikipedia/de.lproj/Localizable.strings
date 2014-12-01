@@ -80,6 +80,11 @@
 "search-titles" = "Titel";
 "search-within-articles" = "Innerhalb Artikeln";
 "search-did-you-mean" = "Meintest du $1?";
+"search-recent-title" = "Letzte Suchanfragen";
+"search-recent-clear-confirmation-heading" = "Alle letzten Suchanfragen löschen?";
+"search-recent-clear-confirmation-sub-heading" = "Diese Aktion kann nicht rückgängig gemacht werden!";
+"search-recent-clear-cancel" = "Abbrechen";
+"search-recent-clear-delete-all" = "Alle löschen";
 "main-menu-title" = "Weitere";
 "main-menu-language-title" = "Sprachwiki $1 durchsuchen";
 "main-menu-language-toggle-show" = "Sprachen anzeigen";

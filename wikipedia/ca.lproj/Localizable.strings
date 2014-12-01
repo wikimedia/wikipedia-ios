@@ -84,6 +84,11 @@
 "search-titles" = "Títols";
 "search-within-articles" = "Dins d'articles";
 "search-did-you-mean" = "Volíeu dir: $1?";
+"search-recent-title" = "Cerques recents";
+"search-recent-clear-confirmation-heading" = "Voleu suprimir totes les cerques recents?";
+"search-recent-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
+"search-recent-clear-cancel" = "Cancel·la";
+"search-recent-clear-delete-all" = "Suprimeix-ho tot";
 "main-menu-title" = "Més";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";
 "main-menu-language-toggle-show" = "Mostra idiomes";

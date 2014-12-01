@@ -85,6 +85,11 @@
 "search-titles" = "标题";
 "search-within-articles" = "在条目内";
 "search-did-you-mean" = "您的意思是$1么？";
+"search-recent-title" = "最近搜索";
+"search-recent-clear-confirmation-heading" = "删除全部最近搜索？";
+"search-recent-clear-confirmation-sub-heading" = "此操作不能撤销！";
+"search-recent-clear-cancel" = "取消";
+"search-recent-clear-delete-all" = "删除全部";
 "main-menu-title" = "更多";
 "main-menu-language-title" = "搜索$1语维基百科";
 "main-menu-language-toggle-show" = "显示语言";

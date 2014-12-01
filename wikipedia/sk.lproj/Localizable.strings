@@ -6,15 +6,17 @@
 "article-languages-label" = "Zvoliť jazyk";
 "article-languages-cancel" = "Zrušiť";
 "article-languages-downloading" = "Načítam zoznam jazykov...";
-"article-languages-filter-placeholder" = "Filter";
+"article-languages-filter-placeholder" = "Jazykový filter";
 "language-button-text" = "Tento článok si môžete prečítať v %d ďalších jazykoch";
 "history-label" = "Nedávna história prehliadania";
 "history-section-today" = "Dnes";
 "history-section-yesterday" = "Včera";
 "history-section-lastweek" = "Minulý týždeň";
 "history-section-lastmonth" = "Minulý mesiac";
+"history-clear-confirmation-heading" = "Vymazať nedávnu históriu prehliadania?";
 "history-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
 "history-clear-cancel" = "Zrušiť";
+"history-clear-delete-all" = "Vymazať všetko";
 "zero-free-verbiage" = "Voľný prístup k Wikipédii od vášho mobilného operátora (neplatíte poplatky za prenos dát)";
 "zero-charged-verbiage" = "Wikipédia Zero je vypnutá";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -72,6 +74,9 @@
 "search-loading-section-remaining" = "Načítavam zvyšnú časť článku...";
 "search-loading-article-loaded" = "Článok je načítaný.";
 "search-cancel" = "Zrušiť";
+"search-recent-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
+"search-recent-clear-cancel" = "Zrušiť";
+"search-recent-clear-delete-all" = "Vymazať všetko";
 "main-menu-title" = "Viac";
 "main-menu-language-title" = "Hľadať vo Wikipédii";
 "main-menu-language-toggle-show" = "Ukázať jazyky";
@@ -89,7 +94,7 @@
 "main-menu-feedback-heading" = "Spätná väzba";
 "main-menu-send-feedback" = "Odoslať spätnú väzbu";
 "main-menu-show-page-history" = "História zmien článku $1";
-"main-menu-about" = "O aplikácií";
+"main-menu-about" = "O aplikácii";
 "main-menu-zero-faq" = "Wikipédia Zero FAQ";
 "main-menu-privacy-policy" = "Ochrana osobných údajov";
 "main-menu-terms-of-use" = "Podmienky používania";

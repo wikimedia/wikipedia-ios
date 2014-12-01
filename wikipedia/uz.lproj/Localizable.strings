@@ -1,6 +1,7 @@
 // Messages for Uzbek (oʻzbekcha)
 // Exported from translatewiki.net
 // Author: 6ahodir
+// Author: Uzeconomist
 
 "article-languages-label" = "Tilni tanlang";
 "article-languages-cancel" = "Bekor qilish";
@@ -58,6 +59,11 @@
 "search-loading-section-remaining" = "Maqolaning qolgan qismi yuklanyapti...";
 "search-loading-article-loaded" = "Maqola yuklandi.";
 "search-cancel" = "Bekor qilish";
+"search-recent-title" = "So‘nggi qidiruvlar";
+"search-recent-clear-confirmation-heading" = "Barcha so‘nggi qidiruvlar o‘chirib tashlansinmi?";
+"search-recent-clear-confirmation-sub-heading" = "Bu amalni bekor qilib boʻlmaydi!";
+"search-recent-clear-cancel" = "Bekor qilish";
+"search-recent-clear-delete-all" = "Barchasini oʻchirish";
 "main-menu-title" = "Yana";
 "main-menu-language-title" = "$1 Vikipediyadan izlash";
 "main-menu-language-toggle-show" = "Tillarni koʻrsatish";

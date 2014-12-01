@@ -85,6 +85,11 @@
 "search-titles" = "Títulos";
 "search-within-articles" = "Dentro de los artículos";
 "search-did-you-mean" = "¿Quisiste decir $1?";
+"search-recent-title" = "Búsquedas recientes";
+"search-recent-clear-confirmation-heading" = "¿Borrar todas las búsquedas recientes?";
+"search-recent-clear-confirmation-sub-heading" = "¡Esta acción no se puede deshacer!";
+"search-recent-clear-cancel" = "Cancelar";
+"search-recent-clear-delete-all" = "Borrar todas";
 "main-menu-title" = "Más";
 "main-menu-language-title" = "Búsqueda en Wikipedia en $1";
 "main-menu-language-toggle-show" = "Mostrar idiomas";

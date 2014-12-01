@@ -86,6 +86,11 @@
 "search-titles" = "標題";
 "search-within-articles" = "在條目內";
 "search-did-you-mean" = "您指的是 $1 嗎？";
+"search-recent-title" = "近期搜尋";
+"search-recent-clear-confirmation-heading" = "刪除所有近期搜尋嗎？";
+"search-recent-clear-confirmation-sub-heading" = "此操作不能復原！";
+"search-recent-clear-cancel" = "取消";
+"search-recent-clear-delete-all" = "刪除所有";
 "main-menu-title" = "更多";
 "main-menu-language-title" = "搜尋 $1 維基百科";
 "main-menu-language-toggle-show" = "顯示語言";

@@ -85,6 +85,11 @@
 "search-titles" = "Titlar";
 "search-within-articles" = "Inom artiklar";
 "search-did-you-mean" = "Menade du $1?";
+"search-recent-title" = "Senaste sökningar";
+"search-recent-clear-confirmation-heading" = "Radera alla senaste sökningar?";
+"search-recent-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
+"search-recent-clear-cancel" = "Avbryt";
+"search-recent-clear-delete-all" = "Radera alla";
 "main-menu-title" = "Mer";
 "main-menu-language-title" = "Sök $1.Wikipedia";
 "main-menu-language-toggle-show" = "Visa språk";

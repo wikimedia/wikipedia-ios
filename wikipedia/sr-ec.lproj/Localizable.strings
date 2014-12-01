@@ -51,6 +51,9 @@
 "search-cancel" = "Откажи";
 "search-titles" = "Наслови";
 "search-did-you-mean" = "Да ли сте мислили на $1?";
+"search-recent-clear-confirmation-sub-heading" = "Ова радња се не може поништити!";
+"search-recent-clear-cancel" = "Откажи";
+"search-recent-clear-delete-all" = "Обриши све";
 "main-menu-title" = "Више";
 "main-menu-language-title" = "Претрага Википедије";
 "main-menu-language-toggle-show" = "Прикажи језике";

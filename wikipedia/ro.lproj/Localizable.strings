@@ -79,6 +79,11 @@
 "search-titles" = "Titluri";
 "search-within-articles" = "În conținutul articolelor";
 "search-did-you-mean" = "V-ați referit la $1?";
+"search-recent-title" = "Căutări recente";
+"search-recent-clear-confirmation-heading" = "Ștergeți toate căutările recente?";
+"search-recent-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";
+"search-recent-clear-cancel" = "Revocare";
+"search-recent-clear-delete-all" = "Șterge tot";
 "main-menu-title" = "Mai mult";
 "main-menu-language-title" = "Căutare pe wiki în limba $1";
 "main-menu-language-toggle-show" = "Arată limbile";

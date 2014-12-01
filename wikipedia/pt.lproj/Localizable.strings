@@ -81,6 +81,11 @@
 "search-cancel" = "Cancelar";
 "search-titles" = "Títulos";
 "search-did-you-mean" = "Será que quis dizer $1?";
+"search-recent-title" = "Pesquisas recentes";
+"search-recent-clear-confirmation-heading" = "Apagar todas as pesquisas recentes?";
+"search-recent-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
+"search-recent-clear-cancel" = "Cancelar";
+"search-recent-clear-delete-all" = "Apagar tudo";
 "main-menu-title" = "Mais";
 "main-menu-language-title" = "Pesquisar na Wikipédia em $1";
 "main-menu-language-toggle-show" = "Mostrar idiomas";
