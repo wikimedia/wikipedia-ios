@@ -74,6 +74,16 @@
 
 -(void)didMoveToSuperview
 {
+    if (!ENABLE_FULL_TEXT_SEARCH) {
+        //self.backgroundColor = [UIColor clearColor];
+        self.searchType = self.searchType;
+        [self.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat: @"V:[self(1)]"
+                                                                               options: 0
+                                                                               metrics: nil
+                                                                                 views: @{@"self": self}]];
+        return;
+    }
+
     self.backgroundColor = BACKGROUND_COLOR;
 
     self.searchButtonTitles = [[PaddedLabel alloc] init];

@@ -392,7 +392,7 @@
                 }
 
                 // Fetch WikiData short descriptions.
-                if (wikiDataIds.count > 0){
+                if ((wikiDataIds.count > 0) && ENABLE_WIKIDATA_DESCRIPTIONS){
                     (void)[[WikiDataShortDescriptionFetcher alloc] initAndFetchDescriptionsForIds: wikiDataIds
                                                                                        searchType: searchResultFetcher.searchType
                                                                                       withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
@@ -418,6 +418,9 @@
                        &&
                        (searchResultFetcher.searchReason != SEARCH_REASON_SEARCH_TYPE_MENU_TAPPED)
                        ){
+
+                        if(!ENABLE_FULL_TEXT_SEARCH) return;
+                        
                         // Note: the search button is not switched until "performSearch:" is
                         // invoked as a result of the "searchAfterDelay:reason:" call below.
                         // That way the users can see the "No search results" message in association
