@@ -261,6 +261,11 @@
     NSString *path = [self pathForTitle:title];
     NSString *filePath = [path stringByAppendingPathComponent:@"Article.plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
+    if (dict == nil) {
+        @throw [NSException exceptionWithName:@"MWKDataStoreException"
+                                       reason:@"failed to load Article.plist"
+                                     userInfo:@{filePath: filePath}];
+    }
     return [[MWKArticle alloc] initWithTitle:title dict:dict];
 }
 
