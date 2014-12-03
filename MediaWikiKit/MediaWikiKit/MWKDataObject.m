@@ -77,7 +77,8 @@
 
 - (NSNumber *)numberWithString:(NSString *)str
 {
-    if ([str containsString:@"."] || [str containsString:@"e"]) {
+    if ([str rangeOfString:@"."].location != NSNotFound ||
+        [str rangeOfString:@"e"].location != NSNotFound) {
         double val = [str doubleValue];
         return [NSNumber numberWithDouble:val];
     } else {
