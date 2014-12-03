@@ -346,7 +346,10 @@
     cell.methodLabel.attributedText = [self getIconLabelAttributedStringForDiscoveryMethod:historyEntry.discoveryMethod];
 
     MWKArticleStore *articleStore = [[SessionSingleton sharedInstance].dataStore articleStoreWithTitle:historyEntry.title];
-    UIImage *thumbImage = [articleStore UIImageWithImage:articleStore.thumbnailImage];
+    UIImage *thumbImage;
+    if (articleStore.thumbnailImage) {
+        thumbImage = [articleStore UIImageWithImage:articleStore.thumbnailImage];
+    }
     if(thumbImage){
         cell.imageView.image = thumbImage;
         cell.useField = YES;
