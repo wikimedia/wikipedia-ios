@@ -1428,6 +1428,7 @@
         [self updateHistoryDateVisitedForArticleBeingNavigatedFrom];
     }
     self.currentTitle = title;
+    session.title = title;
     
     [self retrieveArticleForPageTitle: title
                       discoveryMethod: discoveryMethod];
