@@ -1635,7 +1635,7 @@
         [article addHistoryObject:newHistory];
          */
         
-        [session.userDataStore updateHistory:article.title discoveryMethod:discoveryMethod];
+        [session.userDataStore updateHistory:session.title discoveryMethod:discoveryMethod];
     }
     
     /*

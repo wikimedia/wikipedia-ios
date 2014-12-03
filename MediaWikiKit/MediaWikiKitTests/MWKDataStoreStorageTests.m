@@ -19,7 +19,7 @@
 
 - (void)testWriteReadArticle
 {
-    XCTAssertThrows([self.dataStore articleWithTitle:self.title], @"article cannot be loaded before we save it");
+    XCTAssertNil([self.dataStore articleWithTitle:self.title], @"article cannot be loaded before we save it");
     
     MWKArticle *article;
     article = [[MWKArticle alloc] initWithTitle:self.title dict:self.json0[@"mobileview"]];
@@ -34,7 +34,7 @@
 
 - (void)testArticleStoreSection0
 {
-    XCTAssertThrows([self.dataStore articleWithTitle:self.title], @"article cannot be loaded before we save it");
+    XCTAssertNil([self.dataStore articleWithTitle:self.title], @"article cannot be loaded before we save it");
     
     XCTAssertNoThrow([self.articleStore importMobileViewJSON:self.json0]);
     
@@ -75,5 +75,16 @@
     
     XCTAssertEqual([sections count], 36);
 }
+
+- (void)testArticleStoreAnon
+{
+    XCTAssertNil([self.dataStore articleWithTitle:self.title], @"article cannot be loaded before we save it");
+    
+    XCTAssertNoThrow([self.articleStore importMobileViewJSON:self.jsonAnon]);
+    
+    MWKArticle *article;
+    XCTAssertNoThrow(article = [self.dataStore articleWithTitle:self.title], @"article can be loaded after saving it");
+}
+
 
 @end

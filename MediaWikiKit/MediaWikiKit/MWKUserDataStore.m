@@ -45,6 +45,9 @@
 {
     if (_historyList == nil) {
         _historyList = [self.dataStore historyList];
+        if (_historyList == nil) {
+            _historyList = [[MWKHistoryList alloc] init];
+        }
     }
     return _historyList;
 }
@@ -53,6 +56,9 @@
 {
     if (_savedPageList == nil) {
         _savedPageList = [self.dataStore savedPageList];
+        if (_savedPageList == nil) {
+            _savedPageList = [[MWKSavedPageList alloc] init];
+        }
     }
     return _savedPageList;
 }
@@ -61,12 +67,19 @@
 {
     if (_recentSearchList) {
         _recentSearchList = [self.dataStore recentSearchList];
+        if (_recentSearchList == nil) {
+            _recentSearchList = [[MWKRecentSearchList alloc] init];
+        }
     }
     return _recentSearchList;
 }
 
 -(void)updateHistory:(MWKTitle *)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
 {
+    if (title == nil) {
+        @throw [NSException exceptionWithName:@"MWKUserDataStoreException"
+                                reason:@"updateHistory called with null title" userInfo:@{}];
+    }
     MWKHistoryEntry *entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
     [self.historyList addEntry:entry];
     [self save];

@@ -36,7 +36,9 @@
         dict[@"redirected"] = self.redirected.prefixedText;
     }
     dict[@"lastmodified"] = [self iso8601DateString:self.lastmodified];
-    dict[@"lastmodifiedby"] = [self.lastmodifiedby dataExport];
+    if (!self.lastmodifiedby.anonymous) {
+        dict[@"lastmodifiedby"] = [self.lastmodifiedby dataExport];
+    }
     dict[@"id"] = @(self.articleId);
     dict[@"languagecount"] = @(self.languagecount);
     if (self.displaytitle) {

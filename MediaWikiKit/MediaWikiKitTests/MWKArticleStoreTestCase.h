@@ -14,6 +14,7 @@
 @property MWKTitle *title;
 @property NSDictionary *json0;
 @property NSDictionary *json1;
+@property NSDictionary *jsonAnon;
 
 @property NSString *basePath;
 @property MWKDataStore *dataStore;

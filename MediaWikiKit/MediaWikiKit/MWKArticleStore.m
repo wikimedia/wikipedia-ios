@@ -77,12 +77,7 @@
 -(MWKArticle *)article
 {
     if (!_article) {
-        @try {
-            _article = [self.dataStore articleWithTitle:self.title];
-        }
-        @catch (NSException *e) {
-            NSLog(@"Exception loading article: %@", e);
-        }
+        _article = [self.dataStore articleWithTitle:self.title];
     }
     return _article;
 }

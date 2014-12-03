@@ -256,17 +256,17 @@
 
 #pragma mark - load methods
 
+/// May return nil if no article data available.
 -(MWKArticle *)articleWithTitle:(MWKTitle *)title
 {
     NSString *path = [self pathForTitle:title];
     NSString *filePath = [path stringByAppendingPathComponent:@"Article.plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
     if (dict == nil) {
-        @throw [NSException exceptionWithName:@"MWKDataStoreException"
-                                       reason:@"failed to load Article.plist"
-                                     userInfo:@{filePath: filePath}];
+        return nil;
+    } else {
+        return [[MWKArticle alloc] initWithTitle:title dict:dict];
     }
-    return [[MWKArticle alloc] initWithTitle:title dict:dict];
 }
 
 -(MWKSection *)sectionWithId:(NSUInteger)sectionId article:(MWKArticle *)article

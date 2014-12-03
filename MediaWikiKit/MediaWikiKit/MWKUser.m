@@ -33,7 +33,7 @@
 - (id)dataExport
 {
     if (self.anonymous) {
-        return [NSNull null];
+        return nil; // don't save!
     } else {
         return @{@"name": self.name,
                  @"gender": self.gender};

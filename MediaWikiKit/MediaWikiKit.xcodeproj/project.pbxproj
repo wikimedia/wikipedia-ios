@@ -49,6 +49,7 @@
 		D49ADCCA1A0028A70010F839 /* MWKImageStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D49ADCC91A0028A70010F839 /* MWKImageStorageTests.m */; };
 		D49ADCCC1A0031580010F839 /* golden-gate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D49ADCCB1A0031580010F839 /* golden-gate.jpg */; };
 		D49ADCCE1A00346B0010F839 /* MWKArticleStoreTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D49ADCCD1A00346B0010F839 /* MWKArticleStoreTestCase.m */; };
+		D4B94B1C1A2FB7D2007FC79B /* organization-anon.json in Resources */ = {isa = PBXBuildFile; fileRef = D4B94B1B1A2FB7D2007FC79B /* organization-anon.json */; };
 		D4C3FA5519E4783A00EB08CC /* MWKSite.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3FA5419E4783A00EB08CC /* MWKSite.m */; };
 		D4C3FA5A19E47AA500EB08CC /* MWKSiteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3FA5919E47AA500EB08CC /* MWKSiteTests.m */; };
 		D4C3FA5B19E47ABE00EB08CC /* MWKSite.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3FA5419E4783A00EB08CC /* MWKSite.m */; };
@@ -128,6 +129,7 @@
 		D49ADCCB1A0031580010F839 /* golden-gate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "golden-gate.jpg"; sourceTree = "<group>"; };
 		D49ADCCD1A00346B0010F839 /* MWKArticleStoreTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticleStoreTestCase.m; sourceTree = "<group>"; };
 		D49ADCCF1A0041570010F839 /* MWKArticleStoreTestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWKArticleStoreTestCase.h; sourceTree = "<group>"; };
+		D4B94B1B1A2FB7D2007FC79B /* organization-anon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "organization-anon.json"; sourceTree = "<group>"; };
 		D4C3FA5319E4783A00EB08CC /* MWKSite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKSite.h; sourceTree = "<group>"; };
 		D4C3FA5419E4783A00EB08CC /* MWKSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSite.m; sourceTree = "<group>"; };
 		D4C3FA5919E47AA500EB08CC /* MWKSiteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSiteTests.m; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 		D494A71919F7113A0098AA18 /* Test data */ = {
 			isa = PBXGroup;
 			children = (
+				D4B94B1B1A2FB7D2007FC79B /* organization-anon.json */,
 				D49ADCCB1A0031580010F839 /* golden-gate.jpg */,
 				D4DDF45419EDCE9000C6BC10 /* test-notes.txt */,
 				D4DDF46219F0560400C6BC10 /* user-loggedin.json */,
@@ -376,6 +379,7 @@
 			files = (
 				D494A70519F6CB090098AA18 /* protection-empty.json in Resources */,
 				D4DDF45319EDCE6800C6BC10 /* TemplateIcon2x.png in Resources */,
+				D4B94B1C1A2FB7D2007FC79B /* organization-anon.json in Resources */,
 				D4DDF45519EDCE9000C6BC10 /* test-notes.txt in Resources */,
 				D4DDF46519F0561500C6BC10 /* user-anon.json in Resources */,
 				D4DDF45219EDCE6800C6BC10 /* section0.json in Resources */,

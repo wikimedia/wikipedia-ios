@@ -17,6 +17,7 @@
     
     self.json0 = [self loadJSON:@"section0"];
     self.json1 = [self loadJSON:@"section1-end"];
+    self.jsonAnon = [self loadJSON:@"organization-anon"];
     
     NSString *documentsFolder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     self.basePath = [documentsFolder stringByAppendingPathComponent:@"unit-test-data"];
