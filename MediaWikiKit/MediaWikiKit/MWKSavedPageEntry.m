@@ -14,7 +14,8 @@
 {
     self = [self initWithSite:title.site];
     if (self) {
-        self.date = [[NSDate alloc] init];
+        _title = title;
+        _date = [[NSDate alloc] init];
     }
     return self;
 }

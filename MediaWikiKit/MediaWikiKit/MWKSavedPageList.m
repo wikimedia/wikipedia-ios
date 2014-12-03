@@ -44,7 +44,7 @@
 
 -(void)addEntry:(MWKSavedPageEntry *)entry
 {
-    if ([self entryForTitle:entry.title] != nil) {
+    if ([self entryForTitle:entry.title] == nil) {
         // there can be only one
         [entries insertObject:entry atIndex:0];
         entriesByTitle[entry.title] = entry;
@@ -68,13 +68,20 @@
 
 #pragma mark - data i/o methods
 
+-(instancetype)init
+{
+    self = [super init];
+    if (self) {
+        entries = [[NSMutableArray alloc] init];
+        entriesByTitle = [[NSMutableDictionary alloc] init];
+    }
+    return self;
+}
 -(instancetype)initWithDict:(NSDictionary *)dict
 {
     self = [self init];
     if (self) {
         NSArray *array = dict[@"entries"];
-        entries = [[NSMutableArray alloc] init];
-        entriesByTitle = [[NSMutableDictionary alloc] init];
         for (NSDictionary *entryDict in array) {
             MWKSavedPageEntry *entry = [[MWKSavedPageEntry alloc] initWithDict:entryDict];
             [entries addObject:entry];
