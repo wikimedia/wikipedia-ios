@@ -53,9 +53,12 @@
 {
     MWKUser *user = [self optionalUser:key dict:dict];
     if (user == nil) {
+        return [self optionalUser:key dict:@{key: [NSNull null]}];
+        /*
         @throw [NSException exceptionWithName:@"MWKDataObjectException"
                                        reason:@"missing required user field"
                                      userInfo:@{@"key": key}];
+         */
     } else {
         return user;
     }
