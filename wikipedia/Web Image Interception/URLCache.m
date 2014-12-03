@@ -44,6 +44,11 @@
     return NO;
 }
 
+-(BOOL)isURLRerouted:(NSURL *)url
+{
+    return [url.host isEqualToString:@"upload.wikimedia.org"];
+}
+
 - (void)storeCachedResponse:(NSCachedURLResponse *)cachedResponse forRequest:(NSURLRequest *)request
 {
     if (![self isMIMETypeRerouted:cachedResponse.response.MIMEType]) {
@@ -58,6 +63,10 @@
                 [self processZeroHeaders:cachedResponse.response];
             });
         }
+        return;
+    }
+    if (![self isURLRerouted:request.URL]) {
+        // Only cache stuff from upload.wikimedia.org
         return;
     }
 
@@ -115,6 +124,9 @@
     //NSLog(@"Default Cache.db usage:\n\tcurrentDiskUsage: %lu\n\tdiskCapacity = %lu\n\tcurrentMemoryUsage = %lu\n\tmemoryCapacity = %lu", (unsigned long)self.currentDiskUsage, (unsigned long)self.diskCapacity, (unsigned long)self.currentMemoryUsage, (unsigned long)self.memoryCapacity);
 
     if (![self isMIMETypeRerouted:[request.URL.pathExtension getImageMimeTypeForExtension]]) {
+        return [super cachedResponseForRequest:request];
+    }
+    if (![self isURLRerouted:request.URL]) {
         return [super cachedResponseForRequest:request];
     }
 
