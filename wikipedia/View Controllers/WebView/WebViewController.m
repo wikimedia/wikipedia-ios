@@ -1525,6 +1525,8 @@
 			{
 				NSString *errorMsg = error.localizedDescription;
 				[self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+
+                [self loadingIndicatorHide];
 				
 				// Remove the article so it doesn't get saved.
 				//[article.managedObjectContext deleteObject:article];
