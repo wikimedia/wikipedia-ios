@@ -10,19 +10,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Set the shared url cache to our custom NSURLCache which re-routes images to
-    // our article cache.
-//TODO: update the app to occasionally check total size of our article cache and if its file exceeded some threshold size prune its image entries
-// (probably by Image.lastDateAccessed)
-    URLCache *urlCache = [[URLCache alloc] initWithMemoryCapacity: 1024 * 1024 * 8
-                                                     diskCapacity: 1024 * 1024 * 25
-                                                         diskPath: nil];
-    [NSURLCache setSharedURLCache:urlCache];
-
     [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
     [self registerStandardUserDefaults];
     [self systemWideStyleOverrides];
 
+    // Set the shared url cache to our custom NSURLCache which re-routes images to
+    // our article cache.
+    //TODO: update the app to occasionally check total size of our article cache and if its file exceeded some threshold size prune its image entries
+    // (probably by Image.lastDateAccessed)
+    URLCache *urlCache = [[URLCache alloc] initWithMemoryCapacity: 1024 * 1024 * 8
+                                                     diskCapacity: 1024 * 1024 * 25
+                                                         diskPath: nil];
+    [NSURLCache setSharedURLCache:urlCache];
+    
     // Enables Alignment Rect highlighting for debugging
     //[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"UIViewShowAlignmentRects"];
     //[[NSUserDefaults standardUserDefaults] synchronize];
