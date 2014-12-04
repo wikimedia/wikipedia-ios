@@ -121,13 +121,16 @@
 
         // "/" occurs in those nasty paths! but ":" cannot so let's use it
         // just like Mac OS X does ;)
-        NSString *noslashes = [suffix stringByReplacingOccurrencesOfString:@"/" withString:@":"];
-        return noslashes;
+        //NSString *noslashes = [suffix stringByReplacingOccurrencesOfString:@"/" withString:@":"];
+        
+        NSString *fileName = [suffix lastPathComponent];
+        return fileName;
     } else {
         @throw [NSException exceptionWithName:@"MWKDataStoreException"
                                        reason:@"Tried to save non-upload.wikimedia.org URL as image"
                                      userInfo:@{@"str": str}];
     }
+    
 }
 
 #pragma mark - save methods

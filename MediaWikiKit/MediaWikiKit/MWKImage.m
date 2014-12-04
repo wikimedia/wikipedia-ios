@@ -52,15 +52,33 @@
     return [self.sourceURL lastPathComponent];
 }
 
++(NSString *)fileNameNoSizePrefix:(NSString *)sourceURL
+{
+    NSString *fileName = [sourceURL lastPathComponent];
+    NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"^\\d+px-(.*)$" options:0 error:nil];
+    NSArray *matches = [re matchesInString:fileName options:0 range:NSMakeRange(0, [fileName length])];
+    if ([matches count]) {
+        return [fileName substringWithRange:[matches[0] rangeAtIndex:0]];
+    } else {
+        return fileName;
+    }
+}
+
++(int)fileSizePrefix:(NSString *)sourceURL
+{
+    NSString *fileName = [sourceURL lastPathComponent];
+    NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"^(\\d+)px-" options:0 error:nil];
+    NSArray *matches = [re matchesInString:fileName options:0 range:NSMakeRange(0, [fileName length])];
+    if ([matches count]) {
+        return [[fileName substringWithRange:[matches[0] rangeAtIndex:0]] intValue];
+    } else {
+        return -1;
+    }
+}
+
 -(NSString *)fileNameNoSizePrefix
 {
-    NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"^\\d+px-(.*)$" options:0 error:nil];
-    NSArray *matches = [re matchesInString:self.fileName options:0 range:NSMakeRange(0, [self.fileName length])];
-    if (matches) {
-        return matches[1];
-    } else {
-        return self.fileName;
-    }
+    return [MWKImage fileNameNoSizePrefix:self.sourceURL];
 }
 
 -(id)dataExport
@@ -68,10 +86,10 @@
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     dict[@"sourceURL"] = self.sourceURL;
     if (self.dateLastAccessed) {
-        dict[@"dateLastAccessed"] = self.dateLastAccessed;
+        dict[@"dateLastAccessed"] = [self iso8601DateString:self.dateLastAccessed];
     }
     if (self.dateRetrieved) {
-        dict[@"dateRetrieved"] = self.dateRetrieved;
+        dict[@"dateRetrieved"] = [self iso8601DateString:self.dateRetrieved];
     }
     if (self.mimeType) {
         dict[@"mimeType"] = self.mimeType;

@@ -17,6 +17,7 @@
 @class MWKArticle;
 @class MWKSection;
 @class MWKImage;
+@class MWKImageList;
 
 @interface MWKArticleStore : NSObject
 
@@ -25,17 +26,19 @@
 
 @property (readonly) MWKArticle *article;
 
-@property (readonly) NSArray *sections; // ?
+@property (readonly) NSArray *sections;
 -(MWKSection *)sectionAtIndex:(NSUInteger)index;
 -(NSString *)sectionTextAtIndex:(NSUInteger)index;
 
-@property (readonly) NSArray *imageURLs;
+@property (readonly) MWKImageList *imageList;
 -(MWKImage *)imageWithURL:(NSString *)url;
 -(NSData *)imageDataWithImage:(MWKImage *)image;
 -(UIImage *)UIImageWithImage:(MWKImage *)image;
 
 @property (readonly) MWKImage *thumbnailImage;
 @property (readonly) UIImage *thumbnailUIImage;
+
+-(void)saveImageList;
 
 @property (readwrite) BOOL needsRefresh;
 

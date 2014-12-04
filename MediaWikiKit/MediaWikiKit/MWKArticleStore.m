@@ -10,6 +10,7 @@
 
 @implementation MWKArticleStore {
     MWKArticle *_article;
+    MWKImageList *_imageList;
     NSArray *_sections;
 }
 
@@ -30,6 +31,7 @@
         _title = title;
         _dataStore = dataStore;
         _article = nil;
+        _imageList = nil;
         _sections = nil;
     }
     return self;
@@ -131,13 +133,19 @@
     return [self.dataStore sectionTextWithId:index article:self.article];
 }
 
--(NSArray *)imageURLs
+-(MWKImageList *)imageList
 {
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    
-    // @fixme implement
-    
-    return [NSArray arrayWithArray:array];
+    if (_imageList == nil) {
+        NSString *path = [self.dataStore pathForTitle:self.title];
+        NSString *fileName = [path stringByAppendingPathComponent:@"Images.plist"];
+        NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:fileName];
+        if (dict) {
+            _imageList = [[MWKImageList alloc] initWithTitle:self.title dict:dict];
+        } else {
+            _imageList = [[MWKImageList alloc] initWithTitle:self.title];
+        }
+    }
+    return _imageList;
 }
 
 -(MWKImage *)imageWithURL:(NSString *)url
@@ -147,7 +155,10 @@
 
 -(MWKImage *)importImageURL:(NSString *)url
 {
-    return [[MWKImage alloc] initWithTitle:self.title sourceURL:url];
+    [self.imageList addImageURL:url];
+    MWKImage *image = [[MWKImage alloc] initWithTitle:self.title sourceURL:url];;
+    [self.dataStore saveImage:image]; // stub
+    return image;
 }
 
 -(NSData *)imageDataWithImage:(MWKImage *)image
@@ -169,6 +180,14 @@
 {
     [self.dataStore saveImageData:data image:image mimeType:mimeType];
     return image;
+}
+
+-(void)saveImageList
+{
+    NSString *path = [self.dataStore pathForTitle:self.title];
+    NSString *fileName = [path stringByAppendingPathComponent:@"Images.plist"];
+    NSDictionary *dict = [self.imageList dataExport];
+    [dict writeToFile:fileName atomically:YES];
 }
 
 

@@ -8,10 +8,9 @@
 #import "NSString+Extras.h"
 #import "SessionSingleton.h"
 
-@interface URLCache (){
-    //ArticleDataContextSingleton *articleDataContext_;
-    MWKArticleStore *articleStore;
-}
+@interface URLCache ()
+
+@property (readonly) MWKArticleStore *articleStore;
 
 // Reminder: When using this debugging image to test caching (i.e. seeing if article images
 // show the placeholder) be sure to quit and restart the app (double-tap the home button
@@ -19,7 +18,7 @@
 // version of the actual image it downloaded - that is, it has no need to attempt a cache hit.
 // Once the app is then restarted if everything is working the article images should all
 // show the placeholder image.
-//@property (strong, nonatomic) NSData *debuggingPlaceHolderImageData;
+@property (strong, nonatomic) NSData *debuggingPlaceHolderImageData;
 
 @end
 
@@ -29,11 +28,14 @@
 {
     self = [super initWithMemoryCapacity:memoryCapacity diskCapacity:diskCapacity diskPath:path];
     if (self) {
-        //articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
-        articleStore = [SessionSingleton sharedInstance].articleStore;
-        //self.debuggingPlaceHolderImageData = UIImagePNGRepresentation([UIImage imageNamed:@"logo-onboarding-subtitle.png"]);
+        self.debuggingPlaceHolderImageData = UIImagePNGRepresentation([UIImage imageNamed:@"logo-onboarding-subtitle.png"]);
     }
     return self;
+}
+
+-(MWKArticleStore *)articleStore
+{
+    return [SessionSingleton sharedInstance].articleStore;
 }
 
 -(BOOL)isMIMETypeRerouted:(NSString *)type
@@ -79,7 +81,7 @@
     
     NSData *imageDataToUse = cachedResponse.data;
     
-    MWKImage *image = [articleStore imageWithURL:urlStr];
+    MWKImage *image = [self.articleStore imageWithURL:urlStr];
     
     if (!image) {
         // If an Image object wasn't pre-created by :createSectionImageRecordsForSectionHtml:onContext:" then don't try to cache.
@@ -107,7 +109,7 @@
     // (This one has no thread safety issues.)
     //imageDataToUse = self.debuggingPlaceHolderImageData;
 
-    [articleStore importImageData:imageDataToUse image:image mimeType:cachedResponse.response.MIMEType];
+    [self.articleStore importImageData:imageDataToUse image:image mimeType:cachedResponse.response.MIMEType];
     
     // Broadcast the image data so things like the table of contents can update
     // itself as images arrive.
@@ -147,7 +149,7 @@
     //imageURL = [imageURL getUrlWithoutScheme];
 
     //Image *imageFromDB = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", imageURL];
-    MWKImage *imageFromDB = [articleStore imageWithURL:imageURL];
+    MWKImage *imageFromDB = [self.articleStore imageWithURL:imageURL];
     
     // If a core data Image was found, but its data length is zero, the Image record was probably
     // created when the section html was parsed to create sectionImage records, in which case
@@ -156,7 +158,7 @@
     if (imageFromDB && !imageFromDB.dateRetrieved) {
         cachedResponse = nil;
     }else if (imageFromDB) {
-        NSData *imageData = [articleStore imageDataWithImage:imageFromDB];
+        NSData *imageData = [self.articleStore imageDataWithImage:imageFromDB];
         //NSLog(@"CACHED IMAGE FOUND!!!!!! requestURL = %@", imageURL);
         NSURLResponse *response = [[NSURLResponse alloc] initWithURL:requestURL MIMEType:imageFromDB.mimeType expectedContentLength:imageData.length textEncodingName:nil];
         cachedResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:imageData];

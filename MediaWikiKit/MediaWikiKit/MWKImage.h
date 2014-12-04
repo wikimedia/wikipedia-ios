@@ -38,4 +38,7 @@
 -(void)updateWithData:(NSData *)data mimeType:(NSString *)mimeType;
 -(void)updateLastAccessed;
 
++(NSString *)fileNameNoSizePrefix:(NSString *)sourceURL;
++(int)fileSizePrefix:(NSString *)sourceURL;
+
 @end

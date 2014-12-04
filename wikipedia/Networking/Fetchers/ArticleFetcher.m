@@ -89,7 +89,10 @@
         [self.articleStore importMobileViewJSON:responseObject];
         
         //[self applyResultsForLeadSection:leadSectionResults];
-        [self createImageRecordsForSection:0];
+        for (int n = 0; n < [self.articleStore.sections count]; n++) {
+            [self createImageRecordsForSection:n];
+        }
+        [self.articleStore saveImageList];
 
         [self finishWithError: nil
                   fetchedData: nil];

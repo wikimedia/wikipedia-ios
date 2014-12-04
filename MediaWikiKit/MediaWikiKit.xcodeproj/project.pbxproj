@@ -50,6 +50,8 @@
 		D49ADCCC1A0031580010F839 /* golden-gate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D49ADCCB1A0031580010F839 /* golden-gate.jpg */; };
 		D49ADCCE1A00346B0010F839 /* MWKArticleStoreTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = D49ADCCD1A00346B0010F839 /* MWKArticleStoreTestCase.m */; };
 		D4B94B1C1A2FB7D2007FC79B /* organization-anon.json in Resources */ = {isa = PBXBuildFile; fileRef = D4B94B1B1A2FB7D2007FC79B /* organization-anon.json */; };
+		D4B94B1F1A2FE975007FC79B /* MWKImageList.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B94B1E1A2FE975007FC79B /* MWKImageList.m */; };
+		D4B94B201A2FE975007FC79B /* MWKImageList.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B94B1E1A2FE975007FC79B /* MWKImageList.m */; };
 		D4C3FA5519E4783A00EB08CC /* MWKSite.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3FA5419E4783A00EB08CC /* MWKSite.m */; };
 		D4C3FA5A19E47AA500EB08CC /* MWKSiteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3FA5919E47AA500EB08CC /* MWKSiteTests.m */; };
 		D4C3FA5B19E47ABE00EB08CC /* MWKSite.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3FA5419E4783A00EB08CC /* MWKSite.m */; };
@@ -130,6 +132,8 @@
 		D49ADCCD1A00346B0010F839 /* MWKArticleStoreTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticleStoreTestCase.m; sourceTree = "<group>"; };
 		D49ADCCF1A0041570010F839 /* MWKArticleStoreTestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWKArticleStoreTestCase.h; sourceTree = "<group>"; };
 		D4B94B1B1A2FB7D2007FC79B /* organization-anon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "organization-anon.json"; sourceTree = "<group>"; };
+		D4B94B1D1A2FE975007FC79B /* MWKImageList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKImageList.h; sourceTree = "<group>"; };
+		D4B94B1E1A2FE975007FC79B /* MWKImageList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKImageList.m; sourceTree = "<group>"; };
 		D4C3FA5319E4783A00EB08CC /* MWKSite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKSite.h; sourceTree = "<group>"; };
 		D4C3FA5419E4783A00EB08CC /* MWKSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSite.m; sourceTree = "<group>"; };
 		D4C3FA5919E47AA500EB08CC /* MWKSiteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSiteTests.m; sourceTree = "<group>"; };
@@ -272,6 +276,8 @@
 				D44EA7881A1BCD1400631A1D /* MWKRecentSearchEntry.m */,
 				D44EA78B1A1BCD2600631A1D /* MWKRecentSearchList.h */,
 				D44EA78C1A1BCD2600631A1D /* MWKRecentSearchList.m */,
+				D4B94B1D1A2FE975007FC79B /* MWKImageList.h */,
+				D4B94B1E1A2FE975007FC79B /* MWKImageList.m */,
 			);
 			name = "Data classes";
 			sourceTree = "<group>";
@@ -412,6 +418,7 @@
 				D47F56281A1A89B4004D9856 /* MWKHistoryList.m in Sources */,
 				D48405CF19E47572006F4139 /* MWKArticleStore.m in Sources */,
 				D4612CED1A116E97008945A5 /* MWKSavedPageEntry.m in Sources */,
+				D4B94B1F1A2FE975007FC79B /* MWKImageList.m in Sources */,
 				D497FCE71A08013F004A36A5 /* MWKSavedPageList.m in Sources */,
 				D4DDF45A19EDD22200C6BC10 /* MWKUser.m in Sources */,
 				D48405C719E47542006F4139 /* MWKImage.m in Sources */,
@@ -438,6 +445,7 @@
 				D4C3FA5D19E47D4700EB08CC /* MWKTitleTests.m in Sources */,
 				D497FCE81A08013F004A36A5 /* MWKSavedPageList.m in Sources */,
 				D494A71119F6ECC10098AA18 /* MWKDataStorePathTests.m in Sources */,
+				D4B94B201A2FE975007FC79B /* MWKImageList.m in Sources */,
 				D494A71819F7103D0098AA18 /* MWKTestCase.m in Sources */,
 				D494A71319F70F910098AA18 /* MWKDataStoreStorageTests.m in Sources */,
 				D48405D019E47572006F4139 /* MWKArticleStore.m in Sources */,

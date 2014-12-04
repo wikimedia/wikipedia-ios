@@ -31,6 +31,8 @@
 #import "MWKRecentSearchEntry.h"
 #import "MWKRecentSearchList.h"
 
+#import "MWKImageList.h"
+
 #import "MWKDataStore.h"
 #import "MWKArticleStore.h"
 #import "MWKUserDataStore.h"
