@@ -38,8 +38,8 @@
     NSUInteger index = [self indexForEntry:entry];
     if (index == NSNotFound) {
         return nil;
-    } else if (index + 1 < self.length) {
-        return [self entryAtIndex:index + 1];
+    } else if (index > 0) {
+        return [self entryAtIndex:index - 1];
     } else {
         return nil;
     }
@@ -50,8 +50,8 @@
     NSUInteger index = [self indexForEntry:entry];
     if (index == NSNotFound) {
         return nil;
-    } else if (index > 0) {
-        return [self entryAtIndex:index - 1];
+    } else if (index + 1 < self.length) {
+        return [self entryAtIndex:index + 1];
     } else {
         return nil;
     }
