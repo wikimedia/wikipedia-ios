@@ -24,6 +24,9 @@
         _displaytitle   =  [self optionalString:          @"displaytitle"   dict:dict];
         _protection     =  [self requiredProtectionStatus:@"protection"     dict:dict];
         _editable       = [[self requiredNumber:          @"editable"       dict:dict] boolValue];
+
+        // This doesn't come from mobileview api, queried separately
+        _entitydescription = [self optionalString:        @"entitydescription" dict:dict];
     }
     return self;
 }
@@ -46,6 +49,11 @@
     }
     dict[@"protection"] = [self.protection dataExport];
     dict[@"editable"] = @(self.editable);
+
+    if (self.entitydescription) {
+        // This doesn't come from mobileview api, queried separately
+        dict[@"entitydescription"] = self.entitydescription;
+    }
 
     return [NSDictionary dictionaryWithDictionary:dict];
 }

@@ -30,6 +30,8 @@
 @property (readonly) MWKProtectionStatus *protection;     // required
 @property (readonly) BOOL                 editable;       // required
 
+@property (readonly) NSString            *entitydescription; // optional; pulled via wikidata
+
 -(instancetype)initWithTitle:(MWKTitle *)title dict:(NSDictionary *)dict;
 
 @end
