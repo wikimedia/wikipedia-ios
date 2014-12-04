@@ -1495,25 +1495,17 @@
 				// a core data image object exists with a matching sourceURL. If so make the article
 				// thumbnailImage property point to that core data image object. This associates the
 				// search result thumbnail with the article.
-				/*
 				NSPredicate *articlePredicate =
-				[NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", article.titleObj.text];
+				[NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", article.title.prefixedText];
 				NSDictionary *articleDictFromSearchResults =
 				[ROOT.topMenuViewController.searchResultsController.searchResults firstMatchForPredicate:articlePredicate];
 				if (articleDictFromSearchResults) {
 					NSString *thumbURL = articleDictFromSearchResults[@"thumbnail"][@"source"];
 					thumbURL = [thumbURL getUrlWithoutScheme];
-					Image *thumb = (Image *)[article.managedObjectContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", thumbURL];
-					if (thumb) article.thumbnailImage = thumb;
+                    thumbURL = [articleStore.imageList largestImageVariant:thumbURL];
+                    MWKImage *thumb = [articleStore imageWithURL:thumbURL];
+					if (thumb) articleStore.thumbnailImage = thumb;
 				}
-				*/
-				
-				/*
-				// Actually save the article record.
-				NSError *err = nil;
-				[article.managedObjectContext save:&err];
-				if (err) NSLog(@"Lead section save error = %@", err);
-				*/
 				
 				// Update the toc and web view.
 				[self.tocVC setTocSectionDataForSections:articleStore.sections];

@@ -58,7 +58,7 @@
     NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"^\\d+px-(.*)$" options:0 error:nil];
     NSArray *matches = [re matchesInString:fileName options:0 range:NSMakeRange(0, [fileName length])];
     if ([matches count]) {
-        return [fileName substringWithRange:[matches[0] rangeAtIndex:0]];
+        return [fileName substringWithRange:[matches[0] rangeAtIndex:1]];
     } else {
         return fileName;
     }

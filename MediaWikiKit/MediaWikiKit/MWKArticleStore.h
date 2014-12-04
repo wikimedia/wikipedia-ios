@@ -35,7 +35,7 @@
 -(NSData *)imageDataWithImage:(MWKImage *)image;
 -(UIImage *)UIImageWithImage:(MWKImage *)image;
 
-@property (readonly) MWKImage *thumbnailImage;
+@property (readwrite) MWKImage *thumbnailImage;
 @property (readonly) UIImage *thumbnailUIImage;
 
 -(void)saveImageList;
@@ -54,7 +54,7 @@
 /**
  * Create a stub record for an image with given URL.
  */
--(MWKImage *)importImageURL:(NSString *)url;
+-(MWKImage *)importImageURL:(NSString *)url sectionId:(int)sectionId;
 
 /**
  * Import downloaded image data into our data store,

@@ -153,9 +153,9 @@
     return [self.dataStore imageWithURL:url title:self.title];
 }
 
--(MWKImage *)importImageURL:(NSString *)url
+-(MWKImage *)importImageURL:(NSString *)url sectionId:(int)sectionId
 {
-    [self.imageList addImageURL:url];
+    [self.imageList addImageURL:url sectionId:sectionId];
     MWKImage *image = [[MWKImage alloc] initWithTitle:self.title sourceURL:url];;
     [self.dataStore saveImage:image]; // stub
     return image;
@@ -212,4 +212,19 @@
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
 }
 
+-(MWKImage *)thumbnailImage
+{
+    NSString *url = [self.imageList imageURLAtIndex:0 sectionId:MWK_SECTIONID_THUMBNAIL];
+    if (url) {
+        return [self imageWithURL:url];
+    } else {
+        return nil;
+    }
+}
+
+-(void)setThumbnailImage:(MWKImage *)thumbnailImage
+{
+    [self.imageList addImageURL:thumbnailImage.sourceURL sectionId:MWK_SECTIONID_THUMBNAIL];
+    [self saveImageList];
+}
 @end

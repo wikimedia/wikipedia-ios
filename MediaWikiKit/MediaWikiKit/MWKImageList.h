@@ -8,6 +8,9 @@
 
 #import "MWKSiteDataObject.h"
 
+#define MWK_SECTIONID_THUMBNAIL -1
+
+
 @interface MWKImageList : MWKSiteDataObject
 
 @property (readonly) MWKTitle *title;
@@ -16,11 +19,11 @@
 -(instancetype)initWithTitle:(MWKTitle *)title;
 -(instancetype)initWithTitle:(MWKTitle *)title dict:(NSDictionary *)dict;
 
--(void)addImageURL:(NSString *)imageURL;
+-(void)addImageURL:(NSString *)imageURL sectionId:(int)sectionId;
 
--(NSString *)imageURLAtIndex:(NSUInteger)index;
+-(NSString *)imageURLAtIndex:(NSUInteger)index sectionId:(int)sectionId;
 -(BOOL)hasImageURL:(NSString *)imageURL;
--(NSUInteger)indexOfImageURL:(NSString *)url;
 -(NSString *)largestImageVariant:(NSString *)image;
 
+@property (readwrite)NSString *thumbnailURL;
 @end

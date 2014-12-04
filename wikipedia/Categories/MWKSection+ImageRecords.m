@@ -95,7 +95,7 @@
         }else{
             // If no Image record, create one setting its "data" attribute to nil. This allows the record to be
             // created so it can be associated with the section in which this , then when the URLCache intercepts the request for this image
-            image = [articleStore importImageURL:src];
+            image = [articleStore importImageURL:src sectionId:self.sectionId];
         }
         
         // If imageSection doesn't already exist with the same index and image, create sectionImage record

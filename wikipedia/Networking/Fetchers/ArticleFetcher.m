@@ -494,7 +494,7 @@
             // If no Image record, create one setting its "data" attribute to nil. This allows the record to be
             // created so it can be associated with the section in which this , then when the URLCache intercepts the request for this image
             //image = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:context];
-            image = [self.articleStore importImageURL:src];
+            image = [self.articleStore importImageURL:src sectionId:sectionId];
             
             /*
              Moved imageData into own entity:

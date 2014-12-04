@@ -9,13 +9,25 @@
 #import "MediaWikiKit.h"
 
 @implementation MWKImageList {
-    NSMutableArray *entries;
+    NSMutableDictionary *entriesBySection;
     NSMutableDictionary *entriesByURL;
     NSMutableDictionary *entriesByNameWithoutSize;
 }
 
--(void)addImageURL:(NSString *)imageURL
+-(NSMutableArray *)entriesBySection:(int)sectionId
 {
+    id key = [@(sectionId) stringValue];
+    NSMutableArray *entries = entriesBySection[key];
+    if (entries == nil) {
+        entries = [[NSMutableArray alloc] init];
+        entriesBySection[key] = entries;
+    }
+    return entries;
+}
+
+-(void)addImageURL:(NSString *)imageURL sectionId:(int)sectionId
+{
+    NSMutableArray *entries = [self entriesBySection:sectionId];
     [entries addObject:imageURL];
     entriesByURL[imageURL] = imageURL;
     
@@ -28,19 +40,19 @@
     [byname addObject:imageURL];
 }
 
--(NSString *)imageURLAtIndex:(NSUInteger)index
+-(NSString *)imageURLAtIndex:(NSUInteger)index sectionId:(int)sectionId
 {
-    return entries[index];
+    NSMutableArray *entries = [self entriesBySection:sectionId];
+    if (index < [entries count]) {
+        return entries[index];
+    } else {
+        return nil;
+    }
 }
 
 -(BOOL)hasImageURL:(NSString *)imageURL
 {
     return (entriesByURL[imageURL] != nil);
-}
-
--(NSUInteger)indexOfImage:(NSString *)imageURL
-{
-    return [entries indexOfObject:imageURL];
 }
 
 -(NSString *)largestImageVariant:(NSString *)imageURL
@@ -53,12 +65,15 @@
     if (arr) {
         for (NSString *sourceURL in arr) {
             NSString *fileName = [sourceURL lastPathComponent];
-            int width = [MWKImage fileSizePrefix:fileName];
+            width = [MWKImage fileSizePrefix:fileName];
+            NSLog(@"%@ is %d", fileName, width);
             if (width > biggestWidth) {
                 biggestWidth = width;
                 biggestURL = sourceURL;
             }
         }
+    } else {
+        NSLog(@"no variants for %@", baseName);
     }
     return biggestURL;
 }
@@ -70,7 +85,7 @@
     self = [self initWithSite:title.site];
     if (self) {
         _title = title;
-        entries = [[NSMutableArray alloc] init];
+        entriesBySection = [[NSMutableDictionary alloc] init];
         entriesByURL = [[NSMutableDictionary alloc] init];
         entriesByNameWithoutSize = [[NSMutableDictionary alloc] init];
     }
@@ -81,8 +96,10 @@
 {
     self = [self initWithTitle:title];
     if (self) {
-        for (NSString *url in dict[@"entries"]) {
-            [self addImageURL:url];
+        for (NSNumber *key in [dict allKeys]) {
+            for (NSString *url in dict[key]) {
+                [self addImageURL:url sectionId:[key intValue]];
+            }
         }
     }
     return self;
@@ -90,7 +107,7 @@
 
 -(id)dataExport
 {
-    return @{@"entries": [NSArray arrayWithArray:entries]};
+    return [NSDictionary dictionaryWithDictionary:entriesBySection];
 }
 
 @end
