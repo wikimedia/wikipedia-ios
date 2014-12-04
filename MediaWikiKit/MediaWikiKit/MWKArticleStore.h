@@ -32,6 +32,8 @@
 
 @property (readonly) MWKImageList *imageList;
 -(MWKImage *)imageWithURL:(NSString *)url;
+-(MWKImage *)largestImageWithURL:(NSString *)url;
+
 -(NSData *)imageDataWithImage:(MWKImage *)image;
 -(UIImage *)UIImageWithImage:(MWKImage *)image;
 

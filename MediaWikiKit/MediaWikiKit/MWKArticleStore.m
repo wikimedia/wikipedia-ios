@@ -153,6 +153,11 @@
     return [self.dataStore imageWithURL:url title:self.title];
 }
 
+-(MWKImage *)largestImageWithURL:(NSString *)url
+{
+    return [self.dataStore imageWithURL:[self.imageList largestImageVariant:url] title:self.title];
+}
+
 -(MWKImage *)importImageURL:(NSString *)url sectionId:(int)sectionId
 {
     [self.imageList addImageURL:url sectionId:sectionId];
