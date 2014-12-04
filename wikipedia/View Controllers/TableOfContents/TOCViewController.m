@@ -596,13 +596,13 @@
     for (MWKSection *section in [sections copy]) {
     
         NSString *title = [section tocTitle];
-        if (!section.sectionId || !section.level || !title) continue;
+        //if (!section.sectionId || !section.level || !title) continue;
 
         NSDictionary *sectionDict =
         @{
           @"id": @(section.sectionId),
           @"isLead": @([section isLeadSection]),
-          @"level": section.level,
+          @"level": section.level ? section.level : @0,
           @"title": title
         };
         
