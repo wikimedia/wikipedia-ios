@@ -25,5 +25,7 @@
 -(BOOL)hasImageURL:(NSString *)imageURL;
 -(NSString *)largestImageVariant:(NSString *)image;
 
+-(NSArray *)imageURLsForSectionId:(int)sectionId;
+
 @property (readwrite)NSString *thumbnailURL;
 @end

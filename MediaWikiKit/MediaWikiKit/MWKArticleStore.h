@@ -38,6 +38,10 @@
 @property (readwrite) MWKImage *thumbnailImage;
 @property (readonly) UIImage *thumbnailUIImage;
 
+-(NSArray *)imageURLsForSectionId:(int)sectionId;
+-(NSArray *)imagesForSectionId:(int)sectionId;
+-(NSArray *)UIImagesForSectionId:(int)sectionId;
+
 -(void)saveImageList;
 
 @property (readwrite) BOOL needsRefresh;

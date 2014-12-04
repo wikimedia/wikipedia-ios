@@ -1333,20 +1333,15 @@
     showImageSheet = !showImageSheet;
     
     if(showImageSheet){
-        /*
-        NSManagedObjectContext *ctx = articleDataContext_.mainContext;
-        [ctx performBlockAndWait:^(){
-            NSManagedObjectID *articleID =
-            [ctx getArticleIDForTitle: session.currentArticleTitle
-                               domain: session.currentArticleDomain];
-            Article *article = (Article *)[ctx objectWithID:articleID];
-            NSArray *sectionImages = [article getSectionImagesUsingContext:ctx];
+        MWKArticleStore *articleStore = session.articleStore;
+        for (MWKSection *section in articleStore.sections) {
+            NSArray *sectionImages = [articleStore UIImagesForSectionId:section.sectionId];
             NSMutableArray *views = @[].mutableCopy;
-            for (SectionImage *sectionImage in sectionImages) {
-                Section *section = sectionImage.section;
-                NSString *title = (section.title.length > 0) ? section.title : session.currentArticleTitle;
+            int index = 0;
+            for (UIImage *image in sectionImages) {
+                NSString *title = (section.line) ? section.line : articleStore.title.prefixedText;
                 //NSLog(@"\n\n\nsection image = %@ \n\tsection = %@ \n\tindex in section = %@ \n\timage size = %@", sectionImage.image.fileName, sectionTitle, sectionImage.index, sectionImage.image.dataSize);
-                if(sectionImage.index.integerValue == 0){
+                if(index == 0){
                     PaddedLabel *label = [[PaddedLabel alloc] init];
                     label.padding = UIEdgeInsetsMake(20, 20, 10, 20);
                     label.numberOfLines = 0;
@@ -1358,15 +1353,15 @@
                     label.text = title;
                     [views addObject:label];
                 }
-                UIImageView *imageView = [[UIImageView alloc] initWithImage:[[UIImage alloc] initWithData:sectionImage.image.imageData.data]];
+                UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
                 imageView.contentMode = UIViewContentModeScaleAspectFit;
                 [views addObject:imageView];
                 UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 5)];
                 [views addObject:spacerView];
+                index++;
             }
             [NAV topActionSheetShowWithViews:views orientation:TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL];
-        }];
-         */
+        }
     }else{
         [NAV topActionSheetHide];
     }

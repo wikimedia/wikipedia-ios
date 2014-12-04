@@ -243,4 +243,28 @@
     }
 }
 
+-(NSArray *)imageURLsForSectionId:(int)sectionId
+{
+    return [self.imageList imageURLsForSectionId:sectionId];
+}
+
+-(NSArray *)imagesForSectionId:(int)sectionId
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (NSString *url in [self imageURLsForSectionId:sectionId]) {
+        [arr addObject:[self imageWithURL:url]];
+    }
+    return [NSArray arrayWithArray:arr];
+}
+
+-(NSArray *)UIImagesForSectionId:(int)sectionId
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (MWKImage *image in [self imagesForSectionId:sectionId]) {
+        [arr addObject:[self UIImageWithImage:image]];
+    }
+    return [NSArray arrayWithArray:arr];
+}
+
+
 @end

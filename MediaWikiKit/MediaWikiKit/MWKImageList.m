@@ -78,6 +78,11 @@
     return biggestURL;
 }
 
+-(NSArray *)imageURLsForSectionId:(int)sectionId
+{
+    return [[self entriesBySection:sectionId] copy];
+}
+
 #pragma mark - data i/o
 
 -(instancetype)initWithTitle:(MWKTitle *)title
