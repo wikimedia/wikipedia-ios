@@ -1334,9 +1334,9 @@
     
     if(showImageSheet){
         MWKArticleStore *articleStore = session.articleStore;
+        NSMutableArray *views = @[].mutableCopy;
         for (MWKSection *section in articleStore.sections) {
             NSArray *sectionImages = [articleStore UIImagesForSectionId:section.sectionId];
-            NSMutableArray *views = @[].mutableCopy;
             int index = 0;
             for (UIImage *image in sectionImages) {
                 NSString *title = (section.line) ? section.line : articleStore.title.prefixedText;
@@ -1360,8 +1360,9 @@
                 [views addObject:spacerView];
                 index++;
             }
-            [NAV topActionSheetShowWithViews:views orientation:TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL];
         }
+        NSLog(@"%@", views);
+        [NAV topActionSheetShowWithViews:views orientation:TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL];
     }else{
         [NAV topActionSheetHide];
     }
