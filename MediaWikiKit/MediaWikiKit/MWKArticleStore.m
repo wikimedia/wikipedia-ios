@@ -231,4 +231,16 @@
     [self.imageList addImageURL:thumbnailImage.sourceURL sectionId:MWK_SECTIONID_THUMBNAIL];
     [self saveImageList];
 }
+
+-(UIImage *)thumbnailUIImage
+{
+    MWKImage *image = self.thumbnailImage;
+    if (image) {
+        NSData *data = [self imageDataWithImage:image];
+        return [UIImage imageWithData:data];
+    } else {
+        return nil;
+    }
+}
+
 @end
