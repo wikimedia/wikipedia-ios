@@ -45,7 +45,7 @@
         dict[@"number"] = self.number;
     }
     if (self.index) {
-        dict[@"number"] = self.index;
+        dict[@"index"] = self.index;
     }
     if (self.fromtitle) {
         dict[@"fromtitle"] = [self.fromtitle prefixedText];
