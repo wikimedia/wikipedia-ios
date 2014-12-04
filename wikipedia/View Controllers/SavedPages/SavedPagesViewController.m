@@ -172,7 +172,7 @@
     MWKSavedPageEntry *savedEntry = [savedPageList entryAtIndex:indexPath.row];
     
     NSString *title = savedEntry.title.prefixedText;
-    NSString *language = [NSString stringWithFormat:@"\n%@", /* @TODO pretty language savedEntry.article.domainName*/savedEntry.site.language];
+    NSString *language = [NSString stringWithFormat:@"\n%@", [WikipediaAppUtils domainNameForCode:savedEntry.site.language]];
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = [WikipediaAppUtils rtlSafeAlignment];
