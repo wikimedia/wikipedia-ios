@@ -215,6 +215,10 @@
 -(MWKImage *)thumbnailImage
 {
     NSString *url = [self.imageList imageURLAtIndex:0 sectionId:MWK_SECTIONID_THUMBNAIL];
+    if (url == nil) {
+        // No recorded thumbnail? See if there's just a first-section image for now.
+        url = [self.imageList imageURLAtIndex:0 sectionId:0];
+    }
     if (url) {
         return [self imageWithURL:url];
     } else {
