@@ -54,7 +54,13 @@
 
 -(NSString *)fileNameNoSizePrefix
 {
-    return self.fileName; // @FIXME IMPLEMENT
+    NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"^\\d+px-(.*)$" options:0 error:nil];
+    NSArray *matches = [re matchesInString:self.fileName options:0 range:NSMakeRange(0, [self.fileName length])];
+    if (matches) {
+        return matches[1];
+    } else {
+        return self.fileName;
+    }
 }
 
 -(id)dataExport
