@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-#include "MWKTestCase.h"
+#import "MWKTestCase.h"
 
 @interface MWKTitleTests : MWKTestCase
 
