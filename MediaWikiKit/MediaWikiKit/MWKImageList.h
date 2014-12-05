@@ -26,6 +26,7 @@
 -(NSString *)largestImageVariant:(NSString *)image;
 
 -(NSArray *)imageURLsForSectionId:(int)sectionId;
+-(NSArray *)imagesBySection; // returns array of arrays indexed from section 0 until the last one that's been accesseded, may not be the last section
 
 @property (readwrite)NSString *thumbnailURL;
 @end

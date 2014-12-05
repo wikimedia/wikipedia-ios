@@ -83,6 +83,36 @@
     return [[self entriesBySection:sectionId] copy];
 }
 
+-(NSArray *)imagesBySection
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    NSArray *keys = [entriesBySection keysSortedByValueUsingComparator:^NSComparisonResult(NSString *key1, NSString *key2) {
+        int int1 = [key1 intValue];
+        int int2 = [key2 intValue];
+        if (int1 == int2 ) {
+            return NSOrderedSame;
+        } else if (int1 > int2) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedAscending;
+        }
+    }];
+    int lastSection = -1;
+    for (NSString *key in keys) {
+        lastSection = [key intValue];
+    }
+    for (int i = 0; i <= lastSection; i++) {
+        NSString *key = [NSString stringWithFormat:@"%d", i];
+        NSMutableArray *subarr = [[NSMutableArray alloc] init];
+        for (NSString *url in entriesBySection[key]) {
+            [subarr addObject:url];
+        }
+        [arr addObject:subarr];
+    }
+    return [NSArray arrayWithArray:arr];
+}
+
+
 #pragma mark - data i/o
 
 -(instancetype)initWithTitle:(MWKTitle *)title
