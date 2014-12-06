@@ -28,7 +28,8 @@ static NSString *localLinkPrefix = @"/wiki/";
 - (MWKTitle *)titleWithInternalLink:(NSString *)path
 {
     if ([path hasPrefix:localLinkPrefix]) {
-        NSString *remainder = [path substringFromIndex:localLinkPrefix.length];
+        NSString *remainder = [[path substringFromIndex:localLinkPrefix.length]
+                               stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         return [self titleWithString:remainder];
     } else {
         @throw [NSException exceptionWithName:@"SiteBadLinkFormatException" reason:@"unexpected local link format" userInfo:nil];

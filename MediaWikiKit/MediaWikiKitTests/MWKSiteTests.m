@@ -63,6 +63,8 @@
     XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/India"].prefixedText, @"India");
     XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/Talk:India"].prefixedText, @"Talk:India");
     XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/Talk:India#History"].prefixedText, @"Talk:India");
+    XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/2008 ACC Men%27s Basketball Tournament"].prefixedText,
+                          @"2008 ACC Men's Basketball Tournament");
     //    XCTAssertThrows([site titleWithInternalLink:@"/upload/foobar"]);
 }
 
