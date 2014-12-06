@@ -86,7 +86,7 @@
 -(NSArray *)imagesBySection
 {
     NSMutableArray *arr = [[NSMutableArray alloc] init];
-    NSArray *keys = [entriesBySection keysSortedByValueUsingComparator:^NSComparisonResult(NSString *key1, NSString *key2) {
+    NSArray *keys = [entriesBySection.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *key1, NSString *key2) {
         int int1 = [key1 intValue];
         int int2 = [key2 intValue];
         if (int1 == int2 ) {
