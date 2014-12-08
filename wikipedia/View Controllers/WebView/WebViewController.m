@@ -191,7 +191,7 @@
         [weakSelf performSelector:@selector(loadingIndicatorHide) withObject:nil afterDelay:0.22f];
         [weakSelf.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
         [weakSelf jumpToFragmentIfNecessary];
-        //[weakSelf performSelector:@selector(autoScrollToLastScrollOffsetIfNecessary) withObject:nil afterDelay:0.5f];
+        [weakSelf performSelector:@selector(autoScrollToLastScrollOffsetIfNecessary) withObject:nil afterDelay:0.0f];
     }];
     
     self.unsafeToScroll = NO;
@@ -284,7 +284,7 @@
 -(void)autoScrollToLastScrollOffsetIfNecessary
 {
     if (!self.jumpToFragment) {
-        [self.webView.scrollView setContentOffset:self.lastScrollOffset animated:YES];
+        [self.webView.scrollView setContentOffset:self.lastScrollOffset animated:NO];
     }
 }
 
