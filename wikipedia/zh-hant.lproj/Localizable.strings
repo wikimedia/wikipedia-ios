@@ -163,7 +163,7 @@
 "about-testers" = "測試人員";
 "about-testers-details" = "問答已由 $1 測試";
 "about-translators" = "翻譯人員";
-"about-translators-details" = "$1由義工翻譯";
+"about-translators-details" = "$1 由志工翻譯";
 "about-libraries" = "使用的庫";
 "about-repositories" = "儲存庫";
 "about-send-feedback" = "傳送應用程式回饋";

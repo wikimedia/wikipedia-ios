@@ -4,6 +4,7 @@
 // Author: Anaclaudiaml
 // Author: Dianakc
 // Author: Luckas
+// Author: Mordecool
 // Author: Tooguether
 
 "article-languages-label" = "Escolha um idioma";
@@ -53,6 +54,11 @@
 "search-searching" = "Pesquisando...";
 "search-loading-article-loaded" = "Artigo carregado.";
 "search-cancel" = "Cancelar";
+"search-recent-title" = "Pesquisas recentes";
+"search-recent-clear-confirmation-heading" = "Apagar todas as pesquisas recentes?";
+"search-recent-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
+"search-recent-clear-cancel" = "Cancelar";
+"search-recent-clear-delete-all" = "Excluir tudo";
 "main-menu-title" = "Mais";
 "main-menu-account-title-logged-out" = "Conta";
 "main-menu-show-history" = "Recente";

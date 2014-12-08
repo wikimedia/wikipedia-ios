@@ -4,6 +4,7 @@
 // Author: Jack Phoenix
 // Author: Nike
 // Author: Stryn
+// Author: SuperPete
 
 "article-languages-label" = "Valitse kieli";
 "article-languages-cancel" = "Peruuta";
@@ -34,6 +35,7 @@
 "zero-warn-when-leaving" = "Varoita poistuttaessa Wikipedia Zerosta";
 "zero-settings-devmode" = "Zeron kehitystila";
 "account-creation-captcha-required" = "CAPTCHA-varmistus vaaditaan.";
+"account-creation-captcha-obtaining" = "Haetaan uutta CAPTCHA-kuvaa.";
 "account-creation-logging-in" = "Kirjaudutaan...";
 "account-creation-passwords-mismatched" = "Salasanat eivät täsmää.";
 "account-creation-saving" = "Tallennetaan...";
@@ -57,6 +59,7 @@
 "wikitext-download-success" = "Sisältö ladattu.";
 "wikitext-preview-changes" = "Haetaan esikatselua tekemistäsi muutoksista...";
 "wikitext-preview-changes-none" = "Ei esikatseltavia muutoksia.";
+"wikitext-upload-result-unknown" = "wikitextin lähetystä ei voida varmistaa.";
 "wikitext-upload-captcha-error" = "Virhe CAPTCHA-varmistuksessa.";
 "wikitext-upload-captcha-needed" = "Vaaditaan CAPTCHA-varmistus.";
 "wikitext-upload-save" = "Tallennetaan...";
@@ -77,6 +80,14 @@
 "search-loading-section-remaining" = "Ladataan artikkelin loppuosaa...";
 "search-loading-article-loaded" = "Artikkeli ladattu.";
 "search-cancel" = "Peruuta";
+"search-titles" = "Otsikot";
+"search-within-articles" = "Artikkeleissa";
+"search-did-you-mean" = "Tarkoititko $1?";
+"search-recent-title" = "Äskettäin tehdyt haut";
+"search-recent-clear-confirmation-heading" = "Poistetaanko kaikki äskettäiset haut?";
+"search-recent-clear-confirmation-sub-heading" = "Toimintoa ei voi kumota!";
+"search-recent-clear-cancel" = "Keskeytä";
+"search-recent-clear-delete-all" = "Poista kaikki";
 "main-menu-title" = "Lisää";
 "main-menu-language-title" = "Etsi wikistä kielellä $1";
 "main-menu-language-toggle-show" = "Näytä kielet";
@@ -95,12 +106,16 @@
 "main-menu-send-feedback" = "Lähetä palautetta sovelluksesta";
 "main-menu-show-page-history" = "Sivun $1 muokkaushistoria";
 "main-menu-credits" = "Kiitokset";
+"main-menu-about" = "Tietoja Wikipedia-sovelluksesta";
 "main-menu-zero-faq" = "Usein kysyttyjä kysymyksiä Wikipedia Zerosta";
 "main-menu-privacy-policy" = "Tietosuojakäytäntö";
 "main-menu-terms-of-use" = "Käyttöehdot";
 "main-menu-rate-app" = "Arvostele sovellus";
 "main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-heading-legal" = "Mumbu jumbo";
 "main-menu-show-today" = "Tänään";
+"main-menu-nearby" = "Lähistöllä";
+"main-menu-more" = "Lisää...";
 "saved-pages-title" = "Tallennetut sivut";
 "saved-pages-clear-confirmation-heading" = "Poista kaikki tallennetut kohteet?";
 "saved-pages-clear-confirmation-sub-heading" = "Tätä toimintoa ei voi kumota!";
@@ -139,8 +154,21 @@
 "credits-gerrit-repo" = "Sovelluksen päävaranto (Gerrit)";
 "credits-github-mirror" = "Sovelluksen toisiovaranto (GitHub)";
 "credits-external-libraries" = "Ulkoiset varannot";
+"about-title" = "Tietoja";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "tekijät";
+"about-testers" = "testaajat";
+"about-testers-details" = "QA:n testannut $1";
+"about-translators" = "kääntäjät";
+"about-translators-details" = "Käännöstyön tehneet vapaaehtoiset sivustolla $1";
+"about-libraries" = "käytetyt kirjastot";
+"about-repositories" = "tietovarastot";
+"about-send-feedback" = "Lähetä palautetta sovelluksesta";
+"about-product-of" = "Tuote $1";
+"about-wikimedia-foundation" = "Wikimediasäätiö";
 "share-menu-save-page" = "Tallenna artikkeli";
 "share-menu-page-saved" = "Artikkeli tallennettu";
+"share-menu-page-saved-access" = "Vihje: Päästäksesi tallentamillesi sivuille näpäytä kuvaketta $1 tai paina pitkään kuvaketta $2.";
 "timestamp-just-now" = "juuri nyt";
 "timestamp-minutes" = "%d minuuttia sitten";
 "timestamp-hours" = "%d tuntia sitten";
@@ -189,12 +217,16 @@
 "menu-share-accessibility-label" = "Jaa";
 "menu-more-accessibility-label" = "Lisää asetuksia";
 "menu-trash-accessibility-label" = "Poista";
+"nearby-title" = "Lähistöllä";
 "nearby-distance-label-meters" = "$1 metriä";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-feet" = "$1 jalkaa";
 "nearby-distance-label-miles" = "$1 mailia";
 "nearby-pull-to-refresh-prompt" = "Vedä päivittääksesi";
 "nearby-pull-to-refresh-is-refreshing" = "Päivitetään";
+"nearby-loading" = "Ladataan lähistöllä olevia artikkeleita...";
+"nearby-loaded" = "Lähistöllä olevat artikkelity ladattu";
+"nearby-none" = "Lähistöllä olevia artikkeleita ei löytynyt. Vedä päivittääksesi tai yritä myöhemmin uudelleen";
 "nearby-open-in-maps" = "Avaa Kartat-sovelluksessa";
 "nearby-cancel" = "Peruuta";
 "nearby-location-updates-denied" = "Tällä sovelluksella ei ole oikeuksia vastaanottaa sijaintipäivityksiä.";
