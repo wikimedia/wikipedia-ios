@@ -125,4 +125,9 @@
     return self;
 }
 
+- (NSUInteger)hash
+{
+    return [self.site hash] ^ [self.prefixedText hash] ^ [self.fragment hash];
+}
+
 @end

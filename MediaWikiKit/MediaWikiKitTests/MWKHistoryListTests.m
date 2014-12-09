@@ -65,6 +65,16 @@
     XCTAssertEqual(historyList.length, 1, @"Should have length 1 after adding a duplicate, not 2");
 }
 
+- (void)testAddCount2SameButDiffObjects {
+    MWKTitle *title1 = [titleSFEn.site titleWithString:@"This is a title"];
+    MWKTitle *title2 = [titleSFEn.site titleWithString:@"This is a title"];
+    [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:title1
+                                                 discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH]];
+    [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:title2
+                                                 discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH]];
+    XCTAssertEqual(historyList.length, 1, @"Should have length 1 after adding a duplicate, not 2");
+}
+
 - (void)testAddCount2DiffLanguages {
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleSFEn
                                                  discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH]];

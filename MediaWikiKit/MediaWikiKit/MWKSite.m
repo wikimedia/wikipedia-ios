@@ -67,4 +67,9 @@ static NSString *localLinkPrefix = @"/wiki/";
     return site;
 }
 
+- (NSUInteger)hash
+{
+    return [self.domain hash] ^ [self.language hash];
+}
+
 @end
