@@ -317,9 +317,8 @@
     NSError *err;
     NSData *data = [NSData dataWithContentsOfFile:filePath options:0 error:&err];
     if (err) {
-        @throw [NSException exceptionWithName:@"MWKDataStoreException"
-                                       reason:[err description]
-                                     userInfo:@{@"filePath": filePath, @"err": err}];
+        NSLog(@"Failed to load image from %@: %@", filePath,[err description]);
+        return nil;
     }
     return data;
 }
