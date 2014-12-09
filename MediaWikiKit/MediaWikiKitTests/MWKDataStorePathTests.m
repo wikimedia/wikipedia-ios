@@ -101,7 +101,7 @@
 - (void)testImagePathUnicode {
     NSString *urlForbiddenCityImage = @"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/%E5%8C%97%E4%BA%AC%E6%95%85%E5%AE%AB12.JPG/440px-%E5%8C%97%E4%BA%AC%E6%95%85%E5%AE%AB12.JPG";
 
-    XCTAssertEqualObjects([dataStore pathForImageURL:urlForbiddenCityImage title:titleForbiddenCity], @"/sites/wikipedia.org/en/articles/Forbidden_City/Images/wikipedia:commons:thumb:e:e6:%E5%8C%97%E4%BA%AC%E6%95%85%E5%AE%AB12.JPG:440px-%E5%8C%97%E4%BA%AC%E6%95%85%E5%AE%AB12.JPG");
+    XCTAssertEqualObjects([dataStore pathForImageURL:urlForbiddenCityImage title:titleForbiddenCity], @"/sites/wikipedia.org/en/articles/Forbidden_City/Images/440px-%E5%8C%97%E4%BA%AC%E6%95%85%E5%AE%AB12.JPG");
 }
 
 @end
