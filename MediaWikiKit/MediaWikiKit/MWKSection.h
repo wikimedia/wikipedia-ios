@@ -33,5 +33,6 @@
 -(instancetype)initWithArticle:(MWKArticle *)article dict:(NSDictionary *)dict;
 
 -(BOOL)isLeadSection;
+-(MWKTitle *)sourceTitle;
 
 @end

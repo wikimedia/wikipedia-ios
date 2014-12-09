@@ -62,4 +62,15 @@
     return (self.sectionId == 0);
 }
 
+-(MWKTitle *)sourceTitle
+{
+    if (self.fromtitle) {
+        // We probably came from a foreign template section!
+        return self.fromtitle;
+    } else {
+        return self.title;
+    }
+}
+
+
 @end
