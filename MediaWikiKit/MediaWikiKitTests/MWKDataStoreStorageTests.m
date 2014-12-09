@@ -76,6 +76,8 @@
     XCTAssertEqual([sections count], 36);
 }
 
+/*
+ // Can't store these alone
 - (void)testArticleStoreAnon
 {
     XCTAssertNil([self.dataStore articleWithTitle:self.title], @"article cannot be loaded before we save it");
@@ -85,6 +87,6 @@
     MWKArticle *article;
     XCTAssertNoThrow(article = [self.dataStore articleWithTitle:self.title], @"article can be loaded after saving it");
 }
-
+*/
 
 @end
