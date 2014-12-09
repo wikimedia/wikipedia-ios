@@ -86,17 +86,14 @@
 
 -(NSArray *)sections
 {
-    static NSString *prefix = @"section";
     if (_sections == nil) {
         NSMutableArray *array = [@[] mutableCopy];
         NSFileManager *fm = [NSFileManager defaultManager];
         NSString *path = [[self.dataStore pathForTitle:self.title] stringByAppendingPathComponent:@"sections"];
         NSArray *files = [fm contentsOfDirectoryAtPath:path error:nil];
         files = [files sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
-            NSString *suffix1 = [obj1 substringFromIndex:[prefix length]];
-            int sectionId1 = [suffix1 intValue];
-            NSString *suffix2 = [obj2 substringFromIndex:[prefix length]];
-            int sectionId2 = [suffix2 intValue];
+            int sectionId1 = [obj1 intValue];
+            int sectionId2 = [obj2 intValue];
             if (sectionId1 < sectionId2) {
                 return NSOrderedAscending;
             } else if (sectionId1 == sectionId2) {
@@ -105,12 +102,13 @@
                 return NSOrderedDescending;
             }
         }];
+        NSRegularExpression *redigits = [NSRegularExpression regularExpressionWithPattern:@"^\\d+$" options:0 error:nil];
         for (NSString *subpath in files) {
             NSString *filename = [subpath lastPathComponent];
             NSLog(@"qqq %@", filename);
-            if ([filename hasPrefix:prefix]) {
-                NSString *suffix = [filename substringFromIndex:[prefix length]];
-                int sectionId = [suffix intValue];
+            NSArray *matches = [redigits matchesInString:filename options:0 range:NSMakeRange(0, [filename length])];
+            if (matches && [matches count]) {
+                int sectionId = [filename intValue];
                 array[sectionId] = [self sectionAtIndex:sectionId];
             }
         }

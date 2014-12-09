@@ -85,13 +85,13 @@
     MWKSection *section0 = [[MWKSection alloc] initWithArticle:article dict:json[@"mobileview"][@"sections"][0]];
     MWKSection *section35 = [[MWKSection alloc] initWithArticle:article dict:json[@"mobileview"][@"sections"][35]];
 
-    XCTAssertEqualObjects([dataStore pathForSection:section0], @"/sites/wikipedia.org/en/articles/San_Francisco/sections/section0");
-    XCTAssertEqualObjects([dataStore pathForSection:section35], @"/sites/wikipedia.org/en/articles/San_Francisco/sections/section35");
+    XCTAssertEqualObjects([dataStore pathForSection:section0], @"/sites/wikipedia.org/en/articles/San_Francisco/sections/0");
+    XCTAssertEqualObjects([dataStore pathForSection:section35], @"/sites/wikipedia.org/en/articles/San_Francisco/sections/35");
 }
 
 - (void)testSectionIdPath {
-    XCTAssertEqualObjects([dataStore pathForSectionId:0 title:title], @"/sites/wikipedia.org/en/articles/San_Francisco/sections/section0");
-    XCTAssertEqualObjects([dataStore pathForSectionId:35 title:title], @"/sites/wikipedia.org/en/articles/San_Francisco/sections/section35");
+    XCTAssertEqualObjects([dataStore pathForSectionId:0 title:title], @"/sites/wikipedia.org/en/articles/San_Francisco/sections/0");
+    XCTAssertEqualObjects([dataStore pathForSectionId:35 title:title], @"/sites/wikipedia.org/en/articles/San_Francisco/sections/35");
 }
 
 - (void)testImagesPath {

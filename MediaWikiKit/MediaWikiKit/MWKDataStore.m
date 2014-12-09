@@ -65,7 +65,7 @@
 -(NSString *)pathForSectionId:(NSUInteger)sectionId title:(MWKTitle *)title
 {
     NSString *sectionsPath = [self pathForSectionsWithTitle:title];
-    NSString *sectionName = [NSString stringWithFormat:@"section%d", (int)sectionId];
+    NSString *sectionName = [NSString stringWithFormat:@"%d", (int)sectionId];
     return [sectionsPath stringByAppendingPathComponent:sectionName];
 }
 
