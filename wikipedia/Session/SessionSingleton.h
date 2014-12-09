@@ -18,7 +18,7 @@
 //@property (strong, nonatomic) NSString *site;
 //@property (strong, nonatomic) NSString *domain;
 // Note: "domainMainArticleTitle" is readonly because it gets set whenever "domain" changes.
-@property (strong, nonatomic, readonly) NSString *domainMainArticleTitle;
+//@property (strong, nonatomic, readonly) NSString *domainMainArticleTitle;
 //@property (strong, nonatomic) NSString *domainName;
 //@property (strong, nonatomic) NSString *currentArticleTitle;
 //@property (strong, nonatomic) NSString *currentArticleDomain;

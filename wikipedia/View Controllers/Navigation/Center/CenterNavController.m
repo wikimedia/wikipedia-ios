@@ -151,7 +151,7 @@
 
 -(void)loadTodaysArticle
 {
-    NSString *mainArticleTitle = [SessionSingleton sharedInstance].domainMainArticleTitle;
+    NSString *mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:[SessionSingleton sharedInstance].site.language];
     if (mainArticleTitle) {
         MWKTitle *pageTitle = [[SessionSingleton sharedInstance].site titleWithString:mainArticleTitle];
         // Invalidate cache so present day main page article is always retrieved.
@@ -221,7 +221,7 @@
 
 -(void)switchPreferredLanguageToId:(NSString *)languageId name:(NSString *)name
 {
-    NSString *mainArticleTitle = [SessionSingleton sharedInstance].domainMainArticleTitle;
+    NSString *mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:[SessionSingleton sharedInstance].site.language];
     if (mainArticleTitle) {
         MWKSite *site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:languageId];
         MWKTitle *pageTitle = [site titleWithString:mainArticleTitle];
