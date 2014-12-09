@@ -23,6 +23,7 @@
         _number     =  [self optionalString:@"number"     dict:dict]; // deceptively named, this must be a string
         _index      =  [self optionalString:@"index"      dict:dict]; // deceptively named, this must be a string
         _fromtitle  =  [self optionalTitle: @"fromtitle"  dict:dict];
+        _anchor     =  [self optionalString:@"anchor"     dict:dict];
         _sectionId  = [[self requiredNumber:@"id"         dict:dict] intValue];
         _references = ([self optionalString:@"references" dict:dict] != nil);
     }
@@ -49,6 +50,9 @@
     }
     if (self.fromtitle) {
         dict[@"fromtitle"] = [self.fromtitle prefixedText];
+    }
+    if (self.anchor) {
+        dict[@"anchor"] = self.anchor;
     }
     dict[@"id"] = @(self.sectionId);
     if (self.references) {
