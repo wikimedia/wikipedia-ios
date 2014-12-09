@@ -86,7 +86,15 @@
         [self removeMCCMNCHeaderFromRequestSerializer:manager.requestSerializer];
         
         //NSDictionary *leadSectionResults = [self prepareResultsFromResponse:responseObject forTitle:title];
-        [self.articleStore importMobileViewJSON:responseObject];
+        @try {
+            [self.articleStore importMobileViewJSON:responseObject];
+        }
+        @catch (NSException *e) {
+            NSError *err = [NSError errorWithDomain:@"ArticleFetcher" code:666 userInfo:@{@"exception": e}];
+            [self finishWithError: err
+                      fetchedData: nil];
+            return;
+        }
         
         //[self applyResultsForLeadSection:leadSectionResults];
         for (int n = 0; n < [self.articleStore.sections count]; n++) {
