@@ -187,6 +187,8 @@
 {
     _title = title;
     _articleStore = nil;
+    [[NSUserDefaults standardUserDefaults] setObject:title.site.language forKey:@"CurrentArticleDomain"];
+    [[NSUserDefaults standardUserDefaults] setObject:title.prefixedDBKey forKey:@"CurrentArticleTitle"];
 }
 
 -(BOOL)sendUsageReports
