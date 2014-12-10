@@ -8,6 +8,7 @@
 #import "NSObject+Extras.h"
 #import "Defines.h"
 #import "WikipediaAppUtils.h"
+#import "NSString+Extras.h"
 
 @interface NearbyFetcher()
 
@@ -107,11 +108,11 @@
 {
     return @{
              @"action": @"query",
-             @"prop": @"coordinates|pageimages|pageprops",
-             @"ppprop": @"wikibase_item",
+             @"prop": @"coordinates|pageimages|pageterms",
              @"colimit": @"50",
              @"pithumbsize" : @(SEARCH_THUMBNAIL_WIDTH),
              @"pilimit": @"50",
+             @"wbptterms": @"description",
              @"generator": @"geosearch",
              @"ggscoord": [NSString stringWithFormat:@"%f|%f", self.latitude, self.longitude],
              @"ggsradius": @"10000",
@@ -143,12 +144,18 @@
                 if(pageImage)d[@"pageimage"] = pageImage;
                 if(thumbnail)d[@"thumbnail"] = thumbnail;
                 if(title)d[@"title"] = title;
-                id pageprops = page[@"pageprops"];
-                if ([pageprops isKindOfClass:[NSDictionary class]]) {
-                    if ([pageprops objectForKey:@"wikibase_item"]) {
-                        d[@"wikibase_item"] = pageprops[@"wikibase_item"];
+
+                NSString *description = @"";
+                NSDictionary *terms = page[@"terms"];
+                if(terms && terms[@"description"]){
+                    NSArray *descriptions = terms[@"description"];
+                    if (descriptions && (descriptions.count > 0)) {
+                        description = descriptions[0];
+                        description = [description capitalizeFirstLetter];
                     }
                 }
+                d[@"description"] = description;
+
                 [nearbyResults addObject:d];
             }
         }

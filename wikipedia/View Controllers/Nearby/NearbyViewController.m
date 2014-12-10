@@ -16,7 +16,6 @@
 #import "NSString+Extras.h"
 #import <MapKit/MapKit.h>
 #import "Defines.h"
-#import "WikiDataShortDescriptionFetcher.h"
 #import "NSString+Extras.h"
 #import "UITableView+DynamicCellHeight.h"
 
@@ -260,24 +259,6 @@
                 self.nearbyDataArray = @[arraySortedByDistance];
                 
                 [self.tableView reloadData];
-
-                // Get WikiData Id's to pass to WikiDataShortDescriptionFetcher.
-                NSMutableArray *wikiDataIds = @[].mutableCopy;
-                NSMutableDictionary *rowsData = (NSMutableDictionary *)self.nearbyDataArray[0];
-                for (NSDictionary *page in rowsData) {
-                    id wikiDataId = page[@"wikibase_item"];
-                    if(wikiDataId && [wikiDataId isKindOfClass:[NSString class]]){
-                        [wikiDataIds addObject:wikiDataId];
-                    }
-                }
-
-                // Fetch WikiData short descriptions.
-                if ((wikiDataIds.count > 0) && ENABLE_WIKIDATA_DESCRIPTIONS){
-                    (void)[[WikiDataShortDescriptionFetcher alloc] initAndFetchDescriptionsForIds: wikiDataIds
-                                                                                       searchType: SEARCH_TYPE_NEARBY
-                                                                                      withManager: [QueuesSingleton sharedInstance].nearbyFetchManager
-                                                                               thenNotifyDelegate: self];
-                }
             }
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
@@ -323,33 +304,6 @@
                 break;
             case FETCH_FINAL_STATUS_FAILED:
                 
-                break;
-        }
-    }else if ([sender isKindOfClass:[WikiDataShortDescriptionFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:{
-                NSDictionary *wikiDataShortDescriptions = (NSDictionary *)fetchedData;
-
-                // Add wikidata descriptions to respective search results.
-                NSMutableDictionary *rowsData = (NSMutableDictionary *)self.nearbyDataArray[0];
-                for (NSMutableDictionary *d in rowsData) {
-                    NSString *wikiDataId = d[@"wikibase_item"];
-                    if(wikiDataId){
-                        if ([wikiDataShortDescriptions objectForKey:wikiDataId]) {
-                            NSString *shortDesc = wikiDataShortDescriptions[wikiDataId];
-                            if (shortDesc) {
-                                d[@"wikidata_description"] = [shortDesc capitalizeFirstLetter];
-                            }
-                        }
-                    }
-                }
-                
-                [self.tableView reloadData];
-            }
-                break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
                 break;
         }
     }
@@ -550,7 +504,7 @@
 {
     NSDictionary *rowData = [self getRowDataForIndexPath:indexPath];
     
-    [cell setTitle:rowData[@"title"] description:rowData[@"wikidata_description"]];
+    [cell setTitle:rowData[@"title"] description:rowData[@"description"]];
     
     [self updateLocationDataOfCell:cell atIndexPath:indexPath];
 }
