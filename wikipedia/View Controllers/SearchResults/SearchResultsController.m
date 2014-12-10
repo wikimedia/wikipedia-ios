@@ -21,7 +21,6 @@
 #import "TopMenuTextFieldContainer.h"
 #import "TopMenuTextField.h"
 #import "SearchDidYouMeanButton.h"
-#import "WikiDataShortDescriptionFetcher.h"
 #import "SearchMessageLabel.h"
 #import "RecentSearchesViewController.h"
 #import "NSArray+Predicate.h"
@@ -345,7 +344,7 @@
         SearchResultAttributedString *attributedResult =
         [SearchResultAttributedString initWithTitle: result[@"title"]
                                             snippet: result[@"snippet"]
-                                wikiDataDescription: result[@"wikidata_description"]
+                                wikiDataDescription: result[@"description"]
                                      highlightWords: self.searchStringWordsToHighlight
                                          searchType: searchType
                                     attributesTitle: self.attributesTitle
@@ -381,24 +380,6 @@
                 // We have search titles! Show them right away!
                 // NSLog(@"FIRE ONE! Show search result titles.");
                 [self.searchResultsTable reloadData];
-
-                // Get WikiData Id's to pass to WikiDataShortDescriptionFetcher.
-                NSMutableArray *wikiDataIds = @[].mutableCopy;
-                for (NSDictionary *page in self.searchResults) {
-                    id wikiDataId = page[@"wikibase_item"];
-                    if(wikiDataId && [wikiDataId isKindOfClass:[NSString class]]){
-                        [wikiDataIds addObject:wikiDataId];
-                    }
-                }
-
-                // Fetch WikiData short descriptions.
-                if ((wikiDataIds.count > 0) && ENABLE_WIKIDATA_DESCRIPTIONS){
-                    (void)[[WikiDataShortDescriptionFetcher alloc] initAndFetchDescriptionsForIds: wikiDataIds
-                                                                                       searchType: searchResultFetcher.searchType
-                                                                                      withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
-                                                                               thenNotifyDelegate: self];
-                }
-
             }
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
@@ -473,35 +454,6 @@
                         break;
                     }
                 }
-            }
-                break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-                break;
-        }
-    }else if ([sender isKindOfClass:[WikiDataShortDescriptionFetcher class]]) {
-        WikiDataShortDescriptionFetcher *wikiDataShortDescriptionFetcher = (WikiDataShortDescriptionFetcher*)sender;
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:{
-                NSDictionary *wikiDataShortDescriptions = (NSDictionary *)fetchedData;
-
-                // Add wikidata descriptions to respective search results.
-                for (NSMutableDictionary *d in self.searchResults) {
-                    NSString *wikiDataId = d[@"wikibase_item"];
-                    if(wikiDataId){
-                        if ([wikiDataShortDescriptions objectForKey:wikiDataId]) {
-                            NSString *shortDesc = wikiDataShortDescriptions[wikiDataId];
-                            if (shortDesc) {
-                                d[@"wikidata_description"] = shortDesc;
-                            }
-                        }
-                    }
-                }
-
-                [self updateAttributeTextForSearchType:wikiDataShortDescriptionFetcher.searchType];
-                
-                [self.searchResultsTable reloadData];
             }
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:

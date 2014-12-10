@@ -44,7 +44,7 @@
     // Append/style Wikidata description.
     if ((description.length > 0)) {
         NSAttributedString *attributedDesc =
-        [[NSAttributedString alloc] initWithString: [@"\n" stringByAppendingString:[description capitalizeFirstLetter]]
+        [[NSAttributedString alloc] initWithString: [@"\n" stringByAppendingString:description]
                                         attributes: attributesDescription];
         [outputString appendAttributedString:attributedDesc];
     }

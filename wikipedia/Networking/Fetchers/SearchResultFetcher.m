@@ -12,8 +12,6 @@
 #import "ArticleCoreDataObjects.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 
-#define GET_SNIPPET_WITH_IN_ARTICLE_RESULTS YES
-
 @interface SearchResultFetcher()
 
 @property (strong, nonatomic) NSString *domain;
@@ -128,15 +126,11 @@
                      @"gpssearch": self.searchTerm,
                      @"gpsnamespace": @0,
                      @"gpslimit": @(SEARCH_MAX_RESULTS),
-                     @"prop": @"pageprops|pageimages",
-                     @"ppprop": @"wikibase_item",
+                     @"prop": @"pageterms|pageimages",
                      @"piprop": @"thumbnail",
+                     @"wbptterms": @"description",
                      @"pithumbsize" : @(SEARCH_THUMBNAIL_WIDTH),
                      @"pilimit": @(SEARCH_MAX_RESULTS),
-                     @"list": @"prefixsearch",
-                     @"pssearch": self.searchTerm,
-                     @"pslimit": @(SEARCH_MAX_RESULTS),
-                     @"psnamespace": @0,
                      @"format": @"json"
                      };
             break;
@@ -144,8 +138,8 @@
         case SEARCH_TYPE_IN_ARTICLES:
             return @{
                      @"action": @"query",
-                     @"prop": @"pageprops|pageimages",
-                     @"ppprop": @"wikibase_item",
+                     @"prop": @"pageterms|pageimages",
+                     @"wbptterms": @"description",
                      @"generator": @"search",
                      @"gsrsearch": self.searchTerm,
                      @"gsrnamespace": @0,
@@ -154,14 +148,6 @@
                      @"gsrprop": @"redirecttitle",
                      @"gsroffset": @0,
                      @"gsrlimit": @(SEARCH_MAX_RESULTS),
-                     @"list": @"search",
-                     @"srsearch": self.searchTerm,
-                     @"srnamespace": @0,
-                     @"srwhat": @"text",
-                     @"srinfo": @"suggestion",
-                     @"srprop": (GET_SNIPPET_WITH_IN_ARTICLE_RESULTS ? @"snippet" : @""),
-                     @"sroffset": @0,
-                     @"srlimit": @(SEARCH_MAX_RESULTS),
                      @"piprop": @"thumbnail",
                      @"pithumbsize" : @(SEARCH_THUMBNAIL_WIDTH),
                      @"pilimit": @(SEARCH_MAX_RESULTS),
@@ -183,65 +169,46 @@
         if (query) {
         
             NSDictionary *pages = (NSDictionary *)query[@"pages"];
+
+            NSSortDescriptor *sortByIndex = [NSSortDescriptor sortDescriptorWithKey: @"index"
+                                                                          ascending: YES];
+            if (!pages) return output;
             
-            NSString *searchTypeString = (self.searchType == SEARCH_TYPE_TITLES) ? @"prefixsearch" : @"search";
-            
-            NSArray *pagesOrdered = (NSArray *)query[searchTypeString];
-            
-            if (pages && pagesOrdered) {
+            NSArray *pagesOrdered = [pages.allValues sortedArrayUsingDescriptors:@[sortByIndex]];
 
-                // Loop through the prefixsearch results (rather than the pages results) so we maintain correct order.
-                // Based on https://gerrit.wikimedia.org/r/#/c/158011/2/javascripts/modules/search/SearchApi.js
-                for (NSDictionary *prefixPage in pagesOrdered) {
-
-                    // "dictionaryWithDictionary" used because it creates a deep mutable copy of the __NSCFDictionary.
-                    NSMutableDictionary *mutablePrefixPage = [NSMutableDictionary dictionaryWithDictionary:prefixPage];
-                    
-                    // Add thumb placeholder.
-                    mutablePrefixPage[@"thumbnail"] = @{}.mutableCopy;
-                    
-                    NSString *snippet = prefixPage[@"snippet"] ? prefixPage[@"snippet"] : @"";
-                    // Strip HTML and collapse repeating spaces in snippet.
-                    if (snippet.length > 0) {
-                        snippet = [snippet getStringWithoutHTML];
-                        snippet = [self.spaceCollapsingRegex stringByReplacingMatchesInString: snippet
-                                                                                      options: 0
-                                                                                        range: NSMakeRange(0, [snippet length])
-                                                                                 withTemplate: @" "];
-                    }
-                    mutablePrefixPage[@"snippet"] = snippet;
-
-                    // Grab thumbnail and pageprops info from non-prefixsearch result for this pageid.
-                    for (NSDictionary *page in pages.allValues) {
-
-                        // Grab thumbnail info.
-                        id pageTitle = page[@"title"];
-                        id prefixPageTitle = mutablePrefixPage[@"title"];
-                        if (pageTitle && prefixPageTitle && [prefixPageTitle isKindOfClass:[NSString class]] && [pageTitle isKindOfClass:[NSString class]]){
-                            if ([prefixPageTitle isEqualToString:pageTitle]) {
-                                
-                                if (page[@"thumbnail"]){
-                                    mutablePrefixPage[@"thumbnail"] = page[@"thumbnail"];
-                                }
-                                
-                                // Grab wiki data id.
-                                id pageprops = page[@"pageprops"];
-                                if (pageprops && [pageprops isKindOfClass:[NSDictionary class]]){
-                                    if (pageprops[@"wikibase_item"]){
-                                        mutablePrefixPage[@"wikibase_item"] = pageprops[@"wikibase_item"];
-                                    }
-                                }
-                                
-                                break;
-                            }
-                        }
-                        
-                    }
-
-                    mutablePrefixPage[@"title"] = mutablePrefixPage[@"title"] ? [mutablePrefixPage[@"title"] wikiTitleWithoutUnderscores] : @"";
-                    
-                    if (mutablePrefixPage) [output addObject:mutablePrefixPage];
+            for (NSDictionary *prefixPage in pagesOrdered) {
+                
+                // Use "dictionaryWithDictionary" because it creates
+                // a deep mutable copy of the __NSCFDictionary.
+                NSMutableDictionary *mutablePrefixPage =
+                [NSMutableDictionary dictionaryWithDictionary:prefixPage];
+                
+                NSString *snippet = prefixPage[@"snippet"] ? prefixPage[@"snippet"] : @"";
+                // Strip HTML and collapse repeating spaces in snippet.
+                if (snippet.length > 0) {
+                    snippet = [snippet getStringWithoutHTML];
+                    snippet = [self.spaceCollapsingRegex stringByReplacingMatchesInString: snippet
+                                                                                  options: 0
+                                                                                    range: NSMakeRange(0, [snippet length])
+                                                                             withTemplate: @" "];
                 }
+                mutablePrefixPage[@"snippet"] = snippet;
+                
+                mutablePrefixPage[@"title"] = mutablePrefixPage[@"title"] ? [mutablePrefixPage[@"title"] wikiTitleWithoutUnderscores] : @"";
+
+                NSString *description = @"";
+                NSDictionary *terms = mutablePrefixPage[@"terms"];
+                if(terms && terms[@"description"]){
+                    NSArray *descriptions = terms[@"description"];
+                    if (descriptions && (descriptions.count > 0)) {
+                        description = descriptions[0];
+                        description = [description capitalizeFirstLetter];
+                    }
+                    [mutablePrefixPage removeObjectForKey:@"terms"];
+                }
+                mutablePrefixPage[@"description"] = description;
+
+                if (mutablePrefixPage) [output addObject:mutablePrefixPage];
             }
         }
     }
