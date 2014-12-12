@@ -6,7 +6,7 @@
 
 @implementation SessionSingleton {
     MWKTitle *_title;
-    MWKArticleStore *_articleStore;
+    MWKArticle *_article;
     MWKUserDataStore *_userDataStore;
 }
 
@@ -39,7 +39,7 @@
         _userDataStore = [self.dataStore userDataStore];
         
         _title = nil;
-        _articleStore = nil;
+        _article = nil;
     }
     return self;
 }
@@ -173,20 +173,20 @@
     return self.title.site;
 }
 
-- (MWKArticleStore *)articleStore
+- (MWKArticle *)article
 {
     assert(self.dataStore != nil);
-    if (_articleStore == nil) {
-        _articleStore = [self.dataStore articleStoreWithTitle:self.title];
+    if (_article == nil) {
+        _article = [self.dataStore articleWithTitle:self.title];
     }
-    assert(_articleStore != nil);
-    return _articleStore;
+    assert(_article != nil);
+    return _article;
 }
 
 -(void)setTitle:(MWKTitle *)title
 {
     _title = title;
-    _articleStore = nil;
+    _article = nil;
     [[NSUserDefaults standardUserDefaults] setObject:title.site.language forKey:@"CurrentArticleDomain"];
     [[NSUserDefaults standardUserDefaults] setObject:title.prefixedDBKey forKey:@"CurrentArticleTitle"];
 }

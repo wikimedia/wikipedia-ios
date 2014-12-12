@@ -89,7 +89,7 @@
 
 -(NSString *)pathForImage:(MWKImage *)image
 {
-    return [self pathForImageURL:image.sourceURL title:image.title];
+    return [self pathForImageURL:image.sourceURL title:image.article.title];
 }
 
 -(NSString *)safeFilenameWithString:(NSString *)str
@@ -106,7 +106,6 @@
 
 -(NSString *)safeFilenameWithImageURL:(NSString *)str
 {
-    NSLog(@"WWW %@", str);
     if ([str hasPrefix:@"http:"]) {
         str = [str substringFromIndex:[@"http:" length]];
     }
@@ -128,7 +127,7 @@
     } else {
         @throw [NSException exceptionWithName:@"MWKDataStoreException"
                                        reason:@"Tried to save non-upload.wikimedia.org URL as image"
-                                     userInfo:@{@"str": str}];
+                                     userInfo:@{@"str": str ? str : [NSNull null]}];
     }
     
 }
@@ -257,6 +256,18 @@
     [self saveDictionary:export path:path name:@"RecentSearches.plist"];
 }
 
+-(void)saveImageList:(MWKImageList *)imageList
+{
+    NSString *path;
+    if (imageList.section) {
+        path = [self pathForSection:imageList.section];
+    } else {
+        path = [self pathForArticle:imageList.article];
+    }
+    NSDictionary *export = [imageList dataExport];
+    [self saveDictionary:export path:path name:@"Images.plist"];
+}
+
 #pragma mark - load methods
 
 /// May return nil if no article data available.
@@ -266,9 +277,9 @@
     NSString *filePath = [path stringByAppendingPathComponent:@"Article.plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
     if (dict == nil) {
-        return nil;
+        return [[MWKArticle alloc] initWithTitle:title dataStore:self];
     } else {
-        return [[MWKArticle alloc] initWithTitle:title dict:dict];
+        return [[MWKArticle alloc] initWithTitle:title dataStore:self dict:dict];
     }
 }
 
@@ -296,13 +307,16 @@
     return html;
 }
 
--(MWKImage *)imageWithURL:(NSString *)url title:(MWKTitle *)title
+-(MWKImage *)imageWithURL:(NSString *)url article:(MWKArticle *)article
 {
-    NSString *path = [self pathForImageURL:url title:title];
+    if (url == nil) {
+        return nil;
+    }
+    NSString *path = [self pathForImageURL:url title:article.title];
     NSString *filePath = [path stringByAppendingPathComponent:@"Image.plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
     if (dict) {
-        return [[MWKImage alloc] initWithTitle:title dict:dict];
+        return [[MWKImage alloc] initWithArticle:article dict:dict];
     } else {
         return nil;
     }
@@ -310,6 +324,10 @@
 
 -(NSData *)imageDataWithImage:(MWKImage *)image
 {
+    if (image == nil) {
+        NSLog(@"nil image passed to imageDataWithImage");
+        return nil;
+    }
     NSString *path = [self pathForImage:image];
     NSString *fileName = [@"Image" stringByAppendingPathExtension:image.extension];
     NSString *filePath = [path stringByAppendingPathComponent:fileName];
@@ -366,14 +384,27 @@
 
 #pragma mark - helper methods
 
--(MWKArticleStore *)articleStoreWithTitle:(MWKTitle *)title
-{
-    return [[MWKArticleStore alloc] initWithTitle:title dataStore:self];
-}
-
 -(MWKUserDataStore *)userDataStore
 {
     return [[MWKUserDataStore alloc] initWithDataStore:self];
+}
+
+
+-(MWKImageList *)imageListWithArticle:(MWKArticle *)article section:(MWKSection *)section
+{
+    NSString *path;
+    if (section) {
+        path = [self pathForSection:section];
+    } else {
+        path = [self pathForArticle:article];
+    }
+    NSString *filePath = [path stringByAppendingPathComponent:@"Images.plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
+    if (dict) {
+        return [[MWKImageList alloc] initWithArticle:article section:section dict:dict];
+    } else {
+        return [[MWKImageList alloc] initWithArticle:article section:section];
+    }
 }
 
 @end

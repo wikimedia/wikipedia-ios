@@ -585,7 +585,7 @@
     //NSLog(@"%f", CACurrentMediaTime() - begin);
 }
 
--(void)setTocSectionDataForSections:(NSArray *)sections
+-(void)setTocSectionDataForSections:(MWKSectionList *)sections
 {
     // Keeps self.tocSectionData updated with toc data for the current article.
     // Makes it so the toc data is ready to go as soon as the article is displayed
@@ -593,7 +593,7 @@
     // button. MUCH faster.
 
     NSMutableArray *allSectionData = @[].mutableCopy;
-    for (MWKSection *section in [sections copy]) {
+    for (MWKSection *section in sections) {
     
         NSString *title = [section tocTitle];
         //if (!section.sectionId || !section.level || !title) continue;

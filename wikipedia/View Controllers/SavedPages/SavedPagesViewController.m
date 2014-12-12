@@ -193,8 +193,11 @@
     
     cell.methodImageView.image = nil;
 
-    MWKArticleStore *articleStore = [userDataStore.dataStore articleStoreWithTitle:savedEntry.title];
-    UIImage *thumbImage = articleStore.thumbnailUIImage;
+    MWKArticle *article = [userDataStore.dataStore articleWithTitle:savedEntry.title];
+    //UIImage *thumbImage = [[article.thumbnail largestVariant] asUIImage];
+    MWKImage *thumbnail = article.thumbnail;
+    MWKImage *largeThumbnail = [thumbnail largestVariant];
+    UIImage *thumbImage = [largeThumbnail asUIImage];
     
     if(thumbImage){
         cell.imageView.image = thumbImage;

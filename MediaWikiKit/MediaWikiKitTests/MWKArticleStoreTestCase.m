@@ -23,7 +23,7 @@
     self.basePath = [documentsFolder stringByAppendingPathComponent:@"unit-test-data"];
     
     self.dataStore = [[MWKDataStore alloc] initWithBasePath:self.basePath];
-    self.articleStore = [self.dataStore articleStoreWithTitle:self.title];
+    self.article = [self.dataStore articleWithTitle:self.title];
 }
 
 - (void)tearDown {

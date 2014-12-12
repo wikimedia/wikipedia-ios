@@ -316,9 +316,11 @@ typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
 
     //NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
     
+    NSString *languageCode = [SessionSingleton sharedInstance].site.language;
+    NSString *languageName = [WikipediaAppUtils domainNameForCode:languageCode];
     NSAttributedString *searchWikiTitle =
     [MWLocalizedString(@"main-menu-language-title", nil) attributedStringWithAttributes: nil
-                                                                    substitutionStrings: @[[SessionSingleton sharedInstance].site.language]
+                                                                    substitutionStrings: @[languageName]
                                                                  substitutionAttributes: @[self.highlightedTextAttributes]
      ];
     
@@ -375,7 +377,7 @@ typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
       ,
       */
       @{
-          @"domain": [SessionSingleton sharedInstance].site.language,
+          @"domain": languageCode,
           @"title": searchWikiTitle,
           @"tag": @(SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE),
           @"icon": IOS_WIKIGLYPH_DOWN,

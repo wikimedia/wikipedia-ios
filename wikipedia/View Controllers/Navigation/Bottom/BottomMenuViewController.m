@@ -199,20 +199,14 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     NSURL *desktopURL = nil;
     UIImage *image = nil;
 
-    MWKArticleStore *articleStore = [SessionSingleton sharedInstance].articleStore;
-    if (articleStore) {
-        MWKArticle *article = articleStore.article;
-        if (article) {
-            desktopURL = article.title.desktopURL;
-            title = article.title.prefixedText;
-            
-            MWKImage *thumbnail = articleStore.thumbnailImage;
-            if (thumbnail) {
-                NSData *data = [articleStore imageDataWithImage:thumbnail];
-                if (data) {
-                    image = [UIImage imageWithData:data];
-                }
-            }
+    MWKArticle *article = [SessionSingleton sharedInstance].article;
+    if (article) {
+        desktopURL = article.title.desktopURL;
+        title = article.title.prefixedText;
+        
+        MWKImage *thumbnail = article.thumbnail;
+        if (thumbnail) {
+            image = [thumbnail asUIImage];
         }
     }
     

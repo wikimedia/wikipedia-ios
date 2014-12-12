@@ -20,6 +20,7 @@
     NSDictionary *json;
     MWKArticle *article;
     MWKDataStore *dataStore;
+    NSString *basePath;
 }
 
 @end
@@ -35,10 +36,12 @@
 
     titleForbiddenCity = [site titleWithString:@"Forbidden City"];
     
-    json = [self loadJSON:@"section0"];
-    article = [[MWKArticle alloc] initWithTitle:title dict:json[@"mobileview"]];
+    NSString *documentsFolder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    basePath = [documentsFolder stringByAppendingPathComponent:@"unit-test-data0"];
+    dataStore = [[MWKDataStore alloc] initWithBasePath:basePath];
 
-    dataStore = [[MWKDataStore alloc] initWithBasePath:@"/"];
+    json = [self loadJSON:@"section0"];
+    article = [[MWKArticle alloc] initWithTitle:title dataStore:dataStore dict:json[@"mobileview"]];
 }
 
 - (void)tearDown {
@@ -46,62 +49,62 @@
 }
 
 - (void)testBasePath {
-    XCTAssertEqualObjects(dataStore.basePath, @"/");
+    XCTAssertEqualObjects(dataStore.basePath, basePath);
 }
 
 - (void)testSitesPath {
-    XCTAssertEqualObjects([dataStore pathForSites], @"/sites");
+    XCTAssertEqualObjects([dataStore pathForSites], [basePath stringByAppendingPathComponent:@"sites"]);
 }
 
 - (void)testSitePath {
-    XCTAssertEqualObjects([dataStore pathForSite:site], @"/sites/wikipedia.org/en");
+    XCTAssertEqualObjects([dataStore pathForSite:site], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en"]);
 }
 
 - (void)testArticlesPath {
-    XCTAssertEqualObjects([dataStore pathForArticlesWithSite:site], @"/sites/wikipedia.org/en/articles");
+    XCTAssertEqualObjects([dataStore pathForArticlesWithSite:site], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles"]);
 }
 
 - (void)testTitlePath {
-    XCTAssertEqualObjects([dataStore pathForTitle:title], @"/sites/wikipedia.org/en/articles/San_Francisco");
+    XCTAssertEqualObjects([dataStore pathForTitle:title], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/San_Francisco"]);
 }
 
 - (void)testTitleUnicodePath {
-    XCTAssertEqualObjects([dataStore pathForTitle:titleUnicode], @"/sites/wikipedia.org/en/articles/%C3%89clair");
+    XCTAssertEqualObjects([dataStore pathForTitle:titleUnicode], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/%C3%89clair"]);
 }
 
 - (void)testTitleEvilPath {
-    XCTAssertEqualObjects([dataStore pathForTitle:titleEvil], @"/sites/wikipedia.org/en/articles/AT%26T%2FSBC_%22merger%22");
+    XCTAssertEqualObjects([dataStore pathForTitle:titleEvil], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/AT%26T%2FSBC_%22merger%22"]);
 }
 
 - (void)testArticlePath {
-    XCTAssertEqualObjects([dataStore pathForArticle:article], @"/sites/wikipedia.org/en/articles/San_Francisco");
+    XCTAssertEqualObjects([dataStore pathForArticle:article], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/San_Francisco"]);
 }
 
 - (void)testSectionsPath {
-    XCTAssertEqualObjects([dataStore pathForSectionsWithTitle:article.title], @"/sites/wikipedia.org/en/articles/San_Francisco/sections");
+    XCTAssertEqualObjects([dataStore pathForSectionsWithTitle:article.title], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/San_Francisco/sections"]);
 }
 
 - (void)testSectionPath {
     MWKSection *section0 = [[MWKSection alloc] initWithArticle:article dict:json[@"mobileview"][@"sections"][0]];
     MWKSection *section35 = [[MWKSection alloc] initWithArticle:article dict:json[@"mobileview"][@"sections"][35]];
 
-    XCTAssertEqualObjects([dataStore pathForSection:section0], @"/sites/wikipedia.org/en/articles/San_Francisco/sections/0");
-    XCTAssertEqualObjects([dataStore pathForSection:section35], @"/sites/wikipedia.org/en/articles/San_Francisco/sections/35");
+    XCTAssertEqualObjects([dataStore pathForSection:section0], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/San_Francisco/sections/0"]);
+    XCTAssertEqualObjects([dataStore pathForSection:section35], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/San_Francisco/sections/35"]);
 }
 
 - (void)testSectionIdPath {
-    XCTAssertEqualObjects([dataStore pathForSectionId:0 title:title], @"/sites/wikipedia.org/en/articles/San_Francisco/sections/0");
-    XCTAssertEqualObjects([dataStore pathForSectionId:35 title:title], @"/sites/wikipedia.org/en/articles/San_Francisco/sections/35");
+    XCTAssertEqualObjects([dataStore pathForSectionId:0 title:title], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/San_Francisco/sections/0"]);
+    XCTAssertEqualObjects([dataStore pathForSectionId:35 title:title], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/San_Francisco/sections/35"]);
 }
 
 - (void)testImagesPath {
-    XCTAssertEqualObjects([dataStore pathForImagesWithTitle:titleForbiddenCity], @"/sites/wikipedia.org/en/articles/Forbidden_City/Images");
+    XCTAssertEqualObjects([dataStore pathForImagesWithTitle:titleForbiddenCity], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/Forbidden_City/Images"]);
 }
 
 - (void)testImagePathUnicode {
     NSString *urlForbiddenCityImage = @"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/%E5%8C%97%E4%BA%AC%E6%95%85%E5%AE%AB12.JPG/440px-%E5%8C%97%E4%BA%AC%E6%95%85%E5%AE%AB12.JPG";
 
-    XCTAssertEqualObjects([dataStore pathForImageURL:urlForbiddenCityImage title:titleForbiddenCity], @"/sites/wikipedia.org/en/articles/Forbidden_City/Images/440px-%E5%8C%97%E4%BA%AC%E6%95%85%E5%AE%AB12.JPG");
+    XCTAssertEqualObjects([dataStore pathForImageURL:urlForbiddenCityImage title:titleForbiddenCity], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/Forbidden_City/Images/440px-%E5%8C%97%E4%BA%AC%E6%95%85%E5%AE%AB12.JPG"]);
 }
 
 @end

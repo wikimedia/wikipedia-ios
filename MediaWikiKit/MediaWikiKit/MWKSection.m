@@ -8,7 +8,10 @@
 
 #import "MediaWikiKit.h"
 
-@implementation MWKSection
+@implementation MWKSection {
+    NSString *_text;
+    MWKImageList *_images;
+}
 
 -(instancetype)initWithArticle:(MWKArticle *)article dict:(NSDictionary *)dict
 {
@@ -26,6 +29,9 @@
         _anchor     =  [self optionalString:@"anchor"     dict:dict];
         _sectionId  = [[self requiredNumber:@"id"         dict:dict] intValue];
         _references = ([self optionalString:@"references" dict:dict] != nil);
+        
+        // Not present in .plist, loaded separately there
+        _text       =  [self optionalString:@"text"       dict:dict];
     }
     return self;
 }
@@ -58,6 +64,7 @@
     if (self.references) {
         dict[@"references"] = @"";
     }
+    // Note: text is stored separately on disk
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 
@@ -76,5 +83,30 @@
     }
 }
 
+-(NSString *)text
+{
+    if (_text == nil) {
+        _text = [self.article.dataStore sectionTextWithId:self.sectionId article:self.article];
+    }
+    return _text;
+}
 
+-(MWKImageList *)images
+{
+    if (_images == nil) {
+        _images = [self.article.dataStore imageListWithArticle:self.article section:self];
+    }
+    return _images;
+}
+
+-(void)save
+{
+    [self.article.dataStore saveSection:self];
+    if (_text != nil) {
+        [self.article.dataStore saveSectionText:_text section:self];
+    }
+    if (_images != nil) {
+        [self.images save];
+    }
+}
 @end

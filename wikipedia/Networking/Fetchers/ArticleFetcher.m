@@ -6,7 +6,6 @@
 #import "Defines.h"
 #import "Section.h"
 #import "QueuesSingleton.h"
-#import "MWKSection+ImageRecords.h"
 #import "NSString+Extras.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "SessionSingleton.h"
@@ -17,28 +16,29 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+#import "SaveThumbnailFetcher.h"
 
 #import <TFHpple.h>
 
 @interface ArticleFetcher()
 
 // The Article object to be updated with the downloaded data.
-@property (nonatomic, strong) MWKArticleStore *articleStore;
+@property (nonatomic, strong) MWKArticle *article;
 
 @end
 
 @implementation ArticleFetcher
 
--(instancetype)initAndFetchSectionsForArticleStore: (MWKArticleStore *)articleStore
-                                       withManager: (AFHTTPRequestOperationManager *)manager
-                                thenNotifyDelegate: (id <FetchFinishedDelegate>) delegate
+-(instancetype)initAndFetchSectionsForArticle: (MWKArticle *)article
+                                  withManager: (AFHTTPRequestOperationManager *)manager
+                           thenNotifyDelegate: (id <FetchFinishedDelegate>) delegate
 {
     self = [super init];
-    assert(articleStore != nil);
+    assert(article != nil);
     assert(manager != nil);
     assert(delegate != nil);
     if (self) {
-        self.articleStore = articleStore;
+        self.article = article;
         self.fetchFinishedDelegate = delegate;
         [self fetchWithManager:manager];
     }
@@ -47,11 +47,11 @@
 
 -(void)fetchWithManager:(AFHTTPRequestOperationManager *)manager
 {
-    NSString *title = self.articleStore.title.prefixedText;
-    NSString *subdomain = self.articleStore.title.site.language;
+    NSString *title = self.article.title.prefixedText;
+    NSString *subdomain = self.article.title.site.language;
     
-    if (!self.articleStore) {
-        NSLog(@"NO ARTICLE DELEGATE");
+    if (!self.article) {
+        NSLog(@"NO ARTICLE OBJECT");
         return;
     }
     if (!self.fetchFinishedDelegate) {
@@ -86,8 +86,12 @@
         [self removeMCCMNCHeaderFromRequestSerializer:manager.requestSerializer];
         
         //NSDictionary *leadSectionResults = [self prepareResultsFromResponse:responseObject forTitle:title];
+        if (self.article.needsRefresh) {
+            [self.article remove];
+        }
         @try {
-            [self.articleStore importMobileViewJSON:responseObject];
+            [self.article importMobileViewJSON:responseObject[@"mobileview"]];
+            [self.article save];
         }
         @catch (NSException *e) {
             NSError *err = [NSError errorWithDomain:@"ArticleFetcher" code:666 userInfo:@{@"exception": e}];
@@ -96,11 +100,19 @@
             return;
         }
         
+        // Special hack for image thumb
+        if (self.article.imageURL) {
+            (void)[[SaveThumbnailFetcher alloc] initAndFetchThumbnailFromURL:self.article.imageURL
+                                                                  forArticle:self.article
+                                                                 withManager:manager];
+        }
+        
         //[self applyResultsForLeadSection:leadSectionResults];
-        for (int n = 0; n < [self.articleStore.sections count]; n++) {
+        for (int n = 0; n < [self.article.sections count]; n++) {
+            (void)self.article.sections[n].images; // hack
             [self createImageRecordsForSection:n];
         }
-        [self.articleStore saveImageList];
+        [self.article save];
 
         [self finishWithError: nil
                   fetchedData: nil];
@@ -120,6 +132,8 @@
 
 -(NSDictionary *)getParamsForTitle:(NSString *)title
 {
+    // Reminder: For caching reasons, don't do "(scale * 320)".
+    NSInteger leadImageThumbWidth = ([UIScreen mainScreen].scale > 1) ? 640 : 320;
     NSMutableDictionary *params = @{
     @"format": @"json",
     @"action": @"mobileview",
@@ -127,7 +141,8 @@
     @"noheadings": @"true",
     @"sections": @"all",
     @"page": title,
-    @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount|id|protection|editable|displaytitle",
+    @"thumbsize": @(leadImageThumbWidth),
+    @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount|id|protection|editable|displaytitle|thumb",
     }.mutableCopy;
 
     if ([SessionSingleton sharedInstance].sendUsageReports) {
@@ -137,212 +152,6 @@
 
     return params;
 }
-
-/*
--(NSDictionary *)prepareResultsFromResponse:(NSDictionary *)response forTitle:(NSString *)title
-{
-    // Returns results dictionary with sanitized info from response.
-
-    NSArray *sections = response[@"mobileview"][@"sections"];
-    
-    NSMutableArray *outputSections = @[].mutableCopy;
-    
-    // The fromtitle tells us if a section was transcluded, but the api sometimes returns false instead
-    // of just leaving it out if the section wasn't transcluded. It is also sometimes the name of the
-    // current article, which is redundant. So here remove the fromtitle key/value in both of these
-    // cases. That way the existense of a "fromtitle" can be relied on as a true transclusion indicator.
-    // Todo: pull this out into own method within this file.
-    for (NSDictionary *section in sections) {
-        NSMutableDictionary *mutableSection = section.mutableCopy;
-        if ([mutableSection[@"fromtitle"] isKindOfClass:[NSString class]]) {
-            NSString *fromTitle = mutableSection[@"fromtitle"];
-            if ([[title wikiTitleWithoutUnderscores] isEqualToString:[fromTitle wikiTitleWithoutUnderscores]]) {
-                [mutableSection removeObjectForKey:@"fromtitle"];
-            }
-        }else{
-            [mutableSection removeObjectForKey:@"fromtitle"];
-        }
-        [outputSections addObject:mutableSection];
-    }
-    
-    NSString *lastmodifiedDateString = response[@"mobileview"][@"lastmodified"];
-    NSDate *lastmodifiedDate = [lastmodifiedDateString getDateFromIso8601DateString];
-    if (!lastmodifiedDate || [lastmodifiedDate isNull]) {
-        NSLog(@"Bad lastmodified date, will show as recently modified as a workaround");
-        lastmodifiedDate = [[NSDate alloc] init];
-    }
-    
-    NSDictionary *lastmodifiedbyDict = response[@"mobileview"][@"lastmodifiedby"];
-    NSString *lastmodifiedby = @"";
-    if (lastmodifiedbyDict && (![lastmodifiedbyDict isNull]) && lastmodifiedbyDict[@"name"]) {
-        lastmodifiedby = lastmodifiedbyDict[@"name"];
-    }
-    if (!lastmodifiedby || [lastmodifiedby isNull]) lastmodifiedby = @"";
-    
-    NSNumber *languagecount = response[@"mobileview"][@"languagecount"];
-    if (!languagecount || [languagecount isNull]) languagecount = @1;
-    
-    NSString *redirected = response[@"mobileview"][@"redirected"];
-    if (!redirected || [redirected isNull]) redirected = @"";
-    
-    NSNumber *articleId = response[@"mobileview"][@"id"];
-    if (!articleId || [articleId isNull]) articleId = @0;
-    
-    NSNumber *editable = response[@"mobileview"][@"editable"];
-    if (!editable || [editable isNull]) editable = @NO;
-
-    NSString *displaytitle = response[@"mobileview"][@"displaytitle"];
-    if (!displaytitle || [displaytitle isNull]) displaytitle = @"";
-    
-    NSString *protectionStatus = @"";
-    id protection = response[@"mobileview"][@"protection"];
-    // if empty this can be an array instead of an object/dict!
-    // https://bugzilla.wikimedia.org/show_bug.cgi?id=67054
-    if (protection && [protection isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *protectionDict = (NSDictionary *)protection;
-        if (protectionDict[@"edit"] && [protection[@"edit"] count] > 0) {
-            protectionStatus = protectionDict[@"edit"][0];
-        }
-    }
-    if (!protectionStatus || [protectionStatus isNull]) protectionStatus = @"";
-    
-    NSMutableDictionary *output = @{
-                                    @"sections": outputSections,
-                                    @"lastmodified": lastmodifiedDate,
-                                    @"lastmodifiedby": lastmodifiedby,
-                                    @"redirected": redirected,
-                                    @"displaytitle": displaytitle,
-                                    @"languagecount": languagecount,
-                                    @"articleId": articleId,
-                                    @"editable": editable,
-                                    @"protectionStatus": protectionStatus
-                                    }.mutableCopy;
-    return output;
-}
- */
-
-/*
--(void)applyResultsForLeadSection:(NSDictionary *)results
-{
-    // Updates the article with the lead section data which was retrieved.
-    
-    [self.article.managedObjectContext performBlockAndWait:^(){
-        
-        // If "needsRefresh", an existing article's data is being retrieved again, so these need
-        // to be updated whether a new article record is being inserted or not as data may have
-        // changed since the article record was first created.
-        self.article.languagecount = results[@"languagecount"];
-        self.article.lastmodified = results[@"lastmodified"];
-        self.article.lastmodifiedby = results[@"lastmodifiedby"];
-        self.article.articleId = results[@"articleId"];
-        self.article.editable = results[@"editable"];
-        self.article.protectionStatus = results[@"protectionStatus"];
-        self.article.displayTitle = results[@"displaytitle"];
-        
-        // Note: Because "retrieveArticleForPageTitle" recurses with the redirected-to title if
-        // the lead section op determines a redirect occurred, the "redirected" value below will
-        // probably never be set.
-        self.article.redirected = results[@"redirected"];
-        
-        //NSDateFormatter *anotherDateFormatter = [[NSDateFormatter alloc] init];
-        //[anotherDateFormatter setDateStyle:NSDateFormatterLongStyle];
-        //[anotherDateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        //NSLog(@"formatted lastmodified = %@", [anotherDateFormatter stringFromDate:self.article.lastmodified]);
-        
-        self.article.lastScrollX = @0.0f;
-        self.article.lastScrollY = @0.0f;
-        
-        // Get article section zero html
-        NSArray *sectionsRetrieved = results[@"sections"];
-        NSDictionary *section0Dict = (sectionsRetrieved.count >= 1) ? sectionsRetrieved[0] : nil;
-        
-        // If there was only one section then we have what we need so no refresh
-        // is needed. Otherwise leave needsRefresh set to YES until subsequent sections
-        // have been retrieved. Reminder: "onlyrequestedsections" is not used
-        // by the mobileview query so that sectionsRetrieved.count will
-        // reflect the article's total number of sections here ("sections"
-        // was set to "0" though so only the first section entry actually has
-        // any html). This fixes the bug which caused subsequent sections to never
-        // be retrieved if the article was navigated away from before they had loaded.
-        self.article.needsRefresh = (sectionsRetrieved.count == 1) ? @NO : @YES;
-        
-        NSString *section0HTML = @"";
-        if (section0Dict && [section0Dict[@"id"] isEqual: @0] && section0Dict[@"text"]) {
-            section0HTML = section0Dict[@"text"];
-        }
-        
-        // Add sections for article
-        Section *section0 = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:self.article.managedObjectContext];
-        // Section index is a string because transclusion sections indexes will start with "T-"
-        section0.index = @"0";
-        section0.level = @"0";
-        section0.number = @"0";
-        section0.sectionId = @0;
-        section0.title = @"";
-        section0.dateRetrieved = [NSDate date];
-        section0.html = section0HTML;
-        section0.anchor = @"";
-        
-        [self.article addSectionObject:section0];
-        
-        [section0 createImageRecordsForHtmlOnContext:self.article.managedObjectContext];
-    }];
-}
-*/
-
-/*
--(void)applyResultsForNonLeadSections:(NSDictionary *)results
-{
-    // Updates the article with the non-lead section data which was retrieved.
-    
-    [self.article.managedObjectContext performBlockAndWait:^(){
-        
-        //Non-lead sections have been retreived so set needsRefresh to NO.
-        self.article.needsRefresh = @NO;
-        
-        NSArray *sectionsRetrieved = results[@"sections"];
-        
-        for (NSDictionary *section in sectionsRetrieved) {
-            if (![section[@"id"] isEqual: @0]) {
-                
-                // Add sections for article
-                Section *thisSection = [NSEntityDescription insertNewObjectForEntityForName:@"Section" inManagedObjectContext:self.article.managedObjectContext];
-                
-                // Section index is a string because transclusion sections indexes will start with "T-".
-                if ([section[@"index"] isKindOfClass:[NSString class]]) {
-                    thisSection.index = section[@"index"];
-                }
-                
-                thisSection.title = section[@"line"];
-                
-                if ([section[@"level"] isKindOfClass:[NSString class]]) {
-                    thisSection.level = section[@"level"];
-                }
-                
-                // Section number, from the api, can be 3.5.2 etc, so it's a string.
-                if ([section[@"number"] isKindOfClass:[NSString class]]) {
-                    thisSection.number = section[@"number"];
-                }
-                
-                if (section[@"fromtitle"]) {
-                    thisSection.fromTitle = section[@"fromtitle"];
-                }
-                
-                thisSection.sectionId = section[@"id"];
-                
-                thisSection.html = section[@"text"];
-                thisSection.tocLevel = section[@"toclevel"];
-                thisSection.dateRetrieved = [NSDate date];
-                thisSection.anchor = (section[@"anchor"]) ? section[@"anchor"] : @"";
-                
-                [self.article addSectionObject:thisSection];
-                
-                [thisSection createImageRecordsForHtmlOnContext:self.article.managedObjectContext];
-            }
-        }
-    }];
-}
-*/
 
 // Add the MCC-MNC code asn HTTP (protocol) header once per session when user using cellular data connection.
 // Logging will be done in its own file with specific fields. See the following URL for details.
@@ -412,7 +221,7 @@
 
 -(void)createImageRecordsForSection:(int)sectionId
 {
-    NSString *html = [self.articleStore sectionTextAtIndex:sectionId];
+    NSString *html = self.article.sections[sectionId].text;
     
     // Parse the section html extracting the image urls (in order)
     // See: http://www.raywenderlich.com/14172/how-to-parse-html-on-ios
@@ -488,7 +297,8 @@
             }
         }
         
-        MWKImage *image = [self.articleStore imageWithURL:src];
+        MWKImage *image = [self.article importImageURL:src sectionId:sectionId];
+        [image save];
         //Image *image = (Image *)[context getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", src];
         
         if (image) {
@@ -502,7 +312,7 @@
             // If no Image record, create one setting its "data" attribute to nil. This allows the record to be
             // created so it can be associated with the section in which this , then when the URLCache intercepts the request for this image
             //image = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:context];
-            image = [self.articleStore importImageURL:src sectionId:sectionId];
+            image = [self.article importImageURL:src sectionId:sectionId];
             
             /*
              Moved imageData into own entity:

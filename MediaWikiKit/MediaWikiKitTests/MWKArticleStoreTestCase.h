@@ -18,6 +18,6 @@
 
 @property NSString *basePath;
 @property MWKDataStore *dataStore;
-@property MWKArticleStore *articleStore;
+@property MWKArticle *article;
 
 @end

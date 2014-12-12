@@ -10,7 +10,7 @@
 
 @interface URLCache ()
 
-@property (readonly) MWKArticleStore *articleStore;
+@property (readonly) MWKArticle *article;
 
 // Reminder: When using this debugging image to test caching (i.e. seeing if article images
 // show the placeholder) be sure to quit and restart the app (double-tap the home button
@@ -33,9 +33,9 @@
     return self;
 }
 
--(MWKArticleStore *)articleStore
+-(MWKArticle *)article
 {
-    return [SessionSingleton sharedInstance].articleStore;
+    return [SessionSingleton sharedInstance].article;
 }
 
 -(BOOL)isMIMETypeRerouted:(NSString *)type
@@ -81,7 +81,7 @@
     
     NSData *imageDataToUse = cachedResponse.data;
     
-    MWKImage *image = [self.articleStore imageWithURL:urlStr];
+    MWKImage *image = [self.article imageWithURL:urlStr];
     
     if (!image) {
         // If an Image object wasn't pre-created by :createSectionImageRecordsForSectionHtml:onContext:" then don't try to cache.
@@ -109,7 +109,7 @@
     // (This one has no thread safety issues.)
     //imageDataToUse = self.debuggingPlaceHolderImageData;
 
-    [self.articleStore importImageData:imageDataToUse image:image mimeType:cachedResponse.response.MIMEType];
+    [self.article importImageData:imageDataToUse image:image mimeType:cachedResponse.response.MIMEType];
     
     // Broadcast the image data so things like the table of contents can update
     // itself as images arrive.
@@ -149,7 +149,7 @@
     //imageURL = [imageURL getUrlWithoutScheme];
 
     //Image *imageFromDB = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", imageURL];
-    MWKImage *imageFromDB = [self.articleStore imageWithURL:imageURL];
+    MWKImage *imageFromDB = [self.article imageWithURL:imageURL];
     
     // If a core data Image was found, but its data length is zero, the Image record was probably
     // created when the section html was parsed to create sectionImage records, in which case
@@ -158,7 +158,7 @@
     if (imageFromDB && !imageFromDB.dateRetrieved) {
         cachedResponse = nil;
     }else if (imageFromDB) {
-        NSData *imageData = [self.articleStore imageDataWithImage:imageFromDB];
+        NSData *imageData = [self.article.dataStore imageDataWithImage:imageFromDB];
         //NSLog(@"CACHED IMAGE FOUND!!!!!! requestURL = %@", imageURL);
         NSURLResponse *response = [[NSURLResponse alloc] initWithURL:requestURL MIMEType:imageFromDB.mimeType expectedContentLength:imageData.length textEncodingName:nil];
         cachedResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:imageData];

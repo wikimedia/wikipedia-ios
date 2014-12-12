@@ -8,11 +8,12 @@
 
 @interface ArticleFetcher : FetcherBase
 
-@property (strong, nonatomic, readonly) MWKArticleStore *articleStore;
+@property (strong, nonatomic, readonly) MWKArticle *article;
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
--(instancetype)initAndFetchSectionsForArticleStore: (MWKArticleStore *)articleStore
-                                       withManager: (AFHTTPRequestOperationManager *)manager
-                                thenNotifyDelegate: (id <FetchFinishedDelegate>) delegate;
+-(instancetype)initAndFetchSectionsForArticle: (MWKArticle *)articleStore
+                                  withManager: (AFHTTPRequestOperationManager *)manager
+                           thenNotifyDelegate: (id <FetchFinishedDelegate>) delegate;
+
 
 @end

@@ -345,10 +345,10 @@
 
     cell.methodLabel.attributedText = [self getIconLabelAttributedStringForDiscoveryMethod:historyEntry.discoveryMethod];
 
-    MWKArticleStore *articleStore = [[SessionSingleton sharedInstance].dataStore articleStoreWithTitle:historyEntry.title];
+    MWKArticle *article = [[SessionSingleton sharedInstance].dataStore articleWithTitle:historyEntry.title];
     UIImage *thumbImage;
-    if (articleStore.thumbnailImage) {
-        thumbImage = [articleStore UIImageWithImage:articleStore.thumbnailImage];
+    if (article.thumbnail) {
+        thumbImage = [article.thumbnail asUIImage];
     }
     if(thumbImage){
         cell.imageView.image = thumbImage;

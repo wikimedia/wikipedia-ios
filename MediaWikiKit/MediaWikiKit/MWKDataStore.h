@@ -15,7 +15,6 @@
 @class MWKImage;
 @class MWKHistoryList;
 @class MWKSavedPageList;
-@class MWKArticleStore;
 @class MWKUserDataStore;
 
 @interface MWKDataStore : NSObject
@@ -47,19 +46,21 @@
 -(void)saveHistoryList:(MWKHistoryList *)list;
 -(void)saveSavedPageList:(MWKSavedPageList *)list;
 -(void)saveRecentSearchList:(MWKRecentSearchList *)list;
+-(void)saveImageList:(MWKImageList *)imageList;
 
 // Raw load methods
 -(MWKArticle *)articleWithTitle:(MWKTitle *)title;
 -(MWKSection *)sectionWithId:(NSUInteger)sectionId article:(MWKArticle *)article;
 -(NSString *)sectionTextWithId:(NSUInteger)sectionId article:(MWKArticle *)article;
--(MWKImage *)imageWithURL:(NSString *)url title:(MWKTitle *)title;
+-(MWKImage *)imageWithURL:(NSString *)url article:(MWKArticle *)article;
 -(NSData *)imageDataWithImage:(MWKImage *)image;
 -(MWKHistoryList *)historyList;
 -(MWKSavedPageList *)savedPageList;
 -(MWKRecentSearchList *)recentSearchList;
 
 // Storage helper methods
--(MWKArticleStore *)articleStoreWithTitle:(MWKTitle *)title;
 -(MWKUserDataStore *)userDataStore;
+
+-(MWKImageList *)imageListWithArticle:(MWKArticle *)article section:(MWKSection *)section;
 
 @end

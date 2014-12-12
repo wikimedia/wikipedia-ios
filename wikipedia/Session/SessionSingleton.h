@@ -29,7 +29,7 @@
 @property (readonly) MWKDataStore *dataStore;
 @property (readonly) MWKSite *site;
 @property (readwrite) MWKTitle *title;
-@property (readonly) MWKArticleStore *articleStore;
+@property (readonly) MWKArticle *article;
 @property (readonly) MWKUserDataStore *userDataStore;
 
 @property (strong, nonatomic, readonly) NSString *searchApiUrl;

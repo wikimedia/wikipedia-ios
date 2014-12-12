@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4209C9E1A3A50C9000E1A60 /* MWKSectionList.m in Sources */ = {isa = PBXBuildFile; fileRef = D4209C9D1A3A50C9000E1A60 /* MWKSectionList.m */; };
+		D4209C9F1A3A50C9000E1A60 /* MWKSectionList.m in Sources */ = {isa = PBXBuildFile; fileRef = D4209C9D1A3A50C9000E1A60 /* MWKSectionList.m */; };
 		D44EA7851A1BCC0300631A1D /* MWKUserDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D44EA7841A1BCC0300631A1D /* MWKUserDataStore.m */; };
 		D44EA7861A1BCC0300631A1D /* MWKUserDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D44EA7841A1BCC0300631A1D /* MWKUserDataStore.m */; };
 		D44EA7891A1BCD1400631A1D /* MWKRecentSearchEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D44EA7881A1BCD1400631A1D /* MWKRecentSearchEntry.m */; };
@@ -28,8 +30,6 @@
 		D48405C819E47542006F4139 /* MWKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D48405C619E47542006F4139 /* MWKImage.m */; };
 		D48405CB19E47559006F4139 /* MWKTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = D48405CA19E47559006F4139 /* MWKTitle.m */; };
 		D48405CC19E47559006F4139 /* MWKTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = D48405CA19E47559006F4139 /* MWKTitle.m */; };
-		D48405CF19E47572006F4139 /* MWKArticleStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D48405CE19E47572006F4139 /* MWKArticleStore.m */; };
-		D48405D019E47572006F4139 /* MWKArticleStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D48405CE19E47572006F4139 /* MWKArticleStore.m */; };
 		D494A6FE19F6C7C30098AA18 /* MWKProtectionStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = D494A6FD19F6C7C30098AA18 /* MWKProtectionStatus.m */; };
 		D494A6FF19F6C7C30098AA18 /* MWKProtectionStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = D494A6FD19F6C7C30098AA18 /* MWKProtectionStatus.m */; };
 		D494A70119F6CAB30098AA18 /* MWKProtectionStatusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D494A70019F6CAB30098AA18 /* MWKProtectionStatusTests.m */; };
@@ -56,7 +56,6 @@
 		D4C3FA5A19E47AA500EB08CC /* MWKSiteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3FA5919E47AA500EB08CC /* MWKSiteTests.m */; };
 		D4C3FA5B19E47ABE00EB08CC /* MWKSite.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3FA5419E4783A00EB08CC /* MWKSite.m */; };
 		D4C3FA5D19E47D4700EB08CC /* MWKTitleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3FA5C19E47D4700EB08CC /* MWKTitleTests.m */; };
-		D4DDF44F19EDCD6800C6BC10 /* MWKArticleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DDF44E19EDCD6800C6BC10 /* MWKArticleTests.m */; };
 		D4DDF45219EDCE6800C6BC10 /* section0.json in Resources */ = {isa = PBXBuildFile; fileRef = D4DDF45019EDCE6800C6BC10 /* section0.json */; };
 		D4DDF45319EDCE6800C6BC10 /* TemplateIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D4DDF45119EDCE6800C6BC10 /* TemplateIcon2x.png */; };
 		D4DDF45519EDCE9000C6BC10 /* test-notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = D4DDF45419EDCE9000C6BC10 /* test-notes.txt */; };
@@ -84,6 +83,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D4209C9C1A3A50C9000E1A60 /* MWKSectionList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKSectionList.h; sourceTree = "<group>"; };
+		D4209C9D1A3A50C9000E1A60 /* MWKSectionList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSectionList.m; sourceTree = "<group>"; };
 		D44EA7831A1BCC0300631A1D /* MWKUserDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKUserDataStore.h; sourceTree = "<group>"; };
 		D44EA7841A1BCC0300631A1D /* MWKUserDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKUserDataStore.m; sourceTree = "<group>"; };
 		D44EA7871A1BCD1400631A1D /* MWKRecentSearchEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKRecentSearchEntry.h; sourceTree = "<group>"; };
@@ -108,8 +109,6 @@
 		D48405C619E47542006F4139 /* MWKImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKImage.m; sourceTree = "<group>"; };
 		D48405C919E47559006F4139 /* MWKTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKTitle.h; sourceTree = "<group>"; };
 		D48405CA19E47559006F4139 /* MWKTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKTitle.m; sourceTree = "<group>"; };
-		D48405CD19E47572006F4139 /* MWKArticleStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKArticleStore.h; sourceTree = "<group>"; };
-		D48405CE19E47572006F4139 /* MWKArticleStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticleStore.m; sourceTree = "<group>"; };
 		D494A6FC19F6C7C30098AA18 /* MWKProtectionStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKProtectionStatus.h; sourceTree = "<group>"; };
 		D494A6FD19F6C7C30098AA18 /* MWKProtectionStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKProtectionStatus.m; sourceTree = "<group>"; };
 		D494A70019F6CAB30098AA18 /* MWKProtectionStatusTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKProtectionStatusTests.m; sourceTree = "<group>"; };
@@ -138,7 +137,6 @@
 		D4C3FA5419E4783A00EB08CC /* MWKSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSite.m; sourceTree = "<group>"; };
 		D4C3FA5919E47AA500EB08CC /* MWKSiteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSiteTests.m; sourceTree = "<group>"; };
 		D4C3FA5C19E47D4700EB08CC /* MWKTitleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKTitleTests.m; sourceTree = "<group>"; };
-		D4DDF44E19EDCD6800C6BC10 /* MWKArticleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticleTests.m; sourceTree = "<group>"; };
 		D4DDF45019EDCE6800C6BC10 /* section0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = section0.json; sourceTree = "<group>"; };
 		D4DDF45119EDCE6800C6BC10 /* TemplateIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TemplateIcon2x.png; sourceTree = "<group>"; };
 		D4DDF45419EDCE9000C6BC10 /* test-notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-notes.txt"; sourceTree = "<group>"; };
@@ -214,7 +212,6 @@
 				D4C3FA5C19E47D4700EB08CC /* MWKTitleTests.m */,
 				D4DDF46019F055C800C6BC10 /* MWKUserTests.m */,
 				D494A70019F6CAB30098AA18 /* MWKProtectionStatusTests.m */,
-				D4DDF44E19EDCD6800C6BC10 /* MWKArticleTests.m */,
 				D494A71019F6ECC10098AA18 /* MWKDataStorePathTests.m */,
 				D494A71219F70F910098AA18 /* MWKDataStoreStorageTests.m */,
 				D49ADCC91A0028A70010F839 /* MWKImageStorageTests.m */,
@@ -256,8 +253,6 @@
 				D494A70719F6CC5B0098AA18 /* MWKSiteDataObject.m */,
 				D4DDF45819EDD22200C6BC10 /* MWKUser.h */,
 				D4DDF45919EDD22200C6BC10 /* MWKUser.m */,
-				D48405C119E47535006F4139 /* MWKArticle.h */,
-				D48405C219E47535006F4139 /* MWKArticle.m */,
 				D48405BD19E47526006F4139 /* MWKSection.h */,
 				D48405BE19E47526006F4139 /* MWKSection.m */,
 				D48405C519E47542006F4139 /* MWKImage.h */,
@@ -276,8 +271,6 @@
 				D44EA7881A1BCD1400631A1D /* MWKRecentSearchEntry.m */,
 				D44EA78B1A1BCD2600631A1D /* MWKRecentSearchList.h */,
 				D44EA78C1A1BCD2600631A1D /* MWKRecentSearchList.m */,
-				D4B94B1D1A2FE975007FC79B /* MWKImageList.h */,
-				D4B94B1E1A2FE975007FC79B /* MWKImageList.m */,
 			);
 			name = "Data classes";
 			sourceTree = "<group>";
@@ -298,10 +291,14 @@
 			children = (
 				D494A70C19F6E8F20098AA18 /* MWKDataStore.h */,
 				D494A70D19F6E8F20098AA18 /* MWKDataStore.m */,
-				D48405CD19E47572006F4139 /* MWKArticleStore.h */,
-				D48405CE19E47572006F4139 /* MWKArticleStore.m */,
+				D48405C119E47535006F4139 /* MWKArticle.h */,
+				D48405C219E47535006F4139 /* MWKArticle.m */,
 				D44EA7831A1BCC0300631A1D /* MWKUserDataStore.h */,
 				D44EA7841A1BCC0300631A1D /* MWKUserDataStore.m */,
+				D4B94B1D1A2FE975007FC79B /* MWKImageList.h */,
+				D4B94B1E1A2FE975007FC79B /* MWKImageList.m */,
+				D4209C9C1A3A50C9000E1A60 /* MWKSectionList.h */,
+				D4209C9D1A3A50C9000E1A60 /* MWKSectionList.m */,
 			);
 			name = "Data i/o";
 			sourceTree = "<group>";
@@ -416,9 +413,9 @@
 				D494A6FE19F6C7C30098AA18 /* MWKProtectionStatus.m in Sources */,
 				D494A70E19F6E8F20098AA18 /* MWKDataStore.m in Sources */,
 				D47F56281A1A89B4004D9856 /* MWKHistoryList.m in Sources */,
-				D48405CF19E47572006F4139 /* MWKArticleStore.m in Sources */,
 				D4612CED1A116E97008945A5 /* MWKSavedPageEntry.m in Sources */,
 				D4B94B1F1A2FE975007FC79B /* MWKImageList.m in Sources */,
+				D4209C9E1A3A50C9000E1A60 /* MWKSectionList.m in Sources */,
 				D497FCE71A08013F004A36A5 /* MWKSavedPageList.m in Sources */,
 				D4DDF45A19EDD22200C6BC10 /* MWKUser.m in Sources */,
 				D48405C719E47542006F4139 /* MWKImage.m in Sources */,
@@ -430,7 +427,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4DDF44F19EDCD6800C6BC10 /* MWKArticleTests.m in Sources */,
 				D4C3FA5B19E47ABE00EB08CC /* MWKSite.m in Sources */,
 				D48405C419E47535006F4139 /* MWKArticle.m in Sources */,
 				D44EA7901A1BDDAD00631A1D /* MWKHistoryListTests.m in Sources */,
@@ -448,7 +444,6 @@
 				D4B94B201A2FE975007FC79B /* MWKImageList.m in Sources */,
 				D494A71819F7103D0098AA18 /* MWKTestCase.m in Sources */,
 				D494A71319F70F910098AA18 /* MWKDataStoreStorageTests.m in Sources */,
-				D48405D019E47572006F4139 /* MWKArticleStore.m in Sources */,
 				D49ADCCE1A00346B0010F839 /* MWKArticleStoreTestCase.m in Sources */,
 				D494A70119F6CAB30098AA18 /* MWKProtectionStatusTests.m in Sources */,
 				D44EA7861A1BCC0300631A1D /* MWKUserDataStore.m in Sources */,
@@ -459,6 +454,7 @@
 				D4DDF45B19EDD22200C6BC10 /* MWKUser.m in Sources */,
 				D494A70F19F6E8F20098AA18 /* MWKDataStore.m in Sources */,
 				D4612CEE1A116E97008945A5 /* MWKSavedPageEntry.m in Sources */,
+				D4209C9F1A3A50C9000E1A60 /* MWKSectionList.m in Sources */,
 				D44EA78A1A1BCD1400631A1D /* MWKRecentSearchEntry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

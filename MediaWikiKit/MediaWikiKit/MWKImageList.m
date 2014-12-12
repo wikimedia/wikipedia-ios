@@ -9,25 +9,14 @@
 #import "MediaWikiKit.h"
 
 @implementation MWKImageList {
-    NSMutableDictionary *entriesBySection;
+    NSMutableArray *entries;
     NSMutableDictionary *entriesByURL;
     NSMutableDictionary *entriesByNameWithoutSize;
+    unsigned long mutationState;
 }
 
--(NSMutableArray *)entriesBySection:(int)sectionId
+-(void)addImageURL:(NSString *)imageURL
 {
-    id key = [@(sectionId) stringValue];
-    NSMutableArray *entries = entriesBySection[key];
-    if (entries == nil) {
-        entries = [[NSMutableArray alloc] init];
-        entriesBySection[key] = entries;
-    }
-    return entries;
-}
-
--(void)addImageURL:(NSString *)imageURL sectionId:(int)sectionId
-{
-    NSMutableArray *entries = [self entriesBySection:sectionId];
     [entries addObject:imageURL];
     entriesByURL[imageURL] = imageURL;
     
@@ -38,16 +27,27 @@
         entriesByNameWithoutSize[key] = byname;
     }
     [byname addObject:imageURL];
+    mutationState++;
 }
 
--(NSString *)imageURLAtIndex:(NSUInteger)index sectionId:(int)sectionId
+-(NSUInteger)count
 {
-    NSMutableArray *entries = [self entriesBySection:sectionId];
+    return [entries count];
+}
+
+-(NSString *)imageURLAtIndex:(NSUInteger)index
+{
     if (index < [entries count]) {
         return entries[index];
     } else {
         return nil;
     }
+}
+
+-(MWKImage *)objectAtIndexedSubscript:(NSUInteger)index
+{
+    NSString *imageURL = [self imageURLAtIndex:index];
+    return [self.article.dataStore imageWithURL:imageURL article:self.article];
 }
 
 -(BOOL)hasImageURL:(NSString *)imageURL
@@ -57,6 +57,9 @@
 
 -(NSString *)largestImageVariant:(NSString *)imageURL
 {
+    if (imageURL == nil) {
+        return nil;
+    }
     NSString *baseName = [MWKImage fileNameNoSizePrefix:imageURL];
     NSMutableArray *arr = entriesByNameWithoutSize[baseName];
     
@@ -78,63 +81,29 @@
     return biggestURL;
 }
 
--(NSArray *)imageURLsForSectionId:(int)sectionId
-{
-    return [[self entriesBySection:sectionId] copy];
-}
-
--(NSArray *)imagesBySection
-{
-    NSMutableArray *arr = [[NSMutableArray alloc] init];
-    NSArray *keys = [entriesBySection.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *key1, NSString *key2) {
-        int int1 = [key1 intValue];
-        int int2 = [key2 intValue];
-        if (int1 == int2 ) {
-            return NSOrderedSame;
-        } else if (int1 > int2) {
-            return NSOrderedDescending;
-        } else {
-            return NSOrderedAscending;
-        }
-    }];
-    int lastSection = -1;
-    for (NSString *key in keys) {
-        lastSection = [key intValue];
-    }
-    for (int i = 0; i <= lastSection; i++) {
-        NSString *key = [NSString stringWithFormat:@"%d", i];
-        NSMutableArray *subarr = [[NSMutableArray alloc] init];
-        for (NSString *url in entriesBySection[key]) {
-            [subarr addObject:url];
-        }
-        [arr addObject:subarr];
-    }
-    return [NSArray arrayWithArray:arr];
-}
-
 
 #pragma mark - data i/o
 
--(instancetype)initWithTitle:(MWKTitle *)title
+-(instancetype)initWithArticle:(MWKArticle *)article section:(MWKSection *)section
 {
-    self = [self initWithSite:title.site];
+    self = [self initWithSite:section.site];
     if (self) {
-        _title = title;
-        entriesBySection = [[NSMutableDictionary alloc] init];
+        _article = article;
+        _section = section;
+        entries = [[NSMutableArray alloc] init];
+        mutationState = 0;
         entriesByURL = [[NSMutableDictionary alloc] init];
         entriesByNameWithoutSize = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
--(instancetype)initWithTitle:(MWKTitle *)title dict:(NSDictionary *)dict
+-(instancetype)initWithArticle:(MWKArticle *)article section:(MWKSection *)section dict:(NSDictionary *)dict
 {
-    self = [self initWithTitle:title];
+    self = [self initWithArticle:article section:section];
     if (self) {
-        for (NSNumber *key in [dict allKeys]) {
-            for (NSString *url in dict[key]) {
-                [self addImageURL:url sectionId:[key intValue]];
-            }
+        for (NSString *url in dict[@"entries"]) {
+            [self addImageURL:url];
         }
     }
     return self;
@@ -142,7 +111,31 @@
 
 -(id)dataExport
 {
-    return [NSDictionary dictionaryWithDictionary:entriesBySection];
+    return @{@"entries": entries};
+}
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state
+                                  objects:(__unsafe_unretained id [])stackbuf
+                                    count:(NSUInteger)len
+{
+    NSUInteger start = state->state,
+        count = 0;
+    
+    for (NSUInteger i = 0; i < len && start + count < [self count]; i++) {
+        stackbuf[i] = self[i + start];
+        count++;
+    }
+    state->state += count;
+    
+    state->itemsPtr = stackbuf;
+    state->mutationsPtr = &mutationState;
+
+    return count;
+}
+
+-(void)save
+{
+    [self.article.dataStore saveImageList:self];
 }
 
 @end

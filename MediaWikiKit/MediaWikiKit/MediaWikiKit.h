@@ -17,10 +17,10 @@
 #import "MWKSite.h"
 #import "MWKUser.h"
 
-#import "MWKArticle.h"
 #import "MWKSection.h"
 #import "MWKImage.h"
 #import "MWKProtectionStatus.h"
+
 
 #import "MWKHistoryEntry.h"
 #import "MWKHistoryList.h"
@@ -31,10 +31,13 @@
 #import "MWKRecentSearchEntry.h"
 #import "MWKRecentSearchList.h"
 
-#import "MWKImageList.h"
 
 #import "MWKDataStore.h"
-#import "MWKArticleStore.h"
+
+#import "MWKArticle.h"
+#import "MWKSectionList.h"
+#import "MWKImageList.h"
+
 #import "MWKUserDataStore.h"
 
 @interface MediaWikiKit : NSObject

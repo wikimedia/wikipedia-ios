@@ -25,7 +25,6 @@
 #import "UIWebView+ElementLocation.h"
 #import "UIView+RemoveConstraints.h"
 #import "UIViewController+Alert.h"
-#import "MWKSection+ImageRecords.h"
 #import "NSString+Extras.h"
 #import "PaddedLabel.h"
 #import "DataMigrator.h"
@@ -58,6 +57,7 @@
 #import "SearchResultsController.h"
 #import "ArticleFetcher.h"
 #import "AssetsFileFetcher.h"
+#import "SaveThumbnailFetcher.h"
 
 //#import "UIView+Debugging.h"
 
@@ -479,11 +479,7 @@
     SectionEditorViewController *sectionEditVC =
     [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SectionEditorViewController"];
 
-    MWKArticleStore *articleStore = session.articleStore;
-    
-    if (articleStore.article) {
-        sectionEditVC.section = [articleStore sectionAtIndex:self.sectionToEditId];
-    }
+    sectionEditVC.section = session.article.sections[self.sectionToEditId];
 
     [ROOT pushViewController:sectionEditVC animated:YES];
 }
@@ -1333,13 +1329,12 @@
     showImageSheet = !showImageSheet;
     
     if(showImageSheet){
-        MWKArticleStore *articleStore = session.articleStore;
+        MWKArticle *article = session.article;
         NSMutableArray *views = @[].mutableCopy;
-        for (MWKSection *section in articleStore.sections) {
-            NSArray *sectionImages = [articleStore UIImagesForSectionId:section.sectionId];
+        for (MWKSection *section in article.sections) {
             int index = 0;
-            for (UIImage *image in sectionImages) {
-                NSString *title = (section.line) ? section.line : articleStore.title.prefixedText;
+            for (MWKImage *image in section.images) {
+                NSString *title = (section.line) ? section.line : article.title.prefixedText;
                 //NSLog(@"\n\n\nsection image = %@ \n\tsection = %@ \n\tindex in section = %@ \n\timage size = %@", sectionImage.image.fileName, sectionTitle, sectionImage.index, sectionImage.image.dataSize);
                 if(index == 0){
                     PaddedLabel *label = [[PaddedLabel alloc] init];
@@ -1353,7 +1348,7 @@
                     label.text = title;
                     [views addObject:label];
                 }
-                UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+                UIImageView *imageView = [[UIImageView alloc] initWithImage:[image asUIImage]];
                 imageView.contentMode = UIViewContentModeScaleAspectFit;
                 [views addObject:imageView];
                 UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 5)];
@@ -1441,7 +1436,7 @@
 - (void)invalidateCacheForPageTitle: (MWKTitle *)pageTitle
 {
     // Mark article for refreshing so its core data records will be reloaded.
-    session.articleStore.needsRefresh = YES;
+    session.article.needsRefresh = YES;
 }
 
 -(void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache
@@ -1460,8 +1455,7 @@
     if ([sender isKindOfClass:[ArticleFetcher class]]) {
         
         ArticleFetcher *articleFetcher = (ArticleFetcher *)sender;
-        MWKArticleStore *articleStore = articleFetcher.articleStore;
-        MWKArticle *article = articleStore.article;
+        MWKArticle *article = session.article;
         
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:
@@ -1497,14 +1491,18 @@
 				[ROOT.topMenuViewController.searchResultsController.searchResults firstMatchForPredicate:articlePredicate];
 				if (articleDictFromSearchResults) {
 					NSString *thumbURL = articleDictFromSearchResults[@"thumbnail"][@"source"];
-					thumbURL = [thumbURL getUrlWithoutScheme];
-                    thumbURL = [articleStore.imageList largestImageVariant:thumbURL];
-                    MWKImage *thumb = [articleStore imageWithURL:thumbURL];
-					if (thumb) articleStore.thumbnailImage = thumb;
+                    if (thumbURL) {
+                        thumbURL = [thumbURL getUrlWithoutScheme];
+                        if (thumbURL) article.thumbnailURL = thumbURL;
+                        [article save];
+                        (void)[[SaveThumbnailFetcher alloc] initAndFetchThumbnailFromURL:article.thumbnailURL
+                                                                              forArticle:article
+                                                                             withManager:[QueuesSingleton sharedInstance].articleFetchManager];
+                    }
 				}
 				
 				// Update the toc and web view.
-				[self.tocVC setTocSectionDataForSections:articleStore.sections];
+				[self.tocVC setTocSectionDataForSections:article.sections];
 				[self displayArticle:article.title];
 				
 			}
@@ -1518,14 +1516,14 @@
 				
 				// Remove the article so it doesn't get saved.
 				//[article.managedObjectContext deleteObject:article];
-				[articleStore remove];
+				[article remove];
 			}
 				break;
 			case FETCH_FINAL_STATUS_CANCELLED:
 			{
 				// Remove the article so it doesn't get saved.
 				//[article.managedObjectContext deleteObject:article];
-				[articleStore remove];
+				[article remove];
 			}
 				break;
 				
@@ -1577,71 +1575,29 @@
     [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
     [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
     
-    MWKArticle *article = session.articleStore.article;
+    MWKArticle *article = session.article;
     BOOL needsRefresh = NO;
     
-    if (article) {
-        // Update the history dateVisited timestamp of the article to be visited only
-        // if the article was NOT loaded via back or forward buttons.
-        if (discoveryMethod != MWK_DISCOVERY_METHOD_BACKFORWARD) {
-            [session.userDataStore updateHistory:article.title discoveryMethod:discoveryMethod];
-        }
-        
-        // If article with sections just show them (unless needsRefresh is YES)
-        if ([session.articleStore.sections count] > 0 && !session.articleStore.needsRefresh) {
-            [self.tocVC setTocSectionDataForSections:session.articleStore.sections];
-            [self displayArticle:session.title];
-            //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
-            [self fadeAlert];
-            return;
-        }
-        needsRefresh = session.articleStore.needsRefresh;
-        
-    }else{
-        
-        /*
-        article = [NSEntityDescription
-                   insertNewObjectForEntityForName:@"Article"
-                   inManagedObjectContext:articleDataContext_.mainContext
-                   ];
-        article.lastmodifiedby = @"";
-        article.redirected = @"";
-        article.title = pageTitle.prefixedText;
-        article.dateCreated = [NSDate date];
-        article.site = session.site;
-        article.domain = session.currentArticleDomain;
-        article.domainName = session.currentArticleDomainName;
-        articleID = article.objectID;
-        
-        // Add history record.
-        // Note: don't add multiple history items for the same article or back-forward
-        // button behavior becomes a confusing mess.
-        History *newHistory =
-        [NSEntityDescription insertNewObjectForEntityForName: @"History"
-                                      inManagedObjectContext: article.managedObjectContext];
-        newHistory.dateVisited = [NSDate date];
-        //newHistory.dateVisited = [NSDate dateWithDaysBeforeNow:31];
-        newHistory.discoveryMethod = discoveryMethod;
-        [article addHistoryObject:newHistory];
-         */
-        
-        [session.userDataStore updateHistory:session.title discoveryMethod:discoveryMethod];
+    // Update the history dateVisited timestamp of the article to be visited only
+    // if the article was NOT loaded via back or forward buttons.
+    if (discoveryMethod != MWK_DISCOVERY_METHOD_BACKFORWARD) {
+        [session.userDataStore updateHistory:article.title discoveryMethod:discoveryMethod];
     }
     
-    /*
-    if (needsRefresh) {
-        // If and article needs refreshing remove its sections so they get reloaded too.
-        for (Section *thisSection in [article.section copy]) {
-            [articleDataContext_.mainContext deleteObject:thisSection];
-        }
+    // If article with sections just show them (unless needsRefresh is YES)
+    if ([article.sections count] > 0 && !article.needsRefresh) {
+        [self.tocVC setTocSectionDataForSections:session.article.sections];
+        [self displayArticle:session.title];
+        //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
+        [self fadeAlert];
+        return;
     }
-     */
     
     // "fetchFinished:" above will be notified when articleFetcher has actually retrieved some data.
     // Note: cast to void to avoid compiler warning: http://stackoverflow.com/a/7915839
-    (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticleStore: session.articleStore
-                                                          withManager: [QueuesSingleton sharedInstance].articleFetchManager
-                                                   thenNotifyDelegate: self];
+    (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle: session.article
+                                                     withManager: [QueuesSingleton sharedInstance].articleFetchManager
+                                              thenNotifyDelegate: self];
 }
 
 #pragma mark Display article from core data
@@ -1651,7 +1607,7 @@
     // this will reset session.articleStore
     session.title = title;
 
-    MWKArticle *article = session.articleStore.article;
+    MWKArticle *article = session.article;
     if (!article) return;
 
     MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:title.site.language];
@@ -1669,8 +1625,8 @@
 
     NSMutableArray *sectionTextArray = [[NSMutableArray alloc] init];
 
-    for (MWKSection *section in session.articleStore.sections) {
-        NSString *html = [session.articleStore sectionTextAtIndex:section.sectionId];
+    for (MWKSection *section in session.article.sections) {
+        NSString *html = section.text;
         if (html) {
             // Structural html added around section html just before display.
             NSString *sectionHTMLWithID = [section displayHTML:html];
@@ -1924,7 +1880,7 @@
 {
     return (![self tocDrawerIsOpen])
         &&
-        (session.articleStore != nil)
+        (session.article != nil)
         &&
         (!ROOT.isAnimatingTopAndBottomMenuHidden);
 }

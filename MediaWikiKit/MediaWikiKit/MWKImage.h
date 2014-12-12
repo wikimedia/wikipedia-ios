@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
-#pragma once
+#import "UIKit/UIKit.h"
 
 #import "MWKSiteDataObject.h"
 
@@ -17,7 +17,7 @@
 
 // Identifiers
 @property (readonly) MWKSite *site;
-@property (readonly) MWKTitle *title;
+@property (readonly) MWKArticle *article;
 
 // Metadata, static
 @property (readonly) NSString *sourceURL;
@@ -32,11 +32,16 @@
 @property (copy) NSNumber *width;
 @property (copy) NSNumber *height;
 
--(instancetype)initWithTitle:(MWKTitle *)title sourceURL:(NSString *)url;
--(instancetype)initWithTitle:(MWKTitle *)title dict:(NSDictionary *)dict;
+-(instancetype)initWithArticle:(MWKArticle *)article sourceURL:(NSString *)url;
+-(instancetype)initWithArticle:(MWKArticle *)article dict:(NSDictionary *)dict;
 
 -(void)updateWithData:(NSData *)data mimeType:(NSString *)mimeType;
 -(void)updateLastAccessed;
+-(void)save;
+
+-(UIImage *)asUIImage;
+
+-(MWKImage *)largestVariant;
 
 +(NSString *)fileNameNoSizePrefix:(NSString *)sourceURL;
 +(int)fileSizePrefix:(NSString *)sourceURL;

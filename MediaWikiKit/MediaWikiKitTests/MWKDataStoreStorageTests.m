@@ -19,10 +19,10 @@
 
 - (void)testWriteReadArticle
 {
-    XCTAssertNil([self.dataStore articleWithTitle:self.title], @"article cannot be loaded before we save it");
+    XCTAssertNotNil([self.dataStore articleWithTitle:self.title], @"article stub can be loaded before we save it");
     
     MWKArticle *article;
-    article = [[MWKArticle alloc] initWithTitle:self.title dict:self.json0[@"mobileview"]];
+    article = [[MWKArticle alloc] initWithTitle:self.title dataStore:self.dataStore dict:self.json0[@"mobileview"]];
 
     XCTAssertNoThrow([self.dataStore saveArticle:article]);
     
@@ -34,9 +34,7 @@
 
 - (void)testArticleStoreSection0
 {
-    XCTAssertNil([self.dataStore articleWithTitle:self.title], @"article cannot be loaded before we save it");
-    
-    XCTAssertNoThrow([self.articleStore importMobileViewJSON:self.json0]);
+    XCTAssertNoThrow([self.article importMobileViewJSON:self.json0[@"mobileview"]]);
     
     MWKArticle *article;
     XCTAssertNoThrow(article = [self.dataStore articleWithTitle:self.title], @"article can be loaded after saving it");
@@ -51,8 +49,8 @@
 
 - (void)testArticleStoreSection1ToEnd
 {
-    XCTAssertNoThrow([self.articleStore importMobileViewJSON:self.json0]);
-    XCTAssertNoThrow([self.articleStore importMobileViewJSON:self.json1]);
+    XCTAssertNoThrow([self.article importMobileViewJSON:self.json0[@"mobileview"]]);
+    XCTAssertNoThrow([self.article importMobileViewJSON:self.json1[@"mobileview"]]);
     
     MWKArticle *article;
     XCTAssertNoThrow(article = [self.dataStore articleWithTitle:self.title], @"article can be loaded after saving it");
@@ -67,11 +65,11 @@
 
 -(void)testArticleStoreReadSections
 {
-    XCTAssertNoThrow([self.articleStore importMobileViewJSON:self.json0]);
-    XCTAssertNoThrow([self.articleStore importMobileViewJSON:self.json1]);
+    XCTAssertNoThrow([self.article importMobileViewJSON:self.json0[@"mobileview"]]);
+    XCTAssertNoThrow([self.article importMobileViewJSON:self.json1[@"mobileview"]]);
 
-    NSArray *sections;
-    XCTAssertNoThrow(sections = self.articleStore.sections);
+    MWKSectionList *sections = self.article.sections;
+    XCTAssertNotNil(sections);
     
     XCTAssertEqual([sections count], 36);
 }

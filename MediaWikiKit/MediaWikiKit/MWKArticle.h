@@ -6,12 +6,17 @@
 //  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
-#pragma once
+#define MWK_SECTION_THUMBNAIL -1
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #import "MWKSiteDataObject.h"
 
+@class MWKDataStore;
+@class MWKSection;
+@class MWKSectionList;
+@class MWKImage;
+@class MWKImageList;
 @class MWKProtectionStatus;
 
 @interface MWKArticle : MWKSiteDataObject
@@ -19,6 +24,7 @@
 // Identifiers
 @property (readonly) MWKSite *site;
 @property (readonly) MWKTitle *title;
+@property (readonly) MWKDataStore *dataStore;
 
 // Metadata
 @property (readonly) MWKTitle            *redirected;     // optional
@@ -30,8 +36,43 @@
 @property (readonly) MWKProtectionStatus *protection;     // required
 @property (readonly) BOOL                 editable;       // required
 
-@property (readonly) NSString            *entitydescription; // optional; pulled via wikidata
+@property (readwrite,nonatomic) NSString *thumbnailURL;   // optional; pulled separately via search
+@property (readonly) NSString            *imageURL;       // optional; pulled in article request
 
--(instancetype)initWithTitle:(MWKTitle *)title dict:(NSDictionary *)dict;
+@property (readonly) NSString            *description; // optional; currently pulled separately via wikidata
+
+@property (readonly) MWKSectionList *sections;
+
+@property (readonly) MWKImageList *images;
+@property (readonly) MWKImage *thumbnail;
+@property (readonly) MWKImage *image;
+
+@property (readwrite) BOOL needsRefresh;
+
+-(instancetype)initWithTitle:(MWKTitle *)title dataStore:(MWKDataStore *)dataStore;
+-(instancetype)initWithTitle:(MWKTitle *)title dataStore:(MWKDataStore *)dataStore dict:(NSDictionary *)dict;
+
+/**
+ * Import article and section metadata (and text if available)
+ * from an API mobileview JSON response, save it to the database,
+ * and make it available through this object.
+ */
+-(void)importMobileViewJSON:(NSDictionary *)jsonDict;
+
+-(MWKImage *)imageWithURL:(NSString *)url;
+
+/**
+ * Create a stub record for an image with given URL.
+ */
+-(MWKImage *)importImageURL:(NSString *)url sectionId:(int)sectionId;
+
+/**
+ * Import downloaded image data into our data store,
+ * and update the image object/record
+ */
+-(MWKImage *)importImageData:(NSData *)data image:(MWKImage *)image mimeType:(NSString *)mimeType;
+
+-(void)save;
+-(void)remove;
 
 @end

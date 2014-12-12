@@ -12,6 +12,9 @@
 
 #import "MWKSiteDataObject.h"
 
+@class MWKArticle;
+@class MWKImageList;
+
 @interface MWKSection : MWKSiteDataObject
 
 @property (readonly) MWKTitle *title;
@@ -27,12 +30,14 @@
 @property (readonly) int       sectionId;     // required; -> id
 @property (readonly) BOOL      references;    // optional; marked by presence of key with empty string in JSON
 
-// Should this be here?
-//@property (readonly) NSString *text;          // may be nil
+@property (readonly) NSString *text;          // may be nil
+@property (readonly) MWKImageList *images;    // ?????
 
 -(instancetype)initWithArticle:(MWKArticle *)article dict:(NSDictionary *)dict;
 
 -(BOOL)isLeadSection;
 -(MWKTitle *)sourceTitle;
+
+-(void)save;
 
 @end
