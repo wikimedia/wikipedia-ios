@@ -82,6 +82,14 @@
 "search-loading-section-remaining" = "در حال بارگیری بقیه مقاله...";
 "search-loading-article-loaded" = "مقاله بارگیری شده است.";
 "search-cancel" = "لغو";
+"search-titles" = "عنوان‌ها";
+"search-within-articles" = "در مقالات";
+"search-did-you-mean" = "منظورتان «$1» بود؟";
+"search-recent-title" = "جستجوهای اخیر";
+"search-recent-clear-confirmation-heading" = "حذف همهٔ آخرین جستجوها؟";
+"search-recent-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
+"search-recent-clear-cancel" = "لغو";
+"search-recent-clear-delete-all" = "حذف همه";
 "main-menu-title" = "بیشتر";
 "main-menu-language-title" = "جستجوی  $1  زبان ویکی";
 "main-menu-language-toggle-show" = "نمایش زبان‌ها";
@@ -151,6 +159,8 @@
 "about-title" = "درباره";
 "about-wikipedia" = "ویکی‌پدیا";
 "about-contributors" = "مشارکت‌کنندگان";
+"about-testers" = "آزمایشگر";
+"about-testers-details" = "QA توسط $1 آزموده شد";
 "about-translators" = "مترجم‌ها";
 "about-translators-details" = "این برنامه توسط مترجمان داوطلب در $1 ترجمه شده‌است";
 "about-libraries" = "کتابخانه‌های استفاده‌شده";

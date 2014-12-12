@@ -87,7 +87,7 @@
 "search-did-you-mean" = "¿Quisiste decir $1?";
 "search-recent-title" = "Búsquedas recientes";
 "search-recent-clear-confirmation-heading" = "¿Borrar todas las búsquedas recientes?";
-"search-recent-clear-confirmation-sub-heading" = "¡Esta acción no se puede deshacer!";
+"search-recent-clear-confirmation-sub-heading" = "Esta acción no se puede deshacer.";
 "search-recent-clear-cancel" = "Cancelar";
 "search-recent-clear-delete-all" = "Borrar todas";
 "main-menu-title" = "Más";

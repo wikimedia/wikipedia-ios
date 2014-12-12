@@ -80,6 +80,14 @@
 "search-loading-section-remaining" = "Makalenin geri kalanı yükleniyor...";
 "search-loading-article-loaded" = "Makale yüklendi.";
 "search-cancel" = "İptal";
+"search-titles" = "Madde adları";
+"search-within-articles" = "Maddeler içinde";
+"search-did-you-mean" = "Bunu mu demek istediniz: $1?";
+"search-recent-title" = "Son aramalar";
+"search-recent-clear-confirmation-heading" = "Son aramaların tümü silinsin mi?";
+"search-recent-clear-confirmation-sub-heading" = "Bu eylem geri alınamaz!";
+"search-recent-clear-cancel" = "Vazgeç";
+"search-recent-clear-delete-all" = "Tümünü Sil";
 "main-menu-title" = "Diğer";
 "main-menu-language-title" = "$1 vikide ara";
 "main-menu-language-toggle-show" = "Dilleri göster";

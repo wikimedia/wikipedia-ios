@@ -82,6 +82,11 @@
 "search-titles" = "Titloù";
 "search-within-articles" = "Er pennadoù";
 "search-did-you-mean" = "N'ho poa ket soñjet kentoc'h e : $1";
+"search-recent-title" = "Enklaskoù nevez";
+"search-recent-clear-confirmation-heading" = "Lemel an holl enklaskoù nevez";
+"search-recent-clear-confirmation-sub-heading" = "Ne c'hall ket an ober-mañ bezañ nullet !";
+"search-recent-clear-cancel" = "Nullañ";
+"search-recent-clear-delete-all" = "Lemel pep tra";
 "main-menu-title" = "Muioc'h";
 "main-menu-language-title" = "Furchal $1 Wikipedia";
 "main-menu-language-toggle-show" = "Diskouez ar yezhoù";
