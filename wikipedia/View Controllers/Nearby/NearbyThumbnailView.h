@@ -7,7 +7,7 @@
 
 -(void)setImage:(UIImage *)image isPlaceHolder:(BOOL)isPlaceholder;
 
--(void)drawTickAtHeading:(double)heading;
+@property (nonatomic) double angle;
 
 @property (nonatomic) BOOL headingAvailable;
 
