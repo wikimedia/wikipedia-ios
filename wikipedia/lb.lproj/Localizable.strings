@@ -17,6 +17,7 @@
 "history-clear-cancel" = "Ofbriechen";
 "history-clear-delete-all" = "All läschen";
 "zero-charged-verbiage" = "Wikipedia Zero ass aus";
+"zero-charged-verbiage-extended" = "D'Luede vun aneren Artikele ka Käschte mat sech bréngen. Gespäichert Artikelen déi 'offline' gespäichert si generéiere keen Datentransfer a kaschten näischt.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Wikipedia Zero verloossen";
 "zero-interstitial-leave-app" = "Déi normal Käschte fir Datentransfer sinn eventuell applicabel. Virufueren op den externen Internetsite?";
@@ -143,6 +144,7 @@
 "about-wikipedia" = "Wikipedia";
 "about-translators" = "Iwwersetzer";
 "about-translators-details" = "Vu Fräiwëllegen op $1 iwwersat";
+"about-libraries" = "Benotzt Bibliothéiken";
 "about-send-feedback" = "Feedback vun der App schécken";
 "about-product-of" = "E Produkt vun der $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
