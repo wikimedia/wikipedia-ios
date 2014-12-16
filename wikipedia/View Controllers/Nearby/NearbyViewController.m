@@ -2,7 +2,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "NearbyViewController.h"
-#import "NearbyResultCell.h"
+#import "NearbyResultCollectionCell.h"
 #import "NearbyFetcher.h"
 #import "ThumbnailFetcher.h"
 #import "QueuesSingleton.h"
@@ -17,14 +17,14 @@
 #import <MapKit/MapKit.h>
 #import "Defines.h"
 #import "NSString+Extras.h"
-#import "UITableView+DynamicCellHeight.h"
+#import "UICollectionViewCell+DynamicCellHeight.h"
 
-#define TABLE_CELL_ID @"NearbyResultCell"
+#define TABLE_CELL_ID @"NearbyResultCollectionCell"
 
 @interface NearbyViewController ()
 
 @property (strong, nonatomic) NSArray *nearbyDataArray;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *deviceLocation;
 @property (strong, nonatomic) CLHeading *deviceHeading;
@@ -35,7 +35,7 @@
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic, strong) NSString *cachePath;
 @property (nonatomic) BOOL headingAvailable;
-@property (strong, nonatomic) NearbyResultCell *offScreenSizingCell;
+@property (strong, nonatomic) NearbyResultCollectionCell *offScreenSizingCell;
 
 @end
 
@@ -83,7 +83,7 @@
 
 @implementation NearbyViewController
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *rowData = [self getRowDataForIndexPath:indexPath];
     NSString *title = rowData[@"title"];
     [NAV loadArticleWithTitle: [[SessionSingleton sharedInstance].site titleWithString:title]
@@ -194,7 +194,7 @@
 -(void)refresh
 {
     self.nearbyDataArray = @[@[]];
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
     self.refreshNeeded = YES;
     
     // Force an update if we already have location data, else by setting
@@ -207,7 +207,7 @@
 
 -(UIScrollView *)refreshScrollView
 {
-    return self.tableView;
+    return self.collectionView;
 }
 
 -(NSString *)refreshPromptString
@@ -258,7 +258,7 @@
                 NSArray *arraySortedByDistance = [self.nearbyDataArray[0] sortedArrayUsingDescriptors:@[sortDescriptor]];
                 self.nearbyDataArray = @[arraySortedByDistance];
                 
-                [self.tableView reloadData];
+                [self.collectionView reloadData];
             }
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
@@ -286,12 +286,12 @@
                 UIImage *image = [UIImage imageWithData:fetchedData];
                 
                 // Check if cell still onscreen! This is important!
-                NSArray *visibleRowIndexPaths = [self.tableView indexPathsForVisibleRows];
+                NSArray *visibleRowIndexPaths = [self.collectionView indexPathsForVisibleItems];
                 for (NSIndexPath *thisIndexPath in visibleRowIndexPaths.copy) {
                     NSDictionary *rowData = [self getRowDataForIndexPath:thisIndexPath];
                     NSString *url = rowData[@"thumbnail"][@"source"];
                     if ([url.lastPathComponent isEqualToString:fileName]) {
-                        NearbyResultCell *cell = (NearbyResultCell *)[self.tableView cellForRowAtIndexPath:thisIndexPath];
+                        NearbyResultCollectionCell *cell = (NearbyResultCollectionCell *)[self.collectionView cellForItemAtIndexPath:thisIndexPath];
                         [cell.thumbView setImage:image isPlaceHolder:NO];
                         [cell setNeedsDisplay];
                         break;
@@ -345,6 +345,11 @@
     [self updateDistancesForOnscreenCells];
 }
 
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self.collectionView.collectionViewLayout invalidateLayout];
+}
+
 - (void)locationManager: (CLLocationManager *)manager
        didUpdateHeading: (CLHeading *)newHeading
 {
@@ -355,10 +360,10 @@
 
 -(void)updateHeadingForOnscreenCells
 {
-    for (NSIndexPath *indexPath in self.tableView.indexPathsForVisibleRows.copy){
-        NearbyResultCell *cell = (NearbyResultCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    for (NSIndexPath *indexPath in self.collectionView.indexPathsForVisibleItems.copy){
+        NearbyResultCollectionCell *cell = (NearbyResultCollectionCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
 
-        cell.deviceHeading = self.deviceHeading;
+        cell.deviceHeading = self.deviceHeading.trueHeading;
 
         [cell setNeedsDisplay];
     }
@@ -366,8 +371,8 @@
 
 -(void)updateDistancesForOnscreenCells
 {
-    for (NSIndexPath *indexPath in self.tableView.indexPathsForVisibleRows.copy){
-        NearbyResultCell *cell = (NearbyResultCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    for (NSIndexPath *indexPath in self.collectionView.indexPathsForVisibleItems.copy){
+        NearbyResultCollectionCell *cell = (NearbyResultCollectionCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
 
         [self updateLocationDataOfCell:cell atIndexPath:indexPath];
 
@@ -409,12 +414,16 @@
         [self.locationManager startUpdatingHeading];
     }
     
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 19)];
+    UICollectionViewFlowLayout *layout =
+        (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
+    CGFloat topAndBottomMargin = 19.0f * MENUS_SCALE_MULTIPLIER;
+    layout.sectionInset = UIEdgeInsetsMake(topAndBottomMargin, 0, topAndBottomMargin, 0);
     
-    [self.tableView registerNib:[UINib nibWithNibName:TABLE_CELL_ID bundle:nil] forCellReuseIdentifier:TABLE_CELL_ID];
+    [self.collectionView registerNib:[UINib nibWithNibName:TABLE_CELL_ID bundle:nil] forCellWithReuseIdentifier:TABLE_CELL_ID];
 
     // Single off-screen cell for determining dynamic cell height.
-    self.offScreenSizingCell = (NearbyResultCell *)[self.tableView dequeueReusableCellWithIdentifier:TABLE_CELL_ID];
+    self.offScreenSizingCell =
+        [[[NSBundle mainBundle] loadNibNamed:@"NearbyResultCollectionCell" owner:self options:nil] lastObject];
 }
 
 - (void)didReceiveMemoryWarning
@@ -423,22 +432,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     NSArray *sectionArray = self.nearbyDataArray[section];
     return sectionArray.count;
 }
 
--(void)updateLocationDataOfCell:(NearbyResultCell *)cell atIndexPath:(NSIndexPath *)indexPath
+-(void)updateLocationDataOfCell:(NearbyResultCollectionCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     cell.headingAvailable = self.headingAvailable;
 
-    cell.deviceLocation = self.deviceLocation;
+    cell.deviceLocation = self.deviceLocation.coordinate;
 
     cell.interfaceOrientation = self.interfaceOrientation;
 
@@ -450,14 +459,15 @@
     NSDictionary *coords = rowData[@"coordinates"];
     NSNumber *latitude = coords[@"lat"];
     NSNumber *longitude = coords[@"lon"];
-    cell.location = [[CLLocation alloc] initWithLatitude: latitude.doubleValue
-                                               longitude: longitude.doubleValue];
+
+    cell.location =
+        CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellID = TABLE_CELL_ID;
-    NearbyResultCell *cell = (NearbyResultCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
+    NearbyResultCollectionCell *cell = (NearbyResultCollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellID forIndexPath:indexPath];
 
     if (!cell.longPressRecognizer) {
         cell.longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressHappened:)];
@@ -500,7 +510,7 @@
     return self.nearbyDataArray[indexPath.section][indexPath.row];
 }
 
--(void)updateViewsInCell:(NearbyResultCell *)cell forIndexPath:(NSIndexPath *)indexPath
+-(void)updateViewsInCell:(NearbyResultCollectionCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *rowData = [self getRowDataForIndexPath:indexPath];
     
@@ -509,20 +519,23 @@
     [self updateLocationDataOfCell:cell atIndexPath:indexPath];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // Update the sizing cell with any data which could change the cell height.
     [self updateViewsInCell:self.offScreenSizingCell forIndexPath:indexPath];
 
+    CGFloat width = collectionView.bounds.size.width;
+
     // Determine height for the current configuration of the sizing cell.
-    return [tableView heightForSizingCell:self.offScreenSizingCell];
+    CGFloat height = [self.offScreenSizingCell heightForSizingCellOfWidth:width];
+    return CGSizeMake(width, height);
 }
 
 -(void)longPressHappened:(UILongPressGestureRecognizer *)gestureRecognizer
 {
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan){
-        CGPoint p = [gestureRecognizer locationInView:self.tableView];
-        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+        CGPoint p = [gestureRecognizer locationInView:self.collectionView];
+        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:p];
         if (indexPath){
             self.longPressIndexPath = indexPath;
 

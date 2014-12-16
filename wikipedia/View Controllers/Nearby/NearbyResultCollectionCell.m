@@ -1,7 +1,7 @@
-//  Created by Monte Hurd on 8/8/14.
+//  Created by Monte Hurd on 12/12/14.
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "NearbyResultCell.h"
+#import "NearbyResultCollectionCell.h"
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
 #import "WMF_Colors.h"
@@ -25,7 +25,7 @@
 #define DESCRIPTION_FONT_COLOR [UIColor grayColor]
 #define DESCRIPTION_TOP_PADDING (2.0f * MENUS_SCALE_MULTIPLIER)
 
-@interface NearbyResultCell()
+@interface NearbyResultCollectionCell()
 
 @property (weak, nonatomic) IBOutlet PaddedLabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet PaddedLabel *titleLabel;
@@ -35,7 +35,7 @@
 
 @end
 
-@implementation NearbyResultCell
+@implementation NearbyResultCollectionCell
 
 -(void)setTitle: (NSString *)title
     description: (NSString *)description
@@ -93,9 +93,8 @@
     if (self) {
         self.longPressRecognizer = nil;
         self.distance = nil;
-        self.location = nil;
-        self.deviceLocation = nil;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.location = CLLocationCoordinate2DMake(0, 0);
+        self.deviceLocation = CLLocationCoordinate2DMake(0, 0);
     }
     return self;
 }
@@ -162,43 +161,43 @@
     }
 }
 
--(void)setLocation:(CLLocation *)location
+-(void)setLocation:(CLLocationCoordinate2D)location
 {
     _location = location;
     
     [self applyRotationTransform];
 }
 
--(void)setDeviceHeading:(CLHeading *)deviceHeading
+-(void)setDeviceHeading:(CLLocationDirection)deviceHeading
 {
     _deviceHeading = deviceHeading;
 
     [self applyRotationTransform];
 }
 
--(double)headingBetweenLocation:(CLLocation *)l1 andLocation:(CLLocation *)l2
+-(double)headingBetweenLocation: (CLLocationCoordinate2D)loc1
+                    andLocation: (CLLocationCoordinate2D)loc2
 {
     // From: http://www.movable-type.co.uk/scripts/latlong.html
-	double dy = l2.coordinate.longitude - l1.coordinate.longitude;
-	double y = sin(dy) * cos(l2.coordinate.latitude);
-	double x = cos(l1.coordinate.latitude) * sin(l2.coordinate.latitude) - sin(l1.coordinate.latitude) * cos(l2.coordinate.latitude) * cos(dy);
+	double dy = loc2.longitude - loc1.longitude;
+	double y = sin(dy) * cos(loc2.latitude);
+	double x = cos(loc1.latitude) * sin(loc2.latitude) - sin(loc1.latitude) * cos(loc2.latitude) * cos(dy);
 	return atan2(y, x);
 }
 
--(void)applyRotationTransform
+-(double)getAngleFromLocation: (CLLocationCoordinate2D)fromLocation
+                   toLocation: (CLLocationCoordinate2D)toLocation
+             adjustForHeading: (CLLocationDirection)deviceHeading
+         adjustForOrientation: (UIInterfaceOrientation)interfaceOrientation
 {
-    self.thumbView.headingAvailable = self.headingAvailable;
-    if(!self.headingAvailable) return;
-
     // Get angle between device and article coordinates.
-    double angleRadians = [self headingBetweenLocation:self.deviceLocation andLocation:self.location];
+    double angleRadians = [self headingBetweenLocation:fromLocation andLocation:toLocation];
 
     // Adjust for device rotation (deviceHeading is in degrees).
     double angleDegrees = RADIANS_TO_DEGREES(angleRadians);
-    angleDegrees += 180;
-    angleDegrees -= (self.deviceHeading.trueHeading - 180.0f);
-    if (angleDegrees > 360) angleDegrees -= 360;
-    if (angleDegrees < -360) angleDegrees += 360;
+    angleDegrees -= deviceHeading;
+    if (angleDegrees > 360.0) angleDegrees -= 360.0;
+    if (angleDegrees < -360.0) angleDegrees += 360.0;
 
     /*
     if ([self.titleLabel.text isEqualToString:@"Museum of London"]){
@@ -207,15 +206,15 @@
     */
 
     // Adjust for interface orientation.
-    switch (self.interfaceOrientation) {
+    switch (interfaceOrientation) {
         case UIInterfaceOrientationLandscapeLeft:
-            angleDegrees += 90;
+            angleDegrees += 90.0;
             break;
         case UIInterfaceOrientationLandscapeRight:
-            angleDegrees -= 90;
+            angleDegrees -= 90.0;
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            angleDegrees += 180;
+            angleDegrees += 180.0;
             break;
         default: //UIInterfaceOrientationPortrait
             break;
@@ -227,16 +226,30 @@
     }
     */
 
-    angleRadians = DEGREES_TO_RADIANS(angleDegrees);
-
-    [self.thumbView drawTickAtHeading:angleRadians];    
+    return DEGREES_TO_RADIANS(angleDegrees);
 }
 
+-(void)applyRotationTransform
+{
+    self.thumbView.headingAvailable = self.headingAvailable;
+    if(!self.headingAvailable) return;
+
+    double angle =
+        [self getAngleFromLocation: self.deviceLocation
+                        toLocation: self.location
+                  adjustForHeading: self.deviceHeading
+              adjustForOrientation: self.interfaceOrientation];
+
+    [self.thumbView drawTickAtHeading:angle];
+}
+
+/*
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
 }
+*/
 
 @end

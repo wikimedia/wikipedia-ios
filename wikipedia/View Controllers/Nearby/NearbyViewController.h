@@ -7,7 +7,7 @@
 #import "TopMenuViewController.h"
 #import "FetcherBase.h"
 
-@interface NearbyViewController : PullToRefreshViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate, FetchFinishedDelegate>
+@interface NearbyViewController : PullToRefreshViewController <UICollectionViewDataSource, UICollectionViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate, FetchFinishedDelegate>
 
 @property (nonatomic) NavBarMode navBarMode;
 @property (weak, nonatomic) id truePresentingVC;
