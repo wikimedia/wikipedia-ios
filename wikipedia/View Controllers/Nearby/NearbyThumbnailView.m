@@ -22,12 +22,23 @@
 
 @property (strong, nonatomic) UIImageView *thumbImageView;
 @property (nonatomic) BOOL isPlaceholder;
-@property (nonatomic) double tickHeading;
 @property (nonatomic) CGFloat padding;
 
 @end
 
 @implementation NearbyThumbnailView
+
+-(void)setAngle:(double)angle
+{
+    _angle = angle;
+    [self setNeedsDisplay];
+}
+
+-(void)setHeadingAvailable:(BOOL)headingAvailable
+{
+    _headingAvailable = headingAvailable;
+    [self setNeedsDisplay];
+}
 
 -(void)setImage:(UIImage *)image isPlaceHolder:(BOOL)isPlaceholder;
 {
@@ -40,7 +51,7 @@
     self = [super initWithCoder:coder];
     if (self) {
         self.padding = NEARBY_IMAGE_PADDING;
-        self.tickHeading = 0;
+        self.angle = 0;
         self.thumbImageView = [[UIImageView alloc] init];
         self.thumbImageView.clipsToBounds = YES;
         self.thumbImageView.opaque = YES;
@@ -92,12 +103,6 @@
                                                    views: views]
      ];
     [self addConstraints:[viewConstraintArrays valueForKeyPath:@"@unionOfArrays.self"]];
-}
-
--(void)drawTickAtHeading:(double)heading
-{
-    self.tickHeading = heading;
-    [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -170,7 +175,7 @@
     // Move to center of circle.
     CGContextTranslateCTM(ctx, center.x, center.y);
     // Rotate.
-    CGContextRotateCTM(ctx, self.tickHeading);
+    CGContextRotateCTM(ctx, self.angle);
     // Rotate to other side.
     CGContextRotateCTM(ctx, DEGREES_TO_RADIANS(180.0f));
     
@@ -213,7 +218,7 @@
     // Move to center of circle.
     CGContextTranslateCTM(ctx, center.x, center.y);
     // Rotate.
-    CGContextRotateCTM(ctx, self.tickHeading);
+    CGContextRotateCTM(ctx, self.angle);
 
     // Move to location to draw tick.
     CGContextTranslateCTM(ctx, 0, -radius);

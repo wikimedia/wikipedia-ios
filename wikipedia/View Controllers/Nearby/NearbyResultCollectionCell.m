@@ -9,9 +9,6 @@
 #import "NSObject+ConstraintsScale.h"
 #import "UIView+Debugging.h"
 
-#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0f / M_PI))
-#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0f * M_PI)
-
 #define TITLE_FONT [UIFont systemFontOfSize:(17.0f * MENUS_SCALE_MULTIPLIER)]
 #define TITLE_FONT_COLOR [UIColor blackColor]
 
@@ -93,8 +90,8 @@
     if (self) {
         self.longPressRecognizer = nil;
         self.distance = nil;
-        self.location = CLLocationCoordinate2DMake(0, 0);
-        self.deviceLocation = CLLocationCoordinate2DMake(0, 0);
+        self.angle = 0.0;
+        self.headingAvailable = NO;
     }
     return self;
 }
@@ -161,95 +158,16 @@
     }
 }
 
--(void)setLocation:(CLLocationCoordinate2D)location
+-(void)setAngle:(double)angle
 {
-    _location = location;
-    
-    [self applyRotationTransform];
+    _angle = angle;
+    self.thumbView.angle = angle;
 }
 
--(void)setDeviceHeading:(CLLocationDirection)deviceHeading
+-(void)setHeadingAvailable:(BOOL)headingAvailable
 {
-    _deviceHeading = deviceHeading;
-
-    [self applyRotationTransform];
+    _headingAvailable = headingAvailable;
+    self.thumbView.headingAvailable = headingAvailable;
 }
-
--(double)headingBetweenLocation: (CLLocationCoordinate2D)loc1
-                    andLocation: (CLLocationCoordinate2D)loc2
-{
-    // From: http://www.movable-type.co.uk/scripts/latlong.html
-	double dy = loc2.longitude - loc1.longitude;
-	double y = sin(dy) * cos(loc2.latitude);
-	double x = cos(loc1.latitude) * sin(loc2.latitude) - sin(loc1.latitude) * cos(loc2.latitude) * cos(dy);
-	return atan2(y, x);
-}
-
--(double)getAngleFromLocation: (CLLocationCoordinate2D)fromLocation
-                   toLocation: (CLLocationCoordinate2D)toLocation
-             adjustForHeading: (CLLocationDirection)deviceHeading
-         adjustForOrientation: (UIInterfaceOrientation)interfaceOrientation
-{
-    // Get angle between device and article coordinates.
-    double angleRadians = [self headingBetweenLocation:fromLocation andLocation:toLocation];
-
-    // Adjust for device rotation (deviceHeading is in degrees).
-    double angleDegrees = RADIANS_TO_DEGREES(angleRadians);
-    angleDegrees -= deviceHeading;
-    if (angleDegrees > 360.0) angleDegrees -= 360.0;
-    if (angleDegrees < -360.0) angleDegrees += 360.0;
-
-    /*
-    if ([self.titleLabel.text isEqualToString:@"Museum of London"]){
-        NSLog(@"angle = %f", angleDegrees);
-    }
-    */
-
-    // Adjust for interface orientation.
-    switch (interfaceOrientation) {
-        case UIInterfaceOrientationLandscapeLeft:
-            angleDegrees += 90.0;
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            angleDegrees -= 90.0;
-            break;
-        case UIInterfaceOrientationPortraitUpsideDown:
-            angleDegrees += 180.0;
-            break;
-        default: //UIInterfaceOrientationPortrait
-            break;
-    }
-
-    /*
-    if ([self.titleLabel.text isEqualToString:@"Museum of London"]){
-        NSLog(@"angle = %f", angleDegrees);
-    }
-    */
-
-    return DEGREES_TO_RADIANS(angleDegrees);
-}
-
--(void)applyRotationTransform
-{
-    self.thumbView.headingAvailable = self.headingAvailable;
-    if(!self.headingAvailable) return;
-
-    double angle =
-        [self getAngleFromLocation: self.deviceLocation
-                        toLocation: self.location
-                  adjustForHeading: self.deviceHeading
-              adjustForOrientation: self.interfaceOrientation];
-
-    [self.thumbView drawTickAtHeading:angle];
-}
-
-/*
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-*/
 
 @end

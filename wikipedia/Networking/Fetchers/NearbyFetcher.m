@@ -106,6 +106,8 @@
 
 -(NSDictionary *)getParams
 {
+    NSString *coords =
+        [NSString stringWithFormat:@"%f|%f", self.latitude, self.longitude];
     return @{
              @"action": @"query",
              @"prop": @"coordinates|pageimages|pageterms",
@@ -114,7 +116,8 @@
              @"pilimit": @"50",
              @"wbptterms": @"description",
              @"generator": @"geosearch",
-             @"ggscoord": [NSString stringWithFormat:@"%f|%f", self.latitude, self.longitude],
+             @"ggscoord": coords,
+             @"codistancefrompoint": coords,
              @"ggsradius": @"10000",
              @"ggslimit": @"50",
              @"format": @"json"
@@ -139,7 +142,16 @@
                 NSString *title = page[@"title"];
                 
                 NSMutableDictionary *d = @{}.mutableCopy;
-                if(coords)d[@"coordinates"] = coords;
+
+                NSNumber *lat = coords[@"lat"];
+                NSNumber *lon = coords[@"lon"];
+                if(lat && lon){
+                    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(lat.doubleValue, lon.doubleValue);
+                    d[@"coordinate"] = [NSValue value:&coordinates withObjCType:@encode(CLLocationCoordinate2D)];
+                }
+
+                NSNumber *dist = coords[@"dist"];
+                if(dist)d[@"initialDistance"] = dist;
                 if(pageId)d[@"pageid"] = pageId;
                 if(pageImage)d[@"pageimage"] = pageImage;
                 if(thumbnail)d[@"thumbnail"] = thumbnail;

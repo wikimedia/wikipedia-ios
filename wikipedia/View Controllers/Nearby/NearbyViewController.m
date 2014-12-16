@@ -21,6 +21,9 @@
 
 #define TABLE_CELL_ID @"NearbyResultCollectionCell"
 
+#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
+#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
+
 @interface NearbyViewController ()
 
 @property (strong, nonatomic) NSArray *nearbyDataArray;
@@ -45,13 +48,8 @@
 	self.nearbyDataArray = (
         (
                 {
-            coordinates =             {
-                globe = earth;
-                lat = "51.5202";
-                lon = "-0.095";
-                primary = "";
-            };
-            distance = "207.4141690965082";
+            coordinate = *CLLocationCoordinate2D struct*;
+            initialDistance = "207.4141690965082";
             pageid = 26536263;
             pageimage = "Barbican_Centre_logo.svg";
             thumbnail =             {
@@ -62,13 +60,8 @@
             title = "Barbican Centre";
         },
                 {
-            coordinates =             {
-                globe = earth;
-                lat = "51.5191";
-                lon = "-0.096946";
-                primary = "";
-            };
-            distance = "324.2053114467474";
+            coordinates = *CLLocationCoordinate2D struct*;
+            initialDistance = "324.2053114467474";
             pageid = 2303936;
             pageimage = "William_Davenant.jpg";
             thumbnail =             {
@@ -251,9 +244,8 @@
                 [self fadeAlert];
                 
                 self.nearbyDataArray = @[fetchedData];
-                [self calculateDistances];
-                
-                NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey: @"distance.doubleValue"
+
+                NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey: @"initialDistance"
                                                                                ascending: YES];
                 NSArray *arraySortedByDistance = [self.nearbyDataArray[0] sortedArrayUsingDescriptors:@[sortDescriptor]];
                 self.nearbyDataArray = @[arraySortedByDistance];
@@ -332,17 +324,13 @@
         [self downloadData];
         self.refreshNeeded = NO;
     }else{
-        [self calculateDistances];
-        
-        [self updateDistancesForOnscreenCells];
+        [self updateDistancesAndAnglesOfOnscreenCells];
     }
 }
 
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    // Don't wait for heading or location update - on rotate update arrows right away.
-    [self updateHeadingForOnscreenCells];
-    [self updateDistancesForOnscreenCells];
+    [self drawOnscreenCells];
 }
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -355,52 +343,45 @@
 {
     self.deviceHeading = newHeading;
 
-    [self updateHeadingForOnscreenCells];
+    [self updateDistancesAndAnglesOfOnscreenCells];
 }
 
--(void)updateHeadingForOnscreenCells
+-(void)drawOnscreenCells
+{
+    [self.collectionView.visibleCells makeObjectsPerformSelector:@selector(setNeedsDisplay)];
+}
+
+-(void)updateDistancesAndAnglesOfOnscreenCells
 {
     for (NSIndexPath *indexPath in self.collectionView.indexPathsForVisibleItems.copy){
         NearbyResultCollectionCell *cell = (NearbyResultCollectionCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
 
-        cell.deviceHeading = self.deviceHeading.trueHeading;
-
-        [cell setNeedsDisplay];
+        [self updateDistancesAndAnglesOfCell:cell atIndexPath:indexPath];
     }
 }
 
--(void)updateDistancesForOnscreenCells
+-(CLLocationCoordinate2D)getCoordinateFromNSValue:(NSValue *)value
 {
-    for (NSIndexPath *indexPath in self.collectionView.indexPathsForVisibleItems.copy){
-        NearbyResultCollectionCell *cell = (NearbyResultCollectionCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-
-        [self updateLocationDataOfCell:cell atIndexPath:indexPath];
-
-        [cell setNeedsDisplay];
-    }
+    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(0, 0);
+    if(value)[value getValue:&coord];
+    return coord;
 }
 
--(void)calculateDistances
+-(CLLocationDistance)getDistanceToCoordinate:(CLLocationCoordinate2D)coord
 {
-    NSMutableDictionary *rowsData = (NSMutableDictionary *)self.nearbyDataArray[0];
-    if (!rowsData || (rowsData.count == 0)) return;
-    for (NSMutableDictionary *rowData in rowsData.copy){
-        NSDictionary *coords = rowData[@"coordinates"];
-        NSNumber *latitude = coords[@"lat"];
-        NSNumber *longitude = coords[@"lon"];
-        CLLocationDegrees lat1 = latitude.floatValue;
-        CLLocationDegrees long1 = longitude.floatValue;
-        
-        CLLocation *locA =
-        [[CLLocation alloc] initWithLatitude: self.deviceLocation.coordinate.latitude
-                                   longitude: self.deviceLocation.coordinate.longitude];
-        
-        CLLocation *locB = [[CLLocation alloc] initWithLatitude:lat1 longitude:long1];
-        
-        CLLocationDistance distance = [locA distanceFromLocation:locB];
-        
-        rowData[@"distance"] = @(distance);
-    }
+    CLLocation *articleLocation =
+        [[CLLocation alloc] initWithLatitude: coord.latitude
+                                   longitude: coord.longitude];
+    
+    return [self.deviceLocation distanceFromLocation:articleLocation];
+}
+
+-(double)getAngleToCoordinate:(CLLocationCoordinate2D)coord
+{
+    return [self getAngleFromLocation: self.deviceLocation.coordinate
+                           toLocation: coord
+                     adjustForHeading: self.deviceHeading.trueHeading
+                 adjustForOrientation: self.interfaceOrientation];
 }
 
 - (void)viewDidLoad
@@ -409,6 +390,12 @@
     // Do any additional setup after loading the view.
 
     self.locationManager.delegate = self;
+
+    self.locationManager.headingFilter = 1.5;
+    self.locationManager.distanceFilter = 1.0;
+
+    ((UIScrollView *)self.collectionView).decelerationRate = UIScrollViewDecelerationRateFast;
+
     [self.locationManager startUpdatingLocation];
     if (self.headingAvailable) {
         [self.locationManager startUpdatingHeading];
@@ -443,25 +430,20 @@
     return sectionArray.count;
 }
 
--(void)updateLocationDataOfCell:(NearbyResultCollectionCell *)cell atIndexPath:(NSIndexPath *)indexPath
+-(void)updateDistancesAndAnglesOfCell:(NearbyResultCollectionCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     cell.headingAvailable = self.headingAvailable;
 
-    cell.deviceLocation = self.deviceLocation.coordinate;
-
-    cell.interfaceOrientation = self.interfaceOrientation;
-
     NSDictionary *rowData = [self getRowDataForIndexPath:indexPath];
 
-    NSNumber *distance = rowData[@"distance"];
-    cell.distance = distance;
-
-    NSDictionary *coords = rowData[@"coordinates"];
-    NSNumber *latitude = coords[@"lat"];
-    NSNumber *longitude = coords[@"lon"];
-
-    cell.location =
-        CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+    NSValue *coordVal = rowData[@"coordinate"];
+    CLLocationCoordinate2D coord = [self getCoordinateFromNSValue:coordVal];
+    
+    CLLocationDistance distance = [self getDistanceToCoordinate:coord];
+    cell.distance = @(distance);
+    
+    double angle = [self getAngleToCoordinate:coord];
+    cell.angle = angle;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -516,7 +498,7 @@
     
     [cell setTitle:rowData[@"title"] description:rowData[@"description"]];
     
-    [self updateLocationDataOfCell:cell atIndexPath:indexPath];
+    [self updateDistancesAndAnglesOfCell:cell atIndexPath:indexPath];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -571,22 +553,60 @@
     
     NSDictionary *rowData = [self getRowDataForIndexPath:self.longPressIndexPath];
 
-    NSNumber *lat = rowData[@"coordinates"][@"lat"];
-    NSNumber *lon = rowData[@"coordinates"][@"lon"];
+    NSValue *coordVal = rowData[@"coordinate"];
+    CLLocationCoordinate2D coord = [self getCoordinateFromNSValue:coordVal];
+    
     NSString *title = rowData[@"title"];
 
-    [self openInMaps:CLLocationCoordinate2DMake(lat.doubleValue, lon.doubleValue) withTitle:title];
+    [self openInMaps:CLLocationCoordinate2DMake(coord.latitude, coord.longitude) withTitle:title];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+-(double)headingBetweenLocation: (CLLocationCoordinate2D)loc1
+                    andLocation: (CLLocationCoordinate2D)loc2
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    // From: http://www.movable-type.co.uk/scripts/latlong.html
+	double dy = loc2.longitude - loc1.longitude;
+	double y = sin(dy) * cos(loc2.latitude);
+	double x = cos(loc1.latitude) * sin(loc2.latitude) - sin(loc1.latitude) * cos(loc2.latitude) * cos(dy);
+	return atan2(y, x);
 }
-*/
+
+-(double)getAngleFromLocation: (CLLocationCoordinate2D)fromLocation
+                   toLocation: (CLLocationCoordinate2D)toLocation
+             adjustForHeading: (CLLocationDirection)deviceHeading
+         adjustForOrientation: (UIInterfaceOrientation)interfaceOrientation
+{
+    // Get angle between device and article coordinates.
+    double angleRadians = [self headingBetweenLocation:fromLocation andLocation:toLocation];
+
+    // Adjust for device rotation (deviceHeading is in degrees).
+    double angleDegrees = RADIANS_TO_DEGREES(angleRadians);
+    angleDegrees -= deviceHeading;
+
+    if (angleDegrees > 360.0) {
+        angleDegrees -= 360.0;
+    }else if (angleDegrees < 0.0){
+        angleDegrees += 360.0;
+    }
+
+    // Adjust for interface orientation.
+    switch (interfaceOrientation) {
+        case UIInterfaceOrientationLandscapeLeft:
+            angleDegrees += 90.0;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            angleDegrees -= 90.0;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            angleDegrees += 180.0;
+            break;
+        default: //UIInterfaceOrientationPortrait
+            break;
+    }
+
+    //NSLog(@"angle = %f", angleDegrees);
+
+    return DEGREES_TO_RADIANS(angleDegrees);
+}
 
 @end

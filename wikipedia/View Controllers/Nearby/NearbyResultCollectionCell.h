@@ -11,11 +11,8 @@
 @property (weak, nonatomic) IBOutlet NearbyThumbnailView *thumbView;
 
 @property (strong, nonatomic) NSNumber *distance;
-@property (nonatomic) CLLocationCoordinate2D location;
-@property (nonatomic) CLLocationCoordinate2D deviceLocation;
 @property (nonatomic) BOOL headingAvailable;
-@property (nonatomic) CLLocationDirection deviceHeading;
-@property (nonatomic) UIInterfaceOrientation interfaceOrientation;
+@property (nonatomic) double angle;
 
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPressRecognizer;
 
