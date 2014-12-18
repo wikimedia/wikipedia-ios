@@ -34,6 +34,11 @@
             NSString *urlString = [NSString stringWithFormat:@"%@?%@;", LOG_ENDPOINT, encodedPayloadJsonString];
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
             [request addValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
+            // arguably, we don't need to add the UUID to these requests
+            /*
+             ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
+             [manager.requestSerializer setValue:funnel.appInstallID forHTTPHeaderField:@"X-WMF-UUID"];
+             */
             
             (void)[[NSURLConnection alloc] initWithRequest:request delegate:nil];
         }

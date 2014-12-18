@@ -3,6 +3,7 @@
 
 #import "QueuesSingleton.h"
 #import "WikipediaAppUtils.h"
+#import "ReadingActionFunnel.h"
 
 @implementation QueuesSingleton
 
@@ -91,6 +92,8 @@
 {
     [manager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
     [manager.requestSerializer setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
+    ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
+    [manager.requestSerializer setValue:funnel.appInstallID forHTTPHeaderField:@"X-WMF-UUID"];
 
     // x-www-form-urlencoded is default, so probably don't need it.
     // See: http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1
