@@ -47,4 +47,7 @@ typedef NS_ENUM(NSInteger, FetchFinalStatus) {
 // anything useful.
 -(BOOL)isDataResponseValid:(id)responseObject;
 
+// Convert the raw NSData response to a dictionary w/JSON.
+-(NSDictionary *)dictionaryFromDataResponse:(id)responseObject;
+
 @end

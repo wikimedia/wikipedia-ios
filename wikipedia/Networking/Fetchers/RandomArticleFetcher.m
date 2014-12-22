@@ -41,6 +41,9 @@
     [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
+
+        // Convert the raw NSData response to a dictionary.
+        responseObject = [self dictionaryFromDataResponse:responseObject];
         
         // Fake out an error if non-dictionary response received.
         if(![responseObject isDict]){

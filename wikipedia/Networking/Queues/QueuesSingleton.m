@@ -41,6 +41,7 @@
         ]];
 
         [self setDefaultSerializerForManagers:@[
+            self.articleFetchManager,
             self.nearbyFetchManager,
             self.searchResultsFetchManager,
             self.assetsFetchManager

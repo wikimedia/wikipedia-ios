@@ -62,15 +62,7 @@
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         // Convert the raw NSData response to a dictionary.
-        if (![self isDataResponseValid:responseObject]){
-            // Fake out an error if bad response received.
-            responseObject = @{@"error": @{@"info": @"Search data not found."}};
-        }else{
-            // Should be able to proceed with dictionary conversion.
-            NSError *jsonError = nil;
-            responseObject = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&jsonError];
-            responseObject = jsonError ? @{} : responseObject;
-        }
+        responseObject = [self dictionaryFromDataResponse:responseObject];
         
         // NSLog(@"\n\nDATA RETRIEVED = %@\n\n", responseObject);
         

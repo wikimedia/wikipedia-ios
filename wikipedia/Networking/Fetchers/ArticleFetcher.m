@@ -82,6 +82,9 @@
         //NSLog(@"JSON: %@", responseObject);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
+        // Convert the raw NSData response to a dictionary.
+        responseObject = [self dictionaryFromDataResponse:responseObject];
+
         // Clear any MCCMNC header - needed because manager is a singleton.
         [self removeMCCMNCHeaderFromRequestSerializer:manager.requestSerializer];
         

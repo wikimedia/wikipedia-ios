@@ -54,16 +54,8 @@
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
         
         // Convert the raw NSData response to a dictionary.
-        if (![self isDataResponseValid:responseObject]){
-            // Fake out an error if bad response received.
-            responseObject = @{@"error": @{@"info": @"Nearby data not found."}};
-        }else{
-            // Should be able to proceed with dictionary conversion.
-            NSError *jsonError = nil;
-            responseObject = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&jsonError];
-            responseObject = jsonError ? @{} : responseObject;
-        }
-
+        responseObject = [self dictionaryFromDataResponse:responseObject];
+        
         //NSLog(@"NEARBY DATA RETRIEVED = %@", responseObject);
         
         // Handle case where response is received, but API reports error.
