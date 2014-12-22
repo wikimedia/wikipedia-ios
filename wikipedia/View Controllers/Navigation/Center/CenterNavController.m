@@ -11,8 +11,6 @@
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
 #import "TopMenuContainerView.h"
-#import "ArticleDataContextSingleton.h"
-#import "NSManagedObjectContext+SimpleFetch.h"
 #import "QueuesSingleton.h"
 #import "RandomArticleFetcher.h"
 

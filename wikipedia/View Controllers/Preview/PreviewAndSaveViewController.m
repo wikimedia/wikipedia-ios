@@ -5,8 +5,6 @@
 #import "WikipediaAppUtils.h"
 #import "PreviewHtmlFetcher.h"
 #import "UIViewController+Alert.h"
-#import "ArticleCoreDataObjects.h"
-#import "ArticleDataContextSingleton.h"
 #import "QueuesSingleton.h"
 #import "CenterNavController.h"
 #import "WikiTextSectionUploader.h"

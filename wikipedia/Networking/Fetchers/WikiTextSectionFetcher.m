@@ -7,7 +7,6 @@
 #import "SessionSingleton.h"
 #import "NSObject+Extras.h"
 #import "WikipediaAppUtils.h"
-#import "ArticleCoreDataObjects.h"
 
 @interface WikiTextSectionFetcher()
 

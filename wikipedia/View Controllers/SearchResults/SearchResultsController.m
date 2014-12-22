@@ -8,8 +8,6 @@
 #import "SearchResultCell.h"
 #import "SessionSingleton.h"
 #import "UIViewController+Alert.h"
-#import "ArticleDataContextSingleton.h"
-#import "ArticleCoreDataObjects.h"
 #import "NSString+Extras.h"
 #import "UIViewController+HideKeyboard.h"
 #import "CenterNavController.h"
@@ -31,7 +29,6 @@
 
 @interface SearchResultsController (){
     CGFloat scrollViewDragBeganVerticalOffset_;
-    ArticleDataContextSingleton *articleDataContext_;
 }
 
 @property (nonatomic, strong) NSString *searchSuggestion;
@@ -164,8 +161,6 @@
 
     self.searchStringWordsToHighlight = @[];
     
-    articleDataContext_ = [ArticleDataContextSingleton sharedInstance];
-
     scrollViewDragBeganVerticalOffset_ = 0.0f;
 
     self.searchResults = @[];

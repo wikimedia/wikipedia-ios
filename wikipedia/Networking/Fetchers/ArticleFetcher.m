@@ -3,7 +3,6 @@
 
 #import "ArticleFetcher.h"
 #import "Defines.h"
-#import "Section.h"
 #import "QueuesSingleton.h"
 #import "NSString+Extras.h"
 #import "AFHTTPRequestOperationManager.h"
@@ -362,6 +361,8 @@
 
 -(void)associateThumbFromTempDirWithArticle
 {
+    BOOL foundThumbInTempDir = NO;
+
     // Map which search and nearby populates with title/thumb url mappings.
     NSDictionary *map = [SessionSingleton sharedInstance].titleToTempDirThumbURLMap;
     NSString *title = self.article.title.prefixedText;
@@ -386,8 +387,17 @@
                     // Copy Search/Nearby thumb binary to core data store so it doesn't have to be re-downloaded.
                     MWKImage *image = [self.article importImageURL:thumbURL sectionId:MWK_SECTION_THUMBNAIL];
                     [self.article importImageData:data image:image mimeType:@"image"];
+                    foundThumbInTempDir = YES;
                 }
             }
+        }
+    }
+    if(!foundThumbInTempDir){
+        // If no image found in temp dir, use first article image.
+        MWKImageList *images = self.article.images;
+        if (images.count > 0) {
+            MWKImage *image = images[0];
+            self.article.thumbnailURL = image.sourceURL;
         }
     }
 }

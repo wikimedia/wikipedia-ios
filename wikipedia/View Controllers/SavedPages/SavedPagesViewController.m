@@ -3,12 +3,9 @@
 
 #import "SavedPagesViewController.h"
 #import "WikipediaAppUtils.h"
-#import "ArticleDataContextSingleton.h"
-#import "ArticleCoreDataObjects.h"
 #import "WebViewController.h"
 #import "SavedPagesResultCell.h"
 #import "Defines.h"
-#import "Article+Convenience.h"
 #import "SessionSingleton.h"
 #import "CenterNavController.h"
 #import "NSString+Extras.h"

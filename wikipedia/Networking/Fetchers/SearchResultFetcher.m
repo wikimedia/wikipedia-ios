@@ -8,9 +8,6 @@
 #import "NSObject+Extras.h"
 #import "NSString+Extras.h"
 #import "WikipediaAppUtils.h"
-#import "ArticleDataContextSingleton.h"
-#import "ArticleCoreDataObjects.h"
-#import "NSManagedObjectContext+SimpleFetch.h"
 
 @interface SearchResultFetcher()
 
@@ -101,8 +98,6 @@
             
             // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
             error = [NSError errorWithDomain:@"Search Result Fetcher" code:SEARCH_RESULT_ERROR_NO_MATCHES userInfo:errorDict];
-        }else{
-            [self preparePlaceholderImageRecordsForSearchResults:self.searchResults];
         }
 
         [self finishWithError: error
@@ -236,58 +231,6 @@
         }
     }
     return output;
-}
-
-#pragma mark Core data Image record placeholder for thumbnail (so they get cached)
-
--(void)preparePlaceholderImageRecordsForSearchResults:(NSArray *)searchResults
-{
-    // Prepare placeholder Image records.
-    [[ArticleDataContextSingleton sharedInstance].mainContext performBlockAndWait:^(){
-        for (NSDictionary *page in searchResults) {
-            // If url thumb found, prepare a core data Image object so URLCache
-            // will know this is an image to intercept.
-            NSDictionary *thumbData = page[@"thumbnail"];
-            if (thumbData) {
-                NSString *src = thumbData[@"source"];
-                NSNumber *height = thumbData[@"height"];
-                NSNumber *width = thumbData[@"width"];
-                if (src && height && width) {
-                    [self insertPlaceHolderImageEntityIntoContext: [ArticleDataContextSingleton sharedInstance].mainContext
-                                                  forImageWithUrl: src
-                                                            width: width
-                                                           height: height];
-                }
-            }
-        }
-        NSError *error = nil;
-        [[ArticleDataContextSingleton sharedInstance].mainContext save:&error];
-    }];
-}
-
--(void)insertPlaceHolderImageEntityIntoContext: (NSManagedObjectContext *)context
-                               forImageWithUrl: (NSString *)url
-                                         width: (NSNumber *)width
-                                        height: (NSNumber *)height
-{
-    Image *existingImage = (Image *)[context getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", [url getUrlWithoutScheme]];
-    // If there's already an image record for this exact url, don't create another one!!!
-    if (!existingImage) {
-        Image *image = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:context];
-        image.imageData = [NSEntityDescription insertNewObjectForEntityForName:@"ImageData" inManagedObjectContext:context];
-        image.imageData.data = [[NSData alloc] init];
-        image.dataSize = @(image.imageData.data.length);
-        image.fileName = [url lastPathComponent];
-        image.fileNameNoSizePrefix = [image.fileName getWikiImageFileNameWithoutSizePrefix];
-        image.extension = [url pathExtension];
-        image.imageDescription = nil;
-        image.sourceUrl = [url getUrlWithoutScheme];
-        image.dateRetrieved = [NSDate date];
-        image.dateLastAccessed = [NSDate date];
-        image.width = @(width.integerValue);
-        image.height = @(height.integerValue);
-        image.mimeType = [image.extension getImageMimeTypeForExtension];
-    }
 }
 
 /*

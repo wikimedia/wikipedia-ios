@@ -2,7 +2,6 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "MWKSection+TOC.h"
-#import "Article.h"
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "NSString+FormattedAttributedString.h"

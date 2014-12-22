@@ -3,10 +3,7 @@
 
 #import "ArticleImporter.h"
 
-#import "ArticleDataContextSingleton.h"
-#import "ArticleCoreDataObjects.h"
 #import "SessionSingleton.h"
-#import "NSManagedObjectContext+SimpleFetch.h"
 #import "WikipediaAppUtils.h"
 #import "SavedPagesFunnel.h"
 
@@ -14,6 +11,7 @@
 
 -(void)importArticles:(NSArray *)articleDictionaries
 {
+    /*
     NSManagedObjectContext *context =
         [ArticleDataContextSingleton sharedInstance].mainContext;
 
@@ -93,6 +91,7 @@
         }
     
     }];
+     */
 }
 
 @end
