@@ -14,7 +14,7 @@
 @interface MWKHistoryList : MWKDataObject
 
 @property (readonly) NSUInteger length;
-@property (readonly) BOOL dirty;
+@property (readwrite) BOOL dirty;
 
 -(MWKHistoryEntry *)entryAtIndex:(NSUInteger)index;
 -(MWKHistoryEntry *)entryForTitle:(MWKTitle *)title;

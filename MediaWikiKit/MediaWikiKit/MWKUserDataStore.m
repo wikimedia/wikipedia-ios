@@ -80,7 +80,14 @@
         @throw [NSException exceptionWithName:@"MWKUserDataStoreException"
                                 reason:@"updateHistory called with null title" userInfo:@{}];
     }
-    MWKHistoryEntry *entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
+    MWKHistoryEntry *entry = [self.historyList entryForTitle:title];
+    if (entry) {
+        entry.discoveryMethod = discoveryMethod;
+        entry.date = [NSDate date];
+        // Retain saved scroll position
+    } else {
+        entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
+    }
     [self.historyList addEntry:entry];
     [self save];
 }

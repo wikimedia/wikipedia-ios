@@ -191,7 +191,7 @@
         [weakSelf performSelector:@selector(loadingIndicatorHide) withObject:nil afterDelay:0.22f];
         [weakSelf.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
         [weakSelf jumpToFragmentIfNecessary];
-        [weakSelf performSelector:@selector(autoScrollToLastScrollOffsetIfNecessary) withObject:nil afterDelay:0.0f];
+        [weakSelf performSelector:@selector(autoScrollToLastScrollOffsetIfNecessary) withObject:nil afterDelay:0.5f];
     }];
     
     self.unsafeToScroll = NO;
@@ -1142,6 +1142,7 @@
     MWKHistoryEntry *entry = [session.userDataStore.historyList entryForTitle:session.title];
     if (entry) {
         entry.scrollPosition = self.webView.scrollView.contentOffset.y;
+        session.userDataStore.historyList.dirty = YES; // hack to force
         [session.userDataStore save];
     }
 }
@@ -1644,6 +1645,7 @@
     
     MWKHistoryEntry *historyEntry = [session.userDataStore.historyList entryForTitle:article.title];
     CGPoint scrollOffset = historyEntry ? CGPointMake(0, historyEntry.scrollPosition) : CGPointMake(0, 0);
+    self.lastScrollOffset = scrollOffset;
     
     if (![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
         [sectionTextArray addObject: [self renderFooterDivider]];

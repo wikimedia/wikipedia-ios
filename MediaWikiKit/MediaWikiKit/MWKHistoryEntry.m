@@ -48,6 +48,7 @@
     dict[@"date"] = [self iso8601DateString:self.date];
     dict[@"discoveryMethod"] = [MWKHistoryEntry stringForDiscoveryMethod:self.discoveryMethod];
     dict[@"scrollPosition"] = @(self.scrollPosition);
+    NSLog(@"XXX SAVED %d for %@", self.scrollPosition, self.title.prefixedText);
     
     return [NSDictionary dictionaryWithDictionary:dict];
 }
