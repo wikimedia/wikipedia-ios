@@ -11,7 +11,7 @@
 @class MWKTitle;
 @class MWKSavedPageEntry;
 
-@interface MWKSavedPageList : MWKDataObject
+@interface MWKSavedPageList : MWKDataObject <NSFastEnumeration>
 
 @property (readonly) NSUInteger length;
 @property (readonly) BOOL dirty;

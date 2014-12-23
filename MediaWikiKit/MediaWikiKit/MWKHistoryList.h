@@ -11,7 +11,7 @@
 @class MWKTitle;
 @class MWKHistoryEntry;
 
-@interface MWKHistoryList : MWKDataObject
+@interface MWKHistoryList : MWKDataObject <NSFastEnumeration>
 
 @property (readonly) NSUInteger length;
 @property (readwrite) BOOL dirty;

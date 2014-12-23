@@ -17,7 +17,7 @@
 #import "PaddedLabel.h"
 #import "MenuButton.h"
 #import "TopMenuViewController.h"
-#import "CoreDataHousekeeping.h"
+#import "DataHousekeeping.h"
 #import "NSObject+ConstraintsScale.h"
 #import "SessionSingleton.h"
 
@@ -249,8 +249,8 @@
     [userDataStore save];
 
     // Remove any orphaned images.
-    CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
-    [imageHousekeeping performHouseKeeping];
+    DataHousekeeping *dataHouseKeeping = [[DataHousekeeping alloc] init];
+    [dataHouseKeeping performHouseKeeping];
     
     [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
 }
@@ -477,8 +477,8 @@
     }
 
     // Remove any orphaned images.
-    CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
-    [imageHousekeeping performHouseKeeping];
+    DataHousekeeping *dataHouseKeeping = [[DataHousekeeping alloc] init];
+    [dataHouseKeeping performHouseKeeping];
     
     [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
 }
@@ -519,8 +519,8 @@
     [userDataStore save];
 
     // Remove any orphaned images.
-    CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
-    [imageHousekeeping performHouseKeeping];
+    DataHousekeeping *dataHouseKeeping = [[DataHousekeeping alloc] init];
+    [dataHouseKeeping performHouseKeeping];
     
     [self.historyDataArray removeAllObjects];
     [self.tableView reloadData];

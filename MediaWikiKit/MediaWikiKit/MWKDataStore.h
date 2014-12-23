@@ -63,4 +63,6 @@
 
 -(MWKImageList *)imageListWithArticle:(MWKArticle *)article section:(MWKSection *)section;
 
+-(void)iterateOverArticles:(void(^)(MWKArticle *))block;
+
 @end

@@ -106,7 +106,7 @@
 		0487048F19F8262600B7D307 /* WikiTextSectionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487047B19F8262600B7D307 /* WikiTextSectionFetcher.m */; };
 		0487049019F8262600B7D307 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487047D19F8262600B7D307 /* WikiTextSectionUploader.m */; };
 		048A26771906268100395F53 /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048A26761906268100395F53 /* PaddedLabel.m */; };
-		0493C2CC1952373100EBB973 /* CoreDataHousekeeping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0493C2CB1952373100EBB973 /* CoreDataHousekeeping.m */; };
+		0493C2CC1952373100EBB973 /* DataHousekeeping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0493C2CB1952373100EBB973 /* DataHousekeeping.m */; };
 		0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */; };
 		0493C2D619526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D519526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf */; };
 		049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049566C118F5F4CB0058EA12 /* ZeroConfigState.m */; };
@@ -462,8 +462,8 @@
 		0487047D19F8262600B7D307 /* WikiTextSectionUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikiTextSectionUploader.m; sourceTree = "<group>"; };
 		048A26751906268100395F53 /* PaddedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddedLabel.h; sourceTree = "<group>"; };
 		048A26761906268100395F53 /* PaddedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PaddedLabel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		0493C2CA1952373100EBB973 /* CoreDataHousekeeping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHousekeeping.h; sourceTree = "<group>"; };
-		0493C2CB1952373100EBB973 /* CoreDataHousekeeping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHousekeeping.m; sourceTree = "<group>"; };
+		0493C2CA1952373100EBB973 /* DataHousekeeping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataHousekeeping.h; sourceTree = "<group>"; };
+		0493C2CB1952373100EBB973 /* DataHousekeeping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHousekeeping.m; sourceTree = "<group>"; };
 		0493C2D219525F8E00EBB973 /* WikiGlyph_Chars_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikiGlyph_Chars_iOS.h; sourceTree = "<group>"; };
 		0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs.ttf"; sourceTree = "<group>"; };
 		0493C2D519526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs-iOS.ttf"; sourceTree = "<group>"; };
@@ -1225,8 +1225,8 @@
 		0493C2C91952373100EBB973 /* Housekeeping */ = {
 			isa = PBXGroup;
 			children = (
-				0493C2CA1952373100EBB973 /* CoreDataHousekeeping.h */,
-				0493C2CB1952373100EBB973 /* CoreDataHousekeeping.m */,
+				0493C2CA1952373100EBB973 /* DataHousekeeping.h */,
+				0493C2CB1952373100EBB973 /* DataHousekeeping.m */,
 			);
 			path = Housekeeping;
 			sourceTree = "<group>";
@@ -2189,7 +2189,7 @@
 				0487048D19F8262600B7D307 /* ThumbnailFetcher.m in Sources */,
 				04530AF51935BF4D00022512 /* ModalMenuAndContentViewController.m in Sources */,
 				041A3B6218E11ED90079FF1C /* LanguagesViewController.m in Sources */,
-				0493C2CC1952373100EBB973 /* CoreDataHousekeeping.m in Sources */,
+				0493C2CC1952373100EBB973 /* DataHousekeeping.m in Sources */,
 				043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */,
 				0412CC621925366C0010E616 /* RootViewController.m in Sources */,
 				04272E7B1940EEBC00CC682F /* AssetsFile.m in Sources */,

@@ -3,7 +3,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CoreDataHousekeeping : NSObject
+@interface DataHousekeeping : NSObject
 
 -(void)performHouseKeeping;
 

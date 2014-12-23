@@ -14,7 +14,7 @@
 #import "UIViewController+ModalPop.h"
 #import "MenuButton.h"
 #import "TopMenuViewController.h"
-#import "CoreDataHousekeeping.h"
+#import "DataHousekeeping.h"
 #import "SavedPagesFunnel.h"
 #import "NSObject+ConstraintsScale.h"
 #import "PaddedLabel.h"
@@ -272,8 +272,8 @@
     }
 
     // Remove any orphaned images.
-    CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
-    [imageHousekeeping performHouseKeeping];
+    DataHousekeeping *dataHouseKeeping = [[DataHousekeeping alloc] init];
+    [dataHouseKeeping performHouseKeeping];
     
     [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
 }
@@ -284,8 +284,8 @@
     [userDataStore save];
 
     // Remove any orphaned images.
-    CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
-    [imageHousekeeping performHouseKeeping];
+    DataHousekeeping *dataHouseKeeping = [[DataHousekeeping alloc] init];
+    [dataHouseKeeping performHouseKeeping];
     
     [self.tableView reloadData];
     

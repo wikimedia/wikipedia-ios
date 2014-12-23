@@ -35,7 +35,7 @@
 #import "MWKSection+DisplayHtml.h"
 #import "EditFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"
-#import "CoreDataHousekeeping.h"
+#import "DataHousekeeping.h"
 #import "NSDate-Utilities.h"
 #import "AccountCreationViewController.h"
 #import "OnboardingViewController.h"
@@ -345,8 +345,8 @@
     NSLog(@"daysSinceLastHouseKeeping = %ld", (long)daysSinceLastHouseKeeping);
     if (daysSinceLastHouseKeeping > 1) {
         NSLog(@"Performing housekeeping...");
-        CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
-        [imageHousekeeping performHouseKeeping];
+        DataHousekeeping *dataHouseKeeping = [[DataHousekeeping alloc] init];
+        [dataHouseKeeping performHouseKeeping];
         [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"LastHousekeepingDate"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
@@ -1294,8 +1294,8 @@
     [ROOT pushViewController:createAcctVC animated:YES];
     */
     
-    //CoreDataHousekeeping *imageHousekeeping = [[CoreDataHousekeeping alloc] init];
-    //[imageHousekeeping performHouseKeeping];
+    //DataHousekeeping *dataHouseKeeping = [[DataHousekeeping alloc] init];
+    //[dataHouseKeeping performHouseKeeping];
     
     // Do not remove the following commented toggle. It's for testing W0 stuff.
     //[session.zeroConfigState toggleFakeZeroOn];

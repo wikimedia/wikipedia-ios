@@ -104,6 +104,11 @@
     return encodedStr;
 }
 
+-(NSString *)stringWithSafeFilename:(NSString *)str
+{
+    return [str stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
 -(NSString *)safeFilenameWithImageURL:(NSString *)str
 {
     if ([str hasPrefix:@"http:"]) {
@@ -404,6 +409,30 @@
         return [[MWKImageList alloc] initWithArticle:article section:section dict:dict];
     } else {
         return [[MWKImageList alloc] initWithArticle:article section:section];
+    }
+}
+
+-(void)iterateOverArticles:(void(^)(MWKArticle *))block
+{
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *articlePath = [self pathForSites];
+    for (NSString *path in [fm enumeratorAtPath:articlePath]) {
+        NSArray *components = [path pathComponents];
+        NSUInteger count = [components count];
+        NSString *filename = components[count - 1];
+        if ([filename isEqualToString:@"Article.plist"]) {
+            NSString *dirname = components[count - 2];
+            NSString *titleText = [self stringWithSafeFilename:dirname];
+
+            NSString *language = components[count - 4];
+            NSString *domain = components[count - 5];
+            
+            MWKSite *site = [[MWKSite alloc] initWithDomain:domain language:language];
+            MWKTitle *title = [site titleWithString:titleText];
+            
+            MWKArticle *article = [self articleWithTitle:title];
+            block(article);
+        }
     }
 }
 
