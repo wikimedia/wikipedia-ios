@@ -32,6 +32,9 @@
 @property (readonly) MWKArticle *article;
 @property (readonly) MWKUserDataStore *userDataStore;
 
+@property (readwrite) NSString *searchLanguage;
+@property (readonly) MWKSite *searchSite;
+
 @property (strong, nonatomic, readonly) NSString *searchApiUrl;
 
 @property (strong, atomic) NSArray *unsupportedCharactersLanguageIds;

@@ -8,6 +8,7 @@
     MWKTitle *_title;
     MWKArticle *_article;
     MWKUserDataStore *_userDataStore;
+    MWKSite *_searchSite;
 }
 
 + (SessionSingleton *)sharedInstance
@@ -55,91 +56,28 @@
 -(NSString *)searchApiUrl
 {
     NSString *endpoint = self.fallback ? @"" : @".m";
-    return [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", self.site.language, endpoint, self.site.domain];
+    return [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", self.searchLanguage, endpoint, self.site.domain];
 }
 
-/*
--(void)setSite:(NSString *)domain
+-(void)setSearchLanguage:(NSString *)searchLanguage
 {
-    self.domainMainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:domain];
-
-    [[NSUserDefaults standardUserDefaults] setObject:domain forKey:@"Domain"];
+    _searchSite = nil;
+    [[NSUserDefaults standardUserDefaults] setObject:searchLanguage forKey:@"Domain"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    _currentSite = nil;
-    _currentTitle = nil;
-    _currentArticleStore = nil;
 }
 
--(NSString *)domain
+-(NSString *)searchLanguage
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"Domain"];
 }
 
--(void)setDomainMainArticleTitle:(NSString *)domainMainArticleTitle
+-(MWKSite *)searchSite
 {
-    [[NSUserDefaults standardUserDefaults] setObject:domainMainArticleTitle forKey:@"DomainMainArticleTitle"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    if (_searchSite == nil) {
+        _searchSite = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:self.searchLanguage];
+    }
+    return _searchSite;
 }
-
--(NSString *)domainMainArticleTitle
-{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"DomainMainArticleTitle"];
-}
-
--(void)setDomainName:(NSString *)domainName
-{
-    [[NSUserDefaults standardUserDefaults] setObject:domainName forKey:@"DomainName"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
--(NSString *)domainName
-{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"DomainName"];
-}
-
--(void)setSite:(NSString *)site
-{
-    [[NSUserDefaults standardUserDefaults] setObject:site forKey:@"Site"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-
-    _currentSite = nil;
-    _currentTitle = nil;
-    _currentArticleStore = nil;
-}
-
--(NSString *)site
-{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"Site"];
-}
-
--(void)setCurrentArticleTitle:(NSString *)currentArticleTitle
-{
-    [[NSUserDefaults standardUserDefaults] setObject:currentArticleTitle forKey:@"CurrentArticleTitle"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
--(NSString *)currentArticleTitle
-{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
-}
-
--(void)setCurrentArticleDomain:(NSString *)currentArticleDomain
-{
-    [[NSUserDefaults standardUserDefaults] setObject:currentArticleDomain forKey:@"CurrentArticleDomain"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
--(NSString *)currentArticleDomain
-{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleDomain"];
-}
-
--(NSString *)currentArticleDomainName
-{
-    return [WikipediaAppUtils domainNameForCode:self.currentArticleDomain];
-}
-*/
 
 -(BOOL)isCurrentArticleMain
 {

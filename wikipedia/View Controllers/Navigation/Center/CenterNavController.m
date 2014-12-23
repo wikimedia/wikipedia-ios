@@ -219,10 +219,12 @@
 
 -(void)switchPreferredLanguageToId:(NSString *)languageId name:(NSString *)name
 {
-    NSString *mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:[SessionSingleton sharedInstance].site.language];
+    NSString *mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:languageId];
     if (mainArticleTitle) {
-        MWKSite *site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:languageId];
-        MWKTitle *pageTitle = [site titleWithString:mainArticleTitle];
+        SessionSingleton *session = [SessionSingleton sharedInstance];
+        session.searchLanguage = languageId;
+        
+        MWKTitle *pageTitle = [session.searchSite titleWithString:mainArticleTitle];
         
         // Invalidate cache so present day main page article is always retrieved.
         [self loadArticleWithTitle: pageTitle

@@ -565,7 +565,7 @@
     // Set CurrentArticleTitle so web view knows what to load.
     title = [title wikiTitleWithoutUnderscores];
 
-    [NAV loadArticleWithTitle: [[SessionSingleton sharedInstance].site titleWithString:title]
+    [NAV loadArticleWithTitle: [[SessionSingleton sharedInstance].searchSite titleWithString:title]
                      animated: YES
               discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
             invalidatingCache: NO
@@ -590,7 +590,7 @@
 -(void)saveSearchTermToRecentList
 {
     [self.recentSearchesViewController saveTerm: self.searchString
-                                      forDomain: [SessionSingleton sharedInstance].site.language
+                                      forDomain: [SessionSingleton sharedInstance].searchSite.language
                                            type: self.searchTypeMenu.searchType];
 }
 
