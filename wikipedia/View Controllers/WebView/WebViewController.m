@@ -54,10 +54,8 @@
 #import "WikiGlyph_Chars_iOS.h"
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"
-#import "SearchResultsController.h"
 #import "ArticleFetcher.h"
 #import "AssetsFileFetcher.h"
-#import "SaveThumbnailFetcher.h"
 
 //#import "UIView+Debugging.h"
 
@@ -1480,28 +1478,7 @@
 									  discoveryMethod: discoveryMethod];
 					return;
 				}
-				
-				// Associate thumbnail with article.
-				// If search result for this pageTitle had a thumbnail url associated with it, see if
-				// a core data image object exists with a matching sourceURL. If so make the article
-				// thumbnailImage property point to that core data image object. This associates the
-				// search result thumbnail with the article.
-				NSPredicate *articlePredicate =
-				[NSPredicate predicateWithFormat:@"(title == %@) AND (thumbnail.source.length > 0)", article.title.prefixedText];
-				NSDictionary *articleDictFromSearchResults =
-				[ROOT.topMenuViewController.searchResultsController.searchResults firstMatchForPredicate:articlePredicate];
-				if (articleDictFromSearchResults) {
-					NSString *thumbURL = articleDictFromSearchResults[@"thumbnail"][@"source"];
-                    if (thumbURL) {
-                        thumbURL = [thumbURL getUrlWithoutScheme];
-                        if (thumbURL) article.thumbnailURL = thumbURL;
-                        [article save];
-                        (void)[[SaveThumbnailFetcher alloc] initAndFetchThumbnailFromURL:article.thumbnailURL
-                                                                              forArticle:article
-                                                                             withManager:[QueuesSingleton sharedInstance].articleFetchManager];
-                    }
-				}
-				
+
 				// Update the toc and web view.
 				[self.tocVC setTocSectionDataForSections:article.sections];
 				[self displayArticle:article.title];

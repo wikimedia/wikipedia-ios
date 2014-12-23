@@ -2,7 +2,6 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "ArticleFetcher.h"
-//#import "Article.h"
 #import "Defines.h"
 #import "Section.h"
 #import "QueuesSingleton.h"
@@ -16,7 +15,6 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <SystemConfiguration/SystemConfiguration.h>
-#import "SaveThumbnailFetcher.h"
 
 #import <TFHpple.h>
 
@@ -103,18 +101,14 @@
             return;
         }
         
-        // Special hack for image thumb
-        if (self.article.imageURL) {
-            (void)[[SaveThumbnailFetcher alloc] initAndFetchThumbnailFromURL:self.article.imageURL
-                                                                  forArticle:self.article
-                                                                 withManager:manager];
-        }
-        
         //[self applyResultsForLeadSection:leadSectionResults];
         for (int n = 0; n < [self.article.sections count]; n++) {
             (void)self.article.sections[n].images; // hack
             [self createImageRecordsForSection:n];
         }
+
+        [self associateThumbFromTempDirWithArticle];
+
         [self.article save];
 
         [self finishWithError: nil
@@ -364,6 +358,38 @@
     // Reminder: don't do "context save" here - createImageRecordsForHtmlOnContext gets
     // called in a loop after which save is called. This method *only* creates - the caller
     // is responsible for saving.
+}
+
+-(void)associateThumbFromTempDirWithArticle
+{
+    // Map which search and nearby populates with title/thumb url mappings.
+    NSDictionary *map = [SessionSingleton sharedInstance].titleToTempDirThumbURLMap;
+    NSString *title = self.article.title.prefixedText;
+    if (title) {
+        NSString *thumbURL = map[title];
+        if (thumbURL) {
+            thumbURL = [thumbURL getUrlWithoutScheme];
+            
+            // Associate Search/Nearby thumb url with article.thumbnailURL.
+            if (thumbURL) self.article.thumbnailURL = thumbURL;
+            
+            NSArray *cachePaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            NSString *cachePath = [cachePaths objectAtIndex:0];
+            
+            NSString *cacheFilePath = [cachePath stringByAppendingPathComponent:thumbURL.lastPathComponent];
+            BOOL isDirectory = NO;
+            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:cacheFilePath isDirectory:&isDirectory];
+            if (fileExists) {
+                NSError *error = nil;
+                NSData *data = [NSData dataWithContentsOfFile:cacheFilePath options:0 error:&error];
+                if (!error) {
+                    // Copy Search/Nearby thumb binary to core data store so it doesn't have to be re-downloaded.
+                    MWKImage *image = [self.article importImageURL:thumbURL sectionId:MWK_SECTION_THUMBNAIL];
+                    [self.article importImageData:data image:image mimeType:@"image"];
+                }
+            }
+        }
+    }
 }
 
 @end

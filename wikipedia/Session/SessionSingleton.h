@@ -43,4 +43,11 @@
 
 + (SessionSingleton *)sharedInstance;
 
+// Search and Nearby fetch thumbnails which are tossed in the tmp dir so we
+// don't have to worry about pruning. However, when we then load an article
+// we need to yank out the thumb for that article so it can be saved in the
+// data store. This dictionary gives us an easy place to see what temp thumb
+// file is known to be associated with an article title.
+@property (strong, nonatomic) NSMutableDictionary *titleToTempDirThumbURLMap;
+
 @end

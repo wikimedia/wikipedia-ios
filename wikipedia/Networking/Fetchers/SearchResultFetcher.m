@@ -79,6 +79,18 @@
         if (!error) {
             self.searchResults = [self getSanitizedResponse:responseObject];
             self.searchSuggestion = [self getSearchSuggestionFromResponse:responseObject];
+
+            // Populate the map so the article fetcher can grab thumb
+            // from temp dir.
+            NSMutableDictionary *map = [SessionSingleton sharedInstance].titleToTempDirThumbURLMap;
+            [map removeAllObjects];
+            for (NSDictionary *result in self.searchResults) {
+                NSString *title = result[@"title"];
+                NSString *thumbUrl = result[@"thumbnail"][@"source"];
+                if (title && thumbUrl) {
+                    map[title] = thumbUrl;
+                }
+            }
         }
 
         // If no matches set error.

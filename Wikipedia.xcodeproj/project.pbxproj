@@ -214,7 +214,6 @@
 		D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */; };
 		D4F277FB194235A00032BA38 /* ProtectedEditAttemptFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F277FA194235A00032BA38 /* ProtectedEditAttemptFunnel.m */; };
 		D4F277FE194235B50032BA38 /* ToCInteractionFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F277FD194235B50032BA38 /* ToCInteractionFunnel.m */; };
-		D4F477EC1A48AC3000D8043C /* SaveThumbnailFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F477EB1A48AC3000D8043C /* SaveThumbnailFetcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -836,8 +835,6 @@
 		D4F277FA194235A00032BA38 /* ProtectedEditAttemptFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProtectedEditAttemptFunnel.m; path = EventLogging/ProtectedEditAttemptFunnel.m; sourceTree = "<group>"; };
 		D4F277FC194235B50032BA38 /* ToCInteractionFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToCInteractionFunnel.h; path = EventLogging/ToCInteractionFunnel.h; sourceTree = "<group>"; };
 		D4F277FD194235B50032BA38 /* ToCInteractionFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToCInteractionFunnel.m; path = EventLogging/ToCInteractionFunnel.m; sourceTree = "<group>"; };
-		D4F477EA1A48AC3000D8043C /* SaveThumbnailFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveThumbnailFetcher.h; sourceTree = "<group>"; };
-		D4F477EB1A48AC3000D8043C /* SaveThumbnailFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveThumbnailFetcher.m; sourceTree = "<group>"; };
 		D82982ED992F47428037BDF2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1226,8 +1223,6 @@
 				04414DDE1A1420EB00A41B4E /* WikiDataShortDescriptionFetcher.m */,
 				0487047619F8262600B7D307 /* ThumbnailFetcher.h */,
 				0487047719F8262600B7D307 /* ThumbnailFetcher.m */,
-				D4F477EA1A48AC3000D8043C /* SaveThumbnailFetcher.h */,
-				D4F477EB1A48AC3000D8043C /* SaveThumbnailFetcher.m */,
 				0487047819F8262600B7D307 /* WikipediaZeroMessageFetcher.h */,
 				0487047919F8262600B7D307 /* WikipediaZeroMessageFetcher.m */,
 				0487047A19F8262600B7D307 /* WikiTextSectionFetcher.h */,
@@ -2256,7 +2251,6 @@
 				042A5B2919253E570095E172 /* TopMenuViewController.m in Sources */,
 				D4991445181D51DE00E6073C /* main.m in Sources */,
 				04CFA123194B94980088269A /* MenuButton.m in Sources */,
-				D4F477EC1A48AC3000D8043C /* SaveThumbnailFetcher.m in Sources */,
 				D47BF5D4197870390067C3BC /* SavedPagesFunnel.m in Sources */,
 				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
 				04CCCFEE1935093A00E3F60C /* SecondaryMenuRowView.m in Sources */,

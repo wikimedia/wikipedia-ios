@@ -40,6 +40,8 @@
         
         _title = nil;
         _article = nil;
+        
+        self.titleToTempDirThumbURLMap = @{}.mutableCopy;
     }
     return self;
 }
