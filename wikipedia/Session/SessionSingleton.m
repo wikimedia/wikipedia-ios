@@ -191,6 +191,7 @@
     _article = nil;
     [[NSUserDefaults standardUserDefaults] setObject:title.site.language forKey:@"CurrentArticleDomain"];
     [[NSUserDefaults standardUserDefaults] setObject:title.prefixedDBKey forKey:@"CurrentArticleTitle"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(BOOL)sendUsageReports
