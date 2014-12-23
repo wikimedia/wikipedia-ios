@@ -42,7 +42,7 @@
 -(void)saveSection:(MWKSection *)section;
 -(void)saveSectionText:(NSString *)html section:(MWKSection *)section;
 -(void)saveImage:(MWKImage *)image;
--(void)saveImageData:(NSData *)data image:(MWKImage *)image mimeType:(NSString *)mimeType;
+-(void)saveImageData:(NSData *)data image:(MWKImage *)image;
 -(void)saveHistoryList:(MWKHistoryList *)list;
 -(void)saveSavedPageList:(MWKSavedPageList *)list;
 -(void)saveRecentSearchList:(MWKRecentSearchList *)list;

@@ -387,7 +387,7 @@
                 if (!error) {
                     // Copy Search/Nearby thumb binary to core data store so it doesn't have to be re-downloaded.
                     MWKImage *image = [self.article importImageURL:thumbURL sectionId:MWK_SECTION_THUMBNAIL];
-                    [self.article importImageData:data image:image mimeType:@"image"];
+                    [self.article importImageData:data image:image];
                     foundThumbInTempDir = YES;
                 }
             }

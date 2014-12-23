@@ -103,15 +103,30 @@
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 
--(void)updateWithData:(NSData *)data mimeType:(NSString *)mimeType
+-(void)importImageData:(NSData *)data
+{
+    [self.article.dataStore saveImageData:data image:self];
+}
+
+-(void)updateWithData:(NSData *)data
 {
     _dateRetrieved = [[NSDate alloc] init];
     _dateLastAccessed = [[NSDate alloc] init];
-    _mimeType = [mimeType copy];
+    _mimeType = [self getImageMimeTypeForExtension:self.extension];
     
     UIImage *img = [UIImage imageWithData:data scale:1.0];
     _width = [NSNumber numberWithInt:img.size.width];
     _height = [NSNumber numberWithInt:img.size.height];
+}
+
+-(NSString *)getImageMimeTypeForExtension:(NSString *)extension
+{
+    NSString *lowerCaseSelf = [extension lowercaseString];
+    if  ([lowerCaseSelf isEqualToString:@"jpg"]) return @"image/jpeg";
+    if  ([lowerCaseSelf isEqualToString:@"jpeg"]) return @"image/jpeg";
+    if  ([lowerCaseSelf isEqualToString:@"png"]) return @"image/png";
+    if  ([lowerCaseSelf isEqualToString:@"gif"]) return @"image/gif";
+    return @"";
 }
 
 -(void)updateLastAccessed

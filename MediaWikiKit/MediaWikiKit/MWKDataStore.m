@@ -225,13 +225,13 @@
     [self saveDictionary:export path:path name:@"Image.plist"];
 }
 
--(void)saveImageData:(NSData *)data image:(MWKImage *)image mimeType:(NSString *)mimeType
+-(void)saveImageData:(NSData *)data image:(MWKImage *)image
 {
     NSString *path = [self pathForImage:image];
     NSString *filename = [@"Image" stringByAppendingPathExtension:image.extension];
     [self saveData:data path:path name:filename];
     
-    [image updateWithData:data mimeType:mimeType];
+    [image updateWithData:data];
     [self saveImage:image];
 }
 

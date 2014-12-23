@@ -35,7 +35,10 @@
 -(instancetype)initWithArticle:(MWKArticle *)article sourceURL:(NSString *)url;
 -(instancetype)initWithArticle:(MWKArticle *)article dict:(NSDictionary *)dict;
 
--(void)updateWithData:(NSData *)data mimeType:(NSString *)mimeType;
+-(void)importImageData:(NSData *)data;
+
+// internal
+-(void)updateWithData:(NSData *)data;
 -(void)updateLastAccessed;
 -(void)save;
 

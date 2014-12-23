@@ -145,9 +145,9 @@
  * Import downloaded image data into our data store,
  * and update the image object/record
  */
--(MWKImage *)importImageData:(NSData *)data image:(MWKImage *)image mimeType:(NSString *)mimeType
+-(MWKImage *)importImageData:(NSData *)data image:(MWKImage *)image
 {
-    [self.dataStore saveImageData:data image:image mimeType:mimeType];
+    [self.dataStore saveImageData:data image:image];
     return image;
 }
 

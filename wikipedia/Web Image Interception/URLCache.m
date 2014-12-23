@@ -109,7 +109,7 @@
     // (This one has no thread safety issues.)
     //imageDataToUse = self.debuggingPlaceHolderImageData;
 
-    [self.article importImageData:imageDataToUse image:image mimeType:cachedResponse.response.MIMEType];
+    [self.article importImageData:imageDataToUse image:image];
     
     // Broadcast the image data so things like the table of contents can update
     // itself as images arrive.

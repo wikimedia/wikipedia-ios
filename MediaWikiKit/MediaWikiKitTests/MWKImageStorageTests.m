@@ -46,7 +46,7 @@
     MWKImage *image = [self.article importImageURL:self.goldenGateImageURL sectionId:0];
     //MWKImage *image = [self.articleStore imageWithURL:self.goldenGateImageURL];
     XCTAssertNotNil(image);
-    XCTAssertNoThrow([self.article importImageData:dataSample image:image mimeType:@"image/jpeg"]);
+    XCTAssertNoThrow([self.article importImageData:dataSample image:image]);
     
     NSData *dataFromStorage = [self.article.dataStore imageDataWithImage:image];
     
