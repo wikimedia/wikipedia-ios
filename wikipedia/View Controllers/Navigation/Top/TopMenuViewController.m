@@ -623,7 +623,13 @@
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchFieldBecameFirstResponder" object:self userInfo:nil];
 
-    [self showSearchResultsController];
+    if (self.navBarMode == NAVBAR_MODE_DEFAULT_WITH_TOC
+        || self.navBarMode == NAVBAR_MODE_DEFAULT) {
+        // Only trigger this when starting to search from view mode?
+        // Calling this in other places caused bug:
+        // https://phabricator.wikimedia.org/T76380
+        [self showSearchResultsController];
+    }
     
     [self updateClearButtonVisibility];
 }
