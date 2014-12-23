@@ -94,6 +94,7 @@
             [self.article save];
         }
         @catch (NSException *e) {
+            NSLog(@"%@", e);
             NSError *err = [NSError errorWithDomain:@"ArticleFetcher" code:666 userInfo:@{@"exception": e}];
             [self finishWithError: err
                       fetchedData: nil];

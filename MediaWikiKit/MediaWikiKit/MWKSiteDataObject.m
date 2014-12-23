@@ -23,6 +23,10 @@
 
 - (MWKTitle *)optionalTitle:(NSString *)key dict:(NSDictionary *)dict
 {
+    if ([dict[key] isKindOfClass:[NSNumber class]] && ![dict[key] boolValue]) {
+        // false sometimes happens. Thanks PHP and weak typing!
+        return nil;
+    }
     NSString *str = [self optionalString:key dict:dict];
     if (str == nil) {
         return nil;

@@ -55,7 +55,7 @@
         dict[@"index"] = self.index;
     }
     if (self.fromtitle) {
-        dict[@"fromtitle"] = [self.fromtitle prefixedText];
+        dict[@"fromtitle"] = self.fromtitle.prefixedText;
     }
     if (self.anchor) {
         dict[@"anchor"] = self.anchor;
