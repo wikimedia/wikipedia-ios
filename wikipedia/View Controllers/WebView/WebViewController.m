@@ -1410,8 +1410,6 @@
     if (discoveryMethod != MWK_DISCOVERY_METHOD_BACKFORWARD) {
         [self updateHistoryDateVisitedForArticleBeingNavigatedFrom];
     }
-    self.currentTitle = title;
-    session.title = title;
     
     [self retrieveArticleForPageTitle: title
                       discoveryMethod: discoveryMethod];
@@ -1446,7 +1444,6 @@
 {
     if ([sender isKindOfClass:[ArticleFetcher class]]) {
         
-        ArticleFetcher *articleFetcher = (ArticleFetcher *)sender;
         MWKArticle *article = session.article;
         
         switch (status) {
@@ -1454,7 +1451,7 @@
             {
                 // Redirect if necessary.
                 MWKTitle *redirectedTitle = article.redirected;
-                if (redirectedTitle > 0) {
+                if (redirectedTitle) {
 					// Get discovery method for call to "retrieveArticleForPageTitle:".
 					// There should only be a single history item (at most).
 					MWKHistoryEntry *history = [session.userDataStore.historyList entryForTitle:article.title];
@@ -1463,8 +1460,8 @@
 					(history) ? history.discoveryMethod : MWK_DISCOVERY_METHOD_SEARCH;
 					
 					// Remove the article so it doesn't get saved.
-					//[article.managedObjectContext deleteObject:article];
-					
+                    [session.userDataStore.historyList removeEntry:history];
+                    [session.article remove];
 					
 					// Redirect!
 					[self retrieveArticleForPageTitle: redirectedTitle
@@ -1546,8 +1543,10 @@
     [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
     [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
     
+    self.currentTitle = pageTitle;
+    session.title = pageTitle;
+
     MWKArticle *article = session.article;
-    BOOL needsRefresh = NO;
     
     // Update the history dateVisited timestamp of the article to be visited only
     // if the article was NOT loaded via back or forward buttons.
