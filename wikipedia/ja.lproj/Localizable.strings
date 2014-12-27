@@ -81,6 +81,14 @@
 "search-loading-section-remaining" = "この記事の残りの部分を読み込んでいます。";
 "search-loading-article-loaded" = "記事を読み込みました。";
 "search-cancel" = "キャンセル";
+"search-titles" = "記事名";
+"search-within-articles" = "記事内";
+"search-did-you-mean" = "もしかして: $1";
+"search-recent-title" = "最近の検索";
+"search-recent-clear-confirmation-heading" = "最近の検索を全て削除しますか?";
+"search-recent-clear-confirmation-sub-heading" = "この操作は取り消せません!";
+"search-recent-clear-cancel" = "キャンセル";
+"search-recent-clear-delete-all" = "すべて削除";
 "main-menu-title" = "その他";
 "main-menu-language-title" = "$1版ウィキペディアを検索";
 "main-menu-language-toggle-show" = "言語を表示";

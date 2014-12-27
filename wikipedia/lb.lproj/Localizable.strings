@@ -75,6 +75,7 @@
 "search-titles" = "Titelen";
 "search-within-articles" = "An Artikelen";
 "search-did-you-mean" = "Mengt Dir $1?";
+"search-recent-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
 "search-recent-clear-cancel" = "Ofbriechen";
 "search-recent-clear-delete-all" = "All läschen";
 "main-menu-title" = "Méi";
@@ -142,6 +143,7 @@
 "credits-external-libraries" = "Extern";
 "about-title" = "Iwwer";
 "about-wikipedia" = "Wikipedia";
+"about-testers-details" = "QA getest vum $1";
 "about-translators" = "Iwwersetzer";
 "about-translators-details" = "Vu Fräiwëllegen op $1 iwwersat";
 "about-libraries" = "Benotzt Bibliothéiken";

@@ -157,6 +157,7 @@
 "about-title" = "Hakkında";
 "about-wikipedia" = "Vikipedi";
 "about-contributors" = "katkıda bulunanlar";
+"about-testers" = "test";
 "about-translators" = "çevirmenler";
 "about-translators-details" = "$1'deki gönüllülerce tercüme edilmiştir";
 "about-libraries" = "kullanılan kütüphaneler";

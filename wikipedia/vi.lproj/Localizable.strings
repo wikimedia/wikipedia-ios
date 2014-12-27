@@ -81,6 +81,11 @@
 "search-titles" = "Tên trang";
 "search-within-articles" = "Nội dung bài";
 "search-did-you-mean" = "Có phải bạn muốn tìm “$1”?";
+"search-recent-title" = "Tìm kiếm gần đây";
+"search-recent-clear-confirmation-heading" = "Xóa các tìm kiếm gần đây?";
+"search-recent-clear-confirmation-sub-heading" = "Không thể hoàn tác tác vụ này!";
+"search-recent-clear-cancel" = "Hủy bỏ";
+"search-recent-clear-delete-all" = "Xóa Toàn bộ";
 "main-menu-title" = "Khác";
 "main-menu-language-title" = "Tìm kiếm trong phiên bản ngôn ngữ $1";
 "main-menu-language-toggle-show" = "Xem các ngôn ngữ";

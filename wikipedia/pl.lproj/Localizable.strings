@@ -1,6 +1,7 @@
 // Messages for Polish (polski)
 // Exported from translatewiki.net
 // Author: Alan ffm
+// Author: Alchemik
 // Author: Bsitzmann
 // Author: Chrumps
 // Author: Jacenty359
@@ -23,6 +24,7 @@
 "history-clear-confirmation-sub-heading" = "Ta akcja nie może zostać cofnięta!";
 "history-clear-cancel" = "Anuluj";
 "history-clear-delete-all" = "Usuń wszystko";
+"zero-free-verbiage" = "Bezpłatny dostęp do Wikipedii u twojego operatora telefonii komórkowej (uchylona opłata za ruch)";
 "zero-charged-verbiage" = "Wikipedia Zero jest wyłączona.";
 "zero-interstitial-title" = "Opuszczasz Wikipedię Zero";
 "zero-interstitial-continue" = "Wyjdź";
@@ -179,6 +181,10 @@
 "nearby-distance-label-feet" = "$1 stopy";
 // Fuzzy
 "nearby-distance-label-miles" = "$1 mile";
+"nearby-pull-to-refresh-prompt" = "Pociągnij, aby odświeżyć";
 "nearby-pull-to-refresh-is-refreshing" = "Odświeżanie";
 "nearby-cancel" = "Anuluj";
+"nearby-location-updates-denied" = "Ta aplikacja nie posiada uprawnień do otrzymywania aktualizacji lokalizacji.";
+"nearby-location-updates-settings-menu" = "Prywatność > Usługi lokalizacji > Wikipedia";
+"nearby-location-general-error" = "Nie udało się ustalić położenia. Odśwież lub spróbuj ponownie później.";
 "nearby-wifi" = "Uruchomienie Wi-Fi może pomóc urządzeniu lepiej określić twoją lokalizację.";

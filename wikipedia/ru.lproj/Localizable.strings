@@ -3,6 +3,7 @@
 // Author: Alexandr Efremov
 // Author: Bsitzmann
 // Author: Kopcap94
+// Author: Oashnic
 // Author: Okras
 
 "article-languages-label" = "Выберите язык";
@@ -16,10 +17,10 @@
 "history-section-lastweek" = "На прошлой неделе";
 "history-section-lastmonth" = "В прошлом месяце";
 "history-clear-confirmation-heading" = "Удалить все недавние элементы?";
-"history-clear-confirmation-sub-heading" = "Это действие не может быть отменено!";
+"history-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
 "history-clear-cancel" = "Отмена";
 "history-clear-delete-all" = "Удалить всё";
-"zero-free-verbiage" = "Бесплатный доступ к Википедии у вашего мобильного оператора (оплата за трафик не взимается)";
+"zero-free-verbiage" = "У Вашего оператора бесплатный доступ к Википедии(оплата за трафик не взимается)";
 "zero-charged-verbiage" = "Wikipedia Zero выключена";
 "zero-charged-verbiage-extended" = "При загрузке других статей может взиматься плата за передачу данных. Сохранённые статьи, хранящиеся автономно, не требуют передачи данных и поэтому бесплатны.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -27,11 +28,11 @@
 "zero-interstitial-leave-app" = "Может взиматься плата за передачу данных. Продолжить переход на внешний сайт?";
 "zero-interstitial-continue" = "Перейти";
 "zero-interstitial-cancel" = "Остаться";
-"zero-learn-more" = "Плата за передачу данных не взимается за это приложение Википедии.";
-"zero-learn-more-learn-more" = "Читать дальше";
+"zero-learn-more" = "Плата за передачу данных не взимается при использовании этого приложения Википедии.";
+"zero-learn-more-learn-more" = "Подробнее";
 "zero-learn-more-no-thanks" = "Закрыть";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
-"zero-warn-when-leaving" = "Предупреждать, если покидаем Wikipedia Zero";
+"zero-warn-when-leaving" = "Предупреждать, если покидаете Wikipedia Zero";
 "zero-settings-devmode" = "Режим разработчика Zero";
 "account-creation-captcha-required" = "Требуется проверка капчей.";
 "account-creation-captcha-obtaining" = "Получение новой капчи.";
@@ -57,7 +58,7 @@
 "wikitext-download-failed" = "Не удаётся получить последнюю версию.";
 "wikitext-download-success" = "Содержимое загружено.";
 "wikitext-preview-changes" = "Получение предварительного просмотра внесённых изменений…";
-"wikitext-preview-changes-none" = "Не были внесено никаких изменений, которые можно было бы просмотреть.";
+"wikitext-preview-changes-none" = "Не было внесено никаких изменений, которые можно было бы просмотреть.";
 "wikitext-upload-result-unknown" = "Не удаётся определить результат загрузки вики-текста.";
 "wikitext-upload-captcha-error" = "Ошибка проверки капчи.";
 "wikitext-upload-captcha-needed" = "Нужна проверка капчи.";
@@ -66,7 +67,7 @@
 "wikitext-upload-save-sign-in-benefits" = "Так другие участники смогут связаться с вами, и вы сможете видеть, какие статьи вы редактировали.";
 "wikitext-upload-save-anonymously" = "Сохранить анонимно";
 "wikitext-upload-save-anonymously-warning" = "Правки будут отмечены IP-адресом вашего устройства. Если вы $1, то получите более высокий уровень конфиденциальности.";
-"wikitext-upload-save-terms-and-license" = "Сохраняя изменения, вы соглашаетесь с $1 и с тем, что размещаете в безотзывном порядке ваш вклад под лицензией $2.";
+"wikitext-upload-save-terms-and-license" = "Сохраняя, вы безоговорочно соглашаетесь разместить ваш вклад под лицензией $1.";
 "wikitext-upload-save-terms-name" = "Условия использования";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Открыть ссылку";
@@ -84,14 +85,14 @@
 "search-did-you-mean" = "Возможно, вы имели в виду $1?";
 "search-recent-title" = "Последние поисковые запросы";
 "search-recent-clear-confirmation-heading" = "Удалить все последние поисковые запросы?";
-"search-recent-clear-confirmation-sub-heading" = "Это действие не может быть отменено!";
+"search-recent-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
 "search-recent-clear-cancel" = "Отмена";
 "search-recent-clear-delete-all" = "Удалить всё";
 "main-menu-title" = "Ещё";
-"main-menu-language-title" = "$1 язык для поиска на вики";
+"main-menu-language-title" = "Поиск $1 Википедии";
 "main-menu-language-toggle-show" = "Показать языки";
 "main-menu-language-toggle-hide" = "Скрыть языки";
-"main-menu-language-selection-saved" = "Выбор языка сохранён";
+"main-menu-language-selection-saved" = "Выбранный язык сохранен";
 "main-menu-account-title-logged-out" = "Учётная запись";
 "main-menu-account-title-logged-in" = "Вошёл как: $1";
 "main-menu-account-login" = "Представиться";
@@ -104,7 +105,7 @@
 "main-menu-feedback-heading" = "Обратная связь";
 "main-menu-send-feedback" = "Отправить отзыв о приложении";
 "main-menu-show-page-history" = "История изменений страницы $1";
-"main-menu-credits" = "Создатели";
+"main-menu-credits" = "Авторы";
 "main-menu-about" = "О приложении «Википедия»";
 "main-menu-zero-faq" = "ЧаВо по Wikipedia Zero";
 "main-menu-privacy-policy" = "Политика конфиденциальности";
@@ -117,11 +118,11 @@
 "main-menu-more" = "Ещё…";
 "saved-pages-title" = "Сохранённые страницы";
 "saved-pages-clear-confirmation-heading" = "Удалить все сохранённые элементы?";
-"saved-pages-clear-confirmation-sub-heading" = "Это действие не может быть отменено!";
+"saved-pages-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
 "saved-pages-clear-cancel" = "Отмена";
 "saved-pages-clear-delete-all" = "Удалить всё";
 "page-history-title" = "История страницы";
-"page-history-downloading" = "Загрузка страницы истории…";
+"page-history-downloading" = "Загрузка истории страницы…";
 "navbar-title-mode-edit-wikitext" = "Править";
 "navbar-title-mode-login" = "Войти";
 "navbar-title-mode-login-and-save" = "Войти и сохранить";
@@ -133,7 +134,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Необходима быстрая проверка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишите вашу правку";
 "navbar-title-mode-edit-wikitext-save" = "Сохранить";
-"edit-summary-choice-linked-words" = "Установка слов-ссылок";
+"edit-summary-choice-linked-words" = "Добавить ссылки";
 "edit-summary-choice-fixed-grammar" = "Исправлено правописание";
 "edit-summary-choice-fixed-inaccuracy" = "Исправлена неточность";
 "edit-summary-choice-fixed-styling" = "Стилевые правки";
@@ -142,7 +143,7 @@
 "edit-summary-choice-added-missing-info" = "Добавлена отсутствующая информация";
 "edit-summary-choice-added-clarification" = "Добавлено разъяснение";
 "edit-summary-choice-other" = "Другое";
-"edit-summary-description" = "Точное описание помогает другим участникам быстро проверить ваши правки. Также вы могли бы указать описания с использованием приведённых ниже тегов.";
+"edit-summary-description" = "Точное описание помогает другим участникам быстро проверить ваши правки. Также вы могли бы указать описание с использованием приведённых ниже тегов.";
 "edit-summary-field-placeholder-text" = "Как именно вы улучшили страницу?";
 "edit-summary-title" = "Как именно вы улучшили страницу?";
 "fetching-random-article" = "Выбор случайной статьи";
@@ -157,14 +158,14 @@
 "about-wikipedia" = "Википедия";
 "about-contributors" = "авторы";
 "about-testers" = "тестеры";
-"about-testers-details" = "В/А, протестированные $1";
+"about-testers-details" = "В/А, протестировано $1";
 "about-translators" = "переводчики";
 "about-translators-details" = "Это приложение было переведено добровольцами на $1";
 "about-libraries" = "использованые библиотеки";
 "about-repositories" = "репозитории";
 "about-send-feedback" = "Отправить отзыв о приложении";
 "about-product-of" = "Продукт $1";
-"about-wikimedia-foundation" = "Фонда Викимедиа";
+"about-wikimedia-foundation" = "Фонд Викимедиа";
 "share-menu-save-page" = "Сохранить статью";
 "share-menu-page-saved" = "Статья сохранена";
 "share-menu-page-saved-access" = "Совет: чтобы получить доступ к вашим сохраненным страницам, нажмите на $1 выше или зажмите $2 ниже.";
@@ -196,9 +197,9 @@
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содержание";
 "abuse-filter-warning-heading" = "Эта правка выглядит деструктивной. Вы уверены, что хотите сохранить её?";
-"abuse-filter-warning-subheading" = "Ваша правка может содержать одно или несколько следующих действий:";
+"abuse-filter-warning-subheading" = "Ваша правка может содержать одно или несколько из следующих действий:";
 "abuse-filter-warning-caps" = "Печать ЗАГЛАВНЫМИ БУКВАМИ";
-"abuse-filter-warning-blanking" = "Очистка содержания статьи или спам";
+"abuse-filter-warning-blanking" = "Заготовка статьи или спам";
 "abuse-filter-warning-irrelevant" = "Нерелевантные внешние ссылки или изображения";
 "abuse-filter-warning-repeat" = "Повторяяяяяющиеся символы";
 "abuse-filter-disallow-heading" = "Вы не можете сохранить эту правку. Пожалуйста, вернитесь назад и измените её.";
@@ -225,7 +226,7 @@
 "nearby-pull-to-refresh-is-refreshing" = "Обновление";
 "nearby-loading" = "Загрузка статьей об объектах поблизости…";
 "nearby-loaded" = "Ближайшие статьи загружены";
-"nearby-none" = "Не удаётся найти статей об объектах поблизости. Потяните, чтобы обновить или попробуйте ещё раз.";
+"nearby-none" = "Не удаётся найти статьи об объектах поблизости. Потяните, чтобы обновить или повторите попытку позже.";
 "nearby-open-in-maps" = "Открыть на Картах";
 "nearby-cancel" = "Отмена";
 "nearby-location-updates-denied" = "У этого приложения нет разрешения на обновление сведений о местоположении.";

@@ -5,6 +5,7 @@
 // Author: C5st4wr6ch
 // Author: Iwan Novirion
 // Author: Relly Komaruzaman
+// Author: Rizkiahmadz
 
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batal";
@@ -80,6 +81,14 @@
 "search-loading-section-remaining" = "Memuat sisa artikel...";
 "search-loading-article-loaded" = "Artikel dimuat.";
 "search-cancel" = "Batal";
+"search-titles" = "Judul";
+"search-within-articles" = "Dalam artikel";
+"search-did-you-mean" = "Apakah maksud Anda $1?";
+"search-recent-title" = "Pencarian terkini";
+"search-recent-clear-confirmation-heading" = "Hapus semua pencarian terkini?";
+"search-recent-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";
+"search-recent-clear-cancel" = "Batalkan";
+"search-recent-clear-delete-all" = "Hapus Semua";
 "main-menu-title" = "Lainnya";
 "main-menu-language-title" = "Cari Wikipedia $1";
 "main-menu-language-toggle-show" = "Tampilkan bahasa";

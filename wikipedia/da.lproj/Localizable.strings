@@ -77,6 +77,14 @@
 "search-loading-section-remaining" = "Indlæser resten af artiklen...";
 "search-loading-article-loaded" = "Artikel indlæst.";
 "search-cancel" = "Afbryd";
+"search-titles" = "Titler";
+"search-within-articles" = "Indhold i artikler";
+"search-did-you-mean" = "Mente du $1?";
+"search-recent-title" = "Seneste søgninger";
+"search-recent-clear-confirmation-heading" = "Slet alle seneste søgninger?";
+"search-recent-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
+"search-recent-clear-cancel" = "Annullér";
+"search-recent-clear-delete-all" = "Slet alle";
 "main-menu-title" = "Mere";
 "main-menu-language-title" = "Søg i Wikipedia på $1";
 "main-menu-language-toggle-show" = "Vis sprog";
@@ -146,9 +154,12 @@
 "about-title" = "Om";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "bidragsydere";
+"about-testers" = "testere";
+"about-testers-details" = "Kvalitetssikringstestet af $1";
 "about-translators" = "oversættere";
 "about-translators-details" = "Oversat af frivillige på $1";
 "about-libraries" = "anvendte biblioteker";
+"about-repositories" = "lagre";
 "about-send-feedback" = "Send tilbagemelding om app";
 "about-product-of" = "Et produkt af $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";

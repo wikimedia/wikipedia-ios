@@ -1,6 +1,7 @@
 // Messages for Uzbek (oʻzbekcha)
 // Exported from translatewiki.net
 // Author: 6ahodir
+// Author: Sociologist
 // Author: Uzeconomist
 
 "article-languages-label" = "Tilni tanlang";
@@ -59,8 +60,8 @@
 "search-loading-section-remaining" = "Maqolaning qolgan qismi yuklanyapti...";
 "search-loading-article-loaded" = "Maqola yuklandi.";
 "search-cancel" = "Bekor qilish";
-"search-recent-title" = "So‘nggi qidiruvlar";
-"search-recent-clear-confirmation-heading" = "Barcha so‘nggi qidiruvlar o‘chirib tashlansinmi?";
+"search-recent-title" = "Oxirgi paytdagi qidiruvlar";
+"search-recent-clear-confirmation-heading" = "Barcha oxirgi paytdagi qidiruvlar o‘chirib tashlansinmi?";
 "search-recent-clear-confirmation-sub-heading" = "Bu amalni bekor qilib boʻlmaydi!";
 "search-recent-clear-cancel" = "Bekor qilish";
 "search-recent-clear-delete-all" = "Barchasini oʻchirish";

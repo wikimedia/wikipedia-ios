@@ -113,8 +113,8 @@
 "navbar-title-mode-login-and-save" = "প্রবেশ করুন ও সংরক্ষণ করুন";
 "navbar-title-mode-create-account" = "অ্যাকাউন্ট তৈরি করুন";
 "navbar-title-mode-create-account-and-save" = "অ্যাকাউন্ট তৈরি করুন ও সংরক্ষণ করুন।";
-"navbar-title-mode-edit-wikitext-warning" = "ইস্যু সম্পাদনা";
-"navbar-title-mode-edit-wikitext-disallow" = "ইস্যু সম্পাদনা";
+"navbar-title-mode-edit-wikitext-warning" = "সমস্যা সম্পাদনা";
+"navbar-title-mode-edit-wikitext-disallow" = "সমস্যা সম্পাদনা";
 "navbar-title-mode-edit-wikitext-preview" = "প্রাকদর্শন";
 "navbar-title-mode-edit-wikitext-captcha" = "দ্রুত যাচাইকরণের প্রয়োজন";
 "navbar-title-mode-edit-wikitext-summary" = "আপনার সম্পাদনা বর্ণনা করুন।";
