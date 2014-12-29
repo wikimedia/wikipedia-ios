@@ -7,4 +7,8 @@
 
 -(BOOL)isThreePointFiveInchScreen;
 
+-(UIInterfaceOrientation)interfaceOrientation;
+
+-(CGSize)screenSize;
+
 @end

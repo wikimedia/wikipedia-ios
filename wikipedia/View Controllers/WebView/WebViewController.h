@@ -5,10 +5,11 @@
 #import "CenterNavController.h"
 #import "PullToRefreshViewController.h"
 #import "ArticleFetcher.h"
+#import "LeadImageContainer.h"
 
-@class BottomMenuViewController;
+@class BottomMenuViewController, CommunicationBridge;
 
-@interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, FetchFinishedDelegate>
+@interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, FetchFinishedDelegate, LeadImageHeightDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic) BOOL bottomMenuHidden;

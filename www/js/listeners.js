@@ -6,7 +6,7 @@ var refs = require("./refs");
 // See: http://stackoverflow.com/a/3698214/135557
 document.addEventListener("DOMContentLoaded", function(event) {
 
-    transformer.transform( "relocateInfobox", document );
+    transformer.transform( "moveFirstGoodParagraphUp", document );
     transformer.transform( "hideRedlinks", document );
     transformer.transform( "disableFilePageEdit", document );
 
@@ -140,3 +140,9 @@ function touchEndedWithoutDragging(event){
 }
 
 document.addEventListener("touchend", handleTouchEnded, "false");
+
+bridge.registerListener( "setLeadImageDivHeight", function( payload ) {
+    var div = document.getElementById( "lead_image_div" );
+    if (payload.height == div.offsetHeight) return;
+    div.style.height = payload.height + 'px';
+});

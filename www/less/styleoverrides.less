@@ -15,7 +15,7 @@ a:hover {
 /* The edit pencil needs to be forced to be a bit bigger. */
 .edit_section_button {
     display:inline-block !important;
-    width:52px !important;
+    width:38px !important;
     height:42px !important;
     background-size: 36px 36px !important;
     background-repeat: no-repeat !important;
@@ -66,3 +66,18 @@ img {
 
 
 
+
+
+
+
+
+/* Lead Image Styling overrides */
+
+/* Hats off! This info will appear within native interface elements. */
+.hatnote {display:none;}
+
+/* Override the top margin - needed so the lead image spacer can control top margin. */
+.content {margin-top:0px;}
+
+/* Override top padding on first edit pencil so it roughly aligns with first 2 lines of text. */
+#section_heading_and_content_block_0 .section_heading .edit_section_button{margin-top:18px;}
