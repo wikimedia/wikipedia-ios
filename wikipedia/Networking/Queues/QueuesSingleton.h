@@ -21,6 +21,7 @@
 @property (strong, nonatomic) AFHTTPRequestOperationManager *assetsFetchManager;
 @property (strong, nonatomic) AFHTTPRequestOperationManager *nearbyFetchManager;
 
+- (void)reset;
 + (QueuesSingleton *)sharedInstance;
 
 @end

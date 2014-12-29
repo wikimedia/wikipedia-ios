@@ -4,6 +4,7 @@
 #import "QueuesSingleton.h"
 #import "WikipediaAppUtils.h"
 #import "ReadingActionFunnel.h"
+#import "SessionSingleton.h"
 
 @implementation QueuesSingleton
 
@@ -21,36 +22,40 @@
 {
     self = [super init];
     if (self) {
-
-        [self setupManagers];
-
-        [self setRequestHeadersForManagers:@[
-            self.loginFetchManager,
-            self.articleFetchManager,
-            self.savedPagesFetchManager,
-            self.searchResultsFetchManager,
-            self.sectionWikiTextDownloadManager,
-            self.sectionWikiTextUploadManager,
-            self.sectionPreviewHtmlFetchManager,
-            self.languageLinksFetcher,
-            self.zeroRatedMessageFetchManager,
-            self.accountCreationFetchManager,
-            self.pageHistoryFetchManager,
-            self.assetsFetchManager,
-            self.nearbyFetchManager
-        ]];
-
-        [self setDefaultSerializerForManagers:@[
-            self.articleFetchManager,
-            self.nearbyFetchManager,
-            self.searchResultsFetchManager,
-            self.assetsFetchManager,
-            self.articleFetchManager
-        ]];
-
-        //[self setupQMonitorLogging];
+        [self reset];
     }
     return self;
+}
+
+-(void)reset
+{
+    [self setupManagers];
+    
+    [self setRequestHeadersForManagers:@[
+                                         self.loginFetchManager,
+                                         self.articleFetchManager,
+                                         self.savedPagesFetchManager,
+                                         self.searchResultsFetchManager,
+                                         self.sectionWikiTextDownloadManager,
+                                         self.sectionWikiTextUploadManager,
+                                         self.sectionPreviewHtmlFetchManager,
+                                         self.languageLinksFetcher,
+                                         self.zeroRatedMessageFetchManager,
+                                         self.accountCreationFetchManager,
+                                         self.pageHistoryFetchManager,
+                                         self.assetsFetchManager,
+                                         self.nearbyFetchManager
+                                         ]];
+    
+    [self setDefaultSerializerForManagers:@[
+                                            self.articleFetchManager,
+                                            self.nearbyFetchManager,
+                                            self.searchResultsFetchManager,
+                                            self.assetsFetchManager,
+                                            self.articleFetchManager
+                                            ]];
+    
+    //[self setupQMonitorLogging];
 }
 
 -(void)setupManagers
@@ -94,8 +99,11 @@
 {
     [manager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
     [manager.requestSerializer setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
-    ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
-    [manager.requestSerializer setValue:funnel.appInstallID forHTTPHeaderField:@"X-WMF-UUID"];
+    // Add the app install ID to the header, but only if the user has not opted out of logging
+    if ([SessionSingleton sharedInstance].sendUsageReports) {
+        ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
+        [manager.requestSerializer setValue:funnel.appInstallID forHTTPHeaderField:@"X-WMF-UUID"];
+    }
 
     // x-www-form-urlencoded is default, so probably don't need it.
     // See: http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1

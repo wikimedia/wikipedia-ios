@@ -3,6 +3,7 @@
 
 #import "SessionSingleton.h"
 #import "WikipediaAppUtils.h"
+#import "QueuesSingleton.h"
 
 @implementation SessionSingleton {
     MWKTitle *_title;
@@ -142,6 +143,7 @@
 {
     [[NSUserDefaults standardUserDefaults] setObject:@(sendUsageReports) forKey:@"SendUsageReports"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [[QueuesSingleton sharedInstance] reset];
 }
 
 @end
