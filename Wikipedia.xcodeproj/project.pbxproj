@@ -180,6 +180,7 @@
 		04F27B7818FE0F2E00EDD838 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F27B7418FE0F2E00EDD838 /* PageHistoryViewController.m */; };
 		04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F3958F186CF80100B0D6FC /* TOCViewController.m */; };
 		C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
+		D407E6411A51DBDA00CCC8B1 /* SchemaConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = D407E6401A51DBDA00CCC8B1 /* SchemaConverter.m */; };
 		D42E75EB18D11237002EA7E5 /* MWLanguageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D42E75EA18D11237002EA7E5 /* MWLanguageInfo.m */; };
 		D46CD8C418A1AC4F0042959E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C018A1AC4F0042959E /* InfoPlist.strings */; };
 		D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46CD8C218A1AC4F0042959E /* Localizable.strings */; };
@@ -201,8 +202,10 @@
 		D4B0AE0819366A0A00F0AC90 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE0719366A0A00F0AC90 /* CreateAccountFunnel.m */; };
 		D4B0AE0B19366A2C00F0AC90 /* ReadingActionFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE0A19366A2C00F0AC90 /* ReadingActionFunnel.m */; };
 		D4B0AE0E19366A5400F0AC90 /* LoginFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE0D19366A5400F0AC90 /* LoginFunnel.m */; };
+		D4B7794D1A5F36F700D06E00 /* OldDataSchemaBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D4E6D9161A5C65FA004916C1 /* OldDataSchemaBundle.bundle */; };
 		D4BC22B4181E9E6300CAC673 /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = D4BC22B3181E9E6300CAC673 /* empty.png */; };
 		D4C16A6819709CDF00CD91AD /* (null) in Resources */ = {isa = PBXBuildFile; };
+		D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040E5C4E184566F4007AFE6F /* CoreData.framework */; };
 		D4E8A8A4190835C100DA4765 /* DataMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E8A8A3190835C100DA4765 /* DataMigrator.m */; };
 		D4E8A8A719084F1300DA4765 /* SQLiteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E8A8A619084F1300DA4765 /* SQLiteHelper.m */; };
 		D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */; };
@@ -267,6 +270,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = C73D7690357B1F8585BBD225;
 			remoteInfo = "Pods-hpple";
+		};
+		D4E6D9151A5C65FA004916C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4F478441A48CD8500D8043C /* OldDataSchema.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D4E6D90A1A5C65B5004916C1;
+			remoteInfo = OldDataSchemaBundle;
 		};
 		D4F478491A48CD8700D8043C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -496,8 +506,8 @@
 		04AE1C6F1891B302002D5487 /* NSObject+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extras.m"; sourceTree = "<group>"; };
 		04AE520319DB5E0900F89B92 /* NSObject+ConstraintsScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ConstraintsScale.h"; sourceTree = "<group>"; };
 		04AE520419DB5E0900F89B92 /* NSObject+ConstraintsScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ConstraintsScale.m"; sourceTree = "<group>"; };
-		04B0EA43190AFDD8007458AF /* ArticleImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleImporter.h; sourceTree = "<group>"; };
-		04B0EA44190AFDD8007458AF /* ArticleImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleImporter.m; sourceTree = "<group>"; };
+		04B0EA43190AFDD8007458AF /* ArticleImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArticleImporter.h; path = wikipedia/Importer/ArticleImporter.h; sourceTree = SOURCE_ROOT; };
+		04B0EA44190AFDD8007458AF /* ArticleImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArticleImporter.m; path = wikipedia/Importer/ArticleImporter.m; sourceTree = SOURCE_ROOT; };
 		04B0EA46190B2319007458AF /* PreviewLicenseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviewLicenseView.xib; sourceTree = "<group>"; };
 		04B0EA48190B2348007458AF /* PreviewLicenseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewLicenseView.h; sourceTree = "<group>"; };
 		04B0EA49190B2348007458AF /* PreviewLicenseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewLicenseView.m; sourceTree = "<group>"; };
@@ -604,6 +614,8 @@
 		04F3958F186CF80100B0D6FC /* TOCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOCViewController.m; sourceTree = "<group>"; };
 		C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaAppUtils.h; sourceTree = "<group>"; };
 		C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikipediaAppUtils.m; sourceTree = "<group>"; };
+		D407E63F1A51DBDA00CCC8B1 /* SchemaConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SchemaConverter.h; path = wikipedia/Data/SchemaConverter.h; sourceTree = SOURCE_ROOT; };
+		D407E6401A51DBDA00CCC8B1 /* SchemaConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SchemaConverter.m; path = wikipedia/Data/SchemaConverter.m; sourceTree = SOURCE_ROOT; };
 		D42E75E918D11237002EA7E5 /* MWLanguageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWLanguageInfo.h; path = "mw-support/MWLanguageInfo.h"; sourceTree = "<group>"; };
 		D42E75EA18D11237002EA7E5 /* MWLanguageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWLanguageInfo.m; path = "mw-support/MWLanguageInfo.m"; sourceTree = "<group>"; };
 		D442F58619709E540013A2CA /* qqq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = qqq; path = qqq.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
@@ -820,10 +832,10 @@
 		D4C16A6119708B0E00CD91AD /* krc */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = krc; path = krc.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D4C16A6419709CDF00CD91AD /* qqq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = qqq; path = qqq.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D4C16A6519709CDF00CD91AD /* qqq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = qqq; path = qqq.lproj/Localizable.strings; sourceTree = "<group>"; };
-		D4E8A8A2190835C100DA4765 /* DataMigrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataMigrator.h; path = wikipedia/DataMigrator.h; sourceTree = SOURCE_ROOT; };
-		D4E8A8A3190835C100DA4765 /* DataMigrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataMigrator.m; path = wikipedia/DataMigrator.m; sourceTree = SOURCE_ROOT; };
-		D4E8A8A519084F1300DA4765 /* SQLiteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteHelper.h; sourceTree = "<group>"; };
-		D4E8A8A619084F1300DA4765 /* SQLiteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteHelper.m; sourceTree = "<group>"; };
+		D4E8A8A2190835C100DA4765 /* DataMigrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataMigrator.h; path = wikipedia/Data/DataMigrator.h; sourceTree = SOURCE_ROOT; };
+		D4E8A8A3190835C100DA4765 /* DataMigrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataMigrator.m; path = wikipedia/Data/DataMigrator.m; sourceTree = SOURCE_ROOT; };
+		D4E8A8A519084F1300DA4765 /* SQLiteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQLiteHelper.h; path = wikipedia/Data/SQLiteHelper.h; sourceTree = SOURCE_ROOT; };
+		D4E8A8A619084F1300DA4765 /* SQLiteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQLiteHelper.m; path = wikipedia/Data/SQLiteHelper.m; sourceTree = SOURCE_ROOT; };
 		D4E8A8A819085CEA00DA4765 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		D4F277F9194235A00032BA38 /* ProtectedEditAttemptFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProtectedEditAttemptFunnel.h; path = EventLogging/ProtectedEditAttemptFunnel.h; sourceTree = "<group>"; };
 		D4F277FA194235A00032BA38 /* ProtectedEditAttemptFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProtectedEditAttemptFunnel.m; path = EventLogging/ProtectedEditAttemptFunnel.m; sourceTree = "<group>"; };
@@ -838,6 +850,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D4F478741A48D1B100D8043C /* libOldDataSchema.a in Frameworks */,
 				D497FCFB1A080810004A36A5 /* libMediaWikiKit.a in Frameworks */,
 				D4AD975019F99E9000957451 /* libPods-hpple.a in Frameworks */,
@@ -860,8 +873,9 @@
 				D4E8A8A11908357600DA4765 /* Data Migration */,
 				04B0EA42190AFDBA007458AF /* Importer */,
 			);
-			path = Data;
-			sourceTree = "<group>";
+			name = Data;
+			path = wikipedia/Data;
+			sourceTree = SOURCE_ROOT;
 		};
 		0412CC5F192536580010E616 /* Root */ = {
 			isa = PBXGroup;
@@ -1289,7 +1303,7 @@
 			);
 			name = Importer;
 			path = ../Importer;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		04B60509193522650007185A /* MenuButton */ = {
 			isa = PBXGroup;
@@ -1743,10 +1757,12 @@
 				D4E8A8A3190835C100DA4765 /* DataMigrator.m */,
 				D4E8A8A519084F1300DA4765 /* SQLiteHelper.h */,
 				D4E8A8A619084F1300DA4765 /* SQLiteHelper.m */,
+				D407E63F1A51DBDA00CCC8B1 /* SchemaConverter.h */,
+				D407E6401A51DBDA00CCC8B1 /* SchemaConverter.m */,
 			);
 			name = "Data Migration";
 			path = ..;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		D4EE00BB182445670090790F /* mw-support */ = {
 			isa = PBXGroup;
@@ -1762,6 +1778,7 @@
 			isa = PBXGroup;
 			children = (
 				D4F4784A1A48CD8700D8043C /* libOldDataSchema.a */,
+				D4E6D9161A5C65FA004916C1 /* OldDataSchemaBundle.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1952,6 +1969,13 @@
 			remoteRef = D4AD974819F99CD700957451 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D4E6D9161A5C65FA004916C1 /* OldDataSchemaBundle.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = OldDataSchemaBundle.bundle;
+			remoteRef = D4E6D9151A5C65FA004916C1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D4F4784A1A48CD8700D8043C /* libOldDataSchema.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1966,6 +1990,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4B7794D1A5F36F700D06E00 /* OldDataSchemaBundle.bundle in Resources */,
 				04D3082C19991CB60034F106 /* logo-placeholder-nearby@2x.png in Resources */,
 				D46CD8C418A1AC4F0042959E /* InfoPlist.strings in Resources */,
 				045EFF1B19A25FEB00D0EDBB /* logo-placeholder-search@2x.png in Resources */,
@@ -2184,6 +2209,7 @@
 				047801BE18AE987900DBB747 /* UIButton+ColorMask.m in Sources */,
 				0429300A18604898002A13FC /* SavedPagesResultCell.m in Sources */,
 				0487048419F8262600B7D307 /* CaptchaResetter.m in Sources */,
+				D407E6411A51DBDA00CCC8B1 /* SchemaConverter.m in Sources */,
 				04821CD119895EDC007558F6 /* ReferenceGradientView.m in Sources */,
 				0460F8DC19B0F932001BC59B /* CenteredPathView.m in Sources */,
 				0472BC18193AD88C00C40BDA /* MWKSection+DisplayHtml.m in Sources */,
@@ -2551,10 +2577,12 @@
 					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
 					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
 					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
+					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2648,10 +2676,12 @@
 					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
 					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
 					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
+					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2674,10 +2704,12 @@
 					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
 					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
 					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
+					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

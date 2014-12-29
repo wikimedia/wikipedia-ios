@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4E6D9111A5C65C0004916C1 /* ArticleData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D4F478531A48CE0100D8043C /* ArticleData.xcdatamodeld */; };
 		D4F4782E1A48CD8500D8043C /* OldDataSchema.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D4F4782D1A48CD8500D8043C /* OldDataSchema.h */; };
 		D4F478301A48CD8500D8043C /* OldDataSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F4782F1A48CD8500D8043C /* OldDataSchema.m */; };
 		D4F478661A48CE0200D8043C /* ArticleDataContextSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F4784E1A48CE0100D8043C /* ArticleDataContextSingleton.m */; };
@@ -36,6 +37,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D4E6D90A1A5C65B5004916C1 /* OldDataSchemaBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OldDataSchemaBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4E6D90D1A5C65B5004916C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4F4782A1A48CD8500D8043C /* libOldDataSchema.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOldDataSchema.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F4782D1A48CD8500D8043C /* OldDataSchema.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OldDataSchema.h; sourceTree = "<group>"; };
 		D4F4782F1A48CD8500D8043C /* OldDataSchema.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OldDataSchema.m; sourceTree = "<group>"; };
@@ -69,6 +72,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D4E6D9071A5C65B5004916C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4F478271A48CD8500D8043C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -79,10 +89,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D4E6D90B1A5C65B5004916C1 /* OldDataSchemaBundle */ = {
+			isa = PBXGroup;
+			children = (
+				D4E6D90C1A5C65B5004916C1 /* Supporting Files */,
+			);
+			path = OldDataSchemaBundle;
+			sourceTree = "<group>";
+		};
+		D4E6D90C1A5C65B5004916C1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D4E6D90D1A5C65B5004916C1 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		D4F478211A48CD8500D8043C = {
 			isa = PBXGroup;
 			children = (
 				D4F4782C1A48CD8500D8043C /* OldDataSchema */,
+				D4E6D90B1A5C65B5004916C1 /* OldDataSchemaBundle */,
 				D4F4782B1A48CD8500D8043C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -91,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				D4F4782A1A48CD8500D8043C /* libOldDataSchema.a */,
+				D4E6D90A1A5C65B5004916C1 /* OldDataSchemaBundle.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,6 +178,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D4E6D9091A5C65B5004916C1 /* OldDataSchemaBundle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4E6D9101A5C65B5004916C1 /* Build configuration list for PBXNativeTarget "OldDataSchemaBundle" */;
+			buildPhases = (
+				D4E6D9061A5C65B5004916C1 /* Sources */,
+				D4E6D9071A5C65B5004916C1 /* Frameworks */,
+				D4E6D9081A5C65B5004916C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OldDataSchemaBundle;
+			productName = OldDataSchemaBundle;
+			productReference = D4E6D90A1A5C65B5004916C1 /* OldDataSchemaBundle.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		D4F478291A48CD8500D8043C /* OldDataSchema */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4F4783E1A48CD8500D8043C /* Build configuration list for PBXNativeTarget "OldDataSchema" */;
@@ -176,6 +221,9 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Wikimedia Foundation";
 				TargetAttributes = {
+					D4E6D9091A5C65B5004916C1 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
 					D4F478291A48CD8500D8043C = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
@@ -194,11 +242,30 @@
 			projectRoot = "";
 			targets = (
 				D4F478291A48CD8500D8043C /* OldDataSchema */,
+				D4E6D9091A5C65B5004916C1 /* OldDataSchemaBundle */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		D4E6D9081A5C65B5004916C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		D4E6D9061A5C65B5004916C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4E6D9111A5C65C0004916C1 /* ArticleData.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4F478261A48CD8500D8043C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -221,6 +288,39 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		D4E6D90E1A5C65B5004916C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = OldDataSchemaBundle/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		D4E6D90F1A5C65B5004916C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				INFOPLIST_FILE = OldDataSchemaBundle/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 		D4F4783C1A48CD8500D8043C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -254,6 +354,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -288,6 +392,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -316,6 +424,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D4E6D9101A5C65B5004916C1 /* Build configuration list for PBXNativeTarget "OldDataSchemaBundle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4E6D90E1A5C65B5004916C1 /* Debug */,
+				D4E6D90F1A5C65B5004916C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		D4F478251A48CD8500D8043C /* Build configuration list for PBXProject "OldDataSchema" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

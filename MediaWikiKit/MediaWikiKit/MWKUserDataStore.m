@@ -27,6 +27,14 @@
     }
 }
 
+/// Clear out any currently loaded data and force it to be reloaded on next use
+-(void)reset
+{
+    _historyList = nil;
+    _savedPageList = nil;
+    _recentSearchList = nil;
+}
+
 -(instancetype)initWithDataStore:(MWKDataStore *)dataStore
 {
     self = [self init];

@@ -14,6 +14,7 @@
 @protocol OldDataSchemaDelegate
 
 -(void)oldDataSchema:(OldDataSchema *)schema migrateArticle:(NSDictionary *)articleDict;
+-(void)oldDataSchema:(OldDataSchema *)schema migrateImage:(NSDictionary *)imageDict;
 -(void)oldDataSchema:(OldDataSchema *)schema migrateHistoryEntry:(NSDictionary *)historyDict;
 -(void)oldDataSchema:(OldDataSchema *)schema migrateSavedEntry:(NSDictionary *)savedDict;
 
@@ -26,5 +27,6 @@
 
 -(BOOL)exists;
 -(void)migrateData;
+-(void)removeOldData;
 
 @end

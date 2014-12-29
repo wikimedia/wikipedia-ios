@@ -23,6 +23,7 @@
 -(instancetype)initWithDataStore:(MWKDataStore *)dataStore;
 
 -(void)save;
+-(void)reset;
 
 -(void)updateHistory:(MWKTitle *)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 -(void)savePage:(MWKTitle *)title;

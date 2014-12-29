@@ -49,7 +49,9 @@
     // Setup the masterContext and attach the persistant store to it.
     self.masterContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     
-    NSManagedObjectModel *managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"OldDataSchemaBundle" ofType:@"bundle"];
+    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+    NSManagedObjectModel *managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:@[bundle]];
     NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
     
     NSString *articlesDBPath = [[self documentRootPath] stringByAppendingString:@"/articleData6.sqlite"];

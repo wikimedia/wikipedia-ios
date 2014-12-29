@@ -1,6 +1,6 @@
 #import <CoreData/CoreData.h>
 
-//#import "Article+Convenience.h"
+#import "Article+Convenience.h"
 #import "DiscoveryContext.h"
 #import "Section.h"
 #import "History.h"

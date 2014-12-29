@@ -54,6 +54,8 @@
 #import "AssetsFileFetcher.h"
 
 #import "LeadImageContainer.h"
+#import "OldDataSchema.h"
+#import "SchemaConverter.h"
 
 //#import "UIView+Debugging.h"
 
@@ -1849,6 +1851,28 @@
 
 - (void)migrateDataIfNecessary
 {
+    // Middle-Ages Converter
+    // From the native app's initial CoreData-based implementation,
+    // which now lives in OldDataSchema subproject.
+    OldDataSchema *oldDataSchema = [[OldDataSchema alloc] init];
+    if ([oldDataSchema exists]) {
+        SchemaConverter *schemaConverter = [[SchemaConverter alloc] initWithDataStore:session.dataStore];
+        oldDataSchema.delegate = schemaConverter;
+        NSLog(@"begin migration");
+        [oldDataSchema migrateData];
+        NSLog(@"end migration");
+        
+        [oldDataSchema removeOldData];
+        
+        // hack for history fix
+        [session.userDataStore reset];
+        
+        return;
+    }
+        
+    // Ye Ancient Converter
+    // From the old PhoneGap app
+    // @fixme: fix this to work again
     DataMigrator *dataMigrator = [[DataMigrator alloc] init];
     if ([dataMigrator hasData]) {
         NSLog(@"Old data to migrate found!");
@@ -1862,10 +1886,11 @@
         [importer importArticles:titles];
         
         [dataMigrator removeOldData];
-    } else {
-        NSLog(@"No old data to migrate.");
+
+        return;
     }
 
+    NSLog(@"No old data to migrate.");
 }
 
 #pragma mark Bottom menu bar
