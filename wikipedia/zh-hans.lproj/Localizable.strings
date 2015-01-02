@@ -95,7 +95,7 @@
 "main-menu-language-toggle-show" = "显示语言";
 "main-menu-language-toggle-hide" = "隐藏语言";
 "main-menu-language-selection-saved" = "语言选择已保存";
-"main-menu-account-title-logged-out" = "帐户";
+"main-menu-account-title-logged-out" = "账户";
 "main-menu-account-title-logged-in" = "登录身份:$1";
 "main-menu-account-login" = "登录";
 "main-menu-account-logout" = "退出";

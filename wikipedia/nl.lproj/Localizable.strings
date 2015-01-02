@@ -85,6 +85,10 @@
 "search-within-articles" = "In paginatekst";
 "search-did-you-mean" = "Bedoelde u $1?";
 "search-recent-title" = "Recente zoekopdrachten";
+"search-recent-clear-confirmation-heading" = "Alle recente zoekopdrachten verwijderen?";
+"search-recent-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";
+"search-recent-clear-cancel" = "Annuleren";
+"search-recent-clear-delete-all" = "Alles verwijderen";
 "main-menu-title" = "Meer";
 "main-menu-language-title" = "Zoeken in Wikipedia in het $1";
 "main-menu-language-toggle-show" = "Talen bekijken";

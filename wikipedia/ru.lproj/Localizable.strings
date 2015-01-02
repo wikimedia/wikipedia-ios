@@ -199,7 +199,7 @@
 "abuse-filter-warning-heading" = "Эта правка выглядит деструктивной. Вы уверены, что хотите сохранить её?";
 "abuse-filter-warning-subheading" = "Ваша правка может содержать одно или несколько из следующих действий:";
 "abuse-filter-warning-caps" = "Печать ЗАГЛАВНЫМИ БУКВАМИ";
-"abuse-filter-warning-blanking" = "Заготовка статьи или спам";
+"abuse-filter-warning-blanking" = "Пустая статья или спам";
 "abuse-filter-warning-irrelevant" = "Нерелевантные внешние ссылки или изображения";
 "abuse-filter-warning-repeat" = "Повторяяяяяющиеся символы";
 "abuse-filter-disallow-heading" = "Вы не можете сохранить эту правку. Пожалуйста, вернитесь назад и измените её.";
