@@ -182,6 +182,9 @@
 {
     NSString *path = [self.dataStore pathForArticle:self];
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+    
+    _sections = nil;
+    _images = nil;
 }
 
 -(MWKSectionList *)sections
