@@ -465,8 +465,11 @@
         
         if (itemsInSection == 1) {
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+            [self.historyDataArray removeObjectAtIndex:indexPath.section];
+        } else {
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.historyDataArray[indexPath.section][@"data"] removeObjectAtIndex:indexPath.row];
         }
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
         [historyList removeEntry:historyEntry];
         [userDataStore save];
