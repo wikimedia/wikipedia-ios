@@ -69,12 +69,11 @@
 #define SEARCH_DELAY_PREFIX 0.4
 #define SEARCH_DELAY_FULL_TEXT 1.0
 
-// Temporary flags for hiding full text search interface and wikidata
-// descriptions (in search results) until both are production ready.
-// Full text search interface has a couple UX changes brewing and
-// wikidata awaits api "prop=pageterms" going live so we don't have
-// to do separate non-performant request to get descriptions.
+// Temporary flag for hiding full text search interface (in search
+// results) until production ready. Full text search interface has
+// a couple UX changes brewing.
 #define ENABLE_FULL_TEXT_SEARCH NO
-#define ENABLE_WIKIDATA_DESCRIPTIONS NO
 
-
+// Reminder: For caching reasons, don't do "(scale * 320)" here.
+#define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
+#define LEAD_IMAGE_CONTAINER_HEIGHT (roundf([UIScreen mainScreen].bounds.size.height * 0.353f))

@@ -128,9 +128,7 @@
 }
 
 -(NSDictionary *)getParamsForTitle:(NSString *)title
-{
-    // Reminder: For caching reasons, don't do "(scale * 320)".
-    NSInteger leadImageThumbWidth = ([UIScreen mainScreen].scale > 1) ? 640 : 320;
+{    
     NSMutableDictionary *params = @{
     @"format": @"json",
     @"action": @"mobileview",
@@ -138,7 +136,7 @@
     @"noheadings": @"true",
     @"sections": @"all",
     @"page": title,
-    @"thumbsize": @(leadImageThumbWidth),
+    @"thumbsize": @(LEAD_IMAGE_WIDTH),
     @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount|id|protection|editable|displaytitle|thumb",
     }.mutableCopy;
 
@@ -394,11 +392,16 @@
         }
     }
     if(!foundThumbInTempDir){
-        // If no image found in temp dir, use first article image.
         MWKImageList *images = self.article.images;
+        // If no image found in temp dir, use first article image.
         if (images.count > 0) {
             MWKImage *image = images[0];
             self.article.thumbnailURL = image.sourceURL;
+        }else{
+            // If still no image, use article image if there is one.
+            if (self.article.imageURL) {
+                self.article.thumbnailURL = self.article.imageURL;
+            }
         }
     }
 }

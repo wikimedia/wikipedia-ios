@@ -1,59 +1,69 @@
 var transformer = require("./transformer");
 
-transformer.register( "relocateInfobox", function( content ) {
-    // Move infobox after first lead section paragraph.
-
+transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     /*
-    DIV section_heading_and_content_block_0
-        DIV content_block_0
-            P     <-- Move infobox after first P element which is a direct child of content_block_0 DIV.
-
-    Old code had problem with en wiki "Soviet Union" article - it moved the 
-    infobox right after a P element which was contained by a hidden "vcard" TABLE.
+    Instead of moving the infobox down beneath the first P tag,
+    move the first good looking P tag *up* (as the first child of
+    the first section div). That way the first P text will appear not
+    only above infoboxes, but above other tables/images etc too!
     */
 
-    var block_0 = content.querySelector( "#content_block_0" );
+    if(content.getElementById( "mainpage" ))return;
+
+    var block_0 = content.getElementById( "content_block_0" );
     if(!block_0) return;
 
-    var infobox = block_0.querySelector( "table.infobox" );
-    if(!infobox) return;
-
-    var allPs = block_0.querySelectorAll( "p" );
+    var allPs = block_0.getElementsByTagName( "p" );
     if(!allPs) return;
 
-    var soughtP = null;
-
-    // Narrow down to first P which is direct child of content_block_0 DIV.
     for ( var i = 0; i < allPs.length; i++ ) {
-        var thisP = allPs[i];
-        if  (thisP.parentNode == block_0){
-            soughtP = thisP;
-            break;
+        var p = allPs[i];
+
+        // Narrow down to first P which is direct child of content_block_0 DIV.
+        // (Don't want to yank P from somewhere in the middle of a table!)
+        if  (p.parentNode != block_0) continue;
+
+
+        // Ensure the P being pulled up has at least a couple lines of text.
+        // Otherwise silly things like a empty P or P which only contains a
+        // BR tag will get pulled up (see articles on "Chemical Reaction" and
+        // "Hawaii").
+        // Trick for quickly determining element height:
+        //      https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement.offsetHeight
+        //      http://stackoverflow.com/a/1343350/135557
+        var minHeight = 40;
+        var pIsTooSmall = (p.offsetHeight < minHeight);
+        if(pIsTooSmall) continue;
+
+
+        /*
+        // Note: this works - just not sure if needed?
+        // Sometimes P will be mostly image and not much text. Don't
+        // want to move these!
+        var pIsMostlyImage = false;
+        var imgs = p.getElementsByTagName('img');
+        for (var j = 0; j < imgs.length; j++) {
+            var thisImg = imgs[j];
+            // Get image height from img tag's height attribute - otherwise
+            // you'd have to wait for the image to render (if you used offsetHeight).
+            var thisImgHeight = thisImg.getAttribute("height");
+            if(thisImgHeight == 0) continue;
+            var imgHeightPercentOfParagraphTagHeight = thisImgHeight / p.offsetHeight;
+            if (imgHeightPercentOfParagraphTagHeight > 0.5){
+                pIsMostlyImage = true;
+                break;
+            }
         }
-    }
-    
-    if (!soughtP) return;
+        if(pIsMostlyImage) continue;
+        */
 
-    /*
-    If the infobox table itself sits within a table or series of tables,
-    move the most distant ancestor table instead of just moving the 
-    infobox. Otherwise you end up with table(s) with a hole where the 
-    infobox had been. World War II article on enWiki has this issue.
-    Note that we need to stop checking ancestor tables when we hit
-    content_block_0.
-    */
-    var infoboxParentTable = null;
-    var el = infobox;
-    while (el.parentNode) {
-        el = el.parentNode;
-        if (el.id === 'content_block_0') break;
-        if (el.tagName === 'TABLE') infoboxParentTable = el;
-    }
-    if(infoboxParentTable)infobox = infoboxParentTable;
 
-    // Found the first P tag whose direct parent has id of #content_block_0.
-    // Now safe to detach the infobox and stick it after the P.
-    soughtP.appendChild(infobox.parentNode.removeChild(infobox));
+        // Move the P!
+        block_0.insertBefore(p.parentNode.removeChild(p), block_0.firstChild);
+        
+        // But only move one P!
+        break;
+    }
 });
 
 transformer.register( "hideRedlinks", function( content ) {
