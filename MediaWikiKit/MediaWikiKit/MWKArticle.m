@@ -108,13 +108,13 @@
     
     // From mobileview API...
     if (dict[@"thumb"]) {
-        _imageURL = dict[@"thumb"][@"url"]; // optional
+        self.imageURL = dict[@"thumb"][@"url"]; // optional
     } else {
         // From local storage
-        _imageURL = [self optionalString:@"imageURL" dict:dict];
+        self.imageURL = [self optionalString:@"imageURL" dict:dict];
     }
     // From local storage
-    _thumbnailURL = [self optionalString:@"thumbnailURL" dict:dict];
+    self.thumbnailURL = [self optionalString:@"thumbnailURL" dict:dict];
     
     
     // Populate sections
@@ -221,6 +221,17 @@
 -(void)setThumbnailURL:(NSString *)thumbnailURL
 {
     _thumbnailURL = thumbnailURL;
+    if (thumbnailURL) {
+        (void)[self importImageURL:thumbnailURL sectionId:MWK_SECTION_THUMBNAIL];
+    }
+}
+
+-(void)setImageURL:(NSString *)imageURL
+{
+    _imageURL = imageURL;
+    if (imageURL) {
+        (void)[self importImageURL:imageURL sectionId:MWK_SECTION_THUMBNAIL];
+    }
 }
 
 -(MWKImage *)image

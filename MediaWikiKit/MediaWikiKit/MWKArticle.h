@@ -37,7 +37,7 @@
 @property (readonly) BOOL                 editable;       // required
 
 @property (readwrite,nonatomic) NSString *thumbnailURL;   // optional; pulled separately via search
-@property (readonly) NSString            *imageURL;       // optional; pulled in article request
+@property (readwrite,nonatomic) NSString *imageURL;       // optional; pulled in article request
 
 @property (readonly) NSString            *description; // optional; currently pulled separately via wikidata
 
