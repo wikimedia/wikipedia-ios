@@ -1348,27 +1348,22 @@
 
 -(void)updateHistoryDateVisitedForArticleBeingNavigatedFrom
 {
-    // @fixme what is this doing? updating history, or updating article?
-    /*
-    [articleDataContext_.mainContext performBlockAndWait:^(){
-        NSManagedObjectID *articleID =
-        [articleDataContext_.mainContext getArticleIDForTitle: self.currentTitle];
-        if (articleID) {
-            Article *article = (Article *)[articleDataContext_.mainContext objectWithID:articleID];
-            if (article) {
-                if (article.history.count > 0) { // There should only be a single history item.
-                    History *history = [article.history anyObject];
-                    history.dateVisited = [NSDate date];
-                    NSError *error = nil;
-                    [articleDataContext_.mainContext save:&error];
-                    if (error) {
-                        NSLog(@"error = %@", error);
-                    }
-                }
-            }
+    // This is a quick hack to help with the natural back/forward behavior of the case
+    // where you go back and forth from some master article to others.
+    //
+    // Proper fix might be to store more of a 'tree' structure so that we know which
+    // 'leaf' to hang off of, but this works for now.
+    MWKHistoryList *historyList = session.userDataStore.historyList;
+    NSLog(@"XXX %d", (int)historyList.length);
+    if (historyList.length > 0) {
+        // Grab the latest
+        MWKHistoryEntry *historyEntry = [historyList entryForTitle:session.title];
+        if (historyEntry) {
+            historyEntry.date = [NSDate date];
+            [historyList addEntry:historyEntry];
+            [session.userDataStore save];
         }
-    }];
-     */
+    }
 }
 
 #pragma mark Article loading ops
