@@ -323,7 +323,9 @@
     if (dict) {
         return [[MWKImage alloc] initWithArticle:article dict:dict];
     } else {
-        return nil;
+        // Not 100% sure if we should return an object here or not,
+        // but it seems useful to do so.
+        return [[MWKImage alloc] initWithArticle:article sourceURL:url];
     }
 }
 
