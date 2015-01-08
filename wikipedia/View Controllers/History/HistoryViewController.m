@@ -373,13 +373,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *selectedCell = nil;
     NSDictionary *dict = self.historyDataArray[indexPath.section];
     NSArray *array = dict[@"data"];
-    selectedCell = array[indexPath.row];
+    MWKHistoryEntry *historyEntry = array[indexPath.row];
     
-    MWKHistoryEntry *historyEntry = [[SessionSingleton sharedInstance].userDataStore.historyList entryAtIndex:indexPath.row];
-
     [NAV loadArticleWithTitle: historyEntry.title
                      animated: YES
               discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
