@@ -55,7 +55,7 @@
     return (entriesByURL[imageURL] != nil);
 }
 
--(NSString *)largestImageVariant:(NSString *)imageURL
+-(NSArray *)imageSizeVariants:(NSString *)imageURL
 {
     if (imageURL == nil) {
         return nil;
@@ -63,22 +63,36 @@
     NSString *baseName = [MWKImage fileNameNoSizePrefix:imageURL];
     NSMutableArray *arr = entriesByNameWithoutSize[baseName];
     
-    int width = -1, biggestWidth = -1;
-    NSString *biggestURL = imageURL;
     if (arr) {
-        for (NSString *sourceURL in arr) {
-            NSString *fileName = [sourceURL lastPathComponent];
-            width = [MWKImage fileSizePrefix:fileName];
-            NSLog(@"%@ is %d", fileName, width);
-            if (width > biggestWidth) {
-                biggestWidth = width;
-                biggestURL = sourceURL;
+        NSMutableArray *arr2 = [NSMutableArray arrayWithArray:arr];
+        [arr2 sortUsingComparator:^NSComparisonResult(NSString *url1, NSString *url2) {
+            int width1 = [MWKImage fileSizePrefix:[url1 lastPathComponent]];
+            int width2 = [MWKImage fileSizePrefix:[url2 lastPathComponent]];
+            if (width1 > width2) {
+                return NSOrderedDescending;
+            } else if (width1 < width2) {
+                return NSOrderedAscending;
+            } else {
+                return NSOrderedSame;
             }
-        }
+        }];
+        return arr2;
     } else {
         NSLog(@"no variants for %@", baseName);
+        return @[];
     }
-    return biggestURL;
+}
+
+-(NSString *)largestImageVariant:(NSString *)imageURL
+{
+    NSArray *arr = [self imageSizeVariants:imageURL];
+    for (NSString *variantURL in [arr reverseObjectEnumerator]) {
+        MWKImage *image = [self.article imageWithURL:variantURL];
+        if (image.isCached) {
+            return variantURL;
+        }
+    }
+    return nil;
 }
 
 

@@ -151,4 +151,11 @@
     return [self.article imageWithURL:largestURL];
 }
 
+-(BOOL)isCached
+{
+    // @fixme maybe make this more efficient
+    NSData *data = [self.article.dataStore imageDataWithImage:self];
+    return (data != nil);
+}
+
 @end

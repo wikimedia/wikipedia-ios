@@ -32,6 +32,9 @@
 @property (copy) NSNumber *width;
 @property (copy) NSNumber *height;
 
+// Local storage status
+@property (readonly) BOOL isCached;
+
 -(instancetype)initWithArticle:(MWKArticle *)article sourceURL:(NSString *)url;
 -(instancetype)initWithArticle:(MWKArticle *)article dict:(NSDictionary *)dict;
 

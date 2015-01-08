@@ -24,6 +24,21 @@
 -(void)addImageURL:(NSString *)imageURL;
 
 -(BOOL)hasImageURL:(NSString *)imageURL;
+
+/**
+ * Return an array of known URLs for the same image that a URL has been given for,
+ * ordered by pixel size (smallest to largest).
+ *
+ * May be an empty array if none known.
+ */
+-(NSArray *)imageSizeVariants:(NSString *)imageURL;
+
+/**
+ * Return the URL for the largest variant of image that actually has been saved
+ * for the given image URL (may be larger or smaller than requested, or same).
+ *
+ * May be nil if none found.
+ */
 -(NSString *)largestImageVariant:(NSString *)image;
 
 @property (readonly) BOOL dirty;
