@@ -120,15 +120,21 @@
     NSString *prefix = @"//upload.wikimedia.org/";
     if ([str hasPrefix:prefix]) {
         NSString *suffix = [str substringFromIndex:[prefix length]];
+        NSString *fileName = [suffix lastPathComponent];
 
         // Image URLs are already percent-encoded, so don't double-encode em.
-
-        // "/" occurs in those nasty paths! but ":" cannot so let's use it
-        // just like Mac OS X does ;)
-        //NSString *noslashes = [suffix stringByReplacingOccurrencesOfString:@"/" withString:@":"];
+        // In fact, we want to decode them...
+        // If we don't, long Unicode filenames may not fit in the filesystem.
+        NSString *decodedFileName = [fileName stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        NSString *fileName = [suffix lastPathComponent];
-        return fileName;
+        // Just to be safe, confirm no path explostions!
+        if ([decodedFileName rangeOfString:@"/"].location != NSNotFound) {
+            @throw [NSException exceptionWithName:@"MWKDataStoreException"
+                                           reason:@"Tried to save URL with encoded slash"
+                                         userInfo:@{@"str": str}];
+        }
+        
+        return decodedFileName;
     } else {
         @throw [NSException exceptionWithName:@"MWKDataStoreException"
                                        reason:@"Tried to save non-upload.wikimedia.org URL as image"

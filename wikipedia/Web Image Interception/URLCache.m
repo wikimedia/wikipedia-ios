@@ -109,7 +109,13 @@
     // (This one has no thread safety issues.)
     //imageDataToUse = self.debuggingPlaceHolderImageData;
 
-    [self.article importImageData:imageDataToUse image:image];
+    @try {
+        [self.article importImageData:imageDataToUse image:image];
+    }
+    @catch (NSException *e) {
+        NSLog(@"Failure to save cached image data: %@", e);
+        return;
+    }
     
     // Broadcast the image data so things like the table of contents can update
     // itself as images arrive.
