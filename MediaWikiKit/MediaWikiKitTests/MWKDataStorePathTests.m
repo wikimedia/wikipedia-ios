@@ -69,11 +69,11 @@
 }
 
 - (void)testTitleUnicodePath {
-    XCTAssertEqualObjects([dataStore pathForTitle:titleUnicode], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/%C3%89clair"]);
+    XCTAssertEqualObjects([dataStore pathForTitle:titleUnicode], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/Éclair"]);
 }
 
 - (void)testTitleEvilPath {
-    XCTAssertEqualObjects([dataStore pathForTitle:titleEvil], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/AT%26T%2FSBC_%22merger%22"]);
+    XCTAssertEqualObjects([dataStore pathForTitle:titleEvil], [basePath stringByAppendingPathComponent:@"sites/wikipedia.org/en/articles/AT&T%2FSBC_\"merger\""]);
 }
 
 - (void)testArticlePath {

@@ -94,12 +94,9 @@
 
 -(NSString *)safeFilenameWithString:(NSString *)str
 {
-    // This handy function does most of the percent-escaping
-    NSString *encodedStr = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
-    // But it leaves "/" and "&" intact. Naughty!
+    // Escape only % and / with percent style for readability
+    NSString *encodedStr = [str stringByReplacingOccurrencesOfString:@"%" withString:@"%25"];
     encodedStr = [encodedStr stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
-    encodedStr = [encodedStr stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
 
     return encodedStr;
 }
