@@ -68,8 +68,8 @@
         multiplier = 1.0f - (linesAfter2Lines * 0.1f);
     }
     
-    // Don't shrink below 50%.
-    return MAX(multiplier, 0.5f);
+    // Don't shrink below 60%.
+    return MAX(multiplier, 0.6f);
 }
 
 @end
