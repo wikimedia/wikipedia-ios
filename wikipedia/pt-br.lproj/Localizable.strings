@@ -7,6 +7,7 @@
 // Author: Mordecool
 // Author: Rodrigo codignoli
 // Author: Tooguether
+// Author: Webysther
 
 "article-languages-label" = "Escolha um idioma";
 "article-languages-cancel" = "Cancelar";
@@ -147,6 +148,13 @@
 "edit-summary-choice-other" = "Outros";
 "credits-wikimedia-repos" = "Wikimedia";
 "credits-external-libraries" = "Externo";
+"about-title" = "Sobre";
+"about-wikipedia" = "Wikipédia";
+"about-contributors" = "contribuidores";
+"about-translators" = "tradutores";
+"about-libraries" = "bibliotecas usadas";
+"about-send-feedback" = "Enviar comentários sobre o aplicativo";
+"about-wikimedia-foundation" = "Fundação Wikimedia";
 "share-menu-save-page" = "Salvar artigo";
 "share-menu-page-saved" = "Artigo salvo";
 "timestamp-just-now" = "agora mesmo";

@@ -4,6 +4,7 @@
 // Author: Imperadeiro98
 // Author: SandroHc
 // Author: Vitorvicentevalente
+// Author: Webysther
 
 "article-languages-label" = "Escolher língua";
 "article-languages-cancel" = "Cancelar";
@@ -80,6 +81,7 @@
 "search-loading-article-loaded" = "Artigo carregado.";
 "search-cancel" = "Cancelar";
 "search-titles" = "Títulos";
+"search-within-articles" = "Dentro de artigos";
 "search-did-you-mean" = "Será que quis dizer $1?";
 "search-recent-title" = "Pesquisas recentes";
 "search-recent-clear-confirmation-heading" = "Apagar todas as pesquisas recentes?";
@@ -155,6 +157,8 @@
 "about-title" = "Sobre";
 "about-wikipedia" = "Wikipédia";
 "about-contributors" = "contribuidores";
+"about-testers" = "testadores";
+"about-testers-details" = "Teste de garantia de qualidade (QA) por $1";
 "about-translators" = "tradutores";
 "about-translators-details" = "Esta aplicação foi traduzida por tradutores voluntários em $1";
 "about-libraries" = "bibliotecas usadas";

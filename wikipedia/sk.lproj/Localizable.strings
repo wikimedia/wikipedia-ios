@@ -74,6 +74,9 @@
 "search-loading-section-remaining" = "Načítavam zvyšnú časť článku...";
 "search-loading-article-loaded" = "Článok je načítaný.";
 "search-cancel" = "Zrušiť";
+"search-did-you-mean" = "Mali ste na mysli \"%s\"?";
+"search-recent-title" = "Nedávno hľadané výrazy";
+"search-recent-clear-confirmation-heading" = "Vymazať nedávno hľadané výrazy?";
 "search-recent-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
 "search-recent-clear-cancel" = "Zrušiť";
 "search-recent-clear-delete-all" = "Vymazať všetko";
@@ -101,6 +104,7 @@
 "main-menu-rate-app" = "Ohodnoťte aplikáciu";
 "main-menu-heading-zero" = "Wikipédia Zero";
 "main-menu-show-today" = "Dnes";
+"main-menu-nearby" = "V okolí";
 "main-menu-more" = "Zobraziť viac...";
 "saved-pages-title" = "Uložené stránky";
 "saved-pages-clear-confirmation-heading" = "Vymazať všetky uložené stránky?";
@@ -136,6 +140,7 @@
 "about-title" = "O aplikácii";
 "about-wikipedia" = "Wikipédia";
 "about-contributors" = "Prispievatelia";
+"about-testers" = "Testeri";
 "about-translators" = "Prekladatelia";
 "about-translators-details" = "Preložené dobrovoľníkmi na $1";
 "about-libraries" = "Použité knižnice";
@@ -173,6 +178,8 @@
 "menu-share-accessibility-label" = "Zdieľať";
 "menu-more-accessibility-label" = "Ďalšie nastavenia";
 "menu-trash-accessibility-label" = "Vymazať";
+"nearby-title" = "V okolí";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
 "nearby-cancel" = "Zrušiť";
+"nearby-location-updates-denied" = "Táto aplikácia nemá prístup k údajom o polohe.";
