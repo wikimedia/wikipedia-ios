@@ -56,6 +56,7 @@
 "open-link-cancel" = "გაუქმება";
 "search-searching" = "იძებნება...";
 "search-field-placeholder-text" = "ძიება ვიკიპედიაში";
+"search-loading-section-remaining" = "იტვირთება სტატიის დარჩენილი ნაწილი...";
 "search-loading-article-loaded" = "სტატია ჩაიტვირთა.";
 "search-cancel" = "გაუქმება";
 "search-titles" = "სათაურები";
@@ -67,6 +68,7 @@
 "search-recent-clear-cancel" = "გაუქმება";
 "search-recent-clear-delete-all" = "ყველას წაშლა";
 "main-menu-title" = "მეტი";
+"main-menu-language-title" = "მოძებნე $1 ვიკიპედიაში";
 "main-menu-language-toggle-show" = "ენების ჩვენება";
 "main-menu-language-toggle-hide" = "ენების დამალვა";
 "main-menu-language-selection-saved" = "ენის არჩევა დამახსოვრებულია";
@@ -114,6 +116,7 @@
 "edit-summary-choice-added-category" = "კატეგორიის დამატება";
 "edit-summary-choice-added-missing-info" = "გამოტოვებული ინფორმაციის დამატება";
 "edit-summary-choice-other" = "სხვა";
+"article-pull-to-refresh-is-refreshing" = "სტატიის განახლება";
 "about-title" = "შესახებ";
 "about-wikipedia" = "ვიკიპედია";
 "about-contributors" = "ავტორები";
@@ -141,6 +144,8 @@
 "onboarding-wikipedia" = "ვიკიპედია";
 "onboarding-free-encyclopedia" = "თავისუფალი ენციკლოპედია";
 "preference_title_eventlogging_opt_in" = "გამოყენების ანგარიშის გაგზავნა";
+"page_protected_sysop" = "ეს გვერდი სრულად დაცულია.";
+"page_protected_can_not_edit" = "თქვენ არ გაქვთ ამ გვერდის რედაქტირების უფლება";
 "page_protected_can_not_edit_title" = "ეს გვერდი დაცულია";
 "license-footer-text" = "კონტენტი ხელმისაწვდომია $1-ით";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -158,9 +163,16 @@
 "menu-more-accessibility-label" = "მეტი პარამეტრები";
 "menu-trash-accessibility-label" = "წაშლა";
 "nearby-title" = "სიახლოვეს";
+"nearby-distance-label-meters" = "$1 მ";
+"nearby-distance-label-km" = "$1 კმ";
+"nearby-distance-label-feet" = "$1 ფუტი";
+"nearby-distance-label-miles" = "$1 მილი";
+"nearby-pull-to-refresh-prompt" = "აწიეთ, რათა განახლდეს";
 "nearby-pull-to-refresh-is-refreshing" = "გადატვირთვა";
 "nearby-loading" = "ახლომდებარე სტატიები იტვირთება...";
 "nearby-loaded" = "ახლომდებარე სტატიები ჩამოიტვირთა";
 "nearby-open-in-maps" = "რუკაზე გახსნა";
 "nearby-cancel" = "გაუქმება";
 "nearby-location-updates-denied" = "აპლიკაციას არ აქვს ადგილმდებარეობის განახლებაზე წვდომის უფლება.";
+"nearby-location-updates-enable" = "ლოკაციის განახლებებისათვის გახსენით პარამეტრების აპლიკაცია და აირჩიეთ შემდეგი:";
+"nearby-location-updates-settings-menu" = "კონფიდენსიალურობა > ლოკაციის სერვისი > ვიკიპედია";
