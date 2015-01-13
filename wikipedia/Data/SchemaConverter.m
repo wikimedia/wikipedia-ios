@@ -26,11 +26,16 @@
     NSString *titleStr = articleDict[@"title"];
     NSDictionary *mobileview = articleDict[@"dict"];
 
-    MWKSite *site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:language];
-    MWKTitle *title = [site titleWithString:titleStr];
-    MWKArticle *article = [self.dataStore articleWithTitle:title];
-    [article importMobileViewJSON:mobileview];
-    [article save];
+    @try {
+        MWKSite *site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:language];
+        MWKTitle *title = [site titleWithString:titleStr];
+        MWKArticle *article = [self.dataStore articleWithTitle:title];
+        [article importMobileViewJSON:mobileview];
+        [article save];
+    }
+    @catch (NSException *ex) {
+        NSLog(@"IMPORT ERROR on article %@:%@: %@", language, titleStr, ex);
+    }
 }
 
 -(void)oldDataSchema:(OldDataSchema *)schema migrateImage:(NSDictionary *)imageDict
@@ -41,13 +46,18 @@
     int sectionId = [imageDict[@"sectionId"] intValue];
     NSData *imageData = imageDict[@"data"];
 
-    // @todo cache the article object?
-    MWKSite *site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:language];
-    MWKTitle *title = [site titleWithString:titleStr];
-    MWKArticle *article = [self.dataStore articleWithTitle:title];
-    
-    MWKImage *image = [article importImageURL:sourceURL sectionId:sectionId];
-    [image importImageData:imageData];
+    @try {
+        // @todo cache the article object?
+        MWKSite *site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:language];
+        MWKTitle *title = [site titleWithString:titleStr];
+        MWKArticle *article = [self.dataStore articleWithTitle:title];
+        
+        MWKImage *image = [article importImageURL:sourceURL sectionId:sectionId];
+        [image importImageData:imageData];
+    }
+    @catch (NSException *ex) {
+        NSLog(@"IMPORT ERROR on image %@ in article %@:%@: %@", sourceURL, language, titleStr, ex);
+    }
 }
 
 -(void)oldDataSchema:(OldDataSchema *)schema migrateHistoryEntry:(NSDictionary *)historyDict
@@ -56,7 +66,7 @@
     NSString *titleStr = historyDict[@"title"];
     NSString *date = historyDict[@"date"];
     NSString *discoveryMethod = historyDict[@"discoveryMethod"];
-    
+
     NSMutableDictionary *dict = [@{} mutableCopy];
     dict[@"domain"] = @"wikipedia.org";
     dict[@"language"] = language;
@@ -64,12 +74,17 @@
     dict[@"date"] = date;
     dict[@"discoveryMethod"] = discoveryMethod;
     dict[@"scrollPosition"] = @(0); // @fixme extract from article?
-    
-    MWKHistoryEntry *entry = [[MWKHistoryEntry alloc] initWithDict:dict];
-    
-    MWKHistoryList *historyList = self.userDataStore.historyList;
-    [historyList addEntry:entry];
-    [self.userDataStore save];
+
+    @try {
+        MWKHistoryEntry *entry = [[MWKHistoryEntry alloc] initWithDict:dict];
+        
+        MWKHistoryList *historyList = self.userDataStore.historyList;
+        [historyList addEntry:entry];
+        [self.userDataStore save];
+    }
+    @catch (NSException *ex) {
+        NSLog(@"IMPORT ERROR on history entry %@:%@: %@", language, titleStr, ex);
+    }
 }
 
 -(void)oldDataSchema:(OldDataSchema *)schema migrateSavedEntry:(NSDictionary *)savedDict
@@ -82,11 +97,16 @@
     dict[@"language"] = language;
     dict[@"title"] = titleStr;
     
-    MWKSavedPageEntry *entry = [[MWKSavedPageEntry alloc] initWithDict:dict];
-    
-    MWKSavedPageList *savedPageList = self.userDataStore.savedPageList;
-    [savedPageList addEntry:entry];
-    [self.userDataStore save];
+    @try {
+        MWKSavedPageEntry *entry = [[MWKSavedPageEntry alloc] initWithDict:dict];
+        
+        MWKSavedPageList *savedPageList = self.userDataStore.savedPageList;
+        [savedPageList addEntry:entry];
+        [self.userDataStore save];
+    }
+    @catch (NSException *ex) {
+        NSLog(@"IMPORT ERROR on saved entry %@:%@: %@", language, titleStr, ex);
+    }
 }
 
 @end

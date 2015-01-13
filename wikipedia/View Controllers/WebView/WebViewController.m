@@ -24,8 +24,6 @@
 #import "UIViewController+Alert.h"
 #import "NSString+Extras.h"
 #import "PaddedLabel.h"
-#import "DataMigrator.h"
-#import "ArticleImporter.h"
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
 #import "BottomMenuViewController.h"
@@ -54,8 +52,7 @@
 #import "AssetsFileFetcher.h"
 
 #import "LeadImageContainer.h"
-#import "OldDataSchema.h"
-#import "SchemaConverter.h"
+#import "DataMigrationProgressViewController.h"
 
 //#import "UIView+Debugging.h"
 
@@ -252,11 +249,6 @@
     // bottom of the web view if toc quickly dragged on and offscreen.
     self.webView.opaque = NO;
     
-    // This is the first view that's opened when the app opens...
-    // Perform any first-time data migration as needed.
-    [self migrateDataIfNecessary];
-    
-    
     self.bottomBarViewBottomConstraint = nil;
 
     self.view.backgroundColor = CHROME_COLOR;
@@ -317,24 +309,45 @@
 {
     [super viewDidAppear:animated];
 
+    // This is the first view that's opened when the app opens...
+    // Perform any first-time data migration as needed.
+    DataMigrationProgressViewController *migrationVC = [[DataMigrationProgressViewController alloc] init];
+    if ([migrationVC needsMigration]) {
+        migrationVC.delegate = self;
+        [ROOT presentViewController:migrationVC animated:NO completion:nil];
+    } else {
+        [self doStuffOnAppear];
+    }
+}
+
+-(void)dataMigrationProgressComplete:(DataMigrationProgressViewController *)viewController
+{
+    [viewController dismissViewControllerAnimated:NO completion:nil];
+    [self doStuffOnAppear];
+}
+
+-(void)doStuffOnAppear
+{
     if ([self shouldShowOnboarding]) {
         [self showOnboarding];
-
+        
         // Ok to show the menu now. (The onboarding view is covering the web view at this point.)
         ROOT.topMenuHidden = NO;
-
+        
         self.webView.alpha = 1.0f;
     }
-
+    
     // Don't move this to viewDidLoad - this is because viewDidLoad may only get
     // called very occasionally as app suspend/resume probably doesn't cause
     // viewDidLoad to fire.
     [self downloadAssetsFilesIfNecessary];
-
+    
     [self performHousekeepingIfNecessary];
-
+    
     //[self.view randomlyColorSubviews];
 }
+
+
 
 -(BOOL)shouldShowOnboarding
 {
@@ -1856,52 +1869,6 @@
         (session.article != nil)
         &&
         (!ROOT.isAnimatingTopAndBottomMenuHidden);
-}
-
-#pragma mark Data migration
-
-- (void)migrateDataIfNecessary
-{
-    // Middle-Ages Converter
-    // From the native app's initial CoreData-based implementation,
-    // which now lives in OldDataSchema subproject.
-    OldDataSchema *oldDataSchema = [[OldDataSchema alloc] init];
-    if ([oldDataSchema exists]) {
-        SchemaConverter *schemaConverter = [[SchemaConverter alloc] initWithDataStore:session.dataStore];
-        oldDataSchema.delegate = schemaConverter;
-        NSLog(@"begin migration");
-        [oldDataSchema migrateData];
-        NSLog(@"end migration");
-        
-        [oldDataSchema removeOldData];
-        
-        // hack for history fix
-        [session.userDataStore reset];
-        
-        return;
-    }
-        
-    // Ye Ancient Converter
-    // From the old PhoneGap app
-    // @fixme: fix this to work again
-    DataMigrator *dataMigrator = [[DataMigrator alloc] init];
-    if ([dataMigrator hasData]) {
-        NSLog(@"Old data to migrate found!");
-        NSArray *titles = [dataMigrator extractSavedPages];
-        ArticleImporter *importer = [[ArticleImporter alloc] init];
-        
-        for (NSDictionary *item in titles) {
-            NSLog(@"Will import saved page: %@ %@", item[@"lang"], item[@"title"]);
-        }
-        
-        [importer importArticles:titles];
-        
-        [dataMigrator removeOldData];
-
-        return;
-    }
-
-    NSLog(@"No old data to migrate.");
 }
 
 #pragma mark Bottom menu bar

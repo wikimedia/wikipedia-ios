@@ -263,3 +263,4 @@
 "nearby-location-general-error" = "Unable to determine location. Pull to refresh or try again later.";
 "nearby-wifi" = "Enabling Wi-Fi can help your device better determine your location.";
 
+"update-progress-label" = "Upgrading local data";
