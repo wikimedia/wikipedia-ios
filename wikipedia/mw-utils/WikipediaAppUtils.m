@@ -184,16 +184,16 @@
                 copy(bundledFilePath, documentsFilePath);
             }else{
                 // File exists in "AppData/Documents/assets/" so copy it if bundled file is newer
-                NSError *error1 = nil, *error2 = nil;
-                NSDictionary *fileInDocumentsAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:documentsFilePath error:&error1];
-                NSDictionary *fileInBundleAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:bundledFilePath error:&error2];
+                NSError *docFilePathErr = nil, *bundledFilePathErr = nil;
+                NSDictionary *fileInDocumentsAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:documentsFilePath error:&docFilePathErr];
+                NSDictionary *fileInBundleAttr = [[NSFileManager defaultManager] attributesOfItemAtPath:bundledFilePath error:&bundledFilePathErr];
                 
-                if (!error1 && !error1) {
+                if (!docFilePathErr && !bundledFilePathErr) {
                     
-                    NSDate *date1 = (NSDate*)fileInBundleAttr[NSFileModificationDate];
-                    NSDate *date2 = (NSDate*)fileInDocumentsAttr[NSFileModificationDate];
+                    NSDate *bundledFileDate = (NSDate*)fileInBundleAttr[NSFileModificationDate];
+                    NSDate *documentsFileDate = (NSDate*)fileInDocumentsAttr[NSFileModificationDate];
                     
-                    if ([date1 timeIntervalSinceDate:date2] > 0) {
+                    if ([bundledFileDate timeIntervalSinceDate:documentsFileDate] > 0) {
                         // Bundled file is newer.
                         
                         // Remove existing "AppData/Documents/assets/" file - otherwise the copy will fail.
