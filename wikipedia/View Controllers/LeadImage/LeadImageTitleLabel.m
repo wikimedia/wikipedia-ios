@@ -5,8 +5,9 @@
 #import "LeadImageTitleAttributedString.h"
 #import "UIScreen+Extras.h"
 
-#define PADDING UIEdgeInsetsMake(16, 16, 0, 16)
-#define PADDING_BOTTOM_WHEN_IMAGE_PRESENT 13
+#define PADDING_BOTTOM_WHEN_IMAGE_PRESENT 17
+#define PADDING_BOTTOM_WHEN_IMAGE_NOT_PRESENT 8
+#define PADDING UIEdgeInsetsMake(16, 16, PADDING_BOTTOM_WHEN_IMAGE_NOT_PRESENT, 16)
 
 @interface LeadImageTitleLabel()
 
@@ -18,6 +19,8 @@
 
 -(void)awakeFromNib
 {
+    self.padding = PADDING;
+
     self.rotationObserver =
     [[NSNotificationCenter defaultCenter] addObserverForName: UIDeviceOrientationDidChangeNotification
                                                       object: nil
@@ -50,7 +53,7 @@
             &&
             self.imageExists
         )
-        ? PADDING_BOTTOM_WHEN_IMAGE_PRESENT : 0;
+        ? PADDING_BOTTOM_WHEN_IMAGE_PRESENT : PADDING_BOTTOM_WHEN_IMAGE_NOT_PRESENT;
 
     self.padding = UIEdgeInsetsMake(PADDING.top, PADDING.left, bottomPadding, PADDING.right);
 }

@@ -6,8 +6,13 @@
 #import "Defines.h"
 
 #define FONT @"Times New Roman"
-#define FONT_SIZE_TITLE (30.0f * MENUS_SCALE_MULTIPLIER)
-#define FONT_SIZE_DESCRIPTION (13.0f * MENUS_SCALE_MULTIPLIER)
+#define FONT_SIZE_TITLE (34.0f * MENUS_SCALE_MULTIPLIER)
+#define FONT_SIZE_DESCRIPTION (17.0f * MENUS_SCALE_MULTIPLIER)
+
+#define LINE_SPACING_TITLE (-5.0f * MENUS_SCALE_MULTIPLIER)
+#define LINE_SPACING_DESCRIPTION (2.0f * MENUS_SCALE_MULTIPLIER)
+
+#define SPACE_ABOVE_DESCRIPTION (4.0f * MENUS_SCALE_MULTIPLIER)
 
 @implementation LeadImageTitleAttributedString
 
@@ -24,16 +29,25 @@
     CGFloat titleFontSizeMultiplier = [self getSizeReductionMultiplierForTitleOfLength:title.length];
     
     CGFloat titleFontSize = floor(FONT_SIZE_TITLE * titleFontSizeMultiplier);
+
+    NSMutableParagraphStyle *titleParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    titleParagraphStyle.lineSpacing = LINE_SPACING_TITLE;
+    
+    NSMutableParagraphStyle *descParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    descParagraphStyle.lineSpacing = LINE_SPACING_DESCRIPTION;
+    descParagraphStyle.paragraphSpacingBefore = SPACE_ABOVE_DESCRIPTION;
     
     NSDictionary *titleAttribs =
     @{
       NSShadowAttributeName: shadow,
-      NSFontAttributeName : [UIFont fontWithName:FONT size:titleFontSize]
+      NSFontAttributeName : [UIFont fontWithName:FONT size:titleFontSize],
+      NSParagraphStyleAttributeName: titleParagraphStyle
       };
     NSDictionary *descripAttribs =
     @{
       NSShadowAttributeName: shadow,
-      NSFontAttributeName : [UIFont fontWithName:FONT size:FONT_SIZE_DESCRIPTION]
+      NSFontAttributeName : [UIFont fontWithName:FONT size:FONT_SIZE_DESCRIPTION],
+      NSParagraphStyleAttributeName: descParagraphStyle
       };
 
     NSString *lineBreak = (description.length == 0) ? @"": @"\n";
