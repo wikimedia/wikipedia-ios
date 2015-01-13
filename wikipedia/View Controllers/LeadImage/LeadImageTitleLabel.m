@@ -8,7 +8,30 @@
 #define PADDING UIEdgeInsetsMake(16, 16, 0, 16)
 #define PADDING_BOTTOM_WHEN_IMAGE_PRESENT 13
 
+@interface LeadImageTitleLabel()
+
+@property(strong, nonatomic)id rotationObserver;
+
+@end
+
 @implementation LeadImageTitleLabel
+
+-(void)awakeFromNib
+{
+    self.rotationObserver =
+    [[NSNotificationCenter defaultCenter] addObserverForName: UIDeviceOrientationDidChangeNotification
+                                                      object: nil
+                                                       queue: [NSOperationQueue mainQueue]
+                                                  usingBlock: ^(NSNotification *notification) {
+                                                      // Update padding on rotation so padding beneath title goes away in landscape.
+                                                      [self updatePadding];
+                                                  }];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self.rotationObserver];
+}
 
 -(void)setTitle: (NSString *)title
     description: (NSString *)description
@@ -16,10 +39,10 @@
     self.attributedText =
         [LeadImageTitleAttributedString attributedStringWithTitle: title
                                                       description: description];
-    [self setNeedsLayout];
+    [self updatePadding];
 }
 
--(void)layoutSubviews
+-(void)updatePadding
 {
     CGFloat bottomPadding =
         (

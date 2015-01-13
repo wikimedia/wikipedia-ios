@@ -32,6 +32,7 @@ Do *not* leave this set to YES for release.
 @property (nonatomic) CGRect focalFaceBounds;
 @property(strong, nonatomic) MWKArticle *article;
 @property (nonatomic) BOOL isPlaceholder;
+@property(strong, nonatomic)id rotationObserver;
 
 @end
 
@@ -44,6 +45,7 @@ Do *not* leave this set to YES for release.
     self.backgroundColor = [UIColor clearColor];
     [self adjustConstraintsScaleForViews:@[self.titleLabel]];
 
+    self.rotationObserver =
     [[NSNotificationCenter defaultCenter] addObserverForName: UIDeviceOrientationDidChangeNotification
                                                       object: nil
                                                        queue: [NSOperationQueue mainQueue]
@@ -72,6 +74,11 @@ Do *not* leave this set to YES for release.
     self.clipsToBounds = NO;
 
     //[self randomlyColorSubviews];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self.rotationObserver];
 }
 
 -(void)drawRect:(CGRect)rect
