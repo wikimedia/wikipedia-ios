@@ -137,7 +137,7 @@
     @"sections": @"all",
     @"page": title,
     @"thumbsize": @(LEAD_IMAGE_WIDTH),
-    @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount|id|protection|editable|displaytitle|thumb",
+    @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount|id|protection|editable|displaytitle|thumb|description",
     }.mutableCopy;
 
     if ([SessionSingleton sharedInstance].sendUsageReports) {
