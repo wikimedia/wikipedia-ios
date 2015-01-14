@@ -51,6 +51,7 @@
       };
 
     NSString *lineBreak = (description.length == 0) ? @"": @"\n";
+    description = description ? description : @"";
 
     return
     [@"$1$2$3" attributedStringWithAttributes: @{}

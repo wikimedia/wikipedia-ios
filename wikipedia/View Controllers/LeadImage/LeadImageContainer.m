@@ -344,19 +344,12 @@ Do *not* leave this set to YES for release.
 
 -(NSString *)getCurrentArticleDescription
 {
-
-
-//TODO: once wikidata descriptions land in mobileview update the articlefetcher to get these descriptions
-    //https://gerrit.wikimedia.org/r/#/c/180895/
-    // then update this to pull from article.entityDescription
-
-
-    return @"";
-
-    NSUInteger r = arc4random_uniform(2);
-
-    return (r == 0) ? @"English actor, comedian and filmmaker" : @"";
-
+    NSString *description = self.article.entityDescription;
+    if (description) {
+        description = [self.article.entityDescription getStringWithoutHTML];
+        description = [description capitalizeFirstLetter];
+    }
+    return description;
 }
 
 @end
