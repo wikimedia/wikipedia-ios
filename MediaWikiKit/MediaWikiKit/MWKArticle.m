@@ -9,7 +9,6 @@
 #import "MediaWikiKit.h"
 
 @implementation MWKArticle {
-    NSString *_description;
     MWKImageList *_images;
     MWKSectionList *_sections;
 }
@@ -52,10 +51,9 @@
     dict[@"protection"] = [self.protection dataExport];
     dict[@"editable"] = @(self.editable);
 
-    if (self.description) {
-        // This doesn't come from mobileview api yet, queried separately
-        // Added https://gerrit.wikimedia.org/r/#/c/180895
-        dict[@"description"] = self.description;
+    if (self.entityDescription) {
+        // Note we call the property .entityDescription because [x description] is in use in Obj-C.
+        dict[@"description"] = self.entityDescription;
     }
     
     if (self.thumbnailURL) {
@@ -93,18 +91,15 @@
 
 -(void)importMobileViewJSON:(NSDictionary *)dict
 {
-    _redirected     =  [self optionalTitle:           @"redirected"     dict:dict];
-    _lastmodified   =  [self requiredDate:            @"lastmodified"   dict:dict];
-    _lastmodifiedby =  [self requiredUser:            @"lastmodifiedby" dict:dict];
-    _articleId      = [[self requiredNumber:          @"id"             dict:dict] intValue];
-    _languagecount  = [[self requiredNumber:          @"languagecount"  dict:dict] intValue];
-    _displaytitle   =  [self optionalString:          @"displaytitle"   dict:dict];
-    _protection     =  [self requiredProtectionStatus:@"protection"     dict:dict];
-    _editable       = [[self requiredNumber:          @"editable"       dict:dict] boolValue];
-    
-    // This doesn't come from mobileview api, queried separately
-    // Added https://gerrit.wikimedia.org/r/#/c/180895/2
-    _description    = [self optionalString:           @"description"     dict:dict];
+    _redirected        =  [self optionalTitle:           @"redirected"     dict:dict];
+    _lastmodified      =  [self requiredDate:            @"lastmodified"   dict:dict];
+    _lastmodifiedby    =  [self requiredUser:            @"lastmodifiedby" dict:dict];
+    _articleId         = [[self requiredNumber:          @"id"             dict:dict] intValue];
+    _languagecount     = [[self requiredNumber:          @"languagecount"  dict:dict] intValue];
+    _displaytitle      =  [self optionalString:          @"displaytitle"   dict:dict];
+    _protection        =  [self requiredProtectionStatus:@"protection"     dict:dict];
+    _editable          = [[self requiredNumber:          @"editable"       dict:dict] boolValue];
+    _entityDescription =  [self optionalString:          @"description"     dict:dict];
     
     // From mobileview API...
     if (dict[@"thumb"]) {

@@ -39,7 +39,7 @@
 @property (readwrite,nonatomic) NSString *thumbnailURL;   // optional; pulled separately via search
 @property (readwrite,nonatomic) NSString *imageURL;       // optional; pulled in article request
 
-@property (readonly) NSString            *description; // optional; currently pulled separately via wikidata
+@property (readonly) NSString            *entityDescription; // optional; currently pulled separately via wikidata
 
 @property (readonly) MWKSectionList *sections;
 
