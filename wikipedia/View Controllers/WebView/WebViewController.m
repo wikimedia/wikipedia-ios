@@ -133,6 +133,8 @@
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomConstraint;
 
+@property (nonatomic) BOOL didLastNavigateByBackOrForward;
+
 @end
 
 #pragma mark Internal variables
@@ -290,6 +292,7 @@
     if (!self.jumpToFragment) {
         [self.webView.scrollView setContentOffset:self.lastScrollOffset animated:NO];
     }
+    [self saveWebViewScrollOffset];
 }
 
 -(void)tocUpdateViewLayout
@@ -1395,8 +1398,11 @@
     // being *navigated to* has its history dateVisited updated later in this method.
     if (discoveryMethod != MWK_DISCOVERY_METHOD_BACKFORWARD) {
         [self updateHistoryDateVisitedForArticleBeingNavigatedFrom];
+        self.didLastNavigateByBackOrForward = NO;
+    }else{
+        self.didLastNavigateByBackOrForward = YES;
     }
-    
+
     [self retrieveArticleForPageTitle: title
                       discoveryMethod: discoveryMethod];
 
@@ -1538,8 +1544,9 @@
     // if the article was NOT loaded via back or forward buttons.
     if (discoveryMethod != MWK_DISCOVERY_METHOD_BACKFORWARD) {
         [session.userDataStore updateHistory:article.title discoveryMethod:discoveryMethod];
+        [self invalidateCacheForPageTitle:pageTitle];
     }
-    
+        
     // If article with sections just show them (unless needsRefresh is YES)
     if ([article.sections count] > 0 && !article.needsRefresh) {
         [self.tocVC setTocSectionDataForSections:session.article.sections];
@@ -1599,8 +1606,17 @@
     //[article ifNoThumbnailUseFirstSectionImageAsThumbnailUsingContext:articleDataContext_.mainContext];
     
     MWKHistoryEntry *historyEntry = [session.userDataStore.historyList entryForTitle:article.title];
-    CGPoint scrollOffset = historyEntry ? CGPointMake(0, historyEntry.scrollPosition) : CGPointMake(0, 0);
-    self.lastScrollOffset = scrollOffset;
+
+    if((self.didLastNavigateByBackOrForward && historyEntry) || historyEntry.discoveryMethod == MWK_DISCOVERY_METHOD_SAVED){
+        
+        CGPoint scrollOffset = CGPointMake(0, historyEntry.scrollPosition);
+        self.lastScrollOffset = scrollOffset;
+        
+    }else{
+        
+        CGPoint scrollOffset = CGPointMake(0, 0);
+        self.lastScrollOffset = scrollOffset;
+    }
     
     if (![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
         [sectionTextArray addObject: [self renderFooterDivider]];
