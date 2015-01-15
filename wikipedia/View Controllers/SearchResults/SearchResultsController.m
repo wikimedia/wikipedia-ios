@@ -15,7 +15,6 @@
 #import "ThumbnailFetcher.h"
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
-#import "SearchTypeMenu.h"
 #import "TopMenuTextFieldContainer.h"
 #import "TopMenuTextField.h"
 #import "SearchDidYouMeanButton.h"
@@ -26,6 +25,8 @@
 #import "UITableView+DynamicCellHeight.h"
 
 #define TABLE_CELL_ID @"SearchResultCell"
+#define SEARCH_DELAY 0.4
+#define MIN_RESULTS_BEFORE_AUTO_FULL_TEXT_SEARCH 12
 
 @interface SearchResultsController (){
     CGFloat scrollViewDragBeganVerticalOffset_;
@@ -38,7 +39,6 @@
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic, strong) NSString *cachePath;
 
-@property (nonatomic, weak) IBOutlet SearchTypeMenu *searchTypeMenu;
 @property (nonatomic, weak) IBOutlet SearchDidYouMeanButton *didYouMeanButton;
 @property (nonatomic, weak) IBOutlet SearchMessageLabel *searchMessageLabel;
 
@@ -173,12 +173,6 @@
     // Turn off the separator since one gets added in SearchResultCell.m
     self.searchResultsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    // Observe searchTypeMenu's searchType, refresh results if it changes - ie user tapped "Titles" or "Within articles".
-    [self.searchTypeMenu addObserver: self
-                          forKeyPath: @"searchType"
-                             options: NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-                             context: nil];
-
     self.didYouMeanButton.userInteractionEnabled = YES;
     [self.didYouMeanButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didYouMeanButtonPushed)]];
 
@@ -193,7 +187,6 @@
 
 -(void)dealloc
 {
-    [self.searchTypeMenu removeObserver:self forKeyPath:@"searchType"];
     [self.recentSearchesViewController removeObserver:self forKeyPath: @"recentSearchesItemCount"];
 }
 
@@ -211,9 +204,7 @@
                         change: (NSDictionary *)change
                        context: (void *)context
 {
-    if ((object == self.searchTypeMenu) && [keyPath isEqualToString:@"searchType"]) {
-        [self searchAfterDelay:@0.0f reason:SEARCH_REASON_SEARCH_TYPE_MENU_TAPPED];
-    }else if ((object == self.recentSearchesViewController) && [keyPath isEqualToString:@"recentSearchesItemCount"]) {
+    if ((object == self.recentSearchesViewController) && [keyPath isEqualToString:@"recentSearchesItemCount"]) {
         [self updateRecentSearchesContainerVisibility];
     }
 }
@@ -250,9 +241,7 @@
     if (self.searchString.length == 0) {
         [self clearSearchResults];
     }else{
-        CGFloat delay = (self.searchTypeMenu.searchType == SEARCH_TYPE_TITLES) ? SEARCH_DELAY_PREFIX : SEARCH_DELAY_FULL_TEXT;
-        
-        [self searchAfterDelay:@(delay) reason:SEARCH_REASON_SEARCH_STRING_CHANGED];
+        [self searchAfterDelay:@(SEARCH_DELAY) reason:SEARCH_REASON_SEARCH_STRING_CHANGED];
     }
 }
 
@@ -277,13 +266,6 @@
     if (self.navigationController.topViewController != self) return;
 
     if (self.searchString.length == 0) return;
-
-    if (reason == SEARCH_REASON_NO_PREFIX_RESULTS) {
-        // Switch to in-article search.
-        self.searchTypeMenu.searchType = SEARCH_TYPE_IN_ARTICLES;
-        // Show "Searching..." message.
-        [self.searchMessageLabel showWithText:MWLocalizedString(@"search-searching", nil)];
-    }
     
     [self updateWordsToHighlight];
     
@@ -332,16 +314,26 @@
     [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
 }
 
+-(void)reduceToOnlyResultsFromSearchTerm:(NSString *)searchTerm
+{
+    NSPredicate *predicate =
+        [NSPredicate predicateWithFormat:@"searchterm ==[c] %@", searchTerm];
+    self.searchResults = [self.searchResults filteredArrayUsingPredicate:predicate];
+
+    [self.searchResultsTable reloadData];
+}
+
 -(void)updateAttributeTextForSearchType: (SearchType) searchType
 {
     for (NSMutableDictionary *result in self.searchResults) {
         //TODO: change name of "SearchResultAttributedString" to "SearchResultStringStyler" or something... it's an NSObject!
+        NSNumber *typeAsNumber = result[@"searchtype"];
         SearchResultAttributedString *attributedResult =
         [SearchResultAttributedString initWithTitle: result[@"title"]
                                             snippet: result[@"snippet"]
                                 wikiDataDescription: result[@"description"]
                                      highlightWords: self.searchStringWordsToHighlight
-                                         searchType: searchType
+                                         searchType: typeAsNumber.integerValue
                                     attributesTitle: self.attributesTitle
                               attributesDescription: self.attributesDescription
                                 attributesHighlight: self.attributesHighlight
@@ -350,6 +342,29 @@
         
         result[@"attributedText"] = attributedResult;
     }
+}
+
+-(NSArray *)removePrefixResultsFromSupplementalResults:(NSArray *)supplementalResults
+{
+    // Remove items from supplementalResults which are already
+    // present in self.searchResults so we don't see dupes.
+    NSMutableArray *supplementalFullTextResults = supplementalResults.mutableCopy;
+    for (NSDictionary *prefixResult in self.searchResults) {
+        NSNumber *prefixResultId = prefixResult[@"pageid"];
+        NSUInteger dupeIndex = [supplementalFullTextResults indexOfObjectPassingTest:^BOOL(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+            NSNumber *fullTextResultId = obj[@"pageid"];
+            if ([fullTextResultId isEqual:prefixResultId]) {
+                *stop = YES;
+                return YES;
+            }
+            return NO;
+        }];
+
+        if (dupeIndex != NSNotFound) {
+            [supplementalFullTextResults removeObjectAtIndex:dupeIndex];
+        }
+    }
+    return supplementalFullTextResults;
 }
 
 - (void)fetchFinished: (id)sender
@@ -366,8 +381,20 @@
                 [self fadeAlert];
                 [self.searchMessageLabel hide];
 
-                self.searchResults = searchResultFetcher.searchResults;
+                if (searchResultFetcher.searchReason == SEARCH_REASON_SUPPLEMENT_PREFIX_WITH_FULL_TEXT) {
 
+                    // Supplement the prefix results with these full text results, but first remove
+                    // items from fullTextSearchResults which are already present in self.searchResults
+                    // so we don't see dupes.
+                    NSArray *supplementalFullTextResults =
+                        [self removePrefixResultsFromSupplementalResults:searchResultFetcher.searchResults];
+
+                    self.searchResults =
+                        [self.searchResults arrayByAddingObjectsFromArray:supplementalFullTextResults];
+                    
+                }else{
+                    self.searchResults = searchResultFetcher.searchResults;
+                }
                 //NSLog(@"self.searchResultsOrdered = %@", self.searchResultsOrdered);
 
                 [self updateAttributeTextForSearchType:searchResultFetcher.searchType];
@@ -375,6 +402,13 @@
                 // We have search titles! Show them right away!
                 // NSLog(@"FIRE ONE! Show search result titles.");
                 [self.searchResultsTable reloadData];
+
+                // If we received fewer than MIN_RESULTS_BEFORE_AUTO_FULL_TEXT_SEARCH prefix results,
+                // do a full-text search too, the results of which will be appended to the prefix results.
+                // Note: this also has to be done in the FETCH_FINAL_STATUS_FAILED case below.
+                if ((self.searchResults.count < MIN_RESULTS_BEFORE_AUTO_FULL_TEXT_SEARCH) && (searchResultFetcher.searchType == SEARCH_TYPE_TITLES)){
+                        [self performSupplementalFullTextSearchForTerm:searchResultFetcher.searchTerm];
+                }
             }
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
@@ -383,28 +417,24 @@
             case FETCH_FINAL_STATUS_FAILED:
 
                 if(error.code == SEARCH_RESULT_ERROR_NO_MATCHES){
-                    [self clearSearchResults];
-                    [self.searchMessageLabel showWithText:error.localizedDescription];
 
-                    // If this set of results came from a title search and no results were found,
-                    // switch to in-article and re-run the search. But don't do so if the search
-                    // is being triggered by a change in the search type menu selection.
-                    if(
-                       (searchResultFetcher.searchType == SEARCH_TYPE_TITLES)
-                       &&
-                       (searchResultFetcher.searchReason != SEARCH_REASON_SEARCH_TYPE_MENU_TAPPED)
-                       ){
+                    // We don't want the supplemental full text results blasting prefix results,
+                    // but we do need to reduce to only show items for current search string.
+                    // Needed because we don't blank out search results as a user types.
+                    // (Previously we cleared search results here, but now that supplemental
+                    // full text results can arrive after the prefix results have been presented
+                    // this became necessary.)
+                    [self reduceToOnlyResultsFromSearchTerm:self.searchString];
 
-                        if(!ENABLE_FULL_TEXT_SEARCH) return;
-                        
-                        // Note: the search button is not switched until "performSearch:" is
-                        // invoked as a result of the "searchAfterDelay:reason:" call below.
-                        // That way the users can see the "No search results" message in association
-                        // with the "Titles" button briefly before the in-article search is
-                        // automatically kicked off.
-                        [self searchAfterDelay:@1.08f reason:SEARCH_REASON_NO_PREFIX_RESULTS];
-                        return;
+                    if (searchResultFetcher.searchType == SEARCH_TYPE_TITLES) {
+                        [self performSupplementalFullTextSearchForTerm:searchResultFetcher.searchTerm];
+                    }else{
+                        // Don't show the no-results found message if there were any prefix results.
+                        if(self.searchResults.count == 0){
+                            [self.searchMessageLabel showWithText:error.localizedDescription];
+                        }
                     }
+
                 }else{
                     [self.searchMessageLabel showWithText:error.localizedDescription];
                 }
@@ -474,6 +504,16 @@
     }
 }
 
+-(void)performSupplementalFullTextSearchForTerm:(NSString *)searchTerm
+{
+    (void)[[SearchResultFetcher alloc] initAndSearchForTerm: searchTerm
+                                                 searchType: SEARCH_TYPE_IN_ARTICLES
+                                               searchReason: SEARCH_REASON_SUPPLEMENT_PREFIX_WITH_FULL_TEXT
+                                                withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
+                                         thenNotifyDelegate: self];
+
+}
+
 - (void)searchForTerm:(NSString *)searchTerm reason:(SearchReason)reason
 {
     // Reminder: do not call "searchForTerm:reason:" directly - only "performSearch:" should do so.
@@ -488,9 +528,8 @@
     
     //[self showAlert:MWLocalizedString(@"search-searching", nil) type:ALERT_TYPE_MIDDLE duration:-1];
     
-    // Search! Only call this here!
     (void)[[SearchResultFetcher alloc] initAndSearchForTerm: searchTerm
-                                                 searchType: self.searchTypeMenu.searchType
+                                                 searchType: SEARCH_TYPE_TITLES
                                                searchReason: reason
                                                 withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
                                          thenNotifyDelegate: self];
@@ -591,7 +630,7 @@
 {
     [self.recentSearchesViewController saveTerm: self.searchString
                                       forDomain: [SessionSingleton sharedInstance].searchSite.language
-                                           type: self.searchTypeMenu.searchType];
+                                           type: SEARCH_TYPE_TITLES];
 }
 
 -(BOOL)perfectSearchStringTitleMatchFoundInSearchResults

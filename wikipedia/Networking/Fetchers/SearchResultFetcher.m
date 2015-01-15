@@ -195,6 +195,9 @@
                 
                 mutablePrefixPage[@"title"] = mutablePrefixPage[@"title"] ? [mutablePrefixPage[@"title"] wikiTitleWithoutUnderscores] : @"";
 
+                mutablePrefixPage[@"searchtype"] = @(self.searchType);
+                mutablePrefixPage[@"searchterm"] = self.searchTerm;
+
                 NSString *description = @"";
                 NSDictionary *terms = mutablePrefixPage[@"terms"];
                 if(terms && terms[@"description"]){

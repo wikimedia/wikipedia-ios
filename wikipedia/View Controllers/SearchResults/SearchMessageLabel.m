@@ -6,7 +6,7 @@
 #import "Defines.h"
 
 #define FONT_SIZE (14.0f * MENUS_SCALE_MULTIPLIER)
-#define PADDING UIEdgeInsetsMake(10.0f, 10.0f, 0.0f, 10.0f)
+#define PADDING UIEdgeInsetsMake(10.0f, 10.0f, 8.0f, 10.0f)
 #define COLOR_BACKGROUND [UIColor whiteColor]
 #define COLOR_TEXT [UIColor grayColor]
 

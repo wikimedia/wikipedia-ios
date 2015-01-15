@@ -66,14 +66,6 @@
 #define CHROME_OUTLINE_COLOR ALERT_BACKGROUND_COLOR
 #define CHROME_OUTLINE_WIDTH (1.0f / [UIScreen mainScreen].scale)
 
-#define SEARCH_DELAY_PREFIX 0.4
-#define SEARCH_DELAY_FULL_TEXT 1.0
-
-// Temporary flag for hiding full text search interface (in search
-// results) until production ready. Full text search interface has
-// a couple UX changes brewing.
-#define ENABLE_FULL_TEXT_SEARCH NO
-
 // Reminder: For caching reasons, don't do "(scale * 320)" here.
 #define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
 #define LEAD_IMAGE_CONTAINER_HEIGHT (roundf([UIScreen mainScreen].bounds.size.height * 0.353f))

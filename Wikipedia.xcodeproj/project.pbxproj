@@ -51,7 +51,6 @@
 		043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043DAC4A1901C3EE001CD17C /* CreditsViewController.m */; };
 		043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18DC18D9691D00D8489A /* TopActionSheetLabel.m */; };
 		043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */; };
-		043F8BEF1A1146B300D1AE44 /* SearchTypeMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F8BEE1A1146B300D1AE44 /* SearchTypeMenu.m */; };
 		043F8BF21A11699A00D1AE44 /* UIView+RoundCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F8BF11A11699A00D1AE44 /* UIView+RoundCorners.m */; };
 		04414DDB1A140FAF00A41B4E /* SearchDidYouMeanButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 04414DDA1A140FAF00A41B4E /* SearchDidYouMeanButton.m */; };
 		04414DDF1A1420EB00A41B4E /* WikiDataShortDescriptionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 04414DDE1A1420EB00A41B4E /* WikiDataShortDescriptionFetcher.m */; };
@@ -375,8 +374,6 @@
 		043F18DF18D9691D00D8489A /* UINavigationController+TopActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+TopActionSheet.h"; sourceTree = "<group>"; };
 		043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+TopActionSheet.m"; sourceTree = "<group>"; };
 		043F18F118DCDD3A00D8489A /* WMF_Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMF_Colors.h; sourceTree = "<group>"; };
-		043F8BED1A1146B300D1AE44 /* SearchTypeMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTypeMenu.h; sourceTree = "<group>"; };
-		043F8BEE1A1146B300D1AE44 /* SearchTypeMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTypeMenu.m; sourceTree = "<group>"; };
 		043F8BF01A11699A00D1AE44 /* UIView+RoundCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RoundCorners.h"; sourceTree = "<group>"; };
 		043F8BF11A11699A00D1AE44 /* UIView+RoundCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RoundCorners.m"; sourceTree = "<group>"; };
 		04414DD91A140FAF00A41B4E /* SearchDidYouMeanButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDidYouMeanButton.h; sourceTree = "<group>"; };
@@ -938,8 +935,6 @@
 				04292FEF185FBA70002A13FC /* SearchResultCell.h */,
 				04292FF0185FBA70002A13FC /* SearchResultCell.m */,
 				04EDEE241A20788600798076 /* SearchResultPrototypeView.xib */,
-				043F8BED1A1146B300D1AE44 /* SearchTypeMenu.h */,
-				043F8BEE1A1146B300D1AE44 /* SearchTypeMenu.m */,
 				04414DD91A140FAF00A41B4E /* SearchDidYouMeanButton.h */,
 				04414DDA1A140FAF00A41B4E /* SearchDidYouMeanButton.m */,
 				04038E6E1A15734B00DBD1DF /* SearchMessageLabel.h */,
@@ -2135,7 +2130,6 @@
 				D49B2ED2196C687C002F035D /* PullToRefreshViewController.m in Sources */,
 				0449E63518A9845C00D51524 /* LoginViewController.m in Sources */,
 				04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
-				043F8BEF1A1146B300D1AE44 /* SearchTypeMenu.m in Sources */,
 				0487048B19F8262600B7D307 /* RandomArticleFetcher.m in Sources */,
 				042A5B36192591520095E172 /* TopMenuTextField.m in Sources */,
 				04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */,
