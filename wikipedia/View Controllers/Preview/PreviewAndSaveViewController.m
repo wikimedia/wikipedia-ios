@@ -496,8 +496,7 @@ typedef enum {
             case FETCH_FINAL_STATUS_SUCCEEDED:{
                 NSMutableDictionary *editTokens =
                 [SessionSingleton sharedInstance].keychainCredentials.editTokens;
-                //NSLog(@"article.domain = %@", article.domain);
-                NSString *domain = [sender domain];
+                NSString *domain = self.section.site.language;
                 if (domain && tokenFetcher.token) {
                     editTokens[domain] = tokenFetcher.token;
                     [SessionSingleton sharedInstance].keychainCredentials.editTokens = editTokens;
@@ -707,14 +706,15 @@ typedef enum {
 
     // If fromTitle was set, the section was transcluded, so use the title of the page
     // it was transcluded from.
+    MWKTitle *editTitle = self.section.fromtitle ? self.section.fromtitle : self.section.article.title;
 
     // First try to get an edit token for the page's domain before trying to upload the changes.
     // Only the domain is used to actually fetch the token, the other values are
     // parked in EditTokenFetcher so the actual uploader can have quick read-only
     // access to the exact params which kicked off the token request.
     (void)[[EditTokenFetcher alloc] initAndFetchEditTokenForWikiText: self.wikiText
-                                                           pageTitle: self.section.fromtitle
-                                                             section: self.section.index
+                                                           pageTitle: editTitle
+                                                             section: [NSString stringWithFormat:@"%d", self.section.sectionId]
                                                              summary: [self getSummary]
                                                            captchaId: self.captchaId
                                                          captchaWord: self.captchaViewController.captchaTextBox.text
