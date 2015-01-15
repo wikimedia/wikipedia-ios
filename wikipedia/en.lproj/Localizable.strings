@@ -41,6 +41,8 @@
 "account-creation-password-placeholder-text" = "Password";
 "account-creation-password-confirm-placeholder-text" = "Confirm password";
 "account-creation-email-placeholder-text" = "Email (optional)";
+"account-creation-missing-fields" = "You must enter a username, password, and password confirmation to create an account.";
+
 
 "login-name-not-found" = "User name is required to login.";
 "login-name-illegal" = "You provided an illegal user name.";
@@ -260,3 +262,4 @@
 "nearby-location-updates-settings-menu" = "Privacy > Location Services > Wikipedia";
 "nearby-location-general-error" = "Unable to determine location. Pull to refresh or try again later.";
 "nearby-wifi" = "Enabling Wi-Fi can help your device better determine your location.";
+

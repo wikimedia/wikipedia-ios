@@ -47,6 +47,7 @@
 "account-creation-password-placeholder-text" = "{{Identical|Password}}";
 "account-creation-password-confirm-placeholder-text" = "{{Identical|Confirm password}}";
 "account-creation-email-placeholder-text" = "Placeholder text which appears initially in the optional email address text box";
+"account-creation-missing-fields" = "Error shown when one of the required fields for account creation (username, password, and password confirmation) is empty.";
 "login-name-not-found" = "Alert text shown when no user name was entered";
 "login-name-illegal" = "Alert text shown when illegal user name entered";
 "login-name-does-not-exist" = "Alert text shown when user name entered was not found";
@@ -237,3 +238,4 @@
 "nearby-location-updates-settings-menu" = "Menu items to tap in the iOS Settings App to enable the Wikipedia App to get location updates. Please check on an iOS device to ensure correct menu text.";
 "nearby-location-general-error" = "General location determination error message";
 "nearby-wifi" = "Alert text telling user how to improve location accuracy";
+
