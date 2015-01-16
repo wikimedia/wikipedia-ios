@@ -12,6 +12,7 @@
 
 @class MWKTitle;
 @class MWKArticle;
+@class MWKImageMetadata;
 
 @interface MWKImage : MWKSiteDataObject
 
@@ -48,6 +49,7 @@
 -(UIImage *)asUIImage;
 
 -(MWKImage *)largestVariant;
+-(MWKImageMetadata *)metadata;
 
 +(NSString *)fileNameNoSizePrefix:(NSString *)sourceURL;
 +(int)fileSizePrefix:(NSString *)sourceURL;

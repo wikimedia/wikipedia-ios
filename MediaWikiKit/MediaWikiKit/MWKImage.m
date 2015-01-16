@@ -151,6 +151,12 @@
     return [self.article imageWithURL:largestURL];
 }
 
+-(MWKImageMetadata *)metadata
+{
+    return [self.article.dataStore imageMetadataWithName:self.fileNameNoSizePrefix
+                                                 article:self.article];
+}
+
 -(BOOL)isCached
 {
     // @fixme maybe make this more efficient

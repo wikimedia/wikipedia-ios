@@ -67,6 +67,10 @@
 		D4DDF46119F055C800C6BC10 /* MWKUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DDF46019F055C800C6BC10 /* MWKUserTests.m */; };
 		D4DDF46319F0560400C6BC10 /* user-loggedin.json in Resources */ = {isa = PBXBuildFile; fileRef = D4DDF46219F0560400C6BC10 /* user-loggedin.json */; };
 		D4DDF46519F0561500C6BC10 /* user-anon.json in Resources */ = {isa = PBXBuildFile; fileRef = D4DDF46419F0561500C6BC10 /* user-anon.json */; };
+		D4F9560D1A69B2AC00E9A2C4 /* MWKImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F9560C1A69B2AC00E9A2C4 /* MWKImageMetadata.m */; };
+		D4F9560E1A69B2AC00E9A2C4 /* MWKImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F9560C1A69B2AC00E9A2C4 /* MWKImageMetadata.m */; };
+		D4F956111A69B7BE00E9A2C4 /* MWKImageMetadataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F956101A69B7BE00E9A2C4 /* MWKImageMetadataItem.m */; };
+		D4F956121A69B7BE00E9A2C4 /* MWKImageMetadataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F956101A69B7BE00E9A2C4 /* MWKImageMetadataItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -148,6 +152,10 @@
 		D4DDF46019F055C800C6BC10 /* MWKUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKUserTests.m; sourceTree = "<group>"; };
 		D4DDF46219F0560400C6BC10 /* user-loggedin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-loggedin.json"; sourceTree = "<group>"; };
 		D4DDF46419F0561500C6BC10 /* user-anon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-anon.json"; sourceTree = "<group>"; };
+		D4F9560B1A69B2AC00E9A2C4 /* MWKImageMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKImageMetadata.h; sourceTree = "<group>"; };
+		D4F9560C1A69B2AC00E9A2C4 /* MWKImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKImageMetadata.m; sourceTree = "<group>"; };
+		D4F9560F1A69B7BE00E9A2C4 /* MWKImageMetadataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKImageMetadataItem.h; sourceTree = "<group>"; };
+		D4F956101A69B7BE00E9A2C4 /* MWKImageMetadataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKImageMetadataItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +279,8 @@
 				D44EA7881A1BCD1400631A1D /* MWKRecentSearchEntry.m */,
 				D44EA78B1A1BCD2600631A1D /* MWKRecentSearchList.h */,
 				D44EA78C1A1BCD2600631A1D /* MWKRecentSearchList.m */,
+				D4F9560F1A69B7BE00E9A2C4 /* MWKImageMetadataItem.h */,
+				D4F956101A69B7BE00E9A2C4 /* MWKImageMetadataItem.m */,
 			);
 			name = "Data classes";
 			sourceTree = "<group>";
@@ -299,6 +309,8 @@
 				D4B94B1E1A2FE975007FC79B /* MWKImageList.m */,
 				D4209C9C1A3A50C9000E1A60 /* MWKSectionList.h */,
 				D4209C9D1A3A50C9000E1A60 /* MWKSectionList.m */,
+				D4F9560B1A69B2AC00E9A2C4 /* MWKImageMetadata.h */,
+				D4F9560C1A69B2AC00E9A2C4 /* MWKImageMetadata.m */,
 			);
 			name = "Data i/o";
 			sourceTree = "<group>";
@@ -415,7 +427,9 @@
 				D47F56281A1A89B4004D9856 /* MWKHistoryList.m in Sources */,
 				D4612CED1A116E97008945A5 /* MWKSavedPageEntry.m in Sources */,
 				D4B94B1F1A2FE975007FC79B /* MWKImageList.m in Sources */,
+				D4F9560D1A69B2AC00E9A2C4 /* MWKImageMetadata.m in Sources */,
 				D4209C9E1A3A50C9000E1A60 /* MWKSectionList.m in Sources */,
+				D4F956111A69B7BE00E9A2C4 /* MWKImageMetadataItem.m in Sources */,
 				D497FCE71A08013F004A36A5 /* MWKSavedPageList.m in Sources */,
 				D4DDF45A19EDD22200C6BC10 /* MWKUser.m in Sources */,
 				D48405C719E47542006F4139 /* MWKImage.m in Sources */,
@@ -434,11 +448,13 @@
 				D494A6FF19F6C7C30098AA18 /* MWKProtectionStatus.m in Sources */,
 				D47F56291A1A89B4004D9856 /* MWKHistoryList.m in Sources */,
 				D44EA78E1A1BCD2600631A1D /* MWKRecentSearchList.m in Sources */,
+				D4F956121A69B7BE00E9A2C4 /* MWKImageMetadataItem.m in Sources */,
 				D48405C019E47526006F4139 /* MWKSection.m in Sources */,
 				D48405C819E47542006F4139 /* MWKImage.m in Sources */,
 				D49ADCCA1A0028A70010F839 /* MWKImageStorageTests.m in Sources */,
 				D4DDF46119F055C800C6BC10 /* MWKUserTests.m in Sources */,
 				D4C3FA5D19E47D4700EB08CC /* MWKTitleTests.m in Sources */,
+				D4F9560E1A69B2AC00E9A2C4 /* MWKImageMetadata.m in Sources */,
 				D497FCE81A08013F004A36A5 /* MWKSavedPageList.m in Sources */,
 				D494A71119F6ECC10098AA18 /* MWKDataStorePathTests.m in Sources */,
 				D4B94B201A2FE975007FC79B /* MWKImageList.m in Sources */,

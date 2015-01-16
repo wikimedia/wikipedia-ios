@@ -92,6 +92,15 @@
     return [self pathForImageURL:image.sourceURL title:image.article.title];
 }
 
+-(NSString *)pathForImageMetadata:(MWKImageMetadata *)imageMetadata
+{
+    NSString *safeName = [self safeFilenameWithString:imageMetadata.name];
+
+    NSString *articlePath = [self pathForArticle:imageMetadata.article];
+    NSString *metadataPath = [articlePath stringByAppendingPathComponent:@"ImageMetadata"];
+    return [metadataPath stringByAppendingPathComponent:safeName];
+}
+
 -(NSString *)safeFilenameWithString:(NSString *)str
 {
     // Escape only % and / with percent style for readability
@@ -276,6 +285,14 @@
     [self saveDictionary:export path:path name:@"Images.plist"];
 }
 
+-(void)saveImageMetadata:(MWKImageMetadata *)imageMetadata
+{
+    NSString *path = [self pathForImageMetadata:imageMetadata];
+    NSDictionary *export = [imageMetadata dataExport];
+    [self saveDictionary:export path:path name:@"ImageMetadata.plist"];
+}
+
+
 #pragma mark - load methods
 
 /// May return nil if no article data available.
@@ -385,6 +402,19 @@
     NSDictionary *dict =[NSDictionary dictionaryWithContentsOfFile:filePath];
     if (dict) {
         return [[MWKRecentSearchList alloc] initWithDict:dict];
+    } else {
+        return nil;
+    }
+}
+
+-(MWKImageMetadata *)imageMetadataWithName:(NSString *)name article:(MWKArticle *)article
+{
+    MWKImageMetadata *stub = [[MWKImageMetadata alloc] initWithArticle:article name:name];
+    NSString *path = [self pathForImageMetadata:stub];
+    NSString *filePath = [path stringByAppendingPathComponent:@"ImageMetadata.plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
+    if (dict) {
+        return [[MWKImageMetadata alloc] initWithArticle:article name:name dict:dict];
     } else {
         return nil;
     }
