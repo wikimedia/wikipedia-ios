@@ -63,6 +63,8 @@
             return @"link";
         case MWK_DISCOVERY_METHOD_BACKFORWARD:
             return @"backforward";
+        case MWK_DISCOVERY_METHOD_SAVED:
+            return @"saved";
         default:
             return @"unknown";
     }
@@ -78,6 +80,8 @@
         return MWK_DISCOVERY_METHOD_LINK;
     } else if ([string isEqualToString:@"backforward"]) {
         return MWK_DISCOVERY_METHOD_BACKFORWARD;
+    } else if ([string isEqualToString:@"saved"]) {
+        return MWK_DISCOVERY_METHOD_SAVED;
     } else {
         return MWK_DISCOVERY_METHOD_UNKNOWN;
     }

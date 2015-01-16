@@ -226,7 +226,7 @@
     
     [NAV loadArticleWithTitle: savedEntry.title
                      animated: YES
-              discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
+              discoveryMethod: MWK_DISCOVERY_METHOD_SAVED
             invalidatingCache: NO
                    popToWebVC: NO];
 
