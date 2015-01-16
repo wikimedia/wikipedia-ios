@@ -73,6 +73,14 @@
 // This controls what angle from the horizontal axis will trigger the swipe.
 #define TOC_SWIPE_TRIGGER_MAX_ANGLE 45.0f
 
+// TODO: rename the WebViewControllerVariableNames once we rename this class
+NSString *const WebViewControllerTextWasHighlighted = @"textWasSelected";
+NSString *const WebViewControllerWillShareNotification = @"SelectionShare";
+NSString *const WebViewControllerShareBegin = @"beginShare";
+NSString *const WebViewControllerShareSelectedText = @"selectedText";
+NSString *const kSelectedStringJS = @"window.getSelection().toString()";
+static const int kMinimumTextSelectionLength = 10;
+
 @interface WebViewController () <LanguageSelectionDelegate>{
 
 }
@@ -1010,6 +1018,10 @@
         [weakSelf referencesShow:payload];
         
     }];
+    
+    UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
+                                                          action:@selector(shareSnippet:)];
+    [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
     self.unsafeToScroll = NO;
 }
@@ -2237,6 +2249,34 @@
     // Let the html spacer div adjust to the new height of the lead image container.
     [self.bridge sendMessage: @"setLeadImageDivHeight"
                  withPayload: @{@"height": height}];
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action == @selector(shareSnippet:)) {
+        if ([[self getSelectedtext] isEqualToString:@""]) {
+            return NO;
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:WebViewControllerTextWasHighlighted
+                                                            object:self
+                                                          userInfo:nil];
+        return YES;
+    }
+    return [super canPerformAction:action
+                        withSender:sender];
+}
+
+- (void)shareSnippet:(id)sender {
+    NSString *selectedText = [self getSelectedtext];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:WebViewControllerWillShareNotification
+                                                        object:self
+                                                      userInfo:@{WebViewControllerShareSelectedText : selectedText}];
+}
+
+- (NSString *) getSelectedtext
+{
+    NSString *selectedText = [self.webView stringByEvaluatingJavaScriptFromString:kSelectedStringJS];
+    return selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
 }
 
 @end

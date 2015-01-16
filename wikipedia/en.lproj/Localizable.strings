@@ -187,6 +187,12 @@
 "share-menu-page-saved" = "Saved for offline reading.";
 "share-menu-page-saved-access" = "Tip: to access your saved pages, tap $1 above or long-press $2 below.";
 
+"share-custom-menu-item" = "Share";
+"share-article-name-on-wikipedia" = "\"$1\" on @Wikipedia";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" on @Wikipedia: \"$2\"";
+"share-as-image" = "Share as image";
+"share-as-text" = "Share as text";
+
 "timestamp-just-now" = "just now";
 "timestamp-minutes" = "%d minutes ago";
 "timestamp-hours" = "%d hours ago";

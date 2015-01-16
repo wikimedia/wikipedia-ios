@@ -3,8 +3,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIView (RoundCorners)
+@interface UIView (WMF_RoundCorners)
 
--(void)roundCorners:(UIRectCorner)corners toRadius:(float)radius;
+-(void)wmf_roundCorners:(UIRectCorner)corners toRadius:(float)radius;
 
 @end

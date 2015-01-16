@@ -1,11 +1,11 @@
 //  Created by Monte Hurd on 11/10/14.
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "UIView+RoundCorners.h"
+#import "UIView+WMFRoundCorners.h"
 
-@implementation UIView (RoundCorners)
+@implementation UIView (WMF_RoundCorners)
 
--(void)roundCorners:(UIRectCorner)corners toRadius:(float)radius
+-(void)wmf_roundCorners:(UIRectCorner)corners toRadius:(float)radius
 {   // Use for rounding *specific* corners of a UIView.
     // Based on http://stackoverflow.com/a/5826745/135557
 

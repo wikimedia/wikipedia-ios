@@ -174,6 +174,11 @@
 "share-menu-save-page" = "Button text for saving current page from the share menu";
 "share-menu-page-saved" = "Alert text shown when page saved for offline reading.\n\nSee also:\n* {{msg-wm|Wikipedia-ios-share-menu-page-saved-access}}";
 "share-menu-page-saved-access" = "Reminder to user of ways to access saved pages. Parameters:\n* $1 - the main menu W icon\n* $2 - the save page heart icon\nSee also:\n* {{msg-wm|Wikipedia-ios-share-menu-page-saved}}";
+"share-custom-menu-item" = "Button label for text selection Share";
+"share-article-name-on-wikipedia" = "Formatted string expressing article being on Wikipedia with at symbol handle. $1 will be an article title, which should be wrapped in the localized double quote marks.";
+"share-article-name-on-wikipedia-with-selected-text" = "Formatted string expressing article being on Wikipedia with at symbol handle, with a user-selected snippet. $1 will be an article title, which sould be wrapped in the localized double quote marks. $2 will be a user-selected text snippet, which should be wrapped in the localized double quote marks.";
+"share-as-image" = "Button label for sharing as an image card";
+"share-as-text" = "Button label for sharing as a text snippet (instead of as an image card)";
 "timestamp-just-now" = "Human-readable approximate timestamp for events in the last couple of minutes.\n{{Identical|Just now}}";
 "timestamp-minutes" = "Human-readable approximate timestamp for events in the last couple hours, expressed as minutes";
 "timestamp-hours" = "Human-readable approximate timestamp for events in the last couple days, expressed as hours";
