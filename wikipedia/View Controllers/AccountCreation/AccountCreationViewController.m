@@ -88,8 +88,13 @@
         ;
 }
 
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+#if __IPHONE_OS_VERSION_MIN_REQUIRED > __IPHONE_8_0
+#warning Remove method below in favor of -[UIViewController viewWillTransitionToSize:withTransitionCoordinator:]
+#endif
+// Needed for iOS 7 compatibility
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     // Ensure adjustScrollLimitForCaptchaVisiblity gets called again after rotating.
     [self.view setNeedsUpdateConstraints];
 }
@@ -205,7 +210,7 @@
                                                  name: @"UITextFieldTextDidChangeNotification"
                                                object: self.captchaViewController.captchaTextBox];
 
-    [self highlightProgressiveButton:NO];
+    [self setAllProgressiveButtonsEnabled:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -241,7 +246,7 @@
         }
     }
 
-    [self highlightProgressiveButton:shouldHighlight];
+    [self setAllProgressiveButtonsEnabled:shouldHighlight];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -252,31 +257,35 @@
         [self.passwordRepeatField becomeFirstResponder];
     }else if(textField == self.passwordRepeatField) {
         [self.emailField becomeFirstResponder];
-    }else if((textField == self.emailField) || (textField == self.captchaViewController.captchaTextBox)) {
+    }else {
+        NSAssert(((textField == self.emailField) || (textField == self.captchaViewController.captchaTextBox)),
+                 @"Received -textFieldShouldReturn for unexpected text field: %@", textField);
         [self save];
     }
     return YES;
 }
 
--(void)highlightProgressiveButton:(BOOL)highlight
+-(void)setAllProgressiveButtonsEnabled:(BOOL)enabled
 {
-    ((MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE]).enabled = highlight;
-    ((MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT]).enabled = highlight;
+    ((MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE]).enabled = enabled;
+    ((MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT]).enabled = enabled;
 }
 
 -(void)prepopulateTextFieldsForDebugging
 {
+#if DEBUG
     self.usernameField.text = @"acct_creation_test_010";
     self.passwordField.text = @"";
     self.passwordRepeatField.text = @"";
     self.emailField.text = @"mhurd@wikimedia.org";
+#endif
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
 
-    [self highlightProgressiveButton:NO];
+    [self setAllProgressiveButtonsEnabled:NO];
 
     [self fadeAlert];
 
@@ -314,7 +323,7 @@
                 self.captchaContainer.alpha = 1;
                 [self.scrollView scrollSubViewToTop:self.captchaContainer animated:NO];
             } completion:^(BOOL done){
-                [self highlightProgressiveButton:NO];
+                [self setAllProgressiveButtonsEnabled:NO];
             }];
         });
         
@@ -529,10 +538,42 @@
     }
 }
 
+- (NSArray*)requiredInputFields
+{
+    NSAssert([self isViewLoaded],
+            @"This method is only intended to be called when view is loaded, since they'll all be nil otherwise");
+    return @[self.usernameField, self.passwordField, self.passwordRepeatField];
+}
+
+- (BOOL)isPasswordConfirmationCorrect
+{
+    return [self.passwordField.text isEqualToString:self.passwordRepeatField.text];
+}
+
+- (BOOL)areRequiredFieldsPopulated
+{
+    return NSNotFound ==
+        [[self requiredInputFields] indexOfObjectPassingTest:^BOOL(UITextField *field, NSUInteger idx, BOOL *stop) {
+            if (field.text.length == 0) {
+                *stop = YES;
+                return YES;
+            } else {
+                return NO;
+            }
+        }];
+}
+
 -(void)save
 {
+    if (![self areRequiredFieldsPopulated]) {
+        [self showAlert:MWLocalizedString(@"account-creation-missing-fields", nil)
+                   type:ALERT_TYPE_TOP
+               duration:-1];
+        return;
+    }
+
     // Verify passwords fields match.
-    if (![self.passwordField.text isEqualToString:self.passwordRepeatField.text]) {
+    if (![self isPasswordConfirmationCorrect]) {
         [self showAlert:MWLocalizedString(@"account-creation-passwords-mismatched", nil) type:ALERT_TYPE_TOP duration:-1];
         return;
     }
