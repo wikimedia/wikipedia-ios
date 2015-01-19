@@ -55,7 +55,10 @@
 "open-link-title" = "ბმულის გახსნა";
 "open-link-cancel" = "გაუქმება";
 "search-searching" = "იძებნება...";
+"search-no-matches" = "ამ მონაცემით არაფერი მოიძებნა.";
 "search-field-placeholder-text" = "ძიება ვიკიპედიაში";
+"search-field-placeholder-text-zero" = "ძიება ვიკიპედია ზეროში";
+"search-loading-section-zero" = "სტატიის პირველი სექცია იტვირთება...";
 "search-loading-section-remaining" = "იტვირთება სტატიის დარჩენილი ნაწილი...";
 "search-loading-article-loaded" = "სტატია ჩაიტვირთა.";
 "search-cancel" = "გაუქმება";
@@ -79,6 +82,7 @@
 "main-menu-show-title" = "მაჩვენე...";
 "main-menu-show-history" = "ბოლო";
 "main-menu-show-saved" = "შენახული გვერდები";
+"main-menu-current-article-save" = "შეინახეთ $1 ოფლაინ რეჟიმში წასაკითხად";
 "main-menu-random" = "შემთხვევითი";
 "main-menu-feedback-heading" = "უკუკავშირი";
 "main-menu-send-feedback" = "შეაფასეთ აპლიკაცია";
@@ -88,6 +92,7 @@
 "main-menu-privacy-policy" = "კონფიდენციალურობის პოლიტიკა";
 "main-menu-terms-of-use" = "გამოყენების პირობები";
 "main-menu-rate-app" = "შეაფასეთ აპლიკაცია";
+"main-menu-heading-zero" = "ვიკიპედია ზერო";
 "main-menu-show-today" = "დღეს";
 "main-menu-nearby" = "სიახლოვეს";
 "main-menu-more" = "მეტი...";
@@ -116,6 +121,9 @@
 "edit-summary-choice-added-category" = "კატეგორიის დამატება";
 "edit-summary-choice-added-missing-info" = "გამოტოვებული ინფორმაციის დამატება";
 "edit-summary-choice-other" = "სხვა";
+"edit-summary-title" = "რითი გააუმჯობესეთ სტატია?";
+"fetching-random-article" = "შემთხვევითი სტატიის ჩვენება";
+"article-pull-to-refresh-prompt" = "სტატიის გადასატვირთად ასწიეთ";
 "article-pull-to-refresh-is-refreshing" = "სტატიის განახლება";
 "about-title" = "შესახებ";
 "about-wikipedia" = "ვიკიპედია";
@@ -144,12 +152,17 @@
 "onboarding-wikipedia" = "ვიკიპედია";
 "onboarding-free-encyclopedia" = "თავისუფალი ენციკლოპედია";
 "preference_title_eventlogging_opt_in" = "გამოყენების ანგარიშის გაგზავნა";
+"page_protected_autoconfirmed" = "ეს გვერდი ნახევრად დაცულია.";
 "page_protected_sysop" = "ეს გვერდი სრულად დაცულია.";
+"page_protected_other" = "ეს გვერდი დაცულია შემდეგ დონეებზე: $1";
 "page_protected_can_not_edit" = "თქვენ არ გაქვთ ამ გვერდის რედაქტირების უფლება";
 "page_protected_can_not_edit_title" = "ეს გვერდი დაცულია";
 "license-footer-text" = "კონტენტი ხელმისაწვდომია $1-ით";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "შინაარსი";
+"abuse-filter-warning-subheading" = "თქვენი რედაქტირება შესაძლოა შეიცავდეს ერთ ან რამდენიმე შემდეგ ელემენტს:";
+"abuse-filter-disallow-heading" = "ამ ცვლილების შენახვა არ შეგიძლიათ. დაბრუნდით უკან და შეცვალეთ.";
+"abuse-filter-disallow-notable" = "ვიკიპედია მხოლოდ და მხოლოდ ნეიტრალური ენციკლოპედიაა.";
 "menu-edit-accessibility-label" = "რედაქტირება";
 "menu-close-accessibility-label" = "დახურვა";
 "menu-preview-accessibility-label" = "წინასწარი გადახედვა";
@@ -171,8 +184,11 @@
 "nearby-pull-to-refresh-is-refreshing" = "გადატვირთვა";
 "nearby-loading" = "ახლომდებარე სტატიები იტვირთება...";
 "nearby-loaded" = "ახლომდებარე სტატიები ჩამოიტვირთა";
+"nearby-none" = "ახლომდებარე სტატია ვერ მოიძებნა. გადასატვირთად აწიეთ ან სცადეთ მოგვიანებით.";
 "nearby-open-in-maps" = "რუკაზე გახსნა";
 "nearby-cancel" = "გაუქმება";
 "nearby-location-updates-denied" = "აპლიკაციას არ აქვს ადგილმდებარეობის განახლებაზე წვდომის უფლება.";
 "nearby-location-updates-enable" = "ლოკაციის განახლებებისათვის გახსენით პარამეტრების აპლიკაცია და აირჩიეთ შემდეგი:";
 "nearby-location-updates-settings-menu" = "კონფიდენსიალურობა > ლოკაციის სერვისი > ვიკიპედია";
+"nearby-location-general-error" = "თქვენი ადგილმდებარეობის განსაზღვრა შეუძლებელია. გადასატვირთად აწიეთ ან სცადეთ მოგვიანებით.";
+"nearby-wifi" = "უფლება მიეცი Wi-Fi-ს დაეხმაროს თქვენს მოწყობილობას, რათა უკეთ განსაზღვროს თქვენი ადგილმდებარეობა.";

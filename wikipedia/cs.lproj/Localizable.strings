@@ -3,6 +3,9 @@
 // Author: Chmee2
 // Author: Fitoschido
 // Author: H4nek
+// Author: Juandev
+// Author: Mirek2
+// Author: Mormegil
 
 "article-languages-label" = "Vybrat jazyk";
 "article-languages-cancel" = "Zrušit";
@@ -12,6 +15,10 @@
 "history-section-yesterday" = "Včera";
 "history-section-lastweek" = "Poslední týden";
 "history-section-lastmonth" = "Poslední měsíc";
+"history-clear-confirmation-heading" = "Smazat všechny poslední položky?";
+"history-clear-confirmation-sub-heading" = "Tato akce nemůže být vrácena zpět!";
+"history-clear-cancel" = "Zrušit";
+"history-clear-delete-all" = "Smazat vše";
 "zero-charged-verbiage" = "Wikipedie Zero je vypnuta";
 "zero-interstitial-continue" = "Odejít";
 "zero-interstitial-cancel" = "Zůstat tady";
@@ -31,6 +38,9 @@
 "login-username-placeholder-text" = "Uživatelské jméno";
 "login-password-placeholder-text" = "Heslo";
 "wikitext-downloading" = "Načítání obsahu...";
+"wikitext-upload-save" = "Ukládá se...";
+"wikitext-upload-save-sign-in" = "Přihlásit se";
+"wikitext-upload-save-anonymously" = "Uložit anonymně";
 "wikitext-upload-save-terms-name" = "Podmínky užití";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Otevřít odkaz";
@@ -39,15 +49,30 @@
 "search-no-matches" = "Nenalezena shoda pro hledaný výraz.";
 "search-field-placeholder-text" = "Hledat ve Wikipedii";
 "search-field-placeholder-text-zero" = "Hledat ve Wikipedii Zero";
+"search-loading-article-loaded" = "Článek načten.";
 "search-cancel" = "Zrušit";
+"search-titles" = "Názvy";
+"search-within-articles" = "V článcích";
+"search-did-you-mean" = "Mysleli jste $1?";
+"search-recent-title" = "Poslední hledání";
+"search-recent-clear-confirmation-heading" = "Smazat všechna poslední hledání?";
+"search-recent-clear-confirmation-sub-heading" = "Tato operace nemůže být vrácena zpět!";
+"search-recent-clear-cancel" = "Zrušit";
+"search-recent-clear-delete-all" = "Smazat vše";
 "main-menu-title" = "Více";
+"main-menu-language-toggle-show" = "Zobrazit jazyky";
+"main-menu-language-toggle-hide" = "Skrýt jazyky";
+"main-menu-language-selection-saved" = "Výběr jazyka uložen";
 "main-menu-account-title-logged-out" = "Účet";
+"main-menu-account-title-logged-in" = "Přihlášen jako: $1";
 "main-menu-account-login" = "Přihlásit se";
 "main-menu-account-logout" = "Odhlásit se";
 "main-menu-random" = "Náhodný";
 "main-menu-feedback-heading" = "Zpětná vazba";
 "main-menu-heading-zero" = "Wikipedie Zero";
 "main-menu-show-today" = "Dnes";
+"main-menu-nearby" = "Poblíž";
+"saved-pages-clear-delete-all" = "Smazat vše";
 "navbar-title-mode-edit-wikitext" = "Upravit";
 "navbar-title-mode-login" = "Přihlásit se";
 "navbar-title-mode-edit-wikitext-preview" = "Náhled";
@@ -64,3 +89,10 @@
 "onboarding-skip" = "Přeskočit";
 "onboarding-free-encyclopedia" = "Otevřená encyklopedie";
 "license-footer-name" = "CC BY-SA 3.0";
+"nearby-title" = "Poblíž";
+"nearby-distance-label-meters" = "$1 {{PLURAL:$1|metr|metry|metrů}}";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-feet" = "$1 {{PLURAL:$1|stopa|stopy|stop}}";
+"nearby-distance-label-miles" = "$1 {{PLURAL:$1|míle|míle|mil}}";
+"nearby-open-in-maps" = "Otevřít v Mapách";
+"nearby-cancel" = "Zrušit";

@@ -238,4 +238,3 @@
 "nearby-location-updates-settings-menu" = "Menu items to tap in the iOS Settings App to enable the Wikipedia App to get location updates. Please check on an iOS device to ensure correct menu text.";
 "nearby-location-general-error" = "General location determination error message";
 "nearby-wifi" = "Alert text telling user how to improve location accuracy";
-

@@ -143,6 +143,7 @@
 "credits-external-libraries" = "Extern";
 "about-title" = "Iwwer";
 "about-wikipedia" = "Wikipedia";
+"about-testers" = "Benotzer déi testen";
 "about-testers-details" = "QA getest vum $1";
 "about-translators" = "Iwwersetzer";
 "about-translators-details" = "Vu Fräiwëllegen op $1 iwwersat";
