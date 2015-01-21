@@ -1785,15 +1785,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D499146A181D51DF00E6073C /* Build configuration list for PBXNativeTarget "Wikipedia" */;
 			buildPhases = (
-				048702AE19F75B0800B7D307 /* ShellScript */,
+				048702AE19F75B0800B7D307 /* run-cocoapods */,
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
-				046F268119C387BD00D7ACB3 /* ShellScript */,
-				04272E7619404CDF00CC682F /* ShellScript */,
-				04272E75193FF7F000CC682F /* ShellScript */,
-				D4C16A621970946900CD91AD /* ShellScript */,
-				D4C16A631970949A00CD91AD /* ShellScript */,
+				04272E7619404CDF00CC682F /* run-grunt */,
+				04272E75193FF7F000CC682F /* make-css-assets */,
+				D4C16A621970946900CD91AD /* update-storyboard-strings */,
+				D4C16A631970949A00CD91AD /* update-qqq */,
 				D4991433181D51DE00E6073C /* Resources */,
+				046F268119C387BD00D7ACB3 /* icon-svgs-to-pngs */,
+				04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */,
 			);
 			buildRules = (
 			);
@@ -2032,7 +2033,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		04272E75193FF7F000CC682F /* ShellScript */ = {
+		04272E75193FF7F000CC682F /* make-css-assets */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2040,56 +2041,71 @@
 			inputPaths = (
 				"",
 			);
+			name = "make-css-assets";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
 			shellScript = "scripts/make-css-assets.bash";
 		};
-		04272E7619404CDF00CC682F /* ShellScript */ = {
+		04272E7619404CDF00CC682F /* run-grunt */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "run-grunt";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "scripts/run-grunt.sh";
 		};
-		046F268119C387BD00D7ACB3 /* ShellScript */ = {
+		046F268119C387BD00D7ACB3 /* icon-svgs-to-pngs */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 				"$(SRCROOT)/wikipedia/Images.xcassets/AppIcon.appiconset/icon.svg",
-				"$(SRCROOT)/wikipedia/Images.xcassets/RecentPagesEmpty.imageset/recent.svg",
-				"$(SRCROOT)/wikipedia/Images.xcassets/SavedPagesEmpty.imageset/savedpages.svg",
-				"$(SRCROOT)/wikipedia/Images.xcassets/WMFLogo_60.imageset/wmf_logo.svg",
 			);
+			name = "icon-svgs-to-pngs";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "scripts/icon-svgs-to-pngs.sh";
+			shellScript = "echo \"Uncomment the following line to run this automatically when building.\"\n# scripts/icon-svgs-to-pngs.sh";
 		};
-		048702AE19F75B0800B7D307 /* ShellScript */ = {
+		048702AE19F75B0800B7D307 /* run-cocoapods */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "run-cocoapods";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#scripts/run-cocoapods.sh";
 		};
-		D4C16A621970946900CD91AD /* ShellScript */ = {
+		04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "copy-wmflogo-to-assets";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "scripts/copy-wmflogo-to-assets.sh";
+		};
+		D4C16A621970946900CD91AD /* update-storyboard-strings */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2097,6 +2113,7 @@
 			inputPaths = (
 				"$(SRCROOT)/wikipedia/Base.lproj/Main_iPhone.storyboard",
 			);
+			name = "update-storyboard-strings";
 			outputPaths = (
 				"$(SRCROOT)/wikipedia/en.lproj/Main_iPhone.strings",
 			);
@@ -2104,7 +2121,7 @@
 			shellPath = /bin/sh;
 			shellScript = "scripts/update-storyboard-strings.php";
 		};
-		D4C16A631970949A00CD91AD /* ShellScript */ = {
+		D4C16A631970949A00CD91AD /* update-qqq */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2114,6 +2131,7 @@
 				"$(SRCROOT)/wikipedia/en.lproj/InfoPlist.strings",
 				"$(SRCROOT)/wikipedia/en.lproj/Localizable.strings",
 			);
+			name = "update-qqq";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

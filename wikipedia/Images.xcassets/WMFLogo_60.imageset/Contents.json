@@ -2,18 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "wmflogo_60.png"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "wmflogo_120.png"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "wmflogo_180.png"
+      "filename" : "wmf_logo.pdf"
     }
   ],
   "info" : {
