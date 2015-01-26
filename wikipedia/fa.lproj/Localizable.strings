@@ -46,6 +46,7 @@
 "account-creation-password-placeholder-text" = "گذرواژه";
 "account-creation-password-confirm-placeholder-text" = "تأیید گذرواژه";
 "account-creation-email-placeholder-text" = "ایمیل (اختیاری)";
+"account-creation-missing-fields" = "شما باید نام کاربری، گذرواژه را وارد کنید و گذرواژه را تائید کنید تا حساب کاربری ساخته شود.";
 "login-name-not-found" = "نام کاربری برای ورود به سیستم لازم است.";
 "login-name-illegal" = "شما نام کاربر غیر قانونی ارائه دادید.";
 "login-name-does-not-exist" = "نام کاربری ارائه‌داده شده وجود ندارد.";

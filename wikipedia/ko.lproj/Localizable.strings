@@ -42,6 +42,7 @@
 "account-creation-password-placeholder-text" = "비밀번호";
 "account-creation-password-confirm-placeholder-text" = "비밀번호 확인";
 "account-creation-email-placeholder-text" = "이메일 (선택 사항)";
+"account-creation-missing-fields" = "계정을 만드려면 사용자 이름, 비밀번호와 비밀번호 확인을 입력해야 합니다.";
 "login-name-not-found" = "로그인하려면 사용자 이름이 필요합니다.";
 "login-name-illegal" = "잘못된 사용자 이름을 제공했습니다.";
 "login-name-does-not-exist" = "제공한 사용자 이름이 존재하지 않습니다.";
@@ -87,7 +88,7 @@
 "search-recent-clear-cancel" = "취소";
 "search-recent-clear-delete-all" = "모두 삭제";
 "main-menu-title" = "더 보기";
-"main-menu-language-title" = "$1 언어 위키 검색";
+"main-menu-language-title" = "$1 위키백과 검색";
 "main-menu-language-toggle-show" = "언어 보기";
 "main-menu-language-toggle-hide" = "언어 숨기기";
 "main-menu-language-selection-saved" = "언어 선택이 저장됨";
@@ -102,7 +103,7 @@
 "main-menu-random" = "임의";
 "main-menu-feedback-heading" = "피드백";
 "main-menu-send-feedback" = "앱 피드백 보내기";
-"main-menu-show-page-history" = "$1의 문서 역사";
+"main-menu-show-page-history" = "$1의 편집 역사";
 "main-menu-credits" = "제작진";
 "main-menu-about" = "위키백과 앱 정보";
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
@@ -222,7 +223,7 @@
 "nearby-distance-label-miles" = "$1 miles";
 "nearby-pull-to-refresh-prompt" = "새로 고치려면 당기세요";
 "nearby-pull-to-refresh-is-refreshing" = "새로 고치는 중";
-"nearby-loading" = "근처의 문서를 불러오는 중...";
+"nearby-loading" = "근처 문서를 불러오는 중...";
 "nearby-loaded" = "근처의 문서를 불러왔습니다";
 "nearby-none" = "근처에 문서를 찾을 수 없습니다. 새로 고치려면 당기거나 나중에 다시 시도하세요.";
 "nearby-open-in-maps" = "지도에서 열기";

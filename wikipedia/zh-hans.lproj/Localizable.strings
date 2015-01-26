@@ -1,6 +1,7 @@
 // Messages for Simplified Chinese (中文（简体）‎)
 // Exported from translatewiki.net
 // Author: Davidzdh
+// Author: JuneAugsut
 // Author: LNDDYL
 // Author: Linforest
 // Author: Liuxinyu970226
@@ -46,6 +47,7 @@
 "account-creation-password-placeholder-text" = "密码";
 "account-creation-password-confirm-placeholder-text" = "确认密码";
 "account-creation-email-placeholder-text" = "电子邮件（可选）";
+"account-creation-missing-fields" = "您必须输入用户名、密码并再一次确认密码后方能创建一个帐户。";
 "login-name-not-found" = "需要用户名。";
 "login-name-illegal" = "您提供了非法用户名。";
 "login-name-does-not-exist" = "您提供的用户名不存在。";

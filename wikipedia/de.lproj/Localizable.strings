@@ -41,6 +41,7 @@
 "account-creation-password-placeholder-text" = "Passwort";
 "account-creation-password-confirm-placeholder-text" = "Passwort bestätigen";
 "account-creation-email-placeholder-text" = "E-Mail (optional)";
+"account-creation-missing-fields" = "Du musst einen Benutzernamen, ein Passwort und eine Passwortbestätigung eingeben, um ein Benutzerkonto zu erstellen.";
 "login-name-not-found" = "Der Benutzername ist zur Anmeldung erforderlich.";
 "login-name-illegal" = "Du hast einen ungültigen Benutzernamen angegeben.";
 "login-name-does-not-exist" = "Der angegebene Benutzername ist nicht vorhanden.";

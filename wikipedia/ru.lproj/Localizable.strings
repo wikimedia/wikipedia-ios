@@ -44,6 +44,7 @@
 "account-creation-password-placeholder-text" = "Пароль";
 "account-creation-password-confirm-placeholder-text" = "Подтвердите пароль";
 "account-creation-email-placeholder-text" = "Адрес электронной почты (необязательно)";
+"account-creation-missing-fields" = "Для создания учётной записи вы должны ввести имя пользователя, пароль и подтверждение пароля.";
 "login-name-not-found" = "Для входа требуется имя участника.";
 "login-name-illegal" = "Вы указали некорректное имя участника.";
 "login-name-does-not-exist" = "Имя участника, которое вы указали, не существует.";

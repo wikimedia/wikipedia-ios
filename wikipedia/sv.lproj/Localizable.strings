@@ -46,6 +46,7 @@
 "account-creation-password-placeholder-text" = "Lösenord";
 "account-creation-password-confirm-placeholder-text" = "Bekräfta lösenord";
 "account-creation-email-placeholder-text" = "E-post (valfritt)";
+"account-creation-missing-fields" = "Du måste ange ett användarnamn, lösenord och en lösenordsbekräftelse för att skapa ett konto.";
 "login-name-not-found" = "Användarnamn krävs för att logga in.";
 "login-name-illegal" = "Du angav ett ogiltigt användarnamn.";
 "login-name-does-not-exist" = "Det användarnamn du angav finns inte.";

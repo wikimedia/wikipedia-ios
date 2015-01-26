@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: JurgenNL
 // Author: Mathonius
+// Author: Robin0van0der0vliet
 // Author: SPQRobin
 // Author: Siebrand
 // Author: Sjoerddebruin
@@ -94,7 +95,7 @@
 "main-menu-language-toggle-show" = "Talen bekijken";
 "main-menu-language-toggle-hide" = "Talen verbergen";
 "main-menu-language-selection-saved" = "Taalkeuze opgeslagen";
-"main-menu-account-title-logged-out" = "Gebruiker";
+"main-menu-account-title-logged-out" = "Account";
 "main-menu-account-title-logged-in" = "Aangemeld als: $1";
 "main-menu-account-login" = "Aanmelden";
 "main-menu-account-logout" = "Afmelden";

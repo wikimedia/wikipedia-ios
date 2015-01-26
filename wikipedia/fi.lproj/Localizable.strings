@@ -44,6 +44,7 @@
 "account-creation-password-placeholder-text" = "Salasana";
 "account-creation-password-confirm-placeholder-text" = "Vahvista salasana";
 "account-creation-email-placeholder-text" = "Sähköpostiosoite (vapaaehtoinen)";
+"account-creation-missing-fields" = "Tunnuksen luomiseen vaaditaan käyttäjänimi, salasana ja salasanan vahvistus.";
 "login-name-not-found" = "Käyttäjänimi vaaditaan kirjautumiseen.";
 "login-name-illegal" = "Antamasi käyttäjänimi ei kelpaa.";
 "login-name-does-not-exist" = "Antamaasi käyttäjänimeä ei ole.";

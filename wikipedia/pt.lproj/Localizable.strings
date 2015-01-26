@@ -44,6 +44,7 @@
 "account-creation-password-placeholder-text" = "Palavra-passe";
 "account-creation-password-confirm-placeholder-text" = "Confirme a palavra-passe";
 "account-creation-email-placeholder-text" = "Endereço de correio eletrónico (opcional)";
+"account-creation-missing-fields" = "Deve inserir um nome de utilizador(a), uma palavra-passe e respetiva confirmação para criar uma conta.";
 "login-name-not-found" = "O nome de utilizador é necessário para iniciar sessão.";
 "login-name-illegal" = "Forneceu um nome de utilizador ilegal.";
 "login-name-does-not-exist" = "O nome de utilizador que forneceu não existe.";

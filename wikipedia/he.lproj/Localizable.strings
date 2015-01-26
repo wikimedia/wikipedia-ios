@@ -43,6 +43,7 @@
 "account-creation-password-placeholder-text" = "ססמה";
 "account-creation-password-confirm-placeholder-text" = "אימות סיסמה";
 "account-creation-email-placeholder-text" = "דואר אלקטרוני (לא חובה)";
+"account-creation-missing-fields" = "יש להזין שם משתמש, ססמה ואישור ססמה כדי ליצור חשבון.";
 "login-name-not-found" = "שם המשתמש נדרש כדי להיכנס.";
 "login-name-illegal" = "נתת שם משתמש בלתי־תקין.";
 "login-name-does-not-exist" = "שם המשתמש שנתת אינו קיים.";

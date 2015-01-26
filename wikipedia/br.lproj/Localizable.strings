@@ -43,6 +43,7 @@
 "account-creation-password-placeholder-text" = "Ger-tremen";
 "account-creation-password-confirm-placeholder-text" = "Kadarnaat ar ger-tremen";
 "account-creation-email-placeholder-text" = "Postel (diret)";
+"account-creation-missing-fields" = "Rankout a rit ebarzhiñ un anv implijer, ur ger-tremen, hag ur ger-tremen kadarnaat evit krouiñ ur gont.";
 "login-name-not-found" = "Rekis eo an anv implijer evit kevreañ.";
 "login-name-illegal" = "Roet ho peus un anv implijer dilezenn.";
 "login-name-does-not-exist" = "N'eus ket eus an anv implijer roet";

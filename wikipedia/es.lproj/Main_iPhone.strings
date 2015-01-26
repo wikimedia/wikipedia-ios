@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Fitoschido
 // Author: Macofe
+// Author: MadriCR
 // Author: VegaDark
 
 "21c-U6-yfo.normalTitle" = "Mostrar otro «captcha»";
@@ -21,5 +22,5 @@
 "jiW-Cg-oL3.text" = "Crear una cuenta";
 "kVb-lx-d6C.placeholder" = "Contraseña";
 "mAk-1N-jPC.placeholder" = "Nombre de usuario";
-"rKI-nq-3p7.placeholder" = "Dirección de correo e. (opcional)";
+"rKI-nq-3p7.placeholder" = "Dirección de correo electrónico (opcional)";
 "wkl-j8-wLX.text" = "Crear una cuenta";

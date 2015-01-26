@@ -41,6 +41,7 @@
 "account-creation-password-placeholder-text" = "Kata laluan";
 "account-creation-password-confirm-placeholder-text" = "Sahkan kata laluan";
 "account-creation-email-placeholder-text" = "E-mel (pilihan)";
+"account-creation-missing-fields" = "Anda mesti menaipkan nama pengguna, kata laluan dan sekali lagi kata laluan untuk pengesahan untuk membuka akaun.";
 "login-name-not-found" = "Nama pengguna diperlukan untuk log masuk.";
 "login-name-illegal" = "Nama pengguna yang diberikan tidak sah.";
 "login-name-does-not-exist" = "Nama pengguna yang diberikan tidak wujud.";

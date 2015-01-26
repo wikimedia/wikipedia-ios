@@ -46,6 +46,7 @@
 "account-creation-password-placeholder-text" = "Mot de passe";
 "account-creation-password-confirm-placeholder-text" = "Confirmer le mot de passe";
 "account-creation-email-placeholder-text" = "Courriel (facultatif)";
+"account-creation-missing-fields" = "Vous devez saisir un nom d’utilisateur, un mot de passe et une confirmation de mot de passe, pour créer un compte.";
 "login-name-not-found" = "Le nom d’utilisateur est obligatoire pour se connecter.";
 "login-name-illegal" = "Vous avez fourni un nom d’utilisateur non légal.";
 "login-name-does-not-exist" = "Le nom d’utilisateur que vous avez fourni n’existe pas.";

@@ -3,6 +3,7 @@
 // Author: Fitoschido
 // Author: Koavf
 // Author: Macofe
+// Author: MadriCR
 // Author: Mcervera
 // Author: VegaDark
 // Author: Vivaelcelta
@@ -46,6 +47,7 @@
 "account-creation-password-placeholder-text" = "Contraseña";
 "account-creation-password-confirm-placeholder-text" = "Confirmar la contraseña";
 "account-creation-email-placeholder-text" = "Correo electrónico (opcional)";
+"account-creation-missing-fields" = "Debes escribir un nombre de usuario, una contraseña y confirmar la contraseña para crear una cuenta.";
 "login-name-not-found" = "Para iniciar sesión debes escribir el nombre de usuario.";
 "login-name-illegal" = "Has escrito un nombre de usuario no válido.";
 "login-name-does-not-exist" = "El nombre de usuario proporcionado no existe.";
@@ -109,7 +111,7 @@
 "main-menu-show-page-history" = "Historial de cambios de $1";
 "main-menu-credits" = "Créditos";
 "main-menu-about" = "Acerca de la aplicación de Wikipedia";
-"main-menu-zero-faq" = "P+F de Wikipedia Zero";
+"main-menu-zero-faq" = "Preguntas y respuestas frecuentes de Wikipedia Zero";
 "main-menu-privacy-policy" = "Política de privacidad";
 "main-menu-terms-of-use" = "Términos de uso";
 "main-menu-rate-app" = "Calificar aplicación";

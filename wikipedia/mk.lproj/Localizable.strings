@@ -42,6 +42,7 @@
 "account-creation-password-placeholder-text" = "Лозинка";
 "account-creation-password-confirm-placeholder-text" = "Потврда на лозинката";
 "account-creation-email-placeholder-text" = "Е-пошта (незадолжително)";
+"account-creation-missing-fields" = "Ќе мора да внесете корисничко име, лозинка и нејзина потврда за да направите сметка.";
 "login-name-not-found" = "Се бара корисничко име.";
 "login-name-illegal" = "Внесовте неправилно корисничко име.";
 "login-name-does-not-exist" = "Внесеното корисничко име не постои.";

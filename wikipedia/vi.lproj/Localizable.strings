@@ -42,6 +42,7 @@
 "account-creation-password-placeholder-text" = "Mật khẩu";
 "account-creation-password-confirm-placeholder-text" = "Xác nhận mật khẩu";
 "account-creation-email-placeholder-text" = "Thư điện tử (tùy chọn)";
+"account-creation-missing-fields" = "Bạn phải nhập một tên người dùng và mật khẩu và xác nhận mật khẩu để mở tài khoản.";
 "login-name-not-found" = "Cần tên người dùng để đăng nhập.";
 "login-name-illegal" = "Bạn đã cung cấp một tên người dùng không hợp lệ.";
 "login-name-does-not-exist" = "Bạn đã cung cấp một tên người dùng không tồn tại.";
