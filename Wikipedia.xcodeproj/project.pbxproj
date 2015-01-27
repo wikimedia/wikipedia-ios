@@ -182,6 +182,10 @@
 		954BA118838BF8BA6B01C34A /* libPods-WikipediaUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */; };
 		BC42735D1A7C73B300068882 /* NSArray+Predicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CBAC7219A9B786009F3D7E /* NSArray+Predicate.m */; };
 		BC42735E1A7C73B300068882 /* NSArray+PredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */; };
+		C453A7DD1A731F800012CDDB /* UIViewController+WMPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = C453A7DC1A731F800012CDDB /* UIViewController+WMPullToRefresh.m */; };
+		C453A7E01A731FAA0012CDDB /* WMPullToRefreshContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C453A7DF1A731FAA0012CDDB /* WMPullToRefreshContentView.m */; };
+		C46E4C491A76E847005FC050 /* libPods-Masonry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C46E4C481A76E847005FC050 /* libPods-Masonry.a */; };
+		C4D0F7341A6EF99A00BCC263 /* SavedArticlesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D0F7331A6EF99A00BCC263 /* SavedArticlesFetcher.m */; };
 		C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		D401C2C01A659E5000D4D127 /* DataMigrationProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D401C2BE1A659E5000D4D127 /* DataMigrationProgressViewController.m */; };
 		D401C2C11A659E5000D4D127 /* DataMigrationProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D401C2BF1A659E5000D4D127 /* DataMigrationProgressViewController.xib */; };
@@ -218,6 +222,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C453A7CD1A7316DA0012CDDB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4AD973E19F99CD700957451 /* Pods.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 6EA93EEC51B0A5A2DBC58727;
+			remoteInfo = Pods;
+		};
+		C453A7D31A7316DA0012CDDB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4AD973E19F99CD700957451 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 020E6C04ACEFBA4786D7579F;
+			remoteInfo = "Pods-SSPullToRefresh";
+		};
+		C46E4C471A76E847005FC050 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4AD973E19F99CD700957451 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AEBA0CDFC036D44E2E3D9CB4;
+			remoteInfo = "Pods-Masonry";
+		};
 		D497FCF41A0807EE004A36A5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D497FCEF1A0807ED004A36A5 /* MediaWikiKit.xcodeproj */;
@@ -583,6 +608,12 @@
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8309961A7BF935003FC5C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PredicateTests.m"; path = "Utilities/NSArray+PredicateTests.m"; sourceTree = "<group>"; };
+		C453A7DB1A731F800012CDDB /* UIViewController+WMPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMPullToRefresh.h"; sourceTree = "<group>"; };
+		C453A7DC1A731F800012CDDB /* UIViewController+WMPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMPullToRefresh.m"; sourceTree = "<group>"; };
+		C453A7DE1A731FAA0012CDDB /* WMPullToRefreshContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPullToRefreshContentView.h; sourceTree = "<group>"; };
+		C453A7DF1A731FAA0012CDDB /* WMPullToRefreshContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPullToRefreshContentView.m; sourceTree = "<group>"; };
+		C4D0F7321A6EF99A00BCC263 /* SavedArticlesFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedArticlesFetcher.h; sourceTree = "<group>"; };
+		C4D0F7331A6EF99A00BCC263 /* SavedArticlesFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedArticlesFetcher.m; sourceTree = "<group>"; };
 		C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaAppUtils.h; sourceTree = "<group>"; };
 		C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikipediaAppUtils.m; sourceTree = "<group>"; };
 		D401C2BD1A659E5000D4D127 /* DataMigrationProgressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataMigrationProgressViewController.h; path = DataMigration/DataMigrationProgressViewController.h; sourceTree = "<group>"; };
@@ -833,6 +864,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C46E4C491A76E847005FC050 /* libPods-Masonry.a in Frameworks */,
+				C43A65E61A76E4B4009A52BE /* libPods-AFNetworking.a in Frameworks */,
+				C43A65E71A76E4B4009A52BE /* libPods-hpple.a in Frameworks */,
+				C43A65E81A76E4B4009A52BE /* libPods-SSPullToRefresh.a in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D4F478741A48D1B100D8043C /* libOldDataSchema.a in Frameworks */,
 				D497FCFB1A080810004A36A5 /* libMediaWikiKit.a in Frameworks */,
@@ -1185,6 +1220,8 @@
 				0487045C19F8262600B7D307 /* AccountLogin.m */,
 				0487045D19F8262600B7D307 /* ArticleFetcher.h */,
 				0487045E19F8262600B7D307 /* ArticleFetcher.m */,
+				C4D0F7321A6EF99A00BCC263 /* SavedArticlesFetcher.h */,
+				C4D0F7331A6EF99A00BCC263 /* SavedArticlesFetcher.m */,
 				0487045F19F8262600B7D307 /* AssetsFileFetcher.h */,
 				0487046019F8262600B7D307 /* AssetsFileFetcher.m */,
 				0487046419F8262600B7D307 /* CaptchaResetter.h */,
@@ -1580,6 +1617,17 @@
 			path = TableOfContents;
 			sourceTree = "<group>";
 		};
+		C453A7DA1A731F800012CDDB /* PullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				C453A7DB1A731F800012CDDB /* UIViewController+WMPullToRefresh.h */,
+				C453A7DC1A731F800012CDDB /* UIViewController+WMPullToRefresh.m */,
+				C453A7DE1A731FAA0012CDDB /* WMPullToRefreshContentView.h */,
+				C453A7DF1A731FAA0012CDDB /* WMPullToRefreshContentView.m */,
+			);
+			path = PullToRefresh;
+			sourceTree = "<group>";
+		};
 		BC8309941A7BF935003FC5C7 /* WikipediaUnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1680,6 +1728,7 @@
 				04272E771940EEBC00CC682F /* AssetsFile */,
 				04C43AB7183442FC006C643B /* Categories */,
 				0460F8D919B0F90E001BC59B /* CenteredPathView */,
+				C453A7DA1A731F800012CDDB /* PullToRefresh */,
 				040E5C50184673F2007AFE6F /* Data */,
 				04292FFB185FC026002A13FC /* Defines */,
 				D4B0ADFF19365F4600F0AC90 /* EventLogging */,
@@ -1964,6 +2013,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		C453A7D41A7316DA0012CDDB /* libPods-SSPullToRefresh.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-SSPullToRefresh.a";
+			remoteRef = C453A7D31A7316DA0012CDDB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C46E4C481A76E847005FC050 /* libPods-Masonry.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-Masonry.a";
+			remoteRef = C46E4C471A76E847005FC050 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D497FCF51A0807EE004A36A5 /* libMediaWikiKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2243,6 +2306,7 @@
 				04C695CE18ED08D900D9F2DA /* UIView+SearchSubviews.m in Sources */,
 				0487048E19F8262600B7D307 /* WikipediaZeroMessageFetcher.m in Sources */,
 				0424874D1A54801900A5C905 /* MWKArticle+isMain.m in Sources */,
+				C453A7E01A731FAA0012CDDB /* WMPullToRefreshContentView.m in Sources */,
 				D4F277FB194235A00032BA38 /* ProtectedEditAttemptFunnel.m in Sources */,
 				0487047E19F8262600B7D307 /* AccountCreationTokenFetcher.m in Sources */,
 				049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */,
@@ -2263,6 +2327,7 @@
 				04D308281998A8AA0034F106 /* NearbyThumbnailView.m in Sources */,
 				045374881A35834D00CE1A56 /* LeadImageTitleAttributedString.m in Sources */,
 				04292FF2185FBA70002A13FC /* SearchResultCell.m in Sources */,
+				C453A7DD1A731F800012CDDB /* UIViewController+WMPullToRefresh.m in Sources */,
 				04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */,
 				0447866F1852B5010050563B /* SessionSingleton.m in Sources */,
 				D4E8A8A4190835C100DA4765 /* DataMigrator.m in Sources */,
@@ -2343,6 +2408,7 @@
 				04F27B7818FE0F2E00EDD838 /* PageHistoryViewController.m in Sources */,
 				049B640C18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m in Sources */,
 				04A97E8718B81D5D0046B166 /* AccountCreationViewController.m in Sources */,
+				C4D0F7341A6EF99A00BCC263 /* SavedArticlesFetcher.m in Sources */,
 				04530AF81935C07500022512 /* ModalContentViewController.m in Sources */,
 				0487048219F8262600B7D307 /* AssetsFileFetcher.m in Sources */,
 				04C7576E1A1AA2D00084AC39 /* RecentSearchCell.m in Sources */,
@@ -2380,6 +2446,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C453A7CE1A7316DA0012CDDB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Pods;
+			targetProxy = C453A7CD1A7316DA0012CDDB /* PBXContainerItemProxy */;
+		};
 		D497FCFA1A080800004A36A5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MediaWikiKit;
@@ -2634,6 +2705,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
+					"$(PROJECT_DIR)/OldDataSchema/**",
+					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/**",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
@@ -2733,10 +2808,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/include/libxml2",
-					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
-					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
 					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
 					"$(PROJECT_DIR)/OldDataSchema/**",
+					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/**",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -2766,10 +2840,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/include/libxml2",
-					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
-					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
 					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
 					"$(PROJECT_DIR)/OldDataSchema/**",
+					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/**",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
