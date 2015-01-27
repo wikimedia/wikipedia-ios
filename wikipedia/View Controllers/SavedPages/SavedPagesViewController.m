@@ -18,6 +18,8 @@
 #import "SavedPagesFunnel.h"
 #import "NSObject+ConstraintsScale.h"
 #import "PaddedLabel.h"
+#import "QueuesSingleton.h"
+#import "SavedArticlesFetcher.h"
 
 #define SAVED_PAGES_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
 #define SAVED_PAGES_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:1.0f]
@@ -39,6 +41,11 @@
 @property (strong, nonatomic) IBOutlet PaddedLabel *emptyDescription;
 
 @property (strong, nonatomic) IBOutlet UIView *emptyContainerView;
+
+/**
+ *  Must be retained or will be dealloced because of the weak refernce of the delegate of the article fetcher
+ */
+@property (strong, nonatomic) SavedArticlesFetcher* fetcher;
 
 @end
 
@@ -319,6 +326,30 @@
                      cancelButtonTitle: MWLocalizedString(@"saved-pages-clear-cancel", nil)
                      otherButtonTitles: MWLocalizedString(@"saved-pages-clear-delete-all", nil), nil];
     [dialog show];
+}
+
+-(void)updateAllEntries{
+    
+    [[QueuesSingleton sharedInstance].savedPagesFetchManager.operationQueue cancelAllOperations];
+    
+    self.fetcher = [[SavedArticlesFetcher alloc] initAndFetchArticlesForSavedPageList:savedPageList inDataStore:userDataStore.dataStore withManager:[QueuesSingleton sharedInstance].savedPagesFetchManager thenNotifyDelegate:self];
+    
+}
+
+- (void)savedArticlesFetcher:(SavedArticlesFetcher *)savedArticlesFetcher didFetchArticle:(MWKArticle *)article remainingArticles:(NSInteger)remaining status:(FetchFinalStatus)status error:(NSError *)error{
+    
+    //Update Progress
+    
+    NSLog(@"Updated Article With Title: \"%@\" remaining count: %li", article.title, (long)remaining);
+
+}
+
+- (void)fetchFinished:(id)sender fetchedData:(id)fetchedData status:(FetchFinalStatus)status error:(NSError *)error{
+ 
+    //Update finished
+    
+    NSLog(@"Complete!");
+
 }
 
 #pragma mark - Pull to refresh

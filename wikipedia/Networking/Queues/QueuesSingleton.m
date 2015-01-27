@@ -34,7 +34,6 @@
     [self setRequestHeadersForManagers:@[
                                          self.loginFetchManager,
                                          self.articleFetchManager,
-                                         self.savedPagesFetchManager,
                                          self.searchResultsFetchManager,
                                          self.sectionWikiTextDownloadManager,
                                          self.sectionWikiTextUploadManager,
@@ -50,6 +49,7 @@
     [self setDefaultSerializerForManagers:@[
                                             self.articleFetchManager,
                                             self.nearbyFetchManager,
+                                            self.savedPagesFetchManager,
                                             self.searchResultsFetchManager,
                                             self.assetsFetchManager,
                                             self.articleFetchManager
