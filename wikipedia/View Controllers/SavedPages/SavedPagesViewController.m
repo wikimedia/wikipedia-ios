@@ -20,13 +20,15 @@
 #import "PaddedLabel.h"
 #import "QueuesSingleton.h"
 #import "SavedArticlesFetcher.h"
+#import "UIViewController+WMPullToRefresh.h"
+
 
 #define SAVED_PAGES_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
 #define SAVED_PAGES_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:1.0f]
 #define SAVED_PAGES_LANGUAGE_COLOR [UIColor colorWithWhite:0.0f alpha:0.4f]
 #define SAVED_PAGES_RESULT_HEIGHT (116.0 * MENUS_SCALE_MULTIPLIER)
 
-@interface SavedPagesViewController ()
+@interface SavedPagesViewController ()<SavedArticlesFetcherDelegate>
 {
     MWKSavedPageList *savedPageList;
     MWKUserDataStore *userDataStore;
@@ -51,22 +53,20 @@
 
 @implementation SavedPagesViewController
 
--(NavBarMode)navBarMode
+- (void)dealloc
+{
+    [self tearDownPullToRefresh];
+}
+
+
+- (NavBarMode)navBarMode
 {
     return NAVBAR_MODE_PAGES_SAVED;
 }
 
--(NSString *)title
+- (NSString *)title
 {
     return MWLocalizedString(@"saved-pages-title", nil);
-}
-
-#pragma mark - Memory
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Top menu
@@ -123,18 +123,14 @@
 {
     [super viewDidLoad];
 
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     userDataStore = [SessionSingleton sharedInstance].userDataStore;
     savedPageList = userDataStore.savedPageList;
     
     self.funnel = [[SavedPagesFunnel alloc] init];
 
     self.navigationItem.hidesBackButton = YES;
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 5.0 * MENUS_SCALE_MULTIPLIER)];
     self.tableView.tableHeaderView = headerView;
@@ -153,6 +149,16 @@
     
     self.emptyTitle.font = [UIFont boldSystemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER];
     self.emptyDescription.font = [UIFont systemFontOfSize:14.0 * MENUS_SCALE_MULTIPLIER];
+
+    [self setupPullToRefreshWithType:WMPullToRefreshProgressTypeDeterminate inScrollView:self.tableView];
+    
+    __weak typeof(self) weakSelf = self;
+    self.refreshCancelBlock = ^{
+        
+        [[QueuesSingleton sharedInstance].savedPagesFetchManager.operationQueue cancelAllOperations];
+        [weakSelf finishRefreshing];
+    };
+
 }
 
 
@@ -328,7 +334,9 @@
     [dialog show];
 }
 
--(void)updateAllEntries{
+#pragma mark - Update
+
+- (void)updateAllEntries{
     
     [[QueuesSingleton sharedInstance].savedPagesFetchManager.operationQueue cancelAllOperations];
     
@@ -336,27 +344,30 @@
     
 }
 
-- (void)savedArticlesFetcher:(SavedArticlesFetcher *)savedArticlesFetcher didFetchArticle:(MWKArticle *)article remainingArticles:(NSInteger)remaining status:(FetchFinalStatus)status error:(NSError *)error{
-    
-    //Update Progress
+#pragma mark - SavedArticlesFetcherDelegate
+
+- (void)savedArticlesFetcher:(SavedArticlesFetcher *)savedArticlesFetcher didFetchArticle:(MWKArticle *)article remainingArticles:(NSInteger)remaining totalArticles:(NSInteger)total status:(FetchFinalStatus)status error:(NSError *)error{
+
+    CGFloat progress = 1.0-(CGFloat)((CGFloat)remaining/(CGFloat)total);
+    [self setRefreshProgress:progress animated:YES];
     
     NSLog(@"Updated Article With Title: \"%@\" remaining count: %li", article.title, (long)remaining);
 
 }
 
 - (void)fetchFinished:(id)sender fetchedData:(id)fetchedData status:(FetchFinalStatus)status error:(NSError *)error{
- 
-    //Update finished
     
-    NSLog(@"Complete!");
+    [self finishRefreshing];
+    
+}
+
+#pragma mark - SSPullToRefreshViewDelegate
+
+- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view{
+    
+    [self updateAllEntries];
 
 }
 
-#pragma mark - Pull to refresh
-
-- (UIScrollView *)refreshScrollView
-{
-    return self.tableView;
-}
 
 @end
