@@ -53,6 +53,7 @@
 #import "LeadImageContainer.h"
 #import "DataMigrationProgressViewController.h"
 #import "UIFont+WMFStyle.h"
+#import "UIViewController+WMPullToRefresh.h"
 
 //#import "UIView+Debugging.h"
 
@@ -268,6 +269,18 @@
     [self tocUpdateViewLayout];
     
     [self loadingIndicatorAdd];
+ 
+    [self setupPullToRefresh];
+}
+
+- (void)setupPullToRefresh{
+    
+    [self setupPullToRefreshWithType:WMPullToRefreshProgressTypeIndeterminate inScrollView:self.webView.scrollView];
+    
+    self.refreshPromptString = MWLocalizedString(@"article-pull-to-refresh-prompt", nil);
+    self.refreshReleaseString = MWLocalizedString(@"article-pull-to-refresh-prompt", nil);
+    self.refreshRunningString = MWLocalizedString(@"article-pull-to-refresh-is-refreshing", nil);
+    
 }
 
 -(void)jumpToFragmentIfNecessary
@@ -542,7 +555,7 @@
 -(void)tocHideWithDuration:(NSNumber *)duration
 {
     if ([self tocDrawerIsOpen]){
- 
+        
         // Note: don't put this on the mainQueue. It can cause problems
         // if the toc needs to be hidden with 0 duration, such as when
         // the device is rotated. (could wrap this in a block and add
@@ -576,6 +589,7 @@
                              
                              [self.view layoutIfNeeded];
                          }completion: ^(BOOL done){
+                             [self setupPullToRefresh];
                              [self.tocVC didHide];
                              self.unsafeToToggleTOC = NO;
                              self.webView.scrollView.contentOffset = origScrollPosition;
@@ -594,7 +608,6 @@
 -(void)tocShowWithDuration:(NSNumber *)duration
 {
     if ([self tocDrawerIsOpen]) return;
-
 
     // When the TOC is shown, the self.webView.scrollView.transform is changed, but this
     // causes the height of the scrollView to be reduced, which doesn't mess anything up
@@ -638,6 +651,9 @@
                          [self.view layoutIfNeeded];
                          
                      }completion: ^(BOOL done){
+                         
+                         [self tearDownPullToRefresh];
+
                          self.unsafeToToggleTOC = NO;
                          
                          WikiGlyphButton *tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
@@ -891,6 +907,7 @@
 
 -(void)dealloc
 {
+    [self tearDownPullToRefresh];
     [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 
@@ -1127,7 +1144,7 @@
         
         [self.tocVC centerCellForWebViewTopMostSectionAnimated:YES];
 
-        self.pullToRefreshView.alpha = 0.0f;
+//        self.pullToRefreshView.alpha = 0.0f;
     }
 }
 
@@ -1217,7 +1234,7 @@
     if (![self tocDrawerIsOpen]){
         [self adjustTopAndBottomMenuVisibilityOnScroll];
         // No need to report scroll event to pull to refresh super vc if toc open.
-        [super scrollViewDidScroll:scrollView];
+//        [super scrollViewDidScroll:scrollView];
     }
 }
 
@@ -1390,8 +1407,11 @@
     NSString *cleanTitle = title.prefixedText;
     
     // Don't try to load nothing. Core data takes exception with such nonsense.
-    if (cleanTitle == nil) return;
-    if (cleanTitle.length == 0) return;
+    if (cleanTitle.length == 0){
+    
+        [self finishRefreshing];
+        return;
+    }
     
     [self hideKeyboard];
     
@@ -1426,6 +1446,11 @@
 
 -(void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache
 {
+    if(session.article == nil){
+        [self finishRefreshing];
+        return;
+    }
+    
     [self navigateToPage: session.title
          discoveryMethod: (invalidateCache ? MWK_DISCOVERY_METHOD_SEARCH : MWK_DISCOVERY_METHOD_SAVED)
     showLoadingIndicator: YES];
@@ -1466,6 +1491,7 @@
 				// Update the toc and web view.
 				[self.tocVC setTocSectionDataForSections:article.sections];
 				[self displayArticle:article.title];
+                [self finishRefreshing];
 				
 			}
 				break;
@@ -1479,6 +1505,7 @@
 				// Remove the article so it doesn't get saved.
 				//[article.managedObjectContext deleteObject:article];
 				[article remove];
+                [self finishRefreshing];
 			}
 				break;
 			case FETCH_FINAL_STATUS_CANCELLED:
@@ -1486,6 +1513,7 @@
 				// Remove the article so it doesn't get saved.
 				//[article.managedObjectContext deleteObject:article];
 				[article remove];
+                [self finishRefreshing];
 			}
 				break;
 				
@@ -1581,6 +1609,7 @@
         [self.tocVC setTocSectionDataForSections:session.article.sections];
         [self displayArticle:session.title];
         //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
+        [self finishRefreshing];
         [self fadeAlert];
     }else{
         // "fetchFinished:" above will be notified when articleFetcher has actually retrieved some data.
@@ -1857,33 +1886,12 @@
     }
 }
 
--(UIScrollView *)refreshScrollView
-{
-    return self.webView.scrollView;
-}
+#pragma mark - SSPullToRefreshViewDelegate
 
--(NSString *)refreshPromptString
-{
-    return MWLocalizedString(@"article-pull-to-refresh-prompt", nil);
-}
-
--(NSString *)refreshRunningString
-{
-    return MWLocalizedString(@"article-pull-to-refresh-is-refreshing", nil);
-}
-
--(void)refreshWasPulled
-{
+- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view{
+    
     [self reloadCurrentArticleInvalidatingCache:YES];
-}
-
--(BOOL)refreshShouldShow
-{
-    return (![self tocDrawerIsOpen])
-        &&
-        (session.article != nil)
-        &&
-        (!ROOT.isAnimatingTopAndBottomMenuHidden);
+    
 }
 
 #pragma mark Bottom menu bar
