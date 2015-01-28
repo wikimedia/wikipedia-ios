@@ -26,18 +26,8 @@ static NSString* const kPullToRefreshView = @"kPullToRefreshView";
     
     objc_setAssociatedObject(self, (__bridge const void *)(kPullToRefreshView), pullToRefresh, OBJC_ASSOCIATION_RETAIN);
 
-    switch (type) {
-        case WMPullToRefreshProgressTypeIndeterminate:
-            [self setPullToRefreshContentView:[UIViewController standardPullToRefreshContentView]];
-            break;
-        case WMPullToRefreshProgressTypeDeterminate:
-            [self setPullToRefreshContentView:[UIViewController progressPullToRefreshContentView]];
-            break;
-        default:
-            break;
-    }
+    [self setPullToRefreshContentView:[[WMPullToRefreshContentView alloc] initWithFrame:CGRectZero type:type]];
     
-
 }
 
 - (SSPullToRefreshView*)pullToRefreshView{
@@ -45,12 +35,12 @@ static NSString* const kPullToRefreshView = @"kPullToRefreshView";
     return objc_getAssociatedObject(self, (__bridge const void *)(kPullToRefreshView));
 }
 
-- (UIView<WMPullToRefreshContentView>*)pullToRefreshContentView{
+- (WMPullToRefreshContentView*)pullToRefreshContentView{
     
-    return (UIView<WMPullToRefreshContentView>*)[self pullToRefreshView].contentView;
+    return (WMPullToRefreshContentView*)[self pullToRefreshView].contentView;
 }
 
-- (void)setPullToRefreshContentView:(UIView<SSPullToRefreshContentView>*)contentView{
+- (void)setPullToRefreshContentView:(WMPullToRefreshContentView*)contentView{
     
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -58,14 +48,26 @@ static NSString* const kPullToRefreshView = @"kPullToRefreshView";
     
     [contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
         
-        make.bottom.equalTo(contentView.superview).with.offset(-5.0);
-        make.centerX.equalTo(contentView.superview);
+        make.edges.equalTo(contentView.superview);
     }];
 
 }
 
+- (void)setRefreshProgress:(float)progress animated:(BOOL)animated{
+
+    [[self pullToRefreshContentView] setProgress:progress animated:animated];
+}
+
 
 - (void)finishRefreshing{
+
+    if([[self pullToRefreshContentView] isAnimatingProgress]){
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self finishRefreshing];
+        });
+        return;
+    }
     
      [[self pullToRefreshView] finishLoading];
 }
@@ -79,18 +81,18 @@ static NSString* const kPullToRefreshView = @"kPullToRefreshView";
 
 }
 
-#pragma mark - Forward string configuration to
+#pragma mark - Forward string configuration to content view
 
 - (id)forwardingTargetForSelector:(SEL)aSelector{
     
-    NSString* selectorString = NSStringFromSelector(aSelector);
-    
-    if([selectorString isEqualToString:@"setRefreshPromptString:"] ||
-       [selectorString isEqualToString:@"setRefreshReleaseString:"] ||
-       [selectorString isEqualToString:@"setRefreshRunningString:"] ||
-       [selectorString isEqualToString:@"refreshPromptString"] ||
-       [selectorString isEqualToString:@"refreshReleaseString"] ||
-       [selectorString isEqualToString:@"refreshRunningString"]
+    if(sel_isEqual(aSelector, @selector(setRefreshPromptString:)) ||
+       sel_isEqual(aSelector, @selector(refreshPromptString)) ||
+       sel_isEqual(aSelector, @selector(setRefreshReleaseString:)) ||
+       sel_isEqual(aSelector, @selector(refreshReleaseString)) ||
+       sel_isEqual(aSelector, @selector(setRefreshRunningString:)) ||
+       sel_isEqual(aSelector, @selector(refreshRunningString)) ||
+       sel_isEqual(aSelector, @selector(setRefreshCancelBlock:)) ||
+       sel_isEqual(aSelector, @selector(refreshCancelBlock))
        ){
         
         return [self pullToRefreshContentView];
@@ -99,18 +101,5 @@ static NSString* const kPullToRefreshView = @"kPullToRefreshView";
     return [super forwardingTargetForSelector:aSelector];
 }
 
-
-#pragma mark - Create new content views
-
-+ (UIView<WMPullToRefreshContentView>*)standardPullToRefreshContentView{
- 
-    return [[WMPullToRefreshContentView alloc] initWithFrame:CGRectZero];
-}
-
-+ (UIView<WMPullToRefreshContentView>*)progressPullToRefreshContentView{
-    
-    return [[WMPullToRefreshContentView alloc] initWithFrame:CGRectZero];
-}
-
-
 @end
+
