@@ -79,7 +79,7 @@
     
     [self.fetchedArticles addObject:article];
 
-    [self.fetchFinishedDelegate savedArticlesFetcher:self didFetchArticle:article remainingArticles:[self.fetchersByArticleTitle count] status:status error:error];
+    [self.fetchFinishedDelegate savedArticlesFetcher:self didFetchArticle:article remainingArticles:[self.fetchersByArticleTitle count] totalArticles:self.savedPageList.length status:status error:error];
     
     if([self.fetchersByArticleTitle count] == 0){
         [self notifyDelegate];

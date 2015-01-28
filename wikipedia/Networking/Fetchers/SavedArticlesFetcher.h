@@ -9,6 +9,7 @@
 - (void)savedArticlesFetcher: (SavedArticlesFetcher*)savedArticlesFetcher
              didFetchArticle: (MWKArticle*)article
            remainingArticles: (NSInteger)remaining
+               totalArticles: (NSInteger)total
                       status: (FetchFinalStatus)status
                        error: (NSError *)error;
 
