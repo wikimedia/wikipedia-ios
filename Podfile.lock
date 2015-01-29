@@ -23,8 +23,8 @@ PODS:
   - hpple (0.2.0)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.5)
-  - hpple (~> 0.2)
+  - AFNetworking (< 2.6)
+  - hpple (< 0.3)
 
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
