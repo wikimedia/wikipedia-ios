@@ -1,13 +1,28 @@
 # Mac OS X ignores
-.DS_Store*
-._*
+.DS_Store
 
-# Xcode ignore
+# Xcode/ObjC ignores, copied from https://github.com/github/gitignore/blob/master/Objective-C.gitignore
+build/
 *.pbxuser
-*.perspective
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
 *.perspectivev3
+!default.perspectivev3
 xcuserdata
-project.xcworkspace
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
 
-# Node modules for the js
-www/node_modules
+# CocoaPods
+Pods/
+
+# www
+node_modules/
+# TODO: remove this when assets is moved into build/
+Wikipedia/assets/

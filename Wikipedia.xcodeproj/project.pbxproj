@@ -178,6 +178,7 @@
 		04F27B7618FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F27B7018FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib */; };
 		04F27B7818FE0F2E00EDD838 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F27B7418FE0F2E00EDD838 /* PageHistoryViewController.m */; };
 		04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F3958F186CF80100B0D6FC /* TOCViewController.m */; };
+		701FF5EE601DEA3FCAB7EFD3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D82982ED992F47428037BDF2 /* libPods.a */; };
 		C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		D407E6411A51DBDA00CCC8B1 /* SchemaConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = D407E6401A51DBDA00CCC8B1 /* SchemaConverter.m */; };
 		D42E75EB18D11237002EA7E5 /* MWLanguageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D42E75EA18D11237002EA7E5 /* MWLanguageInfo.m */; };
@@ -194,8 +195,6 @@
 		D499144C181D51DE00E6073C /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D499144A181D51DE00E6073C /* Main_iPhone.storyboard */; };
 		D4991454181D51DE00E6073C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		D49B2ED2196C687C002F035D /* PullToRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D49B2ED1196C687C002F035D /* PullToRefreshViewController.m */; };
-		D4AD974E19F99E7C00957451 /* libPods-AFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AD974719F99CD700957451 /* libPods-AFNetworking.a */; };
-		D4AD975019F99E9000957451 /* libPods-hpple.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AD974919F99CD700957451 /* libPods-hpple.a */; };
 		D4B0AE0219365F7C00F0AC90 /* EventLoggingFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE0119365F7C00F0AC90 /* EventLoggingFunnel.m */; };
 		D4B0AE051936604700F0AC90 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE041936604700F0AC90 /* EditFunnel.m */; };
 		D4B0AE0819366A0A00F0AC90 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE0719366A0A00F0AC90 /* CreateAccountFunnel.m */; };
@@ -234,41 +233,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D48405A119E473E6006F4139;
 			remoteInfo = MediaWikiKit;
-		};
-		D4AD974419F99CD700957451 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D4AD973E19F99CD700957451 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4B97C700A44275378518197B;
-			remoteInfo = Pods;
-		};
-		D4AD974619F99CD700957451 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D4AD973E19F99CD700957451 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1991ADD1F89A00A42B36F91A;
-			remoteInfo = "Pods-AFNetworking";
-		};
-		D4AD974819F99CD700957451 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D4AD973E19F99CD700957451 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = ACC360DC91D91D8973461A32;
-			remoteInfo = "Pods-hpple";
-		};
-		D4AD974A19F99E4200957451 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D4AD973E19F99CD700957451 /* Pods.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A5B494F18AE3AC7062EECDDB;
-			remoteInfo = "Pods-AFNetworking";
-		};
-		D4AD974C19F99E4600957451 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D4AD973E19F99CD700957451 /* Pods.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C73D7690357B1F8585BBD225;
-			remoteInfo = "Pods-hpple";
 		};
 		D4E6D9151A5C65FA004916C1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -609,6 +573,8 @@
 		04F27B7418FE0F2E00EDD838 /* PageHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PageHistoryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		04F3958E186CF80100B0D6FC /* TOCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOCViewController.h; sourceTree = "<group>"; };
 		04F3958F186CF80100B0D6FC /* TOCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOCViewController.m; sourceTree = "<group>"; };
+		15847B39C337F6CC5C052C54 /* Pods.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.test.xcconfig; path = "Pods/Target Support Files/Pods/Pods.test.xcconfig"; sourceTree = "<group>"; };
+		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaAppUtils.h; sourceTree = "<group>"; };
 		C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikipediaAppUtils.m; sourceTree = "<group>"; };
 		D407E63F1A51DBDA00CCC8B1 /* SchemaConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SchemaConverter.h; path = wikipedia/Data/SchemaConverter.h; sourceTree = SOURCE_ROOT; };
@@ -754,7 +720,6 @@
 		D499145A181D51DF00E6073C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D49B2ED0196C687C002F035D /* PullToRefreshViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullToRefreshViewController.h; path = PullToRefresh/PullToRefreshViewController.h; sourceTree = "<group>"; };
 		D49B2ED1196C687C002F035D /* PullToRefreshViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullToRefreshViewController.m; path = PullToRefresh/PullToRefreshViewController.m; sourceTree = "<group>"; };
-		D4AD973E19F99CD700957451 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = cocoapods/Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		D4B0AE0019365F7C00F0AC90 /* EventLoggingFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventLoggingFunnel.h; path = EventLogging/EventLoggingFunnel.h; sourceTree = "<group>"; };
 		D4B0AE0119365F7C00F0AC90 /* EventLoggingFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventLoggingFunnel.m; path = EventLogging/EventLoggingFunnel.m; sourceTree = "<group>"; };
 		D4B0AE031936604700F0AC90 /* EditFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditFunnel.h; path = EventLogging/EditFunnel.h; sourceTree = "<group>"; };
@@ -840,6 +805,7 @@
 		D4F277FD194235B50032BA38 /* ToCInteractionFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToCInteractionFunnel.m; path = EventLogging/ToCInteractionFunnel.m; sourceTree = "<group>"; };
 		D4F478441A48CD8500D8043C /* OldDataSchema.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OldDataSchema.xcodeproj; path = OldDataSchema/OldDataSchema.xcodeproj; sourceTree = "<group>"; };
 		D82982ED992F47428037BDF2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDA528BC357952A7D914F8E0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -850,14 +816,13 @@
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
 				D4F478741A48D1B100D8043C /* libOldDataSchema.a in Frameworks */,
 				D497FCFB1A080810004A36A5 /* libMediaWikiKit.a in Frameworks */,
-				D4AD975019F99E9000957451 /* libPods-hpple.a in Frameworks */,
-				D4AD974E19F99E7C00957451 /* libPods-AFNetworking.a in Frameworks */,
 				D4E8A8A919085CEA00DA4765 /* libsqlite3.dylib in Frameworks */,
 				04D34DB21863D39000610A87 /* libxml2.dylib in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
 				D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */,
 				041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */,
+				701FF5EE601DEA3FCAB7EFD3 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1623,7 +1588,7 @@
 				D4F478441A48CD8500D8043C /* OldDataSchema.xcodeproj */,
 				D497FCEF1A0807ED004A36A5 /* MediaWikiKit.xcodeproj */,
 				0487041319F7683300B7D307 /* Cocoapods Notes.txt */,
-				D4AD973E19F99CD700957451 /* Pods.xcodeproj */,
+				EC30571054CC4DC4EE743503 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1710,16 +1675,6 @@
 			name = PullToRefresh;
 			sourceTree = "<group>";
 		};
-		D4AD973F19F99CD700957451 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D4AD974519F99CD700957451 /* libPods.a */,
-				D4AD974719F99CD700957451 /* libPods-AFNetworking.a */,
-				D4AD974919F99CD700957451 /* libPods-hpple.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		D4B0ADFF19365F4600F0AC90 /* EventLogging */ = {
 			isa = PBXGroup;
 			children = (
@@ -1778,6 +1733,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		EC30571054CC4DC4EE743503 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EDA528BC357952A7D914F8E0 /* Pods.debug.xcconfig */,
+				15847B39C337F6CC5C052C54 /* Pods.test.xcconfig */,
+				357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1785,7 +1750,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D499146A181D51DF00E6073C /* Build configuration list for PBXNativeTarget "Wikipedia" */;
 			buildPhases = (
-				048702AE19F75B0800B7D307 /* run-cocoapods */,
+				F33F4F6424C55FEF072D1A81 /* Check Pods Manifest.lock */,
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
 				04272E7619404CDF00CC682F /* run-grunt */,
@@ -1795,14 +1760,13 @@
 				D4991433181D51DE00E6073C /* Resources */,
 				046F268119C387BD00D7ACB3 /* icon-svgs-to-pngs */,
 				04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */,
+				45FA417DEEAE18B42A662320 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				D4F478761A48D1BB00D8043C /* PBXTargetDependency */,
 				D497FCFA1A080800004A36A5 /* PBXTargetDependency */,
-				D4AD974D19F99E4600957451 /* PBXTargetDependency */,
-				D4AD974B19F99E4200957451 /* PBXTargetDependency */,
 			);
 			name = Wikipedia;
 			productName = "Wikipedia-iOS";
@@ -1917,10 +1881,6 @@
 					ProductGroup = D4F478451A48CD8500D8043C /* Products */;
 					ProjectRef = D4F478441A48CD8500D8043C /* OldDataSchema.xcodeproj */;
 				},
-				{
-					ProductGroup = D4AD973F19F99CD700957451 /* Products */;
-					ProjectRef = D4AD973E19F99CD700957451 /* Pods.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1942,27 +1902,6 @@
 			fileType = wrapper.cfbundle;
 			path = MediaWikiKitTests.xctest;
 			remoteRef = D497FCF61A0807EE004A36A5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D4AD974519F99CD700957451 /* libPods.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libPods.a;
-			remoteRef = D4AD974419F99CD700957451 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D4AD974719F99CD700957451 /* libPods-AFNetworking.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-AFNetworking.a";
-			remoteRef = D4AD974619F99CD700957451 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D4AD974919F99CD700957451 /* libPods-hpple.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libPods-hpple.a";
-			remoteRef = D4AD974819F99CD700957451 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D4E6D9161A5C65FA004916C1 /* OldDataSchemaBundle.bundle */ = {
@@ -2077,20 +2016,6 @@
 			shellPath = /bin/sh;
 			shellScript = "echo \"Uncomment the following line to run this automatically when building.\"\n# scripts/icon-svgs-to-pngs.sh";
 		};
-		048702AE19F75B0800B7D307 /* run-cocoapods */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "run-cocoapods";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#scripts/run-cocoapods.sh";
-		};
 		04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2104,6 +2029,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "scripts/copy-wmflogo-to-assets.sh";
+		};
+		45FA417DEEAE18B42A662320 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		D4C16A621970946900CD91AD /* update-storyboard-strings */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2137,6 +2077,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "scripts/update-qqq.php";
+		};
+		F33F4F6424C55FEF072D1A81 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2307,16 +2262,6 @@
 			isa = PBXTargetDependency;
 			name = MediaWikiKit;
 			targetProxy = D497FCF91A080800004A36A5 /* PBXContainerItemProxy */;
-		};
-		D4AD974B19F99E4200957451 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-AFNetworking";
-			targetProxy = D4AD974A19F99E4200957451 /* PBXContainerItemProxy */;
-		};
-		D4AD974D19F99E4600957451 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-hpple";
-			targetProxy = D4AD974C19F99E4600957451 /* PBXContainerItemProxy */;
 		};
 		D4F478761A48D1BB00D8043C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2576,6 +2521,7 @@
 		};
 		04C43B101839DAEE006C643B /* Test */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15847B39C337F6CC5C052C54 /* Pods.test.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2594,7 +2540,7 @@
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2660,6 +2606,10 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					"$(inherited)",
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2675,6 +2625,7 @@
 		};
 		D499146B181D51DF00E6073C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDA528BC357952A7D914F8E0 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2693,7 +2644,7 @@
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -2702,6 +2653,7 @@
 		};
 		D499146C181D51DF00E6073C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2710,7 +2662,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/include/libxml2",
@@ -2722,7 +2673,7 @@
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
