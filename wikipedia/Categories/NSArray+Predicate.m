@@ -6,6 +6,7 @@
 @implementation NSArray (Predicate)
 
 -(id)firstMatchForPredicate:(NSPredicate *)predicate {
+    // FIXME: this is likely O(n), search/sort should be O(log(n))
     __block id matchingObject = nil;
     [self enumerateObjectsUsingBlock:
         ^(id obj, NSUInteger idx, BOOL *stop) {

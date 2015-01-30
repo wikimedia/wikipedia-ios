@@ -21,7 +21,6 @@
 		D47F56281A1A89B4004D9856 /* MWKHistoryList.m in Sources */ = {isa = PBXBuildFile; fileRef = D47F56271A1A89B4004D9856 /* MWKHistoryList.m */; };
 		D47F56291A1A89B4004D9856 /* MWKHistoryList.m in Sources */ = {isa = PBXBuildFile; fileRef = D47F56271A1A89B4004D9856 /* MWKHistoryList.m */; };
 		D48405A619E473E6006F4139 /* MediaWikiKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D48405A519E473E6006F4139 /* MediaWikiKit.h */; };
-		D48405A819E473E6006F4139 /* MediaWikiKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D48405A719E473E6006F4139 /* MediaWikiKit.m */; };
 		D48405BF19E47526006F4139 /* MWKSection.m in Sources */ = {isa = PBXBuildFile; fileRef = D48405BE19E47526006F4139 /* MWKSection.m */; };
 		D48405C019E47526006F4139 /* MWKSection.m in Sources */ = {isa = PBXBuildFile; fileRef = D48405BE19E47526006F4139 /* MWKSection.m */; };
 		D48405C319E47535006F4139 /* MWKArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = D48405C219E47535006F4139 /* MWKArticle.m */; };
@@ -98,7 +97,6 @@
 		D47F56271A1A89B4004D9856 /* MWKHistoryList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKHistoryList.m; sourceTree = "<group>"; };
 		D48405A219E473E6006F4139 /* libMediaWikiKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMediaWikiKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D48405A519E473E6006F4139 /* MediaWikiKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaWikiKit.h; sourceTree = "<group>"; };
-		D48405A719E473E6006F4139 /* MediaWikiKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaWikiKit.m; sourceTree = "<group>"; };
 		D48405AD19E473E7006F4139 /* MediaWikiKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MediaWikiKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D48405B019E473E7006F4139 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D48405BD19E47526006F4139 /* MWKSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKSection.h; sourceTree = "<group>"; };
@@ -190,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				D48405A519E473E6006F4139 /* MediaWikiKit.h */,
-				D48405A719E473E6006F4139 /* MediaWikiKit.m */,
 				D4C3FA5719E478C200EB08CC /* Metadata classes */,
 				D4C3FA5619E478AA00EB08CC /* Data classes */,
 				D4C3FA5819E478CC00EB08CC /* Data i/o */,
@@ -409,7 +406,6 @@
 				D44EA78D1A1BCD2600631A1D /* MWKRecentSearchList.m in Sources */,
 				D44EA7851A1BCC0300631A1D /* MWKUserDataStore.m in Sources */,
 				D48405C319E47535006F4139 /* MWKArticle.m in Sources */,
-				D48405A819E473E6006F4139 /* MediaWikiKit.m in Sources */,
 				D494A6FE19F6C7C30098AA18 /* MWKProtectionStatus.m in Sources */,
 				D494A70E19F6E8F20098AA18 /* MWKDataStore.m in Sources */,
 				D47F56281A1A89B4004D9856 /* MWKHistoryList.m in Sources */,
