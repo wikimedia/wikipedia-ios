@@ -5,16 +5,17 @@
 
 @implementation NSArray (Predicate)
 
--(id)firstMatchForPredicate:(NSPredicate *)predicate {
-    __block id matchingObject = nil;
-    [self enumerateObjectsUsingBlock:
-        ^(id obj, NSUInteger idx, BOOL *stop) {
-            BOOL matchFound = [predicate evaluateWithObject:obj];
-            if (matchFound) matchingObject = obj;
-            *stop = matchFound;
+-(id)firstMatchForPredicate:(NSPredicate *)predicate
+{
+    NSInteger i = [self indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        if ([predicate evaluateWithObject:obj]) {
+            *stop = YES;
+            return YES;
+        } else {
+            return NO;
         }
-    ];
-    return matchingObject;
+    }];
+    return i ==  NSNotFound ? nil : [self objectAtIndex:i];
 }
 
 @end

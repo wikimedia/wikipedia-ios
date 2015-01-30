@@ -179,6 +179,9 @@
 		04F27B7818FE0F2E00EDD838 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F27B7418FE0F2E00EDD838 /* PageHistoryViewController.m */; };
 		04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F3958F186CF80100B0D6FC /* TOCViewController.m */; };
 		701FF5EE601DEA3FCAB7EFD3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D82982ED992F47428037BDF2 /* libPods.a */; };
+		954BA118838BF8BA6B01C34A /* libPods-WikipediaUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */; };
+		BC42735D1A7C73B300068882 /* NSArray+Predicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CBAC7219A9B786009F3D7E /* NSArray+Predicate.m */; };
+		BC42735E1A7C73B300068882 /* NSArray+PredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */; };
 		C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		D401C2C01A659E5000D4D127 /* DataMigrationProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D401C2BE1A659E5000D4D127 /* DataMigrationProgressViewController.m */; };
 		D401C2C11A659E5000D4D127 /* DataMigrationProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D401C2BF1A659E5000D4D127 /* DataMigrationProgressViewController.xib */; };
@@ -576,7 +579,12 @@
 		04F3958E186CF80100B0D6FC /* TOCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOCViewController.h; sourceTree = "<group>"; };
 		04F3958F186CF80100B0D6FC /* TOCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOCViewController.m; sourceTree = "<group>"; };
 		15847B39C337F6CC5C052C54 /* Pods.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.test.xcconfig; path = "Pods/Target Support Files/Pods/Pods.test.xcconfig"; sourceTree = "<group>"; };
+		17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WikipediaUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC8309961A7BF935003FC5C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PredicateTests.m"; path = "Utilities/NSArray+PredicateTests.m"; sourceTree = "<group>"; };
 		C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaAppUtils.h; sourceTree = "<group>"; };
 		C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikipediaAppUtils.m; sourceTree = "<group>"; };
 		D401C2BD1A659E5000D4D127 /* DataMigrationProgressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataMigrationProgressViewController.h; path = DataMigration/DataMigrationProgressViewController.h; sourceTree = "<group>"; };
@@ -810,10 +818,19 @@
 		D4F277FD194235B50032BA38 /* ToCInteractionFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToCInteractionFunnel.m; path = EventLogging/ToCInteractionFunnel.m; sourceTree = "<group>"; };
 		D4F478441A48CD8500D8043C /* OldDataSchema.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OldDataSchema.xcodeproj; path = OldDataSchema/OldDataSchema.xcodeproj; sourceTree = "<group>"; };
 		D82982ED992F47428037BDF2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC96DA4AAD521D734849D20F /* Pods-WikipediaUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EDA528BC357952A7D914F8E0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BC42734F1A7C736800068882 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				954BA118838BF8BA6B01C34A /* libPods-WikipediaUnitTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4991432181D51DE00E6073C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1565,6 +1582,23 @@
 			path = TableOfContents;
 			sourceTree = "<group>";
 		};
+		BC8309941A7BF935003FC5C7 /* WikipediaUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				BC8309951A7BF935003FC5C7 /* Supporting Files */,
+				BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */,
+			);
+			path = WikipediaUnitTests;
+			sourceTree = "<group>";
+		};
+		BC8309951A7BF935003FC5C7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BC8309961A7BF935003FC5C7 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		C9180EC118AED30C006C1DCA /* mw-utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -1599,6 +1633,7 @@
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				04E9A78218F73C7200F7ECF7 /* www */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,
+				BC8309941A7BF935003FC5C7 /* WikipediaUnitTests */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
 				D4F478441A48CD8500D8043C /* OldDataSchema.xcodeproj */,
@@ -1612,6 +1647,7 @@
 			isa = PBXGroup;
 			children = (
 				D4991435181D51DE00E6073C /* Wikipedia.app */,
+				BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1629,6 +1665,7 @@
 				D499143C181D51DE00E6073C /* UIKit.framework */,
 				D499145A181D51DF00E6073C /* XCTest.framework */,
 				D82982ED992F47428037BDF2 /* libPods.a */,
+				8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1755,6 +1792,8 @@
 				EDA528BC357952A7D914F8E0 /* Pods.debug.xcconfig */,
 				15847B39C337F6CC5C052C54 /* Pods.test.xcconfig */,
 				357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */,
+				DC96DA4AAD521D734849D20F /* Pods-WikipediaUnitTests.debug.xcconfig */,
+				17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1762,6 +1801,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BC4273511A7C736800068882 /* WikipediaUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC42735A1A7C736800068882 /* Build configuration list for PBXNativeTarget "WikipediaUnitTests" */;
+			buildPhases = (
+				B29DA021E0C2F3461F2CD2D8 /* Check Pods Manifest.lock */,
+				BC42734E1A7C736800068882 /* Sources */,
+				BC42734F1A7C736800068882 /* Frameworks */,
+				BC4273501A7C736800068882 /* Resources */,
+				3E12E9E666E87AE6E3CA45E3 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WikipediaUnitTests;
+			productName = WikipediaUnitTests;
+			productReference = BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D4991434181D51DE00E6073C /* Wikipedia */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D499146A181D51DF00E6073C /* Build configuration list for PBXNativeTarget "Wikipedia" */;
@@ -1798,6 +1856,9 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Wikimedia Foundation";
 				TargetAttributes = {
+					BC4273511A7C736800068882 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
 					D4991434181D51DE00E6073C = {
 						DevelopmentTeam = AKK7J2GV64;
 					};
@@ -1901,6 +1962,7 @@
 			projectRoot = "";
 			targets = (
 				D4991434181D51DE00E6073C /* Wikipedia */,
+				BC4273511A7C736800068882 /* WikipediaUnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1937,6 +1999,13 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BC4273501A7C736800068882 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4991433181D51DE00E6073C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2047,6 +2116,21 @@
 			shellPath = /bin/sh;
 			shellScript = "scripts/copy-wmflogo-to-assets.sh";
 		};
+		3E12E9E666E87AE6E3CA45E3 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		45FA417DEEAE18B42A662320 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2060,6 +2144,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B29DA021E0C2F3461F2CD2D8 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		D4C16A621970946900CD91AD /* update-storyboard-strings */ = {
@@ -2113,6 +2212,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BC42734E1A7C736800068882 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC42735E1A7C73B300068882 /* NSArray+PredicateTests.m in Sources */,
+				BC42735D1A7C73B300068882 /* NSArray+Predicate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D4991431181D51DE00E6073C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2498,76 +2606,47 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		04C43B0F1839DAEE006C643B /* Test */ = {
+		BC42735B1A7C736800068882 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC96DA4AAD521D734849D20F /* Pods-WikipediaUnitTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
-			name = Test;
+			name = Debug;
 		};
-		04C43B101839DAEE006C643B /* Test */ = {
+		BC42735C1A7C736800068882 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15847B39C337F6CC5C052C54 /* Pods.test.xcconfig */;
+			baseConfigurationReference = 17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(SDKROOT)/usr/include/libxml2",
-					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
-					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
-					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
-					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_NAME = Wikipedia;
-				PROVISIONING_PROFILE = "";
-				WARNING_CFLAGS = (
-					"$(inherited)",
-					"-Werror=switch",
-				);
-				WRAPPER_EXTENSION = app;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
-			name = Test;
+			name = Release;
 		};
 		D4991468181D51DF00E6073C /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2713,11 +2792,19 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BC42735A1A7C736800068882 /* Build configuration list for PBXNativeTarget "WikipediaUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC42735B1A7C736800068882 /* Debug */,
+				BC42735C1A7C736800068882 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D4991430181D51DE00E6073C /* Build configuration list for PBXProject "Wikipedia" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D4991468181D51DF00E6073C /* Debug */,
-				04C43B0F1839DAEE006C643B /* Test */,
 				D4991469181D51DF00E6073C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -2727,7 +2814,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D499146B181D51DF00E6073C /* Debug */,
-				04C43B101839DAEE006C643B /* Test */,
 				D499146C181D51DF00E6073C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

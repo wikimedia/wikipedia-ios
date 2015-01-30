@@ -12,17 +12,20 @@ Native rewrite of the [Wikipedia reader application](https://www.mediawiki.org/w
 * Bugs: https://bugzilla.wikimedia.org/enter_bug.cgi?product=Wikipedia%20App
 * IRC chat: #wikimedia-mobile on irc.freenode.net
 
+# Dependencies
+This project uses [CocoaPods](cocoapods.org) to manage Objective-C dependencies and [npm](https://www.npmjs.com/) to manage web dependencies.  Please see the `Podfile` and `www/package.json` for a comprehensive list. The web dependencies (in the www folder) are managed with .  Please see  for a list of dependencies.
 
 # Setup
 ## Prerequisites
 Please make sure the following are installed on your system before trying to build the project:
 
 - [Xcode 6 or higher](https://itunes.apple.com/us/app/xcode/id497799835) on Mac OS X, available on the App Store or [developer.apple.com](https://developer.apple.com/) after signing in with your Apple ID.
-- Ruby: comes bundled with OS X, this project only requires the system version)
+- Xcode Command Line Tools: On newer OS X versions, you can run `xcode-select --install` to install them.  If that doesn't work, you can find instructions online for downloading the them via Xcode or the Apple developer portal.
+- Ruby: comes bundled with OS X (this project only requires the system version).
 
 > _[rbenv](https://github.com/sstephenson/rbenv) is nice for managing mulitple Ruby versions._
 
-- [CocoaPods](cocoapods.org): ruby gem for Objective-C dependency management.
+- CocoaPods: Ruby gem for Objective-C dependency management.
 
 > _[Bundler](http://bundler.io/) is recommended for installing Ruby gems without `sudo`._
 
@@ -47,11 +50,11 @@ Once all the dependencies are installed, you'll have to do a couple of things be
 
 If the build failed, we're _really_ sorry! We'll be more than happy to help you if you file a bug and/or bug us via IRC or email. See the top of this file for our contact information. Please include any console logs and/or Xcode screenshots along with a description of your environment.
 
-> Due to Apple's restrictions on iOS app installation, to run a custom build on a standard iOS device you must pay for a [developer account with Apple](https://developer.apple.com/devcenter/ios/index.action) and register the device with your account.
+## Running
+Simply run the **Wikipedia** target for the destination of your choosing (i.e. simulator or device). Keep in mind that you'll need to provision any physical devices with an active [developer account](https://developer.apple.com/devcenter/ios/index.action) in order to build and run the app on them.
 
-# Dependencies
-This project uses CocoaPods to manage Objective-C dependencies.  Please see the `Podfile` in this directory for a list of third-party libraries.
-The web dependencies (in the www folder) are managed with [npm](https://www.npmjs.com/).  Please see `www/package.json` for a list of dependencies.
+## Testing
+The unit testing target is configured to build & test under the **Wikipedia** scheme. Use the Xcode **Product -> Test** menu-bar action (`Cmd + U` for hotkey fanatics) to run them. New unit tests (and their application-code dependencies) should be added to the **WikipediaUnitTests** target.
 
 # Filing Bugs
 Please file bugs at [bugzilla.wikimedia.org](https://bugzilla.wikimedia.org/enter_bug.cgi?product=Wikipedia%20App); use the "iOS App" component.

@@ -19,6 +19,9 @@ DerivedData
 *.ipa
 *.xcuserstate
 
+# Ignore baselines, which we'll eventually maintain in CI to prevent false negatives due to dev machine discrepancies
+xcbaselines/
+
 # CocoaPods
 Pods/
 
