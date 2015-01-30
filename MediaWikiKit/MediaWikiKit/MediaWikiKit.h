@@ -39,7 +39,3 @@
 #import "MWKImageList.h"
 
 #import "MWKUserDataStore.h"
-
-@interface MediaWikiKit : NSObject
-
-@end
