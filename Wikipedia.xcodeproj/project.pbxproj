@@ -2561,6 +2561,10 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
+				WARNING_CFLAGS = (
+					"$(inherited)",
+					"-Werror=switch",
+				);
 				WRAPPER_EXTENSION = app;
 			};
 			name = Test;
@@ -2665,6 +2669,10 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
+				WARNING_CFLAGS = (
+					"$(inherited)",
+					"-Werror=switch",
+				);
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2694,6 +2702,10 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
+				WARNING_CFLAGS = (
+					"$(inherited)",
+					"-Werror=switch",
+				);
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

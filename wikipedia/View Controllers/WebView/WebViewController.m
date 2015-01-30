@@ -1553,13 +1553,28 @@
 
     MWKArticle *article = session.article;
     
-    // Update the history dateVisited timestamp of the article to be visited only
-    // if the article was NOT loaded via back or forward buttons.
-    if (discoveryMethod != MWK_DISCOVERY_METHOD_BACKFORWARD) {
-        [session.userDataStore updateHistory:article.title discoveryMethod:discoveryMethod];
-        [self invalidateCacheForPageTitle:pageTitle];
-    }
+    switch (discoveryMethod) {
+        case MWK_DISCOVERY_METHOD_SAVED: {
+            // Browsing saved articles should affect history.
+            [session.userDataStore updateHistory:article.title discoveryMethod:discoveryMethod];
+            break;
+        }
+            
+        case MWK_DISCOVERY_METHOD_SEARCH:
+        case MWK_DISCOVERY_METHOD_RANDOM:
+        case MWK_DISCOVERY_METHOD_LINK:
+        case MWK_DISCOVERY_METHOD_UNKNOWN:{
+            // New article! Update the history and make sure we get the most recent version.
+            [session.userDataStore updateHistory:article.title discoveryMethod:discoveryMethod];
+            [self invalidateCacheForPageTitle:pageTitle];
+            break;
+        }
         
+        case MWK_DISCOVERY_METHOD_BACKFORWARD:
+            // Traversing history should not alter it, and should be served from the cache.
+            break;
+    }
+    
     // If article with sections just show them (unless needsRefresh is YES)
     if ([article.sections count] > 0 && !article.needsRefresh) {
         [self.tocVC setTocSectionDataForSections:session.article.sections];
