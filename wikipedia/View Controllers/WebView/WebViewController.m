@@ -921,7 +921,6 @@
 
             [weakSelf navigateToPage: pageTitle
                      discoveryMethod: MWK_DISCOVERY_METHOD_LINK
-                   invalidatingCache: NO
                 showLoadingIndicator: YES];
         } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
             // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
@@ -1386,7 +1385,6 @@
 
 -(void)navigateToPage: (MWKTitle *)title
       discoveryMethod: (MWKHistoryDiscoveryMethod)discoveryMethod
-    invalidatingCache: (BOOL)invalidateCache
  showLoadingIndicator: (BOOL)showLoadingIndicator
 {
     NSString *cleanTitle = title.prefixedText;
@@ -1402,8 +1400,6 @@
     // Show loading message
     //[self showAlert:MWLocalizedString(@"search-loading-section-zero", nil) type:ALERT_TYPE_TOP duration:-1];
 
-    if (invalidateCache) [self invalidateCacheForPageTitle:title];
-    
     self.jumpToFragment = title.fragment;
 
     // Update the history dateVisited timestamp of the article *presently shown* by the webView
@@ -1428,17 +1424,10 @@
     */
 }
 
-- (void)invalidateCacheForPageTitle: (MWKTitle *)pageTitle
-{
-    // Mark article for refreshing so its core data records will be reloaded.
-    session.article.needsRefresh = YES;
-}
-
 -(void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache
 {
     [self navigateToPage: session.title
-         discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
-       invalidatingCache: invalidateCache
+         discoveryMethod: (invalidateCache ? MWK_DISCOVERY_METHOD_SEARCH : MWK_DISCOVERY_METHOD_SAVED)
     showLoadingIndicator: YES];
 }
 
@@ -1554,19 +1543,13 @@
     MWKArticle *article = session.article;
     
     switch (discoveryMethod) {
-        case MWK_DISCOVERY_METHOD_SAVED: {
-            // Browsing saved articles should affect history.
-            [session.userDataStore updateHistory:article.title discoveryMethod:discoveryMethod];
-            break;
-        }
-            
+        case MWK_DISCOVERY_METHOD_SAVED:
         case MWK_DISCOVERY_METHOD_SEARCH:
         case MWK_DISCOVERY_METHOD_RANDOM:
         case MWK_DISCOVERY_METHOD_LINK:
         case MWK_DISCOVERY_METHOD_UNKNOWN:{
-            // New article! Update the history and make sure we get the most recent version.
+            // Update the history so the most recently viewed article appears at the top.
             [session.userDataStore updateHistory:article.title discoveryMethod:discoveryMethod];
-            [self invalidateCacheForPageTitle:pageTitle];
             break;
         }
         
@@ -1574,21 +1557,38 @@
             // Traversing history should not alter it, and should be served from the cache.
             break;
     }
-    
+
+    switch (discoveryMethod) {
+        case MWK_DISCOVERY_METHOD_SEARCH:
+        case MWK_DISCOVERY_METHOD_RANDOM:
+        case MWK_DISCOVERY_METHOD_LINK:
+        case MWK_DISCOVERY_METHOD_UNKNOWN:{
+            // Mark article as needing refreshing so its data will be re-downloaded.
+            // Reminder: this needs to happen *after* "session.title" has been updated
+            // with the title of the article being retrieved. Otherwise you end up
+            // marking the previous article as needing to be refreshed.
+            session.article.needsRefresh = YES;
+            break;
+        }
+
+        case MWK_DISCOVERY_METHOD_SAVED:
+        case MWK_DISCOVERY_METHOD_BACKFORWARD:
+            break;
+    }
+
     // If article with sections just show them (unless needsRefresh is YES)
     if ([article.sections count] > 0 && !article.needsRefresh) {
         [self.tocVC setTocSectionDataForSections:session.article.sections];
         [self displayArticle:session.title];
         //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
         [self fadeAlert];
-        return;
+    }else{
+        // "fetchFinished:" above will be notified when articleFetcher has actually retrieved some data.
+        // Note: cast to void to avoid compiler warning: http://stackoverflow.com/a/7915839
+        (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle: session.article
+                                                         withManager: [QueuesSingleton sharedInstance].articleFetchManager
+                                                  thenNotifyDelegate: self];
     }
-    
-    // "fetchFinished:" above will be notified when articleFetcher has actually retrieved some data.
-    // Note: cast to void to avoid compiler warning: http://stackoverflow.com/a/7915839
-    (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle: session.article
-                                                     withManager: [QueuesSingleton sharedInstance].articleFetchManager
-                                              thenNotifyDelegate: self];
 }
 
 #pragma mark Display article from core data
@@ -1960,7 +1960,6 @@
     [NAV loadArticleWithTitle: title
                      animated: NO
               discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
-            invalidatingCache: NO
                    popToWebVC: YES];
 
     [self dismissLanguagePicker];

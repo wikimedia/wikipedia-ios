@@ -607,7 +607,6 @@
     [NAV loadArticleWithTitle: [[SessionSingleton sharedInstance].searchSite titleWithString:title]
                      animated: YES
               discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
-            invalidatingCache: NO
                    popToWebVC: YES];
 }
 

@@ -76,7 +76,6 @@
 -(void)loadArticleWithTitle: (MWKTitle *)title
                    animated: (BOOL)animated
             discoveryMethod: (MWKHistoryDiscoveryMethod)discoveryMethod
-          invalidatingCache: (BOOL)invalidateCache
                  popToWebVC: (BOOL)popToWebVC
 {
     WebViewController *webVC = [self searchNavStackForViewControllerOfClass:[WebViewController class]];
@@ -84,7 +83,6 @@
         [SessionSingleton sharedInstance].title = title;
         [webVC navigateToPage: title
               discoveryMethod: discoveryMethod
-            invalidatingCache: invalidateCache
          showLoadingIndicator: YES];
         if (popToWebVC) {
             [ROOT popToViewController:webVC animated:animated];
@@ -156,7 +154,6 @@
         [self loadArticleWithTitle: pageTitle
                           animated: YES
                    discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
-                 invalidatingCache: YES
                         popToWebVC: NO];
     }
 }
@@ -203,7 +200,6 @@
                     [self loadArticleWithTitle: pageTitle
                                      animated: YES
                               discoveryMethod: MWK_DISCOVERY_METHOD_RANDOM
-                            invalidatingCache: NO
                                    popToWebVC: NO]; // Don't pop - popModal has already been called.
                 }
             }
@@ -230,7 +226,6 @@
         [self loadArticleWithTitle: pageTitle
                           animated: YES
                    discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
-                 invalidatingCache: YES
                         popToWebVC: NO];
     }
 }

@@ -14,7 +14,6 @@
 -(void)loadArticleWithTitle: (MWKTitle *)title
                    animated: (BOOL)animated
             discoveryMethod: (MWKHistoryDiscoveryMethod)discoveryMethod
-          invalidatingCache: (BOOL)invalidateCache
                  popToWebVC: (BOOL)popToWebVC;
 
 -(void)loadTodaysArticle;

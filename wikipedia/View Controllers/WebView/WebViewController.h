@@ -26,10 +26,8 @@
 // If "invalidateCache" is set to YES the article will be re-downloaded first.
 -(void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache;
 
-// If "invalidateCache" is set to YES the article will be re-downloaded first.
 -(void)navigateToPage: (MWKTitle *)title
       discoveryMethod: (MWKHistoryDiscoveryMethod)discoveryMethod
-    invalidatingCache: (BOOL)invalidateCache
  showLoadingIndicator: (BOOL)showLoadingIndicator;
 
 -(void)tocScrollWebViewToSectionWithElementId: (NSString *)elementId

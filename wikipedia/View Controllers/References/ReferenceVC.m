@@ -63,7 +63,6 @@
                     MWKTitle *pageTitle = [[SessionSingleton sharedInstance].site titleWithString:title];
                     [self.webVC navigateToPage: pageTitle
                                discoveryMethod: MWK_DISCOVERY_METHOD_LINK
-                             invalidatingCache: NO
                           showLoadingIndicator: YES];
                     [self.webVC referencesHide];
                     return NO;

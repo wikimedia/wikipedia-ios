@@ -380,8 +380,7 @@
     
     [NAV loadArticleWithTitle: historyEntry.title
                      animated: YES
-              discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
-            invalidatingCache: NO
+              discoveryMethod: MWK_DISCOVERY_METHOD_SAVED
                    popToWebVC: NO];
 
     [self popModalToRoot];
