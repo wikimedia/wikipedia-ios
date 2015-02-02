@@ -1,6 +1,6 @@
 
 
-#import "SSPullToRefreshView.h"
+#import "WMPullToRefreshView.h"
 
 typedef NS_ENUM(NSUInteger, WMPullToRefreshProgressType){
     
@@ -8,7 +8,7 @@ typedef NS_ENUM(NSUInteger, WMPullToRefreshProgressType){
     WMPullToRefreshProgressTypeDeterminate
 };
 
-@interface WMPullToRefreshContentView : UIView<SSPullToRefreshContentView>
+@interface WMPullToRefreshContentView : UIView<WMPullToRefreshContentView>
 
 - (instancetype)initWithFrame:(CGRect)frame type:(WMPullToRefreshProgressType)type;
 
@@ -21,13 +21,11 @@ typedef NS_ENUM(NSUInteger, WMPullToRefreshProgressType){
 /**
  *  Only valid for WMPullToRefreshProgressTypeDeterminate
  */
-- (void)setProgress:(float)progress animated:(BOOL)animated;
+- (void)setLoadingProgress:(float)progress animated:(BOOL)animated;
 
 /**
- *  Execute a block when
+ *  Execute a block when cencel button is tapped
  */
 @property (copy, nonatomic) dispatch_block_t refreshCancelBlock;
-
-- (BOOL)isAnimatingProgress;
 
 @end

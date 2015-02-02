@@ -3,6 +3,7 @@
 #import "Defines.h"
 #import "WikiGlyph_Chars.h"
 #import "Masonry.h"
+#import "WikipediaAppUtils.h"
 
 typedef NS_ENUM(NSUInteger, WMPullToRefreshIndeterminateProgressState){
     WMPullToRefreshIndeterminateProgressState0 = 0,
@@ -38,9 +39,9 @@ typedef NS_ENUM(NSUInteger, WMPullToRefreshIndeterminateProgressState){
      
         self.type = type;
         
-        self.refreshPromptString = @"Refresh (not localized)";
-        self.refreshReleaseString = @"Release to Refresh (not localized)";
-        self.refreshRunningString = @"Refreshing (not localized)";
+        self.refreshPromptString = MWLocalizedString(@"pull-to-refresh-prompt-default", nil);
+        self.refreshReleaseString = MWLocalizedString(@"pull-to-refresh-release-default", nil);
+        self.refreshRunningString = MWLocalizedString(@"pull-to-refresh-is-refreshing-default", nil);
         
         self.pullToRefreshLabel = [[UILabel alloc] init];
         self.pullToRefreshLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -142,7 +143,7 @@ typedef NS_ENUM(NSUInteger, WMPullToRefreshIndeterminateProgressState){
 
     }else{
 
-        [self setProgress:0.0 animated:NO];
+        [self setLoadingProgress:0.0 animated:NO];
 
         [UIView animateWithDuration:0.2 animations:^{
 
@@ -155,18 +156,6 @@ typedef NS_ENUM(NSUInteger, WMPullToRefreshIndeterminateProgressState){
         
     }
 }
-
-- (BOOL)isAnimatingProgress{
-    
-    if([[self.progressView.layer animationKeys] count] > 0)
-        return YES;
-    
-    if([[self.progressView.subviews valueForKeyPath:@"layer.@unionOfArrays.animationKeys"] count] > 0)
-        return YES;
-    
-    return NO;
-}
-
 
 - (void)stopAnimatingProgress{
     
@@ -220,8 +209,8 @@ typedef NS_ENUM(NSUInteger, WMPullToRefreshIndeterminateProgressState){
     self.loadingIndicatorLabel.text = loadingText;
 }
 
-- (void)setProgress:(float)progress animated:(BOOL)animated{
-    
+- (void)setLoadingProgress:(float)progress animated:(BOOL)animated{
+
     [self.progressView setProgress:progress animated:animated];
 }
 
@@ -236,25 +225,25 @@ typedef NS_ENUM(NSUInteger, WMPullToRefreshIndeterminateProgressState){
 
 #pragma mark - SSPullToRefreshContentView
 
-- (void)setState:(SSPullToRefreshViewState)state withPullToRefreshView:(SSPullToRefreshView *)view{
+- (void)setState:(WMPullToRefreshViewState)state withPullToRefreshView:(WMPullToRefreshView *)view{
     
     switch (state) {
-        case SSPullToRefreshViewStateReady: {
+        case WMPullToRefreshViewStateReady: {
             self.pullToRefreshLabel.text = self.refreshReleaseString;
             self.refreshing = NO;
             break;
         }
-        case SSPullToRefreshViewStateNormal: {
+        case WMPullToRefreshViewStateNormal: {
             self.pullToRefreshLabel.text = self.refreshPromptString;
             self.refreshing = NO;
             break;
         }
-        case SSPullToRefreshViewStateLoading:{
+        case WMPullToRefreshViewStateLoading:{
             self.pullToRefreshLabel.text = self.refreshRunningString;
             self.refreshing = YES;
             break;
         }
-        case SSPullToRefreshViewStateClosing: {
+        case WMPullToRefreshViewStateClosing: {
             self.pullToRefreshLabel.text = self.refreshRunningString;
             self.refreshing = NO;
             break;
