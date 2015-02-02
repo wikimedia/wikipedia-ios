@@ -88,7 +88,6 @@
 		04821CD119895EDC007558F6 /* ReferenceGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04821CD019895EDC007558F6 /* ReferenceGradientView.m */; };
 		0484411E19FF15AF00FD26C5 /* AboutViewController.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0484411D19FF15AF00FD26C5 /* AboutViewController.plist */; };
 		0484E3DE19D9D19B0085D18D /* UIView+ConstraintsScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484E3DD19D9D19B0085D18D /* UIView+ConstraintsScale.m */; };
-		0487041419F7683300B7D307 /* Cocoapods Notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0487041319F7683300B7D307 /* Cocoapods Notes.txt */; };
 		0487045519F824D700B7D307 /* QueuesSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487044119F824D700B7D307 /* QueuesSingleton.m */; };
 		0487047E19F8262600B7D307 /* AccountCreationTokenFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487045819F8262600B7D307 /* AccountCreationTokenFetcher.m */; };
 		0487047F19F8262600B7D307 /* AccountCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487045A19F8262600B7D307 /* AccountCreator.m */; };
@@ -412,7 +411,6 @@
 		0484411D19FF15AF00FD26C5 /* AboutViewController.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AboutViewController.plist; sourceTree = "<group>"; };
 		0484E3DC19D9D19B0085D18D /* UIView+ConstraintsScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ConstraintsScale.h"; sourceTree = "<group>"; };
 		0484E3DD19D9D19B0085D18D /* UIView+ConstraintsScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ConstraintsScale.m"; sourceTree = "<group>"; };
-		0487041319F7683300B7D307 /* Cocoapods Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Cocoapods Notes.txt"; sourceTree = "<group>"; };
 		0487044019F824D700B7D307 /* QueuesSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueuesSingleton.h; sourceTree = "<group>"; };
 		0487044119F824D700B7D307 /* QueuesSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueuesSingleton.m; sourceTree = "<group>"; };
 		0487045719F8262600B7D307 /* AccountCreationTokenFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCreationTokenFetcher.h; sourceTree = "<group>"; };
@@ -578,7 +576,6 @@
 		04F27B7418FE0F2E00EDD838 /* PageHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PageHistoryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		04F3958E186CF80100B0D6FC /* TOCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOCViewController.h; sourceTree = "<group>"; };
 		04F3958F186CF80100B0D6FC /* TOCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOCViewController.m; sourceTree = "<group>"; };
-		15847B39C337F6CC5C052C54 /* Pods.test.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.test.xcconfig; path = "Pods/Target Support Files/Pods/Pods.test.xcconfig"; sourceTree = "<group>"; };
 		17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WikipediaUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1638,7 +1635,6 @@
 				D4991436181D51DE00E6073C /* Products */,
 				D4F478441A48CD8500D8043C /* OldDataSchema.xcodeproj */,
 				D497FCEF1A0807ED004A36A5 /* MediaWikiKit.xcodeproj */,
-				0487041319F7683300B7D307 /* Cocoapods Notes.txt */,
 				EC30571054CC4DC4EE743503 /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -1790,7 +1786,6 @@
 			isa = PBXGroup;
 			children = (
 				EDA528BC357952A7D914F8E0 /* Pods.debug.xcconfig */,
-				15847B39C337F6CC5C052C54 /* Pods.test.xcconfig */,
 				357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */,
 				DC96DA4AAD521D734849D20F /* Pods-WikipediaUnitTests.debug.xcconfig */,
 				17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */,
@@ -2016,7 +2011,6 @@
 				045EFF1B19A25FEB00D0EDBB /* logo-placeholder-search@2x.png in Resources */,
 				D4991454181D51DE00E6073C /* Images.xcassets in Resources */,
 				D499144C181D51DE00E6073C /* Main_iPhone.storyboard in Resources */,
-				0487041419F7683300B7D307 /* Cocoapods Notes.txt in Resources */,
 				D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */,
 				04082B5318ADA25A00FAF3D6 /* text_field_x_circle_gray.png in Resources */,
 				D401C2C11A659E5000D4D127 /* DataMigrationProgressViewController.xib in Resources */,
