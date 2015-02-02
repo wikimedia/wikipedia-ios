@@ -6,7 +6,6 @@
 #import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars.h"
-#import "WikiGlyph_Chars_iOS.h"
 #import "WebViewController.h"
 #import "WikipediaAppUtils.h"
 #import "UIView+Debugging.h"
@@ -127,7 +126,7 @@
 
     self.nextButton = [[WikiGlyphButton alloc] init];
     self.nextButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.nextButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD
+    [self.nextButton.label setWikiText: isRTL ? WIKIGLYPH_BACKWARD : WIKIGLYPH_FORWARD
                                  color: [UIColor darkGrayColor]
                                   size: 24.0 * MENUS_SCALE_MULTIPLIER
                         baselineOffset: 2.0];
@@ -136,7 +135,7 @@
     
     self.prevButton = [[WikiGlyphButton alloc] init];
     self.prevButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.prevButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_FORWARD : IOS_WIKIGLYPH_BACKWARD
+    [self.prevButton.label setWikiText: isRTL ? WIKIGLYPH_FORWARD : WIKIGLYPH_BACKWARD
                                  color: [UIColor darkGrayColor]
                                   size: 24.0 * MENUS_SCALE_MULTIPLIER
                         baselineOffset: 2.0];

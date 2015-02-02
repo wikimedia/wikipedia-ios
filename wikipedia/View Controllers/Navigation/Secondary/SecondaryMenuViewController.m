@@ -13,7 +13,7 @@
 #import "NSString+FormattedAttributedString.h"
 #import "TabularScrollView.h"
 #import "SecondaryMenuRowView.h"
-#import "WikiGlyph_Chars_iOS.h"
+#import "WikiGlyph_Chars.h"
 #import "TopMenuContainerView.h"
 #import "UIViewController+StatusBarHeight.h"
 #import "Defines.h"
@@ -22,6 +22,7 @@
 #import "UIViewController+ModalPop.h"
 #import "LoginViewController.h"
 #import "PaddedLabel.h"
+#import "UIFont+WMFStyle.h"
 
 #pragma mark - Defines
 
@@ -273,7 +274,7 @@ typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
 
         NSDictionary *attributes =
             @{
-              NSFontAttributeName: [UIFont fontWithName:@"WikiFontGlyphs-iOS" size:MENU_ICON_FONT_SIZE],
+              NSFontAttributeName: [UIFont wmf_glyphFontOfSize:MENU_ICON_FONT_SIZE],
               NSForegroundColorAttributeName : MENU_ICON_COLOR,
               NSBaselineOffsetAttributeName: @2
               };
@@ -311,7 +312,7 @@ typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
 
 -(void)setRowData
 {
-    //NSString *ltrSafeCaretCharacter = [WikipediaAppUtils isDeviceLanguageRTL] ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD;
+    //NSString *ltrSafeCaretCharacter = [WikipediaAppUtils isDeviceLanguageRTL] ? WIKIGLYPH_BACKWARD : WIKIGLYPH_FORWARD;
 
 
     //NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
@@ -380,7 +381,7 @@ typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
           @"domain": languageCode,
           @"title": searchWikiTitle,
           @"tag": @(SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE),
-          @"icon": IOS_WIKIGLYPH_DOWN,
+          @"icon": WIKIGLYPH_DOWN,
           @"type": @(ROW_TYPE_SELECTION),
           }.mutableCopy
       ,
@@ -427,7 +428,7 @@ typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
           @"domain": [SessionSingleton sharedInstance].domain,
           @"title": MWLocalizedString(@"main-menu-credits", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_CREDITS),
-          @"icon": IOS_WIKIGLYPH_DOWN,
+          @"icon": WIKIGLYPH_DOWN,
           @"type": @(ROW_TYPE_SELECTION),
           }.mutableCopy
         ,
@@ -436,7 +437,7 @@ typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
           @"domain": [SessionSingleton sharedInstance].searchSite.language,
           @"title": MWLocalizedString(@"main-menu-about", nil),
           @"tag": @(SECONDARY_MENU_ROW_INDEX_ABOUT),
-          @"icon": IOS_WIKIGLYPH_DOWN,
+          @"icon": WIKIGLYPH_DOWN,
           @"type": @(ROW_TYPE_SELECTION),
           }.mutableCopy
         ,

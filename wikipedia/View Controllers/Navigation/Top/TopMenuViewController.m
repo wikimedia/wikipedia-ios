@@ -19,7 +19,6 @@
 #import "WikiGlyphLabel.h"
 #import "PaddedLabel.h"
 #import "WikiGlyph_Chars.h"
-#import "WikiGlyph_Chars_iOS.h"
 #import "CenterNavController.h"
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
@@ -42,7 +41,6 @@
 @property (strong, nonatomic) WikiGlyphButton *buttonTOC;
 @property (strong, nonatomic) WikiGlyphButton *buttonPencil;
 @property (strong, nonatomic) WikiGlyphButton *buttonX;
-@property (strong, nonatomic) WikiGlyphButton *buttonEye;
 @property (strong, nonatomic) WikiGlyphButton *buttonArrowLeft;
 @property (strong, nonatomic) WikiGlyphButton *buttonArrowRight;
 @property (strong, nonatomic) WikiGlyphButton *buttonMagnify;
@@ -247,15 +245,14 @@
     CGFloat size = MENU_TOP_GLYPH_FONT_SIZE;
 
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
-    NSString *caret = !isRTL ? WIKIGLYPH_CARET_LEFT: IOS_WIKIGLYPH_FORWARD;
+    NSString *caret = !isRTL ? WIKIGLYPH_CARET_LEFT: WIKIGLYPH_FORWARD;
 
     self.buttonX =          getWikiGlyphButton(WIKIGLYPH_X,           MWLocalizedString(@"menu-close-accessibility-label", nil),   NAVBAR_BUTTON_X, size);
-    self.buttonEye =        getWikiGlyphButton(WIKIGLYPH_EYE,         MWLocalizedString(@"menu-preview-accessibility-label", nil), NAVBAR_BUTTON_EYE, size);
     self.buttonArrowLeft =  getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-back-accessibility-label", nil),    NAVBAR_BUTTON_ARROW_LEFT, size);
     self.buttonArrowRight = getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-forward-accessibility-label", nil), NAVBAR_BUTTON_ARROW_RIGHT, size);
-    self.buttonW =          getWikiGlyphButton(IOS_WIKIGLYPH_W,       MWLocalizedString(@"menu-w-accessibility-label", nil),       NAVBAR_BUTTON_LOGO_W, size);
-    self.buttonTOC =        getWikiGlyphButton(IOS_WIKIGLYPH_TOC_COLLAPSED, MWLocalizedString(@"menu-toc-accessibility-label", nil),     NAVBAR_BUTTON_TOC, size);
-    self.buttonMagnify =    getWikiGlyphButton(IOS_WIKIGLYPH_MAGNIFY, MWLocalizedString(@"menu-search-accessibility-label", nil),  NAVBAR_BUTTON_MAGNIFY, size);
+    self.buttonW =          getWikiGlyphButton(WIKIGLYPH_W,       MWLocalizedString(@"menu-w-accessibility-label", nil),       NAVBAR_BUTTON_LOGO_W, size);
+    self.buttonTOC =        getWikiGlyphButton(WIKIGLYPH_TOC_COLLAPSED, MWLocalizedString(@"menu-toc-accessibility-label", nil),     NAVBAR_BUTTON_TOC, size);
+    self.buttonMagnify =    getWikiGlyphButton(WIKIGLYPH_MAGNIFY, MWLocalizedString(@"menu-search-accessibility-label", nil),  NAVBAR_BUTTON_MAGNIFY, size);
     self.buttonBlank =      getWikiGlyphButton(@"",                   @"", NAVBAR_BUTTON_BLANK, size);
     self.buttonCancel =     getWikiGlyphButton(@"",                   MWLocalizedString(@"menu-cancel-accessibility-label", nil),  NAVBAR_BUTTON_CANCEL, size);
     self.buttonTrash =      getWikiGlyphButton(WIKIGLYPH_TRASH,       MWLocalizedString(@"menu-trash-accessibility-label", nil),   NAVBAR_BUTTON_TRASH, size);
@@ -312,7 +309,6 @@
     [self.navBarContainer addSubview:self.buttonPencil];
     [self.navBarContainer addSubview:self.buttonCheck];
     [self.navBarContainer addSubview:self.buttonX];
-    [self.navBarContainer addSubview:self.buttonEye];
     [self.navBarContainer addSubview:self.buttonArrowLeft];
     [self.navBarContainer addSubview:self.buttonArrowRight];
     [self.navBarContainer addSubview:self.buttonW];
@@ -369,7 +365,6 @@
              @"NAVBAR_BUTTON_NEXT": self.buttonNext,
              @"NAVBAR_BUTTON_SAVE": self.buttonSave,
              @"NAVBAR_BUTTON_DONE": self.buttonDone,
-             @"NAVBAR_BUTTON_EYE": self.buttonEye,
              @"NAVBAR_BUTTON_TRASH": self.buttonTrash,
              @"NAVBAR_TEXT_FIELD": self.textFieldContainer,
              @"NAVBAR_LABEL": self.label
@@ -779,7 +774,6 @@
         case NAVBAR_BUTTON_ARROW_LEFT:
         case NAVBAR_BUTTON_ARROW_RIGHT:
         case NAVBAR_BUTTON_LOGO_W:
-        case NAVBAR_BUTTON_EYE:
         case NAVBAR_BUTTON_TOC:
         case NAVBAR_BUTTON_MAGNIFY:
         case NAVBAR_BUTTON_BLANK:

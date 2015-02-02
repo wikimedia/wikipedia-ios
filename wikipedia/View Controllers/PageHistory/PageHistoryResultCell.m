@@ -6,6 +6,7 @@
 #import "PageHistoryLabel.h"
 #import "Defines.h"
 #import "NSString+Extras.h"
+#import "UIFont+WMFStyle.h"
 
 @interface PageHistoryResultCell()
 
@@ -46,7 +47,7 @@
     
     NSDictionary *iconAttributes =
     @{
-      NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:23.0 * MENUS_SCALE_MULTIPLIER],
+      NSFontAttributeName: [UIFont wmf_glyphFontOfSize:23.0 * MENUS_SCALE_MULTIPLIER],
       NSForegroundColorAttributeName : [UIColor colorWithRed:0.78 green:0.78 blue:0.78 alpha:1.0],
       NSBaselineOffsetAttributeName: @1
       };

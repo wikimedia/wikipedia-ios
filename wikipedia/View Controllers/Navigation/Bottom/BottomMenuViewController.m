@@ -5,7 +5,6 @@
 #import "WebViewController.h"
 #import "UINavigationController+SearchNavStack.h"
 #import "SessionSingleton.h"
-#import "WikiGlyph_Chars_iOS.h"
 #import "WikiGlyph_Chars.h"
 #import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
@@ -57,14 +56,14 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
 
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
 
-    [self.backButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_FORWARD : IOS_WIKIGLYPH_BACKWARD
+    [self.backButton.label setWikiText: isRTL ? WIKIGLYPH_FORWARD : WIKIGLYPH_BACKWARD
                                  color: buttonColor
                                   size: MENU_BOTTOM_GLYPH_FONT_SIZE
                         baselineOffset: 0];
     self.backButton.accessibilityLabel = MWLocalizedString(@"menu-back-accessibility-label", nil);
     self.backButton.tag = BOTTOM_MENU_BUTTON_PREVIOUS;
     
-    [self.forwardButton.label setWikiText: isRTL ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD
+    [self.forwardButton.label setWikiText: isRTL ? WIKIGLYPH_BACKWARD : WIKIGLYPH_FORWARD
                                     color: buttonColor
                                      size: MENU_BOTTOM_GLYPH_FONT_SIZE
                            baselineOffset: 0
@@ -73,7 +72,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     self.forwardButton.tag = BOTTOM_MENU_BUTTON_NEXT;
     // self.forwardButton.label.transform = CGAffineTransformMakeScale(-1, 1);
 
-    [self.rightButton.label setWikiText: IOS_WIKIGLYPH_SHARE
+    [self.rightButton.label setWikiText: WIKIGLYPH_SHARE
                                   color: buttonColor
                                    size: MENU_BOTTOM_GLYPH_FONT_SIZE
                          baselineOffset: 0
@@ -81,7 +80,7 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     self.rightButton.tag = BOTTOM_MENU_BUTTON_SHARE;
     self.rightButton.accessibilityLabel = MWLocalizedString(@"menu-share-accessibility-label", nil);
 
-    [self.saveButton.label setWikiText: IOS_WIKIGLYPH_HEART_OUTLINE
+    [self.saveButton.label setWikiText: WIKIGLYPH_HEART_OUTLINE
                                  color: buttonColor
                                   size: MENU_BOTTOM_GLYPH_FONT_SIZE
                         baselineOffset: 0
@@ -299,10 +298,10 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     self.forwardButton.enabled = (self.adjacentHistoryEntries[@"after"]) ? YES : NO;
     self.backButton.enabled = (self.adjacentHistoryEntries[@"before"]) ? YES : NO;
 
-    NSString *saveIconString = IOS_WIKIGLYPH_HEART_OUTLINE;
+    NSString *saveIconString = WIKIGLYPH_HEART_OUTLINE;
     UIColor *saveIconColor = [UIColor blackColor];
     if([self isCurrentArticleSaved]){
-        saveIconString = IOS_WIKIGLYPH_HEART;
+        saveIconString = WIKIGLYPH_HEART;
         saveIconColor = UIColorFromRGBWithAlpha(0xf27072, 1.0);
     }
     

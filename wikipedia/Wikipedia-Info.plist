@@ -28,7 +28,6 @@
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>WikiFont-Glyphs-iOS.ttf</string>
 		<string>WikiFont-Glyphs.ttf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>

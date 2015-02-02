@@ -8,11 +8,12 @@
 #import "TopMenuViewController.h"
 #import "UIViewController+ModalPop.h"
 #import "TabularScrollView.h"
-#import "WikiGlyph_Chars_iOS.h"
+#import "WikiGlyph_Chars.h"
 #import "Defines.h"
 #import "PaddedLabel.h"
 #import "SecondaryMenuRowView.h"
 #import "UIView+TemporaryAnimatedXF.h"
+#import "UIFont+WMFStyle.h"
 
 #define URL_APP_GITHUB @"https://github.com/wikimedia/apps-ios-wikipedia"
 #define URL_APP_GERRIT @"https://gerrit.wikimedia.org/r/#/q/project:apps/ios/wikipedia,n,z"
@@ -163,7 +164,7 @@ typedef enum {
 
         NSDictionary *attributes =
             @{
-              NSFontAttributeName: [UIFont fontWithName:@"WikiFontGlyphs-iOS" size:MENU_ICON_FONT_SIZE],
+              NSFontAttributeName: [UIFont wmf_glyphFontOfSize:MENU_ICON_FONT_SIZE],
               NSForegroundColorAttributeName : MENU_ICON_COLOR,
               NSBaselineOffsetAttributeName: @0
               };
@@ -204,8 +205,6 @@ typedef enum {
 
 -(void)setRowData
 {
-    NSString *ltrSafeCaretCharacter = @""; //[WikipediaAppUtils isDeviceLanguageRTL] ? IOS_WIKIGLYPH_BACKWARD : IOS_WIKIGLYPH_FORWARD;
-    
     NSMutableArray *rowData =
     @[
       @{
@@ -219,7 +218,7 @@ typedef enum {
       @{
           @"title": MWLocalizedString(@"credits-gerrit-repo", nil),
           @"tag": @(CREDITS_ROW_INDEX_APP_REPO_GERRIT),
-          @"icon": ltrSafeCaretCharacter,
+          @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
           @"url": URL_APP_GERRIT,
           }.mutableCopy
@@ -227,7 +226,7 @@ typedef enum {
       @{
           @"title": MWLocalizedString(@"credits-github-mirror", nil),
           @"tag": @(CREDITS_ROW_INDEX_APP_REPO_GITHUB),
-          @"icon": ltrSafeCaretCharacter,
+          @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
           @"url": URL_APP_GITHUB,
           }.mutableCopy
@@ -243,7 +242,7 @@ typedef enum {
       @{
           @"title": @"Wikifont",
           @"tag": @(CREDITS_ROW_INDEX_REPO_WIKIFONT),
-          @"icon": ltrSafeCaretCharacter,
+          @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
           @"url": URL_APP_WIKIFONT,
           }.mutableCopy
@@ -251,7 +250,7 @@ typedef enum {
       @{
           @"title": @"Hpple",
           @"tag": @(CREDITS_ROW_INDEX_REPO_HPPLE),
-          @"icon": ltrSafeCaretCharacter,
+          @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
           @"url": URL_APP_HPPLE,
           }.mutableCopy
@@ -259,7 +258,7 @@ typedef enum {
       @{
           @"title": @"NSDate-Extensions",
           @"tag": @(CREDITS_ROW_INDEX_REPO_NSDATE),
-          @"icon": ltrSafeCaretCharacter,
+          @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
           @"url": URL_APP_NSDATE,
           }.mutableCopy
@@ -267,7 +266,7 @@ typedef enum {
       @{
           @"title": @"AFNetworking",
           @"tag": @(CREDITS_ROW_INDEX_REPO_AFNETWORKING),
-          @"icon": ltrSafeCaretCharacter,
+          @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
           @"url": URL_APP_AFNETWORKING,
           }.mutableCopy
@@ -275,7 +274,7 @@ typedef enum {
       @{
           @"title": @"Cocoapods",
           @"tag": @(CREDITS_ROW_INDEX_REPO_COCOAPODS),
-          @"icon": ltrSafeCaretCharacter,
+          @"icon": @"",
           @"type": @(ROW_TYPE_SELECTION),
           @"url": URL_APP_COCOAPODS,
           }.mutableCopy

@@ -111,7 +111,6 @@
 		048A26771906268100395F53 /* PaddedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 048A26761906268100395F53 /* PaddedLabel.m */; };
 		0493C2CC1952373100EBB973 /* DataHousekeeping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0493C2CB1952373100EBB973 /* DataHousekeeping.m */; };
 		0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */; };
-		0493C2D619526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D519526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf */; };
 		049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049566C118F5F4CB0058EA12 /* ZeroConfigState.m */; };
 		049B640C18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m in Sources */ = {isa = PBXBuildFile; fileRef = 049B640B18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m */; };
 		04A70FD7185BB6C300E24515 /* URLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A70FD6185BB6C300E24515 /* URLCache.m */; };
@@ -129,6 +128,8 @@
 		04B91AA718E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AA618E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m */; };
 		04B91AAB18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AAA18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m */; };
 		04B91AB718E4D5B200FFAA1C /* TabularScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AB618E4D5B200FFAA1C /* TabularScrollView.m */; };
+		04BA48A11A80062F00CB5CAE /* UIFont+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BA48A01A80062E00CB5CAE /* UIFont+WMFStyle.m */; };
+		04BA48A21A80062F00CB5CAE /* UIFont+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BA48A01A80062E00CB5CAE /* UIFont+WMFStyle.m */; };
 		04C0A0781936786000D55325 /* UIViewController+ModalPresent.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0A0771936786000D55325 /* UIViewController+ModalPresent.m */; };
 		04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */; };
 		04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AAB18344131006C643B /* CommunicationBridge.m */; };
@@ -455,9 +456,7 @@
 		048A26761906268100395F53 /* PaddedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PaddedLabel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0493C2CA1952373100EBB973 /* DataHousekeeping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataHousekeeping.h; sourceTree = "<group>"; };
 		0493C2CB1952373100EBB973 /* DataHousekeeping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHousekeeping.m; sourceTree = "<group>"; };
-		0493C2D219525F8E00EBB973 /* WikiGlyph_Chars_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikiGlyph_Chars_iOS.h; sourceTree = "<group>"; };
 		0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs.ttf"; sourceTree = "<group>"; };
-		0493C2D519526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs-iOS.ttf"; sourceTree = "<group>"; };
 		049566C018F5F4CB0058EA12 /* ZeroConfigState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZeroConfigState.h; sourceTree = "<group>"; };
 		049566C118F5F4CB0058EA12 /* ZeroConfigState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZeroConfigState.m; sourceTree = "<group>"; };
 		049B640A18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SearchChildViewControllers.h"; sourceTree = "<group>"; };
@@ -491,6 +490,8 @@
 		04B91AAA18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FormattedAttributedString.m"; sourceTree = "<group>"; };
 		04B91AB518E4D5B200FFAA1C /* TabularScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabularScrollView.h; sourceTree = "<group>"; };
 		04B91AB618E4D5B200FFAA1C /* TabularScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabularScrollView.m; sourceTree = "<group>"; };
+		04BA489F1A80062E00CB5CAE /* UIFont+WMFStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+WMFStyle.h"; sourceTree = "<group>"; };
+		04BA48A01A80062E00CB5CAE /* UIFont+WMFStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+WMFStyle.m"; sourceTree = "<group>"; };
 		04C0A0761936786000D55325 /* UIViewController+ModalPresent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ModalPresent.h"; sourceTree = "<group>"; };
 		04C0A0771936786000D55325 /* UIViewController+ModalPresent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ModalPresent.m"; sourceTree = "<group>"; };
 		04C43AA0183440C1006C643B /* MWNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -933,7 +934,6 @@
 				04292FFC185FC026002A13FC /* Defines.h */,
 				043F18F118DCDD3A00D8489A /* WMF_Colors.h */,
 				047528A3190F0C2900F2CDA8 /* WikiGlyph_Chars.h */,
-				0493C2D219525F8E00EBB973 /* WikiGlyph_Chars_iOS.h */,
 			);
 			path = Defines;
 			sourceTree = "<group>";
@@ -1023,7 +1023,6 @@
 			isa = PBXGroup;
 			children = (
 				0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */,
-				0493C2D519526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -1448,6 +1447,8 @@
 				04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */,
 				0439317419FB092600386E8F /* UIWebView+LoadAssetsHtml.h */,
 				0439317519FB092600386E8F /* UIWebView+LoadAssetsHtml.m */,
+				04BA489F1A80062E00CB5CAE /* UIFont+WMFStyle.h */,
+				04BA48A01A80062E00CB5CAE /* UIFont+WMFStyle.m */,
 				04D149D818877343006B4104 /* Alerts */,
 			);
 			path = Categories;
@@ -2016,7 +2017,6 @@
 				D401C2C11A659E5000D4D127 /* DataMigrationProgressViewController.xib in Resources */,
 				04EDEE251A20788700798076 /* SearchResultPrototypeView.xib in Resources */,
 				04478631185145090050563B /* HistoryResultPrototypeView.xib in Resources */,
-				0493C2D619526FFE00EBB973 /* WikiFont-Glyphs-iOS.ttf in Resources */,
 				0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */,
 				04F27B7618FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib in Resources */,
 				04C91CF319554B310035ED1B /* logo-onboarding@2x.png in Resources */,
@@ -2212,6 +2212,7 @@
 			files = (
 				BC42735E1A7C73B300068882 /* NSArray+PredicateTests.m in Sources */,
 				BC42735D1A7C73B300068882 /* NSArray+Predicate.m in Sources */,
+				04BA48A21A80062F00CB5CAE /* UIFont+WMFStyle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2306,6 +2307,7 @@
 				D401C2C01A659E5000D4D127 /* DataMigrationProgressViewController.m in Sources */,
 				04CCCFF01935093A00E3F60C /* SecondaryMenuViewController.m in Sources */,
 				D4B0AE0B19366A2C00F0AC90 /* ReadingActionFunnel.m in Sources */,
+				04BA48A11A80062F00CB5CAE /* UIFont+WMFStyle.m in Sources */,
 				0452C810195D0F03007925A6 /* UIViewController+ModalPop.m in Sources */,
 				0487049019F8262600B7D307 /* WikiTextSectionUploader.m in Sources */,
 				041C55D21950B27D006CE0EF /* EditSummaryViewController.m in Sources */,

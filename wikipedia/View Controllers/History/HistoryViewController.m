@@ -20,6 +20,7 @@
 #import "DataHousekeeping.h"
 #import "NSObject+ConstraintsScale.h"
 #import "SessionSingleton.h"
+#import "UIFont+WMFStyle.h"
 
 #define HISTORY_RESULT_HEIGHT (80.0 * MENUS_SCALE_MULTIPLIER)
 #define HISTORY_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
@@ -496,7 +497,7 @@
             wikiFontCharacter = WIKIGLYPH_LINK;
             break;
         default:
-            wikiFontCharacter = WIKIGLYPH_MAGNIFYING_GLASS;
+            wikiFontCharacter = WIKIGLYPH_MAGNIFY_BOLD;
             break;
     }
     
@@ -504,7 +505,7 @@
     CGFloat fontSize = 20.0 * MENUS_SCALE_MULTIPLIER;
     NSDictionary *attributes =
         @{
-            NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:fontSize],
+            NSFontAttributeName: [UIFont wmf_glyphFontOfSize:fontSize],
             NSForegroundColorAttributeName : iconColor,
             NSBaselineOffsetAttributeName: @0
         };

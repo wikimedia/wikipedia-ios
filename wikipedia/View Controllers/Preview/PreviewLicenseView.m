@@ -8,6 +8,7 @@
 #import "RootViewController.h"
 #import "Defines.h"
 #import "NSObject+ConstraintsScale.h"
+#import "UIFont+WMFStyle.h"
 
 #define PREVIEW_BLUE_COLOR [UIColor colorWithRed:0.2 green:0.4784 blue:1.0 alpha:1.0]
 
@@ -175,7 +176,7 @@ enum {
 {
     return [[NSAttributedString alloc] initWithString: WIKIGLYPH_CC
                                            attributes: @{
-                                                         NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:42.0 * MENUS_SCALE_MULTIPLIER],
+                                                         NSFontAttributeName: [UIFont wmf_glyphFontOfSize:42.0 * MENUS_SCALE_MULTIPLIER],
                                                          NSForegroundColorAttributeName : PREVIEW_BLUE_COLOR,
                                                          NSBaselineOffsetAttributeName: @1.5
                                                          }];

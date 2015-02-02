@@ -45,7 +45,6 @@
 #import "NSArray+Predicate.h"
 #import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
-#import "WikiGlyph_Chars_iOS.h"
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"
 #import "ArticleFetcher.h"
@@ -53,6 +52,7 @@
 
 #import "LeadImageContainer.h"
 #import "DataMigrationProgressViewController.h"
+#import "UIFont+WMFStyle.h"
 
 //#import "UIView+Debugging.h"
 
@@ -581,7 +581,7 @@
                              self.webView.scrollView.contentOffset = origScrollPosition;
                              
                              WikiGlyphButton *tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
-                             [tocButton.label setWikiText: IOS_WIKIGLYPH_TOC_COLLAPSED
+                             [tocButton.label setWikiText: WIKIGLYPH_TOC_COLLAPSED
                                                     color: tocButton.label.color
                                                      size: tocButton.label.size
                                            baselineOffset: tocButton.label.baselineOffset];
@@ -641,7 +641,7 @@
                          self.unsafeToToggleTOC = NO;
                          
                          WikiGlyphButton *tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
-                         [tocButton.label setWikiText: IOS_WIKIGLYPH_TOC_EXPANDED
+                         [tocButton.label setWikiText: WIKIGLYPH_TOC_EXPANDED
                                                 color: tocButton.label.color
                                                  size: tocButton.label.size
                                        baselineOffset: tocButton.label.baselineOffset];
@@ -1079,13 +1079,13 @@
         NSString *accessMessage = [NSString stringWithFormat:@"\n%@", MWLocalizedString(@"share-menu-page-saved-access", nil)];
         
         NSDictionary *d = @{
-                            NSFontAttributeName: [UIFont fontWithName:@"WikiFontGlyphs-iOS" size:ALERT_FONT_SIZE],
+                            NSFontAttributeName: [UIFont wmf_glyphFontOfSize:ALERT_FONT_SIZE],
                             NSBaselineOffsetAttributeName : @2
                             };
         
         NSAttributedString *attributedAccessMessage =
         [accessMessage attributedStringWithAttributes: @{}
-                                  substitutionStrings: @[IOS_WIKIGLYPH_W, IOS_WIKIGLYPH_HEART]
+                                  substitutionStrings: @[WIKIGLYPH_W, WIKIGLYPH_HEART]
                                substitutionAttributes: @[d, d]];
         
         

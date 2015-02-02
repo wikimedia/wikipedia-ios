@@ -4,6 +4,7 @@
 #import "MenuLabel.h"
 #import "WikiGlyph_Chars.h"
 #import "Defines.h"
+#import "UIFont+WMFStyle.h"
 
 @interface MenuLabel ()
 
@@ -78,7 +79,7 @@
     // single character string was a WikiGlyph rather than using isEqualToString.)
     if ([text isEqualToString:WIKIGLYPH_TICK]) {
         self.adjustsFontSizeToFitWidth = NO;
-        attributes[NSFontAttributeName] = [UIFont fontWithName:@"WikiFont-Glyphs" size:self.fontSize];
+        attributes[NSFontAttributeName] = [UIFont wmf_glyphFontOfSize:self.fontSize];
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.alignment = NSTextAlignmentCenter;
         attributes[NSParagraphStyleAttributeName] = paragraphStyle;
