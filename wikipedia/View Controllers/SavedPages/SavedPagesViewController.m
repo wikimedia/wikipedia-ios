@@ -20,7 +20,7 @@
 #import "PaddedLabel.h"
 #import "QueuesSingleton.h"
 #import "SavedArticlesFetcher.h"
-#import "UIViewController+WMPullToRefresh.h"
+#import "WMPullToRefreshView+WMDefault.h"
 
 
 #define SAVED_PAGES_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
@@ -28,7 +28,7 @@
 #define SAVED_PAGES_LANGUAGE_COLOR [UIColor colorWithWhite:0.0f alpha:0.4f]
 #define SAVED_PAGES_RESULT_HEIGHT (116.0 * MENUS_SCALE_MULTIPLIER)
 
-@interface SavedPagesViewController ()<SavedArticlesFetcherDelegate>
+@interface SavedPagesViewController ()<SavedArticlesFetcherDelegate, WMPullToRefreshViewDelegate>
 {
     MWKSavedPageList *savedPageList;
     MWKUserDataStore *userDataStore;
@@ -44,6 +44,8 @@
 
 @property (strong, nonatomic) IBOutlet UIView *emptyContainerView;
 
+@property (strong, nonatomic) WMPullToRefreshView* pullToRefreshView;
+
 /**
  *  Must be retained or will be dealloced because of the weak refernce of the delegate of the article fetcher
  */
@@ -55,7 +57,7 @@
 
 - (void)dealloc
 {
-    [self tearDownPullToRefresh];
+    [self.pullToRefreshView uninstall];
 }
 
 
@@ -150,13 +152,17 @@
     self.emptyTitle.font = [UIFont boldSystemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER];
     self.emptyDescription.font = [UIFont systemFontOfSize:14.0 * MENUS_SCALE_MULTIPLIER];
 
-    [self setupPullToRefreshWithType:WMPullToRefreshProgressTypeDeterminate inScrollView:self.tableView];
+    self.pullToRefreshView = [WMPullToRefreshView defaultDeterminateProgressViewWithScrollView:self.tableView delegate:self];
     
+    [self.pullToRefreshView defaultContentView].refreshPromptString = MWLocalizedString(@"saved-pages-pull-to-refresh-prompt", nil);
+    [self.pullToRefreshView defaultContentView].refreshRunningString = MWLocalizedString(@"saved-pages-pull-to-refresh-is-refreshing", nil);
+
     __weak typeof(self) weakSelf = self;
-    self.refreshCancelBlock = ^{
+    
+    [self.pullToRefreshView defaultContentView].refreshCancelBlock = ^{
         
         [[QueuesSingleton sharedInstance].savedPagesFetchManager.operationQueue cancelAllOperations];
-        [weakSelf finishRefreshing];
+        [weakSelf.pullToRefreshView finishLoading];
     };
 
 }
@@ -344,12 +350,12 @@
     
 }
 
-#pragma mark - SavedArticlesFetcherDelegate
+#pragma mark - WMPullToRefreshViewDelegate
 
 - (void)savedArticlesFetcher:(SavedArticlesFetcher *)savedArticlesFetcher didFetchArticle:(MWKArticle *)article remainingArticles:(NSInteger)remaining totalArticles:(NSInteger)total status:(FetchFinalStatus)status error:(NSError *)error{
 
     CGFloat progress = 1.0-(CGFloat)((CGFloat)remaining/(CGFloat)total);
-    [self setRefreshProgress:progress animated:YES];
+    [[self.pullToRefreshView defaultContentView] setLoadingProgress:progress animated:YES];
     
     NSLog(@"Updated Article With Title: \"%@\" remaining count: %li", article.title, (long)remaining);
 
@@ -357,13 +363,13 @@
 
 - (void)fetchFinished:(id)sender fetchedData:(id)fetchedData status:(FetchFinalStatus)status error:(NSError *)error{
     
-    [self finishRefreshing];
+    [self.pullToRefreshView finishLoading];
     
 }
 
 #pragma mark - SSPullToRefreshViewDelegate
 
-- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view{
+- (void)pullToRefreshViewDidStartLoading:(WMPullToRefreshView *)view{
     
     [self updateAllEntries];
 

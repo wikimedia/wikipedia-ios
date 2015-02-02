@@ -18,14 +18,14 @@
 #import "Defines.h"
 #import "NSString+Extras.h"
 #import "UICollectionViewCell+DynamicCellHeight.h"
-#import "UIViewController+WMPullToRefresh.h"
+#import "WMPullToRefreshView+WMDefault.h"
 
 #define TABLE_CELL_ID @"NearbyResultCollectionCell"
 
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 
-@interface NearbyViewController ()
+@interface NearbyViewController ()<WMPullToRefreshViewDelegate>
 
 @property (strong, nonatomic) NSArray *nearbyDataArray;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -40,6 +40,8 @@
 @property (nonatomic, strong) NSString *cachePath;
 @property (nonatomic) BOOL headingAvailable;
 @property (strong, nonatomic) NearbyResultCollectionCell *offScreenSizingCell;
+
+@property (strong, nonatomic) WMPullToRefreshView* pullToRefreshView;
 
 @end
 
@@ -79,8 +81,7 @@
 
 - (void)dealloc
 {
-    [self tearDownPullToRefresh];
-    
+    [self.pullToRefreshView uninstall];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -185,9 +186,9 @@
     return MWLocalizedString(@"nearby-title", nil);
 }
 
-#pragma mark - SSPullToRefreshViewDelegate
+#pragma mark - WMPullToRefreshViewDelegate
 
-- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view{
+- (void)pullToRefreshViewDidStartLoading:(WMPullToRefreshView *)view{
     
     [self refresh];
     
@@ -245,17 +246,17 @@
                 self.nearbyDataArray = @[arraySortedByDistance];
                 
                 [self.collectionView reloadData];
-                [self finishRefreshing];
+                [self.pullToRefreshView finishLoading];
             }
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
                 NSLog(@"nearby op error = %@", error);
-                [self finishRefreshing];
+                [self.pullToRefreshView finishLoading];
                 //[self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
                 NSLog(@"nearby op error = %@", error);
-                [self finishRefreshing];
+                [self.pullToRefreshView finishLoading];
                 [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                 break;
         }
@@ -407,11 +408,10 @@
     self.offScreenSizingCell =
         [[[NSBundle mainBundle] loadNibNamed:@"NearbyResultCollectionCell" owner:self options:nil] lastObject];
     
-    [self setupPullToRefreshWithType:WMPullToRefreshProgressTypeIndeterminate inScrollView:self.collectionView];
-    
-    self.refreshPromptString = MWLocalizedString(@"nearby-pull-to-refresh-prompt", nil);
-    self.refreshReleaseString = MWLocalizedString(@"nearby-pull-to-refresh-prompt", nil);
-    self.refreshRunningString = MWLocalizedString(@"nearby-pull-to-refresh-is-refreshing", nil);
+    self.pullToRefreshView = [WMPullToRefreshView defaultIndeterminateProgressViewWithScrollView:self.collectionView delegate:self];
+
+    [self.pullToRefreshView defaultContentView].refreshPromptString = MWLocalizedString(@"nearby-pull-to-refresh-prompt", nil);
+    [self.pullToRefreshView defaultContentView].refreshRunningString = MWLocalizedString(@"nearby-pull-to-refresh-is-refreshing", nil);
 
 }
 

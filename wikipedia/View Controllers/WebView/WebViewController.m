@@ -53,7 +53,7 @@
 #import "LeadImageContainer.h"
 #import "DataMigrationProgressViewController.h"
 #import "UIFont+WMFStyle.h"
-#import "UIViewController+WMPullToRefresh.h"
+#import "WMPullToRefreshView+WMDefault.h"
 
 //#import "UIView+Debugging.h"
 
@@ -74,7 +74,7 @@
 // This controls what angle from the horizontal axis will trigger the swipe.
 #define TOC_SWIPE_TRIGGER_MAX_ANGLE 45.0f
 
-@interface WebViewController () <LanguageSelectionDelegate>{
+@interface WebViewController () <LanguageSelectionDelegate, WMPullToRefreshViewDelegate>{
 
 }
 
@@ -132,6 +132,8 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomConstraint;
 
 @property (nonatomic) BOOL didLastNavigateByBackOrForward;
+
+@property (strong, nonatomic) WMPullToRefreshView* pullToRefreshView;
 
 @end
 
@@ -275,12 +277,19 @@
 
 - (void)setupPullToRefresh{
     
-    [self setupPullToRefreshWithType:WMPullToRefreshProgressTypeIndeterminate inScrollView:self.webView.scrollView];
+    self.pullToRefreshView = [WMPullToRefreshView defaultIndeterminateProgressViewWithScrollView:self.webView.scrollView delegate:self];
     
-    self.refreshPromptString = MWLocalizedString(@"article-pull-to-refresh-prompt", nil);
-    self.refreshReleaseString = MWLocalizedString(@"article-pull-to-refresh-prompt", nil);
-    self.refreshRunningString = MWLocalizedString(@"article-pull-to-refresh-is-refreshing", nil);
+    [self.pullToRefreshView defaultContentView].refreshPromptString = MWLocalizedString(@"article-pull-to-refresh-prompt", nil);
+    [self.pullToRefreshView defaultContentView].refreshRunningString = MWLocalizedString(@"article-pull-to-refresh-is-refreshing", nil);
+
+    __weak typeof(self) weakSelf = self;
     
+    [self.pullToRefreshView defaultContentView].refreshCancelBlock = ^{
+        
+        [[QueuesSingleton sharedInstance].savedPagesFetchManager.operationQueue cancelAllOperations];
+        [weakSelf.pullToRefreshView finishLoading];
+    };
+
 }
 
 -(void)jumpToFragmentIfNecessary
@@ -652,7 +661,7 @@
                          
                      }completion: ^(BOOL done){
                          
-                         [self tearDownPullToRefresh];
+                         [self.pullToRefreshView uninstall];
 
                          self.unsafeToToggleTOC = NO;
                          
@@ -907,7 +916,7 @@
 
 -(void)dealloc
 {
-    [self tearDownPullToRefresh];
+    [self.pullToRefreshView uninstall];
     [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 
@@ -1409,7 +1418,7 @@
     // Don't try to load nothing. Core data takes exception with such nonsense.
     if (cleanTitle.length == 0){
     
-        [self finishRefreshing];
+        [self.pullToRefreshView finishLoading];
         return;
     }
     
@@ -1447,7 +1456,7 @@
 -(void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache
 {
     if(session.article == nil){
-        [self finishRefreshing];
+        [self.pullToRefreshView finishLoading];
         return;
     }
     
@@ -1491,7 +1500,7 @@
 				// Update the toc and web view.
 				[self.tocVC setTocSectionDataForSections:article.sections];
 				[self displayArticle:article.title];
-                [self finishRefreshing];
+                [self.pullToRefreshView finishLoading];
 				
 			}
 				break;
@@ -1505,7 +1514,7 @@
 				// Remove the article so it doesn't get saved.
 				//[article.managedObjectContext deleteObject:article];
 				[article remove];
-                [self finishRefreshing];
+                [self.pullToRefreshView finishLoading];
 			}
 				break;
 			case FETCH_FINAL_STATUS_CANCELLED:
@@ -1513,7 +1522,7 @@
 				// Remove the article so it doesn't get saved.
 				//[article.managedObjectContext deleteObject:article];
 				[article remove];
-                [self finishRefreshing];
+                [self.pullToRefreshView finishLoading];
 			}
 				break;
 				
@@ -1609,14 +1618,9 @@
         [self.tocVC setTocSectionDataForSections:session.article.sections];
         [self displayArticle:session.title];
         //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
-        [self finishRefreshing];
         [self fadeAlert];
-    }else{
-        // "fetchFinished:" above will be notified when articleFetcher has actually retrieved some data.
-        // Note: cast to void to avoid compiler warning: http://stackoverflow.com/a/7915839
-        (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle: session.article
-                                                         withManager: [QueuesSingleton sharedInstance].articleFetchManager
-                                                  thenNotifyDelegate: self];
+        [self.pullToRefreshView finishLoading];
+        return;
     }
 }
 
@@ -1886,9 +1890,9 @@
     }
 }
 
-#pragma mark - SSPullToRefreshViewDelegate
+#pragma mark - WMPullToRefreshViewDelegate
 
-- (void)pullToRefreshViewDidStartLoading:(SSPullToRefreshView *)view{
+- (void)pullToRefreshViewDidStartLoading:(WMPullToRefreshView *)view{
     
     [self reloadCurrentArticleInvalidatingCache:YES];
     
