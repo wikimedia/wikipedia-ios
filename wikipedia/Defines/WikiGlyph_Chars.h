@@ -25,3 +25,4 @@
 #define WIKIGLYPH_PENCIL                @"\ue967"
 #define WIKIGLYPH_LINK                  @"\ue968"
 #define WIKIGLYPH_CC                    @"\ue969"
+#define WIKIGLYPH_X_CIRCLE              @"\ue96a"
