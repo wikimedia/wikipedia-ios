@@ -29,7 +29,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (< 2.6)
   - hpple (< 0.3)
-  - Masonry
+  - Masonry (< 0.7)
   - OCHamcrest (< 4.2)
   - OCMockito (< 1.5)
 
