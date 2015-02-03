@@ -182,6 +182,10 @@
 		954BA118838BF8BA6B01C34A /* libPods-WikipediaUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */; };
 		BC42735D1A7C73B300068882 /* NSArray+Predicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CBAC7219A9B786009F3D7E /* NSArray+Predicate.m */; };
 		BC42735E1A7C73B300068882 /* NSArray+PredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */; };
+		C43707F41A8038F900DF4253 /* WMPullToRefreshContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C43707EF1A8038F900DF4253 /* WMPullToRefreshContentView.m */; };
+		C43707F51A8038F900DF4253 /* WMPullToRefreshView+WMDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = C43707F11A8038F900DF4253 /* WMPullToRefreshView+WMDefault.m */; };
+		C43707F61A8038F900DF4253 /* WMPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = C43707F31A8038F900DF4253 /* WMPullToRefreshView.m */; };
+		C43707FB1A80392800DF4253 /* SavedArticlesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C43707FA1A80392800DF4253 /* SavedArticlesFetcher.m */; };
 		C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		D401C2C01A659E5000D4D127 /* DataMigrationProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D401C2BE1A659E5000D4D127 /* DataMigrationProgressViewController.m */; };
 		D401C2C11A659E5000D4D127 /* DataMigrationProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D401C2BF1A659E5000D4D127 /* DataMigrationProgressViewController.xib */; };
@@ -583,6 +587,14 @@
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8309961A7BF935003FC5C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PredicateTests.m"; path = "Utilities/NSArray+PredicateTests.m"; sourceTree = "<group>"; };
+		C43707EE1A8038F900DF4253 /* WMPullToRefreshContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPullToRefreshContentView.h; sourceTree = "<group>"; };
+		C43707EF1A8038F900DF4253 /* WMPullToRefreshContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPullToRefreshContentView.m; sourceTree = "<group>"; };
+		C43707F01A8038F900DF4253 /* WMPullToRefreshView+WMDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMPullToRefreshView+WMDefault.h"; sourceTree = "<group>"; };
+		C43707F11A8038F900DF4253 /* WMPullToRefreshView+WMDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMPullToRefreshView+WMDefault.m"; sourceTree = "<group>"; };
+		C43707F21A8038F900DF4253 /* WMPullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPullToRefreshView.h; sourceTree = "<group>"; };
+		C43707F31A8038F900DF4253 /* WMPullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPullToRefreshView.m; sourceTree = "<group>"; };
+		C43707F91A80392800DF4253 /* SavedArticlesFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedArticlesFetcher.h; sourceTree = "<group>"; };
+		C43707FA1A80392800DF4253 /* SavedArticlesFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedArticlesFetcher.m; sourceTree = "<group>"; };
 		C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaAppUtils.h; sourceTree = "<group>"; };
 		C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikipediaAppUtils.m; sourceTree = "<group>"; };
 		D401C2BD1A659E5000D4D127 /* DataMigrationProgressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataMigrationProgressViewController.h; path = DataMigration/DataMigrationProgressViewController.h; sourceTree = "<group>"; };
@@ -1185,6 +1197,8 @@
 				0487045C19F8262600B7D307 /* AccountLogin.m */,
 				0487045D19F8262600B7D307 /* ArticleFetcher.h */,
 				0487045E19F8262600B7D307 /* ArticleFetcher.m */,
+				C43707F91A80392800DF4253 /* SavedArticlesFetcher.h */,
+				C43707FA1A80392800DF4253 /* SavedArticlesFetcher.m */,
 				0487045F19F8262600B7D307 /* AssetsFileFetcher.h */,
 				0487046019F8262600B7D307 /* AssetsFileFetcher.m */,
 				0487046419F8262600B7D307 /* CaptchaResetter.h */,
@@ -1597,6 +1611,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C43707ED1A8038F900DF4253 /* PullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				C43707EE1A8038F900DF4253 /* WMPullToRefreshContentView.h */,
+				C43707EF1A8038F900DF4253 /* WMPullToRefreshContentView.m */,
+				C43707F01A8038F900DF4253 /* WMPullToRefreshView+WMDefault.h */,
+				C43707F11A8038F900DF4253 /* WMPullToRefreshView+WMDefault.m */,
+				C43707F21A8038F900DF4253 /* WMPullToRefreshView.h */,
+				C43707F31A8038F900DF4253 /* WMPullToRefreshView.m */,
+			);
+			path = PullToRefresh;
+			sourceTree = "<group>";
+		};
 		C9180EC118AED30C006C1DCA /* mw-utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -1679,6 +1706,7 @@
 				045A9F0C18F6090E0057EA85 /* assets */,
 				04272E771940EEBC00CC682F /* AssetsFile */,
 				04C43AB7183442FC006C643B /* Categories */,
+				C43707ED1A8038F900DF4253 /* PullToRefresh */,
 				0460F8D919B0F90E001BC59B /* CenteredPathView */,
 				040E5C50184673F2007AFE6F /* Data */,
 				04292FFB185FC026002A13FC /* Defines */,
@@ -2227,6 +2255,7 @@
 				042A5B36192591520095E172 /* TopMenuTextField.m in Sources */,
 				04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */,
 				04B7B9BD18B5570E00A63551 /* CaptchaViewController.m in Sources */,
+				C43707F41A8038F900DF4253 /* WMPullToRefreshContentView.m in Sources */,
 				045D872119FAD2FA0035C1F9 /* AboutViewController.m in Sources */,
 				04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */,
 				0447863D185145090050563B /* WebViewController.m in Sources */,
@@ -2305,6 +2334,7 @@
 				047E95511996DD030046A122 /* NearbyViewController.m in Sources */,
 				04AE520519DB5E0900F89B92 /* NSObject+ConstraintsScale.m in Sources */,
 				D401C2C01A659E5000D4D127 /* DataMigrationProgressViewController.m in Sources */,
+				C43707F61A8038F900DF4253 /* WMPullToRefreshView.m in Sources */,
 				04CCCFF01935093A00E3F60C /* SecondaryMenuViewController.m in Sources */,
 				D4B0AE0B19366A2C00F0AC90 /* ReadingActionFunnel.m in Sources */,
 				04BA48A11A80062F00CB5CAE /* UIFont+WMFStyle.m in Sources */,
@@ -2335,6 +2365,7 @@
 				04C9509D19EF02980013F3C0 /* EventLogger.m in Sources */,
 				D4E8A8A719084F1300DA4765 /* SQLiteHelper.m in Sources */,
 				04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */,
+				C43707F51A8038F900DF4253 /* WMPullToRefreshView+WMDefault.m in Sources */,
 				0439317619FB092600386E8F /* UIWebView+LoadAssetsHtml.m in Sources */,
 				04B91AA718E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m in Sources */,
 				04224500197F5E09005DD0BF /* AbuseFilterAlert.m in Sources */,
@@ -2367,6 +2398,7 @@
 				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
 				04CCCFEE1935093A00E3F60C /* SecondaryMenuRowView.m in Sources */,
 				0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */,
+				C43707FB1A80392800DF4253 /* SavedArticlesFetcher.m in Sources */,
 				041C6206199ED2A20061516F /* MWKSection+TOC.m in Sources */,
 				0447862F185145090050563B /* HistoryResultCell.m in Sources */,
 				04B0EA45190AFDD8007458AF /* ArticleImporter.m in Sources */,

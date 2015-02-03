@@ -21,6 +21,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - hpple (0.2.0)
+  - Masonry (0.6.0)
   - OCHamcrest (4.1.1)
   - OCMockito (1.4.0):
     - OCHamcrest (~> 4.0)
@@ -28,12 +29,14 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (< 2.6)
   - hpple (< 0.3)
+  - Masonry (< 0.7)
   - OCHamcrest (< 4.2)
   - OCMockito (< 1.5)
 
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   hpple: f4eb7c21a8db83ec264e5d614ec7509e10e5adec
+  Masonry: 0bc111d6902e3a55ff8423bcbdf7155261806547
   OCHamcrest: af1c7c5ea345de69ea6c9c2958f65f3044e5c420
   OCMockito: 991936bb775cc4c27f063d38f5e17b9161fbd21c
 

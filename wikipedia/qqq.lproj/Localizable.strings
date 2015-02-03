@@ -153,6 +153,11 @@
 "fetching-random-article" = "Alert text shown when fetching a random article";
 "article-pull-to-refresh-prompt" = "Label text informing user article may be pulled down to refresh";
 "article-pull-to-refresh-is-refreshing" = "Label text shown when user pulls down on article to refresh";
+"saved-pages-pull-to-refresh-prompt" = "Label text informing user saved articles may be pulled down to refresh";
+"saved-pages-pull-to-refresh-is-refreshing" = "Label text shown when user pulls down on saved articles to refresh";
+"pull-to-refresh-prompt-default" = "Default text for label informing user to pull down to refresh";
+"pull-to-refresh-release-default" = "Default text for label informing user to release to refresh";
+"pull-to-refresh-is-refreshing-default" = "Default text for label shown when user pulled down to refresh";
 "credits-title" = "Title for credits page";
 "credits-wikimedia-repos" = "Title for area of credits page showing Wikimedia open source repositories for app";
 "credits-gerrit-repo" = "Text for item linking to the app's main gerrit repository";

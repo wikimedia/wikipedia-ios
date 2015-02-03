@@ -128,9 +128,15 @@
 "saved-pages-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "saved-pages-clear-cancel" = "Cancel";
 "saved-pages-clear-delete-all" = "Delete All";
+"saved-pages-pull-to-refresh-prompt" = "Pull to refresh saved pages";
+"saved-pages-pull-to-refresh-is-refreshing" = "Refreshing saved pages";
 
 "page-history-title" = "Article history";
 "page-history-downloading" = "Loading article history...";
+
+"pull-to-refresh-prompt-default" = "Pull to refresh";
+"pull-to-refresh-release-default" = "Release to refresh";
+"pull-to-refresh-is-refreshing-default" = "Refreshing";
 
 "navbar-title-mode-edit-wikitext" = "Edit";
 "navbar-title-mode-login" = "Log in";

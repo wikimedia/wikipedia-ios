@@ -18,13 +18,14 @@
 #import "Defines.h"
 #import "NSString+Extras.h"
 #import "UICollectionViewCell+DynamicCellHeight.h"
+#import "WMPullToRefreshView+WMDefault.h"
 
 #define TABLE_CELL_ID @"NearbyResultCollectionCell"
 
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 
-@interface NearbyViewController ()
+@interface NearbyViewController ()<WMPullToRefreshViewDelegate>
 
 @property (strong, nonatomic) NSArray *nearbyDataArray;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -39,6 +40,8 @@
 @property (nonatomic, strong) NSString *cachePath;
 @property (nonatomic) BOOL headingAvailable;
 @property (strong, nonatomic) NearbyResultCollectionCell *offScreenSizingCell;
+
+@property (strong, nonatomic) WMPullToRefreshView* pullToRefreshView;
 
 @end
 
@@ -75,6 +78,11 @@
 */
 
 @implementation NearbyViewController
+
+- (void)dealloc
+{
+    [self.pullToRefreshView uninstall];
+}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *rowData = [self getRowDataForIndexPath:indexPath];
@@ -178,12 +186,15 @@
     return MWLocalizedString(@"nearby-title", nil);
 }
 
--(void)refreshWasPulled
-{
-    [self performSelector:@selector(refresh) withObject:nil afterDelay:0.15];
+#pragma mark - WMPullToRefreshViewDelegate
+
+- (void)pullToRefreshViewDidStartLoading:(WMPullToRefreshView *)view{
+    
+    [self refresh];
+    
 }
 
--(void)refresh
+- (void)refresh
 {
     self.nearbyDataArray = @[@[]];
     [self.collectionView reloadData];
@@ -195,21 +206,6 @@
     if (self.deviceLocation) {
         [self locationManager:self.locationManager didUpdateLocations:@[self.deviceLocation]];
     }
-}
-
--(UIScrollView *)refreshScrollView
-{
-    return self.collectionView;
-}
-
--(NSString *)refreshPromptString
-{
-    return MWLocalizedString(@"nearby-pull-to-refresh-prompt", nil);
-}
-
--(NSString *)refreshRunningString
-{
-    return MWLocalizedString(@"nearby-pull-to-refresh-is-refreshing", nil);
 }
 
 - (void)locationManager: (CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -250,14 +246,17 @@
                 self.nearbyDataArray = @[arraySortedByDistance];
                 
                 [self.collectionView reloadData];
+                [self.pullToRefreshView finishLoading];
             }
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
                 NSLog(@"nearby op error = %@", error);
+                [self.pullToRefreshView finishLoading];
                 //[self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
                 NSLog(@"nearby op error = %@", error);
+                [self.pullToRefreshView finishLoading];
                 [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                 break;
         }
@@ -291,10 +290,8 @@
             }
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
-                
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                
                 break;
         }
     }
@@ -410,6 +407,12 @@
     // Single off-screen cell for determining dynamic cell height.
     self.offScreenSizingCell =
         [[[NSBundle mainBundle] loadNibNamed:@"NearbyResultCollectionCell" owner:self options:nil] lastObject];
+    
+    self.pullToRefreshView = [WMPullToRefreshView defaultIndeterminateProgressViewWithScrollView:self.collectionView delegate:self];
+
+    [self.pullToRefreshView defaultContentView].refreshPromptString = MWLocalizedString(@"nearby-pull-to-refresh-prompt", nil);
+    [self.pullToRefreshView defaultContentView].refreshRunningString = MWLocalizedString(@"nearby-pull-to-refresh-is-refreshing", nil);
+
 }
 
 - (void)didReceiveMemoryWarning
