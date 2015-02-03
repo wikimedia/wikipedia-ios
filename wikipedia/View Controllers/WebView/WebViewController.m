@@ -1620,7 +1620,13 @@
         //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
         [self fadeAlert];
         [self.pullToRefreshView finishLoading];
-        return;
+    
+    }else{
+        // "fetchFinished:" above will be notified when articleFetcher has actually retrieved some data.
+        // Note: cast to void to avoid compiler warning: http://stackoverflow.com/a/7915839
+        (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle: session.article
+                                                         withManager: [QueuesSingleton sharedInstance].articleFetchManager
+                                                  thenNotifyDelegate: self];
     }
 }
 
