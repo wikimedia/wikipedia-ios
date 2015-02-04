@@ -25,3 +25,5 @@
 #define WIKIGLYPH_PENCIL                @"\ue967"
 #define WIKIGLYPH_LINK                  @"\ue968"
 #define WIKIGLYPH_CC                    @"\ue969"
+#define WIKIGLYPH_CITE                  @"\ue970"
+#define WIKIGLYPH_PUBLIC_DOMAIN         @"\ue971"

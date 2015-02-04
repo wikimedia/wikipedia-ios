@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "MediaWikiKit.h"
+#import "WikipediaAppUtils.h"
 
 @implementation MWKSite
 
@@ -42,12 +43,10 @@ static NSString *localLinkPrefix = @"/wiki/";
 {
     if (object == nil) {
         return NO;
-    } else if (![object isKindOfClass:[MWKSite class]]) {
-        return NO;
+    } else if ([object isKindOfClass:[MWKSite class]]) {
+        return [self isEqualToSite:object];
     } else {
-        MWKSite *other = object;
-        return [self.domain isEqualToString:other.domain] &&
-               [self.language isEqualToString:other.language];
+        return NO;
     }
 }
 
@@ -55,6 +54,9 @@ static NSString *localLinkPrefix = @"/wiki/";
 
 + (MWKSite *)siteWithDomain:(NSString *)domain language:(NSString *)language
 {
+    // if this fails, make the rest of this method thread safe
+    NSParameterAssert([NSThread isMainThread]);
+
     static NSMutableDictionary *cachedSites = nil;
     if (cachedSites == nil) {
         cachedSites = [[NSMutableDictionary alloc] init];
@@ -68,9 +70,15 @@ static NSString *localLinkPrefix = @"/wiki/";
     return site;
 }
 
+- (BOOL)isEqualToSite:(MWKSite*)other
+{
+    return [self.domain isEqualToString:other.domain]
+            && [self.language isEqualToString:other.language];
+}
+
 - (NSUInteger)hash
 {
-    return [self.domain hash] ^ [self.language hash];
+    return [self.domain hash] ^ CircularBitwiseRotation([self.language hash], 1);
 }
 
 @end

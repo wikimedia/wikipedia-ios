@@ -5,6 +5,8 @@
 #import "WikipediaAppUtils.h"
 #import "ReadingActionFunnel.h"
 #import "SessionSingleton.h"
+#import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import <BlocksKit/BlocksKit.h>
 
 @implementation QueuesSingleton
 
@@ -29,104 +31,28 @@
 
 -(void)reset
 {
-    [self setupManagers];
-    
-    [self setRequestHeadersForManagers:@[
-                                         self.loginFetchManager,
-                                         self.articleFetchManager,
-                                         self.savedPagesFetchManager,
-                                         self.searchResultsFetchManager,
-                                         self.sectionWikiTextDownloadManager,
-                                         self.sectionWikiTextUploadManager,
-                                         self.sectionPreviewHtmlFetchManager,
-                                         self.languageLinksFetcher,
-                                         self.zeroRatedMessageFetchManager,
-                                         self.accountCreationFetchManager,
-                                         self.pageHistoryFetchManager,
-                                         self.assetsFetchManager,
-                                         self.nearbyFetchManager
-                                         ]];
-    
-    [self setDefaultSerializerForManagers:@[
-                                            self.articleFetchManager,
-                                            self.nearbyFetchManager,
-                                            self.searchResultsFetchManager,
-                                            self.assetsFetchManager,
-                                            self.articleFetchManager
-                                            ]];
-    
-    //[self setupQMonitorLogging];
-}
+    self.loginFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    self.savedPagesFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    self.sectionWikiTextDownloadManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    self.sectionWikiTextUploadManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    self.sectionPreviewHtmlFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    self.languageLinksFetcher = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    self.zeroRatedMessageFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    self.accountCreationFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    self.pageHistoryFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
 
--(void)setupManagers
-{
-    self.loginFetchManager = [AFHTTPRequestOperationManager manager];
-    self.articleFetchManager = [AFHTTPRequestOperationManager manager];
-    self.savedPagesFetchManager = [AFHTTPRequestOperationManager manager];
-    self.searchResultsFetchManager = [AFHTTPRequestOperationManager manager];
-    self.sectionWikiTextDownloadManager = [AFHTTPRequestOperationManager manager];
-    self.sectionWikiTextUploadManager = [AFHTTPRequestOperationManager manager];
-    self.sectionPreviewHtmlFetchManager = [AFHTTPRequestOperationManager manager];
-    self.languageLinksFetcher = [AFHTTPRequestOperationManager manager];
-    self.zeroRatedMessageFetchManager = [AFHTTPRequestOperationManager manager];
-    self.accountCreationFetchManager = [AFHTTPRequestOperationManager manager];
-    self.pageHistoryFetchManager = [AFHTTPRequestOperationManager manager];
-    self.assetsFetchManager = [AFHTTPRequestOperationManager manager];
-    self.nearbyFetchManager = [AFHTTPRequestOperationManager manager];
-}
+    self.assetsFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    self.nearbyFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    self.articleFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    self.searchResultsFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
 
--(void)setRequestHeadersForManagers:(NSArray *)managers
-{
-    for (AFHTTPRequestOperationManager *manager in managers.copy) {
-        [self setRequestHeadersForManager:manager];
-    }
-}
-
--(void)setDefaultSerializerForManagers:(NSArray *)managers
-{
-    // Set the responseSerializer to AFHTTPResponseSerializer, so that it will no longer
-    // try to parse the JSON - needed because we use some managers to fetch different
-    // content types, say, both nearby json api data *and* thumbnails. Thumb responses
-    // are not json! And some managers, like the assetsFetchManager don't retrieve json
-    // at all.
-    // From: http://stackoverflow.com/a/21621530
-    for (AFHTTPRequestOperationManager *manager in managers.copy) {
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    }
-}
-
--(void)setRequestHeadersForManager:(AFHTTPRequestOperationManager *)manager
-{
-    [manager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
-    [manager.requestSerializer setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
-    // Add the app install ID to the header, but only if the user has not opted out of logging
-    if ([SessionSingleton sharedInstance].sendUsageReports) {
-        ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
-        [manager.requestSerializer setValue:funnel.appInstallID forHTTPHeaderField:@"X-WMF-UUID"];
-    }
-
-    // x-www-form-urlencoded is default, so probably don't need it.
-    // See: http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1
-    //[manager.requestSerializer setValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
-}
-
--(void)setupQMonitorLogging
-{
-    // Listen in on the Q's op counts to ensure they go away properly.
-    [self.articleFetchManager.operationQueue addObserver:self forKeyPath:@"operationCount" options:NSKeyValueObservingOptionNew context:nil];
-    [self.searchResultsFetchManager.operationQueue addObserver:self forKeyPath:@"operationCount" options:NSKeyValueObservingOptionNew context:nil];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ([keyPath isEqualToString:@"operationCount"]) {
-        dispatch_async(dispatch_get_main_queue(), ^(){
-            NSLog(@"QUEUE OP COUNTS: Search %lu, Article %lu",
-                (unsigned long)self.searchResultsFetchManager.operationQueue.operationCount,
-                (unsigned long)self.articleFetchManager.operationQueue.operationCount
-            );
-        });
-    }
+    [@[self.assetsFetchManager,
+       self.nearbyFetchManager,
+       self.articleFetchManager,
+       self.searchResultsFetchManager]
+     bk_each:^(AFHTTPRequestOperationManager *manager) {
+         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+     }];
 }
 
 @end

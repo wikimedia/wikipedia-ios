@@ -39,6 +39,5 @@
 #import "MWKImageList.h"
 
 #import "MWKUserDataStore.h"
-#import "MWKImageMetadataItem.h"
-#import "MWKImageMetadata.h"
+#import "MWKImageInfo.h"
 

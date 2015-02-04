@@ -4,6 +4,23 @@
 #import "WikipediaAppUtils.h"
 #import "AssetsFile.h"
 
+NSUInteger MegabytesToBytes(NSUInteger m)
+{
+    static NSUInteger const MEGABYTE = 1 << 20;
+    return m * MEGABYTE;
+}
+
+NSUInteger CircularBitwiseRotation(NSUInteger x, NSUInteger s)
+{
+    return (x << s) | (x >> (sizeof(x)*CHAR_BIT - s));
+}
+
+NSString* WMFNormalizedPageTitle(NSString* rawPageTitle)
+{
+    return [[rawPageTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+            stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+}
+
 @implementation WikipediaAppUtils
 
 +(NSString*) appVersion

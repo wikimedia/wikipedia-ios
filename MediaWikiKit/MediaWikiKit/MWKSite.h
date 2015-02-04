@@ -21,4 +21,6 @@
 
 + (MWKSite *)siteWithDomain:(NSString *)domain language:(NSString *)language;
 
+- (BOOL)isEqualToSite:(MWKSite*)other;
+
 @end

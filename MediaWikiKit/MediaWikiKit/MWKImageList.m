@@ -15,6 +15,38 @@
     unsigned long mutationState;
 }
 
+- (instancetype)initWithSite:(MWKSite *)site
+{
+    self = [super initWithSite:site];
+    if (self) {
+        entries = [[NSMutableArray alloc] init];
+        mutationState = 0;
+        entriesByURL = [[NSMutableDictionary alloc] init];
+        entriesByNameWithoutSize = [[NSMutableDictionary alloc] init];
+    }
+    return self;
+}
+-(instancetype)initWithArticle:(MWKArticle *)article section:(MWKSection *)section
+{
+    self = [self initWithSite:section.site];
+    if (self) {
+        _article = article;
+        _section = section;
+    }
+    return self;
+}
+
+-(instancetype)initWithArticle:(MWKArticle *)article section:(MWKSection *)section dict:(NSDictionary *)dict
+{
+    self = [self initWithArticle:article section:section];
+    if (self) {
+        for (NSString *url in dict[@"entries"]) {
+            [self addImageURL:url];
+        }
+    }
+    return self;
+}
+
 -(void)addImageURL:(NSString *)imageURL
 {
     [entries addObject:imageURL];
@@ -43,7 +75,6 @@
         return nil;
     }
 }
-
 -(MWKImage *)objectAtIndexedSubscript:(NSUInteger)index
 {
     NSString *imageURL = [self imageURLAtIndex:index];
@@ -52,7 +83,12 @@
 
 -(BOOL)hasImageURL:(NSString *)imageURL
 {
-    return (entriesByURL[imageURL] != nil);
+    return [self imageWithURL:imageURL] != nil;
+}
+
+- (MWKImage*)imageWithURL:(NSString *)imageURL
+{
+    return entriesByURL[imageURL];
 }
 
 -(NSArray *)imageSizeVariants:(NSString *)imageURL
@@ -85,43 +121,50 @@
 
 -(NSString *)largestImageVariant:(NSString *)imageURL
 {
+    return [self largestImageVariantForURL:imageURL].sourceURL;
+}
+
+- (MWKImage*)largestImageVariantForURL:(NSString *)imageURL cachedOnly:(BOOL)cachedOnly
+{
     NSArray *arr = [self imageSizeVariants:imageURL];
     for (NSString *variantURL in [arr reverseObjectEnumerator]) {
         MWKImage *image = [self.article imageWithURL:variantURL];
-        if (image.isCached) {
-            return variantURL;
+        if (!cachedOnly || image.isCached) {
+            return image;
         }
     }
     return nil;
 }
 
 
+- (MWKImage*)largestImageVariantForURL:(NSString *)imageURL
+{
+    return [self largestImageVariantForURL:imageURL cachedOnly:YES];
+}
+
+- (NSUInteger)indexOfImage:(MWKImage*)image
+{
+    return [entries indexOfObject:image.sourceURL];
+}
+
+- (BOOL)containsImage:(MWKImage*)image
+{
+    return [entries containsObject:image.sourceURL];
+}
+
+- (NSArray*)uniqueLargestVariants
+{
+    if (!entries || entries.count == 0) { return nil; }
+    NSMutableOrderedSet *resultBuilder = [[NSMutableOrderedSet alloc] initWithCapacity:entries.count];
+    for (NSString *sourceURL in entries) {
+        MWKImage *image = [self largestImageVariantForURL:sourceURL cachedOnly:NO];
+        NSAssert(image, @"Couldn't retrieve image record for image list entry: %@", sourceURL);
+        [resultBuilder addObject:image];
+    }
+    return [resultBuilder array];
+}
+
 #pragma mark - data i/o
-
--(instancetype)initWithArticle:(MWKArticle *)article section:(MWKSection *)section
-{
-    self = [self initWithSite:section.site];
-    if (self) {
-        _article = article;
-        _section = section;
-        entries = [[NSMutableArray alloc] init];
-        mutationState = 0;
-        entriesByURL = [[NSMutableDictionary alloc] init];
-        entriesByNameWithoutSize = [[NSMutableDictionary alloc] init];
-    }
-    return self;
-}
-
--(instancetype)initWithArticle:(MWKArticle *)article section:(MWKSection *)section dict:(NSDictionary *)dict
-{
-    self = [self initWithArticle:article section:section];
-    if (self) {
-        for (NSString *url in dict[@"entries"]) {
-            [self addImageURL:url];
-        }
-    }
-    return self;
-}
 
 -(id)dataExport
 {

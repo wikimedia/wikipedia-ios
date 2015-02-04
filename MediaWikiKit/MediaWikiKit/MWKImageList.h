@@ -8,6 +8,8 @@
 
 #import "MWKSiteDataObject.h"
 
+@class MWKArticle;
+@class MWKSection;
 @class MWKImage;
 
 @interface MWKImageList : MWKSiteDataObject <NSFastEnumeration>
@@ -25,6 +27,12 @@
 
 -(BOOL)hasImageURL:(NSString *)imageURL;
 
+- (MWKImage*)imageWithURL:(NSString*)imageURL;
+
+- (NSUInteger)indexOfImage:(MWKImage*)image;
+
+- (BOOL)containsImage:(MWKImage*)image;
+
 /**
  * Return an array of known URLs for the same image that a URL has been given for,
  * ordered by pixel size (smallest to largest).
@@ -40,6 +48,20 @@
  * May be nil if none found.
  */
 -(NSString *)largestImageVariant:(NSString *)image;
+
+/**
+ * Searches the receiver for a cached image variant matching @c sourceURL.
+ * @return An @c MWKImage object or @c nil if no matching variant is found.
+ */
+- (MWKImage*)largestImageVariantForURL:(NSString*)sourceURL;
+
+/**
+ * Reduce the receiver by removing all but the largest variants of the contained images, preserving order.
+ * @warning In an effort to make this method more reliable, it should always return an image for each entry in the list,
+ *          but some of the returned images might not be cached.
+ * @return A non-empty array of @c MWKImage objects or @c nil if there are no uncached images.
+ */
+- (NSArray*)uniqueLargestVariants;
 
 @property (readonly) BOOL dirty;
 

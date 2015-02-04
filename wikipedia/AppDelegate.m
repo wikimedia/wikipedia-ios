@@ -14,13 +14,13 @@
     [self registerStandardUserDefaults];
     [self systemWideStyleOverrides];
 
-    // Set the shared url cache to our custom NSURLCache which re-routes images to
-    // our article cache.
-    //TODO: update the app to occasionally check total size of our article cache and if its file exceeded some threshold size prune its image entries
-    // (probably by Image.lastDateAccessed)
-    URLCache *urlCache = [[URLCache alloc] initWithMemoryCapacity: 1024 * 1024 * 8
-                                                     diskCapacity: 1024 * 1024 * 25
-                                                         diskPath: nil];
+    /*
+     Set the shared url cache to our custom NSURLCache which re-routes images to
+     our article cache.
+     */
+    URLCache *urlCache = [[URLCache alloc] initWithMemoryCapacity:MegabytesToBytes(8)
+                                                     diskCapacity:MegabytesToBytes(25)
+                                                         diskPath:nil];
     [NSURLCache setSharedURLCache:urlCache];
     
     // Enables Alignment Rect highlighting for debugging
@@ -33,7 +33,9 @@
 
 #if TARGET_IPHONE_SIMULATOR
     // From: http://pinkstone.co.uk/where-is-the-documents-directory-for-the-ios-8-simulator/
-    NSLog(@"\n\n\nSimulator Documents Directory:\n%@\n\n\n", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
+    NSLog(@"\n\n\nSimulator Documents Directory:\n%@\n\n\n",
+          [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+                                                  inDomains:NSUserDomainMask] lastObject]);
 #endif
 
     return YES;

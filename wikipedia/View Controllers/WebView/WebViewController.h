@@ -18,8 +18,6 @@ extern NSString *const WebViewControllerShareSelectedText;
 
 @interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, FetchFinishedDelegate, LeadImageHeightDelegate, DataMigrationProgressDelegete>
 
-
-
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic) BOOL bottomMenuHidden;
 @property (nonatomic) BOOL referencesHidden;

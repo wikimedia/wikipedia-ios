@@ -10,7 +10,7 @@
     UIFont *font = [UIFont fontWithName:@"WikiFont-Glyphs" size:fontSize];
 
     NSAssert(font, @"Unable to load glyph font");
-    
+
     return font;
 }
 

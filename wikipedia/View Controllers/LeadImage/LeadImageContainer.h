@@ -9,7 +9,7 @@
     -(void)leadImageHeightChangedTo: (NSNumber *)height;
 @end
 
-@interface LeadImageContainer : UIView <FetchFinishedDelegate>
+@interface LeadImageContainer : UIControl <FetchFinishedDelegate>
 
 -(void)showForArticle:(MWKArticle *)article;
 

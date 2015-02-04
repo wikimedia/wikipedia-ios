@@ -1,153 +1,17 @@
 //  Created by Brion on 10/27/13.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "WebViewController.h"
+#import "WebViewController_Private.h"
 
-#import "WikipediaAppUtils.h"
-#import "WikipediaZeroMessageFetcher.h"
-#import "SectionEditorViewController.h"
-#import "CommunicationBridge.h"
-#import "TOCViewController.h"
-#import "SessionSingleton.h"
-#import "QueuesSingleton.h"
-#import "TopMenuTextField.h"
-#import "TopMenuTextFieldContainer.h"
-#import "MWLanguageInfo.h"
-#import "CenterNavController.h"
-#import "Defines.h"
-#import "UIViewController+SearchChildViewControllers.h"
-#import "UIScrollView+NoHorizontalScrolling.h"
-#import "UIViewController+HideKeyboard.h"
-#import "UIWebView+HideScrollGradient.h"
-#import "UIWebView+ElementLocation.h"
-#import "UIView+RemoveConstraints.h"
-#import "UIViewController+Alert.h"
-#import "NSString+Extras.h"
-#import "PaddedLabel.h"
-#import "RootViewController.h"
-#import "TopMenuViewController.h"
-#import "BottomMenuViewController.h"
-#import "LanguagesViewController.h"
-#import "ModalMenuAndContentViewController.h"
-#import "UIViewController+ModalPresent.h"
-#import "MWKSection+DisplayHtml.h"
-#import "EditFunnel.h"
-#import "ProtectedEditAttemptFunnel.h"
-#import "DataHousekeeping.h"
-#import "NSDate-Utilities.h"
-#import "AccountCreationViewController.h"
-#import "OnboardingViewController.h"
-#import "TopMenuContainerView.h"
-#import "WikiGlyph_Chars.h"
-#import "UINavigationController+TopActionSheet.h"
-#import "ReferencesVC.h"
-#import "WMF_Colors.h"
-#import "NSArray+Predicate.h"
-#import "WikiGlyphButton.h"
-#import "WikiGlyphLabel.h"
-#import "NSString+FormattedAttributedString.h"
-#import "SavedPagesFunnel.h"
-#import "ArticleFetcher.h"
-#import "AssetsFileFetcher.h"
-
-#import "LeadImageContainer.h"
-#import "DataMigrationProgressViewController.h"
-#import "UIFont+WMFStyle.h"
-
-//#import "UIView+Debugging.h"
-
-#define TOC_TOGGLE_ANIMATION_DURATION @0.225f
-
-#define SCROLL_INDICATOR_LEFT_MARGIN 2.0
-#define SCROLL_INDICATOR_WIDTH 4.0
-#define SCROLL_INDICATOR_HEIGHT 25.0
-#define SCROLL_INDICATOR_CORNER_RADIUS 2.0f
-#define SCROLL_INDICATOR_BORDER_WIDTH 1.0f
-#define SCROLL_INDICATOR_BORDER_COLOR [UIColor lightGrayColor]
-#define SCROLL_INDICATOR_BACKGROUND_COLOR [UIColor whiteColor]
-
-#define BOTTOM_SCROLL_LIMIT_HEIGHT 2000
-
-// This controls how fast the swipe has to be (side-to-side).
-#define TOC_SWIPE_TRIGGER_MIN_X_VELOCITY 600.0f
-// This controls what angle from the horizontal axis will trigger the swipe.
-#define TOC_SWIPE_TRIGGER_MAX_ANGLE 45.0f
-
-// TODO: rename the WebViewControllerVariableNames once we rename this class
-NSString *const WebViewControllerTextWasHighlighted = @"textWasSelected";
-NSString *const WebViewControllerWillShareNotification = @"SelectionShare";
-NSString *const WebViewControllerShareBegin = @"beginShare";
-NSString *const WebViewControllerShareSelectedText = @"selectedText";
-NSString *const kSelectedStringJS = @"window.getSelection().toString()";
-static const int kMinimumTextSelectionLength = 10;
-
-@interface WebViewController () <LanguageSelectionDelegate>{
-
-}
-
-@property (strong, nonatomic) CommunicationBridge *bridge;
-
-@property (nonatomic) CGPoint lastScrollOffset;
-
-@property (nonatomic) BOOL unsafeToScroll;
-
-@property (nonatomic) float relativeScrollOffsetBeforeRotate;
-@property (nonatomic) NSUInteger sectionToEditId;
-
-@property (strong, nonatomic) NSDictionary *adjacentHistoryIDs;
-@property (strong, nonatomic) NSString *externalUrl;
-
-@property (weak, nonatomic) IBOutlet UIView *bottomBarView;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tocViewWidthConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tocViewLeadingConstraint;
-
-@property (strong, nonatomic) UIView *scrollIndicatorView;
-@property (strong, nonatomic) NSLayoutConstraint *scrollIndicatorViewTopConstraint;
-@property (strong, nonatomic) NSLayoutConstraint *scrollIndicatorViewHeightConstraint;
-
-@property (strong, nonatomic) TOCViewController *tocVC;
-
-@property (strong, nonatomic) UIPanGestureRecognizer* panSwipeRecognizer;
-
-@property (strong, nonatomic) IBOutlet PaddedLabel *zeroStatusLabel;
-
-@property (nonatomic) BOOL unsafeToToggleTOC;
-
-@property (strong, nonatomic) ReferencesVC *referencesVC;
-@property (weak, nonatomic) IBOutlet UIView *referencesContainerView;
-
-@property (strong, nonatomic) NSLayoutConstraint *bottomBarViewBottomConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *referencesContainerViewBottomConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *referencesContainerViewHeightConstraint;
-
-@property (copy) NSString *jumpToFragment;
-
-@property (nonatomic) BOOL editable;
-@property (copy) MWKProtectionStatus *protectionStatus;
-
-// These are presently only used by updateHistoryDateVisitedForArticleBeingNavigatedFrom method.
-@property (strong, nonatomic) MWKTitle *currentTitle;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomNavHeightConstraint;
-
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) UIView *activityIndicatorBackgroundView;
-
-@property (strong, nonatomic) LeadImageContainer *leadImageContainer;
-
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomConstraint;
-
-@property (nonatomic) BOOL didLastNavigateByBackOrForward;
-
-@end
+NSString* const WebViewControllerTextWasHighlighted = @"textWasSelected";
+NSString* const WebViewControllerWillShareNotification = @"SelectionShare";
+NSString* const WebViewControllerShareBegin = @"beginShare";
+NSString* const WebViewControllerShareSelectedText = @"selectedText";
+NSString* const kSelectedStringJS = @"window.getSelection().toString()";
 
 #pragma mark Internal variables
 
-@implementation WebViewController {
-    CGFloat scrollViewDragBeganVerticalOffset_;
-    SessionSingleton *session;
-}
+@implementation WebViewController
 
 - (BOOL)prefersStatusBarHidden
 {
@@ -921,24 +785,27 @@ static const int kMinimumTextSelectionLength = 10;
 
     __weak WebViewController *weakSelf = self;
     [self.bridge addListener:@"linkClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        WebViewController *strSelf = weakSelf;
+        if (!strSelf) { return; }
+
         NSString *href = payload[@"href"];
 
-        if([weakSelf tocDrawerIsOpen]){
-            [weakSelf tocHide];
+        if([strSelf tocDrawerIsOpen]){
+            [strSelf tocHide];
             return;
         }
 
-        if(!weakSelf.referencesHidden) [weakSelf referencesHide];
+        if(!strSelf.referencesHidden) [strSelf referencesHide];
         
         // @todo merge this link title extraction into MWSite
         if ([href hasPrefix:@"/wiki/"]) {
 
             // Ensure the menu is visible when navigating to new page.
-            [weakSelf animateTopAndBottomMenuReveal];
+            [strSelf animateTopAndBottomMenuReveal];
         
             MWKTitle *pageTitle = [[SessionSingleton sharedInstance].site titleWithInternalLink:href];
 
-            [weakSelf navigateToPage: pageTitle
+            [strSelf navigateToPage: pageTitle
                      discoveryMethod: MWK_DISCOVERY_METHOD_LINK
                 showLoadingIndicator: YES];
         } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
@@ -953,11 +820,11 @@ static const int kMinimumTextSelectionLength = 10;
             // Then validate if it's still in Wikipedia land and branch appropriately.
             if ([SessionSingleton sharedInstance].zeroConfigState.disposition &&
                 [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
-                weakSelf.externalUrl = href;
+                strSelf.externalUrl = href;
                 UIAlertView *dialog = [[UIAlertView alloc]
                                        initWithTitle:MWLocalizedString(@"zero-interstitial-title", nil)
                                        message:MWLocalizedString(@"zero-interstitial-leave-app", nil)
-                                       delegate:weakSelf
+                                       delegate:strSelf
                                        cancelButtonTitle:MWLocalizedString(@"zero-interstitial-cancel", nil)
                                        otherButtonTitles:MWLocalizedString(@"zero-interstitial-continue", nil)
                                        , nil];
@@ -970,69 +837,93 @@ static const int kMinimumTextSelectionLength = 10;
     }];
 
     [self.bridge addListener:@"editClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        WebViewController *strSelf = weakSelf;
+        if (!strSelf) { return; }
 
-        if([weakSelf tocDrawerIsOpen]){
-            [weakSelf tocHide];
+        if([strSelf tocDrawerIsOpen]){
+            [strSelf tocHide];
             return;
         }
         
-        if (weakSelf.editable) {
-            weakSelf.sectionToEditId = [payload[@"sectionId"] integerValue];
-            [weakSelf showSectionEditor];
+        if (strSelf.editable) {
+            strSelf.sectionToEditId = [payload[@"sectionId"] integerValue];
+            [strSelf showSectionEditor];
         } else {
             ProtectedEditAttemptFunnel *funnel = [[ProtectedEditAttemptFunnel alloc] init];
-            [funnel logProtectionStatus:[[weakSelf.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
-            [weakSelf showProtectedDialog];
+            [funnel logProtectionStatus:[[strSelf.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
+            [strSelf showProtectedDialog];
         }
     }];
     
     [self.bridge addListener:@"langClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
-        if([weakSelf tocDrawerIsOpen]){
-            [weakSelf tocHide];
+        WebViewController *strSelf = weakSelf;
+        if (!strSelf) { return; }
+
+        if([strSelf tocDrawerIsOpen]){
+            [strSelf tocHide];
             return;
         }
 
         NSLog(@"Language button pushed");
-        [weakSelf languageButtonPushed];
+        [strSelf languageButtonPushed];
     }];
     
     [self.bridge addListener:@"historyClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
-        if([weakSelf tocDrawerIsOpen]){
-            [weakSelf tocHide];
+        WebViewController *strSelf = weakSelf;
+        if (!strSelf) { return; }
+
+        if([strSelf tocDrawerIsOpen]){
+            [strSelf tocHide];
             return;
         }
 
-        [weakSelf historyButtonPushed];
+        [strSelf historyButtonPushed];
     }];
     
     [self.bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        WebViewController *strSelf = weakSelf;
+        if (!strSelf) { return; }
+
         NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
 
         // Tiny delay prevents menus from occasionally appearing when user swipes to reveal toc.
-        [weakSelf performSelector:@selector(animateTopAndBottomMenuReveal) withObject:nil afterDelay:0.05];
+        [strSelf performSelector:@selector(animateTopAndBottomMenuReveal) withObject:nil afterDelay:0.05];
 
         // nonAnchorTouchEndedWithoutDragging is used so TOC may be hidden if user tapped, but did *not* drag.
         // Used because UIWebView is difficult to attach one-finger touch events to.
-        [weakSelf tocHide];
+        [strSelf tocHide];
 
-        [weakSelf referencesHide];
+        [strSelf referencesHide];
     }];
     
     [self.bridge addListener:@"referenceClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
+        WebViewController *strSelf = weakSelf;
+        if (!strSelf) { return; }
 
-        if([weakSelf tocDrawerIsOpen]){
-            [weakSelf tocHide];
+        if([strSelf tocDrawerIsOpen]){
+            [strSelf tocHide];
             return;
         }
 
         //NSLog(@"referenceClicked: %@", payload);
-        [weakSelf referencesShow:payload];
+        [strSelf referencesShow:payload];
         
     }];
     
     UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
                                                           action:@selector(shareSnippet:)];
     [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
+
+    [self.bridge addListener:@"imageClicked" withBlock:^(NSString *type, NSDictionary *payload) {
+        WebViewController *strSelf = weakSelf;
+        if (!strSelf) { return; }
+
+        NSString *selectedImageURL = payload[@"url"];
+        NSCParameterAssert(selectedImageURL.length);
+        MWKImage *selectedImage = [strSelf->session.article.images largestImageVariantForURL:selectedImageURL];
+        NSCParameterAssert(selectedImage);
+        [strSelf presentGalleryForArticle:strSelf->session.article showingImage:selectedImage];
+    }];
 
     self.unsafeToScroll = NO;
 }
@@ -1337,6 +1228,7 @@ static const int kMinimumTextSelectionLength = 10;
     //NSLog(@"articleFetchManager.operationCount = %lu", (unsigned long)[QueuesSingleton sharedInstance].articleFetchManager.operationQueue.operationCount);
 }
 
+#if DEBUG
 -(void)toggleImageSheet
 {
     // Quick hack for confirming images for article have routed properly to core data store.
@@ -1383,6 +1275,7 @@ static const int kMinimumTextSelectionLength = 10;
         [NAV topActionSheetHide];
     }
 }
+#endif
 
 -(void)updateHistoryDateVisitedForArticleBeingNavigatedFrom
 {
@@ -1469,51 +1362,52 @@ static const int kMinimumTextSelectionLength = 10;
                 // Redirect if necessary.
                 MWKTitle *redirectedTitle = article.redirected;
                 if (redirectedTitle) {
-					// Get discovery method for call to "retrieveArticleForPageTitle:".
-					// There should only be a single history item (at most).
-					MWKHistoryEntry *history = [session.userDataStore.historyList entryForTitle:article.title];
-					// Get the article's discovery method.
-					MWKHistoryDiscoveryMethod discoveryMethod =
-					(history) ? history.discoveryMethod : MWK_DISCOVERY_METHOD_SEARCH;
-					
-					// Remove the article so it doesn't get saved.
+                    // Get discovery method for call to "retrieveArticleForPageTitle:".
+                    // There should only be a single history item (at most).
+                    MWKHistoryEntry *history = [session.userDataStore.historyList entryForTitle:article.title];
+                    // Get the article's discovery method.
+                    MWKHistoryDiscoveryMethod discoveryMethod =
+                    (history) ? history.discoveryMethod : MWK_DISCOVERY_METHOD_SEARCH;
+
+                    // Remove the article so it doesn't get saved.
                     [session.userDataStore.historyList removeEntry:history];
                     [session.article remove];
-					
-					// Redirect!
-					[self retrieveArticleForPageTitle: redirectedTitle
-									  discoveryMethod: discoveryMethod];
-					return;
-				}
 
-				// Update the toc and web view.
-				[self.tocVC setTocSectionDataForSections:article.sections];
-				[self displayArticle:article.title];
-				
-			}
-				break;
-			case FETCH_FINAL_STATUS_FAILED:
-			{
-				NSString *errorMsg = error.localizedDescription;
-				[self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+                    // Redirect!
+                    [self retrieveArticleForPageTitle: redirectedTitle
+                                      discoveryMethod: discoveryMethod];
+                    return;
+                }
+
+                // Update the toc and web view.
+                [self.tocVC setTocSectionDataForSections:article.sections];
+                [self displayArticle:article.title];
+
+
+            }
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+            {
+                NSString *errorMsg = error.localizedDescription;
+                [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
 
                 [self loadingIndicatorHide];
-				
-				// Remove the article so it doesn't get saved.
-				//[article.managedObjectContext deleteObject:article];
-				[article remove];
-			}
-				break;
-			case FETCH_FINAL_STATUS_CANCELLED:
-			{
-				// Remove the article so it doesn't get saved.
-				//[article.managedObjectContext deleteObject:article];
-				[article remove];
-			}
-				break;
-				
-			default:
-				break;
+
+                // Remove the article so it doesn't get saved.
+                //[article.managedObjectContext deleteObject:article];
+                [article remove];
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+            {
+                // Remove the article so it doesn't get saved.
+                //[article.managedObjectContext deleteObject:article];
+                [article remove];
+            }
+                break;
+
+            default:
+                break;
                 
         }
 
@@ -1550,15 +1444,24 @@ static const int kMinimumTextSelectionLength = 10;
                 break;
         }
     }
+}
 
+- (void)cancelArticleLoading
+{
+   [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
+}
+
+- (void)cancelSearchLoading
+{
+    [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
 }
 
 - (void)retrieveArticleForPageTitle: (MWKTitle *)pageTitle
                     discoveryMethod: (MWKHistoryDiscoveryMethod)discoveryMethod
 {
     // Cancel certain in-progress fetches.
-    [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
-    [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
+    [self cancelSearchLoading];
+    [self cancelArticleLoading];
     
     self.currentTitle = pageTitle;
     session.title = pageTitle;
@@ -1611,6 +1514,8 @@ static const int kMinimumTextSelectionLength = 10;
         (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle: session.article
                                                          withManager: [QueuesSingleton sharedInstance].articleFetchManager
                                                   thenNotifyDelegate: self];
+
+
     }
 }
 
@@ -2242,18 +2147,22 @@ static const int kMinimumTextSelectionLength = 10;
 
     self.leadImageContainer.delegate = self;
 
+    [self.leadImageContainer addTarget:self
+                                action:@selector(didTouchLeadImage:)
+                      forControlEvents:UIControlEventTouchUpInside];
+
     // Because of autolayout weirdness with adding subview's to UIWebView's
     // scrollview (which is done so we'll get scroll tracking and scaling
     // when TOC appears for free), autoresizingMask is used - this also means
     // we need to manually update leadImageContainer's frame on rotate - which
     // is presently done in its "updateNonImageElements" method.
     self.leadImageContainer.autoresizingMask =
-    (UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth);
+        (UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth);
     
     [self.webView.scrollView addSubview:self.leadImageContainer];
     
     self.leadImageContainer.frame =
-    (CGRect){{0, 0}, {self.webView.scrollView.frame.size.width, LEAD_IMAGE_CONTAINER_HEIGHT}};
+        (CGRect){{0, 0}, {self.webView.scrollView.frame.size.width, LEAD_IMAGE_CONTAINER_HEIGHT}};
 }
 
 - (void)leadImageHeightChangedTo: (NSNumber *)height
@@ -2289,6 +2198,11 @@ static const int kMinimumTextSelectionLength = 10;
 {
     NSString *selectedText = [self.webView stringByEvaluatingJavaScriptFromString:kSelectedStringJS];
     return selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
+}
+
+- (void)didTouchLeadImage:(id)sender
+{
+    [self presentGalleryForArticle:session.article showingImage:session.article.image];
 }
 
 @end

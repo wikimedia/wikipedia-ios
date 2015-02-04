@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="363" height="223"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QrQ-tJ-JFg" userLabel="Title Description Container">
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QrQ-tJ-JFg" userLabel="Title Description Container">
                     <rect key="frame" x="0.0" y="158" width="363" height="65"/>
                     <subviews>
                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mg1-h3-cDH" userLabel="Title Label" customClass="LeadImageTitleLabel">
@@ -41,6 +41,7 @@
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="QrQ-tJ-JFg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="PYF-36-bR4"/>
                 <constraint firstAttribute="trailing" secondItem="QrQ-tJ-JFg" secondAttribute="trailing" id="RQe-yG-bqL"/>

@@ -1,3 +1,4 @@
+(function (module) {
 var bridge = require("./bridge");
 var transformer = require("./transformer");
 var refs = require("./refs");
@@ -69,7 +70,7 @@ function findParent(element, selector) {
         var selectorName = matches[1] || null;
         var selectorClass = matches[2] || null;
         var selectorId = matches[3] || null;
-        
+
         var candidate = element;
         while (candidate) {
             do {
@@ -97,19 +98,21 @@ document.onclick = function() {
     // "fight" with items in the touchEndedWithoutDragging handler.
     // Add click/tap handling to touchEndedWithoutDragging instead.
     event.preventDefault(); // <-- Do not remove!
-}
+};
 
-touchDownY = 0.0;
-function touchStart(event){
-    touchDownY = parseInt(event.changedTouches[0].clientY);
-}
-document.addEventListener("touchstart", touchStart, "false");
+// track where initial touches start
+var touchDownY = 0.0;
+document.addEventListener(
+            "touchstart",
+            function (event) {
+                touchDownY = parseInt(event.changedTouches[0].clientY);
+            }, false);
 
 function handleTouchEnded(event){
     var touchobj = event.changedTouches[0];
     touchEndY = parseInt(touchobj.clientY);
-    if (((touchDownY - touchEndY) == 0) && (event.changedTouches.length == 1)) {
-        // None of our tap events should fire if the user dragged the page at all.
+    if (((touchDownY - touchEndY) === 0) && (event.changedTouches.length === 1)) {
+        // None of our tap events should fire if the user dragged vertically.
         touchEndedWithoutDragging(event);
     }
 }
@@ -131,31 +134,41 @@ function touchEndedWithoutDragging(event){
             // If it is a link to an anchor in the current page, just scroll to it
             document.getElementById( href.substring( 1 ) ).scrollIntoView();
         } else {
-            bridge.sendMessage( 'linkClicked', { href: anchorTarget.getAttribute( "href" ) });
-        }
-    
+            var anchorClass = anchorTarget.getAttribute('class');
+            if (typeof anchorClass === 'string' && anchorClass.indexOf('image') !== -1) {
+                bridge.sendMessage('imageClicked', { url: event.target.getAttribute('src') });
+            } else {
+                bridge.sendMessage( 'linkClicked', { href: anchorTarget.getAttribute( "href" ) });
+            }
+         }
+
     // Handle BUTTON tag taps.
-    }else{
+    } else {
         var buttonTarget = findParent(event.target, 'BUTTON');
-        var buttonTargetFound = buttonTarget && (buttonTarget.tagName === "BUTTON") ? true : false;
-        if(buttonTargetFound){
+        if (buttonTarget && (buttonTarget.tagName === "BUTTON")){
             if (buttonTarget.id === "mw-language-button") {
                 bridge.sendMessage( 'langClicked', {} );
             }else if (buttonTarget.id === "mw-last-modified") {
                 bridge.sendMessage( 'historyClicked', {} );
             }
-        }else{
+        } else {
             // Do NOT prevent default behavior -- this is needed to for instance
             // handle deselection of text.
-            bridge.sendMessage( 'nonAnchorTouchEndedWithoutDragging', { id: event.target.getAttribute( "id" ), tagName: event.target.tagName});
+            bridge.sendMessage('nonAnchorTouchEndedWithoutDragging',
+                               {
+                                   id: event.target.getAttribute( "id" ),
+                                   tagName: event.target.tagName
+                               });
         }
     }
 }
 
-document.addEventListener("touchend", handleTouchEnded, "false");
+document.addEventListener("touchend", handleTouchEnded, false);
 
 bridge.registerListener( "setLeadImageDivHeight", function( payload ) {
     var div = document.getElementById( "lead_image_div" );
     if (payload.height == div.offsetHeight) return;
     div.style.height = payload.height + 'px';
 });
+
+})(module);

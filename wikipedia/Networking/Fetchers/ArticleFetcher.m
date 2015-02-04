@@ -2,6 +2,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "ArticleFetcher.h"
+#import "WMFNetworkUtilities.h"
 #import "Defines.h"
 #import "QueuesSingleton.h"
 #import "NSString+Extras.h"
@@ -132,15 +133,35 @@
     NSMutableDictionary *params = @{
     @"format": @"json",
     @"action": @"mobileview",
-    @"sectionprop": @"toclevel|line|anchor|level|number|fromtitle|index",
+    @"sectionprop": WMFJoinedPropertyParameters(@[
+      @"toclevel",
+      @"line",
+      @"anchor",
+      @"level",
+      @"number",
+      @"fromtitle",
+      @"index"]),
     @"noheadings": @"true",
     @"sections": @"all",
     @"page": title,
     @"thumbsize": @(LEAD_IMAGE_WIDTH),
-    @"prop": @"sections|text|lastmodified|lastmodifiedby|languagecount|id|protection|editable|displaytitle|thumb|description",
+    @"prop": WMFJoinedPropertyParameters(@[
+      @"sections",
+      @"text",
+      @"lastmodified",
+      @"lastmodifiedby",
+      @"languagecount",
+      @"id",
+      @"protection",
+      @"editable",
+      @"displaytitle",
+      @"thumb",
+      @"description",
+      @"image"])
     }.mutableCopy;
 
     if ([SessionSingleton sharedInstance].sendUsageReports) {
+        // !!!: (bgerstle Feb 4 2015) we're getting an "unrecognized parameter" warning for appInstallID
         ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
         params[@"appInstallID"] = funnel.appInstallID;
     }
@@ -207,13 +228,6 @@
     [requestSerializer setValue:nil forHTTPHeaderField:@"X-MCCMNC"];
 }
 
-/*
--(void)dealloc
-{
-    NSLog(@"DEALLOC'ING ARTICLE FETCHER!");
-}
-*/
-
 -(void)createImageRecordsForSection:(int)sectionId
 {
     NSString *html = self.article.sections[sectionId].text;
@@ -231,16 +245,28 @@
     
     NSData *sectionHtmlData = [html dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *sectionParser = [TFHpple hppleWithHTMLData:sectionHtmlData];
-    //NSString *imageXpathQuery = @"//img[@src]";
-    NSString *imageXpathQuery = @"//img[@src][not(ancestor::table[@class='navbox'])]";
+    NSString *imageLinkElementsXpathQuery = @"//a[@class='image']";
     // ^ the navbox exclusion prevents images from the hidden navbox table from appearing
     // in the last section's TOC cell.
     
-    NSArray *imageNodes = [sectionParser searchWithXPathQuery:imageXpathQuery];
+    NSArray *imageLinks = [sectionParser searchWithXPathQuery:imageLinkElementsXpathQuery];
     NSUInteger imageIndexInSection = 0;
     
-    for (TFHppleElement *imageNode in imageNodes) {
-        
+    for (TFHppleElement *linkNode in imageLinks) {
+        NSInteger imageNodeIndex = [linkNode.children indexOfObjectPassingTest:^BOOL(TFHppleElement *child, NSUInteger idx, BOOL *stop) {
+            if ([child.tagName isEqualToString:@"img"]) {
+                *stop = YES;
+                return YES;
+            } else {
+                return NO;
+            }
+        }];
+        NSParameterAssert(imageNodeIndex != NSNotFound);
+        if (imageNodeIndex == NSNotFound) {
+            // TODO: handle this error somehow, for now, go to the next linkNode
+            continue;
+        }
+        TFHppleElement *imageNode = linkNode.children[imageNodeIndex];
         NSString *height = imageNode.attributes[@"height"];
         NSString *width = imageNode.attributes[@"width"];
         
@@ -254,7 +280,6 @@
             continue;
         }
         
-        NSString *alt = imageNode.attributes[@"alt"];
         NSString *src = imageNode.attributes[@"src"];
         int density = 1;
         
@@ -293,63 +318,10 @@
         }
         
         MWKImage *image = [self.article importImageURL:src sectionId:sectionId];
+        // update filepage url and then save
+        image.filePageURL = linkNode.attributes[@"href"];
         [image save];
-        //Image *image = (Image *)[context getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", src];
-        
-        if (image) {
-            // If Image record already exists, update its attributes.
-            /*
-            image.alt = alt;
-            image.height = @(height.integerValue * density);
-            image.width = @(width.integerValue * density);
-             */
-        }else{
-            // If no Image record, create one setting its "data" attribute to nil. This allows the record to be
-            // created so it can be associated with the section in which this , then when the URLCache intercepts the request for this image
-            //image = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:context];
-            image = [self.article importImageURL:src sectionId:sectionId];
-            
-            /*
-             Moved imageData into own entity:
-             "For small to modest sized BLOBs (and CLOBs), you should create a separate
-             entity for the data and create a to-one relationship in place of the attribute."
-             See: http://stackoverflow.com/a/9288796/135557
-             
-             This allows core data to lazily load the image blob data only when it's needed.
-             */
-            /*
-            image.imageData = [NSEntityDescription insertNewObjectForEntityForName:@"ImageData" inManagedObjectContext:context];
-            
-            image.imageData.data = [[NSData alloc] init];
-            image.dataSize = @(image.imageData.data.length);
-            image.fileName = [src lastPathComponent];
-            image.fileNameNoSizePrefix = [image.fileName getWikiImageFileNameWithoutSizePrefix];
-            image.extension = [src pathExtension];
-            image.imageDescription = nil;
-            image.sourceUrl = src;
-            image.dateRetrieved = [NSDate date];
-            image.dateLastAccessed = [NSDate date];
-            image.width = @(width.integerValue * density);
-            image.height = @(height.integerValue * density);
-            image.mimeType = [image.extension getImageMimeTypeForExtension];
-            */
-        }
-        
-        // If imageSection doesn't already exist with the same index and image, create sectionImage record
-        // associating the image record (from line above) with section record and setting its index to the
-        // order from img tag parsing.
-        /*
-        SectionImage *sectionImage = (SectionImage *)[context getEntityForName: @"SectionImage"
-                                                           withPredicateFormat: @"section == %@ AND index == %@ AND image.sourceUrl == %@",
-                                                      self, @(imageIndexInSection), src
-                                                      ];
-        if (!sectionImage) {
-            sectionImage = [NSEntityDescription insertNewObjectForEntityForName:@"SectionImage" inManagedObjectContext:context];
-            sectionImage.image = image;
-            sectionImage.index = @(imageIndexInSection);
-            sectionImage.section = self;
-        }
-         */
+
         imageIndexInSection ++;
     }
     
@@ -371,15 +343,16 @@
             thumbURL = [thumbURL getUrlWithoutScheme];
             
             // Associate Search/Nearby thumb url with article.thumbnailURL.
-            if (thumbURL) self.article.thumbnailURL = thumbURL;
+            if (thumbURL) { self.article.thumbnailURL = thumbURL; }
             
-            NSArray *cachePaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-            NSString *cachePath = [cachePaths objectAtIndex:0];
-            
-            NSString *cacheFilePath = [cachePath stringByAppendingPathComponent:thumbURL.lastPathComponent];
+
+            NSString *cacheFilePath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
+                                        firstObject]
+                                        stringByAppendingPathComponent:thumbURL.lastPathComponent];
             BOOL isDirectory = NO;
-            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:cacheFilePath isDirectory:&isDirectory];
-            if (fileExists) {
+            BOOL cachedFileExists = [[NSFileManager defaultManager] fileExistsAtPath:cacheFilePath
+                                                                         isDirectory:&isDirectory];
+            if (cachedFileExists) {
                 NSError *error = nil;
                 NSData *data = [NSData dataWithContentsOfFile:cacheFilePath options:0 error:&error];
                 if (!error) {

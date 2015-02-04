@@ -22,7 +22,12 @@ simulator "Command-Shift-M" taps to cycle through the faces, shifting
 the image to best center the currently hightlighted face.
 Do *not* leave this set to YES for release.
 */
-#define HIGHLIGHT_FOCAL_FACE NO
+#if DEBUG
+#define HIGHLIGHT_FOCAL_FACE 0
+#else
+// disable in release builds
+#define HIGHLIGHT_FOCAL_FACE 0
+#endif
 
 @interface LeadImageContainer()
 
@@ -54,21 +59,19 @@ Do *not* leave this set to YES for release.
                                                       [self updateNonImageElements];
                                                       
                                                   }];
+    #if HIGHLIGHT_FOCAL_FACE
+    // Testing code so we can hit "Command-Shift-M" to toggle through focal images.
+    [[NSNotificationCenter defaultCenter] addObserverForName: UIApplicationDidReceiveMemoryWarningNotification
+                                                      object: nil
+                                                       queue: [NSOperationQueue mainQueue]
+                                                  usingBlock: ^(NSNotification *note) {
 
-    if (HIGHLIGHT_FOCAL_FACE) {
+                                                      // Repeated calls to getFaceBounds returns next face bounds each time.
+                                                      self.focalFaceBounds = [self.image getFaceBounds];
+                                                      [self setNeedsDisplay];
 
-        // Testing code so we can hit "Command-Shift-M" to toggle through focal images.
-        [[NSNotificationCenter defaultCenter] addObserverForName: UIApplicationDidReceiveMemoryWarningNotification
-                                                          object: nil
-                                                           queue: [NSOperationQueue mainQueue]
-                                                      usingBlock: ^(NSNotification *note) {
-
-                                                          // Repeated calls to getFaceBounds returns next face bounds each time.
-                                                          self.focalFaceBounds = [self.image getFaceBounds];
-                                                          [self setNeedsDisplay];
-
-                                                      }];
-    }
+                                                  }];
+    #endif
 
     // Important! "clipsToBounds" must be "NO" so super long titles lay out properly!
     self.clipsToBounds = NO;

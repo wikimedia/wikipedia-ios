@@ -7,7 +7,7 @@
 //
 
 #import "UIKit/UIKit.h"
-
+#import "WikipediaAppUtils.h"
 #import "MediaWikiKit.h"
 
 @implementation MWKImage
@@ -38,6 +38,7 @@
         _mimeType = [self optionalString:@"mimeType" dict:dict];
         _width = [self optionalNumber:@"width" dict:dict];
         _height = [self optionalNumber:@"height" dict:dict];
+        _filePageURL = dict[@"filePageURL"];
     }
     return self;
 }
@@ -52,8 +53,27 @@
     return [self.sourceURL lastPathComponent];
 }
 
+- (NSString*)basename
+{
+    NSArray *sourceURLComponents = [self.sourceURL componentsSeparatedByString:@"/"];
+    NSParameterAssert(sourceURLComponents.count >= 2);
+    return sourceURLComponents[sourceURLComponents.count - 2];
+}
+
+- (NSString*)canonicalFilename
+{
+    return WMFNormalizedPageTitle([self canonicalFilenameFromSourceURL]);
+}
+
+- (NSString*)canonicalFilenameFromSourceURL
+{
+    return [MWKImage canonicalFilenameFromSourceURL:self.sourceURL];
+}
+
 +(NSString *)fileNameNoSizePrefix:(NSString *)sourceURL
 {
+    if (!sourceURL) { return nil; }
+
     NSString *fileName = [sourceURL lastPathComponent];
     NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"^\\d+px-(.*)$" options:0 error:nil];
     NSArray *matches = [re matchesInString:fileName options:0 range:NSMakeRange(0, [fileName length])];
@@ -62,6 +82,11 @@
     } else {
         return fileName;
     }
+}
+
++ (NSString*)canonicalFilenameFromSourceURL:(NSString *)sourceURL
+{
+    return [[self fileNameNoSizePrefix:sourceURL] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 +(int)fileSizePrefix:(NSString *)sourceURL
@@ -100,7 +125,10 @@
     if (self.height) {
         dict[@"height"] = self.height;
     }
-    return [NSDictionary dictionaryWithDictionary:dict];
+    if (self.filePageURL) {
+        dict[@"filePageURL"] = self.filePageURL;
+    }
+    return [dict copy];
 }
 
 -(void)importImageData:(NSData *)data
@@ -151,17 +179,45 @@
     return [self.article imageWithURL:largestURL];
 }
 
--(MWKImageMetadata *)metadata
-{
-    return [self.article.dataStore imageMetadataWithName:self.fileNameNoSizePrefix
-                                                 article:self.article];
-}
-
 -(BOOL)isCached
 {
     // @fixme maybe make this more efficient
     NSData *data = [self.article.dataStore imageDataWithImage:self];
     return (data != nil);
+}
+
+- (BOOL)isEqual:(id)object
+{
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[MWKImage class]]) {
+        return [self isEqualToImage:object];
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)isEqualToImage:(MWKImage*)image
+{
+    return self == image || [self.fileName isEqualToString:image.fileName];
+}
+
+- (NSUInteger)hash
+{
+    return [self.fileName hash];
+}
+
+- (BOOL)isVariantOfImage:(MWKImage *)otherImage
+{
+    // !!!: this might not be reliable due to underscore, percent encodings, and other unknowns w/ image filenames
+    return [self.fileNameNoSizePrefix isEqualToString:otherImage.fileNameNoSizePrefix]
+            && ![self isEqualToImage:otherImage];
+}
+
+- (NSString*)description
+{
+    return [NSString stringWithFormat:@"%@ article: %@ sourceURL: %@",
+                                     [super description], self.article.title, self.sourceURL];
 }
 
 @end
