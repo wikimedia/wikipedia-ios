@@ -144,4 +144,17 @@
     return locale;
 }
 
+- (BOOL)wmf_containsString:(NSString*)string {
+    return [self wmf_containsString:string options:NSLiteralSearch];
+}
+
+- (BOOL)wmf_caseInsensitiveContainsString:(NSString*)string{
+    return [self wmf_containsString:string options:NSCaseInsensitiveSearch];
+}
+
+- (BOOL)wmf_containsString:(NSString*)string options:(NSStringCompareOptions)options {
+    return [self rangeOfString:string options:options].location == NSNotFound ? NO : YES;
+}
+
+
 @end

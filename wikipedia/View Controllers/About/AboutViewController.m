@@ -6,27 +6,53 @@
 #import "UIViewController+ModalPop.h"
 #import "UIWebView+LoadAssetsHtml.h"
 #import "Defines.h"
+#import "NSString+Extras.h"
+#import <BlocksKit/BlocksKit.h>
+#import "ModalContentViewController.h"
+
+static NSString* const kWMFAboutHTMLFile = @"about.html";
+static NSString* const kWMFAboutPlistName = @"AboutViewController";
+
+static NSString* const kWMFPodsPlistName = @"Pods-acknowledgements";
+static NSString* const kWMFPodsLibraryArray = @"PreferenceSpecifiers";
+static NSString* const kWMFPodsLibraryNameKey = @"Title";
+static NSString* const kWMFPodsLibraryLicenseKey = @"FooterText";
+
+static NSString* const kWMFURLsKey = @"urls";
+static NSString* const kWMFURLsFeedbackKey = @"feedback";
+static NSString* const kWMFURLsTranslateWikiKey = @"twn";
+static NSString* const kWMFURLsWikimediaKey = @"wmf";
+static NSString* const kWMFURLsSpecialistGuildKey = @"tsg";
+
+static NSString* const kWMFRepositoriesKey = @"repositories";
+
+static NSString* const kWMFLibrariesKey = @"libraries";
+static NSString* const kWMFLibraryNameKey = @"Name";
+static NSString* const kWMFLibraryURLKey = @"Source URL";
+static NSString* const kWMFLibraryLicenseTextKey = @"Licence Text";
+
+static NSString* const kWMFLicenseScheme = @"wmflicense";
+static NSString* const kWMFLicenseRedirectScheme = @"about";
+static NSString* const kWMFLicenseRedirectResourceIdentifier = @"blank";
+
+static NSString* const kWMFContributorsKey = @"contributors";
+
 
 @interface AboutViewController ()
-
-@property (nonatomic, retain) NSDictionary *data;
-@property (nonatomic, retain, readonly) NSString *contributors;
-@property (nonatomic, retain, readonly) NSString *repositoryLinks;
-@property (nonatomic, retain, readonly) NSString *libraryLinks;
-@property (nonatomic, retain, readonly) NSDictionary *urls;
-@property (nonatomic, retain, readonly) NSString *feedbackURL;
 
 @end
 
 @implementation AboutViewController
 
+
+
+
+#pragma mark - UIViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"AboutViewController" ofType:@"plist"];
-    self.data = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     self.webView.delegate = self;
-    [self.webView loadHTMLFromAssetsFile:@"about.html"];
+    [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -47,6 +73,24 @@
     [super viewWillDisappear:animated];
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return NO;
+}
+
+#pragma mark - Navigation Bar Configuration
+
+- (void)updateNavigationBar{
+    
+    /*
+     HACK: This is pretty terrible. The current VC should not need to know about the containing view controller to set its nav bar buttons and title.
+     We really need to change the modal display logic to make sure modal VCs can update their navigation bar.
+     That is obviously a pretty big refactor and effects several VCs - so not doing that here. In the mean time, we are casting what we know the containing VC to be so we can make the needed changes.
+     */
+    [(ModalContentViewController*)self.parentViewController setNavBarMode:self.navBarMode];
+    [(ModalContentViewController*)self.parentViewController setTopMenuText:self.title];
+}
+
 - (void)navItemTappedNotification:(NSNotification *)notification
 {
     NSDictionary *userInfo = [notification userInfo];
@@ -56,6 +100,9 @@
         case NAVBAR_BUTTON_X:
             [self popModal];
             break;
+        case NAVBAR_BUTTON_ARROW_LEFT:
+            [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile];
+            break;
         default:
             break;
     }
@@ -63,47 +110,92 @@
 
 -(NavBarMode)navBarMode
 {
+    if([self isDisplayingLicense]){
+        
+        return NAVBAR_MODE_BACK_WITH_LABEL;
+    }
     return NAVBAR_MODE_X_WITH_LABEL;
 }
 
 -(NSString *)title
 {
+    if([self isDisplayingLicense]){
+        
+        return MWLocalizedString(@"about-libraries-license", nil);
+    }
     return MWLocalizedString(@"about-title", nil);
 }
 
-- (BOOL)prefersStatusBarHidden
+
+#pragma mark - Accessors
+
+- (NSDictionary*)data
 {
-    return NO;
+    
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:kWMFAboutPlistName ofType:@"plist"];
+    return [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
 }
+
+- (NSArray*)libraries{
+    
+    return self.data[kWMFLibrariesKey];
+}
+
 
 -(NSString *)contributors
 {
-    return [self.data[@"contributors"] componentsJoinedByString:@", "];
+    return [self.data[kWMFContributorsKey] componentsJoinedByString:@", "];
 }
 
 -(NSDictionary *)urls
 {
-    return self.data[@"urls"];
+    
+    return self.data[kWMFURLsKey];
+}
+
+-(NSDictionary*)podLibraryLicenses{
+
+    NSString* filePath = [[NSBundle mainBundle] pathForResource:kWMFPodsPlistName ofType:@"plist"];
+    
+    NSDictionary* plist = [NSDictionary dictionaryWithContentsOfFile:filePath];
+    
+    NSArray* pods = plist[kWMFPodsLibraryArray];
+    
+    pods = [pods bk_map:^id(NSDictionary* obj) {
+        
+        return @{obj[kWMFPodsLibraryNameKey] : obj[kWMFPodsLibraryLicenseKey]};
+    }];
+    
+    return [pods bk_reduce:[NSMutableDictionary dictionary] withBlock:^id(NSMutableDictionary* sum, NSDictionary* obj) {
+        
+        [sum addEntriesFromDictionary:obj];
+        return sum;
+    }];
 }
 
 -(NSString *)libraryLinks
 {
-    NSMutableDictionary *libraries = (NSMutableDictionary *)self.data[@"libraries"];
+    NSArray *libraries = [[self libraries] bk_map:^id(NSDictionary *obj) {
+        
+        NSString* sourceLink = [[self class] linkHTMLForURLString:obj[kWMFLibraryURLKey] title:obj[kWMFLibraryNameKey]];
+        
+        NSString* licenseURLPath = [[self class] licenseURLPathForLibraryName:obj[kWMFLibraryNameKey]];
+        
+        NSString* licenseLink = [[self class] linkHTMLForURLString:licenseURLPath title:MWLocalizedString(@"about-libraries-license", nil)];
+        
+        return [sourceLink stringByAppendingFormat:@" (%@)", licenseLink];
+    }];
     
-    for (NSString *library in libraries.copy) {
-        libraries[library] = [self getLinkHTMLForURL:libraries[library] title:library];
-    }
-    
-    NSString *output = [libraries.allValues componentsJoinedByString:@", "];
-    return output;
+    return [libraries componentsJoinedByString:@", "];
 }
+
 
 -(NSString *)repositoryLinks
 {
-    NSMutableDictionary *repos = (NSMutableDictionary *)self.data[@"repositories"];
+    NSMutableDictionary *repos = (NSMutableDictionary *)self.data[kWMFRepositoriesKey];
     
-    for (NSString *repo in repos.copy) {
-        repos[repo] = [self getLinkHTMLForURL:repos[repo] title:repo];
+    for (NSString *repo in [repos copy]) {
+        repos[repo] = [[self class] linkHTMLForURLString:repos[repo] title:repo];
     }
     
     NSString *output = [repos.allValues componentsJoinedByString:@", "];
@@ -112,22 +204,55 @@
 
 -(NSString *)feedbackURL
 {
-    NSString *feedbackUrl = self.urls[@"feedback"];
+    NSString *feedbackUrl = self.urls[kWMFURLsFeedbackKey];
     feedbackUrl = [feedbackUrl stringByReplacingOccurrencesOfString:@"$1" withString:[WikipediaAppUtils versionedUserAgent]];
-
+    
     NSString *encodedUrlString =
     [feedbackUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     return encodedUrlString;
 }
 
--(NSString *)getLinkHTMLForURL:(NSString *)url title:(NSString *)title
-{
-    return [NSString stringWithFormat:@"<a href='%@'>%@</a>", url, title];
+
+#pragma mark - License Search
+
+- (NSString*)licenceTextForLicenseURL:(NSURL*)licenseURL{
+    
+    return [self licenceTextForLibraryName:[licenseURL host]];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
+- (NSString*)licenceTextForLibraryName:(NSString*)libraryName{
+    
+    NSString* license = [self.podLibraryLicenses bk_match:^BOOL(NSString* key, NSString* license) {
+       
+        if([key wmf_caseInsensitiveContainsString:libraryName]){
+            return YES;
+        }
+    
+        return NO;
+        
+    }];
+    
+    if(!license){
+        
+        license = [[self libraries] bk_match:^BOOL(NSDictionary* obj) {
+            
+            if([obj[kWMFLibraryNameKey] isEqualToString:libraryName]){
+                return YES;
+            }
+            
+            return NO;
+        }][kWMFLibraryLicenseTextKey];
+    }
+    
+    return license;
+}
+
+#pragma mark - HTML Injection
+
+
+- (void)injectAboutPageContentIntoWebView:(UIWebView*)webView{
+    
     NSString*(^stringEscapedForJavasacript)(NSString*) = ^ NSString*(NSString *string) {
         // FROM: http://stackoverflow.com/a/13569786
         // valid JSON object need to be an array or dictionary
@@ -156,24 +281,24 @@
     setDivHTML(@"libraries_body", self.libraryLinks);
     setDivHTML(@"repositories_title", MWLocalizedString(@"about-repositories", nil));
     setDivHTML(@"repositories_body", self.repositoryLinks);
-    setDivHTML(@"feedback_body", [self getLinkHTMLForURL:self.feedbackURL title:MWLocalizedString(@"about-send-feedback", nil)]);
+    setDivHTML(@"feedback_body", [[self class] linkHTMLForURLString:self.feedbackURL title:MWLocalizedString(@"about-send-feedback", nil)]);
     
-    NSString *twnUrl = self.urls[@"twn"];
-    NSString *translatorsLink = [self getLinkHTMLForURL:twnUrl title:[twnUrl substringFromIndex:7]];
+    NSString *twnUrl = self.urls[kWMFURLsTranslateWikiKey];
+    NSString *translatorsLink = [[self class] linkHTMLForURLString:twnUrl title:[twnUrl substringFromIndex:7]];
     NSString *translatorDetails =
     [MWLocalizedString(@"about-translators-details", nil) stringByReplacingOccurrencesOfString: @"$1"
                                                                                     withString: translatorsLink];
     setDivHTML(@"translators_body", translatorDetails);
     
-    NSString *tsgUrl = self.urls[@"tsg"];
-    NSString *tsgLink = [self getLinkHTMLForURL:tsgUrl title:[tsgUrl substringFromIndex:7]];
+    NSString *tsgUrl = self.urls[kWMFURLsSpecialistGuildKey];
+    NSString *tsgLink = [[self class] linkHTMLForURLString:tsgUrl title:[tsgUrl substringFromIndex:7]];
     NSString *tsgDetails =
     [MWLocalizedString(@"about-testers-details", nil) stringByReplacingOccurrencesOfString: @"$1"
-                                                                                    withString: tsgLink];
+                                                                                withString: tsgLink];
     setDivHTML(@"testers_body", tsgDetails);
     
-    NSString *wmfUrl = self.urls[@"wmf"];
-    NSString *foundation = [self getLinkHTMLForURL:wmfUrl title:MWLocalizedString(@"about-wikimedia-foundation", nil)];
+    NSString *wmfUrl = self.urls[kWMFURLsWikimediaKey];
+    NSString *foundation = [[self class] linkHTMLForURLString:wmfUrl title:MWLocalizedString(@"about-wikimedia-foundation", nil)];
     NSString *footer =
     [MWLocalizedString(@"about-product-of", nil) stringByReplacingOccurrencesOfString: @"$1"
                                                                            withString: foundation];
@@ -181,44 +306,103 @@
     
     NSString *textDirection = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
     NSString *textDirectionJS = [NSString stringWithFormat:@"document.body.style.direction = '%@'", textDirection];
-    [self.webView stringByEvaluatingJavaScriptFromString:textDirectionJS];
-
+    [webView stringByEvaluatingJavaScriptFromString:textDirectionJS];
+    
     NSString *fontSizeJS = [NSString stringWithFormat:@"document.body.style.fontSize = '%f%%'", (MENUS_SCALE_MULTIPLIER * 100.0f)];
-    [self.webView stringByEvaluatingJavaScriptFromString:fontSizeJS];
+    [webView stringByEvaluatingJavaScriptFromString:fontSizeJS];
+    
 }
 
-// Force web view links to open in Safari.
-// From: http://stackoverflow.com/a/2532884
+#pragma mark - Introspection
+
+- (BOOL)isDisplayingLicense{
+    
+    if([[[[self.webView request] URL] scheme] isEqualToString:kWMFLicenseRedirectScheme] &&
+       [[[[self.webView request] URL] resourceSpecifier] isEqualToString:kWMFLicenseRedirectResourceIdentifier]){
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+
+#pragma mark - UIWebViewDelegate
+
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
 {
     NSURL *requestURL = [request URL];
-    if (
-        (
-         [[requestURL scheme] isEqualToString:@"http"]
-         ||
-         [[requestURL scheme] isEqualToString:@"https"]
-         ||
-         [[requestURL scheme] isEqualToString:@"mailto"])
-        && (navigationType == UIWebViewNavigationTypeLinkClicked)
-        ) {
+    
+    if([[self class] isLicenseURL:requestURL]){
+        
+        NSString* licenseText = [self licenceTextForLicenseURL:requestURL];
+        [self.webView loadHTMLString:licenseText baseURL:nil];
+        
+        return NO;
+    }
+    
+    if (navigationType == UIWebViewNavigationTypeLinkClicked &&
+        [[self class] isExternalURL:requestURL]){
+        
         return ![[UIApplication sharedApplication] openURL:requestURL];
     }
     return YES;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    if(!([[self class] isLicenseURL:[webView.request URL]] || [[self class] isLicenseRedirectURL:[webView.request URL]])){
+        [self injectAboutPageContentIntoWebView:webView];
+    }
+
+    [self updateNavigationBar];
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
+#pragma mark - Utility Methods
+
++ (NSString *)linkHTMLForURLString:(NSString *)url title:(NSString *)title
+{
+    return [NSString stringWithFormat:@"<a href='%@'>%@</a>", url, title];
+}
+
++ (NSString *)licenseURLPathForLibraryName:(NSString *)name
+{
+    return [NSString stringWithFormat:@"%@://%@", kWMFLicenseScheme, name];
+}
+
++ (BOOL)isLicenseURL:(NSURL *)url
+{
+    if([[url scheme] isEqualToString:kWMFLicenseScheme]){
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
++ (BOOL)isLicenseRedirectURL:(NSURL *)url
+{
+    if([[url scheme] isEqualToString:kWMFLicenseRedirectScheme]){
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
++ (BOOL)isExternalURL:(NSURL *)url
+{
+    if ([[url scheme] isEqualToString:@"http"] ||
+        [[url scheme] isEqualToString:@"https"] ||
+        [[url scheme] isEqualToString:@"mailto"]){
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+
 
 @end

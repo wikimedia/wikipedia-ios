@@ -470,6 +470,10 @@
             self.navBarSubViewsHorizontalVFLString =
             @"H:|-(6)-[NAVBAR_BUTTON_X(50)][NAVBAR_LABEL]-(56)-|";
             break;
+        case NAVBAR_MODE_BACK_WITH_LABEL:
+            self.navBarSubViewsHorizontalVFLString =
+            @"H:|-(4)-[NAVBAR_BUTTON_ARROW_LEFT(50)]-(10)-[NAVBAR_LABEL]-(56)-|";
+            break;
         case NAVBAR_MODE_PAGES_HISTORY:
         case NAVBAR_MODE_PAGES_SAVED:
             self.navBarSubViewsHorizontalVFLString =

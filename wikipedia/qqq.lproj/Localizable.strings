@@ -166,6 +166,7 @@
 "about-translators" = "Header text for translators section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.\n{{Identical|Translator}}";
 "about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";
 "about-libraries" = "Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.";
+"about-libraries-license" = "About page link title that will display a license for a library used in the app";
 "about-repositories" = "Header text for repositories section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. \n{{Identical|Repository}}";
 "about-send-feedback" = "Link text for sending app feedback";
 "about-product-of" = "Description of who produced the app. $1 is the message {{msg-wikimedia|wikipedia-ios-about-wikimedia-foundation}}.";
