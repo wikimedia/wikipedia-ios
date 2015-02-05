@@ -447,7 +447,10 @@
         // Show search suggestion if necessary.
         // Search suggestion can be returned if zero or more search results found.
         // That's why this is here in not in the "SUCCEEDED" case above.
-        self.searchSuggestion = searchResultFetcher.searchSuggestion;
+        // We only want the suggestion from the initial TITLE search.
+        if (searchResultFetcher.searchType == SEARCH_TYPE_TITLES) {
+            self.searchSuggestion = [searchResultFetcher.searchSuggestion copy];
+        }
         if (self.searchSuggestion) {
             [self.didYouMeanButton showWithText: MWLocalizedString(@"search-did-you-mean", nil)
                                            term: self.searchSuggestion];

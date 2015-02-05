@@ -130,6 +130,17 @@
                      @"wbptterms": @"description",
                      @"pithumbsize" : @(SEARCH_THUMBNAIL_WIDTH),
                      @"pilimit": @(SEARCH_MAX_RESULTS),
+                     // -- Parameters causing prefix search to efficiently return suggestion.
+                     @"list": @"search",
+                     @"srsearch": self.searchTerm,
+                     @"srnamespace": @0,
+                     @"srwhat": @"text",
+                     @"srinfo": @"suggestion",
+                     @"srprop": @"",
+                     @"sroffset": @0,
+                     @"srlimit": @1,
+                     // --
+                     @"continue": @"",
                      @"format": @"json"
                      };
             break;
@@ -150,6 +161,7 @@
                      @"piprop": @"thumbnail",
                      @"pithumbsize" : @(SEARCH_THUMBNAIL_WIDTH),
                      @"pilimit": @(SEARCH_MAX_RESULTS),
+                     @"continue": @"",
                      @"format": @"json"
                      };
             break;
