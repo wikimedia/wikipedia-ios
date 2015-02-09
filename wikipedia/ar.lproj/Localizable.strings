@@ -43,13 +43,17 @@
 "wikitext-upload-save-sign-in" = "تسجيل الدخول";
 "wikitext-upload-save-sign-in-benefits" = "ليستطيع المحررون الزملاء التواصل معك وليكون باستطاعتك رؤية المقالات التي عدَّلتَها.";
 "wikitext-upload-save-anonymously" = "احفظ كمستخدم مجهول";
+"wikitext-upload-save-terms-name" = "شروط الاستخدام";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "فتح الرابط";
 "open-link-cancel" = "إلغاء";
 "search-searching" = "جارٍ البحث...";
+"search-titles" = "العناوين";
 "search-recent-clear-cancel" = "إلغاء";
 "search-recent-clear-delete-all" = "حذف الكل";
 "main-menu-title" = "المزيد";
 "main-menu-account-title-logged-out" = "الحساب";
+"main-menu-show-saved" = "الصفحات المحفوظة";
 "main-menu-random" = "عشوائي";
 "main-menu-privacy-policy" = "سياسة الخصوصية";
 "main-menu-show-today" = "اليوم";

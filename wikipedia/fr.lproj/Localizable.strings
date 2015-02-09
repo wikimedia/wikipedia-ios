@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Brion Vibber
 // Author: Gomoko
+// Author: Hydros
 // Author: John Trololo
 // Author: Macofe
 // Author: Orikrin1998
@@ -17,7 +18,7 @@
 "history-section-today" = "Aujourd'hui";
 "history-section-yesterday" = "Hier";
 "history-section-lastweek" = "La semaine dernière";
-"history-section-lastmonth" = "Mois dernier";
+"history-section-lastmonth" = "Le mois dernier";
 "history-clear-confirmation-heading" = "Supprimer tous les éléments récents ?";
 "history-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
 "history-clear-cancel" = "Annuler";
@@ -85,7 +86,7 @@
 "search-cancel" = "Annuler";
 "search-titles" = "Titres";
 "search-within-articles" = "Dans les articles";
-"search-did-you-mean" = "Vouliez-vous dire $1 ?";
+"search-did-you-mean" = "Voulez-vous dire $1 ?";
 "search-recent-title" = "Recherches récentes";
 "search-recent-clear-confirmation-heading" = "Supprimer toutes les recherches récentes ?";
 "search-recent-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
@@ -150,8 +151,8 @@
 "edit-summary-field-placeholder-text" = "Comment avez-vous amélioré la page ?";
 "edit-summary-title" = "Comment avez-vous amélioré cet article ?";
 "fetching-random-article" = "Récupération d’un article au hasard";
-"article-pull-to-refresh-prompt" = "Tirer pour rafraîchir l’article";
-"article-pull-to-refresh-is-refreshing" = "Article rafraîchi";
+"article-pull-to-refresh-prompt" = "Tirer pour actualisé l’article";
+"article-pull-to-refresh-is-refreshing" = "Article actualisé";
 "credits-title" = "Lieux de mise à disposition des Open sources";
 "credits-wikimedia-repos" = "Wikimedia";
 "credits-gerrit-repo" = "Application principale (Gerrit)";
@@ -186,11 +187,11 @@
 "onboarding-create-account" = "Créer un compte";
 "onboarding-login" = "Se connecter";
 "onboarding-already-have-account" = "Vous avez déjà un compte ? $1";
-"onboarding-skip" = "Sauter";
+"onboarding-skip" = "Passer";
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "L’Encyclopédie libre";
 "preference_title_eventlogging_opt_in" = "Envoyer les rapports d’utilisation";
-"preference_summary_eventlogging_opt_in" = "Permettre à Wikimédia de collecter des informations sur la manière dont vous utilisez l’application, afin de la rendre meilleure";
+"preference_summary_eventlogging_opt_in" = "Permettre à Wikimédia de collecter des informations sur la manière dont vous utilisez l’application, afin de l'améliorer";
 "page_protected_autoconfirmed" = "Cette page a été semi-protégée.";
 "page_protected_sysop" = "Cette page a été complètement protégée.";
 "page_protected_other" = "Cette page a été protégée pour les niveaux suivants : $1";

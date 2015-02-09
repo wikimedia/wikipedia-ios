@@ -1,12 +1,13 @@
 // Messages for French (français)
 // Exported from translatewiki.net
 // Author: Gomoko
+// Author: Hydros
 
 "21c-U6-yfo.normalTitle" = "Afficher un autre captcha";
 "5cT-2Y-0Ie.placeholder" = "Nom de l’utilisateur";
 "GiD-Rj-wb7.text" = "Les pages enregistrées sont assez impressionnantes. Voyez-les comme des favoris que vous pouvez lire même en étant déconnecté.";
 "LfM-01-aCF.text" = "Aperçu";
-"P6J-IE-CiO.text" = "Sauter";
+"P6J-IE-CiO.text" = "Passer";
 "PCr-0J-fBj.placeholder" = "Mot de passe";
 "UgH-77-lyp.placeholder" = "Saisir de nouveau le mot de passe";
 "W1c-wQ-1pa.text" = "Encore aucune page enregistrée.";

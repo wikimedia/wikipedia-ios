@@ -46,7 +46,7 @@
 "account-creation-password-placeholder-text" = "Kata sandi";
 "account-creation-password-confirm-placeholder-text" = "Konfirmasi kata sandi";
 "account-creation-email-placeholder-text" = "Alamat surel/email (dianjurkan untuk diisi)";
-"account-creation-missing-fields" = "Anda harus memasukan username, password, and konfirmasi password untuk membuat sebuah akun.";
+"account-creation-missing-fields" = "Anda harus memasukkan nama pengguna, kata sandi, dan mengonfirmasi kata sandi untuk membuat sebuah akun.";
 "login-name-not-found" = "Nama pengguna diperlukan untuk masuk log.";
 "login-name-illegal" = "Anda memberikan nama pengguna yang tidak sah.";
 "login-name-does-not-exist" = "Nama pengguna yang Anda berikan tidak ada.";
@@ -85,7 +85,7 @@
 "search-cancel" = "Batal";
 "search-titles" = "Judul";
 "search-within-articles" = "Dalam artikel";
-"search-did-you-mean" = "Apakah maksud Anda $1?";
+"search-did-you-mean" = "Mungkin maksud Anda adalah: $1";
 "search-recent-title" = "Pencarian terkini";
 "search-recent-clear-confirmation-heading" = "Hapus semua pencarian terkini?";
 "search-recent-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";

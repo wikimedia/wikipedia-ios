@@ -47,6 +47,7 @@
 "account-creation-password-placeholder-text" = "密碼";
 "account-creation-password-confirm-placeholder-text" = "確認密碼";
 "account-creation-email-placeholder-text" = "電子郵件（可選）";
+"account-creation-missing-fields" = "您必須輸入使用者名稱與密碼，並且在確認密碼之後才能建立一個帳號。";
 "login-name-not-found" = "需要使用者名稱才能登入。";
 "login-name-illegal" = "您提供的使用者名稱無效。";
 "login-name-does-not-exist" = "您提供的使用者名稱不存在。";

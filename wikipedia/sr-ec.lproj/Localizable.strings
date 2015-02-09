@@ -1,18 +1,22 @@
 // Messages for Serbian (Cyrillic script) (српски (ћирилица)‎)
 // Exported from translatewiki.net
+// Author: Aktron
 // Author: Fendo99
 // Author: Milicevic01
 // Author: Rancher
 
 "article-languages-label" = "Изаберите језик";
 "article-languages-cancel" = "Откажи";
+"article-languages-downloading" = "Учитавање језика...";
 "article-languages-filter-placeholder" = "Филтер језика";
+"language-button-text" = "Овај чланак можете да читате још у %d језика";
 "history-label" = "Историја прегледања";
 "history-section-today" = "Данас";
 "history-section-yesterday" = "Јуче";
 "history-section-lastweek" = "Прошле недеље";
 "history-section-lastmonth" = "Прошлог месеца";
 "history-clear-cancel" = "Откажи";
+"history-clear-delete-all" = "Обрисати све";
 "zero-interstitial-continue" = "Настави";
 "zero-interstitial-cancel" = "Откажи";
 "zero-learn-more-learn-more" = "Сазнајте више";
@@ -76,8 +80,13 @@
 "main-menu-terms-of-use" = "Услови коришћења";
 "main-menu-rate-app" = "Оцените апликацију";
 "main-menu-show-today" = "Данас";
+"main-menu-nearby" = "У близини";
+"main-menu-more" = "Више…";
 "saved-pages-title" = "Сачуване странице";
+"saved-pages-clear-confirmation-heading" = "Обрисати све сачуване?";
+"saved-pages-clear-confirmation-sub-heading" = "Ова радња се не може поништити!";
 "saved-pages-clear-cancel" = "Откажи";
+"saved-pages-clear-delete-all" = "Обрисати све";
 "page-history-title" = "Историја странице";
 "page-history-downloading" = "Учитавам историју странице...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
@@ -101,9 +110,23 @@
 "edit-summary-field-placeholder-text" = "Како сте унапредили страницу?";
 "edit-summary-title" = "Како сте унапредили чланак?";
 "credits-wikimedia-repos" = "Викимедија";
+"about-title" = "О";
+"about-wikipedia" = "Википедија";
+"about-contributors" = "Доприносиоци";
+"about-testers" = "тестери";
+"about-translators" = "Преводиоци";
+"about-translators-details" = "За превод су заслужни волонтери сајта $1";
+"about-repositories" = "репозитари";
+"about-send-feedback" = "Пошаљи повратне информације";
+"about-wikimedia-foundation" = "Задужбина Викимедије";
 "share-menu-save-page" = "Сачувај чланак";
 "share-menu-page-saved" = "Чланак сачуван";
 "timestamp-just-now" = "управо сад";
+"timestamp-minutes" = "пре %d минута";
+"timestamp-hours" = "пре %d сати";
+"timestamp-days" = "пре %d дана";
+"timestamp-months" = "пре %d месеца";
+"timestamp-years" = "пре %d година";
 "button-next" = "Следеће";
 "button-done" = "Урађено";
 "button-save" = "Сачувај";
@@ -113,6 +136,7 @@
 "onboarding-skip" = "Прескочи";
 "onboarding-wikipedia" = "Википедија";
 "onboarding-free-encyclopedia" = "Слободна енциклопедија";
+"preference_title_eventlogging_opt_in" = "Пошаљи корисничке извештаје";
 "page_protected_autoconfirmed" = "Ова страница је полузаштићена.";
 "page_protected_sysop" = "Ова страница је потпуно заштићена.";
 "page_protected_can_not_edit" = "Немате овлашћења да уређујете ову страницу";
@@ -121,7 +145,21 @@
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Садржај";
 "abuse-filter-disallow-heading" = "Не можете да сачувате ову измену. Вратите се назад и промените је.";
+"abuse-filter-disallow-notable" = "Википедија је енциклопедија што занчи да само садржај који је неутралан и релевантан треба да се налази овде.";
+"menu-edit-accessibility-label" = "Уреди";
 "menu-close-accessibility-label" = "Затвори";
+"menu-preview-accessibility-label" = "Претпреглед";
+"menu-back-accessibility-label" = "Назад";
+"menu-forward-accessibility-label" = "Напред";
+"menu-w-accessibility-label" = "Мени";
+"menu-toc-accessibility-label" = "Садржај";
+"menu-search-accessibility-label" = "Претрага";
 "menu-cancel-accessibility-label" = "Откажи";
+"menu-share-accessibility-label" = "Дели";
+"menu-more-accessibility-label" = "Више подешавања";
+"menu-trash-accessibility-label" = "Брисање";
+"nearby-title" = "У близини";
 "nearby-distance-label-km" = "$1 km";
+"nearby-loading" = "Учитавање чланака о темама у близини.";
+"nearby-open-in-maps" = "Отворити у Мапама";
 "nearby-cancel" = "Откажи";
