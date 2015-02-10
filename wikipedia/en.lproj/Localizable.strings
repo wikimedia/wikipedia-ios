@@ -177,6 +177,7 @@
 "about-translators" = "translators";
 "about-translators-details" = "Translated by volunteers at $1";
 "about-libraries" = "libraries used";
+"about-libraries-license" = "License";
 "about-repositories" = "repositories";
 "about-send-feedback" = "Send app feedback";
 "about-product-of" = "A product of the $1";
