@@ -19,4 +19,9 @@
 
 - (NSString *)capitalizeFirstLetter;
 
+- (BOOL)wmf_containsString:(NSString*)string;
+- (BOOL)wmf_caseInsensitiveContainsString:(NSString*)string;
+- (BOOL)wmf_containsString:(NSString*)string options:(NSStringCompareOptions)options;
+
+
 @end

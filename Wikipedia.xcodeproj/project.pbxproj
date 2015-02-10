@@ -182,6 +182,7 @@
 		954BA118838BF8BA6B01C34A /* libPods-WikipediaUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */; };
 		BC42735D1A7C73B300068882 /* NSArray+Predicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CBAC7219A9B786009F3D7E /* NSArray+Predicate.m */; };
 		BC42735E1A7C73B300068882 /* NSArray+PredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */; };
+		C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */; };
 		C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		D401C2C01A659E5000D4D127 /* DataMigrationProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D401C2BE1A659E5000D4D127 /* DataMigrationProgressViewController.m */; };
 		D401C2C11A659E5000D4D127 /* DataMigrationProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D401C2BF1A659E5000D4D127 /* DataMigrationProgressViewController.xib */; };
@@ -583,6 +584,7 @@
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8309961A7BF935003FC5C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PredicateTests.m"; path = "Utilities/NSArray+PredicateTests.m"; sourceTree = "<group>"; };
+		C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "../../../Pods/Target Support Files/Pods/Pods-acknowledgements.plist"; sourceTree = "<group>"; };
 		C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaAppUtils.h; sourceTree = "<group>"; };
 		C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikipediaAppUtils.m; sourceTree = "<group>"; };
 		D401C2BD1A659E5000D4D127 /* DataMigrationProgressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataMigrationProgressViewController.h; path = DataMigration/DataMigrationProgressViewController.h; sourceTree = "<group>"; };
@@ -1094,6 +1096,7 @@
 				045D871F19FAD2FA0035C1F9 /* AboutViewController.h */,
 				045D872019FAD2FA0035C1F9 /* AboutViewController.m */,
 				0484411D19FF15AF00FD26C5 /* AboutViewController.plist */,
+				C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -2026,6 +2029,7 @@
 				04E106351A3560030046DC27 /* LeadImageContainer.xib in Resources */,
 				D4C16A6819709CDF00CD91AD /* (null) in Resources */,
 				047E74141860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */,
+				C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */,
 				04123630189C29EA00E0CF8E /* abuse-filter-disallowed@2x.png in Resources */,
 				D4BC22B4181E9E6300CAC673 /* empty.png in Resources */,
 				04123636189C29EA00E0CF8E /* abuse-filter-flag-white.png in Resources */,

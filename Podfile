@@ -3,6 +3,7 @@ platform :ios, :deployment_target => '6.0'
 
 pod 'AFNetworking', '< 2.6'
 pod 'hpple', '< 0.3'
+pod 'blockskit/Core', '< 2.3'
 
 target 'WikipediaUnitTests', :exclusive => false do
   pod 'OCMockito', '< 1.5'
