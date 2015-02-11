@@ -198,6 +198,7 @@ static const int kMinimumTextSelectionLength = 10;
 
     __weak WebViewController *weakSelf = self;
     [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString *type, NSDictionary *payload) {
+        
         [weakSelf performSelector:@selector(loadingIndicatorHide) withObject:nil afterDelay:0.22f];
         [weakSelf.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
         [weakSelf jumpToFragmentIfNecessary];
@@ -205,6 +206,16 @@ static const int kMinimumTextSelectionLength = 10;
 
         // Show lead image!
         [weakSelf.leadImageContainer showForArticle:[SessionSingleton sharedInstance].article];
+        [weakSelf.bridge sendMessage: @"setTableLocalization"
+                         withPayload: @{
+                                        @"string_table_infobox": MWLocalizedString(@"info-box-title", nil),
+                                        @"string_table_other": MWLocalizedString(@"info-box-title", nil),
+                                        @"string_table_close": MWLocalizedString(@"info-box-close-text", nil)
+                                        }];
+
+        [weakSelf.bridge sendMessage: @"collapseTables"
+                         withPayload: nil];
+
     }];
     
     self.unsafeToScroll = NO;
@@ -1779,6 +1790,7 @@ static const int kMinimumTextSelectionLength = 10;
     
     return [NSString stringWithFormat:@"<div dir=\"%@\" class=\"mw-license-footer\">%@</div>", dir, licenseText];
 }
+
 
 #pragma mark Scroll to last section after rotate
 

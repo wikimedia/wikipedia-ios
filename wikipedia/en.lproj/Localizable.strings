@@ -3,6 +3,9 @@
 "article-languages-downloading" = "Loading article languages...";
 "article-languages-filter-placeholder" = "Language Filter";
 
+"info-box-title" = "Quick Facts";
+"info-box-close-text" = "Close";
+
 "language-button-text" = "You can read this article in %d other languages";
 
 "history-label" = "Recent";

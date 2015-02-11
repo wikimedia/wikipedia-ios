@@ -47,6 +47,10 @@
 - (void)sendMessage: (NSString *)messageType
         withPayload: (NSDictionary *)payload
 {
+    
+    if(!payload)
+        payload = @{};
+    
     NSString *js = [NSString stringWithFormat:@"bridge.handleMessage(%@,%@)",
                     [self stringify:messageType],
                     [self stringify:payload]];

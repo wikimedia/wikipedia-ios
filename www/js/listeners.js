@@ -44,6 +44,19 @@ bridge.registerListener( "setPageProtected", function() {
     document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
 } );
 
+
+bridge.registerListener( "setTableLocalization", function( payload ) {
+    window.string_table_infobox = payload.string_table_infobox;
+    window.string_table_other = payload.string_table_other;
+    window.string_table_close = payload.string_table_close;
+} );
+
+
+bridge.registerListener( "collapseTables", function( payload ) {
+    transformer.transform( "hideTables", document );
+} );
+
+
 /**
  * Quickie function to walk from the current element up to parents and match CSS-ish selectors.
  * Think of it as a reverse element.querySelector :)
