@@ -8,7 +8,8 @@
 #import "Defines.h"
 #import "NSString+Extras.h"
 #import <BlocksKit/BlocksKit.h>
-#import "ModalContentViewController.h"
+#import "TopMenuTextFieldContainer.h"
+#import "TopMenuTextField.h"
 
 static NSString* const kWMFAboutHTMLFile = @"about.html";
 static NSString* const kWMFAboutPlistName = @"AboutViewController";
@@ -82,13 +83,11 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
 - (void)updateNavigationBar{
     
-    /*
-     HACK: This is pretty terrible. The current VC should not need to know about the containing view controller to set its nav bar buttons and title.
-     We really need to change the modal display logic to make sure modal VCs can update their navigation bar.
-     That is obviously a pretty big refactor and effects several VCs - so not doing that here. In the mean time, we are casting what we know the containing VC to be so we can make the needed changes.
-     */
-    [(ModalContentViewController*)self.parentViewController setNavBarMode:self.navBarMode];
-    [(ModalContentViewController*)self.parentViewController setTopMenuText:self.title];
+    // TODO: let VCs update the navigation bar, inverting control
+    
+    self.topMenuViewController.navBarMode = self.navBarMode;
+    TopMenuTextFieldContainer *textFieldContainer = [self.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
+    textFieldContainer.textField.text = self.title;
 }
 
 - (void)navItemTappedNotification:(NSNotification *)notification
