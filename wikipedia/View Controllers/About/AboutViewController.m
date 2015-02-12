@@ -30,7 +30,7 @@ static NSString* const kWMFRepositoriesKey = @"repositories";
 static NSString* const kWMFLibrariesKey = @"libraries";
 static NSString* const kWMFLibraryNameKey = @"Name";
 static NSString* const kWMFLibraryURLKey = @"Source URL";
-static NSString* const kWMFLibraryLicenseTextKey = @"Licence Text";
+static NSString* const kWMFLibraryLicenseTextKey = @"License Text";
 
 static NSString* const kWMFLicenseScheme = @"wmflicense";
 static NSString* const kWMFLicenseRedirectScheme = @"about";
@@ -182,12 +182,17 @@ static NSString* const kWMFContributorsKey = @"contributors";
         
         NSString* licenseLink = [[self class] linkHTMLForURLString:licenseURLPath title:MWLocalizedString(@"about-libraries-license", nil)];
         
-        return [sourceLink stringByAppendingFormat:@" (%@)", licenseLink];
+        return [sourceLink stringByAppendingString:[self createRTLCompatibleLicenseLink:licenseLink]];
     }];
     
     return [libraries componentsJoinedByString:@", "];
 }
 
+-(NSString *)createRTLCompatibleLicenseLink:(NSString *)licenseLink
+{
+    // See: http://stackoverflow.com/a/7931735
+    return [NSString stringWithFormat:@" (%@)&#x200E;", licenseLink];
+}
 
 -(NSString *)repositoryLinks
 {
@@ -215,12 +220,12 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
 #pragma mark - License Search
 
-- (NSString*)licenceTextForLicenseURL:(NSURL*)licenseURL{
+- (NSString*)licenseTextForLicenseURL:(NSURL*)licenseURL{
     
-    return [self licenceTextForLibraryName:[licenseURL host]];
+    return [self licenseTextForLibraryName:[licenseURL host]];
 }
 
-- (NSString*)licenceTextForLibraryName:(NSString*)libraryName{
+- (NSString*)licenseTextForLibraryName:(NSString*)libraryName{
     
     NSString* license = [self.podLibraryLicenses bk_match:^BOOL(NSString* key, NSString* license) {
        
@@ -334,7 +339,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
     
     if([[self class] isLicenseURL:requestURL]){
         
-        NSString* licenseText = [self licenceTextForLicenseURL:requestURL];
+        NSString* licenseText = [self licenseTextForLicenseURL:requestURL];
         [self.webView loadHTMLString:licenseText baseURL:nil];
         
         return NO;

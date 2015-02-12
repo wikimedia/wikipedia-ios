@@ -27,7 +27,7 @@
 			<string>WikiFont</string>
 			<key>Source URL</key>
 			<string>https://github.com/munmay/WikiFont</string>
-			<key>Licence Text</key>
+			<key>License Text</key>
 			<string>Copyright (c) 2014, github.com/munmay
 All rights reserved.
 
@@ -58,7 +58,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</string>
 			<string>Hpple</string>
 			<key>Source URL</key>
 			<string>https://github.com/topfunky/hpple</string>
-			<key>Licence Text</key>
+			<key>License Text</key>
 			<string>pod install</string>
 		</dict>
 		<dict>
@@ -66,7 +66,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</string>
 			<string>NSDate-Extensions</string>
 			<key>Source URL</key>
 			<string>https://github.com/erica/NSDate-Extensions</string>
-			<key>Licence Text</key>
+			<key>License Text</key>
 			<string>Copyright (c) 2015, Erica Sadun
 All rights reserved.
 
@@ -97,7 +97,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			<string>AFNetworking</string>
 			<key>Source URL</key>
 			<string>https://github.com/AFNetworking/AFNetworking</string>
-			<key>Licence Text</key>
+			<key>License Text</key>
 			<string>pod install</string>
 		</dict>
 		<dict>
@@ -105,7 +105,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			<string>CocoaPods</string>
 			<key>Source URL</key>
 			<string>https://github.com/CocoaPods/CocoaPods</string>
-			<key>Licence Text</key>
+			<key>License Text</key>
 			<string>This project is licensed under the MIT license.
 
 Copyright (c) 2011 - 2014 Eloy Durán &lt;eloy.de.enige@gmail.com&gt;
@@ -134,7 +134,7 @@ THE SOFTWARE.</string>
 			<string>BlocksKit</string>
 			<key>Source URL</key>
 			<string>https://github.com/zwaldowski/BlocksKit</string>
-			<key>Licence Text</key>
+			<key>License Text</key>
 			<string>pod install</string>
 		</dict>
 	</array>
