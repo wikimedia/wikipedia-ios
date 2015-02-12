@@ -357,11 +357,16 @@ static NSString* const kWMFContributorsKey = @"contributors";
 {
     if(!([[self class] isLicenseURL:[webView.request URL]] || [[self class] isLicenseRedirectURL:[webView.request URL]])){
         [self injectAboutPageContentIntoWebView:webView];
+    }else{
+        [self preventTextFromExpandingOnRotationInWebView: webView];
     }
-
     [self updateNavigationBar];
 }
 
+-(void)preventTextFromExpandingOnRotationInWebView:(UIWebView *)webView
+{
+    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style['-webkit-text-size-adjust'] = 'none';"];
+}
 
 #pragma mark - Utility Methods
 
