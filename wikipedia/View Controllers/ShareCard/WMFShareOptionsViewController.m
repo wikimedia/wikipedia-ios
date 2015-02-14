@@ -11,11 +11,13 @@
 #import "WMFShareOptionsView.h"
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
+#import "NSString+Extras.h"
 
 @interface WMFShareOptionsViewController ()
 
 @property (strong, nonatomic, readwrite) UIView *backgroundView;
 @property (strong, nonatomic, readwrite) NSString *snippet;
+@property (strong, nonatomic, readwrite) NSString *snippetForTextOnlySharing;
 @property (strong, nonatomic, readwrite) MWKArticle *article;
 @property (nonatomic, assign, readwrite) id<WMFShareOptionsViewControllerDelegate> delegate;
 
@@ -41,8 +43,19 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (instancetype)initWithMWKArticle: (MWKArticle*) article snippet: (NSString *) snippet backgroundView: (UIView*) backgroundView delegate: (id) delegate
+- (instancetype)initWithMWKArticle:(MWKArticle*)article
+                           snippet:(NSString*)snippet
+                    backgroundView:(UIView*)backgroundView
+                          delegate:(id)delegate
 {
+    if (!article || !backgroundView) {
+        NSAssert(false,
+                 @"Valid (article, backgroundView) required: (%@, %@)",
+                 article,
+                 backgroundView);
+        // seriously, we don't need to be crashing the app in prod
+        return nil;
+    }
     self = [super init];
     if (self) {
         _desktopURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@",
@@ -58,10 +71,16 @@
         _shareTitle = article.title.prefixedText;
         WMFShareCardViewController* cardViewController = [[WMFShareCardViewController alloc] initWithNibName:@"ShareCard" bundle:nil];
         _snippet = snippet;
+        if (snippet.length == 0) {
+            _snippet = [self generateSnippetHeuristicallyWithArticle:article];
+            _snippetForTextOnlySharing = @"";
+        } else {
+            _snippetForTextOnlySharing = snippet;
+        }
         
         // get handle, fill, and render
         UIView *cardView = cardViewController.view;
-        [cardViewController fillCardWithMWKArticle:article snippet:snippet];
+        [cardViewController fillCardWithMWKArticle:article snippet:_snippet];
         _shareImage = [self cardAsUIImageWithView:cardView];
         
         WMFShareOptionsView *shareOptionsView = [[[NSBundle mainBundle] loadNibNamed:@"ShareOptions" owner:self options:nil] objectAtIndex:0];
@@ -80,6 +99,28 @@
         
     }
     return self;
+}
+
+-(NSString*)generateSnippetHeuristicallyWithArticle:(MWKArticle*)article
+{
+    NSString *heuristicText = @"";
+    MWKSectionList *sections = article.sections;
+    for (MWKSection *section in sections) {
+        NSString *sectionText = section.text;
+        NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"<p>(.+)</p>" options:0 error:nil];
+        NSArray *matches = [re matchesInString:sectionText options:0 range:NSMakeRange(0, sectionText.length)];
+        if ([matches count]) {
+            sectionText = [sectionText substringWithRange:[matches[0] rangeAtIndex:1]];
+            heuristicText = [sectionText getStringWithoutHTMLAndWastedWhitespace];
+            break;
+        }
+    }
+    if ([heuristicText isEqualToString:@""]) {
+        if (sections[0]) {
+            heuristicText = [sections[0].text getStringWithoutHTMLAndWastedWhitespace];
+        }
+    }
+    return heuristicText;
 }
 
 - (UIImage*) cardAsUIImageWithView: (UIView*) theView
@@ -218,26 +259,18 @@
 
 - (void)respondToTapForTextGesture: (UITapGestureRecognizer*) recognizer
 {
-    [self.delegate tappedShareCardWithText: self.snippet];
-    if ([self.snippet isEqualToString:@""]) {
+    [self.delegate tappedShareTextWithText:self.snippet];
+    if (self.snippetForTextOnlySharing.length == 0) {
         self.shareTitle = [MWLocalizedString(@"share-article-name-on-wikipedia", nil)
-                 stringByReplacingOccurrencesOfString:@"$1" withString:self.shareTitle];
+                           stringByReplacingOccurrencesOfString:@"$1" withString:self.shareTitle];
     } else {
         self.shareTitle = [[MWLocalizedString(@"share-article-name-on-wikipedia-with-selected-text", nil)
-                  stringByReplacingOccurrencesOfString:@"$1" withString:self.shareTitle]
-                 stringByReplacingOccurrencesOfString:@"$2" withString:self.snippet];
+                            stringByReplacingOccurrencesOfString:@"$1" withString:self.shareTitle]
+                           stringByReplacingOccurrencesOfString:@"$2" withString:self.snippetForTextOnlySharing];
     }
-    
-    MWKImage *bestImage = self.article.image;
-    if (!bestImage) {
-        bestImage = self.article.thumbnail;
-    }
-    if (bestImage) {
-        self.shareImage = [bestImage asUIImage];
-    } else {
-        // Well, there's no image and the user didn't want a card
-        self.shareImage = nil;
-    }
+
+    // per UX, don't have an image for Share as text
+    self.shareImage = nil;
     [self transferSharingToDelegate];
 }
 

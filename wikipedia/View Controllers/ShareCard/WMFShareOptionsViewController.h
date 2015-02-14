@@ -21,8 +21,12 @@
 
 @property (readonly) MWKArticle *article;
 @property (readonly) NSString *snippet;
+@property (readonly) NSString *snippetForTextOnlySharing;
 @property (readonly) UIView *backgroundView;
 @property (readonly) id<WMFShareOptionsViewControllerDelegate> delegate;
 
-- (instancetype)initWithMWKArticle: (MWKArticle*) article snippet: (NSString *) snippet backgroundView: (UIView*) backgroundView delegate: (id) delegate;
+- (instancetype)initWithMWKArticle:(MWKArticle*)article
+                           snippet:(NSString*)snippet
+                    backgroundView:(UIView*)backgroundView
+                          delegate:(id)delegate;
 @end

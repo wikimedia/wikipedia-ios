@@ -64,7 +64,7 @@
                     <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <size key="shadowOffset" width="0.0" height="1"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Snippet" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.16" preferredMaxLayoutWidth="560" translatesAutoresizingMaskIntoConstraints="NO" id="QlQ-cG-u6Y" userLabel="Selected Text">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Snippet" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumFontSize="38" preferredMaxLayoutWidth="560" translatesAutoresizingMaskIntoConstraints="NO" id="QlQ-cG-u6Y" userLabel="Selected Text">
                     <rect key="frame" x="30" y="1" width="580" height="225"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="225" id="GMh-Yg-20E"/>

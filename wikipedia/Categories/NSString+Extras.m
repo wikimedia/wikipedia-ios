@@ -91,6 +91,14 @@
     return result;
 }
 
+-(NSString*)getStringWithoutHTMLAndWastedWhitespace
+{
+    return [[[self getStringWithoutHTML]
+             stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"]
+            stringByTrimmingCharactersInSet:
+            [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
 - (NSString *)randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
 {
     float(^rnd)() = ^(){

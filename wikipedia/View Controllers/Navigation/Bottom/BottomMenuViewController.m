@@ -33,8 +33,6 @@ typedef NS_ENUM(NSInteger, BottomMenuItemTag) {
     BOTTOM_MENU_BUTTON_SAVE
 };
 
-static const int kUpperTextSelectionSize = 160;
-
 @interface BottomMenuViewController ()
 
 @property (weak, nonatomic) IBOutlet WikiGlyphButton *backButton;
@@ -234,38 +232,19 @@ static const int kUpperTextSelectionSize = 160;
 {
     WebViewController *webViewController = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
     NSString *selectedText = [webViewController getSelectedtext];
-    if ([selectedText isEqualToString:@""]) {
-        MWKSectionList *sections = [SessionSingleton sharedInstance].article.sections;
-        for (MWKSection *section in sections) {
-            NSString *sectionText = section.text;
-            NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"<p>(.+)</p>" options:0 error:nil];
-            NSArray *matches = [re matchesInString:sectionText options:0 range:NSMakeRange(0, sectionText.length)];
-            if ([matches count]) {
-                sectionText = [sectionText substringWithRange:[matches[0] rangeAtIndex:1]];
-                selectedText = [[sectionText getStringWithoutHTML] stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];
-                if (selectedText.length > kUpperTextSelectionSize) {
-                    selectedText = [NSString stringWithFormat:@"%@%@",
-                                    [selectedText substringToIndex:kUpperTextSelectionSize],
-                                    @"..."];
-                }
-                break;
-            }
-        }
-        if ([selectedText isEqualToString:@""]) {
-            if (sections[0]) {
-                selectedText = [[sections[0].text getStringWithoutHTML] stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];
-            }
-        }
+    if (selectedText.length == 0) {
+        selectedText = nil;
     }
     [self shareSnippet:selectedText];
 }
 
 - (void)shareButtonPushedWithNotification:(NSNotification *)notification
 {
-    [self shareSnippet:notification.userInfo[WebViewControllerShareSelectedText]];
+    NSString *snippet = notification.userInfo[WebViewControllerShareSelectedText];
+    [self shareSnippet:snippet];
 }
 
-- (void)shareSnippet:(NSString*) snippet
+- (void)shareSnippet:(NSString*)snippet
 {
     WebViewController *webViewController = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
     [webViewController.webView wmf_suppressSelection];
@@ -275,7 +254,10 @@ static const int kUpperTextSelectionSize = 160;
     UIViewController *rootViewController = appDelegate.window.rootViewController;
     UIView *rootView = rootViewController.view;
     
-    self.shareOptionsViewController = [[WMFShareOptionsViewController alloc] initWithMWKArticle:article snippet:snippet backgroundView:rootView delegate:self];
+    self.shareOptionsViewController = [[WMFShareOptionsViewController alloc] initWithMWKArticle:article
+                                                                                        snippet:snippet
+                                                                                 backgroundView:rootView
+                                                                                       delegate:self];
 }
 
 
@@ -285,27 +267,24 @@ static const int kUpperTextSelectionSize = 160;
     if (!self.funnel) {
         self.funnel = [[WMFShareFunnel alloc] initWithArticle:article];
     }
-    [self.funnel logShareIntentWithSelection:text];
+    [self.funnel logShareButtonTappedResultingInSelection:text];
     
 }
 
 -(void) tappedBackgroundToAbandonWithText:(NSString *)text
 {
-    [self.funnel logShareWithSelection:text
-                       platformOutcome:@"abandoned_before_choosing"];
+    [self.funnel logAbandonedAfterSeeingShareAFact];
     [self releaseShareResources];
 }
 
 -(void) tappedShareCardWithText:(NSString *)text
 {
-    [self.funnel logShareWithSelection:text
-                       platformOutcome:@"entered_card"];
+    [self.funnel logShareAsImageTapped];
 }
 
 -(void) tappedShareTextWithText:(NSString *)text
 {
-    [self.funnel logShareWithSelection:text
-                       platformOutcome:@"entered_snippet"];
+    [self.funnel logShareAsTextTapped];
 }
 
 
@@ -338,11 +317,11 @@ static const int kUpperTextSelectionSize = 160;
     }
     
     [shareActivityVC setCompletionHandler:^(NSString *activityType, BOOL completed) {
-        [self.funnel logShareWithSelection:text
-                           platformOutcome: [NSString stringWithFormat:@"finished_%@_%@",
-                                             completed ? @"success" : @"unknown",
-                                             activityType]];
-        NSLog(@"activityType = %@", activityType);
+        if (completed) {
+            [self.funnel logShareSucceededWithShareMethod:activityType];
+        } else {
+            [self.funnel logShareFailedWithShareMethod:activityType];
+        }
         [self releaseShareResources];
     }];
 }

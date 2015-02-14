@@ -10,25 +10,22 @@
 
 @interface WMFShareFunnel : EventLoggingFunnel
 
-@property NSString *shareSessionToken;
-
--(id)initWithArticle:(MWKArticle*) article;
+-(id)initWithArticle:(MWKArticle*)article;
 
 -(void)logHighlight;
--(void)logShareIntentWithSelection:(NSString*) selection;
+-(void)logShareButtonTappedResultingInSelection:(NSString*)selection;
+-(void)logAbandonedAfterSeeingShareAFact;
+-(void)logShareAsImageTapped;
+-(void)logShareAsTextTapped;
 
-/*! Log the final outcome of the share
- * @param selection the textual selection made by the user for sharing
- * @param platformOutcome the success/failure status and, if known, platform.
- * For example, "entered_card" might represent the user tapping on a visually
- * presented card. Next, if the user attempted to share something, it will
- * either succeed (yay) or fail (e.g., if connection didn't work). It's possible
- * to infer from UIActivityViewController's setCompletionHandler block what
- * the outcome was should the user be presented with the official sharing
- * activities list. And in this case it makes sense to concatenate the success
- * or failure status along with the app activity as provided in
- * setCompletionHandler.
+/*! Log the final outcome of the share as a failure
+ * @param shareMethod System provided share application string if known
  */
--(void)logShareWithSelection:(NSString*) selection platformOutcome: (NSString*) platformOutcome;
+-(void)logShareFailedWithShareMethod:(NSString*)shareMethod;
+
+/*! Log the final outcome of the share as a success
+ * @param shareMethod System provided share application string if known
+ */
+-(void)logShareSucceededWithShareMethod:(NSString*)shareMethod;
 
 @end

@@ -81,7 +81,8 @@
 
 // TODO: rename the WebViewControllerVariableNames once we rename this class
 
-static const int kMinimumTextSelectionLength = 10;
+// Some dialects have complex characters, so we use 2 instead of 10
+static const int kMinimumTextSelectionLength = 2;
 
 @interface WebViewController () <LanguageSelectionDelegate>
 {
