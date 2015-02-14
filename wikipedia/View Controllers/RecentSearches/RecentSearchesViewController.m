@@ -78,7 +78,7 @@
     self.trashButton.backgroundColor = [UIColor clearColor];
     [self.trashButton.label setWikiText: WIKIGLYPH_TRASH color:TRASH_COLOR
                                    size: TRASH_FONT_SIZE
-                         baselineOffset: 0];
+                         baselineOffset: 1];
     
     self.trashButton.accessibilityLabel = MWLocalizedString(@"menu-trash-accessibility-label", nil);
     self.trashButton.accessibilityTraits = UIAccessibilityTraitButton;

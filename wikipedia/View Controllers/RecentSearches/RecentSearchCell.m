@@ -55,7 +55,7 @@
                                            attributes: @{
                                                          NSFontAttributeName: [UIFont wmf_glyphFontOfSize:ICON_SIZE],
                                                          NSForegroundColorAttributeName : MAGNIFY_ICON_COLOR,
-                                                         NSBaselineOffsetAttributeName: @0
+                                                         NSBaselineOffsetAttributeName: @1
                                                          }];
 }
 
