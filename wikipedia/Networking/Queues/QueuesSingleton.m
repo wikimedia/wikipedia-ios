@@ -10,8 +10,8 @@
 
 @implementation QueuesSingleton
 
-+ (QueuesSingleton *)sharedInstance
-{
+
++ (QueuesSingleton *)sharedInstance {
     static dispatch_once_t once;
     static id sharedInstance;
     dispatch_once(&once, ^{
@@ -20,8 +20,7 @@
     return sharedInstance;
 }
 
-- (id)init
-{
+- (id)init {
     self = [super init];
     if (self) {
         [self reset];
@@ -29,8 +28,7 @@
     return self;
 }
 
--(void)reset
-{
+- (void)reset {
     self.loginFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
     self.savedPagesFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
     self.sectionWikiTextDownloadManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
@@ -40,19 +38,22 @@
     self.zeroRatedMessageFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
     self.accountCreationFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
     self.pageHistoryFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
-
+    
     self.assetsFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
     self.nearbyFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
     self.articleFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
     self.searchResultsFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
-
-    [@[self.assetsFetchManager,
-       self.nearbyFetchManager,
-       self.articleFetchManager,
-       self.searchResultsFetchManager]
-     bk_each:^(AFHTTPRequestOperationManager *manager) {
-         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-     }];
+    
+    NSArray* fetchers = @[self.assetsFetchManager,
+                          self.nearbyFetchManager,
+                          self.articleFetchManager,
+                          self.searchResultsFetchManager,
+                          self.savedPagesFetchManager
+                          ];
+    
+    [fetchers bk_each:^(AFHTTPRequestOperationManager *manager) {
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    }];
 }
 
 @end

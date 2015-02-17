@@ -44,6 +44,7 @@
 @property (strong, nonatomic) WikiGlyphButton *buttonArrowLeft;
 @property (strong, nonatomic) WikiGlyphButton *buttonArrowRight;
 @property (strong, nonatomic) WikiGlyphButton *buttonMagnify;
+@property (strong, nonatomic) WikiGlyphButton *buttonReload;
 @property (strong, nonatomic) WikiGlyphButton *buttonBlank;
 @property (strong, nonatomic) WikiGlyphButton *buttonCancel;
 @property (strong, nonatomic) WikiGlyphButton *buttonTrash;
@@ -253,6 +254,7 @@
     self.buttonW =          getWikiGlyphButton(WIKIGLYPH_W,       MWLocalizedString(@"menu-w-accessibility-label", nil),       NAVBAR_BUTTON_LOGO_W, size, 2.0f);
     self.buttonTOC =        getWikiGlyphButton(WIKIGLYPH_TOC_COLLAPSED, MWLocalizedString(@"menu-toc-accessibility-label", nil),     NAVBAR_BUTTON_TOC, size, 2.0f);
     self.buttonMagnify =    getWikiGlyphButton(WIKIGLYPH_MAGNIFY, MWLocalizedString(@"menu-search-accessibility-label", nil),  NAVBAR_BUTTON_MAGNIFY, size, 1.0f);
+    self.buttonReload =    getWikiGlyphButton(WIKIGLYPH_RELOAD, MWLocalizedString(@"menu-reload-accessibility-label", nil),  NAVBAR_BUTTON_RELOAD, size, 1.0f);
     self.buttonBlank =      getWikiGlyphButton(@"",                   @"", NAVBAR_BUTTON_BLANK, size, 0.0f);
     self.buttonCancel =     getWikiGlyphButton(@"",                   MWLocalizedString(@"menu-cancel-accessibility-label", nil),  NAVBAR_BUTTON_CANCEL, size, 2.0f);
     self.buttonTrash =      getWikiGlyphButton(WIKIGLYPH_TRASH,       MWLocalizedString(@"menu-trash-accessibility-label", nil),   NAVBAR_BUTTON_TRASH, size, 2.0f);
@@ -314,6 +316,7 @@
     [self.navBarContainer addSubview:self.buttonW];
     [self.navBarContainer addSubview:self.buttonTOC];
     [self.navBarContainer addSubview:self.buttonMagnify];
+    [self.navBarContainer addSubview:self.buttonReload];
     [self.navBarContainer addSubview:self.buttonBlank];
     [self.navBarContainer addSubview:self.buttonCancel];
     [self.navBarContainer addSubview:self.buttonTrash];
@@ -360,6 +363,7 @@
              @"NAVBAR_BUTTON_LOGO_W": self.buttonW,
              @"NAVBAR_BUTTON_TOC": self.buttonTOC,
              @"NAVBAR_BUTTON_MAGNIFY": self.buttonMagnify,
+             @"NAVBAR_BUTTON_RELOAD": self.buttonReload,
              @"NAVBAR_BUTTON_BLANK": self.buttonBlank,
              @"NAVBAR_BUTTON_CANCEL": self.buttonCancel,
              @"NAVBAR_BUTTON_NEXT": self.buttonNext,
@@ -475,9 +479,12 @@
             @"H:|-(6)-[NAVBAR_BUTTON_ARROW_LEFT(50)][NAVBAR_LABEL]-(56)-|";
             break;
         case NAVBAR_MODE_PAGES_HISTORY:
-        case NAVBAR_MODE_PAGES_SAVED:
             self.navBarSubViewsHorizontalVFLString =
             @"H:|-(6)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_TRASH(50@250)]-(6)-|";
+            break;
+        case NAVBAR_MODE_PAGES_SAVED:
+            self.navBarSubViewsHorizontalVFLString =
+            @"H:|-(6)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_RELOAD(50@250)]-(6)-|";
             break;
         case NAVBAR_MODE_X_WITH_TEXT_FIELD:
             self.navBarSubViewsHorizontalVFLString =

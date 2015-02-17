@@ -130,7 +130,10 @@
 "saved-pages-clear-confirmation-heading" = "Delete all saved items?";
 "saved-pages-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "saved-pages-clear-cancel" = "Cancel";
-"saved-pages-clear-delete-all" = "Delete All";
+"saved-pages-refresh-cancel-alert-title" = "Update cancelled";
+"saved-pages-refresh-cancel-alert-message" = "Wikipedia articles are updated all the time. Tap refresh to get the latest versions of all the articles.";
+"saved-pages-refresh-cancel-alert-button" = "Got it";
+
 
 "page-history-title" = "Article history";
 "page-history-downloading" = "Loading article history...";
@@ -250,6 +253,7 @@
 "menu-w-accessibility-label" = "Menu";
 "menu-toc-accessibility-label" = "Contents";
 "menu-search-accessibility-label" = "Search";
+"menu-reload-accessibility-label" = "Reload";
 "menu-cancel-accessibility-label" = "Cancel";
 "menu-share-accessibility-label" = "Share";
 "menu-more-accessibility-label" = "More settings";

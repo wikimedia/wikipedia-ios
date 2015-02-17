@@ -45,6 +45,7 @@
 
 -(void)fetchWithManager:(AFHTTPRequestOperationManager *)manager
 {
+    
     NSString *title = self.article.title.prefixedText;
     NSString *subdomain = self.article.title.site.language;
     
@@ -77,43 +78,53 @@
     [self addMCCMNCHeaderToRequestSerializer:manager.requestSerializer ifAppropriateForURL:url];
 
     [manager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSLog(@"JSON: %@", responseObject);
-        [[MWNetworkActivityIndicatorManager sharedManager] pop];
-
-        // Convert the raw NSData response to a dictionary.
-        responseObject = [self dictionaryFromDataResponse:responseObject];
-
-        // Clear any MCCMNC header - needed because manager is a singleton.
-        [self removeMCCMNCHeaderFromRequestSerializer:manager.requestSerializer];
         
-        //NSDictionary *leadSectionResults = [self prepareResultsFromResponse:responseObject forTitle:title];
-        if (self.article.needsRefresh) {
-            [self.article remove];
-        }
-        @try {
-            [self.article importMobileViewJSON:responseObject[@"mobileview"]];
+        __block NSData* localResponseObject = responseObject;
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            
+            //NSLog(@"JSON: %@", responseObject);
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            
+            // Convert the raw NSData response to a dictionary.
+            NSDictionary* responseDictionary = [self dictionaryFromDataResponse:localResponseObject];
+            
+            // Clear any MCCMNC header - needed because manager is a singleton.
+            [self removeMCCMNCHeaderFromRequestSerializer:manager.requestSerializer];
+            
+            //NSDictionary *leadSectionResults = [self prepareResultsFromResponse:responseObject forTitle:title];
+            @try {
+                [self.article importMobileViewJSON:responseDictionary[@"mobileview"]];
+                [self.article save];
+            }
+            @catch (NSException *e) {
+                NSLog(@"%@", e);
+                NSError *err = [NSError errorWithDomain:@"ArticleFetcher" code:666 userInfo:@{@"exception": e}];
+                [self finishWithError: err
+                          fetchedData: nil];
+                return;
+            }
+            
+            //[self applyResultsForLeadSection:leadSectionResults];
+            for (int n = 0; n < [self.article.sections count]; n++) {
+                (void)self.article.sections[n].images; // hack
+                [self createImageRecordsForSection:n];
+            }
+            
+            [self associateThumbFromTempDirWithArticle];
+            
             [self.article save];
-        }
-        @catch (NSException *e) {
-            NSLog(@"%@", e);
-            NSError *err = [NSError errorWithDomain:@"ArticleFetcher" code:666 userInfo:@{@"exception": e}];
-            [self finishWithError: err
-                      fetchedData: nil];
-            return;
-        }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self finishWithError: nil
+                          fetchedData: nil];
+                
+            });
+    
+        });
         
-        //[self applyResultsForLeadSection:leadSectionResults];
-        for (int n = 0; n < [self.article.sections count]; n++) {
-            (void)self.article.sections[n].images; // hack
-            [self createImageRecordsForSection:n];
-        }
-
-        [self associateThumbFromTempDirWithArticle];
-
-        [self.article save];
-
-        [self finishWithError: nil
-                  fetchedData: nil];
+        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);

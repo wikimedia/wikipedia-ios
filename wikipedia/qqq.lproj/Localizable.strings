@@ -127,7 +127,9 @@
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "saved-pages-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
 "saved-pages-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
-"saved-pages-clear-delete-all" = "Button text for confirming delete all action\n{{Identical|Delete all}}";
+"saved-pages-refresh-cancel-alert-title" = "Title of alert shown when a user first cancels a refresh of saved pages";
+"saved-pages-refresh-cancel-alert-message" = "Message of alert shown when a user first cancels a refresh of saved pages";
+"saved-pages-refresh-cancel-alert-button" = "Butto confirmation text of alert shown when a user first cancels a refresh of saved pages";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Page history}}";
 "page-history-downloading" = "Alert text shown when obtaining revision history of an article";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited.\n{{Identical|Edit}}";
@@ -226,6 +228,7 @@
 "menu-w-accessibility-label" = "Accessible label text for toolbar 'W' menu icon button\n{{Identical|Menu}}";
 "menu-toc-accessibility-label" = "Accessible label text for toolbar table of contents icon button\n{{Identical|Content}}";
 "menu-search-accessibility-label" = "Accessible label text for toolbar search icon button\n{{Identical|Search}}";
+"menu-reload-accessibility-label" = "Accessible label text for toolbar reload icon button";
 "menu-cancel-accessibility-label" = "Accessible label text for toolbar cancel button\n{{Identical|Cancel}}";
 "menu-share-accessibility-label" = "Accessible label text for toolbar share button\n{{Identical|Share}}";
 "menu-more-accessibility-label" = "Accessible label for more/... button in 'W' menu";
