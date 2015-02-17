@@ -331,7 +331,7 @@ static const int kUpperTextSelectionSize = 160;
     } else {
         // iPad crashes if you present share dialog modally. Whee!
         self.popover = [[UIPopoverController alloc] initWithContentViewController:shareActivityVC];
-        [self.popover presentPopoverFromRect:self.saveButton.frame
+        [self.popover presentPopoverFromRect:self.rightButton.frame
                                       inView:self.view
                     permittedArrowDirections:UIPopoverArrowDirectionAny
                                     animated:YES];
