@@ -69,14 +69,14 @@ static const int kUpperTextSelectionSize = 160;
     [self.backButton.label setWikiText: isRTL ? WIKIGLYPH_FORWARD : WIKIGLYPH_BACKWARD
                                  color: buttonColor
                                   size: MENU_BOTTOM_GLYPH_FONT_SIZE
-                        baselineOffset: 0];
+                        baselineOffset: 1.5f];
     self.backButton.accessibilityLabel = MWLocalizedString(@"menu-back-accessibility-label", nil);
     self.backButton.tag = BOTTOM_MENU_BUTTON_PREVIOUS;
     
     [self.forwardButton.label setWikiText: isRTL ? WIKIGLYPH_BACKWARD : WIKIGLYPH_FORWARD
                                     color: buttonColor
                                      size: MENU_BOTTOM_GLYPH_FONT_SIZE
-                           baselineOffset: 0
+                           baselineOffset: 1.5f
      ];
     self.forwardButton.accessibilityLabel = MWLocalizedString(@"menu-forward-accessibility-label", nil);
     self.forwardButton.tag = BOTTOM_MENU_BUTTON_NEXT;
@@ -85,7 +85,7 @@ static const int kUpperTextSelectionSize = 160;
     [self.rightButton.label setWikiText: WIKIGLYPH_SHARE
                                   color: buttonColor
                                    size: MENU_BOTTOM_GLYPH_FONT_SIZE
-                         baselineOffset: 0
+                         baselineOffset: 1.5f
      ];
     self.rightButton.tag = BOTTOM_MENU_BUTTON_SHARE;
     self.rightButton.accessibilityLabel = MWLocalizedString(@"menu-share-accessibility-label", nil);
@@ -93,7 +93,7 @@ static const int kUpperTextSelectionSize = 160;
     [self.saveButton.label setWikiText: WIKIGLYPH_HEART_OUTLINE
                                  color: buttonColor
                                   size: MENU_BOTTOM_GLYPH_FONT_SIZE
-                        baselineOffset: 0
+                        baselineOffset: 1.5f
      ];
     self.saveButton.tag = BOTTOM_MENU_BUTTON_SAVE;
     self.saveButton.accessibilityLabel = MWLocalizedString(@"share-menu-save-page", nil);
@@ -414,7 +414,7 @@ static const int kUpperTextSelectionSize = 160;
     [self.saveButton.label setWikiText: saveIconString
                                  color: saveIconColor
                                   size: MENU_BOTTOM_GLYPH_FONT_SIZE
-                        baselineOffset: 0];
+                        baselineOffset: 1.5f];
     self.funnel = nil;
 }
 

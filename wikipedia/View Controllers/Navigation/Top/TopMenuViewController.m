@@ -226,11 +226,11 @@
     self.textFieldContainer.textField.rightView = clearButton;
     [self updateClearButtonVisibility];
 
-    WikiGlyphButton *(^getWikiGlyphButton)(NSString *, NSString *accessLabel, NavBarItemTag, CGFloat) =
-    ^WikiGlyphButton *(NSString *character, NSString *accessLabel, NavBarItemTag tag, CGFloat size) {
+    WikiGlyphButton *(^getWikiGlyphButton)(NSString *, NSString *accessLabel, NavBarItemTag, CGFloat, CGFloat) =
+    ^WikiGlyphButton *(NSString *character, NSString *accessLabel, NavBarItemTag tag, CGFloat size, CGFloat baselineOffset) {
         WikiGlyphButton *button = [[WikiGlyphButton alloc] init];
 
-        [button.label setWikiText:character color:[UIColor blackColor] size:size baselineOffset:0];
+        [button.label setWikiText:character color:[UIColor blackColor] size:size baselineOffset:baselineOffset];
         button.translatesAutoresizingMaskIntoConstraints = NO;
 
         [button addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget: self
@@ -247,15 +247,15 @@
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
     NSString *caret = !isRTL ? WIKIGLYPH_CARET_LEFT: WIKIGLYPH_FORWARD;
 
-    self.buttonX =          getWikiGlyphButton(WIKIGLYPH_X,           MWLocalizedString(@"menu-close-accessibility-label", nil),   NAVBAR_BUTTON_X, size);
-    self.buttonArrowLeft =  getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-back-accessibility-label", nil),    NAVBAR_BUTTON_ARROW_LEFT, size);
-    self.buttonArrowRight = getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-forward-accessibility-label", nil), NAVBAR_BUTTON_ARROW_RIGHT, size);
-    self.buttonW =          getWikiGlyphButton(WIKIGLYPH_W,       MWLocalizedString(@"menu-w-accessibility-label", nil),       NAVBAR_BUTTON_LOGO_W, size);
-    self.buttonTOC =        getWikiGlyphButton(WIKIGLYPH_TOC_COLLAPSED, MWLocalizedString(@"menu-toc-accessibility-label", nil),     NAVBAR_BUTTON_TOC, size);
-    self.buttonMagnify =    getWikiGlyphButton(WIKIGLYPH_MAGNIFY, MWLocalizedString(@"menu-search-accessibility-label", nil),  NAVBAR_BUTTON_MAGNIFY, size);
-    self.buttonBlank =      getWikiGlyphButton(@"",                   @"", NAVBAR_BUTTON_BLANK, size);
-    self.buttonCancel =     getWikiGlyphButton(@"",                   MWLocalizedString(@"menu-cancel-accessibility-label", nil),  NAVBAR_BUTTON_CANCEL, size);
-    self.buttonTrash =      getWikiGlyphButton(WIKIGLYPH_TRASH,       MWLocalizedString(@"menu-trash-accessibility-label", nil),   NAVBAR_BUTTON_TRASH, size);
+    self.buttonX =          getWikiGlyphButton(WIKIGLYPH_X,           MWLocalizedString(@"menu-close-accessibility-label", nil),   NAVBAR_BUTTON_X, size, 2.0f);
+    self.buttonArrowLeft =  getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-back-accessibility-label", nil),    NAVBAR_BUTTON_ARROW_LEFT, size, 2.0f);
+    self.buttonArrowRight = getWikiGlyphButton(caret,                 MWLocalizedString(@"menu-forward-accessibility-label", nil), NAVBAR_BUTTON_ARROW_RIGHT, size, 2.0f);
+    self.buttonW =          getWikiGlyphButton(WIKIGLYPH_W,       MWLocalizedString(@"menu-w-accessibility-label", nil),       NAVBAR_BUTTON_LOGO_W, size, 2.0f);
+    self.buttonTOC =        getWikiGlyphButton(WIKIGLYPH_TOC_COLLAPSED, MWLocalizedString(@"menu-toc-accessibility-label", nil),     NAVBAR_BUTTON_TOC, size, 2.0f);
+    self.buttonMagnify =    getWikiGlyphButton(WIKIGLYPH_MAGNIFY, MWLocalizedString(@"menu-search-accessibility-label", nil),  NAVBAR_BUTTON_MAGNIFY, size, 1.0f);
+    self.buttonBlank =      getWikiGlyphButton(@"",                   @"", NAVBAR_BUTTON_BLANK, size, 0.0f);
+    self.buttonCancel =     getWikiGlyphButton(@"",                   MWLocalizedString(@"menu-cancel-accessibility-label", nil),  NAVBAR_BUTTON_CANCEL, size, 2.0f);
+    self.buttonTrash =      getWikiGlyphButton(WIKIGLYPH_TRASH,       MWLocalizedString(@"menu-trash-accessibility-label", nil),   NAVBAR_BUTTON_TRASH, size, 2.0f);
     
     if (isRTL) {
         self.buttonTOC.transform = CGAffineTransformScale(CGAffineTransformIdentity, -1.0, 1.0);
