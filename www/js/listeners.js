@@ -142,24 +142,13 @@ function touchEndedWithoutDragging(event){
             }
          }
 
-    // Handle BUTTON tag taps.
     } else {
-        var buttonTarget = findParent(event.target, 'BUTTON');
-        if (buttonTarget && (buttonTarget.tagName === "BUTTON")){
-            if (buttonTarget.id === "mw-language-button") {
-                bridge.sendMessage( 'langClicked', {} );
-            }else if (buttonTarget.id === "mw-last-modified") {
-                bridge.sendMessage( 'historyClicked', {} );
-            }
-        } else {
-            // Do NOT prevent default behavior -- this is needed to for instance
-            // handle deselection of text.
-            bridge.sendMessage('nonAnchorTouchEndedWithoutDragging',
-                               {
-                                   id: event.target.getAttribute( "id" ),
-                                   tagName: event.target.tagName
-                               });
-        }
+         // Do NOT prevent default behavior -- this is needed to for instance
+         // handle deselection of text.
+         bridge.sendMessage('nonAnchorTouchEndedWithoutDragging', {
+                                id: event.target.getAttribute( "id" ),
+                                tagName: event.target.tagName
+                          });
     }
 }
 

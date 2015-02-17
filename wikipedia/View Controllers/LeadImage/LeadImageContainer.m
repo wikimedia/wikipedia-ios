@@ -38,6 +38,7 @@ Do *not* leave this set to YES for release.
 @property(strong, nonatomic) MWKArticle *article;
 @property (nonatomic) BOOL isPlaceholder;
 @property(strong, nonatomic)id rotationObserver;
+@property (nonatomic) CGFloat height;
 
 @end
 
@@ -45,6 +46,7 @@ Do *not* leave this set to YES for release.
 
 -(void)awakeFromNib
 {
+    self.height = LEAD_IMAGE_CONTAINER_HEIGHT;
     self.isPlaceholder = NO;
     self.clipsToBounds = YES;
     self.backgroundColor = [UIColor clearColor];
@@ -184,20 +186,17 @@ Do *not* leave this set to YES for release.
     [self.titleLabel layoutIfNeeded];
     [self.titleDescriptionContainer layoutIfNeeded];
 
-    // Next update height of this image container.
-    CGFloat containerHeight =
-        ([self shouldHideImage]) ? (-self.frame.size.height + self.titleDescriptionContainer.frame.size.height) : 0;
+    self.height = ([self shouldHideImage]) ? self.titleDescriptionContainer.frame.size.height : LEAD_IMAGE_CONTAINER_HEIGHT;
 
-    self.frame =
-    (CGRect){
-        {0, containerHeight},
-        {self.frame.size.width, self.frame.size.height}
-    };
+    // Notify the layout system that the height has changed.
+    [self invalidateIntrinsicContentSize];
 
     // Now notify the web view of the height change.
-    CGFloat webDivHeight = ([self shouldHideImage]) ? self.titleDescriptionContainer.frame.size.height : self.bounds.size.height;
+    [self.delegate leadImageHeightChangedTo:@(self.height)];
+}
 
-    [self.delegate leadImageHeightChangedTo:@(webDivHeight)];
+- (CGSize)intrinsicContentSize {
+    return CGSizeMake(UIViewNoIntrinsicMetric, self.height);
 }
 
 -(void)updateTitleColors

@@ -60,6 +60,12 @@
 #import "UIFont+WMFStyle.h"
 #import "WebViewController+ImageGalleryPresentation.h"
 
+#import "UIWebView+WMFTrackingView.h"
+#import "SuggestionsFooterViewController.h"
+#import "OptionsFooterViewController.h"
+#import "LegalFooterViewController.h"
+#import "WebViewBottomTrackingContainerView.h"
+
 //#import "UIView+Debugging.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.225f
@@ -72,7 +78,7 @@
 #define SCROLL_INDICATOR_BORDER_COLOR [UIColor lightGrayColor]
 #define SCROLL_INDICATOR_BACKGROUND_COLOR [UIColor whiteColor]
 
-#define BOTTOM_SCROLL_LIMIT_HEIGHT 2000
+static const CGFloat kBottomScrollSpacerHeight = 2000.0f;
 
 // This controls how fast the swipe has to be (side-to-side).
 #define TOC_SWIPE_TRIGGER_MIN_X_VELOCITY 600.0f
@@ -83,7 +89,7 @@
 
 static const int kMinimumTextSelectionLength = 10;
 
-@interface WebViewController () <LanguageSelectionDelegate>
+@interface WebViewController ()
 {
     CGFloat scrollViewDragBeganVerticalOffset_;
     SessionSingleton *session;
@@ -139,6 +145,9 @@ static const int kMinimumTextSelectionLength = 10;
 @property (strong, nonatomic) UIView *activityIndicatorBackgroundView;
 
 @property (strong, nonatomic) LeadImageContainer *leadImageContainer;
+
+@property (strong, nonatomic) WebViewBottomTrackingContainerView *footerContainer;
+@property (strong, nonatomic) OptionsFooterViewController *footerOptionsController;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomConstraint;
 

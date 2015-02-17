@@ -39,15 +39,31 @@
 		04292FF8185FBB0B002A13FC /* SearchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04292FF7185FBB0B002A13FC /* SearchResultsController.m */; };
 		0429300A18604898002A13FC /* SavedPagesResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0429300418604898002A13FC /* SavedPagesResultCell.m */; };
 		0429301018604898002A13FC /* SavedPagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0429300918604898002A13FC /* SavedPagesViewController.m */; };
+		042950CF1A9D0901009BE784 /* WebViewBottomTrackingContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042950CE1A9D0901009BE784 /* WebViewBottomTrackingContainerView.m */; };
+		042950D41A9D3BA7009BE784 /* UIColor+WMFHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 042950D31A9D3BA7009BE784 /* UIColor+WMFHexColor.m */; };
 		042A5B2619253D2A0095E172 /* CenterNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B2019253D2A0095E172 /* CenterNavController.m */; };
 		042A5B2919253E570095E172 /* TopMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B2819253E570095E172 /* TopMenuViewController.m */; };
 		042A5B2C19253E690095E172 /* BottomMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B2B19253E690095E172 /* BottomMenuViewController.m */; };
 		042A5B2F19257F900095E172 /* TopMenuContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B2E19257F900095E172 /* TopMenuContainerView.m */; };
 		042A5B36192591520095E172 /* TopMenuTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B31192591520095E172 /* TopMenuTextField.m */; };
 		042B3996192EAEEA0066B270 /* ShareMenuSavePageActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 042B3995192EAEEA0066B270 /* ShareMenuSavePageActivity.m */; };
+		042BEAEF1A92EE66002CF320 /* UIWebView+WMFTrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042BEAEE1A92EE66002CF320 /* UIWebView+WMFTrackingView.m */; };
+		042BEAF01A92EE66002CF320 /* UIWebView+WMFTrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042BEAEE1A92EE66002CF320 /* UIWebView+WMFTrackingView.m */; };
 		0433542218A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 0433542118A023FE009305F0 /* UIViewController+HideKeyboard.m */; };
 		0433542618A093C5009305F0 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 0433542518A093C5009305F0 /* UIView+RemoveConstraints.m */; };
 		0439317619FB092600386E8F /* UIWebView+LoadAssetsHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 0439317519FB092600386E8F /* UIWebView+LoadAssetsHtml.m */; };
+		043BFC7A1A932BA50068B932 /* LegalFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043BFC761A932BA50068B932 /* LegalFooterViewController.m */; };
+		043BFC7B1A932BA50068B932 /* LegalFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043BFC761A932BA50068B932 /* LegalFooterViewController.m */; };
+		043BFC7C1A932BA50068B932 /* LegalFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043BFC771A932BA50068B932 /* LegalFooterViewController.xib */; };
+		043BFC7D1A932BA50068B932 /* LegalFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043BFC771A932BA50068B932 /* LegalFooterViewController.xib */; };
+		043BFC811A932BEC0068B932 /* OptionsFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043BFC7F1A932BEC0068B932 /* OptionsFooterViewController.m */; };
+		043BFC821A932BEC0068B932 /* OptionsFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043BFC7F1A932BEC0068B932 /* OptionsFooterViewController.m */; };
+		043BFC831A932BEC0068B932 /* OptionsFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043BFC801A932BEC0068B932 /* OptionsFooterViewController.xib */; };
+		043BFC841A932BEC0068B932 /* OptionsFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043BFC801A932BEC0068B932 /* OptionsFooterViewController.xib */; };
+		043BFC901A93426B0068B932 /* SuggestionsFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043BFC8E1A93426B0068B932 /* SuggestionsFooterViewController.m */; };
+		043BFC911A93426B0068B932 /* SuggestionsFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043BFC8E1A93426B0068B932 /* SuggestionsFooterViewController.m */; };
+		043BFC921A93426B0068B932 /* SuggestionsFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043BFC8F1A93426B0068B932 /* SuggestionsFooterViewController.xib */; };
+		043BFC931A93426B0068B932 /* SuggestionsFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043BFC8F1A93426B0068B932 /* SuggestionsFooterViewController.xib */; };
 		043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043DAC4A1901C3EE001CD17C /* CreditsViewController.m */; };
 		043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18DC18D9691D00D8489A /* TopActionSheetLabel.m */; };
 		043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */; };
@@ -409,6 +425,10 @@
 		0429300418604898002A13FC /* SavedPagesResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedPagesResultCell.m; sourceTree = "<group>"; };
 		0429300818604898002A13FC /* SavedPagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedPagesViewController.h; sourceTree = "<group>"; };
 		0429300918604898002A13FC /* SavedPagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SavedPagesViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		042950CD1A9D0901009BE784 /* WebViewBottomTrackingContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewBottomTrackingContainerView.h; sourceTree = "<group>"; };
+		042950CE1A9D0901009BE784 /* WebViewBottomTrackingContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewBottomTrackingContainerView.m; sourceTree = "<group>"; };
+		042950D21A9D3BA7009BE784 /* UIColor+WMFHexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WMFHexColor.h"; sourceTree = "<group>"; };
+		042950D31A9D3BA7009BE784 /* UIColor+WMFHexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WMFHexColor.m"; sourceTree = "<group>"; };
 		042A5B1F19253D2A0095E172 /* CenterNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterNavController.h; sourceTree = "<group>"; };
 		042A5B2019253D2A0095E172 /* CenterNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterNavController.m; sourceTree = "<group>"; };
 		042A5B2719253E570095E172 /* TopMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopMenuViewController.h; sourceTree = "<group>"; };
@@ -421,12 +441,23 @@
 		042A5B31192591520095E172 /* TopMenuTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopMenuTextField.m; sourceTree = "<group>"; };
 		042B3994192EAEEA0066B270 /* ShareMenuSavePageActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareMenuSavePageActivity.h; sourceTree = "<group>"; };
 		042B3995192EAEEA0066B270 /* ShareMenuSavePageActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareMenuSavePageActivity.m; sourceTree = "<group>"; };
+		042BEAED1A92EE66002CF320 /* UIWebView+WMFTrackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+WMFTrackingView.h"; sourceTree = "<group>"; };
+		042BEAEE1A92EE66002CF320 /* UIWebView+WMFTrackingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+WMFTrackingView.m"; sourceTree = "<group>"; };
 		0433542018A023FE009305F0 /* UIViewController+HideKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HideKeyboard.h"; sourceTree = "<group>"; };
 		0433542118A023FE009305F0 /* UIViewController+HideKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HideKeyboard.m"; sourceTree = "<group>"; };
 		0433542418A093C5009305F0 /* UIView+RemoveConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RemoveConstraints.h"; sourceTree = "<group>"; };
 		0433542518A093C5009305F0 /* UIView+RemoveConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RemoveConstraints.m"; sourceTree = "<group>"; };
 		0439317419FB092600386E8F /* UIWebView+LoadAssetsHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+LoadAssetsHtml.h"; sourceTree = "<group>"; };
 		0439317519FB092600386E8F /* UIWebView+LoadAssetsHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+LoadAssetsHtml.m"; sourceTree = "<group>"; };
+		043BFC751A932BA50068B932 /* LegalFooterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegalFooterViewController.h; sourceTree = "<group>"; };
+		043BFC761A932BA50068B932 /* LegalFooterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegalFooterViewController.m; sourceTree = "<group>"; };
+		043BFC771A932BA50068B932 /* LegalFooterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LegalFooterViewController.xib; sourceTree = "<group>"; };
+		043BFC7E1A932BEC0068B932 /* OptionsFooterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsFooterViewController.h; sourceTree = "<group>"; };
+		043BFC7F1A932BEC0068B932 /* OptionsFooterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsFooterViewController.m; sourceTree = "<group>"; };
+		043BFC801A932BEC0068B932 /* OptionsFooterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionsFooterViewController.xib; sourceTree = "<group>"; };
+		043BFC8D1A93426B0068B932 /* SuggestionsFooterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionsFooterViewController.h; sourceTree = "<group>"; };
+		043BFC8E1A93426B0068B932 /* SuggestionsFooterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionsFooterViewController.m; sourceTree = "<group>"; };
+		043BFC8F1A93426B0068B932 /* SuggestionsFooterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuggestionsFooterViewController.xib; sourceTree = "<group>"; };
 		043DAC491901C3EE001CD17C /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
 		043DAC4A1901C3EE001CD17C /* CreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsViewController.m; sourceTree = "<group>"; };
 		043F18DB18D9691D00D8489A /* TopActionSheetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopActionSheetLabel.h; sourceTree = "<group>"; };
@@ -1221,6 +1252,46 @@
 			path = Top;
 			sourceTree = "<group>";
 		};
+		043BFC6C1A932B020068B932 /* Footers */ = {
+			isa = PBXGroup;
+			children = (
+				043BFC8C1A93426B0068B932 /* Suggestions */,
+				043BFC791A932BA50068B932 /* Options */,
+				043BFC741A932BA50068B932 /* Legal */,
+			);
+			path = Footers;
+			sourceTree = "<group>";
+		};
+		043BFC741A932BA50068B932 /* Legal */ = {
+			isa = PBXGroup;
+			children = (
+				043BFC751A932BA50068B932 /* LegalFooterViewController.h */,
+				043BFC761A932BA50068B932 /* LegalFooterViewController.m */,
+				043BFC771A932BA50068B932 /* LegalFooterViewController.xib */,
+			);
+			path = Legal;
+			sourceTree = "<group>";
+		};
+		043BFC791A932BA50068B932 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				043BFC7E1A932BEC0068B932 /* OptionsFooterViewController.h */,
+				043BFC7F1A932BEC0068B932 /* OptionsFooterViewController.m */,
+				043BFC801A932BEC0068B932 /* OptionsFooterViewController.xib */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
+		043BFC8C1A93426B0068B932 /* Suggestions */ = {
+			isa = PBXGroup;
+			children = (
+				043BFC8D1A93426B0068B932 /* SuggestionsFooterViewController.h */,
+				043BFC8E1A93426B0068B932 /* SuggestionsFooterViewController.m */,
+				043BFC8F1A93426B0068B932 /* SuggestionsFooterViewController.xib */,
+			);
+			path = Suggestions;
+			sourceTree = "<group>";
+		};
 		043DAC481901C3D2001CD17C /* Credits */ = {
 			isa = PBXGroup;
 			children = (
@@ -1267,8 +1338,11 @@
 				0447862D185145090050563B /* WebViewController.h */,
 				BCB58F491A89202F00465627 /* WebViewController_Private.h */,
 				0447862E185145090050563B /* WebViewController.m */,
+				042950CD1A9D0901009BE784 /* WebViewBottomTrackingContainerView.h */,
+				042950CE1A9D0901009BE784 /* WebViewBottomTrackingContainerView.m */,
 				BCB58F461A891FDB00465627 /* WebViewController+ImageGalleryPresentation.h */,
 				BCB58F471A891FDB00465627 /* WebViewController+ImageGalleryPresentation.m */,
+				043BFC6C1A932B020068B932 /* Footers */,
 			);
 			path = WebView;
 			sourceTree = "<group>";
@@ -1692,11 +1766,15 @@
 				04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */,
 				0439317419FB092600386E8F /* UIWebView+LoadAssetsHtml.h */,
 				0439317519FB092600386E8F /* UIWebView+LoadAssetsHtml.m */,
+				042BEAED1A92EE66002CF320 /* UIWebView+WMFTrackingView.h */,
+				042BEAEE1A92EE66002CF320 /* UIWebView+WMFTrackingView.m */,
 				04BA489F1A80062E00CB5CAE /* UIFont+WMFStyle.h */,
 				04BA48A01A80062E00CB5CAE /* UIFont+WMFStyle.m */,
 				04D149D818877343006B4104 /* Alerts */,
 				BCB66A0A1A85183000C7B1FE /* NSString+WMFHTMLParsing.h */,
 				BCB66A0B1A85183000C7B1FE /* NSString+WMFHTMLParsing.m */,
+				042950D21A9D3BA7009BE784 /* UIColor+WMFHexColor.h */,
+				042950D31A9D3BA7009BE784 /* UIColor+WMFHexColor.m */,
 				BCB58F651A8AA22200465627 /* MWKLicense+ToGlyph.h */,
 				BCB58F661A8AA22200465627 /* MWKLicense+ToGlyph.m */,
 				BCB58F761A8D081E00465627 /* NSArray+BKIndex.h */,
@@ -2270,8 +2348,8 @@
 				04272E75193FF7F000CC682F /* make-css-assets */,
 				D4C16A621970946900CD91AD /* update-storyboard-strings */,
 				D4C16A631970949A00CD91AD /* update-qqq */,
-				D4991433181D51DE00E6073C /* Resources */,
 				046F268119C387BD00D7ACB3 /* icon-svgs-to-pngs */,
+				D4991433181D51DE00E6073C /* Resources */,
 				04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */,
 				45FA417DEEAE18B42A662320 /* Copy Pods Resources */,
 			);
@@ -2433,6 +2511,9 @@
 				BCB669D61A83F6D300C7B1FE /* organization-anon.json in Resources */,
 				BCB669D91A83F6D300C7B1FE /* user-loggedin.json in Resources */,
 				BCB669DA1A83F6D300C7B1FE /* user-anon.json in Resources */,
+				043BFC841A932BEC0068B932 /* OptionsFooterViewController.xib in Resources */,
+				043BFC7D1A932BA50068B932 /* LegalFooterViewController.xib in Resources */,
+				043BFC931A93426B0068B932 /* SuggestionsFooterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2441,6 +2522,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4B7794D1A5F36F700D06E00 /* OldDataSchemaBundle.bundle in Resources */,
+				043BFC831A932BEC0068B932 /* OptionsFooterViewController.xib in Resources */,
+				043BFC7C1A932BA50068B932 /* LegalFooterViewController.xib in Resources */,
 				04D3082C19991CB60034F106 /* logo-placeholder-nearby@2x.png in Resources */,
 				D46CD8C418A1AC4F0042959E /* InfoPlist.strings in Resources */,
 				045EFF1B19A25FEB00D0EDBB /* logo-placeholder-search@2x.png in Resources */,
@@ -2466,6 +2549,7 @@
 				C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */,
 				04123630189C29EA00E0CF8E /* abuse-filter-disallowed@2x.png in Resources */,
 				D4BC22B4181E9E6300CAC673 /* empty.png in Resources */,
+				043BFC921A93426B0068B932 /* SuggestionsFooterViewController.xib in Resources */,
 				04123636189C29EA00E0CF8E /* abuse-filter-flag-white.png in Resources */,
 				04C7576F1A1AA2D00084AC39 /* RecentSearchCell.xib in Resources */,
 				041E588319B2D2C500AC140C /* logo-placeholder-saved@2x.png in Resources */,
@@ -2660,6 +2744,9 @@
 				BC50C3831A83C88F006DC7AF /* WMFJoinedPropertyParametersTests.m in Sources */,
 				BCB669E01A83F6D300C7B1FE /* MWKTitleTests.m in Sources */,
 				BCB58F451A890D9700465627 /* MWKImageInfo+MWKImageComparison.m in Sources */,
+				043BFC821A932BEC0068B932 /* OptionsFooterViewController.m in Sources */,
+				043BFC7B1A932BA50068B932 /* LegalFooterViewController.m in Sources */,
+				043BFC911A93426B0068B932 /* SuggestionsFooterViewController.m in Sources */,
 				BC42735E1A7C73B300068882 /* NSArray+PredicateTests.m in Sources */,
 				BCB669F01A83F71C00C7B1FE /* MWKSavedPageList.m in Sources */,
 				BCB669FD1A84158200C7B1FE /* CircularBitwiseRotationTests.m in Sources */,
@@ -2703,6 +2790,7 @@
 				BCB669F41A83F71C00C7B1FE /* MWKRecentSearchList.m in Sources */,
 				04BA48A21A80062F00CB5CAE /* UIFont+WMFStyle.m in Sources */,
 				BCB669741A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
+				042BEAF01A92EE66002CF320 /* UIWebView+WMFTrackingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2715,6 +2803,7 @@
 				BCB669A61A83F6C400C7B1FE /* MWKDataObject.m in Sources */,
 				04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				0487048B19F8262600B7D307 /* RandomArticleFetcher.m in Sources */,
+				042BEAEF1A92EE66002CF320 /* UIWebView+WMFTrackingView.m in Sources */,
 				042A5B36192591520095E172 /* TopMenuTextField.m in Sources */,
 				C99844571A8C1F23001D58FD /* UIWebView+WMFSuppressSelection.m in Sources */,
 				04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */,
@@ -2729,6 +2818,7 @@
 				BCB669B61A83F6C400C7B1FE /* MWKImageList.m in Sources */,
 				04CFA126194B94A10088269A /* MenuLabel.m in Sources */,
 				04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */,
+				043BFC811A932BEC0068B932 /* OptionsFooterViewController.m in Sources */,
 				0462A6D11A1FE016009412D4 /* SearchResultAttributedString.m in Sources */,
 				0487047F19F8262600B7D307 /* AccountCreator.m in Sources */,
 				04038E701A15734B00DBD1DF /* SearchMessageLabel.m in Sources */,
@@ -2768,6 +2858,7 @@
 				0487048519F8262600B7D307 /* EditTokenFetcher.m in Sources */,
 				04CCCFF71935094000E3F60C /* PrimaryMenuTableViewCell.m in Sources */,
 				0487048F19F8262600B7D307 /* WikiTextSectionFetcher.m in Sources */,
+				042950CF1A9D0901009BE784 /* WebViewBottomTrackingContainerView.m in Sources */,
 				C913C89C1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m in Sources */,
 				04EDEE2A1A215DBC00798076 /* UITableView+DynamicCellHeight.m in Sources */,
 				04CBAC7319A9B786009F3D7E /* NSArray+Predicate.m in Sources */,
@@ -2803,6 +2894,7 @@
 				0487048419F8262600B7D307 /* CaptchaResetter.m in Sources */,
 				D407E6411A51DBDA00CCC8B1 /* SchemaConverter.m in Sources */,
 				BCB669A71A83F6C400C7B1FE /* MWKSiteDataObject.m in Sources */,
+				043BFC7A1A932BA50068B932 /* LegalFooterViewController.m in Sources */,
 				04821CD119895EDC007558F6 /* ReferenceGradientView.m in Sources */,
 				0460F8DC19B0F932001BC59B /* CenteredPathView.m in Sources */,
 				0472BC18193AD88C00C40BDA /* MWKSection+DisplayHtml.m in Sources */,
@@ -2858,6 +2950,7 @@
 				04C9509D19EF02980013F3C0 /* EventLogger.m in Sources */,
 				D4E8A8A719084F1300DA4765 /* SQLiteHelper.m in Sources */,
 				04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */,
+				042950D41A9D3BA7009BE784 /* UIColor+WMFHexColor.m in Sources */,
 				0439317619FB092600386E8F /* UIWebView+LoadAssetsHtml.m in Sources */,
 				04B91AA718E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m in Sources */,
 				04224500197F5E09005DD0BF /* AbuseFilterAlert.m in Sources */,
@@ -2901,6 +2994,7 @@
 				04CFA123194B94980088269A /* MenuButton.m in Sources */,
 				D47BF5D4197870390067C3BC /* SavedPagesFunnel.m in Sources */,
 				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
+				043BFC901A93426B0068B932 /* SuggestionsFooterViewController.m in Sources */,
 				04CCCFEE1935093A00E3F60C /* SecondaryMenuRowView.m in Sources */,
 				0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */,
 				041C6206199ED2A20061516F /* MWKSection+TOC.m in Sources */,
