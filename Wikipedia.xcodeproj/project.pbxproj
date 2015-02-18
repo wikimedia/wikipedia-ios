@@ -280,6 +280,7 @@
 		BCB66A101A851C9B00C7B1FE /* MWKImageListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB66A0F1A851C9B00C7B1FE /* MWKImageListTests.m */; };
 		C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */; };
 		C90799BA1A8564C60044E13C /* WMFShareOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90799B91A8564C60044E13C /* WMFShareOptionsViewController.m */; };
+		C913C89C1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = C913C89B1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m */; };
 		C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		C91A86F41A8BCB680088A801 /* WMFShareCardImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C91A86F31A8BCB680088A801 /* WMFShareCardImageContainer.m */; };
 		C94BE3EE1A8169ED00F2105B /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = C94BE3ED1A8169ED00F2105B /* WMFShareFunnel.m */; };
@@ -779,6 +780,8 @@
 		C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "../../../Pods/Target Support Files/Pods/Pods-acknowledgements.plist"; sourceTree = "<group>"; };
 		C90799B81A8564C60044E13C /* WMFShareOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFShareOptionsViewController.h; path = ShareCard/WMFShareOptionsViewController.h; sourceTree = "<group>"; };
 		C90799B91A8564C60044E13C /* WMFShareOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFShareOptionsViewController.m; path = ShareCard/WMFShareOptionsViewController.m; sourceTree = "<group>"; };
+		C913C89A1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSuggestedPagesFunnel.h; path = EventLogging/WMFSuggestedPagesFunnel.h; sourceTree = "<group>"; };
+		C913C89B1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSuggestedPagesFunnel.m; path = EventLogging/WMFSuggestedPagesFunnel.m; sourceTree = "<group>"; };
 		C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaAppUtils.h; sourceTree = "<group>"; };
 		C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikipediaAppUtils.m; sourceTree = "<group>"; };
 		C91A86F21A8BCB680088A801 /* WMFShareCardImageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFShareCardImageContainer.h; path = ShareCard/WMFShareCardImageContainer.h; sourceTree = "<group>"; };
@@ -2161,6 +2164,8 @@
 				D4F277FD194235B50032BA38 /* ToCInteractionFunnel.m */,
 				D47BF5D2197870390067C3BC /* SavedPagesFunnel.h */,
 				D47BF5D3197870390067C3BC /* SavedPagesFunnel.m */,
+				C913C89A1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.h */,
+				C913C89B1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m */,
 			);
 			name = EventLogging;
 			sourceTree = "<group>";
@@ -2739,6 +2744,7 @@
 				0487048519F8262600B7D307 /* EditTokenFetcher.m in Sources */,
 				04CCCFF71935094000E3F60C /* PrimaryMenuTableViewCell.m in Sources */,
 				0487048F19F8262600B7D307 /* WikiTextSectionFetcher.m in Sources */,
+				C913C89C1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m in Sources */,
 				04EDEE2A1A215DBC00798076 /* UITableView+DynamicCellHeight.m in Sources */,
 				04CBAC7319A9B786009F3D7E /* NSArray+Predicate.m in Sources */,
 				04CCCFF61935094000E3F60C /* PrimaryMenuViewController.m in Sources */,
