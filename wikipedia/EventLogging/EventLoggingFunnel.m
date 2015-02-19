@@ -31,10 +31,10 @@
 {
     SessionSingleton *session = [SessionSingleton sharedInstance];
     NSString *wiki = [session.site.language stringByAppendingString:@"wiki"];
-    [self log:eventData forWiki:wiki];
+    [self log:eventData wiki:wiki];
 }
 
--(void)log:(NSDictionary *)eventData forWiki:(NSString *)wiki
+-(void)log:(NSDictionary *)eventData wiki:(NSString *)wiki
 {
     if ([SessionSingleton sharedInstance].sendUsageReports) {
         (void)[[EventLogger alloc] initAndLogEvent:[self preprocessData:eventData]
