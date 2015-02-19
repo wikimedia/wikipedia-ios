@@ -182,6 +182,8 @@
 		08D631FA1A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D631F91A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.m */; };
 		701FF5EE601DEA3FCAB7EFD3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D82982ED992F47428037BDF2 /* libPods.a */; };
 		954BA118838BF8BA6B01C34A /* libPods-WikipediaUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */; };
+		BC118C0F1A95894D0072E4D8 /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
+		BC118C101A9589720072E4D8 /* AssetsFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 04272E791940EEBC00CC682F /* AssetsFile.m */; };
 		BC42735D1A7C73B300068882 /* NSArray+Predicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CBAC7219A9B786009F3D7E /* NSArray+Predicate.m */; };
 		BC42735E1A7C73B300068882 /* NSArray+PredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */; };
 		BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */; };
@@ -2640,6 +2642,7 @@
 				BCB669F91A83F71C00C7B1FE /* MWKImageList.m in Sources */,
 				BCB669F81A83F71C00C7B1FE /* MWKUserDataStore.m in Sources */,
 				BCB669F31A83F71C00C7B1FE /* MWKRecentSearchEntry.m in Sources */,
+				BC118C0F1A95894D0072E4D8 /* WikipediaAppUtils.m in Sources */,
 				BCB669F61A83F71C00C7B1FE /* MWKDataStore.m in Sources */,
 				BCB669E71A83F71C00C7B1FE /* MWKSite.m in Sources */,
 				BCB58F7C1A8D0C8E00465627 /* NSArray+BKIndexTests.m in Sources */,
@@ -2662,6 +2665,7 @@
 				BCB669F21A83F71C00C7B1FE /* MWKHistoryList.m in Sources */,
 				BCB669E61A83F6D300C7B1FE /* MWKHistoryListTests.m in Sources */,
 				BC42735D1A7C73B300068882 /* NSArray+Predicate.m in Sources */,
+				BC118C101A9589720072E4D8 /* AssetsFile.m in Sources */,
 				BCB669EA1A83F71C00C7B1FE /* MWKSiteDataObject.m in Sources */,
 				BC86B9411A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
 				BCB669EC1A83F71C00C7B1FE /* MWKSection.m in Sources */,

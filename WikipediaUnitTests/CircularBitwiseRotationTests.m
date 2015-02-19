@@ -9,11 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-<<<<<<< HEAD
-#import "WMF_FunUtilities.h"
-=======
 #import "WikipediaAppUtils.h"
->>>>>>> 8fab4cb... image gallery
 
 @interface CircularBitwiseRotationTests : XCTestCase
 

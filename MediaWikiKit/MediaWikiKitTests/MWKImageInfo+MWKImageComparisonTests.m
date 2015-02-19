@@ -27,6 +27,7 @@
                                                     license:nil
                                                 filePageURL:nil
                                                    imageURL:nil
+                                              imageThumbURL:nil
                                                       owner:nil];
 }
 

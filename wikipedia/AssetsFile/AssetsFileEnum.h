@@ -1,3 +1,4 @@
+#import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, AssetsFileEnum) {
     ASSETS_FILE_UNDEFINED = 0,

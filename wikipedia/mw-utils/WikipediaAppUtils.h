@@ -2,9 +2,9 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #define MWLocalizedString(key, throwaway) [WikipediaAppUtils localizedStringForKey:key]
-
 
 /**
  * Provides compile time checking for keypaths on a given object.

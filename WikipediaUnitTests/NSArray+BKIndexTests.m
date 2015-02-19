@@ -8,11 +8,7 @@
 
 #import "NSArray+BKIndex.h"
 #import <XCTest/XCTest.h>
-<<<<<<< HEAD
-#import "WMF_FunUtilities.h"
-=======
 #import "WikipediaAppUtils.h"
->>>>>>> 8fab4cb... image gallery
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
