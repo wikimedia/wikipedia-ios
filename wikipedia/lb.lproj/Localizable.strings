@@ -6,6 +6,8 @@
 "article-languages-cancel" = "Ofbriechen";
 "article-languages-downloading" = "Luede vun de Sprooche vum Artikel...";
 "article-languages-filter-placeholder" = "Sproochfilter";
+"info-box-title" = "Séier Fakten";
+"info-box-close-text" = "Zoumaachen";
 "language-button-text" = "Dir kënnt dësen Artikel a(n) %d anere Sprooche liesen";
 "history-label" = "Rezent";
 "history-section-today" = "Haut";
@@ -148,12 +150,18 @@
 "about-translators" = "Iwwersetzer";
 "about-translators-details" = "Vu Fräiwëllegen op $1 iwwersat";
 "about-libraries" = "Benotzt Bibliothéiken";
+"about-libraries-license" = "Lizenz";
 "about-send-feedback" = "Feedback vun der App schécken";
 "about-product-of" = "E Produkt vun der $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Artikel späicheren";
 "share-menu-page-saved" = "Säit gespäichert";
 "share-menu-page-saved-access" = "Tipp: fir op Är gespäichert Säiten ze goen, tippt $1 hei driwwer oder dréckt laang op $2 hei drënner.";
+"share-custom-menu-item" = "Deelen";
+"share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" op @Wikipedia: \"$2\"";
+"share-as-image" = "Als Bild deelen";
+"share-as-text" = "Als Text deelen";
 "timestamp-just-now" = "grad elo";
 "timestamp-minutes" = "viru(n) %d Minutten";
 "timestamp-hours" = "viru(n) %d Stonnen";
@@ -217,3 +225,4 @@
 "nearby-location-updates-denied" = "Dës App huet net d'Recht fir Aktualisatiounen iwwer d'Plaz wou e grad ass ze kréien.";
 "nearby-location-general-error" = "D'Plaz wou Dir sidd konnt net festgestallt ginn. Dréckt fir z'aktualiséieren oder probéiert méi spéit nach eng Kéier.";
 "nearby-wifi" = "D'Aschalte vum Wifi kann Ärem Apparat hëllefen d'Plaz wou Dir sidd besser festzeleeën.";
+"update-progress-label" = "Aktualiséiere vu lokalen Donnéeën";

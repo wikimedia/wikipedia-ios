@@ -6,6 +6,8 @@
 "article-languages-cancel" = "Revocare";
 "article-languages-downloading" = "Se încarcă limbile articolului...";
 "article-languages-filter-placeholder" = "Filtru de limbă";
+"info-box-title" = "Informații pe scurt";
+"info-box-close-text" = "Închide";
 "language-button-text" = "Puteți citi acest articol în alte %d limbi";
 "history-label" = "Recente";
 "history-section-today" = "Astăzi";
@@ -159,6 +161,7 @@
 "about-translators" = "traducători";
 "about-translators-details" = "Această aplicație a fost tradusă de traducătorii voluntari de la $1";
 "about-libraries" = "biblioteci utilizate";
+"about-libraries-license" = "Licență";
 "about-repositories" = "depozite";
 "about-send-feedback" = "Trimiteți o părere despre aplicație";
 "about-product-of" = "Un produs al $1";
@@ -166,6 +169,11 @@
 "share-menu-save-page" = "Salvare articol";
 "share-menu-page-saved" = "Articol salvat";
 "share-menu-page-saved-access" = "Sfat: pentru a vă accesa paginile salvate, atingeți simbolul $1 de mai sus sau apăsați prelung simbolul $2 de mai jos.";
+"share-custom-menu-item" = "Distribuie";
+"share-article-name-on-wikipedia" = "„$1” la @Wikipedia";
+"share-article-name-on-wikipedia-with-selected-text" = "„$1” la @Wikipedia: „$2”";
+"share-as-image" = "Distribuie ca imagine";
+"share-as-text" = "Distribuie ca text";
 "timestamp-just-now" = "chiar acum";
 "timestamp-minutes" = "acum %d minute";
 "timestamp-hours" = "acum %d ore";
@@ -231,3 +239,4 @@
 "nearby-location-updates-settings-menu" = "Intimitate > Servicii de localizare > Wikipedia";
 "nearby-location-general-error" = "Nu s-a putut efectua localizarea. Trageți pentru a reîmprospăta sau reîncercați mai târziu.";
 "nearby-wifi" = "Activarea conexiunii WiFi poate ajuta dispozitivul dumnevoastră să vă localizeze mai precis.";
+"update-progress-label" = "Se face upgrade datelor locale";

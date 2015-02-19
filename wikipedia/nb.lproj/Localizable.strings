@@ -7,6 +7,8 @@
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Laster artikkelspråk…";
 "article-languages-filter-placeholder" = "Språkfilter";
+"info-box-title" = "Raske fakta";
+"info-box-close-text" = "Lukk";
 "language-button-text" = "Artikkelen finnes på %d andre språk";
 "history-label" = "Logg";
 "history-section-today" = "I dag";
@@ -41,6 +43,7 @@
 "account-creation-password-placeholder-text" = "Passord";
 "account-creation-password-confirm-placeholder-text" = "Bekreft passord";
 "account-creation-email-placeholder-text" = "Epost (valgfritt)";
+"account-creation-missing-fields" = "Du må skrive inn brukernavn, passord og passordbekreftelse for å opprette en konto.";
 "login-name-not-found" = "Brukernavn kreves for å logge inn.";
 "login-name-illegal" = "Du oppga et ugyldig brukernavn.";
 "login-name-does-not-exist" = "Brukernavnet du oppga eksisterer ikke.";
@@ -77,6 +80,14 @@
 "search-loading-section-remaining" = "Laster inn resten av artikkelen…";
 "search-loading-article-loaded" = "Artikkelen er innlastet.";
 "search-cancel" = "Avbryt";
+"search-titles" = "Titler";
+"search-within-articles" = "I artikler";
+"search-did-you-mean" = "Mente du $1?";
+"search-recent-title" = "Nylige søk";
+"search-recent-clear-confirmation-heading" = "Slette alle nylige søk?";
+"search-recent-clear-confirmation-sub-heading" = "Handlingen kan ikke omgjøres!";
+"search-recent-clear-cancel" = "Avbryt";
+"search-recent-clear-delete-all" = "Slett alt";
 "main-menu-title" = "Mer";
 "main-menu-language-title" = "Søk i Wikipedia på $1";
 "main-menu-language-toggle-show" = "Vis språk";
@@ -151,6 +162,7 @@
 "about-translators" = "oversettere";
 "about-translators-details" = "Oversatt av frivillige på $1";
 "about-libraries" = "bibliotek brukt";
+"about-libraries-license" = "Lisens";
 "about-repositories" = "lagre";
 "about-send-feedback" = "Gi tilbakemelding på appen";
 "about-product-of" = "Et produkt fra $1";
@@ -158,6 +170,11 @@
 "share-menu-save-page" = "Lagre artikkel";
 "share-menu-page-saved" = "Artikkelen ble lagret";
 "share-menu-page-saved-access" = "Tips: for å åpne lagrede sider, trykk på $1 over eller trykk lenge på $2 under.";
+"share-custom-menu-item" = "Del";
+"share-article-name-on-wikipedia" = "«$1» på @Wikipedia";
+"share-article-name-on-wikipedia-with-selected-text" = "«$1» på @Wikipedia: «$2»";
+"share-as-image" = "Del som bilde";
+"share-as-text" = "Del som tekst";
 "timestamp-just-now" = "nå nettopp";
 "timestamp-minutes" = "for %d minutter siden";
 "timestamp-hours" = "for %d timer siden";
@@ -223,3 +240,4 @@
 "nearby-location-updates-settings-menu" = "Innstillinger > Personvern > Stedstjenester > Wikipedia";
 "nearby-location-general-error" = "Kunne ikke bestemme plasseringen din. Dra for å gjenoppfriske eller prøv på nytt senere.";
 "nearby-wifi" = "Å skru på wifi kan hjelpe enheten din til å bestemme posisjonen din bedre.";
+"update-progress-label" = "Oppgraderer lokale data";

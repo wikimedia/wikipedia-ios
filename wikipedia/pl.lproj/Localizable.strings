@@ -14,6 +14,7 @@
 "article-languages-cancel" = "Anuluj";
 "article-languages-downloading" = "Ładowanie języków artykułu...";
 "article-languages-filter-placeholder" = "Filtr językowy";
+"info-box-close-text" = "Zamknij";
 "language-button-text" = "Możesz czytać ten artykuł w %d innych językach.";
 "history-label" = "Ostatnie";
 "history-section-today" = "Dzisiaj";
@@ -130,6 +131,7 @@
 "credits-external-libraries" = "Zewnętrzny";
 "about-wikipedia" = "Wikipedia";
 "about-translators" = "tłumacze";
+"about-libraries-license" = "Licencja";
 "about-repositories" = "repozytoria";
 "share-menu-save-page" = "Zapisz stronę";
 "share-menu-page-saved" = "Zapisano do czytania w trybie offline.";

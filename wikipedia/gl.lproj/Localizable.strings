@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Elisardojm
 // Author: Estevoaei
+// Author: Fisterraeomar
 // Author: Toliño
 
 "article-languages-label" = "Escolla unha lingua";
@@ -233,3 +234,4 @@
 "nearby-location-updates-settings-menu" = "Privacidade > Servizos de localización > Wikipedia";
 "nearby-location-general-error" = "Non se pode determinar a localización. Tire para actualizar ou ténteo máis tarde.";
 "nearby-wifi" = "Activar wifi pode axudar a que o seu dispositivo determine mellor a súa localización.";
+"update-progress-label" = "Actualizando datos locais";

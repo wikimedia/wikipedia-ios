@@ -7,6 +7,7 @@
 // Author: Gianfranco
 // Author: Macofe
 // Author: Nastoshka
+// Author: Nivit
 // Author: Ontsed
 // Author: Peg60
 
@@ -14,6 +15,8 @@
 "article-languages-cancel" = "Annulla";
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
 "article-languages-filter-placeholder" = "Filtra lingua";
+"info-box-title" = "Fatti in breve";
+"info-box-close-text" = "Chiudi";
 "language-button-text" = "Puoi leggere questa voce in %d altre lingue";
 "history-label" = "Recenti";
 "history-section-today" = "Oggi";
@@ -48,6 +51,7 @@
 "account-creation-password-placeholder-text" = "Password";
 "account-creation-password-confirm-placeholder-text" = "Conferma password";
 "account-creation-email-placeholder-text" = "Email (opzionale)";
+"account-creation-missing-fields" = "È necessario immettere un nome utente, una password e la conferma della password per creare un account.";
 "login-name-not-found" = "Il nome utente è necessario per effettuare l'accesso.";
 "login-name-illegal" = "Hai fornito un nome utente non valido.";
 "login-name-does-not-exist" = "Il nome utente fornito non esiste.";
@@ -85,6 +89,13 @@
 "search-loading-article-loaded" = "Voce caricata.";
 "search-cancel" = "Annulla";
 "search-titles" = "Titoli";
+"search-within-articles" = "All'interno delle voci";
+"search-did-you-mean" = "Volevi dire $1?";
+"search-recent-title" = "Ricerche recenti";
+"search-recent-clear-confirmation-heading" = "Eliminare tutte le ricerche recenti?";
+"search-recent-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
+"search-recent-clear-cancel" = "Annulla";
+"search-recent-clear-delete-all" = "Cancella tutto";
 "main-menu-title" = "Altro";
 "main-menu-language-title" = "Cerca nel wiki in lingua $1";
 "main-menu-language-toggle-show" = "Visualizza lingue";
@@ -103,6 +114,7 @@
 "main-menu-send-feedback" = "Invia commento sull'applicazione";
 "main-menu-show-page-history" = "Cronologia delle modifiche a $1";
 "main-menu-credits" = "Crediti";
+"main-menu-about" = "Informazioni sull'app di Wikipedia";
 "main-menu-zero-faq" = "FAQ di Wikipedia Zero";
 "main-menu-privacy-policy" = "Informativa sulla privacy";
 "main-menu-terms-of-use" = "Condizioni d'uso";
@@ -150,13 +162,25 @@
 "credits-gerrit-repo" = "Applicazione principale (Gerrit)";
 "credits-github-mirror" = "Applicazione mirror (GitHub)";
 "credits-external-libraries" = "Esterno";
+"about-title" = "Informazioni";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "collaboratori";
+"about-testers" = "tester";
+"about-testers-details" = "QA testato da $1";
 "about-translators" = "traduttori";
+"about-translators-details" = "Tradotto da volontari in $1";
+"about-libraries" = "librerie usate";
+"about-libraries-license" = "Licenza";
+"about-repositories" = "archivi";
+"about-send-feedback" = "Invia commento sull'app";
+"about-product-of" = "Un prodotto di $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Salva la pagina";
 "share-menu-page-saved" = "Pagina salvata";
 "share-menu-page-saved-access" = "Suggerimento: per accedere alle pagine salvate, tocca $1 sopra o premi a lungo $2 sotto.";
+"share-article-name-on-wikipedia" = "\"$1\" su @Wikipedia";
+"share-as-image" = "Condividi come immagine";
+"share-as-text" = "Condividi come testo";
 "timestamp-just-now" = "proprio ora";
 "timestamp-minutes" = "%d minuti fa";
 "timestamp-hours" = "%d ore fa";
@@ -222,3 +246,4 @@
 "nearby-location-updates-settings-menu" = "Privacy > Localizzazione > Wikipedia";
 "nearby-location-general-error" = "Impossibile determinare la posizione. Tira su per ricaricare o riprova più tardi.";
 "nearby-wifi" = "Abilitando il WiFi, aiuti il dispositivo a determinar meglio la tua posizione.";
+"update-progress-label" = "Aggiornamento di dati locali";

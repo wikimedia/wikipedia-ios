@@ -8,6 +8,8 @@
 "article-languages-cancel" = "Hủy bỏ";
 "article-languages-downloading" = "Đang tải các ngôn ngữ của bài…";
 "article-languages-filter-placeholder" = "Lọc Ngôn ngữ";
+"info-box-title" = "Thông tin nhanh";
+"info-box-close-text" = "Đóng";
 "language-button-text" = "Bạn có thể đọc bài này trong %d ngôn ngữ khác";
 "history-label" = "Gần đây";
 "history-section-today" = "Hôm nay";
@@ -161,6 +163,7 @@
 "about-translators" = "biên dịch viên";
 "about-translators-details" = "Biên dịch bởi những tình nguyện viên tại $1";
 "about-libraries" = "thư viện được sử dụng";
+"about-libraries-license" = "Giấy phép";
 "about-repositories" = "kho mã nguồn";
 "about-send-feedback" = "Gửi phản hồi về ứng dụng";
 "about-product-of" = "Sản phẩm của $1";
@@ -168,6 +171,11 @@
 "share-menu-save-page" = "Lưu Bài";
 "share-menu-page-saved" = "Đã Lưu Bài";
 "share-menu-page-saved-access" = "Mẹo: Để truy cập các trang đã lưu của bạn, chạm vào $1 bên trên hoặc bấm lâu $2 bên dưới.";
+"share-custom-menu-item" = "Chia sẻ";
+"share-article-name-on-wikipedia" = "“$1” trên @Wikipedia";
+"share-article-name-on-wikipedia-with-selected-text" = "“$1” trên @Wikipedia: “$2”";
+"share-as-image" = "Chia sẻ hình ảnh";
+"share-as-text" = "Chia sẻ văn bản";
 "timestamp-just-now" = "hồi nãy";
 "timestamp-minutes" = "%d phút trước";
 "timestamp-hours" = "%d giờ trước";
@@ -233,3 +241,4 @@
 "nearby-location-updates-settings-menu" = "Bảo mật > Địa điểm > Wikipedia";
 "nearby-location-general-error" = "Không thể xác định vị trí. Kéo xuống để làm mới hoặc thử lại sau.";
 "nearby-wifi" = "Bật lên Wi-Fi để giúp thiết bị của bạn xác định vị trí của bạn một cách chính xác hơn.";
+"update-progress-label" = "Đang nâng cấp dữ liệu địa phương";

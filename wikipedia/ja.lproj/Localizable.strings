@@ -11,6 +11,8 @@
 "article-languages-cancel" = "キャンセル";
 "article-languages-downloading" = "言語リストを取得中...";
 "article-languages-filter-placeholder" = "言語の絞り込み";
+"info-box-title" = "基本データ";
+"info-box-close-text" = "閉じる";
 "language-button-text" = "この記事は他に %d 個の言語で読むことができます";
 "history-label" = "最近のもの";
 "history-section-today" = "今日";
@@ -45,6 +47,7 @@
 "account-creation-password-placeholder-text" = "パスワード";
 "account-creation-password-confirm-placeholder-text" = "パスワード再入力";
 "account-creation-email-placeholder-text" = "メール (省略可能)";
+"account-creation-missing-fields" = "アカウントの作成には利用者名とパスワード、さらに確認のためもう一度パスワードを入力する必要があります。";
 "login-name-not-found" = "ログインするには利用者名が必要です。";
 "login-name-illegal" = "あなたが入力した利用者名は無効です。";
 "login-name-does-not-exist" = "指定した利用者名は存在しません。";
@@ -163,6 +166,7 @@
 "about-translators" = "翻訳者";
 "about-translators-details" = "このアプリは$1においてボランティア翻訳者により翻訳されました。";
 "about-libraries" = "使用ライブラリについて";
+"about-libraries-license" = "ライセンス";
 "about-repositories" = "リポジトリについて";
 "about-send-feedback" = "フィードバックを送信";
 "about-product-of" = "$1の製品について";
@@ -170,6 +174,11 @@
 "share-menu-save-page" = "ページを保存";
 "share-menu-page-saved" = "記事を保存しました";
 "share-menu-page-saved-access" = "ヒント: 保存したページにアクセスするには、上部の$1をタップするか、下部の$2を長押しします。";
+"share-custom-menu-item" = "シェア";
+"share-article-name-on-wikipedia" = "「$1」の記事を @Wikipedia で";
+"share-article-name-on-wikipedia-with-selected-text" = "「$2」(@Wikipedia の記事「$1」より)";
+"share-as-image" = "画像をシェア";
+"share-as-text" = "テキストとしてシェア";
 "timestamp-just-now" = "ちょうど今";
 "timestamp-minutes" = "%d分前";
 "timestamp-hours" = "%d時間前";
@@ -194,7 +203,7 @@
 "page_protected_other" = "このページは、次のレベルに保護されています:$1";
 "page_protected_can_not_edit" = "このページを編集する権限がありません";
 "page_protected_can_not_edit_title" = "このページは保護されています";
-"license-footer-text" = "コンテンツは$1のもとで利用できます";
+"license-footer-text" = "コンテンツは$1の利用条件のもとで利用できます";
 "license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
 "table-of-contents-heading" = "コンテンツ";
 "abuse-filter-warning-heading" = "これは建設的な編集ではないかもしれません。それでも保存しますか？";
@@ -235,3 +244,4 @@
 "nearby-location-updates-settings-menu" = "プライバシー > 位置情報サービス > ウィキペディア";
 "nearby-location-general-error" = "位置を確定できません。引っ張って更新するか、後ほどもう一度試してみてください。";
 "nearby-wifi" = "Wi-Fi を有効にすると、位置情報の精度をより高めることができます。";
+"update-progress-label" = "ローカルデータをアップグレード中";

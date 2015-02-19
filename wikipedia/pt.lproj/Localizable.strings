@@ -10,6 +10,8 @@
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "A carregar idiomas do artigo...";
 "article-languages-filter-placeholder" = "Filtro de idioma";
+"info-box-title" = "Fatos rápidos";
+"info-box-close-text" = "Fechar";
 "language-button-text" = "Pode ler este artigo em %d outros idiomas";
 "history-label" = "Recentes";
 "history-section-today" = "Hoje";
@@ -163,6 +165,7 @@
 "about-translators" = "tradutores";
 "about-translators-details" = "Esta aplicação foi traduzida por tradutores voluntários em $1";
 "about-libraries" = "bibliotecas usadas";
+"about-libraries-license" = "Licença";
 "about-repositories" = "repositórios";
 "about-send-feedback" = "Enviar comentários sobre a aplicação";
 "about-product-of" = "Um produto da $1";
@@ -170,6 +173,11 @@
 "share-menu-save-page" = "Guardar página";
 "share-menu-page-saved" = "Página guardada";
 "share-menu-page-saved-access" = "Dica: Para aceder às suas páginas guardadas, toque em $1 acima ou pressione $2 abaixo.";
+"share-custom-menu-item" = "Partilhar";
+"share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipédia: \"$2\"";
+"share-as-image" = "Partilhar como imagem";
+"share-as-text" = "Partilhar como texto";
 "timestamp-just-now" = "agora mesmo";
 "timestamp-minutes" = "há %d minutos";
 "timestamp-hours" = "há %d horas";
@@ -235,3 +243,4 @@
 "nearby-location-updates-settings-menu" = "Privacidade > Serviços de localização > Wikipédia";
 "nearby-location-general-error" = "Não foi possível determinar a localização. Puxe para atualizar ou tente novamente mais tarde.";
 "nearby-wifi" = "Ativar o WiFi pode ajudar o seu dispositivo a determinar a sua localização.";
+"update-progress-label" = "A atualizar dados locais";

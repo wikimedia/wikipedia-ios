@@ -7,6 +7,8 @@
 "article-languages-cancel" = "გაუქმება";
 "article-languages-downloading" = "სტატიის ენები იტვირთება...";
 "article-languages-filter-placeholder" = "ენის ფილტრი";
+"info-box-title" = "სწრაფი ფაქტები";
+"info-box-close-text" = "დახურვა";
 "language-button-text" = "ამ სტატიის წაკითხვა შეგიძლიათ % სხვა ენებზე";
 "history-label" = "ბოლო";
 "history-section-today" = "დღეს";
@@ -130,10 +132,15 @@
 "about-contributors" = "ავტორები";
 "about-translators" = "მთარგმნელები";
 "about-translators-details" = "ეს აპლიკაცია ნათარგმნია მოხალისეების მიერ $1-ზე";
+"about-libraries-license" = "ლიცენზია";
 "about-send-feedback" = "შეაფასეთ აპლიკაცია";
 "about-product-of" = "$1-ის პროდუქტი";
 "about-wikimedia-foundation" = "ფონდი ვიკიმედია";
 "share-menu-save-page" = "გვერდის შენახვა";
+"share-custom-menu-item" = "გაზიარება";
+"share-article-name-on-wikipedia-with-selected-text" = "„$1“ ვიკიპედიაზე: „$2“";
+"share-as-image" = "სურათად გაზიარება";
+"share-as-text" = "ტექსტად გაზიარება";
 "timestamp-just-now" = "ახლავე";
 "timestamp-minutes" = "% წუთის წინ";
 "timestamp-hours" = "% საათის წინ";

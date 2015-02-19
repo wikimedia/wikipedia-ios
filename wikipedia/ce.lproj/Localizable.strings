@@ -6,6 +6,7 @@
 "article-languages-label" = "Харжа мотт";
 // Fuzzy
 "article-languages-filter-placeholder" = "Литтар";
+"info-box-close-text" = "ДӀачӀагӀа";
 // Fuzzy
 "history-label" = "Хийцамашка хьажар";
 "history-section-today" = "Тахана";
@@ -66,6 +67,7 @@
 "about-testers" = "тестераш";
 "share-menu-save-page" = "Ӏалашъе агӀо";
 "share-menu-page-saved" = "АгӀо Ӏалашйина";
+"share-custom-menu-item" = "Екха";
 "timestamp-days" = "%d де хьалха";
 "lastmodified-by-user" = "Хийцина $1 декъашхочо $2";
 "lastmodified-by-anon" = "$1 хийцина цӀе хьулйина декъашхочо";

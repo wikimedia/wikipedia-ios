@@ -12,6 +12,8 @@
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Läser in artikelspråk...";
 "article-languages-filter-placeholder" = "Språkfilter";
+"info-box-title" = "Snabbfakta";
+"info-box-close-text" = "Stäng";
 "language-button-text" = "Du kan läsa denna artikel på %d andra språk";
 "history-label" = "Webbhistorik";
 "history-section-today" = "Idag";
@@ -165,6 +167,7 @@
 "about-translators" = "Översättare";
 "about-translators-details" = "Denna app översattes av frivilliga översättare på $1";
 "about-libraries" = "Bibliotek som använts";
+"about-libraries-license" = "Licens";
 "about-repositories" = "Förvar";
 "about-send-feedback" = "Skicka återkoppling om appen";
 "about-product-of" = "En produkt av $1";
@@ -172,6 +175,11 @@
 "share-menu-save-page" = "Spara artikeln";
 "share-menu-page-saved" = "Sparade för offline-läsning.";
 "share-menu-page-saved-access" = "Tips: för att komma åt dina sparade sidor, klicka på $1 ovan eller tryck länge på $2 nedan.";
+"share-custom-menu-item" = "Dela";
+"share-article-name-on-wikipedia" = "\"$1\" på @Wikipedia";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" på @Wikipedia: \"$2\"";
+"share-as-image" = "Dela som bild";
+"share-as-text" = "Dela som text";
 "timestamp-just-now" = "just nu";
 "timestamp-minutes" = "%d minuter sedan";
 "timestamp-hours" = "%d timmar sedan";
@@ -237,3 +245,4 @@
 "nearby-location-updates-settings-menu" = "Sekretess > Platstjänster > Wikipedia";
 "nearby-location-general-error" = "Det gick inte att bestämma plats. Dra för att uppdatera eller försök igen senare.";
 "nearby-wifi" = "Att aktivera wifi kan hjälpa din enhet att bättre avgöra din position.";
+"update-progress-label" = "Uppgraderar lokal data";

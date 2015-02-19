@@ -9,6 +9,8 @@
 "article-languages-cancel" = "ביטול";
 "article-languages-downloading" = "טעינת שפות הערך...";
 "article-languages-filter-placeholder" = "סינון שפה";
+"info-box-title" = "עובדות מהירות";
+"info-box-close-text" = "סגירה";
 "language-button-text" = "אפשר לקרוא את הערך הזה בעוד %d שפות";
 "history-label" = "לאחרונה";
 "history-section-today" = "היום";
@@ -162,6 +164,7 @@
 "about-translators" = "מתרגמים";
 "about-translators-details" = "היישום הזה תורגם על־ידי מתרגמים מתנדבים באתר $1";
 "about-libraries" = "ספריות בשימוש";
+"about-libraries-license" = "רישיון";
 "about-repositories" = "מאגרים";
 "about-send-feedback" = "שליחת משוב על היישום";
 "about-product-of" = "מוצר של $1";
@@ -169,6 +172,11 @@
 "share-menu-save-page" = "שמירת דף";
 "share-menu-page-saved" = "הדף נשמר";
 "share-menu-page-saved-access" = "עצה: כדי לגשת לדפים השמורים שלך, יש ללחוץ על $1 למעלה או לעשות לחיצה ארוכה על $2 למטה.";
+"share-custom-menu-item" = "שיתוף";
+"share-article-name-on-wikipedia" = "\"$1\" באתר @wikipedia";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" באתר @wikipedia: \"$2\"";
+"share-as-image" = "שיתוף תמונה";
+"share-as-text" = "שיתוף טקסט";
 "timestamp-just-now" = "זה עתה";
 "timestamp-minutes" = "לפני %d דקות";
 "timestamp-hours" = "לפני %d שעות";
@@ -234,3 +242,4 @@
 "nearby-location-updates-settings-menu" = "פרטיות > שירותי מיקום > ויקיפדיה";
 "nearby-location-general-error" = "לא ניתן להבין מה המיקום. נא למשוך לרענון או לנסות מאוחר יותר.";
 "nearby-wifi" = "הפעלת וייפיי יכולה לעזור למכשיר שלך להבין את המיקום טוב יותר.";
+"update-progress-label" = "שדרוג נתונים מקומיים";

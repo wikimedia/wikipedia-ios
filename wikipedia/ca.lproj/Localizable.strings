@@ -4,6 +4,7 @@
 // Author: Brion
 // Author: Fitoschido
 // Author: Gerardduenas
+// Author: Macofe
 // Author: SMP
 // Author: Toniher
 
@@ -11,6 +12,8 @@
 "article-languages-cancel" = "Cancel·la";
 "article-languages-downloading" = "Carregant llengües de l'article...";
 "article-languages-filter-placeholder" = "Filtre de llengua";
+"info-box-title" = "Dades bàsiques";
+"info-box-close-text" = "Tanca";
 "language-button-text" = "Podeu llegir l'article en %d altres llengües";
 "history-label" = "Recent";
 "history-section-today" = "Avui";
@@ -163,6 +166,7 @@
 "about-translators" = "traductors";
 "about-translators-details" = "Traduït per voluntaris a $1";
 "about-libraries" = "biblioteques utilitzades";
+"about-libraries-license" = "Llicència";
 "about-repositories" = "repositoris";
 "about-send-feedback" = "Enviar comentaris sobre l'aplicació";
 "about-product-of" = "Un producte de la $1";
@@ -170,6 +174,7 @@
 "share-menu-save-page" = "Desa l'article";
 "share-menu-page-saved" = "Article desat";
 "share-menu-page-saved-access" = "Consell: per accedir a les vostres pàgines desades, puntegeu en $1 a dalt o premeu uns moments $2 a sota.";
+"share-custom-menu-item" = "Comparteix";
 "timestamp-just-now" = "ara mateix";
 "timestamp-minutes" = "fa %d minuts";
 "timestamp-hours" = "fa %d hores";

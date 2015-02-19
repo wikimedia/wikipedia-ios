@@ -13,6 +13,8 @@
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "条目语言载入中...";
 "article-languages-filter-placeholder" = "语言过滤器";
+"info-box-title" = "事实速览";
+"info-box-close-text" = "关闭";
 "language-button-text" = "您可阅读此条目的%d种其他语言版";
 "history-label" = "最近";
 "history-section-today" = "今天的首页";
@@ -166,6 +168,7 @@
 "about-translators" = "译者";
 "about-translators-details" = "该应用程序是由$1的志愿翻译人员翻译的";
 "about-libraries" = "所使用的库";
+"about-libraries-license" = "授权协议";
 "about-repositories" = "存储库";
 "about-send-feedback" = "发送应用程序反馈信息";
 "about-product-of" = "$1的产品";
@@ -173,6 +176,11 @@
 "share-menu-save-page" = "保存条目";
 "share-menu-page-saved" = "页面已保存";
 "share-menu-page-saved-access" = "提示：要访问您保存的页面，在上面轻触$1或在下面按住$2。";
+"share-custom-menu-item" = "分享";
+"share-article-name-on-wikipedia" = "“$1”在@Wikipedia";
+"share-article-name-on-wikipedia-with-selected-text" = "“$1”在@Wikipedia：“$2”";
+"share-as-image" = "分享为图片";
+"share-as-text" = "分享为文本";
 "timestamp-just-now" = "刚刚";
 "timestamp-minutes" = "%d分钟前";
 "timestamp-hours" = "%d小时前";
@@ -238,3 +246,4 @@
 "nearby-location-updates-settings-menu" = "隐私 > 位置服务 > 维基百科";
 "nearby-location-general-error" = "无法确定位置。下拉刷新或稍后重试。";
 "nearby-wifi" = "启用Wi-Fi可使您的设备更好的确定您的位置。";
+"update-progress-label" = "升级本地数据";

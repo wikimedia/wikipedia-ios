@@ -7,6 +7,8 @@
 "article-languages-cancel" = "Abbrechen";
 "article-languages-downloading" = "Lade Artikelsprachen …";
 "article-languages-filter-placeholder" = "Sprachfilter";
+"info-box-title" = "Schnelle Fakten";
+"info-box-close-text" = "Schließen";
 "language-button-text" = "Du kannst diesen Artikel in %d anderen Sprachen lesen";
 "history-label" = "Kürzlich";
 "history-section-today" = "Heute";
@@ -160,6 +162,7 @@
 "about-translators" = "Übersetzer";
 "about-translators-details" = "Diese App wurde von freiwilligen Übersetzern auf $1 übersetzt";
 "about-libraries" = "Verwendete Bibliotheken";
+"about-libraries-license" = "Lizenz";
 "about-repositories" = "Repositorien";
 "about-send-feedback" = "App-Rückmeldung senden";
 "about-product-of" = "Ein Produkt der $1";
@@ -167,6 +170,11 @@
 "share-menu-save-page" = "Seite speichern";
 "share-menu-page-saved" = "Seite gespeichert";
 "share-menu-page-saved-access" = "Tipp: Um auf deine gespeicherten Seiten zuzugreifen, tippe oben auf $1 oder halte unten $2 gedrückt.";
+"share-custom-menu-item" = "Teilen";
+"share-article-name-on-wikipedia" = "„$1“ auf @Wikipedia";
+"share-article-name-on-wikipedia-with-selected-text" = "„$1“ auf @Wikipedia: „$2“";
+"share-as-image" = "Als Bild teilen";
+"share-as-text" = "Als Text teilen";
 "timestamp-just-now" = "gerade eben";
 "timestamp-minutes" = "vor %d Minuten";
 "timestamp-hours" = "vor %d Stunden";
@@ -232,3 +240,4 @@
 "nearby-location-updates-settings-menu" = "Datenschutz > Ortungsdienste > Wikipedia";
 "nearby-location-general-error" = "Standort konnte nicht bestimmt werden. Zum Aktualisieren ziehen oder später erneut versuchen.";
 "nearby-wifi" = "Das Aktivieren von Wi-Fi kann dabei helfen, den Standort deines Gerätes besser zu bestimmen.";
+"update-progress-label" = "Aktualisiere lokale Daten";

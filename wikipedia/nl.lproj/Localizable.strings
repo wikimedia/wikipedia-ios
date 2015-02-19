@@ -12,6 +12,8 @@
 "article-languages-cancel" = "Annuleren";
 "article-languages-downloading" = "Paginatalen aan het laden...";
 "article-languages-filter-placeholder" = "Taal filteren";
+"info-box-title" = "Snelle feiten";
+"info-box-close-text" = "Sluiten";
 "language-button-text" = "U kunt deze pagina in %d andere talen lezen";
 "history-label" = "Recent";
 "history-section-today" = "Vandaag";
@@ -165,6 +167,7 @@
 "about-translators" = "vertalers";
 "about-translators-details" = "Dit app is vertaald door de vrijwillige vertalers van $1";
 "about-libraries" = "gebruikte bibliotheken";
+"about-libraries-license" = "Licentie";
 "about-repositories" = "repositories";
 "about-send-feedback" = "Terugkoppeling over app geven";
 "about-product-of" = "Een product van de $1";
@@ -172,6 +175,11 @@
 "share-menu-save-page" = "Pagina opslaan";
 "share-menu-page-saved" = "Pgina opgeslagen voor offline lezen.";
 "share-menu-page-saved-access" = "Tip: om uw opgeslagen pagina's te bekijken, klikt u op $1 bovenaan of houdt u $2 lang ingedrukt.";
+"share-custom-menu-item" = "Delen";
+"share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" op @Wikipedia: \"$2\"";
+"share-as-image" = "Als bestand delen";
+"share-as-text" = "Als tekst delen";
 "timestamp-just-now" = "zojuist";
 "timestamp-minutes" = "%d minuten geleden";
 "timestamp-hours" = "%d uur geleden";
@@ -237,3 +245,4 @@
 "nearby-location-updates-settings-menu" = "Privacy > Locatievoorzieningen > Wikipedia";
 "nearby-location-general-error" = "Kan locatie niet bepalen. Trek naar beneden om bij te werken of probeer het later opnieuw.";
 "nearby-wifi" = "Het inschakelen van Wi-Fi zorgt voor een nauwkeuriger locatie.";
+"update-progress-label" = "Lokale gegevens bijwerken";

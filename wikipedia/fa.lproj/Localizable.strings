@@ -97,7 +97,7 @@
 "main-menu-language-toggle-hide" = "پنهان کردن زبان‌ها";
 "main-menu-language-selection-saved" = "انتخاب زبان ذخیره شد";
 "main-menu-account-title-logged-out" = "حساب کاربری";
-"main-menu-account-title-logged-in" = "ورود به‌عنوان: $1";
+"main-menu-account-title-logged-in" = "ورود به عنوان: $1";
 "main-menu-account-login" = "ورود به سامانه";
 "main-menu-account-logout" = "خروج از سامانه";
 "main-menu-show-title" = "نشانم بده...";
@@ -135,7 +135,7 @@
 "navbar-title-mode-edit-wikitext-disallow" = "مسائل ویرایش";
 "navbar-title-mode-edit-wikitext-preview" = "پیش‌نمایش";
 "navbar-title-mode-edit-wikitext-captcha" = "تایید سریع مورد نیاز است";
-"navbar-title-mode-edit-wikitext-summary" = "توصیف ویرایشتان";
+"navbar-title-mode-edit-wikitext-summary" = "توصیف ویرایش‌تان";
 "navbar-title-mode-edit-wikitext-save" = "ذخیره";
 "edit-summary-choice-linked-words" = "افزودن پیوند";
 "edit-summary-choice-fixed-grammar" = "دستور زبان  اصلاح شد";

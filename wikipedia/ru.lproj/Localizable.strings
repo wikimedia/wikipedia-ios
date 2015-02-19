@@ -1,6 +1,7 @@
 // Messages for Russian (русский)
 // Exported from translatewiki.net
 // Author: Alexandr Efremov
+// Author: Batumski brodyaga
 // Author: Bsitzmann
 // Author: Kopcap94
 // Author: Oashnic
@@ -10,6 +11,8 @@
 "article-languages-cancel" = "Отмена";
 "article-languages-downloading" = "Загрузка языков статьи…";
 "article-languages-filter-placeholder" = "Языковой фильтр";
+"info-box-title" = "Короткие факты";
+"info-box-close-text" = "Закрыть";
 "language-button-text" = "Вы можете прочитать эту статью ещё на %d других языках";
 "history-label" = "Недавние";
 "history-section-today" = "Сегодня";
@@ -163,6 +166,7 @@
 "about-translators" = "переводчики";
 "about-translators-details" = "Это приложение было переведено добровольцами на $1";
 "about-libraries" = "использованые библиотеки";
+"about-libraries-license" = "Лицензия";
 "about-repositories" = "репозитории";
 "about-send-feedback" = "Отправить отзыв о приложении";
 "about-product-of" = "Продукт $1";
@@ -170,6 +174,9 @@
 "share-menu-save-page" = "Сохранить статью";
 "share-menu-page-saved" = "Статья сохранена";
 "share-menu-page-saved-access" = "Совет: чтобы получить доступ к вашим сохраненным страницам, нажмите на $1 выше или зажмите $2 ниже.";
+"share-custom-menu-item" = "Поделиться";
+"share-as-image" = "Поделиться как изображением";
+"share-as-text" = "Поделиться как текстом";
 "timestamp-just-now" = "только что";
 "timestamp-minutes" = "%d мин. назад";
 "timestamp-hours" = "%d ч. назад";
@@ -235,3 +242,4 @@
 "nearby-location-updates-settings-menu" = "Приватность > Службы геолокации > Википедия";
 "nearby-location-general-error" = "Не удаётся определить местоположение. Потяните, чтобы обновить или повторите попытку позже.";
 "nearby-wifi" = "Включение Wi-Fi может помочь устройству лучше определить ваше местоположение.";
+"update-progress-label" = "Обновление локальных данных";

@@ -3,6 +3,7 @@
 // Author: !Silent
 // Author: Anaclaudiaml
 // Author: Dianakc
+// Author: Fasouzafreitas
 // Author: Luckas
 // Author: Mordecool
 // Author: Rodrigo codignoli
@@ -47,6 +48,7 @@
 "account-creation-password-placeholder-text" = "Senha";
 "account-creation-password-confirm-placeholder-text" = "Confirmar senha";
 "account-creation-email-placeholder-text" = "Email (opcional)";
+"account-creation-missing-fields" = "Deve inserir um nome de usuário(a), uma senha e a sua respectiva confirmação para criar uma conta.";
 "login-name-not-found" = "Nome de usuario necessário para entrar.";
 "login-name-illegal" = "Você forneceu um nome de usuario inválido.";
 "login-name-does-not-exist" = "O nome de usuario que você forneceu não existe.";
@@ -161,18 +163,25 @@
 "about-wikipedia" = "Wikipédia";
 "about-contributors" = "contribuidores";
 "about-testers" = "testadores";
+"about-testers-details" = "QA testada por $1";
 "about-translators" = "tradutores";
+"about-translators-details" = "Esta aplicação foi traduzida por tradutores voluntários em $1";
 "about-libraries" = "bibliotecas usadas";
+"about-repositories" = "repositórios";
 "about-send-feedback" = "Enviar comentários sobre o aplicativo";
+"about-product-of" = "Um produto da $1";
 "about-wikimedia-foundation" = "Fundação Wikimedia";
 "share-menu-save-page" = "Salvar artigo";
 "share-menu-page-saved" = "Artigo salvo";
+"share-menu-page-saved-access" = "Dica: Para acessar as suas páginas salvas, toque em $1 acima ou pressione $2 abaixo.";
 "timestamp-just-now" = "agora mesmo";
 "timestamp-minutes" = "%d minutos atrás";
 "timestamp-hours" = "%d horas atrás";
 "timestamp-days" = "%d dias atrás";
 "timestamp-months" = "%d meses atrás";
 "timestamp-years" = "%d anos atrás";
+"lastmodified-by-user" = "Modificada $1 por $2";
+"lastmodified-by-anon" = "Modificada $1 por usuário anônimo";
 "button-next" = "Seguinte";
 "button-done" = "Pronto";
 "button-save" = "Salvar";
@@ -180,3 +189,54 @@
 "onboarding-login" = "Entrar";
 "onboarding-already-have-account" = "Já possui uma conta? $1";
 "onboarding-skip" = "Pular";
+"onboarding-wikipedia" = "Wikipédia";
+"onboarding-free-encyclopedia" = "A Enciclopédia Livre";
+"preference_title_eventlogging_opt_in" = "Enviar relatórios de uso";
+"preference_summary_eventlogging_opt_in" = "Permitir que a Wikimedia recolha informações sobre o uso do aplicativo para aperfeiçoá-lo";
+"page_protected_autoconfirmed" = "Esta página foi semiprotegida.";
+"page_protected_sysop" = "Esta página foi totalmente protegida.";
+"page_protected_other" = "Esta página está protegida para os seguintes níveis: $1";
+"page_protected_can_not_edit" = "Você não tem permissão para editar esta página";
+"page_protected_can_not_edit_title" = "Esta página está protegida";
+"license-footer-text" = "Conteúdo disponível sob a licença $1";
+"license-footer-name" = "CC BY-SA 3.0";
+"table-of-contents-heading" = "Conteúdo";
+"abuse-filter-warning-heading" = "Esta edição parece não ser construtiva. Você tem certeza de que gostaria de salvá-la?";
+"abuse-filter-warning-subheading" = "A sua edição pode conter um ou mais dos seguintes erros:";
+"abuse-filter-warning-caps" = "Todo o texto em MAIÚSCULAS";
+"abuse-filter-warning-blanking" = "Branqueamento de artigos ou ''spam''";
+"abuse-filter-warning-irrelevant" = "Ligações ou imagens externas irrelevantes";
+"abuse-filter-warning-repeat" = "Repeeeetição de caracteres";
+"abuse-filter-disallow-heading" = "Você não pode salvar esta edição. Por favor, volte e altere-a.";
+"abuse-filter-disallow-unconstructive" = "Um filtro automatizado identificou esta edição como sendo potencialmente não construtiva ou como uma tentativa de vandalismo.";
+"abuse-filter-disallow-notable" = "A Wikipédia é uma enciclopédia e somente conteúdo neutro e notório pertence a este projeto.";
+"menu-edit-accessibility-label" = "Editar";
+"menu-close-accessibility-label" = "Fechar";
+"menu-preview-accessibility-label" = "Pré-visualizar";
+"menu-back-accessibility-label" = "Voltar";
+"menu-forward-accessibility-label" = "Avançar";
+"menu-w-accessibility-label" = "Menu";
+"menu-toc-accessibility-label" = "Conteúdo";
+"menu-search-accessibility-label" = "Pesquisa";
+"menu-cancel-accessibility-label" = "Cancelar";
+"menu-share-accessibility-label" = "Compartilhar";
+"menu-more-accessibility-label" = "Mais configurações";
+"menu-trash-accessibility-label" = "Apagar";
+"nearby-title" = "Próximo";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-feet" = "$1 pés";
+"nearby-distance-label-miles" = "$1 milhas";
+"nearby-pull-to-refresh-prompt" = "Puxe para atualizar";
+"nearby-pull-to-refresh-is-refreshing" = "Atualizando";
+"nearby-loading" = "Carregando artigos próximos";
+"nearby-loaded" = "Artigos próximos carregados";
+"nearby-none" = "Não foram encontrados artigos nas redondezas. Puxe para atualizar ou tente novamente mais tarde.";
+"nearby-open-in-maps" = "Abrir no Mapas";
+"nearby-cancel" = "Cancelar";
+"nearby-location-updates-denied" = "Este aplicativo não tem permissão para receber atualizações de localização.";
+"nearby-location-updates-enable" = "Para ativar atualizações de localização abra o aplicativo de Configurações e selecione o seguinte:";
+"nearby-location-updates-settings-menu" = "Privacidade > Serviços de localização > Wikipédia";
+"nearby-location-general-error" = "Não foi possível determinar a localização. Puxe para atualizar ou tente novamente mais tarde.";
+"nearby-wifi" = "Ativar o WiFi pode ajudar o seu dispositivo a determinar a sua localização.";
+"update-progress-label" = "Atualizando dados locais";
