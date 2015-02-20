@@ -13,7 +13,14 @@ Native rewrite of the [Wikipedia reader application](https://www.mediawiki.org/w
 * IRC chat: #wikimedia-mobile on irc.freenode.net
 
 # Dependencies
-This project uses [CocoaPods](cocoapods.org) to manage Objective-C dependencies and [npm](https://www.npmjs.com/) to manage web dependencies.  Please see the `Podfile` and `www/package.json` for a comprehensive list. The web dependencies (in the www folder) are managed with .  Please see  for a list of dependencies.
+##  [CocoaPods](cocoapods.org) 
+To manage Objective-C dependencies.  See the `Podfile` for a comprehensive list.
+## [npm](https://www.npmjs.com/) 
+Manage web dependencies.  See `www/package.json` for a comprehensive list. 
+## [Grunt](http://gruntjs.com)
+Compile LESS files and other grunt work.
+## [Uncrustify](http://uncrustify.sourceforge.net)
+Code Beautifier
 
 # Setup
 ## Prerequisites
@@ -32,6 +39,10 @@ Please make sure the following are installed on your system before trying to bui
 - NodeJS: The web portion of the app is built using [npm](npmjs.com) to install node packages and [grunt](http://gruntjs.com) to manage tasks.
 
 > _[nodenv](https://github.com/OiNutter/nodenv) is recommended for managing multiple node versions._
+
+- [Uncrustify](http://uncrustify.sourceforge.net) for formatting source code to conform to our Style Guide. You can install with homebrew  ```brew install uncrustify```
+
+> _[BBUncrustifyPlugin](https://github.com/benoitsan/BBUncrustifyPlugin-Xcode) is an easy way to uncrustify files within the Xcode UI.
 
 ## Building
 Once all the dependencies are installed, you'll have to do a couple of things before firing up Xcode and running the app:
@@ -60,12 +71,13 @@ The unit testing target is configured to build & test under the **Wikipedia** sc
 Please file bugs at [bugzilla.wikimedia.org](https://bugzilla.wikimedia.org/enter_bug.cgi?product=Wikipedia%20App); use the "iOS App" component.
 
 # Submitting patches
+Before submitting a patch be sure to use Uncrustify to format your code (See installation instructions above). To make it easy, you can install a pre commit hook by running the script  ```/scripts/setup_git_hooks.sh``` or by using the BBUncrustifyPlugin as mentioned above.
+
 See [mediawiki.org's Gerrit page](https://www.mediawiki.org/wiki/Gerrit) for general information about contributing to Wikimedia project source code hosted in Gerrit -- use the project name "apps/ios/wikipedia" in place of "mediawiki/core" etc.
 
 You can also follow or fork from our [GitHub mirror](https://github.com/wikimedia/apps-ios-wikipedia). Note that pull requests submitted through GitHub must be manually copied over to Gerrit for review and merge (though there is a bot we plan to enable to simplify this).
 
 Please include unit tests with any new code where possible.
-
 
 # Architecture
 This generation of the Wikipedia reader app is built around native UI chrome (menus, toolbars, search UI, preferences, caching, etc) to improve startup time, responsiveness and "nativey" look-n-feel versus a previous HTML-based approach using PhoneGap/Apache Cordova.
@@ -82,4 +94,3 @@ In addition to a general bug pool in Bugzilla, we'll be tracking ongoing work on
 Volunteer contributions are welcome!
 
 We can be reached during California office hours (and sometimes outside them) in IRC: #wikimedia-mobile on irc.freenode.net.
-
