@@ -252,3 +252,4 @@
 "nearby-location-general-error" = "General location determination error message";
 "nearby-wifi" = "Alert text telling user how to improve location accuracy";
 "update-progress-label" = "Label shown during automatic upgrade of local data to new internal format. May be on screen very briefly or for a few seconds.";
+"image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";

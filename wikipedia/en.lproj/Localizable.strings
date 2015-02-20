@@ -279,3 +279,5 @@
 "nearby-wifi" = "Enabling Wi-Fi can help your device better determine your location.";
 
 "update-progress-label" = "Upgrading local data";
+
+"image-gallery-unknown-owner" = "Uploader unknown.";
