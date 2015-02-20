@@ -144,7 +144,8 @@
     _dateRetrieved = [[NSDate alloc] init];
     _dateLastAccessed = [[NSDate alloc] init];
     _mimeType = [self getImageMimeTypeForExtension:self.extension];
-    
+
+#warning TODO(bgerstle): get width & height info w/o expensively inflating the image data and then throwing it away
     UIImage *img = [UIImage imageWithData:data scale:1.0];
     _width = [NSNumber numberWithInt:img.size.width];
     _height = [NSNumber numberWithInt:img.size.height];

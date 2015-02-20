@@ -18,8 +18,8 @@
      Set the shared url cache to our custom NSURLCache which re-routes images to
      our article cache.
      */
-    URLCache *urlCache = [[URLCache alloc] initWithMemoryCapacity:MegabytesToBytes(8)
-                                                     diskCapacity:MegabytesToBytes(25)
+    URLCache *urlCache = [[URLCache alloc] initWithMemoryCapacity:MegabytesToBytes(64)
+                                                     diskCapacity:MegabytesToBytes(64)
                                                          diskPath:nil];
     [NSURLCache setSharedURLCache:urlCache];
     

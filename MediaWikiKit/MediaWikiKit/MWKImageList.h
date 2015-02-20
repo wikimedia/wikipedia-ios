@@ -52,8 +52,18 @@
 /**
  * Searches the receiver for a cached image variant matching @c sourceURL.
  * @return An @c MWKImage object or @c nil if no matching variant is found.
+ * @see -largestImageVariantForURL:cachedOnly:
  */
 - (MWKImage*)largestImageVariantForURL:(NSString*)sourceURL;
+
+/**
+ * Find an image with the specified URL, optionally requiring it to be stored in the cache.
+ * @param imageURL      The @c sourceURL of the image to be retrieved.
+ * @param cachedOnly    Whether or not matches must also be cached.
+ * @return A @c MWKImage object where @c sourceURL matches @c imageURL. If @c cachedOnly is @c YES, the object will also
+ *         be cached. Otherwise @c nil if no matching, cached (if specified) entries are found. 
+ */
+- (MWKImage*)largestImageVariantForURL:(NSString *)imageURL cachedOnly:(BOOL)cachedOnly;
 
 /**
  * Reduce the receiver by removing all but the largest variants of the contained images, preserving order.

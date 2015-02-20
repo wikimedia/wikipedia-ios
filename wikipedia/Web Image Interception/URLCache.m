@@ -8,6 +8,12 @@
 #import "NSString+Extras.h"
 #import "SessionSingleton.h"
 
+#if 0
+#define URLCacheLog(...) NSLog(__VA_ARGS__)
+#else
+#define URLCacheLog(...)
+#endif
+
 @interface URLCache ()
 
 @property (readonly) MWKArticle *article;
@@ -54,14 +60,16 @@
 - (void)storeCachedResponse:(NSCachedURLResponse *)cachedResponse forRequest:(NSURLRequest *)request
 {
     if (![self isMIMETypeRerouted:cachedResponse.response.MIMEType]) {
+        URLCacheLog(@"Storing cached response for %@ due to MIMEType", request);
         [super storeCachedResponse:cachedResponse forRequest:request];
         if ([[request URL].host hasSuffix:@".m.wikipedia.org"] &&
             [cachedResponse.response.MIMEType rangeOfString:@"application/json"].location != NSNotFound) {
             // NSData *data = cachedResponse.data;
             // NSString *newStr = [[NSString alloc] initWithData:data
             //                                          encoding:NSUTF8StringEncoding];
-            // NSLog(@"%@", newStr);
+            // URLCacheLog(@"%@", newStr);
             dispatch_async(dispatch_get_main_queue(), ^(){
+                URLCacheLog(@"Processing zero headers for cached repsonse from %@", request);
                 [self processZeroHeaders:cachedResponse.response];
             });
         }
@@ -69,6 +77,7 @@
     }
     if (![self isURLRerouted:request.URL]) {
         // Only cache stuff from upload.wikimedia.org
+        URLCacheLog(@"%@ is not being cached since it's not from upload.wikimedia.org", request);
         return;
     }
 
@@ -85,6 +94,7 @@
     
     if (!image) {
         // If an Image object wasn't pre-created by :createSectionImageRecordsForSectionHtml:onContext:" then don't try to cache.
+        URLCacheLog(@"Storing cached response without image record for %@", request);
         [super storeCachedResponse:cachedResponse forRequest:request];
         return;
     }
@@ -110,10 +120,11 @@
     //imageDataToUse = self.debuggingPlaceHolderImageData;
 
     @try {
+        URLCacheLog(@"Rerouting cached response to WMF data store for %@", request);
         [self.article importImageData:imageDataToUse image:image];
     }
     @catch (NSException *e) {
-        NSLog(@"Failure to save cached image data: %@", e);
+        URLCacheLog(@"Failure to save cached image data: %@", e);
         return;
     }
     
@@ -129,7 +140,7 @@
 }
 
 - (NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request {
-    //NSLog(@"Default Cache.db usage:\n\tcurrentDiskUsage: %lu\n\tdiskCapacity = %lu\n\tcurrentMemoryUsage = %lu\n\tmemoryCapacity = %lu", (unsigned long)self.currentDiskUsage, (unsigned long)self.diskCapacity, (unsigned long)self.currentMemoryUsage, (unsigned long)self.memoryCapacity);
+    //URLCacheLog(@"Default Cache.db usage:\n\tcurrentDiskUsage: %lu\n\tdiskCapacity = %lu\n\tcurrentMemoryUsage = %lu\n\tmemoryCapacity = %lu", (unsigned long)self.currentDiskUsage, (unsigned long)self.diskCapacity, (unsigned long)self.currentMemoryUsage, (unsigned long)self.memoryCapacity);
 
     if (![self isMIMETypeRerouted:[request.URL.pathExtension getImageMimeTypeForExtension]]) {
         return [super cachedResponseForRequest:request];
@@ -148,7 +159,7 @@
     NSURL *requestURL = [request.URL copy];
     
     __block NSCachedURLResponse *cachedResponse = nil;
-    //NSLog(@"[NSThread isMainThread] = %d", [NSThread isMainThread]);
+    //URLCacheLog(@"[NSThread isMainThread] = %d", [NSThread isMainThread]);
     NSString *imageURL = requestURL.absoluteString;
     
     // Strip "http:" or "https:"
@@ -160,19 +171,19 @@
     // If a core data Image was found, but its data length is zero, the Image record was probably
     // created when the section html was parsed to create sectionImage records, in which case
     // a request needs to actually be made, so set cachedResponse to nil so this happens.
-    // NSLog(@"imageFromDB.data = %@", imageFromDB.data);
+    // URLCacheLog(@"imageFromDB.data = %@", imageFromDB.data);
     if (imageFromDB && !imageFromDB.dateRetrieved) {
         cachedResponse = nil;
     }else if (imageFromDB) {
         NSData *imageData = [self.article.dataStore imageDataWithImage:imageFromDB];
-        //NSLog(@"CACHED IMAGE FOUND!!!!!! requestURL = %@", imageURL);
+        //URLCacheLog(@"CACHED IMAGE FOUND!!!!!! requestURL = %@", imageURL);
         NSURLResponse *response = [[NSURLResponse alloc] initWithURL:requestURL MIMEType:imageFromDB.mimeType expectedContentLength:imageData.length textEncodingName:nil];
         cachedResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:imageData];
     }
 
     if (cachedResponse) return cachedResponse;
 
-    //NSLog(@"CACHED IMAGE NOT FOUND!!!!! request.URL = %@", imageURL);
+    //URLCacheLog(@"CACHED IMAGE NOT FOUND!!!!! request.URL = %@", imageURL);
     return [super cachedResponseForRequest:request];
 }
 

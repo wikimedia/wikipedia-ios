@@ -917,7 +917,8 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
         NSString *selectedImageURL = payload[@"url"];
         NSCParameterAssert(selectedImageURL.length);
-        MWKImage *selectedImage = [strSelf->session.article.images largestImageVariantForURL:selectedImageURL];
+        MWKImage *selectedImage = [strSelf->session.article.images largestImageVariantForURL:selectedImageURL
+                                                                                  cachedOnly:NO];
         NSCParameterAssert(selectedImage);
         [strSelf presentGalleryForArticle:strSelf->session.article showingImage:selectedImage];
     }];
