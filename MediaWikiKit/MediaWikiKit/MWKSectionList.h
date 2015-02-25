@@ -15,7 +15,7 @@
 - (NSUInteger)count;
 
 - (MWKSection *)objectAtIndexedSubscript:(NSUInteger)idx;
--(void)addSection:(MWKSection *)section;
+-(void)setSections:(NSArray *)sections;
 
 - (instancetype)initWithArticle:(MWKArticle *)article;
 

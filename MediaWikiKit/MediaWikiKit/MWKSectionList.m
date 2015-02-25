@@ -79,9 +79,9 @@
     return count;
 }
 
--(void)addSection:(MWKSection *)section
+-(void)setSections:(NSArray *)sections;
 {
-    [_sections addObject:section];
+    _sections = [sections mutableCopy];
 }
 
 -(void)save

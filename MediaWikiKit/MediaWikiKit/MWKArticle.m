@@ -7,6 +7,7 @@
 //
 
 #import "MediaWikiKit.h"
+#import <BlocksKit/BlocksKit.h>
 
 @implementation MWKArticle {
     MWKImageList *_images;
@@ -111,15 +112,16 @@
     // From local storage
     self.thumbnailURL = [self optionalString:@"thumbnailURL" dict:dict];
     
-    
     // Populate sections
     NSArray *sectionsData = dict[@"sections"];
-    if (sectionsData && [sectionsData isKindOfClass:[NSArray class]]) {
-        for (NSDictionary *sectionData in sectionsData) {
-            MWKSection *section = [[MWKSection alloc] initWithArticle:self dict:sectionData];
-            [self.sections addSection:section];
-        }
-    }
+    
+    sectionsData = [sectionsData bk_map:^id(NSDictionary *sectionData) {
+        
+        return [[MWKSection alloc] initWithArticle:self dict:sectionData];
+    }];
+    
+    if([sectionsData count] > 0)
+        [self.sections setSections:sectionsData];
 }
 
 
