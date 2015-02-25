@@ -1365,7 +1365,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                     MWKHistoryDiscoveryMethod discoveryMethod =
                     (history) ? history.discoveryMethod : MWK_DISCOVERY_METHOD_SEARCH;
 
-                    // Remove the article so it doesn't get saved.
+                    // Remove the redirect article so it doesn't get saved (the article being redirected to will be saved).
                     [session.userDataStore.historyList removeEntry:history];
                     [session.article remove];
 
@@ -1388,17 +1388,12 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                 [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
 
                 [self loadingIndicatorHide];
-
-                // Remove the article so it doesn't get saved.
-                //[article.managedObjectContext deleteObject:article];
-                [article remove];
+                // Reminder: do not clear article data here or no network connection when pull to refresh would blast last good saved article data!
             }
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
             {
-                // Remove the article so it doesn't get saved.
-                //[article.managedObjectContext deleteObject:article];
-                [article remove];
+                // Reminder: do not clear article data here or cancellation would blast last good saved article data!
             }
                 break;
 

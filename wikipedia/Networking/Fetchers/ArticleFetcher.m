@@ -112,6 +112,12 @@
             }
             
             [self associateThumbFromTempDirWithArticle];
+
+            // Reminder: must reset "needsRefresh" to NO here! Otherwise saved articles
+            // (which had been refreshed at least once) won't work if you're offline
+            // because the system thinks a fresh is *still* needed and will try to load
+            // from network rather than from cache.
+            self.article.needsRefresh = NO;
             
             [self.article save];
             
