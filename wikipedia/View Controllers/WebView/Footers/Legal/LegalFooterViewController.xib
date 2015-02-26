@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LegalFooterViewController">
+            <connections>
+                <outlet property="licenseLabel" destination="58r-oL-D8g" id="nlZ-cj-cF7"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="wordmarkImageView" destination="aOI-9i-zmL" id="BXA-Y3-gb0"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="284" height="77"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WikipediaWordmark" translatesAutoresizingMaskIntoConstraints="NO" id="aOI-9i-zmL">
+                    <rect key="frame" x="86" y="10" width="112" height="16"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="PZB-PN-taU"/>
+                        <constraint firstAttribute="width" constant="112" id="UcN-ol-35C"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58r-oL-D8g" customClass="PaddedLabel">
+                    <rect key="frame" x="27" y="36" width="231" height="21"/>
+                    <gestureRecognizers/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="nPt-LV-uzV" appends="YES" id="Y7z-YD-FwN"/>
+                    </connections>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="58r-oL-D8g" firstAttribute="top" secondItem="aOI-9i-zmL" secondAttribute="bottom" constant="10" id="1Ve-Eu-ZaU"/>
+                <constraint firstAttribute="bottom" secondItem="58r-oL-D8g" secondAttribute="bottom" constant="20" id="C8W-en-Vy8"/>
+                <constraint firstItem="aOI-9i-zmL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="W9I-lT-54a"/>
+                <constraint firstAttribute="centerX" secondItem="aOI-9i-zmL" secondAttribute="centerX" id="ecI-L1-uR4"/>
+                <constraint firstAttribute="trailing" secondItem="58r-oL-D8g" secondAttribute="trailing" constant="26" id="eix-Vq-gWR"/>
+                <constraint firstItem="58r-oL-D8g" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="27" id="seG-Ke-gDp"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="419" y="212.5"/>
+        </view>
+        <tapGestureRecognizer id="nPt-LV-uzV">
+            <connections>
+                <action selector="licenseTapped:" destination="-1" id="XLl-8B-uIa"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="WikipediaWordmark" width="112" height="17"/>
+    </resources>
+</document>

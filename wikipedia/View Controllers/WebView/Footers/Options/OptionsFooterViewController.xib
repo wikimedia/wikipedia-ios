@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OptionsFooterViewController">
+            <connections>
+                <outlet property="langGlyphLabel" destination="mm1-rF-r8c" id="eHM-Ys-X0g"/>
+                <outlet property="langLabel" destination="RCb-pP-PhF" id="RwU-vV-bHC"/>
+                <outlet property="lastModGlyphLabel" destination="zuf-2Y-bSx" id="izt-ft-K21"/>
+                <outlet property="lastModLabel" destination="GB1-DG-j0o" id="EWQ-ta-h5P"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="304" height="179"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="co2-1E-fU5">
+                    <rect key="frame" x="20" y="30" width="264" height="129"/>
+                    <subviews>
+                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zuf-2Y-bSx" userLabel="Last Modified Glyph Label" customClass="WikiGlyphLabel">
+                            <rect key="frame" x="8" y="8" width="43" height="43"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="43" id="DBA-Ac-KZs"/>
+                                <constraint firstAttribute="width" constant="43" id="Wb8-in-yps"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="Ixc-vZ-ad3" appends="YES" id="3zp-ej-2fw"/>
+                            </connections>
+                        </label>
+                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="252" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GB1-DG-j0o" userLabel="Last Modified Label" customClass="PaddedLabel">
+                            <rect key="frame" x="60" y="8" width="184" height="48"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="E8z-Uj-bM6"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="rdB-SV-e3J" appends="YES" id="iv1-bO-r19"/>
+                            </connections>
+                        </label>
+                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mm1-rF-r8c" userLabel="Languages Glyph Label" customClass="WikiGlyphLabel">
+                            <rect key="frame" x="8" y="69" width="43" height="43"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="43" id="1OF-ck-n7z"/>
+                                <constraint firstAttribute="height" constant="43" id="au8-Qd-7NC"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="eCb-H6-Jla" appends="YES" id="EWI-4Y-dFp"/>
+                            </connections>
+                        </label>
+                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCb-pP-PhF" userLabel="Languages Label" customClass="PaddedLabel">
+                            <rect key="frame" x="60" y="69" width="184" height="40"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="H8S-B1-j7y"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="nOK-vf-TuE" appends="YES" id="4wl-b7-mos"/>
+                            </connections>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="RCb-pP-PhF" firstAttribute="top" secondItem="GB1-DG-j0o" secondAttribute="bottom" constant="13" id="0Cm-Fg-Qam"/>
+                        <constraint firstItem="zuf-2Y-bSx" firstAttribute="top" secondItem="GB1-DG-j0o" secondAttribute="top" id="2H3-ZU-hGB"/>
+                        <constraint firstItem="zuf-2Y-bSx" firstAttribute="leading" secondItem="co2-1E-fU5" secondAttribute="leading" constant="8" id="69v-TI-8d2"/>
+                        <constraint firstItem="RCb-pP-PhF" firstAttribute="leading" secondItem="mm1-rF-r8c" secondAttribute="trailing" constant="9" id="7qx-sr-qnb"/>
+                        <constraint firstAttribute="trailing" secondItem="GB1-DG-j0o" secondAttribute="trailing" constant="20" id="Foq-yI-icN"/>
+                        <constraint firstItem="GB1-DG-j0o" firstAttribute="top" secondItem="co2-1E-fU5" secondAttribute="top" constant="8" id="JO3-S5-cKr"/>
+                        <constraint firstAttribute="trailing" secondItem="RCb-pP-PhF" secondAttribute="trailing" constant="20" id="SUp-Sj-HgM"/>
+                        <constraint firstAttribute="bottom" secondItem="RCb-pP-PhF" secondAttribute="bottom" constant="20" id="VQu-e1-5Hd"/>
+                        <constraint firstItem="GB1-DG-j0o" firstAttribute="leading" secondItem="zuf-2Y-bSx" secondAttribute="trailing" constant="9" id="buL-3h-2qy"/>
+                        <constraint firstItem="mm1-rF-r8c" firstAttribute="top" secondItem="RCb-pP-PhF" secondAttribute="top" id="dZS-zf-F0N"/>
+                        <constraint firstItem="mm1-rF-r8c" firstAttribute="leading" secondItem="co2-1E-fU5" secondAttribute="leading" constant="8" id="wOB-2y-Ecm"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="co2-1E-fU5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="7u2-fw-zub"/>
+                <constraint firstItem="co2-1E-fU5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" symbolic="YES" id="KFy-wE-jKj"/>
+                <constraint firstAttribute="bottom" secondItem="co2-1E-fU5" secondAttribute="bottom" constant="20" id="ehD-Kr-PJd"/>
+                <constraint firstAttribute="centerX" secondItem="co2-1E-fU5" secondAttribute="centerX" id="omS-GR-5T7"/>
+                <constraint firstAttribute="trailing" secondItem="co2-1E-fU5" secondAttribute="trailing" constant="20" symbolic="YES" id="xfd-uC-2hW"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="139" y="316.5"/>
+        </view>
+        <tapGestureRecognizer id="Ixc-vZ-ad3">
+            <connections>
+                <action selector="historyOptionTapped:" destination="-1" id="6bz-IO-pIr"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="rdB-SV-e3J">
+            <connections>
+                <action selector="historyOptionTapped:" destination="-1" id="DeI-ID-xLt"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="eCb-H6-Jla">
+            <connections>
+                <action selector="languagesOptionTapped:" destination="-1" id="Lcv-BJ-otW"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="nOK-vf-TuE">
+            <connections>
+                <action selector="languagesOptionTapped:" destination="-1" id="ysw-iR-JGk"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+</document>

@@ -40,6 +40,8 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
     [super viewDidLoad];
 
     [self setupLeadImageContainer];
+    [self setupFooterContainer];
+    [self setupFooterSubContainers];
 
     session = [SessionSingleton sharedInstance];
     
@@ -290,6 +292,8 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
 
 #pragma mark Scroll indicator
 
+static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
+
 -(void)scrollIndicatorSetup
 {
     self.scrollIndicatorView = [[UIView alloc] init];
@@ -312,8 +316,10 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
                                     toItem: self.webView
                                  attribute: NSLayoutAttributeTop
                                 multiplier: 1.0
-                                  constant: 0.0];
+                                  constant: kScrollIndicatorMinYMargin];
 
+    self.scrollIndicatorViewTopConstraint.priority = UILayoutPriorityDefaultLow;
+    
     [self.view addConstraint:self.scrollIndicatorViewTopConstraint];
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.scrollIndicatorView
@@ -331,7 +337,15 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
                                                           attribute: NSLayoutAttributeNotAnAttribute
                                                          multiplier: 1.0
                                                            constant: SCROLL_INDICATOR_WIDTH]];
-    
+
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.scrollIndicatorView
+                                                          attribute: NSLayoutAttributeBottom
+                                                          relatedBy: NSLayoutRelationLessThanOrEqual
+                                                             toItem: self.webView
+                                                          attribute: NSLayoutAttributeBottom
+                                                         multiplier: 1.0
+                                                           constant: -kScrollIndicatorMinYMargin]];
+
     self.scrollIndicatorViewHeightConstraint =
     [NSLayoutConstraint constraintWithItem: self.scrollIndicatorView
                                  attribute: NSLayoutAttributeHeight
@@ -344,14 +358,20 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
     [self.view addConstraint:self.scrollIndicatorViewHeightConstraint];
 }
 
+-(CGFloat)bottomMostNativeSubContainerY
+{
+    UIView *lastSubContainer = [self.footerContainer.subviews lastObject];
+    return lastSubContainer.frame.origin.y;
+}
+
 -(void)scrollIndicatorMove
 {
-    CGFloat f = self.webView.scrollView.contentSize.height - BOTTOM_SCROLL_LIMIT_HEIGHT;
+    CGFloat f = self.webView.scrollView.contentSize.height - kBottomScrollSpacerHeight + [self bottomMostNativeSubContainerY];
     if (f == 0) f = 0.00001f;
     //self.scrollIndicatorView.alpha = [self tocDrawerIsOpen] ? 0.0f : 1.0f;
     CGFloat percent = self.webView.scrollView.contentOffset.y / f;
     //NSLog(@"percent = %f", percent);
-    self.scrollIndicatorViewTopConstraint.constant = percent * (self.bottomBarView.frame.origin.y - SCROLL_INDICATOR_HEIGHT) + 8.0;
+    self.scrollIndicatorViewTopConstraint.constant = percent * (self.bottomBarView.frame.origin.y - SCROLL_INDICATOR_HEIGHT) + kScrollIndicatorMinYMargin;
 }
 
 #pragma mark Sync config/ios.json if necessary
@@ -855,31 +875,6 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
         }
     }];
     
-    [self.bridge addListener:@"langClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
-        WebViewController *strSelf = weakSelf;
-        if (!strSelf) { return; }
-
-        if([strSelf tocDrawerIsOpen]){
-            [strSelf tocHide];
-            return;
-        }
-
-        NSLog(@"Language button pushed");
-        [strSelf languageButtonPushed];
-    }];
-    
-    [self.bridge addListener:@"historyClicked" withBlock:^(NSString *messageType, NSDictionary *payload) {
-        WebViewController *strSelf = weakSelf;
-        if (!strSelf) { return; }
-
-        if([strSelf tocDrawerIsOpen]){
-            [strSelf tocHide];
-            return;
-        }
-
-        [strSelf historyButtonPushed];
-    }];
-    
     [self.bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString *messageType, NSDictionary *payload) {
         WebViewController *strSelf = weakSelf;
         if (!strSelf) { return; }
@@ -1093,9 +1088,9 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
     // When trying to scroll the bottom of the web view article all the way to
     // the top, this is the minimum amount that will be allowed to be onscreen
     // before we limit scrolling.
-    CGFloat onscreenMinHeight = 210;
+    CGFloat onscreenMinHeight = -[self bottomMostNativeSubContainerY];
     
-    CGFloat offsetMaxY = BOTTOM_SCROLL_LIMIT_HEIGHT + onscreenMinHeight;
+    CGFloat offsetMaxY = kBottomScrollSpacerHeight + onscreenMinHeight;
     
     if ((webScrollView.contentSize.height - webScrollView.contentOffset.y) < offsetMaxY){
         CGPoint p = CGPointMake(webScrollView.contentOffset.x,
@@ -1575,10 +1570,10 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
     }
     
     if (![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
-        [sectionTextArray addObject: [self renderFooterDivider]];
-        [sectionTextArray addObject: [self renderLastModified:lastModified by:lastModifiedBy]];
-        [sectionTextArray addObject: [self renderLanguageButtonForCount: langCount]];
-        [sectionTextArray addObject: [self renderLicenseFooter]];
+        NSString *lastModifiedByUserName =
+        (lastModifiedBy && !lastModifiedBy.anonymous) ? lastModifiedBy.name : nil;
+        [self.footerOptionsController updateLanguageCount:langCount];
+        [self.footerOptionsController updateLastModifiedDate:lastModified userName:lastModifiedByUserName];
     }
     
     // This is important! Ensures bottom of web view article can be scrolled closer to the top of
@@ -1586,7 +1581,7 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
     // Note: had to add "px" to the height because we added "<!DOCTYPE html>" to the top
     // of the index.html - it won't actually give the div height w/o this now (no longer
     // using quirks mode now that doctype specified).
-    [sectionTextArray addObject: [NSString stringWithFormat:@"<div style='height:%dpx;background-color:white;'></div>", BOTTOM_SCROLL_LIMIT_HEIGHT]];
+    [sectionTextArray addObject: [NSString stringWithFormat:@"<div style='height:%dpx;background-color:white;'></div>", (int)kBottomScrollSpacerHeight]];
     
     // Join article sections text
     NSString *joint = @""; //@"<div style=\"height:20px;\"></div>";
@@ -1626,76 +1621,6 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
         [self tocShowWithDuration:@0.0f];
     }
 }
-
--(NSString *)renderFooterDivider
-{
-    NSString *langCode = [[NSLocale preferredLanguages] objectAtIndex:0];
-    MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:langCode];
-    NSString *dir = lang.dir;
-    return [NSString stringWithFormat:@"<hr class=\"mw-footer-divider\" dir=\"%@\">", dir];
-}
-
--(NSString *)renderLanguageButtonForCount:(NSInteger)count
-{
-    if (count > 0) {
-        NSString *langCode = [[NSLocale preferredLanguages] objectAtIndex:0];
-        MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:langCode];
-        NSString *dir = lang.dir;
-
-        NSString *icon = WIKIGLYPH_TRANSLATE;
-        NSString *text = [NSString localizedStringWithFormat:MWLocalizedString(@"language-button-text", nil), (int)count];
-        
-        return [NSString stringWithFormat:@"<button id=\"mw-language-button\" dir=\"%@\" class=\"mw-language-button mw-footer-button\">"
-                                          @"<div>"
-                                          @"<span><span class=\"mw-footer-icon\">%@</span></span>"
-                                          @"<span>%@</span>"
-                                          @"</div>"
-                                          @"</button>", dir, icon, text];
-    } else {
-        return @"";
-    }
-}
-
--(NSString *)renderLastModified:(NSDate *)date by:(MWKUser *)user
-{
-    NSString *langCode = [[NSLocale preferredLanguages] objectAtIndex:0];
-    MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:langCode];
-    NSString *dir = lang.dir;
-    NSString *icon = WIKIGLYPH_PENCIL;
-
-    NSString *ts = [WikipediaAppUtils relativeTimestamp:date];
-    NSString *recent = (fabs([date timeIntervalSinceNow]) < 60*60*24) ? @"recent" : @"";
-    NSString *lm;
-    if (user && !user.anonymous) {
-        lm = [[MWLocalizedString(@"lastmodified-by-user", nil)
-               stringByReplacingOccurrencesOfString:@"$1" withString:ts]
-                stringByReplacingOccurrencesOfString:@"$2" withString:user.name];
-    } else {
-        lm = [MWLocalizedString(@"lastmodified-by-anon", nil)
-              stringByReplacingOccurrencesOfString:@"$1" withString:ts];
-    }
-
-    return [NSString stringWithFormat:@"<button id=\"mw-last-modified\" dir=\"%@\" class=\"mw-last-modified mw-footer-button %@\">"
-            @"<div>"
-            @"<span><span class=\"mw-footer-icon\">%@</span></span>"
-            @"<span>%@</span>"
-            @"</div>"
-            @"</button>", dir, recent, icon, lm];
-}
-
--(NSString *)renderLicenseFooter
-{
-    NSString *langCode = [[NSLocale preferredLanguages] objectAtIndex:0];
-    MWLanguageInfo *lang = [MWLanguageInfo languageInfoForCode:langCode];
-    NSString *dir = lang.dir;
-    
-    NSString *licenseName = MWLocalizedString(@"license-footer-name", nil);
-    NSString *licenseLink = [NSString stringWithFormat:@"<a href=\"https://en.m.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License\">%@</a>", licenseName];
-    NSString *licenseText = [MWLocalizedString(@"license-footer-text", nil) stringByReplacingOccurrencesOfString:@"$1" withString:licenseLink];
-    
-    return [NSString stringWithFormat:@"<div dir=\"%@\" class=\"mw-license-footer\">%@</div>", dir, licenseText];
-}
-
 
 #pragma mark Scroll to last section after rotate
 
@@ -1860,44 +1785,6 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
                                        constant: 0];
 
     [self.view addConstraint:self.bottomBarViewBottomConstraint];
-}
-
-#pragma mark Languages
-
--(void)languageButtonPushed
-{
-    [self performModalSequeWithID: @"modal_segue_show_languages"
-                  transitionStyle: UIModalTransitionStyleCoverVertical
-                            block: ^(LanguagesViewController *languagesVC){
-                                languagesVC.downloadLanguagesForCurrentArticle = YES;
-                                languagesVC.invokingVC = self;
-                                languagesVC.languageSelectionDelegate = self;
-                            }];
-}
-
--(void)historyButtonPushed
-{
-    [self performModalSequeWithID: @"modal_segue_show_page_history"
-                  transitionStyle: UIModalTransitionStyleCoverVertical
-                            block: nil];
-}
-
-- (void)languageSelected:(NSDictionary *)langData sender:(LanguagesViewController *)sender
-{
-    MWKSite *site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:langData[@"code"]];
-    MWKTitle *title = [site titleWithString:langData[@"*"]];
-    [NAV loadArticleWithTitle: title
-                     animated: NO
-              discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
-                   popToWebVC: YES];
-
-    [self dismissLanguagePicker];
-}
-
--(void)dismissLanguagePicker
-{
-    [self.presentedViewController dismissViewControllerAnimated: YES
-                                                     completion: ^{}];
 }
 
 -(void)showProtectedDialog
@@ -2151,18 +2038,8 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
                                 action:@selector(didTouchLeadImage:)
                       forControlEvents:UIControlEventTouchUpInside];
 
-    // Because of autolayout weirdness with adding subview's to UIWebView's
-    // scrollview (which is done so we'll get scroll tracking and scaling
-    // when TOC appears for free), autoresizingMask is used - this also means
-    // we need to manually update leadImageContainer's frame on rotate - which
-    // is presently done in its "updateNonImageElements" method.
-    self.leadImageContainer.autoresizingMask =
-        (UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth);
-    
-    [self.webView.scrollView addSubview:self.leadImageContainer];
-    
-    self.leadImageContainer.frame =
-        (CGRect){{0, 0}, {self.webView.scrollView.frame.size.width, LEAD_IMAGE_CONTAINER_HEIGHT}};
+    [self.webView wmf_addTrackingView: self.leadImageContainer
+                           atLocation: WMFTrackingViewLocationTop];
 }
 
 - (void)leadImageHeightChangedTo: (NSNumber *)height
@@ -2203,6 +2080,90 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
 - (void)didTouchLeadImage:(id)sender
 {
     [self presentGalleryForArticle:session.article showingImage:session.article.image];
+}
+
+#pragma mark Footer container
+
+-(void)setupFooterContainer
+{
+    if (!self.footerContainer) {
+        self.footerContainer = [[WebViewBottomTrackingContainerView alloc] initWithHeight:kBottomScrollSpacerHeight];
+        self.footerContainer.backgroundColor = [UIColor lightGrayColor];
+        
+        [self.webView wmf_addTrackingView: self.footerContainer
+                               atLocation: WMFTrackingViewLocationBottom];
+    }
+}
+
+-(void)setupFooterSubContainers
+{
+    if (self.footerContainer.subviews.count == 0) {
+        
+        UIView*(^addSubContainer)() = ^UIView*() {
+            UIView *subContainer = [[UIView alloc] init];
+            //subContainer.layer.borderWidth = 1.0f;
+            //subContainer.layer.borderColor = [UIColor greenColor].CGColor;
+            subContainer.translatesAutoresizingMaskIntoConstraints = NO;
+            [self.footerContainer addSubview:subContainer];
+            [self.footerContainer addConstraints:
+             [NSLayoutConstraint constraintsWithVisualFormat: @"H:|[subContainer]|"
+                                                     options: 0
+                                                     metrics: nil
+                                                       views: @{@"subContainer": subContainer}]];
+            return subContainer;
+        };
+        
+        UIView *suggestionsContainer = addSubContainer();
+        UIView *optionsContainer = addSubContainer();
+        UIView *legalContainer = addSubContainer();
+        
+        NSDictionary *views =
+        @{
+          @"suggestionsContainer": suggestionsContainer,
+          @"optionsContainer": optionsContainer,
+          @"legalContainer": legalContainer
+          };
+        
+        [self.footerContainer addConstraints:
+         [NSLayoutConstraint constraintsWithVisualFormat: @"V:|[suggestionsContainer(240)][optionsContainer][legalContainer]"
+                                                 options: 0
+                                                 metrics: nil
+                                                   views: views]];
+        
+        SuggestionsFooterViewController *suggestionsController = [[SuggestionsFooterViewController alloc] init];
+        [self addChildController:suggestionsController toContainerView:suggestionsContainer];
+        
+        self.footerOptionsController = [[OptionsFooterViewController alloc] init];
+        [self addChildController:self.footerOptionsController toContainerView:optionsContainer];
+        
+        LegalFooterViewController *legalController = [[LegalFooterViewController alloc] init];
+        [self addChildController:legalController toContainerView:legalContainer];
+    }
+}
+
+- (void)addChildController: (UIViewController*)childController
+           toContainerView: (UIView *)containerView;
+{
+   [self addChildViewController:childController];
+   childController.view.translatesAutoresizingMaskIntoConstraints = NO;
+   [containerView addSubview:childController.view];
+
+    NSDictionary *views = @{
+        @"contentView": childController.view
+    };
+
+    [containerView addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat: @"V:|[contentView]|"
+                                             options: 0
+                                             metrics: nil
+                                               views: views]];
+    [containerView addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat: @"H:|[contentView]|"
+                                             options: 0
+                                             metrics: nil
+                                               views: views]];
+
+   [childController didMoveToParentViewController:self];
 }
 
 @end
