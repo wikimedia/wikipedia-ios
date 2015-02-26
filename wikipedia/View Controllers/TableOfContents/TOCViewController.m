@@ -602,7 +602,7 @@
         @{
           @"id": @(section.sectionId),
           @"isLead": @([section isLeadSection]),
-          @"level": section.level ? section.level : @0,
+          @"level": section.toclevel ? section.toclevel : @0,
           @"title": title
         };
         
