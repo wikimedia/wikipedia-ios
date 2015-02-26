@@ -65,32 +65,47 @@ bridge.registerListener( "collapseTables", function( payload ) {
  * Takes only element names, raw classes, and ids right now. Combines all given.
  */
 function findParent(element, selector) {
+    // parse selector attributes
     var matches = selector.match(/^([a-z0-9]*)(?:\.([a-z0-9-]+))?(?:#([a-z0-9-]+))?$/i);
-    if (matches) {
-        var selectorName = matches[1] || null;
-        var selectorClass = matches[2] || null;
-        var selectorId = matches[3] || null;
-
-        var candidate = element;
-        while (candidate) {
-            do {
-                if (selectorName && candidate.tagName && selectorName.toLowerCase() !== candidate.tagName.toLowerCase()) {
-                    break;
-                }
-                if (selectorClass && !(candidate.classList && candidate.classList.contains(selectorClass))) {
-                    break;
-                }
-                if (selectorId && selectorId !== candidate.id) {
-                    break;
-                }
-                return candidate;
-            } while (false);
-            candidate = candidate.parentNode;
-        }
-    } else {
+    if (!matches) {
         throw new Error("Unexpected findParent selector format: " + selector);
     }
-    return null;
+    var maybeLowerCase = function (s) {
+        return typeof s === 'string' ? s.toLowerCase() : undefined;
+    }
+    return _findParent(element,
+                       maybeLowerCase(matches[1]),
+                       maybeLowerCase(matches[2]),
+                       maybeLowerCase(matches[3]),
+                       0,
+                       10);
+}
+
+/**
+ * Recursively traverse an element's parents until a match is found, up to `maxDepth`.
+ * @param element {HTMLElement} The element to check against provided selectors.
+ * @param selectorName {String} *Lowercase* tag name to search for.
+ * @param selectorClass {String} *Lowercase* class to search for.
+ * @param selectorId {String} *Lowercase* id to search for.
+ * @param depth {Int} The current recursion/traversal depth
+ * @param maxDepth {Int} The maximum depth to traverse to.
+ * @see findParent(element, selector)
+ */
+function _findParent(element, selectorName, selectorClass, selectorId, depth, maxDepth) {
+    if (!element || depth >= maxDepth) {
+        // base case, nothing found or max depth reached
+        return undefined;
+    } else if (selectorName && element.tagName && selectorName === element.tagName.toLowerCase()) {
+        // element.tagName can be nil if we hit `document`
+        return element;
+    } else if (selectorClass && element.classList && element.classList.contains(selectorClass)) {
+        return element;
+    } else if (selectorId && element.id && selectorId === element.id) {
+        return element;
+    } else {
+        // continue traversing
+        return _findParent(element.parentNode, selectorName, selectorClass, selectorId, depth+1, maxDepth);
+    }
 }
 
 document.onclick = function() {
@@ -118,38 +133,48 @@ function handleTouchEnded(event){
 }
 
 function touchEndedWithoutDragging(event){
-    // Refactored to keep number of findParent calls to a minimum.
-    var anchorTarget = findParent(event.target, 'A');
-    var anchorTargetFound = anchorTarget && (anchorTarget.tagName === "A") ? true : false;
-
-    // Handle A tag taps.
-    if(anchorTargetFound){
-        var href = anchorTarget.getAttribute( "href" );
-        if (anchorTarget.getAttribute( "data-action" ) === "edit_section") {
-            bridge.sendMessage( 'editClicked', { sectionId: anchorTarget.getAttribute( "data-id" ) });
-        } else if ( refs.isReference( href ) ) {
-            // Handle reference links with a popup view instead of scrolling about!
-            refs.sendNearbyReferences( anchorTarget );
-        } else if ( href[0] === "#" ) {
-            // If it is a link to an anchor in the current page, just scroll to it
-            document.getElementById( href.substring( 1 ) ).scrollIntoView();
-        } else {
-            var anchorClass = anchorTarget.getAttribute('class');
-            if (typeof anchorClass === 'string' && anchorClass.indexOf('image') !== -1) {
-                bridge.sendMessage('imageClicked', { url: event.target.getAttribute('src') });
-            } else {
-                bridge.sendMessage( 'linkClicked', { href: anchorTarget.getAttribute( "href" ) });
-            }
-         }
-
-    } else {
-         // Do NOT prevent default behavior -- this is needed to for instance
-         // handle deselection of text.
-         bridge.sendMessage('nonAnchorTouchEndedWithoutDragging', {
-                                id: event.target.getAttribute( "id" ),
-                                tagName: event.target.tagName
+    /*
+     there are certain elements which don't have an <a> ancestor, so if we fail to find it,
+     specify the event's target instead
+     */
+    var didSendMessage = maybeSendMessageForTarget(event, findParent(event.target, 'A') || event.target);
+    if (!didSendMessage) {
+        // Do NOT prevent default behavior -- this is needed to for instance
+        // handle deselection of text.
+        bridge.sendMessage('nonAnchorTouchEndedWithoutDragging', {
+                              id: event.target.getAttribute( "id" ),
+                              tagName: event.target.tagName
                           });
+
     }
+}
+
+/**
+ * Attempts to send a bridge message which corresponds to `hrefTarget`, based on various attributes.
+ * @return `true` if a message was sent, otherwise `false`.
+ */
+function maybeSendMessageForTarget(event, hrefTarget){
+    if (!hrefTarget) {
+        return false;
+    }
+    var href = hrefTarget.getAttribute( "href" );
+    var hrefClass = hrefTarget.getAttribute('class');
+    if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
+        bridge.sendMessage( 'editClicked', { sectionId: hrefTarget.getAttribute( "data-id" ) });
+    } else if (href && refs.isReference(href)) {
+        // Handle reference links with a popup view instead of scrolling about!
+        refs.sendNearbyReferences( hrefTarget );
+    } else if (href && href[0] === "#") {
+        // If it is a link to an anchor in the current page, just scroll to it
+        document.getElementById( href.substring( 1 ) ).scrollIntoView();
+    } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
+        bridge.sendMessage('imageClicked', { 'url': event.target.getAttribute('src') });
+    } else if (href) {
+        bridge.sendMessage( 'linkClicked', { 'href': href });
+    } else {
+        return false;
+    }
+    return true;
 }
 
 document.addEventListener("touchend", handleTouchEnded, false);
