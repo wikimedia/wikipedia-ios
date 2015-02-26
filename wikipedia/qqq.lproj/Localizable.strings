@@ -14,6 +14,7 @@
 "article-languages-cancel" = "Button text for dismissing the language selector screen.\n{{Identical|Cancel}}";
 "article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
+"article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article";
 "info-box-title" = "The title of info boxes - in collapsed and expanded form";
 "info-box-close-text" = "The text for telling users thyey can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "language-button-text" = "Label for 'other languages' button in content area footer. %d is placeholder for the number of available languages; note that support for PLURAL string marking is not yet available, so make your message generic if possible for now.";

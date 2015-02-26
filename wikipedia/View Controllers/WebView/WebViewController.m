@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WebViewController_Private.h"
+#import <Masonry/Masonry.h>
 
 NSString* const WebViewControllerTextWasHighlighted = @"textWasSelected";
 NSString* const WebViewControllerWillShareNotification = @"SelectionShare";
@@ -319,7 +320,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                                   constant: kScrollIndicatorMinYMargin];
 
     self.scrollIndicatorViewTopConstraint.priority = UILayoutPriorityDefaultLow;
-    
+
     [self.view addConstraint:self.scrollIndicatorViewTopConstraint];
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem: self.scrollIndicatorView
@@ -1574,6 +1575,9 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         (lastModifiedBy && !lastModifiedBy.anonymous) ? lastModifiedBy.name : nil;
         [self.footerOptionsController updateLanguageCount:langCount];
         [self.footerOptionsController updateLastModifiedDate:lastModified userName:lastModifiedByUserName];
+        
+        self.searchSuggestionsController.searchString = article.title.text;
+        [self.searchSuggestionsController search];
     }
     
     // This is important! Ensures bottom of web view article can be scrolled closer to the top of
@@ -2112,26 +2116,41 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                                                        views: @{@"subContainer": subContainer}]];
             return subContainer;
         };
-        
+
+        UIView *suggestionsHeaderContainer = addSubContainer();
         UIView *suggestionsContainer = addSubContainer();
         UIView *optionsContainer = addSubContainer();
         UIView *legalContainer = addSubContainer();
         
         NSDictionary *views =
         @{
+          @"suggestionsHeaderContainer": suggestionsHeaderContainer,
           @"suggestionsContainer": suggestionsContainer,
           @"optionsContainer": optionsContainer,
           @"legalContainer": legalContainer
           };
         
         [self.footerContainer addConstraints:
-         [NSLayoutConstraint constraintsWithVisualFormat: @"V:|[suggestionsContainer(240)][optionsContainer][legalContainer]"
+         [NSLayoutConstraint constraintsWithVisualFormat: @"V:|[suggestionsHeaderContainer(30)][suggestionsContainer(237)][optionsContainer][legalContainer]"
                                                  options: 0
                                                  metrics: nil
                                                    views: views]];
         
-        SuggestionsFooterViewController *suggestionsController = [[SuggestionsFooterViewController alloc] init];
-        [self addChildController:suggestionsController toContainerView:suggestionsContainer];
+        UILabel* suggestionsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        suggestionsLabel.backgroundColor = [UIColor whiteColor];
+        suggestionsLabel.textAlignment = NSTextAlignmentCenter;
+        suggestionsLabel.text = MWLocalizedString(@"article-read-more-title", @"Read more");
+        suggestionsLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        [suggestionsHeaderContainer addSubview:suggestionsLabel];
+        
+        [suggestionsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.edges.equalTo(suggestionsHeaderContainer);
+        }];
+        
+        
+        self.searchSuggestionsController = [SearchResultsController readMoreSearchResultsController];
+        [self addChildController:self.searchSuggestionsController toContainerView:suggestionsContainer];
         
         self.footerOptionsController = [[OptionsFooterViewController alloc] init];
         [self addChildController:self.footerOptionsController toContainerView:optionsContainer];

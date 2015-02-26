@@ -75,7 +75,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.searchResultsController = [self.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
+    self.searchResultsController = [SearchResultsController standardSearchResultsController];
 
     [self setupNavbarContainerSubviews];
 
