@@ -16,6 +16,8 @@
 @property (nonatomic) SearchType searchType;
 @property (nonatomic) SearchReason searchReason;
 
+@property (nonatomic, assign) NSUInteger maxSearchResults;
+
 @property (nonatomic, strong) NSArray *searchResults;
 @property (nonatomic, strong) NSString *searchSuggestion;
 
@@ -28,6 +30,7 @@
 -(instancetype)initAndSearchForTerm: (NSString *)searchTerm
                          searchType: (SearchType)searchType
                        searchReason: (SearchReason)searchReason
+                         maxResults: (NSUInteger)maxResults
                         withManager: (AFHTTPRequestOperationManager *)manager
                  thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate
 {
@@ -39,6 +42,7 @@
         self.searchType = searchType;
         self.searchReason = searchReason;
         self.fetchFinishedDelegate = delegate;
+        self.maxSearchResults = maxResults ? maxResults : SEARCH_MAX_RESULTS;
         self.spaceCollapsingRegex =
             [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}+" options:NSRegularExpressionCaseInsensitive error:nil];
         [self searchWithManager:manager];
@@ -124,12 +128,12 @@
                      @"generator": @"prefixsearch",
                      @"gpssearch": self.searchTerm,
                      @"gpsnamespace": @0,
-                     @"gpslimit": @(SEARCH_MAX_RESULTS),
+                     @"gpslimit": @(self.maxSearchResults),
                      @"prop": @"pageterms|pageimages",
                      @"piprop": @"thumbnail",
                      @"wbptterms": @"description",
                      @"pithumbsize" : @(SEARCH_THUMBNAIL_WIDTH),
-                     @"pilimit": @(SEARCH_MAX_RESULTS),
+                     @"pilimit": @(self.maxSearchResults),
                      // -- Parameters causing prefix search to efficiently return suggestion.
                      @"list": @"search",
                      @"srsearch": self.searchTerm,
@@ -157,10 +161,10 @@
                      @"gsrinfo": @"",
                      @"gsrprop": @"redirecttitle",
                      @"gsroffset": @0,
-                     @"gsrlimit": @(SEARCH_MAX_RESULTS),
+                     @"gsrlimit": @(self.maxSearchResults),
                      @"piprop": @"thumbnail",
                      @"pithumbsize" : @(SEARCH_THUMBNAIL_WIDTH),
-                     @"pilimit": @(SEARCH_MAX_RESULTS),
+                     @"pilimit": @(self.maxSearchResults),
                      @"continue": @"",
                      @"format": @"json"
                      };

@@ -1,13 +1,31 @@
-//  Created by Monte Hurd on 12/16/13.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
-#import "FetcherBase.h"
 
-@interface SearchResultsController : UIViewController <UITableViewDelegate, FetchFinishedDelegate>
+@interface SearchResultsController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong, readonly) IBOutlet UITableView *searchResultsTable;
 
 @property (strong, nonatomic) NSArray *searchResults;
 @property (strong, nonatomic) NSString *searchString;
+
+@property (assign, nonatomic) NSUInteger maxResults;
+@property (assign, nonatomic) NSUInteger minResultsBeforeRunningFullTextSearch;
+@property (assign, nonatomic) BOOL enableSupplementalFullTextSearch;
+
+/**
+ *  Search Results VC configured for normal full display
+ *
+ *  @return The VC
+ */
++ (SearchResultsController*)standardSearchResultsController;
+
+/**
+ *  The Search Results VC configured for display at the bottom of the webview
+ *
+ *  @return The VC
+ */
++ (SearchResultsController*)readMoreSearchResultsController;
+
 
 -(void)search;
 -(void)clearSearchResults;

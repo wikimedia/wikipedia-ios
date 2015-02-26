@@ -1,5 +1,3 @@
-//  Created by Monte Hurd on 12/16/13.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SearchResultsController.h"
 #import "WikipediaAppUtils.h"
@@ -23,17 +21,20 @@
 #import "NSArray+Predicate.h"
 #import "SearchResultAttributedString.h"
 #import "UITableView+DynamicCellHeight.h"
+#import "NSArray+WMFExtensions.h"
 
 #define TABLE_CELL_ID @"SearchResultCell"
 #define SEARCH_DELAY 0.4
-#define MIN_RESULTS_BEFORE_AUTO_FULL_TEXT_SEARCH 12
 
-@interface SearchResultsController (){
+static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
+static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
+
+@interface SearchResultsController ()<FetchFinishedDelegate>{
     CGFloat scrollViewDragBeganVerticalOffset_;
 }
 
 @property (nonatomic, strong) NSString *searchSuggestion;
-@property (nonatomic, weak) IBOutlet UITableView *searchResultsTable;
+@property (nonatomic, strong, readwrite) IBOutlet UITableView *searchResultsTable;
 @property (nonatomic, strong) NSArray *searchStringWordsToHighlight;
 
 @property (nonatomic, strong) UIImage *placeholderImage;
@@ -61,6 +62,26 @@
 @end
 
 @implementation SearchResultsController
+
++ (SearchResultsController*)standardSearchResultsController{
+    
+    SearchResultsController* vc = [NAV.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
+    vc.maxResults = SEARCH_MAX_RESULTS;
+    vc.minResultsBeforeRunningFullTextSearch = kWMFMinResultsBeforeAutoFullTextSearch;
+    vc.enableSupplementalFullTextSearch = YES;
+    return vc;
+}
+
++ (SearchResultsController*)readMoreSearchResultsController{
+    
+    SearchResultsController* vc = [SearchResultsController standardSearchResultsController];
+    vc.maxResults = kWMFReadMoreNumberOfArticles;
+    vc.minResultsBeforeRunningFullTextSearch = kWMFReadMoreNumberOfArticles;
+    vc.enableSupplementalFullTextSearch = YES;
+    vc.searchResultsTable.scrollEnabled = NO;
+    return vc;
+}
+
 
 -(void)setupStringAttributes
 {
@@ -166,7 +187,7 @@
     self.searchResults = @[];
     self.searchSuggestion = nil;
     self.navigationItem.hidesBackButton = YES;
-
+    
     // Register the search results cell for reuse
     [self.searchResultsTable registerNib:[UINib nibWithNibName:@"SearchResultPrototypeView" bundle:nil] forCellReuseIdentifier:TABLE_CELL_ID];
 
@@ -263,7 +284,7 @@
 
     SearchReason reason = ((NSNumber *)timer.userInfo[@"reason"]).integerValue;
 
-    if (self.navigationController.topViewController != self) return;
+//    if (self.navigationController.topViewController != self) return;
 
     if (self.searchString.length == 0) return;
     
@@ -390,10 +411,11 @@
                         [self removePrefixResultsFromSupplementalResults:searchResultFetcher.searchResults];
 
                     self.searchResults =
-                        [self.searchResults arrayByAddingObjectsFromArray:supplementalFullTextResults];
+                        [[self.searchResults arrayByAddingObjectsFromArray:supplementalFullTextResults] wmf_arrayByTrimmingToLength:self.maxResults];
                     
                 }else{
-                    self.searchResults = searchResultFetcher.searchResults;
+                    
+                    self.searchResults = [searchResultFetcher.searchResults wmf_arrayByTrimmingToLength:self.maxResults];
                 }
                 //NSLog(@"self.searchResultsOrdered = %@", self.searchResultsOrdered);
 
@@ -406,7 +428,7 @@
                 // If we received fewer than MIN_RESULTS_BEFORE_AUTO_FULL_TEXT_SEARCH prefix results,
                 // do a full-text search too, the results of which will be appended to the prefix results.
                 // Note: this also has to be done in the FETCH_FINAL_STATUS_FAILED case below.
-                if ((self.searchResults.count < MIN_RESULTS_BEFORE_AUTO_FULL_TEXT_SEARCH) && (searchResultFetcher.searchType == SEARCH_TYPE_TITLES)){
+                if ((self.searchResults.count < self.minResultsBeforeRunningFullTextSearch) && (searchResultFetcher.searchType == SEARCH_TYPE_TITLES)){
                         [self performSupplementalFullTextSearchForTerm:searchResultFetcher.searchTerm];
                 }
             }
@@ -509,9 +531,15 @@
 
 -(void)performSupplementalFullTextSearchForTerm:(NSString *)searchTerm
 {
+    
+    if(!self.enableSupplementalFullTextSearch){
+        return;
+    }
+    
     (void)[[SearchResultFetcher alloc] initAndSearchForTerm: searchTerm
                                                  searchType: SEARCH_TYPE_IN_ARTICLES
                                                searchReason: SEARCH_REASON_SUPPLEMENT_PREFIX_WITH_FULL_TEXT
+                                                 maxResults: self.maxResults
                                                 withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
                                          thenNotifyDelegate: self];
 
@@ -534,6 +562,7 @@
     (void)[[SearchResultFetcher alloc] initAndSearchForTerm: searchTerm
                                                  searchType: SEARCH_TYPE_TITLES
                                                searchReason: reason
+                                                 maxResults: self.maxResults
                                                 withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
                                          thenNotifyDelegate: self];
 }
