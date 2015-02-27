@@ -1,12 +1,8 @@
-//
-//  UIWebView+TrackingView.m
-//  Wikipedia
-//
 //  Created by Monte Hurd on 2/16/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
+//  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "UIWebView+WMFTrackingView.h"
+#import "UIView+SearchSubviews.h"
 
 @implementation UIWebView (TrackingView)
 
@@ -21,7 +17,7 @@
     // Reminder - this webView subview has the sizes we want constrain
     // "view" to, but the constraints themselves need to be added to
     // the webView's scrollView.
-    UIView *browserView = self.scrollView.subviews[0];
+    UIView *browserView = [self.scrollView getFirstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
     
     void (^constrainEqually)(NSLayoutAttribute) = ^void(NSLayoutAttribute attr) {
         [webScrollView addConstraint:
