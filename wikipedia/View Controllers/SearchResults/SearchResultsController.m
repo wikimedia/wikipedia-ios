@@ -64,8 +64,8 @@ static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
 @implementation SearchResultsController
 
 + (SearchResultsController*)standardSearchResultsController{
-    
-    SearchResultsController* vc = [NAV.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
+
+    SearchResultsController* vc = [ROOT.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
     vc.maxResults = SEARCH_MAX_RESULTS;
     vc.minResultsBeforeRunningFullTextSearch = kWMFMinResultsBeforeAutoFullTextSearch;
     vc.enableSupplementalFullTextSearch = YES;

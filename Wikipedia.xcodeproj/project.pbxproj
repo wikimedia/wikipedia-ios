@@ -60,10 +60,6 @@
 		043BFC821A932BEC0068B932 /* OptionsFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043BFC7F1A932BEC0068B932 /* OptionsFooterViewController.m */; };
 		043BFC831A932BEC0068B932 /* OptionsFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043BFC801A932BEC0068B932 /* OptionsFooterViewController.xib */; };
 		043BFC841A932BEC0068B932 /* OptionsFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043BFC801A932BEC0068B932 /* OptionsFooterViewController.xib */; };
-		043BFC901A93426B0068B932 /* SuggestionsFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043BFC8E1A93426B0068B932 /* SuggestionsFooterViewController.m */; };
-		043BFC911A93426B0068B932 /* SuggestionsFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043BFC8E1A93426B0068B932 /* SuggestionsFooterViewController.m */; };
-		043BFC921A93426B0068B932 /* SuggestionsFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043BFC8F1A93426B0068B932 /* SuggestionsFooterViewController.xib */; };
-		043BFC931A93426B0068B932 /* SuggestionsFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 043BFC8F1A93426B0068B932 /* SuggestionsFooterViewController.xib */; };
 		043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043DAC4A1901C3EE001CD17C /* CreditsViewController.m */; };
 		043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18DC18D9691D00D8489A /* TopActionSheetLabel.m */; };
 		043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */; };
@@ -297,7 +293,6 @@
 		C42D947E1A937DAC00A4871A /* SavedArticlesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D947D1A937DAC00A4871A /* SavedArticlesFetcher.m */; };
 		C42D94861A937DE000A4871A /* WMFBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94831A937DE000A4871A /* WMFBorderButton.m */; };
 		C42D94871A937DE000A4871A /* WMFProgressLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94851A937DE000A4871A /* WMFProgressLineView.m */; };
-		C42D94B81A953E6500A4871A /* WMFReadMoreSuggestionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94B71A953E6500A4871A /* WMFReadMoreSuggestionsViewController.m */; };
 		C42D94BC1A95405000A4871A /* NSArray+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94BB1A95405000A4871A /* NSArray+WMFExtensions.m */; };
 		C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */; };
 		C90799BA1A8564C60044E13C /* WMFShareOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90799B91A8564C60044E13C /* WMFShareOptionsViewController.m */; };
@@ -457,9 +452,6 @@
 		043BFC7E1A932BEC0068B932 /* OptionsFooterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsFooterViewController.h; sourceTree = "<group>"; };
 		043BFC7F1A932BEC0068B932 /* OptionsFooterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsFooterViewController.m; sourceTree = "<group>"; };
 		043BFC801A932BEC0068B932 /* OptionsFooterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionsFooterViewController.xib; sourceTree = "<group>"; };
-		043BFC8D1A93426B0068B932 /* SuggestionsFooterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionsFooterViewController.h; sourceTree = "<group>"; };
-		043BFC8E1A93426B0068B932 /* SuggestionsFooterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionsFooterViewController.m; sourceTree = "<group>"; };
-		043BFC8F1A93426B0068B932 /* SuggestionsFooterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuggestionsFooterViewController.xib; sourceTree = "<group>"; };
 		043DAC491901C3EE001CD17C /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
 		043DAC4A1901C3EE001CD17C /* CreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsViewController.m; sourceTree = "<group>"; };
 		043F18DB18D9691D00D8489A /* TopActionSheetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopActionSheetLabel.h; sourceTree = "<group>"; };
@@ -819,8 +811,6 @@
 		C42D94831A937DE000A4871A /* WMFBorderButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBorderButton.m; sourceTree = "<group>"; };
 		C42D94841A937DE000A4871A /* WMFProgressLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProgressLineView.h; sourceTree = "<group>"; };
 		C42D94851A937DE000A4871A /* WMFProgressLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProgressLineView.m; sourceTree = "<group>"; };
-		C42D94B61A953E6500A4871A /* WMFReadMoreSuggestionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFReadMoreSuggestionsViewController.h; sourceTree = "<group>"; };
-		C42D94B71A953E6500A4871A /* WMFReadMoreSuggestionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFReadMoreSuggestionsViewController.m; sourceTree = "<group>"; };
 		C42D94BA1A95405000A4871A /* NSArray+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WMFExtensions.h"; path = "Wikipedia/Categories/NSArray+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
 		C42D94BB1A95405000A4871A /* NSArray+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WMFExtensions.m"; path = "Wikipedia/Categories/NSArray+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
 		C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "../../../Pods/Target Support Files/Pods/Pods-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -1261,7 +1251,6 @@
 		043BFC6C1A932B020068B932 /* Footers */ = {
 			isa = PBXGroup;
 			children = (
-				043BFC8C1A93426B0068B932 /* Suggestions */,
 				043BFC791A932BA50068B932 /* Options */,
 				043BFC741A932BA50068B932 /* Legal */,
 			);
@@ -1286,16 +1275,6 @@
 				043BFC801A932BEC0068B932 /* OptionsFooterViewController.xib */,
 			);
 			path = Options;
-			sourceTree = "<group>";
-		};
-		043BFC8C1A93426B0068B932 /* Suggestions */ = {
-			isa = PBXGroup;
-			children = (
-				043BFC8D1A93426B0068B932 /* SuggestionsFooterViewController.h */,
-				043BFC8E1A93426B0068B932 /* SuggestionsFooterViewController.m */,
-				043BFC8F1A93426B0068B932 /* SuggestionsFooterViewController.xib */,
-			);
-			path = Suggestions;
 			sourceTree = "<group>";
 		};
 		043DAC481901C3D2001CD17C /* Credits */ = {
@@ -2113,16 +2092,6 @@
 			path = "Custom Views";
 			sourceTree = "<group>";
 		};
-		C42D94A21A950B2E00A4871A /* Read More */ = {
-			isa = PBXGroup;
-			children = (
-				C42D94B61A953E6500A4871A /* WMFReadMoreSuggestionsViewController.h */,
-				C42D94B71A953E6500A4871A /* WMFReadMoreSuggestionsViewController.m */,
-			);
-			name = "Read More";
-			path = "Wikipedia/View Controllers/Read More";
-			sourceTree = SOURCE_ROOT;
-		};
 		C9180EC118AED30C006C1DCA /* mw-utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -2531,7 +2500,6 @@
 				BCB669DA1A83F6D300C7B1FE /* user-anon.json in Resources */,
 				043BFC841A932BEC0068B932 /* OptionsFooterViewController.xib in Resources */,
 				043BFC7D1A932BA50068B932 /* LegalFooterViewController.xib in Resources */,
-				043BFC931A93426B0068B932 /* SuggestionsFooterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2567,7 +2535,6 @@
 				C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */,
 				04123630189C29EA00E0CF8E /* abuse-filter-disallowed@2x.png in Resources */,
 				D4BC22B4181E9E6300CAC673 /* empty.png in Resources */,
-				043BFC921A93426B0068B932 /* SuggestionsFooterViewController.xib in Resources */,
 				04123636189C29EA00E0CF8E /* abuse-filter-flag-white.png in Resources */,
 				04C7576F1A1AA2D00084AC39 /* RecentSearchCell.xib in Resources */,
 				041E588319B2D2C500AC140C /* logo-placeholder-saved@2x.png in Resources */,
@@ -2764,7 +2731,6 @@
 				BCB58F451A890D9700465627 /* MWKImageInfo+MWKImageComparison.m in Sources */,
 				043BFC821A932BEC0068B932 /* OptionsFooterViewController.m in Sources */,
 				043BFC7B1A932BA50068B932 /* LegalFooterViewController.m in Sources */,
-				043BFC911A93426B0068B932 /* SuggestionsFooterViewController.m in Sources */,
 				BC42735E1A7C73B300068882 /* NSArray+PredicateTests.m in Sources */,
 				BCB669F01A83F71C00C7B1FE /* MWKSavedPageList.m in Sources */,
 				BCB669FD1A84158200C7B1FE /* CircularBitwiseRotationTests.m in Sources */,
@@ -3013,7 +2979,6 @@
 				04CFA123194B94980088269A /* MenuButton.m in Sources */,
 				D47BF5D4197870390067C3BC /* SavedPagesFunnel.m in Sources */,
 				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
-				043BFC901A93426B0068B932 /* SuggestionsFooterViewController.m in Sources */,
 				04CCCFEE1935093A00E3F60C /* SecondaryMenuRowView.m in Sources */,
 				0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */,
 				041C6206199ED2A20061516F /* MWKSection+TOC.m in Sources */,
