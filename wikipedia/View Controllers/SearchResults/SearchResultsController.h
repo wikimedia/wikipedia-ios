@@ -8,9 +8,10 @@
 @property (strong, nonatomic) NSArray *searchResults;
 @property (strong, nonatomic) NSString *searchString;
 
-@property (assign, nonatomic) NSUInteger maxResults;
-@property (assign, nonatomic) NSUInteger minResultsBeforeRunningFullTextSearch;
-@property (assign, nonatomic) BOOL enableSupplementalFullTextSearch;
+/**
+ *  Specify articles that should not be displayed in the search results
+ */
+@property (strong, nonatomic) NSArray *articlesToExcludeFromResults;
 
 /**
  *  Search Results VC configured for normal full display

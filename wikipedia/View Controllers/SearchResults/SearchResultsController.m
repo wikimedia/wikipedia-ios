@@ -22,9 +22,18 @@
 #import "SearchResultAttributedString.h"
 #import "UITableView+DynamicCellHeight.h"
 #import "NSArray+WMFExtensions.h"
+#import <BlocksKit/BlocksKit.h>
 
 #define TABLE_CELL_ID @"SearchResultCell"
 #define SEARCH_DELAY 0.4
+
+typedef NS_ENUM(NSUInteger, WMFSearchResultsControllerType) {
+    
+    WMFSearchResultsControllerTypeStandard,
+    WMFSearchResultsControllerTypeReadMore
+    
+};
+
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
@@ -33,21 +42,18 @@ static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
     CGFloat scrollViewDragBeganVerticalOffset_;
 }
 
+@property (nonatomic, assign) WMFSearchResultsControllerType type;
+
+@property (assign, nonatomic) NSUInteger maxResults;
+@property (assign, nonatomic) NSUInteger minResultsBeforeRunningFullTextSearch;
+
+@property (assign, nonatomic) BOOL highlightSearchTermInResultTitles;
+
 @property (nonatomic, strong) NSString *searchSuggestion;
-@property (nonatomic, strong, readwrite) IBOutlet UITableView *searchResultsTable;
+
 @property (nonatomic, strong) NSArray *searchStringWordsToHighlight;
 
-@property (nonatomic, strong) UIImage *placeholderImage;
-@property (nonatomic, strong) NSString *cachePath;
-
-@property (nonatomic, weak) IBOutlet SearchDidYouMeanButton *didYouMeanButton;
-@property (nonatomic, weak) IBOutlet SearchMessageLabel *searchMessageLabel;
-
 @property (nonatomic, strong) NSTimer *delayedSearchTimer;
-
-@property (strong, nonatomic) RecentSearchesViewController *recentSearchesViewController;
-
-@property (nonatomic, weak) IBOutlet UIView *recentSearchesContainer;
 
 @property (nonatomic) BOOL ignoreScrollEvents;
 
@@ -56,6 +62,18 @@ static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
 @property (strong, nonatomic) NSDictionary *attributesHighlight;
 @property (strong, nonatomic) NSDictionary *attributesSnippet;
 @property (strong, nonatomic) NSDictionary *attributesSnippetHighlight;
+
+@property (nonatomic, strong, readwrite) IBOutlet UITableView *searchResultsTable;
+
+@property (nonatomic, strong) UIImage *placeholderImage;
+@property (nonatomic, strong) NSString *cachePath;
+
+@property (nonatomic, weak) IBOutlet SearchDidYouMeanButton *didYouMeanButton;
+@property (nonatomic, weak) IBOutlet SearchMessageLabel *searchMessageLabel;
+
+@property (strong, nonatomic) RecentSearchesViewController *recentSearchesViewController;
+
+@property (nonatomic, weak) IBOutlet UIView *recentSearchesContainer;
 
 @property (strong, nonatomic) SearchResultCell *offScreenSizingCell;
 
@@ -66,19 +84,20 @@ static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
 + (SearchResultsController*)standardSearchResultsController{
 
     SearchResultsController* vc = [ROOT.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
+    vc.type = WMFSearchResultsControllerTypeStandard;
     vc.maxResults = SEARCH_MAX_RESULTS;
     vc.minResultsBeforeRunningFullTextSearch = kWMFMinResultsBeforeAutoFullTextSearch;
-    vc.enableSupplementalFullTextSearch = YES;
+    vc.highlightSearchTermInResultTitles = YES;
     return vc;
 }
 
 + (SearchResultsController*)readMoreSearchResultsController{
     
     SearchResultsController* vc = [SearchResultsController standardSearchResultsController];
+    vc.type = WMFSearchResultsControllerTypeReadMore;
     vc.maxResults = kWMFReadMoreNumberOfArticles;
     vc.minResultsBeforeRunningFullTextSearch = kWMFReadMoreNumberOfArticles;
-    vc.enableSupplementalFullTextSearch = YES;
-    vc.searchResultsTable.scrollEnabled = NO;
+    vc.highlightSearchTermInResultTitles = NO;
     return vc;
 }
 
@@ -132,6 +151,18 @@ static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
     [self updateRecentSearchesContainerVisibility];
 }
 
+- (NSUInteger)maxResultsAdjustedForExcludedArticles{
+    
+    if(self.maxResults > 0){
+        
+        //We are triming any excluded articles, so we need to fetch more articles to compensate
+        return self.maxResults + [self.articlesToExcludeFromResults count];
+    }
+    
+    return self.maxResults;
+}
+
+
 -(void)updateRecentSearchesContainerVisibility
 {
     BOOL shouldHide = (
@@ -167,6 +198,11 @@ static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
 {
     [super viewDidLoad];
 
+    if(self.type == WMFSearchResultsControllerTypeReadMore){
+        self.searchResultsTable.scrollEnabled = NO;
+        self.searchResultsTable.scrollsToTop = NO;
+    }
+    
     [self setupStringAttributes];
 
     self.ignoreScrollEvents = NO;
@@ -301,7 +337,12 @@ static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
     // different from the punctuation in the retrieved search result title.
     NSMutableCharacterSet *charSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
     [charSet formUnionWithCharacterSet:[NSMutableCharacterSet punctuationCharacterSet]];
-    self.searchStringWordsToHighlight = [self.searchString componentsSeparatedByCharactersInSet:charSet];
+    
+    if(self.highlightSearchTermInResultTitles){
+        self.searchStringWordsToHighlight = [self.searchString componentsSeparatedByCharactersInSet:charSet];
+    }else{
+        self.searchStringWordsToHighlight = @[];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -388,6 +429,27 @@ static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
     return supplementalFullTextResults;
 }
 
+- (NSArray*)removeExcludedArticlesFromSearchResults:(NSArray*)searchResults{
+    
+    NSMutableArray* mutableResults = [searchResults mutableCopy];
+    
+    [self.articlesToExcludeFromResults enumerateObjectsUsingBlock:^(MWKArticle *article, NSUInteger idx, BOOL *stop) {
+       
+        NSDictionary* match = [searchResults bk_match:^BOOL(NSDictionary *result) {
+            if([article.title.text localizedCaseInsensitiveCompare:result[@"title"]] == NSOrderedSame){
+                return YES;
+            }
+            return NO;
+        }];
+        
+        if(match){
+            [mutableResults removeObject:match];
+        }
+    }];
+    
+    return mutableResults;
+}
+
 - (void)fetchFinished: (id)sender
           fetchedData: (id)fetchedData
                status: (FetchFinalStatus)status
@@ -402,20 +464,22 @@ static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
                 [self fadeAlert];
                 [self.searchMessageLabel hide];
 
+                NSArray* searchResults = [self removeExcludedArticlesFromSearchResults:searchResultFetcher.searchResults];
+
                 if (searchResultFetcher.searchReason == SEARCH_REASON_SUPPLEMENT_PREFIX_WITH_FULL_TEXT) {
 
                     // Supplement the prefix results with these full text results, but first remove
                     // items from fullTextSearchResults which are already present in self.searchResults
                     // so we don't see dupes.
                     NSArray *supplementalFullTextResults =
-                        [self removePrefixResultsFromSupplementalResults:searchResultFetcher.searchResults];
+                        [self removePrefixResultsFromSupplementalResults:searchResults];
 
                     self.searchResults =
                         [[self.searchResults arrayByAddingObjectsFromArray:supplementalFullTextResults] wmf_arrayByTrimmingToLength:self.maxResults];
                     
                 }else{
                     
-                    self.searchResults = [searchResultFetcher.searchResults wmf_arrayByTrimmingToLength:self.maxResults];
+                    self.searchResults = [searchResults wmf_arrayByTrimmingToLength:self.maxResults];
                 }
                 //NSLog(@"self.searchResultsOrdered = %@", self.searchResultsOrdered);
 
@@ -532,14 +596,10 @@ static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
 -(void)performSupplementalFullTextSearchForTerm:(NSString *)searchTerm
 {
     
-    if(!self.enableSupplementalFullTextSearch){
-        return;
-    }
-    
     (void)[[SearchResultFetcher alloc] initAndSearchForTerm: searchTerm
                                                  searchType: SEARCH_TYPE_IN_ARTICLES
                                                searchReason: SEARCH_REASON_SUPPLEMENT_PREFIX_WITH_FULL_TEXT
-                                                 maxResults: self.maxResults
+                                                 maxResults: [self maxResultsAdjustedForExcludedArticles]
                                                 withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
                                          thenNotifyDelegate: self];
 
@@ -562,7 +622,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
     (void)[[SearchResultFetcher alloc] initAndSearchForTerm: searchTerm
                                                  searchType: SEARCH_TYPE_TITLES
                                                searchReason: reason
-                                                 maxResults: self.maxResults
+                                                 maxResults: [self maxResultsAdjustedForExcludedArticles]
                                                 withManager: [QueuesSingleton sharedInstance].searchResultsFetchManager
                                          thenNotifyDelegate: self];
 }

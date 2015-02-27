@@ -1572,6 +1572,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         [self.footerOptionsController updateLastModifiedDate:lastModified userName:lastModifiedByUserName];
         
         self.searchSuggestionsController.searchString = article.title.text;
+        self.searchSuggestionsController.articlesToExcludeFromResults = @[article];
         [self.searchSuggestionsController search];
 
         // Add target div for TOC "read more" entry so it can use existing
@@ -2150,7 +2151,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         
         self.searchSuggestionsController = [SearchResultsController readMoreSearchResultsController];
         [self addChildController:self.searchSuggestionsController toContainerView:suggestionsContainer];
-        
+        // The searchSuggestionsController.searchResultsTable isn't deserialized until after "addChildViewController".
         self.footerOptionsController = [[OptionsFooterViewController alloc] init];
         [self addChildController:self.footerOptionsController toContainerView:optionsContainer];
         
