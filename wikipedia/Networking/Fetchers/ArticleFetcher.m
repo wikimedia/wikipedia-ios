@@ -161,7 +161,7 @@
     @"noheadings": @"true",
     @"sections": @"all",
     @"page": title,
-    @"thumbsize": @(LEAD_IMAGE_WIDTH),
+    @"thumbwidth": @(LEAD_IMAGE_WIDTH),
     @"prop": WMFJoinedPropertyParameters(@[
       @"sections",
       @"text",
