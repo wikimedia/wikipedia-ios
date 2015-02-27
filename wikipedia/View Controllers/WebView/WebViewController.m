@@ -1573,6 +1573,10 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         
         self.searchSuggestionsController.searchString = article.title.text;
         [self.searchSuggestionsController search];
+
+        // Add target div for TOC "read more" entry so it can use existing
+        // TOC scrolling mechanism.
+        [sectionTextArray addObject:@"<div id='section_heading_and_content_block_100000'></div>"];
     }
     
     // This is important! Ensures bottom of web view article can be scrolled closer to the top of
