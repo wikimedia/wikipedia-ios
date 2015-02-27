@@ -4,7 +4,7 @@
 @class MWKArticle, MWKSavedPageList, AFHTTPRequestOperationManager;
 @class SavedArticlesFetcher;
 
-typedef void (^WMFSavedArticlesFetcherProgress)(CGFloat progress);
+typedef void (^ WMFSavedArticlesFetcherProgress)(CGFloat progress);
 
 @protocol SavedArticlesFetcherDelegate <FetchFinishedDelegate>
 

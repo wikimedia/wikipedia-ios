@@ -3,6 +3,13 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString* const kURLCacheKeyFileName;
+extern NSString* const kURLCacheKeyData;
+extern NSString* const kURLCacheKeyWidth;
+extern NSString* const kURLCacheKeyHeight;
+extern NSString* const kURLCacheKeyURL;
+extern NSString* const kURLCacheKeyFileNameNoSizePrefix;
+
 @interface URLCache : NSURLCache
 
 @end

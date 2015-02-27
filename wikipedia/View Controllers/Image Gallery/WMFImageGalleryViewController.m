@@ -246,7 +246,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
                                 duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     NSUInteger const currentImageIndex = [self mostVisibleItemIndex];
-    ImgGalleryLog(@"Will scroll to %u after rotation animation finishes.", currentImageIndex);
+    ImgGalleryLog(@"Will scroll to %lu after rotation animation finishes.", currentImageIndex);
     [UIView animateWithDuration:duration
                           delay:0
                         options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowAnimatedContent

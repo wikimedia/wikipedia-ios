@@ -1,8 +1,8 @@
 //  Created by Monte Hurd on 8/26/14.
 
-#import "CenteredPathView.h"
+#import "WMFCenteredPathView.h"
 
-@interface CenteredPathView ()
+@interface WMFCenteredPathView ()
 
 @property (nonatomic) CGPathRef path;
 @property (nonatomic) CGFloat strokeWidth;
@@ -11,7 +11,7 @@
 
 @end
 
-@implementation CenteredPathView
+@implementation WMFCenteredPathView
 
 - (id)initWithPath:(CGPathRef)newPath
        strokeWidth:(CGFloat)strokeWidth

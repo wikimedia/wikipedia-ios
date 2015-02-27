@@ -74,11 +74,15 @@
     return [[self fileNameNoSizePrefix:sourceURL] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-+ (int)fileSizePrefix:(NSString*)sourceURL {
-    NSString* fileName      = [sourceURL lastPathComponent];
-    NSRegularExpression* re = [NSRegularExpression regularExpressionWithPattern:@"^(\\d+)px-" options:0 error:nil];
++ (NSInteger)fileSizePrefix:(NSString*)sourceURL {
+    NSString* fileName = [sourceURL lastPathComponent];
+    if (!fileName) {
+        return -1;
+    }
+    NSError* error          = nil;
+    NSRegularExpression* re = [NSRegularExpression regularExpressionWithPattern:@"^(\\d+)px-" options:0 error:&error];
     NSArray* matches        = [re matchesInString:fileName options:0 range:NSMakeRange(0, [fileName length])];
-    if ([matches count]) {
+    if (!error && [matches count]) {
         return [[fileName substringWithRange:[matches[0] rangeAtIndex:0]] intValue];
     } else {
         return -1;
@@ -159,15 +163,23 @@
     return [UIImage imageWithData:imageData scale:1.0];
 }
 
+- (NSData*)asNSData {
+    return [self.article.dataStore imageDataWithImage:self];
+}
+
 - (MWKImage*)largestVariant {
     NSString* largestURL = [self.article.images largestImageVariant:self.sourceURL];
     return [self.article imageWithURL:largestURL];
 }
 
+- (MWKImage*)largestCachedVariant {
+    return [self.article.images largestImageVariantForURL:self.sourceURL cachedOnly:YES];
+}
+
 - (BOOL)isCached {
-    // @fixme maybe make this more efficient
-    NSData* data = [self.article.dataStore imageDataWithImage:self];
-    return (data != nil);
+    NSString* fullPath = [self fullImageBinaryPath];
+    BOOL fileExists    = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
+    return fileExists;
 }
 
 - (BOOL)isEqual:(id)object {
@@ -197,6 +209,13 @@
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ article: %@ sourceURL: %@",
             [super description], self.article.title, self.sourceURL];
+}
+
+- (NSString*)fullImageBinaryPath {
+    NSString* path     = [self.article.dataStore pathForImage:self];
+    NSString* fileName = [@"Image" stringByAppendingPathExtension:self.extension];
+    NSString* filePath = [path stringByAppendingPathComponent:fileName];
+    return filePath;
 }
 
 @end

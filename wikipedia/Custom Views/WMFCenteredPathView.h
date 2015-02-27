@@ -5,7 +5,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CenteredPathView : UIView
+@interface WMFCenteredPathView : UIView
 
 - (id)initWithPath:(CGPathRef)newPath
        strokeWidth:(CGFloat)strokeWidth

@@ -1,24 +1,15 @@
-//  Created by Monte Hurd on 12/17/14.
-//  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
+//  Created by Monte Hurd on 3/12/15.
+//  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "FocalImage.h"
+#import "UIImage+WMFFocalImageDrawing.h"
 
-@interface FocalImage ()
+@implementation UIImage (WMFFocalImageDrawing)
 
-@property (strong, nonatomic) CIDetector* detector;
-@property (strong, nonatomic) NSArray* faces;
-@property (nonatomic) NSInteger nextFaceIndex;
-
-@end
-
-
-@implementation FocalImage
-
-- (void)drawInRect:(CGRect)rect
-       focalBounds:(CGRect)focalBounds
-    focalHighlight:(BOOL)focalHighlight
-         blendMode:(CGBlendMode)blendMode
-             alpha:(CGFloat)alpha {
+- (void)wmf_drawInRect:(CGRect)rect
+           focalBounds:(CGRect)focalBounds
+        focalHighlight:(BOOL)focalHighlight
+             blendMode:(CGBlendMode)blendMode
+                 alpha:(CGFloat)alpha {
     if ((self.size.width == 0) || (self.size.height == 0)) {
         return;
     }
@@ -77,57 +68,6 @@
     CGContextSetRGBFillColor(context, 0.0, 1.0, 0.0, 0.3);
     CGContextFillRect(context, bounds);
     CGColorSpaceRelease(colorSpace);
-}
-
-- (CGRect)getFaceBounds {
-    // Optimized for repeated calls (for easy cycle through all faces).
-
-    // No need to make the detector more than once.
-    if (!self.detector) {
-        self.detector =
-            [CIDetector detectorOfType:CIDetectorTypeFace
-                               context:nil
-                               options:@{
-                 CIDetectorAccuracy: CIDetectorAccuracyLow,
-                 CIDetectorMinFeatureSize: @(0.05)
-             }];
-    }
-
-    // No need to set faces more than once.
-    if (!self.faces) {
-        CIImage* cgImage = [CIImage imageWithCGImage:self.CGImage];
-        self.faces = [self.detector featuresInImage:cgImage];
-    }
-
-    CGRect widestFaceRect = CGRectZero;
-
-    // Index overrun protection.
-    if (self.nextFaceIndex >= self.faces.count) {
-        return CGRectZero;
-    }
-
-    // Get face for nextFaceIndex.
-    widestFaceRect = ((CIFaceFeature*)self.faces[self.nextFaceIndex]).bounds;
-
-    if (CGRectIsEmpty(widestFaceRect)) {
-        return CGRectZero;
-    }
-
-    // Increment so next call will return next face.
-    self.nextFaceIndex++;
-
-    // Reset if last face so next call shows first face.
-    if (self.nextFaceIndex == self.faces.count) {
-        self.nextFaceIndex = 0;
-    }
-
-    CGRect faceImageCoords =
-        (CGRect){
-        {widestFaceRect.origin.x, self.size.height - widestFaceRect.origin.y - widestFaceRect.size.height},
-        widestFaceRect.size
-    };
-
-    return faceImageCoords;
 }
 
 @end

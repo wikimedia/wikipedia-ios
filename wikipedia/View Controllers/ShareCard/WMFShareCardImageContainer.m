@@ -1,19 +1,41 @@
 
 
 #import "WMFShareCardImageContainer.h"
-#import "FocalImage.h"
+#import "UIImage+WMFFocalImageDrawing.h"
+#import "WMFFaceDetector.h"
 
+@interface WMFShareCardImageContainer ()
+
+@property(nonatomic, strong) WMFFaceDetector* faceDetector;
+@property(nonatomic) CGRect faceBounds;
+
+@end
 
 @implementation WMFShareCardImageContainer
+
+- (instancetype)initWithCoder:(NSCoder*)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.faceDetector = [[WMFFaceDetector alloc] init];
+    }
+    return self;
+}
+
+- (void)setImage:(UIImage*)image {
+    _image                  = image;
+    self.faceDetector.image = image;
+    self.faceBounds         = [self.faceDetector detectFace];
+}
 
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
     [self drawGradientBackground];
-    [self.image drawInRect:rect
-               focalBounds:[self.image getFaceBounds]
-            focalHighlight:NO
-                 blendMode:kCGBlendModeMultiply
-                     alpha:1.0];
+
+    [self.image wmf_drawInRect:rect
+                   focalBounds:self.faceBounds
+                focalHighlight:NO
+                     blendMode:kCGBlendModeMultiply
+                         alpha:1.0];
 }
 
 // TODO: in follow-up patch, factor drawGradientBackground from

@@ -499,7 +499,7 @@ typedef enum {
                 break;
         }
     } else if ([sender isKindOfClass:[WikiTextSectionUploader class]]) {
-        WikiTextSectionUploader* uploader = (WikiTextSectionUploader*)sender;
+        //WikiTextSectionUploader* uploader = (WikiTextSectionUploader*)sender;
 
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {

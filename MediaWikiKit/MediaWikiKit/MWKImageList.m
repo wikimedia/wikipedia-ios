@@ -94,8 +94,19 @@
     if (arr) {
         NSMutableArray* arr2 = [NSMutableArray arrayWithArray:arr];
         [arr2 sortUsingComparator:^NSComparisonResult (NSString* url1, NSString* url2) {
-            int width1 = [MWKImage fileSizePrefix:[url1 lastPathComponent]];
-            int width2 = [MWKImage fileSizePrefix:[url2 lastPathComponent]];
+            NSInteger width1 = [MWKImage fileSizePrefix:[url1 lastPathComponent]];
+            NSInteger width2 = [MWKImage fileSizePrefix:[url2 lastPathComponent]];
+
+            // Canonical image won't have "fileSizePrefix" at beginning of file name.
+            // ie: "cat.jpg" is larger than "200px-cat.jpg". Set to NSIntegerMax in
+            // these cases so canonical will correctly sort as largest.
+            if (width1 == -1) {
+                width1 = NSIntegerMax;
+            }
+            if (width2 == -1) {
+                width2 = NSIntegerMax;
+            }
+
             if (width1 > width2) {
                 return NSOrderedDescending;
             } else if (width1 < width2) {

@@ -70,19 +70,15 @@ static SavedArticlesFetcher * _fetcher = nil;
     });
 }
 
-- (void)getProgress:(WMFSavedArticlesFetcherProgress)progressBlock{
-
+- (void)getProgress:(WMFSavedArticlesFetcherProgress)progressBlock {
     dispatch_async(self.accessQueue, ^{
-        
         CGFloat progress = [self progress];
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
-            
             progressBlock(progress);
         });
     });
 }
-
 
 - (CGFloat)progress {
     if ([self.savedPageList length] == 0) {
@@ -117,7 +113,7 @@ static SavedArticlesFetcher * _fetcher = nil;
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.fetchFinishedDelegate savedArticlesFetcher:self didFetchArticle:article progress:progress status:status error:error];
-            
+
             dispatch_async(self.accessQueue, ^{
                 if ([self.fetchersByArticleTitle count] == 0) {
                     [self notifyDelegate];

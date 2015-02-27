@@ -7,7 +7,6 @@
 //
 
 #import "WMFShareCardViewController.h"
-#import "FocalImage.h"
 #import "NSString+Extras.h"
 #import "WMFShareCardImageContainer.h"
 #import "MWLanguageInfo.h"
@@ -59,11 +58,13 @@
     self.shareArticleDescription.text          = [[article.entityDescription getStringWithoutHTML] capitalizeFirstLetter];
     self.shareArticleDescription.textAlignment = subtextAlignment;
 
-    UIImage* leadImage = [article.image asUIImage];
-    if (leadImage) {
+    NSData* leadImageData = [article.image.largestCachedVariant asNSData];
+    if (leadImageData) {
         // in case the image has transparency, make its container white
         self.shareCardImageContainer.backgroundColor = [UIColor whiteColor];
-        self.shareCardImageContainer.image           = [[FocalImage alloc] initWithCGImage:leadImage.CGImage];
+        // Face detection is faster if the image has CIImage backing.
+        CIImage* ciImage = [[CIImage alloc] initWithData:leadImageData];
+        self.shareCardImageContainer.image = [UIImage imageWithCIImage:ciImage];
     }
 }
 

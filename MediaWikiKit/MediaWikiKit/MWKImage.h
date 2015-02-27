@@ -48,8 +48,10 @@
 - (void)save;
 
 - (UIImage*)asUIImage;
+- (NSData*) asNSData;
 
 - (MWKImage*)largestVariant;
+- (MWKImage*)largestCachedVariant;
 
 /// Return the folder containing the image file from receiver's @c sourceURL.
 - (NSString*)basename;
@@ -77,7 +79,7 @@
 /// The name of the image "file" associatd with the receiver, with percent encodings replaced.
 + (NSString*)canonicalFilenameFromSourceURL:(NSString*)sourceURL;
 
-+ (int)fileSizePrefix:(NSString*)sourceURL;
++ (NSInteger)fileSizePrefix:(NSString*)sourceURL;
 
 /**
  * Checks if two images are variants of each other <b>but not exactly the same image</b>.
@@ -92,5 +94,7 @@
    @endcode
  */
 - (BOOL)isVariantOfImage:(MWKImage*)otherImage;
+
+- (NSString*)fullImageBinaryPath;
 
 @end

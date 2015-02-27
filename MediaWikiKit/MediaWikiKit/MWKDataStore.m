@@ -312,9 +312,7 @@ static NSString* const MWKImageInfoFilename      = @"ImageInfo.plist";
         NSLog(@"nil image passed to imageDataWithImage");
         return nil;
     }
-    NSString* path     = [self pathForImage:image];
-    NSString* fileName = [@"Image" stringByAppendingPathExtension:image.extension];
-    NSString* filePath = [path stringByAppendingPathComponent:fileName];
+    NSString* filePath = [image fullImageBinaryPath];
 
     NSError* err;
     NSData* data = [NSData dataWithContentsOfFile:filePath options:0 error:&err];

@@ -2,11 +2,15 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "URLCache.h"
-//#import "ArticleDataContextSingleton.h"
-//#import "ArticleCoreDataObjects.h"
-//#import "NSManagedObjectContext+SimpleFetch.h"
 #import "NSString+Extras.h"
 #import "SessionSingleton.h"
+
+NSString* const kURLCacheKeyFileName             = @"fileName";
+NSString* const kURLCacheKeyData                 = @"data";
+NSString* const kURLCacheKeyWidth                = @"width";
+NSString* const kURLCacheKeyHeight               = @"height";
+NSString* const kURLCacheKeyURL                  = @"url";
+NSString* const kURLCacheKeyFileNameNoSizePrefix = @"fileNameNoSizePrefix";
 
 #if 0
 #define URLCacheLog(...) NSLog(__VA_ARGS__)
@@ -133,8 +137,12 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SectionImageRetrieved"
                                                         object:nil
                                                       userInfo:@{
-         @"fileName": image.fileName,
-         @"data": imageDataToUse,
+         kURLCacheKeyFileName: image.fileName,
+         kURLCacheKeyData: imageDataToUse,
+         kURLCacheKeyWidth: image.width,
+         kURLCacheKeyHeight: image.height,
+         kURLCacheKeyURL: image.sourceURL,
+         kURLCacheKeyFileNameNoSizePrefix: image.fileNameNoSizePrefix
      }];
 }
 

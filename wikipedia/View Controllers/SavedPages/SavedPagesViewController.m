@@ -429,11 +429,8 @@ static NSString* const WMFSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesD
 }
 
 - (void)resumeRefresh {
-    
     [[SavedArticlesFetcher sharedInstance] getProgress:^(CGFloat progress) {
-
-        if(progress < 100){
-            
+        if (progress < 100) {
             self.progressView.progress = progress;
             [SavedArticlesFetcher sharedInstance].fetchFinishedDelegate = self;
 

@@ -1,75 +1,75 @@
 
-/* Class = "IBUIButton"; normalTitle = "Show another captcha"; ObjectID = "21c-U6-yfo"; */
+/* Class = "UIButton"; normalTitle = "Show another captcha"; ObjectID = "21c-U6-yfo"; */
 "21c-U6-yfo.normalTitle" = "Show another captcha";
 
-/* Class = "IBUITextField"; placeholder = "User name"; ObjectID = "5cT-2Y-0Ie"; */
+/* Class = "UITextField"; placeholder = "User name"; ObjectID = "5cT-2Y-0Ie"; */
 "5cT-2Y-0Ie.placeholder" = "User name";
 
-/* Class = "IBUILabel"; text = "Saved pages are pretty awesome. Think of them as bookmarks that you can read even when you are offline."; ObjectID = "GiD-Rj-wb7"; */
+/* Class = "UILabel"; text = "Saved pages are pretty awesome. Think of them as bookmarks that you can read even when you are offline."; ObjectID = "GiD-Rj-wb7"; */
 "GiD-Rj-wb7.text" = "Saved pages are pretty awesome. Think of them as bookmarks that you can read even when you are offline.";
 
-/* Class = "IBUILabel"; text = "Preview"; ObjectID = "LfM-01-aCF"; */
+/* Class = "UILabel"; text = "Preview"; ObjectID = "LfM-01-aCF"; */
 "LfM-01-aCF.text" = "Preview";
 
-/* Class = "IBUILabel"; text = "Skip"; ObjectID = "P6J-IE-CiO"; */
+/* Class = "UILabel"; text = "Skip"; ObjectID = "P6J-IE-CiO"; */
 "P6J-IE-CiO.text" = "Skip";
 
-/* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "PCr-0J-fBj"; */
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "PCr-0J-fBj"; */
 "PCr-0J-fBj.placeholder" = "Password";
 
-/* Class = "IBUILabel"; text = "Canonical Language"; ObjectID = "SER-n4-DZC"; */
+/* Class = "UILabel"; text = "Canonical Language"; ObjectID = "SER-n4-DZC"; */
 "SER-n4-DZC.text" = "Canonical Language";
 
-/* Class = "IBUITextField"; placeholder = "Re-type password"; ObjectID = "UgH-77-lyp"; */
+/* Class = "UITextField"; placeholder = "Re-type password"; ObjectID = "UgH-77-lyp"; */
 "UgH-77-lyp.placeholder" = "Re-type password";
 
-/* Class = "IBUILabel"; text = "No saved pages yet."; ObjectID = "W1c-wQ-1pa"; */
+/* Class = "UILabel"; text = "No saved pages yet."; ObjectID = "W1c-wQ-1pa"; */
 "W1c-wQ-1pa.text" = "No saved pages yet.";
 
-/* Class = "IBUILabel"; text = "Log in"; ObjectID = "Wff-o9-AdH"; */
+/* Class = "UILabel"; text = "Log in"; ObjectID = "Wff-o9-AdH"; */
 "Wff-o9-AdH.text" = "Log in";
 
-/* Class = "IBUILabel"; text = "Label"; ObjectID = "XkB-Xo-Xq0"; */
+/* Class = "UILabel"; text = "Label"; ObjectID = "XkB-Xo-Xq0"; */
 "XkB-Xo-Xq0.text" = "Label";
 
-/* Class = "IBUILabel"; text = "Test Zero Label Text"; ObjectID = "aCV-ih-PXn"; */
+/* Class = "UILabel"; text = "Test Zero Label Text"; ObjectID = "aCV-ih-PXn"; */
 "aCV-ih-PXn.text" = "Test Zero Label Text";
 
-/* Class = "IBUILabel"; text = "No recent pages here."; ObjectID = "aUp-0e-F6i"; */
+/* Class = "UILabel"; text = "No recent pages here."; ObjectID = "aUp-0e-F6i"; */
 "aUp-0e-F6i.text" = "No recent pages here.";
 
-/* Class = "IBUILabel"; text = "Create Account"; ObjectID = "c3c-PU-Exz"; */
+/* Class = "UILabel"; text = "Create Account"; ObjectID = "c3c-PU-Exz"; */
 "c3c-PU-Exz.text" = "Create Account";
 
-/* Class = "IBUILabel"; text = "Label"; ObjectID = "cbH-8H-z54"; */
+/* Class = "UILabel"; text = "Label"; ObjectID = "cbH-8H-z54"; */
 "cbH-8H-z54.text" = "Label";
 
-/* Class = "IBUITextField"; placeholder = "Enter CAPTCHA text from image above"; ObjectID = "gPg-cg-Yjy"; */
+/* Class = "UITextField"; placeholder = "Enter CAPTCHA text from image above"; ObjectID = "gPg-cg-Yjy"; */
 "gPg-cg-Yjy.placeholder" = "Enter CAPTCHA text from image above";
 
-/* Class = "IBUILabel"; text = "Already have an account? Log in"; ObjectID = "heA-3K-nhS"; */
+/* Class = "UILabel"; text = "Already have an account? Log in"; ObjectID = "heA-3K-nhS"; */
 "heA-3K-nhS.text" = "Already have an account? Log in";
 
-/* Class = "IBUILabel"; text = "You probably deleted all of them. Next time you go to a page you can get back to it from here."; ObjectID = "huU-kO-aYI"; */
+/* Class = "UILabel"; text = "You probably deleted all of them. Next time you go to a page you can get back to it from here."; ObjectID = "huU-kO-aYI"; */
 "huU-kO-aYI.text" = "You probably deleted all of them. Next time you go to a page you can get back to it from here.";
 
-/* Class = "IBUILabel"; text = "Create Account"; ObjectID = "jiW-Cg-oL3"; */
+/* Class = "UILabel"; text = "Create Account"; ObjectID = "jiW-Cg-oL3"; */
 "jiW-Cg-oL3.text" = "Create Account";
 
-/* Class = "IBUILabel"; text = "Language"; ObjectID = "jxY-ej-I9e"; */
+/* Class = "UILabel"; text = "Language"; ObjectID = "jxY-ej-I9e"; */
 "jxY-ej-I9e.text" = "Language";
 
-/* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "kVb-lx-d6C"; */
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "kVb-lx-d6C"; */
 "kVb-lx-d6C.placeholder" = "Password";
 
-/* Class = "IBUITextField"; placeholder = "User name"; ObjectID = "mAk-1N-jPC"; */
+/* Class = "UITextField"; placeholder = "User name"; ObjectID = "mAk-1N-jPC"; */
 "mAk-1N-jPC.placeholder" = "User name";
 
-/* Class = "IBUILabel"; text = "Label"; ObjectID = "nI1-bn-0Ii"; */
+/* Class = "UILabel"; text = "Label"; ObjectID = "nI1-bn-0Ii"; */
 "nI1-bn-0Ii.text" = "Label";
 
-/* Class = "IBUITextField"; placeholder = "Email address (optional)"; ObjectID = "rKI-nq-3p7"; */
+/* Class = "UITextField"; placeholder = "Email address (optional)"; ObjectID = "rKI-nq-3p7"; */
 "rKI-nq-3p7.placeholder" = "Email address (optional)";
 
-/* Class = "IBUILabel"; text = "Create account"; ObjectID = "wkl-j8-wLX"; */
+/* Class = "UILabel"; text = "Create account"; ObjectID = "wkl-j8-wLX"; */
 "wkl-j8-wLX.text" = "Create account";
