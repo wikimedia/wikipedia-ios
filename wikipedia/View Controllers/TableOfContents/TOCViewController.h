@@ -10,11 +10,14 @@
 
 @property (strong, nonatomic) IBOutlet UIScrollView* scrollView;
 
-- (void)centerCellForWebViewTopMostSectionAnimated:(BOOL)animated;
+- (void)updateTOCForWebviewScrollPositionAnimated:(BOOL)animated;
+
+- (void)updateTocForArticle:(MWKArticle*)article;
+
+@property (strong, nonatomic, readonly) MWKArticle* article;
 
 @property (weak, nonatomic) WebViewController* webVC;
 
-- (void)setTocSectionDataForSections:(MWKSectionList*)sections;
 
 - (void)willShow;
 - (void)didHide;

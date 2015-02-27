@@ -19,7 +19,10 @@
 @interface TOCViewController (){
 }
 
+@property (strong, nonatomic, readwrite) MWKArticle* article;
+
 @property (strong, nonatomic) NSArray* sectionCells;
+@property (assign, nonatomic) NSInteger highlightedCellIndex;
 
 @property (strong, nonatomic) UIView* scrollContainer;
 
@@ -55,6 +58,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    self.highlightedCellIndex = 0;
 
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
 
@@ -109,7 +114,7 @@
     [[self.sectionCells copy] makeObjectsPerformSelector:@selector(layoutIfNeeded)];
 
     // Now move selected item to top.
-    [self centerCellForWebViewTopMostSectionAnimated:NO];
+    [self updateTOCForWebviewScrollPositionAnimated:NO];
 
     self.scrollView.scrollsToTop               = YES;
     self.webVC.webView.scrollView.scrollsToTop = NO;
@@ -122,7 +127,6 @@
 - (void)refreshForCurrentArticle {
     self.scrollView.delegate = nil;
 
-    // Set up the scrollContainer fresh every time!
     [self setupScrollContainer];
 
     [self setupSectionCells];
@@ -131,15 +135,11 @@
         [self.scrollContainer addSubview:cell];
     }
 
-    // Ensure the scrollContainer is scrolled to the top before its sub-views are constrained.
     self.scrollView.contentOffset = CGPointZero;
 
     [self.view setNeedsUpdateConstraints];
 
-    // Don't start monitoring scrollView scrolling until view has appeared.
     self.scrollView.delegate = self;
-
-    //CFTimeInterval begin = CACurrentMediaTime();
 }
 
 - (void)setupScrollContainer {
@@ -280,8 +280,9 @@
 - (void)scrollWebViewToSectionForCell:(TOCSectionCellView*)cell
                              duration:(CGFloat)duration
                           thenHideTOC:(BOOL)hideTOC {
-    cell.isSelected    = YES;
-    cell.isHighlighted = YES;
+    cell.isSelected           = YES;
+    cell.isHighlighted        = YES;
+    self.highlightedCellIndex = [self.sectionCells indexOfObject:cell];
 
     NSString* elementId = [NSString stringWithFormat:@"section_heading_and_content_block_%ld", (long)cell.tag];
 
@@ -332,8 +333,9 @@
                 //pastFocalCell = YES;
                 [self unHighlightAllCells];
 
-                cell.isSelected    = YES;
-                cell.isHighlighted = YES;
+                cell.isSelected           = YES;
+                cell.isHighlighted        = YES;
+                self.highlightedCellIndex = [self.sectionCells indexOfObject:cell];
             }
         }
 
@@ -341,6 +343,17 @@
             [self limitVerticalScrolling:self.scrollView];
         }
     }
+}
+
+- (void)scrollWebViewToHighlightedSection {
+    if (self.highlightedCellIndex >= [self.sectionCells count]) {
+        return;
+    }
+
+    TOCSectionCellView* cell = self.sectionCells[self.highlightedCellIndex];
+    [self scrollWebViewToSectionForCell:cell
+                               duration:TOC_SELECTION_SCROLL_DURATION
+                            thenHideTOC:NO];
 }
 
 - (void)limitVerticalScrolling:(UIScrollView*)scrollView {
@@ -391,19 +404,11 @@
 }
 
 - (void)scrollViewScrollingEnded:(UIScrollView*)scrollView {
+    [self scrollWebViewToHighlightedSection];
     [self scrollViewDidScroll:scrollView];
-
-    for (TOCSectionCellView* cell in [self.sectionCells copy]) {
-        if (cell.isSelected) {
-            [self scrollWebViewToSectionForCell:cell
-                                       duration:TOC_SELECTION_SCROLL_DURATION
-                                    thenHideTOC:NO];
-            break;
-        }
-    }
 }
 
-- (void)centerCellForWebViewTopMostSectionAnimated:(BOOL)animated {
+- (void)updateTOCForWebviewScrollPositionAnimated:(BOOL)animated {
     if (!self.scrollView.isDragging) {
         [self updateHighlightedCellToReflectWebView];
         [self scrollHighlightedCellToSelectionLineWithDuration:(animated ? TOC_SELECTION_SCROLL_DURATION : 0.0f)];
@@ -412,20 +417,19 @@
 
 #pragma mark Highlighted cell
 
-- (TOCSectionCellView*)getHighlightedCell {
-    for (TOCSectionCellView* cell in [self.sectionCells copy]) {
-        if (cell.isSelected) {
-            return cell;
-        }
+- (TOCSectionCellView*)getHighlightedCellIndex {
+    if (self.highlightedCellIndex >= [self.sectionCells count]) {
+        return nil;
     }
-    return nil;
+
+    return self.sectionCells[self.highlightedCellIndex];
 }
 
 - (void)scrollHighlightedCellToSelectionLineWithDuration:(CGFloat)duration {
     if (self.sectionCells.count == 0) {
         return;
     }
-    TOCSectionCellView* highlightedCell = [self getHighlightedCell];
+    TOCSectionCellView* highlightedCell = [self getHighlightedCellIndex];
 
     // Return if no cell highlighted.
     if (!highlightedCell) {
@@ -503,8 +507,9 @@
 
         if (indexOfFirstOnscreenSection < self.sectionCells.count) {
             TOCSectionCellView* cell = ((TOCSectionCellView*)self.sectionCells[indexOfFirstOnscreenSection]);
-            cell.isSelected    = YES;
-            cell.isHighlighted = YES;
+            cell.isSelected           = YES;
+            cell.isHighlighted        = YES;
+            self.highlightedCellIndex = indexOfFirstOnscreenSection;
         }
     }
 }
@@ -557,6 +562,14 @@
     }
 
     //NSLog(@"%f", CACurrentMediaTime() - begin);
+}
+
+- (void)updateTocForArticle:(MWKArticle*)article {
+    if ([self.article isEqual:article]) {
+        return;
+    }
+    self.article = article;
+    [self setTocSectionDataForSections:article.sections];
 }
 
 - (void)setTocSectionDataForSections:(MWKSectionList*)sections {
