@@ -294,6 +294,8 @@
 		C42D94861A937DE000A4871A /* WMFBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94831A937DE000A4871A /* WMFBorderButton.m */; };
 		C42D94871A937DE000A4871A /* WMFProgressLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94851A937DE000A4871A /* WMFProgressLineView.m */; };
 		C42D94BC1A95405000A4871A /* NSArray+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94BB1A95405000A4871A /* NSArray+WMFExtensions.m */; };
+		BCC185E81A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185E71A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m */; };
+		BCC185E91A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185E71A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m */; };
 		C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */; };
 		C90799BA1A8564C60044E13C /* WMFShareOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90799B91A8564C60044E13C /* WMFShareOptionsViewController.m */; };
 		C913C89C1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = C913C89B1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m */; };
@@ -813,6 +815,8 @@
 		C42D94851A937DE000A4871A /* WMFProgressLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProgressLineView.m; sourceTree = "<group>"; };
 		C42D94BA1A95405000A4871A /* NSArray+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WMFExtensions.h"; path = "Wikipedia/Categories/NSArray+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
 		C42D94BB1A95405000A4871A /* NSArray+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WMFExtensions.m"; path = "Wikipedia/Categories/NSArray+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
+		BCC185E61A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewFlowLayout+AttributeUtils.h"; sourceTree = "<group>"; };
+		BCC185E71A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewFlowLayout+AttributeUtils.m"; sourceTree = "<group>"; };
 		C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "../../../Pods/Target Support Files/Pods/Pods-acknowledgements.plist"; sourceTree = "<group>"; };
 		C90799B81A8564C60044E13C /* WMFShareOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFShareOptionsViewController.h; path = ShareCard/WMFShareOptionsViewController.h; sourceTree = "<group>"; };
 		C90799B91A8564C60044E13C /* WMFShareOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFShareOptionsViewController.m; path = ShareCard/WMFShareOptionsViewController.m; sourceTree = "<group>"; };
@@ -1772,6 +1776,8 @@
 				BC86B93C1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m */,
 				BC86B93E1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.h */,
 				BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */,
+				BCC185E61A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.h */,
+				BCC185E71A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2772,6 +2778,7 @@
 				BCB66A0D1A85183000C7B1FE /* NSString+WMFHTMLParsing.m in Sources */,
 				BCB669EE1A83F71C00C7B1FE /* MWKProtectionStatus.m in Sources */,
 				BCB669F41A83F71C00C7B1FE /* MWKRecentSearchList.m in Sources */,
+				BCC185E91A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m in Sources */,
 				04BA48A21A80062F00CB5CAE /* UIFont+WMFStyle.m in Sources */,
 				BCB669741A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
 				042BEAF01A92EE66002CF320 /* UIWebView+WMFTrackingView.m in Sources */,
@@ -2921,6 +2928,7 @@
 				BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */,
 				BCB58F441A890D9700465627 /* MWKImageInfo+MWKImageComparison.m in Sources */,
 				BCB669AD1A83F6C400C7B1FE /* MWKSavedPageList.m in Sources */,
+				BCC185E81A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m in Sources */,
 				04B91AB718E4D5B200FFAA1C /* TabularScrollView.m in Sources */,
 				04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */,
 				04E106381A3560A90046DC27 /* LeadImageTitleLabel.m in Sources */,
@@ -3355,6 +3363,7 @@
 					"-Werror=switch",
 					"-Werror=arc-retain-cycles",
 					"-Werror=incompatible-pointer-types",
+					"-Werror=incomplete-implementation",
 				);
 				WRAPPER_EXTENSION = app;
 			};
@@ -3388,6 +3397,7 @@
 					"-Werror=switch",
 					"-Werror=arc-retain-cycles",
 					"-Werror=incompatible-pointer-types",
+					"-Werror=incomplete-implementation",
 				);
 				WRAPPER_EXTENSION = app;
 			};

@@ -22,6 +22,7 @@
 #import "UICollectionViewFlowLayout+NSCopying.h"
 #import "UICollectionViewFlowLayout+WMFItemSizeThatFits.h"
 #import "UIViewController+Alert.h"
+#import "UICollectionViewFlowLayout+AttributeUtils.h"
 
 // Model
 #import "MWKDataStore.h"
@@ -42,7 +43,7 @@
 #endif
 
 @interface WMFImageGalleryViewController ()
-<UIGestureRecognizerDelegate>
+<UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout>
 {
     MWKImageInfoFetcher *_imageInfoFetcher;
     AFHTTPRequestOperationManager *_imageFetcher;
@@ -50,10 +51,10 @@
     NSArray *_uniqueArticleImages;
 }
 
-@property (nonatomic) BOOL didSetInitialItemSize;
-@property (nonatomic) BOOL didPerformInitialLayout;
 @property (nonatomic) BOOL didApplyInitialVisibleImageIndex;
+@property (nonatomic) NSUInteger preRotationVisibleImageIndex;
 
+@property (nonatomic, weak, readonly) UICollectionViewFlowLayout *collectionViewFlowLayout;
 @property (nonatomic, weak, readonly) UIButton *closeButton;
 @property (nonatomic, getter=isChromeHidden) BOOL chromeHidden;
 @property (nonatomic, weak, readonly) UITapGestureRecognizer *chromeTapGestureRecognizer;
@@ -184,6 +185,11 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return nil;
 }
 
+- (NSUInteger)mostVisibleItemIndex
+{
+    return [self.collectionViewFlowLayout wmf_indexPathClosestToContentOffset].item;
+}
+
 #pragma mark - Networking & Persistence
 
 - (void)fetchImageInfo
@@ -223,62 +229,53 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
                                 duration:(NSTimeInterval)duration
 {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)
-        == UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-        return;
-    }
-
-    // need to capture visibleImageIndex before the animation, else collectionViewDelegate methods will throw it off
-    NSUInteger currentImageIndex = self.visibleImageIndex;
-    CGSize currentSize = self.view.bounds.size;
-    CGSize newBounds = CGSizeMake(currentSize.height, currentSize.width);
+    NSUInteger const currentImageIndex = [self mostVisibleItemIndex];
+    ImgGalleryLog(@"Will scroll to %u after rotation animation finishes.", currentImageIndex);
     [UIView animateWithDuration:duration
                           delay:0
-                        options:UIViewAnimationOptionAllowAnimatedContent | UIViewAnimationOptionBeginFromCurrentState
+                        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowAnimatedContent
                      animations:^{
-        self.collectionViewFlowLayout.itemSize = [self.collectionViewFlowLayout wmf_itemSizeThatFits:newBounds];
-    }
-                     completion:^ (BOOL finished) {
-        self.visibleImageIndex = currentImageIndex;
-    }];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    // set this before, otherwise it won't be true inside other calls like viewDidLayoutSubviews
-    _didSetInitialItemSize = YES;
-    [self.collectionViewFlowLayout wmf_strictItemSizeToFit];
-    [self applyChromeHidden:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    // assert that all the expected state transitions happened
-    NSParameterAssert(_didSetInitialItemSize);
-    NSParameterAssert(_didPerformInitialLayout);
-    NSParameterAssert(_didApplyInitialVisibleImageIndex);
+                         [self.collectionViewFlowLayout invalidateLayout];
+                     }
+                     completion:^(BOOL finished) {
+                         [self setVisibleImageIndex:currentImageIndex animated:NO forceViewUpdate:YES];
+                     }];
 }
 
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
 
-    // reset item size once the collection view has been laid out
-    if (_didSetInitialItemSize && !_didPerformInitialLayout) {
-        _didPerformInitialLayout = YES;
+    /*
+     only apply visible image index once the collection view has been populated with cells, otherwise calls to get
+     layout attributes of the item at `visibleImageIndex` will return `nil` (on iOS 6, at least)
+     */
+    if (!self.didApplyInitialVisibleImageIndex && self.collectionView.visibleCells.count) {
         [self applyVisibleImageIndex:NO];
         // only set the flag *after* the visible index has been updated, to make sure UICollectionViewDelegate
         // callbacks don't override it
-        _didApplyInitialVisibleImageIndex = YES;
+        self.didApplyInitialVisibleImageIndex = YES;
     }
+}
+
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    // fetch after appearing so we don't do work while the animation is rendering
+    [self fetchImageInfo];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
+    // this prevents white lines from appearing during rotation animations on iOS 6
+    self.view.backgroundColor = [UIColor blackColor];
 
     // manually layout closeButton so we can programmatically increase it's hit size
     NSString* closeButtonTitle = WIKIGLYPH_X;
@@ -318,8 +315,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
             forCellWithReuseIdentifier:WMFImageGalleryCollectionViewCellReuseId];
 
     self.collectionView.pagingEnabled = YES;
-
-    [self fetchImageInfo];
 }
 
 #pragma mark - Chrome
@@ -377,15 +372,25 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 - (void)applyVisibleImageIndex:(BOOL)animated
 {
     if ([self isViewLoaded]) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.visibleImageIndex inSection:0]
-                                    atScrollPosition:UICollectionViewScrollPositionLeft
-                                            animated:animated];
+        // can't use scrollToItem because it doesn't handle post-rotation scrolling well on iOS 6
+        UICollectionViewLayoutAttributes* visibleImageAttributes =
+            [self.collectionViewFlowLayout layoutAttributesForItemAtIndexPath:
+             [NSIndexPath indexPathForItem:self.visibleImageIndex inSection:0]];
+        NSAssert(visibleImageAttributes,
+                 @"Layout attributes for visible image were nil because %@ was called too early!",
+                 NSStringFromSelector(_cmd));
+        [self.collectionView setContentOffset:visibleImageAttributes.frame.origin animated:animated];
     }
 }
 
 - (void)setVisibleImageIndex:(NSUInteger)visibleImageIndex animated:(BOOL)animated
 {
-    if (visibleImageIndex == _visibleImageIndex) { return; }
+    [self setVisibleImageIndex:visibleImageIndex animated:animated forceViewUpdate:NO];
+}
+
+- (void)setVisibleImageIndex:(NSUInteger)visibleImageIndex animated:(BOOL)animated forceViewUpdate:(BOOL)force
+{
+    if (!force && visibleImageIndex == _visibleImageIndex) { return; }
     NSParameterAssert(visibleImageIndex < self.uniqueArticleImages.count);
     _visibleImageIndex = visibleImageIndex;
     [self applyVisibleImageIndex:animated];
@@ -414,15 +419,11 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark Delegate
 
-- (void)collectionView:(UICollectionView *)collectionView
-       willDisplayCell:(UICollectionViewCell *)cell
-    forItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    // only apply after initial visible index has been set
-    if (_didApplyInitialVisibleImageIndex) {
-        // silently update the visible image index (i.e. do *not* use the setter!)
-        _visibleImageIndex = indexPath.item;
-    }
+    return [self.collectionViewFlowLayout wmf_itemSizeThatFits:self.view.bounds.size];
 }
 
 #pragma mark DataSource
@@ -434,6 +435,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         (WMFImageGalleryCollectionViewCell*)
         [collectionView dequeueReusableCellWithReuseIdentifier:WMFImageGalleryCollectionViewCellReuseId
                                                   forIndexPath:indexPath];
+
     MWKImage *imageStub = self.uniqueArticleImages[indexPath.item];
     MWKImageInfo *infoForImage = self.indexedImageInfo[imageStub.infoAssociationValue];
 

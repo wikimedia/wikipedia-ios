@@ -21,12 +21,11 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.contentView.backgroundColor = [UIColor blackColor];
-        self.backgroundView.backgroundColor = [UIColor blackColor];
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundView.backgroundColor = [UIColor clearColor];
 
         // image view's frame fills the scroll view's *bounds*, and zooming transforms it to the natural image size
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.contentView.bounds];
+        imageView.backgroundColor = [UIColor clearColor];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView = imageView;
 
