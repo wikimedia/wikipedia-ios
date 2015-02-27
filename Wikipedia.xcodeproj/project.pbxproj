@@ -147,7 +147,7 @@
 		04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AAB18344131006C643B /* CommunicationBridge.m */; };
 		04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AB9183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m */; };
 		04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43ABB183442FC006C643B /* NSString+Extras.m */; };
-		04C695CE18ED08D900D9F2DA /* UIView+SearchSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C695CD18ED08D900D9F2DA /* UIView+SearchSubviews.m */; };
+		04C695CE18ED08D900D9F2DA /* UIView+WMFSearchSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C695CD18ED08D900D9F2DA /* UIView+WMFSearchSubviews.m */; };
 		04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C695D118ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m */; };
 		04C757671A1A9E1B0084AC39 /* RecentSearchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C757651A1A9E1B0084AC39 /* RecentSearchesViewController.m */; };
 		04C7576E1A1AA2D00084AC39 /* RecentSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C7576C1A1AA2D00084AC39 /* RecentSearchCell.m */; };
@@ -620,8 +620,8 @@
 		04C43AB9183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunLoop+TimeOutAndFlag.m"; sourceTree = "<group>"; };
 		04C43ABA183442FC006C643B /* NSString+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extras.h"; sourceTree = "<group>"; };
 		04C43ABB183442FC006C643B /* NSString+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extras.m"; sourceTree = "<group>"; };
-		04C695CC18ED08D900D9F2DA /* UIView+SearchSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SearchSubviews.h"; sourceTree = "<group>"; };
-		04C695CD18ED08D900D9F2DA /* UIView+SearchSubviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SearchSubviews.m"; sourceTree = "<group>"; };
+		04C695CC18ED08D900D9F2DA /* UIView+WMFSearchSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WMFSearchSubviews.h"; sourceTree = "<group>"; };
+		04C695CD18ED08D900D9F2DA /* UIView+WMFSearchSubviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WMFSearchSubviews.m"; sourceTree = "<group>"; };
 		04C695D018ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+NoHorizontalScrolling.h"; sourceTree = "<group>"; };
 		04C695D118ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+NoHorizontalScrolling.m"; sourceTree = "<group>"; };
 		04C757641A1A9E1B0084AC39 /* RecentSearchesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentSearchesViewController.h; sourceTree = "<group>"; };
@@ -1727,8 +1727,8 @@
 				04EDEE301A21CB4100798076 /* UIScreen+Extras.m */,
 				0433542418A093C5009305F0 /* UIView+RemoveConstraints.h */,
 				0433542518A093C5009305F0 /* UIView+RemoveConstraints.m */,
-				04C695CC18ED08D900D9F2DA /* UIView+SearchSubviews.h */,
-				04C695CD18ED08D900D9F2DA /* UIView+SearchSubviews.m */,
+				04C695CC18ED08D900D9F2DA /* UIView+WMFSearchSubviews.h */,
+				04C695CD18ED08D900D9F2DA /* UIView+WMFSearchSubviews.m */,
 				04B91AA518E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.h */,
 				04B91AA618E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m */,
 				043F8BF01A11699A00D1AE44 /* UIView+WMFRoundCorners.h */,
@@ -2816,7 +2816,7 @@
 				0487048619F8262600B7D307 /* LanguageLinksFetcher.m in Sources */,
 				BCB58F481A891FDB00465627 /* WebViewController+ImageGalleryPresentation.m in Sources */,
 				0449E63918AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m in Sources */,
-				04C695CE18ED08D900D9F2DA /* UIView+SearchSubviews.m in Sources */,
+				04C695CE18ED08D900D9F2DA /* UIView+WMFSearchSubviews.m in Sources */,
 				0487048E19F8262600B7D307 /* WikipediaZeroMessageFetcher.m in Sources */,
 				0424874D1A54801900A5C905 /* MWKArticle+isMain.m in Sources */,
 				D4F277FB194235A00032BA38 /* ProtectedEditAttemptFunnel.m in Sources */,

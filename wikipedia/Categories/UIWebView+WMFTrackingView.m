@@ -2,7 +2,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "UIWebView+WMFTrackingView.h"
-#import "UIView+SearchSubviews.h"
+#import "UIView+WMFSearchSubviews.h"
 
 @implementation UIWebView (TrackingView)
 
@@ -10,27 +10,27 @@
                 atLocation: (WMFTrackingViewLocation)location
 {
     view.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     UIView *webScrollView = self.scrollView;
     [webScrollView addSubview:view];
-    
+
     // Reminder - this webView subview has the sizes we want constrain
     // "view" to, but the constraints themselves need to be added to
     // the webView's scrollView.
-    UIView *browserView = [self.scrollView getFirstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
-    
-    void (^constrainEqually)(NSLayoutAttribute) = ^void(NSLayoutAttribute attr) {
+    UIView *browserView = [self.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
+    NSParameterAssert(browserView);
+    void (^constrainEqually)(NSLayoutAttribute) = ^(NSLayoutAttribute attr) {
         [webScrollView addConstraint:
-         [NSLayoutConstraint constraintWithItem: view
-                                      attribute: attr
-                                      relatedBy: NSLayoutRelationEqual
-                                         toItem: browserView
-                                      attribute: attr
-                                     multiplier: 1.0
-                                       constant: 0.0]
+         [NSLayoutConstraint constraintWithItem:view
+                                      attribute:attr
+                                      relatedBy:NSLayoutRelationEqual
+                                         toItem:browserView
+                                      attribute:attr
+                                     multiplier:1.0
+                                       constant:0.0]
          ];
     };
-    
+
     constrainEqually([self layoutAttributeForTrackingViewLocation:location]);
     constrainEqually(NSLayoutAttributeLeading);
     constrainEqually(NSLayoutAttributeWidth);

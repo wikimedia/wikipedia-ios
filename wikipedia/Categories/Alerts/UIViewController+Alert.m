@@ -3,7 +3,7 @@
 
 #import "UIViewController+Alert.h"
 #import "UIView+RemoveConstraints.h"
-#import "UIView+SearchSubviews.h"
+#import "UIView+WMFSearchSubviews.h"
 #import "WebViewController.h"
 #import "BottomMenuViewController.h"
 #import "Defines.h"
@@ -33,14 +33,14 @@
 -(void)fadeAlert
 {
     // Fade existing alert labels if any.
-    NSArray *alertLabels = [self.view getSubviewsOfClass:[AlertLabel class]];
+    NSArray *alertLabels = [self.view wmf_subviewsOfClass:[AlertLabel class]];
     [alertLabels makeObjectsPerformSelector:@selector(fade)];
 }
 
 -(void)hideAlert
 {
     // Hide existing alert labels if any.
-    NSArray *alertLabels = [self.view getSubviewsOfClass:[AlertLabel class]];
+    NSArray *alertLabels = [self.view wmf_subviewsOfClass:[AlertLabel class]];
     [alertLabels makeObjectsPerformSelector:@selector(hide)];
 }
 
