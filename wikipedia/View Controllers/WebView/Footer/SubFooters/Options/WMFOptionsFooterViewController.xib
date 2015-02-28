@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OptionsFooterViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFOptionsFooterViewController">
             <connections>
                 <outlet property="langGlyphLabel" destination="mm1-rF-r8c" id="eHM-Ys-X0g"/>
                 <outlet property="langLabel" destination="RCb-pP-PhF" id="RwU-vV-bHC"/>
@@ -15,11 +15,11 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="304" height="179"/>
+            <rect key="frame" x="0.0" y="0.0" width="304" height="169"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="co2-1E-fU5">
-                    <rect key="frame" x="20" y="30" width="264" height="129"/>
+                    <rect key="frame" x="8" y="30" width="290" height="109"/>
                     <subviews>
                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zuf-2Y-bSx" userLabel="Last Modified Glyph Label" customClass="WikiGlyphLabel">
                             <rect key="frame" x="8" y="8" width="43" height="43"/>
@@ -36,7 +36,7 @@
                             </connections>
                         </label>
                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="252" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GB1-DG-j0o" userLabel="Last Modified Label" customClass="PaddedLabel">
-                            <rect key="frame" x="60" y="8" width="184" height="48"/>
+                            <rect key="frame" x="60" y="8" width="210" height="40"/>
                             <gestureRecognizers/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="E8z-Uj-bM6"/>
@@ -49,7 +49,7 @@
                             </connections>
                         </label>
                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mm1-rF-r8c" userLabel="Languages Glyph Label" customClass="WikiGlyphLabel">
-                            <rect key="frame" x="8" y="69" width="43" height="43"/>
+                            <rect key="frame" x="8" y="61" width="43" height="43"/>
                             <gestureRecognizers/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="43" id="1OF-ck-n7z"/>
@@ -63,7 +63,7 @@
                             </connections>
                         </label>
                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCb-pP-PhF" userLabel="Languages Label" customClass="PaddedLabel">
-                            <rect key="frame" x="60" y="69" width="184" height="40"/>
+                            <rect key="frame" x="60" y="61" width="210" height="40"/>
                             <gestureRecognizers/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="H8S-B1-j7y"/>
@@ -85,7 +85,7 @@
                         <constraint firstAttribute="trailing" secondItem="GB1-DG-j0o" secondAttribute="trailing" constant="20" id="Foq-yI-icN"/>
                         <constraint firstItem="GB1-DG-j0o" firstAttribute="top" secondItem="co2-1E-fU5" secondAttribute="top" constant="8" id="JO3-S5-cKr"/>
                         <constraint firstAttribute="trailing" secondItem="RCb-pP-PhF" secondAttribute="trailing" constant="20" id="SUp-Sj-HgM"/>
-                        <constraint firstAttribute="bottom" secondItem="RCb-pP-PhF" secondAttribute="bottom" constant="20" id="VQu-e1-5Hd"/>
+                        <constraint firstAttribute="bottom" secondItem="RCb-pP-PhF" secondAttribute="bottom" constant="8" id="VQu-e1-5Hd"/>
                         <constraint firstItem="GB1-DG-j0o" firstAttribute="leading" secondItem="zuf-2Y-bSx" secondAttribute="trailing" constant="9" id="buL-3h-2qy"/>
                         <constraint firstItem="mm1-rF-r8c" firstAttribute="top" secondItem="RCb-pP-PhF" secondAttribute="top" id="dZS-zf-F0N"/>
                         <constraint firstItem="mm1-rF-r8c" firstAttribute="leading" secondItem="co2-1E-fU5" secondAttribute="leading" constant="8" id="wOB-2y-Ecm"/>
@@ -95,14 +95,13 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="co2-1E-fU5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="7u2-fw-zub"/>
-                <constraint firstItem="co2-1E-fU5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" symbolic="YES" id="KFy-wE-jKj"/>
-                <constraint firstAttribute="bottom" secondItem="co2-1E-fU5" secondAttribute="bottom" constant="20" id="ehD-Kr-PJd"/>
-                <constraint firstAttribute="centerX" secondItem="co2-1E-fU5" secondAttribute="centerX" id="omS-GR-5T7"/>
-                <constraint firstAttribute="trailing" secondItem="co2-1E-fU5" secondAttribute="trailing" constant="20" symbolic="YES" id="xfd-uC-2hW"/>
+                <constraint firstItem="co2-1E-fU5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="KFy-wE-jKj"/>
+                <constraint firstAttribute="bottom" secondItem="co2-1E-fU5" secondAttribute="bottom" constant="30" id="ehD-Kr-PJd"/>
+                <constraint firstAttribute="trailing" secondItem="co2-1E-fU5" secondAttribute="trailing" constant="6" id="xfd-uC-2hW"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="139" y="316.5"/>
+            <point key="canvasLocation" x="139" y="311.5"/>
         </view>
         <tapGestureRecognizer id="Ixc-vZ-ad3">
             <connections>

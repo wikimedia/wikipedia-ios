@@ -41,8 +41,7 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
     [super viewDidLoad];
 
     [self setupLeadImageContainer];
-    [self setupFooterContainer];
-    [self setupFooterSubContainers];
+    [self setupTrackingFooter];
 
     session = [SessionSingleton sharedInstance];
     
@@ -359,15 +358,14 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     [self.view addConstraint:self.scrollIndicatorViewHeightConstraint];
 }
 
--(CGFloat)bottomMostNativeSubContainerY
+-(CGFloat)scrollLimitingNativeSubContainerY
 {
-    UIView *lastSubContainer = [self.footerContainer.subviews lastObject];
-    return lastSubContainer.frame.origin.y;
+    return self.footerViewController.scrollLimitingNativeSubContainerY;
 }
 
 -(void)scrollIndicatorMove
 {
-    CGFloat f = self.webView.scrollView.contentSize.height - kBottomScrollSpacerHeight + [self bottomMostNativeSubContainerY];
+    CGFloat f = self.webView.scrollView.contentSize.height - kBottomScrollSpacerHeight + [self scrollLimitingNativeSubContainerY];
     if (f == 0) f = 0.00001f;
     //self.scrollIndicatorView.alpha = [self tocDrawerIsOpen] ? 0.0f : 1.0f;
     CGFloat percent = self.webView.scrollView.contentOffset.y / f;
@@ -483,6 +481,8 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                              [self.tocVC didHide];
                              self.unsafeToToggleTOC = NO;
                              self.webView.scrollView.contentOffset = origScrollPosition;
+
+                             self.footerContainer.userInteractionEnabled = YES;
                              
                              WikiGlyphButton *tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
                              [tocButton.label setWikiText: WIKIGLYPH_TOC_COLLAPSED
@@ -499,6 +499,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 {
     if ([self tocDrawerIsOpen]) return;
 
+    self.footerContainer.userInteractionEnabled = NO;
 
     // When the TOC is shown, the self.webView.scrollView.transform is changed, but this
     // causes the height of the scrollView to be reduced, which doesn't mess anything up
@@ -1089,7 +1090,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     // When trying to scroll the bottom of the web view article all the way to
     // the top, this is the minimum amount that will be allowed to be onscreen
     // before we limit scrolling.
-    CGFloat onscreenMinHeight = -[self bottomMostNativeSubContainerY];
+    CGFloat onscreenMinHeight = -[self scrollLimitingNativeSubContainerY];
     
     CGFloat offsetMaxY = kBottomScrollSpacerHeight + onscreenMinHeight;
     
@@ -1568,12 +1569,12 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     if (![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
         NSString *lastModifiedByUserName =
         (lastModifiedBy && !lastModifiedBy.anonymous) ? lastModifiedBy.name : nil;
-        [self.footerOptionsController updateLanguageCount:langCount];
-        [self.footerOptionsController updateLastModifiedDate:lastModified userName:lastModifiedByUserName];
+        [self.footerViewController updateLanguageCount:langCount];
+        [self.footerViewController updateLastModifiedDate:lastModified userName:lastModifiedByUserName];
+        [self.footerViewController updateReadMoreForArticle:article];
         
-        self.searchSuggestionsController.searchString = article.title.text;
-        self.searchSuggestionsController.articlesToExcludeFromResults = @[article];
-        [self.searchSuggestionsController search];
+        // Add spacer above bottom native tracking component.
+        [sectionTextArray addObject:@"<div style='background-color:transparent;height:40px;'></div>"];
 
         // Add target div for TOC "read more" entry so it can use existing
         // TOC scrolling mechanism.
@@ -2086,103 +2087,18 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     [self presentGalleryForArticle:session.article showingImage:session.article.image];
 }
 
-#pragma mark Footer container
+#pragma mark Tracking Footer
 
--(void)setupFooterContainer
+-(void)setupTrackingFooter
 {
     if (!self.footerContainer) {
-        self.footerContainer = [[WebViewBottomTrackingContainerView alloc] initWithHeight:kBottomScrollSpacerHeight];
-        self.footerContainer.backgroundColor = [UIColor lightGrayColor];
-        
+        self.footerContainer = [[WMFWebViewFooterContainerView alloc] initWithHeight:kBottomScrollSpacerHeight];
         [self.webView wmf_addTrackingView: self.footerContainer
                                atLocation: WMFTrackingViewLocationBottom];
+        
+        self.footerViewController = [[WMFWebViewFooterViewController alloc] init];
+        [self wmf_addChildController:self.footerViewController andConstrainToEdgesOfContainerView:self.footerContainer];
     }
-}
-
--(void)setupFooterSubContainers
-{
-    if (self.footerContainer.subviews.count == 0) {
-        
-        UIView*(^addSubContainer)() = ^UIView*() {
-            UIView *subContainer = [[UIView alloc] init];
-            //subContainer.layer.borderWidth = 1.0f;
-            //subContainer.layer.borderColor = [UIColor greenColor].CGColor;
-            subContainer.translatesAutoresizingMaskIntoConstraints = NO;
-            [self.footerContainer addSubview:subContainer];
-            [self.footerContainer addConstraints:
-             [NSLayoutConstraint constraintsWithVisualFormat: @"H:|[subContainer]|"
-                                                     options: 0
-                                                     metrics: nil
-                                                       views: @{@"subContainer": subContainer}]];
-            return subContainer;
-        };
-
-        UIView *suggestionsHeaderContainer = addSubContainer();
-        UIView *suggestionsContainer = addSubContainer();
-        UIView *optionsContainer = addSubContainer();
-        UIView *legalContainer = addSubContainer();
-        
-        NSDictionary *views =
-        @{
-          @"suggestionsHeaderContainer": suggestionsHeaderContainer,
-          @"suggestionsContainer": suggestionsContainer,
-          @"optionsContainer": optionsContainer,
-          @"legalContainer": legalContainer
-          };
-        
-        [self.footerContainer addConstraints:
-         [NSLayoutConstraint constraintsWithVisualFormat: @"V:|[suggestionsHeaderContainer(30)][suggestionsContainer(237)][optionsContainer][legalContainer]"
-                                                 options: 0
-                                                 metrics: nil
-                                                   views: views]];
-        
-        UILabel* suggestionsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        suggestionsLabel.backgroundColor = [UIColor whiteColor];
-        suggestionsLabel.textAlignment = NSTextAlignmentCenter;
-        suggestionsLabel.text = MWLocalizedString(@"article-read-more-title", @"Read more");
-        suggestionsLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        [suggestionsHeaderContainer addSubview:suggestionsLabel];
-        
-        [suggestionsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.edges.equalTo(suggestionsHeaderContainer);
-        }];
-        
-        
-        self.searchSuggestionsController = [SearchResultsController readMoreSearchResultsController];
-        [self addChildController:self.searchSuggestionsController toContainerView:suggestionsContainer];
-        // The searchSuggestionsController.searchResultsTable isn't deserialized until after "addChildViewController".
-        self.footerOptionsController = [[OptionsFooterViewController alloc] init];
-        [self addChildController:self.footerOptionsController toContainerView:optionsContainer];
-        
-        LegalFooterViewController *legalController = [[LegalFooterViewController alloc] init];
-        [self addChildController:legalController toContainerView:legalContainer];
-    }
-}
-
-- (void)addChildController: (UIViewController*)childController
-           toContainerView: (UIView *)containerView;
-{
-   [self addChildViewController:childController];
-   childController.view.translatesAutoresizingMaskIntoConstraints = NO;
-   [containerView addSubview:childController.view];
-
-    NSDictionary *views = @{
-        @"contentView": childController.view
-    };
-
-    [containerView addConstraints:
-     [NSLayoutConstraint constraintsWithVisualFormat: @"V:|[contentView]|"
-                                             options: 0
-                                             metrics: nil
-                                               views: views]];
-    [containerView addConstraints:
-     [NSLayoutConstraint constraintsWithVisualFormat: @"H:|[contentView]|"
-                                             options: 0
-                                             metrics: nil
-                                               views: views]];
-
-   [childController didMoveToParentViewController:self];
 }
 
 @end

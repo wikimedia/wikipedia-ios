@@ -3,10 +3,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WebViewBottomTrackingContainerView : UIView
-
-@property (nonatomic, readonly) CGFloat height;
-
-- (id)initWithHeight:(CGFloat)height;
+@interface WMFLegalFooterViewController : UIViewController
 
 @end

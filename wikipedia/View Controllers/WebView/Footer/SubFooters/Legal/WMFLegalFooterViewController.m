@@ -1,7 +1,7 @@
 //  Created by Monte Hurd on 2/24/15.
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "LegalFooterViewController.h"
+#import "WMFLegalFooterViewController.h"
 #import "NSString+FormattedAttributedString.h"
 #import "NSObject+ConstraintsScale.h"
 #import "WikipediaAppUtils.h"
@@ -25,21 +25,21 @@ NSString * const kLicenseTitleOnENWiki =
 
 #pragma mark Private properties
 
-@interface LegalFooterViewController ()
+@interface WMFLegalFooterViewController ()
 
 @property (nonatomic, weak) IBOutlet PaddedLabel *licenseLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *wordmarkImageView;
 
 @end
 
-@implementation LegalFooterViewController
+@implementation WMFLegalFooterViewController
 
 #pragma mark Setup / view lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.licenseLabel.attributedText = [self getAttributedStringForLicense];    
-    [self adjustConstraintsScaleForViews:@[self.licenseLabel]];
+    [self adjustConstraintsScaleForViews:@[self.licenseLabel, self.wordmarkImageView]];
 }
 
 #pragma mark Style
@@ -52,12 +52,18 @@ NSString * const kLicenseTitleOnENWiki =
       NSFontAttributeName : [UIFont systemFontOfSize:kLicenseFontSize * MENUS_SCALE_MULTIPLIER]
       };
 
+    NSDictionary *substitutionStyle =
+    @{
+      NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kLicenseNameColor alpha:1.0],
+      NSFontAttributeName : [UIFont systemFontOfSize:kLicenseFontSize * MENUS_SCALE_MULTIPLIER]
+      };
+
     NSString *footerText = MWLocalizedString(@"license-footer-text", nil);
         
     return
     [footerText attributedStringWithAttributes: baseStyle
                            substitutionStrings: @[MWLocalizedString(@"license-footer-name", nil)]
-                        substitutionAttributes: @[@{NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kLicenseNameColor alpha:1.0]}]];
+                        substitutionAttributes: @[substitutionStyle]];
 }
 
 #pragma mark Tap gesture handling

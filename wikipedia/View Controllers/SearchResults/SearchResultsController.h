@@ -1,9 +1,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class WMFIntrinsicContentSizeAwareTableView;
+
 @interface SearchResultsController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong, readonly) IBOutlet UITableView *searchResultsTable;
+@property (nonatomic, strong, readonly) IBOutlet WMFIntrinsicContentSizeAwareTableView *searchResultsTable;
 
 @property (strong, nonatomic) NSArray *searchResults;
 @property (strong, nonatomic) NSString *searchString;

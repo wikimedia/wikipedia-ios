@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFReadMoreViewController">
+            <connections>
+                <outlet property="optionsContainerView" destination="Cpj-Cw-5qr" id="X6Y-9t-8Tf"/>
+                <outlet property="titleLabel" destination="Arv-De-R5I" id="741-78-TlJ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="306" height="228"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RVx-k8-bpa">
+                    <rect key="frame" x="0.0" y="0.0" width="306" height="228"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Arv-De-R5I" userLabel="Read more label" customClass="PaddedLabel">
+                            <rect key="frame" x="0.0" y="0.0" width="306" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" placeholder="YES" id="WYo-aP-Yp3"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cpj-Cw-5qr" userLabel="Options container view">
+                            <rect key="frame" x="0.0" y="44" width="306" height="142"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Cpj-Cw-5qr" firstAttribute="top" secondItem="Arv-De-R5I" secondAttribute="bottom" id="8QP-jU-xn5"/>
+                        <constraint firstAttribute="bottom" secondItem="Cpj-Cw-5qr" secondAttribute="bottom" constant="42" id="Aw4-Tv-dFI"/>
+                        <constraint firstItem="Arv-De-R5I" firstAttribute="leading" secondItem="RVx-k8-bpa" secondAttribute="leading" id="Csc-e8-rpt"/>
+                        <constraint firstItem="Arv-De-R5I" firstAttribute="top" secondItem="RVx-k8-bpa" secondAttribute="top" id="E5u-hx-GnZ"/>
+                        <constraint firstAttribute="trailing" secondItem="Arv-De-R5I" secondAttribute="trailing" id="MXn-lb-yYu"/>
+                        <constraint firstAttribute="trailing" secondItem="Cpj-Cw-5qr" secondAttribute="trailing" id="SvC-0M-8K3"/>
+                        <constraint firstItem="Cpj-Cw-5qr" firstAttribute="leading" secondItem="RVx-k8-bpa" secondAttribute="leading" id="V8R-fN-oPZ"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="RVx-k8-bpa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="exL-vz-Fem"/>
+                <constraint firstAttribute="trailing" secondItem="RVx-k8-bpa" secondAttribute="trailing" id="il5-BS-jf6"/>
+                <constraint firstAttribute="bottom" secondItem="RVx-k8-bpa" secondAttribute="bottom" id="jDy-v7-x0J"/>
+                <constraint firstItem="RVx-k8-bpa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jI3-q2-bsB"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="313" y="244"/>
+        </view>
+    </objects>
+</document>

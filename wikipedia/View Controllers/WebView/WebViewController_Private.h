@@ -61,10 +61,9 @@
 #import "WebViewController+ImageGalleryPresentation.h"
 
 #import "UIWebView+WMFTrackingView.h"
-#import "SearchResultsController.h"
-#import "OptionsFooterViewController.h"
-#import "LegalFooterViewController.h"
-#import "WebViewBottomTrackingContainerView.h"
+#import "WMFWebViewFooterContainerView.h"
+#import "UIViewController+WMFChildViewController.h"
+#import "WMFWebViewFooterViewController.h"
 
 //#import "UIView+Debugging.h"
 
@@ -147,9 +146,8 @@ static const int kMinimumTextSelectionLength = 2;
 
 @property (strong, nonatomic) LeadImageContainer *leadImageContainer;
 
-@property (strong, nonatomic) WebViewBottomTrackingContainerView *footerContainer;
-@property (strong, nonatomic) OptionsFooterViewController *footerOptionsController;
-@property (strong, nonatomic) SearchResultsController *searchSuggestionsController;
+@property (strong, nonatomic) WMFWebViewFooterContainerView *footerContainer;
+@property (strong, nonatomic) WMFWebViewFooterViewController *footerViewController;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomConstraint;
 

@@ -23,6 +23,7 @@
 #import "UITableView+DynamicCellHeight.h"
 #import "NSArray+WMFExtensions.h"
 #import <BlocksKit/BlocksKit.h>
+#import "WMFIntrinsicContentSizeAwareTableView.h"
 
 #define TABLE_CELL_ID @"SearchResultCell"
 #define SEARCH_DELAY 0.4
@@ -63,7 +64,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles = 3;
 @property (strong, nonatomic) NSDictionary *attributesSnippet;
 @property (strong, nonatomic) NSDictionary *attributesSnippetHighlight;
 
-@property (nonatomic, strong, readwrite) IBOutlet UITableView *searchResultsTable;
+@property (nonatomic, strong, readwrite) IBOutlet WMFIntrinsicContentSizeAwareTableView *searchResultsTable;
 
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic, strong) NSString *cachePath;

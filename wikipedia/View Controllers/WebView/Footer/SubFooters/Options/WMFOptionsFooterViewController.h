@@ -3,7 +3,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OptionsFooterViewController : UIViewController
+@interface WMFOptionsFooterViewController : UIViewController
 
 -(void)updateLanguageCount:(NSInteger)count;
 

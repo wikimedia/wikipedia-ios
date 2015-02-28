@@ -1,7 +1,7 @@
 //  Created by Monte Hurd on 2/24/15.
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "OptionsFooterViewController.h"
+#import "WMFOptionsFooterViewController.h"
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
 #import "MWLanguageInfo.h"
@@ -14,6 +14,7 @@
 #import "UIColor+WMFHexColor.h"
 #import "UIViewController+ModalPresent.h"
 #import "LanguagesViewController.h"
+//#import "UIView+Debugging.h"
 
 #pragma mark Font sizes
 
@@ -34,9 +35,13 @@ static const NSInteger kLangGlyphBackgroundColor = 0x565656;
 static const NSInteger kLangGlyphForgroundColor = 0xffffff;
 static const NSInteger kLangCountColor = 0x565656;
 
+#pragma mark Glyph icon
+
+static const CGFloat kGlyphIconBaselineOffset = 1.6f;
+
 #pragma mark Private properties
 
-@interface OptionsFooterViewController () <LanguageSelectionDelegate>
+@interface WMFOptionsFooterViewController () <LanguageSelectionDelegate>
 
 @property (nonatomic, weak) IBOutlet WikiGlyphLabel *langGlyphLabel;
 @property (nonatomic, weak) IBOutlet PaddedLabel *langLabel;
@@ -46,17 +51,23 @@ static const NSInteger kLangCountColor = 0x565656;
 
 @end
 
-@implementation OptionsFooterViewController
+@implementation WMFOptionsFooterViewController
 
 #pragma mark Setup / view lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self roundGlyphButtonCorners];
-    
     [self adjustConstraintsScaleForViews:
         @[self.langGlyphLabel, self.langLabel, self.lastModGlyphLabel, self.lastModLabel]];
+
+    //[self.view randomlyColorSubviews];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self roundGlyphButtonCorners];
 }
 
 #pragma mark Style
@@ -74,9 +85,17 @@ static const NSInteger kLangCountColor = 0x565656;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = kOptionTextLineSpacing * MENUS_SCALE_MULTIPLIER;
     return @{
-             NSFontAttributeName : [UIFont systemFontOfSize:kOptionTextFontSize],
+             NSFontAttributeName : [UIFont systemFontOfSize:kOptionTextFontSize * MENUS_SCALE_MULTIPLIER],
              NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kBaseTextColor alpha:1.0],
              NSParagraphStyleAttributeName : paragraphStyle
+             };
+}
+
+-(NSDictionary *)getSubstitutionTextAttributesWithColor:(NSInteger)hexColor
+{
+    return @{
+             NSFontAttributeName : [UIFont systemFontOfSize:kOptionTextFontSize * MENUS_SCALE_MULTIPLIER],
+             NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:hexColor alpha:1.0]
              };
 }
 
@@ -89,7 +108,7 @@ static const NSInteger kLangCountColor = 0x565656;
     [self.langGlyphLabel setWikiText: WIKIGLYPH_TRANSLATE
                                color: [UIColor wmf_colorWithHex:kLangGlyphForgroundColor alpha:1.0]
                                 size: kGlyphButtonFontSize * MENUS_SCALE_MULTIPLIER
-                      baselineOffset: 1.7];
+                      baselineOffset: kGlyphIconBaselineOffset];
 
     self.langLabel.attributedText = [self getAttributedStringForOptionLanguagesWithCount:count];
 }
@@ -100,8 +119,8 @@ static const NSInteger kLangCountColor = 0x565656;
     
     return
     [langButtonString attributedStringWithAttributes: [self getOptionTextBaseAttributes]
-                  substitutionStrings: @[[NSString stringWithFormat:@"%ld", (long)count]]
-               substitutionAttributes: @[@{NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kLangCountColor alpha:1.0]}]];
+                                 substitutionStrings: @[[NSString stringWithFormat:@"%ld", (long)count]]
+                              substitutionAttributes: @[[self getSubstitutionTextAttributesWithColor:kLangCountColor]]];
 }
 
 #pragma mark Last modified option
@@ -114,7 +133,7 @@ static const NSInteger kLangCountColor = 0x565656;
     [self.lastModGlyphLabel setWikiText: WIKIGLYPH_PENCIL
                                   color: [UIColor wmf_colorWithHex:kLastModGlyphForgroundColor alpha:1.0]
                                    size: kGlyphButtonFontSize * MENUS_SCALE_MULTIPLIER
-                         baselineOffset: 1.7];
+                         baselineOffset: kGlyphIconBaselineOffset];
 }
 
 -(NSAttributedString *)getAttributedStringForOptionLastModifiedByUserName:(NSString *)userName date:(NSDate *)date
@@ -125,10 +144,8 @@ static const NSInteger kLangCountColor = 0x565656;
     return
     [lastModString attributedStringWithAttributes: [self getOptionTextBaseAttributes]
                               substitutionStrings: @[relativeTimeStamp, (userName ? userName : @"")]
-                           substitutionAttributes: @[
-                                                     @{NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kLastModTimestampColor alpha:1.0]},
-                                                     @{NSForegroundColorAttributeName : [UIColor wmf_colorWithHex:kLastModUsernameColor alpha:1.0]}
-                                                     ]];
+                           substitutionAttributes: @[[self getSubstitutionTextAttributesWithColor:kLastModTimestampColor],
+                                                     [self getSubstitutionTextAttributesWithColor:kLastModUsernameColor]]];
 }
 
 #pragma mark Tap gesture handling
