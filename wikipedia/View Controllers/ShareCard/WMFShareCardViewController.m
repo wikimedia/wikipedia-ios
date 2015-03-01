@@ -10,6 +10,8 @@
 #import "FocalImage.h"
 #import "NSString+Extras.h"
 #import "WMFShareCardImageContainer.h"
+#import "MWLanguageInfo.h"
+#import "WikipediaAppUtils.h"
 
 @interface WMFShareCardViewController ()
 
@@ -41,12 +43,28 @@
 
 -(void)fillCardWithMWKArticle:(MWKArticle *) article snippet:(NSString *) snippet
 {
-
-    self.shareArticleTitle.text = [article.displaytitle getStringWithoutHTML];
-    self.shareArticleDescription.text = [[article.entityDescription getStringWithoutHTML] capitalizeFirstLetter];
+    // The layout system will transpose the Wikipedia logo, CC-BY-SA,
+    // title, and Wikidata description for congruence with the lead
+    // image's title and description, which is determined by system
+    // language, so we just adjust the text layout accordingly for the
+    // title and Wikidata description. For the snippet, we want to mimic
+    // the webview's layout alignment, which is based upon actual article
+    // language directionality.
+    NSTextAlignment snippetAlignment = [MWLanguageInfo
+                                        articleLanguageIsRTL:article] ? NSTextAlignmentRight : NSTextAlignmentLeft;
     self.shareSelectedText.text = snippet;
+    self.shareSelectedText.textAlignment = snippetAlignment;
+    
+    NSTextAlignment subtextAlignment = [WikipediaAppUtils rtlSafeAlignment];
+    self.shareArticleTitle.text = [article.displaytitle getStringWithoutHTML];
+    self.shareArticleTitle.textAlignment = subtextAlignment;
+    self.shareArticleDescription.text = [[article.entityDescription getStringWithoutHTML] capitalizeFirstLetter];
+    self.shareArticleDescription.textAlignment = subtextAlignment;
+
     UIImage *leadImage = [article.image asUIImage];
     if (leadImage) {
+        // in case the image has transparency, make its container white
+        self.shareCardImageContainer.backgroundColor = [UIColor whiteColor];
         self.shareCardImageContainer.image = [[FocalImage alloc] initWithCGImage:leadImage.CGImage];
     }
 }

@@ -11,7 +11,6 @@
 
 - (NSDate *)getDateFromIso8601DateString;
 - (NSString *)getStringWithoutHTML;
-- (NSString *)getStringWithoutHTMLAndWastedWhitespace;
 
 - (NSString *)randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
 

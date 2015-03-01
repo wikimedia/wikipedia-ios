@@ -12,6 +12,7 @@
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
 #import "NSString+Extras.h"
+#import "NSString+WMFHTMLParsing.h"
 
 @interface WMFShareOptionsViewController ()
 
@@ -103,24 +104,25 @@
 
 -(NSString*)generateSnippetHeuristicallyWithArticle:(MWKArticle*)article
 {
-    NSString *heuristicText = @"";
+    NSString *heuristicText;
     MWKSectionList *sections = article.sections;
     for (MWKSection *section in sections) {
-        NSString *sectionText = section.text;
-        NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"<p>(.+)</p>" options:0 error:nil];
-        NSArray *matches = [re matchesInString:sectionText options:0 range:NSMakeRange(0, sectionText.length)];
-        if ([matches count]) {
-            sectionText = [sectionText substringWithRange:[matches[0] rangeAtIndex:1]];
-            heuristicText = [sectionText getStringWithoutHTMLAndWastedWhitespace];
+        heuristicText = [section.text wmf_getStringSnippetWithoutHTML];
+        if (heuristicText) {
             break;
         }
     }
-    if ([heuristicText isEqualToString:@""]) {
-        if (sections[0]) {
-            heuristicText = [sections[0].text getStringWithoutHTMLAndWastedWhitespace];
+    // fall back to something with less treatment
+    if (!heuristicText) {
+        for (MWKSection *section in sections) {
+            heuristicText = [section.text getStringWithoutHTML];
+            if (heuristicText) {
+                break;
+            }
         }
     }
-    return heuristicText;
+    
+    return heuristicText ? heuristicText : @"";
 }
 
 - (UIImage*) cardAsUIImageWithView: (UIView*) theView

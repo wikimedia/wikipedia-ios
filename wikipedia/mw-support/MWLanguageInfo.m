@@ -19,6 +19,13 @@ NSArray *rtlLanguages;
     return languageInfo;
 }
 
++(BOOL)articleLanguageIsRTL:(MWKArticle*)article
+{
+    return [[MWLanguageInfo languageInfoForCode:
+             article.title.site.language].dir
+            isEqualToString:@"rtl"];
+}
+
 + (NSString *)codeForCode:(NSString *)code
 {
     if ([code isEqualToString:@"test"]) {

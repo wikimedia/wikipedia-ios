@@ -9,5 +9,6 @@
 @property (copy) NSString *dir;
 
 + (MWLanguageInfo *)languageInfoForCode:(NSString *)code;
++(BOOL)articleLanguageIsRTL:(MWKArticle*)article;
 
 @end
