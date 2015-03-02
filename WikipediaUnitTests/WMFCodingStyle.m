@@ -92,11 +92,33 @@ extern void WMFMultilineFunctionDeclaration(int arg1,
 - (void)animationExample {
     [UIView animateWithDuration:0
                      animations:^{
-                         // animations
-                     }
+        if (YES) {
+            NSLog(@"Foo!");
+        }
+    }
                      completion:^(BOOL finished) {
-                         // completion
-                     }];
+        if (YES) {
+            NSLog(@"Foo!");
+        }
+    }];
+}
+
+- (void)animationExampleWithInternalBlocks {
+    [UIView animateWithDuration:0
+                     animations:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // body
+
+            if (YES) {
+                NSLog(@"Foo!");
+            }
+        });
+    }
+                     completion:^(BOOL finished) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // body
+        });
+    }];
 }
 
 - (void)                                              methodSignature:(id)foo
