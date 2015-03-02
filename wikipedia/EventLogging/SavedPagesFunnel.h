@@ -10,7 +10,7 @@
 
 @interface SavedPagesFunnel : EventLoggingFunnel
 
-@property NSString *appInstallID;
+@property NSString *appInstallId;
 
 -(id)init;
 

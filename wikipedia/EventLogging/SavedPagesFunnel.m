@@ -8,6 +8,9 @@
 
 #import "SavedPagesFunnel.h"
 
+static NSString* const kEventDataAssertVerbiage = @"Event data not present";
+static NSString* const kAppInstallIdKey = @"appInstallID";
+
 @implementation SavedPagesFunnel
 
 -(id)init
@@ -15,7 +18,7 @@
     // http://meta.wikimedia.org/wiki/Schema:MobileWikiAppSavedPages
     self = [super initWithSchema:@"MobileWikiAppSavedPages" version:10375480];
     if (self) {
-        self.appInstallID = [self persistentUUID:@"ReadingAction"];
+        self.appInstallId = [self persistentUUID:@"ReadingAction"];
     }
     return self;
 }
@@ -56,6 +59,19 @@
 -(void)logEditAfterRefresh
 {
     [self log:@{@"action": @"editafterrefresh"}];
+}
+
+-(NSDictionary*)preprocessData:(NSDictionary*)eventData
+{
+    if (!eventData) {
+        NSAssert(false, @"%@ : %@",
+                 kEventDataAssertVerbiage,
+                 eventData);
+        return nil;
+    }
+    NSMutableDictionary *dict = [eventData mutableCopy];
+    dict[kAppInstallIdKey] = self.appInstallId;
+    return [dict copy];
 }
 
 
