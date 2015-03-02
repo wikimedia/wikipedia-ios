@@ -9,11 +9,7 @@
 #import "MWKImageInfo.h"
 #import "MWKImage.h"
 
-FOUNDATION_EXPORT NSString* const MWKImageAssociationKeyPath;
-
 @interface MWKImageInfo (MWKImageComparison)
-
-- (id)imageAssociationValue;
 
 - (BOOL)isAssociatedWithImage:(MWKImage*)image;
 
@@ -21,7 +17,7 @@ FOUNDATION_EXPORT NSString* const MWKImageAssociationKeyPath;
 
 @interface MWKImage (MWKImageInfoComparison)
 
-- (id)infoAssociationValue;
+@property (nonatomic, readonly) id infoAssociationValue;
 
 - (BOOL)isAssociatedWithInfo:(MWKImageInfo*)info;
 

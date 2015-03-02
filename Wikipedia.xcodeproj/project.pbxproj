@@ -216,6 +216,8 @@
 		BC50C3841A83C96D006DC7AF /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */; };
 		BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */; };
 		BC6FEAE11A9B7EFD00A1D890 /* WMFCodingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */; };
+		BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
+		BC7DFCD71AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
 		BC86B9361A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B9351A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m */; };
 		BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93C1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m */; };
 		BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */; };
@@ -734,6 +736,8 @@
 		BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageInfoResponseSerializer.m; path = Serializers/MWKImageInfoResponseSerializer.m; sourceTree = "<group>"; };
 		BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFCodingStyle.m; sourceTree = "<group>"; };
 		BC7DFCCB1AA4BA8A000035C3 /* WMFCodingStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFCodingStyle.h; sourceTree = "<group>"; };
+		BC7DFCD41AA4E5FE000035C3 /* WMFImageURLParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFImageURLParsing.h; sourceTree = "<group>"; };
+		BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageURLParsing.m; sourceTree = "<group>"; };
 		BC8309961A7BF935003FC5C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PredicateTests.m"; path = "Utilities/NSArray+PredicateTests.m"; sourceTree = "<group>"; };
 		BC86B9341A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+UniqueRequests.h"; sourceTree = "<group>"; };
@@ -2157,6 +2161,8 @@
 			children = (
 				C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */,
 				C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */,
+				BC7DFCD41AA4E5FE000035C3 /* WMFImageURLParsing.h */,
+				BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */,
 			);
 			path = "mw-utils";
 			sourceTree = "<group>";
@@ -2799,6 +2805,7 @@
 				BC42735E1A7C73B300068882 /* NSArray+PredicateTests.m in Sources */,
 				BCB669F01A83F71C00C7B1FE /* MWKSavedPageList.m in Sources */,
 				BCB669FD1A84158200C7B1FE /* CircularBitwiseRotationTests.m in Sources */,
+				BC7DFCD71AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */,
 				BCB669D31A83F6D300C7B1FE /* MWKTestCase.m in Sources */,
 				BCB669E51A83F6D300C7B1FE /* MWKImageStorageTests.m in Sources */,
 				BCB669F51A83F71C00C7B1FE /* MWKImageInfo.m in Sources */,
@@ -2949,6 +2956,8 @@
 				0487048419F8262600B7D307 /* CaptchaResetter.m in Sources */,
 				D407E6411A51DBDA00CCC8B1 /* SchemaConverter.m in Sources */,
 				BCB669A71A83F6C400C7B1FE /* MWKSiteDataObject.m in Sources */,
+				043BFC7A1A932BA50068B932 /* LegalFooterViewController.m in Sources */,
+				BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */,
 				04821CD119895EDC007558F6 /* ReferenceGradientView.m in Sources */,
 				0460F8DC19B0F932001BC59B /* CenteredPathView.m in Sources */,
 				0472BC18193AD88C00C40BDA /* MWKSection+DisplayHtml.m in Sources */,

@@ -42,6 +42,13 @@
 #define ImgGalleryLog(...)
 #endif
 
+NSDictionary* WMFIndexImageInfo(NSArray* imageInfo)
+{
+    return [imageInfo bk_index:^id<NSCopying>(MWKImageInfo* info) {
+        return info.imageAssociationValue ?: [NSNull null];
+    }];
+}
+
 @interface WMFImageGalleryViewController ()
 <UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout>
 {
@@ -144,8 +151,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 - (NSDictionary*)indexedImageInfo
 {
     if (!_indexedImageInfo) {
-        _indexedImageInfo = [[self.dataStore imageInfoForArticle:self.article]
-                             bk_indexWithKeypath:MWKImageAssociationKeyPath];
+        _indexedImageInfo = WMFIndexImageInfo([self.dataStore imageInfoForArticle:self.article]);
     }
     return _indexedImageInfo;
 }
@@ -219,7 +225,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (void)updateImageInfo:(NSArray*)imageInfo
 {
-    _indexedImageInfo = [imageInfo bk_indexWithKeypath:MWKImageAssociationKeyPath];
+    _indexedImageInfo = WMFIndexImageInfo(imageInfo);
     [self.collectionView reloadItemsAtIndexPaths:self.collectionView.indexPathsForVisibleItems];
 }
 

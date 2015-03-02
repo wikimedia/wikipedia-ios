@@ -46,7 +46,7 @@
 
     // create article w/ mock section to prevent crashing due to image import side effects
     MWKArticle *article = [[MWKArticle alloc] initWithTitle:nil dataStore:tmpDataStore];
-    [article.sections addSection:mock([MWKSection class])];
+    [article.sections setSections:mock([MWKSection class])];
 
     NSArray *dummySourceURLs = [@[@"10px-a.jpg", @"10px-b.jpg", @"100px-a.jpg", @"10px-c.jpg"] bk_map:^id(id obj) {
         return [MWKDataStoreValidImageSitePrefix stringByAppendingString:obj];

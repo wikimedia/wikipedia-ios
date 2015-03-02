@@ -34,6 +34,9 @@
 /// Name of the entity owning this image.
 @property (nonatomic, readonly, copy) NSString *owner;
 
+/// Value which can be used to associate the receiver with a @c MWKImage.
+@property (nonatomic, readonly) id imageAssociationValue;
+
 /// Factory method for creating an instance from the output of @c exportData.
 + (instancetype)imageInfoWithExportedData:(NSDictionary*)exportedData;
 
@@ -45,8 +48,5 @@
                                   imageURL:(NSURL*)imageURL
                              imageThumbURL:(NSURL*)imageThumbURL
                                      owner:(NSString*)owner;
-
-/// Name of the canonical file associated with the receiver, without the "File:" prefix.
-- (NSString*)canonicalFilename;
 
 @end

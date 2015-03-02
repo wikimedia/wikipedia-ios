@@ -9,6 +9,13 @@
 #import "UIKit/UIKit.h"
 #import "WikipediaAppUtils.h"
 #import "MediaWikiKit.h"
+#import "WMFImageURLParsing.h"
+
+@interface MWKImage ()
+{
+    NSString* _fileNameNoSizePrefix;
+}
+@end
 
 @implementation MWKImage
 
@@ -17,6 +24,8 @@
     self = [super initWithSite:article.site];
     if (self) {
         _article = article;
+
+        // fileNameNoSizePrefix is lazily derived from this property, so be careful if _sourceURL needs to be re-set
         _sourceURL = [url copy];
 
         _dateLastAccessed = nil;
@@ -72,16 +81,7 @@
 
 +(NSString *)fileNameNoSizePrefix:(NSString *)sourceURL
 {
-    if (!sourceURL) { return nil; }
-
-    NSString *fileName = [sourceURL lastPathComponent];
-    NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:@"^\\d+px-(.*)$" options:0 error:nil];
-    NSArray *matches = [re matchesInString:fileName options:0 range:NSMakeRange(0, [fileName length])];
-    if ([matches count]) {
-        return [fileName substringWithRange:[matches[0] rangeAtIndex:1]];
-    } else {
-        return fileName;
-    }
+    return WMFParseImageNameFromSourceURL(sourceURL);
 }
 
 + (NSString*)canonicalFilenameFromSourceURL:(NSString *)sourceURL
@@ -101,9 +101,12 @@
     }
 }
 
--(NSString *)fileNameNoSizePrefix
+-(NSString*)fileNameNoSizePrefix
 {
-    return [MWKImage fileNameNoSizePrefix:self.sourceURL];
+    if (!_fileNameNoSizePrefix) {
+        _fileNameNoSizePrefix = [MWKImage fileNameNoSizePrefix:self.sourceURL];
+    }
+    return _fileNameNoSizePrefix;
 }
 
 -(id)dataExport

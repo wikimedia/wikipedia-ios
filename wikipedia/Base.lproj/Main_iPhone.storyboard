@@ -913,7 +913,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z4O-h7-mfv">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9e-S5-3FD" userLabel="Empty marker">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m9e-S5-3FD" userLabel="Empty marker">
                                         <rect key="frame" x="0.0" y="165" width="320" height="238"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SavedPagesEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="Nki-Th-pdU">
@@ -1336,7 +1336,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HLl-qz-Bgx">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yc2-71-IOD" userLabel="Empty marker">
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yc2-71-IOD" userLabel="Empty marker">
                                         <rect key="frame" x="0.0" y="200" width="320" height="168"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RecentPagesEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="o1U-9i-KeG">

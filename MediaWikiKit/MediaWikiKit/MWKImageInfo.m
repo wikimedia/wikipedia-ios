@@ -1,16 +1,9 @@
-// //  MWKImageMetadata.m
-//  MediaWikiKit
-//
-//  Created by Brion on 1/16/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "MediaWikiKit.h"
 #import "NSMutableDictionary+WMFMaybeSet.h"
 #import "WikipediaAppUtils.h"
+#import "WMFImageURLParsing.h"
 
 // !!!: don't change key constants w/o writing conversion code to pull values from the old keys
-
 // Model Version 1.0.0
 NSString* const mWKImageInfoModelVersionKey = @"modelVersion";
 NSUInteger const MWKImageInfoModelVersion_1 = 1;
@@ -25,6 +18,7 @@ NSString* const MWKImageInfoOwnerKey = @"owner";
 NSString* const MWKImageInfoLicenseKey = @"license";
 
 @implementation MWKImageInfo
+@synthesize imageAssociationValue=_imageAssociationValue;
 
 - (instancetype)initWithCanonicalPageTitle:(NSString *)canonicalPageTitle
                           canonicalFileURL:(NSURL*)canonicalFileURL
@@ -97,13 +91,13 @@ NSString* const MWKImageInfoLicenseKey = @"license";
 - (BOOL)isEqualToGalleryItem:(MWKImageInfo*)other
 {
     return WMF_EQUAL(self.canonicalPageTitle, isEqualToString:, other.canonicalPageTitle)
-            && WMF_IS_EQUAL(self.canonicalFileURL, other.canonicalFileURL)
-            && WMF_EQUAL(self.imageDescription, isEqualToString:, other.imageDescription)
-            && WMF_EQUAL(self.license, isEqualToLicense:, other.license)
-            && WMF_IS_EQUAL(self.filePageURL, other.filePageURL)
-            && WMF_IS_EQUAL(self.imageURL, other.imageURL)
-            && WMF_IS_EQUAL(self.imageThumbURL, other.imageThumbURL)
-            && WMF_EQUAL(self.owner, isEqualToString:, other.owner);
+           && WMF_IS_EQUAL(self.canonicalFileURL, other.canonicalFileURL)
+           && WMF_EQUAL(self.imageDescription, isEqualToString:, other.imageDescription)
+           && WMF_EQUAL(self.license, isEqualToLicense:, other.license)
+           && WMF_IS_EQUAL(self.filePageURL, other.filePageURL)
+           && WMF_IS_EQUAL(self.imageURL, other.imageURL)
+           && WMF_IS_EQUAL(self.imageThumbURL, other.imageThumbURL)
+           && WMF_EQUAL(self.owner, isEqualToString:, other.owner);
 }
 
 - (NSUInteger)hash
@@ -118,14 +112,12 @@ NSString* const MWKImageInfoLicenseKey = @"license";
 
 #pragma mark - Calculated properties
 
-- (NSString*)canonicalFilename
+- (id)imageAssociationValue
 {
-    if (self.canonicalPageTitle.length > 5) {
-        // string after "File:" prefix
-        return [self.canonicalPageTitle substringFromIndex:5];
-    } else {
-        return nil;
+    if (!_imageAssociationValue) {
+        _imageAssociationValue = WMFParseImageNameFromSourceURL(self.imageURL);
     }
+    return _imageAssociationValue;
 }
 
 @end

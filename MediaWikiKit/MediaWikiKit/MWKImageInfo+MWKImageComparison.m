@@ -10,18 +10,11 @@
 #import "MWKImage.h"
 #import "WikipediaAppUtils.h"
 
-NSString* const MWKImageAssociationKeyPath = @"canonicalFilename";
-
 @implementation MWKImageInfo (MWKImageComparison)
-
-- (id)imageAssociationValue
-{
-    return self.canonicalFilename;
-}
 
 - (BOOL)isAssociatedWithImage:(MWKImage *)image
 {
-    return [self.canonicalFilename isEqualToString:image.canonicalFilename];
+    return [self.imageAssociationValue isEqual:image.infoAssociationValue];
 }
 
 @end
@@ -30,7 +23,7 @@ NSString* const MWKImageAssociationKeyPath = @"canonicalFilename";
 
 - (id)infoAssociationValue
 {
-    return self.canonicalFilename;
+    return self.fileNameNoSizePrefix;
 }
 
 - (BOOL)isAssociatedWithInfo:(MWKImageInfo *)info
