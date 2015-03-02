@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D80BB003220739F3D195A038"
+               BlueprintIdentifier = "03A98BDF68FB2304C1A60393"
                BuildableName = "libPods.a"
                BlueprintName = "Pods"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -56,20 +56,6 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D48405AC19E473E7006F4139"
-               BuildableName = "MediaWikiKitTests.xctest"
-               BlueprintName = "MediaWikiKitTests"
-               ReferencedContainer = "container:MediaWikiKit/MediaWikiKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "BC4273511A7C736800068882"
                BuildableName = "WikipediaUnitTests.xctest"
                BlueprintName = "WikipediaUnitTests"
@@ -84,16 +70,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D48405AC19E473E7006F4139"
-               BuildableName = "MediaWikiKitTests.xctest"
-               BlueprintName = "MediaWikiKitTests"
-               ReferencedContainer = "container:MediaWikiKit/MediaWikiKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
          <TestableReference
             skipped = "NO">
             <BuildableReference
