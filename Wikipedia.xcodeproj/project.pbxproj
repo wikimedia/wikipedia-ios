@@ -202,6 +202,7 @@
 		BC50C3831A83C88F006DC7AF /* WMFJoinedPropertyParametersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3821A83C88F006DC7AF /* WMFJoinedPropertyParametersTests.m */; };
 		BC50C3841A83C96D006DC7AF /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */; };
 		BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */; };
+		BC6FEAE11A9B7EFD00A1D890 /* WMFCodingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */; };
 		BC86B9361A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B9351A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m */; };
 		BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93C1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m */; };
 		BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */; };
@@ -708,6 +709,8 @@
 		BC50C3821A83C88F006DC7AF /* WMFJoinedPropertyParametersTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFJoinedPropertyParametersTests.m; sourceTree = "<group>"; };
 		BC50C3851A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKImageInfoResponseSerializer.h; path = Serializers/MWKImageInfoResponseSerializer.h; sourceTree = "<group>"; };
 		BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageInfoResponseSerializer.m; path = Serializers/MWKImageInfoResponseSerializer.m; sourceTree = "<group>"; };
+		BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFCodingStyle.m; sourceTree = "<group>"; };
+		BC7DFCCB1AA4BA8A000035C3 /* WMFCodingStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFCodingStyle.h; sourceTree = "<group>"; };
 		BC8309961A7BF935003FC5C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PredicateTests.m"; path = "Utilities/NSArray+PredicateTests.m"; sourceTree = "<group>"; };
 		BC86B9341A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+UniqueRequests.h"; sourceTree = "<group>"; };
@@ -1921,6 +1924,8 @@
 		BC8309941A7BF935003FC5C7 /* WikipediaUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				BC7DFCCB1AA4BA8A000035C3 /* WMFCodingStyle.h */,
+				BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */,
 				BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */,
 				BC8309951A7BF935003FC5C7 /* Supporting Files */,
 				BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */,
@@ -2729,6 +2734,7 @@
 			files = (
 				BCB669611A83D7B300C7B1FE /* WMFErrorForApiErrorObjectTests.m in Sources */,
 				BCB66A101A851C9B00C7B1FE /* MWKImageListTests.m in Sources */,
+				BC6FEAE11A9B7EFD00A1D890 /* WMFCodingStyle.m in Sources */,
 				BCB669FA1A83F71C00C7B1FE /* MWKSectionList.m in Sources */,
 				BCB669631A83DB8F00C7B1FE /* MWKImageInfoResponseSerializer.m in Sources */,
 				BCB669761A83F59300C7B1FE /* NSMutableDictionary+MaybeSetTests.m in Sources */,
