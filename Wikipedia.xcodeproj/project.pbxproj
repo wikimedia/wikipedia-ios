@@ -1461,9 +1461,9 @@
 		0480AE7A1AA4E61000A9950C /* SubFooters */ = {
 			isa = PBXGroup;
 			children = (
-				0480AE7B1AA4E61000A9950C /* Legal */,
-				0480AE7F1AA4E61000A9950C /* Options */,
 				0480AE831AA4E61000A9950C /* ReadMore */,
+				0480AE7F1AA4E61000A9950C /* Options */,
+				0480AE7B1AA4E61000A9950C /* Legal */,
 			);
 			path = SubFooters;
 			sourceTree = "<group>";
@@ -2978,7 +2978,6 @@
 				0487048419F8262600B7D307 /* CaptchaResetter.m in Sources */,
 				D407E6411A51DBDA00CCC8B1 /* SchemaConverter.m in Sources */,
 				BCB669A71A83F6C400C7B1FE /* MWKSiteDataObject.m in Sources */,
-				043BFC7A1A932BA50068B932 /* LegalFooterViewController.m in Sources */,
 				BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */,
 				04821CD119895EDC007558F6 /* ReferenceGradientView.m in Sources */,
 				0460F8DC19B0F932001BC59B /* CenteredPathView.m in Sources */,

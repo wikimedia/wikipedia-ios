@@ -340,12 +340,27 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     [self.view addConstraint:self.scrollIndicatorViewHeightConstraint];
 }
 
-- (CGFloat)scrollLimitingNativeSubContainerY {
-    return self.footerViewController.scrollLimitingNativeSubContainerY;
+- (CGFloat)footerMinimumScrollY {
+    /*
+       Reminder/Examples:
+        VALUES  |   TOP OF FOOTER WOULD SCROLL
+
+          0         Not past the top of the screen.
+         100        100 pixels past the top of the screen.
+        -100        100 pixels below the top of the screen.
+
+     */
+    if (self.isCurrentArticleMain) {
+        // Prevent top of footer from being scrolled up past bottom of screen.
+        return -self.view.frame.size.height;
+    } else {
+        // Prevent bottom of footer from being scrolled up past bottom of screen.
+        return self.footerViewController.footerHeight - self.view.frame.size.height;
+    }
 }
 
 - (void)scrollIndicatorMove {
-    CGFloat f = self.webView.scrollView.contentSize.height - kBottomScrollSpacerHeight + [self scrollLimitingNativeSubContainerY];
+    CGFloat f = self.webView.scrollView.contentSize.height - kBottomScrollSpacerHeight + [self footerMinimumScrollY];
     if (f == 0) {
         f = 0.00001f;
     }
@@ -1065,7 +1080,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     // When trying to scroll the bottom of the web view article all the way to
     // the top, this is the minimum amount that will be allowed to be onscreen
     // before we limit scrolling.
-    CGFloat onscreenMinHeight = -[self scrollLimitingNativeSubContainerY];
+    CGFloat onscreenMinHeight = -[self footerMinimumScrollY];
 
     CGFloat offsetMaxY = kBottomScrollSpacerHeight + onscreenMinHeight;
 
@@ -1527,7 +1542,9 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         self.lastScrollOffset = scrollOffset;
     }
 
-    if (![[SessionSingleton sharedInstance] isCurrentArticleMain]) {
+    self.isCurrentArticleMain = [[SessionSingleton sharedInstance] isCurrentArticleMain];
+
+    if (!self.isCurrentArticleMain) {
         NSString* lastModifiedByUserName =
             (lastModifiedBy && !lastModifiedBy.anonymous) ? lastModifiedBy.name : nil;
         [self.footerViewController updateLanguageCount:langCount];

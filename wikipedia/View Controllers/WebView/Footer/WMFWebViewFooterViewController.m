@@ -15,9 +15,11 @@
 @property (strong, nonatomic) WMFReadMoreViewController* readMoreViewController;
 @property (strong, nonatomic) WMFLegalFooterViewController* legalViewController;
 
-@property (weak, nonatomic) IBOutlet UIView* readMoreContainerView;
-@property (weak, nonatomic) IBOutlet UIView* optionsContainerView;
-@property (weak, nonatomic) IBOutlet UIView* legalContainerView;
+@property (weak, nonatomic) IBOutlet UIView* container;
+
+@property (weak, nonatomic) IBOutlet UIView* readMoreSubContainerView;
+@property (weak, nonatomic) IBOutlet UIView* optionsSubContainerView;
+@property (weak, nonatomic) IBOutlet UIView* legalSubContainerView;
 
 @end
 
@@ -30,17 +32,21 @@
 
 - (void)setupSubFooterContainers {
     self.readMoreViewController = [[WMFReadMoreViewController alloc] init];
-    [self wmf_addChildController:self.readMoreViewController andConstrainToEdgesOfContainerView:self.readMoreContainerView];
+    [self wmf_addChildController:self.readMoreViewController andConstrainToEdgesOfContainerView:self.readMoreSubContainerView];
 
     self.optionsController = [[WMFOptionsFooterViewController alloc] init];
-    [self wmf_addChildController:self.optionsController andConstrainToEdgesOfContainerView:self.optionsContainerView];
+    [self wmf_addChildController:self.optionsController andConstrainToEdgesOfContainerView:self.optionsSubContainerView];
 
     self.legalViewController = [[WMFLegalFooterViewController alloc] init];
-    [self wmf_addChildController:self.legalViewController andConstrainToEdgesOfContainerView:self.legalContainerView];
+    [self wmf_addChildController:self.legalViewController andConstrainToEdgesOfContainerView:self.legalSubContainerView];
 }
 
-- (CGFloat)scrollLimitingNativeSubContainerY {
-    return self.optionsContainerView.frame.origin.y;
+- (CGFloat)footerHeight {
+    // Find the overall height of the content shown by the web footer.
+    // Note: can't just use self.view's height because it extends down farther than the sub-containers' content.
+    // We need the containerContainer's height plus any top padding, which the line below provides.
+    CGPoint p = [self.container convertPoint:CGPointMake(0, self.container.frame.size.height) toView:self.view];
+    return p.y;
 }
 
 - (void)search {

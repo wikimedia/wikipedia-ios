@@ -153,6 +153,8 @@ static const int kMinimumTextSelectionLength = 2;
 
 @property (nonatomic) BOOL didLastNavigateByBackOrForward;
 
+@property (nonatomic) BOOL isCurrentArticleMain;
+
 - (void)cancelArticleLoading;
 
 - (void)cancelSearchLoading;

@@ -6,19 +6,20 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFWebViewFooterViewController">
             <connections>
-                <outlet property="legalContainerView" destination="3BA-2M-FfO" id="ElT-ly-OyV"/>
-                <outlet property="optionsContainerView" destination="bY3-nl-Jig" id="7hB-cS-f4Y"/>
-                <outlet property="readMoreContainerView" destination="w0a-mT-r7z" id="Z5c-Sv-4DQ"/>
+                <outlet property="container" destination="Dh1-J0-8gD" id="jbN-jx-ivs"/>
+                <outlet property="legalSubContainerView" destination="3BA-2M-FfO" id="3XT-Hd-D1F"/>
+                <outlet property="optionsSubContainerView" destination="bY3-nl-Jig" id="c9Z-oy-mKS"/>
+                <outlet property="readMoreSubContainerView" destination="w0a-mT-r7z" id="F0Q-ub-NAf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="291" height="432"/>
+            <rect key="frame" x="0.0" y="0.0" width="291" height="442"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dh1-J0-8gD">
-                    <rect key="frame" x="12" y="16" width="267" height="300"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dh1-J0-8gD" userLabel="Container container">
+                    <rect key="frame" x="12" y="16" width="267" height="356"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w0a-mT-r7z" userLabel="Read more container">
                             <rect key="frame" x="0.0" y="0.0" width="267" height="100"/>
@@ -47,7 +48,7 @@
                         <constraint firstItem="w0a-mT-r7z" firstAttribute="top" secondItem="Dh1-J0-8gD" secondAttribute="top" id="3XF-ln-CWn"/>
                         <constraint firstItem="bY3-nl-Jig" firstAttribute="trailing" secondItem="Dh1-J0-8gD" secondAttribute="trailing" id="7I5-zm-vwm"/>
                         <constraint firstItem="3BA-2M-FfO" firstAttribute="leading" secondItem="Dh1-J0-8gD" secondAttribute="leading" id="I6m-8j-ZFT"/>
-                        <constraint firstAttribute="bottom" secondItem="3BA-2M-FfO" secondAttribute="bottom" id="OVd-yY-gdq"/>
+                        <constraint firstAttribute="bottom" secondItem="3BA-2M-FfO" secondAttribute="bottom" constant="56" id="OVd-yY-gdq"/>
                         <constraint firstItem="3BA-2M-FfO" firstAttribute="trailing" secondItem="Dh1-J0-8gD" secondAttribute="trailing" id="Ooo-k9-aqV"/>
                         <constraint firstItem="w0a-mT-r7z" firstAttribute="trailing" secondItem="Dh1-J0-8gD" secondAttribute="trailing" id="QW2-et-dJo"/>
                         <constraint firstItem="w0a-mT-r7z" firstAttribute="leading" secondItem="Dh1-J0-8gD" secondAttribute="leading" id="Uaa-Pf-4y5"/>
@@ -61,11 +62,17 @@
             <constraints>
                 <constraint firstItem="Dh1-J0-8gD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="F9w-kv-jxZ"/>
                 <constraint firstItem="Dh1-J0-8gD" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="FWd-4I-JwX"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Dh1-J0-8gD" secondAttribute="bottom" constant="16" id="Fvh-2a-05n"/>
                 <constraint firstItem="Dh1-J0-8gD" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" constant="-12" id="SgQ-Qp-NV8"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="375.5" y="349"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Fvh-2a-05n"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="375.5" y="352"/>
         </view>
     </objects>
 </document>

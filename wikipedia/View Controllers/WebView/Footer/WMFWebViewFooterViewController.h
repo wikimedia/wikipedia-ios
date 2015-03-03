@@ -12,6 +12,6 @@
 - (void)updateLanguageCount:(NSInteger)count;
 - (void)updateLastModifiedDate:(NSDate*)date userName:(NSString*)userName;
 
-@property (nonatomic, readonly) CGFloat scrollLimitingNativeSubContainerY;
+@property (nonatomic, readonly) CGFloat footerHeight;
 
 @end
