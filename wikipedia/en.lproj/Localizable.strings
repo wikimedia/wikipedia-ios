@@ -126,6 +126,8 @@
 "main-menu-show-today" = "Today";
 "main-menu-nearby" = "Nearby";
 "main-menu-more" = "More...";
+"main-menu-heading-debug" = "Debug";
+"main-menu-debug-crash"= "Crash";
 
 "saved-pages-title" = "Saved pages";
 "saved-pages-clear-confirmation-heading" = "Delete all saved items?";

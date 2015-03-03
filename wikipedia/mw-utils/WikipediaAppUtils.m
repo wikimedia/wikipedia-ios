@@ -4,6 +4,17 @@
 #import "WikipediaAppUtils.h"
 #import "AssetsFile.h"
 
+// TODO: use developer constants?
+//NSString * const WMFHockeyAppDeveloperXcodeCFBundleIdentifier = @"org.wikimedia.wikipedia.developer";
+//NSString * const WMFHockeyAppDeveloperXcodeAppId = @"76947f174e31a9e33fe67d81ff31732e";
+NSString* const WMFHockeyAppAlphaHockeyCFBundleIdentifier    = @"org.wikimedia.wikipedia.alphahockey";
+NSString* const WMFHockeyAppAlphaHockeyAppId                 = @"11136dadf17c6d8b76f903e92eea83b1";
+NSString* const WMFHockeyAppBetaTestFlightCFBundleIdentifier = @"org.wikimedia.wikipedia.tfbeta";
+NSString* const WMFHockeyAppBetaTestFlightAppId              = @"2295c3698bbd0b050f257772dd2bdbb2";
+//NSString * const WMFHockeyAppStableCFBundleIdentifier = @"org.wikimedia.wikipedia";
+//NSString * const WMFHockeyAppStableAppId = @"5d80da08a6761e5c6456736af7ebad88";
+// TODO: use stable channel constants
+
 NSUInteger MegabytesToBytes(NSUInteger m){
     static NSUInteger const MEGABYTE = 1 << 20;
     return m * MEGABYTE;
@@ -226,6 +237,23 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle){
     } else {
         BOOL isRTL = [self isDeviceLanguageRTL];
         return isRTL ? NSTextAlignmentRight : NSTextAlignmentLeft;
+    }
+}
+
++ (NSString*)wmf_appBundleIdentifierForCrashReporting {
+    NSString* bundleId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+    // We're not handling developer or stable channel at this time.
+    // If you want to generate a crash yourself:
+    // change the bundle ID to one of the constants below, then push
+    // the build to your device with Xcode, then disconnect your device
+    // from the computer, then run the app.
+
+    if ([bundleId isEqualToString:WMFHockeyAppAlphaHockeyCFBundleIdentifier]) {
+        return WMFHockeyAppAlphaHockeyAppId;
+    } else if ([bundleId isEqualToString:WMFHockeyAppBetaTestFlightCFBundleIdentifier]) {
+        return WMFHockeyAppBetaTestFlightAppId;
+    } else {
+        return nil;
     }
 }
 

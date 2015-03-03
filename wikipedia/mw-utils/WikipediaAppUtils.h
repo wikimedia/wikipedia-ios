@@ -4,6 +4,17 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+// TODO: use developer constants?
+//extern NSString * const WMFHockeyAppDeveloperXcodeCFBundleIdentifier;
+//extern NSString * const WMFHockeyAppDeveloperXcodeAppId;
+extern NSString* const WMFHockeyAppAlphaHockeyCFBundleIdentifier;
+extern NSString* const WMFHockeyAppAlphaHockeyAppId;
+extern NSString* const WMFHockeyAppBetaTestFlightCFBundleIdentifier;
+extern NSString* const WMFHockeyAppBetaTestFlightAppId;
+//extern NSString * const WMFHockeyAppStableCFBundleIdentifier;
+//extern NSString * const WMFHockeyAppStableAppId;
+// TODO: use stable channel constants
+
 #define MWLocalizedString(key, throwaway) [WikipediaAppUtils localizedStringForKey : key]
 
 /**
@@ -59,5 +70,7 @@ FOUNDATION_EXPORT NSString* WMFNormalizedPageTitle(NSString* rawPageTitle);
 + (NSTextAlignment)rtlSafeAlignment;
 
 + (void)copyAssetsFolderToAppDataDocuments;
+
++ (NSString*)wmf_appBundleIdentifierForCrashReporting;
 
 @end
