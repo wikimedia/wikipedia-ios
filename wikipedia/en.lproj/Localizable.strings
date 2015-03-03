@@ -126,6 +126,7 @@
 "main-menu-show-today" = "Today";
 "main-menu-nearby" = "Nearby";
 "main-menu-more" = "More...";
+"main-menu-debug" = "Debug";
 
 "saved-pages-title" = "Saved pages";
 "saved-pages-clear-confirmation-heading" = "Delete all saved items?";
@@ -281,3 +282,5 @@
 "update-progress-label" = "Upgrading local data";
 
 "image-gallery-unknown-owner" = "Uploader unknown.";
+"debug-crash-reporting-section-header" = "Crash Reporting";
+"debug-crash-reporting-crash-button-title"= "Crash";

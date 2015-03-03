@@ -137,6 +137,14 @@ THE SOFTWARE.</string>
 			<key>License Text</key>
 			<string>pod install</string>
 		</dict>
+        <dict>
+            <key>Name</key>
+            <string>HockeySDK</string>
+            <key>Source URL</key>
+            <string>https://github.com/bitstadium/HockeySDK-iOS.git</string>
+            <key>License Text</key>
+            <string>pod install</string>
+        </dict>
 	</array>
 	<key>contributors</key>
 	<array>

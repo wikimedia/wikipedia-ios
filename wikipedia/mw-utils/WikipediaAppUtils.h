@@ -4,6 +4,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+extern NSString * const WMFHockeyAppAlphaHockeyCFBundleIdentifier;
+extern NSString * const WMFHockeyAppAlphaHockeyAppId;
+
 #define MWLocalizedString(key, throwaway) [WikipediaAppUtils localizedStringForKey : key]
 
 /**

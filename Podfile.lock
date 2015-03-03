@@ -1,26 +1,27 @@
 PODS:
-  - AFNetworking (2.5.0):
-    - AFNetworking/NSURLConnection (= 2.5.0)
-    - AFNetworking/NSURLSession (= 2.5.0)
-    - AFNetworking/Reachability (= 2.5.0)
-    - AFNetworking/Security (= 2.5.0)
-    - AFNetworking/Serialization (= 2.5.0)
-    - AFNetworking/UIKit (= 2.5.0)
-  - AFNetworking/NSURLConnection (2.5.0):
+  - AFNetworking (2.5.1):
+    - AFNetworking/NSURLConnection (= 2.5.1)
+    - AFNetworking/NSURLSession (= 2.5.1)
+    - AFNetworking/Reachability (= 2.5.1)
+    - AFNetworking/Security (= 2.5.1)
+    - AFNetworking/Serialization (= 2.5.1)
+    - AFNetworking/UIKit (= 2.5.1)
+  - AFNetworking/NSURLConnection (2.5.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.0):
+  - AFNetworking/NSURLSession (2.5.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.0)
-  - AFNetworking/Security (2.5.0)
-  - AFNetworking/Serialization (2.5.0)
-  - AFNetworking/UIKit (2.5.0):
+  - AFNetworking/Reachability (2.5.1)
+  - AFNetworking/Security (2.5.1)
+  - AFNetworking/Serialization (2.5.1)
+  - AFNetworking/UIKit (2.5.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - BlocksKit/Core (2.2.5)
+  - HockeySDK (3.6.2)
   - hpple (0.2.0)
   - Masonry (0.6.1)
   - OCHamcrest (4.1.1)
@@ -30,14 +31,16 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (< 2.6)
   - blockskit/Core (< 2.3)
+  - HockeySDK (= 3.6.2)
   - hpple (< 0.3)
   - Masonry (< 0.7)
   - OCHamcrest (< 4.2)
   - OCMockito (< 1.5)
 
 SPEC CHECKSUMS:
-  AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
+  AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
   BlocksKit: 4439e7f30a9f90743462ca63545a15c1f4304cef
+  HockeySDK: bfd1f5ac75938b07499c4ac12932244b72a2e70b
   hpple: f4eb7c21a8db83ec264e5d614ec7509e10e5adec
   Masonry: 2cb49fd14d203d2db5ca6bb017135b235dde9980
   OCHamcrest: af1c7c5ea345de69ea6c9c2958f65f3044e5c420

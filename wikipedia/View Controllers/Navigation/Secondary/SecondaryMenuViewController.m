@@ -38,7 +38,15 @@
 #define URL_TERMS @"https://m.wikimediafoundation.org/wiki/Terms_of_Use"
 #define URL_RATE_APP @"itms-apps://itunes.apple.com/app/id324715238"
 
-typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
+#ifndef WMF_SHOW_DEBUG_MENU
+    #if DEBUG
+        #define WMF_SHOW_DEBUG_MENU 1
+    #else
+        #define WMF_SHOW_DEBUG_MENU 0
+    #endif
+#endif
+
+typedef NS_ENUM(NSUInteger, SecondaryMenuRowIndex) {
     SECONDARY_MENU_ROW_INDEX_LOGIN,
     SECONDARY_MENU_ROW_INDEX_SAVED_PAGES,
     SECONDARY_MENU_ROW_INDEX_SAVE_PAGE,
@@ -55,6 +63,7 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
     SECONDARY_MENU_ROW_INDEX_RATE_APP,
     SECONDARY_MENU_ROW_INDEX_HEADING_ZERO,
     SECONDARY_MENU_ROW_INDEX_HEADING_LEGAL,
+    SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG,
     SECONDARY_MENU_ROW_INDEX_HEADING_BLANK,
     SECONDARY_MENU_ROW_INDEX_HEADING_BLANK_2
 };
@@ -488,7 +497,14 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
             @"icon": @"",
             @"type": @(ROW_TYPE_HEADING),
         }.mutableCopy
-    ].mutableCopy;
+#if WMF_SHOW_DEBUG_MENU
+      ,
+      @{@"title": MWLocalizedString(@"main-menu-debug", nil),
+        @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG),
+        @"icon": WIKIGLYPH_DOWN,
+        @"type": @(ROW_TYPE_SELECTION)}
+#endif
+      ].mutableCopy;
 
     self.rowData = rowData;
 
@@ -640,6 +656,14 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
                                         block:nil];
             }
             break;
+#if WMF_SHOW_DEBUG_MENU
+            case SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG: {
+                [self performModalSequeWithID:@"modal_segue_show_debug"
+                              transitionStyle:UIModalTransitionStyleCoverVertical
+                                        block:nil];
+                break;
+            }
+#endif
             default:
                 break;
         }

@@ -4,6 +4,9 @@
 #import "WikipediaAppUtils.h"
 #import "AssetsFile.h"
 
+NSString * const WMFHockeyAppAlphaHockeyCFBundleIdentifier = @"org.wikimedia.wikipedia.alphahockey";
+NSString * const WMFHockeyAppAlphaHockeyAppId = @"11136dadf17c6d8b76f903e92eea83b1";
+
 NSUInteger MegabytesToBytes(NSUInteger m){
     static NSUInteger const MEGABYTE = 1 << 20;
     return m * MEGABYTE;

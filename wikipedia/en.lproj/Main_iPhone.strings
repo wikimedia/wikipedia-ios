@@ -5,6 +5,9 @@
 /* Class = "IBUITextField"; placeholder = "User name"; ObjectID = "5cT-2Y-0Ie"; */
 "5cT-2Y-0Ie.placeholder" = "User name";
 
+/* Class = "IBUITableViewController"; title = "Debug View Controller"; ObjectID = "ALm-ru-9Pq"; */
+"ALm-ru-9Pq.title" = "Debug View Controller";
+
 /* Class = "IBUILabel"; text = "Saved pages are pretty awesome. Think of them as bookmarks that you can read even when you are offline."; ObjectID = "GiD-Rj-wb7"; */
 "GiD-Rj-wb7.text" = "Saved pages are pretty awesome. Think of them as bookmarks that you can read even when you are offline.";
 

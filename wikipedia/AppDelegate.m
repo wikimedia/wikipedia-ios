@@ -5,10 +5,18 @@
 #import "URLCache.h"
 #import "NSDate-Utilities.h"
 #import "WikipediaAppUtils.h"
+#import <HockeySDK/HockeySDK.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
+    NSString *currentBundle = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+    if ([currentBundle isEqualToString:WMFHockeyAppAlphaHockeyCFBundleIdentifier]) {
+        [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:WMFHockeyAppAlphaHockeyAppId];
+        [[BITHockeyManager sharedHockeyManager] startManager];
+        [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+    }
+    
     [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
     [self registerStandardUserDefaults];
     [self systemWideStyleOverrides];

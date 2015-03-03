@@ -1824,7 +1824,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="zbB-Ch-Nmn">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="zbB-Ch-Nmn">
                                 <rect key="frame" x="20" y="27" width="280" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Ta2-Ww-1GE"/>
@@ -1833,13 +1833,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.74999999999999978" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25000000000000006" adjustsLetterSpacingToFitWidth="YES" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XkB-Xo-Xq0" userLabel="Autofit placeholder label">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.74999999999999978" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25000000000000006" adjustsLetterSpacingToFitWidth="YES" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XkB-Xo-Xq0" userLabel="Autofit placeholder label">
                                 <rect key="frame" x="28" y="27" width="272" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.40000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ub0-Zs-IUe" userLabel="Horizontal Line">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ub0-Zs-IUe" userLabel="Horizontal Line">
                                 <rect key="frame" x="0.0" y="94" width="320" height="1"/>
                                 <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1870,6 +1870,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bDT-Rp-A7C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="111" y="-6277"/>
+        </scene>
+        <!--Debug View Controller-->
+        <scene sceneID="cHC-gn-OfR">
+            <objects>
+                <tableViewController title="Debug View Controller" id="ALm-ru-9Pq" customClass="WMFDebugViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pev-vj-dDg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="rEW-JO-yLr">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rEW-JO-yLr" id="we0-f3-QFM">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ALm-ru-9Pq" id="Al6-vk-Jlb"/>
+                            <outlet property="delegate" destination="ALm-ru-9Pq" id="YZ9-rM-dIR"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6f4-MM-j5C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1050" y="-3151"/>
         </scene>
         <!--About View Controller-->
         <scene sceneID="1T4-cp-JUc">
@@ -1931,11 +1957,12 @@
                         <segue destination="vqp-1K-wjM" kind="custom" identifier="modal_segue_show_languages" customClass="EmptySegue" id="4tK-6e-A2j"/>
                         <segue destination="O3D-bU-RYB" kind="custom" identifier="modal_segue_show_nearby" customClass="EmptySegue" id="Npp-Oj-MXW"/>
                         <segue destination="XBx-HT-7Nb" kind="custom" identifier="modal_segue_show_about" customClass="EmptySegue" id="4K1-vh-0Ac"/>
+                        <segue destination="ALm-ru-9Pq" kind="custom" identifier="modal_segue_show_debug" customClass="EmptySegue" id="hXe-Y5-fQ5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="41a-r2-anV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-585" y="-2479"/>
+            <point key="canvasLocation" x="-602" y="-2439.5"/>
         </scene>
     </scenes>
     <resources>
@@ -1950,7 +1977,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="HJg-5s-ewq"/>
         <segue reference="lfF-8A-MqZ"/>
+        <segue reference="HJg-5s-ewq"/>
     </inferredMetricsTieBreakers>
 </document>

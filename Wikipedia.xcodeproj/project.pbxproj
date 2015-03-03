@@ -219,6 +219,9 @@
 		BC50C3841A83C96D006DC7AF /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */; };
 		BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */; };
 		BC6FEAE11A9B7EFD00A1D890 /* WMFCodingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */; };
+		BC6FEAFB1A9BEABD00A1D890 /* WMFDebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FEAFA1A9BEABD00A1D890 /* WMFDebugViewController.m */; };
+		BC6FEAFC1A9BEABD00A1D890 /* WMFDebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FEAFA1A9BEABD00A1D890 /* WMFDebugViewController.m */; };
+		BC6FEB0F1A9CD46100A1D890 /* WMFCrashReportingDebugFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FEB0E1A9CD46100A1D890 /* WMFCrashReportingDebugFeature.m */; };
 		BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
 		BC7DFCD71AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
 		BC86B9361A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B9351A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m */; };
@@ -309,6 +312,7 @@
 		BCB66A0C1A85183000C7B1FE /* NSString+WMFHTMLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB66A0B1A85183000C7B1FE /* NSString+WMFHTMLParsing.m */; };
 		BCB66A0D1A85183000C7B1FE /* NSString+WMFHTMLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB66A0B1A85183000C7B1FE /* NSString+WMFHTMLParsing.m */; };
 		BCB66A101A851C9B00C7B1FE /* MWKImageListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB66A0F1A851C9B00C7B1FE /* MWKImageListTests.m */; };
+		BCC185CC1A9D1463005378F8 /* WMFDebugViewController+EnabledFeatures.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185CB1A9D1463005378F8 /* WMFDebugViewController+EnabledFeatures.m */; };
 		BCC185D81A9E5628005378F8 /* UILabel+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185D71A9E5628005378F8 /* UILabel+WMFStyling.m */; };
 		BCC185E01A9EC836005378F8 /* UIButton+FrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185DF1A9EC836005378F8 /* UIButton+FrameUtils.m */; };
 		BCC185E81A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185E71A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m */; };
@@ -745,6 +749,12 @@
 		BC50C3851A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKImageInfoResponseSerializer.h; path = Serializers/MWKImageInfoResponseSerializer.h; sourceTree = "<group>"; };
 		BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageInfoResponseSerializer.m; path = Serializers/MWKImageInfoResponseSerializer.m; sourceTree = "<group>"; };
 		BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFCodingStyle.m; sourceTree = "<group>"; };
+		BC6FEAF91A9BEABD00A1D890 /* WMFDebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDebugViewController.h; path = Debug/WMFDebugViewController.h; sourceTree = "<group>"; };
+		BC6FEAFA1A9BEABD00A1D890 /* WMFDebugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFDebugViewController.m; path = Debug/WMFDebugViewController.m; sourceTree = "<group>"; };
+		BC6FEB051A9CD1B300A1D890 /* WMFDebugFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDebugFeature.h; path = Debug/WMFDebugFeature.h; sourceTree = "<group>"; };
+		BC6FEB0C1A9CD3F200A1D890 /* WMFCrashReportingDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFCrashReportingDefines.h; path = "Crash Reporting/WMFCrashReportingDefines.h"; sourceTree = "<group>"; };
+		BC6FEB0D1A9CD46100A1D890 /* WMFCrashReportingDebugFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCrashReportingDebugFeature.h; path = "Crash Reporting/WMFCrashReportingDebugFeature.h"; sourceTree = "<group>"; };
+		BC6FEB0E1A9CD46100A1D890 /* WMFCrashReportingDebugFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCrashReportingDebugFeature.m; path = "Crash Reporting/WMFCrashReportingDebugFeature.m"; sourceTree = "<group>"; };
 		BC7DFCCB1AA4BA8A000035C3 /* WMFCodingStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFCodingStyle.h; sourceTree = "<group>"; };
 		BC7DFCD41AA4E5FE000035C3 /* WMFImageURLParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFImageURLParsing.h; sourceTree = "<group>"; };
 		BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageURLParsing.m; sourceTree = "<group>"; };
@@ -847,6 +857,8 @@
 		BCB66A0A1A85183000C7B1FE /* NSString+WMFHTMLParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WMFHTMLParsing.h"; sourceTree = "<group>"; };
 		BCB66A0B1A85183000C7B1FE /* NSString+WMFHTMLParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WMFHTMLParsing.m"; sourceTree = "<group>"; };
 		BCB66A0F1A851C9B00C7B1FE /* MWKImageListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKImageListTests.m; sourceTree = "<group>"; };
+		BCC185CA1A9D1463005378F8 /* WMFDebugViewController+EnabledFeatures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFDebugViewController+EnabledFeatures.h"; path = "Debug/WMFDebugViewController+EnabledFeatures.h"; sourceTree = "<group>"; };
+		BCC185CB1A9D1463005378F8 /* WMFDebugViewController+EnabledFeatures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WMFDebugViewController+EnabledFeatures.m"; path = "Debug/WMFDebugViewController+EnabledFeatures.m"; sourceTree = "<group>"; };
 		BCC185D61A9E5628005378F8 /* UILabel+WMFStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+WMFStyling.h"; sourceTree = "<group>"; };
 		BCC185D71A9E5628005378F8 /* UILabel+WMFStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WMFStyling.m"; sourceTree = "<group>"; };
 		BCC185DE1A9EC836005378F8 /* UIButton+FrameUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+FrameUtils.h"; sourceTree = "<group>"; };
@@ -1713,6 +1725,7 @@
 		04C43AB0183441A4006C643B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BC6FEAF71A9BEA9B00A1D890 /* Debug */,
 				045D871D19FAD2D00035C1F9 /* About */,
 				04A97E8418B81D440046B166 /* AccountCreation */,
 				04B7B9BA18B5569600A63551 /* Captcha */,
@@ -1995,6 +2008,28 @@
 			name = "Image Gallery";
 			sourceTree = "<group>";
 		};
+		BC6FEAF71A9BEA9B00A1D890 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				BC6FEAF91A9BEABD00A1D890 /* WMFDebugViewController.h */,
+				BC6FEAFA1A9BEABD00A1D890 /* WMFDebugViewController.m */,
+				BC6FEB051A9CD1B300A1D890 /* WMFDebugFeature.h */,
+				BCC185CA1A9D1463005378F8 /* WMFDebugViewController+EnabledFeatures.h */,
+				BCC185CB1A9D1463005378F8 /* WMFDebugViewController+EnabledFeatures.m */,
+			);
+			name = Debug;
+			sourceTree = "<group>";
+		};
+		BC6FEB0B1A9CD3B600A1D890 /* Crash Reporting */ = {
+			isa = PBXGroup;
+			children = (
+				BC6FEB0C1A9CD3F200A1D890 /* WMFCrashReportingDefines.h */,
+				BC6FEB0D1A9CD46100A1D890 /* WMFCrashReportingDebugFeature.h */,
+				BC6FEB0E1A9CD46100A1D890 /* WMFCrashReportingDebugFeature.m */,
+			);
+			name = "Crash Reporting";
+			sourceTree = "<group>";
+		};
 		BC8309941A7BF935003FC5C7 /* WikipediaUnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2275,6 +2310,7 @@
 				04272E771940EEBC00CC682F /* AssetsFile */,
 				04C43AB7183442FC006C643B /* Categories */,
 				0460F8D919B0F90E001BC59B /* CenteredPathView */,
+				BC6FEB0B1A9CD3B600A1D890 /* Crash Reporting */,
 				040E5C50184673F2007AFE6F /* Data */,
 				04292FFB185FC026002A13FC /* Defines */,
 				D4B0ADFF19365F4600F0AC90 /* EventLogging */,
@@ -2758,7 +2794,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
 		};
 		D4C16A621970946900CD91AD /* update-storyboard-strings */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2815,6 +2850,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC6FEAFC1A9BEABD00A1D890 /* WMFDebugViewController.m in Sources */,
 				BCB669611A83D7B300C7B1FE /* WMFErrorForApiErrorObjectTests.m in Sources */,
 				BCB66A101A851C9B00C7B1FE /* MWKImageListTests.m in Sources */,
 				BC6FEAE11A9B7EFD00A1D890 /* WMFCodingStyle.m in Sources */,
@@ -2928,6 +2964,7 @@
 				042B3996192EAEEA0066B270 /* ShareMenuSavePageActivity.m in Sources */,
 				0429301018604898002A13FC /* SavedPagesViewController.m in Sources */,
 				04D149DF18877343006B4104 /* UIViewController+Alert.m in Sources */,
+				BCC185CC1A9D1463005378F8 /* WMFDebugViewController+EnabledFeatures.m in Sources */,
 				04B605101935236C0007185A /* WikiGlyphLabel.m in Sources */,
 				048A26771906268100395F53 /* PaddedLabel.m in Sources */,
 				04B91AAB18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m in Sources */,
@@ -3012,6 +3049,7 @@
 				BCB58F671A8AA22200465627 /* MWKLicense+ToGlyph.m in Sources */,
 				04C757671A1A9E1B0084AC39 /* RecentSearchesViewController.m in Sources */,
 				04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */,
+				BC6FEAFB1A9BEABD00A1D890 /* WMFDebugViewController.m in Sources */,
 				04224501197F5E09005DD0BF /* BulletedLabel.m in Sources */,
 				C979727D1A731F2D00C6ED7A /* WMFShareOptionsView.m in Sources */,
 				C91A86F41A8BCB680088A801 /* WMFShareCardImageContainer.m in Sources */,
@@ -3027,6 +3065,7 @@
 				BCB669AF1A83F6C400C7B1FE /* MWKHistoryList.m in Sources */,
 				BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */,
 				BCB58F441A890D9700465627 /* MWKImageInfo+MWKImageComparison.m in Sources */,
+				BC6FEB0F1A9CD46100A1D890 /* WMFCrashReportingDebugFeature.m in Sources */,
 				BCB669AD1A83F6C400C7B1FE /* MWKSavedPageList.m in Sources */,
 				BCC185E81A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m in Sources */,
 				04B91AB718E4D5B200FFAA1C /* TabularScrollView.m in Sources */,
@@ -3450,6 +3489,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(PROJECT_DIR)/vendor/Frameworks\"",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -3485,6 +3528,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(PROJECT_DIR)/vendor/Frameworks\"",
+					"$(inherited)",
+				);
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
