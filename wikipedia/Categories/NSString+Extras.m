@@ -6,6 +6,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 @implementation NSString (Extras)
 
@@ -70,11 +71,7 @@
 }
 
 - (NSDate*)getDateFromIso8601DateString {
-    // See: https://www.mediawiki.org/wiki/Manual:WfTimestamp
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-    [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
-    return [formatter dateFromString:self];
+    return [[NSDateFormatter wmf_iso8601Formatter] dateFromString:self];
 }
 
 - (NSString*)getStringWithoutHTML {

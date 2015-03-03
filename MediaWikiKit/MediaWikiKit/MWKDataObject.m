@@ -7,6 +7,7 @@
 //
 
 #import "MediaWikiKit.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 @implementation MWKDataObject
 
@@ -106,20 +107,12 @@
 
 #pragma mark - date methods
 
-- (NSDateFormatter*)iso8601Formatter {
-    // See: https://www.mediawiki.org/wiki/Manual:WfTimestamp
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-    [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
-    return formatter;
-}
-
 - (NSDate*)getDateFromIso8601DateString:(NSString*)string {
-    return [[self iso8601Formatter] dateFromString:string];
+    return [[NSDateFormatter wmf_iso8601Formatter] dateFromString:string];
 }
 
 - (NSString*)iso8601DateString:(NSDate*)date {
-    return [[self iso8601Formatter] stringFromDate:date];
+    return [[NSDateFormatter wmf_iso8601Formatter] stringFromDate:date];
 }
 
 #pragma mark - dictionary methods

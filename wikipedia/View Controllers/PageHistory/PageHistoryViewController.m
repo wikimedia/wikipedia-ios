@@ -25,6 +25,22 @@
 
 @implementation PageHistoryViewController
 
++ (NSDateFormatter*)dateFormatter {
+    static NSDateFormatter* _formatter = nil;
+
+    if (!_formatter) {
+        // See: https://www.mediawiki.org/wiki/Manual:WfTimestamp
+        _formatter = [[NSDateFormatter alloc] init];
+        [_formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [_formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+        _formatter.dateStyle         = NSDateFormatterLongStyle;
+        _formatter.timeStyle         = NSDateFormatterNoStyle;
+        _formatter.formatterBehavior = NSDateFormatterBehavior10_4;
+    }
+
+    return _formatter;
+}
+
 - (NavBarMode)navBarMode {
     return NAVBAR_MODE_X_WITH_LABEL;
 }
@@ -193,9 +209,7 @@
     NSNumber* daysAgo = sectionDict[@"daysAgo"];
     NSDate* date      = [NSDate dateWithDaysBeforeNow:daysAgo.integerValue];
 
-    NSString* formattedDate = [NSDateFormatter localizedStringFromDate:date
-                                                             dateStyle:NSDateFormatterLongStyle
-                                                             timeStyle:NSDateFormatterNoStyle];
+    NSString* formattedDate = [[[self class] dateFormatter] stringForObjectValue:date];
 
     label.text = formattedDate;
 

@@ -21,6 +21,22 @@
 
 @implementation PageHistoryResultCell
 
++ (NSDateFormatter*)dateFormatter {
+    static NSDateFormatter* _formatter = nil;
+
+    if (!_formatter) {
+        // See: https://www.mediawiki.org/wiki/Manual:WfTimestamp
+        _formatter = [[NSDateFormatter alloc] init];
+        [_formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [_formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+        _formatter.dateStyle         = NSDateFormatterNoStyle;
+        _formatter.timeStyle         = NSDateFormatterShortStyle;
+        _formatter.formatterBehavior = NSDateFormatterBehavior10_4;
+    }
+
+    return _formatter;
+}
+
 - (void)setName:(NSString*)name
            time:(NSString*)time
           delta:(NSNumber*)delta
@@ -29,10 +45,8 @@
       separator:(BOOL)separator {
     self.nameLabel.text = name;
 
-    self.timeLabel.text =
-        [NSDateFormatter localizedStringFromDate:[time getDateFromIso8601DateString]
-                                       dateStyle:NSDateFormatterNoStyle
-                                       timeStyle:NSDateFormatterShortStyle];
+    self.timeLabel.text = [[[self class] dateFormatter] stringForObjectValue:[time getDateFromIso8601DateString]];
+
     self.deltaLabel.text =
         [NSString stringWithFormat:@"%@%@", (delta.integerValue > 0) ? @"+" : @"", delta.stringValue];
 
