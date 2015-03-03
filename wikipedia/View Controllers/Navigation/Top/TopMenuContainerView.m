@@ -6,8 +6,7 @@
 
 @implementation TopMenuContainerView
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
     if (self) {
         self.showBottomBorder = YES;
@@ -15,15 +14,16 @@
     return self;
 }
 
--(void)setShowBottomBorder:(BOOL)showBottomBorder
-{
+- (void)setShowBottomBorder:(BOOL)showBottomBorder {
     _showBottomBorder = showBottomBorder;
     [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
-    if (!self.showBottomBorder) return;
+    if (!self.showBottomBorder) {
+        return;
+    }
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMaxY(rect));
     CGContextAddLineToPoint(context, CGRectGetMaxX(rect), CGRectGetMaxY(rect));

@@ -12,7 +12,7 @@
 
 FOUNDATION_EXPORT NSString* const WMFNetworkingErrorDomain;
 
-typedef NS_ENUM(NSInteger, WMFNetworkingError) {
+typedef NS_ENUM (NSInteger, WMFNetworkingError) {
     WMFNetworkingError_APIError
 };
 
@@ -23,6 +23,6 @@ typedef NS_ENUM(NSInteger, WMFNetworkingError) {
  * Take an array of strings and concatenate them with "|" as a delimiter.
  * @return A string of the concatenated elements, or an empty string if @c props is empty or @c nil.
  */
-FOUNDATION_EXPORT NSString* WMFJoinedPropertyParameters(NSArray *props);
+FOUNDATION_EXPORT NSString* WMFJoinedPropertyParameters(NSArray* props);
 
-FOUNDATION_EXPORT NSError* WMFErrorForApiErrorObject(NSDictionary *apiError);
+FOUNDATION_EXPORT NSError* WMFErrorForApiErrorObject(NSDictionary* apiError);

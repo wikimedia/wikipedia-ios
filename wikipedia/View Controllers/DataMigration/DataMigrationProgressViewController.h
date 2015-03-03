@@ -12,16 +12,16 @@
 @class DataMigrationProgressViewController;
 
 @protocol DataMigrationProgressDelegete
--(void)dataMigrationProgressComplete:(DataMigrationProgressViewController *)viewController;
+- (void)dataMigrationProgressComplete:(DataMigrationProgressViewController*)viewController;
 @end
 
 
-@interface DataMigrationProgressViewController : UIViewController <UIActionSheetDelegate,MFMailComposeViewControllerDelegate>
+@interface DataMigrationProgressViewController : UIViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
-@property (weak, nonatomic) IBOutlet UILabel *progressLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView* progressIndicator;
+@property (weak, nonatomic) IBOutlet UILabel* progressLabel;
 @property (weak, nonatomic) id<DataMigrationProgressDelegete> delegate;
 
--(BOOL)needsMigration;
+- (BOOL)needsMigration;
 
 @end

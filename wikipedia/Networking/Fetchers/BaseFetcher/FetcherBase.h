@@ -5,7 +5,7 @@
 
 
 // Enums for the FetchFinishedDelegate protocol method.
-typedef NS_ENUM(NSInteger, FetchFinalStatus) {
+typedef NS_ENUM (NSInteger, FetchFinalStatus) {
     FETCH_FINAL_STATUS_SUCCEEDED,
     FETCH_FINAL_STATUS_CANCELLED,
     FETCH_FINAL_STATUS_FAILED
@@ -15,10 +15,10 @@ typedef NS_ENUM(NSInteger, FetchFinalStatus) {
 // Protocol for notifying fetchFinishedDelegate that download has completed.
 @protocol FetchFinishedDelegate <NSObject>
 
-- (void)fetchFinished: (id)sender
-          fetchedData: (id)fetchedData
-               status: (FetchFinalStatus)status
-                error: (NSError *)error;
+- (void)fetchFinished:(id)sender
+          fetchedData:(id)fetchedData
+               status:(FetchFinalStatus)status
+                error:(NSError*)error;
 
 @end
 
@@ -36,8 +36,8 @@ typedef NS_ENUM(NSInteger, FetchFinalStatus) {
 
 // Note: FetchFinalStatus is not explicitly passed to this method - it determines
 // the status base on introspection of error.
-- (void)finishWithError: (NSError *)error
-            fetchedData: (id)fetchedData;
+- (void)finishWithError:(NSError*)error
+            fetchedData:(id)fetchedData;
 
 
 
@@ -45,9 +45,9 @@ typedef NS_ENUM(NSInteger, FetchFinalStatus) {
 // have their responseSerializers overridden with "[AFHTTPResponseSerializer serializer]".)
 // This is a quick way to check if the raw data response is potentially valid / contains
 // anything useful.
--(BOOL)isDataResponseValid:(id)responseObject;
+- (BOOL)isDataResponseValid:(id)responseObject;
 
 // Convert the raw NSData response to a dictionary w/JSON.
--(NSDictionary *)dictionaryFromDataResponse:(id)responseObject;
+- (NSDictionary*)dictionaryFromDataResponse:(id)responseObject;
 
 @end

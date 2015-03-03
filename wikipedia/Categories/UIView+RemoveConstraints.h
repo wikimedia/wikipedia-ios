@@ -3,6 +3,6 @@
 
 @interface UIView (RemoveConstraints)
 
--(void)removeConstraintsOfViewFromView:(UIView *)view;
+- (void)removeConstraintsOfViewFromView:(UIView*)view;
 
 @end

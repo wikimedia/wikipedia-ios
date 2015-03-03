@@ -12,28 +12,25 @@
 
 @implementation SearchMessageLabel
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        self.textAlignment = NSTextAlignmentCenter;
-        self.font = [UIFont systemFontOfSize:FONT_SIZE];
-        self.textColor = COLOR_TEXT;
+        self.textAlignment   = NSTextAlignmentCenter;
+        self.font            = [UIFont systemFontOfSize:FONT_SIZE];
+        self.textColor       = COLOR_TEXT;
         self.backgroundColor = COLOR_BACKGROUND;
     }
     return self;
 }
 
--(void)showWithText:(NSString *)text
-{
+- (void)showWithText:(NSString*)text {
     self.padding = PADDING;
-    self.text = text;
+    self.text    = text;
 }
 
--(void)hide
-{
+- (void)hide {
     self.padding = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.text = nil;
+    self.text    = nil;
 }
 
 @end

@@ -6,14 +6,14 @@
 @class WebViewController;
 @interface ReferencesVC : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
-@property (strong, nonatomic) UIPageViewController *pageController;
+@property (strong, nonatomic) UIPageViewController* pageController;
 
-@property (strong, nonatomic) NSDictionary *payload;
+@property (strong, nonatomic) NSDictionary* payload;
 
-@property (weak, nonatomic) WebViewController *webVC;
+@property (weak, nonatomic) WebViewController* webVC;
 
 @property (assign) CGFloat panelHeight;
 
--(void)reset;
+- (void)reset;
 
 @end

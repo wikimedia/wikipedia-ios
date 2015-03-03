@@ -28,27 +28,24 @@
 
 @implementation MWKImageListTests
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
     _tempDataStoreDir = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
 }
 
-- (void)tearDown
-{
+- (void)tearDown {
     [super tearDown];
     [[NSFileManager defaultManager] removeItemAtPath:_tempDataStoreDir error:nil];
 }
 
-- (void)testUniqueLargestVariants
-{
-    MWKDataStore *tmpDataStore = [[MWKDataStore alloc] initWithBasePath:self.tempDataStoreDir];
+- (void)testUniqueLargestVariants {
+    MWKDataStore* tmpDataStore = [[MWKDataStore alloc] initWithBasePath:self.tempDataStoreDir];
 
     // create article w/ mock section to prevent crashing due to image import side effects
-    MWKArticle *article = [[MWKArticle alloc] initWithTitle:nil dataStore:tmpDataStore];
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:nil dataStore:tmpDataStore];
     [article.sections setSections:mock([MWKSection class])];
 
-    NSArray *dummySourceURLs = [@[@"10px-a.jpg", @"10px-b.jpg", @"100px-a.jpg", @"10px-c.jpg"] bk_map:^id(id obj) {
+    NSArray* dummySourceURLs = [@[@"10px-a.jpg", @"10px-b.jpg", @"100px-a.jpg", @"10px-c.jpg"] bk_map :^id (id obj) {
         return [MWKDataStoreValidImageSitePrefix stringByAppendingString:obj];
     }];
 

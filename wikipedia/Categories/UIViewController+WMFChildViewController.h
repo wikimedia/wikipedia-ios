@@ -5,6 +5,6 @@
 
 @interface UIViewController (WMF_ChildViewController)
 
-- (void)wmf_addChildController: (UIViewController*)childController andConstrainToEdgesOfContainerView: (UIView *)containerView;
+- (void)wmf_addChildController:(UIViewController*)childController andConstrainToEdgesOfContainerView:(UIView*)containerView;
 
 @end

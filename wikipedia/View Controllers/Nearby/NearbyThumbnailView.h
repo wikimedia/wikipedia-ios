@@ -5,7 +5,7 @@
 
 @interface NearbyThumbnailView : UIView
 
--(void)setImage:(UIImage *)image isPlaceHolder:(BOOL)isPlaceholder;
+- (void)setImage:(UIImage*)image isPlaceHolder:(BOOL)isPlaceholder;
 
 @property (nonatomic) double angle;
 

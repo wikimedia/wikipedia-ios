@@ -5,6 +5,6 @@
 
 @interface UIViewController (SearchModals)
 
--(id)searchModalsForViewControllerOfClass:(Class)aClass;
+- (id)searchModalsForViewControllerOfClass:(Class)aClass;
 
 @end

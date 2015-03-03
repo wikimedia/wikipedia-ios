@@ -5,8 +5,8 @@
 
 @interface WMFOptionsFooterViewController : UIViewController
 
--(void)updateLanguageCount:(NSInteger)count;
+- (void)updateLanguageCount:(NSInteger)count;
 
--(void)updateLastModifiedDate:(NSDate *)date userName:(NSString *)userName;
+- (void)updateLastModifiedDate:(NSDate*)date userName:(NSString*)userName;
 
 @end

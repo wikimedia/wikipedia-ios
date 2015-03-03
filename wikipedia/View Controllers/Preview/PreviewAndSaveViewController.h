@@ -10,14 +10,14 @@
 
 @interface PreviewAndSaveViewController : UIViewController <FetchFinishedDelegate, UITextFieldDelegate, CaptchaViewControllerRefresh, UIScrollViewDelegate>
 
-@property (strong, nonatomic) MWKSection *section;
-@property (strong, nonatomic) NSString *wikiText;
-@property (strong, nonatomic) EditFunnel *funnel;
-@property (strong, nonatomic) SavedPagesFunnel *savedPagesFunnel;
-@property (strong, nonatomic) NSString *abuseFilterCode;
+@property (strong, nonatomic) MWKSection* section;
+@property (strong, nonatomic) NSString* wikiText;
+@property (strong, nonatomic) EditFunnel* funnel;
+@property (strong, nonatomic) SavedPagesFunnel* savedPagesFunnel;
+@property (strong, nonatomic) NSString* abuseFilterCode;
 
--(void)reloadCaptchaPushed:(id)sender;
+- (void)reloadCaptchaPushed:(id)sender;
 
-@property (strong, nonatomic) NSString *summaryText;
+@property (strong, nonatomic) NSString* summaryText;
 
 @end

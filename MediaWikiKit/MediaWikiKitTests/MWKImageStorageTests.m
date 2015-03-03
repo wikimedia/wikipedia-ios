@@ -13,7 +13,7 @@
 
 @interface MWKImageStorageTests : MWKArticleStoreTestCase
 
-@property NSString *goldenGateImageURL;
+@property NSString* goldenGateImageURL;
 
 @end
 
@@ -32,26 +32,25 @@
 }
 
 - (void)testLoadNonexistentImageData {
-    MWKImage *image = [self.article importImageURL:self.goldenGateImageURL sectionId:0];
+    MWKImage* image = [self.article importImageURL:self.goldenGateImageURL sectionId:0];
     XCTAssertNotNil(image);
-    
+
     // But this data should explode
-    NSData *data = [self.article.dataStore imageDataWithImage:image];
+    NSData* data = [self.article.dataStore imageDataWithImage:image];
     XCTAssertNil(data);
 }
 
 - (void)testLoadExistentImageData {
-    NSData *dataSample = [self loadDataFile:@"golden-gate" ofType:@"jpg"];
+    NSData* dataSample = [self loadDataFile:@"golden-gate" ofType:@"jpg"];
 
-    MWKImage *image = [self.article importImageURL:self.goldenGateImageURL sectionId:0];
+    MWKImage* image = [self.article importImageURL:self.goldenGateImageURL sectionId:0];
     //MWKImage *image = [self.articleStore imageWithURL:self.goldenGateImageURL];
     XCTAssertNotNil(image);
     XCTAssertNoThrow([self.article importImageData:dataSample image:image]);
-    
-    NSData *dataFromStorage = [self.article.dataStore imageDataWithImage:image];
-    
+
+    NSData* dataFromStorage = [self.article.dataStore imageDataWithImage:image];
+
     XCTAssertEqualObjects(dataSample, dataFromStorage);
 }
-
 
 @end

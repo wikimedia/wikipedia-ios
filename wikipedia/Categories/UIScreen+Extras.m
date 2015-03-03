@@ -5,8 +5,7 @@
 
 @implementation UIScreen (Extras)
 
--(BOOL)isThreePointFiveInchScreen
-{
+- (BOOL)isThreePointFiveInchScreen {
     CGFloat scalar =
         (UIInterfaceOrientationIsPortrait([self interfaceOrientation]))
         ?
@@ -18,8 +17,7 @@
 
 // UIViewController's interfaceOrientation property is deprecated.
 // The status bar's orientation isn't (as of iOS 8).
--(UIInterfaceOrientation)interfaceOrientation
-{
+- (UIInterfaceOrientation)interfaceOrientation {
     return [[UIApplication sharedApplication] statusBarOrientation];
 }
 

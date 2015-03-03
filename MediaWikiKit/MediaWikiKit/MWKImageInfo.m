@@ -9,26 +9,25 @@ NSString* const mWKImageInfoModelVersionKey = @"modelVersion";
 NSUInteger const MWKImageInfoModelVersion_1 = 1;
 
 NSString* const MWKImageInfoCanonicalPageTitleKey = @"canonicalPageTitle";
-NSString* const MWKImageInfoCanonicalFileURLKey = @"canonicalFileURL";
-NSString* const MWKImageInfoImageDescriptionKey = @"imageDescription";
-NSString* const MWKImageInfoFilePageURLKey = @"filePageURL";
-NSString* const MWKImageInfoImageURLKey = @"imageURL";
-NSString* const MWKImageInfoImageThumbURLKey = @"imageThumbURL";
-NSString* const MWKImageInfoOwnerKey = @"owner";
-NSString* const MWKImageInfoLicenseKey = @"license";
+NSString* const MWKImageInfoCanonicalFileURLKey   = @"canonicalFileURL";
+NSString* const MWKImageInfoImageDescriptionKey   = @"imageDescription";
+NSString* const MWKImageInfoFilePageURLKey        = @"filePageURL";
+NSString* const MWKImageInfoImageURLKey           = @"imageURL";
+NSString* const MWKImageInfoImageThumbURLKey      = @"imageThumbURL";
+NSString* const MWKImageInfoOwnerKey              = @"owner";
+NSString* const MWKImageInfoLicenseKey            = @"license";
 
 @implementation MWKImageInfo
-@synthesize imageAssociationValue=_imageAssociationValue;
+@synthesize imageAssociationValue = _imageAssociationValue;
 
-- (instancetype)initWithCanonicalPageTitle:(NSString *)canonicalPageTitle
+- (instancetype)initWithCanonicalPageTitle:(NSString*)canonicalPageTitle
                           canonicalFileURL:(NSURL*)canonicalFileURL
                           imageDescription:(NSString*)imageDescription
                                    license:(MWKLicense*)license
                                filePageURL:(NSURL*)filePageURL
                                   imageURL:(NSURL*)imageURL
                              imageThumbURL:(NSURL*)imageThumbURL
-                                     owner:(NSString*)owner
-{
+                                     owner:(NSString*)owner {
     // !!!: not sure what's guaranteed by the API
     //NSParameterAssert(canonicalPageTitle.length);
     //NSParameterAssert(canonicalFileURL.absoluteString.length);
@@ -36,36 +35,34 @@ NSString* const MWKImageInfoLicenseKey = @"license";
     self = [super init];
     if (self) {
         _canonicalPageTitle = [canonicalPageTitle copy];
-        _imageDescription = [imageDescription copy];
-        _owner = [owner copy];
-        _license = license;
-        _canonicalFileURL = canonicalFileURL;
-        _filePageURL = filePageURL;
-        _imageURL = imageURL;
-        _imageThumbURL = imageThumbURL;
+        _imageDescription   = [imageDescription copy];
+        _owner              = [owner copy];
+        _license            = license;
+        _canonicalFileURL   = canonicalFileURL;
+        _filePageURL        = filePageURL;
+        _imageURL           = imageURL;
+        _imageThumbURL      = imageThumbURL;
     }
     return self;
 }
 
-+ (instancetype)imageInfoWithExportedData:(NSDictionary*)exportedData
-{
++ (instancetype)imageInfoWithExportedData:(NSDictionary*)exportedData {
     // assume all model versions are 1.0.0
     return [[MWKImageInfo alloc]
             initWithCanonicalPageTitle:exportedData[MWKImageInfoCanonicalPageTitleKey]
-            canonicalFileURL:[NSURL URLWithString:exportedData[MWKImageInfoCanonicalFileURLKey]]
-            imageDescription:exportedData[MWKImageInfoImageDescriptionKey]
-            license:[MWKLicense licenseWithExportedData:exportedData[MWKImageInfoLicenseKey]]
-            filePageURL:[NSURL URLWithString:exportedData[MWKImageInfoFilePageURLKey]]
-            imageURL:[NSURL URLWithString:exportedData[MWKImageInfoImageURLKey]]
-            imageThumbURL:[NSURL URLWithString:exportedData[MWKImageInfoImageThumbURLKey]]
-            owner:exportedData[MWKImageInfoOwnerKey]];
+                      canonicalFileURL:[NSURL URLWithString:exportedData[MWKImageInfoCanonicalFileURLKey]]
+                      imageDescription:exportedData[MWKImageInfoImageDescriptionKey]
+                               license:[MWKLicense licenseWithExportedData:exportedData[MWKImageInfoLicenseKey]]
+                           filePageURL:[NSURL URLWithString:exportedData[MWKImageInfoFilePageURLKey]]
+                              imageURL:[NSURL URLWithString:exportedData[MWKImageInfoImageURLKey]]
+                         imageThumbURL:[NSURL URLWithString:exportedData[MWKImageInfoImageThumbURLKey]]
+                                 owner:exportedData[MWKImageInfoOwnerKey]];
 }
 
-- (NSDictionary*)dataExport
-{
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:6];
+- (NSDictionary*)dataExport {
+    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:6];
 
-    dict[mWKImageInfoModelVersionKey]  = @(MWKImageInfoModelVersion_1);
+    dict[mWKImageInfoModelVersionKey] = @(MWKImageInfoModelVersion_1);
 
     [dict wmf_maybeSetObject:self.canonicalPageTitle forKey:MWKImageInfoCanonicalPageTitleKey];
     [dict wmf_maybeSetObject:self.canonicalFileURL.absoluteString forKey:MWKImageInfoCanonicalFileURLKey];
@@ -81,15 +78,15 @@ NSString* const MWKImageInfoLicenseKey = @"license";
     return [dict copy];
 }
 
-- (BOOL)isEqual:(id)obj
-{
-    if (obj == self) { return YES; }
-    else if ([obj isKindOfClass:[MWKImageInfo class]]) { return [self isEqualToGalleryItem:obj]; }
-    else { return NO; }
+- (BOOL)isEqual:(id)obj {
+    if (obj == self) {
+        return YES;
+    } else if ([obj isKindOfClass:[MWKImageInfo class]]) {
+        return [self isEqualToGalleryItem:obj];
+    } else {return NO; }
 }
 
-- (BOOL)isEqualToGalleryItem:(MWKImageInfo*)other
-{
+- (BOOL)isEqualToGalleryItem:(MWKImageInfo*)other {
     return WMF_EQUAL(self.canonicalPageTitle, isEqualToString:, other.canonicalPageTitle)
            && WMF_IS_EQUAL(self.canonicalFileURL, other.canonicalFileURL)
            && WMF_EQUAL(self.imageDescription, isEqualToString:, other.imageDescription)
@@ -100,20 +97,17 @@ NSString* const MWKImageInfoLicenseKey = @"license";
            && WMF_EQUAL(self.owner, isEqualToString:, other.owner);
 }
 
-- (NSUInteger)hash
-{
+- (NSUInteger)hash {
     return [self.canonicalPageTitle hash] ^ CircularBitwiseRotation([self.imageURL hash], 1);
 }
 
-- (NSString*)description
-{
+- (NSString*)description {
     return [NSString stringWithFormat:@"%@ %@ %@", [super description], self.canonicalPageTitle, self.imageURL];
 }
 
 #pragma mark - Calculated properties
 
-- (id)imageAssociationValue
-{
+- (id)imageAssociationValue {
     if (!_imageAssociationValue) {
         _imageAssociationValue = WMFParseImageNameFromSourceURL(self.imageURL);
     }

@@ -5,6 +5,6 @@
 
 @interface UIView (WMF_RoundCorners)
 
--(void)wmf_roundCorners:(UIRectCorner)corners toRadius:(float)radius;
+- (void)wmf_roundCorners:(UIRectCorner)corners toRadius:(float)radius;
 
 @end

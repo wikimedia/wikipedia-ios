@@ -11,8 +11,7 @@
 
 @implementation UIButton (FrameUtils)
 
-- (void)wmf_sizeToFitLabelContents
-{
+- (void)wmf_sizeToFitLabelContents {
 #if DEBUG
     if (!UIEdgeInsetsEqualToEdgeInsets(self.titleEdgeInsets, UIEdgeInsetsZero)) {
         NSLog(@"WARNING: non-zero edge insets on button label when trying to fit to label contents.");

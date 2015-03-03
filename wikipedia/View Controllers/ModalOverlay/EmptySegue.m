@@ -5,9 +5,7 @@
 
 @implementation EmptySegue
 
--(void)perform
-{
-
+- (void)perform {
 }
 
 @end

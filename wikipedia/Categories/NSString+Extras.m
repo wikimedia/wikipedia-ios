@@ -9,138 +9,145 @@
 
 @implementation NSString (Extras)
 
-- (NSString *)urlEncodedUTF8String {
+- (NSString*)urlEncodedUTF8String {
     return (__bridge_transfer id)CFURLCreateStringByAddingPercentEscapes(0, (__bridge CFStringRef)self, 0,
-                                                       (__bridge CFStringRef)@";/?:@&=$+{}<>,", kCFStringEncodingUTF8);
+                                                                         (__bridge CFStringRef)@";/?:@&=$+{}<>,", kCFStringEncodingUTF8);
 }
 
-+ (NSString *)sha1:(NSString *)dataFromString isFile:(BOOL)isFile
-{
-    NSData *data = nil;
-    if(isFile){
++ (NSString*)sha1:(NSString*)dataFromString isFile:(BOOL)isFile {
+    NSData* data = nil;
+    if (isFile) {
         data = [NSData dataWithContentsOfFile:dataFromString];
-    }else{
-        const char *cstr = [dataFromString cStringUsingEncoding:NSUTF8StringEncoding];
+    } else {
+        const char* cstr = [dataFromString cStringUsingEncoding:NSUTF8StringEncoding];
         data = [NSData dataWithBytes:cstr length:dataFromString.length];
     }
-    
+
     uint8_t digest[CC_SHA1_DIGEST_LENGTH];
     CC_SHA1(data.bytes, (unsigned int)data.length, digest);
-    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
-    
-    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
-        [output appendFormat:@"%02x",digest[i]];
-    
+    NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+
+    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
+        [output appendFormat:@"%02x", digest[i]];
+    }
+
     return output;
 }
 
--(NSString *)getUrlWithoutScheme
-{
+- (NSString*)getUrlWithoutScheme {
     NSRange dividerRange = [self rangeOfString:@"://"];
-    if (dividerRange.location == NSNotFound) return self;
+    if (dividerRange.location == NSNotFound) {
+        return self;
+    }
     NSUInteger divide = NSMaxRange(dividerRange) - 2;
     //NSString *scheme = [self substringToIndex:divide];
-    NSString *path = [self substringFromIndex:divide];
+    NSString* path = [self substringFromIndex:divide];
     return path;
 }
 
--(NSString *)getImageMimeTypeForExtension
-{
-    NSString *lowerCaseSelf = [self lowercaseString];
-    if  ([lowerCaseSelf isEqualToString:@"jpg"]) return @"image/jpeg";
-    if  ([lowerCaseSelf isEqualToString:@"jpeg"]) return @"image/jpeg";
-    if  ([lowerCaseSelf isEqualToString:@"png"]) return @"image/png";
-    if  ([lowerCaseSelf isEqualToString:@"gif"]) return @"image/gif";
+- (NSString*)getImageMimeTypeForExtension {
+    NSString* lowerCaseSelf = [self lowercaseString];
+    if ([lowerCaseSelf isEqualToString:@"jpg"]) {
+        return @"image/jpeg";
+    }
+    if ([lowerCaseSelf isEqualToString:@"jpeg"]) {
+        return @"image/jpeg";
+    }
+    if ([lowerCaseSelf isEqualToString:@"png"]) {
+        return @"image/png";
+    }
+    if ([lowerCaseSelf isEqualToString:@"gif"]) {
+        return @"image/gif";
+    }
     return @"";
 }
 
-- (NSString *)getWikiImageFileNameWithoutSizePrefix
-{
+- (NSString*)getWikiImageFileNameWithoutSizePrefix {
 //TODO: optimize this to not use a regex. It's so simple there's no need to create regex objects.
-    static NSString *pattern = @"^(\\d+px-)(.+)";
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:NULL];
+    static NSString* pattern   = @"^(\\d+px-)(.+)";
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:NULL];
     return [regex stringByReplacingMatchesInString:self options:NSMatchingReportProgress range:NSMakeRange(0, self.length) withTemplate:@"$2"];
 }
 
-- (NSDate *)getDateFromIso8601DateString
-{
+- (NSDate*)getDateFromIso8601DateString {
     // See: https://www.mediawiki.org/wiki/Manual:WfTimestamp
-    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
     [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
-    return  [formatter dateFromString:self];
+    return [formatter dateFromString:self];
 }
 
-- (NSString *)getStringWithoutHTML
-{
+- (NSString*)getStringWithoutHTML {
     // Strips html from string with xpath / hpple.
-    if (!self || (self.length == 0)) return self;
-    NSData *stringData = [self dataUsingEncoding:NSUTF8StringEncoding];
-    TFHpple *parser = [TFHpple hppleWithHTMLData:stringData];
-    NSArray *textNodes = [parser searchWithXPathQuery:@"//text()"];
-    NSMutableArray *results = @[].mutableCopy;
-    for (TFHppleElement *node in textNodes) {
-        if(node.isTextNode) [results addObject:node.raw];
+    if (!self || (self.length == 0)) {
+        return self;
     }
-    
-    NSString *result = [results componentsJoinedByString:@""];
-    
+    NSData* stringData      = [self dataUsingEncoding:NSUTF8StringEncoding];
+    TFHpple* parser         = [TFHpple hppleWithHTMLData:stringData];
+    NSArray* textNodes      = [parser searchWithXPathQuery:@"//text()"];
+    NSMutableArray* results = @[].mutableCopy;
+    for (TFHppleElement* node in textNodes) {
+        if (node.isTextNode) {
+            [results addObject:node.raw];
+        }
+    }
+
+    NSString* result = [results componentsJoinedByString:@""];
+
     // Also decode any "&amp;" strings.
     result = [result stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-    
+
     return result;
 }
 
-- (NSString *)randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
+- (NSString*)randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
 {
-    float(^rnd)() = ^(){
+    float (^ rnd)() = ^(){
         return (float)(rand() % (maxTimes - 1) + 1);
     };
 
-    NSString *randStr = [@"" stringByPaddingToLength:rnd() * [self length] withString:self startingAtIndex:0];
-    
+    NSString* randStr = [@"" stringByPaddingToLength:rnd()* [self length] withString:self startingAtIndex:0];
+
     return [NSString stringWithFormat:@"<%@>", [randStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
 }
 
-- (NSString *)wikiTitleWithoutUnderscores
-{
+- (NSString*)wikiTitleWithoutUnderscores {
     return [self stringByReplacingOccurrencesOfString:@"_" withString:@" "];
 }
 
-- (NSString *)wikiTitleWithoutSpaces
-{
+- (NSString*)wikiTitleWithoutSpaces {
     return [self stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
-- (NSString *)capitalizeFirstLetter
-{
+- (NSString*)capitalizeFirstLetter {
     // Capitalize first character of WikiData description.
-    if (self.length > 1){
-        NSString *firstChar = [self substringToIndex:1];
-        NSString *remainingChars = [self substringFromIndex:1];
-        NSLocale *locale = [self getLocaleForCurrentSearchDomain];
+    if (self.length > 1) {
+        NSString* firstChar      = [self substringToIndex:1];
+        NSString* remainingChars = [self substringFromIndex:1];
+        NSLocale* locale         = [self getLocaleForCurrentSearchDomain];
         firstChar = [firstChar capitalizedStringWithLocale:locale];
         return [firstChar stringByAppendingString:remainingChars];
     }
     return self;
 }
 
--(NSLocale *)getLocaleForCurrentSearchDomain
-{
-    NSString *domain = [SessionSingleton sharedInstance].site.language;
+- (NSLocale*)getLocaleForCurrentSearchDomain {
+    NSString* domain = [SessionSingleton sharedInstance].site.language;
 
-    MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
-    
-    NSString *code = languageInfo.code;
+    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:domain];
 
-    NSLocale *locale = nil;
+    NSString* code = languageInfo.code;
 
-    if (code && [[NSLocale availableLocaleIdentifiers] containsObject:code]){
+    NSLocale* locale = nil;
+
+    if (code && [[NSLocale availableLocaleIdentifiers] containsObject:code]) {
         locale = [[NSLocale alloc] initWithLocaleIdentifier:code];
     }
-    
-    if(!locale) locale = [NSLocale currentLocale];
-    
+
+    if (!locale) {
+        locale = [NSLocale currentLocale];
+    }
+
     return locale;
 }
 
@@ -148,13 +155,12 @@
     return [self wmf_containsString:string options:NSLiteralSearch];
 }
 
-- (BOOL)wmf_caseInsensitiveContainsString:(NSString*)string{
+- (BOOL)wmf_caseInsensitiveContainsString:(NSString*)string {
     return [self wmf_containsString:string options:NSCaseInsensitiveSearch];
 }
 
 - (BOOL)wmf_containsString:(NSString*)string options:(NSStringCompareOptions)options {
     return [self rangeOfString:string options:options].location == NSNotFound ? NO : YES;
 }
-
 
 @end

@@ -7,9 +7,9 @@
 @interface SavedPagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic) NavBarMode navBarMode;
-@property (weak, nonatomic) IBOutlet UIView *emptyOverlay;
+@property (weak, nonatomic) IBOutlet UIView* emptyOverlay;
 
 @property (weak, nonatomic) id truePresentingVC;
-@property (weak, nonatomic) TopMenuViewController *topMenuViewController;
+@property (weak, nonatomic) TopMenuViewController* topMenuViewController;
 
 @end

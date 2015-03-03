@@ -8,11 +8,11 @@
 
 @property (assign, nonatomic) NSInteger index;
 
-@property (strong, nonatomic) NSString *html;
+@property (strong, nonatomic) NSString* html;
 
-@property (strong, nonatomic) NSString *linkId;
-@property (strong, nonatomic) NSString *linkText;
+@property (strong, nonatomic) NSString* linkId;
+@property (strong, nonatomic) NSString* linkText;
 
-@property (weak, nonatomic) WebViewController *webVC;
+@property (weak, nonatomic) WebViewController* webVC;
 
 @end

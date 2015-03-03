@@ -9,11 +9,11 @@
 
 @property (nonatomic) NavBarMode navBarMode;
 
-@property (weak, nonatomic) PreviewAndSaveViewController *previewVC;
+@property (weak, nonatomic) PreviewAndSaveViewController* previewVC;
 
-@property (strong, nonatomic) NSString *summaryText;
+@property (strong, nonatomic) NSString* summaryText;
 
 @property (weak, nonatomic) id truePresentingVC;
-@property (weak, nonatomic) TopMenuViewController *topMenuViewController;
+@property (weak, nonatomic) TopMenuViewController* topMenuViewController;
 
 @end

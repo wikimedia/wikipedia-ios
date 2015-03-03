@@ -14,9 +14,9 @@
 
 @interface MWKProtectionStatus : MWKDataObject <NSCopying>
 
--(instancetype)initWithData:(id)data;
+- (instancetype)initWithData:(id)data;
 
--(NSArray *)protectedActions;
--(NSArray *)allowedGroupsForAction:(NSString *)action;
+- (NSArray*)protectedActions;
+- (NSArray*)allowedGroupsForAction:(NSString*)action;
 
 @end

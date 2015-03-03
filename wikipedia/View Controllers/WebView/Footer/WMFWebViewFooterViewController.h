@@ -7,10 +7,10 @@
 
 @interface WMFWebViewFooterViewController : UIViewController
 
-- (void)updateReadMoreForArticle:(MWKArticle *)article;
+- (void)updateReadMoreForArticle:(MWKArticle*)article;
 
 - (void)updateLanguageCount:(NSInteger)count;
-- (void)updateLastModifiedDate:(NSDate *)date userName:(NSString *)userName;
+- (void)updateLastModifiedDate:(NSDate*)date userName:(NSString*)userName;
 
 @property (nonatomic, readonly) CGFloat scrollLimitingNativeSubContainerY;
 

@@ -10,15 +10,15 @@
 
 @interface MWKSectionList : MWKDataObject <NSFastEnumeration>
 
-@property (readonly) MWKArticle *article;
+@property (readonly) MWKArticle* article;
 
 - (NSUInteger)count;
 
-- (MWKSection *)objectAtIndexedSubscript:(NSUInteger)idx;
--(void)setSections:(NSArray *)sections;
+- (MWKSection*)objectAtIndexedSubscript:(NSUInteger)idx;
+- (void)setSections:(NSArray*)sections;
 
-- (instancetype)initWithArticle:(MWKArticle *)article;
+- (instancetype)initWithArticle:(MWKArticle*)article;
 
--(void)save;
+- (void)save;
 
 @end

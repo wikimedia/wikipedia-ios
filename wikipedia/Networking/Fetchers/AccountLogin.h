@@ -4,10 +4,10 @@
 #import <Foundation/Foundation.h>
 #import "FetcherBase.h"
 
-typedef NS_ENUM(NSInteger, LoginErrorType) {
+typedef NS_ENUM (NSInteger, LoginErrorType) {
     LOGIN_ERROR_UNKNOWN = 0,
-    LOGIN_ERROR_API = 1,
-    LOGIN_ERROR_MISC = 2
+    LOGIN_ERROR_API     = 1,
+    LOGIN_ERROR_MISC    = 2
 };
 
 @class AFHTTPRequestOperationManager;
@@ -15,10 +15,10 @@ typedef NS_ENUM(NSInteger, LoginErrorType) {
 @interface AccountLogin : FetcherBase
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
--(instancetype)initAndLoginForDomain: (NSString *)domain
-                            userName: (NSString *)userName
-                            password: (NSString *)password
-                               token: (NSString *)token
-                         withManager: (AFHTTPRequestOperationManager *)manager
-                  thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate;
+- (instancetype)initAndLoginForDomain:(NSString*)domain
+                             userName:(NSString*)userName
+                             password:(NSString*)password
+                                token:(NSString*)token
+                          withManager:(AFHTTPRequestOperationManager*)manager
+                   thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 @end

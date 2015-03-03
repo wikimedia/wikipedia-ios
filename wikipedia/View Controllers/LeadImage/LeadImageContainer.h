@@ -6,12 +6,12 @@
 
 // Protocol for notifying delegate that lead image height changed.
 @protocol LeadImageHeightDelegate <NSObject>
-    -(void)leadImageHeightChangedTo: (NSNumber *)height;
+- (void)leadImageHeightChangedTo:(NSNumber*)height;
 @end
 
 @interface LeadImageContainer : UIControl <FetchFinishedDelegate>
 
--(void)showForArticle:(MWKArticle *)article;
+- (void)showForArticle:(MWKArticle*)article;
 
 @property (nonatomic, weak) id <LeadImageHeightDelegate> delegate;
 

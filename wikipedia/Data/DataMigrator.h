@@ -23,7 +23,7 @@
  *
  * @return (NSArray *) of (NSDictionary *)s.
  */
-- (NSArray *)extractSavedPages;
+- (NSArray*)extractSavedPages;
 
 /**
  * Delete the old files.

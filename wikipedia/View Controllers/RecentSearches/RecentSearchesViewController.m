@@ -29,12 +29,12 @@
 
 @interface RecentSearchesViewController ()
 
-@property (weak, nonatomic) IBOutlet UITableView *table;
-@property (weak, nonatomic) IBOutlet PaddedLabel *headingLabel;
-@property (weak, nonatomic) IBOutlet WikiGlyphButton *trashButton;
+@property (weak, nonatomic) IBOutlet UITableView* table;
+@property (weak, nonatomic) IBOutlet PaddedLabel* headingLabel;
+@property (weak, nonatomic) IBOutlet WikiGlyphButton* trashButton;
 
-@property (strong, nonatomic) NSMutableArray *tableDataArray;
-@property (strong, nonatomic) NSNumber *recentSearchesItemCount;
+@property (strong, nonatomic) NSMutableArray* tableDataArray;
+@property (strong, nonatomic) NSNumber* recentSearchesItemCount;
 
 @end
 
@@ -42,119 +42,113 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.tableDataArray = @[].mutableCopy;
-    
+
     [self setupTrashButton];
     [self setupHeadingLabel];
     [self setupTable];
 
     [self loadDataArrayFromFile];
-    
+
     [self adjustConstraintsScaleForViews:@[self.headingLabel, self.trashButton]];
-    
+
     [self updateTrashButtonEnabledState];
 
     self.recentSearchesItemCount = @(self.tableDataArray.count);
 }
 
--(void)setupTable
-{
+- (void)setupTable {
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     [self.table registerNib:[UINib nibWithNibName:@"RecentSearchCell" bundle:nil] forCellReuseIdentifier:@"RecentSearchCell"];
 }
 
--(void)setupHeadingLabel
-{
-    self.headingLabel.padding = HEADING_PADDING;
-    self.headingLabel.font = [UIFont boldSystemFontOfSize:HEADING_FONT_SIZE];
+- (void)setupHeadingLabel {
+    self.headingLabel.padding   = HEADING_PADDING;
+    self.headingLabel.font      = [UIFont boldSystemFontOfSize:HEADING_FONT_SIZE];
     self.headingLabel.textColor = HEADING_COLOR;
-    self.headingLabel.text = MWLocalizedString(@"search-recent-title", nil);
+    self.headingLabel.text      = MWLocalizedString(@"search-recent-title", nil);
 }
 
--(void)setupTrashButton
-{
+- (void)setupTrashButton {
     self.trashButton.backgroundColor = [UIColor clearColor];
-    [self.trashButton.label setWikiText: WIKIGLYPH_TRASH color:TRASH_COLOR
-                                   size: TRASH_FONT_SIZE
-                         baselineOffset: 1];
-    
-    self.trashButton.accessibilityLabel = MWLocalizedString(@"menu-trash-accessibility-label", nil);
+    [self.trashButton.label setWikiText:WIKIGLYPH_TRASH color:TRASH_COLOR
+                                   size:TRASH_FONT_SIZE
+                         baselineOffset:1];
+
+    self.trashButton.accessibilityLabel  = MWLocalizedString(@"menu-trash-accessibility-label", nil);
     self.trashButton.accessibilityTraits = UIAccessibilityTraitButton;
-    
-    [self.trashButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget: self
-                                                                                   action: @selector(trashButtonTapped)]];
+
+    [self.trashButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                   action:@selector(trashButtonTapped)]];
 }
 
--(void)saveTerm: (NSString *)term
-      forDomain: (NSString *)domain
-           type: (SearchType)searchType
-{
-    if (!term || (term.length == 0)) return;
-    if (!domain || (domain.length == 0)) return;
+- (void)saveTerm:(NSString*)term
+       forDomain:(NSString*)domain
+            type:(SearchType)searchType {
+    if (!term || (term.length == 0)) {
+        return;
+    }
+    if (!domain || (domain.length == 0)) {
+        return;
+    }
 
-    NSDictionary *termDict = [self dataForTerm:term domain:domain];
-    if (termDict){
+    NSDictionary* termDict = [self dataForTerm:term domain:domain];
+    if (termDict) {
         [self removeTerm:term forDomain:domain];
     }
 
     [self.tableDataArray insertObject:@{
-                                        @"term": term,
-                                        @"domain": domain,
-                                        @"timestamp": [NSDate date],
-                                        @"type": @(searchType)
-                                        } atIndex:0];
+         @"term": term,
+         @"domain": domain,
+         @"timestamp": [NSDate date],
+         @"type": @(searchType)
+     } atIndex:0];
 
-    if(self.tableDataArray.count > LIMIT){
+    if (self.tableDataArray.count > LIMIT) {
         self.tableDataArray = [self.tableDataArray subarrayWithRange:NSMakeRange(0, LIMIT)].mutableCopy;
     }
-    
+
     [self saveDataArrayToFile];
     [self.table reloadData];
 }
 
--(void)updateTrashButtonEnabledState
-{
+- (void)updateTrashButtonEnabledState {
     self.trashButton.enabled = (self.tableDataArray.count > 0) ? YES : NO;
 }
 
--(void)removeTerm: (NSString *)term
-        forDomain: (NSString *)domain
-{
-    NSDictionary *termDict = [self dataForTerm:term domain:domain];
-    if (termDict){
+- (void)removeTerm:(NSString*)term
+         forDomain:(NSString*)domain {
+    NSDictionary* termDict = [self dataForTerm:term domain:domain];
+    if (termDict) {
         [self.tableDataArray removeObject:termDict];
         [self saveDataArrayToFile];
     }
 }
 
--(void)removeAllTerms
-{
+- (void)removeAllTerms {
     [self.tableDataArray removeAllObjects];
     [self saveDataArrayToFile];
 }
 
--(NSDictionary *)dataForTerm: (NSString *)term
-                      domain: (NSString *)domain
-{
+- (NSDictionary*)dataForTerm:(NSString*)term
+                      domain:(NSString*)domain {
     // For now just match on the search term, not the domain or other fields.
     return [self.tableDataArray firstMatchForPredicate:[NSPredicate predicateWithFormat:@"(term == %@)", term]];
     //return [self.tableDataArray firstMatchForPredicate:[NSPredicate predicateWithFormat:@"(term == %@) AND (domain == %@)", term, domain]];
 }
 
--(NSString *)getFilePath
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    return  [documentsDirectory stringByAppendingPathComponent:PLIST_FILE_NAME];
+- (NSString*)getFilePath {
+    NSArray* paths               = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:PLIST_FILE_NAME];
 }
 
--(void)saveDataArrayToFile
-{
-    NSError *error;
-    NSString *path = [self getFilePath];
-    NSFileManager *manager = [NSFileManager defaultManager];
+- (void)saveDataArrayToFile {
+    NSError* error;
+    NSString* path         = [self getFilePath];
+    NSFileManager* manager = [NSFileManager defaultManager];
     if ([manager isDeletableFileAtPath:path]) {
         [manager removeItemAtPath:path error:&error];
     }
@@ -162,53 +156,50 @@
     if (![manager fileExistsAtPath:path]) {
         [self.tableDataArray writeToFile:path atomically:YES];
     }
-    
+
     [self updateTrashButtonEnabledState];
-    
+
     self.recentSearchesItemCount = @(self.tableDataArray.count);
 }
 
--(void)loadDataArrayFromFile
-{
-    NSString *path = [self getFilePath];
+- (void)loadDataArrayFromFile {
+    NSString* path = [self getFilePath];
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        NSArray *a = [[NSArray alloc] initWithContentsOfFile:path];
+        NSArray* a = [[NSArray alloc] initWithContentsOfFile:path];
         self.tableDataArray = a.mutableCopy;
     }
 }
 
--(void)trashButtonTapped
-{
-    if(!self.trashButton.enabled) return;
+- (void)trashButtonTapped {
+    if (!self.trashButton.enabled) {
+        return;
+    }
 
-    [self.trashButton animateAndRewindXF: CATransform3DMakeScale(1.2f, 1.2f, 1.0f)
-                              afterDelay: 0.0
-                                duration: 0.1
-                                    then: ^{
+    [self.trashButton animateAndRewindXF:CATransform3DMakeScale(1.2f, 1.2f, 1.0f)
+                              afterDelay:0.0
+                                duration:0.1
+                                    then:^{
                                         [self showDeleteAllDialog];
                                     }];
 }
 
--(void)showDeleteAllDialog
-{
-    UIAlertView *dialog =
-    [[UIAlertView alloc] initWithTitle: MWLocalizedString(@"search-recent-clear-confirmation-heading", nil)
-                               message: MWLocalizedString(@"search-recent-clear-confirmation-sub-heading", nil)
-                              delegate: self
-                     cancelButtonTitle: MWLocalizedString(@"search-recent-clear-cancel", nil)
-                     otherButtonTitles: MWLocalizedString(@"search-recent-clear-delete-all", nil), nil];
+- (void)showDeleteAllDialog {
+    UIAlertView* dialog =
+        [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"search-recent-clear-confirmation-heading", nil)
+                                   message:MWLocalizedString(@"search-recent-clear-confirmation-sub-heading", nil)
+                                  delegate:self
+                         cancelButtonTitle:MWLocalizedString(@"search-recent-clear-cancel", nil)
+                         otherButtonTitles:MWLocalizedString(@"search-recent-clear-delete-all", nil), nil];
     [dialog show];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (alertView.cancelButtonIndex != buttonIndex) {
         [self deleteAllRecentSearchItems];
     }
 }
 
--(void)deleteAllRecentSearchItems
-{
+- (void)deleteAllRecentSearchItems {
     [self removeAllTerms];
     [self.table reloadData];
 }
@@ -218,69 +209,65 @@
     // Dispose of any resources that can be recreated.
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
     return CELL_HEIGHT;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
     // Return the number of sections.
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     return self.tableDataArray.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellId = @"RecentSearchCell";
-    RecentSearchCell *cell = (RecentSearchCell *)[tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
-    
-    NSString *term = self.tableDataArray[indexPath.row][@"term"];
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
+    static NSString* cellId = @"RecentSearchCell";
+    RecentSearchCell* cell  = (RecentSearchCell*)[tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
+
+    NSString* term = self.tableDataArray[indexPath.row][@"term"];
     [cell.label setText:term];
-    
+
     return cell;
 }
 
 // Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
 
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-
-        NSString *term = self.tableDataArray[indexPath.row][@"term"];
-        NSString *domain = self.tableDataArray[indexPath.row][@"domain"];
+        NSString* term   = self.tableDataArray[indexPath.row][@"term"];
+        NSString* domain = self.tableDataArray[indexPath.row][@"domain"];
         [self removeTerm:term forDomain:domain];
-    
+
         // Delete the row from the data source
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    TopMenuTextFieldContainer *textFieldContainer =
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    TopMenuTextFieldContainer* textFieldContainer =
         [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-    
-    NSString *term = self.tableDataArray[indexPath.row][@"term"];
+
+    NSString* term = self.tableDataArray[indexPath.row][@"term"];
     textFieldContainer.textField.text = term;
 
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [cell animateAndRewindXF: CATransform3DMakeScale(1.025f, 1.0f, 1.0f)
-                  afterDelay: 0.0
-                    duration: 0.1
-                        then: ^{
+    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell animateAndRewindXF:CATransform3DMakeScale(1.025f, 1.0f, 1.0f)
+                  afterDelay:0.0
+                    duration:0.1
+                        then:^{
                             [textFieldContainer.textField sendActionsForControlEvents:UIControlEventEditingChanged];
                         }];
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
+- (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
     [self hideKeyboard];
 }
 

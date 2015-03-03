@@ -6,6 +6,6 @@
 @interface NSArray (Predicate)
 
 // Fast retrieval of first object in array matching predicate.
--(id)firstMatchForPredicate:(NSPredicate *)predicate;
+- (id)firstMatchForPredicate:(NSPredicate*)predicate;
 
 @end

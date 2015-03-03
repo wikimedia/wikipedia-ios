@@ -2,8 +2,7 @@
 
 @implementation NSMutableDictionary (WMFMaybeSet)
 
-- (BOOL)wmf_maybeSetObject:(id)obj forKey:(id<NSCopying>)key
-{
+- (BOOL)wmf_maybeSetObject:(id)obj forKey:(id<NSCopying>)key {
     if (obj) {
         self[key] = obj;
         return YES;

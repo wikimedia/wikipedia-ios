@@ -9,44 +9,40 @@
 #import "MediaWikiKit.h"
 
 @implementation MWKProtectionStatus {
-    NSDictionary *_protection;
+    NSDictionary* _protection;
 }
 
--(instancetype)initWithData:(id)data
-{
+- (instancetype)initWithData:(id)data {
     self = [self init];
     if (self) {
-        NSDictionary *wrapper = @{@"protection": data};
+        NSDictionary* wrapper = @{@"protection": data};
         _protection = [self requiredDictionary:@"protection" dict:wrapper];
     }
     return self;
 }
 
--(NSArray *)protectedActions
-{
+- (NSArray*)protectedActions {
     return [_protection allKeys];
 }
 
--(NSArray *)allowedGroupsForAction:(NSString *)action
-{
+- (NSArray*)allowedGroupsForAction:(NSString*)action {
     return _protection[action];
 }
 
--(BOOL)isEqual:(id)object
-{
+- (BOOL)isEqual:(id)object {
     if (object == nil) {
         return NO;
     } else if (![object isKindOfClass:[MWKProtectionStatus class]]) {
         return NO;
     } else {
-        MWKProtectionStatus *other = (MWKProtectionStatus *)object;
-        
-        NSArray *myActions = [self protectedActions];
-        NSArray *otherActions = [other protectedActions];
+        MWKProtectionStatus* other = (MWKProtectionStatus*)object;
+
+        NSArray* myActions    = [self protectedActions];
+        NSArray* otherActions = [other protectedActions];
         if ([myActions count] != [otherActions count]) {
             return NO;
         }
-        for (NSString *action in myActions) {
+        for (NSString* action in myActions) {
             if (![[self allowedGroupsForAction:action] isEqualToArray:[other allowedGroupsForAction:action]]) {
                 return NO;
             }
@@ -55,13 +51,11 @@
     }
 }
 
--(id)dataExport
-{
+- (id)dataExport {
     return _protection;
 }
 
--(id)copyWithZone:(NSZone *)zone
-{
+- (id)copyWithZone:(NSZone*)zone {
     // immutable
     return self;
 }

@@ -16,7 +16,7 @@
 @end
 
 @implementation MWKSiteTests {
-    MWKSite *site;
+    MWKSite* site;
 }
 
 - (void)setUp {
@@ -29,37 +29,32 @@
     [super tearDown];
 }
 
-- (void)testDomain
-{
+- (void)testDomain {
     XCTAssertEqualObjects(site.domain, @"wikipedia.org");
 }
 
-- (void)testLanguage
-{
+- (void)testLanguage {
     XCTAssertEqualObjects(site.language, @"en");
 }
 
-- (void)testEquals
-{
-    MWKSite *otherSite = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
+- (void)testEquals {
+    MWKSite* otherSite = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
     XCTAssertEqualObjects(site, otherSite);
 
     otherSite = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"fr"];
     XCTAssertNotEqualObjects(site, otherSite);
-    
+
     otherSite = [[MWKSite alloc] initWithDomain:@"wiktionary.org" language:@"en"];
     XCTAssertNotEqualObjects(site, otherSite);
 }
 
-- (void)testStrings
-{
+- (void)testStrings {
     XCTAssertEqualObjects([site titleWithString:@"India"].prefixedText, @"India");
     XCTAssertEqualObjects([site titleWithString:@"Talk:India"].prefixedText, @"Talk:India");
     XCTAssertEqualObjects([site titleWithString:@"Talk:India#History"].prefixedText, @"Talk:India");
 }
 
-- (void)testLinks
-{
+- (void)testLinks {
     XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/India"].prefixedText, @"India");
     XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/Talk:India"].prefixedText, @"Talk:India");
     XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/Talk:India#History"].prefixedText, @"Talk:India");

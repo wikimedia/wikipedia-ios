@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy) dispatch_block_t ownerTapCallback;
 
-- (UILabel*)imageDescriptionLabel;
+- (UILabel*) imageDescriptionLabel;
 - (UIButton*)ownerButton;
 
 @end

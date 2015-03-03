@@ -16,8 +16,8 @@
 // if maxAge has not been exceeded.
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
--(instancetype)initAndFetchAssetsFile: (AssetsFileEnum)file
-                          withManager: (AFHTTPRequestOperationManager *)manager
-                               maxAge: (CGFloat)maxAge;
+- (instancetype)initAndFetchAssetsFile:(AssetsFileEnum)file
+                           withManager:(AFHTTPRequestOperationManager*)manager
+                                maxAge:(CGFloat)maxAge;
 
 @end

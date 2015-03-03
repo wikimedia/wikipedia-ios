@@ -7,10 +7,10 @@
 
 @interface RecentSearchesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic, readonly) NSNumber *recentSearchesItemCount;
+@property (strong, nonatomic, readonly) NSNumber* recentSearchesItemCount;
 
--(void)saveTerm: (NSString *)term
-      forDomain: (NSString *)domain
-           type: (SearchType)searchType;
+- (void)saveTerm:(NSString*)term
+       forDomain:(NSString*)domain
+            type:(SearchType)searchType;
 
 @end

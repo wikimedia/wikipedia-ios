@@ -9,6 +9,6 @@
 @property (nonatomic) BOOL isHighlighted;
 @property (nonatomic) BOOL isSelected;
 
--(id)initWithLevel:(NSInteger)level isLead:(BOOL)isLead isRTL:(BOOL)isRTL;
+- (id)initWithLevel:(NSInteger)level isLead:(BOOL)isLead isRTL:(BOOL)isRTL;
 
 @end

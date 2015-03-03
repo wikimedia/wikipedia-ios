@@ -11,25 +11,23 @@
 @end
 
 
-static MWNetworkActivityIndicatorManager *sharedManager;
+static MWNetworkActivityIndicatorManager* sharedManager;
 
 
 @implementation MWNetworkActivityIndicatorManager
 
-+ (MWNetworkActivityIndicatorManager *)sharedManager {
-    
++ (MWNetworkActivityIndicatorManager*)sharedManager {
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         sharedManager = [[MWNetworkActivityIndicatorManager alloc] init];
     });
-    
+
     return sharedManager;
 }
 
 - (void)setCount:(NSInteger)count {
-    
     _count = MAX(count, 0);
-    
+
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:_count > 0 ? YES : NO];
 }
 

@@ -6,11 +6,10 @@
 
 @implementation UIButton (ColorMask)
 
--(void)maskButtonImageWithColor:(UIColor *)maskColor
-{
-    UIImage *buttonImage = self.imageView.image;
+- (void)maskButtonImageWithColor:(UIColor*)maskColor {
+    UIImage* buttonImage = self.imageView.image;
     // Generate colored button image on background thread.
-    __block UIImage *filteredImage = nil;
+    __block UIImage* filteredImage = nil;
     // Since this needs to be synchronous, make it a high priority.
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         filteredImage = [buttonImage getImageOfColor:maskColor.CGColor];

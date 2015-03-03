@@ -10,6 +10,6 @@
 
 @interface UIWebView (WMF_SuppressSelection)
 
--(void)wmf_suppressSelection;
+- (void)wmf_suppressSelection;
 
 @end

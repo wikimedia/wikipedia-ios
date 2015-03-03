@@ -15,18 +15,18 @@
 
 @interface MWKUserDataStore : NSObject
 
-@property (readonly) MWKDataStore *dataStore;
-@property (readonly) MWKHistoryList *historyList;
-@property (readonly) MWKSavedPageList *savedPageList;
-@property (readonly) MWKRecentSearchList *recentSearchList;
+@property (readonly) MWKDataStore* dataStore;
+@property (readonly) MWKHistoryList* historyList;
+@property (readonly) MWKSavedPageList* savedPageList;
+@property (readonly) MWKRecentSearchList* recentSearchList;
 
--(instancetype)initWithDataStore:(MWKDataStore *)dataStore;
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
--(void)save;
--(void)reset;
+- (void)save;
+- (void)reset;
 
--(void)updateHistory:(MWKTitle *)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
--(void)savePage:(MWKTitle *)title;
--(void)unsavePage:(MWKTitle *)title;
+- (void)updateHistory:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
+- (void)savePage:(MWKTitle*)title;
+- (void)unsavePage:(MWKTitle*)title;
 
 @end

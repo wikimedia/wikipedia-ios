@@ -16,6 +16,6 @@
  * @note Certain properties aren't copyable, including registered nibs or classes for reuse identifiers. Also, the
  *       receiver's @c collectionView isn't copied, since it is only set after being set into a collection view.
  */
-- (instancetype)copyWithZone:(NSZone *)zone;
+- (instancetype)copyWithZone:(NSZone*)zone;
 
 @end

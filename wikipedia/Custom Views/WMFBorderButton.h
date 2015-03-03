@@ -16,14 +16,14 @@
  *
  *  @return A new bordered button
  */
-+ (WMFBorderButton *)buttonWithBorderWidth:(CGFloat)width cornerRadius:(CGFloat)radius color:(UIColor*)color;
++ (WMFBorderButton*)buttonWithBorderWidth:(CGFloat)width cornerRadius:(CGFloat)radius color:(UIColor*)color;
 
 /**
  *  Returns a button with default options for width, color, radius
  *
  *  @return A new default configured Button
  */
-+ (WMFBorderButton *)standardBorderButton;
++ (WMFBorderButton*)standardBorderButton;
 
 
 

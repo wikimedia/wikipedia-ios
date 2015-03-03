@@ -5,7 +5,7 @@
 
 @interface UIViewController (ModalPop)
 
--(void)popModal;
--(void)popModalToRoot;
+- (void)popModal;
+- (void)popModalToRoot;
 
 @end

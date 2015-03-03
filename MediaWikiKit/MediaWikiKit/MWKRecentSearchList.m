@@ -9,11 +9,10 @@
 #import "MediaWikiKit.h"
 
 @implementation MWKRecentSearchList {
-    NSMutableArray *entries;
+    NSMutableArray* entries;
 }
 
-- (instancetype) init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         entries = [[NSMutableArray alloc] init];
@@ -22,12 +21,11 @@
     return self;
 }
 
-- (instancetype)initWithDict:(NSDictionary *)dict
-{
+- (instancetype)initWithDict:(NSDictionary*)dict {
     self = [self init];
     if (self) {
-        for (NSDictionary *entryDict in dict[@"entries"]) {
-            MWKRecentSearchEntry *entry = [[MWKRecentSearchEntry alloc] initWithDict:entryDict];
+        for (NSDictionary* entryDict in dict[@"entries"]) {
+            MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithDict:entryDict];
             [entries addObject:entry];
         }
     }
@@ -35,18 +33,16 @@
     return self;
 }
 
--(id)dataExport
-{
-    NSMutableArray *dicts = [[NSMutableArray alloc] init];
-    for (MWKRecentSearchEntry *entry in entries) {
+- (id)dataExport {
+    NSMutableArray* dicts = [[NSMutableArray alloc] init];
+    for (MWKRecentSearchEntry* entry in entries) {
         [dicts addObject:[entry dataExport]];
     }
     _dirty = NO;
     return @{@"entries": dicts};
 }
 
--(void)addEntry:(MWKRecentSearchEntry *)entry
-{
+- (void)addEntry:(MWKRecentSearchEntry*)entry {
     NSUInteger oldIndex = [entries indexOfObject:entry];
     if (oldIndex != NSNotFound) {
         // Move to top!
@@ -57,8 +53,7 @@
     // @todo trim to max?
 }
 
--(MWKRecentSearchEntry *)entryAtIndex:(NSUInteger)index
-{
+- (MWKRecentSearchEntry*)entryAtIndex:(NSUInteger)index {
     return entries[index];
 }
 

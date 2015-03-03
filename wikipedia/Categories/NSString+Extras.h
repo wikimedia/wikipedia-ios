@@ -3,21 +3,21 @@
 
 @interface NSString (Extras)
 
-- (NSString *)urlEncodedUTF8String;
-+ (NSString *)sha1:(NSString *)dataFromString isFile:(BOOL)isFile;
-- (NSString *)getUrlWithoutScheme; 
-- (NSString *)getImageMimeTypeForExtension;
-- (NSString *)getWikiImageFileNameWithoutSizePrefix;
+- (NSString*)urlEncodedUTF8String;
++ (NSString*)sha1:(NSString*)dataFromString isFile:(BOOL)isFile;
+- (NSString*)getUrlWithoutScheme;
+- (NSString*)getImageMimeTypeForExtension;
+- (NSString*)getWikiImageFileNameWithoutSizePrefix;
 
-- (NSDate *)getDateFromIso8601DateString;
-- (NSString *)getStringWithoutHTML;
+- (NSDate*)  getDateFromIso8601DateString;
+- (NSString*)getStringWithoutHTML;
 
-- (NSString *)randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
+- (NSString*)randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
 
-- (NSString *)wikiTitleWithoutUnderscores;
-- (NSString *)wikiTitleWithoutSpaces;
+- (NSString*)wikiTitleWithoutUnderscores;
+- (NSString*)wikiTitleWithoutSpaces;
 
-- (NSString *)capitalizeFirstLetter;
+- (NSString*)capitalizeFirstLetter;
 
 - (BOOL)wmf_containsString:(NSString*)string;
 - (BOOL)wmf_caseInsensitiveContainsString:(NSString*)string;

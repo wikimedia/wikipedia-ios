@@ -25,6 +25,6 @@
 /**
  * Parse the receiver as HTML and return a heuristically defined snippet.
  */
--(NSString*)wmf_getStringSnippetWithoutHTML;
+- (NSString*)wmf_getStringSnippetWithoutHTML;
 
 @end

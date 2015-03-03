@@ -10,7 +10,7 @@
 
 @interface SQLiteHelper : NSObject
 
-- (id)initWithPath:(NSString *)path;
-- (NSArray *)query:(NSString *)query params:(NSArray *)params;
+- (id)initWithPath:(NSString*)path;
+- (NSArray*)query:(NSString*)query params:(NSArray*)params;
 
 @end

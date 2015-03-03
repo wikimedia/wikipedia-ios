@@ -5,39 +5,33 @@
 
 @implementation ZeroConfigState
 
--(void)setZeroOnDialogShownOnce
-{
+- (void)setZeroOnDialogShownOnce {
     [[NSUserDefaults standardUserDefaults] setObject:@YES
                                               forKey:@"ZeroOnDialogShownOnce"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(BOOL)zeroOnDialogShownOnce
-{
+- (BOOL)zeroOnDialogShownOnce {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroOnDialogShownOnce"];
 }
 
--(void)toggleWarnWhenLeaving
-{
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool: ![self warnWhenLeaving]]
+- (void)toggleWarnWhenLeaving {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:![self warnWhenLeaving]]
                                               forKey:@"ZeroWarnWhenLeaving"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(BOOL)warnWhenLeaving
-{
+- (BOOL)warnWhenLeaving {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"];
 }
 
--(void)toggleFakeZeroOn
-{
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool: ![self fakeZeroOn]]
+- (void)toggleFakeZeroOn {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:![self fakeZeroOn]]
                                               forKey:@"FakeZeroOn"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(BOOL)fakeZeroOn
-{
+- (BOOL)fakeZeroOn {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"FakeZeroOn"];
 }
 

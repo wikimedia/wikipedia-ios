@@ -5,6 +5,6 @@
 
 @interface UICollectionViewCell (DynamicCellHeight)
 
--(CGFloat)heightForSizingCellOfWidth:(CGFloat)width;
+- (CGFloat)heightForSizingCellOfWidth:(CGFloat)width;
 
 @end

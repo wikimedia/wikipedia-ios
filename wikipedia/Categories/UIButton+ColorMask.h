@@ -5,6 +5,6 @@
 
 @interface UIButton (ColorMask)
 
--(void)maskButtonImageWithColor:(UIColor *)maskColor;
+- (void)maskButtonImageWithColor:(UIColor*)maskColor;
 
 @end

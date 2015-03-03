@@ -4,9 +4,9 @@
 #import <UIKit/UIKit.h>
 
 /*
-Useful when you need to present a table view at full height, regardless of how many
-rows the table is displaying. See "Read more" for example.
-*/
+   Useful when you need to present a table view at full height, regardless of how many
+   rows the table is displaying. See "Read more" for example.
+ */
 
 @interface WMFIntrinsicContentSizeAwareTableView : UITableView
 

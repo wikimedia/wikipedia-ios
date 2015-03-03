@@ -9,6 +9,6 @@
 // recreate it using templateCookie as a template. All of templateCookie's properties
 // will be used, except "Name", "Value" and "Created", which will come from the original
 // cookieToRecreate.
--(void)recreateCookie:(NSString *)cookieToRecreate usingCookieAsTemplate:(NSString *)templateCookie;
+- (void)recreateCookie:(NSString*)cookieToRecreate usingCookieAsTemplate:(NSString*)templateCookie;
 
 @end

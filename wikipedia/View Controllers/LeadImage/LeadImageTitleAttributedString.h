@@ -3,7 +3,7 @@
 
 @interface LeadImageTitleAttributedString : NSObject
 
-+ (NSAttributedString *)attributedStringWithTitle: (NSString *)title
-                                      description: (NSString *)description;
++ (NSAttributedString*)attributedStringWithTitle:(NSString*)title
+                                     description:(NSString*)description;
 
 @end

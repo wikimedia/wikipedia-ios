@@ -9,44 +9,40 @@
 #define PADDING_BOTTOM_WHEN_IMAGE_NOT_PRESENT 8
 #define PADDING UIEdgeInsetsMake(16, 16, PADDING_BOTTOM_WHEN_IMAGE_NOT_PRESENT, 16)
 
-@interface LeadImageTitleLabel()
+@interface LeadImageTitleLabel ()
 
-@property(strong, nonatomic)id rotationObserver;
+@property(strong, nonatomic) id rotationObserver;
 
 @end
 
 @implementation LeadImageTitleLabel
 
--(void)awakeFromNib
-{
+- (void)awakeFromNib {
     self.padding = PADDING;
 
     self.rotationObserver =
-    [[NSNotificationCenter defaultCenter] addObserverForName: UIDeviceOrientationDidChangeNotification
-                                                      object: nil
-                                                       queue: [NSOperationQueue mainQueue]
-                                                  usingBlock: ^(NSNotification *notification) {
-                                                      // Update padding on rotation so padding beneath title goes away in landscape.
-                                                      [self updatePadding];
-                                                  }];
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification
+                                                          object:nil
+                                                           queue:[NSOperationQueue mainQueue]
+                                                      usingBlock:^(NSNotification* notification) {
+                                                          // Update padding on rotation so padding beneath title goes away in landscape.
+                                                          [self updatePadding];
+                                                      }];
 }
 
--(void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self.rotationObserver];
 }
 
--(void)setTitle: (NSString *)title
-    description: (NSString *)description
-{
+- (void)setTitle:(NSString*)title
+     description:(NSString*)description {
     self.attributedText =
-        [LeadImageTitleAttributedString attributedStringWithTitle: title
-                                                      description: description];
+        [LeadImageTitleAttributedString attributedStringWithTitle:title
+                                                      description:description];
     [self updatePadding];
 }
 
--(void)updatePadding
-{
+- (void)updatePadding {
     CGFloat bottomPadding =
         (
             UIInterfaceOrientationIsPortrait([[UIScreen mainScreen] interfaceOrientation])

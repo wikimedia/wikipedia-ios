@@ -10,8 +10,8 @@
 @property (nonatomic) NavBarMode navBarMode;
 
 @property (weak, nonatomic) id truePresentingVC;
-@property (weak, nonatomic) TopMenuViewController *topMenuViewController;
+@property (weak, nonatomic) TopMenuViewController* topMenuViewController;
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UITableView* tableView;
 
 @end

@@ -9,103 +9,97 @@
 
 #define WIKIDATA_ENDPOINT @"https://www.wikidata.org/w/api.php"
 
-@interface WikiDataShortDescriptionFetcher()
+@interface WikiDataShortDescriptionFetcher ()
 
-@property (nonatomic, strong) NSArray *wikiDataIds;
-@property (nonatomic, strong) NSString *domain;
+@property (nonatomic, strong) NSArray* wikiDataIds;
+@property (nonatomic, strong) NSString* domain;
 @property (nonatomic) SearchType searchType;
 
 @end
 
 @implementation WikiDataShortDescriptionFetcher
 
--(instancetype)initAndFetchDescriptionsForIds: (NSArray *)wikiDataIds
-                                   searchType: (SearchType)searchType
-                                  withManager: (AFHTTPRequestOperationManager *)manager
-                           thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate
-{
+- (instancetype)initAndFetchDescriptionsForIds:(NSArray*)wikiDataIds
+                                    searchType:(SearchType)searchType
+                                   withManager:(AFHTTPRequestOperationManager*)manager
+                            thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
-        self.searchType = searchType;
-        self.wikiDataIds = wikiDataIds;
-        self.domain = [SessionSingleton sharedInstance].site.language;
+        self.searchType            = searchType;
+        self.wikiDataIds           = wikiDataIds;
+        self.domain                = [SessionSingleton sharedInstance].site.language;
         self.fetchFinishedDelegate = delegate;
         [self fetchWithManager:manager];
     }
     return self;
 }
 
-- (void)fetchWithManager:(AFHTTPRequestOperationManager *)manager
-{
-    NSString *url = WIKIDATA_ENDPOINT;
+- (void)fetchWithManager:(AFHTTPRequestOperationManager*)manager {
+    NSString* url = WIKIDATA_ENDPOINT;
 
-    NSDictionary *params = [self getParams];
-    
+    NSDictionary* params = [self getParams];
+
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    [manager GET:url parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:url parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
         //NSLog(@"JSON: %@", responseObject);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         // Convert the raw NSData response to a dictionary.
         responseObject = [self dictionaryFromDataResponse:responseObject];
-        
+
         // NSLog(@"\n\nDATA RETRIEVED = %@\n\n", responseObject);
-        
+
         // Handle case where response is received, but API reports error.
-        NSError *error = nil;
-        if (responseObject[@"error"]){
-            NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
+        NSError* error = nil;
+        if (responseObject[@"error"]) {
+            NSMutableDictionary* errorDict = [responseObject[@"error"] mutableCopy];
             errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-            error = [NSError errorWithDomain: @"WikiData Fetcher"
-                                        code: SHORT_DESCRIPTION_ERROR_API
-                                    userInfo: errorDict];
+            error = [NSError errorWithDomain:@"WikiData Fetcher"
+                                        code:SHORT_DESCRIPTION_ERROR_API
+                                    userInfo:errorDict];
         }
 
-        NSMutableDictionary *output = @{}.mutableCopy;
+        NSMutableDictionary* output = @{}.mutableCopy;
         if (!error) {
             output = [self getSanitizedResponse:responseObject];
         }
 
         // If no matches set error.
         if (output.count == 0) {
-            NSMutableDictionary *errorDict = @{}.mutableCopy;
-            
+            NSMutableDictionary* errorDict = @{}.mutableCopy;
+
             // errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"search-no-matches", nil);
-            
+
             // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
             error = [NSError errorWithDomain:@"WikiData Fetcher" code:SHORT_DESCRIPTION_ERROR_NO_MATCHES userInfo:errorDict];
         }
 
-        [self finishWithError: error
-                  fetchedData: output];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
+        [self finishWithError:error
+                  fetchedData:output];
+    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         //NSLog(@"CAPTCHA RESETTER FAIL = %@", error);
 
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-        [self finishWithError: error
-                  fetchedData: nil];
+        [self finishWithError:error
+                  fetchedData:nil];
     }];
 }
 
--(NSDictionary *)getParams
-{
+- (NSDictionary*)getParams {
     return @{
-             @"action": @"wbgetentities",
-             @"ids": [self.wikiDataIds componentsJoinedByString:@"|"],
-             @"props": @"descriptions",
-             @"languages": self.domain,
-             @"format": @"json"
-             };
+               @"action": @"wbgetentities",
+               @"ids": [self.wikiDataIds componentsJoinedByString:@"|"],
+               @"props": @"descriptions",
+               @"languages": self.domain,
+               @"format": @"json"
+    };
 }
 
--(NSMutableDictionary *)getSanitizedResponse:(NSDictionary *)rawResponse
-{
+- (NSMutableDictionary*)getSanitizedResponse:(NSDictionary*)rawResponse {
     // Make output dict mapping wikidata ids to the short descriptions retrieved.
-    NSMutableDictionary *output = @{}.mutableCopy;
+    NSMutableDictionary* output = @{}.mutableCopy;
     if (rawResponse.count > 0) {
         id entities = rawResponse[@"entities"];
         if ([entities isKindOfClass:[NSDictionary class]]) {
@@ -126,15 +120,15 @@
             }
         }
     }
-    
+
     return output;
 }
 
 /*
--(void)dealloc
-{
+   -(void)dealloc
+   {
     NSLog(@"DEALLOC'ING ACCT CREATION TOKEN FETCHER!");
-}
-*/
+   }
+ */
 
 @end

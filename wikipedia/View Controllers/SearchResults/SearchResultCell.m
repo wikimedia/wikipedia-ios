@@ -13,8 +13,7 @@
 
 @implementation SearchResultCell
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
+- (id)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -22,8 +21,7 @@
     return self;
 }
 
--(void)awakeFromNib
-{
+- (void)awakeFromNib {
     [super awakeFromNib];
 
     self.resultLabel.padding =
@@ -33,25 +31,22 @@
     // See: http://stackoverflow.com/a/15591474 for details.
 
     self.resultLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
-    
+
     [self adjustConstraintsScaleForViews:@[self.resultLabel, self.resultImageView]];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
 }
 
--(void)drawRect:(CGRect)rect
-{
+- (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
 
     [self drawBottomBorder:rect];
 }
 
--(void)drawBottomBorder:(CGRect)rect
-{
+- (void)drawBottomBorder:(CGRect)rect {
     // Draw the border on the bottom of the cell from the label's left to right.
     // Done this way so when things get flipped around in RTL languages the
     // border moves too.
@@ -61,11 +56,11 @@
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(ctx, BOTTOM_BORDER_COLOR.CGColor);
     CGContextFillRect(ctx, CGRectMake(
-                                          CGRectGetMinX(self.resultLabel.frame),
-                                          CGRectGetMaxY(rect) - BOTTOM_BORDER_WIDTH,
-                                          CGRectGetWidth(self.resultLabel.frame),
-                                          BOTTOM_BORDER_WIDTH
-                                          )
+                          CGRectGetMinX(self.resultLabel.frame),
+                          CGRectGetMaxY(rect) - BOTTOM_BORDER_WIDTH,
+                          CGRectGetWidth(self.resultLabel.frame),
+                          BOTTOM_BORDER_WIDTH
+                          )
                       );
 }
 

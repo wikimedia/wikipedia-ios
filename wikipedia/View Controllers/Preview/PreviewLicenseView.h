@@ -6,8 +6,8 @@
 
 @interface PreviewLicenseView : UIView <UIActionSheetDelegate>
 
-@property (weak, nonatomic) IBOutlet PaddedLabel *licenseCCLabel;
-@property (weak, nonatomic) IBOutlet PaddedLabel *licenseTitleLabel;
-@property (weak, nonatomic) IBOutlet PaddedLabel *licenseLoginLabel;
+@property (weak, nonatomic) IBOutlet PaddedLabel* licenseCCLabel;
+@property (weak, nonatomic) IBOutlet PaddedLabel* licenseTitleLabel;
+@property (weak, nonatomic) IBOutlet PaddedLabel* licenseLoginLabel;
 
 @end

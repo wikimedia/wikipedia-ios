@@ -9,13 +9,12 @@
 #import "MediaWikiKit.h"
 
 @implementation MWKUserDataStore {
-    MWKHistoryList *_historyList;
-    MWKSavedPageList *_savedPageList;
-    MWKRecentSearchList *_recentSearchList;
+    MWKHistoryList* _historyList;
+    MWKSavedPageList* _savedPageList;
+    MWKRecentSearchList* _recentSearchList;
 }
 
--(void)save
-{
+- (void)save {
     if (_historyList && _historyList.dirty) {
         [self.dataStore saveHistoryList:_historyList];
     }
@@ -28,29 +27,26 @@
 }
 
 /// Clear out any currently loaded data and force it to be reloaded on next use
--(void)reset
-{
-    _historyList = nil;
-    _savedPageList = nil;
+- (void)reset {
+    _historyList      = nil;
+    _savedPageList    = nil;
     _recentSearchList = nil;
 }
 
--(instancetype)initWithDataStore:(MWKDataStore *)dataStore
-{
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
     self = [self init];
     if (self) {
         _dataStore = dataStore;
-        
+
         // Load these on demand
-        _historyList = nil;
-        _savedPageList = nil;
+        _historyList      = nil;
+        _savedPageList    = nil;
         _recentSearchList = nil;
     }
     return self;
 }
 
--(MWKHistoryList *)historyList
-{
+- (MWKHistoryList*)historyList {
     if (_historyList == nil) {
         _historyList = [self.dataStore historyList];
         if (_historyList == nil) {
@@ -60,8 +56,7 @@
     return _historyList;
 }
 
--(MWKSavedPageList *)savedPageList
-{
+- (MWKSavedPageList*)savedPageList {
     if (_savedPageList == nil) {
         _savedPageList = [self.dataStore savedPageList];
         if (_savedPageList == nil) {
@@ -71,8 +66,7 @@
     return _savedPageList;
 }
 
--(MWKRecentSearchList *)recentSearchList
-{
+- (MWKRecentSearchList*)recentSearchList {
     if (_recentSearchList) {
         _recentSearchList = [self.dataStore recentSearchList];
         if (_recentSearchList == nil) {
@@ -82,16 +76,15 @@
     return _recentSearchList;
 }
 
--(void)updateHistory:(MWKTitle *)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
-{
+- (void)updateHistory:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     if (title == nil) {
         @throw [NSException exceptionWithName:@"MWKUserDataStoreException"
-                                reason:@"updateHistory called with null title" userInfo:@{}];
+                                       reason:@"updateHistory called with null title" userInfo:@{}];
     }
-    MWKHistoryEntry *entry = [self.historyList entryForTitle:title];
+    MWKHistoryEntry* entry = [self.historyList entryForTitle:title];
     if (entry) {
         entry.discoveryMethod = discoveryMethod;
-        entry.date = [NSDate date];
+        entry.date            = [NSDate date];
         // Retain saved scroll position
     } else {
         entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
@@ -100,21 +93,18 @@
     [self save];
 }
 
--(void)savePage:(MWKTitle *)title
-{
-    MWKSavedPageEntry *entry = [[MWKSavedPageEntry alloc] initWithTitle:title];
+- (void)savePage:(MWKTitle*)title {
+    MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithTitle:title];
     [self.savedPageList addEntry:entry];
     [self save];
 }
 
--(void)unsavePage:(MWKTitle *)title
-{
-    MWKSavedPageEntry *entry = [self.savedPageList entryForTitle:title];
+- (void)unsavePage:(MWKTitle*)title {
+    MWKSavedPageEntry* entry = [self.savedPageList entryForTitle:title];
     if (entry) {
         [self.savedPageList removeEntry:entry];
         [self save];
     }
 }
-
 
 @end

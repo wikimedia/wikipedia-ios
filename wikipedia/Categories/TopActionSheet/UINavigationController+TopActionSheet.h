@@ -6,10 +6,10 @@
 
 @interface UINavigationController (TopActionSheet)
 
--(void)topActionSheetShowWithViews:(NSArray *)views orientation:(TabularScrollViewOrientation)orientation;
+- (void)topActionSheetShowWithViews:(NSArray*)views orientation:(TabularScrollViewOrientation)orientation;
 
--(void)topActionSheetHide;
+- (void)topActionSheetHide;
 
--(void)topActionSheetChangeOrientation:(TabularScrollViewOrientation)orientation;
+- (void)topActionSheetChangeOrientation:(TabularScrollViewOrientation)orientation;
 
 @end

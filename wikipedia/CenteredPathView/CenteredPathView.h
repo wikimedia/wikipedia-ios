@@ -4,12 +4,12 @@
 // Draws a CGPath scaled to fix exactly within the view.
 
 #import <UIKit/UIKit.h>
- 
+
 @interface CenteredPathView : UIView
- 
--(id)initWithPath: (CGPathRef)newPath
-      strokeWidth: (CGFloat)strokeWidth
-      strokeColor: (UIColor *)strokeColor
-        fillColor: (UIColor *)fillColor;
- 
+
+- (id)initWithPath:(CGPathRef)newPath
+       strokeWidth:(CGFloat)strokeWidth
+       strokeColor:(UIColor*)strokeColor
+         fillColor:(UIColor*)fillColor;
+
 @end

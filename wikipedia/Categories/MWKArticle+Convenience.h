@@ -6,6 +6,6 @@
 @interface MWKArticle (Convenience)
 
 // Untested.
--(MWKImage *)getFirstSectionImageLargerThanSize:(CGSize)size;
+- (MWKImage*)getFirstSectionImageLargerThanSize:(CGSize)size;
 
 @end

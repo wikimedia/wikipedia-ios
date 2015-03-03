@@ -41,55 +41,50 @@ typedef enum {
 
 @interface CreditsViewController ()
 
-@property (strong, nonatomic) NSMutableArray *rowData;
-@property (strong, nonatomic) NSMutableArray *rowViews;
+@property (strong, nonatomic) NSMutableArray* rowData;
+@property (strong, nonatomic) NSMutableArray* rowViews;
 
 @end
 
 @implementation CreditsViewController
 
--(NavBarMode)navBarMode
-{
+- (NavBarMode)navBarMode {
     return NAVBAR_MODE_X_WITH_LABEL;
 }
 
--(NSString *)title
-{
+- (NSString*)title {
     return MWLocalizedString(@"main-menu-credits", nil);
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(navItemTappedNotification:)
-                                                 name: @"NavItemTapped"
-                                               object: nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(tabularScrollViewItemTappedNotification:)
-                                                 name: @"TabularScrollViewItemTapped"
-                                               object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(navItemTappedNotification:)
+                                                 name:@"NavItemTapped"
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(tabularScrollViewItemTappedNotification:)
+                                                 name:@"TabularScrollViewItemTapped"
+                                               object:nil];
 }
 
--(void)viewWillDisappear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter] removeObserver: self
-                                                    name: @"NavItemTapped"
-                                                  object: nil];
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"NavItemTapped"
+                                                  object:nil];
 
-    [[NSNotificationCenter defaultCenter] removeObserver: self
-                                                    name: @"TabularScrollViewItemTapped"
-                                                  object: nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"TabularScrollViewItemTapped"
+                                                  object:nil];
 
     [super viewWillDisappear:animated];
 }
 
-- (void)navItemTappedNotification:(NSNotification *)notification
-{
-    NSDictionary *userInfo = [notification userInfo];
-    UIView *tappedItem = userInfo[@"tappedItem"];
+- (void)navItemTappedNotification:(NSNotification*)notification {
+    NSDictionary* userInfo = [notification userInfo];
+    UIView* tappedItem     = userInfo[@"tappedItem"];
 
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_X:
@@ -100,47 +95,43 @@ typedef enum {
     }
 }
 
-- (BOOL)prefersStatusBarHidden
-{
+- (BOOL)prefersStatusBarHidden {
     return NO;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.rowViews = @[].mutableCopy;
-    self.view.backgroundColor = CHROME_COLOR;
-    self.scrollView.minSubviewHeight = 45;
+    self.rowViews                       = @[].mutableCopy;
+    self.view.backgroundColor           = CHROME_COLOR;
+    self.scrollView.minSubviewHeight    = 45;
     self.navigationItem.hidesBackButton = YES;
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     [self.rowViews removeAllObjects];
 
     [self loadRowViews];
-    
-    self.scrollView.orientation = TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL;
+
+    self.scrollView.orientation     = TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL;
     self.scrollView.tabularSubviews = self.rowViews;
 }
 
--(void)loadRowViews
-{
+- (void)loadRowViews {
     // Don't forget - had to select "File's Owner" in left column of xib and then choose
     // this view controller in the Identity Inspector (3rd icon from left in right column)
     // in the Custom Class / Class dropdown. See: http://stackoverflow.com/a/21991592
-    UINib *secondaryMenuRowViewNib = [UINib nibWithNibName:@"SecondaryMenuRowView" bundle:nil];
+    UINib* secondaryMenuRowViewNib = [UINib nibWithNibName:@"SecondaryMenuRowView" bundle:nil];
 
     [self setRowData];
 
     for (NSUInteger i = 0; i < self.rowData.count; i++) {
-        NSMutableDictionary *row = self.rowData[i];
+        NSMutableDictionary* row = self.rowData[i];
 
-        SecondaryMenuRowView *rowView = [[secondaryMenuRowViewNib instantiateWithOwner:self options:nil] firstObject];
+        SecondaryMenuRowView* rowView = [[secondaryMenuRowViewNib instantiateWithOwner:self options:nil] firstObject];
 
         rowView.tag = [self getIndexOfRow:row];
 
@@ -149,201 +140,197 @@ typedef enum {
     [self applyRowSettings];
 }
 
--(CeditsRowIndex)getIndexOfRow:(NSDictionary *)row
-{
-    return (CeditsRowIndex)((NSNumber *)row[@"tag"]).integerValue;
+- (CeditsRowIndex)getIndexOfRow:(NSDictionary*)row {
+    return (CeditsRowIndex)((NSNumber*)row[@"tag"]).integerValue;
 }
 
--(void)applyRowSettings
-{
+- (void)applyRowSettings {
     for (NSUInteger i = 0; i < self.rowData.count; i++) {
+        NSMutableDictionary* row      = self.rowData[i];
+        CeditsRowIndex index          = [self getIndexOfRow:row];
+        SecondaryMenuRowView* rowView = [self getViewWithTag:index];
 
-        NSMutableDictionary *row = self.rowData[i];
-        CeditsRowIndex index = [self getIndexOfRow:row];
-        SecondaryMenuRowView *rowView = [self getViewWithTag:index];
-
-        NSDictionary *attributes =
+        NSDictionary* attributes =
             @{
-              NSFontAttributeName: [UIFont wmf_glyphFontOfSize:MENU_ICON_FONT_SIZE],
-              NSForegroundColorAttributeName : MENU_ICON_COLOR,
-              NSBaselineOffsetAttributeName: @0
-              };
+            NSFontAttributeName: [UIFont wmf_glyphFontOfSize:MENU_ICON_FONT_SIZE],
+            NSForegroundColorAttributeName: MENU_ICON_COLOR,
+            NSBaselineOffsetAttributeName: @0
+        };
 
-        NSString *icon = row[@"icon"];
+        NSString* icon = row[@"icon"];
         rowView.iconLabel.attributedText =
-            [[NSAttributedString alloc] initWithString: icon
-                                            attributes: attributes];
+            [[NSAttributedString alloc] initWithString:icon
+                                            attributes:attributes];
 
         id title = row[@"title"];
-        if([title isKindOfClass:[NSString class]]){
+        if ([title isKindOfClass:[NSString class]]) {
             //title = [NSString stringWithFormat:@"%@ %@ %@", title, title, title];
             rowView.textLabel.text = title;
-        }else if([title isKindOfClass:[NSAttributedString class]]){
+        } else if ([title isKindOfClass:[NSAttributedString class]]) {
             rowView.textLabel.attributedText = title;
         }
 
-        NSNumber *rowType = row[@"type"];
+        NSNumber* rowType = row[@"type"];
         rowView.rowType = rowType.integerValue;
     }
 
     // Let the rows know their relative positions so they can draw
     // borders appropriately.
     RowType lastRowType = ROW_TYPE_UNKNOWN;
-    for (SecondaryMenuRowView *view in self.rowViews) {
+    for (SecondaryMenuRowView* view in self.rowViews) {
         view.rowPosition = (view.rowType != lastRowType) ? ROW_POSITION_TOP : ROW_POSITION_UNKNOWN;
-        lastRowType = view.rowType;
+        lastRowType      = view.rowType;
     }
 }
 
--(SecondaryMenuRowView *)getViewWithTag:(CeditsRowIndex)tag
-{
-    for (SecondaryMenuRowView *view in self.rowViews) {
-        if(view.tag == tag) return view;
+- (SecondaryMenuRowView*)getViewWithTag:(CeditsRowIndex)tag {
+    for (SecondaryMenuRowView* view in self.rowViews) {
+        if (view.tag == tag) {
+            return view;
+        }
     }
     return nil;
 }
 
--(void)setRowData
-{
-    NSMutableArray *rowData =
-    @[
-      @{
-          @"title": MWLocalizedString(@"credits-wikimedia-repos", nil),
-          @"tag": @(CREDITS_ROW_INDEX_HEADING_REPOS_WIKIMEDIA),
-          @"icon": @"",
-          @"type": @(ROW_TYPE_HEADING),
-          @"url": @"",
-          }.mutableCopy
-      ,
-      @{
-          @"title": MWLocalizedString(@"credits-gerrit-repo", nil),
-          @"tag": @(CREDITS_ROW_INDEX_APP_REPO_GERRIT),
-          @"icon": @"",
-          @"type": @(ROW_TYPE_SELECTION),
-          @"url": URL_APP_GERRIT,
-          }.mutableCopy
-      ,
-      @{
-          @"title": MWLocalizedString(@"credits-github-mirror", nil),
-          @"tag": @(CREDITS_ROW_INDEX_APP_REPO_GITHUB),
-          @"icon": @"",
-          @"type": @(ROW_TYPE_SELECTION),
-          @"url": URL_APP_GITHUB,
-          }.mutableCopy
-      ,
-      @{
-          @"title": MWLocalizedString(@"credits-external-libraries", nil),
-          @"tag": @(CREDITS_ROW_INDEX_HEADING_REPOS_EXTERNAL),
-          @"icon": @"",
-          @"type": @(ROW_TYPE_HEADING),
-          @"url": @"",
-          }.mutableCopy
-      ,
-      @{
-          @"title": @"Wikifont",
-          @"tag": @(CREDITS_ROW_INDEX_REPO_WIKIFONT),
-          @"icon": @"",
-          @"type": @(ROW_TYPE_SELECTION),
-          @"url": URL_APP_WIKIFONT,
-          }.mutableCopy
-      ,
-      @{
-          @"title": @"Hpple",
-          @"tag": @(CREDITS_ROW_INDEX_REPO_HPPLE),
-          @"icon": @"",
-          @"type": @(ROW_TYPE_SELECTION),
-          @"url": URL_APP_HPPLE,
-          }.mutableCopy
-      ,
-      @{
-          @"title": @"NSDate-Extensions",
-          @"tag": @(CREDITS_ROW_INDEX_REPO_NSDATE),
-          @"icon": @"",
-          @"type": @(ROW_TYPE_SELECTION),
-          @"url": URL_APP_NSDATE,
-          }.mutableCopy
-      ,
-      @{
-          @"title": @"AFNetworking",
-          @"tag": @(CREDITS_ROW_INDEX_REPO_AFNETWORKING),
-          @"icon": @"",
-          @"type": @(ROW_TYPE_SELECTION),
-          @"url": URL_APP_AFNETWORKING,
-          }.mutableCopy
-      ,
-      @{
-          @"title": @"Cocoapods",
-          @"tag": @(CREDITS_ROW_INDEX_REPO_COCOAPODS),
-          @"icon": @"",
-          @"type": @(ROW_TYPE_SELECTION),
-          @"url": URL_APP_COCOAPODS,
-          }.mutableCopy
-      ,
-      @{
-          @"title": @"",
-          @"tag": @(CREDITS_ROW_INDEX_HEADING_BLANK),
-          @"icon": @"",
-          @"type": @(ROW_TYPE_HEADING),
-          @"url": @"",
-          }.mutableCopy
+- (void)setRowData {
+    NSMutableArray* rowData =
+        @[
+        @{
+            @"title": MWLocalizedString(@"credits-wikimedia-repos", nil),
+            @"tag": @(CREDITS_ROW_INDEX_HEADING_REPOS_WIKIMEDIA),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_HEADING),
+            @"url": @"",
+        }.mutableCopy
+        ,
+        @{
+            @"title": MWLocalizedString(@"credits-gerrit-repo", nil),
+            @"tag": @(CREDITS_ROW_INDEX_APP_REPO_GERRIT),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_SELECTION),
+            @"url": URL_APP_GERRIT,
+        }.mutableCopy
+        ,
+        @{
+            @"title": MWLocalizedString(@"credits-github-mirror", nil),
+            @"tag": @(CREDITS_ROW_INDEX_APP_REPO_GITHUB),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_SELECTION),
+            @"url": URL_APP_GITHUB,
+        }.mutableCopy
+        ,
+        @{
+            @"title": MWLocalizedString(@"credits-external-libraries", nil),
+            @"tag": @(CREDITS_ROW_INDEX_HEADING_REPOS_EXTERNAL),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_HEADING),
+            @"url": @"",
+        }.mutableCopy
+        ,
+        @{
+            @"title": @"Wikifont",
+            @"tag": @(CREDITS_ROW_INDEX_REPO_WIKIFONT),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_SELECTION),
+            @"url": URL_APP_WIKIFONT,
+        }.mutableCopy
+        ,
+        @{
+            @"title": @"Hpple",
+            @"tag": @(CREDITS_ROW_INDEX_REPO_HPPLE),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_SELECTION),
+            @"url": URL_APP_HPPLE,
+        }.mutableCopy
+        ,
+        @{
+            @"title": @"NSDate-Extensions",
+            @"tag": @(CREDITS_ROW_INDEX_REPO_NSDATE),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_SELECTION),
+            @"url": URL_APP_NSDATE,
+        }.mutableCopy
+        ,
+        @{
+            @"title": @"AFNetworking",
+            @"tag": @(CREDITS_ROW_INDEX_REPO_AFNETWORKING),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_SELECTION),
+            @"url": URL_APP_AFNETWORKING,
+        }.mutableCopy
+        ,
+        @{
+            @"title": @"Cocoapods",
+            @"tag": @(CREDITS_ROW_INDEX_REPO_COCOAPODS),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_SELECTION),
+            @"url": URL_APP_COCOAPODS,
+        }.mutableCopy
+        ,
+        @{
+            @"title": @"",
+            @"tag": @(CREDITS_ROW_INDEX_HEADING_BLANK),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_HEADING),
+            @"url": @"",
+        }.mutableCopy
 
-      ].mutableCopy;
+    ].mutableCopy;
 
     self.rowData = rowData;
 }
 
--(NSMutableDictionary *)getRowWithTag:(CeditsRowIndex)tag
-{
-    for (NSMutableDictionary *row in self.rowData) {
+- (NSMutableDictionary*)getRowWithTag:(CeditsRowIndex)tag {
+    for (NSMutableDictionary* row in self.rowData) {
         CeditsRowIndex index = [self getIndexOfRow:row];
-        if (tag == index) return row;
+        if (tag == index) {
+            return row;
+        }
     }
     return nil;
 }
 
-- (void)tabularScrollViewItemTappedNotification:(NSNotification *)notification
-{
-    CGFloat animationDuration = 0.08f;
-    NSDictionary *userInfo = [notification userInfo];
-    SecondaryMenuRowView *tappedItem = userInfo[@"tappedItem"];
-    
-    NSMutableDictionary *row = [self getRowWithTag:(CeditsRowIndex)tappedItem.tag];
+- (void)tabularScrollViewItemTappedNotification:(NSNotification*)notification {
+    CGFloat animationDuration        = 0.08f;
+    NSDictionary* userInfo           = [notification userInfo];
+    SecondaryMenuRowView* tappedItem = userInfo[@"tappedItem"];
 
-    void(^performTapAction)() = ^(){
-        NSString *url = row[@"url"];
+    NSMutableDictionary* row = [self getRowWithTag:(CeditsRowIndex)tappedItem.tag];
+
+    void (^ performTapAction)() = ^(){
+        NSString* url = row[@"url"];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
     };
 
     CGFloat animationScale = 1.28f;
-    
-    NSString *icon = [row objectForKey:@"icon"];
-    
+
+    NSString* icon = [row objectForKey:@"icon"];
+
     if (icon && (icon.length > 0) && (animationDuration > 0)) {
-        [tappedItem.iconLabel animateAndRewindXF: CATransform3DMakeScale(animationScale, animationScale, 1.0f)
-                                      afterDelay: 0.0
-                                        duration: animationDuration
-                                            then: performTapAction
-         ];
-    }else{
+        [tappedItem.iconLabel animateAndRewindXF:CATransform3DMakeScale(animationScale, animationScale, 1.0f)
+                                      afterDelay:0.0
+                                        duration:animationDuration
+                                            then:performTapAction
+        ];
+    } else {
         performTapAction();
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 /*
-#pragma mark - Navigation
+   #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+   // In a storyboard-based application, you will often want to do a little preparation before navigation
+   - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+   {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-}
-*/
+   }
+ */
 
 @end

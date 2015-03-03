@@ -11,7 +11,7 @@
 @class WMFImageGalleryDetailOverlayView;
 
 @interface WMFImageGalleryCollectionViewCell : UICollectionViewCell
-@property (nonatomic) UIImage *image;
-@property (nonatomic, weak, readonly) WMFImageGalleryDetailOverlayView *detailOverlayView;
+@property (nonatomic) UIImage* image;
+@property (nonatomic, weak, readonly) WMFImageGalleryDetailOverlayView* detailOverlayView;
 
 @end

@@ -5,11 +5,10 @@
 
 @implementation UIScrollView (NoHorizontalScrolling)
 
--(void)preventHorizontalScrolling
-{
+- (void)preventHorizontalScrolling {
     CGSize widthRestrictedContentSize = CGSizeMake(self.superview.frame.size.width, self.contentSize.height);
-    if(!CGSizeEqualToSize(self.contentSize, widthRestrictedContentSize)){
-        [self setContentSize: widthRestrictedContentSize];
+    if (!CGSizeEqualToSize(self.contentSize, widthRestrictedContentSize)) {
+        [self setContentSize:widthRestrictedContentSize];
     }
 }
 

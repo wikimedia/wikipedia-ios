@@ -5,6 +5,6 @@
 
 @interface UIView (Debugging)
 
--(void)randomlyColorSubviews;
+- (void)randomlyColorSubviews;
 
 @end

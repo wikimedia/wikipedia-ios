@@ -6,10 +6,10 @@
 
 @interface ModalContentViewController : UIViewController
 
-@property (strong, nonatomic) NSString *topMenuText;
+@property (strong, nonatomic) NSString* topMenuText;
 @property (nonatomic) NavBarMode navBarMode;
 @property (nonatomic) NavBarStyle navBarStyle;
 
-@property (nonatomic, copy) void (^block)(id);
+@property (nonatomic, copy) void (^ block)(id);
 
 @end

@@ -5,6 +5,6 @@
 
 @interface UIViewController (SearchChildViewControllers)
 
--(id)searchForChildViewControllerOfClass:(Class)aClass;
+- (id)searchForChildViewControllerOfClass:(Class)aClass;
 
 @end

@@ -5,8 +5,8 @@
 
 @interface NSObject (Extras)
 
--(BOOL)isNull;
+- (BOOL)isNull;
 
--(BOOL)isDict;
+- (BOOL)isDict;
 
 @end

@@ -10,29 +10,29 @@
 
 @implementation ModalContentViewController
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    ModalMenuAndContentViewController *modalMenuAndContentVC =
-        (ModalMenuAndContentViewController *)self.parentViewController;
-    
+    ModalMenuAndContentViewController* modalMenuAndContentVC =
+        (ModalMenuAndContentViewController*)self.parentViewController;
+
     self.block = modalMenuAndContentVC.block;
-    
+
     [self performSegueWithIdentifier:modalMenuAndContentVC.sequeIdentifier sender:nil];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if(self.childViewControllers.count > 0) return;
+- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+    if (self.childViewControllers.count > 0) {
+        return;
+    }
     [self addChildViewController:segue.destinationViewController];
 
-    UIViewController *destVC = (UIViewController *)segue.destinationViewController;
-    
-    if (self.block){
+    UIViewController* destVC = (UIViewController*)segue.destinationViewController;
+
+    if (self.block) {
         self.block(destVC);
     }
-    
+
     // Use the dest view controller title for the top nav label text.
     // Set in the destVC's initWithCoder.
     self.topMenuText = destVC.title;
@@ -41,8 +41,8 @@
     // Set in the destVC's initWithCoder.
     [self updateTopMenuModeAndStyleForDestViewController:destVC];
 
-    ModalMenuAndContentViewController *modalMenuAndContentVC =
-    (ModalMenuAndContentViewController *)self.parentViewController;
+    ModalMenuAndContentViewController* modalMenuAndContentVC =
+        (ModalMenuAndContentViewController*)self.parentViewController;
     modalMenuAndContentVC.statusBarHidden = [destVC prefersStatusBarHidden];
 
 
@@ -53,20 +53,19 @@
         [destVC performSelector:@selector(setTopMenuViewController:) withObject:modalMenuAndContentVC.topMenuViewController];
     }
 
-    UIView *view = destVC.view;
+    UIView* view = destVC.view;
 
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    view.frame            = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [self.view addSubview:view];
     [segue.destinationViewController didMoveToParentViewController:self];
 }
 
--(void)updateTopMenuModeAndStyleForDestViewController:(UIViewController *)destVC
-{
+- (void)updateTopMenuModeAndStyleForDestViewController:(UIViewController*)destVC {
     SEL selector = NSSelectorFromString(@"navBarMode");
     if ([destVC respondsToSelector:selector]) {
-        NSInvocation *invocation =
-        [NSInvocation invocationWithMethodSignature: [[destVC class] instanceMethodSignatureForSelector:selector]];
+        NSInvocation* invocation =
+            [NSInvocation invocationWithMethodSignature:[[destVC class] instanceMethodSignatureForSelector:selector]];
         [invocation setSelector:selector];
         [invocation setTarget:destVC];
         [invocation invoke];
@@ -77,8 +76,8 @@
 
     selector = NSSelectorFromString(@"navBarStyle");
     if ([destVC respondsToSelector:selector]) {
-        NSInvocation *invocation =
-        [NSInvocation invocationWithMethodSignature: [[destVC class] instanceMethodSignatureForSelector:selector]];
+        NSInvocation* invocation =
+            [NSInvocation invocationWithMethodSignature:[[destVC class] instanceMethodSignatureForSelector:selector]];
         [invocation setSelector:selector];
         [invocation setTarget:destVC];
         [invocation invoke];
@@ -88,29 +87,25 @@
     }
 }
 
--(void)setTopMenuText:(NSString *)topMenuText
-{
-    ModalMenuAndContentViewController *modalMenuAndContentVC =
-        (ModalMenuAndContentViewController *)self.parentViewController;
+- (void)setTopMenuText:(NSString*)topMenuText {
+    ModalMenuAndContentViewController* modalMenuAndContentVC =
+        (ModalMenuAndContentViewController*)self.parentViewController;
     modalMenuAndContentVC.topMenuText = topMenuText;
 }
 
--(void)setNavBarMode:(NavBarMode)navBarMode
-{
-    ModalMenuAndContentViewController *modalMenuAndContentVC =
-        (ModalMenuAndContentViewController *)self.parentViewController;
+- (void)setNavBarMode:(NavBarMode)navBarMode {
+    ModalMenuAndContentViewController* modalMenuAndContentVC =
+        (ModalMenuAndContentViewController*)self.parentViewController;
     modalMenuAndContentVC.navBarMode = navBarMode;
 }
 
--(void)setNavBarStyle:(NavBarStyle)navBarStyle
-{
-    ModalMenuAndContentViewController *modalMenuAndContentVC =
-        (ModalMenuAndContentViewController *)self.parentViewController;
+- (void)setNavBarStyle:(NavBarStyle)navBarStyle {
+    ModalMenuAndContentViewController* modalMenuAndContentVC =
+        (ModalMenuAndContentViewController*)self.parentViewController;
     modalMenuAndContentVC.navBarStyle = navBarStyle;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

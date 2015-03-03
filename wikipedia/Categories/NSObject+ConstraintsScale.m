@@ -7,9 +7,8 @@
 
 @implementation NSObject (ConstraintsScale)
 
--(void)adjustConstraintsScaleForViews:(NSArray *)views
-{
-    for (UIView *view in views){
+- (void)adjustConstraintsScaleForViews:(NSArray*)views {
+    for (UIView* view in views) {
         [view adjustConstraintsFor:NSLayoutAttributeTop byMultiplier:MENUS_SCALE_MULTIPLIER];
         [view adjustConstraintsFor:NSLayoutAttributeBottom byMultiplier:MENUS_SCALE_MULTIPLIER];
         [view adjustConstraintsFor:NSLayoutAttributeLeading byMultiplier:MENUS_SCALE_MULTIPLIER];

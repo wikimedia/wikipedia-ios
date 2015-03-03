@@ -2,7 +2,7 @@
 
 @interface NSRunLoop (TimeOutAndFlag)
 
-// Useful for using XCTest to test async code. See link above for details. 
+// Useful for using XCTest to test async code. See link above for details.
 - (void)runUntilTimeout:(NSTimeInterval)delay orFinishedFlag:(BOOL*)finished;
 
 @end

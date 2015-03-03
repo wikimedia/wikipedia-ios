@@ -14,15 +14,15 @@
 
 @interface MWKSiteDataObject : MWKDataObject
 
-@property (readonly) MWKSite *site;
+@property (readonly) MWKSite* site;
 
-- (instancetype)initWithSite:(MWKSite *)site;
+- (instancetype)initWithSite:(MWKSite*)site;
 
-- (MWKTitle *)optionalTitle:(NSString *)key dict:(NSDictionary *)dict;
-- (MWKTitle *)requiredTitle:(NSString *)key dict:(NSDictionary *)dict;
+- (MWKTitle*)optionalTitle:(NSString*)key dict:(NSDictionary*)dict;
+- (MWKTitle*)requiredTitle:(NSString*)key dict:(NSDictionary*)dict;
 
-- (MWKUser *)optionalUser:(NSString *)key dict:(NSDictionary *)dict;
-- (MWKUser *)requiredUser:(NSString *)key dict:(NSDictionary *)dict;
+- (MWKUser*)optionalUser:(NSString*)key dict:(NSDictionary*)dict;
+- (MWKUser*)requiredUser:(NSString*)key dict:(NSDictionary*)dict;
 
 
 @end

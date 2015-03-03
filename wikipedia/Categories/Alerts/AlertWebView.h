@@ -5,8 +5,8 @@
 
 @interface AlertWebView : UIView <UIWebViewDelegate>
 
-- (instancetype)initWithHtml: (NSString *)html
-                 bannerImage: (UIImage *)bannerImage
-                 bannerColor: (UIColor *)bannerColor;
+- (instancetype)initWithHtml:(NSString*)html
+                 bannerImage:(UIImage*)bannerImage
+                 bannerColor:(UIColor*)bannerColor;
 
 @end

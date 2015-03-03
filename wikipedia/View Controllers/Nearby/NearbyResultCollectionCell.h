@@ -8,15 +8,15 @@
 @class PaddedLabel, NearbyArrowView, NearbyThumbnailView;
 @interface NearbyResultCollectionCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet NearbyThumbnailView *thumbView;
+@property (weak, nonatomic) IBOutlet NearbyThumbnailView* thumbView;
 
-@property (strong, nonatomic) NSNumber *distance;
+@property (strong, nonatomic) NSNumber* distance;
 @property (nonatomic) BOOL headingAvailable;
 @property (nonatomic) double angle;
 
-@property (strong, nonatomic) UILongPressGestureRecognizer *longPressRecognizer;
+@property (strong, nonatomic) UILongPressGestureRecognizer* longPressRecognizer;
 
--(void)setTitle: (NSString *)title
-    description: (NSString *)description;
+- (void)setTitle:(NSString*)title
+     description:(NSString*)description;
 
 @end

@@ -6,11 +6,11 @@
 
 @interface AboutViewController : UIViewController <UIWebViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIWebView* webView;
 
 @property (nonatomic) NavBarMode navBarMode;
 
 @property (weak, nonatomic) id truePresentingVC;
-@property (weak, nonatomic) TopMenuViewController *topMenuViewController;
+@property (weak, nonatomic) TopMenuViewController* topMenuViewController;
 
 @end

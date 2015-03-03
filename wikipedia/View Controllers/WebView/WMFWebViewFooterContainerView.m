@@ -3,7 +3,7 @@
 
 #import "WMFWebViewFooterContainerView.h"
 
-@interface WMFWebViewFooterContainerView()
+@interface WMFWebViewFooterContainerView ()
 
 @property (nonatomic) CGFloat height;
 
@@ -11,11 +11,10 @@
 
 @implementation WMFWebViewFooterContainerView
 
-- (instancetype)initWithHeight:(CGFloat)height
-{
+- (instancetype)initWithHeight:(CGFloat)height {
     self = [super init];
     if (self) {
-        self.height = height;
+        self.height          = height;
         self.backgroundColor = [UIColor lightGrayColor];
     }
     return self;

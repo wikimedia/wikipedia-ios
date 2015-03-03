@@ -3,6 +3,6 @@
 
 @interface UIViewController (StatusBarHeight)
 
--(CGFloat)getStatusBarHeight;
+- (CGFloat)getStatusBarHeight;
 
 @end

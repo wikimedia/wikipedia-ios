@@ -16,7 +16,7 @@
 @end
 
 @implementation MWKTitleTests {
-    MWKSite *site;
+    MWKSite* site;
 }
 
 - (void)setUp {
@@ -30,7 +30,7 @@
 }
 
 - (void)testSimple {
-    MWKTitle *title = [MWKTitle titleWithString:@"Simple" site:site];
+    MWKTitle* title = [MWKTitle titleWithString:@"Simple" site:site];
 
     XCTAssertNil(title.namespace, @"Namespace is nil");
     XCTAssertEqualObjects(title.prefixedDBKey, @"Simple", @"DB key form is full");
@@ -41,10 +41,10 @@
 }
 
 - (void)testFancy {
-    NSArray *inputs = @[[MWKTitle titleWithString:@"Fancy title with spaces" site:site],
+    NSArray* inputs = @[[MWKTitle titleWithString:@"Fancy title with spaces" site:site],
                         [MWKTitle titleWithString:@"Fancy_title with_spaces" site:site]
-                        ];
-    for (MWKTitle *title in inputs) {
+    ];
+    for (MWKTitle* title in inputs) {
         XCTAssertNil(title.namespace, @"Namespace is nil");
         XCTAssertEqualObjects(title.prefixedDBKey, @"Fancy_title_with_spaces", @"DB key form has underscores");
         XCTAssertEqualObjects(title.prefixedText, @"Fancy title with spaces", @"Text form has spaces");
@@ -55,7 +55,7 @@
 }
 
 - (void)testUnicode {
-    MWKTitle *title = [MWKTitle titleWithString:@"Éclair" site:site];
+    MWKTitle* title = [MWKTitle titleWithString:@"Éclair" site:site];
     XCTAssertNil(title.namespace, @"Namespace is nil");
     XCTAssertEqualObjects(title.prefixedDBKey, @"Éclair", @"DB key form has unicode");
     XCTAssertEqualObjects(title.prefixedText, @"Éclair", @"Text form has unicode");
@@ -65,18 +65,18 @@
 }
 
 - (void)testEquals {
-    MWKTitle *title = [site titleWithString:@"Foobie foo"];
-    MWKTitle *title2 = [site titleWithString:@"Foobie foo"];
+    MWKTitle* title  = [site titleWithString:@"Foobie foo"];
+    MWKTitle* title2 = [site titleWithString:@"Foobie foo"];
     XCTAssertEqualObjects(title, title2);
-    
-    MWKTitle *title3 = [site titleWithString:@"Foobie_foo"];
+
+    MWKTitle* title3 = [site titleWithString:@"Foobie_foo"];
     XCTAssertEqualObjects(title, title3);
 
-    MWKTitle *title4 = [site titleWithString:@"Foobie_Foo"];
+    MWKTitle* title4 = [site titleWithString:@"Foobie_Foo"];
     XCTAssertNotEqualObjects(title, title4);
-    
-    MWKSite *site2 = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"fr"];
-    MWKTitle *title5 = [site2 titleWithString:@"Foobie foo"];
+
+    MWKSite* site2   = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"fr"];
+    MWKTitle* title5 = [site2 titleWithString:@"Foobie foo"];
     XCTAssertNotEqualObjects(title, title5);
 }
 

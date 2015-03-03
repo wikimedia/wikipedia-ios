@@ -5,6 +5,6 @@
 
 @interface DataHousekeeping : NSObject
 
--(void)performHouseKeeping;
+- (void)performHouseKeeping;
 
 @end

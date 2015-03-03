@@ -15,9 +15,9 @@
 @property (readonly) NSUInteger length;
 @property (readonly) BOOL dirty;
 
--(MWKRecentSearchEntry *)entryAtIndex:(NSUInteger)index;
--(void)addEntry:(MWKRecentSearchEntry *)entry;
+- (MWKRecentSearchEntry*)entryAtIndex:(NSUInteger)index;
+- (void)addEntry:(MWKRecentSearchEntry*)entry;
 
--(instancetype)initWithDict:(NSDictionary *)dict;
+- (instancetype)initWithDict:(NSDictionary*)dict;
 
 @end

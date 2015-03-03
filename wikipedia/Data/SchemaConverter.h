@@ -14,10 +14,10 @@
 
 @interface SchemaConverter : NSObject <OldDataSchemaDelegate>
 
-@property OldDataSchema *schema;
-@property MWKDataStore *dataStore;
-@property MWKUserDataStore *userDataStore;
+@property OldDataSchema* schema;
+@property MWKDataStore* dataStore;
+@property MWKUserDataStore* userDataStore;
 
--(instancetype)initWithDataStore:(MWKDataStore *)dataStore;
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
 @end

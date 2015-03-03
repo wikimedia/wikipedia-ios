@@ -16,54 +16,52 @@
 
 @implementation LeadImageTitleAttributedString
 
-+ (NSAttributedString *)attributedStringWithTitle: (NSString *)title
-                                      description: (NSString *)description
-{
++ (NSAttributedString*)attributedStringWithTitle:(NSString*)title
+                                     description:(NSString*)description {
     CGFloat shadowBlurRadius = 0.5;
-    
-    NSShadow *shadow = [[NSShadow alloc] init];
-    
-    [shadow setShadowOffset : CGSizeMake (0.0, 1.0)];
-    [shadow setShadowBlurRadius : shadowBlurRadius];
+
+    NSShadow* shadow = [[NSShadow alloc] init];
+
+    [shadow setShadowOffset:CGSizeMake(0.0, 1.0)];
+    [shadow setShadowBlurRadius:shadowBlurRadius];
 
     CGFloat titleFontSizeMultiplier = [self getSizeReductionMultiplierForTitleOfLength:title.length];
-    
+
     CGFloat titleFontSize = floor(FONT_SIZE_TITLE * titleFontSizeMultiplier);
 
-    NSMutableParagraphStyle *titleParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    NSMutableParagraphStyle* titleParagraphStyle = [[NSMutableParagraphStyle alloc] init];
     titleParagraphStyle.lineSpacing = LINE_SPACING_TITLE;
-    
-    NSMutableParagraphStyle *descParagraphStyle = [[NSMutableParagraphStyle alloc] init];
-    descParagraphStyle.lineSpacing = LINE_SPACING_DESCRIPTION;
-    descParagraphStyle.paragraphSpacingBefore = SPACE_ABOVE_DESCRIPTION;
-    
-    NSDictionary *titleAttribs =
-    @{
-      NSShadowAttributeName: shadow,
-      NSFontAttributeName : [UIFont fontWithName:FONT size:titleFontSize],
-      NSParagraphStyleAttributeName: titleParagraphStyle
-      };
-    NSDictionary *descripAttribs =
-    @{
-      NSShadowAttributeName: shadow,
-      NSFontAttributeName : [UIFont fontWithName:FONT size:FONT_SIZE_DESCRIPTION],
-      NSParagraphStyleAttributeName: descParagraphStyle
-      };
 
-    NSString *lineBreak = (description.length == 0) ? @"": @"\n";
+    NSMutableParagraphStyle* descParagraphStyle = [[NSMutableParagraphStyle alloc] init];
+    descParagraphStyle.lineSpacing            = LINE_SPACING_DESCRIPTION;
+    descParagraphStyle.paragraphSpacingBefore = SPACE_ABOVE_DESCRIPTION;
+
+    NSDictionary* titleAttribs =
+        @{
+        NSShadowAttributeName: shadow,
+        NSFontAttributeName: [UIFont fontWithName:FONT size:titleFontSize],
+        NSParagraphStyleAttributeName: titleParagraphStyle
+    };
+    NSDictionary* descripAttribs =
+        @{
+        NSShadowAttributeName: shadow,
+        NSFontAttributeName: [UIFont fontWithName:FONT size:FONT_SIZE_DESCRIPTION],
+        NSParagraphStyleAttributeName: descParagraphStyle
+    };
+
+    NSString* lineBreak = (description.length == 0) ? @"" : @"\n";
     description = description ? description : @"";
 
     return
-    [@"$1$2$3" attributedStringWithAttributes: @{}
-                       substitutionStrings: @[title, lineBreak, description]
-                    substitutionAttributes: @[titleAttribs, @{}, descripAttribs]
-     ];
+        [@"$1$2$3" attributedStringWithAttributes:@{}
+                              substitutionStrings:@[title, lineBreak, description]
+                           substitutionAttributes:@[titleAttribs, @{}, descripAttribs]
+        ];
 }
 
-+ (CGFloat)getSizeReductionMultiplierForTitleOfLength:(NSUInteger)length
-{
++ (CGFloat)getSizeReductionMultiplierForTitleOfLength:(NSUInteger)length {
     // Quick hack for shrinking long titles in rough proportion to their length.
-    
+
     CGFloat multiplier = 1.0f;
 
     // Assume roughly title 28 chars per line. Note this doesn't take in to account
@@ -75,14 +73,14 @@
     // many with lead images.
 
     CGFloat charsPerLine = 28;
-    CGFloat lines = ceil(length / charsPerLine);
-    
+    CGFloat lines        = ceil(length / charsPerLine);
+
     // For every 2 "lines" (after the first 2) reduce title text size by 10%.
     if (lines > 2) {
         CGFloat linesAfter2Lines = lines - 2;
         multiplier = 1.0f - (linesAfter2Lines * 0.1f);
     }
-    
+
     // Don't shrink below 60%.
     return MAX(multiplier, 0.6f);
 }

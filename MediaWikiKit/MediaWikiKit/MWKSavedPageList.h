@@ -16,19 +16,19 @@
 @property (readonly) NSUInteger length;
 @property (readonly) BOOL dirty;
 
--(MWKSavedPageEntry *)entryAtIndex:(NSUInteger)index;
--(NSUInteger)indexForEntry:(MWKSavedPageEntry *)entry;
+- (MWKSavedPageEntry*)entryAtIndex:(NSUInteger)index;
+- (NSUInteger)indexForEntry:(MWKSavedPageEntry*)entry;
 
--(MWKSavedPageEntry *)entryForTitle:(MWKTitle *)title;
--(BOOL)isSaved:(MWKTitle *)title;
+- (MWKSavedPageEntry*)entryForTitle:(MWKTitle*)title;
+- (BOOL)isSaved:(MWKTitle*)title;
 
 /// Add a new entry to the saved page list!
--(void)addEntry:(MWKSavedPageEntry *)entry;
+- (void)addEntry:(MWKSavedPageEntry*)entry;
 /// Remove one.
--(void)removeEntry:(MWKSavedPageEntry *)entry;
+- (void)removeEntry:(MWKSavedPageEntry*)entry;
 /// Remove all
--(void)removeAllEntries;
+- (void)removeAllEntries;
 
--(instancetype)initWithDict:(NSDictionary *)dict;
+- (instancetype)initWithDict:(NSDictionary*)dict;
 
 @end

@@ -5,10 +5,10 @@
 
 @interface UIScreen (Extras)
 
--(BOOL)isThreePointFiveInchScreen;
+- (BOOL)isThreePointFiveInchScreen;
 
--(UIInterfaceOrientation)interfaceOrientation;
+- (UIInterfaceOrientation)interfaceOrientation;
 
--(CGSize)screenSize;
+- (CGSize)screenSize;
 
 @end

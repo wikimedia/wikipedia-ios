@@ -13,21 +13,19 @@
 
 @implementation AFHTTPRequestOperationManager (WMFConfig)
 
-+ (instancetype)wmf_createDefaultManager
-{
-    AFHTTPRequestOperationManager *manager = [self manager];
++ (instancetype)wmf_createDefaultManager {
+    AFHTTPRequestOperationManager* manager = [self manager];
     [manager wmf_applyAppRequestHeaders];
     return manager;
 }
 
-- (void)wmf_applyAppRequestHeaders
-{
+- (void)wmf_applyAppRequestHeaders {
     NSParameterAssert(self.requestSerializer);
     [self.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
     [self.requestSerializer setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     // Add the app install ID to the header, but only if the user has not opted out of logging
     if ([SessionSingleton sharedInstance].sendUsageReports) {
-        ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
+        ReadingActionFunnel* funnel = [[ReadingActionFunnel alloc] init];
         [self.requestSerializer setValue:funnel.appInstallID forHTTPHeaderField:@"X-WMF-UUID"];
     }
 }

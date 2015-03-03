@@ -5,15 +5,15 @@
 
 @interface ZeroConfigState : NSObject
 
-@property (strong, nonatomic) NSString *partnerXcs;
+@property (strong, nonatomic) NSString* partnerXcs;
 @property (nonatomic) BOOL disposition;
 @property (nonatomic) BOOL sentMCCMNC;
 @property (nonatomic, readonly) BOOL zeroOnDialogShownOnce;
 @property (nonatomic, readonly) BOOL warnWhenLeaving;
 @property (nonatomic, readonly) BOOL fakeZeroOn;
 
--(void)setZeroOnDialogShownOnce;
--(void)toggleWarnWhenLeaving;
--(void)toggleFakeZeroOn;
+- (void)setZeroOnDialogShownOnce;
+- (void)toggleWarnWhenLeaving;
+- (void)toggleFakeZeroOn;
 
 @end

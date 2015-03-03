@@ -5,11 +5,11 @@
 
 @interface PageHistoryResultCell : UITableViewCell
 
--(void)setName: (NSString *)name
-          time: (NSString *)time
-         delta: (NSNumber *)delta
-          icon: (NSString *)icon
-       summary: (NSString *)summary
-     separator: (BOOL)separator;
+- (void)setName:(NSString*)name
+           time:(NSString*)time
+          delta:(NSNumber*)delta
+           icon:(NSString*)icon
+        summary:(NSString*)summary
+      separator:(BOOL)separator;
 
 @end

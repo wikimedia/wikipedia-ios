@@ -12,27 +12,27 @@
 @interface MWKImageInfo : MWKDataObject
 
 /// Name of the canonical file associated with this image, in the format @c "File:Some_file_name.extension".
-@property (nonatomic, readonly, copy) NSString *canonicalPageTitle;
+@property (nonatomic, readonly, copy) NSString* canonicalPageTitle;
 
 /// URL pointing at the canonical file associated with this gallery item, e.g. @c "//site/.../Some_file_name.extension".
-@property (nonatomic, readonly) NSURL *canonicalFileURL;
+@property (nonatomic, readonly) NSURL* canonicalFileURL;
 
 /// Short description of the image contents (e.g. "John Smith posing for a picture").
-@property (nonatomic, readonly, copy) NSString *imageDescription;
+@property (nonatomic, readonly, copy) NSString* imageDescription;
 
-@property (nonatomic, readonly) MWKLicense *license;
+@property (nonatomic, readonly) MWKLicense* license;
 
 /// URL pointing to the corresponding file page for the receiver.
-@property (nonatomic, readonly) NSURL *filePageURL;
+@property (nonatomic, readonly) NSURL* filePageURL;
 
 /// URL pointing at the original image (at the uploaded resolution).
-@property (nonatomic, readonly) NSURL *imageURL;
+@property (nonatomic, readonly) NSURL* imageURL;
 
 /// URL pointing at a thumbnail version of the image at @c imageURL.
-@property (nonatomic, readonly) NSURL *imageThumbURL;
+@property (nonatomic, readonly) NSURL* imageThumbURL;
 
 /// Name of the entity owning this image.
-@property (nonatomic, readonly, copy) NSString *owner;
+@property (nonatomic, readonly, copy) NSString* owner;
 
 /// Value which can be used to associate the receiver with a @c MWKImage.
 @property (nonatomic, readonly) id imageAssociationValue;

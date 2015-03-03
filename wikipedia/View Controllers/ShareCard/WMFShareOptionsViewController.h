@@ -10,19 +10,19 @@
 
 @protocol WMFShareOptionsViewControllerDelegate
 
--(void) didShowSharePreviewForMWKArticle: (MWKArticle*) article withText: (NSString*) text;
--(void) tappedBackgroundToAbandonWithText: (NSString*) text;
--(void) tappedShareCardWithText: (NSString*) text;
--(void) tappedShareTextWithText: (NSString*) text;
--(void) finishShareWithActivityItems: (NSArray*) activityItems text: (NSString*) text;
+- (void)didShowSharePreviewForMWKArticle:(MWKArticle*)article withText:(NSString*)text;
+- (void)tappedBackgroundToAbandonWithText:(NSString*)text;
+- (void)tappedShareCardWithText:(NSString*)text;
+- (void)tappedShareTextWithText:(NSString*)text;
+- (void)finishShareWithActivityItems:(NSArray*)activityItems text:(NSString*)text;
 @end
 
 @interface WMFShareOptionsViewController : UIViewController
 
-@property (readonly) MWKArticle *article;
-@property (readonly) NSString *snippet;
-@property (readonly) NSString *snippetForTextOnlySharing;
-@property (readonly) UIView *backgroundView;
+@property (readonly) MWKArticle* article;
+@property (readonly) NSString* snippet;
+@property (readonly) NSString* snippetForTextOnlySharing;
+@property (readonly) UIView* backgroundView;
 @property (readonly) id<WMFShareOptionsViewControllerDelegate> delegate;
 
 - (instancetype)initWithMWKArticle:(MWKArticle*)article

@@ -7,7 +7,7 @@
 
 @property (nonatomic) BOOL imageExists;
 
--(void)setTitle: (NSString *)title
-    description: (NSString *)description;
+- (void)setTitle:(NSString*)title
+     description:(NSString*)description;
 
 @end

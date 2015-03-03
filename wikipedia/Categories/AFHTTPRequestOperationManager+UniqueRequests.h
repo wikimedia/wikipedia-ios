@@ -19,7 +19,7 @@
  *         specified arguments, or @c nil if none is found.
  */
 - (AFHTTPRequestOperation*)wmf_findOperationWithMethod:(NSString*)method
-                                             URLString:(NSString *)URLString
+                                             URLString:(NSString*)URLString
                                             parameters:(id)parameters;
 
 /**
@@ -29,7 +29,7 @@
  */
 - (AFHTTPRequestOperation*)wmf_idempotentGET:(NSString*)URLString
                                   parameters:(id)parameters
-                                     success:(void(^)(AFHTTPRequestOperation* op, id response))success
-                                     failure:(void(^)(AFHTTPRequestOperation* op, NSError* error))failure;
+                                     success:(void (^)(AFHTTPRequestOperation* op, id response))success
+                                     failure:(void (^)(AFHTTPRequestOperation* op, NSError* error))failure;
 
 @end

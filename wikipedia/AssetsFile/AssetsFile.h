@@ -8,13 +8,13 @@
 
 @property (nonatomic, readonly) AssetsFileEnum file;
 
-@property (nonatomic, retain, readonly) NSString *path;
+@property (nonatomic, retain, readonly) NSString* path;
 
-@property (nonatomic, retain, readonly) NSArray *array;
+@property (nonatomic, retain, readonly) NSArray* array;
 
-@property (nonatomic, retain, readonly) NSDictionary *dictionary;
+@property (nonatomic, retain, readonly) NSDictionary* dictionary;
 
-@property (nonatomic, retain, readonly) NSURL *url;
+@property (nonatomic, retain, readonly) NSURL* url;
 
 - (id)initWithFile:(AssetsFileEnum)file;
 

@@ -6,12 +6,12 @@
 
 @implementation UIViewController (PresentModal)
 
-- (void)performModalSequeWithID: (NSString *)identifier
-               transitionStyle: (UIModalTransitionStyle)style
-                         block: (void (^)(id))block;
+- (void)performModalSequeWithID:(NSString*)identifier
+                transitionStyle:(UIModalTransitionStyle)style
+                          block:(void (^)(id))block;
 {
-    ModalMenuAndContentViewController *modalMenuAndContentVC =
-    [NAV.storyboard instantiateViewControllerWithIdentifier:@"ModalMenuAndContentViewController"];
+    ModalMenuAndContentViewController* modalMenuAndContentVC =
+        [NAV.storyboard instantiateViewControllerWithIdentifier:@"ModalMenuAndContentViewController"];
 
     modalMenuAndContentVC.modalTransitionStyle = style;
     //modalMenuAndContentVC.title = identifier; // quick hack for debug help
@@ -21,7 +21,7 @@
     modalMenuAndContentVC.truePresentingVC = self;
 
     modalMenuAndContentVC.sequeIdentifier = identifier;
-    modalMenuAndContentVC.block = block;
+    modalMenuAndContentVC.block           = block;
     [self presentViewController:modalMenuAndContentVC animated:YES completion:^{}];
 }
 

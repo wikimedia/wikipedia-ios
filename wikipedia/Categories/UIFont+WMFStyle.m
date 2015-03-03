@@ -5,9 +5,9 @@
 
 @implementation UIFont (WMF_Style)
 
-+(UIFont *)wmf_glyphFontOfSize:(CGFloat)fontSize;
++ (UIFont*)wmf_glyphFontOfSize:(CGFloat)fontSize;
 {
-    UIFont *font = [UIFont fontWithName:@"WikiFont-Glyphs" size:fontSize];
+    UIFont* font = [UIFont fontWithName:@"WikiFont-Glyphs" size:fontSize];
 
     NSAssert(font, @"Unable to load glyph font");
 

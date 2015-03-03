@@ -4,7 +4,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#define MWLocalizedString(key, throwaway) [WikipediaAppUtils localizedStringForKey:key]
+#define MWLocalizedString(key, throwaway) [WikipediaAppUtils localizedStringForKey : key]
 
 /**
  * Provides compile time checking for keypaths on a given object.
@@ -31,7 +31,7 @@
  * Compare two objects using `==` and `isEqual:`.
  * @see WMF_EQUAL
  */
-#define WMF_IS_EQUAL(a, b) (WMF_EQUAL(a, isEqual:, b))
+#define WMF_IS_EQUAL(a, b) (WMF_EQUAL(a, isEqual :, b))
 
 /// Circularly rotate an unsigned int (useful when implementing <code>-[NSObject hash]</code>).
 FOUNDATION_EXPORT NSUInteger CircularBitwiseRotation(NSUInteger x, NSUInteger s)
@@ -46,18 +46,18 @@ FOUNDATION_EXPORT NSString* WMFNormalizedPageTitle(NSString* rawPageTitle);
 
 @interface WikipediaAppUtils : NSObject
 
-+(NSString*) appVersion;
-+(NSString*) formFactor;
-+(NSString*) versionedUserAgent;
-+(NSString*) localizedStringForKey:(NSString *)key;
-+(NSString*) relativeTimestamp:(NSDate *)date;
-+(NSString*) domainNameForCode:(NSString *)code;
-+(NSString*) mainArticleTitleForCode:(NSString *)code;
-+(NSString*) wikiLangForSystemLang:(NSString *)code;
-+(BOOL) isDeviceLanguageRTL;
++ (NSString*)appVersion;
++ (NSString*)formFactor;
++ (NSString*)versionedUserAgent;
++ (NSString*)localizedStringForKey:(NSString*)key;
++ (NSString*)relativeTimestamp:(NSDate*)date;
++ (NSString*)domainNameForCode:(NSString*)code;
++ (NSString*)mainArticleTitleForCode:(NSString*)code;
++ (NSString*)wikiLangForSystemLang:(NSString*)code;
++ (BOOL)     isDeviceLanguageRTL;
 
-+(NSTextAlignment) rtlSafeAlignment;
++ (NSTextAlignment)rtlSafeAlignment;
 
-+(void)copyAssetsFolderToAppDataDocuments;
++ (void)copyAssetsFolderToAppDataDocuments;
 
 @end

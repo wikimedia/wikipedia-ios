@@ -11,6 +11,6 @@
 @property (nonatomic) NavBarStyle navBarStyle;
 
 @property (weak, nonatomic) id truePresentingVC;
-@property (weak, nonatomic) TopMenuViewController *topMenuViewController;
+@property (weak, nonatomic) TopMenuViewController* topMenuViewController;
 
 @end

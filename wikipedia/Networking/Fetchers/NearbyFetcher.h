@@ -5,9 +5,9 @@
 #import "FetcherBase.h"
 #import <CoreLocation/CoreLocation.h>
 
-typedef NS_ENUM(NSInteger, NearbyFetchErrorType) {
-    NEARBY_FETCH_ERROR_UNKNOWN = 0,
-    NEARBY_FETCH_ERROR_API = 1,
+typedef NS_ENUM (NSInteger, NearbyFetchErrorType) {
+    NEARBY_FETCH_ERROR_UNKNOWN    = 0,
+    NEARBY_FETCH_ERROR_API        = 1,
     NEARBY_FETCH_ERROR_NO_RESULTS = 2
 };
 
@@ -16,8 +16,8 @@ typedef NS_ENUM(NSInteger, NearbyFetchErrorType) {
 @interface NearbyFetcher : FetcherBase
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
--(instancetype)initAndFetchNearbyForLatitude: (CLLocationDegrees)latitude
-                                   longitude: (CLLocationDegrees)longitude
-                                 withManager: (AFHTTPRequestOperationManager *)manager
-                          thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate;
+- (instancetype)initAndFetchNearbyForLatitude:(CLLocationDegrees)latitude
+                                    longitude:(CLLocationDegrees)longitude
+                                  withManager:(AFHTTPRequestOperationManager*)manager
+                           thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 @end

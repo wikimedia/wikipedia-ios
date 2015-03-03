@@ -3,30 +3,29 @@
 
 #import "AssetsFile.h"
 
-@interface AssetsFile()
+@interface AssetsFile ()
 
 @property (nonatomic) AssetsFileEnum file;
 
-@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSString* name;
 
-@property (nonatomic, retain) NSString *path;
+@property (nonatomic, retain) NSString* path;
 
-@property (nonatomic, retain) NSArray *array;
+@property (nonatomic, retain) NSArray* array;
 
-@property (nonatomic, retain) NSDictionary *dictionary;
+@property (nonatomic, retain) NSDictionary* dictionary;
 
-@property (nonatomic, retain) NSURL *url;
+@property (nonatomic, retain) NSURL* url;
 
-@property (nonatomic, retain) NSData *data;
+@property (nonatomic, retain) NSData* data;
 
-@property (nonatomic, retain) NSString *documentsAssetsPath;
+@property (nonatomic, retain) NSString* documentsAssetsPath;
 
 @end
 
 @implementation AssetsFile
 
--(NSString *)name
-{
+- (NSString*)name {
     switch (self.file) {
         case ASSETS_FILE_CONFIG:
             return @"ios.json";
@@ -52,9 +51,8 @@
     }
 }
 
-- (NSURL *)url
-{
-    NSString *urlString = @"";
+- (NSURL*)url {
+    NSString* urlString = @"";
     switch (self.file) {
         case ASSETS_FILE_CONFIG:
             urlString = @"https://bits.wikimedia.org/static-current/extensions/MobileApp/config/ios.json";
@@ -71,18 +69,17 @@
         default:
             break;
     }
-    
+
     return [NSURL URLWithString:urlString];
 }
 
-- (id)initWithFile:(AssetsFileEnum)file
-{
+- (id)initWithFile:(AssetsFileEnum)file {
     self = [super init];
     if (self) {
-        NSArray *documentsPath = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES);
+        NSArray* documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         self.documentsAssetsPath = [[documentsPath firstObject] stringByAppendingPathComponent:@"assets"];
-        self.file = file;
-        NSError *error = nil;
+        self.file                = file;
+        NSError* error = nil;
         self.data = [NSData dataWithContentsOfFile:self.path options:0 error:&error];
         if (error) {
             self.data = nil;
@@ -91,42 +88,43 @@
     return self;
 }
 
-- (NSDictionary *)dictionary
-{
-    if (!self.data) return @{};
-    NSError *error = nil;
-    NSMutableDictionary *result = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:&error];
-    return (error) ? @{}: result;
+- (NSDictionary*)dictionary {
+    if (!self.data) {
+        return @{};
+    }
+    NSError* error              = nil;
+    NSMutableDictionary* result = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:&error];
+    return (error) ? @{} : result;
 }
 
-- (NSArray *)array
-{
-    if (!self.data) return @[];
-    NSError *error = nil;
-    NSArray *result = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:&error];
-    return (error) ? @[]: result;
+- (NSArray*)array {
+    if (!self.data) {
+        return @[];
+    }
+    NSError* error  = nil;
+    NSArray* result = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:&error];
+    return (error) ? @[] : result;
 }
 
 // Returns YES if the local version of the config file doesn't exist or is older than maxAge.
-- (BOOL)isOlderThan:(CGFloat)maxAge
-{
+- (BOOL)isOlderThan:(CGFloat)maxAge {
     BOOL isDirectory = NO;
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:self.path isDirectory:&isDirectory];
-    if (!fileExists){
+    BOOL fileExists  = [[NSFileManager defaultManager] fileExistsAtPath:self.path isDirectory:&isDirectory];
+    if (!fileExists) {
         NSLog(@"REFRESH NEEDED");
         return YES;
     }
-    
-    NSDate *lastModified = nil;
-    NSError *error = nil;
-    NSURL *url = [NSURL fileURLWithPath:self.path];
-    [url getResourceValue: &lastModified
-                   forKey: NSURLContentModificationDateKey
-                    error: &error];
-    if (!error){
+
+    NSDate* lastModified = nil;
+    NSError* error       = nil;
+    NSURL* url           = [NSURL fileURLWithPath:self.path];
+    [url getResourceValue:&lastModified
+                   forKey:NSURLContentModificationDateKey
+                    error:&error];
+    if (!error) {
         NSTimeInterval currentAge = [[NSDate date] timeIntervalSinceDate:lastModified];
         NSLog(@"currentAge = %f maxAge = %f", currentAge, maxAge);
-        if (currentAge > maxAge){
+        if (currentAge > maxAge) {
             NSLog(@"REFRESH NEEDED");
             return YES;
         }
@@ -135,8 +133,7 @@
     return NO;
 }
 
-- (NSString *)path
-{
+- (NSString*)path {
     return [self.documentsAssetsPath stringByAppendingPathComponent:self.name];
 }
 

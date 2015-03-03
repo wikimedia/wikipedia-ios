@@ -13,23 +13,22 @@
 
 @implementation SearchDidYouMeanButton
 
--(void)showWithText:(NSString *)text term:(NSString *)term
-{
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+- (void)showWithText:(NSString*)text term:(NSString*)term {
+    NSMutableParagraphStyle* paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = NSTextAlignmentCenter;
-    
-    NSMutableDictionary *baseAttributes =
-    @{
-      NSFontAttributeName: [UIFont systemFontOfSize:FONT_SIZE],
-      NSForegroundColorAttributeName: COLOR_STRING,
-      NSParagraphStyleAttributeName : paragraphStyle
-      }.mutableCopy;
-    
-    NSMutableDictionary *subAttributes =
-    @{
-      NSFontAttributeName: [UIFont systemFontOfSize:FONT_SIZE],
-      NSForegroundColorAttributeName: COLOR_TERM
-      }.mutableCopy;
+
+    NSMutableDictionary* baseAttributes =
+        @{
+        NSFontAttributeName: [UIFont systemFontOfSize:FONT_SIZE],
+        NSForegroundColorAttributeName: COLOR_STRING,
+        NSParagraphStyleAttributeName: paragraphStyle
+    }.mutableCopy;
+
+    NSMutableDictionary* subAttributes =
+        @{
+        NSFontAttributeName: [UIFont systemFontOfSize:FONT_SIZE],
+        NSForegroundColorAttributeName: COLOR_TERM
+    }.mutableCopy;
 
 
     if (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_7_0) {
@@ -41,16 +40,15 @@
     }
 
     self.padding = PADDING;
-    
+
     self.attributedText =
-    [text attributedStringWithAttributes: baseAttributes
-                     substitutionStrings: @[term]
-                  substitutionAttributes: @[subAttributes]].mutableCopy;
+        [text attributedStringWithAttributes:baseAttributes
+                         substitutionStrings:@[term]
+                      substitutionAttributes:@[subAttributes]].mutableCopy;
 }
 
--(void)hide
-{
-    self.padding = UIEdgeInsetsMake(0, 0, 0, 0);
+- (void)hide {
+    self.padding        = UIEdgeInsetsMake(0, 0, 0, 0);
     self.attributedText = nil;
 }
 

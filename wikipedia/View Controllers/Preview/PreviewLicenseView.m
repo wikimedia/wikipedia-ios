@@ -14,14 +14,14 @@
 
 //#import "NSString+Extras.h"
 
-@interface PreviewLicenseView()
+@interface PreviewLicenseView ()
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topDividerHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomDividerHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* topDividerHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* bottomDividerHeight;
 
 @property (nonatomic) BOOL hideTopDivider;
 @property (nonatomic) BOOL hideBottomDivider;
-@property (readonly) UIActionSheet *sheet;
+@property (readonly) UIActionSheet* sheet;
 
 @end
 
@@ -29,26 +29,24 @@
 #define LICENSE_LINK @"https://creativecommons.org/licenses/by-sa/3.0/"
 
 enum {
-    BUTTON_TERMS = 0,
+    BUTTON_TERMS   = 0,
     BUTTON_LICENSE = 1
 } EnumActionSheetButtons;
 
 @implementation PreviewLicenseView {
-    UIActionSheet *_sheet;
+    UIActionSheet* _sheet;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        self.hideTopDivider = YES;
+        self.hideTopDivider    = YES;
         self.hideBottomDivider = YES;
     }
     return self;
 }
 
--(void)didMoveToSuperview
-{
+- (void)didMoveToSuperview {
     self.licenseTitleLabel.padding = UIEdgeInsetsMake(2, 0, 0, 0);
 
     self.licenseTitleLabel.font = [UIFont systemFontOfSize:11.0 * MENUS_SCALE_MULTIPLIER];
@@ -72,55 +70,53 @@ enum {
     //self.licenseTitleLabel.text = [@" abc " randomlyRepeatMaxTimes:100];
 }
 
-- (id) awakeAfterUsingCoder:(NSCoder*)aDecoder {
-
+- (id)awakeAfterUsingCoder:(NSCoder*)aDecoder {
     BOOL isPlaceholder = ([[self subviews] count] == 0); // From: https://blog.compeople.eu/apps/?p=142
-    if (!isPlaceholder) return self;
-    
-    UINib *previewLicenseViewNib = [UINib nibWithNibName:@"PreviewLicenseView" bundle:nil];
-    
-    PreviewLicenseView *previewLicenseView =
+    if (!isPlaceholder) {
+        return self;
+    }
+
+    UINib* previewLicenseViewNib = [UINib nibWithNibName:@"PreviewLicenseView" bundle:nil];
+
+    PreviewLicenseView* previewLicenseView =
         [[previewLicenseViewNib instantiateWithOwner:nil options:nil] firstObject];
-    
-    self.translatesAutoresizingMaskIntoConstraints = NO;
+
+    self.translatesAutoresizingMaskIntoConstraints               = NO;
     previewLicenseView.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     return previewLicenseView;
 }
 
--(void)styleLinks:(UILabel *)label
-{
-    NSDictionary *baseAttributes =
+- (void)styleLinks:(UILabel*)label {
+    NSDictionary* baseAttributes =
         @{
-            NSForegroundColorAttributeName: label.textColor,
-            NSFontAttributeName: label.font
-        };
+        NSForegroundColorAttributeName: label.textColor,
+        NSFontAttributeName: label.font
+    };
 
-    NSDictionary *linkAttributes =
+    NSDictionary* linkAttributes =
         @{
-            //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-            NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
-        };
-    
+        //NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+        NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
+    };
+
     label.attributedText =
-    [label.text attributedStringWithAttributes: baseAttributes
-                           substitutionStrings: @[MWLocalizedString(@"wikitext-upload-save-terms-name", nil),
-                                                  MWLocalizedString(@"wikitext-upload-save-license-name", nil)]
-                        substitutionAttributes: @[linkAttributes, linkAttributes]
-     ];
+        [label.text attributedStringWithAttributes:baseAttributes
+                               substitutionStrings:@[MWLocalizedString(@"wikitext-upload-save-terms-name", nil),
+                                                     MWLocalizedString(@"wikitext-upload-save-license-name", nil)]
+                            substitutionAttributes:@[linkAttributes, linkAttributes]
+        ];
 }
 
--(void)termsLicenseLabelTapped:(UITapGestureRecognizer *)recognizer
-{
+- (void)termsLicenseLabelTapped:(UITapGestureRecognizer*)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         [self.sheet showInView:ROOT.view];
     }
 }
 
--(UIActionSheet *)sheet
-{
+- (UIActionSheet*)sheet {
     if (_sheet == nil) {
-        NSString *cancel;
+        NSString* cancel;
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             cancel = MWLocalizedString(@"open-link-title", nil);
         } else {
@@ -131,15 +127,14 @@ enum {
                                     cancelButtonTitle:cancel
                                destructiveButtonTitle:nil
                                     otherButtonTitles:MWLocalizedString(@"wikitext-upload-save-terms-name", nil),
-                                                      MWLocalizedString(@"wikitext-upload-save-license-name", nil),
-                                                      nil];
+                  MWLocalizedString(@"wikitext-upload-save-license-name", nil),
+                  nil];
     }
     return _sheet;
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch(buttonIndex) {
+- (void)actionSheet:(UIActionSheet*)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
         case BUTTON_TERMS:
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:TERMS_LINK]];
             break;
@@ -151,35 +146,33 @@ enum {
     }
 }
 
--(void)underlineSignIn:(UILabel *)label
-{
-    NSDictionary *baseAttributes =
+- (void)underlineSignIn:(UILabel*)label {
+    NSDictionary* baseAttributes =
         @{
-            NSForegroundColorAttributeName: label.textColor,
-            NSFontAttributeName: label.font
-        };
+        NSForegroundColorAttributeName: label.textColor,
+        NSFontAttributeName: label.font
+    };
 
-    NSDictionary *substitutionAttributes =
+    NSDictionary* substitutionAttributes =
         @{
-            NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-            NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
-        };
-    
+        NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+        NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR
+    };
+
     label.attributedText =
-    [label.text attributedStringWithAttributes: baseAttributes
-                           substitutionStrings: @[MWLocalizedString(@"wikitext-upload-save-sign-in", nil)]
-                        substitutionAttributes: @[substitutionAttributes]
-     ];
+        [label.text attributedStringWithAttributes:baseAttributes
+                               substitutionStrings:@[MWLocalizedString(@"wikitext-upload-save-sign-in", nil)]
+                            substitutionAttributes:@[substitutionAttributes]
+        ];
 }
 
--(NSAttributedString *)getCCIconAttributedString
-{
-    return [[NSAttributedString alloc] initWithString: WIKIGLYPH_CC
-                                           attributes: @{
-                                                         NSFontAttributeName: [UIFont wmf_glyphFontOfSize:42.0 * MENUS_SCALE_MULTIPLIER],
-                                                         NSForegroundColorAttributeName : PREVIEW_BLUE_COLOR,
-                                                         NSBaselineOffsetAttributeName: @1.5
-                                                         }];
+- (NSAttributedString*)getCCIconAttributedString {
+    return [[NSAttributedString alloc] initWithString:WIKIGLYPH_CC
+                                           attributes:@{
+                NSFontAttributeName: [UIFont wmf_glyphFontOfSize:42.0 * MENUS_SCALE_MULTIPLIER],
+                NSForegroundColorAttributeName: PREVIEW_BLUE_COLOR,
+                NSBaselineOffsetAttributeName: @1.5
+            }];
 }
 
 @end

@@ -19,8 +19,8 @@
 
     [importer importArticles:articles];
 
-*/
+ */
 
--(void)importArticles:(NSArray *)articleDictionaries;
+- (void)importArticles:(NSArray*)articleDictionaries;
 
 @end

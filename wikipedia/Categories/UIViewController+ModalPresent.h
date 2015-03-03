@@ -9,8 +9,8 @@
 // the transition to that same view controller is performed. This allows view
 // controller parameters to be configured differently.
 
-- (void)performModalSequeWithID: (NSString *)identifier
-               transitionStyle: (UIModalTransitionStyle)style
-                         block: (void (^)(id))block;
+- (void)performModalSequeWithID:(NSString*)identifier
+                transitionStyle:(UIModalTransitionStyle)style
+                          block:(void (^)(id))block;
 
 @end

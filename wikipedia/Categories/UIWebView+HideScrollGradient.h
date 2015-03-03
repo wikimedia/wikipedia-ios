@@ -5,6 +5,6 @@
 
 @interface UIWebView (HideScrollGradient)
 
--(void)hideScrollGradient;
+- (void)hideScrollGradient;
 
 @end

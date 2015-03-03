@@ -9,8 +9,8 @@
 @interface PageHistoryFetcher : FetcherBase
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
--(instancetype)initAndFetchHistoryForTitle: (MWKTitle *)title
-                               withManager: (AFHTTPRequestOperationManager *)manager
-                        thenNotifyDelegate: (id <FetchFinishedDelegate>) delegate;
+- (instancetype)initAndFetchHistoryForTitle:(MWKTitle*)title
+                                withManager:(AFHTTPRequestOperationManager*)manager
+                         thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 
 @end

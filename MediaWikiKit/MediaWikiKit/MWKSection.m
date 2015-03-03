@@ -9,36 +9,34 @@
 #import "MediaWikiKit.h"
 
 @implementation MWKSection {
-    NSString *_text;
-    MWKImageList *_images;
+    NSString* _text;
+    MWKImageList* _images;
 }
 
--(instancetype)initWithArticle:(MWKArticle *)article dict:(NSDictionary *)dict
-{
+- (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict {
     self = [self initWithSite:article.site];
     if (self) {
         _article = article;
-        _title = article.title;
-        
-        _toclevel   =  [self optionalNumber:@"toclevel"   dict:dict];
-        _level      =  [self optionalNumber:@"level"      dict:dict]; // may be a numeric string
-        _line       =  [self optionalString:@"line"       dict:dict];
-        _number     =  [self optionalString:@"number"     dict:dict]; // deceptively named, this must be a string
-        _index      =  [self optionalString:@"index"      dict:dict]; // deceptively named, this must be a string
-        _fromtitle  =  [self optionalTitle: @"fromtitle"  dict:dict];
-        _anchor     =  [self optionalString:@"anchor"     dict:dict];
+        _title   = article.title;
+
+        _toclevel   = [self optionalNumber:@"toclevel"   dict:dict];
+        _level      = [self optionalNumber:@"level"      dict:dict];  // may be a numeric string
+        _line       = [self optionalString:@"line"       dict:dict];
+        _number     = [self optionalString:@"number"     dict:dict];  // deceptively named, this must be a string
+        _index      = [self optionalString:@"index"      dict:dict];  // deceptively named, this must be a string
+        _fromtitle  = [self optionalTitle:@"fromtitle"  dict:dict];
+        _anchor     = [self optionalString:@"anchor"     dict:dict];
         _sectionId  = [[self requiredNumber:@"id"         dict:dict] intValue];
         _references = ([self optionalString:@"references" dict:dict] != nil);
-        
+
         // Not present in .plist, loaded separately there
-        _text       =  [self optionalString:@"text"       dict:dict];
+        _text = [self optionalString:@"text"       dict:dict];
     }
     return self;
 }
 
--(id)dataExport
-{
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+- (id)dataExport {
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     if (self.toclevel) {
         dict[@"toclevel"] = self.toclevel;
     }
@@ -68,13 +66,11 @@
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 
--(BOOL)isLeadSection
-{
+- (BOOL)isLeadSection {
     return (self.sectionId == 0);
 }
 
--(MWKTitle *)sourceTitle
-{
+- (MWKTitle*)sourceTitle {
     if (self.fromtitle) {
         // We probably came from a foreign template section!
         return self.fromtitle;
@@ -83,24 +79,21 @@
     }
 }
 
--(NSString *)text
-{
+- (NSString*)text {
     if (_text == nil) {
         _text = [self.article.dataStore sectionTextWithId:self.sectionId article:self.article];
     }
     return _text;
 }
 
--(MWKImageList *)images
-{
+- (MWKImageList*)images {
     if (_images == nil) {
         _images = [self.article.dataStore imageListWithArticle:self.article section:self];
     }
     return _images;
 }
 
--(void)save
-{
+- (void)save {
     [self.article.dataStore saveSection:self];
     if (_text != nil) {
         [self.article.dataStore saveSectionText:_text section:self];
@@ -109,4 +102,5 @@
         [self.images save];
     }
 }
+
 @end

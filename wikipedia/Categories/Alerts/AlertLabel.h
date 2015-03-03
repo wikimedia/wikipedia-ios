@@ -4,7 +4,7 @@
 #import <UIKit/UIKit.h>
 #import "PaddedLabel.h"
 
-typedef NS_ENUM(NSInteger, AlertType) {
+typedef NS_ENUM (NSInteger, AlertType) {
     ALERT_TYPE_UNKNOWN,
     ALERT_TYPE_TOP,
     ALERT_TYPE_BOTTOM,
@@ -13,10 +13,10 @@ typedef NS_ENUM(NSInteger, AlertType) {
 
 @interface AlertLabel : PaddedLabel
 
--(id)initWithText:(id)text duration:(CGFloat)duration padding:(UIEdgeInsets)padding type:(AlertType)type;
+- (id)initWithText:(id)text duration:(CGFloat)duration padding:(UIEdgeInsets)padding type:(AlertType)type;
 
--(void)hide;
+- (void)hide;
 
--(void)fade;
+- (void)fade;
 
 @end

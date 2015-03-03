@@ -11,13 +11,13 @@
 
 @interface WMFWebViewFooterViewController ()
 
-@property (strong, nonatomic) WMFOptionsFooterViewController *optionsController;
-@property (strong, nonatomic) WMFReadMoreViewController *readMoreViewController;
-@property (strong, nonatomic) WMFLegalFooterViewController *legalViewController;
+@property (strong, nonatomic) WMFOptionsFooterViewController* optionsController;
+@property (strong, nonatomic) WMFReadMoreViewController* readMoreViewController;
+@property (strong, nonatomic) WMFLegalFooterViewController* legalViewController;
 
-@property (weak, nonatomic) IBOutlet UIView *readMoreContainerView;
-@property (weak, nonatomic) IBOutlet UIView *optionsContainerView;
-@property (weak, nonatomic) IBOutlet UIView *legalContainerView;
+@property (weak, nonatomic) IBOutlet UIView* readMoreContainerView;
+@property (weak, nonatomic) IBOutlet UIView* optionsContainerView;
+@property (weak, nonatomic) IBOutlet UIView* legalContainerView;
 
 @end
 
@@ -28,42 +28,35 @@
     [self setupSubFooterContainers];
 }
 
--(void)setupSubFooterContainers
-{
+- (void)setupSubFooterContainers {
     self.readMoreViewController = [[WMFReadMoreViewController alloc] init];
     [self wmf_addChildController:self.readMoreViewController andConstrainToEdgesOfContainerView:self.readMoreContainerView];
-    
+
     self.optionsController = [[WMFOptionsFooterViewController alloc] init];
     [self wmf_addChildController:self.optionsController andConstrainToEdgesOfContainerView:self.optionsContainerView];
-    
+
     self.legalViewController = [[WMFLegalFooterViewController alloc] init];
     [self wmf_addChildController:self.legalViewController andConstrainToEdgesOfContainerView:self.legalContainerView];
 }
 
--(CGFloat)scrollLimitingNativeSubContainerY
-{
+- (CGFloat)scrollLimitingNativeSubContainerY {
     return self.optionsContainerView.frame.origin.y;
 }
 
--(void)search
-{
+- (void)search {
 }
 
-- (void)updateReadMoreForArticle:(MWKArticle *)article{
-    
-    self.readMoreViewController.searchString = article.title.text;
+- (void)updateReadMoreForArticle:(MWKArticle*)article {
+    self.readMoreViewController.searchString                 = article.title.text;
     self.readMoreViewController.articlesToExcludeFromResults = @[article];
     [self.readMoreViewController search];
 }
 
-
--(void)updateLanguageCount:(NSInteger)count
-{
+- (void)updateLanguageCount:(NSInteger)count {
     [self.optionsController updateLanguageCount:count];
 }
 
--(void)updateLastModifiedDate:(NSDate *)date userName:(NSString *)userName
-{
+- (void)updateLastModifiedDate:(NSDate*)date userName:(NSString*)userName {
     [self.optionsController updateLastModifiedDate:date userName:userName];
 }
 

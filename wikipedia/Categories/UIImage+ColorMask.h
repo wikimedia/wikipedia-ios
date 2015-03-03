@@ -11,6 +11,6 @@
 // the need for regenerating new pngs. Because of the way the filter is set
 // up below, this method can be called repeatedly w/no image quality degradation.
 // Intended for use with images which don't have gradients / shadows.
-- (UIImage *)getImageOfColor:(CGColorRef)CGColor;
+- (UIImage*)getImageOfColor:(CGColorRef)CGColor;
 
 @end

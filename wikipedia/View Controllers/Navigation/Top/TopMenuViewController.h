@@ -54,15 +54,15 @@ typedef enum {
 
 @interface TopMenuViewController : UIViewController <UITextFieldDelegate, UISearchBarDelegate>
 
-@property (strong, nonatomic) SearchResultsController *searchResultsController;
+@property (strong, nonatomic) SearchResultsController* searchResultsController;
 
 @property (nonatomic) NavBarStyle navBarStyle;
 @property (nonatomic) NavBarMode navBarMode;
 
--(id)getNavBarItem:(NavBarItemTag)tag;
--(void)updateTOCButtonVisibility;
+- (id)getNavBarItem:(NavBarItemTag)tag;
+- (void)updateTOCButtonVisibility;
 
-@property (strong, nonatomic) IBOutlet TopMenuContainerView *navBarContainer;
+@property (strong, nonatomic) IBOutlet TopMenuContainerView* navBarContainer;
 
 @property (nonatomic) BOOL statusBarHidden;
 

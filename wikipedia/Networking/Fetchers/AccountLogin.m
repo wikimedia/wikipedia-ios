@@ -8,31 +8,29 @@
 #import "NSObject+Extras.h"
 #import "WikipediaAppUtils.h"
 
-@interface AccountLogin()
+@interface AccountLogin ()
 
-@property (strong, nonatomic) NSString *domain;
-@property (strong, nonatomic) NSString *userName;
-@property (strong, nonatomic) NSString *password;
-@property (strong, nonatomic) NSString *token;
+@property (strong, nonatomic) NSString* domain;
+@property (strong, nonatomic) NSString* userName;
+@property (strong, nonatomic) NSString* password;
+@property (strong, nonatomic) NSString* token;
 
 @end
 
 @implementation AccountLogin
 
--(instancetype)initAndLoginForDomain: (NSString *)domain
-                            userName: (NSString *)userName
-                            password: (NSString *)password
-                               token: (NSString *)token
-                         withManager: (AFHTTPRequestOperationManager *)manager
-                  thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate
-{
+- (instancetype)initAndLoginForDomain:(NSString*)domain
+                             userName:(NSString*)userName
+                             password:(NSString*)password
+                                token:(NSString*)token
+                          withManager:(AFHTTPRequestOperationManager*)manager
+                   thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
-
-        self.domain = domain ? domain : @"";
+        self.domain   = domain ? domain : @"";
         self.userName = userName ? userName : @"";
         self.password = password ? password : @"";
-        self.token = token ? token : @"";
+        self.token    = token ? token : @"";
 
         self.fetchFinishedDelegate = delegate;
         [self loginWithManager:manager];
@@ -40,122 +38,110 @@
     return self;
 }
 
-- (void)loginWithManager: (AFHTTPRequestOperationManager *)manager
-{
-    NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
+- (void)loginWithManager:(AFHTTPRequestOperationManager*)manager {
+    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
 
-    NSDictionary *params = [self getParams];
-    
+    NSDictionary* params = [self getParams];
+
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    [manager POST:url.absoluteString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
         //NSLog(@"JSON: %@", responseObject);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         // Fake out an error if non-dictionary response received.
-        if(![responseObject isDict]){
+        if (![responseObject isDict]) {
             responseObject = @{@"error": @{@"info": @"Account login info not found."}};
         }
-        
+
         //NSLog(@"LOGIN DATA RETRIEVED = %@", responseObject);
-        
+
         // Handle case where response is received, but API reports error.
-        NSError *error = nil;
-        if (responseObject[@"error"]){
-            NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
+        NSError* error = nil;
+        if (responseObject[@"error"]) {
+            NSMutableDictionary* errorDict = [responseObject[@"error"] mutableCopy];
             errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-            error = [NSError errorWithDomain: @"Account Login"
-                                        code: LOGIN_ERROR_API
-                                    userInfo: errorDict];
+            error = [NSError errorWithDomain:@"Account Login"
+                                        code:LOGIN_ERROR_API
+                                    userInfo:errorDict];
         }
 
-        NSDictionary *output = @{};
+        NSDictionary* output = @{};
         if (!error) {
             output = [self getSanitizedResponse:responseObject];
         }
 
-        NSString *result = output[@"login"][@"result"];
+        NSString* result = output[@"login"][@"result"];
         if (![result isEqualToString:@"Success"]) {
-            NSMutableDictionary *errorDict = @{}.mutableCopy;
-            NSString *errorMessage = [self getErrorMessageForResult:result];
+            NSMutableDictionary* errorDict = @{}.mutableCopy;
+            NSString* errorMessage = [self getErrorMessageForResult:result];
             errorDict[NSLocalizedDescriptionKey] = errorMessage;
             error = [NSError errorWithDomain:@"Account Login" code:LOGIN_ERROR_MISC userInfo:errorDict];
         }
 
-        [self finishWithError: error
-                  fetchedData: output];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
+        [self finishWithError:error
+                  fetchedData:output];
+    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         //NSLog(@"LOGIN FAIL = %@", error);
 
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-        [self finishWithError: error
-                  fetchedData: nil];
+        [self finishWithError:error
+                  fetchedData:nil];
     }];
 }
 
--(NSMutableDictionary *)getParams
-{
-    NSMutableDictionary *params =
-    @{
-      @"action": @"login",
-      @"lgname": self.userName,
-      @"lgpassword": self.password,
-      @"format": @"json"
-      }.mutableCopy;
-    
+- (NSMutableDictionary*)getParams {
+    NSMutableDictionary* params =
+        @{
+        @"action": @"login",
+        @"lgname": self.userName,
+        @"lgpassword": self.password,
+        @"format": @"json"
+    }.mutableCopy;
+
     if (self.token) {
         params[@"lgtoken"] = self.token;
     }
-    
+
     return params;
 }
 
--(NSDictionary *)getSanitizedResponse:(NSDictionary *)rawResponse
-{
-    NSMutableDictionary *mutableResponse = [NSMutableDictionary dictionaryWithDictionary:rawResponse];
+- (NSDictionary*)getSanitizedResponse:(NSDictionary*)rawResponse {
+    NSMutableDictionary* mutableResponse = [NSMutableDictionary dictionaryWithDictionary:rawResponse];
     // Return the password with the results so it can be added to keychain.
     mutableResponse[@"password"] = self.password;
     return mutableResponse;
 }
 
--(NSString *)getErrorMessageForResult:(NSString *)result
-{
+- (NSString*)getErrorMessageForResult:(NSString*)result {
     // Error types from: http://www.mediawiki.org/wiki/API:Login#Errors
-    NSString *errorMessage = [NSString stringWithFormat:@"Unknown login error. Code '%@'", result];
+    NSString* errorMessage = [NSString stringWithFormat:@"Unknown login error. Code '%@'", result];
 
     if ([result isEqualToString:@"NoName"]) {
         errorMessage = MWLocalizedString(@"login-name-not-found", nil);
-
-    }else if ([result isEqualToString:@"Illegal"]) {
+    } else if ([result isEqualToString:@"Illegal"]) {
         errorMessage = MWLocalizedString(@"login-name-illegal", nil);
-
-    }else if ([result isEqualToString:@"NotExists"]) {
+    } else if ([result isEqualToString:@"NotExists"]) {
         errorMessage = MWLocalizedString(@"login-name-does-not-exist", nil);
-
-    }else if ([result isEqualToString:@"EmptyPass"]) {
+    } else if ([result isEqualToString:@"EmptyPass"]) {
         errorMessage = MWLocalizedString(@"login-password-empty", nil);
-
-    }else if ([result isEqualToString:@"WrongPass"] || [result isEqualToString:@"WrongPluginPass"]) {
+    } else if ([result isEqualToString:@"WrongPass"] || [result isEqualToString:@"WrongPluginPass"]) {
         errorMessage = MWLocalizedString(@"login-password-wrong", nil);
-
-    }else if ([result isEqualToString:@"Throttled"]) {
+    } else if ([result isEqualToString:@"Throttled"]) {
         errorMessage = MWLocalizedString(@"login-throttled", nil);
-
-    }else if ([result isEqualToString:@"Blocked"]) {
+    } else if ([result isEqualToString:@"Blocked"]) {
         errorMessage = MWLocalizedString(@"login-user-blocked", nil);
     }
-    
+
     return errorMessage;
 }
 
 /*
--(void)dealloc
-{
+   -(void)dealloc
+   {
     NSLog(@"DEALLOC'ING ACCOUNT LOGIN!");
-}
-*/
+   }
+ */
 
 @end

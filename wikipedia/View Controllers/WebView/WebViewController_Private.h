@@ -92,10 +92,10 @@ static const int kMinimumTextSelectionLength = 2;
 @interface WebViewController ()
 {
     CGFloat scrollViewDragBeganVerticalOffset_;
-    SessionSingleton *session;
+    SessionSingleton* session;
 }
 
-@property (strong, nonatomic) CommunicationBridge *bridge;
+@property (strong, nonatomic) CommunicationBridge* bridge;
 
 @property (nonatomic) CGPoint lastScrollOffset;
 
@@ -104,52 +104,52 @@ static const int kMinimumTextSelectionLength = 2;
 @property (nonatomic) float relativeScrollOffsetBeforeRotate;
 @property (nonatomic) NSUInteger sectionToEditId;
 
-@property (strong, nonatomic) NSDictionary *adjacentHistoryIDs;
-@property (strong, nonatomic) NSString *externalUrl;
+@property (strong, nonatomic) NSDictionary* adjacentHistoryIDs;
+@property (strong, nonatomic) NSString* externalUrl;
 
-@property (weak, nonatomic) IBOutlet UIView *bottomBarView;
+@property (weak, nonatomic) IBOutlet UIView* bottomBarView;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tocViewWidthConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tocViewLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* tocViewWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* tocViewLeadingConstraint;
 
-@property (strong, nonatomic) UIView *scrollIndicatorView;
-@property (strong, nonatomic) NSLayoutConstraint *scrollIndicatorViewTopConstraint;
-@property (strong, nonatomic) NSLayoutConstraint *scrollIndicatorViewHeightConstraint;
+@property (strong, nonatomic) UIView* scrollIndicatorView;
+@property (strong, nonatomic) NSLayoutConstraint* scrollIndicatorViewTopConstraint;
+@property (strong, nonatomic) NSLayoutConstraint* scrollIndicatorViewHeightConstraint;
 
-@property (strong, nonatomic) TOCViewController *tocVC;
+@property (strong, nonatomic) TOCViewController* tocVC;
 
 @property (strong, nonatomic) UIPanGestureRecognizer* panSwipeRecognizer;
 
-@property (strong, nonatomic) IBOutlet PaddedLabel *zeroStatusLabel;
+@property (strong, nonatomic) IBOutlet PaddedLabel* zeroStatusLabel;
 
 @property (nonatomic) BOOL unsafeToToggleTOC;
 
-@property (strong, nonatomic) ReferencesVC *referencesVC;
-@property (weak, nonatomic) IBOutlet UIView *referencesContainerView;
+@property (strong, nonatomic) ReferencesVC* referencesVC;
+@property (weak, nonatomic) IBOutlet UIView* referencesContainerView;
 
-@property (strong, nonatomic) NSLayoutConstraint *bottomBarViewBottomConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *referencesContainerViewBottomConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *referencesContainerViewHeightConstraint;
+@property (strong, nonatomic) NSLayoutConstraint* bottomBarViewBottomConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* referencesContainerViewBottomConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* referencesContainerViewHeightConstraint;
 
-@property (copy) NSString *jumpToFragment;
+@property (copy) NSString* jumpToFragment;
 
 @property (nonatomic) BOOL editable;
-@property (copy) MWKProtectionStatus *protectionStatus;
+@property (copy) MWKProtectionStatus* protectionStatus;
 
 // These are presently only used by updateHistoryDateVisitedForArticleBeingNavigatedFrom method.
-@property (strong, nonatomic) MWKTitle *currentTitle;
+@property (strong, nonatomic) MWKTitle* currentTitle;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomNavHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* bottomNavHeightConstraint;
 
-@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) UIView *activityIndicatorBackgroundView;
+@property (strong, nonatomic) UIActivityIndicatorView* activityIndicator;
+@property (strong, nonatomic) UIView* activityIndicatorBackgroundView;
 
-@property (strong, nonatomic) LeadImageContainer *leadImageContainer;
+@property (strong, nonatomic) LeadImageContainer* leadImageContainer;
 
-@property (strong, nonatomic) WMFWebViewFooterContainerView *footerContainer;
-@property (strong, nonatomic) WMFWebViewFooterViewController *footerViewController;
+@property (strong, nonatomic) WMFWebViewFooterContainerView* footerContainer;
+@property (strong, nonatomic) WMFWebViewFooterViewController* footerViewController;
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewBottomConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* webViewBottomConstraint;
 
 @property (nonatomic) BOOL didLastNavigateByBackOrForward;
 

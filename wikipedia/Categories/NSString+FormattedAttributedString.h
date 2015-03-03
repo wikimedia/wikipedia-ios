@@ -7,15 +7,15 @@
 
 /*
 
-Returns attributed string version of string with "attributes" applied to it and
-does dollar-sign-number substitutions (eg $1, $2 etc) replacing dollar-sign-number
-occurences in string with respective strings from "substitutionStrings" and applying 
-respective attributes from "substitutionAttributes" to the substituted string.
+   Returns attributed string version of string with "attributes" applied to it and
+   does dollar-sign-number substitutions (eg $1, $2 etc) replacing dollar-sign-number
+   occurences in string with respective strings from "substitutionStrings" and applying
+   respective attributes from "substitutionAttributes" to the substituted string.
 
-Super handy for quickly creating a string which has many different style attributes
-set to many of its different letters.
+   Super handy for quickly creating a string which has many different style attributes
+   set to many of its different letters.
 
-Example:
+   Example:
     NSDictionary *largeOrangeText = @{
                                    NSFontAttributeName : [UIFont fontWithName:@"Georgia" size:20],
                                    NSForegroundColorAttributeName : [UIColor orangeColor]
@@ -37,10 +37,10 @@ Example:
                        substitutionStrings: @[@"small green", @"medium blue"]
                     substitutionAttributes: @[smallGreenText, mediumBlueText]
      ];
-*/
+ */
 
--(NSAttributedString *)attributedStringWithAttributes: (NSDictionary *)attributes
-                                  substitutionStrings: (NSArray *)substitutionStrings
-                               substitutionAttributes: (NSArray *)substitutionAttributes;
+- (NSAttributedString*)attributedStringWithAttributes:(NSDictionary*)attributes
+                                  substitutionStrings:(NSArray*)substitutionStrings
+                               substitutionAttributes:(NSArray*)substitutionAttributes;
 
 @end

@@ -11,18 +11,16 @@
 
 @implementation NSArray (BKIndex)
 
-- (NSDictionary*)bk_index:(id<NSCopying>(^)(id))index
-{
+- (NSDictionary*)bk_index:(id<NSCopying>(^)(id))index {
     return [self bk_reduce:[NSMutableDictionary dictionaryWithCapacity:self.count]
-                 withBlock:^NSMutableDictionary*(NSMutableDictionary *acc, id obj) {
+                 withBlock:^NSMutableDictionary*(NSMutableDictionary* acc, id obj) {
         acc[index(obj)] = obj;
         return acc;
     }];
 }
 
-- (NSDictionary*)bk_indexWithKeypath:(NSString *)keypath
-{
-    return [self bk_index:^id<NSCopying>(id obj) {
+- (NSDictionary*)bk_indexWithKeypath:(NSString*)keypath {
+    return [self bk_index:^id < NSCopying > (id obj) {
         return [obj valueForKeyPath:keypath];
     }];
 }

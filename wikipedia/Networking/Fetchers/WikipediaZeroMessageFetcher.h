@@ -4,19 +4,19 @@
 #import <Foundation/Foundation.h>
 #import "FetcherBase.h"
 
-typedef NS_ENUM(NSInteger, WikipediaZeroMessageFetcherErrorType) {
+typedef NS_ENUM (NSInteger, WikipediaZeroMessageFetcherErrorType) {
     WIKIPEDIA_ZERO_MESSAGE_FETCH_ERROR_UNKNOWN = 0,
-    WIKIPEDIA_ZERO_MESSAGE_FETCH_ERROR_API = 1
+    WIKIPEDIA_ZERO_MESSAGE_FETCH_ERROR_API     = 1
 };
 
 @class AFHTTPRequestOperationManager;
 
 @interface WikipediaZeroMessageFetcher : FetcherBase
 
-@property (strong, nonatomic, readonly) NSString *domain;
+@property (strong, nonatomic, readonly) NSString* domain;
 
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
--(instancetype)initAndFetchMessageForDomain: (NSString *)domain
-                                withManager: (AFHTTPRequestOperationManager *)manager
-                         thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate;
+- (instancetype)initAndFetchMessageForDomain:(NSString*)domain
+                                 withManager:(AFHTTPRequestOperationManager*)manager
+                          thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 @end

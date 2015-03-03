@@ -9,7 +9,7 @@
 
 // Protocol for notifying languageSelectionDelegate that selection was made.
 @protocol LanguageSelectionDelegate <NSObject>
-    - (void)languageSelected:(NSDictionary *)langData sender:(LanguagesViewController *)sender;
+- (void)languageSelected:(NSDictionary*)langData sender:(LanguagesViewController*)sender;
 @end
 
 @interface LanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, FetchFinishedDelegate>
@@ -22,7 +22,7 @@
 
 @property (weak, nonatomic) id truePresentingVC;
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UITableView* tableView;
 
 // Object to receive "languageSelected:sender:" notifications.
 @property (nonatomic, weak) id <LanguageSelectionDelegate> languageSelectionDelegate;

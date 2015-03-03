@@ -5,6 +5,6 @@
 
 @interface UIFont (WMF_Style)
 
-+(UIFont *)wmf_glyphFontOfSize:(CGFloat)fontSize;
++ (UIFont*)wmf_glyphFontOfSize:(CGFloat)fontSize;
 
 @end

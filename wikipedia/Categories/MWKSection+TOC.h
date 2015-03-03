@@ -3,6 +3,6 @@
 
 @interface MWKSection (TOC)
 
--(id)tocTitle;
+- (id)tocTitle;
 
 @end

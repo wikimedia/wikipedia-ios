@@ -5,20 +5,21 @@
 
 @implementation ReferenceGradientView
 
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent*)event {
     // Allow side-swipes to fall through to the references web view, but not
     // if a sub view with userInteractionEnabled YES was tapped.
     // See: http://stackoverflow.com/a/12355957
-    for (UIView *view in self.subviews) {
+    for (UIView* view in self.subviews) {
         if (view.userInteractionEnabled) {
-            if (CGRectContainsPoint(view.frame, point)) return YES;
+            if (CGRectContainsPoint(view.frame, point)) {
+                return YES;
+            }
         }
     }
     return NO;
 }
 
-- (void)drawRect:(CGRect)rect
-{
+- (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
 
     CGContextRef ctx = UIGraphicsGetCurrentContext();
@@ -38,8 +39,8 @@
     // Gradient drawing based on: http://stackoverflow.com/a/422208
     CGGradientRef gradient;
     CGColorSpaceRef rgbSpace;
-    size_t locationCount = 2;
-    CGFloat locations[2] = { 0.0, 1.0 };
+    size_t locationCount       = 2;
+    CGFloat locations[2]       = { 0.0, 1.0 };
     CGFloat colorComponents[8] = {
         0.0, 0.0, 0.0, topHalfAlpha,    // starting color
         0.0, 0.0, 0.0, 0.0              // ending color
@@ -49,7 +50,7 @@
     gradient = CGGradientCreateWithColorComponents(rgbSpace, colorComponents, locations, locationCount);
 
     //CGPoint topCenter = CGPointMake(CGRectGetMidX(currentBounds), 0.0f);
-    CGPoint midCenter = CGPointMake(CGRectGetMidX(rect), gradientTop);
+    CGPoint midCenter    = CGPointMake(CGRectGetMidX(rect), gradientTop);
     CGPoint bottomCenter = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
     CGContextDrawLinearGradient(ctx, gradient, midCenter, bottomCenter, 0);
 

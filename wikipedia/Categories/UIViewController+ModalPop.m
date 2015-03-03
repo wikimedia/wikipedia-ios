@@ -6,16 +6,15 @@
 
 @implementation UIViewController (ModalPop)
 
--(void)popModal
-{
+- (void)popModal {
     // Hide this view controller.
-    if(!(self.isBeingPresented || self.isBeingDismissed)){
+    if (!(self.isBeingPresented || self.isBeingDismissed)) {
         //[self.truePresentingVC dismissViewControllerAnimated:YES completion:^{}];
         id presentingVC = nil;
-        SEL selector = @selector(truePresentingVC);
+        SEL selector    = @selector(truePresentingVC);
         if ([self respondsToSelector:selector]) {
             IMP imp = [self methodForSelector:selector];
-            id (*func)(id, SEL) = (void *)imp;
+            id (* func)(id, SEL) = (void*)imp;
             presentingVC = func(self, selector);
         }
         [presentingVC dismissViewControllerAnimated:YES completion:^{}];
@@ -23,8 +22,7 @@
     }
 }
 
--(void)popModalToRoot
-{
+- (void)popModalToRoot {
     // Hide the black menu which presented this view controller.
 
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
@@ -34,20 +32,19 @@
         [self addSnapshotToModalFromRoot];
     }
 
-    [ROOT dismissViewControllerAnimated: YES completion:nil];
+    [ROOT dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)addSnapshotToModalFromRoot
-{
-    UIViewController *bottommost = ROOT.presentedViewController;
-    UIViewController *topmost = bottommost;
+- (void)addSnapshotToModalFromRoot {
+    UIViewController* bottommost = ROOT.presentedViewController;
+    UIViewController* topmost    = bottommost;
     while (topmost && topmost.presentedViewController) {
         topmost = topmost.presentedViewController;
     }
 
     if (topmost != bottommost) {
         // Take a snapshot view of the topmost view controller's view...
-        UIView *snapshot = [topmost.view snapshotViewAfterScreenUpdates:NO];
+        UIView* snapshot = [topmost.view snapshotViewAfterScreenUpdates:NO];
 
         // Put it in the bottommost view controller on top of whatever's already there.
         // It'll vanish when the view is destroyed, so no need to clean up manually.

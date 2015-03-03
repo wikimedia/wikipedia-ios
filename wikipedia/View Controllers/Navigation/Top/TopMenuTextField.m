@@ -8,14 +8,13 @@
 
 @synthesize placeholder = _placeholder;
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
-        self.borderStyle = UITextBorderStyleNone;
+        self.borderStyle        = UITextBorderStyleNone;
         self.layer.cornerRadius = 6.0f * MENUS_SCALE_MULTIPLIER;
-        self.layer.borderWidth = 1.0f / [UIScreen mainScreen].scale;
-        self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.layer.borderWidth  = 1.0f / [UIScreen mainScreen].scale;
+        self.layer.borderColor  = [UIColor lightGrayColor].CGColor;
     }
     return self;
 }
@@ -31,27 +30,25 @@
     return [self textRectForBounds:bounds];
 }
 
--(void)setPlaceholder:(NSString *)placeholder
-{
-    _placeholder = placeholder;
-    self.attributedPlaceholder = [self getAttributedPlaceholderForString:(!placeholder) ? @"": placeholder];
+- (void)setPlaceholder:(NSString*)placeholder {
+    _placeholder               = placeholder;
+    self.attributedPlaceholder = [self getAttributedPlaceholderForString:(!placeholder) ? @"" : placeholder];
 }
 
--(NSAttributedString *)getAttributedPlaceholderForString:(NSString *)string
-{
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:string];
-    
-    [str addAttributes: @{
-                          NSForegroundColorAttributeName : SEARCH_FIELD_PLACEHOLDER_TEXT_COLOR
-                          }
-                 range: NSMakeRange(0, string.length)];
+- (NSAttributedString*)getAttributedPlaceholderForString:(NSString*)string {
+    NSMutableAttributedString* str = [[NSMutableAttributedString alloc] initWithString:string];
+
+    [str addAttributes:@{
+         NSForegroundColorAttributeName: SEARCH_FIELD_PLACEHOLDER_TEXT_COLOR
+     }
+                 range:NSMakeRange(0, string.length)];
     return str;
 }
 
 /*
-// Draw separator line at bottom for iOS 6.
+   // Draw separator line at bottom for iOS 6.
 
-- (void)drawRect:(CGRect)rect {
+   - (void)drawRect:(CGRect)rect {
     if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGContextMoveToPoint(context, CGRectGetMinX(rect), CGRectGetMaxY(rect));
@@ -60,7 +57,7 @@
         CGContextSetLineWidth(context, 1.0);
         CGContextStrokePath(context);
     }
-}
-*/
+   }
+ */
 
 @end

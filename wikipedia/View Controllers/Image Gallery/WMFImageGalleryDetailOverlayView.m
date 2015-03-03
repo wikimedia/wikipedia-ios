@@ -14,8 +14,8 @@
 #import "UILabel+WMFStyling.h"
 
 @interface WMFImageGalleryDetailOverlayView ()
-@property (nonatomic, weak) IBOutlet UILabel *imageDescriptionLabel;
-@property (nonatomic, weak) IBOutlet UIButton *ownerButton;
+@property (nonatomic, weak) IBOutlet UILabel* imageDescriptionLabel;
+@property (nonatomic, weak) IBOutlet UIButton* ownerButton;
 
 - (IBAction)didTapOwnerButton;
 
@@ -23,25 +23,21 @@
 
 @implementation WMFImageGalleryDetailOverlayView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     [NSException raise:@"ViewRequiresNibInstantiationException"
                 format:@"%@ is expecting to be loaded from a nib.", NSStringFromClass([self class])];
     return nil;
 }
 
-+ (Class)layerClass
-{
++ (Class)layerClass {
     return [CAGradientLayer class];
 }
 
-- (CAGradientLayer*)gradientLayer
-{
+- (CAGradientLayer*)gradientLayer {
     return (CAGradientLayer*)self.layer;
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
     [super awakeFromNib];
     [[self gradientLayer] setLocations:@[@0, @0.6, @1]];
     [[self gradientLayer] setColors:@[(id)[UIColor blackColor].CGColor,
@@ -53,9 +49,10 @@
     [self.imageDescriptionLabel wmf_applyDropShadow];
 }
 
-- (IBAction)didTapOwnerButton
-{
-    if (self.ownerTapCallback) { self.ownerTapCallback(); }
+- (IBAction)didTapOwnerButton {
+    if (self.ownerTapCallback) {
+        self.ownerTapCallback();
+    }
 }
 
 @end

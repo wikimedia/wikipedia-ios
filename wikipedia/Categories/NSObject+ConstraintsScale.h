@@ -5,6 +5,6 @@
 
 @interface NSObject (ConstraintsScale)
 
--(void)adjustConstraintsScaleForViews:(NSArray *)views;
+- (void)adjustConstraintsScaleForViews:(NSArray*)views;
 
 @end

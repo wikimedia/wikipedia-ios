@@ -6,6 +6,6 @@
 
 @interface BottomMenuViewController : UIViewController <WMFShareOptionsViewControllerDelegate>
 
--(void)updateBottomBarButtonsEnabledState;
+- (void)updateBottomBarButtonsEnabledState;
 
 @end

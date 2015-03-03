@@ -10,9 +10,9 @@
 
 @interface MWKRecentSearchEntry : MWKSiteDataObject
 
-@property (readonly) NSString *searchTerm;
+@property (readonly) NSString* searchTerm;
 
--(instancetype)initWithSite:(MWKSite *)site searchTerm:(NSString *)searchTerm;
--(instancetype)initWithDict:(NSDictionary *)dict;
+- (instancetype)initWithSite:(MWKSite*)site searchTerm:(NSString*)searchTerm;
+- (instancetype)initWithDict:(NSDictionary*)dict;
 
 @end

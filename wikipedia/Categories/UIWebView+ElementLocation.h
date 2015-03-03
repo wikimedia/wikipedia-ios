@@ -7,12 +7,12 @@
 
 @interface UIWebView (ElementLocation)
 
-- (CGRect)getScreenRectForHtmlElementWithId:(NSString *)elementId;
-- (CGRect)getWebViewRectForHtmlElementWithId:(NSString *)elementId;
+- (CGRect)getScreenRectForHtmlElementWithId:(NSString*)elementId;
+- (CGRect)getWebViewRectForHtmlElementWithId:(NSString*)elementId;
 
-- (CGPoint)getScreenCoordsForHtmlImageWithSrc:(NSString *)src;
-- (CGPoint)getWebViewCoordsForHtmlImageWithSrc:(NSString *)src;
+- (CGPoint)getScreenCoordsForHtmlImageWithSrc:(NSString*)src;
+- (CGPoint)getWebViewCoordsForHtmlImageWithSrc:(NSString*)src;
 
-- (NSInteger)getIndexOfTopOnScreenElementWithPrefix:(NSString *)prefix count:(NSUInteger)count;
+- (NSInteger)getIndexOfTopOnScreenElementWithPrefix:(NSString*)prefix count:(NSUInteger)count;
 
 @end

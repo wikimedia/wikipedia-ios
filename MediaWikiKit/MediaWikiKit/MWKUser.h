@@ -15,9 +15,9 @@
 @interface MWKUser : MWKSiteDataObject
 
 @property (readonly) bool anonymous;
-@property (readonly) NSString *name;
-@property (readonly) NSString *gender; // used to format UI messages on-wiki
+@property (readonly) NSString* name;
+@property (readonly) NSString* gender; // used to format UI messages on-wiki
 
--(instancetype)initWithSite:(MWKSite *)site data:(id)data;
+- (instancetype)initWithSite:(MWKSite*)site data:(id)data;
 
 @end

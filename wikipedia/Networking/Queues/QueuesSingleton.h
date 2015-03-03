@@ -7,21 +7,21 @@
 
 @interface QueuesSingleton : NSObject
 
-@property (strong, nonatomic) AFHTTPRequestOperationManager *loginFetchManager;
-@property (strong, nonatomic) AFHTTPRequestOperationManager *articleFetchManager;
-@property (strong, nonatomic) AFHTTPRequestOperationManager *savedPagesFetchManager;
-@property (strong, nonatomic) AFHTTPRequestOperationManager *searchResultsFetchManager;
-@property (strong, nonatomic) AFHTTPRequestOperationManager *zeroRatedMessageFetchManager;
-@property (strong, nonatomic) AFHTTPRequestOperationManager *sectionWikiTextDownloadManager;
-@property (strong, nonatomic) AFHTTPRequestOperationManager *sectionWikiTextUploadManager;
-@property (strong, nonatomic) AFHTTPRequestOperationManager *sectionPreviewHtmlFetchManager;
-@property (strong, nonatomic) AFHTTPRequestOperationManager *languageLinksFetcher;
-@property (strong, nonatomic) AFHTTPRequestOperationManager *accountCreationFetchManager;
-@property (strong, nonatomic) AFHTTPRequestOperationManager *pageHistoryFetchManager;
-@property (strong, nonatomic) AFHTTPRequestOperationManager *assetsFetchManager;
-@property (strong, nonatomic) AFHTTPRequestOperationManager *nearbyFetchManager;
+@property (strong, nonatomic) AFHTTPRequestOperationManager* loginFetchManager;
+@property (strong, nonatomic) AFHTTPRequestOperationManager* articleFetchManager;
+@property (strong, nonatomic) AFHTTPRequestOperationManager* savedPagesFetchManager;
+@property (strong, nonatomic) AFHTTPRequestOperationManager* searchResultsFetchManager;
+@property (strong, nonatomic) AFHTTPRequestOperationManager* zeroRatedMessageFetchManager;
+@property (strong, nonatomic) AFHTTPRequestOperationManager* sectionWikiTextDownloadManager;
+@property (strong, nonatomic) AFHTTPRequestOperationManager* sectionWikiTextUploadManager;
+@property (strong, nonatomic) AFHTTPRequestOperationManager* sectionPreviewHtmlFetchManager;
+@property (strong, nonatomic) AFHTTPRequestOperationManager* languageLinksFetcher;
+@property (strong, nonatomic) AFHTTPRequestOperationManager* accountCreationFetchManager;
+@property (strong, nonatomic) AFHTTPRequestOperationManager* pageHistoryFetchManager;
+@property (strong, nonatomic) AFHTTPRequestOperationManager* assetsFetchManager;
+@property (strong, nonatomic) AFHTTPRequestOperationManager* nearbyFetchManager;
 
-- (void)reset;
-+ (QueuesSingleton *)sharedInstance;
+- (void)            reset;
++ (QueuesSingleton*)sharedInstance;
 
 @end

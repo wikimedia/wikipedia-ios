@@ -6,17 +6,15 @@
 
 @implementation UIViewController (HideKeyboard)
 
--(void)hideKeyboard
-{
-	AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    UIViewController *rootVC = appDelegate.window.rootViewController;
+- (void)hideKeyboard {
+    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    UIViewController* rootVC = appDelegate.window.rootViewController;
     [rootVC recurseSubVCs];
 }
 
--(void)recurseSubVCs
-{
+- (void)recurseSubVCs {
     [self recurseSubviewsOfView:self.view];
-    for (UIViewController *subVC in self.childViewControllers.copy) {
+    for (UIViewController* subVC in self.childViewControllers.copy) {
         if (subVC.presentedViewController) {
             [subVC.presentedViewController recurseSubVCs];
         }
@@ -24,8 +22,7 @@
     }
 }
 
--(void)recurseSubviewsOfView:(UIView *)view
-{
+- (void)recurseSubviewsOfView:(UIView*)view {
     if ([view respondsToSelector:@selector(isFirstResponder)]) {
         if (view.isFirstResponder) {
             if ([view respondsToSelector:@selector(resignFirstResponder)]) {
@@ -35,7 +32,7 @@
             }
         }
     }
-    for (UIView *subView in view.subviews.copy) {
+    for (UIView* subView in view.subviews.copy) {
         [self recurseSubviewsOfView:subView];
     }
 }

@@ -10,8 +10,7 @@
 
 @implementation UIWebView (WMF_SuppressSelection)
 
--(void)wmf_suppressSelection
-{
+- (void)wmf_suppressSelection {
     self.userInteractionEnabled = NO;
     self.userInteractionEnabled = YES;
 }

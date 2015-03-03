@@ -13,15 +13,14 @@
 
 /// Required extmetadata keys, don't forget to add new ones to +requiredExtMetadataKeys!
 static NSString* const ExtMetadataImageDescriptionKey = @"ImageDescription";
-static NSString* const ExtMetadataArtistKey = @"Artist";
-static NSString* const ExtMetadataLicenseUrlKey = @"LicenseUrl";
+static NSString* const ExtMetadataArtistKey           = @"Artist";
+static NSString* const ExtMetadataLicenseUrlKey       = @"LicenseUrl";
 static NSString* const ExtMetadataLicenseShortNameKey = @"LicenseShortName";
-static NSString* const ExtMetadataLicenseKey = @"License";
+static NSString* const ExtMetadataLicenseKey          = @"License";
 
 @implementation MWKImageInfoResponseSerializer
 
-+ (NSArray*)requiredExtMetadataKeys
-{
++ (NSArray*)requiredExtMetadataKeys {
     return @[ExtMetadataLicenseKey,
              ExtMetadataLicenseUrlKey,
              ExtMetadataLicenseShortNameKey,
@@ -29,43 +28,44 @@ static NSString* const ExtMetadataLicenseKey = @"License";
              ExtMetadataArtistKey];
 }
 
-- (id)responseObjectForResponse:(NSURLResponse *)response
-                           data:(NSData *)data
-                          error:(NSError *__autoreleasing *)error
-{
-    NSDictionary *json = [super responseObjectForResponse:response data:data error:error];
-    if (!json || *error) { return nil; }
-    NSDictionary *apiError = json[@"error"];
+- (id)responseObjectForResponse:(NSURLResponse*)response
+                           data:(NSData*)data
+                          error:(NSError* __autoreleasing*)error {
+    NSDictionary* json = [super responseObjectForResponse:response data:data error:error];
+    if (!json || *error) {
+        return nil;
+    }
+    NSDictionary* apiError = json[@"error"];
     if (apiError) {
         if (error) {
             *error = WMFErrorForApiErrorObject(apiError);
         }
         return nil;
     }
-    NSDictionary *indexedImages = json[@"query"][@"pages"];
-    NSMutableArray *itemListBuilder = [NSMutableArray arrayWithCapacity:[[indexedImages allKeys] count]];
-    [indexedImages enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSDictionary *image, BOOL *stop) {
-        NSDictionary *imageInfo = [image[@"imageinfo"] firstObject];
-        NSDictionary *extMetadata = imageInfo[@"extmetadata"];
+    NSDictionary* indexedImages     = json[@"query"][@"pages"];
+    NSMutableArray* itemListBuilder = [NSMutableArray arrayWithCapacity:[[indexedImages allKeys] count]];
+    [indexedImages enumerateKeysAndObjectsUsingBlock:^(NSString* key, NSDictionary* image, BOOL* stop) {
+        NSDictionary* imageInfo = [image[@"imageinfo"] firstObject];
+        NSDictionary* extMetadata = imageInfo[@"extmetadata"];
         // !!!: workaround for a nasty bug in JSON serialization in the back-end
         if (![extMetadata isKindOfClass:[NSDictionary class]]) {
             extMetadata = nil;
         }
-        MWKLicense *license =
+        MWKLicense* license =
             [[MWKLicense alloc]
              initWithCode:extMetadata[ExtMetadataLicenseKey][@"value"]
-             shortDescription:extMetadata[ExtMetadataLicenseShortNameKey][@"value"]
-             URL:[NSURL URLWithString:extMetadata[ExtMetadataLicenseUrlKey][@"value"]]];
-        MWKImageInfo *item =
+          shortDescription:extMetadata[ExtMetadataLicenseShortNameKey][@"value"]
+                       URL:[NSURL URLWithString:extMetadata[ExtMetadataLicenseUrlKey][@"value"]]];
+        MWKImageInfo* item =
             [[MWKImageInfo alloc]
              initWithCanonicalPageTitle:image[@"title"]
-             canonicalFileURL:[NSURL URLWithString:imageInfo[@"url"]]
-             imageDescription:[extMetadata[ExtMetadataImageDescriptionKey][@"value"] wmf_joinedHtmlTextNodes]
-             license:license
-             filePageURL:[NSURL URLWithString:imageInfo[@"descriptionurl"]]
-             imageURL:[NSURL URLWithString:imageInfo[@"url"]]
-             imageThumbURL:[NSURL URLWithString:imageInfo[@"thumburl"]]
-             owner:[extMetadata[ExtMetadataArtistKey][@"value"] wmf_joinedHtmlTextNodes]];
+                       canonicalFileURL:[NSURL URLWithString:imageInfo[@"url"]]
+                       imageDescription:[extMetadata[ExtMetadataImageDescriptionKey][@"value"] wmf_joinedHtmlTextNodes]
+                                license:license
+                            filePageURL:[NSURL URLWithString:imageInfo[@"descriptionurl"]]
+                               imageURL:[NSURL URLWithString:imageInfo[@"url"]]
+                          imageThumbURL:[NSURL URLWithString:imageInfo[@"thumburl"]]
+                                  owner:[extMetadata[ExtMetadataArtistKey][@"value"] wmf_joinedHtmlTextNodes]];
         [itemListBuilder addObject:item];
     }];
     return itemListBuilder;

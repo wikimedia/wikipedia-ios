@@ -7,8 +7,7 @@
 
 // Based on this insanity: http://stackoverflow.com/a/18746930/135557
 // However, I think best practice is to re-use a single offscreen cell for size determination.
--(CGFloat)heightForSizingCell:(UITableViewCell *)cell
-{
+- (CGFloat)heightForSizingCell:(UITableViewCell*)cell {
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
     cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.bounds), CGRectGetHeight(cell.bounds));

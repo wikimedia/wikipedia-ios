@@ -5,6 +5,6 @@
 
 @interface TopMenuTextField : UITextField
 
-@property(nonatomic, copy) NSString *placeholder;
+@property(nonatomic, copy) NSString* placeholder;
 
 @end

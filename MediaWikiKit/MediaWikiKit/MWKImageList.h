@@ -13,19 +13,19 @@
 @class MWKImage;
 
 @interface MWKImageList : MWKSiteDataObject <NSFastEnumeration>
-@property (weak, readonly) MWKArticle *article;
-@property (weak, readonly) MWKSection *section;
+@property (weak, readonly) MWKArticle* article;
+@property (weak, readonly) MWKSection* section;
 
--(instancetype)initWithArticle:(MWKArticle *)article section:(MWKSection *)section;
--(instancetype)initWithArticle:(MWKArticle *)article section:(MWKSection *)section dict:(NSDictionary *)dict;
+- (instancetype)initWithArticle:(MWKArticle*)article section:(MWKSection*)section;
+- (instancetype)initWithArticle:(MWKArticle*)article section:(MWKSection*)section dict:(NSDictionary*)dict;
 
--(NSUInteger)count;
--(NSString *)imageURLAtIndex:(NSUInteger)index;
--(MWKImage *)objectAtIndexedSubscript:(NSUInteger)index;
+- (NSUInteger)count;
+- (NSString*) imageURLAtIndex:(NSUInteger)index;
+- (MWKImage*)objectAtIndexedSubscript:(NSUInteger)index;
 
--(void)addImageURL:(NSString *)imageURL;
+- (void)addImageURL:(NSString*)imageURL;
 
--(BOOL)hasImageURL:(NSString *)imageURL;
+- (BOOL)hasImageURL:(NSString*)imageURL;
 
 - (MWKImage*)imageWithURL:(NSString*)imageURL;
 
@@ -39,7 +39,7 @@
  *
  * May be an empty array if none known.
  */
--(NSArray *)imageSizeVariants:(NSString *)imageURL;
+- (NSArray*)imageSizeVariants:(NSString*)imageURL;
 
 /**
  * Return the URL for the largest variant of image that actually has been saved
@@ -47,7 +47,7 @@
  *
  * May be nil if none found.
  */
--(NSString *)largestImageVariant:(NSString *)image;
+- (NSString*)largestImageVariant:(NSString*)image;
 
 /**
  * Searches the receiver for a cached image variant matching @c sourceURL.
@@ -61,9 +61,9 @@
  * @param imageURL      The @c sourceURL of the image to be retrieved.
  * @param cachedOnly    Whether or not matches must also be cached.
  * @return A @c MWKImage object where @c sourceURL matches @c imageURL. If @c cachedOnly is @c YES, the object will also
- *         be cached. Otherwise @c nil if no matching, cached (if specified) entries are found. 
+ *         be cached. Otherwise @c nil if no matching, cached (if specified) entries are found.
  */
-- (MWKImage*)largestImageVariantForURL:(NSString *)imageURL cachedOnly:(BOOL)cachedOnly;
+- (MWKImage*)largestImageVariantForURL:(NSString*)imageURL cachedOnly:(BOOL)cachedOnly;
 
 /**
  * Reduce the receiver by removing all but the largest variants of the contained images, preserving order.
@@ -75,6 +75,6 @@
 
 @property (readonly) BOOL dirty;
 
--(void)save;
+- (void)save;
 
 @end

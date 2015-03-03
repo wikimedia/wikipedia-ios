@@ -5,10 +5,11 @@
 
 @implementation UIViewController (SearchChildViewControllers)
 
--(id)searchForChildViewControllerOfClass:(Class)aClass
-{
-    for (UIViewController *vc in self.childViewControllers.copy) {
-        if ([vc isMemberOfClass:aClass]) return vc;
+- (id)searchForChildViewControllerOfClass:(Class)aClass {
+    for (UIViewController* vc in self.childViewControllers.copy) {
+        if ([vc isMemberOfClass:aClass]) {
+            return vc;
+        }
     }
     return nil;
 }

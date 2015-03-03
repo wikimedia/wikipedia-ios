@@ -6,7 +6,7 @@
 #import "Defines.h"
 #import "UIView+RemoveConstraints.h"
 
-@interface AlertLabel()
+@interface AlertLabel ()
 
 @property (nonatomic) CGFloat duration;
 @property (nonatomic) UIEdgeInsets padding;
@@ -17,47 +17,46 @@
 
 @implementation AlertLabel
 
--(id)initWithText:(id)text duration:(CGFloat)duration padding:(UIEdgeInsets)padding type:(AlertType)type;
+- (id)initWithText:(id)text duration:(CGFloat)duration padding:(UIEdgeInsets)padding type:(AlertType)type;
 {
     self = [super init];
     if (self) {
-
-        self.font = [UIFont systemFontOfSize:ALERT_FONT_SIZE];
+        self.font          = [UIFont systemFontOfSize:ALERT_FONT_SIZE];
         self.textAlignment = NSTextAlignmentCenter;
-        self.textColor = ALERT_TEXT_COLOR;
+        self.textColor     = ALERT_TEXT_COLOR;
 
-        if([text isKindOfClass:[NSAttributedString class]]){
+        if ([text isKindOfClass:[NSAttributedString class]]) {
             self.attributedText = text;
-        }else{
+        } else {
             self.text = text;
         }
 
-        self.duration = duration;
-        self.padding = padding;
-        self.type = type;
-        self.minimumScaleFactor = 0.2;
-        self.numberOfLines = 0;
-        self.lineBreakMode = NSLineBreakByWordWrapping;
-        self.backgroundColor = ALERT_BACKGROUND_COLOR;
+        self.duration               = duration;
+        self.padding                = padding;
+        self.type                   = type;
+        self.minimumScaleFactor     = 0.2;
+        self.numberOfLines          = 0;
+        self.lineBreakMode          = NSLineBreakByWordWrapping;
+        self.backgroundColor        = ALERT_BACKGROUND_COLOR;
         self.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
         [self addGestureRecognizer:tap];
     }
     return self;
 }
 
--(void)tap:(UITapGestureRecognizer *)recognizer
-{
-    if(recognizer.state == UIGestureRecognizerStateEnded){
+- (void)tap:(UITapGestureRecognizer*)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
         // Hide without delay.
         [self hide];
     }
 }
 
--(void)hide
-{
+- (void)hide {
     // Don't do anything if this view has yet to move to its superview.
-    if (!self.superview) return;
+    if (!self.superview) {
+        return;
+    }
 
     // This is important. Without this, rapid taps on save icon followed by save icon long press to
     // bring up the saved pages list followed by selection would cause crash on iOS 6. Crash related
@@ -67,16 +66,16 @@
     [self removeFromSuperview];
 }
 
--(void)fade
-{
+- (void)fade {
     [self fadeAfterDelay:0];
 }
 
--(void)fadeAfterDelay:(CGFloat)delay
-{
+- (void)fadeAfterDelay:(CGFloat)delay {
     // Don't do anything if this view has yet to move to its superview.
-    if (!self.superview) return;
-    
+    if (!self.superview) {
+        return;
+    }
+
     [UIView animateWithDuration:0.35
                           delay:delay
                         options:0
@@ -88,9 +87,10 @@
                      }];
 }
 
--(void)didMoveToSuperview
-{
-    if (self.duration == -1) return;
+- (void)didMoveToSuperview {
+    if (self.duration == -1) {
+        return;
+    }
     [self fadeAfterDelay:self.duration];
 }
 
@@ -119,10 +119,10 @@
 }
 
 /*
--(void)dealloc
-{
+   -(void)dealloc
+   {
     NSLog(@"DEALLOC'ING ALERT VIEW!");
-}
-*/
+   }
+ */
 
 @end

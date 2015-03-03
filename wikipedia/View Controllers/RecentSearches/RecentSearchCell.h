@@ -7,6 +7,6 @@
 
 @interface RecentSearchCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet PaddedLabel *label;
+@property (weak, nonatomic) IBOutlet PaddedLabel* label;
 
 @end

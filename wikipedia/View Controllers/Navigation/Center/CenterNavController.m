@@ -16,7 +16,7 @@
 
 @interface CenterNavController ()
 
-@property (strong, nonatomic) NSString *wikipediaZeroLearnMoreExternalUrl;
+@property (strong, nonatomic) NSString* wikipediaZeroLearnMoreExternalUrl;
 
 @end
 
@@ -24,21 +24,18 @@
 
 #pragma mark View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
- 
+
     self.delegate = self;
-    
+
     self.isTransitioningBetweenViewControllers = NO;
 }
 
-- (void)navigationController: (UINavigationController *)navigationController
-      willShowViewController: (UIViewController *)viewController
-                    animated: (BOOL)animated
-{
-
+- (void)navigationController:(UINavigationController*)navigationController
+      willShowViewController:(UIViewController*)viewController
+                    animated:(BOOL)animated {
     // The root VC isn't presented with any of the overridden push/pop methods which call
     // "animateStatusBarHeightChangesForViewController", so just for the root vc set topMenuHidden
     // here.
@@ -51,15 +48,13 @@
     self.isTransitioningBetweenViewControllers = YES;
 }
 
-- (void)navigationController: (UINavigationController *)navigationController
-       didShowViewController: (UIViewController *)viewController
-                    animated: (BOOL)animated
-{
+- (void)navigationController:(UINavigationController*)navigationController
+       didShowViewController:(UIViewController*)viewController
+                    animated:(BOOL)animated {
     self.isTransitioningBetweenViewControllers = NO;
 }
 
--(void)setIsTransitioningBetweenViewControllers:(BOOL)isTransitioningBetweenViewControllers
-{
+- (void)setIsTransitioningBetweenViewControllers:(BOOL)isTransitioningBetweenViewControllers {
     _isTransitioningBetweenViewControllers = isTransitioningBetweenViewControllers;
 
     // Disabling userInteractionEnabled when nav stack views are being pushed/popped prevents
@@ -73,17 +68,16 @@
 
 #pragma mark Article
 
--(void)loadArticleWithTitle: (MWKTitle *)title
-                   animated: (BOOL)animated
-            discoveryMethod: (MWKHistoryDiscoveryMethod)discoveryMethod
-                 popToWebVC: (BOOL)popToWebVC
-{
-    WebViewController *webVC = [self searchNavStackForViewControllerOfClass:[WebViewController class]];
-    if (webVC){
+- (void)loadArticleWithTitle:(MWKTitle*)title
+                    animated:(BOOL)animated
+             discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
+                  popToWebVC:(BOOL)popToWebVC {
+    WebViewController* webVC = [self searchNavStackForViewControllerOfClass:[WebViewController class]];
+    if (webVC) {
         [SessionSingleton sharedInstance].title = title;
-        [webVC navigateToPage: title
-              discoveryMethod: discoveryMethod
-         showLoadingIndicator: YES];
+        [webVC navigateToPage:title
+              discoveryMethod:discoveryMethod
+         showLoadingIndicator:YES];
         if (popToWebVC) {
             [ROOT popToViewController:webVC animated:animated];
         }
@@ -92,28 +86,26 @@
 
 #pragma mark Is editing
 
--(BOOL)isEditorOnNavstack
-{
+- (BOOL)isEditorOnNavstack {
     id editVC = [self searchNavStackForViewControllerOfClass:[SectionEditorViewController class]];
     return editVC ? YES : NO;
 }
 
--(SectionEditorViewController *)editor
-{
+- (SectionEditorViewController*)editor {
     id editVC = [self searchNavStackForViewControllerOfClass:[SectionEditorViewController class]];
     return editVC;
 }
 
 #pragma Wikipedia Zero alert dialogs
 
--(void) promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString *) title {
+- (void)promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString*)title {
     if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce) {
         [[SessionSingleton sharedInstance].zeroConfigState setZeroOnDialogShownOnce];
         self.wikipediaZeroLearnMoreExternalUrl = MWLocalizedString(@"zero-webpage-url", nil);
-        UIAlertView *dialog = [[UIAlertView alloc]
-                               initWithTitle: title
-                               message:MWLocalizedString(@"zero-learn-more", nil)
-                               delegate:self
+        UIAlertView* dialog = [[UIAlertView alloc]
+                               initWithTitle:title
+                                         message:MWLocalizedString(@"zero-learn-more", nil)
+                                        delegate:self
                                cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
                                otherButtonTitles:MWLocalizedString(@"zero-learn-more-learn-more", nil)
                                , nil];
@@ -121,89 +113,83 @@
     }
 }
 
--(void) promptZeroOff {
-    UIAlertView *dialog = [[UIAlertView alloc]
+- (void)promptZeroOff {
+    UIAlertView* dialog = [[UIAlertView alloc]
                            initWithTitle:MWLocalizedString(@"zero-charged-verbiage", nil)
-                           message:MWLocalizedString(@"zero-charged-verbiage-extended", nil)
-                           delegate:self
+                                     message:MWLocalizedString(@"zero-charged-verbiage-extended", nil)
+                                    delegate:self
                            cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
                            otherButtonTitles:nil
                            , nil];
     [dialog show];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+- (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (1 == buttonIndex) {
-        NSURL *url = [NSURL URLWithString:self.wikipediaZeroLearnMoreExternalUrl];
+        NSURL* url = [NSURL URLWithString:self.wikipediaZeroLearnMoreExternalUrl];
         [[UIApplication sharedApplication] openURL:url];
     }
 }
 
--(BOOL) isTopViewControllerAWebviewController
-{
+- (BOOL)isTopViewControllerAWebviewController {
     return [[self topViewController] isMemberOfClass:[WebViewController class]];
 }
 
--(void)loadTodaysArticle
-{
-    NSString *mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:[SessionSingleton sharedInstance].site.language];
+- (void)loadTodaysArticle {
+    NSString* mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:[SessionSingleton sharedInstance].site.language];
     if (mainArticleTitle) {
-        MWKTitle *pageTitle = [[SessionSingleton sharedInstance].site titleWithString:mainArticleTitle];
+        MWKTitle* pageTitle = [[SessionSingleton sharedInstance].site titleWithString:mainArticleTitle];
         // Invalidate cache so present day main page article is always retrieved.
-        [self loadArticleWithTitle: pageTitle
-                          animated: YES
-                   discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
-                        popToWebVC: NO];
+        [self loadArticleWithTitle:pageTitle
+                          animated:YES
+                   discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH
+                        popToWebVC:NO];
     }
 }
 
--(void)loadTodaysArticleIfNoCoreDataForCurrentArticle
-{
+- (void)loadTodaysArticleIfNoCoreDataForCurrentArticle {
     // This is needed otherwise things like TOC won't work after article core data is removed.
     // (Only used by History and Saved Pages after they delete data)
     /*
-    NSManagedObjectContext *ctx = [ArticleDataContextSingleton sharedInstance].mainContext;
-    __block NSManagedObjectID *articleID = nil;
-    [ctx performBlockAndWait:^(){
+       NSManagedObjectContext *ctx = [ArticleDataContextSingleton sharedInstance].mainContext;
+       __block NSManagedObjectID *articleID = nil;
+       [ctx performBlockAndWait:^(){
         articleID =
             [ctx getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
                                domain: [SessionSingleton sharedInstance].currentArticleDomain];
-    }];
-    if (!articleID) {
+       }];
+       if (!articleID) {
         [self loadTodaysArticle];
-    }
+       }
      */
     [self loadTodaysArticle];
 }
 
--(void)loadRandomArticle
-{
+- (void)loadRandomArticle {
     [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
 
-    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain: [SessionSingleton sharedInstance].site.language
-                                                               withManager: [QueuesSingleton sharedInstance].articleFetchManager
-                                                        thenNotifyDelegate: self];
+    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain:[SessionSingleton sharedInstance].site.language
+                                                               withManager:[QueuesSingleton sharedInstance].articleFetchManager
+                                                        thenNotifyDelegate:self];
 }
 
-- (void)fetchFinished: (id)sender
-          fetchedData: (id)fetchedData
-               status: (FetchFinalStatus)status
-                error: (NSError *)error
-{
+- (void)fetchFinished:(id)sender
+          fetchedData:(id)fetchedData
+               status:(FetchFinalStatus)status
+                error:(NSError*)error {
     if ([sender isKindOfClass:[RandomArticleFetcher class]]) {
         switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:{
-                NSString *title = (NSString *)fetchedData;
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                NSString* title = (NSString*)fetchedData;
                 if (title) {
-                    MWKTitle *pageTitle = [[SessionSingleton sharedInstance].site titleWithString:title];
-                    [self loadArticleWithTitle: pageTitle
-                                     animated: YES
-                              discoveryMethod: MWK_DISCOVERY_METHOD_RANDOM
-                                   popToWebVC: NO]; // Don't pop - popModal has already been called.
+                    MWKTitle* pageTitle = [[SessionSingleton sharedInstance].site titleWithString:title];
+                    [self loadArticleWithTitle:pageTitle
+                                      animated:YES
+                               discoveryMethod:MWK_DISCOVERY_METHOD_RANDOM
+                                    popToWebVC:NO]; // Don't pop - popModal has already been called.
                 }
             }
-                break;
+            break;
             case FETCH_FINAL_STATUS_CANCELLED:
                 break;
             case FETCH_FINAL_STATUS_FAILED:
@@ -213,20 +199,19 @@
     }
 }
 
--(void)switchPreferredLanguageToId:(NSString *)languageId name:(NSString *)name
-{
-    NSString *mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:languageId];
+- (void)switchPreferredLanguageToId:(NSString*)languageId name:(NSString*)name {
+    NSString* mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:languageId];
     if (mainArticleTitle) {
-        SessionSingleton *session = [SessionSingleton sharedInstance];
+        SessionSingleton* session = [SessionSingleton sharedInstance];
         session.searchLanguage = languageId;
-        
-        MWKTitle *pageTitle = [session.searchSite titleWithString:mainArticleTitle];
-        
+
+        MWKTitle* pageTitle = [session.searchSite titleWithString:mainArticleTitle];
+
         // Invalidate cache so present day main page article is always retrieved.
-        [self loadArticleWithTitle: pageTitle
-                          animated: YES
-                   discoveryMethod: MWK_DISCOVERY_METHOD_SEARCH
-                        popToWebVC: NO];
+        [self loadArticleWithTitle:pageTitle
+                          animated:YES
+                   discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH
+                        popToWebVC:NO];
     }
 }
 

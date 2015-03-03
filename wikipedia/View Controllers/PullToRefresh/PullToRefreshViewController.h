@@ -5,37 +5,37 @@
 
 @interface PullToRefreshViewController : UIViewController <UIScrollViewDelegate>
 
-@property (strong, nonatomic) UIView *pullToRefreshView;
+@property (strong, nonatomic) UIView* pullToRefreshView;
 
 /**
  * If you override this, you must call the super!
  */
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+- (void)scrollViewDidScroll:(UIScrollView*)scrollView;
 
 /**
  * Returns the scroll view to operate on.
  * Defaults to self.view
  */
--(UIScrollView *)refreshScrollView;
+- (UIScrollView*)refreshScrollView;
 
 /**
  * Get a localized string to show when pulling, before activation
  */
--(NSString *)refreshPromptString;
+- (NSString*)refreshPromptString;
 
 /**
  * Get a localized string to show during refresh
  */
--(NSString *)refreshRunningString;
+- (NSString*)refreshRunningString;
 
 /**
  * Called when the custom pull-to-refresh control is triggered
  */
--(void)refreshWasPulled;
+- (void)refreshWasPulled;
 
 /**
  * Allows for disabling the refresh behavior
  */
--(BOOL)refreshShouldShow;
+- (BOOL)refreshShouldShow;
 
 @end

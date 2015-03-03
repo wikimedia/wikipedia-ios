@@ -5,6 +5,6 @@
 @class FocalImage;
 
 @interface WMFShareCardImageContainer : UIView
-@property (strong, nonatomic) FocalImage *image;
+@property (strong, nonatomic) FocalImage* image;
 
 @end

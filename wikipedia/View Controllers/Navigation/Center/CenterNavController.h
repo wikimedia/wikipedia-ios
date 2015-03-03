@@ -9,24 +9,24 @@
 @interface CenterNavController : UINavigationController <UINavigationControllerDelegate, FetchFinishedDelegate>
 
 @property (nonatomic, readonly) BOOL isEditorOnNavstack;
-@property (nonatomic, readonly) SectionEditorViewController *editor;
+@property (nonatomic, readonly) SectionEditorViewController* editor;
 
--(void)loadArticleWithTitle: (MWKTitle *)title
-                   animated: (BOOL)animated
-            discoveryMethod: (MWKHistoryDiscoveryMethod)discoveryMethod
-                 popToWebVC: (BOOL)popToWebVC;
+- (void)loadArticleWithTitle:(MWKTitle*)title
+                    animated:(BOOL)animated
+             discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
+                  popToWebVC:(BOOL)popToWebVC;
 
--(void)loadTodaysArticle;
--(void)loadTodaysArticleIfNoCoreDataForCurrentArticle;
--(void)loadRandomArticle;
+- (void)loadTodaysArticle;
+- (void)loadTodaysArticleIfNoCoreDataForCurrentArticle;
+- (void)loadRandomArticle;
 
--(void) promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString *) title;
--(void) promptZeroOff;
+- (void)promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString*)title;
+- (void)promptZeroOff;
 
 //-(ArticleDiscoveryMethod)getDiscoveryMethodForString:(NSString *)string;
 //-(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method;
 
--(void)switchPreferredLanguageToId:(NSString *)languageId name:(NSString *)name;
+- (void)switchPreferredLanguageToId:(NSString*)languageId name:(NSString*)name;
 
 @property (nonatomic) BOOL isTransitioningBetweenViewControllers;
 

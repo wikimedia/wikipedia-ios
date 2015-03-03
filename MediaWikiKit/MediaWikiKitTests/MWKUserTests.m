@@ -12,7 +12,7 @@
 #import "MWKTestCase.h"
 
 @interface MWKUserTests : MWKTestCase {
-    MWKSite *site;
+    MWKSite* site;
 }
 
 @end
@@ -30,7 +30,7 @@
 }
 
 - (void)testImportLoggedIn {
-    MWKUser *user = [self loadUser:@"user-loggedin"];
+    MWKUser* user = [self loadUser:@"user-loggedin"];
 
     XCTAssertNotNil(user, @"user is an obj");
     XCTAssert(!user.anonymous, @"user is not anon");
@@ -39,24 +39,24 @@
 }
 
 - (void)testRoundtripLoggedIn {
-    MWKUser *user = [self loadUser:@"user-loggedin"];
-    NSDictionary *dict = @{@"sample": [user dataExport]};
+    MWKUser* user      = [self loadUser:@"user-loggedin"];
+    NSDictionary* dict = @{@"sample": [user dataExport]};
 
-    MWKUser *user2 = [[MWKUser alloc] initWithSite:site data:dict[@"sample"]];
+    MWKUser* user2 = [[MWKUser alloc] initWithSite:site data:dict[@"sample"]];
     XCTAssertEqualObjects(user, user2, @"roundtrip a loggedin user");
 }
 
--(void)testImportAnon {
-    MWKUser *user = [self loadUser:@"user-anon"];
-    
+- (void)testImportAnon {
+    MWKUser* user = [self loadUser:@"user-anon"];
+
     XCTAssertNotNil(user, @"user is an obj");
     XCTAssert(user.anonymous, @"user is anon");
     XCTAssertNil(user.name, @"user has no name");
     XCTAssertNil(user.gender, @"user has no gender field");
 }
 
-- (MWKUser *)loadUser:(NSString *)name {
-    NSDictionary *dict = [self loadJSON:name];
+- (MWKUser*)loadUser:(NSString*)name {
+    NSDictionary* dict = [self loadJSON:name];
     return [[MWKUser alloc] initWithSite:site data:dict[@"sample"]];
 }
 

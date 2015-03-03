@@ -8,10 +8,10 @@
 
 @interface UIViewController (Alert)
 
--(void)showAlert:(id)alertText type:(AlertType)type duration:(CGFloat)duration;
+- (void)showAlert:(id)alertText type:(AlertType)type duration:(CGFloat)duration;
 
--(void)fadeAlert;
+- (void)fadeAlert;
 
--(void)hideAlert;
+- (void)hideAlert;
 
 @end

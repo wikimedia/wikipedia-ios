@@ -28,23 +28,23 @@
 }
 
 - (void)testEmpty {
-    id data = [self loadJSON:@"protection-empty"];
-    MWKProtectionStatus *protection = [[MWKProtectionStatus alloc] initWithData:data];
-    
+    id data                         = [self loadJSON:@"protection-empty"];
+    MWKProtectionStatus* protection = [[MWKProtectionStatus alloc] initWithData:data];
+
     XCTAssertNotNil(protection);
     XCTAssertEqual([[protection protectedActions] count], 0);
 }
 
 - (void)testObama {
-    id data = [self loadJSON:@"protection-obama"];
-    MWKProtectionStatus *protection = [[MWKProtectionStatus alloc] initWithData:data];
-    
+    id data                         = [self loadJSON:@"protection-obama"];
+    MWKProtectionStatus* protection = [[MWKProtectionStatus alloc] initWithData:data];
+
     XCTAssertNotNil(protection);
-    NSArray *actions = [protection protectedActions];
+    NSArray* actions = [protection protectedActions];
     XCTAssertEqual([actions count], 2);
-    
-    for (NSString *action in actions) {
-        NSArray *groups = [protection allowedGroupsForAction:action];
+
+    for (NSString* action in actions) {
+        NSArray* groups = [protection allowedGroupsForAction:action];
         if ([action isEqualToString:@"edit"]) {
             XCTAssertEqual([groups count], 1);
             XCTAssertEqualObjects(groups[0], @"autoconfirmed");
@@ -55,15 +55,14 @@
     }
 }
 
-- (void)testEquals
-{
-    id dataEmpty = [self loadJSON:@"protection-empty"];
-    id dataObama = [self loadJSON:@"protection-obama"];
-    MWKProtectionStatus *protectionEmpty1 = [[MWKProtectionStatus alloc] initWithData:dataEmpty];
-    MWKProtectionStatus *protectionEmpty2 = [[MWKProtectionStatus alloc] initWithData:dataEmpty];
-    MWKProtectionStatus *protectionObama1 = [[MWKProtectionStatus alloc] initWithData:dataObama];
-    MWKProtectionStatus *protectionObama2 = [[MWKProtectionStatus alloc] initWithData:dataObama];
-    
+- (void)testEquals {
+    id dataEmpty                          = [self loadJSON:@"protection-empty"];
+    id dataObama                          = [self loadJSON:@"protection-obama"];
+    MWKProtectionStatus* protectionEmpty1 = [[MWKProtectionStatus alloc] initWithData:dataEmpty];
+    MWKProtectionStatus* protectionEmpty2 = [[MWKProtectionStatus alloc] initWithData:dataEmpty];
+    MWKProtectionStatus* protectionObama1 = [[MWKProtectionStatus alloc] initWithData:dataObama];
+    MWKProtectionStatus* protectionObama2 = [[MWKProtectionStatus alloc] initWithData:dataObama];
+
     XCTAssertEqualObjects(protectionEmpty1, protectionEmpty1);
     XCTAssertEqualObjects(protectionEmpty1, protectionEmpty2);
     XCTAssertEqualObjects(protectionEmpty2, protectionEmpty1);
@@ -74,19 +73,17 @@
     XCTAssertNotEqualObjects(protectionObama1, protectionEmpty1);
 }
 
-- (void)testRoundTrip
-{
-    id dataEmpty = [self loadJSON:@"protection-empty"];
-    id dataObama = [self loadJSON:@"protection-obama"];
-    MWKProtectionStatus *protectionEmpty1 = [[MWKProtectionStatus alloc] initWithData:dataEmpty];
-    MWKProtectionStatus *protectionObama1 = [[MWKProtectionStatus alloc] initWithData:dataObama];
+- (void)testRoundTrip {
+    id dataEmpty                          = [self loadJSON:@"protection-empty"];
+    id dataObama                          = [self loadJSON:@"protection-obama"];
+    MWKProtectionStatus* protectionEmpty1 = [[MWKProtectionStatus alloc] initWithData:dataEmpty];
+    MWKProtectionStatus* protectionObama1 = [[MWKProtectionStatus alloc] initWithData:dataObama];
 
-    MWKProtectionStatus *protectionEmpty2 = [[MWKProtectionStatus alloc] initWithData:[protectionEmpty1 dataExport]];
-    MWKProtectionStatus *protectionObama2 = [[MWKProtectionStatus alloc] initWithData:[protectionObama1 dataExport]];
-    
+    MWKProtectionStatus* protectionEmpty2 = [[MWKProtectionStatus alloc] initWithData:[protectionEmpty1 dataExport]];
+    MWKProtectionStatus* protectionObama2 = [[MWKProtectionStatus alloc] initWithData:[protectionObama1 dataExport]];
+
     XCTAssertEqualObjects(protectionEmpty1, protectionEmpty2);
     XCTAssertEqualObjects(protectionObama1, protectionObama2);
 }
-
 
 @end

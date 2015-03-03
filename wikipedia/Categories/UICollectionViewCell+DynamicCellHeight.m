@@ -5,8 +5,7 @@
 
 @implementation UICollectionViewCell (DynamicCellHeight)
 
--(CGFloat)heightForSizingCellOfWidth:(CGFloat)width
-{
+- (CGFloat)heightForSizingCellOfWidth:(CGFloat)width {
     [self setNeedsUpdateConstraints];
     [self updateConstraintsIfNeeded];
     self.bounds = CGRectMake(0.0f, 0.0f, width, CGRectGetHeight(self.bounds));

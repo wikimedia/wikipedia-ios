@@ -5,7 +5,7 @@
 
 @interface SearchResultCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *resultImageView;
-@property (weak, nonatomic) IBOutlet PaddedLabel *resultLabel;
+@property (weak, nonatomic) IBOutlet UIImageView* resultImageView;
+@property (weak, nonatomic) IBOutlet PaddedLabel* resultLabel;
 
 @end

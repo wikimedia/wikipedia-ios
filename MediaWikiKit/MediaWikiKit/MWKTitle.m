@@ -7,25 +7,22 @@
 
 #pragma mark - Class methods
 
-+(MWKTitle *)titleWithString:(NSString *)str site:(MWKSite *)site
-{
++ (MWKTitle*)titleWithString:(NSString*)str site:(MWKSite*)site {
     return [[MWKTitle alloc] initWithString:str site:site];
 }
 
-+(NSString *)normalize:(NSString *)str
-{
++ (NSString*)normalize:(NSString*)str {
     // @todo implement fuller normalization?
     return [str stringByReplacingOccurrencesOfString:@"_" withString:@" "];
 }
 
 #pragma mark - Initializers
 
--(instancetype)initWithString:(NSString *)str site:(MWKSite *)site
-{
+- (instancetype)initWithString:(NSString*)str site:(MWKSite*)site {
     self = [self init];
     if (self) {
         _site = site;
-        NSArray *bits = [str componentsSeparatedByString:@"#"];
+        NSArray* bits = [str componentsSeparatedByString:@"#"];
         _text = [MWKTitle normalize:bits[0]];
         if (bits.count > 1) {
             _fragment = bits[1];
@@ -38,36 +35,30 @@
 
 #pragma mark - Property getters
 
--(NSString *)namespace
-{
+- (NSString*)namespace {
     // @todo implement namespace detection and normalization
     // doing this right requires some site info
     return nil;
 }
 
--(NSString *)_prefix
-{
+- (NSString*)_prefix {
     // @todo implement namespace prefixing once namespaces are handled
     return @"";
 }
 
--(NSString *)prefixedText
-{
+- (NSString*)prefixedText {
     return [[self _prefix] stringByAppendingString:self.text];
 }
 
--(NSString *)prefixedDBKey
-{
+- (NSString*)prefixedDBKey {
     return [self.prefixedText stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
--(NSString *)prefixedURL
-{
+- (NSString*)prefixedURL {
     return [self.prefixedDBKey stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
--(NSString *)fragmentForURL
-{
+- (NSString*)fragmentForURL {
     if (self.fragment) {
         // @fixme we use some weird escaping system...?
         return [@"#" stringByAppendingString:[self.fragment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -76,15 +67,15 @@
     }
 }
 
--(NSURL *)mobileURL;
+- (NSURL*)mobileURL;
 {
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.m.%@/wiki/%@",
-                                                           self.site.language,
-                                                           self.site.domain,
-                                                           self.prefixedURL]];
+                                 self.site.language,
+                                 self.site.domain,
+                                 self.prefixedURL]];
 }
 
--(NSURL *)desktopURL;
+- (NSURL*)desktopURL;
 {
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@/wiki/%@",
                                  self.site.language,
@@ -93,22 +84,20 @@
 }
 
 
--(BOOL)isEqual:(id)object
-{
+- (BOOL)isEqual:(id)object {
     if (object == nil) {
         return NO;
     } else if (![object isKindOfClass:[MWKTitle class]]) {
         return NO;
     } else {
-        MWKTitle *other = object;
+        MWKTitle* other = object;
         return [self.site isEqual:other.site] &&
-            [self.prefixedText isEqualToString:other.prefixedText] &&
-            ((self.fragment == nil && other.fragment == nil) || [self.fragment isEqualToString:other.fragment]);
+               [self.prefixedText isEqualToString:other.prefixedText] &&
+               ((self.fragment == nil && other.fragment == nil) || [self.fragment isEqualToString:other.fragment]);
     }
 }
 
--(NSString *)description
-{
+- (NSString*)description {
     if (self.fragment) {
         return [NSString stringWithFormat:@"%@:%@:%@#%@", self.site.domain, self.site.language, self.prefixedText, self.fragment];
     } else {
@@ -116,17 +105,14 @@
     }
 }
 
-
 #pragma mark - NSCopying protocol methods
 
-- (id)copyWithZone:(NSZone *)zone
-{
+- (id)copyWithZone:(NSZone*)zone {
     // Titles are immutable
     return self;
 }
 
-- (NSUInteger)hash
-{
+- (NSUInteger)hash {
     return [self.site hash] ^ [self.prefixedText hash] ^ [self.fragment hash];
 }
 

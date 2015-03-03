@@ -10,8 +10,7 @@
 
 @implementation ReadingActionFunnel
 
--(id)init
-{
+- (id)init {
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppReadingAction
     self = [super initWithSchema:@"MobileWikiAppReadingAction" version:8233801];
     if (self) {
@@ -20,10 +19,10 @@
     return self;
 }
 
--(void)logSomethingHappened
-{
-    NSNumber *number = [NSNumber numberWithLong:time(NULL)];
+- (void)logSomethingHappened {
+    NSNumber* number = [NSNumber numberWithLong:time(NULL)];
     [self log:@{@"appInstallReadActionID": self.appInstallID,
                 @"clientSideTS": (number ? number : @"")}];
 }
+
 @end

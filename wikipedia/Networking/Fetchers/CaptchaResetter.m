@@ -7,97 +7,91 @@
 #import "SessionSingleton.h"
 #import "NSObject+Extras.h"
 
-@interface CaptchaResetter()
+@interface CaptchaResetter ()
 
-@property (strong, nonatomic) NSString *domain;
+@property (strong, nonatomic) NSString* domain;
 
 @end
 
 @implementation CaptchaResetter
 
--(instancetype)initAndResetCaptchaForDomain: (NSString *)domain
-                                withManager: (AFHTTPRequestOperationManager *)manager
-                         thenNotifyDelegate: (id <FetchFinishedDelegate>)delegate
-{
+- (instancetype)initAndResetCaptchaForDomain:(NSString*)domain
+                                 withManager:(AFHTTPRequestOperationManager*)manager
+                          thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
-        self.domain = domain ? domain : @"";
+        self.domain                = domain ? domain : @"";
         self.fetchFinishedDelegate = delegate;
         [self resetCaptchaWithManager:manager];
     }
     return self;
 }
 
-- (void)resetCaptchaWithManager: (AFHTTPRequestOperationManager *)manager
-{
-    NSURL *url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
+- (void)resetCaptchaWithManager:(AFHTTPRequestOperationManager*)manager {
+    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.domain];
 
-    NSDictionary *params = [self getParams];
-    
+    NSDictionary* params = [self getParams];
+
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    [manager POST:url.absoluteString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
         //NSLog(@"JSON: %@", responseObject);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
         // Fake out an error if non-dictionary response received.
-        if(![responseObject isDict]){
+        if (![responseObject isDict]) {
             responseObject = @{@"error": @{@"info": @"Captcha Resetter data not found."}};
         }
-        
+
         //NSLog(@"CAPTCHA RESETTER DATA RETRIEVED = %@", responseObject);
-        
+
         // Handle case where response is received, but API reports error.
-        NSError *error = nil;
-        if (responseObject[@"error"]){
-            NSMutableDictionary *errorDict = [responseObject[@"error"] mutableCopy];
+        NSError* error = nil;
+        if (responseObject[@"error"]) {
+            NSMutableDictionary* errorDict = [responseObject[@"error"] mutableCopy];
             errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
-            error = [NSError errorWithDomain: @"Captcha Resetter"
-                                        code: CAPTCHA_RESET_ERROR_API
-                                    userInfo: errorDict];
+            error = [NSError errorWithDomain:@"Captcha Resetter"
+                                        code:CAPTCHA_RESET_ERROR_API
+                                    userInfo:errorDict];
         }
 
-        NSDictionary *output = @{};
+        NSDictionary* output = @{};
         if (!error) {
             output = [self getSanitizedResponse:responseObject];
         }
 
-        [self finishWithError: error
-                  fetchedData: output];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
+        [self finishWithError:error
+                  fetchedData:output];
+    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         //NSLog(@"CAPTCHA RESETTER FAIL = %@", error);
 
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-        [self finishWithError: error
-                  fetchedData: nil];
+        [self finishWithError:error
+                  fetchedData:nil];
     }];
 }
 
--(NSDictionary *)getParams
-{
+- (NSDictionary*)getParams {
     return @{
-             @"action": @"fancycaptchareload",
-             @"format": @"json"
-             };
+               @"action": @"fancycaptchareload",
+               @"format": @"json"
+    };
 }
 
--(NSDictionary *)getSanitizedResponse:(NSDictionary *)rawResponse
-{
-    NSDictionary *response = @{};
-    if([rawResponse isDict]){
+- (NSDictionary*)getSanitizedResponse:(NSDictionary*)rawResponse {
+    NSDictionary* response = @{};
+    if ([rawResponse isDict]) {
         response = rawResponse[@"fancycaptchareload"];
     }
     return response;
 }
 
 /*
--(void)dealloc
-{
+   -(void)dealloc
+   {
     NSLog(@"DEALLOC'ING ACCT CREATION TOKEN FETCHER!");
-}
-*/
+   }
+ */
 
 @end

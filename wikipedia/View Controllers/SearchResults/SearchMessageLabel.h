@@ -5,7 +5,7 @@
 
 @interface SearchMessageLabel : PaddedLabel
 
--(void)showWithText:(NSString *)text;
--(void)hide;
+- (void)showWithText:(NSString*)text;
+- (void)hide;
 
 @end

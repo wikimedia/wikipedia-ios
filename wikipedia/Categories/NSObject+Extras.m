@@ -5,13 +5,11 @@
 
 @implementation NSObject (Extras)
 
--(BOOL)isNull
-{
+- (BOOL)isNull {
     return [self isKindOfClass:[NSNull class]];
 }
 
--(BOOL)isDict
-{
+- (BOOL)isDict {
     return [self isKindOfClass:[NSDictionary class]];
 }
 

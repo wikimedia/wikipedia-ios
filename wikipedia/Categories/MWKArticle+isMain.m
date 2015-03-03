@@ -6,9 +6,8 @@
 
 @implementation MWKArticle (isMain)
 
--(BOOL)isMain
-{
-    NSString *mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode: self.site.language];
+- (BOOL)isMain {
+    NSString* mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:self.site.language];
     // Reminder: Do not do the following instead of the line above:
     //      NSString *mainArticleTitle = self.domainMainArticleTitle;
     // This is because each language domain has its own main page, and self.domainMainArticleTitle
@@ -19,8 +18,10 @@
     // self.domainMainArticleTitle was being used above, the user would see edit icons if they
     // switched their search language from "en" to "fr", then hit back button - the "en" main
     // page would erroneously display edit pencil icons.
-    if (!mainArticleTitle) return NO;
-    return ([self.title.prefixedText isEqualToString: mainArticleTitle]);
+    if (!mainArticleTitle) {
+        return NO;
+    }
+    return ([self.title.prefixedText isEqualToString:mainArticleTitle]);
 }
 
 @end

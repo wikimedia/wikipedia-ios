@@ -10,14 +10,14 @@
 
 @interface MWKArticleStoreTestCase : MWKTestCase
 
-@property MWKSite *site;
-@property MWKTitle *title;
-@property NSDictionary *json0;
-@property NSDictionary *json1;
-@property NSDictionary *jsonAnon;
+@property MWKSite* site;
+@property MWKTitle* title;
+@property NSDictionary* json0;
+@property NSDictionary* json1;
+@property NSDictionary* jsonAnon;
 
-@property NSString *basePath;
-@property MWKDataStore *dataStore;
-@property MWKArticle *article;
+@property NSString* basePath;
+@property MWKDataStore* dataStore;
+@property MWKArticle* article;
 
 @end

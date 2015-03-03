@@ -6,23 +6,20 @@
 
 @implementation FetcherBase
 
-- (void)finishWithError: (NSError *)error
-            fetchedData: (id)fetchedData
-{
-    [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
-    
+- (void)finishWithError:(NSError*)error
+            fetchedData:(id)fetchedData {
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self setConnectionManagementFallbackForError:error];
         //TODO: this could also be a good place to log error.domain string and error.code?
-    
-        [self.fetchFinishedDelegate fetchFinished: self
-                                      fetchedData: fetchedData
-                                           status: [self getStatusFromError:error]
-                                            error: error];
+
+        [self.fetchFinishedDelegate fetchFinished:self
+                                      fetchedData:fetchedData
+                                           status:[self getStatusFromError:error]
+                                            error:error];
     }];
 }
 
--(FetchFinalStatus)getStatusFromError:(NSError *) error
-{
+- (FetchFinalStatus)getStatusFromError:(NSError*)error {
     // Examine error to see what status should be used.
     // Nice as it eliminates lots of repeated code.
     FetchFinalStatus status = FETCH_FINAL_STATUS_SUCCEEDED;
@@ -37,8 +34,7 @@
     return status;
 }
 
--(void)setConnectionManagementFallbackForError:(NSError *)error
-{
+- (void)setConnectionManagementFallbackForError:(NSError*)error {
     if (error.domain == NSStreamSocketSSLErrorDomain ||
         (error.domain == NSURLErrorDomain &&
          (error.code == NSURLErrorSecureConnectionFailed ||
@@ -46,39 +42,37 @@
           error.code == NSURLErrorServerCertificateUntrusted ||
           error.code == NSURLErrorServerCertificateHasUnknownRoot ||
           error.code == NSURLErrorServerCertificateNotYetValid)
-          //error.code == NSURLErrorCannotLoadFromNetwork) //TODO: check this out later?
-         )
+         //error.code == NSURLErrorCannotLoadFromNetwork) //TODO: check this out later?
+        )
         ) {
         [SessionSingleton sharedInstance].fallback = true;
     }
 }
 
--(BOOL)isDataResponseValid:(id)responseObject
-{
+- (BOOL)isDataResponseValid:(id)responseObject {
     return !(
-             !responseObject
-             ||
-             ![responseObject isKindOfClass:[NSData class]]
-             ||
-             ([responseObject length] == 0)
-             ||
-             ([responseObject length] == 2) // Protect against query returning "[]".
-             );
+        !responseObject
+        ||
+        ![responseObject isKindOfClass:[NSData class]]
+        ||
+        ([responseObject length] == 0)
+        ||
+        ([responseObject length] == 2)      // Protect against query returning "[]".
+        );
 }
 
--(NSDictionary *)dictionaryFromDataResponse:(id)responseObject
-{
-    NSDictionary *output = @{};
+- (NSDictionary*)dictionaryFromDataResponse:(id)responseObject {
+    NSDictionary* output = @{};
     // Convert the raw NSData response to a dictionary.
-    if (![self isDataResponseValid:responseObject]){
+    if (![self isDataResponseValid:responseObject]) {
         // Fake out an error if bad response received.
         output = @{@"error": @{@"info": @"Dictionary data not found."}};
-    }else{
+    } else {
         // Should be able to proceed with dictionary conversion.
-        NSError *jsonError = nil;
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData: responseObject
-                                                             options: 0
-                                                               error: &jsonError];
+        NSError* jsonError = nil;
+        NSDictionary* dict = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                             options:0
+                                                               error:&jsonError];
         output = jsonError ? @{} : dict;
     }
     return output;

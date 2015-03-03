@@ -10,8 +10,8 @@
 @interface SessionSingleton : NSObject
 
 // Persistent settings and credentials
-@property (strong, nonatomic) KeychainCredentials *keychainCredentials;
-@property (strong, nonatomic) ZeroConfigState *zeroConfigState;
+@property (strong, nonatomic) KeychainCredentials* keychainCredentials;
+@property (strong, nonatomic) ZeroConfigState* zeroConfigState;
 @property (nonatomic) BOOL sendUsageReports;
 
 // These 6 persist across app restarts.
@@ -26,31 +26,31 @@
 //@property (strong, nonatomic, readonly) NSString *currentArticleDomainName;
 
 // Data access objects
-@property (readonly) MWKDataStore *dataStore;
-@property (readonly) MWKSite *site;
-@property (readwrite) MWKTitle *title;
-@property (readonly) MWKArticle *article;
-@property (readonly) MWKUserDataStore *userDataStore;
+@property (readonly) MWKDataStore* dataStore;
+@property (readonly) MWKSite* site;
+@property (readwrite) MWKTitle* title;
+@property (readonly) MWKArticle* article;
+@property (readonly) MWKUserDataStore* userDataStore;
 
-@property (readwrite) NSString *searchLanguage;
-@property (readonly) MWKSite *searchSite;
+@property (readwrite) NSString* searchLanguage;
+@property (readonly) MWKSite* searchSite;
 
-@property (strong, nonatomic, readonly) NSString *searchApiUrl;
+@property (strong, nonatomic, readonly) NSString* searchApiUrl;
 
-@property (strong, atomic) NSArray *unsupportedCharactersLanguageIds;
+@property (strong, atomic) NSArray* unsupportedCharactersLanguageIds;
 
 @property (nonatomic) BOOL fallback;
--(NSURL *)urlForLanguage:(NSString *)language;
+- (NSURL*)urlForLanguage:(NSString*)language;
 
--(BOOL)isCurrentArticleMain;
+- (BOOL)isCurrentArticleMain;
 
-+ (SessionSingleton *)sharedInstance;
++ (SessionSingleton*)sharedInstance;
 
 // Search and Nearby fetch thumbnails which are tossed in the tmp dir so we
 // don't have to worry about pruning. However, when we then load an article
 // we need to yank out the thumb for that article so it can be saved in the
 // data store. This dictionary gives us an easy place to see what temp thumb
 // file is known to be associated with an article title.
-@property (strong, nonatomic) NSMutableDictionary *titleToTempDirThumbURLMap;
+@property (strong, nonatomic) NSMutableDictionary* titleToTempDirThumbURLMap;
 
 @end

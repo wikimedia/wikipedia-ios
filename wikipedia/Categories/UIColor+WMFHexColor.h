@@ -5,7 +5,7 @@
 
 @interface UIColor (WMF_HexColor)
 
-+ (UIColor *)wmf_colorWithHex: (NSInteger)hex
-                        alpha: (CGFloat)alpha;
++ (UIColor*)wmf_colorWithHex:(NSInteger)hex
+                       alpha:(CGFloat)alpha;
 
 @end

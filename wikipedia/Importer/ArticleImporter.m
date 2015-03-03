@@ -9,24 +9,23 @@
 
 @implementation ArticleImporter
 
--(void)importArticles:(NSArray *)articleDictionaries
-{
+- (void)importArticles:(NSArray*)articleDictionaries {
     /*
-    NSManagedObjectContext *context =
+       NSManagedObjectContext *context =
         [ArticleDataContextSingleton sharedInstance].mainContext;
 
-    [context performBlock:^{
-    
+       [context performBlock:^{
+
         SavedPagesFunnel *funnel = [[SavedPagesFunnel alloc] init];
         NSError *error = nil;
         for (NSDictionary *articleDict in articleDictionaries) {
-            
+
             // Ensure both lang and title keys are present in this article dict.
             if (![articleDict objectForKey:@"lang"] || ![articleDict objectForKey:@"title"]){
                 NSLog(@"Error: lang or title missing.");
                 continue;
             }
-            
+
             NSString *title = articleDict[@"title"];
             NSString *lang = articleDict[@"lang"];
 
@@ -61,7 +60,7 @@
                 NSLog(@"Warning: article already saved.");
                 continue;
             }
-            
+
             // All needed data in place and no saved record already exists, so safe to proceed.
             article.dateCreated = [NSDate date];
             article.site = @"wikipedia.org";
@@ -72,25 +71,25 @@
             article.redirected = @"";
             article.domainName =
                 [WikipediaAppUtils domainNameForCode:article.domain];
-            
+
             // Add saved record for article.
             Saved *saved =
                 [NSEntityDescription insertNewObjectForEntityForName: @"Saved"
                                               inManagedObjectContext: context];
-            
+
             saved.dateSaved = [NSDate date];
-            
+
             [article addSavedObject:saved];
-            
+
             [funnel logImportOnSubdomain:lang];
         }
-        
+
         // Save all the additions from the loop above in one go.
         if (![context save:&error]) {
             NSLog(@"Error saving to context = %@", error);
         }
-    
-    }];
+
+       }];
      */
 }
 

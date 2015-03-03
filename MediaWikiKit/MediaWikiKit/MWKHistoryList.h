@@ -16,19 +16,19 @@
 @property (readonly) NSUInteger length;
 @property (readwrite) BOOL dirty;
 
--(MWKHistoryEntry *)entryAtIndex:(NSUInteger)index;
--(MWKHistoryEntry *)entryForTitle:(MWKTitle *)title;
+- (MWKHistoryEntry*)entryAtIndex:(NSUInteger)index;
+- (MWKHistoryEntry*)entryForTitle:(MWKTitle*)title;
 
--(NSUInteger)indexForEntry:(MWKHistoryEntry *)entry;
--(MWKHistoryEntry *)entryAfterEntry:(MWKHistoryEntry *)entry;
--(MWKHistoryEntry *)entryBeforeEntry:(MWKHistoryEntry *)entry;
+- (NSUInteger)indexForEntry:(MWKHistoryEntry*)entry;
+- (MWKHistoryEntry*)entryAfterEntry:(MWKHistoryEntry*)entry;
+- (MWKHistoryEntry*)entryBeforeEntry:(MWKHistoryEntry*)entry;
 
 /// Update the history list with a new entry.
 /// May prune out old entries.
--(void)addEntry:(MWKHistoryEntry *)entry;
--(void)removeEntry:(MWKHistoryEntry *)entry;
--(void)removeAllEntries;
+- (void)addEntry:(MWKHistoryEntry*)entry;
+- (void)removeEntry:(MWKHistoryEntry*)entry;
+- (void)removeAllEntries;
 
--(instancetype)initWithDict:(NSDictionary *)dict;
+- (instancetype)initWithDict:(NSDictionary*)dict;
 
 @end

@@ -13,6 +13,6 @@
 
 @interface UIScrollView (NoHorizontalScrolling)
 
--(void)preventHorizontalScrolling;
+- (void)preventHorizontalScrolling;
 
 @end

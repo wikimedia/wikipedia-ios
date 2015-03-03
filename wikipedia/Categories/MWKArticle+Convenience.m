@@ -5,15 +5,14 @@
 
 @implementation MWKArticle (Convenience)
 
--(MWKImage *)getFirstSectionImageLargerThanSize:(CGSize)size
-{
-    MWKImage *soughtImage = nil;
-    for (MWKImage *image in self.images) {
+- (MWKImage*)getFirstSectionImageLargerThanSize:(CGSize)size {
+    MWKImage* soughtImage = nil;
+    for (MWKImage* image in self.images) {
         if (
             (image.width.floatValue >= size.width)
             &&
             (image.height.floatValue >= size.height)
-        ) {
+            ) {
             soughtImage = image;
             break;
         }

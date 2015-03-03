@@ -21,15 +21,15 @@ typedef enum {
 
 @interface MWKHistoryEntry : MWKSiteDataObject
 
-@property (readonly) MWKTitle *title;
-@property (readwrite) NSDate *date;
+@property (readonly) MWKTitle* title;
+@property (readwrite) NSDate* date;
 @property (readwrite) MWKHistoryDiscoveryMethod discoveryMethod;
 @property (readwrite) int scrollPosition;
 
--(instancetype)initWithTitle:(MWKTitle *)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
--(instancetype)initWithDict:(NSDictionary *)dict;
+- (instancetype)initWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
+- (instancetype)initWithDict:(NSDictionary*)dict;
 
-+(NSString *)stringForDiscoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
-+(MWKHistoryDiscoveryMethod)discoveryMethodForString:(NSString *)string;
++ (NSString*)stringForDiscoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
++ (MWKHistoryDiscoveryMethod)discoveryMethodForString:(NSString*)string;
 
 @end

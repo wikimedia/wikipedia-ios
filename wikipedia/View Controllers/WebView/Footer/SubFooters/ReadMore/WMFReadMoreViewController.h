@@ -7,10 +7,10 @@
 
 @interface WMFReadMoreViewController : UIViewController
 
-@property (strong, nonatomic) NSString *searchString;
+@property (strong, nonatomic) NSString* searchString;
 
-@property (strong, nonatomic) NSArray *articlesToExcludeFromResults;
+@property (strong, nonatomic) NSArray* articlesToExcludeFromResults;
 
--(void)search;
+- (void)search;
 
 @end

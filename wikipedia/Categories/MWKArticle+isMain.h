@@ -5,6 +5,6 @@
 
 @interface MWKArticle (isMain)
 
--(BOOL)isMain;
+- (BOOL)isMain;
 
 @end

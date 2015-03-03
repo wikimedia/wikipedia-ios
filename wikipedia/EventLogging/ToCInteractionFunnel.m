@@ -10,8 +10,7 @@
 
 @implementation ToCInteractionFunnel
 
--(id)init
-{
+- (id)init {
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppToCInteraction
     self = [super initWithSchema:@"MobileWikiAppToCInteraction"
                          version:10375484];
@@ -21,25 +20,21 @@
     return self;
 }
 
--(NSDictionary *)preprocessData:(NSDictionary *)eventData
-{
-    NSMutableDictionary *dict = [eventData mutableCopy];
+- (NSDictionary*)preprocessData:(NSDictionary*)eventData {
+    NSMutableDictionary* dict = [eventData mutableCopy];
     dict[@"appInstallID"] = self.appInstallID;
-    return [NSDictionary dictionaryWithDictionary: dict];
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
--(void)logOpen
-{
+- (void)logOpen {
     [self log:@{@"action": @"open"}];
 }
 
--(void)logClose
-{
+- (void)logClose {
     [self log:@{@"action": @"close"}];
 }
 
--(void)logClick
-{
+- (void)logClick {
     [self log:@{@"action": @"click"}];
 }
 

@@ -3,7 +3,7 @@
 
 @interface LanguagesCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *textLabel;
-@property (weak, nonatomic) IBOutlet UILabel *canonicalLabel;
+@property (weak, nonatomic) IBOutlet UILabel* textLabel;
+@property (weak, nonatomic) IBOutlet UILabel* canonicalLabel;
 
 @end

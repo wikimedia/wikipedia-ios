@@ -5,9 +5,8 @@
 
 @implementation NSArray (Predicate)
 
--(id)firstMatchForPredicate:(NSPredicate *)predicate
-{
-    NSInteger i = [self indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+- (id)firstMatchForPredicate:(NSPredicate*)predicate {
+    NSInteger i = [self indexOfObjectPassingTest:^BOOL (id obj, NSUInteger idx, BOOL* stop) {
         if ([predicate evaluateWithObject:obj]) {
             *stop = YES;
             return YES;
@@ -15,7 +14,7 @@
             return NO;
         }
     }];
-    return i ==  NSNotFound ? nil : [self objectAtIndex:i];
+    return i == NSNotFound ? nil : [self objectAtIndex:i];
 }
 
 @end

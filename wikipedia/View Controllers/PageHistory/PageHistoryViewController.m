@@ -18,158 +18,144 @@
 
 @interface PageHistoryViewController ()
 
-@property (strong, nonatomic) __block NSMutableArray *pageHistoryDataArray;
-@property (strong, nonatomic) PageHistoryResultCell *offScreenSizingCell;
+@property (strong, nonatomic) __block NSMutableArray* pageHistoryDataArray;
+@property (strong, nonatomic) PageHistoryResultCell* offScreenSizingCell;
 
 @end
 
 @implementation PageHistoryViewController
 
--(NavBarMode)navBarMode
-{
+- (NavBarMode)navBarMode {
     return NAVBAR_MODE_X_WITH_LABEL;
 }
 
--(NSString *)title
-{
+- (NSString*)title {
     return MWLocalizedString(@"page-history-title", nil);
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
     [self getPageHistoryData];
-    
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(navItemTappedNotification:)
-                                                 name: @"NavItemTapped"
-                                               object: nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(navItemTappedNotification:)
+                                                 name:@"NavItemTapped"
+                                               object:nil];
 }
 
--(void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [[QueuesSingleton sharedInstance].pageHistoryFetchManager.operationQueue cancelAllOperations];
 
-    [[NSNotificationCenter defaultCenter] removeObserver: self
-                                                    name: @"NavItemTapped"
-                                                  object: nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"NavItemTapped"
+                                                  object:nil];
 
     [super viewWillDisappear:animated];
 }
 
-- (BOOL)prefersStatusBarHidden
-{
+- (BOOL)prefersStatusBarHidden {
     return NO;
 }
 
-- (void)navItemTappedNotification:(NSNotification *)notification
-{
-    NSDictionary *userInfo = [notification userInfo];
-    UIView *tappedItem = userInfo[@"tappedItem"];
+- (void)navItemTappedNotification:(NSNotification*)notification {
+    NSDictionary* userInfo = [notification userInfo];
+    UIView* tappedItem     = userInfo[@"tappedItem"];
 
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_X:
             [self popModal];
-            
+
             break;
         default:
             break;
     }
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     self.navigationItem.hidesBackButton = YES;
 
     self.pageHistoryDataArray = @[].mutableCopy;
 
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 10.0 * MENUS_SCALE_MULTIPLIER)];
+    self.tableView.tableFooterView                 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 10.0 * MENUS_SCALE_MULTIPLIER)];
     self.tableView.tableFooterView.backgroundColor = [UIColor whiteColor];
-    
-    [self.tableView registerNib:[UINib nibWithNibName: @"PageHistoryResultPrototypeView" bundle: nil]
-         forCellReuseIdentifier: TABLE_CELL_ID];
+
+    [self.tableView registerNib:[UINib nibWithNibName:@"PageHistoryResultPrototypeView" bundle:nil]
+         forCellReuseIdentifier:TABLE_CELL_ID];
 
     // Single off-screen cell for determining dynamic cell height.
-    self.offScreenSizingCell = (PageHistoryResultCell *)[self.tableView dequeueReusableCellWithIdentifier:TABLE_CELL_ID];
-    
+    self.offScreenSizingCell = (PageHistoryResultCell*)[self.tableView dequeueReusableCellWithIdentifier:TABLE_CELL_ID];
+
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
-- (void)fetchFinished: (id)sender
-          fetchedData: (id)fetchedData
-               status: (FetchFinalStatus)status
-                error: (NSError *)error;
+- (void)fetchFinished:(id)sender
+          fetchedData:(id)fetchedData
+               status:(FetchFinalStatus)status
+                error:(NSError*)error;
 {
     if ([sender isKindOfClass:[PageHistoryFetcher class]]) {
-        NSMutableArray *pageHistoryDataArray = (NSMutableArray *)fetchedData;
+        NSMutableArray* pageHistoryDataArray = (NSMutableArray*)fetchedData;
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:
 
                 self.pageHistoryDataArray = pageHistoryDataArray;
                 [self fadeAlert];
                 [self.tableView reloadData];
-            
-            break;
+
+                break;
             case FETCH_FINAL_STATUS_CANCELLED:
                 [self fadeAlert];
 
-            break;
+                break;
             case FETCH_FINAL_STATUS_FAILED:
                 [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-            break;
-
+                break;
         }
     }
 }
 
--(void)getPageHistoryData
-{
-    (void)[[PageHistoryFetcher alloc] initAndFetchHistoryForTitle: [SessionSingleton sharedInstance].title
-                                                      withManager: [QueuesSingleton sharedInstance].pageHistoryFetchManager
-                                               thenNotifyDelegate: self];
+- (void)getPageHistoryData {
+    (void)[[PageHistoryFetcher alloc] initAndFetchHistoryForTitle:[SessionSingleton sharedInstance].title
+                                                      withManager:[QueuesSingleton sharedInstance].pageHistoryFetchManager
+                                               thenNotifyDelegate:self];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
     return self.pageHistoryDataArray.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    NSDictionary *sectionDict = self.pageHistoryDataArray[section];
-    NSArray *rows = sectionDict[@"revisions"];
+- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
+    NSDictionary* sectionDict = self.pageHistoryDataArray[section];
+    NSArray* rows             = sectionDict[@"revisions"];
     return rows.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *cellID = TABLE_CELL_ID;
-    PageHistoryResultCell *cell = (PageHistoryResultCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
+    static NSString* cellID     = TABLE_CELL_ID;
+    PageHistoryResultCell* cell = (PageHistoryResultCell*)[tableView dequeueReusableCellWithIdentifier:cellID];
 
     [self updateViewsInCell:cell forIndexPath:indexPath];
-    
+
     return cell;
 }
 
--(void)updateViewsInCell:(PageHistoryResultCell *)cell forIndexPath:(NSIndexPath *)indexPath
-{
-    NSDictionary *sectionDict = self.pageHistoryDataArray[indexPath.section];
-    NSArray *rows = sectionDict[@"revisions"];
-    NSDictionary *row = rows[indexPath.row];
-    
-    [cell setName: row[@"user"]
-             time: row[@"timestamp"]
-            delta: row[@"characterDelta"]
-             icon: row[@"anon"] ? WIKIGLYPH_USER_SLEEP : WIKIGLYPH_USER_SMILE
-          summary: row[@"parsedcomment"]
-        separator: (rows.count > 1)];
+- (void)updateViewsInCell:(PageHistoryResultCell*)cell forIndexPath:(NSIndexPath*)indexPath {
+    NSDictionary* sectionDict = self.pageHistoryDataArray[indexPath.section];
+    NSArray* rows             = sectionDict[@"revisions"];
+    NSDictionary* row         = rows[indexPath.row];
+
+    [cell setName:row[@"user"]
+             time:row[@"timestamp"]
+            delta:row[@"characterDelta"]
+             icon:row[@"anon"] ? WIKIGLYPH_USER_SLEEP : WIKIGLYPH_USER_SMILE
+          summary:row[@"parsedcomment"]
+        separator:(rows.count > 1)];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
     // Update the sizing cell with any data which could change the cell height.
     [self updateViewsInCell:self.offScreenSizingCell forIndexPath:indexPath];
 
@@ -177,55 +163,52 @@
     return [tableView heightForSizingCell:self.offScreenSizingCell];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *sectionDict = self.pageHistoryDataArray[indexPath.section];
-    NSArray *rows = sectionDict[@"revisions"];
-    NSDictionary *row = rows[indexPath.row];
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    NSDictionary* sectionDict = self.pageHistoryDataArray[indexPath.section];
+    NSArray* rows             = sectionDict[@"revisions"];
+    NSDictionary* row         = rows[indexPath.row];
     NSLog(@"row = %@", row);
-    
-// TODO: row contains a revisionid, make tap cause diff for that revision to open in Safari?
 
+// TODO: row contains a revisionid, make tap cause diff for that revision to open in Safari?
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
-    view.backgroundColor = CHROME_COLOR;
+- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView* view = [[UIView alloc] initWithFrame:CGRectZero];
+    view.backgroundColor     = CHROME_COLOR;
     view.autoresizesSubviews = YES;
-    PaddedLabel *label = [[PaddedLabel alloc] init];
+    PaddedLabel* label = [[PaddedLabel alloc] init];
 
     CGFloat leadingIndent = 10.0 * MENUS_SCALE_MULTIPLIER;
     label.padding = UIEdgeInsetsMake(0, leadingIndent, 0, 0);
 
-    label.font = [UIFont boldSystemFontOfSize:12.0 * MENUS_SCALE_MULTIPLIER];
-    label.textColor = [UIColor darkGrayColor];
+    label.font             = [UIFont boldSystemFontOfSize:12.0 * MENUS_SCALE_MULTIPLIER];
+    label.textColor        = [UIColor darkGrayColor];
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    label.backgroundColor = [UIColor clearColor];
-    
+    label.backgroundColor  = [UIColor clearColor];
+
     label.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
-    
-    NSDictionary *sectionDict = self.pageHistoryDataArray[section];
-    
-    NSNumber *daysAgo = sectionDict[@"daysAgo"];
-    NSDate *date = [NSDate dateWithDaysBeforeNow:daysAgo.integerValue];
-    
-    NSString *formattedDate = [NSDateFormatter localizedStringFromDate: date
-                                                             dateStyle: NSDateFormatterLongStyle
-                                                             timeStyle: NSDateFormatterNoStyle];
-    
+
+    NSDictionary* sectionDict = self.pageHistoryDataArray[section];
+
+    NSNumber* daysAgo = sectionDict[@"daysAgo"];
+    NSDate* date      = [NSDate dateWithDaysBeforeNow:daysAgo.integerValue];
+
+    NSString* formattedDate = [NSDateFormatter localizedStringFromDate:date
+                                                             dateStyle:NSDateFormatterLongStyle
+                                                             timeStyle:NSDateFormatterNoStyle];
+
     label.text = formattedDate;
-    
+
     [view addSubview:label];
-    
+
     return view;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
     return 27.0 * MENUS_SCALE_MULTIPLIER;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

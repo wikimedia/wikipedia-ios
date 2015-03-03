@@ -5,7 +5,7 @@
 
 @interface SearchDidYouMeanButton : PaddedLabel
 
--(void)showWithText:(NSString *)text term:(NSString *)term;
--(void)hide;
+- (void)showWithText:(NSString*)text term:(NSString*)term;
+- (void)hide;
 
 @end

@@ -5,8 +5,7 @@
 
 @implementation TopActionSheetLabel
 
--(void)setBounds:(CGRect)bounds
-{
+- (void)setBounds:(CGRect)bounds {
     [super setBounds:bounds];
 
     // This is needed for iOS 6 which doesn't seem to keep label preferredMaxLayoutWidth

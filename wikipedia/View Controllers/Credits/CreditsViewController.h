@@ -7,11 +7,11 @@
 @class TabularScrollView;
 @interface CreditsViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet TabularScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet TabularScrollView* scrollView;
 
 @property (nonatomic) NavBarMode navBarMode;
 
 @property (weak, nonatomic) id truePresentingVC;
-@property (weak, nonatomic) TopMenuViewController *topMenuViewController;
+@property (weak, nonatomic) TopMenuViewController* topMenuViewController;
 
 @end

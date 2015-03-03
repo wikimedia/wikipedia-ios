@@ -14,12 +14,11 @@ static const int kCornerRadius = 4.2f;
 
 @implementation WMFShareOptionsView
 
--(void) didMoveToSuperview
-{
+- (void)didMoveToSuperview {
     [self.cardImageViewContainer wmf_roundCorners:UIRectCornerTopLeft | UIRectCornerTopRight toRadius:kCornerRadius];
     [self.shareAsCardLabel wmf_roundCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight toRadius:kCornerRadius];
-    self.shareAsTextLabel.layer.cornerRadius = kCornerRadius;
-    self.shareAsTextLabel.layer.masksToBounds = YES;
+    self.shareAsTextLabel.layer.cornerRadius       = kCornerRadius;
+    self.shareAsTextLabel.layer.masksToBounds      = YES;
     self.translatesAutoresizingMaskIntoConstraints = NO;
 }
 

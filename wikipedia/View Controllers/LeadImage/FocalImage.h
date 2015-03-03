@@ -6,18 +6,18 @@
 @interface FocalImage : UIImage
 
 /*
-This draws image with:
+   This draws image with:
 
     - Aspect fill.
     - Horizontal center if horizontal overlap.
     - Align top if no focalBounds, else vertical centered on focalBounds.
     - Optional focalBounds highlight.
-*/
-- (void)drawInRect: (CGRect)rect
-       focalBounds: (CGRect)focalBounds
-    focalHighlight: (BOOL)focalHighlight
-         blendMode: (CGBlendMode)blendMode
-             alpha: (CGFloat)alpha;
+ */
+- (void)drawInRect:(CGRect)rect
+       focalBounds:(CGRect)focalBounds
+    focalHighlight:(BOOL)focalHighlight
+         blendMode:(CGBlendMode)blendMode
+             alpha:(CGFloat)alpha;
 
 // Repeated calls to "getFaceBounds" will return the next face
 // rect each time (rolling back to first face after last face).

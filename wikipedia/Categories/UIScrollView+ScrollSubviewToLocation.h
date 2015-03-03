@@ -5,6 +5,6 @@
 
 @interface UIScrollView (ScrollSubviewToLocation)
 
--(void)scrollSubViewToTop:(UIView *)subview animated:(BOOL)animated;
+- (void)scrollSubViewToTop:(UIView*)subview animated:(BOOL)animated;
 
 @end

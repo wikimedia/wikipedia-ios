@@ -5,8 +5,8 @@
 
 @interface UINavigationController (SearchNavStack)
 
--(id)searchNavStackForViewControllerOfClass:(Class)aClass;
+- (id)searchNavStackForViewControllerOfClass:(Class)aClass;
 
--(id)getVCBeneathVC:(id)thisVC;
+- (id)getVCBeneathVC:(id)thisVC;
 
 @end
