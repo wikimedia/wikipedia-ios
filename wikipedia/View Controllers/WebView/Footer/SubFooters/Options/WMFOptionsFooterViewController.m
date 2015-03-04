@@ -19,7 +19,7 @@
 #pragma mark Font sizes
 
 static const CGFloat kGlyphButtonFontSize   = 23.0f;
-static const CGFloat kOptionTextFontSize    = 15.0f;
+static const CGFloat kOptionTextFontSize    = 12.0f;
 static const CGFloat kOptionTextLineSpacing = 2.0f;
 
 #pragma mark Colors

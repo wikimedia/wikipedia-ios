@@ -18,25 +18,25 @@
             <rect key="frame" x="0.0" y="0.0" width="291" height="442"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dh1-J0-8gD" userLabel="Container container">
-                    <rect key="frame" x="12" y="16" width="267" height="356"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dh1-J0-8gD" userLabel="Sub-container container">
+                    <rect key="frame" x="16" y="16" width="259" height="356"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w0a-mT-r7z" userLabel="Read more container">
-                            <rect key="frame" x="0.0" y="0.0" width="267" height="100"/>
+                            <rect key="frame" x="0.0" y="0.0" width="259" height="100"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="100" placeholder="YES" id="2gB-F9-ueg"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bY3-nl-Jig" userLabel="Options container">
-                            <rect key="frame" x="0.0" y="100" width="267" height="100"/>
+                            <rect key="frame" x="0.0" y="100" width="259" height="100"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="100" placeholder="YES" id="zas-rw-VYh"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3BA-2M-FfO" userLabel="Legal container">
-                            <rect key="frame" x="0.0" y="200" width="267" height="100"/>
+                            <rect key="frame" x="0.0" y="200" width="259" height="100"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="100" placeholder="YES" id="ehC-zR-rIO"/>
@@ -60,18 +60,12 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Dh1-J0-8gD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="F9w-kv-jxZ"/>
+                <constraint firstItem="Dh1-J0-8gD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="F9w-kv-jxZ"/>
                 <constraint firstItem="Dh1-J0-8gD" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="FWd-4I-JwX"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Dh1-J0-8gD" secondAttribute="bottom" constant="16" id="Fvh-2a-05n"/>
-                <constraint firstItem="Dh1-J0-8gD" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" constant="-12" id="SgQ-Qp-NV8"/>
+                <constraint firstItem="Dh1-J0-8gD" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" constant="-16" id="SgQ-Qp-NV8"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="Fvh-2a-05n"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="375.5" y="352"/>
         </view>
     </objects>

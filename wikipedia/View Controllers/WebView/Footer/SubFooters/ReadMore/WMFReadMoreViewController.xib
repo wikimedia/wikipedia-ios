@@ -19,7 +19,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RVx-k8-bpa">
                     <rect key="frame" x="0.0" y="0.0" width="306" height="228"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Arv-De-R5I" userLabel="Read more label" customClass="PaddedLabel">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Arv-De-R5I" userLabel="Read more label" customClass="PaddedLabel">
                             <rect key="frame" x="0.0" y="0.0" width="306" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" placeholder="YES" id="WYo-aP-Yp3"/>
@@ -29,14 +29,14 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cpj-Cw-5qr" userLabel="Options container view">
-                            <rect key="frame" x="0.0" y="44" width="306" height="142"/>
+                            <rect key="frame" x="0.0" y="44" width="306" height="170"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="Cpj-Cw-5qr" firstAttribute="top" secondItem="Arv-De-R5I" secondAttribute="bottom" id="8QP-jU-xn5"/>
-                        <constraint firstAttribute="bottom" secondItem="Cpj-Cw-5qr" secondAttribute="bottom" constant="42" id="Aw4-Tv-dFI"/>
+                        <constraint firstAttribute="bottom" secondItem="Cpj-Cw-5qr" secondAttribute="bottom" constant="14" id="Aw4-Tv-dFI"/>
                         <constraint firstItem="Arv-De-R5I" firstAttribute="leading" secondItem="RVx-k8-bpa" secondAttribute="leading" id="Csc-e8-rpt"/>
                         <constraint firstItem="Arv-De-R5I" firstAttribute="top" secondItem="RVx-k8-bpa" secondAttribute="top" id="E5u-hx-GnZ"/>
                         <constraint firstAttribute="trailing" secondItem="Arv-De-R5I" secondAttribute="trailing" id="MXn-lb-yYu"/>

@@ -15,7 +15,7 @@
     self = [super init];
     if (self) {
         self.height          = height;
-        self.backgroundColor = [UIColor lightGrayColor];
+        self.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }

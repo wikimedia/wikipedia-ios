@@ -25,7 +25,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58r-oL-D8g" userLabel="License label" customClass="PaddedLabel">
-                    <rect key="frame" x="27" y="26" width="231" height="31"/>
+                    <rect key="frame" x="0.0" y="26" width="284" height="31"/>
                     <gestureRecognizers/>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -41,8 +41,8 @@
                 <constraint firstAttribute="bottom" secondItem="58r-oL-D8g" secondAttribute="bottom" constant="10" id="C8W-en-Vy8"/>
                 <constraint firstItem="aOI-9i-zmL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="W9I-lT-54a"/>
                 <constraint firstAttribute="centerX" secondItem="aOI-9i-zmL" secondAttribute="centerX" id="ecI-L1-uR4"/>
-                <constraint firstAttribute="trailing" secondItem="58r-oL-D8g" secondAttribute="trailing" constant="26" id="eix-Vq-gWR"/>
-                <constraint firstItem="58r-oL-D8g" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="27" id="seG-Ke-gDp"/>
+                <constraint firstAttribute="trailing" secondItem="58r-oL-D8g" secondAttribute="trailing" id="eix-Vq-gWR"/>
+                <constraint firstItem="58r-oL-D8g" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="seG-Ke-gDp"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

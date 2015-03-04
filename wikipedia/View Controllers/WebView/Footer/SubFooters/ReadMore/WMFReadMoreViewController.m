@@ -25,7 +25,7 @@
     self.searchSuggestionsController = [SearchResultsController readMoreSearchResultsController];
     [self wmf_addChildController:self.searchSuggestionsController andConstrainToEdgesOfContainerView:self.optionsContainerView];
 
-    self.titleLabel.padding = UIEdgeInsetsMake(20, 0, 20, 10);
+    self.titleLabel.padding = UIEdgeInsetsMake(0, 0, 20, 10);
     self.titleLabel.font    = [UIFont fontWithName:@"Times New Roman" size:26.0f * MENUS_SCALE_MULTIPLIER];
     self.titleLabel.text    = MWLocalizedString(@"article-read-more-title", @"Read more");
 
