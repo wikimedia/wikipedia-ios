@@ -20,6 +20,7 @@
 - (instancetype)initAndFetchRandomArticleForDomain:(NSString*)domain
                                        withManager:(AFHTTPRequestOperationManager*)manager
                                 thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
+    @throw NSInternalInconsistencyException;
     self = [super init];
     if (self) {
         self.domain                = domain;
