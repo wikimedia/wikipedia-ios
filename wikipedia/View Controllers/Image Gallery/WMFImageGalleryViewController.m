@@ -80,6 +80,9 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 @end
 
 static NSAttributedString* ConcatOwnerAndLicense(NSString* owner, MWKLicense* license){
+    if (!owner && !license) {
+        return [[NSAttributedString alloc] initWithString:@"" attributes:nil];
+    }
     NSMutableAttributedString* result = [NSMutableAttributedString new];
     NSString* licenseGlyph            = [license toGlyph] ? : WIKIGLYPH_CITE;
     if (licenseGlyph) {
@@ -418,15 +421,17 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
     cell.detailOverlayView.hidden = [self isChromeHidden];
 
-    cell.detailOverlayView.imageDescriptionLabel.text = infoForImage.imageDescription ? : @"";
 
-    [cell.detailOverlayView.ownerButton
-     setAttributedTitle:ConcatOwnerAndLicense(infoForImage.owner, infoForImage.license)
-               forState:UIControlStateNormal];
+    if (infoForImage) {
+        cell.detailOverlayView.imageDescriptionLabel.text = infoForImage.imageDescription;
 
-    cell.detailOverlayView.ownerTapCallback = ^{
-        [[UIApplication sharedApplication] openURL:infoForImage.license.URL];
-    };
+        NSAttributedString* ownerAndLicense = ConcatOwnerAndLicense(infoForImage.owner, infoForImage.license);
+        [cell.detailOverlayView.ownerButton setAttributedTitle:ownerAndLicense forState:UIControlStateNormal];
+
+        cell.detailOverlayView.ownerTapCallback = ^{
+            [[UIApplication sharedApplication] openURL:infoForImage.license.URL];
+        };
+    }
 
     [self updateImageForCell:cell atIndexPath:indexPath image:imageStub info:infoForImage];
 

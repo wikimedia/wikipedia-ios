@@ -47,9 +47,7 @@
 		042A5B36192591520095E172 /* TopMenuTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B31192591520095E172 /* TopMenuTextField.m */; };
 		042B3996192EAEEA0066B270 /* ShareMenuSavePageActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 042B3995192EAEEA0066B270 /* ShareMenuSavePageActivity.m */; };
 		042BEAEF1A92EE66002CF320 /* UIWebView+WMFTrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042BEAEE1A92EE66002CF320 /* UIWebView+WMFTrackingView.m */; };
-		042BEAF01A92EE66002CF320 /* UIWebView+WMFTrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042BEAEE1A92EE66002CF320 /* UIWebView+WMFTrackingView.m */; };
 		042E3B931AA16D6700BF8D66 /* UIViewController+WMFChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042E3B921AA16D6700BF8D66 /* UIViewController+WMFChildViewController.m */; };
-		042E3B941AA16D6700BF8D66 /* UIViewController+WMFChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042E3B921AA16D6700BF8D66 /* UIViewController+WMFChildViewController.m */; };
 		0433542218A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 0433542118A023FE009305F0 /* UIViewController+HideKeyboard.m */; };
 		0433542618A093C5009305F0 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 0433542518A093C5009305F0 /* UIView+RemoveConstraints.m */; };
 		0439317619FB092600386E8F /* UIWebView+LoadAssetsHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 0439317519FB092600386E8F /* UIWebView+LoadAssetsHtml.m */; };
@@ -91,25 +89,19 @@
 		047E95511996DD030046A122 /* NearbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E954E1996DD030046A122 /* NearbyViewController.m */; };
 		047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047ED63818C13E4900442BE3 /* PreviewWebView.m */; };
 		0480AE871AA4E61000A9950C /* WMFLegalFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480AE7D1AA4E61000A9950C /* WMFLegalFooterViewController.m */; };
-		0480AE881AA4E61000A9950C /* WMFLegalFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480AE7D1AA4E61000A9950C /* WMFLegalFooterViewController.m */; };
 		0480AE891AA4E61000A9950C /* WMFLegalFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0480AE7E1AA4E61000A9950C /* WMFLegalFooterViewController.xib */; };
 		0480AE8A1AA4E61000A9950C /* WMFLegalFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0480AE7E1AA4E61000A9950C /* WMFLegalFooterViewController.xib */; };
 		0480AE8B1AA4E61000A9950C /* WMFOptionsFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480AE811AA4E61000A9950C /* WMFOptionsFooterViewController.m */; };
-		0480AE8C1AA4E61000A9950C /* WMFOptionsFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480AE811AA4E61000A9950C /* WMFOptionsFooterViewController.m */; };
 		0480AE8D1AA4E61000A9950C /* WMFOptionsFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0480AE821AA4E61000A9950C /* WMFOptionsFooterViewController.xib */; };
 		0480AE8E1AA4E61000A9950C /* WMFOptionsFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0480AE821AA4E61000A9950C /* WMFOptionsFooterViewController.xib */; };
 		0480AE8F1AA4E61000A9950C /* WMFReadMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480AE851AA4E61000A9950C /* WMFReadMoreViewController.m */; };
-		0480AE901AA4E61000A9950C /* WMFReadMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480AE851AA4E61000A9950C /* WMFReadMoreViewController.m */; };
 		0480AE911AA4E61000A9950C /* WMFReadMoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0480AE861AA4E61000A9950C /* WMFReadMoreViewController.xib */; };
 		0480AE921AA4E61000A9950C /* WMFReadMoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0480AE861AA4E61000A9950C /* WMFReadMoreViewController.xib */; };
 		0480AE961AA4E65D00A9950C /* WMFWebViewFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480AE941AA4E65D00A9950C /* WMFWebViewFooterViewController.m */; };
-		0480AE971AA4E65D00A9950C /* WMFWebViewFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480AE941AA4E65D00A9950C /* WMFWebViewFooterViewController.m */; };
 		0480AE981AA4E65D00A9950C /* WMFWebViewFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0480AE951AA4E65D00A9950C /* WMFWebViewFooterViewController.xib */; };
 		0480AE991AA4E65D00A9950C /* WMFWebViewFooterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0480AE951AA4E65D00A9950C /* WMFWebViewFooterViewController.xib */; };
 		0480AE9C1AA4F01600A9950C /* WMFWebViewFooterContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480AE9B1AA4F01600A9950C /* WMFWebViewFooterContainerView.m */; };
-		0480AE9D1AA4F01600A9950C /* WMFWebViewFooterContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480AE9B1AA4F01600A9950C /* WMFWebViewFooterContainerView.m */; };
 		0480AEA01AA4F4DA00A9950C /* WMFIntrinsicContentSizeAwareTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480AE9F1AA4F4DA00A9950C /* WMFIntrinsicContentSizeAwareTableView.m */; };
-		0480AEA11AA4F4DA00A9950C /* WMFIntrinsicContentSizeAwareTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0480AE9F1AA4F4DA00A9950C /* WMFIntrinsicContentSizeAwareTableView.m */; };
 		04821CD119895EDC007558F6 /* ReferenceGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04821CD019895EDC007558F6 /* ReferenceGradientView.m */; };
 		0484411E19FF15AF00FD26C5 /* AboutViewController.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0484411D19FF15AF00FD26C5 /* AboutViewController.plist */; };
 		0484E3DE19D9D19B0085D18D /* UIView+ConstraintsScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484E3DD19D9D19B0085D18D /* UIView+ConstraintsScale.m */; };
@@ -154,7 +146,6 @@
 		04B91AAB18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AAA18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m */; };
 		04B91AB718E4D5B200FFAA1C /* TabularScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AB618E4D5B200FFAA1C /* TabularScrollView.m */; };
 		04BA48A11A80062F00CB5CAE /* UIFont+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BA48A01A80062E00CB5CAE /* UIFont+WMFStyle.m */; };
-		04BA48A21A80062F00CB5CAE /* UIFont+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BA48A01A80062E00CB5CAE /* UIFont+WMFStyle.m */; };
 		04C0A0781936786000D55325 /* UIViewController+ModalPresent.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C0A0771936786000D55325 /* UIViewController+ModalPresent.m */; };
 		04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */; };
 		04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AAB18344131006C643B /* CommunicationBridge.m */; };
@@ -208,43 +199,23 @@
 		0EA4402E1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */; };
 		701FF5EE601DEA3FCAB7EFD3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D82982ED992F47428037BDF2 /* libPods.a */; };
 		954BA118838BF8BA6B01C34A /* libPods-WikipediaUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */; };
-		BC118C0F1A95894D0072E4D8 /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
-		BC118C101A9589720072E4D8 /* AssetsFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 04272E791940EEBC00CC682F /* AssetsFile.m */; };
 		BC2CBB8E1AA10F400079A313 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2CBB8D1AA10F400079A313 /* UIView+WMFFrameUtils.m */; };
-		BC2CBB8F1AA10F400079A313 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2CBB8D1AA10F400079A313 /* UIView+WMFFrameUtils.m */; };
-		BC42735D1A7C73B300068882 /* NSArray+Predicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CBAC7219A9B786009F3D7E /* NSArray+Predicate.m */; };
-		BC42735E1A7C73B300068882 /* NSArray+PredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */; };
 		BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */; };
-		BC50C3831A83C88F006DC7AF /* WMFJoinedPropertyParametersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3821A83C88F006DC7AF /* WMFJoinedPropertyParametersTests.m */; };
-		BC50C3841A83C96D006DC7AF /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */; };
 		BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */; };
-		BC6FEAE11A9B7EFD00A1D890 /* WMFCodingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */; };
 		BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
-		BC7DFCD71AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
 		BC86B9361A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B9351A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m */; };
 		BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93C1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m */; };
 		BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */; };
-		BC86B9411A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */; };
 		BC955BC71A82BEFD000EF9E4 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */; };
 		BC955BCF1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BCE1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m */; };
 		BCB58F441A890D9700465627 /* MWKImageInfo+MWKImageComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F431A890D9700465627 /* MWKImageInfo+MWKImageComparison.m */; };
-		BCB58F451A890D9700465627 /* MWKImageInfo+MWKImageComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F431A890D9700465627 /* MWKImageInfo+MWKImageComparison.m */; };
 		BCB58F481A891FDB00465627 /* WebViewController+ImageGalleryPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F471A891FDB00465627 /* WebViewController+ImageGalleryPresentation.m */; };
 		BCB58F541A894D3E00465627 /* WMFImageGalleryDetailOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F531A894D3E00465627 /* WMFImageGalleryDetailOverlayView.m */; };
 		BCB58F591A89747400465627 /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BCB58F581A89747400465627 /* WMFImageGalleryDetailOverlayView.xib */; };
 		BCB58F631A8A9F1000465627 /* MWKLicense.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F621A8A9F1000465627 /* MWKLicense.m */; };
-		BCB58F641A8A9F1000465627 /* MWKLicense.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F621A8A9F1000465627 /* MWKLicense.m */; };
 		BCB58F671A8AA22200465627 /* MWKLicense+ToGlyph.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F661A8AA22200465627 /* MWKLicense+ToGlyph.m */; };
-		BCB58F681A8AA22200465627 /* MWKLicense+ToGlyph.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F661A8AA22200465627 /* MWKLicense+ToGlyph.m */; };
 		BCB58F781A8D081E00465627 /* NSArray+BKIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F771A8D081E00465627 /* NSArray+BKIndex.m */; };
-		BCB58F791A8D081E00465627 /* NSArray+BKIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F771A8D081E00465627 /* NSArray+BKIndex.m */; };
-		BCB58F7C1A8D0C8E00465627 /* NSArray+BKIndexTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F7B1A8D0C8E00465627 /* NSArray+BKIndexTests.m */; };
-		BCB58F7E1A8D1B8400465627 /* MWKImageInfo+MWKImageComparisonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F7D1A8D1B8400465627 /* MWKImageInfo+MWKImageComparisonTests.m */; };
-		BCB669611A83D7B300C7B1FE /* WMFErrorForApiErrorObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669601A83D7B300C7B1FE /* WMFErrorForApiErrorObjectTests.m */; };
-		BCB669631A83DB8F00C7B1FE /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */; };
 		BCB669731A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669721A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m */; };
-		BCB669741A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669721A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m */; };
-		BCB669761A83F59300C7B1FE /* NSMutableDictionary+MaybeSetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669751A83F59300C7B1FE /* NSMutableDictionary+MaybeSetTests.m */; };
 		BCB669A41A83F6C400C7B1FE /* MWKSite.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669791A83F6C300C7B1FE /* MWKSite.m */; };
 		BCB669A51A83F6C400C7B1FE /* MWKTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6697B1A83F6C300C7B1FE /* MWKTitle.m */; };
 		BCB669A61A83F6C400C7B1FE /* MWKDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6697E1A83F6C300C7B1FE /* MWKDataObject.m */; };
@@ -265,8 +236,6 @@
 		BCB669B51A83F6C400C7B1FE /* MWKUserDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6699D1A83F6C300C7B1FE /* MWKUserDataStore.m */; };
 		BCB669B61A83F6C400C7B1FE /* MWKImageList.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6699F1A83F6C300C7B1FE /* MWKImageList.m */; };
 		BCB669B71A83F6C400C7B1FE /* MWKSectionList.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669A11A83F6C300C7B1FE /* MWKSectionList.m */; };
-		BCB669D31A83F6D300C7B1FE /* MWKTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669BB1A83F6D300C7B1FE /* MWKTestCase.m */; };
-		BCB669D41A83F6D300C7B1FE /* MWKArticleStoreTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669BD1A83F6D300C7B1FE /* MWKArticleStoreTestCase.m */; };
 		BCB669D51A83F6D300C7B1FE /* TemplateIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCB669BE1A83F6D300C7B1FE /* TemplateIcon2x.png */; };
 		BCB669D61A83F6D300C7B1FE /* organization-anon.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB669BF1A83F6D300C7B1FE /* organization-anon.json */; };
 		BCB669D71A83F6D300C7B1FE /* golden-gate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCB669C01A83F6D300C7B1FE /* golden-gate.jpg */; };
@@ -277,42 +246,31 @@
 		BCB669DC1A83F6D300C7B1FE /* protection-empty.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB669C51A83F6D300C7B1FE /* protection-empty.json */; };
 		BCB669DD1A83F6D300C7B1FE /* section0.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB669C61A83F6D300C7B1FE /* section0.json */; };
 		BCB669DE1A83F6D300C7B1FE /* section1-end.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB669C71A83F6D300C7B1FE /* section1-end.json */; };
-		BCB669DF1A83F6D300C7B1FE /* MWKSiteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669C91A83F6D300C7B1FE /* MWKSiteTests.m */; };
-		BCB669E01A83F6D300C7B1FE /* MWKTitleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669CA1A83F6D300C7B1FE /* MWKTitleTests.m */; };
-		BCB669E11A83F6D300C7B1FE /* MWKUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669CB1A83F6D300C7B1FE /* MWKUserTests.m */; };
-		BCB669E21A83F6D300C7B1FE /* MWKProtectionStatusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669CC1A83F6D300C7B1FE /* MWKProtectionStatusTests.m */; };
-		BCB669E31A83F6D300C7B1FE /* MWKDataStorePathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669CD1A83F6D300C7B1FE /* MWKDataStorePathTests.m */; };
-		BCB669E41A83F6D300C7B1FE /* MWKDataStoreStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669CE1A83F6D300C7B1FE /* MWKDataStoreStorageTests.m */; };
-		BCB669E51A83F6D300C7B1FE /* MWKImageStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669CF1A83F6D300C7B1FE /* MWKImageStorageTests.m */; };
-		BCB669E61A83F6D300C7B1FE /* MWKHistoryListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669D01A83F6D300C7B1FE /* MWKHistoryListTests.m */; };
-		BCB669E71A83F71C00C7B1FE /* MWKSite.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669791A83F6C300C7B1FE /* MWKSite.m */; };
-		BCB669E81A83F71C00C7B1FE /* MWKTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6697B1A83F6C300C7B1FE /* MWKTitle.m */; };
-		BCB669E91A83F71C00C7B1FE /* MWKDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6697E1A83F6C300C7B1FE /* MWKDataObject.m */; };
-		BCB669EA1A83F71C00C7B1FE /* MWKSiteDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669801A83F6C300C7B1FE /* MWKSiteDataObject.m */; };
-		BCB669EB1A83F71C00C7B1FE /* MWKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669821A83F6C300C7B1FE /* MWKUser.m */; };
-		BCB669EC1A83F71C00C7B1FE /* MWKSection.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669841A83F6C300C7B1FE /* MWKSection.m */; };
-		BCB669ED1A83F71C00C7B1FE /* MWKImage.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669861A83F6C300C7B1FE /* MWKImage.m */; };
-		BCB669EE1A83F71C00C7B1FE /* MWKProtectionStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669881A83F6C300C7B1FE /* MWKProtectionStatus.m */; };
-		BCB669EF1A83F71C00C7B1FE /* MWKSavedPageEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6698A1A83F6C300C7B1FE /* MWKSavedPageEntry.m */; };
-		BCB669F01A83F71C00C7B1FE /* MWKSavedPageList.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6698C1A83F6C300C7B1FE /* MWKSavedPageList.m */; };
-		BCB669F11A83F71C00C7B1FE /* MWKHistoryEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6698E1A83F6C300C7B1FE /* MWKHistoryEntry.m */; };
-		BCB669F21A83F71C00C7B1FE /* MWKHistoryList.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669901A83F6C300C7B1FE /* MWKHistoryList.m */; };
-		BCB669F31A83F71C00C7B1FE /* MWKRecentSearchEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669921A83F6C300C7B1FE /* MWKRecentSearchEntry.m */; };
-		BCB669F41A83F71C00C7B1FE /* MWKRecentSearchList.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669941A83F6C300C7B1FE /* MWKRecentSearchList.m */; };
-		BCB669F51A83F71C00C7B1FE /* MWKImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669971A83F6C300C7B1FE /* MWKImageInfo.m */; };
-		BCB669F61A83F71C00C7B1FE /* MWKDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669991A83F6C300C7B1FE /* MWKDataStore.m */; };
-		BCB669F71A83F71C00C7B1FE /* MWKArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6699B1A83F6C300C7B1FE /* MWKArticle.m */; };
-		BCB669F81A83F71C00C7B1FE /* MWKUserDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6699D1A83F6C300C7B1FE /* MWKUserDataStore.m */; };
-		BCB669F91A83F71C00C7B1FE /* MWKImageList.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB6699F1A83F6C300C7B1FE /* MWKImageList.m */; };
-		BCB669FA1A83F71C00C7B1FE /* MWKSectionList.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669A11A83F6C300C7B1FE /* MWKSectionList.m */; };
-		BCB669FD1A84158200C7B1FE /* CircularBitwiseRotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669FC1A84158200C7B1FE /* CircularBitwiseRotationTests.m */; };
 		BCB66A0C1A85183000C7B1FE /* NSString+WMFHTMLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB66A0B1A85183000C7B1FE /* NSString+WMFHTMLParsing.m */; };
-		BCB66A0D1A85183000C7B1FE /* NSString+WMFHTMLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB66A0B1A85183000C7B1FE /* NSString+WMFHTMLParsing.m */; };
-		BCB66A101A851C9B00C7B1FE /* MWKImageListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB66A0F1A851C9B00C7B1FE /* MWKImageListTests.m */; };
+		BCBDE0AF1AA76F3F006BD29A /* WMFCodingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */; };
+		BCBDE0B01AA76F3F006BD29A /* MWKTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669BB1A83F6D300C7B1FE /* MWKTestCase.m */; };
+		BCBDE0B11AA76F3F006BD29A /* MWKArticleStoreTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669BD1A83F6D300C7B1FE /* MWKArticleStoreTestCase.m */; };
+		BCBDE0B21AA76F3F006BD29A /* MWKSiteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669C91A83F6D300C7B1FE /* MWKSiteTests.m */; };
+		BCBDE0B31AA76F3F006BD29A /* MWKTitleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669CA1A83F6D300C7B1FE /* MWKTitleTests.m */; };
+		BCBDE0B41AA76F3F006BD29A /* MWKUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669CB1A83F6D300C7B1FE /* MWKUserTests.m */; };
+		BCBDE0B51AA76F3F006BD29A /* MWKProtectionStatusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669CC1A83F6D300C7B1FE /* MWKProtectionStatusTests.m */; };
+		BCBDE0B61AA76F3F006BD29A /* MWKDataStorePathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669CD1A83F6D300C7B1FE /* MWKDataStorePathTests.m */; };
+		BCBDE0B71AA76F3F006BD29A /* MWKDataStoreStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669CE1A83F6D300C7B1FE /* MWKDataStoreStorageTests.m */; };
+		BCBDE0B81AA76F3F006BD29A /* MWKImageStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669CF1A83F6D300C7B1FE /* MWKImageStorageTests.m */; };
+		BCBDE0B91AA76F3F006BD29A /* MWKHistoryListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669D01A83F6D300C7B1FE /* MWKHistoryListTests.m */; };
+		BCBDE0BA1AA76F3F006BD29A /* MWKImageListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB66A0F1A851C9B00C7B1FE /* MWKImageListTests.m */; };
+		BCBDE0BB1AA76F3F006BD29A /* MWKImageInfo+MWKImageComparisonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F7D1A8D1B8400465627 /* MWKImageInfo+MWKImageComparisonTests.m */; };
+		BCBDE0BC1AA76F3F006BD29A /* NSArray+PredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */; };
+		BCBDE0BD1AA76F3F006BD29A /* WMFJoinedPropertyParametersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3821A83C88F006DC7AF /* WMFJoinedPropertyParametersTests.m */; };
+		BCBDE0BE1AA76F3F006BD29A /* WMFErrorForApiErrorObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669601A83D7B300C7B1FE /* WMFErrorForApiErrorObjectTests.m */; };
+		BCBDE0BF1AA76F3F006BD29A /* NSMutableDictionary+MaybeSetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669751A83F59300C7B1FE /* NSMutableDictionary+MaybeSetTests.m */; };
+		BCBDE0C01AA76F3F006BD29A /* CircularBitwiseRotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669FC1A84158200C7B1FE /* CircularBitwiseRotationTests.m */; };
+		BCBDE0C11AA76F3F006BD29A /* NSArray+BKIndexTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F7B1A8D0C8E00465627 /* NSArray+BKIndexTests.m */; };
+		BCBDE0C21AA76F3F006BD29A /* NSString+WMFHTMLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C983151B1AA5205700E25EE1 /* NSString+WMFHTMLParsingTests.m */; };
+		BCBDE0C31AA76F3F006BD29A /* WMFImageURLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBDE0AB1AA76EAC006BD29A /* WMFImageURLParsingTests.m */; };
 		BCC185D81A9E5628005378F8 /* UILabel+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185D71A9E5628005378F8 /* UILabel+WMFStyling.m */; };
 		BCC185E01A9EC836005378F8 /* UIButton+FrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185DF1A9EC836005378F8 /* UIButton+FrameUtils.m */; };
 		BCC185E81A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185E71A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m */; };
-		BCC185E91A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185E71A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m */; };
 		C42D947E1A937DAC00A4871A /* SavedArticlesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D947D1A937DAC00A4871A /* SavedArticlesFetcher.m */; };
 		C42D94861A937DE000A4871A /* WMFBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94831A937DE000A4871A /* WMFBorderButton.m */; };
 		C42D94871A937DE000A4871A /* WMFProgressLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94851A937DE000A4871A /* WMFProgressLineView.m */; };
@@ -326,7 +284,6 @@
 		C979727A1A731EAA00C6ED7A /* ShareOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = C97972791A731EAA00C6ED7A /* ShareOptions.xib */; };
 		C979727D1A731F2D00C6ED7A /* WMFShareOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C979727C1A731F2D00C6ED7A /* WMFShareOptionsView.m */; };
 		C982729B1A803DCC0039FAC3 /* Wikipedia_wordmark_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = C982729A1A803DCC0039FAC3 /* Wikipedia_wordmark_gray.png */; };
-		C983151C1AA5205700E25EE1 /* NSString+WMFHTMLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C983151B1AA5205700E25EE1 /* NSString+WMFHTMLParsingTests.m */; };
 		C98990341A699DE000AF44FC /* WMFShareCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C98990331A699DE000AF44FC /* WMFShareCardViewController.m */; };
 		C98990361A699DFB00AF44FC /* ShareCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = C98990351A699DFB00AF44FC /* ShareCard.xib */; };
 		C99844571A8C1F23001D58FD /* UIWebView+WMFSuppressSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = C99844561A8C1F23001D58FD /* UIWebView+WMFSuppressSelection.m */; };
@@ -367,6 +324,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		BCBDE0AD1AA76F19006BD29A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4991434181D51DE00E6073C;
+			remoteInfo = Wikipedia;
+		};
 		D4E6D9151A5C65FA004916C1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D4F478441A48CD8500D8043C /* OldDataSchema.xcodeproj */;
@@ -847,6 +811,7 @@
 		BCB66A0A1A85183000C7B1FE /* NSString+WMFHTMLParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WMFHTMLParsing.h"; sourceTree = "<group>"; };
 		BCB66A0B1A85183000C7B1FE /* NSString+WMFHTMLParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WMFHTMLParsing.m"; sourceTree = "<group>"; };
 		BCB66A0F1A851C9B00C7B1FE /* MWKImageListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKImageListTests.m; sourceTree = "<group>"; };
+		BCBDE0AB1AA76EAC006BD29A /* WMFImageURLParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageURLParsingTests.m; sourceTree = "<group>"; };
 		BCC185D61A9E5628005378F8 /* UILabel+WMFStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+WMFStyling.h"; sourceTree = "<group>"; };
 		BCC185D71A9E5628005378F8 /* UILabel+WMFStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WMFStyling.m"; sourceTree = "<group>"; };
 		BCC185DE1A9EC836005378F8 /* UIButton+FrameUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+FrameUtils.h"; sourceTree = "<group>"; };
@@ -1998,7 +1963,6 @@
 		BC8309941A7BF935003FC5C7 /* WikipediaUnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				C983151B1AA5205700E25EE1 /* NSString+WMFHTMLParsingTests.m */,
 				BC7DFCCB1AA4BA8A000035C3 /* WMFCodingStyle.h */,
 				BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */,
 				BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */,
@@ -2009,6 +1973,8 @@
 				BCB669751A83F59300C7B1FE /* NSMutableDictionary+MaybeSetTests.m */,
 				BCB669FC1A84158200C7B1FE /* CircularBitwiseRotationTests.m */,
 				BCB58F7B1A8D0C8E00465627 /* NSArray+BKIndexTests.m */,
+				C983151B1AA5205700E25EE1 /* NSString+WMFHTMLParsingTests.m */,
+				BCBDE0AB1AA76EAC006BD29A /* WMFImageURLParsingTests.m */,
 			);
 			path = WikipediaUnitTests;
 			sourceTree = "<group>";
@@ -2408,6 +2374,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				BCBDE0AE1AA76F19006BD29A /* PBXTargetDependency */,
 			);
 			name = WikipediaUnitTests;
 			productName = WikipediaUnitTests;
@@ -2451,6 +2418,7 @@
 				TargetAttributes = {
 					BC4273511A7C736800068882 = {
 						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = D4991434181D51DE00E6073C;
 					};
 					D4991434181D51DE00E6073C = {
 						DevelopmentTeam = AKK7J2GV64;
@@ -2815,70 +2783,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCB669611A83D7B300C7B1FE /* WMFErrorForApiErrorObjectTests.m in Sources */,
-				BCB66A101A851C9B00C7B1FE /* MWKImageListTests.m in Sources */,
-				BC6FEAE11A9B7EFD00A1D890 /* WMFCodingStyle.m in Sources */,
-				BCB669FA1A83F71C00C7B1FE /* MWKSectionList.m in Sources */,
-				042E3B941AA16D6700BF8D66 /* UIViewController+WMFChildViewController.m in Sources */,
-				BCB669631A83DB8F00C7B1FE /* MWKImageInfoResponseSerializer.m in Sources */,
-				BCB669761A83F59300C7B1FE /* NSMutableDictionary+MaybeSetTests.m in Sources */,
-				0480AE971AA4E65D00A9950C /* WMFWebViewFooterViewController.m in Sources */,
-				BC50C3831A83C88F006DC7AF /* WMFJoinedPropertyParametersTests.m in Sources */,
-				BCB669E01A83F6D300C7B1FE /* MWKTitleTests.m in Sources */,
-				C983151C1AA5205700E25EE1 /* NSString+WMFHTMLParsingTests.m in Sources */,
-				BCB58F451A890D9700465627 /* MWKImageInfo+MWKImageComparison.m in Sources */,
-				BC42735E1A7C73B300068882 /* NSArray+PredicateTests.m in Sources */,
-				BCB669F01A83F71C00C7B1FE /* MWKSavedPageList.m in Sources */,
-				BCB669FD1A84158200C7B1FE /* CircularBitwiseRotationTests.m in Sources */,
-				BC7DFCD71AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */,
-				BCB669D31A83F6D300C7B1FE /* MWKTestCase.m in Sources */,
-				BCB669E51A83F6D300C7B1FE /* MWKImageStorageTests.m in Sources */,
-				BCB669F51A83F71C00C7B1FE /* MWKImageInfo.m in Sources */,
-				BCB669F71A83F71C00C7B1FE /* MWKArticle.m in Sources */,
-				BCB669F91A83F71C00C7B1FE /* MWKImageList.m in Sources */,
-				BCB669F81A83F71C00C7B1FE /* MWKUserDataStore.m in Sources */,
-				BCB669F31A83F71C00C7B1FE /* MWKRecentSearchEntry.m in Sources */,
-				BC118C0F1A95894D0072E4D8 /* WikipediaAppUtils.m in Sources */,
-				BCB669F61A83F71C00C7B1FE /* MWKDataStore.m in Sources */,
-				BCB669E71A83F71C00C7B1FE /* MWKSite.m in Sources */,
-				BCB58F7C1A8D0C8E00465627 /* NSArray+BKIndexTests.m in Sources */,
-				BCB58F7E1A8D1B8400465627 /* MWKImageInfo+MWKImageComparisonTests.m in Sources */,
-				BC50C3841A83C96D006DC7AF /* WMFNetworkUtilities.m in Sources */,
-				BCB669F11A83F71C00C7B1FE /* MWKHistoryEntry.m in Sources */,
-				BC2CBB8F1AA10F400079A313 /* UIView+WMFFrameUtils.m in Sources */,
-				BCB669EB1A83F71C00C7B1FE /* MWKUser.m in Sources */,
-				BCB669ED1A83F71C00C7B1FE /* MWKImage.m in Sources */,
-				0480AE8C1AA4E61000A9950C /* WMFOptionsFooterViewController.m in Sources */,
-				BCB669E31A83F6D300C7B1FE /* MWKDataStorePathTests.m in Sources */,
-				BCB669E11A83F6D300C7B1FE /* MWKUserTests.m in Sources */,
-				BCB58F791A8D081E00465627 /* NSArray+BKIndex.m in Sources */,
-				BCB669E91A83F71C00C7B1FE /* MWKDataObject.m in Sources */,
-				BCB669EF1A83F71C00C7B1FE /* MWKSavedPageEntry.m in Sources */,
-				BCB669E41A83F6D300C7B1FE /* MWKDataStoreStorageTests.m in Sources */,
-				BCB669D41A83F6D300C7B1FE /* MWKArticleStoreTestCase.m in Sources */,
-				BCB669E81A83F71C00C7B1FE /* MWKTitle.m in Sources */,
-				BCB669E21A83F6D300C7B1FE /* MWKProtectionStatusTests.m in Sources */,
-				0480AE9D1AA4F01600A9950C /* WMFWebViewFooterContainerView.m in Sources */,
-				0480AE901AA4E61000A9950C /* WMFReadMoreViewController.m in Sources */,
-				BCB669DF1A83F6D300C7B1FE /* MWKSiteTests.m in Sources */,
-				BCB58F641A8A9F1000465627 /* MWKLicense.m in Sources */,
-				BCB669F21A83F71C00C7B1FE /* MWKHistoryList.m in Sources */,
-				BCB669E61A83F6D300C7B1FE /* MWKHistoryListTests.m in Sources */,
-				BC42735D1A7C73B300068882 /* NSArray+Predicate.m in Sources */,
-				BC118C101A9589720072E4D8 /* AssetsFile.m in Sources */,
-				BCB669EA1A83F71C00C7B1FE /* MWKSiteDataObject.m in Sources */,
-				0480AEA11AA4F4DA00A9950C /* WMFIntrinsicContentSizeAwareTableView.m in Sources */,
-				BC86B9411A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
-				0480AE881AA4E61000A9950C /* WMFLegalFooterViewController.m in Sources */,
-				BCB669EC1A83F71C00C7B1FE /* MWKSection.m in Sources */,
-				BCB58F681A8AA22200465627 /* MWKLicense+ToGlyph.m in Sources */,
-				BCB66A0D1A85183000C7B1FE /* NSString+WMFHTMLParsing.m in Sources */,
-				BCB669EE1A83F71C00C7B1FE /* MWKProtectionStatus.m in Sources */,
-				BCB669F41A83F71C00C7B1FE /* MWKRecentSearchList.m in Sources */,
-				BCC185E91A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m in Sources */,
-				04BA48A21A80062F00CB5CAE /* UIFont+WMFStyle.m in Sources */,
-				BCB669741A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
-				042BEAF01A92EE66002CF320 /* UIWebView+WMFTrackingView.m in Sources */,
+				BCBDE0B61AA76F3F006BD29A /* MWKDataStorePathTests.m in Sources */,
+				BCBDE0B21AA76F3F006BD29A /* MWKSiteTests.m in Sources */,
+				BCBDE0BC1AA76F3F006BD29A /* NSArray+PredicateTests.m in Sources */,
+				BCBDE0BD1AA76F3F006BD29A /* WMFJoinedPropertyParametersTests.m in Sources */,
+				BCBDE0BF1AA76F3F006BD29A /* NSMutableDictionary+MaybeSetTests.m in Sources */,
+				BCBDE0B71AA76F3F006BD29A /* MWKDataStoreStorageTests.m in Sources */,
+				BCBDE0AF1AA76F3F006BD29A /* WMFCodingStyle.m in Sources */,
+				BCBDE0BB1AA76F3F006BD29A /* MWKImageInfo+MWKImageComparisonTests.m in Sources */,
+				BCBDE0C11AA76F3F006BD29A /* NSArray+BKIndexTests.m in Sources */,
+				BCBDE0B01AA76F3F006BD29A /* MWKTestCase.m in Sources */,
+				BCBDE0C21AA76F3F006BD29A /* NSString+WMFHTMLParsingTests.m in Sources */,
+				BCBDE0BE1AA76F3F006BD29A /* WMFErrorForApiErrorObjectTests.m in Sources */,
+				BCBDE0B91AA76F3F006BD29A /* MWKHistoryListTests.m in Sources */,
+				BCBDE0B51AA76F3F006BD29A /* MWKProtectionStatusTests.m in Sources */,
+				BCBDE0BA1AA76F3F006BD29A /* MWKImageListTests.m in Sources */,
+				BCBDE0B11AA76F3F006BD29A /* MWKArticleStoreTestCase.m in Sources */,
+				BCBDE0C31AA76F3F006BD29A /* WMFImageURLParsingTests.m in Sources */,
+				BCBDE0B81AA76F3F006BD29A /* MWKImageStorageTests.m in Sources */,
+				BCBDE0B41AA76F3F006BD29A /* MWKUserTests.m in Sources */,
+				BCBDE0C01AA76F3F006BD29A /* CircularBitwiseRotationTests.m in Sources */,
+				BCBDE0B31AA76F3F006BD29A /* MWKTitleTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3109,6 +3034,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		BCBDE0AE1AA76F19006BD29A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4991434181D51DE00E6073C /* Wikipedia */;
+			targetProxy = BCBDE0AD1AA76F19006BD29A /* PBXContainerItemProxy */;
+		};
 		D4F478761A48D1BB00D8043C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = OldDataSchema;
@@ -3330,6 +3260,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC96DA4AAD521D734849D20F /* Pods-WikipediaUnitTests.debug.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3346,6 +3277,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
 			name = Debug;
 		};
@@ -3353,6 +3285,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3365,6 +3298,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
 			name = Release;
 		};

@@ -319,8 +319,6 @@
         }
 
         MWKImage* image = [self.article importImageURL:src sectionId:sectionId];
-        // update filepage url and then save
-        image.filePageURL = linkNode.attributes[@"href"];
         [image save];
 
         imageIndexInSection++;

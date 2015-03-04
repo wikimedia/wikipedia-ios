@@ -32,13 +32,6 @@
 @property (copy) NSNumber* width;
 @property (copy) NSNumber* height;
 
-/**
- * A relative URL pointing at the file page associated with this image.
- * @discussion Typical format is: @c "/wiki/File:Image_file_Name".
- * @see -[ArticleFetcher createImageRecordsForSection:]
- */
-@property (copy) NSString* filePageURL;
-
 // Local storage status
 @property (readonly) BOOL isCached;
 

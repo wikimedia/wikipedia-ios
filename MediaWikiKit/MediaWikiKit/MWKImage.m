@@ -11,13 +11,8 @@
 #import "MediaWikiKit.h"
 #import "WMFImageURLParsing.h"
 
-@interface MWKImage ()
-{
-    NSString* _fileNameNoSizePrefix;
-}
-@end
-
 @implementation MWKImage
+@synthesize fileNameNoSizePrefix = _fileNameNoSizePrefix;
 
 - (instancetype)initWithArticle:(MWKArticle*)article sourceURL:(NSString*)url {
     self = [super initWithSite:article.site];
@@ -45,7 +40,6 @@
         _mimeType         = [self optionalString:@"mimeType" dict:dict];
         _width            = [self optionalNumber:@"width" dict:dict];
         _height           = [self optionalNumber:@"height" dict:dict];
-        _filePageURL      = dict[@"filePageURL"];
     }
     return self;
 }
@@ -116,9 +110,7 @@
     if (self.height) {
         dict[@"height"] = self.height;
     }
-    if (self.filePageURL) {
-        dict[@"filePageURL"] = self.filePageURL;
-    }
+
     return [dict copy];
 }
 

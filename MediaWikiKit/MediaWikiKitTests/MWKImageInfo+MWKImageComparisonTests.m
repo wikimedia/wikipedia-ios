@@ -41,10 +41,7 @@
     NSString* testFilename = @"some-file name";
     MWKImage* image        = [self imageAssociatedWithFilename:testFilename];
     MWKImageInfo* info     = [self infoAssociatedWithFilename:testFilename];
-    assertThat(image.infoAssociationValue,
-               is(allOf(equalTo(info.imageAssociationValue),
-                        equalTo([info valueForKeyPath:MWKImageAssociationKeyPath]),
-                        equalTo([image valueForKeyPath:MWKImageAssociationKeyPath]), nil)));
+    assertThat(image.infoAssociationValue, is(equalTo(info.imageAssociationValue)));
     XCTAssertTrue([info isAssociatedWithImage:image]);
     XCTAssertTrue([image isAssociatedWithInfo:info]);
 }
@@ -52,8 +49,7 @@
 - (void)testDisassociation {
     MWKImage* image    = [self imageAssociatedWithFilename:@"some-file name"];
     MWKImageInfo* info = [self infoAssociatedWithFilename:@"other file name"];
-    assertThat([image valueForKeyPath:MWKImageAssociationKeyPath],
-               isNot([info valueForKeyPath:MWKImageAssociationKeyPath]));
+    assertThat([image infoAssociationValue], isNot(equalTo([info imageAssociationValue])));
     XCTAssertFalse([info isAssociatedWithImage:image]);
 }
 
