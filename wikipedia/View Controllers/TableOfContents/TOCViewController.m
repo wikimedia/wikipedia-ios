@@ -475,10 +475,10 @@
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                         // Not using "setContentOffset:animated:" so duration of animation
-                         // can be controlled and action can be taken after animation completes.
-                         self.scrollView.contentOffset = contentOffset;
-                     } completion:^(BOOL done){
+        // Not using "setContentOffset:animated:" so duration of animation
+        // can be controlled and action can be taken after animation completes.
+        self.scrollView.contentOffset = contentOffset;
+    } completion:^(BOOL done){
         self.scrollView.delegate = self;
     }];
 }

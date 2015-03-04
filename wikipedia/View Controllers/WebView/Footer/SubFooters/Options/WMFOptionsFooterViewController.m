@@ -152,10 +152,10 @@ static const CGFloat kGlyphIconBaselineOffset = 1.6f;
     [self performModalSequeWithID:@"modal_segue_show_languages"
                   transitionStyle:UIModalTransitionStyleCoverVertical
                             block:^(LanguagesViewController* languagesVC){
-                                languagesVC.downloadLanguagesForCurrentArticle = YES;
-                                languagesVC.invokingVC = self;
-                                languagesVC.languageSelectionDelegate = self;
-                            }];
+        languagesVC.downloadLanguagesForCurrentArticle = YES;
+        languagesVC.invokingVC = self;
+        languagesVC.languageSelectionDelegate = self;
+    }];
 }
 
 #pragma mark LanguageSelectionDelegate

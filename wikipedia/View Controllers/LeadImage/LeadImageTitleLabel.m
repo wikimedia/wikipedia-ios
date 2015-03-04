@@ -25,9 +25,9 @@
                                                           object:nil
                                                            queue:[NSOperationQueue mainQueue]
                                                       usingBlock:^(NSNotification* notification) {
-                                                          // Update padding on rotation so padding beneath title goes away in landscape.
-                                                          [self updatePadding];
-                                                      }];
+        // Update padding on rotation so padding beneath title goes away in landscape.
+        [self updatePadding];
+    }];
 }
 
 - (void)dealloc {

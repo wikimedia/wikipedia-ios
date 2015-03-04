@@ -231,8 +231,8 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
                   afterDelay:0.0
                     duration:0.1
                         then:^{
-                            [self performActionForItem:tag];
-                        }];
+        [self performActionForItem:tag];
+    }];
 }
 
 - (void)performActionForItem:(PrimaryMenuItemTag)tag {
@@ -241,9 +241,9 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
             [self performModalSequeWithID:@"modal_segue_show_login"
                           transitionStyle:UIModalTransitionStyleCoverVertical
                                     block:^(LoginViewController* loginVC){
-                                        loginVC.funnel = [[LoginFunnel alloc] init];
-                                        [loginVC.funnel logStartFromNavigation];
-                                    }];
+                loginVC.funnel = [[LoginFunnel alloc] init];
+                [loginVC.funnel logStartFromNavigation];
+            }];
         }
         break;
         case PRIMARY_MENU_ITEM_RANDOM: {

@@ -452,20 +452,20 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                               delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             self.scrollIndicatorView.alpha = 1.0;
-                             // If the top menu isn't hidden, reveal the bottom menu.
-                             self.bottomMenuHidden = ROOT.topMenuHidden;
+            self.scrollIndicatorView.alpha = 1.0;
+            // If the top menu isn't hidden, reveal the bottom menu.
+            self.bottomMenuHidden = ROOT.topMenuHidden;
 
-                             self.webView.scrollView.transform = CGAffineTransformIdentity;
+            self.webView.scrollView.transform = CGAffineTransformIdentity;
 
-                             self.referencesContainerView.transform = CGAffineTransformIdentity;
+            self.referencesContainerView.transform = CGAffineTransformIdentity;
 
-                             self.bottomBarView.transform = CGAffineTransformIdentity;
+            self.bottomBarView.transform = CGAffineTransformIdentity;
 
-                             self.tocViewLeadingConstraint.constant = 0;
+            self.tocViewLeadingConstraint.constant = 0;
 
-                             [self.view layoutIfNeeded];
-                         } completion:^(BOOL done){
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL done){
             [self.tocVC didHide];
             self.unsafeToToggleTOC = NO;
             self.webView.scrollView.contentOffset = origScrollPosition;
@@ -515,22 +515,22 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                         self.scrollIndicatorView.alpha = 0.0;
-                         self.bottomMenuHidden = YES;
-                         self.referencesHidden = YES;
+        self.scrollIndicatorView.alpha = 0.0;
+        self.bottomMenuHidden = YES;
+        self.referencesHidden = YES;
 
-                         CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
-                         CGAffineTransform xf = CGAffineTransformMakeScale(webViewScale, webViewScale);
+        CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
+        CGAffineTransform xf = CGAffineTransformMakeScale(webViewScale, webViewScale);
 
-                         self.webView.scrollView.transform = xf;
-                         self.referencesContainerView.transform = xf;
-                         self.bottomBarView.transform = xf;
+        self.webView.scrollView.transform = xf;
+        self.referencesContainerView.transform = xf;
+        self.bottomBarView.transform = xf;
 
-                         CGFloat tocWidth = [self tocGetWidthForWebViewScale:webViewScale];
-                         self.tocViewLeadingConstraint.constant = -tocWidth;
+        CGFloat tocWidth = [self tocGetWidthForWebViewScale:webViewScale];
+        self.tocViewLeadingConstraint.constant = -tocWidth;
 
-                         [self.view layoutIfNeeded];
-                     } completion:^(BOOL done){
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL done){
         self.unsafeToToggleTOC = NO;
 
         WikiGlyphButton* tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
@@ -741,10 +741,10 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                         // Not using "setContentOffset:animated:" so duration of animation
-                         // can be controlled and action can be taken after animation completes.
-                         self.webView.scrollView.contentOffset = point;
-                     } completion:^(BOOL done){
+        // Not using "setContentOffset:animated:" so duration of animation
+        // can be controlled and action can be taken after animation completes.
+        self.webView.scrollView.contentOffset = point;
+    } completion:^(BOOL done){
         // Record the new scroll location.
         [self saveWebViewScrollOffset];
         // Toggle toc.
@@ -1873,9 +1873,9 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                         self.referencesHidden = NO;
-                         [self.view layoutIfNeeded];
-                     } completion:nil];
+        self.referencesHidden = NO;
+        [self.view layoutIfNeeded];
+    } completion:nil];
 }
 
 - (void)referencesHide {
@@ -1886,10 +1886,10 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                         self.referencesHidden = YES;
+        self.referencesHidden = YES;
 
-                         [self.view layoutIfNeeded];
-                     } completion:^(BOOL done){
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL done){
         [self.referencesVC willMoveToParentViewController:nil];
         [self.referencesVC.view removeFromSuperview];
         [self.referencesVC removeFromParentViewController];
@@ -1970,11 +1970,11 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         self.activityIndicatorBackgroundView.alpha = 0.7;
-                         self.activityIndicator.alpha = 1.0;
-                     }
+        self.activityIndicatorBackgroundView.alpha = 0.7;
+        self.activityIndicator.alpha = 1.0;
+    }
                      completion:^(BOOL finished) {
-                     }];
+    }];
 }
 
 - (void)loadingIndicatorHide {
@@ -1984,11 +1984,11 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         self.activityIndicatorBackgroundView.alpha = 0.0;
-                         self.activityIndicator.alpha = 0.0;
-                     }
+        self.activityIndicatorBackgroundView.alpha = 0.0;
+        self.activityIndicator.alpha = 0.0;
+    }
                      completion:^(BOOL finished) {
-                     }];
+    }];
 }
 
 #pragma mark Lead image container

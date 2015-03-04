@@ -231,11 +231,11 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
                           delay:0
                         options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowAnimatedContent
                      animations:^{
-                         [self.collectionViewFlowLayout invalidateLayout];
-                     }
+        [self.collectionViewFlowLayout invalidateLayout];
+    }
                      completion:^(BOOL finished) {
-                         [self setVisibleImageIndex:currentImageIndex animated:NO forceViewUpdate:YES];
-                     }];
+        [self setVisibleImageIndex:currentImageIndex animated:NO forceViewUpdate:YES];
+    }];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -484,7 +484,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
          wmf_idempotentGET:imageURL.absoluteString
                 parameters:nil
                    success:^(AFHTTPRequestOperation* operation, UIImage* image) {
-                       dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             WMFImageGalleryViewController* strSelf = weakSelf;
             if (!strSelf) {
@@ -497,13 +497,13 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
                 (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
             cell.image = image;
         });
-                   }
+    }
                    failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-                       ImgGalleryLog(@"Failed to fetch image at %@ for cell %@: %@", operation.request.URL, indexPath, error);
-                       dispatch_async(dispatch_get_main_queue(), ^{
+        ImgGalleryLog(@"Failed to fetch image at %@ for cell %@: %@", operation.request.URL, indexPath, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
         });
-                   }];
+    }];
 
     if (request) {
         // request will be nil if no request was sent (if another operation is already requesting the specified image)

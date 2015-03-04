@@ -80,11 +80,11 @@
                           delay:delay
                         options:0
                      animations:^{
-                         self.alpha = 0.0;
-                     }
+        self.alpha = 0.0;
+    }
                      completion:^(BOOL done){
-                         [self hide];
-                     }];
+        [self hide];
+    }];
 }
 
 - (void)didMoveToSuperview {

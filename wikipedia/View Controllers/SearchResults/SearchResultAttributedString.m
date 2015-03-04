@@ -68,9 +68,9 @@
                 [regex enumerateMatchesInString:[attrSnippet string] options:0
                                           range:NSMakeRange(0, attrSnippet.string.length)
                                      usingBlock:^(NSTextCheckingResult* match, NSMatchingFlags flags, BOOL* stop){
-                                         [attrSnippet setAttributes:attributesSnippetHighlight
-                                                              range:match.range];
-                                     }];
+                    [attrSnippet setAttributes:attributesSnippetHighlight
+                                         range:match.range];
+                }];
             }
         }
         [outputString appendAttributedString:attrSnippet];

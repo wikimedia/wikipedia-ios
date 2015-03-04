@@ -205,13 +205,13 @@
     [self loginWithUserName:self.usernameField.text
                    password:self.passwordField.text
                   onSuccess:^{
-                      NSString* loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
-                      loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
-                                                                                   withString:self.usernameField.text];
-                      [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:1.0f];
+        NSString* loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
+        loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
+                                                                     withString:self.usernameField.text];
+        [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:1.0f];
 
-                      [self performSelector:(onboardingVC ? @selector(popModalToRoot) : @selector(popModal)) withObject:nil afterDelay:1.2f];
-                  } onFail:nil];
+        [self performSelector:(onboardingVC ? @selector(popModalToRoot) : @selector(popModal)) withObject:nil afterDelay:1.2f];
+    } onFail:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -361,9 +361,9 @@
         [self performModalSequeWithID:@"modal_segue_show_create_account"
                       transitionStyle:UIModalTransitionStyleCoverVertical
                                 block:^(AccountCreationViewController* createAcctVC){
-                                    createAcctVC.funnel = [[CreateAccountFunnel alloc] init];
-                                    [createAcctVC.funnel logStartFromLogin:self.funnel.loginSessionToken];
-                                }];
+            createAcctVC.funnel = [[CreateAccountFunnel alloc] init];
+            [createAcctVC.funnel logStartFromLogin:self.funnel.loginSessionToken];
+        }];
     }
 }
 

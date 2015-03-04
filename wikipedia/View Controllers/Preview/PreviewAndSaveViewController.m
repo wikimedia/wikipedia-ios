@@ -336,11 +336,11 @@ typedef enum {
     [self performModalSequeWithID:@"modal_segue_show_edit_summary"
                   transitionStyle:UIModalTransitionStyleCoverVertical
                             block:^(EditSummaryViewController* summaryVC){
-                                // Set the overlay's text field to self.summaryText so it can display
-                                // any existing value (in case user taps "Other" again)
-                                summaryVC.summaryText = self.summaryText;
-                                summaryVC.previewVC = self;
-                            }];
+        // Set the overlay's text field to self.summaryText so it can display
+        // any existing value (in case user taps "Other" again)
+        summaryVC.summaryText = self.summaryText;
+        summaryVC.previewVC = self;
+    }];
 }
 
 - (void)htmlAlertWasHidden {
@@ -392,9 +392,9 @@ typedef enum {
         [self performModalSequeWithID:@"modal_segue_show_login"
                       transitionStyle:UIModalTransitionStyleCoverVertical
                                 block:^(LoginViewController* loginVC){
-                                    loginVC.funnel = [[LoginFunnel alloc] init];
-                                    [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
-                                }];
+            loginVC.funnel = [[LoginFunnel alloc] init];
+            [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
+        }];
     }
 }
 

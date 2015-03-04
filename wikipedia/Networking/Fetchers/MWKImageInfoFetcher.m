@@ -78,12 +78,12 @@
              @"iiurlwidth": @1280,
          }
             success:^(AFHTTPRequestOperation* operation, NSArray* galleryItems) {
-                MWKImageInfoFetcher* strSelf = weakSelf;
-                if (!strSelf) {
-                    return;
-                }
-                [strSelf finishWithError:nil fetchedData:galleryItems];
-            } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+        MWKImageInfoFetcher* strSelf = weakSelf;
+        if (!strSelf) {
+            return;
+        }
+        [strSelf finishWithError:nil fetchedData:galleryItems];
+    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         MWKImageInfoFetcher* strSelf = weakSelf;
         if (!strSelf) {
             return;

@@ -179,8 +179,8 @@
                               afterDelay:0.0
                                 duration:0.1
                                     then:^{
-                                        [self showDeleteAllDialog];
-                                    }];
+        [self showDeleteAllDialog];
+    }];
 }
 
 - (void)showDeleteAllDialog {
@@ -263,8 +263,8 @@
                   afterDelay:0.0
                     duration:0.1
                         then:^{
-                            [textFieldContainer.textField sendActionsForControlEvents:UIControlEventEditingChanged];
-                        }];
+        [textFieldContainer.textField sendActionsForControlEvents:UIControlEventEditingChanged];
+    }];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {

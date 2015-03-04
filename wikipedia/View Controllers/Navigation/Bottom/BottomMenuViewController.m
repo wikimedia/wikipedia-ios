@@ -162,19 +162,19 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
                                   afterDelay:0.0
                                     duration:0.06f
                                         then:^{
-                                            [self performActionForButton:button];
-                                            if (button.tag == BOTTOM_MENU_BUTTON_SHARE) {
-                                                // Bring the buttons back to life.
-                                                // Note that the custom sharing activity
-                                                // spawned in this class makes a dimmed
-                                                // background that makes the buttons
-                                                // in the collection in effect non-tappable
-                                                // so we don't have to do more than this.
-                                                for (WikiGlyphButton* b in self.allButtons) {
-                                                    b.userInteractionEnabled = YES;
-                                                }
-                                            }
-                                        }];
+                [self performActionForButton:button];
+                if (button.tag == BOTTOM_MENU_BUTTON_SHARE) {
+                    // Bring the buttons back to life.
+                    // Note that the custom sharing activity
+                    // spawned in this class makes a dimmed
+                    // background that makes the buttons
+                    // in the collection in effect non-tappable
+                    // so we don't have to do more than this.
+                    for (WikiGlyphButton* b in self.allButtons) {
+                        b.userInteractionEnabled = YES;
+                    }
+                }
+            }];
         }
     }
 }

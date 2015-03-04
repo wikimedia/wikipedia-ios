@@ -160,11 +160,11 @@
                           delay:0.6f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                         self.pullToRefreshView.alpha = 0.0f;
-                         self.pullToRefreshViewBottomConstraint.constant = 0;
-                         scrollView.panGestureRecognizer.enabled = NO;
-                         [self.view layoutIfNeeded];
-                     } completion:^(BOOL done){
+        self.pullToRefreshView.alpha = 0.0f;
+        self.pullToRefreshViewBottomConstraint.constant = 0;
+        scrollView.panGestureRecognizer.enabled = NO;
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL done){
         scrollView.panGestureRecognizer.enabled = YES;
         self.isAnimatingHide = NO;
     }];

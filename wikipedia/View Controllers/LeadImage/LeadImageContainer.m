@@ -56,18 +56,18 @@
                                                           object:nil
                                                            queue:[NSOperationQueue mainQueue]
                                                       usingBlock:^(NSNotification* notification) {
-                                                          [self updateNonImageElements];
-                                                      }];
+        [self updateNonImageElements];
+    }];
     #if HIGHLIGHT_FOCAL_FACE
     // Testing code so we can hit "Command-Shift-M" to toggle through focal images.
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification* note) {
-                                                      // Repeated calls to getFaceBounds returns next face bounds each time.
-                                                      self.focalFaceBounds = [self.image getFaceBounds];
-                                                      [self setNeedsDisplay];
-                                                  }];
+        // Repeated calls to getFaceBounds returns next face bounds each time.
+        self.focalFaceBounds = [self.image getFaceBounds];
+        [self setNeedsDisplay];
+    }];
     #endif
 
     // Important! "clipsToBounds" must be "NO" so super long titles lay out properly!

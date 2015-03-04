@@ -46,8 +46,8 @@
                         object:nil
                          queue:nil
                     usingBlock:^(NSNotification* notification) {
-                        NSLog(@"NOTIFICATION %@ -> %@", notification.name, notification.userInfo);
-                    }];
+        NSLog(@"NOTIFICATION %@ -> %@", notification.name, notification.userInfo);
+    }];
 }
 
 - (void)registerStandardUserDefaults {
