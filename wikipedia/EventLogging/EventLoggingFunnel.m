@@ -27,12 +27,12 @@
 
 - (void)log:(NSDictionary*)eventData {
     SessionSingleton* session = [SessionSingleton sharedInstance];
-    NSString* wiki            = [session.site.language stringByAppendingString:@"wiki"];
+    NSString* wiki            = [session.currentArticleSite.language stringByAppendingString:@"wiki"];
     [self log:eventData wiki:wiki];
 }
 
 - (void)log:(NSDictionary*)eventData wiki:(NSString*)wiki {
-    if ([SessionSingleton sharedInstance].sendUsageReports) {
+    if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
         (void)[[EventLogger alloc] initAndLogEvent:[self preprocessData:eventData]
                                          forSchema:self.schema
                                           revision:self.revision

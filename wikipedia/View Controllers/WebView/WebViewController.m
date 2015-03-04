@@ -65,7 +65,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
         [weakSelf performSelector:@selector(autoScrollToLastScrollOffsetIfNecessary) withObject:nil afterDelay:0.5f];
 
         // Show lead image!
-        [weakSelf.leadImageContainer showForArticle:[SessionSingleton sharedInstance].article];
+        [weakSelf.leadImageContainer showForArticle:[SessionSingleton sharedInstance].currentArticle];
         [weakSelf.bridge sendMessage:@"setTableLocalization"
                          withPayload:@{
              @"string_table_infobox": MWLocalizedString(@"info-box-title", nil),
@@ -115,6 +115,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 
     [self tocSetupSwipeGestureRecognizers];
 
+
     [self reloadCurrentArticleInvalidatingCache:NO];
 
     // Restrict the web view from scrolling horizonally.
@@ -151,7 +152,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 - (void)jumpToFragmentIfNecessary {
     if (self.jumpToFragment && (self.jumpToFragment.length > 0)) {
         [self.bridge sendMessage:@"scrollToFragment"
-                     withPayload:@{@"hash": self.jumpToFragment}];
+                     withPayload:@{ @"hash": self.jumpToFragment }];
     }
     self.jumpToFragment = nil;
 }
@@ -350,7 +351,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         -100        100 pixels below the top of the screen.
 
      */
-    if (self.isCurrentArticleMain) {
+    if ([[SessionSingleton sharedInstance] articleIsAMainArticle:[[SessionSingleton sharedInstance] currentArticle]]) {
         // Prevent top of footer from being scrolled up past bottom of screen.
         return -self.view.frame.size.height;
     } else {
@@ -374,20 +375,18 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)downloadAssetsFilesIfNecessary {
     // Sync config/ios.json at most once per day.
-    CGFloat maxAge = 60 * 60 * 24;
-
     [[QueuesSingleton sharedInstance].assetsFetchManager.operationQueue cancelAllOperations];
 
-    void (^ fetch)(AssetsFileEnum) = ^void (AssetsFileEnum type) {
-        (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFile:type
-                                                    withManager:[QueuesSingleton sharedInstance].assetsFetchManager
-                                                         maxAge:maxAge];
+    void (^ fetch)(WMFAssetsFileType) = ^void (WMFAssetsFileType type) {
+        (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:type
+                                                          withManager:[QueuesSingleton sharedInstance].assetsFetchManager
+                                                               maxAge:kWMFMaxAgeDefault];
     };
 
-    fetch(ASSETS_FILE_CONFIG);
-    fetch(ASSETS_FILE_CSS);
-    fetch(ASSETS_FILE_CSS_ABUSE_FILTER);
-    fetch(ASSETS_FILE_CSS_PREVIEW);
+    fetch(WMFAssetsFileTypeConfig);
+    fetch(WMFAssetsFileTypeCSS);
+    fetch(WMFAssetsFileTypeCSSAbuseFilter);
+    fetch(WMFAssetsFileTypeCSSPreview);
 }
 
 #pragma mark Edit section
@@ -396,7 +395,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     SectionEditorViewController* sectionEditVC =
         [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SectionEditorViewController"];
 
-    sectionEditVC.section = session.article.sections[self.sectionToEditId];
+    sectionEditVC.section = session.currentArticle.sections[self.sectionToEditId];
 
     [ROOT pushViewController:sectionEditVC animated:YES];
 }
@@ -464,8 +463,8 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
             self.tocViewLeadingConstraint.constant = 0;
 
-            [self.view layoutIfNeeded];
-        } completion:^(BOOL done){
+                             [self.view layoutIfNeeded];
+                         } completion:^(BOOL done) {
             [self.tocVC didHide];
             self.unsafeToToggleTOC = NO;
             self.webView.scrollView.contentOffset = origScrollPosition;
@@ -529,8 +528,8 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         CGFloat tocWidth = [self tocGetWidthForWebViewScale:webViewScale];
         self.tocViewLeadingConstraint.constant = -tocWidth;
 
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL done){
+                         [self.view layoutIfNeeded];
+                     } completion:^(BOOL done) {
         self.unsafeToToggleTOC = NO;
 
         WikiGlyphButton* tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
@@ -560,14 +559,11 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         return;
     }
 
-    if (!session.title) {
-        return;
-    }
     if (!self.referencesHidden) {
         return;
     }
 
-    if ([session isCurrentArticleMain]) {
+    if ([session articleIsAMainArticle:session.currentArticle]) {
         return;
     }
 
@@ -741,10 +737,10 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-        // Not using "setContentOffset:animated:" so duration of animation
-        // can be controlled and action can be taken after animation completes.
-        self.webView.scrollView.contentOffset = point;
-    } completion:^(BOOL done){
+                         // Not using "setContentOffset:animated:" so duration of animation
+                         // can be controlled and action can be taken after animation completes.
+                         self.webView.scrollView.contentOffset = point;
+                     } completion:^(BOOL done) {
         // Record the new scroll location.
         [self saveWebViewScrollOffset];
         // Toggle toc.
@@ -813,7 +809,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
             // Ensure the menu is visible when navigating to new page.
             [strSelf animateTopAndBottomMenuReveal];
 
-            MWKTitle* pageTitle = [[SessionSingleton sharedInstance].site titleWithInternalLink:href];
+            MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithInternalLink:href];
 
             [strSelf navigateToPage:pageTitle
                     discoveryMethod:MWK_DISCOVERY_METHOD_LINK
@@ -912,10 +908,10 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
         NSString* selectedImageURL = payload[@"url"];
         NSCParameterAssert(selectedImageURL.length);
-        MWKImage* selectedImage = [strSelf->session.article.images largestImageVariantForURL:selectedImageURL
-                                                                                  cachedOnly:NO];
+        MWKImage* selectedImage = [strSelf->session.currentArticle.images largestImageVariantForURL:selectedImageURL
+                                                                                         cachedOnly:NO];
         NSCParameterAssert(selectedImage);
-        [strSelf presentGalleryForArticle:strSelf->session.article showingImage:selectedImage];
+        [strSelf presentGalleryForArticle:strSelf->session.currentArticle showingImage:selectedImage];
     }];
 
     self.unsafeToScroll = NO;
@@ -933,7 +929,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 #pragma Saved Pages
 
 - (void)saveCurrentPage {
-    MWKTitle* title          = session.title;
+    MWKTitle* title          = session.currentArticle.title;
     MWKUserDataStore* store  = session.userDataStore;
     MWKSavedPageList* list   = store.savedPageList;
     MWKSavedPageEntry* entry = [list entryForTitle:title];
@@ -967,7 +963,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     NSMutableAttributedString* attributedSavedMessage =
         [savedMessage attributedStringWithAttributes:@{}
                                  substitutionStrings:@[title]
-                              substitutionAttributes:@[@{NSFontAttributeName: [UIFont italicSystemFontOfSize:ALERT_FONT_SIZE]}]].mutableCopy;
+                              substitutionAttributes:@[@{ NSFontAttributeName: [UIFont italicSystemFontOfSize:ALERT_FONT_SIZE] }]].mutableCopy;
 
     CGFloat duration                  = 2.0;
     BOOL AccessSavedPagesMessageShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"AccessSavedPagesMessageShown"];
@@ -1036,14 +1032,14 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)saveWebViewScrollOffset {
     // Don't record scroll position of "main" pages.
-    if ([session isCurrentArticleMain]) {
+    if ([session articleIsAMainArticle:session.currentArticle]) {
         return;
     }
 
-    MWKHistoryEntry* entry = [session.userDataStore.historyList entryForTitle:session.title];
+    MWKHistoryEntry* entry = [session.userDataStore.historyList entryForTitle:session.currentArticle.title];
     if (entry) {
         entry.scrollPosition                    = self.webView.scrollView.contentOffset.y;
-        session.userDataStore.historyList.dirty = YES; // hack to force
+        session.userDataStore.historyList.dirty = YES;         // hack to force
         [session.userDataStore save];
     }
 }
@@ -1227,7 +1223,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     showImageSheet = !showImageSheet;
 
     if (showImageSheet) {
-        MWKArticle* article   = session.article;
+        MWKArticle* article   = session.currentArticle;
         NSMutableArray* views = @[].mutableCopy;
         for (MWKSection* section in article.sections) {
             int index = 0;
@@ -1273,7 +1269,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     NSLog(@"XXX %d", (int)historyList.length);
     if (historyList.length > 0) {
         // Grab the latest
-        MWKHistoryEntry* historyEntry = [historyList entryForTitle:session.title];
+        MWKHistoryEntry* historyEntry = [historyList entryForTitle:session.currentArticle.title];
         if (historyEntry) {
             historyEntry.date = [NSDate date];
             [historyList addEntry:historyEntry];
@@ -1331,7 +1327,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache {
-    [self navigateToPage:session.title
+    [self navigateToPage:session.currentArticle.title
           discoveryMethod:(invalidateCache ? MWK_DISCOVERY_METHOD_SEARCH : MWK_DISCOVERY_METHOD_SAVED)
      showLoadingIndicator:YES];
 }
@@ -1341,7 +1337,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                status:(FetchFinalStatus)status
                 error:(NSError*)error {
     if ([sender isKindOfClass:[ArticleFetcher class]]) {
-        MWKArticle* article = session.article;
+        MWKArticle* article = session.currentArticle;
 
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:
@@ -1358,7 +1354,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
                     // Remove the redirect article so it doesn't get saved (the article being redirected to will be saved).
                     [session.userDataStore.historyList removeEntry:history];
-                    [session.article remove];
+                    [session.currentArticle remove];
 
                     // Redirect!
                     [self retrieveArticleForPageTitle:redirectedTitle
@@ -1371,6 +1367,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                 [self displayArticle:article.title];
             }
             break;
+
             case FETCH_FINAL_STATUS_FAILED:
             {
                 NSString* errorMsg = error.localizedDescription;
@@ -1380,6 +1377,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                 // Reminder: do not clear article data here or no network connection when pull to refresh would blast last good saved article data!
             }
             break;
+
             case FETCH_FINAL_STATUS_CANCELLED:
             {
                 // Reminder: do not clear article data here or cancellation would blast last good saved article data!
@@ -1409,10 +1407,12 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                 }
             }
             break;
+
             case FETCH_FINAL_STATUS_FAILED:
             {
             }
             break;
+
             case FETCH_FINAL_STATUS_CANCELLED:
             {
             }
@@ -1436,9 +1436,9 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     [self cancelArticleLoading];
 
     self.currentTitle = pageTitle;
-    session.title     = pageTitle;
 
-    MWKArticle* article = session.article;
+    MWKArticle* article = [session.dataStore articleWithTitle:self.currentTitle];
+    session.currentArticle = article;
 
     switch (discoveryMethod) {
         case MWK_DISCOVERY_METHOD_SAVED:
@@ -1465,7 +1465,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
             // Reminder: this needs to happen *after* "session.title" has been updated
             // with the title of the article being retrieved. Otherwise you end up
             // marking the previous article as needing to be refreshed.
-            session.article.needsRefresh = YES;
+            session.currentArticle.needsRefresh = YES;
             break;
         }
 
@@ -1476,14 +1476,14 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
     // If article with sections just show them (unless needsRefresh is YES)
     if ([article.sections count] > 0 && !article.needsRefresh) {
-        [self.tocVC setTocSectionDataForSections:session.article.sections];
-        [self displayArticle:session.title];
+        [self.tocVC setTocSectionDataForSections:session.currentArticle.sections];
+        [self displayArticle:session.currentArticle.title];
         //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
         [self fadeAlert];
     } else {
         // "fetchFinished:" above will be notified when articleFetcher has actually retrieved some data.
         // Note: cast to void to avoid compiler warning: http://stackoverflow.com/a/7915839
-        (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle:session.article
+        (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle:session.currentArticle
                                                          withManager:[QueuesSingleton sharedInstance].articleFetchManager
                                                   thenNotifyDelegate:self];
     }
@@ -1492,13 +1492,8 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 #pragma mark Display article from core data
 
 - (void)displayArticle:(MWKTitle*)title {
-    // this will reset session.articleStore
-    session.title = title;
-
-    MWKArticle* article = session.article;
-    if (!article) {
-        return;
-    }
+    MWKArticle* article = [session.dataStore articleWithTitle:title];
+    session.currentArticle = article;
 
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:title.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
@@ -1515,7 +1510,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
     NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
 
-    for (MWKSection* section in session.article.sections) {
+    for (MWKSection* section in session.currentArticle.sections) {
         NSString* html = section.text;
         if (html) {
             // Structural html added around section html just before display.
@@ -1542,9 +1537,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         self.lastScrollOffset = scrollOffset;
     }
 
-    self.isCurrentArticleMain = [[SessionSingleton sharedInstance] isCurrentArticleMain];
-
-    if (!self.isCurrentArticleMain) {
+    if (![session articleIsAMainArticle:session.currentArticle]) {
         NSString* lastModifiedByUserName =
             (lastModifiedBy && !lastModifiedBy.anonymous) ? lastModifiedBy.name : nil;
         [self.footerViewController updateLanguageCount:langCount];
@@ -1567,7 +1560,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     [sectionTextArray addObject:[NSString stringWithFormat:@"<div style='height:%dpx;background-color:white;'></div>", (int)kBottomScrollSpacerHeight]];
 
     // Join article sections text
-    NSString* joint   = @""; //@"<div style=\"height:20px;\"></div>";
+    NSString* joint   = @"";     //@"<div style=\"height:20px;\"></div>";
     NSString* htmlStr = [sectionTextArray componentsJoinedByString:joint];
 
     // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
@@ -1658,7 +1651,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
 
     if ([[[notification userInfo] objectForKey:@"state"] boolValue]) {
-        (void)[[WikipediaZeroMessageFetcher alloc] initAndFetchMessageForDomain:session.site.language
+        (void)[[WikipediaZeroMessageFetcher alloc] initAndFetchMessageForDomain:session.currentArticleSite.language
                                                                     withManager:[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager
                                                              thenNotifyDelegate:self];
     } else {
@@ -1708,7 +1701,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 - (BOOL)refreshShouldShow {
     return (![self tocDrawerIsOpen])
            &&
-           (session.article != nil)
+           (session.currentArticle != nil)
            &&
            (!ROOT.isAnimatingTopAndBottomMenuHidden);
 }
@@ -1855,12 +1848,12 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
      [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
                                              options:0
                                              metrics:nil
-                                               views:@{@"view": self.referencesVC.view}]];
+                                               views:@{ @"view": self.referencesVC.view }]];
     [self.referencesContainerView addConstraints:
      [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
                                              options:0
                                              metrics:nil
-                                               views:@{@"view": self.referencesVC.view}]];
+                                               views:@{ @"view": self.referencesVC.view }]];
 
     [self.referencesVC didMoveToParentViewController:self];
 
@@ -1888,8 +1881,8 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                      animations:^{
         self.referencesHidden = YES;
 
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL done){
+                         [self.view layoutIfNeeded];
+                     } completion:^(BOOL done) {
         [self.referencesVC willMoveToParentViewController:nil];
         [self.referencesVC.view removeFromSuperview];
         [self.referencesVC removeFromParentViewController];
@@ -1914,14 +1907,14 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     self.activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
 
     CGFloat activityIndicatorWidth        = 100.0;
-    CGFloat activityIndicatorCornerRadius = 10.0; //activityIndicatorWidth / 2.0f
+    CGFloat activityIndicatorCornerRadius = 10.0;     //activityIndicatorWidth / 2.0f
 
     NSDictionary* views = @{
         @"activityIndicator": self.activityIndicator,
         @"activityIndicatorBackgroundView": self.activityIndicatorBackgroundView
     };
 
-    NSDictionary* metrics = @{@"width": @(activityIndicatorWidth)};
+    NSDictionary* metrics = @{ @"width": @(activityIndicatorWidth) };
 
     self.activityIndicator.backgroundColor    = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.85];
     self.activityIndicator.layer.cornerRadius = activityIndicatorCornerRadius;
@@ -2011,7 +2004,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 - (void)leadImageHeightChangedTo:(NSNumber*)height {
     // Let the html spacer div adjust to the new height of the lead image container.
     [self.bridge sendMessage:@"setLeadImageDivHeight"
-                 withPayload:@{@"height": height}];
+                 withPayload:@{ @"height": height }];
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
@@ -2033,7 +2026,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:WebViewControllerWillShareNotification
                                                         object:self
-                                                      userInfo:@{WebViewControllerShareSelectedText: selectedText}];
+                                                      userInfo:@{ WebViewControllerShareSelectedText: selectedText }];
 }
 
 - (NSString*)getSelectedtext {
@@ -2042,7 +2035,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (void)didTouchLeadImage:(id)sender {
-    [self presentGalleryForArticle:session.article showingImage:session.article.image];
+    [self presentGalleryForArticle:session.currentArticle showingImage:session.currentArticle.image];
 }
 
 #pragma mark Tracking Footer

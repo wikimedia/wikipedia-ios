@@ -39,7 +39,7 @@
 }
 
 - (MWKArticle*)article {
-    return [SessionSingleton sharedInstance].article;
+    return [SessionSingleton sharedInstance].currentArticle;
 }
 
 - (BOOL)isMIMETypeRerouted:(NSString*)type {

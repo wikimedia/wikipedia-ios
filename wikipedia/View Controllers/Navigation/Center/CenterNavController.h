@@ -26,7 +26,7 @@
 //-(ArticleDiscoveryMethod)getDiscoveryMethodForString:(NSString *)string;
 //-(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method;
 
-- (void)switchPreferredLanguageToId:(NSString*)languageId name:(NSString*)name;
+- (void)switchPreferredLanguageToId:(NSString*)languageId;
 
 @property (nonatomic) BOOL isTransitioningBetweenViewControllers;
 

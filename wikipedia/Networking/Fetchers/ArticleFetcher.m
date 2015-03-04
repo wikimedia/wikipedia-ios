@@ -29,7 +29,7 @@
 
 - (instancetype)initAndFetchSectionsForArticle:(MWKArticle*)article
                                    withManager:(AFHTTPRequestOperationManager*)manager
-                            thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
+                            thenNotifyDelegate:(id <FetchFinishedDelegate> )delegate {
     self = [super init];
     assert(article != nil);
     assert(manager != nil);
@@ -93,7 +93,7 @@
                 [self.article save];
             }@catch (NSException* e) {
                 NSLog(@"%@", e);
-                NSError* err = [NSError errorWithDomain:@"ArticleFetcher" code:666 userInfo:@{@"exception": e}];
+                NSError* err = [NSError errorWithDomain:@"ArticleFetcher" code:666 userInfo:@{ @"exception": e }];
                 [self finishWithError:err
                           fetchedData:nil];
                 return;
@@ -101,7 +101,7 @@
 
             //[self applyResultsForLeadSection:leadSectionResults];
             for (int n = 0; n < [self.article.sections count]; n++) {
-                (void)self.article.sections[n].images; // hack
+                (void)self.article.sections[n].images;             // hack
                 [self createImageRecordsForSection:n];
             }
 
@@ -163,7 +163,7 @@
                                                  @"image"])
     }.mutableCopy;
 
-    if ([SessionSingleton sharedInstance].sendUsageReports) {
+    if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
         // !!!: (bgerstle Feb 4 2015) we're getting an "unrecognized parameter" warning for appInstallID
         ReadingActionFunnel* funnel = [[ReadingActionFunnel alloc] init];
         params[@"appInstallID"] = funnel.appInstallID;
@@ -180,7 +180,7 @@
                        ifAppropriateForURL:(NSURL*)url {
     /* MCC-MNC logging is only turned with an API hook */
     if (
-        ![SessionSingleton sharedInstance].sendUsageReports
+        ![SessionSingleton sharedInstance].shouldSendUsageReports
         ||
         [SessionSingleton sharedInstance].zeroConfigState.sentMCCMNC
         ||
@@ -305,7 +305,7 @@
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
             if ([UIScreen mainScreen].scale > 1.0f) {
                 NSString* srcSet = imageNode.attributes[@"srcset"];
-                for (NSString* subSrc in [srcSet componentsSeparatedByString:@","]) {
+                for (NSString* subSrc in[srcSet componentsSeparatedByString:@","]) {
                     NSString* trimmed = [subSrc stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
                     NSArray* parts    = [trimmed componentsSeparatedByString:@" "];
                     if (parts.count == 2 && [parts[1] isEqualToString:@"2x"]) {

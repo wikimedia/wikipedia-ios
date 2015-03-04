@@ -37,7 +37,7 @@
 
     NSString* heading = MWLocalizedString(@"table-of-contents-heading", nil);
 
-    if ([[SessionSingleton sharedInstance].site.language isEqualToString:@"en"]) {
+    if ([[SessionSingleton sharedInstance].currentArticleSite.language isEqualToString:@"en"]) {
         heading = [heading uppercaseString];
     }
 

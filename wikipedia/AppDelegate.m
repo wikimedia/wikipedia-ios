@@ -2,9 +2,9 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "AppDelegate.h"
-#import "URLCache.h"
 #import "NSDate-Utilities.h"
 #import "WikipediaAppUtils.h"
+#import "SessionSingleton.h"
 #import <HockeySDK/HockeySDK.h>
 
 @implementation AppDelegate
@@ -16,19 +16,8 @@
         [[BITHockeyManager sharedHockeyManager] startManager];
         [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
     }
-
-    [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
-    [self registerStandardUserDefaults];
+    
     [self systemWideStyleOverrides];
-
-    /*
-       Set the shared url cache to our custom NSURLCache which re-routes images to
-       our article cache.
-     */
-    URLCache* urlCache = [[URLCache alloc] initWithMemoryCapacity:MegabytesToBytes(64)
-                                                     diskCapacity:MegabytesToBytes(64)
-                                                         diskPath:nil];
-    [NSURLCache setSharedURLCache:urlCache];
 
     // Enables Alignment Rect highlighting for debugging
     //[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"UIViewShowAlignmentRects"];
@@ -56,49 +45,6 @@
                     usingBlock:^(NSNotification* notification) {
         NSLog(@"NOTIFICATION %@ -> %@", notification.name, notification.userInfo);
     }];
-}
-
-- (void)registerStandardUserDefaults {
-    NSString* systemLang = [[NSLocale preferredLanguages] objectAtIndex:0];
-    NSString* lang       = [WikipediaAppUtils wikiLangForSystemLang:systemLang];
-    if (lang == nil) {
-        // Should not happen.
-        NSLog(@"Could not map system language %@ to wiki language; falling back to en", systemLang);
-        lang = @"en";
-    }
-
-    NSString* langName = [WikipediaAppUtils domainNameForCode:lang];
-    if (langName == nil) {
-        // Should not happen, hopefully.
-        NSLog(@"Could not get localized name of language %@", lang);
-        langName = lang;
-    }
-
-    NSString* mainPage = [WikipediaAppUtils mainArticleTitleForCode:lang];
-    if (mainPage == nil) {
-        // Also should not happen, hopefully.
-        NSLog(@"Could not get main page of language %@", lang);
-        mainPage = @"Main Page";
-    }
-
-    // Register default default values.
-    // See: http://stackoverflow.com/a/5397647/135557
-    NSDictionary* userDefaultsDefaults = @{
-        @"CurrentArticleTitle": mainPage,
-        @"CurrentArticleDomain": lang,
-        @"Domain": lang,
-        @"DomainName": langName,
-        @"DomainMainArticleTitle": mainPage,
-        @"Site": @"wikipedia.org",
-        @"ZeroWarnWhenLeaving": @YES,
-        @"ZeroOnDialogShownOnce": @NO,
-        @"FakeZeroOn": @NO,
-        @"ShowOnboarding": @YES,
-        @"LastHousekeepingDate": [NSDate date],  //[NSDate dateWithDaysBeforeNow:10]
-        @"SendUsageReports": @YES,
-        @"AccessSavedPagesMessageShown": @NO
-    };
-    [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];
 }
 
 - (void)systemWideStyleOverrides {

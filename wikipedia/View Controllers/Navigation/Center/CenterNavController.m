@@ -74,7 +74,9 @@
                   popToWebVC:(BOOL)popToWebVC {
     WebViewController* webVC = [self searchNavStackForViewControllerOfClass:[WebViewController class]];
     if (webVC) {
-        [SessionSingleton sharedInstance].title = title;
+        MWKArticle* article = [[SessionSingleton sharedInstance].dataStore articleWithTitle:title];
+        [SessionSingleton sharedInstance].currentArticle = article;
+
         [webVC navigateToPage:title
               discoveryMethod:discoveryMethod
          showLoadingIndicator:YES];
@@ -136,39 +138,21 @@
 }
 
 - (void)loadTodaysArticle {
-    NSString* mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:[SessionSingleton sharedInstance].site.language];
-    if (mainArticleTitle) {
-        MWKTitle* pageTitle = [[SessionSingleton sharedInstance].site titleWithString:mainArticleTitle];
-        // Invalidate cache so present day main page article is always retrieved.
-        [self loadArticleWithTitle:pageTitle
-                          animated:YES
-                   discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH
-                        popToWebVC:NO];
-    }
+    MWKTitle* pageTitle = [[SessionSingleton sharedInstance] mainArticleTitle];
+    [self loadArticleWithTitle:pageTitle
+                      animated:YES
+               discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH
+                    popToWebVC:NO];
 }
 
 - (void)loadTodaysArticleIfNoCoreDataForCurrentArticle {
-    // This is needed otherwise things like TOC won't work after article core data is removed.
-    // (Only used by History and Saved Pages after they delete data)
-    /*
-       NSManagedObjectContext *ctx = [ArticleDataContextSingleton sharedInstance].mainContext;
-       __block NSManagedObjectID *articleID = nil;
-       [ctx performBlockAndWait:^(){
-        articleID =
-            [ctx getArticleIDForTitle: [SessionSingleton sharedInstance].currentArticleTitle
-                               domain: [SessionSingleton sharedInstance].currentArticleDomain];
-       }];
-       if (!articleID) {
-        [self loadTodaysArticle];
-       }
-     */
     [self loadTodaysArticle];
 }
 
 - (void)loadRandomArticle {
     [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
 
-    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain:[SessionSingleton sharedInstance].site.language
+    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
                                                                withManager:[QueuesSingleton sharedInstance].articleFetchManager
                                                         thenNotifyDelegate:self];
 }
@@ -182,7 +166,7 @@
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 NSString* title = (NSString*)fetchedData;
                 if (title) {
-                    MWKTitle* pageTitle = [[SessionSingleton sharedInstance].site titleWithString:title];
+                    MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithString:title];
                     [self loadArticleWithTitle:pageTitle
                                       animated:YES
                                discoveryMethod:MWK_DISCOVERY_METHOD_RANDOM
@@ -199,20 +183,16 @@
     }
 }
 
-- (void)switchPreferredLanguageToId:(NSString*)languageId name:(NSString*)name {
-    NSString* mainArticleTitle = [WikipediaAppUtils mainArticleTitleForCode:languageId];
-    if (mainArticleTitle) {
-        SessionSingleton* session = [SessionSingleton sharedInstance];
-        session.searchLanguage = languageId;
+- (void)switchPreferredLanguageToId:(NSString*)languageId {
+    
+    [[SessionSingleton sharedInstance] setSearchLanguage:languageId];
+    
+    MWKTitle* pageTitle = [[SessionSingleton sharedInstance] mainArticleTitleForSite:[SessionSingleton sharedInstance].searchSite languageCode:languageId];
 
-        MWKTitle* pageTitle = [session.searchSite titleWithString:mainArticleTitle];
-
-        // Invalidate cache so present day main page article is always retrieved.
-        [self loadArticleWithTitle:pageTitle
-                          animated:YES
-                   discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH
-                        popToWebVC:NO];
-    }
+    [self loadArticleWithTitle:pageTitle
+                      animated:YES
+               discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH
+                    popToWebVC:NO];
 }
 
 @end

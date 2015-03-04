@@ -62,7 +62,7 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
     //[self randomizeTitles];
 
     self.moreButton.text = MWLocalizedString(@"main-menu-more", nil);
-    if ([[SessionSingleton sharedInstance].site.language isEqualToString:@"en"]) {
+    if ([[SessionSingleton sharedInstance].currentArticleSite.language isEqualToString:@"en"]) {
         self.moreButton.text = [self.moreButton.text uppercaseString];
     }
     self.moreButton.accessibilityLabel = MWLocalizedString(@"menu-more-accessibility-label", nil);

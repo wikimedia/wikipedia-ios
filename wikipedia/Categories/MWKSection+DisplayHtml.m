@@ -8,7 +8,7 @@
 @implementation MWKSection (DisplayHtml)
 
 - (NSString*)displayHTML:(NSString*)html {
-    BOOL isMainPage = [[SessionSingleton sharedInstance] isCurrentArticleMain];
+    BOOL isMainPage = [[SessionSingleton sharedInstance] articleIsAMainArticle:[SessionSingleton sharedInstance].currentArticle];
 
     return
         [NSString stringWithFormat:@"<div id='section_heading_and_content_block_%ld'>%@<div id='content_block_%ld'>%@</div></div>",

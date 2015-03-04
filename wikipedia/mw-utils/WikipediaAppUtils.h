@@ -63,7 +63,6 @@ FOUNDATION_EXPORT NSString* WMFNormalizedPageTitle(NSString* rawPageTitle);
 + (NSString*)localizedStringForKey:(NSString*)key;
 + (NSString*)relativeTimestamp:(NSDate*)date;
 + (NSString*)domainNameForCode:(NSString*)code;
-+ (NSString*)mainArticleTitleForCode:(NSString*)code;
 + (NSString*)wikiLangForSystemLang:(NSString*)code;
 + (BOOL)     isDeviceLanguageRTL;
 

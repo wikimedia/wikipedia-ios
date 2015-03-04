@@ -78,6 +78,12 @@
     }];
 }
 
+//TODO: figure out what to do with these:
+// Wiki language character sets that iOS doesn't seem to render properly...
+- (NSArray*)unsupportedCharactersLanguageIds {
+    return [@"my am km dv lez arc got ti" componentsSeparatedByString:@" "];
+}
+
 - (NSDictionary*)getParams {
     return @{
                @"action": @"query",
@@ -120,7 +126,7 @@
     for (NSDictionary* fileDict in self.allLanguages) {
         NSString* code = fileDict[@"code"];
         if (code && [langCodeToLocalTitleDict objectForKey:code]) {
-            if ([[SessionSingleton sharedInstance].unsupportedCharactersLanguageIds indexOfObject:code] != NSNotFound) {
+            if ([[self unsupportedCharactersLanguageIds] indexOfObject:code] != NSNotFound) {
                 continue;
             }
 
@@ -139,12 +145,5 @@
     }
     return outputArray;
 }
-
-/*
-   -(void)dealloc
-   {
-    NSLog(@"DEALLOC'ING LANGUAGE LINKS FETCHER!");
-   }
- */
 
 @end

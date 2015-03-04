@@ -24,7 +24,7 @@
     [self.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
     [self.requestSerializer setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     // Add the app install ID to the header, but only if the user has not opted out of logging
-    if ([SessionSingleton sharedInstance].sendUsageReports) {
+    if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
         ReadingActionFunnel* funnel = [[ReadingActionFunnel alloc] init];
         [self.requestSerializer setValue:funnel.appInstallID forHTTPHeaderField:@"X-WMF-UUID"];
     }

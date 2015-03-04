@@ -2,7 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WikipediaAppUtils.h"
-#import "AssetsFile.h"
+#import "WMFAssetsFile.h"
 
 // TODO: use developer constants?
 //NSString * const WMFHockeyAppDeveloperXcodeCFBundleIdentifier = @"org.wikimedia.wikipedia.developer";
@@ -20,11 +20,11 @@ NSUInteger MegabytesToBytes(NSUInteger m){
     return m * MEGABYTE;
 }
 
-NSUInteger CircularBitwiseRotation(NSUInteger x, NSUInteger s){
+NSUInteger CircularBitwiseRotation(NSUInteger x, NSUInteger s) {
     return (x << s) | (x >> (sizeof(x) * CHAR_BIT - s));
 }
 
-NSString* WMFNormalizedPageTitle(NSString* rawPageTitle){
+NSString* WMFNormalizedPageTitle(NSString* rawPageTitle) {
     return [[rawPageTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
             stringByReplacingOccurrencesOfString:@"_" withString:@" "];
 }
@@ -43,9 +43,11 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle){
         case UIUserInterfaceIdiomPad:
             return @"Tablet";
             break;
+
         case UIUserInterfaceIdiomPhone:
             return @"Phone";
             break;
+
         default:
             return @"Other";
             break;
@@ -108,8 +110,8 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle){
 }
 
 + (NSString*)domainNameForCode:(NSString*)code {
-    AssetsFile* assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_LANGUAGES];
-    NSArray* result        = assetsFile.array;
+    WMFAssetsFile* assetsFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
+    NSArray* result           = assetsFile.array;
     if (result.count > 0) {
         for (NSDictionary* d in result) {
             if ([d[@"code"] isEqualToString:code]) {
@@ -120,12 +122,6 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle){
     } else {
         return nil;
     }
-}
-
-+ (NSString*)mainArticleTitleForCode:(NSString*)code {
-    AssetsFile* assetsFile      = [[AssetsFile alloc] initWithFile:ASSETS_FILE_MAINPAGES];
-    NSDictionary* mainPageNames = assetsFile.dictionary;
-    return mainPageNames[code];
 }
 
 + (NSString*)wikiLangForSystemLang:(NSString*)code {

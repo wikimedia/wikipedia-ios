@@ -16,7 +16,7 @@
     [self cancelArticleLoading];
     [self cancelSearchLoading];
 
-    NSArray* images = [session.article.images uniqueLargestVariants];
+    NSArray* images = [session.currentArticle.images uniqueLargestVariants];
 
     // !!!: hack until we fix race condition between images loading and tap
     if (!images || images.count == 0) {

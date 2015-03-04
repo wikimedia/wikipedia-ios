@@ -134,7 +134,7 @@
 }
 
 - (void)getPageHistoryData {
-    (void)[[PageHistoryFetcher alloc] initAndFetchHistoryForTitle:[SessionSingleton sharedInstance].title
+    (void)[[PageHistoryFetcher alloc] initAndFetchHistoryForTitle:[SessionSingleton sharedInstance].currentArticle.title
                                                       withManager:[QueuesSingleton sharedInstance].pageHistoryFetchManager
                                                thenNotifyDelegate:self];
 }

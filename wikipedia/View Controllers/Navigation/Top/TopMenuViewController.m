@@ -819,13 +819,13 @@
     if (
         ![NAV.topViewController isMemberOfClass:[WebViewController class]]
         ||
-        [[SessionSingleton sharedInstance] isCurrentArticleMain]
+        [[SessionSingleton sharedInstance] articleIsAMainArticle:[SessionSingleton sharedInstance].currentArticle]
         ) {
         // Hide TOC button if web view isn't on top or if current article is the main page.
         self.navBarMode = NAVBAR_MODE_DEFAULT;
     } else {
         TopMenuTextFieldContainer* searchTextFieldContainer = [self getNavBarItem:NAVBAR_TEXT_FIELD];
-        MWKTitle* currentArticleTitle                       = [SessionSingleton sharedInstance].title;
+        MWKTitle* currentArticleTitle                       = [SessionSingleton sharedInstance].currentArticle.title;
         self.navBarMode = (!searchTextFieldContainer.textField.isFirstResponder && currentArticleTitle)
                           ?
                           NAVBAR_MODE_DEFAULT_WITH_TOC

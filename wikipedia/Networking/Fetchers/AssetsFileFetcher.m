@@ -5,13 +5,15 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "QueuesSingleton.h"
-#import "AssetsFile.h"
+#import "WMFAssetsFile.h"
+
+NSTimeInterval const kWMFMaxAgeDefault = 60 * 60 * 24;
 
 @implementation AssetsFileFetcher
 
-- (instancetype)initAndFetchAssetsFile:(AssetsFileEnum)file
-                           withManager:(AFHTTPRequestOperationManager*)manager
-                                maxAge:(CGFloat)maxAge {
+- (instancetype)initAndFetchAssetsFileOfType:(WMFAssetsFileType)file
+                                 withManager:(AFHTTPRequestOperationManager*)manager
+                                      maxAge:(NSTimeInterval)maxAge {
     self = [super init];
     if (self) {
         self.fetchFinishedDelegate = nil;
@@ -22,11 +24,11 @@
     return self;
 }
 
-- (void)fetchAssetsFile:(AssetsFileEnum)file
-                 maxAge:(CGFloat)maxAge
+- (void)fetchAssetsFile:(WMFAssetsFileType)file
+                 maxAge:(NSTimeInterval)maxAge
             withManager:(AFHTTPRequestOperationManager*)manager;
 {
-    AssetsFile* assetsFile = [[AssetsFile alloc] initWithFile:file];
+    WMFAssetsFile* assetsFile = [[WMFAssetsFile alloc] initWithFileType:file];
 
     // Cancel the operation if the existing file hasn't aged enough.
     BOOL shouldRefresh = [assetsFile isOlderThan:maxAge];

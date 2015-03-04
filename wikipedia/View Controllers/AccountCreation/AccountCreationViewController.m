@@ -336,8 +336,8 @@
         // Background thread
         NSURL* captchaImageUrl = [NSURL URLWithString:
                                   [NSString stringWithFormat:@"https://%@.m.%@%@",
-                                   [SessionSingleton sharedInstance].site.language,
-                                   [SessionSingleton sharedInstance].site.domain,
+                                   [SessionSingleton sharedInstance].currentArticleSite.language,
+                                   [SessionSingleton sharedInstance].currentArticleSite.domain,
                                    self.captchaUrl
                                   ]
                                  ];
@@ -361,7 +361,7 @@
 
     [[QueuesSingleton sharedInstance].accountCreationFetchManager.operationQueue cancelAllOperations];
 
-    (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].site.language
+    (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
                                                     withManager:[QueuesSingleton sharedInstance].accountCreationFetchManager
                                              thenNotifyDelegate:self];
 }
@@ -545,7 +545,7 @@
 
     [[QueuesSingleton sharedInstance].accountCreationFetchManager.operationQueue cancelAllOperations];
 
-    (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[SessionSingleton sharedInstance].site.language
+    (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
                                                                  userName:self.usernameField.text
                                                                  password:self.passwordField.text
                                                                     email:self.emailField.text

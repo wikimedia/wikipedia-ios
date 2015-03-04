@@ -217,7 +217,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
 
 - (void)textWasHighlighted {
     if (!self.funnel) {
-        self.funnel = [[WMFShareFunnel alloc] initWithArticle:[SessionSingleton sharedInstance].article];
+        self.funnel = [[WMFShareFunnel alloc] initWithArticle:[SessionSingleton sharedInstance].currentArticle];
         [self.funnel logHighlight];
     }
 }
@@ -239,7 +239,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
 - (void)shareSnippet:(NSString*)snippet {
     WebViewController* webViewController = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
     [webViewController.webView wmf_suppressSelection];
-    MWKArticle* article = [SessionSingleton sharedInstance].article;
+    MWKArticle* article = [SessionSingleton sharedInstance].currentArticle;
 
     AppDelegate* appDelegate             = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     UIViewController* rootViewController = appDelegate.window.rootViewController;
@@ -344,7 +344,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
     SessionSingleton* session   = [SessionSingleton sharedInstance];
     MWKHistoryList* historyList = session.userDataStore.historyList;
 
-    MWKHistoryEntry* currentHistoryEntry = [historyList entryForTitle:session.title];
+    MWKHistoryEntry* currentHistoryEntry = [historyList entryForTitle:session.currentArticle.title];
     MWKHistoryEntry* beforeHistoryEntry  = [historyList entryBeforeEntry:currentHistoryEntry];
     MWKHistoryEntry* afterHistoryEntry   = [historyList entryAfterEntry:currentHistoryEntry];
 
@@ -388,7 +388,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
 
 - (BOOL)isCurrentArticleSaved {
     SessionSingleton* session = [SessionSingleton sharedInstance];
-    return [session.userDataStore.savedPageList isSaved:session.title];
+    return [session.userDataStore.savedPageList isSaved:session.currentArticle.title];
 }
 
 /*

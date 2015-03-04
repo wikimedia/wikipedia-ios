@@ -72,7 +72,7 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
 
 #pragma mark - Private
 
-@interface SecondaryMenuViewController () <LanguageSelectionDelegate>{
+@interface SecondaryMenuViewController () <LanguageSelectionDelegate> {
 }
 
 @property (strong, nonatomic) IBOutlet TabularScrollView* scrollView;
@@ -107,6 +107,7 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
             [self popModal];
 
             break;
+
         default:
             break;
     }
@@ -121,7 +122,7 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.highlightedTextAttributes = @{NSFontAttributeName: [UIFont italicSystemFontOfSize:MENU_TITLE_FONT_SIZE]};
+    self.highlightedTextAttributes = @{ NSFontAttributeName: [UIFont italicSystemFontOfSize:MENU_TITLE_FONT_SIZE] };
 
     self.hidePagesSection               = NO;
     self.navigationItem.hidesBackButton = YES;
@@ -137,7 +138,7 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    MWKTitle* currentArticleTitle = [SessionSingleton sharedInstance].title;
+    MWKTitle* currentArticleTitle = [SessionSingleton sharedInstance].currentArticle.title;
 
     self.hidePagesSection = (currentArticleTitle == nil);
 
@@ -233,10 +234,12 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
                 rowView.optionSwitch.hidden = NO;
                 [rowView.optionSwitch setOn:[SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving];
                 break;
+
             case SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS:
                 rowView.optionSwitch.hidden = NO;
-                [rowView.optionSwitch setOn:[SessionSingleton sharedInstance].sendUsageReports];
+                [rowView.optionSwitch setOn:[SessionSingleton sharedInstance].shouldSendUsageReports];
                 break;
+
             default:
                 break;
         }
@@ -258,9 +261,11 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
         case SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING:
             [[SessionSingleton sharedInstance].zeroConfigState toggleWarnWhenLeaving];
             break;
+
         case SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS:
-            [SessionSingleton sharedInstance].sendUsageReports = sender.isOn;
+            [SessionSingleton sharedInstance].shouldSendUsageReports = sender.isOn;
             break;
+
         default:
             break;
     }
@@ -569,7 +574,7 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
         animationDuration = 0.0f;
     }
 
-    void (^ performTapAction)() = ^(){
+    void (^ performTapAction)() = ^() {
         switch (tappedItem.tag) {
             case SECONDARY_MENU_ROW_INDEX_LOGIN:
             {
@@ -577,23 +582,24 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
                 if (!userName) {
                     [self performModalSequeWithID:@"modal_segue_show_login"
                                   transitionStyle:UIModalTransitionStyleCoverVertical
-                                            block:^(LoginViewController* loginVC){
-                        loginVC.funnel = [[LoginFunnel alloc] init];
-                        [loginVC.funnel logStartFromNavigation];
-                    }];
+                                            block:^(LoginViewController* loginVC) {
+                                                loginVC.funnel = [[LoginFunnel alloc] init];
+                                                [loginVC.funnel logStartFromNavigation];
+                                            }];
                 } else {
                     [SessionSingleton sharedInstance].keychainCredentials.userName   = nil;
                     [SessionSingleton sharedInstance].keychainCredentials.password   = nil;
                     [SessionSingleton sharedInstance].keychainCredentials.editTokens = nil;
 
                     // Clear session cookies too.
-                    for (NSHTTPCookie* cookie in [[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies copy]) {
+                    for (NSHTTPCookie* cookie in[[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies copy]) {
                         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
                     }
                 }
                 [self popModalToRoot];
             }
             break;
+
             case SECONDARY_MENU_ROW_INDEX_SAVED_PAGES:
             {
                 [self performModalSequeWithID:@"modal_segue_show_saved_pages"
@@ -601,39 +607,48 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
                                         block:nil];
             }
             break;
+
             case SECONDARY_MENU_ROW_INDEX_SAVE_PAGE:
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"SavePage" object:self userInfo:nil];
                 [self animateArticleTitleMovingToSavedPages];
                 break;
+
             case SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE:
                 [self showLanguages];
                 break;
+
             case SECONDARY_MENU_ROW_INDEX_ZERO_FAQ:
             {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_ZERO_FAQ]];
             }
             break;
+
             case SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY:
             {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_PRIVACY_POLICY]];
             }
             break;
+
             case SECONDARY_MENU_ROW_INDEX_TERMS:
             {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_TERMS]];
             }
             break;
+
             case SECONDARY_MENU_ROW_INDEX_RATE_APP:
             {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_RATE_APP]];
             }
             break;
+
             case SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING:
                 // Don't do anything here - only take action for this if the toggle tapped.
                 break;
+
             case SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS:
                 // Don't do anything here - only take action for this if the toggle tapped.
                 break;
+
             case SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK:
             {
                 NSString* mailtoUri =
@@ -647,6 +662,7 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
                 [[UIApplication sharedApplication] openURL:url];
             }
             break;
+
             case SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY:
             {
                 [self performModalSequeWithID:@"modal_segue_show_page_history"
@@ -654,6 +670,7 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
                                         block:nil];
             }
             break;
+
             /*
                case SECONDARY_MENU_ROW_INDEX_CREDITS:
                {
@@ -703,16 +720,16 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
 - (void)showLanguages {
     [self performModalSequeWithID:@"modal_segue_show_languages"
                   transitionStyle:UIModalTransitionStyleCoverVertical
-                            block:^(LanguagesViewController* languagesVC){
-        languagesVC.languageSelectionDelegate = self;
-        languagesVC.invokingVC = self;
-    }];
+                            block:^(LanguagesViewController* languagesVC) {
+                                languagesVC.languageSelectionDelegate = self;
+                                languagesVC.invokingVC = self;
+                            }];
 }
 
 - (void)languageSelected:(NSDictionary*)langData sender:(LanguagesViewController*)sender {
     [self showAlert:MWLocalizedString(@"main-menu-language-selection-saved", nil) type:ALERT_TYPE_TOP duration:1];
 
-    [NAV switchPreferredLanguageToId:langData[@"code"] name:langData[@"name"]];
+    [NAV switchPreferredLanguageToId:langData[@"code"]];
 
     [self popModalToRoot];
 }

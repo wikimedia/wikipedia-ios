@@ -8,7 +8,7 @@
 #import "QueuesSingleton.h"
 #import "LanguagesCell.h"
 #import "Defines.h"
-#import "AssetsFile.h"
+#import "WMFAssetsFile.h"
 #import "UIViewController+Alert.h"
 #import "UIViewController+ModalPop.h"
 #import "UIView+ConstraintsScale.h"
@@ -70,7 +70,7 @@
     if (self.downloadLanguagesForCurrentArticle) {
         [self downloadLangLinkData];
     } else {
-        AssetsFile* assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_LANGUAGES];
+        WMFAssetsFile* assetsFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
         self.languagesData = assetsFile.array;
         [self reloadTableDataFiltered];
     }
@@ -120,6 +120,7 @@
             [self popModal];
 
             break;
+
         default:
             break;
     }
@@ -177,9 +178,11 @@
                 [self reloadTableDataFiltered];
             }
             break;
+
             case FETCH_FINAL_STATUS_CANCELLED:
                 [self fadeAlert];
                 break;
+
             case FETCH_FINAL_STATUS_FAILED:
                 [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
                 break;
@@ -189,11 +192,11 @@
 
 - (void)downloadLangLinkData {
     [self showAlert:MWLocalizedString(@"article-languages-downloading", nil) type:ALERT_TYPE_TOP duration:-1];
-    AssetsFile* assetsFile = [[AssetsFile alloc] initWithFile:ASSETS_FILE_LANGUAGES];
+    WMFAssetsFile* assetsFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
 
     [[QueuesSingleton sharedInstance].languageLinksFetcher.operationQueue cancelAllOperations];
 
-    (void)[[LanguageLinksFetcher alloc] initAndFetchLanguageLinksForPageTitle:[SessionSingleton sharedInstance].title
+    (void)[[LanguageLinksFetcher alloc] initAndFetchLanguageLinksForPageTitle:[SessionSingleton sharedInstance].currentArticle.title
                                                                  allLanguages:assetsFile.array
                                                                   withManager:[QueuesSingleton sharedInstance].languageLinksFetcher
                                                            thenNotifyDelegate:self];
