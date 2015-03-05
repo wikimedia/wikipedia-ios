@@ -11,10 +11,11 @@
     BOOL isMainPage = [[SessionSingleton sharedInstance] articleIsAMainArticle:[SessionSingleton sharedInstance].currentArticle];
 
     return
-        [NSString stringWithFormat:@"<div id='section_heading_and_content_block_%ld'>%@<div id='content_block_%ld'>%@</div></div>",
+        [NSString stringWithFormat:@"<div id='section_heading_and_content_block_%ld'>%@<div id='content_block_%ld' class='content_block'>%@%@</div></div>",
          (long)self.sectionId,
          (isMainPage ? @"" : [self getHeaderTag]),
          (long)self.sectionId,
+         ((self.sectionId == 0) && !isMainPage) ? [self getEditPencilAnchor] : @"",
          html
         ];
 }
@@ -25,14 +26,8 @@
     if (self.sectionId == 0) {
         // Lead section.
         // The lead section is a special case because of the native component used
-        // for lead image styling. Its 'section_heading' can be a div (no need for
-        // 'H' tag) since it won't need to display any text. The title text is now
-        // shown by the native component.
-        return
-            [NSString stringWithFormat:@"%@<div class='section_heading' data-id='0' id='0'>%@</div>",
-             [self getLeadImagePlaceholderDiv],
-             pencilAnchor
-            ];
+        // for lead image styling. The title text is now shown by the native component.
+        return [self getLeadImagePlaceholderDiv];
     } else {
         // Non-lead section.
         NSInteger headingTagSize = [self getHeadingTagSize];
@@ -65,7 +60,8 @@
 
 - (NSString*)getEditPencilAnchor {
     return
-        [NSString stringWithFormat:@"<a class='edit_section_button' data-action='edit_section' data-id='%ld'></a>",
+        [NSString stringWithFormat:@"<a class='edit_section_button' data-action='edit_section' data-id='%ld' id='edit_section_button_%ld'></a>",
+         (long)self.sectionId,
          (long)self.sectionId
         ];
 }

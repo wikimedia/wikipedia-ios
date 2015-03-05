@@ -16,6 +16,14 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     var allPs = block_0.getElementsByTagName( "p" );
     if(!allPs) return;
 
+    var edit_section_button_0 = content.getElementById( "edit_section_button_0" );
+    if(!edit_section_button_0) return;
+
+    function moveAfter(newNode, referenceNode) {
+        // Based on: http://stackoverflow.com/a/4793630/135557
+        referenceNode.parentNode.insertBefore(newNode.parentNode.removeChild(newNode), referenceNode.nextSibling);
+    }
+
     for ( var i = 0; i < allPs.length; i++ ) {
         var p = allPs[i];
 
@@ -57,9 +65,8 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
         if(pIsMostlyImage) continue;
         */
 
-
-        // Move the P!
-        block_0.insertBefore(p.parentNode.removeChild(p), block_0.firstChild);
+        // Move the P! Place it just after the lead section edit button.
+        moveAfter(p, edit_section_button_0);
 
         // But only move one P!
         break;
