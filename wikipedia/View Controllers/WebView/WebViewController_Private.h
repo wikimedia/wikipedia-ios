@@ -153,6 +153,11 @@ static const int kMinimumTextSelectionLength = 2;
 
 @property (nonatomic) BOOL didLastNavigateByBackOrForward;
 
+@property (nonatomic) BOOL isCurrentArticleMain;
+
+@property (nonatomic) BOOL keyboardIsVisible;
+
+
 - (void)cancelArticleLoading;
 
 - (void)cancelSearchLoading;

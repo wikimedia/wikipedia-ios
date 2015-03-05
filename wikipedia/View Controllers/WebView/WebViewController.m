@@ -95,6 +95,15 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
                                              selector:@selector(zeroStateChanged:)
                                                  name:@"ZeroStateChanged"
                                                object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
 
     [self fadeAlert];
 
@@ -779,6 +788,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)dealloc {
     [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark Webview obj-c to javascript bridge
@@ -1089,6 +1099,16 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     }
 }
 
+- (void)keyboardDidShow:(NSNotification*)note{
+    
+    self.keyboardIsVisible = YES;
+}
+
+- (void)keyboardWillHide:(NSNotification*)note{
+    
+    self.keyboardIsVisible = NO;
+}
+
 #pragma mark Scroll hiding keyboard threshold
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
@@ -1103,7 +1123,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     CGFloat distanceScrolled     = scrollViewDragBeganVerticalOffset_ - scrollView.contentOffset.y;
     CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
 
-    if (fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
+    if (self.keyboardIsVisible && fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
         [self hideKeyboard];
         //NSLog(@"Keyboard Hidden!");
     }
