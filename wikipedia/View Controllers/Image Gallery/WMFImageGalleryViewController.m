@@ -7,14 +7,16 @@
 //
 
 #import "WMFImageGalleryViewController.h"
+
+// Utils
 #import <BlocksKit/BlocksKit.h>
-#import <AFNetworking/AFNetworking.h>
 #import "NSArray+BKIndex.h"
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "MWNetworkActivityIndicatorManager.h"
 
 // View
+#import <Masonry/Masonry.h>
 #import "WMFImageGalleryCollectionViewCell.h"
 #import "WMFImageGalleryDetailOverlayView.h"
 #import "UIFont+WMFStyle.h"
@@ -26,6 +28,7 @@
 #import "UILabel+WMFStyling.h"
 #import "UIButton+FrameUtils.h"
 #import "UIView+WMFFrameUtils.h"
+#import "WMFGradientView.h"
 
 // Model
 #import "MWKDataStore.h"
@@ -34,6 +37,7 @@
 #import "MWKImageInfo+MWKImageComparison.h"
 
 // Networking
+#import <AFNetworking/AFNetworking.h>
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "AFHTTPRequestOperationManager+UniqueRequests.h"
 #import "MWKImageInfoFetcher.h"
@@ -44,6 +48,11 @@
 #else
 #define ImgGalleryLog(...)
 #endif
+
+static double const WMFImageGalleryTopGradientHeight = 150.0;
+static double const WMFImageGalleryLicenseFontSize = 19.0;
+static double const WMFImageGalleryLicenseBaselineOffset = -1.5;
+static double const WMFImageGalleryOwnerFontSize = 11.f;
 
 NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
     return [imageInfo bk_index:^id < NSCopying > (MWKImageInfo* info) {
@@ -56,10 +65,12 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 
 @property (nonatomic) BOOL didApplyInitialVisibleImageIndex;
 @property (nonatomic) NSUInteger preRotationVisibleImageIndex;
+@property (nonatomic, getter = isChromeHidden) BOOL chromeHidden;
 
 @property (nonatomic, weak, readonly) UICollectionViewFlowLayout* collectionViewFlowLayout;
 @property (nonatomic, weak, readonly) UIButton* closeButton;
-@property (nonatomic, getter = isChromeHidden) BOOL chromeHidden;
+@property (nonatomic, weak, readonly) WMFGradientView* topGradientView;
+
 @property (nonatomic, weak, readonly) UITapGestureRecognizer* chromeTapGestureRecognizer;
 
 @property (nonatomic, strong, readonly) AFHTTPRequestOperationManager* imageFetcher;
@@ -90,16 +101,22 @@ static NSAttributedString* ConcatOwnerAndLicense(NSString* owner, MWKLicense* li
         [result appendAttributedString:
          [[NSAttributedString alloc]
           initWithString:licenseGlyph
-              attributes:@{NSFontAttributeName: [UIFont wmf_glyphFontOfSize:19.f],
+              attributes:@{NSFontAttributeName: [UIFont wmf_glyphFontOfSize:WMFImageGalleryLicenseFontSize],
                            NSForegroundColorAttributeName: [UIColor whiteColor],
-                           NSBaselineOffsetAttributeName: @(-1.5f)}]];
+                           NSBaselineOffsetAttributeName: @(WMFImageGalleryLicenseBaselineOffset)}]];
     }
 
-    [result appendAttributedString:
-     [[NSAttributedString alloc]
-      initWithString:[@" " stringByAppendingString:owner ? : MWLocalizedString(@"image-gallery-unknown-owner", nil)]
-          attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11.f],
-                       NSForegroundColorAttributeName: [UIColor whiteColor]}]];
+    NSString* ownerOrFallback = owner ?
+                                [owner stringByTrimmingCharactersInSet : [NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                                : MWLocalizedString(@"image-gallery-unknown-owner", nil);
+
+    NSAttributedString* attributedOwnerAndSeparator =
+        [[NSAttributedString alloc]
+         initWithString:[@" " stringByAppendingString:ownerOrFallback]
+             attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize],
+                          NSForegroundColorAttributeName: [UIColor whiteColor]}];
+
+    [result appendAttributedString:attributedOwnerAndSeparator];
 
     return result;
 }
@@ -243,7 +260,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-
     /*
        only apply visible image index once the collection view has been populated with cells, otherwise calls to get
        layout attributes of the item at `visibleImageIndex` will return `nil` (on iOS 6, at least)
@@ -264,6 +280,24 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    WMFGradientView* topGradientView = [WMFGradientView new];
+    topGradientView.userInteractionEnabled = NO;
+    [topGradientView.gradientLayer setLocations:@[@0, @1]];
+    [topGradientView.gradientLayer setColors:@[(id)[UIColor colorWithWhite:0.0 alpha:1.0].CGColor,
+                                               (id)[UIColor clearColor].CGColor]];
+    // default start/end points, to be adjusted w/ image size
+    [topGradientView.gradientLayer setStartPoint:CGPointMake(0.5, 0.0)];
+    [topGradientView.gradientLayer setEndPoint:CGPointMake(0.5, 1.0)];
+    [self.view addSubview:topGradientView];
+    _topGradientView = topGradientView;
+
+    [self.topGradientView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view.mas_top);
+        make.leading.equalTo(self.view.mas_leading);
+        make.trailing.equalTo(self.view.mas_trailing);
+        make.height.mas_equalTo(WMFImageGalleryTopGradientHeight);
+    }];
 
     UIButton* closeButton = [[UIButton alloc] initWithFrame:CGRectZero];
 
@@ -302,9 +336,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     [self.collectionView addGestureRecognizer:chromeTapGestureRecognizer];
     _chromeTapGestureRecognizer = chromeTapGestureRecognizer;
 
+    self.collectionView.backgroundColor = [UIColor blackColor];
     [self.collectionView registerClass:[WMFImageGalleryCollectionViewCell class]
             forCellWithReuseIdentifier:WMFImageGalleryCollectionViewCellReuseId];
-
     self.collectionView.pagingEnabled = YES;
 }
 
@@ -330,20 +364,23 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     [self applyChromeHidden:animated];
 }
 
-- (void)applyChromeHiddenToSubview:(UIView*)subview animated:(BOOL)animated {
-    if (animated) {
-        CATransition* fadeAnimation = [CATransition animation];
-        fadeAnimation.type     = kCATransitionFade;
-        fadeAnimation.duration = [CATransaction animationDuration];
-        [subview.layer addAnimation:fadeAnimation forKey:@"com.wikimedia.wikipedia.imagegallery.chrome"];
-    }
-    [subview setHidden:[self isChromeHidden]];
-}
-
 - (void)applyChromeHidden:(BOOL)animated {
-    [self applyChromeHiddenToSubview:self.closeButton animated:animated];
-    for (WMFImageGalleryCollectionViewCell* cell in self.collectionView.visibleCells) {
-        [self applyChromeHiddenToSubview:cell.detailOverlayView animated:animated];
+    dispatch_block_t animations = ^{
+        self.topGradientView.hidden = [self isChromeHidden];
+        self.closeButton.hidden     = [self isChromeHidden];
+        for (NSIndexPath* indexPath in self.collectionView.indexPathsForVisibleItems) {
+            [self updateDetailVisibilityForCellAtIndexPath:indexPath];
+        }
+    };
+
+    if (animated) {
+        [UIView animateWithDuration:[CATransaction animationDuration]
+                              delay:0
+                            options:UIViewAnimationOptionTransitionCrossDissolve
+                         animations:animations
+                         completion:nil];
+    } else {
+        animations();
     }
 }
 
@@ -419,11 +456,12 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     MWKImage* imageStub        = self.uniqueArticleImages[indexPath.item];
     MWKImageInfo* infoForImage = self.indexedImageInfo[imageStub.infoAssociationValue];
 
-    cell.detailOverlayView.hidden = [self isChromeHidden];
-
+    [self updateDetailVisibilityForCell:cell withInfo:infoForImage];
 
     if (infoForImage) {
-        cell.detailOverlayView.imageDescriptionLabel.text = infoForImage.imageDescription;
+        cell.detailOverlayView.imageDescriptionLabel.text =
+            [infoForImage.imageDescription stringByTrimmingCharactersInSet:
+             [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
         NSAttributedString* ownerAndLicense = ConcatOwnerAndLicense(infoForImage.owner, infoForImage.license);
         [cell.detailOverlayView.ownerButton setAttributedTitle:ownerAndLicense forState:UIControlStateNormal];
@@ -444,6 +482,26 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark - Cell Updates
 
+- (void)updateDetailVisibilityForCellAtIndexPath:(NSIndexPath*)indexPath {
+    WMFImageGalleryCollectionViewCell* cell =
+        (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
+    [self updateDetailVisibilityForCell:cell atIndexPath:indexPath];
+}
+
+- (void)updateDetailVisibilityForCell:(WMFImageGalleryCollectionViewCell*)cell
+                          atIndexPath:(NSIndexPath*)indexPath {
+    MWKImage* imageStub        = self.uniqueArticleImages[indexPath.item];
+    MWKImageInfo* infoForImage = self.indexedImageInfo[imageStub.infoAssociationValue];
+    [self updateDetailVisibilityForCell:cell withInfo:infoForImage];
+}
+
+- (void)updateDetailVisibilityForCell:(WMFImageGalleryCollectionViewCell*)cell
+                             withInfo:(MWKImageInfo*)info {
+    BOOL const shouldHideDetails = [self isChromeHidden]
+                                   || (!info.imageDescription && !info.owner && !info.license);
+    [cell setDetailViewAlpha:shouldHideDetails ? 0.0 : 1.0];
+}
+
 - (void)updateImageAtIndexPath:(NSIndexPath*)indexPath {
     NSParameterAssert(indexPath);
     MWKImage* image                         = self.uniqueArticleImages[indexPath.item];
@@ -463,11 +521,13 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     UIImage* cachedBitmap = infoForImage.imageThumbURL ? self.bitmapsForImageURL[infoForImage.imageThumbURL] : nil;
     if (cachedBitmap) {
         ImgGalleryLog(@"Using cached bitmap for %@ at %@", infoForImage.imageThumbURL, indexPath);
-        cell.image = cachedBitmap;
+        cell.image     = cachedBitmap;
+        cell.imageSize = infoForImage.thumbSize;
     } else {
         ImgGalleryLog(@"Using article image (%@) as placeholder for thumbnail of cell %@", image.sourceURL, indexPath);
         // !!!: -asUIImage reads from disk AND has to decompress image data, maybe we should move it off the main thread?
-        cell.image = [image asUIImage];
+        cell.image     = [image asUIImage];
+        cell.imageSize = infoForImage ? infoForImage.thumbSize : cell.image.size;
         [self fetchImage:infoForImage.imageThumbURL forCellAtIndexPath:indexPath];
     }
 }

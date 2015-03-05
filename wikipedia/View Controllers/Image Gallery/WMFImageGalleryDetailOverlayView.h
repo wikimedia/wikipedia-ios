@@ -15,4 +15,7 @@
 - (UILabel*) imageDescriptionLabel;
 - (UIButton*)ownerButton;
 
+/// Set all child view alphas to @c alpha. This is preferred to hiding & showing them.
+- (void)setGroupAlpha:(float)alpha;
+
 @end

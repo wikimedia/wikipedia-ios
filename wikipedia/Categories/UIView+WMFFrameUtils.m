@@ -8,6 +8,10 @@
 
 #import "UIView+WMFFrameUtils.h"
 
+FOUNDATION_EXPORT CGPoint WMFCenterOfCGSize(CGSize size) {
+    return CGPointMake(size.width / 2.0, size.height / 2.0);
+}
+
 @implementation UIView (WMFFrameUtils)
 
 - (void)wmf_setFrameOrigin:(CGPoint)origin {
@@ -24,6 +28,10 @@
 
 - (void)wmf_expandWidth:(float)width height:(float)height {
     [self wmf_insetWidth:-width height:-height];
+}
+
+- (void)wmf_centerInSuperview {
+    self.center = WMFCenterOfCGSize(self.superview.frame.size);
 }
 
 @end

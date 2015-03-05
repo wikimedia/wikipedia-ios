@@ -16,6 +16,8 @@ NSString* const MWKImageInfoImageURLKey           = @"imageURL";
 NSString* const MWKImageInfoImageThumbURLKey      = @"imageThumbURL";
 NSString* const MWKImageInfoOwnerKey              = @"owner";
 NSString* const MWKImageInfoLicenseKey            = @"license";
+NSString* const MWKImageInfoImageSize             = @"imageSize";
+NSString* const MWKImageInfoThumbSize             = @"thumbSize";
 
 @implementation MWKImageInfo
 @synthesize imageAssociationValue = _imageAssociationValue;
@@ -27,7 +29,9 @@ NSString* const MWKImageInfoLicenseKey            = @"license";
                                filePageURL:(NSURL*)filePageURL
                                   imageURL:(NSURL*)imageURL
                              imageThumbURL:(NSURL*)imageThumbURL
-                                     owner:(NSString*)owner {
+                                     owner:(NSString*)owner
+                                 imageSize:(CGSize)imageSize
+                                 thumbSize:(CGSize)thumbSize {
     // !!!: not sure what's guaranteed by the API
     //NSParameterAssert(canonicalPageTitle.length);
     //NSParameterAssert(canonicalFileURL.absoluteString.length);
@@ -42,6 +46,8 @@ NSString* const MWKImageInfoLicenseKey            = @"license";
         _filePageURL        = filePageURL;
         _imageURL           = imageURL;
         _imageThumbURL      = imageThumbURL;
+        _imageSize          = imageSize;
+        _thumbSize          = thumbSize;
     }
     return self;
 }
@@ -56,7 +62,9 @@ NSString* const MWKImageInfoLicenseKey            = @"license";
                            filePageURL:[NSURL URLWithString:exportedData[MWKImageInfoFilePageURLKey]]
                               imageURL:[NSURL URLWithString:exportedData[MWKImageInfoImageURLKey]]
                          imageThumbURL:[NSURL URLWithString:exportedData[MWKImageInfoImageThumbURLKey]]
-                                 owner:exportedData[MWKImageInfoOwnerKey]];
+                                 owner:exportedData[MWKImageInfoOwnerKey]
+                             imageSize:CGSizeFromString(exportedData[MWKImageInfoImageSize])
+                             thumbSize:CGSizeFromString(exportedData[MWKImageInfoThumbSize])];
 }
 
 - (NSDictionary*)dataExport {
@@ -74,6 +82,9 @@ NSString* const MWKImageInfoLicenseKey            = @"license";
 
 #warning TODO(bgerstle): only store the license "hash" or something and save the licenses separately
     [dict wmf_maybeSetObject:[self.license dataExport] forKey:MWKImageInfoLicenseKey];
+
+    dict[MWKImageInfoImageSize] = NSStringFromCGSize(self.imageSize);
+    dict[MWKImageInfoThumbSize] = NSStringFromCGSize(self.thumbSize);
 
     return [dict copy];
 }
@@ -94,7 +105,9 @@ NSString* const MWKImageInfoLicenseKey            = @"license";
            && WMF_IS_EQUAL(self.filePageURL, other.filePageURL)
            && WMF_IS_EQUAL(self.imageURL, other.imageURL)
            && WMF_IS_EQUAL(self.imageThumbURL, other.imageThumbURL)
-           && WMF_EQUAL(self.owner, isEqualToString:, other.owner);
+           && WMF_EQUAL(self.owner, isEqualToString:, other.owner)
+           && CGSizeEqualToSize(self.imageSize, other.imageSize)
+           && CGSizeEqualToSize(self.thumbSize, other.thumbSize);
 }
 
 - (NSUInteger)hash {

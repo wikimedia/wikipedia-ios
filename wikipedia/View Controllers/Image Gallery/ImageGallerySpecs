@@ -1,0 +1,83 @@
+# On all supported devices and operating systems...
+
+Feature: Image gallery presentation
+
+Scenario: Launching the image gallery
+
+Given I am in the article view
+When I tap an image # lead image or embedded image in the article
+Then the image gallery should be presented
+And the image I selected should be visible
+
+Feature: Image gallery
+
+Scenario: Navigation
+
+Given there are images to the left and right
+# And the interface layout direction is $interfaceLayout
+When I swipe to the $swipeDirection
+Then the $navDirection image in the article should be presented
+
++----------------+-----------------+--------------------+
+| swipeDirection | interfactLayout | navDirection       |
++----------------+-----------------+--------------------+
+| left           | LTR             | next               |
+| right          | LTR             | previous           |
+| left           | RTL             | next               | # << not implemented yet
+| right          | RTL             | previous           | # << not implemented yet
+---------------------------------------------------------
+
+Given there is no image to the $direction
+When I swipe to the $direction
+The view bounces back to the starting position
+
++-----------+
+| direction |
++-----------+
+| left      |
+| right     |
+-------------
+
+Given I am zoomed into an image
+When I pan my finger around the screen
+Then the image should scroll and bounce within the gallery's bounds
+
+Given I am zoomed into an image
+When I drag or swipe to another image
+Then that image should be presented
+
+Scenario: Device rotation
+
+When I rotate the device in any direction
+Then the currently visible image should remain on screen
+And it should be sized and positioned properly
+
+Given I am zoomed into an image
+When I rotate the device in any direction
+Then the zoom should reset
+And the image should be sized and positioned properly
+
+Scenario: Image transitions
+
+Given I am looking at a lower-resolution image
+When the high-resolution image is shown
+Then the image should transition to the high-resolution version without changing its frame
+
+Scenario: Image size handling
+
+Given I am looking at an image smaller than the gallery's bounds
+And the bottom of the image is within 150 pts of the gallery's bounds
+When the chrome is visible
+Then the gradient should blend in with the black bar across the bottom of the image
+
+Given I am looking at an image smaller than the gallery's bounds
+And the chrome is visible
+When I zoom into the image
+Then the gradient should maintain its position at the bottom of the image
+
+Scenario: Image zooming
+
+Given I am looking at an image smaller than the gallery's bounds
+And the bottom of the image is within 150 pts of the gallery's bounds
+When I zoom into the image
+Then the image should remained centered in the gallery

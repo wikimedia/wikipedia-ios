@@ -9,9 +9,23 @@
 #import <UIKit/UIKit.h>
 
 @class WMFImageGalleryDetailOverlayView;
+@class WMFGradientView;
 
 @interface WMFImageGalleryCollectionViewCell : UICollectionViewCell
+
+/**
+ * Size the image should be displayed, used to show low-res images at high-res sizes for smoother transitions.
+ * @discussion This property defaults to <code>CGSizeZero</code>, in which case the image's intrinsic size will be used. 
+ */
+@property (nonatomic) CGSize imageSize;
+
+/// The image to display.
 @property (nonatomic) UIImage* image;
+
+/// The subview which displays additional information about the image.
 @property (nonatomic, weak, readonly) WMFImageGalleryDetailOverlayView* detailOverlayView;
+
+/// Set @c alpha for the gradient & detail overlay views. This is preferred to hiding & showing them.
+- (void)setDetailViewAlpha:(float)alpha;
 
 @end

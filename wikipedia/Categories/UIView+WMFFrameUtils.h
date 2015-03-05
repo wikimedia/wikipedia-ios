@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+FOUNDATION_EXPORT CGPoint WMFCenterOfCGSize(CGSize size) __attribute__((const)) __attribute__((pure));
+
 @interface UIView (WMFFrameUtils)
 
 /// Sets the receiver's @c frame.origin, preserving its @c size.
@@ -26,5 +28,8 @@
  * @see CGRectInset()
  */
 - (void)wmf_expandWidth:(float)width height:(float)height;
+
+
+- (void)wmf_centerInSuperview;
 
 @end

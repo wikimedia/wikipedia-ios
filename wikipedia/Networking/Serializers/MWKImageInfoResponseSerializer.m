@@ -18,6 +18,17 @@ static NSString* const ExtMetadataLicenseUrlKey       = @"LicenseUrl";
 static NSString* const ExtMetadataLicenseShortNameKey = @"LicenseShortName";
 static NSString* const ExtMetadataLicenseKey          = @"License";
 
+static CGSize MWKImageInfoSizeFromJSON(NSDictionary* json, NSString* widthKey, NSString* heightKey) {
+    NSNumber* width  = json[widthKey];
+    NSNumber* height = json[heightKey];
+    if (width && height) {
+        // both NSNumber & NSString respond to `floatValue`
+        return CGSizeMake([width floatValue], [height floatValue]);
+    } else {
+        return CGSizeZero;
+    }
+}
+
 @implementation MWKImageInfoResponseSerializer
 
 + (NSArray*)requiredExtMetadataKeys {
@@ -52,10 +63,10 @@ static NSString* const ExtMetadataLicenseKey          = @"License";
             extMetadata = nil;
         }
         MWKLicense* license =
-            [[MWKLicense alloc]
-             initWithCode:extMetadata[ExtMetadataLicenseKey][@"value"]
-          shortDescription:extMetadata[ExtMetadataLicenseShortNameKey][@"value"]
-                       URL:[NSURL URLWithString:extMetadata[ExtMetadataLicenseUrlKey][@"value"]]];
+            [[MWKLicense alloc] initWithCode:extMetadata[ExtMetadataLicenseKey][@"value"]
+                            shortDescription:extMetadata[ExtMetadataLicenseShortNameKey][@"value"]
+                                         URL:[NSURL URLWithString:extMetadata[ExtMetadataLicenseUrlKey][@"value"]]];
+
         MWKImageInfo* item =
             [[MWKImageInfo alloc]
              initWithCanonicalPageTitle:image[@"title"]
@@ -65,7 +76,9 @@ static NSString* const ExtMetadataLicenseKey          = @"License";
                             filePageURL:[NSURL URLWithString:imageInfo[@"descriptionurl"]]
                                imageURL:[NSURL URLWithString:imageInfo[@"url"]]
                           imageThumbURL:[NSURL URLWithString:imageInfo[@"thumburl"]]
-                                  owner:[extMetadata[ExtMetadataArtistKey][@"value"] wmf_joinedHtmlTextNodes]];
+                                  owner:[extMetadata[ExtMetadataArtistKey][@"value"] wmf_joinedHtmlTextNodes]
+                              imageSize:MWKImageInfoSizeFromJSON(imageInfo, @"width", @"height")
+                              thumbSize:MWKImageInfoSizeFromJSON(imageInfo, @"thumbwidth", @"thumbheight")];
         [itemListBuilder addObject:item];
     }];
     return itemListBuilder;

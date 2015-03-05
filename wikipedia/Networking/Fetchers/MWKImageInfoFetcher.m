@@ -72,7 +72,7 @@
              @"titles": WMFJoinedPropertyParameters(imageTitles),
              @"rawcontinue": @"", //< suppress old continue warning
              @"prop": @"imageinfo",
-             @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata"]),
+             @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
              @"iiextmetadatafilter": WMFJoinedPropertyParameters([MWKImageInfoResponseSerializer requiredExtMetadataKeys]),
              // 1280 is a well-populated image width in back-end cache that gives good-enough quality on most iOS devices
              @"iiurlwidth": @1280,

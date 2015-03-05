@@ -31,6 +31,12 @@
 /// URL pointing at a thumbnail version of the image at @c imageURL.
 @property (nonatomic, readonly) NSURL* imageThumbURL;
 
+/// Size of the original image.
+@property (nonatomic, readonly) CGSize imageSize;
+
+/// Size of the thumbnail at @c imageThumbURL.
+@property (nonatomic, readonly) CGSize thumbSize;
+
 /// Name of the entity owning this image.
 @property (nonatomic, readonly, copy) NSString* owner;
 
@@ -47,6 +53,8 @@
                                filePageURL:(NSURL*)filePageURL
                                   imageURL:(NSURL*)imageURL
                              imageThumbURL:(NSURL*)imageThumbURL
-                                     owner:(NSString*)owner;
+                                     owner:(NSString*)owner
+                                 imageSize:(CGSize)imageSize
+                                 thumbSize:(CGSize)thumbSize;
 
 @end

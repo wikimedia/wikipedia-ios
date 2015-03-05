@@ -7,7 +7,6 @@
 //
 
 #import "WMFImageGalleryDetailOverlayView.h"
-#import <QuartzCore/CAGradientLayer.h>
 #import "PaddedLabel.h"
 #import "UIFont+WMFStyle.h"
 #import "WikiGlyph_Chars.h"
@@ -29,22 +28,8 @@
     return nil;
 }
 
-+ (Class)layerClass {
-    return [CAGradientLayer class];
-}
-
-- (CAGradientLayer*)gradientLayer {
-    return (CAGradientLayer*)self.layer;
-}
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [[self gradientLayer] setLocations:@[@0, @0.6, @1]];
-    [[self gradientLayer] setColors:@[(id)[UIColor blackColor].CGColor,
-                                      (id)[UIColor colorWithWhite:0 alpha:0.55859375].CGColor,
-                                      (id)[UIColor clearColor].CGColor]];
-    [[self gradientLayer] setStartPoint:CGPointMake(0.5, 1.0)];
-    [[self gradientLayer] setEndPoint:CGPointMake(0.5, 0.0)];
     [self.ownerButton.titleLabel wmf_applyDropShadow];
     [self.imageDescriptionLabel wmf_applyDropShadow];
 }
@@ -53,6 +38,18 @@
     if (self.ownerTapCallback) {
         self.ownerTapCallback();
     }
+}
+
+- (void)setGroupAlpha:(float)alpha {
+    self.alpha = alpha;
+    self.imageDescriptionLabel.alpha = alpha;
+    self.ownerButton.alpha = alpha;
+}
+
+- (void)setGroupHidden:(BOOL)hidden {
+    self.hidden = hidden;
+    self.imageDescriptionLabel.hidden = hidden;
+    self.ownerButton.hidden = hidden;
 }
 
 @end
