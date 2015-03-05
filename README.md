@@ -12,19 +12,11 @@ Native rewrite of the [Wikipedia reader application](https://www.mediawiki.org/w
 * Bugs: https://bugzilla.wikimedia.org/enter_bug.cgi?product=Wikipedia%20App
 * IRC chat: #wikimedia-mobile on irc.freenode.net
 
-# Dependencies
-##  [CocoaPods](cocoapods.org) 
-To manage Objective-C dependencies.  See the `Podfile` for a comprehensive list.
-## [npm](https://www.npmjs.com/) 
-Manage web dependencies.  See `www/package.json` for a comprehensive list. 
-## [Grunt](http://gruntjs.com)
-Compile LESS files and other grunt work.
-## [Uncrustify](http://uncrustify.sourceforge.net)
-Code Beautifier
-
 # Setup
-## Prerequisites
-Please make sure the following are installed on your system before trying to build the project:
+Many tasks associated with project dependencies or building are implemented in the `Makefile`. Run `make` or `make help` to see a list of available tasks (or targets). The TL;DR; one liner to sanity check the project's build status is: `make build-sim`.  Read on for more information about our dependencies and setting up the project.
+
+## Dependencies
+Run `make get-deps` to check for and/or install the following dependencies:
 
 - [Xcode 6 or higher](https://itunes.apple.com/us/app/xcode/id497799835) on Mac OS X, available on the App Store or [developer.apple.com](https://developer.apple.com/) after signing in with your Apple ID.
 - Xcode Command Line Tools: On newer OS X versions, you can run `xcode-select --install` to install them.  If that doesn't work, you can find instructions online for downloading the them via Xcode or the Apple developer portal.
@@ -32,40 +24,26 @@ Please make sure the following are installed on your system before trying to bui
 
 > _[rbenv](https://github.com/sstephenson/rbenv) is nice for managing mulitple Ruby versions._
 
-- CocoaPods: Ruby gem for Objective-C dependency management.
+- [CocoaPods](cocoapods.org) is a Ruby gem that the project uses to download and integrate third-party iOS components.
 
-> _[Bundler](http://bundler.io/) is recommended for installing Ruby gems without `sudo`._
+> _[Bundler](http://bundler.io/) is recommended for installing CocoaPods, along with any other RubyGem dependencies declared in the project's `Gemfile`._
 
-- NodeJS: The web portion of the app is built using [npm](npmjs.com) to install node packages and [grunt](http://gruntjs.com) to manage tasks.
+- NodeJS: The web assets which are bundled in the app are built using a Node toolchain, specifically [grunt](http://gruntjs.com) which is installed using [npm](npmjs.com).
 
 > _[nodenv](https://github.com/OiNutter/nodenv) is recommended for managing multiple node versions._
 
-- [Uncrustify](http://uncrustify.sourceforge.net) for formatting source code to conform to our Style Guide. You can install with homebrew  ```brew install uncrustify```
+- [uncrustify](http://uncrustify.sourceforge.net) for formatting source code to conform to our [Style Guide](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/ObjectiveCStyleGuide). You can install it using homebrew by running: `brew install uncrustify`.
 
-> _[BBUncrustifyPlugin](https://github.com/benoitsan/BBUncrustifyPlugin-Xcode) is an easy way to uncrustify files within the Xcode UI.
+> _[BBUncrustifyPlugin](https://github.com/benoitsan/BBUncrustifyPlugin-Xcode) is an easy way to uncrustify files within the Xcode UI._
 
 ## Building
-Once all the dependencies are installed, you'll have to do a couple of things before firing up Xcode and running the app:
-
-- Setup CocoaPods
-  - Install the **`cocoapods`** gem
-  - Setup the CocoaPods specs repo by running `pod setup` (prepend `bundle exec` as needed)
-  - Install our CocoaPods dependencies by going to the repository's root directory and running `pod install` (**not** `pod update`)
-- Setup web components (if you're feeling lucky: `cd www && npm install && grunt`)
-  - Go into the `www` directory
-  - Run `npm install` to install our node dependencies
-  - Run `grunt` to generate our web assets
-- Open `Wikipedia.xcworkspace` in Xcode.  _Note the use of `.xcworkspace` extension—not `.xcodeproj`_
-- Build the project!
-- Profit! (Just kidding, we're non-profit)
-
-If the build failed, we're _really_ sorry! We'll be more than happy to help you if you file a bug and/or bug us via IRC or email. See the top of this file for our contact information. Please include any console logs and/or Xcode screenshots along with a description of your environment.
+Once all the dependencies are installed (via `make get-deps`), you should be able to run `make build-sim`, which compiles the project for the iOS simulator. If this step doesn't succeed, please file a bug and/or bug us via IRC or email. See the top of this file for our contact information. Please include any console logs and/or Xcode screenshots along with a description of your environment.
 
 ## Running
-Simply run the **Wikipedia** target for the destination of your choosing (i.e. simulator or device). Keep in mind that you'll need to provision any physical devices with an active [developer account](https://developer.apple.com/devcenter/ios/index.action) in order to build and run the app on them.
+Use Xcode to run the **Wikipedia** scheme and target for the destination of your choosing (i.e. simulator or device). Keep in mind that you'll need to provision iOS hardware with an active [developer account](https://developer.apple.com/devcenter/ios/index.action) in order to build and run the app on it.
 
 ## Testing
-The unit testing target is configured to build & test under the **Wikipedia** scheme. Use the Xcode **Product -> Test** menu-bar action (`Cmd + U` for hotkey fanatics) to run them. New unit tests (and their application-code dependencies) should be added to the **WikipediaUnitTests** target.
+Use the Xcode **Product -> Test** menu-bar action (or `Cmd + U` for hotkey fanatics) to run the **WikipediaUnitTests** target in the **Wikipedia** scheme.  Tests can also be executed from the command line by running `make test`.
 
 # Filing Bugs
 Please file bugs at [bugzilla.wikimedia.org](https://bugzilla.wikimedia.org/enter_bug.cgi?product=Wikipedia%20App); use the "iOS App" component.

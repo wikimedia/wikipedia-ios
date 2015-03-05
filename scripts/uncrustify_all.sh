@@ -33,7 +33,7 @@ done < $UNCRUSTIFY_FILELIST
 rm "$UNCRUSTIFY_FILELIST"
 
 find . -iname "*unc-backup*" -print0 | xargs -0 rm
-echo "Uncrustification completed.\n"
+echo "Uncrustification completed."
 
 # Should be 0 if no files needed to be uncrustifed.
 exit $NO_FILES_NEEDED_UNCRUSTIFY
