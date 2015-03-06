@@ -29,15 +29,12 @@
 
 - (void)testTooShortSnippet {
     NSString *string = @"<p>Cat (meow) [cow] too short</p>";
-    string = [string wmf_getStringSnippetWithoutHTML];
-    XCTAssertNil(string, @"Too short snippet non-nil after parsing");
+    XCTAssertNil([string wmf_getStringSnippetWithoutHTML], @"Too short snippet non-nil after parsing");
 }
 
 - (void)testAdequateSnippet {
     NSString *string = @"<p>Dog (woof) [horse] adequately long string</p>";
-    string = [string wmf_getStringSnippetWithoutHTML];
-    XCTAssertTrue([string isEqualToString:@"Dog adequately long string"],
-                  @"Parsed snippet didn't match expected");
+    XCTAssertEqualObjects([string wmf_getStringSnippetWithoutHTML], @"Dog adequately long string");
 }
 
 @end

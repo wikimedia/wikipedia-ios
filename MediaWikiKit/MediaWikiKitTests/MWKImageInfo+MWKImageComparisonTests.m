@@ -19,36 +19,32 @@
 
 @implementation MWKImageInfo_MWKImageComparisonTests
 
-- (MWKImageInfo*)infoAssociatedWithFilename:(NSString*)filename {
-    return [[MWKImageInfo alloc] initWithCanonicalPageTitle:[@"File:" stringByAppendingString:filename]
+- (MWKImageInfo*)infoAssociatedWithSourceURL:(NSString*)imageURL {
+    return [[MWKImageInfo alloc] initWithCanonicalPageTitle:nil
                                            canonicalFileURL:nil
                                            imageDescription:nil
                                                     license:nil
                                                 filePageURL:nil
-                                                   imageURL:nil
+                                                   imageURL:[NSURL URLWithString:imageURL]
                                               imageThumbURL:nil
                                                       owner:nil];
 }
 
-- (MWKImage*)imageAssociatedWithFilename:(NSString*)filename {
-    NSString* testFilenameForURL = [filename stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    return [[MWKImage alloc] initWithArticle:nil
-                                   sourceURL:[NSString stringWithFormat:@"foo/%@/440px-%@",
-                                              testFilenameForURL, testFilenameForURL]];
+- (MWKImage*)imageAssociatedWithSourceURL:(NSString*)imageURL {
+    return [[MWKImage alloc] initWithArticle:nil sourceURL:imageURL];
 }
 
 - (void)testAssociation {
-    NSString* testFilename = @"some-file name";
-    MWKImage* image        = [self imageAssociatedWithFilename:testFilename];
-    MWKImageInfo* info     = [self infoAssociatedWithFilename:testFilename];
+    MWKImage* image        = [self imageAssociatedWithSourceURL:@"some_file_name.jpg/400px-some_file_name.jpg"];
+    MWKImageInfo* info     = [self infoAssociatedWithSourceURL:@"some_file_name.jpg/800px-some_file_name.jpg"];
     assertThat(image.infoAssociationValue, is(equalTo(info.imageAssociationValue)));
     XCTAssertTrue([info isAssociatedWithImage:image]);
     XCTAssertTrue([image isAssociatedWithInfo:info]);
 }
 
 - (void)testDisassociation {
-    MWKImage* image    = [self imageAssociatedWithFilename:@"some-file name"];
-    MWKImageInfo* info = [self infoAssociatedWithFilename:@"other file name"];
+    MWKImage* image    = [self imageAssociatedWithSourceURL:@"some_file_name.jpg/400px-some_file_name.jpg"];
+    MWKImageInfo* info = [self infoAssociatedWithSourceURL:@"other_file_name.jpg/800px-other_file_name.jpg"];
     assertThat([image infoAssociationValue], isNot(equalTo([info imageAssociationValue])));
     XCTAssertFalse([info isAssociatedWithImage:image]);
 }
