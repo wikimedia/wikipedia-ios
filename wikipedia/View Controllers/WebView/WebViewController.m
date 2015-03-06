@@ -95,12 +95,12 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
                                              selector:@selector(zeroStateChanged:)
                                                  name:@"ZeroStateChanged"
                                                object:nil];
-    
-    
+
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
@@ -472,8 +472,8 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
             self.tocViewLeadingConstraint.constant = 0;
 
-                             [self.view layoutIfNeeded];
-                         } completion:^(BOOL done) {
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL done) {
             [self.tocVC didHide];
             self.unsafeToToggleTOC = NO;
             self.webView.scrollView.contentOffset = origScrollPosition;
@@ -537,8 +537,8 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         CGFloat tocWidth = [self tocGetWidthForWebViewScale:webViewScale];
         self.tocViewLeadingConstraint.constant = -tocWidth;
 
-                         [self.view layoutIfNeeded];
-                     } completion:^(BOOL done) {
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL done) {
         self.unsafeToToggleTOC = NO;
 
         WikiGlyphButton* tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
@@ -746,10 +746,10 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                         // Not using "setContentOffset:animated:" so duration of animation
-                         // can be controlled and action can be taken after animation completes.
-                         self.webView.scrollView.contentOffset = point;
-                     } completion:^(BOOL done) {
+        // Not using "setContentOffset:animated:" so duration of animation
+        // can be controlled and action can be taken after animation completes.
+        self.webView.scrollView.contentOffset = point;
+    } completion:^(BOOL done) {
         // Record the new scroll location.
         [self saveWebViewScrollOffset];
         // Toggle toc.
@@ -1099,13 +1099,11 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     }
 }
 
-- (void)keyboardDidShow:(NSNotification*)note{
-    
+- (void)keyboardDidShow:(NSNotification*)note {
     self.keyboardIsVisible = YES;
 }
 
-- (void)keyboardWillHide:(NSNotification*)note{
-    
+- (void)keyboardWillHide:(NSNotification*)note {
     self.keyboardIsVisible = NO;
 }
 
@@ -1901,8 +1899,8 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                      animations:^{
         self.referencesHidden = YES;
 
-                         [self.view layoutIfNeeded];
-                     } completion:^(BOOL done) {
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL done) {
         [self.referencesVC willMoveToParentViewController:nil];
         [self.referencesVC.view removeFromSuperview];
         [self.referencesVC removeFromParentViewController];

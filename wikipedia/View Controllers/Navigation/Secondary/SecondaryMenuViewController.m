@@ -583,9 +583,9 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
                     [self performModalSequeWithID:@"modal_segue_show_login"
                                   transitionStyle:UIModalTransitionStyleCoverVertical
                                             block:^(LoginViewController* loginVC) {
-                                                loginVC.funnel = [[LoginFunnel alloc] init];
-                                                [loginVC.funnel logStartFromNavigation];
-                                            }];
+                        loginVC.funnel = [[LoginFunnel alloc] init];
+                        [loginVC.funnel logStartFromNavigation];
+                    }];
                 } else {
                     [SessionSingleton sharedInstance].keychainCredentials.userName   = nil;
                     [SessionSingleton sharedInstance].keychainCredentials.password   = nil;
@@ -721,9 +721,9 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
     [self performModalSequeWithID:@"modal_segue_show_languages"
                   transitionStyle:UIModalTransitionStyleCoverVertical
                             block:^(LanguagesViewController* languagesVC) {
-                                languagesVC.languageSelectionDelegate = self;
-                                languagesVC.invokingVC = self;
-                            }];
+        languagesVC.languageSelectionDelegate = self;
+        languagesVC.invokingVC = self;
+    }];
 }
 
 - (void)languageSelected:(NSDictionary*)langData sender:(LanguagesViewController*)sender {

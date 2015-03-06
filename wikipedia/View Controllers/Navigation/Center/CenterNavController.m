@@ -184,9 +184,8 @@
 }
 
 - (void)switchPreferredLanguageToId:(NSString*)languageId {
-    
     [[SessionSingleton sharedInstance] setSearchLanguage:languageId];
-    
+
     MWKTitle* pageTitle = [[SessionSingleton sharedInstance] mainArticleTitleForSite:[SessionSingleton sharedInstance].searchSite languageCode:languageId];
 
     [self loadArticleWithTitle:pageTitle

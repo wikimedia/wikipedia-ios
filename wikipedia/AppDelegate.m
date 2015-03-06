@@ -16,7 +16,7 @@
         [[BITHockeyManager sharedHockeyManager] startManager];
         [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
     }
-    
+
     [self systemWideStyleOverrides];
 
     // Enables Alignment Rect highlighting for debugging

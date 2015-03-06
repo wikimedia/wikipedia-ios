@@ -4,7 +4,7 @@
 @interface UIViewController (HideKeyboard)
 
 /**
- *  Uses the responder chain to make all UIResponders 
+ *  Uses the responder chain to make all UIResponders
  *  in the view hierarchy resignFirstResponder.
  */
 - (void)hideKeyboard;

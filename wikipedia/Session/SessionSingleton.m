@@ -24,8 +24,8 @@
 
 @implementation SessionSingleton
 
-@synthesize currentArticleSite           = _currentArticleSite;
-@synthesize currentArticle = _currentArticle;
+@synthesize currentArticleSite = _currentArticleSite;
+@synthesize currentArticle     = _currentArticle;
 
 #pragma mark - Setup
 
@@ -155,9 +155,9 @@
 
 - (void)setCurrentArticle:(MWKArticle*)currentArticle {
     if (currentArticle) {
-        _currentArticle   = currentArticle;
+        _currentArticle          = currentArticle;
         self.currentArticleTitle = currentArticle.title;
-        self.currentArticleSite         = currentArticle.site;
+        self.currentArticleSite  = currentArticle.site;
     }
 }
 
