@@ -255,4 +255,11 @@
 "nearby-wifi" = "Alert text telling user how to improve location accuracy";
 "update-progress-label" = "Label shown during automatic upgrade of local data to new internal format. May be on screen very briefly or for a few seconds.";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
+"hockeyapp-alert-question" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server. $1 will be replaced programmatically with the constant string 'HockeyApp'";
+"hockeyapp-alert-question-with-response-field" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server, and asking the user to describe what happened when the crash occurred. $1 will be replaced programmatically with the constant string 'HockeyApp'";
+"hockeyapp-alert-title" = "Concise and conciliatory alert dialog title for crash reporting";
+"hockeyapp-alert-do-not-send" = "Alert dialog button text for crash reporting to not send the crash report";
+"hockeyapp-alert-send-report" = "Alert dialog button text for crash reporting to be sent";
+"hockeyapp-alert-always-send" = "Alert dialog button text for crash reporting to always be sent";
+"hockeyapp-alert-privacy" = "Alert dialog button text for HockeyApp privacy policy. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 

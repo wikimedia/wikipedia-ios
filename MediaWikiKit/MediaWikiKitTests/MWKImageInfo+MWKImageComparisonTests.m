@@ -35,8 +35,8 @@
 }
 
 - (void)testAssociation {
-    MWKImage* image        = [self imageAssociatedWithSourceURL:@"some_file_name.jpg/400px-some_file_name.jpg"];
-    MWKImageInfo* info     = [self infoAssociatedWithSourceURL:@"some_file_name.jpg/800px-some_file_name.jpg"];
+    MWKImage* image    = [self imageAssociatedWithSourceURL:@"some_file_name.jpg/400px-some_file_name.jpg"];
+    MWKImageInfo* info = [self infoAssociatedWithSourceURL:@"some_file_name.jpg/800px-some_file_name.jpg"];
     assertThat(image.infoAssociationValue, is(equalTo(info.imageAssociationValue)));
     XCTAssertTrue([info isAssociatedWithImage:image]);
     XCTAssertTrue([image isAssociatedWithInfo:info]);

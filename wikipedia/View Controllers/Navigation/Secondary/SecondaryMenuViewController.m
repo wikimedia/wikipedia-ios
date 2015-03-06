@@ -532,6 +532,13 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
         [self deleteRowWithTag:SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY];
     }
 
+#if WMF_SHOW_DEBUG_MENU
+    if (![[BITHockeyManager sharedHockeyManager] crashManager]) {
+        NSLog(@"Crash reporting is disabled, removing crash button");
+        [self deleteRowWithTag:SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH];
+    }
+#endif
+
     NSString* userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
     if (!userName) {
         [self deleteRowWithTag:SECONDARY_MENU_ROW_INDEX_LOGIN];

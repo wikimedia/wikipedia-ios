@@ -70,6 +70,6 @@ FOUNDATION_EXPORT NSString* WMFNormalizedPageTitle(NSString* rawPageTitle);
 
 + (void)copyAssetsFolderToAppDataDocuments;
 
-+ (NSString*)wmf_appBundleIdentifierForCrashReporting;
++ (NSString*)crashReportingID;
 
 @end

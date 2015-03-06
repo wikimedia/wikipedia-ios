@@ -283,6 +283,7 @@
 		C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		C91A86F41A8BCB680088A801 /* WMFShareCardImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C91A86F31A8BCB680088A801 /* WMFShareCardImageContainer.m */; };
 		C94BE3EE1A8169ED00F2105B /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = C94BE3ED1A8169ED00F2105B /* WMFShareFunnel.m */; };
+		C96335911AA92AAC00A1EB2C /* WMFCrashAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C96335901AA92AAC00A1EB2C /* WMFCrashAlertView.m */; };
 		C979727A1A731EAA00C6ED7A /* ShareOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = C97972791A731EAA00C6ED7A /* ShareOptions.xib */; };
 		C979727D1A731F2D00C6ED7A /* WMFShareOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C979727C1A731F2D00C6ED7A /* WMFShareOptionsView.m */; };
 		C982729B1A803DCC0039FAC3 /* Wikipedia_wordmark_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = C982729A1A803DCC0039FAC3 /* Wikipedia_wordmark_gray.png */; };
@@ -838,6 +839,8 @@
 		C91A86F31A8BCB680088A801 /* WMFShareCardImageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFShareCardImageContainer.m; path = ShareCard/WMFShareCardImageContainer.m; sourceTree = "<group>"; };
 		C94BE3EC1A8169ED00F2105B /* WMFShareFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFShareFunnel.h; path = ShareCard/WMFShareFunnel.h; sourceTree = "<group>"; };
 		C94BE3ED1A8169ED00F2105B /* WMFShareFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFShareFunnel.m; path = ShareCard/WMFShareFunnel.m; sourceTree = "<group>"; };
+		C963358F1AA92AAC00A1EB2C /* WMFCrashAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFCrashAlertView.h; sourceTree = "<group>"; };
+		C96335901AA92AAC00A1EB2C /* WMFCrashAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFCrashAlertView.m; sourceTree = "<group>"; };
 		C97972791A731EAA00C6ED7A /* ShareOptions.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShareOptions.xib; path = ShareCard/ShareOptions.xib; sourceTree = "<group>"; };
 		C979727B1A731F2D00C6ED7A /* WMFShareOptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFShareOptionsView.h; path = ShareCard/WMFShareOptionsView.h; sourceTree = "<group>"; };
 		C979727C1A731F2D00C6ED7A /* WMFShareOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFShareOptionsView.m; path = ShareCard/WMFShareOptionsView.m; sourceTree = "<group>"; };
@@ -2138,6 +2141,8 @@
 			children = (
 				C42D94821A937DE000A4871A /* WMFBorderButton.h */,
 				C42D94831A937DE000A4871A /* WMFBorderButton.m */,
+				C963358F1AA92AAC00A1EB2C /* WMFCrashAlertView.h */,
+				C96335901AA92AAC00A1EB2C /* WMFCrashAlertView.m */,
 				C42D94841A937DE000A4871A /* WMFProgressLineView.h */,
 				C42D94851A937DE000A4871A /* WMFProgressLineView.m */,
 				0480AE9E1AA4F4DA00A9950C /* WMFIntrinsicContentSizeAwareTableView.h */,
@@ -2920,6 +2925,7 @@
 				047E95511996DD030046A122 /* NearbyViewController.m in Sources */,
 				04AE520519DB5E0900F89B92 /* NSObject+ConstraintsScale.m in Sources */,
 				BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
+				C96335911AA92AAC00A1EB2C /* WMFCrashAlertView.m in Sources */,
 				D401C2C01A659E5000D4D127 /* DataMigrationProgressViewController.m in Sources */,
 				04CCCFF01935093A00E3F60C /* SecondaryMenuViewController.m in Sources */,
 				D4B0AE0B19366A2C00F0AC90 /* ReadingActionFunnel.m in Sources */,
