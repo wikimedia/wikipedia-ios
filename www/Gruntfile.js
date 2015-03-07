@@ -34,7 +34,7 @@ module.exports = function (grunt) {
     jshint: {
       allFiles: allScriptFiles,
       options: {
-        jshintrc: ".jshintrc"
+        jshintrc: true
       }
     },
 
@@ -53,5 +53,5 @@ module.exports = function (grunt) {
     }
   } );
 
-  grunt.registerTask('default', [/*'jshint',*/ 'browserify', 'less', 'copy']);
+  grunt.registerTask('default', ['jshint', 'browserify', 'less', 'copy']);
 };

@@ -1,11 +1,11 @@
-(function (module) {
+(function () {
 var bridge = require("./bridge");
 var transformer = require("./transformer");
 var refs = require("./refs");
 
 // DOMContentLoaded fires before window.onload! That's good!
 // See: http://stackoverflow.com/a/3698214/135557
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function() {
 
     transformer.transform( "moveFirstGoodParagraphUp", document );
     transformer.transform( "hideRedlinks", document );
@@ -53,7 +53,7 @@ bridge.registerListener( "setTableLocalization", function( payload ) {
 } );
 
 
-bridge.registerListener( "collapseTables", function( payload ) {
+bridge.registerListener( "collapseTables", function() {
     transformer.transform( "hideTables", document );
 } );
 
@@ -72,7 +72,7 @@ function findParent(element, selector) {
     }
     var maybeLowerCase = function (s) {
         return typeof s === 'string' ? s.toLowerCase() : undefined;
-    }
+    };
     return _findParent(element,
                        maybeLowerCase(matches[1]),
                        maybeLowerCase(matches[2]),
@@ -125,7 +125,7 @@ document.addEventListener(
 
 function handleTouchEnded(event){
     var touchobj = event.changedTouches[0];
-    touchEndY = parseInt(touchobj.clientY);
+    var touchEndY = parseInt(touchobj.clientY);
     if (((touchDownY - touchEndY) === 0) && (event.changedTouches.length === 1)) {
         // None of our tap events should fire if the user dragged vertically.
         touchEndedWithoutDragging(event);
@@ -185,4 +185,4 @@ bridge.registerListener( "setLeadImageDivHeight", function( payload ) {
     div.style.height = payload.height + 'px';
 });
 
-})(module);
+})();
