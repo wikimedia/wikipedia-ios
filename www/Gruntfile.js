@@ -1,12 +1,6 @@
 module.exports = function (grunt) {
   var allScriptFiles = "js/*.js";
 
-  var allStyleFiles = [
-    "less/*.less"
-  ];
-
-  var allHTMLFiles =  "*.html";
-
   var distFolder = '../wikipedia/assets/';
 
   grunt.loadNpmTasks( 'grunt-browserify' );
@@ -15,7 +9,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks( 'grunt-contrib-less' );
 
   grunt.initConfig( {
-    pkg: grunt.file.readJSON( "package.json" ),
 
     browserify: {
       dist: {
