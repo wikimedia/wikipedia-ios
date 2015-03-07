@@ -138,7 +138,10 @@ function touchEndedWithoutDragging(event){
      specify the event's target instead
      */
     var didSendMessage = maybeSendMessageForTarget(event, findParent(event.target, 'A') || event.target);
-    if (!didSendMessage) {
+
+    var hasSelectedText = window.getSelection().rangeCount > 0;
+
+    if (!didSendMessage && !hasSelectedText) {
         // Do NOT prevent default behavior -- this is needed to for instance
         // handle deselection of text.
         bridge.sendMessage('nonAnchorTouchEndedWithoutDragging', {
