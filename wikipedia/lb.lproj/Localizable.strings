@@ -6,6 +6,7 @@
 "article-languages-cancel" = "Ofbriechen";
 "article-languages-downloading" = "Luede vun de Sprooche vum Artikel...";
 "article-languages-filter-placeholder" = "Sproochfilter";
+"article-read-more-title" = "Liest méi";
 "info-box-title" = "Séier Fakten";
 "info-box-close-text" = "Zoumaachen";
 "language-button-text" = "Dir kënnt dësen Artikel a(n) %d anere Sprooche liesen";
@@ -108,11 +109,13 @@
 "main-menu-show-today" = "Haut";
 "main-menu-nearby" = "An der Noperschaft";
 "main-menu-more" = "Méi …";
+"main-menu-debug-crash" = "Crash";
 "saved-pages-title" = "Gespäichert Säiten";
 "saved-pages-clear-confirmation-heading" = "All gespäichert Elementer läschen?";
 "saved-pages-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
 "saved-pages-clear-cancel" = "Ofbriechen";
-"saved-pages-clear-delete-all" = "All läschen";
+"saved-pages-refresh-cancel-alert-title" = "Aktualisatioun ofgegrach";
+"saved-pages-refresh-cancel-alert-button" = "Verstan";
 "page-history-title" = "Versioune vun dëser Säit";
 "page-history-downloading" = "Lëscht vun de Versioune gëtt gelueden...";
 "navbar-title-mode-edit-wikitext" = "Änneren";
@@ -158,7 +161,7 @@
 "share-menu-page-saved" = "Säit gespäichert";
 "share-menu-page-saved-access" = "Tipp: fir op Är gespäichert Säiten ze goen, tippt $1 hei driwwer oder dréckt laang op $2 hei drënner.";
 "share-custom-menu-item" = "Deelen";
-"share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia";
+"share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" op @Wikipedia: \"$2\"";
 "share-as-image" = "Als Bild deelen";
 "share-as-text" = "Als Text deelen";
@@ -206,6 +209,7 @@
 "menu-w-accessibility-label" = "Menü";
 "menu-toc-accessibility-label" = "Inhalter";
 "menu-search-accessibility-label" = "Sichen";
+"menu-reload-accessibility-label" = "Nei lueden";
 "menu-cancel-accessibility-label" = "Ofbriechen";
 "menu-share-accessibility-label" = "Deelen";
 "menu-more-accessibility-label" = "Méi Astellungen";
@@ -226,3 +230,9 @@
 "nearby-location-general-error" = "D'Plaz wou Dir sidd konnt net festgestallt ginn. Dréckt fir z'aktualiséieren oder probéiert méi spéit nach eng Kéier.";
 "nearby-wifi" = "D'Aschalte vum Wifi kann Ärem Apparat hëllefen d'Plaz wou Dir sidd besser festzeleeën.";
 "update-progress-label" = "Aktualiséiere vu lokalen Donnéeën";
+"image-gallery-unknown-owner" = "Eroplueder onbekannt.";
+"hockeyapp-alert-question" = "Wëllt Dir e Rapport vum Crash op $1 schécken esou datt mir de Feeler flécke kënnen?";
+"hockeyapp-alert-send-report" = "Rapport schécken";
+"hockeyapp-alert-always-send" = "Ëmmer schécken";
+"hockeyapp-alert-do-not-send" = "Net schécken";
+"hockeyapp-alert-privacy" = "$1-Dateschutz";

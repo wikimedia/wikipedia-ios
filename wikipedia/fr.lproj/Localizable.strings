@@ -1,6 +1,7 @@
 // Messages for French (français)
 // Exported from translatewiki.net
 // Author: Brion Vibber
+// Author: Caliburn
 // Author: Gomoko
 // Author: Hydros
 // Author: John Trololo
@@ -13,6 +14,7 @@
 "article-languages-cancel" = "Annuler";
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
 "article-languages-filter-placeholder" = "Filtre de langue";
+"article-read-more-title" = "En savoir plus";
 "info-box-title" = "Faits en bref";
 "info-box-close-text" = "Fermer";
 "language-button-text" = "Vous pouvez lire cet article en %d autres langues";
@@ -122,11 +124,15 @@
 "main-menu-show-today" = "Aujourd’hui";
 "main-menu-nearby" = "À proximité";
 "main-menu-more" = "Plus…";
+"main-menu-heading-debug" = "Déboguage";
+"main-menu-debug-crash" = "Planter";
 "saved-pages-title" = "Pages enregistrées";
 "saved-pages-clear-confirmation-heading" = "Supprimer tous les éléments enregistrés ?";
 "saved-pages-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
 "saved-pages-clear-cancel" = "Annuler";
-"saved-pages-clear-delete-all" = "Supprimer tout";
+"saved-pages-refresh-cancel-alert-title" = "Mise à jour annulée";
+"saved-pages-refresh-cancel-alert-message" = "Les articles de Wikipédia sont mis à jour continuellement. Appuyez sur rafraîchir pour obtenir la dernière version de tous les articles.";
+"saved-pages-refresh-cancel-alert-button" = "L’obtenir";
 "page-history-title" = "Historique de la page";
 "page-history-downloading" = "Chargement de l’historique de la page…";
 "navbar-title-mode-edit-wikitext" = "Modifier";
@@ -177,7 +183,7 @@
 "share-menu-page-saved" = "Page enregistrée";
 "share-menu-page-saved-access" = "Conseil : pour accéder à vos pages enregistrées, tapez $1 ci-dessus ou appuyez longuement sur $2 ci-dessous.";
 "share-custom-menu-item" = "Partager";
-"share-article-name-on-wikipedia" = "« $1 » sur @Wikipedia";
+"share-article-name-on-wikipedia" = "« $1 » sur @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "« $1 » sur @Wikipedia : « $2 »";
 "share-as-image" = "Partager comme image";
 "share-as-text" = "Partager comme texte";
@@ -225,6 +231,7 @@
 "menu-w-accessibility-label" = "Menu";
 "menu-toc-accessibility-label" = "Contenu";
 "menu-search-accessibility-label" = "Rechercher";
+"menu-reload-accessibility-label" = "Recharger";
 "menu-cancel-accessibility-label" = "Annuler";
 "menu-share-accessibility-label" = "Partager";
 "menu-more-accessibility-label" = "Plus de paramètres";
@@ -247,3 +254,11 @@
 "nearby-location-general-error" = "Impossible de déterminer l’emplacement. Tirer pour rafraîchir ou réessayer ultérieurement.";
 "nearby-wifi" = "L’activation du wifi peut aider votre appareil à mieux déterminer votre emplacement.";
 "update-progress-label" = "Mise à jour des données locales";
+"image-gallery-unknown-owner" = "Téléchargeur inconnu.";
+"hockeyapp-alert-question" = "Voulez-vous envoyer un rapport de plantage à $1 pour que nous puissions le corriger ?";
+"hockeyapp-alert-question-with-response-field" = "Voulez-vous envoyer un rapport de plantage à $1 pour que nous puissions le corriger ? Veuillez décrire ce qui s’est produit lorsque le plantage s’est produit :";
+"hockeyapp-alert-title" = "Désolé, l’application s’est plantée la dernière fois";
+"hockeyapp-alert-send-report" = "Envoyer un rapport";
+"hockeyapp-alert-always-send" = "Toujours envoyer";
+"hockeyapp-alert-do-not-send" = "Ne pas envoyer";
+"hockeyapp-alert-privacy" = "Confidentialité de $1";

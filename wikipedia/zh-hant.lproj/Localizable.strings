@@ -46,7 +46,7 @@
 "account-creation-username-placeholder-text" = "使用者名稱";
 "account-creation-password-placeholder-text" = "密碼";
 "account-creation-password-confirm-placeholder-text" = "確認密碼";
-"account-creation-email-placeholder-text" = "電子郵件（可選）";
+"account-creation-email-placeholder-text" = "電子郵箱（可選）";
 "account-creation-missing-fields" = "您必須輸入使用者名稱與密碼，並且在確認密碼之後才能建立一個帳號。";
 "login-name-not-found" = "需要使用者名稱才能登入。";
 "login-name-illegal" = "您提供的使用者名稱無效。";
@@ -124,7 +124,6 @@
 "saved-pages-clear-confirmation-heading" = "删除所有已保存的项目？";
 "saved-pages-clear-confirmation-sub-heading" = "此操作不能復原！";
 "saved-pages-clear-cancel" = "取消";
-"saved-pages-clear-delete-all" = "删除全部";
 "page-history-title" = "頁面歷史";
 "page-history-downloading" = "正在載入頁面歷史……";
 "navbar-title-mode-edit-wikitext" = "編輯";
@@ -179,7 +178,9 @@
 "timestamp-days" = "%d日前";
 "timestamp-months" = "%d個月前";
 "timestamp-years" = "%d年前";
+// Fuzzy
 "lastmodified-by-user" = "由$2修改的$1";
+// Fuzzy
 "lastmodified-by-anon" = "由匿名使用者修改的$1";
 "button-next" = "下一步";
 "button-done" = "已完成";

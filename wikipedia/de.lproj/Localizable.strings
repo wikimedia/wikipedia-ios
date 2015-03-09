@@ -7,6 +7,7 @@
 "article-languages-cancel" = "Abbrechen";
 "article-languages-downloading" = "Lade Artikelsprachen …";
 "article-languages-filter-placeholder" = "Sprachfilter";
+"article-read-more-title" = "Mehr lesen";
 "info-box-title" = "Schnelle Fakten";
 "info-box-close-text" = "Schließen";
 "language-button-text" = "Du kannst diesen Artikel in %d anderen Sprachen lesen";
@@ -116,11 +117,15 @@
 "main-menu-show-today" = "Heute";
 "main-menu-nearby" = "In der Nähe";
 "main-menu-more" = "Mehr …";
+"main-menu-heading-debug" = "Fehlerbehebung";
+"main-menu-debug-crash" = "Absturz";
 "saved-pages-title" = "Gespeicherte Seiten";
 "saved-pages-clear-confirmation-heading" = "Alle gespeicherten Objekte löschen?";
 "saved-pages-clear-confirmation-sub-heading" = "Diese Aktion kann nicht rückgängig gemacht werden!";
 "saved-pages-clear-cancel" = "Abbrechen";
-"saved-pages-clear-delete-all" = "Alle löschen";
+"saved-pages-refresh-cancel-alert-title" = "Aktualisierung abgebrochen";
+"saved-pages-refresh-cancel-alert-message" = "Wikipedia-Artikel werden ständig aktualisiert. Tippe auf „Aktualisieren“, um die neuesten Versionen aller Artikel abzurufen.";
+"saved-pages-refresh-cancel-alert-button" = "Verstanden";
 "page-history-title" = "Versionsgeschichte";
 "page-history-downloading" = "Lade Versionsgeschichte …";
 "navbar-title-mode-edit-wikitext" = "Bearbeiten";
@@ -171,7 +176,7 @@
 "share-menu-page-saved" = "Seite gespeichert";
 "share-menu-page-saved-access" = "Tipp: Um auf deine gespeicherten Seiten zuzugreifen, tippe oben auf $1 oder halte unten $2 gedrückt.";
 "share-custom-menu-item" = "Teilen";
-"share-article-name-on-wikipedia" = "„$1“ auf @Wikipedia";
+"share-article-name-on-wikipedia" = "„$1“ auf @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "„$1“ auf @Wikipedia: „$2“";
 "share-as-image" = "Als Bild teilen";
 "share-as-text" = "Als Text teilen";
@@ -181,8 +186,8 @@
 "timestamp-days" = "vor %d Tagen";
 "timestamp-months" = "vor %d Monaten";
 "timestamp-years" = "vor %d Jahren";
-"lastmodified-by-user" = "Geändert $1 von $2";
-"lastmodified-by-anon" = "Geändert $1 von einem anonymen Benutzer";
+"lastmodified-by-user" = "Bearbeitet $1 von $2";
+"lastmodified-by-anon" = "Bearbeitet $1 von einem anonymen Benutzer";
 "button-next" = "Nächste";
 "button-done" = "Fertig";
 "button-save" = "Speichern";
@@ -219,6 +224,7 @@
 "menu-w-accessibility-label" = "Menü";
 "menu-toc-accessibility-label" = "Inhalte";
 "menu-search-accessibility-label" = "Suchen";
+"menu-reload-accessibility-label" = "Neu laden";
 "menu-cancel-accessibility-label" = "Abbrechen";
 "menu-share-accessibility-label" = "Teilen";
 "menu-more-accessibility-label" = "Weitere Einstellungen";
@@ -241,3 +247,11 @@
 "nearby-location-general-error" = "Standort konnte nicht bestimmt werden. Zum Aktualisieren ziehen oder später erneut versuchen.";
 "nearby-wifi" = "Das Aktivieren von Wi-Fi kann dabei helfen, den Standort deines Gerätes besser zu bestimmen.";
 "update-progress-label" = "Aktualisiere lokale Daten";
+"image-gallery-unknown-owner" = "Hochlader unbekannt.";
+"hockeyapp-alert-question" = "Möchtest du einen Absturzbericht an $1 senden, so dass wir deinen Absturz beheben können?";
+"hockeyapp-alert-question-with-response-field" = "Möchtest du einen Absturzbericht an $1 senden, so dass wir deinen Absturz beheben können? Bitte beschreibe, was passiert ist, als der Absturz aufgetreten ist:";
+"hockeyapp-alert-title" = "Leider ist die App beim letzten Mal abgestürzt";
+"hockeyapp-alert-send-report" = "Bericht senden";
+"hockeyapp-alert-always-send" = "Immer senden";
+"hockeyapp-alert-do-not-send" = "Nicht senden";
+"hockeyapp-alert-privacy" = "$1-Datenschutz";

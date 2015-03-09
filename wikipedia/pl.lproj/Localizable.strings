@@ -14,6 +14,7 @@
 "article-languages-cancel" = "Anuluj";
 "article-languages-downloading" = "Ładowanie języków artykułu...";
 "article-languages-filter-placeholder" = "Filtr językowy";
+"article-read-more-title" = "Czytaj więcej";
 "info-box-close-text" = "Zamknij";
 "language-button-text" = "Możesz czytać ten artykuł w %d innych językach.";
 "history-label" = "Ostatnie";
@@ -105,7 +106,6 @@
 "saved-pages-clear-confirmation-heading" = "Usunąć wszystkie zapisane elementy?";
 "saved-pages-clear-confirmation-sub-heading" = "Ta akcja nie można zostać cofnięta!";
 "saved-pages-clear-cancel" = "Anuluj";
-"saved-pages-clear-delete-all" = "Usuń wszystko";
 "page-history-title" = "Historia strony";
 "page-history-downloading" = "Ładowanie historii artykułu...";
 "navbar-title-mode-edit-wikitext" = "Edytuj";
@@ -141,7 +141,9 @@
 "timestamp-days" = "%d dni temu";
 "timestamp-months" = "%d miesięcy temu";
 "timestamp-years" = "%d lat temu";
+// Fuzzy
 "lastmodified-by-user" = "$1 zmodyfikowana przez $2";
+// Fuzzy
 "lastmodified-by-anon" = "$ zmodyfikowany przez anonimowego użytkownika";
 "button-next" = "Następny";
 "button-done" = "Gotowe";

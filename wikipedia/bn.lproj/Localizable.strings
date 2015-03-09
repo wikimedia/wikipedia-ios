@@ -105,7 +105,8 @@
 "saved-pages-title" = "সংরক্ষিত পাতা";
 "saved-pages-clear-confirmation-heading" = "সংরক্ষিত সব আইটেম অপসারণ করবেন?";
 "saved-pages-clear-cancel" = "বাতিল";
-"saved-pages-clear-delete-all" = "সব মুছে ফেলুন";
+"saved-pages-refresh-cancel-alert-title" = "আপলোড বাতিল হয়েছে";
+"saved-pages-refresh-cancel-alert-button" = "বুঝেছি";
 "page-history-title" = "পাতার ইতিহাস";
 "page-history-downloading" = "পাতার ইতিহাস লোড হচ্ছে...";
 "navbar-title-mode-edit-wikitext" = "সম্পাদনা";
@@ -147,7 +148,9 @@
 "timestamp-days" = "%d দিন আগে";
 "timestamp-months" = "%d মাস আগে";
 "timestamp-years" = "%d বছর আগে";
+// Fuzzy
 "lastmodified-by-user" = "$2 দ্বারা $1 সম্পাদিত";
+// Fuzzy
 "lastmodified-by-anon" = "একজন বেনামী ব্যবহারকারী দ্বারা $1 সম্পাদিত";
 "button-next" = "পরবর্তী";
 "button-done" = "সম্পন্ন";
@@ -185,6 +188,7 @@
 "menu-w-accessibility-label" = "মেনু";
 "menu-toc-accessibility-label" = "পরিচ্ছেদসমূহ";
 "menu-search-accessibility-label" = "অনুসন্ধান";
+"menu-reload-accessibility-label" = "পুনঃলোড";
 "menu-cancel-accessibility-label" = "বাতিল";
 "menu-share-accessibility-label" = "বণ্টন";
 "menu-more-accessibility-label" = "আরো সেটিংস";

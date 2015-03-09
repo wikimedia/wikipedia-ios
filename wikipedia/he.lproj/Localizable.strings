@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Amire80
 // Author: Inkbug
+// Author: Macofe
 // Author: Matanya
 // Author: איתן96
 
@@ -9,6 +10,7 @@
 "article-languages-cancel" = "ביטול";
 "article-languages-downloading" = "טעינת שפות הערך...";
 "article-languages-filter-placeholder" = "סינון שפה";
+"article-read-more-title" = "לקרוא עוד";
 "info-box-title" = "עובדות מהירות";
 "info-box-close-text" = "סגירה";
 "language-button-text" = "אפשר לקרוא את הערך הזה בעוד %d שפות";
@@ -118,11 +120,15 @@
 "main-menu-show-today" = "היום";
 "main-menu-nearby" = "בסביבה";
 "main-menu-more" = "עוד...";
+"main-menu-heading-debug" = "תיקון שגיאות";
+"main-menu-debug-crash" = "הקרסה";
 "saved-pages-title" = "דפים שמורים";
 "saved-pages-clear-confirmation-heading" = "למחוק את כל הפריטים השמורים?";
 "saved-pages-clear-confirmation-sub-heading" = "לא ניתן לבטל את הפעולה הזאת!";
 "saved-pages-clear-cancel" = "ביטול";
-"saved-pages-clear-delete-all" = "למחוק הכול";
+"saved-pages-refresh-cancel-alert-title" = "העדכון בוטל";
+"saved-pages-refresh-cancel-alert-message" = "ערכים בוויקיפדיה מתעדכנים כל הזמן. יש ללחוץ על רענון כדי לקבל את הגרסה החדשה ביותר של כל הערכים.";
+"saved-pages-refresh-cancel-alert-button" = "הבנתי";
 "page-history-title" = "היסטוריית הדף";
 "page-history-downloading" = "טעינת היסטוריית הדף";
 "navbar-title-mode-edit-wikitext" = "עריכה";
@@ -173,7 +179,7 @@
 "share-menu-page-saved" = "הדף נשמר";
 "share-menu-page-saved-access" = "עצה: כדי לגשת לדפים השמורים שלך, יש ללחוץ על $1 למעלה או לעשות לחיצה ארוכה על $2 למטה.";
 "share-custom-menu-item" = "שיתוף";
-"share-article-name-on-wikipedia" = "\"$1\" באתר @wikipedia";
+"share-article-name-on-wikipedia" = "\"$1\" באתר @wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" באתר @wikipedia: \"$2\"";
 "share-as-image" = "שיתוף תמונה";
 "share-as-text" = "שיתוף טקסט";
@@ -183,8 +189,8 @@
 "timestamp-days" = "לפני %d ימים";
 "timestamp-months" = "לפני %d חודשים";
 "timestamp-years" = "לפני %d שנים";
-"lastmodified-by-user" = "שוּנה $1 על־ידי $2";
-"lastmodified-by-anon" = "שו–נה $1 על־ידי משתמש אלמוני";
+"lastmodified-by-user" = "נערך $1 על־ידי $2";
+"lastmodified-by-anon" = "נערך $1 על־ידי משתמש אלמוני";
 "button-next" = "הבא";
 "button-done" = "בוצע";
 "button-save" = "שמירה";
@@ -221,6 +227,7 @@
 "menu-w-accessibility-label" = "תפריט";
 "menu-toc-accessibility-label" = "תוכן עניינים";
 "menu-search-accessibility-label" = "חיפוש";
+"menu-reload-accessibility-label" = "רענון";
 "menu-cancel-accessibility-label" = "ביטול";
 "menu-share-accessibility-label" = "שיתוף";
 "menu-more-accessibility-label" = "הגדרות נוספות";
@@ -243,3 +250,11 @@
 "nearby-location-general-error" = "לא ניתן להבין מה המיקום. נא למשוך לרענון או לנסות מאוחר יותר.";
 "nearby-wifi" = "הפעלת וייפיי יכולה לעזור למכשיר שלך להבין את המיקום טוב יותר.";
 "update-progress-label" = "שדרוג נתונים מקומיים";
+"image-gallery-unknown-owner" = "המעלֶה אינו ידוע.";
+"hockeyapp-alert-question" = "האם לשלוח דיווח קריסה אל $1 כדי שנוכל לתקן את הקריסה שלך?";
+"hockeyapp-alert-question-with-response-field" = "האם לשלוח דיווח קריסה אל $1 כדי שנוכל לתקן את הקריסה שלך? נא לתאר מה קרה בזמן שאירעה הקריסה:";
+"hockeyapp-alert-title" = "סליחה, היישום קרס בפעם הקודמת";
+"hockeyapp-alert-send-report" = "שליחת דיווח";
+"hockeyapp-alert-always-send" = "לשלוח תמיד";
+"hockeyapp-alert-do-not-send" = "לא לשלוח";
+"hockeyapp-alert-privacy" = "פרטיות של $1";

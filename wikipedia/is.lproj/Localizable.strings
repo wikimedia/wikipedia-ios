@@ -1,6 +1,7 @@
 // Messages for Icelandic (íslenska)
 // Exported from translatewiki.net
 // Author: Fitoschido
+// Author: Macofe
 // Author: Maxí
 
 "article-languages-label" = "Velja tungumál";
@@ -120,7 +121,6 @@
 "saved-pages-clear-confirmation-heading" = "Á að eyða öllum nýlegum atriðum?";
 "saved-pages-clear-confirmation-sub-heading" = "Þessa aðgerð er ekki hægt að afturkalla!";
 "saved-pages-clear-cancel" = "Hætta við";
-"saved-pages-clear-delete-all" = "Eyða öllu";
 "page-history-title" = "Breytingaskrá greinar";
 "page-history-downloading" = "Hleður breytingaskrá greinar...";
 "navbar-title-mode-edit-wikitext" = "Breyta";
@@ -149,14 +149,41 @@
 "fetching-random-article" = "Sækir handahófsvalda grein";
 "article-pull-to-refresh-prompt" = "Toga til að endurhlaða greinina";
 "article-pull-to-refresh-is-refreshing" = "Endurhleður greinina";
+"credits-title" = "Opin söfn";
+"credits-wikimedia-repos" = "Wikimedia-söfn";
+"credits-gerrit-repo" = "App main (Gerrit)";
+"credits-github-mirror" = "App mirror (GitHub)";
+"credits-external-libraries" = "Utanáliggjandi söfn";
 "about-title" = "Um";
 "about-wikipedia" = "Wikipedia";
+"about-contributors" = "framleggjendur";
+"about-testers" = "prófarar";
+"about-testers-details" = "Gæðaprófað af $1";
+"about-translators" = "þýðendur";
+"about-translators-details" = "Þýtt af sjálfboðaaðilum á $1";
+"about-libraries" = "notuð söfn";
+"about-libraries-license" = "Leyfi";
+"about-repositories" = "söfn";
+"about-send-feedback" = "Senda ábendingar um appið";
+"about-product-of" = "Vara frá $1";
+"about-wikimedia-foundation" = "Wikimedia Foundation";
+"share-menu-save-page" = "Vista síðu";
+"share-menu-page-saved" = "Vista $1 fyrir tengingarlausan lestur";
+"share-menu-page-saved-access" = "Smáráð: til að fá aðgang að vistuðu síðunum þínum, bankaði á $1 fyrir ofan eða ýttu og haltu niðri á $2 fyrir neðan.";
+"share-custom-menu-item" = "Deila";
+"share-article-name-on-wikipedia" = "„$1“ á @Wikipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "„$1“ á @Wikipedia: „$2“";
+"share-as-image" = "Deila sem mynd";
+"share-as-text" = "Deila sem texta";
+"timestamp-just-now" = "rétt í þessu";
 "timestamp-minutes" = "Fyrir %d mínútum";
 "timestamp-hours" = "Fyrir %d tímum";
 "timestamp-days" = "Fyrir %d dögum";
 "timestamp-months" = "Fyrir %d mánuðum";
 "timestamp-years" = "Fyrir %d árum";
+// Fuzzy
 "lastmodified-by-user" = "Breytt $1 af $2";
+// Fuzzy
 "lastmodified-by-anon" = "Breytt $1 af leyninotanda";
 "button-next" = "Áfram";
 "button-done" = "Búið";
@@ -179,6 +206,20 @@
 "table-of-contents-heading" = "Efni";
 "abuse-filter-warning-heading" = "Þetta lítur ekki út fyrir að vera uppbyggileg breyting, ert þú viss um að þú viljir vista hana?";
 "abuse-filter-warning-subheading" = "Breyting þín gæti innihaldið eitt eða fleira af eftirfarandi:";
+"abuse-filter-warning-caps" = "Textinn er í STÓRUM BÓKSTÖFUM";
+"abuse-filter-warning-blanking" = "Tæming greina eða þvaður";
+"abuse-filter-warning-irrelevant" = "Óviðeigandi tenglar eða myndir";
+"abuse-filter-warning-repeat" = "Enduuuurteknir bókstafir";
+"abuse-filter-disallow-heading" = "Þú getur ekki vistað þessa breytingu. Vinsamlegast breyttu henni.";
+"abuse-filter-disallow-unconstructive" = "Sjálfvirk sía hefur greint þessa breytingu sem eyðileggjandi eða sem tilraun á skemmdarverki.";
+"abuse-filter-disallow-notable" = "Wikipedia er alfræðirit og í því tilheyrir aðeins hlutlaust og markvert efni.";
+"menu-edit-accessibility-label" = "Breyta";
+"menu-close-accessibility-label" = "Loka";
+"menu-preview-accessibility-label" = "Forskoða";
+"menu-back-accessibility-label" = "Til baka";
+"menu-forward-accessibility-label" = "Áfram";
+"menu-w-accessibility-label" = "Valmynd";
+"menu-toc-accessibility-label" = "Innihald";
 "menu-search-accessibility-label" = "Leita";
 "menu-cancel-accessibility-label" = "Hætta við";
 "menu-share-accessibility-label" = "Deila";
@@ -193,6 +234,12 @@
 "nearby-pull-to-refresh-is-refreshing" = "Endurhleður";
 "nearby-loading" = "Hleður greinar í nágrenni...";
 "nearby-loaded" = "Búið að hlaða greinar í nágrenni";
+"nearby-none" = "Engar greinar finnast í nágrenni. Togaðu til að endurhlaða eða reyndu síðar.";
 "nearby-open-in-maps" = "Opna í Kortum";
 "nearby-cancel" = "Hætta við";
 "nearby-location-updates-denied" = "Þetta app hefur ekki heimild til að móttaka uppfærslur um staðsetingu þína.";
+"nearby-location-updates-enable" = "Til að virkja staðsetningaruppfærslur, opnaðu Settings-appið og veldu eftirfarandi:";
+"nearby-location-updates-settings-menu" = "Privacy > Location Services > Wikipedia";
+"nearby-location-general-error" = "Tókst ekki að finna staðsetningu. Togaðu til að endurhlaða eða reyndu síðar.";
+"nearby-wifi" = "Að kveikja á wifi-tengingu getur hjálpað tækinu þínu að finna staðsetningu þína betur.";
+"update-progress-label" = "Uppfærir staðsetningargögn";

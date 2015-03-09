@@ -1,6 +1,7 @@
 // Messages for Vietnamese (Tiếng Việt)
 // Exported from translatewiki.net
 // Author: Brion
+// Author: Macofe
 // Author: Max20091
 // Author: Minh Nguyen
 
@@ -8,6 +9,7 @@
 "article-languages-cancel" = "Hủy bỏ";
 "article-languages-downloading" = "Đang tải các ngôn ngữ của bài…";
 "article-languages-filter-placeholder" = "Lọc Ngôn ngữ";
+"article-read-more-title" = "Đọc tiếp";
 "info-box-title" = "Thông tin nhanh";
 "info-box-close-text" = "Đóng";
 "language-button-text" = "Bạn có thể đọc bài này trong %d ngôn ngữ khác";
@@ -117,11 +119,15 @@
 "main-menu-show-today" = "Hôm nay";
 "main-menu-nearby" = "Lân cận";
 "main-menu-more" = "Thêm…";
+"main-menu-heading-debug" = "Gỡ lỗi";
+"main-menu-debug-crash" = "Gây Sự cố";
 "saved-pages-title" = "Trang đã Lưu";
 "saved-pages-clear-confirmation-heading" = "Xóa tất cả các mục đã lưu?";
 "saved-pages-clear-confirmation-sub-heading" = "Không thể hoàn tác tác vụ này!";
 "saved-pages-clear-cancel" = "Hủy bỏ";
-"saved-pages-clear-delete-all" = "Xóa Toàn bộ";
+"saved-pages-refresh-cancel-alert-title" = "Đã hủy cập nhật";
+"saved-pages-refresh-cancel-alert-message" = "Các bài viết Wikipedia được cập nhật rất thường xuyên. Chạm vào Tải lại để lấy bản mới nhất của các bài.";
+"saved-pages-refresh-cancel-alert-button" = "Được rồi";
 "page-history-title" = "Lịch sử trang";
 "page-history-downloading" = "Đang tải lịch sử trang…";
 "navbar-title-mode-edit-wikitext" = "Sửa đổi";
@@ -172,7 +178,7 @@
 "share-menu-page-saved" = "Đã Lưu Bài";
 "share-menu-page-saved-access" = "Mẹo: Để truy cập các trang đã lưu của bạn, chạm vào $1 bên trên hoặc bấm lâu $2 bên dưới.";
 "share-custom-menu-item" = "Chia sẻ";
-"share-article-name-on-wikipedia" = "“$1” trên @Wikipedia";
+"share-article-name-on-wikipedia" = "“$1” trên @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "“$1” trên @Wikipedia: “$2”";
 "share-as-image" = "Chia sẻ hình ảnh";
 "share-as-text" = "Chia sẻ văn bản";
@@ -182,8 +188,8 @@
 "timestamp-days" = "%d ngày trước";
 "timestamp-months" = "%d tháng trước";
 "timestamp-years" = "%d năm trước";
-"lastmodified-by-user" = "Được thay đổi $1 bởi $2";
-"lastmodified-by-anon" = "Được thay đổi $1 bởi người dùng vô danh";
+"lastmodified-by-user" = "Được sửa đổi $1 bởi $2";
+"lastmodified-by-anon" = "Được sửa đổi $1 bởi người dùng vô danh";
 "button-next" = "Tiếp";
 "button-done" = "Xong";
 "button-save" = "Lưu";
@@ -220,6 +226,7 @@
 "menu-w-accessibility-label" = "Trình đơn";
 "menu-toc-accessibility-label" = "Mục lục";
 "menu-search-accessibility-label" = "Tìm kiếm";
+"menu-reload-accessibility-label" = "Tải lại";
 "menu-cancel-accessibility-label" = "Hủy bỏ";
 "menu-share-accessibility-label" = "Chia sẻ";
 "menu-more-accessibility-label" = "Thêm tùy chọn";
@@ -242,3 +249,11 @@
 "nearby-location-general-error" = "Không thể xác định vị trí. Kéo xuống để làm mới hoặc thử lại sau.";
 "nearby-wifi" = "Bật lên Wi-Fi để giúp thiết bị của bạn xác định vị trí của bạn một cách chính xác hơn.";
 "update-progress-label" = "Đang nâng cấp dữ liệu địa phương";
+"image-gallery-unknown-owner" = "Người tải lên không rõ.";
+"hockeyapp-alert-question" = "Bạn có muốn gửi bản báo cáo sự cố cho $1 để giúp chúng tôi sửa lỗi này?";
+"hockeyapp-alert-question-with-response-field" = "Bạn có muốn gửi bản báo cáo sự cố cho $1 để giúp chúng tôi sửa lỗi này? Vui lòng miêu tả những gì đã xảy ra vào lúc sự cố:";
+"hockeyapp-alert-title" = "Rất tiếc, ứng dụng gặp sự cố lần vừa rồi";
+"hockeyapp-alert-send-report" = "Gửi báo cáo";
+"hockeyapp-alert-always-send" = "Luôn gửi";
+"hockeyapp-alert-do-not-send" = "Đừng gửi";
+"hockeyapp-alert-privacy" = "Quyền riêng tư $1";

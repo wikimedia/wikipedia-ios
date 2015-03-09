@@ -1,6 +1,7 @@
 // Messages for Catalan (català)
 // Exported from translatewiki.net
 // Author: Fitoschido
+// Author: Joan manel
 // Author: Toniher
 
 "21c-U6-yfo.normalTitle" = "Mostra un altre captcha";
@@ -15,10 +16,10 @@
 "aUp-0e-F6i.text" = "No hi ha pàgines recents aquí.";
 "c3c-PU-Exz.text" = "Crea un compte";
 "gPg-cg-Yjy.placeholder" = "Introduïu el text del CAPTCHA de la imatge de dalt";
-"heA-3K-nhS.text" = "Ja teniu un compte? Inicia una sessió";
-"huU-kO-aYI.text" = "Probablement els heu eliminat tots. La propera vegada aneu a una pàgina on podeu tornar-hi des d'aquí.";
-"jiW-Cg-oL3.text" = "Crea un compte";
+"heA-3K-nhS.text" = "Ja teniu un compte? Iniciar una sessió";
+"huU-kO-aYI.text" = "Probablement els heu esborrat tots. La propera vegada que aneu a una pàgina podeu tornar-hi des d'aquí.";
+"jiW-Cg-oL3.text" = "Crear un compte";
 "kVb-lx-d6C.placeholder" = "Contrasenya";
 "mAk-1N-jPC.placeholder" = "Nom d'usuari";
 "rKI-nq-3p7.placeholder" = "Adreça electrònica (opcional)";
-"wkl-j8-wLX.text" = "Crea un compte";
+"wkl-j8-wLX.text" = "Crear un compte";

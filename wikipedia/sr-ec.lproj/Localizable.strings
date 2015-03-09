@@ -86,7 +86,6 @@
 "saved-pages-clear-confirmation-heading" = "Обрисати све сачуване?";
 "saved-pages-clear-confirmation-sub-heading" = "Ова радња се не може поништити!";
 "saved-pages-clear-cancel" = "Откажи";
-"saved-pages-clear-delete-all" = "Обрисати све";
 "page-history-title" = "Историја странице";
 "page-history-downloading" = "Учитавам историју странице...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
@@ -154,6 +153,7 @@
 "menu-w-accessibility-label" = "Мени";
 "menu-toc-accessibility-label" = "Садржај";
 "menu-search-accessibility-label" = "Претрага";
+"menu-reload-accessibility-label" = "Освежи";
 "menu-cancel-accessibility-label" = "Откажи";
 "menu-share-accessibility-label" = "Дели";
 "menu-more-accessibility-label" = "Више подешавања";

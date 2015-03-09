@@ -7,6 +7,8 @@
 "article-languages-cancel" = "Zrušiť";
 "article-languages-downloading" = "Načítam zoznam jazykov...";
 "article-languages-filter-placeholder" = "Jazykový filter";
+"article-read-more-title" = "Ďalšie informácie";
+"info-box-close-text" = "Zavrieť";
 "language-button-text" = "Tento článok si môžete prečítať v %d ďalších jazykoch";
 "history-label" = "Nedávna história prehliadania";
 "history-section-today" = "Dnes";
@@ -40,6 +42,7 @@
 "account-creation-password-placeholder-text" = "Heslo";
 "account-creation-password-confirm-placeholder-text" = "Potvrdiť heslo";
 "account-creation-email-placeholder-text" = "E-mail (voliteľné)";
+"account-creation-missing-fields" = "Aby ste si mohli vytvoriť účet, musíte zadať používateľské meno, heslo a potvrdenie hesla.";
 "login-name-not-found" = "K prihláseniu je potrebné používateľské meno.";
 "login-name-illegal" = "Zadali ste neplatné používateľské meno.";
 "login-name-does-not-exist" = "Zadané používateľské meno neexistuje.";
@@ -110,7 +113,6 @@
 "saved-pages-clear-confirmation-heading" = "Vymazať všetky uložené stránky?";
 "saved-pages-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
 "saved-pages-clear-cancel" = "Zrušiť";
-"saved-pages-clear-delete-all" = "Vymazať všetky";
 "page-history-title" = "História stránky";
 "page-history-downloading" = "Načítavanie histórie stránky...";
 "navbar-title-mode-edit-wikitext" = "Upraviť";

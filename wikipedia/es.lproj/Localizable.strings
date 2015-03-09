@@ -13,6 +13,7 @@
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "Cargando idiomas del artículo…";
 "article-languages-filter-placeholder" = "Filtro de idiomas";
+"article-read-more-title" = "Leer más";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Cerrar";
 "language-button-text" = "Puedes leer este artículo en otros %d idiomas";
@@ -126,7 +127,9 @@
 "saved-pages-clear-confirmation-heading" = "¿Borrar todos los elemento guardados?";
 "saved-pages-clear-confirmation-sub-heading" = "¡Esta acción no se puede deshacer!";
 "saved-pages-clear-cancel" = "Cancelar";
-"saved-pages-clear-delete-all" = "Borrar todo";
+"saved-pages-refresh-cancel-alert-title" = "Actualización cancelada";
+"saved-pages-refresh-cancel-alert-message" = "Los artículos de Wikipedia se actualizan todo el tiempo. Pulsa actualizar para obtener las últimas versiones de todos los artículos.";
+"saved-pages-refresh-cancel-alert-button" = "Entendido";
 "page-history-title" = "Historial de página";
 "page-history-downloading" = "Cargando el historial de la página...";
 "navbar-title-mode-edit-wikitext" = "Editar";
@@ -177,8 +180,8 @@
 "share-menu-page-saved" = "Guardado para leer sin conexión.";
 "share-menu-page-saved-access" = "Consejo: para acceder a tus páginas guardadas, pulsa $1 arriba o mantén apretado $2 abajo.";
 "share-custom-menu-item" = "Compartir";
-"share-article-name-on-wikipedia" = "\"$1\" en @Wikipedia";
-"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" en @Wikipedia: \"$2\"";
+"share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "«$1» en @Wikipedia: «$2»";
 "share-as-image" = "Compartir como imagen";
 "share-as-text" = "Compartir como texto";
 "timestamp-just-now" = "recién";
@@ -187,8 +190,8 @@
 "timestamp-days" = "hace %d días";
 "timestamp-months" = "hace %d meses";
 "timestamp-years" = "hace %d años";
-"lastmodified-by-user" = "Modificada $1 por $2";
-"lastmodified-by-anon" = "Modificada $1 por un usuario anónimo";
+"lastmodified-by-user" = "Editada $1 por $2";
+"lastmodified-by-anon" = "Editada $1 por un usuario anónimo";
 "button-next" = "Siguiente";
 "button-done" = "Hecho";
 "button-save" = "Guardar";
@@ -225,6 +228,7 @@
 "menu-w-accessibility-label" = "Menú";
 "menu-toc-accessibility-label" = "Contenido";
 "menu-search-accessibility-label" = "Buscar";
+"menu-reload-accessibility-label" = "Recargar";
 "menu-cancel-accessibility-label" = "Cancelar";
 "menu-share-accessibility-label" = "Compartir";
 "menu-more-accessibility-label" = "Más opciones";

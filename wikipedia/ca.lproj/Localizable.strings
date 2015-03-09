@@ -4,33 +4,35 @@
 // Author: Brion
 // Author: Fitoschido
 // Author: Gerardduenas
+// Author: Joan manel
 // Author: Macofe
 // Author: SMP
 // Author: Toniher
 
-"article-languages-label" = "Trieu una llengua";
-"article-languages-cancel" = "Cancel·la";
-"article-languages-downloading" = "Carregant llengües de l'article...";
-"article-languages-filter-placeholder" = "Filtre de llengua";
+"article-languages-label" = "Triar un idioma";
+"article-languages-cancel" = "Cancel·lar";
+"article-languages-downloading" = "Carregant els idiomes de l'article...";
+"article-languages-filter-placeholder" = "Filtre d'idioma";
+"article-read-more-title" = "Més informació";
 "info-box-title" = "Dades bàsiques";
-"info-box-close-text" = "Tanca";
-"language-button-text" = "Podeu llegir l'article en %d altres llengües";
-"history-label" = "Recent";
+"info-box-close-text" = "Tancar";
+"language-button-text" = "Podeu llegir l'article en altres %d llengües";
+"history-label" = "Recents";
 "history-section-today" = "Avui";
 "history-section-yesterday" = "Ahir";
-"history-section-lastweek" = "Darrera setmana";
-"history-section-lastmonth" = "Darrer mes";
+"history-section-lastweek" = "La setmana passada";
+"history-section-lastmonth" = "El mes passat";
 "history-clear-confirmation-heading" = "Eliminar els elements recents?";
 "history-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
-"history-clear-cancel" = "Cancel·la";
-"history-clear-delete-all" = "Esborra tot";
-"zero-free-verbiage" = "Accés lliure a la Viquipèdia des del teu operador mòbil (sense càrrecs per transmissió de dades)";
-"zero-charged-verbiage" = "Viquipèdia Zero DESACTIVAT";
-"zero-charged-verbiage-extended" = "La càrrega d'articles pot comportar en costos de dades. Els articles emmagatzemats fora de línia no utilitzen les dades i són gratuïts.";
+"history-clear-cancel" = "Cancel·lar";
+"history-clear-delete-all" = "Esborrar tot";
+"zero-free-verbiage" = "Accés lliure a la Viquipèdia des del vostre operador mòbil (sense càrrecs per transmissió de dades)";
+"zero-charged-verbiage" = "Viquipèdia Zero desactivat";
+"zero-charged-verbiage-extended" = "Carregar articles addicionals pot implicar costos per transmissió de dades. Els articles emmagatzemats sense connexió no impliquen transmissió de dades i són gratuïts.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
-"zero-interstitial-title" = "Sortida de Wikipedia Zero";
-"zero-interstitial-leave-app" = "Poden aplicar-se costos de dades. Voleu continuar a un lloc extern?";
-"zero-interstitial-continue" = "Deixa";
+"zero-interstitial-title" = "Sortida de Viquipèdia Zero";
+"zero-interstitial-leave-app" = "Us poden cobrar per l'ús de dades. Segur que voleu anar al lloc extern?";
+"zero-interstitial-continue" = "Sortir";
 "zero-interstitial-cancel" = "Roman aquí";
 "zero-learn-more" = "S'aplicaran costos de dades per a aquesta aplicació de la Viquipèdia.";
 "zero-learn-more-learn-more" = "Més informació";
@@ -48,6 +50,7 @@
 "account-creation-password-placeholder-text" = "Contrasenya";
 "account-creation-password-confirm-placeholder-text" = "Confirma la contrasenya";
 "account-creation-email-placeholder-text" = "Adreça electrònica (opcional)";
+"account-creation-missing-fields" = "Heu d'introduir un nom d'usuari, contrasenya i confirmació de contrasenya per crear un compte.";
 "login-name-not-found" = "Cal el nom d'usuari per iniciar una sessió.";
 "login-name-illegal" = "Heu introduït un nom d'usuari invàlid.";
 "login-name-does-not-exist" = "El nom d'usuari que heu proporcionat no existeix.";
@@ -124,7 +127,9 @@
 "saved-pages-clear-confirmation-heading" = "Suprimir tots els elements desats?";
 "saved-pages-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "saved-pages-clear-cancel" = "Cancel·la";
-"saved-pages-clear-delete-all" = "Esborra tot";
+"saved-pages-refresh-cancel-alert-title" = "Actualització cancel·lada";
+"saved-pages-refresh-cancel-alert-message" = "Els articles de la Viquipèdia s'actualitzen constantment. Feu un toc per obtenir la darrera versió de tots els articles.";
+"saved-pages-refresh-cancel-alert-button" = "Ho he entès";
 "page-history-title" = "Historial de l'article";
 "page-history-downloading" = "S'està carregant l'historial de l'article...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
@@ -175,6 +180,10 @@
 "share-menu-page-saved" = "Article desat";
 "share-menu-page-saved-access" = "Consell: per accedir a les vostres pàgines desades, puntegeu en $1 a dalt o premeu uns moments $2 a sota.";
 "share-custom-menu-item" = "Comparteix";
+"share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "«$1» a @Viquipedia: «$2»";
+"share-as-image" = "Comparteix com imatge";
+"share-as-text" = "Comparteix com text";
 "timestamp-just-now" = "ara mateix";
 "timestamp-minutes" = "fa %d minuts";
 "timestamp-hours" = "fa %d hores";
@@ -219,6 +228,7 @@
 "menu-w-accessibility-label" = "Menú";
 "menu-toc-accessibility-label" = "Contingut";
 "menu-search-accessibility-label" = "Cerca";
+"menu-reload-accessibility-label" = "Recarrega";
 "menu-cancel-accessibility-label" = "Cancel·la";
 "menu-share-accessibility-label" = "Comparteix";
 "menu-more-accessibility-label" = "Més paràmetres";
@@ -240,3 +250,4 @@
 "nearby-location-updates-settings-menu" = "Privacitat > Localització > Wikipedia";
 "nearby-location-general-error" = "No es pot determinar la ubicació. Arrossegueu per refrescar-la o torneu-ho a provar més endavant.";
 "nearby-wifi" = "Si activeu la Wi-Fi pot ajudar el vostre dispositiu a determinar millor la vostra localització.";
+"update-progress-label" = "S'estan actualitzant les dades locals";

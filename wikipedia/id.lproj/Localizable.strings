@@ -4,6 +4,7 @@
 // Author: BaconSenpai
 // Author: Bennylin
 // Author: C5st4wr6ch
+// Author: Fate Kage
 // Author: Iwan Novirion
 // Author: Kenrick95
 // Author: Relly Komaruzaman
@@ -13,6 +14,9 @@
 "article-languages-cancel" = "Batal";
 "article-languages-downloading" = "Memuat bahasa artikel...";
 "article-languages-filter-placeholder" = "Saring Bahasa";
+"article-read-more-title" = "Baca lebih lanjut";
+"info-box-title" = "Fakta cepat";
+"info-box-close-text" = "Tutup";
 "language-button-text" = "Anda dapat membaca artikel ini dalam %d bahasa lain";
 "history-label" = "Terkini";
 "history-section-today" = "Hari ini";
@@ -46,7 +50,7 @@
 "account-creation-username-placeholder-text" = "Nama pengguna";
 "account-creation-password-placeholder-text" = "Kata sandi";
 "account-creation-password-confirm-placeholder-text" = "Konfirmasi kata sandi";
-"account-creation-email-placeholder-text" = "Alamat surel/email (dianjurkan untuk diisi)";
+"account-creation-email-placeholder-text" = "Alamat surel/email (sebaiknya diisi)";
 "account-creation-missing-fields" = "Anda harus memasukkan nama pengguna, kata sandi, dan mengonfirmasi kata sandi untuk membuat sebuah akun.";
 "login-name-not-found" = "Nama pengguna diperlukan untuk masuk log.";
 "login-name-illegal" = "Anda memberikan nama pengguna yang tidak sah.";
@@ -118,13 +122,17 @@
 "main-menu-heading-zero" = "Wikipedia Nol";
 "main-menu-heading-legal" = "Informasi hukum";
 "main-menu-show-today" = "Hari ini";
-"main-menu-nearby" = "Dekat";
+"main-menu-nearby" = "Sekitaran";
 "main-menu-more" = "Lainnya...";
+"main-menu-heading-debug" = "Debug";
+"main-menu-debug-crash" = "Hancur";
 "saved-pages-title" = "Artikel tersimpan";
 "saved-pages-clear-confirmation-heading" = "Hapus semua butir yang disimpan?";
 "saved-pages-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";
 "saved-pages-clear-cancel" = "Batal";
-"saved-pages-clear-delete-all" = "Hapus Semua";
+"saved-pages-refresh-cancel-alert-title" = "Pembaruan dibatalkan";
+"saved-pages-refresh-cancel-alert-message" = "Artikel Wikipedia diperbarui setiap saat. Ketuk segarkan untuk mendapatkan versi terbaru dari semua artikel.";
+"saved-pages-refresh-cancel-alert-button" = "Mengerti";
 "page-history-title" = "Versi terdahulu halaman";
 "page-history-downloading" = "Memuat riwayat artikel...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
@@ -166,6 +174,7 @@
 "about-translators" = "penerjemah";
 "about-translators-details" = "Diterjemahkan oleh relawan pada $1";
 "about-libraries" = "pustaka yang digunakan";
+"about-libraries-license" = "Lisensi";
 "about-repositories" = "penyimpanan";
 "about-send-feedback" = "Kirim umpan balik aplikasi";
 "about-product-of" = "Sebuah produk dari $1";
@@ -173,14 +182,19 @@
 "share-menu-save-page" = "Simpan Artikel";
 "share-menu-page-saved" = "Artikel Disimpan";
 "share-menu-page-saved-access" = "Tip: untuk mengakses halaman tersimpan Anda, ketuk $1 di atas atau tekan lebih lama $2 di bawah.";
+"share-custom-menu-item" = "Bagikan";
+"share-article-name-on-wikipedia" = "\"$1\" pada @Wikipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" pada @Wikipedia: \"$2\"";
+"share-as-image" = "Bagikan sebagai berkas";
+"share-as-text" = "Bagikan sebagai teks";
 "timestamp-just-now" = "baru saja";
 "timestamp-minutes" = "%d menit yang lalu";
 "timestamp-hours" = "%d jam yang lalu";
 "timestamp-days" = "%d hari yang lalu";
 "timestamp-months" = "%d bulan yang lalu";
 "timestamp-years" = "%d tahun yang lalu";
-"lastmodified-by-user" = "Diubah $1 oleh $2";
-"lastmodified-by-anon" = "Diubah $1 oleh pengguna anonim";
+"lastmodified-by-user" = "Suntingan $1 oleh $2";
+"lastmodified-by-anon" = "Suntingan $1 oleh pengguna anonim";
 "button-next" = "Selanjutnya";
 "button-done" = "Selesai";
 "button-save" = "Simpan";
@@ -217,20 +231,21 @@
 "menu-w-accessibility-label" = "Menu";
 "menu-toc-accessibility-label" = "Daftar isi";
 "menu-search-accessibility-label" = "Cari";
+"menu-reload-accessibility-label" = "Muat ulang";
 "menu-cancel-accessibility-label" = "Batal";
 "menu-share-accessibility-label" = "Bagikan";
 "menu-more-accessibility-label" = "Pengaturan lainnya";
 "menu-trash-accessibility-label" = "Hapus";
-"nearby-title" = "Dekat";
+"nearby-title" = "Sekitaran";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-feet" = "$1 kaki";
 "nearby-distance-label-miles" = "$1 mil";
 "nearby-pull-to-refresh-prompt" = "Tarik untuk menyegarkan";
 "nearby-pull-to-refresh-is-refreshing" = "Menyegarkan";
-"nearby-loading" = "Memuat artikel yang terdekat...";
-"nearby-loaded" = "Artikel yang terdekat dimuat";
-"nearby-none" = "Tidak ada artikel terdekat yang ditemukan. Tarik untuk menyegarkan atau coba lagi nanti.";
+"nearby-loading" = "Memuat artikel di sekitaran...";
+"nearby-loaded" = "Artikel sekitaran dimuat";
+"nearby-none" = "Tidak ada artikel sekitaran yang ditemukan. Tarik untuk menyegarkan atau coba lagi nanti.";
 "nearby-open-in-maps" = "Buka di Peta";
 "nearby-cancel" = "Batal";
 "nearby-location-updates-denied" = "Aplikasi ini tidak mempunyai izin untuk menerima pemutakhiran lokasi.";
@@ -239,3 +254,4 @@
 "nearby-location-general-error" = "Tidak dapat menentukan lokasi. Tarik untuk menyegarkan atau coba lagi nanti.";
 "nearby-wifi" = "Mengaktifkan Wi-Fi dapat membantu perangkat Anda menentukan lokasi Anda lebih baik.";
 "update-progress-label" = "Meningkatkan data lokal";
+"image-gallery-unknown-owner" = "Pengunggah tidak diketahui.";

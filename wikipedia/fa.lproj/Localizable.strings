@@ -1,17 +1,23 @@
 // Messages for Persian (فارسی)
 // Exported from translatewiki.net
 // Author: Alirezaaa
+// Author: BaziOnline
 // Author: Ebraminio
 // Author: Fatemi127
 // Author: Hosseinblue
+// Author: Macofe
 // Author: Mahdiz
 // Author: Reza1615
 // Author: Sahehco
+// Author: Signal89
 
 "article-languages-label" = "انتخاب زبان";
 "article-languages-cancel" = "لغو";
 "article-languages-downloading" = "در حال بارگیری زبان‌های مقاله...";
 "article-languages-filter-placeholder" = "پالایه زبان";
+"article-read-more-title" = "بیشتر بخوانید";
+"info-box-title" = "واقعیت‌های سریع";
+"info-box-close-text" = "بستن";
 "language-button-text" = "شما می‌توانید این مقاله را به %d زبان دیگر بخوانید";
 "history-label" = "اخیر";
 "history-section-today" = "امروز";
@@ -119,11 +125,15 @@
 "main-menu-show-today" = "امروز";
 "main-menu-nearby" = "در نزدیکی";
 "main-menu-more" = "بیشتر...";
+"main-menu-heading-debug" = "اشکال‌زدائی";
+"main-menu-debug-crash" = "از کار افتادن";
 "saved-pages-title" = "صفحات ذخیره شده";
 "saved-pages-clear-confirmation-heading" = "همه موارد ذخیره‌شده حذف شوند؟";
 "saved-pages-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
 "saved-pages-clear-cancel" = "لغو";
-"saved-pages-clear-delete-all" = "حذف همه";
+"saved-pages-refresh-cancel-alert-title" = "بارگذاری لغو شد";
+"saved-pages-refresh-cancel-alert-message" = "مقالات ویکی‌پدیا همیشه به‌روز می‌شوند. برای دریافت آخرین نسخه بر روی صفحه انگشت بزنید تا بروز شود.";
+"saved-pages-refresh-cancel-alert-button" = "گرفتم";
 "page-history-title" = "تاریخچهٔ صفحه";
 "page-history-downloading" = "در حال بارگیری صفحه تاریخچه...";
 "navbar-title-mode-edit-wikitext" = "ویرایش";
@@ -165,6 +175,7 @@
 "about-translators" = "مترجم‌ها";
 "about-translators-details" = "این برنامه توسط مترجمان داوطلب در $1 ترجمه شده‌است";
 "about-libraries" = "کتابخانه‌های استفاده‌شده";
+"about-libraries-license" = "اجازه‌نامه";
 "about-repositories" = "مخازن";
 "about-send-feedback" = "فرستادن بازخورد برنامه";
 "about-product-of" = "محصول $1";
@@ -172,14 +183,19 @@
 "share-menu-save-page" = "ذخیره مقاله";
 "share-menu-page-saved" = "مقاله ذخیره شده";
 "share-menu-page-saved-access" = "ترفند:برای دسترسی به صفحهٔ ذخیره شده، $1 بالا را انگشت بزنید یا به مدت زیاد بر روی $2 پائین انگشتتان را نگه‌دارید.";
+"share-custom-menu-item" = "به اشتراک گذاشتن";
+"share-article-name-on-wikipedia" = "\"$1\" در @ویکی‌پدیا:";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" در @ویکی‌پدیا: \"$2\"";
+"share-as-image" = "اشتراک گذاشتن پرونده";
+"share-as-text" = "اشتراک گذاشتن متن";
 "timestamp-just-now" = "هم‌اکنون";
 "timestamp-minutes" = "%d دقیقه پیش";
 "timestamp-hours" = "%d ساعت پیش";
 "timestamp-days" = "%d روز پیش";
 "timestamp-months" = "%d ماه پیش";
 "timestamp-years" = "%d سال پیش";
-"lastmodified-by-user" = "تغییریافته  $1  توسط $2";
-"lastmodified-by-anon" = "تغییریافته  $1  توسط کاربر ناشناس";
+"lastmodified-by-user" = "ویرایش  $1 توسط $2";
+"lastmodified-by-anon" = "ویرایش  $1  توسط کاربر ناشناس";
 "button-next" = "بعدی";
 "button-done" = "انجام شد";
 "button-save" = "ذخیره";
@@ -216,6 +232,7 @@
 "menu-w-accessibility-label" = "منو";
 "menu-toc-accessibility-label" = "محتویات";
 "menu-search-accessibility-label" = "جستجو";
+"menu-reload-accessibility-label" = "بارگیری دوباره";
 "menu-cancel-accessibility-label" = "لغو";
 "menu-share-accessibility-label" = "به اشتراک‌گذاشتن";
 "menu-more-accessibility-label" = "تنظیمات بیشتر";
@@ -237,3 +254,12 @@
 "nearby-location-updates-settings-menu" = "حریم شخصی > خدمات موقعیت > ویکی‌پدیا";
 "nearby-location-general-error" = "ناتوان در تشخیص موقعیت. برای تازه‌کردن فشار دهید یا بعداً تلاش کنید.";
 "nearby-wifi" = "فعال‌کردن وای‌فای می‌تواند به دستگاه‌تان در بهتر تشخیص‌دادن موقعیت‌تان کمک کند.";
+"update-progress-label" = "به‌روزرسانی اطلاعات محلی";
+"image-gallery-unknown-owner" = "آپلود کننده ناشناخته است.";
+"hockeyapp-alert-question" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا بتوانیم آن‌را برطرف کنیم؟";
+"hockeyapp-alert-question-with-response-field" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا بتوانیم آن‌را برطرف کنیم؟ لطفا شرح دهید که در هنگام از کار افتادن چه رخ داد:";
+"hockeyapp-alert-title" = "متاسفیم، نرم‌افزار در بار پیشین از کار افتاد";
+"hockeyapp-alert-send-report" = "ارسال گزارش";
+"hockeyapp-alert-always-send" = "همیشه ارسال کن";
+"hockeyapp-alert-do-not-send" = "ارسال نکن";
+"hockeyapp-alert-privacy" = "سیاست محرمانگی $1";

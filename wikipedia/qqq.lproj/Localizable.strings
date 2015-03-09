@@ -1,6 +1,7 @@
 // Messages for Message documentation (Message documentation)
 // Exported from translatewiki.net
 // Author: Amire80
+// Author: Beta16
 // Author: Brion
 // Author: Csega
 // Author: Jack Phoenix
@@ -14,7 +15,7 @@
 "article-languages-cancel" = "Button text for dismissing the language selector screen.\n{{Identical|Cancel}}";
 "article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
-"article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article";
+"article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
 "info-box-title" = "The title of info boxes - in collapsed and expanded form";
 "info-box-close-text" = "The text for telling users thyey can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "language-button-text" = "Label for 'other languages' button in content area footer. %d is placeholder for the number of available languages; note that support for PLURAL string marking is not yet available, so make your message generic if possible for now.";
@@ -124,15 +125,15 @@
 "main-menu-show-today" = "Button text for showing mobile version of main page\n{{Identical|Today}}";
 "main-menu-nearby" = "Button for showing nearby articles.\n{{Identical|Nearby}}";
 "main-menu-more" = "Button for showing additional settings and menu items.\n{{Identical|More}}";
-"main-menu-heading-debug" = "Header text for the debug section of the menu. The debug menu is conditionall shown if in Xcode debug mode.";
-"main-menu-debug-crash"= "Title for button that forces the application to crash.";
+"main-menu-heading-debug" = "Header text for the debug section of the menu. The debug menu is conditionall shown if in Xcode debug mode.\n{{Identical|Debug}}";
+"main-menu-debug-crash" = "Title for button that forces the application to crash.\n{{Identical|Crash}}";
 "saved-pages-title" = "Header text for Saved Pages interface.\n{{Identical|Saved page}}";
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "saved-pages-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
 "saved-pages-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "saved-pages-refresh-cancel-alert-title" = "Title of alert shown when a user first cancels a refresh of saved pages";
 "saved-pages-refresh-cancel-alert-message" = "Message of alert shown when a user first cancels a refresh of saved pages";
-"saved-pages-refresh-cancel-alert-button" = "Butto confirmation text of alert shown when a user first cancels a refresh of saved pages";
+"saved-pages-refresh-cancel-alert-button" = "Button confirmation text of alert shown when a user first cancels a refresh of saved pages";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Page history}}";
 "page-history-downloading" = "Alert text shown when obtaining revision history of an article";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited.\n{{Identical|Edit}}";
@@ -231,7 +232,7 @@
 "menu-w-accessibility-label" = "Accessible label text for toolbar 'W' menu icon button\n{{Identical|Menu}}";
 "menu-toc-accessibility-label" = "Accessible label text for toolbar table of contents icon button\n{{Identical|Content}}";
 "menu-search-accessibility-label" = "Accessible label text for toolbar search icon button\n{{Identical|Search}}";
-"menu-reload-accessibility-label" = "Accessible label text for toolbar reload icon button";
+"menu-reload-accessibility-label" = "Accessible label text for toolbar reload icon button\n{{Identical|Reload}}";
 "menu-cancel-accessibility-label" = "Accessible label text for toolbar cancel button\n{{Identical|Cancel}}";
 "menu-share-accessibility-label" = "Accessible label text for toolbar share button\n{{Identical|Share}}";
 "menu-more-accessibility-label" = "Accessible label for more/... button in 'W' menu";
@@ -258,8 +259,7 @@
 "hockeyapp-alert-question" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "hockeyapp-alert-question-with-response-field" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server, and asking the user to describe what happened when the crash occurred. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "hockeyapp-alert-title" = "Concise and conciliatory alert dialog title for crash reporting";
-"hockeyapp-alert-do-not-send" = "Alert dialog button text for crash reporting to not send the crash report";
 "hockeyapp-alert-send-report" = "Alert dialog button text for crash reporting to be sent";
 "hockeyapp-alert-always-send" = "Alert dialog button text for crash reporting to always be sent";
+"hockeyapp-alert-do-not-send" = "Alert dialog button text for crash reporting to not send the crash report";
 "hockeyapp-alert-privacy" = "Alert dialog button text for HockeyApp privacy policy. $1 will be replaced programmatically with the constant string 'HockeyApp'";
-

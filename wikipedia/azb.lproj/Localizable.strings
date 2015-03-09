@@ -62,7 +62,6 @@
 "main-menu-more" = "داها...";
 "saved-pages-title" = "ساخلانیلمیش صحیفه‌لر";
 "saved-pages-clear-cancel" = "پوْز";
-"saved-pages-clear-delete-all" = "هامیسین سیل";
 "page-history-title" = "مقاله گئچمیشی";
 "page-history-downloading" = "مقاله گئچمیشی یوکله‌نیر...";
 "navbar-title-mode-edit-wikitext" = "دَییشدیر";
@@ -88,7 +87,9 @@
 "timestamp-days" = "d% گون قاباق";
 "timestamp-months" = "d% آی قاباق";
 "timestamp-years" = "d% ایل قاباق";
+// Fuzzy
 "lastmodified-by-user" = "$1 $2 ایله دَییشیلیب.";
+// Fuzzy
 "lastmodified-by-anon" = "$1 آدسیز ایستیفاده‌چی ایله دَییشیلیب.";
 "button-next" = "سونراکی";
 "button-done" = "اولدو";

@@ -28,7 +28,7 @@
 "login-password-placeholder-text" = "Пароль";
 "wikitext-downloading" = "Чулацам чубаккхар...";
 "wikitext-download-success" = "Чулацам чубаьккхина.";
-"wikitext-upload-save" = "Ӏалаш еш ю...";
+"wikitext-upload-save" = "Ӏалашъеш ю...";
 "wikitext-upload-save-sign-in" = "ЧугӀо";
 "wikitext-upload-save-terms-name" = "Лелоран хьал";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -69,7 +69,9 @@
 "share-menu-page-saved" = "АгӀо Ӏалашйина";
 "share-custom-menu-item" = "Екха";
 "timestamp-days" = "%d де хьалха";
+// Fuzzy
 "lastmodified-by-user" = "Хийцина $1 декъашхочо $2";
+// Fuzzy
 "lastmodified-by-anon" = "$1 хийцина цӀе хьулйина декъашхочо";
 "button-next" = "Кхин дӀа";
 "button-done" = "Кийчча ю";

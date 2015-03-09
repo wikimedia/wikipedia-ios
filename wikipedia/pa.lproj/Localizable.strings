@@ -107,7 +107,6 @@
 "saved-pages-clear-confirmation-heading" = "ਸਾਰੀਆਂ ਸਾਂਭੀਆਂ ਚੀਜ਼ਾਂ ਮਿਟਾਉਣੀਆਂ ਹਨ?";
 "saved-pages-clear-confirmation-sub-heading" = "ਇਹ ਕਾਰਵਾਈ ਅਣ-ਕੀਤੀ ਨਹੀਂ ਹੋ ਸਕਦੀ!";
 "saved-pages-clear-cancel" = "ਰੱਦ ਕਰੋ";
-"saved-pages-clear-delete-all" = "ਸਾਰਾ ਕੁਝ ਮਿਟਾਉ";
 "page-history-title" = "ਲੇਖ ਦਾ ਅਤੀਤ";
 "page-history-downloading" = "ਲੇਖ ਦਾ ਅਤੀਤ ਲੱਦਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "navbar-title-mode-edit-wikitext" = "ਸੋਧ";
@@ -150,7 +149,9 @@
 "timestamp-days" = "%d ਦਿਨ ਪਹਿਲਾਂ";
 "timestamp-months" = "%d ਮਹੀਨੇ ਪਹਿਲਾਂ";
 "timestamp-years" = "%d ਵਰ੍ਹੇ ਪਹਿਲਾਂ";
+// Fuzzy
 "lastmodified-by-user" = "$2 ਵੱਲੋਂ $1 ਬਦਲਿਆ ਗਿਆ";
+// Fuzzy
 "lastmodified-by-anon" = "ਕਿਸੇ ਗੁੰਮਨਾਮ ਵਰਤੋਂਕਾਰ ਵੱਲੋਂ $1 ਬਦਲਿਆ ਗਿਆ";
 "button-next" = "ਅੱਗੇ";
 "button-done" = "ਹੋ ਗਿਆ";

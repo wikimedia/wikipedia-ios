@@ -3,7 +3,9 @@
 // Author: Alexandr Efremov
 // Author: Batumski brodyaga
 // Author: Bsitzmann
+// Author: Dicto23456
 // Author: Kopcap94
+// Author: Macofe
 // Author: Oashnic
 // Author: Okras
 
@@ -11,6 +13,7 @@
 "article-languages-cancel" = "Отмена";
 "article-languages-downloading" = "Загрузка языков статьи…";
 "article-languages-filter-placeholder" = "Языковой фильтр";
+"article-read-more-title" = "Читать подробнее";
 "info-box-title" = "Короткие факты";
 "info-box-close-text" = "Закрыть";
 "language-button-text" = "Вы можете прочитать эту статью ещё на %d других языках";
@@ -124,7 +127,9 @@
 "saved-pages-clear-confirmation-heading" = "Удалить все сохранённые элементы?";
 "saved-pages-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
 "saved-pages-clear-cancel" = "Отмена";
-"saved-pages-clear-delete-all" = "Удалить всё";
+"saved-pages-refresh-cancel-alert-title" = "Обновление отменено";
+"saved-pages-refresh-cancel-alert-message" = "Статьи Википедии всё время обновляются. Нажмите «обновить», чтобы получить последние версии всех статей.";
+"saved-pages-refresh-cancel-alert-button" = "Понятно";
 "page-history-title" = "История страницы";
 "page-history-downloading" = "Загрузка истории страницы…";
 "navbar-title-mode-edit-wikitext" = "Править";
@@ -175,6 +180,8 @@
 "share-menu-page-saved" = "Статья сохранена";
 "share-menu-page-saved-access" = "Совет: чтобы получить доступ к вашим сохраненным страницам, нажмите на $1 выше или зажмите $2 ниже.";
 "share-custom-menu-item" = "Поделиться";
+"share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "«$1» в @Wikipedia: «$2»";
 "share-as-image" = "Поделиться как изображением";
 "share-as-text" = "Поделиться как текстом";
 "timestamp-just-now" = "только что";
@@ -183,8 +190,8 @@
 "timestamp-days" = "%d дн. назад";
 "timestamp-months" = "%d мес. назад";
 "timestamp-years" = "%d г. назад";
-"lastmodified-by-user" = "Изменено $1 участником $2";
-"lastmodified-by-anon" = "Изменено $1 анонимным пользователем";
+"lastmodified-by-user" = "Отредактировано $1 участником $2";
+"lastmodified-by-anon" = "Отредактировано $1 анонимным пользователем";
 "button-next" = "Далее";
 "button-done" = "Готово";
 "button-save" = "Сохранить";
@@ -221,6 +228,7 @@
 "menu-w-accessibility-label" = "Меню";
 "menu-toc-accessibility-label" = "Содержание";
 "menu-search-accessibility-label" = "Поиск";
+"menu-reload-accessibility-label" = "Перезагрузить";
 "menu-cancel-accessibility-label" = "Отмена";
 "menu-share-accessibility-label" = "Поделиться";
 "menu-more-accessibility-label" = "Дополнительные параметры";

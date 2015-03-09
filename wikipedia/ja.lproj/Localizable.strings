@@ -6,11 +6,13 @@
 // Author: Shirayuki
 // Author: SkyDaisy9
 // Author: Takot
+// Author: 아라
 
 "article-languages-label" = "言語を選択";
 "article-languages-cancel" = "キャンセル";
 "article-languages-downloading" = "言語リストを取得中...";
 "article-languages-filter-placeholder" = "言語の絞り込み";
+"article-read-more-title" = "さらに読む";
 "info-box-title" = "基本データ";
 "info-box-close-text" = "閉じる";
 "language-button-text" = "この記事は他に %d 個の言語で読むことができます";
@@ -120,11 +122,15 @@
 "main-menu-show-today" = "今日";
 "main-menu-nearby" = "付近";
 "main-menu-more" = "その他...";
+"main-menu-heading-debug" = "デバッグ";
+"main-menu-debug-crash" = "強制終了";
 "saved-pages-title" = "保存したページ";
 "saved-pages-clear-confirmation-heading" = "保存した項目をすべて削除しますか？";
 "saved-pages-clear-confirmation-sub-heading" = "この操作は取り消せません!";
 "saved-pages-clear-cancel" = "キャンセル";
-"saved-pages-clear-delete-all" = "すべて削除";
+"saved-pages-refresh-cancel-alert-title" = "更新がキャンセルされました";
+"saved-pages-refresh-cancel-alert-message" = "ウィキペディアの記事は常に更新されています。「更新」をタップすると全ての記事が最新版に同期されます。";
+"saved-pages-refresh-cancel-alert-button" = "了解";
 "page-history-title" = "ページの履歴";
 "page-history-downloading" = "ページの履歴を読み込み中...";
 "navbar-title-mode-edit-wikitext" = "編集";
@@ -154,7 +160,7 @@
 "article-pull-to-refresh-prompt" = "引っ張ると記事を再読み込みします";
 "article-pull-to-refresh-is-refreshing" = "記事の再読み込み中";
 "credits-title" = "オープンソースのリポジトリ";
-"credits-wikimedia-repos" = "ウィキメディア";
+"credits-wikimedia-repos" = "ウィキメディア・リポジトリ";
 "credits-gerrit-repo" = "アプリ・メイン (Gerrit)";
 "credits-github-mirror" = "アプリ・ミラー (GitHub)";
 "credits-external-libraries" = "外部リポジトリ";
@@ -175,7 +181,7 @@
 "share-menu-page-saved" = "記事を保存しました";
 "share-menu-page-saved-access" = "ヒント: 保存したページにアクセスするには、上部の$1をタップするか、下部の$2を長押しします。";
 "share-custom-menu-item" = "シェア";
-"share-article-name-on-wikipedia" = "「$1」の記事を @Wikipedia で";
+"share-article-name-on-wikipedia" = "「$1」の記事を @Wikipedia で読む";
 "share-article-name-on-wikipedia-with-selected-text" = "「$2」(@Wikipedia の記事「$1」より)";
 "share-as-image" = "画像をシェア";
 "share-as-text" = "テキストとしてシェア";
@@ -185,8 +191,8 @@
 "timestamp-days" = "%d日前";
 "timestamp-months" = "%dか月前";
 "timestamp-years" = "%d年前";
-"lastmodified-by-user" = "$1に $2 により変更";
-"lastmodified-by-anon" = "$1に匿名利用者により変更";
+"lastmodified-by-user" = "$1に $2 が編集";
+"lastmodified-by-anon" = "$1に匿名利用者が編集";
 "button-next" = "次へ";
 "button-done" = "完了";
 "button-save" = "保存";
@@ -223,6 +229,7 @@
 "menu-w-accessibility-label" = "メニュー";
 "menu-toc-accessibility-label" = "目次";
 "menu-search-accessibility-label" = "検索";
+"menu-reload-accessibility-label" = "再読み込み";
 "menu-cancel-accessibility-label" = "キャンセル";
 "menu-share-accessibility-label" = "共有";
 "menu-more-accessibility-label" = "その他の設定";
@@ -245,3 +252,4 @@
 "nearby-location-general-error" = "位置を確定できません。引っ張って更新するか、後ほどもう一度試してみてください。";
 "nearby-wifi" = "Wi-Fi を有効にすると、位置情報の精度をより高めることができます。";
 "update-progress-label" = "ローカルデータをアップグレード中";
+"image-gallery-unknown-owner" = "アップロード者不明。";

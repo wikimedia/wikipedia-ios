@@ -10,6 +10,9 @@
 "article-languages-cancel" = "Peruuta";
 "article-languages-downloading" = "Ladataan artikkelin kieliä...";
 "article-languages-filter-placeholder" = "Kielisuodatin";
+"article-read-more-title" = "Lue lisää";
+"info-box-title" = "Pikafaktoja";
+"info-box-close-text" = "Sulje";
 "language-button-text" = "Voit lukea tämän artikkelin %d muulla kielellä.";
 "history-label" = "Tuoreet";
 "history-section-today" = "Tänään";
@@ -121,7 +124,9 @@
 "saved-pages-clear-confirmation-heading" = "Poista kaikki tallennetut kohteet?";
 "saved-pages-clear-confirmation-sub-heading" = "Tätä toimintoa ei voi kumota!";
 "saved-pages-clear-cancel" = "Peruuta";
-"saved-pages-clear-delete-all" = "Poista kaikki";
+"saved-pages-refresh-cancel-alert-title" = "Päivitys peruttiin";
+"saved-pages-refresh-cancel-alert-message" = "Wikipedian artikkeleja päivitetään kaiken aikaa. Napauta päivitä saadaksesi kaikkien artikkeleiden uusimmat versiot.";
+"saved-pages-refresh-cancel-alert-button" = "Selvä!";
 "page-history-title" = "Artikkelin historia";
 "page-history-downloading" = "Ladataan artikkelin historiaa...";
 "navbar-title-mode-edit-wikitext" = "Muokkaa";
@@ -163,6 +168,7 @@
 "about-translators" = "kääntäjät";
 "about-translators-details" = "Käännöstyön tehneet vapaaehtoiset sivustolla $1";
 "about-libraries" = "käytetyt kirjastot";
+"about-libraries-license" = "Lisenssi";
 "about-repositories" = "tietovarastot";
 "about-send-feedback" = "Lähetä palautetta sovelluksesta";
 "about-product-of" = "Tuote $1";
@@ -170,6 +176,11 @@
 "share-menu-save-page" = "Tallenna artikkeli";
 "share-menu-page-saved" = "Artikkeli tallennettu";
 "share-menu-page-saved-access" = "Vihje: Päästäksesi tallentamillesi sivuille näpäytä kuvaketta $1 tai paina pitkään kuvaketta $2.";
+"share-custom-menu-item" = "Jaa";
+"share-article-name-on-wikipedia" = "\"$1\" @Wikipedia'ssa:";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" @Wikipedia'ssa: \"$2\"";
+"share-as-image" = "Jaa kuvana";
+"share-as-text" = "Jaa tekstinä";
 "timestamp-just-now" = "juuri nyt";
 "timestamp-minutes" = "%d minuuttia sitten";
 "timestamp-hours" = "%d tuntia sitten";
@@ -214,6 +225,7 @@
 "menu-w-accessibility-label" = "Valikko";
 "menu-toc-accessibility-label" = "Sisällys";
 "menu-search-accessibility-label" = "Hae";
+"menu-reload-accessibility-label" = "Päivitä";
 "menu-cancel-accessibility-label" = "Peru";
 "menu-share-accessibility-label" = "Jaa";
 "menu-more-accessibility-label" = "Lisää asetuksia";
@@ -235,3 +247,4 @@
 "nearby-location-updates-settings-menu" = "Yksityisyys > Sijaintipalvelut > Wikipedia";
 "nearby-location-general-error" = "Sijainnin määritys ei onnistu. Vedä päivittääksesi tai yritä uudelleen myöhemmin.";
 "nearby-wifi" = "Langattoman verkkoyhteyden käyttöönotto voi auttaa laitettasi määrittämään sijaintisi paremmin.";
+"update-progress-label" = "Päivitetään paikallisia tietoja";

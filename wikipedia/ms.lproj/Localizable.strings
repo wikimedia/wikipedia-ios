@@ -118,7 +118,6 @@
 "saved-pages-clear-confirmation-heading" = "Padamkan semua item tersimpan?";
 "saved-pages-clear-confirmation-sub-heading" = "Tindakan ini tidak boleh dipulihkan!";
 "saved-pages-clear-cancel" = "Batalkan";
-"saved-pages-clear-delete-all" = "Padam Semua";
 "page-history-title" = "Sejarah laman";
 "page-history-downloading" = "Memuatkan sejarah laman...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
@@ -173,7 +172,9 @@
 "timestamp-days" = "%d hari yang lalu";
 "timestamp-months" = "%d bulan yang lalu";
 "timestamp-years" = "%d tahun yang lalu";
+// Fuzzy
 "lastmodified-by-user" = "Diubah pada $1 oleh $2";
+// Fuzzy
 "lastmodified-by-anon" = "Diubah pada $1 oleh pengguna tanpa nama";
 "button-next" = "Seterusnya";
 "button-done" = "Siap";

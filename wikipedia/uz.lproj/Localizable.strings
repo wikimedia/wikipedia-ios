@@ -94,7 +94,6 @@
 "saved-pages-clear-confirmation-heading" = "Barcha saqlangan elementlarni oʻchirmoqchimisiz?";
 "saved-pages-clear-confirmation-sub-heading" = "Bu amalni bekor qilib boʻlmaydi!";
 "saved-pages-clear-cancel" = "Bekor qilish";
-"saved-pages-clear-delete-all" = "Barchasini oʻchirish";
 "page-history-title" = "Maqolaning tarixi";
 "page-history-downloading" = "Maqola tarixi yuklanyapti...";
 "navbar-title-mode-edit-wikitext" = "Tahrirlash";
@@ -125,7 +124,9 @@
 "timestamp-days" = "% kun oldin";
 "timestamp-months" = "% oy oldin";
 "timestamp-years" = "% yil oldin";
+// Fuzzy
 "lastmodified-by-user" = "$1 $2 tomonidan o‘zgartirildi";
+// Fuzzy
 "lastmodified-by-anon" = "$1 anonim foydalanuvchi tomonidan o‘zgartirildi";
 "button-next" = "Keyingi";
 "button-done" = "Bajarildi";

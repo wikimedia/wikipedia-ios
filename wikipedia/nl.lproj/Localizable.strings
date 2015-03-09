@@ -1,6 +1,7 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
 // Author: JurgenNL
+// Author: Macofe
 // Author: Mathonius
 // Author: Robin0van0der0vliet
 // Author: SPQRobin
@@ -12,6 +13,7 @@
 "article-languages-cancel" = "Annuleren";
 "article-languages-downloading" = "Paginatalen aan het laden...";
 "article-languages-filter-placeholder" = "Taal filteren";
+"article-read-more-title" = "Lees meer";
 "info-box-title" = "Snelle feiten";
 "info-box-close-text" = "Sluiten";
 "language-button-text" = "U kunt deze pagina in %d andere talen lezen";
@@ -125,7 +127,7 @@
 "saved-pages-clear-confirmation-heading" = "Alle opgeslagen items verwijderen?";
 "saved-pages-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";
 "saved-pages-clear-cancel" = "Annuleren";
-"saved-pages-clear-delete-all" = "Alles verwijderen";
+"saved-pages-refresh-cancel-alert-button" = "Begrepen";
 "page-history-title" = "Paginageschiedenis";
 "page-history-downloading" = "Paginageschiedenis laden...";
 "navbar-title-mode-edit-wikitext" = "Bewerken";
@@ -176,7 +178,7 @@
 "share-menu-page-saved" = "Pgina opgeslagen voor offline lezen.";
 "share-menu-page-saved-access" = "Tip: om uw opgeslagen pagina's te bekijken, klikt u op $1 bovenaan of houdt u $2 lang ingedrukt.";
 "share-custom-menu-item" = "Delen";
-"share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia";
+"share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" op @Wikipedia: \"$2\"";
 "share-as-image" = "Als bestand delen";
 "share-as-text" = "Als tekst delen";
@@ -186,8 +188,8 @@
 "timestamp-days" = "%d dagen geleden";
 "timestamp-months" = "%d maanden geleden";
 "timestamp-years" = "%d jaar geleden";
-"lastmodified-by-user" = "$1 gewijzigd door $2";
-"lastmodified-by-anon" = "$1 gewijzigd door een anonieme gebruiker";
+"lastmodified-by-user" = "$1 bewerkt door $2";
+"lastmodified-by-anon" = "$1 bewerkt door een anonieme gebruiker";
 "button-next" = "Volgende";
 "button-done" = "Gereed";
 "button-save" = "Opslaan";
@@ -224,6 +226,7 @@
 "menu-w-accessibility-label" = "Menu";
 "menu-toc-accessibility-label" = "Inhoud";
 "menu-search-accessibility-label" = "Zoeken";
+"menu-reload-accessibility-label" = "Herladen";
 "menu-cancel-accessibility-label" = "Annuleren";
 "menu-share-accessibility-label" = "Delen";
 "menu-more-accessibility-label" = "Meer instellingen";

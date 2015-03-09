@@ -95,7 +95,6 @@
 "saved-pages-clear-confirmation-heading" = "លុបរបស់ដែលបានរក្សាទុកទាំងអស់?";
 "saved-pages-clear-confirmation-sub-heading" = "សកម្មភាពនេះមិនអាចឈប់ធ្វើវិញបានទេ!";
 "saved-pages-clear-cancel" = "បោះបង់";
-"saved-pages-clear-delete-all" = "លុបចោលទាំងអស់";
 "page-history-title" = "ប្រវត្តិអត្ថបទ";
 "page-history-downloading" = "ផ្ទុកប្រវត្តិអត្ថបទ...";
 "navbar-title-mode-edit-wikitext" = "កែប្រែ";
@@ -133,7 +132,9 @@
 "timestamp-days" = "%d ថ្ងៃមុន";
 "timestamp-months" = "%d ខែមុន";
 "timestamp-years" = "%d ឆ្នាំមុន";
+// Fuzzy
 "lastmodified-by-user" = "ត្រូវបានកែប្រែនៅ $1 ដោយ $2";
+// Fuzzy
 "lastmodified-by-anon" = "ត្រូវបានកែប្រែនៅ $1 ដោយអ្នកប្រើប្រាស់អនាមិក";
 "button-next" = "បន្ទាប់";
 "button-done" = "រួចរាល់";

@@ -6,6 +6,7 @@
 "article-languages-cancel" = "Revocare";
 "article-languages-downloading" = "Se încarcă limbile articolului...";
 "article-languages-filter-placeholder" = "Filtru de limbă";
+"article-read-more-title" = "Citiți mai multe";
 "info-box-title" = "Informații pe scurt";
 "info-box-close-text" = "Închide";
 "language-button-text" = "Puteți citi acest articol în alte %d limbi";
@@ -115,11 +116,15 @@
 "main-menu-show-today" = "Astăzi";
 "main-menu-nearby" = "În apropiere";
 "main-menu-more" = "Mai mult…";
+"main-menu-heading-debug" = "Depanare";
+"main-menu-debug-crash" = "Blochează aplicația";
 "saved-pages-title" = "Pagini salvate";
 "saved-pages-clear-confirmation-heading" = "Ștergeți toate elementele salvate?";
 "saved-pages-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";
 "saved-pages-clear-cancel" = "Revocare";
-"saved-pages-clear-delete-all" = "Șterge tot";
+"saved-pages-refresh-cancel-alert-title" = "Actualizare anulată";
+"saved-pages-refresh-cancel-alert-message" = "Articolele Wikipediei sunt actualizate permanent. Apăsați „reîncarcă” pentru a obține ultima versiune a tuturor articolelor.";
+"saved-pages-refresh-cancel-alert-button" = "Am înțeles!";
 "page-history-title" = "Istoricul paginii";
 "page-history-downloading" = "Se încarcă istoricul paginii...";
 "navbar-title-mode-edit-wikitext" = "Modificare";
@@ -170,7 +175,7 @@
 "share-menu-page-saved" = "Articol salvat";
 "share-menu-page-saved-access" = "Sfat: pentru a vă accesa paginile salvate, atingeți simbolul $1 de mai sus sau apăsați prelung simbolul $2 de mai jos.";
 "share-custom-menu-item" = "Distribuie";
-"share-article-name-on-wikipedia" = "„$1” la @Wikipedia";
+"share-article-name-on-wikipedia" = "„$1” la @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "„$1” la @Wikipedia: „$2”";
 "share-as-image" = "Distribuie ca imagine";
 "share-as-text" = "Distribuie ca text";
@@ -218,6 +223,7 @@
 "menu-w-accessibility-label" = "Meniu";
 "menu-toc-accessibility-label" = "Cuprins";
 "menu-search-accessibility-label" = "Căutare";
+"menu-reload-accessibility-label" = "Reîncarcă";
 "menu-cancel-accessibility-label" = "Revocare";
 "menu-share-accessibility-label" = "Distribuie";
 "menu-more-accessibility-label" = "Mai multe setări";
@@ -240,3 +246,11 @@
 "nearby-location-general-error" = "Nu s-a putut efectua localizarea. Trageți pentru a reîmprospăta sau reîncercați mai târziu.";
 "nearby-wifi" = "Activarea conexiunii WiFi poate ajuta dispozitivul dumnevoastră să vă localizeze mai precis.";
 "update-progress-label" = "Se face upgrade datelor locale";
+"image-gallery-unknown-owner" = "Încărcare de la o persoană necunoscută.";
+"hockeyapp-alert-question" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât să reparăm problema?";
+"hockeyapp-alert-question-with-response-field" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât să reparăm problema? Vă rugăm să descrieți împrejurarea în care s-a produs blocarea:";
+"hockeyapp-alert-title" = "Ne pare rău, aplicația s-a blocat ultima dată";
+"hockeyapp-alert-send-report" = "Trimite raportul";
+"hockeyapp-alert-always-send" = "Trimite întotdeauna";
+"hockeyapp-alert-do-not-send" = "Nu trimite";
+"hockeyapp-alert-privacy" = "Confidențialitate $1";

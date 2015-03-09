@@ -7,6 +7,9 @@
 "article-languages-cancel" = "Annullér";
 "article-languages-downloading" = "Indlæser artikelsprog...";
 "article-languages-filter-placeholder" = "Sprogfilter";
+"article-read-more-title" = "Læs mere";
+"info-box-title" = "Hurtige fakta";
+"info-box-close-text" = "Luk";
 "language-button-text" = "Du kan læse denne artikel på %d andre sprog";
 "history-label" = "Seneste";
 "history-section-today" = "I dag";
@@ -117,7 +120,7 @@
 "saved-pages-clear-confirmation-heading" = "Slet alle gemte sider?";
 "saved-pages-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
 "saved-pages-clear-cancel" = "Afbryd";
-"saved-pages-clear-delete-all" = "Slet alle";
+"saved-pages-refresh-cancel-alert-button" = "Forstået";
 "page-history-title" = "Artikelhistorik";
 "page-history-downloading" = "Henter artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigerer";
@@ -166,14 +169,15 @@
 "share-menu-save-page" = "Gem side";
 "share-menu-page-saved" = "Gemt til læsning offline.";
 "share-menu-page-saved-access" = "Tip: for at få adgang til dine gemte sider, tryk på $1 ovenfor eller tryk længe på $2 nedenfor.";
+"share-custom-menu-item" = "Del";
 "timestamp-just-now" = "lige nu";
 "timestamp-minutes" = "for %d minutter siden";
 "timestamp-hours" = "for %d timer siden";
 "timestamp-days" = "for %d dage siden";
 "timestamp-months" = "for %d måneder siden";
 "timestamp-years" = "for %d år siden";
-"lastmodified-by-user" = "Ændret $1 af $2";
-"lastmodified-by-anon" = "Ændret $1 af en anonym bruger";
+"lastmodified-by-user" = "Redigeret $1 af $2";
+"lastmodified-by-anon" = "Redigeret $1 af en anonym bruger";
 "button-next" = "Næste";
 "button-done" = "Færdig";
 "button-save" = "Gem";
@@ -210,6 +214,7 @@
 "menu-w-accessibility-label" = "Menu";
 "menu-toc-accessibility-label" = "Indhold";
 "menu-search-accessibility-label" = "Søg";
+"menu-reload-accessibility-label" = "Genindlæs";
 "menu-cancel-accessibility-label" = "Afbryd";
 "menu-share-accessibility-label" = "Del";
 "menu-more-accessibility-label" = "Flere indstillinger";

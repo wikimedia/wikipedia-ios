@@ -120,7 +120,6 @@
 "saved-pages-clear-confirmation-heading" = "Lemel an holl elfennoù enrollet ?";
 "saved-pages-clear-confirmation-sub-heading" = "Ne c'hall ket an ober-mañ bezañ nullet !";
 "saved-pages-clear-cancel" = "Nullañ";
-"saved-pages-clear-delete-all" = "Lemel pep tra";
 "page-history-title" = "Istor ar bajenn";
 "page-history-downloading" = "O kargañ istor ar bajenn...";
 "navbar-title-mode-edit-wikitext" = "Kemmañ";
@@ -175,7 +174,9 @@
 "timestamp-days" = "%d deiz zo";
 "timestamp-months" = "%d miz zo";
 "timestamp-years" = "%d vloaz zo";
+// Fuzzy
 "lastmodified-by-user" = "Kemmet eo bet $1 gant $2";
+// Fuzzy
 "lastmodified-by-anon" = "Kemmet eo bet $1 gant un implijer dizanv";
 "button-next" = "War-lerc'h";
 "button-done" = "Echu";

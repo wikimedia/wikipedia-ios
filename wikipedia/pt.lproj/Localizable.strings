@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Fúlvio
 // Author: Imperadeiro98
+// Author: Macofe
 // Author: SandroHc
 // Author: Vitorvicentevalente
 // Author: Webysther
@@ -10,6 +11,7 @@
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "A carregar idiomas do artigo...";
 "article-languages-filter-placeholder" = "Filtro de idioma";
+"article-read-more-title" = "Ler mais";
 "info-box-title" = "Fatos rápidos";
 "info-box-close-text" = "Fechar";
 "language-button-text" = "Pode ler este artigo em %d outros idiomas";
@@ -119,11 +121,14 @@
 "main-menu-show-today" = "Hoje";
 "main-menu-nearby" = "Nas redondezas";
 "main-menu-more" = "Mais...";
+"main-menu-heading-debug" = "Depurar";
 "saved-pages-title" = "Páginas guardadas";
 "saved-pages-clear-confirmation-heading" = "Eliminar todos os itens gravados?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
 "saved-pages-clear-cancel" = "Cancelar";
-"saved-pages-clear-delete-all" = "Apagar tudo";
+"saved-pages-refresh-cancel-alert-title" = "Atualização cancelada";
+"saved-pages-refresh-cancel-alert-message" = "Os artigos da Wikipédia são atualizados a todo o instante. Toque em atualizar para obter as versões mais recentes de todos os artigos.";
+"saved-pages-refresh-cancel-alert-button" = "Percebido";
 "page-history-title" = "Histórico da página";
 "page-history-downloading" = "A carregar o histórico da página...";
 "navbar-title-mode-edit-wikitext" = "Editar";
@@ -174,7 +179,7 @@
 "share-menu-page-saved" = "Página guardada";
 "share-menu-page-saved-access" = "Dica: Para aceder às suas páginas guardadas, toque em $1 acima ou pressione $2 abaixo.";
 "share-custom-menu-item" = "Partilhar";
-"share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia";
+"share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipédia: \"$2\"";
 "share-as-image" = "Partilhar como imagem";
 "share-as-text" = "Partilhar como texto";
@@ -184,8 +189,8 @@
 "timestamp-days" = "há %d dias";
 "timestamp-months" = "há %d meses";
 "timestamp-years" = "há %d anos";
-"lastmodified-by-user" = "Modificada $1 por $2";
-"lastmodified-by-anon" = "Modificada $1 por utilizador anónimo";
+"lastmodified-by-user" = "Editada $1 por $2";
+"lastmodified-by-anon" = "Editada $1 por utilizador anónimo";
 "button-next" = "Seguinte";
 "button-done" = "Feito";
 "button-save" = "Gravar";
@@ -222,6 +227,7 @@
 "menu-w-accessibility-label" = "Menu";
 "menu-toc-accessibility-label" = "Índice";
 "menu-search-accessibility-label" = "Pesquisar";
+"menu-reload-accessibility-label" = "Recarregar";
 "menu-cancel-accessibility-label" = "Cancelar";
 "menu-share-accessibility-label" = "Partilhar";
 "menu-more-accessibility-label" = "Mais configurações";

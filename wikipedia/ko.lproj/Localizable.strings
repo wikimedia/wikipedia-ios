@@ -2,12 +2,16 @@
 // Exported from translatewiki.net
 // Author: Namoroka
 // Author: Priviet
+// Author: Twotwo2019
 // Author: 아라
 
 "article-languages-label" = "언어 선택";
 "article-languages-cancel" = "취소";
 "article-languages-downloading" = "문서 언어를 불러오는 중...";
 "article-languages-filter-placeholder" = "언어 필터";
+"article-read-more-title" = "더 읽어보기";
+"info-box-title" = "빠른 사실";
+"info-box-close-text" = "닫기";
 "language-button-text" = "이 문서를 다른 %d개 언어로 읽을 수 있습니다";
 "history-label" = "최근";
 "history-section-today" = "오늘";
@@ -115,11 +119,15 @@
 "main-menu-show-today" = "오늘";
 "main-menu-nearby" = "근처";
 "main-menu-more" = "더 보기...";
+"main-menu-heading-debug" = "디버그";
+"main-menu-debug-crash" = "충돌";
 "saved-pages-title" = "저장된 문서";
 "saved-pages-clear-confirmation-heading" = "모든 저장된 항목을 삭제하겠습니까?";
 "saved-pages-clear-confirmation-sub-heading" = "이 동작은 취소할 수 없습니다!";
 "saved-pages-clear-cancel" = "취소";
-"saved-pages-clear-delete-all" = "모두 삭제";
+"saved-pages-refresh-cancel-alert-title" = "업데이트 취소됨";
+"saved-pages-refresh-cancel-alert-message" = "위키백과 글은 시시때때로 업데이트 됩니다. 모든 글의 최신 버전을 볼려면 새로고침하세요.";
+"saved-pages-refresh-cancel-alert-button" = "알았습니다!";
 "page-history-title" = "문서 역사";
 "page-history-downloading" = "문서 역사를 불러오는 중...";
 "navbar-title-mode-edit-wikitext" = "편집";
@@ -149,7 +157,7 @@
 "article-pull-to-refresh-prompt" = "문서를 새로 고치려면 당기세요";
 "article-pull-to-refresh-is-refreshing" = "문서를 새로 고치는 중";
 "credits-title" = "오픈 소스 저장소";
-"credits-wikimedia-repos" = "위키미디어";
+"credits-wikimedia-repos" = "위키미디어 저장소";
 "credits-gerrit-repo" = "앱 메인 (Gerrit)";
 "credits-github-mirror" = "앱 미러 (GitHub)";
 "credits-external-libraries" = "바깥";
@@ -161,6 +169,7 @@
 "about-translators" = "번역자";
 "about-translators-details" = "$1의 자원 번역자가 번역했습니다";
 "about-libraries" = "사용된 라이브러리";
+"about-libraries-license" = "라이선스";
 "about-repositories" = "저장소";
 "about-send-feedback" = "앱 피드백 보내기";
 "about-product-of" = "$1의 제품";
@@ -168,14 +177,19 @@
 "share-menu-save-page" = "문서 저장";
 "share-menu-page-saved" = "문서가 저장되었습니다";
 "share-menu-page-saved-access" = "팁: 저장된 문서에 접근하려면, 위의 $1를 탭하거나 아래의 $2를 길게 누르세요.";
+"share-custom-menu-item" = "공유";
+"share-article-name-on-wikipedia" = "@Wikipedia의 \"$1\":";
+"share-article-name-on-wikipedia-with-selected-text" = "@Wikipedia의 \"$1\": \"$2\"";
+"share-as-image" = "그림 공유하기";
+"share-as-text" = "텍스트 공유하기";
 "timestamp-just-now" = "방금";
 "timestamp-minutes" = "%d분 전";
 "timestamp-hours" = "%d시간 전";
 "timestamp-days" = "%d일 전";
 "timestamp-months" = "%d개월 전";
 "timestamp-years" = "%d년 전";
-"lastmodified-by-user" = "$1에 $2님이 수정함";
-"lastmodified-by-anon" = "$1에 익명 사용자가 수정함";
+"lastmodified-by-user" = "$1에 $2님이 수정";
+"lastmodified-by-anon" = "$1에 익명 사용자가 수정";
 "button-next" = "다음";
 "button-done" = "완료";
 "button-save" = "저장";
@@ -212,6 +226,7 @@
 "menu-w-accessibility-label" = "메뉴";
 "menu-toc-accessibility-label" = "목차";
 "menu-search-accessibility-label" = "검색";
+"menu-reload-accessibility-label" = "다시 불러오기";
 "menu-cancel-accessibility-label" = "취소";
 "menu-share-accessibility-label" = "공유";
 "menu-more-accessibility-label" = "더 많은 설정";
@@ -233,3 +248,5 @@
 "nearby-location-updates-settings-menu" = "개인 정보 보호 > 위치 서비스 > 위키백과";
 "nearby-location-general-error" = "위치를 확정할 수 없습니다. 새로 고치려면 당기거나 나중에 다시 시도하세요.";
 "nearby-wifi" = "Wi-Fi를 활성화하면 장치가 위치를 더 정확하도록 도울 수 있습니다.";
+"update-progress-label" = "로컬 데이터 업그레이드";
+"image-gallery-unknown-owner" = "업로더 모름";

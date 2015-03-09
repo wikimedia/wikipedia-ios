@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Arifin.wijaya
 // Author: Bennylin
+// Author: Iwan Novirion
 // Author: Relly Komaruzaman
 
 "21c-U6-yfo.normalTitle" = "Tampilkan captcha yang lain";
@@ -21,5 +22,5 @@
 "jiW-Cg-oL3.text" = "Buat Akun";
 "kVb-lx-d6C.placeholder" = "Kata sandi";
 "mAk-1N-jPC.placeholder" = "Nama pengguna";
-"rKI-nq-3p7.placeholder" = "Alamat surel/email (dianjurkan untuk diisi)";
+"rKI-nq-3p7.placeholder" = "Alamat surel/email (sebaiknya diisi)";
 "wkl-j8-wLX.text" = "Buat akun baru";

@@ -105,7 +105,6 @@
 "saved-pages-clear-confirmation-heading" = "¿Desaniciar tolos elementos guardaos?";
 "saved-pages-clear-confirmation-sub-heading" = "¡Esata aición nun pue desfacese!";
 "saved-pages-clear-cancel" = "Encaboxar";
-"saved-pages-clear-delete-all" = "Desaniciar too";
 "page-history-title" = "Historial de la páxina";
 "page-history-downloading" = "Cargando l'historial de la páxina...";
 "navbar-title-mode-edit-wikitext" = "Editar";
@@ -147,7 +146,9 @@
 "timestamp-days" = "hai %d díes";
 "timestamp-months" = "hai %d meses";
 "timestamp-years" = "hai %d años";
+// Fuzzy
 "lastmodified-by-user" = "Cambiada $1 por $2";
+// Fuzzy
 "lastmodified-by-anon" = "Cambiada $1 por un usuariu anónimu";
 "button-next" = "Siguiente";
 "button-done" = "Fecho";

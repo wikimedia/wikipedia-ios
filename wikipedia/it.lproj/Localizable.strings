@@ -10,11 +10,13 @@
 // Author: Nivit
 // Author: Ontsed
 // Author: Peg60
+// Author: SuperVirtual
 
 "article-languages-label" = "Scegli la lingua";
 "article-languages-cancel" = "Annulla";
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
 "article-languages-filter-placeholder" = "Filtra lingua";
+"article-read-more-title" = "Leggi altro";
 "info-box-title" = "Fatti in breve";
 "info-box-close-text" = "Chiudi";
 "language-button-text" = "Puoi leggere questa voce in %d altre lingue";
@@ -124,11 +126,15 @@
 "main-menu-show-today" = "Oggi";
 "main-menu-nearby" = "Nelle vicinanze";
 "main-menu-more" = "Altro...";
+"main-menu-heading-debug" = "Debug";
+"main-menu-debug-crash" = "Crash";
 "saved-pages-title" = "Pagine salvate";
 "saved-pages-clear-confirmation-heading" = "Cancellare tutti gli elementi salvati?";
 "saved-pages-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
 "saved-pages-clear-cancel" = "Annulla";
-"saved-pages-clear-delete-all" = "Cancella tutto";
+"saved-pages-refresh-cancel-alert-title" = "Aggiornamento annullato";
+"saved-pages-refresh-cancel-alert-message" = "Le voci di Wikipedia sono aggiornate continuamente. Tocca aggiorna per ottenere le versioni più recenti di tutte le voci.";
+"saved-pages-refresh-cancel-alert-button" = "OK!";
 "page-history-title" = "Cronologia della pagina";
 "page-history-downloading" = "Caricamento della cronologia di pagina...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
@@ -178,7 +184,9 @@
 "share-menu-save-page" = "Salva la pagina";
 "share-menu-page-saved" = "Pagina salvata";
 "share-menu-page-saved-access" = "Suggerimento: per accedere alle pagine salvate, tocca $1 sopra o premi a lungo $2 sotto.";
+"share-custom-menu-item" = "Condividi";
 "share-article-name-on-wikipedia" = "\"$1\" su @Wikipedia";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" su @Wikipedia: \"$2\"";
 "share-as-image" = "Condividi come immagine";
 "share-as-text" = "Condividi come testo";
 "timestamp-just-now" = "proprio ora";
@@ -187,7 +195,7 @@
 "timestamp-days" = "%d giorni fa";
 "timestamp-months" = "%d mesi fa";
 "timestamp-years" = "%d anni fa";
-"lastmodified-by-user" = "Modificata $1 da $2";
+"lastmodified-by-user" = "Modificato $1 da $2";
 "lastmodified-by-anon" = "Modificata $1 da un utente anonimo";
 "button-next" = "Successivo";
 "button-done" = "Fatto";
@@ -225,6 +233,7 @@
 "menu-w-accessibility-label" = "Menu";
 "menu-toc-accessibility-label" = "Indice";
 "menu-search-accessibility-label" = "Ricerca";
+"menu-reload-accessibility-label" = "Ricarica";
 "menu-cancel-accessibility-label" = "Annulla";
 "menu-share-accessibility-label" = "Condividi";
 "menu-more-accessibility-label" = "Ulteriori impostazioni";
@@ -247,3 +256,7 @@
 "nearby-location-general-error" = "Impossibile determinare la posizione. Tira su per ricaricare o riprova più tardi.";
 "nearby-wifi" = "Abilitando il WiFi, aiuti il dispositivo a determinar meglio la tua posizione.";
 "update-progress-label" = "Aggiornamento di dati locali";
+"hockeyapp-alert-send-report" = "Invia segnalazione";
+"hockeyapp-alert-always-send" = "Invia sempre";
+"hockeyapp-alert-do-not-send" = "Non inviare";
+"hockeyapp-alert-privacy" = "Privacy $1";

@@ -13,7 +13,8 @@
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "条目语言载入中...";
 "article-languages-filter-placeholder" = "语言过滤器";
-"info-box-title" = "事实速览";
+"article-read-more-title" = "阅读更多";
+"info-box-title" = "快速预览";
 "info-box-close-text" = "关闭";
 "language-button-text" = "您可阅读此条目的%d种其他语言版";
 "history-label" = "最近";
@@ -25,8 +26,8 @@
 "history-clear-confirmation-sub-heading" = "此操作不能撤销！";
 "history-clear-cancel" = "取消";
 "history-clear-delete-all" = "删除全部";
-"zero-free-verbiage" = "免费访问维基百科（不需要支出数据费用）";
-"zero-charged-verbiage" = "已关闭维基百科零";
+"zero-free-verbiage" = "来自您的移动运营商的免费维基百科访问（并减免数据流量费用）";
+"zero-charged-verbiage" = "维基百科零已关闭";
 "zero-charged-verbiage-extended" = "载入其他条目将可能产生流量费用。已保存条目会离线存储并且免流量费用。";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "离开维基百科零";
@@ -122,11 +123,15 @@
 "main-menu-show-today" = "今天的首页";
 "main-menu-nearby" = "附近";
 "main-menu-more" = "更多…";
+"main-menu-heading-debug" = "调试";
+"main-menu-debug-crash" = "崩溃";
 "saved-pages-title" = "已保存页面";
 "saved-pages-clear-confirmation-heading" = "删除所有保存的项目？";
 "saved-pages-clear-confirmation-sub-heading" = "此操作不能撤销！";
 "saved-pages-clear-cancel" = "取消";
-"saved-pages-clear-delete-all" = "删除全部";
+"saved-pages-refresh-cancel-alert-title" = "更新已取消";
+"saved-pages-refresh-cancel-alert-message" = "维基百科条目始终在更新。点按刷新以获得所有条目的最新版本。";
+"saved-pages-refresh-cancel-alert-button" = "明白了";
 "page-history-title" = "页面历史";
 "page-history-downloading" = "加载页面历史...";
 "navbar-title-mode-edit-wikitext" = "编辑";
@@ -177,7 +182,7 @@
 "share-menu-page-saved" = "页面已保存";
 "share-menu-page-saved-access" = "提示：要访问您保存的页面，在上面轻触$1或在下面按住$2。";
 "share-custom-menu-item" = "分享";
-"share-article-name-on-wikipedia" = "“$1”在@Wikipedia";
+"share-article-name-on-wikipedia" = "“$1”在@Wikipedia：";
 "share-article-name-on-wikipedia-with-selected-text" = "“$1”在@Wikipedia：“$2”";
 "share-as-image" = "分享为图片";
 "share-as-text" = "分享为文本";
@@ -187,8 +192,8 @@
 "timestamp-days" = "%d天前";
 "timestamp-months" = "%d个月前";
 "timestamp-years" = "%d年前";
-"lastmodified-by-user" = "由$2修改的$1";
-"lastmodified-by-anon" = "由匿名用户修改的$1";
+"lastmodified-by-user" = "由$2于$1编辑";
+"lastmodified-by-anon" = "由匿名用户于$1编辑";
 "button-next" = "下一个";
 "button-done" = "完成";
 "button-save" = "保存";
@@ -225,6 +230,7 @@
 "menu-w-accessibility-label" = "菜单";
 "menu-toc-accessibility-label" = "内容";
 "menu-search-accessibility-label" = "搜索";
+"menu-reload-accessibility-label" = "重新载入";
 "menu-cancel-accessibility-label" = "取消";
 "menu-share-accessibility-label" = "分享";
 "menu-more-accessibility-label" = "更多设置";
@@ -247,3 +253,11 @@
 "nearby-location-general-error" = "无法确定位置。下拉刷新或稍后重试。";
 "nearby-wifi" = "启用Wi-Fi可使您的设备更好的确定您的位置。";
 "update-progress-label" = "升级本地数据";
+"image-gallery-unknown-owner" = "上传者未知。";
+"hockeyapp-alert-question" = "您想要将崩溃报告发送至$1，这样我们可以修复您的崩溃么？";
+"hockeyapp-alert-question-with-response-field" = "您想要将崩溃报告发送至$1，这样我们可以修复您的崩溃么？请描述崩溃发生时出现了什么现象：";
+"hockeyapp-alert-title" = "抱歉，应用程序上次发生了崩溃";
+"hockeyapp-alert-send-report" = "发送报告";
+"hockeyapp-alert-always-send" = "总是发送";
+"hockeyapp-alert-do-not-send" = "不要发送";
+"hockeyapp-alert-privacy" = "$1隐私";

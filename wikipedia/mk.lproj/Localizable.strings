@@ -8,6 +8,7 @@
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Ги вчитувам јазиците на статијата...";
 "article-languages-filter-placeholder" = "Јазичен филтер";
+"article-read-more-title" = "Прочитајте повеќе";
 "info-box-title" = "Накратко";
 "info-box-close-text" = "Затвори";
 "language-button-text" = "Статијава можете да ја прочитате и на %d други јазици";
@@ -117,11 +118,15 @@
 "main-menu-show-today" = "Денес";
 "main-menu-nearby" = "Во близина";
 "main-menu-more" = "Повеќе...";
+"main-menu-heading-debug" = "Исправки";
+"main-menu-debug-crash" = "Уривање";
 "saved-pages-title" = "Зачувани страници";
 "saved-pages-clear-confirmation-heading" = "Да ги избришам сите зачувани ставки?";
 "saved-pages-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
 "saved-pages-clear-cancel" = "Откажи";
-"saved-pages-clear-delete-all" = "Избриши ги сите";
+"saved-pages-refresh-cancel-alert-title" = "Подновата е откажана";
+"saved-pages-refresh-cancel-alert-message" = "Статиите на Википедија сето време се менуваат, односно подновуваат. Допрете на „Превчитај“ за да ги добиете најновите верзии на сите статии.";
+"saved-pages-refresh-cancel-alert-button" = "Јасно";
 "page-history-title" = "Историја на страницата";
 "page-history-downloading" = "Ја вчитувам историјата...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
@@ -172,7 +177,7 @@
 "share-menu-page-saved" = "Страницата е зачувана";
 "share-menu-page-saved-access" = "Совет: за да дојдете до вашите зачувани страници, допрете го $1 погоре или подржете на $2 подолу.";
 "share-custom-menu-item" = "Сподели";
-"share-article-name-on-wikipedia" = "„$1“ на @Википедија";
+"share-article-name-on-wikipedia" = "„$1“ на @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "„$1“ на @Википедија: „$2“";
 "share-as-image" = "Сподели ја сликава";
 "share-as-text" = "Сподели како текст";
@@ -220,6 +225,7 @@
 "menu-w-accessibility-label" = "Мени";
 "menu-toc-accessibility-label" = "Содржина";
 "menu-search-accessibility-label" = "Пребарај";
+"menu-reload-accessibility-label" = "Превчитај";
 "menu-cancel-accessibility-label" = "Откажи";
 "menu-share-accessibility-label" = "Сподели";
 "menu-more-accessibility-label" = "Повеќе поставки";
@@ -242,3 +248,11 @@
 "nearby-location-general-error" = "Не можам да ја утврдам местоположбата. Повлечете за да превчитате или обидете се повторно.";
 "nearby-wifi" = "Ако ја вклучите безжичната линија (Wi-Fi), уредот ќе може подобро да ја утврди вашата местоположба.";
 "update-progress-label" = "Надградба на месните податоци";
+"image-gallery-unknown-owner" = "Подигачот е непознат";
+"hockeyapp-alert-question" = "Дали би сакале да испратите пријава за уривање на $1 за да ви го исправиме проблемот?";
+"hockeyapp-alert-question-with-response-field" = "Дали би сакале да испратите пријава за уривање на $1 за да ви го исправиме проблемот? Опишете што се случи кога настана уривањето:";
+"hockeyapp-alert-title" = "За жал, извршникот се урна минатиот пат";
+"hockeyapp-alert-send-report" = "Испрати пријава";
+"hockeyapp-alert-always-send" = "Секогаш испраќај";
+"hockeyapp-alert-do-not-send" = "Не праќај";
+"hockeyapp-alert-privacy" = "Приватност на $1";
