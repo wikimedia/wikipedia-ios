@@ -8,6 +8,7 @@
 
 #import "WMFShareFunnel.h"
 #import "NSMutableDictionary+WMFMaybeSet.h"
+#import "NSString+Extras.h"
 
 static NSString* const kSchemaName             = @"MobileWikiAppShareAFact";
 static const int kSchemaVersion                = 11331974;
@@ -61,7 +62,7 @@ static NSString* const kSelectionAssertVerbiage       = @"No selection provided"
     if (self) {
         _sessionToken = [self singleUseUUID];
         _appInstallId = [self persistentUUID:kSchemaName];
-        _articleTitle = title;
+        _articleTitle = [title wmf_safeSubstringToIndex:WMFEventLoggingMaxStringLength_General];
         _articleId    = [article articleId];
     }
     return self;
@@ -96,7 +97,7 @@ static NSString* const kSelectionAssertVerbiage       = @"No selection provided"
         NSAssert(false, kSelectionAssertVerbiage);
         self.selection = @"";
     } else {
-        self.selection = selection;
+        self.selection = [selection wmf_safeSubstringToIndex:WMFEventLoggingMaxStringLength_Snippet];
     }
     [self log:@{kActionKey: kActionShareTap}];
 }

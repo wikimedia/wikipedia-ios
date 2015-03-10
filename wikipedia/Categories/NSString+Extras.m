@@ -10,6 +10,10 @@
 
 @implementation NSString (Extras)
 
+- (NSString*)wmf_safeSubstringToIndex:(NSUInteger)index {
+    return [self substringToIndex:MIN(self.length, index)];
+}
+
 - (NSString*)urlEncodedUTF8String {
     return (__bridge_transfer id)CFURLCreateStringByAddingPercentEscapes(0, (__bridge CFStringRef)self, 0,
                                                                          (__bridge CFStringRef)@";/?:@&=$+{}<>,", kCFStringEncodingUTF8);

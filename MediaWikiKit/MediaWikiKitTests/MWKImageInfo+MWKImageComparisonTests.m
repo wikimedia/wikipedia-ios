@@ -27,7 +27,9 @@
                                                 filePageURL:nil
                                                    imageURL:[NSURL URLWithString:imageURL]
                                               imageThumbURL:nil
-                                                      owner:nil];
+                                                      owner:nil
+                                                  imageSize:CGSizeZero
+                                                  thumbSize:CGSizeZero];
 }
 
 - (MWKImage*)imageAssociatedWithSourceURL:(NSString*)imageURL {

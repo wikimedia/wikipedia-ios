@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+
 #import "MWKDataObject.h"
 #import "MWKLicense.h"
 

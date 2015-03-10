@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+
+typedef NS_ENUM (NSUInteger, WMFEventLoggingMaxStringLength) {
+    WMFEventLoggingMaxStringLength_General = 99, ///< Recommended by analytics
+    WMFEventLoggingMaxStringLength_Snippet = 191 ///< MySQL length in practice
+};
+
 /**
  * Base class for EventLogging multi-stage funnels.
  *

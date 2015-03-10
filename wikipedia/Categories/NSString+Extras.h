@@ -3,6 +3,9 @@
 
 @interface NSString (Extras)
 
+/// @return A substring of the receiver going up to @c index, or @c length, whichever is shorter.
+- (NSString*)wmf_safeSubstringToIndex:(NSUInteger)index;
+
 - (NSString*)urlEncodedUTF8String;
 + (NSString*)sha1:(NSString*)dataFromString isFile:(BOOL)isFile;
 - (NSString*)getUrlWithoutScheme;
