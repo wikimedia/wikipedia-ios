@@ -284,8 +284,8 @@
 
 "image-gallery-unknown-owner" = "Uploader unknown.";
 
-"hockeyapp-alert-question" = "Would you like to send a crash report to $1 so we can fix your crash?";
-"hockeyapp-alert-question-with-response-field" = "Would you like to send a crash report to $1 so we can fix your crash? Please describe what happened when the crash occurred:";
+"hockeyapp-alert-question" = "Would you like to send a crash report to $1 so Wikimedia can review your crash?";
+"hockeyapp-alert-question-with-response-field" = "Would you like to send a crash report to $1 so Wikimedia can review your crash? Please describe what happened when the crash occurred:";
 "hockeyapp-alert-title" = "Sorry, app crashed last time";
 "hockeyapp-alert-send-report" = "Send report";
 "hockeyapp-alert-always-send" = "Always send";
