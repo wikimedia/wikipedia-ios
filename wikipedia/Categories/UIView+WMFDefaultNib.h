@@ -12,7 +12,7 @@
 
 /**
  * The name of the nib used to instantiate an instance of the receiver in <code>+[UIView wmf_createFromClassNib]</code>.
- * @discussion The default implementation returns the name of the receiver's class (similar to 
+ * @discussion The default implementation returns the name of the receiver's class (similar to
  *             <code>+[UIViewController nibName]</code>).
  */
 + (NSString*)wmf_nibName;

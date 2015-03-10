@@ -15,7 +15,7 @@
 
 /**
  * Size the image should be displayed, used to show low-res images at high-res sizes for smoother transitions.
- * @discussion This property defaults to <code>CGSizeZero</code>, in which case the image's intrinsic size will be used. 
+ * @discussion This property defaults to <code>CGSizeZero</code>, in which case the image's intrinsic size will be used.
  */
 @property (nonatomic) CGSize imageSize;
 

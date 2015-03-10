@@ -41,15 +41,15 @@
 }
 
 - (void)setGroupAlpha:(float)alpha {
-    self.alpha = alpha;
+    self.alpha                       = alpha;
     self.imageDescriptionLabel.alpha = alpha;
-    self.ownerButton.alpha = alpha;
+    self.ownerButton.alpha           = alpha;
 }
 
 - (void)setGroupHidden:(BOOL)hidden {
-    self.hidden = hidden;
+    self.hidden                       = hidden;
     self.imageDescriptionLabel.hidden = hidden;
-    self.ownerButton.hidden = hidden;
+    self.ownerButton.hidden           = hidden;
 }
 
 @end

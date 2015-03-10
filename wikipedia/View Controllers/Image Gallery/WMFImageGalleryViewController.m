@@ -49,10 +49,10 @@
 #define ImgGalleryLog(...)
 #endif
 
-static double const WMFImageGalleryTopGradientHeight = 150.0;
-static double const WMFImageGalleryLicenseFontSize = 19.0;
+static double const WMFImageGalleryTopGradientHeight     = 150.0;
+static double const WMFImageGalleryLicenseFontSize       = 19.0;
 static double const WMFImageGalleryLicenseBaselineOffset = -1.5;
-static double const WMFImageGalleryOwnerFontSize = 11.f;
+static double const WMFImageGalleryOwnerFontSize         = 11.f;
 
 NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
     return [imageInfo bk_index:^id < NSCopying > (MWKImageInfo* info) {
@@ -292,7 +292,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     [self.view addSubview:topGradientView];
     _topGradientView = topGradientView;
 
-    [self.topGradientView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.topGradientView mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(self.view.mas_top);
         make.leading.equalTo(self.view.mas_leading);
         make.trailing.equalTo(self.view.mas_trailing);

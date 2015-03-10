@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 @class CAGradientLayer;
 @interface WMFGradientView : UIView
-@property (nonatomic, weak, readonly) CAGradientLayer* gradientLayer;
+@property (nonatomic, strong, readonly) CAGradientLayer* gradientLayer;
 @end
