@@ -43,7 +43,7 @@
 #import "MWKImageInfoFetcher.h"
 #import "MWKImageInfoResponseSerializer.h"
 
-#if 0
+#if 1
 #define ImgGalleryLog(...) NSLog(__VA_ARGS__)
 #else
 #define ImgGalleryLog(...)
@@ -518,11 +518,19 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     NSParameterAssert(cell);
     NSParameterAssert(indexPath);
     NSParameterAssert(image);
-    UIImage* cachedBitmap = infoForImage.imageThumbURL ? self.bitmapsForImageURL[infoForImage.imageThumbURL] : nil;
+    UIImage* cachedBitmap   = infoForImage.imageThumbURL ? self.bitmapsForImageURL[infoForImage.imageThumbURL] : nil;
+    MWKImage* matchingImage = nil;
     if (cachedBitmap) {
         ImgGalleryLog(@"Using cached bitmap for %@ at %@", infoForImage.imageThumbURL, indexPath);
         cell.image     = cachedBitmap;
         cell.imageSize = infoForImage.thumbSize;
+    } else if ((matchingImage = [self.article imageWithURL:infoForImage.imageThumbURL.absoluteString])
+               && matchingImage.isCached) {
+        ImgGalleryLog(@"Reading image %@ from disk for cell %@.", infoForImage.imageThumbURL, indexPath);
+        UIImage* matchingImageData = [matchingImage asUIImage];
+        self.bitmapsForImageURL[infoForImage.imageThumbURL] = matchingImageData;
+        cell.image                                          = matchingImageData;
+        cell.imageSize                                      = matchingImageData.size;
     } else {
         ImgGalleryLog(@"Using article image (%@) as placeholder for thumbnail of cell %@", image.sourceURL, indexPath);
         // !!!: -asUIImage reads from disk AND has to decompress image data, maybe we should move it off the main thread?
@@ -540,8 +548,8 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
     ImgGalleryLog(@"Fetching image at %@ for cell %@", imageURL.absoluteString, indexPath);
 
-    // TEMP(bgerstle): create a MWKImage record to ensure compressed image data is written to disk and cached
-    [[[MWKImage alloc] initWithArticle:self.article sourceURL:imageURL.absoluteString] save];
+    NSAssert(![self.article imageWithURL:imageURL.absoluteString].isCached,
+             @"Invalid fetch for existing image data for URL: %@", imageURL);
 
     __weak WMFImageGalleryViewController* weakSelf = self;
     AFHTTPRequestOperation* request                =
@@ -557,6 +565,10 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
             }
             ImgGalleryLog(@"Retrieved high-res image at %@ for cell %@", imageURL, indexPath);
             NSCParameterAssert(image);
+            MWKImage* imageRecord = [strSelf.article imageWithURL:imageURL.absoluteString];
+            [imageRecord importImageData:operation.responseData];
+            [imageRecord save];
+            NSCParameterAssert(imageRecord.isCached);
             self.bitmapsForImageURL[imageURL] = image;
             WMFImageGalleryCollectionViewCell* cell =
                 (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
