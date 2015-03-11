@@ -406,6 +406,7 @@
 		D4F4783F1A48CD8500D8043C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -415,6 +416,7 @@
 		D4F478401A48CD8500D8043C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -431,6 +433,7 @@
 				D4E6D90F1A5C65B5004916C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D4F478251A48CD8500D8043C /* Build configuration list for PBXProject "OldDataSchema" */ = {
 			isa = XCConfigurationList;
