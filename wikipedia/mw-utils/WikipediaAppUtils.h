@@ -36,7 +36,7 @@ extern NSString* const WMFHockeyAppBetaTestFlightAppId;
  * @param b   Second object, can be @c nil.
  * @return @c YES if the objects are the same pointer or invoking @c sel returns @c YES, otherwise @c NO.
  */
-#define WMF_EQUAL(a, sel, b) (((a) == (b)) && ([(a) sel (b)]))
+#define WMF_EQUAL(a, sel, b) (((a) == (b)) || ([(a) sel (b)]))
 
 /**
  * Compare two objects using `==` and `isEqual:`.

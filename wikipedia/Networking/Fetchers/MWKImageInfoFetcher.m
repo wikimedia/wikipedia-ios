@@ -45,16 +45,12 @@
     return self;
 }
 
-- (AFHTTPRequestOperation*)fetchInfoForArticle:(MWKArticle*)article {
-    NSArray* filesToBeFetched = [[article.images uniqueLargestVariants] bk_map:^NSString*(MWKImage* image) {
-        NSAssert(image.canonicalFilename.length, @"Unable to form canonical filename from image: %@", image.sourceURL);
-        return [@"File:" stringByAppendingString:image.canonicalFilename];
-    }];
-    return [self fetchInfoForPageTitles:filesToBeFetched fromSite:article.site];
-}
-
-- (AFHTTPRequestOperation*)fetchInfoForPageTitles:(NSArray*)imageTitles fromSite:(MWKSite*)site {
+- (id<MWKImageInfoRequest>)fetchInfoForPageTitles:(NSArray*)imageTitles
+                                         fromSite:(MWKSite*)site
+                                          success:(void (^)(NSArray*))success
+                                          failure:(void (^)(NSError*))failure {
     NSParameterAssert([imageTitles count]);
+    NSAssert([imageTitles count] <= 50, @"Only 50 titles can be queried at a time.");
     NSParameterAssert(site);
     NSAssert(site.language.length, @"Site must have a non-empty language in order to send requests: %@", site);
 
@@ -62,35 +58,37 @@
     NSString* url = [[[SessionSingleton sharedInstance] urlForLanguage:site.language] absoluteString];
     NSAssert(url, @"Unable to form URL for language: %@", site.language);
 
+    NSDictionary* params = @{
+        @"format": @"json",
+        @"action": @"query",
+        @"titles": WMFJoinedPropertyParameters(imageTitles),
+        @"rawcontinue": @"",     //< suppress old continue warning
+        @"prop": @"imageinfo",
+        @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
+        @"iiextmetadatafilter": WMFJoinedPropertyParameters([MWKImageInfoResponseSerializer requiredExtMetadataKeys]),
+        // 1280 is a well-populated image width in back-end cache that gives good-enough quality on most iOS devices
+        @"iiurlwidth": @1280,
+    };
     __weak MWKImageInfoFetcher* weakSelf = self;
     AFHTTPRequestOperation* request      =
-        [self.manager
-         GET:url
-         parameters:@{
-             @"format": @"json",
-             @"action": @"query",
-             @"titles": WMFJoinedPropertyParameters(imageTitles),
-             @"rawcontinue": @"", //< suppress old continue warning
-             @"prop": @"imageinfo",
-             @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
-             @"iiextmetadatafilter": WMFJoinedPropertyParameters([MWKImageInfoResponseSerializer requiredExtMetadataKeys]),
-             // 1280 is a well-populated image width in back-end cache that gives good-enough quality on most iOS devices
-             @"iiurlwidth": @1280,
-         }
-            success:^(AFHTTPRequestOperation* operation, NSArray* galleryItems) {
+        [self.manager GET:url
+               parameters:params
+                  success:^(AFHTTPRequestOperation* operation, NSArray* galleryItems) {
         MWKImageInfoFetcher* strSelf = weakSelf;
-        if (!strSelf) {
-            return;
-        }
         [strSelf finishWithError:nil fetchedData:galleryItems];
-    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-        MWKImageInfoFetcher* strSelf = weakSelf;
-        if (!strSelf) {
-            return;
+        if (success) {
+            success(galleryItems);
         }
+    }
+                  failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+        MWKImageInfoFetcher* strSelf = weakSelf;
         [strSelf finishWithError:error fetchedData:nil];
+        if (failure) {
+            failure(error);
+        }
     }];
-    return request;
+    NSParameterAssert([request respondsToSelector:@selector(cancel)]);
+    return (id<MWKImageInfoRequest>)request;
 }
 
 @end

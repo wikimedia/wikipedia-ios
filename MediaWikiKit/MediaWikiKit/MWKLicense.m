@@ -28,6 +28,9 @@ static NSString* const MWKLicenseURLKey       = @"URL";
 }
 
 + (instancetype)licenseWithExportedData:(NSDictionary*)exportedData {
+    if (!exportedData) {
+        return nil;
+    }
     return [[MWKLicense alloc] initWithCode:exportedData[MWKLicenseCodeKey]
                            shortDescription:exportedData[MWKLicenseShortDescKey]
                                         URL:[NSURL URLWithString:exportedData[MWKLicenseURLKey]]];

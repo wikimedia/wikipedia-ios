@@ -10,7 +10,7 @@
 
 @implementation NSArray (WMFExtensions)
 
-- (NSArray*)wmf_arrayByTrimmingToLength:(NSUInteger)length {
+- (instancetype)wmf_arrayByTrimmingToLength:(NSUInteger)length {
     if ([self count] == 0) {
         return self;
     }
@@ -20,6 +20,10 @@
     }
 
     return [self subarrayWithRange:NSMakeRange(0, length)];
+}
+
+- (instancetype)wmf_reverseArray {
+    return [[self reverseObjectEnumerator] allObjects];
 }
 
 @end

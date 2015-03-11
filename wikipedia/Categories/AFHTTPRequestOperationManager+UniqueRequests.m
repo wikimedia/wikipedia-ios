@@ -18,11 +18,12 @@
                                                             URLString:URLString
                                                            parameters:parameters
                                                                 error:nil];
-    return request ?
-           [self.operationQueue.operations bk_match : ^BOOL (AFHTTPRequestOperation* op) {
+    if (!request) {
+        return nil;
+    }
+    return [self.operationQueue.operations bk_match:^BOOL (AFHTTPRequestOperation* op) {
         return [op.request isEqual:request];
-    }]
-           : nil;
+    }];
 }
 
 - (AFHTTPRequestOperation*)wmf_idempotentGET:(NSString*)URLString

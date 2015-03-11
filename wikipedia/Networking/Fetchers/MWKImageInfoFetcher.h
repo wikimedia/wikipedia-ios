@@ -11,6 +11,12 @@
 @class AFHTTPRequestOperation;
 @class AFHTTPRequestOperationManager;
 
+@protocol MWKImageInfoRequest <NSObject>
+
+- (void)cancel;
+
+@end
+
 @interface MWKImageInfoFetcher : FetcherBase
 
 - (instancetype)initWithDelegate:(id<FetchFinishedDelegate>)delegate;
@@ -21,9 +27,9 @@
  * @param site        The wikipedia site which should be targeted (e.g. @c "en").
  * @return An operation which can be used to set success and failure handling or cancel the originating request.
  */
-- (AFHTTPRequestOperation*)fetchInfoForPageTitles:(NSArray*)imageTitles fromSite:(MWKSite*)site;
-
-/// Fetch the imageinfo for images in the specified article.
-- (AFHTTPRequestOperation*)fetchInfoForArticle:(MWKArticle*)article;
+- (id<MWKImageInfoRequest>)fetchInfoForPageTitles:(NSArray*)imageTitles
+                                         fromSite:(MWKSite*)site
+                                          success:(void (^)(NSArray* infoObjects))success
+                                          failure:(void (^)(NSError* error))failure;
 
 @end

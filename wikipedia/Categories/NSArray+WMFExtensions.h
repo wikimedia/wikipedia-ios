@@ -11,6 +11,9 @@
  *
  *  @return The trimmed array
  */
-- (NSArray*)wmf_arrayByTrimmingToLength:(NSUInteger)length;
+- (instancetype)wmf_arrayByTrimmingToLength:(NSUInteger)length;
+
+/// @return A reversed copy of the receiver.
+- (instancetype)wmf_reverseArray;
 
 @end

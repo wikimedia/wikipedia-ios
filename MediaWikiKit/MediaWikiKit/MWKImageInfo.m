@@ -53,6 +53,9 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
 }
 
 + (instancetype)imageInfoWithExportedData:(NSDictionary*)exportedData {
+    if (!exportedData) {
+        return nil;
+    }
     // assume all model versions are 1.0.0
     return [[MWKImageInfo alloc]
             initWithCanonicalPageTitle:exportedData[MWKImageInfoCanonicalPageTitleKey]
@@ -93,11 +96,13 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
     if (obj == self) {
         return YES;
     } else if ([obj isKindOfClass:[MWKImageInfo class]]) {
-        return [self isEqualToGalleryItem:obj];
-    } else {return NO; }
+        return [self isEqualToImageInfo:obj];
+    } else {
+        return NO;
+    }
 }
 
-- (BOOL)isEqualToGalleryItem:(MWKImageInfo*)other {
+- (BOOL)isEqualToImageInfo:(MWKImageInfo*)other {
     return WMF_EQUAL(self.canonicalPageTitle, isEqualToString:, other.canonicalPageTitle)
            && WMF_IS_EQUAL(self.canonicalFileURL, other.canonicalFileURL)
            && WMF_EQUAL(self.imageDescription, isEqualToString:, other.imageDescription)
