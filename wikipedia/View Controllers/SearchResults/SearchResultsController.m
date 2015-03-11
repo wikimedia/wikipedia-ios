@@ -25,8 +25,10 @@
 #import <BlocksKit/BlocksKit.h>
 #import "WMFIntrinsicContentSizeAwareTableView.h"
 
-#define TABLE_CELL_ID @"SearchResultCell"
-#define SEARCH_DELAY 0.4
+static NSString* const kWMFSearchCellID     = @"SearchResultCell";
+static CGFloat const kWMFSearchDelay        = 0.4;
+static NSUInteger const kWMFMaxStringLength = 100;
+static CGFloat const kWMFDefaultCellHeight  = 80.0;
 
 typedef NS_ENUM (NSUInteger, WMFSearchResultsControllerType) {
     WMFSearchResultsControllerTypeStandard,
@@ -214,7 +216,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     self.navigationItem.hidesBackButton = YES;
 
     // Register the search results cell for reuse
-    [self.searchResultsTable registerNib:[UINib nibWithNibName:@"SearchResultPrototypeView" bundle:nil] forCellReuseIdentifier:TABLE_CELL_ID];
+    [self.searchResultsTable registerNib:[UINib nibWithNibName:@"SearchResultPrototypeView" bundle:nil] forCellReuseIdentifier:kWMFSearchCellID];
 
     // Turn off the separator since one gets added in SearchResultCell.m
     self.searchResultsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -228,7 +230,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
                                            context:nil];
 
     // Single off-screen cell for determining dynamic cell height.
-    self.offScreenSizingCell = (SearchResultCell*)[self.searchResultsTable dequeueReusableCellWithIdentifier:TABLE_CELL_ID];
+    self.offScreenSizingCell = (SearchResultCell*)[self.searchResultsTable dequeueReusableCellWithIdentifier:kWMFSearchCellID];
 }
 
 - (void)dealloc {
@@ -280,7 +282,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     if (self.searchString.length == 0) {
         [self clearSearchResults];
     } else {
-        [self searchAfterDelay:@(SEARCH_DELAY) reason:SEARCH_REASON_SEARCH_STRING_CHANGED];
+        [self searchAfterDelay:@(kWMFSearchDelay) reason:SEARCH_REASON_SEARCH_STRING_CHANGED];
     }
 }
 
@@ -598,6 +600,10 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
+    if ([self.searchResults[indexPath.row][@"attributedText"] length] < kWMFMaxStringLength) {
+        return kWMFDefaultCellHeight;
+    }
+
     // Update the sizing cell with any data which could change the cell height.
     self.offScreenSizingCell.resultLabel.attributedText = self.searchResults[indexPath.row][@"attributedText"];
 
@@ -606,8 +612,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    static NSString* cellID = TABLE_CELL_ID;
-    SearchResultCell* cell  = (SearchResultCell*)[tableView dequeueReusableCellWithIdentifier:cellID];
+    SearchResultCell* cell = (SearchResultCell*)[tableView dequeueReusableCellWithIdentifier:kWMFSearchCellID];
 
     NSString* thumbURL = self.searchResults[indexPath.row][@"thumbnail"][@"source"];
 
