@@ -33,8 +33,52 @@
 }
 
 - (void)testAdequateSnippet {
-    NSString *string = @"<p>Dog (woof) [horse] adequately long string</p>";
-    XCTAssertEqualObjects([string wmf_getStringSnippetWithoutHTML], @"Dog adequately long string");
+    NSString *string = @"<p>Dog (woof (w00t)) [horse] adequately long string historically 40 characters.</p>";
+    XCTAssertEqualObjects([string wmf_getStringSnippetWithoutHTML],
+                          @"Dog adequately long string historically 40 characters.");
+}
+
+- (void)testConsecutiveNewlinesCollapsing {
+    NSString *string = @"\n\nHola\n\n";
+    XCTAssertEqualObjects([string wmf_stringByCollapsingConsecutiveNewlines],
+                          @"\nHola\n");
+}
+
+- (void)testNestedParenthesesRemoval {
+        NSString *string = @"He(a(b(c(d)e)f)g)llo";
+        XCTAssertEqualObjects([string wmf_stringByRecursivelyRemovingParenthesizedContent],
+                              @"Hello");
+}
+
+- (void)testBracketedContentRemoval {
+    NSString *string = @"J[aeio]ump";
+    XCTAssertEqualObjects([string wmf_stringByRemovingBracketedContent],
+                          @"Jump");
+}
+
+- (void)testRemovalOfSpaceBeforeCommaAndSemicolon
+{
+    NSString *string = @"fish , squids ; eagles  , crows";
+    XCTAssertEqualObjects([string wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons],
+                          @"fish, squids; eagles, crows");
+}
+
+- (void)testRemovalOfSpaceBeforePeriod {
+    NSString *string = @"Yes . No 。 Maybe ． So ｡";
+    XCTAssertEqualObjects([string wmf_stringByRemovingWhiteSpaceBeforePeriod],
+                          @"Yes. No。 Maybe． So｡");
+}
+
+- (void)testConsecutiveSpacesCollapsing {
+    NSString *string = @"          Metal          ";
+    XCTAssertEqualObjects([string wmf_stringByCollapsingConsecutiveSpaces],
+                          @" Metal ");
+}
+
+- (void)testRemovalOfLeadingOrTrailingSpacesNewlinesOrColons {
+    NSString *string = @"\n          Syncopation:\n:";
+    XCTAssertEqualObjects([string wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons],
+                          @"Syncopation");
 }
 
 @end

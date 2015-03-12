@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFShareCardViewController">
@@ -45,7 +45,7 @@
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Wikipedia_wordmark_gray.png" translatesAutoresizingMaskIntoConstraints="NO" id="6HC-uN-YYr" userLabel="Wikipedia Text Logo">
-                    <rect key="frame" x="437" y="300" width="165" height="42"/>
+                    <rect key="frame" x="446" y="300" width="165" height="42"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="165" id="0M9-6P-ngj"/>
                         <constraint firstAttribute="height" constant="42" id="lae-oj-fPO"/>
@@ -90,16 +90,6 @@
                     <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <size key="shadowOffset" width="0.0" height="0.0"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="®" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="14" translatesAutoresizingMaskIntoConstraints="NO" id="5Yo-yI-rwI" userLabel="Registered Character">
-                    <rect key="frame" x="595" y="306" width="14" height="14"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="14" id="pCZ-Xx-JCh"/>
-                        <constraint firstAttribute="width" constant="14" id="zd9-Sv-7Sd"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="12"/>
-                    <color key="textColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -110,17 +100,15 @@
                 <constraint firstAttribute="trailing" secondItem="ihv-br-w7Q" secondAttribute="trailing" constant="594" id="Fa7-xI-sO6"/>
                 <constraint firstItem="QlQ-cG-u6Y" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="1" id="I1H-MI-rGN"/>
                 <constraint firstItem="6HC-uN-YYr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="300" id="IRD-c1-xQ1"/>
-                <constraint firstItem="6HC-uN-YYr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="437" id="Jth-di-SuC"/>
                 <constraint firstAttribute="trailing" secondItem="dbe-nb-kfi" secondAttribute="trailing" constant="250" id="PFY-gP-kCk"/>
                 <constraint firstAttribute="trailing" secondItem="rjC-wW-yPe" secondAttribute="trailing" constant="250" id="SfX-Oa-xFJ"/>
-                <constraint firstItem="5Yo-yI-rwI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="306" id="UqO-oR-9Ri"/>
                 <constraint firstItem="jvd-fN-IRx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="66" id="WCt-t0-W80"/>
                 <constraint firstAttribute="trailing" secondItem="QlQ-cG-u6Y" secondAttribute="trailing" constant="30" id="Y9l-1g-Oo7"/>
-                <constraint firstItem="5Yo-yI-rwI" firstAttribute="left" secondItem="6HC-uN-YYr" secondAttribute="right" constant="-7" id="fhg-D4-4AE"/>
-                <constraint firstAttribute="trailing" secondItem="6HC-uN-YYr" secondAttribute="trailing" constant="38" id="jVI-Mw-VWG"/>
+                <constraint firstAttribute="trailing" secondItem="6HC-uN-YYr" secondAttribute="trailing" constant="29" id="dXe-Br-38A"/>
                 <constraint firstItem="ihv-br-w7Q" firstAttribute="top" secondItem="dbe-nb-kfi" secondAttribute="bottom" constant="5" id="n83-t1-RUk"/>
                 <constraint firstItem="rjC-wW-yPe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="nv3-ra-Qgn"/>
                 <constraint firstAttribute="trailing" secondItem="Sjf-Tp-DH9" secondAttribute="trailing" constant="576" id="ooM-aW-c1A"/>
+                <constraint firstItem="6HC-uN-YYr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="446" id="r6f-yl-9co"/>
                 <constraint firstItem="Sjf-Tp-DH9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="319" id="sf5-h3-ktL"/>
                 <constraint firstItem="dbe-nb-kfi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="si1-eO-mqn"/>
                 <constraint firstItem="ihv-br-w7Q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="319" id="uzH-it-j9k"/>
