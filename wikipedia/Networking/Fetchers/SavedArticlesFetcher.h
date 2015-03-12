@@ -4,12 +4,13 @@
 @class MWKArticle, MWKSavedPageList, AFHTTPRequestOperationManager;
 @class SavedArticlesFetcher;
 
+typedef void (^WMFSavedArticlesFetcherProgress)(CGFloat progress);
+
 @protocol SavedArticlesFetcherDelegate <FetchFinishedDelegate>
 
 - (void)savedArticlesFetcher:(SavedArticlesFetcher*)savedArticlesFetcher
              didFetchArticle:(MWKArticle*)article
-           remainingArticles:(NSInteger)remaining
-               totalArticles:(NSInteger)total
+                    progress:(CGFloat)progress
                       status:(FetchFinalStatus)status
                        error:(NSError*)error;
 
@@ -20,8 +21,10 @@
 + (SavedArticlesFetcher*)sharedInstance;
 + (void)                 setSharedInstance:(SavedArticlesFetcher*)fetcher;
 
-@property (strong, nonatomic, readonly) MWKSavedPageList* savedPageList;
+@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
+
+- (void)getProgress:(WMFSavedArticlesFetcherProgress)progressBlock;
 
 @property (nonatomic, weak) id <SavedArticlesFetcherDelegate> fetchFinishedDelegate;
 

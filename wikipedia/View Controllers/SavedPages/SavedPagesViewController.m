@@ -31,8 +31,6 @@
 
 static NSString* const WMFSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesDidShowCancelRefreshAlert";
 
-static SavedArticlesFetcher* _sharedFetcher = nil;
-
 @interface SavedPagesViewController ()<SavedArticlesFetcherDelegate>
 {
     MWKSavedPageList* savedPageList;
@@ -133,8 +131,8 @@ static SavedArticlesFetcher* _sharedFetcher = nil;
     self.tableView.editing = NO;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 
     // Listen for nav bar taps.
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -145,7 +143,6 @@ static SavedArticlesFetcher* _sharedFetcher = nil;
     SavedArticlesFetcher* fetcher = [SavedArticlesFetcher sharedInstance];
 
     if (fetcher) {
-        fetcher.fetchFinishedDelegate = self;
         [self resumeRefresh];
     }
 }
@@ -219,8 +216,7 @@ static SavedArticlesFetcher* _sharedFetcher = nil;
 
     cell.methodImageView.image = nil;
 
-    MWKArticle* article = [userDataStore.dataStore articleWithTitle:savedEntry.title];
-    //UIImage *thumbImage = [[article.thumbnail largestVariant] asUIImage];
+    MWKArticle* article      = [userDataStore.dataStore articleWithTitle:savedEntry.title];
     MWKImage* thumbnail      = article.thumbnail;
     MWKImage* largeThumbnail = [thumbnail largestVariant];
     UIImage* thumbImage      = [largeThumbnail asUIImage];
@@ -433,10 +429,20 @@ static SavedArticlesFetcher* _sharedFetcher = nil;
 }
 
 - (void)resumeRefresh {
-    self.progressView.progress = 0.0;
-    [self showProgressView];
-    [self showCancelButton];
-    [self showRefreshTitle];
+    
+    [[SavedArticlesFetcher sharedInstance] getProgress:^(CGFloat progress) {
+
+        if(progress < 100){
+            
+            self.progressView.progress = progress;
+            [SavedArticlesFetcher sharedInstance].fetchFinishedDelegate = self;
+
+            [self showProgressView];
+            [self showCancelButton];
+            [self hideRefreshButton];
+            [self showRefreshTitle];
+        }
+    }];
 }
 
 - (void)finishRefresh {
@@ -466,8 +472,7 @@ static SavedArticlesFetcher* _sharedFetcher = nil;
 
 #pragma mark - SavedArticlesFetcherDelegate
 
-- (void)savedArticlesFetcher:(SavedArticlesFetcher*)savedArticlesFetcher didFetchArticle:(MWKArticle*)article remainingArticles:(NSInteger)remaining totalArticles:(NSInteger)total status:(FetchFinalStatus)status error:(NSError*)error {
-    CGFloat progress = 1.0 - (CGFloat)remaining / (CGFloat)total;
+- (void)savedArticlesFetcher:(SavedArticlesFetcher*)savedArticlesFetcher didFetchArticle:(MWKArticle*)article progress:(CGFloat)progress status:(FetchFinalStatus)status error:(NSError*)error {
     [self.progressView setProgress:progress animated:YES];
 }
 

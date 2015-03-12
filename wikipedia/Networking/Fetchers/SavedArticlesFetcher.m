@@ -70,6 +70,28 @@ static SavedArticlesFetcher * _fetcher = nil;
     });
 }
 
+- (void)getProgress:(WMFSavedArticlesFetcherProgress)progressBlock{
+
+    dispatch_async(self.accessQueue, ^{
+        
+        CGFloat progress = [self progress];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            progressBlock(progress);
+        });
+    });
+}
+
+
+- (CGFloat)progress {
+    if ([self.savedPageList length] == 0) {
+        return 0.0;
+    }
+
+    return (CGFloat)([self.savedPageList length] - [self.fetchersByArticleTitle count]) / (CGFloat)[self.savedPageList length];
+}
+
 - (void)fetchFinished:(id)sender fetchedData:(id)fetchedData status:(FetchFinalStatus)status error:(NSError*)error {
     dispatch_async(self.accessQueue, ^{
         __block id completedFetcherKey;
@@ -91,11 +113,18 @@ static SavedArticlesFetcher * _fetcher = nil;
 
         [self.fetchedArticles addObject:article];
 
-        [self.fetchFinishedDelegate savedArticlesFetcher:self didFetchArticle:article remainingArticles:[self.fetchersByArticleTitle count] totalArticles:self.savedPageList.length status:status error:error];
+        CGFloat progress = [self progress];
 
-        if ([self.fetchersByArticleTitle count] == 0) {
-            [self notifyDelegate];
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.fetchFinishedDelegate savedArticlesFetcher:self didFetchArticle:article progress:progress status:status error:error];
+            
+            dispatch_async(self.accessQueue, ^{
+                if ([self.fetchersByArticleTitle count] == 0) {
+                    [self notifyDelegate];
+                    [[self class] setSharedInstance:nil];
+                }
+            });
+        });
     });
 }
 
