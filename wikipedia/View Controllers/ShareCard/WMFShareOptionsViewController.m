@@ -25,7 +25,6 @@
 @property (strong, nonatomic) UIView* grayOverlay;
 @property (strong, nonatomic) WMFShareOptionsView* shareOptions;
 @property (strong, nonatomic) UIImage* shareImage;
-@property (strong, nonatomic) NSURL* desktopURL;
 @property (strong, nonatomic) NSString* shareTitle;
 @property (strong, nonatomic) UIPopoverController* popover;
 
@@ -58,10 +57,7 @@
     }
     self = [super init];
     if (self) {
-        _desktopURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@",
-                                                     article.title.desktopURL.absoluteString,
-                                                     @"?source=app"]];
-        if (!_desktopURL) {
+        if (!article.title.desktopURL.absoluteString) {
             NSLog(@"Could not retrieve desktop URL for article.");
             return nil;
         }
@@ -262,7 +258,13 @@
 }
 
 - (void)transferSharingToDelegate {
-    NSMutableArray* activityItems = @[self.shareTitle, self.desktopURL].mutableCopy;
+    NSString* parameter = self.shareImage ? @"wprov=sfii1" : @"wprov=sfti1";
+
+    NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
+                                                self.article.title.desktopURL.absoluteString,
+                                                parameter]];
+
+    NSMutableArray* activityItems = @[self.shareTitle, url].mutableCopy;
     if (self.shareImage) {
         [activityItems addObject:self.shareImage];
     }
