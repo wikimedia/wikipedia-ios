@@ -5,6 +5,7 @@
 // Author: Bsitzmann
 // Author: Chrumps
 // Author: Jacenty359
+// Author: Peter Bowman
 // Author: Pio387
 // Author: Py64
 // Author: Ty221
@@ -106,6 +107,7 @@
 "saved-pages-clear-confirmation-heading" = "Usunąć wszystkie zapisane elementy?";
 "saved-pages-clear-confirmation-sub-heading" = "Ta akcja nie można zostać cofnięta!";
 "saved-pages-clear-cancel" = "Anuluj";
+"saved-pages-refresh-cancel-alert-title" = "Aktualizacja anulowana";
 "page-history-title" = "Historia strony";
 "page-history-downloading" = "Ładowanie historii artykułu...";
 "navbar-title-mode-edit-wikitext" = "Edytuj";
@@ -192,3 +194,6 @@
 "nearby-location-updates-settings-menu" = "Prywatność > Usługi lokalizacji > Wikipedia";
 "nearby-location-general-error" = "Nie udało się ustalić położenia. Odśwież lub spróbuj ponownie później.";
 "nearby-wifi" = "Uruchomienie Wi-Fi może pomóc urządzeniu lepiej określić twoją lokalizację.";
+"hockeyapp-alert-send-report" = "Wyślij raport";
+"hockeyapp-alert-always-send" = "Zawsze wysyłaj";
+"hockeyapp-alert-do-not-send" = "Nie wysyłaj";

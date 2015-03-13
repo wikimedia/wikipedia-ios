@@ -231,6 +231,7 @@
 "nearby-wifi" = "D'Aschalte vum Wifi kann Ärem Apparat hëllefen d'Plaz wou Dir sidd besser festzeleeën.";
 "update-progress-label" = "Aktualiséiere vu lokalen Donnéeën";
 "image-gallery-unknown-owner" = "Eroplueder onbekannt.";
+// Fuzzy
 "hockeyapp-alert-question" = "Wëllt Dir e Rapport vum Crash op $1 schécken esou datt mir de Feeler flécke kënnen?";
 "hockeyapp-alert-send-report" = "Rapport schécken";
 "hockeyapp-alert-always-send" = "Ëmmer schécken";

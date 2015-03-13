@@ -7,6 +7,7 @@
 "article-languages-cancel" = "გაუქმება";
 "article-languages-downloading" = "სტატიის ენები იტვირთება...";
 "article-languages-filter-placeholder" = "ენის ფილტრი";
+"article-read-more-title" = "წაიკითხეთ მეტი";
 "info-box-title" = "სწრაფი ფაქტები";
 "info-box-close-text" = "დახურვა";
 "language-button-text" = "ამ სტატიის წაკითხვა შეგიძლიათ % სხვა ენებზე";
@@ -19,6 +20,7 @@
 "history-clear-confirmation-sub-heading" = "ამ ქმედების გაუქმება შეუძლებელია!";
 "history-clear-cancel" = "გაუქმება";
 "history-clear-delete-all" = "ყველას წაშლა";
+"zero-free-verbiage" = "ვიკიპედიაზე უფასო წვდომა თქვენი მობილური ოპერატორიდან.";
 "zero-charged-verbiage" = "ვიკიპედია ზერო გამორთულია";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "ვიკიპედია ზეროდან გამოსვლა";
@@ -49,6 +51,7 @@
 "wikitext-downloading" = "შიგთავსი იტვირთება…";
 "wikitext-download-failed" = "უახლესი ვერსიის ხილვა შეუძლებელია.";
 "wikitext-download-success" = "შიგთავსი ჩაიტვირთა.";
+"wikitext-upload-result-unknown" = "ვიკიტექსტის ატვირთვის შედეგის განსაზღვრა შეუძლებელია.";
 "wikitext-upload-save" = "ინახება...";
 "wikitext-upload-save-sign-in" = "შესვლა";
 "wikitext-upload-save-anonymously" = "ანონიმურად დამახსოვრება";
@@ -129,6 +132,7 @@
 "about-title" = "შესახებ";
 "about-wikipedia" = "ვიკიპედია";
 "about-contributors" = "ავტორები";
+"about-testers" = "ტესტერები";
 "about-translators" = "მთარგმნელები";
 "about-translators-details" = "ეს აპლიკაცია ნათარგმნია მოხალისეების მიერ $1-ზე";
 "about-libraries-license" = "ლიცენზია";
@@ -179,6 +183,7 @@
 "menu-w-accessibility-label" = "მენიუ";
 "menu-toc-accessibility-label" = "შინაარსი";
 "menu-search-accessibility-label" = "ძიება";
+"menu-reload-accessibility-label" = "ხელახლა ჩატვირთვა";
 "menu-cancel-accessibility-label" = "გაუქმება";
 "menu-share-accessibility-label" = "გაზიარება";
 "menu-more-accessibility-label" = "მეტი პარამეტრები";
@@ -200,3 +205,9 @@
 "nearby-location-updates-settings-menu" = "კონფიდენსიალურობა > ლოკაციის სერვისი > ვიკიპედია";
 "nearby-location-general-error" = "თქვენი ადგილმდებარეობის განსაზღვრა შეუძლებელია. გადასატვირთად აწიეთ ან სცადეთ მოგვიანებით.";
 "nearby-wifi" = "უფლება მიეცი Wi-Fi-ს დაეხმაროს თქვენს მოწყობილობას, რათა უკეთ განსაზღვროს თქვენი ადგილმდებარეობა.";
+"update-progress-label" = "ადგილობრივი მონაცემების განახლება";
+"image-gallery-unknown-owner" = "ამტვირთველი უცნობია";
+"hockeyapp-alert-send-report" = "რეპორტის გაგზავნა";
+"hockeyapp-alert-always-send" = "ყოველთვის გაგზავნა";
+"hockeyapp-alert-do-not-send" = "არ გააგზავნო";
+"hockeyapp-alert-privacy" = "$1 კონფიდენციალურობა";

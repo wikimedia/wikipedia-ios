@@ -122,6 +122,7 @@
 "main-menu-nearby" = "Nas redondezas";
 "main-menu-more" = "Mais...";
 "main-menu-heading-debug" = "Depurar";
+"main-menu-debug-crash" = "Forçar encerramento";
 "saved-pages-title" = "Páginas guardadas";
 "saved-pages-clear-confirmation-heading" = "Eliminar todos os itens gravados?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
@@ -250,3 +251,13 @@
 "nearby-location-general-error" = "Não foi possível determinar a localização. Puxe para atualizar ou tente novamente mais tarde.";
 "nearby-wifi" = "Ativar o WiFi pode ajudar o seu dispositivo a determinar a sua localização.";
 "update-progress-label" = "A atualizar dados locais";
+"image-gallery-unknown-owner" = "Autor desconhecido.";
+// Fuzzy
+"hockeyapp-alert-question" = "Deseja enviar um relatório da falha de $1 para que possamos resolver o problema?";
+// Fuzzy
+"hockeyapp-alert-question-with-response-field" = "Deseja enviar um relatório da falha de $1 para que possamos resolver o problema? Por favor, descreva a situação quando ocorreu o encerramento inesperado:";
+"hockeyapp-alert-title" = "Desculpe, a aplicação encerrou inesperadamente da última vez";
+"hockeyapp-alert-send-report" = "Enviar relatório";
+"hockeyapp-alert-always-send" = "Enviar sempre";
+"hockeyapp-alert-do-not-send" = "Não enviar";
+"hockeyapp-alert-privacy" = "Privacidade de $1";

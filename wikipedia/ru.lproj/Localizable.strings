@@ -123,6 +123,8 @@
 "main-menu-show-today" = "Сегодня";
 "main-menu-nearby" = "Поблизости";
 "main-menu-more" = "Ещё…";
+"main-menu-heading-debug" = "Отладка";
+"main-menu-debug-crash" = "Падение";
 "saved-pages-title" = "Сохранённые страницы";
 "saved-pages-clear-confirmation-heading" = "Удалить все сохранённые элементы?";
 "saved-pages-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
@@ -251,3 +253,11 @@
 "nearby-location-general-error" = "Не удаётся определить местоположение. Потяните, чтобы обновить или повторите попытку позже.";
 "nearby-wifi" = "Включение Wi-Fi может помочь устройству лучше определить ваше местоположение.";
 "update-progress-label" = "Обновление локальных данных";
+"image-gallery-unknown-owner" = "Загрузивший файл неизвестен.";
+"hockeyapp-alert-question" = "Не хотели бы вы отправить отчет в $1, чтобы Фонд Викимедиа смог изучить ваш случай «падения»?";
+"hockeyapp-alert-question-with-response-field" = "Не хотели бы вы отправить отчет в $1, чтобы Фонд Викимедиа смог изучить ваш случай «падения»? Пожалуйста, опишите, что могло привести к этому:";
+"hockeyapp-alert-title" = "К сожалению, в прошлый раз приложение «упало»";
+"hockeyapp-alert-send-report" = "Отправить отчёт";
+"hockeyapp-alert-always-send" = "Всегда отправлять";
+"hockeyapp-alert-do-not-send" = "Не отправлять";
+"hockeyapp-alert-privacy" = "Политика конфиденциальности $1";

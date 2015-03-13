@@ -251,8 +251,8 @@
 "nearby-wifi" = "הפעלת וייפיי יכולה לעזור למכשיר שלך להבין את המיקום טוב יותר.";
 "update-progress-label" = "שדרוג נתונים מקומיים";
 "image-gallery-unknown-owner" = "המעלֶה אינו ידוע.";
-"hockeyapp-alert-question" = "האם לשלוח דיווח קריסה אל $1 כדי שנוכל לתקן את הקריסה שלך?";
-"hockeyapp-alert-question-with-response-field" = "האם לשלוח דיווח קריסה אל $1 כדי שנוכל לתקן את הקריסה שלך? נא לתאר מה קרה בזמן שאירעה הקריסה:";
+"hockeyapp-alert-question" = "האם לשלוח דיווח קריסה אל $1 כדי שוויקימדיה תוכל לתקן את הקריסה שלך?";
+"hockeyapp-alert-question-with-response-field" = "האם לשלוח דיווח קריסה אל $1 כדי שוויקימדיה תוכל לבדוק את הקריסה שלך? נא לתאר מה קרה בזמן שאירעה הקריסה:";
 "hockeyapp-alert-title" = "סליחה, היישום קרס בפעם הקודמת";
 "hockeyapp-alert-send-report" = "שליחת דיווח";
 "hockeyapp-alert-always-send" = "לשלוח תמיד";

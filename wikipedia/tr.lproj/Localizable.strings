@@ -1,5 +1,6 @@
 // Messages for Turkish (Türkçe)
 // Exported from translatewiki.net
+// Author: Ayrıntılı Bilgi
 // Author: Incelemeelemani
 // Author: Mavrikant
 // Author: Meelo
@@ -121,6 +122,8 @@
 "main-menu-show-today" = "Bugün";
 "main-menu-nearby" = "Yakınındakiler";
 "main-menu-more" = "Daha fazla...";
+"main-menu-heading-debug" = "Hata ayıklama";
+"main-menu-debug-crash" = "Çökme";
 "saved-pages-title" = "Kaydedilen sayfalar";
 "saved-pages-clear-confirmation-heading" = "Tüm kayıtlı ögeler silinsin mi?";
 "saved-pages-clear-confirmation-sub-heading" = "Bu eylem geri alınamaz!";
@@ -249,3 +252,11 @@
 "nearby-location-general-error" = "Konum belirlenemiyor. Yenilemek için aşağı çekin veya daha sonra tekrar deneyin.";
 "nearby-wifi" = "Kablosuz bağlantıyı etkinleştirmek, cihazınızın konumunuzu daha iyi belirlemesine yardımcı olabilir.";
 "update-progress-label" = "Yerel veri güncelleniyor";
+"image-gallery-unknown-owner" = "Yükleyen bilinmiyor.";
+"hockeyapp-alert-question" = "Oluşan hatayı Wikimedia'nın inceleyebilmesi için $1'e çökme raporu göndermek ister misiniz?";
+"hockeyapp-alert-question-with-response-field" = "Oluşan hatayı Wikimedia'nın inceleyebilmesi için $1'e çökme raporu göndermek ister misiniz? Lütfen çökme gerçekleştiği sırada ne olduğunu tanımlayabilir misiniz:";
+"hockeyapp-alert-title" = "Üzgünüm, geçen sefer uygulama çöktü";
+"hockeyapp-alert-send-report" = "Rapor gönder";
+"hockeyapp-alert-always-send" = "Her zaman gönder";
+"hockeyapp-alert-do-not-send" = "Gönderme";
+"hockeyapp-alert-privacy" = "$1 gizliliği";

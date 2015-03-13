@@ -120,6 +120,7 @@
 "main-menu-nearby" = "Preto";
 "main-menu-more" = "Máis...";
 "main-menu-heading-debug" = "Depurar";
+"main-menu-debug-crash" = "Lixo";
 "saved-pages-title" = "Páxinas gardadas";
 "saved-pages-clear-confirmation-heading" = "Borrar tódolos elementos gardados?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer!";
@@ -248,3 +249,11 @@
 "nearby-location-general-error" = "Non se pode determinar a localización. Tire para actualizar ou ténteo máis tarde.";
 "nearby-wifi" = "Activar wifi pode axudar a que o seu dispositivo determine mellor a súa localización.";
 "update-progress-label" = "Actualizando datos locais";
+"image-gallery-unknown-owner" = "Autor descoñecido.";
+"hockeyapp-alert-question" = "Quere enviar un informe de erro a $1 para que así Wikimedia poida revisar o seu erro?";
+"hockeyapp-alert-question-with-response-field" = "Quere enviar un informe de erro a $1 para que así Wikimedia poida revisar o seu erro? Por favor descreba que ocorreu cando sucedeu o erro:";
+"hockeyapp-alert-title" = "Sentímolo, a aplicación tivo un erro a última vez";
+"hockeyapp-alert-send-report" = "Enviar informe";
+"hockeyapp-alert-always-send" = "Enviar sempre";
+"hockeyapp-alert-do-not-send" = "Non enviar";
+"hockeyapp-alert-privacy" = "Confidencialidade de $1";

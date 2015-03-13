@@ -123,6 +123,7 @@
 "main-menu-show-today" = "Hoy";
 "main-menu-nearby" = "Cercanos";
 "main-menu-more" = "Más…";
+"main-menu-heading-debug" = "Depurar";
 "saved-pages-title" = "Páginas guardadas";
 "saved-pages-clear-confirmation-heading" = "¿Borrar todos los elemento guardados?";
 "saved-pages-clear-confirmation-sub-heading" = "¡Esta acción no se puede deshacer!";
@@ -251,3 +252,6 @@
 "nearby-location-general-error" = "No se puede determinar la ubicación. Tira para actualizar o inténtalo más tarde.";
 "nearby-wifi" = "Activar wifi puede ayudar a que tu dispositivo determine mejor tu ubicación.";
 "update-progress-label" = "Actualización de datos locales";
+"hockeyapp-alert-send-report" = "Enviar informe";
+"hockeyapp-alert-always-send" = "Enviar siempre";
+"hockeyapp-alert-do-not-send" = "No enviar";

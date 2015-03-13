@@ -247,7 +247,9 @@
 "nearby-wifi" = "Activarea conexiunii WiFi poate ajuta dispozitivul dumnevoastră să vă localizeze mai precis.";
 "update-progress-label" = "Se face upgrade datelor locale";
 "image-gallery-unknown-owner" = "Încărcare de la o persoană necunoscută.";
+// Fuzzy
 "hockeyapp-alert-question" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât să reparăm problema?";
+// Fuzzy
 "hockeyapp-alert-question-with-response-field" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât să reparăm problema? Vă rugăm să descrieți împrejurarea în care s-a produs blocarea:";
 "hockeyapp-alert-title" = "Ne pare rău, aplicația s-a blocat ultima dată";
 "hockeyapp-alert-send-report" = "Trimite raportul";

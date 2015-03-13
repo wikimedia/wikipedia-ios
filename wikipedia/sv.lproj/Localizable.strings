@@ -111,8 +111,8 @@
 "main-menu-show-saved" = "Sparade artiklar";
 "main-menu-current-article-save" = "Spara $1 för läsning offline";
 "main-menu-random" = "Slumpartikel";
-"main-menu-feedback-heading" = "Feedback";
-"main-menu-send-feedback" = "Skicka feedback om appen";
+"main-menu-feedback-heading" = "Återkoppling";
+"main-menu-send-feedback" = "Skicka återkoppling om appen";
 "main-menu-show-page-history" = "Historik över redigeringar av $1";
 "main-menu-credits" = "Erkännanden";
 "main-menu-about" = "Om Wikipedia-appen";
@@ -125,6 +125,8 @@
 "main-menu-show-today" = "Idag";
 "main-menu-nearby" = "I närheten";
 "main-menu-more" = "Mer...";
+"main-menu-heading-debug" = "Felsökning";
+"main-menu-debug-crash" = "Krasch";
 "saved-pages-title" = "Sparade artiklar";
 "saved-pages-clear-confirmation-heading" = "Radera alla sparade objekt?";
 "saved-pages-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
@@ -253,3 +255,13 @@
 "nearby-location-general-error" = "Det gick inte att bestämma plats. Dra för att uppdatera eller försök igen senare.";
 "nearby-wifi" = "Att aktivera wifi kan hjälpa din enhet att bättre avgöra din position.";
 "update-progress-label" = "Uppgraderar lokal data";
+"image-gallery-unknown-owner" = "Okänd uppladdare.";
+// Fuzzy
+"hockeyapp-alert-question" = "Vill du skicka en kraschrapport till $1 så kan vi åtgärda den?";
+// Fuzzy
+"hockeyapp-alert-question-with-response-field" = "Vill du skicka en kraschrapport till $1 så kan vi åtgärda den? Beskriv vad som hände när kraschen inträffade:";
+"hockeyapp-alert-title" = "Ledsen, appen kraschade förra gången";
+"hockeyapp-alert-send-report" = "Skicka rapporten";
+"hockeyapp-alert-always-send" = "Skicka alltid";
+"hockeyapp-alert-do-not-send" = "Skicka inte";
+"hockeyapp-alert-privacy" = "$1s sekretess";
