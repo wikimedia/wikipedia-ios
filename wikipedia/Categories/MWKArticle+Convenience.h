@@ -8,4 +8,9 @@
 // Untested.
 - (MWKImage*)getFirstSectionImageLargerThanSize:(CGSize)size;
 
+// Convenience method for saving an image not associated with
+// any section, (such as a higher resolution variant of an
+// image which is associated with a section).
+- (MWKImage*)importImageURL:(NSString*)url
+                  imageData:(NSData*)imageData;
 @end

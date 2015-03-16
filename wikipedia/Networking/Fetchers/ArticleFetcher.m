@@ -338,8 +338,6 @@
     if (title) {
         NSString* thumbURL = map[title];
         if (thumbURL) {
-            thumbURL = [thumbURL getUrlWithoutScheme];
-
             // Associate Search/Nearby thumb url with article.thumbnailURL.
             if (thumbURL) {
                 self.article.thumbnailURL = thumbURL;
@@ -357,7 +355,7 @@
                 NSData* data   = [NSData dataWithContentsOfFile:cacheFilePath options:0 error:&error];
                 if (!error) {
                     // Copy Search/Nearby thumb binary to core data store so it doesn't have to be re-downloaded.
-                    MWKImage* image = [self.article importImageURL:thumbURL sectionId:MWK_SECTION_THUMBNAIL];
+                    MWKImage* image = [self.article importImageURL:thumbURL sectionId:kMWKArticleSectionNone];
                     [self.article importImageData:data image:image];
                     foundThumbInTempDir = YES;
                 }

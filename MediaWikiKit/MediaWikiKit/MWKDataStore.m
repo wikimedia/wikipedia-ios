@@ -9,6 +9,7 @@
 #import "MediaWikiKit.h"
 
 #import <BlocksKit/BlocksKit.h>
+#import "NSString+Extras.h"
 
 NSString* const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 static NSString* const MWKImageInfoFilename      = @"ImageInfo.plist";
@@ -102,12 +103,8 @@ static NSString* const MWKImageInfoFilename      = @"ImageInfo.plist";
 }
 
 - (NSString*)safeFilenameWithImageURL:(NSString*)str {
-    if ([str hasPrefix:@"http:"]) {
-        str = [str substringFromIndex:[@"http:" length]];
-    }
-    if ([str hasPrefix:@"https:"]) {
-        str = [str substringFromIndex:[@"https:" length]];
-    }
+    str = [str getUrlWithoutScheme];
+
     if ([str hasPrefix:MWKDataStoreValidImageSitePrefix]) {
         NSString* suffix   = [str substringFromIndex:[MWKDataStoreValidImageSitePrefix length]];
         NSString* fileName = [suffix lastPathComponent];

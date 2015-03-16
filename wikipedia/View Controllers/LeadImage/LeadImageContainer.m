@@ -17,6 +17,7 @@
 #import "URLCache.h"
 #import "WMFGeometry.h"
 #import "UIImage+WMFFocalImageDrawing.h"
+#import "MWKArticle+Convenience.h"
 
 static const CGFloat kPlaceHolderImageAlpha                   = 0.3f;
 static const CGFloat kMinimumAcceptableCachedVariantThreshold = 0.6f;
@@ -388,10 +389,9 @@ static const CGFloat kMinimumAcceptableCachedVariantThreshold = 0.6f;
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                     // Associate the image retrieved with article.image.
                     ThumbnailFetcher* fetcher = (ThumbnailFetcher*)sender;
-                    NSString* thumbnailURL = [fetcher.url getUrlWithoutScheme];
 
-                    MWKImage* articleImage = [[MWKImage alloc] initWithArticle:self.article sourceURL:thumbnailURL];
-                    [articleImage importImageData:fetchedData];
+                    MWKImage* articleImage = [self.article importImageURL:fetcher.url
+                                                                imageData:fetchedData];
 
                     NSLog(@"FETCHED HIGHER RES VARIANT of width: %f", articleImage.width.floatValue);
 

@@ -1,0 +1,12 @@
+# On all supported devices and operating systems...
+
+Feature: Best image
+
+    Scenario: Load the "world heritage site" enwiki article
+
+        Given I am in the article view with a lead image that is slighly pixelated
+        When I tap on the lead image and it downloads a higher resolution version of the lead image
+        And I close the image gallery
+        Then the lead image should now be showing the high resolution image the gallery retrieved
+        And if I tap the "back" arrow then tap the "forward" arrow
+        Then the lead image should still show the high resolution image

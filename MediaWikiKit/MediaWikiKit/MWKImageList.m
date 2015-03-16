@@ -7,6 +7,7 @@
 //
 
 #import "MediaWikiKit.h"
+#import "NSString+Extras.h"
 
 @implementation MWKImageList {
     NSMutableArray* entries;
@@ -46,6 +47,8 @@
 }
 
 - (void)addImageURL:(NSString*)imageURL {
+    imageURL = [imageURL getUrlWithoutScheme];
+
     [entries addObject:imageURL];
     entriesByURL[imageURL] = imageURL;
 

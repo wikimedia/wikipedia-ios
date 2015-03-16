@@ -35,6 +35,7 @@
 #import "MWKImage.h"
 #import "MWKLicense+ToGlyph.h"
 #import "MWKImageInfo+MWKImageComparison.h"
+#import "MWKArticle+Convenience.h"
 
 // Networking
 #import <AFNetworking/AFNetworking.h>
@@ -575,9 +576,8 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
             }
             ImgGalleryLog(@"Retrieved high-res image at %@ for cell %@", imageURL, indexPath);
             NSCParameterAssert(image);
-            MWKImage* imageRecord = [strSelf.article imageWithURL:imageURL.absoluteString];
-            [imageRecord importImageData:operation.responseData];
-            [imageRecord save];
+            MWKImage* imageRecord = [strSelf.article importImageURL:imageURL.absoluteString
+                                                          imageData:operation.responseData];
             NSCParameterAssert(imageRecord.isCached);
             self.bitmapsForImageURL[imageURL] = image;
             WMFImageGalleryCollectionViewCell* cell =

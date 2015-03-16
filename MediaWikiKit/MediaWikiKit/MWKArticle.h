@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
-#define MWK_SECTION_THUMBNAIL -1
+static const NSInteger kMWKArticleSectionNone = -1;
 
 #import <UIKit/UIKit.h>
 

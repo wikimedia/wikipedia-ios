@@ -123,7 +123,7 @@
  */
 - (MWKImage*)importImageURL:(NSString*)url sectionId:(int)sectionId {
     [self.images addImageURL:url];
-    if (sectionId != MWK_SECTION_THUMBNAIL) {
+    if (sectionId != kMWKArticleSectionNone) {
         [self.sections[sectionId].images addImageURL:url];
     }
 
@@ -212,14 +212,14 @@
 - (void)setThumbnailURL:(NSString*)thumbnailURL {
     _thumbnailURL = thumbnailURL;
     if (thumbnailURL) {
-        (void)[self importImageURL:thumbnailURL sectionId:MWK_SECTION_THUMBNAIL];
+        (void)[self importImageURL:thumbnailURL sectionId:kMWKArticleSectionNone];
     }
 }
 
 - (void)setImageURL:(NSString*)imageURL {
     _imageURL = imageURL;
     if (imageURL) {
-        (void)[self importImageURL:imageURL sectionId:MWK_SECTION_THUMBNAIL];
+        (void)[self importImageURL:imageURL sectionId:kMWKArticleSectionNone];
     }
 }
 

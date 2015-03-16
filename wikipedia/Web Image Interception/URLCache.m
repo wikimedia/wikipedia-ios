@@ -90,9 +90,6 @@ NSString* const kURLCacheKeyFileNameNoSizePrefix = @"fileNameNoSizePrefix";
     NSURL* url       = cachedResponse.response.URL;
     NSString* urlStr = [url absoluteString];
 
-    // Strip "http:" or "https:"
-    urlStr = [urlStr getUrlWithoutScheme];
-
     NSData* imageDataToUse = cachedResponse.data;
 
     MWKImage* image = [self.article imageWithURL:urlStr];
@@ -168,9 +165,6 @@ NSString* const kURLCacheKeyFileNameNoSizePrefix = @"fileNameNoSizePrefix";
     __block NSCachedURLResponse* cachedResponse = nil;
     //URLCacheLog(@"[NSThread isMainThread] = %d", [NSThread isMainThread]);
     NSString* imageURL = requestURL.absoluteString;
-
-    // Strip "http:" or "https:"
-    //imageURL = [imageURL getUrlWithoutScheme];
 
     //Image *imageFromDB = (Image *)[articleDataContext_.mainContext getEntityForName: @"Image" withPredicateFormat:@"sourceUrl == %@", imageURL];
     MWKImage* imageFromDB = [self.article imageWithURL:imageURL];
