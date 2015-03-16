@@ -127,6 +127,8 @@
 		0487048E19F8262600B7D307 /* WikipediaZeroMessageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487047919F8262600B7D307 /* WikipediaZeroMessageFetcher.m */; };
 		0487048F19F8262600B7D307 /* WikiTextSectionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487047B19F8262600B7D307 /* WikiTextSectionFetcher.m */; };
 		0487049019F8262600B7D307 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487047D19F8262600B7D307 /* WikiTextSectionUploader.m */; };
+		048830D21AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m in Sources */ = {isa = PBXBuildFile; fileRef = 048830D11AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m */; };
+		048830D31AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m in Sources */ = {isa = PBXBuildFile; fileRef = 048830D11AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m */; };
 		0493C2CC1952373100EBB973 /* DataHousekeeping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0493C2CB1952373100EBB973 /* DataHousekeeping.m */; };
 		0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */; };
 		049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049566C118F5F4CB0058EA12 /* ZeroConfigState.m */; };
@@ -583,6 +585,8 @@
 		0487047B19F8262600B7D307 /* WikiTextSectionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikiTextSectionFetcher.m; sourceTree = "<group>"; };
 		0487047C19F8262600B7D307 /* WikiTextSectionUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikiTextSectionUploader.h; sourceTree = "<group>"; };
 		0487047D19F8262600B7D307 /* WikiTextSectionUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikiTextSectionUploader.m; sourceTree = "<group>"; };
+		048830D01AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+WMFScrollsToTop.h"; sourceTree = "<group>"; };
+		048830D11AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+WMFScrollsToTop.m"; sourceTree = "<group>"; };
 		0493C2CA1952373100EBB973 /* DataHousekeeping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataHousekeeping.h; sourceTree = "<group>"; };
 		0493C2CB1952373100EBB973 /* DataHousekeeping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataHousekeeping.m; sourceTree = "<group>"; };
 		0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs.ttf"; sourceTree = "<group>"; };
@@ -1738,6 +1742,8 @@
 				04C695D118ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m */,
 				04DB0BE818BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.h */,
 				04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */,
+				048830D01AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.h */,
+				048830D11AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m */,
 				0484E3DC19D9D19B0085D18D /* UIView+ConstraintsScale.h */,
 				0484E3DD19D9D19B0085D18D /* UIView+ConstraintsScale.m */,
 				04AE520319DB5E0900F89B92 /* NSObject+ConstraintsScale.h */,
@@ -2808,6 +2814,7 @@
 				BCDB75C41AB0E8300005593F /* WMFSubstringUtilsTests.m in Sources */,
 				BC0FED6D1AAA0268002488D7 /* MWKHistoryListTests.m in Sources */,
 				BC0FED731AAA026C002488D7 /* NSMutableDictionary+MaybeSetTests.m in Sources */,
+				048830D31AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m in Sources */,
 				BC0FED6E1AAA0268002488D7 /* MWKImageListTests.m in Sources */,
 				04D686F51AB2949C0009B44A /* MenuButton.m in Sources */,
 				BC0FED701AAA026C002488D7 /* NSArray+PredicateTests.m in Sources */,
@@ -2954,6 +2961,7 @@
 				047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */,
 				0480AEA01AA4F4DA00A9950C /* WMFIntrinsicContentSizeAwareTableView.m in Sources */,
 				04B6925018E77B2A00F88D8A /* UIWebView+HideScrollGradient.m in Sources */,
+				048830D21AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m in Sources */,
 				047E95511996DD030046A122 /* NearbyViewController.m in Sources */,
 				04AE520519DB5E0900F89B92 /* NSObject+ConstraintsScale.m in Sources */,
 				BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,

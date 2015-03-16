@@ -17,6 +17,7 @@
 
 #import "RootViewController.h"
 #import "TopMenuViewController.h"
+#import "UIScrollView+WMFScrollsToTop.h"
 
 #define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f * MENUS_SCALE_MULTIPLIER]
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f * MENUS_SCALE_MULTIPLIER)
@@ -89,7 +90,7 @@
 
     [self registerForKeyboardNotifications];
 
-    [self setScrollsToTop:YES];
+    [self.editTextView wmf_shouldScrollToTopOnStatusBarTap:YES];
 
     // Listen for nav bar taps.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navItemTappedNotification:) name:@"NavItemTapped" object:nil];
@@ -110,8 +111,6 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [self setScrollsToTop:NO];
-
     [self unRegisterForKeyboardNotifications];
 
     [self highlightProgressiveButton:NO];
@@ -141,18 +140,6 @@
             break;
         default:
             break;
-    }
-}
-
-- (void)setScrollsToTop:(BOOL)scrollsToTop {
-    // A view controller's UIScrollView will only scroll to top (if title bar tapped) if
-    // its UIScrollView the *only* one with "scrollsToTop" set to YES.
-    self.editTextView.scrollsToTop = scrollsToTop;
-    for (UIView* v in [self.parentViewController.view.subviews copy]) {
-        if ([v respondsToSelector:@selector(scrollView)]) {
-            UIScrollView* s = [v performSelector:@selector(scrollView) withObject:nil];
-            s.scrollsToTop = !scrollsToTop;
-        }
     }
 }
 

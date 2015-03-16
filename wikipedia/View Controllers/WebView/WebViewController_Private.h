@@ -65,6 +65,8 @@
 #import "UIViewController+WMFChildViewController.h"
 #import "WMFWebViewFooterViewController.h"
 
+#import "UIScrollView+WMFScrollsToTop.h"
+
 //#import "UIView+Debugging.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.225f

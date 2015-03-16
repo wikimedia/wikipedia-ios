@@ -24,6 +24,7 @@
 #import "NSArray+WMFExtensions.h"
 #import <BlocksKit/BlocksKit.h>
 #import "WMFIntrinsicContentSizeAwareTableView.h"
+#import "UIScrollView+WMFScrollsToTop.h"
 
 static NSString* const kWMFSearchCellID     = @"SearchResultCell";
 static CGFloat const kWMFSearchDelay        = 0.4;
@@ -189,11 +190,6 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (self.type == WMFSearchResultsControllerTypeReadMore) {
-        self.searchResultsTable.scrollEnabled = NO;
-        self.searchResultsTable.scrollsToTop  = NO;
-    }
-
     [self setupStringAttributes];
 
     self.ignoreScrollEvents = NO;
@@ -231,6 +227,16 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 
     // Single off-screen cell for determining dynamic cell height.
     self.offScreenSizingCell = (SearchResultCell*)[self.searchResultsTable dequeueReusableCellWithIdentifier:kWMFSearchCellID];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.type == WMFSearchResultsControllerTypeReadMore) {
+        self.searchResultsTable.scrollEnabled = NO;
+        [self.searchResultsTable wmf_shouldScrollToTopOnStatusBarTap:NO];
+    } else {
+        [self.searchResultsTable wmf_shouldScrollToTopOnStatusBarTap:YES];
+    }
 }
 
 - (void)dealloc {
