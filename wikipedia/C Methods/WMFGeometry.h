@@ -4,9 +4,9 @@
 #ifndef __Wikipedia__WMFGeometry__
 #define __Wikipedia__WMFGeometry__
 
-#include <stdio.h>
+#import <stdio.h>
 
-#include <CoreGraphics/CGGeometry.h>
+#import <CoreGraphics/CGGeometry.h>
 
 // Convert rect to a unit rect for reference size.
 CG_EXTERN CGRect WMFUnitRectFromRectForReferenceSize(CGRect rect, CGSize referenceSize);

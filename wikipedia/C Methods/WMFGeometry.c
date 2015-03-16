@@ -1,7 +1,7 @@
 //  Created by Monte Hurd on 3/11/15.
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#include "WMFGeometry.h"
+#import "WMFGeometry.h"
 
 CGRect WMFUnitRectFromRectForReferenceSize(CGRect rect, CGSize refSize){
     if (CGSizeEqualToSize(refSize, CGSizeZero) || CGRectIsEmpty(rect)) {
