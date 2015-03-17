@@ -10,6 +10,7 @@
 #import "MWKSection+TOC.h"
 #import "UIView+ConstraintsScale.h"
 #import "Defines.h"
+#import "UIScrollView+WMFScrollsToTop.h"
 //#import "UIView+Debugging.h"
 
 #define TOC_SELECTION_OFFSET_Y (48.0f * MENUS_SCALE_MULTIPLIER)
@@ -90,8 +91,7 @@
 - (void)didHide {
     [self.funnel logClose];
 
-    self.scrollView.scrollsToTop               = NO;
-    self.webVC.webView.scrollView.scrollsToTop = YES;
+    [self.webVC.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
 
     self.view.hidden = YES;
 }
@@ -116,8 +116,7 @@
     // Now move selected item to top.
     [self updateTOCForWebviewScrollPositionAnimated:NO];
 
-    self.scrollView.scrollsToTop               = YES;
-    self.webVC.webView.scrollView.scrollsToTop = NO;
+    [self.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
 
     [self.funnel logOpen];
 }

@@ -147,9 +147,6 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 
     self.view.backgroundColor = CHROME_COLOR;
 
-    self.webView.scrollView.scrollsToTop = YES;
-    self.tocVC.scrollView.scrollsToTop   = NO;
-
     // Uncomment these lines only if testing onboarding!
     // These lines allow the onboarding to run on every app cold start.
     //[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"ShowOnboarding"];
@@ -211,6 +208,8 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
     } else {
         [self doStuffOnAppear];
     }
+
+    [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
 }
 
 - (void)dataMigrationProgressComplete:(DataMigrationProgressViewController*)viewController {

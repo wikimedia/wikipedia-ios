@@ -8,6 +8,7 @@
 #import "WikipediaAppUtils.h"
 #import "UIWebView+ElementLocation.h"
 #import "Defines.h"
+#import "UIScrollView+WMFScrollsToTop.h"
 
 #define REFERENCE_LINK_COLOR @"#2b6fb2"
 
@@ -94,8 +95,9 @@
     // Prevent this web view from blocking the article web view from scrolling to top
     // when title bar tapped. (Only one scroll view can have scrollsToTop set to YES for
     // the title bar tap to cause scroll-to-top.)
-    self.referenceWebView.scrollView.scrollsToTop = NO;
-    self.referenceWebView.delegate                = self;
+    [self.referenceWebView.scrollView wmf_shouldScrollToTopOnStatusBarTap:NO];
+
+    self.referenceWebView.delegate = self;
 
     NSString* domain             = [SessionSingleton sharedInstance].currentArticleSite.language;
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:domain];
