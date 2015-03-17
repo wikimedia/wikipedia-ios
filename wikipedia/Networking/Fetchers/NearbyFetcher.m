@@ -129,8 +129,13 @@
         NSDictionary* pages = jsonDict[@"query"][@"pages"];
         if (pages) {
             for (NSDictionary* pageId in pages) {
-                NSDictionary* page      = pages[pageId];
-                NSArray* coordsArray    = page[@"coordinates"];
+                NSDictionary* page   = pages[pageId];
+                NSArray* coordsArray = page[@"coordinates"];
+
+                if (!coordsArray) {
+                    continue;
+                }
+
                 NSDictionary* coords    = coordsArray.firstObject;
                 NSNumber* pageId        = page[@"pageid"];
                 NSString* pageImage     = page[@"pageimage"];
