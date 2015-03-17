@@ -26,6 +26,8 @@
  */
 - (instancetype)initWithArticle:(MWKArticle*)article;
 
+- (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated;
+
 - (void)setVisibleImageIndex:(NSUInteger)visibleImageIndex animated:(BOOL)animated;
 
 @end

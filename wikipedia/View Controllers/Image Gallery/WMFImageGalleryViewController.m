@@ -49,10 +49,7 @@
 #define ImgGalleryLog(...)
 #endif
 
-static double const WMFImageGalleryTopGradientHeight     = 150.0;
-static double const WMFImageGalleryLicenseFontSize       = 19.0;
-static double const WMFImageGalleryLicenseBaselineOffset = -1.5;
-static double const WMFImageGalleryOwnerFontSize         = 11.f;
+static double const WMFImageGalleryTopGradientHeight = 150.0;
 
 NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
     return [imageInfo bk_index:^id < NSCopying > (MWKImageInfo* info) {
@@ -64,7 +61,6 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 <UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic) BOOL didApplyInitialVisibleImageIndex;
-@property (nonatomic) NSUInteger preRotationVisibleImageIndex;
 @property (nonatomic, getter = isChromeHidden) BOOL chromeHidden;
 
 @property (nonatomic, weak, readonly) UICollectionViewFlowLayout* collectionViewFlowLayout;
@@ -89,37 +85,6 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 - (MWKDataStore*)dataStore;
 
 @end
-
-static NSAttributedString* ConcatOwnerAndLicense(NSString* owner, MWKLicense* license){
-    if (!owner && !license) {
-        return [[NSAttributedString alloc] initWithString:@"" attributes:nil];
-    }
-    NSMutableAttributedString* result = [NSMutableAttributedString new];
-    NSString* licenseGlyph            = [license toGlyph] ? : WIKIGLYPH_CITE;
-    if (licenseGlyph) {
-        // hand-tuning glyph size & baseline offset until all glyphs are positioned & padded in a uniform way
-        [result appendAttributedString:
-         [[NSAttributedString alloc]
-          initWithString:licenseGlyph
-              attributes:@{NSFontAttributeName: [UIFont wmf_glyphFontOfSize:WMFImageGalleryLicenseFontSize],
-                           NSForegroundColorAttributeName: [UIColor whiteColor],
-                           NSBaselineOffsetAttributeName: @(WMFImageGalleryLicenseBaselineOffset)}]];
-    }
-
-    NSString* ownerOrFallback = owner ?
-                                [owner stringByTrimmingCharactersInSet : [NSCharacterSet whitespaceAndNewlineCharacterSet]]
-                                : MWLocalizedString(@"image-gallery-unknown-owner", nil);
-
-    NSAttributedString* attributedOwnerAndSeparator =
-        [[NSAttributedString alloc]
-         initWithString:[@" " stringByAppendingString:ownerOrFallback]
-             attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:WMFImageGalleryOwnerFontSize],
-                          NSForegroundColorAttributeName: [UIColor whiteColor]}];
-
-    [result appendAttributedString:attributedOwnerAndSeparator];
-
-    return result;
-}
 
 static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGalleryCollectionViewCellReuseId";
 
@@ -160,7 +125,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (NSArray*)uniqueArticleImages {
     if (!_uniqueArticleImages) {
-        _uniqueArticleImages = [self.article.images uniqueLargestVariants];
+        _uniqueArticleImages = [WikipediaAppUtils isDeviceLanguageRTL] ?
+                               [[[self.article.images uniqueLargestVariants] reverseObjectEnumerator] allObjects]
+                               : [self.article.images uniqueLargestVariants];
     }
     return _uniqueArticleImages;
 }
@@ -246,7 +213,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
                                 duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     NSUInteger const currentImageIndex = [self mostVisibleItemIndex];
-    ImgGalleryLog(@"Will scroll to %lu after rotation animation finishes.", currentImageIndex);
     [UIView animateWithDuration:duration
                           delay:0
                         options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowAnimatedContent
@@ -266,8 +232,10 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
      */
     if (!self.didApplyInitialVisibleImageIndex && self.collectionView.visibleCells.count) {
         [self applyVisibleImageIndex:NO];
-        // only set the flag *after* the visible index has been updated, to make sure UICollectionViewDelegate
-        // callbacks don't override it
+        /*
+           only set the flag *after* the visible index has been updated, to make sure UICollectionViewDelegate callbacks
+           don't override it
+         */
         self.didApplyInitialVisibleImageIndex = YES;
     }
 }
@@ -300,15 +268,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }];
 
     UIButton* closeButton = [[UIButton alloc] initWithFrame:CGRectZero];
-
     // the title must be set first!
     closeButton.titleLabel.font = [UIFont wmf_glyphFontOfSize:22.f];
     [closeButton setTitle:WIKIGLYPH_X forState:UIControlStateNormal];
-
-    // manually layout closeButton so we can programmatically increase it's hit size
-    [closeButton wmf_setFrameOrigin:CGPointMake(18.f, 12.f)];
-    [closeButton wmf_sizeToFitLabelContents];
-    [closeButton wmf_expandWidth:15.f height:15.f];
 
     // apply visual effects
     [closeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -322,6 +284,32 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
     [self.view addSubview:closeButton];
     _closeButton = closeButton;
+
+    [self.closeButton mas_makeConstraints:^(MASConstraintMaker* make) {
+        // size is doubled to increase hit area
+        float const sizeScaleFactor = 2.f;
+        CGSize const glyphIntrinsicSize = [self.closeButton.titleLabel intrinsicContentSize];
+        CGSize const glyphScaledSize = CGSizeMake(glyphIntrinsicSize.width * sizeScaleFactor,
+                                                  glyphIntrinsicSize.height * sizeScaleFactor);
+        make.size.mas_equalTo(glyphScaledSize);
+
+        // these offsets account for padding in the glyph
+        // TODO: centralize/standardize glyph offsets
+        float const glyphHorizPadding = glyphIntrinsicSize.width * 0.25;
+        float const glyphVertPadding = glyphIntrinsicSize.height * 0.25;
+
+        /*
+           align "x" with 20pt leading offset, same as cell's image description. need to account for extra-hit-area
+           padding as well as the glyph's intrinsic padding
+         */
+        make.leading.equalTo(self.view.mas_leading).with.offset(20.f
+                                                                - glyphIntrinsicSize.width / 2.f
+                                                                - glyphHorizPadding);
+        // top of "x" is 10 pts from the top of the view
+        make.top.equalTo(self.view.mas_top).with.offset(10.f
+                                                        - glyphIntrinsicSize.height / 2.f
+                                                        - glyphVertPadding);
+    }];
 
     UITapGestureRecognizer* chromeTapGestureRecognizer =
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapView:)];
@@ -422,6 +410,25 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     [self setVisibleImageIndex:visibleImageIndex animated:NO];
 }
 
+- (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated {
+    NSInteger selectedImageIndex = [self.uniqueArticleImages indexOfObjectPassingTest:^BOOL (MWKImage* image,
+                                                                                             NSUInteger idx,
+                                                                                             BOOL* stop) {
+        if ([image isEqualToImage:visibleImage] || [image isVariantOfImage:visibleImage]) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+
+    if (selectedImageIndex == NSNotFound) {
+        NSLog(@"WARNING: falling back to showing the first image.");
+        selectedImageIndex = 0;
+    }
+
+    self.visibleImageIndex = selectedImageIndex;
+}
+
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)                             gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer
@@ -459,12 +466,15 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     [self updateDetailVisibilityForCell:cell withInfo:infoForImage];
 
     if (infoForImage) {
-        cell.detailOverlayView.imageDescriptionLabel.text =
+        cell.detailOverlayView.imageDescription =
             [infoForImage.imageDescription stringByTrimmingCharactersInSet:
              [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-        NSAttributedString* ownerAndLicense = ConcatOwnerAndLicense(infoForImage.owner, infoForImage.license);
-        [cell.detailOverlayView.ownerButton setAttributedTitle:ownerAndLicense forState:UIControlStateNormal];
+        NSString* ownerOrFallback = infoForImage.owner ?
+                                    [infoForImage.owner stringByTrimmingCharactersInSet : [NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                                    : MWLocalizedString(@"image-gallery-unknown-owner", nil);
+
+        [cell.detailOverlayView setLicense:infoForImage.license owner:ownerOrFallback];
 
         cell.detailOverlayView.ownerTapCallback = ^{
             [[UIApplication sharedApplication] openURL:infoForImage.license.URL];

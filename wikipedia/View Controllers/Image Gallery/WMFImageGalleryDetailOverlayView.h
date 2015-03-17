@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MWKLicense.h"
 
 @interface WMFImageGalleryDetailOverlayView : UIView
-
+@property (nonatomic, copy) NSString* imageDescription;
 @property (nonatomic, copy) dispatch_block_t ownerTapCallback;
 
-- (UILabel*) imageDescriptionLabel;
-- (UIButton*)ownerButton;
+// use above setters instead of setting title/text attributes directly
+@property (nonatomic, weak, readonly) UILabel* imageDescriptionLabel;
+@property (nonatomic, weak, readonly) UIButton* ownerButton;
+
+- (void)setLicense:(MWKLicense*)license owner:(NSString*)owner;
 
 /// Set all child view alphas to @c alpha. This is preferred to hiding & showing them.
 - (void)setGroupAlpha:(float)alpha;

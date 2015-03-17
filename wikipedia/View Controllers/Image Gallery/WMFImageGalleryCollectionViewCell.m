@@ -50,9 +50,7 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
         _imageContainerView = imageContainerView;
 
         UIImageView* imageView = [[UIImageView alloc] init];
-        // images that are transparent should have a white background, as most use black text (e.g. formulas & graphs)
-        imageView.backgroundColor = [UIColor whiteColor];
-        imageView.contentMode     = UIViewContentModeScaleAspectFit;
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.imageContainerView addSubview:imageView];
         _imageView = imageView;
 
@@ -91,8 +89,8 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.detailOverlayView.imageDescriptionLabel.text = nil;
-    [self.detailOverlayView.ownerButton setAttributedTitle:nil forState:UIControlStateNormal];
+    [self.detailOverlayView setImageDescription:nil];
+    [self.detailOverlayView setLicense:nil owner:nil];
     self.gradientView.hidden                = NO;
     self.detailOverlayView.hidden           = NO;
     self.detailOverlayView.ownerTapCallback = nil;
@@ -206,6 +204,8 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
         return;
     }
     self.imageView.image = image;
+    // background color is set here to prevent "white flashes" while setting image
+    self.imageView.backgroundColor = image ? [UIColor whiteColor] : [UIColor clearColor];
     [self setNeedsLayout];
 }
 
