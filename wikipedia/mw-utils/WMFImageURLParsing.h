@@ -10,3 +10,9 @@ FOUNDATION_EXPORT NSString* WMFParseImageNameFromSourceURL(NSString* sourceURL) 
 
 /// Convenience wrapper for @c WMFParseImageNameFromSourceURL(NSString*)
 FOUNDATION_EXPORT NSString* WMFParseImageNameFromSourceURL(NSURL* sourceURL) __attribute__((overloadable));
+
+
+FOUNDATION_EXPORT NSInteger WMFParseSizePrefixFromSourceURL(NSString* sourceURL) __attribute__((overloadable));
+
+/// Convenience wrapper for @c WMFParseSizePrefixFromSourceURL(NSString*)
+FOUNDATION_EXPORT NSInteger WMFParseSizePrefixFromSourceURL(NSURL* sourceURL) __attribute__((overloadable));

@@ -28,3 +28,20 @@ NSString* WMFParseImageNameFromSourceURL(NSString* sourceURL)  __attribute__((ov
                                                               range:NSMakeRange(0, [fileName length])];
     return matches.count ? [fileName substringWithRange : [matches[0] rangeAtIndex:1]] : fileName;
 }
+
+NSInteger WMFParseSizePrefixFromSourceURL(NSString* sourceURL)  __attribute__((overloadable)){
+    if (!sourceURL) {
+        return NSNotFound;
+    }
+    NSString* fileName = [sourceURL lastPathComponent];
+    if (!fileName || (fileName.length == 0)) {
+        return NSNotFound;
+    }
+    NSRange range = [fileName rangeOfString:@"px-"];
+    if (range.location == NSNotFound) {
+        return NSNotFound;
+    } else {
+        NSInteger result = [fileName substringToIndex:range.location].integerValue;
+        return (result == 0) ? NSNotFound : result;
+    }
+}

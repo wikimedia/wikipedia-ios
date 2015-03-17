@@ -67,13 +67,6 @@
     return @"";
 }
 
-- (NSString*)getWikiImageFileNameWithoutSizePrefix {
-//TODO: optimize this to not use a regex. It's so simple there's no need to create regex objects.
-    static NSString* pattern   = @"^(\\d+px-)(.+)";
-    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:NULL];
-    return [regex stringByReplacingMatchesInString:self options:NSMatchingReportProgress range:NSMakeRange(0, self.length) withTemplate:@"$2"];
-}
-
 - (NSDate*)getDateFromIso8601DateString {
     return [[NSDateFormatter wmf_iso8601Formatter] dateFromString:self];
 }

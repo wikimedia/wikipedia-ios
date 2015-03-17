@@ -113,7 +113,10 @@
             // from network rather than from cache.
             self.article.needsRefresh = NO;
 
-            [self.article save];
+            //[self.article save];
+#warning TODO(mhurd): create method for making clear that here we are updating everythings "article save" updates, but without re-writing all section data.
+            [self.article.dataStore saveArticle:self.article];
+            [self.article.images save];
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self finishWithError:nil
@@ -268,21 +271,21 @@
             // TODO: handle this error somehow, for now, go to the next linkNode
             continue;
         }
-        TFHppleElement* imageNode = linkNode.children[imageNodeIndex];
-        NSString* height          = imageNode.attributes[@"height"];
-        NSString* width           = imageNode.attributes[@"width"];
+        TFHppleElement* imageNode  = linkNode.children[imageNodeIndex];
+        NSString* heightFromImgTag = imageNode.attributes[@"height"];
+        NSString* widthFromImgTag  = imageNode.attributes[@"width"];
 
         if (
-            height.integerValue < THUMBNAIL_MINIMUM_SIZE_TO_CACHE.width
+            heightFromImgTag.integerValue < THUMBNAIL_MINIMUM_SIZE_TO_CACHE.width
             ||
-            width.integerValue < THUMBNAIL_MINIMUM_SIZE_TO_CACHE.height
+            widthFromImgTag.integerValue < THUMBNAIL_MINIMUM_SIZE_TO_CACHE.height
             ) {
             //NSLog(@"SKIPPING - IMAGE TOO SMALL");
             continue;
         }
 
-        NSString* src = imageNode.attributes[@"src"];
-        int density   = 1;
+        NSString* srcTagImageURL = imageNode.attributes[@"src"];
+        NSInteger density        = 1;
 
         // This is a horrible hack to compensate for iOS 8 WebKit's srcset
         // handling and the way we currently handle image caching which
@@ -310,23 +313,31 @@
                     NSArray* parts    = [trimmed componentsSeparatedByString:@" "];
                     if (parts.count == 2 && [parts[1] isEqualToString:@"2x"]) {
                         // Quick hack to shortcut relevant syntax :P
-                        src     = parts[0];
-                        density = 2;
+                        srcTagImageURL = parts[0];
+                        density        = 2;
                         break;
                     }
                 }
             }
         }
 
-        MWKImage* image = [self.article importImageURL:src sectionId:sectionId];
+        MWKImage* image = [self.article importImageURL:srcTagImageURL sectionId:sectionId];
+
+        // If img tag dimensions were extracted, save them so they don't have to be expensively determined later.
+        if (widthFromImgTag && heightFromImgTag) {
+            // Don't record dimensions if image file name doesn't have size prefix.
+            // (Sizes from the img tag don't tend to correspond closely to actual
+            // image binary sizes for these.)
+            if ([MWKImage fileSizePrefix:srcTagImageURL] != NSNotFound) {
+                image.width  = @(widthFromImgTag.integerValue * density);
+                image.height = @(heightFromImgTag.integerValue * density);
+            }
+        }
+
         [image save];
 
         imageIndexInSection++;
     }
-
-    // Reminder: don't do "context save" here - createImageRecordsForHtmlOnContext gets
-    // called in a loop after which save is called. This method *only* creates - the caller
-    // is responsible for saving.
 }
 
 - (void)associateThumbFromTempDirWithArticle {

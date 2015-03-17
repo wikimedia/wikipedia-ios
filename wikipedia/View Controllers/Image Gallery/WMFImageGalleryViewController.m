@@ -44,7 +44,7 @@
 #import "MWKImageInfoFetcher.h"
 #import "MWKImageInfoResponseSerializer.h"
 
-#if 1
+#if DEBUG && 0
 #define ImgGalleryLog(...) NSLog(__VA_ARGS__)
 #else
 #define ImgGalleryLog(...)

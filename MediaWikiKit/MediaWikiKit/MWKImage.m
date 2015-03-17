@@ -75,18 +75,7 @@
 }
 
 + (NSInteger)fileSizePrefix:(NSString*)sourceURL {
-    NSString* fileName = [sourceURL lastPathComponent];
-    if (!fileName) {
-        return -1;
-    }
-    NSError* error          = nil;
-    NSRegularExpression* re = [NSRegularExpression regularExpressionWithPattern:@"^(\\d+)px-" options:0 error:&error];
-    NSArray* matches        = [re matchesInString:fileName options:0 range:NSMakeRange(0, [fileName length])];
-    if (!error && [matches count]) {
-        return [[fileName substringWithRange:[matches[0] rangeAtIndex:0]] intValue];
-    } else {
-        return -1;
-    }
+    return WMFParseSizePrefixFromSourceURL(sourceURL);
 }
 
 - (NSString*)fileNameNoSizePrefix {
@@ -127,10 +116,12 @@
     _dateLastAccessed = [[NSDate alloc] init];
     _mimeType         = [self getImageMimeTypeForExtension:self.extension];
 
-#warning TODO(bgerstle): get width & height info w/o expensively inflating the image data and then throwing it away
-    UIImage* img = [UIImage imageWithData:data scale:1.0];
-    _width  = [NSNumber numberWithInt:img.size.width];
-    _height = [NSNumber numberWithInt:img.size.height];
+    // Width / height may already be set, so only inflate image data to get these if necessary.
+    if (!_width || !_height) {
+        UIImage* img = [UIImage imageWithData:data];
+        _width  = [NSNumber numberWithInt:img.size.width];
+        _height = [NSNumber numberWithInt:img.size.height];
+    }
 }
 
 - (NSString*)getImageMimeTypeForExtension:(NSString*)extension {
@@ -160,7 +151,12 @@
 
 - (UIImage*)asUIImage {
     NSData* imageData = [self.article.dataStore imageDataWithImage:self];
-    return [UIImage imageWithData:imageData scale:1.0];
+
+    UIImage* image = [UIImage imageWithData:imageData];
+
+    NSAssert((fabsf(image.size.width - self.width.doubleValue) <= 10.0f), @"MWKImage thinks '%@' is %f wide, but it's really %f wide.", self.sourceURL, self.width.floatValue, image.size.width);
+
+    return image;
 }
 
 - (NSData*)asNSData {

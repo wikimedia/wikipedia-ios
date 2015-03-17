@@ -60,6 +60,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
 - (void)importMobileViewJSON:(NSDictionary*)jsonDict;
 
 - (MWKImage*)imageWithURL:(NSString*)url;
+- (MWKImage*)existingImageWithURL:(NSString*)url;
 
 /**
  * Create a stub record for an image with given URL.

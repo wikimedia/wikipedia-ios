@@ -37,4 +37,35 @@
                is(equalTo(@"Access_to_drinking_water_in_third_world.svg")));
 }
 
+- (void)testPrefixFromNoPrefixFileName {
+    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
+
+    XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), NSNotFound);
+}
+
+- (void)testPrefixFromImageWithOneExtensionExample {
+    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/640px-Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
+    XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), 640);
+}
+
+- (void)testPrefixFromUrlWithoutImageFileLastPathComponent {
+    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/";
+    XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), NSNotFound);
+}
+
+- (void)testPrefixFromZeroWidthImage {
+    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/0px-Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
+    XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), NSNotFound);
+}
+
+- (void)testPrefixFromEmptyStringUrl {
+    NSString* testURL = @"";
+    XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), NSNotFound);
+}
+
+- (void)testPrefixFromNilUrl {
+    NSString* testURL = nil;
+    XCTAssertEqual(WMFParseSizePrefixFromSourceURL(testURL), NSNotFound);
+}
+
 @end

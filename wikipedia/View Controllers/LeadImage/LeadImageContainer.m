@@ -125,7 +125,7 @@ static const CGFloat kMinimumAcceptableCachedVariantThreshold = 0.6f;
     if (notificationContainsImage(notification)) {
         if ([self isRetrievedImageVariantOfLeadImage:notification.userInfo[kURLCacheKeyFileNameNoSizePrefix]]) {
             if (self.isPlaceholder || [self isRetrievedImageWiderThanLeadImage:notification.userInfo[kURLCacheKeyWidth]]) {
-                NSLog(@"INTERCEPTED WEBVIEW IMAGE of width: %@", notification.userInfo[kURLCacheKeyWidth]);
+                //NSLog(@"INTERCEPTED WEBVIEW IMAGE of width: %@", notification.userInfo[kURLCacheKeyWidth]);
                 [self showImage:notification.userInfo[kURLCacheKeyData] isPlaceHolder:NO];
             }
         }
@@ -310,7 +310,7 @@ static const CGFloat kMinimumAcceptableCachedVariantThreshold = 0.6f;
     // This image is shown until the webview (potentially) retrieves higher resolution variants.
     MWKImage* largestCachedVariant = self.article.image.largestCachedVariant;
     if (largestCachedVariant) {
-        NSLog(@"SHOWING LARGEST CACHED VARIANT of width: %f", largestCachedVariant.width.floatValue);
+        //NSLog(@"SHOWING LARGEST CACHED VARIANT of width: %f", largestCachedVariant.width.floatValue);
         [self showImage:[largestCachedVariant asNSData] isPlaceHolder:NO];
     } else {
         [self showImage:self.placeholderImageData isPlaceHolder:YES];
@@ -329,7 +329,7 @@ static const CGFloat kMinimumAcceptableCachedVariantThreshold = 0.6f;
         if (largestCachedVariant.width.floatValue < okMinimumWidth) {
             if (self.article.imageURL) {
                 NSInteger widestExpectedImageWidth = [self widthOfWidestVariantWebViewWillDownload];
-                if (widestExpectedImageWidth < okMinimumWidth) {
+                if ((widestExpectedImageWidth == NSNotFound) || (widestExpectedImageWidth < okMinimumWidth)) {
                     return NO;
                 }
             }
@@ -373,7 +373,7 @@ static const CGFloat kMinimumAcceptableCachedVariantThreshold = 0.6f;
         // cases it's ok because the higher res image will be fetched with the ThumbnailFetcher.
         return [MWKImage fileSizePrefix:widestUncachedVariant.sourceURL];
     }
-    return -1;
+    return NSNotFound;
 }
 
 #pragma mark - Fetch finished
@@ -393,7 +393,7 @@ static const CGFloat kMinimumAcceptableCachedVariantThreshold = 0.6f;
                     MWKImage* articleImage = [self.article importImageURL:fetcher.url
                                                                 imageData:fetchedData];
 
-                    NSLog(@"FETCHED HIGHER RES VARIANT of width: %f", articleImage.width.floatValue);
+                    //NSLog(@"FETCHED HIGHER RES VARIANT of width: %f", articleImage.width.floatValue);
 
                     [self showImage:[articleImage asNSData] isPlaceHolder:NO];
                 });

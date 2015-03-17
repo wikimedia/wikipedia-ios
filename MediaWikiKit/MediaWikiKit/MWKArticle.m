@@ -143,6 +143,21 @@
     return [self.dataStore imageWithURL:url article:self];
 }
 
+/**
+ * Return image object if folder for that image exists
+ * else return nil
+ */
+- (MWKImage*)existingImageWithURL:(NSString*)url {
+    NSString* thisImageCacheFolderPath  = [self.dataStore pathForImageURL:url title:self.title];
+    BOOL isDirectory                    = NO;
+    BOOL thisImageCacheFolderPathExists = [[NSFileManager defaultManager] fileExistsAtPath:thisImageCacheFolderPath isDirectory:&isDirectory];
+    if (!thisImageCacheFolderPathExists) {
+        return nil;
+    } else {
+        return [self imageWithURL:url];
+    }
+}
+
 - (void)setNeedsRefresh:(BOOL)val {
     NSString* filePath = [self.dataStore pathForArticle:self];
     NSString* fileName = [filePath stringByAppendingPathComponent:@"needsRefresh.lock"];

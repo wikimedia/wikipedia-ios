@@ -256,9 +256,9 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 - (void)performHousekeepingIfNecessary {
     NSDate* lastHousekeepingDate        = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastHousekeepingDate"];
     NSInteger daysSinceLastHouseKeeping = [[NSDate date] daysAfterDate:lastHousekeepingDate];
-    NSLog(@"daysSinceLastHouseKeeping = %ld", (long)daysSinceLastHouseKeeping);
+    //NSLog(@"daysSinceLastHouseKeeping = %ld", (long)daysSinceLastHouseKeeping);
     if (daysSinceLastHouseKeeping > 1) {
-        NSLog(@"Performing housekeeping...");
+        //NSLog(@"Performing housekeeping...");
         DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
         [dataHouseKeeping performHouseKeeping];
         [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"LastHousekeepingDate"];
@@ -896,7 +896,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
             return;
         }
 
-        NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
+        //NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
 
         // Tiny delay prevents menus from occasionally appearing when user swipes to reveal toc.
         [strSelf performSelector:@selector(animateTopAndBottomMenuReveal) withObject:nil afterDelay:0.05];
@@ -1303,7 +1303,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     // Proper fix might be to store more of a 'tree' structure so that we know which
     // 'leaf' to hang off of, but this works for now.
     MWKHistoryList* historyList = session.userDataStore.historyList;
-    NSLog(@"XXX %d", (int)historyList.length);
+    //NSLog(@"XXX %d", (int)historyList.length);
     if (historyList.length > 0) {
         // Grab the latest
         MWKHistoryEntry* historyEntry = [historyList entryForTitle:session.currentArticle.title];
