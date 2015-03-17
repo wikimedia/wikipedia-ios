@@ -5,9 +5,14 @@
 
 #import "AppDelegate.h"
 
-int main(int argc, char* argv[]){
+int main(int argc, char* argv[]) {
+    // disable app when unit testing to allow tests to run in isolation (w/o side effects)
+    BOOL const isUnitTesting = NSClassFromString(@"XCTestCase") != nil;
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+        return UIApplicationMain(argc,
+                                 argv,
+                                 nil,
+                                 isUnitTesting ? nil : NSStringFromClass([AppDelegate class]));
     }
 }
 
