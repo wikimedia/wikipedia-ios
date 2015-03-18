@@ -2707,7 +2707,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"Uncomment the following line to run this automatically when building.\"\n# scripts/icon-svgs-to-pngs.sh";
+			shellScript = "echo \"Uncomment the following line to run this automatically when building.\"\nscripts/icon-svgs-to-pngs.sh";
 		};
 		04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */ = {
 			isa = PBXShellScriptBuildPhase;
