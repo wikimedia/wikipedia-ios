@@ -607,7 +607,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
     if ([self.searchResults[indexPath.row][@"attributedText"] length] < kWMFMaxStringLength) {
-        return kWMFDefaultCellHeight;
+        return floor(kWMFDefaultCellHeight * MENUS_SCALE_MULTIPLIER);
     }
 
     // Update the sizing cell with any data which could change the cell height.
