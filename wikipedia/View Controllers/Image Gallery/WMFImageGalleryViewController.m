@@ -545,7 +545,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     } else {
         ImgGalleryLog(@"Using article image (%@) as placeholder for thumbnail of cell %@", image.sourceURL, indexPath);
         // !!!: -asUIImage reads from disk AND has to decompress image data, maybe we should move it off the main thread?
-        cell.image     = [image asUIImage];
+        // use largestCachedVariant to ensure that we grab any image that's available
+        // TODO: make sure don't grab an image that's _too_ big, as it might effect scrolling performance
+        cell.image     = [[image largestCachedVariant] asUIImage];
         cell.imageSize = infoForImage ? infoForImage.thumbSize : cell.image.size;
         [self fetchImage:infoForImage.imageThumbURL forCellAtIndexPath:indexPath];
     }
