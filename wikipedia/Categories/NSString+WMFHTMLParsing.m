@@ -41,7 +41,6 @@ static const int kHighestIndexForSubstringAfterHTMLRemoved     = 350;
            result : nil;
 }
 
-
 #pragma mark - String simplification and cleanup
 + (NSString*)wmf_stringSnippetSimplifiedInString:(NSString*)string {
     NSString* result = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
@@ -132,14 +131,14 @@ static const int kHighestIndexForSubstringAfterHTMLRemoved     = 350;
     static NSRegularExpression* spacePeriodRegex;
     if (!spacePeriodRegex) {
         spacePeriodRegex = [NSRegularExpression
-                                regularExpressionWithPattern:@"\\s+([\\.|。|．|｡])"
-                                                     options:0
-                                                       error:nil];
+                            regularExpressionWithPattern:@"\\s+([\\.|。|．|｡])"
+                                                 options:0
+                                                   error:nil];
     }
     return [spacePeriodRegex stringByReplacingMatchesInString:self
-                                                          options:0
-                                                            range:NSMakeRange(0, self.length)
-                                                     withTemplate:@"$1"];
+                                                      options:0
+                                                        range:NSMakeRange(0, self.length)
+                                                 withTemplate:@"$1"];
 }
 
 - (NSString*)wmf_stringByCollapsingConsecutiveSpaces {
@@ -178,6 +177,5 @@ static const int kHighestIndexForSubstringAfterHTMLRemoved     = 350;
                                                            range:NSMakeRange(0, self.length)
                                                     withTemplate:@""];
 }
-
 
 @end
