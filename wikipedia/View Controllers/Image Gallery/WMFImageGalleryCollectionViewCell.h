@@ -19,7 +19,11 @@
  */
 @property (nonatomic) CGSize imageSize;
 
-/// The image to display.
+/**
+ * Get and set the currently displayed image.
+ * @note This setter takes precedence over @c imageView.image since other cell elements need to be laid out as a result
+ *       of the image changing.
+ */
 @property (nonatomic) UIImage* image;
 
 /// The subview which displays additional information about the image.

@@ -205,7 +205,22 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (void)updateImageInfo:(NSArray*)imageInfo {
     _indexedImageInfo = WMFIndexImageInfo(imageInfo);
-    [self.collectionView reloadItemsAtIndexPaths:self.collectionView.indexPathsForVisibleItems];
+    [self forEachVisibleCell:^(WMFImageGalleryCollectionViewCell* cell, NSIndexPath* indexPath) {
+        [self updateCell:cell atIndexPath:indexPath];
+    }];
+}
+
+- (void)forEachVisibleCell:(void (^)(WMFImageGalleryCollectionViewCell*, NSIndexPath*))block {
+    if (!block) {
+        return;
+    }
+    [self.collectionView.indexPathsForVisibleItems bk_each:^(NSIndexPath* path) {
+        WMFImageGalleryCollectionViewCell* cell =
+            (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:path];
+        if (cell) {
+            block(cell, path);
+        }
+    }];
 }
 
 #pragma mark - View event handling
@@ -460,7 +475,17 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         (WMFImageGalleryCollectionViewCell*)
         [collectionView dequeueReusableCellWithReuseIdentifier:WMFImageGalleryCollectionViewCellReuseId
                                                   forIndexPath:indexPath];
+    [self updateCell:cell atIndexPath:indexPath];
+    return cell;
+}
 
+- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.uniqueArticleImages.count;
+}
+
+#pragma mark - Cell Updates
+
+- (void)updateCell:(WMFImageGalleryCollectionViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
     MWKImage* imageStub        = self.uniqueArticleImages[indexPath.item];
     MWKImageInfo* infoForImage = self.indexedImageInfo[imageStub.infoAssociationValue];
 
@@ -483,15 +508,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }
 
     [self updateImageForCell:cell atIndexPath:indexPath image:imageStub info:infoForImage];
-
-    return cell;
 }
-
-- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.uniqueArticleImages.count;
-}
-
-#pragma mark - Cell Updates
 
 - (void)updateDetailVisibilityForCellAtIndexPath:(NSIndexPath*)indexPath {
     WMFImageGalleryCollectionViewCell* cell =
@@ -535,7 +552,8 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         ImgGalleryLog(@"Using cached bitmap for %@ at %@", infoForImage.imageThumbURL, indexPath);
         cell.image     = cachedBitmap;
         cell.imageSize = infoForImage.thumbSize;
-    } else if ((matchingImage = [self.article imageWithURL:infoForImage.imageThumbURL.absoluteString])
+    } else if (infoForImage.imageThumbURL.absoluteString.length > 0
+               && (matchingImage = [self.article imageWithURL:infoForImage.imageThumbURL.absoluteString])
                && matchingImage.isCached) {
         ImgGalleryLog(@"Reading image %@ from disk for cell %@.", infoForImage.imageThumbURL, indexPath);
         UIImage* matchingImageData = [matchingImage asUIImage];
@@ -581,10 +599,16 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
             MWKImage* imageRecord = [strSelf.article importImageURL:imageURL.absoluteString
                                                           imageData:operation.responseData];
             NSCParameterAssert(imageRecord.isCached);
-            self.bitmapsForImageURL[imageURL] = image;
+            strSelf.bitmapsForImageURL[imageURL] = image;
             WMFImageGalleryCollectionViewCell* cell =
-                (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
-            cell.image = image;
+                (WMFImageGalleryCollectionViewCell*)[strSelf.collectionView cellForItemAtIndexPath:indexPath];
+            if (cell) {
+                [UIView transitionWithView:cell
+                                  duration:[CATransaction animationDuration]
+                                   options:UIViewAnimationOptionTransitionCrossDissolve
+                                animations:^{ cell.image = image; }
+                                completion:nil];
+            }
         });
     }
                    failure:^(AFHTTPRequestOperation* operation, NSError* error) {

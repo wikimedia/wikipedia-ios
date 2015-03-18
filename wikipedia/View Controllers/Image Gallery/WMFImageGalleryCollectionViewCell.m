@@ -46,6 +46,7 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
         imageContainerView.showsHorizontalScrollIndicator = NO;
         imageContainerView.showsVerticalScrollIndicator   = NO;
         imageContainerView.delegate                       = self;
+        imageContainerView.bouncesZoom                    = YES;
         [self.contentView addSubview:imageContainerView];
         _imageContainerView = imageContainerView;
 
@@ -177,13 +178,13 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
            The minimum & maximum scales need to be rounded *down*, otherwise there's an "off by one" error where the
            contents of @c imageContainerView are _just_ larger than its @c contentSize, which causes paging glitches.
          */
-
-        // if an image is smaller than <code>contentView.bounds</code>, we present it at its intrinsic size
-        double const minScale = fmin(1.0, FlooredPercentage(fmin(widthScale, heightScale)));
+        double const minScale = FlooredPercentage(fmin(widthScale, heightScale));
 
         // images should be zoomable up to, at most, twice their intrinsic content size
-        double const maxScale = FlooredPercentage(2.0 / minScale);
+        // in cases where the image is small, and minScale > 1, we must make sure maxScale >= minScale
+        double const maxScale = fmax(minScale, FlooredPercentage(2.0 / minScale));
 
+        NSParameterAssert(minScale <= maxScale);
         self.imageContainerView.minimumZoomScale = minScale;
         self.imageContainerView.maximumZoomScale = maxScale;
     } else {

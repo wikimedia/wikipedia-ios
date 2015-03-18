@@ -234,8 +234,8 @@
 		BC0FED751AAA026C002488D7 /* NSArray+BKIndexTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F7B1A8D0C8E00465627 /* NSArray+BKIndexTests.m */; };
 		BC0FED761AAA026C002488D7 /* NSString+WMFHTMLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C983151B1AA5205700E25EE1 /* NSString+WMFHTMLParsingTests.m */; };
 		BC0FED771AAA026C002488D7 /* WMFImageURLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBDE0AB1AA76EAC006BD29A /* WMFImageURLParsingTests.m */; };
-		BC23759E1AB8928600B0BAA8 /* WMFDateFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */; };
 		BC23759A1AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.m */; };
+		BC23759E1AB8928600B0BAA8 /* WMFDateFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */; };
 		BC2CBB8E1AA10F400079A313 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2CBB8D1AA10F400079A313 /* UIView+WMFFrameUtils.m */; };
 		BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */; };
 		BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */; };
@@ -729,9 +729,9 @@
 		17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WikipediaUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateFormatterTests.m; sourceTree = "<group>"; };
 		BC2375981AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+WMFNaturalAlignmentStyle.h"; sourceTree = "<group>"; };
 		BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+WMFNaturalAlignmentStyle.m"; sourceTree = "<group>"; };
+		BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateFormatterTests.m; sourceTree = "<group>"; };
 		BC2CBB8C1AA10F400079A313 /* UIView+WMFFrameUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WMFFrameUtils.h"; sourceTree = "<group>"; };
 		BC2CBB8D1AA10F400079A313 /* UIView+WMFFrameUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WMFFrameUtils.m"; sourceTree = "<group>"; };
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3369,6 +3369,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -3379,6 +3380,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -3398,6 +3400,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3407,6 +3410,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -3417,6 +3421,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
@@ -3433,6 +3438,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
