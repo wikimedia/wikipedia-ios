@@ -71,13 +71,13 @@ NSString* const kURLCacheKeyFileNameNoSizePrefix = @"fileNameNoSizePrefix";
     }
 
     // Save image to article data store instead of default NSURLCache store if
-    // "createImageRecordsForSection:" pre-created a placeholder MWKImage record.
+    // "WMFInjectArticleWithImagesFromSection:" pre-created a placeholder MWKImage record.
 
     MWKImage* image = [self.article existingImageWithURL:[cachedResponse.response.URL absoluteString]];
 
     // If no placeholder record, call super and return for default NSURLCache behavior.
     if (!image) {
-        // If an Image folder wasn't pre-created by "createImageRecordsForSection:" then don't try to cache.
+        // If an Image folder wasn't pre-created by "WMFInjectArticleWithImagesFromSection:" then don't try to cache.
         URLCacheLog(@"Storing cached response without image record for %@", request);
         [super storeCachedResponse:cachedResponse forRequest:request];
         return;

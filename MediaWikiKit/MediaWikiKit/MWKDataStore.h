@@ -18,6 +18,7 @@
 @class MWKRecentSearchList;
 @class MWKUserDataStore;
 @class MWKImageInfo;
+@class MWKImageList;
 
 FOUNDATION_EXPORT NSString* const MWKDataStoreValidImageSitePrefix;
 
