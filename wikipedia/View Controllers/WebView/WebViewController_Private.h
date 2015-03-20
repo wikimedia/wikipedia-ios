@@ -66,18 +66,20 @@
 #import "WMFWebViewFooterViewController.h"
 
 #import "UIScrollView+WMFScrollsToTop.h"
+#import "UIColor+WMFHexColor.h"
 
 //#import "UIView+Debugging.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.225f
 
-#define SCROLL_INDICATOR_LEFT_MARGIN 2.0
-#define SCROLL_INDICATOR_WIDTH 4.0
-#define SCROLL_INDICATOR_HEIGHT 25.0
-#define SCROLL_INDICATOR_CORNER_RADIUS 2.0f
-#define SCROLL_INDICATOR_BORDER_WIDTH 1.0f
-#define SCROLL_INDICATOR_BORDER_COLOR [UIColor lightGrayColor]
-#define SCROLL_INDICATOR_BACKGROUND_COLOR [UIColor whiteColor]
+static const CGFloat kScrollIndicatorLeftMargin        = 2.0f;
+static const CGFloat kScrollIndicatorWidth             = 2.5f;
+static const CGFloat kScrollIndicatorHeight            = 25.0f;
+static const CGFloat kScrollIndicatorCornerRadius      = 2.0f;
+static const CGFloat kScrollIndicatorBorderWidth       = 1.0f;
+static const CGFloat kScrollIndicatorAlpha             = 0.3f;
+static const NSInteger kScrollIndicatorBorderColor     = 0x000000;
+static const NSInteger kScrollIndicatorBackgroundColor = 0x000000;
 
 static const CGFloat kBottomScrollSpacerHeight = 2000.0f;
 

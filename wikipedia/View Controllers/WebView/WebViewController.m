@@ -294,12 +294,10 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)scrollIndicatorSetup {
     self.scrollIndicatorView                                           = [[UIView alloc] init];
-    self.scrollIndicatorView.opaque                                    = YES;
-    self.scrollIndicatorView.backgroundColor                           = SCROLL_INDICATOR_BACKGROUND_COLOR;
+    self.scrollIndicatorView.opaque                                    = NO;
+    self.scrollIndicatorView.backgroundColor                           = [UIColor wmf_colorWithHex:kScrollIndicatorBackgroundColor alpha:kScrollIndicatorAlpha];
     self.scrollIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.scrollIndicatorView.layer.cornerRadius                        = SCROLL_INDICATOR_CORNER_RADIUS;
-    self.scrollIndicatorView.layer.borderWidth                         = SCROLL_INDICATOR_BORDER_WIDTH / [UIScreen mainScreen].scale;
-    self.scrollIndicatorView.layer.borderColor                         = SCROLL_INDICATOR_BORDER_COLOR.CGColor;
+    self.scrollIndicatorView.layer.cornerRadius                        = kScrollIndicatorCornerRadius;
 
     self.webView.scrollView.showsHorizontalScrollIndicator = NO;
     self.webView.scrollView.showsVerticalScrollIndicator   = NO;
@@ -325,7 +323,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                                                              toItem:self.webView
                                                           attribute:NSLayoutAttributeTrailing
                                                          multiplier:1.0
-                                                           constant:-SCROLL_INDICATOR_LEFT_MARGIN]];
+                                                           constant:-kScrollIndicatorLeftMargin]];
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.scrollIndicatorView
                                                           attribute:NSLayoutAttributeWidth
@@ -333,7 +331,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                          multiplier:1.0
-                                                           constant:SCROLL_INDICATOR_WIDTH]];
+                                                           constant:kScrollIndicatorWidth]];
 
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.scrollIndicatorView
                                                           attribute:NSLayoutAttributeBottom
@@ -350,7 +348,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                                         toItem:nil
                                      attribute:NSLayoutAttributeNotAnAttribute
                                     multiplier:1.0
-                                      constant:SCROLL_INDICATOR_HEIGHT];
+                                      constant:kScrollIndicatorHeight];
 
     [self.view addConstraint:self.scrollIndicatorViewHeightConstraint];
 }
@@ -382,7 +380,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     //self.scrollIndicatorView.alpha = [self tocDrawerIsOpen] ? 0.0f : 1.0f;
     CGFloat percent = self.webView.scrollView.contentOffset.y / f;
     //NSLog(@"percent = %f", percent);
-    self.scrollIndicatorViewTopConstraint.constant = percent * (self.bottomBarView.frame.origin.y - SCROLL_INDICATOR_HEIGHT) + kScrollIndicatorMinYMargin;
+    self.scrollIndicatorViewTopConstraint.constant = percent * (self.bottomBarView.frame.origin.y - kScrollIndicatorHeight) + kScrollIndicatorMinYMargin;
 }
 
 #pragma mark Sync config/ios.json if necessary
