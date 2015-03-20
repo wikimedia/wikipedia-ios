@@ -256,11 +256,11 @@
 "nearby-location-updates-settings-menu" = "Privacy > Localizzazione > Wikipedia";
 "nearby-location-general-error" = "Impossibile determinare la posizione. Tira su per ricaricare o riprova più tardi.";
 "nearby-wifi" = "Abilitando il WiFi, aiuti il dispositivo a determinar meglio la tua posizione.";
-"update-progress-label" = "Aggiornamento di dati locali";
 "image-gallery-unknown-owner" = "Uploader sconosciuto.";
 "hockeyapp-alert-question" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminare il crash?";
 "hockeyapp-alert-question-with-response-field" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminare il crash? Per favore descrivi ciò che è successo quando si è verificato il crash:";
 "hockeyapp-alert-title" = "Siamo spiacenti, l'ultima volta l'app è andata in stallo";
+"migration-update-progress-label" = "Aggiornamento di dati locali";
 "hockeyapp-alert-send-report" = "Invia segnalazione";
 "hockeyapp-alert-always-send" = "Invia sempre";
 "hockeyapp-alert-do-not-send" = "Non inviare";

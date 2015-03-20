@@ -252,7 +252,7 @@
 "nearby-location-updates-settings-menu" = "Gizlilik > Konum Servisleri > Wikipedia";
 "nearby-location-general-error" = "Konum belirlenemiyor. Yenilemek için aşağı çekin veya daha sonra tekrar deneyin.";
 "nearby-wifi" = "Kablosuz bağlantıyı etkinleştirmek, cihazınızın konumunuzu daha iyi belirlemesine yardımcı olabilir.";
-"update-progress-label" = "Yerel veri güncelleniyor";
+"migration-update-progress-label" = "Yerel veri güncelleniyor";
 "image-gallery-unknown-owner" = "Yükleyen bilinmiyor.";
 "hockeyapp-alert-question" = "Oluşan hatayı Wikimedia'nın inceleyebilmesi için $1'e çökme raporu göndermek ister misiniz?";
 "hockeyapp-alert-question-with-response-field" = "Oluşan hatayı Wikimedia'nın inceleyebilmesi için $1'e çökme raporu göndermek ister misiniz? Lütfen çökme gerçekleştiği sırada ne olduğunu tanımlayabilir misiniz:";

@@ -172,12 +172,8 @@
 
 - (void)verifyArticleSectionAndLeadImages:(MWKArticle*)migratedArticle correspondsToOldArticle:(Article*)oldArticle {
     NSArray* oldArticleImages = [oldArticle allImages];
-
-    // if the article has a thumbnail, it will be the first element, followed by the images from each section
     NSUInteger const thumbnailModifier = oldArticle.thumbnailImage ? 1 : 0;
-
-    assertThat(@(migratedArticle.images.count), is(@(oldArticleImages.count + thumbnailModifier)));
-
+    assertThat(@(migratedArticle.images.count), is(equalToInt(oldArticleImages.count + thumbnailModifier)));
     for (NSUInteger i = thumbnailModifier; i < oldArticleImages.count; i++) {
         Image* oldImage         = oldArticleImages[i];
         MWKImage* migratedImage = migratedArticle.images[i + thumbnailModifier];

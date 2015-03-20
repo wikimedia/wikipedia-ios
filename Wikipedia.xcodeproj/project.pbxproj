@@ -744,9 +744,6 @@
 		08D631F91A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryCollectionViewCell.m; path = "Image Gallery/WMFImageGalleryCollectionViewCell.m"; sourceTree = "<group>"; };
 		0EA4402C1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+WMFExtensions.h"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
 		0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+WMFExtensions.m"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
-		0ED01D611AC1DD3200B6947B /* OldDataSchemaMigrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldDataSchemaMigrator.h; sourceTree = "<group>"; };
-		0ED01D621AC1DD3200B6947B /* OldDataSchemaMigrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldDataSchemaMigrator.m; sourceTree = "<group>"; };
-		0ED01D631AC1DD3200B6947B /* OldDataSchemaMigrator_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldDataSchemaMigrator_Private.h; sourceTree = "<group>"; };
 		17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WikipediaUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2033,17 +2030,6 @@
 			name = "Image Gallery";
 			sourceTree = "<group>";
 		};
-		0ED01D601AC1DD3200B6947B /* OldDataSchemaMigrator */ = {
-			isa = PBXGroup;
-			children = (
-				0ED01D611AC1DD3200B6947B /* OldDataSchemaMigrator.h */,
-				0ED01D621AC1DD3200B6947B /* OldDataSchemaMigrator.m */,
-				0ED01D631AC1DD3200B6947B /* OldDataSchemaMigrator_Private.h */,
-			);
-			name = OldDataSchemaMigrator;
-			path = OldDataSchema/OldDataSchema;
-			sourceTree = SOURCE_ROOT;
-		};
 		BC8309941A7BF935003FC5C7 /* WikipediaUnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2406,7 +2392,6 @@
 				D4EE00BB182445670090790F /* mw-support */,
 				C9180EC118AED30C006C1DCA /* mw-utils */,
 				049566BF18F5F4CB0058EA12 /* Zero */,
-				0ED01D601AC1DD3200B6947B /* OldDataSchemaMigrator */,
 			);
 			name = Wikipedia;
 			path = wikipedia;

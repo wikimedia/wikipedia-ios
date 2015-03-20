@@ -25,13 +25,29 @@
 
 @end
 
+@protocol OldDataSchemaMigratorProgressDelegate <NSObject>
+
+-(void)oldDataSchema:(OldDataSchemaMigrator *)schema didUpdateProgressWithArticlesCompleted:(NSUInteger)completed total:(NSUInteger)total;
+
+-(void)oldDataSchemaDidFinishMigration:(OldDataSchemaMigrator *)schema;
+
+-(void)oldDataSchema:(OldDataSchemaMigrator *)schema didFinishWithError:(NSError*)error;
+
+@end
+
+
 
 @interface OldDataSchemaMigrator : NSObject
 
 @property (weak) id<OldDataSchemaDelegate> delegate;
+@property (weak) id<OldDataSchemaMigratorProgressDelegate> progressDelegate;
 
-- (BOOL)exists;
-- (void)migrateData;
-- (void)removeOldData;
+-(BOOL)exists;
+
+/**
+ *  This runs asynchronously. 
+ *  Use the progress delegate methods to get notifified when the migration completes.
+ */
+-(void)migrateData;
 
 @end

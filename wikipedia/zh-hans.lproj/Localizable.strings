@@ -253,7 +253,7 @@
 "nearby-location-updates-settings-menu" = "隐私 > 位置服务 > 维基百科";
 "nearby-location-general-error" = "无法确定位置。下拉刷新或稍后重试。";
 "nearby-wifi" = "启用Wi-Fi可使您的设备更好的确定您的位置。";
-"update-progress-label" = "升级本地数据";
+"migration-update-progress-label" = "升级本地数据";
 "image-gallery-unknown-owner" = "上传者未知。";
 "hockeyapp-alert-question" = "您想要将崩溃报告发送至$1，这样维基媒体可以复查您的崩溃么？";
 "hockeyapp-alert-question-with-response-field" = "您想要将崩溃报告发送至$1，这样维基媒体可以复查您的崩溃么？请描述崩溃发生时出现了什么现象：";

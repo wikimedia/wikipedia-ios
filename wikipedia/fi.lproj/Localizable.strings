@@ -249,6 +249,6 @@
 "nearby-location-updates-settings-menu" = "Yksityisyys > Sijaintipalvelut > Wikipedia";
 "nearby-location-general-error" = "Sijainnin määritys ei onnistu. Vedä päivittääksesi tai yritä uudelleen myöhemmin.";
 "nearby-wifi" = "Langattoman verkkoyhteyden käyttöönotto voi auttaa laitettasi määrittämään sijaintisi paremmin.";
-"update-progress-label" = "Päivitetään paikallisia tietoja";
 "hockeyapp-alert-always-send" = "Lähetä aina";
 "hockeyapp-alert-do-not-send" = "Älä lähetä";
+"migration-update-progress-label" = "Päivitetään paikallisia tietoja";

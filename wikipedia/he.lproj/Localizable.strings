@@ -250,7 +250,7 @@
 "nearby-location-updates-settings-menu" = "פרטיות > שירותי מיקום > ויקיפדיה";
 "nearby-location-general-error" = "לא ניתן להבין מה המיקום. נא למשוך לרענון או לנסות מאוחר יותר.";
 "nearby-wifi" = "הפעלת וייפיי יכולה לעזור למכשיר שלך להבין את המיקום טוב יותר.";
-"update-progress-label" = "שדרוג נתונים מקומיים";
+"migration-update-progress-label" = "שדרוג נתונים מקומיים";
 "image-gallery-unknown-owner" = "המעלֶה אינו ידוע.";
 "hockeyapp-alert-question" = "האם לשלוח דיווח קריסה אל $1 כדי שוויקימדיה תוכל לתקן את הקריסה שלך?";
 "hockeyapp-alert-question-with-response-field" = "האם לשלוח דיווח קריסה אל $1 כדי שוויקימדיה תוכל לבדוק את הקריסה שלך? נא לתאר מה קרה בזמן שאירעה הקריסה:";

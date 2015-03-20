@@ -255,7 +255,7 @@
 "nearby-location-updates-settings-menu" = "Sekretess > Platstjänster > Wikipedia";
 "nearby-location-general-error" = "Det gick inte att bestämma plats. Dra för att uppdatera eller försök igen senare.";
 "nearby-wifi" = "Att aktivera wifi kan hjälpa din enhet att bättre avgöra din position.";
-"update-progress-label" = "Uppgraderar lokal data";
+"migration-update-progress-label" = "Uppgraderar lokal data";
 "image-gallery-unknown-owner" = "Okänd uppladdare.";
 "hockeyapp-alert-question" = "Vill du skicka en kraschrapport till $1 så kan Wikimedia kan undersöka din krasch?";
 "hockeyapp-alert-question-with-response-field" = "Vill du skicka en kraschrapport till $1 så att Wikimedia  undersöka din krasch? Beskriv vad som hände när kraschen inträffade:";

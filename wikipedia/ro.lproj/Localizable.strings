@@ -246,7 +246,7 @@
 "nearby-location-updates-settings-menu" = "Intimitate > Servicii de localizare > Wikipedia";
 "nearby-location-general-error" = "Nu s-a putut efectua localizarea. Trageți pentru a reîmprospăta sau reîncercați mai târziu.";
 "nearby-wifi" = "Activarea conexiunii WiFi poate ajuta dispozitivul dumnevoastră să vă localizeze mai precis.";
-"update-progress-label" = "Se face upgrade datelor locale";
+"migration-update-progress-label" = "Se face upgrade datelor locale";
 "image-gallery-unknown-owner" = "Încărcare de la o persoană necunoscută.";
 "hockeyapp-alert-question" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema?";
 "hockeyapp-alert-question-with-response-field" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema? Vă rugăm să descrieți împrejurarea în care s-a produs blocarea:";

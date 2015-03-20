@@ -254,7 +254,8 @@
 "nearby-location-updates-settings-menu" = "Menu items to tap in the iOS Settings App to enable the Wikipedia App to get location updates. Please check on an iOS device to ensure correct menu text.";
 "nearby-location-general-error" = "General location determination error message";
 "nearby-wifi" = "Alert text telling user how to improve location accuracy";
-"update-progress-label" = "Label shown during automatic upgrade of local data to new internal format. May be on screen very briefly or for a few seconds.";
+"migration-update-progress-label" = "Label shown during automatic upgrade of local data to new internal format. May be on screen very briefly or for a few seconds.";
+"migration-update-progress-count-label" = "Shows the progress of article migration in text: 4 / 15, 5 / 15, etc…";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
 "hockeyapp-alert-question" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "hockeyapp-alert-question-with-response-field" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server, and asking the user to describe what happened when the crash occurred. $1 will be replaced programmatically with the constant string 'HockeyApp'";

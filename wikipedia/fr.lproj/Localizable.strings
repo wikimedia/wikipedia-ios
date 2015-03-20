@@ -254,7 +254,7 @@
 "nearby-location-updates-settings-menu" = "Confidentialité > Services d’emplacement > Wikipédia";
 "nearby-location-general-error" = "Impossible de déterminer l’emplacement. Tirer pour rafraîchir ou réessayer ultérieurement.";
 "nearby-wifi" = "L’activation du wifi peut aider votre appareil à mieux déterminer votre emplacement.";
-"update-progress-label" = "Mise à jour des données locales";
+"migration-update-progress-label" = "Mise à jour des données locales";
 "image-gallery-unknown-owner" = "Téléchargeur inconnu.";
 "hockeyapp-alert-question" = "Voulez-vous envoyer un rapport de plantage à $1 pour que Wikipédia puisse l’étudier ?";
 "hockeyapp-alert-question-with-response-field" = "Voulez-vous envoyer un rapport de plantage à $1 pour que Wikipédia puisse l’étudier ? Veuillez décrire ce qui s’est produit lorsque le plantage s’est produit :";

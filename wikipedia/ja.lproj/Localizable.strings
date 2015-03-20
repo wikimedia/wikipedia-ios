@@ -252,7 +252,7 @@
 "nearby-location-updates-settings-menu" = "プライバシー > 位置情報サービス > ウィキペディア";
 "nearby-location-general-error" = "位置を特定できません。引っ張って更新するか、後ほどもう一度試してみてください。";
 "nearby-wifi" = "Wi-Fi を有効にすると、位置情報の精度をより高めることができます。";
-"update-progress-label" = "ローカルデータをアップグレード中";
+"migration-update-progress-label" = "ローカルデータをアップグレード中";
 "image-gallery-unknown-owner" = "アップロード者不明。";
 "hockeyapp-alert-question" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュをWikimediaがレビューできるようになります。";
 "hockeyapp-alert-question-with-response-field" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュをWikimediaがレビューできるようになります。クラッシュが発生した際に何が起こったか記述してください。";

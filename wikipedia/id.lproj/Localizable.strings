@@ -254,5 +254,5 @@
 "nearby-location-updates-settings-menu" = "Privasi > Layanan Lokasi > Wikipedia";
 "nearby-location-general-error" = "Tidak dapat menentukan lokasi. Tarik untuk menyegarkan atau coba lagi nanti.";
 "nearby-wifi" = "Mengaktifkan Wi-Fi dapat membantu perangkat Anda menentukan lokasi Anda lebih baik.";
-"update-progress-label" = "Meningkatkan data lokal";
+"migration-update-progress-label" = "Meningkatkan data lokal";
 "image-gallery-unknown-owner" = "Pengunggah tidak diketahui.";

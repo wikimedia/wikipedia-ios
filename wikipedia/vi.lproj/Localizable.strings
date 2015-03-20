@@ -249,7 +249,7 @@
 "nearby-location-updates-settings-menu" = "Bảo mật > Địa điểm > Wikipedia";
 "nearby-location-general-error" = "Không thể xác định vị trí. Kéo xuống để làm mới hoặc thử lại sau.";
 "nearby-wifi" = "Bật lên Wi-Fi để giúp thiết bị của bạn xác định vị trí của bạn một cách chính xác hơn.";
-"update-progress-label" = "Đang nâng cấp dữ liệu địa phương";
+"migration-update-progress-label" = "Đang nâng cấp dữ liệu địa phương";
 "image-gallery-unknown-owner" = "Người tải lên không rõ.";
 // Fuzzy
 "hockeyapp-alert-question" = "Bạn có muốn gửi bản báo cáo sự cố cho $1 để giúp chúng tôi sửa lỗi này?";

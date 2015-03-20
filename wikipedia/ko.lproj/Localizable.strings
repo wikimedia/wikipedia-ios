@@ -249,5 +249,5 @@
 "nearby-location-updates-settings-menu" = "개인 정보 보호 > 위치 서비스 > 위키백과";
 "nearby-location-general-error" = "위치를 확정할 수 없습니다. 새로 고치려면 당기거나 나중에 다시 시도하세요.";
 "nearby-wifi" = "Wi-Fi를 활성화하면 장치가 위치를 더 정확하도록 도울 수 있습니다.";
-"update-progress-label" = "로컬 데이터 업그레이드";
+"migration-update-progress-label" = "로컬 데이터 업그레이드";
 "image-gallery-unknown-owner" = "업로더 모름";

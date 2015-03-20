@@ -80,6 +80,15 @@ id WMFCreateArticleDataModel(Class modelClass) {
     self.masterContext.persistentStoreCoordinator = persistentStoreCoordinator;
 }
 
+- (NSManagedObjectContext*)backgroundContext{
+    
+    NSManagedObjectContext* newContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    newContext.parentContext = self.masterContext;
+
+    return newContext;
+}
+
+
 - (NSString *)documentRootPath
 {
     NSArray* documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -87,7 +96,36 @@ id WMFCreateArticleDataModel(Class modelClass) {
     return documentRootPath;
 }
 
+- (void)saveContextAndPropagateChangesToStore:(NSManagedObjectContext*)context completionBlock:(void(^)(NSError* error))completionBlock{
+    
+    [context performBlock:^{
+        
+        __block NSError* errorToSend = nil;
+        
+        NSError* error = nil;
+        if([context save:&error]){
+            [self.masterContext performBlock:^{
+                NSError *masterError = nil;
+                if (![self.masterContext save:&masterError]) {
+                    errorToSend = masterError;
+                }
+            }];
+        }else{
+            errorToSend = error;
+        }
+
+        if(completionBlock){
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(errorToSend);
+            });
+        }
+    }];
+}
+
+
 - (void)propagateMainSavesToMaster{
+    
     [self.masterContext performBlock:^{
         NSError *masterError = nil;
         if (![self.masterContext save:&masterError]) {

@@ -253,7 +253,6 @@
 "nearby-location-updates-settings-menu" = "Privadesa > Serveis d'ubicació > Viquipèdia";
 "nearby-location-general-error" = "No es pot determinar la ubicació. Arrossegueu per refrescar-la o torneu-ho a provar més endavant.";
 "nearby-wifi" = "Si activeu la Wi-Fi pot ajudar el vostre dispositiu a determinar millor la vostra localització.";
-"update-progress-label" = "S'estan actualitzant les dades locals";
 "image-gallery-unknown-owner" = "El carregador no és conegut.";
 "hockeyapp-alert-question" = "Voldríeu enviar un informe de fallada a $1 per tal que Wikimedia ho revisi?";
 "hockeyapp-alert-question-with-response-field" = "Voldríeu enviar un informe de fallada a $1 per tal que Wikimedia ho revisi? Descriviu què va passar quan va produir-se la fallada.";
@@ -262,3 +261,4 @@
 "hockeyapp-alert-always-send" = "Envia sempre";
 "hockeyapp-alert-do-not-send" = "No enviïs";
 "hockeyapp-alert-privacy" = "Privadesa de $1";
+"migration-update-progress-label" = "S'estan actualitzant les dades locals";

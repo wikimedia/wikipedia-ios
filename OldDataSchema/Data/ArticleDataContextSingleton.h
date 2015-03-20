@@ -5,9 +5,13 @@
 
 @interface ArticleDataContextSingleton : NSObject
 
++ (ArticleDataContextSingleton *)sharedInstance;
+
 @property (nonatomic, retain) NSManagedObjectContext *mainContext;
 
-+ (ArticleDataContextSingleton *)sharedInstance;
+- (NSManagedObjectContext*)backgroundContext;
+
+- (void)saveContextAndPropagateChangesToStore:(NSManagedObjectContext*)context completionBlock:(void(^)(NSError* error))completionBlock;
 
 - (id)createArticleDataModel:(Class)modelClass;
 

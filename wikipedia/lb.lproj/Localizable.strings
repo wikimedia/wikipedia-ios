@@ -232,7 +232,7 @@
 "nearby-location-updates-denied" = "Dës App huet net d'Recht fir Aktualisatiounen iwwer d'Plaz wou e grad ass ze kréien.";
 "nearby-location-general-error" = "D'Plaz wou Dir sidd konnt net festgestallt ginn. Dréckt fir z'aktualiséieren oder probéiert méi spéit nach eng Kéier.";
 "nearby-wifi" = "D'Aschalte vum Wifi kann Ärem Apparat hëllefen d'Plaz wou Dir sidd besser festzeleeën.";
-"update-progress-label" = "Aktualiséiere vu lokalen Donnéeën";
+"migration-update-progress-label" = "Aktualiséiere vu lokalen Donnéeën";
 "image-gallery-unknown-owner" = "Eroplueder onbekannt.";
 "hockeyapp-alert-question" = "Wëllt Dir e Rapport vum Crash u $1 schécken fir datt Wikimedia Äre Crash ënnersiche kann?";
 "hockeyapp-alert-title" = "Leider ass d'App déi leschte Kéier ofgestierzt";

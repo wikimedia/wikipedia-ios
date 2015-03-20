@@ -280,7 +280,9 @@
 "nearby-location-general-error" = "Unable to determine location. Pull to refresh or try again later.";
 "nearby-wifi" = "Enabling Wi-Fi can help your device better determine your location.";
 
-"update-progress-label" = "Upgrading local data";
+"migration-update-progress-label" = "Upgrading local data";
+"migration-update-progress-count-label" = "Migrating Article $1 of $2";
+
 
 "image-gallery-unknown-owner" = "Uploader unknown.";
 

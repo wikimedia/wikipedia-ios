@@ -253,11 +253,11 @@
 "nearby-location-updates-settings-menu" = "Privacidad > Servicios de localización > Wikipedia";
 "nearby-location-general-error" = "No se puede determinar la ubicación. Tira para actualizar o inténtalo más tarde.";
 "nearby-wifi" = "Activar wifi puede ayudar a que tu dispositivo determine mejor tu ubicación.";
-"update-progress-label" = "Actualización de datos locales";
 "image-gallery-unknown-owner" = "Cargador desconocido.";
 "hockeyapp-alert-question" = "¿Te gustaría enviar un informe a $1 para que Wikimedia pueda revisar tu fallo?";
 "hockeyapp-alert-question-with-response-field" = "¿Te gustaría enviar un informe a $1 para que Wikimedia pueda revisar tu fallo? Describe lo que pasó en el momento del fallo:";
 "hockeyapp-alert-title" = "La aplicación falló la última vez";
+"migration-update-progress-label" = "Actualización de datos locales";
 "hockeyapp-alert-send-report" = "Enviar informe";
 "hockeyapp-alert-always-send" = "Enviar siempre";
 "hockeyapp-alert-do-not-send" = "No enviar";

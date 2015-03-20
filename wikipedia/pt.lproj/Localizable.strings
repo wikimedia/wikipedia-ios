@@ -251,7 +251,7 @@
 "nearby-location-updates-settings-menu" = "Privacidade > Serviços de localização > Wikipédia";
 "nearby-location-general-error" = "Não foi possível determinar a localização. Puxe para atualizar ou tente novamente mais tarde.";
 "nearby-wifi" = "Ativar o WiFi pode ajudar o seu dispositivo a determinar a sua localização.";
-"update-progress-label" = "A atualizar dados locais";
+"migration-update-progress-label" = "A atualizar dados locais";
 "image-gallery-unknown-owner" = "Autor desconhecido.";
 // Fuzzy
 "hockeyapp-alert-question" = "Deseja enviar um relatório da falha de $1 para que possamos resolver o problema?";

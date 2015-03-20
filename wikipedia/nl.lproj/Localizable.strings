@@ -249,4 +249,4 @@
 "nearby-location-updates-settings-menu" = "Privacy > Locatievoorzieningen > Wikipedia";
 "nearby-location-general-error" = "Kan locatie niet bepalen. Trek naar beneden om bij te werken of probeer het later opnieuw.";
 "nearby-wifi" = "Het inschakelen van Wi-Fi zorgt voor een nauwkeuriger locatie.";
-"update-progress-label" = "Lokale gegevens bijwerken";
+"migration-update-progress-label" = "Lokale gegevens bijwerken";

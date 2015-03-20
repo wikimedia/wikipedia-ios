@@ -13,40 +13,48 @@
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "Article+ConvenienceAccessors.h"
 
-@implementation OldDataSchemaMigrator {
-    ArticleDataContextSingleton* context;
-    NSMutableSet* savedTitles;
-}
+@interface OldDataSchemaMigrator ()
 
-- (instancetype)init {
+@property (nonatomic, strong) ArticleDataContextSingleton *context;
+@property (nonatomic, strong) NSMutableSet *savedTitles;
+
+@end
+
+@implementation OldDataSchemaMigrator
+
+-(instancetype)init
+{
     self = [super init];
     if (self) {
-        savedTitles = [[NSMutableSet alloc] init];
+        _savedTitles = [[NSMutableSet alloc] init];
         if (self.exists) {
-            context = [ArticleDataContextSingleton sharedInstance];
+            _context = [ArticleDataContextSingleton sharedInstance];
         } else {
-            context = nil;
+            _context = nil;
         }
     }
     return self;
 }
 
-- (NSString*)sqlitePath {
-    NSArray* documentPaths     = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString* documentRootPath = [documentPaths objectAtIndex:0];
-    NSString* filePath         = [documentRootPath stringByAppendingPathComponent:@"articleData6.sqlite"];
+-(NSString *)sqlitePath
+{
+    NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentRootPath = [documentPaths objectAtIndex:0];
+    NSString *filePath = [documentRootPath stringByAppendingPathComponent:@"articleData6.sqlite"];
     return filePath;
 }
 
-- (BOOL)exists {
-    NSString* filePath = [self sqlitePath];
+-(BOOL)exists
+{
+    NSString *filePath = [self sqlitePath];
     return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
 }
 
-- (void)removeOldData {
-    NSString* filePath   = [self sqlitePath];
-    NSString* backupPath = [filePath stringByAppendingString:@".bak"];
-    NSError* err         = nil;
+-(void)removeOldData
+{
+    NSString *filePath = [self sqlitePath];
+    NSString *backupPath = [filePath stringByAppendingString:@".bak"];
+    NSError *err = nil;
     [[NSFileManager defaultManager] moveItemAtPath:filePath
                                             toPath:backupPath
                                              error:&err];
@@ -55,35 +63,69 @@
     }
 }
 
-- (void)migrateData {
+-(void)migrateData
+{
     // TODO
     // 1) Go through saved article list, saving entries and (articles and images)
     // 2) Go through page reading history, saving entries and (articles and images) when not already transferred
+        
+    NSManagedObjectContext* context = [self.context backgroundContext];
+    
+    [context performBlock:^{
+        
+        NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:@"Saved"];
+        req.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"dateSaved" ascending:YES]];
+        NSError *err;
+        NSArray *savedEntries = [context executeFetchRequest:req error:&err];
+        
+        if (err) {
+            NSLog(@"Error reading old Saved entries: %@", err);
+        }
+        
+        NSFetchRequest *req2 = [NSFetchRequest fetchRequestWithEntityName:@"History"];
+        req2.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:YES]];
+        NSError *err2;
+        NSArray *historyEntries = [context executeFetchRequest:req2 error:&err2];
+        
+        if (err2) {
+            NSLog(@"Error reading old History entries: %@", err2);
+        }
+        
+        NSUInteger totalArticlesToMigrate = [savedEntries count] + [historyEntries count];
+        __block NSUInteger numberOfArticlesMigrated = 0;
+        
+        void (^incrementAndNotify)(void) = ^void(void) {
+            
+            numberOfArticlesMigrated++;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.progressDelegate oldDataSchema:self didUpdateProgressWithArticlesCompleted:numberOfArticlesMigrated total:totalArticlesToMigrate];
+            });
+        };
+        
+        for (Saved *saved in savedEntries) {
+            [self migrateSaved:saved];
+            [self migrateArticle:saved.article];
+            incrementAndNotify();
+        }
+        
+        for (History *history in historyEntries) {
+            [self migrateHistory:history];
+            incrementAndNotify();
+        }
+        
+        [self.context saveContextAndPropagateChangesToStore:context completionBlock:^(NSError *error) {
+           
+            [self removeOldData];
 
-    NSFetchRequest* req = [NSFetchRequest fetchRequestWithEntityName:@"Saved"];
-    req.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"dateSaved" ascending:YES]];
-    NSError* err;
-    NSArray* savedEntries = [context.mainContext executeFetchRequest:req error:&err];
-    if (err) {
-        NSLog(@"Error reading old Saved entries: %@", err);
-    }
-    for (Saved* saved in savedEntries) {
-        [self migrateSaved:saved];
-        [self migrateArticle:saved.article];
-    }
-
-    NSFetchRequest* req2 = [NSFetchRequest fetchRequestWithEntityName:@"History"];
-    req2.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:YES]];
-    NSError* err2;
-    NSArray* historyEntries = [context.mainContext executeFetchRequest:req2 error:&err2];
-    if (err2) {
-        NSLog(@"Error reading old History entries: %@", err2);
-    }
-    for (History* history in historyEntries) {
-        [self migrateHistory:history];
-        [self migrateArticle:history.article];
-    }
-}
+            if(error){
+                [self.progressDelegate oldDataSchema:self didFinishWithError:error];
+            }else{
+                [self.progressDelegate oldDataSchemaDidFinishMigration:self];
+            }
+        }];
+    }];
+    
+   }
 
 - (MWKSite*)migrateArticleSite:(Article*)article {
     return [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:article.domain];
@@ -93,43 +135,41 @@
     return [[self migrateArticleSite:article] titleWithString:article.title];
 }
 
-- (void)migrateSaved:(Saved*)saved {
-    NSDictionary* dict = [self exportSaved:saved];
+-(void)migrateSaved:(Saved *)saved
+{
+    NSDictionary *dict = [self exportSaved:saved];
     [self.delegate oldDataSchema:self migrateSavedEntry:dict];
 }
 
-- (void)migrateHistory:(History*)history {
-    NSDictionary* dict = [self exportHistory:history];
+-(void)migrateHistory:(History *)history
+{
+    NSDictionary *dict = [self exportHistory:history];
     [self.delegate oldDataSchema:self migrateHistoryEntry:dict];
 }
 
-- (void)migrateArticle:(Article*)article {
-    NSString* key = [NSString stringWithFormat:@"%@:%@", article.domain, article.title];
-    if ([savedTitles containsObject:key]) {
+-(void)migrateArticle:(Article *)article
+{
+    NSString *key = [NSString stringWithFormat:@"%@:%@", article.domain, article.title];
+    if ([self.savedTitles containsObject:key]) {
         // already imported this article
     } else {
         // Record for later to avoid dupe imports
-        [savedTitles addObject:key];
+        [self.savedTitles addObject:key];
 
         MWKArticle* migratedArticle = [self.delegate oldDataSchema:self migrateArticle:[self exportArticle:article]];
 
-        Image* thumbnail = article.thumbnailImage;
+        Image *thumbnail = article.thumbnailImage;
         if (thumbnail) {
             [self migrateThumbnailImage:thumbnail article:article newArticle:migratedArticle];
         }
         // HACK: setting thumbnailURL after migration prevents it from being added to the image list twice
         migratedArticle.thumbnailURL = thumbnail.sourceUrl;
 
-        for (Section* section in [article sectionsBySectionId]) {
-            for (SectionImage* sectionImage in [section sectionImagesByIndex]) {
+        for (Section *section in [article sectionsBySectionId]) {
+            for (SectionImage *sectionImage in [section sectionImagesByIndex]) {
                 [self migrateImage:sectionImage newArticle:migratedArticle];
             }
         }
-
-        NSAssert(!thumbnail
-                 || [[migratedArticle.images imageURLAtIndex:0] isEqualToString:thumbnail.sourceUrl],
-                 @"Thumbnail was present, but it wasn't first in the article's image list: %@",
-                 [migratedArticle.images dataExport]);
 
         // set the lead image to the first non-thumb image
         if ([migratedArticle.images count]) {
@@ -147,39 +187,44 @@
     }
 }
 
-- (void)migrateThumbnailImage:(Image*)thumbnailImage article:(Article*)article newArticle:(MWKArticle*)newArticle {
-    NSDictionary* dict = [self exportThumbnailImage:thumbnailImage article:article];
+-(void)migrateThumbnailImage:(Image *)thumbnailImage article:(Article *)article newArticle:(MWKArticle *)newArticle
+{
+    NSDictionary *dict = [self exportThumbnailImage:thumbnailImage article:article];
     [self.delegate oldDataSchema:self migrateImage:dict newArticle:newArticle];
 }
 
-- (void)migrateImage:(SectionImage*)sectionImage newArticle:(MWKArticle*)newArticle {
-    NSDictionary* dict = [self exportImage:sectionImage];
+-(void)migrateImage:(SectionImage *)sectionImage newArticle:(MWKArticle *)newArticle
+{
+    NSDictionary *dict = [self exportImage:sectionImage];
     [self.delegate oldDataSchema:self migrateImage:dict newArticle:newArticle];
 }
 
-- (NSDictionary*)exportSaved:(Saved*)saved {
+-(NSDictionary *)exportSaved:(Saved *)saved
+{
     return @{
-               @"domain": @"wikipedia.org",
-               @"language": saved.article.domain,
-               @"title": saved.article.title,
-               @"date": [[NSDateFormatter wmf_iso8601Formatter] stringFromDate:saved.dateSaved]
-    };
+             @"domain": @"wikipedia.org",
+             @"language": saved.article.domain,
+             @"title": saved.article.title,
+             @"date": [[NSDateFormatter wmf_iso8601Formatter] stringFromDate:saved.dateSaved]
+             };
 }
 
-- (NSDictionary*)exportHistory:(History*)history {
+-(NSDictionary *)exportHistory:(History *)history
+{
     return @{
-               @"domain": @"wikipedia.org",
-               @"language": history.article.domain,
-               @"title": history.article.title,
-               @"date": [[NSDateFormatter wmf_iso8601Formatter] stringFromDate:history.dateVisited],
-               @"discoveryMethod": history.discoveryMethod,
-               @"scrollPosition": history.article.lastScrollY
-    };
+             @"domain": @"wikipedia.org",
+             @"language": history.article.domain,
+             @"title": history.article.title,
+             @"date": [[NSDateFormatter wmf_iso8601Formatter] stringFromDate:history.dateVisited],
+             @"discoveryMethod": history.discoveryMethod,
+             @"scrollPosition": history.article.lastScrollY
+             };
 }
 
-- (NSDictionary*)exportArticle:(Article*)article {
+-(NSDictionary *)exportArticle:(Article *)article
+{
     NSParameterAssert(article);
-    NSMutableDictionary* dict = [@{} mutableCopy];
+    NSMutableDictionary *dict = [@{} mutableCopy];
 
     if (article.redirected) {
         dict[@"redirected"] = article.redirected;
@@ -189,9 +234,9 @@
     }
     if (article.lastmodifiedby) {
         dict[@"lastmodifiedby"] = @{
-            @"name": article.lastmodifiedby,
-            @"gender": @"unknown"
-        };
+                                    @"name": article.lastmodifiedby,
+                                    @"gender": @"unknown"
+                                    };
     }
     if (article.articleId) {
         dict[@"id"] = article.articleId;
@@ -204,8 +249,8 @@
     }
     if (article.protectionStatus) {
         dict[@"protection"] = @{
-            @"edit": article.protectionStatus
-        };
+                                @"edit": article.protectionStatus
+                                };
     }
     if (article.editable) {
         dict[@"editable"] = @"";
@@ -218,22 +263,23 @@
         for (int i = 0; i < numSections; i++) {
             dict[@"sections"][i] = [NSNull null]; // stub out
         }
-        for (Section* section in article.section) {
+        for (Section *section in article.section) {
             int sectionId = [section.sectionId intValue];
             dict[@"sections"][sectionId] = [self exportSection:section];
         }
     }
 
     return @{
-               @"language": article.domain,
-               @"title": article.title,
-               @"dict": dict
-    };
+             @"language": article.domain,
+             @"title": article.title,
+             @"dict": dict
+             };
 }
 
-- (NSDictionary*)exportSection:(Section*)section {
+-(NSDictionary *)exportSection:(Section *)section
+{
     NSParameterAssert(section);
-    NSMutableDictionary* dict = [@{} mutableCopy];
+    NSMutableDictionary *dict = [@{} mutableCopy];
 
     if (section.tocLevel) {
         dict[@"toclevel"] = section.tocLevel;
@@ -258,16 +304,17 @@
     return dict;
 }
 
-- (NSDictionary*)exportThumbnailImage:(Image*)image article:(Article*)article {
+-(NSDictionary *)exportThumbnailImage:(Image *)image article:(Article *)article
+{
     NSParameterAssert(image);
     NSParameterAssert(article);
-    ImageData* imageData = image.imageData;
+    ImageData *imageData = image.imageData;
 
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 
-    dict[@"domain"]   = @"wikipedia.org";
+    dict[@"domain"] = @"wikipedia.org";
     dict[@"language"] = article.domain;
-    dict[@"title"]    = article.title;
+    dict[@"title"] = article.title;
 
     dict[@"sectionId"] = @(-1);
 
@@ -279,18 +326,19 @@
     return dict;
 }
 
-- (NSDictionary*)exportImage:(SectionImage*)sectionImage {
+-(NSDictionary *)exportImage:(SectionImage *)sectionImage
+{
     NSParameterAssert(sectionImage);
-    Section* section     = sectionImage.section;
-    Article* article     = section.article;
-    Image* image         = sectionImage.image;
-    ImageData* imageData = image.imageData;
+    Section *section = sectionImage.section;
+    Article *article = section.article;
+    Image *image = sectionImage.image;
+    ImageData *imageData = image.imageData;
 
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 
-    dict[@"domain"]   = @"wikipedia.org";
+    dict[@"domain"] = @"wikipedia.org";
     dict[@"language"] = article.domain;
-    dict[@"title"]    = article.title;
+    dict[@"title"] = article.title;
 
     dict[@"sectionId"] = section.sectionId;
 
