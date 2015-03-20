@@ -234,7 +234,8 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle) {
     static NSDictionary* HOCKEYAPP_IDS;
     if (!HOCKEYAPP_IDS) {
         HOCKEYAPP_IDS = @{@"org.wikimedia.wikipedia.alphahockey": @"11136dadf17c6d8b76f903e92eea83b1",
-                          @"org.wikimedia.wikipedia.tfbeta": @"2295c3698bbd0b050f257772dd2bdbb2"
+                          @"org.wikimedia.wikipedia.tfbeta": @"2295c3698bbd0b050f257772dd2bdbb2",
+                          @"org.wikimedia.wikipedia": @"5d80da08a6761e5c6456736af7ebad88"
 #if 0
                           , @"org.wikimedia.wikipedia.developer": @"76947f174e31a9e33fe67d81ff31732e"
 #endif
