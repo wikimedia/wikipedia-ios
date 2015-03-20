@@ -10,7 +10,7 @@
 
 #import "SessionSingleton.h"
 
-#import "OldDataSchema.h"
+#import "OldDataSchemaMigrator.h"
 #import "SchemaConverter.h"
 
 #import "DataMigrator.h"
@@ -25,13 +25,13 @@ enum {
 
 @interface DataMigrationProgressViewController ()
 
-@property (readonly) OldDataSchema* oldDataSchema;
+@property (readonly) OldDataSchemaMigrator* oldDataSchema;
 @property (readonly) DataMigrator* dataMigrator;
 
 @end
 
 @implementation DataMigrationProgressViewController {
-    OldDataSchema* _oldDataSchema;
+    OldDataSchemaMigrator* _oldDataSchema;
     DataMigrator* _dataMigrator;
 }
 
@@ -54,9 +54,9 @@ enum {
     [self asyncMigration];
 }
 
-- (OldDataSchema*)oldDataSchema {
+- (OldDataSchemaMigrator*)oldDataSchema {
     if (_oldDataSchema == nil) {
-        _oldDataSchema = [[OldDataSchema alloc] init];
+        _oldDataSchema = [[OldDataSchemaMigrator alloc] init];
     }
     return _oldDataSchema;
 }

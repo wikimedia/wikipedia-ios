@@ -19,43 +19,45 @@
     return self;
 }
 
-- (void)oldDataSchema:(OldDataSchema*)schema migrateArticle:(NSDictionary*)articleDict {
+- (MWKArticle*)oldDataSchema:(OldDataSchemaMigrator*)schema migrateArticle:(NSDictionary*)articleDict {
     NSString* language       = articleDict[@"language"];
     NSString* titleStr       = articleDict[@"title"];
     NSDictionary* mobileview = articleDict[@"dict"];
 
+    MWKSite* site       = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:language];
+    MWKTitle* title     = [site titleWithString:titleStr];
+    MWKArticle* article = [self.dataStore articleWithTitle:title];
+    [article importMobileViewJSON:mobileview];
     @try {
-        MWKSite* site       = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:language];
-        MWKTitle* title     = [site titleWithString:titleStr];
-        MWKArticle* article = [self.dataStore articleWithTitle:title];
-        [article importMobileViewJSON:mobileview];
         [article save];
-    }@catch (NSException* ex) {
-        NSLog(@"IMPORT ERROR on article %@:%@: %@", language, titleStr, ex);
+    } @catch (NSException* ex) {
+        NSLog(@"IMPORT ERROR on article %@. %@", article, ex);
     }
+    return article;
 }
 
-- (void)oldDataSchema:(OldDataSchema*)schema migrateImage:(NSDictionary*)imageDict {
+- (void)oldDataSchema:(OldDataSchemaMigrator*)schema
+         migrateImage:(NSDictionary*)imageDict
+           newArticle:(MWKArticle*)newArticle {
     NSString* language  = imageDict[@"language"];
     NSString* titleStr  = imageDict[@"title"];
     NSString* sourceURL = imageDict[@"sourceURL"];
-    int sectionId       = [imageDict[@"sectionId"] intValue];
+
+    // TODO: add width & height?
+    NSNumber* sectionId = imageDict[@"sectionId"];
+    int sectionIdValue  = sectionId ? sectionId.intValue : kMWKArticleSectionNone;
     NSData* imageData   = imageDict[@"data"];
-
     @try {
-        // @todo cache the article object?
-        MWKSite* site       = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:language];
-        MWKTitle* title     = [site titleWithString:titleStr];
-        MWKArticle* article = [self.dataStore articleWithTitle:title];
-
-        MWKImage* image = [article importImageURL:sourceURL sectionId:sectionId];
+        // import URL & update image lists
+        MWKImage* image = [newArticle importImageURL:sourceURL sectionId:sectionIdValue];
+        // import image data & save
         [image importImageData:imageData];
-    }@catch (NSException* ex) {
+    } @catch (NSException* ex) {
         NSLog(@"IMPORT ERROR on image %@ in article %@:%@: %@", sourceURL, language, titleStr, ex);
     }
 }
 
-- (void)oldDataSchema:(OldDataSchema*)schema migrateHistoryEntry:(NSDictionary*)historyDict {
+- (void)oldDataSchema:(OldDataSchemaMigrator*)schema migrateHistoryEntry:(NSDictionary*)historyDict {
     NSString* language        = historyDict[@"language"];
     NSString* titleStr        = historyDict[@"title"];
     NSString* date            = historyDict[@"date"];
@@ -80,7 +82,7 @@
     }
 }
 
-- (void)oldDataSchema:(OldDataSchema*)schema migrateSavedEntry:(NSDictionary*)savedDict {
+- (void)oldDataSchema:(OldDataSchemaMigrator*)schema migrateSavedEntry:(NSDictionary*)savedDict {
     NSString* language = savedDict[@"language"];
     NSString* titleStr = savedDict[@"title"];
 

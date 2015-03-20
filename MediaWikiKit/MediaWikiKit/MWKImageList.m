@@ -84,7 +84,7 @@
 }
 
 - (MWKImage*)imageWithURL:(NSString*)imageURL {
-    return entriesByURL[imageURL];
+    return [self.article imageWithURL:imageURL];
 }
 
 - (NSArray*)imageSizeVariants:(NSString*)imageURL {
@@ -155,6 +155,15 @@
         [resultBuilder addObject:image];
     }
     return [resultBuilder array];
+}
+
+- (BOOL)addImageURLIfAbsent:(NSString*)imageURL {
+    if (imageURL && imageURL.length > 0 && ![entries containsObject:imageURL]) {
+        [self addImageURL:imageURL];
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 #pragma mark - data i/o

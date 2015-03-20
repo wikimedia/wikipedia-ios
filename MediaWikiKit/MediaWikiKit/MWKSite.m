@@ -47,10 +47,8 @@ static NSString* localLinkPrefix = @"/wiki/";
 
 #pragma mark - class methods
 
+/// !!!: make this thread safe and test for deadlocks
 + (MWKSite*)siteWithDomain:(NSString*)domain language:(NSString*)language {
-    // if this fails, make the rest of this method thread safe
-    NSParameterAssert([NSThread isMainThread]);
-
     static NSMutableDictionary* cachedSites = nil;
     if (cachedSites == nil) {
         cachedSites = [[NSMutableDictionary alloc] init];

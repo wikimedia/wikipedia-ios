@@ -116,6 +116,7 @@
     _dateLastAccessed = [[NSDate alloc] init];
     _mimeType         = [self getImageMimeTypeForExtension:self.extension];
 
+    #warning FIXME: image inflation result not stored
     // Width / height may already be set, so only inflate image data to get these if necessary.
     if (!_width || !_height) {
         UIImage* img = [UIImage imageWithData:data];

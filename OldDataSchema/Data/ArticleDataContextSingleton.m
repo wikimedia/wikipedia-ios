@@ -2,6 +2,11 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "ArticleDataContextSingleton.h"
+#import "NSManagedObjectModel+OldDataSchema.h"
+
+id WMFCreateArticleDataModel(Class modelClass) {
+    return [[ArticleDataContextSingleton sharedInstance] createArticleDataModel:modelClass];
+}
 
 @interface ArticleDataContextSingleton (){
     
@@ -49,10 +54,8 @@
     // Setup the masterContext and attach the persistant store to it.
     self.masterContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     
-    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"OldDataSchemaBundle" ofType:@"bundle"];
-    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-    NSManagedObjectModel *managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:@[bundle]];
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
+    NSPersistentStoreCoordinator *persistentStoreCoordinator =
+        [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel wmf_oldDataSchema]];
     
     NSString *articlesDBPath = [[self documentRootPath] stringByAppendingString:@"/articleData6.sqlite"];
     NSLog(@"\n\n\nArticle data path: %@\n\n\n", articlesDBPath);
@@ -63,7 +66,11 @@
                               NSInferMappingModelAutomaticallyOption: @YES
                               };
     NSError *error = nil;
-    NSPersistentStore *persistentStore = [persistentStoreCoordinator addPersistentStoreWithType: NSSQLiteStoreType configuration:nil URL:url options:options error:&error];
+    NSPersistentStore *persistentStore = [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                                                  configuration:nil
+                                                                                            URL:url
+                                                                                        options:options
+                                                                                        error:&error];
     if (persistentStore) {
         NSLog(@"Created persistent store.");
     } else {

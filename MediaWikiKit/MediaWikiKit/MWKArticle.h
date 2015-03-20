@@ -20,6 +20,10 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @class MWKProtectionStatus;
 
 @interface MWKArticle : MWKSiteDataObject
+{
+    @protected
+    MWKImageList* _images;
+}
 
 // Identifiers
 @property (readonly) MWKSite* site;

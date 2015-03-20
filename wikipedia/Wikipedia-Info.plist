@@ -30,10 +30,6 @@
 	<array>
 		<string>WikiFont-Glyphs.ttf</string>
 	</array>
-	<key>UIMainStoryboardFile</key>
-	<string>Main_iPhone</string>
-	<key>UIMainStoryboardFile~ipad</key>
-	<string>Main_iPhone</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>

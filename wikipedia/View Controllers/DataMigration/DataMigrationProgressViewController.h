@@ -11,7 +11,7 @@
 
 @class DataMigrationProgressViewController;
 
-@protocol DataMigrationProgressDelegete
+@protocol DataMigrationProgressDelegate
 - (void)dataMigrationProgressComplete:(DataMigrationProgressViewController*)viewController;
 @end
 
@@ -20,7 +20,7 @@
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView* progressIndicator;
 @property (weak, nonatomic) IBOutlet UILabel* progressLabel;
-@property (weak, nonatomic) id<DataMigrationProgressDelegete> delegate;
+@property (weak, nonatomic) id<DataMigrationProgressDelegate> delegate;
 
 - (BOOL)needsMigration;
 

@@ -34,6 +34,12 @@
 - (BOOL)containsImage:(MWKImage*)image;
 
 /**
+ * Add @c imageURL to the receiver if not already present in its entries.
+ * @return @YES if the URL was added, or @NO if it is already present.
+ */
+- (BOOL)addImageURLIfAbsent:(NSString*)imageURL;
+
+/**
  * Return an array of known URLs for the same image that a URL has been given for,
  * ordered by pixel size (smallest to largest).
  *

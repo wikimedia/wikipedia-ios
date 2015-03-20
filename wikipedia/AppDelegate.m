@@ -7,6 +7,8 @@
 #import "SessionSingleton.h"
 #import <HockeySDK/HockeySDK.h>
 #import "WMFCrashAlertView.h"
+#import "AppDelegate+DataMigrationProgressDelegate.h"
+#import "UIWindow+WMFMainScreenWindow.h"
 
 static NSString* const kHockeyAppTitleStringsKey                     = @"hockeyapp-alert-title";
 static NSString* const kHockeyAppQuestionStringsKey                  = @"hockeyapp-alert-question";
@@ -16,12 +18,22 @@ static NSString* const kHockeyAppAlwaysSendStringsKey                = @"hockeya
 static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeyapp-alert-do-not-send";
 
 @interface AppDelegate ()
+
+#warning TOOD: refactor into separate crash-reporting class
 @property NSString* crashSendText;
 @property NSString* crashAlwaysSendText;
 @property NSString* crashDoNotSendText;
 @end
 
 @implementation AppDelegate
+@synthesize window = _window;
+
+- (UIWindow*)window {
+    if (!_window) {
+        _window = [UIWindow wmf_newWithMainScreenBounds];
+    }
+    return _window;
+}
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
     [self setupCrashReportingFacilities];
@@ -42,7 +54,33 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
                                                   inDomains:NSUserDomainMask] lastObject]);
 #endif
 
+    if (![self presentDataMigrationViewControllerIfNeeded]) {
+        [self presentRootViewController:NO withSplash:YES];
+    }
+
     return YES;
+}
+
+- (void)transitionToRootViewController:(UIViewController*)viewController animated:(BOOL)animated {
+    if (!animated || !self.window.rootViewController) {
+        self.window.rootViewController = viewController;
+        [self.window makeKeyAndVisible];
+    } else {
+        NSParameterAssert(self.window.isKeyWindow);
+        [UIView transitionWithView:self.window
+                          duration:[CATransaction animationDuration]
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{ self.window.rootViewController = viewController; }
+                        completion:nil];
+    }
+}
+
+- (void)presentRootViewController:(BOOL)animated withSplash:(BOOL)withSplash {
+    RootViewController* mainInitialVC =
+        [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil] instantiateInitialViewController];
+    NSParameterAssert([mainInitialVC isKindOfClass:[RootViewController class]]);
+    mainInitialVC.shouldShowSplashOnAppear = withSplash;
+    [self transitionToRootViewController:mainInitialVC animated:animated];
 }
 
 - (void)printAllNotificationsToConsole {

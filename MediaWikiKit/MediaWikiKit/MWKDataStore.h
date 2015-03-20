@@ -22,6 +22,13 @@
 
 FOUNDATION_EXPORT NSString* const MWKDataStoreValidImageSitePrefix;
 
+/**
+ * Creates an image URL by appending @c path to @c MWKDataStoreValidImageSitePrefix.
+ * @param path The relative path to an image <b>without the leading slash</b>. For example,
+ *             <code>@"File.jpg/440px-File.jpg"</code>.
+ */
+extern NSString* MWKCreateImageURLWithPath(NSString* path);
+
 @interface MWKDataStore : NSObject
 
 @property (readonly) NSString* basePath;
@@ -91,5 +98,7 @@ FOUNDATION_EXPORT NSString* const MWKDataStoreValidImageSitePrefix;
 - (MWKImageList*)imageListWithArticle:(MWKArticle*)article section:(MWKSection*)section;
 
 - (void)iterateOverArticles:(void (^)(MWKArticle*))block;
+
+- (NSError*)removeFolderAtBasePath;
 
 @end

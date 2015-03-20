@@ -5,8 +5,10 @@
 
 @interface ArticleDataContextSingleton : NSObject
 
+@property (nonatomic, retain) NSManagedObjectContext *mainContext;
+
 + (ArticleDataContextSingleton *)sharedInstance;
 
-@property (nonatomic, retain) NSManagedObjectContext *mainContext;
+- (id)createArticleDataModel:(Class)modelClass;
 
 @end

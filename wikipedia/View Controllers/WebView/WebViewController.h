@@ -6,7 +6,6 @@
 #import "PullToRefreshViewController.h"
 #import "ArticleFetcher.h"
 #import "LeadImageContainer.h"
-#import "DataMigrationProgressViewController.h"
 
 // TODO: rename the WebViewControllerVariableNames once we rename this class
 extern NSString* const WebViewControllerTextWasHighlighted;
@@ -16,7 +15,7 @@ extern NSString* const WebViewControllerShareSelectedText;
 
 @class BottomMenuViewController, CommunicationBridge;
 
-@interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, FetchFinishedDelegate, LeadImageHeightDelegate, DataMigrationProgressDelegete>
+@interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, FetchFinishedDelegate, LeadImageHeightDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView* webView;
 @property (nonatomic) BOOL bottomMenuHidden;

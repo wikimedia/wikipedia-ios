@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BCB3AE7F1AC11208004AD205 /* NSManagedObjectModel+OldDataSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB3AE7E1AC11208004AD205 /* NSManagedObjectModel+OldDataSchema.m */; };
+		BCB3AE8D1AC1152A004AD205 /* NSManagedObject+WMFModelFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB3AE8C1AC1152A004AD205 /* NSManagedObject+WMFModelFactory.m */; };
 		D4E6D9111A5C65C0004916C1 /* ArticleData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D4F478531A48CE0100D8043C /* ArticleData.xcdatamodeld */; };
-		D4F4782E1A48CD8500D8043C /* OldDataSchema.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D4F4782D1A48CD8500D8043C /* OldDataSchema.h */; };
-		D4F478301A48CD8500D8043C /* OldDataSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F4782F1A48CD8500D8043C /* OldDataSchema.m */; };
 		D4F478661A48CE0200D8043C /* ArticleDataContextSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F4784E1A48CE0100D8043C /* ArticleDataContextSingleton.m */; };
 		D4F478671A48CE0200D8043C /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F478511A48CE0100D8043C /* Article.m */; };
 		D4F478681A48CE0200D8043C /* ArticleData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D4F478531A48CE0100D8043C /* ArticleData.xcdatamodeld */; };
@@ -30,18 +30,19 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				D4F4782E1A48CD8500D8043C /* OldDataSchema.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BCB3AE7D1AC11208004AD205 /* NSManagedObjectModel+OldDataSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectModel+OldDataSchema.h"; sourceTree = "<group>"; };
+		BCB3AE7E1AC11208004AD205 /* NSManagedObjectModel+OldDataSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectModel+OldDataSchema.m"; sourceTree = "<group>"; };
+		BCB3AE8B1AC1152A004AD205 /* NSManagedObject+WMFModelFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+WMFModelFactory.h"; sourceTree = "<group>"; };
+		BCB3AE8C1AC1152A004AD205 /* NSManagedObject+WMFModelFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+WMFModelFactory.m"; sourceTree = "<group>"; };
 		D4E6D90A1A5C65B5004916C1 /* OldDataSchemaBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OldDataSchemaBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E6D90D1A5C65B5004916C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4F4782A1A48CD8500D8043C /* libOldDataSchema.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOldDataSchema.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4F4782D1A48CD8500D8043C /* OldDataSchema.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OldDataSchema.h; sourceTree = "<group>"; };
-		D4F4782F1A48CD8500D8043C /* OldDataSchema.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OldDataSchema.m; sourceTree = "<group>"; };
 		D4F4784D1A48CE0100D8043C /* ArticleDataContextSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArticleDataContextSingleton.h; path = Data/ArticleDataContextSingleton.h; sourceTree = SOURCE_ROOT; };
 		D4F4784E1A48CE0100D8043C /* ArticleDataContextSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArticleDataContextSingleton.m; path = Data/ArticleDataContextSingleton.m; sourceTree = SOURCE_ROOT; };
 		D4F478501A48CE0100D8043C /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
@@ -65,8 +66,6 @@
 		D4F478631A48CE0200D8043C /* Section.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Section.m; sourceTree = "<group>"; };
 		D4F478641A48CE0200D8043C /* SectionImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionImage.h; sourceTree = "<group>"; };
 		D4F478651A48CE0200D8043C /* SectionImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionImage.m; sourceTree = "<group>"; };
-		D4F4787D1A48D2DF00D8043C /* Article+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Article+Convenience.h"; sourceTree = "<group>"; };
-		D4F4787E1A48D2DF00D8043C /* Article+Convenience.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Article+Convenience.m"; sourceTree = "<group>"; };
 		D4F4787F1A48D2DF00D8043C /* NSManagedObjectContext+SimpleFetch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+SimpleFetch.h"; sourceTree = "<group>"; };
 		D4F478801A48D2DF00D8043C /* NSManagedObjectContext+SimpleFetch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+SimpleFetch.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,8 +129,6 @@
 				D4F4784D1A48CE0100D8043C /* ArticleDataContextSingleton.h */,
 				D4F4784E1A48CE0100D8043C /* ArticleDataContextSingleton.m */,
 				D4F4784F1A48CE0100D8043C /* Model */,
-				D4F4782D1A48CD8500D8043C /* OldDataSchema.h */,
-				D4F4782F1A48CD8500D8043C /* OldDataSchema.m */,
 			);
 			path = OldDataSchema;
 			sourceTree = "<group>";
@@ -167,10 +164,12 @@
 		D4F4787C1A48D2DF00D8043C /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				D4F4787D1A48D2DF00D8043C /* Article+Convenience.h */,
-				D4F4787E1A48D2DF00D8043C /* Article+Convenience.m */,
 				D4F4787F1A48D2DF00D8043C /* NSManagedObjectContext+SimpleFetch.h */,
 				D4F478801A48D2DF00D8043C /* NSManagedObjectContext+SimpleFetch.m */,
+				BCB3AE7D1AC11208004AD205 /* NSManagedObjectModel+OldDataSchema.h */,
+				BCB3AE7E1AC11208004AD205 /* NSManagedObjectModel+OldDataSchema.m */,
+				BCB3AE8B1AC1152A004AD205 /* NSManagedObject+WMFModelFactory.h */,
+				BCB3AE8C1AC1152A004AD205 /* NSManagedObject+WMFModelFactory.m */,
 			);
 			path = Categories;
 			sourceTree = SOURCE_ROOT;
@@ -271,13 +270,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4F478661A48CE0200D8043C /* ArticleDataContextSingleton.m in Sources */,
-				D4F478301A48CD8500D8043C /* OldDataSchema.m in Sources */,
 				D4F478691A48CE0200D8043C /* DiscoveryContext.m in Sources */,
+				BCB3AE7F1AC11208004AD205 /* NSManagedObjectModel+OldDataSchema.m in Sources */,
 				D4F478681A48CE0200D8043C /* ArticleData.xcdatamodeld in Sources */,
 				D4F4786A1A48CE0200D8043C /* GalleryImage.m in Sources */,
 				D4F4786C1A48CE0200D8043C /* Image.m in Sources */,
 				D4F4786B1A48CE0200D8043C /* History.m in Sources */,
 				D4F4786E1A48CE0200D8043C /* Saved.m in Sources */,
+				BCB3AE8D1AC1152A004AD205 /* NSManagedObject+WMFModelFactory.m in Sources */,
 				D4F4786F1A48CE0200D8043C /* Section.m in Sources */,
 				D4F478701A48CE0200D8043C /* SectionImage.m in Sources */,
 				D4F4786D1A48CE0200D8043C /* ImageData.m in Sources */,

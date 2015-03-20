@@ -14,8 +14,7 @@
 #import "OnboardingViewController.h"
 #import "UIView+RemoveConstraints.h"
 
-@interface RootViewController (){
-}
+@interface RootViewController ()
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* centerContainerTopConstraint;
 
@@ -33,6 +32,14 @@
 
 @implementation RootViewController
 
+- (instancetype)initWithCoder:(NSCoder*)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        _shouldShowSplashOnAppear = NO;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -46,7 +53,9 @@
     // (Show splash image even if onboarding to prevent flicker between time root
     // view appears and time onboarding vc's view appears - it's the briefest
     // interval, but noticeable)
-    [self splashImageShow];
+    if (self.shouldShowSplashOnAppear) {
+        [self splashImageShow];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

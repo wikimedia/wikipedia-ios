@@ -10,7 +10,6 @@
 #import <BlocksKit/BlocksKit.h>
 
 @implementation MWKArticle {
-    MWKImageList* _images;
     MWKSectionList* _sections;
 }
 
@@ -118,15 +117,20 @@
     }
 }
 
+- (void)updateImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId {
+    if (sourceURL && sourceURL.length > 0) {
+        [self.images addImageURL:sourceURL];
+        if (sectionId != kMWKArticleSectionNone) {
+            [self.sections[sectionId].images addImageURL:sourceURL];
+        }
+    }
+}
+
 /**
  * Create a stub record for an image with given URL.
  */
 - (MWKImage*)importImageURL:(NSString*)url sectionId:(int)sectionId {
-    [self.images addImageURL:url];
-    if (sectionId != kMWKArticleSectionNone) {
-        [self.sections[sectionId].images addImageURL:url];
-    }
-
+    [self updateImageListsWithSourceURL:url inSection:sectionId];
     return [[MWKImage alloc] initWithArticle:self sourceURL:url];
 }
 
@@ -226,16 +230,12 @@
 
 - (void)setThumbnailURL:(NSString*)thumbnailURL {
     _thumbnailURL = thumbnailURL;
-    if (thumbnailURL) {
-        (void)[self importImageURL:thumbnailURL sectionId:kMWKArticleSectionNone];
-    }
+    [self.images addImageURLIfAbsent:thumbnailURL];
 }
 
 - (void)setImageURL:(NSString*)imageURL {
     _imageURL = imageURL;
-    if (imageURL) {
-        (void)[self importImageURL:imageURL sectionId:kMWKArticleSectionNone];
-    }
+    [self.images addImageURLIfAbsent:imageURL];
 }
 
 - (MWKImage*)image {

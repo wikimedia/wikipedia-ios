@@ -11,7 +11,7 @@
 @property (weak, nonatomic) CenterNavController* centerNavController;
 
 @property (nonatomic) BOOL topMenuHidden;
-
+@property (nonatomic) BOOL shouldShowSplashOnAppear;
 @property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
 
 - (void)animateTopAndBottomMenuHidden:(BOOL)hidden;

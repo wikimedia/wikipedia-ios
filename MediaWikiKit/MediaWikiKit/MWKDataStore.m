@@ -12,7 +12,11 @@
 #import "NSString+Extras.h"
 
 NSString* const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
-static NSString* const MWKImageInfoFilename      = @"ImageInfo.plist";
+NSString* MWKCreateImageURLWithPath(NSString* path) {
+    return [MWKDataStoreValidImageSitePrefix stringByAppendingString:path];
+}
+
+static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @implementation MWKDataStore
 
@@ -409,6 +413,12 @@ static NSString* const MWKImageInfoFilename      = @"ImageInfo.plist";
             block(article);
         }
     }
+}
+
+- (NSError*)removeFolderAtBasePath {
+    NSError* err;
+    [[NSFileManager defaultManager] removeItemAtPath:self.basePath error:&err];
+    return err;
 }
 
 @end

@@ -198,23 +198,8 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
-    // This is the first view that's opened when the app opens...
-    // Perform any first-time data migration as needed.
-    DataMigrationProgressViewController* migrationVC = [[DataMigrationProgressViewController alloc] init];
-    if ([migrationVC needsMigration]) {
-        migrationVC.delegate = self;
-        [ROOT presentViewController:migrationVC animated:NO completion:nil];
-    } else {
-        [self doStuffOnAppear];
-    }
-
-    [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
-}
-
-- (void)dataMigrationProgressComplete:(DataMigrationProgressViewController*)viewController {
-    [viewController dismissViewControllerAnimated:NO completion:nil];
     [self doStuffOnAppear];
+    [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
 }
 
 - (void)doStuffOnAppear {

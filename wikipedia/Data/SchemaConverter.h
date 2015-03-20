@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "OldDataSchema.h"
+#import "OldDataSchemaMigrator.h"
 
 #import "MediaWikiKit.h"
 
 @interface SchemaConverter : NSObject <OldDataSchemaDelegate>
 
-@property OldDataSchema* schema;
+@property OldDataSchemaMigrator* schema;
 @property MWKDataStore* dataStore;
 @property MWKUserDataStore* userDataStore;
 
