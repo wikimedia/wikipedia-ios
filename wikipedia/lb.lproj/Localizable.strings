@@ -41,6 +41,7 @@
 "account-creation-password-placeholder-text" = "Passwuert";
 "account-creation-password-confirm-placeholder-text" = "Passwuert confirméieren";
 "account-creation-email-placeholder-text" = "E-Mail (Fakultativ)";
+"account-creation-missing-fields" = "Dir musst e Benotzernumm, e Passwuert an d'Confirmatioun vum Passwuert agi fir e Benotzerkont opzemaachen.";
 "login-name-not-found" = "De Benotzernumm ass obligatoresch fir sech anzeloggen.";
 "login-name-illegal" = "Dir hutt e falsche Benotzernumm uginn.";
 "login-name-does-not-exist" = "De Benotzernumm deen Dir uginn hutt gëtt et net.";
@@ -78,6 +79,7 @@
 "search-titles" = "Titelen";
 "search-within-articles" = "An Artikelen";
 "search-did-you-mean" = "Mengt Dir $1?";
+"search-recent-title" = "Rezent gesicht";
 "search-recent-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
 "search-recent-clear-cancel" = "Ofbriechen";
 "search-recent-clear-delete-all" = "All läschen";
@@ -105,6 +107,7 @@
 "main-menu-terms-of-use" = "Benotzungs-Bedingungen";
 "main-menu-rate-app" = "App bewäerten";
 "main-menu-heading-zero" = "Wikipedia Zero";
+// Fuzzy
 "main-menu-heading-legal" = "Rechtlech Informatioun";
 "main-menu-show-today" = "Haut";
 "main-menu-nearby" = "An der Noperschaft";
@@ -231,8 +234,8 @@
 "nearby-wifi" = "D'Aschalte vum Wifi kann Ärem Apparat hëllefen d'Plaz wou Dir sidd besser festzeleeën.";
 "update-progress-label" = "Aktualiséiere vu lokalen Donnéeën";
 "image-gallery-unknown-owner" = "Eroplueder onbekannt.";
-// Fuzzy
-"hockeyapp-alert-question" = "Wëllt Dir e Rapport vum Crash op $1 schécken esou datt mir de Feeler flécke kënnen?";
+"hockeyapp-alert-question" = "Wëllt Dir e Rapport vum Crash u $1 schécken fir datt Wikimedia Äre Crash ënnersiche kann?";
+"hockeyapp-alert-title" = "Leider ass d'App déi leschte Kéier ofgestierzt";
 "hockeyapp-alert-send-report" = "Rapport schécken";
 "hockeyapp-alert-always-send" = "Ëmmer schécken";
 "hockeyapp-alert-do-not-send" = "Net schécken";

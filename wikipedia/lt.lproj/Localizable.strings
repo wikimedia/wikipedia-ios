@@ -3,10 +3,12 @@
 // Author: Gediminas
 // Author: Hugo.arg
 // Author: Mantak111
+// Author: Pofka
 
 "article-languages-label" = "Pasirinkite kalbą";
 "article-languages-cancel" = "Atšaukti";
 "article-languages-filter-placeholder" = "Kalbų filtras";
+"article-read-more-title" = "Skaityti daugiau";
 "history-label" = "Naujausi";
 "history-section-today" = "Šiandien";
 "history-section-yesterday" = "Vakar";
@@ -82,10 +84,12 @@
 "main-menu-show-today" = "Šiandien";
 "main-menu-nearby" = "Šalia";
 "main-menu-more" = "Daugiau...";
+"main-menu-debug-crash" = "Užlūžo";
 "saved-pages-title" = "Įrašyti puslapiai";
 "saved-pages-clear-confirmation-heading" = "Naikinti visus įrašytus elementus?";
 "saved-pages-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "saved-pages-clear-cancel" = "Atšaukti";
+"saved-pages-refresh-cancel-alert-button" = "Supratau";
 "page-history-title" = "Straipsnio istorija";
 "page-history-downloading" = "Įkeliama straipsnio istorija...";
 "navbar-title-mode-edit-wikitext" = "Redaguoti";
@@ -133,6 +137,7 @@
 "menu-w-accessibility-label" = "Meniu";
 "menu-toc-accessibility-label" = "Turinys";
 "menu-search-accessibility-label" = "Paieška";
+"menu-reload-accessibility-label" = "Perkrauti";
 "menu-cancel-accessibility-label" = "Atšaukti";
 "menu-share-accessibility-label" = "Dalintis";
 "menu-more-accessibility-label" = "Daugiau nustatymų";
@@ -147,3 +152,8 @@
 "nearby-open-in-maps" = "Atidaryti Žemėlapiuose";
 "nearby-cancel" = "Atšaukti";
 "nearby-location-updates-denied" = "Ši programėlė neturi leidimo gauti vietos atnaujinimus.";
+"image-gallery-unknown-owner" = "Talpintojas nežinomas";
+"hockeyapp-alert-title" = "Atleiskite, programėlė praeitą kartą užlūžo";
+"hockeyapp-alert-send-report" = "Siųsti ataskaitą";
+"hockeyapp-alert-always-send" = "Visada siųsti";
+"hockeyapp-alert-do-not-send" = "Nesiųsti";

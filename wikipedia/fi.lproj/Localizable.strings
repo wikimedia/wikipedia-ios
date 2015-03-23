@@ -3,6 +3,7 @@
 // Author: ElmA
 // Author: Jack Phoenix
 // Author: Nike
+// Author: Silvonen
 // Author: Stryn
 // Author: SuperPete
 
@@ -116,6 +117,7 @@
 "main-menu-terms-of-use" = "Käyttöehdot";
 "main-menu-rate-app" = "Arvostele sovellus";
 "main-menu-heading-zero" = "Wikipedia Zero";
+// Fuzzy
 "main-menu-heading-legal" = "Mumbu jumbo";
 "main-menu-show-today" = "Tänään";
 "main-menu-nearby" = "Lähistöllä";
@@ -248,3 +250,5 @@
 "nearby-location-general-error" = "Sijainnin määritys ei onnistu. Vedä päivittääksesi tai yritä uudelleen myöhemmin.";
 "nearby-wifi" = "Langattoman verkkoyhteyden käyttöönotto voi auttaa laitettasi määrittämään sijaintisi paremmin.";
 "update-progress-label" = "Päivitetään paikallisia tietoja";
+"hockeyapp-alert-always-send" = "Lähetä aina";
+"hockeyapp-alert-do-not-send" = "Älä lähetä";

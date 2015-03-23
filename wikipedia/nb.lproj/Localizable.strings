@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Chameleon222
 // Author: Danmichaelo
+// Author: Kingu
 // Author: Laaknor
 // Author: Macofe
 
@@ -115,6 +116,7 @@
 "main-menu-terms-of-use" = "Bruksvilkår";
 "main-menu-rate-app" = "Vurder appen";
 "main-menu-heading-zero" = "Wikipedia Zero";
+// Fuzzy
 "main-menu-heading-legal" = "Mumbo jumbo";
 "main-menu-show-today" = "I dag";
 "main-menu-nearby" = "I nærheten";
@@ -250,3 +252,10 @@
 "nearby-wifi" = "Å skru på wifi kan hjelpe enheten din til å bestemme posisjonen din bedre.";
 "update-progress-label" = "Oppgraderer lokale data";
 "image-gallery-unknown-owner" = "Ukjent opplaster.";
+"hockeyapp-alert-question" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia kan ta den i ettersyn?";
+"hockeyapp-alert-question-with-response-field" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia kan ta den i ettersyn? Beskriv hva som skjedde da det inntraff:";
+"hockeyapp-alert-title" = "Beklager, app-en krasjet forrige gang";
+"hockeyapp-alert-send-report" = "Send rapport";
+"hockeyapp-alert-always-send" = "Alltid send";
+"hockeyapp-alert-do-not-send" = "Ikke send";
+"hockeyapp-alert-privacy" = "$ personvern";

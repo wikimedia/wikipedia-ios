@@ -185,3 +185,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-cancel" = "Zrušiť";
 "nearby-location-updates-denied" = "Táto aplikácia nemá prístup k údajom o polohe.";
+"hockeyapp-alert-send-report" = "Odoslať správu";
+"hockeyapp-alert-always-send" = "Vždy odoslať";
+"hockeyapp-alert-do-not-send" = "Neodoslať";

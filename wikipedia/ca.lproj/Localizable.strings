@@ -9,13 +9,13 @@
 // Author: SMP
 // Author: Toniher
 
-"article-languages-label" = "Triar un idioma";
-"article-languages-cancel" = "Cancel·lar";
+"article-languages-label" = "Tria un idioma";
+"article-languages-cancel" = "Cancel·la";
 "article-languages-downloading" = "Carregant els idiomes de l'article...";
 "article-languages-filter-placeholder" = "Filtre d'idioma";
 "article-read-more-title" = "Més informació";
 "info-box-title" = "Dades bàsiques";
-"info-box-close-text" = "Tancar";
+"info-box-close-text" = "Tanca";
 "language-button-text" = "Podeu llegir l'article en altres %d llengües";
 "history-label" = "Recents";
 "history-section-today" = "Avui";
@@ -24,8 +24,8 @@
 "history-section-lastmonth" = "El mes passat";
 "history-clear-confirmation-heading" = "Eliminar els elements recents?";
 "history-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
-"history-clear-cancel" = "Cancel·lar";
-"history-clear-delete-all" = "Esborrar tot";
+"history-clear-cancel" = "Cancel·la";
+"history-clear-delete-all" = "Esborra-ho tot";
 "zero-free-verbiage" = "Accés lliure a la Viquipèdia des del vostre operador mòbil (sense càrrecs per transmissió de dades)";
 "zero-charged-verbiage" = "Viquipèdia Zero desactivat";
 "zero-charged-verbiage-extended" = "Carregar articles addicionals pot implicar costos per transmissió de dades. Els articles emmagatzemats sense connexió no impliquen transmissió de dades i són gratuïts.";
@@ -38,7 +38,7 @@
 "zero-learn-more-learn-more" = "Més informació";
 "zero-learn-more-no-thanks" = "Descarta";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
-"zero-warn-when-leaving" = "Avisar si es surt de Viquipèdia Zero";
+"zero-warn-when-leaving" = "Avisa si se surt de Viquipèdia Zero";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Verificació de CAPTCHA requerit.";
 "account-creation-captcha-obtaining" = "Obtenint d'un CAPTCHA nou.";
@@ -119,10 +119,13 @@
 "main-menu-terms-of-use" = "Condicions d’ús";
 "main-menu-rate-app" = "Puntua l'aplicació";
 "main-menu-heading-zero" = "Wikipedia Zero";
+// Fuzzy
 "main-menu-heading-legal" = "Mumbo jumbo";
 "main-menu-show-today" = "Avui";
 "main-menu-nearby" = "A prop";
 "main-menu-more" = "Més...";
+"main-menu-heading-debug" = "Depuració";
+"main-menu-debug-crash" = "Fallada";
 "saved-pages-title" = "Pàgines desades";
 "saved-pages-clear-confirmation-heading" = "Suprimir tots els elements desats?";
 "saved-pages-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
@@ -213,8 +216,8 @@
 "table-of-contents-heading" = "Continguts";
 "abuse-filter-warning-heading" = "Això podria ser una modificació no constructiva. Esteu segur que voleu desar-la?";
 "abuse-filter-warning-subheading" = "La vostra modificació pot contenir un o més dels següents problemes:";
-"abuse-filter-warning-caps" = "Escriure en MAJÚSCULES";
-"abuse-filter-warning-blanking" = "Eliminació d'articles o ''spam''";
+"abuse-filter-warning-caps" = "Escrivint en MAJÚSCULES";
+"abuse-filter-warning-blanking" = "Blanqueig d'articles o brossa";
 "abuse-filter-warning-irrelevant" = "Enllaços externs o imatges no rellevants";
 "abuse-filter-warning-repeat" = "Caràcters repeeetits";
 "abuse-filter-disallow-heading" = "No podeu desar la modificació. Aneu enrere i canvieu-ho.";
@@ -247,7 +250,15 @@
 "nearby-cancel" = "Cancel·la";
 "nearby-location-updates-denied" = "L'aplicació no té permisos per rebre actualitzacions d'ubicació.";
 "nearby-location-updates-enable" = "Per activar les actualitzacions d'ubicació, obriu l'App Ajustos i seleccioneu el següent:";
-"nearby-location-updates-settings-menu" = "Privacitat > Localització > Wikipedia";
+"nearby-location-updates-settings-menu" = "Privadesa > Serveis d'ubicació > Viquipèdia";
 "nearby-location-general-error" = "No es pot determinar la ubicació. Arrossegueu per refrescar-la o torneu-ho a provar més endavant.";
 "nearby-wifi" = "Si activeu la Wi-Fi pot ajudar el vostre dispositiu a determinar millor la vostra localització.";
 "update-progress-label" = "S'estan actualitzant les dades locals";
+"image-gallery-unknown-owner" = "El carregador no és conegut.";
+"hockeyapp-alert-question" = "Voldríeu enviar un informe de fallada a $1 per tal que Wikimedia ho revisi?";
+"hockeyapp-alert-question-with-response-field" = "Voldríeu enviar un informe de fallada a $1 per tal que Wikimedia ho revisi? Descriviu què va passar quan va produir-se la fallada.";
+"hockeyapp-alert-title" = "Ho sentim, l'aplicació va fallar la darrera vegada";
+"hockeyapp-alert-send-report" = "Envia l'informe";
+"hockeyapp-alert-always-send" = "Envia sempre";
+"hockeyapp-alert-do-not-send" = "No enviïs";
+"hockeyapp-alert-privacy" = "Privadesa de $1";

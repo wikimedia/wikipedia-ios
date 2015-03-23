@@ -112,6 +112,7 @@
 "main-menu-terms-of-use" = "Termeni de utilizare";
 "main-menu-rate-app" = "Evaluează aplicația";
 "main-menu-heading-zero" = "Wikipedia Zero";
+// Fuzzy
 "main-menu-heading-legal" = "Informații legale";
 "main-menu-show-today" = "Astăzi";
 "main-menu-nearby" = "În apropiere";
@@ -247,10 +248,8 @@
 "nearby-wifi" = "Activarea conexiunii WiFi poate ajuta dispozitivul dumnevoastră să vă localizeze mai precis.";
 "update-progress-label" = "Se face upgrade datelor locale";
 "image-gallery-unknown-owner" = "Încărcare de la o persoană necunoscută.";
-// Fuzzy
-"hockeyapp-alert-question" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât să reparăm problema?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât să reparăm problema? Vă rugăm să descrieți împrejurarea în care s-a produs blocarea:";
+"hockeyapp-alert-question" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema?";
+"hockeyapp-alert-question-with-response-field" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema? Vă rugăm să descrieți împrejurarea în care s-a produs blocarea:";
 "hockeyapp-alert-title" = "Ne pare rău, aplicația s-a blocat ultima dată";
 "hockeyapp-alert-send-report" = "Trimite raportul";
 "hockeyapp-alert-always-send" = "Trimite întotdeauna";

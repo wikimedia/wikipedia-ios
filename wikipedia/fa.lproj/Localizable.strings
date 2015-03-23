@@ -121,6 +121,7 @@
 "main-menu-terms-of-use" = "شرایط استفاده";
 "main-menu-rate-app" = "رتبه برنامه";
 "main-menu-heading-zero" = "ویکی‌پدیای صفر";
+// Fuzzy
 "main-menu-heading-legal" = "خرافات";
 "main-menu-show-today" = "امروز";
 "main-menu-nearby" = "در نزدیکی";
@@ -256,10 +257,8 @@
 "nearby-wifi" = "فعال‌کردن وای‌فای می‌تواند به دستگاه‌تان در بهتر تشخیص‌دادن موقعیت‌تان کمک کند.";
 "update-progress-label" = "به‌روزرسانی اطلاعات محلی";
 "image-gallery-unknown-owner" = "آپلود کننده ناشناخته است.";
-// Fuzzy
-"hockeyapp-alert-question" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا بتوانیم آن‌را برطرف کنیم؟";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا بتوانیم آن‌را برطرف کنیم؟ لطفا شرح دهید که در هنگام از کار افتادن چه رخ داد:";
+"hockeyapp-alert-question" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا ویکی‌مدیا بتواند آن‌را بررسی کند؟";
+"hockeyapp-alert-question-with-response-field" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا ویکی‌مدیا بتواند آن‌را بررسی کند؟ لطفاً شرح دهید که در هنگام از کار افتادن چه رخ داد:";
 "hockeyapp-alert-title" = "متاسفیم، نرم‌افزار در بار پیشین از کار افتاد";
 "hockeyapp-alert-send-report" = "ارسال گزارش";
 "hockeyapp-alert-always-send" = "همیشه ارسال کن";

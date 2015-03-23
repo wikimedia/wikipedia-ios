@@ -120,6 +120,7 @@
 "main-menu-terms-of-use" = "Ketentuan penggunaan";
 "main-menu-rate-app" = "Beri nilai apl";
 "main-menu-heading-zero" = "Wikipedia Nol";
+// Fuzzy
 "main-menu-heading-legal" = "Informasi hukum";
 "main-menu-show-today" = "Hari ini";
 "main-menu-nearby" = "Sekitaran";
@@ -178,7 +179,7 @@
 "about-repositories" = "penyimpanan";
 "about-send-feedback" = "Kirim umpan balik aplikasi";
 "about-product-of" = "Sebuah produk dari $1";
-"about-wikimedia-foundation" = "Yayasan Wikimedia";
+"about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Simpan Artikel";
 "share-menu-page-saved" = "Artikel Disimpan";
 "share-menu-page-saved-access" = "Tip: untuk mengakses halaman tersimpan Anda, ketuk $1 di atas atau tekan lebih lama $2 di bawah.";
