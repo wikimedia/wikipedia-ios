@@ -137,9 +137,18 @@ function tableCollapseClickHandler() {
     }
 }
 
+// From: http://stackoverflow.com/a/22119674/135557
+function findAncestor (el, cls) {
+    while ((el = el.parentElement) && !el.classList.contains(cls));
+    return el;
+}
+
 transformer.register( "hideTables", function( content ) {
     var tables = content.querySelectorAll( "table" );
     for (var i = 0; i < tables.length; i++) {
+
+        if (findAncestor (tables[i], 'app_table_container')) continue;
+
         //is the table already hidden? if so, don't worry about it
         if (tables[i].style.display === 'none' || tables[i].classList.contains( 'navbox' ) || tables[i].classList.contains( 'vertical-navbox' ) || tables[i].classList.contains( 'navbox-inner' ) || tables[i].classList.contains( 'metadata' )) {
             continue;
