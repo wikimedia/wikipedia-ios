@@ -3502,6 +3502,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = NO;
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Werror=switch",
@@ -3542,6 +3543,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = NO;
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Werror=switch",
