@@ -29,13 +29,13 @@ PODS:
     - OCHamcrest (~> 4.0)
 
 DEPENDENCIES:
-  - AFNetworking (< 2.6)
-  - blockskit/Core (< 2.3)
+  - AFNetworking (~> 2.5)
+  - blockskit/Core (~> 2.2)
   - HockeySDK (= 3.6.2)
-  - hpple (< 0.3)
-  - Masonry (< 0.7)
-  - OCHamcrest (< 4.2)
-  - OCMockito (< 1.5)
+  - hpple (~> 0.2)
+  - Masonry (~> 0.6)
+  - OCHamcrest (~> 4.1)
+  - OCMockito (~> 1.4)
 
 SPEC CHECKSUMS:
   AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
