@@ -1,0 +1,22 @@
+
+# Team
+team_id "AKK7J2GV64"
+team_name "Wikimedia Foundation"
+
+# Account to use to submit builds
+apple_id "cfloyd@wikimedia.org"
+
+# Set the app identifier for each build (used to look up the app in itunes connect)
+app_identifier "org.wikimedia.wikipedia.tfalpha"
+
+# for_lane :alpha do
+#   app_identifier "org.wikimedia.wikipedia.tfbeta"
+# end
+#
+# for_lane :beta do
+#   app_identifier "org.wikimedia.wikipedia.tfbeta"
+# end
+#
+# for_lane :appstore do
+#   app_identifier "org.wikimedia.wikipedia"
+# end

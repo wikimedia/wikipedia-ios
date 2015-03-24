@@ -1,0 +1,138 @@
+# Customise this file, documentation can be found here:
+# https://github.com/krausefx/fastlane#customise-the-fastfile
+
+# Change the syntax highlighting to Ruby
+
+# All lines starting with a # are ignored when running `fastlane`
+
+before_all do
+  p ENV
+  reset_git_repo :force
+  ensure_git_status_clean
+  cocoapods
+  increment_build_number ENV["BUILD_NUMBER"].to_i
+end
+
+lane :test do
+
+  xctest(
+    workspace: "Wikipedia.xcworkspace",
+    scheme: "WikipediaAlpha",
+    configuration: "Alpha",
+    destination: "platform=iOS Simulator,name=iPhone 5s,OS=8.2",
+    report_formats: [ "html", "junit" ],
+  )
+
+end
+
+lane :alpha do
+
+  # Download the Certificate for signing
+  cert
+
+  # Create and/or download the right provisioning profile
+  sigh({
+    force: true,
+    provisioning_name: 'TF Alpha',
+    app_identifier: 'org.wikimedia.wikipedia.tfalpha',
+  })
+
+  # Create the app in iTunes Connect if needed
+  produce({
+    produce_username: 'cfloyd@wikimedia.org',
+    produce_app_identifier: 'org.wikimedia.wikipedia.tfalpha',
+    produce_app_name: 'Wikipedia Alpha',
+    produce_language: 'English',
+    produce_version: '4.1.1',
+    produce_sku: '01985',
+  })
+
+  # Create and sign the IPA (and DSYM)
+  ipa({
+    workspace: "Wikipedia.xcworkspace",
+    configuration: "Alpha",
+    scheme: "WikipediaAlpha",
+    clean: nil, # this means 'Do Clean'. Clean project before building.
+    archive: nil, # this means 'Do Archive'. Archive project to the Xcode organizer after building.
+    # verbose: nil, # this means 'Do Verbose'.
+  })
+
+  # Upload the DSYM to Hockey
+  hockey({
+    api_token: 'c881c19fd8d0401682c4640b7948ef5e',
+    notes: "Changelog",
+    notify: 0,
+    status: 1, #Means do not make available for download
+  })
+
+  # Upload the IPA and DSYM to iTunes Connect
+  deliver :testflight, :beta, :skip_deploy, :force
+end
+
+lane :beta do
+
+  # Download the Certificate for signing
+  cert
+
+  # Create and/or download the right provisioning profile
+  sigh({
+    force: true,
+    provisioning_name: 'TF Beta',
+    app_identifier: 'org.wikimedia.wikipedia.tfbeta',
+  })
+
+  # Create the app in iTunes Connect if needed
+  produce({
+    produce_username: 'cfloyd@wikimedia.org',
+    produce_app_identifier: 'org.wikimedia.wikipedia.tfbeta',
+    produce_app_name: 'Wikipedia Beta',
+    produce_language: 'English',
+    produce_version: '4.1.1',
+    produce_sku: '01984',
+  })
+
+  # Create and sign the IPA (and DSYM)
+  ipa({
+    workspace: "Wikipedia.xcworkspace",
+    configuration: "Beta",
+    scheme: "WikipediaBeta",
+    clean: nil, # this means 'Do Clean'. Clean project before building.
+    archive: nil, # this means 'Do Archive'. Archive project to the Xcode organizer after building.
+    # verbose: nil, # this means 'Do Verbose'.
+  })
+
+  # Upload the DSYM to Hockey
+  hockey({
+    api_token: 'c881c19fd8d0401682c4640b7948ef5e',
+    notes: "Changelog",
+    notify: 0,
+    status: 1,
+  })
+
+# Upload the IPA and DSYM to iTunes Connect
+  deliver :testflight, :beta, :force
+end
+
+lane :appstore do
+  snapshot
+  frameit
+
+  deliver :skip_deploy, :force
+end
+
+after_all do |lane|
+
+  reset_git_repo :force
+
+  # This block is called, only if the executed lane was successful
+  # slack({
+  #   message: "Successfully deployed new App Update for [App](http://link.com).",
+  #   success: true,
+  #   channel: 'development'
+  # })
+end
+
+
+error do |lane, exception|
+  # Something bad happened
+end

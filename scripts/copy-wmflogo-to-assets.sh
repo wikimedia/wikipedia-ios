@@ -4,9 +4,9 @@
 # This script copies those files to the "assets/images/" folder
 
 target_path="${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/"
-assets_path="${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/assets/images/"
+assets_path="${target_path}/assets/images"
 
-mkdir -p $assets_path
+mkdir -p "${assets_path}"
 
 copy_target_to_assets() {
   cp -v "${target_path}/$1" "${assets_path}/$2"

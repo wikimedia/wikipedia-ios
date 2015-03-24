@@ -742,11 +742,15 @@
 		08D631F61A69B1AB00D87AD0 /* WMFImageGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryViewController.m; path = "Image Gallery/WMFImageGalleryViewController.m"; sourceTree = "<group>"; };
 		08D631F81A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryCollectionViewCell.h; path = "Image Gallery/WMFImageGalleryCollectionViewCell.h"; sourceTree = "<group>"; };
 		08D631F91A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryCollectionViewCell.m; path = "Image Gallery/WMFImageGalleryCollectionViewCell.m"; sourceTree = "<group>"; };
+		0E4F85DE1AC1BFD4004CA3CD /* AlphaConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AlphaConfig.xcconfig; sourceTree = "<group>"; };
+		0E4F85DF1AC1C1CC004CA3CD /* ReleaseConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseConfig.xcconfig; sourceTree = "<group>"; };
+		0E4F85E01AC1C1EF004CA3CD /* DebugConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DebugConfig.xcconfig; sourceTree = "<group>"; };
 		0EA4402C1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+WMFExtensions.h"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
 		0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+WMFExtensions.m"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
 		17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WikipediaUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A69698A51AC9D06B00208A11 /* BetaConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BetaConfig.xcconfig; sourceTree = "<group>"; };
 		BC2375981AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+WMFNaturalAlignmentStyle.h"; sourceTree = "<group>"; };
 		BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+WMFNaturalAlignmentStyle.m"; sourceTree = "<group>"; };
 		BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateFormatterTests.m; sourceTree = "<group>"; };
@@ -1066,7 +1070,7 @@
 		D47FEE2619C8CB6B00B998C8 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D47FEE2719C8CBB400B998C8 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D47FEE2819C8CC2600B998C8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		D4991435181D51DE00E6073C /* Wikipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wikipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4991435181D51DE00E6073C /* Debugipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Debugipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D499143C181D51DE00E6073C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -2030,6 +2034,17 @@
 			name = "Image Gallery";
 			sourceTree = "<group>";
 		};
+		0E4F85E11AC1C2BA004CA3CD /* Config Files */ = {
+			isa = PBXGroup;
+			children = (
+				0E4F85DE1AC1BFD4004CA3CD /* AlphaConfig.xcconfig */,
+				A69698A51AC9D06B00208A11 /* BetaConfig.xcconfig */,
+				0E4F85E01AC1C1EF004CA3CD /* DebugConfig.xcconfig */,
+				0E4F85DF1AC1C1CC004CA3CD /* ReleaseConfig.xcconfig */,
+			);
+			name = "Config Files";
+			sourceTree = "<group>";
+		};
 		BC8309941A7BF935003FC5C7 /* WikipediaUnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2319,6 +2334,7 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
+				0E4F85E11AC1C2BA004CA3CD /* Config Files */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				BCB669A31A83F6C300C7B1FE /* MediaWikiKit */,
 				04E9A78218F73C7200F7ECF7 /* www */,
@@ -2334,7 +2350,7 @@
 		D4991436181D51DE00E6073C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D4991435181D51DE00E6073C /* Wikipedia.app */,
+				D4991435181D51DE00E6073C /* Debugipedia.app */,
 				BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */,
 			);
 			name = Products;
@@ -2519,7 +2535,7 @@
 			);
 			name = Wikipedia;
 			productName = "Wikipedia-iOS";
-			productReference = D4991435181D51DE00E6073C /* Wikipedia.app */;
+			productReference = D4991435181D51DE00E6073C /* Debugipedia.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -3409,6 +3425,212 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0E4F85D71AC1BF56004CA3CD /* Alpha */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E4F85DE1AC1BFD4004CA3CD /* AlphaConfig.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Alpha;
+		};
+		0E4F85D81AC1BF56004CA3CD /* Alpha */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(PROJECT_DIR)/vendor/Frameworks\"",
+					"$(inherited)",
+				);
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
+					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
+					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
+					"$(PROJECT_DIR)/OldDataSchema/**",
+				);
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_NAME = "Wikipedia Alpha";
+				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				WARNING_CFLAGS = (
+					"$(inherited)",
+					"-Werror=switch",
+					"-Werror=arc-retain-cycles",
+					"-Werror=incompatible-pointer-types",
+					"-Werror=incomplete-implementation",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = Alpha;
+		};
+		0E4F85D91AC1BF56004CA3CD /* Alpha */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
+			};
+			name = Alpha;
+		};
+		A69698A61AC9D08700208A11 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A69698A51AC9D06B00208A11 /* BetaConfig.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Beta;
+		};
+		A69698A71AC9D08700208A11 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(PROJECT_DIR)/vendor/Frameworks\"",
+					"$(inherited)",
+				);
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
+					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
+					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
+					"$(PROJECT_DIR)/OldDataSchema/**",
+				);
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_NAME = "Wikipedia Beta";
+				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				WARNING_CFLAGS = (
+					"$(inherited)",
+					"-Werror=switch",
+					"-Werror=arc-retain-cycles",
+					"-Werror=incompatible-pointer-types",
+					"-Werror=incomplete-implementation",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = Beta;
+		};
+		A69698A81AC9D08700208A11 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
+			};
+			name = Beta;
+		};
 		BC42735B1A7C736800068882 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC96DA4AAD521D734849D20F /* Pods-WikipediaUnitTests.debug.xcconfig */;
@@ -3461,6 +3683,7 @@
 		};
 		D4991468181D51DF00E6073C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E4F85E01AC1C1EF004CA3CD /* DebugConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
@@ -3502,6 +3725,7 @@
 		};
 		D4991469181D51DF00E6073C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E4F85DF1AC1C1CC004CA3CD /* ReleaseConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
@@ -3547,6 +3771,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PROJECT_DIR)/vendor/Frameworks\"",
 					"$(inherited)",
@@ -3560,9 +3785,11 @@
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_NAME = Wikipedia;
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_NAME = Debugipedia;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
+				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Werror=switch",
@@ -3580,8 +3807,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CURRENT_PROJECT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PROJECT_DIR)/vendor/Frameworks\"",
 					"$(inherited)",
@@ -3599,6 +3827,7 @@
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
+				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Werror=switch",
@@ -3618,6 +3847,8 @@
 			buildConfigurations = (
 				BC42735B1A7C736800068882 /* Debug */,
 				BC42735C1A7C736800068882 /* Release */,
+				0E4F85D91AC1BF56004CA3CD /* Alpha */,
+				A69698A81AC9D08700208A11 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3627,6 +3858,8 @@
 			buildConfigurations = (
 				D4991468181D51DF00E6073C /* Debug */,
 				D4991469181D51DF00E6073C /* Release */,
+				0E4F85D71AC1BF56004CA3CD /* Alpha */,
+				A69698A61AC9D08700208A11 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3636,6 +3869,8 @@
 			buildConfigurations = (
 				D499146B181D51DF00E6073C /* Debug */,
 				D499146C181D51DF00E6073C /* Release */,
+				0E4F85D81AC1BF56004CA3CD /* Alpha */,
+				A69698A71AC9D08700208A11 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
