@@ -109,10 +109,9 @@
             // from network rather than from cache.
             self.article.needsRefresh = NO;
 
-            //[self.article save];
-#warning TODO(mhurd): create method for making clear that here we are updating everythings "article save" updates, but without re-writing all section data.
-            [self.article.dataStore saveArticle:self.article];
-            [self.article.images save];
+            // Update article and section image data.
+            // Reminder: don't recall article save here as it expensively re-writes all section html.
+            [self.article saveWithoutSavingSectionText];
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self finishWithError:nil

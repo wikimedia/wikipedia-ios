@@ -1247,7 +1247,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         NSMutableArray* views = @[].mutableCopy;
         for (MWKSection* section in article.sections) {
             int index = 0;
-            for (MWKImage* image in section.images) {
+            for (MWKImage* image in [section.images uniqueLargestVariants]) {
                 NSString* title = (section.line) ? section.line : article.title.prefixedText;
                 //NSLog(@"\n\n\nsection image = %@ \n\tsection = %@ \n\tindex in section = %@ \n\timage size = %@", sectionImage.image.fileName, sectionTitle, sectionImage.index, sectionImage.image.dataSize);
                 if (index == 0) {
@@ -1262,12 +1262,15 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                     label.text          = title;
                     [views addObject:label];
                 }
-                UIImageView* imageView = [[UIImageView alloc] initWithImage:[image asUIImage]];
-                imageView.contentMode = UIViewContentModeScaleAspectFit;
-                [views addObject:imageView];
-                UIView* spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 5)];
-                [views addObject:spacerView];
-                index++;
+                if (image.isCached) {
+                    UIImage* img           = [image asUIImage];
+                    UIImageView* imageView = [[UIImageView alloc] initWithImage:img];
+                    imageView.contentMode = UIViewContentModeScaleAspectFit;
+                    [views addObject:imageView];
+                    UIView* spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 5)];
+                    [views addObject:spacerView];
+                    index++;
+                }
             }
         }
         NSLog(@"%@", views);

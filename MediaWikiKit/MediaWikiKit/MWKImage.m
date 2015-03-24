@@ -155,9 +155,38 @@
 
     UIImage* image = [UIImage imageWithData:imageData];
 
-    NSAssert((fabsf(image.size.width - self.width.doubleValue) <= 10.0f), @"MWKImage thinks '%@' is %f wide, but it's really %f wide.", self.sourceURL, self.width.floatValue, image.size.width);
+    NSAssert((![self hasEstimatedSize] || [self isEstimatedSizeWithinPoints:10.f ofSize:image.size]),
+             (@"estimatedSize inaccuracy has exceeded acceptable threshold: { \n"
+             "\t" "sourceURL: %@, \n"
+             "\t" "estimatedSize: %@ \n"
+             "\t" "actualSize: %@ \n"
+             "}"),
+             self.sourceURL, [self estimatedSizeString], NSStringFromCGSize(image.size));
 
     return image;
+}
+
+- (BOOL)hasEstimatedSize {
+    return self.width && self.height;
+}
+
+- (CGSize)estimatedSize {
+    if ([self hasEstimatedSize]) {
+        return CGSizeMake(self.width.floatValue, self.height.floatValue);
+    } else {
+        return CGSizeZero;
+    }
+}
+
+- (NSString*)estimatedSizeString {
+    return NSStringFromCGSize(self.estimatedSize);
+}
+
+/// @return @c YES if @c size is within @c points of <code>self.estimatedSize</code>, otherwise @c NO.
+- (BOOL)isEstimatedSizeWithinPoints:(float)points ofSize:(CGSize)size {
+    CGSize estimatedSize = [self estimatedSize];
+    return fabsf(estimatedSize.width - size.width) <= points
+           && fabs(estimatedSize.height - size.height) <= points;
 }
 
 - (NSData*)asNSData {
