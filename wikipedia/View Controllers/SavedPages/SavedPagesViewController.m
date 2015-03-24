@@ -23,13 +23,11 @@
 #import "WMFBorderButton.h"
 #import "WMFProgressLineView.h"
 #import <Masonry/Masonry.h>
+#import "NSAttributedString+WMFSavedPagesAttributedStrings.h"
+#import "UITableView+DynamicCellHeight.h"
 
-#define SAVED_PAGES_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
-#define SAVED_PAGES_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:1.0f]
-#define SAVED_PAGES_LANGUAGE_COLOR [UIColor colorWithWhite:0.0f alpha:0.4f]
-#define SAVED_PAGES_RESULT_HEIGHT (116.0 * MENUS_SCALE_MULTIPLIER)
-
-static NSString* const WMFSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesDidShowCancelRefreshAlert";
+static NSString* const kSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesDidShowCancelRefreshAlert";
+static NSString* const kSavedPagesCellID                    = @"SavedPagesResultCell";
 
 @interface SavedPagesViewController ()<SavedArticlesFetcherDelegate>
 {
@@ -49,6 +47,10 @@ static NSString* const WMFSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesD
 
 @property (strong, nonatomic) WMFProgressLineView* progressView;
 @property (strong, nonatomic) WMFBorderButton* cancelButton;
+
+@property (strong, nonatomic) SavedPagesResultCell* offScreenSizingCell;
+
+@property (strong, nonatomic) UIImage* placeholderThumbnailImage;
 
 @end
 
@@ -157,16 +159,10 @@ static NSString* const WMFSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesD
 
     self.navigationItem.hidesBackButton = YES;
 
-    self.tableView.rowHeight = SAVED_PAGES_RESULT_HEIGHT;
-
-    UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 5.0 * MENUS_SCALE_MULTIPLIER)];
-    self.tableView.tableHeaderView = headerView;
-
-    self.tableView.tableFooterView                 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 10.0 * MENUS_SCALE_MULTIPLIER)];
-    self.tableView.tableFooterView.backgroundColor = [UIColor whiteColor];
+    self.tableView.contentInset = UIEdgeInsetsMake(4.0f * MENUS_SCALE_MULTIPLIER, 0, 4.0f * MENUS_SCALE_MULTIPLIER, 0);
 
     // Register the Saved Pages results cell for reuse
-    [self.tableView registerNib:[UINib nibWithNibName:@"SavedPagesResultPrototypeView" bundle:nil] forCellReuseIdentifier:@"SavedPagesResultCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SavedPagesResultPrototypeView" bundle:nil] forCellReuseIdentifier:kSavedPagesCellID];
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
@@ -176,6 +172,9 @@ static NSString* const WMFSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesD
 
     self.emptyTitle.font       = [UIFont boldSystemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER];
     self.emptyDescription.font = [UIFont systemFontOfSize:14.0 * MENUS_SCALE_MULTIPLIER];
+
+    // Single off-screen cell for determining dynamic cell height.
+    self.offScreenSizingCell = (SavedPagesResultCell*)[self.tableView dequeueReusableCellWithIdentifier:kSavedPagesCellID];
 }
 
 #pragma mark - UITableViewDataSource
@@ -189,34 +188,11 @@ static NSString* const WMFSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesD
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    static NSString* cellID    = @"SavedPagesResultCell";
-    SavedPagesResultCell* cell = (SavedPagesResultCell*)[tableView dequeueReusableCellWithIdentifier:cellID];
+    SavedPagesResultCell* cell = (SavedPagesResultCell*)[tableView dequeueReusableCellWithIdentifier:kSavedPagesCellID];
 
-    MWKSavedPageEntry* savedEntry = [savedPageList entryAtIndex:indexPath.row];
+    MWKArticle* article = [self articleForIndexPath:indexPath];
+    [self updateViewsInCell:cell forIndexPath:indexPath withArticle:article];
 
-    NSString* title    = savedEntry.title.prefixedText;
-    NSString* language = [NSString stringWithFormat:@"\n%@", [WikipediaAppUtils domainNameForCode:savedEntry.site.language]];
-
-    NSMutableParagraphStyle* paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.alignment = [WikipediaAppUtils rtlSafeAlignment];
-
-    NSMutableAttributedString*(^ styleText)(NSString*, CGFloat, UIColor*) = ^NSMutableAttributedString*(NSString* str, CGFloat size, UIColor* color){
-        return [[NSMutableAttributedString alloc] initWithString:str attributes:@{
-                    NSFontAttributeName: [UIFont fontWithName:@"Georgia" size:size * MENUS_SCALE_MULTIPLIER],
-                    NSParagraphStyleAttributeName: paragraphStyle,
-                    NSForegroundColorAttributeName: color,
-                }];
-    };
-
-    NSMutableAttributedString* attributedTitle    = styleText(title, 22.0, SAVED_PAGES_TEXT_COLOR);
-    NSMutableAttributedString* attributedLanguage = styleText(language, 10.0, SAVED_PAGES_LANGUAGE_COLOR);
-
-    [attributedTitle appendAttributedString:attributedLanguage];
-    cell.textLabel.attributedText = attributedTitle;
-
-    cell.methodImageView.image = nil;
-
-    MWKArticle* article      = [userDataStore.dataStore articleWithTitle:savedEntry.title];
     MWKImage* thumbnail      = article.thumbnail;
     MWKImage* largeThumbnail = [thumbnail largestVariant];
     UIImage* thumbImage      = [largeThumbnail asUIImage];
@@ -227,11 +203,7 @@ static NSString* const WMFSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesD
         return cell;
     }
 
-    // If execution reaches this point a cached core data thumb was not found.
-
-    // Set thumbnail placeholder
-//TODO: don't load thumb from file every time in loop if no image found. fix here and in search
-    cell.imageView.image = [UIImage imageNamed:@"logo-placeholder-saved.png"];
+    cell.imageView.image = self.placeholderThumbnailImage;
     cell.useField        = NO;
 
     //if (!thumbURL){
@@ -244,6 +216,42 @@ static NSString* const WMFSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesD
     // if no thumbURL mine section html for image reference and download it
 
     return cell;
+}
+
+- (UIImage*)placeholderThumbnailImage {
+    if (!_placeholderThumbnailImage) {
+        _placeholderThumbnailImage = [UIImage imageNamed:@"logo-placeholder-saved.png"];
+    }
+    return _placeholderThumbnailImage;
+}
+
+- (NSAttributedString*)getAttributedStringForArticle:(MWKArticle*)article {
+    return [NSAttributedString wmf_attributedStringWithTitle:article.title.prefixedText
+                                                 description:article.entityDescription
+                                                    language:[WikipediaAppUtils domainNameForCode:article.site.language]];
+}
+
+- (MWKArticle*)articleForIndexPath:(NSIndexPath*)indexPath {
+    MWKSavedPageEntry* savedEntry = [savedPageList entryAtIndex:indexPath.row];
+    return [userDataStore.dataStore articleWithTitle:savedEntry.title];
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
+    // Update the sizing cell with any data which could change the cell height.
+    [self updateViewsInCell:self.offScreenSizingCell forIndexPath:indexPath];
+    // Determine height for the current configuration of the sizing cell.
+    return [tableView heightForSizingCell:self.offScreenSizingCell];
+}
+
+- (void)updateViewsInCell:(SavedPagesResultCell*)cell forIndexPath:(NSIndexPath*)indexPath {
+    [self updateViewsInCell:cell forIndexPath:indexPath withArticle:[self articleForIndexPath:indexPath]];
+}
+
+- (void)updateViewsInCell:(SavedPagesResultCell*)cell
+             forIndexPath:(NSIndexPath*)indexPath
+              withArticle:(MWKArticle*)article {
+    // Update the sizing cell with any data which could change the cell height.
+    cell.savedItemLabel.attributedText = [self getAttributedStringForArticle:article];
 }
 
 - (BOOL)tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -337,14 +345,14 @@ static NSString* const WMFSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesD
 - (void)showCancelRefreshAlertIfFirstTime {
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 
-    BOOL didShowAlert = [defaults boolForKey:WMFSavedPagesDidShowCancelRefreshAlert];
+    BOOL didShowAlert = [defaults boolForKey:kSavedPagesDidShowCancelRefreshAlert];
 
     if (!didShowAlert) {
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"saved-pages-refresh-cancel-alert-title", nil) message:MWLocalizedString(@"saved-pages-refresh-cancel-alert-message", nil) delegate:nil cancelButtonTitle:MWLocalizedString(@"saved-pages-refresh-cancel-alert-button", nil) otherButtonTitles:nil];
 
         [alert show];
 
-        [defaults setBool:YES forKey:WMFSavedPagesDidShowCancelRefreshAlert];
+        [defaults setBool:YES forKey:kSavedPagesDidShowCancelRefreshAlert];
     }
 }
 

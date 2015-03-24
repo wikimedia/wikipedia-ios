@@ -53,6 +53,8 @@
 		0433542218A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 0433542118A023FE009305F0 /* UIViewController+HideKeyboard.m */; };
 		0433542618A093C5009305F0 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = 0433542518A093C5009305F0 /* UIView+RemoveConstraints.m */; };
 		0439317619FB092600386E8F /* UIWebView+LoadAssetsHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 0439317519FB092600386E8F /* UIWebView+LoadAssetsHtml.m */; };
+		043B6E8E1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 043B6E8D1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m */; };
+		043B6E8F1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 043B6E8D1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m */; };
 		043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043DAC4A1901C3EE001CD17C /* CreditsViewController.m */; };
 		043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18DC18D9691D00D8489A /* TopActionSheetLabel.m */; };
 		043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */; };
@@ -477,6 +479,8 @@
 		0433542518A093C5009305F0 /* UIView+RemoveConstraints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RemoveConstraints.m"; sourceTree = "<group>"; };
 		0439317419FB092600386E8F /* UIWebView+LoadAssetsHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+LoadAssetsHtml.h"; sourceTree = "<group>"; };
 		0439317519FB092600386E8F /* UIWebView+LoadAssetsHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+LoadAssetsHtml.m"; sourceTree = "<group>"; };
+		043B6E8C1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+WMFSavedPagesAttributedStrings.h"; sourceTree = "<group>"; };
+		043B6E8D1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+WMFSavedPagesAttributedStrings.m"; sourceTree = "<group>"; };
 		043DAC491901C3EE001CD17C /* CreditsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsViewController.h; sourceTree = "<group>"; };
 		043DAC4A1901C3EE001CD17C /* CreditsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsViewController.m; sourceTree = "<group>"; };
 		043F18DB18D9691D00D8489A /* TopActionSheetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopActionSheetLabel.h; sourceTree = "<group>"; };
@@ -1330,6 +1334,8 @@
 				0429300918604898002A13FC /* SavedPagesViewController.m */,
 				0429300318604898002A13FC /* SavedPagesResultCell.h */,
 				0429300418604898002A13FC /* SavedPagesResultCell.m */,
+				043B6E8C1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.h */,
+				043B6E8D1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m */,
 				047E74131860509000916964 /* SavedPagesResultPrototypeView.xib */,
 			);
 			path = SavedPages;
@@ -2951,6 +2957,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC2375C11ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m in Sources */,
+				043B6E8F1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				BCDB75C41AB0E8300005593F /* WMFSubstringUtilsTests.m in Sources */,
 				BC0FED6D1AAA0268002488D7 /* MWKHistoryListTests.m in Sources */,
 				BC0FED731AAA026C002488D7 /* NSMutableDictionary+MaybeSetTests.m in Sources */,
@@ -3129,6 +3136,7 @@
 				BCB58F631A8A9F1000465627 /* MWKLicense.m in Sources */,
 				041C55D21950B27D006CE0EF /* EditSummaryViewController.m in Sources */,
 				04CCA0C01983086D000E982A /* ReferencesVC.m in Sources */,
+				043B6E8E1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				0487048719F8262600B7D307 /* LoginTokenFetcher.m in Sources */,
 				D4B0AE0E19366A5400F0AC90 /* LoginFunnel.m in Sources */,
