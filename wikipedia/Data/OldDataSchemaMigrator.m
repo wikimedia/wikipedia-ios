@@ -249,8 +249,8 @@
     }
     if (article.protectionStatus) {
         dict[@"protection"] = @{
-                                @"edit": article.protectionStatus
-                                };
+            @"edit": @[article.protectionStatus]
+        };
     }
     if (article.editable) {
         dict[@"editable"] = @"";
