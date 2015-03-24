@@ -17,6 +17,7 @@
 #import "ArticleImporter.h"
 
 #import "WikipediaAppUtils.h"
+#import "WMFProgressLineView.h"
 
 enum {
     BUTTON_INDEX_DISCARD = 0,
@@ -87,6 +88,9 @@ enum {
     // Middle-Ages Converter
     // From the native app's initial CoreData-based implementation,
     // which now lives in OldDataSchema subproject.
+    
+    self.progressIndicator.progress = 0.0;
+    
     self.oldDataSchema.delegate         = self.schemaConvertor;
     self.oldDataSchema.progressDelegate = self;
     NSLog(@"begin migration");
@@ -98,6 +102,9 @@ enum {
     // Ye Ancient Converter
     // From the old PhoneGap app
     // @fixme: fix this to work again
+    
+    self.progressIndicator.progress = 0.0;
+
     NSLog(@"Old data to migrate found!");
     NSArray* titles           = [self.dataMigrator extractSavedPages];
     ArticleImporter* importer = [[ArticleImporter alloc] init];
@@ -109,6 +116,8 @@ enum {
     [importer importArticles:titles];
     
     [self.dataMigrator removeOldData];
+    
+    [self.progressIndicator setProgress:1.0 animated:YES completion:NULL];
 }
 
 - (void)oldDataSchema:(OldDataSchemaMigrator*)schema didUpdateProgressWithArticlesCompleted:(NSUInteger)completed total:(NSUInteger)total {
@@ -123,20 +132,32 @@ enum {
     NSString* progressString = [NSString stringWithFormat:@"%@\n%@", lineOne, lineTwo];
 
     self.progressLabel.text = progressString;
+    
+    [self.progressIndicator setProgress:((float)completed/(float)total) animated:YES];
 }
 
 
 - (void)oldDataSchemaDidFinishMigration:(OldDataSchemaMigrator *)schema{
     [[SessionSingleton sharedInstance].userDataStore reset];
-    [self.delegate dataMigrationProgressComplete:self];
     NSLog(@"end migration");
+
+    [self.progressIndicator setProgress:1.0 animated:YES completion:^{
+        
+        [self.delegate dataMigrationProgressComplete:self];
+    }];
 }
 
 
 -(void)oldDataSchema:(OldDataSchemaMigrator *)schema didFinishWithError:(NSError*)error{
+
     [self displayErrorCondition];
-    [self.delegate dataMigrationProgressComplete:self];
     NSLog(@"end migration");
+    
+    [self.progressIndicator setProgress:1.0 animated:YES completion:^{
+        
+        [self.delegate dataMigrationProgressComplete:self];
+    }];
+
 }
 
 - (void)displayErrorCondition {
