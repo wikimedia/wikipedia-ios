@@ -298,12 +298,11 @@ static const CGFloat kMinimumAcceptableCachedVariantThreshold = 0.6f;
     self.isFaceDetectionNeeded  = YES;
 
     if (self.article.isMain) {
-        [self.titleLabel setTitle:@"" description:@""];
-        [self updateNonImageElements];
+        [self setTitle:@"" description:@""];
         return;
     } else {
         NSString* title = [self.article.displaytitle getStringWithoutHTML];
-        [self.titleLabel setTitle:title description:[self getCurrentArticleDescription]];
+        [self setTitle:title description:[self getCurrentArticleDescription]];
     }
 
     // Show largest cached variant of lead image, or placeholder, immediately.
@@ -321,6 +320,11 @@ static const CGFloat kMinimumAcceptableCachedVariantThreshold = 0.6f;
                                                          withManager:[QueuesSingleton sharedInstance].articleFetchManager
                                                   thenNotifyDelegate:self];
     }
+}
+
+- (void)setTitle:(NSString*)title description:(NSString*)description {
+    [self.titleLabel setTitle:title description:description];
+    [self updateNonImageElements];
 }
 
 - (BOOL)isLargestCachedVariantSufficient:(MWKImage*)largestCachedVariant {
