@@ -21,24 +21,19 @@
     return self;
 }
 
-- (void)awakeFromNib{
-    
+- (void)awakeFromNib {
     [super awakeFromNib];
     [self setup];
 }
 
-
-- (void)setup{
-    
+- (void)setup {
     self.clipsToBounds               = YES;
     self.backgroundColor             = [UIColor clearColor];
     self.progressBar                 = [[UIView alloc] init];
     self.progressBar.backgroundColor = [UIColor colorWithRed:0.106 green:0.682 blue:0.541 alpha:1];
     self.progress                    = 0.0;
     [self addSubview:self.progressBar];
-    
 }
-
 
 - (void)setFrame:(CGRect)frame {
     //whole pixels for non-retina screens
