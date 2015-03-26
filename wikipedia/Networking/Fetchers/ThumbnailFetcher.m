@@ -35,19 +35,16 @@
 
         NSError* error = nil;
         if (
-            ![responseObject isKindOfClass:[NSData class]]
-            ||
-            ([responseObject length] == 0)
+            ![self isDataResponseValid:responseObject]
             ||
             !self.url
             ||
             (self.url.length == 0)
             ) {
-            NSMutableDictionary* errorDict = [responseObject[@"error"] mutableCopy];
-            errorDict[NSLocalizedDescriptionKey] = errorDict[@"info"];
+            NSString* errorUrl = self.url ? self.url : @"No URL specified.";
             error = [NSError errorWithDomain:@"Thumbnail Fetcher"
                                         code:THUMBNAIL_FETCH_ERROR_NOT_FOUND
-                                    userInfo:errorDict];
+                                    userInfo:@{NSLocalizedDescriptionKey: [@"Thumbnail not retrieved. URL: " stringByAppendingString:errorUrl]}];
         }
 
         [self finishWithError:error
