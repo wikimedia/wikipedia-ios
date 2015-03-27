@@ -38,7 +38,7 @@
 #import "MWKArticle+Convenience.h"
 
 // Networking
-#import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "AFHTTPRequestOperationManager+UniqueRequests.h"
 #import "MWKImageInfoFetcher.h"

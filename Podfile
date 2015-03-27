@@ -1,7 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, :deployment_target => '6.0'
 
-pod 'AFNetworking', '~> 2.5'
+pod 'AFNetworking/NSURLConnection', '~> 2.5'
 pod 'hpple', '~> 0.2'
 pod 'blockskit/Core', '~> 2.2'
 pod 'Masonry', '~> 0.6'

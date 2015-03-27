@@ -1,25 +1,11 @@
 PODS:
-  - AFNetworking (2.5.2):
-    - AFNetworking/NSURLConnection (= 2.5.2)
-    - AFNetworking/NSURLSession (= 2.5.2)
-    - AFNetworking/Reachability (= 2.5.2)
-    - AFNetworking/Security (= 2.5.2)
-    - AFNetworking/Serialization (= 2.5.2)
-    - AFNetworking/UIKit (= 2.5.2)
   - AFNetworking/NSURLConnection (2.5.2):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.2):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
   - AFNetworking/Reachability (2.5.2)
   - AFNetworking/Security (2.5.2)
   - AFNetworking/Serialization (2.5.2)
-  - AFNetworking/UIKit (2.5.2):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
   - BlocksKit/Core (2.2.5)
   - HockeySDK (3.6.2)
   - hpple (0.2.0)
@@ -29,7 +15,7 @@ PODS:
     - OCHamcrest (~> 4.0)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.5)
+  - AFNetworking/NSURLConnection (~> 2.5)
   - blockskit/Core (~> 2.2)
   - HockeySDK (= 3.6.2)
   - hpple (~> 0.2)
