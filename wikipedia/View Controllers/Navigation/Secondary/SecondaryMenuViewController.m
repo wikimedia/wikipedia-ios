@@ -40,11 +40,7 @@
 #define URL_RATE_APP @"itms-apps://itunes.apple.com/app/id324715238"
 
 #ifndef WMF_SHOW_DEBUG_MENU
-    #if DEBUG
-        #define WMF_SHOW_DEBUG_MENU 1
-    #else
-        #define WMF_SHOW_DEBUG_MENU 0
-    #endif
+    #define WMF_SHOW_DEBUG_MENU 1
 #endif
 
 typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
