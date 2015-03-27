@@ -235,7 +235,7 @@
         };
     }
     if (article.editable) {
-        dict[@"editable"] = @"";
+        dict[@"editable"] = article.editable;
     }
 
     // sections!

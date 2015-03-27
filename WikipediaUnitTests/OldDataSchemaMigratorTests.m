@@ -129,8 +129,7 @@
     assertThat(migratedArticle.redirected, is([migratedSite titleWithString:oldArticle.redirected]));
     assertThat(@(migratedArticle.languagecount), is(oldArticle.languagecount));
     assertThat([migratedArticle.protection allowedGroupsForAction:@"edit"], is(@[oldArticle.protectionStatus]));
-    // !!!: is this correct?
-    assertThat(@(migratedArticle.editable), isFalse());
+    assertThat(@(migratedArticle.editable), is(oldArticle.editable));
 }
 
 - (void)verifyArticleSections:(MWKArticle*)migratedArticle correspondToOldArticle:(Article*)oldArticle {
