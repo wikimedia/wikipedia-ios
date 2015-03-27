@@ -60,7 +60,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
     __weak WebViewController* weakSelf = self;
     [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
         [weakSelf jumpToFragmentIfNecessary];
-        [weakSelf performSelector:@selector(autoScrollToLastScrollOffsetIfNecessary) withObject:nil afterDelay:0.5f];
+        [weakSelf autoScrollToLastScrollOffsetIfNecessary];
 
         // Show lead image!
         [weakSelf.leadImageContainer showForArticle:[SessionSingleton sharedInstance].currentArticle];
@@ -75,7 +75,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
         [weakSelf.bridge sendMessage:@"collapseTables"
                          withPayload:nil];
 
-        [weakSelf loadingIndicatorHide];
+        [weakSelf.loadingIndicatorOverlay setVisible:NO animated:YES];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tocVC updateTocForArticle:[SessionSingleton sharedInstance].currentArticle];
@@ -552,7 +552,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     }
 
     // Prevent toc reveal if loading article.
-    if (self.activityIndicator.isAnimating) {
+    if (self.loadingIndicatorOverlay.isVisible) {
         return;
     }
 
@@ -1319,7 +1319,8 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     [self hideKeyboard];
 
     if (showLoadingIndicator) {
-        [self loadingIndicatorShow];
+        self.loadingIndicatorOverlay.showSpinner = discoveryMethod != MWK_DISCOVERY_METHOD_BACKFORWARD;
+        [self.loadingIndicatorOverlay setVisible:YES animated:YES];
     }
 
     // Show loading message
@@ -1395,7 +1396,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                 NSString* errorMsg = error.localizedDescription;
                 [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
 
-                [self loadingIndicatorHide];
+                [self.loadingIndicatorOverlay setVisible:NO animated:YES];
                 // Reminder: do not clear article data here or no network connection when pull to refresh would blast last good saved article data!
             }
             break;
@@ -1910,94 +1911,13 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 #pragma mark Loading Indicator
 
 - (void)loadingIndicatorAdd {
-    self.activityIndicatorBackgroundView                                           = [[UIView alloc] init];
-    self.activityIndicatorBackgroundView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.activityIndicatorBackgroundView.userInteractionEnabled                    = YES;
-    self.activityIndicatorBackgroundView.backgroundColor                           = [UIColor whiteColor];
-    self.activityIndicatorBackgroundView.alpha                                     = 0.0;
-    [self.view insertSubview:self.activityIndicatorBackgroundView belowSubview:self.bottomBarView];
+    self.loadingIndicatorOverlay                 = [[WMFLoadingIndicatorOverlay alloc] init];
+    self.loadingIndicatorOverlay.backgroundColor = [UIColor whiteColor];
+    self.loadingIndicatorOverlay.alpha           = 0.8f;
 
-    self.activityIndicator       = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    self.activityIndicator.color = [UIColor whiteColor];
-    self.activityIndicator.alpha = 0.0;
-    [self.view addSubview:self.activityIndicator];
-    self.activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
-
-    CGFloat activityIndicatorWidth        = 100.0;
-    CGFloat activityIndicatorCornerRadius = 10.0;     //activityIndicatorWidth / 2.0f
-
-    NSDictionary* views = @{
-        @"activityIndicator": self.activityIndicator,
-        @"activityIndicatorBackgroundView": self.activityIndicatorBackgroundView
-    };
-
-    NSDictionary* metrics = @{ @"width": @(activityIndicatorWidth) };
-
-    self.activityIndicator.backgroundColor    = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.85];
-    self.activityIndicator.layer.cornerRadius = activityIndicatorCornerRadius;
-
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.activityIndicator
-                                                          attribute:NSLayoutAttributeCenterX
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeCenterX
-                                                         multiplier:1
-                                                           constant:0]];
-
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.activityIndicator
-                                                          attribute:NSLayoutAttributeCenterY
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeCenterY
-                                                         multiplier:1
-                                                           constant:0]];
-
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[activityIndicator(width)]"
-                                                                      options:0
-                                                                      metrics:metrics
-                                                                        views:views]];
-
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[activityIndicator(width)]"
-                                                                      options:0
-                                                                      metrics:metrics
-                                                                        views:views]];
-
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[activityIndicatorBackgroundView]|"
-                                                                      options:0
-                                                                      metrics:metrics
-                                                                        views:views]];
-
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[activityIndicatorBackgroundView]|"
-                                                                      options:0
-                                                                      metrics:metrics
-                                                                        views:views]];
-}
-
-- (void)loadingIndicatorShow {
-    [self.activityIndicator startAnimating];
-
-    [UIView animateWithDuration:0.15
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-        self.activityIndicatorBackgroundView.alpha = 0.7;
-        self.activityIndicator.alpha = 1.0;
-    }
-                     completion:^(BOOL finished) {
-    }];
-}
-
-- (void)loadingIndicatorHide {
-    [self.activityIndicator stopAnimating];
-
-    [UIView animateWithDuration:0.15
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-        self.activityIndicatorBackgroundView.alpha = 0.0;
-        self.activityIndicator.alpha = 0.0;
-    }
-                     completion:^(BOOL finished) {
+    [self.view insertSubview:self.loadingIndicatorOverlay belowSubview:self.bottomBarView];
+    [self.loadingIndicatorOverlay mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.edges.equalTo(self.loadingIndicatorOverlay.superview);
     }];
 }
 

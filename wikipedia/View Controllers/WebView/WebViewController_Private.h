@@ -68,6 +68,8 @@
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "UIColor+WMFHexColor.h"
 
+#import "WMFLoadingIndicatorOverlay.h"
+
 //#import "UIView+Debugging.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.225f
@@ -145,8 +147,7 @@ static const int kMinimumTextSelectionLength = 2;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* bottomNavHeightConstraint;
 
-@property (strong, nonatomic) UIActivityIndicatorView* activityIndicator;
-@property (strong, nonatomic) UIView* activityIndicatorBackgroundView;
+@property (strong, nonatomic) WMFLoadingIndicatorOverlay* loadingIndicatorOverlay;
 
 @property (strong, nonatomic) LeadImageContainer* leadImageContainer;
 
