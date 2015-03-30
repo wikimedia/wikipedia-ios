@@ -81,4 +81,25 @@
                           @"Syncopation");
 }
 
+- (void)testPunctuationAwareWhitespaceCollapsingCommasSemicolonsAndPeriods {
+    NSString *string = @"trim space before commas , semicolons ; and periods .";
+    XCTAssertEqualObjects([string wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation], @"trim space before commas, semicolons; and periods.");
+}
+
+- (void)testPunctuationAwareWhitespaceCollapsingLeadingAndTrailingWhitespace {
+    NSString *string = @"   \t trim leading and trailing whitespace ok? \n \t";
+    XCTAssertEqualObjects([string wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation], @"trim leading and trailing whitespace ok?");
+}
+
+- (void)testPunctuationAwareWhitespaceCollapsingReduceWhitespaceAroundParenthesisOrBrackets {
+    NSString *string = @"collapse but do not (   no!   ) completely remove space around parenthesis or brackets [ \t brackets!\t]";
+    XCTAssertEqualObjects([string wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation], @"collapse but do not ( no! ) completely remove space around parenthesis or brackets [ brackets! ]");
+}
+
+- (void)testAllWhitepacesCollapsing {
+    NSString *string = @"  \t \n This   should  \t\t not have \t\n  so much space!   \n\n\t";
+    XCTAssertEqualObjects([string wmf_stringByCollapsingAllWhitespaceToSingleSpaces],
+                          @" This should not have so much space! ");
+}
+
 @end

@@ -14,6 +14,14 @@ static const int kHighestIndexForSubstringAfterHTMLRemoved     = 350;
             valueForKey:WMF_SAFE_KEYPATH([TFHppleElement new], content)];
 }
 
+- (NSString*)wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation {
+    NSString* result = [self wmf_stringByCollapsingAllWhitespaceToSingleSpaces];
+    result = [result wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons];
+    result = [result wmf_stringByRemovingWhiteSpaceBeforePeriod];
+    result = [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return result;
+}
+
 - (NSString*)wmf_joinedHtmlTextNodes {
     return [self wmf_joinedHtmlTextNodesWithDelimiter:@" "];
 }
@@ -155,6 +163,20 @@ static const int kHighestIndexForSubstringAfterHTMLRemoved     = 350;
                                                  options:0
                                                    range:NSMakeRange(0, self.length)
                                             withTemplate:@" "];
+}
+
+- (NSString*)wmf_stringByCollapsingAllWhitespaceToSingleSpaces {
+    static NSRegularExpression* whitespaceRegex;
+    if (!whitespaceRegex) {
+        whitespaceRegex = [NSRegularExpression
+                           regularExpressionWithPattern:@"\\s+"
+                                                options:0
+                                                  error:nil];
+    }
+    return [whitespaceRegex stringByReplacingMatchesInString:self
+                                                     options:0
+                                                       range:NSMakeRange(0, self.length)
+                                                withTemplate:@" "];
 }
 
 - (NSString*)wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons {

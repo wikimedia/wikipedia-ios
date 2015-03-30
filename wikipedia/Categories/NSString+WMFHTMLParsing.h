@@ -27,6 +27,13 @@
  */
 - (NSString*)wmf_getStringSnippetWithoutHTML;
 
+/**
+ *
+ *
+ *  @return Return string with internal whitespace segments reduced to single space. Accounts for end of sentence punctuation like commas, semicolons and periods. Trims leading and trailing whitespace as well.
+ */
+- (NSString*)wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation;
+
 - (NSString*)wmf_stringByCollapsingConsecutiveNewlines;
 - (NSString*)wmf_stringByRecursivelyRemovingParenthesizedContent;
 - (NSString*)wmf_stringByRemovingBracketedContent;
@@ -34,5 +41,6 @@
 - (NSString*)wmf_stringByRemovingWhiteSpaceBeforePeriod;
 - (NSString*)wmf_stringByCollapsingConsecutiveSpaces;
 - (NSString*)wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons;
+- (NSString*)wmf_stringByCollapsingAllWhitespaceToSingleSpaces;
 
 @end
