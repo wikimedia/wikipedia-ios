@@ -3,6 +3,7 @@
 // Author: JurgenNL
 // Author: Macofe
 // Author: Mathonius
+// Author: MedShot
 // Author: Robin0van0der0vliet
 // Author: SPQRobin
 // Author: Siebrand
@@ -119,15 +120,18 @@
 "main-menu-terms-of-use" = "Gebruiksvoorwaarden";
 "main-menu-rate-app" = "App beoordelen";
 "main-menu-heading-zero" = "Wikipedia Zero";
-// Fuzzy
-"main-menu-heading-legal" = "Juridische informatie";
+"main-menu-heading-legal" = "Privacy en Voorwaarden";
 "main-menu-show-today" = "Vandaag";
 "main-menu-nearby" = "In de buurt";
 "main-menu-more" = "Meer...";
+"main-menu-heading-debug" = "Debug";
+"main-menu-debug-crash" = "Crash";
 "saved-pages-title" = "Opgeslagen pagina's";
 "saved-pages-clear-confirmation-heading" = "Alle opgeslagen items verwijderen?";
 "saved-pages-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";
 "saved-pages-clear-cancel" = "Annuleren";
+"saved-pages-refresh-cancel-alert-title" = "Bijwerken geanuleerd";
+"saved-pages-refresh-cancel-alert-message" = "Wikipedia artikels worden constant bijgewerkt. Druk op vernieuwen om de nieuwste versie van de artikels te bekijken.";
 "saved-pages-refresh-cancel-alert-button" = "Begrepen";
 "page-history-title" = "Paginageschiedenis";
 "page-history-downloading" = "Paginageschiedenis laden...";
@@ -250,3 +254,11 @@
 "nearby-location-general-error" = "Kan locatie niet bepalen. Trek naar beneden om bij te werken of probeer het later opnieuw.";
 "nearby-wifi" = "Het inschakelen van Wi-Fi zorgt voor een nauwkeuriger locatie.";
 "migration-update-progress-label" = "Lokale gegevens bijwerken";
+"image-gallery-unknown-owner" = "Uploader onbekend.";
+"hockeyapp-alert-question" = "Wilt u het crash rapport naar $1 versturen, zodat Wikimedia deze kan bekijken?";
+"hockeyapp-alert-question-with-response-field" = "Wilt u het crash rapport naar $1 versturen, zodat Wikimedia deze kan bekijken? Beschrijf wat er gebeurde tijdens de crash:";
+"hockeyapp-alert-title" = "Sorry, app crashte laatste keer";
+"hockeyapp-alert-send-report" = "Rapport verzenden";
+"hockeyapp-alert-always-send" = "Altijd versturen";
+"hockeyapp-alert-do-not-send" = "Niet verzenden";
+"hockeyapp-alert-privacy" = "$1 privacy";

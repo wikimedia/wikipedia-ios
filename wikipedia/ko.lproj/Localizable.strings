@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Namoroka
 // Author: Priviet
+// Author: SeoJeongHo
 // Author: Twotwo2019
 // Author: 아라
 
@@ -115,8 +116,7 @@
 "main-menu-terms-of-use" = "이용 약관";
 "main-menu-rate-app" = "앱 평가";
 "main-menu-heading-zero" = "위키백과 제로";
-// Fuzzy
-"main-menu-heading-legal" = "법적 정보";
+"main-menu-heading-legal" = "개인정보 보호 및 약관";
 "main-menu-show-today" = "오늘";
 "main-menu-nearby" = "근처";
 "main-menu-more" = "더 보기...";
@@ -181,8 +181,8 @@
 "share-custom-menu-item" = "공유";
 "share-article-name-on-wikipedia" = "@Wikipedia의 \"$1\":";
 "share-article-name-on-wikipedia-with-selected-text" = "@Wikipedia의 \"$1\": \"$2\"";
-"share-as-image" = "그림 공유하기";
-"share-as-text" = "텍스트 공유하기";
+"share-as-image" = "그림으로 공유하기";
+"share-as-text" = "텍스트로 공유하기";
 "timestamp-just-now" = "방금";
 "timestamp-minutes" = "%d분 전";
 "timestamp-hours" = "%d시간 전";

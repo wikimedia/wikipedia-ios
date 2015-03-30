@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Alirezaaa
 // Author: Ebraminio
+// Author: Mjbmr
 // Author: Reza1615
 
 "21c-U6-yfo.normalTitle" = "نمایش کپچای دیگر";
@@ -21,5 +22,5 @@
 "jiW-Cg-oL3.text" = "ایجاد حساب کاربری";
 "kVb-lx-d6C.placeholder" = "گذرواژه";
 "mAk-1N-jPC.placeholder" = "نام کاربری";
-"rKI-nq-3p7.placeholder" = "نشانی رایانامه (اختیاری)";
+"rKI-nq-3p7.placeholder" = "آدرس ایمیل (اختیاری)";
 "wkl-j8-wLX.text" = "ایجاد حساب کاربری";

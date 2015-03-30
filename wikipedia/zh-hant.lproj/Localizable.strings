@@ -28,7 +28,7 @@
 "history-clear-delete-all" = "删除全部";
 "zero-free-verbiage" = "從閣下的電話公司免費存取維基百科（不需要支出資料費用)";
 "zero-charged-verbiage" = "Wikipedia Zero 已關閉";
-"zero-charged-verbiage-extended" = "載入其他條目將可能產生資料費用。已存儲條目會離線存儲並且免除資料費用。";
+"zero-charged-verbiage-extended" = "載入其他條目將可能產生資料費用。已儲存條目會離線儲存並且免除資料費用。";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "離開Wikipedia Zero";
 "zero-interstitial-leave-app" = "可能產生數據資料費用。要繼續前往外部網站嗎？";
@@ -119,8 +119,7 @@
 "main-menu-terms-of-use" = "使用條款";
 "main-menu-rate-app" = "付費應用程式";
 "main-menu-heading-zero" = "Wikipedia Zero";
-// Fuzzy
-"main-menu-heading-legal" = "胡言亂語";
+"main-menu-heading-legal" = "隱私與規定";
 "main-menu-show-today" = "今日首頁";
 "main-menu-nearby" = "附近";
 "main-menu-more" = "更多...";
@@ -253,7 +252,6 @@
 "nearby-location-updates-settings-menu" = "隱私 > 位置服務 > 維基百科";
 "nearby-location-general-error" = "無法確定位置。拉下重新整理或稍後重試。";
 "nearby-wifi" = "開啟Wi-Fi可以幫助您的裝置更好地確定您的位置。";
-"update-progress-label" = "正在更新本地資料";
 "image-gallery-unknown-owner" = "未知上傳者";
 "hockeyapp-alert-question" = "你想把故障報告傳送至 $1，讓維基媒體查閱發生故障時問題的所在嗎？";
 "hockeyapp-alert-question-with-response-field" = "你想把故障報告傳送至 $1，讓維基媒體查閱故障時的問題所在嗎？請描述故障時發生了什麼事：";

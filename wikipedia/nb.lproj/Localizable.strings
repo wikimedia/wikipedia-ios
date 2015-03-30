@@ -250,7 +250,6 @@
 "nearby-location-updates-settings-menu" = "Innstillinger > Personvern > Stedstjenester > Wikipedia";
 "nearby-location-general-error" = "Kunne ikke bestemme plasseringen din. Dra for å gjenoppfriske eller prøv på nytt senere.";
 "nearby-wifi" = "Å skru på wifi kan hjelpe enheten din til å bestemme posisjonen din bedre.";
-"update-progress-label" = "Oppgraderer lokale data";
 "image-gallery-unknown-owner" = "Ukjent opplaster.";
 "hockeyapp-alert-question" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia kan ta den i ettersyn?";
 "hockeyapp-alert-question-with-response-field" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia kan ta den i ettersyn? Beskriv hva som skjedde da det inntraff:";
