@@ -109,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
     transformer.transform( "moveFirstGoodParagraphUp", document );
     transformer.transform( "hideRedlinks", document );
     transformer.transform( "disableFilePageEdit", document );
+    transformer.transform( "addImageOverflowXContainers", document );
 
     bridge.sendMessage( "DOMContentLoaded", {} );
 });
@@ -583,6 +584,21 @@ function tableCollapseClickHandler() {
     }
 }
 
+transformer.register( "addImageOverflowXContainers", function( content ) {
+    // Wrap images in a <div style="overflow-x:auto">...</div> so they can scroll side
+    // to side if needed without causing the entire section to scroll side to side.
+    var images = content.querySelectorAll('img');
+    for (var i = 0; i < images.length; ++i) {
+        var image = images[i];
+        var parent = image.parentElement;
+        var div = document.createElement( 'div' );
+        div.className = 'image_overflow_x_container';
+        parent.insertBefore( div, image );
+        var oldImage = parent.removeChild( image );
+        div.appendChild( oldImage );
+    }
+} );
+
 // From: http://stackoverflow.com/a/22119674/135557
 function findAncestor (el, cls) {
     while ((el = el.parentElement) && !el.classList.contains(cls));
@@ -601,10 +617,20 @@ transformer.register( "hideTables", function( content ) {
         }
 
         var isInfobox = tables[i].classList.contains( 'infobox' );
-        var headerText = getTableHeader(tables[i]);
-        if (headerText.length === 0 && !isInfobox) {
-            continue;
+        
+        var parent = tables[i].parentElement;
+
+        // If parent contains only this table it's safe to reset its styling
+        if (parent.childElementCount === 1){
+            parent.removeAttribute("class");
+            parent.removeAttribute("style");
         }
+
+        // Remove max width restriction
+        tables[i].style.maxWidth = 'none';
+
+        var headerText = getTableHeader(tables[i]);
+
         var caption = "<strong>" + (isInfobox ? window.string_table_infobox : window.string_table_other) + "</strong>";
         caption += "<span class='app_span_collapse_text'>";
         if (headerText.length > 0) {

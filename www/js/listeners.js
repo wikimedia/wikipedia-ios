@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
     transformer.transform( "moveFirstGoodParagraphUp", document );
     transformer.transform( "hideRedlinks", document );
     transformer.transform( "disableFilePageEdit", document );
+    transformer.transform( "addImageOverflowXContainers", document );
 
     bridge.sendMessage( "DOMContentLoaded", {} );
 });

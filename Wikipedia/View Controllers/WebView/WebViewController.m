@@ -68,7 +68,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
         [weakSelf.bridge sendMessage:@"setTableLocalization"
                          withPayload:@{
              @"string_table_infobox": MWLocalizedString(@"info-box-title", nil),
-             @"string_table_other": MWLocalizedString(@"info-box-title", nil),
+             @"string_table_other": MWLocalizedString(@"table-title-other", nil),
              @"string_table_close": MWLocalizedString(@"info-box-close-text", nil)
          }];
 
