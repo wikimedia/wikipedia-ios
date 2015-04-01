@@ -137,14 +137,14 @@ THE SOFTWARE.</string>
 			<key>License Text</key>
 			<string>pod install</string>
 		</dict>
-        <dict>
-            <key>Name</key>
-            <string>HockeySDK</string>
-            <key>Source URL</key>
-            <string>https://github.com/bitstadium/HockeySDK-iOS.git</string>
-            <key>License Text</key>
-            <string>pod install</string>
-        </dict>
+		<dict>
+			<key>Name</key>
+			<string>HockeySDK</string>
+			<key>Source URL</key>
+			<string>https://github.com/bitstadium/HockeySDK-iOS.git</string>
+			<key>License Text</key>
+			<string>pod install</string>
+		</dict>
 	</array>
 	<key>contributors</key>
 	<array>
@@ -157,6 +157,7 @@ THE SOFTWARE.</string>
 		<string>Corey Floyd</string>
 		<string>Dan Garry</string>
 		<string>Dmitry Brant</string>
+		<string>Elena Tonkovidova</string>
 		<string>Kenan Wang</string>
 		<string>Maryana Pinchuk</string>
 		<string>Max Semenik</string>
@@ -165,6 +166,7 @@ THE SOFTWARE.</string>
 		<string>Mun May Tee</string>
 		<string>Nicole Borrelli</string>
 		<string>Niklas Laxström</string>
+		<string>Rummana Yasmeen</string>
 		<string>Thomas PT</string>
 		<string>Tomasz Finc</string>
 		<string>Vibha Bamba</string>
