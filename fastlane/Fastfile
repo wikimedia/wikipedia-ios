@@ -1,32 +1,38 @@
 # Customise this file, documentation can be found here:
 # https://github.com/krausefx/fastlane#customise-the-fastfile
+# vim: ft=ruby
 
-# Change the syntax highlighting to Ruby
-
-# All lines starting with a # are ignored when running `fastlane`
+ENV['XCODE_SCHEME'] = 'Wikipedia'
+ENV['XCODE_WORKSPACE'] = 'Wikipedia.xcworkspace'
 
 before_all do
   p ENV
-  reset_git_repo :force
-  ensure_git_status_clean
+  reset_git_repo :force unless ENV['NO_RESET']
+  ensure_git_status_clean unless ENV['NO_RESET']
   cocoapods
-  increment_build_number ENV["BUILD_NUMBER"].to_i
+end
+
+def pre_check
+  #sh './scripts/uncrustify_all.sh'
+
+  xcbuild({
+    configuration: "Debug",
+    analyze: true
+  })
+
+  xctest({
+    configuration: "Debug",
+    destination: "platform=iOS Simulator,name=iPhone 5s,OS=8.2",
+    report_formats: [ "html", "junit" ],
+    clean: true
+  })
 end
 
 lane :test do
-
-  xctest(
-    workspace: "Wikipedia.xcworkspace",
-    scheme: "WikipediaAlpha",
-    configuration: "Alpha",
-    destination: "platform=iOS Simulator,name=iPhone 5s,OS=8.2",
-    report_formats: [ "html", "junit" ],
-  )
-
+  pre_check
 end
 
 lane :alpha do
-
   # Download the Certificate for signing
   cert
 
@@ -47,15 +53,16 @@ lane :alpha do
     produce_sku: '01985',
   })
 
+  increment_build_number
+
   # Create and sign the IPA (and DSYM)
   ipa({
-    workspace: "Wikipedia.xcworkspace",
     configuration: "Alpha",
-    scheme: "WikipediaAlpha",
-    clean: nil, # this means 'Do Clean'. Clean project before building.
-    archive: nil, # this means 'Do Archive'. Archive project to the Xcode organizer after building.
-    # verbose: nil, # this means 'Do Verbose'.
+    clean: true,
+    archive: nil,
   })
+
+  return if ENV['NO_DEPLOY']
 
   # Upload the DSYM to Hockey
   hockey({
@@ -70,7 +77,6 @@ lane :alpha do
 end
 
 lane :beta do
-
   # Download the Certificate for signing
   cert
 
@@ -91,15 +97,15 @@ lane :beta do
     produce_sku: '01984',
   })
 
+  increment_build_number
+
+
   # Create and sign the IPA (and DSYM)
   ipa({
-    workspace: "Wikipedia.xcworkspace",
     configuration: "Beta",
-    scheme: "WikipediaBeta",
-    clean: nil, # this means 'Do Clean'. Clean project before building.
-    archive: nil, # this means 'Do Archive'. Archive project to the Xcode organizer after building.
-    # verbose: nil, # this means 'Do Verbose'.
   })
+
+  return if ENV['NO_DEPLOY']
 
   # Upload the DSYM to Hockey
   hockey({
@@ -109,21 +115,17 @@ lane :beta do
     status: 1,
   })
 
-# Upload the IPA and DSYM to iTunes Connect
   deliver :testflight, :beta, :force
 end
 
 lane :appstore do
   snapshot
   frameit
-
+  return if ENV['NO_DEPLOY']
   deliver :skip_deploy, :force
 end
 
 after_all do |lane|
-
-  reset_git_repo :force
-
   # This block is called, only if the executed lane was successful
   # slack({
   #   message: "Successfully deployed new App Update for [App](http://link.com).",
