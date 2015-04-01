@@ -195,6 +195,8 @@
 		04EDEE311A21CB4100798076 /* UIScreen+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDEE301A21CB4100798076 /* UIScreen+Extras.m */; };
 		04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */; };
 		04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2ED186FB2D100468738 /* TOCSectionCellView.m */; };
+		04F122671ACB818F002FC3B5 /* NSString+FormattedAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AAA18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m */; };
+		04F1226A1ACB822D002FC3B5 /* NSString+FormattedAttributedStringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F122691ACB822D002FC3B5 /* NSString+FormattedAttributedStringTests.m */; };
 		04F27B7518FE0F2E00EDD838 /* PageHistoryResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F27B6F18FE0F2E00EDD838 /* PageHistoryResultCell.m */; };
 		04F27B7618FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F27B7018FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib */; };
 		04F27B7818FE0F2E00EDD838 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F27B7418FE0F2E00EDD838 /* PageHistoryViewController.m */; };
@@ -734,6 +736,7 @@
 		04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+ElementLocation.m"; sourceTree = "<group>"; };
 		04F0E2EC186FB2D000468738 /* TOCSectionCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOCSectionCellView.h; sourceTree = "<group>"; };
 		04F0E2ED186FB2D100468738 /* TOCSectionCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOCSectionCellView.m; sourceTree = "<group>"; };
+		04F122691ACB822D002FC3B5 /* NSString+FormattedAttributedStringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FormattedAttributedStringTests.m"; sourceTree = "<group>"; };
 		04F27B6E18FE0F2E00EDD838 /* PageHistoryResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageHistoryResultCell.h; sourceTree = "<group>"; };
 		04F27B6F18FE0F2E00EDD838 /* PageHistoryResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PageHistoryResultCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		04F27B7018FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageHistoryResultPrototypeView.xib; sourceTree = "<group>"; };
@@ -2082,6 +2085,7 @@
 				BCB669FC1A84158200C7B1FE /* CircularBitwiseRotationTests.m */,
 				BCB58F7B1A8D0C8E00465627 /* NSArray+BKIndexTests.m */,
 				C983151B1AA5205700E25EE1 /* NSString+WMFHTMLParsingTests.m */,
+				04F122691ACB822D002FC3B5 /* NSString+FormattedAttributedStringTests.m */,
 				BCBDE0AB1AA76EAC006BD29A /* WMFImageURLParsingTests.m */,
 				BCB8487A1AAAADF90077EC24 /* WMFRoundingUtilitiesTests.m */,
 				BCDB75C31AB0E8300005593F /* WMFSubstringUtilsTests.m */,
@@ -2959,6 +2963,7 @@
 				BC23759E1AB8928600B0BAA8 /* WMFDateFormatterTests.m in Sources */,
 				BC0FED771AAA026C002488D7 /* WMFImageURLParsingTests.m in Sources */,
 				BCEC778F1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m in Sources */,
+				04F1226A1ACB822D002FC3B5 /* NSString+FormattedAttributedStringTests.m in Sources */,
 				BC0FED6B1AAA0268002488D7 /* MWKDataStoreStorageTests.m in Sources */,
 				0484B9071ABB50FA00874073 /* WMFArticleParsing.m in Sources */,
 				BC0FED751AAA026C002488D7 /* NSArray+BKIndexTests.m in Sources */,
@@ -2982,7 +2987,9 @@
 				BC0FED6C1AAA0268002488D7 /* MWKImageStorageTests.m in Sources */,
 				BC0FED721AAA026C002488D7 /* WMFErrorForApiErrorObjectTests.m in Sources */,
 				BCA6765A1AC0600500A16160 /* MWKDataStore+TemporaryDataStore.m in Sources */,
-
+				04D686CA1AB28FE40009B44A /* UIImage+WMFFocalImageDrawing.m in Sources */,
+				04D686FF1AB2949C0009B44A /* WikiGlyphLabel.m in Sources */,
+				04F122671ACB818F002FC3B5 /* NSString+FormattedAttributedString.m in Sources */,
 				BC0FED711AAA026C002488D7 /* WMFJoinedPropertyParametersTests.m in Sources */,
 				BC0FED6A1AAA0268002488D7 /* MWKDataStorePathTests.m in Sources */,
 				BC0FED761AAA026C002488D7 /* NSString+WMFHTMLParsingTests.m in Sources */,
