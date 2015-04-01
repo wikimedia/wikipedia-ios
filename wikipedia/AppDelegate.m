@@ -19,7 +19,7 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
 
 @interface AppDelegate ()
 
-#warning TOOD: refactor into separate crash-reporting class
+#warning TODO: refactor into separate crash-reporting class
 @property NSString* crashSendText;
 @property NSString* crashAlwaysSendText;
 @property NSString* crashDoNotSendText;
