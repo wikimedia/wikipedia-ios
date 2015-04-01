@@ -19,6 +19,10 @@ DerivedData
 *.ipa
 *.xcuserstate
 
+# Fastlane
+fastlane/report.xml
+fastlane/Error*.png
+
 # Ignore baselines, which we'll eventually maintain in CI to prevent false negatives due to dev machine discrepancies
 xcbaselines/
 
@@ -30,8 +34,11 @@ Pods/
 
 # FastLane
 screenshots/
+<<<<<<< HEAD
 fastlane/report.xml
 fastlane/Error*.png
+=======
+>>>>>>> 5cfa2bb... Setup Fastlane for CI
 
 # www
 node_modules/
