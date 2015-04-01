@@ -53,7 +53,7 @@ xcode-cltools: ##Make sure proper Xcode & command line tools are installed
 #!!!!!
 
 # Append additional dependencies as quoted strings (i.e. EXEC_DEPS = "dep1" "dep2" ...)
-EXEC_DEPS = "uncrustify"
+EXEC_DEPS = "uncrustify" "convert" "gs"
 
 exec-deps:  ##Check that executable dependencies are installed
 	@for dep in $(EXEC_DEPS); do \
@@ -75,7 +75,7 @@ NPM_VERSION = "$(shell npm -version)"
 npm: ##TODO, run npm install
 
 node: # Make sure node is installed
-	@if [[ $(NODE_VERSION) =~ "v0.10" && $(NPM_VERSION) =~ "1.4" ]]; then \
+	@if [[ $(NODE_VERSION) > "v0.10" && $(NPM_VERSION) > "1.4" ]]; then \
 		echo "node and npm are installed!" ; \
 	else \
 		echo "Missing node v0.10 and/or higher and npm 1.4 or higher." ; \
@@ -95,6 +95,7 @@ pod: bundle-install
 
 bundle-install: ##Install gems using Bundler
 bundle-install: bundler
+	@$(BUNDLER) config build.nokogiri --use-system-libraries
 	@$(BUNDLER) install
 
 bundler: ##Make sure Bundler is installed

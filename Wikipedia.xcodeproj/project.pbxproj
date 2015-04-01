@@ -2572,10 +2572,10 @@
 				04272E75193FF7F000CC682F /* make-css-assets */,
 				D4C16A621970946900CD91AD /* update-storyboard-strings */,
 				D4C16A631970949A00CD91AD /* update-qqq */,
-				046F268119C387BD00D7ACB3 /* icon-svgs-to-pngs */,
 				D4991433181D51DE00E6073C /* Resources */,
 				04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */,
 				45FA417DEEAE18B42A662320 /* Copy Pods Resources */,
+				0EB312441ACB96C300C7F7A6 /* Process Icons */,
 			);
 			buildRules = (
 			);
@@ -2832,21 +2832,6 @@
 			shellPath = /bin/sh;
 			shellScript = "scripts/run-grunt.sh";
 		};
-		046F268119C387BD00D7ACB3 /* icon-svgs-to-pngs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/wikipedia/Images.xcassets/AppIcon.appiconset/icon.svg",
-			);
-			name = "icon-svgs-to-pngs";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo \"Uncomment the following line to run this automatically when building.\"\n# scripts/icon-svgs-to-pngs.sh";
-		};
 		04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2860,6 +2845,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "scripts/copy-wmflogo-to-assets.sh";
+		};
+		0EB312441ACB96C300C7F7A6 /* Process Icons */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Process Icons";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./scripts/process-icons.sh";
 		};
 		3E12E9E666E87AE6E3CA45E3 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
