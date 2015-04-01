@@ -48,8 +48,7 @@
 
 - (void)tearDown {
     [super tearDown];
-    NSError* tmpDataStoreRemovalErr = [self.dataStore removeFolderAtBasePath];
-    NSParameterAssert(!tmpDataStoreRemovalErr);
+    [self.dataStore removeFolderAtBasePath];
 }
 
 - (void)testArticleWithThumbnail {

@@ -19,6 +19,11 @@ DerivedData
 *.ipa
 *.xcuserstate
 
+# Fastlane
+fastlane/report.xml
+fastlane/Error*.png
+*.mobileprovision
+
 # Ignore baselines, which we'll eventually maintain in CI to prevent false negatives due to dev machine discrepancies
 xcbaselines/
 

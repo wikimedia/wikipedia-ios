@@ -14,9 +14,10 @@
     static NSManagedObjectModel* oldDataSchema;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"OldDataSchemaBundle" ofType:@"bundle"];
-        NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+        NSString* bundlePath = [[NSBundle mainBundle] pathForResource:@"OldDataSchemaBundle" ofType:@"bundle"];
+        NSBundle* bundle = [NSBundle bundleWithPath:bundlePath];
         oldDataSchema = [NSManagedObjectModel mergedModelFromBundles:@[bundle]];
+        NSParameterAssert(oldDataSchema.entities.count);
     });
     return oldDataSchema;
 }

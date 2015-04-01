@@ -1,31 +1,32 @@
 XCODE_VERSION = "$(shell xcodebuild -version 2>/dev/null)"
 XC_WORKSPACE = Wikipedia.xcworkspace
 XCODEBUILD_BASE_ARGS = -workspace $(XC_WORKSPACE)
+XC_DEFAULT_SCHEME = Wikipedia
 
 help: ##Show this help
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
 clean: ##Clean the Xcode workspace
-	xcodebuild clean $(XCODEBUILD_BASE_ARGS)
+	xcodebuild clean $(XCODEBUILD_BASE_ARGS) -scheme $(XC_DEFAULT_SCHEME) 
 
 build: ##Fetch code dependencies and build the app for release
 build: get-deps
 	xcodebuild build $(XCODEBUILD_BASE_ARGS) \
-		-scheme Wikipedia \
+		-scheme $(XC_DEFAULT_SCHEME) \
 		-sdk iphoneos \
 		-configuration Release
 
 build-sim: ##Fetch code dependencies and build the app for debugging in the simulator
 build-sim: get-deps
 	xcodebuild build $(XCODEBUILD_BASE_ARGS) \
-		-scheme Wikipedia \
+		-scheme $(XC_DEFAULT_SCHEME) \
 		-sdk iphonesimulator \
 		-configuration Debug
 
 test: ##Fetch code dependencies and run tests
 test: get-deps
 	xcodebuild test $(XCODEBUILD_BASE_ARGS) \
-		-scheme Wikipedia \
+		-scheme $(XC_DEFAULT_SCHEME) \
 		-sdk iphonesimulator
 
 lint: ##Lint the native code, requires uncrustify
