@@ -2,7 +2,6 @@
 # https://github.com/krausefx/fastlane#customise-the-fastfile
 # vim: ft=ruby
 
-ENV['XCODE_SCHEME'] = 'Wikipedia'
 ENV['XCODE_WORKSPACE'] = 'Wikipedia.xcworkspace'
 
 before_all do
@@ -16,12 +15,12 @@ def pre_check
   #sh './scripts/uncrustify_all.sh'
 
   xcbuild({
-    configuration: "Debug",
+    scheme: 'Wikipedia',
     analyze: true
   })
 
   xctest({
-    configuration: "Debug",
+    scheme: 'Wikipedia',
     destination: "platform=iOS Simulator,name=iPhone 5s,OS=8.2",
     report_formats: [ "html", "junit" ],
     clean: true
@@ -53,13 +52,13 @@ lane :alpha do
     produce_sku: '01985',
   })
 
-  increment_build_number
+  increment_build_number ENV['BUILD_NUMBER'].to_i
 
   # Create and sign the IPA (and DSYM)
   ipa({
-    configuration: "Alpha",
+    scheme: 'Wikipedia Alpha',
     clean: true,
-    archive: nil,
+    archive: nil
   })
 
   return if ENV['NO_DEPLOY']
@@ -97,12 +96,13 @@ lane :beta do
     produce_sku: '01984',
   })
 
-  increment_build_number
-
+  increment_build_number ENV['BUILD_NUMBER'].to_i
 
   # Create and sign the IPA (and DSYM)
   ipa({
-    configuration: "Beta",
+    scheme: 'Wikipedia Beta',
+    clean: true,
+    archive: nil
   })
 
   return if ENV['NO_DEPLOY']
