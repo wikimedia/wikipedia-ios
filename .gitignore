@@ -34,11 +34,8 @@ Pods/
 
 # FastLane
 screenshots/
-<<<<<<< HEAD
 fastlane/report.xml
 fastlane/Error*.png
-=======
->>>>>>> 5cfa2bb... Setup Fastlane for CI
 
 # www
 node_modules/
