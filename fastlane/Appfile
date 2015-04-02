@@ -7,7 +7,7 @@ team_name "Wikimedia Foundation"
 apple_id "cfloyd@wikimedia.org"
 
 # Set the app identifier for each build (used to look up the app in itunes connect)
-app_identifier "org.wikimedia.wikipedia.tfalpha"
+#app_identifier "org.wikimedia.wikipedia.tfalpha"
 
 # for_lane :alpha do
 #   app_identifier "org.wikimedia.wikipedia.tfbeta"

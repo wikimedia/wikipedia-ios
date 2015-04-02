@@ -16,14 +16,14 @@ def pre_check
 
   xcbuild({
     scheme: 'Wikipedia',
-    analyze: true
+    analyze: nil
   })
 
   xctest({
     scheme: 'Wikipedia',
     destination: "platform=iOS Simulator,name=iPhone 5s,OS=8.2",
     report_formats: [ "html", "junit" ],
-    clean: true
+    clean: nil
   })
 end
 
@@ -57,22 +57,22 @@ lane :alpha do
   # Create and sign the IPA (and DSYM)
   ipa({
     scheme: 'Wikipedia Alpha',
-    clean: true,
+    clean: nil,
     archive: nil
   })
 
-  return if ENV['NO_DEPLOY']
+  unless ENV['NO_DEPLOY']
+    # Upload the DSYM to Hockey
+    hockey({
+      api_token: 'c881c19fd8d0401682c4640b7948ef5e',
+      notes: "Changelog",
+      notify: 0,
+      status: 1, #Means do not make available for download
+    })
 
-  # Upload the DSYM to Hockey
-  hockey({
-    api_token: 'c881c19fd8d0401682c4640b7948ef5e',
-    notes: "Changelog",
-    notify: 0,
-    status: 1, #Means do not make available for download
-  })
-
-  # Upload the IPA and DSYM to iTunes Connect
-  deliver :testflight, :beta, :skip_deploy, :force
+    # Upload the IPA and DSYM to iTunes Connect
+    deliver :testflight, :beta, :skip_deploy, :force
+  end
 end
 
 lane :beta do
@@ -105,24 +105,25 @@ lane :beta do
     archive: nil
   })
 
-  return if ENV['NO_DEPLOY']
+  unless ENV['NO_DEPLOY']
+    # Upload the DSYM to Hockey
+    hockey({
+      api_token: 'c881c19fd8d0401682c4640b7948ef5e',
+      notes: "Changelog",
+      notify: 0,
+      status: 1,
+    })
 
-  # Upload the DSYM to Hockey
-  hockey({
-    api_token: 'c881c19fd8d0401682c4640b7948ef5e',
-    notes: "Changelog",
-    notify: 0,
-    status: 1,
-  })
-
-  deliver :testflight, :beta, :force
+    deliver :testflight, :beta, :force
+  end
 end
 
 lane :appstore do
   snapshot
   frameit
-  return if ENV['NO_DEPLOY']
-  deliver :skip_deploy, :force
+  unless ENV['NO_DEPLOY']
+    deliver :skip_deploy, :force
+  end
 end
 
 after_all do |lane|
