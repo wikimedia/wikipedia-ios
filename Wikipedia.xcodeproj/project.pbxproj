@@ -749,7 +749,6 @@
 		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		429C152FC8B093B59D18CAD3 /* Pods-WikipediaUnitTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.beta.xcconfig"; sourceTree = "<group>"; };
 		8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WikipediaUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A69698A51AC9D06B00208A11 /* BetaConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BetaConfig.xcconfig; sourceTree = "<group>"; };
 		BC2375981AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+WMFNaturalAlignmentStyle.h"; sourceTree = "<group>"; };
 		BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+WMFNaturalAlignmentStyle.m"; sourceTree = "<group>"; };
 		BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateFormatterTests.m; sourceTree = "<group>"; };
@@ -2054,14 +2053,6 @@
 			name = "Image Gallery";
 			sourceTree = "<group>";
 		};
-		0E4F85E11AC1C2BA004CA3CD /* Config Files */ = {
-			isa = PBXGroup;
-			children = (
-				A69698A51AC9D06B00208A11 /* BetaConfig.xcconfig */,
-			);
-			name = "Config Files";
-			sourceTree = "<group>";
-		};
 		BC69C3101AB0C16B0090B039 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2373,7 +2364,6 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
-				0E4F85E11AC1C2BA004CA3CD /* Config Files */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				BCB669A31A83F6C300C7B1FE /* MediaWikiKit */,
 				04E9A78218F73C7200F7ECF7 /* www */,
@@ -3807,8 +3797,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				CURRENT_PROJECT_VERSION = 2;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
