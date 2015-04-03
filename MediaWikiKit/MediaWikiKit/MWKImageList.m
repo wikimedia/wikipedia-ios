@@ -121,6 +121,10 @@
     return [self largestImageVariantForURL:imageURL].sourceURL;
 }
 
+- (NSString*)smallestImageVariant:(NSString*)imageURL {
+    return [self smallestImageVariantForURL:imageURL].sourceURL;
+}
+
 - (MWKImage*)largestImageVariantForURL:(NSString*)imageURL cachedOnly:(BOOL)cachedOnly {
     NSArray* arr = [self imageSizeVariants:imageURL];
     for (NSString* variantURL in [arr reverseObjectEnumerator]) {
@@ -132,8 +136,23 @@
     return nil;
 }
 
+- (MWKImage*)smallestImageVariantForURL:(NSString*)imageURL cachedOnly:(BOOL)cachedOnly {
+    NSArray* arr = [self imageSizeVariants:imageURL];
+    for (NSString* variantURL in arr) {
+        MWKImage* image = [self.article imageWithURL:variantURL];
+        if (!cachedOnly || image.isCached) {
+            return image;
+        }
+    }
+    return nil;
+}
+
 - (MWKImage*)largestImageVariantForURL:(NSString*)imageURL {
     return [self largestImageVariantForURL:imageURL cachedOnly:YES];
+}
+
+- (MWKImage*)smallestImageVariantForURL:(NSString*)imageURL {
+    return [self smallestImageVariantForURL:imageURL cachedOnly:YES];
 }
 
 - (NSUInteger)indexOfImage:(MWKImage*)image {

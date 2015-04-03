@@ -45,6 +45,8 @@
 
 @property (strong, nonatomic) IBOutlet UIView* emptyContainerView;
 
+@property (strong, nonatomic) UIImage* placeholderThumbnailImage;
+
 @end
 
 @implementation HistoryViewController
@@ -333,33 +335,26 @@
     cell.methodLabel.attributedText = [self getIconLabelAttributedStringForDiscoveryMethod:historyEntry.discoveryMethod];
 
     MWKArticle* article = [[SessionSingleton sharedInstance].dataStore articleWithTitle:historyEntry.title];
-    UIImage* thumbImage;
-    if (article.thumbnail) {
-        thumbImage = [article.thumbnail asUIImage];
-    }
-    if (thumbImage) {
-        cell.imageView.image = thumbImage;
+
+    MWKImage* thumb = [article.thumbnail smallestCachedVariant];
+
+    if (thumb) {
+        cell.imageView.image = [thumb asUIImage];
         cell.useField        = YES;
         return cell;
     }
 
-    // If execution reaches this point a cached core data thumb was not found.
-
-    // Set thumbnail placeholder
-//TODO: don't load thumb from file every time in loop if no image found. fix here and in search
-    cell.imageView.image = [UIImage imageNamed:@"logo-placeholder-search.png"];
+    cell.imageView.image = self.placeholderThumbnailImage;
     cell.useField        = NO;
 
-    //if (!thumbURL){
-    //    // Don't bother downloading if no thumbURL
-    //    return cell;
-    //}
-
-//TODO: retrieve a thumb
-    // determine thumbURL then get thumb
-    // if no thumbURL mine section html for image reference and download it
-
     return cell;
+}
+
+- (UIImage*)placeholderThumbnailImage {
+    if (!_placeholderThumbnailImage) {
+        _placeholderThumbnailImage = [UIImage imageNamed:@"logo-placeholder-search.png"];
+    }
+    return _placeholderThumbnailImage;
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {

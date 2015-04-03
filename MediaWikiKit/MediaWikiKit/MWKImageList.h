@@ -54,6 +54,7 @@
  * May be nil if none found.
  */
 - (NSString*)largestImageVariant:(NSString*)image;
+- (NSString*)smallestImageVariant:(NSString*)image;
 
 /**
  * Searches the receiver for a cached image variant matching @c sourceURL.
@@ -61,6 +62,7 @@
  * @see -largestImageVariantForURL:cachedOnly:
  */
 - (MWKImage*)largestImageVariantForURL:(NSString*)sourceURL;
+- (MWKImage*)smallestImageVariantForURL:(NSString*)sourceURL;
 
 /**
  * Find an image with the specified URL, optionally requiring it to be stored in the cache.
@@ -70,6 +72,7 @@
  *         be cached. Otherwise @c nil if no matching, cached (if specified) entries are found.
  */
 - (MWKImage*)largestImageVariantForURL:(NSString*)imageURL cachedOnly:(BOOL)cachedOnly;
+- (MWKImage*)smallestImageVariantForURL:(NSString*)imageURL cachedOnly:(BOOL)cachedOnly;
 
 /**
  * Reduce the receiver by removing all but the largest variants of the contained images, preserving order.

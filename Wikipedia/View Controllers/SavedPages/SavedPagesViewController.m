@@ -193,27 +193,16 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
     MWKArticle* article = [self articleForIndexPath:indexPath];
     [self updateViewsInCell:cell forIndexPath:indexPath withArticle:article];
 
-    MWKImage* thumbnail      = article.thumbnail;
-    MWKImage* largeThumbnail = [thumbnail largestVariant];
-    UIImage* thumbImage      = [largeThumbnail asUIImage];
+    MWKImage* thumb = [article.thumbnail largestCachedVariant];
 
-    if (thumbImage) {
-        cell.imageView.image = thumbImage;
+    if (thumb) {
+        cell.imageView.image = [thumb asUIImage];
         cell.useField        = YES;
         return cell;
     }
 
     cell.imageView.image = self.placeholderThumbnailImage;
     cell.useField        = NO;
-
-    //if (!thumbURL){
-    //    // Don't bother downloading if no thumbURL
-    //    return cell;
-    //}
-
-//TODO: retrieve a thumb
-    // determine thumbURL then get thumb
-    // if no thumbURL mine section html for image reference and download it
 
     return cell;
 }

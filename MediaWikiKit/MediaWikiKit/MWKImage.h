@@ -53,6 +53,9 @@
 - (MWKImage*)largestVariant;
 - (MWKImage*)largestCachedVariant;
 
+- (MWKImage*)smallestVariant;
+- (MWKImage*)smallestCachedVariant;
+
 /// Return the folder containing the image file from receiver's @c sourceURL.
 - (NSString*)basename;
 

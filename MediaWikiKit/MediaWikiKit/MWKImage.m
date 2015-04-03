@@ -198,8 +198,16 @@
     return [self.article imageWithURL:largestURL];
 }
 
+- (MWKImage*)smallestVariant {
+    NSString* smallestURL = [self.article.images smallestImageVariant:self.sourceURL];
+    return [self.article imageWithURL:smallestURL];
+}
+
 - (MWKImage*)largestCachedVariant {
     return [self.article.images largestImageVariantForURL:self.sourceURL cachedOnly:YES];
+}
+- (MWKImage*)smallestCachedVariant {
+    return [self.article.images smallestImageVariantForURL:self.sourceURL cachedOnly:YES];
 }
 
 - (BOOL)isCached {
