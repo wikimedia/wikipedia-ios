@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2513" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" restorationIdentifier="SavedPagesResultCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="SavedPagesResultCell" id="fUc-GS-qo6" customClass="SavedPagesResultCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+        <tableViewCell contentMode="scaleToFill" verticalHuggingPriority="1000" restorationIdentifier="SavedPagesResultCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="SavedPagesResultCell" rowHeight="181" id="fUc-GS-qo6" customClass="SavedPagesResultCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="192"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fUc-GS-qo6" id="RvZ-qs-wTo">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="171" translatesAutoresizingMaskIntoConstraints="NO" id="v0D-Yl-KZk">
-                        <rect key="frame" x="123" y="5" width="177" height="110"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="110" id="Jj0-aB-4XH"/>
-                        </constraints>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="171" translatesAutoresizingMaskIntoConstraints="NO" id="v0D-Yl-KZk" customClass="PaddedLabel">
+                        <rect key="frame" x="123" y="4" width="177" height="184"/>
                         <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="22"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UJM-gJ-lCo">
-                        <rect key="frame" x="0.0" y="5" width="110" height="110"/>
+                        <rect key="frame" x="0.0" y="41" width="110" height="110"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="110" id="9hS-dG-FyP"/>
                             <constraint firstAttribute="width" constant="110" id="EFl-R6-z9N"/>
@@ -31,17 +28,20 @@
                     </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="v0D-Yl-KZk" secondAttribute="bottom" constant="4" id="4EJ-sk-eMw"/>
+                    <constraint firstItem="UJM-gJ-lCo" firstAttribute="centerY" secondItem="v0D-Yl-KZk" secondAttribute="centerY" id="FPB-vG-MGh"/>
                     <constraint firstAttribute="trailing" secondItem="v0D-Yl-KZk" secondAttribute="trailing" constant="20" symbolic="YES" id="IHt-As-KaF"/>
                     <constraint firstItem="UJM-gJ-lCo" firstAttribute="leading" secondItem="RvZ-qs-wTo" secondAttribute="leading" id="IXj-4U-VAr"/>
-                    <constraint firstAttribute="centerY" secondItem="v0D-Yl-KZk" secondAttribute="centerY" id="LTN-n1-w4t"/>
-                    <constraint firstAttribute="centerY" secondItem="UJM-gJ-lCo" secondAttribute="centerY" id="PDX-Qa-XDm"/>
+                    <constraint firstItem="v0D-Yl-KZk" firstAttribute="height" relation="greaterThanOrEqual" secondItem="UJM-gJ-lCo" secondAttribute="height" id="dps-34-l2z"/>
+                    <constraint firstItem="v0D-Yl-KZk" firstAttribute="top" secondItem="RvZ-qs-wTo" secondAttribute="top" constant="4" id="hNp-Tc-92V"/>
                     <constraint firstItem="v0D-Yl-KZk" firstAttribute="leading" secondItem="UJM-gJ-lCo" secondAttribute="trailing" constant="13" id="p37-ZO-QaS"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="imageView" destination="UJM-gJ-lCo" id="8Vu-YN-Cox"/>
-                <outlet property="textLabel" destination="v0D-Yl-KZk" id="AQK-ua-BeB"/>
+                <outlet property="savedItemLabel" destination="v0D-Yl-KZk" id="kI4-n1-YAX"/>
             </connections>
+            <point key="canvasLocation" x="252" y="236"/>
         </tableViewCell>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
