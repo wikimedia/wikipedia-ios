@@ -57,6 +57,7 @@ lane :alpha do
   # Create and sign the IPA (and DSYM)
   ipa({
     scheme: 'Wikipedia Alpha',
+    configuration: 'Alpha', #Prevents fastlane from passing --configuration "Release" - bug?
     clean: nil, # this means 'Do Clean'. Clean project before building.
     archive: nil, # this means 'Do Archive'. Archive project to the Xcode organizer after building.
     # verbose: nil, # this means 'Do Verbose'.
@@ -102,6 +103,7 @@ lane :beta do
   # Create and sign the IPA (and DSYM)
   ipa({
     scheme: 'Wikipedia Beta',
+    configuration: 'Beta', #Prevents fastlane from passing --configuration "Release" - bug?
     clean: true,
     archive: nil
   })
