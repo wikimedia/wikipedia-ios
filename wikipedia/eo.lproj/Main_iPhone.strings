@@ -1,6 +1,16 @@
 // Messages for Esperanto (Esperanto)
 // Exported from translatewiki.net
 // Author: KuboF
+// Author: Remux
 
-"7Wa-ox-cAd.normalTitle" = "Konservi";
-"P0o-I6-RDJ.normalTitle" = "Nuligi";
+"PCr-0J-fBj.placeholder" = "Pasvorto";
+"UgH-77-lyp.placeholder" = "Retajpu pasvorton";
+"W1c-wQ-1pa.text" = "Neniu paĝo konservita ankoraŭ.";
+"Wff-o9-AdH.text" = "Ensaluti";
+"c3c-PU-Exz.text" = "Krei konton";
+"heA-3K-nhS.text" = "Ĉu vi jam havas konton? Ensalutu";
+"jiW-Cg-oL3.text" = "Krei konton";
+"kVb-lx-d6C.placeholder" = "Pasvorto";
+"mAk-1N-jPC.placeholder" = "Uzantnomo";
+"rKI-nq-3p7.placeholder" = "Retpoŝta adreso (malnepra)";
+"wkl-j8-wLX.text" = "Krei konton";

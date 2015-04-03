@@ -114,8 +114,7 @@
 "main-menu-terms-of-use" = "Услови на употреба";
 "main-menu-rate-app" = "Оценете го извршникот";
 "main-menu-heading-zero" = "Википедија Нулта";
-// Fuzzy
-"main-menu-heading-legal" = "Правни работи";
+"main-menu-heading-legal" = "Лични податоци и услови";
 "main-menu-show-today" = "Денес";
 "main-menu-nearby" = "Во близина";
 "main-menu-more" = "Повеќе...";
@@ -249,6 +248,7 @@
 "nearby-location-general-error" = "Не можам да ја утврдам местоположбата. Повлечете за да превчитате или обидете се повторно.";
 "nearby-wifi" = "Ако ја вклучите безжичната линија (Wi-Fi), уредот ќе може подобро да ја утврди вашата местоположба.";
 "migration-update-progress-label" = "Надградба на месните податоци";
+"migration-update-progress-count-label" = "Ја селам статијата $1 од вкупно $2";
 "image-gallery-unknown-owner" = "Подигачот е непознат";
 "hockeyapp-alert-question" = "Дали би сакале да испратите пријава за уривање на $1 за Викимедија да ви го разгледа проблемот?";
 "hockeyapp-alert-question-with-response-field" = "Дали би сакале да испратите пријава за уривање на $1 за Викимедија да ви го арзгледа проблемот? Опишете што се случи кога настана уривањето:";

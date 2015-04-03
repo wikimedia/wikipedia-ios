@@ -57,12 +57,16 @@
 "wikitext-downloading" = "Иһинээҕитин хачайдааһын...";
 "wikitext-download-failed" = "Тиһэх барылын ылар табыллыбата.";
 "wikitext-download-success" = "Хачайданна.";
+"wikitext-preview-changes" = "Оҥорбут уларытыыны эрдэ көрүүнү ылыы...";
+"wikitext-preview-changes-none" = "Саҥа уларытыы оҥоһуллубатах эбит.";
+"wikitext-upload-result-unknown" = "Биики-тиэкис хачайдаммыт түмүгүн быһаарар сатаммата.";
 "wikitext-upload-captcha-error" = "Капча алҕастаах.";
 "wikitext-upload-captcha-needed" = "Капча көмөтүнэн тургутуу ирдэнэр.";
 "wikitext-upload-save" = "Бигэргэнэр...";
 "wikitext-upload-save-sign-in" = "Киир";
 "wikitext-upload-save-sign-in-benefits" = "Атын кыттааччылар эйиэхэ тахсыахтарын сөп уонна ханнык ыстатыйаны көннөрбүккүн көрөр кыахтаныаҥ.";
 "wikitext-upload-save-anonymously" = "Ааты эппэккэ эрэ бигэргэт";
+"wikitext-upload-save-anonymously-warning" = "Көннөрүүҥ IP-аадырыскынан бэлиэтэниэ. Өскөтө $1 буоллаххына, айпигын кистиир кыахтаныаҥ.";
 "wikitext-upload-save-terms-name" = "Туһаныы сиэрэ";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Сигэни арый";

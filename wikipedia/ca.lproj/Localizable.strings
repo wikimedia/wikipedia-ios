@@ -10,7 +10,7 @@
 // Author: SMP
 // Author: Toniher
 
-"article-languages-label" = "Tria un idioma";
+"article-languages-label" = "Trieu un idioma";
 "article-languages-cancel" = "Cancel·la";
 "article-languages-downloading" = "Carregant els idiomes de l'article...";
 "article-languages-filter-placeholder" = "Filtre d'idioma";
@@ -120,7 +120,7 @@
 "main-menu-terms-of-use" = "Condicions d’ús";
 "main-menu-rate-app" = "Puntua l'aplicació";
 "main-menu-heading-zero" = "Wikipedia Zero";
-"main-menu-heading-legal" = "Privacitat i Condicions";
+"main-menu-heading-legal" = "Privadesa i condicions";
 "main-menu-show-today" = "Avui";
 "main-menu-nearby" = "A prop";
 "main-menu-more" = "Més...";

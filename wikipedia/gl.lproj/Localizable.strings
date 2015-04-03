@@ -115,8 +115,7 @@
 "main-menu-terms-of-use" = "Termos de uso";
 "main-menu-rate-app" = "Avaliar aplicación";
 "main-menu-heading-zero" = "Wikipedia Zero";
-// Fuzzy
-"main-menu-heading-legal" = "Información legal";
+"main-menu-heading-legal" = "Privacidade e Condicións";
 "main-menu-show-today" = "Hoxe";
 "main-menu-nearby" = "Preto";
 "main-menu-more" = "Máis...";
@@ -249,6 +248,8 @@
 "nearby-location-updates-settings-menu" = "Privacidade > Servizos de localización > Wikipedia";
 "nearby-location-general-error" = "Non se pode determinar a localización. Tire para actualizar ou ténteo máis tarde.";
 "nearby-wifi" = "Activar wifi pode axudar a que o seu dispositivo determine mellor a súa localización.";
+"migration-update-progress-label" = "Actualizando datos locais";
+"migration-update-progress-count-label" = "Migrando artigos $1 de $2";
 "image-gallery-unknown-owner" = "Autor descoñecido.";
 "hockeyapp-alert-question" = "Quere enviar un informe de erro a $1 para que así Wikimedia poida revisar o seu erro?";
 "hockeyapp-alert-question-with-response-field" = "Quere enviar un informe de erro a $1 para que así Wikimedia poida revisar o seu erro? Por favor descreba que ocorreu cando sucedeu o erro:";

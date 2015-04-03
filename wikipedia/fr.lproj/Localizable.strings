@@ -120,8 +120,7 @@
 "main-menu-terms-of-use" = "Conditions d’utilisation";
 "main-menu-rate-app" = "Noter l’application";
 "main-menu-heading-zero" = "Wikipédia Zéro";
-// Fuzzy
-"main-menu-heading-legal" = "Informations légales";
+"main-menu-heading-legal" = "Confidentialité et conditions";
 "main-menu-show-today" = "Aujourd’hui";
 "main-menu-nearby" = "À proximité";
 "main-menu-more" = "Plus…";
@@ -255,6 +254,7 @@
 "nearby-location-general-error" = "Impossible de déterminer l’emplacement. Tirer pour rafraîchir ou réessayer ultérieurement.";
 "nearby-wifi" = "L’activation du wifi peut aider votre appareil à mieux déterminer votre emplacement.";
 "migration-update-progress-label" = "Mise à jour des données locales";
+"migration-update-progress-count-label" = "Migration de l’article $1 vers $2";
 "image-gallery-unknown-owner" = "Téléchargeur inconnu.";
 "hockeyapp-alert-question" = "Voulez-vous envoyer un rapport de plantage à $1 pour que Wikipédia puisse l’étudier ?";
 "hockeyapp-alert-question-with-response-field" = "Voulez-vous envoyer un rapport de plantage à $1 pour que Wikipédia puisse l’étudier ? Veuillez décrire ce qui s’est produit lorsque le plantage s’est produit :";

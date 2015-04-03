@@ -120,8 +120,7 @@
 "main-menu-terms-of-use" = "Ketentuan penggunaan";
 "main-menu-rate-app" = "Beri nilai apl";
 "main-menu-heading-zero" = "Wikipedia Nol";
-// Fuzzy
-"main-menu-heading-legal" = "Informasi hukum";
+"main-menu-heading-legal" = "Privasi dan Ketentuan";
 "main-menu-show-today" = "Hari ini";
 "main-menu-nearby" = "Sekitaran";
 "main-menu-more" = "Lainnya...";
@@ -255,4 +254,12 @@
 "nearby-location-general-error" = "Tidak dapat menentukan lokasi. Tarik untuk menyegarkan atau coba lagi nanti.";
 "nearby-wifi" = "Mengaktifkan Wi-Fi dapat membantu perangkat Anda menentukan lokasi Anda lebih baik.";
 "migration-update-progress-label" = "Meningkatkan data lokal";
+"migration-update-progress-count-label" = "Memindahkan Artikel $1 dari $2";
 "image-gallery-unknown-owner" = "Pengunggah tidak diketahui.";
+"hockeyapp-alert-question" = "Apakah Anda ingin mengirimkan laporan kesalahan ke $1 jadi Wikimedia dapat meninjau kesalahan Anda?";
+"hockeyapp-alert-question-with-response-field" = "Apakah Anda ingin mengirimkan laporan kesalahan ke $1 jadi Wikimedia dapat meninjau kesalahan Anda? Silakan jelasjelaskan apa yang terjadi ketika kesalahan terjadi:";
+"hockeyapp-alert-title" = "Maaf, aplikasi berhenti dengan sendirinya terakhir kali";
+"hockeyapp-alert-send-report" = "Kirim laporan";
+"hockeyapp-alert-always-send" = "Selalu kirim";
+"hockeyapp-alert-do-not-send" = "Jangan kirim";
+"hockeyapp-alert-privacy" = "Privasi $1";

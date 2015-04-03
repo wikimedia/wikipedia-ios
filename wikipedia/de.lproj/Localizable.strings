@@ -247,6 +247,7 @@
 "nearby-location-general-error" = "Standort konnte nicht bestimmt werden. Zum Aktualisieren ziehen oder später erneut versuchen.";
 "nearby-wifi" = "Das Aktivieren von Wi-Fi kann dabei helfen, den Standort deines Gerätes besser zu bestimmen.";
 "migration-update-progress-label" = "Aktualisiere lokale Daten";
+"migration-update-progress-count-label" = "Migriere Artikel $1 von $2";
 "image-gallery-unknown-owner" = "Hochlader unbekannt.";
 "hockeyapp-alert-question" = "Möchtest du einen Absturzbericht an $1 senden, so dass Wikimedia deinen Absturz überprüfen kann?";
 "hockeyapp-alert-question-with-response-field" = "Möchtest du einen Absturzbericht an $1 senden, so dass Wikimedia deinen Absturz überprüfen kann? Bitte beschreibe, was passiert ist, als der Absturz aufgetreten ist:";

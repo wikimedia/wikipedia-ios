@@ -121,8 +121,7 @@
 "main-menu-terms-of-use" = "Användarvillkor";
 "main-menu-rate-app" = "Betygsätt app";
 "main-menu-heading-zero" = "Wikipedia Zero";
-// Fuzzy
-"main-menu-heading-legal" = "Rättslig information";
+"main-menu-heading-legal" = "Integritet och villkor";
 "main-menu-show-today" = "Idag";
 "main-menu-nearby" = "I närheten";
 "main-menu-more" = "Mer...";
@@ -256,6 +255,7 @@
 "nearby-location-general-error" = "Det gick inte att bestämma plats. Dra för att uppdatera eller försök igen senare.";
 "nearby-wifi" = "Att aktivera wifi kan hjälpa din enhet att bättre avgöra din position.";
 "migration-update-progress-label" = "Uppgraderar lokal data";
+"migration-update-progress-count-label" = "Migrerar artikel $1 av $2";
 "image-gallery-unknown-owner" = "Okänd uppladdare.";
 "hockeyapp-alert-question" = "Vill du skicka en kraschrapport till $1 så kan Wikimedia kan undersöka din krasch?";
 "hockeyapp-alert-question-with-response-field" = "Vill du skicka en kraschrapport till $1 så att Wikimedia  undersöka din krasch? Beskriv vad som hände när kraschen inträffade:";
