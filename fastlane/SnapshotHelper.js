@@ -1,4 +1,3 @@
-/* jshint ignore:start */
 function wait_for_loading_indicator_to_be_finished()
 {
   try {

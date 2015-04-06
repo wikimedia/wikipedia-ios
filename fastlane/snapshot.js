@@ -1,4 +1,3 @@
-/* jshint ignore:start */
 #import "SnapshotHelper.js"
 
 var target = UIATarget.localTarget();

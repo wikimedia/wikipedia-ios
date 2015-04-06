@@ -2567,14 +2567,12 @@
 				F33F4F6424C55FEF072D1A81 /* Check Pods Manifest.lock */,
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
-				04272E7619404CDF00CC682F /* run-grunt */,
-				04272E75193FF7F000CC682F /* make-css-assets */,
 				D4C16A621970946900CD91AD /* update-storyboard-strings */,
 				D4C16A631970949A00CD91AD /* update-qqq */,
 				D4991433181D51DE00E6073C /* Resources */,
+				0EB312441ACB96C300C7F7A6 /* Process Icons */,
 				04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */,
 				45FA417DEEAE18B42A662320 /* Copy Pods Resources */,
-				0EB312441ACB96C300C7F7A6 /* Process Icons */,
 			);
 			buildRules = (
 			);
@@ -2802,35 +2800,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		04272E75193FF7F000CC682F /* make-css-assets */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"",
-			);
-			name = "make-css-assets";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "scripts/make-css-assets.bash";
-		};
-		04272E7619404CDF00CC682F /* run-grunt */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "run-grunt";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "scripts/run-grunt.sh";
-		};
 		04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2843,7 +2812,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "scripts/copy-wmflogo-to-assets.sh";
+			shellScript = "./scripts/copy-wmflogo-to-assets.sh";
 		};
 		0EB312441ACB96C300C7F7A6 /* Process Icons */ = {
 			isa = PBXShellScriptBuildPhase;
