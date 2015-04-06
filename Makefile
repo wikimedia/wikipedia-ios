@@ -7,33 +7,30 @@ help: ##Show this help
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
 clean: ##Clean the Xcode workspace
-	xcodebuild clean $(XCODEBUILD_BASE_ARGS) -scheme $(XC_DEFAULT_SCHEME) 
+	xcodebuild clean $(XCODEBUILD_BASE_ARGS) -scheme $(XC_DEFAULT_SCHEME)
 
 build: ##Fetch code dependencies and build the app for release
-build: get-deps
+build:
 	xcodebuild build $(XCODEBUILD_BASE_ARGS) \
 		-scheme $(XC_DEFAULT_SCHEME) \
 		-sdk iphoneos \
 		-configuration Release
 
 build-sim: ##Fetch code dependencies and build the app for debugging in the simulator
-build-sim: get-deps
+build-sim:
 	xcodebuild build $(XCODEBUILD_BASE_ARGS) \
 		-scheme $(XC_DEFAULT_SCHEME) \
 		-sdk iphonesimulator \
 		-configuration Debug
 
 test: ##Fetch code dependencies and run tests
-test: get-deps
+test:
 	xcodebuild test $(XCODEBUILD_BASE_ARGS) \
 		-scheme $(XC_DEFAULT_SCHEME) \
 		-sdk iphonesimulator
 
 lint: ##Lint the native code, requires uncrustify
 	@scripts/uncrustify_all.sh
-
-get-deps: ##Download third-party components (i.e. CocoaPods and npm packages)
-get-deps: check-deps pod npm
 
 check-deps: ##Make sure system prerequisites are installed
 check-deps: xcode-cltools exec-deps node bundler

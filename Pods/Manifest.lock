@@ -1,0 +1,35 @@
+PODS:
+  - AFNetworking/NSURLConnection (2.5.2):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.2)
+  - AFNetworking/Security (2.5.2)
+  - AFNetworking/Serialization (2.5.2)
+  - BlocksKit/Core (2.2.5)
+  - HockeySDK (3.6.2)
+  - hpple (0.2.0)
+  - Masonry (0.6.1)
+  - OCHamcrest (4.1.1)
+  - OCMockito (1.4.0):
+    - OCHamcrest (~> 4.0)
+
+DEPENDENCIES:
+  - AFNetworking/NSURLConnection (~> 2.5)
+  - blockskit/Core (~> 2.2)
+  - HockeySDK (= 3.6.2)
+  - hpple (~> 0.2)
+  - Masonry (~> 0.6)
+  - OCHamcrest (~> 4.1)
+  - OCMockito (~> 1.4)
+
+SPEC CHECKSUMS:
+  AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
+  BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  HockeySDK: 51ade1aff04463137e852797d2eb4dfb2511d6a9
+  hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
+  Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
+  OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
+  OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
+
+COCOAPODS: 0.36.1

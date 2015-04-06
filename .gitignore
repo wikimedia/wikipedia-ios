@@ -24,14 +24,19 @@ fastlane/report.xml
 fastlane/Error*.png
 *.mobileprovision
 
-# Ignore baselines, which we'll eventually maintain in CI to prevent false negatives due to dev machine discrepancies
+# Ignore baselines, which we'll eventually maintain in CI to prevent
+# false negatives due to dev machine discrepancies
 xcbaselines/
 
 # Provisioning Profiles
 *.mobileprovision
 
 # CocoaPods
-Pods/
+#
+# We're committing the Pods folder in order to facilitate setup
+# and have repeatable builds (each commit is a snapshot of our dependencies)
+#
+# Pods/
 
 # FastLane
 screenshots/
