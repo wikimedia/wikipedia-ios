@@ -29,4 +29,3 @@
 #define WIKIGLYPH_CITE                           @"\ue96b"
 #define WIKIGLYPH_PUBLIC_DOMAIN                  @"\ue96c"
 #define WIKIGLYPH_RELOAD                         @"\ue96d"
-

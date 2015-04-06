@@ -15,4 +15,3 @@ int main(int argc, char* argv[]) {
                                  isUnitTesting ? nil : NSStringFromClass([AppDelegate class]));
     }
 }
-

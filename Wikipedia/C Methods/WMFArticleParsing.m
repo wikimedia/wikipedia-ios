@@ -111,4 +111,3 @@ void WMFInjectArticleWithImagesFromSection(MWKArticle* article, NSString* sectio
         [image save];
     }
 }
-
