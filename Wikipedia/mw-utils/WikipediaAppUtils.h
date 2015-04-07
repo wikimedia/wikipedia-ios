@@ -58,6 +58,7 @@ FOUNDATION_EXPORT NSString* WMFNormalizedPageTitle(NSString* rawPageTitle);
 @interface WikipediaAppUtils : NSObject
 
 + (NSString*)appVersion;
++ (NSString*)bundleID;
 + (NSString*)formFactor;
 + (NSString*)versionedUserAgent;
 + (NSString*)localizedStringForKey:(NSString*)key;
@@ -69,7 +70,5 @@ FOUNDATION_EXPORT NSString* WMFNormalizedPageTitle(NSString* rawPageTitle);
 + (NSTextAlignment)rtlSafeAlignment;
 
 + (void)copyAssetsFolderToAppDataDocuments;
-
-+ (NSString*)crashReportingID;
 
 @end

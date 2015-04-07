@@ -25,6 +25,10 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle) {
     return [NSString stringWithFormat:@"%@", [appInfo objectForKey:@"CFBundleShortVersionString"]];
 }
 
++ (NSString*)bundleID {
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+}
+
 + (NSString*)formFactor {
     UIUserInterfaceIdiom ff = UI_USER_INTERFACE_IDIOM();
     // We'll break; on each case, just to follow good form.
@@ -223,29 +227,6 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle) {
         BOOL isRTL = [self isDeviceLanguageRTL];
         return isRTL ? NSTextAlignmentRight : NSTextAlignmentLeft;
     }
-}
-
-/*
-   If you want to generate a crash yourself: hange the bundle ID to one of the constants below, then push
-   the build to your device with Xcode, then disconnect your device rom the computer, then run the app.
- */
-+ (NSDictionary*)mapOfCrashReportingAppIDs {
-    NSParameterAssert([NSThread isMainThread]);
-    static NSDictionary* HOCKEYAPP_IDS;
-    if (!HOCKEYAPP_IDS) {
-        HOCKEYAPP_IDS = @{@"org.wikimedia.wikipedia.alphahockey": @"11136dadf17c6d8b76f903e92eea83b1",
-                          @"org.wikimedia.wikipedia.tfbeta": @"2295c3698bbd0b050f257772dd2bdbb2",
-                          @"org.wikimedia.wikipedia": @"5d80da08a6761e5c6456736af7ebad88"
-#if 0
-                          , @"org.wikimedia.wikipedia.developer": @"76947f174e31a9e33fe67d81ff31732e"
-#endif
-        };
-    }
-    return HOCKEYAPP_IDS;
-}
-
-+ (NSString*)crashReportingID {
-    return [self mapOfCrashReportingAppIDs][[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"]];
 }
 
 @end
