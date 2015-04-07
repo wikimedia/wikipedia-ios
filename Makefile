@@ -70,7 +70,9 @@ get-xcode-cltools: ##Install Xcode command-line tools
 #!!!!!
 
 get-homebrew: ##Install Homebrew using the bootstrapping script from http://brew.sh
-	@if [[ ! $$(brew -v 2>/dev/null) =~ "Homebrew" ]]; then \
+	@if [[ $$(brew -v 2>/dev/null) =~ "Homebrew" ]]; then \
+		echo "Homebrew already installed!"; \
+	else \
 		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; \
 	fi
 
@@ -108,34 +110,20 @@ exec-check:  ##Check that executable dependencies are installed
 #!!!!! Web dependency management
 #!!!!!
 
-web: ##Make web assets
-web: css grunt
-
-CSS_ORIGIN = http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&only=styles&skin=vector&modules=
+CSS_ORIGIN = "http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&only=styles&skin=vector&modules="
 WEB_ASSETS_DIR = "Wikipedia/assets"
 
-define get_css_module
-curl -s -L -o
-endef
+cd "Wikipedia/assets/" && {
+    curl -L -f -o 'styles.css'       "${PREFIX}mobile.app.pagestyles.ios"
+    curl -L -f -o 'abusefilter.css'  "${PREFIX}mobile.app.pagestyles.ios"
+    curl -L -f -o 'preview.css'      "${PREFIX}mobile.app.preview"
+}
 
-css: ##Download latest stylesheets
-	@echo "Downloading CSS assets..."; \
-	mkdir -p $(WEB_ASSETS_DIR); \
-	cd $(WEB_ASSETS_DIR); \
-	$(get_css_module) 'styles.css' "$(CSS_ORIGIN)mobile.app.pagestyles.ios" > /dev/null; \
-	$(get_css_module) 'abusefilter.css' "$(CSS_ORIGIN)mobile.app.pagestyles.ios" > /dev/null; \
-	$(get_css_module) 'preview.css' "$(CSS_ORIGIN)mobile.app.preview" > /dev/null
 
 NODE_VERSION = "$(shell node -v 2>/dev/null)"
 NPM_VERSION = "$(shell npm -version 2>/dev/null)"
 
-grunt: ##Run grunt
-grunt: npm
-	@cd www && grunt && cd ..
-
-npm: ##Install Javascript dependencies
-npm: node-check
-	@cd www && npm install && cd ..
+npm: ##TODO, run npm install
 
 get-node: ##Install node via Homebrew
 	brew install node
