@@ -33,6 +33,7 @@
 
 - (void)testArticleStoreSection0 {
     XCTAssertNoThrow([self.article importMobileViewJSON:self.json0[@"mobileview"]]);
+    [self.article save];
 
     MWKArticle* article;
     XCTAssertNoThrow(article = [self.dataStore articleWithTitle:self.title], @"article can be loaded after saving it");
@@ -46,23 +47,23 @@
 }
 
 - (void)testArticleStoreSection1ToEnd {
-    XCTAssertNoThrow([self.article importMobileViewJSON:self.json0[@"mobileview"]]);
     XCTAssertNoThrow([self.article importMobileViewJSON:self.json1[@"mobileview"]]);
+    [self.article save];
 
     MWKArticle* article;
     XCTAssertNoThrow(article = [self.dataStore articleWithTitle:self.title], @"article can be loaded after saving it");
 
     NSFileManager* fm = [NSFileManager defaultManager];
     XCTAssertTrue([fm fileExistsAtPath:[[self.dataStore pathForTitle:self.title] stringByAppendingPathComponent:@"Article.plist"]]);
-    XCTAssertTrue([fm fileExistsAtPath:[[self.dataStore pathForSectionId:0 title:self.title] stringByAppendingPathComponent:@"Section.plist"]]);
-    XCTAssertTrue([fm fileExistsAtPath:[[self.dataStore pathForSectionId:0 title:self.title] stringByAppendingPathComponent:@"Section.html"]]);
+    XCTAssertTrue([fm fileExistsAtPath:[[self.dataStore pathForSectionId:1 title:self.title] stringByAppendingPathComponent:@"Section.plist"]]);
+    XCTAssertTrue([fm fileExistsAtPath:[[self.dataStore pathForSectionId:1 title:self.title] stringByAppendingPathComponent:@"Section.html"]]);
     XCTAssertTrue([fm fileExistsAtPath:[[self.dataStore pathForSectionId:35 title:self.title] stringByAppendingPathComponent:@"Section.plist"]]);
     XCTAssertTrue([fm fileExistsAtPath:[[self.dataStore pathForSectionId:35 title:self.title] stringByAppendingPathComponent:@"Section.html"]]);
 }
 
 - (void)testArticleStoreReadSections {
     XCTAssertNoThrow([self.article importMobileViewJSON:self.json0[@"mobileview"]]);
-    XCTAssertNoThrow([self.article importMobileViewJSON:self.json1[@"mobileview"]]);
+    [self.article save];
 
     MWKSectionList* sections = self.article.sections;
     XCTAssertNotNil(sections);

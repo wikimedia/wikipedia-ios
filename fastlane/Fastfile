@@ -9,29 +9,27 @@ before_all do
   reset_git_repo :force unless ENV['NO_RESET']
   ensure_git_status_clean unless ENV['NO_RESET']
   cocoapods
-end
-
-def pre_check
-  #sh './scripts/uncrustify_all.sh'
-
-  xcbuild({
-    scheme: 'Wikipedia',
-    analyze: nil
-  })
-
-  xctest({
-    scheme: 'Wikipedia',
-    destination: "platform=iOS Simulator,name=iPhone 5s,OS=8.2",
-    report_formats: [ "html", "junit" ],
-    clean: nil
-  })
-end
-
-lane :test do
   pre_check
 end
 
+def pre_check
+
+  xctest({
+    scheme: 'Wikipedia',
+    destination: "platform=iOS Simulator,name=iPhone 6,OS=8.2",
+    report_formats: [ "html", "junit" ],
+    report_path: "build/reports/iOS82/report.xml",
+    clean: nil
+  })
+
+end
+
+lane :test do
+  
+end
+
 lane :alpha do
+
   # Download the Certificate for signing
   cert
 
@@ -130,7 +128,7 @@ lane :appstore do
 end
 
 after_all do |lane|
-  reset_git_repo :force
+
 end
 
 
