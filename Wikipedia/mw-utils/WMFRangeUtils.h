@@ -8,8 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-extern inline BOOL WMFRangeIsNotFoundOrEmpty(NSRange const range);
+static inline BOOL WMFRangeIsNotFoundOrEmpty(NSRange const range) {
+    return range.location == NSNotFound || range.length == 0;
+}
 
-extern inline NSRange WMFRangeMakeNotFound();
+static inline NSRange WMFRangeMakeNotFound() {
+    return NSMakeRange(NSNotFound, 0);
+}
 
-extern inline NSUInteger WMFRangeGetMaxIndex(NSRange const range);
+static inline NSUInteger WMFRangeGetMaxIndex(NSRange const range) {
+    return range.location != NSNotFound ?
+           range.location + range.length
+           : NSNotFound;
+}
