@@ -45,21 +45,23 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
 - (void)wmf_setupAndStart {
     NSString* bundleID = [WikipediaAppUtils bundleID];
 
-    [[BITHockeyManager sharedHockeyManager] wmf_setAPIKeyForBundleID:bundleID];
+    if ([[BITHockeyManager sharedHockeyManager] wmf_setAPIKeyForBundleID:bundleID]) {
+        [[BITHockeyManager sharedHockeyManager] startManager];
 
-    [[BITHockeyManager sharedHockeyManager] startManager];
+        [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
 
-    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-
-    [[BITHockeyManager sharedHockeyManager] wmf_setupCrashNotificationAlert];
+        [[BITHockeyManager sharedHockeyManager] wmf_setupCrashNotificationAlert];
+    }
 }
 
-- (void)wmf_setAPIKeyForBundleID:(NSString*)bundleID {
+- (BOOL)wmf_setAPIKeyForBundleID:(NSString*)bundleID {
     NSString* crashReportingAppID = [[self class] crashReportingIDFor:bundleID];
     if (!crashReportingAppID) {
-        return;
+        return NO;
     }
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:crashReportingAppID];
+
+    return YES;
 }
 
 - (void)wmf_setupCrashNotificationAlert {

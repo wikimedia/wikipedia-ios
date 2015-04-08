@@ -14,8 +14,10 @@
  *  Set the Hockey API Key based on a bundle ID
  *
  *  @param bundleID The bundle ID to map to an API Key
+ *
+ *  @return YES if successful, otherwise NO
  */
-- (void)wmf_setAPIKeyForBundleID:(NSString*)bundleID;
+- (BOOL)wmf_setAPIKeyForBundleID:(NSString*)bundleID;
 
 /**
  *  Configure the alert to be displayed when a user is prompeted to send a crash report
