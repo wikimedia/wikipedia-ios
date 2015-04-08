@@ -4,16 +4,27 @@
 
 ENV['XCODE_WORKSPACE'] = 'Wikipedia.xcworkspace'
 
-before_all do
-  p ENV
-  reset_git_repo :force unless ENV['NO_RESET']
-  ensure_git_status_clean unless ENV['NO_RESET']
-  cocoapods
-  pre_check
+# Returns true if the `NO_RESET` env var is set to 1
+def reset_disabled?
+  ENV['NO_RESET'] == '1'
 end
 
-def pre_check
+# Returns true if the `NO_DEPLOY` env var is set to 1
+def deploy_disabled?
+  ENV['NO_DEPLOY'] == '1'
+end
 
+# Runs goals from the project's Makefile, this requires going up to the project directory.
+# :args: Additional arguments to be passed to `make`.
+# Returns The result of the `make` command
+def make(args)
+  # Maybe we should write an "uncrustify" fastlane action?...
+  Dir.chdir '..' do
+    sh 'make ' + args
+  end
+end
+
+def run_unit_tests
   xctest({
     scheme: 'Wikipedia',
     destination: "platform=iOS Simulator,name=iPhone 6,OS=8.2",
@@ -21,15 +32,23 @@ def pre_check
     report_path: "build/reports/iOS82/report.xml",
     clean: nil
   })
+end
 
+before_all do
+  p ENV
+  unless reset_disabled?
+    reset_git_repo :force
+    ensure_git_status_clean
+  end
 end
 
 lane :test do
-  
+  make 'lint'
 end
 
 lane :alpha do
-
+  run_unit_tests
+  
   # Download the Certificate for signing
   cert
 
@@ -61,7 +80,7 @@ lane :alpha do
     # verbose: nil, # this means 'Do Verbose'.
   })
 
-  unless ENV['NO_DEPLOY']
+  unless deploy_disabled?
     # Upload the DSYM to Hockey
     hockey({
       api_token: 'c881c19fd8d0401682c4640b7948ef5e',
@@ -76,6 +95,8 @@ lane :alpha do
 end
 
 lane :beta do
+  run_unit_tests
+
   # Download the Certificate for signing
   cert
 
@@ -106,7 +127,7 @@ lane :beta do
     archive: nil
   })
 
-  unless ENV['NO_DEPLOY']
+  unless deploy_disabled?
     # Upload the DSYM to Hockey
     hockey({
       api_token: 'c881c19fd8d0401682c4640b7948ef5e',
@@ -120,18 +141,17 @@ lane :beta do
 end
 
 lane :appstore do
+  run_unit_tests
   snapshot
   frameit
-  unless ENV['NO_DEPLOY']
+  unless deploy_disabled?
     deliver :skip_deploy, :force
   end
 end
 
-after_all do |lane|
+# after_all do |lane|
+# end
 
-end
+# error do |lane, exception|
+# end
 
-
-error do |lane, exception|
-  # Something bad happened
-end
