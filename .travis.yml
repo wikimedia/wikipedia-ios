@@ -1,0 +1,4 @@
+language: objective-c
+before_install:
+  - make travis-get-deps
+script: make travis-pr

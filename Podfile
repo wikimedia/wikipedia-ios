@@ -11,6 +11,7 @@ pod 'hpple', '~> 0.2'
 pod 'blockskit/Core', '~> 2.2'
 pod 'Masonry', '~> 0.6'
 pod 'HockeySDK', '3.6.2'
+pod 'XcodeCoverage', '~> 1.2', :configuration => 'Debug'
 
 target 'WikipediaUnitTests', :exclusive => false do
   pod 'OCMockito', '~> 1.4'

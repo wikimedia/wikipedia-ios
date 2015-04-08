@@ -1,3 +1,5 @@
+.PHONY=build
+
 XCODE_VERSION = "$(shell xcodebuild -version 2>/dev/null)"
 XC_WORKSPACE = Wikipedia.xcworkspace
 XC_PROJECT = Wikipedia.xcodeproj
@@ -34,9 +36,10 @@ analyze: xcode-cltools-check
 
 test: ##Fetch code dependencies and run tests
 test: xcode-cltools-check
-	xcodebuild test $(XCODEBUILD_BASE_ARGS) \
-		-scheme $(XC_DEFAULT_SCHEME) \
-		-sdk iphonesimulator
+	xctool -scheme $(XC_DEFAULT_SCHEME) \
+		-reporter pretty \
+		-sdk iphonesimulator \
+		test
 
 verify: ##Lint, anaylze, and run tests
 verify: lint analyze test
@@ -48,8 +51,27 @@ lint:
 check-deps: ##Make sure system prerequisites are installed
 check-deps: xcode-cltools-check exec-check node-check
 
-bootstrap: ##Only recommended if starting from scratch! Attempts to install all dependencies (Xcode command-line tools Homebrew, Ruby, Node, Bundler, etc...)
-bootstrap: get-xcode-cltools get-homebrew get-node get-bundler brew-install bundle-install
+clean-coverage: ##Clean code coverage data
+	@./Pods/XcodeCoverage/cleancov
+
+coverage: ##Generate code coverage
+	@./Pods/XcodeCoverage/getcov -o build --xml
+
+report-coverage: ##Send coverage report
+report-coverage:
+	@./scripts/coveralls.sh
+
+#!!!!!
+#!!!!! Travis
+#!!!!!
+
+travis-get-deps: ##Install dependencies for building on Travis
+travis-get-deps:
+	@brew install uncrustify; \
+	pip install cpp-coveralls -q
+
+travis-pr: ##Install dependencies for Travis and verify a Pull Request
+travis-pr: travis-get-deps lint test coverage report-coverage
 
 #!!!!!
 #!!!!! Xcode dependencies
@@ -163,7 +185,6 @@ pod: bundle-install
 
 bundle-install: ##Install gems using Bundler
 bundle-install: bundler-check
-	@$(BUNDLER) config build.nokogiri --use-system-libraries
 	@$(BUNDLER) install
 
 bundler-check: ##Make sure Bundler is installed
@@ -189,4 +210,12 @@ ruby-check: ##Make sure Ruby is installed
 
 get-ruby: ##Install Ruby via Homebrew (to remove need for sudo)
 		brew install ruby
+
+
+#!!!!!
+#!!!!! Misc
+#!!!!!
+
+bootstrap: ##Only recommended if starting from scratch! Attempts to install all dependencies (Xcode command-line tools Homebrew, Ruby, Node, Bundler, etc...)
+	bootstrap: get-xcode-cltools get-homebrew get-node get-bundler brew-install bundle-install
 
