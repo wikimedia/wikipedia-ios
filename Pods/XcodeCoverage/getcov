@@ -1,0 +1,142 @@
+#!/bin/bash
+#   XcodeCoverage by Jon Reid, http://qualitycoding/about/
+#   Copyright 2015 Jonathan M. Reid. See LICENSE.txt
+
+usage() {
+  echo "usage: getcov [[-s] [-x] [-o output_dir] [-i info_file] [-v]] | [-h]]"
+}
+
+main() {
+  scripts="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+  source "${scripts}/envcov.sh"
+
+  LCOV_INFO=Coverage.info
+  output_dir="${BUILT_PRODUCTS_DIR}"
+  while [ "$1" != "" ]; do
+    case $1 in
+      -s|--show)
+        show_html=1
+        echo "Show HTML Report"
+        ;;
+      -x|--xml)
+        generate_xml=1
+        echo "Generate Cobertura XML"
+        ;;
+      -o)
+        shift
+        output_dir=$1
+        echo "output_dir = ${output_dir}"
+        ;;
+      -i)
+        shift
+        LCOV_INFO=$1
+        echo "LCOV_INFO = ${LCOV_INFO}"
+        ;;
+      -v)
+        verbose=1
+        echo "Verbose"
+        ;;
+      -h|--help)
+        usage
+        echo "Show Help"
+        exit
+        ;;
+      *)
+        usage
+        exit 1
+    esac
+    shift
+  done
+
+  if [ "$verbose" = "1" ]; then
+    report_values
+  fi
+
+  remove_old_report
+  enter_lcov_dir
+  gather_coverage
+  exclude_data
+
+  if [ "$generate_xml" = "1" ]; then
+    generate_cobertura_xml
+  fi
+
+  generate_html_report
+
+  if [ "$show_html" = "1" ]; then
+    show_html_report
+  fi
+}
+
+report_values() {
+  echo "XcodeCoverage: Environment"
+  echo "scripts    : ${scripts}"
+  echo "output_dir : ${output_dir}"
+  echo "LCOV_INFO  : ${LCOV_INFO}"
+  echo "BUILD_DIR  : ${BUILT_PRODUCTS_DIR}"
+  echo "SRCROOT    : ${SRCROOT}"
+  echo "OBJ_DIR    : ${OBJ_DIR}"
+  echo "LCOV_PATH  : ${LCOV_PATH}"
+}
+
+remove_old_report() {
+  if [ "$verbose" = "1" ]; then
+    echo "XcodeCoverage: Removing old report"
+  fi
+
+  pushd "${output_dir}"
+  if [ -e lcov ]; then
+    rm -r lcov
+  fi
+  popd
+}
+
+enter_lcov_dir() {
+  cd "${output_dir}"
+  mkdir lcov
+  cd lcov
+}
+
+gather_coverage() {
+  if [ "$verbose" = "1" ]; then
+    echo "XcodeCoverage: Gathering coverage"
+  fi
+
+  LCOV --capture --derive-func-data -b "${SRCROOT}" -d "${OBJ_DIR}" -o "${LCOV_INFO}"
+}
+
+exclude_data() {
+  if [ "$verbose" = "1" ]; then
+    echo "XcodeCoverage: Excluding data"
+  fi
+
+  LCOV --remove "${LCOV_INFO}" "Developer/SDKs/*" -d "${OBJ_DIR}" -o "${LCOV_INFO}"
+  LCOV --remove "${LCOV_INFO}" "main.m" -d "${OBJ_DIR}" -o "${LCOV_INFO}"
+  # Remove other patterns here...
+}
+
+generate_cobertura_xml() {
+  if [ "$verbose" = "1" ]; then
+    echo "XcodeCoverage: Generating Cobertura XML"
+  fi
+
+  python "${scripts}/lcov_cobertura.py" ${LCOV_INFO} --base-dir "${SRCROOT}" --output "coverage.xml"
+}
+
+generate_html_report() {
+  if [ "$verbose" = "1" ]; then
+    echo "XcodeCoverage: Generating HTML report"
+  fi
+     
+  "${LCOV_PATH}/genhtml" --output-directory . "${LCOV_INFO}"
+}
+
+show_html_report() {
+  if [ "$verbose" = "1" ]; then
+    echo "XcodeCoverage: Opening HTML report"
+  fi
+
+  open index.html
+}
+
+main "$@"

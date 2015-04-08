@@ -2574,6 +2574,7 @@
 				0EB312441ACB96C300C7F7A6 /* Process Icons */,
 				04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */,
 				45FA417DEEAE18B42A662320 /* Copy Pods Resources */,
+				BCE92B301AD57D24001C1452 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2872,6 +2873,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+		};
+		BCE92B301AD57D24001C1452 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "Pods/XcodeCoverage/exportenv.sh\n";
 		};
 		D4C16A621970946900CD91AD /* update-storyboard-strings */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3789,6 +3803,8 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

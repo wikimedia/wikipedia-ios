@@ -1,3 +1,5 @@
+.PHONY=build
+
 XCODE_VERSION = "$(shell xcodebuild -version 2>/dev/null)"
 XC_WORKSPACE = Wikipedia.xcworkspace
 XC_PROJECT = Wikipedia.xcodeproj
@@ -34,9 +36,10 @@ analyze: xcode-cltools-check
 
 test: ##Fetch code dependencies and run tests
 test: xcode-cltools-check
-	xcodebuild test $(XCODEBUILD_BASE_ARGS) \
-		-scheme $(XC_DEFAULT_SCHEME) \
-		-sdk iphonesimulator
+	xctool -scheme $(XC_DEFAULT_SCHEME) \
+		-reporter pretty \
+		-sdk iphonesimulator \
+		test
 
 verify: ##Lint, anaylze, and run tests
 verify: lint analyze test
@@ -48,8 +51,27 @@ lint:
 check-deps: ##Make sure system prerequisites are installed
 check-deps: xcode-cltools-check exec-check node-check
 
-bootstrap: ##Only recommended if starting from scratch! Attempts to install all dependencies (Xcode command-line tools Homebrew, Ruby, Node, Bundler, etc...)
-bootstrap: get-xcode-cltools get-homebrew get-node get-bundler brew-install bundle-install
+clean-coverage: ##Clean code coverage data
+	@./Pods/XcodeCoverage/cleancov
+
+coverage: ##Generate code coverage
+	@./Pods/XcodeCoverage/getcov -o build --xml
+
+report-coverage: ##Send coverage report
+report-coverage:
+	@./scripts/coveralls.sh
+
+#!!!!!
+#!!!!! Travis
+#!!!!!
+
+travis-get-deps: ##Install dependencies for building on Travis
+travis-get-deps:
+	@brew install uncrustify; \
+	pip install cpp-coveralls -q
+
+travis-pr: ##Install dependencies for Travis and verify a Pull Request
+travis-pr: travis-get-deps lint test coverage report-coverage
 
 #!!!!!
 #!!!!! Xcode dependencies
@@ -110,20 +132,34 @@ exec-check:  ##Check that executable dependencies are installed
 #!!!!! Web dependency management
 #!!!!!
 
-CSS_ORIGIN = "http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&only=styles&skin=vector&modules="
+web: ##Make web assets
+web: css grunt
+
+CSS_ORIGIN = http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&only=styles&skin=vector&modules=
 WEB_ASSETS_DIR = "Wikipedia/assets"
 
-cd "Wikipedia/assets/" && {
-    curl -L -f -o 'styles.css'       "${PREFIX}mobile.app.pagestyles.ios"
-    curl -L -f -o 'abusefilter.css'  "${PREFIX}mobile.app.pagestyles.ios"
-    curl -L -f -o 'preview.css'      "${PREFIX}mobile.app.preview"
-}
+define get_css_module
+curl -s -L -o
+endef
 
+css: ##Download latest stylesheets
+	@echo "Downloading CSS assets..."; \
+	mkdir -p $(WEB_ASSETS_DIR); \
+	cd $(WEB_ASSETS_DIR); \
+	$(get_css_module) 'styles.css' "$(CSS_ORIGIN)mobile.app.pagestyles.ios" > /dev/null; \
+	$(get_css_module) 'abusefilter.css' "$(CSS_ORIGIN)mobile.app.pagestyles.ios" > /dev/null; \
+	$(get_css_module) 'preview.css' "$(CSS_ORIGIN)mobile.app.preview" > /dev/null
 
 NODE_VERSION = "$(shell node -v 2>/dev/null)"
 NPM_VERSION = "$(shell npm -version 2>/dev/null)"
 
-npm: ##TODO, run npm install
+grunt: ##Run grunt
+grunt: npm
+	@cd www && grunt && cd ..
+
+npm: ##Install Javascript dependencies
+npm: node-check
+	@cd www && npm install && cd ..
 
 get-node: ##Install node via Homebrew
 	brew install node
@@ -149,7 +185,6 @@ pod: bundle-install
 
 bundle-install: ##Install gems using Bundler
 bundle-install: bundler-check
-	@$(BUNDLER) config build.nokogiri --use-system-libraries
 	@$(BUNDLER) install
 
 bundler-check: ##Make sure Bundler is installed
@@ -175,4 +210,12 @@ ruby-check: ##Make sure Ruby is installed
 
 get-ruby: ##Install Ruby via Homebrew (to remove need for sudo)
 		brew install ruby
+
+
+#!!!!!
+#!!!!! Misc
+#!!!!!
+
+bootstrap: ##Only recommended if starting from scratch! Attempts to install all dependencies (Xcode command-line tools Homebrew, Ruby, Node, Bundler, etc...)
+	bootstrap: get-xcode-cltools get-homebrew get-node get-bundler brew-install bundle-install
 

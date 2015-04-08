@@ -1,0 +1,5 @@
+//  XcodeCoverage by Jon Reid, http://qualitycoding.org/about/
+//  Source: https://github.com/jonreid/XcodeCoverage
+
+GCC_GENERATE_TEST_COVERAGE_FILES = YES
+GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES
