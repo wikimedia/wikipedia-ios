@@ -4,10 +4,6 @@
 #import "ArticleDataContextSingleton.h"
 #import "NSManagedObjectModel+OldDataSchema.h"
 
-id WMFCreateArticleDataModel(Class modelClass) {
-    return [[ArticleDataContextSingleton sharedInstance] createArticleDataModel:modelClass];
-}
-
 @interface ArticleDataContextSingleton (){
     
 }
