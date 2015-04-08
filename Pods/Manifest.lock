@@ -13,6 +13,7 @@ PODS:
   - OCHamcrest (4.1.1)
   - OCMockito (1.4.0):
     - OCHamcrest (~> 4.0)
+  - XcodeCoverage (1.2.2)
 
 DEPENDENCIES:
   - AFNetworking/NSURLConnection (~> 2.5)
@@ -22,6 +23,7 @@ DEPENDENCIES:
   - Masonry (~> 0.6)
   - OCHamcrest (~> 4.1)
   - OCMockito (~> 1.4)
+  - XcodeCoverage (~> 1.2)
 
 SPEC CHECKSUMS:
   AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
@@ -31,5 +33,6 @@ SPEC CHECKSUMS:
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
+  XcodeCoverage: 46ab36f35da908cf70498a34610c95d24230303a
 
 COCOAPODS: 0.36.1

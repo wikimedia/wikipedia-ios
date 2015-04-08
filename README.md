@@ -1,6 +1,9 @@
 # Wikipedia iOS
 The official Wikipedia iOS client.
 
+![Build Status](https://travis-ci.org/btgerst/apps-ios-wikipedia.svg)
+[![Coverage Status](https://coveralls.io/repos/btgerst/apps-ios-wikipedia/badge.svg)](https://coveralls.io/r/btgerst/apps-ios-wikipedia)
+
 * OS target: iOS 6.0 or higher
 * Device target: iPhone, iPod, iPad
 * License: MIT-style

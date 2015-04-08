@@ -38,6 +38,9 @@ xcbaselines/
 #
 # Pods/
 
+# Ignore Xcode environment exported by XcodeCoverage
+Pods/XcodeCoverage/env.sh
+
 # FastLane
 screenshots/
 fastlane/report.xml

@@ -206,6 +206,7 @@
 - (MWKImage*)largestCachedVariant {
     return [self.article.images largestImageVariantForURL:self.sourceURL cachedOnly:YES];
 }
+
 - (MWKImage*)smallestCachedVariant {
     return [self.article.images smallestImageVariantForURL:self.sourceURL cachedOnly:YES];
 }

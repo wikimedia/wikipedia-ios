@@ -54,3 +54,13 @@
 #define COCOAPODS_VERSION_MINOR_hpple 2
 #define COCOAPODS_VERSION_PATCH_hpple 0
 
+// Debug build configuration
+#ifdef DEBUG
+
+  // XcodeCoverage
+  #define COCOAPODS_POD_AVAILABLE_XcodeCoverage
+  #define COCOAPODS_VERSION_MAJOR_XcodeCoverage 1
+  #define COCOAPODS_VERSION_MINOR_XcodeCoverage 2
+  #define COCOAPODS_VERSION_PATCH_XcodeCoverage 2
+
+#endif
