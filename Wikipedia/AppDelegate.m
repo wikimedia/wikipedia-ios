@@ -25,7 +25,7 @@
 }
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
-    [[BITHockeyManager sharedHockeyManager] setupAndStart];
+    [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
 
     [self systemWideStyleOverrides];
 
