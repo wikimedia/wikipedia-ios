@@ -42,19 +42,19 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
     return MWLocalizedString(kHockeyAppDoNotSendStringsKey, nil);
 }
 
-- (void)setupAndStart {
+- (void)wmf_setupAndStart {
     NSString* bundleID = [WikipediaAppUtils bundleID];
 
-    [[BITHockeyManager sharedHockeyManager] setAPIKeyForBundleID:bundleID];
+    [[BITHockeyManager sharedHockeyManager] wmf_setAPIKeyForBundleID:bundleID];
 
     [[BITHockeyManager sharedHockeyManager] startManager];
 
     [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
 
-    [[BITHockeyManager sharedHockeyManager] setupCrashNotificationAlert];
+    [[BITHockeyManager sharedHockeyManager] wmf_setupCrashNotificationAlert];
 }
 
-- (void)setAPIKeyForBundleID:(NSString*)bundleID {
+- (void)wmf_setAPIKeyForBundleID:(NSString*)bundleID {
     NSString* crashReportingAppID = [[self class] crashReportingIDFor:bundleID];
     if (!crashReportingAppID) {
         return;
@@ -62,7 +62,7 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:crashReportingAppID];
 }
 
-- (void)setupCrashNotificationAlert {
+- (void)wmf_setupCrashNotificationAlert {
     [[BITHockeyManager sharedHockeyManager].crashManager setAlertViewHandler:^(){
         NSString* title = [MWLocalizedString(kHockeyAppTitleStringsKey, nil)
                            stringByReplacingOccurrencesOfString:@"$1" withString:WMFHockeyAppServiceName];
