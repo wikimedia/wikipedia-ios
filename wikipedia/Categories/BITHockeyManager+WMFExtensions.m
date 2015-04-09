@@ -48,6 +48,8 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
     if ([[BITHockeyManager sharedHockeyManager] wmf_setAPIKeyForBundleID:bundleID]) {
         [[BITHockeyManager sharedHockeyManager] startManager];
 
+        [BITHockeyManager sharedHockeyManager].updateManager.updateSetting = BITUpdateCheckManually;
+
         [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
 
         [[BITHockeyManager sharedHockeyManager] wmf_setupCrashNotificationAlert];

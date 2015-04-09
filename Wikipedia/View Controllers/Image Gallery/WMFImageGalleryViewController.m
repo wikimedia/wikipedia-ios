@@ -592,9 +592,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }];
 }
 
-- (void)imageInfoController:(WMFImageInfoController *)controller
+- (void)imageInfoController:(WMFImageInfoController*)controller
          failedToFetchBatch:(NSRange)range
-                      error:(NSError *)error {
+                      error:(NSError*)error {
     // TODO: only show errors on the cells for which we failed to get image info
     [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
 }
