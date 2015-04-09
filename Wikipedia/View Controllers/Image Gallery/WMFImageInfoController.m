@@ -146,7 +146,9 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 #pragma mark - Private Fetch
 
 - (NSRange)batchRangeForTargetIndex:(NSUInteger)index {
-    NSParameterAssert(index < self.uniqueArticleImages.count);
+    if (index > self.uniqueArticleImages.count) {
+        return WMFRangeMakeNotFound();
+    }
     NSUInteger const start = floorf(index / (float)self.infoBatchSize) * self.infoBatchSize;
     NSRange const range    = NSMakeRange(start, MIN(self.infoBatchSize, self.uniqueArticleImages.count - start));
     NSParameterAssert(range.location <= index);
