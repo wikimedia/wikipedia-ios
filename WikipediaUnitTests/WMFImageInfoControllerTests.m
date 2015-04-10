@@ -104,8 +104,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 
 
 - (void)testFetchBatchRanges {
-    NSMutableIndexSet* indexesToFetch = [NSMutableIndexSet new];
-    [indexesToFetch addIndex:0];
+    NSMutableIndexSet* indexesToFetch = [NSMutableIndexSet indexSetWithIndex:0];
     [indexesToFetch addIndex:self.controller.uniqueArticleImages.count - 1];
     [self.controller fetchBatchesContainingIndexes:indexesToFetch];
     [indexesToFetch enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
@@ -117,6 +116,11 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
                                                                        success:anything()
                                                                        failure:anything()];
     }];
+}
+
+- (void)testIgnoreOutOfBoundsNeighbor {
+    [self.controller fetchBatchContainingIndex:0 withNthNeighbor:self.controller.uniqueArticleImages.count + 1];
+    [self verifyInfoFetcherCallForIndexes:[NSIndexSet indexSetWithIndex:0]];
 }
 
 - (void)testFetchBatchAlongWithNeighborReturnsOneRequestForEachFetch {
