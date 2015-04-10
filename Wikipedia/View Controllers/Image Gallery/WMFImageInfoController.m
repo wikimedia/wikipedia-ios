@@ -138,7 +138,7 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 
 - (NSArray*)fetchBatchContainingIndex:(NSInteger)index withNthNeighbor:(NSUInteger)next {
     NSAssert(next >= 0, @"No reason to call this method with next == 0");
-    NSMutableIndexSet* indexes = [NSMutableIndexSet indexSetWithIndex:index];
+    NSMutableIndexSet* indexes     = [NSMutableIndexSet indexSetWithIndex:index];
     NSUInteger const neighborIndex = index + next;
     if (neighborIndex < self.uniqueArticleImages.count) {
         [indexes addIndex:index + next];

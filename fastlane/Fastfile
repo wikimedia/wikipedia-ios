@@ -2,37 +2,10 @@
 # https://github.com/krausefx/fastlane#customise-the-fastfile
 # vim: ft=ruby
 
-ENV['XCODE_WORKSPACE'] = 'Wikipedia.xcworkspace'
+# Since this file is eval'd, we need to add this file's directory to $LOAD_PATH
+$:.unshift File.dirname(__FILE__)
 
-# Returns true if the `NO_RESET` env var is set to 1
-def reset_disabled?
-  ENV['NO_RESET'] == '1'
-end
-
-# Returns true if the `NO_DEPLOY` env var is set to 1
-def deploy_disabled?
-  ENV['NO_DEPLOY'] == '1'
-end
-
-# Runs goals from the project's Makefile, this requires going up to the project directory.
-# :args: Additional arguments to be passed to `make`.
-# Returns The result of the `make` command
-def make(args)
-  # Maybe we should write an "uncrustify" fastlane action?...
-  Dir.chdir '..' do
-    sh 'make ' + args
-  end
-end
-
-def run_unit_tests
-  xctest({
-    scheme: 'Wikipedia',
-    destination: "platform=iOS Simulator,name=iPhone 6,OS=8.2",
-    report_formats: [ "html", "junit" ],
-    report_path: "build/reports/iOS82/report.xml",
-    clean: nil
-  })
-end
+require 'lib/utils.rb'
 
 before_all do
   p ENV
@@ -44,11 +17,12 @@ end
 
 lane :test do
   make 'lint'
+  run_unit_tests
 end
 
 lane :alpha do
   run_unit_tests
-  
+
   # Download the Certificate for signing
   cert
 
@@ -81,16 +55,10 @@ lane :alpha do
   })
 
   unless deploy_disabled?
-    # Upload the DSYM to Hockey
-    hockey({
-      api_token: 'c881c19fd8d0401682c4640b7948ef5e',
-      notes: "Changelog",
-      notify: 0,
-      status: 1, #Means do not make available for download
-    })
 
-    # Upload the IPA and DSYM to iTunes Connect
-    deliver :testflight, :beta, :skip_deploy, :force
+    ENV['HOCKEY_API_TOKEN'] = 'c881c19fd8d0401682c4640b7948ef5e'
+    deploy_testflight_build
+
   end
 end
 
@@ -128,15 +96,10 @@ lane :beta do
   })
 
   unless deploy_disabled?
-    # Upload the DSYM to Hockey
-    hockey({
-      api_token: 'c881c19fd8d0401682c4640b7948ef5e',
-      notes: "Changelog",
-      notify: 0,
-      status: 1,
-    })
 
-    deliver :testflight, :beta, :force
+    ENV['HOCKEY_API_TOKEN'] = 'c881c19fd8d0401682c4640b7948ef5e'
+    deploy_testflight_build
+
   end
 end
 

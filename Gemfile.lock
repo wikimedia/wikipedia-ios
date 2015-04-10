@@ -108,6 +108,7 @@ GEM
       fastlane_core (>= 0.2.0)
       mini_magick (~> 4.0.2)
     fuzzy_match (2.0.4)
+    git (1.2.9.1)
     highline (1.7.1)
     i18n (0.7.0)
     json (1.8.2)
@@ -187,3 +188,4 @@ PLATFORMS
 DEPENDENCIES
   cocoapods (~> 0.36.1)
   fastlane (~> 0.4.2)
+  git
