@@ -139,14 +139,20 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 - (NSArray*)fetchBatchContainingIndex:(NSInteger)index withNthNeighbor:(NSUInteger)next {
     NSAssert(next >= 0, @"No reason to call this method with next == 0");
     NSMutableIndexSet* indexes = [NSMutableIndexSet indexSetWithIndex:index];
-    [indexes addIndex:index + next];
+    NSUInteger const neighborIndex = index + next;
+    if (neighborIndex < self.uniqueArticleImages.count) {
+        [indexes addIndex:index + next];
+    }
     return [self fetchBatchesContainingIndexes:indexes];
 }
 
 #pragma mark - Private Fetch
 
 - (NSRange)batchRangeForTargetIndex:(NSUInteger)index {
+    NSParameterAssert(index < self.uniqueArticleImages.count);
     if (index > self.uniqueArticleImages.count) {
+        IICLog(@"WARNING: attempted to fetch %lu which is beoynd upper bound of %lu",
+               index, self.uniqueArticleImages.count);
         return WMFRangeMakeNotFound();
     }
     NSUInteger const start = floorf(index / (float)self.infoBatchSize) * self.infoBatchSize;
@@ -154,11 +160,14 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
     NSParameterAssert(range.location <= index);
     NSParameterAssert(WMFRangeGetMaxIndex(range) >= index);
     NSParameterAssert(WMFRangeGetMaxIndex(range) <= self.uniqueArticleImages.count);
+    NSParameterAssert(!WMFRangeIsNotFoundOrEmpty(range));
     return range;
 }
 
 - (id<MWKImageInfoRequest>)fetchBatch:(NSRange)batch {
+    NSParameterAssert(!WMFRangeIsNotFoundOrEmpty(batch));
     if (WMFRangeIsNotFoundOrEmpty(batch)) {
+        IICLog(@"WARNING: attempted to fetch not found or empty range: %@", NSStringFromRange(batch));
         return nil;
     } else if ([self.fetchedIndices containsIndexesInRange:batch]) {
         IICLog(@"Batch %@ has already been fetched.", NSStringFromRange(batch));
