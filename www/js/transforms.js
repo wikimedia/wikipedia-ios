@@ -260,8 +260,10 @@ function addImageOverflowXContainer() {
         var div = document.createElement( 'div' );
         div.className = 'image_overflow_x_container';
         image.parentElement.insertBefore( div, image );
-        var oldImage = image.parentElement.removeChild( image );
-        div.appendChild( oldImage );
+        // Reminder: appendChild removes "image" from its previous location
+        // so no need to do so explicitly.
+        // See: https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild
+        div.appendChild( image );
     }
 }
 
