@@ -201,6 +201,8 @@
 
 - (void)save {
     id onboardingVC = [self searchModalsForViewControllerOfClass:[OnboardingViewController class]];
+    MenuButton* done = (MenuButton*)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE];
+    done.userInteractionEnabled = NO;
 
     [self loginWithUserName:self.usernameField.text
                    password:self.passwordField.text
@@ -211,7 +213,7 @@
         [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:1.0f];
 
         [self performSelector:(onboardingVC ? @selector(popModalToRoot) : @selector(popModal)) withObject:nil afterDelay:1.2f];
-    } onFail:nil];
+    } onFail:^{ done.userInteractionEnabled = YES; }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
