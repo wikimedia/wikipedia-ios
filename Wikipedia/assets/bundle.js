@@ -701,16 +701,21 @@ transformer.register( "disableFilePageEdit", function( content ) {
     }
 } );
 
+function firstAncestorWithMultipleChildren (el) {
+    while ((el = el.parentElement) && (el.childElementCount == 1));
+    return el;
+}
+
 function addImageOverflowXContainer() {
     var image = this;
     if (image.width > (window.screen.width * 0.8)){
-        var div = document.createElement( 'div' );
-        div.className = 'image_overflow_x_container';
-        image.parentElement.insertBefore( div, image );
-        // Reminder: appendChild removes "image" from its previous location
-        // so no need to do so explicitly.
-        // See: https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild
-        div.appendChild( image );
+        var ancestor = firstAncestorWithMultipleChildren (image);
+        if(ancestor){
+            var div = document.createElement( 'div' );
+            div.className = 'image_overflow_x_container';
+            ancestor.parentElement.insertBefore( div, ancestor );
+            div.appendChild( ancestor );
+        }
     }
 }
 
