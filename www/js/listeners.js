@@ -2,6 +2,8 @@
 var bridge = require("./bridge");
 var transformer = require("./transformer");
 var refs = require("./refs");
+var issuesAndDisambig = require("./transforms/collapsePageIssuesAndDisambig");
+
 
 // DOMContentLoaded fires before window.onload! That's good!
 // See: http://stackoverflow.com/a/3698214/135557
@@ -11,6 +13,9 @@ document.addEventListener("DOMContentLoaded", function() {
     transformer.transform( "hideRedlinks", document );
     transformer.transform( "disableFilePageEdit", document );
     transformer.transform( "addImageOverflowXContainers", document );
+
+    transformer.transform( "hideTables", document );
+    transformer.transform( "collapsePageIssuesAndDisambig", document );
 
     bridge.sendMessage( "DOMContentLoaded", {} );
 });
@@ -45,19 +50,6 @@ bridge.registerListener( "scrollToFragment", function( payload ) {
 bridge.registerListener( "setPageProtected", function() {
     document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
 } );
-
-
-bridge.registerListener( "setTableLocalization", function( payload ) {
-    window.string_table_infobox = payload.string_table_infobox;
-    window.string_table_other = payload.string_table_other;
-    window.string_table_close = payload.string_table_close;
-} );
-
-
-bridge.registerListener( "collapseTables", function() {
-    transformer.transform( "hideTables", document );
-} );
-
 
 /**
  * Quickie function to walk from the current element up to parents and match CSS-ish selectors.
@@ -169,8 +161,20 @@ function maybeSendMessageForTarget(event, hrefTarget){
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
     } else if (href && href[0] === "#") {
-        // If it is a link to an anchor in the current page, just scroll to it
-        document.getElementById( href.substring( 1 ) ).scrollIntoView();
+        var targetId = href.slice(1);
+        if ( "issues" === targetId ) {
+            var issuesPayload = issuesAndDisambig.issuesClicked( hrefTarget );
+            bridge.sendMessage( 'issuesClicked', issuesPayload );
+        } else if ( "disambig" === targetId ) {
+            var disambigPayload = issuesAndDisambig.disambigClicked( hrefTarget );
+            bridge.sendMessage( 'disambigClicked', disambigPayload );
+        } else if ( "issues_container_close_button" === targetId ) {
+            issuesAndDisambig.closeClicked();
+
+        } else {
+            // If it is a link to an anchor in the current page, just scroll to it
+            document.getElementById( href.substring( 1 ) ).scrollIntoView();
+        }
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
         bridge.sendMessage('imageClicked', { 'url': event.target.getAttribute('src') });
     } else if (href) {

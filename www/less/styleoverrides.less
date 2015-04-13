@@ -14,8 +14,6 @@ a:hover {
 
 /* Lead Image Styling overrides */
 
-/* Hats off! This info will appear within native interface elements. */
-.hatnote {display:none;}
 
 /* Override the top margin - needed so the lead image spacer can control top margin. */
 .content {margin-top:0px;}
@@ -40,3 +38,40 @@ native header and footer uses the web view width to determine its own width.
 }
 
 #section_heading_and_content_block_0 {margin-top:13px;}
+
+
+
+
+
+
+
+.ios-disambiguation-item-anchor {
+    display:block;
+    padding-top:4px;
+    padding-bottom:4px;
+}
+
+#disambig_sub_container, #issues_sub_container {
+    background-color:#ddd;
+    padding:8px;
+}
+
+#issues_container_close_button {
+    color:#666;
+    padding-right:3px;
+    display:none;
+}
+
+
+
+
+/*
+TODO: remove the page issues and disambig styles below once https://gerrit.wikimedia.org/r/#/c/203997/ reaches prod.
+*/
+div.issues_container{margin-top:-0.2em;margin-bottom:2.2em;padding-top:1px;padding-bottom:1px;width:100%;display:block;font-size:.9em;letter-spacing:0.02em;color:#555555}
+span.issues_separator{padding-left:0.6em;padding-right:0.6em;float:left}
+a.issues_button{text-decoration:none;color:#555555;float:left}
+a.issues_button:active{color:#b0b0b0}
+#issues_container div.hatnote{display:none}
+a.disambig_button{text-decoration:none;color:#555555;float:left}
+a.disambig_button:active{color:#b0b0b0}

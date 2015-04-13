@@ -157,4 +157,8 @@
     return [self rangeOfString:string options:options].location == NSNotFound ? NO : YES;
 }
 
+- (BOOL)wmf_isEqualToStringIgnoringCase:(NSString*)string {
+    return (NSOrderedSame == [self caseInsensitiveCompare:string]);
+}
+
 @end

@@ -65,16 +65,6 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
         // Show lead image!
         [weakSelf.leadImageContainer showForArticle:[SessionSingleton sharedInstance].currentArticle];
 
-        [weakSelf.bridge sendMessage:@"setTableLocalization"
-                         withPayload:@{
-             @"string_table_infobox": MWLocalizedString(@"info-box-title", nil),
-             @"string_table_other": MWLocalizedString(@"table-title-other", nil),
-             @"string_table_close": MWLocalizedString(@"info-box-close-text", nil)
-         }];
-
-        [weakSelf.bridge sendMessage:@"collapseTables"
-                         withPayload:nil];
-
         [weakSelf.loadingIndicatorOverlay setVisible:NO animated:YES];
 
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -905,6 +895,20 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         //NSLog(@"referenceClicked: %@", payload);
         [strSelf referencesShow:payload];
     }];
+
+    /*
+    [self.bridge addListener:@"disambigClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
+
+        //NSLog(@"disambigClicked: %@", payload);
+
+    }];
+
+    [self.bridge addListener:@"issuesClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
+
+        //NSLog(@"issuesClicked: %@", payload);
+
+    }];
+    */
 
     UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
                                                           action:@selector(shareSnippet:)];

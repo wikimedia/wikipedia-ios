@@ -302,3 +302,6 @@
 "hockeyapp-alert-always-send" = "Always send";
 "hockeyapp-alert-do-not-send" = "Do not send";
 "hockeyapp-alert-privacy" = "$1 privacy";
+
+"page-issues" = "Page issues";
+"page-similar-titles" = "Similar pages";

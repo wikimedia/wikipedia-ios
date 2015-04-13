@@ -1,5 +1,5 @@
 module.exports = function (grunt) {
-  var allScriptFiles = "js/*.js";
+  var allScriptFiles = "js/**/*.js";
 
   var distFolder = '../wikipedia/assets/';
 

@@ -97,10 +97,105 @@ exports.getIndexOfFirstOnScreenElementWithTopGreaterThanY = function(elementPref
 };
 
 },{}],3:[function(require,module,exports){
+var bridge = require("./bridge");
+
+function collectDisambig( sourceNode ) {
+    var res = [];
+    var links = sourceNode.querySelectorAll( 'div.hatnote a' );
+    var i = 0,
+        len = links.length;
+    for (; i < len; i++) {
+        // Pass the href; we'll decode it into a proper page title in Obj-C
+        res.push( links[i].getAttribute( 'href' ) );
+    }
+    return res;
+}
+
+function collectIssues( sourceNode ) {
+    var res = [];
+    var issues = sourceNode.querySelectorAll( 'table.ambox' );
+    var i = 0,
+        len = issues.length;
+    for (; i < len; i++) {
+        // .ambox- is used e.g. on eswiki
+        res.push( issues[i].querySelector( '.mbox-text, .ambox-text' ).innerHTML );
+    }
+    return res;
+}
+
+function anchorForUrl(url) {
+    var titleForDisplay = decodeURIComponent(url);
+    titleForDisplay = (titleForDisplay.indexOf('/wiki/') === 0) ? titleForDisplay.substring(6) : titleForDisplay;
+    titleForDisplay = titleForDisplay.split('_').join(' ');
+    return '<a class="ios-disambiguation-anchor" href="' + url + '" >' + titleForDisplay + '</a>';
+}
+
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+function setIsSelected(el, isSelected) {
+    if(isSelected){
+        el.style.borderBottom = "1px dotted #ccc";
+    }else{
+        el.style.borderBottom = "none";
+    }
+}
+
+function toggleSubContainerButtons( activeSubContainerId, focusButtonId, blurButtonId ){
+    var buttonToBlur = document.getElementById( blurButtonId );
+    if(buttonToBlur) {
+        setIsSelected(buttonToBlur, false);
+    }
+    var buttonToActivate = document.getElementById( focusButtonId );
+    var isActiveSubContainerPresent = document.getElementById( activeSubContainerId ) ? true : false;
+    setIsSelected(buttonToActivate, isActiveSubContainerPresent);
+}
+
+function toggleSubContainers( activeSubContainerId, inactiveSubContainerId, activeSubContainerContents ){
+    var containerToRemove = document.getElementById( inactiveSubContainerId );
+    if(containerToRemove){
+        containerToRemove.parentNode.removeChild(containerToRemove);
+    }
+    var containerToAddOrToggle = document.getElementById( activeSubContainerId );
+    if(containerToAddOrToggle){
+        containerToAddOrToggle.parentNode.removeChild(containerToAddOrToggle);
+    }else{
+        containerToAddOrToggle = document.createElement( 'div' );
+        containerToAddOrToggle.id = activeSubContainerId;
+        containerToAddOrToggle.innerHTML = activeSubContainerContents;
+        insertAfter(containerToAddOrToggle, document.getElementById('issues_container'));
+    }
+}
+
+function issuesClicked( sourceNode ) {
+    var issues = collectIssues( sourceNode.parentNode );
+    var disambig = collectDisambig( sourceNode.parentNode.parentNode ); // not clicked node
+    bridge.sendMessage( 'issuesClicked', { "hatnotes": disambig, "issues": issues } );
+
+    toggleSubContainers('issues_sub_container', 'disambig_sub_container', issues);
+    toggleSubContainerButtons('issues_sub_container', 'issues_button', 'disambig_button');
+}
+
+function disambigClicked( sourceNode ) {
+    var disambig = collectDisambig( sourceNode.parentNode );
+    var issues = collectIssues( sourceNode.parentNode.parentNode ); // not clicked node
+    bridge.sendMessage( 'disambigClicked', { "hatnotes": disambig, "issues": issues } );
+
+    toggleSubContainers('disambig_sub_container', 'issues_sub_container', disambig.sort().map(anchorForUrl).join( "" ));
+    toggleSubContainerButtons('disambig_sub_container', 'disambig_button', 'issues_button');
+}
+
+exports.issuesClicked = issuesClicked;
+exports.disambigClicked = disambigClicked;
+
+},{"./bridge":1}],4:[function(require,module,exports){
 (function () {
 var bridge = require("./bridge");
 var transformer = require("./transformer");
 var refs = require("./refs");
+var issuesAndDisambig = require("./transforms/collapsePageIssuesAndDisambig");
+
 
 // DOMContentLoaded fires before window.onload! That's good!
 // See: http://stackoverflow.com/a/3698214/135557
@@ -110,6 +205,9 @@ document.addEventListener("DOMContentLoaded", function() {
     transformer.transform( "hideRedlinks", document );
     transformer.transform( "disableFilePageEdit", document );
     transformer.transform( "addImageOverflowXContainers", document );
+
+    transformer.transform( "hideTables", document );
+    transformer.transform( "collapsePageIssuesAndDisambig", document );
 
     bridge.sendMessage( "DOMContentLoaded", {} );
 });
@@ -144,19 +242,6 @@ bridge.registerListener( "scrollToFragment", function( payload ) {
 bridge.registerListener( "setPageProtected", function() {
     document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
 } );
-
-
-bridge.registerListener( "setTableLocalization", function( payload ) {
-    window.string_table_infobox = payload.string_table_infobox;
-    window.string_table_other = payload.string_table_other;
-    window.string_table_close = payload.string_table_close;
-} );
-
-
-bridge.registerListener( "collapseTables", function() {
-    transformer.transform( "hideTables", document );
-} );
-
 
 /**
  * Quickie function to walk from the current element up to parents and match CSS-ish selectors.
@@ -268,8 +353,20 @@ function maybeSendMessageForTarget(event, hrefTarget){
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
     } else if (href && href[0] === "#") {
-        // If it is a link to an anchor in the current page, just scroll to it
-        document.getElementById( href.substring( 1 ) ).scrollIntoView();
+        var targetId = href.slice(1);
+        if ( "issues" === targetId ) {
+            var issuesPayload = issuesAndDisambig.issuesClicked( hrefTarget );
+            bridge.sendMessage( 'issuesClicked', issuesPayload );
+        } else if ( "disambig" === targetId ) {
+            var disambigPayload = issuesAndDisambig.disambigClicked( hrefTarget );
+            bridge.sendMessage( 'disambigClicked', disambigPayload );
+        } else if ( "issues_container_close_button" === targetId ) {
+            issuesAndDisambig.closeClicked();
+
+        } else {
+            // If it is a link to an anchor in the current page, just scroll to it
+            document.getElementById( href.substring( 1 ) ).scrollIntoView();
+        }
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
         bridge.sendMessage('imageClicked', { 'url': event.target.getAttribute('src') });
     } else if (href) {
@@ -290,7 +387,7 @@ bridge.registerListener( "setLeadImageDivHeight", function( payload ) {
 
 })();
 
-},{"./bridge":1,"./refs":5,"./transformer":6}],4:[function(require,module,exports){
+},{"./bridge":1,"./refs":6,"./transformer":7,"./transforms/collapsePageIssuesAndDisambig":10}],5:[function(require,module,exports){
 
 var bridge = require("./bridge");
 var elementLocation = require("./elementLocation");
@@ -298,7 +395,7 @@ var elementLocation = require("./elementLocation");
 window.bridge = bridge;
 window.elementLocation = elementLocation;
 
-},{"./bridge":1,"./elementLocation":2}],5:[function(require,module,exports){
+},{"./bridge":1,"./elementLocation":2}],6:[function(require,module,exports){
 var bridge = require("./bridge");
 
 function isReference( href ) {
@@ -421,7 +518,7 @@ function sendNearbyReferences( sourceNode ) {
 exports.isReference = isReference;
 exports.sendNearbyReferences = sendNearbyReferences;
 
-},{"./bridge":1}],6:[function(require,module,exports){
+},{"./bridge":1}],7:[function(require,module,exports){
 function Transformer() {
 }
 
@@ -442,83 +539,233 @@ Transformer.prototype.transform = function( transform, element ) {
     }
 };
 
+Transformer.prototype.httpGetSync = function (theUrl) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+};
+
 module.exports = new Transformer();
 
-},{}],7:[function(require,module,exports){
-var transformer = require("./transformer");
+},{}],8:[function(require,module,exports){
 
-transformer.register( "moveFirstGoodParagraphUp", function( content ) {
-    /*
-    Instead of moving the infobox down beneath the first P tag,
-    move the first good looking P tag *up* (as the first child of
-    the first section div). That way the first P text will appear not
-    only above infoboxes, but above other tables/images etc too!
-    */
+require("./transforms/collapseTables");
+require("./transforms/relocateFirstParagraph");
+require("./transforms/hideRedLinks");
+require("./transforms/disableFilePageEdit");
+require("./transforms/addImageOverflowContainers");
+require("./transforms/collapsePageIssuesAndDisambig");
 
-    if(content.getElementById( "mainpage" ))return;
+},{"./transforms/addImageOverflowContainers":9,"./transforms/collapsePageIssuesAndDisambig":10,"./transforms/collapseTables":11,"./transforms/disableFilePageEdit":12,"./transforms/hideRedLinks":13,"./transforms/relocateFirstParagraph":14}],9:[function(require,module,exports){
+var transformer = require("../transformer");
 
-    var block_0 = content.getElementById( "content_block_0" );
-    if(!block_0) return;
+function firstAncestorWithMultipleChildren (el) {
+    while ((el = el.parentElement) && (el.childElementCount == 1));
+    return el;
+}
 
-    var allPs = block_0.getElementsByTagName( "p" );
-    if(!allPs) return;
-
-    var edit_section_button_0 = content.getElementById( "edit_section_button_0" );
-    if(!edit_section_button_0) return;
-
-    function moveAfter(newNode, referenceNode) {
-        // Based on: http://stackoverflow.com/a/4793630/135557
-        referenceNode.parentNode.insertBefore(newNode.parentNode.removeChild(newNode), referenceNode.nextSibling);
-    }
-
-    for ( var i = 0; i < allPs.length; i++ ) {
-        var p = allPs[i];
-
-        // Narrow down to first P which is direct child of content_block_0 DIV.
-        // (Don't want to yank P from somewhere in the middle of a table!)
-        if  (p.parentNode != block_0) continue;
-
-
-        // Ensure the P being pulled up has at least a couple lines of text.
-        // Otherwise silly things like a empty P or P which only contains a
-        // BR tag will get pulled up (see articles on "Chemical Reaction" and
-        // "Hawaii").
-        // Trick for quickly determining element height:
-        //      https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement.offsetHeight
-        //      http://stackoverflow.com/a/1343350/135557
-        var minHeight = 40;
-        var pIsTooSmall = (p.offsetHeight < minHeight);
-        if(pIsTooSmall) continue;
-
-
-        /*
-        // Note: this works - just not sure if needed?
-        // Sometimes P will be mostly image and not much text. Don't
-        // want to move these!
-        var pIsMostlyImage = false;
-        var imgs = p.getElementsByTagName('img');
-        for (var j = 0; j < imgs.length; j++) {
-            var thisImg = imgs[j];
-            // Get image height from img tag's height attribute - otherwise
-            // you'd have to wait for the image to render (if you used offsetHeight).
-            var thisImgHeight = thisImg.getAttribute("height");
-            if(thisImgHeight == 0) continue;
-            var imgHeightPercentOfParagraphTagHeight = thisImgHeight / p.offsetHeight;
-            if (imgHeightPercentOfParagraphTagHeight > 0.5){
-                pIsMostlyImage = true;
-                break;
-            }
+function addImageOverflowXContainer() {
+    var image = this;
+    if (image.width > (window.screen.width * 0.8)){
+        var ancestor = firstAncestorWithMultipleChildren (image);
+        if(ancestor){
+            var div = document.createElement( 'div' );
+            div.className = 'image_overflow_x_container';
+            ancestor.parentElement.insertBefore( div, ancestor );
+            div.appendChild( ancestor );
         }
-        if(pIsMostlyImage) continue;
-        */
-
-        // Move the P! Place it just after the lead section edit button.
-        moveAfter(p, edit_section_button_0);
-
-        // But only move one P!
-        break;
     }
-});
+}
+
+transformer.register( "addImageOverflowXContainers", function( content ) {
+    // Wrap wide images in a <div style="overflow-x:auto">...</div> so they can scroll
+    // side to side if needed without causing the entire section to scroll side to side.
+    var images = content.getElementsByTagName('img');
+    for (var i = 0; i < images.length; ++i) {
+        // Load event used so images w/o style or inline width/height
+        // attributes can still have their size determined reliably.
+        images[i].addEventListener('load', addImageOverflowXContainer, false);
+    }
+} );
+
+},{"../transformer":7}],10:[function(require,module,exports){
+var transformer = require("../transformer");
+
+transformer.register( 'collapsePageIssuesAndDisambig', function( content ) {
+    transformer.transform( "displayDisambigLink", content);
+    transformer.transform( "displayIssuesLink", content);
+
+    var issuesContainer = document.getElementById('issues_container');
+    if(!issuesContainer){
+        return;
+    }
+    issuesContainer.setAttribute( "dir", window.directionality );
+
+    // If we have both issues and disambiguation, then insert the separator.
+    var disambigBtn = document.getElementById( "disambig_button" );
+    var issuesBtn = document.getElementById( "issues_button" );
+    if (issuesBtn !== null && disambigBtn !== null) {
+        var separator = document.createElement( 'span' );
+        separator.innerText = '|';
+        separator.className = 'issues_separator';
+        issuesContainer.insertBefore(separator, issuesBtn.parentNode);
+    }
+
+    // Hide the container if there were no page issues or disambiguation.
+    issuesContainer.style.display = (disambigBtn || issuesBtn) ? 'inherit' : 'none';
+} );
+
+transformer.register( 'displayDisambigLink', function( content ) {
+    var hatnotes = content.querySelectorAll( "div.hatnote" );
+    if ( hatnotes.length > 0 ) {
+        var container = document.getElementById( "issues_container" );
+        var wrapper = document.createElement( 'div' );
+        var link = document.createElement( 'a' );
+        link.setAttribute( 'href', '#disambig' );
+        link.className = 'disambig_button';
+        link.innerHTML = transformer.httpGetSync('wmf://localize/page-similar-titles');
+        link.id = 'disambig_button';
+        wrapper.appendChild( link );
+        var i = 0,
+            len = hatnotes.length;
+        for (; i < len; i++) {
+            wrapper.appendChild( hatnotes[i] );
+        }
+        container.appendChild( wrapper );
+    }
+} );
+
+transformer.register( 'displayIssuesLink', function( content ) {
+    var issues = content.querySelectorAll( "table.ambox:not([class*='ambox-multiple_issues']):not([class*='ambox-notice'])" );
+    if ( issues.length > 0 ) {
+        var el = issues[0];
+        var container = document.getElementById( "issues_container" );
+        var wrapper = document.createElement( 'div' );
+        var link = document.createElement( 'a' );
+        link.setAttribute( 'href', '#issues' );
+        link.className = 'issues_button';
+        link.innerHTML = transformer.httpGetSync('wmf://localize/page-issues');
+        link.id = 'issues_button';
+        wrapper.appendChild( link );
+        el.parentNode.replaceChild( wrapper, el );
+        var i = 0,
+            len = issues.length;
+        for (; i < len; i++) {
+            wrapper.appendChild( issues[i] );
+        }
+        container.appendChild( wrapper );
+    }
+} );
+
+function collectDisambig( sourceNode ) {
+    var res = [];
+    var links = sourceNode.querySelectorAll( 'div.hatnote a' );
+    var i = 0,
+        len = links.length;
+    for (; i < len; i++) {
+        // Pass the href; we'll decode it into a proper page title in Obj-C
+        res.push( links[i].getAttribute( 'href' ) );
+    }
+    return res.sort();
+}
+
+function collectIssues( sourceNode ) {
+    var res = [];
+    var issues = sourceNode.querySelectorAll( 'table.ambox' );
+    var i = 0,
+        len = issues.length;
+    for (; i < len; i++) {
+        // .ambox- is used e.g. on eswiki
+        res.push( issues[i].querySelector( '.mbox-text, .ambox-text' ).innerHTML );
+    }
+    return res;
+}
+
+function anchorForUrl(url) {
+    var titleForDisplay = decodeURIComponent(url);
+    titleForDisplay = (titleForDisplay.indexOf('/wiki/') === 0) ? titleForDisplay.substring(6) : titleForDisplay;
+    titleForDisplay = titleForDisplay.split('_').join(' ');
+    return '<a class="ios-disambiguation-item-anchor" href="' + url + '" >' + titleForDisplay + '</a>';
+}
+
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+function setIsSelected(el, isSelected) {
+    if(isSelected){
+        el.style.borderBottom = "1px dotted #bbb";
+    }else{
+        el.style.borderBottom = "none";
+    }
+}
+
+function toggleSubContainerButtons( activeSubContainerId, focusButtonId, blurButtonId ){
+    var buttonToBlur = document.getElementById( blurButtonId );
+    if(buttonToBlur) {
+        setIsSelected(buttonToBlur, false);
+    }
+    var buttonToActivate = document.getElementById( focusButtonId );
+    var isActiveSubContainerPresent = document.getElementById( activeSubContainerId ) ? true : false;
+    setIsSelected(buttonToActivate, isActiveSubContainerPresent);
+}
+
+function toggleSubContainers( activeSubContainerId, inactiveSubContainerId, activeSubContainerContents ){
+    var containerToRemove = document.getElementById( inactiveSubContainerId );
+    var closeButton = document.getElementById('issues_container_close_button');
+    if(containerToRemove){
+        containerToRemove.parentNode.removeChild(containerToRemove);
+    }
+    var containerToAddOrToggle = document.getElementById( activeSubContainerId );
+    if(containerToAddOrToggle){
+        containerToAddOrToggle.parentNode.removeChild(containerToAddOrToggle);
+        closeButton.style.display = 'none';
+    }else{
+        containerToAddOrToggle = document.createElement( 'div' );
+        containerToAddOrToggle.id = activeSubContainerId;
+        containerToAddOrToggle.innerHTML = activeSubContainerContents;
+        insertAfter(containerToAddOrToggle, document.getElementById('issues_container'));
+        closeButton.style.display = 'inherit';
+    }
+}
+
+function closeClicked() {
+    if(document.getElementById( 'disambig_sub_container' )){
+        toggleSubContainers('disambig_sub_container', 'issues_sub_container', null);
+        toggleSubContainerButtons('disambig_sub_container', 'disambig_button', 'issues_button');
+    }else if(document.getElementById( 'issues_sub_container' )){
+        toggleSubContainers('issues_sub_container', 'disambig_sub_container', null);
+        toggleSubContainerButtons('issues_sub_container', 'issues_button', 'disambig_button');
+    }
+}
+
+function issuesClicked( sourceNode ) {
+    var issues = collectIssues( sourceNode.parentNode );
+    var disambig = collectDisambig( sourceNode.parentNode.parentNode ); // not clicked node
+
+    toggleSubContainers('issues_sub_container', 'disambig_sub_container', issues);
+    toggleSubContainerButtons('issues_sub_container', 'issues_button', 'disambig_button');
+
+    return { "hatnotes": disambig, "issues": issues };
+}
+
+function disambigClicked( sourceNode ) {
+    var disambig = collectDisambig( sourceNode.parentNode );
+    var issues = collectIssues( sourceNode.parentNode.parentNode ); // not clicked node
+
+    toggleSubContainers('disambig_sub_container', 'issues_sub_container', disambig.map(anchorForUrl).join( "" ));
+    toggleSubContainerButtons('disambig_sub_container', 'disambig_button', 'issues_button');
+
+    return { "hatnotes": disambig, "issues": issues };
+}
+
+exports.issuesClicked = issuesClicked;
+exports.disambigClicked = disambigClicked;
+exports.closeClicked = closeClicked;
+
+},{"../transformer":7}],11:[function(require,module,exports){
+var transformer = require("../transformer");
 
 /*
 Tries to get an array of table header (TH) contents from a given table.
@@ -627,7 +874,7 @@ transformer.register( "hideTables", function( content ) {
 
         var headerText = getTableHeader(table);
 
-        var caption = "<strong>" + (isInfobox ? window.string_table_infobox : window.string_table_other) + "</strong>";
+        var caption = "<strong>" + (isInfobox ? transformer.httpGetSync('wmf://localize/info-box-title') : transformer.httpGetSync('wmf://localize/table-title-other')) + "</strong>";
         caption += "<span class='app_span_collapse_text'>";
         if (headerText.length > 0) {
             caption += ": " + headerText[0];
@@ -662,7 +909,7 @@ transformer.register( "hideTables", function( content ) {
         var bottomDiv = document.createElement( 'div' );
         bottomDiv.classList.add('app_table_collapsed_bottom');
         bottomDiv.classList.add('app_table_collapse_icon');
-        bottomDiv.innerHTML = window.string_table_close;
+        bottomDiv.innerHTML = transformer.httpGetSync('wmf://localize/info-box-close-text');
 
         //add our stuff to the container
         containerDiv.appendChild(collapsedDiv);
@@ -680,14 +927,8 @@ transformer.register( "hideTables", function( content ) {
     }
 } );
 
-
-transformer.register( "hideRedlinks", function( content ) {
-	var redLinks = content.querySelectorAll( 'a.new' );
-	for ( var i = 0; i < redLinks.length; i++ ) {
-		var redLink = redLinks[i];
-        redLink.style.color = 'inherit';
-	}
-} );
+},{"../transformer":7}],12:[function(require,module,exports){
+var transformer = require("../transformer");
 
 transformer.register( "disableFilePageEdit", function( content ) {
     var filetoc = content.querySelector( '#filetoc' );
@@ -712,33 +953,91 @@ transformer.register( "disableFilePageEdit", function( content ) {
     }
 } );
 
-function firstAncestorWithMultipleChildren (el) {
-    while ((el = el.parentElement) && (el.childElementCount == 1));
-    return el;
-}
+},{"../transformer":7}],13:[function(require,module,exports){
+var transformer = require("../transformer");
 
-function addImageOverflowXContainer() {
-    var image = this;
-    if (image.width > (window.screen.width * 0.8)){
-        var ancestor = firstAncestorWithMultipleChildren (image);
-        if(ancestor){
-            var div = document.createElement( 'div' );
-            div.className = 'image_overflow_x_container';
-            ancestor.parentElement.insertBefore( div, ancestor );
-            div.appendChild( ancestor );
-        }
-    }
-}
-
-transformer.register( "addImageOverflowXContainers", function( content ) {
-    // Wrap wide images in a <div style="overflow-x:auto">...</div> so they can scroll
-    // side to side if needed without causing the entire section to scroll side to side.
-    var images = content.getElementsByTagName('img');
-    for (var i = 0; i < images.length; ++i) {
-        // Load event used so images w/o style or inline width/height
-        // attributes can still have their size determined reliably.
-        images[i].addEventListener('load', addImageOverflowXContainer, false);
-    }
+transformer.register( "hideRedlinks", function( content ) {
+	var redLinks = content.querySelectorAll( 'a.new' );
+	for ( var i = 0; i < redLinks.length; i++ ) {
+		var redLink = redLinks[i];
+        redLink.style.color = 'inherit';
+	}
 } );
 
-},{"./transformer":6}]},{},[1,2,3,4,5,6,7])
+},{"../transformer":7}],14:[function(require,module,exports){
+var transformer = require("../transformer");
+
+transformer.register( "moveFirstGoodParagraphUp", function( content ) {
+    /*
+    Instead of moving the infobox down beneath the first P tag,
+    move the first good looking P tag *up* (as the first child of
+    the first section div). That way the first P text will appear not
+    only above infoboxes, but above other tables/images etc too!
+    */
+
+    if(content.getElementById( "mainpage" ))return;
+
+    var block_0 = content.getElementById( "content_block_0" );
+    if(!block_0) return;
+
+    var allPs = block_0.getElementsByTagName( "p" );
+    if(!allPs) return;
+
+    var edit_section_button_0 = content.getElementById( "edit_section_button_0" );
+    if(!edit_section_button_0) return;
+
+    function moveAfter(newNode, referenceNode) {
+        // Based on: http://stackoverflow.com/a/4793630/135557
+        referenceNode.parentNode.insertBefore(newNode.parentNode.removeChild(newNode), referenceNode.nextSibling);
+    }
+
+    for ( var i = 0; i < allPs.length; i++ ) {
+        var p = allPs[i];
+
+        // Narrow down to first P which is direct child of content_block_0 DIV.
+        // (Don't want to yank P from somewhere in the middle of a table!)
+        if  (p.parentNode != block_0) continue;
+
+
+        // Ensure the P being pulled up has at least a couple lines of text.
+        // Otherwise silly things like a empty P or P which only contains a
+        // BR tag will get pulled up (see articles on "Chemical Reaction" and
+        // "Hawaii").
+        // Trick for quickly determining element height:
+        //      https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement.offsetHeight
+        //      http://stackoverflow.com/a/1343350/135557
+        var minHeight = 40;
+        var pIsTooSmall = (p.offsetHeight < minHeight);
+        if(pIsTooSmall) continue;
+
+
+        /*
+        // Note: this works - just not sure if needed?
+        // Sometimes P will be mostly image and not much text. Don't
+        // want to move these!
+        var pIsMostlyImage = false;
+        var imgs = p.getElementsByTagName('img');
+        for (var j = 0; j < imgs.length; j++) {
+            var thisImg = imgs[j];
+            // Get image height from img tag's height attribute - otherwise
+            // you'd have to wait for the image to render (if you used offsetHeight).
+            var thisImgHeight = thisImg.getAttribute("height");
+            if(thisImgHeight == 0) continue;
+            var imgHeightPercentOfParagraphTagHeight = thisImgHeight / p.offsetHeight;
+            if (imgHeightPercentOfParagraphTagHeight > 0.5){
+                pIsMostlyImage = true;
+                break;
+            }
+        }
+        if(pIsMostlyImage) continue;
+        */
+
+        // Move the P! Place it just after the lead section edit button.
+        moveAfter(p, edit_section_button_0);
+
+        // But only move one P!
+        break;
+    }
+});
+
+},{"../transformer":7}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14])

@@ -273,3 +273,5 @@
 "image-gallery-fetch-image-info-error-title" = "Title of prompt weh image meta download fails in gallery";
 "image-gallery-fetch-image-info-error-message" = "Message of prompt weh image meta download fails in gallery";
 "image-gallery-fetch-image-info-error-ok" = "OK button of prompt weh image meta download fails in gallery";
+"page-issues" = "Label for button that shows the Page issues dialog.";
+"page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";

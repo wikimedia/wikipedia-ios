@@ -5,6 +5,8 @@
 #import "SessionSingleton.h"
 #import "Defines.h"
 
+static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div class='issues_container' id='issues_container'><a href='#issues_container_close_button' id='issues_container_close_button' style='float:right;'>X</a></div>";
+
 @implementation MWKSection (DisplayHtml)
 
 - (NSString*)displayHTML:(NSString*)html {
@@ -27,7 +29,7 @@
         // Lead section.
         // The lead section is a special case because of the native component used
         // for lead image styling. The title text is now shown by the native component.
-        return [self getLeadImagePlaceholderDiv];
+        return [[self getLeadImagePlaceholderDiv] stringByAppendingString:MWKSectionDisambigAndPageIssuesPlaceholderDiv];
     } else {
         // Non-lead section.
         NSInteger headingTagSize = [self getHeadingTagSize];
