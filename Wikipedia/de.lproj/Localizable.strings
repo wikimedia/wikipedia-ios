@@ -10,6 +10,7 @@
 "article-read-more-title" = "Mehr lesen";
 "info-box-title" = "Schnelle Fakten";
 "info-box-close-text" = "Schließen";
+"table-title-other" = "Weitere Informationen";
 "language-button-text" = "Du kannst diesen Artikel in %d anderen Sprachen lesen";
 "history-label" = "Kürzlich";
 "history-section-today" = "Heute";
@@ -126,8 +127,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Aktualisierung abgebrochen";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-Artikel werden ständig aktualisiert. Tippe auf „Aktualisieren“, um die neuesten Versionen aller Artikel abzurufen.";
 "saved-pages-refresh-cancel-alert-button" = "Verstanden";
-"page-history-title" = "Versionsgeschichte";
-"page-history-downloading" = "Lade Versionsgeschichte …";
+"page-history-title" = "Artikelversionsgeschichte";
+"page-history-downloading" = "Lade Artikelversionsgeschichte …";
 "navbar-title-mode-edit-wikitext" = "Bearbeiten";
 "navbar-title-mode-login" = "Anmelden";
 "navbar-title-mode-login-and-save" = "Anmelden und speichern";
@@ -139,7 +140,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Schnellprüfung erforderlich";
 "navbar-title-mode-edit-wikitext-summary" = "Beschreibe deine Bearbeitung";
 "navbar-title-mode-edit-wikitext-save" = "Speichern";
-"edit-summary-choice-linked-words" = "Verlinkte Wörter";
+"edit-summary-choice-linked-words" = "Links hinzugefügt";
 "edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
 "edit-summary-choice-fixed-inaccuracy" = "Ungenauigkeiten korrigiert";
 "edit-summary-choice-fixed-styling" = "Gestaltung verbessert";
@@ -149,7 +150,7 @@
 "edit-summary-choice-added-clarification" = "Erklärung hinzugefügt";
 "edit-summary-choice-other" = "Andere";
 "edit-summary-description" = "Eine bestimmte Zusammenfassung hilft anderen Autoren, deine Bearbeitungen schnell zu überprüfen. Du kannst auch zwischen den unten stehenden Markierungen wählen.";
-"edit-summary-field-placeholder-text" = "Wie hast du die Seite verbessert?";
+"edit-summary-field-placeholder-text" = "Andere Wege wie du den Artikel verbessert hast";
 "edit-summary-title" = "Wie hast du den Artikel verbessert?";
 "fetching-random-article" = "Zufälligen Artikel aufrufen";
 "article-pull-to-refresh-prompt" = "Ziehen zum Aktualisieren des Artikels";

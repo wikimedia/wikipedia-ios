@@ -106,7 +106,9 @@
 "saved-pages-clear-confirmation-heading" = "¿Desaniciar tolos elementos guardaos?";
 "saved-pages-clear-confirmation-sub-heading" = "¡Esata aición nun pue desfacese!";
 "saved-pages-clear-cancel" = "Encaboxar";
+// Fuzzy
 "page-history-title" = "Historial de la páxina";
+// Fuzzy
 "page-history-downloading" = "Cargando l'historial de la páxina...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Aniciar sesión";
@@ -119,6 +121,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Necesítase una comprobación rápida";
 "navbar-title-mode-edit-wikitext-summary" = "Describa la so edición";
 "navbar-title-mode-edit-wikitext-save" = "Guardar";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Pallabres enllazaes";
 "edit-summary-choice-fixed-grammar" = "Igua gramatical";
 "edit-summary-choice-fixed-inaccuracy" = "Imprecisión correxida";
@@ -129,6 +132,7 @@
 "edit-summary-choice-added-clarification" = "Amestada una aclaración";
 "edit-summary-choice-other" = "Otros";
 "edit-summary-description" = "Un resume específicu ayuda a los co-editores a revisar aína les sos ediciones. Tamién pue esbillar ente les etiquetes d'abaxo.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "¿Cómo ameyoró la páxina?";
 "edit-summary-title" = "¿Cómo ameyorasti l'artículu?";
 "fetching-random-article" = "Baxando un artículu al debalu";

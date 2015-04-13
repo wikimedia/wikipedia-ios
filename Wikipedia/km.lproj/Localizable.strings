@@ -96,7 +96,9 @@
 "saved-pages-clear-confirmation-heading" = "លុបរបស់ដែលបានរក្សាទុកទាំងអស់?";
 "saved-pages-clear-confirmation-sub-heading" = "សកម្មភាពនេះមិនអាចឈប់ធ្វើវិញបានទេ!";
 "saved-pages-clear-cancel" = "បោះបង់";
+// Fuzzy
 "page-history-title" = "ប្រវត្តិអត្ថបទ";
+// Fuzzy
 "page-history-downloading" = "ផ្ទុកប្រវត្តិអត្ថបទ...";
 "navbar-title-mode-edit-wikitext" = "កែប្រែ";
 "navbar-title-mode-login" = "កត់ឈ្មោះចូល";
@@ -109,6 +111,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "ត្រូវការការផ្ទៀងផ្ទាត់ត្រួសៗ";
 "navbar-title-mode-edit-wikitext-summary" = "ពណ៌នាអំពីការកែប្រែរបស់អ្នក";
 "navbar-title-mode-edit-wikitext-save" = "រក្សាទុក";
+// Fuzzy
 "edit-summary-choice-linked-words" = "តំណភ្ជាប់ដែលបានដាក់";
 "edit-summary-choice-fixed-grammar" = "វេយ្យាករណ៍ដែលបានកែតម្រូវ";
 "edit-summary-choice-fixed-typos" = "កំហុសអក្ខរាវិរុទ្ធដែលបានកែតម្រូវ";

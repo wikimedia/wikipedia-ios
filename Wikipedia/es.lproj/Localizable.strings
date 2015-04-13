@@ -132,7 +132,9 @@
 "saved-pages-refresh-cancel-alert-title" = "Actualización cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Los artículos de Wikipedia se actualizan todo el tiempo. Pulsa actualizar para obtener las últimas versiones de todos los artículos.";
 "saved-pages-refresh-cancel-alert-button" = "Entendido";
+// Fuzzy
 "page-history-title" = "Historial de página";
+// Fuzzy
 "page-history-downloading" = "Cargando el historial de la página...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Acceder";
@@ -145,6 +147,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Es necesaria una verificación rápida";
 "navbar-title-mode-edit-wikitext-summary" = "Describe tu modificación";
 "navbar-title-mode-edit-wikitext-save" = "Guardar";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Enlaces añadidos";
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
 "edit-summary-choice-fixed-inaccuracy" = "Imprecisión corregida";
@@ -155,6 +158,7 @@
 "edit-summary-choice-added-clarification" = "Aclaración añadida";
 "edit-summary-choice-other" = "Otro";
 "edit-summary-description" = "Un resumen específico ayuda a los co-editores a revisar rápidamente tus ediciones. También puedes escoger entre las etiquetas de abajo.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Otras formas en las que mejoraste la página";
 "edit-summary-title" = "¿Cómo has mejorado el artículo?";
 "fetching-random-article" = "Obteniendo artículo al azar";

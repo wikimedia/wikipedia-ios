@@ -18,6 +18,7 @@
 "article-read-more-title" = "Läs mer";
 "info-box-title" = "Snabbfakta";
 "info-box-close-text" = "Stäng";
+"table-title-other" = "Mer information";
 "language-button-text" = "Du kan läsa denna artikel på %d andra språk";
 "history-label" = "Webbhistorik";
 "history-section-today" = "Idag";
@@ -135,7 +136,7 @@
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-artiklar uppdateras hela tiden. Tryck på uppdatera för att få den senaste versionen av alla artiklar.";
 "saved-pages-refresh-cancel-alert-button" = "Jag förstår";
 "page-history-title" = "Artikelhistorik";
-"page-history-downloading" = "Laddar artikelhistorik...";
+"page-history-downloading" = "Läser in artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigera";
 "navbar-title-mode-login" = "Logga in";
 "navbar-title-mode-login-and-save" = "Logga in och spara";

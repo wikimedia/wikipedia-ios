@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Davidzdh
 // Author: JuneAugsut
+// Author: Kuailong
 // Author: LNDDYL
 // Author: Linforest
 // Author: Liuxinyu970226
@@ -16,6 +17,7 @@
 "article-read-more-title" = "阅读更多";
 "info-box-title" = "快速预览";
 "info-box-close-text" = "关闭";
+"table-title-other" = "更多信息";
 "language-button-text" = "您可阅读此条目的%d种其他语言版";
 "history-label" = "最近";
 "history-section-today" = "今天的首页";
@@ -74,7 +76,7 @@
 "wikitext-upload-save-sign-in-benefits" = "所有共同编辑者可与您联系，以及您可以看见您编辑了哪些条目。";
 "wikitext-upload-save-anonymously" = "以匿名方式保存";
 "wikitext-upload-save-anonymously-warning" = "编辑将作为您设备的IP地址发表。如果您$1您将拥有更多隐私。";
-"wikitext-upload-save-terms-and-license" = "通过保存，您同意$1，并义无反顾的根据$2许可协议发表您的贡献。";
+"wikitext-upload-save-terms-and-license" = "选择保存，即表明您同意遵守$1，并根据$2许可协议发表您的贡献，该授权不可撤回。";
 "wikitext-upload-save-terms-name" = "使用条款";
 "wikitext-upload-save-license-name" = "知识共享 署名-相同方式共享 3.0";
 "open-link-title" = "打开链接";
@@ -132,8 +134,8 @@
 "saved-pages-refresh-cancel-alert-title" = "更新已取消";
 "saved-pages-refresh-cancel-alert-message" = "维基百科条目始终在更新。点按刷新以获得所有条目的最新版本。";
 "saved-pages-refresh-cancel-alert-button" = "明白了";
-"page-history-title" = "页面历史";
-"page-history-downloading" = "加载页面历史...";
+"page-history-title" = "条目历史";
+"page-history-downloading" = "加载条目历史...";
 "navbar-title-mode-edit-wikitext" = "编辑";
 "navbar-title-mode-login" = "登录";
 "navbar-title-mode-login-and-save" = "登录并保存";
@@ -145,7 +147,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "需要快速认证";
 "navbar-title-mode-edit-wikitext-summary" = "描述您的编辑";
 "navbar-title-mode-edit-wikitext-save" = "保存";
-"edit-summary-choice-linked-words" = "链接词语";
+"edit-summary-choice-linked-words" = "已添加链接";
 "edit-summary-choice-fixed-grammar" = "已确定语法";
 "edit-summary-choice-fixed-inaccuracy" = "修正错误";
 "edit-summary-choice-fixed-styling" = "已确定样式";
@@ -155,7 +157,7 @@
 "edit-summary-choice-added-clarification" = "已添加说明";
 "edit-summary-choice-other" = "其他";
 "edit-summary-description" = "具体摘要帮助共同编辑者快速复核您的编辑。您也可以在下方选择标签。";
-"edit-summary-field-placeholder-text" = "您为改善此页面做了什么？";
+"edit-summary-field-placeholder-text" = "您改进条目的其他方法";
 "edit-summary-title" = "您如何改进条目的？";
 "fetching-random-article" = "正在获取随机文章";
 "article-pull-to-refresh-prompt" = "拖拽以刷新条目";

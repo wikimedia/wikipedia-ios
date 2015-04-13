@@ -6,6 +6,7 @@
 // Author: Dicto23456
 // Author: Kopcap94
 // Author: Macofe
+// Author: Mariya
 // Author: Oashnic
 // Author: Okras
 
@@ -16,6 +17,7 @@
 "article-read-more-title" = "Читать подробнее";
 "info-box-title" = "Короткие факты";
 "info-box-close-text" = "Закрыть";
+"table-title-other" = "Подробнее";
 "language-button-text" = "Вы можете прочитать эту статью ещё на %d других языках";
 "history-label" = "Недавние";
 "history-section-today" = "Сегодня";
@@ -119,8 +121,7 @@
 "main-menu-terms-of-use" = "Условия использования";
 "main-menu-rate-app" = "Оценить приложение";
 "main-menu-heading-zero" = "Wikipedia Zero";
-// Fuzzy
-"main-menu-heading-legal" = "Муть какая-то";
+"main-menu-heading-legal" = "Конфиденциальность и условия";
 "main-menu-show-today" = "Сегодня";
 "main-menu-nearby" = "Поблизости";
 "main-menu-more" = "Ещё…";
@@ -146,7 +147,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Необходима быстрая проверка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишите вашу правку";
 "navbar-title-mode-edit-wikitext-save" = "Сохранить";
-"edit-summary-choice-linked-words" = "Добавить ссылки";
+"edit-summary-choice-linked-words" = "Добавленные ссылки";
 "edit-summary-choice-fixed-grammar" = "Исправлено правописание";
 "edit-summary-choice-fixed-inaccuracy" = "Исправлена неточность";
 "edit-summary-choice-fixed-styling" = "Стилевые правки";
@@ -156,7 +157,7 @@
 "edit-summary-choice-added-clarification" = "Добавлено разъяснение";
 "edit-summary-choice-other" = "Другое";
 "edit-summary-description" = "Точное описание помогает другим участникам быстро проверить ваши правки. Также вы могли бы указать описание с использованием приведённых ниже тегов.";
-"edit-summary-field-placeholder-text" = "Как именно вы улучшили страницу?";
+"edit-summary-field-placeholder-text" = "Другие способы, которыми вы улучшили страницу";
 "edit-summary-title" = "Как именно вы улучшили страницу?";
 "fetching-random-article" = "Выбор случайной статьи";
 "article-pull-to-refresh-prompt" = "Потяните, чтобы обновить статью";
@@ -254,6 +255,7 @@
 "nearby-location-general-error" = "Не удаётся определить местоположение. Потяните, чтобы обновить или повторите попытку позже.";
 "nearby-wifi" = "Включение Wi-Fi может помочь устройству лучше определить ваше местоположение.";
 "migration-update-progress-label" = "Обновление локальных данных";
+"migration-update-progress-count-label" = "Перенос статьи $1 из $2";
 "image-gallery-unknown-owner" = "Загрузивший файл неизвестен.";
 "hockeyapp-alert-question" = "Не хотели бы вы отправить отчет в $1, чтобы Фонд Викимедиа смог изучить ваш случай «падения»?";
 "hockeyapp-alert-question-with-response-field" = "Не хотели бы вы отправить отчет в $1, чтобы Фонд Викимедиа смог изучить ваш случай «падения»? Пожалуйста, опишите, что могло привести к этому:";

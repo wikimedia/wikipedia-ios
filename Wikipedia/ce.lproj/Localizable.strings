@@ -56,7 +56,9 @@
 "main-menu-nearby" = "Уллехь";
 "saved-pages-title" = "Ӏалашйина агӀонаш";
 "saved-pages-clear-cancel" = "Цаоьшу";
+// Fuzzy
 "page-history-title" = "АгӀона истори";
+// Fuzzy
 "page-history-downloading" = "Историн агӀо гучуяккхар...";
 "navbar-title-mode-login" = "ЧугӀо";
 "navbar-title-mode-login-and-save" = "ЧугӀой а Ӏалашъе";

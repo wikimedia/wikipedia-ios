@@ -133,7 +133,9 @@
 "saved-pages-refresh-cancel-alert-title" = "Bijwerken geanuleerd";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia artikels worden constant bijgewerkt. Druk op vernieuwen om de nieuwste versie van de artikels te bekijken.";
 "saved-pages-refresh-cancel-alert-button" = "Begrepen";
+// Fuzzy
 "page-history-title" = "Paginageschiedenis";
+// Fuzzy
 "page-history-downloading" = "Paginageschiedenis laden...";
 "navbar-title-mode-edit-wikitext" = "Bewerken";
 "navbar-title-mode-login" = "Aanmelden";
@@ -146,6 +148,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Snelle controle nodig";
 "navbar-title-mode-edit-wikitext-summary" = "Beschrijf uw bewerking";
 "navbar-title-mode-edit-wikitext-save" = "Opslaan";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Koppelingen toegevoegd";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
 "edit-summary-choice-fixed-inaccuracy" = "Onjuistheid gecorrigeerd";
@@ -156,6 +159,7 @@
 "edit-summary-choice-added-clarification" = "Verduidelijking toegevoegd";
 "edit-summary-choice-other" = "Overige";
 "edit-summary-description" = "Een specifieke samenvatting helpt mederedacteuren bij het snel controleren van uw bewerkingen. U kunt ook kiezen uit de onderstaande standaardteksten.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Andere manieren waarop u de pagina hebt verbeterd";
 "edit-summary-title" = "Hoe heeft u de pagina verbeterd?";
 "fetching-random-article" = "Willekeurige pagina ophalen";

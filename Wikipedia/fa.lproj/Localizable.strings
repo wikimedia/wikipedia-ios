@@ -121,8 +121,7 @@
 "main-menu-terms-of-use" = "شرایط استفاده";
 "main-menu-rate-app" = "رتبه برنامه";
 "main-menu-heading-zero" = "ویکی‌پدیای صفر";
-// Fuzzy
-"main-menu-heading-legal" = "خرافات";
+"main-menu-heading-legal" = "سیاست‌ها و محرمانگی";
 "main-menu-show-today" = "امروز";
 "main-menu-nearby" = "در نزدیکی";
 "main-menu-more" = "بیشتر...";
@@ -135,7 +134,9 @@
 "saved-pages-refresh-cancel-alert-title" = "بارگذاری لغو شد";
 "saved-pages-refresh-cancel-alert-message" = "مقالات ویکی‌پدیا همیشه به‌روز می‌شوند. برای دریافت آخرین نسخه بر روی صفحه انگشت بزنید تا بروز شود.";
 "saved-pages-refresh-cancel-alert-button" = "گرفتم";
+// Fuzzy
 "page-history-title" = "تاریخچهٔ صفحه";
+// Fuzzy
 "page-history-downloading" = "در حال بارگیری صفحه تاریخچه...";
 "navbar-title-mode-edit-wikitext" = "ویرایش";
 "navbar-title-mode-login" = "ورود به سامانه";
@@ -148,6 +149,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "تایید سریع مورد نیاز است";
 "navbar-title-mode-edit-wikitext-summary" = "توصیف ویرایش‌تان";
 "navbar-title-mode-edit-wikitext-save" = "ذخیره";
+// Fuzzy
 "edit-summary-choice-linked-words" = "افزودن پیوند";
 "edit-summary-choice-fixed-grammar" = "دستور زبان  اصلاح شد";
 "edit-summary-choice-fixed-inaccuracy" = "بی‌دقتی  اصلاح شد";
@@ -158,6 +160,7 @@
 "edit-summary-choice-added-clarification" = "افزودن توضیح";
 "edit-summary-choice-other" = "سایر";
 "edit-summary-description" = "خلاصه ویرایش به دیگر همکاران  کمک می‌کند تا ویرایش‌هایتان را به سرعت بررسی می کنند. همچنین می‌توانید از برچسب ها زیر استفاده کنید.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "راه‌های دیگر برای بهبود مقاله";
 "edit-summary-title" = "چگونه مقاله را بهبود دادید؟";
 "fetching-random-article" = "دریافت مقاله تصادفی";
@@ -255,6 +258,8 @@
 "nearby-location-updates-settings-menu" = "حریم شخصی > خدمات موقعیت > ویکی‌پدیا";
 "nearby-location-general-error" = "ناتوان در تشخیص موقعیت. برای تازه‌کردن فشار دهید یا بعداً تلاش کنید.";
 "nearby-wifi" = "فعال‌کردن وای‌فای می‌تواند به دستگاه‌تان در بهتر تشخیص‌دادن موقعیت‌تان کمک کند.";
+"migration-update-progress-label" = "به‌روز کردن اطلاعات محلی";
+"migration-update-progress-count-label" = "مهاجرت مقاله از $1 به $2";
 "image-gallery-unknown-owner" = "آپلود کننده ناشناخته است.";
 "hockeyapp-alert-question" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا ویکی‌مدیا بتواند آن‌را بررسی کند؟";
 "hockeyapp-alert-question-with-response-field" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا ویکی‌مدیا بتواند آن‌را بررسی کند؟ لطفاً شرح دهید که در هنگام از کار افتادن چه رخ داد:";

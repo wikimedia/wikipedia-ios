@@ -94,7 +94,9 @@
 "saved-pages-clear-confirmation-heading" = "Barcha saqlangan elementlarni oʻchirmoqchimisiz?";
 "saved-pages-clear-confirmation-sub-heading" = "Bu amalni bekor qilib boʻlmaydi!";
 "saved-pages-clear-cancel" = "Bekor qilish";
+// Fuzzy
 "page-history-title" = "Maqolaning tarixi";
+// Fuzzy
 "page-history-downloading" = "Maqola tarixi yuklanyapti...";
 "navbar-title-mode-edit-wikitext" = "Tahrirlash";
 "navbar-title-mode-login" = "Kirish";
@@ -104,6 +106,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Ko‘rib chiqish";
 "navbar-title-mode-edit-wikitext-summary" = "Tahriringizni tariflang";
 "navbar-title-mode-edit-wikitext-save" = "Saqlash";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Havola(lar) qoʻshish";
 "edit-summary-choice-added-category" = "Turkum qo'shildi";
 "edit-summary-choice-added-missing-info" = "Yetishmayatgan ma'lumot qo'shildi";

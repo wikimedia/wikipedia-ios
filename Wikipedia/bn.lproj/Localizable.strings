@@ -108,7 +108,9 @@
 "saved-pages-clear-cancel" = "বাতিল";
 "saved-pages-refresh-cancel-alert-title" = "আপলোড বাতিল হয়েছে";
 "saved-pages-refresh-cancel-alert-button" = "বুঝেছি";
+// Fuzzy
 "page-history-title" = "পাতার ইতিহাস";
+// Fuzzy
 "page-history-downloading" = "পাতার ইতিহাস লোড হচ্ছে...";
 "navbar-title-mode-edit-wikitext" = "সম্পাদনা";
 "navbar-title-mode-login" = "প্রবেশ";
@@ -121,6 +123,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "দ্রুত যাচাইকরণের প্রয়োজন";
 "navbar-title-mode-edit-wikitext-summary" = "আপনার সম্পাদনা বর্ণনা করুন।";
 "navbar-title-mode-edit-wikitext-save" = "সংরক্ষণ";
+// Fuzzy
 "edit-summary-choice-linked-words" = "লিংক সংযোজন";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-inaccuracy" = "অশুদ্ধ ঠিক করা";
@@ -131,6 +134,7 @@
 "edit-summary-choice-added-clarification" = "ব্যাখ্যা যোগ করা";
 "edit-summary-choice-other" = "অন্যান্য";
 "edit-summary-description" = "একটি নির্দিষ্ট সারসংক্ষেপ সহ-সম্পাদকদের আপনার সম্পাদনাগুলি দ্রুত পর্যালোচনা করতে সাহায্য করে। এছাড়াও আপনি নীচের ট্যাগ থেকে বাছাই করতে পারেন।";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "কীভাবে আপনি নিবন্ধনটি উন্নত করেছেন?";
 "edit-summary-title" = "কীভাবে আপনি পাতাটি উন্নত করেছেন?";
 "fetching-random-article" = "অজানা নিবন্ধ আনা হচ্ছে";

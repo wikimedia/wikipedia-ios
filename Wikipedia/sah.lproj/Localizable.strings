@@ -110,7 +110,9 @@
 "saved-pages-refresh-cancel-alert-title" = "Саҥардыы тохтотулунна";
 "saved-pages-refresh-cancel-alert-message" = "Бикипиэдьийэ ыстатытыйалара куруук уларыйа тураллар. Саҥарт диэни баттаатаххына тиһэх көннөрүүлэрин көрүөҥ.";
 "saved-pages-refresh-cancel-alert-button" = "Бу өйдөнөр";
+// Fuzzy
 "page-history-title" = "Сирэй устуоруйата";
+// Fuzzy
 "page-history-downloading" = "Сирэй устуоруйата хачайданар...";
 "navbar-title-mode-edit-wikitext" = "Уларыт";
 "navbar-title-mode-login" = "Киир";
@@ -123,6 +125,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Суһал тургутууну ирдиир";
 "navbar-title-mode-edit-wikitext-summary" = "Тугу гыммыккын кэпсээ";
 "navbar-title-mode-edit-wikitext-save" = "Бигэргэт";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Сигэни эбии";
 "edit-summary-choice-fixed-grammar" = "Таба суруйуутун көннөрдүм";
 "edit-summary-choice-fixed-inaccuracy" = "Кыра алҕаһын көннөрдүм";
@@ -133,6 +136,7 @@
 "edit-summary-choice-added-clarification" = "Быһааран биэрдим";
 "edit-summary-choice-other" = "Атыны гынным";
 "edit-summary-description" = "Тугу оҥорбуккун чопчутук ойуулаатаххына, атын кыттааччылар көннөрүүгүн тургуталларыгар көмөлөһүө. Аллара бэриллибит этиилэри туһаныаххын сөп.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Тугу тупсардыҥ?";
 "edit-summary-title" = "Тугун тупсардыҥ?";
 "fetching-random-article" = "Түбэспиччэ ыстатыйаны талыы";

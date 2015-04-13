@@ -1,17 +1,23 @@
 // Messages for Arabic (العربية)
 // Exported from translatewiki.net
 // Author: Musab Moahmmed
+// Author: Omda4wady
 // Author: Shbib Al-Subaie
 // Author: Tarawneh
 // Author: محمد عصام
 
 "article-languages-label" = "اختر لغة";
 "article-languages-cancel" = "إلغاء";
+"article-read-more-title" = "قراءة المزيد";
+"info-box-title" = "معلومات سريعة";
+"info-box-close-text" = "إغلاق";
 "history-label" = "الأخيرة";
 "history-section-today" = "اليوم";
 "history-section-yesterday" = "الأمس";
 "history-section-lastweek" = "الأسبوع الماضي";
 "history-section-lastmonth" = "الشهر الماضي";
+"history-clear-confirmation-heading" = "حذف جميع العناصر الجديدة؟";
+"history-clear-confirmation-sub-heading" = "هذا العمل لا يُمكن التراجع عنه.";
 "history-clear-cancel" = "إلغاء";
 "history-clear-delete-all" = "حذف الكل";
 "zero-charged-verbiage" = "ويكيبيديا زيرو معطلة";
@@ -35,6 +41,9 @@
 "account-creation-password-confirm-placeholder-text" = "أكّد كلمة المرور";
 "account-creation-email-placeholder-text" = "البريد الإلكتروني (اختياري)";
 "account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة مرور، وتأكيد كلمة المرور لإنشاء حسابٍ.";
+"login-password-empty" = "كلمة المرور مطلوبة للولوج";
+"login-password-wrong" = "كلمة السر التي أدخلتها غير صحيحة.";
+"login-user-blocked" = "المستخدم ممنوع";
 "login-username-placeholder-text" = "اسم المستخدم";
 "login-password-placeholder-text" = "كلمة المرور";
 "wikitext-downloading" = "جارٍ تحميل المحتوى...";
@@ -48,6 +57,9 @@
 "open-link-title" = "فتح الرابط";
 "open-link-cancel" = "إلغاء";
 "search-searching" = "جارٍ البحث...";
+"search-field-placeholder-text" = "البحث في ويكيبيديا";
+"search-field-placeholder-text-zero" = "البحث في ويكيبيديا زيرو";
+"search-cancel" = "إلغاء";
 "search-titles" = "العناوين";
 "search-recent-clear-cancel" = "إلغاء";
 "search-recent-clear-delete-all" = "حذف الكل";
@@ -63,7 +75,9 @@
 "saved-pages-clear-confirmation-heading" = "حذف جميع العناصر المحفوظة؟";
 "saved-pages-clear-confirmation-sub-heading" = "هذا العمل لا يُمكن التراجع عنه.";
 "saved-pages-clear-cancel" = "إلغاء";
+// Fuzzy
 "page-history-title" = "تاريخ المقالة";
+// Fuzzy
 "page-history-downloading" = "جارٍ تحميل تاريخ المقالة...";
 "navbar-title-mode-edit-wikitext" = "تعديل";
 "navbar-title-mode-login" = "سجّل الدخول";
@@ -77,6 +91,7 @@
 "about-wikipedia" = "ويكيبيديا";
 "about-translators" = "المترجمون";
 "about-libraries" = "المكتبات المستخدمة";
+"about-libraries-license" = "ترخيص";
 "about-send-feedback" = "إرسال الملاحظات على التطبيق";
 "button-next" = "التالي";
 "button-done" = "تم";

@@ -108,7 +108,9 @@
 "saved-pages-clear-confirmation-heading" = "ਸਾਰੀਆਂ ਸਾਂਭੀਆਂ ਚੀਜ਼ਾਂ ਮਿਟਾਉਣੀਆਂ ਹਨ?";
 "saved-pages-clear-confirmation-sub-heading" = "ਇਹ ਕਾਰਵਾਈ ਅਣ-ਕੀਤੀ ਨਹੀਂ ਹੋ ਸਕਦੀ!";
 "saved-pages-clear-cancel" = "ਰੱਦ ਕਰੋ";
+// Fuzzy
 "page-history-title" = "ਲੇਖ ਦਾ ਅਤੀਤ";
+// Fuzzy
 "page-history-downloading" = "ਲੇਖ ਦਾ ਅਤੀਤ ਲੱਦਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "navbar-title-mode-edit-wikitext" = "ਸੋਧ";
 "navbar-title-mode-login" = "ਦਾਖ਼ਲਾ";
@@ -121,6 +123,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "ਜਲਦੀ ਤਸਦੀਕੀ ਲੁੜੀਂਦੀ";
 "navbar-title-mode-edit-wikitext-summary" = "ਆਪਣੀ ਸੋਧ ਦਾ ਵੇਰਵਾ ਦਿਉ";
 "navbar-title-mode-edit-wikitext-save" = "ਸਾਂਭੋ";
+// Fuzzy
 "edit-summary-choice-linked-words" = "ਕੜੀਆਂ ਜੋੜੀਆਂ";
 "edit-summary-choice-fixed-grammar" = "ਵਿਆਕਰਨ ਸਹੀ ਕੀਤੀ";
 "edit-summary-choice-fixed-inaccuracy" = "ਗ਼ਲਤੀ ਸਹੀ ਕੀਤੀ";
@@ -131,6 +134,7 @@
 "edit-summary-choice-added-clarification" = "ਸਫ਼ਾਈ ਜੋੜੀ";
 "edit-summary-choice-other" = "ਹੋਰ";
 "edit-summary-description" = "ਕੋਈ ਖ਼ਾਸ ਸਾਰ ਸਹਿ-ਸੰਪਾਦਕਾਂ ਦੀ ਤੁਹਾਡੀਆਂ ਸੋਧਾਂ ਦੀ ਛੇਤੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ। ਤੁਸੀਂ ਹੇਠਲੀਆਂ ਨਿਸ਼ਾਨਦੇਹੀਆਂ 'ਚੋਂ ਵੀ ਚੁਣ ਸਕਦੇ ਹੋ।";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "ਹੋਰ ਤਰੀਕੇ ਜਿਹਨਾਂ ਨਾਲ਼ ਤੁਸੀਂ ਇਸ ਸਫ਼ੇ ਨੂੰ ਸੁਧਾਰਿਆ";
 "edit-summary-title" = "ਤੁਸੀਂ ਇਹ ਸਫ਼ਾ ਕਿਵੇਂ ਸੁਧਾਰਿਆ?";
 "fetching-random-article" = "ਰਲ਼ਵਾਂ ਲੇਖ ਲਿਆ ਰਿਹਾ ਹੈ";

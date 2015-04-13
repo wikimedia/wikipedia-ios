@@ -65,7 +65,9 @@
 "saved-pages-title" = "خوندي مخونه";
 "saved-pages-clear-cancel" = "ناگارل";
 "saved-pages-refresh-cancel-alert-button" = "پوه شوم";
+// Fuzzy
 "page-history-title" = "د ليکنې پېښليک";
+// Fuzzy
 "page-history-downloading" = "د ليکنې پېښليک رابرسېرېږي...";
 "navbar-title-mode-edit-wikitext" = "سمول";
 "navbar-title-mode-login" = "ننوتل";
@@ -74,6 +76,7 @@
 "navbar-title-mode-create-account-and-save" = "گڼون جوړول او خوندي کول";
 "navbar-title-mode-edit-wikitext-preview" = "مخليدنه";
 "navbar-title-mode-edit-wikitext-save" = "خوندي کول";
+// Fuzzy
 "edit-summary-choice-linked-words" = "تړنې ورگډې کړې";
 "edit-summary-choice-other" = "بل";
 "about-title" = "په اړه";

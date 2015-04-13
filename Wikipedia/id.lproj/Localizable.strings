@@ -133,7 +133,9 @@
 "saved-pages-refresh-cancel-alert-title" = "Pembaruan dibatalkan";
 "saved-pages-refresh-cancel-alert-message" = "Artikel Wikipedia diperbarui setiap saat. Ketuk segarkan untuk mendapatkan versi terbaru dari semua artikel.";
 "saved-pages-refresh-cancel-alert-button" = "Mengerti";
+// Fuzzy
 "page-history-title" = "Versi terdahulu halaman";
+// Fuzzy
 "page-history-downloading" = "Memuat riwayat artikel...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
 "navbar-title-mode-login" = "Masuk log";
@@ -146,6 +148,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Verifikasi cepat diperlukan";
 "navbar-title-mode-edit-wikitext-summary" = "Gambarkan suntingan Anda";
 "navbar-title-mode-edit-wikitext-save" = "Simpan";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Penambahan pranala";
 "edit-summary-choice-fixed-grammar" = "Perbaikan tata bahasa";
 "edit-summary-choice-fixed-inaccuracy" = "Perbaikan ketidaktepatan";
@@ -156,6 +159,7 @@
 "edit-summary-choice-added-clarification" = "Penambahan klarifikasi";
 "edit-summary-choice-other" = "Lainnya";
 "edit-summary-description" = "Ringkasan tertentu membantu wakil penyunting segera meninjau suntingan Anda. Anda juga dapat memilih dari tag di bawah ini.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Cara lain Anda menyempurnakan artikel";
 "edit-summary-title" = "Bagaimana Anda menyempurnakan artikel ini?";
 "fetching-random-article" = "Mengambil sembarang artikel";

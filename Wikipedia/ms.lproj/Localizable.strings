@@ -119,7 +119,9 @@
 "saved-pages-clear-confirmation-heading" = "Padamkan semua item tersimpan?";
 "saved-pages-clear-confirmation-sub-heading" = "Tindakan ini tidak boleh dipulihkan!";
 "saved-pages-clear-cancel" = "Batalkan";
+// Fuzzy
 "page-history-title" = "Sejarah laman";
+// Fuzzy
 "page-history-downloading" = "Memuatkan sejarah laman...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
 "navbar-title-mode-login" = "Log masuk";
@@ -132,6 +134,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Pengesahan segera diperlukan";
 "navbar-title-mode-edit-wikitext-summary" = "Huraikan suntingan anda";
 "navbar-title-mode-edit-wikitext-save" = "Simpan";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Membubuh pautan";
 "edit-summary-choice-fixed-grammar" = "Memperbaiki tatabahasa";
 "edit-summary-choice-fixed-inaccuracy" = "Membetulkan kesilapan fakta";
@@ -142,6 +145,7 @@
 "edit-summary-choice-added-clarification" = "Menambahkan penjelasan";
 "edit-summary-choice-other" = "Lain-lain";
 "edit-summary-description" = "Ringkasan yang khusus membantu penyunting lain untuk menyemak suntingan anda dengan cepat. Anda juga boleh memilih dari antara teg-teg yang berikut.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Bagaimanakah anda telah menambah baik halaman ini?";
 "edit-summary-title" = "Bagaimana anda perbaiki rencana ini?";
 "fetching-random-article" = "Memperoleh rencana rawak";

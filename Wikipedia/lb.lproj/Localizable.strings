@@ -9,6 +9,7 @@
 "article-read-more-title" = "Liest méi";
 "info-box-title" = "Séier Fakten";
 "info-box-close-text" = "Zoumaachen";
+"table-title-other" = "Méi Informatiounen";
 "language-button-text" = "Dir kënnt dësen Artikel a(n) %d anere Sprooche liesen";
 "history-label" = "Rezent";
 "history-section-today" = "Haut";
@@ -107,8 +108,7 @@
 "main-menu-terms-of-use" = "Benotzungs-Bedingungen";
 "main-menu-rate-app" = "App bewäerten";
 "main-menu-heading-zero" = "Wikipedia Zero";
-// Fuzzy
-"main-menu-heading-legal" = "Rechtlech Informatioun";
+"main-menu-heading-legal" = "Dateschutz a Konditiounen";
 "main-menu-show-today" = "Haut";
 "main-menu-nearby" = "An der Noperschaft";
 "main-menu-more" = "Méi …";
@@ -119,8 +119,8 @@
 "saved-pages-clear-cancel" = "Ofbriechen";
 "saved-pages-refresh-cancel-alert-title" = "Aktualisatioun ofgegrach";
 "saved-pages-refresh-cancel-alert-button" = "Verstan";
-"page-history-title" = "Versioune vun dëser Säit";
-"page-history-downloading" = "Lëscht vun de Versioune gëtt gelueden...";
+"page-history-title" = "Versioune vum Artikel";
+"page-history-downloading" = "Lëscht vun de Versioune vum Artikel gëtt gelueden...";
 "navbar-title-mode-edit-wikitext" = "Änneren";
 "navbar-title-mode-login" = "Aloggen";
 "navbar-title-mode-login-and-save" = "Aloggen a späicheren";
@@ -131,7 +131,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Kucken ouni ofzespäicheren";
 "navbar-title-mode-edit-wikitext-summary" = "Beschreift Är Ännerung";
 "navbar-title-mode-edit-wikitext-save" = "Späicheren";
-"edit-summary-choice-linked-words" = "Verlinkt Wierder";
+"edit-summary-choice-linked-words" = "Dobäigesat Linken";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-inaccuracy" = "Ongenauegkeete verbessert";
 "edit-summary-choice-fixed-styling" = "Stil verbessert";
@@ -140,7 +140,7 @@
 "edit-summary-choice-added-missing-info" = "Informatiounen déi gefeelt hunn derbäigesat";
 "edit-summary-choice-added-clarification" = "Erklärung derbäigesat";
 "edit-summary-choice-other" = "Anerer";
-"edit-summary-field-placeholder-text" = "Wéi hutt Dir d'Säit verbessert?";
+"edit-summary-field-placeholder-text" = "Aner Manéiere wéi Dir den Artikel verbessert hutt";
 "edit-summary-title" = "Wéi hutt Dir den Artikel verbessert?";
 "fetching-random-article" = "Zoufällegen Artikel ofrufen";
 "article-pull-to-refresh-prompt" = "Zitt fir den Artikel z'aktualiséieren";
@@ -233,6 +233,7 @@
 "nearby-location-general-error" = "D'Plaz wou Dir sidd konnt net festgestallt ginn. Dréckt fir z'aktualiséieren oder probéiert méi spéit nach eng Kéier.";
 "nearby-wifi" = "D'Aschalte vum Wifi kann Ärem Apparat hëllefen d'Plaz wou Dir sidd besser festzeleeën.";
 "migration-update-progress-label" = "Aktualiséiere vu lokalen Donnéeën";
+"migration-update-progress-count-label" = "Migratioun vum Artikel $1 op $2";
 "image-gallery-unknown-owner" = "Eroplueder onbekannt.";
 "hockeyapp-alert-question" = "Wëllt Dir e Rapport vum Crash u $1 schécken fir datt Wikimedia Äre Crash ënnersiche kann?";
 "hockeyapp-alert-title" = "Leider ass d'App déi leschte Kéier ofgestierzt";

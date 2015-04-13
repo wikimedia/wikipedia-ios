@@ -130,7 +130,9 @@
 "saved-pages-refresh-cancel-alert-title" = "Atualização cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Os artigos da Wikipédia são atualizados a todo o instante. Toque em atualizar para obter as versões mais recentes de todos os artigos.";
 "saved-pages-refresh-cancel-alert-button" = "Percebido";
+// Fuzzy
 "page-history-title" = "Histórico da página";
+// Fuzzy
 "page-history-downloading" = "A carregar o histórico da página...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Entrar";
@@ -143,6 +145,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Verificação rápida necessária";
 "navbar-title-mode-edit-wikitext-summary" = "Descreva as suas alterações";
 "navbar-title-mode-edit-wikitext-save" = "Gravar";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Ligações adicionadas";
 "edit-summary-choice-fixed-grammar" = "Gramática corrigida";
 "edit-summary-choice-fixed-inaccuracy" = "Inexatidão corrigida";
@@ -153,6 +156,7 @@
 "edit-summary-choice-added-clarification" = "Adicionado esclarecimento";
 "edit-summary-choice-other" = "Outro";
 "edit-summary-description" = "Um resumo específico ajuda os co-editores a rever as suas edições. Pode escolher também uma das etiquetas abaixo.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Como melhorou a página?";
 "edit-summary-title" = "De que forma contribuiu para melhorar a página?";
 "fetching-random-article" = "A obter um artigo aleatório";
@@ -252,10 +256,8 @@
 "nearby-wifi" = "Ativar o WiFi pode ajudar o seu dispositivo a determinar a sua localização.";
 "migration-update-progress-label" = "A atualizar dados locais";
 "image-gallery-unknown-owner" = "Autor desconhecido.";
-// Fuzzy
-"hockeyapp-alert-question" = "Deseja enviar um relatório da falha de $1 para que possamos resolver o problema?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Deseja enviar um relatório da falha de $1 para que possamos resolver o problema? Por favor, descreva a situação quando ocorreu o encerramento inesperado:";
+"hockeyapp-alert-question" = "Deseja enviar um relatório da falha de $1 para que a Wikimedia possa resolver o seu problema?";
+"hockeyapp-alert-question-with-response-field" = "Deseja enviar um relatório da falha de $1 para que a Wikimedia possa resolver o seu problema? Por favor, descreva a situação quando ocorreu o encerramento inesperado:";
 "hockeyapp-alert-title" = "Desculpe, a aplicação encerrou inesperadamente da última vez";
 "hockeyapp-alert-send-report" = "Enviar relatório";
 "hockeyapp-alert-always-send" = "Enviar sempre";

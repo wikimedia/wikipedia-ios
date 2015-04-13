@@ -6,6 +6,7 @@
 // Author: Csega
 // Author: Jack Phoenix
 // Author: Liuxinyu970226
+// Author: Macofe
 // Author: Purodha
 // Author: Robby
 // Author: Shirayuki
@@ -18,7 +19,7 @@
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
 "info-box-title" = "The title of info boxes - in collapsed and expanded form";
 "info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}";
-"table-title-other" = "The title of non-info box tables - in collapsed and expanded form";
+"table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
 "language-button-text" = "Label for 'other languages' button in content area footer. %d is placeholder for the number of available languages; note that support for PLURAL string marking is not yet available, so make your message generic if possible for now.";
 "history-label" = "Header label for screen showing the users' in-app browsing history.\n{{Identical|Recent}}";
 "history-section-today" = "Subsection label for list of articles browsed today.\n{{Identical|Today}}";

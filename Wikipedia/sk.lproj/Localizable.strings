@@ -106,6 +106,7 @@
 "main-menu-terms-of-use" = "Podmienky používania";
 "main-menu-rate-app" = "Ohodnoťte aplikáciu";
 "main-menu-heading-zero" = "Wikipédia Zero";
+"main-menu-heading-legal" = "Ochrana osobných údajov a podmienky používania";
 "main-menu-show-today" = "Dnes";
 "main-menu-nearby" = "V okolí";
 "main-menu-more" = "Zobraziť viac...";
@@ -113,7 +114,9 @@
 "saved-pages-clear-confirmation-heading" = "Vymazať všetky uložené stránky?";
 "saved-pages-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
 "saved-pages-clear-cancel" = "Zrušiť";
+// Fuzzy
 "page-history-title" = "História stránky";
+// Fuzzy
 "page-history-downloading" = "Načítavanie histórie stránky...";
 "navbar-title-mode-edit-wikitext" = "Upraviť";
 "navbar-title-mode-login" = "Prihlásiť sa";
@@ -126,6 +129,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Je požadované rýchle overenie";
 "navbar-title-mode-edit-wikitext-summary" = "Zhrnutie úprav";
 "navbar-title-mode-edit-wikitext-save" = "Uložiť";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Pridanie odkazov";
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
 "edit-summary-choice-fixed-typos" = "Oprava preklepu";
@@ -133,6 +137,7 @@
 "edit-summary-choice-added-missing-info" = "Pridanie chýbajúcich informácii";
 "edit-summary-choice-added-clarification" = "Pridanie objasnenia";
 "edit-summary-choice-other" = "Iné";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Ako ste vylepšili článok?";
 "edit-summary-title" = "Ako ste vylepšili článok?";
 "fetching-random-article" = "Nahrávam náhodný článok";
@@ -168,6 +173,7 @@
 "page_protected_can_not_edit_title" = "Táto stránka je zamknutá";
 "license-footer-text" = "Obsah je k dispozícii v rámci $1";
 "license-footer-name" = "CC BY-SA 3.0";
+"abuse-filter-disallow-heading" = "Túto úpravu nie je možné uložiť. Prosím, vráťte sa späť a zmeňte ju.";
 "abuse-filter-disallow-notable" = "Wikipédia je encyklopédia a patrí sem iba neutrálny a hodnotný obsah.";
 "menu-edit-accessibility-label" = "Upraviť";
 "menu-close-accessibility-label" = "Zavrieť";

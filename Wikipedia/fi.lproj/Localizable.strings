@@ -129,7 +129,9 @@
 "saved-pages-refresh-cancel-alert-title" = "Päivitys peruttiin";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedian artikkeleja päivitetään kaiken aikaa. Napauta päivitä saadaksesi kaikkien artikkeleiden uusimmat versiot.";
 "saved-pages-refresh-cancel-alert-button" = "Selvä!";
+// Fuzzy
 "page-history-title" = "Artikkelin historia";
+// Fuzzy
 "page-history-downloading" = "Ladataan artikkelin historiaa...";
 "navbar-title-mode-edit-wikitext" = "Muokkaa";
 "navbar-title-mode-login" = "Kirjaudu sisään";
@@ -142,6 +144,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Nopea vahvistus tarvitaan";
 "navbar-title-mode-edit-wikitext-summary" = "Kuvaile muokkaustasi";
 "navbar-title-mode-edit-wikitext-save" = "Tallenna";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Linkitetty sanoja";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
 "edit-summary-choice-fixed-inaccuracy" = "Epätarkkuus korjattu";
@@ -152,6 +155,7 @@
 "edit-summary-choice-added-clarification" = "Selvennetty";
 "edit-summary-choice-other" = "Muu";
 "edit-summary-description" = "Erityinen yhteenveto auttaa kanssamuokkaajia tarkistamaan muokkauksesi nopeasti. Voit myös valita tunnisteita alta.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Miten paransit sivua?";
 "edit-summary-title" = "Kuinka paransit artikkelia?";
 "fetching-random-article" = "Haetaan satunnaista artikkelia";

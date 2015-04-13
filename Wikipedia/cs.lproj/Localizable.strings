@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Aktron
 // Author: Chmee2
+// Author: Cvanca
 // Author: Fitoschido
 // Author: H4nek
 // Author: Juandev
@@ -14,6 +15,7 @@
 "article-languages-filter-placeholder" = "Filtr jazyka";
 "info-box-title" = "Stručná fakta";
 "info-box-close-text" = "Zavřít";
+"table-title-other" = "Další informace";
 "language-button-text" = "Tento článek si můžete přečíst v dalších %d jazycích";
 "history-label" = "Nedávné";
 "history-section-today" = "Dnes";
@@ -96,6 +98,8 @@
 "main-menu-nearby" = "Poblíž";
 "main-menu-more" = "Více…";
 "saved-pages-title" = "Uložené stránky";
+"page-history-title" = "Historie článku";
+"page-history-downloading" = "Načítání historie článku…";
 "navbar-title-mode-edit-wikitext" = "Upravit";
 "navbar-title-mode-login" = "Přihlásit se";
 "navbar-title-mode-edit-wikitext-preview" = "Náhled";

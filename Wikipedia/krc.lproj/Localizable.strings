@@ -79,6 +79,7 @@
 "navbar-title-mode-create-account" = "Аккаунт къурау";
 "navbar-title-mode-edit-wikitext-preview" = "Ал къарау";
 "navbar-title-mode-edit-wikitext-save" = "Сакъла";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Джибериулени къош";
 "edit-summary-choice-added-category" = "Категория къошулду";
 "edit-summary-choice-other" = "Башха";

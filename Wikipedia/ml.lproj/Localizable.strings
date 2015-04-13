@@ -96,7 +96,9 @@
 "main-menu-show-page-history" = "$1 മാറ്റങ്ങളുടെ നാൾവഴി";
 "main-menu-credits" = "കടപ്പാടുകൾ";
 "saved-pages-title" = "സേവ് ചെയ്ത താളുകൾ";
+// Fuzzy
 "page-history-title" = "താളിന്റെ നാൾവഴി";
+// Fuzzy
 "page-history-downloading" = "താളിന്റെ നാൾവഴി എടുക്കുന്നു...";
 "navbar-title-mode-edit-wikitext" = "തിരുത്തുക";
 "navbar-title-mode-login" = "പ്രവേശിക്കുക";
@@ -109,6 +111,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "ഉടനെ പരിശോധന ആവശ്യമാണ്";
 "navbar-title-mode-edit-wikitext-summary" = "താങ്കളുടെ തിരുത്തിനെ വിശദീകരിക്കുക";
 "navbar-title-mode-edit-wikitext-save" = "സേവ് ചെയ്യുക";
+// Fuzzy
 "edit-summary-choice-linked-words" = "വാക്കുകളിൽ  കണ്ണി ചേർത്തു";
 "edit-summary-choice-fixed-grammar" = "വ്യാകരണം ശരിയാക്കി";
 "edit-summary-choice-fixed-inaccuracy" = "കൃത്യതയില്ലായ്മ ശരിയാക്കി";
@@ -119,6 +122,7 @@
 "edit-summary-choice-added-clarification" = "വ്യക്തത വരുത്തി";
 "edit-summary-choice-other" = "മറ്റുള്ളവ";
 "edit-summary-description" = "താങ്കളുടെ തിരുത്തുകൾ മറ്റുള്ളവർക്ക് പരിശോധിക്കാൻ ഒരു കൃത്യമായ സംഗ്രഹം സഹായമാവും. താഴെക്കൊടുത്തിരിക്കുന്ന ടാഗുകളിൽ നിന്നുമൊരെണ്ണം തിരഞ്ഞെടുക്കാവുന്നതുമാണ്.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "ഈ താൾ താങ്കൾ എങ്ങനെയാണ് മെച്ചപ്പെടുത്തിയത്?";
 "edit-summary-title" = "ഈ താൾ താങ്കൾ എങ്ങനെയാണ് മെച്ചപ്പെടുത്തിയത്?";
 "fetching-random-article" = "ക്രമരഹിതമായി ലേഖനം എടുക്കുന്നു";

@@ -132,7 +132,9 @@
 "saved-pages-refresh-cancel-alert-title" = "Güncelleme iptal edildi";
 "saved-pages-refresh-cancel-alert-message" = "Vikipedi maddeleri her zaman güncellenir. Maddelerin en son sürümlerini almak için dokunarak sayfayı yenileyin.";
 "saved-pages-refresh-cancel-alert-button" = "Anladım";
+// Fuzzy
 "page-history-title" = "Sayfa geçmişi";
+// Fuzzy
 "page-history-downloading" = "Sayfa geçmişi yükleniyor...";
 "navbar-title-mode-edit-wikitext" = "Düzenle";
 "navbar-title-mode-login" = "Oturum aç";
@@ -145,6 +147,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Hızlı doğrulama gerekli";
 "navbar-title-mode-edit-wikitext-summary" = "Değişikliğini açıkla";
 "navbar-title-mode-edit-wikitext-save" = "Kaydet";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Bağlantı eklendi";
 "edit-summary-choice-fixed-grammar" = "Gramer düzeltildi";
 "edit-summary-choice-fixed-inaccuracy" = "Yanlışlık düzeltildi";
@@ -155,6 +158,7 @@
 "edit-summary-choice-added-clarification" = "Açıklama eklendi";
 "edit-summary-choice-other" = "Diğer";
 "edit-summary-description" = "Spesifik bir özet, kullanıcıların değişiklikerinizi hızlıca inceleyebilmesini sağlar. Aşağıdaki etiketlerden seçim de yapabilirsiniz.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Sayfayı geliştirdiğiniz diğer yönler";
 "edit-summary-title" = "Sayfayı hangi yönden geliştirdiniz?";
 "fetching-random-article" = "Rastgele bir madde getiriliyor";

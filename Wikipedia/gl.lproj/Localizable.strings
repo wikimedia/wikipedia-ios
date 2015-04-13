@@ -12,6 +12,7 @@
 "article-read-more-title" = "Ler máis";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Pechar";
+"table-title-other" = "Máis información";
 "language-button-text" = "Pode ler este artigo noutras %d linguas";
 "history-label" = "Recentes";
 "history-section-today" = "Hoxe";
@@ -128,8 +129,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Actualización cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Os artigos de Wikipedia actualízanse todo o tempo. Prema actualizar para obter as últimas versións de tódolos artigos.";
 "saved-pages-refresh-cancel-alert-button" = "Entendido";
-"page-history-title" = "Historial da páxina";
-"page-history-downloading" = "Cargando o historial da páxina...";
+"page-history-title" = "Historial do artigo";
+"page-history-downloading" = "Cargando o historial do artigo...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Acceder";
 "navbar-title-mode-login-and-save" = "Acceder e gardar";
@@ -151,7 +152,7 @@
 "edit-summary-choice-added-clarification" = "Aclaración engadida";
 "edit-summary-choice-other" = "Outro";
 "edit-summary-description" = "Un resumo específico axuda ós co-editores a revisar rapidamente as túas edicións. Tamén podes escoller entre as etiquetas de abaixo.";
-"edit-summary-field-placeholder-text" = "Otras formas nas que mellorou a páxina";
+"edit-summary-field-placeholder-text" = "Outras formas nas que mellorou o artigo";
 "edit-summary-title" = "Como mellorou o artigo?";
 "fetching-random-article" = "Obtendo artigo ó chou";
 "article-pull-to-refresh-prompt" = "Tire para actualizar o artigo";

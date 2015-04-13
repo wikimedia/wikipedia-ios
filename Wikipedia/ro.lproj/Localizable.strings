@@ -9,6 +9,7 @@
 "article-read-more-title" = "Citiți mai multe";
 "info-box-title" = "Informații pe scurt";
 "info-box-close-text" = "Închide";
+"table-title-other" = "Mai multe informații";
 "language-button-text" = "Puteți citi acest articol în alte %d limbi";
 "history-label" = "Recente";
 "history-section-today" = "Astăzi";
@@ -125,8 +126,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Actualizare anulată";
 "saved-pages-refresh-cancel-alert-message" = "Articolele Wikipediei sunt actualizate permanent. Apăsați „reîncarcă” pentru a obține ultima versiune a tuturor articolelor.";
 "saved-pages-refresh-cancel-alert-button" = "Am înțeles!";
-"page-history-title" = "Istoricul paginii";
-"page-history-downloading" = "Se încarcă istoricul paginii...";
+"page-history-title" = "Istoric articol";
+"page-history-downloading" = "Se încarcă istoricul articolului...";
 "navbar-title-mode-edit-wikitext" = "Modificare";
 "navbar-title-mode-login" = "Autentificare";
 "navbar-title-mode-login-and-save" = "Autentificare și salvare";
@@ -148,7 +149,7 @@
 "edit-summary-choice-added-clarification" = "Adăugat clarificare";
 "edit-summary-choice-other" = "Altele";
 "edit-summary-description" = "O descriere specifică îi ajută pe coeditori să vă revizuiască mai rapid modificările. Puteți, de asemenea, alege dintre etichetele de mai jos.";
-"edit-summary-field-placeholder-text" = "Cum ați îmbunătățit pagina?";
+"edit-summary-field-placeholder-text" = "Alte modalități prin care ați îmbunătățit articolul";
 "edit-summary-title" = "Cum ați îmbunătățit articolul?";
 "fetching-random-article" = "Se preia articolul aleatoriu";
 "article-pull-to-refresh-prompt" = "Trageți pentru a reîncărca articolul";
@@ -247,7 +248,7 @@
 "nearby-wifi" = "Activarea conexiunii WiFi poate ajuta dispozitivul dumnevoastră să vă localizeze mai precis.";
 "migration-update-progress-label" = "Se face upgrade datelor locale";
 "migration-update-progress-count-label" = "Se migrează articolul $1 din $2";
-"image-gallery-unknown-owner" = "Încărcare de la o persoană necunoscută.";
+"image-gallery-unknown-owner" = "Încărcată de o persoană necunoscută.";
 "hockeyapp-alert-question" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema?";
 "hockeyapp-alert-question-with-response-field" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema? Vă rugăm să descrieți împrejurarea în care s-a produs blocarea:";
 "hockeyapp-alert-title" = "Ne pare rău, aplicația s-a blocat ultima dată";

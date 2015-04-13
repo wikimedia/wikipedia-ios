@@ -129,7 +129,9 @@
 "saved-pages-refresh-cancel-alert-title" = "Đã hủy cập nhật";
 "saved-pages-refresh-cancel-alert-message" = "Các bài viết Wikipedia được cập nhật rất thường xuyên. Chạm vào Tải lại để lấy bản mới nhất của các bài.";
 "saved-pages-refresh-cancel-alert-button" = "Được rồi";
+// Fuzzy
 "page-history-title" = "Lịch sử trang";
+// Fuzzy
 "page-history-downloading" = "Đang tải lịch sử trang…";
 "navbar-title-mode-edit-wikitext" = "Sửa đổi";
 "navbar-title-mode-login" = "Đăng nhập";
@@ -142,6 +144,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Cần Xác nhận Nhanh chóng";
 "navbar-title-mode-edit-wikitext-summary" = "Miêu tả sửa đổi của bạn";
 "navbar-title-mode-edit-wikitext-save" = "Lưu";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Đặt liên kết";
 "edit-summary-choice-fixed-grammar" = "Sửa ngữ pháp";
 "edit-summary-choice-fixed-inaccuracy" = "Sửa thông tin sai";
@@ -152,6 +155,7 @@
 "edit-summary-choice-added-clarification" = "Làm rõ nghĩa hơn";
 "edit-summary-choice-other" = "Khác";
 "edit-summary-description" = "Hãy tóm lược rõ ràng để giúp những người sửa đổi khác dễ xem qua các sửa đổi của bạn. Bạn cũng có thể chọn một thẻ bên dưới.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Bạn đã cải thiện trang này như thế nào?";
 "edit-summary-title" = "Bạn đã cải thiện bài này như thế nào?";
 "fetching-random-article" = "Đang lấy bài ngẫu nhiên";

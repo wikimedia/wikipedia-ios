@@ -130,7 +130,9 @@
 "saved-pages-refresh-cancel-alert-title" = "Oppdatering avbrutt";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-artikler blir oppdatert hele tiden. Trykk oppdater for å få den siste versjonene av alle artiklene.";
 "saved-pages-refresh-cancel-alert-button" = "Forstått";
+// Fuzzy
 "page-history-title" = "Artikkelhistorikk";
+// Fuzzy
 "page-history-downloading" = "Laster inn artikkelhistorikk…";
 "navbar-title-mode-edit-wikitext" = "Rediger";
 "navbar-title-mode-login" = "Logg inn";
@@ -143,6 +145,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Rask verifikasjon trengs";
 "navbar-title-mode-edit-wikitext-summary" = "Beskriv redigeringen din";
 "navbar-title-mode-edit-wikitext-save" = "Lagre";
+// Fuzzy
 "edit-summary-choice-linked-words" = "La til lenker";
 "edit-summary-choice-fixed-grammar" = "Korrigerte grammatikk";
 "edit-summary-choice-fixed-inaccuracy" = "Fikset feil";
@@ -153,6 +156,7 @@
 "edit-summary-choice-added-clarification" = "La til klargjøring";
 "edit-summary-choice-other" = "Annet";
 "edit-summary-description" = "Et sammendrag hjelper andre bidragsytere å raskt vurdere redigeringene dine. Du kan også velge blant forslagene under.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Andre måter du kan forbedre denne artikkelen";
 "edit-summary-title" = "Hvordan forbedret du artikkelen?";
 "fetching-random-article" = "Henter tilfeldig artikkel";

@@ -133,7 +133,9 @@
 "saved-pages-refresh-cancel-alert-title" = "Actualització cancel·lada";
 "saved-pages-refresh-cancel-alert-message" = "Els articles de la Viquipèdia s'actualitzen constantment. Feu un toc per obtenir la darrera versió de tots els articles.";
 "saved-pages-refresh-cancel-alert-button" = "Ho he entès";
+// Fuzzy
 "page-history-title" = "Historial de l'article";
+// Fuzzy
 "page-history-downloading" = "S'està carregant l'historial de l'article...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
 "navbar-title-mode-login" = "Inicia una sessió";
@@ -146,6 +148,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Es necessita verificació";
 "navbar-title-mode-edit-wikitext-summary" = "Descriviu la vostra modificació";
 "navbar-title-mode-edit-wikitext-save" = "Desa";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Paraules enllaçades";
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
 "edit-summary-choice-fixed-inaccuracy" = "Correcció d'una inexactitud";
@@ -156,6 +159,7 @@
 "edit-summary-choice-added-clarification" = "Afegida una clarificació";
 "edit-summary-choice-other" = "Altres";
 "edit-summary-description" = "Un resum específic ajuda els altres usuaris a revisar ràpidament les vostres modificacions. També podeu triar un dels resums que apareixen a continuació.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Quina millora heu aportat a la pàgina?";
 "edit-summary-title" = "Com heu millorat l'article?";
 "fetching-random-article" = "Recuperant un article a l'atzar";

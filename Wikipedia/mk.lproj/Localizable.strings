@@ -11,6 +11,7 @@
 "article-read-more-title" = "Прочитајте повеќе";
 "info-box-title" = "Накратко";
 "info-box-close-text" = "Затвори";
+"table-title-other" = "Повеќе информации";
 "language-button-text" = "Статијава можете да ја прочитате и на %d други јазици";
 "history-label" = "Скорешни";
 "history-section-today" = "Денес";
@@ -127,7 +128,7 @@
 "saved-pages-refresh-cancel-alert-title" = "Подновата е откажана";
 "saved-pages-refresh-cancel-alert-message" = "Статиите на Википедија сето време се менуваат, односно подновуваат. Допрете на „Превчитај“ за да ги добиете најновите верзии на сите статии.";
 "saved-pages-refresh-cancel-alert-button" = "Јасно";
-"page-history-title" = "Историја на страницата";
+"page-history-title" = "Историја на статијата";
 "page-history-downloading" = "Ја вчитувам историјата...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
 "navbar-title-mode-login" = "Најава";
@@ -140,7 +141,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Се бара брза проверка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишете го уредувањето";
 "navbar-title-mode-edit-wikitext-save" = "Зачувај";
-"edit-summary-choice-linked-words" = "Ставени зборови во врски";
+"edit-summary-choice-linked-words" = "Додадени врски";
 "edit-summary-choice-fixed-grammar" = "Исправена граматиката";
 "edit-summary-choice-fixed-inaccuracy" = "Исправена неточност";
 "edit-summary-choice-fixed-styling" = "Исправен стилот";
@@ -150,7 +151,7 @@
 "edit-summary-choice-added-clarification" = "Додадено разјаснување";
 "edit-summary-choice-other" = "Другo";
 "edit-summary-description" = "Објаснителниот опис на поважните направени промени ќе им помогне на другите уредници бргу да ги проверат Вашите уредувања. Можете и да изберете од готовите описи подолу.";
-"edit-summary-field-placeholder-text" = "На кој начин ја подобривте страницата?";
+"edit-summary-field-placeholder-text" = "На кои други начини ја подобривте страницата";
 "edit-summary-title" = "На кој начин ја подобривте статијата?";
 "fetching-random-article" = "Повикувам случајна статија";
 "article-pull-to-refresh-prompt" = "Повлечете за да ја превчитате статијата";

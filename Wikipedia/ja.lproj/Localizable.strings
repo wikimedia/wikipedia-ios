@@ -131,7 +131,9 @@
 "saved-pages-refresh-cancel-alert-title" = "更新がキャンセルされました";
 "saved-pages-refresh-cancel-alert-message" = "ウィキペディアの記事は常に更新されています。「更新」をタップすると全ての記事が最新版に同期されます。";
 "saved-pages-refresh-cancel-alert-button" = "了解";
+// Fuzzy
 "page-history-title" = "ページの履歴";
+// Fuzzy
 "page-history-downloading" = "ページの履歴を読み込み中...";
 "navbar-title-mode-edit-wikitext" = "編集";
 "navbar-title-mode-login" = "ログイン";
@@ -144,6 +146,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "簡易確認が必要";
 "navbar-title-mode-edit-wikitext-summary" = "あなたの編集について説明してください";
 "navbar-title-mode-edit-wikitext-save" = "保存";
+// Fuzzy
 "edit-summary-choice-linked-words" = "リンクを追加";
 "edit-summary-choice-fixed-grammar" = "文法の修正";
 "edit-summary-choice-fixed-inaccuracy" = "正確性の修正";
@@ -154,6 +157,7 @@
 "edit-summary-choice-added-clarification" = "説明の追加";
 "edit-summary-choice-other" = "その他";
 "edit-summary-description" = "具体的な要約は、他の編集者があなたの編集内容を素早く確認する助けとなります。以下のタグから選ぶこともできます。";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "この記事へのその他の改善";
 "edit-summary-title" = "どのようにこの記事を改善しましたか？";
 "fetching-random-article" = "おまかせで記事を取得";

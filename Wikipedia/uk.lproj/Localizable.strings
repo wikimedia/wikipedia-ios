@@ -110,7 +110,9 @@
 "saved-pages-clear-confirmation-heading" = "Видалити всі збережені елементи?";
 "saved-pages-clear-confirmation-sub-heading" = "Цю дію скасувати не можна!";
 "saved-pages-clear-cancel" = "Скасувати";
+// Fuzzy
 "page-history-title" = "Історія статті";
+// Fuzzy
 "page-history-downloading" = "Завантаження історії статті...";
 "navbar-title-mode-edit-wikitext" = "Змінити";
 "navbar-title-mode-login" = "Увійти";
@@ -123,6 +125,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Потрібна швидка перевірка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишіть вашу зміну";
 "navbar-title-mode-edit-wikitext-save" = "Зберегти";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Пов'язано слова";
 "edit-summary-choice-fixed-grammar" = "Виправлений правопис";
 "edit-summary-choice-fixed-inaccuracy" = "Виправлена неточність";
@@ -133,6 +136,7 @@
 "edit-summary-choice-added-clarification" = "Додано пояснення";
 "edit-summary-choice-other" = "Інше";
 "edit-summary-description" = "Точний опис допомагає іншим учасникам швидко перевірити ваші правки. Також ви могли б вказати опису з використанням наведених нижче тегів.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Як ви поліпшили сторінку?";
 "edit-summary-title" = "Як ви вдосконалили статтю?";
 "fetching-random-article" = "Вибірка випадкової статті";

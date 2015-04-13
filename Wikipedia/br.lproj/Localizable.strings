@@ -128,7 +128,9 @@
 "saved-pages-refresh-cancel-alert-title" = "Hizivadur nullet";
 "saved-pages-refresh-cancel-alert-message" = "Hizivaet e vez pennadoù Wikepedia dizehan. Pouezit war freskaat evit kaout doare diwezhañ an holl bennadoù.";
 "saved-pages-refresh-cancel-alert-button" = "Mat eo";
+// Fuzzy
 "page-history-title" = "Istor ar bajenn";
+// Fuzzy
 "page-history-downloading" = "O kargañ istor ar bajenn...";
 "navbar-title-mode-edit-wikitext" = "Kemmañ";
 "navbar-title-mode-login" = "Kevreañ";
@@ -141,6 +143,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Gwiriañ buan zo ezhomm";
 "navbar-title-mode-edit-wikitext-summary" = "Deskrivit ho kemm";
 "navbar-title-mode-edit-wikitext-save" = "Enrollañ";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Gerioù liammet";
 "edit-summary-choice-fixed-grammar" = "Fazi yezhadur reizhet";
 "edit-summary-choice-fixed-inaccuracy" = "Direizhded reizhet";
@@ -151,6 +154,7 @@
 "edit-summary-choice-added-clarification" = "Resisadur bet ouzhpennet";
 "edit-summary-choice-other" = "All";
 "edit-summary-description" = "Un diverradenn a-ziforc'h a sikour ar genembannerien da adlenn buan ho kemmoù. Gallout a reot ivez dibab e-touez ar balizennoù amañ dindan.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Doareoù all m'eo bet gwellaet ar pennad ganeoc'h";
 "edit-summary-title" = "Penaos eo bet gwellaet ar pennad-mañ ganeoc'h ?";
 "fetching-random-article" = "Tapout ur pennad evel ma teu e teu";
@@ -248,6 +252,8 @@
 "nearby-location-updates-settings-menu" = "Prevezded> Servijoù lec'hiadurioù - Wikipedia";
 "nearby-location-general-error" = "N'haller termenañ al lec'hiadur. Sachañ evit freskaat pe klask en-dro diwezhatoc'h.";
 "nearby-wifi" = "Gweredekaat ar wifi a c'hall sikour hoc'h ardivink da dermenañ gwelloc'h ho lec'hiadur.";
+"migration-update-progress-label" = "Hizivaat ar roadennoù lec'hel";
+"migration-update-progress-count-label" = "Emdizhañ ar mellad $1 war-zu $2";
 "image-gallery-unknown-owner" = "Pellgarger dianav.";
 "hockeyapp-alert-question" = "C'hoant ho peus da gas un danevell sac'hañ da $1 evit ma c'hallo Wikipedia studiañ anezhi ?";
 "hockeyapp-alert-question-with-response-field" = "C'hoant ho peus da gas un danevell sac'hañ da $1 evit ma c'hallo Wikipedia studiañ anezhi ? Deskrivit, mar plij, ar pezh zo c'hoarvezet p'eo chomet sac'het ar produ :";

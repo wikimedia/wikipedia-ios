@@ -122,7 +122,9 @@
 "saved-pages-clear-confirmation-heading" = "Á að eyða öllum nýlegum atriðum?";
 "saved-pages-clear-confirmation-sub-heading" = "Þessa aðgerð er ekki hægt að afturkalla!";
 "saved-pages-clear-cancel" = "Hætta við";
+// Fuzzy
 "page-history-title" = "Breytingaskrá greinar";
+// Fuzzy
 "page-history-downloading" = "Hleður breytingaskrá greinar...";
 "navbar-title-mode-edit-wikitext" = "Breyta";
 "navbar-title-mode-login" = "Innskrá";
@@ -135,6 +137,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Hraðstaðfesting krefst";
 "navbar-title-mode-edit-wikitext-summary" = "Lýstu breytingu þinni";
 "navbar-title-mode-edit-wikitext-save" = "Vista";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Bætti við tenglum";
 "edit-summary-choice-fixed-grammar" = "Lagaði málfræði";
 "edit-summary-choice-fixed-inaccuracy" = "Lagaði skekkju";
@@ -145,6 +148,7 @@
 "edit-summary-choice-added-clarification" = "Bætti við útskýringu";
 "edit-summary-choice-other" = "Annað";
 "edit-summary-description" = "Nákvæm lýsing hjálpar öðrum notendum að fara fljótlega yfir breytingar þínar. Þú getur einnig valið úr listanum hér fyrir neðan.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Aðrar leiðir sem þú bættir greinina";
 "edit-summary-title" = "Hvernig bættir þú greinina?";
 "fetching-random-article" = "Sækir handahófsvalda grein";

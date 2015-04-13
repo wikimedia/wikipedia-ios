@@ -136,7 +136,9 @@
 "saved-pages-refresh-cancel-alert-title" = "Aggiornamento annullato";
 "saved-pages-refresh-cancel-alert-message" = "Le voci di Wikipedia sono aggiornate continuamente. Tocca aggiorna per ottenere le versioni più recenti di tutte le voci.";
 "saved-pages-refresh-cancel-alert-button" = "OK!";
+// Fuzzy
 "page-history-title" = "Cronologia della pagina";
+// Fuzzy
 "page-history-downloading" = "Caricamento della cronologia di pagina...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
 "navbar-title-mode-login" = "Accedi";
@@ -149,6 +151,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Verifica rapida necessaria";
 "navbar-title-mode-edit-wikitext-summary" = "Descrivi la tua modifica";
 "navbar-title-mode-edit-wikitext-save" = "Salva";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Parole collegate";
 "edit-summary-choice-fixed-grammar" = "Corretta grammatica";
 "edit-summary-choice-fixed-inaccuracy" = "Corretta inesattezza";
@@ -159,6 +162,7 @@
 "edit-summary-choice-added-clarification" = "Aggiunto chiarimento";
 "edit-summary-choice-other" = "Altro";
 "edit-summary-description" = "Un oggetto compilato in modo chiaro aiuta gli altri utenti a controllare le tue modifiche. Puoi anche sceglierne uno preimpostato dalla lista qui in basso";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Quali miglioramenti hai apportato?";
 "edit-summary-title" = "Come hai migliorato la voce?";
 "fetching-random-article" = "Recupera voce a caso";

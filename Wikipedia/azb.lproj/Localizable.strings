@@ -62,7 +62,9 @@
 "main-menu-more" = "داها...";
 "saved-pages-title" = "ساخلانیلمیش صحیفه‌لر";
 "saved-pages-clear-cancel" = "پوْز";
+// Fuzzy
 "page-history-title" = "مقاله گئچمیشی";
+// Fuzzy
 "page-history-downloading" = "مقاله گئچمیشی یوکله‌نیر...";
 "navbar-title-mode-edit-wikitext" = "دَییشدیر";
 "navbar-title-mode-login" = "گیریش";
@@ -71,6 +73,7 @@
 "navbar-title-mode-create-account-and-save" = "حساب یارات و ساخلا";
 "navbar-title-mode-edit-wikitext-preview" = "اؤن‌گؤستریش";
 "navbar-title-mode-edit-wikitext-save" = "ساخلا";
+// Fuzzy
 "edit-summary-choice-linked-words" = "آرتیریلمیش باغلانتیلار";
 "edit-summary-choice-added-category" = "آرتیریلمیش بؤلمه";
 "edit-summary-choice-added-missing-info" = "آرتیریلمیش ایتگین بیلگیلر";

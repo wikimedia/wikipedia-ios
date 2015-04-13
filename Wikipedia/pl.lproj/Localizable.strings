@@ -108,7 +108,9 @@
 "saved-pages-clear-confirmation-sub-heading" = "Ta akcja nie można zostać cofnięta!";
 "saved-pages-clear-cancel" = "Anuluj";
 "saved-pages-refresh-cancel-alert-title" = "Aktualizacja anulowana";
+// Fuzzy
 "page-history-title" = "Historia strony";
+// Fuzzy
 "page-history-downloading" = "Ładowanie historii artykułu...";
 "navbar-title-mode-edit-wikitext" = "Edytuj";
 "navbar-title-mode-login" = "Zaloguj się";
@@ -119,6 +121,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Podgląd";
 "navbar-title-mode-edit-wikitext-captcha" = "Szybka weryfikacja wymagana";
 "navbar-title-mode-edit-wikitext-save" = "Zapisz";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Dodano linki";
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
 "edit-summary-choice-fixed-styling" = "Poprawiono stylistykę";

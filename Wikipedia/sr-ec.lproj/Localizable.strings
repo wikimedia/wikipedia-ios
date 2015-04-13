@@ -86,7 +86,9 @@
 "saved-pages-clear-confirmation-heading" = "Обрисати све сачуване?";
 "saved-pages-clear-confirmation-sub-heading" = "Ова радња се не може поништити!";
 "saved-pages-clear-cancel" = "Откажи";
+// Fuzzy
 "page-history-title" = "Историја странице";
+// Fuzzy
 "page-history-downloading" = "Учитавам историју странице...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
 "navbar-title-mode-login" = "Пријави ме";
@@ -96,6 +98,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Претпреглед";
 "navbar-title-mode-edit-wikitext-summary" = "Опишите вашу измену";
 "navbar-title-mode-edit-wikitext-save" = "Сачувај";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Додате везе";
 "edit-summary-choice-fixed-grammar" = "Поправљена граматика";
 "edit-summary-choice-fixed-inaccuracy" = "Исправљене нетачности";
@@ -106,6 +109,7 @@
 "edit-summary-choice-added-clarification" = "Додато разјашњење";
 "edit-summary-choice-other" = "Друго";
 "edit-summary-description" = "Тачан опис измене помаже другим уредницима да брже прегледају ваше измене. Такође можете изабрати неки од већ дефинисаних описа испод.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Како сте унапредили страницу?";
 "edit-summary-title" = "Како сте унапредили чланак?";
 "credits-wikimedia-repos" = "Викимедија";

@@ -132,7 +132,9 @@
 "saved-pages-refresh-cancel-alert-title" = "已取消更新";
 "saved-pages-refresh-cancel-alert-message" = "維基百科的文章會隨時更新。輕觸重新整理以取得所有文章的最新版本。";
 "saved-pages-refresh-cancel-alert-button" = "明白了";
+// Fuzzy
 "page-history-title" = "文章歷史";
+// Fuzzy
 "page-history-downloading" = "讀取文章歷史中...";
 "navbar-title-mode-edit-wikitext" = "編輯";
 "navbar-title-mode-login" = "登入";
@@ -145,6 +147,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "需要快速驗證";
 "navbar-title-mode-edit-wikitext-summary" = "描述您的編輯";
 "navbar-title-mode-edit-wikitext-save" = "儲存";
+// Fuzzy
 "edit-summary-choice-linked-words" = "已新增連結";
 "edit-summary-choice-fixed-grammar" = "修正語法";
 "edit-summary-choice-fixed-inaccuracy" = "修正用詞";
@@ -155,6 +158,7 @@
 "edit-summary-choice-added-clarification" = "已新增說明";
 "edit-summary-choice-other" = "其他";
 "edit-summary-description" = "具體的摘要可以幫助共同編輯者更方便和快捷地檢視閣下的編輯，而閣下也可以從下面的標記中選擇一個合適的編輯摘要。";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "您改善文章的其他方式";
 "edit-summary-title" = "您要如何改善此文章？";
 "fetching-random-article" = "正在取得隨機文章";

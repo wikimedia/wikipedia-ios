@@ -38,6 +38,7 @@
 "account-creation-password-placeholder-text" = "პაროლი";
 "account-creation-password-confirm-placeholder-text" = "დაადასტურეთ პაროლი";
 "account-creation-email-placeholder-text" = "ელ-ფოსტა (არასავალდებულო)";
+"account-creation-missing-fields" = "ანგარიშის შესაქმნელად, თქვენ უნდა შეიყვანოთ მომხმარებლის სახელი, პაროლი და პაროლის დადასტურება.";
 "login-name-not-found" = "შესასვლელად საჭიროა მომხმარებლის სახელი.";
 "login-name-illegal" = "თქვენ მიერ მითითებული მომხმარებლის სახელი არალეგალურია.";
 "login-name-does-not-exist" = "თქვენ მიერ მითითებული მომხმარებლის სახელი არ არსებობს.";
@@ -51,7 +52,10 @@
 "wikitext-downloading" = "შიგთავსი იტვირთება…";
 "wikitext-download-failed" = "უახლესი ვერსიის ხილვა შეუძლებელია.";
 "wikitext-download-success" = "შიგთავსი ჩაიტვირთა.";
+"wikitext-preview-changes-none" = "წინასწარ გადახედვისათვის არანაირი ცვლილება არ განხორციელებულა.";
 "wikitext-upload-result-unknown" = "ვიკიტექსტის ატვირთვის შედეგის განსაზღვრა შეუძლებელია.";
+"wikitext-upload-captcha-error" = "CAPTCHA-ს დადასტურების შეცდომა.";
+"wikitext-upload-captcha-needed" = "საჭიროა CAPTCHA-ს დადასტურება.";
 "wikitext-upload-save" = "ინახება...";
 "wikitext-upload-save-sign-in" = "შესვლა";
 "wikitext-upload-save-anonymously" = "ანონიმურად დამახსოვრება";
@@ -98,6 +102,7 @@
 "main-menu-terms-of-use" = "გამოყენების პირობები";
 "main-menu-rate-app" = "შეაფასეთ აპლიკაცია";
 "main-menu-heading-zero" = "ვიკიპედია ზერო";
+"main-menu-heading-legal" = "კონფიდენციალურობა და პირობები";
 "main-menu-show-today" = "დღეს";
 "main-menu-nearby" = "სიახლოვეს";
 "main-menu-more" = "მეტი...";
@@ -105,7 +110,12 @@
 "saved-pages-clear-confirmation-heading" = "წავშალოთ ყველა დამასხოვვრებული ელემენტი?";
 "saved-pages-clear-confirmation-sub-heading" = "ამ ქმედების გაუქმება შეუძლებელია!";
 "saved-pages-clear-cancel" = "გაუქმება";
+"saved-pages-refresh-cancel-alert-title" = "განახლება გაუქმდა";
+"saved-pages-refresh-cancel-alert-message" = "ვიკიპედიის სტატიები მუდმივად ახლდება. დააჭირეთ განახლებას, რათა ყველა სტატიის ბოლო ვერსია იხილოთ.";
+"saved-pages-refresh-cancel-alert-button" = "მიღება";
+// Fuzzy
 "page-history-title" = "სტატიის ისტორია";
+// Fuzzy
 "page-history-downloading" = "სტატიის ისტორია იტვირთება...";
 "navbar-title-mode-edit-wikitext" = "რედაქტირება";
 "navbar-title-mode-login" = "შესვლა";
@@ -118,12 +128,14 @@
 "navbar-title-mode-edit-wikitext-captcha" = "საჭიროა სწრაფი დადასტურება";
 "navbar-title-mode-edit-wikitext-summary" = "აღწერეთ თქვენი რედაქტირებები";
 "navbar-title-mode-edit-wikitext-save" = "შენახვა";
+// Fuzzy
 "edit-summary-choice-linked-words" = "დამატებული ბმულები";
 "edit-summary-choice-fixed-grammar" = "გრამატიკის შესწორება";
 "edit-summary-choice-fixed-inaccuracy" = "ცდომილების გასწორება";
 "edit-summary-choice-fixed-styling" = "სტილის შესწორება";
 "edit-summary-choice-added-category" = "კატეგორიის დამატება";
 "edit-summary-choice-added-missing-info" = "გამოტოვებული ინფორმაციის დამატება";
+"edit-summary-choice-added-clarification" = "დაზუსტების დამატება";
 "edit-summary-choice-other" = "სხვა";
 "edit-summary-title" = "რითი გააუმჯობესეთ სტატია?";
 "fetching-random-article" = "შემთხვევითი სტატიის ჩვენება";
@@ -141,6 +153,7 @@
 "about-wikimedia-foundation" = "ფონდი ვიკიმედია";
 "share-menu-save-page" = "გვერდის შენახვა";
 "share-custom-menu-item" = "გაზიარება";
+"share-article-name-on-wikipedia" = "„$1“ @ვიკიპედიაზე";
 "share-article-name-on-wikipedia-with-selected-text" = "„$1“ ვიკიპედიაზე: „$2“";
 "share-as-image" = "სურათად გაზიარება";
 "share-as-text" = "ტექსტად გაზიარება";
@@ -150,10 +163,8 @@
 "timestamp-days" = "% დღის წინ";
 "timestamp-months" = "% თვის წინ";
 "timestamp-years" = "% წლის წინ";
-// Fuzzy
-"lastmodified-by-user" = "$ რედაქტირებულია $2-ის მიერ";
-// Fuzzy
-"lastmodified-by-anon" = "$ რედაქტირებულია ანონიმური მომხმარებლის მიერ";
+"lastmodified-by-user" = "$1 რედაქტირებულია $2-ის მიერ";
+"lastmodified-by-anon" = "$1 რედაქტირებულია ანონიმური მომხმარებლის მიერ";
 "button-next" = "შემდეგი";
 "button-done" = "გაკეთდა";
 "button-save" = "შენახვა";
@@ -164,6 +175,7 @@
 "onboarding-wikipedia" = "ვიკიპედია";
 "onboarding-free-encyclopedia" = "თავისუფალი ენციკლოპედია";
 "preference_title_eventlogging_opt_in" = "გამოყენების ანგარიშის გაგზავნა";
+"preference_summary_eventlogging_opt_in" = "ნება მიეცი ვიკიმედიას მოაგროვოს ინფორმაცია თუ როგორ იყენებ ამ აპლიკაციას, რათა ის უკეთესი გახადოს";
 "page_protected_autoconfirmed" = "ეს გვერდი ნახევრად დაცულია.";
 "page_protected_sysop" = "ეს გვერდი სრულად დაცულია.";
 "page_protected_other" = "ეს გვერდი დაცულია შემდეგ დონეებზე: $1";
@@ -172,6 +184,7 @@
 "license-footer-text" = "კონტენტი ხელმისაწვდომია $1-ით";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "შინაარსი";
+"abuse-filter-warning-heading" = "თქვენი რედაქტირება არაკონსტრუქციულს ჰგავს, დარწმუნებული ხართ, რომ მისი შენახვა გსურთ?";
 "abuse-filter-warning-subheading" = "თქვენი რედაქტირება შესაძლოა შეიცავდეს ერთ ან რამდენიმე შემდეგ ელემენტს:";
 "abuse-filter-disallow-heading" = "ამ ცვლილების შენახვა არ შეგიძლიათ. დაბრუნდით უკან და შეცვალეთ.";
 "abuse-filter-disallow-notable" = "ვიკიპედია მხოლოდ და მხოლოდ ნეიტრალური ენციკლოპედიაა.";
@@ -205,6 +218,7 @@
 "nearby-location-updates-settings-menu" = "კონფიდენსიალურობა > ლოკაციის სერვისი > ვიკიპედია";
 "nearby-location-general-error" = "თქვენი ადგილმდებარეობის განსაზღვრა შეუძლებელია. გადასატვირთად აწიეთ ან სცადეთ მოგვიანებით.";
 "nearby-wifi" = "უფლება მიეცი Wi-Fi-ს დაეხმაროს თქვენს მოწყობილობას, რათა უკეთ განსაზღვროს თქვენი ადგილმდებარეობა.";
+"migration-update-progress-label" = "ადგილობრივი მონაცემების განახლება";
 "image-gallery-unknown-owner" = "ამტვირთველი უცნობია";
 "hockeyapp-alert-send-report" = "რეპორტის გაგზავნა";
 "hockeyapp-alert-always-send" = "ყოველთვის გაგზავნა";

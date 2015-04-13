@@ -122,7 +122,9 @@
 "saved-pages-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
 "saved-pages-clear-cancel" = "Afbryd";
 "saved-pages-refresh-cancel-alert-button" = "Forstået";
+// Fuzzy
 "page-history-title" = "Artikelhistorik";
+// Fuzzy
 "page-history-downloading" = "Henter artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigerer";
 "navbar-title-mode-login" = "Log på";
@@ -135,6 +137,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Hurtig verificering kræves";
 "navbar-title-mode-edit-wikitext-summary" = "Beskriv din redigering";
 "navbar-title-mode-edit-wikitext-save" = "Gem";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Tilføjede links";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-inaccuracy" = "Rettede unøjagtighed";
@@ -145,6 +148,7 @@
 "edit-summary-choice-added-clarification" = "Tilføjede præcisering";
 "edit-summary-choice-other" = "Andet";
 "edit-summary-description" = "Et specifikt sammendrag hjælper andre skribenter med hurtigt at gennemgå dine ændringer. Du kan også vælge fra nedenstående liste.";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Andre måder du forbedrede artiklen";
 "edit-summary-title" = "Hvordan har du forbedret artiklen?";
 "fetching-random-article" = "Henter tilfældig artikel";

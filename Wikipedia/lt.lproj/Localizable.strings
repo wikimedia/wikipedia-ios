@@ -90,7 +90,9 @@
 "saved-pages-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "saved-pages-clear-cancel" = "Atšaukti";
 "saved-pages-refresh-cancel-alert-button" = "Supratau";
+// Fuzzy
 "page-history-title" = "Straipsnio istorija";
+// Fuzzy
 "page-history-downloading" = "Įkeliama straipsnio istorija...";
 "navbar-title-mode-edit-wikitext" = "Redaguoti";
 "navbar-title-mode-login" = "Prisijungti";

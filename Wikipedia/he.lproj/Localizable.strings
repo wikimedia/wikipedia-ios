@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Amire80
 // Author: Inkbug
+// Author: LaG roiL
 // Author: Macofe
 // Author: Matanya
 // Author: איתן96
@@ -13,6 +14,7 @@
 "article-read-more-title" = "לקרוא עוד";
 "info-box-title" = "עובדות מהירות";
 "info-box-close-text" = "סגירה";
+"table-title-other" = "מידע נוסף";
 "language-button-text" = "אפשר לקרוא את הערך הזה בעוד %d שפות";
 "history-label" = "לאחרונה";
 "history-section-today" = "היום";
@@ -129,7 +131,7 @@
 "saved-pages-refresh-cancel-alert-title" = "העדכון בוטל";
 "saved-pages-refresh-cancel-alert-message" = "ערכים בוויקיפדיה מתעדכנים כל הזמן. יש ללחוץ על רענון כדי לקבל את הגרסה החדשה ביותר של כל הערכים.";
 "saved-pages-refresh-cancel-alert-button" = "הבנתי";
-"page-history-title" = "היסטוריית הדף";
+"page-history-title" = "היסטוריית הערך";
 "page-history-downloading" = "טעינת היסטוריית הדף";
 "navbar-title-mode-edit-wikitext" = "עריכה";
 "navbar-title-mode-login" = "כניסה";
@@ -142,7 +144,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "נדרש אימות מהיר";
 "navbar-title-mode-edit-wikitext-summary" = "נא לתאר את העריכה שלך";
 "navbar-title-mode-edit-wikitext-save" = "שמירה";
-"edit-summary-choice-linked-words" = "קישרתי מילים";
+"edit-summary-choice-linked-words" = "הוספת קישורים";
 "edit-summary-choice-fixed-grammar" = "תיקנתי דקדוק";
 "edit-summary-choice-fixed-inaccuracy" = "תיקנתי טעויות";
 "edit-summary-choice-fixed-styling" = "תיקנתי עיצוב";
@@ -152,7 +154,7 @@
 "edit-summary-choice-added-clarification" = "הוספתי הבהרה";
 "edit-summary-choice-other" = "אחר";
 "edit-summary-description" = "תקציר ברור עוזר לעורכים אחרים לסקור במהירות את העריכות שלך. אפשר גם לבחור מתוך התגים להלן.";
-"edit-summary-field-placeholder-text" = "איך שיפרת את הדף הזה?";
+"edit-summary-field-placeholder-text" = "שיפורים נוספים שנעשו בערך";
 "edit-summary-title" = "איך שיפרת את הערך?";
 "fetching-random-article" = "אחזור ערך אקראי";
 "article-pull-to-refresh-prompt" = "למשוך לרענון הערך";
