@@ -143,20 +143,31 @@ function findAncestor (el, cls) {
     return el;
 }
 
+function shouldTableBeCollapsed( table ) {
+    if (table.style.display === 'none' ||
+        table.classList.contains( 'navbox' ) ||
+        table.classList.contains( 'vertical-navbox' ) ||
+        table.classList.contains( 'navbox-inner' ) ||
+        table.classList.contains( 'metadata' ) ||
+        table.classList.contains( 'mbox-small' )) {
+        return false;
+    }
+    return true;
+}
+
 transformer.register( "hideTables", function( content ) {
     var tables = content.querySelectorAll( "table" );
     for (var i = 0; i < tables.length; i++) {
+        var table = tables[i];
+        if (findAncestor (table, 'app_table_container')) continue;
 
-        if (findAncestor (tables[i], 'app_table_container')) continue;
-
-        //is the table already hidden? if so, don't worry about it
-        if (tables[i].style.display === 'none' || tables[i].classList.contains( 'navbox' ) || tables[i].classList.contains( 'vertical-navbox' ) || tables[i].classList.contains( 'navbox-inner' ) || tables[i].classList.contains( 'metadata' )) {
+        if (!shouldTableBeCollapsed(table)) {
             continue;
         }
 
-        var isInfobox = tables[i].classList.contains( 'infobox' );
+        var isInfobox = table.classList.contains( 'infobox' );
         
-        var parent = tables[i].parentElement;
+        var parent = table.parentElement;
 
         // If parent contains only this table it's safe to reset its styling
         if (parent.childElementCount === 1){
@@ -165,9 +176,9 @@ transformer.register( "hideTables", function( content ) {
         }
 
         // Remove max width restriction
-        tables[i].style.maxWidth = 'none';
+        table.style.maxWidth = 'none';
 
-        var headerText = getTableHeader(tables[i]);
+        var headerText = getTableHeader(table);
 
         var caption = "<strong>" + (isInfobox ? window.string_table_infobox : window.string_table_other) + "</strong>";
         caption += "<span class='app_span_collapse_text'>";
@@ -186,13 +197,13 @@ transformer.register( "hideTables", function( content ) {
         //and the collapsed version.
         var containerDiv = document.createElement( 'div' );
         containerDiv.className = 'app_table_container';
-        tables[i].parentNode.insertBefore(containerDiv, tables[i]);
-        tables[i].parentNode.removeChild(tables[i]);
+        table.parentNode.insertBefore(containerDiv, table);
+        table.parentNode.removeChild(table);
 
         //remove top and bottom margin from the table, so that it's flush with
         //our expand/collapse buttons
-        tables[i].style.marginTop = "0px";
-        tables[i].style.marginBottom = "0px";
+        table.style.marginTop = "0px";
+        table.style.marginBottom = "0px";
 
         //create the collapsed div
         var collapsedDiv = document.createElement( 'div' );
@@ -208,11 +219,11 @@ transformer.register( "hideTables", function( content ) {
 
         //add our stuff to the container
         containerDiv.appendChild(collapsedDiv);
-        containerDiv.appendChild(tables[i]);
+        containerDiv.appendChild(table);
         containerDiv.appendChild(bottomDiv);
 
         //set initial visibility
-        tables[i].style.display = 'none';
+        table.style.display = 'none';
         collapsedDiv.style.display = 'block';
         bottomDiv.style.display = 'none';
 
