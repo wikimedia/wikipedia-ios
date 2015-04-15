@@ -625,7 +625,7 @@ transformer.register( "hideTables", function( content ) {
             caption += ", " + headerText[1];
         }
         if (headerText.length > 0) {
-            caption += ", ...";
+            caption += " ...";
         }
         caption += "</span>";
 
