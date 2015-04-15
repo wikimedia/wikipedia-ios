@@ -37,6 +37,7 @@ lane :alpha do
   produce({
     produce_username: 'cfloyd@wikimedia.org',
     produce_app_identifier: 'org.wikimedia.wikipedia.tfalpha',
+    produce_app_identifier_suffix: '', #work around for: https://github.com/KrauseFx/produce/issues/27
     produce_app_name: 'Wikipedia Alpha',
     produce_language: 'English',
     produce_version: '4.1.1',
@@ -54,12 +55,8 @@ lane :alpha do
     # verbose: nil, # this means 'Do Verbose'.
   })
 
-  unless deploy_disabled?
+  deploy_testflight_build
 
-    ENV['HOCKEY_API_TOKEN'] = 'c881c19fd8d0401682c4640b7948ef5e'
-    deploy_testflight_build
-
-  end
 end
 
 lane :beta do
@@ -95,12 +92,8 @@ lane :beta do
     archive: nil
   })
 
-  unless deploy_disabled?
+  deploy_testflight_build
 
-    ENV['HOCKEY_API_TOKEN'] = 'c881c19fd8d0401682c4640b7948ef5e'
-    deploy_testflight_build
-
-  end
 end
 
 lane :appstore do
@@ -117,4 +110,3 @@ end
 
 # error do |lane, exception|
 # end
-

@@ -2,6 +2,8 @@
 
 require 'git'
 
+ENV['HOCKEY_API_TOKEN'] = 'c881c19fd8d0401682c4640b7948ef5e'
+
 # Returns true if the `NO_RESET` env var is set to 1
 def reset_disabled?
   ENV['NO_RESET'] == '1'
@@ -12,6 +14,10 @@ def deploy_disabled?
   ENV['NO_DEPLOY'] == '1'
 end
 
+# Returns true if the `NO_TEST` env var is set to 1
+def test_disabled?
+  ENV['NO_TEST'] == '1'
+end
 # Runs goals from the project's Makefile, this requires going up to the project directory.
 # :args: Additional arguments to be passed to `make`.
 # Returns The result of the `make` command
@@ -23,13 +29,23 @@ def make(args)
 end
 
 def run_unit_tests
-  xctest({
-    scheme: 'Wikipedia',
-    destination: "platform=iOS Simulator,name=iPhone 6,OS=8.2",
-    report_formats: [ "html", "junit" ],
-    report_path: "build/reports/iOS82/report.xml",
-    clean: nil
-  })
+
+  unless test_disabled?
+    xctest({
+      scheme: 'Wikipedia',
+      destination: "platform=iOS Simulator,name=iPhone 6,OS=8.3",
+      reports: [{
+        report: "html",
+        output: "build/reports/report.html"
+      },
+      {
+        report: "junit",
+        output: "build/reports/report.xml"
+        }],
+        clean: nil
+        })
+
+      end
 end
 
 # Generate a list of commit subjects from `rev` to `HEAD`
@@ -45,27 +61,24 @@ def git_commit_log
   ENV['GIT_COMMIT_LOG'] || ENV['GIT_COMMIT_LOG'] = generate_git_commit_log
 end
 
-def hockey_api_token
-  ENV['HOCKEY_API_TOKEN']
-end
-
 def deploy_testflight_build
-  # Upload the DSYM to Hockey
-  hockey({
-    api_token: hockey_api_token,
-    notes: git_commit_log,
-    notify: 0,
-    status: 1, #Means do not make available for download
-  })
+  unless deploy_disabled?
+    # Upload the DSYM to Hockey
+    hockey({
+      api_token: ENV['HOCKEY_API_TOKEN'],
+      notes: git_commit_log,
+      notify: 0,
+      status: 1, #Means do not make available for download
+    })
 
-  #Set "What To Test" in iTunes Connect for Testflight builds, in the future, reference tickets instead of git commits
-  DELIVER_WHAT_TO_TEST.replace = git_commit_log
-  #Set "App Description" in iTunes Connect for Testflight builds, in the future set a better description
-  DELIVER_BETA_DESCRIPTION.replace = git_commit_log
-  #Set "Feedback email" in iTunes Connect for Testflight builds
-  DELIVER_BETA_FEEDBACK_EMAIL.replace = 'abaso@wikimedia.org'
+    #Set "What To Test" in iTunes Connect for Testflight builds, in the future, reference tickets instead of git commits
+    DELIVER_WHAT_TO_TEST.replace = git_commit_log
+    #Set "App Description" in iTunes Connect for Testflight builds, in the future set a better description
+    DELIVER_BETA_DESCRIPTION.replace = git_commit_log
+    #Set "Feedback email" in iTunes Connect for Testflight builds
+    DELIVER_BETA_FEEDBACK_EMAIL.replace = 'abaso@wikimedia.org'
 
-  # Upload the IPA and DSYM to iTunes Connect
-  deliver :testflight, :beta, :skip_deploy, :force
+    # Upload the IPA and DSYM to iTunes Connect
+    deliver :testflight, :beta, :skip_deploy, :force
+  end
 end
-

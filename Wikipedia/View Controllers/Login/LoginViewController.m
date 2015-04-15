@@ -200,7 +200,7 @@
 }
 
 - (void)save {
-    id onboardingVC = [self searchModalsForViewControllerOfClass:[OnboardingViewController class]];
+    id onboardingVC  = [self searchModalsForViewControllerOfClass:[OnboardingViewController class]];
     MenuButton* done = (MenuButton*)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE];
     done.userInteractionEnabled = NO;
 
