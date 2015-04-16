@@ -17,20 +17,17 @@
 @implementation AppDelegate (DataMigrationProgressDelegate)
 
 - (BOOL)presentDataMigrationViewControllerIfNeeded {
-    DataMigrationProgressViewController* migrationVC = [[DataMigrationProgressViewController alloc] init];
-    migrationVC.delegate = self;
-    
-    if ([migrationVC needsMigration]) {
-
-        UIAlertView* dialog = [[UIAlertView alloc] initWithTitle:@"migrate?"
-                                                         message:@"should migrate?"
-                                                        delegate:self
-                                               cancelButtonTitle:@"cancel migrate"
-                                               otherButtonTitles:@"migrate yes", nil];
-        
+    if ([DataMigrationProgressViewController needsMigration]) {
+        #warning TODO: localize
+        UIAlertView* dialog =
+            [[UIAlertView alloc] initWithTitle:@"Looks like we have a history!"
+                                       message:@"We've made some changes to how data is stored in the app, and need to"
+                                                "migrate your data (e.g. saved and recent pages) to the new format."
+                                                " This might take a few minutes if you have a lot of data."
+                                      delegate:self
+                             cancelButtonTitle:@"Delete my data"
+                             otherButtonTitles:@"Migrate my data", nil];
         [dialog show];
-
-        [self transitionToRootViewController:migrationVC animated:NO];
         return YES;
     } else {
         return NO;
@@ -38,16 +35,13 @@
 }
 
 - (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    switch (buttonIndex) {
-        case 0: //cancel migration
-            //[migrationVC removeOldData];
-            break;
-        case 1: // proceed with migration
-            
-            break;
-            
-        default:
-            break;
+    if (buttonIndex == alertView.cancelButtonIndex) {
+        [DataMigrationProgressViewController removeOldData];
+        [self presentRootViewController:YES withSplash:NO];
+    } else {
+        DataMigrationProgressViewController* migrationVC = [[DataMigrationProgressViewController alloc] init];
+        migrationVC.delegate = self;
+        [self transitionToRootViewController:migrationVC animated:NO];
     }
 }
 
@@ -55,7 +49,7 @@
 
 @implementation AppDelegate (DataMigrationProgressDelegateImpl)
 
-- (void)dataMigrationProgressComplete:(DataMigrationProgressViewController*)viewController {
+- (void)dataMigrationProgressComplete:(DataMigrationProgressViewController *)viewController {
     [self presentRootViewController:YES withSplash:NO];
 }
 

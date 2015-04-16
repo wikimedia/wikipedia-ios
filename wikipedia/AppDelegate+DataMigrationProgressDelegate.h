@@ -10,6 +10,10 @@
 
 @interface AppDelegate (DataMigrationProgressDelegate)
 
+/**
+ * Presents the data migration UX if there is old data present.
+ * @return `YES` if the migration flow was started, otherwise `NO`.
+ */
 - (BOOL)presentDataMigrationViewControllerIfNeeded;
 
 @end

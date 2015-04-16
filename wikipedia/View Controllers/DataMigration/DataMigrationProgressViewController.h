@@ -23,7 +23,8 @@
 @property (weak, nonatomic) IBOutlet UILabel* progressLabel;
 @property (weak, nonatomic) id<DataMigrationProgressDelegate> delegate;
 
-- (BOOL)needsMigration;
-- (void)removeOldData;
+// TODO: refactor these into class methods
++ (BOOL)needsMigration;
++ (void)removeOldData;
 
 @end

@@ -42,7 +42,7 @@
 @property (weak) id<OldDataSchemaDelegate> delegate;
 @property (weak) id<OldDataSchemaMigratorProgressDelegate> progressDelegate;
 
-- (BOOL)exists;
++ (BOOL)exists;
 
 /**
  *  This runs asynchronously.
@@ -50,6 +50,6 @@
  */
 - (void)migrateData;
 
-- (void)removeOldData;
++ (void)removeOldData;
 
 @end

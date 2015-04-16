@@ -26,7 +26,7 @@
     self = [super init];
     if (self) {
         _savedTitles = [[NSMutableSet alloc] init];
-        if (self.exists) {
+        if ([[self class] exists]) {
             _context = [ArticleDataContextSingleton sharedInstance];
         } else {
             _context = nil;
@@ -35,19 +35,19 @@
     return self;
 }
 
-- (NSString*)sqlitePath {
++ (NSString*)sqlitePath {
     NSArray* documentPaths     = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* documentRootPath = [documentPaths objectAtIndex:0];
     NSString* filePath         = [documentRootPath stringByAppendingPathComponent:@"articleData6.sqlite"];
     return filePath;
 }
 
-- (BOOL)exists {
++ (BOOL)exists {
     NSString* filePath = [self sqlitePath];
     return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
 }
 
-- (void)removeOldData {
++ (void)removeOldData {
     NSString* filePath   = [self sqlitePath];
     NSString* backupPath = [filePath stringByAppendingString:@".bak"];
     NSError* err         = nil;
@@ -106,7 +106,7 @@
         }
 
         [self.context saveContextAndPropagateChangesToStore:context completionBlock:^(NSError* error) {
-            [self removeOldData];
+            [[self class] removeOldData];
 
             if (error) {
                 [self.progressDelegate oldDataSchema:self didFinishWithError:error];
