@@ -53,12 +53,18 @@
     }];
 
     NSRegularExpression* redigits = [NSRegularExpression regularExpressionWithPattern:@"^\\d+$" options:0 error:nil];
-    for (NSString* subpath in files) {
-        NSString* filename = [subpath lastPathComponent];
-        NSArray* matches   = [redigits matchesInString:filename options:0 range:NSMakeRange(0, [filename length])];
-        if (matches && [matches count]) {
-            [self readAndInsertSection:[filename intValue]];
+    @try {
+        for (NSString* subpath in files) {
+            NSString* filename = [subpath lastPathComponent];
+            NSArray* matches   = [redigits matchesInString:filename options:0 range:NSMakeRange(0, [filename length])];
+            if (matches && [matches count]) {
+                [self readAndInsertSection:[filename intValue]];
+            }
         }
+    }
+    @catch (NSException* e) {
+        NSLog(@"Failed to import sections at path %@, leaving list empty.", path);
+        [_sections removeAllObjects];
     }
 }
 

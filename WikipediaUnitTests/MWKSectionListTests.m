@@ -31,7 +31,6 @@
 
 - (void)setUp {
     [super setUp];
-
 }
 
 - (void)tearDown {
@@ -50,23 +49,30 @@
     MWKArticle* mockArticle =
         [[MWKArticle alloc] initWithTitle:nil dataStore:mock([MWKDataStore class])];
 
+    [self addEmptyFolderForSection:0 title:anything() mockDataStore:mockArticle.dataStore];
+
+    // mock an exception, simulating the case where required fields are missing
+    [given([mockArticle.dataStore sectionWithId:anything()
+                                        article:mockArticle])
+     willThrow:[NSException new]];
+
+    MWKSectionList* emptySectionList = [[MWKSectionList alloc] initWithArticle:mockArticle];
+    assertThat(@(emptySectionList.count), is(equalToInt(0)));
+}
+
+- (void)addEmptyFolderForSection:(int)sectionId
+                           title:(id)titleMatcher
+                   mockDataStore:(MWKDataStore*)mockDataStore {
     // create an empty section directory, so that our section list will reach the code path
     // where an exception will be thrown when trying to read the section data
     NSString* randomDirectory = WMFRandomTemporaryPath();
-    NSString* randomPath = [randomDirectory stringByAppendingPathComponent:@"sections/0"];
-    BOOL didCreateRandomPath = [[NSFileManager defaultManager] createDirectoryAtPath:randomPath
-                                                         withIntermediateDirectories:YES
-                                                                          attributes:nil
-                                                                               error:nil];
+    NSString* randomPath      = [randomDirectory stringByAppendingPathComponent:@"sections/0"];
+    BOOL didCreateRandomPath  = [[NSFileManager defaultManager] createDirectoryAtPath:randomPath
+                                                          withIntermediateDirectories:YES
+                                                                           attributes:nil
+                                                                                error:nil];
     NSParameterAssert(didCreateRandomPath);
-    [given([mockArticle.dataStore pathForTitle:anything()]) willReturn:randomDirectory];
-
-    // mock an exception, simulating the case where required fields are missing
-    [given([mockArticle.dataStore sectionWithId:anything() article:mockArticle]) willThrow:[NSException new]];
-
-    // make sure the section list handles the exception gracefully
-    MWKSectionList* emptySectionList = [[MWKSectionList alloc] initWithArticle:mockArticle];
-    assertThat(@(emptySectionList.count), is(equalToInt(0)));
+    [given([mockDataStore pathForTitle:anything()]) willReturn:randomDirectory];
 }
 
 @end
