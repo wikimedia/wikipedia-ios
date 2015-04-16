@@ -21,51 +21,58 @@
 #pragma mark - string methods
 
 - (NSString*)optionalString:(NSString*)key dict:(NSDictionary*)dict {
-    if(![dict isKindOfClass:[NSDictionary class]]){
-        return nil;
-    }
-    
     id obj = dict[key];
-    if (![obj isKindOfClass:[NSString class]]) {
-        obj = nil;
+    if (obj == nil) {
+        return nil;
+    } else if ([obj isKindOfClass:[NSString class]]) {
+        return (NSString*)obj;
+    } else {
+        @throw [NSException exceptionWithName:@"MWKDataObjectException"
+                                       reason:@"expected string, got something else"
+                                     userInfo:@{@"key": key}];
     }
-    return obj;
 }
 
 - (NSString*)requiredString:(NSString*)key dict:(NSDictionary*)dict {
     NSString* str = [self optionalString:key dict:dict];
-    return str;
+    if (str == nil) {
+        @throw [NSException exceptionWithName:@"MWKDataObjectException"
+                                       reason:@"expected string, got nothing"
+                                     userInfo:@{@"key": key}];
+    } else {
+        return str;
+    }
 }
 
 #pragma mark - number methods
 
 
 - (NSNumber*)optionalNumber:(NSString*)key dict:(NSDictionary*)dict {
-    if(![dict isKindOfClass:[NSDictionary class]]){
-        return nil;
-    }
-
     id obj = dict[key];
-    if ([obj isKindOfClass:[NSString class]]) {
-        obj = [self numberWithString:(NSString*)obj];
+    if (obj == nil) {
+        return nil;
+    } else if ([obj isKindOfClass:[NSNumber class]]) {
+        return (NSNumber*)obj;
+    } else if ([obj isKindOfClass:[NSString class]]) {
+        // PHP is often fuzzy and sometimes gives us strings when we wanted integers.
+        return [self numberWithString:(NSString*)obj];
+    } else {
+        @throw [NSException exceptionWithName:@"MWKDataObjectException" reason:@"expected string or nothing, got something else" userInfo:nil];
     }
-
-    if (![obj isKindOfClass:[NSNumber class]]) {
-        obj = nil;
-    }
-
-    return obj;
 }
 
 - (NSNumber*)requiredNumber:(NSString*)key dict:(NSDictionary*)dict {
     NSNumber* num = [self optionalNumber:key dict:dict];
-    return num;
+    if (num == nil) {
+        @throw [NSException exceptionWithName:@"MWKDataObjectException"
+                                       reason:@"missing required number field"
+                                     userInfo:@{@"key": key}];
+    } else {
+        return num;
+    }
 }
 
 - (NSNumber*)numberWithString:(NSString*)str {
-    if(![str isKindOfClass:[NSString class]]){
-        return nil;
-    }
     if ([str rangeOfString:@"."].location != NSNotFound ||
         [str rangeOfString:@"e"].location != NSNotFound) {
         double val = [str doubleValue];
@@ -82,13 +89,20 @@
     NSString* str = [self optionalString:key dict:dict];
     if (str == nil) {
         return nil;
+    } else {
+        return [self getDateFromIso8601DateString:str];
     }
-    return [self getDateFromIso8601DateString:str];
 }
 
 - (NSDate*)requiredDate:(NSString*)key dict:(NSDictionary*)dict {
     NSDate* date = [self optionalDate:key dict:dict];
-    return date;
+    if (date == nil) {
+        @throw [NSException exceptionWithName:@"MWKDataObjectException"
+                                       reason:@"missing required date field"
+                                     userInfo:@{@"key": key}];
+    } else {
+        return date;
+    }
 }
 
 #pragma mark - date methods
@@ -104,20 +118,29 @@
 #pragma mark - dictionary methods
 
 - (NSDictionary*)optionalDictionary:(NSString*)key dict:(NSDictionary*)dict {
-    if(![dict isKindOfClass:[NSDictionary class]]){
-        return nil;
-    }
-
     id obj = dict[key];
     if ([obj isKindOfClass:[NSArray class]]) {
-        obj = @{};
+        // PHP likes to output empty associative arrays as empty JSON arrays,
+        // which become empty NSArrays.
+        return @{};
+    } else if ([obj isKindOfClass:[NSDictionary class]]) {
+        return (NSDictionary*)obj;
+    } else {
+        @throw [NSException exceptionWithName:@"MWKDataObjectException"
+                                       reason:@"expected dictionary, got something else"
+                                     userInfo:@{@"key": key}];
     }
-    return obj;
 }
 
 - (NSDictionary*)requiredDictionary:(NSString*)key dict:(NSDictionary*)dict {
     NSDictionary* obj = [self optionalDictionary:key dict:dict];
-    return obj;
+    if (obj == nil) {
+        @throw [NSException exceptionWithName:@"MWKDataObjectException"
+                                       reason:@"missing required dictionary field"
+                                     userInfo:@{@"key": key}];
+    } else {
+        return obj;
+    }
 }
 
 @end
