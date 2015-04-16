@@ -50,10 +50,11 @@ end
 
 # Generate a list of commit subjects from `rev` to `HEAD`
 # :rev: The git SHA to start the log from, defaults to `ENV[LAST_SUCCESS_REV']`
-def generate_git_commit_log(rev=ENV['LAST_SUCCESS_REV'])
-  g = Git.open(Dir.getwd)
+def generate_git_commit_log(rev=ENV['GIT_PREVIOUS_SUCCESSFUL_COMMIT'])
+  g = Git.open(ENV['PWD'], :log => Logger.new(STDOUT))
   change_log = g.log.between(rev).map { |c| "- " + c.message.lines.first.chomp }.join "\n"
   "Commit Log:\n\n#{change_log}\n"
+  p change_log
 end
 
 # Memoized version of `generate_git_commit_log` which stores the result in `ENV['GIT_COMMIT_LOG']`.
@@ -66,17 +67,17 @@ def deploy_testflight_build
     # Upload the DSYM to Hockey
     hockey({
       api_token: ENV['HOCKEY_API_TOKEN'],
-      notes: git_commit_log,
+      notes: '',
       notify: 0,
       status: 1, #Means do not make available for download
     })
 
-    #Set "What To Test" in iTunes Connect for Testflight builds, in the future, reference tickets instead of git commits
-    DELIVER_WHAT_TO_TEST.replace = git_commit_log
-    #Set "App Description" in iTunes Connect for Testflight builds, in the future set a better description
-    DELIVER_BETA_DESCRIPTION.replace = git_commit_log
     #Set "Feedback email" in iTunes Connect for Testflight builds
-    DELIVER_BETA_FEEDBACK_EMAIL.replace = 'abaso@wikimedia.org'
+    self.class.const_set("DELIVER_BETA_FEEDBACK_EMAIL", 'abaso@wikimedia.org')
+    #Set "What To Test" in iTunes Connect for Testflight builds, in the future, reference tickets instead of git commits
+    self.class.const_set("DELIVER_WHAT_TO_TEST", git_commit_log)
+    #Set "App Description" in iTunes Connect for Testflight builds, in the future set a better description
+    self.class.const_set("DELIVER_BETA_DESCRIPTION", git_commit_log)
 
     # Upload the IPA and DSYM to iTunes Connect
     deliver :testflight, :beta, :skip_deploy, :force
