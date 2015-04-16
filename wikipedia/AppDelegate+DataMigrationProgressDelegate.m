@@ -9,6 +9,7 @@
 #import "AppDelegate+DataMigrationProgressDelegate.h"
 #import "DataMigrationProgressViewController.h"
 #import "UIWindow+WMFMainScreenWindow.h"
+#import "WikipediaAppUtils.h"
 
 @interface AppDelegate (DataMigrationProgressDelegateImpl)
 <DataMigrationProgressDelegate>
@@ -20,13 +21,11 @@
     if ([DataMigrationProgressViewController needsMigration]) {
         #warning TODO: localize
         UIAlertView* dialog =
-            [[UIAlertView alloc] initWithTitle:@"Looks like we have a history!"
-                                       message:@"We've made some changes to how data is stored in the app, and need to"
-                                                "migrate your data (e.g. saved and recent pages) to the new format."
-                                                " This might take a few minutes if you have a lot of data."
+            [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"migration-prompt-title", nil)
+                                       message:MWLocalizedString(@"migration-prompt-message", nil)
                                       delegate:self
-                             cancelButtonTitle:@"Delete my data"
-                             otherButtonTitles:@"Migrate my data", nil];
+                             cancelButtonTitle:MWLocalizedString(@"migration-skip-button-title", nil)
+                             otherButtonTitles:MWLocalizedString(@"migration-confirm-button-title", nil), nil];
         [dialog show];
         return YES;
     } else {
