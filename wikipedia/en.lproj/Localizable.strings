@@ -280,8 +280,8 @@
 "nearby-location-general-error" = "Unable to determine location. Pull to refresh or try again later.";
 "nearby-wifi" = "Enabling Wi-Fi can help your device better determine your location.";
 
-"migration-update-progress-label" = "Upgrading local data";
-"migration-update-progress-count-label" = "Migrating Article $1 of $2";
+"migration-update-progress-label" = "Migrating local data";
+"migration-update-progress-count-label" = "Migrating article $1 of $2";
 "migration-prompt-title" = "Looks like we have a history!";
 "migration-prompt-message" = "In order to keep your old data (e.g. saved & recent pages), we need to migrate it to a new format. This might take a few minutes if you have many saved pages.";
 "migration-confirm-button-title" = "Migrate my data";
