@@ -2761,7 +2761,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# scripts/make-css-assets.bash";
+			shellScript = "scripts/make-css-assets.bash";
 		};
 		04272E7619404CDF00CC682F /* run-grunt */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2790,7 +2790,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"Uncomment the following line to run this automatically when building.\"\n#scripts/icon-svgs-to-pngs.sh";
+			shellScript = "echo \"Uncomment the following line to run this automatically when building.\"\nscripts/icon-svgs-to-pngs.sh";
 		};
 		04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */ = {
 			isa = PBXShellScriptBuildPhase;
