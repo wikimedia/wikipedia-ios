@@ -50,4 +50,6 @@
  */
 - (void)migrateData;
 
+- (void)removeOldData;
+
 @end

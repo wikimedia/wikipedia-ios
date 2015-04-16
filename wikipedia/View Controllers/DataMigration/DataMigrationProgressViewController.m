@@ -81,6 +81,11 @@ enum {
     return [self.oldDataSchema exists] || [self.dataMigrator hasData];
 }
 
+- (void)removeOldData {
+    [self.dataMigrator removeOldData];
+    [self.oldDataSchema removeOldData];
+}
+
 - (void)runNewMigration {
     // Middle-Ages Converter
     // From the native app's initial CoreData-based implementation,

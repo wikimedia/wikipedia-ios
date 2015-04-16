@@ -24,5 +24,6 @@
 @property (weak, nonatomic) id<DataMigrationProgressDelegate> delegate;
 
 - (BOOL)needsMigration;
+- (void)removeOldData;
 
 @end

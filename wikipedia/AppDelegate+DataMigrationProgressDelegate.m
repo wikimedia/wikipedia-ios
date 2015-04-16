@@ -19,11 +19,35 @@
 - (BOOL)presentDataMigrationViewControllerIfNeeded {
     DataMigrationProgressViewController* migrationVC = [[DataMigrationProgressViewController alloc] init];
     migrationVC.delegate = self;
+    
     if ([migrationVC needsMigration]) {
+
+        UIAlertView* dialog = [[UIAlertView alloc] initWithTitle:@"migrate?"
+                                                         message:@"should migrate?"
+                                                        delegate:self
+                                               cancelButtonTitle:@"cancel migrate"
+                                               otherButtonTitles:@"migrate yes", nil];
+        
+        [dialog show];
+
         [self transitionToRootViewController:migrationVC animated:NO];
         return YES;
     } else {
         return NO;
+    }
+}
+
+- (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0: //cancel migration
+            //[migrationVC removeOldData];
+            break;
+        case 1: // proceed with migration
+            
+            break;
+            
+        default:
+            break;
     }
 }
 
