@@ -143,8 +143,9 @@
         // Record for later to avoid dupe imports
         [self.savedTitles addObject:key];
 
+    MWKArticle* migratedArticle;
         @try {
-            MWKArticle* migratedArticle = [self.delegate oldDataSchema:self migrateArticle:[self exportArticle:article]];
+            migratedArticle = [self.delegate oldDataSchema:self migrateArticle:[self exportArticle:article]];
 
             Image* thumbnail = article.thumbnailImage;
             if (thumbnail) {
@@ -167,11 +168,9 @@
             }
 
             [migratedArticle save];
-
         }
         @catch (NSException *exception) {
-            NSLog(@"Failed to save imported article: %@", exception);
-            NSParameterAssert(exception);
+            NSLog(@"Failed to migrate article due to exception: %@. Removing data.", exception);
         }
     }
 }
