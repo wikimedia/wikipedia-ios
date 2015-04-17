@@ -19,6 +19,9 @@ DerivedData
 *.ipa
 *.xcuserstate
 
+# Icons
+Wikipedia/Images.xcassets/AppIcon.appiconset/*.png
+
 # Fastlane
 fastlane/report.xml
 fastlane/Error*.png

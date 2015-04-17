@@ -187,6 +187,7 @@
 		04F27B7818FE0F2E00EDD838 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F27B7418FE0F2E00EDD838 /* PageHistoryViewController.m */; };
 		04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F3958F186CF80100B0D6FC /* TOCViewController.m */; };
 		08D631F71A69B1AB00D87AD0 /* WMFImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D631F61A69B1AB00D87AD0 /* WMFImageGalleryViewController.m */; };
+		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		0EA4402E1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */; };
 		0EBC56681AD3656900E82CDD /* WMFAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */; };
 		0EBC567F1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */; };
@@ -325,7 +326,6 @@
 		D4991445181D51DE00E6073C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4991444181D51DE00E6073C /* main.m */; };
 		D4991449181D51DE00E6073C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4991448181D51DE00E6073C /* AppDelegate.m */; };
 		D499144C181D51DE00E6073C /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D499144A181D51DE00E6073C /* Main_iPhone.storyboard */; };
-		D4991454181D51DE00E6073C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		D49B2ED2196C687C002F035D /* PullToRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D49B2ED1196C687C002F035D /* PullToRefreshViewController.m */; };
 		D4B0AE0219365F7C00F0AC90 /* EventLoggingFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE0119365F7C00F0AC90 /* EventLoggingFunnel.m */; };
 		D4B0AE051936604700F0AC90 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE041936604700F0AC90 /* EditFunnel.m */; };
@@ -720,6 +720,7 @@
 		08D631F81A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryCollectionViewCell.h; path = "Image Gallery/WMFImageGalleryCollectionViewCell.h"; sourceTree = "<group>"; };
 		08D631F91A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryCollectionViewCell.m; path = "Image Gallery/WMFImageGalleryCollectionViewCell.m"; sourceTree = "<group>"; };
 		08F646F7D0488CE3C6D6A763 /* Pods.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.beta.xcconfig; path = "Pods/Target Support Files/Pods/Pods.beta.xcconfig"; sourceTree = "<group>"; };
+		0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SourceIcons.xcassets; path = Wikipedia/SourceIcons.xcassets; sourceTree = "<group>"; };
 		0EA4402C1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+WMFExtensions.h"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
 		0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+WMFExtensions.m"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
 		0EBC567D1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BITHockeyManager+WMFExtensions.h"; path = "Wikipedia/Categories/BITHockeyManager+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
@@ -2346,6 +2347,7 @@
 				BCB669A31A83F6C300C7B1FE /* MediaWikiKit */,
 				04E9A78218F73C7200F7ECF7 /* www */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,
+				0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */,
 				BC8309941A7BF935003FC5C7 /* WikipediaUnitTests */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
@@ -2530,8 +2532,8 @@
 				D4991432181D51DE00E6073C /* Frameworks */,
 				D4C16A621970946900CD91AD /* update-storyboard-strings */,
 				D4C16A631970949A00CD91AD /* update-qqq */,
-				D4991433181D51DE00E6073C /* Resources */,
 				0EB312441ACB96C300C7F7A6 /* Process Icons */,
+				D4991433181D51DE00E6073C /* Resources */,
 				04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */,
 				45FA417DEEAE18B42A662320 /* Copy Pods Resources */,
 			);
@@ -2706,7 +2708,6 @@
 			files = (
 				BCE912D31ACCAF6900B74B42 /* OldDataSchemaBundle.bundle in Resources */,
 				D46CD8C418A1AC4F0042959E /* InfoPlist.strings in Resources */,
-				D4991454181D51DE00E6073C /* Images.xcassets in Resources */,
 				D499144C181D51DE00E6073C /* Main_iPhone.storyboard in Resources */,
 				D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */,
 				0480AE981AA4E65D00A9950C /* WMFWebViewFooterViewController.xib in Resources */,
@@ -2731,6 +2732,7 @@
 				BCB58F591A89747400465627 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				0480AE891AA4E61000A9950C /* WMFLegalFooterViewController.xib in Resources */,
 				0484411E19FF15AF00FD26C5 /* AboutViewController.plist in Resources */,
+				0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */,
 				0480AE8D1AA4E61000A9950C /* WMFOptionsFooterViewController.xib in Resources */,
 				04224502197F5E09005DD0BF /* BulletedLabel.xib in Resources */,
 			);

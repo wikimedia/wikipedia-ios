@@ -1,88 +1,103 @@
-#This script will overlay version, git, and build configuration information over the icon for non-app store builds
-#Inspiration: http://www.merowing.info/2013/03/overlaying-application-version-on-top-of-your-icon/
+	#This script will overlay information over the app icon
+	#Inspiration: http://www.merowing.info/2013/03/overlaying-application-version-on-top-of-your-icon/
 
-export PATH=$PATH:/usr/local/bin
+	export PATH=$PATH:/usr/local/bin
 
-#Don't run if imagemagick is not installed
-if ! convert -version > /dev/null; then
-	exit 0
-fi
+	function processIconSet() {
 
-#Don't do this for App Store Releases
-if [ "$CONFIGURATION" == "Release" ]; then
-	exit 0
-fi
+		#Get build number from info.plist
+		build=`/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "${INFOPLIST_FILE}"`
 
-function processIconSet() {
+		#Find existing icons
+		source_icon_set_prefix=$1
+		source_icon_set_folder_name=$source_icon_set_prefix".appiconset"
+		source_icon_set_directory=`find . -name $source_icon_set_folder_name -type d`
+		echo "Source icon directory: "$source_icon_set_directory
 
-	#Get build number from info.plist
-	build=`/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "${INFOPLIST_FILE}"`
+		#Find target icons
+		target_icon_set_prefix=$2
+		target_icon_set_folder_name=$target_icon_set_prefix".appiconset"
+		target_icon_set_directory=`find . -name $target_icon_set_folder_name -type d`
+		echo "Target icon directory: "$target_icon_set_directory
 
-	#Get path to icons in app bundle
-	icon_directory_path="${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
-	echo "icon directory: "$icon_directory_path
+		#Fine the icons in the app bundle
+		source_icons=`find "$source_icon_set_directory" -name "*.png" -type f`
+		echo "Source icons: "$source_icons
 
-	#Set the prefix of icon files so that we can find them in the the app bundle
-	source_icon_set_prefix=$1
-	echo "Source icon Prefix: "$source_icon_set_prefix
+		#Looping through unescaped paths is fraught with peril
+		#Tip found here: http://www.cyberciti.biz/tips/handling-filenames-with-spaces-in-bash.html
+		SAVEIFS=$IFS
+		IFS=$(echo -en "\n\b")
+		echo "Set IFS for unescaped for loop paths"
 
-	#Fine the icons in the app bundle
-	source_icons=`find "$icon_directory_path" -name "$source_icon_set_prefix*.png" -type f`
-	echo "Source icons: "$source_icons
+		#Loop through icons
+		for source_icon_path in ${source_icons}; do
 
-	#Looping through unescaped paths is fraught with peril
-	#Tip found here: http://www.cyberciti.biz/tips/handling-filenames-with-spaces-in-bash.html
-	SAVEIFS=$IFS
-	IFS=$(echo -en "\n\b")
-	echo "Set IFS for unescaped for loop paths"
+			target_icon_path="${target_icon_set_directory}/${source_icon_path##*/}"
+			echo "Source icon path: $source_icon_path"
+			echo "Target icon path: $target_icon_path"
 
-	#Loop through icons
-	for source_icon_path in ${source_icons}; do
+			if ! convert -version > /dev/null; then
+				#Don't run if imagemagick is not installed
+				cp "${source_icon_path}" "${target_icon_path}"
 
-		echo "Source icon path: $source_icon_path"
+			elif [ "$CONFIGURATION" == "Release" ]; then
+				#Don't do this for App Store Releases
+				cp "${source_icon_path}" "${target_icon_path}"
+				echo "Not overlaying source Image for Release build"
 
-		#Image meta
-		minimum_width=""
-		width=`identify -format %w "$source_icon_path"`
-		height=`identify -format %h "$source_icon_path"`
+			else
 
-		#Overlay Height
-		overlay_height=""
-		overlay_color="#0008"
+				#Image meta
+				width=`identify -format %w "$source_icon_path"`
+				height=`identify -format %h "$source_icon_path"`
+				# echo "Width: "$width
+				# echo "Height: "$height
 
-		#Set minimum width and overlay height based on icon size
-		if [[ $source_icon_path == *"@3x"* ]]; then
-			minimum_width=171
-			overlay_height=60
-		elif [[ $source_icon_path == *"@2x"* ]]; then
-			minimum_width=114
-			overlay_height=40
-		else
-			minimum_width=57
-			overlay_height=20
-		fi
+				#Overlay Size
+				overlay_height=$height
+				overlay_width=$width
+				let "overlay_height/=4"
+				let "overlay_width*=3"
 
-		#Only process icons that show on home screens (> minimum_width)
-		if [ $width -ge $minimum_width ]; then
+				# echo "O Width: "$overlay_width
+				# echo "O Height: "$overlay_height
 
-			echo "Overlaying source Image "$source_icon_path
+				#Overlay Color
+				overlay_color="#0008"
 
-			#Overlay Image
-			convert -background $overlay_color -fill white -gravity center -size ${width}x${overlay_height}\
-			caption:"${CONFIGURATION}\n(${build})"\
-			"${source_icon_path}" +swap -gravity south -composite "${source_icon_path}"
+				#Only process larger icons
+				minimum_width=57
 
-		else
+				if [[ $width -ge $minimum_width ]]; then
 
-			echo "Not overlaying source Image "$source_icon_path" because its width ("$width") is smaller than minimum size ("$minimum_width")"
+					echo "Overlaying source image "$source_icon_path
 
-		fi
+					#Overlay Image
+					convert -background $overlay_color -fill white -gravity center -size ${overlay_width}x${overlay_height}\
+					caption:"${CONFIGURATION}\n(${build})"\
+					"${source_icon_path}" +swap -gravity south -composite "${target_icon_path}"
 
-	done
+				else
+					#For everything else, just copy it over
+					cp "${source_icon_path}" "${target_icon_path}"
+					echo "Not overlaying source Image "$source_icon_path" because its width ("$width") is smaller than minimum size ("$minimum_width")"
+				fi
 
-	IFS=$SAVEIFS
-	echo "Reset IFS"
+			fi
 
-}
+		done
 
-processIconSet "AppIcon"
+   	#Copy JSON
+		source_json_path=`find "$source_icon_set_directory" -name "*.json" -type f`
+		target_json_path="${target_icon_set_directory}/${source_json_path##*/}"
+
+		cp "${source_json_path}" "${target_json_path}"
+		echo "Copying JSON from "$source_json_path" to "$target_json_path
+
+		IFS=$SAVEIFS
+		echo "Reset IFS"
+
+	}
+
+	processIconSet "AppIconSource" "AppIcon"
