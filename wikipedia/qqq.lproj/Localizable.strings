@@ -268,3 +268,6 @@
 "hockeyapp-alert-always-send" = "Alert dialog button text for crash reporting to always be sent";
 "hockeyapp-alert-do-not-send" = "Alert dialog button text for crash reporting to not send the crash report";
 "hockeyapp-alert-privacy" = "Alert dialog button text for HockeyApp privacy policy. $1 will be replaced programmatically with the constant string 'HockeyApp'";
+"image-gallery-fetch-image-info-error-title" = "Title of prompt weh image meta download fails in gallery";
+"image-gallery-fetch-image-info-error-message" = "Message of prompt weh image meta download fails in gallery";
+"image-gallery-fetch-image-info-error-ok" = "OK button of prompt weh image meta download fails in gallery";

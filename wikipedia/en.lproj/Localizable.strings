@@ -289,6 +289,9 @@
 
 
 "image-gallery-unknown-owner" = "Uploader unknown.";
+"image-gallery-fetch-image-info-error-title" = "Unable to download images";
+"image-gallery-fetch-image-info-error-message" = "UNable to download the images for this article. Please refresh the article and try again.";
+"image-gallery-fetch-image-info-error-ok" = "OK";
 
 "hockeyapp-alert-question" = "Would you like to send a crash report to $1 so Wikimedia can review your crash?";
 "hockeyapp-alert-question-with-response-field" = "Would you like to send a crash report to $1 so Wikimedia can review your crash? Please describe what happened when the crash occurred:";
