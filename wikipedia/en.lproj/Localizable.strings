@@ -283,7 +283,7 @@
 "migration-update-progress-label" = "Migrating local data";
 "migration-update-progress-count-label" = "Migrating article $1 of $2";
 "migration-prompt-title" = "Looks like we have a history!";
-"migration-prompt-message" = "We need to move your saved & recent pages over. This may take a few minutes…";
+"migration-prompt-message" = "We need to move your saved & recent pages over. This may take a minute…";
 "migration-confirm-button-title" = "Move my stuff over";
 "migration-skip-button-title" = "Delete it";
 
