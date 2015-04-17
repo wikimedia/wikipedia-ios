@@ -107,16 +107,9 @@
 
     // Populate sections
     NSArray* sectionsData = dict[@"sections"];
-    
+
     sectionsData = [sectionsData bk_map:^id (NSDictionary* sectionData) {
         return [[MWKSection alloc] initWithArticle:self dict:sectionData];
-    }];
-    
-    //map function returns NSNulls if it can't parse a section, get rid of those.
-    sectionsData = [sectionsData bk_select:^BOOL(id obj) {
-        if([obj isKindOfClass:[NSNull class]])
-            return NO;
-        return YES;
     }];
 
     if ([sectionsData count] > 0) {
