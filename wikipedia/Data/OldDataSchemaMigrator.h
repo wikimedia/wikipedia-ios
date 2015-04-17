@@ -42,12 +42,14 @@
 @property (weak) id<OldDataSchemaDelegate> delegate;
 @property (weak) id<OldDataSchemaMigratorProgressDelegate> progressDelegate;
 
-- (BOOL)exists;
++ (BOOL)exists;
 
 /**
  *  This runs asynchronously.
  *  Use the progress delegate methods to get notifified when the migration completes.
  */
 - (void)migrateData;
+
++ (void)removeOldData;
 
 @end

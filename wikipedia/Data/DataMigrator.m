@@ -17,20 +17,33 @@
 
 #pragma mark - Public methods
 
++ (NSString*)masterDatabasePathIfExists {
+    NSString* path = [self localLibraryPath:@"Caches/Databases.db"];
+    return [[NSFileManager defaultManager] fileExistsAtPath:path] ? path : nil;
+}
+
++ (BOOL)hasData {
+    return !![self masterDatabasePathIfExists];
+}
+
++ (void)removeOldData {
+    NSString* dbPath = [[self class] masterDatabasePathIfExists];
+    if (dbPath) {
+        NSLog(@"Deleting old app's %@", dbPath);
+        [[NSFileManager defaultManager] removeItemAtPath:dbPath error:nil];
+    }
+}
+
 - (id)init {
     self = [super init];
     if (self) {
-        NSString* dbPath = [self localLibraryPath:@"Caches/Databases.db"];
-        if ([[NSFileManager defaultManager] fileExistsAtPath:dbPath]) {
+        NSString* dbPath = [[self class] masterDatabasePathIfExists];
+        if (dbPath) {
             NSLog(@"Opening sqlite database from %@", dbPath);
             masterDB = [[SQLiteHelper alloc] initWithPath:dbPath];
         }
     }
     return self;
-}
-
-- (BOOL)hasData {
-    return (masterDB != NULL);
 }
 
 - (NSArray*)extractSavedPages {
@@ -44,25 +57,16 @@
     return [NSArray arrayWithArray:arr];
 }
 
-- (void)removeOldData {
-    if ([self hasData]) {
-        NSLog(@"Deleting old app's Caches/Databases.db");
-        masterDB = nil;
-        NSString* dbPath = [self localLibraryPath:@"Caches/Databases.db"];
-        [[NSFileManager defaultManager] removeItemAtPath:dbPath error:nil];
-    }
-}
-
 #pragma mark - Private methods
 
 /**
  * Return absolute path for relative path to the installed app's documents folder.
  */
-- (NSString*)localDocumentPath:(NSString*)local {
++ (NSString*)localDocumentPath:(NSString*)local {
     return [[self documentRootPath] stringByAppendingPathComponent:local];
 }
 
-- (NSString*)documentRootPath {
++ (NSString*)documentRootPath {
     NSArray* documentPaths     = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* documentRootPath = [documentPaths objectAtIndex:0];
     return documentRootPath;
@@ -71,11 +75,11 @@
 /**
  * Return absolute path for relative path to the installed app's Library folder.
  */
-- (NSString*)localLibraryPath:(NSString*)local {
++ (NSString*)localLibraryPath:(NSString*)local {
     return [[self libraryRootPath] stringByAppendingPathComponent:local];
 }
 
-- (NSString*)libraryRootPath {
++ (NSString*)libraryRootPath {
     NSArray* libraryPaths     = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString* libraryRootPath = [libraryPaths objectAtIndex:0];
     return libraryRootPath;
@@ -90,7 +94,7 @@
     NSArray* rows     = [masterDB query:@"SELECT origin, path FROM Databases WHERE name=?" params:@[dbname]];
     NSDictionary* row = rows[0];
     NSLog(@"row: %@", row);
-    NSString* path = [[[self localLibraryPath:@"Caches"] stringByAppendingPathComponent:row[@"origin"]] stringByAppendingPathComponent:row[@"path"]];
+    NSString* path = [[[[self class] localLibraryPath:@"Caches"] stringByAppendingPathComponent:row[@"origin"]] stringByAppendingPathComponent:row[@"path"]];
     NSLog(@"opening path %@", path);
     return [[SQLiteHelper alloc] initWithPath:path];
 }

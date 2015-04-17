@@ -9,6 +9,7 @@
 #import "AppDelegate+DataMigrationProgressDelegate.h"
 #import "DataMigrationProgressViewController.h"
 #import "UIWindow+WMFMainScreenWindow.h"
+#import "WikipediaAppUtils.h"
 
 @interface AppDelegate (DataMigrationProgressDelegateImpl)
 <DataMigrationProgressDelegate>
@@ -17,13 +18,29 @@
 @implementation AppDelegate (DataMigrationProgressDelegate)
 
 - (BOOL)presentDataMigrationViewControllerIfNeeded {
-    DataMigrationProgressViewController* migrationVC = [[DataMigrationProgressViewController alloc] init];
-    migrationVC.delegate = self;
-    if ([migrationVC needsMigration]) {
-        [self transitionToRootViewController:migrationVC animated:NO];
+    if ([DataMigrationProgressViewController needsMigration]) {
+        #warning TODO: localize
+        UIAlertView* dialog =
+            [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"migration-prompt-title", nil)
+                                       message:MWLocalizedString(@"migration-prompt-message", nil)
+                                      delegate:self
+                             cancelButtonTitle:MWLocalizedString(@"migration-skip-button-title", nil)
+                             otherButtonTitles:MWLocalizedString(@"migration-confirm-button-title", nil), nil];
+        [dialog show];
         return YES;
     } else {
         return NO;
+    }
+}
+
+- (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == alertView.cancelButtonIndex) {
+        [DataMigrationProgressViewController removeOldData];
+        [self presentRootViewController:YES withSplash:NO];
+    } else {
+        DataMigrationProgressViewController* migrationVC = [[DataMigrationProgressViewController alloc] init];
+        migrationVC.delegate = self;
+        [self transitionToRootViewController:migrationVC animated:NO];
     }
 }
 
@@ -31,7 +48,7 @@
 
 @implementation AppDelegate (DataMigrationProgressDelegateImpl)
 
-- (void)dataMigrationProgressComplete:(DataMigrationProgressViewController*)viewController {
+- (void)dataMigrationProgressComplete:(DataMigrationProgressViewController *)viewController {
     [self presentRootViewController:YES withSplash:NO];
 }
 
