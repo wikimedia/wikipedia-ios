@@ -171,6 +171,7 @@
         }
         @catch (NSException *exception) {
             NSLog(@"Failed to migrate article due to exception: %@. Removing data.", exception);
+            [migratedArticle remove];
         }
     }
 }

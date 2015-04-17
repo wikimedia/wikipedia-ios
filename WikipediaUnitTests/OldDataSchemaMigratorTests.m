@@ -97,7 +97,6 @@
     SectionImage* image = section.sectionImagesByIndex.lastObject;
     // sourceUrl is a required field
     image.image.sourceUrl = nil;
-
     [self verifySkippedMigrationOfArticle:oldArticle];
 }
 
