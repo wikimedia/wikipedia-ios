@@ -26,7 +26,6 @@
                                       delegate:self
                              cancelButtonTitle:MWLocalizedString(@"migration-skip-button-title", nil)
                              otherButtonTitles:MWLocalizedString(@"migration-confirm-button-title", nil), nil];
-        dialog.delegate = self;
         [dialog show];
         return YES;
     } else {
