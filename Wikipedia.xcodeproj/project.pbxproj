@@ -246,7 +246,6 @@
 		BC86B9361A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B9351A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m */; };
 		BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93C1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m */; };
 		BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */; };
-		BC90C4B91AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC90C4B81AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.m */; };
 		BC90C4BE1AC219FE009F36D2 /* UIWindow+WMFMainScreenWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC90C4BD1AC219FE009F36D2 /* UIWindow+WMFMainScreenWindow.m */; };
 		BC955BC71A82BEFD000EF9E4 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */; };
 		BC955BCF1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BCE1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m */; };
@@ -771,8 +770,6 @@
 		BC86B93C1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewFlowLayout+NSCopying.m"; sourceTree = "<group>"; };
 		BC86B93E1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewFlowLayout+WMFItemSizeThatFits.h"; sourceTree = "<group>"; };
 		BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewFlowLayout+WMFItemSizeThatFits.m"; sourceTree = "<group>"; };
-		BC90C4B71AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+DataMigrationProgressDelegate.h"; sourceTree = "<group>"; };
-		BC90C4B81AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+DataMigrationProgressDelegate.m"; sourceTree = "<group>"; };
 		BC90C4BC1AC219FE009F36D2 /* UIWindow+WMFMainScreenWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+WMFMainScreenWindow.h"; sourceTree = "<group>"; };
 		BC90C4BD1AC219FE009F36D2 /* UIWindow+WMFMainScreenWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+WMFMainScreenWindow.m"; sourceTree = "<group>"; };
 		BC955BC51A82BEFD000EF9E4 /* MWKImageInfoFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKImageInfoFetcher.h; sourceTree = "<group>"; };
@@ -2369,8 +2366,6 @@
 				D4BC22B3181E9E6300CAC673 /* empty.png */,
 				D4991447181D51DE00E6073C /* AppDelegate.h */,
 				D4991448181D51DE00E6073C /* AppDelegate.m */,
-				BC90C4B71AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.h */,
-				BC90C4B81AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.m */,
 				D499144A181D51DE00E6073C /* Main_iPhone.storyboard */,
 				D46CD8C018A1AC4F0042959E /* InfoPlist.strings */,
 				D46CD8C218A1AC4F0042959E /* Localizable.strings */,
@@ -3060,7 +3055,6 @@
 				BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */,
 				04D686C91AB28FE40009B44A /* UIImage+WMFFocalImageDrawing.m in Sources */,
 				0429300A18604898002A13FC /* SavedPagesResultCell.m in Sources */,
-				BC90C4B91AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.m in Sources */,
 				0487048419F8262600B7D307 /* CaptchaResetter.m in Sources */,
 				D407E6411A51DBDA00CCC8B1 /* SchemaConverter.m in Sources */,
 				BCB669A71A83F6C400C7B1FE /* MWKSiteDataObject.m in Sources */,

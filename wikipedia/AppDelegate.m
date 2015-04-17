@@ -7,8 +7,10 @@
 #import "SessionSingleton.h"
 #import <HockeySDK/HockeySDK.h>
 #import "WMFCrashAlertView.h"
-#import "AppDelegate+DataMigrationProgressDelegate.h"
 #import "UIWindow+WMFMainScreenWindow.h"
+#import "DataMigrationProgressViewController.h"
+#import "UIWindow+WMFMainScreenWindow.h"
+#import "WikipediaAppUtils.h"
 
 static NSString* const kHockeyAppTitleStringsKey                     = @"hockeyapp-alert-title";
 static NSString* const kHockeyAppQuestionStringsKey                  = @"hockeyapp-alert-question";
@@ -17,7 +19,7 @@ static NSString* const kHockeyAppSendStringsKey                      = @"hockeya
 static NSString* const kHockeyAppAlwaysSendStringsKey                = @"hockeyapp-alert-always-send";
 static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeyapp-alert-do-not-send";
 
-@interface AppDelegate ()
+@interface AppDelegate ()<DataMigrationProgressDelegate>
 
 #warning TOOD: refactor into separate crash-reporting class
 @property NSString* crashSendText;
@@ -142,6 +144,28 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - Migration
+
+- (BOOL)presentDataMigrationViewControllerIfNeeded {
+    if ([DataMigrationProgressViewController needsMigration]) {
+#warning TODO: localize
+        UIAlertView* dialog =
+        [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"migration-prompt-title", nil)
+                                   message:MWLocalizedString(@"migration-prompt-message", nil)
+                                  delegate:self
+                         cancelButtonTitle:MWLocalizedString(@"migration-skip-button-title", nil)
+                         otherButtonTitles:MWLocalizedString(@"migration-confirm-button-title", nil), nil];
+        [dialog show];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (void)dataMigrationProgressComplete:(DataMigrationProgressViewController *)viewController {
+    [self presentRootViewController:YES withSplash:NO];
+}
+
 #pragma mark - Crash Reporting
 // See also:
 // http://support.hockeyapp.net/kb/client-integration-ios-mac-os-x/hockeyapp-for-ios
@@ -185,17 +209,32 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
 }
 
 - (void)alertView:(UIAlertView*)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    BITCrashMetaData* crashMetaData = [BITCrashMetaData new];
-    if (alertView.alertViewStyle != UIAlertViewStyleDefault) {
-        crashMetaData.userDescription = [alertView textFieldAtIndex:0].text;
-    }
-    NSString* buttonText = [alertView buttonTitleAtIndex:buttonIndex];
-    if ([buttonText isEqualToString:self.crashSendText]) {
-        [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputSend withUserProvidedMetaData:crashMetaData];
-    } else if ([buttonText isEqualToString:self.crashAlwaysSendText]) {
-        [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputAlwaysSend withUserProvidedMetaData:crashMetaData];
-    } else if ([buttonText isEqualToString:self.crashDoNotSendText]) {
-        [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
+    
+    if([alertView isKindOfClass:[WMFCrashAlertView class]]){
+        
+        BITCrashMetaData* crashMetaData = [BITCrashMetaData new];
+        if (alertView.alertViewStyle != UIAlertViewStyleDefault) {
+            crashMetaData.userDescription = [alertView textFieldAtIndex:0].text;
+        }
+        NSString* buttonText = [alertView buttonTitleAtIndex:buttonIndex];
+        if ([buttonText isEqualToString:self.crashSendText]) {
+            [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputSend withUserProvidedMetaData:crashMetaData];
+        } else if ([buttonText isEqualToString:self.crashAlwaysSendText]) {
+            [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputAlwaysSend withUserProvidedMetaData:crashMetaData];
+        } else if ([buttonText isEqualToString:self.crashDoNotSendText]) {
+            [[BITHockeyManager sharedHockeyManager].crashManager handleUserInput:BITCrashManagerUserInputDontSend withUserProvidedMetaData:nil];
+        }
+        
+    }else{
+        
+        if (buttonIndex == alertView.cancelButtonIndex) {
+            [DataMigrationProgressViewController removeOldData];
+            [self presentRootViewController:YES withSplash:NO];
+        } else {
+            DataMigrationProgressViewController* migrationVC = [[DataMigrationProgressViewController alloc] init];
+            migrationVC.delegate = self;
+            [self transitionToRootViewController:migrationVC animated:NO];
+        }
     }
 }
 
