@@ -143,33 +143,35 @@
         // Record for later to avoid dupe imports
         [self.savedTitles addObject:key];
 
-        MWKArticle* migratedArticle = [self.delegate oldDataSchema:self migrateArticle:[self exportArticle:article]];
-
-        Image* thumbnail = article.thumbnailImage;
-        if (thumbnail) {
-            [self migrateThumbnailImage:thumbnail article:article newArticle:migratedArticle];
-        }
-        // HACK: setting thumbnailURL after migration prevents it from being added to the image list twice
-        migratedArticle.thumbnailURL = thumbnail.sourceUrl;
-
-        for (Section* section in [article sectionsBySectionId]) {
-            for (SectionImage* sectionImage in [section sectionImagesByIndex]) {
-                [self migrateImage:sectionImage newArticle:migratedArticle];
-            }
-        }
-
-        // set the lead image to the first non-thumb image
-        if ([migratedArticle.images count]) {
-            // thumbnail should always be first, if it's present (see above assertion)
-            NSUInteger leadImageURLIndex = (thumbnail && migratedArticle.images.count > 1) ? 1 : 0;
-            migratedArticle.imageURL = [migratedArticle.images imageURLAtIndex:leadImageURLIndex];
-        }
-
         @try {
+            MWKArticle* migratedArticle = [self.delegate oldDataSchema:self migrateArticle:[self exportArticle:article]];
+
+            Image* thumbnail = article.thumbnailImage;
+            if (thumbnail) {
+                [self migrateThumbnailImage:thumbnail article:article newArticle:migratedArticle];
+            }
+            // HACK: setting thumbnailURL after migration prevents it from being added to the image list twice
+            migratedArticle.thumbnailURL = thumbnail.sourceUrl;
+            
+            for (Section* section in [article sectionsBySectionId]) {
+                for (SectionImage* sectionImage in [section sectionImagesByIndex]) {
+                    [self migrateImage:sectionImage newArticle:migratedArticle];
+                }
+            }
+            
+            // set the lead image to the first non-thumb image
+            if ([migratedArticle.images count]) {
+                // thumbnail should always be first, if it's present (see above assertion)
+                NSUInteger leadImageURLIndex = (thumbnail && migratedArticle.images.count > 1) ? 1 : 0;
+                migratedArticle.imageURL = [migratedArticle.images imageURLAtIndex:leadImageURLIndex];
+            }
+
             [migratedArticle save];
-        } @catch (NSException* saveException) {
-            NSLog(@"Failed to save article after importing images: %@", saveException);
-            NSParameterAssert(!saveException);
+
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Failed to save imported article: %@", exception);
+            NSParameterAssert(exception);
         }
     }
 }

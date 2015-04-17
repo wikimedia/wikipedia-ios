@@ -49,7 +49,9 @@
 - (void)tearDown {
     [super tearDown];
     NSError* tmpDataStoreRemovalErr = [self.dataStore removeFolderAtBasePath];
-    NSParameterAssert(!tmpDataStoreRemovalErr);
+    if(tmpDataStoreRemovalErr.code != NSFileNoSuchFileError){
+        NSParameterAssert(!tmpDataStoreRemovalErr);
+    }
 }
 
 - (void)testArticleWithThumbnail {
@@ -73,6 +75,17 @@
     oldArticle.thumbnailImage = nil;
     [self verifyMigrationOfArticle:oldArticle];
 }
+
+- (void)testMigrationOfBadArticle{
+    
+    Article* oldArticle = [self createOldArticleWithSections:10 imagesPerSection:5];
+    
+    oldArticle.lastmodified = nil;
+    oldArticle.displayTitle = nil;
+    
+    XCTAssertNoThrow([self.migrator migrateArticle:oldArticle]);
+}
+
 
 #pragma mark - Test Utils
 
