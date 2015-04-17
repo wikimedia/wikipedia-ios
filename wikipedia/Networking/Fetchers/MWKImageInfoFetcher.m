@@ -48,8 +48,28 @@
 - (AFHTTPRequestOperation*)fetchInfoForArticle:(MWKArticle*)article {
     NSArray* filesToBeFetched = [[article.images uniqueLargestVariants] bk_map:^NSString*(MWKImage* image) {
         NSAssert(image.canonicalFilename.length, @"Unable to form canonical filename from image: %@", image.sourceURL);
+        
+        if(!image.canonicalFilename){
+            return nil;
+        }
+        
         return [@"File:" stringByAppendingString:image.canonicalFilename];
     }];
+    
+    filesToBeFetched = [filesToBeFetched bk_select:^BOOL(id obj) {
+        
+        if([obj isKindOfClass:[NSNull class]]){
+            
+            return NO;
+        }
+        return YES;
+    }];
+    
+    if([filesToBeFetched count] == 0){
+        
+        return nil;
+    }
+    
     return [self fetchInfoForPageTitles:filesToBeFetched fromSite:article.site];
 }
 

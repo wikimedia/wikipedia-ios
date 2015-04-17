@@ -175,12 +175,28 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return [self.collectionViewFlowLayout wmf_indexPathClosestToContentOffset].item;
 }
 
+
 #pragma mark - Networking & Persistence
 
 - (void)fetchImageInfo {
-    [[MWNetworkActivityIndicatorManager sharedManager] push];
     AFHTTPRequestOperation* requestOperation = [self.imageInfoFetcher fetchInfoForArticle:self.article];
+    
+    if(!requestOperation){
+    
+        UIAlertView* dialog =
+        [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"image-gallery-fetch-image-info-error-title", nil)
+                                   message:MWLocalizedString(@"image-gallery-fetch-image-info-error-message", nil)
+                                  delegate:self
+                         cancelButtonTitle:MWLocalizedString(@"image-gallery-fetch-image-info-error-ok", nil)
+                         otherButtonTitles:nil];
+        [dialog show];
+
+        return;
+    }
+    
     requestOperation.completionQueue = dispatch_get_main_queue();
+    
+    [[MWNetworkActivityIndicatorManager sharedManager] push];
 
     __weak WMFImageGalleryViewController* weakSelf = self;
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation* operation, id responseObject) {
