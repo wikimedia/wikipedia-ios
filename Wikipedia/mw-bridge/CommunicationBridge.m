@@ -111,7 +111,6 @@ static NSString* bridgeURLPrefix = @"x-wikipedia-bridge:";
 }
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
-    self.shouldQueueMessages = YES;
 
     if ([self isBridgeURL:request.URL]) {
         NSDictionary* message = [self extractBridgePayload:request.URL];
@@ -120,15 +119,15 @@ static NSString* bridgeURLPrefix = @"x-wikipedia-bridge:";
         [self fireEvent:messageType withPayload:payload];
         return NO;
     }
+
     return YES;
 }
 
 - (void)sendQueuedMessages {
-    self.shouldQueueMessages = NO;
     for (NSString* js in self.queuedMessages.copy) {
         [self sendRawMessage:js];
     }
-    [self.queuedMessages removeAllObjects];
+    [self disableQueueingAndRemoveQueuedMessages];
 }
 
 - (void)webViewDidStartLoad:(UIWebView*)webView {
@@ -137,6 +136,13 @@ static NSString* bridgeURLPrefix = @"x-wikipedia-bridge:";
 
 - (void)webView:(UIWebView*)webView didFailLoadWithError:(NSError*)error {
     NSLog(@"webView failed to load: %@", error);
+    [self disableQueueingAndRemoveQueuedMessages];
+}
+
+-(void)disableQueueingAndRemoveQueuedMessages {
+    
+    self.shouldQueueMessages = NO;
+    [self.queuedMessages removeAllObjects];
 }
 
 - (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName {
