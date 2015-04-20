@@ -225,7 +225,6 @@
 		BC86B9361A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B9351A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m */; };
 		BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93C1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m */; };
 		BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */; };
-		BC90C4B91AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC90C4B81AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.m */; };
 		BC90C4BE1AC219FE009F36D2 /* UIWindow+WMFMainScreenWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC90C4BD1AC219FE009F36D2 /* UIWindow+WMFMainScreenWindow.m */; };
 		BC955BC71A82BEFD000EF9E4 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */; };
 		BC955BCF1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BCE1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m */; };
@@ -286,6 +285,7 @@
 		BCC185D81A9E5628005378F8 /* UILabel+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185D71A9E5628005378F8 /* UILabel+WMFStyling.m */; };
 		BCC185E01A9EC836005378F8 /* UIButton+FrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185DF1A9EC836005378F8 /* UIButton+FrameUtils.m */; };
 		BCC185E81A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185E71A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m */; };
+		BCCED2D01AE03BE20094EB7E /* MWKSectionListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCED2CF1AE03BE20094EB7E /* MWKSectionListTests.m */; };
 		BCDB75C41AB0E8300005593F /* WMFSubstringUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDB75C31AB0E8300005593F /* WMFSubstringUtilsTests.m */; };
 		BCE912BA1ACC5E6900B74B42 /* NSIndexSet+BKReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */; };
 		BCE912BD1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */; };
@@ -752,8 +752,6 @@
 		BC86B93C1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewFlowLayout+NSCopying.m"; sourceTree = "<group>"; };
 		BC86B93E1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewFlowLayout+WMFItemSizeThatFits.h"; sourceTree = "<group>"; };
 		BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewFlowLayout+WMFItemSizeThatFits.m"; sourceTree = "<group>"; };
-		BC90C4B71AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+DataMigrationProgressDelegate.h"; sourceTree = "<group>"; };
-		BC90C4B81AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+DataMigrationProgressDelegate.m"; sourceTree = "<group>"; };
 		BC90C4BC1AC219FE009F36D2 /* UIWindow+WMFMainScreenWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+WMFMainScreenWindow.h"; sourceTree = "<group>"; };
 		BC90C4BD1AC219FE009F36D2 /* UIWindow+WMFMainScreenWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+WMFMainScreenWindow.m"; sourceTree = "<group>"; };
 		BC955BC51A82BEFD000EF9E4 /* MWKImageInfoFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKImageInfoFetcher.h; sourceTree = "<group>"; };
@@ -884,6 +882,8 @@
 		BCC185E71A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewFlowLayout+AttributeUtils.m"; sourceTree = "<group>"; };
 		BCDB75BC1AB0D3DE0005593F /* WMFImageInfoController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageInfoController_Private.h; path = "Image Gallery/WMFImageInfoController_Private.h"; sourceTree = "<group>"; };
 		BCDB75BD1AB0DFC40005593F /* WMFRangeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRangeUtils.h; sourceTree = "<group>"; };
+		BCCED2CF1AE03BE20094EB7E /* MWKSectionListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSectionListTests.m; sourceTree = "<group>"; };
+		BCCED2D21AE041BD0094EB7E /* MWKSectionList_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKSectionList_Private.h; sourceTree = "<group>"; };
 		BCDB75C31AB0E8300005593F /* WMFSubstringUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSubstringUtilsTests.m; sourceTree = "<group>"; };
 		BCE912B81ACC5E6900B74B42 /* NSIndexSet+BKReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+BKReduce.h"; sourceTree = "<group>"; };
 		BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduce.m"; sourceTree = "<group>"; };
@@ -2041,6 +2041,7 @@
 				BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */,
 				BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */,
 				0EBC56951AD5B22800E82CDD /* BITHockeyManagerWMFExtensionsTests.m */,
+				BCCED2CF1AE03BE20094EB7E /* MWKSectionListTests.m */,
 			);
 			path = WikipediaUnitTests;
 			sourceTree = "<group>";
@@ -2182,6 +2183,7 @@
 				BCB6699E1A83F6C300C7B1FE /* MWKImageList.h */,
 				BCB6699F1A83F6C300C7B1FE /* MWKImageList.m */,
 				BCB669A01A83F6C300C7B1FE /* MWKSectionList.h */,
+				BCCED2D21AE041BD0094EB7E /* MWKSectionList_Private.h */,
 				BCB669A11A83F6C300C7B1FE /* MWKSectionList.m */,
 			);
 			name = "Data i/o";
@@ -2365,8 +2367,6 @@
 				D4BC22B3181E9E6300CAC673 /* empty.png */,
 				D4991447181D51DE00E6073C /* AppDelegate.h */,
 				D4991448181D51DE00E6073C /* AppDelegate.m */,
-				BC90C4B71AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.h */,
-				BC90C4B81AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.m */,
 				D499144A181D51DE00E6073C /* Main_iPhone.storyboard */,
 				D46CD8C018A1AC4F0042959E /* InfoPlist.strings */,
 				D46CD8C218A1AC4F0042959E /* Localizable.strings */,
@@ -2857,6 +2857,7 @@
 				BC0FED771AAA026C002488D7 /* WMFImageURLParsingTests.m in Sources */,
 				BCEC778F1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m in Sources */,
 				04F1226A1ACB822D002FC3B5 /* NSString+FormattedAttributedStringTests.m in Sources */,
+				BCCED2D01AE03BE20094EB7E /* MWKSectionListTests.m in Sources */,
 				BC0FED6B1AAA0268002488D7 /* MWKDataStoreStorageTests.m in Sources */,
 				0484B9071ABB50FA00874073 /* WMFArticleParsing.m in Sources */,
 				BC0FED751AAA026C002488D7 /* NSArray+BKIndexTests.m in Sources */,
@@ -3002,7 +3003,6 @@
 				BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */,
 				04D686C91AB28FE40009B44A /* UIImage+WMFFocalImageDrawing.m in Sources */,
 				0429300A18604898002A13FC /* SavedPagesResultCell.m in Sources */,
-				BC90C4B91AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.m in Sources */,
 				0487048419F8262600B7D307 /* CaptchaResetter.m in Sources */,
 				D407E6411A51DBDA00CCC8B1 /* SchemaConverter.m in Sources */,
 				BCB669A71A83F6C400C7B1FE /* MWKSiteDataObject.m in Sources */,

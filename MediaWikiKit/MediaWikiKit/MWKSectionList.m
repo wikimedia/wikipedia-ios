@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
+#import "MWKSectionList_Private.h"
 #import "MediaWikiKit.h"
 
 @implementation MWKSectionList {
@@ -27,33 +28,47 @@
         _article      = article;
         mutationState = 0;
         if (_sections == nil) {
-            _sections = [@[] mutableCopy];
-            NSFileManager* fm = [NSFileManager defaultManager];
-            NSString* path    = [[self.article.dataStore pathForTitle:self.article.title] stringByAppendingPathComponent:@"sections"];
-            NSArray* files    = [fm contentsOfDirectoryAtPath:path error:nil];
-            files = [files sortedArrayUsingComparator:^NSComparisonResult (NSString* obj1, NSString* obj2) {
-                int sectionId1 = [obj1 intValue];
-                int sectionId2 = [obj2 intValue];
-                if (sectionId1 < sectionId2) {
-                    return NSOrderedAscending;
-                } else if (sectionId1 == sectionId2) {
-                    return NSOrderedSame;
-                } else {
-                    return NSOrderedDescending;
-                }
-            }];
-            NSRegularExpression* redigits = [NSRegularExpression regularExpressionWithPattern:@"^\\d+$" options:0 error:nil];
-            for (NSString* subpath in files) {
-                NSString* filename = [subpath lastPathComponent];
-                NSArray* matches   = [redigits matchesInString:filename options:0 range:NSMakeRange(0, [filename length])];
-                if (matches && [matches count]) {
-                    int sectionId = [filename intValue];
-                    _sections[sectionId] = [self.article.dataStore sectionWithId:sectionId article:self.article];
-                }
-            }
+            _sections = [NSMutableArray array];
+            [self importSectionsFromDisk];
         }
     }
     return self;
+}
+
+- (void)importSectionsFromDisk {
+    NSFileManager* fm = [NSFileManager defaultManager];
+    NSString* path    = [[self.article.dataStore pathForTitle:self.article.title] stringByAppendingPathComponent:@"sections"];
+
+    NSArray* files = [fm contentsOfDirectoryAtPath:path error:nil];
+    files = [files sortedArrayUsingComparator:^NSComparisonResult (NSString* obj1, NSString* obj2) {
+        int sectionId1 = [obj1 intValue];
+        int sectionId2 = [obj2 intValue];
+        if (sectionId1 < sectionId2) {
+            return NSOrderedAscending;
+        } else if (sectionId1 == sectionId2) {
+            return NSOrderedSame;
+        } else {
+            return NSOrderedDescending;
+        }
+    }];
+
+    NSRegularExpression* redigits = [NSRegularExpression regularExpressionWithPattern:@"^\\d+$" options:0 error:nil];
+    @try {
+        for (NSString* subpath in files) {
+            NSString* filename = [subpath lastPathComponent];
+            NSArray* matches   = [redigits matchesInString:filename options:0 range:NSMakeRange(0, [filename length])];
+            if (matches && [matches count]) {
+                [self readAndInsertSection:[filename intValue]];
+            }
+        }
+    }@catch (NSException* e) {
+        NSLog(@"Failed to import sections at path %@, leaving list empty.", path);
+        [_sections removeAllObjects];
+    }
+}
+
+- (void)readAndInsertSection:(int)sectionId {
+    _sections[sectionId] = [self.article.dataStore sectionWithId:sectionId article:self.article];
 }
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState*)state

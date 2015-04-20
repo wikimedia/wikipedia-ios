@@ -6,12 +6,15 @@
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "BITHockeyManager+WMFExtensions.h"
-#import "AppDelegate+DataMigrationProgressDelegate.h"
 #import "UIWindow+WMFMainScreenWindow.h"
+#import "DataMigrationProgressViewController.h"
+#import "UIWindow+WMFMainScreenWindow.h"
+#import "WikipediaAppUtils.h"
 
 
 @interface AppDelegate ()
-
+<DataMigrationProgressDelegate>
+@property (nonatomic, weak) UIAlertView* dataMigrationAlert;
 @end
 
 @implementation AppDelegate
@@ -130,6 +133,41 @@
 
 - (void)applicationWillTerminate:(UIApplication*)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Migration
+
+- (BOOL)presentDataMigrationViewControllerIfNeeded {
+    if ([DataMigrationProgressViewController needsMigration]) {
+        UIAlertView* dialog =
+            [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"migration-prompt-title", nil)
+                                       message:MWLocalizedString(@"migration-prompt-message", nil)
+                                      delegate:self
+                             cancelButtonTitle:MWLocalizedString(@"migration-skip-button-title", nil)
+                             otherButtonTitles:MWLocalizedString(@"migration-confirm-button-title", nil), nil];
+        [dialog show];
+        self.dataMigrationAlert = dialog;
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (void)dataMigrationProgressComplete:(DataMigrationProgressViewController*)viewController {
+    [self presentRootViewController:YES withSplash:NO];
+}
+
+- (void)alertView:(UIAlertView*)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (alertView == self.dataMigrationAlert) {
+        if (buttonIndex == alertView.cancelButtonIndex) {
+            [DataMigrationProgressViewController removeOldData];
+            [self presentRootViewController:YES withSplash:NO];
+        } else {
+            DataMigrationProgressViewController* migrationVC = [[DataMigrationProgressViewController alloc] init];
+            migrationVC.delegate = self;
+            [self transitionToRootViewController:migrationVC animated:NO];
+        }
+    }
 }
 
 @end

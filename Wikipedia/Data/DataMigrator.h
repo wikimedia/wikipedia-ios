@@ -10,12 +10,13 @@
 
 @interface DataMigrator : NSObject
 
-- (id)init;
+/// @return `YES` if a SQLLite file exists at the master database path, otherwise `NO`.
++ (BOOL)hasData;
 
-/**
- * Is there anything that needs to be migrated?
- */
-- (BOOL)hasData;
+/// Remove the master database file.
++ (void)removeOldData;
+
+- (id)init;
 
 /**
  * Return the extracted JSON blobs from the savedPagesDB database table.
@@ -24,11 +25,5 @@
  * @return (NSArray *) of (NSDictionary *)s.
  */
 - (NSArray*)extractSavedPages;
-
-/**
- * Delete the old files.
- * @todo implement this
- */
-- (void)removeOldData;
 
 @end

@@ -26,7 +26,7 @@
     self = [super init];
     if (self) {
         _savedTitles = [[NSMutableSet alloc] init];
-        if (self.exists) {
+        if ([[self class] exists]) {
             _context = [ArticleDataContextSingleton sharedInstance];
         } else {
             _context = nil;
@@ -35,19 +35,19 @@
     return self;
 }
 
-- (NSString*)sqlitePath {
++ (NSString*)sqlitePath {
     NSArray* documentPaths     = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* documentRootPath = [documentPaths objectAtIndex:0];
     NSString* filePath         = [documentRootPath stringByAppendingPathComponent:@"articleData6.sqlite"];
     return filePath;
 }
 
-- (BOOL)exists {
++ (BOOL)exists {
     NSString* filePath = [self sqlitePath];
     return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
 }
 
-- (void)removeOldData {
++ (void)removeOldData {
     NSString* filePath   = [self sqlitePath];
     NSString* backupPath = [filePath stringByAppendingString:@".bak"];
     NSError* err         = nil;
@@ -106,7 +106,7 @@
         }
 
         [self.context saveContextAndPropagateChangesToStore:context completionBlock:^(NSError* error) {
-            [self removeOldData];
+            [[self class] removeOldData];
 
             if (error) {
                 [self.progressDelegate oldDataSchema:self didFinishWithError:error];
@@ -143,33 +143,34 @@
         // Record for later to avoid dupe imports
         [self.savedTitles addObject:key];
 
-        MWKArticle* migratedArticle = [self.delegate oldDataSchema:self migrateArticle:[self exportArticle:article]];
-
-        Image* thumbnail = article.thumbnailImage;
-        if (thumbnail) {
-            [self migrateThumbnailImage:thumbnail article:article newArticle:migratedArticle];
-        }
-        // HACK: setting thumbnailURL after migration prevents it from being added to the image list twice
-        migratedArticle.thumbnailURL = thumbnail.sourceUrl;
-
-        for (Section* section in [article sectionsBySectionId]) {
-            for (SectionImage* sectionImage in [section sectionImagesByIndex]) {
-                [self migrateImage:sectionImage newArticle:migratedArticle];
-            }
-        }
-
-        // set the lead image to the first non-thumb image
-        if ([migratedArticle.images count]) {
-            // thumbnail should always be first, if it's present (see above assertion)
-            NSUInteger leadImageURLIndex = (thumbnail && migratedArticle.images.count > 1) ? 1 : 0;
-            migratedArticle.imageURL = [migratedArticle.images imageURLAtIndex:leadImageURLIndex];
-        }
-
+        MWKArticle* migratedArticle;
         @try {
+            migratedArticle = [self.delegate oldDataSchema:self migrateArticle:[self exportArticle:article]];
+
+            Image* thumbnail = article.thumbnailImage;
+            if (thumbnail) {
+                [self migrateThumbnailImage:thumbnail article:article newArticle:migratedArticle];
+            }
+            // HACK: setting thumbnailURL after migration prevents it from being added to the image list twice
+            migratedArticle.thumbnailURL = thumbnail.sourceUrl;
+
+            for (Section* section in [article sectionsBySectionId]) {
+                for (SectionImage* sectionImage in [section sectionImagesByIndex]) {
+                    [self migrateImage:sectionImage newArticle:migratedArticle];
+                }
+            }
+
+            // set the lead image to the first non-thumb image
+            if ([migratedArticle.images count]) {
+                // thumbnail should always be first, if it's present (see above assertion)
+                NSUInteger leadImageURLIndex = (thumbnail && migratedArticle.images.count > 1) ? 1 : 0;
+                migratedArticle.imageURL = [migratedArticle.images imageURLAtIndex:leadImageURLIndex];
+            }
+
             [migratedArticle save];
-        } @catch (NSException* saveException) {
-            NSLog(@"Failed to save article after importing images: %@", saveException);
-            NSParameterAssert(!saveException);
+        }@catch (NSException* exception) {
+            NSLog(@"Failed to migrate article due to exception: %@. Removing data.", exception);
+            [migratedArticle remove];
         }
     }
 }

@@ -55,8 +55,30 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 - (NSArray*)uniqueArticleImages {
     if (!_uniqueArticleImages) {
         NSArray* uniqueArticleImages = [self.article.images uniqueLargestVariants];
+
+        // reverse article images if current language is RTL
         _uniqueArticleImages =
             [WikipediaAppUtils isDeviceLanguageRTL] ? [uniqueArticleImages wmf_reverseArray] : uniqueArticleImages;
+
+        NSMutableArray* imageFilePageTitles = [NSMutableArray arrayWithCapacity:_uniqueArticleImages.count];
+
+        // reduce images to only those who have valid canonical filenames
+        _uniqueArticleImages =
+            [[_uniqueArticleImages bk_reduce:[NSMutableArray arrayWithCapacity:_uniqueArticleImages.count]
+                                   withBlock:^id (NSMutableArray* uniqueArticleImages, MWKImage* image) {
+            NSAssert(image.canonicalFilename.length,
+                     @"Unable to form canonical filename from image: %@",
+                     image.sourceURL);
+            if (image.canonicalFilename.length) {
+                NSString* filePageTitle = [@"File:" stringByAppendingString:image.canonicalFilename];
+                [imageFilePageTitles addObject:filePageTitle];
+                [uniqueArticleImages addObject:image];
+            }
+            return uniqueArticleImages;
+        }] copy];
+
+        // strictly evaluate iamgeFilePageTitles to filter out any images don't have a canonicalFilename
+        _imageFilePageTitles = [imageFilePageTitles copy];
     }
     return _uniqueArticleImages;
 }
@@ -67,18 +89,6 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
             WMFIndexImageInfo([self.dataStore imageInfoForArticle:self.article]) ? : [NSMutableDictionary new];
     }
     return _indexedImageInfo;
-}
-
-- (NSArray*)imageFilePageTitles {
-    if (!_imageFilePageTitles) {
-        _imageFilePageTitles = [[self uniqueArticleImages] bk_map:^NSString*(MWKImage* image) {
-            NSAssert(image.canonicalFilename.length,
-                     @"Unable to form canonical filename from image: %@",
-                     image.sourceURL);
-            return [@"File:" stringByAppendingString:image.canonicalFilename];
-        }];
-    }
-    return _imageFilePageTitles;
 }
 
 - (NSUInteger)indexOfImageAssociatedWithInfo:(MWKImageInfo*)info {

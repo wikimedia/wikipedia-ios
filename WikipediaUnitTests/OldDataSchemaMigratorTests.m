@@ -73,7 +73,40 @@
     [self verifyMigrationOfArticle:oldArticle];
 }
 
+- (void)testArticleWithMissingRequiredFieldsIsGracefullySkipped {
+    Article* oldArticle = [self createOldArticleWithSections:10 imagesPerSection:5];
+    // lastModified is a required field
+    oldArticle.lastmodified = nil;
+    [self verifySkippedMigrationOfArticle:oldArticle];
+}
+
+- (void)testArticleWithInvalidSectionIsGracefullySkipped {
+    Article* oldArticle = [self createOldArticleWithSections:10 imagesPerSection:5];
+    Section* section = oldArticle.sectionsBySectionId.lastObject;
+    // sectionId is a required field
+    section.sectionId = nil;
+    [self verifySkippedMigrationOfArticle:oldArticle];
+}
+
+- (void)testArticleWithInvalidSectionImageIsGracefullySkipped {
+    Article* oldArticle = [self createOldArticleWithSections:10 imagesPerSection:5];
+    Section* section = oldArticle.sectionsBySectionId.lastObject;
+    SectionImage* image = section.sectionImagesByIndex.lastObject;
+    // sourceUrl is a required field
+    image.image.sourceUrl = nil;
+    [self verifySkippedMigrationOfArticle:oldArticle];
+}
+
 #pragma mark - Test Utils
+
+- (void)verifySkippedMigrationOfArticle:(Article*)oldArticle {
+    XCTAssertNoThrow([self.migrator migrateArticle:oldArticle],
+                     @"Failed to catch an article migration exception.");
+    MWKTitle* migratedArticleTitle = [self.migrator migrateArticleTitle:oldArticle];
+    NSString* articleDataPath = [self.dataStore pathForTitle:migratedArticleTitle];
+    XCTAssertFalse([[NSFileManager defaultManager] fileExistsAtPath:articleDataPath],
+                   @"Expected article to not be saved due to exception during migration.");
+}
 
 - (void)verifyMigrationOfArticle:(Article*)oldArticle {
     [self.migrator migrateArticle:oldArticle];

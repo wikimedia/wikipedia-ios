@@ -536,7 +536,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
                 // Check if cell still onscreen! This is important!
                 NSArray* visibleRowIndexPaths = [self.searchResultsTable indexPathsForVisibleRows];
                 for (NSIndexPath* thisIndexPath in visibleRowIndexPaths.copy) {
-                    NSDictionary* rowData = self.searchResults[thisIndexPath.row];
+                    NSDictionary* rowData = [self searchResultForIndexPath:thisIndexPath];
                     NSString* url         = rowData[@"thumbnail"][@"source"];
                     if ([url.lastPathComponent isEqualToString:fileName]) {
                         SearchResultCell* cell = (SearchResultCell*)[self.searchResultsTable cellForRowAtIndexPath:thisIndexPath];
@@ -586,11 +586,6 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 
     [self.didYouMeanButton hide];
 
-    // Show "Searching..." message.
-    //[self.searchMessageLabel showWithText:MWLocalizedString(@"search-searching", nil)];
-
-    //[self showAlert:MWLocalizedString(@"search-searching", nil) type:ALERT_TYPE_MIDDLE duration:-1];
-
     (void)[[SearchResultFetcher alloc] initAndSearchForTerm:searchTerm
                                                  searchType:SEARCH_TYPE_TITLES
                                                searchReason:reason
@@ -601,52 +596,59 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 
 #pragma mark Search results table methods (requests actual thumb image data)
 
+- (NSDictionary*)searchResultForIndex:(NSUInteger)index {
+    if (index >= [self.searchResults count]) {
+        return nil;
+    }
+
+    return self.searchResults[index];
+}
+
+- (NSDictionary*)searchResultForIndexPath:(NSIndexPath*)indexPath {
+    return [self searchResultForIndex:indexPath.row];
+}
+
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     return self.searchResults.count;
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
-    if ([self.searchResults[indexPath.row][@"attributedText"] length] < kWMFMaxStringLength) {
+    NSDictionary* result = [self searchResultForIndexPath:indexPath];
+
+    //Optimization to prevent calculation to get cell size
+    if ([result[@"attributedText"] length] < kWMFMaxStringLength) {
         return floor(kWMFDefaultCellHeight * MENUS_SCALE_MULTIPLIER);
     }
 
-    // Update the sizing cell with any data which could change the cell height.
-    self.offScreenSizingCell.resultLabel.attributedText = self.searchResults[indexPath.row][@"attributedText"];
+    self.offScreenSizingCell.resultLabel.attributedText = result[@"attributedText"];
 
-    // Determine height for the current configuration of the sizing cell.
     return [tableView heightForSizingCell:self.offScreenSizingCell];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     SearchResultCell* cell = (SearchResultCell*)[tableView dequeueReusableCellWithIdentifier:kWMFSearchCellID];
 
-    NSString* thumbURL = self.searchResults[indexPath.row][@"thumbnail"][@"source"];
+    NSDictionary* result = [self searchResultForIndexPath:indexPath];
 
-    // For performance reasons, "attributedText" is build when data is retrieved, not here when the cell
-    // is about to be displayed.
-    cell.resultLabel.attributedText = self.searchResults[indexPath.row][@"attributedText"];
+    cell.resultLabel.attributedText = result[@"attributedText"];
+    cell.resultImageView.image      = self.placeholderImage;
 
-    // Set thumbnail placeholder
-    cell.resultImageView.image = self.placeholderImage;
+    NSString* thumbURL = result[@"thumbnail"][@"source"];
+    if (thumbURL) {
+        __block NSString* fileName = [thumbURL lastPathComponent];
 
-    if (!thumbURL) {
-        // Don't bother downloading if no thumbURL
-        return cell;
-    }
-
-    __block NSString* fileName = [thumbURL lastPathComponent];
-
-    // See if cache file found, show it instead of downloading if found.
-    NSString* cacheFilePath = [self.cachePath stringByAppendingPathComponent:fileName];
-    BOOL isDirectory        = NO;
-    BOOL fileExists         = [[NSFileManager defaultManager] fileExistsAtPath:cacheFilePath isDirectory:&isDirectory];
-    if (fileExists) {
-        cell.resultImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfFile:cacheFilePath]];
-    } else {
-        // No thumb found so fetch it.
-        (void)[[ThumbnailFetcher alloc] initAndFetchThumbnailFromURL:thumbURL
-                                                         withManager:[QueuesSingleton sharedInstance].searchResultsFetchManager
-                                                  thenNotifyDelegate:self];
+        // See if cache file found, show it instead of downloading if found.
+        NSString* cacheFilePath = [self.cachePath stringByAppendingPathComponent:fileName];
+        BOOL isDirectory        = NO;
+        BOOL fileExists         = [[NSFileManager defaultManager] fileExistsAtPath:cacheFilePath isDirectory:&isDirectory];
+        if (fileExists) {
+            cell.resultImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfFile:cacheFilePath]];
+        } else {
+            // No thumb found so fetch it.
+            (void)[[ThumbnailFetcher alloc] initAndFetchThumbnailFromURL:thumbURL
+                                                             withManager:[QueuesSingleton sharedInstance].searchResultsFetchManager
+                                                      thenNotifyDelegate:self];
+        }
     }
 
     return cell;
@@ -655,12 +657,18 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [self hideKeyboard];
 
-    NSString* title = self.searchResults[indexPath.row][@"title"];
+    NSDictionary* result = [self searchResultForIndexPath:indexPath];
+
+    NSString* title = result[@"title"];
 
     [self loadArticleWithTitle:title];
 }
 
 - (void)loadArticleWithTitle:(NSString*)title {
+    if ([title length] == 0) {
+        return;
+    }
+
     [self saveSearchTermToRecentList];
 
     // Set CurrentArticleTitle so web view knows what to load.

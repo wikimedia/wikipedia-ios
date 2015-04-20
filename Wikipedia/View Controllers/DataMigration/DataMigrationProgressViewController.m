@@ -49,9 +49,9 @@ enum {
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    if ([self.oldDataSchema exists]) {
+    if ([OldDataSchemaMigrator exists]) {
         [self runNewMigration];
-    } else if ([self.dataMigrator hasData]) {
+    } else if ([DataMigrator hasData]) {
         [self runOldMigration];
     }
 }
@@ -77,8 +77,13 @@ enum {
     return _schemaConvertor;
 }
 
-- (BOOL)needsMigration {
-    return [self.oldDataSchema exists] || [self.dataMigrator hasData];
++ (BOOL)needsMigration {
+    return [OldDataSchemaMigrator exists] || [DataMigrator hasData];
+}
+
++ (void)removeOldData {
+    [DataMigrator removeOldData];
+    [OldDataSchemaMigrator removeOldData];
 }
 
 - (void)runNewMigration {
@@ -111,7 +116,7 @@ enum {
 
     [importer importArticles:titles];
 
-    [self.dataMigrator removeOldData];
+    [DataMigrator removeOldData];
 
     [self.progressIndicator setProgress:1.0 animated:YES completion:NULL];
 }
