@@ -77,18 +77,6 @@
             return @"mainpages.json";
             break;
 
-        case WMFAssetsFileTypeCSS:
-            return @"styles.css";
-            break;
-
-        case WMFAssetsFileTypeCSSAbuseFilter:
-            return @"abusefilter.css";
-            break;
-
-        case WMFAssetsFileTypeCSSPreview:
-            return @"preview.css";
-            break;
-
         default:
             return nil;
             break;
@@ -101,18 +89,6 @@
     switch (self.fileType) {
         case WMFAssetsFileTypeConfig:
             urlString = @"https://bits.wikimedia.org/static-current/extensions/MobileApp/config/ios.json";
-            break;
-
-        case WMFAssetsFileTypeCSS:
-            urlString = @"https://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=mobile.app.pagestyles.ios&only=styles&skin=vector";
-            break;
-
-        case WMFAssetsFileTypeCSSAbuseFilter:
-            urlString = @"https://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=mobile.app.pagestyles.ios&only=styles&skin=vector";
-            break;
-
-        case WMFAssetsFileTypeCSSPreview:
-            urlString = @"https://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&modules=mobile.app.preview&only=styles&skin=vector";
             break;
 
         default:

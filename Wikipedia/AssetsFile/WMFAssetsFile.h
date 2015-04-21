@@ -5,9 +5,6 @@ typedef NS_ENUM (NSUInteger, WMFAssetsFileType) {
     WMFAssetsFileTypeConfig,
     WMFAssetsFileTypeLanguages,
     WMFAssetsFileTypeMainPages,
-    WMFAssetsFileTypeCSS,
-    WMFAssetsFileTypeCSSAbuseFilter,
-    WMFAssetsFileTypeCSSPreview
 };
 
 @interface WMFAssetsFile : NSObject
