@@ -364,16 +364,9 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     // Sync config/ios.json at most once per day.
     [[QueuesSingleton sharedInstance].assetsFetchManager.operationQueue cancelAllOperations];
 
-    void (^ fetch)(WMFAssetsFileType) = ^void (WMFAssetsFileType type) {
-        (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:type
-                                                          withManager:[QueuesSingleton sharedInstance].assetsFetchManager
-                                                               maxAge:kWMFMaxAgeDefault];
-    };
-
-    fetch(WMFAssetsFileTypeConfig);
-    fetch(WMFAssetsFileTypeCSS);
-    fetch(WMFAssetsFileTypeCSSAbuseFilter);
-    fetch(WMFAssetsFileTypeCSSPreview);
+    (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:WMFAssetsFileTypeConfig
+                                                      withManager:[QueuesSingleton sharedInstance].assetsFetchManager
+                                                           maxAge:kWMFMaxAgeDefault];
 }
 
 #pragma mark Edit section
