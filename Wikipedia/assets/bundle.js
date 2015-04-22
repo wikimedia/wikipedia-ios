@@ -97,99 +97,6 @@ exports.getIndexOfFirstOnScreenElementWithTopGreaterThanY = function(elementPref
 };
 
 },{}],3:[function(require,module,exports){
-var bridge = require("./bridge");
-
-function collectDisambig( sourceNode ) {
-    var res = [];
-    var links = sourceNode.querySelectorAll( 'div.hatnote a' );
-    var i = 0,
-        len = links.length;
-    for (; i < len; i++) {
-        // Pass the href; we'll decode it into a proper page title in Obj-C
-        res.push( links[i].getAttribute( 'href' ) );
-    }
-    return res;
-}
-
-function collectIssues( sourceNode ) {
-    var res = [];
-    var issues = sourceNode.querySelectorAll( 'table.ambox' );
-    var i = 0,
-        len = issues.length;
-    for (; i < len; i++) {
-        // .ambox- is used e.g. on eswiki
-        res.push( issues[i].querySelector( '.mbox-text, .ambox-text' ).innerHTML );
-    }
-    return res;
-}
-
-function anchorForUrl(url) {
-    var titleForDisplay = decodeURIComponent(url);
-    titleForDisplay = (titleForDisplay.indexOf('/wiki/') === 0) ? titleForDisplay.substring(6) : titleForDisplay;
-    titleForDisplay = titleForDisplay.split('_').join(' ');
-    return '<a class="ios-disambiguation-anchor" href="' + url + '" >' + titleForDisplay + '</a>';
-}
-
-function insertAfter(newNode, referenceNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
-
-function setIsSelected(el, isSelected) {
-    if(isSelected){
-        el.style.borderBottom = "1px dotted #ccc";
-    }else{
-        el.style.borderBottom = "none";
-    }
-}
-
-function toggleSubContainerButtons( activeSubContainerId, focusButtonId, blurButtonId ){
-    var buttonToBlur = document.getElementById( blurButtonId );
-    if(buttonToBlur) {
-        setIsSelected(buttonToBlur, false);
-    }
-    var buttonToActivate = document.getElementById( focusButtonId );
-    var isActiveSubContainerPresent = document.getElementById( activeSubContainerId ) ? true : false;
-    setIsSelected(buttonToActivate, isActiveSubContainerPresent);
-}
-
-function toggleSubContainers( activeSubContainerId, inactiveSubContainerId, activeSubContainerContents ){
-    var containerToRemove = document.getElementById( inactiveSubContainerId );
-    if(containerToRemove){
-        containerToRemove.parentNode.removeChild(containerToRemove);
-    }
-    var containerToAddOrToggle = document.getElementById( activeSubContainerId );
-    if(containerToAddOrToggle){
-        containerToAddOrToggle.parentNode.removeChild(containerToAddOrToggle);
-    }else{
-        containerToAddOrToggle = document.createElement( 'div' );
-        containerToAddOrToggle.id = activeSubContainerId;
-        containerToAddOrToggle.innerHTML = activeSubContainerContents;
-        insertAfter(containerToAddOrToggle, document.getElementById('issues_container'));
-    }
-}
-
-function issuesClicked( sourceNode ) {
-    var issues = collectIssues( sourceNode.parentNode );
-    var disambig = collectDisambig( sourceNode.parentNode.parentNode ); // not clicked node
-    bridge.sendMessage( 'issuesClicked', { "hatnotes": disambig, "issues": issues } );
-
-    toggleSubContainers('issues_sub_container', 'disambig_sub_container', issues);
-    toggleSubContainerButtons('issues_sub_container', 'issues_button', 'disambig_button');
-}
-
-function disambigClicked( sourceNode ) {
-    var disambig = collectDisambig( sourceNode.parentNode );
-    var issues = collectIssues( sourceNode.parentNode.parentNode ); // not clicked node
-    bridge.sendMessage( 'disambigClicked', { "hatnotes": disambig, "issues": issues } );
-
-    toggleSubContainers('disambig_sub_container', 'issues_sub_container', disambig.sort().map(anchorForUrl).join( "" ));
-    toggleSubContainerButtons('disambig_sub_container', 'disambig_button', 'issues_button');
-}
-
-exports.issuesClicked = issuesClicked;
-exports.disambigClicked = disambigClicked;
-
-},{"./bridge":1}],4:[function(require,module,exports){
 (function () {
 var bridge = require("./bridge");
 var transformer = require("./transformer");
@@ -386,7 +293,7 @@ bridge.registerListener( "setLeadImageDivHeight", function( payload ) {
 
 })();
 
-},{"./bridge":1,"./refs":6,"./transformer":7,"./transforms/collapsePageIssuesAndDisambig":10}],5:[function(require,module,exports){
+},{"./bridge":1,"./refs":5,"./transformer":6,"./transforms/collapsePageIssuesAndDisambig":9}],4:[function(require,module,exports){
 
 var bridge = require("./bridge");
 var elementLocation = require("./elementLocation");
@@ -394,7 +301,7 @@ var elementLocation = require("./elementLocation");
 window.bridge = bridge;
 window.elementLocation = elementLocation;
 
-},{"./bridge":1,"./elementLocation":2}],6:[function(require,module,exports){
+},{"./bridge":1,"./elementLocation":2}],5:[function(require,module,exports){
 var bridge = require("./bridge");
 
 function isReference( href ) {
@@ -517,7 +424,7 @@ function sendNearbyReferences( sourceNode ) {
 exports.isReference = isReference;
 exports.sendNearbyReferences = sendNearbyReferences;
 
-},{"./bridge":1}],7:[function(require,module,exports){
+},{"./bridge":1}],6:[function(require,module,exports){
 function Transformer() {
 }
 
@@ -547,7 +454,7 @@ Transformer.prototype.httpGetSync = function (theUrl) {
 
 module.exports = new Transformer();
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 
 require("./transforms/collapseTables");
 require("./transforms/relocateFirstParagraph");
@@ -556,7 +463,7 @@ require("./transforms/disableFilePageEdit");
 require("./transforms/addImageOverflowContainers");
 require("./transforms/collapsePageIssuesAndDisambig");
 
-},{"./transforms/addImageOverflowContainers":9,"./transforms/collapsePageIssuesAndDisambig":10,"./transforms/collapseTables":11,"./transforms/disableFilePageEdit":12,"./transforms/hideRedLinks":13,"./transforms/relocateFirstParagraph":14}],9:[function(require,module,exports){
+},{"./transforms/addImageOverflowContainers":8,"./transforms/collapsePageIssuesAndDisambig":9,"./transforms/collapseTables":10,"./transforms/disableFilePageEdit":11,"./transforms/hideRedLinks":12,"./transforms/relocateFirstParagraph":13}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 
 function firstAncestorWithMultipleChildren (el) {
@@ -588,7 +495,7 @@ transformer.register( "addImageOverflowXContainers", function( content ) {
     }
 } );
 
-},{"../transformer":7}],10:[function(require,module,exports){
+},{"../transformer":6}],9:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( 'collapsePageIssuesAndDisambig', function( content ) {
@@ -763,7 +670,7 @@ exports.issuesClicked = issuesClicked;
 exports.disambigClicked = disambigClicked;
 exports.closeClicked = closeClicked;
 
-},{"../transformer":7}],11:[function(require,module,exports){
+},{"../transformer":6}],10:[function(require,module,exports){
 var transformer = require("../transformer");
 
 /*
@@ -926,7 +833,7 @@ transformer.register( "hideTables", function( content ) {
     }
 } );
 
-},{"../transformer":7}],12:[function(require,module,exports){
+},{"../transformer":6}],11:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "disableFilePageEdit", function( content ) {
@@ -952,7 +859,7 @@ transformer.register( "disableFilePageEdit", function( content ) {
     }
 } );
 
-},{"../transformer":7}],13:[function(require,module,exports){
+},{"../transformer":6}],12:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -963,7 +870,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":7}],14:[function(require,module,exports){
+},{"../transformer":6}],13:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -1039,4 +946,4 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     }
 });
 
-},{"../transformer":7}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14])
+},{"../transformer":6}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13])
