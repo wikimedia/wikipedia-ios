@@ -13,9 +13,8 @@ document.addEventListener("DOMContentLoaded", function() {
     transformer.transform( "hideRedlinks", document );
     transformer.transform( "disableFilePageEdit", document );
     transformer.transform( "addImageOverflowXContainers", document );
-
     transformer.transform( "hideTables", document );
-    transformer.transform( "collapsePageIssuesAndDisambig", document );
+    transformer.transform( "collapsePageIssuesAndDisambig", document.getElementById( "section_heading_and_content_block_0" ) );
 
     bridge.sendMessage( "DOMContentLoaded", {} );
 });
