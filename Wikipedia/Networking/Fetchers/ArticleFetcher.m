@@ -161,12 +161,6 @@
                                                  @"image"])
     }.mutableCopy;
 
-    if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
-        // !!!: (bgerstle Feb 4 2015) we're getting an "unrecognized parameter" warning for appInstallID
-        ReadingActionFunnel* funnel = [[ReadingActionFunnel alloc] init];
-        params[@"appInstallID"] = funnel.appInstallID;
-    }
-
     return params;
 }
 
