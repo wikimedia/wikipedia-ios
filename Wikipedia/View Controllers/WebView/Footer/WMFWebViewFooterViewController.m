@@ -66,6 +66,10 @@
     [self.optionsController updateLastModifiedDate:date userName:userName];
 }
 
+- (void)updateLegalFooterLocalizedText {
+    [self.legalViewController updateLocalizedText];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

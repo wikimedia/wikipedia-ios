@@ -27,7 +27,7 @@
 
     self.titleLabel.padding = UIEdgeInsetsMake(0, 0, 20, 10);
     self.titleLabel.font    = [UIFont fontWithName:@"Times New Roman" size:26.0f * MENUS_SCALE_MULTIPLIER];
-    self.titleLabel.text    = MWLocalizedString(@"article-read-more-title", @"Read more");
+    [self updateLocalizedText];
 
     self.view.layer.cornerRadius = 2.0f * MENUS_SCALE_MULTIPLIER;
     self.view.clipsToBounds      = YES;
@@ -35,7 +35,12 @@
     [self adjustConstraintsScaleForViews:@[self.titleLabel, self.optionsContainerView]];
 }
 
+-(void)updateLocalizedText{
+    self.titleLabel.text = MWCurrentArticleLanguageLocalizedString(@"article-read-more-title", @"Read more");
+}
+
 - (void)search {
+    [self updateLocalizedText];
     self.searchSuggestionsController.searchString                 = self.searchString;
     self.searchSuggestionsController.articlesToExcludeFromResults = self.articlesToExcludeFromResults;
     [self.searchSuggestionsController search];

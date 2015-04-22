@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSString* searchSuggestion;
 
 @property (nonatomic, strong) NSRegularExpression* spaceCollapsingRegex;
+@property (nonatomic, strong) NSString* language;
 
 @end
 
@@ -30,6 +31,7 @@
 - (instancetype)initAndSearchForTerm:(NSString*)searchTerm
                           searchType:(SearchType)searchType
                         searchReason:(SearchReason)searchReason
+                            language:(NSString *)language
                           maxResults:(NSUInteger)maxResults
                          withManager:(AFHTTPRequestOperationManager*)manager
                   thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
@@ -40,6 +42,7 @@
         self.searchTerm            = searchTerm ? searchTerm : @"";
         self.searchType            = searchType;
         self.searchReason          = searchReason;
+        self.language              = language;
         self.fetchFinishedDelegate = delegate;
         self.maxSearchResults      = maxResults ? maxResults : SEARCH_MAX_RESULTS;
         self.spaceCollapsingRegex  =
@@ -50,7 +53,7 @@
 }
 
 - (void)searchWithManager:(AFHTTPRequestOperationManager*)manager {
-    NSString* url = [SessionSingleton sharedInstance].searchApiUrl;
+    NSString* url = [[SessionSingleton sharedInstance] searchApiUrlForLanguage:self.language];
 
     NSDictionary* params = [self getParams];
 

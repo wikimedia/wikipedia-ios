@@ -1562,6 +1562,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         [self.footerViewController updateLanguageCount:langCount];
         [self.footerViewController updateLastModifiedDate:lastModified userName:lastModifiedByUserName];
         [self.footerViewController updateReadMoreForArticle:article];
+        [self.footerViewController updateLegalFooterLocalizedText];
 
         // Add spacer above bottom native tracking component.
         [sectionTextArray addObject:@"<div style='background-color:transparent;height:40px;'></div>"];

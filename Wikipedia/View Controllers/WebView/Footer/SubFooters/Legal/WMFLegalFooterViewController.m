@@ -38,7 +38,7 @@ NSString* const kLicenseTitleOnENWiki =
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.licenseLabel.attributedText = [self getAttributedStringForLicense];
+    [self updateLocalizedText];
     [self adjustConstraintsScaleForViews:@[self.licenseLabel, self.wordmarkImageView]];
 }
 
@@ -57,12 +57,16 @@ NSString* const kLicenseTitleOnENWiki =
         NSFontAttributeName: [UIFont systemFontOfSize:kLicenseFontSize * MENUS_SCALE_MULTIPLIER]
     };
 
-    NSString* footerText = MWLocalizedString(@"license-footer-text", nil);
+    NSString* footerText = MWCurrentArticleLanguageLocalizedString(@"license-footer-text", nil);
 
     return
         [footerText attributedStringWithAttributes:baseStyle
-                               substitutionStrings:@[MWLocalizedString(@"license-footer-name", nil)]
+                               substitutionStrings:@[MWCurrentArticleLanguageLocalizedString(@"license-footer-name", nil)]
                             substitutionAttributes:@[substitutionStyle]];
+}
+
+-(void)updateLocalizedText {
+    self.licenseLabel.attributedText = [self getAttributedStringForLicense];
 }
 
 #pragma mark Tap gesture handling

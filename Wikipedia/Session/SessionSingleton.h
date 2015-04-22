@@ -91,6 +91,9 @@
 
 @property (strong, nonatomic, readonly) NSString* searchApiUrl;
 
+- (NSString*)searchApiUrlForLanguage:(NSString *)language;
+- (NSString*)searchLanguage;
+
 @property (nonatomic) BOOL fallback;
 
 - (NSURL*)urlForLanguage:(NSString*)language;

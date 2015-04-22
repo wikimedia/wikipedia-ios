@@ -109,7 +109,7 @@ static const CGFloat kGlyphIconBaselineOffset = 1.6f;
 }
 
 - (NSAttributedString*)getAttributedStringForOptionLanguagesWithCount:(NSInteger)count {
-    NSString* langButtonString = [MWLocalizedString(@"language-button-text", nil) stringByReplacingOccurrencesOfString:@"%d" withString:@"$1"];
+    NSString* langButtonString = [MWCurrentArticleLanguageLocalizedString(@"language-button-text", nil) stringByReplacingOccurrencesOfString:@"%d" withString:@"$1"];
 
     return
         [langButtonString attributedStringWithAttributes:[self getOptionTextBaseAttributes]
@@ -131,7 +131,7 @@ static const CGFloat kGlyphIconBaselineOffset = 1.6f;
 
 - (NSAttributedString*)getAttributedStringForOptionLastModifiedByUserName:(NSString*)userName date:(NSDate*)date {
     NSString* relativeTimeStamp = [WikipediaAppUtils relativeTimestamp:date];
-    NSString* lastModString     = userName ? MWLocalizedString(@"lastmodified-by-user", nil) : MWLocalizedString(@"lastmodified-by-anon", nil);
+    NSString* lastModString     = userName ? MWCurrentArticleLanguageLocalizedString(@"lastmodified-by-user", nil) : MWCurrentArticleLanguageLocalizedString(@"lastmodified-by-anon", nil);
 
     return
         [lastModString attributedStringWithAttributes:[self getOptionTextBaseAttributes]

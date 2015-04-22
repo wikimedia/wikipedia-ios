@@ -11,6 +11,7 @@
 
 - (void)updateLanguageCount:(NSInteger)count;
 - (void)updateLastModifiedDate:(NSDate*)date userName:(NSString*)userName;
+- (void)updateLegalFooterLocalizedText;
 
 @property (nonatomic, readonly) CGFloat footerHeight;
 

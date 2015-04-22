@@ -3,6 +3,7 @@
 
 #import "WikipediaAppUtils.h"
 #import "WMFAssetsFile.h"
+#import "SessionSingleton.h"
 
 NSUInteger MegabytesToBytes(NSUInteger m){
     static NSUInteger const MEGABYTE = 1 << 20;
@@ -55,6 +56,21 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle) {
             [d systemVersion],
             [self formFactor]
     ];
+}
+
+
++ (NSString*)currentArticleLanguageLocalizedString:(NSString*)key {
+    MWKSite* site = [SessionSingleton sharedInstance].currentArticleSite;
+    NSString* path           = [[NSBundle mainBundle] pathForResource:site.language ofType:@"lproj"];
+    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
+    NSString *translation = nil;
+    if (languageBundle) {
+        translation = [languageBundle localizedStringForKey:key value:@"" table:nil];
+    }
+    if (!translation || [translation isEqualToString:key] || (translation.length == 0)) {
+        return MWLocalizedString(key, nil);
+    }
+    return translation;
 }
 
 + (NSString*)localizedStringForKey:(NSString*)key {

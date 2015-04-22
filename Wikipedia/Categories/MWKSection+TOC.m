@@ -35,7 +35,7 @@
         NSFontAttributeName: [UIFont fontWithName:@"Times New Roman" size:24.0 * MENUS_SCALE_MULTIPLIER]
     };
 
-    NSString* heading = MWLocalizedString(@"table-of-contents-heading", nil);
+    NSString* heading = MWCurrentArticleLanguageLocalizedString(@"table-of-contents-heading", nil);
 
     if ([[SessionSingleton sharedInstance].currentArticleSite.language isEqualToString:@"en"]) {
         heading = [heading uppercaseString];

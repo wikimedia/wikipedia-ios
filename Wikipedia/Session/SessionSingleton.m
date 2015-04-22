@@ -193,8 +193,12 @@
 #pragma mark - Search
 
 - (NSString*)searchApiUrl {
+    return [self searchApiUrlForLanguage:self.searchLanguage];
+}
+
+- (NSString*)searchApiUrlForLanguage:(NSString *)language {
     NSString* endpoint = self.fallback ? @"" : @".m";
-    return [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", self.searchLanguage, endpoint, self.currentArticleSite.domain];
+    return [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", language, endpoint, self.currentArticleSite.domain];
 }
 
 - (void)setSearchLanguage:(NSString*)searchLanguage {

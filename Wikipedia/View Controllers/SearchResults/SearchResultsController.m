@@ -231,7 +231,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (self.type == WMFSearchResultsControllerTypeReadMore) {
+    if ([self isReadMore]) {
         self.searchResultsTable.scrollEnabled = NO;
         [self.searchResultsTable wmf_shouldScrollToTopOnStatusBarTap:NO];
     } else {
@@ -516,7 +516,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
             self.searchSuggestion = [searchResultFetcher.searchSuggestion copy];
         }
         if (self.searchSuggestion) {
-            [self.didYouMeanButton showWithText:MWLocalizedString(@"search-did-you-mean", nil)
+            [self.didYouMeanButton showWithText:([self isReadMore]) ? MWCurrentArticleLanguageLocalizedString(@"search-did-you-mean", nil) : MWLocalizedString(@"search-did-you-mean", nil)
                                            term:self.searchSuggestion];
         }
     } else if ([sender isKindOfClass:[ThumbnailFetcher class]]) {
@@ -569,10 +569,23 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     }
 }
 
+-(BOOL)isReadMore {
+    return (self.type == WMFSearchResultsControllerTypeReadMore);
+}
+
+-(NSString *)getSearchLanguage {
+    if ([self isReadMore]) {
+        return [SessionSingleton sharedInstance].currentArticleSite.language;
+    }else{
+        return [SessionSingleton sharedInstance].searchLanguage;
+    }
+}
+
 - (void)performSupplementalFullTextSearchForTerm:(NSString*)searchTerm {
     (void)[[SearchResultFetcher alloc] initAndSearchForTerm:searchTerm
                                                  searchType:SEARCH_TYPE_IN_ARTICLES
                                                searchReason:SEARCH_REASON_SUPPLEMENT_PREFIX_WITH_FULL_TEXT
+                                                   language:[self getSearchLanguage]
                                                  maxResults:[self maxResultsAdjustedForExcludedArticles]
                                                 withManager:[QueuesSingleton sharedInstance].searchResultsFetchManager
                                          thenNotifyDelegate:self];
@@ -589,6 +602,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     (void)[[SearchResultFetcher alloc] initAndSearchForTerm:searchTerm
                                                  searchType:SEARCH_TYPE_TITLES
                                                searchReason:reason
+                                                   language:[self getSearchLanguage]
                                                  maxResults:[self maxResultsAdjustedForExcludedArticles]
                                                 withManager:[QueuesSingleton sharedInstance].searchResultsFetchManager
                                          thenNotifyDelegate:self];

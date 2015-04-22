@@ -598,7 +598,7 @@
          @"id": @(100000),
          @"isLead": @(NO),
          @"level": @0,
-         @"title": MWLocalizedString(@"article-read-more-title", @"Read more")
+         @"title": MWCurrentArticleLanguageLocalizedString(@"article-read-more-title", @"Read more")
      }];
 
     self.tocSectionData = allSectionData;

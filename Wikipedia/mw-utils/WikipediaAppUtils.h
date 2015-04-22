@@ -16,6 +16,7 @@ extern NSString* const WMFHockeyAppBetaTestFlightAppId;
 // TODO: use stable channel constants
 
 #define MWLocalizedString(key, throwaway) [WikipediaAppUtils localizedStringForKey : key]
+#define MWCurrentArticleLanguageLocalizedString(key, throwaway) [WikipediaAppUtils currentArticleLanguageLocalizedString : key]
 
 /**
  * Provides compile time checking for keypaths on a given object.
@@ -62,6 +63,7 @@ FOUNDATION_EXPORT NSString* WMFNormalizedPageTitle(NSString* rawPageTitle);
 + (NSString*)formFactor;
 + (NSString*)versionedUserAgent;
 + (NSString*)localizedStringForKey:(NSString*)key;
++ (NSString*)currentArticleLanguageLocalizedString:(NSString*)key;
 + (NSString*)relativeTimestamp:(NSDate*)date;
 + (NSString*)domainNameForCode:(NSString*)code;
 + (NSString*)wikiLangForSystemLang:(NSString*)code;

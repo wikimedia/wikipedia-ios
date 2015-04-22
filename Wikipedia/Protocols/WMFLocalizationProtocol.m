@@ -46,7 +46,7 @@ __attribute__((constructor)) static void WMFRegisterLocalizationProtocol() {
 }
 
 -(NSString *)getTranslationForKey:(NSString *)key {
-    return MWLocalizedString(key, nil);
+    return MWCurrentArticleLanguageLocalizedString(key, nil);
 }
 
 - (void)sendResponseWithData:(NSData*)data{
