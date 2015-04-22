@@ -111,7 +111,6 @@ static NSString* bridgeURLPrefix = @"x-wikipedia-bridge:";
 }
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
-
     if ([self isBridgeURL:request.URL]) {
         NSDictionary* message = [self extractBridgePayload:request.URL];
         NSString* messageType = message[@"type"];
@@ -139,8 +138,7 @@ static NSString* bridgeURLPrefix = @"x-wikipedia-bridge:";
     [self disableQueueingAndRemoveQueuedMessages];
 }
 
--(void)disableQueueingAndRemoveQueuedMessages {
-    
+- (void)disableQueueingAndRemoveQueuedMessages {
     self.shouldQueueMessages = NO;
     [self.queuedMessages removeAllObjects];
 }

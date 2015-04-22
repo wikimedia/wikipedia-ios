@@ -7,6 +7,7 @@
 //
 
 #import "MWKArticleStoreTestCase.h"
+#import "MWKDataStore+TemporaryDataStore.h"
 
 @implementation MWKArticleStoreTestCase
 
@@ -19,17 +20,13 @@
     self.json1    = [self loadJSON:@"section1-end"];
     self.jsonAnon = [self loadJSON:@"organization-anon"];
 
-    NSString* documentsFolder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    self.basePath = [documentsFolder stringByAppendingPathComponent:@"unit-test-data"];
-
-    self.dataStore = [[MWKDataStore alloc] initWithBasePath:self.basePath];
+    self.dataStore = [MWKDataStore temporaryDataStore];
     self.article   = [self.dataStore articleWithTitle:self.title];
 }
 
 - (void)tearDown {
+    [self.dataStore removeFolderAtBasePath];
     [super tearDown];
-
-    [[NSFileManager defaultManager] removeItemAtPath:self.basePath error:nil];
 }
 
 @end

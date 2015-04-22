@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "XCTestCase+WMFBundleConvenience.h"
-#import "NSBundle+TestAssets.h"
 #import "WMFArticleParsing.h"
+#import "WMFTestFixtureUtilities.h"
 
 #import "MWKArticle.h"
 #import "MWKImageList.h"
