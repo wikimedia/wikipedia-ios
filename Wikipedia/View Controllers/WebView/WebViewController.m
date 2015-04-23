@@ -978,7 +978,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     //AccessSavedPagesMessageShown = NO;
 
     if (!AccessSavedPagesMessageShown) {
-        duration = -1;
+        duration = 5;
         [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"AccessSavedPagesMessageShown"];
         [[NSUserDefaults standardUserDefaults] synchronize];
 

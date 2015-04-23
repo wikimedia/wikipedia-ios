@@ -135,6 +135,7 @@
 "saved-pages-clear-confirmation-heading" = "Delete all saved items?";
 "saved-pages-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "saved-pages-clear-cancel" = "Cancel";
+"saved-pages-clear-delete-all" = "Delete All";
 "saved-pages-refresh-cancel-alert-title" = "Update cancelled";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia articles are updated all the time. Tap refresh to get the latest versions of all the articles.";
 "saved-pages-refresh-cancel-alert-button" = "Got it";

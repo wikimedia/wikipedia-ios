@@ -113,6 +113,9 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
         case NAVBAR_BUTTON_RELOAD:
             [self startRefresh];
             break;
+        case NAVBAR_BUTTON_TRASH:
+            [self showDeleteAllDialog];
+            break;
         default:
             break;
     }
@@ -322,6 +325,16 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
     self.progressView.alpha = 0.0;
 }
 
+-(void)hideTrashButton {
+    MenuButton *trashButton = (MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TRASH];
+    trashButton.alpha = 0.0;
+}
+
+-(void)showTrashButton {
+    MenuButton *trashButton = (MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TRASH];
+    trashButton.alpha = 1.0;
+}
+
 - (void)setEmptyOverlayAndTrashIconVisibility {
     BOOL savedPageFound = (savedPageList.length > 0);
 
@@ -329,6 +342,12 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 
     MenuButton* reloadButton = [self reloadButton];
     reloadButton.alpha = savedPageFound ? 1.0 : 0.0;
+
+    if (savedPageFound){
+        [self showTrashButton];
+    }else{
+        [self hideTrashButton];
+    }
 }
 
 - (void)showCancelRefreshAlertIfFirstTime {
@@ -418,6 +437,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
         [self hideRefreshButton];
         [self showProgressView];
         [self showRefreshTitle];
+        [self hideTrashButton];
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.25 animations:^{
             [self showCancelButton];
@@ -433,6 +453,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 
             [self showProgressView];
             [self showCancelButton];
+            [self hideTrashButton];
             [self hideRefreshButton];
             [self showRefreshTitle];
         }
@@ -450,6 +471,9 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.25 animations:^{
             [self showRefreshButton];
+            if (self->savedPageList.length > 0) {
+                [self showTrashButton];
+            }
         }];
 
         self.progressView.progress = 0.0;

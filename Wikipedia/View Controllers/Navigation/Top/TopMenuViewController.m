@@ -479,7 +479,7 @@
             break;
         case NAVBAR_MODE_PAGES_SAVED:
             self.navBarSubViewsHorizontalVFLString =
-                @"H:|-(6)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL]-(10)-[NAVBAR_BUTTON_RELOAD(50@250)]-(6)-|";
+                @"H:|-(6)-[NAVBAR_BUTTON_X(50)]-(10)-[NAVBAR_LABEL][NAVBAR_BUTTON_TRASH(38@250)][NAVBAR_BUTTON_RELOAD(38@250)]-(6)-|";
             break;
         case NAVBAR_MODE_X_WITH_TEXT_FIELD:
             self.navBarSubViewsHorizontalVFLString =

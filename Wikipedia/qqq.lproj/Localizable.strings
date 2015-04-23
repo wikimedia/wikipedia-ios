@@ -133,6 +133,7 @@
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "saved-pages-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
 "saved-pages-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
+"saved-pages-clear-delete-all" = "Button text for confirming delete all action\n{{Identical|Delete all}}";
 "saved-pages-refresh-cancel-alert-title" = "Title of alert shown when a user first cancels a refresh of saved pages";
 "saved-pages-refresh-cancel-alert-message" = "Message of alert shown when a user first cancels a refresh of saved pages";
 "saved-pages-refresh-cancel-alert-button" = "Button confirmation text of alert shown when a user first cancels a refresh of saved pages";
