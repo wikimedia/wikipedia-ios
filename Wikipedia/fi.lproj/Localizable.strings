@@ -126,6 +126,8 @@
 "saved-pages-clear-confirmation-heading" = "Poista kaikki tallennetut kohteet?";
 "saved-pages-clear-confirmation-sub-heading" = "Tätä toimintoa ei voi kumota!";
 "saved-pages-clear-cancel" = "Peruuta";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Poista kaikki";
 "saved-pages-refresh-cancel-alert-title" = "Päivitys peruttiin";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedian artikkeleja päivitetään kaiken aikaa. Napauta päivitä saadaksesi kaikkien artikkeleiden uusimmat versiot.";
 "saved-pages-refresh-cancel-alert-button" = "Selvä!";
@@ -253,6 +255,7 @@
 "nearby-location-updates-settings-menu" = "Yksityisyys > Sijaintipalvelut > Wikipedia";
 "nearby-location-general-error" = "Sijainnin määritys ei onnistu. Vedä päivittääksesi tai yritä uudelleen myöhemmin.";
 "nearby-wifi" = "Langattoman verkkoyhteyden käyttöönotto voi auttaa laitettasi määrittämään sijaintisi paremmin.";
+// Fuzzy
 "migration-update-progress-label" = "Päivitetään paikallisia tietoja";
 "hockeyapp-alert-always-send" = "Lähetä aina";
 "hockeyapp-alert-do-not-send" = "Älä lähetä";

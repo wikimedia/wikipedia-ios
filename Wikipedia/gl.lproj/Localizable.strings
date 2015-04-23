@@ -126,6 +126,8 @@
 "saved-pages-clear-confirmation-heading" = "Borrar tódolos elementos gardados?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer!";
 "saved-pages-clear-cancel" = "Cancelar";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Borrar todo";
 "saved-pages-refresh-cancel-alert-title" = "Actualización cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Os artigos de Wikipedia actualízanse todo o tempo. Prema actualizar para obter as últimas versións de tódolos artigos.";
 "saved-pages-refresh-cancel-alert-button" = "Entendido";
@@ -249,7 +251,9 @@
 "nearby-location-updates-settings-menu" = "Privacidade > Servizos de localización > Wikipedia";
 "nearby-location-general-error" = "Non se pode determinar a localización. Tire para actualizar ou ténteo máis tarde.";
 "nearby-wifi" = "Activar wifi pode axudar a que o seu dispositivo determine mellor a súa localización.";
+// Fuzzy
 "migration-update-progress-label" = "Actualizando datos locais";
+// Fuzzy
 "migration-update-progress-count-label" = "Migrando artigos $1 de $2";
 "image-gallery-unknown-owner" = "Autor descoñecido.";
 "hockeyapp-alert-question" = "Quere enviar un informe de erro a $1 para que así Wikimedia poida revisar o seu erro?";

@@ -123,6 +123,8 @@
 "saved-pages-clear-confirmation-heading" = "Ștergeți toate elementele salvate?";
 "saved-pages-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";
 "saved-pages-clear-cancel" = "Revocare";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Șterge tot";
 "saved-pages-refresh-cancel-alert-title" = "Actualizare anulată";
 "saved-pages-refresh-cancel-alert-message" = "Articolele Wikipediei sunt actualizate permanent. Apăsați „reîncarcă” pentru a obține ultima versiune a tuturor articolelor.";
 "saved-pages-refresh-cancel-alert-button" = "Am înțeles!";
@@ -246,7 +248,9 @@
 "nearby-location-updates-settings-menu" = "Intimitate > Servicii de localizare > Wikipedia";
 "nearby-location-general-error" = "Nu s-a putut efectua localizarea. Trageți pentru a reîmprospăta sau reîncercați mai târziu.";
 "nearby-wifi" = "Activarea conexiunii WiFi poate ajuta dispozitivul dumnevoastră să vă localizeze mai precis.";
+// Fuzzy
 "migration-update-progress-label" = "Se face upgrade datelor locale";
+// Fuzzy
 "migration-update-progress-count-label" = "Se migrează articolul $1 din $2";
 "image-gallery-unknown-owner" = "Încărcată de o persoană necunoscută.";
 "hockeyapp-alert-question" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema?";

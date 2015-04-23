@@ -130,6 +130,8 @@
 "saved-pages-clear-confirmation-heading" = "Hapus semua butir yang disimpan?";
 "saved-pages-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";
 "saved-pages-clear-cancel" = "Batal";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Hapus Semua";
 "saved-pages-refresh-cancel-alert-title" = "Pembaruan dibatalkan";
 "saved-pages-refresh-cancel-alert-message" = "Artikel Wikipedia diperbarui setiap saat. Ketuk segarkan untuk mendapatkan versi terbaru dari semua artikel.";
 "saved-pages-refresh-cancel-alert-button" = "Mengerti";
@@ -257,7 +259,9 @@
 "nearby-location-updates-settings-menu" = "Privasi > Layanan Lokasi > Wikipedia";
 "nearby-location-general-error" = "Tidak dapat menentukan lokasi. Tarik untuk menyegarkan atau coba lagi nanti.";
 "nearby-wifi" = "Mengaktifkan Wi-Fi dapat membantu perangkat Anda menentukan lokasi Anda lebih baik.";
+// Fuzzy
 "migration-update-progress-label" = "Meningkatkan data lokal";
+// Fuzzy
 "migration-update-progress-count-label" = "Memindahkan Artikel $1 dari $2";
 "image-gallery-unknown-owner" = "Pengunggah tidak diketahui.";
 "hockeyapp-alert-question" = "Apakah Anda ingin mengirimkan laporan kesalahan ke $1 jadi Wikimedia dapat meninjau kesalahan Anda?";

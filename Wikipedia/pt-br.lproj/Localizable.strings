@@ -129,6 +129,8 @@
 "saved-pages-clear-confirmation-heading" = "Apagar todos os dados salvos?";
 "saved-pages-clear-confirmation-sub-heading" = "Essa ação não pode ser desfeita!";
 "saved-pages-clear-cancel" = "Cancelar";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Excluir tudo";
 "saved-pages-refresh-cancel-alert-title" = "Atualização cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Os artigos da Wikipédia são atualizados constantemente. Toque para obter as últimas versões de todos os artigos.";
 "saved-pages-refresh-cancel-alert-button" = "Entendi";
@@ -256,4 +258,5 @@
 "nearby-location-updates-settings-menu" = "Privacidade > Serviços de localização > Wikipédia";
 "nearby-location-general-error" = "Não foi possível determinar a localização. Puxe para atualizar ou tente novamente mais tarde.";
 "nearby-wifi" = "Ativar o WiFi pode ajudar o seu dispositivo a determinar a sua localização.";
+// Fuzzy
 "migration-update-progress-label" = "Atualizando dados locais";

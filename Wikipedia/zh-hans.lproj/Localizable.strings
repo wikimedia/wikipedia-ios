@@ -1,6 +1,7 @@
 // Messages for Simplified Chinese (中文（简体）‎)
 // Exported from translatewiki.net
 // Author: Davidzdh
+// Author: Hudafu
 // Author: JuneAugsut
 // Author: Kuailong
 // Author: LNDDYL
@@ -60,7 +61,7 @@
 "login-password-wrong" = "您提供的密码不正确。";
 "login-throttled" = "在短时间内，您尝试的登录次数过多。";
 "login-user-blocked" = "用户被封禁";
-"login-account-creation" = "没有账户？注册一个维基百科账号";
+"login-account-creation" = "没有账户？加入维基百科";
 "login-username-placeholder-text" = "用户名";
 "login-password-placeholder-text" = "密码";
 "wikitext-downloading" = "加载中…";
@@ -131,6 +132,8 @@
 "saved-pages-clear-confirmation-heading" = "删除所有保存的项目？";
 "saved-pages-clear-confirmation-sub-heading" = "此操作不能撤销！";
 "saved-pages-clear-cancel" = "取消";
+// Fuzzy
+"saved-pages-clear-delete-all" = "删除全部";
 "saved-pages-refresh-cancel-alert-title" = "更新已取消";
 "saved-pages-refresh-cancel-alert-message" = "维基百科条目始终在更新。点按刷新以获得所有条目的最新版本。";
 "saved-pages-refresh-cancel-alert-button" = "明白了";
@@ -174,7 +177,7 @@
 "about-testers-details" = "问答已由$1测试";
 "about-translators" = "译者";
 "about-translators-details" = "该应用程序是由$1的志愿翻译人员翻译的";
-"about-libraries" = "所使用的库";
+"about-libraries" = "使用的库";
 "about-libraries-license" = "授权协议";
 "about-repositories" = "存储库";
 "about-send-feedback" = "发送应用程序反馈信息";
@@ -201,7 +204,7 @@
 "button-save" = "保存";
 "onboarding-create-account" = "创建账户";
 "onboarding-login" = "登录";
-"onboarding-already-have-account" = "已拥有账户？$1";
+"onboarding-already-have-account" = "已经拥有账户？$1";
 "onboarding-skip" = "跳过";
 "onboarding-wikipedia" = "维基百科";
 "onboarding-free-encyclopedia" = "自由的百科全书";
@@ -221,7 +224,7 @@
 "abuse-filter-warning-blanking" = "清空条目或破坏";
 "abuse-filter-warning-irrelevant" = "无关外部链接或图片";
 "abuse-filter-warning-repeat" = "重复字符";
-"abuse-filter-disallow-heading" = "您不能保存此编辑。请返回重试。";
+"abuse-filter-disallow-heading" = "您不能保存该编辑。请返回更改。";
 "abuse-filter-disallow-unconstructive" = "自动过滤器已认定此编辑可能不具建设性或存在破坏企图。";
 "abuse-filter-disallow-notable" = "维基百科是一部百科全书，这里只接受中立、有关注度的内容。";
 "menu-edit-accessibility-label" = "编辑";
@@ -254,9 +257,14 @@
 "nearby-location-updates-settings-menu" = "隐私 > 位置服务 > 维基百科";
 "nearby-location-general-error" = "无法确定位置。下拉刷新或稍后重试。";
 "nearby-wifi" = "启用Wi-Fi可使您的设备更好的确定您的位置。";
-"migration-update-progress-label" = "升级本地数据";
+"migration-update-progress-label" = "迁移本地数据";
 "migration-update-progress-count-label" = "正在迁移条目$1/$2";
+"migration-prompt-title" = "看起来我们有一段历史！";
+"migration-skip-button-title" = "删除它";
 "image-gallery-unknown-owner" = "上传者未知。";
+"image-gallery-fetch-image-info-error-title" = "无法下载图片";
+"image-gallery-fetch-image-info-error-message" = "无法下载此条目的图片。请刷新条目并重试。";
+"image-gallery-fetch-image-info-error-ok" = "确定";
 "hockeyapp-alert-question" = "您想要将崩溃报告发送至$1，这样维基媒体可以复查您的崩溃么？";
 "hockeyapp-alert-question-with-response-field" = "您想要将崩溃报告发送至$1，这样维基媒体可以复查您的崩溃么？请描述崩溃发生时出现了什么现象：";
 "hockeyapp-alert-title" = "抱歉，应用程序上次发生了崩溃";

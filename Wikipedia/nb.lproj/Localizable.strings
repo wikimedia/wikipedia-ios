@@ -13,6 +13,7 @@
 "article-read-more-title" = "Les mer";
 "info-box-title" = "Raske fakta";
 "info-box-close-text" = "Lukk";
+"table-title-other" = "Mer informasjon";
 "language-button-text" = "Artikkelen finnes på %d andre språk";
 "history-label" = "Logg";
 "history-section-today" = "I dag";
@@ -116,8 +117,7 @@
 "main-menu-terms-of-use" = "Bruksvilkår";
 "main-menu-rate-app" = "Vurder appen";
 "main-menu-heading-zero" = "Wikipedia Zero";
-// Fuzzy
-"main-menu-heading-legal" = "Mumbo jumbo";
+"main-menu-heading-legal" = "Personvern og vilkår";
 "main-menu-show-today" = "I dag";
 "main-menu-nearby" = "I nærheten";
 "main-menu-more" = "Mer…";
@@ -127,12 +127,12 @@
 "saved-pages-clear-confirmation-heading" = "Fjerne alle lagrede sider?";
 "saved-pages-clear-confirmation-sub-heading" = "Handlingen kan ikke angres!";
 "saved-pages-clear-cancel" = "Avbryt";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Fjern alt";
 "saved-pages-refresh-cancel-alert-title" = "Oppdatering avbrutt";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-artikler blir oppdatert hele tiden. Trykk oppdater for å få den siste versjonene av alle artiklene.";
 "saved-pages-refresh-cancel-alert-button" = "Forstått";
-// Fuzzy
 "page-history-title" = "Artikkelhistorikk";
-// Fuzzy
 "page-history-downloading" = "Laster inn artikkelhistorikk…";
 "navbar-title-mode-edit-wikitext" = "Rediger";
 "navbar-title-mode-login" = "Logg inn";
@@ -145,7 +145,6 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Rask verifikasjon trengs";
 "navbar-title-mode-edit-wikitext-summary" = "Beskriv redigeringen din";
 "navbar-title-mode-edit-wikitext-save" = "Lagre";
-// Fuzzy
 "edit-summary-choice-linked-words" = "La til lenker";
 "edit-summary-choice-fixed-grammar" = "Korrigerte grammatikk";
 "edit-summary-choice-fixed-inaccuracy" = "Fikset feil";
@@ -156,8 +155,7 @@
 "edit-summary-choice-added-clarification" = "La til klargjøring";
 "edit-summary-choice-other" = "Annet";
 "edit-summary-description" = "Et sammendrag hjelper andre bidragsytere å raskt vurdere redigeringene dine. Du kan også velge blant forslagene under.";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "Andre måter du kan forbedre denne artikkelen";
+"edit-summary-field-placeholder-text" = "Andre måter du kan forbedre denne artikkelen på";
 "edit-summary-title" = "Hvordan forbedret du artikkelen?";
 "fetching-random-article" = "Henter tilfeldig artikkel";
 "article-pull-to-refresh-prompt" = "Dra for å gjennoppfriske artikkelen";
@@ -254,6 +252,10 @@
 "nearby-location-updates-settings-menu" = "Innstillinger > Personvern > Stedstjenester > Wikipedia";
 "nearby-location-general-error" = "Kunne ikke bestemme plasseringen din. Dra for å gjenoppfriske eller prøv på nytt senere.";
 "nearby-wifi" = "Å skru på wifi kan hjelpe enheten din til å bestemme posisjonen din bedre.";
+// Fuzzy
+"migration-update-progress-label" = "Oppgraderer lokal data";
+// Fuzzy
+"migration-update-progress-count-label" = "Migrerer artikkel $1 av $2";
 "image-gallery-unknown-owner" = "Ukjent opplaster.";
 "hockeyapp-alert-question" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia kan ta den i ettersyn?";
 "hockeyapp-alert-question-with-response-field" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia kan ta den i ettersyn? Beskriv hva som skjedde da det inntraff:";

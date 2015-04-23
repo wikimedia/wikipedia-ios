@@ -241,7 +241,9 @@
 "nearby-location-updates-settings-menu" = "गोपनीयता > स्थितिसेवाः > विकिपीडिया";
 "nearby-location-general-error" = "स्थितिः न प्राप्ता । प्रत्याववस्थापनं क्रियताम् उत पश्चात् पुनः प्रयासं करोतु ।";
 "nearby-wifi" = "भवतः/भवत्याः स्थितिं ज्ञातुं सक्रियं Wi-Fi भवतः/भवत्याः यन्त्रस्य साहाय्यं कर्तुं प्रभवति ।";
+// Fuzzy
 "migration-update-progress-label" = "स्थानीयसूचना अद्यतना भवति";
+// Fuzzy
 "migration-update-progress-count-label" = "$2 इत्येतेषु $1 लेखः स्थानान्तरति";
 "image-gallery-unknown-owner" = "अज्ञातः उपारोहकः";
 "hockeyapp-alert-question" = "विकिमीडिया-संस्था भवतः/भवत्याः ध्वस्य समीक्षां कर्तुं शक्नोति । $1 इत्येतस्मै ध्वस्य सूचनां प्रेषयितुम् इच्छति ?";

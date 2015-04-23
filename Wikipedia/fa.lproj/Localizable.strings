@@ -131,6 +131,8 @@
 "saved-pages-clear-confirmation-heading" = "همه موارد ذخیره‌شده حذف شوند؟";
 "saved-pages-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
 "saved-pages-clear-cancel" = "لغو";
+// Fuzzy
+"saved-pages-clear-delete-all" = "حذف همه";
 "saved-pages-refresh-cancel-alert-title" = "بارگذاری لغو شد";
 "saved-pages-refresh-cancel-alert-message" = "مقالات ویکی‌پدیا همیشه به‌روز می‌شوند. برای دریافت آخرین نسخه بر روی صفحه انگشت بزنید تا بروز شود.";
 "saved-pages-refresh-cancel-alert-button" = "گرفتم";
@@ -258,7 +260,9 @@
 "nearby-location-updates-settings-menu" = "حریم شخصی > خدمات موقعیت > ویکی‌پدیا";
 "nearby-location-general-error" = "ناتوان در تشخیص موقعیت. برای تازه‌کردن فشار دهید یا بعداً تلاش کنید.";
 "nearby-wifi" = "فعال‌کردن وای‌فای می‌تواند به دستگاه‌تان در بهتر تشخیص‌دادن موقعیت‌تان کمک کند.";
+// Fuzzy
 "migration-update-progress-label" = "به‌روز کردن اطلاعات محلی";
+// Fuzzy
 "migration-update-progress-count-label" = "مهاجرت مقاله از $1 به $2";
 "image-gallery-unknown-owner" = "آپلود کننده ناشناخته است.";
 "hockeyapp-alert-question" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا ویکی‌مدیا بتواند آن‌را بررسی کند؟";

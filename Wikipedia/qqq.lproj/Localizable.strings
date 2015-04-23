@@ -137,7 +137,7 @@
 "saved-pages-refresh-cancel-alert-title" = "Title of alert shown when a user first cancels a refresh of saved pages";
 "saved-pages-refresh-cancel-alert-message" = "Message of alert shown when a user first cancels a refresh of saved pages";
 "saved-pages-refresh-cancel-alert-button" = "Button confirmation text of alert shown when a user first cancels a refresh of saved pages";
-"page-history-title" = "Header text for Page History interface.\n{{Identical|Page history}}";
+"page-history-title" = "Header text for Page History interface.\n{{Identical|Article history}}";
 "page-history-downloading" = "Alert text shown when obtaining revision history of an article";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited.\n{{Identical|Edit}}";
 "navbar-title-mode-login" = "Header text shown when user is signing in.\n{{Identical|Sign in}}";
@@ -264,6 +264,9 @@
 "migration-confirm-button-title" = "Button within migration prompt that confirms the user wants to proceed with migration.";
 "migration-skip-button-title" = "Button with migration prompt that indicates user wants to skip migration and delete their data.";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
+"image-gallery-fetch-image-info-error-title" = "Title of prompt weh image meta download fails in gallery";
+"image-gallery-fetch-image-info-error-message" = "Message of prompt weh image meta download fails in gallery";
+"image-gallery-fetch-image-info-error-ok" = "OK button of prompt weh image meta download fails in gallery";
 "hockeyapp-alert-question" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "hockeyapp-alert-question-with-response-field" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server, and asking the user to describe what happened when the crash occurred. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "hockeyapp-alert-title" = "Concise and conciliatory alert dialog title for crash reporting";
@@ -271,8 +274,5 @@
 "hockeyapp-alert-always-send" = "Alert dialog button text for crash reporting to always be sent";
 "hockeyapp-alert-do-not-send" = "Alert dialog button text for crash reporting to not send the crash report";
 "hockeyapp-alert-privacy" = "Alert dialog button text for HockeyApp privacy policy. $1 will be replaced programmatically with the constant string 'HockeyApp'";
-"image-gallery-fetch-image-info-error-title" = "Title of prompt weh image meta download fails in gallery";
-"image-gallery-fetch-image-info-error-message" = "Message of prompt weh image meta download fails in gallery";
-"image-gallery-fetch-image-info-error-ok" = "OK button of prompt weh image meta download fails in gallery";
 "page-issues" = "Label for button that shows the Page issues dialog.";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";

@@ -120,6 +120,8 @@
 "saved-pages-clear-confirmation-sub-heading" = "Tindakan ini tidak boleh dipulihkan!";
 "saved-pages-clear-cancel" = "Batalkan";
 // Fuzzy
+"saved-pages-clear-delete-all" = "Padam Semua";
+// Fuzzy
 "page-history-title" = "Sejarah laman";
 // Fuzzy
 "page-history-downloading" = "Memuatkan sejarah laman...";
@@ -238,4 +240,5 @@
 "nearby-location-updates-settings-menu" = "Privasi > Perkhidmatan Lokasi > Wikipedia\n(Privacy > Location Services > Wikipedia)";
 "nearby-location-general-error" = "Lokasi tidak dapat ditentukan. Sila tarik untuk muat semula atau cuba lagi nanti.";
 "nearby-wifi" = "Memasang Wi-Fi boleh membantu peranti anda menentukan lokasi anda dengan lebih baik.";
+// Fuzzy
 "migration-update-progress-label" = "Menaiktaraf data setempat";

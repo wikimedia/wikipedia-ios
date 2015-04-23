@@ -95,6 +95,8 @@
 "saved-pages-clear-confirmation-sub-heading" = "Bu amalni bekor qilib boʻlmaydi!";
 "saved-pages-clear-cancel" = "Bekor qilish";
 // Fuzzy
+"saved-pages-clear-delete-all" = "Barchasini oʻchirish";
+// Fuzzy
 "page-history-title" = "Maqolaning tarixi";
 // Fuzzy
 "page-history-downloading" = "Maqola tarixi yuklanyapti...";

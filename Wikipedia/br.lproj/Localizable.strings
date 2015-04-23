@@ -125,6 +125,8 @@
 "saved-pages-clear-confirmation-heading" = "Lemel an holl elfennoù enrollet ?";
 "saved-pages-clear-confirmation-sub-heading" = "Ne c'hall ket an ober-mañ bezañ nullet !";
 "saved-pages-clear-cancel" = "Nullañ";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Lemel pep tra";
 "saved-pages-refresh-cancel-alert-title" = "Hizivadur nullet";
 "saved-pages-refresh-cancel-alert-message" = "Hizivaet e vez pennadoù Wikepedia dizehan. Pouezit war freskaat evit kaout doare diwezhañ an holl bennadoù.";
 "saved-pages-refresh-cancel-alert-button" = "Mat eo";
@@ -252,7 +254,9 @@
 "nearby-location-updates-settings-menu" = "Prevezded> Servijoù lec'hiadurioù - Wikipedia";
 "nearby-location-general-error" = "N'haller termenañ al lec'hiadur. Sachañ evit freskaat pe klask en-dro diwezhatoc'h.";
 "nearby-wifi" = "Gweredekaat ar wifi a c'hall sikour hoc'h ardivink da dermenañ gwelloc'h ho lec'hiadur.";
+// Fuzzy
 "migration-update-progress-label" = "Hizivaat ar roadennoù lec'hel";
+// Fuzzy
 "migration-update-progress-count-label" = "Emdizhañ ar mellad $1 war-zu $2";
 "image-gallery-unknown-owner" = "Pellgarger dianav.";
 "hockeyapp-alert-question" = "C'hoant ho peus da gas un danevell sac'hañ da $1 evit ma c'hallo Wikipedia studiañ anezhi ?";

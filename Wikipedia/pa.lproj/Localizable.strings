@@ -109,6 +109,8 @@
 "saved-pages-clear-confirmation-sub-heading" = "ਇਹ ਕਾਰਵਾਈ ਅਣ-ਕੀਤੀ ਨਹੀਂ ਹੋ ਸਕਦੀ!";
 "saved-pages-clear-cancel" = "ਰੱਦ ਕਰੋ";
 // Fuzzy
+"saved-pages-clear-delete-all" = "ਸਾਰਾ ਕੁਝ ਮਿਟਾਉ";
+// Fuzzy
 "page-history-title" = "ਲੇਖ ਦਾ ਅਤੀਤ";
 // Fuzzy
 "page-history-downloading" = "ਲੇਖ ਦਾ ਅਤੀਤ ਲੱਦਿਆ ਜਾ ਰਿਹਾ ਹੈ...";

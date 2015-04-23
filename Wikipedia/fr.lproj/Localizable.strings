@@ -7,6 +7,7 @@
 // Author: John Trololo
 // Author: Macofe
 // Author: Orikrin1998
+// Author: Selhom
 // Author: Solucer
 // Author: Wladek92
 
@@ -54,7 +55,7 @@
 "account-creation-email-placeholder-text" = "Courriel (facultatif)";
 "account-creation-missing-fields" = "Vous devez saisir un nom d’utilisateur, un mot de passe et une confirmation de mot de passe, pour créer un compte.";
 "login-name-not-found" = "Le nom d’utilisateur est obligatoire pour se connecter.";
-"login-name-illegal" = "Vous avez fourni un nom d’utilisateur non légal.";
+"login-name-illegal" = "Vous avez choisi un nom d’utilisateur non autorisé.";
 "login-name-does-not-exist" = "Le nom d’utilisateur que vous avez fourni n’existe pas.";
 "login-password-empty" = "Le mot de passe est obligatoire pour se connecter.";
 "login-password-wrong" = "Le mot de passe que vous avez fourni n’est pas correct.";
@@ -131,6 +132,8 @@
 "saved-pages-clear-confirmation-heading" = "Supprimer tous les éléments enregistrés ?";
 "saved-pages-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
 "saved-pages-clear-cancel" = "Annuler";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Supprimer tout";
 "saved-pages-refresh-cancel-alert-title" = "Mise à jour annulée";
 "saved-pages-refresh-cancel-alert-message" = "Les articles de Wikipédia sont mis à jour continuellement. Appuyez sur rafraîchir pour obtenir la dernière version de tous les articles.";
 "saved-pages-refresh-cancel-alert-button" = "L’obtenir";
@@ -160,7 +163,7 @@
 "edit-summary-field-placeholder-text" = "Autres moyens pour améliorer l’article";
 "edit-summary-title" = "Comment avez-vous amélioré cet article ?";
 "fetching-random-article" = "Récupération d’un article au hasard";
-"article-pull-to-refresh-prompt" = "Tirer pour actualisé l’article";
+"article-pull-to-refresh-prompt" = "Tirer pour actualiser l’article";
 "article-pull-to-refresh-is-refreshing" = "Article actualisé";
 "credits-title" = "Lieux de mise à disposition des Open sources";
 "credits-wikimedia-repos" = "Wikimedia";
@@ -254,7 +257,9 @@
 "nearby-location-updates-settings-menu" = "Confidentialité > Services d’emplacement > Wikipédia";
 "nearby-location-general-error" = "Impossible de déterminer l’emplacement. Tirer pour rafraîchir ou réessayer ultérieurement.";
 "nearby-wifi" = "L’activation du wifi peut aider votre appareil à mieux déterminer votre emplacement.";
+// Fuzzy
 "migration-update-progress-label" = "Mise à jour des données locales";
+// Fuzzy
 "migration-update-progress-count-label" = "Migration de l’article $1 vers $2";
 "image-gallery-unknown-owner" = "Téléchargeur inconnu.";
 "hockeyapp-alert-question" = "Voulez-vous envoyer un rapport de plantage à $1 pour que Wikipédia puisse l’étudier ?";

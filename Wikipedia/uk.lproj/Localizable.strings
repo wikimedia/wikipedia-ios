@@ -111,6 +111,8 @@
 "saved-pages-clear-confirmation-sub-heading" = "Цю дію скасувати не можна!";
 "saved-pages-clear-cancel" = "Скасувати";
 // Fuzzy
+"saved-pages-clear-delete-all" = "Видалити усі";
+// Fuzzy
 "page-history-title" = "Історія статті";
 // Fuzzy
 "page-history-downloading" = "Завантаження історії статті...";

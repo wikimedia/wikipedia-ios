@@ -129,6 +129,8 @@
 "saved-pages-clear-confirmation-heading" = "Tüm kayıtlı ögeler silinsin mi?";
 "saved-pages-clear-confirmation-sub-heading" = "Bu eylem geri alınamaz!";
 "saved-pages-clear-cancel" = "İptal";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Tümünü Sil";
 "saved-pages-refresh-cancel-alert-title" = "Güncelleme iptal edildi";
 "saved-pages-refresh-cancel-alert-message" = "Vikipedi maddeleri her zaman güncellenir. Maddelerin en son sürümlerini almak için dokunarak sayfayı yenileyin.";
 "saved-pages-refresh-cancel-alert-button" = "Anladım";
@@ -256,6 +258,7 @@
 "nearby-location-updates-settings-menu" = "Gizlilik > Konum Servisleri > Wikipedia";
 "nearby-location-general-error" = "Konum belirlenemiyor. Yenilemek için aşağı çekin veya daha sonra tekrar deneyin.";
 "nearby-wifi" = "Kablosuz bağlantıyı etkinleştirmek, cihazınızın konumunuzu daha iyi belirlemesine yardımcı olabilir.";
+// Fuzzy
 "migration-update-progress-label" = "Yerel veri güncelleniyor";
 "image-gallery-unknown-owner" = "Yükleyen bilinmiyor.";
 "hockeyapp-alert-question" = "Oluşan hatayı Wikimedia'nın inceleyebilmesi için $1'e çökme raporu göndermek ister misiniz?";

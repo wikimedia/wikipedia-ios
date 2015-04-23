@@ -115,6 +115,8 @@
 "saved-pages-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
 "saved-pages-clear-cancel" = "Zrušiť";
 // Fuzzy
+"saved-pages-clear-delete-all" = "Vymazať všetky";
+// Fuzzy
 "page-history-title" = "História stránky";
 // Fuzzy
 "page-history-downloading" = "Načítavanie histórie stránky...";

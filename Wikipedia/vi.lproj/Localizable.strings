@@ -126,6 +126,8 @@
 "saved-pages-clear-confirmation-heading" = "Xóa tất cả các mục đã lưu?";
 "saved-pages-clear-confirmation-sub-heading" = "Không thể hoàn tác tác vụ này!";
 "saved-pages-clear-cancel" = "Hủy bỏ";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Xóa Toàn bộ";
 "saved-pages-refresh-cancel-alert-title" = "Đã hủy cập nhật";
 "saved-pages-refresh-cancel-alert-message" = "Các bài viết Wikipedia được cập nhật rất thường xuyên. Chạm vào Tải lại để lấy bản mới nhất của các bài.";
 "saved-pages-refresh-cancel-alert-button" = "Được rồi";
@@ -253,6 +255,7 @@
 "nearby-location-updates-settings-menu" = "Bảo mật > Địa điểm > Wikipedia";
 "nearby-location-general-error" = "Không thể xác định vị trí. Kéo xuống để làm mới hoặc thử lại sau.";
 "nearby-wifi" = "Bật lên Wi-Fi để giúp thiết bị của bạn xác định vị trí của bạn một cách chính xác hơn.";
+// Fuzzy
 "migration-update-progress-label" = "Đang nâng cấp dữ liệu địa phương";
 "image-gallery-unknown-owner" = "Người tải lên không rõ.";
 // Fuzzy

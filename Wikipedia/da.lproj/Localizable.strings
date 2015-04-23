@@ -121,6 +121,8 @@
 "saved-pages-clear-confirmation-heading" = "Slet alle gemte sider?";
 "saved-pages-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
 "saved-pages-clear-cancel" = "Afbryd";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Slet alle";
 "saved-pages-refresh-cancel-alert-button" = "Forstået";
 // Fuzzy
 "page-history-title" = "Artikelhistorik";

@@ -17,6 +17,7 @@
 "article-read-more-title" = "Més informació";
 "info-box-title" = "Dades bàsiques";
 "info-box-close-text" = "Tanca";
+"table-title-other" = "Més informació";
 "language-button-text" = "Podeu llegir l'article en altres %d llengües";
 "history-label" = "Recents";
 "history-section-today" = "Avui";
@@ -130,12 +131,12 @@
 "saved-pages-clear-confirmation-heading" = "Suprimir tots els elements desats?";
 "saved-pages-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "saved-pages-clear-cancel" = "Cancel·la";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Esborra tot";
 "saved-pages-refresh-cancel-alert-title" = "Actualització cancel·lada";
 "saved-pages-refresh-cancel-alert-message" = "Els articles de la Viquipèdia s'actualitzen constantment. Feu un toc per obtenir la darrera versió de tots els articles.";
 "saved-pages-refresh-cancel-alert-button" = "Ho he entès";
-// Fuzzy
 "page-history-title" = "Historial de l'article";
-// Fuzzy
 "page-history-downloading" = "S'està carregant l'historial de l'article...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
 "navbar-title-mode-login" = "Inicia una sessió";
@@ -148,8 +149,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Es necessita verificació";
 "navbar-title-mode-edit-wikitext-summary" = "Descriviu la vostra modificació";
 "navbar-title-mode-edit-wikitext-save" = "Desa";
-// Fuzzy
-"edit-summary-choice-linked-words" = "Paraules enllaçades";
+"edit-summary-choice-linked-words" = "Enllaços afegits";
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
 "edit-summary-choice-fixed-inaccuracy" = "Correcció d'una inexactitud";
 "edit-summary-choice-fixed-styling" = "Correcció de l'estil";
@@ -159,8 +159,7 @@
 "edit-summary-choice-added-clarification" = "Afegida una clarificació";
 "edit-summary-choice-other" = "Altres";
 "edit-summary-description" = "Un resum específic ajuda els altres usuaris a revisar ràpidament les vostres modificacions. També podeu triar un dels resums que apareixen a continuació.";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "Quina millora heu aportat a la pàgina?";
+"edit-summary-field-placeholder-text" = "Altres formes com heu millorat l'article";
 "edit-summary-title" = "Com heu millorat l'article?";
 "fetching-random-article" = "Recuperant un article a l'atzar";
 "article-pull-to-refresh-prompt" = "Estireu per actualitzar l'article";
@@ -257,7 +256,10 @@
 "nearby-location-updates-settings-menu" = "Privadesa > Serveis d'ubicació > Viquipèdia";
 "nearby-location-general-error" = "No es pot determinar la ubicació. Arrossegueu per refrescar-la o torneu-ho a provar més endavant.";
 "nearby-wifi" = "Si activeu la Wi-Fi pot ajudar el vostre dispositiu a determinar millor la vostra localització.";
+// Fuzzy
 "migration-update-progress-label" = "S'estan actualitzant les dades locals";
+// Fuzzy
+"migration-update-progress-count-label" = "S'està migrant l'article $1 de $2";
 "image-gallery-unknown-owner" = "El carregador no és conegut.";
 "hockeyapp-alert-question" = "Voldríeu enviar un informe de fallada a $1 per tal que Wikimedia ho revisi?";
 "hockeyapp-alert-question-with-response-field" = "Voldríeu enviar un informe de fallada a $1 per tal que Wikimedia ho revisi? Descriviu què va passar quan va produir-se la fallada.";

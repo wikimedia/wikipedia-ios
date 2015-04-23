@@ -125,6 +125,8 @@
 "saved-pages-clear-confirmation-heading" = "Да ги избришам сите зачувани ставки?";
 "saved-pages-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
 "saved-pages-clear-cancel" = "Откажи";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Избриши ги сите";
 "saved-pages-refresh-cancel-alert-title" = "Подновата е откажана";
 "saved-pages-refresh-cancel-alert-message" = "Статиите на Википедија сето време се менуваат, односно подновуваат. Допрете на „Превчитај“ за да ги добиете најновите верзии на сите статии.";
 "saved-pages-refresh-cancel-alert-button" = "Јасно";
@@ -248,9 +250,16 @@
 "nearby-location-updates-settings-menu" = "Приватност > Местоположбени услуги > Википедија";
 "nearby-location-general-error" = "Не можам да ја утврдам местоположбата. Повлечете за да превчитате или обидете се повторно.";
 "nearby-wifi" = "Ако ја вклучите безжичната линија (Wi-Fi), уредот ќе може подобро да ја утврди вашата местоположба.";
-"migration-update-progress-label" = "Надградба на месните податоци";
+"migration-update-progress-label" = "Преселба на месните податоци";
 "migration-update-progress-count-label" = "Ја селам статијата $1 од вкупно $2";
+"migration-prompt-title" = "Изгледа имаме историја!";
+"migration-prompt-message" = "Треба да ги преместиме вашите зачувани и скорешни страници. Ова може да потрае минутка...";
+"migration-confirm-button-title" = "Премести ми ги работите";
+"migration-skip-button-title" = "Избриши ја";
 "image-gallery-unknown-owner" = "Подигачот е непознат";
+"image-gallery-fetch-image-info-error-title" = "Не можам да ги преземам сликите";
+"image-gallery-fetch-image-info-error-message" = "Не можам да ги преземам сликите за статијава. Превчитајте ја и обидете се повторно.";
+"image-gallery-fetch-image-info-error-ok" = "ОК";
 "hockeyapp-alert-question" = "Дали би сакале да испратите пријава за уривање на $1 за Викимедија да ви го разгледа проблемот?";
 "hockeyapp-alert-question-with-response-field" = "Дали би сакале да испратите пријава за уривање на $1 за Викимедија да ви го арзгледа проблемот? Опишете што се случи кога настана уривањето:";
 "hockeyapp-alert-title" = "За жал, извршникот се урна минатиот пат";

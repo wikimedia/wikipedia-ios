@@ -4,6 +4,7 @@
 // Author: Omda4wady
 // Author: Shbib Al-Subaie
 // Author: Tarawneh
+// Author: محمد أحمد عبد الفتاح
 // Author: محمد عصام
 
 "article-languages-label" = "اختر لغة";
@@ -11,6 +12,7 @@
 "article-read-more-title" = "قراءة المزيد";
 "info-box-title" = "معلومات سريعة";
 "info-box-close-text" = "إغلاق";
+"table-title-other" = "مزيد من المعلومات";
 "history-label" = "الأخيرة";
 "history-section-today" = "اليوم";
 "history-section-yesterday" = "الأمس";
@@ -75,6 +77,8 @@
 "saved-pages-clear-confirmation-heading" = "حذف جميع العناصر المحفوظة؟";
 "saved-pages-clear-confirmation-sub-heading" = "هذا العمل لا يُمكن التراجع عنه.";
 "saved-pages-clear-cancel" = "إلغاء";
+// Fuzzy
+"saved-pages-clear-delete-all" = "حذف الكل";
 // Fuzzy
 "page-history-title" = "تاريخ المقالة";
 // Fuzzy

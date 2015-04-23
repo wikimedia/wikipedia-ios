@@ -128,6 +128,8 @@
 "saved-pages-clear-confirmation-heading" = "保存した項目をすべて削除しますか？";
 "saved-pages-clear-confirmation-sub-heading" = "この操作は取り消せません!";
 "saved-pages-clear-cancel" = "キャンセル";
+// Fuzzy
+"saved-pages-clear-delete-all" = "すべて削除";
 "saved-pages-refresh-cancel-alert-title" = "更新がキャンセルされました";
 "saved-pages-refresh-cancel-alert-message" = "ウィキペディアの記事は常に更新されています。「更新」をタップすると全ての記事が最新版に同期されます。";
 "saved-pages-refresh-cancel-alert-button" = "了解";
@@ -255,6 +257,7 @@
 "nearby-location-updates-settings-menu" = "プライバシー > 位置情報サービス > ウィキペディア";
 "nearby-location-general-error" = "位置を特定できません。引っ張って更新するか、後ほどもう一度試してみてください。";
 "nearby-wifi" = "Wi-Fi を有効にすると、位置情報の精度をより高めることができます。";
+// Fuzzy
 "migration-update-progress-label" = "ローカルデータをアップグレード中";
 "image-gallery-unknown-owner" = "アップロード者不明。";
 "hockeyapp-alert-question" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュをWikimediaがレビューできるようになります。";

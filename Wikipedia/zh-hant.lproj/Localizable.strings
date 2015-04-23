@@ -16,6 +16,7 @@
 "article-read-more-title" = "閱讀更多";
 "info-box-title" = "快速預覽";
 "info-box-close-text" = "關閉";
+"table-title-other" = "更多資訊";
 "language-button-text" = "你可以閱讀這此文章的 %d 種其他語言";
 "history-label" = "最近";
 "history-section-today" = "今日";
@@ -129,13 +130,13 @@
 "saved-pages-clear-confirmation-heading" = "删除所有已儲存的项目？";
 "saved-pages-clear-confirmation-sub-heading" = "此操作不能還原！";
 "saved-pages-clear-cancel" = "取消";
+// Fuzzy
+"saved-pages-clear-delete-all" = "删除全部";
 "saved-pages-refresh-cancel-alert-title" = "已取消更新";
 "saved-pages-refresh-cancel-alert-message" = "維基百科的文章會隨時更新。輕觸重新整理以取得所有文章的最新版本。";
 "saved-pages-refresh-cancel-alert-button" = "明白了";
-// Fuzzy
-"page-history-title" = "文章歷史";
-// Fuzzy
-"page-history-downloading" = "讀取文章歷史中...";
+"page-history-title" = "條目歷史";
+"page-history-downloading" = "讀取條目歷史中...";
 "navbar-title-mode-edit-wikitext" = "編輯";
 "navbar-title-mode-login" = "登入";
 "navbar-title-mode-login-and-save" = "登入並儲存";
@@ -147,8 +148,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "需要快速驗證";
 "navbar-title-mode-edit-wikitext-summary" = "描述您的編輯";
 "navbar-title-mode-edit-wikitext-save" = "儲存";
-// Fuzzy
-"edit-summary-choice-linked-words" = "已新增連結";
+"edit-summary-choice-linked-words" = "新增連結";
 "edit-summary-choice-fixed-grammar" = "修正語法";
 "edit-summary-choice-fixed-inaccuracy" = "修正用詞";
 "edit-summary-choice-fixed-styling" = "修正樣式";
@@ -158,8 +158,7 @@
 "edit-summary-choice-added-clarification" = "已新增說明";
 "edit-summary-choice-other" = "其他";
 "edit-summary-description" = "具體的摘要可以幫助共同編輯者更方便和快捷地檢視閣下的編輯，而閣下也可以從下面的標記中選擇一個合適的編輯摘要。";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "您改善文章的其他方式";
+"edit-summary-field-placeholder-text" = "您改善條目的其他方式";
 "edit-summary-title" = "您要如何改善此文章？";
 "fetching-random-article" = "正在取得隨機文章";
 "article-pull-to-refresh-prompt" = "拖拽以重新整理條目";
@@ -256,7 +255,9 @@
 "nearby-location-updates-settings-menu" = "隱私 > 位置服務 > 維基百科";
 "nearby-location-general-error" = "無法確定位置。拉下重新整理或稍後重試。";
 "nearby-wifi" = "開啟 Wi-Fi 可以幫助您的裝置更好地確定您的位置。";
+// Fuzzy
 "migration-update-progress-label" = "升級本地資料";
+// Fuzzy
 "migration-update-progress-count-label" = "轉移文章第 $1 篇，共 $2 篇";
 "image-gallery-unknown-owner" = "未知上傳者";
 "hockeyapp-alert-question" = "您想把錯誤報告傳送至 $1，讓維基媒體瞭解您發生的問題嗎？";

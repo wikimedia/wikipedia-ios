@@ -89,6 +89,8 @@
 "saved-pages-clear-confirmation-heading" = "Naikinti visus įrašytus elementus?";
 "saved-pages-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "saved-pages-clear-cancel" = "Atšaukti";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Naikinti viską";
 "saved-pages-refresh-cancel-alert-button" = "Supratau";
 // Fuzzy
 "page-history-title" = "Straipsnio istorija";

@@ -110,12 +110,12 @@
 "saved-pages-clear-confirmation-heading" = "წავშალოთ ყველა დამასხოვვრებული ელემენტი?";
 "saved-pages-clear-confirmation-sub-heading" = "ამ ქმედების გაუქმება შეუძლებელია!";
 "saved-pages-clear-cancel" = "გაუქმება";
+// Fuzzy
+"saved-pages-clear-delete-all" = "ყველას წაშლა";
 "saved-pages-refresh-cancel-alert-title" = "განახლება გაუქმდა";
 "saved-pages-refresh-cancel-alert-message" = "ვიკიპედიის სტატიები მუდმივად ახლდება. დააჭირეთ განახლებას, რათა ყველა სტატიის ბოლო ვერსია იხილოთ.";
 "saved-pages-refresh-cancel-alert-button" = "მიღება";
-// Fuzzy
 "page-history-title" = "სტატიის ისტორია";
-// Fuzzy
 "page-history-downloading" = "სტატიის ისტორია იტვირთება...";
 "navbar-title-mode-edit-wikitext" = "რედაქტირება";
 "navbar-title-mode-login" = "შესვლა";
@@ -128,7 +128,6 @@
 "navbar-title-mode-edit-wikitext-captcha" = "საჭიროა სწრაფი დადასტურება";
 "navbar-title-mode-edit-wikitext-summary" = "აღწერეთ თქვენი რედაქტირებები";
 "navbar-title-mode-edit-wikitext-save" = "შენახვა";
-// Fuzzy
 "edit-summary-choice-linked-words" = "დამატებული ბმულები";
 "edit-summary-choice-fixed-grammar" = "გრამატიკის შესწორება";
 "edit-summary-choice-fixed-inaccuracy" = "ცდომილების გასწორება";
@@ -218,6 +217,7 @@
 "nearby-location-updates-settings-menu" = "კონფიდენსიალურობა > ლოკაციის სერვისი > ვიკიპედია";
 "nearby-location-general-error" = "თქვენი ადგილმდებარეობის განსაზღვრა შეუძლებელია. გადასატვირთად აწიეთ ან სცადეთ მოგვიანებით.";
 "nearby-wifi" = "უფლება მიეცი Wi-Fi-ს დაეხმაროს თქვენს მოწყობილობას, რათა უკეთ განსაზღვროს თქვენი ადგილმდებარეობა.";
+// Fuzzy
 "migration-update-progress-label" = "ადგილობრივი მონაცემების განახლება";
 "image-gallery-unknown-owner" = "ამტვირთველი უცნობია";
 "hockeyapp-alert-send-report" = "რეპორტის გაგზავნა";

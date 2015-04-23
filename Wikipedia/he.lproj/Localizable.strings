@@ -128,6 +128,8 @@
 "saved-pages-clear-confirmation-heading" = "למחוק את כל הפריטים השמורים?";
 "saved-pages-clear-confirmation-sub-heading" = "לא ניתן לבטל את הפעולה הזאת!";
 "saved-pages-clear-cancel" = "ביטול";
+// Fuzzy
+"saved-pages-clear-delete-all" = "למחוק הכול";
 "saved-pages-refresh-cancel-alert-title" = "העדכון בוטל";
 "saved-pages-refresh-cancel-alert-message" = "ערכים בוויקיפדיה מתעדכנים כל הזמן. יש ללחוץ על רענון כדי לקבל את הגרסה החדשה ביותר של כל הערכים.";
 "saved-pages-refresh-cancel-alert-button" = "הבנתי";
@@ -251,7 +253,9 @@
 "nearby-location-updates-settings-menu" = "פרטיות > שירותי מיקום > ויקיפדיה";
 "nearby-location-general-error" = "לא ניתן להבין מה המיקום. נא למשוך לרענון או לנסות מאוחר יותר.";
 "nearby-wifi" = "הפעלת וייפיי יכולה לעזור למכשיר שלך להבין את המיקום טוב יותר.";
+// Fuzzy
 "migration-update-progress-label" = "שדרוג נתונים מקומיים";
+// Fuzzy
 "migration-update-progress-count-label" = "המרת ערך $1 מתוך $2";
 "image-gallery-unknown-owner" = "המעלֶה אינו ידוע.";
 "hockeyapp-alert-question" = "האם לשלוח דיווח קריסה אל $1 כדי שוויקימדיה תוכל לתקן את הקריסה שלך?";

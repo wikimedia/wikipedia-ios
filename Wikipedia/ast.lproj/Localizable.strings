@@ -99,17 +99,21 @@
 "main-menu-terms-of-use" = "Condiciones d'usu";
 "main-menu-rate-app" = "Calificar app";
 "main-menu-heading-zero" = "Wikipedia Zero";
-// Fuzzy
-"main-menu-heading-legal" = "Xíriga llegal";
+"main-menu-heading-legal" = "Privacidá y Condiciones";
 "main-menu-show-today" = "Güei";
+"main-menu-more" = "Más...";
+"main-menu-heading-debug" = "Depurar";
+"main-menu-debug-crash" = "Fallar";
 "saved-pages-title" = "Páxines guardaes";
 "saved-pages-clear-confirmation-heading" = "¿Desaniciar tolos elementos guardaos?";
 "saved-pages-clear-confirmation-sub-heading" = "¡Esata aición nun pue desfacese!";
 "saved-pages-clear-cancel" = "Encaboxar";
 // Fuzzy
-"page-history-title" = "Historial de la páxina";
-// Fuzzy
-"page-history-downloading" = "Cargando l'historial de la páxina...";
+"saved-pages-clear-delete-all" = "Desaniciar too";
+"saved-pages-refresh-cancel-alert-title" = "Anovamientu encaboxáu";
+"saved-pages-refresh-cancel-alert-button" = "Entendílo";
+"page-history-title" = "Historial del artículu";
+"page-history-downloading" = "Cargando l'historial del artículu...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Aniciar sesión";
 "navbar-title-mode-login-and-save" = "Aniciar sesión y guardar";
@@ -121,8 +125,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Necesítase una comprobación rápida";
 "navbar-title-mode-edit-wikitext-summary" = "Describa la so edición";
 "navbar-title-mode-edit-wikitext-save" = "Guardar";
-// Fuzzy
-"edit-summary-choice-linked-words" = "Pallabres enllazaes";
+"edit-summary-choice-linked-words" = "Enllaces amestaos";
 "edit-summary-choice-fixed-grammar" = "Igua gramatical";
 "edit-summary-choice-fixed-inaccuracy" = "Imprecisión correxida";
 "edit-summary-choice-fixed-styling" = "Igua d'estilu";
@@ -132,8 +135,7 @@
 "edit-summary-choice-added-clarification" = "Amestada una aclaración";
 "edit-summary-choice-other" = "Otros";
 "edit-summary-description" = "Un resume específicu ayuda a los co-editores a revisar aína les sos ediciones. Tamién pue esbillar ente les etiquetes d'abaxo.";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "¿Cómo ameyoró la páxina?";
+"edit-summary-field-placeholder-text" = "Otres formes nes qu'ameyorasti l'artículu";
 "edit-summary-title" = "¿Cómo ameyorasti l'artículu?";
 "fetching-random-article" = "Baxando un artículu al debalu";
 "article-pull-to-refresh-prompt" = "Tirar pa refrescar l'artículu";
@@ -143,18 +145,34 @@
 "credits-gerrit-repo" = "Principal de la app (Gerrit)";
 "credits-github-mirror" = "Espeyu de la app (GitHub)";
 "credits-external-libraries" = "Esternu";
+"about-title" = "Tocante a";
+"about-wikipedia" = "Wikipedia";
+"about-contributors" = "collaboradores";
+"about-testers" = "probadores";
+"about-testers-details" = "Control de calidá comprobáu por $1";
+"about-translators" = "traductores";
+"about-translators-details" = "Traducida por voluntarios en $1";
+"about-libraries" = "biblioteques utilizaes";
+"about-libraries-license" = "Llicencia";
+"about-repositories" = "repositorios";
+"about-send-feedback" = "Unviar comentariu sobro la app";
+"about-product-of" = "Un productu de la $1";
+"about-wikimedia-foundation" = "Fundación Wikimedia";
 "share-menu-save-page" = "Guardar artículu";
 "share-menu-page-saved" = "Artículu guardáu";
+"share-custom-menu-item" = "Compartir";
+"share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "«$1» en @Wikipedia: «$2»";
+"share-as-image" = "Compartir como imaxe";
+"share-as-text" = "Compartir como testu";
 "timestamp-just-now" = "agora mesmo";
 "timestamp-minutes" = "hai %d minutos";
 "timestamp-hours" = "hai %d hores";
 "timestamp-days" = "hai %d díes";
 "timestamp-months" = "hai %d meses";
 "timestamp-years" = "hai %d años";
-// Fuzzy
-"lastmodified-by-user" = "Cambiada $1 por $2";
-// Fuzzy
-"lastmodified-by-anon" = "Cambiada $1 por un usuariu anónimu";
+"lastmodified-by-user" = "Editada $1 por $2";
+"lastmodified-by-anon" = "Editada $1 por un usuariu anónimu";
 "button-next" = "Siguiente";
 "button-done" = "Fecho";
 "button-save" = "Guardar";
@@ -191,7 +209,17 @@
 "menu-w-accessibility-label" = "Menú";
 "menu-toc-accessibility-label" = "Conteníu";
 "menu-search-accessibility-label" = "Guetar";
+"menu-reload-accessibility-label" = "Recargar";
 "menu-cancel-accessibility-label" = "Encaboxar";
 "menu-share-accessibility-label" = "Compartir";
 "menu-more-accessibility-label" = "Más axustes";
 "menu-trash-accessibility-label" = "Desaniciar";
+"nearby-title" = "Cercanu";
+"nearby-distance-label-meters" = "$1 m";
+"nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-feet" = "$1 pies";
+"nearby-distance-label-miles" = "$1 milles";
+"nearby-pull-to-refresh-prompt" = "Estira pa refrescar";
+"nearby-pull-to-refresh-is-refreshing" = "Refrescando";
+"nearby-open-in-maps" = "Abrir en Mapes";
+"nearby-cancel" = "Encaboxar";

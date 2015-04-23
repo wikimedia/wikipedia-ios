@@ -124,6 +124,8 @@
 "saved-pages-clear-confirmation-heading" = "Alle gespeicherten Objekte löschen?";
 "saved-pages-clear-confirmation-sub-heading" = "Diese Aktion kann nicht rückgängig gemacht werden!";
 "saved-pages-clear-cancel" = "Abbrechen";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Alle löschen";
 "saved-pages-refresh-cancel-alert-title" = "Aktualisierung abgebrochen";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-Artikel werden ständig aktualisiert. Tippe auf „Aktualisieren“, um die neuesten Versionen aller Artikel abzurufen.";
 "saved-pages-refresh-cancel-alert-button" = "Verstanden";
@@ -247,9 +249,16 @@
 "nearby-location-updates-settings-menu" = "Datenschutz > Ortungsdienste > Wikipedia";
 "nearby-location-general-error" = "Standort konnte nicht bestimmt werden. Zum Aktualisieren ziehen oder später erneut versuchen.";
 "nearby-wifi" = "Das Aktivieren von Wi-Fi kann dabei helfen, den Standort deines Gerätes besser zu bestimmen.";
-"migration-update-progress-label" = "Aktualisiere lokale Daten";
+"migration-update-progress-label" = "Migriere lokale Daten";
 "migration-update-progress-count-label" = "Migriere Artikel $1 von $2";
+"migration-prompt-title" = "Sieht so aus, als ob wir einen Verlauf haben!";
+"migration-prompt-message" = "Wir müssen deine gespeicherten und letzten Seiten übernehmen. Dies kann eine Minute dauern …";
+"migration-confirm-button-title" = "Meine Sachen übernehmen";
+"migration-skip-button-title" = "Löschen";
 "image-gallery-unknown-owner" = "Hochlader unbekannt.";
+"image-gallery-fetch-image-info-error-title" = "Die Bilder konnten nicht heruntergeladen werden";
+"image-gallery-fetch-image-info-error-message" = "Die Bilder für diesen Artikel konnten nicht heruntergeladen werden. Bitte aktualisiere den Artikel und versuche es erneut.";
+"image-gallery-fetch-image-info-error-ok" = "Okay";
 "hockeyapp-alert-question" = "Möchtest du einen Absturzbericht an $1 senden, so dass Wikimedia deinen Absturz überprüfen kann?";
 "hockeyapp-alert-question-with-response-field" = "Möchtest du einen Absturzbericht an $1 senden, so dass Wikimedia deinen Absturz überprüfen kann? Bitte beschreibe, was passiert ist, als der Absturz aufgetreten ist:";
 "hockeyapp-alert-title" = "Leider ist die App beim letzten Mal abgestürzt";

@@ -8,6 +8,7 @@
 "article-languages-filter-placeholder" = "د ژبې چاڼگر";
 "article-read-more-title" = "نور لوستل";
 "info-box-close-text" = "تړل";
+"table-title-other" = "نور مالومات";
 "history-label" = "وروستني";
 "history-section-today" = "نن";
 "history-section-yesterday" = "پرون";
@@ -64,10 +65,10 @@
 "main-menu-more" = "نور ...";
 "saved-pages-title" = "خوندي مخونه";
 "saved-pages-clear-cancel" = "ناگارل";
+// Fuzzy
+"saved-pages-clear-delete-all" = "ټول ړنگول";
 "saved-pages-refresh-cancel-alert-button" = "پوه شوم";
-// Fuzzy
 "page-history-title" = "د ليکنې پېښليک";
-// Fuzzy
 "page-history-downloading" = "د ليکنې پېښليک رابرسېرېږي...";
 "navbar-title-mode-edit-wikitext" = "سمول";
 "navbar-title-mode-login" = "ننوتل";
@@ -76,8 +77,7 @@
 "navbar-title-mode-create-account-and-save" = "گڼون جوړول او خوندي کول";
 "navbar-title-mode-edit-wikitext-preview" = "مخليدنه";
 "navbar-title-mode-edit-wikitext-save" = "خوندي کول";
-// Fuzzy
-"edit-summary-choice-linked-words" = "تړنې ورگډې کړې";
+"edit-summary-choice-linked-words" = "ورگډې شوې تړنې";
 "edit-summary-choice-other" = "بل";
 "about-title" = "په اړه";
 "about-wikipedia" = "ويکيپېډيا";

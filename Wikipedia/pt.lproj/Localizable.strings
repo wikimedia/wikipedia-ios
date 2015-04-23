@@ -14,6 +14,7 @@
 "article-read-more-title" = "Ler mais";
 "info-box-title" = "Fatos rápidos";
 "info-box-close-text" = "Fechar";
+"table-title-other" = "Mais informação";
 "language-button-text" = "Pode ler este artigo em %d outros idiomas";
 "history-label" = "Recentes";
 "history-section-today" = "Hoje";
@@ -127,13 +128,13 @@
 "saved-pages-clear-confirmation-heading" = "Eliminar todos os itens gravados?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
 "saved-pages-clear-cancel" = "Cancelar";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Apagar tudo";
 "saved-pages-refresh-cancel-alert-title" = "Atualização cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Os artigos da Wikipédia são atualizados a todo o instante. Toque em atualizar para obter as versões mais recentes de todos os artigos.";
 "saved-pages-refresh-cancel-alert-button" = "Percebido";
-// Fuzzy
-"page-history-title" = "Histórico da página";
-// Fuzzy
-"page-history-downloading" = "A carregar o histórico da página...";
+"page-history-title" = "Histórico do artigo";
+"page-history-downloading" = "A carregar o histórico do artigo...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Entrar";
 "navbar-title-mode-login-and-save" = "Iniciar sessão e gravar";
@@ -145,7 +146,6 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Verificação rápida necessária";
 "navbar-title-mode-edit-wikitext-summary" = "Descreva as suas alterações";
 "navbar-title-mode-edit-wikitext-save" = "Gravar";
-// Fuzzy
 "edit-summary-choice-linked-words" = "Ligações adicionadas";
 "edit-summary-choice-fixed-grammar" = "Gramática corrigida";
 "edit-summary-choice-fixed-inaccuracy" = "Inexatidão corrigida";
@@ -156,8 +156,7 @@
 "edit-summary-choice-added-clarification" = "Adicionado esclarecimento";
 "edit-summary-choice-other" = "Outro";
 "edit-summary-description" = "Um resumo específico ajuda os co-editores a rever as suas edições. Pode escolher também uma das etiquetas abaixo.";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "Como melhorou a página?";
+"edit-summary-field-placeholder-text" = "Outras maneiras de melhorar o artigo";
 "edit-summary-title" = "De que forma contribuiu para melhorar a página?";
 "fetching-random-article" = "A obter um artigo aleatório";
 "article-pull-to-refresh-prompt" = "Puxe para actualizar o artigo";
@@ -254,6 +253,7 @@
 "nearby-location-updates-settings-menu" = "Privacidade > Serviços de localização > Wikipédia";
 "nearby-location-general-error" = "Não foi possível determinar a localização. Puxe para atualizar ou tente novamente mais tarde.";
 "nearby-wifi" = "Ativar o WiFi pode ajudar o seu dispositivo a determinar a sua localização.";
+// Fuzzy
 "migration-update-progress-label" = "A atualizar dados locais";
 "image-gallery-unknown-owner" = "Autor desconhecido.";
 "hockeyapp-alert-question" = "Deseja enviar um relatório da falha de $1 para que a Wikimedia possa resolver o seu problema?";

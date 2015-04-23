@@ -133,6 +133,8 @@
 "saved-pages-clear-confirmation-heading" = "Cancellare tutti gli elementi salvati?";
 "saved-pages-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
 "saved-pages-clear-cancel" = "Annulla";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Cancella tutto";
 "saved-pages-refresh-cancel-alert-title" = "Aggiornamento annullato";
 "saved-pages-refresh-cancel-alert-message" = "Le voci di Wikipedia sono aggiornate continuamente. Tocca aggiorna per ottenere le versioni più recenti di tutte le voci.";
 "saved-pages-refresh-cancel-alert-button" = "OK!";
@@ -260,7 +262,9 @@
 "nearby-location-updates-settings-menu" = "Privacy > Localizzazione > Wikipedia";
 "nearby-location-general-error" = "Impossibile determinare la posizione. Tira su per ricaricare o riprova più tardi.";
 "nearby-wifi" = "Abilitando il WiFi, aiuti il dispositivo a determinar meglio la tua posizione.";
+// Fuzzy
 "migration-update-progress-label" = "Aggiornamento di dati locali";
+// Fuzzy
 "migration-update-progress-count-label" = "Migrazione della voce $1 di $2";
 "image-gallery-unknown-owner" = "Uploader sconosciuto.";
 "hockeyapp-alert-question" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminare il crash?";

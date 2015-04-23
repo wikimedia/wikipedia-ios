@@ -97,6 +97,8 @@
 "saved-pages-clear-confirmation-sub-heading" = "សកម្មភាពនេះមិនអាចឈប់ធ្វើវិញបានទេ!";
 "saved-pages-clear-cancel" = "បោះបង់";
 // Fuzzy
+"saved-pages-clear-delete-all" = "លុបចោលទាំងអស់";
+// Fuzzy
 "page-history-title" = "ប្រវត្តិអត្ថបទ";
 // Fuzzy
 "page-history-downloading" = "ផ្ទុកប្រវត្តិអត្ថបទ...";

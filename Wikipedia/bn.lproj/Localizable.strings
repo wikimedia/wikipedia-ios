@@ -8,6 +8,7 @@
 "article-languages-cancel" = "বাতিল";
 "article-languages-downloading" = "নিবন্ধের ভাষাসমূহ লোড হচ্ছে...";
 "article-languages-filter-placeholder" = "ভাষা ছাকনী";
+"table-title-other" = "আরও তথ্য";
 "language-button-text" = "আপনি এই নিবন্ধ %dটি ভাষায় পড়তে পারেন";
 "history-label" = "সাম্প্রতিক";
 "history-section-today" = "আজ";
@@ -106,12 +107,12 @@
 "saved-pages-title" = "সংরক্ষিত পাতা";
 "saved-pages-clear-confirmation-heading" = "সংরক্ষিত সব আইটেম অপসারণ করবেন?";
 "saved-pages-clear-cancel" = "বাতিল";
+// Fuzzy
+"saved-pages-clear-delete-all" = "সব মুছে ফেলুন";
 "saved-pages-refresh-cancel-alert-title" = "আপলোড বাতিল হয়েছে";
 "saved-pages-refresh-cancel-alert-button" = "বুঝেছি";
-// Fuzzy
-"page-history-title" = "পাতার ইতিহাস";
-// Fuzzy
-"page-history-downloading" = "পাতার ইতিহাস লোড হচ্ছে...";
+"page-history-title" = "নিবন্ধের ইতিহাস";
+"page-history-downloading" = "নিবন্ধের ইতিহাস লোড হচ্ছে...";
 "navbar-title-mode-edit-wikitext" = "সম্পাদনা";
 "navbar-title-mode-login" = "প্রবেশ";
 "navbar-title-mode-login-and-save" = "প্রবেশ করুন ও সংরক্ষণ করুন";
@@ -123,7 +124,6 @@
 "navbar-title-mode-edit-wikitext-captcha" = "দ্রুত যাচাইকরণের প্রয়োজন";
 "navbar-title-mode-edit-wikitext-summary" = "আপনার সম্পাদনা বর্ণনা করুন।";
 "navbar-title-mode-edit-wikitext-save" = "সংরক্ষণ";
-// Fuzzy
 "edit-summary-choice-linked-words" = "লিংক সংযোজন";
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-inaccuracy" = "অশুদ্ধ ঠিক করা";

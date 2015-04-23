@@ -87,6 +87,8 @@
 "saved-pages-clear-confirmation-sub-heading" = "Ова радња се не може поништити!";
 "saved-pages-clear-cancel" = "Откажи";
 // Fuzzy
+"saved-pages-clear-delete-all" = "Обрисати све";
+// Fuzzy
 "page-history-title" = "Историја странице";
 // Fuzzy
 "page-history-downloading" = "Учитавам историју странице...";

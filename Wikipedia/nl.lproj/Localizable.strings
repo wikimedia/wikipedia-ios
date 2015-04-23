@@ -130,6 +130,8 @@
 "saved-pages-clear-confirmation-heading" = "Alle opgeslagen items verwijderen?";
 "saved-pages-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";
 "saved-pages-clear-cancel" = "Annuleren";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Alles verwijderen";
 "saved-pages-refresh-cancel-alert-title" = "Bijwerken geanuleerd";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia artikels worden constant bijgewerkt. Druk op vernieuwen om de nieuwste versie van de artikels te bekijken.";
 "saved-pages-refresh-cancel-alert-button" = "Begrepen";
@@ -257,6 +259,7 @@
 "nearby-location-updates-settings-menu" = "Privacy > Locatievoorzieningen > Wikipedia";
 "nearby-location-general-error" = "Kan locatie niet bepalen. Trek naar beneden om bij te werken of probeer het later opnieuw.";
 "nearby-wifi" = "Het inschakelen van Wi-Fi zorgt voor een nauwkeuriger locatie.";
+// Fuzzy
 "migration-update-progress-label" = "Lokale gegevens bijwerken";
 "image-gallery-unknown-owner" = "Uploader onbekend.";
 "hockeyapp-alert-question" = "Wilt u het crash rapport naar $1 versturen, zodat Wikimedia deze kan bekijken?";

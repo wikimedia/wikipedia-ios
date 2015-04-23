@@ -3,6 +3,7 @@
 // Author: Fitoschido
 // Author: Macofe
 // Author: Maxí
+// Author: Sveinn í Felli
 
 "article-languages-label" = "Velja tungumál";
 "article-languages-cancel" = "Hætta við";
@@ -10,6 +11,7 @@
 "article-languages-filter-placeholder" = "Tungumálasía";
 "info-box-title" = "Flýtireyndir";
 "info-box-close-text" = "Loka";
+"table-title-other" = "Nánari upplýsingar";
 "language-button-text" = "Þessi grein er til á %d öðrum tungumálum";
 "history-label" = "Nýlegt";
 "history-section-today" = "Í dag";
@@ -123,9 +125,9 @@
 "saved-pages-clear-confirmation-sub-heading" = "Þessa aðgerð er ekki hægt að afturkalla!";
 "saved-pages-clear-cancel" = "Hætta við";
 // Fuzzy
+"saved-pages-clear-delete-all" = "Eyða öllu";
 "page-history-title" = "Breytingaskrá greinar";
-// Fuzzy
-"page-history-downloading" = "Hleður breytingaskrá greinar...";
+"page-history-downloading" = "Hleður inn breytingaskrá greinar...";
 "navbar-title-mode-edit-wikitext" = "Breyta";
 "navbar-title-mode-login" = "Innskrá";
 "navbar-title-mode-login-and-save" = "Innskrá og vista";
@@ -137,8 +139,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Hraðstaðfesting krefst";
 "navbar-title-mode-edit-wikitext-summary" = "Lýstu breytingu þinni";
 "navbar-title-mode-edit-wikitext-save" = "Vista";
-// Fuzzy
-"edit-summary-choice-linked-words" = "Bætti við tenglum";
+"edit-summary-choice-linked-words" = "Viðbættir tenglar";
 "edit-summary-choice-fixed-grammar" = "Lagaði málfræði";
 "edit-summary-choice-fixed-inaccuracy" = "Lagaði skekkju";
 "edit-summary-choice-fixed-styling" = "Lagaði málfar";
@@ -148,8 +149,7 @@
 "edit-summary-choice-added-clarification" = "Bætti við útskýringu";
 "edit-summary-choice-other" = "Annað";
 "edit-summary-description" = "Nákvæm lýsing hjálpar öðrum notendum að fara fljótlega yfir breytingar þínar. Þú getur einnig valið úr listanum hér fyrir neðan.";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "Aðrar leiðir sem þú bættir greinina";
+"edit-summary-field-placeholder-text" = "Aðrar leiðir sem þú notaðir til að bæta greinina";
 "edit-summary-title" = "Hvernig bættir þú greinina?";
 "fetching-random-article" = "Sækir handahófsvalda grein";
 "article-pull-to-refresh-prompt" = "Toga til að endurhlaða greinina";

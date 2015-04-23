@@ -132,6 +132,8 @@
 "saved-pages-clear-confirmation-heading" = "Radera alla sparade objekt?";
 "saved-pages-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
 "saved-pages-clear-cancel" = "Avbryt";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Radera alla";
 "saved-pages-refresh-cancel-alert-title" = "Uppdatering avbruten";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-artiklar uppdateras hela tiden. Tryck på uppdatera för att få den senaste versionen av alla artiklar.";
 "saved-pages-refresh-cancel-alert-button" = "Jag förstår";
@@ -255,7 +257,9 @@
 "nearby-location-updates-settings-menu" = "Sekretess > Platstjänster > Wikipedia";
 "nearby-location-general-error" = "Det gick inte att bestämma plats. Dra för att uppdatera eller försök igen senare.";
 "nearby-wifi" = "Att aktivera wifi kan hjälpa din enhet att bättre avgöra din position.";
+// Fuzzy
 "migration-update-progress-label" = "Uppgraderar lokal data";
+// Fuzzy
 "migration-update-progress-count-label" = "Migrerar artikel $1 av $2";
 "image-gallery-unknown-owner" = "Okänd uppladdare.";
 "hockeyapp-alert-question" = "Vill du skicka en kraschrapport till $1 så kan Wikimedia kan undersöka din krasch?";

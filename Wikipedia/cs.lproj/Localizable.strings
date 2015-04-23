@@ -98,6 +98,8 @@
 "main-menu-nearby" = "Poblíž";
 "main-menu-more" = "Více…";
 "saved-pages-title" = "Uložené stránky";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Smazat vše";
 "page-history-title" = "Historie článku";
 "page-history-downloading" = "Načítání historie článku…";
 "navbar-title-mode-edit-wikitext" = "Upravit";

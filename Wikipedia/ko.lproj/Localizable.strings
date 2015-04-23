@@ -126,6 +126,8 @@
 "saved-pages-clear-confirmation-heading" = "모든 저장된 항목을 삭제하겠습니까?";
 "saved-pages-clear-confirmation-sub-heading" = "이 동작은 취소할 수 없습니다!";
 "saved-pages-clear-cancel" = "취소";
+// Fuzzy
+"saved-pages-clear-delete-all" = "모두 삭제";
 "saved-pages-refresh-cancel-alert-title" = "업데이트 취소됨";
 "saved-pages-refresh-cancel-alert-message" = "위키백과 글은 시시때때로 업데이트 됩니다. 모든 글의 최신 버전을 볼려면 새로고침하세요.";
 "saved-pages-refresh-cancel-alert-button" = "알았습니다!";
@@ -253,5 +255,6 @@
 "nearby-location-updates-settings-menu" = "개인 정보 보호 > 위치 서비스 > 위키백과";
 "nearby-location-general-error" = "위치를 확정할 수 없습니다. 새로 고치려면 당기거나 나중에 다시 시도하세요.";
 "nearby-wifi" = "Wi-Fi를 활성화하면 장치가 위치를 더 정확하도록 도울 수 있습니다.";
+// Fuzzy
 "migration-update-progress-label" = "로컬 데이터 업그레이드";
 "image-gallery-unknown-owner" = "업로더 모름";

@@ -17,6 +17,7 @@
 "article-languages-filter-placeholder" = "Filtr językowy";
 "article-read-more-title" = "Czytaj więcej";
 "info-box-close-text" = "Zamknij";
+"table-title-other" = "Więcej informacji";
 "language-button-text" = "Możesz czytać ten artykuł w %d innych językach.";
 "history-label" = "Ostatnie";
 "history-section-today" = "Dzisiaj";
@@ -107,10 +108,10 @@
 "saved-pages-clear-confirmation-heading" = "Usunąć wszystkie zapisane elementy?";
 "saved-pages-clear-confirmation-sub-heading" = "Ta akcja nie można zostać cofnięta!";
 "saved-pages-clear-cancel" = "Anuluj";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Usuń wszystko";
 "saved-pages-refresh-cancel-alert-title" = "Aktualizacja anulowana";
-// Fuzzy
-"page-history-title" = "Historia strony";
-// Fuzzy
+"page-history-title" = "Historia artykułu";
 "page-history-downloading" = "Ładowanie historii artykułu...";
 "navbar-title-mode-edit-wikitext" = "Edytuj";
 "navbar-title-mode-login" = "Zaloguj się";
@@ -121,8 +122,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Podgląd";
 "navbar-title-mode-edit-wikitext-captcha" = "Szybka weryfikacja wymagana";
 "navbar-title-mode-edit-wikitext-save" = "Zapisz";
-// Fuzzy
-"edit-summary-choice-linked-words" = "Dodano linki";
+"edit-summary-choice-linked-words" = "Dodane linki";
 "edit-summary-choice-fixed-grammar" = "Poprawiono pisownię";
 "edit-summary-choice-fixed-styling" = "Poprawiono stylistykę";
 "edit-summary-choice-fixed-typos" = "Poprawiono literówkę";
