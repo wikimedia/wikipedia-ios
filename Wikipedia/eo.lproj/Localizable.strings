@@ -90,6 +90,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Antaŭrigardi";
 "navbar-title-mode-edit-wikitext-summary" = "Priskribu vian redakton";
 "navbar-title-mode-edit-wikitext-save" = "Konservi";
+// Fuzzy
 "edit-summary-choice-linked-words" = "Aldonis ligilojn";
 "edit-summary-choice-fixed-grammar" = "Ĝustigis gramatikon";
 "edit-summary-choice-fixed-styling" = "Ĝustigis stilon";
@@ -98,6 +99,7 @@
 "edit-summary-choice-added-missing-info" = "Aldonis mankantan informon";
 "edit-summary-choice-added-clarification" = "Aldonis klarigon";
 "edit-summary-choice-other" = "Alia";
+// Fuzzy
 "edit-summary-field-placeholder-text" = "Aliaj manieroj en kiuj vi plibonigis la artikolon";
 "edit-summary-title" = "Kiel vi plibonigis la artikolon?";
 "about-title" = "Pri";
