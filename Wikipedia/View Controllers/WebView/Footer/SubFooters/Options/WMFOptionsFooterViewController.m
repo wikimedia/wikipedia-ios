@@ -18,26 +18,26 @@
 
 #pragma mark Font sizes
 
-static const CGFloat kGlyphButtonFontSize   = 23.0f;
-static const CGFloat kOptionTextFontSize    = 12.0f;
-static const CGFloat kOptionTextLineSpacing = 2.0f;
+static CGFloat const kGlyphButtonFontSize   = 23.0f;
+static CGFloat const kOptionTextFontSize    = 12.0f;
+static CGFloat const kOptionTextLineSpacing = 2.0f;
 
 #pragma mark Colors
 
-static const NSInteger kBaseTextColor = 0x565656;
+static NSInteger const kBaseTextColor = 0x565656;
 
-static const NSInteger kLastModGlyphBackgroundColor = 0x565656;
-static const NSInteger kLastModGlyphForgroundColor  = 0xffffff;
-static const NSInteger kLastModTimestampColor       = 0x565656;
-static const NSInteger kLastModUsernameColor        = 0x565656;
+static NSInteger const kLastModGlyphBackgroundColor = 0x565656;
+static NSInteger const kLastModGlyphForgroundColor  = 0xffffff;
+static NSInteger const kLastModTimestampColor       = 0x565656;
+static NSInteger const kLastModUsernameColor        = 0x565656;
 
-static const NSInteger kLangGlyphBackgroundColor = 0x565656;
-static const NSInteger kLangGlyphForgroundColor  = 0xffffff;
-static const NSInteger kLangCountColor           = 0x565656;
+static NSInteger const kLangGlyphBackgroundColor = 0x565656;
+static NSInteger const kLangGlyphForgroundColor  = 0xffffff;
+static NSInteger const kLangCountColor           = 0x565656;
 
 #pragma mark Glyph icon
 
-static const CGFloat kGlyphIconBaselineOffset = 1.6f;
+static CGFloat const kGlyphIconBaselineOffset = 1.6f;
 
 #pragma mark Private properties
 

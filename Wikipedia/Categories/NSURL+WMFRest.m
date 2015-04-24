@@ -6,7 +6,7 @@
 
 @implementation NSURL (WMFRest)
 
--(BOOL)wmf_conformsToScheme:(NSString *)scheme andHasKey:(NSString *)key {
+- (BOOL)wmf_conformsToScheme:(NSString*)scheme andHasKey:(NSString*)key {
     return ([[self scheme] wmf_isEqualToStringIgnoringCase:scheme] && [[self host] wmf_isEqualToStringIgnoringCase:key]);
 }
 

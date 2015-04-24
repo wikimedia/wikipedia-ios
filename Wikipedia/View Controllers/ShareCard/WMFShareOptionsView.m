@@ -10,7 +10,7 @@
 #import "PaddedLabel.h"
 #import "UIView+WMFRoundCorners.h"
 
-static const int kCornerRadius = 4.2f;
+static int const kCornerRadius = 4.2f;
 
 @implementation WMFShareOptionsView
 

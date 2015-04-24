@@ -7,14 +7,14 @@
 #import "NSString+Extras.h"
 #import "UIColor+WMFHexColor.h"
 
-static const NSInteger kTitleColor  = 0x000000;
+static NSInteger const kTitleColor  = 0x000000;
 static CGFloat const kTitleFontSize = 21.0f;
 
-static const NSInteger kDescriptionColor    = 0x777777;
+static NSInteger const kDescriptionColor    = 0x777777;
 static CGFloat const kDescriptionFontSize   = 13.0f;
 static CGFloat const kDescriptionSpaceAbove = 3.0f;
 
-static const NSInteger kLanguageColor    = 0x999999;
+static NSInteger const kLanguageColor    = 0x999999;
 static CGFloat const kLanguageFontSize   = 10.0f;
 static CGFloat const kLanguageSpaceAbove = 5.0f;
 

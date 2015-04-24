@@ -325,13 +325,13 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
     self.progressView.alpha = 0.0;
 }
 
--(void)hideTrashButton {
-    MenuButton *trashButton = (MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TRASH];
+- (void)hideTrashButton {
+    MenuButton* trashButton = (MenuButton*)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TRASH];
     trashButton.alpha = 0.0;
 }
 
--(void)showTrashButton {
-    MenuButton *trashButton = (MenuButton *)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TRASH];
+- (void)showTrashButton {
+    MenuButton* trashButton = (MenuButton*)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TRASH];
     trashButton.alpha = 1.0;
 }
 
@@ -343,9 +343,9 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
     MenuButton* reloadButton = [self reloadButton];
     reloadButton.alpha = savedPageFound ? 1.0 : 0.0;
 
-    if (savedPageFound){
+    if (savedPageFound) {
         [self showTrashButton];
-    }else{
+    } else {
         [self hideTrashButton];
     }
 }

@@ -11,12 +11,12 @@
 
 #pragma mark Font sizes
 
-static const CGFloat kLicenseFontSize = 10.0f;
+static CGFloat const kLicenseFontSize = 10.0f;
 
 #pragma mark Colors
 
-static const NSInteger kLicenseTextColor = 0x565656;
-static const NSInteger kLicenseNameColor = 0x566893;
+static NSInteger const kLicenseTextColor = 0x565656;
+static NSInteger const kLicenseNameColor = 0x566893;
 
 #pragma mark License URL
 
@@ -65,7 +65,7 @@ NSString* const kLicenseTitleOnENWiki =
                             substitutionAttributes:@[substitutionStyle]];
 }
 
--(void)updateLocalizedText {
+- (void)updateLocalizedText {
     self.licenseLabel.attributedText = [self getAttributedStringForLicense];
 }
 

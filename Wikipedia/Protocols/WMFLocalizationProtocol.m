@@ -6,7 +6,7 @@
 #import "NSURL+WMFRest.h"
 
 __attribute__((constructor)) static void WMFRegisterLocalizationProtocol() {
-  [NSURLProtocol registerClass:[WMFLocalizationProtocol class]];
+    [NSURLProtocol registerClass:[WMFLocalizationProtocol class]];
 }
 
 @interface WMFLocalizationProtocol () <NSURLConnectionDelegate>
@@ -15,19 +15,19 @@ __attribute__((constructor)) static void WMFRegisterLocalizationProtocol() {
 
 @implementation WMFLocalizationProtocol
 
-+ (BOOL)canInitWithRequest:(NSURLRequest *)request {
++ (BOOL)canInitWithRequest:(NSURLRequest*)request {
     return [[request URL] wmf_conformsToScheme:@"wmf" andHasKey:@"localize"];
 }
 
-+ (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
++ (NSURLRequest*)canonicalRequestForRequest:(NSURLRequest*)request {
     return request;
 }
 
 // Some handling below based on http://devmonologue.com/ios/tutorials/nsurlprotocol-tutorial/
 
 - (void)startLoading {
-    NSString *key = [self getKeyFromURL:self.request.URL];
-    NSString *translation = [self getTranslationForKey:key];
+    NSString* key         = [self getKeyFromURL:self.request.URL];
+    NSString* translation = [self getTranslationForKey:key];
 
     NSAssert(translation.length > 1, @"translation length is zero for key: %@", key);
 
@@ -36,26 +36,26 @@ __attribute__((constructor)) static void WMFRegisterLocalizationProtocol() {
     [self sendResponseWithData:localizationStringData];
 }
 
--(NSString *)getKeyFromURL:(NSURL *)url {
+- (NSString*)getKeyFromURL:(NSURL*)url {
     NSAssert(self.request.URL.path.length > 1, @"wikipedia URLs must have a path: %@", self.request.URL);
     if (self.request.URL.path.length > 1) {
         return [self.request.URL.path substringFromIndex:1];
-    }else{
+    } else {
         return nil;
     }
 }
 
--(NSString *)getTranslationForKey:(NSString *)key {
+- (NSString*)getTranslationForKey:(NSString*)key {
     return MWCurrentArticleLanguageLocalizedString(key, nil);
 }
 
-- (void)sendResponseWithData:(NSData*)data{
+- (void)sendResponseWithData:(NSData*)data {
     [self handleResponse:data];
     [self handleResponseData:data];
     [self handleRequestFinished];
 }
 
-- (void)handleResponse:(NSData*)data{
+- (void)handleResponse:(NSData*)data {
     NSURLResponse* response = [[NSURLResponse alloc] initWithURL:self.request.URL
                                                         MIMEType:@"text/plain"
                                            expectedContentLength:data.length
@@ -65,16 +65,15 @@ __attribute__((constructor)) static void WMFRegisterLocalizationProtocol() {
           cacheStoragePolicy:NSURLCacheStorageNotAllowed];
 }
 
-- (void)handleResponseData:(NSData*)data{
+- (void)handleResponseData:(NSData*)data {
     [self.client URLProtocol:self didLoadData:data];
 }
 
-- (void)handleRequestFinished{
+- (void)handleRequestFinished {
     [self.client URLProtocolDidFinishLoading:self];
 }
 
 - (void)stopLoading {
-
 }
 
 @end

@@ -2,8 +2,8 @@
 #import "WikipediaAppUtils.h"
 #import <hpple/TFHpple.h>
 
-static const int kMinimumLengthForPreTransformedHTMLForSnippet = 40;
-static const int kHighestIndexForSubstringAfterHTMLRemoved     = 350;
+static int const kMinimumLengthForPreTransformedHTMLForSnippet = 40;
+static int const kHighestIndexForSubstringAfterHTMLRemoved     = 350;
 
 @implementation NSString (WMFHTMLParsing)
 

@@ -58,12 +58,11 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle) {
     ];
 }
 
-
 + (NSString*)currentArticleLanguageLocalizedString:(NSString*)key {
-    MWKSite* site = [SessionSingleton sharedInstance].currentArticleSite;
+    MWKSite* site            = [SessionSingleton sharedInstance].currentArticleSite;
     NSString* path           = [[NSBundle mainBundle] pathForResource:site.language ofType:@"lproj"];
     NSBundle* languageBundle = [NSBundle bundleWithPath:path];
-    NSString *translation = nil;
+    NSString* translation    = nil;
     if (languageBundle) {
         translation = [languageBundle localizedStringForKey:key value:@"" table:nil];
     }

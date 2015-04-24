@@ -19,8 +19,8 @@
 #import "UIImage+WMFFocalImageDrawing.h"
 #import "MWKArticle+Convenience.h"
 
-static const CGFloat kPlaceHolderImageAlpha                   = 0.3f;
-static const CGFloat kMinimumAcceptableCachedVariantThreshold = 0.6f;
+static CGFloat const kPlaceHolderImageAlpha                   = 0.3f;
+static CGFloat const kMinimumAcceptableCachedVariantThreshold = 0.6f;
 
 /*
    When YES this causes lead image faces to be highlighted in green and

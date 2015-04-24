@@ -7,17 +7,17 @@
 #import "UIColor+WMFHexColor.h"
 
 static CGFloat const kFontSize    = 16.0f;
-static const NSInteger kFontColor = 0x383838;
+static NSInteger const kFontColor = 0x383838;
 
 static CGFloat const kDescriptionFontSize    = 12.0f;
-static const NSInteger kDescriptionFontColor = 0x606060;
+static NSInteger const kDescriptionFontColor = 0x606060;
 
 static CGFloat const kSnippetFontSize         = 12.0f;
-static const NSInteger kSnippetFontColor      = 0x000000;
-static const NSInteger kSnippetHighlightColor = 0x0000ff;
+static NSInteger const kSnippetFontColor      = 0x000000;
+static NSInteger const kSnippetHighlightColor = 0x0000ff;
 
 static CGFloat const kHighlightedFontSize    = 16.0f;
-static const NSInteger kHighlightedFontColor = 0x000000;
+static NSInteger const kHighlightedFontColor = 0x000000;
 
 static CGFloat const kPaddingAboveDescription = 2.0f;
 static CGFloat const kPaddingAboveSnippet     = 3.0f;
@@ -38,14 +38,14 @@ static CGFloat const kPaddingAboveSnippet     = 3.0f;
         (SearchResultAttributedString*)[[NSMutableAttributedString alloc] initWithString:title
                                                                               attributes:self.attributesTitle];
 
-    if (shouldHighlightWords){
+    if (shouldHighlightWords) {
         switch (searchType) {
             case SEARCH_TYPE_TITLES:
                 for (NSString* word in wordsToHighlight.copy) {
                     // Highlight matches in title.
                     NSRange rangeOfWord =
-                    [title rangeOfString:word
-                                 options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch | NSWidthInsensitiveSearch)];
+                        [title rangeOfString:word
+                                     options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch | NSWidthInsensitiveSearch)];
                     [outputString setAttributes:self.attributesHighlight
                                           range:rangeOfWord];
                 }
@@ -100,7 +100,7 @@ static CGFloat const kPaddingAboveSnippet     = 3.0f;
     if (!attributes) {
         NSMutableParagraphStyle* descriptionParagraphStyle = [[NSMutableParagraphStyle alloc] init];
         descriptionParagraphStyle.paragraphSpacingBefore = kPaddingAboveDescription;
-        attributes                            =
+        attributes                                       =
             @{
             NSFontAttributeName: [UIFont systemFontOfSize:(kDescriptionFontSize * MENUS_SCALE_MULTIPLIER)],
             NSForegroundColorAttributeName: [UIColor wmf_colorWithHex:kDescriptionFontColor alpha:1.0f],
@@ -127,7 +127,7 @@ static CGFloat const kPaddingAboveSnippet     = 3.0f;
     if (!attributes) {
         NSMutableParagraphStyle* snippetParagraphStyle = [[NSMutableParagraphStyle alloc] init];
         snippetParagraphStyle.paragraphSpacingBefore = kPaddingAboveSnippet;
-        attributes                            =
+        attributes                                   =
             @{
             NSParagraphStyleAttributeName: snippetParagraphStyle,
             NSFontAttributeName: [UIFont italicSystemFontOfSize:(kSnippetFontSize * MENUS_SCALE_MULTIPLIER)],
@@ -142,7 +142,7 @@ static CGFloat const kPaddingAboveSnippet     = 3.0f;
     if (!attributes) {
         NSMutableParagraphStyle* snippetParagraphStyle = [[NSMutableParagraphStyle alloc] init];
         snippetParagraphStyle.paragraphSpacingBefore = kPaddingAboveSnippet;
-        attributes                   =
+        attributes                                   =
             @{
             NSParagraphStyleAttributeName: snippetParagraphStyle,
             NSFontAttributeName: [UIFont italicSystemFontOfSize:(kSnippetFontSize * MENUS_SCALE_MULTIPLIER)],

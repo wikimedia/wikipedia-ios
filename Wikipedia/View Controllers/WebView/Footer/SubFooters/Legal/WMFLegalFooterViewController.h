@@ -5,6 +5,6 @@
 
 @interface WMFLegalFooterViewController : UIViewController
 
--(void)updateLocalizedText;
+- (void)updateLocalizedText;
 
 @end

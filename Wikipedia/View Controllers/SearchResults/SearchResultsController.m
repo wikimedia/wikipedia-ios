@@ -516,14 +516,14 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     }
 }
 
--(BOOL)isReadMore {
+- (BOOL)isReadMore {
     return (self.type == WMFSearchResultsControllerTypeReadMore);
 }
 
--(NSString *)getSearchLanguage {
+- (NSString*)getSearchLanguage {
     if ([self isReadMore]) {
         return [SessionSingleton sharedInstance].currentArticleSite.language;
-    }else{
+    } else {
         return [SessionSingleton sharedInstance].searchLanguage;
     }
 }

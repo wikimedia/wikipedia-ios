@@ -74,16 +74,16 @@
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.225f
 
-static const CGFloat kScrollIndicatorLeftMargin        = 2.0f;
-static const CGFloat kScrollIndicatorWidth             = 2.5f;
-static const CGFloat kScrollIndicatorHeight            = 25.0f;
-static const CGFloat kScrollIndicatorCornerRadius      = 2.0f;
-static const CGFloat kScrollIndicatorBorderWidth       = 1.0f;
-static const CGFloat kScrollIndicatorAlpha             = 0.3f;
-static const NSInteger kScrollIndicatorBorderColor     = 0x000000;
-static const NSInteger kScrollIndicatorBackgroundColor = 0x000000;
+static CGFloat const kScrollIndicatorLeftMargin        = 2.0f;
+static CGFloat const kScrollIndicatorWidth             = 2.5f;
+static CGFloat const kScrollIndicatorHeight            = 25.0f;
+static CGFloat const kScrollIndicatorCornerRadius      = 2.0f;
+static CGFloat const kScrollIndicatorBorderWidth       = 1.0f;
+static CGFloat const kScrollIndicatorAlpha             = 0.3f;
+static NSInteger const kScrollIndicatorBorderColor     = 0x000000;
+static NSInteger const kScrollIndicatorBackgroundColor = 0x000000;
 
-static const CGFloat kBottomScrollSpacerHeight = 2000.0f;
+static CGFloat const kBottomScrollSpacerHeight = 2000.0f;
 
 // This controls how fast the swipe has to be (side-to-side).
 #define TOC_SWIPE_TRIGGER_MIN_X_VELOCITY 600.0f
@@ -93,7 +93,7 @@ static const CGFloat kBottomScrollSpacerHeight = 2000.0f;
 // TODO: rename the WebViewControllerVariableNames once we rename this class
 
 // Some dialects have complex characters, so we use 2 instead of 10
-static const int kMinimumTextSelectionLength = 2;
+static int const kMinimumTextSelectionLength = 2;
 
 @interface WebViewController ()
 {

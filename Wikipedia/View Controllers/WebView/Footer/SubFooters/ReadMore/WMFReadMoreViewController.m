@@ -35,7 +35,7 @@
     [self adjustConstraintsScaleForViews:@[self.titleLabel, self.optionsContainerView]];
 }
 
--(void)updateLocalizedText{
+- (void)updateLocalizedText {
     self.titleLabel.text = MWCurrentArticleLanguageLocalizedString(@"article-read-more-title", @"Read more");
 }
 

@@ -9,7 +9,7 @@
 #import "WMFSuggestedPagesFunnel.h"
 
 static NSString* const kSchemaName = @"MobileWikiAppArticleSuggestions";
-static const int kSchemaVersion    = 10590869;
+static int const kSchemaVersion    = 10590869;
 
 static NSString* const kActionKey             = @"action";
 static NSString* const kActionShown           = @"shown";

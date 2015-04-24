@@ -11,7 +11,7 @@
 #import "NSString+Extras.h"
 
 static NSString* const kSchemaName             = @"MobileWikiAppShareAFact";
-static const int kSchemaVersion                = 11331974;
+static int const kSchemaVersion                = 11331974;
 static NSString* const kActionKey              = @"action";
 static NSString* const kActionHighlight        = @"highlight";
 static NSString* const kActionShareTap         = @"sharetap";

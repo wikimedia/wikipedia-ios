@@ -5,11 +5,11 @@
 #import "UIColor+WMFHexColor.h"
 #import <Masonry/Masonry.h>
 
-static const CGFloat kActivityIndicatorWidth             = 100.0f;
-static const CGFloat kActivityIndicatorCornerRadius      = 10.0f;
-static const NSInteger kActivityIndicatorBackgroundColor = 0x000000;
+static CGFloat const kActivityIndicatorWidth             = 100.0f;
+static CGFloat const kActivityIndicatorCornerRadius      = 10.0f;
+static NSInteger const kActivityIndicatorBackgroundColor = 0x000000;
 
-static const CGFloat kFadeAnimationDuration = 0.33f;
+static CGFloat const kFadeAnimationDuration = 0.33f;
 
 @interface WMFLoadingIndicatorOverlay ()
 

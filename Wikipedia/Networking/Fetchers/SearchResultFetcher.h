@@ -40,7 +40,7 @@ typedef NS_ENUM (NSInteger, SearchReason) {
 - (instancetype)initAndSearchForTerm:(NSString*)searchTerm
                           searchType:(SearchType)searchType
                         searchReason:(SearchReason)searchReason
-                            language:(NSString *)language
+                            language:(NSString*)language
                           maxResults:(NSUInteger)maxResults
                          withManager:(AFHTTPRequestOperationManager*)manager
                   thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;

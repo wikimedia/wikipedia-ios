@@ -196,7 +196,7 @@
     return [self searchApiUrlForLanguage:self.searchLanguage];
 }
 
-- (NSString*)searchApiUrlForLanguage:(NSString *)language {
+- (NSString*)searchApiUrlForLanguage:(NSString*)language {
     NSString* endpoint = self.fallback ? @"" : @".m";
     return [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", language, endpoint, self.currentArticleSite.domain];
 }

@@ -265,7 +265,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 
 #pragma mark Scroll indicator
 
-static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
+static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)scrollIndicatorSetup {
     self.scrollIndicatorView                                           = [[UIView alloc] init];
@@ -890,18 +890,18 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     }];
 
     /*
-    [self.bridge addListener:@"disambigClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
+       [self.bridge addListener:@"disambigClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
 
         //NSLog(@"disambigClicked: %@", payload);
 
-    }];
+       }];
 
-    [self.bridge addListener:@"issuesClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
+       [self.bridge addListener:@"issuesClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
 
         //NSLog(@"issuesClicked: %@", payload);
 
-    }];
-    */
+       }];
+     */
 
     UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
                                                           action:@selector(shareSnippet:)];
