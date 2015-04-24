@@ -12,7 +12,7 @@
 
 - (NSData*)wmf_dataFromContentsOfFile:(NSString *)filename ofType:(NSString *)type {
     NSError* error;
-    NSData* data = [NSData dataWithContentsOfFile:[self pathForResource:filename ofType:@"json"]
+    NSData* data = [NSData dataWithContentsOfFile:[self pathForResource:filename ofType:type]
                                           options:0
                                             error:&error];
     NSParameterAssert(!error);
