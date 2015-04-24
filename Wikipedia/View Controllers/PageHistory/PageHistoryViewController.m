@@ -193,8 +193,7 @@
 
     NSNumber* daysAgo = sectionDict[@"daysAgo"];
     NSDate* date      = [NSDate dateWithDaysBeforeNow:daysAgo.integerValue];
-
-    label.text = [[NSDateFormatter wmf_shortTimeFormatter] stringFromDate:date];
+    label.text = [[NSDateFormatter wmf_longDateFormatter] stringFromDate:date];
 
     [view addSubview:label];
 

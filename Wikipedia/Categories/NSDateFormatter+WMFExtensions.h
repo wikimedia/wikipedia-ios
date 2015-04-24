@@ -33,4 +33,9 @@
  */
 + (NSDateFormatter*)wmf_shortTimeFormatterWithLocale:(NSLocale*)locale;
 
+/**
+ * Create a long style date formatter. Sample: "April 24, 2015".
+ */
++ (NSDateFormatter*)wmf_longDateFormatter;
+
 @end

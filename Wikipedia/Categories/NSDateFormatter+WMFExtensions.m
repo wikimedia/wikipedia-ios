@@ -37,4 +37,18 @@ static NSString* const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return shortTimeFormatter;
 }
 
++ (NSDateFormatter*)wmf_longDateFormatter {
+    static NSDateFormatter* longDateFormatter = nil;
+    if (!longDateFormatter) {
+        // See: https://www.mediawiki.org/wiki/Manual:WfTimestamp
+        longDateFormatter = [[NSDateFormatter alloc] init];
+        [longDateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [longDateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+        longDateFormatter.dateStyle         = NSDateFormatterLongStyle;
+        longDateFormatter.timeStyle         = NSDateFormatterNoStyle;
+        longDateFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
+    }
+    return longDateFormatter;
+}
+
 @end
