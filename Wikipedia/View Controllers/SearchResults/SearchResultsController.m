@@ -59,12 +59,6 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 
 @property (nonatomic) BOOL ignoreScrollEvents;
 
-@property (strong, nonatomic) NSDictionary* attributesTitle;
-@property (strong, nonatomic) NSDictionary* attributesDescription;
-@property (strong, nonatomic) NSDictionary* attributesHighlight;
-@property (strong, nonatomic) NSDictionary* attributesSnippet;
-@property (strong, nonatomic) NSDictionary* attributesSnippetHighlight;
-
 @property (nonatomic, strong, readwrite) IBOutlet WMFIntrinsicContentSizeAwareTableView* searchResultsTable;
 
 @property (nonatomic, strong) UIImage* placeholderImage;
@@ -99,47 +93,6 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     vc.minResultsBeforeRunningFullTextSearch = kWMFReadMoreNumberOfArticles;
     vc.highlightSearchTermInResultTitles     = NO;
     return vc;
-}
-
-- (void)setupStringAttributes {
-    NSMutableParagraphStyle* descriptionParagraphStyle = [[NSMutableParagraphStyle alloc] init];
-    descriptionParagraphStyle.paragraphSpacingBefore = SEARCH_RESULT_PADDING_ABOVE_DESCRIPTION;
-
-    NSMutableParagraphStyle* snippetParagraphStyle = [[NSMutableParagraphStyle alloc] init];
-    snippetParagraphStyle.paragraphSpacingBefore = SEARCH_RESULT_PADDING_ABOVE_SNIPPET;
-
-    self.attributesDescription =
-        @{
-        NSFontAttributeName: SEARCH_RESULT_DESCRIPTION_FONT,
-        NSForegroundColorAttributeName: SEARCH_RESULT_DESCRIPTION_FONT_COLOR,
-        NSParagraphStyleAttributeName: descriptionParagraphStyle
-    };
-
-    self.attributesTitle =
-        @{
-        NSFontAttributeName: SEARCH_RESULT_FONT,
-        NSForegroundColorAttributeName: SEARCH_RESULT_FONT_COLOR
-    };
-
-    self.attributesSnippet =
-        @{
-        NSParagraphStyleAttributeName: snippetParagraphStyle,
-        NSFontAttributeName: SEARCH_RESULT_SNIPPET_FONT,
-        NSForegroundColorAttributeName: SEARCH_RESULT_SNIPPET_FONT_COLOR
-    };
-
-    self.attributesSnippetHighlight =
-        @{
-        NSParagraphStyleAttributeName: snippetParagraphStyle,
-        NSFontAttributeName: SEARCH_RESULT_SNIPPET_FONT,
-        NSForegroundColorAttributeName: SEARCH_RESULT_SNIPPET_HIGHLIGHT_COLOR
-    };
-
-    self.attributesHighlight =
-        @{
-        NSFontAttributeName: SEARCH_RESULT_FONT_HIGHLIGHTED,
-        NSForegroundColorAttributeName: SEARCH_RESULT_FONT_HIGHLIGHTED_COLOR
-    };
 }
 
 - (void)setSearchString:(NSString*)searchString {
@@ -189,8 +142,6 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self setupStringAttributes];
 
     self.ignoreScrollEvents = NO;
     self.searchString       = @"";
@@ -382,12 +333,8 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
                                                 snippet:result[@"snippet"]
                                     wikiDataDescription:result[@"description"]
                                          highlightWords:self.searchStringWordsToHighlight
-                                             searchType:typeAsNumber.integerValue
-                                        attributesTitle:self.attributesTitle
-                                  attributesDescription:self.attributesDescription
-                                    attributesHighlight:self.attributesHighlight
-                                      attributesSnippet:self.attributesSnippet
-                             attributesSnippetHighlight:self.attributesSnippetHighlight];
+                                   shouldHighlightWords:![self isReadMore]
+                                             searchType:typeAsNumber.integerValue];
 
         result[@"attributedText"] = attributedResult;
     }
