@@ -135,58 +135,51 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 #pragma mark - save methods
 
+- (BOOL)ensurePathExists:(NSString*)path error:(NSError**)error {
+    return [[NSFileManager defaultManager] createDirectoryAtPath:path
+                                     withIntermediateDirectories:YES
+                                                      attributes:nil
+                                                           error:error];
+}
+
 - (void)ensurePathExists:(NSString*)path {
-    NSError* err;
-    [[NSFileManager defaultManager] createDirectoryAtPath:path
-                              withIntermediateDirectories:YES
-                                               attributes:nil
-                                                    error:&err];
-    if (err) {
-        @throw [NSException exceptionWithName:@"MWKDataStoreException"
-                                       reason:@"path creation failure"
-                                     userInfo:@{@"path": path, @"error": err}];
-    }
+    [self ensurePathExists:path error:NULL];
 }
 
-- (void)saveFile:(NSString*)filename atPath:(NSString*)path byPerforming:(NSError*(^)(NSString*))saveBlock {
-    [self ensurePathExists:path];
+- (BOOL)saveData:(NSData*)data toFile:(NSString*)filename atPath:(NSString*)path error:(NSError**)error {
+    [self ensurePathExists:path error:error];
     NSString* absolutePath = [path stringByAppendingPathComponent:filename];
-    NSError* error         = saveBlock(absolutePath);
-    if (error) {
-        @throw [NSException exceptionWithName:@"MWKDataStoreException"
-                                       reason:[NSString stringWithFormat:@"Failed to save %@ in %@.", filename, path]
-                                     userInfo:NSDictionaryOfVariableBindings(error)];
-    }
-}
-
-- (void)saveArray:(NSArray*)array path:(NSString*)path name:(NSString*)name {
-    [self saveFile:name atPath:path byPerforming:^NSError*(NSString* absPath) {
-        return [array writeToFile:absPath atomically:YES] ?
-        nil : [NSError errorWithDomain:@"MWKDataStoreArrayWriteToFileFailedException" code:1 userInfo:nil];
-    }];
-}
-
-- (void)saveDictionary:(NSDictionary*)dict path:(NSString*)path name:(NSString*)name {
-    [self saveFile:name atPath:path byPerforming:^NSError*(NSString* absPath) {
-        return [dict writeToFile:absPath atomically:YES] ?
-        nil : [NSError errorWithDomain:@"MWKDataStoreDictWriteToFileFailedException" code:1 userInfo:nil];
-    }];
-}
-
-- (void)saveString:(NSString*)string path:(NSString*)path name:(NSString*)name {
-    [self saveFile:name atPath:path byPerforming:^NSError*(NSString* absPath) {
-        NSError* err = nil;
-        [string writeToFile:absPath atomically:YES encoding:NSUTF8StringEncoding error:&err];
-        return err;
-    }];
+    return [data writeToFile:absolutePath options:NSDataWritingAtomic error:error];
 }
 
 - (void)saveData:(NSData*)data path:(NSString*)path name:(NSString*)name {
-    [self saveFile:name atPath:path byPerforming:^NSError*(NSString* absPath) {
-        NSError* err = nil;
-        [data writeToFile:absPath options:NSDataWritingAtomic error:&err];
-        return err;
-    }];
+    [self saveData:data toFile:name atPath:path error:NULL];
+}
+
+- (BOOL)saveArray:(NSArray*)array path:(NSString*)path name:(NSString*)name error:(NSError**)error {
+    NSData* data = [NSPropertyListSerialization dataWithPropertyList:array format:NSPropertyListXMLFormat_v1_0 options:0 error:error];
+    return [self saveData:data toFile:name atPath:path error:error];
+}
+
+- (void)saveArray:(NSArray*)array path:(NSString*)path name:(NSString*)name {
+    [self saveArray:array path:path name:name error:NULL];
+}
+
+- (BOOL)saveDictionary:(NSDictionary*)dict path:(NSString*)path name:(NSString*)name error:(NSError**)error {
+    NSData* data = [NSPropertyListSerialization dataWithPropertyList:dict format:NSPropertyListXMLFormat_v1_0 options:0 error:error];
+    return [self saveData:data toFile:name atPath:path error:error];
+}
+
+- (void)saveDictionary:(NSDictionary*)dict path:(NSString*)path name:(NSString*)name {
+    [self saveDictionary:dict path:path name:name error:NULL];
+}
+
+- (BOOL)saveString:(NSString*)string path:(NSString*)path name:(NSString*)name error:(NSError**)error {
+    return [self saveData:[string dataUsingEncoding:NSUTF8StringEncoding] toFile:name atPath:path error:error];
+}
+
+- (void)saveString:(NSString*)string path:(NSString*)path name:(NSString*)name {
+    [self saveString:string path:path name:name error:NULL];
 }
 
 - (void)saveArticle:(MWKArticle*)article {
@@ -221,10 +214,10 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     [self saveImage:image];
 }
 
-- (void)saveHistoryList:(MWKHistoryList*)list {
+- (BOOL)saveHistoryList:(MWKHistoryList*)list error:(NSError**)error {
     NSString* path       = self.basePath;
     NSDictionary* export = [list dataExport];
-    [self saveDictionary:export path:path name:@"History.plist"];
+    return [self saveDictionary:export path:path name:@"History.plist" error:error];
 }
 
 - (void)saveSavedPageList:(MWKSavedPageList*)list {

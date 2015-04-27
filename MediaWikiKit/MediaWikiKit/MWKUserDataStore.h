@@ -25,11 +25,14 @@
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
+- (BOOL)save:(NSError**)error;
 - (void)save;
+
 - (void)reset;
 
 - (void)updateHistory:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 - (void)savePage:(MWKTitle*)title;
 - (void)unsavePage:(MWKTitle*)title;
+
 
 @end
