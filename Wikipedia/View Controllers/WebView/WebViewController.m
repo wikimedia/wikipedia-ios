@@ -14,6 +14,27 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 
 @implementation WebViewController
 
+- (instancetype)initWithCoder:(NSCoder*)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self->session = [SessionSingleton sharedInstance];
+    }
+    return self;
+}
+
+- (instancetype)init {
+    return [self initWithSession:[SessionSingleton sharedInstance]];
+}
+
+- (instancetype)initWithSession:(SessionSingleton*)aSession {
+    NSParameterAssert(aSession);
+    self = [super init];
+    if (self) {
+        self->session = aSession;
+    }
+    return self;
+}
+
 - (BOOL)prefersStatusBarHidden {
     return NO;
 }
@@ -38,8 +59,6 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
     [self setupLeadImageContainer];
     [self setupTrackingFooter];
 
-    session = [SessionSingleton sharedInstance];
-
     self.bottomNavHeightConstraint.constant = CHROME_MENUS_HEIGHT;
 
     self.scrollingToTop = NO;
@@ -54,8 +73,6 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
     self.referencesVC = nil;
 
     self.sectionToEditId = 0;
-
-    [self setupBridge];
 
     __weak WebViewController* weakSelf = self;
     [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
@@ -776,152 +793,155 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 #pragma mark Webview obj-c to javascript bridge
 
-- (void)setupBridge {
-    self.bridge = [[CommunicationBridge alloc] initWithWebView:self.webView];
+- (CommunicationBridge*)bridge {
+    if (!_bridge) {
+        _bridge = [[CommunicationBridge alloc] initWithWebView:self.webView];
 
-    __weak WebViewController* weakSelf = self;
-    [self.bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-        WebViewController* strSelf = weakSelf;
-        if (!strSelf) {
-            return;
-        }
-
-        NSString* href = payload[@"href"];
-
-        if ([strSelf tocDrawerIsOpen]) {
-            [strSelf tocHide];
-            return;
-        }
-
-        if (!strSelf.referencesHidden) {
-            [strSelf referencesHide];
-        }
-
-        // @todo merge this link title extraction into MWSite
-        if ([href hasPrefix:@"/wiki/"]) {
-            // Ensure the menu is visible when navigating to new page.
-            [strSelf animateTopAndBottomMenuReveal];
-
-            MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithInternalLink:href];
-
-            [strSelf navigateToPage:pageTitle
-                    discoveryMethod:MWK_DISCOVERY_METHOD_LINK
-               showLoadingIndicator:YES];
-        } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
-            // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
-            if ([href hasPrefix:@"//"]) {
-                // Expand protocol-relative link to https -- secure by default!
-                href = [@"https:" stringByAppendingString:href];
+        __weak WebViewController* weakSelf = self;
+        [_bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
+            WebViewController* strSelf = weakSelf;
+            if (!strSelf) {
+                return;
             }
 
-            // TODO: make all of the stuff above parse the URL into parts
-            // unless it's /wiki/ or #anchor style.
-            // Then validate if it's still in Wikipedia land and branch appropriately.
-            if ([SessionSingleton sharedInstance].zeroConfigState.disposition &&
-                [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
-                strSelf.externalUrl = href;
-                UIAlertView* dialog = [[UIAlertView alloc]
-                                       initWithTitle:MWLocalizedString(@"zero-interstitial-title", nil)
-                                                 message:MWLocalizedString(@"zero-interstitial-leave-app", nil)
-                                                delegate:strSelf
-                                       cancelButtonTitle:MWLocalizedString(@"zero-interstitial-cancel", nil)
-                                       otherButtonTitles:MWLocalizedString(@"zero-interstitial-continue", nil)
-                                       , nil];
-                [dialog show];
+            NSString* href = payload[@"href"];
+
+            if ([strSelf tocDrawerIsOpen]) {
+                [strSelf tocHide];
+                return;
+            }
+
+            if (!strSelf.referencesHidden) {
+                [strSelf referencesHide];
+            }
+
+            // @todo merge this link title extraction into MWSite
+            if ([href hasPrefix:@"/wiki/"]) {
+                // Ensure the menu is visible when navigating to new page.
+                [strSelf animateTopAndBottomMenuReveal];
+
+                MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithInternalLink:href];
+
+                [strSelf navigateToPage:pageTitle
+                        discoveryMethod:MWK_DISCOVERY_METHOD_LINK
+                   showLoadingIndicator:YES];
+            } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
+                // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
+                if ([href hasPrefix:@"//"]) {
+                    // Expand protocol-relative link to https -- secure by default!
+                    href = [@"https:" stringByAppendingString:href];
+                }
+
+                // TODO: make all of the stuff above parse the URL into parts
+                // unless it's /wiki/ or #anchor style.
+                // Then validate if it's still in Wikipedia land and branch appropriately.
+                if ([SessionSingleton sharedInstance].zeroConfigState.disposition &&
+                    [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
+                    strSelf.externalUrl = href;
+                    UIAlertView* dialog = [[UIAlertView alloc]
+                                           initWithTitle:MWLocalizedString(@"zero-interstitial-title", nil)
+                                                     message:MWLocalizedString(@"zero-interstitial-leave-app", nil)
+                                                    delegate:strSelf
+                                           cancelButtonTitle:MWLocalizedString(@"zero-interstitial-cancel", nil)
+                                           otherButtonTitles:MWLocalizedString(@"zero-interstitial-continue", nil)
+                                           , nil];
+                    [dialog show];
+                } else {
+                    NSURL* url = [NSURL URLWithString:href];
+                    [[UIApplication sharedApplication] openURL:url];
+                }
+            }
+        }];
+
+        [_bridge addListener:@"editClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
+            WebViewController* strSelf = weakSelf;
+            if (!strSelf) {
+                return;
+            }
+
+            if ([strSelf tocDrawerIsOpen]) {
+                [strSelf tocHide];
+                return;
+            }
+
+            if (strSelf.editable) {
+                strSelf.sectionToEditId = [payload[@"sectionId"] integerValue];
+                [strSelf showSectionEditor];
             } else {
-                NSURL* url = [NSURL URLWithString:href];
-                [[UIApplication sharedApplication] openURL:url];
+                ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
+                [funnel logProtectionStatus:[[strSelf.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
+                [strSelf showProtectedDialog];
             }
-        }
-    }];
+        }];
 
-    [self.bridge addListener:@"editClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-        WebViewController* strSelf = weakSelf;
-        if (!strSelf) {
-            return;
-        }
+        [_bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString* messageType, NSDictionary* payload) {
+            WebViewController* strSelf = weakSelf;
+            if (!strSelf) {
+                return;
+            }
 
-        if ([strSelf tocDrawerIsOpen]) {
+            //NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
+
+            // Tiny delay prevents menus from occasionally appearing when user swipes to reveal toc.
+            [strSelf performSelector:@selector(animateTopAndBottomMenuReveal) withObject:nil afterDelay:0.05];
+
+            // nonAnchorTouchEndedWithoutDragging is used so TOC may be hidden if user tapped, but did *not* drag.
+            // Used because UIWebView is difficult to attach one-finger touch events to.
             [strSelf tocHide];
-            return;
-        }
 
-        if (strSelf.editable) {
-            strSelf.sectionToEditId = [payload[@"sectionId"] integerValue];
-            [strSelf showSectionEditor];
-        } else {
-            ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
-            [funnel logProtectionStatus:[[strSelf.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
-            [strSelf showProtectedDialog];
-        }
-    }];
+            [strSelf referencesHide];
+        }];
 
-    [self.bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString* messageType, NSDictionary* payload) {
-        WebViewController* strSelf = weakSelf;
-        if (!strSelf) {
-            return;
-        }
+        [_bridge addListener:@"referenceClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
+            WebViewController* strSelf = weakSelf;
+            if (!strSelf) {
+                return;
+            }
 
-        //NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
+            if ([strSelf tocDrawerIsOpen]) {
+                [strSelf tocHide];
+                return;
+            }
 
-        // Tiny delay prevents menus from occasionally appearing when user swipes to reveal toc.
-        [strSelf performSelector:@selector(animateTopAndBottomMenuReveal) withObject:nil afterDelay:0.05];
+            //NSLog(@"referenceClicked: %@", payload);
+            [strSelf referencesShow:payload];
+        }];
 
-        // nonAnchorTouchEndedWithoutDragging is used so TOC may be hidden if user tapped, but did *not* drag.
-        // Used because UIWebView is difficult to attach one-finger touch events to.
-        [strSelf tocHide];
+        /*
+           [_bridge addListener:@"disambigClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
 
-        [strSelf referencesHide];
-    }];
+           //NSLog(@"disambigClicked: %@", payload);
 
-    [self.bridge addListener:@"referenceClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-        WebViewController* strSelf = weakSelf;
-        if (!strSelf) {
-            return;
-        }
+           }];
 
-        if ([strSelf tocDrawerIsOpen]) {
-            [strSelf tocHide];
-            return;
-        }
+           [_bridge addListener:@"issuesClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
 
-        //NSLog(@"referenceClicked: %@", payload);
-        [strSelf referencesShow:payload];
-    }];
+           //NSLog(@"issuesClicked: %@", payload);
 
-    /*
-       [self.bridge addListener:@"disambigClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
+           }];
+         */
 
-        //NSLog(@"disambigClicked: %@", payload);
+        UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
+                                                              action:@selector(shareSnippet:)];
+        [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
-       }];
+        [_bridge addListener:@"imageClicked" withBlock:^(NSString* type, NSDictionary* payload) {
+            WebViewController* strSelf = weakSelf;
+            if (!strSelf) {
+                return;
+            }
 
-       [self.bridge addListener:@"issuesClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
+            NSString* selectedImageURL = payload[@"url"];
+            NSCParameterAssert(selectedImageURL.length);
+            MWKImage* selectedImage = [strSelf->session.currentArticle.images largestImageVariantForURL:selectedImageURL
+                                                                                             cachedOnly:NO];
+            NSCParameterAssert(selectedImage);
+            [strSelf presentGalleryForArticle:strSelf->session.currentArticle showingImage:selectedImage];
+        }];
 
-        //NSLog(@"issuesClicked: %@", payload);
-
-       }];
-     */
-
-    UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
-                                                          action:@selector(shareSnippet:)];
-    [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
-
-    [self.bridge addListener:@"imageClicked" withBlock:^(NSString* type, NSDictionary* payload) {
-        WebViewController* strSelf = weakSelf;
-        if (!strSelf) {
-            return;
-        }
-
-        NSString* selectedImageURL = payload[@"url"];
-        NSCParameterAssert(selectedImageURL.length);
-        MWKImage* selectedImage = [strSelf->session.currentArticle.images largestImageVariantForURL:selectedImageURL
-                                                                                         cachedOnly:NO];
-        NSCParameterAssert(selectedImage);
-        [strSelf presentGalleryForArticle:strSelf->session.currentArticle showingImage:selectedImage];
-    }];
-
-    self.unsafeToScroll = NO;
+        self.unsafeToScroll = NO;
+    }
+    return _bridge;
 }
 
 #pragma mark History
@@ -1390,6 +1410,11 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
             case FETCH_FINAL_STATUS_FAILED:
             {
+                MWKHistoryEntry* lastEntry = session.userDataStore.historyList.mostRecentEntry;
+                if ([lastEntry.title isEqual:article.title]) {
+                    [session.userDataStore.historyList removeEntry:lastEntry];
+                    [session.userDataStore save];
+                }
                 NSString* errorMsg = error.localizedDescription;
                 [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
 
@@ -1400,6 +1425,11 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
             case FETCH_FINAL_STATUS_CANCELLED:
             {
+                MWKHistoryEntry* lastEntry = session.userDataStore.historyList.mostRecentEntry;
+                if ([lastEntry.title.prefixedText isEqualToString:article.title.prefixedText]) {
+                    [session.userDataStore.historyList removeEntry:lastEntry];
+                    [session.userDataStore save];
+                }
                 // Reminder: do not clear article data here or cancellation would blast last good saved article data!
             }
             break;

@@ -38,7 +38,18 @@
     return sharedInstance;
 }
 
++ (NSString*)mainDataStorePath {
+    // !!!: Do not change w/o doing something with the previous path (e.g. moving atomically or deleting)
+    NSString* documentsFolder =
+        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    return [documentsFolder stringByAppendingPathComponent:@"Data"];
+}
+
 - (instancetype)init {
+    return [self initWithDataStore:[[MWKDataStore alloc] initWithBasePath:[[self class] mainDataStorePath]]];
+}
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
     self = [super init];
     if (self) {
         [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
@@ -54,10 +65,8 @@
         self.zeroConfigState             = [[ZeroConfigState alloc] init];
         self.zeroConfigState.disposition = false;
 
-        NSString* documentsFolder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-        NSString* basePath        = [documentsFolder stringByAppendingPathComponent:@"Data"];
-        _dataStore     = [[MWKDataStore alloc] initWithBasePath:basePath];
-        _userDataStore = [self.dataStore userDataStore];
+        _dataStore     = dataStore;
+        _userDataStore = dataStore.userDataStore;
 
         _currentArticleSite = [self lastKnownSite];
 

@@ -17,6 +17,10 @@
     return [entries count];
 }
 
+- (MWKHistoryEntry*)mostRecentEntry {
+    return [entries firstObject];
+}
+
 - (MWKHistoryEntry*)entryAtIndex:(NSUInteger)index {
     return entries[index];
 }

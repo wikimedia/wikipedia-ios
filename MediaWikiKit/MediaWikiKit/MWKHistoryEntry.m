@@ -7,6 +7,7 @@
 //
 
 #import "MediaWikiKit.h"
+#import "WikipediaAppUtils.h"
 
 @implementation MWKHistoryEntry
 
@@ -34,6 +35,27 @@
         self.scrollPosition  = [[self requiredNumber:@"scrollPosition" dict:dict] intValue];
     }
     return self;
+}
+
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[MWKHistoryEntry class]]) {
+        return [self isEqualToHistoryEntry:object];
+    } else {
+        return NO;
+    }
+}
+
+- (NSUInteger)hash {
+    return self.title.hash ^ self.date.hash ^ self.scrollPosition ^ self.discoveryMethod;
+}
+
+- (BOOL)isEqualToHistoryEntry:(MWKHistoryEntry*)entry {
+    return WMF_IS_EQUAL(self.title, entry.title)
+           && WMF_EQUAL(self.date, isEqualToDate:, entry.date)
+           && self.discoveryMethod == entry.discoveryMethod
+           && self.scrollPosition == entry.scrollPosition;
 }
 
 - (id)dataExport {

@@ -93,6 +93,8 @@ extern NSString* MWKCreateImageURLWithPath(NSString* path);
 - (NSArray*)imageInfoForArticle:(MWKArticle*)article;
 
 // Storage helper methods
+
+/// Returns a new `MWKUserDataStore` (i.e. _not_ a lazy property).
 - (MWKUserDataStore*)userDataStore;
 
 - (MWKImageList*)imageListWithArticle:(MWKArticle*)article section:(MWKSection*)section;

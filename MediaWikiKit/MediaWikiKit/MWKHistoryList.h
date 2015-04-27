@@ -13,8 +13,9 @@
 
 @interface MWKHistoryList : MWKDataObject <NSFastEnumeration>
 
-@property (readonly) NSUInteger length;
-@property (readwrite) BOOL dirty;
+@property (nonatomic, readonly) NSUInteger length;
+@property (nonatomic, readwrite) BOOL dirty;
+@property (nonatomic, readonly) MWKHistoryEntry* mostRecentEntry;
 
 - (MWKHistoryEntry*)entryAtIndex:(NSUInteger)index;
 - (MWKHistoryEntry*)entryForTitle:(MWKTitle*)title;

@@ -29,6 +29,8 @@ typedef enum {
 - (instancetype)initWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 - (instancetype)initWithDict:(NSDictionary*)dict;
 
+- (BOOL)isEqualToHistoryEntry:(MWKHistoryEntry*)entry;
+
 + (NSString*)stringForDiscoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 + (MWKHistoryDiscoveryMethod)discoveryMethodForString:(NSString*)string;
 

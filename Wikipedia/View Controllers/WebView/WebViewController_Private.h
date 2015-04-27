@@ -162,6 +162,12 @@ static int const kMinimumTextSelectionLength = 2;
 
 @property (nonatomic) BOOL keyboardIsVisible;
 
+/**
+ * Designated initializer.
+ * @param session The current session, defaults to `+[SessionSingleton sharedInstance]`.
+ * @return A new `WebViewController` with the given session.
+ */
+- (instancetype)initWithSession:(SessionSingleton*)session;
 
 - (void)cancelArticleLoading;
 

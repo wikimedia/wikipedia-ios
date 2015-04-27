@@ -6,6 +6,11 @@
 #import "ZeroConfigState.h"
 
 @class KeychainCredentials;
+@class MWKDataStore;
+@class MWKUserDataStore;
+@class MWKSite;
+@class MWKTitle;
+@class MWKArticle;
 
 @interface SessionSingleton : NSObject
 
@@ -105,5 +110,7 @@
 // data store. This dictionary gives us an easy place to see what temp thumb
 // file is known to be associated with an article title.
 @property (strong, nonatomic) NSMutableDictionary* titleToTempDirThumbURLMap;
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
 @end

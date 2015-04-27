@@ -84,16 +84,21 @@
     }
 }
 
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@ %@", [super description], self.title.description];
+}
+
 - (void)importMobileViewJSON:(NSDictionary*)dict {
-    _redirected        = [self optionalTitle:@"redirected"     dict:dict];
-    _lastmodified      = [self requiredDate:@"lastmodified"   dict:dict];
-    _lastmodifiedby    = [self requiredUser:@"lastmodifiedby" dict:dict];
-    _articleId         = [[self requiredNumber:@"id"             dict:dict] intValue];
-    _languagecount     = [[self requiredNumber:@"languagecount"  dict:dict] intValue];
-    _displaytitle      = [self optionalString:@"displaytitle"   dict:dict];
-    _protection        = [self requiredProtectionStatus:@"protection"     dict:dict];
-    _editable          = [[self requiredNumber:@"editable"       dict:dict] boolValue];
-    _entityDescription = [self optionalString:@"description"     dict:dict];
+    _lastmodified   = [self requiredDate:@"lastmodified" dict:dict];
+    _lastmodifiedby = [self requiredUser:@"lastmodifiedby" dict:dict];
+    _articleId      = [[self requiredNumber:@"id" dict:dict] intValue];
+    _languagecount  = [[self requiredNumber:@"languagecount" dict:dict] intValue];
+    _protection     = [self requiredProtectionStatus:@"protection" dict:dict];
+    _editable       = [[self requiredNumber:@"editable" dict:dict] boolValue];
+
+    _redirected        = [self optionalTitle:@"redirected" dict:dict];
+    _displaytitle      = [self optionalString:@"displaytitle" dict:dict];
+    _entityDescription = [self optionalString:@"description" dict:dict];
 
     // From mobileview API...
     if (dict[@"thumb"]) {
@@ -102,13 +107,12 @@
         // From local storage
         self.imageURL = [self optionalString:@"imageURL" dict:dict];
     }
+
     // From local storage
     self.thumbnailURL = [self optionalString:@"thumbnailURL" dict:dict];
 
     // Populate sections
-    NSArray* sectionsData = dict[@"sections"];
-
-    sectionsData = [sectionsData bk_map:^id (NSDictionary* sectionData) {
+    NSArray* sectionsData = [dict[@"sections"] bk_map:^id (NSDictionary* sectionData) {
         return [[MWKSection alloc] initWithArticle:self dict:sectionData];
     }];
 
