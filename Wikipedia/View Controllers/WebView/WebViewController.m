@@ -1560,13 +1560,21 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
 
     for (MWKSection* section in session.currentArticle.sections) {
-        NSString* html = section.text;
-        if (html) {
-            // Structural html added around section html just before display.
-            NSString* sectionHTMLWithID = [section displayHTML:html];
+        NSString* html = nil;
 
-            [sectionTextArray addObject:sectionHTMLWithID];
+        @try {
+            html = section.text;
+        }@catch (NSException* exception) {
+            NSAssert(html, @"html was not created from section %@: %@", section.title, section.text);
         }
+
+        if (!html) {
+            html = MWLocalizedString(@"article-unable-to-load-section", nil);;
+        }
+
+        // Structural html added around section html just before display.
+        NSString* sectionHTMLWithID = [section displayHTML:html];
+        [sectionTextArray addObject:sectionHTMLWithID];
     }
 
     // If article has no thumbnailImage, use the first section image instead.

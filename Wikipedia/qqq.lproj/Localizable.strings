@@ -276,3 +276,4 @@
 "hockeyapp-alert-privacy" = "Alert dialog button text for HockeyApp privacy policy. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "page-issues" = "Label for button that shows the Page issues dialog.";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";
+"article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
