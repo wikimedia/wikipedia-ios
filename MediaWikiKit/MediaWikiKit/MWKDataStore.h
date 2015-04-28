@@ -67,7 +67,7 @@ extern NSString* MWKCreateImageURLWithPath(NSString* path);
 - (void)saveSectionText:(NSString*)html section:(MWKSection*)section;
 - (void)saveImage:(MWKImage*)image;
 - (void)saveImageData:(NSData*)data image:(MWKImage*)image;
-- (void)saveHistoryList:(MWKHistoryList*)list;
+- (BOOL)saveHistoryList:(MWKHistoryList*)list error:(NSError**)error;
 - (void)saveSavedPageList:(MWKSavedPageList*)list;
 - (void)saveRecentSearchList:(MWKRecentSearchList*)list;
 - (void)saveImageList:(MWKImageList*)imageList;

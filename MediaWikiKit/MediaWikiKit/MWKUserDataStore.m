@@ -14,9 +14,12 @@
     MWKRecentSearchList* _recentSearchList;
 }
 
-- (void)save {
+- (BOOL)save:(NSError**)error {
+    BOOL success = YES;
+
     if (_historyList && _historyList.dirty) {
-        [self.dataStore saveHistoryList:_historyList];
+        success = [self.dataStore saveHistoryList:_historyList error:error];
+        NSAssert(success, @"Error saving history: %@", [*error localizedDescription]);
     }
     if (_savedPageList && _savedPageList.dirty) {
         [self.dataStore saveSavedPageList:_savedPageList];
@@ -24,6 +27,12 @@
     if (_recentSearchList && _recentSearchList.dirty) {
         [self.dataStore saveRecentSearchList:_recentSearchList];
     }
+
+    return success;
+}
+
+- (void)save {
+    [self save:NULL];
 }
 
 /// Clear out any currently loaded data and force it to be reloaded on next use
