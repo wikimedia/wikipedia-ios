@@ -597,15 +597,21 @@ function anchorForUrl(url) {
     return '<a class="ios-disambiguation-item-anchor" href="' + url + '" >' + titleForDisplay + '</a>';
 }
 
+function divForIssue(issue) {
+    return '<div class="ios-issue-item">' + issue + '</div>';
+}
+
 function insertAfter(newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
 function setIsSelected(el, isSelected) {
     if(isSelected){
-        el.style.borderBottom = "1px dotted #bbb";
+        el.style.borderBottom = "1px dotted #bbb;";
+        el.style.color = '#000';
     }else{
         el.style.borderBottom = "none";
+        el.style.color = '#777';
     }
 }
 
@@ -652,7 +658,7 @@ function issuesClicked( sourceNode ) {
     var issues = collectIssues( sourceNode.parentNode );
     var disambig = collectDisambig( sourceNode.parentNode.parentNode ); // not clicked node
 
-    toggleSubContainers('issues_sub_container', 'disambig_sub_container', issues);
+    toggleSubContainers('issues_sub_container', 'disambig_sub_container',  issues.map(divForIssue).join( "" ));
     toggleSubContainerButtons('issues_sub_container', 'issues_button', 'disambig_button');
 
     return { "hatnotes": disambig, "issues": issues };

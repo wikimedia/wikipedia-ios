@@ -47,31 +47,46 @@ native header and footer uses the web view width to determine its own width.
 
 .ios-disambiguation-item-anchor {
     display:block;
-    padding-top:4px;
-    padding-bottom:4px;
+    padding-top:8px;
+    padding-bottom:8px;
 }
 
+.ios-issue-item {
+    padding-top:8px;
+    padding-bottom:8px;
+}
+
+.ios-issue-item * {
+    font-weight:normal !important;
+}
+
+
 #disambig_sub_container, #issues_sub_container {
-    background-color:#ddd;
-    padding:8px;
+    background-color:#fff !important;
+    border-bottom:1px solid #ccc;
+    padding-top:6px;
+    padding-bottom:12px;
+    margin-bottom:12px;
 }
 
 #issues_container_close_button {
-    color:#666;
-    padding-right:3px;
+    color:#333;
     display:none;
+    font-weight:bold;
+    padding:4px 20px 4px 20px;
+    /* background-color:#600; */
 }
 
+a.issues_button, a.disambig_button{
+    padding:4px 0px 4px 0px !important;
+    /* background-color:#600 !important;*/
+}
 
+span.issues_separator{
+    padding-top:4px!important;
+    padding-bottom:4px!important;
+}
 
-
-/*
-TODO: remove the page issues and disambig styles below once https://gerrit.wikimedia.org/r/#/c/203997/ reaches prod.
-*/
-div.issues_container{margin-top:-0.2em;margin-bottom:2.2em;padding-top:1px;padding-bottom:1px;width:100%;display:block;font-size:.9em;letter-spacing:0.02em;color:#555555}
-span.issues_separator{padding-left:0.6em;padding-right:0.6em;float:left}
-a.issues_button{text-decoration:none;color:#555555;float:left}
-a.issues_button:active{color:#b0b0b0}
-#issues_container div.hatnote{display:none}
-a.disambig_button{text-decoration:none;color:#555555;float:left}
-a.disambig_button:active{color:#b0b0b0}
+div.issues_container {
+    margin-bottom:1.8em !important;
+}
