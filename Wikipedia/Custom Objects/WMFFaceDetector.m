@@ -2,13 +2,14 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WMFFaceDetector.h"
+#import <BlocksKit/BlocksKit.h>
+#import "WMFGeometry.h"
 
 @interface WMFFaceDetector ()
 
 @property (strong, atomic) CIDetector* detector;
 @property (strong, atomic) NSArray* faces;
-@property (atomic) NSInteger nextFaceIndex;
-@property (atomic, readwrite) CGRect faceBounds;
+@property (assign, atomic) BOOL faceDetectionHasRan;
 
 @end
 
@@ -28,53 +29,62 @@
     return self;
 }
 
-- (CGRect)detectFace {
-    // Optimized for repeated calls (for easy cycle through all faces).
-    if (!self.image) {
-        return CGRectZero;
+- (void)setImageWithUIImage:(UIImage*)image {
+    if (image.CIImage) {
+        self.image = image.CIImage;
+    } else {
+        [self setImageWithData:UIImagePNGRepresentation(image)];
     }
-
-    // No need to set faces more than once (for repeated call cycling).
-    if (!self.faces) {
-        NSAssert(self.image.CIImage, @"Attempted to use a UIImage w/o CIImage backing: Create the UIImage with 'imageWithCIImage' so face detection doesn't have to alloc/init a new CIImage to run detection. See: http://stackoverflow.com/a/15651358/135557");
-        self.faces = [self.detector featuresInImage:self.image.CIImage];
-    }
-
-    CGRect widestFaceRect = CGRectZero;
-
-    // Index overrun protection.
-    if (self.nextFaceIndex >= self.faces.count) {
-        return CGRectZero;
-    }
-
-    // Get face for nextFaceIndex.
-    widestFaceRect = ((CIFaceFeature*)self.faces[self.nextFaceIndex]).bounds;
-
-    if (CGRectIsEmpty(widestFaceRect)) {
-        return CGRectZero;
-    }
-
-    // Increment so next call will return next face.
-    self.nextFaceIndex++;
-
-    // Reset if last face so next call shows first face.
-    if (self.nextFaceIndex == self.faces.count) {
-        self.nextFaceIndex = 0;
-    }
-
-    CGRect faceImageCoords =
-        (CGRect){
-        {widestFaceRect.origin.x, self.image.size.height - widestFaceRect.origin.y - widestFaceRect.size.height},
-        widestFaceRect.size
-    };
-
-    return faceImageCoords;
 }
 
-- (void)setImage:(UIImage*)image {
-    _image             = image;
-    self.nextFaceIndex = 0;
-    self.faces         = nil;
+- (void)setImageWithData:(NSData*)data {
+    CIImage* ciImage = [[CIImage alloc] initWithData:data];
+    self.image = ciImage;
+}
+
+- (void)detectFaces {
+    if (!self.image) {
+        return;
+    }
+
+    if (!self.faceDetectionHasRan) {
+        self.faces               = [self.detector featuresInImage:self.image];
+        self.faceDetectionHasRan = YES;
+    }
+}
+
+- (void)detectFacesWithCompletionBlock:(dispatch_block_t)completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self detectFaces];
+
+        if (completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion();
+            });
+        }
+    });
+}
+
+- (void)setImage:(CIImage*)image {
+    _image                   = image;
+    self.faces               = nil;
+    self.faceDetectionHasRan = NO;
+}
+
+- (NSArray*)allFaces {
+    return self.faces;
+}
+
+- (NSArray*)allFaceBoundsAsStringsNormalizedToUnitRect {
+    return [self.faces bk_map:^id (CIFaceFeature* obj) {
+        CGRect bounds = [obj bounds];
+        CGRect normalized = [self rectNormailzedToUnitRect:bounds];
+        return NSStringFromCGRect(normalized);
+    }];
+}
+
+- (CGRect)rectNormailzedToUnitRect:(CGRect)frame {
+    return WMFUnitRectWithReferenceRect(frame, [self.image extent]);
 }
 
 @end

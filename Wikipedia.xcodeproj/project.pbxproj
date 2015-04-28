@@ -60,6 +60,7 @@
 		04478633185145090050563B /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04478624185145090050563B /* HistoryViewController.m */; };
 		0447863D185145090050563B /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0447862E185145090050563B /* WebViewController.m */; };
 		0447866F1852B5010050563B /* SessionSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0447866E1852B5010050563B /* SessionSingleton.m */; };
+		04490FD51AF16A83009FAB52 /* WMFBundledImageProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 04490FD41AF16A83009FAB52 /* WMFBundledImageProtocol.m */; };
 		0449E63518A9845C00D51524 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0449E63418A9845C00D51524 /* LoginViewController.m */; };
 		0449E63918AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = 0449E63818AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m */; };
 		044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044BD6B418849AD000FFE4BE /* SectionEditorViewController.m */; };
@@ -68,7 +69,6 @@
 		04530AF51935BF4D00022512 /* ModalMenuAndContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04530AF41935BF4D00022512 /* ModalMenuAndContentViewController.m */; };
 		04530AF81935C07500022512 /* ModalContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04530AF71935C07500022512 /* ModalContentViewController.m */; };
 		04530AFB1935C2B500022512 /* EmptySegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 04530AFA1935C2B500022512 /* EmptySegue.m */; };
-		045374881A35834D00CE1A56 /* LeadImageTitleAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 045374871A35834D00CE1A56 /* LeadImageTitleAttributedString.m */; };
 		045D872119FAD2FA0035C1F9 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D872019FAD2FA0035C1F9 /* AboutViewController.m */; };
 		04616DFC1AE706C600815BCE /* WMFLocalizationProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 04616DFB1AE706C600815BCE /* WMFLocalizationProtocol.m */; };
 		0462A6D11A1FE016009412D4 /* SearchResultAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 0462A6D01A1FE016009412D4 /* SearchResultAttributedString.m */; };
@@ -172,9 +172,6 @@
 		04D686FE1AB2949C0009B44A /* WikiGlyphLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D686F31AB2949C0009B44A /* WikiGlyphLabel.m */; };
 		04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */; };
 		04DD89B118BFE63A00DD5DAD /* PreviewAndSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD89B018BFE63A00DD5DAD /* PreviewAndSaveViewController.m */; };
-		04E106341A3560030046DC27 /* LeadImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E106321A3560030046DC27 /* LeadImageContainer.m */; };
-		04E106351A3560030046DC27 /* LeadImageContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04E106331A3560030046DC27 /* LeadImageContainer.xib */; };
-		04E106381A3560A90046DC27 /* LeadImageTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E106371A3560A90046DC27 /* LeadImageTitleLabel.m */; };
 		04EDEE251A20788700798076 /* SearchResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EDEE241A20788600798076 /* SearchResultPrototypeView.xib */; };
 		04EDEE2A1A215DBC00798076 /* UITableView+DynamicCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDEE291A215DBC00798076 /* UITableView+DynamicCellHeight.m */; };
 		04EDEE311A21CB4100798076 /* UIScreen+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDEE301A21CB4100798076 /* UIScreen+Extras.m */; };
@@ -485,6 +482,8 @@
 		0447862E185145090050563B /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WebViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0447866D1852B5010050563B /* SessionSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionSingleton.h; sourceTree = "<group>"; };
 		0447866E1852B5010050563B /* SessionSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionSingleton.m; sourceTree = "<group>"; };
+		04490FD31AF16A83009FAB52 /* WMFBundledImageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBundledImageProtocol.h; path = Wikipedia/Protocols/WMFBundledImageProtocol.h; sourceTree = SOURCE_ROOT; };
+		04490FD41AF16A83009FAB52 /* WMFBundledImageProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBundledImageProtocol.m; path = Wikipedia/Protocols/WMFBundledImageProtocol.m; sourceTree = SOURCE_ROOT; };
 		0449E63318A9845C00D51524 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		0449E63418A9845C00D51524 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LoginViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0449E63718AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSHTTPCookieStorage+CloneCookie.h"; sourceTree = "<group>"; };
@@ -501,8 +500,6 @@
 		04530AF71935C07500022512 /* ModalContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalContentViewController.m; sourceTree = "<group>"; };
 		04530AF91935C2B500022512 /* EmptySegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptySegue.h; sourceTree = "<group>"; };
 		04530AFA1935C2B500022512 /* EmptySegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptySegue.m; sourceTree = "<group>"; };
-		045374861A35834D00CE1A56 /* LeadImageTitleAttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadImageTitleAttributedString.h; sourceTree = "<group>"; };
-		045374871A35834D00CE1A56 /* LeadImageTitleAttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeadImageTitleAttributedString.m; sourceTree = "<group>"; };
 		045D871F19FAD2FA0035C1F9 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		045D872019FAD2FA0035C1F9 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		04616DFA1AE706C600815BCE /* WMFLocalizationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLocalizationProtocol.h; sourceTree = "<group>"; };
@@ -693,11 +690,6 @@
 		04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+ScrollSubviewToLocation.m"; sourceTree = "<group>"; };
 		04DD89AF18BFE63A00DD5DAD /* PreviewAndSaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewAndSaveViewController.h; sourceTree = "<group>"; };
 		04DD89B018BFE63A00DD5DAD /* PreviewAndSaveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PreviewAndSaveViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		04E106311A3560030046DC27 /* LeadImageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadImageContainer.h; sourceTree = "<group>"; };
-		04E106321A3560030046DC27 /* LeadImageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeadImageContainer.m; sourceTree = "<group>"; };
-		04E106331A3560030046DC27 /* LeadImageContainer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeadImageContainer.xib; sourceTree = "<group>"; };
-		04E106361A3560A90046DC27 /* LeadImageTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadImageTitleLabel.h; sourceTree = "<group>"; };
-		04E106371A3560A90046DC27 /* LeadImageTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeadImageTitleLabel.m; sourceTree = "<group>"; };
 		04E9A78218F73C7200F7ECF7 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		04EDEE241A20788600798076 /* SearchResultPrototypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultPrototypeView.xib; sourceTree = "<group>"; };
 		04EDEE281A215DBC00798076 /* UITableView+DynamicCellHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+DynamicCellHeight.h"; sourceTree = "<group>"; };
@@ -1472,6 +1464,8 @@
 			children = (
 				04616DFA1AE706C600815BCE /* WMFLocalizationProtocol.h */,
 				04616DFB1AE706C600815BCE /* WMFLocalizationProtocol.m */,
+				04490FD31AF16A83009FAB52 /* WMFBundledImageProtocol.h */,
+				04490FD41AF16A83009FAB52 /* WMFBundledImageProtocol.m */,
 			);
 			name = Protocols;
 			path = wikipedia/Protocols;
@@ -1728,7 +1722,6 @@
 				08D631F11A69B17F00D87AD0 /* Image Gallery */,
 				041A3B5718E11ED90079FF1C /* Languages */,
 				0449E63218A9844000D51524 /* Login */,
-				04E106301A3560030046DC27 /* LeadImage */,
 				04530AF21935BF2900022512 /* ModalOverlay */,
 				042A5B1419253D2A0095E172 /* Navigation */,
 				0485FEC71994CF8800141361 /* Nearby */,
@@ -1975,20 +1968,6 @@
 				04B0EA49190B2348007458AF /* PreviewLicenseView.m */,
 			);
 			path = Preview;
-			sourceTree = "<group>";
-		};
-		04E106301A3560030046DC27 /* LeadImage */ = {
-			isa = PBXGroup;
-			children = (
-				04E106311A3560030046DC27 /* LeadImageContainer.h */,
-				04E106321A3560030046DC27 /* LeadImageContainer.m */,
-				04E106331A3560030046DC27 /* LeadImageContainer.xib */,
-				04E106361A3560A90046DC27 /* LeadImageTitleLabel.h */,
-				04E106371A3560A90046DC27 /* LeadImageTitleLabel.m */,
-				045374861A35834D00CE1A56 /* LeadImageTitleAttributedString.h */,
-				045374871A35834D00CE1A56 /* LeadImageTitleAttributedString.m */,
-			);
-			path = LeadImage;
 			sourceTree = "<group>";
 		};
 		04F27B6D18FE0F2E00EDD838 /* PageHistory */ = {
@@ -2723,7 +2702,6 @@
 				04F27B7618FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib in Resources */,
 				04B0EA47190B2319007458AF /* PreviewLicenseView.xib in Resources */,
 				04CCCFEF1935093A00E3F60C /* SecondaryMenuRowView.xib in Resources */,
-				04E106351A3560030046DC27 /* LeadImageContainer.xib in Resources */,
 				0480AE911AA4E61000A9950C /* WMFReadMoreViewController.xib in Resources */,
 				047E74141860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */,
 				C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */,
@@ -2978,7 +2956,6 @@
 				04D686F61AB2949C0009B44A /* MenuLabel.m in Sources */,
 				04D308281998A8AA0034F106 /* NearbyThumbnailView.m in Sources */,
 				042E3B931AA16D6700BF8D66 /* UIViewController+WMFChildViewController.m in Sources */,
-				045374881A35834D00CE1A56 /* LeadImageTitleAttributedString.m in Sources */,
 				04292FF2185FBA70002A13FC /* SearchResultCell.m in Sources */,
 				04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */,
 				C42D94871A937DE000A4871A /* WMFProgressLineView.m in Sources */,
@@ -3018,7 +2995,6 @@
 				043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */,
 				D42E75EB18D11237002EA7E5 /* MWLanguageInfo.m in Sources */,
 				043F8BF21A11699A00D1AE44 /* UIView+WMFRoundCorners.m in Sources */,
-				04E106341A3560030046DC27 /* LeadImageContainer.m in Sources */,
 				0487048019F8262600B7D307 /* AccountLogin.m in Sources */,
 				04D149DD18877343006B4104 /* AlertLabel.m in Sources */,
 				BCB669AE1A83F6C400C7B1FE /* MWKHistoryEntry.m in Sources */,
@@ -3029,6 +3005,7 @@
 				047801BE18AE987900DBB747 /* UIButton+ColorMask.m in Sources */,
 				BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */,
 				04D686C91AB28FE40009B44A /* UIImage+WMFFocalImageDrawing.m in Sources */,
+				04490FD51AF16A83009FAB52 /* WMFBundledImageProtocol.m in Sources */,
 				0429300A18604898002A13FC /* SavedPagesResultCell.m in Sources */,
 				0487048419F8262600B7D307 /* CaptchaResetter.m in Sources */,
 				D407E6411A51DBDA00CCC8B1 /* SchemaConverter.m in Sources */,
@@ -3085,7 +3062,6 @@
 				BCC185E81A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m in Sources */,
 				04D686F81AB2949C0009B44A /* PaddedLabel.m in Sources */,
 				04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */,
-				04E106381A3560A90046DC27 /* LeadImageTitleLabel.m in Sources */,
 				04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */,
 				04D122321899B8AC006B9A30 /* AlertWebView.m in Sources */,
 				04B0E3EA1AE8252800379AE0 /* NSURL+WMFRest.m in Sources */,

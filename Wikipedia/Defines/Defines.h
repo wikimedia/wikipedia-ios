@@ -51,4 +51,3 @@
 
 // Reminder: For caching reasons, don't do "(scale * 320)" here.
 #define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
-#define LEAD_IMAGE_CONTAINER_HEIGHT (roundf([UIScreen mainScreen].bounds.size.height * 0.353f))

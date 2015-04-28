@@ -9,9 +9,15 @@
 #import <CoreGraphics/CGGeometry.h>
 
 // Convert rect to a unit rect for reference size.
+CG_EXTERN CGRect WMFUnitRectWithReferenceRect(CGRect rect, CGRect referenceRect);
+
+// Convert unit rect back to rect for reference size.
+CG_EXTERN CGRect WMFRectWithUnitRectInReferenceRect(CGRect unitRect, CGRect referenceRect);
+
+// Convert rect to a unit rect for reference size.
 CG_EXTERN CGRect WMFUnitRectFromRectForReferenceSize(CGRect rect, CGSize referenceSize);
 
 // Convert unit rect back to rect for reference size.
 CG_EXTERN CGRect WMFRectFromUnitRectForReferenceSize(CGRect unitRect, CGSize referenceSize);
 
-#endif /* defined(__Wikipedia__WMFGeometry__) */
+#endif

@@ -15,43 +15,30 @@
               baseURL:[NSURL URLWithString:filePath]];
 }
 
-- (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName {
+- (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName leadSectionHtml:(NSString*)leadSectionHtml {
     if (!string) {
         string = @"";
     }
 
-    NSString* path = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
+    static NSString* path = nil;
+    if (!path) {
+        path = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
+    }
 
-    NSMutableString* fileContents =
-        [NSMutableString stringWithContentsOfFile:path
-                                         encoding:NSUTF8StringEncoding
-                                            error:nil];
+    static NSString* fileContents = nil;
+    if (!fileContents) {
+        fileContents = [NSMutableString stringWithContentsOfFile:path
+                                                        encoding:NSUTF8StringEncoding
+                                                           error:nil];
+    }
 
-    [fileContents replaceOccurrencesOfString:@"#INJECTION_POINT#"
-                                  withString:string
-                                     options:(NSLiteralSearch | NSBackwardsSearch)
-                                       range:NSMakeRange(0, fileContents.length)];
-
-    // Seems audio/video tags can't be completely hidden via JS
-    // for some reason. So brute-force hobble the tags for now.
-    // [self disableAudioVideoTagsInString:fileContents];
-
-    [self loadHTMLString:fileContents
+    [self loadHTMLString:[NSString stringWithFormat:fileContents, leadSectionHtml, string]
                  baseURL:[NSURL URLWithString:path]];
 }
 
 - (NSString*)getAssetsPath {
     NSArray* documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     return [[documentsPath firstObject] stringByAppendingPathComponent:@"assets"];
-}
-
-- (void)disableAudioVideoTagsInString:(NSMutableString*)mutableString {
-    static NSString* pattern = @"(</?)(audio|video)(\\s|>)";
-    static NSString* format  = @"$1$2_SNIP$3";
-    [mutableString replaceOccurrencesOfString:pattern
-                                   withString:format
-                                      options:(NSRegularExpressionSearch | NSCaseInsensitiveSearch)
-                                        range:NSMakeRange(0, mutableString.length)];
 }
 
 @end

@@ -56,7 +56,6 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self setupLeadImageContainer];
     [self setupTrackingFooter];
 
     self.bottomNavHeightConstraint.constant = CHROME_MENUS_HEIGHT;
@@ -78,10 +77,6 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
     [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
         [weakSelf jumpToFragmentIfNecessary];
         [weakSelf autoScrollToLastScrollOffsetIfNecessary];
-
-        // Show lead image!
-        [weakSelf.leadImageContainer showForArticle:[SessionSingleton sharedInstance].currentArticle];
-
         [weakSelf.loadingIndicatorOverlay setVisible:NO animated:YES];
 
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -117,6 +112,11 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sectionImageRetrieved:)
+                                                 name:WMFURLCacheSectionImageRetrievedNotification
+                                               object:nil];
 
     [self fadeAlert];
 
@@ -1538,7 +1538,137 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     }
 }
 
-#pragma mark Display article from core data
+#pragma mark Lead image
+
+- (NSString*)leadImageGetHtml {
+    // Get lead image html structured such that no JS bridge messages are needed for lead image presentation.
+    // Set everything here via css before the html payload is delivered to the web view.
+
+    MWKArticle* article = session.currentArticle;
+
+    if ([session articleIsAMainArticle:article]) {
+        return @"";
+    }
+
+    NSString* title       = article.displaytitle;
+    NSString* description = article.entityDescription ? [[article.entityDescription getStringWithoutHTML] capitalizeFirstLetter] : @"";
+
+    BOOL hasImage          = article.imageURL ? YES : NO;
+    CGFloat fontMultiplier = [self leadImageGetSizeReductionMultiplierForTitleOfLength:title.length];
+
+    // offsetY is percent to shift image vertically. 0 aligns top to top of lead_image_div,
+    // 50 centers it vertically, and 100 aligns bottom of image to bottom of lead_image_div.
+    NSInteger offsetY = 25;
+
+    if (hasImage) {
+        CGRect focalRect = [article.image primaryFocalRectNomrmalizedToImageSize:NO];
+        if (!CGRectEqualToRect(focalRect, CGRectZero)) {
+            offsetY = [self leadImageFocalOffsetYPercentageFromTopOfRect:focalRect];
+        }
+    }
+
+    NSString* leadImageDivStyleOverrides =
+        !hasImage ? @"" : [NSString stringWithFormat:
+                           @"background-image:-webkit-linear-gradient(top, rgba(0,0,0,0.0) 0%%, rgba(0,0,0,0.5) 100%%),"
+                           @"url('%@')"
+                           @"%@;"
+                           "background-position: calc(50%%) calc(%ld%%);",
+                           article.imageURL,
+                           [article.image isCached] ? @"" : @",url('wmf://bundledImage/lead-default.png')",
+                           offsetY];
+
+    NSString* leadImageHtml =
+        [NSString stringWithFormat:
+         @"<div id='lead_image_div' class='lead_image_div' style=\"%@\">"
+         "<div id='lead_image_text_container'>"
+         "<div id='lead_image_title' style='%@'>%@</div>"
+         "<div id='lead_image_description' style='%@'>%@</div>"
+         "</div>"
+         "</div>",
+         leadImageDivStyleOverrides,
+         [NSString stringWithFormat:@"font-size:%.02fpx;", 28.0f * fontMultiplier],
+         title,
+         [NSString stringWithFormat:@"font-size:%.02fpx;", 14.0f],
+         description
+        ];
+
+    if (!hasImage) {
+        leadImageHtml = [NSString stringWithFormat:@"<div id='lead_image_none'>%@</div>", leadImageHtml];
+    }
+
+    return leadImageHtml;
+}
+
+- (CGFloat)leadImageGetSizeReductionMultiplierForTitleOfLength:(NSUInteger)length {
+    // Quick hack for shrinking long titles in rough proportion to their length.
+
+    CGFloat multiplier = 1.0f;
+
+    // Assume roughly title 28 chars per line. Note this doesn't take in to account
+    // interface orientation, which means the reduction is really not strictly
+    // in proportion to line count, rather to string length. This should be ok for
+    // now. Search for "lopado" and you'll see an insanely long title in the search
+    // results, which is nice for testing, and which this seems to handle.
+    // Also search for "list of accidents" for lots of other long title articles,
+    // many with lead images.
+
+    CGFloat charsPerLine = 28;
+    CGFloat lines        = ceil(length / charsPerLine);
+
+    // For every 2 "lines" (after the first 2) reduce title text size by 10%.
+    if (lines > 2) {
+        CGFloat linesAfter2Lines = lines - 2;
+        multiplier = 1.0f - (linesAfter2Lines * 0.1f);
+    }
+
+    // Don't shrink below 60%.
+    return MAX(multiplier, 0.6f);
+}
+
+- (void)sectionImageRetrieved:(NSNotification*)notification {
+    NSDictionary* payload = notification.userInfo;
+    NSNumber* isLeadImage = payload[kURLCacheKeyIsLeadImage];
+    if (isLeadImage.boolValue) {
+        [self leadImageRetrieved:notification];
+    }
+}
+
+- (void)leadImageRetrieved:(NSNotification*)notification {
+    [self leadImageHidePlaceHolderAndCenterOnFaceIfNeeded:notification];
+}
+
+- (NSInteger)leadImageFocalOffsetYPercentageFromTopOfRect:(CGRect)rect {
+    float percentFromTop = 100.0f - (CGRectGetMidY(rect) * 100.0f);
+    return @(MAX(0, MIN(100, percentFromTop))).integerValue;
+}
+
+- (void)leadImageHidePlaceHolderAndCenterOnFaceIfNeeded:(NSNotification*)notification {
+    static NSString* hidePlaceholderJS = nil;
+    if (!hidePlaceholderJS) {
+        hidePlaceholderJS = @"document.getElementById('lead_image_div').style.backgroundImage = document.getElementById('lead_image_div').style.backgroundImage.replace('wmf://bundledImage/lead-default.png', 'wmf://bundledImage/empty.png');";
+    }
+
+    NSDictionary* payload = notification.userInfo;
+    NSString* stringRect  = payload[kURLCacheKeyPrimaryFocalUnitRectString];
+    CGRect rect           = CGRectFromString(stringRect);
+
+    NSString* applyFocalOffsetJS = @"";
+    if (!CGRectEqualToRect(rect, CGRectZero)) {
+        NSInteger yFocalOffset = [self leadImageFocalOffsetYPercentageFromTopOfRect:rect];
+        applyFocalOffsetJS = [NSString stringWithFormat:@"document.getElementById('lead_image_div').style.backgroundPosition = 'calc(100%%) calc(%ld%%)';", yFocalOffset];
+    }
+
+    static NSString* animationCss = nil;
+    if (!animationCss) {
+        animationCss =
+            @"document.getElementById('lead_image_div').style.transition = 'background-position 0.8s';";
+    }
+
+    NSString* js = [NSString stringWithFormat:@"%@%@%@", animationCss, hidePlaceholderJS, applyFocalOffsetJS];
+    [self.webView stringByEvaluatingJavaScriptFromString:js];
+}
+
+#pragma mark Display article from data store
 
 - (void)displayArticle:(MWKTitle*)title {
     MWKArticle* article = [session.dataStore articleWithTitle:title];
@@ -1633,7 +1763,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         return;
     }
 
-    [self.bridge loadHTML:htmlStr withAssetsFile:@"index.html"];
+    [self.bridge loadHTML:htmlStr withAssetsFile:@"index.html" leadSectionHtml:[self leadImageGetHtml]];
 
     // NSLog(@"languageInfo = %@", languageInfo.code);
     [self.bridge sendMessage:@"setLanguage"
@@ -1683,6 +1813,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 - (void)scrollToElementOnScreenBeforeRotate {
     NSString* js = @"(function() {"
                    @"    if (_topElement) {"
+                   @"    if (_topElement.id && (_topElement.id === 'lead_image_div')) return 0;"
                    @"        var rect = _topElement.getBoundingClientRect();"
                    @"        return (window.scrollY + rect.top) - (%f * rect.height);"
                    @"    } else {"
@@ -1955,33 +2086,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     [self.loadingIndicatorOverlay mas_makeConstraints:^(MASConstraintMaker* make) {
         make.edges.equalTo(self.loadingIndicatorOverlay.superview);
     }];
-}
-
-#pragma mark Lead image
-
-- (void)setupLeadImageContainer {
-    self.leadImageContainer = [[[NSBundle mainBundle] loadNibNamed:@"LeadImageContainer"
-                                                             owner:nil
-                                                           options:nil] firstObject];
-
-    self.leadImageContainer.delegate = self;
-
-    [self.leadImageContainer addTarget:self
-                                action:@selector(didTouchLeadImage:)
-                      forControlEvents:UIControlEventTouchUpInside];
-
-    [self.webView wmf_addTrackingView:self.leadImageContainer
-                           atLocation:WMFTrackingViewLocationTop];
-}
-
-- (void)leadImageHeightChangedTo:(NSNumber*)height {
-    // Let the html spacer div adjust to the new height of the lead image container.
-    [self.bridge sendMessage:@"setLeadImageDivHeight"
-                 withPayload:@{ @"height": height }];
-}
-
-- (void)didTouchLeadImage:(id)sender {
-    [self presentGalleryForArticle:session.currentArticle showingImage:session.currentArticle.image];
 }
 
 #pragma mark Sharing

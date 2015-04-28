@@ -144,6 +144,10 @@ function touchEndedWithoutDragging(event){
     }
 }
 
+function getUrlFromBackgroundStyle(element) {
+    return element.style.background.match(/(?:url\(['|"]?)(.*?)(?:['|"]?\))/)[1];
+}
+
 /**
  * Attempts to send a bridge message which corresponds to `hrefTarget`, based on various attributes.
  * @return `true` if a message was sent, otherwise `false`.
@@ -175,7 +179,8 @@ function maybeSendMessageForTarget(event, hrefTarget){
             document.getElementById( href.substring( 1 ) ).scrollIntoView();
         }
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
-        bridge.sendMessage('imageClicked', { 'url': event.target.getAttribute('src') });
+         var url = (event.target.id === 'lead_image_div') ? getUrlFromBackgroundStyle(event.target) : event.target.getAttribute('src');
+        bridge.sendMessage('imageClicked', { 'url': url });
     } else if (href) {
         bridge.sendMessage( 'linkClicked', { 'href': href });
     } else {
@@ -185,11 +190,5 @@ function maybeSendMessageForTarget(event, hrefTarget){
 }
 
 document.addEventListener("touchend", handleTouchEnded, false);
-
-bridge.registerListener( "setLeadImageDivHeight", function( payload ) {
-    var div = document.getElementById( "lead_image_div" );
-    if (payload.height == div.offsetHeight) return;
-    div.style.height = payload.height + 'px';
-});
 
 })();

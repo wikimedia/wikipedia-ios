@@ -26,7 +26,7 @@ __attribute__((constructor)) static void WMFRegisterLocalizationProtocol() {
 // Some handling below based on http://devmonologue.com/ios/tutorials/nsurlprotocol-tutorial/
 
 - (void)startLoading {
-    NSString* key         = [self getKeyFromURL:self.request.URL];
+    NSString* key         = [self.request.URL wmf_getValue];
     NSString* translation = [self getTranslationForKey:key];
 
     NSAssert(translation.length > 1, @"translation length is zero for key: %@", key);
@@ -34,15 +34,6 @@ __attribute__((constructor)) static void WMFRegisterLocalizationProtocol() {
     NSData* localizationStringData = [translation dataUsingEncoding:NSUTF8StringEncoding];
 
     [self sendResponseWithData:localizationStringData];
-}
-
-- (NSString*)getKeyFromURL:(NSURL*)url {
-    NSAssert(self.request.URL.path.length > 1, @"wikipedia URLs must have a path: %@", self.request.URL);
-    if (self.request.URL.path.length > 1) {
-        return [self.request.URL.path substringFromIndex:1];
-    } else {
-        return nil;
-    }
 }
 
 - (NSString*)getTranslationForKey:(NSString*)key {

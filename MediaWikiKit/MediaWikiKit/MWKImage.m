@@ -1,15 +1,17 @@
-//
-//  MWKImage.m
-//  MediaWikiKit
-//
-//  Created by Brion on 10/7/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #import "UIKit/UIKit.h"
 #import "WikipediaAppUtils.h"
 #import "MediaWikiKit.h"
 #import "WMFImageURLParsing.h"
+#import "WMFFaceDetector.h"
+#import "WMFGeometry.h"
+#import <BlocksKit/BlocksKit.h>
+
+@interface MWKImage ()
+
+@property (copy, readwrite) NSArray* focalRectsInUnitCoordinatesAsStrings;
+
+@end
 
 @implementation MWKImage
 @synthesize fileNameNoSizePrefix = _fileNameNoSizePrefix;
@@ -22,11 +24,12 @@
         // fileNameNoSizePrefix is lazily derived from this property, so be careful if _sourceURL needs to be re-set
         _sourceURL = [url copy];
 
-        _dateLastAccessed = nil;
-        _dateRetrieved    = nil;
-        _mimeType         = nil;
-        _width            = nil;
-        _height           = nil;
+        _dateLastAccessed                     = nil;
+        _dateRetrieved                        = nil;
+        _mimeType                             = nil;
+        _width                                = nil;
+        _height                               = nil;
+        _focalRectsInUnitCoordinatesAsStrings = @[];
     }
     return self;
 }
@@ -35,13 +38,81 @@
     NSString* sourceURL = [self requiredString:@"sourceURL" dict:dict];
     self = [self initWithArticle:article sourceURL:sourceURL];
     if (self) {
-        _dateLastAccessed = [self optionalDate:@"dateLastAccessed" dict:dict];
-        _dateRetrieved    = [self optionalDate:@"dateRetrieved" dict:dict];
-        _mimeType         = [self optionalString:@"mimeType" dict:dict];
-        _width            = [self optionalNumber:@"width" dict:dict];
-        _height           = [self optionalNumber:@"height" dict:dict];
+        _dateLastAccessed                     = [self optionalDate:@"dateLastAccessed" dict:dict];
+        _dateRetrieved                        = [self optionalDate:@"dateRetrieved" dict:dict];
+        _mimeType                             = [self optionalString:@"mimeType" dict:dict];
+        _width                                = [self optionalNumber:@"width" dict:dict];
+        _height                               = [self optionalNumber:@"height" dict:dict];
+        _focalRectsInUnitCoordinatesAsStrings = dict[@"focalRects"];
     }
     return self;
+}
+
+#pragma mark - Focal Rects
+
+- (void)calculateFocalRectsBasedOnFaceDetectionWithImageData:(NSData*)imageData {
+    if ([self.focalRectsInUnitCoordinatesAsStrings count] == 0) {
+        if (!imageData) {
+            imageData = [self asNSData];
+        }
+
+        static WMFFaceDetector* faceDetector = nil;
+        if (!faceDetector) {
+            faceDetector = [[WMFFaceDetector alloc] init];
+        }
+        [faceDetector setImageWithData:imageData];
+        [faceDetector detectFaces];
+
+        self.focalRectsInUnitCoordinatesAsStrings = [faceDetector allFaceBoundsAsStringsNormalizedToUnitRect];
+    }
+}
+
+- (CGRect)normalizedRectFromRect:(CGRect)rect {
+    CGRect imageRect = CGRectZero;
+    imageRect.size = [self size];
+    CGRect normalized = WMFRectWithUnitRectInReferenceRect(rect, imageRect);
+    return normalized;
+}
+
+- (CGRect)primaryFocalRectNomrmalizedToImageSize:(BOOL)normalized {
+    if (self.focalRectsInUnitCoordinatesAsStrings.count == 0) {
+        return CGRectZero;
+    }
+
+    NSString* primary = [self.focalRectsInUnitCoordinatesAsStrings firstObject];
+    CGRect rect       = CGRectFromString(primary);
+
+    if (normalized) {
+        rect = [self normalizedRectFromRect:rect];
+    }
+
+    return rect;
+}
+
+- (CGRect)rectEnclosingAllFocalRectsNomrmalizedToImageSize:(BOOL)normalized {
+    __block CGRect enclosingRect = CGRectZero;
+
+    [self.focalRectsInUnitCoordinatesAsStrings enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
+        CGRect rect = CGRectFromString(obj);
+
+        if (CGRectIsEmpty(enclosingRect)) {
+            enclosingRect = rect;
+        } else {
+            enclosingRect = CGRectUnion(enclosingRect, rect);
+        }
+    }];
+
+    if (normalized) {
+        enclosingRect = [self normalizedRectFromRect:enclosingRect];
+    }
+
+    return enclosingRect;
+}
+
+#pragma mark - Accessors
+
+- (CGSize)size {
+    return CGSizeMake([self.width floatValue], [self.height floatValue]);
 }
 
 - (NSString*)extension {
@@ -103,6 +174,9 @@
     if (self.height) {
         dict[@"height"] = self.height;
     }
+    if (self.focalRectsInUnitCoordinatesAsStrings) {
+        dict[@"focalRects"] = self.focalRectsInUnitCoordinatesAsStrings;
+    }
 
     return [dict copy];
 }
@@ -116,8 +190,6 @@
     _dateLastAccessed = [[NSDate alloc] init];
     _mimeType         = [self getImageMimeTypeForExtension:self.extension];
 
-    #warning FIXME: image inflation result not stored
-    // Width / height may already be set, so only inflate image data to get these if necessary.
     if (!_width || !_height) {
         UIImage* img = [UIImage imageWithData:data];
         _width  = [NSNumber numberWithInt:img.size.width];
@@ -151,7 +223,7 @@
 }
 
 - (UIImage*)asUIImage {
-    NSData* imageData = [self.article.dataStore imageDataWithImage:self];
+    NSData* imageData = [self asNSData];
 
     UIImage* image = [UIImage imageWithData:imageData];
 
@@ -185,7 +257,7 @@
 /// @return @c YES if @c size is within @c points of <code>self.estimatedSize</code>, otherwise @c NO.
 - (BOOL)isEstimatedSizeWithinPoints:(float)points ofSize:(CGSize)size {
     CGSize estimatedSize = [self estimatedSize];
-    return fabsf(estimatedSize.width - size.width) <= points
+    return fabs(estimatedSize.width - size.width) <= points
            && fabs(estimatedSize.height - size.height) <= points;
 }
 
@@ -251,6 +323,10 @@
     NSString* fileName = [@"Image" stringByAppendingPathExtension:self.extension];
     NSString* filePath = [path stringByAppendingPathComponent:fileName];
     return filePath;
+}
+
+- (BOOL)isLeadImage {
+    return [self.article.image isEqualToImage:self];
 }
 
 @end

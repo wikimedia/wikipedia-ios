@@ -143,9 +143,9 @@ static NSString* bridgeURLPrefix = @"x-wikipedia-bridge:";
     [self.queuedMessages removeAllObjects];
 }
 
-- (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName {
+- (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName leadSectionHtml:(NSString*)leadSectionHtml {
     self.shouldQueueMessages = YES;
-    [self.webView loadHTML:string withAssetsFile:fileName];
+    [self.webView loadHTML:string withAssetsFile:fileName leadSectionHtml:leadSectionHtml];
 }
 
 @end
