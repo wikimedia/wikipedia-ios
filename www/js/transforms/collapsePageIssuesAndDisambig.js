@@ -73,9 +73,11 @@ function collectDisambig( sourceNode ) {
         len = links.length;
     for (; i < len; i++) {
         // Pass the href; we'll decode it into a proper page title in Obj-C
-        res.push( links[i].getAttribute( 'href' ) );
+        if(links[i].getAttribute( 'href' ).indexOf("redlink=1") === -1){
+            res.push( links[i] );
+        }
     }
-    return res.sort();
+    return res;
 }
 
 function collectIssues( sourceNode ) {
@@ -90,10 +92,9 @@ function collectIssues( sourceNode ) {
     return res;
 }
 
-function anchorForUrl(url) {
-    var titleForDisplay = decodeURIComponent(url);
-    titleForDisplay = (titleForDisplay.indexOf('/wiki/') === 0) ? titleForDisplay.substring(6) : titleForDisplay;
-    titleForDisplay = titleForDisplay.split('_').join(' ');
+function anchorForAnchor(anchor) {
+    var url = anchor.getAttribute( 'href' );
+    var titleForDisplay = anchor.text.substring(0,1).toUpperCase() + anchor.text.substring(1);
     return '<a class="ios-disambiguation-item-anchor" href="' + url + '" >' + titleForDisplay + '</a>';
 }
 
@@ -168,7 +169,7 @@ function disambigClicked( sourceNode ) {
     var disambig = collectDisambig( sourceNode.parentNode );
     var issues = collectIssues( sourceNode.parentNode.parentNode ); // not clicked node
 
-    toggleSubContainers('disambig_sub_container', 'issues_sub_container', disambig.map(anchorForUrl).join( "" ));
+    toggleSubContainers('disambig_sub_container', 'issues_sub_container', disambig.map(anchorForAnchor).sort().join( "" ));
     toggleSubContainerButtons('disambig_sub_container', 'disambig_button', 'issues_button');
 
     return { "hatnotes": disambig, "issues": issues };
