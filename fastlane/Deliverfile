@@ -4,7 +4,7 @@
 
 # hide_transporter_output # remove the '#' in the beginning of the line, to hide the output while uploading
 
-# Set paths to the ipa file
+# Tell deliver to use ENV vars populated by ipa action
 ipa ENV["IPA_OUTPUT_PATH"]
 beta_ipa ENV["IPA_OUTPUT_PATH"]
 
@@ -13,8 +13,8 @@ beta_ipa ENV["IPA_OUTPUT_PATH"]
 # App Metadata
 ########################################
 
-# Set apple_id for Testflight builds
-apple_id '981253550'
+# Use apple id set by produce
+apple_id ENV['PRODUCE_APPLE_ID']
 
 copyright "#{Time.now.year} Wikimedia Foundation"
 
@@ -26,3 +26,4 @@ screenshots_path "./screenshots/"
 
 # version '1.2' # you can pass this if you want to verify the version number with the ipa file
 config_json_folder './deliver'
+

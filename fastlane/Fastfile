@@ -7,12 +7,10 @@ $:.unshift File.dirname(__FILE__)
 
 require 'lib/utils.rb'
 
+ENV['WMF_VERSION_NUMBER'] ||= get_version_short_string File.expand_path(File.join(ENV['PWD'], 'Wikipedia/Wikipedia-Info.plist'))
+
 before_all do
   p ENV
-  unless reset_disabled?
-    reset_git_repo :force
-    ensure_git_status_clean
-  end
 end
 
 lane :test do
@@ -21,6 +19,8 @@ lane :test do
 end
 
 lane :alpha do
+  ensure_git_status_clean
+
   run_unit_tests
 
   # Download the Certificate for signing
@@ -35,31 +35,21 @@ lane :alpha do
 
   # Create the app in iTunes Connect if needed
   produce({
-    produce_username: 'cfloyd@wikimedia.org',
+    produce_username: ENV['WMF_APPLE_USER_NAME'],
     produce_app_identifier: 'org.wikimedia.wikipedia.tfalpha',
     produce_app_identifier_suffix: '', #work around for: https://github.com/KrauseFx/produce/issues/27
     produce_app_name: 'Wikipedia Alpha',
     produce_language: 'English',
-    produce_version: '4.1.1',
+    produce_version: ENV['WMF_VERSION_NUMBER'],
     produce_sku: '01985',
   })
 
-  increment_build_number ENV['BUILD_NUMBER'].to_i
-
-  # Create and sign the IPA (and DSYM)
-  ipa({
-    scheme: 'Wikipedia Alpha',
-    configuration: 'Alpha', #Prevents fastlane from passing --configuration "Release" - bug?
-    clean: nil, # this means 'Do Clean'. Clean project before building.
-    archive: nil, # this means 'Do Archive'. Archive project to the Xcode organizer after building.
-    # verbose: nil, # this means 'Do Verbose'.
-  })
-
-  deploy_testflight_build
-
+  deploy_testflight_build 'Wikipedia Alpha', 'Alpha'
 end
 
 lane :beta do
+  ensure_git_status_clean
+
   run_unit_tests
 
   # Download the Certificate for signing
@@ -74,37 +64,51 @@ lane :beta do
 
   # Create the app in iTunes Connect if needed
   produce({
-    produce_username: 'cfloyd@wikimedia.org',
+    produce_username: ENV['WMF_APPLE_USER_NAME'],
     produce_app_identifier: 'org.wikimedia.wikipedia.tfbeta',
+    produce_app_identifier_suffix: '', #work around for: https://github.com/KrauseFx/produce/issues/27
     produce_app_name: 'Wikipedia Beta',
     produce_language: 'English',
-    produce_version: '4.1.1',
+    produce_version: ENV['WMF_VERSION_NUMBER'],
     produce_sku: '01984',
   })
 
-  increment_build_number ENV['BUILD_NUMBER'].to_i
+  deploy_testflight_build 'Wikipedia Beta', 'Beta'
+end
 
-  # Create and sign the IPA (and DSYM)
-  ipa({
-    scheme: 'Wikipedia Beta',
-    configuration: 'Beta', #Prevents fastlane from passing --configuration "Release" - bug?
-    clean: true,
-    archive: nil
+# Untested!
+lane :appstore do
+  ensure_git_status_clean
+
+  run_unit_tests
+
+  # Download the Certificate for signing
+  cert
+
+  # Create and/or download the right provisioning profile
+  sigh({
+    provisioning_name: 'org.wikimedia.wikipedia AppStore',
+    app_identifier: 'org.wikimedia.wikipedia',
   })
 
-  deploy_testflight_build
+  # Create the app in iTunes Connect if needed
+  produce({
+    produce_username: ENV['WMF_APPLE_USER_NAME'],
+    produce_app_identifier: 'org.wikimedia.wikipedia',
+    produce_app_identifier_suffix: '', #work around for: https://github.com/KrauseFx/produce/issues/27
+    produce_app_name: 'Wikipedia Mobile',
+    produce_language: 'English',
+    produce_version: ENV['WMF_VERSION_NUMBER'],
+    produce_sku: '01982',
+  })
 
+  # Set variables for building and distributing
+  ENV['IPA_BUILD_SCHEME'] = 'Wikipedia'
+  ENV['IPA_BUILD_CONFIG'] = 'Release'
+  ENV['APP_APPLE_ID'] = '324715238'
+
+  deploy_appstore_build
 end
-
-lane :appstore do
-  run_unit_tests
-  snapshot
-  frameit
-  unless deploy_disabled?
-    deliver :skip_deploy, :force
-  end
-end
-
 # after_all do |lane|
 # end
 
