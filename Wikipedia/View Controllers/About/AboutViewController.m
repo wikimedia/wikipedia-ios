@@ -10,6 +10,7 @@
 #import <BlocksKit/BlocksKit.h>
 #import "TopMenuTextFieldContainer.h"
 #import "TopMenuTextField.h"
+#import "NSBundle+WMFInfoUtils.h"
 
 static NSString* const kWMFAboutHTMLFile  = @"about.html";
 static NSString* const kWMFAboutPlistName = @"AboutViewController";
@@ -239,10 +240,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
          [NSString stringWithFormat:@"document.getElementById('%@').innerHTML = \"%@\";", divId, twnString]];
     };
 
-    NSDictionary* appInfo = [[NSBundle mainBundle] infoDictionary];
-    NSString* version     = appInfo[@"CFBundleVersion"] ? appInfo[@"CFBundleVersion"] : @"Unknown version";
-
-    setDivHTML(@"version", version);
+    setDivHTML(@"version", [[NSBundle mainBundle] wmf_versionForCurrentBundleIdentifier]);
     setDivHTML(@"wikipedia", MWLocalizedString(@"about-wikipedia", nil));
     setDivHTML(@"contributors_title", MWLocalizedString(@"about-contributors", nil));
     setDivHTML(@"contributors_body", self.contributors);

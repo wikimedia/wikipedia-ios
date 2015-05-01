@@ -1,0 +1,34 @@
+//
+//  NSBundle+WMFInfoUtils.h
+//  Wikipedia
+//
+//  Created by Brian Gerstle on 5/1/15.
+//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface NSBundle (WMFInfoUtils)
+
+/// @return The value for Info.plist key `CFBundleIdentifier`, i.e. the app's bundle identifier.
+- (NSString*)wmf_bundleIdentifier;
+
+/// @return `YES` if `wmf_bundleIdentifier` ends in "wikipedia", otherwise `NO`.
+- (BOOL)wmf_isAppStoreBundleIdentifier;
+
+/// @return The value for Info.plist key `CFBundleShortVersionString`, i.e. the "public" app version.
+- (NSString*)wmf_shortVersionString;
+
+/// @return The value for Info.plist key `CFBundleVersion`, i.e. the build number.
+- (NSString*)wmf_bundleVersion;
+
+/// @return A string which represents the full app verison, including the build number (e.g. `4.1.3.96`).
+- (NSString*)wmf_debugVersion;
+
+/// Alias for `wmf_shortVersionString`.
+- (NSString*)wmf_releaseVersion;
+
+/// @return Either `wmf_releaseVersion` or `wmf_debugVersion` depending on the bundle identifier.
+- (NSString*)wmf_versionForCurrentBundleIdentifier;
+
+@end

@@ -4,6 +4,7 @@
 #import "WikipediaAppUtils.h"
 #import "WMFAssetsFile.h"
 #import "SessionSingleton.h"
+#import "NSBundle+WMFInfoUtils.h"
 
 NSUInteger MegabytesToBytes(NSUInteger m){
     static NSUInteger const MEGABYTE = 1 << 20;
@@ -22,12 +23,11 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle) {
 @implementation WikipediaAppUtils
 
 + (NSString*)appVersion {
-    NSDictionary* appInfo = [[NSBundle mainBundle] infoDictionary];
-    return [NSString stringWithFormat:@"%@", [appInfo objectForKey:@"CFBundleShortVersionString"]];
+    return [[NSBundle mainBundle] wmf_versionForCurrentBundleIdentifier];
 }
 
 + (NSString*)bundleID {
-    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+    return [[NSBundle mainBundle] wmf_bundleVersion];
 }
 
 + (NSString*)formFactor {

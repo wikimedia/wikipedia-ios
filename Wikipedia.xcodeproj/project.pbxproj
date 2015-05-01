@@ -241,6 +241,7 @@
 		BCA9575D1ABE473800B62AE8 /* OldDataSchemaMigratorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA9575C1ABE473800B62AE8 /* OldDataSchemaMigratorTests.m */; };
 		BCA96E731AAA354D009A61FA /* WMFGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA96E721AAA354D009A61FA /* WMFGradientView.m */; };
 		BCA96E771AAA35EE009A61FA /* UIView+WMFDefaultNib.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA96E761AAA35EE009A61FA /* UIView+WMFDefaultNib.m */; };
+		BCAC50C11AF3F7460015936C /* NSBundle+WMFInfoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAC50C01AF3F7460015936C /* NSBundle+WMFInfoUtils.m */; };
 		BCB3AE861AC11320004AD205 /* NSPersistentStoreCoordinator+WMFTempCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB3AE851AC11320004AD205 /* NSPersistentStoreCoordinator+WMFTempCoordinator.m */; };
 		BCB3AE8A1AC11458004AD205 /* NSManagedObjectContext+WMFTempContext.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB3AE891AC11458004AD205 /* NSManagedObjectContext+WMFTempContext.m */; };
 		BCB3AEA71AC1DDE4004AD205 /* OldDataSchemaMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB3AEA61AC1DDE4004AD205 /* OldDataSchemaMigrator.m */; };
@@ -785,6 +786,8 @@
 		BCA96E721AAA354D009A61FA /* WMFGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFGradientView.m; sourceTree = "<group>"; };
 		BCA96E751AAA35EE009A61FA /* UIView+WMFDefaultNib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WMFDefaultNib.h"; sourceTree = "<group>"; };
 		BCA96E761AAA35EE009A61FA /* UIView+WMFDefaultNib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WMFDefaultNib.m"; sourceTree = "<group>"; };
+		BCAC50BF1AF3F7460015936C /* NSBundle+WMFInfoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+WMFInfoUtils.h"; sourceTree = "<group>"; };
+		BCAC50C01AF3F7460015936C /* NSBundle+WMFInfoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+WMFInfoUtils.m"; sourceTree = "<group>"; };
 		BCB3AE841AC11320004AD205 /* NSPersistentStoreCoordinator+WMFTempCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPersistentStoreCoordinator+WMFTempCoordinator.h"; sourceTree = "<group>"; };
 		BCB3AE851AC11320004AD205 /* NSPersistentStoreCoordinator+WMFTempCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPersistentStoreCoordinator+WMFTempCoordinator.m"; sourceTree = "<group>"; };
 		BCB3AE881AC11458004AD205 /* NSManagedObjectContext+WMFTempContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+WMFTempContext.h"; sourceTree = "<group>"; };
@@ -1879,6 +1882,8 @@
 				0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */,
 				04B0E3E81AE8252800379AE0 /* NSURL+WMFRest.h */,
 				04B0E3E91AE8252800379AE0 /* NSURL+WMFRest.m */,
+				BCAC50BF1AF3F7460015936C /* NSBundle+WMFInfoUtils.h */,
+				BCAC50C01AF3F7460015936C /* NSBundle+WMFInfoUtils.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2990,6 +2995,7 @@
 				0443961B1A3C11A30081557D /* NearbyResultCollectionCell.m in Sources */,
 				0487048519F8262600B7D307 /* EditTokenFetcher.m in Sources */,
 				04CCCFF71935094000E3F60C /* PrimaryMenuTableViewCell.m in Sources */,
+				BCAC50C11AF3F7460015936C /* NSBundle+WMFInfoUtils.m in Sources */,
 				0487048F19F8262600B7D307 /* WikiTextSectionFetcher.m in Sources */,
 				0EA4402E1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m in Sources */,
 				C913C89C1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m in Sources */,
