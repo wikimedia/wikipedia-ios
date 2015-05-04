@@ -1,10 +1,3 @@
-//
-//  MWKDataStore.m
-//  MediaWikiKit
-//
-//  Created by Brion on 10/21/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #import "MediaWikiKit.h"
 
@@ -208,6 +201,11 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 - (void)saveImageData:(NSData*)data image:(MWKImage*)image {
     NSString* path     = [self pathForImage:image];
     NSString* filename = [@"Image" stringByAppendingPathExtension:image.extension];
+
+    if ([image isLeadImage]) {
+        [image calculateFocalRectsBasedOnFaceDetectionWithImageData:data];
+    }
+
     [self saveData:data path:path name:filename];
 
     [image updateWithData:data];

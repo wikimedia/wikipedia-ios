@@ -10,4 +10,13 @@
     return ([[self scheme] wmf_isEqualToStringIgnoringCase:scheme] && [[self host] wmf_isEqualToStringIgnoringCase:key]);
 }
 
+- (NSString*)wmf_getValue {
+    NSAssert(self.path.length > 1, @"wikipedia URLs must have a path: %@", self);
+    if (self.path.length > 1) {
+        return [self.path substringFromIndex:1];
+    } else {
+        return nil;
+    }
+}
+
 @end

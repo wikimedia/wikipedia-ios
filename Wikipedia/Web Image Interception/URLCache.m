@@ -5,12 +5,17 @@
 #import "NSString+Extras.h"
 #import "SessionSingleton.h"
 
-NSString* const kURLCacheKeyFileName             = @"fileName";
-NSString* const kURLCacheKeyData                 = @"data";
-NSString* const kURLCacheKeyWidth                = @"width";
-NSString* const kURLCacheKeyHeight               = @"height";
-NSString* const kURLCacheKeyURL                  = @"url";
-NSString* const kURLCacheKeyFileNameNoSizePrefix = @"fileNameNoSizePrefix";
+NSString* const WMFURLCacheSectionImageRetrievedNotification = @"WMFSectionImageRetrieved";
+
+NSString* const kURLCacheKeyFileName                   = @"fileName";
+NSString* const kURLCacheKeyData                       = @"data";
+NSString* const kURLCacheKeyWidth                      = @"width";
+NSString* const kURLCacheKeyHeight                     = @"height";
+NSString* const kURLCacheKeyURL                        = @"url";
+NSString* const kURLCacheKeyFileNameNoSizePrefix       = @"fileNameNoSizePrefix";
+NSString* const kURLCacheKeyIsLeadImage                = @"isLeadImage";
+NSString* const kURLCacheKeyPrimaryFocalUnitRectString = @"primaryFocalUnitRectString";
+
 
 #if 0
 #define URLCacheLog(...) NSLog(__VA_ARGS__)
@@ -84,7 +89,6 @@ NSString* const kURLCacheKeyFileNameNoSizePrefix = @"fileNameNoSizePrefix";
     }
 
     // Placeholder record found, so route image data to article data store.
-
     NSData* imageDataToUse = cachedResponse.data;
 
     @try {
@@ -97,7 +101,7 @@ NSString* const kURLCacheKeyFileNameNoSizePrefix = @"fileNameNoSizePrefix";
 
     // Broadcast the image data so things like the table of contents can update
     // itself as images arrive.
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SectionImageRetrieved"
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMFURLCacheSectionImageRetrievedNotification
                                                         object:nil
                                                       userInfo:@{
          kURLCacheKeyFileName: image.fileName,
@@ -105,7 +109,9 @@ NSString* const kURLCacheKeyFileNameNoSizePrefix = @"fileNameNoSizePrefix";
          kURLCacheKeyWidth: image.width,
          kURLCacheKeyHeight: image.height,
          kURLCacheKeyURL: image.sourceURL,
-         kURLCacheKeyFileNameNoSizePrefix: image.fileNameNoSizePrefix
+         kURLCacheKeyFileNameNoSizePrefix: image.fileNameNoSizePrefix,
+         kURLCacheKeyIsLeadImage: @([image isLeadImage]),
+         kURLCacheKeyPrimaryFocalUnitRectString: NSStringFromCGRect([image primaryFocalRectNomrmalizedToImageSize:NO])
      }];
 }
 

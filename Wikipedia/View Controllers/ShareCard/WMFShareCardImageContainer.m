@@ -22,9 +22,10 @@
 }
 
 - (void)setImage:(UIImage*)image {
-    _image                  = image;
-    self.faceDetector.image = image;
-    self.faceBounds         = [self.faceDetector detectFace];
+    _image = image;
+    [self.faceDetector setImageWithUIImage:image];
+    [self.faceDetector detectFaces];
+    self.faceBounds = [[[self.faceDetector allFaces] firstObject] bounds];
 }
 
 - (void)drawRect:(CGRect)rect {

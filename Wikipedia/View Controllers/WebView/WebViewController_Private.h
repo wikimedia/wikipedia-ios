@@ -55,7 +55,6 @@
 #import "ArticleFetcher.h"
 #import "AssetsFileFetcher.h"
 
-#import "LeadImageContainer.h"
 #import "DataMigrationProgressViewController.h"
 #import "UIFont+WMFStyle.h"
 #import "WebViewController+ImageGalleryPresentation.h"
@@ -69,6 +68,8 @@
 #import "UIColor+WMFHexColor.h"
 
 #import "WMFLoadingIndicatorOverlay.h"
+
+#import "URLCache.h"
 
 //#import "UIView+Debugging.h"
 
@@ -148,8 +149,6 @@ static int const kMinimumTextSelectionLength = 2;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* bottomNavHeightConstraint;
 
 @property (strong, nonatomic) WMFLoadingIndicatorOverlay* loadingIndicatorOverlay;
-
-@property (strong, nonatomic) LeadImageContainer* leadImageContainer;
 
 @property (strong, nonatomic) WMFWebViewFooterContainerView* footerContainer;
 @property (strong, nonatomic) WMFWebViewFooterViewController* footerViewController;

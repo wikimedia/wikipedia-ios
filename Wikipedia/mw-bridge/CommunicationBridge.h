@@ -18,6 +18,6 @@ typedef void (^ JSListener)(NSString*, NSDictionary*);
 // This method calls the "loadHTML:withAssetsFile:" category method on
 // UIWebView, but first it enables message queueing so subsequent calls
 // to "sendMessage:withPayload:" are queued until the html load completes.
-- (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName;
+- (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName leadSectionHtml:(NSString*)leadSectionHtml;
 
 @end

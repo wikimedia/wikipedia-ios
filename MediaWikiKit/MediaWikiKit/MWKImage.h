@@ -1,10 +1,3 @@
-//
-//  MWKImage.h
-//  MediaWikiKit
-//
-//  Created by Brion on 10/7/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #import "UIKit/UIKit.h"
 #import "MWKSiteDataObject.h"
@@ -29,14 +22,52 @@
 @property (copy) NSDate* dateLastAccessed;
 @property (copy) NSDate* dateRetrieved;
 @property (copy) NSString* mimeType;
+
 @property (copy) NSNumber* width;
 @property (copy) NSNumber* height;
+- (CGSize)size;
+
 
 // Local storage status
 @property (readonly) BOOL isCached;
 
 - (instancetype)initWithArticle:(MWKArticle*)article sourceURL:(NSString*)url;
 - (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict;
+
+/**
+ *  Calculate focal rects
+ *
+ *  @param imageData optional, if you do not pass it the image data will be extracted from disk
+ */
+- (void)calculateFocalRectsBasedOnFaceDetectionWithImageData:(NSData*)imageData;
+
+/**
+ *  All focal rects as strings. Calculated via "calculateFocalRectsBasedOnFaceDetectionWithImageData"
+ * Normally you do not need to access this directly, instead use the methods
+ */
+@property (copy, readonly) NSArray* focalRectsInUnitCoordinatesAsStrings;
+
+/**
+ *  Returns the primary focal rect
+ *  If normalized is set to YES, the rect will be normailzed
+ *  to the image size. If set to NO, the rect will be in
+ *  terms of the unit rect coordinates (0…1)
+ *
+ *  @param normalized  Set YES to normalize to the image
+ *  @return The primary focal rect
+ */
+- (CGRect)primaryFocalRectNomrmalizedToImageSize:(BOOL)normalized;
+
+/**
+ *  Returns a rect enclosing all focal rects
+ *  If normalized is set to YES, the rect will be normailzed
+ *  to the image size. If set to NO, the rect will be in
+ *  terms of the unit rect coordinates (0…1)
+
+ *  @return The rect enclosing all focal rects
+ */
+- (CGRect)rectEnclosingAllFocalRectsNomrmalizedToImageSize:(BOOL)normalized;
+
 
 - (void)importImageData:(NSData*)data;
 
@@ -99,5 +130,7 @@
 - (BOOL)isVariantOfImage:(MWKImage*)otherImage;
 
 - (NSString*)fullImageBinaryPath;
+
+- (BOOL)isLeadImage;
 
 @end
