@@ -118,7 +118,7 @@ NSString* const kURLCacheKeyPrimaryFocalUnitRectString = @"primaryFocalUnitRectS
 - (NSCachedURLResponse*)cachedResponseForRequest:(NSURLRequest*)request {
     //URLCacheLog(@"Default Cache.db usage:\n\tcurrentDiskUsage: %lu\n\tdiskCapacity = %lu\n\tcurrentMemoryUsage = %lu\n\tmemoryCapacity = %lu", (unsigned long)self.currentDiskUsage, (unsigned long)self.diskCapacity, (unsigned long)self.currentMemoryUsage, (unsigned long)self.memoryCapacity);
 
-    if (![self isMIMETypeRerouted:[request.URL.pathExtension getImageMimeTypeForExtension]]) {
+    if (![self isMIMETypeRerouted:[request.URL.pathExtension wmf_imageMimeTypeForExtension]]) {
         return [super cachedResponseForRequest:request];
     }
     if (![self isURLRerouted:request.URL]) {

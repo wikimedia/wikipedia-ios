@@ -633,7 +633,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     [self saveSearchTermToRecentList];
 
     // Set CurrentArticleTitle so web view knows what to load.
-    title = [title wikiTitleWithoutUnderscores];
+    title = [title wmf_stringByReplacingUndrescoresWithSpaces];
 
     [NAV loadArticleWithTitle:[[SessionSingleton sharedInstance].searchSite titleWithString:title]
                      animated:YES

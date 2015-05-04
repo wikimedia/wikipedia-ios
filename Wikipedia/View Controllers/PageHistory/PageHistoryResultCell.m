@@ -30,7 +30,7 @@
       separator:(BOOL)separator {
     self.nameLabel.text = name;
 
-    self.timeLabel.text = [[NSDateFormatter wmf_shortTimeFormatter] stringFromDate:[time getDateFromIso8601DateString]];
+    self.timeLabel.text = [[NSDateFormatter wmf_shortTimeFormatter] stringFromDate:[time wmf_iso8601Date]];
 
     self.deltaLabel.text =
         [NSString stringWithFormat:@"%@%@", (delta.integerValue > 0) ? @"+" : @"", delta.stringValue];
@@ -54,7 +54,7 @@
         [[NSAttributedString alloc] initWithString:icon
                                         attributes:iconAttributes];
 
-    self.summaryLabel.text = [summary getStringWithoutHTML];
+    self.summaryLabel.text = [summary wmf_stringByRemovingHTML];
 
     self.separatorHeightConstraint.constant =
         (separator) ? (1.0f / [UIScreen mainScreen].scale) : 0.0f;

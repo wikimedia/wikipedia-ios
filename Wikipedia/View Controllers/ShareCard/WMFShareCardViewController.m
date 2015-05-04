@@ -53,9 +53,9 @@
     self.shareSelectedText.textAlignment = snippetAlignment;
 
     NSTextAlignment subtextAlignment = [WikipediaAppUtils rtlSafeAlignment];
-    self.shareArticleTitle.text                = [article.displaytitle getStringWithoutHTML];
+    self.shareArticleTitle.text                = [article.displaytitle wmf_stringByRemovingHTML];
     self.shareArticleTitle.textAlignment       = subtextAlignment;
-    self.shareArticleDescription.text          = [[article.entityDescription getStringWithoutHTML] capitalizeFirstLetter];
+    self.shareArticleDescription.text          = [[article.entityDescription wmf_stringByRemovingHTML] wmf_stringByCapitalizingFirstCharacter];
     self.shareArticleDescription.textAlignment = subtextAlignment;
 
     NSData* leadImageData = [article.image.largestCachedVariant asNSData];

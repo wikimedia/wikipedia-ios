@@ -1275,7 +1275,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                     label.lineBreakMode = NSLineBreakByWordWrapping;
                     label.font          = [UIFont systemFontOfSize:30];
                     label.textAlignment = NSTextAlignmentCenter;
-                    title               = [title getStringWithoutHTML];
+                    title               = [title wmf_stringByRemovingHTML];
                     label.text          = title;
                     [views addObject:label];
                 }
@@ -1551,7 +1551,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     }
 
     NSString* title       = article.displaytitle;
-    NSString* description = article.entityDescription ? [[article.entityDescription getStringWithoutHTML] capitalizeFirstLetter] : @"";
+    NSString* description = article.entityDescription ? [[article.entityDescription wmf_stringByRemovingHTML] wmf_stringByCapitalizingFirstCharacter] : @"";
 
     BOOL hasImage          = article.imageURL ? YES : NO;
     CGFloat fontMultiplier = [self leadImageGetSizeReductionMultiplierForTitleOfLength:title.length];

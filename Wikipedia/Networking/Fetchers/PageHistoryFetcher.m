@@ -98,7 +98,7 @@
                     parentSizes[revision[@"revid"]] = revision[@"size"];
 
                     NSString* timeStampString = mutableRevision[@"timestamp"];
-                    NSDate* timeStampDate     = [timeStampString getDateFromIso8601DateString];
+                    NSDate* timeStampDate     = [timeStampString wmf_iso8601Date];
 
                     NSUInteger distanceInDaysToDate = [timeStampDate distanceInDaysToDate:[NSDate date]];
 

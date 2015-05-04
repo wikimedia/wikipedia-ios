@@ -174,7 +174,7 @@
                     NSArray* descriptions = terms[@"description"];
                     if (descriptions && (descriptions.count > 0)) {
                         description = descriptions[0];
-                        description = [description capitalizeFirstLetter];
+                        description = [description wmf_stringByCapitalizingFirstCharacter];
                     }
                 }
                 d[@"description"] = description;

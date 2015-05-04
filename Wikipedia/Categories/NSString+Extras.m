@@ -14,32 +14,15 @@
     return [self substringToIndex:MIN(self.length, index)];
 }
 
-- (NSString*)urlEncodedUTF8String {
-    return (__bridge_transfer id)CFURLCreateStringByAddingPercentEscapes(0, (__bridge CFStringRef)self, 0,
-                                                                         (__bridge CFStringRef)@";/?:@&=$+{}<>,", kCFStringEncodingUTF8);
+- (NSString*)wmf_UTF8StringWithPercentEscapes {
+    return (__bridge_transfer id)CFURLCreateStringByAddingPercentEscapes(0,
+                                                                         (__bridge CFStringRef)self,
+                                                                         0,
+                                                                         (__bridge CFStringRef)@";/?:@&=$+{}<>,",
+                                                                         kCFStringEncodingUTF8);
 }
 
-+ (NSString*)sha1:(NSString*)dataFromString isFile:(BOOL)isFile {
-    NSData* data = nil;
-    if (isFile) {
-        data = [NSData dataWithContentsOfFile:dataFromString];
-    } else {
-        const char* cstr = [dataFromString cStringUsingEncoding:NSUTF8StringEncoding];
-        data = [NSData dataWithBytes:cstr length:dataFromString.length];
-    }
-
-    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
-    CC_SHA1(data.bytes, (unsigned int)data.length, digest);
-    NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
-
-    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
-        [output appendFormat:@"%02x", digest[i]];
-    }
-
-    return output;
-}
-
-- (NSString*)getUrlWithoutScheme {
+- (NSString*)wmf_schemelessURL {
     NSRange dividerRange = [self rangeOfString:@"://"];
     if (dividerRange.location == NSNotFound) {
         return self;
@@ -50,7 +33,7 @@
     return path;
 }
 
-- (NSString*)getImageMimeTypeForExtension {
+- (NSString*)wmf_imageMimeTypeForExtension {
     NSString* lowerCaseSelf = [self lowercaseString];
     if ([lowerCaseSelf isEqualToString:@"jpg"]) {
         return @"image/jpeg";
@@ -67,11 +50,11 @@
     return @"";
 }
 
-- (NSDate*)getDateFromIso8601DateString {
+- (NSDate*)wmf_iso8601Date {
     return [[NSDateFormatter wmf_iso8601Formatter] dateFromString:self];
 }
 
-- (NSString*)getStringWithoutHTML {
+- (NSString*)wmf_stringByRemovingHTML {
     // Strips html from string with xpath / hpple.
     if (!self || (self.length == 0)) {
         return self;
@@ -94,7 +77,7 @@
     return result;
 }
 
-- (NSString*)randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
+- (NSString*)wmf_randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
 {
     float (^ rnd)() = ^(){
         return (float)(rand() % (maxTimes - 1) + 1);
@@ -105,15 +88,15 @@
     return [NSString stringWithFormat:@"<%@>", [randStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
 }
 
-- (NSString*)wikiTitleWithoutUnderscores {
+- (NSString*)wmf_stringByReplacingUndrescoresWithSpaces {
     return [self stringByReplacingOccurrencesOfString:@"_" withString:@" "];
 }
 
-- (NSString*)wikiTitleWithoutSpaces {
+- (NSString*)wmf_stringByReplacingSpacesWithUnderscores {
     return [self stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
-- (NSString*)capitalizeFirstLetter {
+- (NSString*)wmf_stringByCapitalizingFirstCharacter {
     // Capitalize first character of WikiData description.
     if (self.length > 1) {
         NSString* firstChar      = [self substringToIndex:1];

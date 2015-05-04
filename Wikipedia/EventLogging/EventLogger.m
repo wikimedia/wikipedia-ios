@@ -28,7 +28,7 @@
             NSData* payloadJsonData     = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
             NSString* payloadJsonString = [[NSString alloc] initWithData:payloadJsonData encoding:NSUTF8StringEncoding];
             //NSLog(@"%@", payloadJsonString);
-            NSString* encodedPayloadJsonString = [payloadJsonString urlEncodedUTF8String];
+            NSString* encodedPayloadJsonString = [payloadJsonString wmf_UTF8StringWithPercentEscapes];
             NSString* urlString                = [NSString stringWithFormat:@"%@?%@;", LOG_ENDPOINT, encodedPayloadJsonString];
             NSMutableURLRequest* request       = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
             [request addValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];

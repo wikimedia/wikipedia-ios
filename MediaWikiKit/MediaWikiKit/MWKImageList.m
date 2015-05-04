@@ -47,7 +47,7 @@
 }
 
 - (void)addImageURL:(NSString*)imageURL {
-    imageURL = [imageURL getUrlWithoutScheme];
+    imageURL = [imageURL wmf_schemelessURL];
 
     [entries addObject:imageURL];
     entriesByURL[imageURL] = imageURL;

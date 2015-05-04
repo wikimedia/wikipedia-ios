@@ -108,7 +108,7 @@
     // fall back to something with less treatment
     if (!heuristicText) {
         for (MWKSection* section in sections) {
-            heuristicText = [section.text getStringWithoutHTML];
+            heuristicText = [section.text wmf_stringByRemovingHTML];
             if (heuristicText) {
                 break;
             }

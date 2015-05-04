@@ -100,7 +100,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (NSString*)safeFilenameWithImageURL:(NSString*)str {
-    str = [str getUrlWithoutScheme];
+    str = [str wmf_schemelessURL];
 
     if ([str hasPrefix:MWKDataStoreValidImageSitePrefix]) {
         NSString* suffix   = [str substringFromIndex:[MWKDataStoreValidImageSitePrefix length]];

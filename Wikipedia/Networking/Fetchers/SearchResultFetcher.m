@@ -198,7 +198,7 @@
                 NSString* snippet = prefixPage[@"snippet"] ? prefixPage[@"snippet"] : @"";
                 // Strip HTML and collapse repeating spaces in snippet.
                 if (snippet.length > 0) {
-                    snippet = [snippet getStringWithoutHTML];
+                    snippet = [snippet wmf_stringByRemovingHTML];
                     snippet = [self.spaceCollapsingRegex stringByReplacingMatchesInString:snippet
                                                                                   options:0
                                                                                     range:NSMakeRange(0, [snippet length])
@@ -206,7 +206,7 @@
                 }
                 mutablePrefixPage[@"snippet"] = snippet;
 
-                mutablePrefixPage[@"title"] = mutablePrefixPage[@"title"] ? [mutablePrefixPage[@"title"] wikiTitleWithoutUnderscores] : @"";
+                mutablePrefixPage[@"title"] = mutablePrefixPage[@"title"] ? [mutablePrefixPage[@"title"] wmf_stringByReplacingUndrescoresWithSpaces] : @"";
 
                 mutablePrefixPage[@"searchtype"] = @(self.searchType);
                 mutablePrefixPage[@"searchterm"] = self.searchTerm;
@@ -217,7 +217,7 @@
                     NSArray* descriptions = terms[@"description"];
                     if (descriptions && (descriptions.count > 0)) {
                         description = descriptions[0];
-                        description = [description capitalizeFirstLetter];
+                        description = [description wmf_stringByCapitalizingFirstCharacter];
                     }
                     [mutablePrefixPage removeObjectForKey:@"terms"];
                 }

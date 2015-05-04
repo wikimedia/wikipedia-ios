@@ -6,24 +6,30 @@
 /// @return A substring of the receiver going up to @c index, or @c length, whichever is shorter.
 - (NSString*)wmf_safeSubstringToIndex:(NSUInteger)index;
 
-- (NSString*)urlEncodedUTF8String;
-+ (NSString*)sha1:(NSString*)dataFromString isFile:(BOOL)isFile;
-- (NSString*)getUrlWithoutScheme;
-- (NSString*)getImageMimeTypeForExtension;
+- (NSString*)wmf_UTF8StringWithPercentEscapes;
 
-- (NSDate*)  getDateFromIso8601DateString;
-- (NSString*)getStringWithoutHTML;
+- (NSString*)wmf_schemelessURL;
 
-- (NSString*)randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
+- (NSString*)wmf_imageMimeTypeForExtension;
 
-- (NSString*)wikiTitleWithoutUnderscores;
-- (NSString*)wikiTitleWithoutSpaces;
+- (NSDate*)wmf_iso8601Date;
 
-- (NSString*)capitalizeFirstLetter;
+- (NSString*)wmf_stringByRemovingHTML;
+
+- (NSString*)wmf_randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
+
+- (NSString*)wmf_stringByReplacingUndrescoresWithSpaces;
+
+- (NSString*)wmf_stringByReplacingSpacesWithUnderscores;
+
+- (NSString*)wmf_stringByCapitalizingFirstCharacter;
 
 - (BOOL)wmf_containsString:(NSString*)string;
+
 - (BOOL)wmf_caseInsensitiveContainsString:(NSString*)string;
+
 - (BOOL)wmf_containsString:(NSString*)string options:(NSStringCompareOptions)options;
+
 - (BOOL)wmf_isEqualToStringIgnoringCase:(NSString*)string;
 
 @end

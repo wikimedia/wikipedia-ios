@@ -15,7 +15,7 @@
 
     NSString* title = isLead ? self.article.title.prefixedText : self.line;
 
-    NSString* noHtmlTitle = [title getStringWithoutHTML];
+    NSString* noHtmlTitle = [title wmf_stringByRemovingHTML];
 
     id titleToUse = isLead ? [self getLeadSectionAttributedTitleForString : noHtmlTitle] : noHtmlTitle;
 
