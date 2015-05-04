@@ -17,6 +17,7 @@
 "article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
+"article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
 "info-box-title" = "The title of info boxes - in collapsed and expanded form";
 "info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
@@ -265,7 +266,7 @@
 "migration-skip-button-title" = "Button with migration prompt that indicates user wants to skip migration and delete their data.";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
 "image-gallery-fetch-image-info-error-title" = "Title of prompt weh image meta download fails in gallery";
-"image-gallery-fetch-image-info-error-message" = "Message of prompt weh image meta download fails in gallery";
+"image-gallery-fetch-image-info-error-message" = "Message of prompt when image meta download fails in gallery";
 "image-gallery-fetch-image-info-error-ok" = "OK button of prompt weh image meta download fails in gallery";
 "hockeyapp-alert-question" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "hockeyapp-alert-question-with-response-field" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server, and asking the user to describe what happened when the crash occurred. $1 will be replaced programmatically with the constant string 'HockeyApp'";
@@ -276,4 +277,3 @@
 "hockeyapp-alert-privacy" = "Alert dialog button text for HockeyApp privacy policy. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "page-issues" = "Label for button that shows the Page issues dialog.";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";
-"article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";

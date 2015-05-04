@@ -9,6 +9,7 @@
 "article-languages-filter-placeholder" = "Jazykový filter";
 "article-read-more-title" = "Ďalšie informácie";
 "info-box-close-text" = "Zavrieť";
+"table-title-other" = "Viac informácií";
 "language-button-text" = "Tento článok si môžete prečítať v %d ďalších jazykoch";
 "history-label" = "Nedávna história prehliadania";
 "history-section-today" = "Dnes";
@@ -116,10 +117,9 @@
 "saved-pages-clear-cancel" = "Zrušiť";
 // Fuzzy
 "saved-pages-clear-delete-all" = "Vymazať všetky";
-// Fuzzy
-"page-history-title" = "História stránky";
-// Fuzzy
-"page-history-downloading" = "Načítavanie histórie stránky...";
+"saved-pages-refresh-cancel-alert-button" = "Rozumiem";
+"page-history-title" = "História článku";
+"page-history-downloading" = "Načítavanie histórie článku...";
 "navbar-title-mode-edit-wikitext" = "Upraviť";
 "navbar-title-mode-login" = "Prihlásiť sa";
 "navbar-title-mode-login-and-save" = "Prihlásiť sa a uložiť";
@@ -131,7 +131,6 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Je požadované rýchle overenie";
 "navbar-title-mode-edit-wikitext-summary" = "Zhrnutie úprav";
 "navbar-title-mode-edit-wikitext-save" = "Uložiť";
-// Fuzzy
 "edit-summary-choice-linked-words" = "Pridanie odkazov";
 "edit-summary-choice-fixed-grammar" = "Oprava pravopisu";
 "edit-summary-choice-fixed-typos" = "Oprava preklepu";
@@ -157,6 +156,7 @@
 "about-product-of" = "Produkt $1";
 "about-wikimedia-foundation" = "Nadácie Wikimédia";
 "share-menu-save-page" = "Uložiť článok";
+"share-custom-menu-item" = "Zdieľať";
 "timestamp-just-now" = "práve teraz";
 "button-next" = "Ďalej";
 "button-done" = "Hotovo";
@@ -193,6 +193,8 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-cancel" = "Zrušiť";
 "nearby-location-updates-denied" = "Táto aplikácia nemá prístup k údajom o polohe.";
+"image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-send-report" = "Odoslať správu";
 "hockeyapp-alert-always-send" = "Vždy odoslať";
 "hockeyapp-alert-do-not-send" = "Neodoslať";
+"page-similar-titles" = "Podobné stránky";

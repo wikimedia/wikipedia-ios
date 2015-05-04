@@ -65,7 +65,6 @@
 "main-menu-more" = "نور ...";
 "saved-pages-title" = "خوندي مخونه";
 "saved-pages-clear-cancel" = "ناگارل";
-// Fuzzy
 "saved-pages-clear-delete-all" = "ټول ړنگول";
 "saved-pages-refresh-cancel-alert-button" = "پوه شوم";
 "page-history-title" = "د ليکنې پېښليک";
@@ -127,3 +126,9 @@
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-km" = "$1 کیلومتر";
 "nearby-cancel" = "ناگارل";
+"migration-skip-button-title" = "دا ړنگول";
+"image-gallery-fetch-image-info-error-ok" = "ښه";
+"hockeyapp-alert-always-send" = "تل ورلېږل";
+"hockeyapp-alert-do-not-send" = "مه ورلېږه";
+"hockeyapp-alert-privacy" = "$1 پټنتيا";
+"page-similar-titles" = "ورته مخونه";

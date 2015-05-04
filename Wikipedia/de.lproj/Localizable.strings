@@ -8,6 +8,7 @@
 "article-languages-downloading" = "Lade Artikelsprachen …";
 "article-languages-filter-placeholder" = "Sprachfilter";
 "article-read-more-title" = "Mehr lesen";
+"article-unable-to-load-section" = "Dieser Abschnitt konnte nicht geladen werden. Versuche, den Artikel neu zu laden, um zu sehen, ob dies das Problem behebt.";
 "info-box-title" = "Schnelle Fakten";
 "info-box-close-text" = "Schließen";
 "table-title-other" = "Weitere Informationen";
@@ -124,7 +125,6 @@
 "saved-pages-clear-confirmation-heading" = "Alle gespeicherten Objekte löschen?";
 "saved-pages-clear-confirmation-sub-heading" = "Diese Aktion kann nicht rückgängig gemacht werden!";
 "saved-pages-clear-cancel" = "Abbrechen";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Alle löschen";
 "saved-pages-refresh-cancel-alert-title" = "Aktualisierung abgebrochen";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-Artikel werden ständig aktualisiert. Tippe auf „Aktualisieren“, um die neuesten Versionen aller Artikel abzurufen.";
@@ -266,3 +266,5 @@
 "hockeyapp-alert-always-send" = "Immer senden";
 "hockeyapp-alert-do-not-send" = "Nicht senden";
 "hockeyapp-alert-privacy" = "$1-Datenschutz";
+"page-issues" = "Seitenprobleme";
+"page-similar-titles" = "Ähnliche Seiten";

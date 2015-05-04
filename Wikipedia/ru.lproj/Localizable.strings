@@ -15,6 +15,7 @@
 "article-languages-downloading" = "Загрузка языков статьи…";
 "article-languages-filter-placeholder" = "Языковой фильтр";
 "article-read-more-title" = "Читать подробнее";
+"article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "info-box-title" = "Короткие факты";
 "info-box-close-text" = "Закрыть";
 "table-title-other" = "Подробнее";
@@ -131,7 +132,6 @@
 "saved-pages-clear-confirmation-heading" = "Удалить все сохранённые элементы?";
 "saved-pages-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
 "saved-pages-clear-cancel" = "Отмена";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Удалить всё";
 "saved-pages-refresh-cancel-alert-title" = "Обновление отменено";
 "saved-pages-refresh-cancel-alert-message" = "Статьи Википедии всё время обновляются. Нажмите «обновить», чтобы получить последние версии всех статей.";
@@ -256,11 +256,14 @@
 "nearby-location-updates-settings-menu" = "Приватность > Службы геолокации > Википедия";
 "nearby-location-general-error" = "Не удаётся определить местоположение. Потяните, чтобы обновить или повторите попытку позже.";
 "nearby-wifi" = "Включение Wi-Fi может помочь устройству лучше определить ваше местоположение.";
-// Fuzzy
-"migration-update-progress-label" = "Обновление локальных данных";
-// Fuzzy
+"migration-update-progress-label" = "Перенос локальных данных";
 "migration-update-progress-count-label" = "Перенос статьи $1 из $2";
+"migration-prompt-message" = "Мы должны перенести ваши сохранённые и последние просмотренные страницы. Это может занять пару минут…";
+"migration-skip-button-title" = "Удалить их";
 "image-gallery-unknown-owner" = "Загрузивший файл неизвестен.";
+"image-gallery-fetch-image-info-error-title" = "Не удаётся скачать изображения";
+"image-gallery-fetch-image-info-error-message" = "Не удаётся загрузить изображения для этой статьи. Пожалуйста, обновите статью и попробуйте снова.";
+"image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Не хотели бы вы отправить отчет в $1, чтобы Фонд Викимедиа смог изучить ваш случай «падения»?";
 "hockeyapp-alert-question-with-response-field" = "Не хотели бы вы отправить отчет в $1, чтобы Фонд Викимедиа смог изучить ваш случай «падения»? Пожалуйста, опишите, что могло привести к этому:";
 "hockeyapp-alert-title" = "К сожалению, в прошлый раз приложение «упало»";
@@ -268,3 +271,5 @@
 "hockeyapp-alert-always-send" = "Всегда отправлять";
 "hockeyapp-alert-do-not-send" = "Не отправлять";
 "hockeyapp-alert-privacy" = "Политика конфиденциальности $1";
+"page-issues" = "Вопросы по странице";
+"page-similar-titles" = "Похожие страницы";

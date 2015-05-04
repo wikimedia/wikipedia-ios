@@ -7,6 +7,7 @@
 "article-languages-downloading" = "Se încarcă limbile articolului...";
 "article-languages-filter-placeholder" = "Filtru de limbă";
 "article-read-more-title" = "Citiți mai multe";
+"article-unable-to-load-section" = "Această secțiune nu poate fi încărcată. Reîncărcați articolul pentru a vedea dacă problema se rezolvă astfel.";
 "info-box-title" = "Informații pe scurt";
 "info-box-close-text" = "Închide";
 "table-title-other" = "Mai multe informații";
@@ -123,7 +124,6 @@
 "saved-pages-clear-confirmation-heading" = "Ștergeți toate elementele salvate?";
 "saved-pages-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";
 "saved-pages-clear-cancel" = "Revocare";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Șterge tot";
 "saved-pages-refresh-cancel-alert-title" = "Actualizare anulată";
 "saved-pages-refresh-cancel-alert-message" = "Articolele Wikipediei sunt actualizate permanent. Apăsați „reîncarcă” pentru a obține ultima versiune a tuturor articolelor.";
@@ -248,11 +248,16 @@
 "nearby-location-updates-settings-menu" = "Intimitate > Servicii de localizare > Wikipedia";
 "nearby-location-general-error" = "Nu s-a putut efectua localizarea. Trageți pentru a reîmprospăta sau reîncercați mai târziu.";
 "nearby-wifi" = "Activarea conexiunii WiFi poate ajuta dispozitivul dumnevoastră să vă localizeze mai precis.";
-// Fuzzy
-"migration-update-progress-label" = "Se face upgrade datelor locale";
-// Fuzzy
+"migration-update-progress-label" = "Se migrează datele locale";
 "migration-update-progress-count-label" = "Se migrează articolul $1 din $2";
+"migration-prompt-title" = "Se pare că avem un istoric!";
+"migration-prompt-message" = "Trebuie să vă mutăm paginile recente și salvate. Ar putea dura un pic…";
+"migration-confirm-button-title" = "Mută-mi lucrurile";
+"migration-skip-button-title" = "Șterge-le";
 "image-gallery-unknown-owner" = "Încărcată de o persoană necunoscută.";
+"image-gallery-fetch-image-info-error-title" = "Imposibil de descărcat imaginile";
+"image-gallery-fetch-image-info-error-message" = "Imposibil de descărcat imaginile pentru acest articol. Reîncărcați articolul și încercați din nou.";
+"image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema?";
 "hockeyapp-alert-question-with-response-field" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema? Vă rugăm să descrieți împrejurarea în care s-a produs blocarea:";
 "hockeyapp-alert-title" = "Ne pare rău, aplicația s-a blocat ultima dată";
@@ -260,3 +265,5 @@
 "hockeyapp-alert-always-send" = "Trimite întotdeauna";
 "hockeyapp-alert-do-not-send" = "Nu trimite";
 "hockeyapp-alert-privacy" = "Confidențialitate $1";
+"page-issues" = "Problemele paginii";
+"page-similar-titles" = "Pagini similare";

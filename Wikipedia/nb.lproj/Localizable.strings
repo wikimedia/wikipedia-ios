@@ -5,12 +5,14 @@
 // Author: Kingu
 // Author: Laaknor
 // Author: Macofe
+// Author: Tsaetre
 
 "article-languages-label" = "Velg språk";
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Laster artikkelspråk…";
 "article-languages-filter-placeholder" = "Språkfilter";
 "article-read-more-title" = "Les mer";
+"article-unable-to-load-section" = "Kunne ikke laste dette avsnittet. Prøv å oppdatere artikkelen for å se om det løser problemet.";
 "info-box-title" = "Raske fakta";
 "info-box-close-text" = "Lukk";
 "table-title-other" = "Mer informasjon";
@@ -127,8 +129,7 @@
 "saved-pages-clear-confirmation-heading" = "Fjerne alle lagrede sider?";
 "saved-pages-clear-confirmation-sub-heading" = "Handlingen kan ikke angres!";
 "saved-pages-clear-cancel" = "Avbryt";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Fjern alt";
+"saved-pages-clear-delete-all" = "Slett alt";
 "saved-pages-refresh-cancel-alert-title" = "Oppdatering avbrutt";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-artikler blir oppdatert hele tiden. Trykk oppdater for å få den siste versjonene av alle artiklene.";
 "saved-pages-refresh-cancel-alert-button" = "Forstått";
@@ -252,11 +253,16 @@
 "nearby-location-updates-settings-menu" = "Innstillinger > Personvern > Stedstjenester > Wikipedia";
 "nearby-location-general-error" = "Kunne ikke bestemme plasseringen din. Dra for å gjenoppfriske eller prøv på nytt senere.";
 "nearby-wifi" = "Å skru på wifi kan hjelpe enheten din til å bestemme posisjonen din bedre.";
-// Fuzzy
-"migration-update-progress-label" = "Oppgraderer lokal data";
-// Fuzzy
-"migration-update-progress-count-label" = "Migrerer artikkel $1 av $2";
+"migration-update-progress-label" = "Flytter lokale data";
+"migration-update-progress-count-label" = "Flytter artikkel $1 av $2";
+"migration-prompt-title" = "Ser ut som om vi har en historikk!";
+"migration-prompt-message" = "Vi behøver å flytte dine lagrede og siste sider. Dette kan ta litt tid...";
+"migration-confirm-button-title" = "Flytt over greiene mine";
+"migration-skip-button-title" = "Slett";
 "image-gallery-unknown-owner" = "Ukjent opplaster.";
+"image-gallery-fetch-image-info-error-title" = "Kunne ikke laste ned bilder";
+"image-gallery-fetch-image-info-error-message" = "Kunne ikke laste ned bildene for denne artikkelen. Oppdater artikkelen og prøv igjen.";
+"image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia kan ta den i ettersyn?";
 "hockeyapp-alert-question-with-response-field" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia kan ta den i ettersyn? Beskriv hva som skjedde da det inntraff:";
 "hockeyapp-alert-title" = "Beklager, app-en krasjet forrige gang";
@@ -264,3 +270,5 @@
 "hockeyapp-alert-always-send" = "Alltid send";
 "hockeyapp-alert-do-not-send" = "Ikke send";
 "hockeyapp-alert-privacy" = "$ personvern";
+"page-issues" = "Problemer med siden";
+"page-similar-titles" = "Lignende sider";

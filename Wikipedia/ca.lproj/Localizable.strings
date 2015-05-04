@@ -131,8 +131,7 @@
 "saved-pages-clear-confirmation-heading" = "Suprimir tots els elements desats?";
 "saved-pages-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "saved-pages-clear-cancel" = "Cancel·la";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Esborra tot";
+"saved-pages-clear-delete-all" = "Esborra-ho tot";
 "saved-pages-refresh-cancel-alert-title" = "Actualització cancel·lada";
 "saved-pages-refresh-cancel-alert-message" = "Els articles de la Viquipèdia s'actualitzen constantment. Feu un toc per obtenir la darrera versió de tots els articles.";
 "saved-pages-refresh-cancel-alert-button" = "Ho he entès";
@@ -256,11 +255,16 @@
 "nearby-location-updates-settings-menu" = "Privadesa > Serveis d'ubicació > Viquipèdia";
 "nearby-location-general-error" = "No es pot determinar la ubicació. Arrossegueu per refrescar-la o torneu-ho a provar més endavant.";
 "nearby-wifi" = "Si activeu la Wi-Fi pot ajudar el vostre dispositiu a determinar millor la vostra localització.";
-// Fuzzy
-"migration-update-progress-label" = "S'estan actualitzant les dades locals";
-// Fuzzy
+"migration-update-progress-label" = "S'estan migrant les dades locals";
 "migration-update-progress-count-label" = "S'està migrant l'article $1 de $2";
+"migration-prompt-title" = "Sembla que tenim una història!";
+"migration-prompt-message" = "Hem de moure les vostres pàgines desades i recents. Això pot trigar una estona...";
+"migration-confirm-button-title" = "Mou les meves coses";
+"migration-skip-button-title" = "Esborra-ho";
 "image-gallery-unknown-owner" = "El carregador no és conegut.";
+"image-gallery-fetch-image-info-error-title" = "No s'han pogut baixar les imatges";
+"image-gallery-fetch-image-info-error-message" = "No s'han pogut baixar les imatges de l'article. Refresqueu l'article i torneu-ho a proveu.";
+"image-gallery-fetch-image-info-error-ok" = "D'acord";
 "hockeyapp-alert-question" = "Voldríeu enviar un informe de fallada a $1 per tal que Wikimedia ho revisi?";
 "hockeyapp-alert-question-with-response-field" = "Voldríeu enviar un informe de fallada a $1 per tal que Wikimedia ho revisi? Descriviu què va passar quan va produir-se la fallada.";
 "hockeyapp-alert-title" = "Ho sentim, l'aplicació va fallar la darrera vegada";
@@ -268,3 +272,5 @@
 "hockeyapp-alert-always-send" = "Envia sempre";
 "hockeyapp-alert-do-not-send" = "No enviïs";
 "hockeyapp-alert-privacy" = "Privadesa de $1";
+"page-issues" = "Problemes de la pàgina";
+"page-similar-titles" = "Pàgines similars";

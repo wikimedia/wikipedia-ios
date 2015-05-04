@@ -126,7 +126,6 @@
 "saved-pages-clear-confirmation-heading" = "Borrar tódolos elementos gardados?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer!";
 "saved-pages-clear-cancel" = "Cancelar";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Borrar todo";
 "saved-pages-refresh-cancel-alert-title" = "Actualización cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Os artigos de Wikipedia actualízanse todo o tempo. Prema actualizar para obter as últimas versións de tódolos artigos.";
@@ -251,11 +250,16 @@
 "nearby-location-updates-settings-menu" = "Privacidade > Servizos de localización > Wikipedia";
 "nearby-location-general-error" = "Non se pode determinar a localización. Tire para actualizar ou ténteo máis tarde.";
 "nearby-wifi" = "Activar wifi pode axudar a que o seu dispositivo determine mellor a súa localización.";
-// Fuzzy
-"migration-update-progress-label" = "Actualizando datos locais";
-// Fuzzy
+"migration-update-progress-label" = "Migrando os datos locais";
 "migration-update-progress-count-label" = "Migrando artigos $1 de $2";
+"migration-prompt-title" = "Semella que temos unha historia!";
+"migration-prompt-message" = "Precisamos mover as súas páxinas gardadas e recentes. Isto levará un momento...";
+"migration-confirm-button-title" = "Mover as miñas cousas";
+"migration-skip-button-title" = "Borralo";
 "image-gallery-unknown-owner" = "Autor descoñecido.";
+"image-gallery-fetch-image-info-error-title" = "Imposible descargar as imaxes";
+"image-gallery-fetch-image-info-error-message" = "Imposible descargar as imaxes para este artigo. Por favor, refrescre o artigo e inténteo de novo.";
+"image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Quere enviar un informe de erro a $1 para que así Wikimedia poida revisar o seu erro?";
 "hockeyapp-alert-question-with-response-field" = "Quere enviar un informe de erro a $1 para que así Wikimedia poida revisar o seu erro? Por favor descreba que ocorreu cando sucedeu o erro:";
 "hockeyapp-alert-title" = "Sentímolo, a aplicación tivo un erro a última vez";
@@ -263,3 +267,5 @@
 "hockeyapp-alert-always-send" = "Enviar sempre";
 "hockeyapp-alert-do-not-send" = "Non enviar";
 "hockeyapp-alert-privacy" = "Confidencialidade de $1";
+"page-issues" = "Problemas na páxina";
+"page-similar-titles" = "Páginas semellantes";

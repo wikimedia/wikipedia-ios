@@ -16,6 +16,7 @@
 "article-languages-downloading" = "Läser in artikelspråk...";
 "article-languages-filter-placeholder" = "Språkfilter";
 "article-read-more-title" = "Läs mer";
+"article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
 "info-box-title" = "Snabbfakta";
 "info-box-close-text" = "Stäng";
 "table-title-other" = "Mer information";
@@ -132,8 +133,7 @@
 "saved-pages-clear-confirmation-heading" = "Radera alla sparade objekt?";
 "saved-pages-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
 "saved-pages-clear-cancel" = "Avbryt";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Radera alla";
+"saved-pages-clear-delete-all" = "Radera allt";
 "saved-pages-refresh-cancel-alert-title" = "Uppdatering avbruten";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-artiklar uppdateras hela tiden. Tryck på uppdatera för att få den senaste versionen av alla artiklar.";
 "saved-pages-refresh-cancel-alert-button" = "Jag förstår";
@@ -257,11 +257,16 @@
 "nearby-location-updates-settings-menu" = "Sekretess > Platstjänster > Wikipedia";
 "nearby-location-general-error" = "Det gick inte att bestämma plats. Dra för att uppdatera eller försök igen senare.";
 "nearby-wifi" = "Att aktivera wifi kan hjälpa din enhet att bättre avgöra din position.";
-// Fuzzy
-"migration-update-progress-label" = "Uppgraderar lokal data";
-// Fuzzy
+"migration-update-progress-label" = "Migrerar lokal data";
 "migration-update-progress-count-label" = "Migrerar artikel $1 av $2";
+"migration-prompt-title" = "Det verkar som att vi har en historik!";
+"migration-prompt-message" = "Vi behöver flytta över dina sparade och senaste artiklar. Detta kan ta några minuter…";
+"migration-confirm-button-title" = "Flytta över mina saker";
+"migration-skip-button-title" = "Radera";
 "image-gallery-unknown-owner" = "Okänd uppladdare.";
+"image-gallery-fetch-image-info-error-title" = "Kunde inte ladda ned bilder";
+"image-gallery-fetch-image-info-error-message" = "Kunde inte ladda ned bilder för denna artikel. Uppdatera artikeln och försök igen.";
+"image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Vill du skicka en kraschrapport till $1 så kan Wikimedia kan undersöka din krasch?";
 "hockeyapp-alert-question-with-response-field" = "Vill du skicka en kraschrapport till $1 så att Wikimedia  undersöka din krasch? Beskriv vad som hände när kraschen inträffade:";
 "hockeyapp-alert-title" = "Ledsen, appen kraschade förra gången";
@@ -269,3 +274,5 @@
 "hockeyapp-alert-always-send" = "Skicka alltid";
 "hockeyapp-alert-do-not-send" = "Skicka inte";
 "hockeyapp-alert-privacy" = "$1s sekretess";
+"page-issues" = "Sidproblem";
+"page-similar-titles" = "Liknande sidor";

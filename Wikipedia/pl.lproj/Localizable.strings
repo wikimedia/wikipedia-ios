@@ -4,6 +4,7 @@
 // Author: Alchemik
 // Author: Bsitzmann
 // Author: Chrumps
+// Author: Devwebtel
 // Author: Jacenty359
 // Author: Peter Bowman
 // Author: Pio387
@@ -197,6 +198,10 @@
 "nearby-location-updates-settings-menu" = "Prywatność > Usługi lokalizacji > Wikipedia";
 "nearby-location-general-error" = "Nie udało się ustalić położenia. Odśwież lub spróbuj ponownie później.";
 "nearby-wifi" = "Uruchomienie Wi-Fi może pomóc urządzeniu lepiej określić twoją lokalizację.";
+"migration-skip-button-title" = "Usuń obiekt";
+"image-gallery-fetch-image-info-error-title" = "Nie można pobrać obrazów";
+"image-gallery-fetch-image-info-error-ok" = "Ok";
 "hockeyapp-alert-send-report" = "Wyślij raport";
 "hockeyapp-alert-always-send" = "Zawsze wysyłaj";
 "hockeyapp-alert-do-not-send" = "Nie wysyłaj";
+"page-similar-titles" = "Podobne strony";

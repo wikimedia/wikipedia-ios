@@ -7,6 +7,7 @@
 "article-languages-downloading" = "Luede vun de Sprooche vum Artikel...";
 "article-languages-filter-placeholder" = "Sproochfilter";
 "article-read-more-title" = "Liest méi";
+"article-unable-to-load-section" = "Dësen Abschnitt konnt net geluede ginn. Probéiert fir den Artikel z'aktualiséieren an ze kucken ob dat de Problem léist.";
 "info-box-title" = "Séier Fakten";
 "info-box-close-text" = "Zoumaachen";
 "table-title-other" = "Méi Informatiounen";
@@ -117,7 +118,6 @@
 "saved-pages-clear-confirmation-heading" = "All gespäichert Elementer läschen?";
 "saved-pages-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
 "saved-pages-clear-cancel" = "Ofbriechen";
-// Fuzzy
 "saved-pages-clear-delete-all" = "All läschen";
 "saved-pages-refresh-cancel-alert-title" = "Aktualisatioun ofgegrach";
 "saved-pages-refresh-cancel-alert-button" = "Verstan";
@@ -234,14 +234,17 @@
 "nearby-location-updates-denied" = "Dës App huet net d'Recht fir Aktualisatiounen iwwer d'Plaz wou e grad ass ze kréien.";
 "nearby-location-general-error" = "D'Plaz wou Dir sidd konnt net festgestallt ginn. Dréckt fir z'aktualiséieren oder probéiert méi spéit nach eng Kéier.";
 "nearby-wifi" = "D'Aschalte vum Wifi kann Ärem Apparat hëllefen d'Plaz wou Dir sidd besser festzeleeën.";
-// Fuzzy
-"migration-update-progress-label" = "Aktualiséiere vu lokalen Donnéeën";
-// Fuzzy
-"migration-update-progress-count-label" = "Migratioun vum Artikel $1 op $2";
+"migration-update-progress-label" = "Migréiere vu lokalen Donnéeën";
+"migration-update-progress-count-label" = "Migréiere vum Artikel $1 op $2";
+"migration-skip-button-title" = "Läschen";
 "image-gallery-unknown-owner" = "Eroplueder onbekannt.";
+"image-gallery-fetch-image-info-error-title" = "Biller konnten net  erofgeluede ginn";
+"image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Wëllt Dir e Rapport vum Crash u $1 schécken fir datt Wikimedia Äre Crash ënnersiche kann?";
 "hockeyapp-alert-title" = "Leider ass d'App déi leschte Kéier ofgestierzt";
 "hockeyapp-alert-send-report" = "Rapport schécken";
 "hockeyapp-alert-always-send" = "Ëmmer schécken";
 "hockeyapp-alert-do-not-send" = "Net schécken";
 "hockeyapp-alert-privacy" = "$1-Dateschutz";
+"page-issues" = "Problemer mat der Säit";
+"page-similar-titles" = "Ähnlech Säiten";

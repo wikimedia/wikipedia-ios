@@ -4,6 +4,7 @@
 
 "article-languages-label" = "भाषां चिनोतु";
 "article-languages-cancel" = "निरस्यताम्";
+"article-languages-downloading" = "लेखस्यास्य भाषापरिसन्धिः अवारोपयति...";
 "article-languages-filter-placeholder" = "भाषाशोधनी";
 "article-read-more-title" = "अधिकं पठ्यताम्";
 "info-box-title" = "त्वरिततथ्यानि";
@@ -33,6 +34,8 @@
 "zero-wikipedia-zero-heading" = "विकिपीडिया शून्यम्";
 "zero-warn-when-leaving" = "विकिपीडिया-शून्यस्य त्यागकाले सूच्यताम्";
 "zero-settings-devmode" = "शून्यं devmode";
+"account-creation-captcha-required" = "संभेपूस्वसाट्यूप (CAPTCHA) सत्यापनम् आवश्यकम् ।";
+"account-creation-captcha-obtaining" = "नवीनं संभेपूस्वसाट्यूप प्राप्तम् ।";
 "account-creation-logging-in" = "प्रवेशः भवति...";
 "account-creation-passwords-mismatched" = "कूटशब्दौ असमानौ स्तः";
 "account-creation-saving" = "रक्षति...";
@@ -58,6 +61,8 @@
 "wikitext-preview-changes" = "भवता/भवत्या कृतस्य परिवतनस्य प्राग्दृश्यं प्रदर्शयति...";
 "wikitext-preview-changes-none" = "प्राग्दृश्ये कृते सति किमपि परिवर्तनं न भवति ।";
 "wikitext-upload-result-unknown" = "विकि-पाठस्य उपारोपणनिर्णयस्य निर्धारणं न शक्यते ।";
+"wikitext-upload-captcha-error" = "संभेपूस्वसाट्यूप (CAPTCHA) सत्यापनदोषः ।";
+"wikitext-upload-captcha-needed" = "संभेपूस्वसाट्यूप (CAPTCHA) सत्यापनम् आवश्यकम् ।";
 "wikitext-upload-save" = "रक्षति...";
 "wikitext-upload-save-sign-in" = "प्रविश्यताम्";
 "wikitext-upload-save-sign-in-benefits" = "तर्हि सहयोजकः भवता सह युक्तो भवितुं शक्नोति, भवान्/भवती च स्वसम्पादितान् लेखान् द्रष्टुं शक्नोति ।";
@@ -118,6 +123,7 @@
 "saved-pages-clear-confirmation-heading" = "सद्यस्कानि वस्तूनि अपाकरणीयानि ?";
 "saved-pages-clear-confirmation-sub-heading" = "एषा क्रिया अपूर्णा भवितुं शक्नोति !";
 "saved-pages-clear-cancel" = "निरस्यताम्";
+"saved-pages-clear-delete-all" = "सर्वम् अपाक्रियताम्";
 "saved-pages-refresh-cancel-alert-title" = "निरस्तं नवीकरोतु";
 "saved-pages-refresh-cancel-alert-message" = "विकिपीडिया-जालस्य लेखाः सर्वदा परिवर्तनशीलाः भवति । लेखानाम् अत्याधुनिकं संस्करणं प्राप्तुं प्रत्याववस्थापनं करोतु ।";
 "saved-pages-refresh-cancel-alert-button" = "ज्ञातम्";
@@ -146,7 +152,7 @@
 "edit-summary-description" = "भवतां/भवत्याः सम्पादनस्य योग्यः सारांशः सहयोजकान् त्वरितसमीक्षायै साहाय्यं करोति । भवान्/भवती अपि निम्नचिह्नेभ्यः चयनं कर्तुं शक्नोति ।";
 "edit-summary-field-placeholder-text" = "अन्यरीत्या पृष्ठम् उदकर्षयत्";
 "edit-summary-title" = "पृष्ठम् उत्कर्षयितुं भवान्/भवती कथं योगदानम् अकरोत् ?";
-"fetching-random-article" = "असृङ्खलितं लेखम् आनयति";
+"fetching-random-article" = "यादृच्छिकं लेखम् आनयति";
 "article-pull-to-refresh-prompt" = "लेखम् अद्यतनं कर्तुं कर्ष्यताम्";
 "article-pull-to-refresh-is-refreshing" = "लेखं प्रत्यववस्थापयति";
 "credits-title" = "मुक्तस्रोतस्य भण्डारः";
@@ -199,7 +205,7 @@
 "page_protected_other" = "$1 स्तरं यावत् एतत् पृष्ठं संरक्षितम् अस्ति ।";
 "page_protected_can_not_edit" = "एतस्मिन् पृष्ठे सम्पादनं कर्तुं भवतः/भवत्याः पार्श्वे अधिकाराः न सन्ति ।";
 "page_protected_can_not_edit_title" = "एतत् पृष्ठं संरक्षितम् अस्ति";
-"license-footer-text" = "$1 अन्तर्गतं सामग्री उपलब्धा अस्ति";
+"license-footer-text" = "$1 अन्तर्गतम् अन्तर्विषयः उपलब्धः अस्ति";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "अन्तर्विषयाः";
 "abuse-filter-warning-heading" = "एतत् सम्पादनम् अरचनात्मकं भाति । भवान्/भवती निश्चयेन एतत् रक्षितुम् इच्छति ?";
@@ -241,11 +247,16 @@
 "nearby-location-updates-settings-menu" = "गोपनीयता > स्थितिसेवाः > विकिपीडिया";
 "nearby-location-general-error" = "स्थितिः न प्राप्ता । प्रत्याववस्थापनं क्रियताम् उत पश्चात् पुनः प्रयासं करोतु ।";
 "nearby-wifi" = "भवतः/भवत्याः स्थितिं ज्ञातुं सक्रियं Wi-Fi भवतः/भवत्याः यन्त्रस्य साहाय्यं कर्तुं प्रभवति ।";
-// Fuzzy
-"migration-update-progress-label" = "स्थानीयसूचना अद्यतना भवति";
-// Fuzzy
+"migration-update-progress-label" = "स्थानीयसूचना स्थानान्तरिता भवति";
 "migration-update-progress-count-label" = "$2 इत्येतेषु $1 लेखः स्थानान्तरति";
+"migration-prompt-title" = "अस्य इतिहासः वर्तते इति भाति !";
+"migration-prompt-message" = "भवतः/भवत्याः वर्तमानपृष्ठानां, रक्षितपृष्ठानां च स्थानान्तरं कुर्मः । तस्यै प्रक्रियायै समयः अपेक्ष्यते...";
+"migration-confirm-button-title" = "मम सामग्र्याः स्थानान्तरं करोतु";
+"migration-skip-button-title" = "एतत् अपाकरोतु";
 "image-gallery-unknown-owner" = "अज्ञातः उपारोहकः";
+"image-gallery-fetch-image-info-error-title" = "चित्रावरोपणं न शक्यम्";
+"image-gallery-fetch-image-info-error-message" = "एतस्य लेखस्य कृते चित्रावरोपणं न शक्यम् । कृपया प्रत्यववस्थाप्य (refresh) पुनः प्रयासं करोतु ।";
+"image-gallery-fetch-image-info-error-ok" = "अस्तु";
 "hockeyapp-alert-question" = "विकिमीडिया-संस्था भवतः/भवत्याः ध्वस्य समीक्षां कर्तुं शक्नोति । $1 इत्येतस्मै ध्वस्य सूचनां प्रेषयितुम् इच्छति ?";
 "hockeyapp-alert-question-with-response-field" = "विकिमीडिया-संस्था भवतः/भवत्याः ध्वस्य समीक्षां कर्तुं शक्नोति । $1 इत्येतस्मै ध्वस्य सूचनां प्रेषयितुम् इच्छति ? कृपया किं जातं, ध्वसः कदा अभवत् इति विवर्ण्यताम् :";
 "hockeyapp-alert-title" = "क्षम्यताम्, अन्तिमसमये अनुप्रयोगः ध्वस्तः अभवत्";
@@ -253,3 +264,5 @@
 "hockeyapp-alert-always-send" = "सर्वदा प्रेष्यताम्";
 "hockeyapp-alert-do-not-send" = "न प्रेष्यताम्";
 "hockeyapp-alert-privacy" = "$1 गोपनीयता";
+"page-issues" = "पृष्ठस्य समस्याः";
+"page-similar-titles" = "समानपृष्ठानि";

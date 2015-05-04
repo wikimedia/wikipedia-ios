@@ -125,3 +125,11 @@
 "nearby-distance-label-miles" = "$1 {{PLURAL:$1|míle|míle|mil}}";
 "nearby-open-in-maps" = "Otevřít v Mapách";
 "nearby-cancel" = "Zrušit";
+"migration-update-progress-label" = "Přesun místních dat";
+"migration-update-progress-count-label" = "Přesun článku $1 z $2";
+"migration-prompt-title" = "Zdá se, že máme historii!";
+"migration-prompt-message" = "Potřebujeme přemístit Vaše uložené & poslední stránky. To může chvíli trvat...";
+"migration-confirm-button-title" = "Přesunout mé věci";
+"image-gallery-fetch-image-info-error-title" = "Nelze stahovat obrázky";
+"image-gallery-fetch-image-info-error-ok" = "OK";
+"page-similar-titles" = "Podobné stránky";

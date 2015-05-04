@@ -15,8 +15,10 @@
 "article-languages-downloading" = "Memuat bahasa artikel...";
 "article-languages-filter-placeholder" = "Saring Bahasa";
 "article-read-more-title" = "Baca lebih lanjut";
+"article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
 "info-box-title" = "Fakta cepat";
 "info-box-close-text" = "Tutup";
+"table-title-other" = "Informasi lebih lanjut";
 "language-button-text" = "Anda dapat membaca artikel ini dalam %d bahasa lain";
 "history-label" = "Terkini";
 "history-section-today" = "Hari ini";
@@ -130,14 +132,11 @@
 "saved-pages-clear-confirmation-heading" = "Hapus semua butir yang disimpan?";
 "saved-pages-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";
 "saved-pages-clear-cancel" = "Batal";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Hapus Semua";
 "saved-pages-refresh-cancel-alert-title" = "Pembaruan dibatalkan";
 "saved-pages-refresh-cancel-alert-message" = "Artikel Wikipedia diperbarui setiap saat. Ketuk segarkan untuk mendapatkan versi terbaru dari semua artikel.";
 "saved-pages-refresh-cancel-alert-button" = "Mengerti";
-// Fuzzy
-"page-history-title" = "Versi terdahulu halaman";
-// Fuzzy
+"page-history-title" = "Versi terdahulu artikel";
 "page-history-downloading" = "Memuat riwayat artikel...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
 "navbar-title-mode-login" = "Masuk log";
@@ -150,7 +149,6 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Verifikasi cepat diperlukan";
 "navbar-title-mode-edit-wikitext-summary" = "Gambarkan suntingan Anda";
 "navbar-title-mode-edit-wikitext-save" = "Simpan";
-// Fuzzy
 "edit-summary-choice-linked-words" = "Penambahan pranala";
 "edit-summary-choice-fixed-grammar" = "Perbaikan tata bahasa";
 "edit-summary-choice-fixed-inaccuracy" = "Perbaikan ketidaktepatan";
@@ -161,7 +159,6 @@
 "edit-summary-choice-added-clarification" = "Penambahan klarifikasi";
 "edit-summary-choice-other" = "Lainnya";
 "edit-summary-description" = "Ringkasan tertentu membantu wakil penyunting segera meninjau suntingan Anda. Anda juga dapat memilih dari tag di bawah ini.";
-// Fuzzy
 "edit-summary-field-placeholder-text" = "Cara lain Anda menyempurnakan artikel";
 "edit-summary-title" = "Bagaimana Anda menyempurnakan artikel ini?";
 "fetching-random-article" = "Mengambil sembarang artikel";
@@ -259,11 +256,16 @@
 "nearby-location-updates-settings-menu" = "Privasi > Layanan Lokasi > Wikipedia";
 "nearby-location-general-error" = "Tidak dapat menentukan lokasi. Tarik untuk menyegarkan atau coba lagi nanti.";
 "nearby-wifi" = "Mengaktifkan Wi-Fi dapat membantu perangkat Anda menentukan lokasi Anda lebih baik.";
-// Fuzzy
 "migration-update-progress-label" = "Meningkatkan data lokal";
-// Fuzzy
-"migration-update-progress-count-label" = "Memindahkan Artikel $1 dari $2";
+"migration-update-progress-count-label" = "Memindahkan artikel $1 dari $2";
+"migration-prompt-title" = "Kelihatannya kami mempunyai riwayat!";
+"migration-prompt-message" = "Kami perlu untuk memindahkan halaman tersimpan & terkini di atas. Ini memakan waktu satu menit...";
+"migration-confirm-button-title" = "Pindahkan barang-barang saya di atas";
+"migration-skip-button-title" = "Hapus";
 "image-gallery-unknown-owner" = "Pengunggah tidak diketahui.";
+"image-gallery-fetch-image-info-error-title" = "Tidak dapat mengunduh gambar";
+"image-gallery-fetch-image-info-error-message" = "Tidak dapat mengunduh gambar untuk artikel ini. Silakan segarkan artikel dan coba lagi.";
+"image-gallery-fetch-image-info-error-ok" = "Oke";
 "hockeyapp-alert-question" = "Apakah Anda ingin mengirimkan laporan kesalahan ke $1 jadi Wikimedia dapat meninjau kesalahan Anda?";
 "hockeyapp-alert-question-with-response-field" = "Apakah Anda ingin mengirimkan laporan kesalahan ke $1 jadi Wikimedia dapat meninjau kesalahan Anda? Silakan jelasjelaskan apa yang terjadi ketika kesalahan terjadi:";
 "hockeyapp-alert-title" = "Maaf, aplikasi berhenti dengan sendirinya terakhir kali";
@@ -271,3 +273,5 @@
 "hockeyapp-alert-always-send" = "Selalu kirim";
 "hockeyapp-alert-do-not-send" = "Jangan kirim";
 "hockeyapp-alert-privacy" = "Privasi $1";
+"page-issues" = "Masalah halaman";
+"page-similar-titles" = "Halaman yang serupa";

@@ -8,18 +8,20 @@
 // Author: Liuxinyu970226
 // Author: Mikepanhu
 // Author: Simon Shek
+// Author: Wehwei
 
 "article-languages-label" = "選擇語言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "正在讀取文章語言...";
 "article-languages-filter-placeholder" = "語言篩選器";
 "article-read-more-title" = "閱讀更多";
+"article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "info-box-title" = "快速預覽";
 "info-box-close-text" = "關閉";
 "table-title-other" = "更多資訊";
 "language-button-text" = "你可以閱讀這此文章的 %d 種其他語言";
 "history-label" = "最近";
-"history-section-today" = "今日";
+"history-section-today" = "今日首頁";
 "history-section-yesterday" = "昨日";
 "history-section-lastweek" = "上週";
 "history-section-lastmonth" = "上月";
@@ -121,7 +123,7 @@
 "main-menu-rate-app" = "付費應用程式";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "隱私與條款";
-"main-menu-show-today" = "今日";
+"main-menu-show-today" = "今日首頁";
 "main-menu-nearby" = "附近";
 "main-menu-more" = "更多...";
 "main-menu-heading-debug" = "除錯";
@@ -130,7 +132,6 @@
 "saved-pages-clear-confirmation-heading" = "删除所有已儲存的项目？";
 "saved-pages-clear-confirmation-sub-heading" = "此操作不能還原！";
 "saved-pages-clear-cancel" = "取消";
-// Fuzzy
 "saved-pages-clear-delete-all" = "删除全部";
 "saved-pages-refresh-cancel-alert-title" = "已取消更新";
 "saved-pages-refresh-cancel-alert-message" = "維基百科的文章會隨時更新。輕觸重新整理以取得所有文章的最新版本。";
@@ -255,11 +256,16 @@
 "nearby-location-updates-settings-menu" = "隱私 > 位置服務 > 維基百科";
 "nearby-location-general-error" = "無法確定位置。拉下重新整理或稍後重試。";
 "nearby-wifi" = "開啟 Wi-Fi 可以幫助您的裝置更好地確定您的位置。";
-// Fuzzy
-"migration-update-progress-label" = "升級本地資料";
-// Fuzzy
-"migration-update-progress-count-label" = "轉移文章第 $1 篇，共 $2 篇";
+"migration-update-progress-label" = "遷移本地資料";
+"migration-update-progress-count-label" = "正在轉移文章第 $1 篇，共 $2 篇";
+"migration-prompt-title" = "看來我們殘留了一段歷史！";
+"migration-prompt-message" = "我們得移動您的已保存頁面與最近頁面。這可能要花點時間……";
+"migration-confirm-button-title" = "移動我的東西";
+"migration-skip-button-title" = "刪除";
 "image-gallery-unknown-owner" = "未知上傳者";
+"image-gallery-fetch-image-info-error-title" = "無法下載圖片";
+"image-gallery-fetch-image-info-error-message" = "無法下載此條目的圖片。請重新整理條目後再試一次。";
+"image-gallery-fetch-image-info-error-ok" = "確定";
 "hockeyapp-alert-question" = "您想把錯誤報告傳送至 $1，讓維基媒體瞭解您發生的問題嗎？";
 "hockeyapp-alert-question-with-response-field" = "您想把錯誤報告傳送至 $1，讓維基媒體瞭解您發生的問題嗎？ 請描述錯誤時發生什麼事：";
 "hockeyapp-alert-title" = "抱歉，應用程式上次執行時發生了錯誤";
@@ -267,3 +273,5 @@
 "hockeyapp-alert-always-send" = "總是傳送";
 "hockeyapp-alert-do-not-send" = "不要傳送";
 "hockeyapp-alert-privacy" = "$1 隱私";
+"page-issues" = "頁面問題";
+"page-similar-titles" = "相似頁面";

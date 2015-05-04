@@ -7,6 +7,7 @@
 // Author: Gianfranco
 // Author: Giuseppe Forte
 // Author: Macofe
+// Author: Martinligabue
 // Author: Nastoshka
 // Author: Nivit
 // Author: Ontsed
@@ -18,6 +19,7 @@
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
 "article-languages-filter-placeholder" = "Filtra lingua";
 "article-read-more-title" = "Leggi altro";
+"article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
 "info-box-title" = "Fatti in breve";
 "info-box-close-text" = "Chiudi";
 "language-button-text" = "Puoi leggere questa voce in %d altre lingue";

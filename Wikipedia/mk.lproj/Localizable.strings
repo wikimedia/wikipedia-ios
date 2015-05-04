@@ -9,6 +9,7 @@
 "article-languages-downloading" = "Ги вчитувам јазиците на статијата...";
 "article-languages-filter-placeholder" = "Јазичен филтер";
 "article-read-more-title" = "Прочитајте повеќе";
+"article-unable-to-load-section" = "Не можам да го вчитам одделот. Видете дали ќе се реши проблемот ако ја превчитате страницата.";
 "info-box-title" = "Накратко";
 "info-box-close-text" = "Затвори";
 "table-title-other" = "Повеќе информации";
@@ -125,7 +126,6 @@
 "saved-pages-clear-confirmation-heading" = "Да ги избришам сите зачувани ставки?";
 "saved-pages-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
 "saved-pages-clear-cancel" = "Откажи";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Избриши ги сите";
 "saved-pages-refresh-cancel-alert-title" = "Подновата е откажана";
 "saved-pages-refresh-cancel-alert-message" = "Статиите на Википедија сето време се менуваат, односно подновуваат. Допрете на „Превчитај“ за да ги добиете најновите верзии на сите статии.";
@@ -267,3 +267,5 @@
 "hockeyapp-alert-always-send" = "Секогаш испраќај";
 "hockeyapp-alert-do-not-send" = "Не праќај";
 "hockeyapp-alert-privacy" = "Приватност на $1";
+"page-issues" = "Проблеми со страницата";
+"page-similar-titles" = "Слични страници";

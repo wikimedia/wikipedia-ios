@@ -132,7 +132,6 @@
 "saved-pages-clear-confirmation-heading" = "Supprimer tous les éléments enregistrés ?";
 "saved-pages-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
 "saved-pages-clear-cancel" = "Annuler";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Supprimer tout";
 "saved-pages-refresh-cancel-alert-title" = "Mise à jour annulée";
 "saved-pages-refresh-cancel-alert-message" = "Les articles de Wikipédia sont mis à jour continuellement. Appuyez sur rafraîchir pour obtenir la dernière version de tous les articles.";
@@ -257,11 +256,16 @@
 "nearby-location-updates-settings-menu" = "Confidentialité > Services d’emplacement > Wikipédia";
 "nearby-location-general-error" = "Impossible de déterminer l’emplacement. Tirer pour rafraîchir ou réessayer ultérieurement.";
 "nearby-wifi" = "L’activation du wifi peut aider votre appareil à mieux déterminer votre emplacement.";
-// Fuzzy
-"migration-update-progress-label" = "Mise à jour des données locales";
-// Fuzzy
+"migration-update-progress-label" = "Migration des données locales";
 "migration-update-progress-count-label" = "Migration de l’article $1 vers $2";
+"migration-prompt-title" = "Il semble que nous avons une histoire !";
+"migration-prompt-message" = "Nous devons déplacer vos pages enregistrées et récentes. Cela peut prendre un peu de temps…";
+"migration-confirm-button-title" = "Déplacer mes affaires";
+"migration-skip-button-title" = "Les supprimer";
 "image-gallery-unknown-owner" = "Téléchargeur inconnu.";
+"image-gallery-fetch-image-info-error-title" = "Impossible de télécharger les images";
+"image-gallery-fetch-image-info-error-message" = "Impossible de télécharger les images pour cet article. Veuillez rafraîchir l’article et réessayer.";
+"image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Voulez-vous envoyer un rapport de plantage à $1 pour que Wikipédia puisse l’étudier ?";
 "hockeyapp-alert-question-with-response-field" = "Voulez-vous envoyer un rapport de plantage à $1 pour que Wikipédia puisse l’étudier ? Veuillez décrire ce qui s’est produit lorsque le plantage s’est produit :";
 "hockeyapp-alert-title" = "Désolé, l’application s’est plantée la dernière fois";
@@ -269,3 +273,5 @@
 "hockeyapp-alert-always-send" = "Toujours envoyer";
 "hockeyapp-alert-do-not-send" = "Ne pas envoyer";
 "hockeyapp-alert-privacy" = "Confidentialité de $1";
+"page-issues" = "Problèmes de la page";
+"page-similar-titles" = "Pages similaires";

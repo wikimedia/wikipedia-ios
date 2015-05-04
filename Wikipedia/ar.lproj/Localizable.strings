@@ -116,3 +116,7 @@
 "license-footer-text" = "المحتوى متاح تحت رخصة $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "المحتويات";
+"menu-edit-accessibility-label" = "عدل";
+"menu-close-accessibility-label" = "أغلق";
+"menu-preview-accessibility-label" = "معاينة";
+"nearby-cancel" = "ألغ";

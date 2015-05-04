@@ -255,10 +255,8 @@
 "nearby-location-updates-settings-menu" = "Privacidad > Servicios de localización > Wikipedia";
 "nearby-location-general-error" = "No se puede determinar la ubicación. Tira para actualizar o inténtalo más tarde.";
 "nearby-wifi" = "Activar wifi puede ayudar a que tu dispositivo determine mejor tu ubicación.";
-// Fuzzy
-"migration-update-progress-label" = "Actualizando datos locales";
-// Fuzzy
-"migration-update-progress-count-label" = "Migrando artículos $1 de $2";
+"migration-update-progress-label" = "Migrando datos locales";
+"migration-update-progress-count-label" = "Migrando artículo $1 de $2";
 "image-gallery-unknown-owner" = "Cargador desconocido.";
 "hockeyapp-alert-question" = "¿Te gustaría enviar un informe a $1 para que Wikimedia pueda revisar tu fallo?";
 "hockeyapp-alert-question-with-response-field" = "¿Te gustaría enviar un informe a $1 para que Wikimedia pueda revisar tu fallo? Describe lo que pasó en el momento del fallo:";
@@ -267,3 +265,5 @@
 "hockeyapp-alert-always-send" = "Enviar siempre";
 "hockeyapp-alert-do-not-send" = "No enviar";
 "hockeyapp-alert-privacy" = "Privacidad de $1";
+"page-issues" = "Problemas de la página";
+"page-similar-titles" = "Páginas similares";

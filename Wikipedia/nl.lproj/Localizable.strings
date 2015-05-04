@@ -17,6 +17,7 @@
 "article-read-more-title" = "Lees meer";
 "info-box-title" = "Snelle feiten";
 "info-box-close-text" = "Sluiten";
+"table-title-other" = "Meer informatie";
 "language-button-text" = "U kunt deze pagina in %d andere talen lezen";
 "history-label" = "Recent";
 "history-section-today" = "Vandaag";
@@ -130,14 +131,11 @@
 "saved-pages-clear-confirmation-heading" = "Alle opgeslagen items verwijderen?";
 "saved-pages-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";
 "saved-pages-clear-cancel" = "Annuleren";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Alles verwijderen";
 "saved-pages-refresh-cancel-alert-title" = "Bijwerken geanuleerd";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia artikels worden constant bijgewerkt. Druk op vernieuwen om de nieuwste versie van de artikels te bekijken.";
 "saved-pages-refresh-cancel-alert-button" = "Begrepen";
-// Fuzzy
 "page-history-title" = "Paginageschiedenis";
-// Fuzzy
 "page-history-downloading" = "Paginageschiedenis laden...";
 "navbar-title-mode-edit-wikitext" = "Bewerken";
 "navbar-title-mode-login" = "Aanmelden";
@@ -150,7 +148,6 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Snelle controle nodig";
 "navbar-title-mode-edit-wikitext-summary" = "Beschrijf uw bewerking";
 "navbar-title-mode-edit-wikitext-save" = "Opslaan";
-// Fuzzy
 "edit-summary-choice-linked-words" = "Koppelingen toegevoegd";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
 "edit-summary-choice-fixed-inaccuracy" = "Onjuistheid gecorrigeerd";
@@ -161,7 +158,6 @@
 "edit-summary-choice-added-clarification" = "Verduidelijking toegevoegd";
 "edit-summary-choice-other" = "Overige";
 "edit-summary-description" = "Een specifieke samenvatting helpt mederedacteuren bij het snel controleren van uw bewerkingen. U kunt ook kiezen uit de onderstaande standaardteksten.";
-// Fuzzy
 "edit-summary-field-placeholder-text" = "Andere manieren waarop u de pagina hebt verbeterd";
 "edit-summary-title" = "Hoe heeft u de pagina verbeterd?";
 "fetching-random-article" = "Willekeurige pagina ophalen";
@@ -259,9 +255,14 @@
 "nearby-location-updates-settings-menu" = "Privacy > Locatievoorzieningen > Wikipedia";
 "nearby-location-general-error" = "Kan locatie niet bepalen. Trek naar beneden om bij te werken of probeer het later opnieuw.";
 "nearby-wifi" = "Het inschakelen van Wi-Fi zorgt voor een nauwkeuriger locatie.";
-// Fuzzy
 "migration-update-progress-label" = "Lokale gegevens bijwerken";
+"migration-update-progress-count-label" = "Pagina $1 van $2 aan het migreren";
+"migration-prompt-title" = "We hebben een geschiedenis!";
+"migration-confirm-button-title" = "Migreer mijn geschiedenis";
+"migration-skip-button-title" = "Verwijder mijn geschiedenis";
 "image-gallery-unknown-owner" = "Uploader onbekend.";
+"image-gallery-fetch-image-info-error-title" = "Downloaden van afbeeldingen niet mogelijk";
+"image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Wilt u het crash rapport naar $1 versturen, zodat Wikimedia deze kan bekijken?";
 "hockeyapp-alert-question-with-response-field" = "Wilt u het crash rapport naar $1 versturen, zodat Wikimedia deze kan bekijken? Beschrijf wat er gebeurde tijdens de crash:";
 "hockeyapp-alert-title" = "Sorry, app crashte laatste keer";
@@ -269,3 +270,5 @@
 "hockeyapp-alert-always-send" = "Altijd versturen";
 "hockeyapp-alert-do-not-send" = "Niet verzenden";
 "hockeyapp-alert-privacy" = "$1 privacy";
+"page-issues" = "Paginaproblemen";
+"page-similar-titles" = "Vergelijkbare pagina's";

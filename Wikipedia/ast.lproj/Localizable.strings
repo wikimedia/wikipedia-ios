@@ -6,6 +6,10 @@
 "article-languages-cancel" = "Encaboxar";
 "article-languages-downloading" = "Cargando llingües del artículu...";
 "article-languages-filter-placeholder" = "Filtru de llingua";
+"article-read-more-title" = "Lleer más";
+"info-box-title" = "Datos rápidos";
+"info-box-close-text" = "Zarrar";
+"table-title-other" = "Más información";
 "language-button-text" = "Pues lleer esti artículu en %d llingües más";
 "history-label" = "De recién";
 "history-section-today" = "Güei";
@@ -40,6 +44,7 @@
 "account-creation-password-placeholder-text" = "Contraseña";
 "account-creation-password-confirm-placeholder-text" = "Confirmar la contraseña";
 "account-creation-email-placeholder-text" = "Corréu electrónicu (opcional)";
+"account-creation-missing-fields" = "Tienes d'escribir un nome d'usuariu, una contraseña, y la confirmación de la contraseña pa crear una cuenta.";
 "login-name-not-found" = "Ye necesariu un nome d'usuariu p'aniciar sesión.";
 "login-name-illegal" = "Dio un nome d'usuariu illegal.";
 "login-name-does-not-exist" = "El nome d'usuariu que dio nun esiste.";
@@ -76,6 +81,14 @@
 "search-loading-section-remaining" = "Cargando'l resto del artículu...";
 "search-loading-article-loaded" = "Artículu cargáu.";
 "search-cancel" = "Encaboxar";
+"search-titles" = "Títulos";
+"search-within-articles" = "Dientro de los artículos";
+"search-did-you-mean" = "¿Quixisti dicir $1?";
+"search-recent-title" = "Guetes recientes";
+"search-recent-clear-confirmation-heading" = "¿Desaniciar toles guetes de recién?";
+"search-recent-clear-confirmation-sub-heading" = "¡Esta aición nun pue desfacese!";
+"search-recent-clear-cancel" = "Encaboxar";
+"search-recent-clear-delete-all" = "Desaniciar too";
 "main-menu-title" = "Más";
 "main-menu-language-title" = "Guetar la wiki en llingua $1";
 "main-menu-language-toggle-show" = "Amosar llingües";
@@ -94,6 +107,7 @@
 "main-menu-send-feedback" = "Unviar comentariu sobro la app";
 "main-menu-show-page-history" = "Historial de los cambios a $1";
 "main-menu-credits" = "Créditos";
+"main-menu-about" = "Tocante a la app de Wikipedia";
 "main-menu-zero-faq" = "FAQ de Wikipedia Zero";
 "main-menu-privacy-policy" = "Política d'intimidá";
 "main-menu-terms-of-use" = "Condiciones d'usu";
@@ -101,6 +115,7 @@
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privacidá y Condiciones";
 "main-menu-show-today" = "Güei";
+"main-menu-nearby" = "Cercanu";
 "main-menu-more" = "Más...";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-debug-crash" = "Fallar";
@@ -108,9 +123,9 @@
 "saved-pages-clear-confirmation-heading" = "¿Desaniciar tolos elementos guardaos?";
 "saved-pages-clear-confirmation-sub-heading" = "¡Esata aición nun pue desfacese!";
 "saved-pages-clear-cancel" = "Encaboxar";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Desaniciar too";
 "saved-pages-refresh-cancel-alert-title" = "Anovamientu encaboxáu";
+"saved-pages-refresh-cancel-alert-message" = "Los artículos de Wikipedia anuévense tol tiempu. Toca refrescar pa recibir les caberes versiones de tolos artículos.";
 "saved-pages-refresh-cancel-alert-button" = "Entendílo";
 "page-history-title" = "Historial del artículu";
 "page-history-downloading" = "Cargando l'historial del artículu...";
@@ -160,6 +175,7 @@
 "about-wikimedia-foundation" = "Fundación Wikimedia";
 "share-menu-save-page" = "Guardar artículu";
 "share-menu-page-saved" = "Artículu guardáu";
+"share-menu-page-saved-access" = "Gabitu: pa tener accesu a les páxines guardaes, toca $1 arriba o fai un toque llargu en $2 abaxo.";
 "share-custom-menu-item" = "Compartir";
 "share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "«$1» en @Wikipedia: «$2»";
@@ -221,5 +237,16 @@
 "nearby-distance-label-miles" = "$1 milles";
 "nearby-pull-to-refresh-prompt" = "Estira pa refrescar";
 "nearby-pull-to-refresh-is-refreshing" = "Refrescando";
+"nearby-loading" = "Cargando artículos cercanos...";
+"nearby-loaded" = "Artículos cercanos cargaos";
+"nearby-none" = "Nun s'alcontraron artículos cercanos. Tira pa refrescar o inténtalo más sero.";
 "nearby-open-in-maps" = "Abrir en Mapes";
 "nearby-cancel" = "Encaboxar";
+"nearby-location-updates-denied" = "Esta app nun tien permisu pa recibir anovamientos del allugamientu.";
+"nearby-location-updates-enable" = "P'activar los anovamientos del allugamientu abri la App de preferencies y seleiciona lo siguiente:";
+"nearby-location-updates-settings-menu" = "Intimidá > Servicios d'allugamientu > Wikipedia";
+"migration-skip-button-title" = "Desanicialo";
+"image-gallery-unknown-owner" = "Autor desconocíu.";
+"image-gallery-fetch-image-info-error-title" = "Nun pudieron descargase les imaxes";
+"image-gallery-fetch-image-info-error-message" = "Nun pudieron descargase les imaxes pa esti artículu. Por favor, refresca l'artículu ya inténtalo otra vuelta.";
+"image-gallery-fetch-image-info-error-ok" = "Aceutar";

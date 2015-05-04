@@ -12,6 +12,7 @@
 "article-languages-downloading" = "A carregar idiomas do artigo...";
 "article-languages-filter-placeholder" = "Filtro de idioma";
 "article-read-more-title" = "Ler mais";
+"article-unable-to-load-section" = "Não foi possível carregar esta seção. Experimente recarregar o artigo para tentar corrigir o problema.";
 "info-box-title" = "Fatos rápidos";
 "info-box-close-text" = "Fechar";
 "table-title-other" = "Mais informação";
@@ -128,8 +129,7 @@
 "saved-pages-clear-confirmation-heading" = "Eliminar todos os itens gravados?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
 "saved-pages-clear-cancel" = "Cancelar";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Apagar tudo";
+"saved-pages-clear-delete-all" = "Apagar todas";
 "saved-pages-refresh-cancel-alert-title" = "Atualização cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Os artigos da Wikipédia são atualizados a todo o instante. Toque em atualizar para obter as versões mais recentes de todos os artigos.";
 "saved-pages-refresh-cancel-alert-button" = "Percebido";
@@ -253,9 +253,14 @@
 "nearby-location-updates-settings-menu" = "Privacidade > Serviços de localização > Wikipédia";
 "nearby-location-general-error" = "Não foi possível determinar a localização. Puxe para atualizar ou tente novamente mais tarde.";
 "nearby-wifi" = "Ativar o WiFi pode ajudar o seu dispositivo a determinar a sua localização.";
-// Fuzzy
-"migration-update-progress-label" = "A atualizar dados locais";
+"migration-update-progress-label" = "A migrar dados locais";
+"migration-update-progress-count-label" = "A migrar artigo $1 de $2";
+"migration-prompt-title" = "Parece que temos uma história!";
+"migration-prompt-message" = "Precisamos de mover as suas páginas guardadas e recentes. Isto pode demorar um minuto...";
+"migration-skip-button-title" = "Eliminar";
 "image-gallery-unknown-owner" = "Autor desconhecido.";
+"image-gallery-fetch-image-info-error-title" = "Não foi possível transferir imagens";
+"image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Deseja enviar um relatório da falha de $1 para que a Wikimedia possa resolver o seu problema?";
 "hockeyapp-alert-question-with-response-field" = "Deseja enviar um relatório da falha de $1 para que a Wikimedia possa resolver o seu problema? Por favor, descreva a situação quando ocorreu o encerramento inesperado:";
 "hockeyapp-alert-title" = "Desculpe, a aplicação encerrou inesperadamente da última vez";
@@ -263,3 +268,5 @@
 "hockeyapp-alert-always-send" = "Enviar sempre";
 "hockeyapp-alert-do-not-send" = "Não enviar";
 "hockeyapp-alert-privacy" = "Privacidade de $1";
+"page-issues" = "Problemas da página";
+"page-similar-titles" = "Páginas semelhantes";

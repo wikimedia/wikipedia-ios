@@ -134,10 +134,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Atualização cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Os artigos da Wikipédia são atualizados constantemente. Toque para obter as últimas versões de todos os artigos.";
 "saved-pages-refresh-cancel-alert-button" = "Entendi";
-// Fuzzy
-"page-history-title" = "Histórico da página";
-// Fuzzy
-"page-history-downloading" = "Carregando o historico do artigo...";
+"page-history-title" = "Histórico de artigos";
+"page-history-downloading" = "Carregando o historico de artigos...";
 "navbar-title-mode-edit-wikitext" = "Editar";
 "navbar-title-mode-login" = "Entrar";
 "navbar-title-mode-login-and-save" = "Entrar e salvar";
@@ -149,7 +147,6 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Verificação rápida necessária";
 "navbar-title-mode-edit-wikitext-summary" = "Descreva sua edição";
 "navbar-title-mode-edit-wikitext-save" = "Salvar";
-// Fuzzy
 "edit-summary-choice-linked-words" = "Links adicionados";
 "edit-summary-choice-fixed-grammar" = "Corrigiu gramática";
 "edit-summary-choice-fixed-inaccuracy" = "Inexatidão corrigida";
@@ -160,7 +157,6 @@
 "edit-summary-choice-added-clarification" = "Adicionado esclarecimento";
 "edit-summary-choice-other" = "Outros";
 "edit-summary-description" = "Um resumo específico ajuda os co-editores a rever as suas edições. Você pode escolher também uma das etiquetas abaixo.";
-// Fuzzy
 "edit-summary-field-placeholder-text" = "Outras maneiras que você melhorou o artigo";
 "edit-summary-title" = "Como foi que você melhorou o artigo?";
 "fetching-random-article" = "Buscando artigo aleatório";
@@ -258,5 +254,4 @@
 "nearby-location-updates-settings-menu" = "Privacidade > Serviços de localização > Wikipédia";
 "nearby-location-general-error" = "Não foi possível determinar a localização. Puxe para atualizar ou tente novamente mais tarde.";
 "nearby-wifi" = "Ativar o WiFi pode ajudar o seu dispositivo a determinar a sua localização.";
-// Fuzzy
 "migration-update-progress-label" = "Atualizando dados locais";
