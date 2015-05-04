@@ -74,7 +74,7 @@
     return normalized;
 }
 
-- (CGRect)primaryFocalRectNomrmalizedToImageSize:(BOOL)normalized {
+- (CGRect)primaryFocalRectNormalizedToImageSize:(BOOL)normalized {
     if (self.focalRectsInUnitCoordinatesAsStrings.count == 0) {
         return CGRectZero;
     }
@@ -89,7 +89,7 @@
     return rect;
 }
 
-- (CGRect)rectEnclosingAllFocalRectsNomrmalizedToImageSize:(BOOL)normalized {
+- (CGRect)rectEnclosingAllFocalRectsNormalizedToImageSize:(BOOL)normalized {
     __block CGRect enclosingRect = CGRectZero;
 
     [self.focalRectsInUnitCoordinatesAsStrings enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {

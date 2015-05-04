@@ -56,7 +56,7 @@
  *  @param normalized  Set YES to normalize to the image
  *  @return The primary focal rect
  */
-- (CGRect)primaryFocalRectNomrmalizedToImageSize:(BOOL)normalized;
+- (CGRect)primaryFocalRectNormalizedToImageSize:(BOOL)normalized;
 
 /**
  *  Returns a rect enclosing all focal rects
@@ -66,7 +66,7 @@
 
  *  @return The rect enclosing all focal rects
  */
-- (CGRect)rectEnclosingAllFocalRectsNomrmalizedToImageSize:(BOOL)normalized;
+- (CGRect)rectEnclosingAllFocalRectsNormalizedToImageSize:(BOOL)normalized;
 
 
 - (void)importImageData:(NSData*)data;

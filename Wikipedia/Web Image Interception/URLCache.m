@@ -111,7 +111,7 @@ NSString* const kURLCacheKeyPrimaryFocalUnitRectString = @"primaryFocalUnitRectS
          kURLCacheKeyURL: image.sourceURL,
          kURLCacheKeyFileNameNoSizePrefix: image.fileNameNoSizePrefix,
          kURLCacheKeyIsLeadImage: @([image isLeadImage]),
-         kURLCacheKeyPrimaryFocalUnitRectString: NSStringFromCGRect([image primaryFocalRectNomrmalizedToImageSize:NO])
+         kURLCacheKeyPrimaryFocalUnitRectString: NSStringFromCGRect([image primaryFocalRectNormalizedToImageSize:NO])
      }];
 }
 

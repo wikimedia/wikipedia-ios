@@ -1561,7 +1561,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     NSInteger offsetY = 25;
 
     if (hasImage) {
-        CGRect focalRect = [article.image primaryFocalRectNomrmalizedToImageSize:NO];
+        CGRect focalRect = [article.image primaryFocalRectNormalizedToImageSize:NO];
         if (!CGRectEqualToRect(focalRect, CGRectZero)) {
             offsetY = [self leadImageFocalOffsetYPercentageFromTopOfRect:focalRect];
         }
