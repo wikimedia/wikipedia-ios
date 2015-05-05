@@ -89,6 +89,7 @@
                @"rvsection": self.section.index ? self.section.index : @"0",
                @"titles": [self.section sourceTitle].prefixedText,
                @"meta": @"userinfo", // we need the local user ID for event logging
+               @"continue": @"",
                @"format": @"json"
     };
 }

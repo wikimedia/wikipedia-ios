@@ -75,6 +75,7 @@
         @"rvlimit": @50,
         @"rvdir": @"older",
         @"titles": title.prefixedText,
+        @"continue": @"",
         @"format": @"json"
         //,@"rvdiffto": @(-1) // Add this to fake out "error" api response.
     }.mutableCopy;
