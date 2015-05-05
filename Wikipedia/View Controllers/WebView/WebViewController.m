@@ -479,6 +479,27 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     }
 }
 
+- (CGFloat)tocGetWebViewBottomConstraintConstant {
+    /*
+       When the TOC is shown, "self.webView.scrollView.transform" is changed, but this
+       causes the height of the scrollView to be reduced, which doesn't mess anything up
+       visually, but does cause the area beneath the scrollView to no longer respond to
+       drag events.
+
+       To reproduce the dragging deadspot issue solved by this offset:
+        - set "self.webView.scrollView.layer.borderWidth = 10;"
+        - comment out the line where the value returned by this method is used
+        - run and open the TOC
+        - notice the area beneath the border is not properly draggable
+
+       So here we calculate the perfect bottom constraint constant to expand the "border"
+       to completely encompass the vertical height of the scaled (when TOC is shown) webview.
+     */
+    CGFloat scale  = [self tocGetWebViewScaleWhenTOCVisible];
+    CGFloat height = self.webView.scrollView.bounds.size.height;
+    return (height - (height * scale)) * (1.0f / scale);
+}
+
 - (void)tocShowWithDuration:(NSNumber*)duration {
     if ([self tocDrawerIsOpen]) {
         return;
@@ -486,16 +507,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     self.footerContainer.userInteractionEnabled = NO;
 
-    // When the TOC is shown, the self.webView.scrollView.transform is changed, but this
-    // causes the height of the scrollView to be reduced, which doesn't mess anything up
-    // visually, but does cause the area beneath the scrollView to no longer respond to
-    // drag events. Turn on border for scrollView to see this (and comment out call
-    // webViewBottomConstraint adjustment below). So here the web view's bottom
-    // constraint is shifted down while TOC is onscreen.
-    CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
-    CGFloat f            = self.webView.frame.size.height + (self.webView.frame.size.height * webViewScale);
-    self.webViewBottomConstraint.constant = f;
-
+    self.webViewBottomConstraint.constant = [self tocGetWebViewBottomConstraintConstant];
 
     self.unsafeToToggleTOC = YES;
 
