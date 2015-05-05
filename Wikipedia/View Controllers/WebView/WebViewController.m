@@ -1586,9 +1586,9 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
          "</div>"
          "</div>",
          leadImageDivStyleOverrides,
-         [NSString stringWithFormat:@"font-size:%.02fpx;", 28.0f * fontMultiplier],
+         [NSString stringWithFormat:@"font-size:%.02fpx;", 34.0f * fontMultiplier],
          title,
-         [NSString stringWithFormat:@"font-size:%.02fpx;", 14.0f],
+         [NSString stringWithFormat:@"font-size:%.02fpx;", 17.0f],
          description
         ];
 
