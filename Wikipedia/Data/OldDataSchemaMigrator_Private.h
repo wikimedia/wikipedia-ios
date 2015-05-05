@@ -1,10 +1,3 @@
-//
-//  OldDataSchemaMigrator_Private.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 3/21/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "OldDataSchemaMigrator.h"
 #import "ArticleCoreDataObjects.h"

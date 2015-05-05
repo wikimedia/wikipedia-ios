@@ -1,76 +1,115 @@
-//
-//  OldDataSchema.m
-//  OldDataSchema
-//
-//  Created by Brion on 12/22/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #import "OldDataSchemaMigrator_Private.h"
 #import "ArticleCoreDataObjects.h"
 #import "NSDateFormatter+WMFExtensions.h"
-#import "ArticleDataContextSingleton.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "Article+ConvenienceAccessors.h"
 
+static NSString* const kWMFOldDataSchemaBackupDateKey               = @"kWMFOldDataSchemaBackupDateKey";
+static NSUInteger const kWMFOldDataSchemaBackupExpirationTimeInDays = 30;
+
+
 @interface OldDataSchemaMigrator ()
 
-@property (nonatomic, strong) ArticleDataContextSingleton* context;
+@property (nonatomic, strong, readwrite) NSString* databasePath;
+
 @property (nonatomic, strong) NSMutableSet* savedTitles;
 
 @end
 
 @implementation OldDataSchemaMigrator
 
-- (instancetype)init {
+- (instancetype)initWithDatabasePath:(NSString*)databasePath {
     self = [super init];
     if (self) {
-        _savedTitles = [[NSMutableSet alloc] init];
-        if ([[self class] exists]) {
-            _context = [ArticleDataContextSingleton sharedInstance];
-        } else {
-            _context = nil;
-        }
+        self.savedTitles  = [[NSMutableSet alloc] init];
+        self.databasePath = databasePath;
     }
     return self;
 }
 
-+ (NSString*)sqlitePath {
-    NSArray* documentPaths     = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString* documentRootPath = [documentPaths objectAtIndex:0];
-    NSString* filePath         = [documentRootPath stringByAppendingPathComponent:@"articleData6.sqlite"];
-    return filePath;
+- (NSString*)backupDatabasePath {
+    return [self.databasePath stringByAppendingString:@".bak"];
 }
 
-+ (BOOL)exists {
-    NSString* filePath = [self sqlitePath];
-    return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+- (BOOL)exists {
+    return [[NSFileManager defaultManager] fileExistsAtPath:self.databasePath];
 }
 
-+ (void)removeOldData {
-    NSString* filePath   = [self sqlitePath];
-    NSString* backupPath = [filePath stringByAppendingString:@".bak"];
-    NSError* err         = nil;
-    [[NSFileManager defaultManager] moveItemAtPath:filePath
-                                            toPath:backupPath
-                                             error:&err];
-    if (err) {
-        NSLog(@"Error backing up %@: %@", filePath, err);
+- (BOOL)backupExists {
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self backupDatabasePath]];
+}
+
+- (BOOL)moveOldDataToBackupLocation {
+    NSError* err = nil;
+
+    if ([[NSFileManager defaultManager] moveItemAtPath:self.databasePath
+                                                toPath:[self backupDatabasePath]
+                                                 error:&err]) {
+        [self setBackDateToNow];
+        return YES;
+    } else {
+        NSLog(@"Error backing up %@: %@", self.databasePath, err);
+        return NO;
     }
 }
 
+- (BOOL)removeOldDataIfOlderThanMaximumGracePeriod {
+    [self setBackupDateForPreexistingBackups];
+
+    if ([self shouldRemoveBackup]) {
+        return [self removebackupDataImmediately];
+    }
+
+    return NO;
+}
+
+- (BOOL)removebackupDataImmediately {
+    NSError* error = nil;
+
+    if ([[NSFileManager defaultManager] removeItemAtPath:[self backupDatabasePath] error:&error]) {
+        return YES;
+    } else {
+        NSLog(@"Error removing backup %@: %@", [self backupDatabasePath], [error localizedDescription]);
+        return NO;
+    }
+}
+
+- (void)setBackDateToNow {
+    NSDate* backupDate = [NSDate new];
+    [[NSUserDefaults standardUserDefaults] setDouble:backupDate.timeIntervalSinceReferenceDate forKey:kWMFOldDataSchemaBackupDateKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setBackupDateForPreexistingBackups {
+    if (([[NSUserDefaults standardUserDefaults] doubleForKey:kWMFOldDataSchemaBackupDateKey] < 1.0) && [self backupExists]) {
+        [self setBackDateToNow];
+    }
+}
+
+- (BOOL)shouldRemoveBackup {
+    NSTimeInterval backupTimeInterval = [[NSUserDefaults standardUserDefaults] doubleForKey:kWMFOldDataSchemaBackupDateKey];
+    if (backupTimeInterval < 1.0) {
+        return NO;
+    }
+
+    NSDate* backupDate = [NSDate dateWithTimeIntervalSinceReferenceDate:backupTimeInterval];
+
+    NSTimeInterval backupExpiraton = kWMFOldDataSchemaBackupExpirationTimeInDays * 24 * 60 * 60;
+
+    if ([[NSDate new] timeIntervalSinceDate:backupDate] > backupExpiraton) {
+        return YES;
+    }
+
+    return NO;
+}
+
 - (void)migrateData {
-    // TODO
-    // 1) Go through saved article list, saving entries and (articles and images)
-    // 2) Go through page reading history, saving entries and (articles and images) when not already transferred
-
-    NSManagedObjectContext* context = [self.context backgroundContext];
-
-    [context performBlock:^{
+    [self.context performBlock:^{
         NSFetchRequest* req = [NSFetchRequest fetchRequestWithEntityName:@"Saved"];
         req.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"dateSaved" ascending:YES]];
         NSError* err;
-        NSArray* savedEntries = [context executeFetchRequest:req error:&err];
+        NSArray* savedEntries = [self.context executeFetchRequest:req error:&err];
 
         if (err) {
             NSLog(@"Error reading old Saved entries: %@", err);
@@ -79,7 +118,7 @@
         NSFetchRequest* req2 = [NSFetchRequest fetchRequestWithEntityName:@"History"];
         req2.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:YES]];
         NSError* err2;
-        NSArray* historyEntries = [context executeFetchRequest:req2 error:&err2];
+        NSArray* historyEntries = [self.context executeFetchRequest:req2 error:&err2];
 
         if (err2) {
             NSLog(@"Error reading old History entries: %@", err2);
@@ -105,15 +144,8 @@
             incrementAndNotify();
         }
 
-        [self.context saveContextAndPropagateChangesToStore:context completionBlock:^(NSError* error) {
-            [[self class] removeOldData];
-
-            if (error) {
-                [self.progressDelegate oldDataSchema:self didFinishWithError:error];
-            } else {
-                [self.progressDelegate oldDataSchemaDidFinishMigration:self];
-            }
-        }];
+        [self moveOldDataToBackupLocation];
+        [self.progressDelegate oldDataSchemaDidFinishMigration:self];
     }];
 }
 

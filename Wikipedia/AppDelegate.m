@@ -15,6 +15,9 @@
 @interface AppDelegate ()
 <DataMigrationProgressDelegate>
 @property (nonatomic, weak) UIAlertView* dataMigrationAlert;
+
+@property (nonatomic, strong) DataMigrationProgressViewController* migrationViewController;
+
 @end
 
 @implementation AppDelegate
@@ -48,6 +51,7 @@
 #endif
 
     if (![self presentDataMigrationViewControllerIfNeeded]) {
+        [self performMigrationCleanup];
         [self presentRootViewController:NO withSplash:YES];
     }
 
@@ -69,6 +73,7 @@
 }
 
 - (void)presentRootViewController:(BOOL)animated withSplash:(BOOL)withSplash {
+    self.migrationViewController = nil;
     RootViewController* mainInitialVC =
         [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil] instantiateInitialViewController];
     NSParameterAssert([mainInitialVC isKindOfClass:[RootViewController class]]);
@@ -137,8 +142,21 @@
 
 #pragma mark - Migration
 
+- (DataMigrationProgressViewController*)migrationViewController {
+    if (!_migrationViewController) {
+        _migrationViewController          = [[DataMigrationProgressViewController alloc] init];
+        _migrationViewController.delegate = self;
+    }
+
+    return _migrationViewController;
+}
+
+- (void)performMigrationCleanup {
+    [self.migrationViewController removeOldDataBackupIfNeeded];
+}
+
 - (BOOL)presentDataMigrationViewControllerIfNeeded {
-    if ([DataMigrationProgressViewController needsMigration]) {
+    if ([self.migrationViewController needsMigration]) {
         UIAlertView* dialog =
             [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"migration-prompt-title", nil)
                                        message:MWLocalizedString(@"migration-prompt-message", nil)
@@ -160,12 +178,10 @@
 - (void)alertView:(UIAlertView*)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (alertView == self.dataMigrationAlert) {
         if (buttonIndex == alertView.cancelButtonIndex) {
-            [DataMigrationProgressViewController removeOldData];
+            [self.migrationViewController moveOldDataToBackupLocation];
             [self presentRootViewController:YES withSplash:NO];
         } else {
-            DataMigrationProgressViewController* migrationVC = [[DataMigrationProgressViewController alloc] init];
-            migrationVC.delegate = self;
-            [self transitionToRootViewController:migrationVC animated:NO];
+            [self transitionToRootViewController:self.migrationViewController animated:NO];
         }
     }
 }

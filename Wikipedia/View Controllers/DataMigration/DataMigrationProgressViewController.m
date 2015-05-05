@@ -1,10 +1,3 @@
-//
-//  DataMigrationProgress.m
-//  Wikipedia
-//
-//  Created by Brion on 1/13/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "DataMigrationProgressViewController.h"
 
@@ -18,6 +11,7 @@
 
 #import "WikipediaAppUtils.h"
 #import "WMFProgressLineView.h"
+#import "ArticleDataContextSingleton.h"
 
 enum {
     BUTTON_INDEX_DISCARD = 0,
@@ -49,7 +43,7 @@ enum {
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    if ([OldDataSchemaMigrator exists]) {
+    if ([self.oldDataSchema exists]) {
         [self runNewMigration];
     } else if ([DataMigrator hasData]) {
         [self runOldMigration];
@@ -58,7 +52,8 @@ enum {
 
 - (OldDataSchemaMigrator*)oldDataSchema {
     if (_oldDataSchema == nil) {
-        _oldDataSchema = [[OldDataSchemaMigrator alloc] init];
+        ArticleDataContextSingleton* context = [ArticleDataContextSingleton sharedInstance];
+        _oldDataSchema = [[OldDataSchemaMigrator alloc] initWithDatabasePath:context.databasePath];
     }
     return _oldDataSchema;
 }
@@ -77,13 +72,17 @@ enum {
     return _schemaConvertor;
 }
 
-+ (BOOL)needsMigration {
-    return [OldDataSchemaMigrator exists] || [DataMigrator hasData];
+- (BOOL)needsMigration {
+    return [self.oldDataSchema exists] || [DataMigrator hasData];
 }
 
-+ (void)removeOldData {
-    [DataMigrator removeOldData];
-    [OldDataSchemaMigrator removeOldData];
+- (void)moveOldDataToBackupLocation {
+    [DataMigrator removeOldData]; //we do not back old old data
+    [self.oldDataSchema moveOldDataToBackupLocation];
+}
+
+- (void)removeOldDataBackupIfNeeded {
+    [self.oldDataSchema removeOldDataIfOlderThanMaximumGracePeriod];
 }
 
 - (void)runNewMigration {
@@ -95,6 +94,7 @@ enum {
 
     self.oldDataSchema.delegate         = self.schemaConvertor;
     self.oldDataSchema.progressDelegate = self;
+    self.oldDataSchema.context          = [[ArticleDataContextSingleton sharedInstance] backgroundContext];
     NSLog(@"begin migration");
     [self.oldDataSchema migrateData];
 }
@@ -178,10 +178,10 @@ enum {
 
 - (void)submitDataToDevs {
     MFMailComposeViewController* picker = [[MFMailComposeViewController alloc] init];
-    picker.mailComposeDelegate = self; //
+    picker.mailComposeDelegate = self;
 
-    picker.subject      = @"Wikipedia iOS app data migration failure";
-    picker.toRecipients = @[@"bvibber@wikimedia.org"]; // @fixme do we have a better place to send these?
+    picker.subject      = [NSString stringWithFormat:@"Feedback:%@", [WikipediaAppUtils versionedUserAgent]];
+    picker.toRecipients = @[@"mobile-ios-wikipedia@wikimedia.org"];
 
     NSString* filename         = @"articleData6.sqlite";
     NSArray* documentPaths     = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

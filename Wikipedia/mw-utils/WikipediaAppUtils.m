@@ -51,7 +51,7 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle) {
 + (NSString*)versionedUserAgent {
     UIDevice* d = [UIDevice currentDevice];
     return [NSString stringWithFormat:@"WikipediaApp/%@ (%@ %@; %@)",
-            [self appVersion],
+            [[NSBundle mainBundle] wmf_debugVersion],
             [d systemName],
             [d systemVersion],
             [self formFactor]

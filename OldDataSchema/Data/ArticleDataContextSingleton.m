@@ -1,12 +1,8 @@
-//  Created by Monte Hurd on 11/27/13.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "ArticleDataContextSingleton.h"
 #import "NSManagedObjectModel+OldDataSchema.h"
 
-@interface ArticleDataContextSingleton (){
-    
-}
+@interface ArticleDataContextSingleton ()
 
 @property (nonatomic, retain) NSManagedObjectContext *masterContext;
 
@@ -25,55 +21,66 @@
     return sharedInstance;
 }
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
 
-        [self setupMasterContext];
+- (NSString*)databasePath{
+    
+    NSString *articlesDBPath = [[self documentRootPath] stringByAppendingString:@"/articleData6.sqlite"];
+    return articlesDBPath;
+}
+
+- (NSManagedObjectContext*)masterContext{
+    
+    if(!_masterContext){
+        
+        NSPersistentStoreCoordinator *persistentStoreCoordinator =
+        [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel wmf_oldDataSchema]];
+        
+        NSURL *url = [NSURL fileURLWithPath:[self databasePath]];
+        
+        NSDictionary *options = @{
+                                  NSMigratePersistentStoresAutomaticallyOption: @YES,
+                                  NSInferMappingModelAutomaticallyOption: @YES
+                                  };
+        NSError *error = nil;
+        NSPersistentStore *persistentStore = [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                                                      configuration:nil
+                                                                                                URL:url
+                                                                                            options:options
+                                                                                              error:&error];
+        if (!persistentStore) {
+            NSLog(@"Error creating persistent store coordinator: %@", error.localizedFailureReason);
+            return nil;
+        }
+        
+        _masterContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        _masterContext.persistentStoreCoordinator = persistentStoreCoordinator;
+
+    }
+    
+    return _masterContext;
+}
+
+- (NSManagedObjectContext*)mainContext{
+    
+    if(!_mainContext){
+        
+        if(!self.masterContext){
+            return nil;
+        }
         
         // Setup main context.
-        self.mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        self.mainContext.parentContext = self.masterContext;
+        _mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        _mainContext.parentContext = self.masterContext;
         
         // Ensure object changes saved to mainContext bubble up to masterContext.
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(propagateMainSavesToMaster)
                                                      name:NSManagedObjectContextDidSaveNotification
-                                                   object:self.mainContext];
-    }
-    return self;
-}
+                                                   object:_mainContext];
 
--(void)setupMasterContext
-{
-    // Setup the masterContext and attach the persistant store to it.
-    self.masterContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    
-    NSPersistentStoreCoordinator *persistentStoreCoordinator =
-        [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel wmf_oldDataSchema]];
-    
-    NSString *articlesDBPath = [[self documentRootPath] stringByAppendingString:@"/articleData6.sqlite"];
-    NSLog(@"\n\n\nArticle data path: %@\n\n\n", articlesDBPath);
-    NSURL *url = [NSURL fileURLWithPath:articlesDBPath];
-    
-    NSDictionary *options = @{
-                              NSMigratePersistentStoresAutomaticallyOption: @YES,
-                              NSInferMappingModelAutomaticallyOption: @YES
-                              };
-    NSError *error = nil;
-    NSPersistentStore *persistentStore = [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                                                                  configuration:nil
-                                                                                            URL:url
-                                                                                        options:options
-                                                                                        error:&error];
-    if (persistentStore) {
-        NSLog(@"Created persistent store.");
-    } else {
-        NSLog(@"Error creating persistent store coordinator: %@", error.localizedFailureReason);
     }
     
-    self.masterContext.persistentStoreCoordinator = persistentStoreCoordinator;
+    return _mainContext;
 }
 
 - (NSManagedObjectContext*)backgroundContext{

@@ -43,7 +43,9 @@
     self.migrator.delegate = self.converter;
 
     // objects must be inserted into a MOC in order for (inverse) relationships to be maintained automatically
+//    self.tmpContext = [NSManagedObjectContext wmf_tempContextInBundle:[NSBundle bundleForClass:[self class]]];
     self.tmpContext = [NSManagedObjectContext wmf_tempContext];
+
 }
 
 - (void)tearDown {
@@ -97,7 +99,37 @@
     [self verifySkippedMigrationOfArticle:oldArticle];
 }
 
+//- (void)testBackingUpStore{
+//    
+//    NSString* path = [self databasePathForContext:self.tmpContext];
+//    
+//    OldDataSchemaMigrator* oldDataSchema = [[OldDataSchemaMigrator alloc] initWithDatabasePath:path];
+//    
+//    XCTAssertTrue([oldDataSchema moveOldDataToBackupLocation],
+//                  @"Backup was not moved!");
+//    
+//}
+//
+//
+//- (void)testRemovingBackupStore{
+//    
+//    NSString* path = [self databasePathForContext:self.tmpContext];
+//    
+//    OldDataSchemaMigrator* oldDataSchema = [[OldDataSchemaMigrator alloc] initWithDatabasePath:path];
+//    
+//    [oldDataSchema moveOldDataToBackupLocation];
+//    
+//    XCTAssertTrue([oldDataSchema removebackupDataImmediately],
+//                   @"Store was not removed!");
+//
+//}
+
 #pragma mark - Test Utils
+
+- (NSString*)databasePathForContext:(NSManagedObjectContext*)context{
+    
+    return [[[[[context persistentStoreCoordinator] persistentStores] firstObject] URL] absoluteString];
+}
 
 - (void)verifySkippedMigrationOfArticle:(Article*)oldArticle {
     XCTAssertNoThrow([self.migrator migrateArticle:oldArticle],
