@@ -11,6 +11,9 @@
 #import "WikipediaAppUtils.h"
 #import <hpple/TFHpple.h>
 
+#define HC_SHORTHAND 1
+#import <OCHamcrest/OCHamcrest.h>
+
 @interface NSString_WMFHTMLParsingTests : XCTestCase
 
 @end
@@ -27,15 +30,19 @@
     [super tearDown];
 }
 
+- (void)testSnippetFromTextWithCitaiton {
+    assertThat([@"March 2011.[9][10] It was the first spacecraft to orbit Mercury.[7]" wmf_shareSnippetFromText],
+               is(@"March 2011. It was the first spacecraft to orbit Mercury."));
+}
+
 - (void)testTooShortSnippet {
     NSString *string = @"<p>Cat (meow) [cow] too short</p>";
-    XCTAssertNil([string wmf_getStringSnippetWithoutHTML], @"Too short snippet non-nil after parsing");
+    XCTAssertNil([string wmf_shareSnippetFromHTML], @"Too short snippet non-nil after parsing");
 }
 
 - (void)testAdequateSnippet {
     NSString *string = @"<p>Dog (woof (w00t)) [horse] adequately long string historically 40 characters.</p>";
-    XCTAssertEqualObjects([string wmf_getStringSnippetWithoutHTML],
-                          @"Dog adequately long string historically 40 characters.");
+    assertThat([string wmf_shareSnippetFromHTML], is(@"Dog adequately long string historically 40 characters."));
 }
 
 - (void)testConsecutiveNewlinesCollapsing {

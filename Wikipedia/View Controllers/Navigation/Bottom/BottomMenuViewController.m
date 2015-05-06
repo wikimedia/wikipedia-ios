@@ -224,11 +224,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
 
 - (void)shareUpArrowButtonPushed {
     WebViewController* webViewController = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
-    NSString* selectedText               = [webViewController getSelectedtext];
-    if (selectedText.length == 0) {
-        selectedText = nil;
-    }
-    [self shareSnippet:selectedText];
+    [self shareSnippet:webViewController.selectedText];
 }
 
 - (void)shareButtonPushedWithNotification:(NSNotification*)notification {

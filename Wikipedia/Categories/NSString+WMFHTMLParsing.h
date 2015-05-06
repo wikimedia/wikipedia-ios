@@ -25,11 +25,12 @@
 /**
  * Parse the receiver as HTML and return a heuristically defined snippet.
  */
-- (NSString*)wmf_getStringSnippetWithoutHTML;
+- (NSString*)wmf_shareSnippetFromHTML;
+
+/// @return A new string which has been sanitized to remove unnecesary characters and wiki markup.
+- (NSString*)wmf_shareSnippetFromText;
 
 /**
- *
- *
  *  @return Return string with internal whitespace segments reduced to single space. Accounts for end of sentence punctuation like commas, semicolons and periods. Trims leading and trailing whitespace as well.
  */
 - (NSString*)wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation;

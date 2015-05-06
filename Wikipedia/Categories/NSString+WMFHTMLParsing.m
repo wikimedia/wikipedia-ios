@@ -1,6 +1,7 @@
 #import "NSString+WMFHTMLParsing.h"
 #import "WikipediaAppUtils.h"
 #import <hpple/TFHpple.h>
+#import "NSString+Extras.h"
 
 static int const kMinimumLengthForPreTransformedHTMLForSnippet = 40;
 static int const kHighestIndexForSubstringAfterHTMLRemoved     = 350;
@@ -30,46 +31,43 @@ static int const kHighestIndexForSubstringAfterHTMLRemoved     = 350;
     return [[self wmf_htmlTextNodes] componentsJoinedByString:delimiter];
 }
 
-- (NSString*)wmf_getStringSnippetWithoutHTML {
+- (NSString*)wmf_shareSnippetFromHTML {
     if (self.length < kMinimumLengthForPreTransformedHTMLForSnippet) {
         return nil;
     }
-    NSData* stringData      = [self dataUsingEncoding:NSUTF8StringEncoding];
-    TFHpple* parser         = [TFHpple hppleWithHTMLData:stringData];
-    NSArray* textNodes      = [parser searchWithXPathQuery:@"//p[1]//text()"];
-    NSMutableArray* results = @[].mutableCopy;
-    for (TFHppleElement* node in textNodes) {
-        [results addObject:node.raw];
-    }
-    NSString* result = [results componentsJoinedByString:@""];
-    result = [result substringToIndex:
-              MIN(kHighestIndexForSubstringAfterHTMLRemoved, result.length)];
-    result = [NSString wmf_stringSnippetSimplifiedInString:result];
-    return result.length >= kMinimumLengthForPreTransformedHTMLForSnippet ?
-           result : nil;
+    NSString* result =
+        [[[[[[TFHpple hppleWithHTMLData:[self dataUsingEncoding:NSUTF8StringEncoding]]
+             searchWithXPathQuery:@"//p[1]//text()"]
+            valueForKey:WMF_SAFE_KEYPATH([TFHppleElement new], raw)]
+           componentsJoinedByString:@""]
+          wmf_safeSubstringToIndex:kHighestIndexForSubstringAfterHTMLRemoved]
+         wmf_shareSnippetFromText];
+    return result.length >= kMinimumLengthForPreTransformedHTMLForSnippet ? result : nil;
 }
 
 #pragma mark - String simplification and cleanup
-+ (NSString*)wmf_stringSnippetSimplifiedInString:(NSString*)string {
-    NSString* result = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-    result = [string stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
-    result = [string stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
-    result = [result wmf_stringByCollapsingConsecutiveNewlines];
-    result = [result wmf_stringByRecursivelyRemovingParenthesizedContent];
-    result = [result wmf_stringByRemovingBracketedContent];
-    result = [result wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons];
-    result = [result wmf_stringByRemovingWhiteSpaceBeforePeriod];
-    result = [result wmf_stringByCollapsingConsecutiveSpaces];
-    return [result wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
+
+/// @return A new string after performing multiple transformations to remove wiki markup & other text artifacts.
+- (NSString*)wmf_shareSnippetFromText {
+    return [[[[[[[[[[self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
+                    stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
+                   stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
+                  wmf_stringByCollapsingConsecutiveNewlines]
+                 wmf_stringByRecursivelyRemovingParenthesizedContent]
+                wmf_stringByRemovingBracketedContent]
+               wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons]
+              wmf_stringByRemovingWhiteSpaceBeforePeriod]
+             wmf_stringByCollapsingConsecutiveSpaces]
+            wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
 }
 
 - (NSString*)wmf_stringByCollapsingConsecutiveNewlines {
+    NSParameterAssert([NSThread isMainThread]);
     static NSRegularExpression* newlinesRegex;
     if (!newlinesRegex) {
-        newlinesRegex = [NSRegularExpression
-                         regularExpressionWithPattern:@"\n{2,}"
-                                              options:0
-                                                error:nil];
+        newlinesRegex = [NSRegularExpression regularExpressionWithPattern:@"\n{2,}"
+                                                                  options:0
+                                                                    error:nil];
     }
     return [newlinesRegex stringByReplacingMatchesInString:self
                                                    options:0
