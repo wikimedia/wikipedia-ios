@@ -13,6 +13,7 @@
 #import "WikipediaAppUtils.h"
 #import "NSString+Extras.h"
 #import "NSString+WMFHTMLParsing.h"
+#import "MWKArticle+ShareSnippet.h"
 
 @interface WMFShareOptionsViewController ()
 
@@ -71,7 +72,7 @@
 
         _snippet = snippet;
         if (snippet.length == 0) {
-            _snippet                   = [self generateSnippetHeuristicallyWithArticle:article];
+            _snippet                   = [article shareSnippet];
             _snippetForTextOnlySharing = @"";
         } else {
             _snippetForTextOnlySharing = snippet;
@@ -100,28 +101,6 @@
         [_delegate didShowSharePreviewForMWKArticle:article withText:_snippet];
     }
     return self;
-}
-
-- (NSString*)generateSnippetHeuristicallyWithArticle:(MWKArticle*)article {
-    NSString* heuristicText;
-    MWKSectionList* sections = article.sections;
-    for (MWKSection* section in sections) {
-        heuristicText = [section.text wmf_shareSnippetFromHTML];
-        if (heuristicText) {
-            break;
-        }
-    }
-    // fall back to something with less treatment
-    if (!heuristicText) {
-        for (MWKSection* section in sections) {
-            heuristicText = [section.text wmf_stringByRemovingHTML];
-            if (heuristicText) {
-                break;
-            }
-        }
-    }
-
-    return heuristicText ? heuristicText : @"";
 }
 
 - (UIImage*)cardAsUIImageWithView:(UIView*)theView {

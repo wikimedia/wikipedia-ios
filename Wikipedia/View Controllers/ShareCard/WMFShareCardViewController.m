@@ -47,15 +47,16 @@
     // title and Wikidata description. For the snippet, we want to mimic
     // the webview's layout alignment, which is based upon actual article
     // language directionality.
-    NSTextAlignment snippetAlignment = [MWLanguageInfo
-                                        articleLanguageIsRTL:article] ? NSTextAlignmentRight : NSTextAlignmentLeft;
+    NSTextAlignment snippetAlignment =
+        [MWLanguageInfo articleLanguageIsRTL:article] ? NSTextAlignmentRight : NSTextAlignmentLeft;
     self.shareSelectedText.text          = snippet;
     self.shareSelectedText.textAlignment = snippetAlignment;
 
     NSTextAlignment subtextAlignment = [WikipediaAppUtils rtlSafeAlignment];
-    self.shareArticleTitle.text                = [article.displaytitle wmf_stringByRemovingHTML];
-    self.shareArticleTitle.textAlignment       = subtextAlignment;
-    self.shareArticleDescription.text          = [[article.entityDescription wmf_stringByRemovingHTML] wmf_stringByCapitalizingFirstCharacter];
+    self.shareArticleTitle.text          = [article.displaytitle wmf_stringByRemovingHTML];
+    self.shareArticleTitle.textAlignment = subtextAlignment;
+    self.shareArticleDescription.text    =
+        [[article.entityDescription wmf_stringByRemovingHTML] wmf_stringByCapitalizingFirstCharacter];
     self.shareArticleDescription.textAlignment = subtextAlignment;
 
     NSData* leadImageData = [article.image.largestCachedVariant asNSData];

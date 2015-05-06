@@ -29,4 +29,5 @@
                            snippet:(NSString*)snippet
                     backgroundView:(UIView*)backgroundView
                           delegate:(id)delegate;
+
 @end
