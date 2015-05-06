@@ -65,7 +65,10 @@
         _delegate   = delegate;
         _article    = article;
         _shareTitle = article.title.prefixedText;
-        WMFShareCardViewController* cardViewController = [[WMFShareCardViewController alloc] initWithNibName:@"ShareCard" bundle:nil];
+
+        WMFShareCardViewController* cardViewController =
+            [[WMFShareCardViewController alloc] initWithNibName:@"ShareCard" bundle:nil];
+
         _snippet = snippet;
         if (snippet.length == 0) {
             _snippet                   = [self generateSnippetHeuristicallyWithArticle:article];
@@ -74,12 +77,15 @@
             _snippetForTextOnlySharing = snippet;
         }
 
+        #warning FIXME: render card image lazily
         // get handle, fill, and render
         UIView* cardView = cardViewController.view;
         [cardViewController fillCardWithMWKArticle:article snippet:_snippet];
         _shareImage = [self cardAsUIImageWithView:cardView];
 
-        WMFShareOptionsView* shareOptionsView = [[[NSBundle mainBundle] loadNibNamed:@"ShareOptions" owner:self options:nil] objectAtIndex:0];
+        #warning FIXME: don't create views before loadView/viewDidLoad
+        WMFShareOptionsView* shareOptionsView =
+            [[[NSBundle mainBundle] loadNibNamed:@"ShareOptions" owner:self options:nil] objectAtIndex:0];
         shareOptionsView.cardImageViewContainer.userInteractionEnabled = YES;
         shareOptionsView.shareAsCardLabel.userInteractionEnabled       = YES;
         shareOptionsView.shareAsTextLabel.userInteractionEnabled       = YES;
@@ -100,7 +106,7 @@
     NSString* heuristicText;
     MWKSectionList* sections = article.sections;
     for (MWKSection* section in sections) {
-        heuristicText = [section.text wmf_getStringSnippetWithoutHTML];
+        heuristicText = [section.text wmf_shareSnippetFromHTML];
         if (heuristicText) {
             break;
         }

@@ -3,14 +3,13 @@
 
 #import "WebViewController_Private.h"
 #import <Masonry/Masonry.h>
+#import "NSString+WMFHTMLParsing.h"
 
 NSString* const WebViewControllerTextWasHighlighted    = @"textWasSelected";
 NSString* const WebViewControllerWillShareNotification = @"SelectionShare";
 NSString* const WebViewControllerShareBegin            = @"beginShare";
 NSString* const WebViewControllerShareSelectedText     = @"selectedText";
 NSString* const kSelectedStringJS                      = @"window.getSelection().toString()";
-
-#pragma mark Internal variables
 
 @implementation WebViewController
 
@@ -2104,7 +2103,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
     if (action == @selector(shareSnippet:)) {
-        if ([[self getSelectedtext] isEqualToString:@""]) {
+        if ([self.selectedText isEqualToString:@""]) {
             return NO;
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:WebViewControllerTextWasHighlighted
@@ -2112,20 +2111,20 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                                                           userInfo:nil];
         return YES;
     }
-    return [super canPerformAction:action
-                        withSender:sender];
+    return [super canPerformAction:action withSender:sender];
 }
 
 - (void)shareSnippet:(id)sender {
-    NSString* selectedText = [self getSelectedtext];
+    NSString* selectedText = [self selectedtext];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:WebViewControllerWillShareNotification
                                                         object:self
                                                       userInfo:@{ WebViewControllerShareSelectedText: selectedText }];
 }
 
-- (NSString*)getSelectedtext {
-    NSString* selectedText = [self.webView stringByEvaluatingJavaScriptFromString:kSelectedStringJS];
+- (NSString*)selectedtext {
+    NSString* selectedText =
+        [[self.webView stringByEvaluatingJavaScriptFromString:kSelectedStringJS] wmf_shareSnippetFromText];
     return selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
 }
 

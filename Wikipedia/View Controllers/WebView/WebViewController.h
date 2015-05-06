@@ -21,6 +21,12 @@ extern NSString* const WebViewControllerShareSelectedText;
 @property (nonatomic) BOOL referencesHidden;
 @property (nonatomic) BOOL scrollingToTop;
 
+/**
+ * Currently-selected text in the webview, if there is any.
+ * @return The selection if it's longer than `kMinimumTextSelectionLength`, otherwise an empty string.
+ */
+@property (nonatomic, strong, readonly) NSString* selectedText;
+
 @property (weak, nonatomic) BottomMenuViewController* bottomMenuViewController;
 
 - (void)referencesShow:(NSDictionary*)payload;
@@ -41,8 +47,5 @@ extern NSString* const WebViewControllerShareSelectedText;
 - (void)tocHide;
 - (void)tocToggle;
 - (void)saveWebViewScrollOffset;
-
-- (void)shareSnippet:(id)sender;
-- (NSString*)getSelectedtext;
 
 @end
