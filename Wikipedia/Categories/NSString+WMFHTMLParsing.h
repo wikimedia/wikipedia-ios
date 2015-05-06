@@ -23,11 +23,9 @@
 - (NSString*)wmf_joinedHtmlTextNodesWithDelimiter:(NSString*)delimiter;
 
 /**
- * Parse the receiver as HTML and return a heuristically defined snippet.
+ * String sanitation method to remove wiki markup & other text artifacts prior to sharing.
+ * @return A new string with sanitation processing applied.
  */
-- (NSString*)wmf_shareSnippetFromHTML;
-
-/// @return A new string which has been sanitized to remove unnecesary characters and wiki markup.
 - (NSString*)wmf_shareSnippetFromText;
 
 /**

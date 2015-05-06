@@ -8,22 +8,17 @@
 
 #import "MWKArticle+ShareSnippet.h"
 #import "NSString+WMFHTMLParsing.h"
+#import "MWKSection+WMFSharing.h"
 #import <BlocksKit/BlocksKit.h>
 
 @implementation MWKArticle (ShareSnippet)
 
+/// @return The first non-empty `shareSnippet` from the receiver's `sections`.
 - (NSString*)shareSnippet {
-    NSString* heuristicText;
     for (MWKSection* section in self.sections) {
-        heuristicText = [section.text wmf_shareSnippetFromHTML];
-        if (heuristicText) {
-            return heuristicText;
-        }
-    }
-    for (MWKSection* section in self.sections) {
-        heuristicText = [section.text wmf_shareSnippetFromText];
-        if (heuristicText) {
-            return heuristicText;
+        NSString* snippet = section.shareSnippet;
+        if (snippet.length) {
+            return snippet;
         }
     }
     return @"";

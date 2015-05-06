@@ -19,15 +19,25 @@
 
 @interface WMFShareOptionsViewController : UIViewController
 
-@property (readonly) MWKArticle* article;
-@property (readonly) NSString* snippet;
-@property (readonly) NSString* snippetForTextOnlySharing;
-@property (readonly) UIView* backgroundView;
-@property (readonly) id<WMFShareOptionsViewControllerDelegate> delegate;
+@property (nonatomic, readonly) MWKArticle* article;
+@property (nonatomic, copy, readonly) NSString* snippet;
+@property (nonatomic, copy, readonly) NSString* snippetForTextOnlySharing;
+@property (nonatomic, readonly) UIView* backgroundView;
+@property (nonatomic, weak, readonly) id<WMFShareOptionsViewControllerDelegate> delegate;
 
+/**
+ * Initialize a new instance with an article and an optional snippet.
+ *
+ * @param article           The article the snippet is derived from.
+ * @param snippet           Optional. The snippet to share, with any necessary processing already applied.
+ * @param backgroundView    The background of the share card.
+ * @param delegate          The `WMFShareOptionsViewControllerDelegate`.
+ *
+ * @note Truncating `snippet` is not necessary, as it's done internally by the share view's `UILabel`.
+ */
 - (instancetype)initWithMWKArticle:(MWKArticle*)article
                            snippet:(NSString*)snippet
                     backgroundView:(UIView*)backgroundView
-                          delegate:(id)delegate;
+                          delegate:(id)delegate NS_DESIGNATED_INITIALIZER;
 
 @end

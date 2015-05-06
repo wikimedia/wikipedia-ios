@@ -65,17 +65,17 @@
 
         _delegate   = delegate;
         _article    = article;
-        _shareTitle = article.title.prefixedText;
+        _shareTitle = [article.title.prefixedText copy];
 
         WMFShareCardViewController* cardViewController =
             [[WMFShareCardViewController alloc] initWithNibName:@"ShareCard" bundle:nil];
 
-        _snippet = snippet;
-        if (snippet.length == 0) {
-            _snippet                   = [article shareSnippet];
-            _snippetForTextOnlySharing = @"";
+        if (snippet.length) {
+            _snippet                   = [snippet copy];
+            _snippetForTextOnlySharing = [snippet copy];
         } else {
-            _snippetForTextOnlySharing = snippet;
+            _snippet                   = [[article shareSnippet] copy];
+            _snippetForTextOnlySharing = @"";
         }
 
         #warning FIXME: render card image lazily

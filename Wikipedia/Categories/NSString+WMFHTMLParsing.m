@@ -3,9 +3,6 @@
 #import <hpple/TFHpple.h>
 #import "NSString+Extras.h"
 
-static int const kMinimumLengthForPreTransformedHTMLForSnippet = 40;
-static int const kHighestIndexForSubstringAfterHTMLRemoved     = 350;
-
 @implementation NSString (WMFHTMLParsing)
 
 - (NSArray*)wmf_htmlTextNodes {
@@ -31,23 +28,8 @@ static int const kHighestIndexForSubstringAfterHTMLRemoved     = 350;
     return [[self wmf_htmlTextNodes] componentsJoinedByString:delimiter];
 }
 
-- (NSString*)wmf_shareSnippetFromHTML {
-    if (self.length < kMinimumLengthForPreTransformedHTMLForSnippet) {
-        return nil;
-    }
-    NSString* result =
-        [[[[[[TFHpple hppleWithHTMLData:[self dataUsingEncoding:NSUTF8StringEncoding]]
-             searchWithXPathQuery:@"//p[1]//text()"]
-            valueForKey:WMF_SAFE_KEYPATH([TFHppleElement new], raw)]
-           componentsJoinedByString:@""]
-          wmf_safeSubstringToIndex:kHighestIndexForSubstringAfterHTMLRemoved]
-         wmf_shareSnippetFromText];
-    return result.length >= kMinimumLengthForPreTransformedHTMLForSnippet ? result : nil;
-}
-
 #pragma mark - String simplification and cleanup
 
-/// @return A new string after performing multiple transformations to remove wiki markup & other text artifacts.
 - (NSString*)wmf_shareSnippetFromText {
     return [[[[[[[[[[self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
                     stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
