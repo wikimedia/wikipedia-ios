@@ -10,6 +10,7 @@
 #import "NSString+WMFHTMLParsing.h"
 #import "WikipediaAppUtils.h"
 #import <hpple/TFHpple.h>
+#import "WMFTestFixtureUtilities.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -20,29 +21,16 @@
 
 @implementation NSString_WMFHTMLParsingTests
 
-- (void)setUp {
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
+//- (void)testHillaryRodhamClintonHTML {
+//    NSString* hillaryHTML =
+//        [[NSString alloc] initWithData:[[self wmf_bundle] wmf_dataFromContentsOfFile:@"HillaryRodhamClinton" ofType:@"html"]
+//                              encoding:NSUTF8StringEncoding];
+//    assertThat(hillaryHTML.wmf_shareSnippetFromHTML, is(@"Hillary Diane Rodham Clinton is a former United States Secretary of State in the administration of President Barack Obama from 2009 to 2013; a former United States Senator representing New York from 2001 to 2009; and, as the wife of President Bill Clinton, was First Lady of the United State"));
+//}
 
 - (void)testSnippetFromTextWithCitaiton {
     assertThat([@"March 2011.[9][10] It was the first spacecraft to orbit Mercury.[7]" wmf_shareSnippetFromText],
                is(@"March 2011. It was the first spacecraft to orbit Mercury."));
-}
-
-- (void)testTooShortSnippet {
-    NSString *string = @"<p>Cat (meow) [cow] too short</p>";
-    XCTAssertNil([string wmf_shareSnippetFromHTML], @"Too short snippet non-nil after parsing");
-}
-
-- (void)testAdequateSnippet {
-    NSString *string = @"<p>Dog (woof (w00t)) [horse] adequately long string historically 40 characters.</p>";
-    assertThat([string wmf_shareSnippetFromHTML], is(@"Dog adequately long string historically 40 characters."));
 }
 
 - (void)testConsecutiveNewlinesCollapsing {
