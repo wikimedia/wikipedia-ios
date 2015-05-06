@@ -17,7 +17,7 @@ __attribute__((constructor)) static void WMFRegisterBundledImageProtocol() {
 @implementation WMFBundledImageProtocol
 
 + (BOOL)canInitWithRequest:(NSURLRequest*)request {
-    return [[request URL] wmf_conformsToScheme:kWMF andHasKey:kBundledImage];
+    return [[request URL] wmf_conformsToScheme:kWMF andHasHost:kBundledImage];
 }
 
 + (NSURLRequest*)canonicalRequestForRequest:(NSURLRequest*)theRequest {

@@ -764,6 +764,11 @@ function shouldTableBeCollapsed( table ) {
 }
 
 transformer.register( "hideTables", function( content ) {
+                     
+    var isMainPage = transformer.httpGetSync('wmf://article/is-main-page');
+                     
+    if (isMainPage == "1") return;
+                     
     var tables = content.querySelectorAll( "table" );
     for (var i = 0; i < tables.length; i++) {
         var table = tables[i];

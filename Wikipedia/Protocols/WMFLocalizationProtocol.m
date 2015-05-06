@@ -16,7 +16,7 @@ __attribute__((constructor)) static void WMFRegisterLocalizationProtocol() {
 @implementation WMFLocalizationProtocol
 
 + (BOOL)canInitWithRequest:(NSURLRequest*)request {
-    return [[request URL] wmf_conformsToScheme:@"wmf" andHasKey:@"localize"];
+    return [[request URL] wmf_conformsToScheme:@"wmf" andHasHost:@"localize"];
 }
 
 + (NSURLRequest*)canonicalRequestForRequest:(NSURLRequest*)request {
