@@ -5,8 +5,11 @@
 #import "NSString+Extras.h"
 #import "WikipediaAppUtils.h"
 
-#define LOG_ENDPOINT @"https://bits.wikimedia.org/event.gif"
-//#define LOG_ENDPOINT @"http://localhost:8000/event.gif"
+NSString* const WMFLoggingEndpoint =
+    // production
+    @"https://meta.wikimedia.org/beacon/event";
+// testing
+// @"http://deployment.wikimedia.beta.wmflabs.org/beacon/event";
 
 @implementation EventLogger
 
@@ -29,7 +32,7 @@
             NSString* payloadJsonString = [[NSString alloc] initWithData:payloadJsonData encoding:NSUTF8StringEncoding];
             //NSLog(@"%@", payloadJsonString);
             NSString* encodedPayloadJsonString = [payloadJsonString wmf_UTF8StringWithPercentEscapes];
-            NSString* urlString                = [NSString stringWithFormat:@"%@?%@;", LOG_ENDPOINT, encodedPayloadJsonString];
+            NSString* urlString                = [NSString stringWithFormat:@"%@?%@;", WMFLoggingEndpoint, encodedPayloadJsonString];
             NSMutableURLRequest* request       = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
             [request addValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
             // arguably, we don't need to add the UUID to these requests
