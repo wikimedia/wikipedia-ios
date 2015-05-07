@@ -7,48 +7,47 @@
 
 @implementation NSManagedObjectContext (SimpleFetch)
 
--(NSManagedObject *)getEntityForName:(NSString *)entityName withPredicateFormat:(NSString *)predicateFormat, ...
+- (NSManagedObject*)getEntityForName:(NSString*)entityName withPredicateFormat:(NSString*)predicateFormat, ...
 {
     // See: http://www.cocoawithlove.com/2009/05/variable-argument-lists-in-cocoa.html for variadic methods syntax reminder.
     va_list args;
     va_start(args, predicateFormat);
-    NSPredicate * predicate = [NSPredicate predicateWithFormat:predicateFormat arguments:args];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:predicateFormat arguments:args];
     va_end(args);
 
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName: entityName
-                                              inManagedObjectContext: self];
+    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription* entity  = [NSEntityDescription entityForName:entityName
+                                               inManagedObjectContext        :self];
     [fetchRequest setEntity:entity];
     [fetchRequest setPredicate:predicate];
     [fetchRequest setFetchLimit:1];
 
-    NSError *error = nil;
-    NSArray *entities = [self executeFetchRequest:fetchRequest error:&error];
-    if(error){
+    NSError* error    = nil;
+    NSArray* entities = [self executeFetchRequest:fetchRequest error:&error];
+    if (error) {
         NSLog(@"Error: %@", error);
         return nil;
     }
 
     // Return nil if no results - makes it easier to test whether any entities were found.
-    if (entities){
+    if (entities) {
         return (entities.count == 1) ? entities[0] : nil;
-    }else{
+    } else {
         return nil;
     }
 }
 
--(NSManagedObjectID *)getArticleIDForTitle:(NSString *)title domain:(NSString *)domain
-{
-    Article *article = (Article *)[self getEntityForName: @"Article" withPredicateFormat: @"\
+- (NSManagedObjectID*)getArticleIDForTitle:(NSString*)title domain:(NSString*)domain {
+    Article* article = (Article*)[self getEntityForName:@"Article" withPredicateFormat:@"\
                        title == %@ \
                        AND \
                        site == %@ \
                        AND \
                        domain == %@",
-                       title,
-                       @"wikipedia.org",//[SessionSingleton sharedInstance].site,
-                       domain
-    ];
+                                  title,
+                                  @"wikipedia.org",//[SessionSingleton sharedInstance].site,
+                                  domain
+                       ];
 
     return (article) ? article.objectID : nil;
 }

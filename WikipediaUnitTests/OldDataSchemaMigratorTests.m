@@ -45,7 +45,6 @@
     // objects must be inserted into a MOC in order for (inverse) relationships to be maintained automatically
 //    self.tmpContext = [NSManagedObjectContext wmf_tempContextInBundle:[NSBundle bundleForClass:[self class]]];
     self.tmpContext = [NSManagedObjectContext wmf_tempContext];
-
 }
 
 - (void)tearDown {
@@ -84,7 +83,7 @@
 
 - (void)testArticleWithInvalidSectionIsGracefullySkipped {
     Article* oldArticle = [self createOldArticleWithSections:10 imagesPerSection:5];
-    Section* section = oldArticle.sectionsBySectionId.lastObject;
+    Section* section    = oldArticle.sectionsBySectionId.lastObject;
     // sectionId is a required field
     section.sectionId = nil;
     [self verifySkippedMigrationOfArticle:oldArticle];
@@ -92,7 +91,7 @@
 
 - (void)testArticleWithInvalidSectionImageIsGracefullySkipped {
     Article* oldArticle = [self createOldArticleWithSections:10 imagesPerSection:5];
-    Section* section = oldArticle.sectionsBySectionId.lastObject;
+    Section* section    = oldArticle.sectionsBySectionId.lastObject;
     SectionImage* image = section.sectionImagesByIndex.lastObject;
     // sourceUrl is a required field
     image.image.sourceUrl = nil;
@@ -100,25 +99,25 @@
 }
 
 //- (void)testBackingUpStore{
-//    
+//
 //    NSString* path = [self databasePathForContext:self.tmpContext];
-//    
+//
 //    OldDataSchemaMigrator* oldDataSchema = [[OldDataSchemaMigrator alloc] initWithDatabasePath:path];
-//    
+//
 //    XCTAssertTrue([oldDataSchema moveOldDataToBackupLocation],
 //                  @"Backup was not moved!");
-//    
+//
 //}
 //
 //
 //- (void)testRemovingBackupStore{
-//    
+//
 //    NSString* path = [self databasePathForContext:self.tmpContext];
-//    
+//
 //    OldDataSchemaMigrator* oldDataSchema = [[OldDataSchemaMigrator alloc] initWithDatabasePath:path];
-//    
+//
 //    [oldDataSchema moveOldDataToBackupLocation];
-//    
+//
 //    XCTAssertTrue([oldDataSchema removebackupDataImmediately],
 //                   @"Store was not removed!");
 //
@@ -126,8 +125,7 @@
 
 #pragma mark - Test Utils
 
-- (NSString*)databasePathForContext:(NSManagedObjectContext*)context{
-    
+- (NSString*)databasePathForContext:(NSManagedObjectContext*)context {
     return [[[[[context persistentStoreCoordinator] persistentStores] firstObject] URL] absoluteString];
 }
 
@@ -135,7 +133,7 @@
     XCTAssertNoThrow([self.migrator migrateArticle:oldArticle],
                      @"Failed to catch an article migration exception.");
     MWKTitle* migratedArticleTitle = [self.migrator migrateArticleTitle:oldArticle];
-    NSString* articleDataPath = [self.dataStore pathForTitle:migratedArticleTitle];
+    NSString* articleDataPath      = [self.dataStore pathForTitle:migratedArticleTitle];
     XCTAssertFalse([[NSFileManager defaultManager] fileExistsAtPath:articleDataPath],
                    @"Expected article to not be saved due to exception during migration.");
 }
@@ -234,7 +232,7 @@
 }
 
 - (void)verifyArticleSectionAndLeadImages:(MWKArticle*)migratedArticle correspondsToOldArticle:(Article*)oldArticle {
-    NSArray* oldArticleImages = [oldArticle allImages];
+    NSArray* oldArticleImages          = [oldArticle allImages];
     NSUInteger const thumbnailModifier = oldArticle.thumbnailImage ? 1 : 0;
     assertThat(@(migratedArticle.images.count), is(equalToInt(oldArticleImages.count + thumbnailModifier)));
     for (NSUInteger i = thumbnailModifier; i < oldArticleImages.count; i++) {

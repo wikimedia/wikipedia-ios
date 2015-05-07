@@ -8,8 +8,8 @@
 
 @interface DiscoveryContext : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * isPrefix;
-@property (nonatomic, retain) NSString * text;
-@property (nonatomic, retain) History *history;
+@property (nonatomic, retain) NSNumber* isPrefix;
+@property (nonatomic, retain) NSString* text;
+@property (nonatomic, retain) History* history;
 
 @end

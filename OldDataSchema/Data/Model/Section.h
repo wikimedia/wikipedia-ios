@@ -8,26 +8,26 @@
 
 @interface Section : NSManagedObject
 
-@property (nonatomic, retain) NSString * anchor;
-@property (nonatomic, retain) NSDate * dateRetrieved;
-@property (nonatomic, retain) NSString * html;
-@property (nonatomic, retain) NSString * index;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSNumber * tocLevel;
-@property (nonatomic, retain) NSString * level;
-@property (nonatomic, retain) NSNumber * sectionId;
-@property (nonatomic, retain) NSString * number;
-@property (nonatomic, retain) NSString * fromTitle;
-@property (nonatomic, retain) Article *article;
-@property (nonatomic, retain) NSSet *sectionImage;
-@property (nonatomic, retain) Image *thumbnailImage;
+@property (nonatomic, retain) NSString* anchor;
+@property (nonatomic, retain) NSDate* dateRetrieved;
+@property (nonatomic, retain) NSString* html;
+@property (nonatomic, retain) NSString* index;
+@property (nonatomic, retain) NSString* title;
+@property (nonatomic, retain) NSNumber* tocLevel;
+@property (nonatomic, retain) NSString* level;
+@property (nonatomic, retain) NSNumber* sectionId;
+@property (nonatomic, retain) NSString* number;
+@property (nonatomic, retain) NSString* fromTitle;
+@property (nonatomic, retain) Article* article;
+@property (nonatomic, retain) NSSet* sectionImage;
+@property (nonatomic, retain) Image* thumbnailImage;
 @end
 
 @interface Section (CoreDataGeneratedAccessors)
 
-- (void)addSectionImageObject:(SectionImage *)value;
-- (void)removeSectionImageObject:(SectionImage *)value;
-- (void)addSectionImage:(NSSet *)values;
-- (void)removeSectionImage:(NSSet *)values;
+- (void)addSectionImageObject:(SectionImage*)value;
+- (void)removeSectionImageObject:(SectionImage*)value;
+- (void)addSectionImage:(NSSet*)values;
+- (void)removeSectionImage:(NSSet*)values;
 
 @end

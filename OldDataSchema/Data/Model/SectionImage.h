@@ -8,8 +8,8 @@
 
 @interface SectionImage : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * index;
-@property (nonatomic, retain) Image *image;
-@property (nonatomic, retain) Section *section;
+@property (nonatomic, retain) NSNumber* index;
+@property (nonatomic, retain) Image* image;
+@property (nonatomic, retain) Section* section;
 
 @end

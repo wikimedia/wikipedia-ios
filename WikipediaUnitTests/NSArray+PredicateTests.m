@@ -20,39 +20,34 @@
 
 @implementation NSArray_PredicateTests
 
-- (void)testEmptyArray
-{
+- (void)testEmptyArray {
     assertThat([@[] firstMatchForPredicate:[NSPredicate predicateWithValue:YES]], is(nilValue()));
     assertThat([@[] firstMatchForPredicate:[NSPredicate predicateWithValue:NO]], is(nilValue()));
 }
 
-- (void)testFindsCorrectObject
-{
-    NSArray *testArray = @[@"foo", @"bar", @"baz"];
+- (void)testFindsCorrectObject {
+    NSArray* testArray = @[@"foo", @"bar", @"baz"];
     for (id element in testArray) {
-        NSPredicate *isElement = [NSPredicate predicateWithBlock:^BOOL(id obj, NSDictionary *bindings) {
+        NSPredicate* isElement = [NSPredicate predicateWithBlock:^BOOL (id obj, NSDictionary* bindings) {
             return [obj isEqual:element];
         }];
         assertThat([testArray firstMatchForPredicate:isElement], is(element));
     }
 }
 
-
-- (void)testFalsePredicate
-{
+- (void)testFalsePredicate {
     assertThat(([@[@1, @2, @3] firstMatchForPredicate:[NSPredicate predicateWithValue:NO]]), is(nilValue()));
 }
 
-- (void)testPerformance
-{
+- (void)testPerformance {
     static const NSUInteger N = 1e5;
-    NSNumber *worstCase = @(N-1);
-    NSMutableArray *testArray = [NSMutableArray arrayWithCapacity:N];
+    NSNumber* worstCase       = @(N - 1);
+    NSMutableArray* testArray = [NSMutableArray arrayWithCapacity:N];
     for (NSUInteger i = 0; i < N; i++) {
         [testArray addObject:@(i)];
     }
     [self measureBlock:^{
-        [testArray firstMatchForPredicate:[NSPredicate predicateWithBlock:^BOOL(NSNumber *x, NSDictionary *bindings) {
+        [testArray firstMatchForPredicate:[NSPredicate predicateWithBlock:^BOOL (NSNumber* x, NSDictionary* bindings) {
             return [x isEqualToNumber:worstCase];
         }]];
     }];

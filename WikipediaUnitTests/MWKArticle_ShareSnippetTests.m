@@ -25,7 +25,7 @@
 - (void)setUp {
     [super setUp];
     NSDictionary* obamaMobileViewJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"];
-    MWKTitle* dummyTitle =
+    MWKTitle* dummyTitle              =
         [MWKTitle titleWithString:@"foo" site:[MWKSite siteWithDomain:@"wikipedia.org" language:@"en"]];
     self.article = [[MWKArticle alloc] initWithTitle:dummyTitle dataStore:nil dict:obamaMobileViewJSON[@"mobileview"]];
 }

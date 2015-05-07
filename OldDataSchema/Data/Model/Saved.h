@@ -8,7 +8,7 @@
 
 @interface Saved : NSManagedObject
 
-@property (nonatomic, retain) NSDate * dateSaved;
-@property (nonatomic, retain) Article *article;
+@property (nonatomic, retain) NSDate* dateSaved;
+@property (nonatomic, retain) Article* article;
 
 @end

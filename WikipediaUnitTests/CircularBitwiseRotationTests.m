@@ -17,10 +17,9 @@
 
 @implementation CircularBitwiseRotationTests
 
-- (void)testExamples
-{
+- (void)testExamples {
     NSUInteger testValue = 0b00000001;
-    NSUInteger len = sizeof(testValue) * CHAR_BIT;
+    NSUInteger len       = sizeof(testValue) * CHAR_BIT;
     XCTAssertEqual(CircularBitwiseRotation(testValue, 0), 0b001);
     XCTAssertEqual(CircularBitwiseRotation(testValue, 1), 0b00000010);
     XCTAssertEqual(CircularBitwiseRotation(testValue, 2), 0b00000100);

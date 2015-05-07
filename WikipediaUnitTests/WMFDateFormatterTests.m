@@ -20,14 +20,14 @@
 @implementation WMFDateFormatterTests
 
 - (void)testIso8601Example {
-    NSString* testTimestamp   = @"2015-02-10T10:31:27Z";
-    NSDate* decodedDate = [[NSDateFormatter wmf_iso8601Formatter] dateFromString:testTimestamp];
+    NSString* testTimestamp = @"2015-02-10T10:31:27Z";
+    NSDate* decodedDate     = [[NSDateFormatter wmf_iso8601Formatter] dateFromString:testTimestamp];
     assertThat(decodedDate, is(notNilValue()));
     assertThat([[NSDateFormatter wmf_iso8601Formatter] stringFromDate:decodedDate], is(equalTo(testTimestamp)));
 }
 
 - (void)testShortTimeFormatterIsValidForAllLocales {
-    NSString* testTimestamp = @"2015-02-10T10:31:27Z";
+    NSString* testTimestamp     = @"2015-02-10T10:31:27Z";
     NSArray* availableLocaleIDs = [NSLocale availableLocaleIdentifiers];
 
     dispatch_apply(availableLocaleIDs.count, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(size_t i) {
@@ -50,14 +50,14 @@
 
 - (void)testShortTimeFormatterExamples {
     NSString* testTimestamp = @"2015-02-10T14:31:27Z";
-    NSDate* decodedDate = [[NSDateFormatter wmf_iso8601Formatter] dateFromString:testTimestamp];
+    NSDate* decodedDate     = [[NSDateFormatter wmf_iso8601Formatter] dateFromString:testTimestamp];
     NSParameterAssert(decodedDate);
 
     NSDateFormatter* usFormatter =
         [NSDateFormatter wmf_shortTimeFormatterWithLocale:[NSLocale localeWithLocaleIdentifier:@"en_US"]];
 
     NSDateFormatter* gbFormatter =
-         [NSDateFormatter wmf_shortTimeFormatterWithLocale:[NSLocale localeWithLocaleIdentifier:@"en_GB"]];
+        [NSDateFormatter wmf_shortTimeFormatterWithLocale:[NSLocale localeWithLocaleIdentifier:@"en_GB"]];
 
     assertThat([usFormatter stringFromDate:decodedDate], is(equalTo(@"2:31 PM")));
 

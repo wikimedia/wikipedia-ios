@@ -19,23 +19,19 @@
 
 @implementation WMFJoinedPropertyParametersTests
 
-- (void)testNonEmptyArray
-{
+- (void)testNonEmptyArray {
     assertThat(WMFJoinedPropertyParameters(@[@"foo", @"bar", @"baz"]), is(@"foo|bar|baz"));
 }
 
-- (void)testUnaryArray
-{
+- (void)testUnaryArray {
     assertThat(WMFJoinedPropertyParameters(@[@"foo"]), is(@"foo"));
 }
 
-- (void)testEmptyArray
-{
+- (void)testEmptyArray {
     assertThat(WMFJoinedPropertyParameters(@[]), is(@""));
 }
 
-- (void)testNil
-{
+- (void)testNil {
     assertThat(WMFJoinedPropertyParameters(nil), is(@""));
 }
 

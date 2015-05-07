@@ -8,8 +8,8 @@
 
 @interface GalleryImage : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * index;
-@property (nonatomic, retain) Article *article;
-@property (nonatomic, retain) Image *image;
+@property (nonatomic, retain) NSNumber* index;
+@property (nonatomic, retain) Article* article;
+@property (nonatomic, retain) Image* image;
 
 @end

@@ -13,10 +13,10 @@
 @implementation NSPersistentStoreCoordinator (WMFTempCoordinator)
 
 + (NSPersistentStoreCoordinator*)wmf_tempCoordinator {
-    NSPersistentStoreCoordinator *persistentStoreCoordinator =
-    [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel wmf_oldDataSchema]];
+    NSPersistentStoreCoordinator* persistentStoreCoordinator =
+        [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel wmf_oldDataSchema]];
 
-    NSError *error = nil;
+    NSError* error                     = nil;
     NSPersistentStore* persistentStore =
         [persistentStoreCoordinator
          addPersistentStoreWithType:NSSQLiteStoreType

@@ -8,7 +8,7 @@
 
 @interface ImageData : NSManagedObject
 
-@property (nonatomic, retain) NSData * data;
-@property (nonatomic, retain) Image *imageData;
+@property (nonatomic, retain) NSData* data;
+@property (nonatomic, retain) Image* imageData;
 
 @end

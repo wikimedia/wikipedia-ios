@@ -20,9 +20,8 @@
 
 @implementation WMFErrorForApiErrorObjectTests
 
-- (void)testExample
-{
-    NSDictionary *apiErrorObj = @{
+- (void)testExample {
+    NSDictionary* apiErrorObj = @{
         @"code": @"badcontinue",
         @"info": @"Invalid continue param. You should pass the original value returned by the previous query",
         @"*": @"See https://en.wikipedia.org/w/api.php for API usage"
@@ -36,16 +35,14 @@
                      nil));
 }
 
-- (void)testMissingFields
-{
+- (void)testMissingFields {
     assertThat(WMFErrorForApiErrorObject(@{}),
                allOf(hasProperty(@"domain", WMFNetworkingErrorDomain),
                      hasProperty(@"userInfo", isEmpty()),
                      nil));
 }
 
-- (void)testNil
-{
+- (void)testNil {
     assertThat(WMFErrorForApiErrorObject(nil), is(nilValue()));
 }
 

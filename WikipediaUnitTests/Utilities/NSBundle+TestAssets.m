@@ -10,7 +10,7 @@
 
 @implementation NSBundle (TestAssets)
 
-- (NSData*)wmf_dataFromContentsOfFile:(NSString *)filename ofType:(NSString *)type {
+- (NSData*)wmf_dataFromContentsOfFile:(NSString*)filename ofType:(NSString*)type {
     NSError* error;
     NSData* data = [NSData dataWithContentsOfFile:[self pathForResource:filename ofType:type]
                                           options:0
@@ -20,7 +20,6 @@
 }
 
 - (id)wmf_jsonFromContentsOfFile:(NSString*)filename {
-
     NSError* error;
 
     id json = [NSJSONSerialization JSONObjectWithData:[self wmf_dataFromContentsOfFile:filename ofType:@"json"]

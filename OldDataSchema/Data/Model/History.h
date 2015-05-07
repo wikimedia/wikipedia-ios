@@ -8,17 +8,17 @@
 
 @interface History : NSManagedObject
 
-@property (nonatomic, retain) NSDate * dateVisited;
-@property (nonatomic, retain) NSString * discoveryMethod;
-@property (nonatomic, retain) Article *article;
-@property (nonatomic, retain) NSSet *discoveryContext;
+@property (nonatomic, retain) NSDate* dateVisited;
+@property (nonatomic, retain) NSString* discoveryMethod;
+@property (nonatomic, retain) Article* article;
+@property (nonatomic, retain) NSSet* discoveryContext;
 @end
 
 @interface History (CoreDataGeneratedAccessors)
 
-- (void)addDiscoveryContextObject:(DiscoveryContext *)value;
-- (void)removeDiscoveryContextObject:(DiscoveryContext *)value;
-- (void)addDiscoveryContext:(NSSet *)values;
-- (void)removeDiscoveryContext:(NSSet *)values;
+- (void)addDiscoveryContextObject:(DiscoveryContext*)value;
+- (void)removeDiscoveryContextObject:(DiscoveryContext*)value;
+- (void)addDiscoveryContext:(NSSet*)values;
+- (void)removeDiscoveryContext:(NSSet*)values;
 
 @end
