@@ -73,11 +73,18 @@ div#lead_image_none div#lead_image_description {
 
 @media (orientation: portrait) {
     .lead_image_div {
-        height:12.6em;
+        height:150pt;
         background-repeat: no-repeat;
         background-size:cover;
         color:#fff;
         position: relative;
+    }
+
+    /* Tablet override */
+    @media (min-device-width: 768px) {
+        .lead_image_div {
+            height:250pt;
+        }
     }
 
     #lead_image_text_container {
