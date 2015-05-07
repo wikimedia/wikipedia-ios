@@ -21,13 +21,6 @@
 
 @implementation NSString_WMFHTMLParsingTests
 
-//- (void)testHillaryRodhamClintonHTML {
-//    NSString* hillaryHTML =
-//        [[NSString alloc] initWithData:[[self wmf_bundle] wmf_dataFromContentsOfFile:@"HillaryRodhamClinton" ofType:@"html"]
-//                              encoding:NSUTF8StringEncoding];
-//    assertThat(hillaryHTML.wmf_shareSnippetFromHTML, is(@"Hillary Diane Rodham Clinton is a former United States Secretary of State in the administration of President Barack Obama from 2009 to 2013; a former United States Senator representing New York from 2001 to 2009; and, as the wife of President Bill Clinton, was First Lady of the United State"));
-//}
-
 - (void)testSnippetFromTextWithCitaiton {
     assertThat([@"March 2011.[9][10] It was the first spacecraft to orbit Mercury.[7]" wmf_shareSnippetFromText],
                is(@"March 2011. It was the first spacecraft to orbit Mercury."));
