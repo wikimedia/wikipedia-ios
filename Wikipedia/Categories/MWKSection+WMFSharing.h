@@ -12,4 +12,7 @@
 @interface MWKSection (WMFSharing)
 <WMFSharing>
 
+/// @return A share snippet using a particular xpath to get HTML elements from the receiver's `text`.
+- (NSString*)shareSnippetFromTextUsingXpath:(NSString*)xpath;
+
 @end

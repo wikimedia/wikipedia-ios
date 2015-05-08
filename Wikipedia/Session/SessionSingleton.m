@@ -148,7 +148,6 @@
 
 - (BOOL)articleIsAMainArticle:(MWKArticle*)article {
     MWKTitle* mainArticleTitleForArticleLanguage = [self mainArticleTitleForSite:article.site languageCode:article.site.language];
-
     return ([article.title.prefixedText isEqualToString:mainArticleTitleForArticleLanguage.prefixedText]);
 }
 

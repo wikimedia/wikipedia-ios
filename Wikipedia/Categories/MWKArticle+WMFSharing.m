@@ -6,17 +6,19 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "MWKArticle+ShareSnippet.h"
+#import "MWKArticle+WMFSharing.h"
 #import "NSString+WMFHTMLParsing.h"
 #import "MWKSection+WMFSharing.h"
+#import "MWKArticle+isMain.h"
 #import <BlocksKit/BlocksKit.h>
 
-@implementation MWKArticle (ShareSnippet)
+@implementation MWKArticle (WMFSharing)
 
-/// @return The first non-empty `shareSnippet` from the receiver's `sections`.
 - (NSString*)shareSnippet {
     for (MWKSection* section in self.sections) {
-        NSString* snippet = section.shareSnippet;
+        NSString* snippet = [self isMain] ?
+                            [section shareSnippetFromTextUsingXpath : @"/html/body/div/div/p[1]//text()"]
+                            :[section shareSnippet];
         if (snippet.length) {
             return snippet;
         }

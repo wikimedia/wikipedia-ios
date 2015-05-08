@@ -9,7 +9,7 @@
 #import "MWKArticle.h"
 #import "WMFSharing.h"
 
-@interface MWKArticle (ShareSnippet)
+@interface MWKArticle (WMFSharing)
 <WMFSharing>
 
 @end

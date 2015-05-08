@@ -134,31 +134,15 @@
     NSMutableDictionary* params = @{
         @"format": @"json",
         @"action": @"mobileview",
-        @"sectionprop": WMFJoinedPropertyParameters(@[
-                                                        @"toclevel",
-                                                        @"line",
-                                                        @"anchor",
-                                                        @"level",
-                                                        @"number",
-                                                        @"fromtitle",
-                                                        @"index"]),
+        @"sectionprop": WMFJoinedPropertyParameters(@[@"toclevel", @"line", @"anchor", @"level", @"number",
+                                                      @"fromtitle", @"index"]),
         @"noheadings": @"true",
         @"sections": @"all",
         @"page": title,
         @"thumbwidth": @(LEAD_IMAGE_WIDTH),
-        @"prop": WMFJoinedPropertyParameters(@[
-                                                 @"sections",
-                                                 @"text",
-                                                 @"lastmodified",
-                                                 @"lastmodifiedby",
-                                                 @"languagecount",
-                                                 @"id",
-                                                 @"protection",
-                                                 @"editable",
-                                                 @"displaytitle",
-                                                 @"thumb",
-                                                 @"description",
-                                                 @"image"])
+        @"prop": WMFJoinedPropertyParameters(@[@"sections", @"text", @"lastmodified", @"lastmodifiedby",
+                                               @"languagecount", @"id", @"protection", @"editable", @"displaytitle",
+                                               @"thumb", @"description", @"image"])
     }.mutableCopy;
 
     return params;

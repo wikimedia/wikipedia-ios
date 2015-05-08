@@ -13,7 +13,7 @@
 #import "WikipediaAppUtils.h"
 #import "NSString+Extras.h"
 #import "NSString+WMFHTMLParsing.h"
-#import "MWKArticle+ShareSnippet.h"
+#import "MWKArticle+WMFSharing.h"
 
 @interface WMFShareOptionsViewController ()
 
