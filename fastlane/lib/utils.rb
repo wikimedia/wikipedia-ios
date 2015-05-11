@@ -22,25 +22,6 @@ def make(args)
   end
 end
 
-def run_unit_tests
-  return if test_disabled?
-  xctest({
-    scheme: 'Wikipedia',
-    destination: "platform=iOS Simulator,name=iPhone 6,OS=8.3",
-    reports: [
-      {
-        report: "html",
-        output: "build/reports/report.html"
-      },
-      {
-        report: "junit",
-        output: "build/reports/report.xml"
-      }
-    ],
-    clean: nil
-  })
-end
-
 # Generate a list of commit subjects from `rev` to `HEAD`
 # :rev: The git SHA to start the log from, defaults to `ENV[LAST_SUCCESS_REV']`
 def generate_git_commit_log(rev=ENV['GIT_PREVIOUS_SUCCESSFUL_COMMIT'] || 'HEAD^^^^^')
@@ -69,70 +50,3 @@ def get_version_short_string(path)
   plist_hash = info_plist_to_hash path
   plist_hash['CFBundleShortVersionString']
 end
-
-def deploy_testflight_build(scheme, config)
-  return if deploy_disabled?
-
-  increment_version_number(
-    version_number: ENV['WMF_VERSION_NUMBER']
-  )
-
-  # use Jenkins build number
-  increment_build_number(
-    build_number: ENV['BUILD_NUMBER'].to_i
-  )
-
-  # Create and sign the IPA (and DSYM)
-  ipa({
-    scheme: scheme,
-    configuration: config, #Prevents fastlane from passing --configuration "Release" - bug?
-    clean: true,
-    archive: nil,
-    # verbose: nil, # this means 'Be Verbose'.
-  })
-
-  # Upload the DSYM to Hockey
-  hockey({
-    notes: '',
-    notify: '0', #Means do not notify
-    status: '1', #Means do not make available for download
-  })
-
-  #Set "What To Test" in iTunes Connect for Testflight builds, in the future, reference tickets instead of git commits
-  ENV['DELIVER_WHAT_TO_TEST'] = git_commit_log
-  #Set "App Description" in iTunes Connect for Testflight builds, in the future set a better description
-  # ENV['DELIVER_BETA_DESCRIPTION'] = git_commit_log
-
-  # Upload the IPA and DSYM to iTunes Connect
-  deliver(
-    force: true, # Set to true to skip PDF verification
-    beta: true, # Upload a new version to TestFlight
-    skip_deploy: true, # Set true to not submit app for review (works with both App Store and beta builds)
-  )
-end
-
-def deploy_appstore_build
-  return if deploy_disabled?
-  # Create and sign the IPA (and DSYM)
-  ipa({
-    scheme: ENV['IPA_BUILD_SCHEME'],
-    configuration: ENV['IPA_BUILD_CONFIG'], #Prevents fastlane from passing --configuration "Release" - bug?
-    clean: true,
-    archive: nil,
-    # verbose: nil, # this means 'Be Verbose'.
-  })
-
-  # Upload the DSYM to Hockey
-  hockey({
-    notes: '',
-    notify: '0', #Means do not notify
-    status: '1', #Means do not make available for download
-  })
-
-  # Upload the IPA and DSYM to iTunes Connect
-  deliver(
-    force: true, # Set to true to skip PDF verification
-    skip_deploy: true, # Set true to not submit app for review (works with both App Store and beta builds)
-  )
-end
-

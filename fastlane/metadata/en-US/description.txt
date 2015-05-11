@@ -1,0 +1,42 @@
+Official Wikipedia App for iOS. Wikipedia is the free encyclopedia containing more than 32 million articles in 280 languages, and is the most comprehensive and widely used reference work humans have ever compiled.
+
+
+App features:
+
+* Better search results with short descriptions of matching articles
+
+* Search for and read Wikipedia articles written in any language
+
+* Quickly share facts as image cards or text
+
+* Saved pages for when you don't have a data connection
+
+* Prominent image and description at the top of many articles
+
+* High resolution image galleries
+
+* Related article suggestions at the bottom of each article
+
+* Nearby articles for exploring your current location
+
+* Swipe left for quick section navigation table of contents
+
+* Wikipedia Zero: data charges waived for participating mobile operators
+
+Apps FAQ:
+https://www.mediawiki.org/wiki/Wikimedia_Apps/FAQ
+
+Contribute to our translations:
+https://translatewiki.net/wiki/Translating:WikimediaMobile
+
+Open source repository:
+https://github.com/wikimedia/apps-ios-wikipedia
+
+Privacy policy:
+https://m.wikimediafoundation.org/wiki/Privacy_policy
+
+Terms of Use:
+https://m.wikimediafoundation.org/wiki/Terms_of_Use
+
+To send feedback in the app tap:
+W > More > About the Wikipedia app > Send app feedback
