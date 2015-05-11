@@ -25,6 +25,7 @@
 #import <BlocksKit/BlocksKit.h>
 #import "WMFIntrinsicContentSizeAwareTableView.h"
 #import "UIScrollView+WMFScrollsToTop.h"
+#import "WMFSearchFunnel.h"
 
 static NSString* const kWMFSearchCellID     = @"SearchResultCell";
 static CGFloat const kWMFSearchDelay        = 0.4;
@@ -46,10 +47,10 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 
 @property (nonatomic, assign) WMFSearchResultsControllerType type;
 
-@property (assign, nonatomic) NSUInteger maxResults;
-@property (assign, nonatomic) NSUInteger minResultsBeforeRunningFullTextSearch;
+@property (nonatomic, assign) NSUInteger maxResults;
+@property (nonatomic, assign) NSUInteger minResultsBeforeRunningFullTextSearch;
 
-@property (assign, nonatomic) BOOL highlightSearchTermInResultTitles;
+@property (nonatomic, assign) BOOL highlightSearchTermInResultTitles;
 
 @property (nonatomic, strong) NSString* searchSuggestion;
 
@@ -67,11 +68,13 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 @property (nonatomic, weak) IBOutlet SearchDidYouMeanButton* didYouMeanButton;
 @property (nonatomic, weak) IBOutlet SearchMessageLabel* searchMessageLabel;
 
-@property (strong, nonatomic) RecentSearchesViewController* recentSearchesViewController;
+@property (nonatomic, strong) RecentSearchesViewController* recentSearchesViewController;
 
 @property (nonatomic, weak) IBOutlet UIView* recentSearchesContainer;
 
-@property (strong, nonatomic) SearchResultCell* offScreenSizingCell;
+@property (nonatomic, strong) SearchResultCell* offScreenSizingCell;
+
+@property (nonatomic, strong) NSDate* searchStartTime;
 
 @end
 
@@ -200,6 +203,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     textFieldContainer.textField.text = self.searchSuggestion;
     self.searchString                 = self.searchSuggestion;
     [self searchAfterDelay:@0.0f reason:SEARCH_REASON_DID_YOU_MEAN_TAPPED];
+    [self.searchFunnel logSearchDidYouMean];
 }
 
 - (void)observeValueForKeyPath:(NSString*)keyPath
@@ -228,6 +232,14 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     }
 }
 
+- (void)setSearchStartTime {
+    self.searchStartTime = [NSDate new];
+}
+
+- (NSTimeInterval)searchTime {
+    return [[NSDate new] timeIntervalSinceDate:self.searchStartTime];
+}
+
 - (void)cancelDelayedSearch {
     if (self.delayedSearchTimer) {
         [self.delayedSearchTimer invalidate];
@@ -239,6 +251,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     if (self.searchString.length == 0) {
         [self clearSearchResults];
     } else {
+        [self setSearchStartTime];
         [self searchAfterDelay:@(kWMFSearchDelay) reason:SEARCH_REASON_SEARCH_STRING_CHANGED];
     }
 }
@@ -405,8 +418,10 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 
                     self.searchResults =
                         [[self.searchResults arrayByAddingObjectsFromArray:supplementalFullTextResults] wmf_arrayByTrimmingToLength:self.maxResults];
+                    [self.searchFunnel logSearchResultsWithTypeOfSearch:WMFSearchTypeFull resultCount:[self.searchResults count] elapsedTime:[self searchTime]];
                 } else {
                     self.searchResults = [searchResults wmf_arrayByTrimmingToLength:self.maxResults];
+                    [self.searchFunnel logSearchResultsWithTypeOfSearch:WMFSearchTypePrefix resultCount:[self.searchResults count] elapsedTime:[self searchTime]];
                 }
                 //NSLog(@"self.searchResultsOrdered = %@", self.searchResultsOrdered);
 
@@ -420,6 +435,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
                 // do a full-text search too, the results of which will be appended to the prefix results.
                 // Note: this also has to be done in the FETCH_FINAL_STATUS_FAILED case below.
                 if ((self.searchResults.count < self.minResultsBeforeRunningFullTextSearch) && (searchResultFetcher.searchType == SEARCH_TYPE_TITLES)) {
+                    [self.searchFunnel logSearchAutoSwitch];
                     [self performSupplementalFullTextSearchForTerm:searchResultFetcher.searchTerm];
                 }
             }
@@ -450,8 +466,12 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
                     [self.searchMessageLabel showWithText:error.localizedDescription];
                 }
 
-                //[self.searchMessageLabel showWithText:error.localizedDescription];
-                //[self showAlert:error.localizedDescription type:ALERT_TYPE_MIDDLE duration:-1];
+                if (searchResultFetcher.searchReason == SEARCH_REASON_SUPPLEMENT_PREFIX_WITH_FULL_TEXT) {
+                    [self.searchFunnel logShowSearchErrorWithTypeOfSearch:WMFSearchTypeFull elapsedTime:[[NSDate new] timeIntervalSinceDate:self.searchStartTime]];
+                } else {
+                    [self.searchFunnel logShowSearchErrorWithTypeOfSearch:WMFSearchTypePrefix elapsedTime:[[NSDate new] timeIntervalSinceDate:self.searchStartTime]];
+                }
+
                 break;
         }
 
@@ -623,6 +643,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     NSString* title = result[@"title"];
 
     [self loadArticleWithTitle:title];
+    [self.searchFunnel logSearchResultTap];
 }
 
 - (void)loadArticleWithTitle:(NSString*)title {

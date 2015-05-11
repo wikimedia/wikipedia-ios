@@ -28,8 +28,8 @@ typedef NS_ENUM (NSUInteger, WMFEventLoggingMaxStringLength) {
  */
 @interface EventLoggingFunnel : NSObject
 
-@property NSString* schema;
-@property int revision;
+@property (nonatomic, strong) NSString* schema;
+@property (nonatomic, assign) int revision;
 
 /**
  * This constructor should be called internally by derived classes

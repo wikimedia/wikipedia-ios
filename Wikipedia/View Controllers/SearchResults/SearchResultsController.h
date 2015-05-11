@@ -2,6 +2,7 @@
 #import <UIKit/UIKit.h>
 
 @class WMFIntrinsicContentSizeAwareTableView;
+@class WMFSearchFunnel;
 
 @interface SearchResultsController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
@@ -9,6 +10,11 @@
 
 @property (strong, nonatomic) NSArray* searchResults;
 @property (strong, nonatomic) NSString* searchString;
+
+/**
+ *  Set the funnel for tracking search results
+ */
+@property (strong, nonatomic) WMFSearchFunnel* searchFunnel;
 
 /**
  *  Specify articles that should not be displayed in the search results

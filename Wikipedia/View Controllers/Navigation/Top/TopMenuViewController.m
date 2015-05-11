@@ -30,6 +30,7 @@
 #import "AccountCreationViewController.h"
 #import "WMF_Colors.h"
 #import "UIView+ConstraintsScale.h"
+#import "WMFSearchFunnel.h"
 
 @interface TopMenuViewController (){
 }
@@ -57,6 +58,11 @@
 @property (strong, nonatomic) NSDictionary* navBarSubViews;
 @property (strong, nonatomic) NSDictionary* navBarSubViewMetrics;
 
+
+@property (strong, nonatomic) WMFSearchFunnel* searchFunnel;
+
+
+
 @end
 
 @implementation TopMenuViewController
@@ -72,7 +78,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.searchResultsController = [SearchResultsController standardSearchResultsController];
+    self.searchFunnel                         = [[WMFSearchFunnel alloc] init];
+    self.searchResultsController              = [SearchResultsController standardSearchResultsController];
+    self.searchResultsController.searchFunnel = self.searchFunnel;
 
     [self setupNavbarContainerSubviews];
 
@@ -562,6 +570,7 @@
                 case NAVBAR_MODE_DEFAULT:
                 case NAVBAR_MODE_DEFAULT_WITH_TOC:
                     self.navBarMode = NAVBAR_MODE_SEARCH;
+                    [self.searchFunnel logSearchStart];
                     break;
                 default:
                     break;
@@ -575,6 +584,8 @@
             self.navBarMode = NAVBAR_MODE_DEFAULT;
             [self updateTOCButtonVisibility];
             [self hideSearchResultsController];
+            [self.searchFunnel logSearchCancel];
+
             break;
         default:
             break;
