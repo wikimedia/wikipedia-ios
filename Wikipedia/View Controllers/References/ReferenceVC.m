@@ -62,7 +62,7 @@
                 NSString* title        = [encodedTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 MWKTitle* pageTitle    = [[SessionSingleton sharedInstance].currentArticleSite titleWithString:title];
                 [self.webVC navigateToPage:pageTitle
-                           discoveryMethod:MWK_DISCOVERY_METHOD_LINK
+                           discoveryMethod:MWKHistoryDiscoveryMethodLink
                       showLoadingIndicator:YES];
                 [self.webVC referencesHide];
                 return NO;

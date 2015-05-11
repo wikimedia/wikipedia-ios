@@ -221,6 +221,10 @@
     return _sections;
 }
 
+- (BOOL)isCached {
+    return [self.sections count] > 0 ? YES : NO;
+}
+
 #pragma mark - protection status methods
 
 - (MWKProtectionStatus*)requiredProtectionStatus:(NSString*)key dict:(NSDictionary*)dict {

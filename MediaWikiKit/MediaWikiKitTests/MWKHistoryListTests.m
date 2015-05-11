@@ -44,24 +44,24 @@
 
 - (void)testAddCount {
     MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                    discoveryMethod :MWK_DISCOVERY_METHOD_SEARCH];
+                                                    discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     [historyList addEntry:entry];
     XCTAssertEqual(historyList.length, 1, @"Should have length 1 after adding");
 }
 
 - (void)testAddCount2 {
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                 discoveryMethod :MWK_DISCOVERY_METHOD_SEARCH]];
+                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleLAEn
-                                                 discoveryMethod :MWK_DISCOVERY_METHOD_SEARCH]];
+                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     XCTAssertEqual(historyList.length, 2, @"Should have length 2 after adding");
 }
 
 - (void)testAddCount2Same {
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                 discoveryMethod :MWK_DISCOVERY_METHOD_SEARCH]];
+                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                 discoveryMethod :MWK_DISCOVERY_METHOD_SEARCH]];
+                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     XCTAssertEqual(historyList.length, 1, @"Should have length 1 after adding a duplicate, not 2");
 }
 
@@ -69,17 +69,17 @@
     MWKTitle* title1 = [titleSFEn.site titleWithString:@"This is a title"];
     MWKTitle* title2 = [titleSFEn.site titleWithString:@"This is a title"];
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:title1
-                                                 discoveryMethod :MWK_DISCOVERY_METHOD_SEARCH]];
+                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:title2
-                                                 discoveryMethod :MWK_DISCOVERY_METHOD_SEARCH]];
+                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     XCTAssertEqual(historyList.length, 1, @"Should have length 1 after adding a duplicate, not 2");
 }
 
 - (void)testAddCount2DiffLanguages {
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                 discoveryMethod :MWK_DISCOVERY_METHOD_SEARCH]];
+                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleSFFr
-                                                 discoveryMethod :MWK_DISCOVERY_METHOD_SEARCH]];
+                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     XCTAssertEqual(historyList.length, 2, @"Should have length 2 after adding a duplicate in another language, not 1");
 }
 
@@ -89,22 +89,22 @@
 
 - (void)testEmptyDirtyAfterAdd {
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                 discoveryMethod :MWK_DISCOVERY_METHOD_SEARCH]];
+                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     XCTAssertTrue(historyList.dirty, @"Should be dirty after adding");
 }
 
 - (void)testEmptyNotDirtyAfterAddAndSave {
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                 discoveryMethod :MWK_DISCOVERY_METHOD_SEARCH]];
+                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     (void)[historyList dataExport];
     XCTAssertFalse(historyList.dirty, @"Should not be dirty after adding then exporting");
 }
 
 - (void)testAdd2ThenRemove {
     MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                     discoveryMethod :MWK_DISCOVERY_METHOD_SEARCH];
+                                                     discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     MWKHistoryEntry* entry2 = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn
-                                                     discoveryMethod :MWK_DISCOVERY_METHOD_SEARCH];
+                                                     discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     [historyList addEntry:entry1];
     [historyList addEntry:entry2];
     [historyList removeEntry:entry1];

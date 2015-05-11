@@ -141,7 +141,7 @@
     MWKTitle* pageTitle = [[SessionSingleton sharedInstance] mainArticleTitle];
     [self loadArticleWithTitle:pageTitle
                       animated:YES
-               discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH
+               discoveryMethod:MWKHistoryDiscoveryMethodSearch
                     popToWebVC:NO];
 }
 
@@ -169,7 +169,7 @@
                     MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithString:title];
                     [self loadArticleWithTitle:pageTitle
                                       animated:YES
-                               discoveryMethod:MWK_DISCOVERY_METHOD_RANDOM
+                               discoveryMethod:MWKHistoryDiscoveryMethodRandom
                                     popToWebVC:NO]; // Don't pop - popModal has already been called.
                 }
             }
@@ -190,7 +190,7 @@
 
     [self loadArticleWithTitle:pageTitle
                       animated:YES
-               discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH
+               discoveryMethod:MWKHistoryDiscoveryMethodSearch
                     popToWebVC:NO];
 }
 

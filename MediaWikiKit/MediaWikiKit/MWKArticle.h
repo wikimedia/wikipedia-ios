@@ -81,4 +81,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
 - (void)saveWithoutSavingSectionText;
 - (void)remove;
 
+- (BOOL)isCached;
+
 @end

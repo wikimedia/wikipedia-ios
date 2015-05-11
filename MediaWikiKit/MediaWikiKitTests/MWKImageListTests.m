@@ -46,7 +46,7 @@
     [article.sections setSections:mock([MWKSection class])];
 
     NSArray* dummySourceURLs = [@[@"10px-a.jpg", @"10px-b.jpg", @"100px-a.jpg", @"10px-c.jpg"] bk_map :^id (id obj) {
-        return [MWKDataStoreValidImageSitePrefix stringByAppendingString:obj];
+        return MWKCreateImageURLWithPath(obj);
     }];
 
     [dummySourceURLs bk_each:^(NSString* sourceURL) {

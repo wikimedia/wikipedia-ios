@@ -32,9 +32,7 @@ extern NSString* const WebViewControllerShareSelectedText;
 - (void)referencesShow:(NSDictionary*)payload;
 - (void)referencesHide;
 
-// Reloads the current article from the core data cache.
-// If "invalidateCache" is set to YES the article will be re-downloaded first.
-- (void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache;
+- (void)reloadCurrentArticle;
 
 - (void)  navigateToPage:(MWKTitle*)title
          discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod

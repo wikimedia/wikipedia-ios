@@ -81,7 +81,7 @@
     NSString* title       = rowData[@"title"];
     [NAV loadArticleWithTitle:[[SessionSingleton sharedInstance].searchSite titleWithString:title]
                      animated:YES
-              discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH
+              discoveryMethod:MWKHistoryDiscoveryMethodSearch
                    popToWebVC:NO];
 
     [self popModalToRoot];

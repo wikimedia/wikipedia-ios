@@ -38,6 +38,9 @@
 }
 
 - (void)hideAlert {
+    if (!self.isViewLoaded) {
+        return;
+    }
     // Hide existing alert labels if any.
     NSArray* alertLabels = [self.view wmf_subviewsOfClass:[AlertLabel class]];
     [alertLabels makeObjectsPerformSelector:@selector(hide)];
