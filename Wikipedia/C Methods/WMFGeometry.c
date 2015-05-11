@@ -47,3 +47,9 @@ CGRect WMFRectFromUnitRectForReferenceSize(CGRect unitRect, CGSize refSize){
                       unitRect.size.height * refSize.height
                       );
 }
+
+CGRect WMFUIKitRectFromCoreImageRectInReferenceRect(CGRect coreImageRect, CGRect referenceRect) {
+    CGAffineTransform transform = CGAffineTransformMakeScale(1, -1);
+    transform = CGAffineTransformTranslate(transform, 0, -referenceRect.size.height);
+    return CGRectApplyAffineTransform(coreImageRect, transform);
+}

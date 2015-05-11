@@ -1649,7 +1649,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (NSInteger)leadImageFocalOffsetYPercentageFromTopOfRect:(CGRect)rect {
-    float percentFromTop = 100.0f - (CGRectGetMidY(rect) * 100.0f);
+    float percentFromTop = (CGRectGetMidY(rect) * 100.0f);
     return @(MAX(0, MIN(100, percentFromTop))).integerValue;
 }
 
