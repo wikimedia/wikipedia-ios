@@ -1,21 +1,6 @@
 # vi: ft=ruby
-###################### App Metadata ######################
-# Update the app description and metadata in the ./metadata folder
 
-###################### Screenshots ######################
-# Store all screenshots in the ./screenshots folder separated
-# by language. If you use snapshot, this happens automatically
-
-###################### IPA File ######################
-# This part is only relevant, if you want to submit a new binary
-# If you don't use fastlane (https://github.com/KrauseFx/fastlane)
-# you can set the path to your ipa file using:
-# ipa "./app.ipa"
-
-# to provide an ipa file for TestFlight distribution, use beta_ipa
-# beta_ipa "./app.ipa"
-
-###################### More Options ######################
+###################### Available Options ######################
 # If you want to have even more control, check out the documentation
 # https://github.com/KrauseFx/deliver/blob/master/Deliverfile.md
 
@@ -25,7 +10,7 @@ default_language "en-US"
 $:.unshift File.dirname(__FILE__)
 require 'lib/utils.rb'
 
-ENV['DELIVER_WHAT_TO_TEST'] = git_commit_log
+ENV['DELIVER_WHAT_TO_TEST'] = git_commit_log # automatically store the changelog
 
 automatic_release false
 
