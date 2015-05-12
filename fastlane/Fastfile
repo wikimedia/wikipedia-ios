@@ -24,7 +24,7 @@ platform :ios do
   lane :test do
     return if test_disabled?
     # TODO: lint & test JS code
-    xctest({
+    xctest(
       scheme: 'Wikipedia',
       destination: "platform=iOS Simulator,name=iPhone 6,OS=8.3",
       reports: [
@@ -38,7 +38,7 @@ platform :ios do
         }
       ],
       clean: nil
-    })
+    )
   end
 
   desc "Bump the version, and submit a new **Wikipedia Alpha** Build to Apple TestFlight"
@@ -58,11 +58,11 @@ platform :ios do
       configuration: "Alpha",
       scheme: "Wikipedia Alpha",
     )
-    hockey({
+    hockey(
       notes: '',
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
-    })
+    )
     deliver skip_deploy: true, beta: true
   end
 
@@ -74,11 +74,11 @@ platform :ios do
       configuration: "Beta",
       scheme: "Wikipedia Beta",
     )
-    hockey({
+    hockey(
       notes: '',
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
-    })
+    )
     deliver skip_deploy: true, beta: true
   end
 
@@ -90,11 +90,11 @@ platform :ios do
       configuration: "Wikipedia",
       scheme: "Wikipedia",
     )
-    hockey({
+    hockey(
       notes: '',
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
-    })
+    )
     deliver skip_deploy: true, force: true
   end
 
