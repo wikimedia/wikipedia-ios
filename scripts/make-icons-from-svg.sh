@@ -1,12 +1,24 @@
-# This script takes icon-prod.svg and creates pngs used for AppIcon assets. 
-#
-# Note: it's much easier to just run this in Ubuntu:
-#   - copy this script and icon-prod.svg to a folder
-#   - with terminal change to that folder
-#   - then run './make-icons-from-svg.sh' 
-#   - the various png resolutions specified below will be output to the folder
+#! /usr/bin/env ruby
 
-ruby -e '[29,40,50,57,58,80,100,72,76,87,114,120,144,152,180].each { |x| `inkscape --export-png ./icon_#{x}.png -w #{x} icon-prod.svg` }'
+# This script uses convert (from imagemagick) to convert icon-prod.svg into pngs used for AppIcon assets.
+# To run:
+#	- cd to the project's "wikipedia" dir via terminal
+#	- run "./scripts/make-icons-from-svg.sh"
 
-ruby -e '[29,58,80,120].each { |x| `inkscape --export-png ./icon_#{x}_copy.png -w #{x} icon-prod.svg` }'
+require 'fileutils'
 
+def convert(x, path)
+  puts "Converting svgs/icon-prod.svg to #{x}x#{x} png..."
+  `convert -density 500 -resize #{x}x#{x} svgs/icon-prod.svg "#{path}icon_#{x}.png"`
+end
+
+def makedupe(x, path)
+  puts "Making dupe of #{x}..."
+  FileUtils.copy_file("#{path}icon_#{x}.png", "#{path}icon_#{x}_copy.png")
+end
+
+outputPath = "./Wikipedia/SourceIcons.xcassets/AppIconSource.appiconset/"
+
+[29,40,50,57,58,80,100,72,76,87,114,120,144,152,180].each { |x| convert x, outputPath }
+
+[29,58,80,120].each { |x| makedupe x, outputPath }
