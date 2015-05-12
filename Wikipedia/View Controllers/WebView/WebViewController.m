@@ -2106,14 +2106,14 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (void)shareSnippet:(id)sender {
-    NSString* selectedText = [self selectedtext];
+    NSString* selectedText = self.selectedText;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:WebViewControllerWillShareNotification
                                                         object:self
                                                       userInfo:@{ WebViewControllerShareSelectedText: selectedText }];
 }
 
-- (NSString*)selectedtext {
+- (NSString*)selectedText {
     NSString* selectedText =
         [[self.webView stringByEvaluatingJavaScriptFromString:kSelectedStringJS] wmf_shareSnippetFromText];
     return selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
