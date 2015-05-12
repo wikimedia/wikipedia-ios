@@ -71,7 +71,9 @@
 
     [CATransaction begin];
 
-    [CATransaction setCompletionBlock:completion];
+    if (completion) {
+        [CATransaction setCompletionBlock:completion];
+    }
 
     if (!CGRectEqualToRect(self.progressBar.frame, slice)) {
         if (animated) {

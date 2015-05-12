@@ -4,7 +4,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import <BlocksKit/BlocksKit.h>
 
-@interface SavedArticlesFetcher ()<FetchFinishedDelegate>
+@interface SavedArticlesFetcher ()<ArticleFetcherDelegate>
 
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
@@ -20,9 +20,11 @@
 
 @implementation SavedArticlesFetcher
 
+@dynamic fetchFinishedDelegate;
+
 #pragma mark - Shared Access
 
-static SavedArticlesFetcher * _fetcher = nil;
+static SavedArticlesFetcher* _fetcher = nil;
 
 + (SavedArticlesFetcher*)sharedInstance {
     return _fetcher;

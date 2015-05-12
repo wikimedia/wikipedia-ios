@@ -26,9 +26,11 @@
 
 @implementation ArticleFetcher
 
+@dynamic fetchFinishedDelegate;
+
 - (instancetype)initAndFetchSectionsForArticle:(MWKArticle*)article
                                    withManager:(AFHTTPRequestOperationManager*)manager
-                            thenNotifyDelegate:(id <FetchFinishedDelegate> )delegate {
+                            thenNotifyDelegate:(id<ArticleFetcherDelegate> )delegate {
     self = [super init];
     assert(article != nil);
     assert(manager != nil);
@@ -73,7 +75,7 @@
     // Conditionally add an MCCMNC header.
     [self addMCCMNCHeaderToRequestSerializer:manager.requestSerializer ifAppropriateForURL:url];
 
-    [manager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
+    AFHTTPRequestOperation* operation = [manager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
         __block NSData* localResponseObject = responseObject;
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
@@ -127,6 +129,20 @@
 
         [self finishWithError:error
                   fetchedData:nil];
+    }];
+
+    __block CGFloat progress = 0.0;
+
+    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        if (totalBytesExpectedToRead > 0) {
+            progress = (CGFloat)(totalBytesRead / totalBytesExpectedToRead);
+        } else {
+            progress += 0.05;
+        }
+
+        if ([self.fetchFinishedDelegate respondsToSelector:@selector(articleFetcher:didUpdateProgress:)]) {
+            [self.fetchFinishedDelegate articleFetcher:self didUpdateProgress:progress];
+        }
     }];
 }
 

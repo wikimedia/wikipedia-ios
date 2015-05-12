@@ -26,7 +26,7 @@ typedef void (^ WMFSavedArticlesFetcherProgress)(CGFloat progress);
 
 - (void)getProgress:(WMFSavedArticlesFetcherProgress)progressBlock;
 
-@property (nonatomic, weak) id <SavedArticlesFetcherDelegate> fetchFinishedDelegate;
+@property (nonatomic, weak) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
 
 - (instancetype)initAndFetchArticlesForSavedPageList:(MWKSavedPageList*)savedPageList
                                          inDataStore:(MWKDataStore*)dataStore

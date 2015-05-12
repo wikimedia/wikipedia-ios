@@ -4,7 +4,16 @@
 #import <Foundation/Foundation.h>
 #import "FetcherBase.h"
 
-@class Article, AFHTTPRequestOperationManager;
+@class Article, AFHTTPRequestOperationManager, ArticleFetcher;
+
+@protocol ArticleFetcherDelegate <FetchFinishedDelegate>
+
+@optional
+- (void)articleFetcher:(ArticleFetcher*)savedArticlesFetcher
+     didUpdateProgress:(CGFloat)progress;
+
+@end
+
 
 @interface ArticleFetcher : FetcherBase
 
@@ -13,7 +22,8 @@
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
 - (instancetype)initAndFetchSectionsForArticle:(MWKArticle*)articleStore
                                    withManager:(AFHTTPRequestOperationManager*)manager
-                            thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
+                            thenNotifyDelegate:(id<ArticleFetcherDelegate>)delegate;
 
+@property (nonatomic, weak) id<ArticleFetcherDelegate> fetchFinishedDelegate;
 
 @end

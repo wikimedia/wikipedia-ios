@@ -14,7 +14,7 @@ extern NSString* const WebViewControllerShareSelectedText;
 
 @class BottomMenuViewController, CommunicationBridge;
 
-@interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, FetchFinishedDelegate>
+@interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, ArticleFetcherDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView* webView;
 @property (nonatomic) BOOL bottomMenuHidden;
@@ -34,9 +34,8 @@ extern NSString* const WebViewControllerShareSelectedText;
 
 - (void)reloadCurrentArticle;
 
-- (void)  navigateToPage:(MWKTitle*)title
-         discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
-    showLoadingIndicator:(BOOL)showLoadingIndicator;
+- (void)navigateToPage:(MWKTitle*)title
+       discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 
 - (void)tocScrollWebViewToSectionWithElementId:(NSString*)elementId
                                       duration:(CGFloat)duration

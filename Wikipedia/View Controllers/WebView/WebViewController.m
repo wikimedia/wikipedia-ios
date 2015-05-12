@@ -76,8 +76,12 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
     [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
         [weakSelf jumpToFragmentIfNecessary];
         [weakSelf autoScrollToLastScrollOffsetIfNecessary];
-        [weakSelf.loadingIndicatorOverlay setVisible:NO animated:YES];
 
+        [weakSelf updateProgress:1.0 animated:YES completion:^{
+            [weakSelf hideProgressViewAnimated:YES];
+        }];
+
+        //dispatching because the toc is expensive to create so we are waiting to update it after the web view renders.
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tocVC updateTocForArticle:[SessionSingleton sharedInstance].currentArticle];
             [weakSelf updateTOCScrollPositionWithoutAnimationIfHidden];
@@ -162,8 +166,6 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
     self.webView.scrollView.layer.anchorPoint = CGPointMake((isRTL ? 1.0 : 0.0), 0.0);
 
     [self tocUpdateViewLayout];
-
-    [self loadingIndicatorAdd];
 }
 
 - (void)jumpToFragmentIfNecessary {
@@ -562,7 +564,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     }
 
     // Prevent toc reveal if loading article.
-    if (self.loadingIndicatorOverlay.isVisible) {
+    if (self.isFetchingArticle) {
         return;
     }
 
@@ -833,8 +835,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                 MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithInternalLink:href];
 
                 [strSelf navigateToPage:pageTitle
-                        discoveryMethod:MWKHistoryDiscoveryMethodLink
-                   showLoadingIndicator:YES];
+                        discoveryMethod:MWKHistoryDiscoveryMethodLink];
             } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                 if ([href hasPrefix:@"//"]) {
@@ -1328,11 +1329,10 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     }
 }
 
-#pragma mark Article loading
+#pragma mark - Article loading
 
-- (void)  navigateToPage:(MWKTitle*)title
-         discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
-    showLoadingIndicator:(BOOL)showLoadingIndicator {
+- (void)navigateToPage:(MWKTitle*)title
+       discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     NSString* cleanTitle = title.prefixedText;
 
     // Don't try to load nothing. Core data takes exception with such nonsense.
@@ -1344,11 +1344,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     }
 
     [self hideKeyboard];
-
-    if (showLoadingIndicator) {
-        self.loadingIndicatorOverlay.showSpinner = discoveryMethod != MWKHistoryDiscoveryMethodBackForward;
-        [self.loadingIndicatorOverlay setVisible:YES animated:YES];
-    }
 
     // Show loading message
     //[self showAlert:MWLocalizedString(@"search-loading-section-zero", nil) type:ALERT_TYPE_TOP duration:-1];
@@ -1373,94 +1368,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)reloadCurrentArticle {
     [self navigateToPage:session.currentArticle.title
-          discoveryMethod:MWKHistoryDiscoveryMethodReload
-     showLoadingIndicator:YES];
-}
-
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError*)error {
-    if ([sender isKindOfClass:[ArticleFetcher class]]) {
-        MWKArticle* article = session.currentArticle;
-
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:
-            {
-                // Redirect if necessary.
-                MWKTitle* redirectedTitle = article.redirected;
-                if (redirectedTitle) {
-                    // Get discovery method for call to "retrieveArticleForPageTitle:".
-                    // There should only be a single history item (at most).
-                    MWKHistoryEntry* history = [session.userDataStore.historyList entryForTitle:article.title];
-                    // Get the article's discovery method.
-                    MWKHistoryDiscoveryMethod discoveryMethod =
-                        (history) ? history.discoveryMethod : MWKHistoryDiscoveryMethodSearch;
-
-                    // Redirect!
-                    [self retrieveArticleForPageTitle:redirectedTitle
-                                      discoveryMethod:discoveryMethod];
-                    return;
-                }
-
-                // Update the toc and web view.
-                [self displayArticle:article.title];
-
-                [self hideAlert];
-            }
-            break;
-
-            case FETCH_FINAL_STATUS_FAILED:
-            {
-                [self displayArticle:article.title];
-
-                NSString* errorMsg = error.localizedDescription;
-                [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-
-                [self.loadingIndicatorOverlay setVisible:NO animated:YES];
-            }
-            break;
-
-            case FETCH_FINAL_STATUS_CANCELLED:
-            {
-            }
-            break;
-
-            default:
-                break;
-        }
-    } else if ([sender isKindOfClass:[WikipediaZeroMessageFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:
-            {
-                NSDictionary* banner = (NSDictionary*)fetchedData;
-                if (banner) {
-                    TopMenuTextFieldContainer* textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-                    textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
-
-                    //[self showAlert:title type:ALERT_TYPE_TOP duration:2];
-                    NSString* title = banner[@"message"];
-                    self.zeroStatusLabel.text            = title;
-                    self.zeroStatusLabel.padding         = UIEdgeInsetsMake(3, 10, 3, 10);
-                    self.zeroStatusLabel.textColor       = banner[@"foreground"];
-                    self.zeroStatusLabel.backgroundColor = banner[@"background"];
-
-                    [NAV promptFirstTimeZeroOnWithTitleIfAppropriate:title];
-                }
-            }
-            break;
-
-            case FETCH_FINAL_STATUS_FAILED:
-            {
-            }
-            break;
-
-            case FETCH_FINAL_STATUS_CANCELLED:
-            {
-            }
-            break;
-        }
-    }
+         discoveryMethod:MWKHistoryDiscoveryMethodReload];
 }
 
 - (void)cancelArticleLoading {
@@ -1502,12 +1410,15 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
             break;
     }
 
-    // If article with sections just show them (unless needsRefresh is YES)
-    if ([article.sections count] > 0 && !article.needsRefresh) {
+    // If article is cached
+    if ([article isCached] && !article.needsRefresh) {
         [self displayArticle:session.currentArticle.title];
         //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
         [self fadeAlert];
     } else {
+        [self showProgressViewAnimated:YES];
+        self.isFetchingArticle = YES;
+
         // "fetchFinished:" above will be notified when articleFetcher has actually retrieved some data.
         // Note: cast to void to avoid compiler warning: http://stackoverflow.com/a/7915839
         (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle:session.currentArticle
@@ -1516,7 +1427,103 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     }
 }
 
-#pragma mark Lead image
+#pragma mark - ArticleFetcherDelegate
+
+- (void)articleFetcher:(ArticleFetcher*)savedArticlesFetcher
+     didUpdateProgress:(CGFloat)progress {
+    [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES completion:NULL];
+}
+
+- (void)fetchFinished:(id)sender
+          fetchedData:(id)fetchedData
+               status:(FetchFinalStatus)status
+                error:(NSError*)error {
+    if ([sender isKindOfClass:[ArticleFetcher class]]) {
+        MWKArticle* article = session.currentArticle;
+
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:
+            {
+                // Redirect if necessary.
+                MWKTitle* redirectedTitle = article.redirected;
+                if (redirectedTitle) {
+                    // Get discovery method for call to "retrieveArticleForPageTitle:".
+                    // There should only be a single history item (at most).
+                    MWKHistoryEntry* history = [session.userDataStore.historyList entryForTitle:article.title];
+                    // Get the article's discovery method.
+                    MWKHistoryDiscoveryMethod discoveryMethod =
+                        (history) ? history.discoveryMethod : MWKHistoryDiscoveryMethodSearch;
+
+                    // Redirect!
+                    [self retrieveArticleForPageTitle:redirectedTitle
+                                      discoveryMethod:discoveryMethod];
+                    return;
+                }
+
+                self.isFetchingArticle = NO;
+
+                // Update the toc and web view.
+                [self displayArticle:article.title];
+
+                [self hideAlert];
+            }
+            break;
+
+            case FETCH_FINAL_STATUS_FAILED:
+            {
+                self.isFetchingArticle = NO;
+
+                [self displayArticle:article.title];
+
+                NSString* errorMsg = error.localizedDescription;
+                [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+            }
+            break;
+
+            case FETCH_FINAL_STATUS_CANCELLED:
+            {
+                self.isFetchingArticle = NO;
+            }
+            break;
+
+            default:
+                break;
+        }
+    } else if ([sender isKindOfClass:[WikipediaZeroMessageFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED:
+            {
+                NSDictionary* banner = (NSDictionary*)fetchedData;
+                if (banner) {
+                    TopMenuTextFieldContainer* textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
+                    textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
+
+                    //[self showAlert:title type:ALERT_TYPE_TOP duration:2];
+                    NSString* title = banner[@"message"];
+                    self.zeroStatusLabel.text            = title;
+                    self.zeroStatusLabel.padding         = UIEdgeInsetsMake(3, 10, 3, 10);
+                    self.zeroStatusLabel.textColor       = banner[@"foreground"];
+                    self.zeroStatusLabel.backgroundColor = banner[@"background"];
+
+                    [NAV promptFirstTimeZeroOnWithTitleIfAppropriate:title];
+                }
+            }
+            break;
+
+            case FETCH_FINAL_STATUS_FAILED:
+            {
+            }
+            break;
+
+            case FETCH_FINAL_STATUS_CANCELLED:
+            {
+            }
+            break;
+        }
+    }
+}
+
+#pragma mark - Lead image
 
 - (NSString*)leadImageGetHtml {
     // Get lead image html structured such that no JS bridge messages are needed for lead image presentation.
@@ -1653,6 +1660,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     session.currentArticle = article;
 
     if (![article isCached]) {
+        [self hideProgressViewAnimated:YES];
         return;
     }
 
@@ -1706,14 +1714,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         NSString* sectionHTMLWithID = [section displayHTML:html];
         [sectionTextArray addObject:sectionHTMLWithID];
     }
-
-    // If article has no thumbnailImage, use the first section image instead.
-    // Actually sets article.thumbnailImage to point to the image record of the first section
-    // image. That way, if the housekeeping code removes all section images, it won't remove this
-    // particular one because it checks to see if an article is referencing an image before it
-    // removes them.
-    //[article ifNoThumbnailUseFirstSectionImageAsThumbnailUsingContext:articleDataContext_.mainContext];
-
 
     if (session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodSaved ||
         session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
@@ -1782,6 +1782,10 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     if ([self tocDrawerIsOpen]) {
         [self tocHide];
     }
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateProgress:0.85 animated:YES completion:NULL];
+    });
 }
 
 #pragma mark Scroll to last section after rotate
@@ -2077,20 +2081,70 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     }];
 }
 
-#pragma mark Loading Indicator
+#pragma mark - Progress
 
-- (void)loadingIndicatorAdd {
-    self.loadingIndicatorOverlay                 = [[WMFLoadingIndicatorOverlay alloc] init];
-    self.loadingIndicatorOverlay.backgroundColor = [UIColor whiteColor];
-    self.loadingIndicatorOverlay.alpha           = 0.8f;
+- (WMFProgressLineView*)progressView {
+    if (!_progressView) {
+        WMFProgressLineView* progress = [[WMFProgressLineView alloc] initWithFrame:CGRectZero];
+        _progressView = progress;
+    }
 
-    [self.view insertSubview:self.loadingIndicatorOverlay belowSubview:self.bottomBarView];
-    [self.loadingIndicatorOverlay mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.edges.equalTo(self.loadingIndicatorOverlay.superview);
+    return _progressView;
+}
+
+- (void)showProgressViewAnimated:(BOOL)animated {
+    self.progressView.progress = 0.0;
+
+    if (!animated) {
+        [self _showProgressView];
+        return;
+    }
+
+    [UIView animateWithDuration:0.25 animations:^{
+        [self _showProgressView];
+    } completion:^(BOOL finished) {
     }];
 }
 
-#pragma mark Sharing
+- (void)_showProgressView {
+    self.progressView.alpha = 1.0;
+
+    if (!self.progressView.superview) {
+        [ROOT.topMenuViewController.view addSubview:self.progressView];
+        [self.progressView mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.top.equalTo(ROOT.topMenuViewController.view.mas_bottom).with.offset(-2);
+            make.left.equalTo(ROOT.topMenuViewController.view.mas_left);
+            make.right.equalTo(ROOT.topMenuViewController.view.mas_right);
+            make.height.equalTo(@2.0);
+        }];
+    }
+}
+
+- (void)hideProgressViewAnimated:(BOOL)animated {
+    if (!animated) {
+        [self _hideProgressView];
+        return;
+    }
+
+    [UIView animateWithDuration:0.25 animations:^{
+        [self _hideProgressView];
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (void)_hideProgressView {
+    self.progressView.alpha = 0.0;
+}
+
+- (void)updateProgress:(CGFloat)progress animated:(BOOL)animated completion:(dispatch_block_t)completion {
+    [self.progressView setProgress:progress animated:animated completion:completion];
+}
+
+- (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
+    return 0.75 * progress;
+}
+
+#pragma mark - Sharing
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
     if (action == @selector(shareSnippet:)) {
@@ -2119,7 +2173,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     return selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
 }
 
-#pragma mark Tracking Footer
+#pragma mark - Tracking Footer
 
 - (void)setupTrackingFooter {
     if (!self.footerContainer) {

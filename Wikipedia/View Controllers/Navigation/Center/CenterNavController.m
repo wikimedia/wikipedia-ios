@@ -78,8 +78,7 @@
         [SessionSingleton sharedInstance].currentArticle = article;
 
         [webVC navigateToPage:title
-              discoveryMethod:discoveryMethod
-         showLoadingIndicator:YES];
+              discoveryMethod:discoveryMethod];
         if (popToWebVC) {
             [ROOT popToViewController:webVC animated:animated];
         }

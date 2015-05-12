@@ -74,8 +74,6 @@
 		0462A6D11A1FE016009412D4 /* SearchResultAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 0462A6D01A1FE016009412D4 /* SearchResultAttributedString.m */; };
 		0463639818A844570049EE4F /* KeychainCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463639718A844570049EE4F /* KeychainCredentials.m */; };
 		0472BC18193AD88C00C40BDA /* MWKSection+DisplayHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 0472BC17193AD88C00C40BDA /* MWKSection+DisplayHtml.m */; };
-		04733A041AC6123400E365E5 /* WMFLoadingIndicatorOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 04733A031AC6123400E365E5 /* WMFLoadingIndicatorOverlay.m */; };
-		04733A051AC6123400E365E5 /* WMFLoadingIndicatorOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 04733A031AC6123400E365E5 /* WMFLoadingIndicatorOverlay.m */; };
 		047801BE18AE987900DBB747 /* UIButton+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 047801BD18AE987900DBB747 /* UIButton+ColorMask.m */; };
 		047E74141860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047E74131860509000916964 /* SavedPagesResultPrototypeView.xib */; };
 		047E95511996DD030046A122 /* NearbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047E954E1996DD030046A122 /* NearbyViewController.m */; };
@@ -519,8 +517,6 @@
 		04649CA619F72B360071E8FA /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		0472BC16193AD88C00C40BDA /* MWKSection+DisplayHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSection+DisplayHtml.h"; sourceTree = "<group>"; };
 		0472BC17193AD88C00C40BDA /* MWKSection+DisplayHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+DisplayHtml.m"; sourceTree = "<group>"; };
-		04733A021AC6123400E365E5 /* WMFLoadingIndicatorOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLoadingIndicatorOverlay.h; sourceTree = "<group>"; };
-		04733A031AC6123400E365E5 /* WMFLoadingIndicatorOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLoadingIndicatorOverlay.m; sourceTree = "<group>"; };
 		047528A3190F0C2900F2CDA8 /* WikiGlyph_Chars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikiGlyph_Chars.h; sourceTree = "<group>"; };
 		047801BC18AE987900DBB747 /* UIButton+ColorMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+ColorMask.h"; sourceTree = "<group>"; };
 		047801BD18AE987900DBB747 /* UIButton+ColorMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+ColorMask.m"; sourceTree = "<group>"; };
@@ -2314,8 +2310,6 @@
 				0480AE9F1AA4F4DA00A9950C /* WMFIntrinsicContentSizeAwareTableView.m */,
 				BCA96E711AAA354D009A61FA /* WMFGradientView.h */,
 				BCA96E721AAA354D009A61FA /* WMFGradientView.m */,
-				04733A021AC6123400E365E5 /* WMFLoadingIndicatorOverlay.h */,
-				04733A031AC6123400E365E5 /* WMFLoadingIndicatorOverlay.m */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -2914,7 +2908,6 @@
 				BC0FED641AAA0263002488D7 /* MWKArticleStoreTestCase.m in Sources */,
 				BCA676561AC05FE200A16160 /* NSBundle+TestAssets.m in Sources */,
 				BCB8487B1AAAADF90077EC24 /* WMFRoundingUtilitiesTests.m in Sources */,
-				04733A051AC6123400E365E5 /* WMFLoadingIndicatorOverlay.m in Sources */,
 				BC0FED6F1AAA0268002488D7 /* MWKImageInfo+MWKImageComparisonTests.m in Sources */,
 				BC0FED621AAA0263002488D7 /* WMFCodingStyle.m in Sources */,
 				BC0FED741AAA026C002488D7 /* CircularBitwiseRotationTests.m in Sources */,
@@ -3105,7 +3098,6 @@
 				BCB669B71A83F6C400C7B1FE /* MWKSectionList.m in Sources */,
 				0EE768811AFD25CC00A5D046 /* WMFSearchFunnel.m in Sources */,
 				BCB66A0C1A85183000C7B1FE /* NSString+WMFHTMLParsing.m in Sources */,
-				04733A041AC6123400E365E5 /* WMFLoadingIndicatorOverlay.m in Sources */,
 				BCB669AF1A83F6C400C7B1FE /* MWKHistoryList.m in Sources */,
 				BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */,
 				BCB58F441A890D9700465627 /* MWKImageInfo+MWKImageComparison.m in Sources */,
