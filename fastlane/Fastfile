@@ -2,13 +2,10 @@
 # https://github.com/KrauseFx/fastlane/tree/master/docs
 # vi: ft=ruby
 
-# By default, fastlane will send which actions are used
-# No personal data is shared, more information on https://github.com/fastlane/enhancer
-# Uncomment the following line to opt out
-# opt_out_usage
-
 $:.unshift File.dirname(__FILE__)
 require 'lib/utils.rb'
+
+fastlane_version "1.0.0"
 
 default_platform :ios
 
@@ -17,7 +14,7 @@ platform :ios do
      ensure_git_status_clean
   end
 
-  desc "Runs linting (and eventually static analysis"
+  desc "Runs linting (and eventually static analysis)"
   lane :analyze do
     return if test_disabled?
     make 'lint'
@@ -63,8 +60,8 @@ platform :ios do
     )
     hockey({
       notes: '',
-      notify: '0', #Means do not notify
-      status: '1', #Means do not make available for download
+      notify: '0', # Means do not notify
+      status: '1', # Means do not make available for download
     })
     deliver skip_deploy: true, beta: true
   end
@@ -79,8 +76,8 @@ platform :ios do
     )
     hockey({
       notes: '',
-      notify: '0', #Means do not notify
-      status: '1', #Means do not make available for download
+      notify: '0', # Means do not notify
+      status: '1', # Means do not make available for download
     })
     deliver skip_deploy: true, beta: true
   end
@@ -95,16 +92,17 @@ platform :ios do
     )
     hockey({
       notes: '',
-      notify: '0', #Means do not notify
-      status: '1', #Means do not make available for download
+      notify: '0', # Means do not notify
+      status: '1', # Means do not make available for download
     })
     deliver skip_deploy: true, force: true
   end
 
   after_all do |lane|
+  
   end
 
   error do |lane, exception|
+  
   end
 end
-
