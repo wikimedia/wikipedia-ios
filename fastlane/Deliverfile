@@ -1,29 +1,33 @@
-# For more information about each property, visit the GitHub documentation: https://github.com/krausefx/deliver
-# Everything next to a # is a comment and will be ignored
-# vim: ft=ruby
+# vi: ft=ruby
+###################### App Metadata ######################
+# Update the app description and metadata in the ./metadata folder
 
-# hide_transporter_output # remove the '#' in the beginning of the line, to hide the output while uploading
+###################### Screenshots ######################
+# Store all screenshots in the ./screenshots folder separated
+# by language. If you use snapshot, this happens automatically
 
-# Tell deliver to use ENV vars populated by ipa action
-ipa ENV["IPA_OUTPUT_PATH"]
-beta_ipa ENV["IPA_OUTPUT_PATH"]
+###################### IPA File ######################
+# This part is only relevant, if you want to submit a new binary
+# If you don't use fastlane (https://github.com/KrauseFx/fastlane)
+# you can set the path to your ipa file using:
+# ipa "./app.ipa"
 
+# to provide an ipa file for TestFlight distribution, use beta_ipa
+# beta_ipa "./app.ipa"
 
-########################################
-# App Metadata
-########################################
+###################### More Options ######################
+# If you want to have even more control, check out the documentation
+# https://github.com/KrauseFx/deliver/blob/master/Deliverfile.md
 
-# Use apple id set by produce
-apple_id ENV['PRODUCE_APPLE_ID']
+default_language "en-US"
+
+# Since this file is eval'd, we need to add this file's directory to $LOAD_PATH
+$:.unshift File.dirname(__FILE__)
+require 'lib/utils.rb'
+
+ENV['DELIVER_WHAT_TO_TEST'] = git_commit_log
+
+automatic_release false
 
 copyright "#{Time.now.year} Wikimedia Foundation"
-
-# This folder has to include one folder for each language
-# More information about automatic screenshot upload:
-# https://github.com/KrauseFx/deliver#upload-screenshots-to-itunes-connect
-
-screenshots_path "./screenshots/"
-
-# version '1.2' # you can pass this if you want to verify the version number with the ipa file
-config_json_folder './deliver'
 

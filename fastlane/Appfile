@@ -1,7 +1,16 @@
-
+# vi: ft=ruby
 # Team
 team_id "AKK7J2GV64"
 team_name "Wikimedia Foundation"
 
-# Account to use to submit builds
-apple_id ENV['WMF_APPLE_USER_NAME']
+for_lane 'ios alpha' do
+  app_identifier "org.wikimedia.wikipedia.tfalpha"
+end
+
+for_lane 'ios beta' do
+  app_identifier "org.wikimedia.wikipedia.tfbeta"
+end
+
+for_lane 'ios store' do
+  app_identifier "org.wikimedia.wikipedia"
+end
