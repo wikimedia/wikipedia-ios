@@ -45,15 +45,14 @@ platform :ios do
   lane :alpha do
     # snapshot
     sigh
+    increment_build_number
 
-    plist_version = get_version_short_string File.expand_path(File.join(ENV['PWD'], 'Wikipedia/Wikipedia-Info.plist'))
+    # uncomment when CI is able to push tags
+    # commit_version_bump
+    # plist_version = get_version_short_string File.expand_path(File.join(ENV['PWD'], 'Wikipedia/Wikipedia-Info.plist'))
+    # # tag must be added after the version bump is committed
+    # add_git_tag(tag: "#{plist_version}.#{Actions.lane_context[Actions::SharedValues::BUILD_NUMBER]}")
 
-    increment_version_number(
-      version_number: ENV['WMF_VERSION_NUMBER'] || plist_version
-    )
-    increment_build_number(
-      build_number: ENV['BUILD_NUMBER'].to_i
-    )
     ipa(
       configuration: "Alpha",
       scheme: "Wikipedia Alpha",
@@ -64,7 +63,11 @@ platform :ios do
       status: '1', # Means do not make available for download
     )
     deliver skip_deploy: true, beta: true
-  end
+
+    # uncomment when CI is able to push tags
+    # only push after everything else has succeeded
+    # push_to_git_remote
+	end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"
   lane :beta do
