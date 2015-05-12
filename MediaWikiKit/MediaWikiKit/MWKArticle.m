@@ -166,30 +166,6 @@
     }
 }
 
-- (void)setNeedsRefresh:(BOOL)val {
-    NSString* filePath = [self.dataStore pathForArticle:self];
-    NSString* fileName = [filePath stringByAppendingPathComponent:@"needsRefresh.lock"];
-
-    if (val) {
-        NSString* payload = @"needsRefresh";
-
-        [[NSFileManager defaultManager] createDirectoryAtPath:filePath
-                                  withIntermediateDirectories:YES
-                                                   attributes:nil
-                                                        error:nil];
-
-        [payload writeToFile:fileName atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    } else {
-        [[NSFileManager defaultManager] removeItemAtPath:fileName error:nil];
-    }
-}
-
-- (BOOL)needsRefresh {
-    NSString* filePath = [self.dataStore pathForArticle:self];
-    NSString* fileName = [filePath stringByAppendingPathComponent:@"needsRefresh.lock"];
-    return [[NSFileManager defaultManager] fileExistsAtPath:fileName isDirectory:nil];
-}
-
 - (void)save {
     [self.dataStore saveArticle:self];
     [self.images save];

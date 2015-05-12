@@ -51,8 +51,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly) MWKImage* thumbnail;
 @property (readonly) MWKImage* image;
 
-@property (readwrite) BOOL needsRefresh;
-
 - (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore;
 - (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore dict:(NSDictionary*)dict;
 

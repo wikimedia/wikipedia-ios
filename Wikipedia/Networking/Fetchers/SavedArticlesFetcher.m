@@ -63,7 +63,6 @@ static SavedArticlesFetcher* _fetcher = nil;
 
         for (MWKSavedPageEntry* entry in self.savedPageList) {
             MWKArticle* article = [self.dataStore articleWithTitle:entry.title];
-            article.needsRefresh = NO;
 
             if (entry.title) {
                 self.fetchersByArticleTitle[entry.title] = [[ArticleFetcher alloc] initAndFetchSectionsForArticle:article withManager:manager thenNotifyDelegate:self];

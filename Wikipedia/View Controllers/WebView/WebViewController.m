@@ -1391,27 +1391,26 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     session.currentArticle                = article;
     session.currentArticleDiscoveryMethod = discoveryMethod;
 
+    BOOL needsRefresh = NO;
     switch (session.currentArticleDiscoveryMethod) {
         case MWKHistoryDiscoveryMethodSearch:
         case MWKHistoryDiscoveryMethodRandom:
         case MWKHistoryDiscoveryMethodLink:
         case MWKHistoryDiscoveryMethodReload:
         case MWKHistoryDiscoveryMethodUnknown: {
-            // Mark article as needing refreshing so its data will be re-downloaded.
-            // Reminder: this needs to happen *after* "session.title" has been updated
-            // with the title of the article being retrieved. Otherwise you end up
-            // marking the previous article as needing to be refreshed.
-            session.currentArticle.needsRefresh = YES;
+            needsRefresh = YES;
             break;
         }
 
         case MWKHistoryDiscoveryMethodSaved:
-        case MWKHistoryDiscoveryMethodBackForward:
+        case MWKHistoryDiscoveryMethodBackForward: {
+            needsRefresh = NO;
             break;
+        }
     }
 
     // If article is cached
-    if ([article isCached] && !article.needsRefresh) {
+    if ([article isCached] && !needsRefresh) {
         [self displayArticle:session.currentArticle.title];
         //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
         [self fadeAlert];
