@@ -20,4 +20,7 @@ CG_EXTERN CGRect WMFUnitRectFromRectForReferenceSize(CGRect rect, CGSize referen
 // Convert unit rect back to rect for reference size.
 CG_EXTERN CGRect WMFRectFromUnitRectForReferenceSize(CGRect unitRect, CGSize referenceSize);
 
+// Convert CoreImage rect (origin at bottom left) to UIKit rect (origin at top left).
+CG_EXTERN CGRect WMFUIKitRectFromCoreImageRectInReferenceRect(CGRect coreImageRect, CGRect referenceRect);
+
 #endif

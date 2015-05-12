@@ -2,41 +2,36 @@
 
 #import "WMFShareCardImageContainer.h"
 #import "UIImage+WMFFocalImageDrawing.h"
-#import "WMFFaceDetector.h"
-
-@interface WMFShareCardImageContainer ()
-
-@property(nonatomic, strong) WMFFaceDetector* faceDetector;
-@property(nonatomic) CGRect faceBounds;
-
-@end
+#import "WMFGeometry.h"
 
 @implementation WMFShareCardImageContainer
 
-- (instancetype)initWithCoder:(NSCoder*)coder {
-    self = [super initWithCoder:coder];
-    if (self) {
-        self.faceDetector = [[WMFFaceDetector alloc] init];
-    }
-    return self;
-}
+#warning FIXME: This method is a workaround to reuse pre-calculated face rects of the article's lead image. (Once we refactor image data store to save single record for image, w/list of variant binaries, this will not be needed.) To test this tap share before and after a high res variant of the lead image is retrieved (tap lead image so gallery fetches variant) and ensure the share card centers vertically on the face.
+- (CGRect)getPrimaryFocalRectFromCanonicalLeadImage {
+    NSAssert([self.leadImage isEqualToImage:self.leadImage.article.image] || [self.leadImage isVariantOfImage:self.leadImage.article.image], @"Primary focal rect sought on non-lead image.");
 
-- (void)setImage:(UIImage*)image {
-    _image = image;
-    [self.faceDetector setImageWithUIImage:image];
-    [self.faceDetector detectFaces];
-    self.faceBounds = [[[self.faceDetector allFaces] firstObject] bounds];
+    // Focal rect info is parked on the article.image which is the originally retrieved lead image.
+    // self.leadImage is potentially a larger variant, which is why here the focal rect unit coords are
+    // sought on self.leadImage.article.image
+    CGRect focalRect    = CGRectZero;
+    NSArray* focalRects = [self.leadImage.article.image focalRectsInUnitCoordinatesAsStrings];
+    if (focalRects.count > 0) {
+        focalRect = WMFRectFromUnitRectForReferenceSize(CGRectFromString([focalRects firstObject]), self.leadImage.size);
+    }
+    return focalRect;
 }
 
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
     [self drawGradientBackground];
 
-    [self.image wmf_drawInRect:rect
-                   focalBounds:self.faceBounds
-                focalHighlight:NO
-                     blendMode:kCGBlendModeMultiply
-                         alpha:1.0];
+    CGRect focalBounds = self.leadImage.isCached ? [self getPrimaryFocalRectFromCanonicalLeadImage] : CGRectZero;
+
+    [[self.leadImage asUIImage] wmf_drawInRect:rect
+                                   focalBounds:focalBounds
+                                focalHighlight:NO
+                                     blendMode:kCGBlendModeMultiply
+                                         alpha:1.0];
 }
 
 // TODO: in follow-up patch, factor drawGradientBackground from

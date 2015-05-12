@@ -59,13 +59,11 @@
         [[article.entityDescription wmf_stringByRemovingHTML] wmf_stringByCapitalizingFirstCharacter];
     self.shareArticleDescription.textAlignment = subtextAlignment;
 
-    NSData* leadImageData = [article.image.largestCachedVariant asNSData];
-    if (leadImageData) {
+    BOOL leadImageCached = [article.image.largestCachedVariant isCached];
+    if (leadImageCached) {
         // in case the image has transparency, make its container white
         self.shareCardImageContainer.backgroundColor = [UIColor whiteColor];
-        // Face detection is faster if the image has CIImage backing.
-        CIImage* ciImage = [[CIImage alloc] initWithData:leadImageData];
-        self.shareCardImageContainer.image = [UIImage imageWithCIImage:ciImage];
+        self.shareCardImageContainer.leadImage       = article.image.largestCachedVariant;
     }
 }
 

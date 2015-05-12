@@ -77,13 +77,14 @@
 
 - (NSArray*)allFaceBoundsAsStringsNormalizedToUnitRect {
     return [self.faces bk_map:^id (CIFaceFeature* obj) {
-        CGRect bounds = [obj bounds];
-        CGRect normalized = [self rectNormailzedToUnitRect:bounds];
+        CGRect coreImageBounds = [obj bounds];
+        CGRect uiKitBounds = WMFUIKitRectFromCoreImageRectInReferenceRect(coreImageBounds, self.image.extent);
+        CGRect normalized = [self rectNormalizedToUnitRect:uiKitBounds];
         return NSStringFromCGRect(normalized);
     }];
 }
 
-- (CGRect)rectNormailzedToUnitRect:(CGRect)frame {
+- (CGRect)rectNormalizedToUnitRect:(CGRect)frame {
     return WMFUnitRectWithReferenceRect(frame, [self.image extent]);
 }
 

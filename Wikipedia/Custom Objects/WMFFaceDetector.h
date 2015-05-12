@@ -52,12 +52,12 @@
 - (NSArray*)allFaceBoundsAsStringsNormalizedToUnitRect;
 
 /**
- *  Normaize a rect against the bounds of the image.
+ *  Normalize a rect against the bounds of the image.
  *
  *  @param frame The frame to normalize
  *
  *  @return The normalized frame
  */
-- (CGRect)rectNormailzedToUnitRect:(CGRect)frame;
+- (CGRect)rectNormalizedToUnitRect:(CGRect)frame;
 
 @end
