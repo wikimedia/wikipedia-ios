@@ -318,7 +318,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
         [webVC showAlert:historyEntry.title.prefixedText type:ALERT_TYPE_BOTTOM duration:0.8];
 
         [webVC navigateToPage:historyEntry.title
-              discoveryMethod:MWK_DISCOVERY_METHOD_BACKFORWARD
+              discoveryMethod:MWKHistoryDiscoveryMethodBackForward
          showLoadingIndicator:YES];
     }
 }
@@ -331,7 +331,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
         [webVC showAlert:historyEntry.title.prefixedText type:ALERT_TYPE_BOTTOM duration:0.8];
 
         [webVC navigateToPage:historyEntry.title
-              discoveryMethod:MWK_DISCOVERY_METHOD_BACKFORWARD
+              discoveryMethod:MWKHistoryDiscoveryMethodBackForward
          showLoadingIndicator:YES];
     }
 }

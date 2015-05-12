@@ -40,13 +40,32 @@
     [super tearDown];
 }
 
+- (void)testReloadDoesNotAffectHistory {
+    MWKArticle* dummyArticle = [self storeDummyArticleWithTitle:@"foo"];
+    self.session.currentArticle = dummyArticle;
+
+    [self.webVC navigateToPage:dummyArticle.title
+               discoveryMethod:MWKHistoryDiscoveryMethodReload
+          showLoadingIndicator:YES];
+
+    // TODO: verify that mock article fetcher gets a call to fetch article w/ mock title
+
+    [self.webVC fetchFinished:mock([ArticleFetcher class])
+                  fetchedData:nil //< unused
+                       status:FETCH_FINAL_STATUS_SUCCEEDED
+                        error:nil];
+
+    assertThat(self.session.currentArticle, is(dummyArticle));
+    assertThat(@(self.session.userDataStore.historyList.length), is(@0));
+}
+
 - (void)testSuccessfulNavigationStoredInHistory {
-    // should be true for every discovery method _except_ back/forward
-    MWKHistoryDiscoveryMethod methods[5] = {MWK_DISCOVERY_METHOD_LINK,
-                                            MWK_DISCOVERY_METHOD_RANDOM,
-                                            MWK_DISCOVERY_METHOD_SAVED,
-                                            MWK_DISCOVERY_METHOD_SEARCH,
-                                            MWK_DISCOVERY_METHOD_UNKNOWN};
+    // should be true for every discovery method _except_ back/forward and reload
+    MWKHistoryDiscoveryMethod methods[5] = {MWKHistoryDiscoveryMethodLink,
+                                            MWKHistoryDiscoveryMethodRandom,
+                                            MWKHistoryDiscoveryMethodSaved,
+                                            MWKHistoryDiscoveryMethodSearch,
+                                            MWKHistoryDiscoveryMethodUnknown};
 
     for (NSUInteger i = 0; i < 5; i++) {
         MWKHistoryDiscoveryMethod currentMethod = methods[i];
@@ -76,7 +95,7 @@
     dummyArticle.needsRefresh = YES;
 
     [self.webVC navigateToPage:dummyArticle.title
-               discoveryMethod:MWK_DISCOVERY_METHOD_BACKFORWARD
+               discoveryMethod:MWKHistoryDiscoveryMethodBackForward
           showLoadingIndicator:YES];
 
     // TODO: verify that mock article fetcher gets a call to fetch article w/ mock title
@@ -97,20 +116,21 @@
     self.session.currentArticle = originalArticle;
 
     // should be true for every discovery
-    MWKHistoryDiscoveryMethod methods[6] = {MWK_DISCOVERY_METHOD_LINK,
-                                            MWK_DISCOVERY_METHOD_RANDOM,
-                                            MWK_DISCOVERY_METHOD_SAVED,
-                                            MWK_DISCOVERY_METHOD_SEARCH,
-                                            MWK_DISCOVERY_METHOD_UNKNOWN,
-                                            MWK_DISCOVERY_METHOD_BACKFORWARD};
+    MWKHistoryDiscoveryMethod methods[7] = {MWKHistoryDiscoveryMethodReload,
+                                            MWKHistoryDiscoveryMethodLink,
+                                            MWKHistoryDiscoveryMethodRandom,
+                                            MWKHistoryDiscoveryMethodSaved,
+                                            MWKHistoryDiscoveryMethodSearch,
+                                            MWKHistoryDiscoveryMethodUnknown,
+                                            MWKHistoryDiscoveryMethodBackForward};
 
     FetchFinalStatus finalStatuses[2] = {FETCH_FINAL_STATUS_FAILED, FETCH_FINAL_STATUS_CANCELLED};
 
-    for (NSUInteger i = 0; i < 6; i++) {
+    for (NSUInteger i = 0; i < 7; i++) {
         MWKHistoryDiscoveryMethod currentMethod = methods[i];
 
         MWKTitle* failedTitle =
-            [MWKTitle titleWithString:[NSString stringWithFormat:@"failed-%u", i]
+            [MWKTitle titleWithString:[NSString stringWithFormat:@"failed-%lu", (unsigned long)i]
                                  site:[MWKSite siteWithDomain:@"wikipedia.org" language:@"en"]];
 
         for (NSUInteger j = 0; j < 2; j++) {

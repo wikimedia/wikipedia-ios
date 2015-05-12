@@ -165,7 +165,7 @@ static CGFloat const kGlyphIconBaselineOffset = 1.6f;
     MWKTitle* title = [site titleWithString:langData[@"*"]];
     [NAV loadArticleWithTitle:title
                      animated:NO
-              discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH
+              discoveryMethod:MWKHistoryDiscoveryMethodSearch
                    popToWebVC:YES];
 
     [self dismissLanguagePicker];

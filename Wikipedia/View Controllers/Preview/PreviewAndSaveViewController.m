@@ -505,13 +505,9 @@ typedef enum {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [self.funnel logSavedRevision:[fetchedData[@"newrevid"] intValue]];
 
-                // Mark article for refreshing and reload it.
-                //if (uploader.articleID) {
-
                 WebViewController* webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
-                [webVC reloadCurrentArticleInvalidatingCache:YES];
+                [webVC reloadCurrentArticle];
                 [ROOT popToViewController:webVC animated:YES];
-                //}
             }
             break;
 

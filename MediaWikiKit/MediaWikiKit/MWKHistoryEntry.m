@@ -73,15 +73,15 @@
 
 + (NSString*)stringForDiscoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     switch (discoveryMethod) {
-        case MWK_DISCOVERY_METHOD_SEARCH:
+        case MWKHistoryDiscoveryMethodSearch:
             return @"search";
-        case MWK_DISCOVERY_METHOD_RANDOM:
+        case MWKHistoryDiscoveryMethodRandom:
             return @"random";
-        case MWK_DISCOVERY_METHOD_LINK:
+        case MWKHistoryDiscoveryMethodLink:
             return @"link";
-        case MWK_DISCOVERY_METHOD_BACKFORWARD:
+        case MWKHistoryDiscoveryMethodBackForward:
             return @"backforward";
-        case MWK_DISCOVERY_METHOD_SAVED:
+        case MWKHistoryDiscoveryMethodSaved:
             return @"saved";
         default:
             return @"unknown";
@@ -90,17 +90,17 @@
 
 + (MWKHistoryDiscoveryMethod)discoveryMethodForString:(NSString*)string {
     if ([string isEqualToString:@"search"]) {
-        return MWK_DISCOVERY_METHOD_SEARCH;
+        return MWKHistoryDiscoveryMethodSearch;
     } else if ([string isEqualToString:@"random"]) {
-        return MWK_DISCOVERY_METHOD_RANDOM;
+        return MWKHistoryDiscoveryMethodRandom;
     } else if ([string isEqualToString:@"link"]) {
-        return MWK_DISCOVERY_METHOD_LINK;
+        return MWKHistoryDiscoveryMethodLink;
     } else if ([string isEqualToString:@"backforward"]) {
-        return MWK_DISCOVERY_METHOD_BACKFORWARD;
+        return MWKHistoryDiscoveryMethodBackForward;
     } else if ([string isEqualToString:@"saved"]) {
-        return MWK_DISCOVERY_METHOD_SAVED;
+        return MWKHistoryDiscoveryMethodSaved;
     } else {
-        return MWK_DISCOVERY_METHOD_UNKNOWN;
+        return MWKHistoryDiscoveryMethodUnknown;
     }
 }
 

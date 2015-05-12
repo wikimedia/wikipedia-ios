@@ -155,8 +155,6 @@ static int const kMinimumTextSelectionLength = 2;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* webViewBottomConstraint;
 
-@property (nonatomic) BOOL didLastNavigateByBackOrForward;
-
 @property (nonatomic) BOOL isCurrentArticleMain;
 
 @property (nonatomic) BOOL keyboardIsVisible;

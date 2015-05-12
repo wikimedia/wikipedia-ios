@@ -75,7 +75,7 @@ NSString* const kLicenseTitleOnENWiki =
     MWKSite* site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
     [NAV loadArticleWithTitle:[site titleWithString:kLicenseTitleOnENWiki]
                      animated:NO
-              discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH
+              discoveryMethod:MWKHistoryDiscoveryMethodSearch
                    popToWebVC:YES];
 }
 

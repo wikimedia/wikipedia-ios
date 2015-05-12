@@ -10,14 +10,15 @@
 
 @class MWKTitle;
 
-typedef enum {
-    MWK_DISCOVERY_METHOD_SEARCH,
-    MWK_DISCOVERY_METHOD_RANDOM,
-    MWK_DISCOVERY_METHOD_LINK,
-    MWK_DISCOVERY_METHOD_BACKFORWARD,
-    MWK_DISCOVERY_METHOD_SAVED,
-    MWK_DISCOVERY_METHOD_UNKNOWN // reserved
-} MWKHistoryDiscoveryMethod;
+typedef NS_ENUM (NSUInteger, MWKHistoryDiscoveryMethod){
+    MWKHistoryDiscoveryMethodSearch,
+    MWKHistoryDiscoveryMethodRandom,
+    MWKHistoryDiscoveryMethodLink,
+    MWKHistoryDiscoveryMethodBackForward,
+    MWKHistoryDiscoveryMethodSaved,
+    MWKHistoryDiscoveryMethodReload,
+    MWKHistoryDiscoveryMethodUnknown
+};
 
 @interface MWKHistoryEntry : MWKSiteDataObject
 

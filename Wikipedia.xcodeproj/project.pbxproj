@@ -233,7 +233,6 @@
 		BC92A7731AFA88D3003C4212 /* MWKSection+WMFSharingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC92A7721AFA88D3003C4212 /* MWKSection+WMFSharingTests.m */; };
 		BC955BC71A82BEFD000EF9E4 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */; };
 		BC955BCF1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BCE1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m */; };
-		BCA676491AC05EDF00A16160 /* WMFRandomFileUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA676481AC05EDF00A16160 /* WMFRandomFileUtilities.m */; };
 		BCA6764E1AC05FD600A16160 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCA6764D1AC05FD600A16160 /* Info.plist */; };
 		BCA676561AC05FE200A16160 /* NSBundle+TestAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA676521AC05FE200A16160 /* NSBundle+TestAssets.m */; };
 		BCA676571AC05FE200A16160 /* XCTestCase+WMFBundleConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA676541AC05FE200A16160 /* XCTestCase+WMFBundleConvenience.m */; };
@@ -246,6 +245,7 @@
 		BCAFC5D01AFD5E7D004615BA /* MWKArticle+WMFSharingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAFC5CF1AFD5E7D004615BA /* MWKArticle+WMFSharingTests.m */; };
 		BCAFC5D31AFD5F7E004615BA /* MWKArticle+WMFSharing.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAFC5D11AFD5F7E004615BA /* MWKArticle+WMFSharing.m */; };
 		BCAFC5D61AFD625E004615BA /* MainPageMobileView.json in Resources */ = {isa = PBXBuildFile; fileRef = BCAFC5D51AFD625E004615BA /* MainPageMobileView.json */; };
+		BCAFC5ED1B02490A004615BA /* WMFRandomFileUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAFC5EC1B02490A004615BA /* WMFRandomFileUtilities.m */; };
 		BCB3AE861AC11320004AD205 /* NSPersistentStoreCoordinator+WMFTempCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB3AE851AC11320004AD205 /* NSPersistentStoreCoordinator+WMFTempCoordinator.m */; };
 		BCB3AE8A1AC11458004AD205 /* NSManagedObjectContext+WMFTempContext.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB3AE891AC11458004AD205 /* NSManagedObjectContext+WMFTempContext.m */; };
 		BCB3AEA71AC1DDE4004AD205 /* OldDataSchemaMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB3AEA61AC1DDE4004AD205 /* OldDataSchemaMigrator.m */; };
@@ -776,8 +776,6 @@
 		BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKImageInfoFetcher.m; sourceTree = "<group>"; };
 		BC955BCD1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPRequestOperationManager+WMFConfig.h"; path = "Queues/AFHTTPRequestOperationManager+WMFConfig.h"; sourceTree = "<group>"; };
 		BC955BCE1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPRequestOperationManager+WMFConfig.m"; path = "Queues/AFHTTPRequestOperationManager+WMFConfig.m"; sourceTree = "<group>"; };
-		BCA676471AC05EDF00A16160 /* WMFRandomFileUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRandomFileUtilities.h; sourceTree = "<group>"; };
-		BCA676481AC05EDF00A16160 /* WMFRandomFileUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFRandomFileUtilities.m; sourceTree = "<group>"; };
 		BCA6764A1AC05FAD00A16160 /* NSArray+PredicateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PredicateTests.m"; sourceTree = "<group>"; };
 		BCA6764D1AC05FD600A16160 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCA676511AC05FE200A16160 /* NSBundle+TestAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+TestAssets.h"; sourceTree = "<group>"; };
@@ -799,6 +797,8 @@
 		BCAFC5D11AFD5F7E004615BA /* MWKArticle+WMFSharing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKArticle+WMFSharing.m"; sourceTree = "<group>"; };
 		BCAFC5D21AFD5F7E004615BA /* MWKArticle+WMFSharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKArticle+WMFSharing.h"; sourceTree = "<group>"; };
 		BCAFC5D51AFD625E004615BA /* MainPageMobileView.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = MainPageMobileView.json; path = Fixtures/MainPageMobileView.json; sourceTree = "<group>"; };
+		BCAFC5EB1B02490A004615BA /* WMFRandomFileUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRandomFileUtilities.h; sourceTree = "<group>"; };
+		BCAFC5EC1B02490A004615BA /* WMFRandomFileUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFRandomFileUtilities.m; sourceTree = "<group>"; };
 		BCB3AE841AC11320004AD205 /* NSPersistentStoreCoordinator+WMFTempCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPersistentStoreCoordinator+WMFTempCoordinator.h"; sourceTree = "<group>"; };
 		BCB3AE851AC11320004AD205 /* NSPersistentStoreCoordinator+WMFTempCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPersistentStoreCoordinator+WMFTempCoordinator.m"; sourceTree = "<group>"; };
 		BCB3AE881AC11458004AD205 /* NSManagedObjectContext+WMFTempContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+WMFTempContext.h"; sourceTree = "<group>"; };
@@ -1219,8 +1219,6 @@
 				040D835C1AB0EE45000896D5 /* WMFGeometry.c */,
 				0484B9041ABB50FA00874073 /* WMFArticleParsing.h */,
 				0484B9051ABB50FA00874073 /* WMFArticleParsing.m */,
-				BCA676471AC05EDF00A16160 /* WMFRandomFileUtilities.h */,
-				BCA676481AC05EDF00A16160 /* WMFRandomFileUtilities.m */,
 			);
 			name = "C Functions";
 			path = "C Methods";
@@ -2104,6 +2102,8 @@
 		BCA6764F1AC05FE200A16160 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				BCAFC5EB1B02490A004615BA /* WMFRandomFileUtilities.h */,
+				BCAFC5EC1B02490A004615BA /* WMFRandomFileUtilities.m */,
 				BC282E271AE7FBB1005A5277 /* WMFTestFixtureUtilities.h */,
 				BC7ACB621AB34C9C00791497 /* WMFAsyncTestCase.h */,
 				BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */,
@@ -2942,6 +2942,7 @@
 				BC0FED671AAA0268002488D7 /* MWKTitleTests.m in Sources */,
 				BC0FED631AAA0263002488D7 /* MWKTestCase.m in Sources */,
 				BC92A7731AFA88D3003C4212 /* MWKSection+WMFSharingTests.m in Sources */,
+				BCAFC5ED1B02490A004615BA /* WMFRandomFileUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3091,7 +3092,6 @@
 				C94BE3EE1A8169ED00F2105B /* WMFShareFunnel.m in Sources */,
 				BCB58F671A8AA22200465627 /* MWKLicense+ToGlyph.m in Sources */,
 				04C757671A1A9E1B0084AC39 /* RecentSearchesViewController.m in Sources */,
-				BCA676491AC05EDF00A16160 /* WMFRandomFileUtilities.m in Sources */,
 				04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */,
 				04224501197F5E09005DD0BF /* BulletedLabel.m in Sources */,
 				C979727D1A731F2D00C6ED7A /* WMFShareOptionsView.m in Sources */,
@@ -3691,6 +3691,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;

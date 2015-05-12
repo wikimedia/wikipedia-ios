@@ -264,7 +264,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 
     [NAV loadArticleWithTitle:savedEntry.title
                      animated:YES
-              discoveryMethod:MWK_DISCOVERY_METHOD_SAVED
+              discoveryMethod:MWKHistoryDiscoveryMethodSaved
                    popToWebVC:NO];
 
     [self popModalToRoot];

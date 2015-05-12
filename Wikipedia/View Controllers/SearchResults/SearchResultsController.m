@@ -658,7 +658,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 
     [NAV loadArticleWithTitle:[[SessionSingleton sharedInstance].searchSite titleWithString:title]
                      animated:YES
-              discoveryMethod:MWK_DISCOVERY_METHOD_SEARCH
+              discoveryMethod:MWKHistoryDiscoveryMethodSearch
                    popToWebVC:YES];
 }
 

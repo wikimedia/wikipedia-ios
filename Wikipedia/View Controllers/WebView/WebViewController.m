@@ -136,8 +136,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 
     [self tocSetupSwipeGestureRecognizers];
 
-
-    [self reloadCurrentArticleInvalidatingCache:NO];
+    [self reloadCurrentArticle];
 
     // Restrict the web view from scrolling horizonally.
     [self.webView.scrollView addObserver:self
@@ -834,7 +833,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                 MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithInternalLink:href];
 
                 [strSelf navigateToPage:pageTitle
-                        discoveryMethod:MWK_DISCOVERY_METHOD_LINK
+                        discoveryMethod:MWKHistoryDiscoveryMethodLink
                    showLoadingIndicator:YES];
             } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
@@ -1347,7 +1346,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     [self hideKeyboard];
 
     if (showLoadingIndicator) {
-        self.loadingIndicatorOverlay.showSpinner = discoveryMethod != MWK_DISCOVERY_METHOD_BACKFORWARD;
+        self.loadingIndicatorOverlay.showSpinner = discoveryMethod != MWKHistoryDiscoveryMethodBackForward;
         [self.loadingIndicatorOverlay setVisible:YES animated:YES];
     }
 
@@ -1356,14 +1355,8 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     self.jumpToFragment = title.fragment;
 
-    // Update the history dateVisited timestamp of the article *presently shown* by the webView
-    // only if the article to be loaded was NOT loaded via back or forward buttons. The article
-    // being *navigated to* has its history dateVisited updated later in this method.
-    if (discoveryMethod != MWK_DISCOVERY_METHOD_BACKFORWARD) {
+    if (discoveryMethod != MWKHistoryDiscoveryMethodBackForward && discoveryMethod != MWKHistoryDiscoveryMethodReload) {
         [self updateHistoryDateVisitedForArticleBeingNavigatedFrom];
-        self.didLastNavigateByBackOrForward = NO;
-    } else {
-        self.didLastNavigateByBackOrForward = YES;
     }
 
     [self retrieveArticleForPageTitle:title
@@ -1378,9 +1371,9 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
      */
 }
 
-- (void)reloadCurrentArticleInvalidatingCache:(BOOL)invalidateCache {
+- (void)reloadCurrentArticle {
     [self navigateToPage:session.currentArticle.title
-          discoveryMethod:(invalidateCache ? MWK_DISCOVERY_METHOD_SEARCH : MWK_DISCOVERY_METHOD_SAVED)
+          discoveryMethod:MWKHistoryDiscoveryMethodReload
      showLoadingIndicator:YES];
 }
 
@@ -1402,11 +1395,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                     MWKHistoryEntry* history = [session.userDataStore.historyList entryForTitle:article.title];
                     // Get the article's discovery method.
                     MWKHistoryDiscoveryMethod discoveryMethod =
-                        (history) ? history.discoveryMethod : MWK_DISCOVERY_METHOD_SEARCH;
-
-                    // Remove the redirect article so it doesn't get saved (the article being redirected to will be saved).
-                    [session.userDataStore.historyList removeEntry:history];
-                    [session.currentArticle remove];
+                        (history) ? history.discoveryMethod : MWKHistoryDiscoveryMethodSearch;
 
                     // Redirect!
                     [self retrieveArticleForPageTitle:redirectedTitle
@@ -1416,32 +1405,24 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
                 // Update the toc and web view.
                 [self displayArticle:article.title];
+
+                [self hideAlert];
             }
             break;
 
             case FETCH_FINAL_STATUS_FAILED:
             {
-                MWKHistoryEntry* lastEntry = session.userDataStore.historyList.mostRecentEntry;
-                if ([lastEntry.title isEqual:article.title]) {
-                    [session.userDataStore.historyList removeEntry:lastEntry];
-                    [session.userDataStore save];
-                }
+                [self displayArticle:article.title];
+
                 NSString* errorMsg = error.localizedDescription;
                 [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
 
                 [self.loadingIndicatorOverlay setVisible:NO animated:YES];
-                // Reminder: do not clear article data here or no network connection when pull to refresh would blast last good saved article data!
             }
             break;
 
             case FETCH_FINAL_STATUS_CANCELLED:
             {
-                MWKHistoryEntry* lastEntry = session.userDataStore.historyList.mostRecentEntry;
-                if ([lastEntry.title.prefixedText isEqualToString:article.title.prefixedText]) {
-                    [session.userDataStore.historyList removeEntry:lastEntry];
-                    [session.userDataStore save];
-                }
-                // Reminder: do not clear article data here or cancellation would blast last good saved article data!
             }
             break;
 
@@ -1499,29 +1480,15 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     self.currentTitle = pageTitle;
 
     MWKArticle* article = [session.dataStore articleWithTitle:self.currentTitle];
-    session.currentArticle = article;
+    session.currentArticle                = article;
+    session.currentArticleDiscoveryMethod = discoveryMethod;
 
-    switch (discoveryMethod) {
-        case MWK_DISCOVERY_METHOD_SAVED:
-        case MWK_DISCOVERY_METHOD_SEARCH:
-        case MWK_DISCOVERY_METHOD_RANDOM:
-        case MWK_DISCOVERY_METHOD_LINK:
-        case MWK_DISCOVERY_METHOD_UNKNOWN: {
-            // Update the history so the most recently viewed article appears at the top.
-            [session.userDataStore updateHistory:article.title discoveryMethod:discoveryMethod];
-            break;
-        }
-
-        case MWK_DISCOVERY_METHOD_BACKFORWARD:
-            // Traversing history should not alter it, and should be served from the cache.
-            break;
-    }
-
-    switch (discoveryMethod) {
-        case MWK_DISCOVERY_METHOD_SEARCH:
-        case MWK_DISCOVERY_METHOD_RANDOM:
-        case MWK_DISCOVERY_METHOD_LINK:
-        case MWK_DISCOVERY_METHOD_UNKNOWN: {
+    switch (session.currentArticleDiscoveryMethod) {
+        case MWKHistoryDiscoveryMethodSearch:
+        case MWKHistoryDiscoveryMethodRandom:
+        case MWKHistoryDiscoveryMethodLink:
+        case MWKHistoryDiscoveryMethodReload:
+        case MWKHistoryDiscoveryMethodUnknown: {
             // Mark article as needing refreshing so its data will be re-downloaded.
             // Reminder: this needs to happen *after* "session.title" has been updated
             // with the title of the article being retrieved. Otherwise you end up
@@ -1530,8 +1497,8 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
             break;
         }
 
-        case MWK_DISCOVERY_METHOD_SAVED:
-        case MWK_DISCOVERY_METHOD_BACKFORWARD:
+        case MWKHistoryDiscoveryMethodSaved:
+        case MWKHistoryDiscoveryMethodBackForward:
             break;
     }
 
@@ -1685,6 +1652,28 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     MWKArticle* article = [session.dataStore articleWithTitle:title];
     session.currentArticle = article;
 
+    if (![article isCached]) {
+        return;
+    }
+
+    switch (session.currentArticleDiscoveryMethod) {
+        case MWKHistoryDiscoveryMethodSaved:
+        case MWKHistoryDiscoveryMethodSearch:
+        case MWKHistoryDiscoveryMethodRandom:
+        case MWKHistoryDiscoveryMethodLink:
+        case MWKHistoryDiscoveryMethodUnknown: {
+            // Update the history so the most recently viewed article appears at the top.
+            [session.userDataStore updateHistory:title discoveryMethod:session.currentArticleDiscoveryMethod];
+            break;
+        }
+
+        case MWKHistoryDiscoveryMethodReload:
+        case MWKHistoryDiscoveryMethodBackForward:
+            // Traversing history should not alter it, and should be served from the cache.
+            break;
+    }
+
+
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:title.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
 
@@ -1725,10 +1714,12 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     // removes them.
     //[article ifNoThumbnailUseFirstSectionImageAsThumbnailUsingContext:articleDataContext_.mainContext];
 
-    MWKHistoryEntry* historyEntry = [session.userDataStore.historyList entryForTitle:article.title];
 
-    if ((self.didLastNavigateByBackOrForward && historyEntry) || historyEntry.discoveryMethod == MWK_DISCOVERY_METHOD_SAVED) {
-        CGPoint scrollOffset = CGPointMake(0, historyEntry.scrollPosition);
+    if (session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodSaved ||
+        session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
+        session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReload) {
+        MWKHistoryEntry* historyEntry = [session.userDataStore.historyList entryForTitle:article.title];
+        CGPoint scrollOffset          = CGPointMake(0, historyEntry.scrollPosition);
         self.lastScrollOffset = scrollOffset;
     } else {
         CGPoint scrollOffset = CGPointMake(0, 0);
@@ -1891,7 +1882,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (void)refreshWasPulled {
-    [self reloadCurrentArticleInvalidatingCache:YES];
+    [self reloadCurrentArticle];
 }
 
 - (BOOL)refreshShouldShow {

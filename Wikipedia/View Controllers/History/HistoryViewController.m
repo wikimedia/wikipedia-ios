@@ -364,7 +364,7 @@
 
     [NAV loadArticleWithTitle:historyEntry.title
                      animated:YES
-              discoveryMethod:MWK_DISCOVERY_METHOD_SAVED
+              discoveryMethod:MWKHistoryDiscoveryMethodBackForward
                    popToWebVC:NO];
 
     [self popModalToRoot];
@@ -467,10 +467,10 @@
 - (NSAttributedString*)getIconLabelAttributedStringForDiscoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     NSString* wikiFontCharacter = nil;
     switch (discoveryMethod) {
-        case MWK_DISCOVERY_METHOD_RANDOM:
+        case MWKHistoryDiscoveryMethodRandom:
             wikiFontCharacter = WIKIGLYPH_DICE;
             break;
-        case MWK_DISCOVERY_METHOD_LINK:
+        case MWKHistoryDiscoveryMethodLink:
             wikiFontCharacter = WIKIGLYPH_LINK;
             break;
         default:
