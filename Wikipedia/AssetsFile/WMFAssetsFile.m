@@ -88,7 +88,7 @@
 
     switch (self.fileType) {
         case WMFAssetsFileTypeConfig:
-            urlString = @"https://bits.wikimedia.org/static-current/extensions/MobileApp/config/ios.json";
+            urlString = @"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json";
             break;
 
         default:
