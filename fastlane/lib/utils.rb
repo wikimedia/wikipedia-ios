@@ -25,7 +25,7 @@ end
 # Generate a list of commit subjects from `rev` to `HEAD`
 # :rev: The git SHA to start the log from, defaults to `ENV[LAST_SUCCESS_REV']`
 def generate_git_commit_log(rev=ENV['GIT_PREVIOUS_SUCCESSFUL_COMMIT'] || 'HEAD^^^^^')
-  g = Git.open(ENV['PWD'], :log => Logger.new(STDOUT))
+  g = Git.open ENV['PWD']
   begin
     change_log = g.log.between(rev).map { |c| "- " + c.message.lines.first.chomp }.join "\n"
     "Commit Log:\n\n#{change_log}\n"
