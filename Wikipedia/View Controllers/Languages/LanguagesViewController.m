@@ -12,17 +12,23 @@
 #import "UIViewController+Alert.h"
 #import "UIViewController+ModalPop.h"
 #import "UIView+ConstraintsScale.h"
+#import "NSString+Extras.h"
+#import "LanguagesSectionHeaderView.h"
+#import "UIView+WMFDefaultNib.h"
+#import "LanguagesTableSectionViewModel.h"
+
+#import <BlocksKit/BlocksKit.h>
+#import <Masonry/Masonry.h>
 
 #pragma mark - Defines
 
-#define BACKGROUND_COLOR [UIColor colorWithWhite:1.0f alpha:1.0f]
-
-#pragma mark - Private properties
-
 @interface LanguagesViewController ()
 
+/// Array of dictionaries which represent languages to choose from.
 @property (strong, nonatomic) NSArray* languagesData;
-@property (strong, nonatomic) NSMutableArray* filteredLanguagesData;
+
+/// Array of LanguagesTableSectionViewModel objects.
+@property (copy, nonatomic) NSArray* sections;
 
 @property (strong, nonatomic) NSString* filterString;
 @property (strong, nonatomic) UITextField* filterTextField;
@@ -51,16 +57,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [self.tableView registerClass:[LanguagesSectionHeaderView class]
+     forHeaderFooterViewReuseIdentifier:[LanguagesSectionHeaderView wmf_nibName]];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-    self.languagesData         = @[];
-    self.filteredLanguagesData = @[].mutableCopy;
-
-    self.view.backgroundColor = BACKGROUND_COLOR;
-
-    self.tableView.contentInset = UIEdgeInsetsMake(15.0 * MENUS_SCALE_MULTIPLIER, 0, 0, 0);
-
+    self.view.backgroundColor     = [UIColor whiteColor];
+//    self.tableView.contentInset   = UIEdgeInsetsMake(15.0 * MENUS_SCALE_MULTIPLIER, 0, 0, 0);
     self.filterString = @"";
 }
 
@@ -140,24 +141,36 @@
 }
 
 - (void)reloadTableDataFiltered {
-    if (self.filterString.length == 0) {
-        self.filteredLanguagesData = self.languagesData.mutableCopy;
-        [self.tableView reloadData];
-        return;
+    NSArray* filteredLanguages;
+    if (!self.filterString.length) {
+        filteredLanguages = [self.languagesData copy];
+    } else {
+        filteredLanguages = [self.languagesData bk_select:^BOOL (NSDictionary* lang) {
+            // TODO: use proper model object and refactor this into an instance method
+            return [lang[@"name"] wmf_isEqualToStringIgnoringCase:self.filterString]
+            || [lang[@"canonical_name"] wmf_caseInsensitiveContainsString:self.filterString]
+            || [lang[@"code"] wmf_isEqualToStringIgnoringCase:self.filterString];
+        }];
     }
 
-    [self.filteredLanguagesData removeAllObjects];
+    LanguagesTableSectionViewModel* preferredLanguagesSection =
+        [[LanguagesTableSectionViewModel alloc]
+         initWithTitle:MWLocalizedString(@"article-languages-preferred-section-header", nil)
+             languages:[filteredLanguages bk_select:^BOOL (NSDictionary* lang) {
+        return [[NSLocale preferredLanguages] containsObject:lang[@"code"]];
+    }]];
 
-    self.filteredLanguagesData =
-        [self.languagesData filteredArrayUsingPredicate:
-         [NSPredicate predicateWithFormat:@"\
-              SELF.name contains[c] %@\
-              || \
-              SELF.canonical_name contains[c] %@\
-              || \
-              SELF.code == [c] %@\
-          ", self.filterString, self.filterString, self.filterString]
-        ].mutableCopy;
+    LanguagesTableSectionViewModel* otherLanguagesSection =
+        [[LanguagesTableSectionViewModel alloc]
+         initWithTitle:MWLocalizedString(@"article-languages-other-section-header", nil)
+             languages:[filteredLanguages bk_select:^BOOL (id evaluatedObject) {
+        return ![preferredLanguagesSection.languages containsObject:evaluatedObject];
+    }]];
+
+    self.sections = [@[preferredLanguagesSection, otherLanguagesSection]
+bk_select:^BOOL (LanguagesTableSectionViewModel* section) {
+        return section.languages.count > 0;
+    }];
 
     [self.tableView reloadData];
 }
@@ -202,36 +215,25 @@
                                                            thenNotifyDelegate:self];
 }
 
-#pragma mark - Table protocol methods
+- (NSDictionary*)languageAtIndexPath:(NSIndexPath*)indexPath {
+    return [self.sections[indexPath.section] languages][indexPath.row];
+}
+
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
-    // Return the number of sections.
-    return 1;
+    return self.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return self.filteredLanguagesData.count;
-}
-
-- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
-    return 48.0 * MENUS_SCALE_MULTIPLIER;
-}
-
-- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section;
-{
-    return 0;
-}
-
-- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
-    return nil;
+    return [[self.sections[section] languages] count];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     static NSString* cellId = @"LanguagesCell";
     LanguagesCell* cell     = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
 
-    NSDictionary* d = self.filteredLanguagesData[indexPath.row];
+    NSDictionary* d = [self languageAtIndexPath:indexPath];
 
     cell.textLabel.text      = d[@"name"];
     cell.canonicalLabel.text = d[@"canonical_name"];
@@ -239,16 +241,26 @@
     return cell;
 }
 
-- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    NSDictionary* selectedLangInfo = self.filteredLanguagesData[indexPath.row];
-    [self.languageSelectionDelegate languageSelected:selectedLangInfo sender:self];
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
+    return [LanguagesSectionHeaderView defaultHeaderHeight];
 }
 
-#pragma mark - Memory
+- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
+    LanguagesSectionHeaderView* headerView =
+        [tableView dequeueReusableHeaderFooterViewWithIdentifier:[LanguagesSectionHeaderView wmf_nibName]];
+    headerView.titleLabel.text = [self.sections[section] title];
+    return headerView;
+}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
+    return 48.0 * MENUS_SCALE_MULTIPLIER;
+}
+
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    NSDictionary* selectedLangInfo = [self languageAtIndexPath:indexPath];
+    [self.languageSelectionDelegate languageSelected:selectedLangInfo sender:self];
 }
 
 @end

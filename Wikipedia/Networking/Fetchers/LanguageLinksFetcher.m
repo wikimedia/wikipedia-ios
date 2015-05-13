@@ -81,7 +81,7 @@
 //TODO: figure out what to do with these:
 // Wiki language character sets that iOS doesn't seem to render properly...
 - (NSArray*)unsupportedCharactersLanguageIds {
-    return [@"my am km dv lez arc got ti" componentsSeparatedByString:@" "];
+    return @[@"my", @"am", @"km", @"dv", @"lez", @"arc", @"got", @"ti"];
 }
 
 - (NSDictionary*)getParams {
@@ -110,7 +110,7 @@
     for (NSDictionary* d in langLinks) {
         NSString* lang  = d[@"lang"];
         NSString* title = d[@"*"];
-        if (lang && title) {
+        if (lang && title.length) {
             langCodeToLocalTitleDict[lang] = title;
         }
     }

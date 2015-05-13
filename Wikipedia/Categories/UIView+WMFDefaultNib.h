@@ -23,4 +23,7 @@
  */
 + (instancetype)wmf_viewFromClassNib;
 
+/// @return A nib loaded from the main bundle matching @c wmf_nibName.
++ (UINib*)wmf_classNib;
+
 @end

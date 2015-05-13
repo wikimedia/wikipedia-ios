@@ -24,21 +24,24 @@
 #import "WMFShareFunnel.h"
 #import "WMFShareOptionsViewController.h"
 #import "UIWebView+WMFSuppressSelection.h"
+#import "LanguagesViewController.h"
 
 typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
     BOTTOM_MENU_BUTTON_UNKNOWN,
     BOTTOM_MENU_BUTTON_PREVIOUS,
     BOTTOM_MENU_BUTTON_NEXT,
     BOTTOM_MENU_BUTTON_SHARE,
-    BOTTOM_MENU_BUTTON_SAVE
+    BOTTOM_MENU_BUTTON_SAVE,
+    BOTTOM_MENU_BUTTON_LANGUAGE
 };
 
 @interface BottomMenuViewController ()
-
+<LanguageSelectionDelegate>
 @property (weak, nonatomic) IBOutlet WikiGlyphButton* backButton;
 @property (weak, nonatomic) IBOutlet WikiGlyphButton* forwardButton;
 @property (weak, nonatomic) IBOutlet WikiGlyphButton* saveButton;
-@property (weak, nonatomic) IBOutlet WikiGlyphButton* rightButton;
+@property (weak, nonatomic) IBOutlet WikiGlyphButton* shareButton;
+@property (weak, nonatomic) IBOutlet WikiGlyphButton* languagesButton;
 
 @property (strong, nonatomic) NSDictionary* adjacentHistoryEntries;
 
@@ -62,6 +65,13 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
 
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
 
+    [self.languagesButton.label setWikiText:WIKIGLYPH_TRANSLATE
+                                      color:buttonColor
+                                       size:MENU_BOTTOM_GLYPH_FONT_SIZE
+                             baselineOffset:1.5f];
+    self.languagesButton.tag                = BOTTOM_MENU_BUTTON_LANGUAGE;
+    self.languagesButton.accessibilityLabel = MWLocalizedString(@"menu-language-accessibility-label", nil);
+
     [self.backButton.label setWikiText:isRTL ? WIKIGLYPH_FORWARD : WIKIGLYPH_BACKWARD
                                  color:buttonColor
                                   size:MENU_BOTTOM_GLYPH_FONT_SIZE
@@ -78,13 +88,13 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
     self.forwardButton.tag                = BOTTOM_MENU_BUTTON_NEXT;
     // self.forwardButton.label.transform = CGAffineTransformMakeScale(-1, 1);
 
-    [self.rightButton.label setWikiText:WIKIGLYPH_SHARE
+    [self.shareButton.label setWikiText:WIKIGLYPH_SHARE
                                   color:buttonColor
                                    size:MENU_BOTTOM_GLYPH_FONT_SIZE
                          baselineOffset:1.5f
     ];
-    self.rightButton.tag                = BOTTOM_MENU_BUTTON_SHARE;
-    self.rightButton.accessibilityLabel = MWLocalizedString(@"menu-share-accessibility-label", nil);
+    self.shareButton.tag                = BOTTOM_MENU_BUTTON_SHARE;
+    self.shareButton.accessibilityLabel = MWLocalizedString(@"menu-share-accessibility-label", nil);
 
     [self.saveButton.label setWikiText:WIKIGLYPH_HEART_OUTLINE
                                  color:buttonColor
@@ -94,7 +104,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
     self.saveButton.tag                = BOTTOM_MENU_BUTTON_SAVE;
     self.saveButton.accessibilityLabel = MWLocalizedString(@"share-menu-save-page", nil);
 
-    self.allButtons = @[self.backButton, self.forwardButton, self.rightButton, self.saveButton];
+    self.allButtons = @[self.backButton, self.forwardButton, self.shareButton, self.saveButton, self.languagesButton];
 
     self.view.backgroundColor = CHROME_COLOR;
 
@@ -128,7 +138,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
                                                  name:WebViewControllerTextWasHighlighted
                                                object:nil];
 
-    [self adjustConstraintsScaleForViews:@[self.backButton, self.forwardButton, self.saveButton, self.rightButton]];
+    [self adjustConstraintsScaleForViews:self.allButtons];
 }
 
 - (void)addTapRecognizersToAllButtons {
@@ -139,44 +149,39 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
     }
 }
 
+- (void)setUserInteractionEnabledForAllButtons:(BOOL)enabled {
+    for (WikiGlyphButton* button in self.allButtons) {
+        button.userInteractionEnabled = enabled;
+    }
+}
+
 #pragma mark Bottom bar button methods
 
 - (void)buttonPushed:(UITapGestureRecognizer*)recognizer {
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
-        // If the tapped item was a button, first animate it briefly, then perform action.
-        if ([recognizer.view isKindOfClass:[WikiGlyphButton class]]) {
-            WikiGlyphButton* button = (WikiGlyphButton*)recognizer.view;
-            if (!button.enabled) {
-                return;
-            }
-            if (button.tag == BOTTOM_MENU_BUTTON_SHARE) {
-                // Let's not have people accidentally tapping left/right, or
-                // double tapping the share (up arrow button) button,
-                // because it would be confusing
-                for (WikiGlyphButton* b in self.allButtons) {
-                    b.userInteractionEnabled = NO;
-                }
-            }
-            CGFloat animationScale = 1.25f;
-            [button.label animateAndRewindXF:CATransform3DMakeScale(animationScale, animationScale, 1.0f)
-                                  afterDelay:0.0
-                                    duration:0.06f
-                                        then:^{
-                [self performActionForButton:button];
-                if (button.tag == BOTTOM_MENU_BUTTON_SHARE) {
-                    // Bring the buttons back to life.
-                    // Note that the custom sharing activity
-                    // spawned in this class makes a dimmed
-                    // background that makes the buttons
-                    // in the collection in effect non-tappable
-                    // so we don't have to do more than this.
-                    for (WikiGlyphButton* b in self.allButtons) {
-                        b.userInteractionEnabled = YES;
-                    }
-                }
-            }];
-        }
+    if (recognizer.state != UIGestureRecognizerStateEnded
+        || ![recognizer.view isKindOfClass:[WikiGlyphButton class]]
+        || ![(WikiGlyphButton*)recognizer.view enabled]) {
+        return;
     }
+    [self animateAndPerformActionForButton:recognizer.view
+                  disableButtonInteraction:recognizer.view.tag == BOTTOM_MENU_BUTTON_SHARE];
+}
+
+- (void)animateAndPerformActionForButton:(WikiGlyphButton*)button
+                disableButtonInteraction:(BOOL)shouldDisableInteraction {
+    if (shouldDisableInteraction) {
+        [self setUserInteractionEnabledForAllButtons:NO];
+    }
+    CGFloat animationScale = 1.25f;
+    [button.label animateAndRewindXF:CATransform3DMakeScale(animationScale, animationScale, 1.0f)
+                          afterDelay:0.0
+                            duration:0.06f
+                                then:^{
+        [self performActionForButton:button];
+        if (shouldDisableInteraction) {
+            [self setUserInteractionEnabledForAllButtons:YES];
+        }
+    }];
 }
 
 - (void)performActionForButton:(WikiGlyphButton*)button {
@@ -194,9 +199,31 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"SavePage" object:self userInfo:nil];
             [self updateBottomBarButtonsEnabledState];
             break;
+        case BOTTOM_MENU_BUTTON_LANGUAGE:
+            [self showLanguagePicker];
+            break;
         default:
             break;
     }
+}
+
+- (void)showLanguagePicker {
+    [self performModalSequeWithID:@"modal_segue_show_languages"
+                  transitionStyle:UIModalTransitionStyleCoverVertical
+                            block:^(LanguagesViewController* languagesVC){
+        languagesVC.downloadLanguagesForCurrentArticle = YES;
+        languagesVC.languageSelectionDelegate = self;
+    }];
+}
+
+- (void)languageSelected:(NSDictionary*)langData sender:(LanguagesViewController*)sender {
+    MWKSite* site   = [MWKSite siteWithLanguage:langData[@"code"]];
+    MWKTitle* title = [site titleWithString:langData[@"*"]];
+    [NAV loadArticleWithTitle:title
+                     animated:NO
+              discoveryMethod:MWKHistoryDiscoveryMethodSearch
+                   popToWebVC:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)saveButtonLongPressed:(UILongPressGestureRecognizer*)recognizer {
@@ -289,7 +316,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
     } else {
         // iPad crashes if you present share dialog modally. Whee!
         self.popover = [[UIPopoverController alloc] initWithContentViewController:shareActivityVC];
-        [self.popover presentPopoverFromRect:self.rightButton.frame
+        [self.popover presentPopoverFromRect:self.shareButton.frame
                                       inView:self.view
                     permittedArrowDirections:UIPopoverArrowDirectionAny
                                     animated:YES];
@@ -361,6 +388,9 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
     self.forwardButton.enabled  = (self.adjacentHistoryEntries[@"after"]) ? YES : NO;
     self.backButton.enabled     = (self.adjacentHistoryEntries[@"before"]) ? YES : NO;
 
+    MWKArticle* currentArticle = [[SessionSingleton sharedInstance] currentArticle];
+    self.languagesButton.enabled = !currentArticle.isMain && [currentArticle languagecount] > 0;
+
     NSString* saveIconString = WIKIGLYPH_HEART_OUTLINE;
     UIColor* saveIconColor   = [UIColor blackColor];
     if ([self isCurrentArticleSaved]) {
@@ -375,25 +405,9 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
     self.funnel = nil;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (BOOL)isCurrentArticleSaved {
     SessionSingleton* session = [SessionSingleton sharedInstance];
     return [session.userDataStore.savedPageList isSaved:session.currentArticle.title];
 }
-
-/*
-   #pragma mark - Navigation
-
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-   {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-   }
- */
 
 @end

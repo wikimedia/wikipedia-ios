@@ -51,4 +51,22 @@
  */
 #define WMF_IS_EQUAL(a, b) (WMF_EQUAL(a, isEqual:, b))
 
+#ifndef WMF_RHS_VARNAME
+#define WMF_RHS_VARNAME rhs
+#endif
+
+/**
+ * Compare if the values returned by @c prop are equal for @c self and @c rhs using @c sel
+ * @param prop  The property to compare (should be a getter instance method).
+ * @param sel   The selector to use when comparing values returned by @c prop.
+ * @return @c YES if the values returned by @c prop for @c self and @c rhs are equal.
+ */
+#define WMF_RHS_PROP_EQUAL(prop, sel) WMF_EQUAL_PROPERTIES(self, prop, sel, rhs)
+
+#define WMF_SYNTHESIZE_IS_EQUAL(CLASS_NAME, CLASS_EQ_SEL) \
+    - (BOOL)isEqual : (id)obj { \
+        return [super isEqual:obj] \
+               || [obj isKindOfClass:[CLASS_NAME class]] ? [self CLASS_EQ_SEL obj] : NO; \
+    }
+
 #endif

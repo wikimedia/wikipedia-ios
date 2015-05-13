@@ -9,7 +9,6 @@
 
 - (void)updateReadMoreForArticle:(MWKArticle*)article;
 
-- (void)updateLanguageCount:(NSInteger)count;
 - (void)updateLastModifiedDate:(NSDate*)date userName:(NSString*)userName;
 - (void)updateLegalFooterLocalizedText;
 
