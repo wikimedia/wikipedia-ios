@@ -105,7 +105,6 @@ var transformer = require("./transformer");
 var refs = require("./refs");
 var issuesAndDisambig = require("./transforms/collapsePageIssuesAndDisambig");
 
-
 // DOMContentLoaded fires before window.onload! That's good!
 // See: http://stackoverflow.com/a/3698214/135557
 document.addEventListener("DOMContentLoaded", function() {
@@ -113,7 +112,8 @@ document.addEventListener("DOMContentLoaded", function() {
     transformer.transform( "moveFirstGoodParagraphUp", document );
     transformer.transform( "hideRedlinks", document );
     transformer.transform( "disableFilePageEdit", document );
-    transformer.transform( "addImageOverflowXContainers", document );
+    transformer.transform( "addImageOverflowXContainers", document ); // Needs to happen before "widenImages" transform.
+    transformer.transform( "widenImages", document );
     transformer.transform( "hideTables", document );
     transformer.transform( "collapsePageIssuesAndDisambig", document.getElementById( "section_heading_and_content_block_0" ) );
 
@@ -446,13 +446,6 @@ Transformer.prototype.transform = function( transform, element ) {
     }
 };
 
-Transformer.prototype.httpGetSync = function (theUrl) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false );
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-};
-
 module.exports = new Transformer();
 
 },{}],7:[function(require,module,exports){
@@ -466,21 +459,30 @@ require("./transforms/collapsePageIssuesAndDisambig");
 
 },{"./transforms/addImageOverflowContainers":8,"./transforms/collapsePageIssuesAndDisambig":9,"./transforms/collapseTables":10,"./transforms/disableFilePageEdit":11,"./transforms/hideRedLinks":12,"./transforms/relocateFirstParagraph":13}],8:[function(require,module,exports){
 var transformer = require("../transformer");
+var utilities = require("../utilities");
 
-function firstAncestorWithMultipleChildren (el) {
-    while ((el = el.parentElement) && (el.childElementCount == 1));
-    return el;
+function shouldAddImageOverflowXContainer(image) {
+    if ((image.width > (window.screen.width * 0.8)) && !utilities.isNestedInTable(image)){
+        return true;
+    }else{
+        return false;
+    }
 }
 
-function addImageOverflowXContainer() {
+function addImageOverflowXContainer(image, ancestor) {
+    image.setAttribute('hasOverflowXContainer', 'true'); // So "widenImages" transform knows instantly not to widen this one.
+    var div = document.createElement( 'div' );
+    div.className = 'image_overflow_x_container';
+    ancestor.parentElement.insertBefore( div, ancestor );
+    div.appendChild( ancestor );
+}
+
+function maybeAddImageOverflowXContainer() {
     var image = this;
-    if (image.width > (window.screen.width * 0.8)){
-        var ancestor = firstAncestorWithMultipleChildren (image);
+    if (shouldAddImageOverflowXContainer(image)){
+        var ancestor = utilities.firstAncestorWithMultipleChildren (image);
         if(ancestor){
-            var div = document.createElement( 'div' );
-            div.className = 'image_overflow_x_container';
-            ancestor.parentElement.insertBefore( div, ancestor );
-            div.appendChild( ancestor );
+            addImageOverflowXContainer(image, ancestor);
         }
     }
 }
@@ -492,12 +494,13 @@ transformer.register( "addImageOverflowXContainers", function( content ) {
     for (var i = 0; i < images.length; ++i) {
         // Load event used so images w/o style or inline width/height
         // attributes can still have their size determined reliably.
-        images[i].addEventListener('load', addImageOverflowXContainer, false);
+        images[i].addEventListener('load', maybeAddImageOverflowXContainer, false);
     }
 } );
 
-},{"../transformer":6}],9:[function(require,module,exports){
+},{"../transformer":6,"../utilities":15}],9:[function(require,module,exports){
 var transformer = require("../transformer");
+var utilities = require("../utilities");
 
 transformer.register( 'collapsePageIssuesAndDisambig', function( content ) {
     transformer.transform( "displayDisambigLink", content);
@@ -531,7 +534,7 @@ transformer.register( 'displayDisambigLink', function( content ) {
         var link = document.createElement( 'a' );
         link.setAttribute( 'href', '#disambig' );
         link.className = 'disambig_button';
-        link.innerHTML = transformer.httpGetSync('wmf://localize/page-similar-titles');
+        link.innerHTML = utilities.httpGetSync('wmf://localize/page-similar-titles');
         link.id = 'disambig_button';
         wrapper.appendChild( link );
         var i = 0,
@@ -552,7 +555,7 @@ transformer.register( 'displayIssuesLink', function( content ) {
         var link = document.createElement( 'a' );
         link.setAttribute( 'href', '#issues' );
         link.className = 'issues_button';
-        link.innerHTML = transformer.httpGetSync('wmf://localize/page-issues');
+        link.innerHTML = utilities.httpGetSync('wmf://localize/page-issues');
         link.id = 'issues_button';
         wrapper.appendChild( link );
         el.parentNode.replaceChild( wrapper, el );
@@ -678,8 +681,9 @@ exports.issuesClicked = issuesClicked;
 exports.disambigClicked = disambigClicked;
 exports.closeClicked = closeClicked;
 
-},{"../transformer":6}],10:[function(require,module,exports){
+},{"../transformer":6,"../utilities":15}],10:[function(require,module,exports){
 var transformer = require("../transformer");
+var utilities = require("../utilities");
 
 /*
 Tries to get an array of table header (TH) contents from a given table.
@@ -745,12 +749,6 @@ function tableCollapseClickHandler() {
     }
 }
 
-// From: http://stackoverflow.com/a/22119674/135557
-function findAncestor (el, cls) {
-    while ((el = el.parentElement) && !el.classList.contains(cls));
-    return el;
-}
-
 function shouldTableBeCollapsed( table ) {
     if (table.style.display === 'none' ||
         table.classList.contains( 'navbox' ) ||
@@ -765,14 +763,14 @@ function shouldTableBeCollapsed( table ) {
 
 transformer.register( "hideTables", function( content ) {
                      
-    var isMainPage = transformer.httpGetSync('wmf://article/is-main-page');
+    var isMainPage = utilities.httpGetSync('wmf://article/is-main-page');
                      
     if (isMainPage == "1") return;
                      
     var tables = content.querySelectorAll( "table" );
     for (var i = 0; i < tables.length; i++) {
         var table = tables[i];
-        if (findAncestor (table, 'app_table_container')) continue;
+        if (utilities.findAncestor (table, 'app_table_container')) continue;
 
         if (!shouldTableBeCollapsed(table)) {
             continue;
@@ -793,7 +791,7 @@ transformer.register( "hideTables", function( content ) {
 
         var headerText = getTableHeader(table);
 
-        var caption = "<strong>" + (isInfobox ? transformer.httpGetSync('wmf://localize/info-box-title') : transformer.httpGetSync('wmf://localize/table-title-other')) + "</strong>";
+        var caption = "<strong>" + (isInfobox ? utilities.httpGetSync('wmf://localize/info-box-title') : utilities.httpGetSync('wmf://localize/table-title-other')) + "</strong>";
         caption += "<span class='app_span_collapse_text'>";
         if (headerText.length > 0) {
             caption += ": " + headerText[0];
@@ -828,7 +826,7 @@ transformer.register( "hideTables", function( content ) {
         var bottomDiv = document.createElement( 'div' );
         bottomDiv.classList.add('app_table_collapsed_bottom');
         bottomDiv.classList.add('app_table_collapse_icon');
-        bottomDiv.innerHTML = transformer.httpGetSync('wmf://localize/info-box-close-text');
+        bottomDiv.innerHTML = utilities.httpGetSync('wmf://localize/info-box-close-text');
 
         //add our stuff to the container
         containerDiv.appendChild(collapsedDiv);
@@ -846,7 +844,7 @@ transformer.register( "hideTables", function( content ) {
     }
 } );
 
-},{"../transformer":6}],11:[function(require,module,exports){
+},{"../transformer":6,"../utilities":15}],11:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "disableFilePageEdit", function( content ) {
@@ -959,4 +957,174 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     }
 });
 
-},{"../transformer":6}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13])
+},{"../transformer":6}],14:[function(require,module,exports){
+var transformer = require("../transformer");
+var utilities = require("../utilities");
+
+var maxStretchRatioAllowedBeforeRequestingHigherResolution = 1.3;
+
+// If enabled, widened images will have thin red dashed border and
+// and widened images for which a higher resolution version was
+// requested will have thick red dashed border.
+var enableDebugBorders = false;
+
+function widenAncestors (el) {
+    while ((el = el.parentElement) && !el.classList.contains('content_block')){
+        // Only widen if there was a width setting. Keeps changes minimal.
+        if(el.style.width){
+            el.style.width = '100%';
+        }
+        if(el.style.maxWidth){
+            el.style.maxWidth = '100%';
+        }
+        if(el.style.float){
+            el.style.float = 'none';
+        }
+    }
+}
+
+function shouldWidenImage(image) {
+    if (
+        image.width >= 64 &&
+        !image.hasAttribute('hasOverflowXContainer') &&
+        !utilities.isNestedInTable(image)
+        ) {
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function makeRoomForImageWidening(image) {
+    // Expand containment so css wideImageOverride width percentages can take effect.
+    widenAncestors (image);
+
+    // Remove width and height attributes so wideImageOverride width percentages can take effect.
+    image.removeAttribute("width");
+    image.removeAttribute("height");
+}
+
+function getStretchRatio(image){
+    var widthControllingDiv = utilities.firstDivAncestor(image);
+    if (widthControllingDiv){
+        return (widthControllingDiv.offsetWidth / image.naturalWidth);
+    }
+    return 1.0;
+}
+
+function useHigherResolutionImageSrcFromSrcsetIfNecessary(image) {
+    if (image.getAttribute('srcset')){
+        var stretchRatio = getStretchRatio(image);
+        if (stretchRatio > maxStretchRatioAllowedBeforeRequestingHigherResolution) {
+            var srcsetDict = utilities.getDictionaryFromSrcset(image.getAttribute('srcset'));
+            /*
+            Grab the highest res url from srcset - avoids the complexity of parsing urls
+            to retrieve variants - which can get tricky - canonicals have different paths 
+            than size variants
+            */
+            var largestSrcsetDictKey = Object.keys(srcsetDict).reduce(function(a, b) {
+              return a > b ? a : b;
+            });
+
+            image.src = srcsetDict[largestSrcsetDictKey];
+
+            if(enableDebugBorders){
+                image.style.borderWidth = '10px';
+            }
+        }
+    }
+}
+
+function widenImage(image) {
+    makeRoomForImageWidening (image);
+    image.classList.add("wideImageOverride");
+
+    if(enableDebugBorders){
+        image.style.borderStyle = 'dashed';
+        image.style.borderWidth = '1px';
+        image.style.borderColor = '#f00';
+    }
+
+    useHigherResolutionImageSrcFromSrcsetIfNecessary(image);
+}
+
+function maybeWidenImage() {
+    var image = this;
+    if (shouldWidenImage(image)) {
+        widenImage(image);
+    }
+}
+
+transformer.register( "widenImages", function( content ) {
+    var images = content.querySelectorAll( 'img' );
+    for ( var i = 0; i < images.length; i++ ) {
+        // Load event used so images w/o style or inline width/height
+        // attributes can still have their size determined reliably.
+        images[i].addEventListener('load', maybeWidenImage, false);
+    }
+} );
+
+},{"../transformer":6,"../utilities":15}],15:[function(require,module,exports){
+
+function getDictionaryFromSrcset(srcset) {
+    /*
+    Returns dictionary with density (without "x") as keys and urls as values.
+    Parameter 'srcset' string:
+        '//image1.jpg 1.5x, //image2.jpg 2x, //image3.jpg 3x'
+    Returns dictionary:
+        {1.5: '//image1.jpg', 2: '//image2.jpg', 3: '//image3.jpg'}
+    */
+    var sets = srcset.split(',').map(function(set) {
+        return set.trim().split(' ');
+    });
+    var output = {};
+    sets.forEach(function(set) {
+        output[set[1].replace('x', '')] = set[0];
+    });
+    return output;
+}
+
+function firstDivAncestor (el) {
+    while ((el = el.parentElement)){
+        if(el.tagName === 'DIV'){
+            return el;
+        }
+    }
+    return null;
+}
+
+function firstAncestorWithMultipleChildren (el) {
+    while ((el = el.parentElement) && (el.childElementCount == 1));
+    return el;
+}
+
+// From: http://stackoverflow.com/a/22119674/135557
+function findAncestor (el, cls) {
+    while ((el = el.parentElement) && !el.classList.contains(cls));
+    return el;
+}
+
+function httpGetSync(theUrl) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+function isNestedInTable(el) {
+    while ((el = el.parentElement)){
+        if(el.tagName === 'TD'){
+            return true;
+        }
+    }
+    return false;
+}
+
+exports.getDictionaryFromSrcset = getDictionaryFromSrcset;
+exports.firstDivAncestor = firstDivAncestor;
+exports.firstAncestorWithMultipleChildren = firstAncestorWithMultipleChildren;
+exports.findAncestor = findAncestor;
+exports.httpGetSync = httpGetSync;
+exports.isNestedInTable = isNestedInTable;
+
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])

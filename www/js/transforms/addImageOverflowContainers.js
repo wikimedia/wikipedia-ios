@@ -1,19 +1,28 @@
 var transformer = require("../transformer");
+var utilities = require("../utilities");
 
-function firstAncestorWithMultipleChildren (el) {
-    while ((el = el.parentElement) && (el.childElementCount == 1));
-    return el;
+function shouldAddImageOverflowXContainer(image) {
+    if ((image.width > (window.screen.width * 0.8)) && !utilities.isNestedInTable(image)){
+        return true;
+    }else{
+        return false;
+    }
 }
 
-function addImageOverflowXContainer() {
+function addImageOverflowXContainer(image, ancestor) {
+    image.setAttribute('hasOverflowXContainer', 'true'); // So "widenImages" transform knows instantly not to widen this one.
+    var div = document.createElement( 'div' );
+    div.className = 'image_overflow_x_container';
+    ancestor.parentElement.insertBefore( div, ancestor );
+    div.appendChild( ancestor );
+}
+
+function maybeAddImageOverflowXContainer() {
     var image = this;
-    if (image.width > (window.screen.width * 0.8)){
-        var ancestor = firstAncestorWithMultipleChildren (image);
+    if (shouldAddImageOverflowXContainer(image)){
+        var ancestor = utilities.firstAncestorWithMultipleChildren (image);
         if(ancestor){
-            var div = document.createElement( 'div' );
-            div.className = 'image_overflow_x_container';
-            ancestor.parentElement.insertBefore( div, ancestor );
-            div.appendChild( ancestor );
+            addImageOverflowXContainer(image, ancestor);
         }
     }
 }
@@ -25,6 +34,6 @@ transformer.register( "addImageOverflowXContainers", function( content ) {
     for (var i = 0; i < images.length; ++i) {
         // Load event used so images w/o style or inline width/height
         // attributes can still have their size determined reliably.
-        images[i].addEventListener('load', addImageOverflowXContainer, false);
+        images[i].addEventListener('load', maybeAddImageOverflowXContainer, false);
     }
 } );
