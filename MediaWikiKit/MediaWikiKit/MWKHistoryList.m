@@ -58,6 +58,9 @@
 #pragma mark - update methods
 
 - (void)addEntry:(MWKHistoryEntry*)entry {
+    if (entry.title == nil) {
+        return;
+    }
     MWKHistoryEntry* oldEntry = [self entryForTitle:entry.title];
     if (oldEntry) {
         // Replace the old entry and move to top
@@ -69,6 +72,9 @@
 }
 
 - (void)removeEntry:(MWKHistoryEntry*)entry {
+    if (entry.title == nil) {
+        return;
+    }
     [entries removeObject:entry];
     [entriesByTitle removeObjectForKey:entry.title];
     _dirty = YES;
