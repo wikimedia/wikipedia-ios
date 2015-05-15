@@ -11,6 +11,10 @@ for_lane 'ios beta' do
   app_identifier "org.wikimedia.wikipedia.tfbeta"
 end
 
+for_lane 'ios rc' do
+  app_identifier "org.wikimedia.wikipedia"
+end
+
 for_lane 'ios store' do
   app_identifier "org.wikimedia.wikipedia"
 end

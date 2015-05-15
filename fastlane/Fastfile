@@ -90,9 +90,29 @@ platform :ios do
     deliver beta: true
   end
 
-  desc "Upload AppStore build to iTC & HockeyApp, plus a resigned AdHoc build to Hockey."
-  lane :store do
+  desc "Upload AdHoc build to Hockey."
+  lane :rc do
     # create app store build
+    sigh(
+      adhoc: true,
+      force: true,
+      filename: 'build/adhoc.mobileprovision'
+    )
+    ipa(
+      configuration: "Wikipedia",
+      scheme: "Wikipedia",
+      embed: 'build/adhoc.mobileprovision'
+    )
+    hockey(
+      notes: git_commit_log,
+      notify: '0', # Do not notify
+      status: '2', # Make available for download
+      release_type: '0' # 'beta' release type
+    )
+  end
+
+  desc "Upload AppStore build to iTC & HockeyApp"
+  lane :store do
     sigh(
       adhoc: false,
       force: true,
@@ -111,22 +131,6 @@ platform :ios do
     )
     deliver(
       force: true
-    )
-    # resign and deliver adhoc to HA
-    sigh(
-      adhoc: true,
-      force: true,
-      filename: 'build/adhoc.mobileprovision'
-    )
-    resign(
-      signing_identity: 'iPhone Distribution: Wikimedia Foundation (AKK7J2GV64)',
-      provisioning_profile: 'build/adhoc.mobileprovision'
-    )
-    hockey(
-      notes: git_commit_log,
-      notify: '0', # Do not notify
-      status: '2', # Make available for download
-      release_type: '0' # 'beta' release type
     )
   end
 
