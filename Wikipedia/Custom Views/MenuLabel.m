@@ -8,15 +8,11 @@
 
 @interface MenuLabel ()
 
-@property (strong, nonatomic) NSString* text;
-
 @property (strong, nonatomic) MenuLabel* label;
 
 @property (nonatomic) CGFloat fontSize;
 
 @property (nonatomic) BOOL fontBold;
-
-@property (nonatomic) UIEdgeInsets padding;
 
 @end
 
