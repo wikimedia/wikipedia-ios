@@ -8,29 +8,35 @@
 
 #import "MediaWikiKit.h"
 
-@implementation MWKHistoryList {
-    NSMutableArray* entries;
-    NSMutableDictionary* entriesByTitle;
-}
+@interface MWKHistoryList ()
+
+@property (nonatomic, readwrite, assign) NSUInteger length;
+@property (nonatomic, readwrite, strong) MWKHistoryEntry* mostRecentEntry;
+@property (nonatomic, strong)  NSMutableArray* entries;
+@property (nonatomic, strong) NSMutableDictionary* entriesByTitle;
+
+@end
+
+@implementation MWKHistoryList
 
 - (NSUInteger)length {
-    return [entries count];
+    return [self.entries count];
 }
 
 - (MWKHistoryEntry*)mostRecentEntry {
-    return [entries firstObject];
+    return [self.entries firstObject];
 }
 
 - (MWKHistoryEntry*)entryAtIndex:(NSUInteger)index {
-    return entries[index];
+    return self.entries[index];
 }
 
 - (MWKHistoryEntry*)entryForTitle:(MWKTitle*)title {
-    return entriesByTitle[title];
+    return self.entriesByTitle[title];
 }
 
 - (NSUInteger)indexForEntry:(MWKHistoryEntry*)entry {
-    return [entries indexOfObject:entry];
+    return [self.entries indexOfObject:entry];
 }
 
 - (MWKHistoryEntry*)entryAfterEntry:(MWKHistoryEntry*)entry {
@@ -64,27 +70,27 @@
     MWKHistoryEntry* oldEntry = [self entryForTitle:entry.title];
     if (oldEntry) {
         // Replace the old entry and move to top
-        [entries removeObject:oldEntry];
+        [self.entries removeObject:oldEntry];
     }
-    [entries insertObject:entry atIndex:0];
-    entriesByTitle[entry.title] = entry;
-    _dirty                      = YES;
+    [self.entries insertObject:entry atIndex:0];
+    self.entriesByTitle[entry.title] = entry;
+    self.dirty                       = YES;
 }
 
 - (void)removeEntry:(MWKHistoryEntry*)entry {
     if (entry.title == nil) {
         return;
     }
-    [entries removeObject:entry];
-    [entriesByTitle removeObjectForKey:entry.title];
-    _dirty = YES;
+    [self.entries removeObject:entry];
+    [self.entriesByTitle removeObjectForKey:entry.title];
+    self.dirty = YES;
 }
 
 - (void)removeAllEntries;
 {
-    [entries removeAllObjects];
-    [entriesByTitle removeAllObjects];
-    _dirty = YES;
+    [self.entries removeAllObjects];
+    [self.entriesByTitle removeAllObjects];
+    self.dirty = YES;
 }
 
 #pragma mark - data i/o methods
@@ -92,8 +98,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        entries        = [[NSMutableArray alloc] init];
-        entriesByTitle = [[NSMutableDictionary alloc] init];
+        self.entries        = [[NSMutableArray alloc] init];
+        self.entriesByTitle = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -103,14 +109,14 @@
     if (self) {
         NSArray* arr = dict[@"entries"];
         if (arr) {
-            entries = [[NSMutableArray alloc] init];
+            self.entries = [[NSMutableArray alloc] init];
             for (NSDictionary* entryDict in arr) {
                 MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithDict:entryDict];
-                [entries addObject:entry];
-                entriesByTitle[entry.title] = entry;
+                [self.entries addObject:entry];
+                self.entriesByTitle[entry.title] = entry;
             }
         }
-        _dirty = NO;
+        self.dirty = NO;
     }
     return self;
 }
@@ -118,18 +124,18 @@
 - (id)dataExport {
     NSMutableArray* array = [[NSMutableArray alloc] init];
 
-    for (MWKHistoryEntry* entry in entries) {
+    for (MWKHistoryEntry* entry in self.entries) {
         [array addObject:[entry dataExport]];
     }
 
-    _dirty = NO;
+    self.dirty = NO;
     return @{@"entries": [NSArray arrayWithArray:array]};
 }
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState*)state
                                   objects:(__unsafe_unretained id [])stackbuf
                                     count:(NSUInteger)len {
-    return [entries countByEnumeratingWithState:state objects:stackbuf count:len];
+    return [self.entries countByEnumeratingWithState:state objects:stackbuf count:len];
 }
 
 @end

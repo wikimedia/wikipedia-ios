@@ -9,27 +9,34 @@
 
 @interface MWKImage ()
 
-@property (copy, readwrite) NSArray* focalRectsInUnitCoordinatesAsStrings;
+// Identifiers
+@property (readwrite, weak, nonatomic) MWKArticle* article;
+
+// Metadata, static
+@property (readwrite, copy, nonatomic) NSString* sourceURL;
+@property (readwrite, copy, nonatomic) NSString* extension;
+@property (readwrite, copy, nonatomic) NSString* fileName;
+@property (readwrite, copy, nonatomic) NSString* fileNameNoSizePrefix;
+
+@property (readwrite, assign, nonatomic) BOOL isCached;
+
+@property (readwrite, copy, nonatomic) NSArray* focalRectsInUnitCoordinatesAsStrings;
 
 @end
 
 @implementation MWKImage
-@synthesize fileNameNoSizePrefix = _fileNameNoSizePrefix;
+
+#pragma mark - Setup
 
 - (instancetype)initWithArticle:(MWKArticle*)article sourceURL:(NSString*)url {
     self = [super initWithSite:article.site];
     if (self) {
-        _article = article;
+        self.article = article;
 
         // fileNameNoSizePrefix is lazily derived from this property, so be careful if _sourceURL needs to be re-set
-        _sourceURL = [url copy];
+        self.sourceURL = url;
 
-        _dateLastAccessed                     = nil;
-        _dateRetrieved                        = nil;
-        _mimeType                             = nil;
-        _width                                = nil;
-        _height                               = nil;
-        _focalRectsInUnitCoordinatesAsStrings = @[];
+        self.focalRectsInUnitCoordinatesAsStrings = @[];
     }
     return self;
 }
@@ -38,12 +45,12 @@
     NSString* sourceURL = [self requiredString:@"sourceURL" dict:dict];
     self = [self initWithArticle:article sourceURL:sourceURL];
     if (self) {
-        _dateLastAccessed                     = [self optionalDate:@"dateLastAccessed" dict:dict];
-        _dateRetrieved                        = [self optionalDate:@"dateRetrieved" dict:dict];
-        _mimeType                             = [self optionalString:@"mimeType" dict:dict];
-        _width                                = [self optionalNumber:@"width" dict:dict];
-        _height                               = [self optionalNumber:@"height" dict:dict];
-        _focalRectsInUnitCoordinatesAsStrings = dict[@"focalRects"];
+        self.dateLastAccessed                     = [self optionalDate:@"dateLastAccessed" dict:dict];
+        self.dateRetrieved                        = [self optionalDate:@"dateRetrieved" dict:dict];
+        self.mimeType                             = [self optionalString:@"mimeType" dict:dict];
+        self.width                                = [self optionalNumber:@"width" dict:dict];
+        self.height                               = [self optionalNumber:@"height" dict:dict];
+        self.focalRectsInUnitCoordinatesAsStrings = dict[@"focalRects"];
     }
     return self;
 }
@@ -156,6 +163,8 @@
     return _fileNameNoSizePrefix;
 }
 
+#pragma mark - Import / Export
+
 - (id)dataExport {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     dict[@"sourceURL"] = self.sourceURL;
@@ -186,14 +195,14 @@
 }
 
 - (void)updateWithData:(NSData*)data {
-    _dateRetrieved    = [[NSDate alloc] init];
-    _dateLastAccessed = [[NSDate alloc] init];
-    _mimeType         = [self getImageMimeTypeForExtension:self.extension];
+    self.dateRetrieved    = [[NSDate alloc] init];
+    self.dateLastAccessed = [[NSDate alloc] init];
+    self.mimeType         = [self getImageMimeTypeForExtension:self.extension];
 
-    if (!_width || !_height) {
+    if (!self.width || !self.height) {
         UIImage* img = [UIImage imageWithData:data];
-        _width  = [NSNumber numberWithInt:img.size.width];
-        _height = [NSNumber numberWithInt:img.size.height];
+        self.width  = [NSNumber numberWithInt:img.size.width];
+        self.height = [NSNumber numberWithInt:img.size.height];
     }
 }
 
@@ -215,7 +224,7 @@
 }
 
 - (void)updateLastAccessed {
-    _dateLastAccessed = [[NSDate alloc] init];
+    self.dateLastAccessed = [[NSDate alloc] init];
 }
 
 - (void)save {

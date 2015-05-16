@@ -65,8 +65,8 @@
         self.zeroConfigState             = [[ZeroConfigState alloc] init];
         self.zeroConfigState.disposition = false;
 
-        _dataStore     = dataStore;
-        _userDataStore = dataStore.userDataStore;
+        self.dataStore     = dataStore;
+        self.userDataStore = [dataStore userDataStore];
 
         _currentArticleSite = [self lastKnownSite];
 

@@ -17,21 +17,21 @@
 
 @interface MWKSection : MWKSiteDataObject
 
-@property (readonly) MWKTitle* title;
-@property (readonly) MWKArticle* article;
+@property (readonly, strong, nonatomic) MWKTitle* title;
+@property (readonly, weak, nonatomic) MWKArticle* article;
 
-@property (readonly) NSNumber* toclevel;      // optional
-@property (readonly) NSNumber* level;         // optional; string in JSON, but seems to be number-safe?
-@property (readonly) NSString* line;          // optional; HTML
-@property (readonly) NSString* number;        // optional; can be "1.2.3"
-@property (readonly) NSString* index;         // optional; can be "T-3" for transcluded sections
-@property (readonly) MWKTitle* fromtitle; // optional
-@property (readonly) NSString* anchor;        // optional
-@property (readonly) int sectionId;           // required; -> id
-@property (readonly) BOOL references;         // optional; marked by presence of key with empty string in JSON
+@property (readonly, copy, nonatomic) NSNumber* toclevel;      // optional
+@property (readonly, copy, nonatomic) NSNumber* level;         // optional; string in JSON, but seems to be number-safe?
+@property (readonly, copy, nonatomic) NSString* line;          // optional; HTML
+@property (readonly, copy, nonatomic) NSString* number;        // optional; can be "1.2.3"
+@property (readonly, copy, nonatomic) NSString* index;         // optional; can be "T-3" for transcluded sections
+@property (readonly, strong, nonatomic) MWKTitle* fromtitle; // optional
+@property (readonly, copy, nonatomic) NSString* anchor;        // optional
+@property (readonly, assign, nonatomic) int sectionId;           // required; -> id
+@property (readonly, assign, nonatomic) BOOL references;         // optional; marked by presence of key with empty string in JSON
 
-@property (readonly) NSString* text;          // may be nil
-@property (readonly) MWKImageList* images;    // ?????
+@property (readonly, copy, nonatomic) NSString* text;          // may be nil
+@property (readonly, strong, nonatomic) MWKImageList* images;    // ?????
 
 - (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict;
 

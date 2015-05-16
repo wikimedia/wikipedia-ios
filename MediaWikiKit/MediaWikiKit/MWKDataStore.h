@@ -24,7 +24,7 @@ extern NSString* MWKCreateImageURLWithPath(NSString* path);
 
 @interface MWKDataStore : NSObject
 
-@property (readonly) NSString* basePath;
+@property (readonly, copy, nonatomic) NSString* basePath;
 
 - (instancetype)initWithBasePath:(NSString*)basePath;
 

@@ -24,62 +24,55 @@
  */
 + (NSString*)normalize:(NSString*)str;
 
-
 /**
  * The site this title belongs to
  */
-@property (readonly) MWKSite* site;
-
-/**
- * Normalized namespace (decoded, no underscores)
- * Warning: not implemented yet
- */
-@property (readonly) NSString* namespace;
+@property (readonly, strong, nonatomic) MWKSite* site;
 
 /**
  * Normalized title component only (decoded, no underscores)
  */
-@property (readonly) NSString* text;
+@property (readonly, copy, nonatomic) NSString* text;
 
 /**
  * Fragment (component after the '#')
  * Warning: fragment may be nil!
  */
-@property (readonly) NSString* fragment;
+@property (readonly, copy, nonatomic) NSString* fragment;
 
 
 /**
  * Full text-normalized namespace+title
  * Decoded, with spaces
  */
-@property (readonly) NSString* prefixedText;
+@property (readonly, copy, nonatomic) NSString* prefixedText;
 
 /**
  * Full DB-normalized namespace+title
  * Decoded, with underscores
  */
-@property (readonly) NSString* prefixedDBKey;
+@property (readonly, copy, nonatomic) NSString* prefixedDBKey;
 
 /**
  * Full URL-normalized namespace+title
  * Encoded, with underscores
  */
-@property (readonly) NSString* prefixedURL;
+@property (readonly, copy, nonatomic) NSString* prefixedURL;
 
 /**
  * URL-normalized fragment, including the # if applicable
  * Always returns a string, may be empty string.
  */
-@property (readonly) NSString* fragmentForURL;
+@property (readonly, copy, nonatomic) NSString* fragmentForURL;
 
 /**
  * Absolute URL to mobile view of this article
  */
-@property (readonly) NSURL* mobileURL;
+@property (readonly, copy, nonatomic) NSURL* mobileURL;
 
 /**
  * Absolute URL to desktop view of this article
  */
-@property (readonly) NSURL* desktopURL;
+@property (readonly, copy, nonatomic) NSURL* desktopURL;
 
 @end

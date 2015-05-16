@@ -13,8 +13,9 @@
 @class MWKImage;
 
 @interface MWKImageList : MWKSiteDataObject <NSFastEnumeration>
-@property (weak, readonly) MWKArticle* article;
-@property (weak, readonly) MWKSection* section;
+
+@property (weak, readonly, nonatomic) MWKArticle* article;
+@property (weak, readonly, nonatomic) MWKSection* section;
 
 - (instancetype)initWithArticle:(MWKArticle*)article section:(MWKSection*)section;
 - (instancetype)initWithArticle:(MWKArticle*)article section:(MWKSection*)section dict:(NSDictionary*)dict;

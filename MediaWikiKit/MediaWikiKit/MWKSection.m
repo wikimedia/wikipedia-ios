@@ -8,29 +8,45 @@
 
 #import "MediaWikiKit.h"
 
-@implementation MWKSection {
-    NSString* _text;
-    MWKImageList* _images;
-}
+@interface MWKSection ()
+
+@property (readwrite, strong, nonatomic) MWKTitle* title;
+@property (readwrite, weak, nonatomic) MWKArticle* article;
+
+@property (readwrite, copy, nonatomic) NSNumber* toclevel;      // optional
+@property (readwrite, copy, nonatomic) NSNumber* level;         // optional; string in JSON, but seems to be number-safe?
+@property (readwrite, copy, nonatomic) NSString* line;          // optional; HTML
+@property (readwrite, copy, nonatomic) NSString* number;        // optional; can be "1.2.3"
+@property (readwrite, copy, nonatomic) NSString* index;         // optional; can be "T-3" for transcluded sections
+@property (readwrite, strong, nonatomic) MWKTitle* fromtitle; // optional
+@property (readwrite, copy, nonatomic) NSString* anchor;        // optional
+@property (readwrite, assign, nonatomic) int sectionId;           // required; -> id
+@property (readwrite, assign, nonatomic) BOOL references;         // optional; marked by presence of key with empty string in JSON
+
+@property (readwrite, copy, nonatomic) NSString* text;          // may be nil
+@property (readwrite, strong, nonatomic) MWKImageList* images;    // ?????
+@end
+
+@implementation MWKSection
 
 - (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict {
     self = [self initWithSite:article.site];
     if (self) {
-        _article = article;
-        _title   = article.title;
+        self.article = article;
+        self.title   = article.title;
 
-        _toclevel   = [self optionalNumber:@"toclevel"   dict:dict];
-        _level      = [self optionalNumber:@"level"      dict:dict];  // may be a numeric string
-        _line       = [self optionalString:@"line"       dict:dict];
-        _number     = [self optionalString:@"number"     dict:dict];  // deceptively named, this must be a string
-        _index      = [self optionalString:@"index"      dict:dict];  // deceptively named, this must be a string
-        _fromtitle  = [self optionalTitle:@"fromtitle"  dict:dict];
-        _anchor     = [self optionalString:@"anchor"     dict:dict];
-        _sectionId  = [[self requiredNumber:@"id"         dict:dict] intValue];
-        _references = ([self optionalString:@"references" dict:dict] != nil);
+        self.toclevel   = [self optionalNumber:@"toclevel"   dict:dict];
+        self.level      = [self optionalNumber:@"level"      dict:dict];  // may be a numeric string
+        self.line       = [self optionalString:@"line"       dict:dict];
+        self.number     = [self optionalString:@"number"     dict:dict];  // deceptively named, this must be a string
+        self.index      = [self optionalString:@"index"      dict:dict];  // deceptively named, this must be a string
+        self.fromtitle  = [self optionalTitle:@"fromtitle"  dict:dict];
+        self.anchor     = [self optionalString:@"anchor"     dict:dict];
+        self.sectionId  = [[self requiredNumber:@"id"         dict:dict] intValue];
+        self.references = ([self optionalString:@"references" dict:dict] != nil);
 
         // Not present in .plist, loaded separately there
-        _text = [self optionalString:@"text"       dict:dict];
+        self.text = [self optionalString:@"text"       dict:dict];
     }
     return self;
 }

@@ -10,8 +10,8 @@
 
 @interface MWKSavedPageEntry : MWKSiteDataObject
 
-@property (readonly) MWKTitle* title;
-@property (readwrite) NSDate* date;
+@property (readonly, strong, nonatomic) MWKTitle* title;
+@property (readwrite, strong, nonatomic) NSDate* date;
 
 - (instancetype)initWithTitle:(MWKTitle*)title;
 - (instancetype)initWithDict:(NSDictionary*)dict;

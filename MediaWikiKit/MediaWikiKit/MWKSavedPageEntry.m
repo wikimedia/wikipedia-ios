@@ -8,13 +8,18 @@
 
 #import "MediaWikiKit.h"
 
+@interface MWKSavedPageEntry ()
+
+@property (readwrite, strong, nonatomic) MWKTitle* title;
+
+@end
 @implementation MWKSavedPageEntry
 
 - (instancetype)initWithTitle:(MWKTitle*)title {
     self = [self initWithSite:title.site];
     if (self) {
-        _title = title;
-        _date  = [[NSDate alloc] init];
+        self.title = title;
+        self.date  = [[NSDate alloc] init];
     }
     return self;
 }
@@ -26,7 +31,7 @@
 
     self = [self initWithSite:[MWKSite siteWithDomain:domain language:language]];
     if (self) {
-        _title = [self requiredTitle:@"title" dict:dict];
+        self.title = [self requiredTitle:@"title" dict:dict];
     }
     return self;
 }

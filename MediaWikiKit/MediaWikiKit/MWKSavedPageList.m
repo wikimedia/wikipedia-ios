@@ -8,21 +8,26 @@
 
 #import "MediaWikiKit.h"
 
-@implementation MWKSavedPageList {
-    NSMutableArray* entries;
-    NSMutableDictionary* entriesByTitle;
-}
+@interface MWKSavedPageList ()
+
+@property (nonatomic, strong) NSMutableArray* entries;
+@property (nonatomic, strong) NSMutableDictionary* entriesByTitle;
+@property (readwrite, nonatomic, assign) BOOL dirty;
+
+@end
+
+@implementation MWKSavedPageList
 
 - (NSUInteger)length {
-    return [entries count];
+    return [self.entries count];
 }
 
 - (MWKSavedPageEntry*)entryAtIndex:(NSUInteger)index {
-    return entries[index];
+    return self.entries[index];
 }
 
 - (MWKSavedPageEntry*)entryForTitle:(MWKTitle*)title {
-    MWKSavedPageEntry* entry = entriesByTitle[title];
+    MWKSavedPageEntry* entry = self.entriesByTitle[title];
     return entry;
 }
 
@@ -32,7 +37,7 @@
 }
 
 - (NSUInteger)indexForEntry:(MWKHistoryEntry*)entry {
-    return [entries indexOfObject:entry];
+    return [self.entries indexOfObject:entry];
 }
 
 #pragma mark - update methods
@@ -40,22 +45,22 @@
 - (void)addEntry:(MWKSavedPageEntry*)entry {
     if ([self entryForTitle:entry.title] == nil) {
         // there can be only one
-        [entries insertObject:entry atIndex:0];
-        entriesByTitle[entry.title] = entry;
-        _dirty                      = YES;
+        [self.entries insertObject:entry atIndex:0];
+        self.entriesByTitle[entry.title] = entry;
+        self.dirty                       = YES;
     }
 }
 
 - (void)removeEntry:(MWKSavedPageEntry*)entry {
-    [entries removeObject:entry];
-    [entriesByTitle removeObjectForKey:entry.title];
-    _dirty = YES;
+    [self.entries removeObject:entry];
+    [self.entriesByTitle removeObjectForKey:entry.title];
+    self.dirty = YES;
 }
 
 - (void)removeAllEntries {
-    [entries removeAllObjects];
-    [entriesByTitle removeAllObjects];
-    _dirty = YES;
+    [self.entries removeAllObjects];
+    [self.entriesByTitle removeAllObjects];
+    self.dirty = YES;
 }
 
 #pragma mark - data i/o methods
@@ -63,8 +68,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        entries        = [[NSMutableArray alloc] init];
-        entriesByTitle = [[NSMutableDictionary alloc] init];
+        self.entries        = [[NSMutableArray alloc] init];
+        self.entriesByTitle = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -75,10 +80,10 @@
         NSArray* array = dict[@"entries"];
         for (NSDictionary* entryDict in array) {
             MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithDict:entryDict];
-            [entries addObject:entry];
-            entriesByTitle[entry.title] = entry;
+            [self.entries addObject:entry];
+            self.entriesByTitle[entry.title] = entry;
         }
-        _dirty = NO;
+        self.dirty = NO;
     }
     return self;
 }
@@ -86,18 +91,18 @@
 - (id)dataExport {
     NSMutableArray* array = [[NSMutableArray alloc] init];
 
-    for (MWKSavedPageEntry* entry in entries) {
+    for (MWKSavedPageEntry* entry in self.entries) {
         [array addObject:[entry dataExport]];
     }
 
-    _dirty = NO;
+    self.dirty = NO;
     return @{@"entries": [NSArray arrayWithArray:array]};
 }
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState*)state
                                   objects:(__unsafe_unretained id [])stackbuf
                                     count:(NSUInteger)len {
-    return [entries countByEnumeratingWithState:state objects:stackbuf count:len];
+    return [self.entries countByEnumeratingWithState:state objects:stackbuf count:len];
 }
 
 @end

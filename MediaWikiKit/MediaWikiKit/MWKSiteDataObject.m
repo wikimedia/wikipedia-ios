@@ -8,12 +8,18 @@
 
 #import "MediaWikiKit.h"
 
+@interface MWKSiteDataObject ()
+
+@property (readwrite, strong, nonatomic) MWKSite* site;
+
+@end
+
 @implementation MWKSiteDataObject
 
 - (instancetype)initWithSite:(MWKSite*)site {
     self = [self init];
     if (self) {
-        _site = site;
+        self.site = site;
     }
     return self;
 }

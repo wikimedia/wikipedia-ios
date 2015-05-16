@@ -11,12 +11,18 @@ NSString* MWKCreateImageURLWithPath(NSString* path) {
 
 static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
+@interface MWKDataStore ()
+
+@property (readwrite, copy, nonatomic) NSString* basePath;
+
+@end
+
 @implementation MWKDataStore
 
 - (instancetype)initWithBasePath:(NSString*)basePath {
     self = [self init];
     if (self) {
-        _basePath = [basePath copy];
+        self.basePath = basePath;
     }
     return self;
 }

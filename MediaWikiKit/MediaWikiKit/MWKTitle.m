@@ -3,6 +3,21 @@
 
 #import "MediaWikiKit.h"
 
+@interface MWKTitle ()
+
+@property (readwrite, strong, nonatomic) MWKSite* site;
+@property (readwrite, copy, nonatomic) NSString* text;
+@property (readwrite, copy, nonatomic) NSString* fragment;
+@property (readwrite, copy, nonatomic) NSString* prefixedText;
+@property (readwrite, copy, nonatomic) NSString* prefixedDBKey;
+@property (readwrite, copy, nonatomic) NSString* prefixedURL;
+@property (readwrite, copy, nonatomic) NSString* fragmentForURL;
+@property (readwrite, copy, nonatomic) NSURL* mobileURL;
+@property (readwrite, copy, nonatomic) NSURL* desktopURL;
+
+
+@end
+
 @implementation MWKTitle
 
 #pragma mark - Class methods
@@ -21,13 +36,11 @@
 - (instancetype)initWithString:(NSString*)str site:(MWKSite*)site {
     self = [self init];
     if (self) {
-        _site = site;
+        self.site = site;
         NSArray* bits = [str componentsSeparatedByString:@"#"];
-        _text = [MWKTitle normalize:bits[0]];
+        self.text = [MWKTitle normalize:bits[0]];
         if (bits.count > 1) {
-            _fragment = bits[1];
-        } else {
-            _fragment = nil;
+            self.fragment = bits[1];
         }
     }
     return self;
@@ -37,6 +50,7 @@
 
 - (NSString*)namespace {
     // @todo implement namespace detection and normalization
+    // rename the property from a reserved language name
     // doing this right requires some site info
     return nil;
 }

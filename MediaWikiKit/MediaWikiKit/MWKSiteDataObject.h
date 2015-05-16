@@ -14,7 +14,7 @@
 
 @interface MWKSiteDataObject : MWKDataObject
 
-@property (readonly) MWKSite* site;
+@property (readonly, strong, nonatomic) MWKSite* site;
 
 - (instancetype)initWithSite:(MWKSite*)site;
 

@@ -4,18 +4,41 @@
 #import "MediaWikiKit.h"
 #import "WikipediaAppUtils.h"
 
+@interface MWKSite ()
+
+@property (readwrite, copy, nonatomic) NSString* domain;
+@property (readwrite, copy, nonatomic) NSString* language;
+
+@end
+
 @implementation MWKSite
+
+#pragma mark - Setup
+
++ (MWKSite*)siteWithDomain:(NSString*)domain language:(NSString*)language {
+    static NSMutableDictionary* cachedSites = nil;
+    if (cachedSites == nil) {
+        cachedSites = [[NSMutableDictionary alloc] init];
+    }
+    NSString* key = [NSString stringWithFormat:@"%@:%@", domain, language];
+    MWKSite* site = cachedSites[key];
+    if (site == nil) {
+        site             = [[MWKSite alloc] initWithDomain:domain language:language];
+        cachedSites[key] = site;
+    }
+    return site;
+}
 
 - (instancetype)initWithDomain:(NSString*)domain language:(NSString*)language {
     self = [super init];
     if (self) {
-        _domain   = [domain copy];
-        _language = [language copy];
+        self.domain   = domain;
+        self.language = language;
     }
     return self;
 }
 
-#pragma mark - Title methods
+#pragma mark - Title Helpers
 
 - (MWKTitle*)titleWithString:(NSString*)string {
     return [MWKTitle titleWithString:string site:self];
@@ -33,7 +56,7 @@ static NSString* localLinkPrefix = @"/wiki/";
     }
 }
 
-#pragma mark - NSObject methods
+#pragma mark - NSObject
 
 - (BOOL)isEqual:(id)object {
     if (object == nil) {
@@ -43,23 +66,6 @@ static NSString* localLinkPrefix = @"/wiki/";
     } else {
         return NO;
     }
-}
-
-#pragma mark - class methods
-
-/// !!!: make this thread safe and test for deadlocks
-+ (MWKSite*)siteWithDomain:(NSString*)domain language:(NSString*)language {
-    static NSMutableDictionary* cachedSites = nil;
-    if (cachedSites == nil) {
-        cachedSites = [[NSMutableDictionary alloc] init];
-    }
-    NSString* key = [NSString stringWithFormat:@"%@:%@", domain, language];
-    MWKSite* site = cachedSites[key];
-    if (site == nil) {
-        site             = [[MWKSite alloc] initWithDomain:domain language:language];
-        cachedSites[key] = site;
-    }
-    return site;
 }
 
 - (BOOL)isEqualToSite:(MWKSite*)other {

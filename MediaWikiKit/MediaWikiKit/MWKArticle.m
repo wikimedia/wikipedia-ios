@@ -9,15 +9,41 @@
 #import "MediaWikiKit.h"
 #import <BlocksKit/BlocksKit.h>
 
-@implementation MWKArticle {
-    MWKSectionList* _sections;
-}
+@interface MWKArticle ()
+
+// Identifiers
+@property (readwrite, strong, nonatomic) MWKTitle* title;
+@property (readwrite, weak, nonatomic) MWKDataStore* dataStore;
+
+// Metadata
+@property (readwrite, strong, nonatomic) MWKTitle* redirected;                // optional
+@property (readwrite, strong, nonatomic) NSDate* lastmodified;                // required
+@property (readwrite, strong, nonatomic) MWKUser* lastmodifiedby;             // required
+@property (readwrite, assign, nonatomic) int articleId;                       // required; -> 'id'
+@property (readwrite, assign, nonatomic) int languagecount;                   // required; int
+@property (readwrite, copy, nonatomic) NSString* displaytitle;              // optional
+@property (readwrite, strong, nonatomic) MWKProtectionStatus* protection;     // required
+@property (readwrite, assign, nonatomic) BOOL editable;                       // required
+
+@property (readwrite, copy, nonatomic) NSString* entityDescription;            // optional; currently pulled separately via wikidata
+
+@property (readwrite, strong, nonatomic) MWKSectionList* sections;
+
+@property (readwrite, strong, nonatomic) MWKImageList* images;
+@property (readwrite, strong, nonatomic) MWKImage* thumbnail;
+@property (readwrite, strong, nonatomic) MWKImage* image;
+
+@end
+
+@implementation MWKArticle
+
+#pragma mark - Setup / Tear Down
 
 - (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore {
     self = [self initWithSite:title.site];
     if (self) {
-        _dataStore = dataStore;
-        _title     = title;
+        self.dataStore = dataStore;
+        self.title     = title;
     }
     return self;
 }
@@ -29,6 +55,35 @@
     }
     return self;
 }
+
+#pragma mark - NSObject
+
+- (BOOL)isEqual:(id)object {
+    if (object == nil) {
+        return NO;
+    } else if (![object isKindOfClass:[MWKArticle class]]) {
+        return NO;
+    } else {
+        MWKArticle* other = object;
+        return [self.site isEqual:other.site] &&
+               (self.redirected == other.redirected || [self.redirected isEqual:other.redirected]) &&
+               [self.lastmodified isEqual:other.lastmodified] &&
+               [self.lastmodifiedby isEqual:other.lastmodifiedby] &&
+               self.articleId == other.articleId &&
+               self.languagecount == other.languagecount &&
+               [self.displaytitle isEqualToString:other.displaytitle] &&
+               [self.protection isEqual:other.protection] &&
+               self.editable == other.editable &&
+               (self.thumbnailURL == other.thumbnailURL || [self.thumbnailURL isEqualToString:other.thumbnailURL]) &&
+               (self.imageURL == other.imageURL || [self.imageURL isEqualToString:other.imageURL]);
+    }
+}
+
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@ %@", [super description], self.title.description];
+}
+
+#pragma mark - Import / Export
 
 - (id)dataExport {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
@@ -63,42 +118,17 @@
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 
-- (BOOL)isEqual:(id)object {
-    if (object == nil) {
-        return NO;
-    } else if (![object isKindOfClass:[MWKArticle class]]) {
-        return NO;
-    } else {
-        MWKArticle* other = object;
-        return [self.site isEqual:other.site] &&
-               (self.redirected == other.redirected || [self.redirected isEqual:other.redirected]) &&
-               [self.lastmodified isEqual:other.lastmodified] &&
-               [self.lastmodifiedby isEqual:other.lastmodifiedby] &&
-               self.articleId == other.articleId &&
-               self.languagecount == other.languagecount &&
-               [self.displaytitle isEqualToString:other.displaytitle] &&
-               [self.protection isEqual:other.protection] &&
-               self.editable == other.editable &&
-               (self.thumbnailURL == other.thumbnailURL || [self.thumbnailURL isEqualToString:other.thumbnailURL]) &&
-               (self.imageURL == other.imageURL || [self.imageURL isEqualToString:other.imageURL]);
-    }
-}
-
-- (NSString*)description {
-    return [NSString stringWithFormat:@"%@ %@", [super description], self.title.description];
-}
-
 - (void)importMobileViewJSON:(NSDictionary*)dict {
-    _lastmodified   = [self requiredDate:@"lastmodified" dict:dict];
-    _lastmodifiedby = [self requiredUser:@"lastmodifiedby" dict:dict];
-    _articleId      = [[self requiredNumber:@"id" dict:dict] intValue];
-    _languagecount  = [[self requiredNumber:@"languagecount" dict:dict] intValue];
-    _protection     = [self requiredProtectionStatus:@"protection" dict:dict];
-    _editable       = [[self requiredNumber:@"editable" dict:dict] boolValue];
+    self.lastmodified   = [self requiredDate:@"lastmodified" dict:dict];
+    self.lastmodifiedby = [self requiredUser:@"lastmodifiedby" dict:dict];
+    self.articleId      = [[self requiredNumber:@"id" dict:dict] intValue];
+    self.languagecount  = [[self requiredNumber:@"languagecount" dict:dict] intValue];
+    self.protection     = [self requiredProtectionStatus:@"protection" dict:dict];
+    self.editable       = [[self requiredNumber:@"editable" dict:dict] boolValue];
 
-    _redirected        = [self optionalTitle:@"redirected" dict:dict];
-    _displaytitle      = [self optionalString:@"displaytitle" dict:dict];
-    _entityDescription = [self optionalString:@"description" dict:dict];
+    self.redirected        = [self optionalTitle:@"redirected" dict:dict];
+    self.displaytitle      = [self optionalString:@"displaytitle" dict:dict];
+    self.entityDescription = [self optionalString:@"description" dict:dict];
 
     // From mobileview API...
     if (dict[@"thumb"]) {
@@ -117,9 +147,11 @@
     }];
 
     if ([sectionsData count] > 0) {
-        [self.sections setSections:sectionsData];
+        self.sections = [[MWKSectionList alloc] initWithArticle:self sections:sectionsData];
     }
 }
+
+#pragma mark - Image Helpers
 
 - (void)updateImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId {
     if (sourceURL && sourceURL.length > 0) {
@@ -166,6 +198,8 @@
     }
 }
 
+#pragma mark - Save
+
 - (void)save {
     [self.dataStore saveArticle:self];
     [self.images save];
@@ -182,13 +216,16 @@
     }
 }
 
+#pragma mark - Remove
+
 - (void)remove {
     NSString* path = [self.dataStore pathForArticle:self];
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-
-    _sections = nil;
-    _images   = nil;
+    self.sections = nil;
+    self.images   = nil;
 }
+
+#pragma mark - Accessors
 
 - (MWKSectionList*)sections {
     if (_sections == nil) {
@@ -201,25 +238,11 @@
     return [self.sections count] > 0 ? YES : NO;
 }
 
-#pragma mark - protection status methods
-
-- (MWKProtectionStatus*)requiredProtectionStatus:(NSString*)key dict:(NSDictionary*)dict {
-    NSDictionary* obj = [self requiredDictionary:key dict:dict];
-    if (obj == nil) {
-        @throw [NSException exceptionWithName:@"MWKDataObjectException"
-                                       reason:@"missing required protection status field"
-                                     userInfo:@{@"key": key}];
-    } else {
-        return [[MWKProtectionStatus alloc] initWithData:obj];
-    }
-}
-
 - (MWKImage*)thumbnail {
-    if (self.thumbnailURL) {
-        return [self imageWithURL:self.thumbnailURL];
-    } else {
-        return nil;
+    if (self.thumbnailURL && !_thumbnail) {
+        _thumbnail = [self imageWithURL:self.thumbnailURL];
     }
+    return _thumbnail;
 }
 
 - (void)setThumbnailURL:(NSString*)thumbnailURL {
@@ -233,11 +256,10 @@
 }
 
 - (MWKImage*)image {
-    if (self.imageURL) {
-        return [self imageWithURL:self.imageURL];
-    } else {
-        return nil;
+    if (self.imageURL && !_image) {
+        _image = [self imageWithURL:self.imageURL];
     }
+    return _image;
 }
 
 - (MWKImageList*)images {
@@ -245,6 +267,19 @@
         _images = [self.dataStore imageListWithArticle:self section:nil];
     }
     return _images;
+}
+
+#pragma mark - protection status methods
+
+- (MWKProtectionStatus*)requiredProtectionStatus:(NSString*)key dict:(NSDictionary*)dict {
+    NSDictionary* obj = [self requiredDictionary:key dict:dict];
+    if (obj == nil) {
+        @throw [NSException exceptionWithName:@"MWKDataObjectException"
+                                       reason:@"missing required protection status field"
+                                     userInfo:@{@"key": key}];
+    } else {
+        return [[MWKProtectionStatus alloc] initWithData:obj];
+    }
 }
 
 @end

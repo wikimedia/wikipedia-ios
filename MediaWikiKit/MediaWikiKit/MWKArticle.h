@@ -26,30 +26,29 @@ static const NSInteger kMWKArticleSectionNone = -1;
 }
 
 // Identifiers
-@property (readonly) MWKSite* site;
-@property (readonly) MWKTitle* title;
-@property (readonly) MWKDataStore* dataStore;
+@property (readonly, strong, nonatomic) MWKTitle* title;
+@property (readonly, weak, nonatomic) MWKDataStore* dataStore;
 
 // Metadata
-@property (readonly) MWKTitle* redirected;                // optional
-@property (readonly) NSDate* lastmodified;                // required
-@property (readonly) MWKUser* lastmodifiedby;             // required
-@property (readonly) int articleId;                       // required; -> 'id'
-@property (readonly) int languagecount;                   // required; int
-@property (readonly) NSString* displaytitle;              // optional
-@property (readonly) MWKProtectionStatus* protection;     // required
-@property (readonly) BOOL editable;                       // required
+@property (readonly, strong, nonatomic) MWKTitle* redirected;                // optional
+@property (readonly, strong, nonatomic) NSDate* lastmodified;                // required
+@property (readonly, strong, nonatomic) MWKUser* lastmodifiedby;             // required
+@property (readonly, assign, nonatomic) int articleId;                       // required; -> 'id'
+@property (readonly, assign, nonatomic) int languagecount;                   // required; int
+@property (readonly, copy, nonatomic) NSString* displaytitle;              // optional
+@property (readonly, strong, nonatomic) MWKProtectionStatus* protection;     // required
+@property (readonly, assign, nonatomic) BOOL editable;                       // required
 
-@property (readwrite, nonatomic) NSString* thumbnailURL;   // optional; pulled separately via search
-@property (readwrite, nonatomic) NSString* imageURL;       // optional; pulled in article request
+@property (readwrite, copy, nonatomic) NSString* thumbnailURL;   // optional; pulled separately via search
+@property (readwrite, copy, nonatomic) NSString* imageURL;       // optional; pulled in article request
 
-@property (readonly) NSString* entityDescription;            // optional; currently pulled separately via wikidata
+@property (readonly, copy, nonatomic) NSString* entityDescription;            // optional; currently pulled separately via wikidata
 
-@property (readonly) MWKSectionList* sections;
+@property (readonly, strong, nonatomic) MWKSectionList* sections;
 
-@property (readonly) MWKImageList* images;
-@property (readonly) MWKImage* thumbnail;
-@property (readonly) MWKImage* image;
+@property (readonly, strong, nonatomic) MWKImageList* images;
+@property (readonly, strong, nonatomic) MWKImage* thumbnail;
+@property (readonly, strong, nonatomic) MWKImage* image;
 
 - (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore;
 - (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore dict:(NSDictionary*)dict;

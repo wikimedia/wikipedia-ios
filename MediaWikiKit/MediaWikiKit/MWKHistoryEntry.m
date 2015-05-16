@@ -9,15 +9,21 @@
 #import "MediaWikiKit.h"
 #import "WikipediaAppUtils.h"
 
+@interface MWKHistoryEntry ()
+
+@property (readwrite, strong, nonatomic) MWKTitle* title;
+
+@end
+
 @implementation MWKHistoryEntry
 
 - (instancetype)initWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     self = [self initWithSite:title.site];
     if (self) {
-        _title           = title;
-        _date            = [[NSDate alloc] init];
-        _discoveryMethod = discoveryMethod;
-        _scrollPosition  = 0;
+        self.title           = title;
+        self.date            = [[NSDate alloc] init];
+        self.discoveryMethod = discoveryMethod;
+        self.scrollPosition  = 0;
     }
     return self;
 }
@@ -29,7 +35,7 @@
 
     self = [self initWithSite:[MWKSite siteWithDomain:domain language:language]];
     if (self) {
-        _title               = [self requiredTitle:@"title" dict:dict];
+        self.title           = [self requiredTitle:@"title" dict:dict];
         self.date            = [self requiredDate:@"date" dict:dict];
         self.discoveryMethod = [MWKHistoryEntry discoveryMethodForString:[self requiredString:@"discoveryMethod" dict:dict]];
         self.scrollPosition  = [[self requiredNumber:@"scrollPosition" dict:dict] intValue];

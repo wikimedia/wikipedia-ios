@@ -19,8 +19,25 @@ NSString* const MWKImageInfoLicenseKey            = @"license";
 NSString* const MWKImageInfoImageSize             = @"imageSize";
 NSString* const MWKImageInfoThumbSize             = @"thumbSize";
 
+
+@interface MWKImageInfo ()
+
+@property (nonatomic, readwrite, copy) NSString* canonicalPageTitle;
+@property (nonatomic, readwrite, copy) NSURL* canonicalFileURL;
+@property (nonatomic, readwrite, copy) NSString* imageDescription;
+@property (nonatomic, readwrite, strong) MWKLicense* license;
+@property (nonatomic, readwrite, copy) NSURL* filePageURL;
+@property (nonatomic, readwrite, copy) NSURL* imageURL;
+@property (nonatomic, readwrite, copy) NSURL* imageThumbURL;
+@property (nonatomic, readwrite, assign) CGSize imageSize;
+@property (nonatomic, readwrite, assign) CGSize thumbSize;
+@property (nonatomic, readwrite, copy) NSString* owner;
+@property (nonatomic, readwrite, strong) id imageAssociationValue;
+
+@end
+
+
 @implementation MWKImageInfo
-@synthesize imageAssociationValue = _imageAssociationValue;
 
 - (instancetype)initWithCanonicalPageTitle:(NSString*)canonicalPageTitle
                           canonicalFileURL:(NSURL*)canonicalFileURL
@@ -38,16 +55,16 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
     //NSParameterAssert([imageURL.absoluteString length]);
     self = [super init];
     if (self) {
-        _canonicalPageTitle = [canonicalPageTitle copy];
-        _imageDescription   = [imageDescription copy];
-        _owner              = [owner copy];
-        _license            = license;
-        _canonicalFileURL   = canonicalFileURL;
-        _filePageURL        = filePageURL;
-        _imageURL           = imageURL;
-        _imageThumbURL      = imageThumbURL;
-        _imageSize          = imageSize;
-        _thumbSize          = thumbSize;
+        self.canonicalPageTitle = canonicalPageTitle;
+        self.imageDescription   = imageDescription;
+        self.owner              = owner;
+        self.license            = license;
+        self.canonicalFileURL   = canonicalFileURL;
+        self.filePageURL        = filePageURL;
+        self.imageURL           = imageURL;
+        self.imageThumbURL      = imageThumbURL;
+        self.imageSize          = imageSize;
+        self.thumbSize          = thumbSize;
     }
     return self;
 }

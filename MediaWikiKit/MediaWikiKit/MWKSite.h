@@ -11,8 +11,8 @@
 
 @interface MWKSite : NSObject
 
-@property (readonly) NSString* domain;
-@property (readonly) NSString* language;
+@property (readonly, copy, nonatomic) NSString* domain;
+@property (readonly, copy, nonatomic) NSString* language;
 
 - (instancetype)initWithDomain:(NSString*)domain language:(NSString*)language;
 

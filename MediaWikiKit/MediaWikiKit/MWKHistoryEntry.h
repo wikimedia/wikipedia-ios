@@ -22,10 +22,10 @@ typedef NS_ENUM (NSUInteger, MWKHistoryDiscoveryMethod){
 
 @interface MWKHistoryEntry : MWKSiteDataObject
 
-@property (readonly) MWKTitle* title;
-@property (readwrite) NSDate* date;
-@property (readwrite) MWKHistoryDiscoveryMethod discoveryMethod;
-@property (readwrite) int scrollPosition;
+@property (readonly, strong, nonatomic) MWKTitle* title;
+@property (readwrite, strong, nonatomic) NSDate* date;
+@property (readwrite, assign, nonatomic) MWKHistoryDiscoveryMethod discoveryMethod;
+@property (readwrite, assign, nonatomic) int scrollPosition;
 
 - (instancetype)initWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 - (instancetype)initWithDict:(NSDictionary*)dict;

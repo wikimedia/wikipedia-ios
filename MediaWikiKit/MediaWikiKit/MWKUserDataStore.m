@@ -8,18 +8,25 @@
 
 #import "MediaWikiKit.h"
 
-@implementation MWKUserDataStore {
-    MWKHistoryList* _historyList;
-    MWKSavedPageList* _savedPageList;
-    MWKRecentSearchList* _recentSearchList;
-}
+@interface MWKUserDataStore ()
+
+@property (readwrite, weak, nonatomic) MWKDataStore* dataStore;
+@property (readwrite, strong, nonatomic) MWKHistoryList* historyList;
+@property (readwrite, strong, nonatomic) MWKSavedPageList* savedPageList;
+@property (readwrite, strong, nonatomic) MWKRecentSearchList* recentSearchList;
+
+@end
+
+@implementation MWKUserDataStore
 
 - (BOOL)save:(NSError**)error {
     BOOL success = YES;
 
     if (_historyList && _historyList.dirty) {
-        success = [self.dataStore saveHistoryList:_historyList error:error];
-        NSAssert(success, @"Error saving history: %@", [*error localizedDescription]);
+        if (![self.dataStore saveHistoryList:_historyList error:error]) {
+            NSAssert(NO, @"Error saving history: %@", [*error localizedDescription]);
+        }
+        ;
     }
     if (_savedPageList && _savedPageList.dirty) {
         [self.dataStore saveSavedPageList:_savedPageList];
@@ -37,20 +44,15 @@
 
 /// Clear out any currently loaded data and force it to be reloaded on next use
 - (void)reset {
-    _historyList      = nil;
-    _savedPageList    = nil;
-    _recentSearchList = nil;
+    self.historyList      = nil;
+    self.savedPageList    = nil;
+    self.recentSearchList = nil;
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
     self = [self init];
     if (self) {
-        _dataStore = dataStore;
-
-        // Load these on demand
-        _historyList      = nil;
-        _savedPageList    = nil;
-        _recentSearchList = nil;
+        self.dataStore = dataStore;
     }
     return self;
 }

@@ -13,6 +13,14 @@ static NSString* const MWKLicenseCodeKey      = @"code";
 static NSString* const MWKLicenseShortDescKey = @"shortDescription";
 static NSString* const MWKLicenseURLKey       = @"URL";
 
+@interface MWKLicense ()
+
+@property (nonatomic, readwrite, copy) NSString* code;
+@property (nonatomic, readwrite, copy) NSString* shortDescription;
+@property (nonatomic, readwrite, copy) NSURL* URL;
+
+@end
+
 @implementation MWKLicense
 
 - (instancetype)initWithCode:(NSString*)code
@@ -20,9 +28,9 @@ static NSString* const MWKLicenseURLKey       = @"URL";
                          URL:(NSURL*)URL {
     self = [super init];
     if (self) {
-        _code             = [code copy];
-        _shortDescription = [shortDescription copy];
-        _URL              = URL;
+        self.code             = code;
+        self.shortDescription = shortDescription;
+        self.URL              = URL;
     }
     return self;
 }

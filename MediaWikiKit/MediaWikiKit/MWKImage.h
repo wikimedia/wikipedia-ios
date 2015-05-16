@@ -9,27 +9,26 @@
 @interface MWKImage : MWKSiteDataObject
 
 // Identifiers
-@property (readonly) MWKSite* site;
-@property (readonly) MWKArticle* article;
+@property (readonly, weak, nonatomic) MWKArticle* article;
 
 // Metadata, static
-@property (readonly) NSString* sourceURL;
-@property (readonly) NSString* extension;
-@property (readonly) NSString* fileName;
-@property (readonly) NSString* fileNameNoSizePrefix;
+@property (readonly, copy, nonatomic) NSString* sourceURL;
+@property (readonly, copy, nonatomic) NSString* extension;
+@property (readonly, copy, nonatomic) NSString* fileName;
+@property (readonly, copy, nonatomic) NSString* fileNameNoSizePrefix;
 
 // Metadata, variable
-@property (copy) NSDate* dateLastAccessed;
-@property (copy) NSDate* dateRetrieved;
-@property (copy) NSString* mimeType;
+@property (copy, nonatomic) NSDate* dateLastAccessed;
+@property (copy, nonatomic) NSDate* dateRetrieved;
+@property (copy, nonatomic) NSString* mimeType;
 
-@property (copy) NSNumber* width;
-@property (copy) NSNumber* height;
+@property (copy, nonatomic) NSNumber* width;
+@property (copy, nonatomic) NSNumber* height;
 - (CGSize)size;
 
 
 // Local storage status
-@property (readonly) BOOL isCached;
+@property (readonly, assign, nonatomic) BOOL isCached;
 
 - (instancetype)initWithArticle:(MWKArticle*)article sourceURL:(NSString*)url;
 - (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict;
@@ -45,7 +44,7 @@
  *  All focal rects as strings. Calculated via "calculateFocalRectsBasedOnFaceDetectionWithImageData"
  * Normally you do not need to access this directly, instead use the methods
  */
-@property (copy, readonly) NSArray* focalRectsInUnitCoordinatesAsStrings;
+@property (readonly, copy, nonatomic) NSArray* focalRectsInUnitCoordinatesAsStrings;
 
 /**
  *  Returns the primary focal rect

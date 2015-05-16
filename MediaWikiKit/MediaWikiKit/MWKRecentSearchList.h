@@ -12,8 +12,8 @@
 
 @interface MWKRecentSearchList : MWKDataObject
 
-@property (readonly) NSUInteger length;
-@property (readonly) BOOL dirty;
+@property (readonly, nonatomic, assign) NSUInteger length;
+@property (readonly, nonatomic, assign) BOOL dirty;
 
 - (MWKRecentSearchEntry*)entryAtIndex:(NSUInteger)index;
 - (void)addEntry:(MWKRecentSearchEntry*)entry;

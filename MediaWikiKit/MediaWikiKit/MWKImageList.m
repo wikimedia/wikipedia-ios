@@ -9,20 +9,28 @@
 #import "MediaWikiKit.h"
 #import "NSString+Extras.h"
 
-@implementation MWKImageList {
-    NSMutableArray* entries;
-    NSMutableDictionary* entriesByURL;
-    NSMutableDictionary* entriesByNameWithoutSize;
-    unsigned long mutationState;
-}
+@interface MWKImageList ()
+
+@property (weak, readwrite, nonatomic) MWKArticle* article;
+@property (weak, readwrite, nonatomic) MWKSection* section;
+
+@property (strong, nonatomic) NSMutableArray* entries;
+@property (strong, nonatomic) NSMutableDictionary* entriesByURL;
+@property (strong, nonatomic) NSMutableDictionary* entriesByNameWithoutSize;
+
+@property (assign, nonatomic) unsigned long mutationState;
+
+@end
+
+@implementation MWKImageList
 
 - (instancetype)initWithSite:(MWKSite*)site {
     self = [super initWithSite:site];
     if (self) {
-        entries                  = [[NSMutableArray alloc] init];
-        mutationState            = 0;
-        entriesByURL             = [[NSMutableDictionary alloc] init];
-        entriesByNameWithoutSize = [[NSMutableDictionary alloc] init];
+        self.entries                  = [[NSMutableArray alloc] init];
+        self.mutationState            = 0;
+        self.entriesByURL             = [[NSMutableDictionary alloc] init];
+        self.entriesByNameWithoutSize = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -30,8 +38,8 @@
 - (instancetype)initWithArticle:(MWKArticle*)article section:(MWKSection*)section {
     self = [self initWithSite:section.site];
     if (self) {
-        _article = article;
-        _section = section;
+        self.article = article;
+        self.section = section;
     }
     return self;
 }
@@ -49,26 +57,26 @@
 - (void)addImageURL:(NSString*)imageURL {
     imageURL = [imageURL wmf_schemelessURL];
 
-    [entries addObject:imageURL];
-    entriesByURL[imageURL] = imageURL;
+    [self.entries addObject:imageURL];
+    self.entriesByURL[imageURL] = imageURL;
 
     NSString* key          = [MWKImage fileNameNoSizePrefix:imageURL];
-    NSMutableArray* byname = entriesByNameWithoutSize[key];
+    NSMutableArray* byname = self.entriesByNameWithoutSize[key];
     if (byname == nil) {
-        byname                        = [[NSMutableArray alloc] init];
-        entriesByNameWithoutSize[key] = byname;
+        byname                             = [[NSMutableArray alloc] init];
+        self.entriesByNameWithoutSize[key] = byname;
     }
     [byname addObject:imageURL];
-    mutationState++;
+    self.mutationState++;
 }
 
 - (NSUInteger)count {
-    return [entries count];
+    return [self.entries count];
 }
 
 - (NSString*)imageURLAtIndex:(NSUInteger)index {
-    if (index < [entries count]) {
-        return entries[index];
+    if (index < [self.entries count]) {
+        return self.entries[index];
     } else {
         return nil;
     }
@@ -92,7 +100,7 @@
         return nil;
     }
     NSString* baseName  = [MWKImage fileNameNoSizePrefix:imageURL];
-    NSMutableArray* arr = entriesByNameWithoutSize[baseName];
+    NSMutableArray* arr = self.entriesByNameWithoutSize[baseName];
 
     if (arr) {
         NSMutableArray* arr2 = [NSMutableArray arrayWithArray:arr];
@@ -156,19 +164,19 @@
 }
 
 - (NSUInteger)indexOfImage:(MWKImage*)image {
-    return [entries indexOfObject:image.sourceURL];
+    return [self.entries indexOfObject:image.sourceURL];
 }
 
 - (BOOL)containsImage:(MWKImage*)image {
-    return [entries containsObject:image.sourceURL];
+    return [self.entries containsObject:image.sourceURL];
 }
 
 - (NSArray*)uniqueLargestVariants {
-    if (!entries || entries.count == 0) {
+    if (!self.entries || self.entries.count == 0) {
         return nil;
     }
-    NSMutableOrderedSet* resultBuilder = [[NSMutableOrderedSet alloc] initWithCapacity:entries.count];
-    for (NSString* sourceURL in entries) {
+    NSMutableOrderedSet* resultBuilder = [[NSMutableOrderedSet alloc] initWithCapacity:self.entries.count];
+    for (NSString* sourceURL in self.entries) {
         MWKImage* image = [self largestImageVariantForURL:sourceURL cachedOnly:NO];
         NSAssert(image, @"Couldn't retrieve image record for image list entry: %@", sourceURL);
         [resultBuilder addObject:image];
@@ -177,7 +185,7 @@
 }
 
 - (BOOL)addImageURLIfAbsent:(NSString*)imageURL {
-    if (imageURL && imageURL.length > 0 && ![entries containsObject:imageURL]) {
+    if (imageURL && imageURL.length > 0 && ![self.entries containsObject:imageURL]) {
         [self addImageURL:imageURL];
         return YES;
     } else {
@@ -188,7 +196,7 @@
 #pragma mark - data i/o
 
 - (id)dataExport {
-    return @{@"entries": entries};
+    return @{@"entries": self.entries};
 }
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState*)state
@@ -204,7 +212,7 @@
     state->state += count;
 
     state->itemsPtr     = stackbuf;
-    state->mutationsPtr = &mutationState;
+    state->mutationsPtr = &_mutationState;
 
     return count;
 }

@@ -14,9 +14,9 @@
 
 @interface SchemaConverter : NSObject <OldDataSchemaDelegate>
 
-@property OldDataSchemaMigrator* schema;
-@property MWKDataStore* dataStore;
-@property MWKUserDataStore* userDataStore;
+@property (nonatomic, strong) OldDataSchemaMigrator* schema;
+@property (nonatomic, strong) MWKDataStore* dataStore;
+@property (nonatomic, strong) MWKUserDataStore* userDataStore;
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 

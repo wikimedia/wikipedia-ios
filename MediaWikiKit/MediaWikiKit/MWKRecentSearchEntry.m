@@ -8,12 +8,18 @@
 
 #import "MediaWikiKit.h"
 
+@interface MWKRecentSearchEntry ()
+
+@property (readwrite, copy, nonatomic) NSString* searchTerm;
+
+@end
+
 @implementation MWKRecentSearchEntry
 
 - (instancetype)initWithSite:(MWKSite*)site searchTerm:(NSString*)searchTerm {
     self = [self initWithSite:site];
     if (self) {
-        _searchTerm = searchTerm;
+        self.searchTerm = searchTerm;
     }
     return self;
 }

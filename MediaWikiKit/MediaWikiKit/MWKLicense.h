@@ -11,10 +11,8 @@
 @interface MWKLicense : MWKDataObject
 
 @property (nonatomic, readonly, copy) NSString* code;
-
 @property (nonatomic, readonly, copy) NSString* shortDescription;
-
-@property (nonatomic, readonly) NSURL* URL;
+@property (nonatomic, readonly, copy) NSURL* URL;
 
 + (instancetype)licenseWithExportedData:(NSDictionary*)exportedData;
 

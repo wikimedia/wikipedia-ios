@@ -8,25 +8,29 @@
 
 #import "MediaWikiKit.h"
 
-@implementation MWKProtectionStatus {
-    NSDictionary* _protection;
-}
+@interface MWKProtectionStatus ()
+
+@property (nonatomic, strong) NSDictionary* protection;
+
+@end
+
+@implementation MWKProtectionStatus
 
 - (instancetype)initWithData:(id)data {
     self = [self init];
     if (self) {
         NSDictionary* wrapper = @{@"protection": data};
-        _protection = [self requiredDictionary:@"protection" dict:wrapper];
+        self.protection = [self requiredDictionary:@"protection" dict:wrapper];
     }
     return self;
 }
 
 - (NSArray*)protectedActions {
-    return [_protection allKeys];
+    return [self.protection allKeys];
 }
 
 - (NSArray*)allowedGroupsForAction:(NSString*)action {
-    return _protection[action];
+    return self.protection[action];
 }
 
 - (BOOL)isEqual:(id)object {
@@ -52,7 +56,7 @@
 }
 
 - (id)dataExport {
-    return _protection;
+    return self.protection;
 }
 
 - (id)copyWithZone:(NSZone*)zone {
