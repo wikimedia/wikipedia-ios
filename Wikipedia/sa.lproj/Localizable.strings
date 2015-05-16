@@ -250,6 +250,7 @@
 "migration-update-progress-label" = "स्थानीयसूचना स्थानान्तरिता भवति";
 "migration-update-progress-count-label" = "$2 इत्येतेषु $1 लेखः स्थानान्तरति";
 "migration-prompt-title" = "अस्य इतिहासः वर्तते इति भाति !";
+// Fuzzy
 "migration-prompt-message" = "भवतः/भवत्याः वर्तमानपृष्ठानां, रक्षितपृष्ठानां च स्थानान्तरं कुर्मः । तस्यै प्रक्रियायै समयः अपेक्ष्यते...";
 "migration-confirm-button-title" = "मम सामग्र्याः स्थानान्तरं करोतु";
 "migration-skip-button-title" = "एतत् अपाकरोतु";

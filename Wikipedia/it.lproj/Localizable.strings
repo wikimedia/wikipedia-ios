@@ -3,6 +3,7 @@
 // Author: Bertaz
 // Author: Beta16
 // Author: Brion
+// Author: Devid Farinelli
 // Author: Giacomo Checchin
 // Author: Gianfranco
 // Author: Giuseppe Forte
@@ -22,6 +23,7 @@
 "article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
 "info-box-title" = "Fatti in breve";
 "info-box-close-text" = "Chiudi";
+"table-title-other" = "Ulteriori informazioni";
 "language-button-text" = "Puoi leggere questa voce in %d altre lingue";
 "history-label" = "Recenti";
 "history-section-today" = "Oggi";
@@ -135,15 +137,12 @@
 "saved-pages-clear-confirmation-heading" = "Cancellare tutti gli elementi salvati?";
 "saved-pages-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
 "saved-pages-clear-cancel" = "Annulla";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Cancella tutto";
 "saved-pages-refresh-cancel-alert-title" = "Aggiornamento annullato";
 "saved-pages-refresh-cancel-alert-message" = "Le voci di Wikipedia sono aggiornate continuamente. Tocca aggiorna per ottenere le versioni più recenti di tutte le voci.";
 "saved-pages-refresh-cancel-alert-button" = "OK!";
-// Fuzzy
-"page-history-title" = "Cronologia della pagina";
-// Fuzzy
-"page-history-downloading" = "Caricamento della cronologia di pagina...";
+"page-history-title" = "Cronologia dell'articolo";
+"page-history-downloading" = "Caricamento della cronologia dell'articolo...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
 "navbar-title-mode-login" = "Accedi";
 "navbar-title-mode-login-and-save" = "Accedi e salva";
@@ -155,8 +154,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Verifica rapida necessaria";
 "navbar-title-mode-edit-wikitext-summary" = "Descrivi la tua modifica";
 "navbar-title-mode-edit-wikitext-save" = "Salva";
-// Fuzzy
-"edit-summary-choice-linked-words" = "Parole collegate";
+"edit-summary-choice-linked-words" = "Aggiunti collegamenti";
 "edit-summary-choice-fixed-grammar" = "Corretta grammatica";
 "edit-summary-choice-fixed-inaccuracy" = "Corretta inesattezza";
 "edit-summary-choice-fixed-styling" = "Corretto stile";
@@ -166,8 +164,7 @@
 "edit-summary-choice-added-clarification" = "Aggiunto chiarimento";
 "edit-summary-choice-other" = "Altro";
 "edit-summary-description" = "Un oggetto compilato in modo chiaro aiuta gli altri utenti a controllare le tue modifiche. Puoi anche sceglierne uno preimpostato dalla lista qui in basso";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "Quali miglioramenti hai apportato?";
+"edit-summary-field-placeholder-text" = "Altri modi in cui hai migliorato l'articolo";
 "edit-summary-title" = "Come hai migliorato la voce?";
 "fetching-random-article" = "Recupera voce a caso";
 "article-pull-to-refresh-prompt" = "Tira per aggiornare la voce";
@@ -264,11 +261,10 @@
 "nearby-location-updates-settings-menu" = "Privacy > Localizzazione > Wikipedia";
 "nearby-location-general-error" = "Impossibile determinare la posizione. Tira su per ricaricare o riprova più tardi.";
 "nearby-wifi" = "Abilitando il WiFi, aiuti il dispositivo a determinar meglio la tua posizione.";
-// Fuzzy
-"migration-update-progress-label" = "Aggiornamento di dati locali";
-// Fuzzy
-"migration-update-progress-count-label" = "Migrazione della voce $1 di $2";
+"migration-update-progress-label" = "Trasferendo i dati locali";
+"migration-update-progress-count-label" = "Trasferimento dell'articolo $1 di $2";
 "image-gallery-unknown-owner" = "Uploader sconosciuto.";
+"image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminare il crash?";
 "hockeyapp-alert-question-with-response-field" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminare il crash? Per favore descrivi ciò che è successo quando si è verificato il crash:";
 "hockeyapp-alert-title" = "Siamo spiacenti, l'ultima volta l'app è andata in stallo";

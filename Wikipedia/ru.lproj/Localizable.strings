@@ -258,7 +258,10 @@
 "nearby-wifi" = "Включение Wi-Fi может помочь устройству лучше определить ваше местоположение.";
 "migration-update-progress-label" = "Перенос локальных данных";
 "migration-update-progress-count-label" = "Перенос статьи $1 из $2";
+"migration-prompt-title" = "Похоже, у нас есть история!";
+// Fuzzy
 "migration-prompt-message" = "Мы должны перенести ваши сохранённые и последние просмотренные страницы. Это может занять пару минут…";
+"migration-confirm-button-title" = "Перенести мои данные";
 "migration-skip-button-title" = "Удалить их";
 "image-gallery-unknown-owner" = "Загрузивший файл неизвестен.";
 "image-gallery-fetch-image-info-error-title" = "Не удаётся скачать изображения";

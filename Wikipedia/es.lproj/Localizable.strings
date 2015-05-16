@@ -14,6 +14,7 @@
 "article-languages-downloading" = "Cargando idiomas del artículo…";
 "article-languages-filter-placeholder" = "Filtro de idiomas";
 "article-read-more-title" = "Leer más";
+"article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Cerrar";
 "table-title-other" = "Más información";
@@ -130,7 +131,6 @@
 "saved-pages-clear-confirmation-heading" = "¿Borrar todos los elemento guardados?";
 "saved-pages-clear-confirmation-sub-heading" = "¡Esta acción no se puede deshacer!";
 "saved-pages-clear-cancel" = "Cancelar";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Borrar todo";
 "saved-pages-refresh-cancel-alert-title" = "Actualización cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Los artículos de Wikipedia se actualizan todo el tiempo. Pulsa actualizar para obtener las últimas versiones de todos los artículos.";
@@ -257,7 +257,14 @@
 "nearby-wifi" = "Activar wifi puede ayudar a que tu dispositivo determine mejor tu ubicación.";
 "migration-update-progress-label" = "Migrando datos locales";
 "migration-update-progress-count-label" = "Migrando artículo $1 de $2";
+"migration-prompt-title" = "Parece que tenemos una historial";
+"migration-prompt-message" = "Necesitamos trasladar tus páginas guardadas y recientes. Esto puede tardar un minuto...";
+"migration-confirm-button-title" = "Trasladar mis cosas";
+"migration-skip-button-title" = "Eliminar datos";
 "image-gallery-unknown-owner" = "Cargador desconocido.";
+"image-gallery-fetch-image-info-error-title" = "No se pudieron descargar las imágenes";
+"image-gallery-fetch-image-info-error-message" = "No se pudieron descargar las imágenes para este artículo. Prueba cargándolo nuevamente.";
+"image-gallery-fetch-image-info-error-ok" = "Aceptar";
 "hockeyapp-alert-question" = "¿Te gustaría enviar un informe a $1 para que Wikimedia pueda revisar tu fallo?";
 "hockeyapp-alert-question-with-response-field" = "¿Te gustaría enviar un informe a $1 para que Wikimedia pueda revisar tu fallo? Describe lo que pasó en el momento del fallo:";
 "hockeyapp-alert-title" = "La aplicación falló la última vez";

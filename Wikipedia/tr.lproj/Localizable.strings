@@ -15,6 +15,7 @@
 "article-languages-downloading" = "Madde dilleri yükleniyor...";
 "article-languages-filter-placeholder" = "Dil Süzgeci";
 "article-read-more-title" = "Devamı";
+"article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
 "info-box-title" = "Pratik bilgiler";
 "info-box-close-text" = "Kapat";
 "table-title-other" = "Daha fazla bilgi";
@@ -258,6 +259,7 @@
 "migration-update-progress-label" = "Yerel veri güncelleniyor";
 "migration-update-progress-count-label" = "Taşınan madde sayısı $1'da $2";
 "migration-prompt-title" = "Görünüşe göre birlikte bir geçmişimiz var!";
+"migration-prompt-message" = "Kaydedilmiş ve geçmiş sayfaları taşımamız gerekli. Bu bir dakika kadar sürebilir...";
 "migration-skip-button-title" = "Öğeyi sil";
 "image-gallery-unknown-owner" = "Yükleyen bilinmiyor.";
 "image-gallery-fetch-image-info-error-title" = "Görseller indirilemiyor";

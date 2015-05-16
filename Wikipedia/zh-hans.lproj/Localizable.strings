@@ -56,7 +56,7 @@
 "account-creation-email-placeholder-text" = "电子邮件（可选）";
 "account-creation-missing-fields" = "您必须输入用户名、密码并再一次确认密码后方能创建一个帐户。";
 "login-name-not-found" = "需要用户名。";
-"login-name-illegal" = "您提供了非法用户名。";
+"login-name-illegal" = "您提供了无效的用户名。";
 "login-name-does-not-exist" = "您提供的用户名不存在。";
 "login-password-empty" = "登录需要密码。";
 "login-password-wrong" = "您提供的密码不正确。";

@@ -19,6 +19,7 @@
 "history-clear-delete-all" = "Hemûyan jê bibe";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-continue" = "Jê derkeve";
+"zero-learn-more-learn-more" = "Zêdetir bixwîne";
 "account-creation-saving" = "Tê tomarkirin...";
 "account-creation-username-placeholder-text" = "Navê bikarhêner";
 "account-creation-password-placeholder-text" = " Şîfre";
@@ -29,6 +30,9 @@
 "wikitext-download-success" = "Naverok hate barkirin.";
 "wikitext-upload-save" = "Tê tomarkirin...";
 "wikitext-upload-save-sign-in" = "Têkeve";
+"wikitext-upload-save-terms-name" = "Mercên Bikaranînê";
+"wikitext-upload-save-license-name" = "CC BY-SA 3.0";
+"open-link-title" = "Girêdanê veke";
 "open-link-cancel" = "Betal bike";
 "search-searching" = "Lê digere...";
 "search-loading-article-loaded" = "Gotar hat barkirin.";
@@ -44,6 +48,7 @@
 "main-menu-account-logout" = "Derkeve";
 "main-menu-show-saved" = "Rûpelên tomarkirî";
 "main-menu-random" = "Ketober";
+"main-menu-terms-of-use" = "Mercên bikaranînê";
 "main-menu-show-today" = "Îro";
 "main-menu-more" = "Bêhtir...";
 "saved-pages-title" = "Rûpelên tomarkirî";
@@ -60,6 +65,7 @@
 "edit-summary-choice-linked-words" = "Girêdanan lê zêde kir";
 "edit-summary-choice-fixed-grammar" = "Rêziman sererast kir";
 "edit-summary-choice-added-category" = "Kategorî lê zêde kir";
+"article-pull-to-refresh-is-refreshing" = "Gotarê nû bike";
 "about-wikipedia" = "Wîkîpediya";
 "about-translators" = "wergêr";
 "about-libraries-license" = "Destûr";
@@ -77,7 +83,7 @@
 "onboarding-create-account" = "Hesabekî çêke";
 "onboarding-login" = "Têkeve";
 "onboarding-wikipedia" = "Wîkîpediya";
-"onboarding-free-encyclopedia" = "Ensîklopediya azad";
+"onboarding-free-encyclopedia" = "Ensîklopediya Azad";
 "page_protected_can_not_edit" = "Mafê te bo guherandina rûpelê tune ye";
 "page_protected_can_not_edit_title" = "Ev rûpel hatiye parastin";
 "table-of-contents-heading" = "Naverok";
@@ -92,8 +98,11 @@
 "menu-trash-accessibility-label" = "Jê bibe";
 "nearby-distance-label-km" = "$1 km";
 "nearby-cancel" = "Betal bike";
+"image-gallery-unknown-owner" = "Barker nenas e";
 "image-gallery-fetch-image-info-error-ok" = "Baş e";
 "hockeyapp-alert-title" = "Bibore, care paşî sepan nikisî";
 "hockeyapp-alert-send-report" = "Rapor bişîne";
 "hockeyapp-alert-always-send" = "Hertim bişîne";
 "hockeyapp-alert-do-not-send" = "Neşîne";
+"page-issues" = "Pirsgirêkên rûpelê";
+"page-similar-titles" = "Peyamên wek hev";

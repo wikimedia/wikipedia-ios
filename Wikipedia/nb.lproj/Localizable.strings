@@ -256,6 +256,7 @@
 "migration-update-progress-label" = "Flytter lokale data";
 "migration-update-progress-count-label" = "Flytter artikkel $1 av $2";
 "migration-prompt-title" = "Ser ut som om vi har en historikk!";
+// Fuzzy
 "migration-prompt-message" = "Vi behøver å flytte dine lagrede og siste sider. Dette kan ta litt tid...";
 "migration-confirm-button-title" = "Flytt over greiene mine";
 "migration-skip-button-title" = "Slett";

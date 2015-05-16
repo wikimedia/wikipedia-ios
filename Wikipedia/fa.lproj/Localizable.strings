@@ -7,6 +7,7 @@
 // Author: Hosseinblue
 // Author: Macofe
 // Author: Mahdiz
+// Author: Maspadana
 // Author: Reza1615
 // Author: Sahehco
 // Author: Signal89
@@ -16,8 +17,10 @@
 "article-languages-downloading" = "در حال بارگیری زبان‌های مقاله...";
 "article-languages-filter-placeholder" = "پالایه زبان";
 "article-read-more-title" = "بیشتر بخوانید";
+"article-unable-to-load-section" = "امکان براگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
 "info-box-title" = "واقعیت‌های سریع";
 "info-box-close-text" = "بستن";
+"table-title-other" = "اطلاعات بیشتر";
 "language-button-text" = "شما می‌توانید این مقاله را به %d زبان دیگر بخوانید";
 "history-label" = "اخیر";
 "history-section-today" = "امروز";
@@ -131,15 +134,12 @@
 "saved-pages-clear-confirmation-heading" = "همه موارد ذخیره‌شده حذف شوند؟";
 "saved-pages-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
 "saved-pages-clear-cancel" = "لغو";
-// Fuzzy
 "saved-pages-clear-delete-all" = "حذف همه";
 "saved-pages-refresh-cancel-alert-title" = "بارگذاری لغو شد";
 "saved-pages-refresh-cancel-alert-message" = "مقالات ویکی‌پدیا همیشه به‌روز می‌شوند. برای دریافت آخرین نسخه بر روی صفحه انگشت بزنید تا بروز شود.";
 "saved-pages-refresh-cancel-alert-button" = "گرفتم";
-// Fuzzy
-"page-history-title" = "تاریخچهٔ صفحه";
-// Fuzzy
-"page-history-downloading" = "در حال بارگیری صفحه تاریخچه...";
+"page-history-title" = "تاریخچهٔ مقاله";
+"page-history-downloading" = "در حال بارگیری مقاله تاریخچه...";
 "navbar-title-mode-edit-wikitext" = "ویرایش";
 "navbar-title-mode-login" = "ورود به سامانه";
 "navbar-title-mode-login-and-save" = "ورود و ذخیره";
@@ -151,8 +151,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "تایید سریع مورد نیاز است";
 "navbar-title-mode-edit-wikitext-summary" = "توصیف ویرایش‌تان";
 "navbar-title-mode-edit-wikitext-save" = "ذخیره";
-// Fuzzy
-"edit-summary-choice-linked-words" = "افزودن پیوند";
+"edit-summary-choice-linked-words" = "پیوندهای اضافه شده";
 "edit-summary-choice-fixed-grammar" = "دستور زبان  اصلاح شد";
 "edit-summary-choice-fixed-inaccuracy" = "بی‌دقتی  اصلاح شد";
 "edit-summary-choice-fixed-styling" = "سبک نمایش  اصلاح شد";
@@ -162,8 +161,7 @@
 "edit-summary-choice-added-clarification" = "افزودن توضیح";
 "edit-summary-choice-other" = "سایر";
 "edit-summary-description" = "خلاصه ویرایش به دیگر همکاران  کمک می‌کند تا ویرایش‌هایتان را به سرعت بررسی می کنند. همچنین می‌توانید از برچسب ها زیر استفاده کنید.";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "راه‌های دیگر برای بهبود مقاله";
+"edit-summary-field-placeholder-text" = "راه‌های دیگر برای بهبود دادن مقاله";
 "edit-summary-title" = "چگونه مقاله را بهبود دادید؟";
 "fetching-random-article" = "دریافت مقاله تصادفی";
 "article-pull-to-refresh-prompt" = "برای بروزرسانی، صفحه را بکشید";
@@ -260,11 +258,17 @@
 "nearby-location-updates-settings-menu" = "حریم شخصی > خدمات موقعیت > ویکی‌پدیا";
 "nearby-location-general-error" = "ناتوان در تشخیص موقعیت. برای تازه‌کردن فشار دهید یا بعداً تلاش کنید.";
 "nearby-wifi" = "فعال‌کردن وای‌فای می‌تواند به دستگاه‌تان در بهتر تشخیص‌دادن موقعیت‌تان کمک کند.";
-// Fuzzy
-"migration-update-progress-label" = "به‌روز کردن اطلاعات محلی";
-// Fuzzy
+"migration-update-progress-label" = "مهاجرت اطلاعات محلی";
 "migration-update-progress-count-label" = "مهاجرت مقاله از $1 به $2";
+"migration-prompt-title" = "به نظر می‌رسد تاریخچه وجود دارد!";
+// Fuzzy
+"migration-prompt-message" = "باید صفحات ذخیره شده و صفحات اخیر انتقال یابند. این کار چند دقیقه زمان می‌برد ...";
+"migration-confirm-button-title" = "کارهای من را انتقال بده";
+"migration-skip-button-title" = "حذف این";
 "image-gallery-unknown-owner" = "آپلود کننده ناشناخته است.";
+"image-gallery-fetch-image-info-error-title" = "امکان دانلود تصویرها نیست";
+"image-gallery-fetch-image-info-error-message" = "امکان دانلود پرونده برای این مقاله نیست. لطفاً از تلاش مجدد کنید.";
+"image-gallery-fetch-image-info-error-ok" = "تأیید";
 "hockeyapp-alert-question" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا ویکی‌مدیا بتواند آن‌را بررسی کند؟";
 "hockeyapp-alert-question-with-response-field" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا ویکی‌مدیا بتواند آن‌را بررسی کند؟ لطفاً شرح دهید که در هنگام از کار افتادن چه رخ داد:";
 "hockeyapp-alert-title" = "متاسفیم، نرم‌افزار در بار پیشین از کار افتاد";
@@ -272,3 +276,5 @@
 "hockeyapp-alert-always-send" = "همیشه ارسال کن";
 "hockeyapp-alert-do-not-send" = "ارسال نکن";
 "hockeyapp-alert-privacy" = "سیاست محرمانگی $1";
+"page-issues" = "موضوعات صفحه";
+"page-similar-titles" = "صفحات مشابه";

@@ -10,6 +10,7 @@
 "article-languages-downloading" = "Cargando as linguas do artigo...";
 "article-languages-filter-placeholder" = "Filtro de linguas";
 "article-read-more-title" = "Ler máis";
+"article-unable-to-load-section" = "Non foi posible cargar esta sección. Probe a refrescar o artigo para intentar amañar o problema.";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Pechar";
 "table-title-other" = "Máis información";
@@ -253,6 +254,7 @@
 "migration-update-progress-label" = "Migrando os datos locais";
 "migration-update-progress-count-label" = "Migrando artigos $1 de $2";
 "migration-prompt-title" = "Semella que temos unha historia!";
+// Fuzzy
 "migration-prompt-message" = "Precisamos mover as súas páxinas gardadas e recentes. Isto levará un momento...";
 "migration-confirm-button-title" = "Mover as miñas cousas";
 "migration-skip-button-title" = "Borralo";

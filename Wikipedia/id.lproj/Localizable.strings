@@ -259,7 +259,7 @@
 "migration-update-progress-label" = "Meningkatkan data lokal";
 "migration-update-progress-count-label" = "Memindahkan artikel $1 dari $2";
 "migration-prompt-title" = "Kelihatannya kami mempunyai riwayat!";
-"migration-prompt-message" = "Kami perlu untuk memindahkan halaman tersimpan & terkini di atas. Ini memakan waktu satu menit...";
+"migration-prompt-message" = "Kami perlu untuk memindahkan halaman tersimpan dan terkini di atas. Ini memakan waktu satu menit...";
 "migration-confirm-button-title" = "Pindahkan barang-barang saya di atas";
 "migration-skip-button-title" = "Hapus";
 "image-gallery-unknown-owner" = "Pengunggah tidak diketahui.";

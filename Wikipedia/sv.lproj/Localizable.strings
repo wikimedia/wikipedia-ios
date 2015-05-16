@@ -260,6 +260,7 @@
 "migration-update-progress-label" = "Migrerar lokal data";
 "migration-update-progress-count-label" = "Migrerar artikel $1 av $2";
 "migration-prompt-title" = "Det verkar som att vi har en historik!";
+// Fuzzy
 "migration-prompt-message" = "Vi behöver flytta över dina sparade och senaste artiklar. Detta kan ta några minuter…";
 "migration-confirm-button-title" = "Flytta över mina saker";
 "migration-skip-button-title" = "Radera";

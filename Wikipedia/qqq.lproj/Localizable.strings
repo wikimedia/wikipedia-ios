@@ -7,6 +7,7 @@
 // Author: Jack Phoenix
 // Author: Liuxinyu970226
 // Author: Macofe
+// Author: Nemo bis
 // Author: Purodha
 // Author: Robby
 // Author: Shirayuki
@@ -57,7 +58,7 @@
 "account-creation-email-placeholder-text" = "Placeholder text which appears initially in the optional email address text box";
 "account-creation-missing-fields" = "Error shown when one of the required fields for account creation (username, password, and password confirmation) is empty.";
 "login-name-not-found" = "Alert text shown when no user name was entered";
-"login-name-illegal" = "Alert text shown when illegal user name entered";
+"login-name-illegal" = "Alert text shown the chosen user name is now allowed by the wiki (e.g. for containing an \"@\" or for being too similar to an existing one).";
 "login-name-does-not-exist" = "Alert text shown when user name entered was not found";
 "login-password-empty" = "Alert text shown when no password was entered";
 "login-password-wrong" = "Alert text shown when incorrect password entered";
@@ -261,13 +262,13 @@
 "migration-update-progress-label" = "Label shown during automatic upgrade of local data to new internal format. May be on screen very briefly or for a few seconds.";
 "migration-update-progress-count-label" = "Shows the progress of article migration in text: 4 / 15, 5 / 15, etc…";
 "migration-prompt-title" = "Title of the alert shown to users before migrating all legacy data.";
-"migration-prompt-message" = "Mesasge explaining reason for migration, and what will happen if the users skips it.";
+"migration-prompt-message" = "Message explaining reason for migration, and what will happen if the users skips it.";
 "migration-confirm-button-title" = "Button within migration prompt that confirms the user wants to proceed with migration.";
 "migration-skip-button-title" = "Button with migration prompt that indicates user wants to skip migration and delete their data.";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
-"image-gallery-fetch-image-info-error-title" = "Title of prompt weh image meta download fails in gallery";
+"image-gallery-fetch-image-info-error-title" = "Title of prompt when image meta download fails in gallery";
 "image-gallery-fetch-image-info-error-message" = "Message of prompt when image meta download fails in gallery";
-"image-gallery-fetch-image-info-error-ok" = "OK button of prompt weh image meta download fails in gallery";
+"image-gallery-fetch-image-info-error-ok" = "OK button of prompt when image meta download fails in gallery";
 "hockeyapp-alert-question" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "hockeyapp-alert-question-with-response-field" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server, and asking the user to describe what happened when the crash occurred. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "hockeyapp-alert-title" = "Concise and conciliatory alert dialog title for crash reporting";
@@ -275,5 +276,5 @@
 "hockeyapp-alert-always-send" = "Alert dialog button text for crash reporting to always be sent";
 "hockeyapp-alert-do-not-send" = "Alert dialog button text for crash reporting to not send the crash report";
 "hockeyapp-alert-privacy" = "Alert dialog button text for HockeyApp privacy policy. $1 will be replaced programmatically with the constant string 'HockeyApp'";
-"page-issues" = "Label for button that shows the Page issues dialog.";
+"page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";

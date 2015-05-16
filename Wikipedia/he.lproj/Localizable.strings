@@ -96,7 +96,7 @@
 "search-recent-clear-cancel" = "ביטול";
 "search-recent-clear-delete-all" = "למחוק הכול";
 "main-menu-title" = "עוד";
-"main-menu-language-title" = "חיפוש בוויקי בשפה $1";
+"main-menu-language-title" = "חיפוש בוויקיפדיה ה$1";
 "main-menu-language-toggle-show" = "הצגת השפות";
 "main-menu-language-toggle-hide" = "הסתרת השפות";
 "main-menu-language-selection-saved" = "בחירת השפה נשמרה";
@@ -146,7 +146,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "נדרש אימות מהיר";
 "navbar-title-mode-edit-wikitext-summary" = "נא לתאר את העריכה שלך";
 "navbar-title-mode-edit-wikitext-save" = "שמירה";
-"edit-summary-choice-linked-words" = "הוספת קישורים";
+"edit-summary-choice-linked-words" = "הוספתי קישורים";
 "edit-summary-choice-fixed-grammar" = "תיקנתי דקדוק";
 "edit-summary-choice-fixed-inaccuracy" = "תיקנתי טעויות";
 "edit-summary-choice-fixed-styling" = "תיקנתי עיצוב";
@@ -156,7 +156,7 @@
 "edit-summary-choice-added-clarification" = "הוספתי הבהרה";
 "edit-summary-choice-other" = "אחר";
 "edit-summary-description" = "תקציר ברור עוזר לעורכים אחרים לסקור במהירות את העריכות שלך. אפשר גם לבחור מתוך התגים להלן.";
-"edit-summary-field-placeholder-text" = "שיפורים נוספים שנעשו בערך";
+"edit-summary-field-placeholder-text" = "שיפורים נוספים שעשית בערך";
 "edit-summary-title" = "איך שיפרת את הערך?";
 "fetching-random-article" = "אחזור ערך אקראי";
 "article-pull-to-refresh-prompt" = "למשוך לרענון הערך";

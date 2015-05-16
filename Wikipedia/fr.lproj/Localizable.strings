@@ -16,6 +16,7 @@
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
 "article-languages-filter-placeholder" = "Filtre de langue";
 "article-read-more-title" = "En savoir plus";
+"article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
 "info-box-title" = "Faits en bref";
 "info-box-close-text" = "Fermer";
 "table-title-other" = "Plus d’information";
@@ -259,6 +260,7 @@
 "migration-update-progress-label" = "Migration des données locales";
 "migration-update-progress-count-label" = "Migration de l’article $1 vers $2";
 "migration-prompt-title" = "Il semble que nous avons une histoire !";
+// Fuzzy
 "migration-prompt-message" = "Nous devons déplacer vos pages enregistrées et récentes. Cela peut prendre un peu de temps…";
 "migration-confirm-button-title" = "Déplacer mes affaires";
 "migration-skip-button-title" = "Les supprimer";

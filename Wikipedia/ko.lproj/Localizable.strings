@@ -4,6 +4,7 @@
 // Author: Priviet
 // Author: SeoJeongHo
 // Author: Twotwo2019
+// Author: Ysjbserver
 // Author: 아라
 
 "article-languages-label" = "언어 선택";
@@ -11,8 +12,10 @@
 "article-languages-downloading" = "문서 언어를 불러오는 중...";
 "article-languages-filter-placeholder" = "언어 필터";
 "article-read-more-title" = "더 읽어보기";
+"article-unable-to-load-section" = "섹션을 불러오지 못했습니다. 문제를 해결하기 위해 문서를 새로고침하십시오.";
 "info-box-title" = "빠른 사실";
 "info-box-close-text" = "닫기";
+"table-title-other" = "자세한 정보";
 "language-button-text" = "이 문서를 다른 %d개 언어로 읽을 수 있습니다";
 "history-label" = "최근";
 "history-section-today" = "오늘";
@@ -126,14 +129,11 @@
 "saved-pages-clear-confirmation-heading" = "모든 저장된 항목을 삭제하겠습니까?";
 "saved-pages-clear-confirmation-sub-heading" = "이 동작은 취소할 수 없습니다!";
 "saved-pages-clear-cancel" = "취소";
-// Fuzzy
 "saved-pages-clear-delete-all" = "모두 삭제";
 "saved-pages-refresh-cancel-alert-title" = "업데이트 취소됨";
 "saved-pages-refresh-cancel-alert-message" = "위키백과 글은 시시때때로 업데이트 됩니다. 모든 글의 최신 버전을 볼려면 새로고침하세요.";
 "saved-pages-refresh-cancel-alert-button" = "알았습니다!";
-// Fuzzy
 "page-history-title" = "문서 역사";
-// Fuzzy
 "page-history-downloading" = "문서 역사를 불러오는 중...";
 "navbar-title-mode-edit-wikitext" = "편집";
 "navbar-title-mode-login" = "로그인";
@@ -146,8 +146,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "빠른 확인 필요";
 "navbar-title-mode-edit-wikitext-summary" = "당신의 편집을 설명하세요";
 "navbar-title-mode-edit-wikitext-save" = "저장";
-// Fuzzy
-"edit-summary-choice-linked-words" = "연결된 낱말";
+"edit-summary-choice-linked-words" = "링크를 추가";
 "edit-summary-choice-fixed-grammar" = "문법 고침";
 "edit-summary-choice-fixed-inaccuracy" = "부정확 고침";
 "edit-summary-choice-fixed-styling" = "스타일 고침";
@@ -157,8 +156,7 @@
 "edit-summary-choice-added-clarification" = "해명 추가됨";
 "edit-summary-choice-other" = "기타";
 "edit-summary-description" = "특정 요약은 당신의 편집을 공동 편집자가 빠르게 검토하는 것을 돕습니다. 또한 아래 태그에서 고를 수 있습니다.";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "어떻게 문서를 개선했나요?";
+"edit-summary-field-placeholder-text" = "문서를 개선하는 다른 방법";
 "edit-summary-title" = "어떻게 문서를 개선했습니까?";
 "fetching-random-article" = "임의 문서 가져오는 중";
 "article-pull-to-refresh-prompt" = "문서를 새로 고치려면 당기세요";
@@ -255,6 +253,7 @@
 "nearby-location-updates-settings-menu" = "개인 정보 보호 > 위치 서비스 > 위키백과";
 "nearby-location-general-error" = "위치를 확정할 수 없습니다. 새로 고치려면 당기거나 나중에 다시 시도하세요.";
 "nearby-wifi" = "Wi-Fi를 활성화하면 장치가 위치를 더 정확하도록 도울 수 있습니다.";
-// Fuzzy
-"migration-update-progress-label" = "로컬 데이터 업그레이드";
+"migration-update-progress-label" = "로컬 데이터 이동";
 "image-gallery-unknown-owner" = "업로더 모름";
+"hockeyapp-alert-always-send" = "항상 보내기";
+"hockeyapp-alert-do-not-send" = "보내지 않기";

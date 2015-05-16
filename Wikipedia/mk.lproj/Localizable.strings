@@ -253,6 +253,7 @@
 "migration-update-progress-label" = "Преселба на месните податоци";
 "migration-update-progress-count-label" = "Ја селам статијата $1 од вкупно $2";
 "migration-prompt-title" = "Изгледа имаме историја!";
+// Fuzzy
 "migration-prompt-message" = "Треба да ги преместиме вашите зачувани и скорешни страници. Ова може да потрае минутка...";
 "migration-confirm-button-title" = "Премести ми ги работите";
 "migration-skip-button-title" = "Избриши ја";

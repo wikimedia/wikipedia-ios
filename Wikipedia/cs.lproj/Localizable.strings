@@ -128,6 +128,7 @@
 "migration-update-progress-label" = "Přesun místních dat";
 "migration-update-progress-count-label" = "Přesun článku $1 z $2";
 "migration-prompt-title" = "Zdá se, že máme historii!";
+// Fuzzy
 "migration-prompt-message" = "Potřebujeme přemístit Vaše uložené & poslední stránky. To může chvíli trvat...";
 "migration-confirm-button-title" = "Přesunout mé věci";
 "image-gallery-fetch-image-info-error-title" = "Nelze stahovat obrázky";
