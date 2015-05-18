@@ -105,48 +105,110 @@ static NSUInteger const kWMFOldDataSchemaBackupExpirationTimeInDays = 30;
 }
 
 - (void)migrateData {
-    [self.context performBlock:^{
-        NSFetchRequest* req = [NSFetchRequest fetchRequestWithEntityName:@"Saved"];
-        req.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"dateSaved" ascending:YES]];
-        NSError* err;
-        NSArray* savedEntries = [self.context executeFetchRequest:req error:&err];
-
-        if (err) {
-            NSLog(@"Error reading old Saved entries: %@", err);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if (![self migrateHistory]) {
         }
 
-        NSFetchRequest* req2 = [NSFetchRequest fetchRequestWithEntityName:@"History"];
-        req2.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:YES]];
-        NSError* err2;
-        NSArray* historyEntries = [self.context executeFetchRequest:req2 error:&err2];
-
-        if (err2) {
-            NSLog(@"Error reading old History entries: %@", err2);
-        }
-
-        NSUInteger totalArticlesToMigrate = [savedEntries count];
-        __block NSUInteger numberOfArticlesMigrated = 0;
-
-        void (^ incrementAndNotify)(void) = ^void (void) {
-            numberOfArticlesMigrated++;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.progressDelegate oldDataSchema:self didUpdateProgressWithArticlesCompleted:numberOfArticlesMigrated total:totalArticlesToMigrate];
-            });
-        };
-
-        for (History* history in historyEntries) {
-            [self migrateHistory:history];
-        }
-
-        for (Saved* saved in savedEntries) {
-            [self migrateSaved:saved];
-            [self migrateArticle:saved.article];
-            incrementAndNotify();
+        if (![self migrateSavedPages]) {
         }
 
         [self moveOldDataToBackupLocation];
-        [self.progressDelegate oldDataSchemaDidFinishMigration:self];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.progressDelegate oldDataSchemaDidFinishMigration:self];
+        });
+    });
+}
+
+- (BOOL)migrateHistory {
+    __block NSError* error;
+
+    [self.context performBlockAndWait:^{
+        NSFetchRequest* req2 = [NSFetchRequest fetchRequestWithEntityName:@"History"];
+        req2.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"dateVisited" ascending:YES]];
+        NSArray* historyEntries = [self.context executeFetchRequest:req2 error:&error];
+
+        if (error) {
+            NSLog(@"Error reading old History entries: %@", error);
+        }
+
+        for (History* history in historyEntries) {
+            @autoreleasepool {
+                [self migrateHistory:history];
+            }
+        }
+
+        [self.context reset];
     }];
+
+
+    return error == nil;
+}
+
+- (BOOL)migrateSavedPages {
+    __block NSError* error;
+    __block NSUInteger totalArticlesToMigrate   = 0;
+    __block NSUInteger numberOfArticlesMigrated = 0;
+
+    [self.context performBlockAndWait:^{
+        NSFetchRequest* req = [NSFetchRequest fetchRequestWithEntityName:@"Saved"];
+        req.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"dateSaved" ascending:YES]];
+        totalArticlesToMigrate = [self.context countForFetchRequest:req error:&error];
+        NSLog(@"total articles: %lu", totalArticlesToMigrate);
+    }];
+
+    NSUInteger fetchSize                   = 25;
+    __block BOOL moreSavedEntriesToProcess = YES;
+    __block NSUInteger fetchOffset         = 0;
+
+    if (totalArticlesToMigrate > 0) {
+        while (moreSavedEntriesToProcess) {
+            NSFetchRequest* req = [NSFetchRequest fetchRequestWithEntityName:@"Saved"];
+            req.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"dateSaved" ascending:YES]];
+            req.fetchLimit      = fetchSize;
+            req.fetchOffset     = fetchOffset;
+
+            [self.context performBlock:^{
+                NSError* innerError;
+                NSArray* savedEntries = [self.context executeFetchRequest:req error:&innerError];
+
+                if (savedEntries) {
+                    for (Saved* saved in savedEntries) {
+                        @autoreleasepool {
+                            [self migrateSaved:saved];
+                            [self migrateArticle:saved.article];
+                            numberOfArticlesMigrated++;
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self.progressDelegate oldDataSchema:self didUpdateProgressWithArticlesCompleted:numberOfArticlesMigrated total:totalArticlesToMigrate];
+                            });
+                        }
+                    }
+                } else {
+                    error = innerError;
+                    NSLog(@"Error reading old Saved entries: %@", error);
+                }
+
+                [self.context reset];
+            }];
+
+            NSUInteger indexOfLastArticleMigrated = fetchOffset + fetchSize - 1;
+            NSUInteger indexOfLastArticle         = totalArticlesToMigrate - 1;
+
+            if (indexOfLastArticleMigrated < indexOfLastArticle) {
+                fetchOffset += fetchSize;
+            } else {
+                moreSavedEntriesToProcess = NO;
+            }
+        }
+    }
+
+    //Wait on the context to finish the above operations.
+    //We need to do this because we need the above calls to be async so we can
+    //call back to the main thread to update the UI
+    [self.context performBlockAndWait:^{
+    }];
+
+    return error == nil;
 }
 
 - (MWKSite*)migrateArticleSite:(Article*)article {
