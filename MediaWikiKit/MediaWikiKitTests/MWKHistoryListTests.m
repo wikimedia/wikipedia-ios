@@ -18,6 +18,7 @@
     MWKTitle* titleSFEn;
     MWKTitle* titleLAEn;
     MWKTitle* titleSFFr;
+    MWKDataStore* dataStore;
     MWKHistoryList* historyList;
 }
 
@@ -31,10 +32,15 @@
     titleLAEn = [siteEn titleWithString:@"Los Angeles"];
     titleSFFr = [siteFr titleWithString:@"San Francisco"];
 
-    historyList = [[MWKHistoryList alloc] init];
+    dataStore   = [[MWKDataStore alloc] initWithBasePath:[NSTemporaryDirectory() stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]]];
+    historyList = [[MWKHistoryList alloc] initWithDataStore:dataStore];
+    [historyList removeAllEntriesFromHistory];
+    [historyList save];
 }
 
 - (void)tearDown {
+    [historyList removeAllEntriesFromHistory];
+    [historyList save];
     [super tearDown];
 }
 
@@ -93,13 +99,6 @@
     XCTAssertTrue(historyList.dirty, @"Should be dirty after adding");
 }
 
-- (void)testEmptyNotDirtyAfterAddAndSave {
-    [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
-    (void)[historyList dataExport];
-    XCTAssertFalse(historyList.dirty, @"Should not be dirty after adding then exporting");
-}
-
 - (void)testAdd2ThenRemove {
     MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn
                                                      discoveryMethod :MWKHistoryDiscoveryMethodSearch];
@@ -107,7 +106,7 @@
                                                      discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     [historyList addEntry:entry1];
     [historyList addEntry:entry2];
-    [historyList removeEntry:entry1];
+    [historyList removePageFromHistoryWithTitle:entry1.title];
     XCTAssertEqual(historyList.length, 1, @"Should have length 1 after adding two then removing one");
 }
 

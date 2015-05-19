@@ -15,6 +15,8 @@
 #import "UIFont+WMFStyle.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIView+WMFRTLMirroring.h"
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
 
 #define HISTORY_RESULT_HEIGHT (80.0 * MENUS_SCALE_MULTIPLIER)
 #define HISTORY_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
@@ -24,10 +26,6 @@
 #define HISTORY_DATE_HEADER_LEFT_PADDING (37.0f * MENUS_SCALE_MULTIPLIER)
 
 @interface HistoryViewController ()
-{
-    MWKUserDataStore* userDataStore;
-    MWKHistoryList* historyList;
-}
 
 @property (strong, atomic) NSMutableArray* historyDataArray;
 @property (strong, nonatomic) NSDateFormatter* dateFormatter;
@@ -43,9 +41,20 @@
 
 @property (strong, nonatomic) UIBarButtonItem* deleteButtonItem;
 
+@property (strong, nonatomic) MWKUserDataStore* userDataStore;
+@property (strong, nonatomic, readonly) MWKHistoryList* historyList;
+
 @end
 
 @implementation HistoryViewController
+
+#pragma mark - Accessors
+
+- (MWKHistoryList*)historyList {
+    return self.userDataStore.historyList;
+}
+
+#pragma mark - Title
 
 - (NSString*)title {
     return MWLocalizedString(@"history-label", nil);
@@ -98,8 +107,7 @@
     [self.dateFormatter setLocale:[NSLocale currentLocale]];
     [self.dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
 
-    userDataStore = [SessionSingleton sharedInstance].userDataStore;
-    historyList   = userDataStore.historyList;
+    self.userDataStore = [SessionSingleton sharedInstance].userDataStore;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -142,8 +150,8 @@
     NSMutableArray* lastMonth = [@[] mutableCopy];
     NSMutableArray* garbage   = [@[] mutableCopy];
 
-    for (int i = 0; i < historyList.length; i++) {
-        MWKHistoryEntry* history = [historyList entryAtIndex:i];
+    for (int i = 0; i < self.historyList.length; i++) {
+        MWKHistoryEntry* history = [self.historyList entryAtIndex:i];
         /*
            NSLog(@"HISTORY:\n\t\
             article: %@\n\t\
@@ -213,20 +221,15 @@
 #pragma mark - History garbage removal
 
 - (void)removeGarbage:(NSMutableArray*)garbage {
-    //NSLog(@"GARBAGE COUNT = %lu", (unsigned long)garbage.count);
-    //NSLog(@"GARBAGE = %@", garbage);
-    if (garbage.count == 0) {
-        return;
-    }
-
-    for (MWKHistoryEntry* entry in garbage) {
-        [historyList removeEntry:entry];
-    }
-    [userDataStore save];
-
-    // Remove any orphaned images.
-    DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
-    [dataHouseKeeping performHouseKeeping];
+    dispatch_promise(^{
+        return [self.userDataStore.historyList removeEntriesFromHistory:garbage];
+    }).then(^(){
+        return [self.userDataStore.historyList save];
+    }).then(^(){
+        // Remove any orphaned images.
+        DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
+        [dataHouseKeeping performHouseKeeping];
+    });
 }
 
 #pragma mark - History section titles
@@ -406,29 +409,32 @@
 - (void)deleteHistoryForIndexPath:(NSIndexPath*)indexPath {
     MWKHistoryEntry* historyEntry = self.historyDataArray[indexPath.section][@"data"][indexPath.row];
     if (historyEntry) {
-        [self.tableView beginUpdates];
+        dispatch_promise(^{
+            return [self.userDataStore.historyList removePageFromHistoryWithTitle:historyEntry.title];
+        }).then(^(){
+            return [self.userDataStore.historyList save];
+        }).then(^(){
+            [self.tableView beginUpdates];
 
-        NSUInteger itemsInSection = [(NSArray*)self.historyDataArray[indexPath.section][@"data"] count];
+            NSUInteger itemsInSection = [(NSArray*)self.historyDataArray[indexPath.section][@"data"] count];
 
-        if (itemsInSection == 1) {
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
-            [self.historyDataArray removeObjectAtIndex:indexPath.section];
-        } else {
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [self.historyDataArray[indexPath.section][@"data"] removeObjectAtIndex:indexPath.row];
-        }
+            if (itemsInSection == 1) {
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+                [self.historyDataArray removeObjectAtIndex:indexPath.section];
+            } else {
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [self.historyDataArray[indexPath.section][@"data"] removeObjectAtIndex:indexPath.row];
+            }
 
-        [historyList removeEntry:historyEntry];
-        [userDataStore save];
+            [self.tableView endUpdates];
 
-        [self.tableView endUpdates];
+            // Remove any orphaned images.
+            DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
+            [dataHouseKeeping performHouseKeeping];
 
-        [self setEmptyOverlayAndTrashIconVisibility];
+            [self setEmptyOverlayAndTrashIconVisibility];
+        });
     }
-
-    // Remove any orphaned images.
-    DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
-    [dataHouseKeeping performHouseKeeping];
 }
 
 #pragma mark - Discovery method icons
@@ -461,19 +467,20 @@
 }
 
 - (void)deleteAllHistoryItems {
-    [historyList removeAllEntries];
-    [userDataStore save];
+    dispatch_promise(^{
+        return [self.userDataStore.historyList removeAllEntriesFromHistory];
+    }).then(^(){
+        return [self.userDataStore.historyList save];
+    }).then(^(){
+        // Remove any orphaned images.
+        DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
+        [dataHouseKeeping performHouseKeeping];
 
-    // Remove any orphaned images.
-    DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
-    [dataHouseKeeping performHouseKeeping];
+        [self.historyDataArray removeAllObjects];
+        [self.tableView reloadData];
 
-    [self.historyDataArray removeAllObjects];
-    [self.tableView reloadData];
-
-    [self setEmptyOverlayAndTrashIconVisibility];
-
-    [[WMFArticlePresenter sharedInstance] presentTodaysArticle];
+        [self setEmptyOverlayAndTrashIconVisibility];
+    });
 }
 
 - (void)setEmptyOverlayAndTrashIconVisibility {

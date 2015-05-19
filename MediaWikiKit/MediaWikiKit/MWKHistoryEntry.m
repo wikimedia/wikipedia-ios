@@ -23,7 +23,7 @@
         self.title           = title;
         self.date            = [[NSDate alloc] init];
         self.discoveryMethod = discoveryMethod;
-        self.scrollPosition  = 0;
+        self.scrollPosition  = 0.0;
     }
     return self;
 }
@@ -38,7 +38,7 @@
         self.title           = [self requiredTitle:@"title" dict:dict];
         self.date            = [self requiredDate:@"date" dict:dict];
         self.discoveryMethod = [MWKHistoryEntry discoveryMethodForString:[self requiredString:@"discoveryMethod" dict:dict]];
-        self.scrollPosition  = [[self requiredNumber:@"scrollPosition" dict:dict] intValue];
+        self.scrollPosition  = [[self requiredNumber:@"scrollPosition" dict:dict] floatValue];
     }
     return self;
 }
@@ -54,7 +54,7 @@
 }
 
 - (NSUInteger)hash {
-    return self.title.hash ^ self.date.hash ^ self.scrollPosition ^ self.discoveryMethod;
+    return self.title.hash ^ self.date.hash ^ [@(self.scrollPosition)integerValue] ^ self.discoveryMethod;
 }
 
 - (BOOL)isEqualToHistoryEntry:(MWKHistoryEntry*)entry {

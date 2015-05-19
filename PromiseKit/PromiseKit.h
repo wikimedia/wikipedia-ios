@@ -8,6 +8,8 @@
 #define PMKEZBake
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-w"
+#pragma clang diagnostic ignored "-Wnullability-completeness" //ignoring nullability
+
 #import <Foundation/NSObjCRuntime.h>
 #import <Foundation/NSString.h>
 
@@ -48,25 +50,29 @@ typedef NS_ENUM(NSInteger, PMKCatchPolicy) {
     PMKCatchPolicyAllErrorsExceptCancellation
 };
 
+/**
+ *  This logic is not being enabled automatically
+ *  Not sure why, but just enabling manually for now.
+ */
+#define PMKPromise AnyPromise
 
-
-#if defined(PMKEZBake) && defined(SWIFT_CLASS)
-  // https://github.com/PromiseKit/EZiOS7/issues/2
-  #define PMKPromise AnyPromise
-#else
-
-__attribute__((objc_runtime_name("PMKAnyPromise")))
-__attribute__((objc_subclassing_restricted))
-@interface PMKPromise : NSObject
-@property (nonatomic, readonly) BOOL pending;
-@property (nonatomic, readonly) BOOL resolved;
-@property (nonatomic, readonly) BOOL fulfilled;
-@property (nonatomic, readonly) BOOL rejected;
-@end
-
-@compatibility_alias AnyPromise PMKPromise;
-
-#endif
+//#if defined(PMKEZBake) && defined(SWIFT_CLASS)
+//  // https://github.com/PromiseKit/EZiOS7/issues/2
+//  #define PMKPromise AnyPromise
+//#else
+//
+//__attribute__((objc_runtime_name("PMKAnyPromise")))
+//__attribute__((objc_subclassing_restricted))
+//@interface PMKPromise : NSObject
+//@property (nonatomic, readonly) BOOL pending;
+//@property (nonatomic, readonly) BOOL resolved;
+//@property (nonatomic, readonly) BOOL fulfilled;
+//@property (nonatomic, readonly) BOOL rejected;
+//@end
+//
+//@compatibility_alias AnyPromise PMKPromise;
+//
+//#endif
 
 
 

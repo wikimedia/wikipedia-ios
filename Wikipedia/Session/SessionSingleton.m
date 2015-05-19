@@ -37,15 +37,8 @@
     return sharedInstance;
 }
 
-+ (NSString*)mainDataStorePath {
-    // !!!: Do not change w/o doing something with the previous path (e.g. moving atomically or deleting)
-    NSString* documentsFolder =
-        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    return [documentsFolder stringByAppendingPathComponent:@"Data"];
-}
-
 - (instancetype)init {
-    return [self initWithDataStore:[[MWKDataStore alloc] initWithBasePath:[[self class] mainDataStorePath]]];
+    return [self initWithDataStore:[[MWKDataStore alloc] initWithBasePath:[[MWKDataStore class] mainDataStorePath]]];
 }
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {

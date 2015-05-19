@@ -8,6 +8,9 @@
 #import "SearchDidYouMeanButton.h"
 #import <Masonry/Masonry.h>
 
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
+
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @interface WMFSearchViewController ()

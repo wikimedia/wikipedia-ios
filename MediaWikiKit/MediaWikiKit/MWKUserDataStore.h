@@ -1,10 +1,3 @@
-//
-//  MWKUserDataStore.h
-//  MediaWikiKit
-//
-//  Created by Brion on 11/18/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 
@@ -25,14 +18,20 @@
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
-- (BOOL)save:(NSError**)error;
-- (void)save;
+/**
+ *  Save changes to any of the lists managed by the user data store.
+ *  You do NOT need to call this if you are performing any of the tasks above.
+ *  Only call this if you are modifying entries or lists directly.
+ *
+ *  @return The task. The result will be nil.
+ */
+- (AnyPromise*)save;
 
-- (void)reset;
-
-- (void)updateHistory:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
-- (void)savePage:(MWKTitle*)title;
-- (void)unsavePage:(MWKTitle*)title;
-
+/**
+ *  Clear out any cached list and force them to be reloaded on demand.
+ *
+ *  @return The task. The result will be nil.
+ */
+- (AnyPromise*)reset;
 
 @end

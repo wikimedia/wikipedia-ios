@@ -1,6 +1,7 @@
 @import Foundation;
 #import <Foundation/NSObjCRuntime.h>
 #import <Foundation/NSString.h>
+#import "Wikipedia-Swift.h"
 
 FOUNDATION_EXPORT double PromiseKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char PromiseKitVersionString[];
@@ -40,24 +41,28 @@ typedef NS_ENUM(NSInteger, PMKCatchPolicy) {
 };
 
 
+/**
+ *  This logic is not being enabled automatically
+ *  Not sure why, but just enabling manually for now.
+ */
+#define PMKPromise AnyPromise
 
-#if defined(PMKEZBake) && defined(SWIFT_CLASS)
-  // https://github.com/PromiseKit/EZiOS7/issues/2
-  #define PMKPromise AnyPromise
-#else
-
-__attribute__((objc_runtime_name("PMKAnyPromise")))
-__attribute__((objc_subclassing_restricted))
-@interface PMKPromise : NSObject
-@property (nonatomic, readonly) BOOL pending;
-@property (nonatomic, readonly) BOOL resolved;
-@property (nonatomic, readonly) BOOL fulfilled;
-@property (nonatomic, readonly) BOOL rejected;
-@end
-
-@compatibility_alias AnyPromise PMKPromise;
-
-#endif
+//#if defined(PMKEZBake) && defined(SWIFT_CLASS)
+//  // https://github.com/PromiseKit/EZiOS7/issues/2
+//#else
+//
+//__attribute__((objc_runtime_name("PMKAnyPromise")))
+//__attribute__((objc_subclassing_restricted))
+//@interface PMKPromise : NSObject
+//@property (nonatomic, readonly) BOOL pending;
+//@property (nonatomic, readonly) BOOL resolved;
+//@property (nonatomic, readonly) BOOL fulfilled;
+//@property (nonatomic, readonly) BOOL rejected;
+//@end
+//
+//@compatibility_alias AnyPromise PMKPromise;
+//
+//#endif
 
 
 

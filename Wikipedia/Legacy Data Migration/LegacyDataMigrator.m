@@ -7,6 +7,8 @@
 //
 
 #import "LegacyDataMigrator.h"
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
 
 @implementation LegacyDataMigrator
 
@@ -75,8 +77,12 @@
         MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithDict:dict];
 
         MWKHistoryList* historyList = self.userDataStore.historyList;
-        [historyList addEntry:entry];
-        [self.userDataStore save];
+
+        dispatch_promise(^{
+            return [historyList addEntry:entry];
+        }).then(^(){
+            return [historyList save];
+        });
     }@catch (NSException* ex) {
         NSLog(@"IMPORT ERROR on history entry %@:%@: %@", language, titleStr, ex);
     }
@@ -95,8 +101,12 @@
         MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithDict:dict];
 
         MWKSavedPageList* savedPageList = self.userDataStore.savedPageList;
-        [savedPageList addEntry:entry];
-        [self.userDataStore save];
+
+        dispatch_promise(^{
+            return [savedPageList addEntry:entry];
+        }).then(^(){
+            return [savedPageList save];
+        });
     }@catch (NSException* ex) {
         NSLog(@"IMPORT ERROR on saved entry %@:%@: %@", language, titleStr, ex);
     }

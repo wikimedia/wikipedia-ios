@@ -4,6 +4,9 @@
 #import "MWKSavedPageList.h"
 #import "MWKSavedPageEntry.h"
 #import "MWKArticle.h"
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -52,8 +55,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteArticleAtIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [self savedPageForIndexPath:indexPath];
     if (savedEntry) {
-        [self.savedPages removeEntry:savedEntry];
-        [self.userDataStore save];
+        [[self savedPages] removeSavedPageWithTitle:savedEntry.title].then(^{
+            [[self savedPages] save];
+        });
     }
 }
 

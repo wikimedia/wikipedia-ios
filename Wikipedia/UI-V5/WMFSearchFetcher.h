@@ -1,6 +1,5 @@
 
 #import <Foundation/Foundation.h>
-#import "PromiseKit.h"
 
 @class MWKSite;
 @class WMFSearchResults;

@@ -12,6 +12,9 @@
 #import "MWKSiteInfo.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "MWKLanguageLink.h"
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
+
 
 #import "WMFShareCardViewController.h"
 #import "WMFShareFunnel.h"
@@ -141,7 +144,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     self.buttonSave = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_HEART handler:^(id sender){
         @strongify(self)
-        [self saveCurrentPage];
+        [self toggleSavedPage];
         [self updateBottomBarButtonsEnabledState];
     }];
 
@@ -211,7 +214,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.lastScrollOffset  = CGPointZero;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(saveCurrentPage)
+                                             selector:@selector(toggleSavedPage)
                                                  name:@"SavePage"
                                                object:nil];
 
@@ -1057,31 +1060,30 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 #pragma Saved Pages
 
-- (void)saveCurrentPage {
-    MWKTitle* title          = self.session.currentArticle.title;
-    MWKUserDataStore* store  = self.session.userDataStore;
-    MWKSavedPageList* list   = store.savedPageList;
-    MWKSavedPageEntry* entry = [list entryForTitle:title];
-
+- (void)toggleSavedPage {
     SavedPagesFunnel* funnel = [[SavedPagesFunnel alloc] init];
+    MWKUserDataStore* store  = self.session.userDataStore;
+    MWKTitle* title          = self.session.currentArticle.title;
+    BOOL isSaved             = [store.savedPageList isSaved:self.session.currentArticle.title];
 
-    if (entry == nil) {
-        // Show alert.
-        [self showPageSavedAlertMessageForTitle:title.text];
-
-        // Actually perform the save.
-        entry = [[MWKSavedPageEntry alloc] initWithTitle:title];
-        [list addEntry:entry];
-
-        [store save];
-        [funnel logSaveNew];
+    if (!isSaved) {
+        dispatch_promise(^{
+            return [store.savedPageList savePageWithTitle:title];
+        }).then(^(){
+            return [store.savedPageList save];
+        }).then(^(){
+            [self showPageSavedAlertMessageForTitle:title.text];
+            [funnel logSaveNew];
+        });
     } else {
-        // Unsave!
-        [list removeEntry:entry];
-        [store save];
-
-        [self fadeAlert];
-        [funnel logDelete];
+        dispatch_promise(^{
+            return [store.savedPageList removeSavedPageWithTitle:title];
+        }).then(^(){
+            return [store.savedPageList save];
+        }).then(^(){
+            [self fadeAlert];
+            [funnel logDelete];
+        });
     }
 }
 
@@ -1096,8 +1098,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     CGFloat duration                  = 2.0;
     BOOL AccessSavedPagesMessageShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"AccessSavedPagesMessageShown"];
-
-    //AccessSavedPagesMessageShown = NO;
 
     if (!AccessSavedPagesMessageShown) {
         duration = 5;
@@ -1166,12 +1166,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         return;
     }
 
-    MWKHistoryEntry* entry = [self.session.userDataStore.historyList entryForTitle:self.session.currentArticle.title];
-    if (entry) {
-        entry.scrollPosition                         = self.webView.scrollView.contentOffset.y;
-        self.session.userDataStore.historyList.dirty = YES;         // hack to force
-        [self.session.userDataStore save];
-    }
+    [self.session.userDataStore.historyList savePageScrollPosition:self.webView.scrollView.contentOffset.y toPageInHistoryWithTitle:self.session.currentArticle.title];
 }
 
 #pragma mark Web view html content live location retrieval
@@ -1369,13 +1364,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     MWKHistoryList* historyList = self.session.userDataStore.historyList;
     //NSLog(@"XXX %d", (int)historyList.length);
     if (historyList.length > 0) {
-        // Grab the latest
-        MWKHistoryEntry* historyEntry = [historyList entryForTitle:self.session.currentArticle.title];
-        if (historyEntry) {
-            historyEntry.date = [NSDate date];
-            [historyList addEntry:historyEntry];
-            [self.session.userDataStore save];
-        }
+        [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.session.currentArticle.title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
     }
 }
 
@@ -1715,7 +1704,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         case MWKHistoryDiscoveryMethodReloadFromNetwork:
         case MWKHistoryDiscoveryMethodUnknown: {
             // Update the history so the most recently viewed article appears at the top.
-            [self.session.userDataStore updateHistory:title discoveryMethod:self.session.currentArticleDiscoveryMethod];
+            [self.session.userDataStore.historyList addPageToHistoryWithTitle:title discoveryMethod:self.session.currentArticleDiscoveryMethod];
             break;
         }
 

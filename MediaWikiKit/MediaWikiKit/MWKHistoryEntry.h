@@ -11,6 +11,7 @@
 @class MWKTitle;
 
 typedef NS_ENUM (NSUInteger, MWKHistoryDiscoveryMethod){
+    MWKHistoryDiscoveryMethodUnknown,
     MWKHistoryDiscoveryMethodSearch,
     MWKHistoryDiscoveryMethodRandom,
     MWKHistoryDiscoveryMethodLink,
@@ -18,7 +19,6 @@ typedef NS_ENUM (NSUInteger, MWKHistoryDiscoveryMethod){
     MWKHistoryDiscoveryMethodSaved,
     MWKHistoryDiscoveryMethodReloadFromNetwork,
     MWKHistoryDiscoveryMethodReloadFromCache,
-    MWKHistoryDiscoveryMethodUnknown
 };
 
 @interface MWKHistoryEntry : MWKSiteDataObject
@@ -26,7 +26,7 @@ typedef NS_ENUM (NSUInteger, MWKHistoryDiscoveryMethod){
 @property (readonly, strong, nonatomic) MWKTitle* title;
 @property (readwrite, strong, nonatomic) NSDate* date;
 @property (readwrite, assign, nonatomic) MWKHistoryDiscoveryMethod discoveryMethod;
-@property (readwrite, assign, nonatomic) int scrollPosition;
+@property (readwrite, assign, nonatomic) CGFloat scrollPosition;
 
 - (instancetype)initWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 - (instancetype)initWithDict:(NSDictionary*)dict;

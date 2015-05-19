@@ -1,15 +1,12 @@
-//
-//  MWKRecentSearchList.m
-//  MediaWikiKit
-//
-//  Created by Brion on 11/18/14.
-//  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
-//
+
 
 #import "MediaWikiKit.h"
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
 
 @interface MWKRecentSearchList ()
 
+@property (readwrite, weak, nonatomic) MWKDataStore* dataStore;
 @property (readwrite, nonatomic, assign) NSUInteger length;
 @property (readwrite, nonatomic, assign) BOOL dirty;
 @property (nonatomic, strong) NSMutableArray* entries;
@@ -18,25 +15,27 @@
 
 @implementation MWKRecentSearchList
 
-- (instancetype)init {
+#pragma mark - Setup
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
     self = [super init];
     if (self) {
-        self.entries = [[NSMutableArray alloc] init];
+        self.dataStore = dataStore;
+        self.entries   = [[NSMutableArray alloc] init];
+        NSDictionary* data = [self.dataStore historyListData];
+        [self importData:data];
     }
-    self.dirty = NO;
     return self;
 }
 
-- (instancetype)initWithDict:(NSDictionary*)dict {
-    self = [self init];
-    if (self) {
-        for (NSDictionary* entryDict in dict[@"entries"]) {
-            MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithDict:entryDict];
-            [self.entries addObject:entry];
-        }
+#pragma mark - Data methods
+
+- (void)importData:(NSDictionary*)data {
+    for (NSDictionary* entryDict in data[@"entries"]) {
+        MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithDict:entryDict];
+        [self.entries addObject:entry];
     }
     self.dirty = NO;
-    return self;
 }
 
 - (id)dataExport {
@@ -44,11 +43,16 @@
     for (MWKRecentSearchEntry* entry in self.entries) {
         [dicts addObject:[entry dataExport]];
     }
-    self.dirty = NO;
     return @{@"entries": dicts};
 }
 
-- (void)addEntry:(MWKRecentSearchEntry*)entry {
+#pragma mark - Data Update
+
+- (AnyPromise*)addEntry:(MWKRecentSearchEntry*)entry {
+    if (entry.searchTerm == nil) {
+        return [AnyPromise promiseWithValue:[NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]];
+    }
+
     NSUInteger oldIndex = [self.entries indexOfObject:entry];
     if (oldIndex != NSNotFound) {
         // Move to top!
@@ -57,10 +61,28 @@
     [self.entries insertObject:entry atIndex:0];
     self.dirty = YES;
     // @todo trim to max?
+
+    return [AnyPromise promiseWithValue:entry];
 }
+
+#pragma mark - Entry Access
 
 - (MWKRecentSearchEntry*)entryAtIndex:(NSUInteger)index {
     return self.entries[index];
+}
+
+#pragma mark - Save
+
+- (AnyPromise*)save {
+    NSError* error;
+    if (self.dirty && ![self.dataStore saveRecentSearchList:self error:&error]) {
+        NSAssert(NO, @"Error saving saved pages: %@", [error localizedDescription]);
+        return [AnyPromise promiseWithValue:error];
+    } else {
+        self.dirty = NO;
+    }
+
+    return [AnyPromise promiseWithValue:nil];
 }
 
 @end

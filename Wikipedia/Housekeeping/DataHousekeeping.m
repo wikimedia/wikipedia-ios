@@ -3,8 +3,9 @@
 
 #import "DataHousekeeping.h"
 #import "NSDate-Utilities.h"
-
 #import "SessionSingleton.h"
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
 
 #define MAX_HISTORY_ENTRIES 100
 
@@ -49,21 +50,23 @@
             [historyEntriesToPrune addObject:entry];
         }
     }
-    for (MWKHistoryEntry* entry in historyEntriesToPrune) {
-        [historyList removeEntry:entry];
-    }
-    [userDataStore save];
 
-    // Iterate through all articles and de-cache the ones that aren't on the keep list
-    // Cached metadata, section text, and images will be removed along with their articles.
-    [dataStore iterateOverArticles:^(MWKArticle* article) {
-        if (articlesToSave[article.title]) {
-            // don't kill it!
-        } else {
-            NSLog(@"Pruning unsaved article %@ %@", article.title.site.language, article.title.text);
-            [article remove];
-        }
-    }];
+    dispatch_promise(^{
+        return [historyList removeEntriesFromHistory:historyEntriesToPrune];
+    }).then(^(){
+        return [historyList save];
+    }).then(^(){
+        // Iterate through all articles and de-cache the ones that aren't on the keep list
+        // Cached metadata, section text, and images will be removed along with their articles.
+        [dataStore iterateOverArticles:^(MWKArticle* article) {
+            if (articlesToSave[article.title]) {
+                // don't kill it!
+            } else {
+                NSLog(@"Pruning unsaved article %@ %@", article.title.site.language, article.title.text);
+                [article remove];
+            }
+        }];
+    });
 }
 
 @end

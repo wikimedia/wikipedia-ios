@@ -3,6 +3,8 @@
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "SearchResultFetcher.h"
 #import "WMFSearchResults.h"
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
 
 NSUInteger const kWMFmaxSearchResults = 24;
 
