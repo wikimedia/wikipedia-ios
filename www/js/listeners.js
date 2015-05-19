@@ -4,7 +4,6 @@ var transformer = require("./transformer");
 var refs = require("./refs");
 var issuesAndDisambig = require("./transforms/collapsePageIssuesAndDisambig");
 
-
 // DOMContentLoaded fires before window.onload! That's good!
 // See: http://stackoverflow.com/a/3698214/135557
 document.addEventListener("DOMContentLoaded", function() {
@@ -12,7 +11,8 @@ document.addEventListener("DOMContentLoaded", function() {
     transformer.transform( "moveFirstGoodParagraphUp", document );
     transformer.transform( "hideRedlinks", document );
     transformer.transform( "disableFilePageEdit", document );
-    transformer.transform( "addImageOverflowXContainers", document );
+    transformer.transform( "addImageOverflowXContainers", document ); // Needs to happen before "widenImages" transform.
+    transformer.transform( "widenImages", document );
     transformer.transform( "hideTables", document );
     transformer.transform( "collapsePageIssuesAndDisambig", document.getElementById( "section_heading_and_content_block_0" ) );
 

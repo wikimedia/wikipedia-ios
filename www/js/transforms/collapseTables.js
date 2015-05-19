@@ -1,4 +1,5 @@
 var transformer = require("../transformer");
+var utilities = require("../utilities");
 
 /*
 Tries to get an array of table header (TH) contents from a given table.
@@ -64,12 +65,6 @@ function tableCollapseClickHandler() {
     }
 }
 
-// From: http://stackoverflow.com/a/22119674/135557
-function findAncestor (el, cls) {
-    while ((el = el.parentElement) && !el.classList.contains(cls));
-    return el;
-}
-
 function shouldTableBeCollapsed( table ) {
     if (table.style.display === 'none' ||
         table.classList.contains( 'navbox' ) ||
@@ -84,14 +79,14 @@ function shouldTableBeCollapsed( table ) {
 
 transformer.register( "hideTables", function( content ) {
                      
-    var isMainPage = transformer.httpGetSync('wmf://article/is-main-page');
+    var isMainPage = utilities.httpGetSync('wmf://article/is-main-page');
                      
     if (isMainPage == "1") return;
                      
     var tables = content.querySelectorAll( "table" );
     for (var i = 0; i < tables.length; i++) {
         var table = tables[i];
-        if (findAncestor (table, 'app_table_container')) continue;
+        if (utilities.findAncestor (table, 'app_table_container')) continue;
 
         if (!shouldTableBeCollapsed(table)) {
             continue;
@@ -112,7 +107,7 @@ transformer.register( "hideTables", function( content ) {
 
         var headerText = getTableHeader(table);
 
-        var caption = "<strong>" + (isInfobox ? transformer.httpGetSync('wmf://localize/info-box-title') : transformer.httpGetSync('wmf://localize/table-title-other')) + "</strong>";
+        var caption = "<strong>" + (isInfobox ? utilities.httpGetSync('wmf://localize/info-box-title') : utilities.httpGetSync('wmf://localize/table-title-other')) + "</strong>";
         caption += "<span class='app_span_collapse_text'>";
         if (headerText.length > 0) {
             caption += ": " + headerText[0];
@@ -147,7 +142,7 @@ transformer.register( "hideTables", function( content ) {
         var bottomDiv = document.createElement( 'div' );
         bottomDiv.classList.add('app_table_collapsed_bottom');
         bottomDiv.classList.add('app_table_collapse_icon');
-        bottomDiv.innerHTML = transformer.httpGetSync('wmf://localize/info-box-close-text');
+        bottomDiv.innerHTML = utilities.httpGetSync('wmf://localize/info-box-close-text');
 
         //add our stuff to the container
         containerDiv.appendChild(collapsedDiv);

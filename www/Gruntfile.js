@@ -25,8 +25,7 @@ module.exports = function (grunt) {
           optimization: 2
         },
         files: [
-          { src: ["less/table.less"], dest: distFolder + "footer.css"},
-          { src: ["less/styleoverrides.less"], dest: distFolder + "styleoverrides.css"}
+          { src: ["less/**/*.less"], dest: distFolder + "styleoverrides.css"}
         ]
       }
     },

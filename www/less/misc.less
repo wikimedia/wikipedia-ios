@@ -1,0 +1,44 @@
+/* Use sparingly so we don't diverge too much. */
+
+
+
+
+
+/* This was added so ref link taps don't show underline. Move upstream later if possible. */
+a:hover {
+    text-decoration: none !important;
+}
+
+
+
+
+
+/*
+Ensure things which are too wide for the screen can be scrolled sideways and don't
+cause the web view to extend wider than the device width. Needed because the
+native footer uses the web view width to determine its own width.
+*/
+.content_block, .image_overflow_x_container {
+    clear:both;
+    overflow-x: auto;
+}
+
+
+
+
+
+/* Override top padding on first edit pencil so it roughly aligns with first 2 lines of text. */
+#edit_section_button_0{
+    margin-top:6px;
+}
+
+#section_heading_and_content_block_0 {margin-top:13px;}
+
+
+
+
+
+/* Temp fix to prevent right side of collapsed tables from extending offscreen. */
+*{
+    box-sizing:border-box;
+}

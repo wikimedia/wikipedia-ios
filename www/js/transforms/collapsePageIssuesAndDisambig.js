@@ -1,4 +1,5 @@
 var transformer = require("../transformer");
+var utilities = require("../utilities");
 
 transformer.register( 'collapsePageIssuesAndDisambig', function( content ) {
     transformer.transform( "displayDisambigLink", content);
@@ -32,7 +33,7 @@ transformer.register( 'displayDisambigLink', function( content ) {
         var link = document.createElement( 'a' );
         link.setAttribute( 'href', '#disambig' );
         link.className = 'disambig_button';
-        link.innerHTML = transformer.httpGetSync('wmf://localize/page-similar-titles');
+        link.innerHTML = utilities.httpGetSync('wmf://localize/page-similar-titles');
         link.id = 'disambig_button';
         wrapper.appendChild( link );
         var i = 0,
@@ -53,7 +54,7 @@ transformer.register( 'displayIssuesLink', function( content ) {
         var link = document.createElement( 'a' );
         link.setAttribute( 'href', '#issues' );
         link.className = 'issues_button';
-        link.innerHTML = transformer.httpGetSync('wmf://localize/page-issues');
+        link.innerHTML = utilities.httpGetSync('wmf://localize/page-issues');
         link.id = 'issues_button';
         wrapper.appendChild( link );
         el.parentNode.replaceChild( wrapper, el );
