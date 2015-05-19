@@ -127,7 +127,7 @@
         NSString* lineTwoText = [self refreshPromptString];
 
         // pullUnit is 0.0 to 1.0
-        CGFloat pullUnit = fabsf(scrollView.contentOffset.y) / pullDistance;
+        CGFloat pullUnit = fabs(scrollView.contentOffset.y) / pullDistance;
         //NSLog(@"%f", pullUnit);
 
         if (pullUnit < 0.35) {

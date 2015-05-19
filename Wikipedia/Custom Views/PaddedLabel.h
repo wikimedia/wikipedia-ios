@@ -7,6 +7,6 @@
 
 @interface PaddedLabel : UILabel
 
-@property (nonatomic) UIEdgeInsets padding;
+@property (nonatomic, assign) UIEdgeInsets padding;
 
 @end

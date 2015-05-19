@@ -18,10 +18,10 @@
 @interface WMFShareOptionsViewController ()
 
 @property (strong, nonatomic, readwrite) UIView* backgroundView;
-@property (strong, nonatomic, readwrite) NSString* snippet;
-@property (strong, nonatomic, readwrite) NSString* snippetForTextOnlySharing;
+@property (copy, nonatomic, readwrite) NSString* snippet;
+@property (copy, nonatomic, readwrite) NSString* snippetForTextOnlySharing;
 @property (strong, nonatomic, readwrite) MWKArticle* article;
-@property (nonatomic, assign, readwrite) id<WMFShareOptionsViewControllerDelegate> delegate;
+@property (nonatomic, weak, readwrite) id<WMFShareOptionsViewControllerDelegate> delegate;
 
 @property (strong, nonatomic) UIView* grayOverlay;
 @property (strong, nonatomic) WMFShareOptionsView* shareOptions;

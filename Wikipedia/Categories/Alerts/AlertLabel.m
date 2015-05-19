@@ -8,10 +8,8 @@
 
 @interface AlertLabel ()
 
-@property (nonatomic) CGFloat duration;
-@property (nonatomic) UIEdgeInsets padding;
-@property (nonatomic, strong) id text;
-@property (nonatomic) AlertType type;
+@property (nonatomic, assign) CGFloat duration;
+@property (nonatomic, assign) AlertType type;
 
 @end
 

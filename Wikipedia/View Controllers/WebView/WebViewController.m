@@ -606,7 +606,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     if (
         (angleFromHorizontalAxis < TOC_SWIPE_TRIGGER_MAX_ANGLE)
         &&
-        (fabsf(panVelocity.x) > TOC_SWIPE_TRIGGER_MIN_X_VELOCITY)
+        (fabs(panVelocity.x) > TOC_SWIPE_TRIGGER_MIN_X_VELOCITY)
         ) {
         return YES;
     }
@@ -701,7 +701,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 - (CGFloat)tocGetPercentOnscreen {
     CGFloat defaultWebViewScaleWhenTOCVisible = [self tocGetWebViewScaleWhenTOCVisible];
     CGFloat defaultTOCWidth                   = [self tocGetWidthForWebViewScale:defaultWebViewScaleWhenTOCVisible];
-    return 1.0f - (fabsf(self.tocVC.view.frame.origin.x) / defaultTOCWidth);
+    return 1.0f - (fabs(self.tocVC.view.frame.origin.x) / defaultTOCWidth);
 }
 
 - (BOOL)rectIntersectsWebViewTop:(CGRect)rect {
@@ -1196,7 +1196,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
             }
         }
 
-        if (fabsf(distanceScrolled) < minPixelsScrolled) {
+        if (fabs(distanceScrolled) < minPixelsScrolled) {
             return;
         }
         [ROOT animateTopAndBottomMenuHidden:((distanceScrolled > 0) ? NO : YES)];
