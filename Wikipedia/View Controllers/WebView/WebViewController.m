@@ -1554,7 +1554,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                            @"background-image:-webkit-linear-gradient(top, rgba(0,0,0,0.0) 0%%, rgba(0,0,0,0.5) 100%%),"
                            @"url('%@')"
                            @"%@;"
-                           "background-position: calc(50%%) calc(%ld%%);",
+                           "background-position: 50%% %ld%%;",
                            article.imageURL,
                            [article.image isCached] ? @"" : @",url('wmf://bundledImage/lead-default.png')",
                            offsetY];
@@ -1635,7 +1635,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     if (!CGRectEqualToRect(rect, CGRectZero)) {
         #warning FIXME: abstract away "get lead image div" logic
         applyFocalOffsetJS =
-            [NSString stringWithFormat:@"document.getElementById('lead_image_div').style.backgroundPosition = 'calc(100%%) calc(%d%%)';", [self leadImageFocalOffsetYPercentageFromTopOfRect:rect]];
+            [NSString stringWithFormat:@"document.getElementById('lead_image_div').style.backgroundPosition = '100%% %d%%';", [self leadImageFocalOffsetYPercentageFromTopOfRect:rect]];
     }
 
     static NSString* animationCss = nil;
