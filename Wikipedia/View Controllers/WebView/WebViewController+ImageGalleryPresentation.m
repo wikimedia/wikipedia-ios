@@ -16,7 +16,7 @@
     [self cancelArticleLoading];
     [self cancelSearchLoading];
 
-    if (!session.currentArticle.images || session.currentArticle.images.count == 0) {
+    if (!self.session.currentArticle.images || self.session.currentArticle.images.count == 0) {
         return;
     }
 

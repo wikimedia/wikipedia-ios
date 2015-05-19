@@ -16,7 +16,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 - (instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self->session = [SessionSingleton sharedInstance];
+        self.session = [SessionSingleton sharedInstance];
     }
     return self;
 }
@@ -29,9 +29,14 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
     NSParameterAssert(aSession);
     self = [super init];
     if (self) {
-        self->session = aSession;
+        self.session = aSession;
     }
     return self;
+}
+
+- (void)dealloc {
+    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -123,7 +128,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 
     [self fadeAlert];
 
-    scrollViewDragBeganVerticalOffset_ = 0.0f;
+    self.scrollViewDragBeganVerticalOffset = 0.0f;
 
     // Ensure web view can appear beneath translucent nav bar when scrolled up
     for (UIView* subview in self.webView.subviews) {
@@ -392,7 +397,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     SectionEditorViewController* sectionEditVC =
         [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SectionEditorViewController"];
 
-    sectionEditVC.section = session.currentArticle.sections[self.sectionToEditId];
+    sectionEditVC.section = self.session.currentArticle.sections[self.sectionToEditId];
 
     [ROOT pushViewController:sectionEditVC animated:YES];
 }
@@ -572,7 +577,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         return;
     }
 
-    if ([session articleIsAMainArticle:session.currentArticle]) {
+    if ([self.session articleIsAMainArticle:self.session.currentArticle]) {
         return;
     }
 
@@ -796,13 +801,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     }
 }
 
-#pragma mark Dealloc
-
-- (void)dealloc {
-    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 #pragma mark Webview obj-c to javascript bridge
 
 - (CommunicationBridge*)bridge {
@@ -944,10 +942,10 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
             NSString* selectedImageURL = payload[@"url"];
             NSCParameterAssert(selectedImageURL.length);
-            MWKImage* selectedImage = [strSelf->session.currentArticle.images largestImageVariantForURL:selectedImageURL
-                                                                                             cachedOnly:NO];
+            MWKImage* selectedImage = [strSelf.session.currentArticle.images largestImageVariantForURL:selectedImageURL
+                                                                                            cachedOnly:NO];
             NSCParameterAssert(selectedImage);
-            [strSelf presentGalleryForArticle:strSelf->session.currentArticle showingImage:selectedImage];
+            [strSelf presentGalleryForArticle:strSelf.session.currentArticle showingImage:selectedImage];
         }];
 
         self.unsafeToScroll = NO;
@@ -967,8 +965,8 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 #pragma Saved Pages
 
 - (void)saveCurrentPage {
-    MWKTitle* title          = session.currentArticle.title;
-    MWKUserDataStore* store  = session.userDataStore;
+    MWKTitle* title          = self.session.currentArticle.title;
+    MWKUserDataStore* store  = self.session.userDataStore;
     MWKSavedPageList* list   = store.savedPageList;
     MWKSavedPageEntry* entry = [list entryForTitle:title];
 
@@ -1071,15 +1069,15 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)saveWebViewScrollOffset {
     // Don't record scroll position of "main" pages.
-    if ([session articleIsAMainArticle:session.currentArticle]) {
+    if ([self.session articleIsAMainArticle:self.session.currentArticle]) {
         return;
     }
 
-    MWKHistoryEntry* entry = [session.userDataStore.historyList entryForTitle:session.currentArticle.title];
+    MWKHistoryEntry* entry = [self.session.userDataStore.historyList entryForTitle:self.session.currentArticle.title];
     if (entry) {
-        entry.scrollPosition                    = self.webView.scrollView.contentOffset.y;
-        session.userDataStore.historyList.dirty = YES;         // hack to force
-        [session.userDataStore save];
+        entry.scrollPosition                         = self.webView.scrollView.contentOffset.y;
+        self.session.userDataStore.historyList.dirty = YES;         // hack to force
+        [self.session.userDataStore save];
     }
 }
 
@@ -1147,7 +1145,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     // the results have been scrolled in excess of some small distance threshold first.
     // This prevents tiny scroll adjustments, which seem to occur occasionally for some
     // reason, from causing the keyboard to hide when the user is typing on it!
-    CGFloat distanceScrolled     = scrollViewDragBeganVerticalOffset_ - scrollView.contentOffset.y;
+    CGFloat distanceScrolled     = self.scrollViewDragBeganVerticalOffset - scrollView.contentOffset.y;
     CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
 
     if (self.keyboardIsVisible && fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
@@ -1165,7 +1163,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
-    scrollViewDragBeganVerticalOffset_ = scrollView.contentOffset.y;
+    self.scrollViewDragBeganVerticalOffset = scrollView.contentOffset.y;
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView*)scrollView {
@@ -1180,7 +1178,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 - (void)adjustTopAndBottomMenuVisibilityOnScroll {
     // This method causes the menus to hide when user scrolls down and show when they scroll up.
     if (self.webView.scrollView.isDragging && ![self tocDrawerIsOpen]) {
-        CGFloat distanceScrolled  = scrollViewDragBeganVerticalOffset_ - self.webView.scrollView.contentOffset.y;
+        CGFloat distanceScrolled  = self.scrollViewDragBeganVerticalOffset - self.webView.scrollView.contentOffset.y;
         CGFloat minPixelsScrolled = 20;
 
         // Reveal menus if scroll velocity is a bit fast. Point is to avoid showing the menu
@@ -1248,7 +1246,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     //[dataHouseKeeping performHouseKeeping];
 
     // Do not remove the following commented toggle. It's for testing W0 stuff.
-    //[session.zeroConfigState toggleFakeZeroOn];
+    //[self.session.zeroConfigState toggleFakeZeroOn];
 
     //[self toggleImageSheet];
 
@@ -1271,7 +1269,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     showImageSheet = !showImageSheet;
 
     if (showImageSheet) {
-        MWKArticle* article   = session.currentArticle;
+        MWKArticle* article   = self.session.currentArticle;
         NSMutableArray* views = @[].mutableCopy;
         for (MWKSection* section in article.sections) {
             int index = 0;
@@ -1316,15 +1314,15 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     //
     // Proper fix might be to store more of a 'tree' structure so that we know which
     // 'leaf' to hang off of, but this works for now.
-    MWKHistoryList* historyList = session.userDataStore.historyList;
+    MWKHistoryList* historyList = self.session.userDataStore.historyList;
     //NSLog(@"XXX %d", (int)historyList.length);
     if (historyList.length > 0) {
         // Grab the latest
-        MWKHistoryEntry* historyEntry = [historyList entryForTitle:session.currentArticle.title];
+        MWKHistoryEntry* historyEntry = [historyList entryForTitle:self.session.currentArticle.title];
         if (historyEntry) {
             historyEntry.date = [NSDate date];
             [historyList addEntry:historyEntry];
-            [session.userDataStore save];
+            [self.session.userDataStore save];
         }
     }
 }
@@ -1367,7 +1365,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (void)reloadCurrentArticle {
-    [self navigateToPage:session.currentArticle.title
+    [self navigateToPage:self.session.currentArticle.title
          discoveryMethod:MWKHistoryDiscoveryMethodReload];
 }
 
@@ -1387,12 +1385,12 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     self.currentTitle = pageTitle;
 
-    MWKArticle* article = [session.dataStore articleWithTitle:self.currentTitle];
-    session.currentArticle                = article;
-    session.currentArticleDiscoveryMethod = discoveryMethod;
+    MWKArticle* article = [self.session.dataStore articleWithTitle:self.currentTitle];
+    self.session.currentArticle                = article;
+    self.session.currentArticleDiscoveryMethod = discoveryMethod;
 
     BOOL needsRefresh = NO;
-    switch (session.currentArticleDiscoveryMethod) {
+    switch (self.session.currentArticleDiscoveryMethod) {
         case MWKHistoryDiscoveryMethodSearch:
         case MWKHistoryDiscoveryMethodRandom:
         case MWKHistoryDiscoveryMethodLink:
@@ -1411,7 +1409,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     // If article is cached
     if ([article isCached] && !needsRefresh) {
-        [self displayArticle:session.currentArticle.title];
+        [self displayArticle:self.session.currentArticle.title];
         //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
         [self fadeAlert];
     } else {
@@ -1420,7 +1418,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
         // "fetchFinished:" above will be notified when articleFetcher has actually retrieved some data.
         // Note: cast to void to avoid compiler warning: http://stackoverflow.com/a/7915839
-        (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle:session.currentArticle
+        (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle:self.session.currentArticle
                                                          withManager:[QueuesSingleton sharedInstance].articleFetchManager
                                                   thenNotifyDelegate:self];
     }
@@ -1438,7 +1436,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                status:(FetchFinalStatus)status
                 error:(NSError*)error {
     if ([sender isKindOfClass:[ArticleFetcher class]]) {
-        MWKArticle* article = session.currentArticle;
+        MWKArticle* article = self.session.currentArticle;
 
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:
@@ -1448,7 +1446,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                 if (redirectedTitle) {
                     // Get discovery method for call to "retrieveArticleForPageTitle:".
                     // There should only be a single history item (at most).
-                    MWKHistoryEntry* history = [session.userDataStore.historyList entryForTitle:article.title];
+                    MWKHistoryEntry* history = [self.session.userDataStore.historyList entryForTitle:article.title];
                     // Get the article's discovery method.
                     MWKHistoryDiscoveryMethod discoveryMethod =
                         (history) ? history.discoveryMethod : MWKHistoryDiscoveryMethodSearch;
@@ -1528,9 +1526,9 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     // Get lead image html structured such that no JS bridge messages are needed for lead image presentation.
     // Set everything here via css before the html payload is delivered to the web view.
 
-    MWKArticle* article = session.currentArticle;
+    MWKArticle* article = self.session.currentArticle;
 
-    if ([session articleIsAMainArticle:article]) {
+    if ([self.session articleIsAMainArticle:article]) {
         return @"";
     }
 
@@ -1613,12 +1611,13 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     NSDictionary* payload = notification.userInfo;
     NSNumber* isLeadImage = payload[kURLCacheKeyIsLeadImage];
     if (isLeadImage.boolValue) {
-        [self leadImageRetrieved:notification];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSDictionary* payload = notification.userInfo;
+            NSString* stringRect = payload[kURLCacheKeyPrimaryFocalUnitRectString];
+            CGRect rect = CGRectFromString(stringRect);
+            [self leadImageHidePlaceHolderAndCenterOnFaceIfNeeded:rect];
+        });
     }
-}
-
-- (void)leadImageRetrieved:(NSNotification*)notification {
-    [self leadImageHidePlaceHolderAndCenterOnFaceIfNeeded:notification];
 }
 
 - (NSInteger)leadImageFocalOffsetYPercentageFromTopOfRect:(CGRect)rect {
@@ -1626,51 +1625,49 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     return @(MAX(0, MIN(100, percentFromTop))).integerValue;
 }
 
-- (void)leadImageHidePlaceHolderAndCenterOnFaceIfNeeded:(NSNotification*)notification {
-    static NSString* hidePlaceholderJS = nil;
-    if (!hidePlaceholderJS) {
-        hidePlaceholderJS = @"document.getElementById('lead_image_div').style.backgroundImage = document.getElementById('lead_image_div').style.backgroundImage.replace('wmf://bundledImage/lead-default.png', 'wmf://bundledImage/empty.png');";
-    }
++ (NSString*)hidePlaceholderJS {
+    #warning FIXME: abstract away "get lead image div" logic
+    return @"document.getElementById('lead_image_div').style.backgroundImage = document.getElementById('lead_image_div').style.backgroundImage.replace('wmf://bundledImage/lead-default.png', 'wmf://bundledImage/empty.png');";
+}
 
-    NSDictionary* payload = notification.userInfo;
-    NSString* stringRect  = payload[kURLCacheKeyPrimaryFocalUnitRectString];
-    CGRect rect           = CGRectFromString(stringRect);
-
+- (void)leadImageHidePlaceHolderAndCenterOnFaceIfNeeded:(CGRect)rect {
     NSString* applyFocalOffsetJS = @"";
     if (!CGRectEqualToRect(rect, CGRectZero)) {
-        NSInteger yFocalOffset = [self leadImageFocalOffsetYPercentageFromTopOfRect:rect];
-        applyFocalOffsetJS = [NSString stringWithFormat:@"document.getElementById('lead_image_div').style.backgroundPosition = 'calc(100%%) calc(%ld%%)';", yFocalOffset];
+        #warning FIXME: abstract away "get lead image div" logic
+        applyFocalOffsetJS =
+            [NSString stringWithFormat:@"document.getElementById('lead_image_div').style.backgroundPosition = 'calc(100%%) calc(%d%%)';", [self leadImageFocalOffsetYPercentageFromTopOfRect:rect]];
     }
 
     static NSString* animationCss = nil;
     if (!animationCss) {
+        #warning FIXME: abstract away "get lead image div" logic
         animationCss =
             @"document.getElementById('lead_image_div').style.transition = 'background-position 0.8s';";
     }
-
-    NSString* js = [NSString stringWithFormat:@"%@%@%@", animationCss, hidePlaceholderJS, applyFocalOffsetJS];
-    [self.webView stringByEvaluatingJavaScriptFromString:js];
+    [self.webView stringByEvaluatingJavaScriptFromString:[@[animationCss,
+                                                            [WebViewController hidePlaceholderJS],
+                                                            applyFocalOffsetJS] componentsJoinedByString : @""]];
 }
 
 #pragma mark Display article from data store
 
 - (void)displayArticle:(MWKTitle*)title {
-    MWKArticle* article = [session.dataStore articleWithTitle:title];
-    session.currentArticle = article;
+    MWKArticle* article = [self.session.dataStore articleWithTitle:title];
+    self.session.currentArticle = article;
 
     if (![article isCached]) {
         [self hideProgressViewAnimated:YES];
         return;
     }
 
-    switch (session.currentArticleDiscoveryMethod) {
+    switch (self.session.currentArticleDiscoveryMethod) {
         case MWKHistoryDiscoveryMethodSaved:
         case MWKHistoryDiscoveryMethodSearch:
         case MWKHistoryDiscoveryMethodRandom:
         case MWKHistoryDiscoveryMethodLink:
         case MWKHistoryDiscoveryMethodUnknown: {
             // Update the history so the most recently viewed article appears at the top.
-            [session.userDataStore updateHistory:title discoveryMethod:session.currentArticleDiscoveryMethod];
+            [self.session.userDataStore updateHistory:title discoveryMethod:self.session.currentArticleDiscoveryMethod];
             break;
         }
 
@@ -1696,7 +1693,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
 
-    for (MWKSection* section in session.currentArticle.sections) {
+    for (MWKSection* section in self.session.currentArticle.sections) {
         NSString* html = nil;
 
         @try {
@@ -1714,10 +1711,10 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         [sectionTextArray addObject:sectionHTMLWithID];
     }
 
-    if (session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodSaved ||
-        session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
-        session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReload) {
-        MWKHistoryEntry* historyEntry = [session.userDataStore.historyList entryForTitle:article.title];
+    if (self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodSaved ||
+        self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
+        self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReload) {
+        MWKHistoryEntry* historyEntry = [self.session.userDataStore.historyList entryForTitle:article.title];
         CGPoint scrollOffset          = CGPointMake(0, historyEntry.scrollPosition);
         self.lastScrollOffset = scrollOffset;
     } else {
@@ -1725,7 +1722,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         self.lastScrollOffset = scrollOffset;
     }
 
-    if (![session articleIsAMainArticle:session.currentArticle]) {
+    if (![self.session articleIsAMainArticle:self.session.currentArticle]) {
         NSString* lastModifiedByUserName =
             (lastModifiedBy && !lastModifiedBy.anonymous) ? lastModifiedBy.name : nil;
         [self.footerViewController updateLanguageCount:langCount];
@@ -1841,7 +1838,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
 
     if ([[[notification userInfo] objectForKey:@"state"] boolValue]) {
-        (void)[[WikipediaZeroMessageFetcher alloc] initAndFetchMessageForDomain:session.currentArticleSite.language
+        (void)[[WikipediaZeroMessageFetcher alloc] initAndFetchMessageForDomain:self.session.currentArticleSite.language
                                                                     withManager:[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager
                                                              thenNotifyDelegate:self];
     } else {
@@ -1891,7 +1888,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 - (BOOL)refreshShouldShow {
     return (![self tocDrawerIsOpen])
            &&
-           (session.currentArticle != nil)
+           (self.session.currentArticle != nil)
            &&
            (!ROOT.isAnimatingTopAndBottomMenuHidden);
 }
