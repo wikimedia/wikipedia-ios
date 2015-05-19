@@ -5,6 +5,7 @@
 #import "WMFAssetsFile.h"
 #import "SessionSingleton.h"
 #import "NSBundle+WMFInfoUtils.h"
+#import <BlocksKit/BlocksKit.h>
 
 NSUInteger MegabytesToBytes(NSUInteger m){
     static NSUInteger const MEGABYTE = 1 << 20;
@@ -21,6 +22,10 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle) {
 }
 
 @implementation WikipediaAppUtils
+
++ (void)load {
+    [[NSNotificationCenter defaultCenter] addObserver:[self class] selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+}
 
 + (NSString*)appVersion {
     return [[NSBundle mainBundle] wmf_versionForCurrentBundleIdentifier];
@@ -117,19 +122,24 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle) {
     }
 }
 
+static WMFAssetsFile* languageFile = nil;
+
++ (void)didReceiveMemoryWarningWithNotification:(NSNotification*)note {
+    languageFile = nil;
+}
+
 + (NSString*)domainNameForCode:(NSString*)code {
-    WMFAssetsFile* assetsFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
-    NSArray* result           = assetsFile.array;
-    if (result.count > 0) {
-        for (NSDictionary* d in result) {
-            if ([d[@"code"] isEqualToString:code]) {
-                return d[@"name"];
-            }
-        }
-        return nil;
-    } else {
-        return nil;
+    if (!languageFile) {
+        languageFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
     }
+
+    return [languageFile.array bk_match:^BOOL (NSDictionary* obj) {
+        if ([obj[@"code"] isEqualToString:code]) {
+            return YES;
+        }
+
+        return NO;
+    }][@"name"];
 }
 
 + (NSString*)wikiLangForSystemLang:(NSString*)code {
