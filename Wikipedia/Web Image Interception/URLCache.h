@@ -4,7 +4,9 @@
 #import <Foundation/Foundation.h>
 
 /**
- *  Get notified when a section image is loaded
+ * Posted when a section image is cached.
+ * @warning This notification is posted on a background thread, dispatch to the
+ *          main thread in the notification callback if the observer is a UI object.
  */
 extern NSString* const WMFURLCacheSectionImageRetrievedNotification;
 

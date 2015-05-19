@@ -97,14 +97,14 @@ static CGFloat const kBottomScrollSpacerHeight = 2000.0f;
 static int const kMinimumTextSelectionLength = 2;
 
 @interface WebViewController ()
-{
-    CGFloat scrollViewDragBeganVerticalOffset_;
-    SessionSingleton* session;
-}
+
+@property (nonatomic, strong) SessionSingleton* session;
 
 @property (strong, nonatomic) CommunicationBridge* bridge;
 
 @property (nonatomic) CGPoint lastScrollOffset;
+
+@property (nonatomic) CGFloat scrollViewDragBeganVerticalOffset;
 
 @property (nonatomic) BOOL unsafeToScroll;
 
