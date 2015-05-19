@@ -62,7 +62,7 @@
 }
 
 - (NSDictionary*)dictionaryFromDataResponse:(id)responseObject {
-    NSDictionary* output = @{};
+    NSDictionary* output = nil;
     // Convert the raw NSData response to a dictionary.
     if (![self isDataResponseValid:responseObject]) {
         // Fake out an error if bad response received.

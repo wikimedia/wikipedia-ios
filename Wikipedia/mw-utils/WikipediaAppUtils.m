@@ -95,7 +95,7 @@ NSString* WMFNormalizedPageTitle(NSString* rawPageTitle) {
 }
 
 + (NSString*)relativeTimestamp:(NSDate*)date {
-    NSTimeInterval interval = abs([date timeIntervalSinceNow]);
+    NSTimeInterval interval = fabs([date timeIntervalSinceNow]);
     double minutes          = interval / 60.0;
     double hours            = minutes / 60.0;
     double days             = hours / 24.0;
