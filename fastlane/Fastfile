@@ -55,6 +55,7 @@ platform :ios do
         configuration: "Alpha",
         scheme: "Wikipedia Alpha",
         embed: 'build/alpha.mobileprovision',
+        # needed to override automatic profile selection
         xcargs: "PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}"
       )
       hockey(
@@ -77,7 +78,7 @@ platform :ios do
       configuration: "Beta",
       scheme: "Wikipedia Beta",
       embed: 'build/beta.mobileprovision',
-      xcargs: 'PROVISIONING_PROFILE=build/beta.mobileprovision'
+      xcargs: "PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}"
     )
     hockey(
       notes: git_commit_log,
@@ -98,7 +99,7 @@ platform :ios do
       configuration: "Wikipedia",
       scheme: "Wikipedia",
       embed: 'build/adhoc.mobileprovision',
-      xcargs: 'PROVISIONING_PROFILE=build/adhoc.mobileprovision'
+      xcargs: "PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}"
     )
     hockey(
       notes: git_commit_log,
@@ -119,7 +120,7 @@ platform :ios do
       configuration: "Wikipedia",
       scheme: "Wikipedia",
       embed: 'build/release.mobileprovision',
-      xcargs: 'PROVISIONING_PROFILE=build/release.mobileprovision'
+      xcargs: "PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}"
     )
     hockey(
       notes: git_commit_log,
