@@ -44,46 +44,43 @@ platform :ios do
 
   desc "Bump the version, and submit a new **Wikipedia Alpha** Build to Apple TestFlight"
   lane :alpha do
-    # snapshot
-    sigh
-    increment_build_number
-
-    # uncomment when CI is able to push tags
-    if ENV['WMF_BUMP']
-      commit_version_bump
-      plist_version = get_version_short_string File.expand_path(File.join(ENV['PWD'], 'Wikipedia/Wikipedia-Info.plist'))
-      # tag must be added after the version bump is committed
-      add_git_tag(tag: "#{plist_version}.#{Actions.lane_context[Actions::SharedValues::BUILD_NUMBER]}")
+    with_bump do
+      sigh(
+        adhoc: false,
+        force: true,
+        filename: 'build/alpha.mobileprovision'
+      )
+      # uncomment when CI is able to push tags
+      ipa(
+        configuration: "Alpha",
+        scheme: "Wikipedia Alpha",
+        embed: 'build/alpha.mobileprovision',
+        xcargs: "PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}"
+      )
+      hockey(
+        notes: git_commit_log,
+        notify: '0', # Means do not notify
+        status: '1', # Means do not make available for download
+      )
+      deliver beta: true
     end
-
-    ipa(
-      configuration: "Alpha",
-      scheme: "Wikipedia Alpha",
-    )
-    hockey(
-      notes: '',
-      notify: '0', # Means do not notify
-      status: '1', # Means do not make available for download
-    )
-    deliver beta: true
-
-    # uncomment when CI is able to push tags
-    if ENV['WMF_BUMP']
-      # only push after everything else has succeeded
-      push_to_git_remote
-    end
-	end
+  end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"
   lane :beta do
-    # snapshot
-    sigh
+    sigh(
+      adhoc: false,
+      force: true,
+      filename: 'build/beta.mobileprovision'
+    )
     ipa(
       configuration: "Beta",
       scheme: "Wikipedia Beta",
+      embed: 'build/beta.mobileprovision',
+      xcargs: 'PROVISIONING_PROFILE=build/beta.mobileprovision'
     )
     hockey(
-      notes: '',
+      notes: git_commit_log,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
     )
@@ -92,7 +89,6 @@ platform :ios do
 
   desc "Upload AdHoc build to Hockey."
   lane :rc do
-    # create app store build
     sigh(
       adhoc: true,
       force: true,
@@ -101,7 +97,8 @@ platform :ios do
     ipa(
       configuration: "Wikipedia",
       scheme: "Wikipedia",
-      embed: 'build/adhoc.mobileprovision'
+      embed: 'build/adhoc.mobileprovision',
+      xcargs: 'PROVISIONING_PROFILE=build/adhoc.mobileprovision'
     )
     hockey(
       notes: git_commit_log,
@@ -121,7 +118,8 @@ platform :ios do
     ipa(
       configuration: "Wikipedia",
       scheme: "Wikipedia",
-      embed: 'build/release.mobileprovision'
+      embed: 'build/release.mobileprovision',
+      xcargs: 'PROVISIONING_PROFILE=build/release.mobileprovision'
     )
     hockey(
       notes: git_commit_log,
@@ -129,9 +127,7 @@ platform :ios do
       status: '1', # Do not make available for download
       release_type: '1' # 'store' release type
     )
-    deliver(
-      force: true
-    )
+    deliver force: true
   end
 
   after_all do |lane|
