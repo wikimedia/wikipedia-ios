@@ -1,6 +1,6 @@
 
 #import "ArticleDataContextSingleton.h"
-#import "NSManagedObjectModel+OldDataSchema.h"
+#import "NSManagedObjectModel+LegacyCoreData.h"
 
 @interface ArticleDataContextSingleton ()
 
@@ -28,7 +28,7 @@
 - (NSManagedObjectContext*)masterContext {
     if (!_masterContext) {
         NSPersistentStoreCoordinator* persistentStoreCoordinator =
-            [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel wmf_oldDataSchema]];
+            [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel wmf_legacyCoreDataModel]];
 
         NSURL* url = [NSURL fileURLWithPath:[self databasePath]];
 

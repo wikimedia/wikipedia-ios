@@ -3,11 +3,10 @@
 
 #import "SessionSingleton.h"
 
-#import "OldDataSchemaMigrator.h"
-#import "SchemaConverter.h"
+#import "LegacyCoreDataMigrator.h"
+#import "LegacyDataMigrator.h"
 
-#import "DataMigrator.h"
-#import "ArticleImporter.h"
+#import "LegacyPhoneGapDataMigrator.h"
 
 #import "WikipediaAppUtils.h"
 #import "WMFProgressLineView.h"
@@ -18,11 +17,11 @@ enum {
     BUTTON_INDEX_SUBMIT  = 1
 } MigrationButtonIndexIds;
 
-@interface DataMigrationProgressViewController ()<OldDataSchemaMigratorProgressDelegate>
+@interface DataMigrationProgressViewController ()<LegacyCoreDataMigratorProgressDelegate>
 
-@property (nonatomic, strong) SchemaConverter* schemaConvertor;
-@property (nonatomic, strong) OldDataSchemaMigrator* oldDataSchema;
-@property (nonatomic, strong) DataMigrator* dataMigrator;
+@property (nonatomic, strong) LegacyDataMigrator* schemaConvertor;
+@property (nonatomic, strong) LegacyCoreDataMigrator* oldDataSchema;
+@property (nonatomic, strong) LegacyPhoneGapDataMigrator* dataMigrator;
 
 @end
 
@@ -45,39 +44,41 @@ enum {
 
     if ([self.oldDataSchema exists]) {
         [self runNewMigration];
-    } else if ([DataMigrator hasData]) {
-        [self runOldMigration];
     }
+    // FIXME: ask user to reach out to devs for assistance with migrating their data
+    // else if ([LegacyPhoneGapDataMigrator hasData]) {
+    //
+    // }
 }
 
-- (OldDataSchemaMigrator*)oldDataSchema {
+- (LegacyCoreDataMigrator*)oldDataSchema {
     if (_oldDataSchema == nil) {
         ArticleDataContextSingleton* context = [ArticleDataContextSingleton sharedInstance];
-        _oldDataSchema = [[OldDataSchemaMigrator alloc] initWithDatabasePath:context.databasePath];
+        _oldDataSchema = [[LegacyCoreDataMigrator alloc] initWithDatabasePath:context.databasePath];
     }
     return _oldDataSchema;
 }
 
-- (DataMigrator*)dataMigrator {
+- (LegacyPhoneGapDataMigrator*)dataMigrator {
     if (_dataMigrator == nil) {
-        _dataMigrator = [[DataMigrator alloc] init];
+        _dataMigrator = [[LegacyPhoneGapDataMigrator alloc] init];
     }
     return _dataMigrator;
 }
 
-- (SchemaConverter*)schemaConvertor {
+- (LegacyDataMigrator*)schemaConvertor {
     if (!_schemaConvertor) {
-        _schemaConvertor = [[SchemaConverter alloc] initWithDataStore:[SessionSingleton sharedInstance].dataStore];
+        _schemaConvertor = [[LegacyDataMigrator alloc] initWithDataStore:[SessionSingleton sharedInstance].dataStore];
     }
     return _schemaConvertor;
 }
 
 - (BOOL)needsMigration {
-    return [self.oldDataSchema exists] || [DataMigrator hasData];
+    return [self.oldDataSchema exists] || [LegacyPhoneGapDataMigrator hasData];
 }
 
 - (void)moveOldDataToBackupLocation {
-    [DataMigrator removeOldData]; //we do not back old old data
+    [LegacyPhoneGapDataMigrator removeOldData]; //we do not back old old data
     [self.oldDataSchema moveOldDataToBackupLocation];
 }
 
@@ -88,7 +89,7 @@ enum {
 - (void)runNewMigration {
     // Middle-Ages Converter
     // From the native app's initial CoreData-based implementation,
-    // which now lives in OldDataSchema subproject.
+    // which now lives in LegacyCoreData subproject.
 
     self.progressIndicator.progress = 0.0;
 
@@ -99,29 +100,7 @@ enum {
     [self.oldDataSchema migrateData];
 }
 
-- (void)runOldMigration {
-    // Ye Ancient Converter
-    // From the old PhoneGap app
-    // @fixme: fix this to work again
-
-    self.progressIndicator.progress = 0.0;
-
-    NSLog(@"Old data to migrate found!");
-    NSArray* titles           = [self.dataMigrator extractSavedPages];
-    ArticleImporter* importer = [[ArticleImporter alloc] init];
-
-    for (NSDictionary* item in titles) {
-        NSLog(@"Will import saved page: %@ %@", item[@"lang"], item[@"title"]);
-    }
-
-    [importer importArticles:titles];
-
-    [DataMigrator removeOldData];
-
-    [self.progressIndicator setProgress:1.0 animated:YES completion:NULL];
-}
-
-- (void)oldDataSchema:(OldDataSchemaMigrator*)schema didUpdateProgressWithArticlesCompleted:(NSUInteger)completed total:(NSUInteger)total {
+- (void)oldDataSchema:(LegacyCoreDataMigrator*)schema didUpdateProgressWithArticlesCompleted:(NSUInteger)completed total:(NSUInteger)total {
     NSString* lineOne = MWLocalizedString(@"migration-update-progress-label", nil);
 
     NSString* lineTwo = MWLocalizedString(@"migration-update-progress-count-label", nil);
@@ -137,7 +116,7 @@ enum {
     [self.progressIndicator setProgress:((float)completed / (float)total) animated:YES];
 }
 
-- (void)oldDataSchemaDidFinishMigration:(OldDataSchemaMigrator*)schema {
+- (void)oldDataSchemaDidFinishMigration:(LegacyCoreDataMigrator*)schema {
     [[SessionSingleton sharedInstance].userDataStore reset];
     NSLog(@"end migration");
 
@@ -146,7 +125,7 @@ enum {
     }];
 }
 
-- (void)oldDataSchema:(OldDataSchemaMigrator*)schema didFinishWithError:(NSError*)error {
+- (void)oldDataSchema:(LegacyCoreDataMigrator*)schema didFinishWithError:(NSError*)error {
     [self displayErrorCondition];
     NSLog(@"end migration");
 

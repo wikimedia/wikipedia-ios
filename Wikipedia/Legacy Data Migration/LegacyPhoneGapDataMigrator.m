@@ -1,19 +1,20 @@
 //
-//  DataMigrator.m
+//  LegacyPhoneGapDataMigrator.m
 //  Wikipedia
 //
 //  Created by Brion on 4/23/14.
 //  Copyright (c) 2014 Wikimedia Foundation. Some rights reserved.
 //
 
-#import "DataMigrator.h"
+#import "LegacyPhoneGapDataMigrator.h"
 #import "SQLiteHelper.h"
 
-@implementation DataMigrator
-{
-    SQLiteHelper* masterDB;
-    SQLiteHelper* savedPagesDB;
-}
+@interface LegacyPhoneGapDataMigrator ()
+@property (nonatomic, strong) SQLiteHelper* masterDB;
+@property (nonatomic, strong) SQLiteHelper* savedPagesDB;
+@end
+
+@implementation LegacyPhoneGapDataMigrator
 
 #pragma mark - Public methods
 
@@ -40,7 +41,7 @@
         NSString* dbPath = [[self class] masterDatabasePathIfExists];
         if (dbPath) {
             NSLog(@"Opening sqlite database from %@", dbPath);
-            masterDB = [[SQLiteHelper alloc] initWithPath:dbPath];
+            self.masterDB = [[SQLiteHelper alloc] initWithPath:dbPath];
         }
     }
     return self;
@@ -86,12 +87,12 @@
 }
 
 - (NSArray*)fetchRawSavedPages {
-    savedPagesDB = [self openDatabaseWithName:@"savedPagesDB"];
-    return [savedPagesDB query:@"SELECT value FROM savedPagesDB" params:nil];
+    self.savedPagesDB = [self openDatabaseWithName:@"self.savedPagesDB"];
+    return [self.savedPagesDB query:@"SELECT value FROM self.savedPagesDB" params:nil];
 }
 
 - (SQLiteHelper*)openDatabaseWithName:(NSString*)dbname {
-    NSArray* rows     = [masterDB query:@"SELECT origin, path FROM Databases WHERE name=?" params:@[dbname]];
+    NSArray* rows     = [self.masterDB query:@"SELECT origin, path FROM Databases WHERE name=?" params:@[dbname]];
     NSDictionary* row = rows[0];
     NSLog(@"row: %@", row);
     NSString* path = [[[[self class] localLibraryPath:@"Caches"] stringByAppendingPathComponent:row[@"origin"]] stringByAppendingPathComponent:row[@"path"]];

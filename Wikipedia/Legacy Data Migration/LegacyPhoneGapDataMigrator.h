@@ -1,5 +1,5 @@
 //
-//  DataMigrator.h
+//  LegacyPhoneGapDataMigrator.h
 //  Wikipedia
 //
 //  Created by Brion on 4/23/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DataMigrator : NSObject
+@interface LegacyPhoneGapDataMigrator : NSObject
 
 /// @return `YES` if a SQLLite file exists at the master database path, otherwise `NO`.
 + (BOOL)hasData;

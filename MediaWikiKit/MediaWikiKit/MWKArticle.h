@@ -25,10 +25,11 @@ static const NSInteger kMWKArticleSectionNone = -1;
     @protected
     MWKImageList* _images;
 }
+/// Data store used for reading & writing related entities.
+@property (readonly, weak, nonatomic) MWKDataStore* dataStore;
 
 // Identifiers
 @property (readonly, strong, nonatomic) MWKTitle* title;
-@property (readonly, weak, nonatomic) MWKDataStore* dataStore;
 
 // Metadata
 @property (readonly, strong, nonatomic) MWKTitle* redirected;                // optional

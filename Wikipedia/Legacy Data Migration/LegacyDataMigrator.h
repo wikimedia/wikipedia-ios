@@ -1,5 +1,5 @@
 //
-//  SchemaConverter.h
+//  LegacyDataMigrator.h
 //  Wikipedia
 //
 //  Created by Brion on 12/29/14.
@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "OldDataSchemaMigrator.h"
+#import "LegacyCoreDataMigrator.h"
 
 #import "MediaWikiKit.h"
 
-@interface SchemaConverter : NSObject <OldDataSchemaDelegate>
+@interface LegacyDataMigrator : NSObject <LegacyCoreDataDelegate>
 
-@property (nonatomic, strong) OldDataSchemaMigrator* schema;
+@property (nonatomic, strong) LegacyCoreDataMigrator* schema;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong) MWKUserDataStore* userDataStore;
 

@@ -50,7 +50,7 @@
 
 - (void)testSectionListInitializationExeptionHandling {
     MWKArticle* mockArticle =
-        [[MWKArticle alloc] initWithTitle:nil dataStore:mock([MWKDataStore class])];
+        [[MWKArticle alloc] initWithTitle:nil dataStore:self.dataStore];
 
     [self addEmptyFolderForSection:0 title:anything() mockDataStore:mockArticle.dataStore];
 

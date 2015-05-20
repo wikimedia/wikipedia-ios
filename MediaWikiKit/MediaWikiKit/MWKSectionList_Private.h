@@ -11,6 +11,7 @@
 @interface MWKSectionList ()
 
 /// @warning For testing only.
+/// Backing array of `MWKSection` objects.
 @property (strong, nonatomic) NSMutableArray* sections;
 
 /// Import list of sections from disk using the receiver's `article` and `dataStore`.

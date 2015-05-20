@@ -1,15 +1,15 @@
 
-#import "OldDataSchemaMigrator_Private.h"
+#import "LegacyCoreDataMigrator_Private.h"
 #import "ArticleCoreDataObjects.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "Article+ConvenienceAccessors.h"
 
-static NSString* const kWMFOldDataSchemaBackupDateKey               = @"kWMFOldDataSchemaBackupDateKey";
-static NSUInteger const kWMFOldDataSchemaBackupExpirationTimeInDays = 30;
+static NSString* const kWMFLegacyCoreDataBackupDateKey               = @"kWMFLegacyCoreDataBackupDateKey";
+static NSUInteger const kWMFLegacyCoreDataBackupExpirationTimeInDays = 30;
 
 
-@interface OldDataSchemaMigrator ()
+@interface LegacyCoreDataMigrator ()
 
 @property (nonatomic, strong, readwrite) NSString* databasePath;
 
@@ -17,7 +17,7 @@ static NSUInteger const kWMFOldDataSchemaBackupExpirationTimeInDays = 30;
 
 @end
 
-@implementation OldDataSchemaMigrator
+@implementation LegacyCoreDataMigrator
 
 - (instancetype)initWithDatabasePath:(NSString*)databasePath {
     self = [super init];
@@ -77,25 +77,25 @@ static NSUInteger const kWMFOldDataSchemaBackupExpirationTimeInDays = 30;
 
 - (void)setBackDateToNow {
     NSDate* backupDate = [NSDate new];
-    [[NSUserDefaults standardUserDefaults] setDouble:backupDate.timeIntervalSinceReferenceDate forKey:kWMFOldDataSchemaBackupDateKey];
+    [[NSUserDefaults standardUserDefaults] setDouble:backupDate.timeIntervalSinceReferenceDate forKey:kWMFLegacyCoreDataBackupDateKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setBackupDateForPreexistingBackups {
-    if (([[NSUserDefaults standardUserDefaults] doubleForKey:kWMFOldDataSchemaBackupDateKey] < 1.0) && [self backupExists]) {
+    if (([[NSUserDefaults standardUserDefaults] doubleForKey:kWMFLegacyCoreDataBackupDateKey] < 1.0) && [self backupExists]) {
         [self setBackDateToNow];
     }
 }
 
 - (BOOL)shouldRemoveBackup {
-    NSTimeInterval backupTimeInterval = [[NSUserDefaults standardUserDefaults] doubleForKey:kWMFOldDataSchemaBackupDateKey];
+    NSTimeInterval backupTimeInterval = [[NSUserDefaults standardUserDefaults] doubleForKey:kWMFLegacyCoreDataBackupDateKey];
     if (backupTimeInterval < 1.0) {
         return NO;
     }
 
     NSDate* backupDate = [NSDate dateWithTimeIntervalSinceReferenceDate:backupTimeInterval];
 
-    NSTimeInterval backupExpiraton = kWMFOldDataSchemaBackupExpirationTimeInDays * 24 * 60 * 60;
+    NSTimeInterval backupExpiraton = kWMFLegacyCoreDataBackupExpirationTimeInDays * 24 * 60 * 60;
 
     if ([[NSDate new] timeIntervalSinceDate:backupDate] > backupExpiraton) {
         return YES;
