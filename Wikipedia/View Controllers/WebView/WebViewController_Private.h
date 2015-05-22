@@ -67,7 +67,8 @@
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "UIColor+WMFHexColor.h"
 
-#import "URLCache.h"
+#import "WMFArticleImageProtocol.h"
+#import "WMFURLCache.h"
 
 #import "WMFProgressLineView.h"
 

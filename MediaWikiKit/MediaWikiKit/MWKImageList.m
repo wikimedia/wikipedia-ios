@@ -142,7 +142,6 @@
         }];
         return arr2;
     } else {
-        NSLog(@"no variants for %@", baseName);
         return @[];
     }
 }

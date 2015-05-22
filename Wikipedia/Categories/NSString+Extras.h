@@ -13,7 +13,7 @@
 
 - (NSString*)wmf_schemelessURL;
 
-- (NSString*)wmf_imageMimeTypeForExtension;
+- (NSString*)wmf_mimeTypeForExtension;
 
 - (NSDate*)wmf_iso8601Date;
 

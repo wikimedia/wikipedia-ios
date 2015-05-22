@@ -109,7 +109,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(zeroStateChanged:)
-                                                 name:@"ZeroStateChanged"
+                                                 name:WMFURLCacheZeroStateChanged
                                                object:nil];
 
 
@@ -123,7 +123,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sectionImageRetrieved:)
-                                                 name:WMFURLCacheSectionImageRetrievedNotification
+                                                 name:WMFArticleImageSectionImageRetrievedNotification
                                                object:nil];
 
     [self fadeAlert];
@@ -1613,15 +1613,10 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (void)sectionImageRetrieved:(NSNotification*)notification {
-    NSDictionary* payload = notification.userInfo;
-    NSNumber* isLeadImage = payload[kURLCacheKeyIsLeadImage];
-    if (isLeadImage.boolValue) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSDictionary* payload = notification.userInfo;
-            NSString* stringRect = payload[kURLCacheKeyPrimaryFocalUnitRectString];
-            CGRect rect = CGRectFromString(stringRect);
-            [self leadImageHidePlaceHolderAndCenterOnFaceIfNeeded:rect];
-        });
+    MWKImage* image = (MWKImage*)notification.object;
+    if ([image isLeadImage]) {
+        CGRect rect = [image primaryFocalRectNormalizedToImageSize:NO];
+        [self leadImageHidePlaceHolderAndCenterOnFaceIfNeeded:rect];
     }
 }
 

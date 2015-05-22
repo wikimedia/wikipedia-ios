@@ -6,6 +6,7 @@
 @interface NSURL (WMFRest)
 
 - (BOOL)wmf_conformsToScheme:(NSString*)scheme andHasHost:(NSString*)host;
+- (BOOL)wmf_conformsToAnyOfSchemes:(NSArray*)schemes andHasHost:(NSString*)host;
 - (NSString*)wmf_getValue;
 
 @end

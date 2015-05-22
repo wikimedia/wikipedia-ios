@@ -147,7 +147,9 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (void)saveData:(NSData*)data path:(NSString*)path name:(NSString*)name {
-    [self saveData:data toFile:name atPath:path error:NULL];
+    NSError* error = nil;
+    [self saveData:data toFile:name atPath:path error:&error];
+    NSAssert(error == nil, @"Error saving image to data store: %@", error);
 }
 
 - (BOOL)saveArray:(NSArray*)array path:(NSString*)path name:(NSString*)name error:(NSError**)error {
