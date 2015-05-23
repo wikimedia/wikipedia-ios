@@ -27,15 +27,19 @@ __attribute__((constructor)) static void WMFRegisterBundledImageProtocol() {
 - (void)startLoading {
     NSString* fileName = [self.request.URL wmf_getValue];
 
+    UIImage* image = [UIImage imageNamed:fileName];
+    if (!image) {
+        [[self client] URLProtocol:self didFailWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileNoSuchFileError userInfo:nil]];
+        return;
+    }
+
+    NSData* data = UIImagePNGRepresentation(image);
+    NSAssert(data.length, @"Image \"%@\" is empty!", fileName);
+
     NSURLResponse* response = [[NSURLResponse alloc] initWithURL:self.request.URL
-                                                        MIMEType:[kImageSlash stringByAppendingString:[fileName pathExtension]]
-                                           expectedContentLength:-1
-                                                textEncodingName:nil];
-
-    NSString* imagePath = [[NSBundle mainBundle] pathForResource:[fileName stringByDeletingPathExtension]
-                                                          ofType:[fileName pathExtension]];
-
-    NSData* data = [NSData dataWithContentsOfFile:imagePath];
+                                                        MIMEType:@"image/png"
+                                           expectedContentLength:data.length
+                                                textEncodingName:@"binary"];
 
     [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
     [[self client] URLProtocol:self didLoadData:data];

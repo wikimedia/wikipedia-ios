@@ -1561,7 +1561,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                            @"%@;"
                            "background-position: 50%% %ld%%;",
                            article.imageURL,
-                           [article.image isCached] ? @"" : @",url('wmf://bundledImage/lead-default.png')",
+                           [article.image isCached] ? @"" : @",url('wmf://bundledImage/lead-default')",
                            offsetY];
 
     NSString* leadImageHtml =
@@ -1627,7 +1627,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 + (NSString*)hidePlaceholderJS {
     #warning FIXME: abstract away "get lead image div" logic
-    return @"document.getElementById('lead_image_div').style.backgroundImage = document.getElementById('lead_image_div').style.backgroundImage.replace('wmf://bundledImage/lead-default.png', 'wmf://bundledImage/empty.png');";
+    return @"document.getElementById('lead_image_div').style.backgroundImage = document.getElementById('lead_image_div').style.backgroundImage.replace('wmf://bundledImage/lead-default', 'wmf://bundledImage/empty');";
 }
 
 - (void)leadImageHidePlaceHolderAndCenterOnFaceIfNeeded:(CGRect)rect {
