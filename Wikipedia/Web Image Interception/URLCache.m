@@ -145,7 +145,7 @@ NSString* const kURLCacheKeyPrimaryFocalUnitRectString = @"primaryFocalUnitRectS
     // created when the section html was parsed to create sectionImage records, in which case
     // a request needs to actually be made, so set cachedResponse to nil so this happens.
     // URLCacheLog(@"imageFromDB.data = %@", imageFromDB.data);
-    if (imageFromDB && !imageFromDB.dateRetrieved) {
+    if (![imageFromDB isCached]) {
         cachedResponse = nil;
     } else if (imageFromDB) {
         NSData* imageData = [self.article.dataStore imageDataWithImage:imageFromDB];
