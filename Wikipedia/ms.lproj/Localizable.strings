@@ -252,7 +252,6 @@
 "migration-update-progress-label" = "Memindahkan data setempat";
 "migration-update-progress-count-label" = "Memindahkan rencana $1/$2";
 "migration-prompt-title" = "Nampaknya ada sejarah!";
-// Fuzzy
 "migration-prompt-message" = "Kami perlu memindahkan laman-laman yang terbaru dan simpanan anda. Ini mungkin mengambil sedikit masa...";
 "migration-confirm-button-title" = "Pindahkan barang saya";
 "migration-skip-button-title" = "Hapuskan saja";

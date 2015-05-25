@@ -259,8 +259,7 @@
 "migration-update-progress-label" = "遷移本地資料";
 "migration-update-progress-count-label" = "正在轉移文章第 $1 篇，共 $2 篇";
 "migration-prompt-title" = "看來我們殘留了一段歷史！";
-// Fuzzy
-"migration-prompt-message" = "我們得移動您的已保存頁面與最近頁面。這可能要花點時間……";
+"migration-prompt-message" = "我們需要移動您的已儲存頁面與近期頁面。這可能要花點時間……";
 "migration-confirm-button-title" = "移動我的東西";
 "migration-skip-button-title" = "刪除";
 "image-gallery-unknown-owner" = "未知上傳者";

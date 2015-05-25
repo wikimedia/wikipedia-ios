@@ -261,8 +261,7 @@
 "migration-update-progress-label" = "مهاجرت اطلاعات محلی";
 "migration-update-progress-count-label" = "مهاجرت مقاله از $1 به $2";
 "migration-prompt-title" = "به نظر می‌رسد تاریخچه وجود دارد!";
-// Fuzzy
-"migration-prompt-message" = "باید صفحات ذخیره شده و صفحات اخیر انتقال یابند. این کار چند دقیقه زمان می‌برد ...";
+"migration-prompt-message" = "باید صفحات ذخیره شده و صفحات اخیر انتقال یابند. این کار چند دقیقه زمان می‌برد…";
 "migration-confirm-button-title" = "کارهای من را انتقال بده";
 "migration-skip-button-title" = "حذف این";
 "image-gallery-unknown-owner" = "آپلود کننده ناشناخته است.";

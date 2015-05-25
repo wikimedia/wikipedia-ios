@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: !Silent
 // Author: Anaclaudiaml
+// Author: Araceletorres
 // Author: Dianakc
 // Author: Fasouzafreitas
 // Author: Luckas
@@ -15,8 +16,10 @@
 "article-languages-downloading" = "Carregando os idiomas do artigo...";
 "article-languages-filter-placeholder" = "Filtro de idioma";
 "article-read-more-title" = "Leia mais";
+"article-unable-to-load-section" = "Não foi possível carregar esta seção. Tente atualizar o artigo para ver se corrige o problema.";
 "info-box-title" = "Fatos rápidos";
 "info-box-close-text" = "Fechar";
+"table-title-other" = "Mais informações";
 "language-button-text" = "Você pode ler este artigo em %d outros idiomas";
 "history-label" = "Recente";
 "history-section-today" = "Hoje";
@@ -120,16 +123,16 @@
 "main-menu-terms-of-use" = "Termos de uso";
 "main-menu-rate-app" = "Classificar aplicativo";
 "main-menu-heading-zero" = "Wikipedia Zero";
-// Fuzzy
-"main-menu-heading-legal" = "Informação legal";
+"main-menu-heading-legal" = "Privacidade e Termos";
 "main-menu-show-today" = "Hoje";
 "main-menu-nearby" = "Proximo";
 "main-menu-more" = "Mais...";
+"main-menu-heading-debug" = "Depurar";
+"main-menu-debug-crash" = "Falha";
 "saved-pages-title" = "Páginas salvas";
 "saved-pages-clear-confirmation-heading" = "Apagar todos os dados salvos?";
 "saved-pages-clear-confirmation-sub-heading" = "Essa ação não pode ser desfeita!";
 "saved-pages-clear-cancel" = "Cancelar";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Excluir tudo";
 "saved-pages-refresh-cancel-alert-title" = "Atualização cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Os artigos da Wikipédia são atualizados constantemente. Toque para obter as últimas versões de todos os artigos.";
@@ -255,3 +258,21 @@
 "nearby-location-general-error" = "Não foi possível determinar a localização. Puxe para atualizar ou tente novamente mais tarde.";
 "nearby-wifi" = "Ativar o WiFi pode ajudar o seu dispositivo a determinar a sua localização.";
 "migration-update-progress-label" = "Atualizando dados locais";
+"migration-update-progress-count-label" = "Migrando artigo $1 de $2";
+"migration-prompt-title" = "Parece que temos uma história!";
+"migration-prompt-message" = "Precisamos mover suas páginas salvas e recentes. Isso pode demorar um minuto ...";
+"migration-confirm-button-title" = "Mover minhas coisas";
+"migration-skip-button-title" = "Exclua";
+"image-gallery-unknown-owner" = "Uploader desconhecido";
+"image-gallery-fetch-image-info-error-title" = "Não é possível baixar imagens";
+"image-gallery-fetch-image-info-error-message" = "Não foi possível baixar as imagens para este artigo. Por favor, recarregue e tente de novo.";
+"image-gallery-fetch-image-info-error-ok" = "OK";
+"hockeyapp-alert-question" = "Gostaria de enviar um relatório da falha de $1 para que a Wikimedia possa resolver o seu problema?";
+"hockeyapp-alert-question-with-response-field" = "Gostaria de enviar um relatório da falha de $1 para que a Wikimedia possa resolver o seu problema? Por favor, descreva o que ocorreu:";
+"hockeyapp-alert-title" = "Desculpe, o aplicativo encerrou inesperadamente da última vez";
+"hockeyapp-alert-send-report" = "Enviar relatório";
+"hockeyapp-alert-always-send" = "Sempre enviar";
+"hockeyapp-alert-do-not-send" = "Não enviar";
+"hockeyapp-alert-privacy" = "$1 privacidade";
+"page-issues" = "Problemas da página";
+"page-similar-titles" = "Páginas similares";

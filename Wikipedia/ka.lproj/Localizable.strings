@@ -1,6 +1,7 @@
 // Messages for Georgian (ქართული)
 // Exported from translatewiki.net
 // Author: BRUTE
+// Author: David1010
 // Author: MIKHEIL
 
 "article-languages-label" = "აირჩიეთ ენა";
@@ -10,6 +11,7 @@
 "article-read-more-title" = "წაიკითხეთ მეტი";
 "info-box-title" = "სწრაფი ფაქტები";
 "info-box-close-text" = "დახურვა";
+"table-title-other" = "მეტი ინფორმაცია";
 "language-button-text" = "ამ სტატიის წაკითხვა შეგიძლიათ % სხვა ენებზე";
 "history-label" = "ბოლო";
 "history-section-today" = "დღეს";
@@ -110,8 +112,7 @@
 "saved-pages-clear-confirmation-heading" = "წავშალოთ ყველა დამასხოვვრებული ელემენტი?";
 "saved-pages-clear-confirmation-sub-heading" = "ამ ქმედების გაუქმება შეუძლებელია!";
 "saved-pages-clear-cancel" = "გაუქმება";
-// Fuzzy
-"saved-pages-clear-delete-all" = "ყველას წაშლა";
+"saved-pages-clear-delete-all" = "ყველაფრის წაშლა";
 "saved-pages-refresh-cancel-alert-title" = "განახლება გაუქმდა";
 "saved-pages-refresh-cancel-alert-message" = "ვიკიპედიის სტატიები მუდმივად ახლდება. დააჭირეთ განახლებას, რათა ყველა სტატიის ბოლო ვერსია იხილოთ.";
 "saved-pages-refresh-cancel-alert-button" = "მიღება";
@@ -140,6 +141,10 @@
 "fetching-random-article" = "შემთხვევითი სტატიის ჩვენება";
 "article-pull-to-refresh-prompt" = "სტატიის გადასატვირთად ასწიეთ";
 "article-pull-to-refresh-is-refreshing" = "სტატიის განახლება";
+"credits-wikimedia-repos" = "ვიკიმედია";
+"credits-gerrit-repo" = "ძირითადი (Gerrit)";
+"credits-github-mirror" = "სარკე (GitHub)";
+"credits-external-libraries" = "გარე";
 "about-title" = "შესახებ";
 "about-wikipedia" = "ვიკიპედია";
 "about-contributors" = "ავტორები";
@@ -217,10 +222,16 @@
 "nearby-location-updates-settings-menu" = "კონფიდენსიალურობა > ლოკაციის სერვისი > ვიკიპედია";
 "nearby-location-general-error" = "თქვენი ადგილმდებარეობის განსაზღვრა შეუძლებელია. გადასატვირთად აწიეთ ან სცადეთ მოგვიანებით.";
 "nearby-wifi" = "უფლება მიეცი Wi-Fi-ს დაეხმაროს თქვენს მოწყობილობას, რათა უკეთ განსაზღვროს თქვენი ადგილმდებარეობა.";
-// Fuzzy
-"migration-update-progress-label" = "ადგილობრივი მონაცემების განახლება";
+"migration-update-progress-label" = "ადგილობრივი მონაცემების გადატანა";
+"migration-update-progress-count-label" = "სტატია $1-ის გადატანა $2-ში";
+"migration-prompt-title" = "მგონი, ჩვენ ისტორია გვაქვს!";
+"migration-skip-button-title" = "მათი წაშლა";
 "image-gallery-unknown-owner" = "ამტვირთველი უცნობია";
+"image-gallery-fetch-image-info-error-title" = "სურათის ჩატვირთვა ვერ ხერხდება";
+"image-gallery-fetch-image-info-error-message" = "ამ სტატიისთვის სურათის ჩატვირთვა ვერ ხერხდება. გთხოვთ, განაახლოთ სტატია და კიდევ სცადოთ.";
+"image-gallery-fetch-image-info-error-ok" = "კარგი";
 "hockeyapp-alert-send-report" = "რეპორტის გაგზავნა";
 "hockeyapp-alert-always-send" = "ყოველთვის გაგზავნა";
 "hockeyapp-alert-do-not-send" = "არ გააგზავნო";
 "hockeyapp-alert-privacy" = "$1 კონფიდენციალურობა";
+"page-similar-titles" = "მსგავსი გვერდები";

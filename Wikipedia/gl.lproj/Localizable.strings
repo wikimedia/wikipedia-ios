@@ -254,7 +254,6 @@
 "migration-update-progress-label" = "Migrando os datos locais";
 "migration-update-progress-count-label" = "Migrando artigos $1 de $2";
 "migration-prompt-title" = "Semella que temos unha historia!";
-// Fuzzy
 "migration-prompt-message" = "Precisamos mover as súas páxinas gardadas e recentes. Isto levará un momento...";
 "migration-confirm-button-title" = "Mover as miñas cousas";
 "migration-skip-button-title" = "Borralo";

@@ -177,7 +177,7 @@
 "about-testers-details" = "Kvalitetssäkringstestad av $1";
 "about-translators" = "Översättare";
 "about-translators-details" = "Denna app översattes av frivilliga översättare på $1";
-"about-libraries" = "Bibliotek som använts";
+"about-libraries" = "bibliotek som används";
 "about-libraries-license" = "Licens";
 "about-repositories" = "Förvar";
 "about-send-feedback" = "Skicka återkoppling om appen";
@@ -260,8 +260,7 @@
 "migration-update-progress-label" = "Migrerar lokal data";
 "migration-update-progress-count-label" = "Migrerar artikel $1 av $2";
 "migration-prompt-title" = "Det verkar som att vi har en historik!";
-// Fuzzy
-"migration-prompt-message" = "Vi behöver flytta över dina sparade och senaste artiklar. Detta kan ta några minuter…";
+"migration-prompt-message" = "Vi behöver flytta över dina sparade och senaste sidor. Detta kan ta någon minut…";
 "migration-confirm-button-title" = "Flytta över mina saker";
 "migration-skip-button-title" = "Radera";
 "image-gallery-unknown-owner" = "Okänd uppladdare.";
@@ -269,7 +268,7 @@
 "image-gallery-fetch-image-info-error-message" = "Kunde inte ladda ned bilder för denna artikel. Uppdatera artikeln och försök igen.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Vill du skicka en kraschrapport till $1 så kan Wikimedia kan undersöka din krasch?";
-"hockeyapp-alert-question-with-response-field" = "Vill du skicka en kraschrapport till $1 så att Wikimedia  undersöka din krasch? Beskriv vad som hände när kraschen inträffade:";
+"hockeyapp-alert-question-with-response-field" = "Vill du skicka en kraschrapport till $1 så att Wikimedia kan undersöka din krasch? Beskriv vad som hände när kraschen inträffade:";
 "hockeyapp-alert-title" = "Ledsen, appen kraschade förra gången";
 "hockeyapp-alert-send-report" = "Skicka rapporten";
 "hockeyapp-alert-always-send" = "Skicka alltid";

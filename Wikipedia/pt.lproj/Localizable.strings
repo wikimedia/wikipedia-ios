@@ -7,12 +7,12 @@
 // Author: Vitorvicentevalente
 // Author: Webysther
 
-"article-languages-label" = "Escolher língua";
+"article-languages-label" = "Escolher idioma";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "A carregar idiomas do artigo...";
 "article-languages-filter-placeholder" = "Filtro de idioma";
 "article-read-more-title" = "Ler mais";
-"article-unable-to-load-section" = "Não foi possível carregar esta seção. Experimente recarregar o artigo para tentar corrigir o problema.";
+"article-unable-to-load-section" = "Não foi possível carregar esta secção. Experimente recarregar o artigo para tentar corrigir o problema.";
 "info-box-title" = "Fatos rápidos";
 "info-box-close-text" = "Fechar";
 "table-title-other" = "Mais informação";
@@ -159,10 +159,10 @@
 "edit-summary-field-placeholder-text" = "Outras maneiras de melhorar o artigo";
 "edit-summary-title" = "De que forma contribuiu para melhorar a página?";
 "fetching-random-article" = "A obter um artigo aleatório";
-"article-pull-to-refresh-prompt" = "Puxe para actualizar o artigo";
-"article-pull-to-refresh-is-refreshing" = "A actualizar o artigo";
+"article-pull-to-refresh-prompt" = "Puxe para atualizar o artigo";
+"article-pull-to-refresh-is-refreshing" = "A atualizar o artigo";
 "credits-title" = "Repositórios de código aberto";
-"credits-wikimedia-repos" = "Wikimedia";
+"credits-wikimedia-repos" = "Repositórios Wikimedia";
 "credits-gerrit-repo" = "Rep. principal da aplicação (Gerrit)";
 "credits-github-mirror" = "Mirror da aplicação (GitHub)";
 "credits-external-libraries" = "Externo";
@@ -257,9 +257,11 @@
 "migration-update-progress-count-label" = "A migrar artigo $1 de $2";
 "migration-prompt-title" = "Parece que temos uma história!";
 "migration-prompt-message" = "Precisamos de mover as suas páginas guardadas e recentes. Isto pode demorar um minuto...";
+"migration-confirm-button-title" = "Mover as minhas coisas";
 "migration-skip-button-title" = "Eliminar";
 "image-gallery-unknown-owner" = "Autor desconhecido.";
 "image-gallery-fetch-image-info-error-title" = "Não foi possível transferir imagens";
+"image-gallery-fetch-image-info-error-message" = "Não foi possível descarregar as imagens deste artigo. Por favor, recarregue e tente de novo.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Deseja enviar um relatório da falha de $1 para que a Wikimedia possa resolver o seu problema?";
 "hockeyapp-alert-question-with-response-field" = "Deseja enviar um relatório da falha de $1 para que a Wikimedia possa resolver o seu problema? Por favor, descreva a situação quando ocorreu o encerramento inesperado:";

@@ -15,6 +15,7 @@
 "article-languages-downloading" = "Paginatalen aan het laden...";
 "article-languages-filter-placeholder" = "Taal filteren";
 "article-read-more-title" = "Lees meer";
+"article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
 "info-box-title" = "Snelle feiten";
 "info-box-close-text" = "Sluiten";
 "table-title-other" = "Meer informatie";
@@ -258,10 +259,12 @@
 "migration-update-progress-label" = "Lokale gegevens bijwerken";
 "migration-update-progress-count-label" = "Pagina $1 van $2 aan het migreren";
 "migration-prompt-title" = "We hebben een geschiedenis!";
+"migration-prompt-message" = "Uw opgeslagen en recente pagina's moeten overgezet worden. Dit kan even duren...";
 "migration-confirm-button-title" = "Migreer mijn geschiedenis";
 "migration-skip-button-title" = "Verwijder mijn geschiedenis";
 "image-gallery-unknown-owner" = "Uploader onbekend.";
 "image-gallery-fetch-image-info-error-title" = "Downloaden van afbeeldingen niet mogelijk";
+"image-gallery-fetch-image-info-error-message" = "Het was niet mogelijk de afbeeldingen voor de pagina te laden. Ververs de pagina en probeer het opnieuw.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Wilt u het crash rapport naar $1 versturen, zodat Wikimedia deze kan bekijken?";
 "hockeyapp-alert-question-with-response-field" = "Wilt u het crash rapport naar $1 versturen, zodat Wikimedia deze kan bekijken? Beschrijf wat er gebeurde tijdens de crash:";

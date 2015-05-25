@@ -251,7 +251,6 @@
 "migration-update-progress-label" = "Se migrează datele locale";
 "migration-update-progress-count-label" = "Se migrează articolul $1 din $2";
 "migration-prompt-title" = "Se pare că avem un istoric!";
-// Fuzzy
 "migration-prompt-message" = "Trebuie să vă mutăm paginile recente și salvate. Ar putea dura un pic…";
 "migration-confirm-button-title" = "Mută-mi lucrurile";
 "migration-skip-button-title" = "Șterge-le";

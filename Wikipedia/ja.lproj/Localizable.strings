@@ -5,6 +5,7 @@
 // Author: Fryed-peach
 // Author: Shirayuki
 // Author: SkyDaisy9
+// Author: Surgical21
 // Author: Takot
 // Author: 아라
 
@@ -15,6 +16,7 @@
 "article-read-more-title" = "さらに読む";
 "info-box-title" = "基本データ";
 "info-box-close-text" = "閉じる";
+"table-title-other" = "さらに見る";
 "language-button-text" = "この記事は他に %d 個の言語で読むことができます";
 "history-label" = "最近のもの";
 "history-section-today" = "今日";
@@ -128,15 +130,12 @@
 "saved-pages-clear-confirmation-heading" = "保存した項目をすべて削除しますか？";
 "saved-pages-clear-confirmation-sub-heading" = "この操作は取り消せません!";
 "saved-pages-clear-cancel" = "キャンセル";
-// Fuzzy
 "saved-pages-clear-delete-all" = "すべて削除";
 "saved-pages-refresh-cancel-alert-title" = "更新がキャンセルされました";
 "saved-pages-refresh-cancel-alert-message" = "ウィキペディアの記事は常に更新されています。「更新」をタップすると全ての記事が最新版に同期されます。";
 "saved-pages-refresh-cancel-alert-button" = "了解";
-// Fuzzy
-"page-history-title" = "ページの履歴";
-// Fuzzy
-"page-history-downloading" = "ページの履歴を読み込み中...";
+"page-history-title" = "記事の履歴";
+"page-history-downloading" = "記事の履歴を読み込み中...";
 "navbar-title-mode-edit-wikitext" = "編集";
 "navbar-title-mode-login" = "ログイン";
 "navbar-title-mode-login-and-save" = "ログインして保存";
@@ -148,7 +147,6 @@
 "navbar-title-mode-edit-wikitext-captcha" = "簡易確認が必要";
 "navbar-title-mode-edit-wikitext-summary" = "あなたの編集について説明してください";
 "navbar-title-mode-edit-wikitext-save" = "保存";
-// Fuzzy
 "edit-summary-choice-linked-words" = "リンクを追加";
 "edit-summary-choice-fixed-grammar" = "文法の修正";
 "edit-summary-choice-fixed-inaccuracy" = "正確性の修正";
@@ -159,7 +157,6 @@
 "edit-summary-choice-added-clarification" = "説明の追加";
 "edit-summary-choice-other" = "その他";
 "edit-summary-description" = "具体的な要約は、他の編集者があなたの編集内容を素早く確認する助けとなります。以下のタグから選ぶこともできます。";
-// Fuzzy
 "edit-summary-field-placeholder-text" = "この記事へのその他の改善";
 "edit-summary-title" = "どのようにこの記事を改善しましたか？";
 "fetching-random-article" = "おまかせで記事を取得";
@@ -257,7 +254,6 @@
 "nearby-location-updates-settings-menu" = "プライバシー > 位置情報サービス > ウィキペディア";
 "nearby-location-general-error" = "位置を特定できません。引っ張って更新するか、後ほどもう一度試してみてください。";
 "nearby-wifi" = "Wi-Fi を有効にすると、位置情報の精度をより高めることができます。";
-// Fuzzy
 "migration-update-progress-label" = "ローカルデータをアップグレード中";
 "image-gallery-unknown-owner" = "アップロード者不明。";
 "hockeyapp-alert-question" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュをWikimediaがレビューできるようになります。";

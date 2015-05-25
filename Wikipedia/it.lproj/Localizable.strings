@@ -3,7 +3,9 @@
 // Author: Bertaz
 // Author: Beta16
 // Author: Brion
+// Author: Chris96
 // Author: Devid Farinelli
+// Author: F. Cosoleto
 // Author: Giacomo Checchin
 // Author: Gianfranco
 // Author: Giuseppe Forte
@@ -263,7 +265,13 @@
 "nearby-wifi" = "Abilitando il WiFi, aiuti il dispositivo a determinar meglio la tua posizione.";
 "migration-update-progress-label" = "Trasferendo i dati locali";
 "migration-update-progress-count-label" = "Trasferimento dell'articolo $1 di $2";
+"migration-prompt-title" = "Sembra che è presente una cronologia!";
+"migration-prompt-message" = "Abbiamo bisogno di spostare le tue pagine recenti e salvate. Può richiedere un minuto...";
+"migration-confirm-button-title" = "Sposta il mio materiale";
+"migration-skip-button-title" = "Elimina";
 "image-gallery-unknown-owner" = "Uploader sconosciuto.";
+"image-gallery-fetch-image-info-error-title" = "Impossibile scaricare le immagini";
+"image-gallery-fetch-image-info-error-message" = "Impossibile scaricare le immagini per questo articolo. Ricarica la pagina e prova ancora.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminare il crash?";
 "hockeyapp-alert-question-with-response-field" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminare il crash? Per favore descrivi ciò che è successo quando si è verificato il crash:";
@@ -272,3 +280,5 @@
 "hockeyapp-alert-always-send" = "Invia sempre";
 "hockeyapp-alert-do-not-send" = "Non inviare";
 "hockeyapp-alert-privacy" = "Privacy $1";
+"page-issues" = "Problemi alla pagina";
+"page-similar-titles" = "Pagine simili";

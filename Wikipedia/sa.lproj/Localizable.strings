@@ -7,6 +7,7 @@
 "article-languages-downloading" = "लेखस्यास्य भाषापरिसन्धिः अवारोपयति...";
 "article-languages-filter-placeholder" = "भाषाशोधनी";
 "article-read-more-title" = "अधिकं पठ्यताम्";
+"article-unable-to-load-section" = "एनं विभागम् आरोपयितुं न शक्यते । पृष्ठं पुनरुपारोप्य दृश्यतां यत् दोषः व्यपगतः वा ।";
 "info-box-title" = "त्वरिततथ्यानि";
 "info-box-close-text" = "पिदधातु";
 "table-title-other" = "अधिकसूचना";
@@ -29,7 +30,7 @@
 "zero-interstitial-continue" = "त्यजतु";
 "zero-interstitial-cancel" = "अत्र स्थीयताम्";
 "zero-learn-more" = "एतस्मै विकिपीडिया-अनुप्रयोगाय सूचनायाः परिवर्तनानि अवगण्यन्ते ।";
-"zero-learn-more-learn-more" = "अधिकं पठतु";
+"zero-learn-more-learn-more" = "अधिकं पठ्यताम्";
 "zero-learn-more-no-thanks" = "अपनीयताम्";
 "zero-wikipedia-zero-heading" = "विकिपीडिया शून्यम्";
 "zero-warn-when-leaving" = "विकिपीडिया-शून्यस्य त्यागकाले सूच्यताम्";
@@ -43,7 +44,7 @@
 "account-creation-username-placeholder-text" = "योजकनाम";
 "account-creation-password-placeholder-text" = "कूटशब्दः";
 "account-creation-password-confirm-placeholder-text" = "कूटशब्दस्य पुष्टिं करोतु";
-"account-creation-email-placeholder-text" = "ई-पत्रम् (ऐच्छिकं)";
+"account-creation-email-placeholder-text" = "वि-पत्रम् (ऐच्छिकं)";
 "account-creation-missing-fields" = "सदस्यता प्राप्त्यै भवता/भवत्या योजकनाम-कूटशब्दयोः लेखनं, कूटशब्दस्य पुष्टिकरणं च अनिवार्यत्वेन करणीयं भवति ।";
 "login-name-not-found" = "प्रवेशाय योजकनाम अनिवार्यम् अस्ति ।";
 "login-name-illegal" = "भवता/भवत्या लिखितं योजकनाम अमान्यम् अस्ति ।";
@@ -145,7 +146,7 @@
 "edit-summary-choice-fixed-inaccuracy" = "त्रुटिः परिष्कृता";
 "edit-summary-choice-fixed-styling" = "शैली परिष्कृता";
 "edit-summary-choice-fixed-typos" = "टङ्कणदोषः परिष्कृतः";
-"edit-summary-choice-added-category" = "वर्गः स्थापितः";
+"edit-summary-choice-added-category" = "वर्गः योजितः";
 "edit-summary-choice-added-missing-info" = "लुप्तसूचना स्थापिता";
 "edit-summary-choice-added-clarification" = "स्पष्टीकरणं स्थापितम्";
 "edit-summary-choice-other" = "अन्यत्";
@@ -237,7 +238,7 @@
 "nearby-distance-label-miles" = "$1 माइल्स्";
 "nearby-pull-to-refresh-prompt" = "प्रत्याववस्थापनाय कर्ष्यताम्";
 "nearby-pull-to-refresh-is-refreshing" = "प्रत्यववस्थापनम्";
-"nearby-loading" = "समीपवर्तिलेखम् अवारोपयति...";
+"nearby-loading" = "समीपवर्तिलेखम् आरोपयति...";
 "nearby-loaded" = "समीपवर्तिलेखः अवारोपितः...";
 "nearby-none" = "समीपवर्तिलेखः न प्राप्तः । प्रत्याववस्थापनं क्रियताम् उत पश्चात् पुनः प्रयासं करोतु ।";
 "nearby-open-in-maps" = "भूपटे उद्घाट्यताम्";
@@ -250,7 +251,6 @@
 "migration-update-progress-label" = "स्थानीयसूचना स्थानान्तरिता भवति";
 "migration-update-progress-count-label" = "$2 इत्येतेषु $1 लेखः स्थानान्तरति";
 "migration-prompt-title" = "अस्य इतिहासः वर्तते इति भाति !";
-// Fuzzy
 "migration-prompt-message" = "भवतः/भवत्याः वर्तमानपृष्ठानां, रक्षितपृष्ठानां च स्थानान्तरं कुर्मः । तस्यै प्रक्रियायै समयः अपेक्ष्यते...";
 "migration-confirm-button-title" = "मम सामग्र्याः स्थानान्तरं करोतु";
 "migration-skip-button-title" = "एतत् अपाकरोतु";

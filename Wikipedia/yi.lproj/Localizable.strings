@@ -96,10 +96,13 @@
 "navbar-title-mode-login" = "אַרײַנלאגירן";
 "navbar-title-mode-login-and-save" = "ארײַנלאגירן און אויפהיטן";
 "navbar-title-mode-create-account" = "שאַפֿן אַ קאנטע";
+"navbar-title-mode-edit-wikitext-warning" = "רעדאקטירן פראגעס";
+"navbar-title-mode-edit-wikitext-disallow" = "רעדאקטירן פראגעס";
 "navbar-title-mode-edit-wikitext-preview" = "פֿאראויסשטעלונג";
 "navbar-title-mode-edit-wikitext-save" = "אויפֿהיטן";
 "edit-summary-choice-linked-words" = "צולייגן לינקען";
 "edit-summary-choice-fixed-grammar" = "פארראכטן גראמאטיק";
+"edit-summary-choice-fixed-inaccuracy" = "פארראכטן טעות";
 "edit-summary-choice-added-category" = "צוגעלייגט קאטעגאריע";
 "edit-summary-choice-other" = "אַנדער";
 "edit-summary-title" = "וויאזוי האט איר פארבעסערט דעם בלאט?";
@@ -154,6 +157,8 @@
 "nearby-distance-label-feet" = "$1 פיס";
 "nearby-distance-label-miles" = "$1 מייל";
 "nearby-cancel" = "אַנולירן";
+"migration-skip-button-title" = "אויסמעקן";
+"image-gallery-fetch-image-info-error-ok" = "יאָ";
 "hockeyapp-alert-send-report" = "שיקן באריכט";
 "hockeyapp-alert-always-send" = "אלעמאל שיקן";
 "hockeyapp-alert-do-not-send" = "נישט שיקן";

@@ -237,7 +237,7 @@
 "nearby-wifi" = "D'Aschalte vum Wifi kann Ärem Apparat hëllefen d'Plaz wou Dir sidd besser festzeleeën.";
 "migration-update-progress-label" = "Migréiere vu lokalen Donnéeën";
 "migration-update-progress-count-label" = "Migréiere vum Artikel $1 op $2";
-// Fuzzy
+"migration-prompt-title" = "Et schéngt wéi wa mir eng Geschicht hunn!";
 "migration-prompt-message" = "Mir mussen Är gespäichert a rezent Säite réckelen. Dat kann eng Minutt daueren...";
 "migration-skip-button-title" = "Läschen";
 "image-gallery-unknown-owner" = "Eroplueder onbekannt.";
