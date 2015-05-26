@@ -30,6 +30,8 @@
 	<array>
 		<string>WikiFont-Glyphs.ttf</string>
 	</array>
+	<key>UIFileSharingEnabled</key>
+	<false/>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>

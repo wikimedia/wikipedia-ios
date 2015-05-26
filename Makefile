@@ -163,7 +163,6 @@ pod: bundle-install
 
 bundle-install: ##Install gems using Bundler
 bundle-install: bundler-check
-	@$(BUNDLER) config build.nokogiri --use-system-libraries
 	@$(BUNDLER) install
 
 bundler-check: ##Make sure Bundler is installed

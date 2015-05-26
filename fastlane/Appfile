@@ -3,18 +3,21 @@
 team_id "AKK7J2GV64"
 team_name "Wikimedia Foundation"
 
-for_lane 'ios alpha' do
-  app_identifier "org.wikimedia.wikipedia.tfalpha"
+for_platform :ios do
+  for_lane :alpha do
+    app_identifier "org.wikimedia.wikipedia.tfalpha"
+  end
+
+  for_lane :beta do
+    app_identifier "org.wikimedia.wikipedia.tfbeta"
+  end
+
+  for_lane :rc do
+    app_identifier "org.wikimedia.wikipedia"
+  end
+
+  for_lane :store do
+    app_identifier "org.wikimedia.wikipedia"
+  end
 end
 
-for_lane 'ios beta' do
-  app_identifier "org.wikimedia.wikipedia.tfbeta"
-end
-
-for_lane 'ios rc' do
-  app_identifier "org.wikimedia.wikipedia"
-end
-
-for_lane 'ios store' do
-  app_identifier "org.wikimedia.wikipedia"
-end
