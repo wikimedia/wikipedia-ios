@@ -25,12 +25,15 @@
 #pragma clang diagnostic ignored "-Wint-conversion"
 
 @interface MWKSectionListTests : XCTestCase
+/// Need a ref to the data store, since it's not retained by any entities.
+@property (nonatomic, strong) MWKDataStore* dataStore;
 @end
 
 @implementation MWKSectionListTests
 
 - (void)setUp {
     [super setUp];
+    self.dataStore = mock([MWKDataStore class]);
 }
 
 - (void)tearDown {
@@ -39,7 +42,7 @@
 
 - (void)testCreatingSectionListWithNoData {
     MWKArticle* mockArticle =
-        [[MWKArticle alloc] initWithTitle:nil dataStore:mock([MWKDataStore class])];
+        [[MWKArticle alloc] initWithTitle:nil dataStore:self.dataStore];
     MWKSectionList* emptySectionList = [[MWKSectionList alloc] initWithArticle:mockArticle];
     assertThat(@(emptySectionList.count), is(equalToInt(0)));
     [MKTVerifyCount(mockArticle.dataStore, never()) sectionWithId:anything() article:anything()];

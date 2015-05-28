@@ -168,6 +168,8 @@ static int const kMinimumTextSelectionLength = 2;
  */
 - (instancetype)initWithSession:(SessionSingleton*)session;
 
+- (void)displayArticle:(MWKTitle*)title;
+
 - (void)cancelArticleLoading;
 
 - (void)cancelSearchLoading;

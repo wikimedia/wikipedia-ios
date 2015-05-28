@@ -12,7 +12,6 @@
 @interface MWKSectionList ()
 
 @property (readwrite, weak, nonatomic) MWKArticle* article;
-@property (strong, nonatomic) NSMutableArray* sections;
 @property (assign, nonatomic) unsigned long mutationState;
 
 @end

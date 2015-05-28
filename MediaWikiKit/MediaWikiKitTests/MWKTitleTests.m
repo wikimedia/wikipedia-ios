@@ -32,7 +32,6 @@
 - (void)testSimple {
     MWKTitle* title = [MWKTitle titleWithString:@"Simple" site:site];
 
-    XCTAssertNil(title.namespace, @"Namespace is nil");
     XCTAssertEqualObjects(title.prefixedDBKey, @"Simple", @"DB key form is full");
     XCTAssertEqualObjects(title.prefixedText, @"Simple", @"Text form is full");
     XCTAssertEqualObjects(title.prefixedURL, @"Simple", @"URL form is full");
@@ -45,7 +44,6 @@
                         [MWKTitle titleWithString:@"Fancy_title with_spaces" site:site]
     ];
     for (MWKTitle* title in inputs) {
-        XCTAssertNil(title.namespace, @"Namespace is nil");
         XCTAssertEqualObjects(title.prefixedDBKey, @"Fancy_title_with_spaces", @"DB key form has underscores");
         XCTAssertEqualObjects(title.prefixedText, @"Fancy title with spaces", @"Text form has spaces");
         XCTAssertEqualObjects(title.prefixedURL, @"Fancy_title_with_spaces", @"URL form has underscores");
@@ -56,7 +54,6 @@
 
 - (void)testUnicode {
     MWKTitle* title = [MWKTitle titleWithString:@"Éclair" site:site];
-    XCTAssertNil(title.namespace, @"Namespace is nil");
     XCTAssertEqualObjects(title.prefixedDBKey, @"Éclair", @"DB key form has unicode");
     XCTAssertEqualObjects(title.prefixedText, @"Éclair", @"Text form has unicode");
     XCTAssertEqualObjects(title.prefixedURL, @"%C3%89clair", @"URL form has percent encoding");
