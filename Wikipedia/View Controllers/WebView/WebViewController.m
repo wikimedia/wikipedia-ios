@@ -825,8 +825,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                 [strSelf referencesHide];
             }
 
-            // @todo merge this link title extraction into MWSite
-            if ([href hasPrefix:@"/wiki/"]) {
+            if ([href wmf_isInternalLink]) {
                 // Ensure the menu is visible when navigating to new page.
                 [strSelf animateTopAndBottomMenuReveal];
 

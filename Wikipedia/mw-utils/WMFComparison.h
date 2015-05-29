@@ -1,0 +1,54 @@
+//
+//  WMFComparison.h
+//  Wikipedia
+//
+//  Created by Brian Gerstle on 5/28/15.
+//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
+//
+
+#ifndef Wikipedia_WMFComparison_h
+#define Wikipedia_WMFComparison_h
+
+/**
+ * Provides compile time checking for keypaths on a given object.
+ * @discussion Example usage:
+ *
+ *      WMF_SAFE_KEYPATH([NSString new], lowercaseString); //< @"lowercaseString"
+ *      WMF_SAFE_KEYPATH([NSString new], fooBar); //< compiler error!
+ *
+ * @note Inspired by [EXTKeypathCoding.h](https://github.com/jspahrsummers/libextobjc/blob/master/extobjc/EXTKeyPathCoding.h#L14)
+ */
+#define WMF_SAFE_KEYPATH(obj, keyp) ((NO, (void)obj.keyp), @#keyp)
+
+/**
+ * Compare two *objects* using `==` and <code>[a sel b]</code>, where `sel` is an equality selector
+ * (e.g. `isEqualToString:`).
+ * @param a   First object, can be `nil`.
+ * @param sel The selector used to compare @c a to @c b, if <code>a == b</code> is @c false.
+ * @param b   Second object, can be `nil`.
+ * @return `YES` if the objects are the same pointer or invoking @c sel returns @c YES, otherwise @c NO.
+ */
+#define WMF_EQUAL(a, sel, b) (((a) == (b)) || ([(a) sel (b)]))
+
+/**
+ * Check if two objects have the same value for given property.
+ * @param a     First object, can be @c nil.
+ * @param prop  The property whose value is accessed from `a` and `b`, e.g. `count`.
+ * @param sel   The selector used to compare `a.prop` to `b.prop`.
+ * @param b     Second object, can be @c nil.
+ * @return `YES` if the values are equal or both `nil`, otherwise `NO`.
+ * @see WMF_EQUAL
+ */
+#define WMF_EQUAL_PROPERTIES(a, prop, sel, b) WMF_EQUAL([(a) prop], sel, [(b) prop])
+
+/// Convenience for `WMF_EQUAL_PROPERTIES` which passes `isEqual:` for the equality selector.
+#define WMF_IS_EQUAL_PROPERTIES(a, prop, b) WMF_EQUAL_PROPERTIES(a, prop, isEqual:, b)
+
+
+/**
+ * Compare two objects using `==` and `isEqual:`.
+ * @see WMF_EQUAL
+ */
+#define WMF_IS_EQUAL(a, b) (WMF_EQUAL(a, isEqual:, b))
+
+#endif

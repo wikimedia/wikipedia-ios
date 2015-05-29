@@ -133,7 +133,7 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
 }
 
 - (NSUInteger)hash {
-    return [self.canonicalPageTitle hash] ^ CircularBitwiseRotation([self.imageURL hash], 1);
+    return self.canonicalPageTitle.hash ^ flipBitsWithAdditionalRotation(self.imageURL.hash, 1);
 }
 
 - (NSString*)description {

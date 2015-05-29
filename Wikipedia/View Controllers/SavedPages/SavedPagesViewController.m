@@ -388,7 +388,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
     DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
     [dataHouseKeeping performHouseKeeping];
 
-    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
+    [NAV loadTodaysArticle];
 }
 
 - (void)deleteAllSavedPages {
@@ -403,7 +403,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 
     [self setEmptyOverlayAndTrashIconVisibility];
 
-    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
+    [NAV loadTodaysArticle];
 }
 
 - (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

@@ -10,6 +10,10 @@
 
 @implementation NSArray (WMFExtensions)
 
+- (id)wmf_safeObjectAtIndex:(NSUInteger)index {
+    return index < self.count ? self[index] : nil;
+}
+
 - (instancetype)wmf_arrayByTrimmingToLength:(NSUInteger)length {
     if ([self count] == 0) {
         return self;

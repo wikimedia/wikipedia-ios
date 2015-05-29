@@ -17,7 +17,6 @@
                   popToWebVC:(BOOL)popToWebVC;
 
 - (void)loadTodaysArticle;
-- (void)loadTodaysArticleIfNoCoreDataForCurrentArticle;
 - (void)loadRandomArticle;
 
 - (void)promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString*)title;

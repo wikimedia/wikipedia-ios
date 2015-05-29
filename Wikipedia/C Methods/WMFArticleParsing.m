@@ -11,6 +11,7 @@
 #import "MWKImage.h"
 #import "MWKArticle.h"
 #import "Defines.h"
+#import "MWKImageList.h"
 
 NSString* WMFImgTagsFromHTML(NSString* html) {
     if (html.length == 0) {

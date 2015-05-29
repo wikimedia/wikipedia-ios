@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-
-#import "WikipediaAppUtils.h"
+#import "WMFHashing.h"
 
 @interface CircularBitwiseRotationTests : XCTestCase
 
@@ -17,14 +16,31 @@
 
 @implementation CircularBitwiseRotationTests
 
-- (void)testExamples {
-    NSUInteger testValue = 0b00000001;
-    NSUInteger len       = sizeof(testValue) * CHAR_BIT;
-    XCTAssertEqual(CircularBitwiseRotation(testValue, 0), 0b001);
-    XCTAssertEqual(CircularBitwiseRotation(testValue, 1), 0b00000010);
-    XCTAssertEqual(CircularBitwiseRotation(testValue, 2), 0b00000100);
-    XCTAssertEqual(CircularBitwiseRotation(testValue, len), 0b00000001);
-    XCTAssertEqual(CircularBitwiseRotation(testValue, len + 1), 0b00000010);
+- (void)testMatchesCorrespondingPowerOfTwo {
+    for (NSUInteger rotation; rotation < NSUINT_BIT; rotation++) {
+        NSUInteger actualResult = flipBitsWithAdditionalRotation(1, rotation);
+        // add by NSUINT_BIT_2 to model the "flipping," then modulo for rotation
+        NSUInteger exponent       = (rotation + NSUINT_BIT_2) % NSUINT_BIT;
+        NSUInteger expectedResult = powl(2, exponent);
+        XCTAssertEqual(actualResult, expectedResult,
+                       @"Rotating 1 by %lu should be equal to 2^%lu (%lu). Got %lu instead",
+                       rotation, exponent, expectedResult, actualResult);
+    }
+}
+
+- (void)testSymmetrical {
+    for (NSUInteger i; i < 50; i++) {
+        NSUInteger testValue = arc4random();
+        for (NSUInteger rotation; rotation < NSUINT_BIT; rotation++) {
+            NSUInteger symmetricalRotation = rotation + NSUINT_BIT;
+            NSUInteger original            = flipBitsWithAdditionalRotation(testValue, rotation);
+            NSUInteger symmetrical         = flipBitsWithAdditionalRotation(testValue, symmetricalRotation);
+            XCTAssertEqual(original, symmetrical,
+                           @"Rotating %lu by %lu should be the same as rotating by %lu + NSUINT_BIT (%lu)."
+                           "Got %lu expected %lu",
+                           testValue, rotation, rotation, symmetricalRotation, symmetrical, original);
+        }
+    }
 }
 
 @end

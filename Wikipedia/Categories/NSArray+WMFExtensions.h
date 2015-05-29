@@ -3,6 +3,9 @@
 
 @interface NSArray (WMFExtensions)
 
+/// @return The object at `index` if it's within range of the receiver, otherwise `nil`.
+- (id)wmf_safeObjectAtIndex:(NSUInteger)index;
+
 /**
  *  Safely trim an array to a specified length.
  *  Will not throw an exception if

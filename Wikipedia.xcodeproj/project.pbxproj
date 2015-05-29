@@ -193,6 +193,7 @@
 		0EE768811AFD25CC00A5D046 /* WMFSearchFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE768801AFD25CC00A5D046 /* WMFSearchFunnel.m */; };
 		701FF5EE601DEA3FCAB7EFD3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D82982ED992F47428037BDF2 /* libPods.a */; };
 		954BA118838BF8BA6B01C34A /* libPods-WikipediaUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */; };
+		BC092B961B18E89200093C59 /* NSString+WMFPageUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC092B951B18E89200093C59 /* NSString+WMFPageUtilities.m */; };
 		BC0FED621AAA0263002488D7 /* WMFCodingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */; };
 		BC0FED631AAA0263002488D7 /* MWKTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669BB1A83F6D300C7B1FE /* MWKTestCase.m */; };
 		BC0FED641AAA0263002488D7 /* MWKArticleStoreTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669BD1A83F6D300C7B1FE /* MWKArticleStoreTestCase.m */; };
@@ -282,7 +283,6 @@
 		BCC185E01A9EC836005378F8 /* UIButton+FrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185DF1A9EC836005378F8 /* UIButton+FrameUtils.m */; };
 		BCC185E81A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185E71A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m */; };
 		BCCED2D01AE03BE20094EB7E /* MWKSectionListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCED2CF1AE03BE20094EB7E /* MWKSectionListTests.m */; };
-		BCD41DDC1B11CBD400231BB1 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		BCD41DEA1B11CC5800231BB1 /* golden-gate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */; };
 		BCD41DEB1B11CC5800231BB1 /* MainPageMobileView.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */; };
 		BCD41DEC1B11CC5800231BB1 /* Obama.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE01B11CC5800231BB1 /* Obama.json */; };
@@ -737,6 +737,8 @@
 		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		429C152FC8B093B59D18CAD3 /* Pods-WikipediaUnitTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.beta.xcconfig"; sourceTree = "<group>"; };
 		8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WikipediaUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC092B951B18E89200093C59 /* NSString+WMFPageUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WMFPageUtilities.m"; sourceTree = "<group>"; };
+		BC092B971B18E8AF00093C59 /* NSString+WMFPageUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+WMFPageUtilities.h"; sourceTree = "<group>"; };
 		BC2375981AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+WMFNaturalAlignmentStyle.h"; sourceTree = "<group>"; };
 		BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+WMFNaturalAlignmentStyle.m"; sourceTree = "<group>"; };
 		BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateFormatterTests.m; sourceTree = "<group>"; };
@@ -755,6 +757,7 @@
 		BC69C3121AB0C1FF0090B039 /* WMFImageInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageInfoController.h; path = "Image Gallery/WMFImageInfoController.h"; sourceTree = "<group>"; };
 		BC69C3131AB0C1FF0090B039 /* WMFImageInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageInfoController.m; path = "Image Gallery/WMFImageInfoController.m"; sourceTree = "<group>"; };
 		BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFCodingStyle.m; sourceTree = "<group>"; };
+		BC7A4A231B17B3510003E73E /* NSObjectUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObjectUtilities.h; sourceTree = "<group>"; };
 		BC7ACB621AB34C9C00791497 /* WMFAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAsyncTestCase.h; path = ../WMFAsyncTestCase.h; sourceTree = "<group>"; };
 		BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAsyncTestCase.m; path = ../WMFAsyncTestCase.m; sourceTree = "<group>"; };
 		BC7DFCCB1AA4BA8A000035C3 /* WMFCodingStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFCodingStyle.h; sourceTree = "<group>"; };
@@ -909,6 +912,8 @@
 		BCD41DE91B11CC5800231BB1 /* user-loggedin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-loggedin.json"; sourceTree = "<group>"; };
 		BCD41DFD1B11D17100231BB1 /* XCTestCase+MWKFixtures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+MWKFixtures.h"; sourceTree = "<group>"; };
 		BCD41DFE1B11D17100231BB1 /* XCTestCase+MWKFixtures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+MWKFixtures.m"; sourceTree = "<group>"; };
+		BCDA2F411B17A02A002FEB6A /* WMFComparison.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFComparison.h; sourceTree = "<group>"; };
+		BCDA2F421B17A056002FEB6A /* WMFHashing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFHashing.h; sourceTree = "<group>"; };
 		BCDB75BC1AB0D3DE0005593F /* WMFImageInfoController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageInfoController_Private.h; path = "Image Gallery/WMFImageInfoController_Private.h"; sourceTree = "<group>"; };
 		BCDB75BD1AB0DFC40005593F /* WMFRangeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRangeUtils.h; sourceTree = "<group>"; };
 		BCDB75C31AB0E8300005593F /* WMFSubstringUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSubstringUtilsTests.m; sourceTree = "<group>"; };
@@ -2352,6 +2357,11 @@
 				BCB848761AAAABF80077EC24 /* WMFRoundingUtilities.h */,
 				BCB848771AAAABF80077EC24 /* WMFRoundingUtilities.c */,
 				BCDB75BD1AB0DFC40005593F /* WMFRangeUtils.h */,
+				BCDA2F411B17A02A002FEB6A /* WMFComparison.h */,
+				BCDA2F421B17A056002FEB6A /* WMFHashing.h */,
+				BC7A4A231B17B3510003E73E /* NSObjectUtilities.h */,
+				BC092B971B18E8AF00093C59 /* NSString+WMFPageUtilities.h */,
+				BC092B951B18E89200093C59 /* NSString+WMFPageUtilities.m */,
 			);
 			path = "mw-utils";
 			sourceTree = "<group>";
@@ -2948,7 +2958,6 @@
 				0484B9071ABB50FA00874073 /* WMFArticleParsing.m in Sources */,
 				BC0FED751AAA026C002488D7 /* NSArray+BKIndexTests.m in Sources */,
 				BC31B2521AB1D9DC008138CA /* WMFImageInfoControllerTests.m in Sources */,
-				BCD41DDC1B11CBD400231BB1 /* (null) in Sources */,
 				BC0FED641AAA0263002488D7 /* MWKArticleStoreTestCase.m in Sources */,
 				BCA676561AC05FE200A16160 /* NSBundle+TestAssets.m in Sources */,
 				BCB8487B1AAAADF90077EC24 /* WMFRoundingUtilitiesTests.m in Sources */,
@@ -3094,6 +3103,7 @@
 				047801BE18AE987900DBB747 /* UIButton+ColorMask.m in Sources */,
 				BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */,
 				04D686C91AB28FE40009B44A /* UIImage+WMFFocalImageDrawing.m in Sources */,
+				BC092B961B18E89200093C59 /* NSString+WMFPageUtilities.m in Sources */,
 				04490FD51AF16A83009FAB52 /* WMFBundledImageProtocol.m in Sources */,
 				0429300A18604898002A13FC /* SavedPagesResultCell.m in Sources */,
 				0487048419F8262600B7D307 /* CaptchaResetter.m in Sources */,

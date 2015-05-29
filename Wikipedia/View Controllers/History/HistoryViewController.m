@@ -251,7 +251,7 @@
     DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
     [dataHouseKeeping performHouseKeeping];
 
-    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
+    [NAV loadTodaysArticle];
 }
 
 #pragma mark - History section titles
@@ -459,7 +459,7 @@
     DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
     [dataHouseKeeping performHouseKeeping];
 
-    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
+    [NAV loadTodaysArticle];
 }
 
 #pragma mark - Discovery method icons
@@ -504,7 +504,7 @@
 
     [self setEmptyOverlayAndTrashIconVisibility];
 
-    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
+    [NAV loadTodaysArticle];
 }
 
 - (void)setEmptyOverlayAndTrashIconVisibility {

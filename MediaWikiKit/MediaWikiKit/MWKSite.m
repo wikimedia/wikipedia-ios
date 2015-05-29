@@ -2,7 +2,9 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "MediaWikiKit.h"
-#import "WikipediaAppUtils.h"
+#import "NSObjectUtilities.h"
+
+NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 
 @interface MWKSite ()
 
@@ -13,23 +15,9 @@
 
 @implementation MWKSite
 
-#pragma mark - Setup
-
-+ (MWKSite*)siteWithDomain:(NSString*)domain language:(NSString*)language {
-    static NSMutableDictionary* cachedSites = nil;
-    if (cachedSites == nil) {
-        cachedSites = [[NSMutableDictionary alloc] init];
-    }
-    NSString* key = [NSString stringWithFormat:@"%@:%@", domain, language];
-    MWKSite* site = cachedSites[key];
-    if (site == nil) {
-        site             = [[MWKSite alloc] initWithDomain:domain language:language];
-        cachedSites[key] = site;
-    }
-    return site;
-}
-
 - (instancetype)initWithDomain:(NSString*)domain language:(NSString*)language {
+    NSParameterAssert(domain.length);
+    NSParameterAssert(language.length);
     self = [super init];
     if (self) {
         self.domain   = domain;
@@ -38,22 +26,26 @@
     return self;
 }
 
++ (MWKSite*)siteWithDomain:(NSString*)domain language:(NSString*)language {
+    return [[MWKSite alloc] initWithDomain:domain language:language];
+}
+
++ (instancetype)siteWithCurrentLocale {
+    return [self siteWithLocale:[NSLocale currentLocale]];
+}
+
++ (instancetype)siteWithLocale:(NSLocale*)locale {
+    return [self siteWithDomain:WMFDefaultSiteDomain language:[locale objectForKey:NSLocaleLanguageCode]];
+}
+
 #pragma mark - Title Helpers
 
 - (MWKTitle*)titleWithString:(NSString*)string {
     return [MWKTitle titleWithString:string site:self];
 }
 
-static NSString* localLinkPrefix = @"/wiki/";
-
 - (MWKTitle*)titleWithInternalLink:(NSString*)path {
-    if ([path hasPrefix:localLinkPrefix]) {
-        NSString* remainder = [[path substringFromIndex:localLinkPrefix.length]
-                               stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        return [self titleWithString:remainder];
-    } else {
-        @throw [NSException exceptionWithName:@"SiteBadLinkFormatException" reason:@"unexpected local link format" userInfo:nil];
-    }
+    return [[MWKTitle alloc] initWithInternalLink:path site:self];
 }
 
 #pragma mark - NSObject
@@ -69,12 +61,12 @@ static NSString* localLinkPrefix = @"/wiki/";
 }
 
 - (BOOL)isEqualToSite:(MWKSite*)other {
-    return [self.domain isEqualToString:other.domain]
-           && [self.language isEqualToString:other.language];
+    return WMF_EQUAL_PROPERTIES(self, language, isEqualToString:, other)
+           && WMF_EQUAL_PROPERTIES(self, domain, isEqualToString:, other);
 }
 
 - (NSUInteger)hash {
-    return [self.domain hash] ^ CircularBitwiseRotation([self.language hash], 1);
+    return self.domain.hash ^ flipBitsWithAdditionalRotation(self.language.hash, 1);
 }
 
 @end

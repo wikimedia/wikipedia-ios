@@ -144,10 +144,6 @@
                     popToWebVC:NO];
 }
 
-- (void)loadTodaysArticleIfNoCoreDataForCurrentArticle {
-    [self loadTodaysArticle];
-}
-
 - (void)loadRandomArticle {
     [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
 

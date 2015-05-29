@@ -14,6 +14,10 @@
     return [self substringToIndex:MIN(self.length, index)];
 }
 
+- (NSString*)wmf_safeSubstringFromIndex:(NSUInteger)index {
+    return [self substringFromIndex:MIN(index, self.length - 1)];
+}
+
 - (NSString*)wmf_UTF8StringWithPercentEscapes {
     return (__bridge_transfer id)CFURLCreateStringByAddingPercentEscapes(0,
                                                                          (__bridge CFStringRef)self,

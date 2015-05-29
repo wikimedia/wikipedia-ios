@@ -2,6 +2,11 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "MediaWikiKit.h"
+#import "NSString+WMFPageUtilities.h"
+#import "NSArray+WMFExtensions.h"
+#import "NSObjectUtilities.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKTitle ()
 
@@ -11,57 +16,47 @@
 @property (readwrite, copy, nonatomic) NSString* prefixedText;
 @property (readwrite, copy, nonatomic) NSString* prefixedDBKey;
 @property (readwrite, copy, nonatomic) NSString* prefixedURL;
-@property (readwrite, copy, nonatomic) NSString* fragmentForURL;
+@property (readwrite, copy, nonatomic) NSString* escapedFragment;
 @property (readwrite, copy, nonatomic) NSURL* mobileURL;
 @property (readwrite, copy, nonatomic) NSURL* desktopURL;
-
 
 @end
 
 @implementation MWKTitle
 
-#pragma mark - Class methods
+- (instancetype)initWithSite:(MWKSite*)site normalizedTitle:(NSString*)text fragment:(NSString* __nullable)fragment {
+    NSParameterAssert(site);
+    NSParameterAssert(text.length);
+    self = [super init];
+    if (self) {
+        self.site     = site;
+        self.text     = text;
+        self.fragment = fragment;
+    }
+    return self;
+}
+
+- (instancetype)initWithInternalLink:(NSString*)relativeInternalLink site:(MWKSite*)site {
+    return [self initWithString:[relativeInternalLink wmf_internalLinkPath] site:site];
+}
+
+- (instancetype)initWithString:(NSString*)string site:(MWKSite*)site {
+    NSAssert(![string wmf_isInternalLink],
+             @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
+             string);
+    NSArray* bits = [string componentsSeparatedByString:@"#"];
+    NSParameterAssert(bits.count >= 1);
+    return [self initWithSite:site
+              normalizedTitle:[bits[0] wmf_normalizedPageTitle]
+                     fragment:[bits wmf_safeObjectAtIndex:1]];
+}
 
 + (MWKTitle*)titleWithString:(NSString*)str site:(MWKSite*)site {
     return [[MWKTitle alloc] initWithString:str site:site];
 }
 
-+ (NSString*)normalize:(NSString*)str {
-    // @todo implement fuller normalization?
-    return [str stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-}
-
-#pragma mark - Initializers
-
-- (instancetype)initWithString:(NSString*)str site:(MWKSite*)site {
-    self = [self init];
-    if (self) {
-        self.site = site;
-        NSArray* bits = [str componentsSeparatedByString:@"#"];
-        self.text = [MWKTitle normalize:bits[0]];
-        if (bits.count > 1) {
-            self.fragment = bits[1];
-        }
-    }
-    return self;
-}
-
-#pragma mark - Property getters
-
-- (NSString*)namespace {
-    // @todo implement namespace detection and normalization
-    // rename the property from a reserved language name
-    // doing this right requires some site info
-    return nil;
-}
-
-- (NSString*)_prefix {
-    // @todo implement namespace prefixing once namespaces are handled
-    return @"";
-}
-
 - (NSString*)prefixedText {
-    return [[self _prefix] stringByAppendingString:self.text];
+    return self.text;
 }
 
 - (NSString*)prefixedDBKey {
@@ -72,7 +67,7 @@
     return [self.prefixedDBKey stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (NSString*)fragmentForURL {
+- (NSString*)escapedFragment {
     if (self.fragment) {
         // @fixme we use some weird escaping system...?
         return [@"#" stringByAppendingString:[self.fragment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -81,34 +76,36 @@
     }
 }
 
-- (NSURL*)mobileURL;
-{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.m.%@/wiki/%@",
+- (NSURL*)mobileURL {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.m.%@%@%@",
                                  self.site.language,
                                  self.site.domain,
+                                 WMFInternalLinkPathPrefix,
                                  self.prefixedURL]];
 }
 
-- (NSURL*)desktopURL;
-{
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@/wiki/%@",
+- (NSURL*)desktopURL {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@%@%@",
                                  self.site.language,
                                  self.site.domain,
+                                 WMFInternalLinkPathPrefix,
                                  self.prefixedURL]];
 }
-
 
 - (BOOL)isEqual:(id)object {
-    if (object == nil) {
-        return NO;
-    } else if (![object isKindOfClass:[MWKTitle class]]) {
-        return NO;
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[MWKTitle class]]) {
+        return [self isEqualToTitle:object];
     } else {
-        MWKTitle* other = object;
-        return [self.site isEqual:other.site] &&
-               [self.prefixedText isEqualToString:other.prefixedText] &&
-               ((self.fragment == nil && other.fragment == nil) || [self.fragment isEqualToString:other.fragment]);
+        return NO;
     }
+}
+
+- (BOOL)isEqualToTitle:(MWKTitle*)otherTitle {
+    return WMF_IS_EQUAL_PROPERTIES(self, site, otherTitle)
+           && WMF_EQUAL_PROPERTIES(self, prefixedText, isEqualToString:, otherTitle)
+           && WMF_EQUAL_PROPERTIES(self, fragment, isEqualToString:, otherTitle);
 }
 
 - (NSString*)description {
@@ -119,15 +116,17 @@
     }
 }
 
-#pragma mark - NSCopying protocol methods
+- (NSUInteger)hash {
+    return self.site.hash
+           ^ flipBitsWithAdditionalRotation(self.prefixedText.hash, 1)
+           ^ flipBitsWithAdditionalRotation(self.fragment.hash, 2);
+}
 
-- (id)copyWithZone:(NSZone*)zone {
-    // Titles are immutable
+- (instancetype)copyWithZone:(NSZone*)zone {
+    // immutable
     return self;
 }
 
-- (NSUInteger)hash {
-    return [self.site hash] ^ [self.prefixedText hash] ^ [self.fragment hash];
-}
-
 @end
+
+NS_ASSUME_NONNULL_END

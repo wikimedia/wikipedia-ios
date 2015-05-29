@@ -11,6 +11,9 @@
 
 #import "MWKTestCase.h"
 
+#define HC_SHORTHAND 1
+#import <OCHamcrest/OCHamcrest.h>
+
 @interface MWKTitleTests : MWKTestCase
 
 @end
@@ -36,10 +39,10 @@
     XCTAssertEqualObjects(title.prefixedText, @"Simple", @"Text form is full");
     XCTAssertEqualObjects(title.prefixedURL, @"Simple", @"URL form is full");
     XCTAssertNil(title.fragment, @"Fragment is nil");
-    XCTAssertEqualObjects(title.fragmentForURL, @"", @"Fragment for URL is empty string");
+    XCTAssertEqualObjects(title.escapedFragment, @"", @"Fragment for URL is empty string");
 }
 
-- (void)testFancy {
+- (void)testUnderscoresAndSpaces {
     NSArray* inputs = @[[MWKTitle titleWithString:@"Fancy title with spaces" site:site],
                         [MWKTitle titleWithString:@"Fancy_title with_spaces" site:site]
     ];
@@ -48,7 +51,7 @@
         XCTAssertEqualObjects(title.prefixedText, @"Fancy title with spaces", @"Text form has spaces");
         XCTAssertEqualObjects(title.prefixedURL, @"Fancy_title_with_spaces", @"URL form has underscores");
         XCTAssertNil(title.fragment, @"Fragment is nil");
-        XCTAssertEqualObjects(title.fragmentForURL, @"", @"Fragment for URL is empty string");
+        XCTAssertEqualObjects(title.escapedFragment, @"", @"Fragment for URL is empty string");
     }
 }
 
@@ -58,7 +61,21 @@
     XCTAssertEqualObjects(title.prefixedText, @"Éclair", @"Text form has unicode");
     XCTAssertEqualObjects(title.prefixedURL, @"%C3%89clair", @"URL form has percent encoding");
     XCTAssertNil(title.fragment, @"Fragment is nil");
-    XCTAssertEqualObjects(title.fragmentForURL, @"", @"Fragment for URL is empty string");
+    XCTAssertEqualObjects(title.escapedFragment, @"", @"Fragment for URL is empty string");
+}
+
+- (void)testFragment {
+    MWKTitle* title = [MWKTitle titleWithString:@"foo#bar" site:site];
+    assertThat(title.site, is(site));
+    assertThat(title.text, is(@"foo"));
+    assertThat(title.fragment, is(@"bar"));
+}
+
+- (void)testPercentEscaped {
+    MWKTitle* title = [MWKTitle titleWithString:@"foo%20baz#bar" site:site];
+    assertThat(title.site, is(site));
+    assertThat(title.text, is(@"foo baz"));
+    assertThat(title.fragment, is(@"bar"));
 }
 
 - (void)testEquals {

@@ -6,6 +6,9 @@
 /// @return A substring of the receiver going up to @c index, or @c length, whichever is shorter.
 - (NSString*)wmf_safeSubstringToIndex:(NSUInteger)index;
 
+/// @return A substring of the receiver starting at @c index or an empty string if the recevier is too short.
+- (NSString*)wmf_safeSubstringFromIndex:(NSUInteger)index;
+
 - (NSString*)wmf_UTF8StringWithPercentEscapes;
 
 - (NSString*)wmf_schemelessURL;
