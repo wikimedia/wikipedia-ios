@@ -11,6 +11,25 @@
 #import "UIWindow+WMFMainScreenWindow.h"
 #import "WikipediaAppUtils.h"
 
+/**
+ * Register default application preferences.
+ * @note This function must be a static constructor so that it's invoked when the translation unit is loaded, since
+ *       waiting until application launch doesn't register them before unit tests are run.
+ */
+__attribute__((constructor)) static void WMFRegisterDefaultPrefs() {
+    NSString* defaultLanguage = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{
+         @"CurrentArticleDomain": defaultLanguage,
+         @"Domain": defaultLanguage,
+         @"ZeroWarnWhenLeaving": @YES,
+         @"ZeroOnDialogShownOnce": @NO,
+         @"FakeZeroOn": @NO,
+         @"ShowOnboarding": @YES,
+         @"LastHousekeepingDate": [NSDate date],
+         @"SendUsageReports": @YES,
+         @"AccessSavedPagesMessageShown": @NO
+     }];
+}
 
 @interface AppDelegate ()
 <DataMigrationProgressDelegate>

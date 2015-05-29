@@ -10,15 +10,32 @@ extern NSString* const WMFDefaultSiteDomain;
 @class MWKTitle;
 @class MWKUser;
 
-@interface MWKSite : NSObject
+/// Represents a mediawiki instance dedicated to a specific language.
+@interface MWKSite : NSObject <NSCopying>
 
+/// The hostname for the site, defaults to @c WMFDefaultSiteDomain.
 @property (nonatomic, copy, readonly) NSString* domain;
+
+/// The language code for the site. Should be ISO 639-x/IETF BCP 47
+/// @see kCFLocaleLanguageCode
 @property (nonatomic, copy, readonly) NSString* language;
+
+///
+/// @name Computed Properties
+///
+
+- (NSURL*)apiEndpoint;
+
+- (NSURL*)mobileApiEndpoint;
 
 - (instancetype)initWithDomain:(NSString*)domain language:(NSString*)language NS_DESIGNATED_INITIALIZER;
 
-/// Convenience factory method wrapping the designated initializer.
+/// Create a site using @c language and the default domain.
+- (instancetype)initWithLanguage:(NSString*)language;
+
 + (instancetype)siteWithDomain:(NSString*)domain language:(NSString*)language;
+
++ (instancetype)siteWithLanguage:(NSString*)language;
 
 /// @return A site with the default domain and the language code returned by @c locale.
 + (instancetype)siteWithLocale:(NSLocale*)locale;

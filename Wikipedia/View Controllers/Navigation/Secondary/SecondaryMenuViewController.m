@@ -729,7 +729,6 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
                   transitionStyle:UIModalTransitionStyleCoverVertical
                             block:^(LanguagesViewController* languagesVC) {
         languagesVC.languageSelectionDelegate = self;
-        languagesVC.invokingVC = self;
     }];
 }
 

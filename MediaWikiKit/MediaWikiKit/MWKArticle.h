@@ -40,6 +40,9 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, strong, nonatomic) MWKProtectionStatus* protection;     // required
 @property (readonly, assign, nonatomic) BOOL editable;                       // required
 
+/// Whether or not the receiver is the main page for its @c site.
+@property (readonly, assign, nonatomic, getter = isMain) BOOL main;
+
 @property (readwrite, copy, nonatomic) NSString* thumbnailURL;   // optional; pulled separately via search
 @property (readwrite, copy, nonatomic) NSString* imageURL;       // optional; pulled in article request
 

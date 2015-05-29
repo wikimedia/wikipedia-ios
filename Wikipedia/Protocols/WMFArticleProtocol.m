@@ -28,7 +28,7 @@ __attribute__((constructor)) static void WMFRegisterArticleProtocol() {
 - (void)startLoading {
     NSString* value = [self.request.URL wmf_getValue];
     if ([value isEqualToString:@"is-main-page"]) {
-        BOOL isMainPage = [[SessionSingleton sharedInstance] articleIsAMainArticle:[SessionSingleton sharedInstance].currentArticle];
+        BOOL isMainPage = [SessionSingleton sharedInstance].currentArticle.isMain;
         NSData* data    = [[@(isMainPage)stringValue] dataUsingEncoding:NSUTF8StringEncoding];
 
         [self sendResponseWithData:data];

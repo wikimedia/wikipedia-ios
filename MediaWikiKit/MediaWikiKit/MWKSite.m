@@ -6,6 +6,12 @@
 
 NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 
+static NSString* const MWKSiteSchemaVersionKey = @"siteSchemaVersion";
+
+typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
+    MWKSiteNSCodingSchemaVersion_1 = 1
+};
+
 @interface MWKSite ()
 
 @property (readwrite, copy, nonatomic) NSString* domain;
@@ -24,6 +30,14 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
         self.language = language;
     }
     return self;
+}
+
+- (instancetype)initWithLanguage:(NSString*)language {
+    return [self initWithDomain:WMFDefaultSiteDomain language:language];
+}
+
++ (instancetype)siteWithLanguage:(NSString*)language {
+    return [[self alloc] initWithLanguage:language];
 }
 
 + (MWKSite*)siteWithDomain:(NSString*)domain language:(NSString*)language {
@@ -48,6 +62,29 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
     return [[MWKTitle alloc] initWithInternalLink:path site:self];
 }
 
+#pragma mark - Computed Properties
+
+- (NSURL*)mobileApiEndpoint {
+    return [self apiEndpoint:YES];
+}
+
+- (NSURL*)apiEndpoint {
+    return [self apiEndpoint:NO];
+}
+
+- (NSURL*)apiEndpoint:(BOOL)isMobile {
+    NSURLComponents* apiEndpointComponents = [[NSURLComponents alloc] init];
+    apiEndpointComponents.scheme = @"https";
+    NSMutableArray* hostComponents = [NSMutableArray arrayWithObject:self.language];
+    if (isMobile) {
+        [hostComponents addObject:@"m"];
+    }
+    [hostComponents addObject:self.domain];
+    apiEndpointComponents.host = [hostComponents componentsJoinedByString:@"."];
+    apiEndpointComponents.path = @"/w/api.php";
+    return [apiEndpointComponents URL];
+}
+
 #pragma mark - NSObject
 
 - (BOOL)isEqual:(id)object {
@@ -67,6 +104,11 @@ NSString* const WMFDefaultSiteDomain = @"wikipedia.org";
 
 - (NSUInteger)hash {
     return self.domain.hash ^ flipBitsWithAdditionalRotation(self.language.hash, 1);
+}
+
+- (id)copyWithZone:(NSZone*)zone {
+    // immutable
+    return self;
 }
 
 @end

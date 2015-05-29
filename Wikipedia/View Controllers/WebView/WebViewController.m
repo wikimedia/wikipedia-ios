@@ -360,7 +360,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         -100        100 pixels below the top of the screen.
 
      */
-    if ([[SessionSingleton sharedInstance] articleIsAMainArticle:[[SessionSingleton sharedInstance] currentArticle]]) {
+    if ([[[SessionSingleton sharedInstance] currentArticle] isMain]) {
         // Prevent top of footer from being scrolled up past bottom of screen.
         return -self.view.frame.size.height;
     } else {
@@ -577,7 +577,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         return;
     }
 
-    if ([self.session articleIsAMainArticle:self.session.currentArticle]) {
+    if (self.session.currentArticle.isMain) {
         return;
     }
 
@@ -1068,7 +1068,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)saveWebViewScrollOffset {
     // Don't record scroll position of "main" pages.
-    if ([self.session articleIsAMainArticle:self.session.currentArticle]) {
+    if (self.session.currentArticle.isMain) {
         return;
     }
 
@@ -1331,14 +1331,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 - (void)navigateToPage:(MWKTitle*)title
        discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     NSString* cleanTitle = title.prefixedText;
-
-    // Don't try to load nothing. Core data takes exception with such nonsense.
-    if (cleanTitle == nil) {
-        return;
-    }
-    if (cleanTitle.length == 0) {
-        return;
-    }
+    NSParameterAssert(cleanTitle.length);
 
     [self hideKeyboard];
 
@@ -1364,13 +1357,20 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (void)reloadCurrentArticleFromNetwork {
-    [self navigateToPage:self.session.currentArticle.title
-         discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork];
+    [self reloadCurrentArticleOrMainPageWithMethod:MWKHistoryDiscoveryMethodReloadFromNetwork];
 }
 
 - (void)reloadCurrentArticleFromCache {
-    [self navigateToPage:self.session.currentArticle.title
-         discoveryMethod:MWKHistoryDiscoveryMethodReloadFromCache];
+    [self reloadCurrentArticleOrMainPageWithMethod:MWKHistoryDiscoveryMethodReloadFromCache];
+}
+
+- (void)reloadCurrentArticleOrMainPageWithMethod:(MWKHistoryDiscoveryMethod)method {
+    MWKTitle* page = self.session.currentArticle.title;
+    if (page) {
+        [self navigateToPage:page discoveryMethod:method];
+    } else {
+        [NAV loadTodaysArticle];
+    }
 }
 
 - (void)cancelArticleLoading {
@@ -1533,7 +1533,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     MWKArticle* article = self.session.currentArticle;
 
-    if ([self.session articleIsAMainArticle:article]) {
+    if (article.isMain) {
         return @"";
     }
 
@@ -1729,7 +1729,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         self.lastScrollOffset = scrollOffset;
     }
 
-    if (![self.session articleIsAMainArticle:self.session.currentArticle]) {
+    if (!self.session.currentArticle.isMain) {
         NSString* lastModifiedByUserName =
             (lastModifiedBy && !lastModifiedBy.anonymous) ? lastModifiedBy.name : nil;
         [self.footerViewController updateLanguageCount:langCount];

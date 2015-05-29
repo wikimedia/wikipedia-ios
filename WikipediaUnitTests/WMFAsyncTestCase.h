@@ -10,7 +10,7 @@
 
 #define PushExpectation() ([self pushExpectation:__FILE__ line:__LINE__])
 
-extern float const WMFDefaultExpectationTimeout;
+extern NSTimeInterval const WMFDefaultExpectationTimeout;
 
 #define WaitForExpectations() ([self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:nil])
 

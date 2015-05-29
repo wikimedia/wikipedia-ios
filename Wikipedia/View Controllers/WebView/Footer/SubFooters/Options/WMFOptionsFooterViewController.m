@@ -153,7 +153,6 @@ static CGFloat const kGlyphIconBaselineOffset = 1.6f;
                   transitionStyle:UIModalTransitionStyleCoverVertical
                             block:^(LanguagesViewController* languagesVC){
         languagesVC.downloadLanguagesForCurrentArticle = YES;
-        languagesVC.invokingVC = self;
         languagesVC.languageSelectionDelegate = self;
     }];
 }

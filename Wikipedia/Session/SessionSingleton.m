@@ -23,17 +23,16 @@
 @end
 
 @implementation SessionSingleton
-
 @synthesize currentArticleSite = _currentArticleSite;
 @synthesize currentArticle     = _currentArticle;
 
 #pragma mark - Setup
 
 + (SessionSingleton*)sharedInstance {
-    static dispatch_once_t once;
-    static id sharedInstance;
-    dispatch_once(&once, ^{
-        sharedInstance = [[self alloc] init];
+    static dispatch_once_t onceToken;
+    static SessionSingleton* sharedInstance;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [self new];
     });
     return sharedInstance;
 }
@@ -52,9 +51,8 @@
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
     self = [super init];
     if (self) {
+        #warning FIXME: move to AppDelegate, if we should be doing this at all (slows down app launch)
         [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
-
-        [self registerStandardUserDefaults];
 
         URLCache* urlCache = [[URLCache alloc] initWithMemoryCapacity:MegabytesToBytes(64)
                                                          diskCapacity:MegabytesToBytes(64)
@@ -75,41 +73,6 @@
     return self;
 }
 
-- (void)registerStandardUserDefaults {
-    NSString* systemLang = [[NSLocale preferredLanguages] objectAtIndex:0];
-    NSString* lang       = [WikipediaAppUtils wikiLangForSystemLang:systemLang];
-    if (lang == nil) {
-        lang = @"en";
-    }
-
-    NSString* langName = [WikipediaAppUtils domainNameForCode:lang];
-    if (langName == nil) {
-        langName = lang;
-    }
-
-    NSString* mainPage = [self mainArticleTitleTextForLanguageCode:lang];
-    if (mainPage == nil) {
-        mainPage = @"Main Page";
-    }
-
-    NSDictionary* userDefaultsDefaults = @{
-        @"CurrentArticleTitle": mainPage,
-        @"CurrentArticleDomain": lang,
-        @"Domain": lang,
-        @"DomainName": langName,
-        @"DomainMainArticleTitle": mainPage,
-        @"Site": @"wikipedia.org",
-        @"ZeroWarnWhenLeaving": @YES,
-        @"ZeroOnDialogShownOnce": @NO,
-        @"FakeZeroOn": @NO,
-        @"ShowOnboarding": @YES,
-        @"LastHousekeepingDate": [NSDate date],
-        @"SendUsageReports": @YES,
-        @"AccessSavedPagesMessageShown": @NO
-    };
-    [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];
-}
-
 #pragma mark - Site
 
 - (void)setCurrentArticleSite:(MWKSite*)site {
@@ -118,37 +81,6 @@
         [[NSUserDefaults standardUserDefaults] setObject:site.language forKey:@"CurrentArticleDomain"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-}
-
-#pragma mark - Main Article
-
-- (WMFAssetsFile*)mainPages {
-    if (!_mainPages) {
-        _mainPages = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeMainPages];
-    }
-
-    return _mainPages;
-}
-
-- (NSString*)mainArticleTitleTextForLanguageCode:(NSString*)code {
-    NSDictionary* mainPageNames = self.mainPages.dictionary;
-    NSString* titleText         = mainPageNames[code];
-    return titleText;
-}
-
-- (MWKTitle*)mainArticleTitleForSite:(MWKSite*)site languageCode:(NSString*)code {
-    MWKTitle* title = [site titleWithString:[self mainArticleTitleTextForLanguageCode:code]];
-    return title;
-}
-
-- (MWKTitle*)mainArticleTitle {
-    MWKTitle* title = [self mainArticleTitleForSite:self.searchSite languageCode:self.searchSite.language];
-    return title;
-}
-
-- (BOOL)articleIsAMainArticle:(MWKArticle*)article {
-    MWKTitle* mainArticleTitleForArticleLanguage = [self mainArticleTitleForSite:article.site languageCode:article.site.language];
-    return ([article.title.prefixedText isEqualToString:mainArticleTitleForArticleLanguage.prefixedText]);
 }
 
 #pragma mark - Article
@@ -173,28 +105,31 @@
     if (!_currentArticle) {
         self.currentArticle = [self lastLoadedArticle];
     }
-
     return _currentArticle;
 }
 
 #pragma mark - Last known/loaded
 
 - (MWKSite*)lastKnownSite {
-    NSString* lang = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleDomain"];
-    MWKSite* site  = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:lang];
-    return site;
+    return [MWKSite siteWithLanguage:[[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleDomain"]];
 }
 
 - (MWKTitle*)lastLoadedTitle {
     MWKSite* lastKnownSite = [self lastKnownSite];
     NSString* titleText    = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
-    MWKTitle* title        = [lastKnownSite titleWithString:titleText];
+    if (!titleText) {
+        return nil;
+    }
+    MWKTitle* title = [lastKnownSite titleWithString:titleText];
     return title;
 }
 
 - (MWKArticle*)lastLoadedArticle {
     MWKTitle* lastLoadedTitle = [self lastLoadedTitle];
-    MWKArticle* article       = [self.dataStore articleWithTitle:lastLoadedTitle];
+    if (!lastLoadedTitle) {
+        return nil;
+    }
+    MWKArticle* article = [self.dataStore articleWithTitle:lastLoadedTitle];
     return article;
 }
 
@@ -221,7 +156,7 @@
 
 - (MWKSite*)searchSite {
     if (_searchSite == nil) {
-        _searchSite = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:[self searchLanguage]];
+        _searchSite = [[MWKSite alloc] initWithDomain:WMFDefaultSiteDomain language:[self searchLanguage]];
     }
     return _searchSite;
 }

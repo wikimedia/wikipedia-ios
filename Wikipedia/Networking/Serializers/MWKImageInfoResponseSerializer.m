@@ -7,7 +7,6 @@
 //
 
 #import "MWKImageInfoResponseSerializer.h"
-#import "WMFNetworkUtilities.h"
 #import "MWKImageInfo.h"
 #import "NSString+WMFHTMLParsing.h"
 
@@ -39,18 +38,9 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary* json, NSString* widthKey, N
              ExtMetadataArtistKey];
 }
 
-- (id)responseObjectForResponse:(NSURLResponse*)response
-                           data:(NSData*)data
-                          error:(NSError* __autoreleasing*)error {
+- (id)responseObjectForResponse:(NSURLResponse*)response data:(NSData*)data error:(NSError* __autoreleasing*)error {
     NSDictionary* json = [super responseObjectForResponse:response data:data error:error];
-    if (!json || *error) {
-        return nil;
-    }
-    NSDictionary* apiError = json[@"error"];
-    if (apiError) {
-        if (error) {
-            *error = WMFErrorForApiErrorObject(apiError);
-        }
+    if (!json) {
         return nil;
     }
     NSDictionary* indexedImages     = json[@"query"][@"pages"];
