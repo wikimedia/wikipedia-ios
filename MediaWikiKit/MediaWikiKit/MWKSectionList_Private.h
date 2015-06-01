@@ -10,6 +10,9 @@
 
 @interface MWKSectionList ()
 
+/// @warning For testing only.
+@property (strong, nonatomic) NSMutableArray* sections;
+
 /// Import list of sections from disk using the receiver's `article` and `dataStore`.
 - (void)importSectionsFromDisk;
 

@@ -18,7 +18,7 @@
 
 #import "MWKArticle.h"
 #import "MWKSection.h"
-#import "MWKSectionList.h"
+#import "MWKSectionList_Private.h"
 #import "MWKDataStore.h"
 #import "MWKImageList.h"
 
@@ -43,7 +43,7 @@
 
     // create article w/ mock section to prevent crashing due to image import side effects
     MWKArticle* article = [[MWKArticle alloc] initWithTitle:nil dataStore:tmpDataStore];
-    [article.sections setSections:mock([MWKSection class])];
+    [article.sections setSections:[NSMutableArray arrayWithObject:mock([MWKSection class])]];
 
     NSArray* dummySourceURLs = [@[@"10px-a.jpg", @"10px-b.jpg", @"100px-a.jpg", @"10px-c.jpg"] bk_map :^id (id obj) {
         return MWKCreateImageURLWithPath(obj);

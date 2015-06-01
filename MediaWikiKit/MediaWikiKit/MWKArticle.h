@@ -6,11 +6,12 @@
 //  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
-static const NSInteger kMWKArticleSectionNone = -1;
-
 #import <UIKit/UIKit.h>
 
 #import "MWKSiteDataObject.h"
+
+static const NSInteger kMWKArticleSectionNone = -1;
+
 
 @class MWKDataStore;
 @class MWKSection;
