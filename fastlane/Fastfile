@@ -5,7 +5,7 @@
 $:.unshift File.dirname(__FILE__)
 require 'lib/utils.rb'
 
-fastlane_version "1.0.0"
+fastlane_version "1.3"
 
 default_platform :ios
 
@@ -95,6 +95,8 @@ platform :ios do
       force: true,
       filename: 'build/adhoc.mobileprovision'
     )
+    # force iTunes file sharing to be enabled (normally disabled for release builds)
+    ENV['WMF_FORCE_ITUNES_FILE_SHARING']='1'
     ipa(
       configuration: "Wikipedia",
       scheme: "Wikipedia",
