@@ -82,7 +82,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 - (NSString*)pathForImageURL:(NSString*)url title:(MWKTitle*)title {
     NSString* imagesPath = [self pathForImagesWithTitle:title];
     NSString* encURL     = [self safeFilenameWithImageURL:url];
-    return [imagesPath stringByAppendingPathComponent:encURL];
+    return encURL ? [imagesPath stringByAppendingPathComponent : encURL] : nil;
 }
 
 - (NSString*)pathForImage:(MWKImage*)image {
@@ -108,28 +108,19 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 - (NSString*)safeFilenameWithImageURL:(NSString*)str {
     str = [str wmf_schemelessURL];
 
-    if ([str hasPrefix:MWKDataStoreValidImageSitePrefix]) {
-        NSString* suffix   = [str substringFromIndex:[MWKDataStoreValidImageSitePrefix length]];
-        NSString* fileName = [suffix lastPathComponent];
-
-        // Image URLs are already percent-encoded, so don't double-encode em.
-        // In fact, we want to decode them...
-        // If we don't, long Unicode filenames may not fit in the filesystem.
-        NSString* decodedFileName = [fileName stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
-        // Just to be safe, confirm no path explostions!
-        if ([decodedFileName rangeOfString:@"/"].location != NSNotFound) {
-            @throw [NSException exceptionWithName:@"MWKDataStoreException"
-                                           reason:@"Tried to save URL with encoded slash"
-                                         userInfo:@{@"str": str}];
-        }
-
-        return decodedFileName;
-    } else {
-        @throw [NSException exceptionWithName:@"MWKDataStoreException"
-                                       reason:@"Tried to save non-upload.wikimedia.org URL as image"
-                                     userInfo:@{@"str": str ? str : [NSNull null]}];
+    if (![str hasPrefix:MWKDataStoreValidImageSitePrefix]) {
+        return nil;
     }
+
+    NSString* suffix   = [str substringFromIndex:[MWKDataStoreValidImageSitePrefix length]];
+    NSString* fileName = [suffix lastPathComponent];
+
+    // Image URLs are already percent-encoded, so don't double-encode em.
+    // In fact, we want to decode them...
+    // If we don't, long Unicode filenames may not fit in the filesystem.
+    NSString* decodedFileName = [fileName stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    return decodedFileName;
 }
 
 #pragma mark - save methods
@@ -146,6 +137,10 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (BOOL)saveData:(NSData*)data toFile:(NSString*)filename atPath:(NSString*)path error:(NSError**)error {
+    NSAssert([filename length] > 0, @"No file path given for saving data");
+    if (!filename) {
+        return NO;
+    }
     [self ensurePathExists:path error:error];
     NSString* absolutePath = [path stringByAppendingPathComponent:filename];
     return [data writeToFile:absolutePath options:NSDataWritingAtomic error:error];
