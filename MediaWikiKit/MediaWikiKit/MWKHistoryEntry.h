@@ -16,7 +16,8 @@ typedef NS_ENUM (NSUInteger, MWKHistoryDiscoveryMethod){
     MWKHistoryDiscoveryMethodLink,
     MWKHistoryDiscoveryMethodBackForward,
     MWKHistoryDiscoveryMethodSaved,
-    MWKHistoryDiscoveryMethodReload,
+    MWKHistoryDiscoveryMethodReloadFromNetwork,
+    MWKHistoryDiscoveryMethodReloadFromCache,
     MWKHistoryDiscoveryMethodUnknown
 };
 

@@ -32,7 +32,7 @@ extern NSString* const WebViewControllerShareSelectedText;
 - (void)referencesShow:(NSDictionary*)payload;
 - (void)referencesHide;
 
-- (void)reloadCurrentArticle;
+- (void)reloadCurrentArticleFromNetwork;
 
 - (void)navigateToPage:(MWKTitle*)title
        discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;

@@ -229,6 +229,9 @@
                 self.article.thumbnailURL = thumbURL;
             }
 
+            if ([[self.article existingImageWithURL:thumbURL] isCached]) {
+                return;
+            }
 
             NSString* cacheFilePath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
                                         firstObject]
