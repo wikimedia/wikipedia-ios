@@ -8,6 +8,7 @@
 
 #import "MediaWikiKit.h"
 #import "NSString+Extras.h"
+#import "NSURL+Extras.h"
 
 @interface MWKImageList ()
 
@@ -87,8 +88,13 @@
     return [self.article.dataStore imageWithURL:imageURL article:self.article];
 }
 
-- (BOOL)hasImageURL:(NSString*)imageURL {
-    return [self imageWithURL:imageURL] != nil;
+- (BOOL)hasImageURL:(NSURL*)imageURL {
+    NSString* imageURLString = [imageURL wmf_schemelessURLString];
+    if (imageURLString && imageURLString.length > 0 && [self.entries containsObject:imageURLString]) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (MWKImage*)imageWithURL:(NSString*)imageURL {
@@ -185,6 +191,7 @@
 }
 
 - (BOOL)addImageURLIfAbsent:(NSString*)imageURL {
+    imageURL = [imageURL wmf_schemelessURL];
     if (imageURL && imageURL.length > 0 && ![self.entries containsObject:imageURL]) {
         [self addImageURL:imageURL];
         return YES;

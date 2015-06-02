@@ -506,7 +506,7 @@ typedef enum {
                 [self.funnel logSavedRevision:[fetchedData[@"newrevid"] intValue]];
 
                 WebViewController* webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
-                [webVC reloadCurrentArticle];
+                [webVC reloadCurrentArticleFromNetwork];
                 [ROOT popToViewController:webVC animated:YES];
             }
             break;

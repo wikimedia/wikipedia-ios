@@ -45,7 +45,7 @@
 //    self.session.currentArticle = dummyArticle;
 //
 //    [self.webVC navigateToPage:dummyArticle.title
-//               discoveryMethod:MWKHistoryDiscoveryMethodReload];
+//               discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork];
 //
 //    // TODO: verify that mock article fetcher gets a call to fetch article w/ mock title
 //
@@ -111,7 +111,8 @@
 //    self.session.currentArticle = originalArticle;
 //
 //    // should be true for every discovery
-//    MWKHistoryDiscoveryMethod methods[7] = {MWKHistoryDiscoveryMethodReload,
+//    MWKHistoryDiscoveryMethod methods[7] = {MWKHistoryDiscoveryMethodReloadFromNetwork,
+//                                            MWKHistoryDiscoveryMethodReloadFromCache,
 //                                            MWKHistoryDiscoveryMethodLink,
 //                                            MWKHistoryDiscoveryMethodRandom,
 //                                            MWKHistoryDiscoveryMethodSaved,

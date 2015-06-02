@@ -97,20 +97,22 @@ void WMFInjectArticleWithImagesFromSection(MWKArticle* article, NSString* sectio
             }
         }
 
-        MWKImage* image = [article importImageURL:srcTagImageURL sectionId:sectionID];
+        if (![article.images hasImageURL:[NSURL URLWithString:srcTagImageURL]]) {
+            MWKImage* image = [article importImageURL:srcTagImageURL sectionId:sectionID];
 
-        // If img tag dimensions were extracted, save them so they don't have to be expensively determined later.
-        if (imgWidth && imgHeight) {
-            // Don't record dimensions if image file name doesn't have size prefix.
-            // (Sizes from the img tag don't tend to correspond closely to actual
-            // image binary sizes for these.)
-            if ([MWKImage fileSizePrefix:srcTagImageURL] != NSNotFound) {
-                image.width  = @(imgWidth.integerValue * density);
-                image.height = @(imgHeight.integerValue * density);
+            // If img tag dimensions were extracted, save them so they don't have to be expensively determined later.
+            if (imgWidth && imgHeight) {
+                // Don't record dimensions if image file name doesn't have size prefix.
+                // (Sizes from the img tag don't tend to correspond closely to actual
+                // image binary sizes for these.)
+                if ([MWKImage fileSizePrefix:srcTagImageURL] != NSNotFound) {
+                    image.width  = @(imgWidth.integerValue * density);
+                    image.height = @(imgHeight.integerValue * density);
+                }
             }
-        }
 
-        [image save];
+            [image save];
+        }
     }
 }
 

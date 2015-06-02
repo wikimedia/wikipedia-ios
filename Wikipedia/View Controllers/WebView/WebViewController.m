@@ -145,7 +145,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 
     [self tocSetupSwipeGestureRecognizers];
 
-    [self reloadCurrentArticle];
+    [self reloadCurrentArticleFromCache];
 
     // Restrict the web view from scrolling horizonally.
     [self.webView.scrollView addObserver:self
@@ -1348,7 +1348,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     self.jumpToFragment = title.fragment;
 
-    if (discoveryMethod != MWKHistoryDiscoveryMethodBackForward && discoveryMethod != MWKHistoryDiscoveryMethodReload) {
+    if (discoveryMethod != MWKHistoryDiscoveryMethodBackForward && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromNetwork && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromCache) {
         [self updateHistoryDateVisitedForArticleBeingNavigatedFrom];
     }
 
@@ -1364,9 +1364,14 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
      */
 }
 
-- (void)reloadCurrentArticle {
+- (void)reloadCurrentArticleFromNetwork {
     [self navigateToPage:self.session.currentArticle.title
-         discoveryMethod:MWKHistoryDiscoveryMethodReload];
+         discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork];
+}
+
+- (void)reloadCurrentArticleFromCache {
+    [self navigateToPage:self.session.currentArticle.title
+         discoveryMethod:MWKHistoryDiscoveryMethodReloadFromCache];
 }
 
 - (void)cancelArticleLoading {
@@ -1394,14 +1399,15 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         case MWKHistoryDiscoveryMethodSearch:
         case MWKHistoryDiscoveryMethodRandom:
         case MWKHistoryDiscoveryMethodLink:
-        case MWKHistoryDiscoveryMethodReload:
+        case MWKHistoryDiscoveryMethodReloadFromNetwork:
         case MWKHistoryDiscoveryMethodUnknown: {
             needsRefresh = YES;
             break;
         }
 
         case MWKHistoryDiscoveryMethodSaved:
-        case MWKHistoryDiscoveryMethodBackForward: {
+        case MWKHistoryDiscoveryMethodBackForward:
+        case MWKHistoryDiscoveryMethodReloadFromCache: {
             needsRefresh = NO;
             break;
         }
@@ -1665,13 +1671,14 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         case MWKHistoryDiscoveryMethodSearch:
         case MWKHistoryDiscoveryMethodRandom:
         case MWKHistoryDiscoveryMethodLink:
+        case MWKHistoryDiscoveryMethodReloadFromNetwork:
         case MWKHistoryDiscoveryMethodUnknown: {
             // Update the history so the most recently viewed article appears at the top.
             [self.session.userDataStore updateHistory:title discoveryMethod:self.session.currentArticleDiscoveryMethod];
             break;
         }
 
-        case MWKHistoryDiscoveryMethodReload:
+        case MWKHistoryDiscoveryMethodReloadFromCache:
         case MWKHistoryDiscoveryMethodBackForward:
             // Traversing history should not alter it, and should be served from the cache.
             break;
@@ -1713,7 +1720,8 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     if (self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodSaved ||
         self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
-        self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReload) {
+        self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromNetwork ||
+        self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromCache) {
         MWKHistoryEntry* historyEntry = [self.session.userDataStore.historyList entryForTitle:article.title];
         CGPoint scrollOffset          = CGPointMake(0, historyEntry.scrollPosition);
         self.lastScrollOffset = scrollOffset;
@@ -1882,7 +1890,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (void)refreshWasPulled {
-    [self reloadCurrentArticle];
+    [self reloadCurrentArticleFromNetwork];
 }
 
 - (BOOL)refreshShouldShow {
