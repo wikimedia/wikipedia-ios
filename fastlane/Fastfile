@@ -50,6 +50,9 @@ platform :ios do
         force: true,
         filename: 'build/alpha.mobileprovision'
       )
+
+      increment_build_number ENV["BUILD_NUMBER"].to_i
+
       # uncomment when CI is able to push tags
       ipa(
         configuration: "Alpha",
