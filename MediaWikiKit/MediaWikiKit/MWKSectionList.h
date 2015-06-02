@@ -36,4 +36,6 @@
 
 - (void)save;
 
+- (BOOL)isEqualToSectionList:(MWKSectionList*)sectionList;
+
 @end

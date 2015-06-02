@@ -8,6 +8,7 @@
 
 #import "MediaWikiKit.h"
 #import <BlocksKit/BlocksKit.h>
+#import "WikipediaAppUtils.h"
 
 @interface MWKArticle ()
 
@@ -59,24 +60,32 @@
 #pragma mark - NSObject
 
 - (BOOL)isEqual:(id)object {
-    if (object == nil) {
-        return NO;
-    } else if (![object isKindOfClass:[MWKArticle class]]) {
-        return NO;
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[MWKArticle class]]) {
+        return [self isEqualToArticle:object];
     } else {
-        MWKArticle* other = object;
-        return [self.site isEqual:other.site] &&
-               (self.redirected == other.redirected || [self.redirected isEqual:other.redirected]) &&
-               [self.lastmodified isEqual:other.lastmodified] &&
-               [self.lastmodifiedby isEqual:other.lastmodifiedby] &&
-               self.articleId == other.articleId &&
-               self.languagecount == other.languagecount &&
-               [self.displaytitle isEqualToString:other.displaytitle] &&
-               [self.protection isEqual:other.protection] &&
-               self.editable == other.editable &&
-               (self.thumbnailURL == other.thumbnailURL || [self.thumbnailURL isEqualToString:other.thumbnailURL]) &&
-               (self.imageURL == other.imageURL || [self.imageURL isEqualToString:other.imageURL]);
+        return NO;
     }
+}
+
+- (BOOL)isEqualToArticle:(MWKArticle*)other {
+    return WMF_EQUAL(self.site, isEqualToSite:, other.site)
+           && WMF_EQUAL(self.redirected, isEqual:, other.redirected)
+           && WMF_EQUAL(self.lastmodified, isEqualToDate:, other.lastmodified)
+           && WMF_IS_EQUAL(self.lastmodifiedby, other.lastmodifiedby)
+           && WMF_EQUAL(self.displaytitle, isEqualToString:, other.displaytitle)
+           && WMF_EQUAL(self.protection, isEqual:, other.protection)
+           && WMF_EQUAL(self.thumbnailURL, isEqualToString:, other.thumbnailURL)
+           && WMF_EQUAL(self.imageURL, isEqualToString:, other.imageURL)
+           && self.articleId == other.articleId
+           && self.languagecount == other.languagecount;
+}
+
+- (BOOL)isDeeplyEqualToArticle:(MWKArticle*)article {
+    return [self isEqual:article]
+           && WMF_IS_EQUAL(self.images, article.images)
+           && WMF_IS_EQUAL(self.sections, article.sections);
 }
 
 - (NSString*)description {
@@ -283,6 +292,36 @@
     } else {
         return [[MWKProtectionStatus alloc] initWithData:obj];
     }
+}
+
+- (NSString*)debugDescription {
+    return [NSString stringWithFormat:@"%@ { \n"
+            "\tlastModifiedBy: %@, \n"
+            "\tlastModified: %@, \n"
+            "\tarticleId: %d, \n"
+            "\tlanguageCount: %d, \n"
+            "\tdisplayTitle: %@, \n"
+            "\tprotection: %@, \n"
+            "\teditable: %d, \n"
+            "\tthumbnailURL: %@, \n"
+            "\timageURL: %@, \n"
+            "\tsections: %@, \n"
+            "\timages: %@, \n"
+            "\tentityDescription: %@, \n"
+            "}",
+            self.description,
+            self.lastmodifiedby,
+            self.lastmodified,
+            self.articleId,
+            self.languagecount,
+            self.displaytitle,
+            self.protection,
+            self.editable,
+            self.thumbnailURL,
+            self.imageURL,
+            self.sections.debugDescription,
+            self.images.debugDescription,
+            self.entityDescription];
 }
 
 @end

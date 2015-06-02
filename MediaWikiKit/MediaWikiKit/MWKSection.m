@@ -7,6 +7,7 @@
 //
 
 #import "MediaWikiKit.h"
+#import "WikipediaAppUtils.h"
 
 @interface MWKSection ()
 
@@ -117,6 +118,31 @@
     if (_images != nil) {
         [self.images save];
     }
+}
+
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[MWKSection class]]) {
+        return [self isEqualToSection:object];
+    } else {
+        return nil;
+    }
+}
+
+- (BOOL)isEqualToSection:(MWKSection*)section {
+    return WMF_IS_EQUAL(self.article, section.article)
+           && self.sectionId == section.sectionId
+           && self.references == section.references
+           && WMF_EQUAL(self.toclevel, isEqualToNumber:, section.toclevel)
+           && WMF_EQUAL(self.level, isEqualToNumber:, section.level)
+           && WMF_EQUAL(self.line, isEqualToString:, section.line)
+           && WMF_EQUAL(self.number, isEqualToString:, section.number)
+           && WMF_EQUAL(self.index, isEqualToString:, section.index)
+           && WMF_EQUAL(self.fromtitle, isEqual:, section.fromtitle)
+           && WMF_EQUAL(self.anchor, isEqualToString:, section.anchor)
+           && WMF_EQUAL(self.text, isEqualToString:, section.text)
+           && WMF_EQUAL(self.images, isEqual:, section.images);
 }
 
 @end

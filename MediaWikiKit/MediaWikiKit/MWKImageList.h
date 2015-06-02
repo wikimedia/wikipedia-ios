@@ -87,4 +87,6 @@
 
 - (void)save;
 
+- (BOOL)isEqualToImageList:(MWKImageList*)imageList;
+
 @end

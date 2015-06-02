@@ -8,6 +8,7 @@
 
 #import "MWKSectionList_Private.h"
 #import "MediaWikiKit.h"
+#import "WikipediaAppUtils.h"
 
 @interface MWKSectionList ()
 
@@ -43,6 +44,21 @@
         [self importSectionsFromDisk];
     }
     return self;
+}
+
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[MWKSectionList class]]) {
+        return [self isEqualToSectionList:object];
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)isEqualToSectionList:(MWKSectionList*)sectionList {
+    return WMF_EQUAL(self.article, isEqualToArticle:, [sectionList article])
+           && WMF_EQUAL(self.sections, isEqualToArray:, [sectionList sections]);
 }
 
 - (void)importSectionsFromDisk {
@@ -103,6 +119,12 @@
     for (MWKSection* section in self) {
         [section save];
     }
+}
+
+- (NSString*)debugDescription {
+    return [NSString stringWithFormat:@"%@ { \n"
+            "\t sections: %@ \n"
+            "}", [self description], self.sections];
 }
 
 @end

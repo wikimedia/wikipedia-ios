@@ -75,6 +75,9 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (MWKImage*)importImageData:(NSData*)data image:(MWKImage*)image;
 
+- (BOOL)isEqualToArticle:(MWKArticle*)article;
+- (BOOL)isDeeplyEqualToArticle:(MWKArticle*)article;
+
 - (void)save;
 - (void)saveWithoutSavingSectionText;
 - (void)remove;
