@@ -18,7 +18,6 @@ static NSUInteger MegabytesToBytes(NSUInteger m) {
 @interface WikipediaAppUtils : NSObject
 
 + (NSString*)appVersion;
-+ (NSString*)bundleID;
 + (NSString*)formFactor;
 + (NSString*)versionedUserAgent;
 + (NSString*)localizedStringForKey:(NSString*)key;

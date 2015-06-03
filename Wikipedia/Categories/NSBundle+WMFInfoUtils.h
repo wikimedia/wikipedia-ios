@@ -22,10 +22,10 @@
 /// @return The value for Info.plist key `CFBundleVersion`, i.e. the build number.
 - (NSString*)wmf_bundleVersion;
 
-/// @return A string which represents the full app verison, including the build number (e.g. `4.1.3.96`).
+/// @return A string which represents the full app verison, including the build number: `M.m.p.build`.
 - (NSString*)wmf_debugVersion;
 
-/// Alias for `wmf_shortVersionString`.
+/// @return A string that shows the full version in "TestFlight/Apple" format: `M.m.p (build)`.
 - (NSString*)wmf_releaseVersion;
 
 /// @return Either `wmf_releaseVersion` or `wmf_debugVersion` depending on the bundle identifier.

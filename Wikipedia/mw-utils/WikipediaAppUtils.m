@@ -18,7 +18,7 @@
 }
 
 + (NSString*)bundleID {
-    return [[NSBundle mainBundle] wmf_bundleVersion];
+    return [[NSBundle mainBundle] wmf_bundleIdentifier];
 }
 
 + (NSString*)formFactor {
