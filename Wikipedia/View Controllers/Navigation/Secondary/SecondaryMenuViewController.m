@@ -22,8 +22,9 @@
 #import "UIViewController+ModalPop.h"
 #import "LoginViewController.h"
 #import "PaddedLabel.h"
-#import "UIFont+WMFStyle.h"
 #import <HockeySDK/HockeySDK.h>
+#import "UIFont+WMFStyle.h"
+#import "NSBundle+WMFInfoUtils.h"
 
 #pragma mark - Defines
 
@@ -38,14 +39,6 @@
 #define URL_PRIVACY_POLICY @"https://m.wikimediafoundation.org/wiki/Privacy_Policy"
 #define URL_TERMS @"https://m.wikimediafoundation.org/wiki/Terms_of_Use"
 #define URL_RATE_APP @"itms-apps://itunes.apple.com/app/id324715238"
-
-#ifndef WMF_SHOW_DEBUG_MENU
-    #if DEBUG
-        #define WMF_SHOW_DEBUG_MENU 1
-    #else
-        #define WMF_SHOW_DEBUG_MENU 0
-    #endif
-#endif
 
 typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
     SECONDARY_MENU_ROW_INDEX_LOGIN,
@@ -69,6 +62,10 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
     SECONDARY_MENU_ROW_INDEX_HEADING_BLANK,
     SECONDARY_MENU_ROW_INDEX_HEADING_BLANK_2
 };
+
+static uint const WMFDebugSectionCount                                    = 2;
+static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH,
+                                                                              SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG };
 
 #pragma mark - Private
 
@@ -497,7 +494,6 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
             @"icon": @"",
             @"type": @(ROW_TYPE_SELECTION),
         }.mutableCopy
-#if WMF_SHOW_DEBUG_MENU
         ,
         @{
             @"title": MWLocalizedString(@"main-menu-heading-debug", nil),
@@ -514,15 +510,6 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
             @"type": @(ROW_TYPE_SELECTION),
             @"accessibilityTraits": @(UIAccessibilityTraitLink),
         }.mutableCopy
-#else
-        ,
-        @{
-            @"title": @"",
-            @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_BLANK_2),
-            @"icon": @"",
-            @"type": @(ROW_TYPE_HEADING),
-        }.mutableCopy
-#endif
     ].mutableCopy;
 
     self.rowData = rowData;
@@ -532,12 +519,11 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
         [self deleteRowWithTag:SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY];
     }
 
-#if WMF_SHOW_DEBUG_MENU
-    if (![[BITHockeyManager sharedHockeyManager] crashManager]) {
-        NSLog(@"Crash reporting is disabled, removing crash button");
-        [self deleteRowWithTag:SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH];
+    if (![[NSBundle mainBundle] wmf_shouldShowDebugMenu]) {
+        for (int i = 0; i < WMFDebugSectionCount; i++) {
+            [self deleteRowWithTag:WMFDebugSections[i]];
+        }
     }
-#endif
 
     NSString* userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
     if (!userName) {
@@ -694,12 +680,10 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
                                         block:nil];
             }
             break;
-#if WMF_SHOW_DEBUG_MENU
             case SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH: {
                 [[[BITHockeyManager sharedHockeyManager] crashManager] generateTestCrash];
                 break;
             }
-#endif
             default:
                 break;
         }

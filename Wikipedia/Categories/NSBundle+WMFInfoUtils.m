@@ -10,6 +10,8 @@
 
 @implementation NSBundle (WMFInfoUtils)
 
+#pragma mark - Version Info
+
 - (NSString*)wmf_bundleIdentifier {
     return [self objectForInfoDictionaryKey:@"CFBundleIdentifier"];
 }
@@ -36,6 +38,16 @@
 
 - (NSString*)wmf_versionForCurrentBundleIdentifier {
     return [self wmf_isAppStoreBundleIdentifier] ? [self wmf_releaseVersion] : [self wmf_debugVersion];
+}
+
+#pragma mark - Config
+
+- (NSString*)wmf_hockeyappIdentifier {
+    return [self objectForInfoDictionaryKey:@"WMFHockeyAppIdentifier"];
+}
+
+- (BOOL)wmf_shouldShowDebugMenu {
+    return [[self objectForInfoDictionaryKey:@"WMFShowDebugMenu"] boolValue];
 }
 
 @end
