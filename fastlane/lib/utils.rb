@@ -60,6 +60,6 @@ def with_bump
   #   # tag must be added after the version bump is committed
   #   add_git_tag(tag: "#{plist_version}.#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::BUILD_NUMBER]}")
   # end
-  # yield if block_given?
+  yield if block_given?
   # push_to_git_remote if ENV['WMF_BUMP']
 end
