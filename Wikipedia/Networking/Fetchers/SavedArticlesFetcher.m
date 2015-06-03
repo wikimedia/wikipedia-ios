@@ -90,38 +90,42 @@ static SavedArticlesFetcher* _fetcher = nil;
 }
 
 - (void)fetchFinished:(id)sender fetchedData:(id)fetchedData status:(FetchFinalStatus)status error:(NSError*)error {
+    ArticleFetcher* fetcher = sender;
+
     dispatch_async(self.accessQueue, ^{
         __block id completedFetcherKey;
 
         [self.fetchersByArticleTitle enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
-            if ([sender isEqual:obj]) {
+            if (fetcher == obj) {
                 completedFetcherKey = key;
                 *stop = YES;
             }
         }];
 
-        if (error) {
-            self.errorsByArticleTitle[completedFetcherKey] = error;
-        }
+        if (completedFetcherKey) {
+            if (error) {
+                self.errorsByArticleTitle[completedFetcherKey] = error;
+            }
 
-        [self.fetchersByArticleTitle removeObjectForKey:completedFetcherKey];
+            [self.fetchersByArticleTitle removeObjectForKey:completedFetcherKey];
 
-        MWKArticle* article = [self.dataStore articleWithTitle:completedFetcherKey];
+            MWKArticle* article = [self.dataStore articleWithTitle:completedFetcherKey];
 
-        [self.fetchedArticles addObject:article];
+            [self.fetchedArticles addObject:article];
 
-        CGFloat progress = [self progress];
+            CGFloat progress = [self progress];
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.fetchFinishedDelegate savedArticlesFetcher:self didFetchArticle:article progress:progress status:status error:error];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.fetchFinishedDelegate savedArticlesFetcher:self didFetchArticle:article progress:progress status:status error:error];
 
-            dispatch_async(self.accessQueue, ^{
-                if ([self.fetchersByArticleTitle count] == 0) {
-                    [self notifyDelegate];
-                    [[self class] setSharedInstance:nil];
-                }
+                dispatch_async(self.accessQueue, ^{
+                    if ([self.fetchersByArticleTitle count] == 0) {
+                        [self notifyDelegate];
+                        [[self class] setSharedInstance:nil];
+                    }
+                });
             });
-        });
+        }
     });
 }
 
