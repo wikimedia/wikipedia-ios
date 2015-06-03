@@ -19,19 +19,19 @@
 }
 
 - (NSString*)wmf_bundleVersion {
-    return [self objectForInfoDictionaryKey:@"CFBundleVersion"] ? : @"";
+    return [self objectForInfoDictionaryKey:@"CFBundleVersion"];
 }
 
 - (NSString*)wmf_shortVersionString {
-    return [self objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ? : @"";
+    return [self objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 }
 
 - (NSString*)wmf_releaseVersion {
-    return [self wmf_shortVersionString];
+    return [[self wmf_shortVersionString] stringByAppendingFormat:@" (%@)", [self wmf_bundleVersion]];
 }
 
 - (NSString*)wmf_debugVersion {
-    return [[self wmf_releaseVersion] stringByAppendingFormat:@".%@", [self wmf_bundleVersion] ? : @"0"];
+    return [[self wmf_shortVersionString] stringByAppendingFormat:@".%@", [self wmf_bundleVersion]];
 }
 
 - (NSString*)wmf_versionForCurrentBundleIdentifier {

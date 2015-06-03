@@ -1,6 +1,7 @@
 
 #import "BITHockeyManager+WMFExtensions.h"
 #import "WikipediaAppUtils.h"
+#import "NSBundle+WMFInfoUtils.h"
 #import "WMFCrashAlertView.h"
 
 // See also:
@@ -14,9 +15,7 @@ static NSString* const kHockeyAppSendStringsKey                      = @"hockeya
 static NSString* const kHockeyAppAlwaysSendStringsKey                = @"hockeyapp-alert-always-send";
 static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeyapp-alert-do-not-send";
 
-@implementation BITHockeyManager (WMFExtensions)
-
-+ (NSString*)crashReportingIDFor:(NSString*)bundleID {
+static NSString* WMFCurrentHockeyReportingID() {
     static NSDictionary* hockeyAPIKeysByBundleID;
     if (!hockeyAPIKeysByBundleID) {
         hockeyAPIKeysByBundleID = @{
@@ -26,9 +25,10 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
             @"org.wikimedia.wikipedia.developer": @"76947f174e31a9e33fe67d81ff31732e"
         };
     }
-
-    return hockeyAPIKeysByBundleID[bundleID];
+    return hockeyAPIKeysByBundleID[[[NSBundle mainBundle] wmf_bundleIdentifier]];
 }
+
+@implementation BITHockeyManager (WMFExtensions)
 
 + (NSString*)crashSendText {
     return MWLocalizedString(kHockeyAppSendStringsKey, nil);
@@ -43,27 +43,11 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
 }
 
 - (void)wmf_setupAndStart {
-    NSString* bundleID = [WikipediaAppUtils bundleID];
-
-    if ([[BITHockeyManager sharedHockeyManager] wmf_setAPIKeyForBundleID:bundleID]) {
-        [[BITHockeyManager sharedHockeyManager] startManager];
-
-        [BITHockeyManager sharedHockeyManager].updateManager.updateSetting = BITUpdateCheckManually;
-
-        [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
-
-        [[BITHockeyManager sharedHockeyManager] wmf_setupCrashNotificationAlert];
-    }
-}
-
-- (BOOL)wmf_setAPIKeyForBundleID:(NSString*)bundleID {
-    NSString* crashReportingAppID = [[self class] crashReportingIDFor:bundleID];
-    if (!crashReportingAppID) {
-        return NO;
-    }
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:crashReportingAppID];
-
-    return YES;
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:WMFCurrentHockeyReportingID()];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+    [BITHockeyManager sharedHockeyManager].updateManager.updateSetting = BITUpdateCheckManually;
+    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+    [[BITHockeyManager sharedHockeyManager] wmf_setupCrashNotificationAlert];
 }
 
 - (void)wmf_setupCrashNotificationAlert {
