@@ -113,7 +113,7 @@ exec-check:  ##Check that executable dependencies are installed
 web: ##Make web assets
 web: css grunt
 
-CSS_ORIGIN = http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&only=styles&skin=vector&modules=
+CSS_ORIGIN = http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&only=styles&skin=vector&modules=skins.minerva.base.reset|skins.minerva.content.styles|
 WEB_ASSETS_DIR = "Wikipedia/assets"
 
 define get_css_module
