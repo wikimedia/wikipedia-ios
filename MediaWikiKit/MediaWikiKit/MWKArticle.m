@@ -188,14 +188,17 @@
  * else return nil
  */
 - (MWKImage*)existingImageWithURL:(NSString*)url {
-    NSString* thisImageCacheFolderPath  = [self.dataStore pathForImageURL:url title:self.title];
-    BOOL isDirectory                    = NO;
-    BOOL thisImageCacheFolderPathExists = [[NSFileManager defaultManager] fileExistsAtPath:thisImageCacheFolderPath isDirectory:&isDirectory];
-    if (!thisImageCacheFolderPathExists) {
+    NSString* imageCacheFolderPath = [self.dataStore pathForImageURL:url title:self.title];
+    if (!imageCacheFolderPath) {
         return nil;
-    } else {
-        return [self imageWithURL:url];
     }
+
+    BOOL imageCacheFolderPathExists = [[NSFileManager defaultManager] fileExistsAtPath:imageCacheFolderPath isDirectory:NULL];
+    if (!imageCacheFolderPathExists) {
+        return nil;
+    }
+
+    return [self imageWithURL:url];
 }
 
 #pragma mark - Save
