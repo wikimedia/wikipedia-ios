@@ -38,6 +38,8 @@
 - (BOOL)     isLeadSection;
 - (MWKTitle*)sourceTitle;
 
+- (BOOL)isEqualToSection:(MWKSection*)section;
+
 - (void)save;
 
 @end

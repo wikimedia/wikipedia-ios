@@ -7,6 +7,7 @@
 //
 
 #import "MediaWikiKit.h"
+#import "WikipediaAppUtils.h"
 
 @interface MWKUser ()
 
@@ -51,21 +52,20 @@
 }
 
 - (BOOL)isEqual:(id)object {
-    if (object == nil) {
-        return NO;
-    } else if (![object isKindOfClass:[MWKUser class]]) {
-        return NO;
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[MWKUser class]]) {
+        return [self isEqualToUser:object];
     } else {
-        MWKUser* other = object;
-        if (self.anonymous && other.anonymous) {
-            // well that's all we can do for now
-            return YES;
-        } else {
-            return (self.anonymous == other.anonymous) &&
-                   [self.name isEqualToString:other.name] &&
-                   [self.gender isEqualToString:other.gender];
-        }
+        return NO;
     }
+}
+
+- (BOOL)isEqualToUser:(MWKUser*)other {
+#warning FIXME: verify functionality of comparing users or are/aren't anonymous
+    return self.anonymous == other.anonymous
+           || (WMF_EQUAL(self.name, isEqualToString:, other.name)
+               && WMF_EQUAL(self.gender, isEqualToString:, other.gender));
 }
 
 @end

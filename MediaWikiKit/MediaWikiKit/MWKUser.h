@@ -20,4 +20,6 @@
 
 - (instancetype)initWithSite:(MWKSite*)site data:(id)data;
 
+- (BOOL)isEqualToUser:(MWKUser*)user;
+
 @end

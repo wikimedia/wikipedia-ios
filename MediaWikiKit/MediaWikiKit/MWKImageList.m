@@ -9,6 +9,7 @@
 #import "MediaWikiKit.h"
 #import "NSString+Extras.h"
 #import "NSURL+Extras.h"
+#import "WikipediaAppUtils.h"
 
 @interface MWKImageList ()
 
@@ -69,6 +70,21 @@
     }
     [byname addObject:imageURL];
     self.mutationState++;
+}
+
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[MWKImageList class]]) {
+        return [self isEqualToImageList:object];
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)isEqualToImageList:(MWKImageList*)imageList {
+    return WMF_EQUAL(self.article, isEqualToArticle:, imageList.article)
+           && WMF_EQUAL(self.entries, isEqualToArray:, [imageList entries]);
 }
 
 - (NSUInteger)count {
@@ -226,6 +242,12 @@
 
 - (void)save {
     [self.article.dataStore saveImageList:self];
+}
+
+- (NSString*)debugDescription {
+    return [NSString stringWithFormat:@"%@ { \n"
+            "\t images: %@ \n"
+            "}", self.description, self.entries];
 }
 
 @end

@@ -111,7 +111,7 @@
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self finishWithError:nil
-                          fetchedData:nil];
+                          fetchedData:self.article];
             });
         });
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
