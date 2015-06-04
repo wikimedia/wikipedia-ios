@@ -1545,7 +1545,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     // offsetY is percent to shift image vertically. 0 aligns top to top of lead_image_div,
     // 50 centers it vertically, and 100 aligns bottom of image to bottom of lead_image_div.
-    NSInteger offsetY = 25;
+    NSInteger offsetY = 50;
 
     if (hasImage) {
         CGRect focalRect = [article.image primaryFocalRectNormalizedToImageSize:NO];
