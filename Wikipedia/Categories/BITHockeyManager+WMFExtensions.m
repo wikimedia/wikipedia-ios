@@ -15,19 +15,6 @@ static NSString* const kHockeyAppSendStringsKey                      = @"hockeya
 static NSString* const kHockeyAppAlwaysSendStringsKey                = @"hockeyapp-alert-always-send";
 static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeyapp-alert-do-not-send";
 
-static NSString* WMFCurrentHockeyReportingID() {
-    static NSDictionary* hockeyAPIKeysByBundleID;
-    if (!hockeyAPIKeysByBundleID) {
-        hockeyAPIKeysByBundleID = @{
-            @"org.wikimedia.wikipedia.tfbeta": @"2295c3698bbd0b050f257772dd2bdbb2",
-            @"org.wikimedia.wikipedia.tfalpha": @"38c83eea9df95b47d210c8ad137e815a",
-            @"org.wikimedia.wikipedia": @"5d80da08a6761e5c6456736af7ebad88",
-            @"org.wikimedia.wikipedia.developer": @"76947f174e31a9e33fe67d81ff31732e"
-        };
-    }
-    return hockeyAPIKeysByBundleID[[[NSBundle mainBundle] wmf_bundleIdentifier]];
-}
-
 @implementation BITHockeyManager (WMFExtensions)
 
 + (NSString*)crashSendText {
@@ -43,7 +30,7 @@ static NSString* WMFCurrentHockeyReportingID() {
 }
 
 - (void)wmf_setupAndStart {
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:WMFCurrentHockeyReportingID()];
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:[[NSBundle mainBundle] wmf_hockeyappIdentifier]];
     [[BITHockeyManager sharedHockeyManager] startManager];
     [BITHockeyManager sharedHockeyManager].updateManager.updateSetting = BITUpdateCheckManually;
     [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];

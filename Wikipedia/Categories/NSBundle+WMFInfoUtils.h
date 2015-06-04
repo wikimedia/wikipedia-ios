@@ -10,6 +10,10 @@
 
 @interface NSBundle (WMFInfoUtils)
 
+///
+/// @name App Version Information
+///
+
 /// @return The value for Info.plist key `CFBundleIdentifier`, i.e. the app's bundle identifier.
 - (NSString*)wmf_bundleIdentifier;
 
@@ -30,5 +34,14 @@
 
 /// @return Either `wmf_releaseVersion` or `wmf_debugVersion` depending on the bundle identifier.
 - (NSString*)wmf_versionForCurrentBundleIdentifier;
+
+///
+/// @name App Configuration
+///
+
+- (BOOL)wmf_shouldShowDebugMenu;
+
+/// @return HockeyApp ID for crash reports
+- (NSString*)wmf_hockeyappIdentifier;
 
 @end
