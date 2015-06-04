@@ -29,3 +29,12 @@ NSError* WMFErrorForApiErrorObject(NSDictionary* apiError){
     maybeMapApiToUserInfo(NSLocalizedRecoverySuggestionErrorKey, @"*");
     return [NSError errorWithDomain:WMFNetworkingErrorDomain code:WMFNetworkingError_APIError userInfo:userInfoBuilder];
 }
+
+@implementation NSError (WMFFetchFinalStatus)
+
+- (FetchFinalStatus)wmf_fetchStatus {
+    return ([self.domain isEqual:NSURLErrorDomain] && self.code == NSURLErrorCancelled) ?
+           FETCH_FINAL_STATUS_CANCELLED : FETCH_FINAL_STATUS_FAILED;
+}
+
+@end

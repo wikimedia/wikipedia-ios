@@ -14,7 +14,6 @@
 #import "MWKTitle.h"
 #import "MWKSite.h"
 #import "MWKArticle+WMFSharing.h"
-#import "MWKArticle+isMain.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 
 #define HC_SHORTHAND 1
@@ -35,9 +34,10 @@
                                          wmf_jsonFromContentsOfFile:@"MainPageMobileView"]
                                         objectForKey:@"mobileview"];
 
+    [self.article importMobileViewJSON:mainPageMobileView];
+
     NSAssert([self.article isMain], @"supposed to be testing main pages!");
 
-    [self.article importMobileViewJSON:mainPageMobileView];
     assertThat(self.article.shareSnippet, is(@"Gary Cooper was an American film actor known for his natural, authentic, and understated acting style. He was a movie star from the end of the silent film era through the end of the golden age of Classical Hollywood. Cooper began his career as a film extra and stunt rider and soon established himself as a Western hero in films such as The Virginian. He played the lead in adventure films and dramas such as A Farewell to Arms and The Lives of a Bengal Lancer, and extended his range of performances to include roles in most major film genres. He portrayed champions of the common man in films such as Mr. Deeds Goes to Town, Meet John Doe, Sergeant York, The Pride of the Yankees, and For Whom the Bell Tolls. In his later years, he delivered award-winning performances in High Noon and Friendly Persuasion. Cooper received three Academy Awards and appeared on the Motion Picture Herald exhibitors poll of top ten film personalities every year from 1936 to 1958. His screen persona embodied the American folk hero. Ongoing: Nepal earthquake – Yemeni Civil WarRecent deaths: Ruth Rendell – Maya Plisetskaya"));
 }
 

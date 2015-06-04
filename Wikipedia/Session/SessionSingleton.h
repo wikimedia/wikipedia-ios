@@ -13,7 +13,11 @@
 @class MWKTitle;
 @class MWKArticle;
 
+#warning FIXME: setting ivar values on SessionSingleton is not thread safe!
+
 @interface SessionSingleton : NSObject
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
 + (SessionSingleton*)sharedInstance;
 
@@ -27,48 +31,15 @@
 @property (strong, nonatomic, readonly) MWKUserDataStore* userDataStore;
 
 /**
- *  Set the language for searches.
- *  Setting this will update the searchSite with the new language.
- *  Initial value will be the device language.
- *
- *  @param language The new language for searches
+ * Language code used as a component in the Wikipedia host name: <code>searchLanguage + "wikipedia.org"</code>.
+ * @note This is usually RFC 639-x or BCP-47, but not always. Some language wikis either don't have a standard language
+ *       code or are another weird edge case.
  */
-- (void)setSearchLanguage:(NSString*)language;
+@property (copy, nonatomic) NSString* searchLanguage;
 
-/**
- *  The search site. This set automatically when setting the search language.
- *
- *  Initial value will be the site for the device language.
- *  This will never be nil.
- */
-@property (strong, nonatomic, readonly) MWKSite* searchSite;
 
-/**
- *  Main Article Title for current search site and language
- */
-@property (nonatomic, strong, readonly) MWKTitle* mainArticleTitle;
-
-/**
- *  Main Article Title for the specified language code
- *
- *  @param site The site to use for the main article
- *  @param code The language for the main article
- *
- *  @return The main article
- */
-- (MWKTitle*)mainArticleTitleForSite:(MWKSite*)site languageCode:(NSString*)code;
-
-/**
- *  Determine if an article is "a" main article.
- *  This will return yes if the article is the main article for the given article's domain.
- *  This is agnostic to the searchSite. For example:
- *  This will return YES for the french main article even if the searchSite is set to english.
- *
- *  @param article The article to test
- *
- *  @return Yes if the article is a main article, otherwise no
- */
-- (BOOL)articleIsAMainArticle:(MWKArticle*)article;
+/// @return Site initialized with @c searchLanguage and the default domain.
+- (MWKSite*)searchSite;
 
 /**
  *  The current article's site. This set automatically when setting the current article.
@@ -100,16 +71,14 @@
  */
 @property (nonatomic, assign) MWKHistoryDiscoveryMethod currentArticleDiscoveryMethod;
 
-
 @property (strong, nonatomic, readonly) NSString* searchApiUrl;
 
-- (NSString*)searchApiUrlForLanguage:(NSString*)language;
+@property (nonatomic) BOOL fallback __deprecated; //< Is this really necessary?
+
+- (NSString*)searchApiUrlForLanguage:(NSString*)language __deprecated_msg("Use -[MWKSite apiEndpoint] instead.");
 - (NSString*)searchLanguage;
 
-@property (nonatomic) BOOL fallback;
-
-- (NSURL*)urlForLanguage:(NSString*)language;
-
+- (NSURL*)urlForLanguage:(NSString*)language __deprecated_msg("Use -[MWKSite apiEndpoint] instead.");
 
 // Search and Nearby fetch thumbnails which are tossed in the tmp dir so we
 // don't have to worry about pruning. However, when we then load an article
@@ -117,7 +86,5 @@
 // data store. This dictionary gives us an easy place to see what temp thumb
 // file is known to be associated with an article title.
 @property (strong, nonatomic) NSMutableDictionary* titleToTempDirThumbURLMap;
-
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
 @end

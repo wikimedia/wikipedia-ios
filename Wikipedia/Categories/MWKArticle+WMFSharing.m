@@ -7,7 +7,6 @@
 //
 
 #import "MWKArticle+WMFSharing.h"
-#import "MWKArticle+isMain.h"
 #import "NSString+WMFHTMLParsing.h"
 #import "MWKSection+WMFSharing.h"
 #import <BlocksKit/BlocksKit.h>

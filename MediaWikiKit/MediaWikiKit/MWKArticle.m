@@ -10,6 +10,15 @@
 #import <BlocksKit/BlocksKit.h>
 #import "WikipediaAppUtils.h"
 
+typedef NS_ENUM (NSUInteger, MWKArticleSchemaVersion) {
+    /**
+     * Initial schema verison, added @c main boolean field.
+     */
+    MWKArticleSchemaVersion_1 = 1
+};
+
+static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticleSchemaVersion_1;
+
 @interface MWKArticle ()
 
 // Identifiers
@@ -25,6 +34,7 @@
 @property (readwrite, copy, nonatomic) NSString* displaytitle;              // optional
 @property (readwrite, strong, nonatomic) MWKProtectionStatus* protection;     // required
 @property (readwrite, assign, nonatomic) BOOL editable;                       // required
+@property (readwrite, assign, nonatomic, getter = isMain) BOOL main;
 
 @property (readwrite, copy, nonatomic) NSString* entityDescription;            // optional; currently pulled separately via wikidata
 
@@ -79,7 +89,8 @@
            && WMF_EQUAL(self.thumbnailURL, isEqualToString:, other.thumbnailURL)
            && WMF_EQUAL(self.imageURL, isEqualToString:, other.imageURL)
            && self.articleId == other.articleId
-           && self.languagecount == other.languagecount;
+           && self.languagecount == other.languagecount
+           && self.isMain == other.isMain;
 }
 
 - (BOOL)isDeeplyEqualToArticle:(MWKArticle*)article {
@@ -96,6 +107,8 @@
 
 - (id)dataExport {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+
+    dict[@"schemaVersion"] = @(MWKArticleCurrentSchemaVersion);
 
     if (self.redirected) {
         dict[@"redirected"] = self.redirected.prefixedText;
@@ -124,10 +137,15 @@
         dict[@"imageURL"] = self.imageURL;
     }
 
-    return [NSDictionary dictionaryWithDictionary:dict];
+    dict[@"mainpage"] = @(self.isMain);
+
+    return [dict copy];
 }
 
 - (void)importMobileViewJSON:(NSDictionary*)dict {
+    // uncomment when schema is bumped to perform migrations if necessary
+//    MWKArticleSchemaVersion schemaVersion = [dict[@"schemaVersion"] unsignedIntegerValue];
+
     self.lastmodified   = [self requiredDate:@"lastmodified" dict:dict];
     self.lastmodifiedby = [self requiredUser:@"lastmodifiedby" dict:dict];
     self.articleId      = [[self requiredNumber:@"id" dict:dict] intValue];
@@ -154,6 +172,23 @@
     NSArray* sectionsData = [dict[@"sections"] bk_map:^id (NSDictionary* sectionData) {
         return [[MWKSection alloc] initWithArticle:self dict:sectionData];
     }];
+
+    /*
+       mainpage might be returned w/ old JSON boolean handling, check for both until 1.26wmf8 is deployed everywhere
+     */
+    id mainPageValue = dict[@"mainpage"];
+    if (mainPageValue == nil) {
+        // field not present due to "empty string" behavior (see below), or we're loading legacy cache data
+        self.main = NO;
+    } else if ([mainPageValue isKindOfClass:[NSString class]]) {
+        // old mediawiki convention was to use a field w/ an empty string as "true" and omit the field for "false"
+        NSAssert([mainPageValue length] == 0, @"Assuming empty string for boolean field.");
+        self.main = YES;
+    } else {
+        // proper JSON boolean types!
+        NSAssert([mainPageValue isKindOfClass:[NSNumber class]], @"Expected main page to be a boolean. Got %@", dict);
+        self.main = [mainPageValue boolValue];
+    }
 
     if ([sectionsData count] > 0) {
         self.sections = [[MWKSectionList alloc] initWithArticle:self sections:sectionsData];

@@ -10,7 +10,7 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
 @implementation MWKSection (DisplayHtml)
 
 - (NSString*)displayHTML:(NSString*)html {
-    BOOL isMainPage = [[SessionSingleton sharedInstance] articleIsAMainArticle:[SessionSingleton sharedInstance].currentArticle];
+    BOOL isMainPage = [SessionSingleton sharedInstance].currentArticle.isMain;
 
     return
         [NSString stringWithFormat:@"<div id='section_heading_and_content_block_%ld'>%@<div id='content_block_%ld' class='content_block'>%@%@</div></div>",

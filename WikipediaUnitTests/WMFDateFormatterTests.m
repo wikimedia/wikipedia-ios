@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "NSDateFormatter+WMFExtensions.h"
+#import "XCTestCase+WMFLocaleTesting.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -27,13 +28,9 @@
 }
 
 - (void)testShortTimeFormatterIsValidForAllLocales {
-    NSString* testTimestamp     = @"2015-02-10T10:31:27Z";
-    NSArray* availableLocaleIDs = [NSLocale availableLocaleIdentifiers];
-
-    dispatch_apply(availableLocaleIDs.count, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(size_t i) {
-        NSString* localeID = availableLocaleIDs[i];
-        NSLocale* locale = [NSLocale localeWithLocaleIdentifier:localeID];
-
+    NSString* testTimestamp = @"2015-02-10T10:31:27Z";
+    [self wmf_runParallelTestsWithLocales:[NSLocale availableLocaleIdentifiers]
+                                    block:^(NSLocale* locale, XCTestExpectation* e) {
         // need to parse date using the "regular" formatter
         NSDate* decodedDate = [[NSDateFormatter wmf_iso8601Formatter] dateFromString:testTimestamp];
         NSParameterAssert(decodedDate);
@@ -42,10 +39,11 @@
         assertThat([[NSDateFormatter wmf_shortTimeFormatterWithLocale:locale] stringFromDate:decodedDate],
                    describedAs(@"expected non-nil for locale: %0 from timestamp %1",
                                notNilValue(),
-                               localeID,
+                               locale.localeIdentifier,
                                testTimestamp,
                                nil));
-    });
+        [e fulfill];
+    }];
 }
 
 - (void)testShortTimeFormatterExamples {

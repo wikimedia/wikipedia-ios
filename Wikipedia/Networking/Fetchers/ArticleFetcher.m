@@ -143,7 +143,6 @@
 - (NSDictionary*)getParamsForTitle:(NSString*)title {
     NSMutableDictionary* params = @{
         @"format": @"json",
-        @"formatversion": @2,
         @"action": @"mobileview",
         @"sectionprop": WMFJoinedPropertyParameters(@[@"toclevel", @"line", @"anchor", @"level", @"number",
                                                       @"fromtitle", @"index"]),

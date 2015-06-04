@@ -830,7 +830,7 @@
     if (
         ![NAV.topViewController isMemberOfClass:[WebViewController class]]
         ||
-        [[SessionSingleton sharedInstance] articleIsAMainArticle:[SessionSingleton sharedInstance].currentArticle]
+        [SessionSingleton sharedInstance].currentArticle.isMain
         ) {
         // Hide TOC button if web view isn't on top or if current article is the main page.
         self.navBarMode = NAVBAR_MODE_DEFAULT;

@@ -67,19 +67,10 @@
     switch (self.fileType) {
         case WMFAssetsFileTypeConfig:
             return @"ios.json";
-            break;
-
         case WMFAssetsFileTypeLanguages:
             return @"languages.json";
-            break;
-
-        case WMFAssetsFileTypeMainPages:
-            return @"mainpages.json";
-            break;
-
         default:
             return nil;
-            break;
     }
 }
 

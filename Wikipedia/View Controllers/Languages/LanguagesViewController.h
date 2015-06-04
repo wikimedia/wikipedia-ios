@@ -18,8 +18,6 @@
 
 @property (nonatomic) NavBarMode navBarMode;
 
-@property (nonatomic, weak) id invokingVC;
-
 @property (weak, nonatomic) id truePresentingVC;
 
 @property (strong, nonatomic) IBOutlet UITableView* tableView;

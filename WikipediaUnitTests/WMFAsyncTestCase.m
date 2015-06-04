@@ -8,7 +8,7 @@
 
 #import "WMFAsyncTestCase.h"
 
-float const WMFDefaultExpectationTimeout = 0.1;
+NSTimeInterval const WMFDefaultExpectationTimeout = 0.1;
 
 @interface WMFAsyncTestCase ()
 @property NSMutableArray* expectations;

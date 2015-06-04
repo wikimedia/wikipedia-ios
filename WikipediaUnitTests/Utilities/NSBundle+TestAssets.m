@@ -15,17 +15,16 @@
     NSData* data = [NSData dataWithContentsOfFile:[self pathForResource:filename ofType:type]
                                           options:0
                                             error:&error];
-    NSParameterAssert(!error);
+    NSAssert(!error, @"Unexpected error reading test fixture: %@.%@, %@", filename, type, error);
     return data;
 }
 
 - (id)wmf_jsonFromContentsOfFile:(NSString*)filename {
     NSError* error;
-
     id json = [NSJSONSerialization JSONObjectWithData:[self wmf_dataFromContentsOfFile:filename ofType:@"json"]
                                               options:0
                                                 error:&error];
-    NSParameterAssert(!error);
+    NSAssert(!error, @"Error reading JSON data from filename %@: %@", filename, error);
     return json;
 }
 
