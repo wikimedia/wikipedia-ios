@@ -5,22 +5,16 @@
 @class DataMigrationProgressViewController;
 @class WMFProgressLineView;
 
-@protocol DataMigrationProgressDelegate
-- (void)dataMigrationProgressComplete:(DataMigrationProgressViewController*)viewController;
-@end
+typedef void (^ WMFDataMigrationCompletionBlock)(BOOL migrationCompleted);
 
-
-@interface DataMigrationProgressViewController : UIViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
+@interface DataMigrationProgressViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet WMFProgressLineView* progressIndicator;
 @property (weak, nonatomic) IBOutlet UILabel* progressLabel;
-@property (weak, nonatomic) id<DataMigrationProgressDelegate> delegate;
 
 - (BOOL)needsMigration;
 
-
-- (void)moveOldDataToBackupLocation;
-
+- (void)runMigrationWithCompletion:(WMFDataMigrationCompletionBlock)completion;
 
 - (void)removeOldDataBackupIfNeeded;
 

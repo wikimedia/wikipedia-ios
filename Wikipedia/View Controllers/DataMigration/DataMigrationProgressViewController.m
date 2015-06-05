@@ -12,16 +12,19 @@
 #import "WMFProgressLineView.h"
 #import "ArticleDataContextSingleton.h"
 
+#import <BlocksKit/BlocksKit+UIKit.h>
+
 enum {
     BUTTON_INDEX_DISCARD = 0,
     BUTTON_INDEX_SUBMIT  = 1
 } MigrationButtonIndexIds;
 
-@interface DataMigrationProgressViewController ()<LegacyCoreDataMigratorProgressDelegate>
+@interface DataMigrationProgressViewController ()<LegacyCoreDataMigratorProgressDelegate, MFMailComposeViewControllerDelegate>
+
+@property (nonatomic, strong) WMFDataMigrationCompletionBlock completionBlock;
 
 @property (nonatomic, strong) LegacyDataMigrator* schemaConvertor;
 @property (nonatomic, strong) LegacyCoreDataMigrator* oldDataSchema;
-@property (nonatomic, strong) LegacyPhoneGapDataMigrator* dataMigrator;
 
 @end
 
@@ -34,14 +37,23 @@ enum {
     self.progressLabel.text = MWLocalizedString(@"migration-update-progress-label", nil);
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)runMigrationWithCompletion:(WMFDataMigrationCompletionBlock)completion {
+    self.completionBlock = completion;
+
+    UIAlertView* dialog = [UIAlertView bk_alertViewWithTitle:MWLocalizedString(@"migration-prompt-title", nil) message:MWLocalizedString(@"migration-prompt-message", nil)];
+
+    [dialog bk_setCancelButtonWithTitle:MWLocalizedString(@"migration-skip-button-title", nil) handler:^{
+        [self moveOldDataToBackupLocation];
+        [self dispatchCOmpletionBlockWithStatus:NO];
+    }];
+    [dialog bk_addButtonWithTitle:MWLocalizedString(@"migration-confirm-button-title", nil) handler:^{
+        [self performMigration];
+    }];
+
+    [dialog show];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
+- (void)performMigration {
     if ([self.oldDataSchema exists]) {
         [self runNewMigration];
     }
@@ -59,13 +71,6 @@ enum {
     return _oldDataSchema;
 }
 
-- (LegacyPhoneGapDataMigrator*)dataMigrator {
-    if (_dataMigrator == nil) {
-        _dataMigrator = [[LegacyPhoneGapDataMigrator alloc] init];
-    }
-    return _dataMigrator;
-}
-
 - (LegacyDataMigrator*)schemaConvertor {
     if (!_schemaConvertor) {
         _schemaConvertor = [[LegacyDataMigrator alloc] initWithDataStore:[SessionSingleton sharedInstance].dataStore];
@@ -74,11 +79,10 @@ enum {
 }
 
 - (BOOL)needsMigration {
-    return [self.oldDataSchema exists] || [LegacyPhoneGapDataMigrator hasData];
+    return [self.oldDataSchema exists];
 }
 
 - (void)moveOldDataToBackupLocation {
-    [LegacyPhoneGapDataMigrator removeOldData]; //we do not back old old data
     [self.oldDataSchema moveOldDataToBackupLocation];
 }
 
@@ -121,7 +125,7 @@ enum {
     NSLog(@"end migration");
 
     [self.progressIndicator setProgress:1.0 animated:YES completion:^{
-        [self.delegate dataMigrationProgressComplete:self];
+        [self dispatchCOmpletionBlockWithStatus:YES];
     }];
 }
 
@@ -130,29 +134,20 @@ enum {
     NSLog(@"end migration");
 
     [self.progressIndicator setProgress:1.0 animated:YES completion:^{
-        [self.delegate dataMigrationProgressComplete:self];
+        [self dispatchCOmpletionBlockWithStatus:YES];
     }];
 }
 
 - (void)displayErrorCondition {
-    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:@"Migration failure: submit old data to developers to help diagnose?"
-                                                             delegate:self
-                                                    cancelButtonTitle:nil
-                                               destructiveButtonTitle:@"Discard old data"
-                                                    otherButtonTitles:@"Submit to developers", nil];
-    [actionSheet showInView:self.view];
-}
+    UIActionSheet* actionSheet = [UIActionSheet bk_actionSheetWithTitle:@"Migration failure: submit old data to developers to help diagnose?"];
+    [actionSheet bk_setDestructiveButtonWithTitle:@"Discard old data" handler:^{
+        [self dispatchCOmpletionBlockWithStatus:NO];
+    }];
+    [actionSheet bk_addButtonWithTitle:@"Submit to developers" handler:^{
+        [self submitDataToDevs];
+    }];
 
-- (void)actionSheet:(UIActionSheet*)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    NSLog(@"%d", (int)buttonIndex);
-    switch (buttonIndex) {
-        case BUTTON_INDEX_DISCARD: // discard old data
-            [self.delegate dataMigrationProgressComplete:self];
-            break;
-        case BUTTON_INDEX_SUBMIT: // submit data
-            [self submitDataToDevs];
-            break;
-    }
+    [actionSheet showInView:self.view];
 }
 
 - (void)submitDataToDevs {
@@ -175,8 +170,15 @@ enum {
     [self presentViewController:picker animated:YES completion:nil];
 }
 
+- (void)dispatchCOmpletionBlockWithStatus:(BOOL)completed {
+    if (self.completionBlock) {
+        self.completionBlock(completed);
+    }
+    self.completionBlock = NULL;
+}
+
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-    [self.delegate dataMigrationProgressComplete:self];
+    [self dispatchCOmpletionBlockWithStatus:NO];
 }
 
 @end
