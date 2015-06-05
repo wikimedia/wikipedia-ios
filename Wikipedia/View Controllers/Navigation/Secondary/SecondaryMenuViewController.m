@@ -42,8 +42,6 @@
 
 typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
     SECONDARY_MENU_ROW_INDEX_LOGIN,
-    SECONDARY_MENU_ROW_INDEX_SAVED_PAGES,
-    SECONDARY_MENU_ROW_INDEX_SAVE_PAGE,
     SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE,
     SECONDARY_MENU_ROW_INDEX_ZERO_FAQ,
     SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING,
@@ -57,10 +55,12 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
     SECONDARY_MENU_ROW_INDEX_RATE_APP,
     SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH,
     SECONDARY_MENU_ROW_INDEX_HEADING_ZERO,
+    SECONDARY_MENU_ROW_INDEX_HEADING_ABOUT,
     SECONDARY_MENU_ROW_INDEX_HEADING_LEGAL,
     SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG,
     SECONDARY_MENU_ROW_INDEX_HEADING_BLANK,
-    SECONDARY_MENU_ROW_INDEX_HEADING_BLANK_2
+    SECONDARY_MENU_ROW_INDEX_HEADING_BLANK_2,
+    SECONDARY_MENU_ROW_INDEX_FAQ
 };
 
 static uint const WMFDebugSectionCount                                    = 2;
@@ -75,8 +75,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 @property (strong, nonatomic) IBOutlet TabularScrollView* scrollView;
 @property (strong, nonatomic) NSMutableArray* rowData;
 @property (strong, nonatomic) NSMutableArray* rowViews;
-@property (nonatomic) BOOL hidePagesSection;
-
 @property (strong, nonatomic) NSDictionary* highlightedTextAttributes;
 
 @end
@@ -121,7 +119,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 
     self.highlightedTextAttributes = @{ NSFontAttributeName: [UIFont italicSystemFontOfSize:MENU_TITLE_FONT_SIZE] };
 
-    self.hidePagesSection               = NO;
     self.navigationItem.hidesBackButton = YES;
 
     self.view.backgroundColor = CHROME_COLOR;
@@ -134,10 +131,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
-    MWKTitle* currentArticleTitle = [SessionSingleton sharedInstance].currentArticle.title;
-
-    self.hidePagesSection = (currentArticleTitle == nil);
 
     [self.rowViews removeAllObjects];
 
@@ -326,20 +319,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
                                                                      substitutionAttributes:@[self.highlightedTextAttributes]
         ];
 
-    /*
-       NSAttributedString *saveArticleTitle =
-       [MWLocalizedString(@"main-menu-current-article-save", nil) attributedStringWithAttributes: nil
-                                                                          substitutionStrings: @[currentArticleTitle]
-                                                                       substitutionAttributes: @[self.highlightedTextAttributes]
-       ];
-
-       NSAttributedString *pageHistoryTitle =
-       [MWLocalizedString(@"main-menu-show-page-history", nil) attributedStringWithAttributes: nil
-                                                                       substitutionStrings: @[currentArticleTitle]
-                                                                    substitutionAttributes: @[self.highlightedTextAttributes]
-       ];
-     */
-
     NSString* sendUsageBase =
         [MWLocalizedString(@"preference_title_eventlogging_opt_in", nil) stringByAppendingString:@"\n$1"];
 
@@ -364,25 +343,64 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 
     NSMutableArray* rowData =
         @[
-        /*
-           @{
-            @"title": MWLocalizedString(@"main-menu-show-saved", nil),
-            @"tag": @(SECONDARY_MENU_ROW_INDEX_SAVED_PAGES),
-            @"icon": WIKIGLYPH_BOOKMARK,
-            }.mutableCopy
-           ,
-           @{
-            @"title": saveArticleTitle,
-            @"tag": @(SECONDARY_MENU_ROW_INDEX_SAVE_PAGE),
-            @"icon": WIKIGLYPH_DOWNLOAD,
-            }.mutableCopy
-           ,
-         */
         @{
             @"domain": languageCode,
             @"title": searchWikiTitle,
             @"tag": @(SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE),
             @"icon": WIKIGLYPH_DOWN,
+            @"type": @(ROW_TYPE_SELECTION),
+        }.mutableCopy
+        ,
+        @{
+            @"title": MWLocalizedString(@"main-menu-heading-about", nil),
+            @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_ABOUT),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_HEADING),
+        }.mutableCopy
+        ,
+        @{
+            @"domain": [SessionSingleton sharedInstance].searchSite.language,
+            @"title": MWLocalizedString(@"main-menu-about", nil),
+            @"tag": @(SECONDARY_MENU_ROW_INDEX_ABOUT),
+            @"icon": WIKIGLYPH_DOWN,
+            @"type": @(ROW_TYPE_SELECTION),
+        }.mutableCopy
+        ,
+        @{
+            @"title": MWLocalizedString(@"main-menu-faq", nil),
+            @"tag": @(SECONDARY_MENU_ROW_INDEX_FAQ),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_SELECTION),
+            @"accessibilityTraits": @(UIAccessibilityTraitLink)
+        }.mutableCopy
+        ,
+        @{
+            @"title": MWLocalizedString(@"main-menu-heading-legal", nil),
+            @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_LEGAL),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_HEADING),
+        }.mutableCopy
+        ,
+        @{
+            @"title": MWLocalizedString(@"main-menu-privacy-policy", nil),
+            @"tag": @(SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_SELECTION),
+            @"accessibilityTraits": @(UIAccessibilityTraitLink),
+        }.mutableCopy
+        ,
+        @{
+            @"title": MWLocalizedString(@"main-menu-terms-of-use", nil),
+            @"tag": @(SECONDARY_MENU_ROW_INDEX_TERMS),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_SELECTION),
+            @"accessibilityTraits": @(UIAccessibilityTraitLink),
+        }.mutableCopy
+        ,
+        @{
+            @"title": sendUsageDataTitle,
+            @"tag": @(SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS),
+            @"icon": @"",
             @"type": @(ROW_TYPE_SELECTION),
         }.mutableCopy
         ,
@@ -405,70 +423,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
         @{
             @"title": MWLocalizedString(@"zero-warn-when-leaving", nil),
             @"tag": @(SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING),
-            @"icon": @"",
-            @"type": @(ROW_TYPE_SELECTION),
-        }.mutableCopy
-        ,
-        /*
-           @{
-            @"title": pageHistoryTitle,
-            @"tag": @(SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY),
-            @"icon": WIKIGLYPH_LINK,
-            }.mutableCopy
-           ,
-         */
-        @{
-            @"title": MWLocalizedString(@"main-menu-heading-legal", nil),
-            @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_LEGAL),
-            @"icon": @"",
-            @"type": @(ROW_TYPE_HEADING),
-        }.mutableCopy
-        ,
-        /*
-           @{
-            @"domain": [SessionSingleton sharedInstance].domain,
-            @"title": MWLocalizedString(@"main-menu-credits", nil),
-            @"tag": @(SECONDARY_MENU_ROW_INDEX_CREDITS),
-            @"icon": WIKIGLYPH_DOWN,
-            @"type": @(ROW_TYPE_SELECTION),
-            }.mutableCopy
-           ,
-         */
-        @{
-            @"domain": [SessionSingleton sharedInstance].searchSite.language,
-            @"title": MWLocalizedString(@"main-menu-about", nil),
-            @"tag": @(SECONDARY_MENU_ROW_INDEX_ABOUT),
-            @"icon": WIKIGLYPH_DOWN,
-            @"type": @(ROW_TYPE_SELECTION),
-        }.mutableCopy
-        ,
-        @{
-            @"title": MWLocalizedString(@"main-menu-privacy-policy", nil),
-            @"tag": @(SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY),
-            @"icon": @"",
-            @"type": @(ROW_TYPE_SELECTION),
-            @"accessibilityTraits": @(UIAccessibilityTraitLink),
-        }.mutableCopy
-        ,
-        @{
-            @"title": MWLocalizedString(@"main-menu-terms-of-use", nil),
-            @"tag": @(SECONDARY_MENU_ROW_INDEX_TERMS),
-            @"icon": @"",
-            @"type": @(ROW_TYPE_SELECTION),
-            @"accessibilityTraits": @(UIAccessibilityTraitLink),
-        }.mutableCopy
-        ,
-        /*
-           @{
-            @"title": MWLocalizedString(@"main-menu-send-feedback", nil),
-            @"tag": @(SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK),
-            @"icon": WIKIGLYPH_ENVELOPE,
-            }.mutableCopy
-           ,
-         */
-        @{
-            @"title": sendUsageDataTitle,
-            @"tag": @(SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS),
             @"icon": @"",
             @"type": @(ROW_TYPE_SELECTION),
         }.mutableCopy
@@ -513,11 +467,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
     ].mutableCopy;
 
     self.rowData = rowData;
-
-    if (self.hidePagesSection) {
-        [self deleteRowWithTag:SECONDARY_MENU_ROW_INDEX_SAVE_PAGE];
-        [self deleteRowWithTag:SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY];
-    }
 
     if (![[NSBundle mainBundle] wmf_shouldShowDebugMenu]) {
         for (int i = 0; i < WMFDebugSectionCount; i++) {
@@ -592,19 +541,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
                 [self popModalToRoot];
             }
             break;
-
-            case SECONDARY_MENU_ROW_INDEX_SAVED_PAGES:
-            {
-                [self performModalSequeWithID:@"modal_segue_show_saved_pages"
-                              transitionStyle:UIModalTransitionStyleCoverVertical
-                                        block:nil];
-            }
-            break;
-
-            case SECONDARY_MENU_ROW_INDEX_SAVE_PAGE:
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"SavePage" object:self userInfo:nil];
-                [self animateArticleTitleMovingToSavedPages];
-                break;
 
             case SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE:
                 [self showLanguages];
@@ -684,6 +620,11 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
                 [[[BITHockeyManager sharedHockeyManager] crashManager] generateTestCrash];
                 break;
             }
+            case SECONDARY_MENU_ROW_INDEX_FAQ: {
+                [[UIApplication sharedApplication] openURL:
+                 [NSURL URLWithString:@"https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ"]];
+                break;
+            }
             default:
                 break;
         }
@@ -725,44 +666,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 }
 
 #pragma mark - Animation
-
-- (void)animateArticleTitleMovingToSavedPages {
-    /*
-       UILabel *savedPagesLabel = [self getViewWithTag:SECONDARY_MENU_ROW_INDEX_SAVED_PAGES].textLabel;
-       UILabel *articleTitleLabel = [self getViewWithTag:SECONDARY_MENU_ROW_INDEX_SAVE_PAGE].textLabel;
-
-       CGAffineTransform scale = CGAffineTransformMakeScale(0.4, 0.4);
-       CGPoint destPoint = [self getLocationForView:savedPagesLabel xf:scale];
-
-       NSString *title = MWLocalizedString(@"main-menu-current-article-save", nil);
-       NSAttributedString *attributedTitle =
-       [title attributedStringWithAttributes: @{NSForegroundColorAttributeName: [UIColor clearColor]}
-                      substitutionStrings: @[[SessionSingleton sharedInstance].currentArticleTitle]
-                   substitutionAttributes: @[
-                                             @{
-                                                 NSFontAttributeName: [UIFont italicSystemFontOfSize:16],
-                                                 NSForegroundColorAttributeName: [UIColor blackColor]
-                                                 }]
-       ];
-
-       for (NSInteger i = 0; i < 4; i++) {
-
-        UILabel *label = [self getLabelCopyToAnimate:articleTitleLabel];
-        label.attributedText = attributedTitle;
-
-        [self animateView: label
-            toDestination: destPoint
-               afterDelay: (i * 0.06)
-                 duration: 0.45f
-                transform: scale];
-       }
-
-       [savedPagesLabel animateAndRewindXF: CATransform3DMakeScale(1.08f, 1.08f, 1.0f)
-                             afterDelay: 0.32
-                               duration: 0.16
-                                   then: nil];
-     */
-}
 
 - (UILabel*)getLabelCopyToAnimate:(UILabel*)labelToCopy {
     UILabel* labelCopy = [[UILabel alloc] init];

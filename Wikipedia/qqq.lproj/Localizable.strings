@@ -106,6 +106,7 @@
 "main-menu-language-toggle-show" = "Button text for showing language list";
 "main-menu-language-toggle-hide" = "Button text for hiding language list";
 "main-menu-language-selection-saved" = "Alert text shown when user selects a language wiki to search";
+"main-menu-faq" = "Title for button in the 'More' menu which navigates the user to the app's FAQ wiki page.";
 "main-menu-account-title-logged-out" = "Header text used when account is not logged in.\n{{Identical|Account}}";
 "main-menu-account-title-logged-in" = "Header text used when account is logged in";
 "main-menu-account-login" = "Button text for logging in.\n{{Identical|Log in}}";
@@ -125,6 +126,7 @@
 "main-menu-terms-of-use" = "Button text for showing site terms of use";
 "main-menu-rate-app" = "Button text for showing the app in the app store so user can rate the app";
 "main-menu-heading-zero" = "Header text for the Wikipedia Zero section of the menu. ([http://wikimediafoundation.org/wiki/Wikipedia_Zero More information]).\n{{Identical|Wikipedia Zero}}";
+"main-menu-heading-about" = "'More' menu section heading for items about the app (e.g. privacy, terms, FAQ).";
 "main-menu-heading-legal" = "Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.";
 "main-menu-show-today" = "Button text for showing mobile version of main page\n{{Identical|Today}}";
 "main-menu-nearby" = "Button for showing nearby articles.\n{{Identical|Nearby}}";
