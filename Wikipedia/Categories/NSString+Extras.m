@@ -7,6 +7,7 @@
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"
 #import "NSDateFormatter+WMFExtensions.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @implementation NSString (Extras)
 
@@ -37,21 +38,10 @@
     return path;
 }
 
-- (NSString*)wmf_imageMimeTypeForExtension {
-    NSString* lowerCaseSelf = [self lowercaseString];
-    if ([lowerCaseSelf isEqualToString:@"jpg"]) {
-        return @"image/jpeg";
-    }
-    if ([lowerCaseSelf isEqualToString:@"jpeg"]) {
-        return @"image/jpeg";
-    }
-    if ([lowerCaseSelf isEqualToString:@"png"]) {
-        return @"image/png";
-    }
-    if ([lowerCaseSelf isEqualToString:@"gif"]) {
-        return @"image/gif";
-    }
-    return @"";
+- (NSString*)wmf_mimeTypeForExtension {
+    // From: http://stackoverflow.com/a/21858677/135557
+    NSString* UTI = (__bridge_transfer NSString*)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)self, NULL);
+    return (__bridge_transfer NSString*)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)UTI, kUTTagClassMIMEType);
 }
 
 - (NSDate*)wmf_iso8601Date {

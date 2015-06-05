@@ -4,7 +4,7 @@
 #import "SessionSingleton.h"
 #import "WikipediaAppUtils.h"
 #import "QueuesSingleton.h"
-#import "URLCache.h"
+#import "WMFURLCache.h"
 #import "WMFAssetsFile.h"
 
 @interface SessionSingleton ()
@@ -54,9 +54,9 @@
         #warning FIXME: move to AppDelegate, if we should be doing this at all (slows down app launch)
         [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
 
-        URLCache* urlCache = [[URLCache alloc] initWithMemoryCapacity:MegabytesToBytes(64)
-                                                         diskCapacity:MegabytesToBytes(64)
-                                                             diskPath:nil];
+        WMFURLCache* urlCache = [[WMFURLCache alloc] initWithMemoryCapacity:MegabytesToBytes(64)
+                                                               diskCapacity:MegabytesToBytes(64)
+                                                                   diskPath:nil];
         [NSURLCache setSharedURLCache:urlCache];
 
         self.keychainCredentials         = [[KeychainCredentials alloc] init];
