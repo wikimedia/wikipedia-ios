@@ -19,8 +19,6 @@
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
-"article-languages-preferred-section-header" = "Language table section header for user's preferred languages. Can be plural, as in \"Preferred languages\".";
-"article-languages-other-section-header" = "Language table section header for languages not in the user's list of preferred language.\n{{Identical|Otherlanguages}}";
 "info-box-title" = "The title of info boxes - in collapsed and expanded form";
 "info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
@@ -282,3 +280,4 @@
 "hockeyapp-alert-privacy" = "Alert dialog button text for HockeyApp privacy policy. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";
+"languages-title" = "MISSING DESCRIPTION; DO NOT COMMIT FILE YET";

@@ -25,6 +25,7 @@
 #import "WMFShareOptionsViewController.h"
 #import "UIWebView+WMFSuppressSelection.h"
 #import "LanguagesViewController.h"
+#import "MWKLanguageLink.h"
 
 typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
     BOTTOM_MENU_BUTTON_UNKNOWN,
@@ -216,10 +217,8 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
     }];
 }
 
-- (void)languageSelected:(NSDictionary*)langData sender:(LanguagesViewController*)sender {
-    MWKSite* site   = [MWKSite siteWithLanguage:langData[@"code"]];
-    MWKTitle* title = [site titleWithString:langData[@"*"]];
-    [NAV loadArticleWithTitle:title
+- (void)languageSelected:(MWKLanguageLink*)langData sender:(LanguagesViewController*)sender {
+    [NAV loadArticleWithTitle:langData.title
                      animated:NO
               discoveryMethod:MWKHistoryDiscoveryMethodSearch
                    popToWebVC:YES];

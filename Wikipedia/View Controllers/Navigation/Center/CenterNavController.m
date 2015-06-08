@@ -20,6 +20,7 @@
 #import "UIViewController+ModalPop.h"
 #import "UIViewController+Alert.h"
 #import "QueuesSingleton.h"
+#import "MWKLanguageLink.h"
 
 @interface CenterNavController ()
 <LanguageSelectionDelegate>
@@ -199,8 +200,8 @@
     }];
 }
 
-- (void)languageSelected:(NSDictionary*)langData sender:(LanguagesViewController*)sender {
-    [NAV switchPreferredLanguageToId:langData[@"code"]];
+- (void)languageSelected:(MWKLanguageLink*)langData sender:(LanguagesViewController*)sender {
+    [NAV switchPreferredLanguageToId:langData.languageCode];
     [self popModalToRoot];
 }
 
