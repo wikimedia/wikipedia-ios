@@ -73,6 +73,8 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 }
 
 - (NSURL*)apiEndpoint:(BOOL)isMobile {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_7_0
+#error use this implementation now that iOS 6 is dropped
     NSURLComponents* apiEndpointComponents = [[NSURLComponents alloc] init];
     apiEndpointComponents.scheme = @"https";
     NSMutableArray* hostComponents = [NSMutableArray arrayWithObject:self.language];
@@ -81,8 +83,14 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     }
     [hostComponents addObject:self.domain];
     apiEndpointComponents.host = [hostComponents componentsJoinedByString:@"."];
-    apiEndpointComponents.path = @"/w/api.php";
+    apiEndpointComponents.path = @"";
     return [apiEndpointComponents URL];
+#else
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@%@/w/api.php",
+                                 self.language,
+                                 isMobile ? @"m." : @"",
+                                 self.domain]];
+#endif
 }
 
 #pragma mark - NSObject
