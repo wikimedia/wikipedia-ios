@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: ElmA
 // Author: Jack Phoenix
+// Author: McSalama
 // Author: Nike
 // Author: Silvonen
 // Author: Stryn
@@ -117,23 +118,20 @@
 "main-menu-terms-of-use" = "Käyttöehdot";
 "main-menu-rate-app" = "Arvostele sovellus";
 "main-menu-heading-zero" = "Wikipedia Zero";
-// Fuzzy
-"main-menu-heading-legal" = "Mumbu jumbo";
+"main-menu-heading-legal" = "Tietosuoja ja Ehdot";
 "main-menu-show-today" = "Tänään";
 "main-menu-nearby" = "Lähistöllä";
 "main-menu-more" = "Lisää...";
+"main-menu-heading-debug" = "Vianetsintä";
 "saved-pages-title" = "Tallennetut sivut";
 "saved-pages-clear-confirmation-heading" = "Poista kaikki tallennetut kohteet?";
 "saved-pages-clear-confirmation-sub-heading" = "Tätä toimintoa ei voi kumota!";
 "saved-pages-clear-cancel" = "Peruuta";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Poista kaikki";
+"saved-pages-clear-delete-all" = "Poista Kaikki";
 "saved-pages-refresh-cancel-alert-title" = "Päivitys peruttiin";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedian artikkeleja päivitetään kaiken aikaa. Napauta päivitä saadaksesi kaikkien artikkeleiden uusimmat versiot.";
 "saved-pages-refresh-cancel-alert-button" = "Selvä!";
-// Fuzzy
 "page-history-title" = "Artikkelin historia";
-// Fuzzy
 "page-history-downloading" = "Ladataan artikkelin historiaa...";
 "navbar-title-mode-edit-wikitext" = "Muokkaa";
 "navbar-title-mode-login" = "Kirjaudu sisään";
@@ -146,8 +144,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Nopea vahvistus tarvitaan";
 "navbar-title-mode-edit-wikitext-summary" = "Kuvaile muokkaustasi";
 "navbar-title-mode-edit-wikitext-save" = "Tallenna";
-// Fuzzy
-"edit-summary-choice-linked-words" = "Linkitetty sanoja";
+"edit-summary-choice-linked-words" = "Lisätty linkkejä";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
 "edit-summary-choice-fixed-inaccuracy" = "Epätarkkuus korjattu";
 "edit-summary-choice-fixed-styling" = "Muutettu tyylejä";
@@ -157,8 +154,7 @@
 "edit-summary-choice-added-clarification" = "Selvennetty";
 "edit-summary-choice-other" = "Muu";
 "edit-summary-description" = "Erityinen yhteenveto auttaa kanssamuokkaajia tarkistamaan muokkauksesi nopeasti. Voit myös valita tunnisteita alta.";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "Miten paransit sivua?";
+"edit-summary-field-placeholder-text" = "Muut tavat, joilla paransit artikkelia";
 "edit-summary-title" = "Kuinka paransit artikkelia?";
 "fetching-random-article" = "Haetaan satunnaista artikkelia";
 "article-pull-to-refresh-prompt" = "Vedä päivittääksesi artikkelin";
@@ -255,7 +251,12 @@
 "nearby-location-updates-settings-menu" = "Yksityisyys > Sijaintipalvelut > Wikipedia";
 "nearby-location-general-error" = "Sijainnin määritys ei onnistu. Vedä päivittääksesi tai yritä uudelleen myöhemmin.";
 "nearby-wifi" = "Langattoman verkkoyhteyden käyttöönotto voi auttaa laitettasi määrittämään sijaintisi paremmin.";
-// Fuzzy
-"migration-update-progress-label" = "Päivitetään paikallisia tietoja";
+"migration-update-progress-label" = "Siirretään paikallisia tietoja";
+"migration-skip-button-title" = "Poista se";
+"image-gallery-fetch-image-info-error-title" = "Kuvien lataaminen epäonnistui";
+"image-gallery-fetch-image-info-error-ok" = "OK";
+"hockeyapp-alert-send-report" = "Lähetä raportti";
 "hockeyapp-alert-always-send" = "Lähetä aina";
 "hockeyapp-alert-do-not-send" = "Älä lähetä";
+"page-issues" = "Sivun ongelmat";
+"page-similar-titles" = "Samankaltaiset sivut";

@@ -45,7 +45,7 @@
 "zero-learn-more-no-thanks" = "Button text for declining to learn more about Wikipedia Zero.\n{{Identical|Dismiss}}";
 "zero-wikipedia-zero-heading" = "Main menu heading for Wikipedia Zero options.\n{{Identical|Wikipedia Zero}}";
 "zero-warn-when-leaving" = "Main menu option to be warned if leaving Wikipedia Zero";
-"zero-settings-devmode" = "Main menu option for enabling Zero Devmode";
+"zero-settings-devmode" = "Main menu option for enabling the development mode for Wikipedia Zero.";
 "account-creation-captcha-required" = "Alert message shown when account creation require a captcha verification";
 "account-creation-captcha-obtaining" = "Alert shown when user wants a new captcha when creating account";
 "account-creation-logging-in" = "Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}";

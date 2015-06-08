@@ -260,6 +260,7 @@
 "migration-update-progress-count-label" = "Taşınan madde sayısı $1'da $2";
 "migration-prompt-title" = "Görünüşe göre birlikte bir geçmişimiz var!";
 "migration-prompt-message" = "Kaydedilmiş ve geçmiş sayfaları taşımamız gerekli. Bu bir dakika kadar sürebilir...";
+"migration-confirm-button-title" = "Verilerimi taşı";
 "migration-skip-button-title" = "Öğeyi sil";
 "image-gallery-unknown-owner" = "Yükleyen bilinmiyor.";
 "image-gallery-fetch-image-info-error-title" = "Görseller indirilemiyor";

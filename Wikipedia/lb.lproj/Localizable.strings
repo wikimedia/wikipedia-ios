@@ -21,6 +21,7 @@
 "history-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
 "history-clear-cancel" = "Ofbriechen";
 "history-clear-delete-all" = "All läschen";
+"zero-free-verbiage" = "Gratis Zougang op Wikipedia vun Ärem GSM-Operateur (keng Taxe fir den Datentrafik)";
 "zero-charged-verbiage" = "Wikipedia Zero ass aus";
 "zero-charged-verbiage-extended" = "D'Luede vun aneren Artikele ka Käschte mat sech bréngen. Gespäichert Artikelen déi 'offline' gespäichert si generéiere keen Datentransfer a kaschten näischt.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -113,6 +114,7 @@
 "main-menu-show-today" = "Haut";
 "main-menu-nearby" = "An der Noperschaft";
 "main-menu-more" = "Méi …";
+"main-menu-heading-debug" = "Feeler analyséieren";
 "main-menu-debug-crash" = "Crash";
 "saved-pages-title" = "Gespäichert Säiten";
 "saved-pages-clear-confirmation-heading" = "All gespäichert Elementer läschen?";
@@ -239,6 +241,7 @@
 "migration-update-progress-count-label" = "Migréiere vum Artikel $1 op $2";
 "migration-prompt-title" = "Et schéngt wéi wa mir eng Geschicht hunn!";
 "migration-prompt-message" = "Mir mussen Är gespäichert a rezent Säite réckelen. Dat kann eng Minutt daueren...";
+"migration-confirm-button-title" = "Meng Saachen eriwwer réckelen";
 "migration-skip-button-title" = "Läschen";
 "image-gallery-unknown-owner" = "Eroplueder onbekannt.";
 "image-gallery-fetch-image-info-error-title" = "Biller konnten net  erofgeluede ginn";

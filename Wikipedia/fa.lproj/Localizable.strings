@@ -254,10 +254,10 @@
 "nearby-open-in-maps" = "بازشدن در نقشه";
 "nearby-cancel" = "لغو";
 "nearby-location-updates-denied" = "این اپلیکیشن دسترسی برای به روز رسانی‌های موقعیت را ندارد.";
-"nearby-location-updates-enable" = "برای فعال‌کردن به روز رسانی‌ها تنظیمات اپلیکیشن را باز کنید و روبرو را انتخاب کنید:";
+"nearby-location-updates-enable" = "برای فعال کردن به روز رسانی‌ها تنظیمات اپلیکیشن را باز کنید و روبرو را انتخاب کنید:";
 "nearby-location-updates-settings-menu" = "حریم شخصی > خدمات موقعیت > ویکی‌پدیا";
 "nearby-location-general-error" = "ناتوان در تشخیص موقعیت. برای تازه‌کردن فشار دهید یا بعداً تلاش کنید.";
-"nearby-wifi" = "فعال‌کردن وای‌فای می‌تواند به دستگاه‌تان در بهتر تشخیص‌دادن موقعیت‌تان کمک کند.";
+"nearby-wifi" = "فعال کردن وای‌فای می‌تواند به دستگاه‌تان در بهتر تشخیص‌دادن موقعیت‌تان کمک کند.";
 "migration-update-progress-label" = "مهاجرت اطلاعات محلی";
 "migration-update-progress-count-label" = "مهاجرت مقاله از $1 به $2";
 "migration-prompt-title" = "به نظر می‌رسد تاریخچه وجود دارد!";

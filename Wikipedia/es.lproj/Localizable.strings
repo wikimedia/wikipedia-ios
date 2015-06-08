@@ -174,7 +174,7 @@
 "about-testers" = "probadores";
 "about-testers-details" = "Probado por el grupo de QA $1";
 "about-translators" = "traductores";
-"about-translators-details" = "Esta aplicación fue traducida por voluntarios en $1";
+"about-translators-details" = "Traducido por voluntarios en $1";
 "about-libraries" = "bibliotecas usadas";
 "about-libraries-license" = "Licencia";
 "about-repositories" = "repositorios";

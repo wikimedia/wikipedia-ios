@@ -15,6 +15,7 @@
 "article-languages-downloading" = "Carregant els idiomes de l'article...";
 "article-languages-filter-placeholder" = "Filtre d'idioma";
 "article-read-more-title" = "Més informació";
+"article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
 "info-box-title" = "Dades bàsiques";
 "info-box-close-text" = "Tanca";
 "table-title-other" = "Més informació";
@@ -258,8 +259,7 @@
 "migration-update-progress-label" = "S'estan migrant les dades locals";
 "migration-update-progress-count-label" = "S'està migrant l'article $1 de $2";
 "migration-prompt-title" = "Sembla que tenim una història!";
-// Fuzzy
-"migration-prompt-message" = "Hem de moure les vostres pàgines desades i recents. Això pot trigar una estona...";
+"migration-prompt-message" = "Hem de moure les vostres pàgines desades i recents. Podria trigar una estona…";
 "migration-confirm-button-title" = "Mou les meves coses";
 "migration-skip-button-title" = "Esborra-ho";
 "image-gallery-unknown-owner" = "El carregador no és conegut.";

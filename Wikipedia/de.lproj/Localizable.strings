@@ -248,7 +248,7 @@
 "nearby-location-updates-enable" = "Um die Standortsaktualisierungen zu aktivieren, öffne die Einstellungs-App und wähle folgendes aus:";
 "nearby-location-updates-settings-menu" = "Datenschutz > Ortungsdienste > Wikipedia";
 "nearby-location-general-error" = "Standort konnte nicht bestimmt werden. Zum Aktualisieren ziehen oder später erneut versuchen.";
-"nearby-wifi" = "Das Aktivieren von Wi-Fi kann dabei helfen, den Standort deines Gerätes besser zu bestimmen.";
+"nearby-wifi" = "Das WLAN zu aktivieren kann dabei helfen, den Standort deines Gerätes besser zu bestimmen.";
 "migration-update-progress-label" = "Migriere lokale Daten";
 "migration-update-progress-count-label" = "Migriere Artikel $1 von $2";
 "migration-prompt-title" = "Sieht so aus, als ob wir einen Verlauf haben!";
