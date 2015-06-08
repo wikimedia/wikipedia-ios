@@ -4,13 +4,13 @@
 "article-languages-filter-placeholder" = "Language Filter";
 "article-read-more-title" = "Read more";
 "article-unable-to-load-section" = "Unable to load this section. Try refreshing the article to see if it fixes the problem.";
+"article-languages-preferred-section-header" = "Preferred";
+"article-languages-other-section-header" = "Other Languages";
 
 "info-box-title" = "Quick facts";
 "info-box-close-text" = "Close";
 
 "table-title-other" = "More information";
-
-"language-button-text" = "You can read this article in %d other languages";
 
 "history-label" = "Recent";
 "history-section-today" = "Today";
@@ -267,6 +267,7 @@
 "menu-share-accessibility-label" = "Share";
 "menu-more-accessibility-label" = "More settings";
 "menu-trash-accessibility-label" = "Delete";
+"menu-language-accessibility-label" = "Languages";
 
 "nearby-title" = "Nearby";
 "nearby-distance-label-meters" = "$1 m";

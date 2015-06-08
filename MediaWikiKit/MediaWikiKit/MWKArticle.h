@@ -35,7 +35,16 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, strong, nonatomic) NSDate* lastmodified;                // required
 @property (readonly, strong, nonatomic) MWKUser* lastmodifiedby;             // required
 @property (readonly, assign, nonatomic) int articleId;                       // required; -> 'id'
-@property (readonly, assign, nonatomic) int languagecount;                   // required; int
+
+/**
+ * Number of links to other wikis on this page.
+ *
+ * This is *mostly* links to the same topic/entity in another language, but not always. See the comments
+ * in LanguageLinksFetcher. Be sure to double check that you add special handling when necessary. For example, main
+ * pages can have a misleading non-zero languagecount.
+ */
+@property (readonly, assign, nonatomic) int languagecount;
+
 @property (readonly, copy, nonatomic) NSString* displaytitle;              // optional
 @property (readonly, strong, nonatomic) MWKProtectionStatus* protection;     // required
 @property (readonly, assign, nonatomic) BOOL editable;                       // required

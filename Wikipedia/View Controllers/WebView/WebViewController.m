@@ -1682,7 +1682,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:title.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
 
-    int langCount           = article.languagecount;
     NSDate* lastModified    = article.lastmodified;
     MWKUser* lastModifiedBy = article.lastmodifiedby;
     self.editable         = article.editable;
@@ -1727,7 +1726,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     if (!self.session.currentArticle.isMain) {
         NSString* lastModifiedByUserName =
             (lastModifiedBy && !lastModifiedBy.anonymous) ? lastModifiedBy.name : nil;
-        [self.footerViewController updateLanguageCount:langCount];
+//        [self.footerViewController updateLanguageCount:langCount];
         [self.footerViewController updateLastModifiedDate:lastModified userName:lastModifiedByUserName];
         [self.footerViewController updateReadMoreForArticle:article];
         [self.footerViewController updateLegalFooterLocalizedText];
