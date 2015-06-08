@@ -163,7 +163,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
         || ![(WikiGlyphButton*)recognizer.view enabled]) {
         return;
     }
-    [self animateAndPerformActionForButton:recognizer.view
+    [self animateAndPerformActionForButton:(WikiGlyphButton*)recognizer.view
                   disableButtonInteraction:recognizer.view.tag == BOTTOM_MENU_BUTTON_SHARE];
 }
 
