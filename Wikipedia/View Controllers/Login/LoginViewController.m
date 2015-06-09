@@ -113,8 +113,8 @@
      */
     self.titleLabel.text = MWLocalizedString(@"navbar-title-mode-login", nil);
 
-    self.usernameField.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
-    self.passwordField.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+    self.usernameField.textAlignment = NSTextAlignmentNatural;
+    self.passwordField.textAlignment = NSTextAlignmentNatural;
 
     if (self.loginContainerView) {
         // Only do this if self.loginContainerView is not nil. This is because the

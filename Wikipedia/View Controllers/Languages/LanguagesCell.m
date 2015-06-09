@@ -30,8 +30,8 @@
     //self.textLabel.layer.borderWidth = 1;
     //self.textLabel.layer.borderColor = [UIColor redColor].CGColor;
     self.backgroundColor              = BACKGROUND_COLOR;
-    self.textLabel.textAlignment      = [WikipediaAppUtils rtlSafeAlignment];
-    self.canonicalLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+    self.textLabel.textAlignment      = NSTextAlignmentNatural;
+    self.canonicalLabel.textAlignment = NSTextAlignmentNatural;
 
     self.textLabel.font      = [UIFont systemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER];
     self.canonicalLabel.font = [UIFont systemFontOfSize:12.0 * MENUS_SCALE_MULTIPLIER];

@@ -25,7 +25,7 @@
     [self.reloadCaptchaButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
     [self.reloadCaptchaButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
 
-    self.captchaTextBox.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+    self.captchaTextBox.textAlignment = NSTextAlignmentNatural;
 
     [self adjustConstraintsScaleForViews:@[self.captchaImageView, self.captchaTextBox, self.reloadCaptchaButton]];
 
