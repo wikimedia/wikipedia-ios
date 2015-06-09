@@ -51,7 +51,6 @@
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
     self = [super init];
     if (self) {
-        #warning FIXME: move to AppDelegate, if we should be doing this at all (slows down app launch)
         [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
 
         WMFURLCache* urlCache = [[WMFURLCache alloc] initWithMemoryCapacity:MegabytesToBytes(64)

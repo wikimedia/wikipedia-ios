@@ -13,8 +13,6 @@
 @class MWKTitle;
 @class MWKArticle;
 
-#warning FIXME: setting ivar values on SessionSingleton is not thread safe!
-
 @interface SessionSingleton : NSObject
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;

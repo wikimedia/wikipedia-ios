@@ -1626,21 +1626,18 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 + (NSString*)hidePlaceholderJS {
-    #warning FIXME: abstract away "get lead image div" logic
     return @"document.getElementById('lead_image_div').style.backgroundImage = document.getElementById('lead_image_div').style.backgroundImage.replace('wmf://bundledImage/lead-default', 'wmf://bundledImage/empty');";
 }
 
 - (void)leadImageHidePlaceHolderAndCenterOnFaceIfNeeded:(CGRect)rect {
     NSString* applyFocalOffsetJS = @"";
     if (!CGRectEqualToRect(rect, CGRectZero)) {
-        #warning FIXME: abstract away "get lead image div" logic
         applyFocalOffsetJS =
-            [NSString stringWithFormat:@"document.getElementById('lead_image_div').style.backgroundPosition = '100%% %d%%';", [self leadImageFocalOffsetYPercentageFromTopOfRect:rect]];
+            [NSString stringWithFormat:@"document.getElementById('lead_image_div').style.backgroundPosition = '100%% %ld%%';", (long)[self leadImageFocalOffsetYPercentageFromTopOfRect:rect]];
     }
 
     static NSString* animationCss = nil;
     if (!animationCss) {
-        #warning FIXME: abstract away "get lead image div" logic
         animationCss =
             @"document.getElementById('lead_image_div').style.transition = 'background-position 0.8s';";
     }

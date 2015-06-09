@@ -100,7 +100,6 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
     [dict wmf_maybeSetObject:self.imageThumbURL.absoluteString forKey:MWKImageInfoImageThumbURLKey];
     [dict wmf_maybeSetObject:self.owner forKey:MWKImageInfoOwnerKey];
 
-#warning TODO(bgerstle): only store the license "hash" or something and save the licenses separately
     [dict wmf_maybeSetObject:[self.license dataExport] forKey:MWKImageInfoLicenseKey];
 
     dict[MWKImageInfoImageSize] = NSStringFromCGSize(self.imageSize);

@@ -6,7 +6,6 @@
 
 @implementation WMFShareCardImageContainer
 
-#warning FIXME: This method is a workaround to reuse pre-calculated face rects of the article's lead image. (Once we refactor image data store to save single record for image, w/list of variant binaries, this will not be needed.) To test this tap share before and after a high res variant of the lead image is retrieved (tap lead image so gallery fetches variant) and ensure the share card centers vertically on the face.
 - (CGRect)getPrimaryFocalRectFromCanonicalLeadImage {
     NSAssert([self.leadImage isEqualToImage:self.leadImage.article.image] || [self.leadImage isVariantOfImage:self.leadImage.article.image], @"Primary focal rect sought on non-lead image.");
 

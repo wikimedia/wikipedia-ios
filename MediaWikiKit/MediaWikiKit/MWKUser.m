@@ -62,7 +62,6 @@
 }
 
 - (BOOL)isEqualToUser:(MWKUser*)other {
-#warning FIXME: verify functionality of comparing users or are/aren't anonymous
     return self.anonymous == other.anonymous
            || (WMF_EQUAL(self.name, isEqualToString:, other.name)
                && WMF_EQUAL(self.gender, isEqualToString:, other.gender));
