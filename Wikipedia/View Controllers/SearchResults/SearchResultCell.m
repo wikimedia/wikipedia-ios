@@ -30,7 +30,7 @@
     // Initial changes to ui elements go here.
     // See: http://stackoverflow.com/a/15591474 for details.
 
-    self.resultLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+    self.resultLabel.textAlignment = NSTextAlignmentNatural;
 
     [self adjustConstraintsScaleForViews:@[self.resultLabel, self.resultImageView]];
 }

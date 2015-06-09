@@ -28,7 +28,7 @@ static const CGFloat LanguagesSectionTitleLabelVerticalMargin = 8.f;
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
         PaddedLabel* titleLabel = [[PaddedLabel alloc] initWithFrame:self.bounds];
-        titleLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+        titleLabel.textAlignment = NSTextAlignmentNatural;
         titleLabel.font          = [[self class] labelFont];
 
         [self.contentView addSubview:titleLabel];

@@ -165,10 +165,10 @@
     ((MenuButton*)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT]).color = WMF_COLOR_GREEN;
     ((MenuButton*)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE]).color = WMF_COLOR_GREEN;
 
-    self.usernameField.textAlignment       = [WikipediaAppUtils rtlSafeAlignment];
-    self.passwordField.textAlignment       = [WikipediaAppUtils rtlSafeAlignment];
-    self.passwordRepeatField.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
-    self.emailField.textAlignment          = [WikipediaAppUtils rtlSafeAlignment];
+    self.usernameField.textAlignment       = NSTextAlignmentNatural;
+    self.passwordField.textAlignment       = NSTextAlignmentNatural;
+    self.passwordRepeatField.textAlignment = NSTextAlignmentNatural;
+    self.emailField.textAlignment          = NSTextAlignmentNatural;
 
     //[self.view randomlyColorSubviews];
 }

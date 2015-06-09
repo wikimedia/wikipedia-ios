@@ -187,7 +187,7 @@
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.backgroundColor  = [UIColor clearColor];
 
-    label.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+    label.textAlignment = NSTextAlignmentNatural;
 
     NSDictionary* sectionDict = self.pageHistoryDataArray[section];
 

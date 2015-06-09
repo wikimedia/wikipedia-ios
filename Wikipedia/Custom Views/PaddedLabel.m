@@ -17,7 +17,7 @@
 - (void)setup {
     self.padding = UIEdgeInsetsZero;
     if (self.textAlignment == NSTextAlignmentLeft) {
-        self.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
+        self.textAlignment = NSTextAlignmentNatural;
     }
 }
 

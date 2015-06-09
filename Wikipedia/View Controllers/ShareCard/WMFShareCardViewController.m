@@ -52,7 +52,7 @@
     self.shareSelectedText.text          = snippet;
     self.shareSelectedText.textAlignment = snippetAlignment;
 
-    NSTextAlignment subtextAlignment = [WikipediaAppUtils rtlSafeAlignment];
+    NSTextAlignment subtextAlignment = NSTextAlignmentNatural;
     self.shareArticleTitle.text          = [article.displaytitle wmf_stringByRemovingHTML];
     self.shareArticleTitle.textAlignment = subtextAlignment;
     self.shareArticleDescription.text    =

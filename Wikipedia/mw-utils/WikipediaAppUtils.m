@@ -234,15 +234,4 @@ static WMFAssetsFile* languageFile = nil;
     return ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
 }
 
-+ (NSTextAlignment)rtlSafeAlignment {
-    // The apple docs say NSTextAlignmentNatural is supported in iOS 6. Lies! Only true for
-    // attributed strings :(
-    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-        return NSTextAlignmentNatural;
-    } else {
-        BOOL isRTL = [self isDeviceLanguageRTL];
-        return isRTL ? NSTextAlignmentRight : NSTextAlignmentLeft;
-    }
-}
-
 @end
