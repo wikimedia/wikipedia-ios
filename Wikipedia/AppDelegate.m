@@ -11,12 +11,22 @@
 #import "UIWindow+WMFMainScreenWindow.h"
 #import "WikipediaAppUtils.h"
 
-/**
- * Register default application preferences.
- * @note This function must be a static constructor so that it's invoked when the translation unit is loaded, since
- *       waiting until application launch doesn't register them before unit tests are run.
- */
-__attribute__((constructor)) static void WMFRegisterDefaultPrefs() {
+@interface AppDelegate ()
+<DataMigrationProgressDelegate>
+@property (nonatomic, weak) UIAlertView* dataMigrationAlert;
+
+@property (nonatomic, strong) DataMigrationProgressViewController* migrationViewController;
+
+@end
+
+@implementation AppDelegate
+@synthesize window = _window;
+
++ (void)load {
+    /**
+     * Register default application preferences.
+     * @note This must be loaded before application launch so unit tests can run
+     */
     NSString* defaultLanguage = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
          @"CurrentArticleDomain": defaultLanguage,
@@ -30,17 +40,6 @@ __attribute__((constructor)) static void WMFRegisterDefaultPrefs() {
          @"AccessSavedPagesMessageShown": @NO
      }];
 }
-
-@interface AppDelegate ()
-<DataMigrationProgressDelegate>
-@property (nonatomic, weak) UIAlertView* dataMigrationAlert;
-
-@property (nonatomic, strong) DataMigrationProgressViewController* migrationViewController;
-
-@end
-
-@implementation AppDelegate
-@synthesize window = _window;
 
 - (UIWindow*)window {
     if (!_window) {
