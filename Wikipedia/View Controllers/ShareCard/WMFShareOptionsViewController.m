@@ -65,7 +65,7 @@
 
         _delegate   = delegate;
         _article    = article;
-        _shareTitle = [article.title.prefixedText copy];
+        _shareTitle = [article.title.text copy];
 
         WMFShareCardViewController* cardViewController =
             [[WMFShareCardViewController alloc] initWithNibName:@"ShareCard" bundle:nil];

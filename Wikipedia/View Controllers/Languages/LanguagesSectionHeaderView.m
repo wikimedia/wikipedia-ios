@@ -31,13 +31,6 @@ static const CGFloat LanguagesSectionTitleLabelVerticalMargin = 8.f;
         titleLabel.textAlignment = [WikipediaAppUtils rtlSafeAlignment];
         titleLabel.font          = [[self class] labelFont];
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
-        // HAX: label doesn't default to "clear" in iOS 6
-        titleLabel.backgroundColor = [UIColor clearColor];
-#else
-#error Remove setter for clear background color ^
-#endif
-
         [self.contentView addSubview:titleLabel];
         self.titleLabel = titleLabel;
 

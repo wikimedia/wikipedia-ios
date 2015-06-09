@@ -13,7 +13,7 @@
 - (id)tocTitle {
     BOOL isLead = [self isLeadSection];
 
-    NSString* title = isLead ? self.article.title.prefixedText : self.line;
+    NSString* title = isLead ? self.article.title.text : self.line;
 
     NSString* noHtmlTitle = [title wmf_stringByRemovingHTML];
 

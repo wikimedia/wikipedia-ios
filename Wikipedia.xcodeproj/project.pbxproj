@@ -935,6 +935,7 @@
 		BCD41DFE1B11D17100231BB1 /* XCTestCase+MWKFixtures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+MWKFixtures.m"; sourceTree = "<group>"; };
 		BCDA2F411B17A02A002FEB6A /* WMFComparison.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFComparison.h; sourceTree = "<group>"; };
 		BCDA2F421B17A056002FEB6A /* WMFHashing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFHashing.h; sourceTree = "<group>"; };
+		BCD41DD41B1079A600231BB1 /* Wikipedia-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wikipedia-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCDB75BC1AB0D3DE0005593F /* WMFImageInfoController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageInfoController_Private.h; path = "Image Gallery/WMFImageInfoController_Private.h"; sourceTree = "<group>"; };
 		BCDB75BD1AB0DFC40005593F /* WMFRangeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRangeUtils.h; sourceTree = "<group>"; };
 		BCDB75C31AB0E8300005593F /* WMFSubstringUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSubstringUtilsTests.m; sourceTree = "<group>"; };
@@ -2498,6 +2499,7 @@
 				D4EE00BB182445670090790F /* mw-support */,
 				C9180EC118AED30C006C1DCA /* mw-utils */,
 				049566BF18F5F4CB0058EA12 /* Zero */,
+				BCD41DD41B1079A600231BB1 /* Wikipedia-Bridging-Header.h */,
 			);
 			path = Wikipedia;
 			sourceTree = "<group>";
@@ -2618,7 +2620,6 @@
 				D4C16A631970949A00CD91AD /* update-qqq */,
 				0EB312441ACB96C300C7F7A6 /* Process Icons */,
 				D4991433181D51DE00E6073C /* Resources */,
-				04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */,
 				45FA417DEEAE18B42A662320 /* Copy Pods Resources */,
 				BC44DB9E1B161839008FCD0C /* Modify App Info.plist */,
 			);
@@ -2828,20 +2829,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "copy-wmflogo-to-assets";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./scripts/copy-wmflogo-to-assets.sh";
-		};
 		0EB312441ACB96C300C7F7A6 /* Process Icons */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3536,6 +3523,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_MODULE_NAME = Wikipedia;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3551,6 +3539,7 @@
 				APP_ID_SUFFIX = .tfalpha;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 130;
@@ -3567,12 +3556,14 @@
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Werror=switch",
@@ -3639,6 +3630,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_MODULE_NAME = Wikipedia;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3654,6 +3646,7 @@
 				APP_ID_SUFFIX = .tfbeta;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 130;
@@ -3670,12 +3663,14 @@
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Werror=switch",
@@ -3797,6 +3792,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_MODULE_NAME = Wikipedia;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3836,6 +3832,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_MODULE_NAME = Wikipedia;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3851,6 +3848,7 @@
 				APP_ID_SUFFIX = .developer;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 130;
@@ -3863,12 +3861,15 @@
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Werror=switch",
@@ -3888,6 +3889,7 @@
 				APP_ID_SUFFIX = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 130;
@@ -3900,11 +3902,13 @@
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Werror=switch",

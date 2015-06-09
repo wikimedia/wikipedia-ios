@@ -111,7 +111,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     dict[@"schemaVersion"] = @(MWKArticleCurrentSchemaVersion);
 
     if (self.redirected) {
-        dict[@"redirected"] = self.redirected.prefixedText;
+        dict[@"redirected"] = self.redirected.text;
     }
     dict[@"lastmodified"] = [self iso8601DateString:self.lastmodified];
     if (!self.lastmodifiedby.anonymous) {

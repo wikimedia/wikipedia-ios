@@ -34,22 +34,16 @@
 
 - (void)testSimple {
     MWKTitle* title = [MWKTitle titleWithString:@"Simple" site:site];
-
-    XCTAssertEqualObjects(title.prefixedDBKey, @"Simple", @"DB key form is full");
-    XCTAssertEqualObjects(title.prefixedText, @"Simple", @"Text form is full");
-    XCTAssertEqualObjects(title.prefixedURL, @"Simple", @"URL form is full");
+    XCTAssertEqualObjects(title.text, @"Simple", @"Text form is full");
     XCTAssertNil(title.fragment, @"Fragment is nil");
     XCTAssertEqualObjects(title.escapedFragment, @"", @"Fragment for URL is empty string");
 }
 
 - (void)testUnderscoresAndSpaces {
     NSArray* inputs = @[[MWKTitle titleWithString:@"Fancy title with spaces" site:site],
-                        [MWKTitle titleWithString:@"Fancy_title with_spaces" site:site]
-    ];
+                        [MWKTitle titleWithString:@"Fancy_title with_spaces" site:site]];
     for (MWKTitle* title in inputs) {
-        XCTAssertEqualObjects(title.prefixedDBKey, @"Fancy_title_with_spaces", @"DB key form has underscores");
-        XCTAssertEqualObjects(title.prefixedText, @"Fancy title with spaces", @"Text form has spaces");
-        XCTAssertEqualObjects(title.prefixedURL, @"Fancy_title_with_spaces", @"URL form has underscores");
+        XCTAssertEqualObjects(title.text, @"Fancy title with spaces", @"Text form has spaces");
         XCTAssertNil(title.fragment, @"Fragment is nil");
         XCTAssertEqualObjects(title.escapedFragment, @"", @"Fragment for URL is empty string");
     }
@@ -57,9 +51,7 @@
 
 - (void)testUnicode {
     MWKTitle* title = [MWKTitle titleWithString:@"Éclair" site:site];
-    XCTAssertEqualObjects(title.prefixedDBKey, @"Éclair", @"DB key form has unicode");
-    XCTAssertEqualObjects(title.prefixedText, @"Éclair", @"Text form has unicode");
-    XCTAssertEqualObjects(title.prefixedURL, @"%C3%89clair", @"URL form has percent encoding");
+    XCTAssertEqualObjects(title.text, @"Éclair", @"Text form has unicode");
     XCTAssertNil(title.fragment, @"Fragment is nil");
     XCTAssertEqualObjects(title.escapedFragment, @"", @"Fragment for URL is empty string");
 }

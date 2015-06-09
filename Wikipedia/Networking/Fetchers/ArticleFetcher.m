@@ -44,7 +44,7 @@
 }
 
 - (void)fetchWithManager:(AFHTTPRequestOperationManager*)manager {
-    NSString* title     = self.article.title.prefixedText;
+    NSString* title     = self.article.title.text;
     NSString* subdomain = self.article.title.site.language;
 
     if (!self.article) {
@@ -220,7 +220,7 @@
 
     // Map which search and nearby populates with title/thumb url mappings.
     NSDictionary* map = [SessionSingleton sharedInstance].titleToTempDirThumbURLMap;
-    NSString* title   = self.article.title.prefixedText;
+    NSString* title   = self.article.title.text;
     if (title) {
         NSString* thumbURL = map[title];
         if (thumbURL) {

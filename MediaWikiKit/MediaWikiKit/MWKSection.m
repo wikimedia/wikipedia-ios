@@ -70,7 +70,7 @@
         dict[@"index"] = self.index;
     }
     if (self.fromtitle) {
-        dict[@"fromtitle"] = self.fromtitle.prefixedText;
+        dict[@"fromtitle"] = self.fromtitle.text;
     }
     if (self.anchor) {
         dict[@"anchor"] = self.anchor;

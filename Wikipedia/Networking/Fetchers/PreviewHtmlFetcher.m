@@ -74,7 +74,7 @@
                @"sectionpreview": @"true",
                @"pst": @"true",
                @"mobileformat": @"true",
-               @"title": (title ? title.prefixedText : @""),
+               @"title": (title ? title.text : @""),
                @"prop": @"text",
                @"text": (wikiText ? wikiText : @""),
                @"format": @"json"

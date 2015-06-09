@@ -312,7 +312,7 @@
 
     MWKHistoryEntry* historyEntry = array[indexPath.row];
 
-    NSString* title    = [historyEntry.title prefixedText];
+    NSString* title    = [historyEntry.title text];
     NSString* language = [NSString stringWithFormat:@"\n%@", [WikipediaAppUtils domainNameForCode:historyEntry.title.site.language]];
 
     NSMutableParagraphStyle* paragraphStyle = [[NSMutableParagraphStyle alloc] init];

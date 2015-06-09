@@ -51,7 +51,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 /// Returns the folder where data for the correspnoding title is stored.
 - (NSString*)pathForTitle:(MWKTitle*)title {
     NSString* articlesPath = [self pathForArticlesWithSite:title.site];
-    NSString* encTitle     = [self safeFilenameWithString:title.prefixedDBKey];
+    NSString* encTitle     = [self safeFilenameWithString:title.dataBaseKey];
     return [articlesPath stringByAppendingPathComponent:encTitle];
 }
 

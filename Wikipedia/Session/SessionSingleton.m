@@ -88,7 +88,7 @@
 - (void)setCurrentArticleTitle:(MWKTitle*)currentArticle {
     if (currentArticle) {
         _currentArticleTitle = currentArticle;
-        [[NSUserDefaults standardUserDefaults] setObject:currentArticle.prefixedDBKey forKey:@"CurrentArticleTitle"];
+        [[NSUserDefaults standardUserDefaults] setObject:currentArticle.dataBaseKey forKey:@"CurrentArticleTitle"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }

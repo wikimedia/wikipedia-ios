@@ -88,7 +88,7 @@
     return @{
                @"action": @"query",
                @"prop": @"langlinks",
-               @"titles": self.title.prefixedText,
+               @"titles": self.title.text,
                @"lllimit": @"500",
                @"redirects": @"",
                @"format": @"json"
