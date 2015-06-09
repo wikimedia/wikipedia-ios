@@ -7,6 +7,10 @@ PODS:
   - AFNetworking/Security (2.5.2)
   - AFNetworking/Serialization (2.5.2)
   - BlocksKit/Core (2.2.5)
+  - BlocksKit/DynamicDelegate (2.2.5)
+  - BlocksKit/UIKit (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
   - HockeySDK (3.6.2)
   - hpple (0.2.0)
   - Masonry (0.6.1)
@@ -16,7 +20,8 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking/NSURLConnection (~> 2.5)
-  - blockskit/Core (~> 2.2)
+  - BlocksKit/Core (~> 2.2)
+  - BlocksKit/UIKit (~> 2.2)
   - HockeySDK (= 3.6.2)
   - hpple (~> 0.2)
   - Masonry (~> 0.6)
@@ -32,4 +37,4 @@ SPEC CHECKSUMS:
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
 
-COCOAPODS: 0.36.1
+COCOAPODS: 0.37.2
