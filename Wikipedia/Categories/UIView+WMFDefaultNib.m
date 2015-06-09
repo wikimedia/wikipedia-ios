@@ -15,7 +15,14 @@
 }
 
 + (instancetype)wmf_viewFromClassNib {
-    return [[[NSBundle mainBundle] loadNibNamed:[self wmf_nibName] owner:nil options:nil] firstObject];
+    UIView* view = [[[self wmf_classNib] instantiateWithOwner:nil options:nil] firstObject];
+    NSAssert(view, @"Instantiating %@ from default nib returned nil!", self);
+    NSAssert([view isMemberOfClass:self], @"Expected %@ to be instance of class %@", view, self);
+    return view;
+}
+
++ (UINib*)wmf_classNib {
+    return [UINib nibWithNibName:[self wmf_nibName] bundle:nil];
 }
 
 @end

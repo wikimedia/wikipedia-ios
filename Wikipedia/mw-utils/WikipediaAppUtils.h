@@ -10,10 +10,7 @@
 #define MWCurrentArticleLanguageLocalizedString(key, throwaway) [WikipediaAppUtils currentArticleLanguageLocalizedString : key]
 
 /// @return Number of bytes equivalent to `m` megabytes.
-static NSUInteger MegabytesToBytes(NSUInteger m) {
-    static NSUInteger const MEGABYTE = 1 << 20;
-    return m * MEGABYTE;
-}
+extern NSUInteger MegabytesToBytes(NSUInteger m);
 
 @interface WikipediaAppUtils : NSObject
 
@@ -27,7 +24,11 @@ static NSUInteger MegabytesToBytes(NSUInteger m) {
 + (NSString*)wikiLangForSystemLang:(NSString*)code;
 + (BOOL)     isDeviceLanguageRTL;
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_7_0
++ (NSTextAlignment)rtlSafeAlignment __deprecated_msg("Use NSTextAlignmentNatural instead.");
+#else
 + (NSTextAlignment)rtlSafeAlignment;
+#endif
 
 + (void)copyAssetsFolderToAppDataDocuments;
 

@@ -58,10 +58,6 @@
     [self.readMoreViewController search];
 }
 
-- (void)updateLanguageCount:(NSInteger)count {
-    [self.optionsController updateLanguageCount:count];
-}
-
 - (void)updateLastModifiedDate:(NSDate*)date userName:(NSString*)userName {
     [self.optionsController updateLastModifiedDate:date userName:userName];
 }

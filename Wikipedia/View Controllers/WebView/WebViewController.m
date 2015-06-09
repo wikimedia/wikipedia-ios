@@ -1540,8 +1540,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     NSString* title       = article.displaytitle;
     NSString* description = article.entityDescription ? [[article.entityDescription wmf_stringByRemovingHTML] wmf_stringByCapitalizingFirstCharacter] : @"";
 
-    BOOL hasImage          = article.imageURL ? YES : NO;
-    CGFloat fontMultiplier = [self leadImageGetSizeReductionMultiplierForTitleOfLength:title.length];
+    BOOL hasImage = article.imageURL != nil;
 
     // offsetY is percent to shift image vertically. 0 aligns top to top of lead_image_div,
     // 50 centers it vertically, and 100 aligns bottom of image to bottom of lead_image_div.
@@ -1554,36 +1553,32 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         }
     }
 
-    NSString* leadImageDivStyleOverrides =
-        !hasImage ? @"" : [NSString stringWithFormat:
-                           @"background-image:-webkit-linear-gradient(top, rgba(0,0,0,0.0) 0%%, rgba(0,0,0,0.5) 100%%),"
-                           @"url('%@')"
-                           @"%@;"
-                           "background-position: 50%% %ld%%;",
-                           article.imageURL,
-                           [article.image isCached] ? @"" : @",url('wmf://bundledImage/lead-default.png')",
-                           offsetY];
+    static NSString* formatString =
+        @"<div id='lead_image_div' class='lead_image_div' style='background-image:url(%@);background-position:50%% %ld%%;'>"
+        "<div id='lead_image_placeholder' style='%@'></div>"
+        "<div id='lead_image_gradient'></div>"
+        "<div id='lead_image_text_container'>"
+        "<div id='lead_image_title' style='font-size:%.02fpx;'>%@</div>"
+        "<div id='lead_image_description' style='font-size:%.02fpx;'>%@</div>"
+        "</div>"
+        "</div>";
 
-    NSString* leadImageHtml =
-        [NSString stringWithFormat:
-         @"<div id='lead_image_div' class='lead_image_div' style=\"%@\">"
-         "<div id='lead_image_text_container'>"
-         "<div id='lead_image_title' style='%@'>%@</div>"
-         "<div id='lead_image_description' style='%@'>%@</div>"
-         "</div>"
-         "</div>",
-         leadImageDivStyleOverrides,
-         [NSString stringWithFormat:@"font-size:%.02fpx;", 34.0f * fontMultiplier],
+    NSString* html =
+        [NSString stringWithFormat:formatString,
+         article.imageURL,
+         (long)offsetY,
+         [article.image isCached] ? @"display:none;" : @"",
+         34.0f* [self leadImageGetSizeReductionMultiplierForTitleOfLength:title.length],
          title,
-         [NSString stringWithFormat:@"font-size:%.02fpx;", 17.0f],
+         17.0f,
          description
         ];
 
     if (!hasImage) {
-        leadImageHtml = [NSString stringWithFormat:@"<div id='lead_image_none'>%@</div>", leadImageHtml];
+        html = [NSString stringWithFormat:@"<div id='lead_image_none'>%@</div>", html];
     }
 
-    return leadImageHtml;
+    return html;
 }
 
 - (CGFloat)leadImageGetSizeReductionMultiplierForTitleOfLength:(NSUInteger)length {
@@ -1621,32 +1616,20 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (NSInteger)leadImageFocalOffsetYPercentageFromTopOfRect:(CGRect)rect {
-    float percentFromTop = (CGRectGetMidY(rect) * 100.0f);
-    return @(MAX(0, MIN(100, percentFromTop))).integerValue;
-}
-
-+ (NSString*)hidePlaceholderJS {
-    #warning FIXME: abstract away "get lead image div" logic
-    return @"document.getElementById('lead_image_div').style.backgroundImage = document.getElementById('lead_image_div').style.backgroundImage.replace('wmf://bundledImage/lead-default.png', 'wmf://bundledImage/empty.png');";
+    float percentFromTop = CGRectGetMidY(rect) * 100.0f;
+    return (NSInteger)(MAX(0.0f, MIN(100.0f, percentFromTop)));
 }
 
 - (void)leadImageHidePlaceHolderAndCenterOnFaceIfNeeded:(CGRect)rect {
     NSString* applyFocalOffsetJS = @"";
     if (!CGRectEqualToRect(rect, CGRectZero)) {
-        #warning FIXME: abstract away "get lead image div" logic
         applyFocalOffsetJS =
-            [NSString stringWithFormat:@"document.getElementById('lead_image_div').style.backgroundPosition = '100%% %d%%';", [self leadImageFocalOffsetYPercentageFromTopOfRect:rect]];
+            [NSString stringWithFormat:@"document.getElementById('lead_image_div').style.backgroundPosition = '100%% %ld%%';", (long)[self leadImageFocalOffsetYPercentageFromTopOfRect:rect]];
     }
 
-    static NSString* animationCss = nil;
-    if (!animationCss) {
-        #warning FIXME: abstract away "get lead image div" logic
-        animationCss =
-            @"document.getElementById('lead_image_div').style.transition = 'background-position 0.8s';";
-    }
-    [self.webView stringByEvaluatingJavaScriptFromString:[@[animationCss,
-                                                            [WebViewController hidePlaceholderJS],
-                                                            applyFocalOffsetJS] componentsJoinedByString : @""]];
+    NSString* hidePlaceholderJS = @"document.getElementById('lead_image_placeholder').style.opacity = 0;";
+
+    [self.webView stringByEvaluatingJavaScriptFromString:[@[hidePlaceholderJS, applyFocalOffsetJS] componentsJoinedByString : @""]];
 }
 
 #pragma mark Display article from data store
@@ -1682,7 +1665,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:title.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
 
-    int langCount           = article.languagecount;
     NSDate* lastModified    = article.lastmodified;
     MWKUser* lastModifiedBy = article.lastmodifiedby;
     self.editable         = article.editable;
@@ -1727,7 +1709,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     if (!self.session.currentArticle.isMain) {
         NSString* lastModifiedByUserName =
             (lastModifiedBy && !lastModifiedBy.anonymous) ? lastModifiedBy.name : nil;
-        [self.footerViewController updateLanguageCount:langCount];
+//        [self.footerViewController updateLanguageCount:langCount];
         [self.footerViewController updateLastModifiedDate:lastModified userName:lastModifiedByUserName];
         [self.footerViewController updateReadMoreForArticle:article];
         [self.footerViewController updateLegalFooterLocalizedText];

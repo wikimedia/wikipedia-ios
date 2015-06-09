@@ -4,7 +4,6 @@
 #import "WMFOptionsFooterViewController.h"
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
-#import "MWLanguageInfo.h"
 #import "WikiGlyph_Chars.h"
 #import "WikiGlyphLabel.h"
 #import "WMF_Colors.h"
@@ -13,7 +12,6 @@
 #import "NSString+FormattedAttributedString.h"
 #import "UIColor+WMFHexColor.h"
 #import "UIViewController+ModalPresent.h"
-#import "LanguagesViewController.h"
 //#import "UIView+Debugging.h"
 
 #pragma mark Font sizes
@@ -31,20 +29,13 @@ static NSInteger const kLastModGlyphForgroundColor  = 0xffffff;
 static NSInteger const kLastModTimestampColor       = 0x565656;
 static NSInteger const kLastModUsernameColor        = 0x565656;
 
-static NSInteger const kLangGlyphBackgroundColor = 0x565656;
-static NSInteger const kLangGlyphForgroundColor  = 0xffffff;
-static NSInteger const kLangCountColor           = 0x565656;
-
 #pragma mark Glyph icon
 
 static CGFloat const kGlyphIconBaselineOffset = 1.6f;
 
 #pragma mark Private properties
 
-@interface WMFOptionsFooterViewController () <LanguageSelectionDelegate>
-
-@property (nonatomic, weak) IBOutlet WikiGlyphLabel* langGlyphLabel;
-@property (nonatomic, weak) IBOutlet PaddedLabel* langLabel;
+@interface WMFOptionsFooterViewController ()
 
 @property (nonatomic, weak) IBOutlet WikiGlyphLabel* lastModGlyphLabel;
 @property (nonatomic, weak) IBOutlet PaddedLabel* lastModLabel;
@@ -59,7 +50,7 @@ static CGFloat const kGlyphIconBaselineOffset = 1.6f;
     [super viewDidLoad];
 
     [self adjustConstraintsScaleForViews:
-     @[self.langGlyphLabel, self.langLabel, self.lastModGlyphLabel, self.lastModLabel]];
+     @[self.lastModGlyphLabel, self.lastModLabel]];
 
     //[self.view randomlyColorSubviews];
 }
@@ -72,10 +63,7 @@ static CGFloat const kGlyphIconBaselineOffset = 1.6f;
 #pragma mark Style
 
 - (void)roundGlyphButtonCorners {
-    self.langGlyphLabel.layer.cornerRadius    = self.langGlyphLabel.frame.size.width / 2.0f;
-    self.lastModGlyphLabel.layer.cornerRadius = self.langGlyphLabel.frame.size.width / 2.0f;
-    self.langGlyphLabel.clipsToBounds         = YES;
-    self.lastModGlyphLabel.clipsToBounds      = YES;
+    self.lastModGlyphLabel.clipsToBounds = YES;
 }
 
 - (NSDictionary*)getOptionTextBaseAttributes {
@@ -95,28 +83,6 @@ static CGFloat const kGlyphIconBaselineOffset = 1.6f;
     };
 }
 
-#pragma mark Language option
-
-- (void)updateLanguageCount:(NSInteger)count {
-    self.langGlyphLabel.backgroundColor = [UIColor wmf_colorWithHex:kLangGlyphBackgroundColor alpha:1.0];
-
-    [self.langGlyphLabel setWikiText:WIKIGLYPH_TRANSLATE
-                               color:[UIColor wmf_colorWithHex:kLangGlyphForgroundColor alpha:1.0]
-                                size:kGlyphButtonFontSize * MENUS_SCALE_MULTIPLIER
-                      baselineOffset:kGlyphIconBaselineOffset];
-
-    self.langLabel.attributedText = [self getAttributedStringForOptionLanguagesWithCount:count];
-}
-
-- (NSAttributedString*)getAttributedStringForOptionLanguagesWithCount:(NSInteger)count {
-    NSString* langButtonString = [MWCurrentArticleLanguageLocalizedString(@"language-button-text", nil) stringByReplacingOccurrencesOfString:@"%d" withString:@"$1"];
-
-    return
-        [langButtonString attributedStringWithAttributes:[self getOptionTextBaseAttributes]
-                                     substitutionStrings:@[[NSString stringWithFormat:@"%ld", (long)count]]
-                                  substitutionAttributes:@[[self getSubstitutionTextAttributesWithColor:kLangCountColor]]];
-}
-
 #pragma mark Last modified option
 
 - (void)updateLastModifiedDate:(NSDate*)date userName:(NSString*)userName {
@@ -131,13 +97,14 @@ static CGFloat const kGlyphIconBaselineOffset = 1.6f;
 
 - (NSAttributedString*)getAttributedStringForOptionLastModifiedByUserName:(NSString*)userName date:(NSDate*)date {
     NSString* relativeTimeStamp = [WikipediaAppUtils relativeTimestamp:date];
-    NSString* lastModString     = userName ? MWCurrentArticleLanguageLocalizedString(@"lastmodified-by-user", nil) : MWCurrentArticleLanguageLocalizedString(@"lastmodified-by-anon", nil);
-
-    return
-        [lastModString attributedStringWithAttributes:[self getOptionTextBaseAttributes]
-                                  substitutionStrings:@[relativeTimeStamp, (userName ? userName : @"")]
-                               substitutionAttributes:@[[self getSubstitutionTextAttributesWithColor:kLastModTimestampColor],
-                                                        [self getSubstitutionTextAttributesWithColor:kLastModUsernameColor]]];
+    NSString* lastModString     = userName ?
+                                  MWCurrentArticleLanguageLocalizedString(@"lastmodified-by-user", nil)
+                                  : MWCurrentArticleLanguageLocalizedString(@"lastmodified-by-anon", nil);
+    return [lastModString
+            attributedStringWithAttributes:[self getOptionTextBaseAttributes]
+                       substitutionStrings:@[relativeTimeStamp, (userName ? userName : @"")]
+                    substitutionAttributes:@[[self getSubstitutionTextAttributesWithColor:kLastModTimestampColor],
+                                             [self getSubstitutionTextAttributesWithColor:kLastModUsernameColor]]];
 }
 
 #pragma mark Tap gesture handling
@@ -146,39 +113,6 @@ static CGFloat const kGlyphIconBaselineOffset = 1.6f;
     [self performModalSequeWithID:@"modal_segue_show_page_history"
                   transitionStyle:UIModalTransitionStyleCoverVertical
                             block:nil];
-}
-
-- (IBAction)languagesOptionTapped:(id)sender {
-    [self performModalSequeWithID:@"modal_segue_show_languages"
-                  transitionStyle:UIModalTransitionStyleCoverVertical
-                            block:^(LanguagesViewController* languagesVC){
-        languagesVC.downloadLanguagesForCurrentArticle = YES;
-        languagesVC.languageSelectionDelegate = self;
-    }];
-}
-
-#pragma mark LanguageSelectionDelegate
-
-- (void)languageSelected:(NSDictionary*)langData sender:(LanguagesViewController*)sender {
-    MWKSite* site   = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:langData[@"code"]];
-    MWKTitle* title = [site titleWithString:langData[@"*"]];
-    [NAV loadArticleWithTitle:title
-                     animated:NO
-              discoveryMethod:MWKHistoryDiscoveryMethodSearch
-                   popToWebVC:YES];
-
-    [self dismissLanguagePicker];
-}
-
-- (void)dismissLanguagePicker {
-    [self.presentedViewController dismissViewControllerAnimated:YES
-                                                     completion:^{}];
-}
-
-#pragma mark Memory
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 @end

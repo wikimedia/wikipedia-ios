@@ -7,6 +7,11 @@
 #import "NSBundle+WMFInfoUtils.h"
 #import <BlocksKit/BlocksKit.h>
 
+NSUInteger MegabytesToBytes(NSUInteger m) {
+    static NSUInteger const MEGABYTE = 1 << 20;
+    return m * MEGABYTE;
+}
+
 @implementation WikipediaAppUtils
 
 + (void)load {
