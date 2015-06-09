@@ -5,9 +5,11 @@
 
 @implementation UIView (WMF_RoundCorners)
 
-- (void)wmf_roundCorners:(UIRectCorner)corners toRadius:(float)radius {   // Use for rounding *specific* corners of a UIView.
-                                                                          // Based on http://stackoverflow.com/a/5826745/135557
+- (void)wmf_makeCircular {
+    self.layer.cornerRadius = self.frame.size.width / 2.f;
+}
 
+- (void)wmf_roundCorners:(UIRectCorner)corners toRadius:(float)radius {
     UIBezierPath* maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds
                                                    byRoundingCorners:corners
                                                          cornerRadii:CGSizeMake(radius, radius)];

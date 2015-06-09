@@ -147,9 +147,9 @@
     } else {
         filteredLanguages = [self.languagesData bk_select:^BOOL (NSDictionary* lang) {
             // TODO: use proper model object and refactor this into an instance method
-            return [lang[@"name"] wmf_isEqualToStringIgnoringCase:self.filterString]
+            return [lang[@"name"] wmf_caseInsensitiveContainsString:self.filterString]
             || [lang[@"canonical_name"] wmf_caseInsensitiveContainsString:self.filterString]
-            || [lang[@"code"] wmf_isEqualToStringIgnoringCase:self.filterString];
+            || [lang[@"code"] wmf_caseInsensitiveContainsString:self.filterString];
         }];
     }
 
@@ -167,8 +167,7 @@
         return ![preferredLanguagesSection.languages containsObject:evaluatedObject];
     }]];
 
-    self.sections = [@[preferredLanguagesSection, otherLanguagesSection]
-bk_select:^BOOL (LanguagesTableSectionViewModel* section) {
+    self.sections = [@[preferredLanguagesSection, otherLanguagesSection] bk_select :^BOOL (LanguagesTableSectionViewModel* section) {
         return section.languages.count > 0;
     }];
 

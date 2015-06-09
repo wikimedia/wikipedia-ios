@@ -1709,7 +1709,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     if (!self.session.currentArticle.isMain) {
         NSString* lastModifiedByUserName =
             (lastModifiedBy && !lastModifiedBy.anonymous) ? lastModifiedBy.name : nil;
-//        [self.footerViewController updateLanguageCount:langCount];
         [self.footerViewController updateLastModifiedDate:lastModified userName:lastModifiedByUserName];
         [self.footerViewController updateReadMoreForArticle:article];
         [self.footerViewController updateLegalFooterLocalizedText];

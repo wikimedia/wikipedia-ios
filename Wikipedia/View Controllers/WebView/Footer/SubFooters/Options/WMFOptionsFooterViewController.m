@@ -13,6 +13,7 @@
 #import "UIColor+WMFHexColor.h"
 #import "UIViewController+ModalPresent.h"
 //#import "UIView+Debugging.h"
+#import "UIView+WMFRoundCorners.h"
 
 #pragma mark Font sizes
 
@@ -48,21 +49,20 @@ static CGFloat const kGlyphIconBaselineOffset = 1.6f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self adjustConstraintsScaleForViews:
-     @[self.lastModGlyphLabel, self.lastModLabel]];
-
-    //[self.view randomlyColorSubviews];
+    [self adjustConstraintsScaleForViews:@[self.lastModGlyphLabel, self.lastModLabel]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    // must be done after layout to ensure the view's width is correct before rounding. using viewDidAppear since the
+    // button shouldn't be resizing in response to rotation
     [self roundGlyphButtonCorners];
 }
 
 #pragma mark Style
 
 - (void)roundGlyphButtonCorners {
+    [self.lastModGlyphLabel wmf_makeCircular];
     self.lastModGlyphLabel.clipsToBounds = YES;
 }
 

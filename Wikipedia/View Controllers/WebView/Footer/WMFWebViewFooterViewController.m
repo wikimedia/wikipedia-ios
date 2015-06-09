@@ -9,6 +9,8 @@
 #import "MWKArticle.h"
 #import "MWKTitle.h"
 
+#import <Masonry/Masonry.h>
+
 @interface WMFWebViewFooterViewController ()
 
 @property (strong, nonatomic) WMFOptionsFooterViewController* optionsController;
@@ -35,7 +37,8 @@
     [self wmf_addChildController:self.readMoreViewController andConstrainToEdgesOfContainerView:self.readMoreSubContainerView];
 
     self.optionsController = [[WMFOptionsFooterViewController alloc] init];
-    [self wmf_addChildController:self.optionsController andConstrainToEdgesOfContainerView:self.optionsSubContainerView];
+    [self wmf_addChildController:self.optionsController
+     andConstrainToEdgesOfContainerView:self.optionsSubContainerView];
 
     self.legalViewController = [[WMFLegalFooterViewController alloc] init];
     [self wmf_addChildController:self.legalViewController andConstrainToEdgesOfContainerView:self.legalSubContainerView];
