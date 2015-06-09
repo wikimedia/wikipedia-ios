@@ -11,9 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWKTitle ()
 
 @property (readwrite, strong, nonatomic) MWKSite* site;
-@property (readwrite, copy, nonatomic) NSString* text;
 @property (readwrite, copy, nonatomic) NSString* fragment;
-@property (readwrite, copy, nonatomic) NSString* prefixedText;
+@property (readwrite, copy, nonatomic) NSString* text;
 @property (readwrite, copy, nonatomic) NSString* prefixedDBKey;
 @property (readwrite, copy, nonatomic) NSString* prefixedURL;
 @property (readwrite, copy, nonatomic) NSString* escapedFragment;
@@ -55,16 +54,12 @@ NS_ASSUME_NONNULL_BEGIN
     return [[MWKTitle alloc] initWithString:str site:site];
 }
 
-- (NSString*)prefixedText {
-    return self.text;
+- (NSString*)dataBaseKey {
+    return [self.text stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
-- (NSString*)prefixedDBKey {
-    return [self.prefixedText stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-}
-
-- (NSString*)prefixedURL {
-    return [self.prefixedDBKey stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+- (NSString*)escapedURLText {
+    return [self.dataBaseKey stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 - (NSString*)escapedFragment {
@@ -81,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
                                  self.site.language,
                                  self.site.domain,
                                  WMFInternalLinkPathPrefix,
-                                 self.prefixedURL]];
+                                 self.escapedURLText]];
 }
 
 - (NSURL*)desktopURL {
@@ -89,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
                                  self.site.language,
                                  self.site.domain,
                                  WMFInternalLinkPathPrefix,
-                                 self.prefixedURL]];
+                                 self.escapedURLText]];
 }
 
 - (BOOL)isEqual:(id)object {
@@ -104,21 +99,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isEqualToTitle:(MWKTitle*)otherTitle {
     return WMF_IS_EQUAL_PROPERTIES(self, site, otherTitle)
-           && WMF_EQUAL_PROPERTIES(self, prefixedText, isEqualToString:, otherTitle)
+           && WMF_EQUAL_PROPERTIES(self, text, isEqualToString:, otherTitle)
            && WMF_EQUAL_PROPERTIES(self, fragment, isEqualToString:, otherTitle);
 }
 
 - (NSString*)description {
     if (self.fragment) {
-        return [NSString stringWithFormat:@"%@:%@:%@#%@", self.site.domain, self.site.language, self.prefixedText, self.fragment];
+        return [NSString stringWithFormat:@"%@:%@:%@#%@", self.site.domain, self.site.language, self.text, self.fragment];
     } else {
-        return [NSString stringWithFormat:@"%@:%@:%@", self.site.domain, self.site.language, self.prefixedText];
+        return [NSString stringWithFormat:@"%@:%@:%@", self.site.domain, self.site.language, self.text];
     }
 }
 
 - (NSUInteger)hash {
     return self.site.hash
-           ^ flipBitsWithAdditionalRotation(self.prefixedText.hash, 1)
+           ^ flipBitsWithAdditionalRotation(self.text.hash, 1)
            ^ flipBitsWithAdditionalRotation(self.fragment.hash, 2);
 }
 

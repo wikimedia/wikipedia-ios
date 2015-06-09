@@ -342,7 +342,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
     if (historyEntry) {
         WebViewController* webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
 
-        [webVC showAlert:historyEntry.title.prefixedText type:ALERT_TYPE_BOTTOM duration:0.8];
+        [webVC showAlert:historyEntry.title.text type:ALERT_TYPE_BOTTOM duration:0.8];
 
         [webVC navigateToPage:historyEntry.title
               discoveryMethod:MWKHistoryDiscoveryMethodBackForward];
@@ -354,7 +354,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
     if (historyEntry) {
         WebViewController* webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
 
-        [webVC showAlert:historyEntry.title.prefixedText type:ALERT_TYPE_BOTTOM duration:0.8];
+        [webVC showAlert:historyEntry.title.text type:ALERT_TYPE_BOTTOM duration:0.8];
 
         [webVC navigateToPage:historyEntry.title
               discoveryMethod:MWKHistoryDiscoveryMethodBackForward];

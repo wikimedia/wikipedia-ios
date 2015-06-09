@@ -49,16 +49,16 @@
 }
 
 - (void)testStrings {
-    XCTAssertEqualObjects([site titleWithString:@"India"].prefixedText, @"India");
-    XCTAssertEqualObjects([site titleWithString:@"Talk:India"].prefixedText, @"Talk:India");
-    XCTAssertEqualObjects([site titleWithString:@"Talk:India#History"].prefixedText, @"Talk:India");
+    XCTAssertEqualObjects([site titleWithString:@"India"].text, @"India");
+    XCTAssertEqualObjects([site titleWithString:@"Talk:India"].text, @"Talk:India");
+    XCTAssertEqualObjects([site titleWithString:@"Talk:India#History"].text, @"Talk:India");
 }
 
 - (void)testLinks {
-    XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/India"].prefixedText, @"India");
-    XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/Talk:India"].prefixedText, @"Talk:India");
-    XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/Talk:India#History"].prefixedText, @"Talk:India");
-    XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/2008 ACC Men%27s Basketball Tournament"].prefixedText,
+    XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/India"].text, @"India");
+    XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/Talk:India"].text, @"Talk:India");
+    XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/Talk:India#History"].text, @"Talk:India");
+    XCTAssertEqualObjects([site titleWithInternalLink:@"/wiki/2008 ACC Men%27s Basketball Tournament"].text,
                           @"2008 ACC Men's Basketball Tournament");
     //    XCTAssertThrows([site titleWithInternalLink:@"/upload/foobar"]);
 }

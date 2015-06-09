@@ -41,7 +41,7 @@
 
     dict[@"domain"]   = self.site.domain;
     dict[@"language"] = self.site.language;
-    dict[@"title"]    = self.title.prefixedText;
+    dict[@"title"]    = self.title.text;
 
     return [NSDictionary dictionaryWithDictionary:dict];
 }

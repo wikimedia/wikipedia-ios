@@ -218,7 +218,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 }
 
 - (NSAttributedString*)getAttributedStringForArticle:(MWKArticle*)article {
-    return [NSAttributedString wmf_attributedStringWithTitle:article.title.prefixedText
+    return [NSAttributedString wmf_attributedStringWithTitle:article.title.text
                                                  description:article.entityDescription
                                                     language:[WikipediaAppUtils domainNameForCode:article.site.language]];
 }

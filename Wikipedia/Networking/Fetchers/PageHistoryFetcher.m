@@ -74,7 +74,7 @@
         @"rvprop": @"ids|timestamp|user|size|parsedcomment",
         @"rvlimit": @50,
         @"rvdir": @"older",
-        @"titles": title.prefixedText,
+        @"titles": title.text,
         @"continue": @"",
         @"format": @"json"
         //,@"rvdiffto": @(-1) // Add this to fake out "error" api response.

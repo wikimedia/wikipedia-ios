@@ -87,7 +87,7 @@
                @"rvprop": @"content",
                @"rvlimit": @1,
                @"rvsection": self.section.index ? self.section.index : @"0",
-               @"titles": [self.section sourceTitle].prefixedText,
+               @"titles": [self.section sourceTitle].text,
                @"meta": @"userinfo", // we need the local user ID for event logging
                @"continue": @"",
                @"format": @"json"

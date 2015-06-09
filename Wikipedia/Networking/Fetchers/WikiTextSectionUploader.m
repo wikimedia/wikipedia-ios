@@ -165,7 +165,7 @@
         @"text": self.wikiText,
         @"summary": self.summary,
         @"section": self.section,
-        @"title": self.title.prefixedText,
+        @"title": self.title.text,
         @"format": @"json"
     }.mutableCopy;
 

@@ -60,7 +60,7 @@
         if (articlesToSave[article.title]) {
             // don't kill it!
         } else {
-            NSLog(@"Pruning unsaved article %@ %@", article.title.site.language, article.title.prefixedText);
+            NSLog(@"Pruning unsaved article %@ %@", article.title.site.language, article.title.text);
             [article remove];
         }
     }];

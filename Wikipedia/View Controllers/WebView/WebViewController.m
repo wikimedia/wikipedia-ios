@@ -973,7 +973,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     if (entry == nil) {
         // Show alert.
-        [self showPageSavedAlertMessageForTitle:title.prefixedText];
+        [self showPageSavedAlertMessageForTitle:title.text];
 
         // Actually perform the save.
         entry = [[MWKSavedPageEntry alloc] initWithTitle:title];
@@ -1273,7 +1273,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         for (MWKSection* section in article.sections) {
             int index = 0;
             for (MWKImage* image in [section.images uniqueLargestVariants]) {
-                NSString* title = (section.line) ? section.line : article.title.prefixedText;
+                NSString* title = (section.line) ? section.line : article.title.text;
                 //NSLog(@"\n\n\nsection image = %@ \n\tsection = %@ \n\tindex in section = %@ \n\timage size = %@", sectionImage.image.fileName, sectionTitle, sectionImage.index, sectionImage.image.dataSize);
                 if (index == 0) {
                     PaddedLabel* label = [[PaddedLabel alloc] init];
@@ -1330,7 +1330,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)navigateToPage:(MWKTitle*)title
        discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    NSString* cleanTitle = title.prefixedText;
+    NSString* cleanTitle = title.text;
     NSParameterAssert(cleanTitle.length);
 
     [self hideKeyboard];

@@ -69,7 +69,7 @@
 
     dict[@"domain"]          = self.site.domain;
     dict[@"language"]        = self.site.language;
-    dict[@"title"]           = self.title.prefixedDBKey;
+    dict[@"title"]           = self.title.dataBaseKey;
     dict[@"date"]            = [self iso8601DateString:self.date];
     dict[@"discoveryMethod"] = [MWKHistoryEntry stringForDiscoveryMethod:self.discoveryMethod];
     dict[@"scrollPosition"]  = @(self.scrollPosition);

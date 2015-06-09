@@ -14,6 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// Normalized title component only (decoded, no underscores)
 @property (readonly, copy, nonatomic) NSString* text;
 
+/// Text with spaces removed
+@property (readonly, copy, nonatomic) NSString* dataBaseKey;
+
+/// Text with spaces removed and special characters escaped for a URL
+@property (readonly, copy, nonatomic) NSString* escapedURLText;
+
 /// Fragment passed in designated initializer.
 @property (readonly, copy, nonatomic, nullable) NSString* fragment;
 
@@ -57,21 +63,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isEqualToTitle:(MWKTitle*)title;
 
-///
-/// @name Deprecated Properties
-///
-
-/// Full text-normalized namespace+title decoded, with spaces
-/// @warning This method was added prematurely and never supported, so it's effectively an alias for `text`.
-@property (readonly, copy, nonatomic) NSString* prefixedText __deprecated;
-
-/// Full DB-normalized namespace+title
-/// @see prefixedText
-@property (readonly, copy, nonatomic) NSString* prefixedDBKey __deprecated;
-
-/// Full URL-normalized namespace+title
-/// @see prefixedText
-@property (readonly, copy, nonatomic) NSString* prefixedURL __deprecated;
 
 @end
 
