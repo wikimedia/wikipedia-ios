@@ -127,8 +127,6 @@
     if (arr) {
         NSMutableArray* arr2 = [NSMutableArray arrayWithArray:arr];
         [arr2 sortUsingComparator:^NSComparisonResult (NSString* url1, NSString* url2) {
-#warning TODO(mhurd): add tests for this, be sure to cover fileSizePrefix returning NSNotFound
-
             NSInteger width1 = [MWKImage fileSizePrefix:[url1 lastPathComponent]];
             NSInteger width2 = [MWKImage fileSizePrefix:[url2 lastPathComponent]];
 

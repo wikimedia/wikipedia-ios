@@ -78,13 +78,11 @@
             _snippetForTextOnlySharing = @"";
         }
 
-        #warning FIXME: render card image lazily
         // get handle, fill, and render
         UIView* cardView = cardViewController.view;
         [cardViewController fillCardWithMWKArticle:article snippet:_snippet];
         _shareImage = [self cardAsUIImageWithView:cardView];
 
-        #warning FIXME: don't create views before loadView/viewDidLoad
         WMFShareOptionsView* shareOptionsView =
             [[[NSBundle mainBundle] loadNibNamed:@"ShareOptions" owner:self options:nil] objectAtIndex:0];
         shareOptionsView.cardImageViewContainer.userInteractionEnabled = YES;
