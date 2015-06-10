@@ -1,16 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A178w" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFArticleViewController">
+            <connections>
+                <outlet property="titleLabel" destination="axv-7a-pls" id="yIM-GB-F81"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Idy-V2-3Ra"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2dt-yS-wEZ">
+                    <rect key="frame" x="2" y="2" width="596" height="596"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.91030293703079224" green="0.12721729278564453" blue="0.28739702701568604" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axv-7a-pls">
+                    <rect key="frame" x="283" y="20" width="33" height="21"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="2dt-yS-wEZ" secondAttribute="trailing" constant="2" id="6K1-Za-40h"/>
+                <constraint firstItem="2dt-yS-wEZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="2" id="7dE-PP-1SB"/>
+                <constraint firstItem="2dt-yS-wEZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="2" id="B6i-7t-Y9g"/>
+                <constraint firstItem="axv-7a-pls" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="aPq-lx-yZk"/>
+                <constraint firstAttribute="bottom" secondItem="2dt-yS-wEZ" secondAttribute="bottom" constant="2" id="lM6-qv-K2F"/>
+                <constraint firstAttribute="centerX" secondItem="axv-7a-pls" secondAttribute="centerX" id="rOH-Sg-WbJ"/>
+            </constraints>
         </view>
     </objects>
 </document>

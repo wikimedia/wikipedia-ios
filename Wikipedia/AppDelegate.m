@@ -2,7 +2,6 @@
 
 #import "AppDelegate.h"
 #import "BITHockeyManager+WMFExtensions.h"
-#import "WMFStyleManager.h"
 #import "WMFAppViewController.h"
 
 @interface AppDelegate ()
@@ -41,10 +40,6 @@
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
-
-    WMFStyleManager* manager = [WMFStyleManager new];
-    [manager applyStyleToWindow:self.window];
-    [WMFStyleManager setSharedStyleManager:manager];
 
     WMFAppViewController* vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
     [vc launchAppInWindow:self.window];

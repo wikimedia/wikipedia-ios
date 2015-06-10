@@ -1,5 +1,6 @@
 
 #import "WMFAppViewController.h"
+#import "SessionSingleton.h"
 #import "WMFStyleManager.h"
 #import "WMFSearchViewController.h"
 #import "WMFArticleListCollectionViewController.h"
@@ -21,6 +22,7 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 @property (nonatomic, strong) WMFArticleListCollectionViewController* listViewController;
 @property (nonatomic, strong) WMFSearchViewController* searchViewController;
 
+@property (nonatomic, strong) SessionSingleton* session;
 
 @end
 
@@ -33,18 +35,39 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 }
 
 - (void)launchAppInWindow:(UIWindow*)window {
+    WMFStyleManager* manager = [WMFStyleManager new];
+    [manager applyStyleToWindow:window];
+    [WMFStyleManager setSharedStyleManager:manager];
+
     [window setRootViewController:self];
     [window makeKeyAndVisible];
+}
+
+- (void)loadMainUI {
+    self.listViewController.userDataStore = [self userDataStore];
+    [self.listViewController setListType:WMFArticleListTypeSaved animated:NO];
 }
 
 - (void)resumeApp {
     //TODO: restore any UI, show Today
 }
 
+#pragma mark - Accessors
+
+- (MWKDataStore*)dataStore {
+    return self.session.dataStore;
+}
+
+- (MWKUserDataStore*)userDataStore {
+    return self.session.userDataStore;
+}
+
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.session = [SessionSingleton sharedInstance];
 
     [self showSplashView];
 
@@ -63,6 +86,14 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
     }
 }
 
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
 #pragma mark - Splash
 
 - (void)showSplashView {
@@ -73,7 +104,6 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
     NSTimeInterval duration = animated ? 0.3 : 0.0;
-
 
     [UIView animateWithDuration:duration animations:^{
         self.splashView.layer.transform = CATransform3DMakeScale(10.0f, 10.0f, 1.0f);
@@ -86,10 +116,6 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 
 - (BOOL)isShowingSplashView {
     return self.splashView.hidden == NO;
-}
-
-- (void)loadMainUI {
-    //TODO: Tell embeded VCs to load their data
 }
 
 #pragma mark - Migration
