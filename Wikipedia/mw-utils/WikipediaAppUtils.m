@@ -68,28 +68,6 @@ NSUInteger MegabytesToBytes(NSUInteger m) {
     return translation;
 }
 
-+ (NSString*)localizedStringForKey:(NSString*)key {
-    // Based on handy sample from http://stackoverflow.com/questions/3263859/localizing-strings-in-ios-default-fallback-language/8784451#8784451
-    //
-    // MWLocalizedString doesn't fall back on languages on a string-by-string
-    // basis, so missing keys in a localization file give us the key name
-    // instead of the English version we expected.
-    //
-    // If we get the key back, go load up the English bundle and fetch
-    // the string from there instead.
-    NSString* outStr = NSLocalizedString(key, nil);
-    if ([outStr isEqualToString:key]) {
-        // If we got the message key back, we have failed. :P
-        // Note this isn't very efficient probably, but should
-        // only be used in rare fallback cases anyway.
-        NSString* path           = [[NSBundle mainBundle] pathForResource:@"en" ofType:@"lproj"];
-        NSBundle* languageBundle = [NSBundle bundleWithPath:path];
-        return [languageBundle localizedStringForKey:key value:@"" table:nil];
-    } else {
-        return outStr;
-    }
-}
-
 + (NSString*)relativeTimestamp:(NSDate*)date {
     NSTimeInterval interval = fabs([date timeIntervalSinceNow]);
     double minutes          = interval / 60.0;

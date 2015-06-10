@@ -11,18 +11,6 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
-    #ifndef DEBUG
-        #define NSLog(...) {}
-    #else
-        #define NSLog(FORMAT, ...) fprintf(stderr,"\n%s Line %d\n\t%s\n", __PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
-    #endif // end DEBUG
-
-    #import "RootViewController.h"
-    #import "CenterNavController.h"
-
-    #define ROOT ((RootViewController *)[UIApplication sharedApplication].delegate.window.rootViewController)
-    #define NAV ROOT.centerNavController
-
-    #import "MediaWikiKit.h"
+    #import "Global.h"
 
 #endif // end __OBJC__
