@@ -1538,13 +1538,6 @@
 			path = Keychain;
 			sourceTree = "<group>";
 		};
-		0466F44C183A30CC00EA1FD7 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
 		0480AE791AA4E61000A9950C /* Footer */ = {
 			isa = PBXGroup;
 			children = (
@@ -2487,7 +2480,6 @@
 				D4B0ADFF19365F4600F0AC90 /* EventLogging */,
 				0442F57C1900718600F55DF9 /* Fonts */,
 				0493C2C91952373100EBB973 /* Housekeeping */,
-				0466F44C183A30CC00EA1FD7 /* Images */,
 				0463639518A844380049EE4F /* Keychain */,
 				0487041519F824D700B7D307 /* Networking */,
 				04616DF71AE7060C00815BCE /* Protocols */,

@@ -87,7 +87,6 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
                                  self.language,
                                  isMobile ? @"m." : @"",
                                  self.domain]];
-
 }
 
 #pragma mark - NSObject
