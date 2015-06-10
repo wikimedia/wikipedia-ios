@@ -5,19 +5,29 @@
 .lead_image_div {
     margin-left:-16px !important;
     margin-right:-16px !important;
-    transition-timing-function: ease-in-out;
+    z-index: 1;
 }
 
-div#lead_image_none div.lead_image_div {
+#lead_image_none .lead_image_div {
     height:auto !important;
+    background-image:none;
+}
+
+#lead_image_none #lead_image_placeholder {
+    display:none;
+}
+
+#lead_image_none #lead_image_gradient {
+    display:none;
 }
 
 #lead_image_text_container {
     padding:16px;
-    pointer-events: none !important;
+    width:100%;
+    z-index: 4;
 }
 
-div#lead_image_none div#lead_image_text_container {
+#lead_image_none #lead_image_text_container {
     position: relative !important;
     padding-bottom:0px !important;
     padding-top:0px !important;
@@ -25,6 +35,11 @@ div#lead_image_none div#lead_image_text_container {
 
 #lead_image_title, #lead_image_description {
     font-family: Times New Roman;
+}
+
+#lead_image_text_container,
+#lead_image_placeholder,
+#lead_image_gradient {
     pointer-events: none !important;
 }
 
@@ -35,7 +50,7 @@ div#lead_image_none div#lead_image_text_container {
     margin-bottom:6px;
 }
 
-div#lead_image_none div#lead_image_title {
+#lead_image_none #lead_image_title {
     color:#000 !important;
     text-shadow:none !important;
 }
@@ -44,9 +59,29 @@ div#lead_image_none div#lead_image_title {
     line-height:117%;
 }
 
-div#lead_image_none div#lead_image_description {
+#lead_image_none #lead_image_description {
     color:#000 !important;
     text-shadow:none !important;
+}
+
+#lead_image_placeholder {
+    opacity:1;
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-image:url(wmf://bundledImage/lead-default.png);
+    width:100%;
+    height:inherit;
+    position:absolute;
+    transition:opacity ease-in-out 0.5s;
+    z-index: 2;
+}
+
+#lead_image_gradient {
+    height:100%;
+    background-image:-webkit-linear-gradient(top, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.5) 100%);
+    z-index: 3;
+    position:absolute;
+    width:100%;
 }
 
 @media (orientation: portrait) {
@@ -82,10 +117,17 @@ div#lead_image_none div#lead_image_description {
         color:#000;
         padding-bottom:0px;
         padding-top:0px;
+        pointer-events: auto !important;
+    }
+
+    #lead_image_placeholder, #lead_image_gradient {
+        display:none;
+        pointer-events: auto !important;
     }
 
     #lead_image_text_container {
         padding-bottom:0px;
         padding-top:0px;
+        pointer-events: auto !important;
     }
 }
