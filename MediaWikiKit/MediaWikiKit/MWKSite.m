@@ -73,16 +73,21 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 }
 
 - (NSURL*)apiEndpoint:(BOOL)isMobile {
-    NSURLComponents* apiEndpointComponents = [[NSURLComponents alloc] init];
-    apiEndpointComponents.scheme = @"https";
-    NSMutableArray* hostComponents = [NSMutableArray arrayWithObject:self.language];
-    if (isMobile) {
-        [hostComponents addObject:@"m"];
-    }
-    [hostComponents addObject:self.domain];
-    apiEndpointComponents.host = [hostComponents componentsJoinedByString:@"."];
-    apiEndpointComponents.path = @"";
-    return [apiEndpointComponents URL];
+//    NSURLComponents* apiEndpointComponents = [[NSURLComponents alloc] init];
+//    apiEndpointComponents.scheme = @"https";
+//    NSMutableArray* hostComponents = [NSMutableArray arrayWithObject:self.language];
+//    if (isMobile) {
+//        [hostComponents addObject:@"m"];
+//    }
+//    [hostComponents addObject:self.domain];
+//    apiEndpointComponents.host = [hostComponents componentsJoinedByString:@"."];
+//    apiEndpointComponents.path = @"";
+//    return [apiEndpointComponents URL];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@%@/w/api.php",
+                                 self.language,
+                                 isMobile ? @"m." : @"",
+                                 self.domain]];
+
 }
 
 #pragma mark - NSObject
