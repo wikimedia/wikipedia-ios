@@ -4,6 +4,7 @@
 // Author: Batumski brodyaga
 // Author: Bsitzmann
 // Author: Dicto23456
+// Author: Dyaydyasasha2015
 // Author: Kopcap94
 // Author: Macofe
 // Author: Mariya
@@ -16,10 +17,11 @@
 "article-languages-filter-placeholder" = "Языковой фильтр";
 "article-read-more-title" = "Читать подробнее";
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
+"article-languages-preferred-section-header" = "Предпочитаемое";
+"article-languages-other-section-header" = "Другие языки";
 "info-box-title" = "Короткие факты";
 "info-box-close-text" = "Закрыть";
 "table-title-other" = "Подробнее";
-
 "history-label" = "Недавние";
 "history-section-today" = "Сегодня";
 "history-section-yesterday" = "Вчера";
@@ -99,7 +101,9 @@
 "search-recent-clear-cancel" = "Отмена";
 "search-recent-clear-delete-all" = "Удалить всё";
 "main-menu-title" = "Ещё";
+"main-menu-heading-about" = "Про приложение";
 "main-menu-language-title" = "Поиск $1 Википедии";
+"main-menu-faq" = "Частые вопросы";
 "main-menu-language-toggle-show" = "Показать языки";
 "main-menu-language-toggle-hide" = "Скрыть языки";
 "main-menu-language-selection-saved" = "Выбранный язык сохранен";
@@ -239,6 +243,7 @@
 "menu-share-accessibility-label" = "Поделиться";
 "menu-more-accessibility-label" = "Дополнительные параметры";
 "menu-trash-accessibility-label" = "Удалить";
+"menu-language-accessibility-label" = "Языки";
 "nearby-title" = "Поблизости";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-km" = "$1 км";

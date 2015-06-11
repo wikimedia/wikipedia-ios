@@ -9,7 +9,10 @@
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Учитавање језика...";
 "article-languages-filter-placeholder" = "Филтер језика";
-
+"article-read-more-title" = "Прочитај више";
+"article-languages-other-section-header" = "Други језици";
+"info-box-close-text" = "Затвори";
+"table-title-other" = "Више информација";
 "history-label" = "Историја прегледања";
 "history-section-today" = "Данас";
 "history-section-yesterday" = "Јуче";
@@ -17,9 +20,11 @@
 "history-section-lastmonth" = "Прошлог месеца";
 "history-clear-cancel" = "Откажи";
 "history-clear-delete-all" = "Обрисати све";
+"zero-free-verbiage" = "Бесплатан приступ Википедији преко вашег мобилног оператера (интернет саобраћај се не наплаћује)";
+"zero-charged-verbiage" = "Wikipedia Zero искључена";
 "zero-interstitial-continue" = "Настави";
 "zero-interstitial-cancel" = "Откажи";
-"zero-learn-more-learn-more" = "Сазнајте више";
+"zero-learn-more-learn-more" = "Прочитај више";
 "zero-learn-more-no-thanks" = "Не, хвала";
 "account-creation-logging-in" = "Пријављивање...";
 "account-creation-passwords-mismatched" = "Лозинке се не поклапају.";
@@ -59,7 +64,9 @@
 "search-recent-clear-cancel" = "Откажи";
 "search-recent-clear-delete-all" = "Обриши све";
 "main-menu-title" = "Више";
+"main-menu-heading-about" = "О";
 "main-menu-language-title" = "Претрага Википедије";
+"main-menu-faq" = "ЧПП";
 "main-menu-language-toggle-show" = "Прикажи језике";
 "main-menu-language-toggle-hide" = "Сакриј језике";
 "main-menu-language-selection-saved" = "Избор језика сачуван";
@@ -79,6 +86,7 @@
 "main-menu-privacy-policy" = "Политика приватности";
 "main-menu-terms-of-use" = "Услови коришћења";
 "main-menu-rate-app" = "Оцените апликацију";
+"main-menu-heading-legal" = "Приватност и услови";
 "main-menu-show-today" = "Данас";
 "main-menu-nearby" = "У близини";
 "main-menu-more" = "Више…";
@@ -86,12 +94,9 @@
 "saved-pages-clear-confirmation-heading" = "Обрисати све сачуване?";
 "saved-pages-clear-confirmation-sub-heading" = "Ова радња се не може поништити!";
 "saved-pages-clear-cancel" = "Откажи";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Обрисати све";
-// Fuzzy
-"page-history-title" = "Историја странице";
-// Fuzzy
-"page-history-downloading" = "Учитавам историју странице...";
+"saved-pages-clear-delete-all" = "Обриши све";
+"page-history-title" = "Историја чланка";
+"page-history-downloading" = "Учитавам историју чланка...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
 "navbar-title-mode-login" = "Пријави ме";
 "navbar-title-mode-login-and-save" = "Пријави ме и сачувај";
@@ -100,7 +105,6 @@
 "navbar-title-mode-edit-wikitext-preview" = "Претпреглед";
 "navbar-title-mode-edit-wikitext-summary" = "Опишите вашу измену";
 "navbar-title-mode-edit-wikitext-save" = "Сачувај";
-// Fuzzy
 "edit-summary-choice-linked-words" = "Додате везе";
 "edit-summary-choice-fixed-grammar" = "Поправљена граматика";
 "edit-summary-choice-fixed-inaccuracy" = "Исправљене нетачности";
@@ -121,11 +125,14 @@
 "about-testers" = "тестери";
 "about-translators" = "Преводиоци";
 "about-translators-details" = "За превод су заслужни волонтери сајта $1";
+"about-libraries-license" = "Лиценца";
 "about-repositories" = "репозитари";
 "about-send-feedback" = "Пошаљи повратне информације";
+"about-product-of" = "Производ Задужбине Викимедије";
 "about-wikimedia-foundation" = "Задужбина Викимедије";
 "share-menu-save-page" = "Сачувај чланак";
 "share-menu-page-saved" = "Чланак сачуван";
+"share-custom-menu-item" = "Дели";
 "timestamp-just-now" = "управо сад";
 "timestamp-minutes" = "пре %d минута";
 "timestamp-hours" = "пре %d сати";
@@ -164,8 +171,12 @@
 "menu-share-accessibility-label" = "Дели";
 "menu-more-accessibility-label" = "Више подешавања";
 "menu-trash-accessibility-label" = "Брисање";
+"menu-language-accessibility-label" = "Језици";
 "nearby-title" = "У близини";
+"nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
+"nearby-distance-label-miles" = "$1 миља";
 "nearby-loading" = "Учитавање чланака о темама у близини.";
 "nearby-open-in-maps" = "Отворити у Мапама";
 "nearby-cancel" = "Откажи";
+"image-gallery-fetch-image-info-error-ok" = "У реду";

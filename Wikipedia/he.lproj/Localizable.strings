@@ -13,10 +13,11 @@
 "article-languages-filter-placeholder" = "סינון שפה";
 "article-read-more-title" = "לקרוא עוד";
 "article-unable-to-load-section" = "לא ניתן לטעון את הפסקה הזאת. נא לנסות לרענן את הערך כדי לראות אם זה מתקן את הבעיה.";
+"article-languages-preferred-section-header" = "מועדפות";
+"article-languages-other-section-header" = "שפות אחרות";
 "info-box-title" = "עובדות מהירות";
 "info-box-close-text" = "סגירה";
 "table-title-other" = "מידע נוסף";
-
 "history-label" = "לאחרונה";
 "history-section-today" = "היום";
 "history-section-yesterday" = "אתמול";
@@ -96,7 +97,9 @@
 "search-recent-clear-cancel" = "ביטול";
 "search-recent-clear-delete-all" = "למחוק הכול";
 "main-menu-title" = "עוד";
+"main-menu-heading-about" = "אודות";
 "main-menu-language-title" = "חיפוש בוויקיפדיה ה$1";
+"main-menu-faq" = "שו\"ת";
 "main-menu-language-toggle-show" = "הצגת השפות";
 "main-menu-language-toggle-hide" = "הסתרת השפות";
 "main-menu-language-selection-saved" = "בחירת השפה נשמרה";
@@ -236,6 +239,7 @@
 "menu-share-accessibility-label" = "שיתוף";
 "menu-more-accessibility-label" = "הגדרות נוספות";
 "menu-trash-accessibility-label" = "מחיקה";
+"menu-language-accessibility-label" = "שפות";
 "nearby-title" = "בסביבה";
 "nearby-distance-label-meters" = "$1 מטרים";
 "nearby-distance-label-km" = "$1 ק״מ";

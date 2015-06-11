@@ -17,10 +17,11 @@
 "article-languages-filter-placeholder" = "语言过滤器";
 "article-read-more-title" = "阅读更多";
 "article-unable-to-load-section" = "无法载入此段落。请尝试刷新条目以查看问题是否解决。";
+"article-languages-preferred-section-header" = "首选";
+"article-languages-other-section-header" = "其他语言";
 "info-box-title" = "快速预览";
 "info-box-close-text" = "关闭";
 "table-title-other" = "更多信息";
-
 "history-label" = "最近";
 "history-section-today" = "今天的首页";
 "history-section-yesterday" = "昨天";
@@ -100,7 +101,9 @@
 "search-recent-clear-cancel" = "取消";
 "search-recent-clear-delete-all" = "删除全部";
 "main-menu-title" = "更多";
+"main-menu-heading-about" = "关于";
 "main-menu-language-title" = "搜索$1语维基百科";
+"main-menu-faq" = "常见问题";
 "main-menu-language-toggle-show" = "显示语言";
 "main-menu-language-toggle-hide" = "隐藏语言";
 "main-menu-language-selection-saved" = "语言选择已保存";
@@ -240,6 +243,7 @@
 "menu-share-accessibility-label" = "分享";
 "menu-more-accessibility-label" = "更多设置";
 "menu-trash-accessibility-label" = "删除";
+"menu-language-accessibility-label" = "语言";
 "nearby-title" = "附近";
 "nearby-distance-label-meters" = "$1米";
 "nearby-distance-label-km" = "$1千米";

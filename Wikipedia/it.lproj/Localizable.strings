@@ -23,10 +23,11 @@
 "article-languages-filter-placeholder" = "Filtra lingua";
 "article-read-more-title" = "Leggi altro";
 "article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
+"article-languages-preferred-section-header" = "Preferiti";
+"article-languages-other-section-header" = "Altre lingue";
 "info-box-title" = "Fatti in breve";
 "info-box-close-text" = "Chiudi";
 "table-title-other" = "Ulteriori informazioni";
-
 "history-label" = "Recenti";
 "history-section-today" = "Oggi";
 "history-section-yesterday" = "Ieri";
@@ -106,6 +107,7 @@
 "search-recent-clear-cancel" = "Annulla";
 "search-recent-clear-delete-all" = "Cancella tutto";
 "main-menu-title" = "Altro";
+"main-menu-heading-about" = "Informazioni";
 "main-menu-language-title" = "Cerca nel wiki in lingua $1";
 "main-menu-language-toggle-show" = "Visualizza lingue";
 "main-menu-language-toggle-hide" = "Nascondi lingue";
@@ -246,6 +248,7 @@
 "menu-share-accessibility-label" = "Condividi";
 "menu-more-accessibility-label" = "Ulteriori impostazioni";
 "menu-trash-accessibility-label" = "Cancella";
+"menu-language-accessibility-label" = "Lingue";
 "nearby-title" = "Nelle vicinanze";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";

@@ -8,9 +8,10 @@
 "article-languages-filter-placeholder" = "Schprohche ußsöhke";
 "article-read-more-title" = "Mih lässe";
 "article-unable-to-load-section" = "mer kunnte dä affschnett nit lahde. Versöhg ens, dä jannze Atikel neu ze lahde, öm ze sinn, of dat hellef.";
+"article-languages-preferred-section-header" = "Vörjetroke";
+"article-languages-other-section-header" = "Ander Schprohche";
 "info-box-close-text" = "Zohmaache";
 "table-title-other" = "Mih Aanjahbe";
-"language-button-text" = "Do kanns heh dä Atikkel en %d anndere Schproche lässe.";
 "history-label" = "Köözlesch jedonn";
 "history-section-today" = "Hügg";
 "history-section-yesterday" = "Jäßtere";
@@ -69,7 +70,9 @@
 "search-recent-clear-cancel" = "Ophüre";
 "search-recent-clear-delete-all" = "Alle fottschmieße";
 "main-menu-title" = "Mih";
+"main-menu-heading-about" = "Övver";
 "main-menu-language-title" = "En de <code lang=\"zxx\" xml:lang=\"zxx\" dir=\"ltr\">$1</code>-Wikkipehdija söhke";
+"main-menu-faq" = "Öff jeschtallte Frohre";
 "main-menu-language-toggle-show" = "Schprohche aanzeije";
 "main-menu-language-toggle-hide" = "Schprohche verschteijsche";
 "main-menu-language-selection-saved" = "Schprohche-Wahl faßjehallde";
@@ -191,6 +194,7 @@
 "menu-share-accessibility-label" = "Wigger jävve";
 "menu-more-accessibility-label" = "Mih Enschtällonge";
 "menu-trash-accessibility-label" = "Fottschmiiße";
+"menu-language-accessibility-label" = "Schprohche";
 "nearby-title" = "En de Nöhde";
 "nearby-distance-label-meters" = "$1 Mehter";
 "nearby-distance-label-km" = "$1 Killomehter";

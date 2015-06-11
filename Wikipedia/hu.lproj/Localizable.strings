@@ -5,6 +5,7 @@
 // Author: Tacsipacsi
 
 "article-languages-label" = "Nyelvválasztás";
+"article-languages-preferred-section-header" = "Elsődleges";
 "history-label" = "Legutóbbi";
 "history-section-today" = "Ma";
 "history-section-yesterday" = "Tegnap";
@@ -42,7 +43,9 @@
 "search-recent-clear-cancel" = "Mégse";
 "search-recent-clear-delete-all" = "Összes törlése";
 "main-menu-title" = "Több";
+"main-menu-heading-about" = "Névjegy";
 "main-menu-language-title" = "Keresés a(z) $1 Wikipédiában";
+"main-menu-faq" = "GyIK";
 "main-menu-language-toggle-show" = "Nyelvek mutatása";
 "main-menu-language-toggle-hide" = "Nyelvek elrejtése";
 "main-menu-language-selection-saved" = "Nyelvi választás elmentve";
@@ -148,6 +151,7 @@
 "menu-share-accessibility-label" = "Megosztás";
 "menu-more-accessibility-label" = "További beállítások";
 "menu-trash-accessibility-label" = "Törlés";
+"menu-language-accessibility-label" = "Nyelvek";
 "nearby-title" = "Közeli";
 "nearby-distance-label-meters" = "$1 méter";
 "nearby-distance-label-km" = "$1 km";

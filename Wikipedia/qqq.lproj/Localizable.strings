@@ -17,14 +17,13 @@
 "article-languages-cancel" = "Button text for dismissing the language selector screen.\n{{Identical|Cancel}}";
 "article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
-"article-languages-preferred-section-header" = "Language table section header for user's preferred languages.";
-"article-languages-other-section-header" = "Language table section header for languages not in the user's list of preferred language.";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
+"article-languages-preferred-section-header" = "Language table section header for user's preferred languages. Can be plural, as in \"Preferred languages\".";
+"article-languages-other-section-header" = "Language table section header for languages not in the user's list of preferred language.\n{{Identical|Otherlanguages}}";
 "info-box-title" = "The title of info boxes - in collapsed and expanded form";
 "info-box-close-text" = "The text for telling users they can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "table-title-other" = "The title of non-info box tables - in collapsed and expanded form\n{{Identical|More information}}";
-
 "history-label" = "Header label for screen showing the users' in-app browsing history.\n{{Identical|Recent}}";
 "history-section-today" = "Subsection label for list of articles browsed today.\n{{Identical|Today}}";
 "history-section-yesterday" = "Subsection label for list of articles browsed yesterday.\n{{Identical|Yesterday}}";
@@ -104,11 +103,12 @@
 "search-recent-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "search-recent-clear-delete-all" = "Button text for confirming delete all action\n{{Identical|Delete all}}";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
+"main-menu-heading-about" = "'More' menu section heading for items about the app (e.g. privacy, terms, FAQ).";
 "main-menu-language-title" = "Header text for default search language selection. Parameters:\n* $1 - language domain name";
+"main-menu-faq" = "Title for button in the 'More' menu which navigates the user to the app's FAQ wiki page.";
 "main-menu-language-toggle-show" = "Button text for showing language list";
 "main-menu-language-toggle-hide" = "Button text for hiding language list";
 "main-menu-language-selection-saved" = "Alert text shown when user selects a language wiki to search";
-"main-menu-faq" = "Title for button in the 'More' menu which navigates the user to the app's FAQ wiki page.";
 "main-menu-account-title-logged-out" = "Header text used when account is not logged in.\n{{Identical|Account}}";
 "main-menu-account-title-logged-in" = "Header text used when account is logged in";
 "main-menu-account-login" = "Button text for logging in.\n{{Identical|Log in}}";
@@ -128,7 +128,6 @@
 "main-menu-terms-of-use" = "Button text for showing site terms of use";
 "main-menu-rate-app" = "Button text for showing the app in the app store so user can rate the app";
 "main-menu-heading-zero" = "Header text for the Wikipedia Zero section of the menu. ([http://wikimediafoundation.org/wiki/Wikipedia_Zero More information]).\n{{Identical|Wikipedia Zero}}";
-"main-menu-heading-about" = "'More' menu section heading for items about the app (e.g. privacy, terms, FAQ).";
 "main-menu-heading-legal" = "Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.";
 "main-menu-show-today" = "Button text for showing mobile version of main page\n{{Identical|Today}}";
 "main-menu-nearby" = "Button for showing nearby articles.\n{{Identical|Nearby}}";
@@ -246,7 +245,7 @@
 "menu-share-accessibility-label" = "Accessible label text for toolbar share button\n{{Identical|Share}}";
 "menu-more-accessibility-label" = "Accessible label for more/... button in 'W' menu";
 "menu-trash-accessibility-label" = "Accessible label for trash button\n{{Identical|Delete}}";
-"menu-language-accessibility-label" = "Accessibility label for a menu button which allows the user to pick a different language for the current article.";
+"menu-language-accessibility-label" = "Accessibility label for a menu button which allows the user to pick a different language for the current article.\n{{Identical|Language}}";
 "nearby-title" = "Title for page showing nearby geotagged articles\n{{Identical|Nearby}}";
 "nearby-distance-label-meters" = "Label for showing distance in meters to nearby geotagged articles.\n\nParameters:\n* $1 - the number of meters. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";
 "nearby-distance-label-km" = "Label for showing distance in kilometers to nearby geotagged articles.\n\nParameters:\n* $1 - the number of kilometers. (The iOS app doesn't support pluralization syntax yet.)\n{{Related|Wikipedia-ios-nearby-distance-label}}";

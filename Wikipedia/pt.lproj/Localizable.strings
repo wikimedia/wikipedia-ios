@@ -13,10 +13,11 @@
 "article-languages-filter-placeholder" = "Filtro de idioma";
 "article-read-more-title" = "Ler mais";
 "article-unable-to-load-section" = "Não foi possível carregar esta secção. Experimente recarregar o artigo para tentar corrigir o problema.";
+"article-languages-preferred-section-header" = "Preferido";
+"article-languages-other-section-header" = "Outros idiomas";
 "info-box-title" = "Fatos rápidos";
 "info-box-close-text" = "Fechar";
 "table-title-other" = "Mais informação";
-
 "history-label" = "Recentes";
 "history-section-today" = "Hoje";
 "history-section-yesterday" = "Ontem";
@@ -96,7 +97,9 @@
 "search-recent-clear-cancel" = "Cancelar";
 "search-recent-clear-delete-all" = "Apagar tudo";
 "main-menu-title" = "Mais";
+"main-menu-heading-about" = "Sobre";
 "main-menu-language-title" = "Pesquisar na Wikipédia em $1";
+"main-menu-faq" = "Perguntas frequentes";
 "main-menu-language-toggle-show" = "Mostrar idiomas";
 "main-menu-language-toggle-hide" = "Ocultar idiomas";
 "main-menu-language-selection-saved" = "Seleção de idioma gravada";
@@ -236,6 +239,7 @@
 "menu-share-accessibility-label" = "Partilhar";
 "menu-more-accessibility-label" = "Mais configurações";
 "menu-trash-accessibility-label" = "Apagar";
+"menu-language-accessibility-label" = "Idiomas";
 "nearby-title" = "Nas redondezas";
 "nearby-distance-label-meters" = "$1 metros";
 "nearby-distance-label-km" = "$1 km";

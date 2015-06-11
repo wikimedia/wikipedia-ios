@@ -17,10 +17,11 @@
 "article-languages-filter-placeholder" = "Filtre de langue";
 "article-read-more-title" = "En savoir plus";
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
+"article-languages-preferred-section-header" = "Préféré";
+"article-languages-other-section-header" = "Autres langues";
 "info-box-title" = "Faits en bref";
 "info-box-close-text" = "Fermer";
 "table-title-other" = "Plus d’information";
-
 "history-label" = "Récent";
 "history-section-today" = "Aujourd'hui";
 "history-section-yesterday" = "Hier";
@@ -100,7 +101,9 @@
 "search-recent-clear-cancel" = "Annuler";
 "search-recent-clear-delete-all" = "Supprimer tout";
 "main-menu-title" = "Plus";
+"main-menu-heading-about" = "À propos";
 "main-menu-language-title" = "Rechercher le wiki de langue $1";
+"main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Afficher les langues";
 "main-menu-language-toggle-hide" = "Masquer les langues";
 "main-menu-language-selection-saved" = "Sélection de langue enregistrée";
@@ -240,6 +243,7 @@
 "menu-share-accessibility-label" = "Partager";
 "menu-more-accessibility-label" = "Plus de paramètres";
 "menu-trash-accessibility-label" = "Supprimer";
+"menu-language-accessibility-label" = "Langues";
 "nearby-title" = "À proximité";
 "nearby-distance-label-meters" = "$1 mètres";
 "nearby-distance-label-km" = "$1 km";
