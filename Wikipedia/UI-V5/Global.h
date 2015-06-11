@@ -8,6 +8,8 @@
 #define NSLog(FORMAT, ...) fprintf(stderr, "\n%s Line %d\n\t%s\n", __PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ## __VA_ARGS__] UTF8String]);
 #endif // end DEBUG
 
+#import "WMFGCDHelpers.h"
+
 #import "RootViewController.h"
 #import "CenterNavController.h"
 

@@ -709,6 +709,7 @@
 		08D631F81A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryCollectionViewCell.h; path = "Image Gallery/WMFImageGalleryCollectionViewCell.h"; sourceTree = "<group>"; };
 		08D631F91A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryCollectionViewCell.m; path = "Image Gallery/WMFImageGalleryCollectionViewCell.m"; sourceTree = "<group>"; };
 		08F646F7D0488CE3C6D6A763 /* Pods.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.beta.xcconfig; path = "Pods/Target Support Files/Pods/Pods.beta.xcconfig"; sourceTree = "<group>"; };
+		0E22E4461B29D8460053644A /* WMFGCDHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFGCDHelpers.h; sourceTree = "<group>"; };
 		0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SourceIcons.xcassets; path = Wikipedia/SourceIcons.xcassets; sourceTree = "<group>"; };
 		0EA4402C1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+WMFExtensions.h"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
 		0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+WMFExtensions.m"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
@@ -927,6 +928,7 @@
 		BCC185E71A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewFlowLayout+AttributeUtils.m"; sourceTree = "<group>"; };
 		BCCED2CF1AE03BE20094EB7E /* MWKSectionListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSectionListTests.m; sourceTree = "<group>"; };
 		BCCED2D21AE041BD0094EB7E /* MWKSectionList_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKSectionList_Private.h; sourceTree = "<group>"; };
+		BCD41DD41B1079A600231BB1 /* Wikipedia-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wikipedia-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "golden-gate.jpg"; sourceTree = "<group>"; };
 		BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainPageMobileView.json; sourceTree = "<group>"; };
 		BCD41DE01B11CC5800231BB1 /* Obama.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Obama.json; sourceTree = "<group>"; };
@@ -943,7 +945,6 @@
 		BCD41DFE1B11D17100231BB1 /* XCTestCase+MWKFixtures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+MWKFixtures.m"; sourceTree = "<group>"; };
 		BCDA2F411B17A02A002FEB6A /* WMFComparison.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFComparison.h; sourceTree = "<group>"; };
 		BCDA2F421B17A056002FEB6A /* WMFHashing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFHashing.h; sourceTree = "<group>"; };
-		BCD41DD41B1079A600231BB1 /* Wikipedia-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wikipedia-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCDB75BC1AB0D3DE0005593F /* WMFImageInfoController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageInfoController_Private.h; path = "Image Gallery/WMFImageInfoController_Private.h"; sourceTree = "<group>"; };
 		BCDB75BD1AB0DFC40005593F /* WMFRangeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRangeUtils.h; sourceTree = "<group>"; };
 		BCDB75C31AB0E8300005593F /* WMFSubstringUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSubstringUtilsTests.m; sourceTree = "<group>"; };
@@ -2049,29 +2050,6 @@
 		BC3F19DF1B0CE3490017AC11 /* LegacyCoreData */ = {
 			isa = PBXGroup;
 			children = (
-				BC3F1A031B0CE4EE0017AC11 /* Categories */,
-				BC3F19E01B0CE34A0017AC11 /* Article.h */,
-				BC3F19E11B0CE34A0017AC11 /* Article.m */,
-				BC3F19E21B0CE34A0017AC11 /* ArticleCoreDataObjects.h */,
-				BC3F19E31B0CE34A0017AC11 /* ArticleData.xcdatamodeld */,
-				BC3F19E61B0CE34A0017AC11 /* ArticleDataContextSingleton.h */,
-				BC3F19E71B0CE34A0017AC11 /* ArticleDataContextSingleton.m */,
-				BC3F19E81B0CE34A0017AC11 /* DiscoveryContext.h */,
-				BC3F19E91B0CE34A0017AC11 /* DiscoveryContext.m */,
-				BC3F19EA1B0CE34A0017AC11 /* GalleryImage.h */,
-				BC3F19EB1B0CE34A0017AC11 /* GalleryImage.m */,
-				BC3F19EC1B0CE34A0017AC11 /* History.h */,
-				BC3F19ED1B0CE34A0017AC11 /* History.m */,
-				BC3F19EE1B0CE34A0017AC11 /* Image.h */,
-				BC3F19EF1B0CE34A0017AC11 /* Image.m */,
-				BC3F19F01B0CE34A0017AC11 /* ImageData.h */,
-				BC3F19F11B0CE34A0017AC11 /* ImageData.m */,
-				BC3F19F21B0CE34A0017AC11 /* Saved.h */,
-				BC3F19F31B0CE34A0017AC11 /* Saved.m */,
-				BC3F19F41B0CE34A0017AC11 /* Section.h */,
-				BC3F19F51B0CE34A0017AC11 /* Section.m */,
-				BC3F19F61B0CE34A0017AC11 /* SectionImage.h */,
-				BC3F19F71B0CE34A0017AC11 /* SectionImage.m */,
 			);
 			path = LegacyCoreData;
 			sourceTree = "<group>";
