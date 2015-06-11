@@ -9,10 +9,11 @@
 "article-languages-filter-placeholder" = "Sprachfilter";
 "article-read-more-title" = "Mehr lesen";
 "article-unable-to-load-section" = "Dieser Abschnitt konnte nicht geladen werden. Versuche, den Artikel neu zu laden, um zu sehen, ob dies das Problem behebt.";
+"article-languages-preferred-section-header" = "Bevorzugt";
+"article-languages-other-section-header" = "Andere Sprachen";
 "info-box-title" = "Schnelle Fakten";
 "info-box-close-text" = "Schließen";
 "table-title-other" = "Weitere Informationen";
-
 "history-label" = "Kürzlich";
 "history-section-today" = "Heute";
 "history-section-yesterday" = "Gestern";
@@ -92,7 +93,9 @@
 "search-recent-clear-cancel" = "Abbrechen";
 "search-recent-clear-delete-all" = "Alle löschen";
 "main-menu-title" = "Weitere";
+"main-menu-heading-about" = "Über";
 "main-menu-language-title" = "Sprachwiki $1 durchsuchen";
+"main-menu-faq" = "Häufig gestellte Fragen";
 "main-menu-language-toggle-show" = "Sprachen anzeigen";
 "main-menu-language-toggle-hide" = "Sprachen ausblenden";
 "main-menu-language-selection-saved" = "Sprachauswahl gespeichert";
@@ -232,6 +235,7 @@
 "menu-share-accessibility-label" = "Teilen";
 "menu-more-accessibility-label" = "Weitere Einstellungen";
 "menu-trash-accessibility-label" = "Löschen";
+"menu-language-accessibility-label" = "Sprachen";
 "nearby-title" = "In der Nähe";
 "nearby-distance-label-meters" = "$1 Meter";
 "nearby-distance-label-km" = "$1 km";

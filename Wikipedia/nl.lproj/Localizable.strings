@@ -16,10 +16,11 @@
 "article-languages-filter-placeholder" = "Taal filteren";
 "article-read-more-title" = "Lees meer";
 "article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
+"article-languages-preferred-section-header" = "Voorkeurtalen";
+"article-languages-other-section-header" = "Overige talen";
 "info-box-title" = "Snelle feiten";
 "info-box-close-text" = "Sluiten";
 "table-title-other" = "Meer informatie";
-
 "history-label" = "Recent";
 "history-section-today" = "Vandaag";
 "history-section-yesterday" = "Gisteren";
@@ -99,7 +100,9 @@
 "search-recent-clear-cancel" = "Annuleren";
 "search-recent-clear-delete-all" = "Alles verwijderen";
 "main-menu-title" = "Meer";
+"main-menu-heading-about" = "Over";
 "main-menu-language-title" = "Zoeken in Wikipedia in het $1";
+"main-menu-faq" = "Veelgestelde vragen";
 "main-menu-language-toggle-show" = "Talen bekijken";
 "main-menu-language-toggle-hide" = "Talen verbergen";
 "main-menu-language-selection-saved" = "Taalkeuze opgeslagen";
@@ -239,6 +242,7 @@
 "menu-share-accessibility-label" = "Delen";
 "menu-more-accessibility-label" = "Meer instellingen";
 "menu-trash-accessibility-label" = "Verwijderen";
+"menu-language-accessibility-label" = "Talen";
 "nearby-title" = "In de buurt";
 "nearby-distance-label-meters" = "$1 meter";
 "nearby-distance-label-km" = "$1 km";

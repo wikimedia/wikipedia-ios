@@ -10,10 +10,11 @@
 "article-languages-filter-placeholder" = "Јазичен филтер";
 "article-read-more-title" = "Прочитајте повеќе";
 "article-unable-to-load-section" = "Не можам да го вчитам одделот. Видете дали ќе се реши проблемот ако ја превчитате страницата.";
+"article-languages-preferred-section-header" = "Претпочитани";
+"article-languages-other-section-header" = "Други јазици";
 "info-box-title" = "Накратко";
 "info-box-close-text" = "Затвори";
 "table-title-other" = "Повеќе информации";
-
 "history-label" = "Скорешни";
 "history-section-today" = "Денес";
 "history-section-yesterday" = "Вчера";
@@ -93,7 +94,9 @@
 "search-recent-clear-cancel" = "Откажи";
 "search-recent-clear-delete-all" = "Избриши ги сите";
 "main-menu-title" = "Повеќе";
+"main-menu-heading-about" = "За извршникот";
 "main-menu-language-title" = "Пребарување на викито на $1";
+"main-menu-faq" = "ЧПП";
 "main-menu-language-toggle-show" = "Прикажи јазици";
 "main-menu-language-toggle-hide" = "Скриј јазици";
 "main-menu-language-selection-saved" = "Одбраниот јазик е зачуван";
@@ -233,6 +236,7 @@
 "menu-share-accessibility-label" = "Сподели";
 "menu-more-accessibility-label" = "Повеќе поставки";
 "menu-trash-accessibility-label" = "Избриши";
+"menu-language-accessibility-label" = "Јазици";
 "nearby-title" = "Во близина";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-km" = "$1 км";

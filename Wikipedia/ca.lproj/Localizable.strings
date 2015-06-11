@@ -16,10 +16,10 @@
 "article-languages-filter-placeholder" = "Filtre d'idioma";
 "article-read-more-title" = "Més informació";
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
+"article-languages-other-section-header" = "Altres llengües";
 "info-box-title" = "Dades bàsiques";
 "info-box-close-text" = "Tanca";
 "table-title-other" = "Més informació";
-
 "history-label" = "Recents";
 "history-section-today" = "Avui";
 "history-section-yesterday" = "Ahir";
@@ -99,7 +99,9 @@
 "search-recent-clear-cancel" = "Cancel·la";
 "search-recent-clear-delete-all" = "Suprimeix-ho tot";
 "main-menu-title" = "Més";
+"main-menu-heading-about" = "Quant a";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";
+"main-menu-faq" = "Preguntes freqüents";
 "main-menu-language-toggle-show" = "Mostra idiomes";
 "main-menu-language-toggle-hide" = "Amaga idiomes";
 "main-menu-language-selection-saved" = "Selecció d'idioma enregistrada";
@@ -239,6 +241,7 @@
 "menu-share-accessibility-label" = "Comparteix";
 "menu-more-accessibility-label" = "Més paràmetres";
 "menu-trash-accessibility-label" = "Esborra";
+"menu-language-accessibility-label" = "Llengües";
 "nearby-title" = "A prop";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";

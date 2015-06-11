@@ -7,6 +7,7 @@
 // Author: Meelo
 // Author: Sayginer
 // Author: Sucsuzz
+// Author: Uğurkent
 // Author: Violetanka
 // Author: Ömer Berkay
 
@@ -16,10 +17,11 @@
 "article-languages-filter-placeholder" = "Dil Süzgeci";
 "article-read-more-title" = "Devamı";
 "article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
+"article-languages-preferred-section-header" = "Tercih edilen";
+"article-languages-other-section-header" = "Diğer diller";
 "info-box-title" = "Pratik bilgiler";
 "info-box-close-text" = "Kapat";
 "table-title-other" = "Daha fazla bilgi";
-
 "history-label" = "Geçmiş";
 "history-section-today" = "Bugün";
 "history-section-yesterday" = "Dün";
@@ -99,7 +101,9 @@
 "search-recent-clear-cancel" = "Vazgeç";
 "search-recent-clear-delete-all" = "Tümünü Sil";
 "main-menu-title" = "Diğer";
+"main-menu-heading-about" = "Hakkında";
 "main-menu-language-title" = "$1 vikide ara";
+"main-menu-faq" = "SSS";
 "main-menu-language-toggle-show" = "Dilleri göster";
 "main-menu-language-toggle-hide" = "Dilleri gizle";
 "main-menu-language-selection-saved" = "Dil seçimi kaydedildi";
@@ -239,6 +243,7 @@
 "menu-share-accessibility-label" = "Paylaş";
 "menu-more-accessibility-label" = "Diğer ayarlar";
 "menu-trash-accessibility-label" = "Sil";
+"menu-language-accessibility-label" = "Diller";
 "nearby-title" = "Yakınındakiler";
 "nearby-distance-label-meters" = "$1 metre";
 "nearby-distance-label-km" = "$1 km";

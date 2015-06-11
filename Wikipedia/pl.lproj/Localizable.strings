@@ -17,9 +17,9 @@
 "article-languages-downloading" = "Ładowanie języków artykułu...";
 "article-languages-filter-placeholder" = "Filtr językowy";
 "article-read-more-title" = "Czytaj więcej";
+"article-languages-other-section-header" = "Inne języki";
 "info-box-close-text" = "Zamknij";
 "table-title-other" = "Więcej informacji";
-
 "history-label" = "Ostatnie";
 "history-section-today" = "Dzisiaj";
 "history-section-yesterday" = "Wczoraj";
@@ -82,6 +82,7 @@
 "search-recent-clear-cancel" = "Anuluj";
 "main-menu-title" = "Więcej";
 "main-menu-language-title" = "Przeszukaj $ Wikipedię";
+"main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Pokaż języki";
 "main-menu-language-toggle-hide" = "Ukryj języki";
 "main-menu-language-selection-saved" = "Wybór języka zapisany.";
@@ -184,6 +185,7 @@
 "menu-share-accessibility-label" = "Udostępnij";
 "menu-more-accessibility-label" = "Więcej ustawień";
 "menu-trash-accessibility-label" = "Usuń";
+"menu-language-accessibility-label" = "Języki";
 "nearby-title" = "W pobliżu";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";

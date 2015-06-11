@@ -1,11 +1,12 @@
 // Messages for Simplified Chinese (中文（简体）‎)
 // Exported from translatewiki.net
 // Author: Davidzdh
+// Author: Hanyanbo98
 // Author: LNDDYL
 // Author: Liuxinyu970226
 // Author: Qiyue2001
 
-"21c-U6-yfo.normalTitle" = "显示其他验证码";
+"21c-U6-yfo.normalTitle" = "显示另一个验证码";
 "5cT-2Y-0Ie.placeholder" = "用户名";
 "GiD-Rj-wb7.text" = "保存页面非常棒。试想一下在你保存后，即使离线时也可以阅读。";
 "LfM-01-aCF.text" = "预览";

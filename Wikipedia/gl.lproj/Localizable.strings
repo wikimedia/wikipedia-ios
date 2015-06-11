@@ -11,10 +11,11 @@
 "article-languages-filter-placeholder" = "Filtro de linguas";
 "article-read-more-title" = "Ler máis";
 "article-unable-to-load-section" = "Non foi posible cargar esta sección. Probe a refrescar o artigo para intentar amañar o problema.";
+"article-languages-preferred-section-header" = "Preferido";
+"article-languages-other-section-header" = "Outras linguas";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Pechar";
 "table-title-other" = "Máis información";
-
 "history-label" = "Recentes";
 "history-section-today" = "Hoxe";
 "history-section-yesterday" = "Onte";
@@ -94,7 +95,9 @@
 "search-recent-clear-cancel" = "Cancelar";
 "search-recent-clear-delete-all" = "Borrar todo";
 "main-menu-title" = "Máis";
+"main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Procurar $1 en Wikipedia";
+"main-menu-faq" = "Preguntas máis frecuentes";
 "main-menu-language-toggle-show" = "Mostrar idiomas";
 "main-menu-language-toggle-hide" = "Ocultar idiomas";
 "main-menu-language-selection-saved" = "Gardouse a selección de idioma.";
@@ -112,7 +115,7 @@
 "main-menu-show-page-history" = "Historial de cambios de $1";
 "main-menu-credits" = "Créditos";
 "main-menu-about" = "Acerca da aplicación da Wikipedia";
-"main-menu-zero-faq" = "Preguntas frequentes sobre a Wikipedia Zero";
+"main-menu-zero-faq" = "Preguntas frecuentes sobre a Wikipedia Zero";
 "main-menu-privacy-policy" = "Política de protección de datos";
 "main-menu-terms-of-use" = "Termos de uso";
 "main-menu-rate-app" = "Avaliar aplicación";
@@ -234,6 +237,7 @@
 "menu-share-accessibility-label" = "Compartir";
 "menu-more-accessibility-label" = "Máis opcións";
 "menu-trash-accessibility-label" = "Borrar";
+"menu-language-accessibility-label" = "Linguas";
 "nearby-title" = "Preto";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";

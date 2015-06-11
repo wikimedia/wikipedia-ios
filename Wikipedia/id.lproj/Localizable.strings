@@ -16,10 +16,11 @@
 "article-languages-filter-placeholder" = "Saring Bahasa";
 "article-read-more-title" = "Baca lebih lanjut";
 "article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
+"article-languages-preferred-section-header" = "Disukai";
+"article-languages-other-section-header" = "Bahasa Lainnya";
 "info-box-title" = "Fakta cepat";
 "info-box-close-text" = "Tutup";
 "table-title-other" = "Informasi lebih lanjut";
-
 "history-label" = "Terkini";
 "history-section-today" = "Hari ini";
 "history-section-yesterday" = "Kemarin";
@@ -99,7 +100,9 @@
 "search-recent-clear-cancel" = "Batalkan";
 "search-recent-clear-delete-all" = "Hapus Semua";
 "main-menu-title" = "Lainnya";
+"main-menu-heading-about" = "Tentang";
 "main-menu-language-title" = "Cari Wikipedia $1";
+"main-menu-faq" = "Tanya jawab";
 "main-menu-language-toggle-show" = "Tampilkan bahasa";
 "main-menu-language-toggle-hide" = "Sembunyikan bahasa";
 "main-menu-language-selection-saved" = "Pilihan bahasa yang disimpan";
@@ -239,6 +242,7 @@
 "menu-share-accessibility-label" = "Bagikan";
 "menu-more-accessibility-label" = "Pengaturan lainnya";
 "menu-trash-accessibility-label" = "Hapus";
+"menu-language-accessibility-label" = "Bahasa";
 "nearby-title" = "Sekitaran";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
