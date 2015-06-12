@@ -17,6 +17,7 @@
     if (self) {
         self.schema   = schema;
         self.revision = revision;
+        self.rate     = 1;
     }
     return self;
 }
@@ -33,10 +34,18 @@
 
 - (void)log:(NSDictionary*)eventData wiki:(NSString*)wiki {
     if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
-        (void)[[EventLogger alloc] initAndLogEvent:[self preprocessData:eventData]
-                                         forSchema:self.schema
-                                          revision:self.revision
-                                              wiki:wiki];
+        BOOL chosen = NO;
+        if (self.rate == 1) {
+            chosen = YES;
+        } else if (self.rate != 0) {
+            chosen = (self.getEventLogSamplingID % self.rate) == 0;
+        }
+        if (chosen) {
+            (void)[[EventLogger alloc] initAndLogEvent:[self preprocessData:eventData]
+                                             forSchema:self.schema
+                                              revision:self.revision
+                                                  wiki:wiki];
+        }
     }
 }
 
@@ -53,6 +62,22 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     return uuid;
+}
+
+/**
+ *  Persistent random integer id used for sampling.
+ *
+ *  @return integer sampling id
+ */
+- (NSInteger)getEventLogSamplingID {
+    NSNumber* samplingId = [[NSUserDefaults standardUserDefaults] objectForKey:@"EventLogSamplingID"];
+    if (!samplingId) {
+        NSInteger intId = arc4random_uniform(UINT32_MAX);
+        [[NSUserDefaults standardUserDefaults] setInteger:intId forKey:@"EventLogSamplingID"];
+        return intId;
+    } else {
+        return samplingId.integerValue;
+    }
 }
 
 @end

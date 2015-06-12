@@ -32,6 +32,17 @@ typedef NS_ENUM (NSUInteger, WMFEventLoggingMaxStringLength) {
 @property (nonatomic, assign) int revision;
 
 /**
+ *  Sampling rate used to calculate sampling ratio.
+ *     Rate:        Ratio:      Percent:
+ *      1           1/1         100%
+ *      2           1/2         50%
+ *      3           1/3         33%
+ *      ...
+ *      100         1/100       1%
+ */
+@property (nonatomic, assign) NSInteger rate;
+
+/**
  * This constructor should be called internally by derived classes
  * to encapsulate the schema name and version.
  */
