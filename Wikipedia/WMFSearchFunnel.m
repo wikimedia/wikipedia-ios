@@ -30,6 +30,7 @@ static NSString* const kSearchResultsCount = @"numberOfResults";
 - (instancetype)init {
     self = [super initWithSchema:kSchemaName version:kSchemaVersion];
     if (self) {
+        self.rate     = 100;
         _appInstallId = [self persistentUUID:kSchemaName];
     }
     return self;
