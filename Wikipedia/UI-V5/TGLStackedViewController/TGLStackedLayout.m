@@ -373,8 +373,6 @@ typedef NS_ENUM(NSInteger, TGLStackedViewControllerScrollDirection) {
 
 - (void)resetAttibutesWithPanTranslation:(UICollectionViewLayoutAttributes*)item{
 
-    CGPoint translation = [self.deletePanGesture translationInView:self.collectionView];
-
     CGRect frame = item.frame;
     frame.origin.x = 0;
     item.frame = frame;

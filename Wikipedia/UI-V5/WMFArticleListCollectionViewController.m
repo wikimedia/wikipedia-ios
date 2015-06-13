@@ -7,11 +7,14 @@
 #import "WMFArticleViewController.h"
 
 #import "TGLStackedLayout.h"
+#import "WMFArticleCardTranstion.h"
 
 @interface WMFArticleListCollectionViewController ()<TGLStackedLayoutDelegate>
 
 @property (nonatomic, assign, readwrite) WMFArticleListType listType;
 @property (nonatomic, strong, readonly) TGLStackedLayout* stackedLayout;
+
+@property (strong, nonatomic) WMFArticleCardTranstion* cardTransition;
 
 @end
 
@@ -23,9 +26,8 @@
     return [self.userDataStore savedPageList];
 }
 
-- (TGLStackedLayout*)stackedLayout{
-
-    if([self.collectionView.collectionViewLayout isKindOfClass:[TGLStackedLayout class]]){
+- (TGLStackedLayout*)stackedLayout {
+    if ([self.collectionView.collectionViewLayout isKindOfClass:[TGLStackedLayout class]]) {
         return (id)self.collectionView.collectionViewLayout;
     }
 
@@ -60,16 +62,18 @@
     return [self.userDataStore.dataStore articleWithTitle:savedEntry.title];
 }
 
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     self.title = [self titleForListType:self.listType];
-    self.stackedLayout.fillHeight = YES;
+
+    self.transitioningDelegate = self;
+
+    self.stackedLayout.fillHeight   = YES;
     self.stackedLayout.alwaysBounce = YES;
-    self.stackedLayout.delegate = self;
+    self.stackedLayout.delegate     = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -78,7 +82,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.stackedLayout.itemSize = CGSizeMake(self.view.bounds.size.width, 200);
+    [self updateCellSizeBasedOnViewFrame];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -96,7 +100,7 @@
 // iOS 7 Rotation Support
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [UIView animateWithDuration:duration animations:^{
-        self.stackedLayout.itemSize = CGSizeMake(self.view.bounds.size.width, 200);
+        [self updateCellSizeBasedOnViewFrame];
     }];
 
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
@@ -104,13 +108,18 @@
 
 // iOS 8+ Rotation Support
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
-
-    [coordinator animateAlongsideTransition:^(id <UIViewControllerTransitionCoordinatorContext> context)
+    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > context)
     {
-        self.stackedLayout.itemSize = CGSizeMake(self.view.bounds.size.width, 200);
+        [self updateCellSizeBasedOnViewFrame];
     }                            completion:NULL];
 
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+}
+
+#pragma mark - Update Cell Size
+
+- (void)updateCellSizeBasedOnViewFrame {
+    self.stackedLayout.itemSize = self.view.bounds.size;
 }
 
 #pragma mark - <UICollectionViewDataSource>
@@ -123,7 +132,8 @@
     WMFArticleViewControllerContainerCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WMFArticleViewControllerContainerCell class]) forIndexPath:indexPath];
 
     if (cell.viewController == nil) {
-        [cell setViewControllerAndAddViewToContentView:[[WMFArticleViewController alloc] init]];
+        WMFArticleViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([WMFArticleViewController class])];
+        [cell setViewControllerAndAddViewToContentView:vc];
     }
 
     [self addChildViewController:cell.viewController];
@@ -147,28 +157,40 @@
     [containerCell.viewController removeFromParentViewController];
 }
 
+- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
+    WMFArticleViewControllerContainerCell* cell = (WMFArticleViewControllerContainerCell*)[collectionView cellForItemAtIndexPath:indexPath];
+
+    WMFArticleViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([WMFArticleViewController class])];
+    vc.article         = cell.viewController.article;
+    vc.contentTopInset = 64.0;
+
+    self.cardTransition                             = [WMFArticleCardTranstion new];
+    self.cardTransition.nonInteractiveDuration      = 0.5;
+    self.cardTransition.offsetOfNextOverlappingCard = self.stackedLayout.topReveal;
+    self.cardTransition.movingCardView              = cell;
+    self.cardTransition.presentCardOffset           = vc.contentTopInset;
+    vc.transitioningDelegate                        = self.cardTransition;
+    vc.modalPresentationStyle                       = UIModalPresentationCustom;
+
+    [self presentViewController:vc animated:YES completion:NULL];
+}
+
 #pragma mark - TGLStackedLayoutDelegate
 
-- (BOOL)stackLayout:(TGLStackedLayout*)layout canMoveItemAtIndexPath:(NSIndexPath*)indexPath{
-
+- (BOOL)stackLayout:(TGLStackedLayout*)layout canMoveItemAtIndexPath:(NSIndexPath*)indexPath {
     return NO;
 }
 
-- (BOOL)stackLayout:(TGLStackedLayout*)layout canDeleteItemAtIndexPath:(NSIndexPath*)indexPath{
-
+- (BOOL)stackLayout:(TGLStackedLayout*)layout canDeleteItemAtIndexPath:(NSIndexPath*)indexPath {
     return YES;
 }
 
-- (void)stackLayout:(TGLStackedLayout*)layout deleteItemAtIndexPath:(NSIndexPath*)indexPath{
-
+- (void)stackLayout:(TGLStackedLayout*)layout deleteItemAtIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [self savedPageForIndexPath:indexPath];
     if (savedEntry) {
         [self.savedPages removeEntry:savedEntry];
         [self.userDataStore save];
-
     }
 }
-
-
 
 @end

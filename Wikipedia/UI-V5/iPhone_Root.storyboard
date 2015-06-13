@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--App View Controller-->
@@ -158,6 +159,80 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Buh-ul-uFW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="848" y="373"/>
+        </scene>
+        <!--Article View Controller-->
+        <scene sceneID="142-dX-H89">
+            <objects>
+                <viewController storyboardIdentifier="WMFArticleViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="r3R-dd-kNR" customClass="WMFArticleViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9DS-fX-RDj"/>
+                        <viewControllerLayoutGuide type="bottom" id="PSo-ox-zoR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6uM-mf-5eF">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oM7-J8-i1e">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rdC-bu-Efj">
+                                        <rect key="frame" x="2" y="2" width="596" height="576"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Myt-29-qy0">
+                                                <rect key="frame" x="282" y="8" width="33" height="21"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <animations/>
+                                        <color key="backgroundColor" red="0.91030293699999998" green="0.12721729279999999" blue="0.28739702700000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="Myt-29-qy0" firstAttribute="top" secondItem="rdC-bu-Efj" secondAttribute="top" constant="8" id="BpY-2f-f2T"/>
+                                            <constraint firstAttribute="centerX" secondItem="Myt-29-qy0" secondAttribute="centerX" id="Ldy-Zr-x9q"/>
+                                            <constraint firstAttribute="centerX" secondItem="Myt-29-qy0" secondAttribute="centerX" id="pMk-fk-lzv"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="pMk-fk-lzv"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="rdC-bu-Efj" secondAttribute="trailing" constant="2" id="eaw-V6-Urc"/>
+                                    <constraint firstItem="rdC-bu-Efj" firstAttribute="leading" secondItem="oM7-J8-i1e" secondAttribute="leading" constant="2" id="nAz-7L-oES"/>
+                                    <constraint firstAttribute="bottom" secondItem="rdC-bu-Efj" secondAttribute="bottom" constant="2" id="sMc-Gy-23z"/>
+                                    <constraint firstItem="rdC-bu-Efj" firstAttribute="top" secondItem="oM7-J8-i1e" secondAttribute="top" constant="2" id="yfX-ZK-Kel"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="oM7-J8-i1e" secondAttribute="trailing" id="AGz-Wm-DRk"/>
+                            <constraint firstAttribute="bottom" secondItem="oM7-J8-i1e" secondAttribute="bottom" id="WeG-Qb-sYe"/>
+                            <constraint firstItem="oM7-J8-i1e" firstAttribute="top" secondItem="6uM-mf-5eF" secondAttribute="topMargin" constant="-18" id="aSI-Ws-cG4"/>
+                            <constraint firstItem="oM7-J8-i1e" firstAttribute="leading" secondItem="6uM-mf-5eF" secondAttribute="leading" id="eQk-ew-rIO"/>
+                            <constraint firstItem="oM7-J8-i1e" firstAttribute="top" secondItem="6uM-mf-5eF" secondAttribute="top" constant="20" placeholder="YES" id="ixv-RT-HM7"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="aSI-Ws-cG4"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="cardBackgroundView" destination="oM7-J8-i1e" id="9wA-Gd-1Tj"/>
+                        <outlet property="titleLabel" destination="Myt-29-qy0" id="hXQ-Sv-N1d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hIj-Na-3vK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1530" y="295"/>
         </scene>
     </scenes>
     <resources>
