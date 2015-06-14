@@ -5,6 +5,7 @@
 #import "WMFSearchViewController.h"
 #import "WMFArticleListCollectionViewController.h"
 #import "DataMigrationProgressViewController.h"
+#import "WMFSavedPagesDataSource.h"
 
 NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 
@@ -44,8 +45,8 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 }
 
 - (void)loadMainUI {
-    self.listViewController.userDataStore = [self userDataStore];
-    [self.listViewController setListType:WMFArticleListTypeSaved animated:NO];
+    WMFSavedPagesDataSource* dataSource = [[WMFSavedPagesDataSource alloc] initWithUserDataStore:[self userDataStore]];
+    self.listViewController.dataSource = dataSource;
 }
 
 - (void)resumeApp {

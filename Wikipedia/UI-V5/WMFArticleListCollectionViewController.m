@@ -1,7 +1,5 @@
 
 #import "WMFArticleListCollectionViewController.h"
-#import "MWKUserDataStore.h"
-#import "MWKSavedPageList.h"
 
 #import "WMFArticleViewControllerContainerCell.h"
 #import "WMFArticleViewController.h"
@@ -14,7 +12,6 @@
 
 @interface WMFArticleListCollectionViewController ()<TGLStackedLayoutDelegate>
 
-@property (nonatomic, assign, readwrite) WMFArticleListType listType;
 @property (nonatomic, strong, readonly) TGLStackedLayout* stackedLayout;
 
 @property (strong, nonatomic) WMFArticleCardTranstion* cardTransition;
@@ -25,10 +22,6 @@
 
 #pragma mark - Accessors
 
-- (MWKSavedPageList*)savedPages {
-    return [self.userDataStore savedPageList];
-}
-
 - (TGLStackedLayout*)stackedLayout {
     if ([self.collectionView.collectionViewLayout isKindOfClass:[TGLStackedLayout class]]) {
         return (id)self.collectionView.collectionViewLayout;
@@ -37,40 +30,12 @@
     return nil;
 }
 
-#pragma mark - List Type
-
-- (NSString*)titleForListType:(WMFArticleListType)type {
-    //Do not make static so translations are always fresh
-    return @{@(WMFArticleListTypeSaved): MWLocalizedString(@"saved-pages-title", nil)}[@(type)];
-}
-
-- (void)setListType:(WMFArticleListType)type animated:(BOOL)animated {
-    if (self.listType == type) {
-        return;
-    }
-
-    self.listType = type;
-    [self.collectionView reloadData];
-}
-
-#pragma mark - Saved pages / Article Access
-
-- (MWKSavedPageEntry*)savedPageForIndexPath:(NSIndexPath*)indexPath {
-    MWKSavedPageEntry* savedEntry = [self.savedPages entryAtIndex:indexPath.row];
-    return savedEntry;
-}
-
-- (MWKArticle*)articleForIndexPath:(NSIndexPath*)indexPath {
-    MWKSavedPageEntry* savedEntry = [self savedPageForIndexPath:indexPath];
-    return [self.userDataStore.dataStore articleWithTitle:savedEntry.title];
-}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = [self titleForListType:self.listType];
+    self.title = [self.dataSource displayTitle];
 
     self.stackedLayout.fillHeight   = YES;
     self.stackedLayout.alwaysBounce = YES;
@@ -138,7 +103,7 @@
 #pragma mark - <UICollectionViewDataSource>
 
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [[self savedPages] length];
+    return [self.dataSource articleCount];
 }
 
 - (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(NSIndexPath*)indexPath {
@@ -151,7 +116,7 @@
 
     [self addChildViewController:cell.viewController];
 
-    MWKArticle* article = [self articleForIndexPath:indexPath];
+    MWKArticle* article = [self.dataSource articleForIndexPath:indexPath];
     cell.viewController.article = article;
 
     return cell;
@@ -195,15 +160,11 @@
 }
 
 - (BOOL)stackLayout:(TGLStackedLayout*)layout canDeleteItemAtIndexPath:(NSIndexPath*)indexPath {
-    return YES;
+    return [self.dataSource canDeleteItemAtIndexpath:indexPath];
 }
 
 - (void)stackLayout:(TGLStackedLayout*)layout deleteItemAtIndexPath:(NSIndexPath*)indexPath {
-    MWKSavedPageEntry* savedEntry = [self savedPageForIndexPath:indexPath];
-    if (savedEntry) {
-        [self.savedPages removeEntry:savedEntry];
-        [self.userDataStore save];
-    }
+    [self.dataSource deleteArticleAtIndexPath:indexPath];
 }
 
 @end
