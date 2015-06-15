@@ -5,6 +5,4 @@
 
 @interface OnboardingViewController : UIViewController
 
-@property (weak, nonatomic) id truePresentingVC;
-
 @end

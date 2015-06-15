@@ -11,9 +11,9 @@
 #import "NSObject+ConstraintsScale.h"
 #import "NSString+FormattedAttributedString.h"
 #import "UIColor+WMFHexColor.h"
-#import "UIViewController+ModalPresent.h"
-//#import "UIView+Debugging.h"
 #import "UIView+WMFRoundCorners.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
+#import "PageHistoryViewController.h"
 
 #pragma mark Font sizes
 
@@ -110,9 +110,8 @@ static CGFloat const kGlyphIconBaselineOffset = 1.6f;
 #pragma mark Tap gesture handling
 
 - (IBAction)historyOptionTapped:(id)sender {
-    [self performModalSequeWithID:@"modal_segue_show_page_history"
-                  transitionStyle:UIModalTransitionStyleCoverVertical
-                            block:nil];
+    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
 @end

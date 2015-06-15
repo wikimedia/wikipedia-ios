@@ -45,4 +45,7 @@ extern NSString* const WebViewControllerShareSelectedText;
 - (void)tocToggle;
 - (void)saveWebViewScrollOffset;
 
+- (void)loadRandomArticle;
+- (void)loadTodaysArticle;
+
 @end

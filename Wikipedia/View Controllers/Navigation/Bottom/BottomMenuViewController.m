@@ -196,10 +196,6 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
         case BOTTOM_MENU_BUTTON_SHARE:
             [self shareUpArrowButtonPushed];
             break;
-        case BOTTOM_MENU_BUTTON_SAVE:
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"SavePage" object:self userInfo:nil];
-            [self updateBottomBarButtonsEnabledState];
-            break;
         case BOTTOM_MENU_BUTTON_LANGUAGE:
             [self showLanguagePicker];
             break;
@@ -358,50 +354,6 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
         [webVC navigateToPage:historyEntry.title
               discoveryMethod:MWKHistoryDiscoveryMethodBackForward];
     }
-}
-
-- (NSDictionary*)getAdjacentHistoryEntries {
-    SessionSingleton* session   = [SessionSingleton sharedInstance];
-    MWKHistoryList* historyList = session.userDataStore.historyList;
-
-    MWKHistoryEntry* currentHistoryEntry = [historyList entryForTitle:session.currentArticle.title];
-    MWKHistoryEntry* beforeHistoryEntry  = [historyList entryBeforeEntry:currentHistoryEntry];
-    MWKHistoryEntry* afterHistoryEntry   = [historyList entryAfterEntry:currentHistoryEntry];
-
-    NSMutableDictionary* result = [@{} mutableCopy];
-    if (beforeHistoryEntry) {
-        result[@"before"] = beforeHistoryEntry;
-    }
-    if (currentHistoryEntry) {
-        result[@"current"] = currentHistoryEntry;
-    }
-    if (afterHistoryEntry) {
-        result[@"after"] = afterHistoryEntry;
-    }
-
-    return result;
-}
-
-- (void)updateBottomBarButtonsEnabledState {
-    self.adjacentHistoryEntries = [self getAdjacentHistoryEntries];
-    self.forwardButton.enabled  = (self.adjacentHistoryEntries[@"after"]) ? YES : NO;
-    self.backButton.enabled     = (self.adjacentHistoryEntries[@"before"]) ? YES : NO;
-
-    MWKArticle* currentArticle = [[SessionSingleton sharedInstance] currentArticle];
-    self.languagesButton.enabled = !currentArticle.isMain && [currentArticle languagecount] > 0;
-
-    NSString* saveIconString = WIKIGLYPH_HEART_OUTLINE;
-    UIColor* saveIconColor   = [UIColor blackColor];
-    if ([self isCurrentArticleSaved]) {
-        saveIconString = WIKIGLYPH_HEART;
-        saveIconColor  = UIColorFromRGBWithAlpha(0xf27072, 1.0);
-    }
-
-    [self.saveButton.label setWikiText:saveIconString
-                                 color:saveIconColor
-                                  size:MENU_BOTTOM_GLYPH_FONT_SIZE
-                        baselineOffset:1.5f];
-    self.funnel = nil;
 }
 
 - (BOOL)isCurrentArticleSaved {

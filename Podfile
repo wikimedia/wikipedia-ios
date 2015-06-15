@@ -19,6 +19,7 @@ pod 'Masonry', '~> 0.6'
 
 # Crash Reporting
 pod 'HockeySDK', '3.6.2'
+pod 'libextobjc/EXTScope', '~> 0.4.1'
 
 target 'WikipediaUnitTests', :exclusive => false do
   pod 'OCMockito', '~> 1.4'

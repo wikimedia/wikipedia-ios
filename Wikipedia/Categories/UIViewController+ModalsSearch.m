@@ -12,8 +12,15 @@
     while (vc) {
         if ([vc isMemberOfClass:aClass]) {
             return vc;
+        } else if ([vc isMemberOfClass:[UINavigationController class]]) {
+            UINavigationController* nc = (UINavigationController*)vc;
+            for (id thisVC in nc.viewControllers) {
+                if ([thisVC isMemberOfClass:aClass]) {
+                    return thisVC;
+                }
+            }
         }
-        SEL selector = @selector(truePresentingVC);
+        SEL selector = @selector(presentingViewController);
         if ([vc respondsToSelector:selector]) {
             IMP imp = [vc methodForSelector:selector];
             id (* func)(id, SEL) = (void*)imp;
@@ -24,5 +31,6 @@
     }
     return nil;
 }
+
 
 @end

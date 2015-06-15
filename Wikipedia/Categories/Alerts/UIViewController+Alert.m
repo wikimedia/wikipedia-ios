@@ -100,6 +100,7 @@
     NSDictionary* metrics      = @{@"space": @(margin)};
 
     UIView* bottomMenuView = nil;
+
     if ([self isMemberOfClass:[WebViewController class]]) {
         WebViewController* webVC = (WebViewController*)self;
         bottomMenuView = webVC.bottomMenuViewController.view;
@@ -108,20 +109,23 @@
         }
     }
 
+    views[@"topLayoutGuide"]    = self.topLayoutGuide;
+    views[@"bottomLayoutGuide"] = self.bottomLayoutGuide;
+
     NSString* verticalFormatString = @"";
     switch (type) {
         case ALERT_TYPE_BOTTOM:
             if (bottomMenuView) {
                 verticalFormatString = @"V:[view]-(space)-[bottomMenuView]";
             } else {
-                verticalFormatString = @"V:[view]-(space)-|";
+                verticalFormatString = @"V:[view]-(space)-[bottomLayoutGuide]";
             }
             break;
         case ALERT_TYPE_FULLSCREEN:
-            verticalFormatString = @"V:|-(space)-[view]-(space)-|";
+            verticalFormatString = @"V:[topLayoutGuide]-(space)-[view]-(space)-[bottomLayoutGuide]";
             break;
         default: // ALERT_TYPE_TOP
-            verticalFormatString = @"V:|-(space)-[view]";
+            verticalFormatString = @"V:[topLayoutGuide]-(space)-[view]";
             break;
     }
 

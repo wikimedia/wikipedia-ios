@@ -7,12 +7,11 @@
 #import "WikipediaAppUtils.h"
 #import "Defines.h"
 #import "NSString+FormattedAttributedString.h"
-#import "RootViewController.h"
-#import "TopMenuViewController.h"
-#import "TopMenuContainerView.h"
-#import "UIViewController+ModalPresent.h"
 #import "UIViewController+Alert.h"
 #import "UIView+Debugging.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
+#import "AccountCreationViewController.h"
+#import "LoginViewController.h"
 
 #define TAKE_SPLASH_SCREENSHOT NO
 
@@ -224,17 +223,15 @@ typedef NS_ENUM (NSUInteger, DisplayMode) {
 
 - (void)createAccountButtonTapped:(UITapGestureRecognizer*)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        [self performModalSequeWithID:@"modal_segue_show_create_account"
-                      transitionStyle:UIModalTransitionStyleCoverVertical
-                                block:nil];
+        UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[AccountCreationViewController wmf_initialViewControllerFromClassStoryboard]];
+        [self presentViewController:nc animated:YES completion:nil];
     }
 }
 
 - (void)loginButtonTapped:(UITapGestureRecognizer*)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        [self performModalSequeWithID:@"modal_segue_show_login"
-                      transitionStyle:UIModalTransitionStyleCoverVertical
-                                block:nil];
+        UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[LoginViewController wmf_initialViewControllerFromClassStoryboard]];
+        [self presentViewController:nc animated:YES completion:nil];
     }
 }
 
@@ -247,12 +244,6 @@ typedef NS_ENUM (NSUInteger, DisplayMode) {
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-
-    /*
-       DisplayMode newDisplayMode = DISPLAY_MODE_UNDEFINED;
-       newDisplayMode = (self.displayMode == DISPLAY_MODE_NORMAL) ? DISPLAY_MODE_SPLASH : DISPLAY_MODE_NORMAL;
-       [self animateToDisplayMode:newDisplayMode];
-     */
 }
 
 - (void)animateToDisplayMode:(DisplayMode)displayMode {
@@ -265,16 +256,5 @@ typedef NS_ENUM (NSUInteger, DisplayMode) {
     } completion:^(BOOL done){
     }];
 }
-
-/*
-   #pragma mark - Navigation
-
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-   {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-   }
- */
 
 @end

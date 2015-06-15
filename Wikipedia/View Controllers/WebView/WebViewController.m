@@ -5,13 +5,37 @@
 #import <Masonry/Masonry.h>
 #import "NSString+WMFHTMLParsing.h"
 
+#import "PrimaryMenuViewController.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "UIViewController+ModalsSearch.h"
+#import "RandomArticleFetcher.h"
+#import "MWKSiteInfoFetcher.h"
+#import "MWKSiteInfo.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
+
 NSString* const WebViewControllerTextWasHighlighted    = @"textWasSelected";
 NSString* const WebViewControllerWillShareNotification = @"SelectionShare";
 NSString* const WebViewControllerShareBegin            = @"beginShare";
 NSString* const WebViewControllerShareSelectedText     = @"selectedText";
 NSString* const kSelectedStringJS                      = @"window.getSelection().toString()";
 
+@interface WebViewController () <LanguageSelectionDelegate>
+
+@property (nonatomic, strong) UIBarButtonItem* buttonTOC;
+@property (nonatomic, strong) UIBarButtonItem* buttonBack;
+@property (nonatomic, strong) UIBarButtonItem* buttonForward;
+@property (nonatomic, strong) UIBarButtonItem* buttonLanguages;
+@property (nonatomic, strong) UIBarButtonItem* buttonSave;
+@property (nonatomic, strong) UIBarButtonItem* buttonShare;
+
+@property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
+@property (readonly, strong, nonatomic) MWKSiteInfoFetcher* siteInfoFetcher;
+
+@end
+
 @implementation WebViewController
+
+@synthesize siteInfoFetcher = _siteInfoFetcher;
 
 - (instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -57,8 +81,86 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 
 #pragma mark View lifecycle methods
 
+- (void)setupTopMenuButtons {
+    @weakify(self)
+    UIBarButtonItem * buttonW = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_W handler:^(id sender){
+        @strongify(self)
+        UINavigationController * nc = [[UINavigationController alloc] initWithRootViewController:[PrimaryMenuViewController wmf_initialViewControllerFromClassStoryboard]];
+        [nc.navigationBar setBarTintColor:[UIColor blackColor]];
+        [nc.navigationBar setTranslucent:NO];
+        [self presentViewController:nc animated:YES completion:nil];
+    }];
+
+    UIBarButtonItem* buttonMagnify = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_MAGNIFY handler:^(id sender){
+        //@strongify (self)
+        NSLog(@"TODO: hook this up to search somehow...");
+    }];
+
+    self.navigationItem.leftBarButtonItems = @[buttonW, buttonMagnify];
+
+    self.buttonTOC = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_TOC
+                                             handler:^(id sender){
+        @strongify(self)
+        [self tocToggle];
+    }];
+
+    self.navigationItem.rightBarButtonItems = @[self.buttonTOC];
+}
+
+- (void)setupBottomMenuButtons {
+    @weakify(self)
+    void (^ goBeforeOrAfter)(NSString*) = ^void (NSString* beforeOrAfter) {
+        @strongify(self)
+        NSDictionary * adjacentHistoryEntries = [self getAdjacentHistoryEntries];
+        MWKHistoryEntry* historyEntry = adjacentHistoryEntries[beforeOrAfter];
+        if (historyEntry) {
+            [self showAlert:historyEntry.title.text type:ALERT_TYPE_BOTTOM duration:0.8];
+            [self navigateToPage:historyEntry.title
+                 discoveryMethod:MWKHistoryDiscoveryMethodBackForward];
+        }
+    };
+
+    self.buttonBack = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_BACKWARD handler:^(id sender){
+        goBeforeOrAfter(@"before");
+    }];
+    self.buttonForward = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_FORWARD handler:^(id sender){
+        goBeforeOrAfter(@"after");
+    }];
+    self.buttonLanguages = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_TRANSLATE handler:^(id sender){
+        @strongify(self)
+        [self showLanguages];
+    }];
+
+    self.buttonSave = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_HEART handler:^(id sender){
+        @strongify(self)
+        [self saveCurrentPage];
+        [self updateBottomBarButtonsEnabledState];
+    }];
+
+    self.buttonShare = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_SHARE handler:^(id sender){
+        //@strongify (self)
+        NSLog(@"TEST 4");
+    }];
+
+    self.navigationController.toolbarHidden = NO;
+    self.toolbarItems                       = @[
+        self.buttonBack,
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+        self.buttonForward,
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+        self.buttonSave,
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+        self.buttonLanguages,
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+        self.buttonShare
+    ];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self setupTopMenuButtons];
+    [self setupBottomMenuButtons];
 
     [self setupTrackingFooter];
 
@@ -240,12 +342,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 }
 
 - (void)showOnboarding {
-    OnboardingViewController* onboardingVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"OnboardingViewController"];
-
-    onboardingVC.truePresentingVC = self;
-    //[onboardingVC.view.layer removeAllAnimations];
-    [self presentViewController:onboardingVC animated:NO completion:^{}];
-
+    [self presentViewController:[OnboardingViewController wmf_initialViewControllerFromClassStoryboard] animated:YES completion:nil];
     [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"ShowOnboarding"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -270,11 +367,13 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 
     [super viewWillAppear:animated];
 
-    self.bottomMenuHidden = ROOT.topMenuHidden;
     self.referencesHidden = YES;
 
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
-    [ROOT.topMenuViewController updateTOCButtonVisibility];
+    [self updateTOCButtonVisibility];
+}
+
+- (void)updateTOCButtonVisibility {
+    self.buttonTOC.enabled = ![SessionSingleton sharedInstance].currentArticle.isMain;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -290,6 +389,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)scrollIndicatorSetup {
+    return;
     self.scrollIndicatorView                                           = [[UIView alloc] init];
     self.scrollIndicatorView.opaque                                    = NO;
     self.scrollIndicatorView.backgroundColor                           = [UIColor wmf_colorWithHex:kScrollIndicatorBackgroundColor alpha:kScrollIndicatorAlpha];
@@ -394,12 +494,10 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 #pragma mark Edit section
 
 - (void)showSectionEditor {
-    SectionEditorViewController* sectionEditVC =
-        [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"SectionEditorViewController"];
-
+    SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
     sectionEditVC.section = self.session.currentArticle.sections[self.sectionToEditId];
-
-    [ROOT pushViewController:sectionEditVC animated:YES];
+    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:sectionEditVC];
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
 - (void)searchFieldBecameFirstResponder {
@@ -454,14 +552,10 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
             self.scrollIndicatorView.alpha = 1.0;
-            // If the top menu isn't hidden, reveal the bottom menu.
-            self.bottomMenuHidden = ROOT.topMenuHidden;
 
             self.webView.scrollView.transform = CGAffineTransformIdentity;
 
             self.referencesContainerView.transform = CGAffineTransformIdentity;
-
-            self.bottomBarView.transform = CGAffineTransformIdentity;
 
             self.tocViewLeadingConstraint.constant = 0;
 
@@ -473,11 +567,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
             self.footerContainer.userInteractionEnabled = YES;
 
-            WikiGlyphButton* tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
-            [tocButton.label setWikiText:WIKIGLYPH_TOC_COLLAPSED
-                                   color:tocButton.label.color
-                                    size:tocButton.label.size
-                          baselineOffset:tocButton.label.baselineOffset];
+            [self.buttonTOC wmf_UIButton].selected = NO;
 
             self.webViewBottomConstraint.constant = 0;
         }];
@@ -537,7 +627,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
         self.webView.scrollView.transform = xf;
         self.referencesContainerView.transform = xf;
-        self.bottomBarView.transform = xf;
 
         CGFloat tocWidth = [self tocGetWidthForWebViewScale:webViewScale];
         self.tocViewLeadingConstraint.constant = -tocWidth;
@@ -545,12 +634,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         [self.view layoutIfNeeded];
     } completion:^(BOOL done) {
         self.unsafeToToggleTOC = NO;
-
-        WikiGlyphButton* tocButton = [ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TOC];
-        [tocButton.label setWikiText:WIKIGLYPH_TOC_EXPANDED
-                               color:tocButton.label.color
-                                size:tocButton.label.size
-                      baselineOffset:tocButton.label.baselineOffset];
+        [self.buttonTOC wmf_UIButton].selected = YES;
     }];
 }
 
@@ -1198,18 +1282,36 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         if (fabs(distanceScrolled) < minPixelsScrolled) {
             return;
         }
-        [ROOT animateTopAndBottomMenuHidden:((distanceScrolled > 0) ? NO : YES)];
+        [self animateTopAndBottomMenuHidden:((distanceScrolled > 0) ? NO : YES)];
 
         [self referencesHide];
     }
 }
 
+- (void)animateTopAndBottomMenuHidden:(BOOL)hidden {
+    // Don't toggle if hidden state isn't different or if it's already toggling.
+    if ((self.navigationController.isNavigationBarHidden == hidden) || self.isAnimatingTopAndBottomMenuHidden) {
+        return;
+    }
+
+    self.isAnimatingTopAndBottomMenuHidden = YES;
+
+    // Queue it up so web view doesn't get blanked out.
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [UIView animateWithDuration:0.12f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            // Not using the animated variant intentionally!
+            [self.navigationController setNavigationBarHidden:hidden];
+            [self.navigationController setToolbarHidden:hidden];
+        } completion:^(BOOL done){
+            self.isAnimatingTopAndBottomMenuHidden = NO;
+        }];
+    }];
+}
+
 - (void)animateTopAndBottomMenuReveal {
     // Toggle the menus closed on tap (only if they were showing).
     if (![self tocDrawerIsOpen]) {
-        if (ROOT.topMenuViewController.navBarMode != NAVBAR_MODE_SEARCH) {
-            [ROOT animateTopAndBottomMenuHidden:NO];
-        }
+        [self animateTopAndBottomMenuHidden:NO];
     }
 }
 
@@ -1227,6 +1329,11 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+
+    //[self showOnboarding];
+
+    //self.buttonTOC.disabled = !self.buttonTOC.disabled;
+    //self.buttonTOC.disabledColor = [UIColor redColor];
 
     //[self downloadAssetsFilesIfNecessary];
 
@@ -1369,7 +1476,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     if (page) {
         [self navigateToPage:page discoveryMethod:method];
     } else {
-        [NAV loadTodaysArticle];
+        [self loadTodaysArticle];
     }
 }
 
@@ -1522,6 +1629,22 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
             }
             break;
         }
+    } else if ([sender isKindOfClass:[RandomArticleFetcher class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                NSString* title = (NSString*)fetchedData;
+                if (title) {
+                    MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithString:title];
+                    [self navigateToPage:pageTitle discoveryMethod:MWKHistoryDiscoveryMethodRandom];
+                }
+            }
+            break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                //[self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                break;
+        }
     }
 }
 
@@ -1670,9 +1793,9 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     self.editable         = article.editable;
     self.protectionStatus = article.protection;
 
-    [self.bottomMenuViewController updateBottomBarButtonsEnabledState];
+    [self updateBottomBarButtonsEnabledState];
 
-    [ROOT.topMenuViewController updateTOCButtonVisibility];
+    [self updateTOCButtonVisibility];
 
     NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
 
@@ -1765,6 +1888,40 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateProgress:0.85 animated:YES completion:NULL];
     });
+}
+
+- (NSDictionary*)getAdjacentHistoryEntries {
+    SessionSingleton* session   = [SessionSingleton sharedInstance];
+    MWKHistoryList* historyList = session.userDataStore.historyList;
+
+    MWKHistoryEntry* currentHistoryEntry = [historyList entryForTitle:session.currentArticle.title];
+    MWKHistoryEntry* beforeHistoryEntry  = [historyList entryBeforeEntry:currentHistoryEntry];
+    MWKHistoryEntry* afterHistoryEntry   = [historyList entryAfterEntry:currentHistoryEntry];
+
+    NSMutableDictionary* result = [@{} mutableCopy];
+    if (beforeHistoryEntry) {
+        result[@"before"] = beforeHistoryEntry;
+    }
+    if (currentHistoryEntry) {
+        result[@"current"] = currentHistoryEntry;
+    }
+    if (afterHistoryEntry) {
+        result[@"after"] = afterHistoryEntry;
+    }
+
+    return result;
+}
+
+- (void)updateBottomBarButtonsEnabledState {
+    NSDictionary* adjacentHistoryEntries = [self getAdjacentHistoryEntries];
+    self.buttonForward.enabled              = (adjacentHistoryEntries[@"after"]) ? YES : NO;
+    self.buttonBack.enabled                 = (adjacentHistoryEntries[@"before"]) ? YES : NO;
+    self.buttonLanguages.enabled            = !(self.session.currentArticle.isMain && [self.session.currentArticle languagecount] > 0);
+    [self.buttonSave wmf_UIButton].selected = [self isCurrentArticleSaved];
+}
+
+- (BOOL)isCurrentArticleSaved {
+    return [self.session.userDataStore.savedPageList isSaved:self.session.currentArticle.title];
 }
 
 #pragma mark Scroll to last section after rotate
@@ -1869,6 +2026,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (BOOL)refreshShouldShow {
+    return YES;
     return (![self tocDrawerIsOpen])
            &&
            (self.session.currentArticle != nil)
@@ -1890,6 +2048,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (void)setBottomMenuHidden:(BOOL)bottomMenuHidden {
+    return;
     if (self.bottomMenuHidden == bottomMenuHidden) {
         return;
     }
@@ -1903,6 +2062,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (void)constrainBottomMenu {
+    return;
     // If visible, constrain bottom of bottomNavBar to bottom of superview.
     // If hidden, constrain top of bottomNavBar to bottom of superview.
 
@@ -2007,7 +2167,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         return;
     }
 
-    self.referencesVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"ReferencesVC"];
+    self.referencesVC = [ReferencesVC wmf_initialViewControllerFromClassStoryboard];
 
     self.referencesVC.webVC = self;
     [self addChildViewController:self.referencesVC];
@@ -2089,11 +2249,11 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     self.progressView.alpha = 1.0;
 
     if (!self.progressView.superview) {
-        [ROOT.topMenuViewController.view addSubview:self.progressView];
+        [self.view addSubview:self.progressView];
         [self.progressView mas_makeConstraints:^(MASConstraintMaker* make) {
-            make.top.equalTo(ROOT.topMenuViewController.view.mas_bottom).with.offset(-2);
-            make.left.equalTo(ROOT.topMenuViewController.view.mas_left);
-            make.right.equalTo(ROOT.topMenuViewController.view.mas_right);
+            make.top.equalTo(self.view.mas_top).with.offset(0);
+            make.left.equalTo(self.view.mas_left);
+            make.right.equalTo(self.view.mas_right);
             make.height.equalTo(@2.0);
         }];
     }
@@ -2163,6 +2323,66 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         self.footerViewController = [[WMFWebViewFooterViewController alloc] init];
         [self wmf_addChildController:self.footerViewController andConstrainToEdgesOfContainerView:self.footerContainer];
     }
+}
+
+#pragma mark - Article loading convenience
+
+- (void)loadRandomArticle {
+    [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
+
+    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
+                                                               withManager:[QueuesSingleton sharedInstance].articleFetchManager
+                                                        thenNotifyDelegate:self];
+}
+
+- (void)loadTodaysArticle {
+    [self.siteInfoFetcher fetchInfoForSite:[[SessionSingleton sharedInstance] searchSite]
+                                   success:^(MWKSiteInfo* siteInfo) {
+        [self navigateToPage:siteInfo.mainPageTitle
+             discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+    } failure:^(NSError* error) {
+        if ([error.domain isEqual:NSURLErrorDomain]
+            && error.code == NSURLErrorCannotFindHost) {
+            [self showLanguages];
+        } else {
+            [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:2.0];
+        }
+    }];
+}
+
+- (MWKSiteInfoFetcher*)siteInfoFetcher {
+    if (!_siteInfoFetcher) {
+        _siteInfoFetcher = [MWKSiteInfoFetcher new];
+        /*
+           HAX: Force this particular site info fetcher to share the article operation queue. This allows for the
+           cancellation of site info requests when going to the main page, e.g. when clicking a link after clicking
+           "Today" in the main menu.
+
+           This is done here and not for all site info fetchers to prevent unintended side effects.
+         */
+        _siteInfoFetcher.requestManager.operationQueue =
+            [[[QueuesSingleton sharedInstance] articleFetchManager] operationQueue];
+    }
+    return _siteInfoFetcher;
+}
+
+#pragma mark - Language variant loading
+
+- (void)showLanguages {
+    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    languagesVC.downloadLanguagesForCurrentArticle = YES;
+    languagesVC.languageSelectionDelegate          = self;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
+}
+
+- (void)languageSelected:(NSDictionary*)langData sender:(LanguagesViewController*)sender {
+    MWKSite* site   = [MWKSite siteWithLanguage:langData[@"code"]];
+    MWKTitle* title = [site titleWithString:langData[@"*"]];
+
+    [self navigateToPage:title
+         discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

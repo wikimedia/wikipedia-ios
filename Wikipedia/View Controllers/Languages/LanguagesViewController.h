@@ -12,10 +12,6 @@
 
 @property (nonatomic) BOOL downloadLanguagesForCurrentArticle;
 
-@property (nonatomic) NavBarMode navBarMode;
-
-@property (weak, nonatomic) id truePresentingVC;
-
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 
 // Object to receive "languageSelected:sender:" notifications.

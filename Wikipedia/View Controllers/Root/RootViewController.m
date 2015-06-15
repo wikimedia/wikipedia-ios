@@ -354,44 +354,6 @@
     self.centerContainerTopConstraint.constant = topMenuHeight;
 }
 
-- (void)animateTopAndBottomMenuHidden:(BOOL)hidden {
-    // Don't toggle if hidden state isn't different or if it's already toggling.
-    if ((self.topMenuHidden == hidden) || self.isAnimatingTopAndBottomMenuHidden) {
-        return;
-    }
-
-    self.isAnimatingTopAndBottomMenuHidden = YES;
-
-    // Queue it up so web view doesn't get blanked out.
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [UIView animateWithDuration:0.12f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            self.topMenuHidden = hidden;
-
-            WebViewController* webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
-            webVC.bottomMenuHidden = self.topMenuHidden;
-
-            if (!hidden && !webVC.scrollingToTop) {
-                // When showing the menu it pushes the webview's origin.y down by the height of the top menu.
-                // This is kind of annoying as it makes the web view text jump. So here the web view's scroll
-                // view is scrolled up by the same amount the web was moved down.
-                webVC.webView.scrollView.contentOffset =
-                    CGPointMake(
-                        webVC.webView.scrollView.contentOffset.x,
-                        webVC.webView.scrollView.contentOffset.y + CHROME_MENUS_HEIGHT
-                        );
-            }
-
-            [webVC.view setNeedsUpdateConstraints];
-
-            [self.view setNeedsUpdateConstraints];
-
-            [self.view.superview layoutIfNeeded];
-        } completion:^(BOOL done){
-            self.isAnimatingTopAndBottomMenuHidden = NO;
-        }];
-    }];
-}
-
 - (void)updateViewConstraints {
     [self constrainTopContainerHeight];
 

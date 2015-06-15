@@ -26,6 +26,11 @@
 #import "UIFont+WMFStyle.h"
 #import "NSBundle+WMFInfoUtils.h"
 #import "MWKLanguageLink.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "WebViewController.h"
+#import "UIViewController+ModalsSearch.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
+#import "AboutViewController.h"
 
 #pragma mark - Defines
 
@@ -117,6 +122,13 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    @weakify(self)
+    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){
+        @strongify(self)
+        [self dismissViewControllerAnimated : YES completion : nil];
+    }];
+    self.navigationItem.leftBarButtonItems = @[xButton];
 
     self.highlightedTextAttributes = @{ NSFontAttributeName: [UIFont italicSystemFontOfSize:MENU_TITLE_FONT_SIZE] };
 
@@ -612,9 +624,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
              */
             case SECONDARY_MENU_ROW_INDEX_ABOUT:
             {
-                [self performModalSequeWithID:@"modal_segue_show_about"
-                              transitionStyle:UIModalTransitionStyleCoverVertical
-                                        block:nil];
+                [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[AboutViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
             }
             break;
             case SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH: {
@@ -651,19 +661,22 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 }
 
 - (void)showLanguages {
-    [self performModalSequeWithID:@"modal_segue_show_languages"
-                  transitionStyle:UIModalTransitionStyleCoverVertical
-                            block:^(LanguagesViewController* languagesVC) {
-        languagesVC.languageSelectionDelegate = self;
-    }];
+    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    languagesVC.languageSelectionDelegate = self;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
 
 - (void)languageSelected:(MWKLanguageLink*)langData sender:(LanguagesViewController*)sender {
     [self showAlert:MWLocalizedString(@"main-menu-language-selection-saved", nil) type:ALERT_TYPE_TOP duration:1];
 
-    [NAV switchPreferredLanguageToId:langData.languageCode];
+    [self switchPreferredLanguageToId:langData.languageCode];
 
-    [self popModalToRoot];
+    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)switchPreferredLanguageToId:(NSString*)languageId {
+    [[SessionSingleton sharedInstance] setSearchLanguage:languageId];
+    [[self searchModalsForViewControllerOfClass:[WebViewController class]] loadTodaysArticle];
 }
 
 #pragma mark - Animation

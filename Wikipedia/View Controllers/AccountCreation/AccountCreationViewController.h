@@ -15,7 +15,4 @@
 
 @property (strong, nonatomic) CreateAccountFunnel* funnel;
 
-@property (weak, nonatomic) id truePresentingVC;
-@property (weak, nonatomic) TopMenuViewController* topMenuViewController;
-
 @end

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="sIA-fC-CW8">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <development version="5100" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <scenes>
+        <!--Captcha View Controller-->
+        <scene sceneID="bAd-gv-kTa">
+            <objects>
+                <viewController restorationIdentifier="CaptchaViewController" storyboardIdentifier="CaptchaViewController" id="sIA-fC-CW8" customClass="CaptchaViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SY2-Hg-a3u"/>
+                        <viewControllerLayoutGuide type="bottom" id="NcO-7E-4V6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2UF-VY-OwF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ubi-fl-THX">
+                                <rect key="frame" x="0.0" y="20" width="320" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="djK-ra-WHc"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="21c-U6-yfo">
+                                <rect key="frame" x="0.0" y="100" width="320" height="30"/>
+                                <state key="normal" title="Show another captcha">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter CAPTCHA text from image above" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gPg-cg-Yjy">
+                                <rect key="frame" x="20" y="140" width="280" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="6wn-Hx-rhl"/>
+                                    <constraint firstAttribute="height" constant="30" id="FGZ-UY-edA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ubi-fl-THX" secondAttribute="trailing" id="1Td-fM-XPv"/>
+                            <constraint firstItem="21c-U6-yfo" firstAttribute="leading" secondItem="2UF-VY-OwF" secondAttribute="leading" id="2CR-db-V5c"/>
+                            <constraint firstItem="ubi-fl-THX" firstAttribute="top" secondItem="2UF-VY-OwF" secondAttribute="top" constant="20" id="DPC-k6-MUG"/>
+                            <constraint firstAttribute="centerX" secondItem="gPg-cg-Yjy" secondAttribute="centerX" id="ZLk-CP-XhB"/>
+                            <constraint firstItem="21c-U6-yfo" firstAttribute="top" secondItem="ubi-fl-THX" secondAttribute="bottom" constant="10" id="buE-gO-Th9"/>
+                            <constraint firstItem="ubi-fl-THX" firstAttribute="leading" secondItem="2UF-VY-OwF" secondAttribute="leading" id="hvo-cb-rAM"/>
+                            <constraint firstAttribute="trailing" secondItem="21c-U6-yfo" secondAttribute="trailing" id="iuC-PQ-O9K"/>
+                            <constraint firstItem="gPg-cg-Yjy" firstAttribute="top" secondItem="21c-U6-yfo" secondAttribute="bottom" constant="10" id="ws5-VT-2g2"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="captchaImageView" destination="ubi-fl-THX" id="M7P-e6-2ct"/>
+                        <outlet property="captchaTextBox" destination="gPg-cg-Yjy" id="3QO-Xc-yVP"/>
+                        <outlet property="reloadCaptchaButton" destination="21c-U6-yfo" id="b2a-xv-a69"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eHF-WC-RSd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="744" y="-8347"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

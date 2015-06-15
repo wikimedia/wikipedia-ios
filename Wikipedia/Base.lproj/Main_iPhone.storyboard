@@ -545,39 +545,6 @@
             </objects>
             <point key="canvasLocation" x="89" y="666"/>
         </scene>
-        <!--Credits View Controller-->
-        <scene sceneID="5Ik-j0-hCD">
-            <objects>
-                <viewController restorationIdentifier="CreditsViewController" storyboardIdentifier="CreditsViewController" id="myl-z3-aa0" customClass="CreditsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Cq6-KC-8bv"/>
-                        <viewControllerLayoutGuide type="bottom" id="jJw-w1-zeH"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="XBS-Es-znJ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qEv-qB-FRv" customClass="TabularScrollView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="qEv-qB-FRv" secondAttribute="trailing" id="4Ln-Qz-emi"/>
-                            <constraint firstAttribute="bottom" secondItem="qEv-qB-FRv" secondAttribute="bottom" id="De2-ZF-dN4"/>
-                            <constraint firstItem="qEv-qB-FRv" firstAttribute="top" secondItem="XBS-Es-znJ" secondAttribute="top" id="Hmj-4p-eoK"/>
-                            <constraint firstItem="qEv-qB-FRv" firstAttribute="leading" secondItem="XBS-Es-znJ" secondAttribute="leading" id="sdn-y4-Yyg"/>
-                        </constraints>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <connections>
-                        <outlet property="scrollView" destination="qEv-qB-FRv" id="3ab-w8-LrO"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BLG-HG-Go1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="111" y="-5577"/>
-        </scene>
         <!--Preview And Save View Controller-->
         <scene sceneID="TJS-xh-DjB">
             <objects>
@@ -1963,7 +1930,6 @@
                         <segue destination="MJ8-O3-bkn" kind="custom" identifier="modal_segue_show_saved_pages" customClass="EmptySegue" id="jCG-jF-amh"/>
                         <segue destination="kv0-ra-y1C" kind="custom" identifier="modal_segue_show_primary_menu" customClass="EmptySegue" id="8fj-tN-bkR"/>
                         <segue destination="LWA-GV-VZP" kind="custom" identifier="modal_segue_show_secondary_menu" customClass="EmptySegue" id="gAv-y8-Bq7"/>
-                        <segue destination="myl-z3-aa0" kind="custom" identifier="modal_segue_show_credits" customClass="EmptySegue" id="C0v-U4-AQG"/>
                         <segue destination="rJv-oV-2mv" kind="custom" identifier="modal_segue_show_edit_summary" customClass="EmptySegue" id="bLt-sJ-X6S"/>
                         <segue destination="mbm-n6-GWW" kind="custom" identifier="modal_segue_show_login" customClass="EmptySegue" id="CtI-5v-HDU"/>
                         <segue destination="LsX-JK-bT6" kind="custom" identifier="modal_segue_show_create_account" customClass="EmptySegue" id="FYS-KO-VcP"/>

@@ -14,8 +14,6 @@
 @property (nonatomic) BOOL shouldShowSplashOnAppear;
 @property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
 
-- (void)animateTopAndBottomMenuHidden:(BOOL)hidden;
-
 - (void)togglePrimaryMenu;
 
 - (void)pushViewController:(UIViewController*)viewController animated:(BOOL)animated;

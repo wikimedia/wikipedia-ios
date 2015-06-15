@@ -7,24 +7,21 @@
 #import "SavedPagesResultCell.h"
 #import "Defines.h"
 #import "SessionSingleton.h"
-#import "CenterNavController.h"
 #import "NSString+Extras.h"
-#import "TopMenuContainerView.h"
-#import "UIViewController+StatusBarHeight.h"
 #import "UIViewController+ModalPop.h"
-#import "MenuButton.h"
-#import "TopMenuViewController.h"
 #import "DataHousekeeping.h"
 #import "SavedPagesFunnel.h"
 #import "NSObject+ConstraintsScale.h"
 #import "PaddedLabel.h"
 #import "QueuesSingleton.h"
 #import "SavedArticlesFetcher.h"
-#import "WMFBorderButton.h"
 #import "WMFProgressLineView.h"
 #import <Masonry/Masonry.h>
 #import "NSAttributedString+WMFSavedPagesAttributedStrings.h"
 #import "UITableView+DynamicCellHeight.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
+#import "UIViewController+ModalsSearch.h"
 
 static NSString* const kSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesDidShowCancelRefreshAlert";
 static NSString* const kSavedPagesCellID                    = @"SavedPagesResultCell";
@@ -46,11 +43,14 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 @property (strong, nonatomic) IBOutlet UIView* emptyContainerView;
 
 @property (strong, nonatomic) WMFProgressLineView* progressView;
-@property (strong, nonatomic) WMFBorderButton* cancelButton;
 
 @property (strong, nonatomic) SavedPagesResultCell* offScreenSizingCell;
 
 @property (strong, nonatomic) UIImage* placeholderThumbnailImage;
+
+@property (strong, nonatomic) UIBarButtonItem* reloadButtonItem;
+@property (strong, nonatomic) UIBarButtonItem* trashButtonItem;
+@property (strong, nonatomic) UIBarButtonItem* cancelButton;
 
 @end
 
@@ -58,28 +58,8 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 
 #pragma mark - NavBar
 
-- (NavBarMode)navBarMode {
-    return NAVBAR_MODE_PAGES_SAVED;
-}
-
 - (NSString*)title {
     return MWLocalizedString(@"saved-pages-title", nil);
-}
-
-- (MenuButton*)reloadButton {
-    return (MenuButton*)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_RELOAD];
-}
-
-- (WMFBorderButton*)cancelButton {
-    if (!_cancelButton) {
-        WMFBorderButton* button = [WMFBorderButton standardBorderButton];
-        [button setTitle:MWLocalizedString(@"saved-pages-clear-cancel", nil) forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(cancelRefresh) forControlEvents:UIControlEventTouchUpInside];
-
-        _cancelButton = button;
-    }
-
-    return _cancelButton;
 }
 
 - (WMFProgressLineView*)progressView {
@@ -100,27 +80,6 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 
 #pragma mark - Top menu
 
-// Handle nav bar taps. (same way as any other view controller would)
-- (void)navItemTappedNotification:(NSNotification*)notification {
-    NSDictionary* userInfo = [notification userInfo];
-    UIView* tappedItem     = userInfo[@"tappedItem"];
-
-    switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_X:
-            [self popModal];
-        case NAVBAR_LABEL:
-            break;
-        case NAVBAR_BUTTON_RELOAD:
-            [self startRefresh];
-            break;
-        case NAVBAR_BUTTON_TRASH:
-            [self showDeleteAllDialog];
-            break;
-        default:
-            break;
-    }
-}
-
 - (BOOL)prefersStatusBarHidden {
     return NO;
 }
@@ -130,20 +89,11 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"NavItemTapped"
-                                                  object:nil];
     self.tableView.editing = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
-    // Listen for nav bar taps.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(navItemTappedNotification:)
-                                                 name:@"NavItemTapped"
-                                               object:nil];
 
     SavedArticlesFetcher* fetcher = [SavedArticlesFetcher sharedInstance];
 
@@ -154,6 +104,31 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    @weakify(self)
+    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){
+        @strongify(self)
+        [self dismissViewControllerAnimated : YES completion : nil];
+    }];
+    self.navigationItem.leftBarButtonItems = @[xButton];
+
+    self.reloadButtonItem = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_RELOAD
+                                                    handler:^(id sender){
+        @strongify(self)
+        [self startRefresh];
+    }];
+    self.trashButtonItem = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_TRASH
+                                                   handler:^(id sender){
+        @strongify(self)
+        [self showDeleteAllDialog];
+    }];
+
+    self.cancelButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"saved-pages-clear-cancel", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
+        @strongify(self)
+        [self cancelRefresh];
+    }];
+
+    self.navigationItem.rightBarButtonItems = @[self.trashButtonItem, self.reloadButtonItem];
 
     userDataStore = [SessionSingleton sharedInstance].userDataStore;
     savedPageList = userDataStore.savedPageList;
@@ -262,61 +237,47 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [savedPageList entryAtIndex:indexPath.row];
 
-    [NAV loadArticleWithTitle:savedEntry.title
-                     animated:YES
-              discoveryMethod:MWKHistoryDiscoveryMethodSaved
-                   popToWebVC:NO];
-
-    [self popModalToRoot];
+    WebViewController* webVC = [self searchModalsForViewControllerOfClass:[WebViewController class]];
+    NSParameterAssert(webVC);
+    [webVC navigateToPage:savedEntry.title
+          discoveryMethod:MWKHistoryDiscoveryMethodSaved];
+    [webVC.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UI Updates
 
 - (void)showCancelButton {
-    self.cancelButton.alpha = 1.0;
-    [self.topMenuViewController.view addSubview:self.cancelButton];
-
-    MenuButton* reloadButton = [self reloadButton];
-
-    [self.cancelButton mas_remakeConstraints:^(MASConstraintMaker* make) {
-        make.right.equalTo(reloadButton.mas_right);
-        make.centerY.equalTo(reloadButton.mas_centerY);
-    }];
+    self.navigationItem.rightBarButtonItems = @[self.cancelButton];
 }
 
 - (void)hideCancelButton {
-    self.cancelButton.alpha = 0.0;
+    self.navigationItem.rightBarButtonItems = @[self.trashButtonItem, self.reloadButtonItem];
 }
 
 - (void)showRefreshButton {
-    MenuButton* reloadButton = [self reloadButton];
-    reloadButton.alpha = 1.0;
+    self.reloadButtonItem.enabled = YES;
 }
 
 - (void)hideRefreshButton {
-    MenuButton* reloadButton = [self reloadButton];
-    reloadButton.clipsToBounds = NO;
-    reloadButton.alpha         = 0.0;
+    self.reloadButtonItem.enabled = NO;
 }
 
 - (void)showRefreshTitle {
-    UILabel* textFieldContainer = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
-    textFieldContainer.text = @"Updating";
+//TODO: add i18n!!!
+    self.title = @"Updating";
 }
 
 - (void)hideRefreshTitle {
-    UILabel* textFieldContainer = [self.topMenuViewController getNavBarItem:NAVBAR_LABEL];
-    textFieldContainer.text = self.title;
+    self.title = MWLocalizedString(@"saved-pages-title", nil);
 }
 
 - (void)showProgressView {
     self.progressView.alpha = 1.0;
-    [self.topMenuViewController.view addSubview:self.progressView];
-
+    [self.view addSubview:self.progressView];
     [self.progressView mas_remakeConstraints:^(MASConstraintMaker* make) {
-        make.top.equalTo(self.topMenuViewController.view.mas_bottom);
-        make.left.equalTo(self.topMenuViewController.view.mas_left);
-        make.right.equalTo(self.topMenuViewController.view.mas_right);
+        make.top.equalTo(self.view.mas_top);
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
         make.height.equalTo(@2.0);
     }];
 }
@@ -326,22 +287,18 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 }
 
 - (void)hideTrashButton {
-    MenuButton* trashButton = (MenuButton*)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TRASH];
-    trashButton.alpha = 0.0;
+    self.trashButtonItem.enabled = NO;
 }
 
 - (void)showTrashButton {
-    MenuButton* trashButton = (MenuButton*)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_TRASH];
-    trashButton.alpha = 1.0;
+    self.trashButtonItem.enabled = YES;
 }
 
 - (void)setEmptyOverlayAndTrashIconVisibility {
     BOOL savedPageFound = (savedPageList.length > 0);
 
-    self.emptyOverlay.hidden = savedPageFound;
-
-    MenuButton* reloadButton = [self reloadButton];
-    reloadButton.alpha = savedPageFound ? 1.0 : 0.0;
+    self.emptyOverlay.hidden      = savedPageFound;
+    self.reloadButtonItem.enabled = savedPageFound;
 
     if (savedPageFound) {
         [self showTrashButton];
@@ -388,7 +345,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
     DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
     [dataHouseKeeping performHouseKeeping];
 
-    [NAV loadTodaysArticle];
+    [[self searchModalsForViewControllerOfClass:[WebViewController class]] loadTodaysArticle];
 }
 
 - (void)deleteAllSavedPages {
@@ -403,7 +360,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 
     [self setEmptyOverlayAndTrashIconVisibility];
 
-    [NAV loadTodaysArticle];
+    [[self searchModalsForViewControllerOfClass:[WebViewController class]] loadTodaysArticle];
 }
 
 - (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

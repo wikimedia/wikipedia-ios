@@ -3,7 +3,6 @@
 
 #import "WikipediaAppUtils.h"
 #import "LoginViewController.h"
-#import "CenterNavController.h"
 #import "QueuesSingleton.h"
 #import "LoginTokenFetcher.h"
 #import "AccountLogin.h"
@@ -14,19 +13,18 @@
 #import "WMF_Colors.h"
 #import "MenuButton.h"
 #import "PaddedLabel.h"
-#import "RootViewController.h"
-#import "TopMenuViewController.h"
 #import "CreateAccountFunnel.h"
 #import "PreviewAndSaveViewController.h"
 #import "SectionEditorViewController.h"
 #import "OnboardingViewController.h"
 #import "WebViewController.h"
-#import "UIViewController+ModalPresent.h"
 #import "AccountCreationViewController.h"
 #import "UIViewController+ModalsSearch.h"
-#import "UIViewController+ModalPop.h"
 #import "Defines.h"
 #import "NSObject+ConstraintsScale.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
+#import "UIViewController+WMFStoryboardUtilities.h"
 
 @interface LoginViewController (){
 }
@@ -44,21 +42,34 @@
 @property (nonatomic, copy) void (^ successBlock)();
 @property (nonatomic, copy) void (^ failBlock)();
 
+@property (strong, nonatomic) UIBarButtonItem* doneButton;
+
 @end
 
 @implementation LoginViewController
 
-- (NavBarMode)navBarMode {
-    return NAVBAR_MODE_LOGIN;
-}
-
-- (BOOL)prefersStatusBarHidden {
+/*
+   - (BOOL)prefersStatusBarHidden {
     return NAV.isEditorOnNavstack;
-}
+   }
+ */
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    @weakify(self)
+    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){
+        @strongify(self)
+        [self dismissViewControllerAnimated : YES completion : nil];
+    }];
+    self.navigationItem.leftBarButtonItems = @[xButton];
+
+    self.doneButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-done", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
+        @strongify(self)
+        [self save];
+    }];
+    self.navigationItem.rightBarButtonItem = self.doneButton;
 
     self.successBlock = ^(){};
     self.failBlock = ^(){};
@@ -111,7 +122,7 @@
         MWLocalizedString(@"navbar-title-mode-login-and-save", nil)
        ;
      */
-    self.titleLabel.text = MWLocalizedString(@"navbar-title-mode-login", nil);
+    //self.titleLabel.text = MWLocalizedString(@"navbar-title-mode-login", nil);
 
     self.usernameField.textAlignment = NSTextAlignmentNatural;
     self.passwordField.textAlignment = NSTextAlignmentNatural;
@@ -142,7 +153,7 @@
 
 - (void)textFieldDidChange:(id)sender {
     BOOL shouldHighlight = ((self.usernameField.text.length > 0) && (self.passwordField.text.length > 0)) ? YES : NO;
-    [self highlightProgressiveButton:shouldHighlight];
+    [self enableProgressiveButton:shouldHighlight];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField*)textField {
@@ -154,27 +165,8 @@
     return YES;
 }
 
-- (void)highlightProgressiveButton:(BOOL)highlight {
-    MenuButton* button = (MenuButton*)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE];
-    button.enabled = highlight;
-}
-
-// Handle nav bar taps.
-- (void)navItemTappedNotification:(NSNotification*)notification {
-    NSDictionary* userInfo = [notification userInfo];
-    UIView* tappedItem     = userInfo[@"tappedItem"];
-
-    switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_DONE:
-            [self save];
-            break;
-        case NAVBAR_BUTTON_X:
-        case NAVBAR_BUTTON_ARROW_LEFT:
-            [self popModal];
-            break;
-        default:
-            break;
-    }
+- (void)enableProgressiveButton:(BOOL)highlight {
+    self.doneButton.enabled = highlight;
 }
 
 - (void)handleLongPress {
@@ -185,24 +177,17 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
-    self.topMenuViewController.navBarMode = NAVBAR_MODE_LOGIN;
-
-    [self highlightProgressiveButton:NO];
+    [self enableProgressiveButton:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.usernameField becomeFirstResponder];
-
-    // Listen for nav bar taps.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navItemTappedNotification:) name:@"NavItemTapped" object:nil];
 }
 
 - (void)save {
-    id onboardingVC  = [self searchModalsForViewControllerOfClass:[OnboardingViewController class]];
-    MenuButton* done = (MenuButton*)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE];
-    done.userInteractionEnabled = NO;
+    id onboardingVC = [self searchModalsForViewControllerOfClass:[OnboardingViewController class]];
+    [self enableProgressiveButton:NO];
 
     [self loginWithUserName:self.usernameField.text
                    password:self.passwordField.text
@@ -212,16 +197,23 @@
                                                                      withString:self.usernameField.text];
         [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:1.0f];
 
-        [self performSelector:(onboardingVC ? @selector(popModalToRoot) : @selector(popModal)) withObject:nil afterDelay:1.2f];
-    } onFail:^{ done.userInteractionEnabled = YES; }];
+        [self performSelector:@selector(dismissViewController:) withObject:(onboardingVC ? onboardingVC : self) afterDelay:1.2f];
+    } onFail:^{
+        [self enableProgressiveButton:YES];
+    }];
+}
+
+- (void)dismissViewController:(UIViewController*)viewController {
+    [viewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)dismissSelf {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [self highlightProgressiveButton:NO];
-
+    [self enableProgressiveButton:NO];
     [super viewWillDisappear:animated];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -360,11 +352,16 @@
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         [self.funnel logCreateAccountAttempt];
 
-        [self performModalSequeWithID:@"modal_segue_show_create_account"
-                      transitionStyle:UIModalTransitionStyleCoverVertical
-                                block:^(AccountCreationViewController* createAcctVC){
+        UIViewController* presenter = self.presentingViewController;
+        [self dismissViewControllerAnimated:YES completion:^{
+            AccountCreationViewController* createAcctVC = [AccountCreationViewController wmf_initialViewControllerFromClassStoryboard];
+
             createAcctVC.funnel = [[CreateAccountFunnel alloc] init];
             [createAcctVC.funnel logStartFromLogin:self.funnel.loginSessionToken];
+
+            UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:createAcctVC];
+
+            [presenter presentViewController:nc animated:YES completion:nil];
         }];
     }
 }

@@ -2,11 +2,10 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SectionEditorViewController.h"
-#import "FetcherBase.h"
 
 #import "MediaWikiKit.h"
 
-@interface CenterNavController : UINavigationController <UINavigationControllerDelegate, FetchFinishedDelegate>
+@interface CenterNavController : UINavigationController <UINavigationControllerDelegate>
 
 @property (nonatomic, readonly) BOOL isEditorOnNavstack;
 @property (nonatomic, readonly) SectionEditorViewController* editor;
@@ -16,16 +15,8 @@
              discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
                   popToWebVC:(BOOL)popToWebVC;
 
-- (void)loadTodaysArticle;
-- (void)loadRandomArticle;
-
 - (void)promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString*)title;
 - (void)promptZeroOff;
-
-//-(ArticleDiscoveryMethod)getDiscoveryMethodForString:(NSString *)string;
-//-(NSString *)getStringForDiscoveryMethod:(ArticleDiscoveryMethod)method;
-
-- (void)switchPreferredLanguageToId:(NSString*)languageId;
 
 @property (nonatomic) BOOL isTransitioningBetweenViewControllers;
 

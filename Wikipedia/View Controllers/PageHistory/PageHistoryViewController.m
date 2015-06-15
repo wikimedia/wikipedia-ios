@@ -9,26 +9,24 @@
 #import "UIViewController+Alert.h"
 #import "NSDate-Utilities.h"
 #import "WikiGlyph_Chars.h"
-#import "UIViewController+ModalPop.h"
 #import "Defines.h"
 #import "PaddedLabel.h"
 #import "UITableView+DynamicCellHeight.h"
 #import "NSDateFormatter+WMFExtensions.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "PageHistoryFetcher.h"
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
 
-@interface PageHistoryViewController ()
+@interface PageHistoryViewController () <FetchFinishedDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) __block NSMutableArray* pageHistoryDataArray;
 @property (strong, nonatomic) PageHistoryResultCell* offScreenSizingCell;
+@property (strong, nonatomic) IBOutlet UITableView* tableView;
 
 @end
 
 @implementation PageHistoryViewController
-
-- (NavBarMode)navBarMode {
-    return NAVBAR_MODE_X_WITH_LABEL;
-}
 
 - (NSString*)title {
     return MWLocalizedString(@"page-history-title", nil);
@@ -38,19 +36,10 @@
     [super viewDidAppear:animated];
 
     [self getPageHistoryData];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(navItemTappedNotification:)
-                                                 name:@"NavItemTapped"
-                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [[QueuesSingleton sharedInstance].pageHistoryFetchManager.operationQueue cancelAllOperations];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"NavItemTapped"
-                                                  object:nil];
 
     [super viewWillDisappear:animated];
 }
@@ -59,22 +48,15 @@
     return NO;
 }
 
-- (void)navItemTappedNotification:(NSNotification*)notification {
-    NSDictionary* userInfo = [notification userInfo];
-    UIView* tappedItem     = userInfo[@"tappedItem"];
-
-    switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_X:
-            [self popModal];
-
-            break;
-        default:
-            break;
-    }
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    @weakify(self)
+    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){
+        @strongify(self)
+        [self dismissViewControllerAnimated : YES completion : nil];
+    }];
+    self.navigationItem.leftBarButtonItem = xButton;
 
     self.navigationItem.hidesBackButton = YES;
 

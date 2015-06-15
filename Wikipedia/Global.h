@@ -10,6 +10,8 @@
 
 #import "WMFGCDHelpers.h"
 
+#import <libextobjc/EXTScope.h>
+
 #import "RootViewController.h"
 #import "CenterNavController.h"
 

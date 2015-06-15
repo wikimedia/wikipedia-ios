@@ -3,14 +3,12 @@
 
 #import "AboutViewController.h"
 #import "WikipediaAppUtils.h"
-#import "UIViewController+ModalPop.h"
 #import "UIWebView+LoadAssetsHtml.h"
 #import "Defines.h"
 #import "NSString+Extras.h"
 #import <BlocksKit/BlocksKit.h>
-#import "TopMenuTextFieldContainer.h"
-#import "TopMenuTextField.h"
 #import "NSBundle+WMFInfoUtils.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
 
 static NSString* const kWMFAboutHTMLFile  = @"about.html";
 static NSString* const kWMFAboutPlistName = @"AboutViewController";
@@ -39,15 +37,14 @@ static NSString* const kWMFLicenseRedirectResourceIdentifier = @"blank";
 
 static NSString* const kWMFContributorsKey = @"contributors";
 
-
 @interface AboutViewController ()
+
+@property (nonatomic, strong) UIBarButtonItem* buttonX;
+@property (nonatomic, strong) UIBarButtonItem* buttonCaretLeft;
 
 @end
 
 @implementation AboutViewController
-
-
-
 
 #pragma mark - UIViewController
 
@@ -55,22 +52,19 @@ static NSString* const kWMFContributorsKey = @"contributors";
     [super viewDidLoad];
     self.webView.delegate = self;
     [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile];
-}
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+    @weakify(self)
+    self.buttonX = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){
+        @strongify(self)
+        [self dismissViewControllerAnimated : YES completion : nil];
+    }];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(navItemTappedNotification:)
-                                                 name:@"NavItemTapped"
-                                               object:nil];
-}
+    self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_CARET_LEFT handler:^(id sender){
+        @strongify(self)
+        [self.webView loadHTMLFromAssetsFile : kWMFAboutHTMLFile];
+    }];
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"NavItemTapped"
-                                                  object:nil];
-    [super viewWillDisappear:animated];
+    [self updateNavigationBar];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -80,34 +74,8 @@ static NSString* const kWMFContributorsKey = @"contributors";
 #pragma mark - Navigation Bar Configuration
 
 - (void)updateNavigationBar {
-    // TODO: let VCs update the navigation bar, inverting control
-
-    self.topMenuViewController.navBarMode = self.navBarMode;
-    TopMenuTextFieldContainer* textFieldContainer = [self.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-    textFieldContainer.textField.text = self.title;
-}
-
-- (void)navItemTappedNotification:(NSNotification*)notification {
-    NSDictionary* userInfo = [notification userInfo];
-    UIView* tappedItem     = userInfo[@"tappedItem"];
-
-    switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_X:
-            [self popModal];
-            break;
-        case NAVBAR_BUTTON_ARROW_LEFT:
-            [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile];
-            break;
-        default:
-            break;
-    }
-}
-
-- (NavBarMode)navBarMode {
-    if ([self isDisplayingLicense]) {
-        return NAVBAR_MODE_BACK_WITH_LABEL;
-    }
-    return NAVBAR_MODE_X_WITH_LABEL;
+    self.title                            = self.title;
+    self.navigationItem.leftBarButtonItem = [self isDisplayingLicense] ? self.buttonCaretLeft : self.buttonX;
 }
 
 - (NSString*)title {

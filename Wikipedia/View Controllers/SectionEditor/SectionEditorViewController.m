@@ -82,7 +82,7 @@
 }
 
 - (void)highlightProgressiveButton:(BOOL)highlight {
-    [[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT] setEnabled:highlight];
+//    [[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT] setEnabled:highlight];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -107,7 +107,7 @@
     [super viewWillAppear:animated];
 
     // Change the nav bar layout.
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
+    //ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -117,7 +117,7 @@
 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
 
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
+    //ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
 
     [super viewWillDisappear:animated];
 }

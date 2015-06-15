@@ -8,10 +8,10 @@
 #import "SessionSingleton.h"
 #import "Defines.h"
 #import "UIViewController+Alert.h"
-#import "UIViewController+ModalPop.h"
 #import "UIView+ConstraintsScale.h"
 #import "MWKLanguageLink.h"
 #import "UIView+WMFDefaultNib.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
 
 #import <BlocksKit/BlocksKit.h>
 #import <Masonry/Masonry.h>
@@ -47,10 +47,6 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 @implementation LanguagesViewController
 @synthesize langLinkController = _langLinkController;
 
-- (NavBarMode)navBarMode {
-    return NAVBAR_MODE_X_WITH_LABEL;
-}
-
 - (NSString*)title {
     return MWLocalizedString(@"languages-title", nil);
 }
@@ -59,6 +55,13 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    @weakify(self)
+    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){
+        @strongify(self)
+        [self dismissViewControllerAnimated : YES completion : nil];
+    }];
+    self.navigationItem.leftBarButtonItems = @[xButton];
 
     self.tableView.backgroundColor = CHROME_COLOR;
 
@@ -85,16 +88,18 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
         // (temporarily?) hide search field while loading languages since the default alert UI covers the search field
         [self setLanguageFilterHidden:YES animated:NO];
 
-        __typeof__(self) weakSelf = self;
+        @weakify(self);
         [self.langLinkController
          loadLanguagesForTitle:[[[SessionSingleton sharedInstance] currentArticle] title]
                        success:^{
+            @strongify(self)
             [self fadeAlert];
             [self setLanguageFilterHidden:NO animated:YES];
             [self reloadDataSections];
         }
                        failure:^(NSError* __nonnull error) {
-            [weakSelf showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+            @strongify(self)
+            [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
         }];
     } else {
         [self.langLinkController loadStaticSiteLanguageData];
@@ -141,24 +146,11 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 
 #pragma mark - Top menu
 
-- (void)navItemTappedNotification:(NSNotification*)notification {
-    NSDictionary* userInfo = [notification userInfo];
-    UIView* tappedItem     = userInfo[@"tappedItem"];
-    switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_X:
-            [self popModal];
-            break;
-        default:
-            break;
-    }
-}
-
 - (BOOL)prefersStatusBarHidden {
     return NO;
 }
 
 #pragma mark - Filtering
-
 
 - (void)reloadDataSections {
     [self fadeAlert];

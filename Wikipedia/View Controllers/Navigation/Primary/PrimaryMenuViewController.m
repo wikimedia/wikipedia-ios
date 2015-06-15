@@ -9,11 +9,18 @@
 #import "LoginViewController.h"
 #import "UIViewController+Alert.h"
 #import "Defines.h"
-#import "UIViewController+ModalPresent.h"
-#import "UIViewController+ModalPop.h"
 #import "NSObject+ConstraintsScale.h"
 #import "UITableView+DynamicCellHeight.h"
 #import "UIScreen+Extras.h"
+#import "WikiGlyph_Chars.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "SecondaryMenuViewController.h"
+#import "HistoryViewController.h"
+#import "SavedPagesViewController.h"
+#import "NearbyViewController.h"
+#import "WebViewController.h"
+#import "UIViewController+ModalsSearch.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
 
 #define TABLE_CELL_ID @"PrimaryMenuCell"
 
@@ -42,14 +49,6 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
 
 @implementation PrimaryMenuViewController
 
-- (NavBarMode)navBarMode {
-    return NAVBAR_MODE_X_WITH_LABEL;
-}
-
-- (NavBarStyle)navBarStyle {
-    return NAVBAR_STYLE_NIGHT;
-}
-
 - (BOOL)prefersStatusBarHidden {
     return NO;
 }
@@ -57,6 +56,13 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    @weakify(self)
+    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X_WHITE handler:^(id sender){
+        @strongify(self)
+        [self dismissViewControllerAnimated : YES completion : nil];
+    }];
+    self.navigationItem.leftBarButtonItems = @[xButton];
 
     //[self setupTableData];
     //[self randomizeTitles];
@@ -74,17 +80,8 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
 
     [self adjustConstraintsScaleForViews:@[self.tableView, self.moreButton, self.moreButton.superview]];
 
-    [self addTableHeaderView];
-
     // Single off-screen cell for determining dynamic cell height.
     self.offScreenSizingCell = (PrimaryMenuTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:TABLE_CELL_ID];
-}
-
-- (void)addTableHeaderView {
-    CGFloat topPadding = [[UIScreen mainScreen] isThreePointFiveInchScreen] ? 5 : 38;
-    UIView* header     = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, topPadding)];
-    header.backgroundColor         = [UIColor clearColor];
-    self.tableView.tableHeaderView = header;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -92,40 +89,6 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
 
     [self setupTableData];
     [self.tableView reloadData];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"NavItemTapped"
-                                                  object:nil];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-    // Listen for nav bar taps.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(navItemTappedNotification:)
-                                                 name:@"NavItemTapped"
-                                               object:nil];
-}
-
-// Handle nav bar taps. (same way as any other view controller would)
-- (void)navItemTappedNotification:(NSNotification*)notification {
-    NSDictionary* userInfo = [notification userInfo];
-    UIView* tappedItem     = userInfo[@"tappedItem"];
-
-    switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_X:
-        case NAVBAR_LABEL:
-            [self popModal];
-
-            break;
-        default:
-            break;
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -238,46 +201,39 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
 - (void)performActionForItem:(PrimaryMenuItemTag)tag {
     switch (tag) {
         case PRIMARY_MENU_ITEM_LOGIN: {
-            [self performModalSequeWithID:@"modal_segue_show_login"
-                          transitionStyle:UIModalTransitionStyleCoverVertical
-                                    block:^(LoginViewController* loginVC){
-                loginVC.funnel = [[LoginFunnel alloc] init];
-                [loginVC.funnel logStartFromNavigation];
-            }];
+            LoginViewController* loginVC = [LoginViewController wmf_initialViewControllerFromClassStoryboard];
+            loginVC.funnel = [[LoginFunnel alloc] init];
+            [loginVC.funnel logStartFromNavigation];
+            UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:loginVC];
+            [self presentViewController:nc animated:YES completion:nil];
         }
         break;
         case PRIMARY_MENU_ITEM_RANDOM: {
             //[self showAlert:MWLocalizedString(@"fetching-random-article", nil) type:ALERT_TYPE_TOP duration:-1];
-            [NAV loadRandomArticle];
-            [self popModal];
+            [[self searchModalsForViewControllerOfClass:[WebViewController class]] loadRandomArticle];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
         break;
         case PRIMARY_MENU_ITEM_TODAY: {
             //[self showAlert:MWLocalizedString(@"fetching-today-article", nil) type:ALERT_TYPE_TOP duration:-1];
-            [NAV loadTodaysArticle];
-            [self popModal];
+            [[self searchModalsForViewControllerOfClass:[WebViewController class]] loadTodaysArticle];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
         break;
         case PRIMARY_MENU_ITEM_RECENT:
-            [self performModalSequeWithID:@"modal_segue_show_history"
-                          transitionStyle:UIModalTransitionStyleCoverVertical
-                                    block:nil];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[HistoryViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
             break;
         case PRIMARY_MENU_ITEM_SAVEDPAGES:
-            [self performModalSequeWithID:@"modal_segue_show_saved_pages"
-                          transitionStyle:UIModalTransitionStyleCoverVertical
-                                    block:nil];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[SavedPagesViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
             break;
         case PRIMARY_MENU_ITEM_NEARBY:
-            [self performModalSequeWithID:@"modal_segue_show_nearby"
-                          transitionStyle:UIModalTransitionStyleCoverVertical
-                                    block:nil];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[NearbyViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
             break;
-        case PRIMARY_MENU_ITEM_MORE:
-            [self performModalSequeWithID:@"modal_segue_show_secondary_menu"
-                          transitionStyle:UIModalTransitionStyleCoverVertical
-                                    block:nil];
-            break;
+        case PRIMARY_MENU_ITEM_MORE: {
+            UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[SecondaryMenuViewController wmf_initialViewControllerFromClassStoryboard]];
+            [self presentViewController:nc animated:YES completion:nil];
+        }
+        break;
         default:
             break;
     }

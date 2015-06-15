@@ -13,6 +13,9 @@ PODS:
     - BlocksKit/DynamicDelegate
   - HockeySDK (3.6.2)
   - hpple (0.2.0)
+  - libextobjc/EXTScope (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/RuntimeExtensions (0.4.1)
   - Masonry (0.6.1)
   - OCHamcrest (4.1.1)
   - OCMockito (1.4.0):
@@ -24,6 +27,7 @@ DEPENDENCIES:
   - BlocksKit/UIKit (~> 2.2)
   - HockeySDK (= 3.6.2)
   - hpple (~> 0.2)
+  - libextobjc/EXTScope (~> 0.4.1)
   - Masonry (~> 0.6)
   - OCHamcrest (~> 4.1)
   - OCMockito (~> 1.4)
@@ -33,8 +37,9 @@ SPEC CHECKSUMS:
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   HockeySDK: 51ade1aff04463137e852797d2eb4dfb2511d6a9
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
+  libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.36.1

@@ -26,6 +26,7 @@
 #import "WMFIntrinsicContentSizeAwareTableView.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "WMFSearchFunnel.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
 
 static NSString* const kWMFSearchCellID     = @"SearchResultCell";
 static CGFloat const kWMFSearchDelay        = 0.4;
@@ -81,7 +82,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 @implementation SearchResultsController
 
 + (SearchResultsController*)standardSearchResultsController {
-    SearchResultsController* vc = [ROOT.storyboard instantiateViewControllerWithIdentifier:@"SearchResultsController"];
+    SearchResultsController* vc = [SearchResultsController wmf_initialViewControllerFromClassStoryboard];
     vc.type                                  = WMFSearchResultsControllerTypeStandard;
     vc.maxResults                            = SEARCH_MAX_RESULTS;
     vc.minResultsBeforeRunningFullTextSearch = kWMFMinResultsBeforeAutoFullTextSearch;
