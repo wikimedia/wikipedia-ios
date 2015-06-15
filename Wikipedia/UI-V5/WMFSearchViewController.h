@@ -6,8 +6,18 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFArticleListCollectionViewController.h"
+@protocol WMFSearchViewControllerDelegate;
 
 @interface WMFSearchViewController : UIViewController
+
+@property(nonatomic, weak) id<WMFSearchViewControllerDelegate> delegate;
+@end
+
+
+@protocol WMFSearchViewControllerDelegate <NSObject>
+
+- (void)searchControllerSearchDidStartSearching:(WMFSearchViewController*)controller;
+
+- (void)searchControllerSearchDidFinishSearching:(WMFSearchViewController*)controller;
 
 @end

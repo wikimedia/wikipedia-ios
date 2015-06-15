@@ -17,7 +17,7 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 
 @end
 
-@interface WMFAppViewController ()
+@interface WMFAppViewController ()<WMFSearchViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* listViewController;
@@ -84,6 +84,7 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
     }
     if ([segue.destinationViewController isKindOfClass:[WMFSearchViewController class]]) {
         self.searchViewController = segue.destinationViewController;
+        self.searchViewController.delegate = self;
     }
 }
 
@@ -141,5 +142,18 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
         }];
     }];
 }
+
+#pragma mark - WMFSearchViewControllerDelegate
+
+- (void)searchControllerSearchDidStartSearching:(WMFSearchViewController*)controller{
+    
+    [self.listViewController setListMode:WMFArticleListModeBottomStacked animated:YES];
+}
+
+- (void)searchControllerSearchDidFinishSearching:(WMFSearchViewController*)controller{
+    
+    [self.listViewController setListMode:WMFArticleListModeNormal animated:YES];
+}
+
 
 @end

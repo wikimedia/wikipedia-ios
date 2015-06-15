@@ -7,8 +7,12 @@
 //
 
 #import "WMFSearchViewController.h"
+#import "WMFArticleListCollectionViewController.h"
 
 @interface WMFSearchViewController ()
+
+@property (nonatomic, strong) WMFArticleListCollectionViewController* resultsListController;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
@@ -19,19 +23,45 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
+        self.resultsListController = segue.destinationViewController;
+    }
 }
 
-/*
-   #pragma mark - Navigation
 
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-   }
- */
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    
+    [self.delegate searchControllerSearchDidStartSearching:self];
+    [self.searchBar setShowsCancelButton:YES animated:YES];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    
+    
+}
+
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    
+    
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    
+    
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    
+    
+    [self.delegate searchControllerSearchDidFinishSearching:self];
+    [self.searchBar setShowsCancelButton:NO animated:YES];
+    [self.searchBar resignFirstResponder];
+}
+
+
 
 @end
