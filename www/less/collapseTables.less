@@ -1,4 +1,3 @@
-
 .content table.infobox {
     font-size: 100%;
     border-style:none !important;
@@ -61,4 +60,9 @@ table.infobox caption {
     background-repeat: no-repeat;
     background-position: 95% 50%;
     background-size: 16px 16px;
+}
+
+/* Temp fix to prevent right side of collapsed tables from extending offscreen. */
+.app_table_container, .app_table_collapsed_container, .app_table_collapse_close, .app_table_collapse_icon{
+    box-sizing:border-box;
 }
