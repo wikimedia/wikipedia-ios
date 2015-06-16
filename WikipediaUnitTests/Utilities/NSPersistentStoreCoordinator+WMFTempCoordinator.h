@@ -7,7 +7,7 @@
 //
 
 #import <CoreData/CoreData.h>
-#import "NSManagedObjectModel+OldDataSchema.h"
+#import "NSManagedObjectModel+LegacyCoreData.h"
 
 @interface NSPersistentStoreCoordinator (WMFTempCoordinator)
 

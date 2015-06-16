@@ -1,14 +1,14 @@
 //
-//  SchemaConverter.m
+//  LegacyDataMigrator.m
 //  Wikipedia
 //
 //  Created by Brion on 12/29/14.
 //  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
-#import "SchemaConverter.h"
+#import "LegacyDataMigrator.h"
 
-@implementation SchemaConverter
+@implementation LegacyDataMigrator
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
     self = [super init];
@@ -19,7 +19,7 @@
     return self;
 }
 
-- (MWKArticle*)oldDataSchema:(OldDataSchemaMigrator*)schema migrateArticle:(NSDictionary*)articleDict {
+- (MWKArticle*)oldDataSchema:(LegacyCoreDataMigrator*)schema migrateArticle:(NSDictionary*)articleDict {
     NSString* language       = articleDict[@"language"];
     NSString* titleStr       = articleDict[@"title"];
     NSDictionary* mobileview = articleDict[@"dict"];
@@ -36,7 +36,7 @@
     return article;
 }
 
-- (void)oldDataSchema:(OldDataSchemaMigrator*)schema
+- (void)oldDataSchema:(LegacyCoreDataMigrator*)schema
          migrateImage:(NSDictionary*)imageDict
            newArticle:(MWKArticle*)newArticle {
     NSString* language  = imageDict[@"language"];
@@ -57,7 +57,7 @@
     }
 }
 
-- (void)oldDataSchema:(OldDataSchemaMigrator*)schema migrateHistoryEntry:(NSDictionary*)historyDict {
+- (void)oldDataSchema:(LegacyCoreDataMigrator*)schema migrateHistoryEntry:(NSDictionary*)historyDict {
     NSString* language        = historyDict[@"language"];
     NSString* titleStr        = historyDict[@"title"];
     NSString* date            = historyDict[@"date"];
@@ -82,7 +82,7 @@
     }
 }
 
-- (void)oldDataSchema:(OldDataSchemaMigrator*)schema migrateSavedEntry:(NSDictionary*)savedDict {
+- (void)oldDataSchema:(LegacyCoreDataMigrator*)schema migrateSavedEntry:(NSDictionary*)savedDict {
     NSString* language = savedDict[@"language"];
     NSString* titleStr = savedDict[@"title"];
 

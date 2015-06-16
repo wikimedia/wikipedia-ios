@@ -1,5 +1,5 @@
 //
-//  OldDataSchemaMigratorTests.m
+//  LegacyCoreDataDataMigratorTests.m
 //  Wikipedia
 //
 //  Created by Brian Gerstle on 3/21/15.
@@ -14,10 +14,10 @@
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>
 
-#import "OldDataSchemaMigrator_Private.h"
+#import "LegacyCoreDataMigrator_Private.h"
 #import "ArticleDataContextSingleton.h"
 #import "ArticleCoreDataObjects.h"
-#import "SchemaConverter.h"
+#import "LegacyDataMigrator.h"
 #import "MWKProtectionStatus.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "NSManagedObjectContext+WMFTempContext.h"
@@ -26,20 +26,20 @@
 #import "NSDateFormatter+WMFExtensions.h"
 #import "NSManagedObject+WMFModelFactory.h"
 
-@interface OldDataSchemaMigratorTests : XCTestCase
-@property OldDataSchemaMigrator* migrator;
-@property SchemaConverter* converter;
-@property MWKDataStore* dataStore;
-@property NSManagedObjectContext* tmpContext;
+@interface LegacyCoreDataMigratorTests : XCTestCase
+@property (nonatomic) LegacyCoreDataMigrator* migrator;
+@property (nonatomic) LegacyDataMigrator* converter;
+@property (nonatomic) MWKDataStore* dataStore;
+@property (nonatomic) NSManagedObjectContext* tmpContext;
 @end
 
-@implementation OldDataSchemaMigratorTests
+@implementation LegacyCoreDataMigratorTests
 
 - (void)setUp {
     [super setUp];
-    self.migrator          = [[OldDataSchemaMigrator alloc] init];
+    self.migrator          = [[LegacyCoreDataMigrator alloc] init];
     self.dataStore         = [MWKDataStore temporaryDataStore];
-    self.converter         = [[SchemaConverter alloc] initWithDataStore:self.dataStore];
+    self.converter         = [[LegacyDataMigrator alloc] initWithDataStore:self.dataStore];
     self.migrator.delegate = self.converter;
 
     // objects must be inserted into a MOC in order for (inverse) relationships to be maintained automatically
@@ -97,31 +97,6 @@
     image.image.sourceUrl = nil;
     [self verifySkippedMigrationOfArticle:oldArticle];
 }
-
-//- (void)testBackingUpStore{
-//
-//    NSString* path = [self databasePathForContext:self.tmpContext];
-//
-//    OldDataSchemaMigrator* oldDataSchema = [[OldDataSchemaMigrator alloc] initWithDatabasePath:path];
-//
-//    XCTAssertTrue([oldDataSchema moveOldDataToBackupLocation],
-//                  @"Backup was not moved!");
-//
-//}
-//
-//
-//- (void)testRemovingBackupStore{
-//
-//    NSString* path = [self databasePathForContext:self.tmpContext];
-//
-//    OldDataSchemaMigrator* oldDataSchema = [[OldDataSchemaMigrator alloc] initWithDatabasePath:path];
-//
-//    [oldDataSchema moveOldDataToBackupLocation];
-//
-//    XCTAssertTrue([oldDataSchema removebackupDataImmediately],
-//                   @"Store was not removed!");
-//
-//}
 
 #pragma mark - Test Utils
 

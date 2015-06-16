@@ -7,14 +7,14 @@
 //
 
 #import "NSPersistentStoreCoordinator+WMFTempCoordinator.h"
-#import "NSManagedObjectModel+OldDataSchema.h"
+#import "NSManagedObjectModel+LegacyCoreData.h"
 #import "WMFRandomFileUtilities.h"
 
 @implementation NSPersistentStoreCoordinator (WMFTempCoordinator)
 
 + (NSPersistentStoreCoordinator*)wmf_tempCoordinator {
     NSPersistentStoreCoordinator* persistentStoreCoordinator =
-        [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel wmf_oldDataSchema]];
+        [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[NSManagedObjectModel wmf_legacyCoreDataModel]];
 
     NSError* error                     = nil;
     NSPersistentStore* persistentStore =

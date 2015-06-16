@@ -1,8 +1,8 @@
 
-#import "OldDataSchemaMigrator.h"
+#import "LegacyCoreDataMigrator.h"
 #import "ArticleCoreDataObjects.h"
 #import "MediaWikiKit.h"
-@interface OldDataSchemaMigrator ()
+@interface LegacyCoreDataMigrator ()
 
 - (MWKSite*)migrateArticleSite:(Article*)article;
 - (MWKTitle*)migrateArticleTitle:(Article*)article;

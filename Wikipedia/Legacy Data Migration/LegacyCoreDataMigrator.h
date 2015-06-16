@@ -2,38 +2,38 @@
 #import <Foundation/Foundation.h>
 
 
-@class OldDataSchemaMigrator, MWKArticle, MWKTitle, MWKImage;
+@class LegacyCoreDataMigrator, MWKArticle, MWKTitle, MWKImage;
 
-@protocol OldDataSchemaDelegate
+@protocol LegacyCoreDataDelegate
 
-- (MWKArticle*)oldDataSchema:(OldDataSchemaMigrator*)schema migrateArticle:(NSDictionary*)articleDict;
+- (MWKArticle*)oldDataSchema:(LegacyCoreDataMigrator*)schema migrateArticle:(NSDictionary*)articleDict;
 
-- (void)oldDataSchema:(OldDataSchemaMigrator*)schema
+- (void)oldDataSchema:(LegacyCoreDataMigrator*)schema
          migrateImage:(NSDictionary*)imageDict
            newArticle:(MWKArticle*)newArticle;
 
-- (void)oldDataSchema:(OldDataSchemaMigrator*)schema migrateHistoryEntry:(NSDictionary*)historyDict;
+- (void)oldDataSchema:(LegacyCoreDataMigrator*)schema migrateHistoryEntry:(NSDictionary*)historyDict;
 
-- (void)oldDataSchema:(OldDataSchemaMigrator*)schema migrateSavedEntry:(NSDictionary*)savedDict;
-
-@end
-
-@protocol OldDataSchemaMigratorProgressDelegate <NSObject>
-
-- (void)oldDataSchema:(OldDataSchemaMigrator*)schema didUpdateProgressWithArticlesCompleted:(NSUInteger)completed total:(NSUInteger)total;
-
-- (void)oldDataSchemaDidFinishMigration:(OldDataSchemaMigrator*)schema;
-
-- (void)oldDataSchema:(OldDataSchemaMigrator*)schema didFinishWithError:(NSError*)error;
+- (void)oldDataSchema:(LegacyCoreDataMigrator*)schema migrateSavedEntry:(NSDictionary*)savedDict;
 
 @end
 
+@protocol LegacyCoreDataMigratorProgressDelegate <NSObject>
+
+- (void)oldDataSchema:(LegacyCoreDataMigrator*)schema didUpdateProgressWithArticlesCompleted:(NSUInteger)completed total:(NSUInteger)total;
+
+- (void)oldDataSchemaDidFinishMigration:(LegacyCoreDataMigrator*)schema;
+
+- (void)oldDataSchema:(LegacyCoreDataMigrator*)schema didFinishWithError:(NSError*)error;
+
+@end
 
 
-@interface OldDataSchemaMigrator : NSObject
 
-@property (weak) id<OldDataSchemaDelegate> delegate;
-@property (weak) id<OldDataSchemaMigratorProgressDelegate> progressDelegate;
+@interface LegacyCoreDataMigrator : NSObject
+
+@property (weak) id<LegacyCoreDataDelegate> delegate;
+@property (weak) id<LegacyCoreDataMigratorProgressDelegate> progressDelegate;
 
 - (instancetype)initWithDatabasePath:(NSString*)databasePath;
 
