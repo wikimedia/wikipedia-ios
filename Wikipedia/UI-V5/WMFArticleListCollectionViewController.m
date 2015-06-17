@@ -28,6 +28,10 @@
 
 - (void)setDataSource:(id<WMFArticleListDataSource> __nullable)dataSource{
     
+    if([_dataSource isEqual:dataSource]){
+        return;
+    }
+    
     _dataSource = dataSource;
     
     self.title = [_dataSource displayTitle];

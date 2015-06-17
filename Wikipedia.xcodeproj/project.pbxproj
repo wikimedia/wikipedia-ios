@@ -3221,7 +3221,6 @@
 				041C55D21950B27D006CE0EF /* EditSummaryViewController.m in Sources */,
 				04CCA0C01983086D000E982A /* ReferencesVC.m in Sources */,
 				0ED44D781B28DA4D00F284BA /* UICollectionView+WMFExtensions.m in Sources */,
-				BC839B441B25AE15002DF67C /* LanguagesTableSectionViewModel.m in Sources */,
 				043B6E8E1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				0487048719F8262600B7D307 /* LoginTokenFetcher.m in Sources */,

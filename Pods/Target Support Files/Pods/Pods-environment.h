@@ -78,6 +78,18 @@
 #define COCOAPODS_VERSION_MINOR_HockeySDK 6
 #define COCOAPODS_VERSION_PATCH_HockeySDK 2
 
+// Mantle
+#define COCOAPODS_POD_AVAILABLE_Mantle
+#define COCOAPODS_VERSION_MAJOR_Mantle 2
+#define COCOAPODS_VERSION_MINOR_Mantle 0
+#define COCOAPODS_VERSION_PATCH_Mantle 2
+
+// Mantle/extobjc
+#define COCOAPODS_POD_AVAILABLE_Mantle_extobjc
+#define COCOAPODS_VERSION_MAJOR_Mantle_extobjc 2
+#define COCOAPODS_VERSION_MINOR_Mantle_extobjc 0
+#define COCOAPODS_VERSION_PATCH_Mantle_extobjc 2
+
 // Masonry
 #define COCOAPODS_POD_AVAILABLE_Masonry
 #define COCOAPODS_VERSION_MAJOR_Masonry 0
