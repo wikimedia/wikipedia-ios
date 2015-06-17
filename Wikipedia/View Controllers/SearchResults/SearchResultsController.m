@@ -1,7 +1,6 @@
 
 #import "SearchResultsController.h"
 #import "WikipediaAppUtils.h"
-#import "Defines.h"
 #import "QueuesSingleton.h"
 #import "SearchResultCell.h"
 #import "SessionSingleton.h"
@@ -28,6 +27,8 @@ static NSString* const kWMFSearchCellID     = @"SearchResultCell";
 static CGFloat const kWMFSearchDelay        = 0.4;
 static NSUInteger const kWMFMaxStringLength = 100;
 static CGFloat const kWMFDefaultCellHeight  = 80.0;
+
+#define SEARCH_MAX_RESULTS 24
 
 typedef NS_ENUM (NSUInteger, WMFSearchResultsControllerType) {
     WMFSearchResultsControllerTypeStandard,

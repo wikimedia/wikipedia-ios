@@ -6,18 +6,12 @@
 #import "WMFArticleListCollectionViewController.h"
 #import "DataMigrationProgressViewController.h"
 #import "WMFSavedPagesDataSource.h"
-
-NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
-
-@implementation UIStoryboard (WMFDefaultStoryBoard)
-
-+ (UIStoryboard*)wmf_defaultStoryBoard {
-    return [UIStoryboard storyboardWithName:WMFDefaultStoryBoardName bundle:nil];
-}
-
-@end
+#import "UIStoryboard+WMFExtensions.h"
+#import <Masonry/Masonry.h>
 
 @interface WMFAppViewController ()<WMFSearchViewControllerDelegate>
+@property (strong, nonatomic) IBOutlet UIView *searchContainerView;
+@property (strong, nonatomic) IBOutlet UIView *articleListContainerView;
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* listViewController;
@@ -25,17 +19,31 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 
 @property (nonatomic, strong) SessionSingleton* session;
 
+@property (nonatomic, strong) MASConstraint *articleListVisibleConstraint;
+@property (nonatomic, strong) MASConstraint *articleListMinimizedConstraint;
+
 @end
 
 @implementation WMFAppViewController
 
+- (SessionSingleton*)session{
+    
+    if(!_session){
+        
+        _session = [SessionSingleton sharedInstance];
+    }
+    
+    return _session;
+}
+
 #pragma mark - Setup
 
 + (WMFAppViewController*)initialAppViewControllerFromDefaultStoryBoard {
-    return [[UIStoryboard wmf_defaultStoryBoard] instantiateInitialViewController];
+    return [[UIStoryboard wmf_appRootStoryBoard] instantiateInitialViewController];
 }
 
 - (void)launchAppInWindow:(UIWindow*)window {
+    
     WMFStyleManager* manager = [WMFStyleManager new];
     [manager applyStyleToWindow:window];
     [WMFStyleManager setSharedStyleManager:manager];
@@ -45,8 +53,12 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 }
 
 - (void)loadMainUI {
-    WMFSavedPagesDataSource* dataSource = [[WMFSavedPagesDataSource alloc] initWithUserDataStore:[self userDataStore]];
-    self.listViewController.dataSource = dataSource;
+    
+    [self updateListViewBasedOnSearchState:self.searchViewController.state];
+
+    self.searchViewController.searchSite = [self.session searchSite];
+    self.searchViewController.dataStore = [self.session dataStore];
+    self.listViewController.dataSource = [[WMFSavedPagesDataSource alloc] initWithUserDataStore:[self userDataStore]];;
 }
 
 - (void)resumeApp {
@@ -68,8 +80,6 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.session = [SessionSingleton sharedInstance];
-
     [self showSplashView];
 
     [self runDataMigrationIfNeededWithCompletion:^{
@@ -79,12 +89,12 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
-        self.listViewController = segue.destinationViewController;
-    }
     if ([segue.destinationViewController isKindOfClass:[WMFSearchViewController class]]) {
         self.searchViewController = segue.destinationViewController;
         self.searchViewController.delegate = self;
+    }
+    if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
+        self.listViewController = segue.destinationViewController;
     }
 }
 
@@ -145,15 +155,43 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 
 #pragma mark - WMFSearchViewControllerDelegate
 
-- (void)searchControllerSearchDidStartSearching:(WMFSearchViewController*)controller{
-    
-    [self.listViewController setListMode:WMFArticleListModeBottomStacked animated:YES];
+- (void)searchController:(WMFSearchViewController*)controller searchStateDidChange:(WMFSearchState)state{
+
+    [self updateListViewBasedOnSearchState:state];
 }
 
-- (void)searchControllerSearchDidFinishSearching:(WMFSearchViewController*)controller{
+- (void)updateListViewBasedOnSearchState:(WMFSearchState)state{
     
-    [self.listViewController setListMode:WMFArticleListModeNormal animated:YES];
+    switch (state) {
+        case WMFSearchStateInactive:{
+          
+            [self.articleListMinimizedConstraint uninstall];
+            [self.articleListContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+                self.articleListVisibleConstraint = make.top.equalTo(self.view.mas_top).with.offset(64.0);
+            }];
+            [self.view layoutIfNeeded];
+            
+            [self.listViewController setListMode:WMFArticleListModeNormal animated:YES completion:NULL];
+            
+        }
+            break;
+        case WMFSearchStateActive:{
+            
+            @weakify(self);
+            [self.listViewController setListMode:WMFArticleListModeBottomStacked animated:YES completion:^{
+                @strongify(self);
+                [self.articleListVisibleConstraint uninstall];
+                [self.articleListContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    self.articleListMinimizedConstraint = make.top.equalTo(self.view.mas_bottom).with.offset(-50.0);
+                }];
+                [self.view layoutIfNeeded];
+            }];
+
+        }
+            break;
+    }
 }
+
 
 
 @end

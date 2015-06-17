@@ -24,6 +24,9 @@
 @property (nonatomic, strong) NSRegularExpression* spaceCollapsingRegex;
 @property (nonatomic, strong) NSString* language;
 
+@property (nonatomic, strong, readwrite) NSDictionary* articleTitleToImageMap;
+
+
 @end
 
 @implementation SearchResultFetcher
@@ -37,29 +40,43 @@
                   thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self = [super init];
     if (self) {
-        self.searchResults         = @[];
-        self.searchSuggestion      = nil;
-        self.searchTerm            = searchTerm ? searchTerm : @"";
-        self.searchType            = searchType;
-        self.searchReason          = searchReason;
-        self.language              = language;
-        self.fetchFinishedDelegate = delegate;
-        self.maxSearchResults      = maxResults ? maxResults : SEARCH_MAX_RESULTS;
-        self.spaceCollapsingRegex  =
-            [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}+" options:NSRegularExpressionCaseInsensitive error:nil];
-        [self searchWithManager:manager];
+        [self searchForTerm:searchTerm searchType:searchType searchReason:searchReason language:language maxResults:maxResults withManager:manager thenNotifyDelegate:delegate];
     }
     return self;
 }
 
-- (void)searchWithManager:(AFHTTPRequestOperationManager*)manager {
+- (AFHTTPRequestOperation*)searchForTerm:(NSString*)searchTerm
+                              searchType:(SearchType)searchType
+                            searchReason:(SearchReason)searchReason
+                                language:(NSString*)language
+                              maxResults:(NSUInteger)maxResults
+                             withManager:(AFHTTPRequestOperationManager*)manager
+                      thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate{
+    
+    
+    self.searchResults         = @[];
+    self.searchSuggestion      = nil;
+    self.searchTerm            = searchTerm ? searchTerm : @"";
+    self.searchType            = searchType;
+    self.searchReason          = searchReason;
+    self.language              = language;
+    self.fetchFinishedDelegate = delegate;
+    self.maxSearchResults      = maxResults;
+    self.spaceCollapsingRegex  =
+    [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}+" options:NSRegularExpressionCaseInsensitive error:nil];
+    return [self searchWithManager:manager];
+
+}
+
+
+- (AFHTTPRequestOperation* )searchWithManager:(AFHTTPRequestOperationManager*)manager {
     NSString* url = [[SessionSingleton sharedInstance] searchApiUrlForLanguage:self.language];
 
     NSDictionary* params = [self getParams];
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    [manager GET:url parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
+    return [manager GET:url parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
         //NSLog(@"JSON: %@", responseObject);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
@@ -84,8 +101,7 @@
 
             // Populate the map so the article fetcher can grab thumb
             // from temp dir.
-            NSMutableDictionary* map = [SessionSingleton sharedInstance].titleToTempDirThumbURLMap;
-            [map removeAllObjects];
+            NSMutableDictionary* map = [NSMutableDictionary dictionary];
             for (NSDictionary* result in self.searchResults) {
                 NSString* title = result[@"title"];
                 NSString* thumbUrl = result[@"thumbnail"][@"source"];
@@ -93,20 +109,12 @@
                     map[title] = thumbUrl;
                 }
             }
-        }
-
-        // If no matches set error.
-        if (self.searchResults.count == 0) {
-            NSMutableDictionary* errorDict = @{}.mutableCopy;
-
-            errorDict[NSLocalizedDescriptionKey] = MWLocalizedString(@"search-no-matches", nil);
-
-            // Set error condition so dependent ops don't even start and so the errorBlock below will fire.
-            error = [NSError errorWithDomain:@"Search Result Fetcher" code:SEARCH_RESULT_ERROR_NO_MATCHES userInfo:errorDict];
+            self.articleTitleToImageMap = map;
+            
         }
 
         [self finishWithError:error
-                  fetchedData:nil];
+                  fetchedData:self.searchResults];
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         //NSLog(@"CAPTCHA RESETTER FAIL = %@", error);
 

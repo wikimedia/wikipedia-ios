@@ -4,6 +4,7 @@
 
 #import "WMFLogging.h"
 #import "WMFGCDHelpers.h"
+#import <BlocksKit/BlocksKit.h>
 
 #import <libextobjc/EXTScope.h>
 

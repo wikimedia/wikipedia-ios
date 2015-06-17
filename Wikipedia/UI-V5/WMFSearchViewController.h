@@ -1,23 +1,30 @@
-//
-//  WMFSearchViewController.h
-//  Wikipedia
-//
-//  Created by Corey Floyd on 6/4/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 @protocol WMFSearchViewControllerDelegate;
 
+NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_ENUM(NSUInteger, WMFSearchState) {
+    
+    WMFSearchStateInactive,
+    WMFSearchStateActive
+};
+
 @interface WMFSearchViewController : UIViewController
 
-@property(nonatomic, weak) id<WMFSearchViewControllerDelegate> delegate;
+@property (nonatomic, strong) MWKSite* searchSite;
+@property (nonatomic, strong) MWKDataStore* dataStore;
+
+@property(nonatomic, weak, nullable) id<WMFSearchViewControllerDelegate> delegate;
+
+@property (nonatomic, assign, readonly) WMFSearchState state;
+
 @end
 
 
 @protocol WMFSearchViewControllerDelegate <NSObject>
 
-- (void)searchControllerSearchDidStartSearching:(WMFSearchViewController*)controller;
-
-- (void)searchControllerSearchDidFinishSearching:(WMFSearchViewController*)controller;
+- (void)searchController:(WMFSearchViewController*)controller searchStateDidChange:(WMFSearchState)state;
 
 @end
+
+NS_ASSUME_NONNULL_END

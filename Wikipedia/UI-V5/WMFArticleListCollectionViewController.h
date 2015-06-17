@@ -1,17 +1,8 @@
 
 #import <UIKit/UIKit.h>
+#import "WMFArticleListDataSource.h"
 
-@protocol WMFArticleListDataSource <NSObject>
-
-- (NSString*)displayTitle;
-
-- (NSUInteger) articleCount;
-- (MWKArticle*)articleForIndexPath:(NSIndexPath*)indexPath;
-
-- (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath;
-- (void)deleteArticleAtIndexPath:(NSIndexPath*)indexPath;
-
-@end
+NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, WMFArticleListMode) {
     
@@ -21,10 +12,13 @@ typedef NS_ENUM(NSUInteger, WMFArticleListMode) {
 
 @interface WMFArticleListCollectionViewController : UICollectionViewController
 
-@property (nonatomic, strong) id<WMFArticleListDataSource> dataSource;
+@property (nonatomic, strong, nullable) id<WMFArticleListDataSource> dataSource;
 
 @property (nonatomic, assign, readonly) WMFArticleListMode mode;
 
-- (void)setListMode:(WMFArticleListMode)mode animated:(BOOL)animated;
+- (void)setListMode:(WMFArticleListMode)mode animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

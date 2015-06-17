@@ -57,6 +57,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readwrite, copy, nonatomic) NSString* imageURL;       // optional; pulled in article request
 
 @property (readonly, copy, nonatomic) NSString* entityDescription;            // optional; currently pulled separately via wikidata
+@property (readonly, copy, nonatomic) NSString* searchSnippet; //Snippet returned from search results
 
 @property (readonly, strong, nonatomic) MWKSectionList* sections;
 
@@ -66,6 +67,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
 
 - (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore;
 - (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore dict:(NSDictionary*)dict;
+- (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore searchResultsDict:(NSDictionary*)dict;
 
 /**
  * Import article and section metadata (and text if available)
@@ -87,6 +89,13 @@ static const NSInteger kMWKArticleSectionNone = -1;
  * and update the image object/record
  */
 - (MWKImage*)importImageData:(NSData*)data image:(MWKImage*)image;
+
+/**
+ *  Loads the image in the "thumbnailURL" property from disk
+ *  if it has been cached.
+ */
+- (void)loadThumbnailFromDisk;
+
 
 - (BOOL)isEqualToArticle:(MWKArticle*)article;
 - (BOOL)isDeeplyEqualToArticle:(MWKArticle*)article;

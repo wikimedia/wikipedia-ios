@@ -1,11 +1,15 @@
 
 #import <Foundation/Foundation.h>
-#import "WMFArticleListCollectionViewController.h"
+#import "WMFArticleListDataSource.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFSavedPagesDataSource : NSObject<WMFArticleListDataSource>
 
 @property (nonatomic, strong, readonly) MWKUserDataStore* userDataStore;
 
-- (instancetype)initWithUserDataStore:(MWKUserDataStore*)store;
+- (nonnull instancetype)initWithUserDataStore:(MWKUserDataStore*)store;
 
 @end
+
+NS_ASSUME_NONNULL_END

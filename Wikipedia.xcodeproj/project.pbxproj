@@ -188,6 +188,11 @@
 		0E2B06F61B2CE45800EA2F53 /* WMFSavedPagesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B06F51B2CE45800EA2F53 /* WMFSavedPagesDataSource.m */; };
 		0E2B07021B2D1DE200EA2F53 /* WMFBottomStackLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B07011B2D1DE200EA2F53 /* WMFBottomStackLayout.m */; };
 		0E366B361B2F176700ABFB86 /* WMFOffScreenFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E366B351B2F176700ABFB86 /* WMFOffScreenFlowLayout.m */; };
+		0E366B3A1B2F33BC00ABFB86 /* WMFSearchResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E366B391B2F33BC00ABFB86 /* WMFSearchResults.m */; };
+		0E366B3F1B2F5C4500ABFB86 /* WMFSearchFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E366B3E1B2F5C4500ABFB86 /* WMFSearchFetcher.m */; };
+		0E366B471B2F614E00ABFB86 /* PromiseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E366B451B2F614E00ABFB86 /* PromiseKit.m */; };
+		0E366B481B2F614E00ABFB86 /* PromiseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E366B461B2F614E00ABFB86 /* PromiseKit.swift */; };
+		0E366B4B1B308A2600ABFB86 /* UIStoryboard+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E366B4A1B308A2600ABFB86 /* UIStoryboard+WMFExtensions.m */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		0E7955C71B2B389800B055A2 /* TGLStackedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7955C31B2B389800B055A2 /* TGLStackedLayout.m */; };
 		0E7955D01B2B659500B055A2 /* WMFArticleCardTranstion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7955CD1B2B659500B055A2 /* WMFArticleCardTranstion.m */; };
@@ -723,11 +728,21 @@
 		0E2B07011B2D1DE200EA2F53 /* WMFBottomStackLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBottomStackLayout.m; sourceTree = "<group>"; };
 		0E366B341B2F176700ABFB86 /* WMFOffScreenFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFOffScreenFlowLayout.h; sourceTree = "<group>"; };
 		0E366B351B2F176700ABFB86 /* WMFOffScreenFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFOffScreenFlowLayout.m; sourceTree = "<group>"; };
+		0E366B381B2F33BC00ABFB86 /* WMFSearchResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchResults.h; sourceTree = "<group>"; };
+		0E366B391B2F33BC00ABFB86 /* WMFSearchResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchResults.m; sourceTree = "<group>"; };
+		0E366B3D1B2F5C4500ABFB86 /* WMFSearchFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchFetcher.h; sourceTree = "<group>"; };
+		0E366B3E1B2F5C4500ABFB86 /* WMFSearchFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchFetcher.m; sourceTree = "<group>"; };
+		0E366B441B2F614E00ABFB86 /* PromiseKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromiseKit.h; sourceTree = "<group>"; };
+		0E366B451B2F614E00ABFB86 /* PromiseKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromiseKit.m; sourceTree = "<group>"; };
+		0E366B461B2F614E00ABFB86 /* PromiseKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseKit.swift; sourceTree = "<group>"; };
+		0E366B491B308A2600ABFB86 /* UIStoryboard+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+WMFExtensions.h"; sourceTree = "<group>"; };
+		0E366B4A1B308A2600ABFB86 /* UIStoryboard+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+WMFExtensions.m"; sourceTree = "<group>"; };
 		0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SourceIcons.xcassets; path = Wikipedia/SourceIcons.xcassets; sourceTree = "<group>"; };
 		0E7955C21B2B389800B055A2 /* TGLStackedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGLStackedLayout.h; sourceTree = "<group>"; };
 		0E7955C31B2B389800B055A2 /* TGLStackedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGLStackedLayout.m; sourceTree = "<group>"; };
 		0E7955CC1B2B659500B055A2 /* WMFArticleCardTranstion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleCardTranstion.h; sourceTree = "<group>"; };
 		0E7955CD1B2B659500B055A2 /* WMFArticleCardTranstion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleCardTranstion.m; sourceTree = "<group>"; };
+		0E7C6D4C1B3106A800F1F985 /* WMFArticleListDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleListDataSource.h; sourceTree = "<group>"; };
 		0E94AFE91B209721000BC5EA /* iPhone_Root.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhone_Root.storyboard; sourceTree = "<group>"; };
 		0E94AFEB1B20976A000BC5EA /* WMFAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFAppViewController.h; sourceTree = "<group>"; };
 		0E94AFEC1B20976A000BC5EA /* WMFAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFAppViewController.m; sourceTree = "<group>"; };
@@ -1930,6 +1945,7 @@
 		0E2B06F71B2D126700EA2F53 /* Data Sources */ = {
 			isa = PBXGroup;
 			children = (
+				0E7C6D4C1B3106A800F1F985 /* WMFArticleListDataSource.h */,
 				0E2B06F41B2CE45800EA2F53 /* WMFSavedPagesDataSource.h */,
 				0E2B06F51B2CE45800EA2F53 /* WMFSavedPagesDataSource.m */,
 			);
@@ -1941,10 +1957,7 @@
 			children = (
 				0E94AFEE1B209792000BC5EA /* WMFArticleListCollectionViewController.h */,
 				0E94AFEF1B209792000BC5EA /* WMFArticleListCollectionViewController.m */,
-				0E366B341B2F176700ABFB86 /* WMFOffScreenFlowLayout.h */,
-				0E366B351B2F176700ABFB86 /* WMFOffScreenFlowLayout.m */,
-				0E2B07001B2D1DE200EA2F53 /* WMFBottomStackLayout.h */,
-				0E2B07011B2D1DE200EA2F53 /* WMFBottomStackLayout.m */,
+				0E366B371B2F2ACF00ABFB86 /* Layouts */,
 				0E7955BF1B2B389800B055A2 /* TGLStackedViewController */,
 				0E2B06FC1B2D12C400EA2F53 /* Cell */,
 				0E2B06FB1B2D12B300EA2F53 /* Transition */,
@@ -1957,6 +1970,10 @@
 			children = (
 				0E94AFF11B209857000BC5EA /* WMFSearchViewController.h */,
 				0E94AFF21B209857000BC5EA /* WMFSearchViewController.m */,
+				0E366B381B2F33BC00ABFB86 /* WMFSearchResults.h */,
+				0E366B391B2F33BC00ABFB86 /* WMFSearchResults.m */,
+				0E366B3D1B2F5C4500ABFB86 /* WMFSearchFetcher.h */,
+				0E366B3E1B2F5C4500ABFB86 /* WMFSearchFetcher.m */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -1988,6 +2005,27 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		0E366B371B2F2ACF00ABFB86 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				0E366B341B2F176700ABFB86 /* WMFOffScreenFlowLayout.h */,
+				0E366B351B2F176700ABFB86 /* WMFOffScreenFlowLayout.m */,
+				0E2B07001B2D1DE200EA2F53 /* WMFBottomStackLayout.h */,
+				0E2B07011B2D1DE200EA2F53 /* WMFBottomStackLayout.m */,
+			);
+			name = Layouts;
+			sourceTree = "<group>";
+		};
+		0E366B431B2F614E00ABFB86 /* PromiseKit */ = {
+			isa = PBXGroup;
+			children = (
+				0E366B441B2F614E00ABFB86 /* PromiseKit.h */,
+				0E366B451B2F614E00ABFB86 /* PromiseKit.m */,
+				0E366B461B2F614E00ABFB86 /* PromiseKit.swift */,
+			);
+			path = PromiseKit;
+			sourceTree = "<group>";
+		};
 		0E7955BF1B2B389800B055A2 /* TGLStackedViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2003,6 +2041,8 @@
 				0E94AFE91B209721000BC5EA /* iPhone_Root.storyboard */,
 				0E94AFEB1B20976A000BC5EA /* WMFAppViewController.h */,
 				0E94AFEC1B20976A000BC5EA /* WMFAppViewController.m */,
+				0E366B491B308A2600ABFB86 /* UIStoryboard+WMFExtensions.h */,
+				0E366B4A1B308A2600ABFB86 /* UIStoryboard+WMFExtensions.m */,
 				0E2B06F81B2D127A00EA2F53 /* Article List */,
 				0E2B06F91B2D128D00EA2F53 /* Search */,
 				0E94AFF41B209882000BC5EA /* WMFArticleViewController.h */,
@@ -2460,6 +2500,7 @@
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				0EFB0EF91B31EE2D00D05C08 /* LegacyCoreData */,
 				BCB669A31A83F6C300C7B1FE /* MediaWikiKit */,
+				0E366B431B2F614E00ABFB86 /* PromiseKit */,
 				04E9A78218F73C7200F7ECF7 /* www */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,
 				0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */,
@@ -3050,6 +3091,7 @@
 				BCB669B61A83F6C400C7B1FE /* MWKImageList.m in Sources */,
 				0EFB0F231B31EE2D00D05C08 /* ImageData.m in Sources */,
 				BCB848831AAE0C5C0077EC24 /* WMFImageGalleryCollectionViewCell.m in Sources */,
+				0E366B481B2F614E00ABFB86 /* PromiseKit.swift in Sources */,
 				04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */,
 				0462A6D11A1FE016009412D4 /* SearchResultAttributedString.m in Sources */,
 				0487047F19F8262600B7D307 /* AccountCreator.m in Sources */,
@@ -3111,6 +3153,7 @@
 				0487048119F8262600B7D307 /* ArticleFetcher.m in Sources */,
 				04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */,
 				0487048C19F8262600B7D307 /* SearchResultFetcher.m in Sources */,
+				0E366B471B2F614E00ABFB86 /* PromiseKit.m in Sources */,
 				BC23759A1AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.m in Sources */,
 				04090A3B187FB7D000577EDF /* UIView+Debugging.m in Sources */,
 				BCC185D81A9E5628005378F8 /* UILabel+WMFStyling.m in Sources */,
@@ -3212,6 +3255,7 @@
 				04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */,
 				BC3166B21B279AC30096EE8E /* WikipediaAppUtils.m in Sources */,
 				04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */,
+				0E366B4B1B308A2600ABFB86 /* UIStoryboard+WMFExtensions.m in Sources */,
 				04B0E3EA1AE8252800379AE0 /* NSURL+WMFRest.m in Sources */,
 				040D835E1AB0EE45000896D5 /* WMFGeometry.c in Sources */,
 				BC86B9361A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */,
@@ -3247,6 +3291,7 @@
 				0487048219F8262600B7D307 /* AssetsFileFetcher.m in Sources */,
 				BC955BC71A82BEFD000EF9E4 /* MWKImageInfoFetcher.m in Sources */,
 				04C7576E1A1AA2D00084AC39 /* RecentSearchCell.m in Sources */,
+				0E366B3F1B2F5C4500ABFB86 /* WMFSearchFetcher.m in Sources */,
 				BCB58F541A894D3E00465627 /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				04292FF8185FBB0B002A13FC /* SearchResultsController.m in Sources */,
 				BCAFC5D31AFD5F7E004615BA /* MWKArticle+WMFSharing.m in Sources */,
@@ -3258,6 +3303,7 @@
 				0487048319F8262600B7D307 /* FetcherBase.m in Sources */,
 				D4F277FE194235B50032BA38 /* ToCInteractionFunnel.m in Sources */,
 				BCB669B31A83F6C400C7B1FE /* MWKDataStore.m in Sources */,
+				0E366B3A1B2F33BC00ABFB86 /* WMFSearchResults.m in Sources */,
 				0487048D19F8262600B7D307 /* ThumbnailFetcher.m in Sources */,
 				BCB669B01A83F6C400C7B1FE /* MWKRecentSearchEntry.m in Sources */,
 				BC955BCF1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m in Sources */,

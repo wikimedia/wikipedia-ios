@@ -5,6 +5,8 @@
 #import "MWKSavedPageEntry.h"
 #import "MWKArticle.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface WMFSavedPagesDataSource ()
 
 @property (nonatomic, strong, readwrite) MWKUserDataStore* userDataStore;
@@ -20,8 +22,8 @@
     }
     return self;
 }
-
-- (NSString*)displayTitle {
+    
+- (nullable NSString*)displayTitle{
     return MWLocalizedString(@"saved-pages-title", nil);
 }
 
@@ -56,3 +58,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

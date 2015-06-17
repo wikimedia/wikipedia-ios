@@ -4,6 +4,7 @@
 #import <Foundation/Foundation.h>
 #import "FetcherBase.h"
 #import "Defines.h"
+#import <AFNetworking/AFHTTPRequestOperation.h>
 
 typedef NS_ENUM (NSInteger, SearchResultFetcherErrorType) {
     SEARCH_RESULT_ERROR_UNKNOWN    = 0,
@@ -36,6 +37,8 @@ typedef NS_ENUM (NSInteger, SearchReason) {
 @property (nonatomic, strong, readonly) NSArray* searchResults;
 @property (nonatomic, strong, readonly) NSString* searchSuggestion;
 
+@property (nonatomic, strong, readonly) NSDictionary* articleTitleToImageMap;
+
 // Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
 - (instancetype)initAndSearchForTerm:(NSString*)searchTerm
                           searchType:(SearchType)searchType
@@ -44,4 +47,15 @@ typedef NS_ENUM (NSInteger, SearchReason) {
                           maxResults:(NSUInteger)maxResults
                          withManager:(AFHTTPRequestOperationManager*)manager
                   thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
+
+
+- (AFHTTPRequestOperation*)searchForTerm:(NSString*)searchTerm
+                              searchType:(SearchType)searchType
+                            searchReason:(SearchReason)searchReason
+                                language:(NSString*)language
+                              maxResults:(NSUInteger)maxResults
+                             withManager:(AFHTTPRequestOperationManager*)manager
+                      thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
+
+
 @end
