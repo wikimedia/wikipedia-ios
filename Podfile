@@ -1,16 +1,23 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, :deployment_target => '6.0'
+platform :ios, :deployment_target => '7.0'
 
 inhibit_all_warnings!
 
 xcodeproj 'Wikipedia'
 
+# Networking / Parsing
 pod 'AFNetworking/NSURLConnection', '~> 2.5'
 pod 'hpple', '~> 0.2'
+
+# Block Syntax
 pod 'BlocksKit/Core', '~> 2.2'
 pod 'BlocksKit/UIKit', '~> 2.2'
+
+# Autolayout
 pod 'Masonry', '~> 0.6'
+
+# Crash Reporting
 pod 'HockeySDK', '3.6.2'
 
 target 'WikipediaUnitTests', :exclusive => false do
