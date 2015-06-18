@@ -17,6 +17,8 @@
 "article-languages-filter-placeholder" = "Språkfilter";
 "article-read-more-title" = "Läs mer";
 "article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
+"article-languages-preferred-section-header" = "Föredragen";
+"article-languages-other-section-header" = "Andra språk";
 "info-box-title" = "Snabbfakta";
 "info-box-close-text" = "Stäng";
 "table-title-other" = "Mer information";
@@ -99,7 +101,9 @@
 "search-recent-clear-cancel" = "Avbryt";
 "search-recent-clear-delete-all" = "Radera alla";
 "main-menu-title" = "Mer";
+"main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Sök $1.Wikipedia";
+"main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Visa språk";
 "main-menu-language-toggle-hide" = "Dölj språk";
 "main-menu-language-selection-saved" = "Språkval sparades";
@@ -239,6 +243,7 @@
 "menu-share-accessibility-label" = "Dela";
 "menu-more-accessibility-label" = "Fler inställningar";
 "menu-trash-accessibility-label" = "Radera";
+"menu-language-accessibility-label" = "Språk";
 "nearby-title" = "I närheten";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";

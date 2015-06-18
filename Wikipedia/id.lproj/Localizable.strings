@@ -271,7 +271,7 @@
 "image-gallery-fetch-image-info-error-message" = "Tidak dapat mengunduh gambar untuk artikel ini. Silakan segarkan artikel dan coba lagi.";
 "image-gallery-fetch-image-info-error-ok" = "Oke";
 "hockeyapp-alert-question" = "Apakah Anda ingin mengirimkan laporan kesalahan ke $1 jadi Wikimedia dapat meninjau kesalahan Anda?";
-"hockeyapp-alert-question-with-response-field" = "Apakah Anda ingin mengirimkan laporan kesalahan ke $1 jadi Wikimedia dapat meninjau kesalahan Anda? Silakan jelasjelaskan apa yang terjadi ketika kesalahan terjadi:";
+"hockeyapp-alert-question-with-response-field" = "Apakah Anda ingin mengirimkan laporan kesalahan ke $1 jadi Wikimedia dapat meninjau kesalahan Anda? Silakan jelaskan apa yang terjadi ketika kesalahan terjadi:";
 "hockeyapp-alert-title" = "Maaf, aplikasi berhenti dengan sendirinya terakhir kali";
 "hockeyapp-alert-send-report" = "Kirim laporan";
 "hockeyapp-alert-always-send" = "Selalu kirim";

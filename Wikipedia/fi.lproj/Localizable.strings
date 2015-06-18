@@ -13,8 +13,11 @@
 "article-languages-downloading" = "Ladataan artikkelin kieliä...";
 "article-languages-filter-placeholder" = "Kielisuodatin";
 "article-read-more-title" = "Lue lisää";
+"article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
+"article-languages-other-section-header" = "Muut kielet";
 "info-box-title" = "Pikafaktoja";
 "info-box-close-text" = "Sulje";
+"table-title-other" = "Lisätietoja";
 "history-label" = "Tuoreet";
 "history-section-today" = "Tänään";
 "history-section-yesterday" = "Eilen";
@@ -94,7 +97,9 @@
 "search-recent-clear-cancel" = "Keskeytä";
 "search-recent-clear-delete-all" = "Poista kaikki";
 "main-menu-title" = "Lisää";
+"main-menu-heading-about" = "Tietoja";
 "main-menu-language-title" = "Etsi wikistä kielellä $1";
+"main-menu-faq" = "UKK";
 "main-menu-language-toggle-show" = "Näytä kielet";
 "main-menu-language-toggle-hide" = "Piilota kielet";
 "main-menu-language-selection-saved" = "Kielivalinta tallennettu";
@@ -233,6 +238,7 @@
 "menu-share-accessibility-label" = "Jaa";
 "menu-more-accessibility-label" = "Lisää asetuksia";
 "menu-trash-accessibility-label" = "Poista";
+"menu-language-accessibility-label" = "Kielet";
 "nearby-title" = "Lähistöllä";
 "nearby-distance-label-meters" = "$1 metriä";
 "nearby-distance-label-km" = "$1 km";
@@ -252,6 +258,7 @@
 "nearby-wifi" = "Langattoman verkkoyhteyden käyttöönotto voi auttaa laitettasi määrittämään sijaintisi paremmin.";
 "migration-update-progress-label" = "Siirretään paikallisia tietoja";
 "migration-skip-button-title" = "Poista se";
+"image-gallery-unknown-owner" = "Tuntematon tallentaja.";
 "image-gallery-fetch-image-info-error-title" = "Kuvien lataaminen epäonnistui";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-send-report" = "Lähetä raportti";

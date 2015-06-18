@@ -1,5 +1,6 @@
 // Messages for Korean (한국어)
 // Exported from translatewiki.net
+// Author: Alex00728
 // Author: Namoroka
 // Author: Priviet
 // Author: SeoJeongHo
@@ -13,6 +14,7 @@
 "article-languages-filter-placeholder" = "언어 필터";
 "article-read-more-title" = "더 읽어보기";
 "article-unable-to-load-section" = "섹션을 불러오지 못했습니다. 문제를 해결하기 위해 문서를 새로고침하십시오.";
+"article-languages-other-section-header" = "다른 언어";
 "info-box-title" = "빠른 사실";
 "info-box-close-text" = "닫기";
 "table-title-other" = "자세한 정보";
@@ -39,7 +41,7 @@
 "zero-wikipedia-zero-heading" = "위키백과 제로";
 "zero-warn-when-leaving" = "위키백과 제로를 떠나면 경고";
 "zero-settings-devmode" = "제로 개발모드";
-"account-creation-captcha-required" = "캡차 확인이 필요합니다.";
+"account-creation-captcha-required" = "자동입력방지 문자 확인이 필요합니다.";
 "account-creation-captcha-obtaining" = "새로운 캡차를 얻는 중입니다.";
 "account-creation-logging-in" = "로그인 중...";
 "account-creation-passwords-mismatched" = "비밀번호 필드가 일치하지 않습니다.";
@@ -95,7 +97,9 @@
 "search-recent-clear-cancel" = "취소";
 "search-recent-clear-delete-all" = "모두 삭제";
 "main-menu-title" = "더 보기";
+"main-menu-heading-about" = "정보";
 "main-menu-language-title" = "$1 위키백과 검색";
+"main-menu-faq" = "자주 묻는 질문";
 "main-menu-language-toggle-show" = "언어 보기";
 "main-menu-language-toggle-hide" = "언어 숨기기";
 "main-menu-language-selection-saved" = "언어 선택이 저장됨";
@@ -235,6 +239,7 @@
 "menu-share-accessibility-label" = "공유";
 "menu-more-accessibility-label" = "더 많은 설정";
 "menu-trash-accessibility-label" = "삭제";
+"menu-language-accessibility-label" = "언어";
 "nearby-title" = "근처";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
@@ -255,6 +260,14 @@
 "migration-update-progress-label" = "로컬 데이터 이동";
 "migration-skip-button-title" = "항목 삭제";
 "image-gallery-unknown-owner" = "업로더 모름";
+"image-gallery-fetch-image-info-error-title" = "사진을 다운로드하지 못했습니다.";
+"image-gallery-fetch-image-info-error-message" = "이 문서를 위한 사진을 다운로드하지 못했습니다. 새로 고침을 하여, 다시 시도 해보세요.";
+"image-gallery-fetch-image-info-error-ok" = "확인";
+"hockeyapp-alert-question" = "리포트를 $1로 보내시겠습니까? 보내시면, 위키미디어가 문제를 확인해볼 수 있습니다.";
+"hockeyapp-alert-question-with-response-field" = "리포트를 $1로 보내시겠습니까? 보내시면, 위키미디어가 문제를 확인해볼 수 있습니다. 무엇이 일어났었고 언제 문제가 발생했는지 설명해주세요:";
+"hockeyapp-alert-title" = "죄송합니다, 어플리케이션이 저번에 고장났었습니다.";
 "hockeyapp-alert-send-report" = "리포트 보내기";
 "hockeyapp-alert-always-send" = "항상 보내기";
 "hockeyapp-alert-do-not-send" = "보내지 않기";
+"page-issues" = "문서 문제";
+"page-similar-titles" = "비슷한 문서";

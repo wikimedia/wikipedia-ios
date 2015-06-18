@@ -3,12 +3,20 @@
 // Author: Andriykopanytsia
 // Author: Base
 // Author: Sir-nik
+// Author: Ата
 // Author: Дар'я Козлова
 
 "article-languages-label" = "Вибрати мову";
 "article-languages-cancel" = "Скасувати";
 "article-languages-downloading" = "Завантаження мов статті...";
 "article-languages-filter-placeholder" = "Мовний фільтр";
+"article-read-more-title" = "Детальніше";
+"article-unable-to-load-section" = "Не вдається завантажити цей розділ. Спробуйте оновити статтю, і глянути, чи це вирішить проблему.";
+"article-languages-preferred-section-header" = "Бажані";
+"article-languages-other-section-header" = "Інші мови";
+"info-box-title" = "Швидкі факти";
+"info-box-close-text" = "Закрити";
+"table-title-other" = "Більше інформації";
 "history-label" = "Останні";
 "history-section-today" = "Сьогодні";
 "history-section-yesterday" = "Вчора";
@@ -42,6 +50,7 @@
 "account-creation-password-placeholder-text" = "Пароль";
 "account-creation-password-confirm-placeholder-text" = "Підтвердити пароль";
 "account-creation-email-placeholder-text" = "Електронна пошта (необов'язково)";
+"account-creation-missing-fields" = "Щоб створити обліковий запис, Ви маєте ввести ім'я користувача, пароль і підтвердження пароля.";
 "login-name-not-found" = "Ім'я користувача необхідний для входу в систему.";
 "login-name-illegal" = "Ви вказали незаконне ім'я користувача.";
 "login-name-does-not-exist" = "Ім'я користувача, яке ви надали не існує.";
@@ -78,8 +87,18 @@
 "search-loading-section-remaining" = "Завантаження решти статті...";
 "search-loading-article-loaded" = "Стаття завантажена.";
 "search-cancel" = "Скасувати";
+"search-titles" = "Заголовки";
+"search-within-articles" = "У статтях";
+"search-did-you-mean" = "Можливо, Ви мали на увазі «$1»?";
+"search-recent-title" = "Недавні пошукові запити";
+"search-recent-clear-confirmation-heading" = "Вилучити усі недавні пошукові запити?";
+"search-recent-clear-confirmation-sub-heading" = "Цю дію скасувати не можна!";
+"search-recent-clear-cancel" = "Скасувати";
+"search-recent-clear-delete-all" = "Вилучити всі";
 "main-menu-title" = "Ще";
+"main-menu-heading-about" = "Про застосунок";
 "main-menu-language-title" = "$1 мова для пошуку на вікі";
+"main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Показати мови";
 "main-menu-language-toggle-hide" = "Приховати мови";
 "main-menu-language-selection-saved" = "Вибір мови збережено";
@@ -96,25 +115,28 @@
 "main-menu-send-feedback" = "Надіслати відгук про додаток";
 "main-menu-show-page-history" = "Історія змін $1";
 "main-menu-credits" = "Кредити";
+"main-menu-about" = "Про додаток Вікіпедії";
 "main-menu-zero-faq" = "ЧАП по Вікіпедія Zero";
 "main-menu-privacy-policy" = "Політика конфіденційності";
 "main-menu-terms-of-use" = "Умови використання";
 "main-menu-rate-app" = "Оцінити програму";
 "main-menu-heading-zero" = "Вікіпедія Zero";
-// Fuzzy
-"main-menu-heading-legal" = "Каламуть";
+"main-menu-heading-legal" = "Приватність та умови";
 "main-menu-show-today" = "Сьогодні";
 "main-menu-nearby" = "Неподалік";
+"main-menu-more" = "Більше…";
+"main-menu-heading-debug" = "Налагодження";
+"main-menu-debug-crash" = "Падіння";
 "saved-pages-title" = "Збережені сторінки";
 "saved-pages-clear-confirmation-heading" = "Видалити всі збережені елементи?";
 "saved-pages-clear-confirmation-sub-heading" = "Цю дію скасувати не можна!";
 "saved-pages-clear-cancel" = "Скасувати";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Видалити усі";
-// Fuzzy
+"saved-pages-clear-delete-all" = "Вилучити всі";
+"saved-pages-refresh-cancel-alert-title" = "Оновлення скасоване";
+"saved-pages-refresh-cancel-alert-message" = "Статті Вікіпедії оновлюються весь час. Натисніть «оновити», щоб отримати найсвіжіші версії усіх статей.";
+"saved-pages-refresh-cancel-alert-button" = "Зрозуміло";
 "page-history-title" = "Історія статті";
-// Fuzzy
-"page-history-downloading" = "Завантаження історії статті...";
+"page-history-downloading" = "Завантаження історії статті…";
 "navbar-title-mode-edit-wikitext" = "Змінити";
 "navbar-title-mode-login" = "Увійти";
 "navbar-title-mode-login-and-save" = "Увійти та зберегти";
@@ -126,8 +148,7 @@
 "navbar-title-mode-edit-wikitext-captcha" = "Потрібна швидка перевірка";
 "navbar-title-mode-edit-wikitext-summary" = "Опишіть вашу зміну";
 "navbar-title-mode-edit-wikitext-save" = "Зберегти";
-// Fuzzy
-"edit-summary-choice-linked-words" = "Пов'язано слова";
+"edit-summary-choice-linked-words" = "Додані посилання";
 "edit-summary-choice-fixed-grammar" = "Виправлений правопис";
 "edit-summary-choice-fixed-inaccuracy" = "Виправлена неточність";
 "edit-summary-choice-fixed-styling" = "Стильові виправлення";
@@ -137,8 +158,7 @@
 "edit-summary-choice-added-clarification" = "Додано пояснення";
 "edit-summary-choice-other" = "Інше";
 "edit-summary-description" = "Точний опис допомагає іншим учасникам швидко перевірити ваші правки. Також ви могли б вказати опису з використанням наведених нижче тегів.";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "Як ви поліпшили сторінку?";
+"edit-summary-field-placeholder-text" = "Інші аспекти, в яких Ви поліпшили статтю";
 "edit-summary-title" = "Як ви вдосконалили статтю?";
 "fetching-random-article" = "Вибірка випадкової статті";
 "article-pull-to-refresh-prompt" = "Потягність для оновлення статті";
@@ -148,19 +168,35 @@
 "credits-gerrit-repo" = "Основне (Gerrit)";
 "credits-github-mirror" = "Дзеркало додатку (GitHub)";
 "credits-external-libraries" = "Зовнішні";
+"about-title" = "Про";
+"about-wikipedia" = "Вікіпедія";
+"about-contributors" = "співавтори";
+"about-testers" = "тестери";
+"about-testers-details" = "QA-тестування від $1";
+"about-translators" = "перекладачі";
+"about-translators-details" = "Перекладено волонтерами на $1";
+"about-libraries" = "використовувані бібліотеки";
+"about-libraries-license" = "Ліцензія";
+"about-repositories" = "репозиторії";
+"about-send-feedback" = "Надіслати відгук про програму";
+"about-product-of" = "Продукт $1";
+"about-wikimedia-foundation" = "Фонд Вікімедіа";
 "share-menu-save-page" = "Зберегти статтю";
 "share-menu-page-saved" = "Статтю збережено";
 "share-menu-page-saved-access" = "Порада: щоб отримати доступ до ваших збережених сторінок, торкніться кнопки  $1  вище або довгий натиск на $2 нижче.";
+"share-custom-menu-item" = "Поділитися";
+"share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "«$1» у @Wikipedia: «$2»";
+"share-as-image" = "Поширити як зображення";
+"share-as-text" = "Поширити як текст";
 "timestamp-just-now" = "щойно";
 "timestamp-minutes" = "%d хв тому";
 "timestamp-hours" = "%d год тому";
 "timestamp-days" = "%d дн. тому";
 "timestamp-months" = "%d міс. тому";
 "timestamp-years" = "%d р. тому";
-// Fuzzy
-"lastmodified-by-user" = "Змінено $1 учасником $2";
-// Fuzzy
-"lastmodified-by-anon" = "Змінено $1 анонімним користувачем";
+"lastmodified-by-user" = "Редаговано $1 користувачем $2";
+"lastmodified-by-anon" = "Редаговано $1 анонімним користувачем";
 "button-next" = "Далі";
 "button-done" = "Готово";
 "button-save" = "Зберегти";
@@ -197,10 +233,12 @@
 "menu-w-accessibility-label" = "Меню";
 "menu-toc-accessibility-label" = "Зміст";
 "menu-search-accessibility-label" = "Пошук";
+"menu-reload-accessibility-label" = "Перезавантажити";
 "menu-cancel-accessibility-label" = "Скасувати";
 "menu-share-accessibility-label" = "Поділитись";
 "menu-more-accessibility-label" = "Додаткові параметри";
 "menu-trash-accessibility-label" = "Вилучити";
+"menu-language-accessibility-label" = "Мови";
 "nearby-title" = "Неподалік";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-km" = "$1 км";
@@ -218,3 +256,22 @@
 "nearby-location-updates-settings-menu" = "Приватність > Розташування > Вікіпедія";
 "nearby-location-general-error" = "Не вдається визначити місце розташування. Потягніть, щоб оновити або повторіть спробу пізніше.";
 "nearby-wifi" = "Увімкнення Wi-Fi може допомогти пристрою краще визначити ваше місце розташування.";
+"migration-update-progress-label" = "Перенесення локальних даних";
+"migration-update-progress-count-label" = "Перенесення статті $1 з $2";
+"migration-prompt-title" = "Здається, у нас є історія!";
+"migration-prompt-message" = "Нам треба перенести Ваші збержені і недавні сторінки. Це може зайняти хвилинку…";
+"migration-confirm-button-title" = "Перенести мої дані";
+"migration-skip-button-title" = "Вилучити це";
+"image-gallery-unknown-owner" = "Завантажувач невідомий.";
+"image-gallery-fetch-image-info-error-title" = "Не вдається завантажити зображення";
+"image-gallery-fetch-image-info-error-message" = "Не вдається завантажити зображення для цієї статті. Будь ласка, оновіть статтю і спробуйте ще раз.";
+"image-gallery-fetch-image-info-error-ok" = "Гаразд";
+"hockeyapp-alert-question" = "Хочете надіслати звіт у $1, щоб у Вікімедіа могли дослідити Ваш випадок «падіння»?";
+"hockeyapp-alert-question-with-response-field" = "Хочете надіслати звіт у $1, щоб у Вікімедіа могли дослідити Ваш випадок «падіння»? Будь ласка, опишіть, що сталося:";
+"hockeyapp-alert-title" = "Перепрошуємо, минулого разу програма «впала»";
+"hockeyapp-alert-send-report" = "Надіслати звіт";
+"hockeyapp-alert-always-send" = "Завжди надсилати";
+"hockeyapp-alert-do-not-send" = "Не надсилати";
+"hockeyapp-alert-privacy" = "Приватність $1";
+"page-issues" = "Проблеми сторінки";
+"page-similar-titles" = "Подібні сторінки";

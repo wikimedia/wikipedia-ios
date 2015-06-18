@@ -8,6 +8,8 @@
 "article-languages-filter-placeholder" = "Filtru de limbă";
 "article-read-more-title" = "Citiți mai multe";
 "article-unable-to-load-section" = "Această secțiune nu poate fi încărcată. Reîncărcați articolul pentru a vedea dacă problema se rezolvă astfel.";
+"article-languages-preferred-section-header" = "Preferate";
+"article-languages-other-section-header" = "Alte limbi";
 "info-box-title" = "Informații pe scurt";
 "info-box-close-text" = "Închide";
 "table-title-other" = "Mai multe informații";
@@ -90,7 +92,9 @@
 "search-recent-clear-cancel" = "Revocare";
 "search-recent-clear-delete-all" = "Șterge tot";
 "main-menu-title" = "Mai mult";
+"main-menu-heading-about" = "Despre";
 "main-menu-language-title" = "Căutare pe wiki în limba $1";
+"main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Arată limbile";
 "main-menu-language-toggle-hide" = "Ascunde limbile";
 "main-menu-language-selection-saved" = "Selectarea limbii salvată";
@@ -230,6 +234,7 @@
 "menu-share-accessibility-label" = "Distribuie";
 "menu-more-accessibility-label" = "Mai multe setări";
 "menu-trash-accessibility-label" = "Șterge";
+"menu-language-accessibility-label" = "Limbi";
 "nearby-title" = "În apropiere";
 "nearby-distance-label-meters" = "$1 metri";
 "nearby-distance-label-km" = "$1 km";

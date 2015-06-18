@@ -9,6 +9,7 @@
 "article-languages-downloading" = "Zimanên gotarê tên barkirin...";
 "article-languages-filter-placeholder" = "Fîltreya Ziman";
 "article-read-more-title" = "Zêdetir bixwine";
+"article-languages-other-section-header" = "Zimanên Din";
 "info-box-close-text" = "Bigre";
 "table-title-other" = "Zêdetir agahî";
 "history-label" = "dawî";
@@ -49,6 +50,7 @@
 "search-recent-clear-cancel" = "Betal bike";
 "search-recent-clear-delete-all" = "Hemûyan Jê Bibe";
 "main-menu-title" = "Bêhtir";
+"main-menu-heading-about" = "Derbarê";
 "main-menu-language-toggle-show" = "Zimanan nîşan bide";
 "main-menu-language-toggle-hide" = "Zimanan veşêre";
 "main-menu-language-selection-saved" = "Beşa ziman hate tomarkirin";
@@ -110,6 +112,7 @@
 "menu-cancel-accessibility-label" = "Betal bike";
 "menu-share-accessibility-label" = "Parve bike";
 "menu-trash-accessibility-label" = "Jê bibe";
+"menu-language-accessibility-label" = "Ziman";
 "nearby-distance-label-meters" = "$ m";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-feet" = "$1 fît";

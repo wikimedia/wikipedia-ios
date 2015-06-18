@@ -1,5 +1,6 @@
 // Messages for Italian (italiano)
 // Exported from translatewiki.net
+// Author: Alexmar983
 // Author: Bertaz
 // Author: Beta16
 // Author: Brion
@@ -109,6 +110,7 @@
 "main-menu-title" = "Altro";
 "main-menu-heading-about" = "Informazioni";
 "main-menu-language-title" = "Cerca nel wiki in lingua $1";
+"main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Visualizza lingue";
 "main-menu-language-toggle-hide" = "Nascondi lingue";
 "main-menu-language-selection-saved" = "Selezione della lingua salvata";

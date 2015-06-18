@@ -26,6 +26,8 @@
 "zero-learn-more" = "Koßte för der Dahteverkehr för heh di Wikkipehdija Äpp falle kein aan.";
 "zero-learn-more-learn-more" = "Mih lässe";
 "zero-learn-more-no-thanks" = "Nää, well esch nit lässe.";
+"account-creation-captcha-required" = "Et <span style=\"text-transform:uppercase\" title=\"Jät zom Ennjävve, öm ze zeije, dadd ene Minsch vör em Kompjuhter sez\">Kaptscha</span> moß jepröhv wähde.";
+"account-creation-captcha-obtaining" = "Ben e neu <span style=\"text-transform:uppercase\" title=\"Jät zom Ennjävve, öm ze zeije, dadd ene Minsch vör em Kompjuhter sez\">Kaptscha</span> aam holle.";
 "account-creation-logging-in" = "Aam Enlogge …";
 "account-creation-passwords-mismatched" = "De Paßwööter paße nit zersamme.";
 "account-creation-saving" = "Ben aam Afseschere{{int:ellipsis}}";
@@ -48,6 +50,8 @@
 "wikitext-downloading" = "Aam Laade ...";
 "wikitext-download-success" = "Ennhalld jelahde.";
 "wikitext-upload-result-unknown" = "Mer künne nit eruß fenge, wat beim Huhlahde för ene Wikkitägs eruß jekumme es.";
+"wikitext-upload-captcha-error" = "<span style=\"text-transform:uppercase\" title=\"Jät zom Ennjävve, öm ze zeije, dadd ene Minsch vör em Kompjuhter sez\">Kaptscha</span>-Fähler.";
+"wikitext-upload-captcha-needed" = "Et <span style=\"text-transform:uppercase\" title=\"Jät zom Ennjävve, öm ze zeije, dadd ene Minsch vör em Kompjuhter sez\">Kaptscha</span> moß jepröhv wähde.";
 "wikitext-upload-save" = "Aam Affschpeijschere …";
 "wikitext-upload-save-sign-in" = "Enlogge";
 "wikitext-upload-save-anonymously" = "Faßhallde als Beijdrach vun enem Nahmelosse";

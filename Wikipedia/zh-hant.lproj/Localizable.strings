@@ -16,6 +16,8 @@
 "article-languages-filter-placeholder" = "語言篩選器";
 "article-read-more-title" = "閱讀更多";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
+"article-languages-preferred-section-header" = "優先";
+"article-languages-other-section-header" = "其他語言";
 "info-box-title" = "快速預覽";
 "info-box-close-text" = "關閉";
 "table-title-other" = "更多資訊";
@@ -98,7 +100,9 @@
 "search-recent-clear-cancel" = "取消";
 "search-recent-clear-delete-all" = "刪除所有";
 "main-menu-title" = "更多";
+"main-menu-heading-about" = "關於";
 "main-menu-language-title" = "搜尋 $1 的維基百科";
+"main-menu-faq" = "常見問題";
 "main-menu-language-toggle-show" = "顯示語言";
 "main-menu-language-toggle-hide" = "隱藏語言";
 "main-menu-language-selection-saved" = "已儲存語言選擇";
@@ -238,6 +242,7 @@
 "menu-share-accessibility-label" = "分享";
 "menu-more-accessibility-label" = "更多設定";
 "menu-trash-accessibility-label" = "刪除";
+"menu-language-accessibility-label" = "語言";
 "nearby-title" = "附近";
 "nearby-distance-label-meters" = "$1 公尺";
 "nearby-distance-label-km" = "$1 公里";
