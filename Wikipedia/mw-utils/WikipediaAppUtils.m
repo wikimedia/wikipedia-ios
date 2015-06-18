@@ -97,25 +97,14 @@ static WMFAssetsFile* languageFile = nil;
     languageFile = nil;
 }
 
-+ (NSString*)domainNameForCode:(NSString*)code {
++ (NSString*)languageNameForCode:(NSString*)code {
     if (!languageFile) {
         languageFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
     }
 
     return [languageFile.array bk_match:^BOOL (NSDictionary* obj) {
-        if ([obj[@"code"] isEqualToString:code]) {
-            return YES;
-        }
-
-        return NO;
+        return [obj[@"code"] isEqualToString:code];
     }][@"name"];
-}
-
-+ (NSString*)wikiLangForSystemLang:(NSString*)code {
-    NSArray* bits  = [code componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"-_"]];
-    NSString* base = bits[0];
-    // @todo check for mismatches!
-    return base;
 }
 
 #pragma mark Copy bundled assets folder and contents to app "AppData/Documents/assets/"
@@ -205,11 +194,7 @@ static WMFAssetsFile* languageFile = nil;
 }
 
 + (BOOL)isDeviceLanguageRTL {
-    // Official way to determine current device user interface direction:
-    // "For iOS apps, to determine whether the language is right-to-left,
-    // send userInterfaceLayoutDirection to the shared application object"
-    // http://stackoverflow.com/a/25500099/135557
-    return ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft);
+    return [UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft;
 }
 
 @end

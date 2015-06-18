@@ -15,7 +15,6 @@ static inline dispatch_time_t dispatchTimeFromNowWithDelta(NSTimeInterval second
     return dispatch_time(DISPATCH_TIME_NOW, (int64_t)nanosecondsWithSeconds(seconds));
 }
 
-
 #pragma mark - Dispatch Async
 
 static inline void dispatchOnMainQueue(dispatch_block_t block){
@@ -35,7 +34,5 @@ static inline void dispatchAfterDelayInSeconds(NSTimeInterval delay, dispatch_qu
 static inline void dispatchOnMainQueueAfterDelayInSeconds(NSTimeInterval delay, dispatch_block_t block){
     dispatchAfterDelayInSeconds(delay, dispatch_get_main_queue(), block);
 }
-
-
 
 #endif

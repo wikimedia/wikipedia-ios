@@ -25,6 +25,7 @@
 #import <HockeySDK/HockeySDK.h>
 #import "UIFont+WMFStyle.h"
 #import "NSBundle+WMFInfoUtils.h"
+#import "MWKLanguageLink.h"
 
 #pragma mark - Defines
 
@@ -312,7 +313,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
     //NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
 
     NSString* languageCode              = [SessionSingleton sharedInstance].searchSite.language;
-    NSString* languageName              = [WikipediaAppUtils domainNameForCode:languageCode];
+    NSString* languageName              = [WikipediaAppUtils languageNameForCode:languageCode];
     NSAttributedString* searchWikiTitle =
         [MWLocalizedString(@"main-menu-language-title", nil) attributedStringWithAttributes:nil
                                                                         substitutionStrings:@[languageName]
@@ -657,10 +658,10 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
     }];
 }
 
-- (void)languageSelected:(NSDictionary*)langData sender:(LanguagesViewController*)sender {
+- (void)languageSelected:(MWKLanguageLink*)langData sender:(LanguagesViewController*)sender {
     [self showAlert:MWLocalizedString(@"main-menu-language-selection-saved", nil) type:ALERT_TYPE_TOP duration:1];
 
-    [NAV switchPreferredLanguageToId:langData[@"code"]];
+    [NAV switchPreferredLanguageToId:langData.languageCode];
 
     [self popModalToRoot];
 }

@@ -3,16 +3,12 @@
 
 #import <UIKit/UIKit.h>
 #import "TopMenuViewController.h"
-#import "FetcherBase.h"
+#import "LangaugeSelectionDelegate.h"
 
+@class MWKLanguageLink;
 @class LanguagesViewController;
 
-// Protocol for notifying languageSelectionDelegate that selection was made.
-@protocol LanguageSelectionDelegate <NSObject>
-- (void)languageSelected:(NSDictionary*)langData sender:(LanguagesViewController*)sender;
-@end
-
-@interface LanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, FetchFinishedDelegate>
+@interface LanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) BOOL downloadLanguagesForCurrentArticle;
 

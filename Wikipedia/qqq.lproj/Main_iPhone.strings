@@ -9,7 +9,6 @@
 "LfM-01-aCF.text" = "Button text for 'Preview' button on edit screen\n{{Identical|Preview}}";
 "P6J-IE-CiO.text" = "Button text for 'Skip' button on onboarding screen that offers to log in or sign up\n{{Identical|Skip}}";
 "PCr-0J-fBj.placeholder" = "Placeholder label text for password field on create-account screen\n{{Identical|Password}}";
-"SER-n4-DZC.text" = "Unused; do not translate";
 "UgH-77-lyp.placeholder" = "Placeholder label text for second password field on create-account screen";
 "W1c-wQ-1pa.text" = "Label text shown on saved pages list when there are no saved pages.";
 "Wff-o9-AdH.text" = "Button text for 'Log in' button\n{{Identical|Log in}}";
@@ -22,9 +21,10 @@
 "heA-3K-nhS.text" = "Button label on onboarding screen offering to log in instead of creating account";
 "huU-kO-aYI.text" = "Explanatory text shown on recent pages list when there are no recent pages";
 "jiW-Cg-oL3.text" = "Button label to create account\n{{Identical|Create account}}";
-"jxY-ej-I9e.text" = "placeholder text; do not translate\n{{Identical|Language}}";
 "kVb-lx-d6C.placeholder" = "Placeholder label for login password field\n{{Identical|Password}}";
 "mAk-1N-jPC.placeholder" = "Placeholder label for login username field\n{{Identical|Username}}";
 "nI1-bn-0Ii.text" = "placeholder text; do not translate\n{{Identical|Label}}";
 "rKI-nq-3p7.placeholder" = "Placeholder text for email field on create account form";
 "wkl-j8-wLX.text" = "Button label to go to Create Account form from Login form\n{{Identical|Create account}}";
+"ib6-Zk-jUw.text" = "MISSING DESCRIPTION; DO NOT COMMIT FILE YET";
+"wVn-n7-pdy.text" = "MISSING DESCRIPTION; DO NOT COMMIT FILE YET";

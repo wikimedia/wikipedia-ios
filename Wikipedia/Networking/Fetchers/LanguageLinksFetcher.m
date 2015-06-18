@@ -8,6 +8,7 @@
 #import "NSObject+Extras.h"
 #import "Defines.h"
 #import "WikipediaAppUtils.h"
+#import "WMFNetworkUtilities.h"
 
 @interface LanguageLinksFetcher ()
 
@@ -90,6 +91,7 @@
                @"prop": @"langlinks",
                @"titles": self.title.text,
                @"lllimit": @"500",
+               @"llprop": WMFJoinedPropertyParameters(@[@"langname", @"autonym"]),
                @"redirects": @"",
                @"format": @"json"
     };

@@ -10,6 +10,8 @@
    translation of the current page. Specifically, main pages have lots of langlinks to other wikis' main pages. As such,
    they will all be returned in a lanklinks query[0], giving the client the (arguably false) impression that the EN wiki
    main page has been translated into other languages.
+
+   0: https://en.wikipedia.org/w/api.php?action=query&titles=Main_Page&prop=langlinks&lllimit=500&format=json
  */
 
 typedef NS_ENUM (NSInteger, LanguageLinksFetchErrorType) {
@@ -19,14 +21,20 @@ typedef NS_ENUM (NSInteger, LanguageLinksFetchErrorType) {
 
 @class AFHTTPRequestOperationManager;
 
-@interface LanguageLinksFetcher : FetcherBase
+@interface MWKLanguageLinkFetcher : FetcherBase
 
 @property (strong, nonatomic, readonly) MWKTitle* title;
-@property (strong, nonatomic, readonly) NSArray* allLanguages;
 
-// Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
+/// Fetches the language links for the given page title.
 - (instancetype)initAndFetchLanguageLinksForPageTitle:(MWKTitle*)title
-                                         allLanguages:(NSArray*)allLanguages
                                           withManager:(AFHTTPRequestOperationManager*)manager
                                    thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
+
+- (instancetype)initWithManager:(AFHTTPRequestOperationManager*)manager
+                       delegate:(id<FetchFinishedDelegate>)delegate;
+
+- (void)fetchLanguageLinksForTitle:(MWKTitle*)title
+                           success:(void (^)(NSArray* langLinks))success
+                           failure:(void (^)(NSError* error))error;
+
 @end

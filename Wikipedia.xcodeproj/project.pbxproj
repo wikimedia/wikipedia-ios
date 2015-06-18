@@ -16,7 +16,7 @@
 		0412CC621925366C0010E616 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0412CC611925366C0010E616 /* RootViewController.m */; };
 		04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 04142A8E184F974E006EF779 /* NSDate-Utilities.m */; };
 		0415581C18ADFA5D00B81A59 /* UIImage+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0415581B18ADFA5C00B81A59 /* UIImage+ColorMask.m */; };
-		041A3B5E18E11ED90079FF1C /* LanguagesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5918E11ED90079FF1C /* LanguagesCell.m */; };
+		041A3B5E18E11ED90079FF1C /* LanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5918E11ED90079FF1C /* LanguageCell.m */; };
 		041A3B6218E11ED90079FF1C /* LanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */; };
 		041C55D21950B27D006CE0EF /* EditSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C55D11950B27D006CE0EF /* EditSummaryViewController.m */; };
 		041C6206199ED2A20061516F /* MWKSection+TOC.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C6205199ED2A20061516F /* MWKSection+TOC.m */; };
@@ -103,7 +103,7 @@
 		0487048319F8262600B7D307 /* FetcherBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487046319F8262600B7D307 /* FetcherBase.m */; };
 		0487048419F8262600B7D307 /* CaptchaResetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487046519F8262600B7D307 /* CaptchaResetter.m */; };
 		0487048519F8262600B7D307 /* EditTokenFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487046719F8262600B7D307 /* EditTokenFetcher.m */; };
-		0487048619F8262600B7D307 /* LanguageLinksFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487046919F8262600B7D307 /* LanguageLinksFetcher.m */; };
+		0487048619F8262600B7D307 /* MWKLanguageLinkFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487046919F8262600B7D307 /* MWKLanguageLinkFetcher.m */; };
 		0487048719F8262600B7D307 /* LoginTokenFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487046B19F8262600B7D307 /* LoginTokenFetcher.m */; };
 		0487048819F8262600B7D307 /* NearbyFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487046D19F8262600B7D307 /* NearbyFetcher.m */; };
 		0487048919F8262600B7D307 /* PageHistoryFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487046F19F8262600B7D307 /* PageHistoryFetcher.m */; };
@@ -233,7 +233,9 @@
 		BC23759E1AB8928600B0BAA8 /* WMFDateFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */; };
 		BC2375C11ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2375C01ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m */; };
 		BC2CBB8E1AA10F400079A313 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2CBB8D1AA10F400079A313 /* UIView+WMFFrameUtils.m */; };
+		BC3166B21B279AC30096EE8E /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		BC31B2521AB1D9DC008138CA /* WMFImageInfoControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */; };
+		BC34E46A1B31AD8B00258928 /* MWKLanguageLinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC34E4691B31AD8B00258928 /* MWKLanguageLinkController.m */; };
 		BC49B3641AEECFD8009F55BE /* ArticleLoadingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC49B3631AEECFD8009F55BE /* ArticleLoadingTests.m */; };
 		BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */; };
 		BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */; };
@@ -243,8 +245,6 @@
 		BC69C3141AB0C1FF0090B039 /* WMFImageInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69C3131AB0C1FF0090B039 /* WMFImageInfoController.m */; };
 		BC6BF4001B19213600362968 /* XCTestCase+WMFLocaleTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6BF3FE1B19209900362968 /* XCTestCase+WMFLocaleTesting.m */; };
 		BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
-		BC8340551B2233BE00A083DB /* LanguagesSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8340541B2233BE00A083DB /* LanguagesSectionHeaderView.m */; };
-		BC839B441B25AE15002DF67C /* LanguagesTableSectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC839B431B25AE15002DF67C /* LanguagesTableSectionViewModel.m */; };
 		BC86B9361A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B9351A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m */; };
 		BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93C1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m */; };
 		BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */; };
@@ -321,6 +321,8 @@
 		BCE24FDE1B0CF0C7003F054B /* LegacyDataMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE24FD81B0CF0C7003F054B /* LegacyDataMigrator.m */; };
 		BCE24FDF1B0CF0C7003F054B /* LegacyPhoneGapDataMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE24FDA1B0CF0C7003F054B /* LegacyPhoneGapDataMigrator.m */; };
 		BCE24FE01B0CF0C7003F054B /* SQLiteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE24FDC1B0CF0C7003F054B /* SQLiteHelper.m */; };
+		BCE6EE101B2619E900AF603B /* MWKLanguageLink.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6EE0F1B2619E900AF603B /* MWKLanguageLink.m */; };
+		BCE6EE131B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6EE121B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m */; };
 		BCE912BA1ACC5E6900B74B42 /* NSIndexSet+BKReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */; };
 		BCE912BD1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */; };
 		BCEC778F1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEC778E1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m */; };
@@ -334,7 +336,6 @@
 		C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */; };
 		C90799BA1A8564C60044E13C /* WMFShareOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90799B91A8564C60044E13C /* WMFShareOptionsViewController.m */; };
 		C913C89C1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = C913C89B1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m */; };
-		C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		C91A86F41A8BCB680088A801 /* WMFShareCardImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C91A86F31A8BCB680088A801 /* WMFShareCardImageContainer.m */; };
 		C94BE3EE1A8169ED00F2105B /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = C94BE3ED1A8169ED00F2105B /* WMFShareFunnel.m */; };
 		C96335911AA92AAC00A1EB2C /* WMFCrashAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C96335901AA92AAC00A1EB2C /* WMFCrashAlertView.m */; };
@@ -398,8 +399,8 @@
 		04142A8E184F974E006EF779 /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
 		0415581A18ADFA5C00B81A59 /* UIImage+ColorMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ColorMask.h"; sourceTree = "<group>"; };
 		0415581B18ADFA5C00B81A59 /* UIImage+ColorMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ColorMask.m"; sourceTree = "<group>"; };
-		041A3B5818E11ED90079FF1C /* LanguagesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguagesCell.h; sourceTree = "<group>"; };
-		041A3B5918E11ED90079FF1C /* LanguagesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LanguagesCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		041A3B5818E11ED90079FF1C /* LanguageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageCell.h; sourceTree = "<group>"; };
+		041A3B5918E11ED90079FF1C /* LanguageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LanguageCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		041A3B5C18E11ED90079FF1C /* LanguagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguagesViewController.h; sourceTree = "<group>"; };
 		041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguagesViewController.m; sourceTree = "<group>"; };
 		041C55D01950B27D006CE0EF /* EditSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSummaryViewController.h; sourceTree = "<group>"; };
@@ -562,8 +563,8 @@
 		0487046519F8262600B7D307 /* CaptchaResetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaResetter.m; sourceTree = "<group>"; };
 		0487046619F8262600B7D307 /* EditTokenFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditTokenFetcher.h; sourceTree = "<group>"; };
 		0487046719F8262600B7D307 /* EditTokenFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditTokenFetcher.m; sourceTree = "<group>"; };
-		0487046819F8262600B7D307 /* LanguageLinksFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageLinksFetcher.h; sourceTree = "<group>"; };
-		0487046919F8262600B7D307 /* LanguageLinksFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageLinksFetcher.m; sourceTree = "<group>"; };
+		0487046819F8262600B7D307 /* MWKLanguageLinkFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKLanguageLinkFetcher.h; sourceTree = "<group>"; };
+		0487046919F8262600B7D307 /* MWKLanguageLinkFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLinkFetcher.m; sourceTree = "<group>"; };
 		0487046A19F8262600B7D307 /* LoginTokenFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTokenFetcher.h; sourceTree = "<group>"; };
 		0487046B19F8262600B7D307 /* LoginTokenFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTokenFetcher.m; sourceTree = "<group>"; };
 		0487046C19F8262600B7D307 /* NearbyFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyFetcher.h; sourceTree = "<group>"; };
@@ -771,6 +772,9 @@
 		BC2CBB8C1AA10F400079A313 /* UIView+WMFFrameUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WMFFrameUtils.h"; sourceTree = "<group>"; };
 		BC2CBB8D1AA10F400079A313 /* UIView+WMFFrameUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WMFFrameUtils.m"; sourceTree = "<group>"; };
 		BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageInfoControllerTests.m; sourceTree = "<group>"; };
+		BC34E4681B31AD8B00258928 /* MWKLanguageLinkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKLanguageLinkController.h; sourceTree = "<group>"; };
+		BC34E4691B31AD8B00258928 /* MWKLanguageLinkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLinkController.m; sourceTree = "<group>"; };
+		BC34E4721B31D92100258928 /* LangaugeSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LangaugeSelectionDelegate.h; sourceTree = "<group>"; };
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC49B3631AEECFD8009F55BE /* ArticleLoadingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleLoadingTests.m; sourceTree = "<group>"; };
 		BC50C37D1A83C784006DC7AF /* WMFNetworkUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNetworkUtilities.h; sourceTree = "<group>"; };
@@ -792,10 +796,6 @@
 		BC7DFCCB1AA4BA8A000035C3 /* WMFCodingStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFCodingStyle.h; sourceTree = "<group>"; };
 		BC7DFCD41AA4E5FE000035C3 /* WMFImageURLParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFImageURLParsing.h; sourceTree = "<group>"; };
 		BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageURLParsing.m; sourceTree = "<group>"; };
-		BC8340531B2233BE00A083DB /* LanguagesSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguagesSectionHeaderView.h; sourceTree = "<group>"; };
-		BC8340541B2233BE00A083DB /* LanguagesSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguagesSectionHeaderView.m; sourceTree = "<group>"; };
-		BC839B421B25AE15002DF67C /* LanguagesTableSectionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguagesTableSectionViewModel.h; sourceTree = "<group>"; };
-		BC839B431B25AE15002DF67C /* LanguagesTableSectionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguagesTableSectionViewModel.m; sourceTree = "<group>"; };
 		BC86B9341A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+UniqueRequests.h"; sourceTree = "<group>"; };
 		BC86B9351A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperationManager+UniqueRequests.m"; sourceTree = "<group>"; };
 		BC86B93B1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewFlowLayout+NSCopying.h"; sourceTree = "<group>"; };
@@ -957,6 +957,10 @@
 		BCE24FDA1B0CF0C7003F054B /* LegacyPhoneGapDataMigrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyPhoneGapDataMigrator.m; sourceTree = "<group>"; };
 		BCE24FDB1B0CF0C7003F054B /* SQLiteHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLiteHelper.h; sourceTree = "<group>"; };
 		BCE24FDC1B0CF0C7003F054B /* SQLiteHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteHelper.m; sourceTree = "<group>"; };
+		BCE6EE0E1B2619E900AF603B /* MWKLanguageLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKLanguageLink.h; sourceTree = "<group>"; };
+		BCE6EE0F1B2619E900AF603B /* MWKLanguageLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLink.m; sourceTree = "<group>"; };
+		BCE6EE111B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageLinkResponseSerializer.h; path = Serializers/MWKLanguageLinkResponseSerializer.h; sourceTree = "<group>"; };
+		BCE6EE121B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkResponseSerializer.m; path = Serializers/MWKLanguageLinkResponseSerializer.m; sourceTree = "<group>"; };
 		BCE912B81ACC5E6900B74B42 /* NSIndexSet+BKReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+BKReduce.h"; sourceTree = "<group>"; };
 		BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduce.m"; sourceTree = "<group>"; };
 		BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduceTests.m"; sourceTree = "<group>"; };
@@ -1278,12 +1282,11 @@
 			children = (
 				041A3B5C18E11ED90079FF1C /* LanguagesViewController.h */,
 				041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */,
-				041A3B5818E11ED90079FF1C /* LanguagesCell.h */,
-				041A3B5918E11ED90079FF1C /* LanguagesCell.m */,
-				BC8340531B2233BE00A083DB /* LanguagesSectionHeaderView.h */,
-				BC8340541B2233BE00A083DB /* LanguagesSectionHeaderView.m */,
-				BC839B421B25AE15002DF67C /* LanguagesTableSectionViewModel.h */,
-				BC839B431B25AE15002DF67C /* LanguagesTableSectionViewModel.m */,
+				041A3B5818E11ED90079FF1C /* LanguageCell.h */,
+				041A3B5918E11ED90079FF1C /* LanguageCell.m */,
+				BC34E4681B31AD8B00258928 /* MWKLanguageLinkController.h */,
+				BC34E4691B31AD8B00258928 /* MWKLanguageLinkController.m */,
+				BC34E4721B31D92100258928 /* LangaugeSelectionDelegate.h */,
 			);
 			path = Languages;
 			sourceTree = "<group>";
@@ -1648,8 +1651,8 @@
 				0487046519F8262600B7D307 /* CaptchaResetter.m */,
 				0487046619F8262600B7D307 /* EditTokenFetcher.h */,
 				0487046719F8262600B7D307 /* EditTokenFetcher.m */,
-				0487046819F8262600B7D307 /* LanguageLinksFetcher.h */,
-				0487046919F8262600B7D307 /* LanguageLinksFetcher.m */,
+				0487046819F8262600B7D307 /* MWKLanguageLinkFetcher.h */,
+				0487046919F8262600B7D307 /* MWKLanguageLinkFetcher.m */,
 				0487046A19F8262600B7D307 /* LoginTokenFetcher.h */,
 				0487046B19F8262600B7D307 /* LoginTokenFetcher.m */,
 				0487046C19F8262600B7D307 /* NearbyFetcher.h */,
@@ -2199,6 +2202,8 @@
 				BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */,
 				BC092BA01B19135700093C59 /* WMFApiJsonResponseSerializer.h */,
 				BC092BA11B19135700093C59 /* WMFApiJsonResponseSerializer.m */,
+				BCE6EE111B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.h */,
+				BCE6EE121B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m */,
 			);
 			name = Serializers;
 			sourceTree = "<group>";
@@ -2245,6 +2250,8 @@
 				BCB58F621A8A9F1000465627 /* MWKLicense.m */,
 				BC092B9A1B18F8D700093C59 /* MWKSiteInfo.h */,
 				BC092B9B1B18F8D700093C59 /* MWKSiteInfo.m */,
+				BCE6EE0E1B2619E900AF603B /* MWKLanguageLink.h */,
+				BCE6EE0F1B2619E900AF603B /* MWKLanguageLink.m */,
 			);
 			name = "Data classes";
 			sourceTree = "<group>";
@@ -3028,8 +3035,8 @@
 				045D872119FAD2FA0035C1F9 /* AboutViewController.m in Sources */,
 				04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */,
 				0447863D185145090050563B /* WebViewController.m in Sources */,
+				BC34E46A1B31AD8B00258928 /* MWKLanguageLinkController.m in Sources */,
 				0487048A19F8262600B7D307 /* PreviewHtmlFetcher.m in Sources */,
-				C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */,
 				0EE7687B1AF982C100A5D046 /* WMFArticleProtocol.m in Sources */,
 				04EDEE311A21CB4100798076 /* UIScreen+Extras.m in Sources */,
 				BCB669A91A83F6C400C7B1FE /* MWKSection.m in Sources */,
@@ -3040,7 +3047,7 @@
 				0462A6D11A1FE016009412D4 /* SearchResultAttributedString.m in Sources */,
 				0487047F19F8262600B7D307 /* AccountCreator.m in Sources */,
 				04038E701A15734B00DBD1DF /* SearchMessageLabel.m in Sources */,
-				0487048619F8262600B7D307 /* LanguageLinksFetcher.m in Sources */,
+				0487048619F8262600B7D307 /* MWKLanguageLinkFetcher.m in Sources */,
 				BCE912BA1ACC5E6900B74B42 /* NSIndexSet+BKReduce.m in Sources */,
 				0EFB0F211B31EE2D00D05C08 /* History.m in Sources */,
 				BC90C4BE1AC219FE009F36D2 /* UIWindow+WMFMainScreenWindow.m in Sources */,
@@ -3094,6 +3101,7 @@
 				04CBAC7319A9B786009F3D7E /* NSArray+Predicate.m in Sources */,
 				0EFB0F1D1B31EE2D00D05C08 /* NSManagedObjectContext+SimpleFetch.m in Sources */,
 				04CCCFF61935094000E3F60C /* PrimaryMenuViewController.m in Sources */,
+				BCE6EE101B2619E900AF603B /* MWKLanguageLink.m in Sources */,
 				04CFA120194900D50088269A /* TopMenuTextFieldContainer.m in Sources */,
 				0487048119F8262600B7D307 /* ArticleFetcher.m in Sources */,
 				040892641935ABBD004CF254 /* UIViewController+StatusBarHeight.m in Sources */,
@@ -3110,14 +3118,13 @@
 				C90799BA1A8564C60044E13C /* WMFShareOptionsViewController.m in Sources */,
 				04C91CEB195517250035ED1B /* OnboardingViewController.m in Sources */,
 				04D686FA1AB2949C0009B44A /* TabularScrollView.m in Sources */,
-				041A3B5E18E11ED90079FF1C /* LanguagesCell.m in Sources */,
+				041A3B5E18E11ED90079FF1C /* LanguageCell.m in Sources */,
 				042487521A54BECD00A5C905 /* MWKArticle+Convenience.m in Sources */,
 				043DAC4B1901C3EE001CD17C /* CreditsViewController.m in Sources */,
 				D42E75EB18D11237002EA7E5 /* MWLanguageInfo.m in Sources */,
 				0EFB0F1A1B31EE2D00D05C08 /* ArticleData.xcdatamodeld in Sources */,
 				043F8BF21A11699A00D1AE44 /* UIView+WMFRoundCorners.m in Sources */,
 				0487048019F8262600B7D307 /* AccountLogin.m in Sources */,
-				BC8340551B2233BE00A083DB /* LanguagesSectionHeaderView.m in Sources */,
 				04D149DD18877343006B4104 /* AlertLabel.m in Sources */,
 				BCB669AE1A83F6C400C7B1FE /* MWKHistoryEntry.m in Sources */,
 				0433542618A093C5009305F0 /* UIView+RemoveConstraints.m in Sources */,
@@ -3161,7 +3168,6 @@
 				BCB58F631A8A9F1000465627 /* MWKLicense.m in Sources */,
 				041C55D21950B27D006CE0EF /* EditSummaryViewController.m in Sources */,
 				04CCA0C01983086D000E982A /* ReferencesVC.m in Sources */,
-				BC839B441B25AE15002DF67C /* LanguagesTableSectionViewModel.m in Sources */,
 				043B6E8E1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				0487048719F8262600B7D307 /* LoginTokenFetcher.m in Sources */,
@@ -3178,6 +3184,7 @@
 				C979727D1A731F2D00C6ED7A /* WMFShareOptionsView.m in Sources */,
 				C91A86F41A8BCB680088A801 /* WMFShareCardImageContainer.m in Sources */,
 				BCB58F781A8D081E00465627 /* NSArray+BKIndex.m in Sources */,
+				BCE6EE131B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m in Sources */,
 				042A5B2C19253E690095E172 /* BottomMenuViewController.m in Sources */,
 				0433542218A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */,
 				0484E3DE19D9D19B0085D18D /* UIView+ConstraintsScale.m in Sources */,
@@ -3193,6 +3200,7 @@
 				BCC185E81A9FA498005378F8 /* UICollectionViewFlowLayout+AttributeUtils.m in Sources */,
 				04D686F81AB2949C0009B44A /* PaddedLabel.m in Sources */,
 				04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */,
+				BC3166B21B279AC30096EE8E /* WikipediaAppUtils.m in Sources */,
 				04F0E2EE186FB2D100468738 /* TOCSectionCellView.m in Sources */,
 				04B0E3EA1AE8252800379AE0 /* NSURL+WMFRest.m in Sources */,
 				040D835E1AB0EE45000896D5 /* WMFGeometry.c in Sources */,

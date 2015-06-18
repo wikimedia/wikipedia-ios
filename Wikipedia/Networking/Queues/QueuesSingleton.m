@@ -6,6 +6,7 @@
 #import "ReadingActionFunnel.h"
 #import "SessionSingleton.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import "MWKLanguageLinkResponseSerializer.h"
 #import <BlocksKit/BlocksKit.h>
 
 @implementation QueuesSingleton
@@ -54,6 +55,8 @@
     [fetchers bk_each:^(AFHTTPRequestOperationManager* manager) {
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     }];
+
+    self.languageLinksFetcher.responseSerializer = [MWKLanguageLinkResponseSerializer serializer];
 }
 
 @end

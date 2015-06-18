@@ -11,10 +11,6 @@
 
 @implementation WMFApiJsonResponseSerializer
 
-- (id)parseJSON:(id)json error:(NSError**)error {
-    return json;
-}
-
 - (id)responseObjectForResponse:(NSURLResponse*)response
                            data:(NSData*)data
                           error:(NSError* __autoreleasing*)error {
