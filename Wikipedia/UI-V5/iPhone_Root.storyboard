@@ -114,24 +114,27 @@
                                 </connections>
                             </searchBar>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ia7-49-Gwu">
-                                <rect key="frame" x="0.0" y="44" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="84" width="600" height="496"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="qVm-oc-aaW" kind="embed" id="2dT-rC-ziD"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ukX-0p-5ey">
-                                <rect key="frame" x="277" y="79" width="46" height="30"/>
+                                <rect key="frame" x="277" y="48" width="46" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="searchForSuggestion:" destination="tkf-8P-b2O" eventType="touchUpInside" id="0Md-vC-UXr"/>
+                                </connections>
                             </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ukX-0p-5ey" firstAttribute="top" secondItem="ZNj-Jo-URc" secondAttribute="bottom" constant="35" id="32n-FT-n9y"/>
+                            <constraint firstItem="ukX-0p-5ey" firstAttribute="top" secondItem="ZNj-Jo-URc" secondAttribute="bottom" constant="4" id="32n-FT-n9y"/>
                             <constraint firstAttribute="centerY" secondItem="ZNj-Jo-URc" secondAttribute="centerY" id="7um-O6-iBm"/>
                             <constraint firstItem="Ia7-49-Gwu" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="AdT-tS-YIU"/>
                             <constraint firstItem="ZNj-Jo-URc" firstAttribute="top" secondItem="CKX-gH-RjL" secondAttribute="bottom" id="HTd-6H-IdL"/>
@@ -139,6 +142,7 @@
                             <constraint firstItem="Ia7-49-Gwu" firstAttribute="top" secondItem="ZNj-Jo-URc" secondAttribute="bottom" id="VR7-y0-CDG"/>
                             <constraint firstItem="8Yb-zt-F5o" firstAttribute="top" secondItem="Ia7-49-Gwu" secondAttribute="bottom" id="XlJ-cb-ymV"/>
                             <constraint firstAttribute="centerX" secondItem="ZNj-Jo-URc" secondAttribute="centerX" id="cxv-4Q-C8N"/>
+                            <constraint firstItem="Ia7-49-Gwu" firstAttribute="top" secondItem="ukX-0p-5ey" secondAttribute="bottom" constant="6" placeholder="YES" id="fdO-Tl-2cD"/>
                             <constraint firstAttribute="centerX" secondItem="ukX-0p-5ey" secondAttribute="centerX" id="h5k-7F-xym"/>
                             <constraint firstItem="ZNj-Jo-URc" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="lud-F9-Eww"/>
                             <constraint firstAttribute="trailing" secondItem="ZNj-Jo-URc" secondAttribute="trailing" id="zhb-KY-6d8"/>
@@ -147,11 +151,13 @@
                             <mask key="constraints">
                                 <exclude reference="7um-O6-iBm"/>
                                 <exclude reference="cxv-4Q-C8N"/>
+                                <exclude reference="VR7-y0-CDG"/>
                             </mask>
                         </variation>
                     </view>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="resultsListContainerView" destination="Ia7-49-Gwu" id="xdS-en-9mw"/>
                         <outlet property="searchBar" destination="ZNj-Jo-URc" id="Y5b-g5-7Mc"/>
                         <outlet property="searchSuggestionButton" destination="ukX-0p-5ey" id="O0X-WP-Nym"/>
                     </connections>
@@ -165,7 +171,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qVm-oc-aaW" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="cbI-aA-luO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="496"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <collectionViewLayout key="collectionViewLayout" id="OM6-RR-VUO" customClass="TGLStackedLayout"/>

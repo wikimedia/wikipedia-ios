@@ -3,6 +3,7 @@
 #import "PromiseKit.h"
 
 @class MWKSite;
+@class WMFSearchResults;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSUInteger maxSearchResults;
 
 - (AnyPromise*)searchArticleTitlesForSearchTerm:(NSString*)searchTerm;
+
+- (AnyPromise*)searchFullArticleTextForSearchTerm:(NSString*)searchTerm appendToPreviousResults:(WMFSearchResults*)results;
 
 @end
 

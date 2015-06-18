@@ -10,8 +10,8 @@
 #import <Masonry/Masonry.h>
 
 @interface WMFAppViewController ()<WMFSearchViewControllerDelegate>
-@property (strong, nonatomic) IBOutlet UIView *searchContainerView;
-@property (strong, nonatomic) IBOutlet UIView *articleListContainerView;
+@property (strong, nonatomic) IBOutlet UIView* searchContainerView;
+@property (strong, nonatomic) IBOutlet UIView* articleListContainerView;
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* listViewController;
@@ -19,20 +19,18 @@
 
 @property (nonatomic, strong) SessionSingleton* session;
 
-@property (nonatomic, strong) MASConstraint *articleListVisibleConstraint;
-@property (nonatomic, strong) MASConstraint *articleListMinimizedConstraint;
+@property (nonatomic, strong) MASConstraint* articleListVisibleConstraint;
+@property (nonatomic, strong) MASConstraint* articleListMinimizedConstraint;
 
 @end
 
 @implementation WMFAppViewController
 
-- (SessionSingleton*)session{
-    
-    if(!_session){
-        
+- (SessionSingleton*)session {
+    if (!_session) {
         _session = [SessionSingleton sharedInstance];
     }
-    
+
     return _session;
 }
 
@@ -43,7 +41,6 @@
 }
 
 - (void)launchAppInWindow:(UIWindow*)window {
-    
     WMFStyleManager* manager = [WMFStyleManager new];
     [manager applyStyleToWindow:window];
     [WMFStyleManager setSharedStyleManager:manager];
@@ -53,12 +50,11 @@
 }
 
 - (void)loadMainUI {
-    
     [self updateListViewBasedOnSearchState:self.searchViewController.state];
 
     self.searchViewController.searchSite = [self.session searchSite];
-    self.searchViewController.dataStore = [self.session dataStore];
-    self.listViewController.dataSource = [[WMFSavedPagesDataSource alloc] initWithUserDataStore:[self userDataStore]];;
+    self.searchViewController.dataStore  = [self.session dataStore];
+    self.listViewController.dataSource   = [[WMFSavedPagesDataSource alloc] initWithUserDataStore:[self userDataStore]];;
 }
 
 - (void)resumeApp {
@@ -90,7 +86,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[WMFSearchViewController class]]) {
-        self.searchViewController = segue.destinationViewController;
+        self.searchViewController          = segue.destinationViewController;
         self.searchViewController.delegate = self;
     }
     if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
@@ -155,24 +151,20 @@
 
 #pragma mark - WMFSearchViewControllerDelegate
 
-- (void)searchController:(WMFSearchViewController*)controller searchStateDidChange:(WMFSearchState)state{
-
+- (void)searchController:(WMFSearchViewController*)controller searchStateDidChange:(WMFSearchState)state {
     [self updateListViewBasedOnSearchState:state];
 }
 
-- (void)updateListViewBasedOnSearchState:(WMFSearchState)state{
-    
+- (void)updateListViewBasedOnSearchState:(WMFSearchState)state {
     switch (state) {
-        case WMFSearchStateInactive:{
-          
+        case WMFSearchStateInactive: {
             [self.articleListMinimizedConstraint uninstall];
-            [self.articleListContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+            [self.articleListContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
                 self.articleListVisibleConstraint = make.top.equalTo(self.view.mas_top).with.offset(64.0);
             }];
             [self.view layoutIfNeeded];
-            
+
             [self.listViewController setListMode:WMFArticleListModeNormal animated:YES completion:NULL];
-            
         }
             break;
         case WMFSearchStateActive:{
@@ -186,12 +178,9 @@
                 }];
                 [self.view layoutIfNeeded];
             }];
-
         }
-            break;
+        break;
     }
 }
-
-
 
 @end

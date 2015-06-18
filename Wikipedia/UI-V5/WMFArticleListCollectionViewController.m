@@ -26,56 +26,50 @@
 
 @implementation WMFArticleListCollectionViewController
 
-- (void)setDataSource:(id<WMFArticleListDataSource> __nullable)dataSource{
-    
-    if([_dataSource isEqual:dataSource]){
+- (void)setDataSource:(id<WMFArticleListDataSource> __nullable)dataSource {
+    if ([_dataSource isEqual:dataSource]) {
         return;
     }
-    
+
     _dataSource = dataSource;
-    
+
     self.title = [_dataSource displayTitle];
 
-    if([self isViewLoaded]){
+    if ([self isViewLoaded]) {
         [self.collectionView reloadData];
     }
 }
 
 #pragma mark - List Mode
 
-- (void)setListMode:(WMFArticleListMode)mode animated:(BOOL)animated completion:(nullable dispatch_block_t)completion{
-    
-    if(_mode == mode){
+- (void)setListMode:(WMFArticleListMode)mode animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
+    if (_mode == mode) {
         return;
     }
-    
+
     _mode = mode;
-    
-    if([self isViewLoaded]){
+
+    if ([self isViewLoaded]) {
         [self updateListForMode:_mode animated:animated completion:completion];
     }
 }
 
-- (void)updateListForMode:(WMFArticleListMode)mode animated:(BOOL)animated completion:(nullable dispatch_block_t)completion{
-
-
+- (void)updateListForMode:(WMFArticleListMode)mode animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
     UICollectionViewLayout* layout;
-    
+
     switch (mode) {
-        case WMFArticleListModeBottomStacked:{
+        case WMFArticleListModeBottomStacked: {
             self.bottomStackLayout.itemSize = self.view.bounds.size;
-            layout = self.bottomStackLayout;
-            
+            layout                          = self.bottomStackLayout;
         }
-            break;
+        break;
         case WMFArticleListModeNormal:
-        default:{
+        default: {
             self.stackedLayout.itemSize = self.view.bounds.size;
-            layout = self.stackedLayout;
+            layout                      = self.stackedLayout;
         }
-            break;
+        break;
     }
-    
 
     @weakify(self);
     [self setOffsecreenLayoutAnimated:animated completion:^(BOOL finished) {
@@ -87,8 +81,8 @@
             }else{
                 self.collectionView.scrollEnabled = YES;
             }
-            
-            if(completion){
+
+            if (completion) {
                 completion();
             }
         }];
@@ -101,38 +95,35 @@
  * The only solution I could find was to switch to an intermdeiate layout
  * first. This moves the items off screen and then brings them back.
  */
-- (void)setOffsecreenLayoutAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion{
-
+- (void)setOffsecreenLayoutAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
     WMFOffScreenFlowLayout* offscreen = [[WMFOffScreenFlowLayout alloc] init];
     offscreen.itemSize = self.view.bounds.size;
-    
+
     [self.collectionView wmf_setCollectionViewLayout:offscreen animated:animated alwaysFireCompletion:completion];
 }
-
 
 #pragma mark - Accessors
 
 - (TGLStackedLayout*)stackedLayout {
-    if(!_stackedLayout){
+    if (!_stackedLayout) {
         TGLStackedLayout* stacked = [[TGLStackedLayout alloc] init];
         stacked.fillHeight   = YES;
         stacked.alwaysBounce = YES;
         stacked.delegate     = self;
-        stacked.itemSize = self.view.bounds.size;
-        _stackedLayout = stacked;
+        stacked.itemSize     = self.view.bounds.size;
+        _stackedLayout       = stacked;
     }
-    
+
     return _stackedLayout;
 }
 
 - (WMFBottomStackLayout*)bottomStackLayout {
-    
-    if(!_bottomStackLayout){
+    if (!_bottomStackLayout) {
         WMFBottomStackLayout* stack = [[WMFBottomStackLayout alloc] init];
-        stack.itemSize = self.view.bounds.size;
+        stack.itemSize     = self.view.bounds.size;
         _bottomStackLayout = stack;
     }
-    
+
     return _bottomStackLayout;
 }
 
@@ -140,7 +131,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.collectionView.backgroundColor = [UIColor clearColor];
 
     [self updateListForMode:self.mode animated:NO completion:NULL];
@@ -201,7 +192,7 @@
 #pragma mark - Update Cell Size
 
 - (void)updateCellSizeBasedOnViewFrame {
-    self.stackedLayout.itemSize = self.view.bounds.size;
+    self.stackedLayout.itemSize     = self.view.bounds.size;
     self.bottomStackLayout.itemSize = self.view.bounds.size;
 }
 
@@ -269,9 +260,8 @@
 }
 
 - (void)stackLayout:(TGLStackedLayout*)layout deleteItemAtIndexPath:(NSIndexPath*)indexPath {
-    
-    if([self.dataSource respondsToSelector:@selector(deleteArticleAtIndexPath:)]){
-        [self.dataSource deleteArticleAtIndexPath:indexPath];        
+    if ([self.dataSource respondsToSelector:@selector(deleteArticleAtIndexPath:)]) {
+        [self.dataSource deleteArticleAtIndexPath:indexPath];
     }
 }
 

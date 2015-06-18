@@ -22,8 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
     }
     return self;
 }
-    
-- (nullable NSString*)displayTitle{
+
+- (nullable NSString*)displayTitle {
     return MWLocalizedString(@"saved-pages-title", nil);
 }
 

@@ -6,31 +6,41 @@
 #import "WMFSearchResults.h"
 
 #import "SearchDidYouMeanButton.h"
+#import <Masonry/Masonry.h>
+
+static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @interface WMFSearchViewController ()
 
 @property (nonatomic, strong) WMFArticleListCollectionViewController* resultsListController;
-@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong, nonatomic) IBOutlet UIButton *searchSuggestionButton;
+@property (strong, nonatomic) IBOutlet UISearchBar* searchBar;
+@property (strong, nonatomic) IBOutlet UIButton* searchSuggestionButton;
+@property (strong, nonatomic) IBOutlet UIView* resultsListContainerView;
 
 @property (nonatomic, strong) WMFSearchFetcher* fetcher;
 
 @property (nonatomic, assign, readwrite) WMFSearchState state;
 
+@property (nonatomic, strong) MASConstraint* suggestionButtonVisibleConstraint;
+@property (nonatomic, strong) MASConstraint* suggestionButtonHiddenConstraint;
+
 @end
 
 @implementation WMFSearchViewController
 
-- (NSString*)currentSearchTerm{
+- (NSString*)currentSearchTerm {
     return [(WMFSearchResults*)self.resultsListController.dataSource searchTerm];
 }
 
-- (void)updateSearchStateAndNotifyDelegate:(WMFSearchState)state{
-    
-    if(self.state == state){
+- (NSString*)searchSuggestion {
+    return [(WMFSearchResults*)self.resultsListController.dataSource searchSuggestion];
+}
+
+- (void)updateSearchStateAndNotifyDelegate:(WMFSearchState)state {
+    if (self.state == state) {
         return;
     }
-    
+
     self.state = state;
 
     [self.delegate searchController:self searchStateDidChange:self.state];
@@ -40,8 +50,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.searchSuggestionButton.hidden = YES;
+    [self updateUIWithResults:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
@@ -52,92 +61,107 @@
 
 #pragma mark - UISearchBarDelegate
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-    
+- (void)searchBarTextDidBeginEditing:(UISearchBar*)searchBar {
     [self updateSearchStateAndNotifyDelegate:WMFSearchStateActive];
-    
+
     [self.searchBar setShowsCancelButton:YES animated:YES];
-    
+
     self.fetcher = [[WMFSearchFetcher alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
-    
-    if([self.searchBar.text length] > 2){
-        
-        if(![[self currentSearchTerm] isEqualToString:self.searchBar.text]){
+
+    if ([self.searchBar.text length] > 2) {
+        if (![[self currentSearchTerm] isEqualToString:self.searchBar.text]) {
             [self searchForSearchTerm:self.searchBar.text];
         }
-
-    }else{
-        
+    } else {
         self.resultsListController.dataSource = nil;
     }
 }
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    
-    if(searchText.length > 2){
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            if([searchText isEqualToString:self.searchBar.text]){
-                [self searchForSearchTerm:searchText];
-            }
-        });
-    }
+- (void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)searchText {
+    dispatchOnMainQueueAfterDelayInSeconds(0.4, ^{
+        if ([searchText isEqualToString:self.searchBar.text]) {
+            [self searchForSearchTerm:searchText];
+        }
+    });
 }
 
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-    
-    
+- (void)searchBarTextDidEndEditing:(UISearchBar*)searchBar {
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    
-    
+- (void)searchBarSearchButtonClicked:(UISearchBar*)searchBar {
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    
+- (void)searchBarCancelButtonClicked:(UISearchBar*)searchBar {
     [self updateSearchStateAndNotifyDelegate:WMFSearchStateInactive];
-
+    self.searchBar.text = nil;
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
 }
 
-
 #pragma mark - Search
 
-- (void)searchForSearchTerm:(NSString*)searchTerm{
-    
-    [self.fetcher searchArticleTitlesForSearchTerm:searchTerm].then(^(WMFSearchResults* results){
-        
-        self.title = results.searchTerm;
-        
-        [self updateSearchButtonWithResults:results];
-        
+- (void)searchForSearchTerm:(NSString*)searchTerm {
+    dispatch_promise(^{
+        return (searchTerm.length > 2 ? searchTerm : [NSError wmf_errorWithType:WMFErrorTypeStringLength userInfo:nil]);
+    }).then(^(NSString* searchTerm){
+        return [self.fetcher searchArticleTitlesForSearchTerm:searchTerm];
+    }).then((id) ^ (WMFSearchResults * results){
+        [UIView animateWithDuration:0.25 animations:^{
+            [self updateUIWithResults:results];
+        }];
+
         self.resultsListController.dataSource = results;
 
+        if ([results.articles count] < kWMFMinResultsBeforeAutoFullTextSearch) {
+            return [self.fetcher searchFullArticleTextForSearchTerm:searchTerm appendToPreviousResults:results];
+        }
+
+        return [AnyPromise promiseWithValue:results];
+    }).then(^(WMFSearchResults* results){
+        self.resultsListController.dataSource = results;
     }).catch(^(NSError* error){
-        
         NSLog(@"%@", [error description]);
     });
-    
 }
 
-- (void)updateSearchButtonWithResults:(WMFSearchResults*)results{
-    
-//    if(![results noResults] && [results.searchSuggestion length]){
-//        
-//        self.searchSuggestionButton.hidden = NO;
-//        
-//        [self.searchSuggestionButton setTitle:[NSString stringWithFormat:@"%@:%@", MWLocalizedString(@"search-did-you-mean", nil), results.searchSuggestion] forState:UIControlStateNormal];
-//        
-//    }else{
-//        
-//        self.searchSuggestionButton.hidden = YES;
-//    }
-
+- (void)updateUIWithResults:(WMFSearchResults*)results {
+    self.title = results.searchTerm;
+    [self updateSearchButtonWithResults:results.searchSuggestion];
 }
 
+- (void)updateSearchButtonWithResults:(NSString*)searchSuggestion {
+    if ([searchSuggestion length]) {
+        [self.searchSuggestionButton setTitle:[NSString stringWithFormat:@"%@:%@", MWLocalizedString(@"search-did-you-mean", nil), searchSuggestion] forState:UIControlStateNormal];
+
+        if (!self.suggestionButtonVisibleConstraint) {
+            [self.suggestionButtonHiddenConstraint uninstall];
+            self.suggestionButtonHiddenConstraint = nil;
+            [self.resultsListContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
+                self.suggestionButtonVisibleConstraint = make.top.equalTo(self.searchSuggestionButton.mas_bottom).with.offset(6.0);
+            }];
+            [self.view layoutIfNeeded];
+        }
+    } else {
+        [self.searchSuggestionButton setTitle:nil forState:UIControlStateNormal];
+
+        if (!self.suggestionButtonHiddenConstraint) {
+            [self.suggestionButtonVisibleConstraint uninstall];
+            self.suggestionButtonVisibleConstraint = nil;
+            [self.resultsListContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
+                self.suggestionButtonHiddenConstraint = make.top.equalTo(self.searchBar.mas_bottom);
+            }];
+            [self.view layoutIfNeeded];
+        }
+    }
+}
+
+- (IBAction)searchForSuggestion:(id)sender {
+    self.searchBar.text = [self searchSuggestion];
+    [UIView animateWithDuration:0.25 animations:^{
+        [self updateSearchButtonWithResults:nil];
+    }];
+
+    [self searchForSearchTerm:self.searchBar.text];
+}
 
 @end

@@ -68,16 +68,16 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return self;
 }
 
-- (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore searchResultsDict:(NSDictionary*)dict{
+- (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore searchResultsDict:(NSDictionary*)dict {
     self = [self initWithTitle:title dataStore:dataStore];
     if (self) {
         self.entityDescription = [self optionalString:@"description" dict:dict];
-        self.snippet = [self optionalString:@"snippet" dict:dict];
+        self.snippet           = [self optionalString:@"snippet" dict:dict];
+        self.thumbnailURL = dict[@"thumbnail"][@"source"];
     }
-    
+
     return self;
 }
-
 
 #pragma mark - NSObject
 
@@ -238,18 +238,17 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return [self.dataStore imageWithURL:url article:self];
 }
 
-- (void)loadThumbnailFromDisk{
-    
+- (void)loadThumbnailFromDisk {
     /**
      *  The folowing logic was pulled from the Article Fetcher
-     *  Putting it here to being to coalesce populating Article data
+     *  Putting it here to begin to coalesce populating Article data
      *  in a single place. This will be addressed natuarlly as we
      *  refactor model class mapping in the network layer.
      */
-    if(!self.thumbnailURL){
+    if (!self.thumbnailURL) {
         return;
     }
-    
+
     if ([[self existingImageWithURL:self.thumbnailURL] isCached]) {
         return;
     }
@@ -270,7 +269,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         }
     }
 }
-
 
 /**
  * Return image object if folder for that image exists

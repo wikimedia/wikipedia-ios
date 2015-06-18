@@ -26,41 +26,35 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFSearchFetcher
 
-- (instancetype)initWithSearchSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore{
-
+- (instancetype)initWithSearchSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
     self = [super init];
     if (self) {
-        self.searchSite = site;
-        self.dataStore = dataStore;
+        self.searchSite       = site;
+        self.dataStore        = dataStore;
         self.maxSearchResults = kWMFmaxSearchResults;
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        self.operationManager = manager;
+        self.operationManager      = manager;
     }
     return self;
 }
 
-- (AnyPromise*)searchArticleTitlesForSearchTerm:(NSString*)searchTerm searchType:(SearchType)type{
-    
+- (AnyPromise*)searchArticleTitlesForSearchTerm:(NSString*)searchTerm searchType:(SearchType)type {
     [self.operation cancel];
-    
+
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        
         self.resolver = resolve;
-        
+
         self.fetcher = [[SearchResultFetcher alloc] init];
         self.operation = [self.fetcher searchForTerm:searchTerm searchType:type searchReason:SEARCH_REASON_UNKNOWN language:self.searchSite.language maxResults:self.maxSearchResults withManager:self.operationManager thenNotifyDelegate:self];
     }];
 }
 
-- (AnyPromise*)searchArticleTitlesForSearchTerm:(NSString*)searchTerm{
-    
+- (AnyPromise*)searchArticleTitlesForSearchTerm:(NSString*)searchTerm {
     return [self searchArticleTitlesForSearchTerm:searchTerm searchType:SEARCH_TYPE_TITLES];
 }
 
-
-- (AnyPromise*)searchFullArticleTextForSearchTerm:(NSString*)searchTerm appendToPreviousResults:(WMFSearchResults*)results{
-    
+- (AnyPromise*)searchFullArticleTextForSearchTerm:(NSString*)searchTerm appendToPreviousResults:(WMFSearchResults*)results {
     self.previousResults = results;
     return [self searchArticleTitlesForSearchTerm:searchTerm searchType:SEARCH_TYPE_IN_ARTICLES];
 }
@@ -68,38 +62,45 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchFinished:(id)sender
           fetchedData:(id)fetchedData
                status:(FetchFinalStatus)status
-                error:(NSError*)error{
-    
-    if(self.resolver){
-
-        if(!error){
+                error:(NSError*)error {
+    if (self.resolver) {
+        if (!error) {
             self.resolver([self searchResultsFromFetcher:sender]);
-        }else{
+        } else {
             self.resolver(error);
         }
         self.operation = nil;
-        self.resolver = nil;
+        self.resolver  = nil;
     }
 }
 
-- (WMFSearchResults*)searchResultsFromFetcher:(SearchResultFetcher*)resultsFetcher{
-    
-    NSArray* articles = [resultsFetcher.searchResults bk_map:^id(NSDictionary* obj) {
-        
+- (WMFSearchResults*)searchResultsFromFetcher:(SearchResultFetcher*)resultsFetcher {
+    NSArray* articles = [resultsFetcher.searchResults bk_map:^id (NSDictionary* obj) {
         MWKTitle* title = [MWKTitle titleWithString:obj[@"title"] site:self.searchSite];
         MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore searchResultsDict:obj];
-        article.thumbnailURL = resultsFetcher.articleTitleToImageMap[title.text];
-        [article loadThumbnailFromDisk];
-        
+        [article loadThumbnailFromDisk]; //TODO: Remove after image caching complete
+
         return article;
     }];
-    
-    WMFSearchResults* results = [[WMFSearchResults alloc] initWithSearchTerm:resultsFetcher.searchTerm articles:articles searchSuggestion:resultsFetcher.searchSuggestion];
+
+    WMFSearchResults* results = nil;
+
+    if (self.previousResults) {
+        articles = [articles bk_reject:^BOOL (MWKArticle* obj) {
+            return ([self.previousResults.articles containsObject:obj]);
+        }];
+
+        articles             = [[self.previousResults articles] arrayByAddingObjectsFromArray:articles];
+        results              = [[WMFSearchResults alloc] initWithSearchTerm:self.previousResults.searchTerm articles:articles searchSuggestion:self.previousResults.searchSuggestion];
+        self.previousResults = nil;
+    } else {
+        results = [[WMFSearchResults alloc] initWithSearchTerm:resultsFetcher.searchTerm articles:articles searchSuggestion:resultsFetcher.searchSuggestion];
+    }
+
+
 
     return results;
 }
-
-
 
 @end
 

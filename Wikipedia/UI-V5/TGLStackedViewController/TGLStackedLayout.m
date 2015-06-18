@@ -326,14 +326,12 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
     return [super finalLayoutAttributesForDisappearingItemAtIndexPath:itemIndexPath];
 }
 
-- (void)prepareForTransitionToLayout:(UICollectionViewLayout *)newLayout{
- 
+- (void)prepareForTransitionToLayout:(UICollectionViewLayout*)newLayout {
     [self.collectionView removeGestureRecognizer:self.moveGestureRecognizer];
     [self.collectionView removeGestureRecognizer:self.deletePanGesture];
     self.moveGestureRecognizer = nil;
-    self.deletePanGesture = nil;
+    self.deletePanGesture      = nil;
 }
-
 
 #pragma mark - Update Attributes
 

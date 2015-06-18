@@ -10,9 +10,7 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 }
 
 - (id)wmf_instantiateViewControllerWithIdentifierFromClass:(Class)viewControllerClass{
-    
-    return [self instantiateViewControllerWithIdentifier:NSStringFromClass(viewControllerClass)];
+       return [self instantiateViewControllerWithIdentifier:NSStringFromClass(viewControllerClass)];
 }
-
 
 @end

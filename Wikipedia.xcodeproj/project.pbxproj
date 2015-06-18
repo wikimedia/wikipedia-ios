@@ -224,6 +224,7 @@
 		0EFB0F241B31EE2D00D05C08 /* Saved.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB0F141B31EE2D00D05C08 /* Saved.m */; };
 		0EFB0F251B31EE2D00D05C08 /* Section.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB0F161B31EE2D00D05C08 /* Section.m */; };
 		0EFB0F261B31EE2D00D05C08 /* SectionImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB0F181B31EE2D00D05C08 /* SectionImage.m */; };
+		0EFB0EF51B31DE7200D05C08 /* NSError+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB0EF41B31DE7200D05C08 /* NSError+WMFExtensions.m */; };
 		701FF5EE601DEA3FCAB7EFD3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D82982ED992F47428037BDF2 /* libPods.a */; };
 		954BA118838BF8BA6B01C34A /* libPods-WikipediaUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */; };
 		BC092B961B18E89200093C59 /* NSString+WMFPageUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC092B951B18E89200093C59 /* NSString+WMFPageUtilities.m */; };
@@ -797,6 +798,8 @@
 		0EFB0F161B31EE2D00D05C08 /* Section.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Section.m; sourceTree = "<group>"; };
 		0EFB0F171B31EE2D00D05C08 /* SectionImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionImage.h; sourceTree = "<group>"; };
 		0EFB0F181B31EE2D00D05C08 /* SectionImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionImage.m; sourceTree = "<group>"; };
+		0EFB0EF31B31DE7200D05C08 /* NSError+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+WMFExtensions.h"; path = "../../NSError+WMFExtensions.h"; sourceTree = "<group>"; };
+		0EFB0EF41B31DE7200D05C08 /* NSError+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+WMFExtensions.m"; path = "../../NSError+WMFExtensions.m"; sourceTree = "<group>"; };
 		17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		1BC5FB470144D2C10C55A037 /* Pods-WikipediaUnitTests.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.alpha.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.alpha.xcconfig"; sourceTree = "<group>"; };
 		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -2005,6 +2008,49 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		0E30070A1B30B97300D95147 /* LegacyCoreData */ = {
+			isa = PBXGroup;
+			children = (
+				0E30070B1B30B97300D95147 /* Article.h */,
+				0E30070C1B30B97300D95147 /* Article.m */,
+				0E30070D1B30B97300D95147 /* ArticleCoreDataObjects.h */,
+				0E30070E1B30B97300D95147 /* ArticleData.xcdatamodeld */,
+				0E3007111B30B97300D95147 /* ArticleDataContextSingleton.h */,
+				0E3007121B30B97300D95147 /* ArticleDataContextSingleton.m */,
+				0E3007131B30B97300D95147 /* Categories */,
+				0E30071A1B30B97300D95147 /* DiscoveryContext.h */,
+				0E30071B1B30B97300D95147 /* DiscoveryContext.m */,
+				0E30071C1B30B97300D95147 /* GalleryImage.h */,
+				0E30071D1B30B97300D95147 /* GalleryImage.m */,
+				0E30071E1B30B97300D95147 /* History.h */,
+				0E30071F1B30B97300D95147 /* History.m */,
+				0E3007201B30B97300D95147 /* Image.h */,
+				0E3007211B30B97300D95147 /* Image.m */,
+				0E3007221B30B97300D95147 /* ImageData.h */,
+				0E3007231B30B97300D95147 /* ImageData.m */,
+				0E3007241B30B97300D95147 /* Saved.h */,
+				0E3007251B30B97300D95147 /* Saved.m */,
+				0E3007261B30B97300D95147 /* Section.h */,
+				0E3007271B30B97300D95147 /* Section.m */,
+				0E3007281B30B97300D95147 /* SectionImage.h */,
+				0E3007291B30B97300D95147 /* SectionImage.m */,
+			);
+			path = LegacyCoreData;
+			sourceTree = SOURCE_ROOT;
+		};
+		0E3007131B30B97300D95147 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				0E3007141B30B97300D95147 /* NSManagedObject+WMFModelFactory.h */,
+				0E3007151B30B97300D95147 /* NSManagedObject+WMFModelFactory.m */,
+				0E3007161B30B97300D95147 /* NSManagedObjectContext+SimpleFetch.h */,
+				0E3007171B30B97300D95147 /* NSManagedObjectContext+SimpleFetch.m */,
+				0E3007181B30B97300D95147 /* NSManagedObjectModel+LegacyCoreData.h */,
+				0E3007191B30B97300D95147 /* NSManagedObjectModel+LegacyCoreData.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		0E366B371B2F2ACF00ABFB86 /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
@@ -2049,6 +2095,8 @@
 				0E94AFF51B209882000BC5EA /* WMFArticleViewController.m */,
 				0E94AFF91B20A22C000BC5EA /* WMFStyleManager.h */,
 				0E94AFFA1B20A22C000BC5EA /* WMFStyleManager.m */,
+				0EFB0EF31B31DE7200D05C08 /* NSError+WMFExtensions.h */,
+				0EFB0EF41B31DE7200D05C08 /* NSError+WMFExtensions.m */,
 				0E2B06FA1B2D129B00EA2F53 /* Common */,
 				0E2B06F71B2D126700EA2F53 /* Data Sources */,
 				04AEF0EF1B2E87A800EFE858 /* WebViewController.storyboard */,
@@ -3176,6 +3224,7 @@
 				0487048019F8262600B7D307 /* AccountLogin.m in Sources */,
 				04D149DD18877343006B4104 /* AlertLabel.m in Sources */,
 				BCB669AE1A83F6C400C7B1FE /* MWKHistoryEntry.m in Sources */,
+				0EFB0EF51B31DE7200D05C08 /* NSError+WMFExtensions.m in Sources */,
 				0433542618A093C5009305F0 /* UIView+RemoveConstraints.m in Sources */,
 				04D686FC1AB2949C0009B44A /* WikiGlyphButton.m in Sources */,
 				C98990341A699DE000AF44FC /* WMFShareCardViewController.m in Sources */,

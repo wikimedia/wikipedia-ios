@@ -37,19 +37,16 @@
  *  Like other UIKit methods, the completion isn't called if you pass animated = false.
  *  This method ensures the completion block is always called.
  */
-- (void)wmf_setCollectionViewLayout:(UICollectionViewLayout *)layout animated:(BOOL)animated alwaysFireCompletion:(void (^)(BOOL finished))completion{
-    
+- (void)wmf_setCollectionViewLayout:(UICollectionViewLayout*)layout animated:(BOOL)animated alwaysFireCompletion:(void (^)(BOOL finished))completion {
     [self setCollectionViewLayout:layout animated:animated completion:^(BOOL finished) {
-        if(animated && completion){
+        if (animated && completion) {
             completion(finished);
         }
     }];
-    
-    if(!animated && completion){
+
+    if (!animated && completion) {
         completion(YES);
     }
-    
 }
-
 
 @end

@@ -24,9 +24,6 @@
 @property (nonatomic, strong) NSRegularExpression* spaceCollapsingRegex;
 @property (nonatomic, strong) NSString* language;
 
-@property (nonatomic, strong, readwrite) NSDictionary* articleTitleToImageMap;
-
-
 @end
 
 @implementation SearchResultFetcher
@@ -51,9 +48,7 @@
                                 language:(NSString*)language
                               maxResults:(NSUInteger)maxResults
                              withManager:(AFHTTPRequestOperationManager*)manager
-                      thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate{
-    
-    
+                      thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self.searchResults         = @[];
     self.searchSuggestion      = nil;
     self.searchTerm            = searchTerm ? searchTerm : @"";
@@ -63,13 +58,11 @@
     self.fetchFinishedDelegate = delegate;
     self.maxSearchResults      = maxResults;
     self.spaceCollapsingRegex  =
-    [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}+" options:NSRegularExpressionCaseInsensitive error:nil];
+        [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}+" options:NSRegularExpressionCaseInsensitive error:nil];
     return [self searchWithManager:manager];
-
 }
 
-
-- (AFHTTPRequestOperation* )searchWithManager:(AFHTTPRequestOperationManager*)manager {
+- (AFHTTPRequestOperation*)searchWithManager:(AFHTTPRequestOperationManager*)manager {
     NSString* url = [[SessionSingleton sharedInstance] searchApiUrlForLanguage:self.language];
 
     NSDictionary* params = [self getParams];
@@ -98,19 +91,6 @@
         if (!error) {
             self.searchResults = [self getSanitizedResponse:responseObject];
             self.searchSuggestion = [self getSearchSuggestionFromResponse:responseObject];
-
-            // Populate the map so the article fetcher can grab thumb
-            // from temp dir.
-            NSMutableDictionary* map = [NSMutableDictionary dictionary];
-            for (NSDictionary* result in self.searchResults) {
-                NSString* title = result[@"title"];
-                NSString* thumbUrl = result[@"thumbnail"][@"source"];
-                if (title && thumbUrl) {
-                    map[title] = thumbUrl;
-                }
-            }
-            self.articleTitleToImageMap = map;
-            
         }
 
         [self finishWithError:error
