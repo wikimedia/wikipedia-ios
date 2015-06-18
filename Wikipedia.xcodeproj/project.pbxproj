@@ -2050,15 +2050,6 @@
 			name = "Image Gallery";
 			sourceTree = "<group>";
 		};
-		0EFB0EF61B31ECCB00D05C08 /* UI-V5 */ = {
-			isa = PBXGroup;
-			children = (
-				0EFB0EF71B31ECCB00D05C08 /* Global.h */,
-				0EFB0EF81B31ECCB00D05C08 /* WMFGCDHelpers.h */,
-			);
-			path = "UI-V5";
-			sourceTree = "<group>";
-		};
 		0EFB0EF91B31EE2D00D05C08 /* LegacyCoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -2421,6 +2412,7 @@
 		C9180EC118AED30C006C1DCA /* mw-utils */ = {
 			isa = PBXGroup;
 			children = (
+				0EFB0EF81B31ECCB00D05C08 /* WMFGCDHelpers.h */,
 				C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */,
 				C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */,
 				BC7DFCD41AA4E5FE000035C3 /* WMFImageURLParsing.h */,
@@ -2516,7 +2508,6 @@
 				D4BC22B3181E9E6300CAC673 /* empty.png */,
 				D4991447181D51DE00E6073C /* AppDelegate.h */,
 				D4991448181D51DE00E6073C /* AppDelegate.m */,
-				0EFB0EF61B31ECCB00D05C08 /* UI-V5 */,
 				D499144A181D51DE00E6073C /* Main_iPhone.storyboard */,
 				D46CD8C018A1AC4F0042959E /* InfoPlist.strings */,
 				D46CD8C218A1AC4F0042959E /* Localizable.strings */,
@@ -2542,6 +2533,7 @@
 				D4EE00BB182445670090790F /* mw-support */,
 				C9180EC118AED30C006C1DCA /* mw-utils */,
 				049566BF18F5F4CB0058EA12 /* Zero */,
+				0EFB0EF71B31ECCB00D05C08 /* Global.h */,
 				BCD41DD41B1079A600231BB1 /* Wikipedia-Bridging-Header.h */,
 			);
 			path = Wikipedia;
