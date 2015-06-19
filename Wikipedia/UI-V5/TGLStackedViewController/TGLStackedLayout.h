@@ -62,7 +62,7 @@
 @property (assign, nonatomic) CGPoint contentOffset;
 
 /** Index path of item currently being moved, and thus being hidden */
-@property (strong, nonatomic) NSIndexPath *movingIndexPath;
+@property (strong, nonatomic) NSIndexPath* movingIndexPath;
 
 @end
 
@@ -98,7 +98,7 @@
  * @return The item's desired index path. Return proposedDestinationIndexPath if
  *         it is suitable (default); or nil if item should not be moved.
  */
-- (NSIndexPath*)stackLayout:(TGLStackedLayout*)layout targetIndexPathForMoveFromItemAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath;
+- (NSIndexPath*)stackLayout:(TGLStackedLayout*)layout targetIndexPathForMoveFromItemAtIndexPath:(NSIndexPath*)sourceIndexPath toProposedIndexPath:(NSIndexPath*)proposedDestinationIndexPath;
 
 /** Move item in data source while dragging.
  *
@@ -109,7 +109,7 @@
  * @param fromIndexPath Original item indexPath
  * @param toIndexPath New item indexPath
  */
-- (void)stackLayout:(TGLStackedLayout*)layout moveItemAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
+- (void)stackLayout:(TGLStackedLayout*)layout moveItemAtIndexPath:(NSIndexPath*)fromIndexPath toIndexPath:(NSIndexPath*)toIndexPath;
 
 
 - (BOOL)stackLayout:(TGLStackedLayout*)layout canDeleteItemAtIndexPath:(NSIndexPath*)indexPath;
