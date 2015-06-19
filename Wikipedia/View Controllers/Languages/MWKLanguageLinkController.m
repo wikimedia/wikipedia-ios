@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "MWKLanguageLinkController.h"
+#import "MWKLanguageLinkController_Private.h"
 #import "MWKTitle.h"
 #import "MWKLanguageLink.h"
 #import "MWKLanguageLinkFetcher.h"
@@ -21,6 +21,35 @@
 #import <BlocksKit/BlocksKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+static NSString* const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesKey";
+
+void WMFDeletePreviouslySelectedLanguages() {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:WMFPreviousLanguagesKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+NSArray* WMFReadPreviouslySelectedLanguages() {
+    return [[NSUserDefaults standardUserDefaults] arrayForKey:WMFPreviousLanguagesKey] ? : @[];
+}
+
+/// Get the union of OS preferred languages & previously selected languages.
+static NSArray* WMFReadPreviousAndPreferredLanguages() {
+    NSMutableSet* preferredLanguages = [NSMutableSet setWithArray:[NSLocale preferredLanguages]];
+    [preferredLanguages addObjectsFromArray:WMFReadPreviouslySelectedLanguages()];
+    return [preferredLanguages allObjects];
+}
+
+/// Uniquely append @c languageCode to the list of previously selected languages.
+static NSArray* WMFAppendAndWriteToPreviousLanguages(NSString* languageCode) {
+    NSMutableArray* langCodes = WMFReadPreviouslySelectedLanguages().mutableCopy;
+    if (![langCodes containsObject:languageCode]) {
+        [langCodes addObject:languageCode];
+        [[NSUserDefaults standardUserDefaults] setObject:langCodes forKey:WMFPreviousLanguagesKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    return langCodes;
+}
 
 /**
  * List of unsupported language codes.
@@ -39,8 +68,6 @@ static NSArray* WMFUnsupportedLanguages() {
 }
 
 @interface MWKLanguageLinkController ()
-
-@property (copy, nonatomic) NSArray* languageLinks;
 
 @property (readonly, strong, nonatomic) MWKLanguageLinkFetcher* fetcher;
 
@@ -92,6 +119,14 @@ static NSArray* WMFUnsupportedLanguages() {
 
 #pragma mark - Getters & Setters
 
+- (NSArray*)languageCodes {
+    return [self.languageLinks valueForKey:WMF_SAFE_KEYPATH(MWKLanguageLink.new, languageCode)];
+}
+
+- (NSArray*)filteredPreferredLanguageCodes {
+    return [self.filteredPreferredLanguages valueForKey:WMF_SAFE_KEYPATH(MWKLanguageLink.new, languageCode)];
+}
+
 - (void)setLanguageFilter:(NSString* __nullable)filterString {
     if (WMF_EQUAL(self.languageFilter, isEqualToString:, filterString)) {
         return;
@@ -130,15 +165,28 @@ static NSArray* WMFUnsupportedLanguages() {
 }
 
 - (void)updateFilteredLanguages {
+    [self updateFilteredLanguagesWithPreviousLanguages:WMFReadPreviousAndPreferredLanguages()];
+}
+
+- (void)updateFilteredLanguagesWithPreviousLanguages:(NSArray*)previousLanguages {
     NSArray* sortedAndFilteredLanguages = [self sortedAndFilteredLanguageLinks];
-
+    NSArray* preferredLangs             = WMFReadPreviousAndPreferredLanguages();
     self.filteredPreferredLanguages = [sortedAndFilteredLanguages bk_select:^BOOL (MWKLanguageLink* langLink) {
-        return [[NSLocale preferredLanguages] containsObject:langLink.languageCode];
+        return [preferredLangs containsObject:langLink.languageCode];
     }];
-
     self.filteredOtherLanguages = [sortedAndFilteredLanguages bk_select:^BOOL (MWKLanguageLink* langLink) {
         return ![self.filteredPreferredLanguages containsObject:langLink];
     }];
+}
+
+#pragma mark - Saving
+
+- (void)saveSelectedLanguage:(MWKLanguageLink*)language {
+    [self saveSelectedLanguageCode:language.languageCode];
+}
+
+- (void)saveSelectedLanguageCode:(NSString*)languageCode {
+    [self updateFilteredLanguagesWithPreviousLanguages:WMFAppendAndWriteToPreviousLanguages(languageCode)];
 }
 
 @end

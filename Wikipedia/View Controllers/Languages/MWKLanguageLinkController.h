@@ -44,6 +44,10 @@ NS_ASSUME_NONNULL_BEGIN
                       success:(dispatch_block_t)success
                       failure:(void (^ __nullable)(NSError* __nonnull))failure;
 
+- (void)saveSelectedLanguage:(MWKLanguageLink*)language;
+
+- (void)saveSelectedLanguageCode:(NSString*)languageCode;
+
 @end
 
 NS_ASSUME_NONNULL_END

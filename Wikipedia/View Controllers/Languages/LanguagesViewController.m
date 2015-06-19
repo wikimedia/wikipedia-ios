@@ -261,7 +261,9 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.languageSelectionDelegate languageSelected:[self languageAtIndexPath:indexPath] sender:self];
+    MWKLanguageLink* selectedLanguage = [self languageAtIndexPath:indexPath];
+    [self.langLinkController saveSelectedLanguage:selectedLanguage];
+    [self.languageSelectionDelegate languageSelected:selectedLanguage sender:self];
 }
 
 #pragma mark - UITextFieldDelegate

@@ -9,6 +9,7 @@
 #endif // end DEBUG
 
 #import "WMFGCDHelpers.h"
+#import "NSObjectUtilities.h"
 
 #import "RootViewController.h"
 #import "CenterNavController.h"
