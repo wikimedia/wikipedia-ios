@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1qV-3k-dN1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1qV-3k-dN1">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -1192,9 +1192,6 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="46" id="dTu-be-0cU"/>
                                         </constraints>
-                                        <connections>
-                                            <segue destination="d5t-sx-LhF" kind="embed" identifier="BottomMenuViewController_embed2" id="eR0-Nz-gW3"/>
-                                        </connections>
                                     </containerView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.25" colorSpace="calibratedWhite"/>
@@ -1705,98 +1702,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ta7-Hm-iwe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="111" y="-4197"/>
-        </scene>
-        <!--Bottom Menu View Controller-->
-        <scene sceneID="IbJ-15-kHu">
-            <objects>
-                <viewController restorationIdentifier="BottomMenuViewController" storyboardIdentifier="BottomMenuViewController" id="d5t-sx-LhF" customClass="BottomMenuViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="TZD-c8-Gy2"/>
-                        <viewControllerLayoutGuide type="bottom" id="s0H-x2-sxc"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" contentMode="scaleToFill" id="RrN-8E-MMt">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DsV-9G-XpE" userLabel="Bottom Menu Container" customClass="BottomMenuContainerView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vRW-Da-kEk" userLabel="Back Button" customClass="WikiGlyphButton">
-                                        <rect key="frame" x="6" y="0.0" width="40" height="46"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="eSx-Bm-x3b"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1LN-g3-9sh" userLabel="Forward Button" customClass="WikiGlyphButton">
-                                        <rect key="frame" x="70" y="0.0" width="40" height="46"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="0ms-jq-E98"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pa7-aw-hDf" userLabel="Share Button" customClass="WikiGlyphButton">
-                                        <rect key="frame" x="206" y="0.0" width="40" height="46"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="ZcU-rM-AvZ"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SIR-FX-olC" userLabel="Save Button" customClass="WikiGlyphButton">
-                                        <rect key="frame" x="140" y="0.0" width="40" height="46"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="OE6-SN-jDs"/>
-                                            <constraint firstAttribute="width" constant="40" id="ZeF-iK-ExO"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dTJ-8C-aMG" userLabel="Languages Button" customClass="WikiGlyphButton">
-                                        <rect key="frame" x="270" y="0.0" width="40" height="46"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="B4b-uF-os6"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="pa7-aw-hDf" firstAttribute="top" secondItem="DsV-9G-XpE" secondAttribute="top" id="Afx-Re-CpT"/>
-                                    <constraint firstItem="SIR-FX-olC" firstAttribute="top" secondItem="DsV-9G-XpE" secondAttribute="top" id="Cz3-qw-whZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="dTJ-8C-aMG" secondAttribute="trailing" constant="10" id="T5c-rB-iBA"/>
-                                    <constraint firstAttribute="bottom" secondItem="vRW-Da-kEk" secondAttribute="bottom" id="bh8-2r-nQy"/>
-                                    <constraint firstItem="pa7-aw-hDf" firstAttribute="leading" secondItem="SIR-FX-olC" secondAttribute="trailing" constant="26" id="cNR-Yd-8ss"/>
-                                    <constraint firstItem="1LN-g3-9sh" firstAttribute="top" secondItem="DsV-9G-XpE" secondAttribute="top" id="cu2-vn-L5F"/>
-                                    <constraint firstItem="dTJ-8C-aMG" firstAttribute="leading" secondItem="pa7-aw-hDf" secondAttribute="trailing" constant="24" id="fs2-Zo-6CR"/>
-                                    <constraint firstItem="dTJ-8C-aMG" firstAttribute="top" secondItem="DsV-9G-XpE" secondAttribute="top" id="jag-yY-cN5"/>
-                                    <constraint firstAttribute="bottom" secondItem="1LN-g3-9sh" secondAttribute="bottom" id="jt2-9M-Dcf"/>
-                                    <constraint firstItem="vRW-Da-kEk" firstAttribute="leading" secondItem="DsV-9G-XpE" secondAttribute="leading" constant="6" id="kZJ-uW-oCc"/>
-                                    <constraint firstItem="vRW-Da-kEk" firstAttribute="top" secondItem="DsV-9G-XpE" secondAttribute="top" id="mAv-Id-6e5"/>
-                                    <constraint firstAttribute="bottom" secondItem="pa7-aw-hDf" secondAttribute="bottom" id="rcA-lb-7Ji"/>
-                                    <constraint firstAttribute="bottom" secondItem="SIR-FX-olC" secondAttribute="bottom" id="tye-pI-rCK"/>
-                                    <constraint firstAttribute="bottom" secondItem="dTJ-8C-aMG" secondAttribute="bottom" id="uOO-UR-7Uy"/>
-                                    <constraint firstItem="1LN-g3-9sh" firstAttribute="leading" secondItem="vRW-Da-kEk" secondAttribute="trailing" constant="24" id="z9L-9f-gTj"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="DsV-9G-XpE" firstAttribute="top" secondItem="TZD-c8-Gy2" secondAttribute="bottom" id="6Ha-JI-dEh"/>
-                            <constraint firstAttribute="trailing" secondItem="DsV-9G-XpE" secondAttribute="trailing" id="NZX-G1-qFI"/>
-                            <constraint firstItem="s0H-x2-sxc" firstAttribute="top" secondItem="DsV-9G-XpE" secondAttribute="bottom" id="Rmw-f9-t2z"/>
-                            <constraint firstItem="DsV-9G-XpE" firstAttribute="leading" secondItem="RrN-8E-MMt" secondAttribute="leading" id="xdu-Uu-nb7"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="backButton" destination="vRW-Da-kEk" id="SNT-09-dNr"/>
-                        <outlet property="forwardButton" destination="1LN-g3-9sh" id="4Ts-r9-JbR"/>
-                        <outlet property="languagesButton" destination="dTJ-8C-aMG" id="qFJ-d3-vX5"/>
-                        <outlet property="saveButton" destination="SIR-FX-olC" id="CFj-cJ-GOO"/>
-                        <outlet property="shareButton" destination="pa7-aw-hDf" id="TgM-rc-hBh"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="heC-Be-Fgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="89" y="250"/>
         </scene>
         <!--Center Nav Controller-->
         <scene sceneID="dor-Wk-JQd">

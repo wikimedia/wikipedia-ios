@@ -11,7 +11,6 @@
 #import "CenterNavController.h"
 #import "SearchResultFetcher.h"
 #import "ThumbnailFetcher.h"
-#import "RootViewController.h"
 #import "TopMenuViewController.h"
 #import "TopMenuTextFieldContainer.h"
 #import "TopMenuTextField.h"
@@ -27,6 +26,7 @@
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "WMFSearchFunnel.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "WMFArticlePresenter.h"
 
 static NSString* const kWMFSearchCellID     = @"SearchResultCell";
 static CGFloat const kWMFSearchDelay        = 0.4;
@@ -657,10 +657,9 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     // Set CurrentArticleTitle so web view knows what to load.
     title = [title wmf_stringByReplacingUndrescoresWithSpaces];
 
-    [NAV loadArticleWithTitle:[[SessionSingleton sharedInstance].searchSite titleWithString:title]
-                     animated:YES
-              discoveryMethod:MWKHistoryDiscoveryMethodSearch
-                   popToWebVC:YES];
+    [[WMFArticlePresenter sharedInstance] presentArticleWithTitle:[[SessionSingleton sharedInstance].searchSite titleWithString:title]
+                                                  discoveryMethod:MWKHistoryDiscoveryMethodSearch
+                                                             then:nil];
 }
 
 - (void)doneTapped {

@@ -6,12 +6,6 @@
 #import "PullToRefreshViewController.h"
 #import "ArticleFetcher.h"
 
-// TODO: rename the WebViewControllerVariableNames once we rename this class
-extern NSString* const WebViewControllerTextWasHighlighted;
-extern NSString* const WebViewControllerWillShareNotification;
-extern NSString* const WebViewControllerShareBegin;
-extern NSString* const WebViewControllerShareSelectedText;
-
 @class BottomMenuViewController, CommunicationBridge;
 
 @interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, ArticleFetcherDelegate>

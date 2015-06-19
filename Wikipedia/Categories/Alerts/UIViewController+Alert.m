@@ -4,8 +4,6 @@
 #import "UIViewController+Alert.h"
 #import "UIView+RemoveConstraints.h"
 #import "UIView+WMFSearchSubviews.h"
-#import "WebViewController.h"
-#import "BottomMenuViewController.h"
 #import "Defines.h"
 
 @implementation UIViewController (Alert)
@@ -96,30 +94,20 @@
 
     CGFloat margin = 0;
 
-    NSMutableDictionary* views = @{@"view": view}.mutableCopy;
-    NSDictionary* metrics      = @{@"space": @(margin)};
+    NSDictionary* views = @{
+        @"view": view,
+        @"topLayoutGuide": self.topLayoutGuide,
+        @"bottomLayoutGuide": self.bottomLayoutGuide
+    };
 
-    UIView* bottomMenuView = nil;
-
-    if ([self isMemberOfClass:[WebViewController class]]) {
-        WebViewController* webVC = (WebViewController*)self;
-        bottomMenuView = webVC.bottomMenuViewController.view;
-        if (bottomMenuView) {
-            views[@"bottomMenuView"] = bottomMenuView;
-        }
-    }
-
-    views[@"topLayoutGuide"]    = self.topLayoutGuide;
-    views[@"bottomLayoutGuide"] = self.bottomLayoutGuide;
+    NSDictionary* metrics = @{
+        @"space": @(margin)
+    };
 
     NSString* verticalFormatString = @"";
     switch (type) {
         case ALERT_TYPE_BOTTOM:
-            if (bottomMenuView) {
-                verticalFormatString = @"V:[view]-(space)-[bottomMenuView]";
-            } else {
-                verticalFormatString = @"V:[view]-(space)-[bottomLayoutGuide]";
-            }
+            verticalFormatString = @"V:[view]-(space)-[bottomLayoutGuide]";
             break;
         case ALERT_TYPE_FULLSCREEN:
             verticalFormatString = @"V:[topLayoutGuide]-(space)-[view]-(space)-[bottomLayoutGuide]";

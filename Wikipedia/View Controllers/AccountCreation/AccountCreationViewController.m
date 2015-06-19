@@ -12,8 +12,6 @@
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "LoginViewController.h"
 #import "PreviewAndSaveViewController.h"
-#import "OnboardingViewController.h"
-#import "UIViewController+ModalsSearch.h"
 #import "Defines.h"
 #import "UIView+Debugging.h"
 #import "NSObject+ConstraintsScale.h"
@@ -21,6 +19,7 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "UIViewController+WMFChildViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "WMFArticlePresenter.h"
 
 @interface AccountCreationViewController ()
 
@@ -160,10 +159,10 @@
     [self.loginButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginButtonPushed:)]];
 
     // Hide the login button if the LoginViewController is on modal stack.
-    self.loginButton.hidden = [self searchModalsForViewControllerOfClass:[LoginViewController class]] ? YES : NO;
+    self.loginButton.hidden = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[LoginViewController class]] ? YES : NO;
 
     /*
-       id previewAndSaveVC = [self searchModalsForViewControllerOfClass:[PreviewAndSaveViewController class]];
+       id previewAndSaveVC = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[PreviewAndSaveViewController class]];
        self.titleLabel.text = (!previewAndSaveVC) ?
         MWLocalizedString(@"navbar-title-mode-create-account", nil)
         :
@@ -379,15 +378,9 @@
                                                                      withString:self.usernameField.text];
         [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:-1];
 
-        id onboardingVC = [self searchModalsForViewControllerOfClass:[OnboardingViewController class]];
-
-        if (onboardingVC) {
-            [onboardingVC dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-        }
+        [[WMFArticlePresenter sharedInstance] presentWebViewThen:nil];
     } onFail:^(){
-        [self performSelector:@selector(dismissSelf) withObject:nil afterDelay:0.5f];
+        [[WMFArticlePresenter sharedInstance] performSelector:@selector(presentWebViewThen:) withObject:nil afterDelay:0.5f];
     }];
 }
 

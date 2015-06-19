@@ -16,10 +16,7 @@
 #import "CreateAccountFunnel.h"
 #import "PreviewAndSaveViewController.h"
 #import "SectionEditorViewController.h"
-#import "OnboardingViewController.h"
-#import "WebViewController.h"
 #import "AccountCreationViewController.h"
-#import "UIViewController+ModalsSearch.h"
 #import "Defines.h"
 #import "NSObject+ConstraintsScale.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -112,10 +109,10 @@
     self.passwordUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
 
     // Hide the account creation button if the AccountCreationViewController is on modal stack.
-    self.createAccountButton.hidden = [self searchModalsForViewControllerOfClass:[AccountCreationViewController class]] ? YES : NO;
+    self.createAccountButton.hidden = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[AccountCreationViewController class]] ? YES : NO;
 
     /*
-       PreviewAndSaveViewController *previewAndSaveVC = [self searchModalsForViewControllerOfClass:[PreviewAndSaveViewController class]];
+       PreviewAndSaveViewController *previewAndSaveVC = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[PreviewAndSaveViewController class]];
        self.titleLabel.text = (!previewAndSaveVC) ?
         MWLocalizedString(@"navbar-title-mode-login", nil)
         :
@@ -186,7 +183,6 @@
 }
 
 - (void)save {
-    id onboardingVC = [self searchModalsForViewControllerOfClass:[OnboardingViewController class]];
     [self enableProgressiveButton:NO];
 
     [self loginWithUserName:self.usernameField.text
@@ -197,18 +193,10 @@
                                                                      withString:self.usernameField.text];
         [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:1.0f];
 
-        [self performSelector:@selector(dismissViewController:) withObject:(onboardingVC ? onboardingVC : self) afterDelay:1.2f];
+        [[WMFArticlePresenter sharedInstance] performSelector:@selector(presentWebViewThen:) withObject:nil afterDelay:1.2f];
     } onFail:^{
         [self enableProgressiveButton:YES];
     }];
-}
-
-- (void)dismissViewController:(UIViewController*)viewController {
-    [viewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)dismissSelf {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

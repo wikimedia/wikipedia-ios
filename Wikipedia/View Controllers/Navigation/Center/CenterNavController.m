@@ -73,24 +73,6 @@
     return [self searchNavStackForViewControllerOfClass:[WebViewController class]];
 }
 
-#pragma mark Article
-
-- (void)loadArticleWithTitle:(MWKTitle*)title
-                    animated:(BOOL)animated
-             discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
-                  popToWebVC:(BOOL)popToWebVC {
-    WebViewController* webVC = [self webViewController];
-    NSParameterAssert(webVC);
-    MWKArticle* article = [[SessionSingleton sharedInstance].dataStore articleWithTitle:title];
-    [SessionSingleton sharedInstance].currentArticle = article;
-
-    [webVC navigateToPage:title
-          discoveryMethod:discoveryMethod];
-    if (popToWebVC) {
-        [ROOT popToViewController:webVC animated:animated];
-    }
-}
-
 #pragma mark Is editing
 
 - (BOOL)isEditorOnNavstack {

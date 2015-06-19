@@ -14,12 +14,9 @@
 #import "TabularScrollView.h"
 #import "SecondaryMenuRowView.h"
 #import "WikiGlyph_Chars.h"
-#import "TopMenuContainerView.h"
 #import "UIViewController+StatusBarHeight.h"
 #import "Defines.h"
-#import "ModalMenuAndContentViewController.h"
 #import "UIViewController+ModalPresent.h"
-#import "UIViewController+ModalPop.h"
 #import "LoginViewController.h"
 #import "PaddedLabel.h"
 #import <HockeySDK/HockeySDK.h>
@@ -27,10 +24,9 @@
 #import "NSBundle+WMFInfoUtils.h"
 #import "MWKLanguageLink.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "WebViewController.h"
-#import "UIViewController+ModalsSearch.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "AboutViewController.h"
+#import "WMFArticlePresenter.h"
 
 #pragma mark - Defines
 
@@ -52,8 +48,6 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
     SECONDARY_MENU_ROW_INDEX_ZERO_FAQ,
     SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING,
     SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK,
-    SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY,
-    SECONDARY_MENU_ROW_INDEX_CREDITS,
     SECONDARY_MENU_ROW_INDEX_ABOUT,
     SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS,
     SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY,
@@ -87,31 +81,8 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 
 @implementation SecondaryMenuViewController
 
-- (NavBarMode)navBarMode {
-    return NAVBAR_MODE_X_WITH_LABEL;
-}
-
 - (NSString*)title {
     return MWLocalizedString(@"main-menu-title", nil);
-}
-
-#pragma mark - Top menu
-
-// Handle nav bar taps. (same way as any other view controller would)
-- (void)navItemTappedNotification:(NSNotification*)notification {
-    NSDictionary* userInfo = [notification userInfo];
-    UIView* tappedItem     = userInfo[@"tappedItem"];
-
-    switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_X:
-        case NAVBAR_LABEL:
-            [self popModal];
-
-            break;
-
-        default:
-            break;
-    }
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -156,12 +127,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    // Listen for nav bar taps.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(navItemTappedNotification:)
-                                                 name:@"NavItemTapped"
-                                               object:nil];
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(tabularScrollViewItemTappedNotification:)
                                                  name:@"TabularScrollViewItemTapped"
@@ -169,10 +134,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"NavItemTapped"
-                                                  object:nil];
-
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"TabularScrollViewItemTapped"
                                                   object:nil];
@@ -534,14 +495,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
             case SECONDARY_MENU_ROW_INDEX_LOGIN:
             {
                 NSString* userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
-                if (!userName) {
-                    [self performModalSequeWithID:@"modal_segue_show_login"
-                                  transitionStyle:UIModalTransitionStyleCoverVertical
-                                            block:^(LoginViewController* loginVC) {
-                        loginVC.funnel = [[LoginFunnel alloc] init];
-                        [loginVC.funnel logStartFromNavigation];
-                    }];
-                } else {
+                if (userName) {
                     [SessionSingleton sharedInstance].keychainCredentials.userName   = nil;
                     [SessionSingleton sharedInstance].keychainCredentials.password   = nil;
                     [SessionSingleton sharedInstance].keychainCredentials.editTokens = nil;
@@ -551,7 +505,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
                         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
                     }
                 }
-                [self popModalToRoot];
+                [[WMFArticlePresenter sharedInstance] presentWebViewThen:nil];
             }
             break;
 
@@ -604,24 +558,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
                 [[UIApplication sharedApplication] openURL:url];
             }
             break;
-
-            case SECONDARY_MENU_ROW_INDEX_PAGE_HISTORY:
-            {
-                [self performModalSequeWithID:@"modal_segue_show_page_history"
-                              transitionStyle:UIModalTransitionStyleCoverVertical
-                                        block:nil];
-            }
-            break;
-
-            /*
-               case SECONDARY_MENU_ROW_INDEX_CREDITS:
-               {
-                [self performModalSequeWithID: @"modal_segue_show_credits"
-                              transitionStyle: UIModalTransitionStyleCoverVertical
-                                        block: nil];
-               }
-                break;
-             */
             case SECONDARY_MENU_ROW_INDEX_ABOUT:
             {
                 [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[AboutViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
@@ -670,13 +606,11 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
     [self showAlert:MWLocalizedString(@"main-menu-language-selection-saved", nil) type:ALERT_TYPE_TOP duration:1];
 
     [self switchPreferredLanguageToId:langData.languageCode];
-
-    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)switchPreferredLanguageToId:(NSString*)languageId {
     [[SessionSingleton sharedInstance] setSearchLanguage:languageId];
-    [[self searchModalsForViewControllerOfClass:[WebViewController class]] loadTodaysArticle];
+    [[WMFArticlePresenter sharedInstance] presentTodaysArticleThen:nil];
 }
 
 #pragma mark - Animation

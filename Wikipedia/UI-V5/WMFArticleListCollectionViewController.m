@@ -94,12 +94,8 @@
 
 
 
-    WebViewController* vc      = [WebViewController wmf_initialViewControllerFromClassStoryboard];
-    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nc animated:YES completion:^{
-//        [vc navigateToPage:[self articleForIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]].title
-//           discoveryMethod:MWKHistoryDiscoveryMethodLink];
-    }];
+// Warning! remove this! debugging code for showing web view!
+    [[WMFArticlePresenter sharedInstance] presentWebViewThen:nil];
 }
 
 - (void)viewDidLayoutSubviews {

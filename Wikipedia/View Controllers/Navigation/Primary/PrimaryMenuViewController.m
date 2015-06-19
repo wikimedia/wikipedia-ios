@@ -18,9 +18,8 @@
 #import "HistoryViewController.h"
 #import "SavedPagesViewController.h"
 #import "NearbyViewController.h"
-#import "WebViewController.h"
-#import "UIViewController+ModalsSearch.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "WMFArticlePresenter.h"
 
 #define TABLE_CELL_ID @"PrimaryMenuCell"
 
@@ -210,14 +209,12 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
         break;
         case PRIMARY_MENU_ITEM_RANDOM: {
             //[self showAlert:MWLocalizedString(@"fetching-random-article", nil) type:ALERT_TYPE_TOP duration:-1];
-            [[self searchModalsForViewControllerOfClass:[WebViewController class]] loadRandomArticle];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [[WMFArticlePresenter sharedInstance] presentRandomArticleThen:nil];
         }
         break;
         case PRIMARY_MENU_ITEM_TODAY: {
             //[self showAlert:MWLocalizedString(@"fetching-today-article", nil) type:ALERT_TYPE_TOP duration:-1];
-            [[self searchModalsForViewControllerOfClass:[WebViewController class]] loadTodaysArticle];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [[WMFArticlePresenter sharedInstance] presentTodaysArticleThen:nil];
         }
         break;
         case PRIMARY_MENU_ITEM_RECENT:

@@ -4,7 +4,6 @@
 #import "HistoryViewController.h"
 #import "WikipediaAppUtils.h"
 #import "NSDate-Utilities.h"
-#import "WebViewController.h"
 #import "HistoryResultCell.h"
 #import "Defines.h"
 #import "NSString+Extras.h"
@@ -15,7 +14,6 @@
 #import "SessionSingleton.h"
 #import "UIFont+WMFStyle.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "UIViewController+ModalsSearch.h"
 
 #define HISTORY_RESULT_HEIGHT (80.0 * MENUS_SCALE_MULTIPLIER)
 #define HISTORY_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
@@ -228,8 +226,6 @@
     // Remove any orphaned images.
     DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
     [dataHouseKeeping performHouseKeeping];
-
-    [[self searchModalsForViewControllerOfClass:[WebViewController class]] loadTodaysArticle];
 }
 
 #pragma mark - History section titles
@@ -340,10 +336,9 @@
     NSArray* array                = dict[@"data"];
     MWKHistoryEntry* historyEntry = array[indexPath.row];
 
-    WebViewController* webVC = [self searchModalsForViewControllerOfClass:[WebViewController class]];
-    [webVC navigateToPage:historyEntry.title
-          discoveryMethod:historyEntry.discoveryMethod];
-    [webVC.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [[WMFArticlePresenter sharedInstance] presentArticleWithTitle:historyEntry.title
+                                                  discoveryMethod:historyEntry.discoveryMethod
+                                                             then:nil];
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -478,7 +473,7 @@
 
     [self setEmptyOverlayAndTrashIconVisibility];
 
-    [[self searchModalsForViewControllerOfClass:[WebViewController class]] loadTodaysArticle];
+    [[WMFArticlePresenter sharedInstance] presentTodaysArticleThen:nil];
 }
 
 - (void)setEmptyOverlayAndTrashIconVisibility {

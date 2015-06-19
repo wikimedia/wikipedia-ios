@@ -19,6 +19,7 @@
 #define NAV ROOT.centerNavController
 
 #import "MediaWikiKit.h"
+#import "WMFArticlePresenter.h"
 
 static inline NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key){
     NSString* outStr = NSLocalizedString(key, nil);

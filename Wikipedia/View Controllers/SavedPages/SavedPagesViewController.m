@@ -3,12 +3,10 @@
 
 #import "SavedPagesViewController.h"
 #import "WikipediaAppUtils.h"
-#import "WebViewController.h"
 #import "SavedPagesResultCell.h"
 #import "Defines.h"
 #import "SessionSingleton.h"
 #import "NSString+Extras.h"
-#import "UIViewController+ModalPop.h"
 #import "DataHousekeeping.h"
 #import "SavedPagesFunnel.h"
 #import "NSObject+ConstraintsScale.h"
@@ -21,7 +19,7 @@
 #import "UITableView+DynamicCellHeight.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
-#import "UIViewController+ModalsSearch.h"
+#import "WMFArticlePresenter.h"
 
 static NSString* const kSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesDidShowCancelRefreshAlert";
 static NSString* const kSavedPagesCellID                    = @"SavedPagesResultCell";
@@ -237,11 +235,9 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [savedPageList entryAtIndex:indexPath.row];
 
-    WebViewController* webVC = [self searchModalsForViewControllerOfClass:[WebViewController class]];
-    NSParameterAssert(webVC);
-    [webVC navigateToPage:savedEntry.title
-          discoveryMethod:MWKHistoryDiscoveryMethodSaved];
-    [webVC.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [[WMFArticlePresenter sharedInstance] presentArticleWithTitle:savedEntry.title
+                                                  discoveryMethod:MWKHistoryDiscoveryMethodSaved
+                                                             then:nil];
 }
 
 #pragma mark - UI Updates
@@ -345,7 +341,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
     DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
     [dataHouseKeeping performHouseKeeping];
 
-    [[self searchModalsForViewControllerOfClass:[WebViewController class]] loadTodaysArticle];
+    [[WMFArticlePresenter sharedInstance] loadTodaysArticle];
 }
 
 - (void)deleteAllSavedPages {
@@ -360,7 +356,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 
     [self setEmptyOverlayAndTrashIconVisibility];
 
-    [[self searchModalsForViewControllerOfClass:[WebViewController class]] loadTodaysArticle];
+    [[WMFArticlePresenter sharedInstance] loadTodaysArticle];
 }
 
 - (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

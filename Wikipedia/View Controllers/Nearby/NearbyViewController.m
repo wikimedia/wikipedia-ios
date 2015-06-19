@@ -16,8 +16,7 @@
 #import "NSString+Extras.h"
 #import "UICollectionViewCell+DynamicCellHeight.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "WebViewController.h"
-#import "UIViewController+ModalsSearch.h"
+#import "WMFArticlePresenter.h"
 
 #define TABLE_CELL_ID @"NearbyResultCollectionCell"
 
@@ -77,11 +76,12 @@
 @implementation NearbyViewController
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    NSDictionary* rowData    = [self getRowDataForIndexPath:indexPath];
-    WebViewController* webVC = [self searchModalsForViewControllerOfClass:[WebViewController class]];
-    [webVC navigateToPage:[[SessionSingleton sharedInstance].searchSite titleWithString:rowData[@"title"]]
-          discoveryMethod:MWKHistoryDiscoveryMethodSearch];
-    [webVC.navigationController dismissViewControllerAnimated:YES completion:nil];
+    NSDictionary* rowData = [self getRowDataForIndexPath:indexPath];
+
+    [[WMFArticlePresenter sharedInstance] presentArticleWithTitle:[[SessionSingleton sharedInstance].searchSite
+                                                                   titleWithString:rowData[@"title"]]
+                                                  discoveryMethod:MWKHistoryDiscoveryMethodSearch
+                                                             then:nil];
 }
 
 - (instancetype)initWithCoder:(NSCoder*)coder {

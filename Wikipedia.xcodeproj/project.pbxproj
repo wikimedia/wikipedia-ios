@@ -12,6 +12,7 @@
 		04016E1C1B3285B700D732FE /* AboutViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04016E1B1B3285B700D732FE /* AboutViewController.storyboard */; };
 		04016E1E1B328E8B00D732FE /* OnboardingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04016E1D1B328E8B00D732FE /* OnboardingViewController.storyboard */; };
 		04016E201B329D4500D732FE /* PageHistoryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04016E1F1B329D4500D732FE /* PageHistoryViewController.storyboard */; };
+		04016E241B335F0200D732FE /* WMFArticlePresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04016E231B335F0200D732FE /* WMFArticlePresenter.m */; };
 		04038E701A15734B00DBD1DF /* SearchMessageLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04038E6F1A15734B00DBD1DF /* SearchMessageLabel.m */; };
 		040892641935ABBD004CF254 /* UIViewController+StatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 040892631935ABBD004CF254 /* UIViewController+StatusBarHeight.m */; };
 		04090A3B187FB7D000577EDF /* UIView+Debugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 04090A3A187FB7D000577EDF /* UIView+Debugging.m */; };
@@ -28,6 +29,7 @@
 		04224500197F5E09005DD0BF /* AbuseFilterAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 042244FC197F5E09005DD0BF /* AbuseFilterAlert.m */; };
 		04224501197F5E09005DD0BF /* BulletedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042244FE197F5E09005DD0BF /* BulletedLabel.m */; };
 		04224502197F5E09005DD0BF /* BulletedLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042244FF197F5E09005DD0BF /* BulletedLabel.xib */; };
+		042258521B33EAD400FDD0C6 /* ShareMenuSavePageActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 042258511B33EAD400FDD0C6 /* ShareMenuSavePageActivity.m */; };
 		042487521A54BECD00A5C905 /* MWKArticle+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 042487511A54BECD00A5C905 /* MWKArticle+Convenience.m */; };
 		04272E7B1940EEBC00CC682F /* WMFAssetsFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 04272E791940EEBC00CC682F /* WMFAssetsFile.m */; };
 		04292FF2185FBA70002A13FC /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04292FF0185FBA70002A13FC /* SearchResultCell.m */; };
@@ -37,10 +39,8 @@
 		042950D41A9D3BA7009BE784 /* UIColor+WMFHexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 042950D31A9D3BA7009BE784 /* UIColor+WMFHexColor.m */; };
 		042A5B2619253D2A0095E172 /* CenterNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B2019253D2A0095E172 /* CenterNavController.m */; };
 		042A5B2919253E570095E172 /* TopMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B2819253E570095E172 /* TopMenuViewController.m */; };
-		042A5B2C19253E690095E172 /* BottomMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B2B19253E690095E172 /* BottomMenuViewController.m */; };
 		042A5B2F19257F900095E172 /* TopMenuContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B2E19257F900095E172 /* TopMenuContainerView.m */; };
 		042A5B36192591520095E172 /* TopMenuTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A5B31192591520095E172 /* TopMenuTextField.m */; };
-		042B3996192EAEEA0066B270 /* ShareMenuSavePageActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 042B3995192EAEEA0066B270 /* ShareMenuSavePageActivity.m */; };
 		042BEAEF1A92EE66002CF320 /* UIWebView+WMFTrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 042BEAEE1A92EE66002CF320 /* UIWebView+WMFTrackingView.m */; };
 		042E3B931AA16D6700BF8D66 /* UIViewController+WMFChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042E3B921AA16D6700BF8D66 /* UIViewController+WMFChildViewController.m */; };
 		0433263F1B0D3574009DB316 /* WMFArticleImageProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 0433263E1B0D3574009DB316 /* WMFArticleImageProtocol.m */; };
@@ -67,7 +67,6 @@
 		0449E63518A9845C00D51524 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0449E63418A9845C00D51524 /* LoginViewController.m */; };
 		0449E63918AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = 0449E63818AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m */; };
 		044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044BD6B418849AD000FFE4BE /* SectionEditorViewController.m */; };
-		0452C803195CB216007925A6 /* UIViewController+ModalsSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0452C802195CB216007925A6 /* UIViewController+ModalsSearch.m */; };
 		0452C810195D0F03007925A6 /* UIViewController+ModalPop.m in Sources */ = {isa = PBXBuildFile; fileRef = 0452C80F195D0F03007925A6 /* UIViewController+ModalPop.m */; };
 		04530AF51935BF4D00022512 /* ModalMenuAndContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04530AF41935BF4D00022512 /* ModalMenuAndContentViewController.m */; };
 		04530AF81935C07500022512 /* ModalContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04530AF71935C07500022512 /* ModalContentViewController.m */; };
@@ -137,7 +136,6 @@
 		04B0E3EA1AE8252800379AE0 /* NSURL+WMFRest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0E3E91AE8252800379AE0 /* NSURL+WMFRest.m */; };
 		04B0EA47190B2319007458AF /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B0EA46190B2319007458AF /* PreviewLicenseView.xib */; };
 		04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0EA49190B2348007458AF /* PreviewLicenseView.m */; };
-		04B162F119284A6F00B1ABC2 /* BottomMenuContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B162F019284A6F00B1ABC2 /* BottomMenuContainerView.m */; };
 		04B6925018E77B2A00F88D8A /* UIWebView+HideScrollGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */; };
 		04B7B9BD18B5570E00A63551 /* CaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */; };
 		04B91AA718E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AA618E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m */; };
@@ -414,6 +412,8 @@
 		04016E1B1B3285B700D732FE /* AboutViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AboutViewController.storyboard; sourceTree = "<group>"; };
 		04016E1D1B328E8B00D732FE /* OnboardingViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = OnboardingViewController.storyboard; sourceTree = "<group>"; };
 		04016E1F1B329D4500D732FE /* PageHistoryViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PageHistoryViewController.storyboard; sourceTree = "<group>"; };
+		04016E221B335F0200D732FE /* WMFArticlePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticlePresenter.h; sourceTree = "<group>"; };
+		04016E231B335F0200D732FE /* WMFArticlePresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticlePresenter.m; sourceTree = "<group>"; };
 		04038E6E1A15734B00DBD1DF /* SearchMessageLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchMessageLabel.h; sourceTree = "<group>"; };
 		04038E6F1A15734B00DBD1DF /* SearchMessageLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchMessageLabel.m; sourceTree = "<group>"; };
 		040892621935ABBD004CF254 /* UIViewController+StatusBarHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+StatusBarHeight.h"; sourceTree = "<group>"; };
@@ -445,6 +445,8 @@
 		042244FD197F5E09005DD0BF /* BulletedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletedLabel.h; sourceTree = "<group>"; };
 		042244FE197F5E09005DD0BF /* BulletedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletedLabel.m; sourceTree = "<group>"; };
 		042244FF197F5E09005DD0BF /* BulletedLabel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BulletedLabel.xib; sourceTree = "<group>"; };
+		042258501B33EAD400FDD0C6 /* ShareMenuSavePageActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareMenuSavePageActivity.h; path = ShareCard/ShareMenuSavePageActivity.h; sourceTree = "<group>"; };
+		042258511B33EAD400FDD0C6 /* ShareMenuSavePageActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareMenuSavePageActivity.m; path = ShareCard/ShareMenuSavePageActivity.m; sourceTree = "<group>"; };
 		042487501A54BECD00A5C905 /* MWKArticle+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKArticle+Convenience.h"; sourceTree = "<group>"; };
 		042487511A54BECD00A5C905 /* MWKArticle+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKArticle+Convenience.m"; sourceTree = "<group>"; };
 		04272E781940EEBC00CC682F /* WMFAssetsFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = WMFAssetsFile.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -464,14 +466,10 @@
 		042A5B2019253D2A0095E172 /* CenterNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterNavController.m; sourceTree = "<group>"; };
 		042A5B2719253E570095E172 /* TopMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopMenuViewController.h; sourceTree = "<group>"; };
 		042A5B2819253E570095E172 /* TopMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopMenuViewController.m; sourceTree = "<group>"; };
-		042A5B2A19253E690095E172 /* BottomMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomMenuViewController.h; sourceTree = "<group>"; };
-		042A5B2B19253E690095E172 /* BottomMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomMenuViewController.m; sourceTree = "<group>"; };
 		042A5B2D19257F900095E172 /* TopMenuContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopMenuContainerView.h; sourceTree = "<group>"; };
 		042A5B2E19257F900095E172 /* TopMenuContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopMenuContainerView.m; sourceTree = "<group>"; };
 		042A5B30192591520095E172 /* TopMenuTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopMenuTextField.h; sourceTree = "<group>"; };
 		042A5B31192591520095E172 /* TopMenuTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopMenuTextField.m; sourceTree = "<group>"; };
-		042B3994192EAEEA0066B270 /* ShareMenuSavePageActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareMenuSavePageActivity.h; sourceTree = "<group>"; };
-		042B3995192EAEEA0066B270 /* ShareMenuSavePageActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareMenuSavePageActivity.m; sourceTree = "<group>"; };
 		042BEAED1A92EE66002CF320 /* UIWebView+WMFTrackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+WMFTrackingView.h"; sourceTree = "<group>"; };
 		042BEAEE1A92EE66002CF320 /* UIWebView+WMFTrackingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+WMFTrackingView.m"; sourceTree = "<group>"; };
 		042E3B911AA16D6700BF8D66 /* UIViewController+WMFChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMFChildViewController.h"; sourceTree = "<group>"; };
@@ -521,8 +519,6 @@
 		0449E63818AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSHTTPCookieStorage+CloneCookie.m"; sourceTree = "<group>"; };
 		044BD6B318849AD000FFE4BE /* SectionEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionEditorViewController.h; sourceTree = "<group>"; };
 		044BD6B418849AD000FFE4BE /* SectionEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionEditorViewController.m; sourceTree = "<group>"; };
-		0452C801195CB216007925A6 /* UIViewController+ModalsSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ModalsSearch.h"; sourceTree = "<group>"; };
-		0452C802195CB216007925A6 /* UIViewController+ModalsSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ModalsSearch.m"; sourceTree = "<group>"; };
 		0452C80E195D0F03007925A6 /* UIViewController+ModalPop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ModalPop.h"; sourceTree = "<group>"; };
 		0452C80F195D0F03007925A6 /* UIViewController+ModalPop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ModalPop.m"; sourceTree = "<group>"; };
 		04530AF31935BF4D00022512 /* ModalMenuAndContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalMenuAndContentViewController.h; sourceTree = "<group>"; };
@@ -646,8 +642,6 @@
 		04B0EA46190B2319007458AF /* PreviewLicenseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviewLicenseView.xib; sourceTree = "<group>"; };
 		04B0EA48190B2348007458AF /* PreviewLicenseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewLicenseView.h; sourceTree = "<group>"; };
 		04B0EA49190B2348007458AF /* PreviewLicenseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewLicenseView.m; sourceTree = "<group>"; };
-		04B162EF19284A6F00B1ABC2 /* BottomMenuContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomMenuContainerView.h; sourceTree = "<group>"; };
-		04B162F019284A6F00B1ABC2 /* BottomMenuContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomMenuContainerView.m; sourceTree = "<group>"; };
 		04B6924E18E77B2A00F88D8A /* UIWebView+HideScrollGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+HideScrollGradient.h"; sourceTree = "<group>"; };
 		04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+HideScrollGradient.m"; sourceTree = "<group>"; };
 		04B7B9BB18B5570E00A63551 /* CaptchaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaViewController.h; sourceTree = "<group>"; };
@@ -1435,22 +1429,8 @@
 				04CCCFE81935093A00E3F60C /* Secondary */,
 				042A5B2119253D2A0095E172 /* Top */,
 				042A5B1619253D2A0095E172 /* Center */,
-				042A5B1519253D2A0095E172 /* Bottom */,
 			);
 			path = Navigation;
-			sourceTree = "<group>";
-		};
-		042A5B1519253D2A0095E172 /* Bottom */ = {
-			isa = PBXGroup;
-			children = (
-				042A5B2A19253E690095E172 /* BottomMenuViewController.h */,
-				042A5B2B19253E690095E172 /* BottomMenuViewController.m */,
-				04B162EF19284A6F00B1ABC2 /* BottomMenuContainerView.h */,
-				04B162F019284A6F00B1ABC2 /* BottomMenuContainerView.m */,
-				042B3994192EAEEA0066B270 /* ShareMenuSavePageActivity.h */,
-				042B3995192EAEEA0066B270 /* ShareMenuSavePageActivity.m */,
-			);
-			path = Bottom;
 			sourceTree = "<group>";
 		};
 		042A5B1619253D2A0095E172 /* Center */ = {
@@ -1903,8 +1883,6 @@
 				0452C80F195D0F03007925A6 /* UIViewController+ModalPop.m */,
 				04C0A0761936786000D55325 /* UIViewController+ModalPresent.h */,
 				04C0A0771936786000D55325 /* UIViewController+ModalPresent.m */,
-				0452C801195CB216007925A6 /* UIViewController+ModalsSearch.h */,
-				0452C802195CB216007925A6 /* UIViewController+ModalsSearch.m */,
 				049B640A18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.h */,
 				049B640B18AAF36200D98BD4 /* UIViewController+SearchChildViewControllers.m */,
 				040892621935ABBD004CF254 /* UIViewController+StatusBarHeight.h */,
@@ -2154,6 +2132,8 @@
 				046E2B6E1B3213BE008A99A6 /* UIBarButtonItem+WMFButtonConvenience.m */,
 				04016E181B3264C700D732FE /* UIViewController+WMFStoryboardUtilities.h */,
 				04016E191B3264C700D732FE /* UIViewController+WMFStoryboardUtilities.m */,
+				04016E221B335F0200D732FE /* WMFArticlePresenter.h */,
+				04016E231B335F0200D732FE /* WMFArticlePresenter.m */,
 			);
 			path = "UI-V5";
 			sourceTree = "<group>";
@@ -2553,6 +2533,8 @@
 				C979727B1A731F2D00C6ED7A /* WMFShareOptionsView.h */,
 				C979727C1A731F2D00C6ED7A /* WMFShareOptionsView.m */,
 				C98990351A699DFB00AF44FC /* ShareCard.xib */,
+				042258501B33EAD400FDD0C6 /* ShareMenuSavePageActivity.h */,
+				042258511B33EAD400FDD0C6 /* ShareMenuSavePageActivity.m */,
 			);
 			name = ShareCard;
 			sourceTree = "<group>";
@@ -3190,7 +3172,6 @@
 				04530AFB1935C2B500022512 /* EmptySegue.m in Sources */,
 				BCB669B41A83F6C400C7B1FE /* MWKArticle.m in Sources */,
 				044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */,
-				042B3996192EAEEA0066B270 /* ShareMenuSavePageActivity.m in Sources */,
 				0429301018604898002A13FC /* SavedPagesViewController.m in Sources */,
 				04D149DF18877343006B4104 /* UIViewController+Alert.m in Sources */,
 				BCA96E731AAA354D009A61FA /* WMFGradientView.m in Sources */,
@@ -3264,6 +3245,7 @@
 				BC092B961B18E89200093C59 /* NSString+WMFPageUtilities.m in Sources */,
 				04490FD51AF16A83009FAB52 /* WMFBundledImageProtocol.m in Sources */,
 				0429300A18604898002A13FC /* SavedPagesResultCell.m in Sources */,
+				04016E241B335F0200D732FE /* WMFArticlePresenter.m in Sources */,
 				0487048419F8262600B7D307 /* CaptchaResetter.m in Sources */,
 				BCB669A71A83F6C400C7B1FE /* MWKSiteDataObject.m in Sources */,
 				BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */,
@@ -3278,6 +3260,7 @@
 				047E95511996DD030046A122 /* NearbyViewController.m in Sources */,
 				04AE520519DB5E0900F89B92 /* NSObject+ConstraintsScale.m in Sources */,
 				BCE24FDE1B0CF0C7003F054B /* LegacyDataMigrator.m in Sources */,
+				042258521B33EAD400FDD0C6 /* ShareMenuSavePageActivity.m in Sources */,
 				0EFB0F1E1B31EE2D00D05C08 /* NSManagedObjectModel+LegacyCoreData.m in Sources */,
 				BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
 				0E7955C71B2B389800B055A2 /* TGLStackedLayout.m in Sources */,
@@ -3309,10 +3292,8 @@
 				C91A86F41A8BCB680088A801 /* WMFShareCardImageContainer.m in Sources */,
 				BCB58F781A8D081E00465627 /* NSArray+BKIndex.m in Sources */,
 				BCE6EE131B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m in Sources */,
-				042A5B2C19253E690095E172 /* BottomMenuViewController.m in Sources */,
 				0433542218A023FE009305F0 /* UIViewController+HideKeyboard.m in Sources */,
 				0484E3DE19D9D19B0085D18D /* UIView+ConstraintsScale.m in Sources */,
-				0452C803195CB216007925A6 /* UIViewController+ModalsSearch.m in Sources */,
 				04CCA0C319830A44000E982A /* ReferenceVC.m in Sources */,
 				BCB669B71A83F6C400C7B1FE /* MWKSectionList.m in Sources */,
 				0EE768811AFD25CC00A5D046 /* WMFSearchFunnel.m in Sources */,
@@ -3404,7 +3385,6 @@
 				0447862F185145090050563B /* HistoryResultCell.m in Sources */,
 				BCA6765D1AC0686600A16160 /* Article+ConvenienceAccessors.m in Sources */,
 				042A5B2619253D2A0095E172 /* CenterNavController.m in Sources */,
-				04B162F119284A6F00B1ABC2 /* BottomMenuContainerView.m in Sources */,
 				0433263F1B0D3574009DB316 /* WMFArticleImageProtocol.m in Sources */,
 				D4B0AE0219365F7C00F0AC90 /* EventLoggingFunnel.m in Sources */,
 				042A5B2F19257F900095E172 /* TopMenuContainerView.m in Sources */,

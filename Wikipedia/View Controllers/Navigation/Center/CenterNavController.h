@@ -10,11 +10,6 @@
 @property (nonatomic, readonly) BOOL isEditorOnNavstack;
 @property (nonatomic, readonly) SectionEditorViewController* editor;
 
-- (void)loadArticleWithTitle:(MWKTitle*)title
-                    animated:(BOOL)animated
-             discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
-                  popToWebVC:(BOOL)popToWebVC;
-
 - (void)promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString*)title;
 - (void)promptZeroOff;
 

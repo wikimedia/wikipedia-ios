@@ -7,18 +7,17 @@
 
 #import "PrimaryMenuViewController.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "UIViewController+ModalsSearch.h"
 #import "RandomArticleFetcher.h"
 #import "MWKSiteInfoFetcher.h"
 #import "MWKSiteInfo.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "MWKLanguageLink.h"
 
-NSString* const WebViewControllerTextWasHighlighted    = @"textWasSelected";
-NSString* const WebViewControllerWillShareNotification = @"SelectionShare";
-NSString* const WebViewControllerShareBegin            = @"beginShare";
-NSString* const WebViewControllerShareSelectedText     = @"selectedText";
-NSString* const kSelectedStringJS                      = @"window.getSelection().toString()";
+#import "WMFShareCardViewController.h"
+#import "WMFShareFunnel.h"
+#import "WMFShareOptionsViewController.h"
+#import "UIWebView+WMFSuppressSelection.h"
+#import "WMFArticlePresenter.h"
 
 @interface WebViewController () <LanguageSelectionDelegate>
 
@@ -31,6 +30,10 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 
 @property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
 @property (readonly, strong, nonatomic) MWKSiteInfoFetcher* siteInfoFetcher;
+
+@property (strong, nonatomic) UIPopoverController* popover;
+@property (strong, nonatomic) WMFShareFunnel* shareFunnel;
+@property (strong, nonatomic) WMFShareOptionsViewController* shareOptionsViewController;
 
 @end
 
@@ -139,8 +142,8 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
     }];
 
     self.buttonShare = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_SHARE handler:^(id sender){
-        //@strongify (self)
-        NSLog(@"TEST 4");
+        @strongify(self)
+        [self shareUpArrowButtonPushed];
     }];
 
     self.navigationController.toolbarHidden = NO;
@@ -320,9 +323,6 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 - (void)doStuffOnAppear {
     if ([self shouldShowOnboarding]) {
         [self showOnboarding];
-
-        // Ok to show the menu now. (The onboarding view is covering the web view at this point.)
-        ROOT.topMenuHidden = NO;
 
         self.webView.alpha = 1.0f;
     }
@@ -1015,7 +1015,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
          */
 
         UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
-                                                              action:@selector(shareSnippet:)];
+                                                              action:@selector(shareButtonPushed:)];
         [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
         [_bridge addListener:@"imageClicked" withBlock:^(NSString* type, NSDictionary* payload) {
@@ -2291,26 +2291,103 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         if ([self.selectedText isEqualToString:@""]) {
             return NO;
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:WebViewControllerTextWasHighlighted
-                                                            object:self
-                                                          userInfo:nil];
+        [self textWasHighlighted];
         return YES;
     }
     return [super canPerformAction:action withSender:sender];
 }
 
-- (void)shareSnippet:(id)sender {
-    NSString* selectedText = self.selectedText;
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:WebViewControllerWillShareNotification
-                                                        object:self
-                                                      userInfo:@{ WebViewControllerShareSelectedText: selectedText }];
-}
-
 - (NSString*)selectedText {
     NSString* selectedText =
-        [[self.webView stringByEvaluatingJavaScriptFromString:kSelectedStringJS] wmf_shareSnippetFromText];
+        [[self.webView stringByEvaluatingJavaScriptFromString:@"window.getSelection().toString()"] wmf_shareSnippetFromText];
     return selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
+}
+
+- (void)textWasHighlighted {
+    if (!self.shareFunnel) {
+        self.shareFunnel = [[WMFShareFunnel alloc] initWithArticle:[SessionSingleton sharedInstance].currentArticle];
+        [self.shareFunnel logHighlight];
+    }
+}
+
+- (void)shareButtonPushed:(id)sender {
+    [self shareSnippet:self.selectedText];
+}
+
+- (void)shareUpArrowButtonPushed {
+    [self shareSnippet:self.selectedText];
+}
+
+- (void)shareSnippet:(NSString*)snippet {
+    [self.webView wmf_suppressSelection];
+
+    UIViewController* rootViewController = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[UIViewController class]];
+    self.shareOptionsViewController =
+        [[WMFShareOptionsViewController alloc] initWithMWKArticle:[SessionSingleton sharedInstance].currentArticle
+                                                          snippet:snippet
+                                                   backgroundView:[rootViewController view]
+                                                         delegate:self];
+}
+
+#pragma mark - ShareTapDelegate methods
+- (void)didShowSharePreviewForMWKArticle:(MWKArticle*)article withText:(NSString*)text {
+    if (!self.shareFunnel) {
+        self.shareFunnel = [[WMFShareFunnel alloc] initWithArticle:article];
+    }
+    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
+}
+
+- (void)tappedBackgroundToAbandonWithText:(NSString*)text {
+    [self.shareFunnel logAbandonedAfterSeeingShareAFact];
+    [self releaseShareResources];
+}
+
+- (void)tappedShareCardWithText:(NSString*)text {
+    [self.shareFunnel logShareAsImageTapped];
+}
+
+- (void)tappedShareTextWithText:(NSString*)text {
+    [self.shareFunnel logShareAsTextTapped];
+}
+
+- (void)finishShareWithActivityItems:(NSArray*)activityItems text:(NSString*)text {
+    UIActivityViewController* shareActivityVC =
+        [[UIActivityViewController alloc] initWithActivityItems:activityItems
+                                          applicationActivities:@[] /*shareMenuSavePageActivity*/ ];
+    NSMutableArray* exclusions = @[
+        UIActivityTypePrint,
+        UIActivityTypeAssignToContact,
+        UIActivityTypeSaveToCameraRoll
+    ].mutableCopy;
+
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
+        [exclusions addObject:UIActivityTypeAirDrop];
+        [exclusions addObject:UIActivityTypeAddToReadingList];
+    }
+
+    shareActivityVC.excludedActivityTypes = exclusions;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [self presentViewController:shareActivityVC animated:YES completion:nil];
+    } else {
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:shareActivityVC];
+        [self.popover presentPopoverFromBarButtonItem:self.buttonShare
+                             permittedArrowDirections:UIPopoverArrowDirectionAny
+                                             animated:YES];
+    }
+
+    [shareActivityVC setCompletionHandler:^(NSString* activityType, BOOL completed) {
+        if (completed) {
+            [self.shareFunnel logShareSucceededWithShareMethod:activityType];
+        } else {
+            [self.shareFunnel logShareFailedWithShareMethod:activityType];
+        }
+        [self releaseShareResources];
+    }];
+}
+
+- (void)releaseShareResources {
+    self.shareFunnel                = nil;
+    self.shareOptionsViewController = nil;
 }
 
 #pragma mark - Tracking Footer
