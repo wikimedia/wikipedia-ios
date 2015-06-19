@@ -1,11 +1,11 @@
 PODS:
-  - AFNetworking/NSURLConnection (2.5.2):
+  - AFNetworking/NSURLConnection (2.5.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.2)
-  - AFNetworking/Security (2.5.2)
-  - AFNetworking/Serialization (2.5.2)
+  - AFNetworking/Reachability (2.5.4)
+  - AFNetworking/Security (2.5.4)
+  - AFNetworking/Serialization (2.5.4)
   - BlocksKit/Core (2.2.5)
   - BlocksKit/DynamicDelegate (2.2.5)
   - BlocksKit/UIKit (2.2.5):
@@ -33,7 +33,7 @@ DEPENDENCIES:
   - OCMockito (~> 1.4)
 
 SPEC CHECKSUMS:
-  AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
+  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   HockeySDK: 51ade1aff04463137e852797d2eb4dfb2511d6a9
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
@@ -42,4 +42,4 @@ SPEC CHECKSUMS:
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
 
-COCOAPODS: 0.36.1
+COCOAPODS: 0.37.2

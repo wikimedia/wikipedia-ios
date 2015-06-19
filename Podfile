@@ -10,16 +10,16 @@ xcodeproj 'Wikipedia'
 pod 'AFNetworking/NSURLConnection', '~> 2.5'
 pod 'hpple', '~> 0.2'
 
-# Block Syntax
+# Utilities
 pod 'BlocksKit/Core', '~> 2.2'
 pod 'BlocksKit/UIKit', '~> 2.2'
+pod 'libextobjc/EXTScope', '~> 0.4.1'
 
-# Autolayout
+# UI
 pod 'Masonry', '~> 0.6'
 
-# Crash Reporting
+# Diagnostics
 pod 'HockeySDK', '3.6.2'
-pod 'libextobjc/EXTScope', '~> 0.4.1'
 
 target 'WikipediaUnitTests', :exclusive => false do
   pod 'OCMockito', '~> 1.4'
