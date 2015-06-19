@@ -12,6 +12,7 @@
 #import "MWKSiteInfoFetcher.h"
 #import "MWKSiteInfo.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "MWKLanguageLink.h"
 
 NSString* const WebViewControllerTextWasHighlighted    = @"textWasSelected";
 NSString* const WebViewControllerWillShareNotification = @"SelectionShare";
@@ -2375,11 +2376,8 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
 
-- (void)languageSelected:(NSDictionary*)langData sender:(LanguagesViewController*)sender {
-    MWKSite* site   = [MWKSite siteWithLanguage:langData[@"code"]];
-    MWKTitle* title = [site titleWithString:langData[@"*"]];
-
-    [self navigateToPage:title
+- (void)languageSelected:(MWKLanguageLink*)langData sender:(LanguagesViewController*)sender {
+    [self navigateToPage:langData.title
          discoveryMethod:MWKHistoryDiscoveryMethodSearch];
 
     [self dismissViewControllerAnimated:YES completion:nil];

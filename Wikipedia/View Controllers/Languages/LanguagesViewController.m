@@ -99,34 +99,12 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
         }
                        failure:^(NSError* __nonnull error) {
             @strongify(self)
-            [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+            [self showAlert : error.localizedDescription type : ALERT_TYPE_TOP duration : -1];
         }];
     } else {
         [self.langLinkController loadStaticSiteLanguageData];
         [self reloadDataSections];
     }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"NavItemTapped"
-                                                  object:nil];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"NavTextFieldTextChanged"
-                                                  object:nil];
-
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-    // Listen for nav bar taps.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(navItemTappedNotification:)
-                                                 name:@"NavItemTapped"
-                                               object:nil];
 }
 
 #pragma mark - Search Bar Visibility
