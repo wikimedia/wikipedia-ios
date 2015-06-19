@@ -29,6 +29,10 @@
          @"SendUsageReports": @YES,
          @"AccessSavedPagesMessageShown": @NO
      }];
+
+#if DEBUG
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+#endif
 }
 
 - (UIWindow*)window {

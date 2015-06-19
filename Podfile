@@ -20,6 +20,7 @@ pod 'Masonry', '~> 0.6'
 
 # Diagnostics
 pod 'HockeySDK', '3.6.2'
+pod 'CocoaLumberjack', '~> 2.0.0'
 
 target 'WikipediaUnitTests', :exclusive => false do
   pod 'OCMockito', '~> 1.4'

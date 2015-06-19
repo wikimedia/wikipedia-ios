@@ -11,6 +11,14 @@ PODS:
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
+  - CocoaLumberjack (2.0.0):
+    - CocoaLumberjack/Default (= 2.0.0)
+    - CocoaLumberjack/Extensions (= 2.0.0)
+  - CocoaLumberjack/Core (2.0.0)
+  - CocoaLumberjack/Default (2.0.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.0.0):
+    - CocoaLumberjack/Default
   - HockeySDK (3.6.2)
   - hpple (0.2.0)
   - libextobjc/EXTScope (0.4.1):
@@ -25,6 +33,7 @@ DEPENDENCIES:
   - AFNetworking/NSURLConnection (~> 2.5)
   - BlocksKit/Core (~> 2.2)
   - BlocksKit/UIKit (~> 2.2)
+  - CocoaLumberjack (~> 2.0.0)
   - HockeySDK (= 3.6.2)
   - hpple (~> 0.2)
   - libextobjc/EXTScope (~> 0.4.1)
@@ -35,6 +44,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
   HockeySDK: 51ade1aff04463137e852797d2eb4dfb2511d6a9
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471

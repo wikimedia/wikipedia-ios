@@ -2,12 +2,7 @@
 #ifndef Wikipedia_Global_h
 #define Wikipedia_Global_h
 
-#ifndef DEBUG
-#define NSLog(...) {}
-#else
-#define NSLog(FORMAT, ...) fprintf(stderr, "\n%s Line %d\n\t%s\n", __PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ## __VA_ARGS__] UTF8String]);
-#endif // end DEBUG
-
+#import "WMFLogging.h"
 #import "WMFGCDHelpers.h"
 
 #import <libextobjc/EXTScope.h>

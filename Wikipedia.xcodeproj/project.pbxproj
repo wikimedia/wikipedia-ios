@@ -820,6 +820,7 @@
 		BC7DFCD41AA4E5FE000035C3 /* WMFImageURLParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFImageURLParsing.h; sourceTree = "<group>"; };
 		BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageURLParsing.m; sourceTree = "<group>"; };
 		BC7E4A431B33812700EECD8B /* LanguagesViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LanguagesViewController.storyboard; sourceTree = "<group>"; };
+		BC7E4A491B34A26A00EECD8B /* WMFLogging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLogging.h; sourceTree = "<group>"; };
 		BC86B9341A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+UniqueRequests.h"; sourceTree = "<group>"; };
 		BC86B9351A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperationManager+UniqueRequests.m"; sourceTree = "<group>"; };
 		BC86B93B1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewFlowLayout+NSCopying.h"; sourceTree = "<group>"; };
@@ -2353,6 +2354,7 @@
 				BC7A4A231B17B3510003E73E /* NSObjectUtilities.h */,
 				BC092B971B18E8AF00093C59 /* NSString+WMFPageUtilities.h */,
 				BC092B951B18E89200093C59 /* NSString+WMFPageUtilities.m */,
+				BC7E4A491B34A26A00EECD8B /* WMFLogging.h */,
 			);
 			path = "mw-utils";
 			sourceTree = "<group>";
