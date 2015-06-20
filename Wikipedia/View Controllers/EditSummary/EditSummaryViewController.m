@@ -4,9 +4,10 @@
 #import "EditSummaryViewController.h"
 #import "WikipediaAppUtils.h"
 #import "PreviewAndSaveViewController.h"
-#import "MenuButton.h"
-#import "UIViewController+ModalPop.h"
 #import "Defines.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
+#import "UIViewController+WMFStoryboardUtilities.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
 
 #define MAX_SUMMARY_LENGTH 255
 
@@ -18,6 +19,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel* placeholderLabel;
 
+@property (strong, nonatomic) UIBarButtonItem* buttonDone;
+
 @end
 
 @implementation EditSummaryViewController
@@ -26,7 +29,6 @@
     self = [super initWithCoder:coder];
     if (self) {
         self.summaryText = @"";
-        self.navBarMode  = NAVBAR_MODE_EDIT_WIKITEXT_SUMMARY;
     }
     return self;
 }
@@ -35,15 +37,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    @weakify(self)
+    UIBarButtonItem * buttonX = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){
+        @strongify(self)
+        [self dismissViewControllerAnimated : YES completion : nil];
+    }];
+    self.navigationItem.leftBarButtonItem = buttonX;
+
+    self.buttonDone = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-done", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
+        @strongify(self)
+        [self save];
+    }];
+    self.navigationItem.rightBarButtonItem = self.buttonDone;
+
     self.placeholderLabel.text          = MWLocalizedString(@"edit-summary-field-placeholder-text", nil);
     self.placeholderLabel.textAlignment = NSTextAlignmentNatural;
-    self.placeholderLabel.font          = SEARCH_TEXT_FIELD_FONT;
+    self.placeholderLabel.font          = [UIFont systemFontOfSize:(14.0 * MENUS_SCALE_MULTIPLIER)];
 
     self.summaryTextField.textColor     = [UIColor darkGrayColor];
     self.summaryTextField.returnKeyType = UIReturnKeyDone;
     self.summaryTextField.delegate      = self;
     self.summaryTextField.textAlignment = NSTextAlignmentNatural;
-    self.summaryTextField.font          = SEARCH_TEXT_FIELD_FONT;
+    self.summaryTextField.font          = [UIFont systemFontOfSize:(14.0 * MENUS_SCALE_MULTIPLIER)];
 
     self.bottomLineHeightConstraint.constant = 1.0f / [UIScreen mainScreen].scale;
 }
@@ -59,7 +74,6 @@
 
 - (void)textFieldDidChange:(NSNotification*)notification {
     [self updateDoneButtonState];
-
     [self updatePlaceholderLabelState];
 }
 
@@ -68,8 +82,7 @@
 }
 
 - (void)updateDoneButtonState {
-    MenuButton* button = (MenuButton*)[self.topMenuViewController getNavBarItem:NAVBAR_BUTTON_DONE];
-    button.enabled = (self.summaryTextField.text.length > 0) ? YES : NO;
+    self.buttonDone.enabled = (self.summaryTextField.text.length > 0) ? YES : NO;
 }
 
 // From: http://stackoverflow.com/a/1773257
@@ -80,12 +93,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(navItemTappedNotification:)
-                                                 name:@"NavItemTapped"
-                                               object:nil];
-
     [self.summaryTextField becomeFirstResponder];
 }
 
@@ -103,37 +110,17 @@
     [self.summaryTextField resignFirstResponder];
 
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"NavItemTapped"
-                                                  object:nil];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"UITextFieldTextDidChangeNotification"
                                                   object:nil];
 
     [super viewWillDisappear:animated];
 }
 
-- (void)navItemTappedNotification:(NSNotification*)notification {
-    NSDictionary* userInfo = [notification userInfo];
-    UIView* tappedItem     = userInfo[@"tappedItem"];
-
-    switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_X:
-            [self popModal];
-            break;
-        case NAVBAR_BUTTON_DONE:
-            [self save];
-            break;
-        default:
-            break;
-    }
-}
-
 - (void)save {
     NSString* trimmedSummary =
         [self.summaryTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     self.previewVC.summaryText = trimmedSummary;
-    [self popModal];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -144,16 +131,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-   #pragma mark - Navigation
-
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-   {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-   }
- */
 
 @end

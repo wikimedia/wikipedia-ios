@@ -17,6 +17,9 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "WMFArticleParsing.h"
 
+// Reminder: For caching reasons, don't do "(scale * 320)" here.
+#define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
+
 @interface ArticleFetcher ()
 
 // The Article object to be updated with the downloaded data.

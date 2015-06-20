@@ -45,11 +45,14 @@
 
 @implementation LoginViewController
 
-/*
-   - (BOOL)prefersStatusBarHidden {
-    return NAV.isEditorOnNavstack;
-   }
- */
+- (BOOL)prefersStatusBarHidden {
+    return [self isEditorOnNavStack];
+}
+
+- (BOOL)isEditorOnNavStack {
+    id editor = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[SectionEditorViewController class]];
+    return (editor) ? YES : NO;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -75,8 +78,6 @@
     self.usernameField.font       = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
     self.passwordField.font       = [UIFont boldSystemFontOfSize:18.0f * MENUS_SCALE_MULTIPLIER];
     self.createAccountButton.font = [UIFont boldSystemFontOfSize:14.0f * MENUS_SCALE_MULTIPLIER];
-
-    self.navigationItem.hidesBackButton = YES;
 
     self.createAccountButton.textColor              = WMF_COLOR_BLUE;
     self.createAccountButton.padding                = UIEdgeInsetsMake(10, 10, 10, 10);
@@ -193,7 +194,11 @@
                                                                      withString:self.usernameField.text];
         [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:1.0f];
 
-        [[WMFArticlePresenter sharedInstance] performSelector:@selector(presentWebViewThen:) withObject:nil afterDelay:1.2f];
+        if ([self isEditorOnNavStack]) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [[WMFArticlePresenter sharedInstance] performSelector:@selector(presentCurrentArticle) withObject:nil afterDelay:1.2f];
+        }
     } onFail:^{
         [self enableProgressiveButton:YES];
     }];

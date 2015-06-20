@@ -87,11 +87,22 @@
     return response;
 }
 
-/*
-   -(void)dealloc
-   {
-    NSLog(@"DEALLOC'ING ACCT CREATION TOKEN FETCHER!");
-   }
- */
++ (NSString*)newCaptchaImageUrlFromOldUrl:(NSString*)oldUrl andNewId:(NSString*)newId {
+    NSError* error             = nil;
+    NSRegularExpression* regex =
+        [NSRegularExpression regularExpressionWithPattern:@"wpCaptchaId=([^&]*)"
+                                                  options:NSRegularExpressionCaseInsensitive
+                                                    error:&error];
+    if (!error) {
+        NSString* newCaptchaUrl =
+            [regex stringByReplacingMatchesInString:oldUrl
+                                            options:0
+                                              range:NSMakeRange(0, [oldUrl length])
+                                       withTemplate:[NSString stringWithFormat:@"wpCaptchaId=%@", newId]];
+
+        return newCaptchaUrl;
+    }
+    return nil;
+}
 
 @end

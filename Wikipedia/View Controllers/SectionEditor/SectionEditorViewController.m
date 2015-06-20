@@ -8,15 +8,12 @@
 #import "UIViewController+Alert.h"
 #import "QueuesSingleton.h"
 #import "WikiTextSectionFetcher.h"
-#import "CenterNavController.h"
 #import "PreviewAndSaveViewController.h"
 #import "WMF_Colors.h"
 #import "MWLanguageInfo.h"
-
-#import "MenuButton.h"
-
-#import "RootViewController.h"
-#import "TopMenuViewController.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
+#import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 
 #define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f * MENUS_SCALE_MULTIPLIER]
@@ -29,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UITextView* editTextView;
 @property (strong, nonatomic) NSString* unmodifiedWikiText;
 @property (nonatomic) CGRect viewKeyboardRect;
+@property (strong, nonatomic) UIBarButtonItem* rightButton;
 
 @end
 
@@ -38,18 +36,32 @@
     return YES;
 }
 
-/*
-   - (UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
-   }
- */
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
-    self.navigationItem.hidesBackButton = YES;
-    self.unmodifiedWikiText             = nil;
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+
+    @weakify(self)
+    UIBarButtonItem * buttonX = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_CARET_LEFT handler:^(id sender){
+        @strongify(self)
+        [self.navigationController popViewControllerAnimated : YES];
+    }];
+    self.navigationItem.leftBarButtonItem = buttonX;
+
+
+    self.rightButton = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
+        @strongify(self)
+
+        if (![self changesMade]) {
+            [self showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) type:ALERT_TYPE_TOP duration:1];
+        } else {
+            [self preview];
+        }
+    }];
+    self.navigationItem.rightBarButtonItem = self.rightButton;
+
+    self.unmodifiedWikiText = nil;
 
     [self.editTextView setDelegate:self];
 
@@ -82,7 +94,7 @@
 }
 
 - (void)highlightProgressiveButton:(BOOL)highlight {
-//    [[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_NEXT] setEnabled:highlight];
+    self.navigationItem.rightBarButtonItem.enabled = highlight;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -92,9 +104,6 @@
 
     [self.editTextView wmf_shouldScrollToTopOnStatusBarTap:YES];
 
-    // Listen for nav bar taps.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(navItemTappedNotification:) name:@"NavItemTapped" object:nil];
-
     [self highlightProgressiveButton:[self changesMade]];
 
     if ([self changesMade]) {
@@ -103,44 +112,12 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    // Change the nav bar layout.
-    //ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
     [self unRegisterForKeyboardNotifications];
 
     [self highlightProgressiveButton:NO];
 
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NavItemTapped" object:nil];
-
-    //ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_DEFAULT;
-
     [super viewWillDisappear:animated];
-}
-
-// Handle nav bar taps.
-- (void)navItemTappedNotification:(NSNotification*)notification {
-    NSDictionary* userInfo = [notification userInfo];
-    UIView* tappedItem     = userInfo[@"tappedItem"];
-
-    switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_NEXT:
-            if (![self changesMade]) {
-                [self showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) type:ALERT_TYPE_TOP duration:1];
-                break;
-            }
-            [self preview];
-            break;
-        case NAVBAR_BUTTON_ARROW_LEFT:
-            [self cancelPushed:nil];
-            break;
-        default:
-            break;
-    }
 }
 
 - (void)fetchFinished:(id)sender
@@ -230,21 +207,12 @@
 }
 
 - (void)preview {
-    PreviewAndSaveViewController* previewVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"PreviewViewController"];
+    PreviewAndSaveViewController* previewVC = [PreviewAndSaveViewController wmf_initialViewControllerFromClassStoryboard];
     previewVC.section          = self.section;
     previewVC.wikiText         = self.editTextView.text;
     previewVC.funnel           = self.funnel;
     previewVC.savedPagesFunnel = self.savedPagesFunnel;
-    [ROOT pushViewController:previewVC animated:YES];
-}
-
-- (void)cancelPushed:(id)sender {
-    [self hide];
-}
-
-- (void)hide {
-//    [ROOT popViewControllerAnimated:YES];
-    [ROOT popViewControllerAnimated:YES];
+    [self.navigationController pushViewController:previewVC animated:YES];
 }
 
 #pragma mark Keyboard

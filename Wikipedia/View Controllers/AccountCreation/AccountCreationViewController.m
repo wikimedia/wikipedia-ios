@@ -20,6 +20,7 @@
 #import "UIViewController+WMFChildViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFArticlePresenter.h"
+#import "SectionEditorViewController.h"
 
 @interface AccountCreationViewController ()
 
@@ -47,11 +48,14 @@
 
 @implementation AccountCreationViewController
 
-/*
-   - (BOOL)prefersStatusBarHidden {
-    return NAV.isEditorOnNavstack;
-   }
- */
+- (BOOL)isEditorOnNavStack {
+    id editor = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[SectionEditorViewController class]];
+    return (editor) ? YES : NO;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return [self isEditorOnNavStack];
+}
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
     // Disable horizontal scrolling.
@@ -116,10 +120,9 @@
 
     [self adjustConstraintsScaleForViews:@[self.createAccountContainerView, self.captchaContainer, self.titleLabel, self.usernameField, self.passwordField, self.passwordRepeatField, self.emailField, self.loginButton]];
 
-    self.captchaId                      = @"";
-    self.captchaUrl                     = @"";
-    self.scrollView.delegate            = self;
-    self.navigationItem.hidesBackButton = YES;
+    self.captchaId           = @"";
+    self.captchaUrl          = @"";
+    self.scrollView.delegate = self;
 
     [self.usernameField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 
@@ -212,7 +215,7 @@
                                                  name:@"UITextFieldTextDidChangeNotification"
                                                object:self.captchaViewController.captchaTextBox];
 
-    [self setAllProgressiveButtonsEnabled:NO];
+    [self enableProgressiveButton:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -242,7 +245,7 @@
         }
     }
 
-    [self setAllProgressiveButtonsEnabled:shouldHighlight];
+    [self enableProgressiveButton:shouldHighlight];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField*)textField {
@@ -260,7 +263,7 @@
     return YES;
 }
 
-- (void)setAllProgressiveButtonsEnabled:(BOOL)enabled {
+- (void)enableProgressiveButton:(BOOL)enabled {
     self.navigationItem.rightBarButtonItem.enabled = enabled;
 }
 
@@ -274,7 +277,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [self setAllProgressiveButtonsEnabled:NO];
+    [self enableProgressiveButton:NO];
 
     [self fadeAlert];
 
@@ -303,7 +306,7 @@
                 self.captchaContainer.alpha = 1;
                 [self.scrollView scrollSubViewToTop:self.captchaContainer animated:NO];
             } completion:^(BOOL done){
-                [self setAllProgressiveButtonsEnabled:NO];
+                [self enableProgressiveButton:NO];
             }];
         });
     } else {
@@ -378,9 +381,13 @@
                                                                      withString:self.usernameField.text];
         [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:-1];
 
-        [[WMFArticlePresenter sharedInstance] presentWebViewThen:nil];
+        if ([self isEditorOnNavStack]) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [[WMFArticlePresenter sharedInstance] presentCurrentArticle];
+        }
     } onFail:^(){
-        [[WMFArticlePresenter sharedInstance] performSelector:@selector(presentWebViewThen:) withObject:nil afterDelay:0.5f];
+        [self enableProgressiveButton:YES];
     }];
 }
 
@@ -448,21 +455,8 @@
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 self.captchaId = fetchedData[@"index"];
-
-                NSString* oldCaptchaUrl = self.captchaUrl;
-
-                NSError* error             = nil;
-                NSRegularExpression* regex =
-                    [NSRegularExpression regularExpressionWithPattern:@"wpCaptchaId=([^&]*)"
-                                                              options:NSRegularExpressionCaseInsensitive
-                                                                error:&error];
-                if (!error) {
-                    NSString* newCaptchaUrl =
-                        [regex stringByReplacingMatchesInString:oldCaptchaUrl
-                                                        options:0
-                                                          range:NSMakeRange(0, [oldCaptchaUrl length])
-                                                   withTemplate:[NSString stringWithFormat:@"wpCaptchaId=%@", self.captchaId]];
-
+                NSString* newCaptchaUrl = [CaptchaResetter newCaptchaImageUrlFromOldUrl:self.captchaUrl andNewId:self.captchaId];
+                if (newCaptchaUrl) {
                     self.captchaUrl = newCaptchaUrl;
                 }
             }

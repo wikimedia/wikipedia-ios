@@ -74,8 +74,7 @@ NSString* const kLicenseTitleOnENWiki =
 - (IBAction)licenseTapped:(id)sender {
     MWKSite* site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
     [[WMFArticlePresenter sharedInstance] presentArticleWithTitle:[site titleWithString:kLicenseTitleOnENWiki]
-                                                  discoveryMethod:MWKHistoryDiscoveryMethodSearch
-                                                             then:nil];
+                                                  discoveryMethod:MWKHistoryDiscoveryMethodSearch];
 }
 
 #pragma mark Memory

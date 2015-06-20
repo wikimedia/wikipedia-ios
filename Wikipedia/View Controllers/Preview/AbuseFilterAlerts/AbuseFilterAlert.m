@@ -86,7 +86,7 @@ typedef NS_ENUM (NSInteger, ViewType) {
          @"string": ((self.alertType == ABUSE_FILTER_DISALLOW) ? WIKIGLYPH_X : WIKIGLYPH_FLAG),
          @"backgroundColor": ((self.alertType == ABUSE_FILTER_DISALLOW) ? WMF_COLOR_RED : WMF_COLOR_ORANGE),
          @"fontColor": [UIColor whiteColor],
-         @"baselineOffset": @((self.alertType == ABUSE_FILTER_DISALLOW) ? 2.0 : 0.0)
+         @"baselineOffset": @((self.alertType == ABUSE_FILTER_DISALLOW) ? 8.4 : 5.5)
      }.mutableCopy
     ];
 
@@ -339,14 +339,5 @@ typedef NS_ENUM (NSInteger, ViewType) {
         [[NSAttributedString alloc] initWithString:text
                                         attributes:attributes];
 }
-
-/*
-   // Only override drawRect: if you perform custom drawing.
-   // An empty implementation adversely affects performance during animation.
-   - (void)drawRect:(CGRect)rect
-   {
-   // Drawing code
-   }
- */
 
 @end

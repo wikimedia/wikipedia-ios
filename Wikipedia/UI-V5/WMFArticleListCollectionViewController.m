@@ -95,7 +95,7 @@
 
 
 // Warning! remove this! debugging code for showing web view!
-    [[WMFArticlePresenter sharedInstance] presentWebViewThen:nil];
+    [[WMFArticlePresenter sharedInstance] presentCurrentArticle];
 }
 
 - (void)viewDidLayoutSubviews {

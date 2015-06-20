@@ -6,14 +6,10 @@
 #import "PreviewHtmlFetcher.h"
 #import "UIViewController+Alert.h"
 #import "QueuesSingleton.h"
-#import "CenterNavController.h"
 #import "WikiTextSectionUploader.h"
-#import "CaptchaViewController.h"
 #import "UIViewController+HideKeyboard.h"
 #import "EditTokenFetcher.h"
 #import "SessionSingleton.h"
-#import "WebViewController.h"
-#import "UINavigationController+SearchNavStack.h"
 #import "PreviewWebView.h"
 #import "UINavigationController+TopActionSheet.h"
 #import "Defines.h"
@@ -21,28 +17,42 @@
 #import "CommunicationBridge.h"
 #import "PaddedLabel.h"
 #import "NSString+Extras.h"
-#import "RootViewController.h"
-#import "TopMenuViewController.h"
 #import "MenuButton.h"
 #import "EditSummaryViewController.h"
-#import "UIViewController+ModalPresent.h"
 #import "PreviewLicenseView.h"
 #import "LoginViewController.h"
 #import "UIScrollView+ScrollSubviewToLocation.h"
 #import "AbuseFilterAlert.h"
 #import "MWLanguageInfo.h"
 #import "NSObject+ConstraintsScale.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
+#import "UIViewController+WMFStoryboardUtilities.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "UIViewController+WMFChildViewController.h"
+#import "CaptchaResetter.h"
+#import "SavedPagesFunnel.h"
+#import "EditFunnel.h"
 
-typedef enum {
-    CANNED_SUMMARY_TYPOS   = 0,
-    CANNED_SUMMARY_GRAMMAR = 1,
-    CANNED_SUMMARY_LINKS   = 2,
-    CANNED_SUMMARY_OTHER   = 3
-} CannedSummaryChoices;
+typedef NS_ENUM (NSInteger, WMFCannedSummaryChoices) {
+    CANNED_SUMMARY_TYPOS,
+    CANNED_SUMMARY_GRAMMAR,
+    CANNED_SUMMARY_LINKS,
+    CANNED_SUMMARY_OTHER
+};
 
-@interface PreviewAndSaveViewController ()
+typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
+    PREVIEW_MODE_EDIT_WIKITEXT,
+    PREVIEW_MODE_EDIT_WIKITEXT_WARNING,
+    PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW,
+    PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW,
+    PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
+};
+
+@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) NSString* captchaId;
+@property (strong, nonatomic) NSString* captchaUrl;
+
 @property (strong, nonatomic) CaptchaViewController* captchaViewController;
 @property (weak, nonatomic) IBOutlet UIView* captchaContainer;
 @property (weak, nonatomic) IBOutlet UIScrollView* captchaScrollView;
@@ -61,7 +71,16 @@ typedef enum {
 @property (strong, nonatomic) UIGestureRecognizer* previewLicenseTapGestureRecognizer;
 @property (strong, nonatomic) IBOutlet PaddedLabel* previewLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView* scrollView;
+@property (strong, nonatomic) UIBarButtonItem* buttonSave;
+@property (strong, nonatomic) UIBarButtonItem* buttonNext;
+@property (strong, nonatomic) UIBarButtonItem* buttonX;
+@property (strong, nonatomic) UIBarButtonItem* buttonLeftCaret;
+@property (strong, nonatomic) NSString* abuseFilterCode;
+
+
 //@property (nonatomic) BOOL saveAutomaticallyIfSignedIn;
+
+@property (nonatomic) WMFPreviewAndSaveMode mode;
 
 @end
 
@@ -106,50 +125,97 @@ typedef enum {
     }];
 }
 
-// Handle nav bar taps.
-- (void)navItemTappedNotification:(NSNotification*)notification {
-    NSDictionary* userInfo = [notification userInfo];
-    UIView* tappedItem     = userInfo[@"tappedItem"];
+- (void)setMode:(WMFPreviewAndSaveMode)mode {
+    _mode = mode;
 
-    switch (tappedItem.tag) {
-        case NAVBAR_BUTTON_X:
-        case NAVBAR_BUTTON_ARROW_LEFT:
-            [ROOT popViewControllerAnimated:YES];
+    [self updateNavigationForMode:mode];
+}
 
-            if (ROOT.topMenuViewController.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_WARNING) {
-                [self.funnel logAbuseFilterWarningBack:self.abuseFilterCode];
-            }
+- (void)updateNavigationForMode:(WMFPreviewAndSaveMode)mode {
+    UIBarButtonItem* backButton    = nil;
+    UIBarButtonItem* forwardButton = nil;
 
+    switch (mode) {
+        case PREVIEW_MODE_EDIT_WIKITEXT:
+            backButton    = self.buttonLeftCaret;
+            forwardButton = self.buttonNext;
             break;
-        case NAVBAR_BUTTON_SAVE: /* for captcha submit button */
-        case NAVBAR_BUTTON_CHECK:
-        {
-            switch (ROOT.topMenuViewController.navBarMode) {
-                case NAVBAR_MODE_EDIT_WIKITEXT_WARNING:
-                    [self save];
-                    [self.funnel logAbuseFilterWarningIgnore:self.abuseFilterCode];
-                    break;
-                case NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA:
-                    [self save];
-                    break;
-                default:
-                    [self save];
-                    break;
-            }
-        }
-        break;
+        case PREVIEW_MODE_EDIT_WIKITEXT_WARNING:
+            backButton    = self.buttonLeftCaret;
+            forwardButton = self.buttonSave;
+            break;
+        case PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW:
+            backButton    = self.buttonLeftCaret;
+            forwardButton = nil;
+            break;
+        case PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW:
+            backButton    = self.buttonLeftCaret;
+            forwardButton = self.buttonSave;
+            break;
+        case PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA:
+            backButton    = self.buttonX;
+            forwardButton = self.buttonSave;
+            break;
         default:
             break;
     }
+
+    self.navigationItem.leftBarButtonItem  = backButton;
+    self.navigationItem.rightBarButtonItem = forwardButton;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PreviewWebViewBeganScrolling" object:self userInfo:nil];
 }
 
+- (void)goBack {
+    if (self.mode == PREVIEW_MODE_EDIT_WIKITEXT_WARNING) {
+        [self.funnel logAbuseFilterWarningBack:self.abuseFilterCode];
+    }
+
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)goForward {
+    switch (self.mode) {
+        case PREVIEW_MODE_EDIT_WIKITEXT_WARNING:
+            [self save];
+            [self.funnel logAbuseFilterWarningIgnore:self.abuseFilterCode];
+            break;
+        case PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA:
+            [self save];
+            break;
+        default:
+            [self save];
+            break;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    @weakify(self)
+    self.buttonX = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){
+        @strongify(self)
+        [self goBack];
+    }];
+
+    self.buttonLeftCaret = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_CARET_LEFT handler:^(id sender){
+        @strongify(self)
+        [self goBack];
+    }];
+
+    self.buttonSave = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-save", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
+        @strongify(self)
+        [self goForward];
+    }];
+
+    self.buttonNext = [[UIBarButtonItem alloc] bk_initWithTitle:MWLocalizedString(@"button-next", nil) style:UIBarButtonItemStylePlain handler:^(id sender){
+        @strongify(self)
+        [self goForward];
+    }];
+
+    self.mode = PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW;
 
     self.summaryText = @"";
 
@@ -165,14 +231,8 @@ typedef enum {
 
     self.previewWebView.scrollView.delegate = self;
 
-    self.captchaId = @"";
-
-    self.navigationItem.hidesBackButton = YES;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(htmlAlertWasHidden)
-                                                 name:@"HtmlAlertWasHidden"
-                                               object:nil];
+    self.captchaId  = @"";
+    self.captchaUrl = @"";
 
     [self.funnel logPreview];
 
@@ -264,7 +324,7 @@ typedef enum {
     UIEdgeInsets margin  = UIEdgeInsetsMake(8, 0, 8, 0);
     CGFloat fontSize     = 14.0;
 
-    MenuButton* (^ setupButton)(NSString*, NSInteger) = ^MenuButton*(NSString* text, NSInteger tag) {
+    MenuButton* (^ setupButton)(NSString*, NSInteger) = ^MenuButton*(NSString* text, WMFCannedSummaryChoices tag) {
         MenuButton* button = [[MenuButton alloc] initWithText:text
                                                      fontSize:fontSize
                                                          bold:NO
@@ -333,37 +393,21 @@ typedef enum {
 }
 
 - (void)showSummaryOverlay {
-    [self performModalSequeWithID:@"modal_segue_show_edit_summary"
-                  transitionStyle:UIModalTransitionStyleCoverVertical
-                            block:^(EditSummaryViewController* summaryVC){
-        // Set the overlay's text field to self.summaryText so it can display
-        // any existing value (in case user taps "Other" again)
-        summaryVC.summaryText = self.summaryText;
-        summaryVC.previewVC = self;
-    }];
-}
-
-- (void)htmlAlertWasHidden {
-    [ROOT popViewControllerAnimated:YES];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-    // Listen for nav bar taps.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(navItemTappedNotification:)
-                                                 name:@"NavItemTapped"
-                                               object:nil];
+    EditSummaryViewController* summaryVC = [EditSummaryViewController wmf_initialViewControllerFromClassStoryboard];
+    // Set the overlay's text field to self.summaryText so it can display
+    // any existing value (in case user taps "Other" again)
+    summaryVC.summaryText = self.summaryText;
+    summaryVC.previewVC   = self;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:summaryVC] animated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     self.captchaScrollView.alpha = 0.0f;
 
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_PREVIEW;
+    self.captchaViewController = [CaptchaViewController wmf_initialViewControllerFromClassStoryboard];
+    [self wmf_addChildController:self.captchaViewController andConstrainToEdgesOfContainerView:self.captchaContainer];
 
-    MenuButton* button = (MenuButton*)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_SAVE];
-    button.enabled = YES;
+    self.mode = PREVIEW_MODE_EDIT_WIKITEXT_PREVIEW;
 
     //[self saveAutomaticallyIfNecessary];
 
@@ -389,31 +433,22 @@ typedef enum {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         // Call if user taps the blue "Log In" text in the CC text.
         //self.saveAutomaticallyIfSignedIn = YES;
-        [self performModalSequeWithID:@"modal_segue_show_login"
-                      transitionStyle:UIModalTransitionStyleCoverVertical
-                                block:^(LoginViewController* loginVC){
-            loginVC.funnel = [[LoginFunnel alloc] init];
-            [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
-        }];
+        LoginViewController* loginVC = [LoginViewController wmf_initialViewControllerFromClassStoryboard];
+        loginVC.funnel = [[LoginFunnel alloc] init];
+        [loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
+        UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:nc animated:YES completion:nil];
     }
 }
 
 - (void)highlightCaptchaSubmitButton:(BOOL)highlight {
-    MenuButton* button = (MenuButton*)[ROOT.topMenuViewController getNavBarItem:NAVBAR_BUTTON_SAVE];
-    button.enabled = highlight;
+    self.buttonSave.enabled = highlight;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:@"NavItemTapped"
-                                                  object:nil];
-
     [self.navigationController topActionSheetHide];
 
     [self fadeAlert];
-
-    // Change the nav bar layout.
-    //ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT;
 
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"TabularScrollViewItemTapped"
@@ -505,9 +540,8 @@ typedef enum {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [self.funnel logSavedRevision:[fetchedData[@"newrevid"] intValue]];
 
-                WebViewController* webVC = [self.navigationController searchNavStackForViewControllerOfClass:[WebViewController class]];
-                [webVC reloadCurrentArticleFromNetwork];
-                [ROOT popToViewController:webVC animated:YES];
+                [[WMFArticlePresenter sharedInstance] presentCurrentArticle];
+                [[WMFArticlePresenter sharedInstance] reloadCurrentArticleFromNetwork];
             }
             break;
 
@@ -525,45 +559,14 @@ typedef enum {
                 switch (error.code) {
                     case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
                     {
-                        if (ROOT.topMenuViewController.navBarMode == NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA) {
+                        if (self.mode == PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA) {
                             [self.funnel logCaptchaFailure];
                         }
 
-                        // If the server said a captcha was required, present the captcha image.
-                        NSString* captchaUrl = error.userInfo[@"captchaUrl"];
-                        NSString* captchaId  = error.userInfo[@"captchaId"];
-                        MWKArticle* article  = self.section.article;
-                        [UIView animateWithDuration:0.2f animations:^{
-                            [self revealCaptcha];
-
-                            [self.captchaViewController.captchaTextBox performSelector:@selector(becomeFirstResponder)
-                                                                            withObject:nil
-                                                                            afterDelay:0.4f];
-
-                            [self.captchaViewController showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-
-                            self.captchaViewController.captchaImageView.image = nil;
-
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-                                // Background thread.
-
-                                NSURL* captchaImageUrl = [NSURL URLWithString:
-                                                          [NSString stringWithFormat:@"https://%@.m.%@%@", article.site.language, article.site.domain, captchaUrl]
-                                                         ];
-
-                                UIImage* captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
-
-                                dispatch_async(dispatch_get_main_queue(), ^(void){
-                                    // Main thread.
-                                    self.captchaViewController.captchaTextBox.text = @"";
-                                    self.captchaViewController.captchaImageView.image = captchaImage;
-                                    self.captchaId = captchaId;
-
-                                    [self.view layoutIfNeeded];
-                                });
-                            });
-                        } completion:^(BOOL done){
-                        }];
+                        self.captchaUrl = error.userInfo[@"captchaUrl"];
+                        self.captchaId  = error.userInfo[@"captchaId"];
+                        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+                        [self showImageForCaptcha];
                     }
                     break;
 
@@ -575,24 +578,12 @@ typedef enum {
 
                         [self hideKeyboard];
 
-                        NSString* bannerImage = nil;
-                        UIColor* bannerColor  = nil;
-
                         if ((error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED)) {
-                            ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_DISALLOW;
-                            bannerImage                           = @"abuse-filter-disallowed.png";
-                            bannerColor                           = WMF_COLOR_RED;
-
+                            self.mode            = PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW;
                             self.abuseFilterCode = error.userInfo[@"code"];
                             [self.funnel logAbuseFilterError:self.abuseFilterCode];
                         } else {
-                            ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_WARNING;
-
-                            //[self highlightProgressiveButtons:YES];
-
-                            bannerImage = @"abuse-filter-flag-white.png";
-                            bannerColor = WMF_COLOR_ORANGE;
-
+                            self.mode            = PREVIEW_MODE_EDIT_WIKITEXT_WARNING;
                             self.abuseFilterCode = error.userInfo[@"code"];
                             [self.funnel logAbuseFilterWarning:self.abuseFilterCode];
                         }
@@ -619,7 +610,54 @@ typedef enum {
             }
             break;
         }
+    } else if ([sender isKindOfClass:[CaptchaResetter class]]) {
+        switch (status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                self.captchaId = fetchedData[@"index"];
+                NSString* newCaptchaUrl = [CaptchaResetter newCaptchaImageUrlFromOldUrl:self.captchaUrl andNewId:self.captchaId];
+                if (newCaptchaUrl) {
+                    self.captchaUrl = newCaptchaUrl;
+                    [self showImageForCaptcha];
+                }
+            }
+            break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                [self fadeAlert];
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                break;
+        }
     }
+}
+
+- (void)showImageForCaptcha {
+    // If the server said a captcha was required, present the captcha image.
+    MWKArticle* article = self.section.article;
+    [UIView animateWithDuration:0.2f animations:^{
+        [self revealCaptcha];
+
+        [self.captchaViewController.captchaTextBox performSelector:@selector(becomeFirstResponder)
+                                                        withObject:nil
+                                                        afterDelay:0.4f];
+
+        self.captchaViewController.captchaImageView.image = nil;
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            NSURL* captchaImageUrl = [NSURL URLWithString:
+                                      [NSString stringWithFormat:@"https://%@.m.%@%@", article.site.language, article.site.domain, self.captchaUrl]
+                                     ];
+
+            UIImage* captchaImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:captchaImageUrl]];
+
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                self.captchaViewController.captchaTextBox.text = @"";
+                self.captchaViewController.captchaImageView.image = captchaImage;
+                [self.view layoutIfNeeded];
+            });
+        });
+    } completion:^(BOOL done){
+    }];
 }
 
 - (void)preview {
@@ -703,12 +741,6 @@ typedef enum {
                                                                         views:views]];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"Preview_Captcha_Embed"]) {
-        self.captchaViewController = (CaptchaViewController*)[segue destinationViewController];
-    }
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField*)textField {
     if (textField == self.captchaViewController.captchaTextBox) {
         [self save];
@@ -717,9 +749,12 @@ typedef enum {
 }
 
 - (void)reloadCaptchaPushed:(id)sender {
-    // Send a bad captcha response to get a new captcha image.
     self.captchaViewController.captchaTextBox.text = @"";
-    [self save];
+    [self showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) type:ALERT_TYPE_TOP duration:1];
+    [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager.operationQueue cancelAllOperations];
+    (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
+                                                    withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
+                                             thenNotifyDelegate:self];
 }
 
 - (void)revealCaptcha {
@@ -741,7 +776,7 @@ typedef enum {
 
     [UIView commitAnimations];
 
-    ROOT.topMenuViewController.navBarMode = NAVBAR_MODE_EDIT_WIKITEXT_CAPTCHA;
+    self.mode = PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA;
 
     [self highlightCaptchaSubmitButton:NO];
 
@@ -753,18 +788,5 @@ typedef enum {
 - (void)captchaTextFieldDidChange:(UITextField*)textField {
     [self highlightCaptchaSubmitButton:(textField.text.length == 0) ? NO : YES];
 }
-
-//    BOOL userIsloggedIn = [SessionSingleton sharedInstance].keychainCredentials.userName ? YES : NO;
-
-/*
-   #pragma mark - Navigation
-
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-   {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-   }
- */
 
 @end

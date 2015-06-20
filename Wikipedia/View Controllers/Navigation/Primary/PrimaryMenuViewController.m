@@ -209,12 +209,12 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
         break;
         case PRIMARY_MENU_ITEM_RANDOM: {
             //[self showAlert:MWLocalizedString(@"fetching-random-article", nil) type:ALERT_TYPE_TOP duration:-1];
-            [[WMFArticlePresenter sharedInstance] presentRandomArticleThen:nil];
+            [[WMFArticlePresenter sharedInstance] presentRandomArticle];
         }
         break;
         case PRIMARY_MENU_ITEM_TODAY: {
             //[self showAlert:MWLocalizedString(@"fetching-today-article", nil) type:ALERT_TYPE_TOP duration:-1];
-            [[WMFArticlePresenter sharedInstance] presentTodaysArticleThen:nil];
+            [[WMFArticlePresenter sharedInstance] presentTodaysArticle];
         }
         break;
         case PRIMARY_MENU_ITEM_RECENT:

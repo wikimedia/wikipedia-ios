@@ -98,8 +98,6 @@
     userDataStore = [SessionSingleton sharedInstance].userDataStore;
     historyList   = userDataStore.historyList;
 
-    self.navigationItem.hidesBackButton = YES;
-
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
 
@@ -337,8 +335,7 @@
     MWKHistoryEntry* historyEntry = array[indexPath.row];
 
     [[WMFArticlePresenter sharedInstance] presentArticleWithTitle:historyEntry.title
-                                                  discoveryMethod:historyEntry.discoveryMethod
-                                                             then:nil];
+                                                  discoveryMethod:historyEntry.discoveryMethod];
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -473,7 +470,7 @@
 
     [self setEmptyOverlayAndTrashIconVisibility];
 
-    [[WMFArticlePresenter sharedInstance] presentTodaysArticleThen:nil];
+    [[WMFArticlePresenter sharedInstance] presentTodaysArticle];
 }
 
 - (void)setEmptyOverlayAndTrashIconVisibility {

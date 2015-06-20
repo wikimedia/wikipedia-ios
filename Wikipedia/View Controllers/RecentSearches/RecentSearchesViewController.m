@@ -10,10 +10,6 @@
 #import "WikiGlyph_Chars.h"
 #import "WikipediaAppUtils.h"
 #import "NSArray+Predicate.h"
-#import "TopMenuTextFieldContainer.h"
-#import "TopMenuTextField.h"
-#import "TopMenuViewController.h"
-#import "RootViewController.h"
 #import "UIViewController+HideKeyboard.h"
 #import "UIView+TemporaryAnimatedXF.h"
 
@@ -252,6 +248,9 @@
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+//TODO: repair the commented out code below to work with the 5.0 search text box.
+    NSAssert(NO, @"Fix this!");
+/*
     TopMenuTextFieldContainer* textFieldContainer =
         [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
 
@@ -265,6 +264,7 @@
                         then:^{
         [textFieldContainer.textField sendActionsForControlEvents:UIControlEventEditingChanged];
     }];
+ */
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {

@@ -8,12 +8,8 @@
 #import "UIViewController+Alert.h"
 #import "NSString+Extras.h"
 #import "UIViewController+HideKeyboard.h"
-#import "CenterNavController.h"
 #import "SearchResultFetcher.h"
 #import "ThumbnailFetcher.h"
-#import "TopMenuViewController.h"
-#import "TopMenuTextFieldContainer.h"
-#import "TopMenuTextField.h"
 #import "SearchDidYouMeanButton.h"
 #import "SearchMessageLabel.h"
 #import "RecentSearchesViewController.h"
@@ -162,9 +158,8 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 
     scrollViewDragBeganVerticalOffset_ = 0.0f;
 
-    self.searchResults                  = @[];
-    self.searchSuggestion               = nil;
-    self.navigationItem.hidesBackButton = YES;
+    self.searchResults    = @[];
+    self.searchSuggestion = nil;
 
     // Register the search results cell for reuse
     [self.searchResultsTable registerNib:[UINib nibWithNibName:@"SearchResultPrototypeView" bundle:nil] forCellReuseIdentifier:kWMFSearchCellID];
@@ -199,12 +194,16 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 }
 
 - (void)didYouMeanButtonPushed {
+//TODO: repair the commented out code below to work with the 5.0 search text box.
+    NSAssert(NO, @"Fix this!");
+/*
     [self.didYouMeanButton hide];
     TopMenuTextFieldContainer* textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
     textFieldContainer.textField.text = self.searchSuggestion;
     self.searchString                 = self.searchSuggestion;
     [self searchAfterDelay:@0.0f reason:SEARCH_REASON_DID_YOU_MEAN_TAPPED];
     [self.searchFunnel logSearchDidYouMean];
+ */
 }
 
 - (void)observeValueForKeyPath:(NSString*)keyPath
@@ -658,8 +657,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     title = [title wmf_stringByReplacingUndrescoresWithSpaces];
 
     [[WMFArticlePresenter sharedInstance] presentArticleWithTitle:[[SessionSingleton sharedInstance].searchSite titleWithString:title]
-                                                  discoveryMethod:MWKHistoryDiscoveryMethodSearch
-                                                             then:nil];
+                                                  discoveryMethod:MWKHistoryDiscoveryMethodSearch];
 }
 
 - (void)doneTapped {

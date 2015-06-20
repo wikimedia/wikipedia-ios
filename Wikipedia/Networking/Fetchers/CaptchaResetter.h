@@ -17,4 +17,7 @@ typedef NS_ENUM (NSInteger, CaptchaResetterErrorType) {
 - (instancetype)initAndResetCaptchaForDomain:(NSString*)domain
                                  withManager:(AFHTTPRequestOperationManager*)manager
                           thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
+
++ (NSString*)newCaptchaImageUrlFromOldUrl:(NSString*)oldUrl andNewId:(NSString*)newId;
+
 @end

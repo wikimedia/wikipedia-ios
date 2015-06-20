@@ -17,13 +17,14 @@
 #import "UICollectionViewCell+DynamicCellHeight.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "WMFArticlePresenter.h"
+#import <CoreLocation/CoreLocation.h>
 
 #define TABLE_CELL_ID @"NearbyResultCollectionCell"
 
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 
-@interface NearbyViewController ()
+@interface NearbyViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, FetchFinishedDelegate>
 
 @property (strong, nonatomic) NSArray* nearbyDataArray;
 @property (strong, nonatomic) IBOutlet UICollectionView* collectionView;
@@ -80,8 +81,7 @@
 
     [[WMFArticlePresenter sharedInstance] presentArticleWithTitle:[[SessionSingleton sharedInstance].searchSite
                                                                    titleWithString:rowData[@"title"]]
-                                                  discoveryMethod:MWKHistoryDiscoveryMethodSearch
-                                                             then:nil];
+                                                  discoveryMethod:MWKHistoryDiscoveryMethodSearch];
 }
 
 - (instancetype)initWithCoder:(NSCoder*)coder {

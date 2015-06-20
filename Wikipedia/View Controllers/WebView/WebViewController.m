@@ -19,6 +19,12 @@
 #import "UIWebView+WMFSuppressSelection.h"
 #import "WMFArticlePresenter.h"
 
+typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
+    WMFWebViewAlertZeroWebPage,
+    WMFWebViewAlertZeroCharged,
+    WMFWebViewAlertZeroInterstitial
+};
+
 @interface WebViewController () <LanguageSelectionDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem* buttonTOC;
@@ -34,6 +40,7 @@
 @property (strong, nonatomic) UIPopoverController* popover;
 @property (strong, nonatomic) WMFShareFunnel* shareFunnel;
 @property (strong, nonatomic) WMFShareOptionsViewController* shareOptionsViewController;
+@property (strong, nonatomic) NSString* wikipediaZeroLearnMoreExternalUrl;
 
 @end
 
@@ -73,10 +80,6 @@
 
 - (BOOL)prefersTopNavigationHidden {
     return [self shouldShowOnboarding];
-}
-
-- (NavBarMode)navBarMode {
-    return NAVBAR_MODE_DEFAULT;
 }
 
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
@@ -497,8 +500,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 - (void)showSectionEditor {
     SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
     sectionEditVC.section = self.session.currentArticle.sections[self.sectionToEditId];
-    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:sectionEditVC];
-    [self presentViewController:nc animated:YES completion:nil];
+    [self.navigationController pushViewController:sectionEditVC animated:YES];
 }
 
 - (void)searchFieldBecameFirstResponder {
@@ -938,6 +940,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                                            cancelButtonTitle:MWLocalizedString(@"zero-interstitial-cancel", nil)
                                            otherButtonTitles:MWLocalizedString(@"zero-interstitial-continue", nil)
                                            , nil];
+                    dialog.tag = WMFWebViewAlertZeroInterstitial;
                     [dialog show];
                 } else {
                     NSURL* url = [NSURL URLWithString:href];
@@ -1037,14 +1040,16 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     return _bridge;
 }
 
-#pragma mark History
+/*
+   #pragma mark History
 
-- (void)textFieldDidBeginEditing:(UITextField*)textField {
+   - (void)textFieldDidBeginEditing:(UITextField*)textField {
     // Ensure the web VC is the top VC.
-    [ROOT popToViewController:self animated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];;
 
     [self fadeAlert];
-}
+   }
+ */
 
 #pragma Saved Pages
 
@@ -1338,82 +1343,18 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     //[self downloadAssetsFilesIfNecessary];
 
-    /*
-       OnboardingViewController *onboardingVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"OnboardingViewController"];
-       [self presentViewController:onboardingVC animated:YES completion:^{}];
-     */
-
-    /*
-       AccountCreationViewController *createAcctVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"AccountCreationViewController"];
-
-       [ROOT pushViewController:createAcctVC animated:YES];
-     */
-
     //DataHousekeeping *dataHouseKeeping = [[DataHousekeeping alloc] init];
     //[dataHouseKeeping performHouseKeeping];
 
     // Do not remove the following commented toggle. It's for testing W0 stuff.
     //[self.session.zeroConfigState toggleFakeZeroOn];
 
-    //[self toggleImageSheet];
 
     //ReferencesVC *referencesVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"ReferencesVC"];
     //[self presentViewController:referencesVC animated:YES completion:^{}];
 
     //NSLog(@"articleFetchManager.operationCount = %lu", (unsigned long)[QueuesSingleton sharedInstance].articleFetchManager.operationQueue.operationCount);
 }
-
-#if DEBUG
-- (void)toggleImageSheet {
-    // Quick hack for confirming images for article have routed properly to core data store.
-    // To do this for real, probably need to make separate view controller - could still present
-    // images using save autolayout stacking as "topActionSheetShowWithViews", but would need to
-    // determine which UIImageViews were scrolled offscreen and nil their image property out
-    // until they're not offscreen. Could do separate UIImageView class to make this easier - it
-    // would have a property with the image's core data ImageData NSManagedObjectID. That way
-    // it could simply re-retrieve its image data whenever it needed to.
-    static BOOL showImageSheet = NO;
-    showImageSheet = !showImageSheet;
-
-    if (showImageSheet) {
-        MWKArticle* article   = self.session.currentArticle;
-        NSMutableArray* views = @[].mutableCopy;
-        for (MWKSection* section in article.sections) {
-            int index = 0;
-            for (MWKImage* image in [section.images uniqueLargestVariants]) {
-                NSString* title = (section.line) ? section.line : article.title.text;
-                //NSLog(@"\n\n\nsection image = %@ \n\tsection = %@ \n\tindex in section = %@ \n\timage size = %@", sectionImage.image.fileName, sectionTitle, sectionImage.index, sectionImage.image.dataSize);
-                if (index == 0) {
-                    PaddedLabel* label = [[PaddedLabel alloc] init];
-                    label.padding       = UIEdgeInsetsMake(20, 20, 10, 20);
-                    label.numberOfLines = 0;
-                    label.textColor     = [UIColor darkGrayColor];
-                    label.lineBreakMode = NSLineBreakByWordWrapping;
-                    label.font          = [UIFont systemFontOfSize:30];
-                    label.textAlignment = NSTextAlignmentCenter;
-                    title               = [title wmf_stringByRemovingHTML];
-                    label.text          = title;
-                    [views addObject:label];
-                }
-                if (image.isCached) {
-                    UIImage* img           = [image asUIImage];
-                    UIImageView* imageView = [[UIImageView alloc] initWithImage:img];
-                    imageView.contentMode = UIViewContentModeScaleAspectFit;
-                    [views addObject:imageView];
-                    UIView* spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 5)];
-                    [views addObject:spacerView];
-                    index++;
-                }
-            }
-        }
-        NSLog(@"%@", views);
-        [NAV topActionSheetShowWithViews:views orientation:TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL];
-    } else {
-        [NAV topActionSheetHide];
-    }
-}
-
-#endif
 
 - (void)updateHistoryDateVisitedForArticleBeingNavigatedFrom {
     // This is a quick hack to help with the natural back/forward behavior of the case
@@ -1454,14 +1395,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     [self retrieveArticleForPageTitle:title
                       discoveryMethod:discoveryMethod];
-
-    /*
-       // Reset the search field to its placeholder text after 5 seconds.
-       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-        if (!textFieldContainer.textField.isFirstResponder) textFieldContainer.textField.text = @"";
-       });
-     */
 }
 
 - (void)reloadCurrentArticleFromNetwork {
@@ -1605,8 +1538,11 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
             {
                 NSDictionary* banner = (NSDictionary*)fetchedData;
                 if (banner) {
-                    TopMenuTextFieldContainer* textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-                    textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
+//TODO: use this notification to update the search box's placeholder text when zero rated
+//                    TopMenuTextFieldContainer* textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
+//                    textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
+
+
 
                     //[self showAlert:title type:ALERT_TYPE_TOP duration:2];
                     NSString* title = banner[@"message"];
@@ -1615,7 +1551,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                     self.zeroStatusLabel.textColor       = banner[@"foreground"];
                     self.zeroStatusLabel.backgroundColor = banner[@"background"];
 
-                    [NAV promptFirstTimeZeroOnWithTitleIfAppropriate:title];
+                    [self promptFirstTimeZeroOnWithTitleIfAppropriate:title];
                 }
             }
             break;
@@ -1983,8 +1919,12 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                                                                     withManager:[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager
                                                              thenNotifyDelegate:self];
     } else {
-        TopMenuTextFieldContainer* textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-        textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text", nil);
+//TODO: use this notification to update the search box's placeholder text when zero rated
+//        TopMenuTextFieldContainer* textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
+//        textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text", nil);
+
+
+
         NSString* warnVerbiage = MWLocalizedString(@"zero-charged-verbiage", nil);
 
         CGFloat duration = 5.0f;
@@ -1999,14 +1939,25 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
             self.zeroStatusLabel.padding = UIEdgeInsetsZero;
         });
 
-        [NAV promptZeroOff];
+        [self promptZeroOff];
     }
 }
 
 - (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (1 == buttonIndex) {
-        NSURL* url = [NSURL URLWithString:self.externalUrl];
-        [[UIApplication sharedApplication] openURL:url];
+    switch (alertView.tag) {
+        case WMFWebViewAlertZeroCharged:
+        case WMFWebViewAlertZeroWebPage:
+            if (1 == buttonIndex) {
+                NSURL* url = [NSURL URLWithString:self.wikipediaZeroLearnMoreExternalUrl];
+                [[UIApplication sharedApplication] openURL:url];
+            }
+            break;
+        case WMFWebViewAlertZeroInterstitial:
+            if (1 == buttonIndex) {
+                NSURL* url = [NSURL URLWithString:self.externalUrl];
+                [[UIApplication sharedApplication] openURL:url];
+            }
+            break;
     }
 }
 
@@ -2028,11 +1979,11 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 - (BOOL)refreshShouldShow {
     return YES;
-    return (![self tocDrawerIsOpen])
-           &&
-           (self.session.currentArticle != nil)
-           &&
-           (!ROOT.isAnimatingTopAndBottomMenuHidden);
+//    return (![self tocDrawerIsOpen])
+//           &&
+//           (self.session.currentArticle != nil)
+//           &&
+//           (!ROOT.isAnimatingTopAndBottomMenuHidden);
 }
 
 #pragma mark Bottom menu bar
@@ -2458,6 +2409,36 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
          discoveryMethod:MWKHistoryDiscoveryMethodSearch];
 
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma Wikipedia Zero alert dialogs
+
+- (void)promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString*)title {
+    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce) {
+        [[SessionSingleton sharedInstance].zeroConfigState setZeroOnDialogShownOnce];
+        self.wikipediaZeroLearnMoreExternalUrl = MWLocalizedString(@"zero-webpage-url", nil);
+        UIAlertView* dialog = [[UIAlertView alloc]
+                               initWithTitle:title
+                                         message:MWLocalizedString(@"zero-learn-more", nil)
+                                        delegate:self
+                               cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
+                               otherButtonTitles:MWLocalizedString(@"zero-learn-more-learn-more", nil)
+                               , nil];
+        dialog.tag = WMFWebViewAlertZeroWebPage;
+        [dialog show];
+    }
+}
+
+- (void)promptZeroOff {
+    UIAlertView* dialog = [[UIAlertView alloc]
+                           initWithTitle:MWLocalizedString(@"zero-charged-verbiage", nil)
+                                     message:MWLocalizedString(@"zero-charged-verbiage-extended", nil)
+                                    delegate:self
+                           cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
+                           otherButtonTitles:nil
+                           , nil];
+    dialog.tag = WMFWebViewAlertZeroCharged;
+    [dialog show];
 }
 
 @end

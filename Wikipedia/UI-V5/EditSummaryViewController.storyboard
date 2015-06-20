@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rJv-oV-2mv">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <development version="5100" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <scenes>
+        <!--Edit Summary View Controller-->
+        <scene sceneID="wHX-n3-UOm">
+            <objects>
+                <viewController restorationIdentifier="EditSummaryViewController" storyboardIdentifier="EditSummaryViewController" id="rJv-oV-2mv" customClass="EditSummaryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NGG-Fq-knG"/>
+                        <viewControllerLayoutGuide type="bottom" id="a2x-zq-pcy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fDF-LW-sbk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ub0-Zs-IUe" userLabel="Horizontal Line">
+                                <rect key="frame" x="0.0" y="114" width="320" height="1"/>
+                                <color key="backgroundColor" white="0.84999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Xx4-4t-Xde"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.74999999999999978" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25000000000000006" adjustsLetterSpacingToFitWidth="YES" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XkB-Xo-Xq0" userLabel="Autofit placeholder label">
+                                <rect key="frame" x="28" y="47" width="272" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="0.40000000000000002" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="zbB-Ch-Nmn">
+                                <rect key="frame" x="20" y="47" width="280" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Ta2-Ww-1GE"/>
+                                </constraints>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zbB-Ch-Nmn" firstAttribute="leading" secondItem="XkB-Xo-Xq0" secondAttribute="leading" constant="-8" id="7nx-9C-TuI"/>
+                            <constraint firstItem="zbB-Ch-Nmn" firstAttribute="top" secondItem="XkB-Xo-Xq0" secondAttribute="top" id="Ccm-9a-shU"/>
+                            <constraint firstItem="zbB-Ch-Nmn" firstAttribute="leading" secondItem="fDF-LW-sbk" secondAttribute="leading" constant="20" symbolic="YES" id="DDL-Qp-VzY"/>
+                            <constraint firstItem="Ub0-Zs-IUe" firstAttribute="leading" secondItem="fDF-LW-sbk" secondAttribute="leading" id="Ijy-t7-Wqd"/>
+                            <constraint firstItem="Ub0-Zs-IUe" firstAttribute="top" secondItem="zbB-Ch-Nmn" secondAttribute="bottom" constant="27" id="SRP-0O-Du6"/>
+                            <constraint firstAttribute="trailing" secondItem="Ub0-Zs-IUe" secondAttribute="trailing" id="U9z-3z-BFi"/>
+                            <constraint firstItem="zbB-Ch-Nmn" firstAttribute="top" secondItem="NGG-Fq-knG" secondAttribute="bottom" constant="27" id="kYA-bA-BLI"/>
+                            <constraint firstItem="zbB-Ch-Nmn" firstAttribute="bottom" secondItem="XkB-Xo-Xq0" secondAttribute="bottom" id="lzE-ZA-GLa"/>
+                            <constraint firstAttribute="trailing" secondItem="zbB-Ch-Nmn" secondAttribute="trailing" constant="20" symbolic="YES" id="o7I-HE-nM6"/>
+                            <constraint firstItem="zbB-Ch-Nmn" firstAttribute="trailing" secondItem="XkB-Xo-Xq0" secondAttribute="trailing" id="yu9-O7-vx0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bottomLineHeightConstraint" destination="Xx4-4t-Xde" id="Gc9-c3-JVo"/>
+                        <outlet property="placeholderLabel" destination="XkB-Xo-Xq0" id="HKw-dG-tTT"/>
+                        <outlet property="summaryTextField" destination="zbB-Ch-Nmn" id="4Ju-Yr-tC6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bDT-Rp-A7C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="144" y="-9212"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

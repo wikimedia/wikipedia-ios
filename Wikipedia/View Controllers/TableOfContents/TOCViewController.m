@@ -76,8 +76,7 @@
     // bottom. The "limitVerticalScrolling:" method depends on this.
     self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 2000, 0);
 
-    self.scrollContainer                = nil;
-    self.navigationItem.hidesBackButton = YES;
+    self.scrollContainer = nil;
 
     UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tocTapped:)];
     [self.view addGestureRecognizer:tap];

@@ -58,8 +58,6 @@
     }];
     self.navigationItem.leftBarButtonItem = xButton;
 
-    self.navigationItem.hidesBackButton = YES;
-
     self.pageHistoryDataArray = @[].mutableCopy;
 
     self.tableView.tableFooterView                 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 10.0 * MENUS_SCALE_MULTIPLIER)];

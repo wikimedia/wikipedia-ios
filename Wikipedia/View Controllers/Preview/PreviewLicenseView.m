@@ -5,7 +5,6 @@
 #import "WikipediaAppUtils.h"
 #import "NSString+FormattedAttributedString.h"
 #import "WikiGlyph_Chars.h"
-#import "RootViewController.h"
 #import "Defines.h"
 #import "NSObject+ConstraintsScale.h"
 #import "UIFont+WMFStyle.h"
@@ -110,7 +109,7 @@ enum {
 
 - (void)termsLicenseLabelTapped:(UITapGestureRecognizer*)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        [self.sheet showInView:ROOT.view];
+        [self.sheet showInView:self.superview];
     }
 }
 

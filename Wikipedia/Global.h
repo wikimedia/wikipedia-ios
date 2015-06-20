@@ -12,12 +12,6 @@
 
 #import <libextobjc/EXTScope.h>
 
-#import "RootViewController.h"
-#import "CenterNavController.h"
-
-#define ROOT ((RootViewController*)[UIApplication sharedApplication].delegate.window.rootViewController)
-#define NAV ROOT.centerNavController
-
 #import "MediaWikiKit.h"
 #import "WMFArticlePresenter.h"
 

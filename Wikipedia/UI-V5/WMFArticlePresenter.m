@@ -18,63 +18,42 @@
     return (UIViewController*)[[UIApplication sharedApplication] delegate].window.rootViewController;
 }
 
-- (void)presentWebViewControllerThenPerformBlock:(void (^)(WebViewController*))block {
+// Ensures the web view is foremost. Adds web view to nav stack if none found. Returns web view controller.
+- (WebViewController*)presentWebViewController {
     WebViewController* webVC = (WebViewController*)[WMFArticlePresenter popToFirstViewControllerOfClass:[WebViewController class]];
-    if (webVC) {
-        if (block) {
-            block(webVC);
-        }
-    } else {
+    if (!webVC) {
         webVC = [WebViewController wmf_initialViewControllerFromClassStoryboard];
         UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:webVC];
-        [[WMFArticlePresenter root] presentViewController:nc animated:YES completion:^{
-            if (block) {
-                block(webVC);
-            }
-        }];
+        [[WMFArticlePresenter root] presentViewController:nc animated:YES completion:nil];
     }
+    return webVC;
+}
+
+- (void)presentCurrentArticle {
+    [self presentWebViewController];
+}
+
+- (void)presentRandomArticle {
+    [[self presentWebViewController] loadRandomArticle];
+}
+
+- (void)presentTodaysArticle {
+    [[self presentWebViewController] loadTodaysArticle];
 }
 
 - (void)presentArticleWithTitle:(MWKTitle*)title
-                discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
-                           then:(void (^)())block {
-    [self presentWebViewControllerThenPerformBlock:^(WebViewController* webVC){
-        [webVC navigateToPage:title discoveryMethod:discoveryMethod];
-        if (block) {
-            block();
-        }
-    }];
-}
-
-- (void)presentRandomArticleThen:(void (^)())block {
-    [self presentWebViewControllerThenPerformBlock:^(WebViewController* webVC){
-        [webVC loadRandomArticle];
-        if (block) {
-            block();
-        }
-    }];
-}
-
-- (void)presentTodaysArticleThen:(void (^)())block {
-    [self presentWebViewControllerThenPerformBlock:^(WebViewController* webVC){
-        [webVC loadTodaysArticle];
-        if (block) {
-            block();
-        }
-    }];
-}
-
-- (void)presentWebViewThen:(void (^)())block {
-    [self presentWebViewControllerThenPerformBlock:^(WebViewController* webVC){
-        if (block) {
-            block();
-        }
-    }];
+                discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+    [[self presentWebViewController] navigateToPage:title discoveryMethod:discoveryMethod];
 }
 
 - (void)loadTodaysArticle {
     WebViewController* webVC = (WebViewController*)[WMFArticlePresenter firstViewControllerOnNavStackOfClass:[WebViewController class]];
     [webVC loadTodaysArticle];
+}
+
+- (void)reloadCurrentArticleFromNetwork {
+    WebViewController* webVC = (WebViewController*)[WMFArticlePresenter firstViewControllerOnNavStackOfClass:[WebViewController class]];
+    [webVC reloadCurrentArticleFromNetwork];
 }
 
 // Pop to and return first view controller of class found. Returns nil if no view controller of class found.
@@ -85,16 +64,9 @@
         if (vc.presentedViewController) {
             [vc dismissViewControllerAnimated:YES completion:nil];
         }
-        if ([vc.presentingViewController isKindOfClass:[UINavigationController class]]) {
-            UINavigationController* navVC = (UINavigationController*)vc.presentingViewController;
-
+        if (vc.navigationController) {
             // Pop vc to top of navigation controller stack.
-            [navVC popToViewController:vc animated:NO];
-
-            // Dismiss any view controllers presented by the vc's navigation controller.
-            if (navVC.presentedViewController) {
-                [navVC dismissViewControllerAnimated:YES completion:nil];
-            }
+            [vc.navigationController popToViewController:vc animated:YES];
         }
     }
     return vc;
