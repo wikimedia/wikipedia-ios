@@ -20,6 +20,7 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "WMFArticlePresenter.h"
+#import "UIView+WMFRTLMirroring.h"
 
 static NSString* const kSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesDidShowCancelRefreshAlert";
 static NSString* const kSavedPagesCellID                    = @"SavedPagesResultCell";
@@ -102,6 +103,8 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){

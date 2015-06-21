@@ -18,6 +18,7 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "WMFArticlePresenter.h"
 #import <CoreLocation/CoreLocation.h>
+#import "UIView+WMFRTLMirroring.h"
 
 #define TABLE_CELL_ID @"NearbyResultCollectionCell"
 
@@ -327,6 +328,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){

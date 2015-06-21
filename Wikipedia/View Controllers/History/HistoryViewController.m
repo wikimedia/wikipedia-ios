@@ -14,6 +14,7 @@
 #import "SessionSingleton.h"
 #import "UIFont+WMFStyle.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "UIView+WMFRTLMirroring.h"
 
 #define HISTORY_RESULT_HEIGHT (80.0 * MENUS_SCALE_MULTIPLIER)
 #define HISTORY_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
@@ -72,6 +73,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){

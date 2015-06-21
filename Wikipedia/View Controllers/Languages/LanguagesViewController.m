@@ -12,9 +12,9 @@
 #import "MWKLanguageLink.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-
 #import <BlocksKit/BlocksKit.h>
 #import <Masonry/Masonry.h>
+#import "UIView+WMFRTLMirroring.h"
 
 static CGFloat const LanguagesSectionFooterHeight = 10.f;
 
@@ -55,6 +55,8 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){

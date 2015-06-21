@@ -20,6 +20,7 @@
 #import "NearbyViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFArticlePresenter.h"
+#import "UIView+WMFRTLMirroring.h"
 
 #define TABLE_CELL_ID @"PrimaryMenuCell"
 
@@ -55,6 +56,8 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X_WHITE handler:^(id sender){

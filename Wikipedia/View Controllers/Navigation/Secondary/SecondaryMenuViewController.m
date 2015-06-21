@@ -25,6 +25,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "AboutViewController.h"
 #import "WMFArticlePresenter.h"
+#import "UIView+WMFRTLMirroring.h"
 
 #pragma mark - Defines
 
@@ -91,6 +92,8 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){

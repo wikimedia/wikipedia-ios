@@ -5,6 +5,8 @@
 #import "UIControl+BlocksKit.h"
 #import "UIFont+WMFStyle.h"
 #import "UIView+TemporaryAnimatedXF.h"
+#import "WikipediaAppUtils.h"
+#import "UIView+WMFRTLMirroring.h"
 
 @implementation UIButton (WMFGlyph)
 
@@ -70,13 +72,15 @@
             break;
     }
 
+    [self mirrorButton:button ifNecessaryForType:type];
+
     [button bk_addEventHandler:^(UIButton* sender){
         sender.highlighted = !sender.selected; // Prevent annoying flicker.
     } forControlEvents:UIControlEventTouchDown];
 
     [button bk_addEventHandler:^(UIButton* sender){
         sender.highlighted = !sender.selected; // Prevent annoying flicker.
-        [sender animateAndRewindXF:CATransform3DMakeScale(1.25, 1.25, 1.0f)
+        [sender animateAndRewindXF:CATransform3DMakeScale([self xMirroringMultiplierForButtonType:type] * 1.25, 1.25, 1.0f)
                         afterDelay:0.0
                           duration:0.04f
                               then:^{
@@ -87,6 +91,32 @@
     } forControlEvents:UIControlEventTouchUpInside];
 
     return button;
+}
+
++ (void)mirrorButton:(UIButton*)button ifNecessaryForType:(WMFButtonType)type {
+    button.transform = CGAffineTransformMakeScale(1.0* [self xMirroringMultiplierForButtonType:type], 1.0);
+}
+
++ (CGFloat)xMirroringMultiplierForButtonType:(WMFButtonType)type {
+    if (![WikipediaAppUtils isDeviceLanguageRTL] || ![UIView wmf_shouldMirrorIfDeviceLanguageRTL]) {
+        return 1.0;
+    }
+    return [self shouldMirrorButtonType:type] ? 1.0 : -1.0;
+}
+
++ (BOOL)shouldMirrorButtonType:(WMFButtonType)type {
+    switch (type) {
+        case WMF_BUTTON_W:
+        case WMF_BUTTON_X:
+        case WMF_BUTTON_X_WHITE:
+        case WMF_BUTTON_TRANSLATE:
+        case WMF_BUTTON_MAGNIFY:
+        case WMF_BUTTON_RELOAD:
+            return NO;
+            break;
+        default:
+            return YES;
+    }
 }
 
 typedef NS_ENUM (NSInteger, WMFGlyphs) {

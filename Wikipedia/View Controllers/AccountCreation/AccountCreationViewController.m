@@ -21,6 +21,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFArticlePresenter.h"
 #import "SectionEditorViewController.h"
+#import "UIView+WMFRTLMirroring.h"
 
 @interface AccountCreationViewController ()
 
@@ -93,6 +94,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){

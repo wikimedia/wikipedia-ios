@@ -22,6 +22,7 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "UIView+WMFRTLMirroring.h"
 
 @interface LoginViewController (){
 }
@@ -57,6 +58,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){
@@ -120,7 +123,7 @@
         MWLocalizedString(@"navbar-title-mode-login-and-save", nil)
        ;
      */
-    //self.titleLabel.text = MWLocalizedString(@"navbar-title-mode-login", nil);
+    self.titleLabel.text = MWLocalizedString(@"navbar-title-mode-login", nil);
 
     self.usernameField.textAlignment = NSTextAlignmentNatural;
     self.passwordField.textAlignment = NSTextAlignmentNatural;
