@@ -11,14 +11,13 @@
 // Author: Qiyue2001
 // Author: 王庭茂
 
+"languages-title" = "语言";
 "article-languages-label" = "选择语言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "条目语言载入中...";
 "article-languages-filter-placeholder" = "语言过滤器";
 "article-read-more-title" = "阅读更多";
 "article-unable-to-load-section" = "无法载入此段落。请尝试刷新条目以查看问题是否解决。";
-"article-languages-preferred-section-header" = "首选";
-"article-languages-other-section-header" = "其他语言";
 "info-box-title" = "快速预览";
 "info-box-close-text" = "关闭";
 "table-title-other" = "更多信息";

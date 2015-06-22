@@ -1,11 +1,12 @@
 // Messages for Danish (dansk)
 // Exported from translatewiki.net
+// Author: Anders Feder
 // Author: Christian List
 // Author: Gorbi
 
 "21c-U6-yfo.normalTitle" = "Vis en anden captcha";
 "5cT-2Y-0Ie.placeholder" = "Brugernavn";
-"GiD-Rj-wb7.text" = "Gemte sider er temmelig praktiske. Tænk på dem som bogmærker, som du kan læse, selv når du er offline.";
+"GiD-Rj-wb7.text" = "Gemte sider er ret seje. Tænk på dem som bogmærker, som du kan læse, selv når du er offline.";
 "LfM-01-aCF.text" = "Forhåndsvis";
 "P6J-IE-CiO.text" = "Spring over";
 "PCr-0J-fBj.placeholder" = "Adgangskode";
@@ -21,4 +22,5 @@
 "kVb-lx-d6C.placeholder" = "Adgangskode";
 "mAk-1N-jPC.placeholder" = "Brugernavn";
 "rKI-nq-3p7.placeholder" = "E-mailadresse (valgfri)";
+"wVn-n7-pdy.text" = "Sprognavn:";
 "wkl-j8-wLX.text" = "Opret konto";

@@ -5,8 +5,6 @@
 // Author: Tacsipacsi
 
 "article-languages-label" = "Nyelvválasztás";
-"article-languages-preferred-section-header" = "Elsődleges";
-"article-languages-other-section-header" = "Más nyelvek";
 "history-label" = "Legutóbbi";
 "history-section-today" = "Ma";
 "history-section-yesterday" = "Tegnap";

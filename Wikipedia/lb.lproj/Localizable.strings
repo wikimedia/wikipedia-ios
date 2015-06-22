@@ -2,13 +2,13 @@
 // Exported from translatewiki.net
 // Author: Robby
 
+"languages-title" = "Sproochen";
 "article-languages-label" = "Sprooch eraussichen";
 "article-languages-cancel" = "Ofbriechen";
 "article-languages-downloading" = "Luede vun de Sprooche vum Artikel...";
 "article-languages-filter-placeholder" = "Sproochfilter";
 "article-read-more-title" = "Liest méi";
 "article-unable-to-load-section" = "Dësen Abschnitt konnt net geluede ginn. Probéiert fir den Artikel z'aktualiséieren an ze kucken ob dat de Problem léist.";
-"article-languages-other-section-header" = "Aner Sproochen";
 "info-box-title" = "Séier Fakten";
 "info-box-close-text" = "Zoumaachen";
 "table-title-other" = "Méi Informatiounen";

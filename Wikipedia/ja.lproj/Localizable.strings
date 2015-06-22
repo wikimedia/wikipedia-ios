@@ -3,17 +3,20 @@
 // Author: Barrel0116
 // Author: Dude1717
 // Author: Fryed-peach
+// Author: Otokoume
 // Author: Shirayuki
 // Author: SkyDaisy9
 // Author: Surgical21
 // Author: Takot
 // Author: 아라
 
+"languages-title" = "言語";
 "article-languages-label" = "言語を選択";
 "article-languages-cancel" = "キャンセル";
 "article-languages-downloading" = "言語リストを取得中...";
 "article-languages-filter-placeholder" = "言語の絞り込み";
 "article-read-more-title" = "さらに読む";
+"article-unable-to-load-section" = "この節を読み込むことができません。問題が解決するかどうかの確認のために記事を更新してみてください。";
 "info-box-title" = "基本データ";
 "info-box-close-text" = "閉じる";
 "table-title-other" = "さらに見る";
@@ -96,7 +99,9 @@
 "search-recent-clear-cancel" = "キャンセル";
 "search-recent-clear-delete-all" = "すべて削除";
 "main-menu-title" = "その他";
+"main-menu-heading-about" = "このアプリについて";
 "main-menu-language-title" = "$1版ウィキペディアを検索";
+"main-menu-faq" = "よくある質問";
 "main-menu-language-toggle-show" = "言語を表示";
 "main-menu-language-toggle-hide" = "言語を非表示";
 "main-menu-language-selection-saved" = "言語の選択を保存しました";
@@ -236,6 +241,7 @@
 "menu-share-accessibility-label" = "共有";
 "menu-more-accessibility-label" = "その他の設定";
 "menu-trash-accessibility-label" = "削除";
+"menu-language-accessibility-label" = "言語";
 "nearby-title" = "付近";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";

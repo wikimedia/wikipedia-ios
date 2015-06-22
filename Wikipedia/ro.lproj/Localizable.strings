@@ -2,14 +2,13 @@
 // Exported from translatewiki.net
 // Author: Minisarm
 
+"languages-title" = "Limbi";
 "article-languages-label" = "Alegere limbă";
 "article-languages-cancel" = "Revocare";
 "article-languages-downloading" = "Se încarcă limbile articolului...";
 "article-languages-filter-placeholder" = "Filtru de limbă";
 "article-read-more-title" = "Citiți mai multe";
 "article-unable-to-load-section" = "Această secțiune nu poate fi încărcată. Reîncărcați articolul pentru a vedea dacă problema se rezolvă astfel.";
-"article-languages-preferred-section-header" = "Preferate";
-"article-languages-other-section-header" = "Alte limbi";
 "info-box-title" = "Informații pe scurt";
 "info-box-close-text" = "Închide";
 "table-title-other" = "Mai multe informații";

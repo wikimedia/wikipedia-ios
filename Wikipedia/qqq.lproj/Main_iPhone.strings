@@ -20,11 +20,11 @@
 "gPg-cg-Yjy.placeholder" = "Placeholder for input text on captcha input screen";
 "heA-3K-nhS.text" = "Button label on onboarding screen offering to log in instead of creating account";
 "huU-kO-aYI.text" = "Explanatory text shown on recent pages list when there are no recent pages";
+"ib6-Zk-jUw.text" = "MISSING DESCRIPTION; DO NOT COMMIT FILE YET";
 "jiW-Cg-oL3.text" = "Button label to create account\n{{Identical|Create account}}";
 "kVb-lx-d6C.placeholder" = "Placeholder label for login password field\n{{Identical|Password}}";
 "mAk-1N-jPC.placeholder" = "Placeholder label for login username field\n{{Identical|Username}}";
 "nI1-bn-0Ii.text" = "placeholder text; do not translate\n{{Identical|Label}}";
 "rKI-nq-3p7.placeholder" = "Placeholder text for email field on create account form";
-"wkl-j8-wLX.text" = "Button label to go to Create Account form from Login form\n{{Identical|Create account}}";
-"ib6-Zk-jUw.text" = "MISSING DESCRIPTION; DO NOT COMMIT FILE YET";
 "wVn-n7-pdy.text" = "MISSING DESCRIPTION; DO NOT COMMIT FILE YET";
+"wkl-j8-wLX.text" = "Button label to go to Create Account form from Login form\n{{Identical|Create account}}";

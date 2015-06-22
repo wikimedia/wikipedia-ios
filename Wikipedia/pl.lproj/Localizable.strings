@@ -12,12 +12,12 @@
 // Author: Ty221
 // Author: Wiochman
 
+"languages-title" = "Języki";
 "article-languages-label" = "Wybierz język";
 "article-languages-cancel" = "Anuluj";
 "article-languages-downloading" = "Ładowanie języków artykułu...";
 "article-languages-filter-placeholder" = "Filtr językowy";
 "article-read-more-title" = "Czytaj więcej";
-"article-languages-other-section-header" = "Inne języki";
 "info-box-close-text" = "Zamknij";
 "table-title-other" = "Więcej informacji";
 "history-label" = "Ostatnie";

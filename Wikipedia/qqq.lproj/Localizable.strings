@@ -13,6 +13,7 @@
 // Author: Shirayuki
 // Author: Siebrand
 
+"languages-title" = "MISSING DESCRIPTION; DO NOT COMMIT FILE YET\n{{Identical|Language}}";
 "article-languages-label" = "Header label for per-article language selector screen.\n{{Identical|Choose language}}";
 "article-languages-cancel" = "Button text for dismissing the language selector screen.\n{{Identical|Cancel}}";
 "article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
@@ -280,4 +281,3 @@
 "hockeyapp-alert-privacy" = "Alert dialog button text for HockeyApp privacy policy. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";
-"languages-title" = "MISSING DESCRIPTION; DO NOT COMMIT FILE YET";

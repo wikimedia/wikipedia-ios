@@ -46,7 +46,9 @@
 "search-recent-clear-cancel" = "ناگارل";
 "search-recent-clear-delete-all" = "ټول ړنگول";
 "main-menu-title" = "نور";
+"main-menu-heading-about" = "په اړه";
 "main-menu-language-title" = "د $1 ويکيپېډيا پلټل";
+"main-menu-faq" = "ډ-ځ-پ";
 "main-menu-language-toggle-show" = "ژبې ښکاره کول";
 "main-menu-language-toggle-hide" = "ژبې پټول";
 "main-menu-account-title-logged-out" = "گڼون";
@@ -122,6 +124,7 @@
 "menu-share-accessibility-label" = "شريکول";
 "menu-more-accessibility-label" = "نورې امستنې";
 "menu-trash-accessibility-label" = "ړنگول";
+"menu-language-accessibility-label" = "ژبې";
 "nearby-title" = "نژدې";
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-km" = "$1 کیلومتر";
