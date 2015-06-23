@@ -21,6 +21,7 @@ PODS:
     - CocoaLumberjack/Default
   - HockeySDK (3.6.2)
   - hpple (0.2.0)
+  - KVOController (1.0.3)
   - libextobjc/EXTScope (0.4.1):
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4.1)
@@ -39,6 +40,7 @@ DEPENDENCIES:
   - CocoaLumberjack (~> 2.0.0)
   - HockeySDK (= 3.6.2)
   - hpple (~> 0.2)
+  - KVOController
   - libextobjc/EXTScope (~> 0.4.1)
   - Mantle
   - Masonry (~> 0.6)
@@ -51,6 +53,7 @@ SPEC CHECKSUMS:
   CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
   HockeySDK: 51ade1aff04463137e852797d2eb4dfb2511d6a9
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
+  KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: 967fd31ea0220890b2e76589198996b534bb3fb1
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa

@@ -2546,6 +2546,8 @@
 			isa = PBXGroup;
 			children = (
 				D4BC22B3181E9E6300CAC673 /* empty.png */,
+				0EFB0EF71B31ECCB00D05C08 /* Global.h */,
+				BCD41DD41B1079A600231BB1 /* Wikipedia-Bridging-Header.h */,
 				D4991447181D51DE00E6073C /* AppDelegate.h */,
 				D4991448181D51DE00E6073C /* AppDelegate.m */,
 				0E94AFE81B2096D5000BC5EA /* UI-V5 */,
@@ -2573,8 +2575,6 @@
 				D4EE00BB182445670090790F /* mw-support */,
 				C9180EC118AED30C006C1DCA /* mw-utils */,
 				049566BF18F5F4CB0058EA12 /* Zero */,
-				0EFB0EF71B31ECCB00D05C08 /* Global.h */,
-				BCD41DD41B1079A600231BB1 /* Wikipedia-Bridging-Header.h */,
 			);
 			path = Wikipedia;
 			sourceTree = "<group>";

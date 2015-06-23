@@ -8,6 +8,7 @@
 #import "NSError+WMFExtensions.h"
 
 #import <libextobjc/EXTScope.h>
+#import <KVOController/FBKVOController.h>
 
 #import "MediaWikiKit.h"
 #import "WMFArticlePresenter.h"

@@ -18,7 +18,10 @@ pod 'libextobjc/EXTScope', '~> 0.4.1'
 pod 'BlocksKit/Core', '~> 2.2'
 pod 'BlocksKit/UIKit', '~> 2.2'
 
-# UI
+# KVO
+pod 'KVOController'
+
+# Autolayout
 pod 'Masonry', '~> 0.6'
 
 # Diagnostics
