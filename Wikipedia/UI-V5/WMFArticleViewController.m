@@ -1,6 +1,7 @@
 
 #import "WMFArticleViewController.h"
 #import <Masonry/Masonry.h>
+#import "WMFArticlePresenter.h"
 
 @interface WMFArticleViewController ()
 
@@ -10,6 +11,10 @@
 @end
 
 @implementation WMFArticleViewController
+
+- (IBAction)readButtonTapped:(id)sender {
+    [[WMFArticlePresenter sharedInstance] presentArticleWithTitle:self.article.title discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+}
 
 - (void)setContentTopInset:(CGFloat)contentTopInset {
     if (contentTopInset == _contentTopInset) {

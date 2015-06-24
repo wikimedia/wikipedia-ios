@@ -10,7 +10,6 @@
 
 #import "WMFArticleCardTranstion.h"
 
-#import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 
 @interface WMFArticleListCollectionViewController ()<TGLStackedLayoutDelegate>
@@ -143,18 +142,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
-
-
-
-
-
-
-
-
-
-// Warning! remove this! debugging code for showing web view!
-    [[WMFArticlePresenter sharedInstance] presentCurrentArticle];
 }
 
 - (void)viewDidLayoutSubviews {

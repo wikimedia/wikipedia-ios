@@ -103,8 +103,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }];
 
     UIBarButtonItem* buttonMagnify = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_MAGNIFY handler:^(id sender){
-        //@strongify (self)
-        NSLog(@"TODO: hook this up to search somehow...");
+        @strongify(self)
+        [self dismissViewControllerAnimated : YES completion : nil];
     }];
 
     self.navigationItem.leftBarButtonItems = @[buttonW, buttonMagnify];
