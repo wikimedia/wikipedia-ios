@@ -63,7 +63,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
     [self setupTrackingFooter];
 
     self.bottomNavHeightConstraint.constant = CHROME_MENUS_HEIGHT;
-    
+
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
     self.scrollingToTop = NO;

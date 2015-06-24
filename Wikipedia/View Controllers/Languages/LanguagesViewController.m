@@ -236,9 +236,9 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 #endif
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
     if (PreferredLanguagesSection == indexPath.section) {
-        return PreferredLanguageRowHeight;
+        return PreferredLanguageRowHeight * MENUS_SCALE_MULTIPLIER;
     } else {
-        return OtherLanguageRowHeight;
+        return OtherLanguageRowHeight * MENUS_SCALE_MULTIPLIER;
     }
 }
 
