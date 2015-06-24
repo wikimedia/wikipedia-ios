@@ -76,9 +76,9 @@
         @strongify(self);
         [self.collectionView wmf_setCollectionViewLayout:layout animated:animated alwaysFireCompletion:^(BOOL finished) {
             @strongify(self);
-            if(mode == WMFArticleListModeBottomStacked){
+            if (mode == WMFArticleListModeBottomStacked) {
                 self.collectionView.scrollEnabled = NO;
-            }else{
+            } else {
                 self.collectionView.scrollEnabled = YES;
             }
 

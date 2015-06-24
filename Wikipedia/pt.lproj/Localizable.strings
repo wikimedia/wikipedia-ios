@@ -276,3 +276,9 @@
 "hockeyapp-alert-privacy" = "Privacidade de $1";
 "page-issues" = "Problemas da página";
 "page-similar-titles" = "Páginas semelhantes";
+"captcha-reload" = "Mostrar outro código";
+"saved-pages-description" = "As páginas guardadas são bastante úteis. Pense como se fossem marcadores que pode ler mesmo quando estiver offline.";
+"saved-pages-none" = "Sem páginas guardadas ainda.";
+"history-none" = "Sem páginas recentes aqui.";
+"captcha-prompt" = "Insira o código CAPTCHA da imagem acima";
+"history-description" = "Provavelmente apagou todas. Da próxima vez que aceder a uma página, poderá voltar a partir daqui.";

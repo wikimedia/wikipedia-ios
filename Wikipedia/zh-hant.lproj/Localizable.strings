@@ -279,3 +279,9 @@
 "hockeyapp-alert-privacy" = "$1 隱私";
 "page-issues" = "頁面問題";
 "page-similar-titles" = "相似頁面";
+"captcha-reload" = "顯示其他驗證碼";
+"saved-pages-description" = "儲存頁面很棒。試想一下，你存為書籤後即使在離線時也可以閱讀。";
+"saved-pages-none" = "尚未儲存頁面。";
+"history-none" = "沒有近期頁面。";
+"captcha-prompt" = "輸入上圖中的驗證碼文字";
+"history-description" = "你可能全部清空了。下一次您進入到一個頁面時，可以從這裡返回。";

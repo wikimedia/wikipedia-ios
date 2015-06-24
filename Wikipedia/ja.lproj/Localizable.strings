@@ -262,3 +262,9 @@
 "hockeyapp-alert-always-send" = "常に送信";
 "hockeyapp-alert-do-not-send" = "送信しない";
 "hockeyapp-alert-privacy" = "$1 のプライバシーについて";
+"captcha-reload" = "別のcaptchaを表示";
+"saved-pages-description" = "保存したページはかなり便利です。オフラインの時でも読めるブックマークと考えてください。";
+"saved-pages-none" = "保存されたページはまだありません。";
+"history-none" = "履歴はまだありません。";
+"captcha-prompt" = "上に示した画像に書いてある文字を入力してください";
+"history-description" = "すべて削除してしまったようです。次にページをみた際にはここからそのページへと戻ることができます。";

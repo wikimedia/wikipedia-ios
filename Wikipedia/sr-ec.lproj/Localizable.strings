@@ -180,3 +180,5 @@
 "nearby-open-in-maps" = "Отворити у Мапама";
 "nearby-cancel" = "Откажи";
 "image-gallery-fetch-image-info-error-ok" = "У реду";
+"saved-pages-none" = "Нема сачуваних страница.";
+"captcha-prompt" = "Унесите текст са слике изнад";

@@ -259,3 +259,9 @@
 "hockeyapp-alert-privacy" = "$1-Dateschutz";
 "page-issues" = "Problemer mat der Säit";
 "page-similar-titles" = "Ähnlech Säiten";
+"captcha-reload" = "En anere Captcha weisen";
+"saved-pages-description" = "Gespäichert Säite si flott. Denkt dru fir ze als Lieszeechen ze benotzen déi Dir liese kënnt wann Dir offline sidd.";
+"saved-pages-none" = "Nach keng gespäichert Säiten.";
+"history-none" = "Keng rezent Säiten hei.";
+"captcha-prompt" = "Gitt de Captcha-Text vum Bild heidriwwer an";
+"history-description" = "Dir hutt se wahrscheinlech all geläscht. Wann Dir déi nächste Kéier op eng Säit gitt da kënnt Dir vun hei aus op déi Säit zréckgoen.";

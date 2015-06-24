@@ -278,3 +278,9 @@
 "hockeyapp-alert-privacy" = "Privadesa de $1";
 "page-issues" = "Problemes de la pàgina";
 "page-similar-titles" = "Pàgines similars";
+"captcha-reload" = "Mostra un altre captcha";
+"saved-pages-description" = "Les pàgines desades són fantàstiques. Penseu que són talment com adreces d'interès que podeu llegir fins i tot sense connexió.";
+"saved-pages-none" = "No s'ha desat encara cap pàgina.";
+"history-none" = "No hi ha pàgines recents aquí.";
+"captcha-prompt" = "Introduïu el text del CAPTCHA de la imatge de dalt";
+"history-description" = "Probablement els heu esborrat tots. La propera vegada que aneu a una pàgina podeu tornar-hi des d'aquí.";

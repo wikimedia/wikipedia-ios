@@ -101,7 +101,8 @@
     }];
     self.navigationItem.rightBarButtonItems = @[self.deleteButtonItem];
 
-
+    self.emptyDescription.text = MWLocalizedString(@"history-description", nil);
+    self.emptyTitle.text       = MWLocalizedString(@"history-none", nil);
 
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setLocale:[NSLocale currentLocale]];

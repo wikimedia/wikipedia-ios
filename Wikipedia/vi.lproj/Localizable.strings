@@ -269,3 +269,9 @@
 "hockeyapp-alert-privacy" = "Quyền riêng tư $1";
 "page-issues" = "Những sự cố của trang";
 "page-similar-titles" = "Những trang tương tự";
+"captcha-reload" = "Hiển thị CAPTCHA khác";
+"saved-pages-description" = "Các trang đã lưu là giống như các dấu trang có thể đọc ngay cả khi ngoại tuyến.";
+"saved-pages-none" = "Chưa lưu trang nào.";
+"history-none" = "Đây không có trang gần đây.";
+"captcha-prompt" = "Nhập văn bản CAPTCHA theo hình bên trên";
+"history-description" = "Có lẽ bạn đã xóa toàn bộ. Lần sau xem một trang, trang sẽ xuất hiện tại đây để truy cập sau.";

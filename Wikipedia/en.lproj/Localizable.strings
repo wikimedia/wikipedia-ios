@@ -21,6 +21,8 @@
 "history-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "history-clear-cancel" = "Cancel";
 "history-clear-delete-all" = "Delete All";
+"history-description" = "You probably deleted all of them. Next time you go to a page you can get back to it from here.";
+"history-none" = "No recent pages here.";
 
 "zero-free-verbiage" = "Free Wikipedia access from your mobile operator (data charges waived)";
 "zero-charged-verbiage" = "Wikipedia Zero is off";
@@ -141,7 +143,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Update cancelled";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia articles are updated all the time. Tap refresh to get the latest versions of all the articles.";
 "saved-pages-refresh-cancel-alert-button" = "Got it";
-
+"saved-pages-description" = "Saved pages are pretty awesome. Think of them as bookmarks that you can read even when you are offline.";
+"saved-pages-none" = "No saved pages yet.";
 
 "page-history-title" = "Article history";
 "page-history-downloading" = "Loading article history...";
@@ -309,3 +312,6 @@
 
 "page-issues" = "Page issues";
 "page-similar-titles" = "Similar pages";
+
+"captcha-reload" = "Show another captcha";
+"captcha-prompt" = "Enter CAPTCHA text from image above";

@@ -73,7 +73,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     if (self) {
         self.entityDescription = [self optionalString:@"description" dict:dict];
         self.snippet           = [self optionalString:@"snippet" dict:dict];
-        self.thumbnailURL = dict[@"thumbnail"][@"source"];
+        self.thumbnailURL      = dict[@"thumbnail"][@"source"];
     }
 
     return self;

@@ -280,3 +280,9 @@
 "hockeyapp-alert-privacy" = "$1s sekretess";
 "page-issues" = "Sidproblem";
 "page-similar-titles" = "Liknande sidor";
+"captcha-reload" = "Visa en annan captcha";
+"saved-pages-description" = "Sparade sidor är väldigt händigt. Tänk på dem som bokmärken som du kan läsa även när du inte är ansluten.";
+"saved-pages-none" = "Inga sparade sidor ännu.";
+"history-none" = "Inga nya sidor här.";
+"captcha-prompt" = "Ange captchatexten från bilden ovan";
+"history-description" = "Du raderade förmodligen samtliga. Nästa gång du går till en sida kan du komma tillbaka till den härifrån.";

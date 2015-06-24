@@ -197,3 +197,7 @@
 "hockeyapp-alert-always-send" = "Send altíð";
 "hockeyapp-alert-do-not-send" = "Ikki senda";
 "page-similar-titles" = "Líknandi síður";
+"saved-pages-description" = "Goymdar síður eru sera praktiskar. Hugsa um tær um bókamerki, sum tú kanst lesa, sjálvt tá ið tú ert offline.";
+"saved-pages-none" = "Ongar goymdar síður enn.";
+"history-none" = "Ongar nýggjar síður her.";
+"captcha-prompt" = "Skriva CAPTCHA tekstin frá myndini omanfyri";

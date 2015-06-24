@@ -207,3 +207,9 @@
 "hockeyapp-alert-always-send" = "Zawsze wysyłaj";
 "hockeyapp-alert-do-not-send" = "Nie wysyłaj";
 "page-similar-titles" = "Podobne strony";
+"captcha-reload" = "Pokaż inny tekst CAPTCHA";
+"saved-pages-description" = "Zapisane strony są całkiem fajne. Pomyśl o nich jako o zakładkach, które można przeczytać nawet wtedy, gdy jesteś w trybie offline.";
+"saved-pages-none" = "Nie zapisano jeszcze żadnych stron.";
+"history-none" = "Brak ostatnich zmian stron.";
+"captcha-prompt" = "Wpisz tekst CAPTCHA z obrazka powyżej";
+"history-description" = "Prawdopodobnie usunąłeś je wszystkie. Następnym razem, gdy wejdziesz na stronę, możesz powrócić do niej stąd.";

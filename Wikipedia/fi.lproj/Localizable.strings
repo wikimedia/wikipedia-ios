@@ -266,3 +266,9 @@
 "hockeyapp-alert-do-not-send" = "Älä lähetä";
 "page-issues" = "Sivun ongelmat";
 "page-similar-titles" = "Samankaltaiset sivut";
+"captcha-reload" = "Näytä toinen CAPTCHA";
+"saved-pages-description" = "Tallennetut sivut ovat melko loistavia. Ajattele niitä kirjanmerkkeinä, joita voit lukea ilman verkkoyhteyttä.";
+"saved-pages-none" = "Ei vielä tallennettuja sivuja.";
+"history-none" = "Ei tuoreita sivuja täällä.";
+"captcha-prompt" = "Syötä CAPTCHA-teksti yllä olevasta kuvasta";
+"history-description" = "Olet todennäköisesti poistanut ne kaikki. Seuraavalla kerralla kun menet sivulle, voit palata sinne tätä kautta.";

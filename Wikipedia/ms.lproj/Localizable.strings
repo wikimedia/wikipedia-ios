@@ -267,3 +267,9 @@
 "hockeyapp-alert-privacy" = "Privasi $1";
 "page-issues" = "Isu-isu laman";
 "page-similar-titles" = "Laman-laman serupa";
+"captcha-reload" = "Tunjukkan captcha lain";
+"saved-pages-description" = "Ciri-ciri laman tersimpan bagaikan penanda buku, boleh dibaca walaupun 'offline'. Hebat, bukan?";
+"saved-pages-none" = "Belum ada laman tersimpan.";
+"history-none" = "Tiada laman terbaru di sini.";
+"captcha-prompt" = "Taipkan teks captcha dari imej di atas";
+"history-description" = "Mungkin anda telah memadamkan kesemuanya. Lain kali anda ke sesuatu laman, anda boleh kembali kepadanya dari sini.";

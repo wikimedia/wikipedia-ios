@@ -279,3 +279,9 @@
 "hockeyapp-alert-privacy" = "$1 privacy";
 "page-issues" = "Paginaproblemen";
 "page-similar-titles" = "Vergelijkbare pagina's";
+"captcha-reload" = "Andere captcha weergeven";
+"saved-pages-description" = "Opgeslagen pagina's zijn allemachtig prachtig. Denk aan bladwijzers die u zelfs kunt lezen wanneer u offline bent.";
+"saved-pages-none" = "Nog geen opgeslagen pagina's.";
+"history-none" = "Geen recente pagina's.";
+"captcha-prompt" = "Vul de CAPTCHA-tekst in";
+"history-description" = "U heeft ze vast allemaal verwijderd. De volgende keer als u een pagina bezoekt, kunt u hem hier terugvinden.";

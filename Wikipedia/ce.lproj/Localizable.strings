@@ -115,3 +115,7 @@
 "nearby-pull-to-refresh-prompt" = "ТӀеоза, карлаяккха";
 "nearby-pull-to-refresh-is-refreshing" = "Карлаяккхар";
 "nearby-cancel" = "Цаоьшу";
+"captcha-reload" = "Гайта кхин код";
+"saved-pages-none" = "ХӀинци а яц Ӏалашйина агӀонаш.";
+"history-none" = "Кеста хьаьжжина агӀонаш яц.";
+"captcha-prompt" = "Лакхарчу суьртан тӀера капчан йоза язде";

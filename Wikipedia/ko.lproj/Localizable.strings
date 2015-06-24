@@ -271,3 +271,9 @@
 "hockeyapp-alert-do-not-send" = "보내지 않기";
 "page-issues" = "문서 문제";
 "page-similar-titles" = "비슷한 문서";
+"captcha-reload" = "다른 캡차 보이기";
+"saved-pages-description" = "저장된 문서는 정말 훌륭합니다. 오프라인일 때여도 읽을 수 있는 책갈피라고 생각해주세요.";
+"saved-pages-none" = "저장된 문서가 아직 없습니다.";
+"history-none" = "여기에 최근 문서가 없습니다.";
+"captcha-prompt" = "위 그림에 있는 캡차 텍스트를 입력하세요";
+"history-description" = "방문 기록이 비어 있습니다. 다음 번에 당신이 간 문서를 여기에서 얻을 수 있습니다.";

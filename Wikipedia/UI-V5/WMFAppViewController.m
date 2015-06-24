@@ -166,14 +166,13 @@
 
             [self.listViewController setListMode:WMFArticleListModeNormal animated:YES completion:NULL];
         }
-            break;
-        case WMFSearchStateActive:{
-            
+        break;
+        case WMFSearchStateActive: {
             @weakify(self);
             [self.listViewController setListMode:WMFArticleListModeBottomStacked animated:YES completion:^{
                 @strongify(self);
                 [self.articleListVisibleConstraint uninstall];
-                [self.articleListContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+                [self.articleListContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
                     self.articleListMinimizedConstraint = make.top.equalTo(self.view.mas_bottom).with.offset(-50.0);
                 }];
                 [self.view layoutIfNeeded];

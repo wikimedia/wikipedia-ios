@@ -140,6 +140,9 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 
     self.userDataStore = [SessionSingleton sharedInstance].userDataStore;
 
+    self.emptyDescription.text = MWLocalizedString(@"saved-pages-description", nil);
+    self.emptyTitle.text       = MWLocalizedString(@"saved-pages-none", nil);
+
     self.funnel = [[SavedPagesFunnel alloc] init];
 
     self.tableView.contentInset = UIEdgeInsetsMake(4.0f * MENUS_SCALE_MULTIPLIER, 0, 4.0f * MENUS_SCALE_MULTIPLIER, 0);

@@ -228,3 +228,9 @@
 "hockeyapp-alert-do-not-send" = "Neodoslať";
 "hockeyapp-alert-privacy" = "$1 súkromie";
 "page-similar-titles" = "Podobné stránky";
+"captcha-reload" = "Zobraziť ďalšie captcha";
+"saved-pages-description" = "Uložené stránky sú úžasné. Vyskúšajte si ich aj ako obľúbené stránky, ktoré je možné používať v offline režime.";
+"saved-pages-none" = "Žiadne uložené stránky.";
+"history-none" = "Žiadne posledne zobrazené stránky.";
+"captcha-prompt" = "Zadajte CAPTCHA text z obrázku vyššie";
+"history-description" = "Pravdepodobne si vymazal všetky časti. Nabudúce, keď túto stránku navštíviš, sa možeš odtiaľto k nim vrátiť.";

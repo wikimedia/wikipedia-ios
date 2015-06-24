@@ -280,4 +280,10 @@
 "hockeyapp-alert-privacy" = "Alert dialog button text for HockeyApp privacy policy. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";
-"languages-title" = "MISSING DESCRIPTION; DO NOT COMMIT FILE YET";
+"languages-title" = "Title for language picker";
+"captcha-reload" = "Title for button used to request another CAPTCHA to solve";
+"captcha-prompt" = "Text prompting user to solve a CAPTCHA";
+"saved-pages-description" = "Description of saved pages";
+"saved-pages-none" = "Title indicating there are no saved pages";
+"history-description" = "Description of history of browsed pages";
+"history-none" = "Title indicating no pages were found in history";

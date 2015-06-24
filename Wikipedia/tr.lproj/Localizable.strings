@@ -280,3 +280,9 @@
 "hockeyapp-alert-privacy" = "$1 gizliliği";
 "page-issues" = "Sayfa sorunları";
 "page-similar-titles" = "Benzer sayfalar";
+"captcha-reload" = "Başka bir captcha göster";
+"saved-pages-description" = "Kaydedilmiş sayfalar çok güzeldir. Bunu çevrim dışıyken bile okuyabileceğiniz yer imleri olarak düşünün.";
+"saved-pages-none" = "Henüz kaydedilmiş bir sayfa yok.";
+"history-none" = "Hiç ziyaret edilmiş sayfa yok.";
+"captcha-prompt" = "Yukarıdaki resimdeki CAPTCHA metnini girin";
+"history-description" = "Muhtemelen hepsini sildiniz. Bundan sonra herhangi bir sayfaya giderseniz, buradan ona tekrar ulaşabilirsiniz.";

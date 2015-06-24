@@ -280,3 +280,9 @@
 "hockeyapp-alert-privacy" = "$1隐私";
 "page-issues" = "页面问题";
 "page-similar-titles" = "相似页面";
+"captcha-reload" = "显示另一个验证码";
+"saved-pages-description" = "保存页面非常棒。试想一下在你保存后，即使离线时也可以阅读。";
+"saved-pages-none" = "尚未保存页面。";
+"history-none" = "无最近页面。";
+"captcha-prompt" = "输入上面图片的验证码文字";
+"history-description" = "您可能清空了它们。下次您前往一个页面时，可从此返回。";

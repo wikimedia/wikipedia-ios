@@ -249,3 +249,9 @@
 "image-gallery-fetch-image-info-error-title" = "Nun pudieron descargase les imaxes";
 "image-gallery-fetch-image-info-error-message" = "Nun pudieron descargase les imaxes pa esti artículu. Por favor, refresca l'artículu ya inténtalo otra vuelta.";
 "image-gallery-fetch-image-info-error-ok" = "Aceutar";
+"captcha-reload" = "Amosar otru «captcha»";
+"saved-pages-description" = "Les páxines guardaes son prestoses enforma. Piensa nelles como marcadores que pues lleer anque nun tengas conexón.";
+"saved-pages-none" = "Inda nun hai páxines guardaes.";
+"history-none" = "Equí nun hai páxines recientes.";
+"captcha-prompt" = "Escribi'l testu CAPTCHA de la imaxe d'arriba";
+"history-description" = "Probablemente desaniciástiles toes. La siguiente vez que vaigas a una páxina pues volver a ella dende equí.";

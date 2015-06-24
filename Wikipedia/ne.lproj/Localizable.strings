@@ -162,3 +162,5 @@
 "migration-prompt-message" = "हामी तपाईको रक्षण गरिएका तथा भर्खरका पृष्ठलाई सार्दै छौ । यसमा केही समय लाग्ने छ...";
 "migration-skip-button-title" = " $1 मेट्नुहोस्";
 "image-gallery-fetch-image-info-error-ok" = "ठीक";
+"saved-pages-none" = "संग्रह गरिएका पृष्ठहरू नभएको !";
+"history-none" = "यहाँ भर्खरैको कुनै पृष्ठ नरहेको !";

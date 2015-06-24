@@ -265,3 +265,9 @@
 "hockeyapp-alert-always-send" = "Kas atav";
 "hockeyapp-alert-do-not-send" = "Chom hep kas";
 "hockeyapp-alert-privacy" = "Prevezded $1";
+"captcha-reload" = "Diskwel ur c'haptcha all";
+"saved-pages-description" = "Mat-tre eo enrollañ pajennoù. Gallout a rit ober ganto evel sinedoù hag a c'hallit lenn pa vezit ezlinenn.";
+"saved-pages-none" = "Pajenn ebet enrollet c'hoazh.";
+"history-none" = "Pajenn nevez ebet aze.";
+"captcha-prompt" = "Ebarzhit an destenn CAPTCHA er skeudenn amañ a-us";
+"history-description" = "Lamet ho peus pep tra moarvat. Ar wech kentañ ma'z eot war ur bajenn e c'hallot distreiñ warni ac'halese.";

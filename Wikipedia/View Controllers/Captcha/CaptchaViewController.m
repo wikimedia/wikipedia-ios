@@ -22,6 +22,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    [self.reloadCaptchaButton setTitle:MWLocalizedString(@"captcha-reload", nil) forState:UIControlStateNormal];
+
+    [self.captchaTextBox setPlaceholder:MWLocalizedString(@"captcha-prompt", nil)];
+
     [self.reloadCaptchaButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
     [self.reloadCaptchaButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
 
