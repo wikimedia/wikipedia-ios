@@ -88,9 +88,9 @@
 }
 
 - (void)updateHistory:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    if (title == nil) {
-        @throw [NSException exceptionWithName:@"MWKUserDataStoreException"
-                                       reason:@"updateHistory called with null title" userInfo:@{}];
+    if (title.text == nil) {
+        //Weird, should be text here… if not we can't go forward. Just not going to update the history.
+        return;
     }
     MWKHistoryEntry* entry = [self.historyList entryForTitle:title];
     if (entry) {
