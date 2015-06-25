@@ -41,16 +41,18 @@
 }
 
 - (void)testCreatingSectionListWithNoData {
+    MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
     MWKArticle* mockArticle =
-        [[MWKArticle alloc] initWithTitle:nil dataStore:self.dataStore];
+        [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore];
     MWKSectionList* emptySectionList = [[MWKSectionList alloc] initWithArticle:mockArticle];
     assertThat(@(emptySectionList.count), is(equalToInt(0)));
     [MKTVerifyCount(mockArticle.dataStore, never()) sectionWithId:anything() article:anything()];
 }
 
 - (void)testSectionListInitializationExeptionHandling {
+    MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
     MWKArticle* mockArticle =
-        [[MWKArticle alloc] initWithTitle:nil dataStore:self.dataStore];
+        [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore];
 
     [self addEmptyFolderForSection:0 title:anything() mockDataStore:mockArticle.dataStore];
 

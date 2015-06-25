@@ -12,7 +12,9 @@
 @implementation MWKImage (AssociationTestUtils)
 
 + (instancetype)imageAssociatedWithSourceURL:(NSString*)imageURL {
-    return [[self alloc] initWithArticle:nil sourceURL:imageURL];
+    MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:nil];
+    return [[self alloc] initWithArticle:article sourceURL:imageURL];
 }
 
 - (MWKImageInfo*)createAssociatedInfo {

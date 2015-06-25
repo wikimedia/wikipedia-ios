@@ -24,7 +24,9 @@
 }
 
 - (void)testSimpleSnippet {
-    self.section = [[MWKSection alloc] initWithArticle:nil
+    MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:nil];
+    self.section = [[MWKSection alloc] initWithArticle:article
                                                   dict:@{
                         @"id": @0,
                         @"text": @"<p>Dog (woof (w00t)) [horse] adequately long string historically 40 characters.</p>"
@@ -33,7 +35,9 @@
 }
 
 - (void)testSimpleSnippetIncludingTable {
-    self.section = [[MWKSection alloc] initWithArticle:nil
+    MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:nil];
+    self.section = [[MWKSection alloc] initWithArticle:article
                                                   dict:@{
                         @"id": @0,
                         @"text": @"<table><p>Foo</p></table><p>Dog (woof (w00t)) [horse] adequately long string historically 40 characters.</p>"

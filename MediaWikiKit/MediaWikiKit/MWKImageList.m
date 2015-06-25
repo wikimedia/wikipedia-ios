@@ -38,7 +38,7 @@
 }
 
 - (instancetype)initWithArticle:(MWKArticle*)article section:(MWKSection*)section {
-    self = [self initWithSite:section.site];
+    self = [self initWithSite:article.site];
     if (self) {
         self.article = article;
         self.section = section;

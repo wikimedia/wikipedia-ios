@@ -72,19 +72,20 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 - (void)testReadsFromDataStoreLazilyAndPopulatesFetchedIndices {
     MWKImageList* mockImageList = mock([MWKImageList class]);
     MWKDataStore* mockDataStore = mock([MWKDataStore class]);
-    MWKArticle* mockArticle     = mock([MWKArticle class]);
+    MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:mockDataStore];
+
     NSArray* testImages         = [[self generateSourceURLs:5] bk_map:^MWKImage*(NSString* sourceURL) {
-        return [[MWKImage alloc] initWithArticle:mockArticle sourceURL:sourceURL];
+        return [[MWKImage alloc] initWithArticle:article sourceURL:sourceURL];
     }];
     NSRange preFetchedRange    = NSMakeRange(0, 2);
     NSArray* expectedImageInfo = [[MWKImageInfo mappedFromImages:testImages] subarrayWithRange:preFetchedRange];
 
-    [given([mockArticle dataStore]) willReturn:mockDataStore];
-    [given([mockArticle images]) willReturn:mockImageList];
     [given([mockImageList uniqueLargestVariants]) willReturn:testImages];
-    [given([mockDataStore imageInfoForArticle:mockArticle]) willReturn:expectedImageInfo];
+    [given([mockDataStore imageInfoForArticle:article]) willReturn:expectedImageInfo];
+    [given([mockDataStore imageListWithArticle:article section:nil]) willReturn:mockImageList];
 
-    WMFImageInfoController* controller = [[WMFImageInfoController alloc] initWithArticle:mockArticle
+    WMFImageInfoController* controller = [[WMFImageInfoController alloc] initWithArticle:article
                                                                                batchSize:2
                                                                              infoFetcher:self.mockInfoFetcher];
 

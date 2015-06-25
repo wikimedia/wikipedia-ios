@@ -85,7 +85,8 @@
 - (void)testPerformanceExample {
     [self measureBlock:^{
         self.dataStore = mock([MWKDataStore class]);
-        self.article = [[MWKArticle alloc] initWithTitle:nil dataStore:self.dataStore];
+        MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
+        self.article = [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore];
 
         [given([self.dataStore imageListWithArticle:anything() section:anything()])
          willReturn:[[MWKImageList alloc] initWithArticle:self.article section:nil]];
