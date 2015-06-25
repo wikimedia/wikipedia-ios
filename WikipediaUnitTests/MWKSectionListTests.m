@@ -41,7 +41,7 @@
 }
 
 - (void)testCreatingSectionListWithNoData {
-    MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
+    MWKTitle* title         = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
     MWKArticle* mockArticle =
         [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore];
     MWKSectionList* emptySectionList = [[MWKSectionList alloc] initWithArticle:mockArticle];
@@ -50,7 +50,7 @@
 }
 
 - (void)testSectionListInitializationExeptionHandling {
-    MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
+    MWKTitle* title         = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
     MWKArticle* mockArticle =
         [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore];
 

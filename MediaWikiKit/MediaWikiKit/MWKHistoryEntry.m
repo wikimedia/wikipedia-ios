@@ -74,7 +74,7 @@
     [dict wmf_maybeSetObject:[self iso8601DateString:self.date] forKey:@"date"];
     [dict wmf_maybeSetObject:[MWKHistoryEntry stringForDiscoveryMethod:self.discoveryMethod] forKey:@"discoveryMethod"];
     [dict wmf_maybeSetObject:@(self.scrollPosition) forKey:@"scrollPosition"];
-    
+
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 

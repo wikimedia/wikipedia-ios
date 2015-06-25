@@ -1332,18 +1332,16 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)navigateToPage:(MWKTitle*)title
        discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-
     NSParameterAssert(title);
-    if([title.text length] == 0){
-        
+    if ([title.text length] == 0) {
         [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
         return;
     }
-    
+
     NSString* cleanTitle = title.text;
     NSParameterAssert(cleanTitle.length);
     [self hideKeyboard];
-    
+
     self.jumpToFragment = title.fragment;
 
     if (discoveryMethod != MWKHistoryDiscoveryMethodBackForward && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromNetwork && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromCache) {
@@ -1352,7 +1350,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     [self retrieveArticleForPageTitle:title
                       discoveryMethod:discoveryMethod];
-
 }
 
 - (void)reloadCurrentArticleFromNetwork {
@@ -1382,10 +1379,8 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)retrieveArticleForPageTitle:(MWKTitle*)pageTitle
                     discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    
     NSParameterAssert(pageTitle);
-    if([pageTitle.text length] == 0){
-        
+    if ([pageTitle.text length] == 0) {
         [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
         return;
     }
@@ -1471,13 +1466,12 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
                 self.isFetchingArticle = NO;
 
-                if([article.title.text length] == 0){
-                    
+                if ([article.title.text length] == 0) {
                     [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
 
                     return;
                 }
-                
+
                 // Update the toc and web view.
                 [self displayArticle:article.title];
 
@@ -1649,9 +1643,8 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 #pragma mark Display article from data store
 
 - (void)displayArticle:(MWKTitle*)title {
-    
     NSParameterAssert(title.text);
-    if([title.text length] == 0){
+    if ([title.text length] == 0) {
         return;
     }
 

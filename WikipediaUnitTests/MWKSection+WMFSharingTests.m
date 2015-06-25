@@ -24,7 +24,7 @@
 }
 
 - (void)testSimpleSnippet {
-    MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
+    MWKTitle* title     = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
     MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:nil];
     self.section = [[MWKSection alloc] initWithArticle:article
                                                   dict:@{
@@ -35,7 +35,7 @@
 }
 
 - (void)testSimpleSnippetIncludingTable {
-    MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
+    MWKTitle* title     = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
     MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:nil];
     self.section = [[MWKSection alloc] initWithArticle:article
                                                   dict:@{
