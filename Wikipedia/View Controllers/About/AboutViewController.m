@@ -58,12 +58,12 @@ static NSString* const kWMFContributorsKey = @"contributors";
     [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile];
 
     @weakify(self)
-    self.buttonX = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){
+    self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self)
         [self dismissViewControllerAnimated : YES completion : nil];
     }];
 
-    self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_CARET_LEFT handler:^(id sender){
+    self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft handler:^(id sender){
         @strongify(self)
         [self.webView loadHTMLFromAssetsFile : kWMFAboutHTMLFile];
     }];

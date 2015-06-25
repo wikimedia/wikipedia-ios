@@ -94,7 +94,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)setupTopMenuButtons {
     @weakify(self)
-    UIBarButtonItem * buttonW = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_W handler:^(id sender){
+    UIBarButtonItem * buttonW = [UIBarButtonItem wmf_buttonType:WMFButtonTypeW handler:^(id sender){
         @strongify(self)
         UINavigationController * nc = [[UINavigationController alloc] initWithRootViewController:[PrimaryMenuViewController wmf_initialViewControllerFromClassStoryboard]];
         [nc.navigationBar setBarTintColor:[UIColor blackColor]];
@@ -102,14 +102,14 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [self presentViewController:nc animated:YES completion:nil];
     }];
 
-    UIBarButtonItem* buttonMagnify = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_MAGNIFY handler:^(id sender){
+    UIBarButtonItem* buttonMagnify = [UIBarButtonItem wmf_buttonType:WMFButtonTypeMagnify handler:^(id sender){
         @strongify(self)
         [self dismissViewControllerAnimated : YES completion : nil];
     }];
 
     self.navigationItem.leftBarButtonItems = @[buttonW, buttonMagnify];
 
-    self.buttonTOC = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_TOC
+    self.buttonTOC = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents
                                              handler:^(id sender){
         @strongify(self)
         [self tocToggle];
@@ -131,24 +131,24 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         }
     };
 
-    self.buttonBack = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_BACKWARD handler:^(id sender){
+    self.buttonBack = [UIBarButtonItem wmf_buttonType:WMFButtonTypeBackward handler:^(id sender){
         goBeforeOrAfter(@"before");
     }];
-    self.buttonForward = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_FORWARD handler:^(id sender){
+    self.buttonForward = [UIBarButtonItem wmf_buttonType:WMFButtonTypeForward handler:^(id sender){
         goBeforeOrAfter(@"after");
     }];
-    self.buttonLanguages = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_TRANSLATE handler:^(id sender){
+    self.buttonLanguages = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTranslate handler:^(id sender){
         @strongify(self)
         [self showLanguages];
     }];
 
-    self.buttonSave = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_HEART handler:^(id sender){
+    self.buttonSave = [UIBarButtonItem wmf_buttonType:WMFButtonTypeHeart handler:^(id sender){
         @strongify(self)
         [self toggleSavedPage];
         [self updateBottomBarButtonsEnabledState];
     }];
 
-    self.buttonShare = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_SHARE handler:^(id sender){
+    self.buttonShare = [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
         @strongify(self)
         [self shareUpArrowButtonPushed];
     }];

@@ -195,12 +195,12 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     [super viewDidLoad];
 
     @weakify(self)
-    self.buttonX = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){
+    self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self)
         [self goBack];
     }];
 
-    self.buttonLeftCaret = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_CARET_LEFT handler:^(id sender){
+    self.buttonLeftCaret = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft handler:^(id sender){
         @strongify(self)
         [self goBack];
     }];

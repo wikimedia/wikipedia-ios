@@ -43,7 +43,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 
     @weakify(self)
-    UIBarButtonItem * buttonX = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_CARET_LEFT handler:^(id sender){
+    UIBarButtonItem * buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft handler:^(id sender){
         @strongify(self)
         [self.navigationController popViewControllerAnimated : YES];
     }];

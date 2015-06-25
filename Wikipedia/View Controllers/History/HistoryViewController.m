@@ -86,7 +86,7 @@
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
-    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){
+    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self)
         [self dismissViewControllerAnimated : YES completion : nil];
     }];
@@ -94,7 +94,7 @@
 
 
 
-    self.deleteButtonItem = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_TRASH
+    self.deleteButtonItem = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTrash
                                                     handler:^(id sender){
         @strongify(self)
         [self showDeleteAllDialog];

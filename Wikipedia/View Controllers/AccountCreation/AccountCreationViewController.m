@@ -98,7 +98,7 @@
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
-    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X handler:^(id sender){
+    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self)
         if (self.showCaptchaContainer) {
             self.showCaptchaContainer = NO;

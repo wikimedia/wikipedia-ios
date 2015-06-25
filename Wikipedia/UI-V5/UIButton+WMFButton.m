@@ -12,67 +12,9 @@
 
 + (UIButton*)wmf_buttonType:(WMFButtonType)type handler:(void (^)(id sender))action {
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-
     button.frame = (CGRect){{0, 0}, {40, 40}};
 
-    void (^ configForState)(UIControlState, WMFGlyphs, NSNumber*, UIColor*) = ^void (UIControlState state, WMFGlyphs glyph, NSNumber* offset, UIColor* color) {
-        [button setAttributedTitle:[self attributedStringForGlyph:glyph baselineOffset:offset color:color]
-                          forState:state];
-    };
-
-    switch (type) {
-        case WMF_BUTTON_W:
-            configForState(UIControlStateNormal, WMF_GLYPH_W, @(2.0), nil);
-            break;
-        case WMF_BUTTON_SHARE:
-            configForState(UIControlStateNormal, WMF_GLYPH_SHARE, @(0.2), nil);
-            break;
-        case WMF_BUTTON_FORWARD:
-            configForState(UIControlStateNormal, WMF_GLYPH_FORWARD, nil, nil);
-            configForState(UIControlStateDisabled, WMF_GLYPH_FORWARD, nil, [UIColor lightGrayColor]);
-            break;
-        case WMF_BUTTON_BACKWARD:
-            configForState(UIControlStateNormal, WMF_GLYPH_BACKWARD, nil, nil);
-            configForState(UIControlStateDisabled, WMF_GLYPH_BACKWARD, nil, [UIColor lightGrayColor]);
-            break;
-        case WMF_BUTTON_HEART:
-            configForState(UIControlStateNormal, WMF_GLYPH_HEART_OUTLINE, nil, nil);
-            configForState(UIControlStateSelected, WMF_GLYPH_HEART, nil, [UIColor redColor]);
-            break;
-        case WMF_BUTTON_TOC:
-            configForState(UIControlStateNormal, WMF_GLYPH_TOC_COLLAPSED, @(2.0), nil);
-            configForState(UIControlStateDisabled, WMF_GLYPH_TOC_COLLAPSED, @(2.0), [UIColor lightGrayColor]);
-            configForState(UIControlStateSelected, WMF_GLYPH_TOC_EXPANDED, @(2.0), nil);
-            break;
-        case WMF_BUTTON_X:
-            configForState(UIControlStateNormal, WMF_GLYPH_X, @(2.8), nil);
-            break;
-        case WMF_BUTTON_X_WHITE:
-            configForState(UIControlStateNormal, WMF_GLYPH_X, @(2.8), [UIColor whiteColor]);
-            break;
-        case WMF_BUTTON_TRASH:
-            configForState(UIControlStateNormal, WMF_GLYPH_TRASH, nil, nil);
-            configForState(UIControlStateDisabled, WMF_GLYPH_TRASH, nil, [UIColor lightGrayColor]);
-            break;
-        case WMF_BUTTON_TRANSLATE:
-            configForState(UIControlStateNormal, WMF_GLYPH_TRANSLATE, @(1.4), nil);
-            configForState(UIControlStateDisabled, WMF_GLYPH_TRANSLATE, @(1.4), [UIColor lightGrayColor]);
-            break;
-        case WMF_BUTTON_MAGNIFY:
-            configForState(UIControlStateNormal, WMF_GLYPH_MAGNIFY, @(1.0), nil);
-            break;
-        case WMF_BUTTON_RELOAD:
-            configForState(UIControlStateNormal, WMF_GLYPH_RELOAD, nil, nil);
-            configForState(UIControlStateDisabled, WMF_GLYPH_RELOAD, nil, [UIColor lightGrayColor]);
-            break;
-        case WMF_BUTTON_CARET_LEFT:
-            configForState(UIControlStateNormal, WMF_GLYPH_CARET_LEFT, nil, nil);
-            break;
-        default:
-            break;
-    }
-
-    [self mirrorButton:button ifNecessaryForType:type];
+    [button wmf_setButtonType:type];
 
     [button bk_addEventHandler:^(UIButton* sender){
         sender.highlighted = !sender.selected; // Prevent annoying flicker.
@@ -80,7 +22,7 @@
 
     [button bk_addEventHandler:^(UIButton* sender){
         sender.highlighted = !sender.selected; // Prevent annoying flicker.
-        [sender animateAndRewindXF:CATransform3DMakeScale([self xMirroringMultiplierForButtonType:type] * 1.25, 1.25, 1.0f)
+        [sender animateAndRewindXF:CATransform3DMakeScale([sender xMirroringMultiplierForButtonType:type] * 1.25, 1.25, 1.0f)
                         afterDelay:0.0
                           duration:0.04f
                               then:^{
@@ -93,25 +35,86 @@
     return button;
 }
 
-+ (void)mirrorButton:(UIButton*)button ifNecessaryForType:(WMFButtonType)type {
-    button.transform = CGAffineTransformMakeScale(1.0* [self xMirroringMultiplierForButtonType:type], 1.0);
+- (void)wmf_setButtonType:(WMFButtonType)type {
+    [self mirrorIfNecessaryForType:type];
+
+    void (^ configForState)(UIControlState, WMFGlyphs, NSNumber*, UIColor*) = ^void (UIControlState state, WMFGlyphs glyph, NSNumber* offset, UIColor* color) {
+        [self setAttributedTitle:[[self class] attributedStringForGlyph:glyph baselineOffset:offset color:color]
+                        forState:state];
+    };
+
+    switch (type) {
+        case WMFButtonTypeW:
+            configForState(UIControlStateNormal, WMF_GLYPH_W, @(2.0), nil);
+            break;
+        case WMFButtonTypeShare:
+            configForState(UIControlStateNormal, WMF_GLYPH_SHARE, @(0.2), nil);
+            break;
+        case WMFButtonTypeForward:
+            configForState(UIControlStateNormal, WMF_GLYPH_FORWARD, nil, nil);
+            configForState(UIControlStateDisabled, WMF_GLYPH_FORWARD, nil, [UIColor lightGrayColor]);
+            break;
+        case WMFButtonTypeBackward:
+            configForState(UIControlStateNormal, WMF_GLYPH_BACKWARD, nil, nil);
+            configForState(UIControlStateDisabled, WMF_GLYPH_BACKWARD, nil, [UIColor lightGrayColor]);
+            break;
+        case WMFButtonTypeHeart:
+            configForState(UIControlStateNormal, WMF_GLYPH_HEART_OUTLINE, nil, nil);
+            configForState(UIControlStateSelected, WMF_GLYPH_HEART, nil, [UIColor redColor]);
+            break;
+        case WMFButtonTypeTableOfContents:
+            configForState(UIControlStateNormal, WMF_GLYPH_TOC_COLLAPSED, @(2.0), nil);
+            configForState(UIControlStateDisabled, WMF_GLYPH_TOC_COLLAPSED, @(2.0), [UIColor lightGrayColor]);
+            configForState(UIControlStateSelected, WMF_GLYPH_TOC_EXPANDED, @(2.0), nil);
+            break;
+        case WMFButtonTypeX:
+            configForState(UIControlStateNormal, WMF_GLYPH_X, @(2.8), nil);
+            break;
+        case WMFButtonTypeXWhite:
+            configForState(UIControlStateNormal, WMF_GLYPH_X, @(2.8), [UIColor whiteColor]);
+            break;
+        case WMFButtonTypeTrash:
+            configForState(UIControlStateNormal, WMF_GLYPH_TRASH, nil, nil);
+            configForState(UIControlStateDisabled, WMF_GLYPH_TRASH, nil, [UIColor lightGrayColor]);
+            break;
+        case WMFButtonTypeTranslate:
+            configForState(UIControlStateNormal, WMF_GLYPH_TRANSLATE, @(1.4), nil);
+            configForState(UIControlStateDisabled, WMF_GLYPH_TRANSLATE, @(1.4), [UIColor lightGrayColor]);
+            break;
+        case WMFButtonTypeMagnify:
+            configForState(UIControlStateNormal, WMF_GLYPH_MAGNIFY, @(1.0), nil);
+            break;
+        case WMFButtonTypeReload:
+            configForState(UIControlStateNormal, WMF_GLYPH_RELOAD, nil, nil);
+            configForState(UIControlStateDisabled, WMF_GLYPH_RELOAD, nil, [UIColor lightGrayColor]);
+            break;
+        case WMFButtonTypeCaretLeft:
+            configForState(UIControlStateNormal, WMF_GLYPH_CARET_LEFT, nil, nil);
+            break;
+        default:
+            break;
+    }
 }
 
-+ (CGFloat)xMirroringMultiplierForButtonType:(WMFButtonType)type {
+- (void)mirrorIfNecessaryForType:(WMFButtonType)type {
+    self.transform = CGAffineTransformMakeScale(1.0* [self xMirroringMultiplierForButtonType:type], 1.0);
+}
+
+- (CGFloat)xMirroringMultiplierForButtonType:(WMFButtonType)type {
     if (![WikipediaAppUtils isDeviceLanguageRTL] || ![UIView wmf_shouldMirrorIfDeviceLanguageRTL]) {
         return 1.0;
     }
     return [self shouldMirrorButtonType:type] ? 1.0 : -1.0;
 }
 
-+ (BOOL)shouldMirrorButtonType:(WMFButtonType)type {
+- (BOOL)shouldMirrorButtonType:(WMFButtonType)type {
     switch (type) {
-        case WMF_BUTTON_W:
-        case WMF_BUTTON_X:
-        case WMF_BUTTON_X_WHITE:
-        case WMF_BUTTON_TRANSLATE:
-        case WMF_BUTTON_MAGNIFY:
-        case WMF_BUTTON_RELOAD:
+        case WMFButtonTypeW:
+        case WMFButtonTypeX:
+        case WMFButtonTypeXWhite:
+        case WMFButtonTypeTranslate:
+        case WMFButtonTypeMagnify:
+        case WMFButtonTypeReload:
             return NO;
             break;
         default:

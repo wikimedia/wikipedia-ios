@@ -60,7 +60,7 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
-    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMF_BUTTON_X_WHITE handler:^(id sender){
+    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeXWhite handler:^(id sender){
         @strongify(self)
         [self dismissViewControllerAnimated : YES completion : nil];
     }];
