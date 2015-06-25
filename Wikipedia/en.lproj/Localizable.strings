@@ -5,6 +5,7 @@
 "article-languages-filter-placeholder" = "Language Filter";
 "article-read-more-title" = "Read more";
 "article-unable-to-load-section" = "Unable to load this section. Try refreshing the article to see if it fixes the problem.";
+"article-unable-to-load-article" = "Unable to load article.";
 
 "info-box-title" = "Quick facts";
 "info-box-close-text" = "Close";

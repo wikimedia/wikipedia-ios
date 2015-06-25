@@ -1385,6 +1385,9 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)retrieveArticleForPageTitle:(MWKTitle*)pageTitle
                     discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+    
+    NSParameterAssert(pageTitle.text);
+    
     // Cancel certain in-progress fetches.
     [self cancelSearchLoading];
     [self cancelArticleLoading];
@@ -1466,6 +1469,13 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
                 self.isFetchingArticle = NO;
 
+                if([article.title.text length] == 0){
+                    
+                    [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
+
+                    return;
+                }
+                
                 // Update the toc and web view.
                 [self displayArticle:article.title];
 
@@ -1477,6 +1487,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
             {
                 self.isFetchingArticle = NO;
 
+                //attempt to display article from cache
                 [self displayArticle:article.title];
 
                 NSString* errorMsg = error.localizedDescription;
@@ -1502,7 +1513,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                     TopMenuTextFieldContainer* textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
                     textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
 
-                    //[self showAlert:title type:ALERT_TYPE_TOP duration:2];
                     NSString* title = banner[@"message"];
                     self.zeroStatusLabel.text            = title;
                     self.zeroStatusLabel.padding         = UIEdgeInsetsMake(3, 10, 3, 10);
@@ -1637,6 +1647,12 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 #pragma mark Display article from data store
 
 - (void)displayArticle:(MWKTitle*)title {
+    
+    NSParameterAssert(title.text);
+    if([title.text length] == 0){
+        return;
+    }
+
     MWKArticle* article = [self.session.dataStore articleWithTitle:title];
     self.session.currentArticle = article;
 
