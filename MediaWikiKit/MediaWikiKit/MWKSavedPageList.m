@@ -6,7 +6,7 @@
 @interface MWKSavedPageList ()
 
 @property (readwrite, weak, nonatomic) MWKDataStore* dataStore;
-@property (nonatomic, strong) NSMutableArray* entries;
+@property (nonatomic, strong) NSMutableArray* mutableEntries;
 @property (nonatomic, strong) NSMutableDictionary* entriesByTitle;
 @property (readwrite, nonatomic, assign) BOOL dirty;
 
@@ -20,9 +20,10 @@
     self = [super init];
     if (self) {
         self.dataStore      = dataStore;
-        self.entries        = [[NSMutableArray alloc] init];
-        self.entriesByTitle = [[NSMutableDictionary alloc] init];
-        NSDictionary* data = [self.dataStore historyListData];
+        self.mutableEntries = [NSMutableArray array];
+        self.entriesByTitle = [NSMutableDictionary dictionary];
+        NSDictionary* data = [self.dataStore savedPageListData];
+
         [self importData:data];
     }
     return self;
@@ -43,7 +44,7 @@
     if (arr) {
         for (NSDictionary* entryDict in arr) {
             MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithDict:entryDict];
-            [self.entries addObject:entry];
+            [self.mutableEntries addObject:entry];
             self.entriesByTitle[entry.title] = entry;
         }
     }
@@ -62,12 +63,20 @@
 
 #pragma mark - Entry Access
 
+- (NSArray*)entries {
+    return _mutableEntries;
+}
+
+- (NSMutableArray*)mutableEntries {
+    return [self mutableArrayValueForKey:@"entries"];
+}
+
 - (NSUInteger)length {
-    return [self.entries count];
+    return [self countOfEntries];
 }
 
 - (MWKSavedPageEntry*)entryAtIndex:(NSUInteger)index {
-    return self.entries[index];
+    return [self objectInEntriesAtIndex:index];
 }
 
 - (MWKSavedPageEntry*)entryForTitle:(MWKTitle*)title {
@@ -81,73 +90,114 @@
 }
 
 - (NSUInteger)indexForEntry:(MWKHistoryEntry*)entry {
-    return [self.entries indexOfObject:entry];
+    return [self.mutableEntries indexOfObject:entry];
 }
 
 #pragma mark - Update Methods
 
-- (AnyPromise*)savePageWithTitle:(MWKTitle*)title {
+- (void)toggleSavedPageForTitle:(MWKTitle*)title {
+    if ([self isSaved:title]) {
+        [self removeSavedPageWithTitle:title];
+    } else {
+        [self addSavedPageWithTitle:title];
+    }
+}
+
+- (void)addSavedPageWithTitle:(MWKTitle*)title {
     if (title == nil) {
-        return [AnyPromise promiseWithValue:[NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]];
+        return;
     }
 
     MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithTitle:title];
-    return [self addEntry:entry];
+    [self addEntry:entry];
 }
 
-- (AnyPromise*)addEntry:(MWKSavedPageEntry*)entry {
+- (void)addEntry:(MWKSavedPageEntry*)entry {
     if (entry.title == nil) {
-        return [AnyPromise promiseWithValue:[NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]];
+        return;
     }
+
+    NSDate* accessDate = entry.date ? entry.date : [NSDate date];
+
+    MWKSavedPageEntry* newEntry = entry;
     MWKSavedPageEntry* oldEntry = [self entryForTitle:entry.title];
     if (oldEntry) {
-        [self.entries removeObject:oldEntry];
+        [self.mutableEntries removeObject:oldEntry];
+        newEntry = oldEntry;
     }
 
-    entry.date = entry.date ? entry.date : [NSDate date];
-    [self.entries insertObject:entry atIndex:0];
-    self.entriesByTitle[entry.title] = entry;
-    self.dirty                       = YES;
-
-    return [AnyPromise promiseWithValue:entry];
+    newEntry.date                       = accessDate;
+    self.entriesByTitle[newEntry.title] = newEntry;
+    [self.mutableEntries insertObject:newEntry atIndex:0];
+    self.dirty = YES;
 }
 
-- (AnyPromise*)removeSavedPageWithTitle:(MWKTitle*)title {
+- (void)removeSavedPageWithTitle:(MWKTitle*)title {
     if (title == nil) {
-        return [AnyPromise promiseWithValue:[NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]];
+        return;
     }
 
     MWKSavedPageEntry* entry = [self entryForTitle:title];
 
     if (entry) {
-        [self.entries removeObject:entry];
+        [self.mutableEntries removeObject:entry];
         [self.entriesByTitle removeObjectForKey:entry.title];
         self.dirty = YES;
     }
-
-    return [AnyPromise promiseWithValue:nil];
 }
 
-- (AnyPromise*)removeAllSavedPages {
-    [self.entries removeAllObjects];
+- (void)removeAllSavedPages {
+    [self.mutableEntries removeAllObjects];
     [self.entriesByTitle removeAllObjects];
     self.dirty = YES;
-
-    return [AnyPromise promiseWithValue:nil];
 }
 
 #pragma mark - Save
 
 - (AnyPromise*)save {
-    NSError* error;
-    if (self.dirty && ![self.dataStore saveSavedPageList:self error:&error]) {
-        NSAssert(NO, @"Error saving saved pages: %@", [error localizedDescription]);
-        return [AnyPromise promiseWithValue:error];
-    } else {
-        self.dirty = NO;
-    }
+    return dispatch_promise_on(dispatch_get_main_queue(), ^{
+        NSError* error;
+        if (self.dirty && ![self.dataStore saveSavedPageList:self error:&error]) {
+            NSAssert(NO, @"Error saving saved pages: %@", [error localizedDescription]);
+            return [AnyPromise promiseWithValue:error];
+        } else {
+            self.dirty = NO;
+        }
 
-    return [AnyPromise promiseWithValue:nil];
+        return [AnyPromise promiseWithValue:nil];
+    });
+}
+
+- (NSUInteger)countOfEntries {
+    return [_mutableEntries count];
+}
+
+- (id)objectInEntriesAtIndex:(NSUInteger)idx {
+    return [_mutableEntries objectAtIndex:idx];
+}
+
+- (void)insertObject:(id)anObject inEntriesAtIndex:(NSUInteger)idx {
+    [_mutableEntries insertObject:anObject atIndex:idx];
+}
+
+- (void)insertEntries:(NSArray*)entrieArray atIndexes:(NSIndexSet*)indexes {
+    [_mutableEntries insertObjects:entrieArray atIndexes:indexes];
+}
+
+- (void)removeObjectFromEntriesAtIndex:(NSUInteger)idx {
+    [_mutableEntries removeObjectAtIndex:idx];
+}
+
+- (void)removeEntriesAtIndexes:(NSIndexSet*)indexes {
+    [_mutableEntries removeObjectsAtIndexes:indexes];
+}
+
+- (void)replaceObjectInEntriesAtIndex:(NSUInteger)idx withObject:(id)anObject {
+    [_mutableEntries replaceObjectAtIndex:idx withObject:anObject];
+}
+
+- (void)replaceEntriesAtIndexes:(NSIndexSet*)indexes withEntries:(NSArray*)entrieArray {
+    [_mutableEntries replaceObjectsAtIndexes:indexes withObjects:entrieArray];
 }
 
 @end

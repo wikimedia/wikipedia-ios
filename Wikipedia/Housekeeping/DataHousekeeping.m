@@ -51,11 +51,8 @@
         }
     }
 
-    dispatch_promise(^{
-        return [historyList removeEntriesFromHistory:historyEntriesToPrune];
-    }).then(^(){
-        return [historyList save];
-    }).then(^(){
+    [historyList removeEntriesFromHistory:historyEntriesToPrune];
+    [historyList save].then(^(){
         // Iterate through all articles and de-cache the ones that aren't on the keep list
         // Cached metadata, section text, and images will be removed along with their articles.
         [dataStore iterateOverArticles:^(MWKArticle* article) {

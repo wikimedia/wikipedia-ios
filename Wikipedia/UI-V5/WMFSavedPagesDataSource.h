@@ -6,9 +6,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFSavedPagesDataSource : MTLModel<WMFArticleListDataSource>
 
-@property (nonatomic, strong, readonly) MWKUserDataStore* userDataStore;
+/**
+ *  Observable
+ */
+@property (nonatomic, strong, readonly) NSArray* articles;
 
-- (nonnull instancetype)initWithUserDataStore:(MWKUserDataStore*)store;
+@property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
+
+- (nonnull instancetype)initWithSavedPagesList:(MWKSavedPageList*)savedPages;
 
 @end
 

@@ -222,11 +222,8 @@
 #pragma mark - History garbage removal
 
 - (void)removeGarbage:(NSMutableArray*)garbage {
-    dispatch_promise(^{
-        return [self.userDataStore.historyList removeEntriesFromHistory:garbage];
-    }).then(^(){
-        return [self.userDataStore.historyList save];
-    }).then(^(){
+    [self.userDataStore.historyList removeEntriesFromHistory:garbage];
+    [self.userDataStore.historyList save].then(^(){
         // Remove any orphaned images.
         DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
         [dataHouseKeeping performHouseKeeping];
@@ -410,11 +407,8 @@
 - (void)deleteHistoryForIndexPath:(NSIndexPath*)indexPath {
     MWKHistoryEntry* historyEntry = self.historyDataArray[indexPath.section][@"data"][indexPath.row];
     if (historyEntry) {
-        dispatch_promise(^{
-            return [self.userDataStore.historyList removePageFromHistoryWithTitle:historyEntry.title];
-        }).then(^(){
-            return [self.userDataStore.historyList save];
-        }).then(^(){
+        [self.userDataStore.historyList removePageFromHistoryWithTitle:historyEntry.title];
+        [self.userDataStore.historyList save].then(^(){
             [self.tableView beginUpdates];
 
             NSUInteger itemsInSection = [(NSArray*)self.historyDataArray[indexPath.section][@"data"] count];
@@ -468,11 +462,8 @@
 }
 
 - (void)deleteAllHistoryItems {
-    dispatch_promise(^{
-        return [self.userDataStore.historyList removeAllEntriesFromHistory];
-    }).then(^(){
-        return [self.userDataStore.historyList save];
-    }).then(^(){
+    [self.userDataStore.historyList removeAllEntriesFromHistory];
+    [self.userDataStore.historyList save].then(^(){
         // Remove any orphaned images.
         DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
         [dataHouseKeeping performHouseKeeping];

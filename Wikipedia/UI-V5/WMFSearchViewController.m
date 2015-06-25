@@ -31,6 +31,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @implementation WMFSearchViewController
 
+- (void)setUserDataStore:(MWKUserDataStore* __nonnull)userDataStore {
+    _userDataStore                        = userDataStore;
+    self.resultsListController.savedPages = _userDataStore.savedPageList;
+}
+
 - (NSString*)currentSearchTerm {
     return [(WMFSearchResults*)self.resultsListController.dataSource searchTerm];
 }
@@ -96,7 +101,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)searchBarCancelButtonClicked:(UISearchBar*)searchBar {
     [self updateSearchStateAndNotifyDelegate:WMFSearchStateInactive];
-    self.searchBar.text = nil;
+    self.searchBar.text                   = nil;
+    self.resultsListController.dataSource = nil;
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self.searchBar resignFirstResponder];
 }

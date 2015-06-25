@@ -331,11 +331,8 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 - (void)deleteSavedPageForIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [self.savedPageList entryAtIndex:indexPath.row];
     if (savedEntry) {
-        dispatch_promise(^{
-            return [self.userDataStore.savedPageList removeSavedPageWithTitle:savedEntry.title];
-        }).then(^(){
-            return [self.userDataStore.savedPageList save];
-        }).then(^(){
+        [self.userDataStore.savedPageList removeSavedPageWithTitle:savedEntry.title];
+        [self.userDataStore.savedPageList save].then(^(){
             // Remove any orphaned images.
             DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
             [dataHouseKeeping performHouseKeeping];
@@ -354,13 +351,9 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 }
 
 - (void)deleteAllSavedPages {
-    dispatch_promise(^{
-        return [self.userDataStore.savedPageList removeAllSavedPages];
-    }).then(^(){
-        return [self.userDataStore.savedPageList save];
-    }).then(^(){
+    [self.userDataStore.savedPageList removeAllSavedPages];
+    [self.userDataStore.savedPageList save].then(^(){
         [self.tableView reloadData];
-
         [self setEmptyOverlayAndTrashIconVisibility];
 
         // Remove any orphaned images.

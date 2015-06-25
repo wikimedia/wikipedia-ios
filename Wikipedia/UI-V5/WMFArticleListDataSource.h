@@ -7,6 +7,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSString*)displayTitle;
 
+@property (nonatomic, strong, readonly) NSArray* articles;
+
 - (NSUInteger) articleCount;
 - (MWKArticle*)articleForIndexPath:(NSIndexPath*)indexPath;
 

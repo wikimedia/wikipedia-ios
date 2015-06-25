@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A204h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -217,15 +218,16 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rdC-bu-Efj">
                                         <rect key="frame" x="2" y="2" width="596" height="576"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Myt-29-qy0">
-                                                <rect key="frame" x="282" y="8" width="33" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Myt-29-qy0">
+                                                <rect key="frame" x="8" y="8" width="538" height="20.5"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Llu-j4-JGU">
-                                                <rect key="frame" x="280" y="45" width="36" height="30"/>
+                                                <rect key="frame" x="280" y="44" width="36" height="30"/>
+                                                <animations/>
                                                 <state key="normal" title="Read">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -234,18 +236,35 @@
                                                     <action selector="readButtonTapped:" destination="r3R-dd-kNR" eventType="touchUpInside" id="GhA-xA-JnH"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6NH-F8-mBf">
+                                                <rect key="frame" x="554" y="4" width="34" height="30"/>
+                                                <animations/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="toggleSave:" destination="r3R-dd-kNR" eventType="touchUpInside" id="E1S-HV-Euy"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <animations/>
-                                        <color key="backgroundColor" red="0.91030293699999998" green="0.12721729279999999" blue="0.28739702700000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.7065587043762207" green="0.77467125654220581" blue="0.87251251935958862" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="Llu-j4-JGU" firstAttribute="top" secondItem="Myt-29-qy0" secondAttribute="bottom" constant="16" id="7gg-ju-ska"/>
                                             <constraint firstAttribute="centerX" secondItem="Llu-j4-JGU" secondAttribute="centerX" id="9QY-5K-otN"/>
                                             <constraint firstItem="Myt-29-qy0" firstAttribute="top" secondItem="rdC-bu-Efj" secondAttribute="top" constant="8" id="BpY-2f-f2T"/>
+                                            <constraint firstItem="6NH-F8-mBf" firstAttribute="leading" secondItem="Myt-29-qy0" secondAttribute="trailing" constant="8" id="JxC-1Y-MeC"/>
                                             <constraint firstAttribute="centerX" secondItem="Myt-29-qy0" secondAttribute="centerX" id="Ldy-Zr-x9q"/>
+                                            <constraint firstItem="Myt-29-qy0" firstAttribute="leading" secondItem="rdC-bu-Efj" secondAttribute="leading" constant="8" id="SsY-Eq-bMN"/>
+                                            <constraint firstItem="6NH-F8-mBf" firstAttribute="centerY" secondItem="Myt-29-qy0" secondAttribute="centerY" id="ata-PV-p1y"/>
+                                            <constraint firstItem="Myt-29-qy0" firstAttribute="centerY" secondItem="6NH-F8-mBf" secondAttribute="centerY" constant="-2" id="bH9-mZ-qft"/>
                                             <constraint firstAttribute="centerX" secondItem="Myt-29-qy0" secondAttribute="centerX" id="pMk-fk-lzv"/>
+                                            <constraint firstAttribute="trailing" secondItem="6NH-F8-mBf" secondAttribute="trailing" constant="8" id="xlM-WU-9vG"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
+                                                <exclude reference="Ldy-Zr-x9q"/>
+                                                <exclude reference="bH9-mZ-qft"/>
                                                 <exclude reference="pMk-fk-lzv"/>
                                             </mask>
                                         </variation>
@@ -278,12 +297,13 @@
                     </view>
                     <connections>
                         <outlet property="cardBackgroundView" destination="oM7-J8-i1e" id="9wA-Gd-1Tj"/>
+                        <outlet property="saveButton" destination="6NH-F8-mBf" id="Vvf-QS-mCo"/>
                         <outlet property="titleLabel" destination="Myt-29-qy0" id="hXQ-Sv-N1d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hIj-Na-3vK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2605" y="333"/>
+            <point key="canvasLocation" x="2577" y="357"/>
         </scene>
     </scenes>
     <resources>
