@@ -64,7 +64,7 @@
 #pragma mark - update methods
 
 - (void)addEntry:(MWKHistoryEntry*)entry {
-    if (entry.title == nil) {
+    if ([entry.title.text length] == 0) {
         return;
     }
     MWKHistoryEntry* oldEntry = [self entryForTitle:entry.title];
@@ -78,7 +78,7 @@
 }
 
 - (void)removeEntry:(MWKHistoryEntry*)entry {
-    if (entry.title == nil) {
+    if ([entry.title.text length] == 0) {
         return;
     }
     [self.entries removeObject:entry];

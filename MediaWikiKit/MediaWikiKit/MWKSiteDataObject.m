@@ -17,6 +17,7 @@
 @implementation MWKSiteDataObject
 
 - (instancetype)initWithSite:(MWKSite*)site {
+    NSParameterAssert(site);
     self = [self init];
     if (self) {
         self.site = site;

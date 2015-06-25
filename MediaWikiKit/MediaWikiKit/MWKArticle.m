@@ -51,6 +51,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 #pragma mark - Setup / Tear Down
 
 - (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(title);
     self = [self initWithSite:title.site];
     if (self) {
         self.dataStore = dataStore;

@@ -1075,7 +1075,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     }
 
     MWKHistoryEntry* entry = [self.session.userDataStore.historyList entryForTitle:self.session.currentArticle.title];
-    if (entry) {
+    if ([entry.title.text length] > 0) {
         entry.scrollPosition                         = self.webView.scrollView.contentOffset.y;
         self.session.userDataStore.historyList.dirty = YES;         // hack to force
         [self.session.userDataStore save];

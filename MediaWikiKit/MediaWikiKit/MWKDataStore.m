@@ -252,7 +252,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 #pragma mark - load methods
 
-/// May return nil if no article data available.
 - (MWKArticle*)articleWithTitle:(MWKTitle*)title {
     NSString* path     = [self pathForTitle:title];
     NSString* filePath = [path stringByAppendingPathComponent:@"Article.plist"];
