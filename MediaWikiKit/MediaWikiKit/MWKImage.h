@@ -12,6 +12,7 @@
 @property (readonly, weak, nonatomic) MWKArticle* article;
 
 // Metadata, static
+#warning TOOD: deprecate in favor of NSURL
 @property (readonly, copy, nonatomic) NSString* sourceURL;
 @property (readonly, copy, nonatomic) NSString* extension;
 @property (readonly, copy, nonatomic) NSString* fileName;
@@ -28,7 +29,7 @@
 
 
 // Local storage status
-@property (readonly, assign, nonatomic) BOOL isCached;
+@property (readonly, assign, nonatomic) BOOL isDownloaded;
 
 - (instancetype)initWithArticle:(MWKArticle*)article sourceURL:(NSString*)url;
 - (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict;
@@ -76,9 +77,6 @@
 - (void)updateWithData:(NSData*)data;
 - (void)updateLastAccessed;
 - (void)save;
-
-- (UIImage*)asUIImage;
-- (NSData*) asNSData;
 
 - (MWKImage*)largestVariant;
 - (MWKImage*)largestCachedVariant;
@@ -128,8 +126,14 @@
  */
 - (BOOL)isVariantOfImage:(MWKImage*)otherImage;
 
-- (NSString*)fullImageBinaryPath;
-
 - (BOOL)isLeadImage;
+
+@end
+
+@interface MWKImage ()
+
+- (UIImage*)asUIImage __deprecated;
+- (NSData*)asNSData __deprecated;
+- (NSString*)fullImageBinaryPath __deprecated;
 
 @end

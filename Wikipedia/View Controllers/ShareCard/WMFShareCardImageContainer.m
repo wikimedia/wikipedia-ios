@@ -24,7 +24,7 @@
     [super drawRect:rect];
     [self drawGradientBackground];
 
-    CGRect focalBounds = self.leadImage.isCached ? [self getPrimaryFocalRectFromCanonicalLeadImage] : CGRectZero;
+    CGRect focalBounds = self.leadImage.isDownloaded ? [self getPrimaryFocalRectFromCanonicalLeadImage] : CGRectZero;
 
     [[self.leadImage asUIImage] wmf_drawInRect:rect
                                    focalBounds:focalBounds

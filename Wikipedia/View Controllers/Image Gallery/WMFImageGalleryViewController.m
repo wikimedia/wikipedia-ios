@@ -8,6 +8,10 @@
 
 #import "WMFImageGalleryViewController.h"
 
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
+#import "AnyPromise+WMFExtensions.h"
+
 // Utils
 #import <BlocksKit/BlocksKit.h>
 #import "WikipediaAppUtils.h"
@@ -39,16 +43,15 @@
 #import "MWKArticle+Convenience.h"
 
 // Networking
-#import <AFNetworking/AFHTTPRequestOperationManager.h>
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "AFHTTPRequestOperationManager+UniqueRequests.h"
 #import "MWKImageInfoResponseSerializer.h"
 
-#if DEBUG && 0
-#define ImgGalleryLog(...) NSLog(__VA_ARGS__)
-#else
-#define ImgGalleryLog(...)
-#endif
+#undef LOG_LEVEL_DEF
+#define LOG_LEVEL_DEF WMFImageGalleryLogLevel
+
+static const int LOG_LEVEL_DEF = DDLogLevelDebug;
+
+NS_ASSUME_NONNULL_BEGIN
 
 static double const WMFImageGalleryTopGradientHeight = 150.0;
 
@@ -64,14 +67,8 @@ static double const WMFImageGalleryTopGradientHeight = 150.0;
 
 @property (nonatomic, weak, readonly) UITapGestureRecognizer* chromeTapGestureRecognizer;
 
-@property (nonatomic, strong, readonly) AFHTTPRequestOperationManager* imageFetcher;
-
 /// Array of the article's images without duplicates in order of appearance.
 @property (nonatomic, strong, readonly) NSArray* uniqueArticleImages;
-
-/// Map of URLs to bitmaps, serves as a simple cache for uncompressed images.
-// !!!: This means we're store image data in 2 different memory locations, but we save a lot of time by not decoding
-@property (nonatomic, strong, readonly) NSMutableDictionary* bitmapsForImageURL;
 
 @property (nonatomic, strong, readonly) WMFImageInfoController* infoController;
 
@@ -82,7 +79,6 @@ static double const WMFImageGalleryTopGradientHeight = 150.0;
 static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGalleryCollectionViewCellReuseId";
 
 @implementation WMFImageGalleryViewController
-@synthesize imageFetcher   = _imageFetcher;
 @synthesize infoController = _infoController;
 
 - (instancetype)initWithArticle:(MWKArticle*)article {
@@ -96,9 +92,8 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
     self = [super initWithCollectionViewLayout:defaultLayout];
     if (self) {
-        _article            = article;
-        _bitmapsForImageURL = [NSMutableDictionary dictionaryWithCapacity:[self.uniqueArticleImages count]];
-        _chromeHidden       = NO;
+        _article      = article;
+        _chromeHidden = NO;
     }
     return self;
 }
@@ -109,7 +104,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    [self.bitmapsForImageURL removeAllObjects];
 }
 
 #pragma mark - Getters
@@ -124,14 +118,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (NSArray*)uniqueArticleImages {
     return self.infoController.uniqueArticleImages;
-}
-
-- (AFHTTPRequestOperationManager*)imageFetcher {
-    if (!_imageFetcher) {
-        _imageFetcher                    = [AFHTTPRequestOperationManager wmf_createDefaultManager];
-        _imageFetcher.responseSerializer = [AFImageResponseSerializer serializer];
-    }
-    return _imageFetcher;
 }
 
 - (MWKDataStore*)dataStore {
@@ -493,92 +479,73 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     MWKImageInfo* infoForImage              = [self.infoController infoForImage:image];
     WMFImageGalleryCollectionViewCell* cell =
         (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
-    [self updateImageForCell:cell atIndexPath:indexPath image:image info:infoForImage];
+    if (cell) {
+        [self updateImageForCell:cell atIndexPath:indexPath image:image info:infoForImage];
+    }
 }
 
 - (void)updateImageForCell:(WMFImageGalleryCollectionViewCell*)cell
                atIndexPath:(NSIndexPath*)indexPath
                      image:(MWKImage*)image
-                      info:(MWKImageInfo*)infoForImage {
+                      info:(MWKImageInfo* __nullable)infoForImage {
     NSParameterAssert(cell);
-    NSParameterAssert(indexPath);
-    NSParameterAssert(image);
-    UIImage* cachedBitmap   = infoForImage.imageThumbURL ? self.bitmapsForImageURL[infoForImage.imageThumbURL] : nil;
-    MWKImage* matchingImage = nil;
-    if (cachedBitmap) {
-        ImgGalleryLog(@"Using cached bitmap for %@ at %@", infoForImage.imageThumbURL, indexPath);
-        cell.image     = cachedBitmap;
-        cell.imageSize = infoForImage.thumbSize;
-    } else if (infoForImage.imageThumbURL.absoluteString.length > 0
-               && (matchingImage = [self.article imageWithURL:infoForImage.imageThumbURL.absoluteString])
-               && matchingImage.isCached) {
-        ImgGalleryLog(@"Reading image %@ from disk for cell %@.", infoForImage.imageThumbURL, indexPath);
-        UIImage* matchingImageData = [matchingImage asUIImage];
-        self.bitmapsForImageURL[infoForImage.imageThumbURL] = matchingImageData;
-        cell.image                                          = matchingImageData;
-        cell.imageSize                                      = matchingImageData.size;
-    } else {
-        ImgGalleryLog(@"Using article image (%@) as placeholder for thumbnail of cell %@", image.sourceURL, indexPath);
-        // !!!: -asUIImage reads from disk AND has to decompress image data, maybe we should move it off the main thread?
-        // use largestCachedVariant to ensure that we grab any image that's available
-        // TODO: make sure don't grab an image that's _too_ big, as it might effect scrolling performance
-        cell.image     = [[image largestCachedVariant] asUIImage];
-        cell.imageSize = infoForImage ? infoForImage.thumbSize : cell.image.size;
-        [self fetchImage:infoForImage.imageThumbURL forCellAtIndexPath:indexPath];
+    @weakify(self)
+
+    NSURL * placeholderURL = [NSURL wmf_optionalURLWithString:[[image largestCachedVariant] sourceURL]];
+    [[WMFImageController sharedInstance] cascadingFetchWithMainURL:infoForImage.imageURL
+                                              cachedPlaceholderURL:placeholderURL
+                                                    mainImageBlock:^(UIImage* __nonnull mainImage) {
+        @strongify(self)
+        [self setImage : mainImage withInfo : infoForImage forCellAtIndexPath : indexPath];
     }
+                                       cachedPlaceholderImageBlock:^(UIImage* __nonnull placeholderImage) {
+        @strongify(self)
+        [self setPlaceholderImage : placeholderImage ofInfo : infoForImage forCellAtIndexPath : indexPath];
+    }]
+    .catch(^(NSError* error) {
+        // TODO: show alert if any errors trickle down from above (i.e. network error fetching high-res image)
+        DDLogWarn(@"Failed to load image for cell at %@: %@", indexPath, error);
+    });
 }
 
-- (void)fetchImage:(NSURL*)imageURL forCellAtIndexPath:(NSIndexPath*)indexPath {
-    if (!imageURL) {
+- (void)      setImage:(UIImage*)image
+              withInfo:(MWKImageInfo*)info
+    forCellAtIndexPath:(NSIndexPath*)indexPath {
+    DDLogDebug(@"Setting image for info %@ to indexpath %@", info, indexPath);
+    WMFImageGalleryCollectionViewCell* cell =
+        (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
+    if (!cell) {
+        DDLogDebug(@"Not applying download for %@ at %@ since cell is no longer visible.", info, indexPath);
         return;
     }
-    NSParameterAssert(indexPath);
+    cell.image     = image;
+    cell.imageSize = info.thumbSize;
+}
 
-    ImgGalleryLog(@"Fetching image at %@ for cell %@", imageURL.absoluteString, indexPath);
-
-    NSAssert(![self.article imageWithURL:imageURL.absoluteString].isCached,
-             @"Invalid fetch for existing image data for URL: %@", imageURL);
-
-    __weak WMFImageGalleryViewController* weakSelf = self;
-    AFHTTPRequestOperation* request                =
-        [self.imageFetcher
-         wmf_idempotentGET:imageURL.absoluteString
-                parameters:nil
-                   success:^(AFHTTPRequestOperation* operation, UIImage* image) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            WMFImageGalleryViewController* strSelf = weakSelf;
-            if (!strSelf) {
-                return;
-            }
-            ImgGalleryLog(@"Retrieved high-res image at %@ for cell %@", imageURL, indexPath);
-            NSCParameterAssert(image);
-            MWKImage* imageRecord = [strSelf.article importImageURL:imageURL.absoluteString
-                                                          imageData:operation.responseData];
-            NSCParameterAssert(imageRecord.isCached);
-            strSelf.bitmapsForImageURL[imageURL] = image;
-            WMFImageGalleryCollectionViewCell* cell =
-                (WMFImageGalleryCollectionViewCell*)[strSelf.collectionView cellForItemAtIndexPath:indexPath];
-            if (cell) {
-                [UIView transitionWithView:cell
-                                  duration:[CATransaction animationDuration]
-                                   options:UIViewAnimationOptionTransitionCrossDissolve
-                                animations:^{ cell.image = image; }
-                                completion:nil];
-            }
-        });
+- (void)setPlaceholderImage:(UIImage* __nullable)image
+                     ofInfo:(MWKImageInfo* __nullable)info
+         forCellAtIndexPath:(NSIndexPath*)indexPath {
+    if (!image) {
+        return;
     }
-                   failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-        ImgGalleryLog(@"Failed to fetch image at %@ for cell %@: %@", operation.request.URL, indexPath, error);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        });
-    }];
-
-    if (request) {
-        // request will be nil if no request was sent (if another operation is already requesting the specified image)
-        [[MWNetworkActivityIndicatorManager sharedManager] push];
+    NSAssert(!info
+             || ![[WMFImageController sharedInstance] hasImageWithURL:info.imageURL]
+             || (!info && ![[WMFImageController sharedInstance] hasImageWithURL:info.imageURL]),
+             @"Breach of contract to never apply variant when desired image is present!");
+    DDLogDebug(@"Applying variant of info %@ to indexpath %@", info, indexPath);
+    WMFImageGalleryCollectionViewCell* cell =
+        (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
+    if (!cell) {
+        DDLogDebug(@"Not applying download of variant for %@ at %@ since cell is no longer visible.",
+                   info, indexPath);
+        return;
     }
+    cell.image = image;
+    /*
+       set the expected image size to the image info's size if we have it, yielding the "ENHANCE" effect when
+       the higher-res image is downloaded
+     */
+    cell.imageSize = info ? info.thumbSize : image.size;
 }
 
 #pragma mark - WMFImageInfoControllerDelegate
@@ -600,3 +567,5 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

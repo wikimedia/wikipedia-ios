@@ -232,7 +232,7 @@
                 self.article.thumbnailURL = thumbURL;
             }
 
-            if ([[self.article existingImageWithURL:thumbURL] isCached]) {
+            if ([[self.article existingImageWithURL:thumbURL] isDownloaded]) {
                 return;
             }
 

@@ -59,7 +59,7 @@
         [[article.entityDescription wmf_stringByRemovingHTML] wmf_stringByCapitalizingFirstCharacter];
     self.shareArticleDescription.textAlignment = subtextAlignment;
 
-    BOOL leadImageCached = [article.image.largestCachedVariant isCached];
+    BOOL leadImageCached = [article.image.largestCachedVariant isDownloaded];
     if (leadImageCached) {
         // in case the image has transparency, make its container white
         self.shareCardImageContainer.backgroundColor = [UIColor whiteColor];

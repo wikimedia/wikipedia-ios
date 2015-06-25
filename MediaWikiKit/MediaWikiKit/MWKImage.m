@@ -5,6 +5,7 @@
 #import "WMFImageURLParsing.h"
 #import "WMFFaceDetector.h"
 #import "WMFGeometry.h"
+#import "Wikipedia-Swift.h"
 #import <BlocksKit/BlocksKit.h>
 
 @interface MWKImage ()
@@ -232,19 +233,18 @@
 }
 
 - (UIImage*)asUIImage {
-    NSData* imageData = [self asNSData];
-
-    UIImage* image = [UIImage imageWithData:imageData];
-
-    NSAssert((![self hasEstimatedSize] || [self isEstimatedSizeWithinPoints:10.f ofSize:image.size]),
-             (@"estimatedSize inaccuracy has exceeded acceptable threshold: { \n"
-              "\t" "sourceURL: %@, \n"
-              "\t" "estimatedSize: %@ \n"
-              "\t" "actualSize: %@ \n"
-              "}"),
-             self.sourceURL, [self estimatedSizeString], NSStringFromCGSize(image.size));
-
-    return image;
+    return nil;
+//    UIImage* image = [[WMFImageController sharedInstance] ];
+//
+//    NSAssert((![self hasEstimatedSize] || [self isEstimatedSizeWithinPoints:10.f ofSize:image.size]),
+//             (@"estimatedSize inaccuracy has exceeded acceptable threshold: { \n"
+//              "\t" "sourceURL: %@, \n"
+//              "\t" "estimatedSize: %@ \n"
+//              "\t" "actualSize: %@ \n"
+//              "}"),
+//             self.sourceURL, [self estimatedSizeString], NSStringFromCGSize(image.size));
+//
+//    return image;
 }
 
 - (BOOL)hasEstimatedSize {
@@ -271,7 +271,7 @@
 }
 
 - (NSData*)asNSData {
-    return [self.article.dataStore imageDataWithImage:self];
+    return nil;
 }
 
 - (MWKImage*)largestVariant {
@@ -292,10 +292,8 @@
     return [self.article.images smallestImageVariantForURL:self.sourceURL cachedOnly:YES];
 }
 
-- (BOOL)isCached {
-    NSString* fullPath = [self fullImageBinaryPath];
-    BOOL fileExists    = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
-    return fileExists;
+- (BOOL)isDownloaded {
+    return [[WMFImageController sharedInstance] hasImageWithURL:[NSURL URLWithString:self.sourceURL]];
 }
 
 - (BOOL)isEqual:(id)object {

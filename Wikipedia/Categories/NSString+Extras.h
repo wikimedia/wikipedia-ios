@@ -13,7 +13,14 @@
 
 - (NSString*)wmf_schemelessURL;
 
-- (NSString*)wmf_mimeTypeForExtension;
+/**
+ * Get the MIME type for a string obtained via another string or URL's `pathExtension` property.
+ *
+ * For example: <code>[[@"foo.png" pathExtension] wmf_asMIMEType]</code>
+ *
+ * @return The MIME type for the receiver.
+ */
+- (NSString*)wmf_asMIMEType;
 
 - (NSDate*)wmf_iso8601Date;
 

@@ -13,11 +13,11 @@
 #import "NSArray+WMFExtensions.h"
 #import "NSIndexSet+BKReduce.h"
 
-#if 1 && DEBUG
-#define IICLog(...) NSLog(__VA_ARGS__)
-#else
-#define IICLog(...)
-#endif
+#undef LOG_LEVEL_DEF
+#define LOG_LEVEL_DEF WMFImageInfoControllerLogLevel
+
+static const int LOG_LEVEL_DEF = DDLogLevelDebug;
+
 
 NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
     return [imageInfo bk_index:^id < NSCopying > (MWKImageInfo* info) {
@@ -161,8 +161,8 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 - (NSRange)batchRangeForTargetIndex:(NSUInteger)index {
     NSParameterAssert(index < self.uniqueArticleImages.count);
     if (index > self.uniqueArticleImages.count) {
-        IICLog(@"WARNING: attempted to fetch %lu which is beoynd upper bound of %lu",
-               index, self.uniqueArticleImages.count);
+        DDLogWarn(@"Attempted to fetch %lu which is beoynd upper bound of %lu",
+                  index, self.uniqueArticleImages.count);
         return WMFRangeMakeNotFound();
     }
     NSUInteger const start = floorf(index / (float)self.infoBatchSize) * self.infoBatchSize;
@@ -177,14 +177,14 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 - (id<MWKImageInfoRequest>)fetchBatch:(NSRange)batch {
     NSParameterAssert(!WMFRangeIsNotFoundOrEmpty(batch));
     if (WMFRangeIsNotFoundOrEmpty(batch)) {
-        IICLog(@"WARNING: attempted to fetch not found or empty range: %@", NSStringFromRange(batch));
+        DDLogWarn(@"Attempted to fetch not found or empty range: %@", NSStringFromRange(batch));
         return nil;
     } else if ([self.fetchedIndices containsIndexesInRange:batch]) {
-        IICLog(@"Batch %@ has already been fetched.", NSStringFromRange(batch));
+        DDLogDebug(@"Batch %@ has already been fetched.", NSStringFromRange(batch));
         return nil;
     }
     NSParameterAssert(batch.length <= self.infoBatchSize);
-    IICLog(@"Fetching batch: %@", NSStringFromRange(batch));
+    DDLogDebug(@"Fetching batch: %@", NSStringFromRange(batch));
 
     // optimistically add batch to fetched indices, then remove it if the request fails
     [self.fetchedIndices addIndexesInRange:batch];

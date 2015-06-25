@@ -5,6 +5,9 @@
 
 @interface NSURL (WMFRest)
 
+/// @return Whether or not the receiver's scheme is "http" or "https"
+- (BOOL)wmf_isHTTP;
+
 - (BOOL)wmf_conformsToScheme:(NSString*)scheme andHasHost:(NSString*)host;
 - (BOOL)wmf_conformsToAnyOfSchemes:(NSArray*)schemes andHasHost:(NSString*)host;
 - (NSString*)wmf_getValue;

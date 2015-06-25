@@ -6,6 +6,10 @@
 
 @implementation NSURL (WMFRest)
 
+- (BOOL)wmf_isHTTP {
+    return [self.scheme hasPrefix:@"http"];
+}
+
 - (BOOL)wmf_conformsToScheme:(NSString*)scheme andHasHost:(NSString*)host {
     return ([[self scheme] wmf_isEqualToStringIgnoringCase:scheme] && [[self host] wmf_isEqualToStringIgnoringCase:host]);
 }

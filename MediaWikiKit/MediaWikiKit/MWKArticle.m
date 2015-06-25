@@ -249,7 +249,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         return;
     }
 
-    if ([[self existingImageWithURL:self.thumbnailURL] isCached]) {
+    if ([[self existingImageWithURL:self.thumbnailURL] isDownloaded]) {
         return;
     }
 

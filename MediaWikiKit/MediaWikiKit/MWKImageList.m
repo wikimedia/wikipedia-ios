@@ -156,7 +156,7 @@
     NSArray* arr = [self imageSizeVariants:imageURL];
     for (NSString* variantURL in [arr reverseObjectEnumerator]) {
         MWKImage* image = [self.article imageWithURL:variantURL];
-        if (!cachedOnly || image.isCached) {
+        if (!cachedOnly || image.isDownloaded) {
             return image;
         }
     }
@@ -167,7 +167,7 @@
     NSArray* arr = [self imageSizeVariants:imageURL];
     for (NSString* variantURL in arr) {
         MWKImage* image = [self.article imageWithURL:variantURL];
-        if (!cachedOnly || image.isCached) {
+        if (!cachedOnly || image.isDownloaded) {
             return image;
         }
     }

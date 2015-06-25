@@ -38,9 +38,10 @@
     return path;
 }
 
-- (NSString*)wmf_mimeTypeForExtension {
-    // From: http://stackoverflow.com/a/21858677/135557
-    NSString* UTI = (__bridge_transfer NSString*)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)self, NULL);
+- (NSString*)wmf_asMIMEType {
+    NSString* UTI = (__bridge_transfer NSString*)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
+                                                                                       (__bridge CFStringRef)self,
+                                                                                       NULL);
     return (__bridge_transfer NSString*)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)UTI, kUTTagClassMIMEType);
 }
 

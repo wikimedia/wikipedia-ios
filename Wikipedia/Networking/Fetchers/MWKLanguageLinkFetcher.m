@@ -2,7 +2,6 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "MWKLanguageLinkFetcher.h"
-#import "AFHTTPRequestOperationManager.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSObject+Extras.h"
@@ -10,6 +9,8 @@
 #import "WikipediaAppUtils.h"
 #import "WMFNetworkUtilities.h"
 #import "MWKLanguageLinkResponseSerializer.h"
+
+#import <AFNetworking/AFHTTPRequestOperationManager.h>
 
 @interface MWKLanguageLinkFetcher ()
 

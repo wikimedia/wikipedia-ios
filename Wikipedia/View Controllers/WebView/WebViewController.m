@@ -1477,7 +1477,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [NSString stringWithFormat:formatString,
          article.imageURL,
          (long)offsetY,
-         [article.image isCached] ? @"display:none;" : @"",
+         [article.image isDownloaded] ? @"display:none;" : @"",
          34.0f* [self leadImageGetSizeReductionMultiplierForTitleOfLength:title.length],
          title,
          17.0f,
