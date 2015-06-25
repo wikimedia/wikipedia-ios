@@ -1332,14 +1332,18 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)navigateToPage:(MWKTitle*)title
        discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+
+    NSParameterAssert(title);
+    if([title.text length] == 0){
+        
+        [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
+        return;
+    }
+    
     NSString* cleanTitle = title.text;
     NSParameterAssert(cleanTitle.length);
-
     [self hideKeyboard];
-
-    // Show loading message
-    //[self showAlert:MWLocalizedString(@"search-loading-section-zero", nil) type:ALERT_TYPE_TOP duration:-1];
-
+    
     self.jumpToFragment = title.fragment;
 
     if (discoveryMethod != MWKHistoryDiscoveryMethodBackForward && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromNetwork && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromCache) {
@@ -1349,13 +1353,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     [self retrieveArticleForPageTitle:title
                       discoveryMethod:discoveryMethod];
 
-    /*
-       // Reset the search field to its placeholder text after 5 seconds.
-       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        TopMenuTextFieldContainer *textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-        if (!textFieldContainer.textField.isFirstResponder) textFieldContainer.textField.text = @"";
-       });
-     */
 }
 
 - (void)reloadCurrentArticleFromNetwork {
@@ -1386,8 +1383,13 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 - (void)retrieveArticleForPageTitle:(MWKTitle*)pageTitle
                     discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     
-    NSParameterAssert(pageTitle.text);
-    
+    NSParameterAssert(pageTitle);
+    if([pageTitle.text length] == 0){
+        
+        [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
+        return;
+    }
+
     // Cancel certain in-progress fetches.
     [self cancelSearchLoading];
     [self cancelArticleLoading];
