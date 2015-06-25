@@ -10,13 +10,15 @@ xcodeproj 'Wikipedia'
 pod 'AFNetworking/NSURLConnection', '~> 2.5'
 pod 'hpple', '~> 0.2'
 pod 'Mantle'
+pod 'SDWebImage', :path => './vendor/SDWebImage'
 
 # Objective-C Extensions
 pod 'libextobjc/EXTScope', '~> 0.4.1'
 
-# Block Syntax
+# Utilities
 pod 'BlocksKit/Core', '~> 2.2'
 pod 'BlocksKit/UIKit', '~> 2.2'
+pod 'libextobjc/EXTScope', '~> 0.4.1'
 
 # KVO
 pod 'KVOController'

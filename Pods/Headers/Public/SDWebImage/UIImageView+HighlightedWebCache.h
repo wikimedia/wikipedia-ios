@@ -1,0 +1,1 @@
+../../../../vendor/SDWebImage/SDWebImage/UIImageView+HighlightedWebCache.h
