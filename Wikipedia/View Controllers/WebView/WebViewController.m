@@ -29,7 +29,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
-@interface WebViewController () <LanguageSelectionDelegate>
+@interface WebViewController () <LanguageSelectionDelegate, WMFWebViewFooterContainerDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem* buttonTOC;
 @property (nonatomic, strong) UIBarButtonItem* buttonBack;
@@ -178,11 +178,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     [self setupTrackingFooter];
 
-    self.bottomNavHeightConstraint.constant = CHROME_MENUS_HEIGHT;
-
     self.scrollingToTop = NO;
-
-    [self scrollIndicatorSetup];
 
     self.panSwipeRecognizer = nil;
 
@@ -272,8 +268,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     // UIWebView has a bug which causes a black bar to appear at
     // bottom of the web view if toc quickly dragged on and offscreen.
     self.webView.opaque = NO;
-
-    self.bottomBarViewBottomConstraint = nil;
 
     self.view.backgroundColor = CHROME_COLOR;
 
@@ -395,102 +389,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [super viewWillDisappear:animated];
 }
 
-#pragma mark Scroll indicator
-
-static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
-
-- (void)scrollIndicatorSetup {
-    return;
-    self.scrollIndicatorView                                           = [[UIView alloc] init];
-    self.scrollIndicatorView.opaque                                    = NO;
-    self.scrollIndicatorView.backgroundColor                           = [UIColor wmf_colorWithHex:kScrollIndicatorBackgroundColor alpha:kScrollIndicatorAlpha];
-    self.scrollIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.scrollIndicatorView.layer.cornerRadius                        = kScrollIndicatorCornerRadius;
-
-    self.webView.scrollView.showsHorizontalScrollIndicator = NO;
-    self.webView.scrollView.showsVerticalScrollIndicator   = NO;
-
-    [self.webView addSubview:self.scrollIndicatorView];
-
-    self.scrollIndicatorViewTopConstraint =
-        [NSLayoutConstraint constraintWithItem:self.scrollIndicatorView
-                                     attribute:NSLayoutAttributeTop
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:self.webView
-                                     attribute:NSLayoutAttributeTop
-                                    multiplier:1.0
-                                      constant:kScrollIndicatorMinYMargin];
-
-    self.scrollIndicatorViewTopConstraint.priority = UILayoutPriorityDefaultLow;
-
-    [self.view addConstraint:self.scrollIndicatorViewTopConstraint];
-
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.scrollIndicatorView
-                                                          attribute:NSLayoutAttributeTrailing
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.webView
-                                                          attribute:NSLayoutAttributeTrailing
-                                                         multiplier:1.0
-                                                           constant:-kScrollIndicatorLeftMargin]];
-
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.scrollIndicatorView
-                                                          attribute:NSLayoutAttributeWidth
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeNotAnAttribute
-                                                         multiplier:1.0
-                                                           constant:kScrollIndicatorWidth]];
-
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.scrollIndicatorView
-                                                          attribute:NSLayoutAttributeBottom
-                                                          relatedBy:NSLayoutRelationLessThanOrEqual
-                                                             toItem:self.webView
-                                                          attribute:NSLayoutAttributeBottom
-                                                         multiplier:1.0
-                                                           constant:-kScrollIndicatorMinYMargin]];
-
-    self.scrollIndicatorViewHeightConstraint =
-        [NSLayoutConstraint constraintWithItem:self.scrollIndicatorView
-                                     attribute:NSLayoutAttributeHeight
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:nil
-                                     attribute:NSLayoutAttributeNotAnAttribute
-                                    multiplier:1.0
-                                      constant:kScrollIndicatorHeight];
-
-    [self.view addConstraint:self.scrollIndicatorViewHeightConstraint];
-}
-
-- (CGFloat)footerMinimumScrollY {
-    /*
-       Reminder/Examples:
-        VALUES  |   TOP OF FOOTER WOULD SCROLL
-
-          0         Not past the top of the screen.
-         100        100 pixels past the top of the screen.
-        -100        100 pixels below the top of the screen.
-
-     */
-    if ([[[SessionSingleton sharedInstance] currentArticle] isMain]) {
-        // Prevent top of footer from being scrolled up past bottom of screen.
-        return -self.view.frame.size.height;
-    } else {
-        // Prevent bottom of footer from being scrolled up past bottom of screen.
-        return self.footerViewController.footerHeight - self.view.frame.size.height;
-    }
-}
-
-- (void)scrollIndicatorMove {
-    CGFloat f = self.webView.scrollView.contentSize.height - kBottomScrollSpacerHeight + [self footerMinimumScrollY];
-    if (f == 0) {
-        f = 0.00001f;
-    }
-    //self.scrollIndicatorView.alpha = [self tocDrawerIsOpen] ? 0.0f : 1.0f;
-    CGFloat percent = self.webView.scrollView.contentOffset.y / f;
-    //NSLog(@"percent = %f", percent);
-    self.scrollIndicatorViewTopConstraint.constant = percent * (self.bottomBarView.frame.origin.y - kScrollIndicatorHeight) + kScrollIndicatorMinYMargin;
-}
-
 #pragma mark Sync config/ios.json if necessary
 
 - (void)downloadAssetsFilesIfNecessary {
@@ -512,14 +410,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 - (void)searchFieldBecameFirstResponder {
     [self tocHide];
-}
-
-#pragma mark Update constraints
-
-- (void)updateViewConstraints {
-    [super updateViewConstraints];
-
-    [self constrainBottomMenu];
 }
 
 #pragma mark Angle from velocity vector
@@ -561,8 +451,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                               delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-            self.scrollIndicatorView.alpha = 1.0;
-
             self.webView.scrollView.transform = CGAffineTransformIdentity;
 
             self.referencesContainerView.transform = CGAffineTransformIdentity;
@@ -628,8 +516,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-        self.scrollIndicatorView.alpha = 0.0;
-        self.bottomMenuHidden = YES;
         self.referencesHidden = YES;
 
         CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
@@ -1197,23 +1083,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 #pragma mark Web view limit scroll up
 
-- (void)limitScrollUp:(UIScrollView*)webScrollView {
-    // When trying to scroll the bottom of the web view article all the way to
-    // the top, this is the minimum amount that will be allowed to be onscreen
-    // before we limit scrolling.
-    CGFloat onscreenMinHeight = -[self footerMinimumScrollY];
-
-    CGFloat offsetMaxY = kBottomScrollSpacerHeight + onscreenMinHeight;
-
-    if ((webScrollView.contentSize.height - webScrollView.contentOffset.y) < offsetMaxY) {
-        CGPoint p = CGPointMake(webScrollView.contentOffset.x,
-                                webScrollView.contentSize.height - offsetMaxY);
-
-        // This limits scrolling!
-        [webScrollView setContentOffset:p animated:NO];
-    }
-}
-
 - (void)keyboardDidShow:(NSNotification*)note {
     self.keyboardIsVisible = YES;
 }
@@ -1225,10 +1094,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 #pragma mark Scroll hiding keyboard threshold
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
-    if (scrollView == self.webView.scrollView) {
-        [self limitScrollUp:scrollView];
-    }
-
     // Hide the keyboard if it was visible when the results are scrolled, but only if
     // the results have been scrolled in excess of some small distance threshold first.
     // This prevents tiny scroll adjustments, which seem to occur occasionally for some
@@ -1240,8 +1105,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         [self hideKeyboard];
         //NSLog(@"Keyboard Hidden!");
     }
-
-    [self scrollIndicatorMove];
 
     if (![self tocDrawerIsOpen]) {
         [self adjustTopAndBottomMenuVisibilityOnScroll];
@@ -1774,12 +1637,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         [sectionTextArray addObject:@"<div id='section_heading_and_content_block_100000'></div>"];
     }
 
-    // This is important! Ensures bottom of web view article can be scrolled closer to the top of
-    // the screen. Works in conjunction with "limitScrollUp:" method.
-    // Note: had to add "px" to the height because we added "<!DOCTYPE html>" to the top
-    // of the index.html - it won't actually give the div height w/o this now (no longer
-    // using quirks mode now that doctype specified).
-    [sectionTextArray addObject:[NSString stringWithFormat:@"<div style='height:%dpx;background-color:white;'></div>", (int)kBottomScrollSpacerHeight]];
+    [sectionTextArray addObject:[self getFooterPlaceholderDiv]];
 
     // Join article sections text
     NSString* joint   = @"";     //@"<div style=\"height:20px;\"></div>";
@@ -1990,41 +1848,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         self.tocVC       = (TOCViewController*)[segue destinationViewController];
         self.tocVC.webVC = self;
     }
-}
-
-- (void)setBottomMenuHidden:(BOOL)bottomMenuHidden {
-    return;
-    if (self.bottomMenuHidden == bottomMenuHidden) {
-        return;
-    }
-
-    _bottomMenuHidden = bottomMenuHidden;
-
-    // Fade out the top menu when it is hidden.
-    CGFloat alpha = bottomMenuHidden ? 0.0 : 1.0;
-
-    self.bottomBarView.alpha = alpha;
-}
-
-- (void)constrainBottomMenu {
-    return;
-    // If visible, constrain bottom of bottomNavBar to bottom of superview.
-    // If hidden, constrain top of bottomNavBar to bottom of superview.
-
-    if (self.bottomBarViewBottomConstraint) {
-        [self.view removeConstraint:self.bottomBarViewBottomConstraint];
-    }
-
-    self.bottomBarViewBottomConstraint =
-        [NSLayoutConstraint constraintWithItem:self.bottomBarView
-                                     attribute:((self.bottomMenuHidden) ? NSLayoutAttributeTop : NSLayoutAttributeBottom)
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:self.view
-                                     attribute:NSLayoutAttributeBottom
-                                    multiplier:1.0
-                                      constant:0];
-
-    [self.view addConstraint:self.bottomBarViewBottomConstraint];
 }
 
 - (void)showProtectedDialog {
@@ -2336,15 +2159,30 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 #pragma mark - Tracking Footer
 
+- (NSString*)getFooterPlaceholderDiv {
+    return [NSString stringWithFormat:@"<div id='bottom_native_footer_spacer' style='height:%fpx'></div>", self.footerContainer.frame.size.height];
+}
+
+- (void)updateFooterPlaceholderDivHeight:(CGFloat)height {
+    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.getElementById('bottom_native_footer_spacer').style.height = '%fpx';", height]];
+}
+
 - (void)setupTrackingFooter {
     if (!self.footerContainer) {
-        self.footerContainer = [[WMFWebViewFooterContainerView alloc] initWithHeight:kBottomScrollSpacerHeight];
+        self.footerContainer = [[WMFWebViewFooterContainerView alloc] init];
+
+        self.footerContainer.delegate = self;
+
         [self.webView wmf_addTrackingView:self.footerContainer
                                atLocation:WMFTrackingViewLocationBottom];
 
         self.footerViewController = [[WMFWebViewFooterViewController alloc] init];
         [self wmf_addChildController:self.footerViewController andConstrainToEdgesOfContainerView:self.footerContainer];
     }
+}
+
+- (void)footerContainer:(WMFWebViewFooterContainerView*)footerContainer heightChanged:(CGFloat)newHeight {
+    [self updateFooterPlaceholderDivHeight:newHeight];
 }
 
 #pragma mark - Article loading convenience

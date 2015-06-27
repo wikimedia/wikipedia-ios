@@ -10,7 +10,6 @@
 @interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, ArticleFetcherDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView* webView;
-@property (nonatomic) BOOL bottomMenuHidden;
 @property (nonatomic) BOOL referencesHidden;
 @property (nonatomic) BOOL scrollingToTop;
 

@@ -3,10 +3,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class WMFWebViewFooterContainerView;
+
+@protocol WMFWebViewFooterContainerDelegate <NSObject>
+
+- (void)footerContainer:(WMFWebViewFooterContainerView*)footerContainer heightChanged:(CGFloat)newHeight;
+
+@end
+
 @interface WMFWebViewFooterContainerView : UIView
 
-@property (nonatomic, readonly) CGFloat height;
-
-- (id)initWithHeight:(CGFloat)height;
+@property (nonatomic, weak) id <WMFWebViewFooterContainerDelegate> delegate;
 
 @end

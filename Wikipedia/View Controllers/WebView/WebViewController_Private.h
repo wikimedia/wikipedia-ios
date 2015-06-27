@@ -75,8 +75,6 @@ static CGFloat const kScrollIndicatorAlpha             = 0.3f;
 static NSInteger const kScrollIndicatorBorderColor     = 0x000000;
 static NSInteger const kScrollIndicatorBackgroundColor = 0x000000;
 
-static CGFloat const kBottomScrollSpacerHeight = 2000.0f;
-
 // This controls how fast the swipe has to be (side-to-side).
 #define TOC_SWIPE_TRIGGER_MIN_X_VELOCITY 600.0f
 // This controls what angle from the horizontal axis will trigger the swipe.
@@ -105,14 +103,8 @@ static int const kMinimumTextSelectionLength = 2;
 @property (strong, nonatomic) NSDictionary* adjacentHistoryIDs;
 @property (strong, nonatomic) NSString* externalUrl;
 
-@property (weak, nonatomic) IBOutlet UIView* bottomBarView;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* tocViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* tocViewLeadingConstraint;
-
-@property (strong, nonatomic) UIView* scrollIndicatorView;
-@property (strong, nonatomic) NSLayoutConstraint* scrollIndicatorViewTopConstraint;
-@property (strong, nonatomic) NSLayoutConstraint* scrollIndicatorViewHeightConstraint;
 
 @property (strong, nonatomic) TOCViewController* tocVC;
 
@@ -125,7 +117,6 @@ static int const kMinimumTextSelectionLength = 2;
 @property (strong, nonatomic) ReferencesVC* referencesVC;
 @property (weak, nonatomic) IBOutlet UIView* referencesContainerView;
 
-@property (strong, nonatomic) NSLayoutConstraint* bottomBarViewBottomConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* referencesContainerViewBottomConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* referencesContainerViewHeightConstraint;
 
@@ -136,8 +127,6 @@ static int const kMinimumTextSelectionLength = 2;
 
 // These are presently only used by updateHistoryDateVisitedForArticleBeingNavigatedFrom method.
 @property (strong, nonatomic) MWKTitle* currentTitle;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* bottomNavHeightConstraint;
 
 @property (strong, nonatomic) WMFWebViewFooterContainerView* footerContainer;
 @property (strong, nonatomic) WMFWebViewFooterViewController* footerViewController;

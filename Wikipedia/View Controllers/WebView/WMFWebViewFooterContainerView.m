@@ -3,25 +3,15 @@
 
 #import "WMFWebViewFooterContainerView.h"
 
-@interface WMFWebViewFooterContainerView ()
-
-@property (nonatomic) CGFloat height;
-
-@end
-
 @implementation WMFWebViewFooterContainerView
 
-- (instancetype)initWithHeight:(CGFloat)height {
-    self = [super init];
-    if (self) {
-        self.height          = height;
-        self.backgroundColor = [UIColor whiteColor];
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    static CGFloat lastHeight = -1;
+    if (self.frame.size.height != lastHeight) {
+        [self.delegate footerContainer:self heightChanged:self.frame.size.height];
+        lastHeight = self.frame.size.height;
     }
-    return self;
-}
-
-- (CGSize)intrinsicContentSize {
-    return CGSizeMake(UIViewNoIntrinsicMetric, self.height);
 }
 
 @end
