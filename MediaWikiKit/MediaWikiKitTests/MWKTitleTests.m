@@ -27,10 +27,22 @@
     site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
+
+- (void)testNilResultsInEmptyString {
+    MWKTitle* title;
+    XCTAssertNoThrow((title = [site titleWithString:nil]));
+    assertThat(title.text, is(@""));
 }
+
+- (void)testPermitsEmptyString {
+    MWKTitle* title;
+    XCTAssertNoThrow((title = [site titleWithString:@""]));
+    assertThat(title.text, is(@""));
+}
+
+#pragma clang diagnostic pop
 
 - (void)testSimple {
     MWKTitle* title = [MWKTitle titleWithString:@"Simple" site:site];
