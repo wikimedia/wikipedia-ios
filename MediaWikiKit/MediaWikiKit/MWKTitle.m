@@ -23,19 +23,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation MWKTitle
 
-- (instancetype)initWithSite:(MWKSite*)site normalizedTitle:(NSString*)text fragment:(NSString* __nullable)fragment {
+- (instancetype)initWithSite:(MWKSite*)site
+             normalizedTitle:(NSString*)text
+                    fragment:(NSString* __nullable)fragment {
     NSParameterAssert(site);
-    NSParameterAssert(text.length);
     self = [super init];
     if (self) {
         self.site     = site;
-        self.text     = text;
+        // HAX: fall back to empty strings in case of nil text to handle API edge cases & prevent crashes
+        self.text     = text.length ? text : @"";
         self.fragment = fragment;
     }
     return self;
 }
 
 - (instancetype)initWithInternalLink:(NSString*)relativeInternalLink site:(MWKSite*)site {
+    NSAssert(relativeInternalLink.length == 0 || [relativeInternalLink wmf_isInternalLink],
+             @"Expected string with internal link prefix but got: %@", relativeInternalLink);
     return [self initWithString:[relativeInternalLink wmf_internalLinkPath] site:site];
 }
 
@@ -43,11 +47,15 @@ NS_ASSUME_NONNULL_BEGIN
     NSAssert(![string wmf_isInternalLink],
              @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
              string);
-    NSArray* bits = [string componentsSeparatedByString:@"#"];
-    NSParameterAssert(bits.count >= 1);
-    return [self initWithSite:site
-              normalizedTitle:[bits[0] wmf_normalizedPageTitle]
-                     fragment:[bits wmf_safeObjectAtIndex:1]];
+    if ([string wmf_isInternalLink]) {
+        // recurse here after stripping internal link prefix
+        return [self initWithInternalLink:string site:site];
+    } else {
+        NSArray* bits = [string componentsSeparatedByString:@"#"];
+        return [self initWithSite:site
+                  normalizedTitle:[[bits firstObject] wmf_normalizedPageTitle]
+                         fragment:[bits wmf_safeObjectAtIndex:1]];
+    }
 }
 
 + (MWKTitle*)titleWithString:(NSString*)str site:(MWKSite*)site {
