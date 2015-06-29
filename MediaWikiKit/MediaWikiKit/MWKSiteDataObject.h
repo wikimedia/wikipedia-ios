@@ -20,6 +20,7 @@
 
 - (MWKTitle*)optionalTitle:(NSString*)key dict:(NSDictionary*)dict;
 - (MWKTitle*)requiredTitle:(NSString*)key dict:(NSDictionary*)dict;
+- (MWKTitle*)requiredTitle:(NSString*)key dict:(NSDictionary*)dict allowEmpty:(BOOL)allowEmpty;
 
 - (MWKUser*)optionalUser:(NSString*)key dict:(NSDictionary*)dict;
 - (MWKUser*)requiredUser:(NSString*)key dict:(NSDictionary*)dict;

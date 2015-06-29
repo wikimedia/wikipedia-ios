@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(site);
     self = [super init];
     if (self) {
-        self.site     = site;
+        self.site = site;
         // HAX: fall back to empty strings in case of nil text to handle API edge cases & prevent crashes
         self.text     = text.length ? text : @"";
         self.fragment = fragment;

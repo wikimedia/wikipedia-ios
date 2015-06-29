@@ -111,9 +111,13 @@
         if (arr) {
             self.entries = [[NSMutableArray alloc] init];
             for (NSDictionary* entryDict in arr) {
-                MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithDict:entryDict];
-                [self.entries addObject:entry];
-                self.entriesByTitle[entry.title] = entry;
+                @try {
+                    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithDict:entryDict];
+                    [self.entries addObject:entry];
+                    self.entriesByTitle[entry.title] = entry;
+                } @catch (NSException* e) {
+                    NSLog(@"Encountered exception reading history data %@: %@", e, entryDict);
+                }
             }
         }
         self.dirty = NO;
