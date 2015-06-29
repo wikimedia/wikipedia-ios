@@ -7,6 +7,7 @@
 //
 
 #import "MediaWikiKit.h"
+#import "NSMutableDictionary+WMFMaybeSet.h"
 
 @interface MWKSavedPageEntry ()
 
@@ -16,10 +17,10 @@
 @implementation MWKSavedPageEntry
 
 - (instancetype)initWithTitle:(MWKTitle*)title {
+    NSParameterAssert(title);
     self = [self initWithSite:title.site];
     if (self) {
         self.title = title;
-        self.date  = [[NSDate alloc] init];
     }
     return self;
 }
@@ -31,7 +32,7 @@
 
     self = [self initWithSite:[MWKSite siteWithDomain:domain language:language]];
     if (self) {
-        self.title = [self requiredTitle:@"title" dict:dict];
+        self.title = [self requiredTitle:@"title" dict:dict allowEmpty:NO];
     }
     return self;
 }
@@ -39,9 +40,9 @@
 - (id)dataExport {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
 
-    dict[@"domain"]   = self.site.domain;
-    dict[@"language"] = self.site.language;
-    dict[@"title"]    = self.title.text;
+    [dict wmf_maybeSetObject:self.site.domain forKey:@"domain"];
+    [dict wmf_maybeSetObject:self.site.language forKey:@"language"];
+    [dict wmf_maybeSetObject:self.title.text forKey:@"title"];
 
     return [NSDictionary dictionaryWithDictionary:dict];
 }

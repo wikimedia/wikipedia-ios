@@ -41,7 +41,11 @@
 }
 
 - (MWKTitle*)requiredTitle:(NSString*)key dict:(NSDictionary*)dict {
-    NSString* str = [self requiredString:key dict:dict];
+    return [self requiredTitle:key dict:dict allowEmpty:YES];
+}
+
+- (MWKTitle*)requiredTitle:(NSString*)key dict:(NSDictionary*)dict allowEmpty:(BOOL)allowEmpty {
+    NSString* str = [self requiredString:key dict:dict allowEmpty:allowEmpty];
     return [self.site titleWithString:str];
 }
 

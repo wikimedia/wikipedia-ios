@@ -36,7 +36,7 @@
 
     self = [self initWithSite:[MWKSite siteWithDomain:domain language:language]];
     if (self) {
-        self.title           = [self requiredTitle:@"title" dict:dict];
+        self.title           = [self requiredTitle:@"title" dict:dict allowEmpty:NO];
         self.date            = [self requiredDate:@"date" dict:dict];
         self.discoveryMethod = [MWKHistoryEntry discoveryMethodForString:[self requiredString:@"discoveryMethod" dict:dict]];
         self.scrollPosition  = [[self requiredNumber:@"scrollPosition" dict:dict] intValue];
@@ -74,8 +74,22 @@
     [dict wmf_maybeSetObject:[self iso8601DateString:self.date] forKey:@"date"];
     [dict wmf_maybeSetObject:[MWKHistoryEntry stringForDiscoveryMethod:self.discoveryMethod] forKey:@"discoveryMethod"];
     [dict wmf_maybeSetObject:@(self.scrollPosition) forKey:@"scrollPosition"];
-    
+
     return [NSDictionary dictionaryWithDictionary:dict];
+}
+
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@: {\n"
+            "\ttitle: %@,\n"
+            "\tdate: %@,\n"
+            "\tdiscoveryMethod: %@,\n"
+            "\tscrollPosition: %d\n"
+            "}",
+            [super description],
+            self.title,
+            self.date,
+            [MWKHistoryEntry stringForDiscoveryMethod:self.discoveryMethod],
+            self.scrollPosition];
 }
 
 + (NSString*)stringForDiscoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {

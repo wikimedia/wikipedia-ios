@@ -27,13 +27,15 @@
 }
 
 - (MWKSavedPageEntry*)entryForTitle:(MWKTitle*)title {
+    if (!title) {
+        return nil;
+    }
     MWKSavedPageEntry* entry = self.entriesByTitle[title];
     return entry;
 }
 
 - (BOOL)isSaved:(MWKTitle*)title {
-    MWKSavedPageEntry* entry = [self entryForTitle:title];
-    return (entry != nil);
+    return ([self entryForTitle:title] != nil);
 }
 
 - (NSUInteger)indexForEntry:(MWKHistoryEntry*)entry {
@@ -43,7 +45,9 @@
 #pragma mark - update methods
 
 - (void)addEntry:(MWKSavedPageEntry*)entry {
-    if ([self entryForTitle:entry.title] == nil) {
+    if (entry
+        && ![self entryForTitle:entry.title]
+        && entry.title.text.length > 0) {
         // there can be only one
         [self.entries insertObject:entry atIndex:0];
         self.entriesByTitle[entry.title] = entry;
@@ -52,6 +56,9 @@
 }
 
 - (void)removeEntry:(MWKSavedPageEntry*)entry {
+    if (entry.title.text.length == 0) {
+        return;
+    }
     [self.entries removeObject:entry];
     [self.entriesByTitle removeObjectForKey:entry.title];
     self.dirty = YES;
@@ -79,9 +86,13 @@
     if (self) {
         NSArray* array = dict[@"entries"];
         for (NSDictionary* entryDict in array) {
-            MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithDict:entryDict];
-            [self.entries addObject:entry];
-            self.entriesByTitle[entry.title] = entry;
+            @try {
+                MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithDict:entryDict];
+                [self.entries addObject:entry];
+                self.entriesByTitle[entry.title] = entry;
+            } @catch (NSException* e) {
+                NSLog(@"Encountered exception while reading entry %@: %@", e, entryDict);
+            }
         }
         self.dirty = NO;
     }

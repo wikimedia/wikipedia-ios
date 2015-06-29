@@ -72,10 +72,10 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 - (void)testReadsFromDataStoreLazilyAndPopulatesFetchedIndices {
     MWKImageList* mockImageList = mock([MWKImageList class]);
     MWKDataStore* mockDataStore = mock([MWKDataStore class]);
-    MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
-    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:mockDataStore];
+    MWKTitle* title             = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
+    MWKArticle* article         = [[MWKArticle alloc] initWithTitle:title dataStore:mockDataStore];
 
-    NSArray* testImages         = [[self generateSourceURLs:5] bk_map:^MWKImage*(NSString* sourceURL) {
+    NSArray* testImages = [[self generateSourceURLs:5] bk_map:^MWKImage*(NSString* sourceURL) {
         return [[MWKImage alloc] initWithArticle:article sourceURL:sourceURL];
     }];
     NSRange preFetchedRange    = NSMakeRange(0, 2);
