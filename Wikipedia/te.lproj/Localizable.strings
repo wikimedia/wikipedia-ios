@@ -129,6 +129,7 @@
 "nearby-distance-label-feet" = "$1 అడుగులు";
 "nearby-distance-label-miles" = "$1 మైళ్ళు";
 "nearby-cancel" = "రద్దుచేయి";
+<<<<<<< HEAD
 "nearby-location-general-error" = "ప్రదేశాన్ని నిర్ధారించలేకపోతున్నాము. లాగి రిఫ్రెష్ చేయండి లేక తర్వాత ప్రయత్నించండి.";
 "migration-skip-button-title" = "దాన్ని తొలగించు";
 "image-gallery-unknown-owner" = "ఎక్కించినవారెవరో తెలీదు";
@@ -141,4 +142,7 @@
 "hockeyapp-alert-do-not-send" = "పంపవద్దు";
 "hockeyapp-alert-privacy" = "$1 గోప్యత";
 "page-issues" = "పేజి సమస్యలు";
+=======
+"image-gallery-fetch-image-info-error-ok" = "సరే";
+>>>>>>> Localisation updates from https://translatewiki.net.
 "page-similar-titles" = "పోలిన పేజీలు";
