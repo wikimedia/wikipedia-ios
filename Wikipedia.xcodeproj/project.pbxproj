@@ -332,6 +332,7 @@
 		BCF012331AD2FA38008D3675 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = BCF012321AD2FA38008D3675 /* assets */; };
 		BCFE026A1B41ABB5003752B7 /* MWKHistoryListCorruptDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFE02691B41ABB5003752B7 /* MWKHistoryListCorruptDataTests.m */; };
 		BCFE026F1B41B482003752B7 /* MWKSavedPageListCorruptDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFE026E1B41B482003752B7 /* MWKSavedPageListCorruptDataTests.m */; };
+		BCFE02781B41FA12003752B7 /* MWKHistoryListPerformanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFE02771B41FA12003752B7 /* MWKHistoryListPerformanceTests.m */; };
 		C42D947E1A937DAC00A4871A /* SavedArticlesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D947D1A937DAC00A4871A /* SavedArticlesFetcher.m */; };
 		C42D94861A937DE000A4871A /* WMFBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94831A937DE000A4871A /* WMFBorderButton.m */; };
 		C42D94871A937DE000A4871A /* WMFProgressLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94851A937DE000A4871A /* WMFProgressLineView.m */; };
@@ -979,6 +980,7 @@
 		BCF012321AD2FA38008D3675 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../Wikipedia/assets; sourceTree = "<group>"; };
 		BCFE02691B41ABB5003752B7 /* MWKHistoryListCorruptDataTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKHistoryListCorruptDataTests.m; sourceTree = "<group>"; };
 		BCFE026E1B41B482003752B7 /* MWKSavedPageListCorruptDataTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSavedPageListCorruptDataTests.m; sourceTree = "<group>"; };
+		BCFE02771B41FA12003752B7 /* MWKHistoryListPerformanceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKHistoryListPerformanceTests.m; sourceTree = "<group>"; };
 		C42D947C1A937DAC00A4871A /* SavedArticlesFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedArticlesFetcher.h; sourceTree = "<group>"; };
 		C42D947D1A937DAC00A4871A /* SavedArticlesFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedArticlesFetcher.m; sourceTree = "<group>"; };
 		C42D94821A937DE000A4871A /* WMFBorderButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFBorderButton.h; sourceTree = "<group>"; };
@@ -2310,6 +2312,7 @@
 				BCB58F7D1A8D1B8400465627 /* MWKImageInfo+MWKImageComparisonTests.m */,
 				BCFE02691B41ABB5003752B7 /* MWKHistoryListCorruptDataTests.m */,
 				BCFE026E1B41B482003752B7 /* MWKSavedPageListCorruptDataTests.m */,
+				BCFE02771B41FA12003752B7 /* MWKHistoryListPerformanceTests.m */,
 			);
 			name = MediaWikiKitTests;
 			path = ../MediaWikiKit/MediaWikiKitTests;
@@ -2971,6 +2974,7 @@
 			files = (
 				BC6BF4001B19213600362968 /* XCTestCase+WMFLocaleTesting.m in Sources */,
 				0EBC56971AD5B69300E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */,
+				BCFE02781B41FA12003752B7 /* MWKHistoryListPerformanceTests.m in Sources */,
 				BC2375C11ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m in Sources */,
 				043B6E8F1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				BCDB75C41AB0E8300005593F /* WMFSubstringUtilsTests.m in Sources */,
