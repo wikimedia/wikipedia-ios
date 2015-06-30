@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0620"
-   version = "1.3">
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -84,6 +84,9 @@
       </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
+      <DeviceAppData
+         resolvedPath = "../4.0.6 extreme memory test data.xcappdata">
+      </DeviceAppData>
    </LaunchAction>
    <ProfileAction
       shouldUseLaunchSchemeArgsEnv = "YES"
