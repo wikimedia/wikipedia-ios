@@ -151,15 +151,23 @@ node-check: ##Make sure node is installed
 	fi
 
 #!!!!!
+#!!!!! Native dependency management
+#!!!!!
+
+submodules: ##Update, initialize, & clone git submodules
+	git submodule update --init --recursive
+
+BUNDLER = "$(shell which bundle 2/dev/null)"
+
+pod: ##Install native dependencies via CocoaPods
+pod: bundle-install submodules
+	@$(BUNDLER) exec pod install
+
+#!!!!!
 #!!!!! Ruby dependency management
 #!!!!!
 
 RUBY_VERSION = "$(shell ruby -v 2>/dev/null)"
-BUNDLER = "$(shell which bundle 2/dev/null)"
-
-pod: ##Install native dependencies via CocoaPods
-pod: bundle-install
-	@$(BUNDLER) exec pod install
 
 bundle-install: ##Install gems using Bundler
 bundle-install: bundler-check

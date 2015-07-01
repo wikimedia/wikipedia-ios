@@ -32,6 +32,9 @@ PODS:
   - OCHamcrest (4.1.1)
   - OCMockito (1.4.0):
     - OCHamcrest (~> 4.0)
+  - SDWebImage (3.7.2):
+    - SDWebImage/Core (= 3.7.2)
+  - SDWebImage/Core (3.7.2)
 
 DEPENDENCIES:
   - AFNetworking/NSURLConnection (~> 2.5)
@@ -46,6 +49,11 @@ DEPENDENCIES:
   - Masonry (~> 0.6)
   - OCHamcrest (~> 4.1)
   - OCMockito (~> 1.4)
+  - SDWebImage (from `./vendor/SDWebImage`)
+
+EXTERNAL SOURCES:
+  SDWebImage:
+    :path: ./vendor/SDWebImage
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
@@ -59,5 +67,6 @@ SPEC CHECKSUMS:
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
+  SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
 
 COCOAPODS: 0.37.2
