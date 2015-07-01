@@ -1,5 +1,4 @@
 
-#import <Foundation/Foundation.h>
 @import UIKit;
 
 @interface WMFArticleCardTranstion : UIPercentDrivenInteractiveTransition <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning>
@@ -30,15 +29,11 @@
  */
 @property (assign, nonatomic) CGFloat presentCardOffset;
 
-/**
- *  Is the transisiton dismissing?
- */
-@property (nonatomic, assign, readonly) BOOL isDismissing;
 
 /**
- *  Is the transition Presenting?
- *  (Convienence, just !self.isDismissing)
+ *  Set to NO to disable interactive dismissal
+ *  Default is YES
  */
-@property (nonatomic, assign, readonly) BOOL isPresenting;
+@property (assign, nonatomic) BOOL dismissInteractively;
 
 @end

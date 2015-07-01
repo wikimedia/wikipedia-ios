@@ -1,10 +1,13 @@
 
 #import "WMFArticleViewController.h"
 #import <Masonry/Masonry.h>
-#import "WMFArticlePresenter.h"
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 #import "UIButton+WMFButton.h"
+#import "WebViewController.h"
+#import "UIStoryboard+WMFExtensions.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
+
 
 @interface WMFArticleViewController ()
 
@@ -16,8 +19,16 @@
 
 @implementation WMFArticleViewController
 
++ (instancetype)articleViewControllerFromDefaultStoryBoard {
+    return [[UIStoryboard wmf_appRootStoryBoard] wmf_instantiateViewControllerWithIdentifierFromClass:[WMFArticleViewController class]];
+}
+
 - (IBAction)readButtonTapped:(id)sender {
-    [[WMFArticlePresenter sharedInstance] presentArticleWithTitle:self.article.title discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+    WebViewController* webVC   = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:webVC];
+    [self presentViewController:nc animated:YES completion:^{
+        [webVC navigateToPage:self.article.title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
+    }];
 }
 
 - (void)setContentTopInset:(CGFloat)contentTopInset {

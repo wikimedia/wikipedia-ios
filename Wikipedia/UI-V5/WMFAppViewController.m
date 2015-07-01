@@ -9,6 +9,7 @@
 #import "UIStoryboard+WMFExtensions.h"
 #import <Masonry/Masonry.h>
 
+
 @interface WMFAppViewController ()<WMFSearchViewControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIView* searchContainerView;
 @property (strong, nonatomic) IBOutlet UIView* articleListContainerView;

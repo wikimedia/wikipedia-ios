@@ -8,9 +8,9 @@
 @property (strong, nonatomic) UIView* movingCardSnapshot;
 @property (strong, nonatomic) UIView* overlappingCardSnapshot;
 
+@property (nonatomic, assign, readwrite) BOOL isPresented;
 @property (nonatomic, assign, readwrite) BOOL isDismissing;
-
-#pragma mark - Interactive Dismiss Animation Properties
+@property (nonatomic, assign, readwrite) BOOL isPresenting;
 
 @property (strong, nonatomic) UIPanGestureRecognizer* recognizer;
 @property (assign, nonatomic) BOOL interactionInProgress;
@@ -21,10 +21,12 @@
 
 @implementation WMFArticleCardTranstion
 
-#pragma mark - Accessors
-
-- (BOOL)isPresenting {
-    return !self.isDismissing;
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _dismissInteractively = YES;
+    }
+    return self;
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
@@ -52,22 +54,31 @@
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
-    if (self.isPresenting) {
+    if (self.isPresented) {
+        [self animateDismiss:transitionContext];
+    } else {
         UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
         self.recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
         [toVC.view addGestureRecognizer:self.recognizer];
         self.presentedViewController = toVC;
 
         [self animatePresentation:transitionContext];
-    } else {
-        [self animateDismiss:transitionContext];
     }
 }
 
 #pragma mark - UIViewControllerInteractiveTransitioning
 
+- (void)startInteractiveTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+    [super startInteractiveTransition:transitionContext];
+    self.interactionInProgress = YES;
+}
+
 - (CGFloat)completionSpeed {
     return (1 - self.percentComplete) * 1.5;
+}
+
+- (UIViewAnimationCurve)completionCurve {
+    return UIViewAnimationCurveEaseOut;
 }
 
 #pragma mark - Animation
@@ -111,6 +122,7 @@
     [containerView addSubview:snapshotView];
     [containerView addSubview:overlappingCards];
 
+    self.isPresenting = YES;
     [UIView animateKeyframesWithDuration:self.nonInteractiveDuration delay:0.0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
         [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:1.0 animations:^{
             snapshotView.frame = finalSnapshotFrame;
@@ -126,6 +138,9 @@
         }];
     } completion:^(BOOL finished) {
         toView.alpha = 1.0;
+
+        self.isPresenting = NO;
+        self.isPresented = ![transitionContext transitionWasCancelled];
 
         [snapshotView removeFromSuperview];
         [overlappingCards removeFromSuperview];
@@ -154,6 +169,7 @@
     [containerView addSubview:snapshotView];
     [containerView addSubview:overlappingCards];
 
+    self.isDismissing = YES;
     [UIView animateKeyframesWithDuration:self.nonInteractiveDuration delay:0.0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
         [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:1.0 animations:^{
             snapshotView.frame = finalSnapshotFrame;
@@ -172,6 +188,9 @@
             fromView.alpha = 1.0;
         }
 
+        self.isDismissing = NO;
+        self.isPresented = [transitionContext transitionWasCancelled];
+
         [snapshotView removeFromSuperview];
         [overlappingCards removeFromSuperview];
 
@@ -179,16 +198,14 @@
     }];
 }
 
-#pragma mark - Dismiss GestureRecognizer
+#pragma mark - Gesture
 
 - (void)handleGesture:(UIPanGestureRecognizer*)recognizer {
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan: {
-            CGPoint translation = [recognizer translationInView:self.recognizer.view];
-            BOOL topToBottom    = translation.y > 0;
-            if (topToBottom) {
-                self.interactionInProgress = YES;
-                self.isDismissing          = YES;
+            CGPoint translation     = [recognizer translationInView:recognizer.view];
+            BOOL swipeIsTopToBottom = translation.y > 0;
+            if (swipeIsTopToBottom) {
                 [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
             }
             break;
@@ -196,7 +213,7 @@
 
         case UIGestureRecognizerStateChanged: {
             if (self.interactionInProgress) {
-                CGPoint distanceTraveled = [recognizer translationInView:self.recognizer.view];
+                CGPoint distanceTraveled = [recognizer translationInView:recognizer.view];
                 CGFloat percent          = distanceTraveled.y / self.totalCardAnimationDistance;
                 if (percent > 0.99) {
                     percent = 0.99;
@@ -207,21 +224,25 @@
         }
 
         case UIGestureRecognizerStateEnded: {
-            BOOL fastSwipe = [self.recognizer velocityInView:self.recognizer.view].y > self.totalCardAnimationDistance;
-
-            if ((self.percentComplete >= 0.33) || fastSwipe) {
+            if (self.percentComplete >= 0.33) {
                 [self finishInteractiveTransition];
-            } else {
-                [self cancelInteractiveTransition];
+                return;
             }
 
-            self.isDismissing = NO;
+            BOOL fastSwipe = [recognizer velocityInView:recognizer.view].y > self.totalCardAnimationDistance;
+
+            if (fastSwipe) {
+                [self finishInteractiveTransition];
+                return;
+            }
+
+            [self cancelInteractiveTransition];
+
             break;
         }
 
         default:
             [self cancelInteractiveTransition];
-            self.isDismissing = NO;
             break;
     }
 }

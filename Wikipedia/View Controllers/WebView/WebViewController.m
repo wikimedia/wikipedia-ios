@@ -5,7 +5,6 @@
 #import <Masonry/Masonry.h>
 #import "NSString+WMFHTMLParsing.h"
 
-#import "PrimaryMenuViewController.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "RandomArticleFetcher.h"
 #import "MWKSiteInfoFetcher.h"
@@ -15,6 +14,7 @@
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 
+#import <BlocksKit/BlocksKit+UIKit.h>
 
 #import "WMFShareCardViewController.h"
 #import "WMFShareFunnel.h"
@@ -22,6 +22,9 @@
 #import "UIWebView+WMFSuppressSelection.h"
 #import "WMFArticlePresenter.h"
 #import "UIView+WMFRTLMirroring.h"
+#import "WMFArticlePopupTransition.h"
+#import "WMFArticleViewController.h"
+
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -45,6 +48,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @property (strong, nonatomic) WMFShareFunnel* shareFunnel;
 @property (strong, nonatomic) WMFShareOptionsViewController* shareOptionsViewController;
 @property (strong, nonatomic) NSString* wikipediaZeroLearnMoreExternalUrl;
+
+@property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
 
 @end
 
@@ -94,20 +99,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)setupTopMenuButtons {
     @weakify(self)
-    UIBarButtonItem * buttonW = [UIBarButtonItem wmf_buttonType:WMFButtonTypeW handler:^(id sender){
-        @strongify(self)
-        UINavigationController * nc = [[UINavigationController alloc] initWithRootViewController:[PrimaryMenuViewController wmf_initialViewControllerFromClassStoryboard]];
-        [nc.navigationBar setBarTintColor:[UIColor blackColor]];
-        [nc.navigationBar setTranslucent:NO];
-        [self presentViewController:nc animated:YES completion:nil];
+
+    UIBarButtonItem * done = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemDone handler:^(id sender) {
+        [self dismissViewControllerAnimated:YES completion:NULL];
     }];
 
-    UIBarButtonItem* buttonMagnify = [UIBarButtonItem wmf_buttonType:WMFButtonTypeMagnify handler:^(id sender){
-        @strongify(self)
-        [self dismissViewControllerAnimated : YES completion : nil];
-    }];
-
-    self.navigationItem.leftBarButtonItems = @[buttonW, buttonMagnify];
+    self.navigationItem.leftBarButtonItem = done;
 
     self.buttonTOC = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents
                                              handler:^(id sender){
@@ -115,7 +112,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [self tocToggle];
     }];
 
-    self.navigationItem.rightBarButtonItems = @[self.buttonTOC];
+    self.navigationItem.rightBarButtonItem = self.buttonTOC;
 }
 
 - (void)setupBottomMenuButtons {
@@ -256,8 +253,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self.webView hideScrollGradient];
 
     [self tocSetupSwipeGestureRecognizers];
-
-    [self reloadCurrentArticleFromCache];
 
     // Restrict the web view from scrolling horizonally.
     [self.webView.scrollView addObserver:self
@@ -806,13 +801,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             }
 
             if ([href wmf_isInternalLink]) {
-                // Ensure the menu is visible when navigating to new page.
-                [strSelf animateTopAndBottomMenuReveal];
-
                 MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithInternalLink:href];
+                MWKArticle* article = [[MWKArticle alloc] initWithTitle:pageTitle dataStore:strSelf.session.dataStore];
 
-                [strSelf navigateToPage:pageTitle
-                        discoveryMethod:MWKHistoryDiscoveryMethodLink];
+                [strSelf presentPopupForArticle:article];
             } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                 if ([href hasPrefix:@"//"]) {
@@ -1190,26 +1182,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-
-    //[self showOnboarding];
-
-    //self.buttonTOC.disabled = !self.buttonTOC.disabled;
-    //self.buttonTOC.disabledColor = [UIColor redColor];
-
-    //[self downloadAssetsFilesIfNecessary];
-
-    //DataHousekeeping *dataHouseKeeping = [[DataHousekeeping alloc] init];
-    //[dataHouseKeeping performHouseKeeping];
-
-    // Do not remove the following commented toggle. It's for testing W0 stuff.
-    //[self.session.zeroConfigState toggleFakeZeroOn];
-
-
-    //ReferencesVC *referencesVC = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"ReferencesVC"];
-    //[self presentViewController:referencesVC animated:YES completion:^{}];
-
-    //NSLog(@"articleFetchManager.operationCount = %lu", (unsigned long)[QueuesSingleton sharedInstance].articleFetchManager.operationQueue.operationCount);
 }
 
 - (void)updateHistoryDateVisitedForArticleBeingNavigatedFrom {
@@ -1318,6 +1290,20 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                                                          withManager:[QueuesSingleton sharedInstance].articleFetchManager
                                                   thenNotifyDelegate:self];
     }
+}
+
+- (void)presentPopupForArticle:(MWKArticle*)article {
+    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerFromDefaultStoryBoard];
+    vc.savedPages      = self.session.userDataStore.savedPageList;
+    vc.article         = article;
+    vc.contentTopInset = 64.0;
+
+    self.popupTransition                        = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:nil];
+    self.popupTransition.nonInteractiveDuration = 0.5;
+    vc.transitioningDelegate                    = self.popupTransition;
+    vc.modalPresentationStyle                   = UIModalPresentationCustom;
+
+    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 #pragma mark - ArticleFetcherDelegate
