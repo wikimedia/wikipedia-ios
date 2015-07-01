@@ -19,7 +19,7 @@ The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps 
 ## Building and Running
 This project requires [Xcode 6](https://itunes.apple.com/us/app/xcode/id497799835) or higher. The easiest way to get it is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
 
-Once you have Xcode, you should be able to open `Wikipedia.xcworkspace` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via a bug report or bugging us on IRC.
+Once you have Xcode, you should be able to open `Wikipedia.xcworkspace` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via a bug report or speaking to us on IRC.
 
 ## Development
 ### Architecture
