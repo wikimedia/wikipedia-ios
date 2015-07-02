@@ -78,11 +78,8 @@
 
         MWKHistoryList* historyList = self.userDataStore.historyList;
 
-        dispatch_promise(^{
-            return [historyList addEntry:entry];
-        }).then(^(){
-            return [historyList save];
-        });
+        [historyList addEntry:entry];
+        [historyList save];
     }@catch (NSException* ex) {
         NSLog(@"IMPORT ERROR on history entry %@:%@: %@", language, titleStr, ex);
     }
@@ -102,11 +99,8 @@
 
         MWKSavedPageList* savedPageList = self.userDataStore.savedPageList;
 
-        dispatch_promise(^{
-            return [savedPageList addEntry:entry];
-        }).then(^(){
-            return [savedPageList save];
-        });
+        [savedPageList addEntry:entry];
+        [savedPageList save];
     }@catch (NSException* ex) {
         NSLog(@"IMPORT ERROR on saved entry %@:%@: %@", language, titleStr, ex);
     }

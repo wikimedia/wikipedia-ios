@@ -53,16 +53,18 @@
         return [AnyPromise promiseWithValue:[NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]];
     }
 
-    NSUInteger oldIndex = [self.entries indexOfObject:entry];
-    if (oldIndex != NSNotFound) {
-        // Move to top!
-        [self.entries removeObjectAtIndex:oldIndex];
-    }
-    [self.entries insertObject:entry atIndex:0];
-    self.dirty = YES;
-    // @todo trim to max?
+    return dispatch_promise_on(dispatch_get_main_queue(), ^{
+        NSUInteger oldIndex = [self.entries indexOfObject:entry];
+        if (oldIndex != NSNotFound) {
+            // Move to top!
+            [self.entries removeObjectAtIndex:oldIndex];
+        }
+        [self.entries insertObject:entry atIndex:0];
+        self.dirty = YES;
+        // @todo trim to max?
 
-    return [AnyPromise promiseWithValue:entry];
+        return [AnyPromise promiseWithValue:entry];
+    });
 }
 
 #pragma mark - Entry Access
@@ -74,15 +76,17 @@
 #pragma mark - Save
 
 - (AnyPromise*)save {
-    NSError* error;
-    if (self.dirty && ![self.dataStore saveRecentSearchList:self error:&error]) {
-        NSAssert(NO, @"Error saving saved pages: %@", [error localizedDescription]);
-        return [AnyPromise promiseWithValue:error];
-    } else {
-        self.dirty = NO;
-    }
+    return dispatch_promise_on(dispatch_get_main_queue(), ^{
+        NSError* error;
+        if (self.dirty && ![self.dataStore saveRecentSearchList:self error:&error]) {
+            NSAssert(NO, @"Error saving saved pages: %@", [error localizedDescription]);
+            return [AnyPromise promiseWithValue:error];
+        } else {
+            self.dirty = NO;
+        }
 
-    return [AnyPromise promiseWithValue:nil];
+        return [AnyPromise promiseWithValue:nil];
+    });
 }
 
 @end

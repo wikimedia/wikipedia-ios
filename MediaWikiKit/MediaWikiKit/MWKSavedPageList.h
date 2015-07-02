@@ -6,6 +6,11 @@
 
 @interface MWKSavedPageList : MWKDataObject <NSFastEnumeration>
 
+/**
+ *  Observable - observe to get KVO notifications
+ */
+@property (nonatomic, strong, readonly) NSArray* entries;
+
 @property (readonly, weak, nonatomic) MWKDataStore* dataStore;
 @property (readonly, nonatomic, assign) NSUInteger length;
 @property (readonly, nonatomic, assign) BOOL dirty;
@@ -28,13 +33,22 @@
 
 
 /**
+ *  Toggle Saved Page status for a title
+ *
+ *  @param title The title of the page to toggle
+ *
+ *  @return The task. The result is nil.
+ */
+- (void)toggleSavedPageForTitle:(MWKTitle*)title;
+
+/**
  *  Add a saved page
  *
  *  @param title The title of the page to add
  *
  *  @return The task. The result is the MWKSavedPageEntry.
  */
-- (AnyPromise*)savePageWithTitle:(MWKTitle*)title;
+- (void)addSavedPageWithTitle:(MWKTitle*)title;
 
 /**
  *  Add an entry to the the user saved pages
@@ -44,7 +58,7 @@
  *
  *  @return The task. The result is the MWKSavedPageEntry.
  */
-- (AnyPromise*)addEntry:(MWKSavedPageEntry*)entry;
+- (void)addEntry:(MWKSavedPageEntry*)entry;
 
 /**
  *  Remove a saved page task
@@ -53,14 +67,14 @@
  *
  *  @return The task. The result is nil.
  */
-- (AnyPromise*)removeSavedPageWithTitle:(MWKTitle*)title;
+- (void)removeSavedPageWithTitle:(MWKTitle*)title;
 
 /**
  *  Remove all saved pages
  *
  *  @return The task. The result will be nil.
  */
-- (AnyPromise*)removeAllSavedPages;
+- (void)removeAllSavedPages;
 
 /**
  *  Save changes to data store.
@@ -68,5 +82,6 @@
  *  @return The task. Result will be nil.
  */
 - (AnyPromise*)save;
+
 
 @end

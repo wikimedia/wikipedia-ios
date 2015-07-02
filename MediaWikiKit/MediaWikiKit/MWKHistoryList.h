@@ -41,7 +41,7 @@
  *
  *  @return The task. The result is the MWKHistoryEntry.
  */
-- (AnyPromise*)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
+- (void)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 
 
 /**
@@ -52,7 +52,7 @@
  *
  *  @return The task. The result is the MWKHistoryEntry.
  */
-- (AnyPromise*)addEntry:(MWKHistoryEntry*)entry;
+- (void)addEntry:(MWKHistoryEntry*)entry;
 
 
 /**
@@ -63,7 +63,7 @@
  *
  *  @return The task. The result is the MWKHistoryEntry.
  */
-- (AnyPromise*)savePageScrollPosition:(CGFloat)scrollposition toPageInHistoryWithTitle:(MWKTitle*)title;
+- (void)savePageScrollPosition:(CGFloat)scrollposition toPageInHistoryWithTitle:(MWKTitle*)title;
 
 /**
  *  Remove a page from the user history
@@ -72,7 +72,7 @@
  *
  *  @return The task. The result is nil.
  */
-- (AnyPromise*)removePageFromHistoryWithTitle:(MWKTitle*)title;
+- (void)removePageFromHistoryWithTitle:(MWKTitle*)title;
 
 /**
  *  Remove the given hstory entries from the history
@@ -81,14 +81,14 @@
  *
  *  @return The task. The result is nil.
  */
-- (AnyPromise*)removeEntriesFromHistory:(NSArray*)historyEntries;
+- (void)removeEntriesFromHistory:(NSArray*)historyEntries;
 
 /**
  *  Remove all history items.
  *
  *  @return The task. The result is nil.
  */
-- (AnyPromise*)removeAllEntriesFromHistory;
+- (void)removeAllEntriesFromHistory;
 
 /**
  *  Save changes to data store.

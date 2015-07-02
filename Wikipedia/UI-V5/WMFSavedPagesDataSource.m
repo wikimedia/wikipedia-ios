@@ -12,18 +12,41 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFSavedPagesDataSource ()
 
-@property (nonatomic, strong, readwrite) MWKUserDataStore* userDataStore;
+@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPages;
 
 @end
 
 @implementation WMFSavedPagesDataSource
 
-- (instancetype)initWithUserDataStore:(MWKUserDataStore*)store {
+- (nonnull instancetype)initWithSavedPagesList:(MWKSavedPageList*)savedPages {
     self = [super init];
     if (self) {
-        self.userDataStore = store;
+        self.savedPages = savedPages;
+        [self.KVOController observe:savedPages keyPath:WMF_SAFE_KEYPATH(savedPages, entries) options:NSKeyValueObservingOptionPrior block:^(id observer, id object, NSDictionary* change) {
+            NSKeyValueChange changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
+
+            if ([change[NSKeyValueChangeNotificationIsPriorKey] boolValue]) {
+                [self willChange:changeKind valuesAtIndexes:change[NSKeyValueChangeIndexesKey] forKey:@"articles"];
+            } else {
+                [self didChange:changeKind valuesAtIndexes:change[NSKeyValueChangeIndexesKey] forKey:@"articles"];
+            }
+        }];
     }
     return self;
+}
+
+- (NSArray*)articles {
+    return [[self.savedPages entries] bk_map:^id (id obj) {
+        return [self articleForEntry:obj];
+    }];
+}
+
+- (MWKArticle*)articleForEntry:(MWKSavedPageEntry*)entry {
+    return [[self dataStore] articleWithTitle:entry.title];
+}
+
+- (MWKDataStore*)dataStore {
+    return self.savedPages.dataStore;
 }
 
 - (nullable NSString*)displayTitle {
@@ -34,10 +57,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self savedPages] length];
 }
 
-- (MWKSavedPageList*)savedPages {
-    return [self.userDataStore savedPageList];
-}
-
 - (MWKSavedPageEntry*)savedPageForIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [self.savedPages entryAtIndex:indexPath.row];
     return savedEntry;
@@ -45,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKArticle*)articleForIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [self savedPageForIndexPath:indexPath];
-    return [self.userDataStore.dataStore articleWithTitle:savedEntry.title];
+    return [self articleForEntry:savedEntry];
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {
@@ -55,9 +74,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteArticleAtIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [self savedPageForIndexPath:indexPath];
     if (savedEntry) {
-        [[self savedPages] removeSavedPageWithTitle:savedEntry.title].then(^{
-            [[self savedPages] save];
-        });
+        [self.savedPages removeSavedPageWithTitle:savedEntry.title];
+        [self.savedPages save];
     }
 }
 

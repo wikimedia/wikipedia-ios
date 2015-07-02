@@ -50,11 +50,14 @@
 }
 
 - (void)loadMainUI {
-    [self updateListViewBasedOnSearchState:self.searchViewController.state];
+    self.searchViewController.searchSite    = [self.session searchSite];
+    self.searchViewController.dataStore     = self.session.dataStore;
+    self.searchViewController.userDataStore = self.session.userDataStore;
 
-    self.searchViewController.searchSite = [self.session searchSite];
-    self.searchViewController.dataStore  = [self.session dataStore];
-    self.listViewController.dataSource   = [[WMFSavedPagesDataSource alloc] initWithUserDataStore:[self userDataStore]];;
+    self.listViewController.savedPages = self.session.userDataStore.savedPageList;
+    self.listViewController.dataSource = [[WMFSavedPagesDataSource alloc] initWithSavedPagesList:[self userDataStore].savedPageList];
+
+    [self updateListViewBasedOnSearchState:self.searchViewController.state];
 }
 
 - (void)resumeApp {

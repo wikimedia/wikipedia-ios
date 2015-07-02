@@ -107,20 +107,20 @@
 
 #pragma mark - History Update
 
-- (AnyPromise*)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+- (void)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     if (title == nil) {
-        return [AnyPromise promiseWithValue:[NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]];
+        return;
     }
 
     MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
     entry.date = [NSDate date];
 
-    return [self addEntry:entry];
+    [self addEntry:entry];
 }
 
-- (AnyPromise*)addEntry:(MWKHistoryEntry*)entry {
+- (void)addEntry:(MWKHistoryEntry*)entry {
     if (entry.title == nil) {
-        return [AnyPromise promiseWithValue:[NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]];
+        return;
     }
 
     MWKHistoryEntry* oldEntry = [self entryForTitle:entry.title];
@@ -132,13 +132,11 @@
     [self.entries insertObject:entry atIndex:0];
     self.entriesByTitle[entry.title] = entry;
     self.dirty                       = YES;
-
-    return [AnyPromise promiseWithValue:entry];
 }
 
-- (AnyPromise*)savePageScrollPosition:(CGFloat)scrollposition toPageInHistoryWithTitle:(MWKTitle*)title {
+- (void)savePageScrollPosition:(CGFloat)scrollposition toPageInHistoryWithTitle:(MWKTitle*)title {
     if (title == nil) {
-        return [AnyPromise promiseWithValue:[NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]];
+        return;
     }
 
     MWKHistoryEntry* entry = [self entryForTitle:title];
@@ -147,13 +145,11 @@
         entry.scrollPosition = scrollposition;
         self.dirty           = YES;
     }
-
-    return [AnyPromise promiseWithValue:entry];
 }
 
-- (AnyPromise*)removePageFromHistoryWithTitle:(MWKTitle*)title {
+- (void)removePageFromHistoryWithTitle:(MWKTitle*)title {
     if (title == nil) {
-        return [AnyPromise promiseWithValue:[NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]];
+        return;
     }
 
     MWKHistoryEntry* entry = [self entryForTitle:title];
@@ -162,13 +158,11 @@
         [self.entriesByTitle removeObjectForKey:entry.title];
         self.dirty = YES;
     }
-
-    return [AnyPromise promiseWithValue:nil];
 }
 
-- (AnyPromise*)removeEntriesFromHistory:(NSArray*)historyEntries {
+- (void)removeEntriesFromHistory:(NSArray*)historyEntries {
     if ([historyEntries count] == 0) {
-        return [AnyPromise promiseWithValue:[NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]];
+        return;
     }
 
     [historyEntries enumerateObjectsUsingBlock:^(MWKHistoryEntry* entry, NSUInteger idx, BOOL* stop) {
@@ -177,30 +171,28 @@
     }];
 
     self.dirty = YES;
-
-    return [AnyPromise promiseWithValue:nil];
 }
 
-- (AnyPromise*)removeAllEntriesFromHistory {
+- (void)removeAllEntriesFromHistory {
     [self.entries removeAllObjects];
     [self.entriesByTitle removeAllObjects];
     self.dirty = YES;
-
-    return [AnyPromise promiseWithValue:nil];
 }
 
 #pragma mark - Save
 
 - (AnyPromise*)save {
-    NSError* error;
-    if (self.dirty && ![self.dataStore saveHistoryList:self error:&error]) {
-        NSAssert(NO, @"Error saving history: %@", [error localizedDescription]);
-        return [AnyPromise promiseWithValue:error];
-    } else {
-        self.dirty = NO;
-    }
+    return dispatch_promise_on(dispatch_get_main_queue(), ^{
+        NSError* error;
+        if (self.dirty && ![self.dataStore saveHistoryList:self error:&error]) {
+            NSAssert(NO, @"Error saving history: %@", [error localizedDescription]);
+            return [AnyPromise promiseWithValue:error];
+        } else {
+            self.dirty = NO;
+        }
 
-    return [AnyPromise promiseWithValue:nil];
+        return [AnyPromise promiseWithValue:nil];
+    });
 }
 
 @end

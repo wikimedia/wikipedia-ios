@@ -2,11 +2,15 @@
 #import "WMFArticleViewController.h"
 #import <Masonry/Masonry.h>
 #import "WMFArticlePresenter.h"
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
+#import "UIButton+WMFButton.h"
 
 @interface WMFArticleViewController ()
 
 @property (strong, nonatomic) IBOutlet UIView* cardBackgroundView;
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
+@property (strong, nonatomic) IBOutlet UIButton* saveButton;
 
 @end
 
@@ -54,6 +58,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.saveButton wmf_setButtonType:WMFButtonTypeHeart];
     self.view.backgroundColor = [UIColor clearColor];
     [self updateContentForTopInset];
     [self updateUIAnimated:NO];
@@ -65,6 +70,19 @@
 
 - (void)updateUIAnimated:(BOOL)animated {
     self.titleLabel.text = self.article.title.text;
+    [self updateSavedButtonState];
+}
+
+- (IBAction)toggleSave:(id)sender {
+    [self.savedPages toggleSavedPageForTitle:self.article.title];
+
+    [self.savedPages save].then(^{
+        [self updateSavedButtonState];
+    });
+}
+
+- (void)updateSavedButtonState {
+    self.saveButton.selected = [self.savedPages isSaved:self.article.title];
 }
 
 @end

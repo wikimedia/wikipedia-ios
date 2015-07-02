@@ -12,6 +12,7 @@ typedef NS_ENUM (NSUInteger, WMFSearchState) {
 
 @property (nonatomic, strong) MWKSite* searchSite;
 @property (nonatomic, strong) MWKDataStore* dataStore;
+@property (nonatomic, strong) MWKUserDataStore* userDataStore;
 
 @property(nonatomic, weak, nullable) id<WMFSearchViewControllerDelegate> delegate;
 

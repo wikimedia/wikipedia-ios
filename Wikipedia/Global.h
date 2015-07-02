@@ -9,6 +9,7 @@
 
 #import <libextobjc/EXTScope.h>
 #import <KVOController/FBKVOController.h>
+#import "WMFComparison.h"
 
 #import "MediaWikiKit.h"
 #import "WMFArticlePresenter.h"

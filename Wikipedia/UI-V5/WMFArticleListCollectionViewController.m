@@ -12,6 +12,12 @@
 
 #import "UIViewController+WMFStoryboardUtilities.h"
 
+NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
+    return [indexes bk_mapIndex:^id (NSUInteger index) {
+        return [NSIndexPath indexPathForRow:(NSInteger)index inSection:section];
+    }];
+}
+
 @interface WMFArticleListCollectionViewController ()<TGLStackedLayoutDelegate>
 
 @property (nonatomic, assign, readwrite) WMFArticleListMode mode;
@@ -30,13 +36,20 @@
         return;
     }
 
+    [self unobserveDataSource];
     _dataSource = dataSource;
+    [self observeDataSource];
 
     self.title = [_dataSource displayTitle];
 
     if ([self isViewLoaded]) {
         [self.collectionView reloadData];
     }
+}
+
+- (void)setSavedPages:(MWKSavedPageList* __nonnull)savedPages {
+    _savedPages = savedPages;
+    [self.collectionView reloadData];
 }
 
 #pragma mark - List Mode
@@ -199,8 +212,8 @@
 
     [self addChildViewController:cell.viewController];
 
-    MWKArticle* article = [self.dataSource articleForIndexPath:indexPath];
-    cell.viewController.article = article;
+    cell.viewController.savedPages = self.savedPages;
+    cell.viewController.article    = [self.dataSource articleForIndexPath:indexPath];;
 
     return cell;
 }
@@ -222,6 +235,7 @@
     WMFArticleViewControllerContainerCell* cell = (WMFArticleViewControllerContainerCell*)[collectionView cellForItemAtIndexPath:indexPath];
 
     WMFArticleViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([WMFArticleViewController class])];
+    vc.savedPages      = self.savedPages;
     vc.article         = cell.viewController.article;
     vc.contentTopInset = 64.0;
 
@@ -248,8 +262,59 @@
 
 - (void)stackLayout:(TGLStackedLayout*)layout deleteItemAtIndexPath:(NSIndexPath*)indexPath {
     if ([self.dataSource respondsToSelector:@selector(deleteArticleAtIndexPath:)]) {
+        [self unobserveDataSource];
         [self.dataSource deleteArticleAtIndexPath:indexPath];
+        [self observeDataSource];
     }
+}
+
+#pragma mark - DataSource KVO
+
+- (void)observeDataSource {
+    [self.KVOController observe:_dataSource keyPath:WMF_SAFE_KEYPATH(_dataSource, articles) options:0 block:^(id observer, id object, NSDictionary* change) {
+        NSKeyValueChange changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
+        NSArray* indexPaths = indexPathsWithIndexSet(change[NSKeyValueChangeIndexesKey], 0);
+        [self updateCellsAtIndexPaths:indexPaths change:changeKind];
+    }];
+}
+
+- (void)unobserveDataSource {
+    [self.KVOController unobserve:_dataSource];
+}
+
+#pragma mark - Process DataSource Changes
+
+- (void)updateCellsAtIndexPaths:(NSArray*)indexPaths change:(NSKeyValueChange)change {
+    [self.collectionView performBatchUpdates:^{
+        switch (change) {
+            case NSKeyValueChangeInsertion:
+                [self insertCellsAtIndexPaths:indexPaths];
+                break;
+            case NSKeyValueChangeRemoval:
+                [self deleteCellsAtIndexPaths:indexPaths];
+                break;
+            case NSKeyValueChangeReplacement:
+                [self reloadCellsAtIndexPaths:indexPaths];
+                break;
+            case NSKeyValueChangeSetting:
+                [self.collectionView reloadData];
+                break;
+            default:
+                break;
+        }
+    } completion:NULL];
+}
+
+- (void)insertCellsAtIndexPaths:(NSArray*)indexPaths {
+    [self.collectionView insertItemsAtIndexPaths:indexPaths];
+}
+
+- (void)deleteCellsAtIndexPaths:(NSArray*)indexPaths {
+    [self.collectionView deleteItemsAtIndexPaths:indexPaths];
+}
+
+- (void)reloadCellsAtIndexPaths:(NSArray*)indexPaths {
+    [self.collectionView reloadItemsAtIndexPaths:indexPaths];
 }
 
 @end

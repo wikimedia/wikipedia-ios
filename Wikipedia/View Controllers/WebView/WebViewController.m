@@ -953,20 +953,14 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     BOOL isSaved             = [store.savedPageList isSaved:self.session.currentArticle.title];
 
     if (!isSaved) {
-        dispatch_promise(^{
-            return [store.savedPageList savePageWithTitle:title];
-        }).then(^(){
-            return [store.savedPageList save];
-        }).then(^(){
+        [store.savedPageList addSavedPageWithTitle:title];
+        [store.savedPageList save].then(^(){
             [self showPageSavedAlertMessageForTitle:title.text];
             [funnel logSaveNew];
         });
     } else {
-        dispatch_promise(^{
-            return [store.savedPageList removeSavedPageWithTitle:title];
-        }).then(^(){
-            return [store.savedPageList save];
-        }).then(^(){
+        [store.savedPageList removeSavedPageWithTitle:title];
+        [store.savedPageList save].then(^(){
             [self fadeAlert];
             [funnel logDelete];
         });

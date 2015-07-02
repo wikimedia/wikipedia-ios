@@ -516,8 +516,8 @@
 		04649CA619F72B360071E8FA /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		046A4B9B1B38DC5400440F67 /* UIView+WMFRTLMirroring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WMFRTLMirroring.h"; sourceTree = "<group>"; };
 		046A4B9C1B38DC5400440F67 /* UIView+WMFRTLMirroring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WMFRTLMirroring.m"; sourceTree = "<group>"; };
-		046E2B691B31ED94008A99A6 /* UIButton+WMFButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WMFButton.h"; sourceTree = "<group>"; };
-		046E2B6A1B31ED94008A99A6 /* UIButton+WMFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WMFButton.m"; sourceTree = "<group>"; };
+		046E2B691B31ED94008A99A6 /* UIButton+WMFButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "UIButton+WMFButton.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		046E2B6A1B31ED94008A99A6 /* UIButton+WMFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIButton+WMFButton.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		046E2B6D1B3213BE008A99A6 /* UIBarButtonItem+WMFButtonConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WMFButtonConvenience.h"; sourceTree = "<group>"; };
 		046E2B6E1B3213BE008A99A6 /* UIBarButtonItem+WMFButtonConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WMFButtonConvenience.m"; sourceTree = "<group>"; };
 		0472BC16193AD88C00C40BDA /* MWKSection+DisplayHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSection+DisplayHtml.h"; sourceTree = "<group>"; };
@@ -1983,8 +1983,12 @@
 		0E2B06FA1B2D129B00EA2F53 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				046A4B9B1B38DC5400440F67 /* UIView+WMFRTLMirroring.h */,
+				046A4B9C1B38DC5400440F67 /* UIView+WMFRTLMirroring.m */,
 				0ED44D761B28DA4D00F284BA /* UICollectionView+WMFExtensions.h */,
 				0ED44D771B28DA4D00F284BA /* UICollectionView+WMFExtensions.m */,
+				04016E181B3264C700D732FE /* UIViewController+WMFStoryboardUtilities.h */,
+				04016E191B3264C700D732FE /* UIViewController+WMFStoryboardUtilities.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -2041,49 +2045,56 @@
 			isa = PBXGroup;
 			children = (
 				0E94AFE91B209721000BC5EA /* iPhone_Root.storyboard */,
+				0EFB48091B3BB01300381F99 /* Style */,
 				0E94AFEB1B20976A000BC5EA /* WMFAppViewController.h */,
 				0E94AFEC1B20976A000BC5EA /* WMFAppViewController.m */,
 				0E366B491B308A2600ABFB86 /* UIStoryboard+WMFExtensions.h */,
 				0E366B4A1B308A2600ABFB86 /* UIStoryboard+WMFExtensions.m */,
 				0E2B06F81B2D127A00EA2F53 /* Article List */,
 				0E2B06F91B2D128D00EA2F53 /* Search */,
-				0E94AFF41B209882000BC5EA /* WMFArticleViewController.h */,
-				0E94AFF51B209882000BC5EA /* WMFArticleViewController.m */,
-				0E94AFF91B20A22C000BC5EA /* WMFStyleManager.h */,
-				0E94AFFA1B20A22C000BC5EA /* WMFStyleManager.m */,
+				0EFB48071B3BAFE900381F99 /* Article */,
 				0EFB0EF31B31DE7200D05C08 /* NSError+WMFExtensions.h */,
 				0EFB0EF41B31DE7200D05C08 /* NSError+WMFExtensions.m */,
 				0E2B06FA1B2D129B00EA2F53 /* Common */,
 				0E2B06F71B2D126700EA2F53 /* Data Sources */,
-				04AEF0EF1B2E87A800EFE858 /* WebViewController.storyboard */,
-				04AEF0F31B2E8CA100EFE858 /* SectionEditorViewController.storyboard */,
-				042258551B34A29800FDD0C6 /* PreviewAndSaveViewController.storyboard */,
-				042258571B34A2C100FDD0C6 /* EditSummaryViewController.storyboard */,
-				04AEF0F51B2E8F6300EFE858 /* ReferencesVC.storyboard */,
-				04AEF0FA1B2F703700EFE858 /* PrimaryMenuViewController.storyboard */,
-				04DA876D1B2FEA7000C948F8 /* SearchResultsController.storyboard */,
-				04DA87741B30A03600C948F8 /* LoginViewController.storyboard */,
-				04DA876F1B2FF5B200C948F8 /* SecondaryMenuViewController.storyboard */,
-				04DA87761B30A9D600C948F8 /* AccountCreationViewController.storyboard */,
-				04DA87781B30B99300C948F8 /* CaptchaViewController.storyboard */,
-				04DA877A1B30D29800C948F8 /* NearbyViewController.storyboard */,
-				04DA877C1B30D29800C948F8 /* SavedPagesViewController.storyboard */,
-				04DA87801B30E0C600C948F8 /* HistoryViewController.storyboard */,
-				04016E1B1B3285B700D732FE /* AboutViewController.storyboard */,
-				04016E1D1B328E8B00D732FE /* OnboardingViewController.storyboard */,
-				04016E1F1B329D4500D732FE /* PageHistoryViewController.storyboard */,
-				046E2B691B31ED94008A99A6 /* UIButton+WMFButton.h */,
-				046E2B6A1B31ED94008A99A6 /* UIButton+WMFButton.m */,
-				046E2B6D1B3213BE008A99A6 /* UIBarButtonItem+WMFButtonConvenience.h */,
-				046E2B6E1B3213BE008A99A6 /* UIBarButtonItem+WMFButtonConvenience.m */,
-				04016E181B3264C700D732FE /* UIViewController+WMFStoryboardUtilities.h */,
-				04016E191B3264C700D732FE /* UIViewController+WMFStoryboardUtilities.m */,
+				0EFB48081B3BAFF600381F99 /* Storyboards */,
 				04016E221B335F0200D732FE /* WMFArticlePresenter.h */,
 				04016E231B335F0200D732FE /* WMFArticlePresenter.m */,
-				046A4B9B1B38DC5400440F67 /* UIView+WMFRTLMirroring.h */,
-				046A4B9C1B38DC5400440F67 /* UIView+WMFRTLMirroring.m */,
 			);
 			path = "UI-V5";
+			sourceTree = "<group>";
+		};
+		0EAAAFC81B43301500E65A95 /* Saved Pages */ = {
+			isa = PBXGroup;
+			children = (
+				BCB6698B1A83F6C300C7B1FE /* MWKSavedPageList.h */,
+				BCB6698C1A83F6C300C7B1FE /* MWKSavedPageList.m */,
+				BCB669891A83F6C300C7B1FE /* MWKSavedPageEntry.h */,
+				BCB6698A1A83F6C300C7B1FE /* MWKSavedPageEntry.m */,
+			);
+			name = "Saved Pages";
+			sourceTree = "<group>";
+		};
+		0EAAAFC91B43301C00E65A95 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				BCB6698F1A83F6C300C7B1FE /* MWKHistoryList.h */,
+				BCB669901A83F6C300C7B1FE /* MWKHistoryList.m */,
+				BCB6698D1A83F6C300C7B1FE /* MWKHistoryEntry.h */,
+				BCB6698E1A83F6C300C7B1FE /* MWKHistoryEntry.m */,
+			);
+			name = History;
+			sourceTree = "<group>";
+		};
+		0EAAAFCA1B43302300E65A95 /* Recent Searches */ = {
+			isa = PBXGroup;
+			children = (
+				BCB669931A83F6C300C7B1FE /* MWKRecentSearchList.h */,
+				BCB669941A83F6C300C7B1FE /* MWKRecentSearchList.m */,
+				BCB669911A83F6C300C7B1FE /* MWKRecentSearchEntry.h */,
+				BCB669921A83F6C300C7B1FE /* MWKRecentSearchEntry.m */,
+			);
+			name = "Recent Searches";
 			sourceTree = "<group>";
 		};
 		0EFB0EF91B31EE2D00D05C08 /* LegacyCoreData */ = {
@@ -2127,6 +2138,52 @@
 				0EFB0F081B31EE2D00D05C08 /* NSManagedObjectModel+LegacyCoreData.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		0EFB48071B3BAFE900381F99 /* Article */ = {
+			isa = PBXGroup;
+			children = (
+				0E94AFF41B209882000BC5EA /* WMFArticleViewController.h */,
+				0E94AFF51B209882000BC5EA /* WMFArticleViewController.m */,
+			);
+			name = Article;
+			sourceTree = "<group>";
+		};
+		0EFB48081B3BAFF600381F99 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				04AEF0EF1B2E87A800EFE858 /* WebViewController.storyboard */,
+				04AEF0F31B2E8CA100EFE858 /* SectionEditorViewController.storyboard */,
+				042258551B34A29800FDD0C6 /* PreviewAndSaveViewController.storyboard */,
+				042258571B34A2C100FDD0C6 /* EditSummaryViewController.storyboard */,
+				04AEF0F51B2E8F6300EFE858 /* ReferencesVC.storyboard */,
+				04AEF0FA1B2F703700EFE858 /* PrimaryMenuViewController.storyboard */,
+				04DA876D1B2FEA7000C948F8 /* SearchResultsController.storyboard */,
+				04DA87741B30A03600C948F8 /* LoginViewController.storyboard */,
+				04DA876F1B2FF5B200C948F8 /* SecondaryMenuViewController.storyboard */,
+				04DA87761B30A9D600C948F8 /* AccountCreationViewController.storyboard */,
+				04DA87781B30B99300C948F8 /* CaptchaViewController.storyboard */,
+				04DA877A1B30D29800C948F8 /* NearbyViewController.storyboard */,
+				04DA877C1B30D29800C948F8 /* SavedPagesViewController.storyboard */,
+				04DA87801B30E0C600C948F8 /* HistoryViewController.storyboard */,
+				04016E1B1B3285B700D732FE /* AboutViewController.storyboard */,
+				04016E1D1B328E8B00D732FE /* OnboardingViewController.storyboard */,
+				04016E1F1B329D4500D732FE /* PageHistoryViewController.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		0EFB48091B3BB01300381F99 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				0E94AFF91B20A22C000BC5EA /* WMFStyleManager.h */,
+				0E94AFFA1B20A22C000BC5EA /* WMFStyleManager.m */,
+				046E2B691B31ED94008A99A6 /* UIButton+WMFButton.h */,
+				046E2B6A1B31ED94008A99A6 /* UIButton+WMFButton.m */,
+				046E2B6D1B3213BE008A99A6 /* UIBarButtonItem+WMFButtonConvenience.h */,
+				046E2B6E1B3213BE008A99A6 /* UIBarButtonItem+WMFButtonConvenience.m */,
+			);
+			name = Style;
 			sourceTree = "<group>";
 		};
 		BC69C3101AB0C16B0090B039 /* View Model */ = {
@@ -2261,24 +2318,15 @@
 				BCB669861A83F6C300C7B1FE /* MWKImage.m */,
 				BCB669871A83F6C300C7B1FE /* MWKProtectionStatus.h */,
 				BCB669881A83F6C300C7B1FE /* MWKProtectionStatus.m */,
-				BCB669891A83F6C300C7B1FE /* MWKSavedPageEntry.h */,
-				BCB6698A1A83F6C300C7B1FE /* MWKSavedPageEntry.m */,
-				BCB6698B1A83F6C300C7B1FE /* MWKSavedPageList.h */,
-				BCB6698C1A83F6C300C7B1FE /* MWKSavedPageList.m */,
-				BCB6698D1A83F6C300C7B1FE /* MWKHistoryEntry.h */,
-				BCB6698E1A83F6C300C7B1FE /* MWKHistoryEntry.m */,
-				BCB6698F1A83F6C300C7B1FE /* MWKHistoryList.h */,
-				BCB669901A83F6C300C7B1FE /* MWKHistoryList.m */,
-				BCB669911A83F6C300C7B1FE /* MWKRecentSearchEntry.h */,
-				BCB669921A83F6C300C7B1FE /* MWKRecentSearchEntry.m */,
-				BCB669931A83F6C300C7B1FE /* MWKRecentSearchList.h */,
-				BCB669941A83F6C300C7B1FE /* MWKRecentSearchList.m */,
 				BCB58F611A8A9F1000465627 /* MWKLicense.h */,
 				BCB58F621A8A9F1000465627 /* MWKLicense.m */,
 				BC092B9A1B18F8D700093C59 /* MWKSiteInfo.h */,
 				BC092B9B1B18F8D700093C59 /* MWKSiteInfo.m */,
 				BCE6EE0E1B2619E900AF603B /* MWKLanguageLink.h */,
 				BCE6EE0F1B2619E900AF603B /* MWKLanguageLink.m */,
+				0EAAAFCA1B43302300E65A95 /* Recent Searches */,
+				0EAAAFC91B43301C00E65A95 /* History */,
+				0EAAAFC81B43301500E65A95 /* Saved Pages */,
 			);
 			name = "Data classes";
 			sourceTree = "<group>";
