@@ -69,12 +69,9 @@
 - (CGRect)rectEnclosingAllFocalRectsNormalizedToImageSize:(BOOL)normalized;
 
 
-- (void)importImageData:(NSData*)data;
-
 - (BOOL)isEqualToImage:(MWKImage*)image;
 
 // internal
-- (void)updateWithData:(NSData*)data;
 - (void)updateLastAccessed;
 - (void)save;
 
@@ -131,6 +128,9 @@
 @end
 
 @interface MWKImage ()
+
+- (void)importImageData:(NSData*)data __deprecated;
+- (void)updateWithData:(NSData*)data __deprecated;
 
 - (UIImage*)asUIImage __deprecated;
 - (NSData*)asNSData __deprecated;

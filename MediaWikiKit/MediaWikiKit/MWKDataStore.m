@@ -3,6 +3,10 @@
 
 #import <BlocksKit/BlocksKit.h>
 #import "NSString+Extras.h"
+#import "Wikipedia-Swift.h"
+
+#import <BlocksKit/BlocksKit.h>
+
 
 NSString* const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 NSString* MWKCreateImageURLWithPath(NSString* path) {
@@ -25,8 +29,12 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return [documentsFolder stringByAppendingPathComponent:@"Data"];
 }
 
+- (instancetype)init {
+    return [self initWithBasePath:[[self class] mainDataStorePath]];
+}
+
 - (instancetype)initWithBasePath:(NSString*)basePath {
-    self = [self init];
+    self = [super init];
     if (self) {
         self.basePath = basePath;
     }
@@ -258,16 +266,15 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 #pragma mark - load methods
 
-/// May return nil if no article data available.
-- (MWKArticle*)articleWithTitle:(MWKTitle*)title {
+- (MWKArticle*)existingArticleWithTitle:(MWKTitle*)title {
     NSString* path     = [self pathForTitle:title];
     NSString* filePath = [path stringByAppendingPathComponent:@"Article.plist"];
     NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    if (dict == nil) {
-        return [[MWKArticle alloc] initWithTitle:title dataStore:self];
-    } else {
-        return [[MWKArticle alloc] initWithTitle:title dataStore:self dict:dict];
-    }
+    return dict ? [[MWKArticle alloc] initWithTitle : title dataStore:self dict:dict] : nil;
+}
+
+- (MWKArticle*)articleWithTitle:(MWKTitle*)title {
+    return [self existingArticleWithTitle:title] ? : [[MWKArticle alloc] initWithTitle:title dataStore:self];
 }
 
 - (MWKSection*)sectionWithId:(NSUInteger)sectionId article:(MWKArticle*)article {
@@ -308,12 +315,22 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     }
 }
 
+- (NSString*)pathForImageData:(MWKImage*)image {
+    return [self pathForImageData:image.sourceURL title:image.article.title];
+}
+
+- (NSString*)pathForImageData:(NSString*)sourceURL title:(MWKTitle*)title {
+    NSString* path     = [self pathForImageURL:sourceURL title:title];
+    NSString* fileName = [@"Image" stringByAppendingPathExtension:sourceURL.pathExtension];
+    return [path stringByAppendingPathComponent:fileName];
+}
+
 - (NSData*)imageDataWithImage:(MWKImage*)image {
     if (image == nil) {
         NSLog(@"nil image passed to imageDataWithImage");
         return nil;
     }
-    NSString* filePath = [image fullImageBinaryPath];
+    NSString* filePath = [self pathForImageData:image];
 
     NSError* err;
     NSData* data = [NSData dataWithContentsOfFile:filePath options:0 error:&err];
@@ -347,12 +364,9 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (NSArray*)imageInfoForArticle:(MWKArticle*)article;
 {
-    NSArray* array = [NSArray arrayWithContentsOfFile:[self pathForArticleImageInfo:article]];
-    return array ?
-           [array bk_map : ^MWKImageInfo*(id obj) {
+    return [[NSArray arrayWithContentsOfFile:[self pathForArticleImageInfo:article]] bk_map:^MWKImageInfo*(id obj) {
         return [MWKImageInfo imageInfoWithExportedData:obj];
-    }]
-           : nil;
+    }];
 }
 
 #pragma mark - helper methods
@@ -400,10 +414,22 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     }
 }
 
+#pragma mark - Deletion
+
 - (NSError*)removeFolderAtBasePath {
     NSError* err;
     [[NSFileManager defaultManager] removeItemAtPath:self.basePath error:&err];
     return err;
+}
+
+- (void)deleteArticle:(MWKArticle*)article {
+    NSString* path = [self pathForArticle:article];
+
+    // delete article images *before* metadata (otherwise we won't be able to retrieve image lists)
+    [[WMFImageController sharedInstance] deleteImagesWithURLs:article.allImageURLs];
+
+    // delete article metadata last
+    [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
 }
 
 @end

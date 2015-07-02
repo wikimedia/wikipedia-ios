@@ -192,19 +192,19 @@
 }
 
 - (void)importImageData:(NSData*)data {
-    [self.article.dataStore saveImageData:data image:self];
+//    [self.article.dataStore saveImageData:data image:self];
 }
 
 - (void)updateWithData:(NSData*)data {
-    self.dateRetrieved    = [[NSDate alloc] init];
-    self.dateLastAccessed = [[NSDate alloc] init];
-    self.mimeType         = [self getImageMimeTypeForExtension:self.extension];
-
-    if (!self.width || !self.height) {
-        UIImage* img = [UIImage imageWithData:data];
-        self.width  = [NSNumber numberWithInt:img.size.width];
-        self.height = [NSNumber numberWithInt:img.size.height];
-    }
+//    self.dateRetrieved    = [[NSDate alloc] init];
+//    self.dateLastAccessed = [[NSDate alloc] init];
+//    self.mimeType         = [self getImageMimeTypeForExtension:self.extension];
+//
+//    if (!self.width || !self.height) {
+//        UIImage* img = [UIImage imageWithData:data];
+//        self.width  = [NSNumber numberWithInt:img.size.width];
+//        self.height = [NSNumber numberWithInt:img.size.height];
+//    }
 }
 
 - (NSString*)getImageMimeTypeForExtension:(NSString*)extension {
@@ -326,10 +326,7 @@
 }
 
 - (NSString*)fullImageBinaryPath {
-    NSString* path     = [self.article.dataStore pathForImage:self];
-    NSString* fileName = [@"Image" stringByAppendingPathExtension:self.extension];
-    NSString* filePath = [path stringByAppendingPathComponent:fileName];
-    return filePath;
+    return [self.dataExport pathForImageData:self];
 }
 
 - (BOOL)isLeadImage {

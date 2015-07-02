@@ -11,9 +11,15 @@
 @interface MWKSavedPageEntry : MWKSiteDataObject
 
 @property (readonly, strong, nonatomic) MWKTitle* title;
-@property (readwrite, strong, nonatomic) NSDate* date;
 
 - (instancetype)initWithTitle:(MWKTitle*)title;
 - (instancetype)initWithDict:(NSDictionary*)dict;
+
+///
+/// @name Legacy Data Migration Flags
+///
+
+/// Whether or not image data was migrated from `MWKDataStore` to `WMFImageController`.
+@property (nonatomic) BOOL didMigrateImageData;
 
 @end

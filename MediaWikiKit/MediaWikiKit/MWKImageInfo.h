@@ -27,7 +27,10 @@
 /// URL pointing to the corresponding file page for the receiver.
 @property (nonatomic, readonly, copy) NSURL* filePageURL;
 
-/// URL pointing at the original image (at the uploaded resolution).
+/**
+ * URL pointing at the original image (at the uploaded resolution).
+ * @warning These images can be *very* large. Special handling may be needed when downloading or displaying.
+ */
 @property (nonatomic, readonly, copy) NSURL* imageURL;
 
 /// URL pointing at a thumbnail version of the image at @c imageURL.

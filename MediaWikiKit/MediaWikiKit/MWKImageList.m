@@ -16,7 +16,7 @@
 @property (weak, readwrite, nonatomic) MWKArticle* article;
 @property (weak, readwrite, nonatomic) MWKSection* section;
 
-@property (strong, nonatomic) NSMutableArray* entries;
+@property (strong, nonatomic) NSMutableArray* mutableEntries;
 @property (strong, nonatomic) NSMutableDictionary* entriesByURL;
 @property (strong, nonatomic) NSMutableDictionary* entriesByNameWithoutSize;
 
@@ -29,7 +29,7 @@
 - (instancetype)initWithSite:(MWKSite*)site {
     self = [super initWithSite:site];
     if (self) {
-        self.entries                  = [[NSMutableArray alloc] init];
+        self.mutableEntries           = [[NSMutableArray alloc] init];
         self.mutationState            = 0;
         self.entriesByURL             = [[NSMutableDictionary alloc] init];
         self.entriesByNameWithoutSize = [[NSMutableDictionary alloc] init];
@@ -56,10 +56,14 @@
     return self;
 }
 
+- (NSArray*)entries {
+    return self.mutableEntries;
+}
+
 - (void)addImageURL:(NSString*)imageURL {
     imageURL = [imageURL wmf_schemelessURL];
 
-    [self.entries addObject:imageURL];
+    [self.mutableEntries addObject:imageURL];
     self.entriesByURL[imageURL] = imageURL;
 
     NSString* key          = [MWKImage fileNameNoSizePrefix:imageURL];
@@ -84,16 +88,16 @@
 
 - (BOOL)isEqualToImageList:(MWKImageList*)imageList {
     return WMF_EQUAL(self.article, isEqualToArticle:, imageList.article)
-           && WMF_EQUAL(self.entries, isEqualToArray:, [imageList entries]);
+           && WMF_EQUAL(self.mutableEntries, isEqualToArray:, [imageList mutableEntries]);
 }
 
 - (NSUInteger)count {
-    return [self.entries count];
+    return [self.mutableEntries count];
 }
 
 - (NSString*)imageURLAtIndex:(NSUInteger)index {
-    if (index < [self.entries count]) {
-        return self.entries[index];
+    if (index < [self.mutableEntries count]) {
+        return self.mutableEntries[index];
     } else {
         return nil;
     }
@@ -106,7 +110,7 @@
 
 - (BOOL)hasImageURL:(NSURL*)imageURL {
     NSString* imageURLString = [imageURL wmf_schemelessURLString];
-    if (imageURLString && imageURLString.length > 0 && [self.entries containsObject:imageURLString]) {
+    if (imageURLString && imageURLString.length > 0 && [self.mutableEntries containsObject:imageURLString]) {
         return YES;
     } else {
         return NO;
@@ -183,19 +187,19 @@
 }
 
 - (NSUInteger)indexOfImage:(MWKImage*)image {
-    return [self.entries indexOfObject:image.sourceURL];
+    return [self.mutableEntries indexOfObject:image.sourceURL];
 }
 
 - (BOOL)containsImage:(MWKImage*)image {
-    return [self.entries containsObject:image.sourceURL];
+    return [self.mutableEntries containsObject:image.sourceURL];
 }
 
 - (NSArray*)uniqueLargestVariants {
-    if (!self.entries || self.entries.count == 0) {
+    if (!self.mutableEntries || self.mutableEntries.count == 0) {
         return nil;
     }
-    NSMutableOrderedSet* resultBuilder = [[NSMutableOrderedSet alloc] initWithCapacity:self.entries.count];
-    for (NSString* sourceURL in self.entries) {
+    NSMutableOrderedSet* resultBuilder = [[NSMutableOrderedSet alloc] initWithCapacity:self.mutableEntries.count];
+    for (NSString* sourceURL in self.mutableEntries) {
         MWKImage* image = [self largestImageVariantForURL:sourceURL cachedOnly:NO];
         NSAssert(image, @"Couldn't retrieve image record for image list entry: %@", sourceURL);
         [resultBuilder addObject:image];
@@ -205,7 +209,7 @@
 
 - (BOOL)addImageURLIfAbsent:(NSString*)imageURL {
     imageURL = [imageURL wmf_schemelessURL];
-    if (imageURL && imageURL.length > 0 && ![self.entries containsObject:imageURL]) {
+    if (imageURL && imageURL.length > 0 && ![self.mutableEntries containsObject:imageURL]) {
         [self addImageURL:imageURL];
         return YES;
     } else {
@@ -216,7 +220,7 @@
 #pragma mark - data i/o
 
 - (id)dataExport {
-    return @{@"entries": self.entries};
+    return @{@"entries": self.mutableEntries};
 }
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState*)state
@@ -244,7 +248,7 @@
 - (NSString*)debugDescription {
     return [NSString stringWithFormat:@"%@ { \n"
             "\t images: %@ \n"
-            "}", self.description, self.entries];
+            "}", self.description, self.mutableEntries];
 }
 
 @end

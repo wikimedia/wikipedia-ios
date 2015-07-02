@@ -14,7 +14,7 @@ let APPLY_IMAGE_OVERLAYS = false
 #endif
 
 internal extension WMFImageController {
-    func maybeApplyDebugTransforms(promise: Promise<ImageDownload>) -> Promise<ImageDownload> {
+    func applyDebugTransformIfEnabled(promise: Promise<ImageDownload>) -> Promise<ImageDownload> {
         #if NDEBUG
             return promise
         #else

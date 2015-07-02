@@ -86,19 +86,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (MWKImage*)importImageURL:(NSString*)url sectionId:(int)sectionId;
 
-/**
- * Import downloaded image data into our data store,
- * and update the image object/record
- */
-- (MWKImage*)importImageData:(NSData*)data image:(MWKImage*)image;
-
-/**
- *  Loads the image in the "thumbnailURL" property from disk
- *  if it has been cached.
- */
-- (void)loadThumbnailFromDisk;
-
-
 - (BOOL)isEqualToArticle:(MWKArticle*)article;
 - (BOOL)isDeeplyEqualToArticle:(MWKArticle*)article;
 
@@ -107,5 +94,23 @@ static const NSInteger kMWKArticleSectionNone = -1;
 - (void)remove;
 
 - (BOOL)isCached;
+
+@end
+
+@interface MWKArticle ()
+
+/**
+ * Import downloaded image data into our data store,
+ * and update the image object/record
+ */
+- (MWKImage*)importImageData:(NSData*)data image:(MWKImage*)image __deprecated;
+
+/**
+ *  Loads the image in the "thumbnailURL" property from disk
+ *  if it has been cached.
+ */
+- (void)loadThumbnailFromDisk __deprecated;
+
+- (NSArray*)allImageURLs;
 
 @end

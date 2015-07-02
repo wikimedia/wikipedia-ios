@@ -68,6 +68,12 @@ NS_ASSUME_NONNULL_BEGIN
 
     _article = article;
 
+    DDLogVerbose(@"\n");
+    DDLogVerbose(@"%@", article.title.text);
+    DDLogVerbose(@"%@", article.entityDescription); //not saved? only seeing it in search results not saved panels
+    DDLogVerbose(@"%@", article.thumbnailURL);
+    DDLogVerbose(@"%lu", [article.sections count]);
+
     [self updateUI];
     [self fetchArticleIfNeeded];
 }

@@ -13,9 +13,11 @@
 @class MWKImage;
 
 @interface MWKImageList : MWKSiteDataObject <NSFastEnumeration>
-
 @property (weak, readonly, nonatomic) MWKArticle* article;
 @property (weak, readonly, nonatomic) MWKSection* section;
+
+/// Array of image source URLs.
+@property (strong, readonly, nonatomic) NSArray* entries;
 
 - (instancetype)initWithArticle:(MWKArticle*)article section:(MWKSection*)section;
 - (instancetype)initWithArticle:(MWKArticle*)article section:(MWKSection*)section dict:(NSDictionary*)dict;

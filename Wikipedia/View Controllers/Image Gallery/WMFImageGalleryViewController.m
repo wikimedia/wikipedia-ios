@@ -492,7 +492,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     @weakify(self)
 
     NSURL * placeholderURL = [NSURL wmf_optionalURLWithString:[[image largestCachedVariant] sourceURL]];
-    [[WMFImageController sharedInstance] cascadingFetchWithMainURL:infoForImage.imageURL
+    [[WMFImageController sharedInstance] cascadingFetchWithMainURL:infoForImage.imageThumbURL
                                               cachedPlaceholderURL:placeholderURL
                                                     mainImageBlock:^(UIImage* __nonnull mainImage) {
         @strongify(self)
@@ -529,8 +529,8 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         return;
     }
     NSAssert(!info
-             || ![[WMFImageController sharedInstance] hasImageWithURL:info.imageURL]
-             || (!info && ![[WMFImageController sharedInstance] hasImageWithURL:info.imageURL]),
+             || ![[WMFImageController sharedInstance] hasImageWithURL:info.imageThumbURL]
+             || (!info && ![[WMFImageController sharedInstance] hasImageWithURL:info.imageThumbURL]),
              @"Breach of contract to never apply variant when desired image is present!");
     DDLogDebug(@"Applying variant of info %@ to indexpath %@", info, indexPath);
     WMFImageGalleryCollectionViewCell* cell =
