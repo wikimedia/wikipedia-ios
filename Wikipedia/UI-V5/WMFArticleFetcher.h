@@ -6,7 +6,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^ WMFArticleFetcherProgress)(CGFloat progress);
+extern NSString* const WMFArticleFetchedNotification;
+extern NSString* const WMFArticleFetchedKey;
+
+extern NSString* const WMFArticleFetchedNotification;
+extern NSString* const WMFArticleFetchedKey;
 
 @interface WMFArticleFetcher : NSObject
 
@@ -14,9 +18,7 @@ typedef void (^ WMFArticleFetcherProgress)(CGFloat progress);
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
-- (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFArticleFetcherProgress)progress;
-
-- (void)cancelCurrentFetch;
+- (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler)progress;
 
 @end
 

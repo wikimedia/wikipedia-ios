@@ -17,6 +17,19 @@ NSString* const WMFRedirectTitleKey = @"WMFRedirectTitleKey";
     
 }
 
+- (BOOL)wmf_isWMFErrorDomain{
+    if([self.domain isEqualToString:WMFErrorDomain]){
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)wmf_isWMFErrorOfType:(WMFErrorType)type{
+    if(![self wmf_isWMFErrorDomain]){
+        return NO;
+    }
+    return [self code] == type;
+}
 
 @end
 

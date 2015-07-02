@@ -74,6 +74,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         self.entityDescription = [self optionalString:@"description" dict:dict];
         self.snippet           = [self optionalString:@"snippet" dict:dict];
         self.thumbnailURL      = dict[@"thumbnail"][@"source"];
+        self.imageURL          = self.thumbnailURL;
     }
 
     return self;
@@ -236,6 +237,18 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 - (MWKImage*)imageWithURL:(NSString*)url {
     return [self.dataStore imageWithURL:url article:self];
+}
+
+- (NSString*)bestThumbnailImageURL {
+    if (self.thumbnailURL) {
+        return self.thumbnailURL;
+    }
+
+    if (self.imageURL) {
+        return self.imageURL;
+    }
+
+    return nil;
 }
 
 - (void)loadThumbnailFromDisk {

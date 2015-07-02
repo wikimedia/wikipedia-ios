@@ -10,6 +10,8 @@
 #import "NSString+Extras.h"
 #import "WikipediaAppUtils.h"
 
+#define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
+
 @interface SearchResultFetcher ()
 
 @property (strong, nonatomic) NSString* domain;
@@ -119,7 +121,7 @@
                        @"prop": @"pageterms|pageimages",
                        @"piprop": @"thumbnail",
                        @"wbptterms": @"description",
-                       @"pithumbsize": @(SEARCH_THUMBNAIL_WIDTH),
+                       @"pithumbsize": @(LEAD_IMAGE_WIDTH),
                        @"pilimit": @(self.maxSearchResults),
                        // -- Parameters causing prefix search to efficiently return suggestion.
                        @"list": @"search",
@@ -130,6 +132,7 @@
                        @"srprop": @"",
                        @"sroffset": @0,
                        @"srlimit": @1,
+//                       @"redirects": @1,
                        // --
                        @"continue": @"",
                        @"format": @"json"
@@ -150,10 +153,11 @@
                        @"gsroffset": @0,
                        @"gsrlimit": @(self.maxSearchResults),
                        @"piprop": @"thumbnail",
-                       @"pithumbsize": @(SEARCH_THUMBNAIL_WIDTH),
+                       @"pithumbsize": @(LEAD_IMAGE_WIDTH),
                        @"pilimit": @(self.maxSearchResults),
                        @"continue": @"",
                        @"format": @"json"
+//                       @"redirects": @1,
             };
             break;
         default:

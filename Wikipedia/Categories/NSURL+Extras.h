@@ -19,6 +19,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)wmf_mimeTypeForExtension;
 
+/// Prepend the receiver with the given scheme, unless one was already present in which case the receiver is returned.
+- (instancetype)wmf_urlByPrependingSchemeIfSchemeless:(NSString*)scheme;
+
+/**
+ * Prepend the receiver with "https" if it doesn't already have a scheme.
+ * @see wmf_urlByPrependingSchemeIfSchemeless
+ */
+- (instancetype)wmf_urlByPrependingSchemeIfSchemeless;
+
 @end
 
 NS_ASSUME_NONNULL_END

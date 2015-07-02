@@ -7,7 +7,7 @@
 
 @class BottomMenuViewController, CommunicationBridge;
 
-@interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, ArticleFetcherDelegate>
+@interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView* webView;
 @property (nonatomic) BOOL referencesHidden;

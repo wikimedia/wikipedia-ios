@@ -5,6 +5,8 @@
 
 + (UIStoryboard*)wmf_appRootStoryBoard;
 
++ (UIStoryboard*)wmf_storyBoardForViewControllerClass:(Class)viewControllerClass;
+
 - (id)wmf_instantiateViewControllerWithIdentifierFromClass:(Class)viewControllerClass;
 
 @end

@@ -139,7 +139,8 @@ public class WMFImageController : NSObject {
      * @return An `ImageDownload` with the image data and the origin it was loaded from.
      */
     public func fetchImageWithURL(url: NSURL) -> Promise<ImageDownload> {
-        let promise = imageManager.promisedImageWithURL(url, options: SDWebImageOptions.allZeros)
+        // HAX: make sure all image requests have a scheme (MW api sometimes omits one)
+        let promise = imageManager.promisedImageWithURL(url.wmf_urlByPrependingSchemeIfSchemeless(), options: .allZeros)
         return maybeApplyDebugTransforms(promise)
     }
 
@@ -191,13 +192,15 @@ public class WMFImageController : NSObject {
     // MARK: - Cancellation
 
     /// Cancel a pending fetch for an image at `url`.
-    public func cancelFetchForURL(url: NSURL) {
-        weak var wself = self;
-        dispatch_async(self.cancellingQueue) {
-            let sself = wself
-            if let cancellable = sself?.cancellables.objectForKey(url.absoluteString!) as? WrapperObject<Cancellable> {
-                sself?.cancellables.removeObjectForKey(url.absoluteString!)
-                cancellable.value.cancel()
+    public func cancelFetchForURL(url: NSURL?) {
+        if let url = url {
+            weak var wself = self;
+            dispatch_async(self.cancellingQueue) {
+                let sself = wself
+                if let cancellable = sself?.cancellables.objectForKey(url.absoluteString!) as? WrapperObject<Cancellable> {
+                    sself?.cancellables.removeObjectForKey(url.absoluteString!)
+                    cancellable.value.cancel()
+                }
             }
         }
     }

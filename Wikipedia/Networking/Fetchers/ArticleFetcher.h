@@ -6,26 +6,17 @@
 
 @class AFHTTPRequestOperationManager, ArticleFetcher, AFHTTPRequestOperation, MWKTitle;
 
-
-@protocol ArticleFetcherDelegate <FetchFinishedDelegate>
-
-@optional
-- (void)articleFetcher:(ArticleFetcher*)savedArticlesFetcher
-     didUpdateProgress:(CGFloat)progress;
-
-@end
-
-
 @interface ArticleFetcher : FetcherBase
-
-@property (nonatomic, strong, readonly) MWKDataStore* dataStore;
-@property (nonatomic, strong, readonly) MWKTitle* title;
 
 - (AFHTTPRequestOperation*)fetchSectionsForTitle:(MWKTitle*)title
                                      inDataStore:(MWKDataStore*)store
                                      withManager:(AFHTTPRequestOperationManager*)manager
-                              thenNotifyDelegate:(id<ArticleFetcherDelegate>)delegate;
+                                   progressBlock:(WMFProgressHandler)progress
+                                 completionBlock:(WMFArticleHandler)completion
+                                      errorBlock:(WMFErrorHandler)errorHandler;
 
-@property (nonatomic, weak) id<ArticleFetcherDelegate> fetchFinishedDelegate;
+
+
+
 
 @end

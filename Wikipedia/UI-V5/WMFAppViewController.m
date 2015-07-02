@@ -55,6 +55,7 @@
     self.searchViewController.dataStore     = self.session.dataStore;
     self.searchViewController.userDataStore = self.session.userDataStore;
 
+    self.listViewController.dataStore  = self.session.dataStore;
     self.listViewController.savedPages = self.session.userDataStore.savedPageList;
     self.listViewController.dataSource = [[WMFSavedPagesDataSource alloc] initWithSavedPagesList:[self userDataStore].savedPageList];
 
@@ -164,7 +165,7 @@
         case WMFSearchStateInactive: {
             [self.articleListMinimizedConstraint uninstall];
             [self.articleListContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
-                self.articleListVisibleConstraint = make.top.equalTo(self.view.mas_top).with.offset(64.0);
+                self.articleListVisibleConstraint = make.top.equalTo(self.mas_topLayoutGuide).with.offset(44.0);
             }];
             [self.view layoutIfNeeded];
 

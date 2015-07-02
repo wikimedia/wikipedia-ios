@@ -22,50 +22,35 @@
 
 @interface ArticleFetcher ()
 
-@property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
-@property (nonatomic, strong, readwrite) ZeroConfigState* zeroConfig;
 @property (nonatomic, assign, readwrite) BOOL sendUsageReports;
-
-
-@property (nonatomic, strong, readwrite) MWKTitle* title;
 
 @end
 
 @implementation ArticleFetcher
 
-@dynamic fetchFinishedDelegate;
-
 - (AFHTTPRequestOperation*)fetchSectionsForTitle:(MWKTitle*)title
                                      inDataStore:(MWKDataStore*)store
                                      withManager:(AFHTTPRequestOperationManager*)manager
-                              thenNotifyDelegate:(id<ArticleFetcherDelegate> )delegate {
-    assert(title != nil);
-    assert(store != nil);
-    assert(manager != nil);
-    assert(delegate != nil);
-    self.title                 = title;
-    self.dataStore             = store;
-    self.fetchFinishedDelegate = delegate;
-    return [self fetchWithManager:manager];
-}
+                                   progressBlock:(WMFProgressHandler)progress
+                                 completionBlock:(WMFArticleHandler)completion
+                                      errorBlock:(WMFErrorHandler)errorHandler {
+    NSAssert(title.text != nil, @"Title text nil");
+    NSAssert(store != nil, @"Store nil");
+    NSAssert(manager != nil, @"Manager nil");
 
-- (AFHTTPRequestOperation*)fetchWithManager:(AFHTTPRequestOperationManager*)manager {
-    if (!self.title.text) {
+    if (!title.text) {
         return nil;
     }
-    if (!self.title.site.language) {
+    if (!title.site.language) {
         return nil;
     }
 
-    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.title.site.language];
+    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:title.site.language];
 
-    // First retrieve lead section data, then get the remaining sections data.
-
-    NSDictionary* params = [self getParamsForTitle:self.title];
+    NSDictionary* params = [self getParamsForTitle:title];
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    // Conditionally add an MCCMNC header.
     [self addMCCMNCHeaderToRequestSerializer:manager.requestSerializer ifAppropriateForURL:url];
 
     AFHTTPRequestOperation* operation = [manager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
@@ -75,7 +60,7 @@
             //NSLog(@"JSON: %@", responseObject);
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-            MWKArticle* article = [self.dataStore articleWithTitle:self.title];
+            MWKArticle* article = [store articleWithTitle:title];
             // Convert the raw NSData response to a dictionary.
             NSDictionary* responseDictionary = [self dictionaryFromDataResponse:localResponseObject];
 
@@ -84,8 +69,10 @@
                 [article save];
             }@catch (NSException* e) {
                 NSLog(@"%@", e);
-                NSError* err = [NSError errorWithDomain:@"ArticleFetcher" code:666 userInfo:@{ @"exception": e }];
-                [self finishWithError:err fetchedData:nil];
+                NSError* error = [NSError errorWithDomain:@"ArticleFetcher" code:666 userInfo:@{ @"exception": e }];
+                if (errorHandler) {
+                    errorHandler(error);
+                }
                 return;
             }
 
@@ -98,30 +85,30 @@
             // Reminder: don't recall article save here as it expensively re-writes all section html.
             [article saveWithoutSavingSectionText];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self finishWithError:nil
-                          fetchedData:article];
-            });
+            if (completion) {
+                completion(article);
+            }
         });
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         NSLog(@"Error: %@", error);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-        [self finishWithError:error
-                  fetchedData:nil];
+        if (errorHandler) {
+            errorHandler(error);
+        }
     }];
 
-    __block CGFloat progress = 0.0;
+    __block CGFloat downloadProgress = 0.0;
 
     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
         if (totalBytesExpectedToRead > 0) {
-            progress = (CGFloat)(totalBytesRead / totalBytesExpectedToRead);
+            downloadProgress = (CGFloat)(totalBytesRead / totalBytesExpectedToRead);
         } else {
-            progress += 0.05;
+            downloadProgress += 0.05;
         }
 
-        if ([self.fetchFinishedDelegate respondsToSelector:@selector(articleFetcher:didUpdateProgress:)]) {
-            [self.fetchFinishedDelegate articleFetcher:self didUpdateProgress:progress];
+        if (progress) {
+            progress(downloadProgress);
         }
     }];
 

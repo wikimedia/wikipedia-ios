@@ -31,7 +31,6 @@
 
 - (void)reset {
     self.loginFetchManager              = [AFHTTPRequestOperationManager wmf_createDefaultManager];
-    self.savedPagesFetchManager         = [AFHTTPRequestOperationManager wmf_createDefaultManager];
     self.sectionWikiTextDownloadManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
     self.sectionWikiTextUploadManager   = [AFHTTPRequestOperationManager wmf_createDefaultManager];
     self.sectionPreviewHtmlFetchManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
@@ -49,7 +48,6 @@
                           self.nearbyFetchManager,
                           self.articleFetchManager,
                           self.searchResultsFetchManager,
-                          self.savedPagesFetchManager
     ];
 
     [fetchers bk_each:^(AFHTTPRequestOperationManager* manager) {

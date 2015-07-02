@@ -32,8 +32,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @implementation WMFSearchViewController
 
 - (void)setUserDataStore:(MWKUserDataStore* __nonnull)userDataStore {
+    [self unobserveSavedPages];
     _userDataStore                        = userDataStore;
     self.resultsListController.savedPages = _userDataStore.savedPageList;
+    [self observeSavedPages];
+}
+
+- (void)setDataStore:(MWKDataStore* __nonnull)dataStore {
+    _dataStore                           = dataStore;
+    self.resultsListController.dataStore = _dataStore;
 }
 
 - (NSString*)currentSearchTerm {
@@ -52,6 +59,18 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.state = state;
 
     [self.delegate searchController:self searchStateDidChange:self.state];
+}
+
+#pragma mark - DataSource KVO
+
+- (void)observeSavedPages {
+    [self.KVOController observe:self.userDataStore.savedPageList keyPath:WMF_SAFE_KEYPATH(self.userDataStore.savedPageList, entries) options:0 block:^(id observer, id object, NSDictionary* change) {
+        [self.resultsListController refreshVisibleCells];
+    }];
+}
+
+- (void)unobserveSavedPages {
+    [self.KVOController unobserve:self.userDataStore.savedPageList];
 }
 
 #pragma mark - UIViewController
@@ -76,12 +95,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     self.fetcher = [[WMFSearchFetcher alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
 
-    if ([self.searchBar.text length] > 2) {
-        if (![[self currentSearchTerm] isEqualToString:self.searchBar.text]) {
-            [self searchForSearchTerm:self.searchBar.text];
-        }
-    } else {
-        self.resultsListController.dataSource = nil;
+    if (![[self currentSearchTerm] isEqualToString:self.searchBar.text]) {
+        [self searchForSearchTerm:self.searchBar.text];
     }
 }
 
@@ -111,8 +126,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)searchForSearchTerm:(NSString*)searchTerm {
     dispatch_promise(^{
-        return (searchTerm.length > 2 ? searchTerm : [NSError wmf_errorWithType:WMFErrorTypeStringLength userInfo:nil]);
-    }).then(^(NSString* searchTerm){
         return [self.fetcher searchArticleTitlesForSearchTerm:searchTerm];
     }).then((id) ^ (WMFSearchResults * results){
         [UIView animateWithDuration:0.25 animations:^{

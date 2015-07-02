@@ -13,9 +13,9 @@
 
 @implementation MWKSection (WMFSharing)
 
-/// @return The text from the first `<p>` tag in the receiver's `text`.
+/// @return The text from the first `<p>` tag in the receiver's `text` not containing `<span id='coordinates'>`.
 - (NSString*)shareSnippet {
-    return [self shareSnippetFromTextUsingXpath:@"/html/body/p[1]//text()"];
+    return [self shareSnippetFromTextUsingXpath:@"/html/body/p[not(.//span[@id='coordinates'])][1]//text()"];
 }
 
 - (NSString*)shareSnippetFromTextUsingXpath:(NSString*)xpath {

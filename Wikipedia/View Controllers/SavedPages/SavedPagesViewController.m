@@ -381,11 +381,11 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 #pragma mark - Refresh
 
 - (void)startRefresh {
-    [[QueuesSingleton sharedInstance].savedPagesFetchManager.operationQueue cancelAllOperations];
-
-    SavedArticlesFetcher* fetcher = [[SavedArticlesFetcher alloc] initAndFetchArticlesForSavedPageList:self.savedPageList inDataStore:self.userDataStore.dataStore withManager:[QueuesSingleton sharedInstance].savedPagesFetchManager thenNotifyDelegate:self];
+    SavedArticlesFetcher* fetcher = [[SavedArticlesFetcher alloc] initWithDataStore:self.userDataStore.dataStore];
+    fetcher.fetchFinishedDelegate = self;
 
     [SavedArticlesFetcher setSharedInstance:fetcher];
+    [fetcher fetchSavedPageList:self.savedPageList];
 
     self.progressView.progress = 0.0;
 
@@ -437,16 +437,14 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 }
 
 - (void)cancelRefresh {
-    [[QueuesSingleton sharedInstance].savedPagesFetchManager.operationQueue cancelAllOperations];
-
+    [[SavedArticlesFetcher sharedInstance] cancelFetch];
     [self finishRefresh];
-
     [self showCancelRefreshAlertIfFirstTime];
 }
 
 #pragma mark - SavedArticlesFetcherDelegate
 
-- (void)savedArticlesFetcher:(SavedArticlesFetcher*)savedArticlesFetcher didFetchArticle:(MWKArticle*)article progress:(CGFloat)progress status:(FetchFinalStatus)status error:(NSError*)error {
+- (void)savedArticlesFetcher:(SavedArticlesFetcher*)savedArticlesFetcher didFetchArticle:(MWKArticle*)article progress:(CGFloat)progress error:(NSError*)error {
     [self.progressView setProgress:progress animated:YES];
 }
 

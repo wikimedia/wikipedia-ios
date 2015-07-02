@@ -7,17 +7,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticleFetcher ()<ArticleFetcherDelegate>
+NSString* const WMFArticleFetchedNotification = @"WMFArticleFetchedNotification";
+NSString* const WMFArticleFetchedKey          = @"WMFArticleFetchedKey";
+
+@interface WMFArticleFetcher ()
 
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
-
 @property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
-
 @property (nonatomic, strong) ArticleFetcher* fetcher;
-
-@property (nonatomic, strong, nullable) AFHTTPRequestOperation* operation;
-@property (nonatomic, copy, nullable) WMFArticleFetcherProgress progressBlock;
-@property (nonatomic, copy, nullable) PMKResolver resolver;
 
 @end
 
@@ -34,70 +31,33 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFArticleFetcherProgress)progress {
-    [self cancelCurrentFetch];
+- (ArticleFetcher*)fetcher {
+    if (!_fetcher) {
+        _fetcher = [[ArticleFetcher alloc] init];
+    }
 
-    self.progressBlock = progress;
+    return _fetcher;
+}
 
+- (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler)progress {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        self.resolver = resolve;
+        AFHTTPRequestOperation* operation = [self.fetcher fetchSectionsForTitle:pageTitle inDataStore:self.dataStore withManager:self.operationManager progressBlock:^(CGFloat completionProgress) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (progress) {
+                    progress(completionProgress);
+                }
+            });
+        } completionBlock:^(MWKArticle* article) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:WMFArticleFetchedNotification object:self userInfo:@{WMFArticleFetchedKey: article}];
+            resolve(article);
+        } errorBlock:^(NSError* error) {
+            resolve(error);
+        }];
 
-        self.fetcher = [[ArticleFetcher alloc] init];
-        self.operation = [self.fetcher fetchSectionsForTitle:pageTitle inDataStore:self.dataStore withManager:self.operationManager thenNotifyDelegate:self];
-
-        if (self.operation == nil) {
+        if (operation == nil) {
             resolve([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
-            [self reset];
         }
     }];
-}
-
-- (void)articleFetcher:(ArticleFetcher*)savedArticlesFetcher
-     didUpdateProgress:(CGFloat)progress {
-    if (!self.progressBlock) {
-        return;
-    }
-
-    dispatchOnMainQueue(^{
-        self.progressBlock(progress);
-    });
-}
-
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError*)error {
-    if (!self.resolver) {
-        [self reset];
-        return;
-    }
-
-    MWKArticle* article = fetchedData;
-
-    if (!error) {
-        MWKTitle* redirectedTitle = article.redirected;
-        if (redirectedTitle) {
-            error = [NSError wmf_redirectedErrorWithTitle:redirectedTitle];
-        }
-    }
-
-    if (!error) {
-        self.resolver(article);
-    } else {
-        self.resolver(error);
-    }
-    [self reset];
-}
-
-- (void)cancelCurrentFetch {
-    [self.operation cancel];
-    [self reset];
-}
-
-- (void)reset {
-    self.operation     = nil;
-    self.progressBlock = NULL;
-    self.resolver      = nil;
 }
 
 @end

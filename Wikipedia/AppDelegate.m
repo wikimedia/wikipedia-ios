@@ -49,6 +49,8 @@
     [vc launchAppInWindow:self.window];
     self.appViewController = vc;
 
+    NSLog(@"%@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
+
     return YES;
 }
 

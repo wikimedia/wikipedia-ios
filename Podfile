@@ -24,7 +24,7 @@ pod 'libextobjc/EXTScope', '~> 0.4.1'
 pod 'KVOController'
 
 # Autolayout
-pod 'Masonry', '~> 0.6'
+pod 'Masonry', '0.6.2'
 
 # Diagnostics
 pod 'CocoaLumberjack', '~> 2.0.0'

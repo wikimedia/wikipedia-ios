@@ -1,10 +1,14 @@
 
 
-#import "WMFArticleCardTranstion.h"
+#import "WMFArticleListTranstion.h"
+#import "WMFScrollViewTopPanGestureRecognizer.h"
 
-@interface WMFArticleCardTranstion ()
+@interface WMFArticleListTranstion ()<UIGestureRecognizerDelegate>
 
-@property (strong, nonatomic) UIViewController* presentedViewController;
+@property (nonatomic, weak, readwrite) UIViewController* presentingViewController;
+@property (nonatomic, weak, readwrite) UIViewController* presentedViewController;
+@property (nonatomic, weak, readwrite) UIScrollView* scrollView;
+
 @property (strong, nonatomic) UIView* movingCardSnapshot;
 @property (strong, nonatomic) UIView* overlappingCardSnapshot;
 
@@ -12,21 +16,30 @@
 @property (nonatomic, assign, readwrite) BOOL isDismissing;
 @property (nonatomic, assign, readwrite) BOOL isPresenting;
 
-@property (strong, nonatomic) UIPanGestureRecognizer* recognizer;
+@property (strong, nonatomic) WMFScrollViewTopPanGestureRecognizer* dismissGestureRecognizer;
 @property (assign, nonatomic) BOOL interactionInProgress;
 
 @property (assign, nonatomic) CGFloat totalCardAnimationDistance;
 
 @end
 
-@implementation WMFArticleCardTranstion
+@implementation WMFArticleListTranstion
 
-- (instancetype)init {
+- (instancetype)initWithPresentingViewController:(UIViewController*)presentingViewController presentedViewController:(UIViewController*)presentedViewController contentScrollView:(UIScrollView*)scrollView {
     self = [super init];
     if (self) {
-        _dismissInteractively = YES;
+        _dismissInteractively     = YES;
+        _presentingViewController = presentingViewController;
+        _presentedViewController  = presentedViewController;
+        _scrollView               = scrollView;
+        [self addDismissGestureRecognizer];
     }
     return self;
+}
+
+- (void)setDismissInteractively:(BOOL)dismissInteractively {
+    _dismissInteractively = dismissInteractively;
+    [self addDismissGestureRecognizer];
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
@@ -44,7 +57,10 @@
 }
 
 - (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator {
-    return self;
+    if (self.dismissInteractively) {
+        return self;
+    }
+    return nil;
 }
 
 #pragma mark - UIViewAnimatedTransistioning
@@ -57,11 +73,6 @@
     if (self.isPresented) {
         [self animateDismiss:transitionContext];
     } else {
-        UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-        self.recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-        [toVC.view addGestureRecognizer:self.recognizer];
-        self.presentedViewController = toVC;
-
         [self animatePresentation:transitionContext];
     }
 }
@@ -200,7 +211,24 @@
 
 #pragma mark - Gesture
 
-- (void)handleGesture:(UIPanGestureRecognizer*)recognizer {
+- (void)addDismissGestureRecognizer {
+    if (!self.dismissGestureRecognizer) {
+        self.dismissGestureRecognizer          = (id)[[WMFScrollViewTopPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDismissGesture:)];
+        self.dismissGestureRecognizer.delegate = self;
+        [self.presentedViewController.view addGestureRecognizer:self.dismissGestureRecognizer];
+        [self.dismissGestureRecognizer setScrollview:self.scrollView];
+    }
+}
+
+- (void)removeDismissGestureRecognizer {
+    if (self.dismissGestureRecognizer) {
+        [self.presentedViewController.view removeGestureRecognizer:self.dismissGestureRecognizer];
+        self.dismissGestureRecognizer.delegate = nil;
+        self.dismissGestureRecognizer          = nil;
+    }
+}
+
+- (void)handleDismissGesture:(UIPanGestureRecognizer*)recognizer {
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan: {
             CGPoint translation     = [recognizer translationInView:recognizer.view];

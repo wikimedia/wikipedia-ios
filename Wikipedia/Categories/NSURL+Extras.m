@@ -26,4 +26,19 @@
     return [self.pathExtension wmf_asMIMEType];
 }
 
+- (instancetype)wmf_urlByPrependingSchemeIfSchemeless:(NSString*)scheme {
+    NSParameterAssert(scheme.length);
+    if (self.scheme.length) {
+        return self;
+    } else {
+        NSURLComponents* components = [[NSURLComponents alloc] initWithURL:self resolvingAgainstBaseURL:YES];
+        components.scheme = scheme;
+        return components.URL;
+    }
+}
+
+- (instancetype)wmf_urlByPrependingSchemeIfSchemeless {
+    return [self wmf_urlByPrependingSchemeIfSchemeless:@"https"];
+}
+
 @end

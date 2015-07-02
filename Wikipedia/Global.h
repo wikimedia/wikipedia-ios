@@ -9,6 +9,8 @@
 
 #import <libextobjc/EXTScope.h>
 #import <KVOController/FBKVOController.h>
+
+#import "WMFBlockDefinitions.h"
 #import "WMFComparison.h"
 
 #import "MediaWikiKit.h"
@@ -30,5 +32,6 @@ static inline NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key)
 }
 
 #define MWLocalizedString(key, throwaway) localizedStringForKeyFallingBackOnEnglish(key)
+
 
 #endif

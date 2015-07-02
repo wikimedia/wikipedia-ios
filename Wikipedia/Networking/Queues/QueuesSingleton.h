@@ -9,7 +9,6 @@
 
 @property (strong, nonatomic) AFHTTPRequestOperationManager* loginFetchManager;
 @property (strong, nonatomic) AFHTTPRequestOperationManager* articleFetchManager;
-@property (strong, nonatomic) AFHTTPRequestOperationManager* savedPagesFetchManager;
 @property (strong, nonatomic) AFHTTPRequestOperationManager* searchResultsFetchManager;
 @property (strong, nonatomic) AFHTTPRequestOperationManager* zeroRatedMessageFetchManager;
 @property (strong, nonatomic) AFHTTPRequestOperationManager* sectionWikiTextDownloadManager;

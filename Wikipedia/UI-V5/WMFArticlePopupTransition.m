@@ -2,6 +2,7 @@
 
 #import "WMFArticlePopupTransition.h"
 #import "WMFScrollViewTopPanGestureRecognizer.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
 
 @interface WMFArticlePopupTransition ()<UIGestureRecognizerDelegate>
 
@@ -17,7 +18,7 @@
 @property (strong, nonatomic) WMFScrollViewTopPanGestureRecognizer* dismissGestureRecognizer;
 @property (assign, nonatomic) BOOL interactionInProgress;
 
-@property (assign, nonatomic) CGFloat popupAnimationDuration;
+@property (assign, nonatomic) CGFloat popupAnimationSpeed;
 @property (strong, nonatomic) CADisplayLink* popupAnimationTimer;
 @property (assign, nonatomic) CGFloat popupAnimationStartTime;
 @property (assign, nonatomic) CGFloat popupHeightAsProgress;
@@ -34,7 +35,7 @@
         _presentInteractively     = YES;
         _dismissInteractively     = YES;
         _popupHeight              = 300.0;
-        _popupAnimationDuration   = 0.3;
+        _popupAnimationSpeed      = 100 / 0.3;
         _presentingViewController = presentingViewController;
         _presentedViewController  = presentedViewController;
         _scrollView               = scrollView;
@@ -128,16 +129,31 @@
 }
 
 - (void)animatePopupWithTimer:(CADisplayLink*)link {
-    NSTimeInterval elapedTime = link.timestamp - self.popupAnimationStartTime;
-    CGFloat percentComplete   = MIN(1.0, elapedTime / self.popupAnimationDuration) * self.popupHeightAsProgress;
-    NSLog(@"%f", percentComplete);
+    NSTimeInterval elapedTime   = link.timestamp - self.popupAnimationStartTime;
+    CGFloat distance            = elapedTime * self.popupAnimationSpeed;
+    CGFloat progressDifferental = [self animationProgressFromHeight:distance];
+
+    CGFloat percentComplete = [self percentComplete];
+
+    if (percentComplete < self.popupHeightAsProgress) {
+        percentComplete = [self percentComplete] + progressDifferental;
+
+        if (percentComplete >= self.popupHeightAsProgress) {
+            percentComplete = self.popupHeightAsProgress;
+            [link invalidate];
+            link = nil;
+        }
+    } else {
+        percentComplete = [self percentComplete] - progressDifferental;
+
+        if (percentComplete <= self.popupHeightAsProgress) {
+            percentComplete = self.popupHeightAsProgress;
+            [link invalidate];
+            link = nil;
+        }
+    }
 
     [self updateInteractiveTransition:percentComplete];
-
-    if (percentComplete >= self.popupHeightAsProgress) {
-        [link invalidate];
-        link = nil;
-    }
 }
 
 - (void)animatePresentation:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -298,15 +314,27 @@
         }
 
         case UIGestureRecognizerStateEnded: {
-            if (self.percentComplete >= 0.33) {
+            CGPoint velocity = [recognizer velocityInView:recognizer.view];
+
+            BOOL fastSwipeUp = velocity.y < -self.totalCardAnimationDistance;
+            if (fastSwipeUp) {
                 [self finishInteractiveTransition];
                 return;
             }
 
-            BOOL fastSwipe = [recognizer velocityInView:recognizer.view].y < self.totalCardAnimationDistance;
+            BOOL fastSwipeDown = velocity.y > self.totalCardAnimationDistance;
+            if (fastSwipeDown) {
+                [self cancelInteractiveTransition];
+                return;
+            }
 
-            if (fastSwipe) {
+            if (self.percentComplete > 0.60) {
                 [self finishInteractiveTransition];
+                return;
+            }
+
+            if (self.percentComplete > 0.25) {
+                [self animateToPopupPosition];
                 return;
             }
 
@@ -368,6 +396,10 @@
             [self cancelInteractiveTransition];
             break;
     }
+}
+
+- (void)handleBackgroundTap:(UITapGestureRecognizer*)tap {
+    [self cancelInteractiveTransition];
 }
 
 @end

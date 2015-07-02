@@ -1,7 +1,13 @@
 
 @import UIKit;
 
-@interface WMFArticleCardTranstion : UIPercentDrivenInteractiveTransition <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning>
+@interface WMFArticleListTranstion : UIPercentDrivenInteractiveTransition <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning>
+
+- (instancetype)initWithPresentingViewController:(UIViewController*)presentingViewController presentedViewController:(UIViewController*)presentedViewController contentScrollView:(UIScrollView*)scrollView;
+
+@property (nonatomic, weak, readonly) UIViewController* presentingViewController;
+@property (nonatomic, weak, readonly) UIViewController* presentedViewController;
+@property (nonatomic, weak, readonly) UIScrollView* scrollView;
 
 /**
  *  Duration of the animation when not interactive

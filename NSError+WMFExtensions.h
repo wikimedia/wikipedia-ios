@@ -20,6 +20,10 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
 
 + (NSError*)wmf_redirectedErrorWithTitle:(MWKTitle*)redirectedtitle;
 
+- (BOOL)wmf_isWMFErrorDomain;
+
+- (BOOL)wmf_isWMFErrorOfType:(WMFErrorType)type;
+
 @end
 
 

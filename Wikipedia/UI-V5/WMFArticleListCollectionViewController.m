@@ -8,7 +8,7 @@
 #import "WMFBottomStackLayout.h"
 #import "WMFOffScreenFlowLayout.h"
 
-#import "WMFArticleCardTranstion.h"
+#import "WMFArticleListTranstion.h"
 
 #import "UIViewController+WMFStoryboardUtilities.h"
 
@@ -25,7 +25,7 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 @property (nonatomic, strong) TGLStackedLayout* stackedLayout;
 @property (nonatomic, strong) WMFBottomStackLayout* bottomStackLayout;
 
-@property (strong, nonatomic) WMFArticleCardTranstion* cardTransition;
+@property (strong, nonatomic) WMFArticleListTranstion* cardTransition;
 
 @end
 
@@ -43,6 +43,7 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
     self.title = [_dataSource displayTitle];
 
     if ([self isViewLoaded]) {
+        [self.collectionView setContentOffset:CGPointZero];
         [self.collectionView reloadData];
     }
 }
@@ -139,6 +140,13 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
     return _bottomStackLayout;
 }
 
+- (void)refreshVisibleCells {
+    [[self.collectionView indexPathsForVisibleItems] enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL* stop) {
+        WMFArticleViewControllerContainerCell* cell = (id)[self.collectionView cellForItemAtIndexPath:obj];
+        [cell.viewController updateUI];
+    }];
+}
+
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
@@ -206,14 +214,13 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
     WMFArticleViewControllerContainerCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WMFArticleViewControllerContainerCell class]) forIndexPath:indexPath];
 
     if (cell.viewController == nil) {
-        WMFArticleViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([WMFArticleViewController class])];
+        WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
+        [vc setMode:WMFArticleControllerModeList animated:NO];
         [cell setViewControllerAndAddViewToContentView:vc];
     }
 
     [self addChildViewController:cell.viewController];
-
-    cell.viewController.savedPages = self.savedPages;
-    cell.viewController.article    = [self.dataSource articleForIndexPath:indexPath];;
+    cell.viewController.article = [self.dataSource articleForIndexPath:indexPath];
 
     return cell;
 }
@@ -234,16 +241,14 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     WMFArticleViewControllerContainerCell* cell = (WMFArticleViewControllerContainerCell*)[collectionView cellForItemAtIndexPath:indexPath];
 
-    WMFArticleViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([WMFArticleViewController class])];
-    vc.savedPages      = self.savedPages;
-    vc.article         = cell.viewController.article;
-    vc.contentTopInset = 64.0;
+    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
+    vc.article = cell.viewController.article;
 
-    self.cardTransition                             = [WMFArticleCardTranstion new];
+    self.cardTransition                             = [[WMFArticleListTranstion alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:vc.tableView];
     self.cardTransition.nonInteractiveDuration      = 0.5;
+    self.cardTransition.presentCardOffset           = vc.tableView.contentInset.top;
     self.cardTransition.offsetOfNextOverlappingCard = self.stackedLayout.topReveal;
     self.cardTransition.movingCardView              = cell;
-    self.cardTransition.presentCardOffset           = vc.contentTopInset;
     vc.transitioningDelegate                        = self.cardTransition;
     vc.modalPresentationStyle                       = UIModalPresentationCustom;
 

@@ -33,7 +33,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
-@interface WebViewController () <LanguageSelectionDelegate, WMFWebViewFooterContainerDelegate>
+@interface WebViewController () <LanguageSelectionDelegate, WMFWebViewFooterContainerDelegate, FetchFinishedDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem* buttonTOC;
 @property (nonatomic, strong) UIBarButtonItem* buttonBack;
@@ -281,10 +281,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)jumpToFragmentIfNecessary {
     if (self.jumpToFragment && (self.jumpToFragment.length > 0)) {
-        [self.bridge sendMessage:@"scrollToFragment"
-                     withPayload:@{ @"hash": self.jumpToFragment }];
+        [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"location.hash = '%@'", self.jumpToFragment]];
     }
-    self.jumpToFragment = nil;
 }
 
 - (void)autoScrollToLastScrollOffsetIfNecessary {
@@ -1229,7 +1227,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self hideKeyboard];
 
     [self cancelSearchLoading];
-    [self cancelArticleLoading];
+//    [self cancelArticleLoading];
 
     if (discoveryMethod != MWKHistoryDiscoveryMethodBackForward && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromNetwork && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromCache) {
         [self updateHistoryDateVisitedForArticleBeingNavigatedFrom];
@@ -1271,7 +1269,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)cancelArticleLoading {
-    [self.articleFetcher cancelCurrentFetch];
+//    [self.articleFetcher cancelCurrentFetch];
 }
 
 - (void)cancelSearchLoading {
@@ -1384,10 +1382,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 #pragma mark - Article Popup
 
 - (void)presentPopupForArticle:(MWKArticle*)article {
-    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerFromDefaultStoryBoard];
-    vc.savedPages      = self.session.userDataStore.savedPageList;
-    vc.article         = article;
-    vc.contentTopInset = 64.0;
+    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:self.session.dataStore savedPages:self.session.userDataStore.savedPageList];
+    vc.article = article;
+    [vc setMode:WMFArticleControllerModePopup animated:NO];
 
     self.popupTransition                        = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:nil];
     self.popupTransition.nonInteractiveDuration = 0.5;
