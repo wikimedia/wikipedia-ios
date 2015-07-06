@@ -2,7 +2,8 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "SearchResultFetcher.h"
-#import "AFHTTPRequestOperationManager.h"
+#import <AFNetworking/AFHTTPRequestOperation.h>
+#import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
 #import "NSObject+Extras.h"

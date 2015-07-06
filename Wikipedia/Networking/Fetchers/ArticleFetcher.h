@@ -4,7 +4,8 @@
 #import <Foundation/Foundation.h>
 #import "FetcherBase.h"
 
-@class Article, AFHTTPRequestOperationManager, ArticleFetcher, MWKArticle;
+@class AFHTTPRequestOperationManager, ArticleFetcher, AFHTTPRequestOperation, MWKTitle;
+
 
 @protocol ArticleFetcherDelegate <FetchFinishedDelegate>
 
@@ -17,12 +18,13 @@
 
 @interface ArticleFetcher : FetcherBase
 
-@property (strong, nonatomic, readonly) MWKArticle* article;
+@property (nonatomic, strong, readonly) MWKDataStore* dataStore;
+@property (nonatomic, strong, readonly) MWKTitle* title;
 
-// Kick-off method. Results are reported to "delegate" via the FetchFinishedDelegate protocol method.
-- (instancetype)initAndFetchSectionsForArticle:(MWKArticle*)articleStore
-                                   withManager:(AFHTTPRequestOperationManager*)manager
-                            thenNotifyDelegate:(id<ArticleFetcherDelegate>)delegate;
+- (AFHTTPRequestOperation*)fetchSectionsForTitle:(MWKTitle*)title
+                                     inDataStore:(MWKDataStore*)store
+                                     withManager:(AFHTTPRequestOperationManager*)manager
+                              thenNotifyDelegate:(id<ArticleFetcherDelegate>)delegate;
 
 @property (nonatomic, weak) id<ArticleFetcherDelegate> fetchFinishedDelegate;
 

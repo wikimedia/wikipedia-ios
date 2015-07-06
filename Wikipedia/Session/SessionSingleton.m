@@ -59,8 +59,6 @@
         self.userDataStore = [dataStore userDataStore];
 
         _currentArticleSite = [self lastKnownSite];
-
-        self.titleToTempDirThumbURLMap = @{}.mutableCopy;
     }
     return self;
 }

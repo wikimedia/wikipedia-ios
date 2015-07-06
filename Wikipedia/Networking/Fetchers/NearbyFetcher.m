@@ -67,18 +67,6 @@
         NSMutableArray* output = @[].mutableCopy;
         if (!error) {
             output = [self getSanitizedResponse:responseObject];
-
-            // Populate the map so the article fetcher can grab thumb
-            // from temp dir.
-            NSMutableDictionary* map = [SessionSingleton sharedInstance].titleToTempDirThumbURLMap;
-            [map removeAllObjects];
-            for (NSDictionary* result in output) {
-                NSString* title = result[@"title"];
-                NSString* thumbUrl = result[@"thumbnail"][@"source"];
-                if (title && thumbUrl) {
-                    map[title] = thumbUrl;
-                }
-            }
         }
 
         if (output.count == 0) {

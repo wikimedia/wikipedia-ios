@@ -62,10 +62,10 @@ static SavedArticlesFetcher* _fetcher = nil;
         self.fetchedArticles = [NSMutableArray array];
 
         for (MWKSavedPageEntry* entry in self.savedPageList) {
-            MWKArticle* article = [self.dataStore articleWithTitle:entry.title];
-
             if (entry.title) {
-                self.fetchersByArticleTitle[entry.title] = [[ArticleFetcher alloc] initAndFetchSectionsForArticle:article withManager:manager thenNotifyDelegate:self];
+                ArticleFetcher* fetcher = [[ArticleFetcher alloc] init];
+                self.fetchersByArticleTitle[entry.title] = fetcher;
+                [fetcher fetchSectionsForTitle:entry.title inDataStore:self.dataStore withManager:manager thenNotifyDelegate:self];
             }
         }
     });

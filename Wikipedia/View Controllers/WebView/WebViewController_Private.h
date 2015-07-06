@@ -42,7 +42,6 @@
 #import "WikiGlyphLabel.h"
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"
-#import "ArticleFetcher.h"
 #import "AssetsFileFetcher.h"
 
 #import "DataMigrationProgressViewController.h"

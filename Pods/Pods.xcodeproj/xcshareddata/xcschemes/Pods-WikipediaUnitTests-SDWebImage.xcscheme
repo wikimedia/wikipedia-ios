@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "92F8EB23140D42C02EBABE71"
+               BlueprintIdentifier = "DAA05C73B23753A7EC46363D"
                BuildableName = "libPods-WikipediaUnitTests-SDWebImage.a"
                BlueprintName = "Pods-WikipediaUnitTests-SDWebImage"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -39,15 +39,6 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5907BCD658CC44B83B452185"
-            BuildableName = "libPods-WikipediaUnitTests-SDWebImage.a"
-            BlueprintName = "Pods-WikipediaUnitTests-SDWebImage"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

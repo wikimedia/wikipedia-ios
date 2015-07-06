@@ -4,10 +4,9 @@
 #import "ArticleFetcher.h"
 #import "WMFNetworkUtilities.h"
 #import "Defines.h"
-#import "QueuesSingleton.h"
+#import "SessionSingleton.h"
 #import "NSString+Extras.h"
 #import "AFHTTPRequestOperationManager.h"
-#import "SessionSingleton.h"
 #import "ReadingActionFunnel.h"
 #import "NSString+Extras.h"
 #import "NSObject+Extras.h"
@@ -16,14 +15,19 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "WMFArticleParsing.h"
+#import "ZeroConfigState.h"
 
 // Reminder: For caching reasons, don't do "(scale * 320)" here.
 #define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
 
 @interface ArticleFetcher ()
 
-// The Article object to be updated with the downloaded data.
-@property (nonatomic, strong) MWKArticle* article;
+@property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
+@property (nonatomic, strong, readwrite) ZeroConfigState* zeroConfig;
+@property (nonatomic, assign, readwrite) BOOL sendUsageReports;
+
+
+@property (nonatomic, strong, readwrite) MWKTitle* title;
 
 @end
 
@@ -31,47 +35,33 @@
 
 @dynamic fetchFinishedDelegate;
 
-- (instancetype)initAndFetchSectionsForArticle:(MWKArticle*)article
-                                   withManager:(AFHTTPRequestOperationManager*)manager
-                            thenNotifyDelegate:(id<ArticleFetcherDelegate> )delegate {
-    self = [super init];
-    assert(article != nil);
+- (AFHTTPRequestOperation*)fetchSectionsForTitle:(MWKTitle*)title
+                                     inDataStore:(MWKDataStore*)store
+                                     withManager:(AFHTTPRequestOperationManager*)manager
+                              thenNotifyDelegate:(id<ArticleFetcherDelegate> )delegate {
+    assert(title != nil);
+    assert(store != nil);
     assert(manager != nil);
     assert(delegate != nil);
-    if (self) {
-        self.article               = article;
-        self.fetchFinishedDelegate = delegate;
-        [self fetchWithManager:manager];
-    }
-    return self;
+    self.title                 = title;
+    self.dataStore             = store;
+    self.fetchFinishedDelegate = delegate;
+    return [self fetchWithManager:manager];
 }
 
-- (void)fetchWithManager:(AFHTTPRequestOperationManager*)manager {
-    NSString* title     = self.article.title.text;
-    NSString* subdomain = self.article.title.site.language;
-
-    if (!self.article) {
-        NSLog(@"NO ARTICLE OBJECT");
-        return;
+- (AFHTTPRequestOperation*)fetchWithManager:(AFHTTPRequestOperationManager*)manager {
+    if (!self.title.text) {
+        return nil;
     }
-    if (!self.fetchFinishedDelegate) {
-        NSLog(@"NO DOWNLOAD DELEGATE");
-        return;
-    }
-    if (!subdomain) {
-        NSLog(@"NO DOMAIN");
-        return;
-    }
-    if (!title) {
-        NSLog(@"NO TITLE");
-        return;
+    if (!self.title.site.language) {
+        return nil;
     }
 
-    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:subdomain];
+    NSURL* url = [[SessionSingleton sharedInstance] urlForLanguage:self.title.site.language];
 
     // First retrieve lead section data, then get the remaining sections data.
 
-    NSDictionary* params = [self getParamsForTitle:title];
+    NSDictionary* params = [self getParamsForTitle:self.title];
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
@@ -85,15 +75,13 @@
             //NSLog(@"JSON: %@", responseObject);
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
+            MWKArticle* article = [self.dataStore articleWithTitle:self.title];
             // Convert the raw NSData response to a dictionary.
             NSDictionary* responseDictionary = [self dictionaryFromDataResponse:localResponseObject];
 
-            // Clear any MCCMNC header - needed because manager is a singleton.
-            [self removeMCCMNCHeaderFromRequestSerializer:manager.requestSerializer];
-
             @try {
-                [self.article importMobileViewJSON:responseDictionary[@"mobileview"]];
-                [self.article save];
+                [article importMobileViewJSON:responseDictionary[@"mobileview"]];
+                [article save];
             }@catch (NSException* e) {
                 NSLog(@"%@", e);
                 NSError* err = [NSError errorWithDomain:@"ArticleFetcher" code:666 userInfo:@{ @"exception": e }];
@@ -101,28 +89,23 @@
                 return;
             }
 
-            for (int section = 0; section < [self.article.sections count]; section++) {
-                (void)self.article.sections[section].images;             // hack
-                WMFInjectArticleWithImagesFromSection(self.article, self.article.sections[section].text, section);
+            for (int section = 0; section < [article.sections count]; section++) {
+                (void)article.sections[section].images;             // hack
+                WMFInjectArticleWithImagesFromSection(article, article.sections[section].text, section);
             }
-
-            [self associateThumbFromTempDirWithArticle];
 
             // Update article and section image data.
             // Reminder: don't recall article save here as it expensively re-writes all section html.
-            [self.article saveWithoutSavingSectionText];
+            [article saveWithoutSavingSectionText];
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self finishWithError:nil
-                          fetchedData:self.article];
+                          fetchedData:article];
             });
         });
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         NSLog(@"Error: %@", error);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
-
-        // Clear any MCCMNC header - needed because manager is a singleton.
-        [self removeMCCMNCHeaderFromRequestSerializer:manager.requestSerializer];
 
         [self finishWithError:error
                   fetchedData:nil];
@@ -141,9 +124,11 @@
             [self.fetchFinishedDelegate articleFetcher:self didUpdateProgress:progress];
         }
     }];
+
+    return operation;
 }
 
-- (NSDictionary*)getParamsForTitle:(NSString*)title {
+- (NSDictionary*)getParamsForTitle:(MWKTitle*)title {
     NSMutableDictionary* params = @{
         @"format": @"json",
         @"action": @"mobileview",
@@ -151,7 +136,7 @@
                                                       @"fromtitle", @"index"]),
         @"noheadings": @"true",
         @"sections": @"all",
-        @"page": title,
+        @"page": title.text,
         @"thumbwidth": @(LEAD_IMAGE_WIDTH),
         @"prop": WMFJoinedPropertyParameters(@[@"sections", @"text", @"lastmodified", @"lastmodifiedby",
                                                @"languagecount", @"id", @"protection", @"editable", @"displaytitle",
@@ -177,6 +162,8 @@
         ||
         ([url.relativePath rangeOfString:@"/w/api.php"].location == NSNotFound)
         ) {
+        [requestSerializer setValue:nil forHTTPHeaderField:@"X-MCCMNC"];
+
         return;
     } else {
         CTCarrier* mno = [[[CTTelephonyNetworkInfo alloc] init] subscriberCellularProvider];
@@ -207,63 +194,6 @@
                 [SessionSingleton sharedInstance].zeroConfigState.sentMCCMNC = true;
 
                 [requestSerializer setValue:mccMnc forHTTPHeaderField:@"X-MCCMNC"];
-
-                // NSLog(@"%@", mccMnc);
-            }
-        }
-    }
-}
-
-- (void)removeMCCMNCHeaderFromRequestSerializer:(AFHTTPRequestSerializer*)requestSerializer {
-    [requestSerializer setValue:nil forHTTPHeaderField:@"X-MCCMNC"];
-}
-
-- (void)associateThumbFromTempDirWithArticle {
-    BOOL foundThumbInTempDir = NO;
-
-    // Map which search and nearby populates with title/thumb url mappings.
-    NSDictionary* map = [SessionSingleton sharedInstance].titleToTempDirThumbURLMap;
-    NSString* title   = self.article.title.text;
-    if (title) {
-        NSString* thumbURL = map[title];
-        if (thumbURL) {
-            // Associate Search/Nearby thumb url with article.thumbnailURL.
-            if (thumbURL) {
-                self.article.thumbnailURL = thumbURL;
-            }
-
-            if ([[self.article existingImageWithURL:thumbURL] isDownloaded]) {
-                return;
-            }
-
-            NSString* cacheFilePath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
-                                        firstObject]
-                                       stringByAppendingPathComponent:thumbURL.lastPathComponent];
-            BOOL isDirectory      = NO;
-            BOOL cachedFileExists = [[NSFileManager defaultManager] fileExistsAtPath:cacheFilePath
-                                                                         isDirectory:&isDirectory];
-            if (cachedFileExists) {
-                NSError* error = nil;
-                NSData* data   = [NSData dataWithContentsOfFile:cacheFilePath options:0 error:&error];
-                if (!error) {
-                    // Copy Search/Nearby thumb binary to core data store so it doesn't have to be re-downloaded.
-                    MWKImage* image = [self.article importImageURL:thumbURL sectionId:kMWKArticleSectionNone];
-                    [self.article importImageData:data image:image];
-                    foundThumbInTempDir = YES;
-                }
-            }
-        }
-    }
-    if (!foundThumbInTempDir) {
-        MWKImageList* images = self.article.images;
-        // If no image found in temp dir, use first article image.
-        if (images.count > 0) {
-            MWKImage* image = images[0];
-            self.article.thumbnailURL = image.sourceURL;
-        } else {
-            // If still no image, use article image if there is one.
-            if (self.article.imageURL) {
-                self.article.thumbnailURL = self.article.imageURL;
             }
         }
     }

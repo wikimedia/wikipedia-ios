@@ -1,4 +1,3 @@
-
 #import "WMFArticleViewController.h"
 #import <Masonry/Masonry.h>
 #import "Wikipedia-Swift.h"

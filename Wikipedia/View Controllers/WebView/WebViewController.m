@@ -8,6 +8,7 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "RandomArticleFetcher.h"
 #import "MWKSiteInfoFetcher.h"
+#import "WMFArticleFetcher.h"
 #import "MWKSiteInfo.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "MWKLanguageLink.h"
@@ -43,7 +44,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 @property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
 @property (readonly, strong, nonatomic) MWKSiteInfoFetcher* siteInfoFetcher;
-
+@property (strong, nonatomic) WMFArticleFetcher* articleFetcher;
 @property (strong, nonatomic) UIPopoverController* popover;
 @property (strong, nonatomic) WMFShareFunnel* shareFunnel;
 @property (strong, nonatomic) WMFShareOptionsViewController* shareOptionsViewController;
@@ -1180,10 +1181,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 #pragma mark Memory
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 - (void)updateHistoryDateVisitedForArticleBeingNavigatedFrom {
     // This is a quick hack to help with the natural back/forward behavior of the case
     // where you go back and forth from some master article to others.
@@ -1199,24 +1196,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 #pragma mark - Article loading
 
-- (void)navigateToPage:(MWKTitle*)title
-       discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    NSString* cleanTitle = title.text;
-    NSParameterAssert(cleanTitle.length);
-
-    [self hideKeyboard];
-
-    // Show loading message
-    //[self showAlert:MWLocalizedString(@"search-loading-section-zero", nil) type:ALERT_TYPE_TOP duration:-1];
-
-    self.jumpToFragment = title.fragment;
-
-    if (discoveryMethod != MWKHistoryDiscoveryMethodBackForward && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromNetwork && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromCache) {
-        [self updateHistoryDateVisitedForArticleBeingNavigatedFrom];
+- (WMFArticleFetcher*)articleFetcher {
+    if (!_articleFetcher) {
+        _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.session.dataStore];
     }
 
-    [self retrieveArticleForPageTitle:title
-                      discoveryMethod:discoveryMethod];
+    return _articleFetcher;
 }
 
 - (void)reloadCurrentArticleFromNetwork {
@@ -1236,23 +1221,24 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 }
 
-- (void)cancelArticleLoading {
-    [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
-}
+- (void)navigateToPage:(MWKTitle*)title
+       discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+    NSString* cleanTitle = title.text;
+    NSParameterAssert(cleanTitle.length);
 
-- (void)cancelSearchLoading {
-    [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
-}
+    [self hideKeyboard];
 
-- (void)retrieveArticleForPageTitle:(MWKTitle*)pageTitle
-                    discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    // Cancel certain in-progress fetches.
     [self cancelSearchLoading];
     [self cancelArticleLoading];
 
-    self.currentTitle = pageTitle;
+    if (discoveryMethod != MWKHistoryDiscoveryMethodBackForward && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromNetwork && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromCache) {
+        [self updateHistoryDateVisitedForArticleBeingNavigatedFrom];
+    }
 
     MWKArticle* article = [self.session.dataStore articleWithTitle:self.currentTitle];
+
+    self.jumpToFragment                        = title.fragment;
+    self.currentTitle                          = title;
     self.session.currentArticle                = article;
     self.session.currentArticleDiscoveryMethod = discoveryMethod;
 
@@ -1275,100 +1261,74 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         }
     }
 
-    // If article is cached
     if ([article isCached] && !needsRefresh) {
         [self displayArticle:self.session.currentArticle.title];
-        //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
         [self fadeAlert];
-    } else {
-        [self showProgressViewAnimated:YES];
-        self.isFetchingArticle = YES;
+        return;
+    }
 
-        // "fetchFinished:" above will be notified when articleFetcher has actually retrieved some data.
-        // Note: cast to void to avoid compiler warning: http://stackoverflow.com/a/7915839
-        (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle:self.session.currentArticle
-                                                         withManager:[QueuesSingleton sharedInstance].articleFetchManager
-                                                  thenNotifyDelegate:self];
+    [self loadArticleWithTitleFromNetwork:title];
+}
+
+- (void)cancelArticleLoading {
+    [self.articleFetcher cancelCurrentFetch];
+}
+
+- (void)cancelSearchLoading {
+    [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
+}
+
+- (void)loadArticleWithTitleFromNetwork:(MWKTitle*)title {
+    [self showProgressViewAnimated:YES];
+    self.isFetchingArticle = YES;
+
+    [self.articleFetcher fetchArticleForPageTitle:title progress:^(CGFloat progress){
+        [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES completion:NULL];
+    }].then(^(MWKArticle* article){
+        [self handleFetchedArticle:article];
+    }).catch(^(NSError* error){
+        [self handleFetchArticleError:error];
+    });
+}
+
+- (void)handleFetchedArticle:(MWKArticle*)article {
+    self.isFetchingArticle = NO;
+
+    [self displayArticle:article.title];
+
+    [self hideAlert];
+}
+
+- (void)handleFetchArticleError:(NSError*)error {
+    MWKTitle* redirect = [[error userInfo] wmf_redirectTitle];
+
+    if (redirect) {
+        [self handleRedirectForTitle:redirect];
+    } else {
+        self.isFetchingArticle = NO;
+
+        [self displayArticle:self.session.currentArticle.title];
+
+        NSString* errorMsg = error.localizedDescription;
+        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
     }
 }
 
-- (void)presentPopupForArticle:(MWKArticle*)article {
-    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerFromDefaultStoryBoard];
-    vc.savedPages      = self.session.userDataStore.savedPageList;
-    vc.article         = article;
-    vc.contentTopInset = 64.0;
+- (void)handleRedirectForTitle:(MWKTitle*)title {
+    MWKHistoryEntry* history                  = [self.session.userDataStore.historyList entryForTitle:title];
+    MWKHistoryDiscoveryMethod discoveryMethod =
+        (history) ? history.discoveryMethod : MWKHistoryDiscoveryMethodSearch;
 
-    self.popupTransition                        = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:nil];
-    self.popupTransition.nonInteractiveDuration = 0.5;
-    vc.transitioningDelegate                    = self.popupTransition;
-    vc.modalPresentationStyle                   = UIModalPresentationCustom;
-
-    [self presentViewController:vc animated:YES completion:NULL];
+    [self navigateToPage:title discoveryMethod:discoveryMethod];
 }
 
-#pragma mark - ArticleFetcherDelegate
-
-- (void)articleFetcher:(ArticleFetcher*)savedArticlesFetcher
-     didUpdateProgress:(CGFloat)progress {
-    [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES completion:NULL];
-}
+#pragma mark - FetchFinishedDelegate
 
 - (void)fetchFinished:(id)sender
           fetchedData:(id)fetchedData
                status:(FetchFinalStatus)status
                 error:(NSError*)error {
-    if ([sender isKindOfClass:[ArticleFetcher class]]) {
-        MWKArticle* article = self.session.currentArticle;
-
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:
-            {
-                // Redirect if necessary.
-                MWKTitle* redirectedTitle = article.redirected;
-                if (redirectedTitle) {
-                    // Get discovery method for call to "retrieveArticleForPageTitle:".
-                    // There should only be a single history item (at most).
-                    MWKHistoryEntry* history = [self.session.userDataStore.historyList entryForTitle:article.title];
-                    // Get the article's discovery method.
-                    MWKHistoryDiscoveryMethod discoveryMethod =
-                        (history) ? history.discoveryMethod : MWKHistoryDiscoveryMethodSearch;
-
-                    // Redirect!
-                    [self retrieveArticleForPageTitle:redirectedTitle
-                                      discoveryMethod:discoveryMethod];
-                    return;
-                }
-
-                self.isFetchingArticle = NO;
-
-                // Update the toc and web view.
-                [self displayArticle:article.title];
-
-                [self hideAlert];
-            }
-            break;
-
-            case FETCH_FINAL_STATUS_FAILED:
-            {
-                self.isFetchingArticle = NO;
-
-                [self displayArticle:article.title];
-
-                NSString* errorMsg = error.localizedDescription;
-                [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-            }
-            break;
-
-            case FETCH_FINAL_STATUS_CANCELLED:
-            {
-                self.isFetchingArticle = NO;
-            }
-            break;
-
-            default:
-                break;
-        }
-    } else if ([sender isKindOfClass:[WikipediaZeroMessageFetcher class]]) {
+    if ([sender isKindOfClass:[WikipediaZeroMessageFetcher class]]) {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:
             {
@@ -1419,6 +1379,22 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                 break;
         }
     }
+}
+
+#pragma mark - Article Popup
+
+- (void)presentPopupForArticle:(MWKArticle*)article {
+    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerFromDefaultStoryBoard];
+    vc.savedPages      = self.session.userDataStore.savedPageList;
+    vc.article         = article;
+    vc.contentTopInset = 64.0;
+
+    self.popupTransition                        = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:nil];
+    self.popupTransition.nonInteractiveDuration = 0.5;
+    vc.transitioningDelegate                    = self.popupTransition;
+    vc.modalPresentationStyle                   = UIModalPresentationCustom;
+
+    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 #pragma mark - Lead image
