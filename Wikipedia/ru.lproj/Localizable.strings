@@ -10,13 +10,16 @@
 // Author: Mariya
 // Author: Oashnic
 // Author: Okras
+// Author: WindEwriX
 
+"languages-title" = "Языки";
 "article-languages-label" = "Выберите язык";
 "article-languages-cancel" = "Отмена";
 "article-languages-downloading" = "Загрузка языков статьи…";
 "article-languages-filter-placeholder" = "Языковой фильтр";
 "article-read-more-title" = "Читать подробнее";
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
+"article-unable-to-load-article" = "Не удается загрузить эту статью.";
 "info-box-title" = "Короткие факты";
 "info-box-close-text" = "Закрыть";
 "table-title-other" = "Подробнее";

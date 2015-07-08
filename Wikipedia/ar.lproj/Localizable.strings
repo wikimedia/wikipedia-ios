@@ -9,6 +9,7 @@
 
 "article-languages-label" = "اختر لغة";
 "article-languages-cancel" = "إلغاء";
+"article-languages-filter-placeholder" = "مرشح اللغات";
 "article-read-more-title" = "قراءة المزيد";
 "info-box-title" = "معلومات سريعة";
 "info-box-close-text" = "إغلاق";
@@ -78,9 +79,12 @@
 "main-menu-language-toggle-hide" = "أخف اللغات";
 "main-menu-language-selection-saved" = "اختيار اللغة حُفظ";
 "main-menu-account-title-logged-out" = "الحساب";
+"main-menu-account-login" = "لج";
+"main-menu-account-logout" = "تسجيل الخروج";
 "main-menu-show-title" = "أرني...";
 "main-menu-show-history" = "الأخيرة";
 "main-menu-show-saved" = "الصفحات المحفوظة";
+"main-menu-current-article-save" = "احفظ $1 للقراءة دون تصفح";
 "main-menu-random" = "عشوائي";
 "main-menu-about" = "عن تطبيق ويكيبيديا";
 "main-menu-privacy-policy" = "سياسة الخصوصية";

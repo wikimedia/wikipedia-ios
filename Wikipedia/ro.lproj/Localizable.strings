@@ -9,6 +9,7 @@
 "article-languages-filter-placeholder" = "Filtru de limbă";
 "article-read-more-title" = "Citiți mai multe";
 "article-unable-to-load-section" = "Această secțiune nu poate fi încărcată. Reîncărcați articolul pentru a vedea dacă problema se rezolvă astfel.";
+"article-unable-to-load-article" = "Imposibil de încărcat articolul.";
 "info-box-title" = "Informații pe scurt";
 "info-box-close-text" = "Închide";
 "table-title-other" = "Mai multe informații";

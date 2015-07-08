@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Arnobarnard
 
+"languages-title" = "Tale";
 "article-languages-label" = "Kies taal";
 "article-languages-cancel" = "Kanselleer";
 "article-languages-downloading" = "Laai artikel tale...";
@@ -151,12 +152,17 @@
 "edit-summary-choice-added-missing-info" = "Ontbrekende gegewens bygevoeg";
 "edit-summary-choice-added-clarification" = "Verduideliking bygevoeg";
 "edit-summary-choice-other" = "Ander";
+"edit-summary-description" = "'n Spesifieke opsomming help mede-redakteurs om u wysigings vinnig na te gaan. U kan ook uit onderstaande etikette kies.";
 "edit-summary-field-placeholder-text" = "Ander maniere waarop u die blad verbeter het";
 "edit-summary-title" = "Hoe het u die bladsy verbeter?";
 "fetching-random-article" = "Verkry lukrake artikel";
 "article-pull-to-refresh-prompt" = "Trek af om artikel te herlaai";
 "article-pull-to-refresh-is-refreshing" = "Herlaai artikel";
+"credits-title" = "Oop-bron kodebanke";
+"credits-wikimedia-repos" = "Wikimedia kodebanke";
 "credits-gerrit-repo" = "Toep hoof (Gerrit)";
+"credits-github-mirror" = "Toep spieël (GitHub)";
+"credits-external-libraries" = "Eksterne kodebanke";
 "about-title" = "Aangaande";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "bydraers";
@@ -166,6 +172,7 @@
 "about-translators-details" = "Vertaal deur vrywilligers by $1";
 "about-libraries" = "biblioteke gebruik";
 "about-libraries-license" = "Lisensie";
+"about-repositories" = "kodebanke";
 "about-send-feedback" = "Stuur toep terugvoer";
 "about-product-of" = "'n Produk van die $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
@@ -195,6 +202,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Die Vrye Ensiklopedie";
 "preference_title_eventlogging_opt_in" = "Stuur gebruiksverslae";
+"preference_summary_eventlogging_opt_in" = "Laat Wikimedia toe om inligting in te samel oor hoe u die toep gebruik om sodoende die toep te verbeter";
 "page_protected_autoconfirmed" = "Hierdie blad is semi-beskerm.";
 "page_protected_sysop" = "Hierdie blad is volledig beskerm.";
 "page_protected_other" = "Hierdie blad is beskerm tot die volgende vlakke: $1";
@@ -203,13 +211,15 @@
 "license-footer-text" = "Inhoud is beskikbaar onder $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Inhoud";
+"abuse-filter-warning-heading" = "Hierdie blyk 'n onkonstruktiewe wysiging te wees, is u seker u wil dit stoor?";
 "abuse-filter-warning-subheading" = "U wysiging mag een of meer van die volgende bevat:";
 "abuse-filter-warning-caps" = "Tik in HOOFLETTERS";
 "abuse-filter-warning-blanking" = "Bladsye leeg maak of spam plaas";
 "abuse-filter-warning-irrelevant" = "Irrelevante eksterne skakels of beelde";
 "abuse-filter-warning-repeat" = "Herhaaaalende karakters";
 "abuse-filter-disallow-heading" = "U kan nie hierdie wysiging stoor nie. Gaan asseblief terug en verander dit.";
-"abuse-filter-disallow-notable" = "Wikipedia is 'n ensiklopedie: slegs neutrale en relevante inhoud behoort hier.";
+"abuse-filter-disallow-unconstructive" = "'n Outomatiese filter het hierdie wysiging as potensiëel onkonstruktief, of 'n poging tot vandalisme geïdentifiseer.";
+"abuse-filter-disallow-notable" = "Wikipedia is 'n ensiklopedie: slegs neutrale en noemenswaardige inhoud behoort hier.";
 "menu-edit-accessibility-label" = "Wysig";
 "menu-close-accessibility-label" = "Sluit";
 "menu-preview-accessibility-label" = "Voorskou";

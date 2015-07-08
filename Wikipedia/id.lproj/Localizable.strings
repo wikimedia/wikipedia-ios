@@ -10,6 +10,7 @@
 // Author: Relly Komaruzaman
 // Author: Rizkiahmadz
 
+"languages-title" = "Bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batal";
 "article-languages-downloading" = "Memuat bahasa artikel...";

@@ -10,12 +10,14 @@
 // Author: Sjoerddebruin
 // Author: Southparkfan
 
+"languages-title" = "Talen";
 "article-languages-label" = "Taal kiezen";
 "article-languages-cancel" = "Annuleren";
 "article-languages-downloading" = "Paginatalen aan het laden...";
 "article-languages-filter-placeholder" = "Taal filteren";
 "article-read-more-title" = "Lees meer";
 "article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
+"article-unable-to-load-article" = "Het was niet mogelijk de pagina te laden.";
 "info-box-title" = "Snelle feiten";
 "info-box-close-text" = "Sluiten";
 "table-title-other" = "Meer informatie";

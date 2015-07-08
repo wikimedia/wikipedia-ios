@@ -2,12 +2,14 @@
 // Exported from translatewiki.net
 // Author: Xuacu
 
+"languages-title" = "Llingües";
 "article-languages-label" = "Escoyer llingua";
 "article-languages-cancel" = "Encaboxar";
 "article-languages-downloading" = "Cargando llingües del artículu...";
 "article-languages-filter-placeholder" = "Filtru de llingua";
 "article-read-more-title" = "Lleer más";
 "article-unable-to-load-section" = "Nun pudo cargase esta seición. Prueba a recargar l'artículu para ver si'l problema íguase asina.";
+"article-unable-to-load-article" = "Nun pudo cargase l'artículu.";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Zarrar";
 "table-title-other" = "Más información";

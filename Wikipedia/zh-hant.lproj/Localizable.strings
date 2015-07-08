@@ -10,12 +10,14 @@
 // Author: Simon Shek
 // Author: Wehwei
 
+"languages-title" = "語言";
 "article-languages-label" = "選擇語言";
 "article-languages-cancel" = "取消";
 "article-languages-downloading" = "正在讀取文章語言...";
 "article-languages-filter-placeholder" = "語言篩選器";
 "article-read-more-title" = "閱讀更多";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
+"article-unable-to-load-article" = "無法載入文章。";
 "info-box-title" = "快速預覽";
 "info-box-close-text" = "關閉";
 "table-title-other" = "更多資訊";
@@ -137,8 +139,8 @@
 "saved-pages-refresh-cancel-alert-title" = "已取消更新";
 "saved-pages-refresh-cancel-alert-message" = "維基百科的文章會隨時更新。輕觸重新整理以取得所有文章的最新版本。";
 "saved-pages-refresh-cancel-alert-button" = "明白了";
-"page-history-title" = "條目歷史";
-"page-history-downloading" = "讀取條目歷史中...";
+"page-history-title" = "文章歷史";
+"page-history-downloading" = "讀取文章歷史中...";
 "navbar-title-mode-edit-wikitext" = "編輯";
 "navbar-title-mode-login" = "登入";
 "navbar-title-mode-login-and-save" = "登入並儲存";

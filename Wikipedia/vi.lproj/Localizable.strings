@@ -2,11 +2,13 @@
 // Exported from translatewiki.net
 // Author: Brion
 // Author: Darcy Le
+// Author: Dinhxuanduyet
 // Author: KhangND
 // Author: Macofe
 // Author: Max20091
 // Author: Minh Nguyen
 
+"languages-title" = "Ngôn ngữ";
 "article-languages-label" = "Chọn ngôn ngữ";
 "article-languages-cancel" = "Hủy bỏ";
 "article-languages-downloading" = "Đang tải các ngôn ngữ của bài…";
@@ -95,7 +97,9 @@
 "search-recent-clear-cancel" = "Hủy bỏ";
 "search-recent-clear-delete-all" = "Xóa Toàn bộ";
 "main-menu-title" = "Khác";
+"main-menu-heading-about" = "Giới thiệu";
 "main-menu-language-title" = "Tìm kiếm trong phiên bản ngôn ngữ $1";
+"main-menu-faq" = "Câu hỏi thường gặp";
 "main-menu-language-toggle-show" = "Xem các ngôn ngữ";
 "main-menu-language-toggle-hide" = "Ẩn các ngôn ngữ";
 "main-menu-language-selection-saved" = "Đã lưu phiên bản ngôn ngữ để tìm kiếm";
@@ -235,6 +239,7 @@
 "menu-share-accessibility-label" = "Chia sẻ";
 "menu-more-accessibility-label" = "Thêm tùy chọn";
 "menu-trash-accessibility-label" = "Xóa";
+"menu-language-accessibility-label" = "Ngôn ngữ";
 "nearby-title" = "Lân cận";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
@@ -254,6 +259,7 @@
 "nearby-wifi" = "Bật lên Wi-Fi để giúp thiết bị của bạn xác định vị trí của bạn một cách chính xác hơn.";
 "migration-update-progress-label" = "Đang nâng cấp dữ liệu địa phương";
 "migration-update-progress-count-label" = "Di chuyển bài báo $1 của $2";
+"migration-prompt-title" = "Trông giống như chúng ta có một lịch sử!";
 "migration-prompt-message" = "Chúng tôi cần di chuyển các trang mới lưu và đã lưu gần đây. Thao tác này có thể sẽ mất một phút...";
 "migration-skip-button-title" = "Xóa đối tượng";
 "image-gallery-unknown-owner" = "Người tải lên không rõ.";

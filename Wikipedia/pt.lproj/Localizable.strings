@@ -7,12 +7,14 @@
 // Author: Vitorvicentevalente
 // Author: Webysther
 
+"languages-title" = "Idiomas";
 "article-languages-label" = "Escolher idioma";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "A carregar idiomas do artigo...";
 "article-languages-filter-placeholder" = "Filtro de idioma";
 "article-read-more-title" = "Ler mais";
 "article-unable-to-load-section" = "Não foi possível carregar esta secção. Experimente recarregar o artigo para tentar corrigir o problema.";
+"article-unable-to-load-article" = "Não é possível carregar o artigo.";
 "info-box-title" = "Fatos rápidos";
 "info-box-close-text" = "Fechar";
 "table-title-other" = "Mais informação";

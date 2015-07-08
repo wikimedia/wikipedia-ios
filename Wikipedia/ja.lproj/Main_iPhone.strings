@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Barrel0116
 // Author: Fryed-peach
+// Author: Otokoume
 // Author: Shirayuki
 
 "21c-U6-yfo.normalTitle" = "別のcaptchaを表示";
@@ -18,8 +19,10 @@
 "gPg-cg-Yjy.placeholder" = "上に示した画像に書いてある文字を入力してください";
 "heA-3K-nhS.text" = "アカウントを既にお持ちの場合は、ログインしてください";
 "huU-kO-aYI.text" = "すべて削除してしまったようです。次にページをみた際にはここからそのページへと戻ることができます。";
+"ib6-Zk-jUw.text" = "地域化された記事のタイトル";
 "jiW-Cg-oL3.text" = "アカウントを作成";
 "kVb-lx-d6C.placeholder" = "パスワード";
 "mAk-1N-jPC.placeholder" = "利用者名";
 "rKI-nq-3p7.placeholder" = "メールアドレス (省略可能)";
+"wVn-n7-pdy.text" = "言語名";
 "wkl-j8-wLX.text" = "アカウント作成";

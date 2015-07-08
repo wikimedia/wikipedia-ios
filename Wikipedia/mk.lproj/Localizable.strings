@@ -4,12 +4,14 @@
 // Author: Bsitzmann
 // Author: Монтехристо
 
+"languages-title" = "Јазици";
 "article-languages-label" = "Изберете јазик";
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Ги вчитувам јазиците на статијата...";
 "article-languages-filter-placeholder" = "Јазичен филтер";
 "article-read-more-title" = "Прочитајте повеќе";
 "article-unable-to-load-section" = "Не можам да го вчитам одделот. Видете дали ќе се реши проблемот ако ја превчитате страницата.";
+"article-unable-to-load-article" = "Не можам да ја вчитам статијата.";
 "info-box-title" = "Накратко";
 "info-box-close-text" = "Затвори";
 "table-title-other" = "Повеќе информации";
@@ -36,8 +38,8 @@
 "zero-wikipedia-zero-heading" = "Википедија Нулта";
 "zero-warn-when-leaving" = "Предупреди ме доколку ја напуштам Википедија Нулта";
 "zero-settings-devmode" = "Развоен режим на Нулта";
-"account-creation-captcha-required" = "Се бара потврда со CAPTCHA";
-"account-creation-captcha-obtaining" = "Испишувам нова CAPTCHA.";
+"account-creation-captcha-required" = "Се бара потврда со сликичка";
+"account-creation-captcha-obtaining" = "Правам нова сликичка.";
 "account-creation-logging-in" = "Ве најавувам...";
 "account-creation-passwords-mismatched" = "Лозинките не се совпаѓаат.";
 "account-creation-saving" = "Зачувувам...";
@@ -63,8 +65,8 @@
 "wikitext-preview-changes" = "Испишувам преглед на промените што ги направивте...";
 "wikitext-preview-changes-none" = "Не направивте промени.";
 "wikitext-upload-result-unknown" = "Не можам да го определам исходот од измените.";
-"wikitext-upload-captcha-error" = "Грешка при проверката со Captcha.";
-"wikitext-upload-captcha-needed" = "Ќе треба потврда со Captcha.";
+"wikitext-upload-captcha-error" = "Грешка при проверката со сликичка.";
+"wikitext-upload-captcha-needed" = "Ќе треба потврда со сликичка.";
 "wikitext-upload-save" = "Зачувувам...";
 "wikitext-upload-save-sign-in" = "Најава";
 "wikitext-upload-save-sign-in-benefits" = "За да можат другите уредници да се поврзат со вас и да  видите кои статии ги имате уредувано.";

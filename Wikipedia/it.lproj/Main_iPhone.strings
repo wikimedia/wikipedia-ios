@@ -1,6 +1,7 @@
 // Messages for Italian (italiano)
 // Exported from translatewiki.net
 // Author: Beta16
+// Author: Macofe
 
 "21c-U6-yfo.normalTitle" = "Mostra un altro captcha";
 "5cT-2Y-0Ie.placeholder" = "Nome utente";
@@ -20,4 +21,5 @@
 "kVb-lx-d6C.placeholder" = "Password";
 "mAk-1N-jPC.placeholder" = "Nome utente";
 "rKI-nq-3p7.placeholder" = "Indirizzo di posta elettronica (opzionale)";
+"wVn-n7-pdy.text" = "Nome della lingua";
 "wkl-j8-wLX.text" = "Crea un'utenza";

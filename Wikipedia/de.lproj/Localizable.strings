@@ -10,6 +10,7 @@
 "article-languages-filter-placeholder" = "Sprachfilter";
 "article-read-more-title" = "Mehr lesen";
 "article-unable-to-load-section" = "Dieser Abschnitt konnte nicht geladen werden. Versuche, den Artikel neu zu laden, um zu sehen, ob dies das Problem behebt.";
+"article-unable-to-load-article" = "Artikel konnte nicht geladen werden.";
 "info-box-title" = "Schnelle Fakten";
 "info-box-close-text" = "Schließen";
 "table-title-other" = "Weitere Informationen";

@@ -18,6 +18,7 @@
 "article-languages-filter-placeholder" = "语言过滤器";
 "article-read-more-title" = "阅读更多";
 "article-unable-to-load-section" = "无法载入此段落。请尝试刷新条目以查看问题是否解决。";
+"article-unable-to-load-article" = "无法加载条目。";
 "info-box-title" = "快速预览";
 "info-box-close-text" = "关闭";
 "table-title-other" = "更多信息";

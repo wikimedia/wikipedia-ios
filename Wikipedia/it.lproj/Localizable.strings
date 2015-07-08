@@ -18,6 +18,7 @@
 // Author: Peg60
 // Author: SuperVirtual
 
+"languages-title" = "Lingue";
 "article-languages-label" = "Scegli la lingua";
 "article-languages-cancel" = "Annulla";
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";

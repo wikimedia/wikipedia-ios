@@ -8,6 +8,7 @@
 // Author: Stryn
 // Author: SuperPete
 
+"languages-title" = "Kielet";
 "article-languages-label" = "Valitse kieli";
 "article-languages-cancel" = "Peruuta";
 "article-languages-downloading" = "Ladataan artikkelin kieliä...";

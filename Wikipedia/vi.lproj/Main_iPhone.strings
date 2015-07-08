@@ -1,5 +1,6 @@
 // Messages for Vietnamese (Tiếng Việt)
 // Exported from translatewiki.net
+// Author: Dinhxuanduyet
 // Author: Minh Nguyen
 
 "21c-U6-yfo.normalTitle" = "Hiển thị CAPTCHA khác";
@@ -16,8 +17,10 @@
 "gPg-cg-Yjy.placeholder" = "Nhập văn bản CAPTCHA theo hình bên trên";
 "heA-3K-nhS.text" = "Đã có tài khoản? Đăng nhập";
 "huU-kO-aYI.text" = "Có lẽ bạn đã xóa toàn bộ. Lần sau xem một trang, trang sẽ xuất hiện tại đây để truy cập sau.";
+"ib6-Zk-jUw.text" = "Địa phương hóa tiêu đề bài viết";
 "jiW-Cg-oL3.text" = "Mở Tài khoản";
 "kVb-lx-d6C.placeholder" = "Mật khẩu";
 "mAk-1N-jPC.placeholder" = "Tên người dùng";
 "rKI-nq-3p7.placeholder" = "Địa chỉ thư điện tử (tùy chọn)";
+"wVn-n7-pdy.text" = "Tên ngôn ngữ";
 "wkl-j8-wLX.text" = "Mở tài khoản";

@@ -18,6 +18,7 @@
 "article-languages-filter-placeholder" = "Filtre de langue";
 "article-read-more-title" = "En savoir plus";
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
+"article-unable-to-load-article" = "Impossible de charger l’article.";
 "info-box-title" = "Faits en bref";
 "info-box-close-text" = "Fermer";
 "table-title-other" = "Plus d’information";
