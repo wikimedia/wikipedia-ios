@@ -1,15 +1,14 @@
 
 @import UIKit;
 
-
-#import <UIKit/UIKit.h>
+@class WMFArticleViewController;
 
 @interface WMFArticlePopupTransition : UIPercentDrivenInteractiveTransition <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning>
 
-- (instancetype)initWithPresentingViewController:(UIViewController*)presentingViewController presentedViewController:(UIViewController*)presentedViewController contentScrollView:(UIScrollView*)scrollView;
+- (instancetype)initWithPresentingViewController:(UIViewController*)presentingViewController presentedViewController:(WMFArticleViewController*)presentedViewController contentScrollView:(UIScrollView*)scrollView;
 
 @property (nonatomic, weak, readonly) UIViewController* presentingViewController;
-@property (nonatomic, weak, readonly) UIViewController* presentedViewController;
+@property (nonatomic, weak, readonly) WMFArticleViewController* presentedViewController;
 @property (nonatomic, weak, readonly) UIScrollView* scrollView;
 
 /**

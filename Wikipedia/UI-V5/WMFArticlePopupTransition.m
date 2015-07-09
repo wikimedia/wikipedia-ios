@@ -3,19 +3,26 @@
 #import "WMFArticlePopupTransition.h"
 #import "WMFScrollViewTopPanGestureRecognizer.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
+#import "WMFArticleViewController.h"
 
 @interface WMFArticlePopupTransition ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak, readwrite) UIViewController* presentingViewController;
-@property (nonatomic, weak, readwrite) UIViewController* presentedViewController;
+@property (nonatomic, weak, readwrite) WMFArticleViewController* presentedViewController;
 @property (nonatomic, weak, readwrite) UIScrollView* scrollView;
+
+@property (nonatomic, strong, readwrite) UIView* backgroundView;
 
 @property (nonatomic, assign, readwrite) BOOL isPresented;
 @property (nonatomic, assign, readwrite) BOOL isDismissing;
 @property (nonatomic, assign, readwrite) BOOL isPresenting;
 
+@property (strong, nonatomic) UITapGestureRecognizer* tapGestureRecognizer;
+
 @property (strong, nonatomic) UIPanGestureRecognizer* presentGestureRecognizer;
 @property (strong, nonatomic) WMFScrollViewTopPanGestureRecognizer* dismissGestureRecognizer;
+@property (assign, nonatomic) CGFloat yTouchOffset;
+
 @property (assign, nonatomic) BOOL interactionInProgress;
 
 @property (assign, nonatomic) CGFloat popupAnimationSpeed;
@@ -29,7 +36,7 @@
 
 @implementation WMFArticlePopupTransition
 
-- (instancetype)initWithPresentingViewController:(UIViewController*)presentingViewController presentedViewController:(UIViewController*)presentedViewController contentScrollView:(UIScrollView*)scrollView {
+- (instancetype)initWithPresentingViewController:(UIViewController*)presentingViewController presentedViewController:(WMFArticleViewController*)presentedViewController contentScrollView:(UIScrollView*)scrollView {
     self = [super init];
     if (self) {
         _presentInteractively     = YES;
@@ -87,10 +94,20 @@
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     self.totalCardAnimationDistance = CGRectGetHeight([transitionContext containerView].frame);
 
+    [self.presentedViewController setMode:WMFArticleControllerModePopup animated:NO];
+
     if (self.isPresented) {
         [self animateDismiss:transitionContext];
     } else {
         [self animatePresentation:transitionContext];
+    }
+}
+
+- (void)animationEnded:(BOOL)transitionCompleted {
+    if (self.isPresented) {
+        [self.presentedViewController setMode:WMFArticleControllerModeNormal animated:NO];
+    } else {
+        [self.presentedViewController setMode:WMFArticleControllerModePopup animated:NO];
     }
 }
 
@@ -119,6 +136,10 @@
 
 - (CGFloat)animationProgressFromHeight:(CGFloat)height {
     return height / self.totalCardAnimationDistance;
+}
+
+- (CGFloat)yOffsetFromAnimationProgress:(CGFloat)progress {
+    return self.totalCardAnimationDistance - (progress * self.totalCardAnimationDistance);
 }
 
 - (void)animateToPopupPosition {
@@ -165,6 +186,11 @@
 //    UIView* fromView = fromVC.view;
     UIView* toView = toVC.view;
 
+    UIView* bg = [[UIView alloc] initWithFrame:containerView.bounds];
+    bg.backgroundColor  = [UIColor blackColor];
+    bg.alpha            = 0.35;
+    self.backgroundView = bg;
+
     //Setup toView
     CGRect toViewFinalFrame = [transitionContext finalFrameForViewController:toVC];
 
@@ -178,17 +204,25 @@
     }
 
     toView.frame = toViewStartFrame;
+
+    [containerView addSubview:self.backgroundView];
     [containerView addSubview:toView];
+
+
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [toView addGestureRecognizer:self.tapGestureRecognizer];
 
     self.isPresenting = YES;
 
     [self performAnimations:^{
+        self.backgroundView.alpha = 0.8;
         toView.frame = toViewFinalFrame;
     } completion:^(BOOL finished) {
         self.isPresenting = NO;
         self.isPresented = ![transitionContext transitionWasCancelled];
-
+        [self.backgroundView removeFromSuperview];
         [self addDismissGestureRecognizer];
+        [toView removeGestureRecognizer:self.tapGestureRecognizer];
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }
@@ -207,16 +241,19 @@
     CGRect fromViewFinalFrame = fromViewStartFrame;
     fromViewFinalFrame.origin.y = CGRectGetHeight(containerView.bounds);
     fromView.frame              = fromViewStartFrame;
+
+    [containerView addSubview:self.backgroundView];
     [containerView addSubview:fromView];
 
     self.isPresenting = YES;
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+        self.backgroundView.alpha = 0.0;
         fromView.frame = fromViewFinalFrame;
     } completion:^(BOOL finished) {
         self.isPresenting = NO;
         self.isPresented = [transitionContext transitionWasCancelled];
         [self addPresentGestureRecoginizer];
-
+        [self.backgroundView removeFromSuperview];
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }
@@ -297,12 +334,16 @@
 - (void)handlePresentGesture:(UIPanGestureRecognizer*)recognizer {
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan: {
+            CGPoint touchlocation = [recognizer locationInView:recognizer.view];
+            CGFloat viewLocation  = [self yOffsetFromAnimationProgress:self.percentComplete];
+            self.yTouchOffset = viewLocation - touchlocation.y;
             break;
         }
 
         case UIGestureRecognizerStateChanged: {
             CGPoint distanceTraveled = [recognizer locationInView:recognizer.view];
-            CGFloat percent          = distanceTraveled.y / self.totalCardAnimationDistance;
+            distanceTraveled.y = distanceTraveled.y + self.yTouchOffset;
+            CGFloat percent = distanceTraveled.y / self.totalCardAnimationDistance;
             percent = 1 - percent;
 
             if (percent > 0.99) {
@@ -398,8 +439,17 @@
     }
 }
 
-- (void)handleBackgroundTap:(UITapGestureRecognizer*)tap {
-    [self cancelInteractiveTransition];
+- (void)handleTap:(UITapGestureRecognizer*)tap {
+    CGPoint location = [tap locationInView:tap.view];
+
+    CGRect frameOfPopup = tap.view.frame;
+    frameOfPopup.origin.y = CGRectGetHeight(frameOfPopup) - self.popupHeight;
+
+    if (CGRectContainsPoint(frameOfPopup, location)) {
+        [self finishInteractiveTransition];
+    } else {
+        [self cancelInteractiveTransition];
+    }
 }
 
 @end

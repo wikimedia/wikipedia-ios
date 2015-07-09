@@ -800,10 +800,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             }
 
             if ([href wmf_isInternalLink]) {
-                MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithInternalLink:href];
-                MWKArticle* article = [[MWKArticle alloc] initWithTitle:pageTitle dataStore:strSelf.session.dataStore];
-
-                [strSelf presentPopupForArticle:article];
+                MWKTitle* pageTitle = [strSelf.session.currentArticleSite titleWithInternalLink:href];
+                [strSelf presentPopupForTitle:pageTitle];
             } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                 if ([href hasPrefix:@"//"]) {
@@ -1381,10 +1379,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 #pragma mark - Article Popup
 
-- (void)presentPopupForArticle:(MWKArticle*)article {
+- (void)presentPopupForTitle:(MWKTitle*)title {
+    MWKArticle* article          = [self.session.dataStore articleWithTitle:title];
     WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:self.session.dataStore savedPages:self.session.userDataStore.savedPageList];
     vc.article = article;
-    [vc setMode:WMFArticleControllerModePopup animated:NO];
 
     self.popupTransition                        = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:nil];
     self.popupTransition.nonInteractiveDuration = 0.5;
