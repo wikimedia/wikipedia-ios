@@ -16,6 +16,16 @@
 
 #import "MWKArticle+WMFSharing.h"
 #import "WMFArticleFetcher.h"
+#import "WMFSearchFetcher.h"
+#import "WMFSearchResults.h"
+#import "WMFArticleReadMoreCell.h"
+#import "UIView+WMFDefaultNib.h"
+
+typedef NS_ENUM (NSInteger, WMFArticleSectionType) {
+    WMFArticleSectionTypeSummary,
+    WMFArticleSectionTypeTOC,
+    WMFArticleSectionTypeReadMore
+};
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readwrite) WMFArticleControllerMode mode;
 
 @property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
+
+@property (nonatomic, strong) WMFSearchFetcher* readMoreFetcher;
+@property (nonatomic, strong) WMFSearchResults* readMoreResults;
 
 @end
 
@@ -54,12 +67,6 @@ NS_ASSUME_NONNULL_BEGIN
     [[WMFImageController sharedInstance] cancelFetchForURL:[NSURL wmf_optionalURLWithString:[_article bestThumbnailImageURL]]];
 
     _article = article;
-
-    NSLog(@"\n");
-    NSLog(@"%@", article.title.text);
-    NSLog(@"%@", article.entityDescription); //not saved? only seeing it in search results not saved panels
-    NSLog(@"%@", article.thumbnailURL);
-    NSLog(@"%lu", [article.sections count]);
 
     [self updateUI];
     [self fetchArticleIfNeeded];
@@ -153,6 +160,26 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }).then(^(){
         [self observeArticleUpdates];
+    });
+}
+
+- (void)fetchReadMoreForTitle:(MWKTitle*)title {
+    // Note: can't set the readMoreFetcher when the article changes because the article changes *a lot* because the
+    // card collection view controller sets it a lot as you scroll through the cards. "fetchReadMoreForTitle:" however
+    // is only called when the card is expanded, so self.readMoreFetcher is set here as well so it's not needlessly
+    // repeatedly set.
+    self.readMoreFetcher                  = [[WMFSearchFetcher alloc] initWithSearchSite:self.article.title.site dataStore:self.dataStore];
+    self.readMoreFetcher.maxSearchResults = 3;
+
+    @weakify(self)
+    [self.readMoreFetcher searchFullArticleTextForSearchTerm :[@"morelike:" stringByAppendingString:title.text] appendToPreviousResults : nil]
+    .then(^(WMFSearchResults* results) {
+        @strongify(self)
+        self.readMoreResults = results;
+        [self.tableView reloadData];
+    })
+    .catch(^(NSError* err) {
+        DDLogError(@"Failed to fetch readmore: %@", err);
     });
 }
 
@@ -262,39 +289,74 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewWillAppear:animated];
 
     [self updateUI];
+
+    // Note: do not call "fetchReadMoreForTitle:" in updateUI! Because we don't save the read more results to the data store, we need to fetch
+    // them, but not every time the card controller causes the ui to be updated (ie on scroll as it recycles article views).
+    if (self.mode != WMFArticleControllerModeList) {
+        if (self.article.title) {
+            [self fetchReadMoreForTitle:self.article.title];
+        }
+    }
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1;
-    } else {
-        return self.article.sections.count - 1;
+    switch (section) {
+        case WMFArticleSectionTypeSummary:
+            return 1;
+            break;
+        case WMFArticleSectionTypeTOC:
+            return self.article.sections.count - 1;
+            break;
+        case WMFArticleSectionTypeReadMore:
+            return self.readMoreResults.articleCount;
+            break;
     }
+    return 0;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    if (indexPath.section == 0) {
-        static NSString* cellID     = @"WMFArticleExtractCell";
-        WMFArticleExtractCell* cell = (WMFArticleExtractCell*)[tableView dequeueReusableCellWithIdentifier:cellID];
-
-        [cell setExtractText:[self.article shareSnippet]];
-
-        return cell;
-    } else {
-        static NSString* cellID     = @"WMFArticleSectionCell";
-        WMFArticleSectionCell* cell = (WMFArticleSectionCell*)[tableView dequeueReusableCellWithIdentifier:cellID];
-
-        cell.level           = self.article.sections[indexPath.row + 1].level;
-        cell.titleLabel.text = [self.article.sections[indexPath.row + 1].line wmf_stringByRemovingHTML];
-
-        return cell;
+    switch ((WMFArticleSectionType)indexPath.section) {
+        case WMFArticleSectionTypeSummary: return [self textExtractCellAtIndexPath:indexPath];
+        case WMFArticleSectionTypeTOC: return [self tocSectionCellAtIndexPath:indexPath];
+        case WMFArticleSectionTypeReadMore: return [self readMoreCellAtIndexPath:indexPath];
     }
+}
+
+- (WMFArticleExtractCell*)textExtractCellAtIndexPath:(NSIndexPath*)indexPath {
+    WMFArticleExtractCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleExtractCell wmf_nibName]];
+    [cell setExtractText:[self.article shareSnippet]];
+    return cell;
+}
+
+- (WMFArticleSectionCell*)tocSectionCellAtIndexPath:(NSIndexPath*)indexPath {
+    WMFArticleSectionCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleSectionCell wmf_nibName]];
+    cell.level           = self.article.sections[indexPath.row + 1].level;
+    cell.titleLabel.text = [self.article.sections[indexPath.row + 1].line wmf_stringByRemovingHTML];
+    return cell;
+}
+
+- (WMFArticleReadMoreCell*)readMoreCellAtIndexPath:(NSIndexPath*)indexPath {
+    WMFArticleReadMoreCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleReadMoreCell wmf_nibName]];
+    MWKArticle* readMoreArticle  = self.readMoreResults.articles[indexPath.row];
+    cell.titleLabel.text       = readMoreArticle.title.text;
+    cell.descriptionLabel.text = readMoreArticle.entityDescription;
+
+    // Not sure why long titles won't wrap without this... the TOC cells seem to...
+    [cell setNeedsDisplay];
+    [cell layoutIfNeeded];
+
+    [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:readMoreArticle.thumbnailURL]].then(^(UIImage* image){
+        cell.thumbnailImageView.image = image;
+    }).catch(^(NSError* error){
+        NSLog(@"Image Fetch Error: %@", [error localizedDescription]);
+    });
+    return cell;
 }
 
 - (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
@@ -305,12 +367,16 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)configureHeaderCell:(WMFArticleSectionHeaderCell*)cell inSection:(NSInteger)section {
+//TODO(5.0): localize these!
     switch (section) {
-        case 0:
+        case WMFArticleSectionTypeSummary:
             cell.sectionHeaderLabel.text = @"Summary";
             break;
-        case 1:
-            cell.sectionHeaderLabel.text = @"Table of Contents";
+        case WMFArticleSectionTypeTOC:
+            cell.sectionHeaderLabel.text = @"Table of contents";
+            break;
+        case WMFArticleSectionTypeReadMore:
+            cell.sectionHeaderLabel.text = @"Read more";
             break;
     }
 }
@@ -322,14 +388,23 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)presentArticleScrolledToSectionForIndexPath:(NSIndexPath*)indexPath {
-    NSString* fragment = (indexPath.section == 0) ? @"" : self.article.sections[indexPath.row + 1].anchor;
-    MWKTitle* title    = [[MWKTitle alloc] initWithSite:self.article.title.site normalizedTitle:self.article.title.text fragment:fragment];
-
-    WebViewController* webVC   = [WebViewController wmf_initialViewControllerFromClassStoryboard];
-    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:webVC];
-    [self presentViewController:nc animated:YES completion:^{
-        [webVC navigateToPage:title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
+    WebViewController* webVC = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:webVC] animated:YES completion:^{
+        [webVC navigateToPage:[self titleForSelectedIndexPath:indexPath] discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
     }];
+}
+
+- (MWKTitle*)titleForSelectedIndexPath:(NSIndexPath*)indexPath {
+    switch ((WMFArticleSectionType)indexPath.section) {
+        case WMFArticleSectionTypeSummary:
+            return [[MWKTitle alloc] initWithSite:self.article.title.site normalizedTitle:self.article.title.text fragment:@""];
+        case WMFArticleSectionTypeTOC:
+            return [[MWKTitle alloc] initWithSite:self.article.title.site normalizedTitle:self.article.title.text fragment:self.article.sections[indexPath.row + 1].anchor];
+        case WMFArticleSectionTypeReadMore: {
+            MWKArticle* readMoreArticle = ((MWKArticle*)self.readMoreResults.articles[indexPath.row]);
+            return [[MWKTitle alloc] initWithSite:readMoreArticle.site normalizedTitle:readMoreArticle.title.text fragment:@""];
+        }
+    }
 }
 
 @end

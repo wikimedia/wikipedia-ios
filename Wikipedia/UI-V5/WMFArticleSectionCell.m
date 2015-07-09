@@ -2,6 +2,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WMFArticleSectionCell.h"
+#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 
 @interface WMFArticleSectionCell ()
 
@@ -15,6 +16,7 @@
     self = [super initWithCoder:coder];
     if (self) {
         [self setSelectionBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.1]];
+        [self wmf_makeCellDividerBeEdgeToEdge];
     }
     return self;
 }

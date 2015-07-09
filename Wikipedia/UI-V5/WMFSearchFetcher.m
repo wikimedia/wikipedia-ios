@@ -1,7 +1,6 @@
 
 #import "WMFSearchFetcher.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
-#import "SearchResultFetcher.h"
 #import "WMFSearchResults.h"
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
@@ -56,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [self searchArticleTitlesForSearchTerm:searchTerm searchType:SEARCH_TYPE_TITLES];
 }
 
-- (AnyPromise*)searchFullArticleTextForSearchTerm:(NSString*)searchTerm appendToPreviousResults:(WMFSearchResults*)results {
+- (AnyPromise*)searchFullArticleTextForSearchTerm:(NSString*)searchTerm appendToPreviousResults:(nullable WMFSearchResults*)results {
     self.previousResults = results;
     return [self searchArticleTitlesForSearchTerm:searchTerm searchType:SEARCH_TYPE_IN_ARTICLES];
 }

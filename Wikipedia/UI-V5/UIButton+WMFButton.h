@@ -16,7 +16,8 @@ typedef NS_ENUM (NSInteger, WMFButtonType) {
     WMFButtonTypeTranslate,
     WMFButtonTypeMagnify,
     WMFButtonTypeReload,
-    WMFButtonTypeCaretLeft
+    WMFButtonTypeCaretLeft,
+    WMFButtonTypePencil
 };
 
 @interface UIButton (WMFGlyph)

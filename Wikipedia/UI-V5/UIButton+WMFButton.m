@@ -91,6 +91,9 @@
         case WMFButtonTypeCaretLeft:
             configForState(UIControlStateNormal, WMF_GLYPH_CARET_LEFT, nil, nil);
             break;
+        case WMFButtonTypePencil:
+            configForState(UIControlStateNormal, WMF_GLYPH_PENCIL, @(2.4), nil);
+            break;
         default:
             break;
     }
@@ -115,6 +118,7 @@
         case WMFButtonTypeTranslate:
         case WMFButtonTypeMagnify:
         case WMFButtonTypeReload:
+        case WMFButtonTypePencil:
             return NO;
             break;
         default:

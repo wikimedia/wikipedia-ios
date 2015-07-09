@@ -592,14 +592,6 @@
         [allSectionData addObject:sectionDict];
     }
 
-    // Add "read more" item to end of TOC.
-    [allSectionData addObject:@{
-         @"id": @(100000),
-         @"isLead": @(NO),
-         @"level": @0,
-         @"title": MWCurrentArticleLanguageLocalizedString(@"article-read-more-title", @"Read more")
-     }];
-
     self.tocSectionData = allSectionData;
     [self refreshForCurrentArticle];
 }

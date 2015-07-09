@@ -48,11 +48,6 @@
 #import "UIFont+WMFStyle.h"
 #import "WebViewController+ImageGalleryPresentation.h"
 
-#import "UIWebView+WMFTrackingView.h"
-#import "WMFWebViewFooterContainerView.h"
-#import "UIViewController+WMFChildViewController.h"
-#import "WMFWebViewFooterViewController.h"
-
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "UIColor+WMFHexColor.h"
 
@@ -126,9 +121,6 @@ static int const kMinimumTextSelectionLength = 2;
 
 // These are presently only used by updateHistoryDateVisitedForArticleBeingNavigatedFrom method.
 @property (strong, nonatomic) MWKTitle* currentTitle;
-
-@property (strong, nonatomic) WMFWebViewFooterContainerView* footerContainer;
-@property (strong, nonatomic) WMFWebViewFooterViewController* footerViewController;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* webViewBottomConstraint;
 

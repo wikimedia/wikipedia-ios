@@ -1,5 +1,6 @@
 
 #import <Foundation/Foundation.h>
+#import "SearchResultFetcher.h"
 
 @class MWKSite;
 @class WMFSearchResults;
@@ -17,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)searchArticleTitlesForSearchTerm:(NSString*)searchTerm;
 
-- (AnyPromise*)searchFullArticleTextForSearchTerm:(NSString*)searchTerm appendToPreviousResults:(WMFSearchResults*)results;
+- (AnyPromise*)searchFullArticleTextForSearchTerm:(NSString*)searchTerm appendToPreviousResults:(nullable WMFSearchResults*)results;
 
 @end
 

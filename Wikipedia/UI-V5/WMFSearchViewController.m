@@ -6,7 +6,6 @@
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
 
-#import "SearchDidYouMeanButton.h"
 #import <Masonry/Masonry.h>
 
 #import "Wikipedia-Swift.h"

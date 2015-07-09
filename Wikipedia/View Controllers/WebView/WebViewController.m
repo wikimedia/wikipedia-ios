@@ -25,7 +25,7 @@
 #import "UIView+WMFRTLMirroring.h"
 #import "WMFArticlePopupTransition.h"
 #import "WMFArticleViewController.h"
-
+#import "PageHistoryViewController.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -33,14 +33,13 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
-@interface WebViewController () <LanguageSelectionDelegate, WMFWebViewFooterContainerDelegate, FetchFinishedDelegate>
+@interface WebViewController () <LanguageSelectionDelegate, FetchFinishedDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem* buttonTOC;
-@property (nonatomic, strong) UIBarButtonItem* buttonBack;
-@property (nonatomic, strong) UIBarButtonItem* buttonForward;
 @property (nonatomic, strong) UIBarButtonItem* buttonLanguages;
 @property (nonatomic, strong) UIBarButtonItem* buttonSave;
 @property (nonatomic, strong) UIBarButtonItem* buttonShare;
+@property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
 
 @property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
 @property (readonly, strong, nonatomic) MWKSiteInfoFetcher* siteInfoFetcher;
@@ -118,23 +117,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)setupBottomMenuButtons {
     @weakify(self)
-    void (^ goBeforeOrAfter)(NSString*) = ^void (NSString* beforeOrAfter) {
-        @strongify(self)
-        NSDictionary * adjacentHistoryEntries = [self getAdjacentHistoryEntries];
-        MWKHistoryEntry* historyEntry = adjacentHistoryEntries[beforeOrAfter];
-        if (historyEntry) {
-            [self showAlert:historyEntry.title.text type:ALERT_TYPE_BOTTOM duration:0.8];
-            [self navigateToPage:historyEntry.title
-                 discoveryMethod:MWKHistoryDiscoveryMethodBackForward];
-        }
-    };
-
-    self.buttonBack = [UIBarButtonItem wmf_buttonType:WMFButtonTypeBackward handler:^(id sender){
-        goBeforeOrAfter(@"before");
-    }];
-    self.buttonForward = [UIBarButtonItem wmf_buttonType:WMFButtonTypeForward handler:^(id sender){
-        goBeforeOrAfter(@"after");
-    }];
     self.buttonLanguages = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTranslate handler:^(id sender){
         @strongify(self)
         [self showLanguages];
@@ -151,11 +133,14 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [self shareUpArrowButtonPushed];
     }];
 
+    self.buttonEditHistory = [UIBarButtonItem wmf_buttonType:WMFButtonTypePencil handler:^(id sender){
+        @strongify(self)
+        [self editHistoryButtonPushed];
+    }];
+
     self.navigationController.toolbarHidden = NO;
     self.toolbarItems                       = @[
-        self.buttonBack,
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-        self.buttonForward,
+        self.buttonEditHistory,
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
         self.buttonSave,
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
@@ -173,8 +158,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     [self setupTopMenuButtons];
     [self setupBottomMenuButtons];
-
-    [self setupTrackingFooter];
 
     self.scrollingToTop = NO;
 
@@ -457,8 +440,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             self.unsafeToToggleTOC = NO;
             self.webView.scrollView.contentOffset = origScrollPosition;
 
-            self.footerContainer.userInteractionEnabled = YES;
-
             [self.buttonTOC wmf_UIButton].selected = NO;
 
             self.webViewBottomConstraint.constant = 0;
@@ -491,8 +472,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     if ([self tocDrawerIsOpen]) {
         return;
     }
-
-    self.footerContainer.userInteractionEnabled = NO;
 
     self.webViewBottomConstraint.constant = [self tocGetWebViewBottomConstraintConstant];
 
@@ -1532,8 +1511,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:title.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
 
-    NSDate* lastModified    = article.lastmodified;
-    MWKUser* lastModifiedBy = article.lastmodifiedby;
     self.editable         = article.editable;
     self.protectionStatus = article.protection;
 
@@ -1574,21 +1551,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
     if (!self.session.currentArticle.isMain) {
-        NSString* lastModifiedByUserName =
-            (lastModifiedBy && !lastModifiedBy.anonymous) ? lastModifiedBy.name : nil;
-        [self.footerViewController updateLastModifiedDate:lastModified userName:lastModifiedByUserName];
-        [self.footerViewController updateReadMoreForArticle:article];
-        [self.footerViewController updateLegalFooterLocalizedText];
-
-        // Add spacer above bottom native tracking component.
-        [sectionTextArray addObject:@"<div style='background-color:transparent;height:40px;'></div>"];
-
         // Add target div for TOC "read more" entry so it can use existing
         // TOC scrolling mechanism.
         [sectionTextArray addObject:@"<div id='section_heading_and_content_block_100000'></div>"];
     }
-
-    [sectionTextArray addObject:[self getFooterPlaceholderDiv]];
 
     // Join article sections text
     NSString* joint   = @"";     //@"<div style=\"height:20px;\"></div>";
@@ -1652,9 +1618,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)updateBottomBarButtonsEnabledState {
-    NSDictionary* adjacentHistoryEntries = [self getAdjacentHistoryEntries];
-    self.buttonForward.enabled              = (adjacentHistoryEntries[@"after"]) ? YES : NO;
-    self.buttonBack.enabled                 = (adjacentHistoryEntries[@"before"]) ? YES : NO;
     self.buttonLanguages.enabled            = !(self.session.currentArticle.isMain && [self.session.currentArticle languagecount] > 0);
     [self.buttonSave wmf_UIButton].selected = [self isCurrentArticleSaved];
 }
@@ -2047,6 +2010,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                                                          delegate:self];
 }
 
+- (void)editHistoryButtonPushed {
+    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
+    [self presentViewController:nc animated:YES completion:nil];
+}
+
 #pragma mark - ShareTapDelegate methods
 - (void)didShowSharePreviewForMWKArticle:(MWKArticle*)article withText:(NSString*)text {
     if (!self.shareFunnel) {
@@ -2106,34 +2074,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)releaseShareResources {
     self.shareFunnel                = nil;
     self.shareOptionsViewController = nil;
-}
-
-#pragma mark - Tracking Footer
-
-- (NSString*)getFooterPlaceholderDiv {
-    return [NSString stringWithFormat:@"<div id='bottom_native_footer_spacer' style='height:%fpx'></div>", self.footerContainer.frame.size.height];
-}
-
-- (void)updateFooterPlaceholderDivHeight:(CGFloat)height {
-    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.getElementById('bottom_native_footer_spacer').style.height = '%fpx';", height]];
-}
-
-- (void)setupTrackingFooter {
-    if (!self.footerContainer) {
-        self.footerContainer = [[WMFWebViewFooterContainerView alloc] init];
-
-        self.footerContainer.delegate = self;
-
-        [self.webView wmf_addTrackingView:self.footerContainer
-                               atLocation:WMFTrackingViewLocationBottom];
-
-        self.footerViewController = [[WMFWebViewFooterViewController alloc] init];
-        [self wmf_addChildController:self.footerViewController andConstrainToEdgesOfContainerView:self.footerContainer];
-    }
-}
-
-- (void)footerContainer:(WMFWebViewFooterContainerView*)footerContainer heightChanged:(CGFloat)newHeight {
-    [self updateFooterPlaceholderDivHeight:newHeight];
 }
 
 #pragma mark - Article loading convenience
