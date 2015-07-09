@@ -7,6 +7,7 @@
 //
 
 #import "MWKTestCase.h"
+#import "MWKDataStore+TemporaryDataStore.h"
 
 @interface MWKHistoryListTests : MWKTestCase
 
@@ -32,15 +33,13 @@
     titleLAEn = [siteEn titleWithString:@"Los Angeles"];
     titleSFFr = [siteFr titleWithString:@"San Francisco"];
 
-    dataStore   = [[MWKDataStore alloc] initWithBasePath:[NSTemporaryDirectory() stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]]];
+    dataStore   = [MWKDataStore temporaryDataStore];
     historyList = [[MWKHistoryList alloc] initWithDataStore:dataStore];
-    [historyList removeAllEntriesFromHistory];
-    [historyList save];
+    NSAssert([historyList length] == 0, @"History list must be empty before tests begin.");
 }
 
 - (void)tearDown {
-    [historyList removeAllEntriesFromHistory];
-    [historyList save];
+    [dataStore removeFolderAtBasePath];
     [super tearDown];
 }
 
@@ -90,7 +89,7 @@
 }
 
 - (void)testEmptyNotDirty {
-    XCTAssertFalse(historyList.dirty, @"Should not be dirty initially");
+    XCTAssertFalse(self->historyList.dirty, @"Should not be dirty initially");
 }
 
 - (void)testEmptyDirtyAfterAdd {

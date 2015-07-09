@@ -25,11 +25,11 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 @interface ArticleFetcherTests : XCTestCase
-    <ArticleFetcherDelegate>
+
 @property (strong, nonatomic) MWKDataStore* tempDataStore;
 @property (strong, nonatomic) AFHTTPRequestOperationManager* mockRequestManager;
 @property (strong, nonatomic) ArticleFetcher* articleFetcher;
-@property (strong, nonatomic) void (^ fetchFinished)(id, id, FetchFinalStatus, NSError*);
+@property (strong, nonatomic) void (^ fetchFinished)(MWKArticle*, NSError*);
 @end
 
 @implementation ArticleFetcherTests
@@ -51,23 +51,25 @@
     MWKArticle* dummyArticle = [self.tempDataStore articleWithTitle:dummyTitle];
 
     MKTArgumentCaptor* successCaptor = [self mockSuccessfulFetchOfArticle:dummyArticle
-                                                              withManager:self.mockRequestManager];
+                                                              withManager:self.mockRequestManager
+                                                                withStore:self.tempDataStore];
 
     XCTestExpectation* responseExpectation = [self expectationWithDescription:@"articleResponse"];
 
-    self.fetchFinished = ^(id sender, id fetchedData, FetchFinalStatus status, NSError* err) {
-        assertThat(@(status), is(@(FETCH_FINAL_STATUS_SUCCEEDED)));
+    @weakify(self)
+    self.fetchFinished = ^(MWKArticle* article, NSError* err) {
+        @strongify(self)
         assertThat(err, is(nilValue()));
         MWKArticle* savedArticle = [self.tempDataStore articleWithTitle:dummyTitle];
-        assertThat(fetchedData, is(equalTo(savedArticle)));
-        assertThat(@([fetchedData isDeeplyEqualToArticle:savedArticle]), isTrue());
+        assertThat(article, is(equalTo(savedArticle)));
+        assertThat(@([article isDeeplyEqualToArticle:savedArticle]), isTrue());
         [responseExpectation fulfill];
     };
 
     [self invokeCapturedSuccessBlock:successCaptor withDataFromFixture:@"Obama"];
 
     // this is slow, so needs a longer timeout
-    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+    [self waitForExpectationsWithTimeout:2.0 handler:nil];
 }
 
 - (void)testFetchingArticleIsIdempotent {
@@ -79,16 +81,17 @@
 
         AFHTTPRequestOperationManager* manager = mock([AFHTTPRequestOperationManager class]);
         MKTArgumentCaptor* successBlockCaptor  = [self mockSuccessfulFetchOfArticle:dummyArticle
-                                                                        withManager:manager];
+                                                                        withManager:manager
+                                                                          withStore:self.tempDataStore];
 
-        self.fetchFinished = ^(id sender, id fetchedData, FetchFinalStatus status, NSError* err) {
+        self.fetchFinished = ^(MWKArticle* article, NSError* err) {
             [responseExpectation fulfill];
         };
 
         [self invokeCapturedSuccessBlock:successBlockCaptor withDataFromFixture:@"Obama"];
 
         // this is slow, so needs a longer timeout
-        [self waitForExpectationsWithTimeout:1.0 handler:nil];
+        [self waitForExpectationsWithTimeout:2.0 handler:nil];
     };
 
     fetch();
@@ -111,10 +114,19 @@
 }
 
 - (MKTArgumentCaptor*)mockSuccessfulFetchOfArticle:(MWKArticle*)article
-                                       withManager:(AFHTTPRequestOperationManager*)manager {
-    (void)[[ArticleFetcher alloc] initAndFetchSectionsForArticle:article
-                                                     withManager:manager
-                                              thenNotifyDelegate:self];
+                                       withManager:(AFHTTPRequestOperationManager*)manager
+                                         withStore:(MWKDataStore*)store {
+    ArticleFetcher* fetcher = [[ArticleFetcher alloc] init];
+    [fetcher fetchSectionsForTitle:article.title inDataStore:store withManager:manager progressBlock:NULL completionBlock:^(MWKArticle* article) {
+        if (self.fetchFinished) {
+            self.fetchFinished(article, nil);
+        }
+    } errorBlock:^(NSError* error) {
+        if (self.fetchFinished) {
+            self.fetchFinished(nil, error);
+        }
+    }];
+
 
     MKTArgumentCaptor* successCaptor = [MKTArgumentCaptor new];
     [MKTVerify(manager)
@@ -130,17 +142,6 @@
     void (^ successBlock)(AFHTTPRequestOperation*, id response) = [captor value];
     NSData* jsonData = [[self wmf_bundle] wmf_dataFromContentsOfFile:fixture ofType:@"json"];
     successBlock(nil, jsonData);
-}
-
-#pragma mark - FetchFinishedDelegate
-
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError*)error {
-    if (self.fetchFinished) {
-        self.fetchFinished(sender, fetchedData, status, error);
-    }
 }
 
 @end
