@@ -233,6 +233,7 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 }
 
 - (void)collectionView:(UICollectionView*)collectionView didEndDisplayingCell:(UICollectionViewCell*)cell forItemAtIndexPath:(NSIndexPath*)indexPath {
+    [[UIApplication sharedApplication] sendAction:@selector(respondsToSelector:) to:nil from:nil forEvent:nil];
     WMFArticleViewControllerContainerCell* containerCell = (id)cell;
     [containerCell.viewController willMoveToParentViewController:nil];
     [containerCell.viewController removeFromParentViewController];
@@ -251,6 +252,9 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
     self.cardTransition.movingCardView              = cell;
     vc.transitioningDelegate                        = self.cardTransition;
     vc.modalPresentationStyle                       = UIModalPresentationCustom;
+
+    // if keyboard is visible, dismiss it (e.g. when used to display search results)
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 
     [self presentViewController:vc animated:YES completion:NULL];
 }

@@ -14,7 +14,6 @@
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @interface WMFSearchViewController ()
-
 @property (nonatomic, strong) WMFArticleListCollectionViewController* resultsListController;
 @property (strong, nonatomic) IBOutlet UISearchBar* searchBar;
 @property (strong, nonatomic) IBOutlet UIButton* searchSuggestionButton;
@@ -77,6 +76,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    self.resultsListController.delegate                           = self;
+    self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self updateUIWithResults:nil];
 }
 
