@@ -19,5 +19,9 @@ for_platform :ios do
   for_lane :store do
     app_identifier "org.wikimedia.wikipedia"
   end
+
+  for_lane :dev do
+    app_identifier "org.wikimedia.wikipedia.developer"
+  end
 end
 
