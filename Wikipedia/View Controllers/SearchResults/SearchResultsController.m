@@ -115,7 +115,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     BOOL shouldHide = (
         (self.searchString.length == 0)
         &&
-        (self.recentSearchesViewController.recentSearchesItemCount.integerValue > 0)
+        (self.recentSearchesViewController.recentSearchesItemCount > 0)
         ) ? NO : YES;
 
     if (self.recentSearchesContainer.hidden == shouldHide) {
