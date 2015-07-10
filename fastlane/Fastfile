@@ -42,7 +42,12 @@ platform :ios do
     )
   end
 
-  desc "Bump the version, and submit a new **Wikipedia Alpha** Build to Apple TestFlight"
+  desc "Increment app build version, commit, & tag locally."
+  lane :bump do
+    with_bump
+  end
+
+  desc "Submit a new **Wikipedia Alpha** Build to Apple TestFlight"
   lane :alpha do
     increment_build_number(
       build_number: ENV["BUILD_NUMBER"].to_i
@@ -88,7 +93,42 @@ platform :ios do
     deliver beta: true
   end
 
-  desc "Upload AdHoc build to Hockey."
+  desc "Upload a developer build to Hockey."
+  lane :dev do
+    sigh(
+      adhoc: true,
+      force: true,
+      filename: 'build/dev.mobileprovision'
+    )
+    # force iTunes file sharing to be enabled (normally disabled for release builds)
+    ENV['WMF_FORCE_ITUNES_FILE_SHARING'] = '1'
+    # force debug menu to be shown
+    ENV['WMF_FORCE_DEBUG_MENU'] = '1'
+    # force icon overlay
+    ENV['WMF_FORCE_ICON_OVERLAY'] = '1'
+    xcargs= ["PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}",
+             # force app ID suffix to "developer"
+             "APP_ID_SUFFIX=.developer",
+             # force product name,
+             "PRODUCT_NAME=Wikipedia Dev",
+             # force hockey app ID
+             "WMF_HOCKEYAPP_IDENTIFIER=7138507aefac3ee74c295f75a0b857e4"].join ' '
+    ipa(
+      configuration: "Release",
+      scheme: "Wikipedia",
+      embed: 'build/dev.mobileprovision',
+      xcargs: xcargs
+    )
+    #hockey(
+    #  notes: git_commit_log,
+    #  notify: '1', # Do not notify
+    #  status: '2', # Make available for download
+    #  release_type: '2' # 'alpha' release type
+    #)
+  end
+
+
+  desc "Upload AdHoc \"Release Candidate\" build to Hockey."
   lane :rc do
     sigh(
       adhoc: true,
@@ -100,7 +140,7 @@ platform :ios do
     # force debug menu to be shown
     ENV['WMF_FORCE_DEBUG_MENU'] = '1'
     ipa(
-      configuration: "Wikipedia",
+      configuration: "Release",
       scheme: "Wikipedia",
       embed: 'build/adhoc.mobileprovision',
       xcargs: "PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}"
@@ -121,7 +161,7 @@ platform :ios do
       filename: 'build/release.mobileprovision'
     )
     ipa(
-      configuration: "Wikipedia",
+      configuration: "Release",
       scheme: "Wikipedia",
       embed: 'build/release.mobileprovision',
       xcargs: "PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}"
