@@ -1,5 +1,6 @@
 
 #import "WMFSearchViewController.h"
+#import "RecentSearchesViewController.h"
 #import "WMFArticleListCollectionViewController.h"
 
 #import "WMFSearchFetcher.h"
@@ -13,11 +14,15 @@
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
-@interface WMFSearchViewController ()
+@interface WMFSearchViewController ()<WMFRecentSearchesViewControllerDelegate>
+
+@property (nonatomic, strong) RecentSearchesViewController* recentSearchesViewController;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* resultsListController;
+
 @property (strong, nonatomic) IBOutlet UISearchBar* searchBar;
 @property (strong, nonatomic) IBOutlet UIButton* searchSuggestionButton;
 @property (strong, nonatomic) IBOutlet UIView* resultsListContainerView;
+@property (strong, nonatomic) IBOutlet UIView* recentSearchesContainerView;
 
 @property (nonatomic, strong) WMFSearchFetcher* fetcher;
 
@@ -60,6 +65,14 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.delegate searchController:self searchStateDidChange:self.state];
 }
 
+- (void)updateRecentSearchesVisibility {
+    if ([self.searchBar.text length] == 0 && [self.searchBar isFirstResponder] && self.recentSearchesViewController.recentSearchesItemCount > 0) {
+        [self.recentSearchesContainerView setHidden:NO];
+    } else {
+        [self.recentSearchesContainerView setHidden:YES];
+    }
+}
+
 #pragma mark - DataSource KVO
 
 - (void)observeSavedPages {
@@ -85,12 +98,18 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
         self.resultsListController = segue.destinationViewController;
     }
+    if ([segue.destinationViewController isKindOfClass:[RecentSearchesViewController class]]) {
+        self.recentSearchesViewController          = segue.destinationViewController;
+        self.recentSearchesViewController.delegate = self;
+    }
 }
 
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar*)searchBar {
     [self updateSearchStateAndNotifyDelegate:WMFSearchStateActive];
+
+    [self updateRecentSearchesVisibility];
 
     [self.searchBar setShowsCancelButton:YES animated:YES];
 
@@ -102,6 +121,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)searchText {
+    [self updateRecentSearchesVisibility];
+
+    if ([searchText length] == 0) {
+        self.resultsListController.dataSource = nil;
+    }
+
     dispatchOnMainQueueAfterDelayInSeconds(0.4, ^{
         if ([searchText isEqualToString:self.searchBar.text]) {
             [self searchForSearchTerm:searchText];
@@ -110,12 +135,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar*)searchBar {
+    [self updateRecentSearchesVisibility];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar*)searchBar {
+    [self updateRecentSearchesVisibility];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar*)searchBar {
+    [self updateRecentSearchesVisibility];
     [self updateSearchStateAndNotifyDelegate:WMFSearchStateInactive];
     self.searchBar.text                   = nil;
     self.resultsListController.dataSource = nil;
@@ -141,7 +169,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
         return [AnyPromise promiseWithValue:results];
     }).then(^(WMFSearchResults* results){
-        self.resultsListController.dataSource = results;
+        if ([searchTerm isEqualToString:results.searchTerm]) {
+            self.resultsListController.dataSource = results;
+            [self.recentSearchesViewController saveTerm:searchTerm forDomain:self.fetcher.searchSite.domain type:SEARCH_TYPE_TITLES];
+        }
     }).catch(^(NSError* error){
         NSLog(@"%@", [error description]);
     });
@@ -177,6 +208,16 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         }
     }
 }
+
+#pragma mark - WMFRecentSearchesViewControllerDelegate
+
+- (void)recentSearchController:(RecentSearchesViewController*)controller didSelectSearchTerm:(NSString*)searchTerm {
+    self.searchBar.text = searchTerm;
+    [self searchForSearchTerm:searchTerm];
+    [self updateRecentSearchesVisibility];
+}
+
+#pragma mark - Actions
 
 - (IBAction)searchForSuggestion:(id)sender {
     self.searchBar.text = [self searchSuggestion];

@@ -30,7 +30,6 @@
 @property (weak, nonatomic) IBOutlet WikiGlyphButton* trashButton;
 
 @property (strong, nonatomic) NSMutableArray* tableDataArray;
-@property (strong, nonatomic) NSNumber* recentSearchesItemCount;
 
 @end
 
@@ -50,8 +49,10 @@
     [self adjustConstraintsScaleForViews:@[self.headingLabel, self.trashButton]];
 
     [self updateTrashButtonEnabledState];
+}
 
-    self.recentSearchesItemCount = @(self.tableDataArray.count);
+- (NSUInteger)recentSearchesItemCount {
+    return [self.tableDataArray count];
 }
 
 - (void)setupTable {
@@ -154,8 +155,6 @@
     }
 
     [self updateTrashButtonEnabledState];
-
-    self.recentSearchesItemCount = @(self.tableDataArray.count);
 }
 
 - (void)loadDataArrayFromFile {
@@ -248,23 +247,9 @@
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-//TODO: repair the commented out code below to work with the 5.0 search text box.
-    NSAssert(NO, @"Fix this!");
-/*
-    TopMenuTextFieldContainer* textFieldContainer =
-        [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-
     NSString* term = self.tableDataArray[indexPath.row][@"term"];
-    textFieldContainer.textField.text = term;
 
-    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-    [cell animateAndRewindXF:CATransform3DMakeScale(1.025f, 1.0f, 1.0f)
-                  afterDelay:0.0
-                    duration:0.1
-                        then:^{
-        [textFieldContainer.textField sendActionsForControlEvents:UIControlEventEditingChanged];
-    }];
- */
+    [self.delegate recentSearchController:self didSelectSearchTerm:term];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {

@@ -5,12 +5,23 @@
 #import "Defines.h"
 #import "SearchResultFetcher.h"
 
+@protocol WMFRecentSearchesViewControllerDelegate;
+
 @interface RecentSearchesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic, readonly) NSNumber* recentSearchesItemCount;
+@property (nonatomic, assign, readonly) NSUInteger recentSearchesItemCount;
+
+@property (nonatomic, weak) id<WMFRecentSearchesViewControllerDelegate> delegate;
 
 - (void)saveTerm:(NSString*)term
        forDomain:(NSString*)domain
             type:(SearchType)searchType;
+
+@end
+
+
+@protocol WMFRecentSearchesViewControllerDelegate <NSObject>
+
+- (void)recentSearchController:(RecentSearchesViewController*)controller didSelectSearchTerm:(NSString*)searchTerm;
 
 @end
