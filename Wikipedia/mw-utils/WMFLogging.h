@@ -12,7 +12,7 @@
 #if DEBUG
 static const int ddLogLevel = DDLogLevelDebug;
 #else
-static const int ddLogLevel = DDLogLevelWarn;
+static const int ddLogLevel = DDLogLevelWarning;
 #endif
 
 // Redefine NSLog to be a default CocoaLumberjack log.

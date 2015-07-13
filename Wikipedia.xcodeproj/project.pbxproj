@@ -3925,7 +3925,7 @@
 					"-Werror=incompatible-pointer-types",
 					"-Werror=incomplete-implementation",
 				);
-				WMF_HOCKEYAPP_IDENTIFIER = 76947f174e31a9e33fe67d81ff31732e;
+				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
