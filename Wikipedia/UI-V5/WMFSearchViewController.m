@@ -60,12 +60,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }
 
     self.state = state;
+    [self updateRecentSearchesVisibility];
 
     [self.delegate searchController:self searchStateDidChange:self.state];
 }
 
 - (void)updateRecentSearchesVisibility {
-    if ([self.searchBar.text length] == 0 && [self.searchBar isFirstResponder] && self.recentSearchesViewController.recentSearchesItemCount > 0) {
+    if (self.state == WMFSearchStateActive && [self.searchBar.text length] == 0 && [self.searchBar isFirstResponder] && self.recentSearchesViewController.recentSearchesItemCount > 0) {
         [self.recentSearchesContainerView setHidden:NO];
     } else {
         [self.recentSearchesContainerView setHidden:YES];
@@ -180,6 +181,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)updateUIWithResults:(WMFSearchResults*)results {
     self.title = results.searchTerm;
     [self updateSearchButtonWithResults:results.searchSuggestion];
+    [self updateRecentSearchesVisibility];
 }
 
 - (void)updateSearchButtonWithResults:(NSString*)searchSuggestion {

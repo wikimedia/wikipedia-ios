@@ -5,7 +5,6 @@
 #import "WMFArticleViewController.h"
 
 #import "TGLStackedLayout.h"
-#import "WMFBottomStackLayout.h"
 #import "WMFOffScreenFlowLayout.h"
 
 #import "WMFArticleListTranstion.h"
@@ -23,7 +22,7 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 @property (nonatomic, assign, readwrite) WMFArticleListMode mode;
 
 @property (nonatomic, strong) TGLStackedLayout* stackedLayout;
-@property (nonatomic, strong) WMFBottomStackLayout* bottomStackLayout;
+@property (nonatomic, strong) WMFOffScreenFlowLayout* offScreenLayout;
 
 @property (strong, nonatomic) WMFArticleListTranstion* cardTransition;
 
@@ -71,9 +70,9 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
     UICollectionViewLayout* layout;
 
     switch (mode) {
-        case WMFArticleListModeBottomStacked: {
-            self.bottomStackLayout.itemSize = self.view.bounds.size;
-            layout                          = self.bottomStackLayout;
+        case WMFArticleListModeOffScreen: {
+            self.offScreenLayout.itemSize = self.view.bounds.size;
+            layout                        = self.offScreenLayout;
         }
         break;
         case WMFArticleListModeNormal:
@@ -84,60 +83,36 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
         break;
     }
 
-    @weakify(self);
-    [self setOffsecreenLayoutAnimated:animated completion:^(BOOL finished) {
-        @strongify(self);
-        [self.collectionView wmf_setCollectionViewLayout:layout animated:animated alwaysFireCompletion:^(BOOL finished) {
-            @strongify(self);
-            if (mode == WMFArticleListModeBottomStacked) {
-                self.collectionView.scrollEnabled = NO;
-            } else {
-                self.collectionView.scrollEnabled = YES;
-            }
-
-            if (completion) {
-                completion();
-            }
-        }];
+    [self.collectionView wmf_setCollectionViewLayout:layout animated:animated alwaysFireCompletion:^(BOOL finished) {
+        if (completion) {
+            completion();
+        }
     }];
-}
-
-/**
- * HACK: For some reason UIKit is deadlocking when switching directly
- * from bottom stacked -> stacked layouts.
- * The only solution I could find was to switch to an intermdeiate layout
- * first. This moves the items off screen and then brings them back.
- */
-- (void)setOffsecreenLayoutAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
-    WMFOffScreenFlowLayout* offscreen = [[WMFOffScreenFlowLayout alloc] init];
-    offscreen.itemSize = self.view.bounds.size;
-
-    [self.collectionView wmf_setCollectionViewLayout:offscreen animated:animated alwaysFireCompletion:completion];
 }
 
 #pragma mark - Accessors
 
 - (TGLStackedLayout*)stackedLayout {
     if (!_stackedLayout) {
-        TGLStackedLayout* stacked = [[TGLStackedLayout alloc] init];
-        stacked.fillHeight   = YES;
-        stacked.alwaysBounce = YES;
-        stacked.delegate     = self;
-        stacked.itemSize     = self.view.bounds.size;
-        _stackedLayout       = stacked;
+        TGLStackedLayout* layout = [[TGLStackedLayout alloc] init];
+        layout.fillHeight   = YES;
+        layout.alwaysBounce = YES;
+        layout.delegate     = self;
+        layout.itemSize     = self.view.bounds.size;
+        _stackedLayout      = layout;
     }
 
     return _stackedLayout;
 }
 
-- (WMFBottomStackLayout*)bottomStackLayout {
-    if (!_bottomStackLayout) {
-        WMFBottomStackLayout* stack = [[WMFBottomStackLayout alloc] init];
-        stack.itemSize     = self.view.bounds.size;
-        _bottomStackLayout = stack;
+- (WMFOffScreenFlowLayout*)offScreenLayout {
+    if (!_offScreenLayout) {
+        WMFOffScreenFlowLayout* layout = [[WMFOffScreenFlowLayout alloc] init];
+        layout.itemSize  = self.view.bounds.size;
+        _offScreenLayout = layout;
     }
 
-    return _bottomStackLayout;
+    return _offScreenLayout;
 }
 
 - (void)refreshVisibleCells {
@@ -200,8 +175,8 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 #pragma mark - Update Cell Size
 
 - (void)updateCellSizeBasedOnViewFrame {
-    self.stackedLayout.itemSize     = self.view.bounds.size;
-    self.bottomStackLayout.itemSize = self.view.bounds.size;
+    self.stackedLayout.itemSize   = self.view.bounds.size;
+    self.offScreenLayout.itemSize = self.view.bounds.size;
 }
 
 #pragma mark - <UICollectionViewDataSource>

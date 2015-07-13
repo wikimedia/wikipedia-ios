@@ -7,21 +7,21 @@
 #import "DataMigrationProgressViewController.h"
 #import "WMFSavedPagesDataSource.h"
 #import "UIStoryboard+WMFExtensions.h"
+#import "UITabBarController+WMFExtensions.h"
 #import <Masonry/Masonry.h>
 
 
 @interface WMFAppViewController ()<WMFSearchViewControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIView* searchContainerView;
-@property (strong, nonatomic) IBOutlet UIView* articleListContainerView;
+@property (strong, nonatomic) IBOutlet UIView* tabControllerContainerView;
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
-@property (nonatomic, strong) WMFArticleListCollectionViewController* listViewController;
+
+@property (nonatomic, strong) UITabBarController* tabBarController;
+@property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* savedArticlesViewController;
 @property (nonatomic, strong) WMFSearchViewController* searchViewController;
 
 @property (nonatomic, strong) SessionSingleton* session;
-
-@property (nonatomic, strong) MASConstraint* articleListVisibleConstraint;
-@property (nonatomic, strong) MASConstraint* articleListMinimizedConstraint;
 
 @end
 
@@ -55,9 +55,9 @@
     self.searchViewController.dataStore     = self.session.dataStore;
     self.searchViewController.userDataStore = self.session.userDataStore;
 
-    self.listViewController.dataStore  = self.session.dataStore;
-    self.listViewController.savedPages = self.session.userDataStore.savedPageList;
-    self.listViewController.dataSource = [[WMFSavedPagesDataSource alloc] initWithSavedPagesList:[self userDataStore].savedPageList];
+    self.savedArticlesViewController.dataStore  = self.session.dataStore;
+    self.savedArticlesViewController.savedPages = self.session.userDataStore.savedPageList;
+    self.savedArticlesViewController.dataSource = [[WMFSavedPagesDataSource alloc] initWithSavedPagesList:[self userDataStore].savedPageList];
 
     [self updateListViewBasedOnSearchState:self.searchViewController.state];
 }
@@ -74,6 +74,12 @@
 
 - (MWKUserDataStore*)userDataStore {
     return self.session.userDataStore;
+}
+
+- (WMFArticleListCollectionViewController*)savedArticlesViewController {
+    return [[self.tabBarController viewControllers] bk_match:^BOOL (UIViewController* obj) {
+        return [obj isKindOfClass:[WMFArticleListCollectionViewController class]];
+    }];
 }
 
 #pragma mark - UIViewController
@@ -94,8 +100,8 @@
         self.searchViewController          = segue.destinationViewController;
         self.searchViewController.delegate = self;
     }
-    if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
-        self.listViewController = segue.destinationViewController;
+    if ([segue.destinationViewController isKindOfClass:[UITabBarController class]]) {
+        self.tabBarController = segue.destinationViewController;
     }
 }
 
@@ -163,24 +169,19 @@
 - (void)updateListViewBasedOnSearchState:(WMFSearchState)state {
     switch (state) {
         case WMFSearchStateInactive: {
-            [self.articleListMinimizedConstraint uninstall];
-            [self.articleListContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
-                self.articleListVisibleConstraint = make.top.equalTo(self.mas_topLayoutGuide).with.offset(44.0);
-            }];
-            [self.view layoutIfNeeded];
-
-            [self.listViewController setListMode:WMFArticleListModeNormal animated:YES completion:NULL];
+            self.tabBarController.view.hidden                      = NO;
+            self.tabControllerContainerView.userInteractionEnabled = YES;
+            [self.savedArticlesViewController setListMode:WMFArticleListModeNormal animated:YES completion:NULL];
+            [self.tabBarController wmf_setTabBarVisible:YES animated:YES completion:NULL];
         }
         break;
         case WMFSearchStateActive: {
+            [self.savedArticlesViewController setListMode:WMFArticleListModeOffScreen animated:YES completion:NULL];
             @weakify(self);
-            [self.listViewController setListMode:WMFArticleListModeBottomStacked animated:YES completion:^{
+            [self.tabBarController wmf_setTabBarVisible:NO animated:YES completion:^{
                 @strongify(self);
-                [self.articleListVisibleConstraint uninstall];
-                [self.articleListContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
-                    self.articleListMinimizedConstraint = make.top.equalTo(self.view.mas_bottom).with.offset(-50.0);
-                }];
-                [self.view layoutIfNeeded];
+                self.tabBarController.view.hidden = YES;
+                self.tabControllerContainerView.userInteractionEnabled = NO;
             }];
         }
         break;
