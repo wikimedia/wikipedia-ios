@@ -2002,11 +2002,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)shareSnippet:(NSString*)snippet {
     [self.webView wmf_suppressSelection];
 
-    UIViewController* rootViewController = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[UIViewController class]];
     self.shareOptionsViewController =
         [[WMFShareOptionsViewController alloc] initWithMWKArticle:[SessionSingleton sharedInstance].currentArticle
                                                           snippet:snippet
-                                                   backgroundView:[rootViewController view]
+                                                   backgroundView:self.navigationController.view
                                                          delegate:self];
 }
 

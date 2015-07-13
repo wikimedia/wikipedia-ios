@@ -26,11 +26,11 @@
 
     CGRect focalBounds = self.leadImage.isDownloaded ? [self getPrimaryFocalRectFromCanonicalLeadImage] : CGRectZero;
 
-    [[self.leadImage asUIImage] wmf_drawInRect:rect
-                                   focalBounds:focalBounds
-                                focalHighlight:NO
-                                     blendMode:kCGBlendModeMultiply
-                                         alpha:1.0];
+    [self.image wmf_drawInRect:rect
+                   focalBounds:focalBounds
+                focalHighlight:NO
+                     blendMode:kCGBlendModeMultiply
+                         alpha:1.0];
 }
 
 // TODO: in follow-up patch, factor drawGradientBackground from

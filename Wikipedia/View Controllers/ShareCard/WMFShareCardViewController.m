@@ -39,7 +39,7 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)fillCardWithMWKArticle:(MWKArticle*)article snippet:(NSString*)snippet {
+- (void)fillCardWithMWKArticle:(MWKArticle*)article snippet:(NSString*)snippet image:(UIImage*)image {
     // The layout system will transpose the Wikipedia logo, CC-BY-SA,
     // title, and Wikidata description for congruence with the lead
     // image's title and description, which is determined by system
@@ -62,6 +62,7 @@
     BOOL leadImageCached = [article.image.largestCachedVariant isDownloaded];
     if (leadImageCached) {
         // in case the image has transparency, make its container white
+        self.shareCardImageContainer.image           = image;
         self.shareCardImageContainer.backgroundColor = [UIColor whiteColor];
         self.shareCardImageContainer.leadImage       = article.image.largestCachedVariant;
     }
