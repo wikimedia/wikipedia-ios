@@ -3,6 +3,7 @@
 // Author: Anders Feder
 // Author: Christian List
 // Author: Gorbi
+// Author: Sarrus
 
 "languages-title" = "Sprog";
 "article-languages-label" = "Vælg sprog";
@@ -11,6 +12,7 @@
 "article-languages-filter-placeholder" = "Sprogfilter";
 "article-read-more-title" = "Læs mere";
 "article-unable-to-load-section" = "Kunne ikke indlæse dette afsnit. Prøv at genindlæse artiklen for at se om det løser problemet.";
+"article-unable-to-load-article" = "Kunne ikke indlæse denne artikel.";
 "info-box-title" = "Hurtige fakta";
 "info-box-close-text" = "Luk";
 "table-title-other" = "Flere oplysninger";

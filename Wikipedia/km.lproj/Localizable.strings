@@ -2,11 +2,13 @@
 // Exported from translatewiki.net
 // Author: គីមស៊្រុន
 
+"languages-title" = "ភាសា";
 "article-languages-label" = "ជ្រើសរើសភាសា";
 "article-languages-cancel" = "បោះបង់";
 "article-languages-downloading" = "កំពុងផ្ទុកភាសាអត្ថបទ...";
 "article-languages-filter-placeholder" = "ចម្រោះភាសា";
 "article-read-more-title" = "អានបន្ថែម";
+"article-unable-to-load-article" = "មិនអាចផ្ទុកអត្ថបទនេះបានទេ។";
 "info-box-title" = "ទិន្នន័យបឋម";
 "info-box-close-text" = "បិទ";
 "table-title-other" = "ព័ត៌មានបន្ថែម";
@@ -19,6 +21,7 @@
 "history-clear-confirmation-sub-heading" = "សកម្មភាពនេះមិនអាចឈប់ធ្វើវិញបានទេ!";
 "history-clear-cancel" = "បោះបង់";
 "history-clear-delete-all" = "លុបចោលទាំងអស់";
+"zero-free-verbiage" = "ចូលទៅកាន់វិគីភីឌាពីប្រព័ន្ធទូរស័ព្ទចល័តរបស់អ្នកដោយឥតគិតថ្លៃ (លើកលែងមិនបាច់បង់តម្លៃផ្ញើទិន្នន័យចេញចូល)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "ចាកចេញពីវិគីសូន្យ";
 "zero-interstitial-continue" = "ចាកចេញ";

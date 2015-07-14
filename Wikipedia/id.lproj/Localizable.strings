@@ -17,6 +17,7 @@
 "article-languages-filter-placeholder" = "Saring Bahasa";
 "article-read-more-title" = "Baca lebih lanjut";
 "article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
+"article-unable-to-load-article" = "Tidak dapat memuat artikel.";
 "info-box-title" = "Fakta cepat";
 "info-box-close-text" = "Tutup";
 "table-title-other" = "Informasi lebih lanjut";

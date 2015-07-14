@@ -18,6 +18,7 @@
 "article-languages-filter-placeholder" = "Dil Süzgeci";
 "article-read-more-title" = "Devamı";
 "article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
+"article-unable-to-load-article" = "Makale yüklenemedi.";
 "info-box-title" = "Pratik bilgiler";
 "info-box-close-text" = "Kapat";
 "table-title-other" = "Daha fazla bilgi";

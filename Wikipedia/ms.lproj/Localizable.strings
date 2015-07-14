@@ -3,12 +3,14 @@
 // Author: Anakmalaysia
 // Author: Aviator
 
+"languages-title" = "Bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batalkan";
 "article-languages-downloading" = "Memuatkan bahasa-bahasa rencana...";
 "article-languages-filter-placeholder" = "Tapis Bahasa";
 "article-read-more-title" = "Selanjutnya";
 "article-unable-to-load-section" = "Bahagian ini tidak dapat dimuatkan. Cuba muatkan semula (refresh) rencana ini untuk betulkan masalah ini.";
+"article-unable-to-load-article" = "Rencana tidak dapat dimuatkan.";
 "info-box-title" = "Fakta segera";
 "info-box-close-text" = "Tutup";
 "table-title-other" = "Maklumat lanjut";
@@ -91,7 +93,9 @@
 "search-recent-clear-cancel" = "Batalkan";
 "search-recent-clear-delete-all" = "Hapuskan Semua";
 "main-menu-title" = "Lagi";
+"main-menu-heading-about" = "Perihal";
 "main-menu-language-title" = "Cari dalam wiki bahasa $1";
+"main-menu-faq" = "Soalan Lazim";
 "main-menu-language-toggle-show" = "Paparkan bahasa";
 "main-menu-language-toggle-hide" = "Sorokkan bahasa";
 "main-menu-language-selection-saved" = "Pilihan bahasa disimpan";
@@ -231,6 +235,7 @@
 "menu-share-accessibility-label" = "Kongsi";
 "menu-more-accessibility-label" = "Lagi tetapan";
 "menu-trash-accessibility-label" = "Padamkan";
+"menu-language-accessibility-label" = "Bahasa";
 "nearby-title" = "Berdekatan";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
