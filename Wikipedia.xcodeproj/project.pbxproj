@@ -159,7 +159,6 @@
 		04DA87751B30A03600C948F8 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DA87741B30A03600C948F8 /* LoginViewController.storyboard */; };
 		04DA87771B30A9D600C948F8 /* AccountCreationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DA87761B30A9D600C948F8 /* AccountCreationViewController.storyboard */; };
 		04DA87791B30B99300C948F8 /* CaptchaViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DA87781B30B99300C948F8 /* CaptchaViewController.storyboard */; };
-		04DA877D1B30D29800C948F8 /* NearbyViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DA877A1B30D29800C948F8 /* NearbyViewController.storyboard */; };
 		04DA877F1B30D29800C948F8 /* SavedPagesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DA877C1B30D29800C948F8 /* SavedPagesViewController.storyboard */; };
 		04DA87811B30E0C600C948F8 /* HistoryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DA87801B30E0C600C948F8 /* HistoryViewController.storyboard */; };
 		04DA87861B310E7D00C948F8 /* RecentSearchesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C757651A1A9E1B0084AC39 /* RecentSearchesViewController.m */; };
@@ -700,7 +699,6 @@
 		04DA87741B30A03600C948F8 /* LoginViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		04DA87761B30A9D600C948F8 /* AccountCreationViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AccountCreationViewController.storyboard; sourceTree = "<group>"; };
 		04DA87781B30B99300C948F8 /* CaptchaViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CaptchaViewController.storyboard; sourceTree = "<group>"; };
-		04DA877A1B30D29800C948F8 /* NearbyViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NearbyViewController.storyboard; sourceTree = "<group>"; };
 		04DA877C1B30D29800C948F8 /* SavedPagesViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SavedPagesViewController.storyboard; sourceTree = "<group>"; };
 		04DA87801B30E0C600C948F8 /* HistoryViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HistoryViewController.storyboard; sourceTree = "<group>"; };
 		04DB0BE818BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+ScrollSubviewToLocation.h"; sourceTree = "<group>"; };
@@ -2178,7 +2176,6 @@
 				04DA876F1B2FF5B200C948F8 /* SecondaryMenuViewController.storyboard */,
 				04DA87761B30A9D600C948F8 /* AccountCreationViewController.storyboard */,
 				04DA87781B30B99300C948F8 /* CaptchaViewController.storyboard */,
-				04DA877A1B30D29800C948F8 /* NearbyViewController.storyboard */,
 				04DA877C1B30D29800C948F8 /* SavedPagesViewController.storyboard */,
 				04DA87801B30E0C600C948F8 /* HistoryViewController.storyboard */,
 				04016E1B1B3285B700D732FE /* AboutViewController.storyboard */,
@@ -2968,7 +2965,6 @@
 				0E94AFEA1B209721000BC5EA /* iPhone_Root.storyboard in Resources */,
 				04DA877F1B30D29800C948F8 /* SavedPagesViewController.storyboard in Resources */,
 				04224502197F5E09005DD0BF /* BulletedLabel.xib in Resources */,
-				04DA877D1B30D29800C948F8 /* NearbyViewController.storyboard in Resources */,
 				04DA87751B30A03600C948F8 /* LoginViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

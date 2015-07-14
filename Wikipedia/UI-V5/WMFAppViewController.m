@@ -221,12 +221,10 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
         case WMFSearchStateInactive: {
             self.tabBarController.view.hidden                      = NO;
             self.tabControllerContainerView.userInteractionEnabled = YES;
-            [self.savedArticlesViewController setListMode:WMFArticleListModeNormal animated:YES completion:NULL];
             [self.tabBarController wmf_setTabBarVisible:YES animated:YES completion:NULL];
         }
         break;
         case WMFSearchStateActive: {
-            [self.savedArticlesViewController setListMode:WMFArticleListModeOffScreen animated:YES completion:NULL];
             @weakify(self);
             [self.tabBarController wmf_setTabBarVisible:NO animated:YES completion:^{
                 @strongify(self);
