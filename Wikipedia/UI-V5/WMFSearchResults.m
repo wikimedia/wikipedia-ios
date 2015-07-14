@@ -43,6 +43,10 @@ NS_ASSUME_NONNULL_BEGIN
     return (self.searchTerm && [self.articles count] == 0);
 }
 
+- (MWKHistoryDiscoveryMethod)discoveryMethod {
+    return MWKHistoryDiscoveryMethodSearch;
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

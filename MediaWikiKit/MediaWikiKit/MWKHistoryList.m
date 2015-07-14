@@ -6,9 +6,7 @@
 @interface MWKHistoryList ()
 
 @property (readwrite, weak, nonatomic) MWKDataStore* dataStore;
-@property (nonatomic, readwrite, assign) NSUInteger length;
-@property (nonatomic, readwrite, strong) MWKHistoryEntry* mostRecentEntry;
-@property (nonatomic, strong)  NSMutableArray* entries;
+@property (nonatomic, strong) NSMutableArray* mutableEntries;
 @property (nonatomic, strong) NSMutableDictionary* entriesByTitle;
 @property (nonatomic, readwrite, assign) BOOL dirty;
 
@@ -22,9 +20,10 @@
     self = [super init];
     if (self) {
         self.dataStore      = dataStore;
-        self.entries        = [[NSMutableArray alloc] init];
+        self.mutableEntries = [NSMutableArray array];
         self.entriesByTitle = [[NSMutableDictionary alloc] init];
         NSDictionary* data = [self.dataStore historyListData];
+
         [self importData:data];
     }
     return self;
@@ -45,7 +44,7 @@
     if (arr) {
         for (NSDictionary* entryDict in arr) {
             MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithDict:entryDict];
-            [self.entries addObject:entry];
+            [self.mutableEntries addObject:entry];
             self.entriesByTitle[entry.title] = entry;
         }
     }
@@ -63,16 +62,20 @@
 
 #pragma mark - Entry Access
 
-- (NSUInteger)length {
-    return [self.entries count];
+- (NSArray*)entries {
+    return _mutableEntries;
 }
 
-- (MWKHistoryEntry*)mostRecentEntry {
-    return [self.entries firstObject];
+- (NSMutableArray*)mutableEntries {
+    return [self mutableArrayValueForKey:@"entries"];
+}
+
+- (NSUInteger)length {
+    return [self countOfEntries];
 }
 
 - (MWKHistoryEntry*)entryAtIndex:(NSUInteger)index {
-    return self.entries[index];
+    return [self objectInEntriesAtIndex:index];
 }
 
 - (MWKHistoryEntry*)entryForTitle:(MWKTitle*)title {
@@ -80,7 +83,7 @@
 }
 
 - (NSUInteger)indexForEntry:(MWKHistoryEntry*)entry {
-    return [self.entries indexOfObject:entry];
+    return [self.mutableEntries indexOfObject:entry];
 }
 
 - (MWKHistoryEntry*)entryAfterEntry:(MWKHistoryEntry*)entry {
@@ -105,7 +108,11 @@
     }
 }
 
-#pragma mark - History Update
+- (MWKHistoryEntry*)mostRecentEntry {
+    return [self.mutableEntries firstObject];
+}
+
+#pragma mark - Update Methods
 
 - (void)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     if (title == nil) {
@@ -126,10 +133,10 @@
     MWKHistoryEntry* oldEntry = [self entryForTitle:entry.title];
     if (oldEntry) {
         entry.discoveryMethod = entry.discoveryMethod == MWKHistoryDiscoveryMethodUnknown ? oldEntry.discoveryMethod : entry.discoveryMethod;
-        [self.entries removeObject:oldEntry];
+        [self.mutableEntries removeObject:oldEntry];
     }
     entry.date = entry.date ? entry.date : [NSDate date];
-    [self.entries insertObject:entry atIndex:0];
+    [self.mutableEntries insertObject:entry atIndex:0];
     self.entriesByTitle[entry.title] = entry;
     self.dirty                       = YES;
 }
@@ -154,7 +161,7 @@
 
     MWKHistoryEntry* entry = [self entryForTitle:title];
     if (entry) {
-        [self.entries removeObject:entry];
+        [self.mutableEntries removeObject:entry];
         [self.entriesByTitle removeObjectForKey:entry.title];
         self.dirty = YES;
     }
@@ -166,7 +173,7 @@
     }
 
     [historyEntries enumerateObjectsUsingBlock:^(MWKHistoryEntry* entry, NSUInteger idx, BOOL* stop) {
-        [self.entries removeObject:entry];
+        [self.mutableEntries removeObject:entry];
         [self.entriesByTitle removeObjectForKey:entry.title];
     }];
 
@@ -174,7 +181,7 @@
 }
 
 - (void)removeAllEntriesFromHistory {
-    [self.entries removeAllObjects];
+    [self.mutableEntries removeAllObjects];
     [self.entriesByTitle removeAllObjects];
     self.dirty = YES;
 }
@@ -193,6 +200,40 @@
 
         return [AnyPromise promiseWithValue:nil];
     });
+}
+
+#pragma mark - KVO
+
+- (NSUInteger)countOfEntries {
+    return [_mutableEntries count];
+}
+
+- (id)objectInEntriesAtIndex:(NSUInteger)idx {
+    return [_mutableEntries objectAtIndex:idx];
+}
+
+- (void)insertObject:(id)anObject inEntriesAtIndex:(NSUInteger)idx {
+    [_mutableEntries insertObject:anObject atIndex:idx];
+}
+
+- (void)insertEntries:(NSArray*)entrieArray atIndexes:(NSIndexSet*)indexes {
+    [_mutableEntries insertObjects:entrieArray atIndexes:indexes];
+}
+
+- (void)removeObjectFromEntriesAtIndex:(NSUInteger)idx {
+    [_mutableEntries removeObjectAtIndex:idx];
+}
+
+- (void)removeEntriesAtIndexes:(NSIndexSet*)indexes {
+    [_mutableEntries removeObjectsAtIndexes:indexes];
+}
+
+- (void)replaceObjectInEntriesAtIndex:(NSUInteger)idx withObject:(id)anObject {
+    [_mutableEntries replaceObjectAtIndex:idx withObject:anObject];
+}
+
+- (void)replaceEntriesAtIndexes:(NSIndexSet*)indexes withEntries:(NSArray*)entrieArray {
+    [_mutableEntries replaceObjectsAtIndexes:indexes withObjects:entrieArray];
 }
 
 @end

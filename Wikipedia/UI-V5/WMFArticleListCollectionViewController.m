@@ -47,11 +47,6 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
     }
 }
 
-- (void)setSavedPages:(MWKSavedPageList* __nonnull)savedPages {
-    _savedPages = savedPages;
-    [self.collectionView reloadData];
-}
-
 #pragma mark - List Mode
 
 - (void)setListMode:(WMFArticleListMode)mode animated:(BOOL)animated completion:(nullable dispatch_block_t)completion {
@@ -231,7 +226,10 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
     // if keyboard is visible, dismiss it (e.g. when used to display search results)
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 
-    [self presentViewController:vc animated:YES completion:NULL];
+    [self presentViewController:vc animated:YES completion:^{
+        [self.recentPages addPageToHistoryWithTitle:cell.viewController.article.title discoveryMethod:[self.dataSource discoveryMethod]];
+        [self.recentPages save];
+    }];
 }
 
 #pragma mark - TGLStackedLayoutDelegate

@@ -1,5 +1,5 @@
 
-#import "MediaWikiKit.h"
+#import "MWKDataObject.h"
 
 @class MWKTitle;
 @class MWKHistoryEntry;
@@ -8,10 +8,14 @@
 
 @interface MWKHistoryList : MWKDataObject <NSFastEnumeration>
 
-@property (readonly, weak, nonatomic) MWKDataStore* dataStore;
-@property (nonatomic, readonly, assign) NSUInteger length;
-@property (nonatomic, readonly, assign) BOOL dirty;
-@property (nonatomic, readonly, strong) MWKHistoryEntry* mostRecentEntry;
+/**
+ *  Observable - observe to get KVO notifications
+ */
+@property (nonatomic, strong, readonly)  NSArray* entries;
+
+@property (nonatomic, weak, readonly) MWKDataStore* dataStore;
+@property (nonatomic, assign, readonly) NSUInteger length;
+@property (nonatomic, assign, readonly) BOOL dirty;
 
 /**
  *  Create history list and connect with data store.
@@ -23,7 +27,6 @@
  */
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
-
 - (MWKHistoryEntry*)entryAtIndex:(NSUInteger)index;
 - (MWKHistoryEntry*)entryForTitle:(MWKTitle*)title;
 
@@ -31,6 +34,7 @@
 - (MWKHistoryEntry*)entryAfterEntry:(MWKHistoryEntry*)entry;
 - (MWKHistoryEntry*)entryBeforeEntry:(MWKHistoryEntry*)entry;
 
+- (MWKHistoryEntry*)mostRecentEntry;
 
 /**
  *  Add a page to the user history.

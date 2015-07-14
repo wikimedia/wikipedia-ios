@@ -1,11 +1,8 @@
 
 #import "WMFSavedPagesDataSource.h"
-#import "MWKUserDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKSavedPageEntry.h"
 #import "MWKArticle.h"
-#import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -77,6 +74,10 @@ NS_ASSUME_NONNULL_BEGIN
         [self.savedPages removeSavedPageWithTitle:savedEntry.title];
         [self.savedPages save];
     }
+}
+
+- (MWKHistoryDiscoveryMethod)discoveryMethod {
+    return MWKHistoryDiscoveryMethodSaved;
 }
 
 @end

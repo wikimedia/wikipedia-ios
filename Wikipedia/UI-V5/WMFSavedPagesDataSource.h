@@ -2,6 +2,8 @@
 #import <Mantle/Mantle.h>
 #import "WMFArticleListDataSource.h"
 
+@class MWKSavedPageList;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFSavedPagesDataSource : MTLModel<WMFArticleListDataSource>

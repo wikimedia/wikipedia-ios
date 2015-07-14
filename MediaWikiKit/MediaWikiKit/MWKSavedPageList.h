@@ -3,6 +3,8 @@
 
 @class MWKTitle;
 @class MWKSavedPageEntry;
+@class MWKDataStore;
+@class AnyPromise;
 
 NS_ASSUME_NONNULL_BEGIN
 

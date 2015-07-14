@@ -207,6 +207,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="qVm-oc-aaW" kind="relationship" relationship="viewControllers" id="Edk-Rh-NmJ"/>
+                        <segue destination="2yz-KN-V6a" kind="relationship" relationship="viewControllers" id="vxH-Ku-Dua"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mEs-xw-QRr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -258,7 +259,7 @@
                             <outlet property="delegate" destination="qVm-oc-aaW" id="uJd-6E-G6k"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Item" id="V9D-BB-B3n"/>
+                    <tabBarItem key="tabBarItem" title="Saved" id="V9D-BB-B3n"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Buh-ul-uFW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -379,6 +380,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ux-fZ-r7x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1715" y="75"/>
+        </scene>
+        <!--Recent Pages List-->
+        <scene sceneID="bR7-pf-lJf">
+            <objects>
+                <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Recent" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2yz-KN-V6a" userLabel="Recent Pages List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="TGO-DA-pJe">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <collectionViewLayout key="collectionViewLayout" id="ETy-nN-umd" customClass="TGLStackedLayout"/>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WMFArticleViewControllerContainerCell" id="lcF-U0-4hY" customClass="WMFArticleViewControllerContainerCell">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qbh-N0-jBQ" customClass="WMFForwardingTouchesView">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Qbh-N0-jBQ" secondAttribute="bottom" id="1bs-9J-MC2"/>
+                                    <constraint firstItem="Qbh-N0-jBQ" firstAttribute="leading" secondItem="lcF-U0-4hY" secondAttribute="leading" id="OL3-2j-DYi"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qbh-N0-jBQ" secondAttribute="trailing" id="ch9-he-QKU"/>
+                                    <constraint firstItem="Qbh-N0-jBQ" firstAttribute="top" secondItem="lcF-U0-4hY" secondAttribute="top" id="xLY-du-esw"/>
+                                </constraints>
+                                <size key="customSize" width="50" height="50"/>
+                                <connections>
+                                    <outlet property="touchView" destination="Qbh-N0-jBQ" id="vka-h8-zug"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="2yz-KN-V6a" id="dqQ-eP-Tyk"/>
+                            <outlet property="delegate" destination="2yz-KN-V6a" id="v1H-vu-Lg3"/>
+                        </connections>
+                    </collectionView>
+                    <tabBarItem key="tabBarItem" title="Recent" id="Hg0-Uc-GUG"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FrI-J3-ZJ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1748" y="1408"/>
         </scene>
     </scenes>
     <resources>

@@ -80,8 +80,7 @@
 }
 
 - (MWKSavedPageEntry*)entryForTitle:(MWKTitle*)title {
-    MWKSavedPageEntry* entry = self.entriesByTitle[title];
-    return entry;
+    return self.entriesByTitle[title];
 }
 
 - (BOOL)isSaved:(MWKTitle*)title {
@@ -171,6 +170,8 @@
         return [AnyPromise promiseWithValue:nil];
     });
 }
+
+#pragma mark - KVO
 
 - (NSUInteger)countOfEntries {
     return [_mutableEntries count];

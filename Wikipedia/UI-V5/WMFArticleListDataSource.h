@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath;
 
+- (MWKHistoryDiscoveryMethod)discoveryMethod;
+
 @optional
 - (void)deleteArticleAtIndexPath:(NSIndexPath*)indexPath;
 
