@@ -8,6 +8,8 @@
 
 #import "MWKDataStore.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MWKDataStore (TemporaryDataStore)
 
 /**
@@ -17,3 +19,5 @@
 + (instancetype)temporaryDataStore;
 
 @end
+
+NS_ASSUME_NONNULL_END

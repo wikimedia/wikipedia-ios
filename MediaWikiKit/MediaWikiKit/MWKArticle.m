@@ -9,6 +9,7 @@
 #import "MediaWikiKit.h"
 #import <BlocksKit/BlocksKit.h>
 #import "WikipediaAppUtils.h"
+#import "NSURL+Extras.h"
 
 typedef NS_ENUM (NSUInteger, MWKArticleSchemaVersion) {
     /**
@@ -139,7 +140,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     dict[@"editable"]   = @(self.editable);
 
     if (self.entityDescription) {
-        // Note we call the property .entityDescription because [x description] is in use in Obj-C.
         dict[@"description"] = self.entityDescription;
     }
 
@@ -322,8 +322,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 #pragma mark - Remove
 
 - (void)remove {
-    NSString* path = [self.dataStore pathForArticle:self];
-    [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+    [self.dataStore deleteArticle:self];
+    // reset ivars to prevent state from persisting in memory
     self.sections = nil;
     self.images   = nil;
 }
@@ -413,6 +413,33 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
             self.sections.debugDescription,
             self.images.debugDescription,
             self.entityDescription];
+}
+
+- (NSArray*)allImageURLs {
+    NSMutableArray* imageURLs = [[self.images.entries bk_map:^NSURL*(NSString* sourceURL) {
+        return [NSURL URLWithString:sourceURL];
+    }] mutableCopy];
+
+    [imageURLs addObjectsFromArray:
+     [[self.dataStore imageInfoForArticle:self] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, imageURL)]];
+
+    [imageURLs addObjectsFromArray:
+     [[self.dataStore imageInfoForArticle:self] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, imageThumbURL)]];
+
+    NSURL* articleImageURL = [NSURL wmf_optionalURLWithString:self.imageURL];
+    if (articleImageURL) {
+        [imageURLs addObject:articleImageURL];
+    }
+
+    NSURL* articleThumbnailURL = [NSURL wmf_optionalURLWithString:self.thumbnailURL];
+    if (articleThumbnailURL) {
+        [imageURLs addObject:articleThumbnailURL];
+    }
+
+    // remove any null objects inserted during above map/valueForKey operations
+    return [imageURLs bk_reject:^BOOL (id obj) {
+        return [NSNull null] == obj;
+    }];
 }
 
 @end

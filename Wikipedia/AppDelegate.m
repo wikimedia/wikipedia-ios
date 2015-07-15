@@ -3,10 +3,12 @@
 #import "AppDelegate.h"
 #import "BITHockeyManager+WMFExtensions.h"
 #import "WMFAppViewController.h"
+#import "Wikipedia-Swift.h"
 
 @interface AppDelegate ()
 
 @property(nonatomic, strong) WMFAppViewController* appViewController;
+@property(nonatomic, strong) WMFLegacyImageDataMigration* imageMigration;
 
 @end
 
@@ -42,7 +44,17 @@
     return _window;
 }
 
+- (WMFLegacyImageDataMigration*)imageMigration {
+    if (!_imageMigration) {
+        _imageMigration = [[WMFLegacyImageDataMigration alloc]
+                           initWithImageController:[WMFImageController sharedInstance]
+                                   legacyDataStore:[MWKDataStore new]];
+    }
+    return _imageMigration;
+}
+
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
+    [self.imageMigration setupAndStart];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
 
     WMFAppViewController* vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];

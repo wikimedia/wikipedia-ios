@@ -7,6 +7,17 @@
 //
 
 #import "MediaWikiKit.h"
+#import "NSObjectUtilities.h"
+
+typedef NS_ENUM (NSUInteger, MWKSavedPageEntrySchemaVersion) {
+    MWKSavedPageEntrySchemaVersionUnknown = 0,
+    MWKSavedPageEntrySchemaVersion1       = 1,
+    MWKSavedPageEntrySchemaVersionCurrent = MWKSavedPageEntrySchemaVersion1
+};
+
+static NSString* const MWKSavedPageEntrySchemaVersionKey = @"schemaVerison";
+
+static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateImageData";
 
 @interface MWKSavedPageEntry ()
 
@@ -18,8 +29,8 @@
 - (instancetype)initWithTitle:(MWKTitle*)title {
     self = [self initWithSite:title.site];
     if (self) {
-        self.title = title;
-        self.date  = [[NSDate alloc] init];
+        self.title               = title;
+        self.didMigrateImageData = YES;
     }
     return self;
 }
@@ -32,16 +43,37 @@
     self = [self initWithSite:[MWKSite siteWithDomain:domain language:language]];
     if (self) {
         self.title = [self requiredTitle:@"title" dict:dict];
+        NSNumber* schemaVersion = dict[MWKSavedPageEntrySchemaVersionKey];
+        if (schemaVersion.unsignedIntegerValue == MWKSavedPageEntrySchemaVersion1) {
+            self.didMigrateImageData =
+                [[self requiredNumber:MWKSavedPageEntryDidMigrateImageDataKey dict:dict] boolValue];
+        } else {
+            // entries reading legacy data have not been migrated
+            self.didMigrateImageData = NO;
+        }
     }
     return self;
+}
+
+WMF_SYNTHESIZE_IS_EQUAL(MWKSavedPageEntry, isEqualToEntry:)
+
+- (BOOL)isEqualToEntry:(MWKSavedPageEntry*)rhs {
+    return WMF_RHS_PROP_EQUAL(title, isEqualToTitle:)
+           && self.didMigrateImageData == rhs.didMigrateImageData;
+}
+
+- (NSUInteger)hash {
+    return self.didMigrateImageData ^ flipBitsWithAdditionalRotation(self.title.hash, 1);
 }
 
 - (id)dataExport {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
 
-    dict[@"domain"]   = self.site.domain;
-    dict[@"language"] = self.site.language;
-    dict[@"title"]    = self.title.text;
+    dict[MWKSavedPageEntrySchemaVersionKey]       = @(MWKSavedPageEntrySchemaVersionCurrent);
+    dict[MWKSavedPageEntryDidMigrateImageDataKey] = @(self.didMigrateImageData);
+    dict[@"domain"]                               = self.site.domain;
+    dict[@"language"]                             = self.site.language;
+    dict[@"title"]                                = self.title.text;
 
     return [NSDictionary dictionaryWithDictionary:dict];
 }

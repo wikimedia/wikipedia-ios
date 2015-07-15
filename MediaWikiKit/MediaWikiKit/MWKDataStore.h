@@ -56,6 +56,8 @@ extern NSString* MWKCreateImageURLWithPath(NSString* path);
 - (NSString*)pathForImagesWithTitle:(MWKTitle*)title;
 - (NSString*)pathForImageURL:(NSString*)url title:(MWKTitle*)title;
 - (NSString*)pathForImage:(MWKImage*)image;
+- (NSString*)pathForImageData:(MWKImage*)image;
+- (NSString*)pathForImageData:(NSString*)sourceURL title:(MWKTitle*)title;
 
 /**
  * The path where the image info is stored for a given article.
@@ -75,6 +77,8 @@ extern NSString* MWKCreateImageURLWithPath(NSString* path);
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList*)list error:(NSError**)error;
 - (void)saveImageList:(MWKImageList*)imageList;
 
+- (void)deleteArticle:(MWKArticle*)article;
+
 /**
  * Save an array of image info objects which belong to the specified article.
  * @param imageInfo An array of @c MWKImageInfo objects belonging to the specified article.
@@ -85,6 +89,7 @@ extern NSString* MWKCreateImageURLWithPath(NSString* path);
 - (void)saveImageInfo:(NSArray*)imageInfo forArticle:(MWKArticle*)article;
 
 // Raw load methods
+- (MWKArticle*)existingArticleWithTitle:(MWKTitle*)title;
 - (MWKArticle*)articleWithTitle:(MWKTitle*)title;
 - (MWKSection*)sectionWithId:(NSUInteger)sectionId article:(MWKArticle*)article;
 - (NSString*)sectionTextWithId:(NSUInteger)sectionId article:(MWKArticle*)article;

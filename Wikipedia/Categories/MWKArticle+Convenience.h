@@ -12,5 +12,5 @@
 // any section, (such as a higher resolution variant of an
 // image which is associated with a section).
 - (MWKImage*)importImageURL:(NSString*)url
-                  imageData:(NSData*)imageData;
+                  imageData:(NSData*)imageData __deprecated;
 @end

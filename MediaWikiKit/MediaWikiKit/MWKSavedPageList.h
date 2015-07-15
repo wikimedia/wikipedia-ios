@@ -4,6 +4,8 @@
 @class MWKTitle;
 @class MWKSavedPageEntry;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MWKSavedPageList : MWKDataObject <NSFastEnumeration>
 
 /**
@@ -28,9 +30,17 @@
 - (MWKSavedPageEntry*)entryAtIndex:(NSUInteger)index;
 - (NSUInteger)indexForEntry:(MWKSavedPageEntry*)entry;
 
-- (MWKSavedPageEntry*)entryForTitle:(MWKTitle*)title;
+- (MWKSavedPageEntry* __nullable)entryForTitle:(MWKTitle*)title;
 - (BOOL)isSaved:(MWKTitle*)title;
 
+/**
+ * Change properties on a specific entry without changing its order in the list
+ * @param title     The title of the entry you want to change.
+ * @param update    Block which mutates the entry matching that title, if one was found, then returns
+ *                  `YES` if the entry was mutated (and the list should be changed the next time `save` is
+ *                  called, or `NO` if no change occurred.
+ */
+- (void)updateEntryWithTitle:(MWKTitle*)title update:(BOOL (^)(MWKSavedPageEntry*))update;
 
 /**
  *  Toggle Saved Page status for a title
@@ -85,3 +95,5 @@
 
 
 @end
+
+NS_ASSUME_NONNULL_END

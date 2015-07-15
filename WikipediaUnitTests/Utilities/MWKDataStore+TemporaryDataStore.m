@@ -9,6 +9,8 @@
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFRandomFileUtilities.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation MWKDataStore (TemporaryDataStore)
 
 + (instancetype)temporaryDataStore {
@@ -16,3 +18,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

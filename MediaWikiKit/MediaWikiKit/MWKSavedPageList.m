@@ -117,19 +117,23 @@
         return;
     }
 
-    NSDate* accessDate = entry.date ? entry.date : [NSDate date];
-
     MWKSavedPageEntry* newEntry = entry;
     MWKSavedPageEntry* oldEntry = [self entryForTitle:entry.title];
     if (oldEntry) {
         [self.mutableEntries removeObject:oldEntry];
-        newEntry = oldEntry;
     }
 
-    newEntry.date                       = accessDate;
     self.entriesByTitle[newEntry.title] = newEntry;
     [self.mutableEntries insertObject:newEntry atIndex:0];
     self.dirty = YES;
+}
+
+- (void)updateEntryWithTitle:(MWKTitle*)title update:(BOOL (^)(MWKSavedPageEntry*))update {
+    MWKSavedPageEntry* entry = [self entryForTitle:title];
+    if (entry) {
+        // prevent reseting "dirty" if block returns NO and dirty was already YES
+        self.dirty |= update(entry);
+    }
 }
 
 - (void)removeSavedPageWithTitle:(MWKTitle*)title {

@@ -32,7 +32,7 @@
         return nil;
     }
     NSString* str = [self optionalString:key dict:dict];
-    if (str == nil) {
+    if (str == nil || str.length == 0) {
         return nil;
     } else {
         return [self.site titleWithString:str];
