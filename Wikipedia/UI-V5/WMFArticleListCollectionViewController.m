@@ -10,6 +10,7 @@
 #import "WMFArticleListTranstion.h"
 
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "MediaWikiKit.h"
 
 NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
     return [indexes bk_mapIndex:^id (NSUInteger index) {

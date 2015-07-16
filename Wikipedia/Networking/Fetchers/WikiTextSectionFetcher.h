@@ -4,6 +4,8 @@
 #import <Foundation/Foundation.h>
 #import "FetcherBase.h"
 
+@class MWKSection;
+
 typedef NS_ENUM (NSInteger, WikiTextFetcherErrorType) {
     WIKITEXT_FETCHER_ERROR_UNKNOWN    = 0,
     WIKITEXT_FETCHER_ERROR_API        = 1,

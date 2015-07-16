@@ -2,6 +2,8 @@
 #import <UIKit/UIKit.h>
 #import "WMFArticleListDataSource.h"
 
+@class MWKDataStore, MWKSavedPageList, MWKHistoryList;
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM (NSUInteger, WMFArticleListMode) {

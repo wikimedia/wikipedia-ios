@@ -19,6 +19,7 @@
 #import "WMFArticlePresenter.h"
 #import <CoreLocation/CoreLocation.h>
 #import "UIView+WMFRTLMirroring.h"
+#import "MediaWikiKit.h"
 
 #define TABLE_CELL_ID @"NearbyResultCollectionCell"
 

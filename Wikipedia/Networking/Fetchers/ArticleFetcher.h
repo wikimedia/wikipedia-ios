@@ -4,7 +4,7 @@
 #import <Foundation/Foundation.h>
 #import "FetcherBase.h"
 
-@class AFHTTPRequestOperationManager, ArticleFetcher, AFHTTPRequestOperation, MWKTitle;
+@class AFHTTPRequestOperationManager, ArticleFetcher, AFHTTPRequestOperation, MWKTitle, MWKDataStore;
 
 @interface ArticleFetcher : FetcherBase
 

@@ -9,6 +9,7 @@
 #import "WMFShareFunnel.h"
 #import "NSMutableDictionary+WMFMaybeSet.h"
 #import "NSString+Extras.h"
+#import "MediaWikiKit.h"
 
 static NSString* const kSchemaName             = @"MobileWikiAppShareAFact";
 static int const kSchemaVersion                = 11331974;

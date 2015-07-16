@@ -32,6 +32,7 @@
 #import "CaptchaResetter.h"
 #import "SavedPagesFunnel.h"
 #import "EditFunnel.h"
+#import "MediaWikiKit.h"
 
 typedef NS_ENUM (NSInteger, WMFCannedSummaryChoices) {
     CANNED_SUMMARY_TYPOS,

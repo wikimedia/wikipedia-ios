@@ -4,6 +4,7 @@
 
 @class MWKSite;
 @class WMFSearchResults;
+@class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 

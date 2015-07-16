@@ -6,6 +6,7 @@
 #import "QueuesSingleton.h"
 #import "WMFURLCache.h"
 #import "WMFAssetsFile.h"
+#import "MediaWikiKit.h"
 
 @interface SessionSingleton ()
 

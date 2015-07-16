@@ -8,6 +8,8 @@
 
 #import "MWKDataObject.h"
 
+@class MWKSection;
+
 @interface MWKSectionList : MWKDataObject <NSFastEnumeration>
 
 /**

@@ -6,6 +6,7 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
+#import "MediaWikiKit.h"
 
 #define WIKIDATA_ENDPOINT @"https://www.wikidata.org/w/api.php"
 

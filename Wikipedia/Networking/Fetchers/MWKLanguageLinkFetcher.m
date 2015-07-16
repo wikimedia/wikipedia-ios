@@ -9,6 +9,7 @@
 #import "WikipediaAppUtils.h"
 #import "WMFNetworkUtilities.h"
 #import "MWKLanguageLinkResponseSerializer.h"
+#import "MediaWikiKit.h"
 
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 

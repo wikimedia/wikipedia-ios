@@ -1,6 +1,8 @@
 
 @protocol WMFSearchViewControllerDelegate;
 
+@class MWKSite, MWKDataStore, MWKUserDataStore;
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM (NSUInteger, WMFSearchState) {

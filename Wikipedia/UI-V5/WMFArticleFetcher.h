@@ -3,6 +3,7 @@
 
 @class MWKSite;
 @class MWKTitle;
+@class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 

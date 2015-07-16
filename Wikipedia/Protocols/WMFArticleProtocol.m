@@ -9,6 +9,7 @@
 #import "WMFArticleProtocol.h"
 #import "SessionSingleton.h"
 #import "NSURL+WMFRest.h"
+#import "MediaWikiKit.h"
 
 __attribute__((constructor)) static void WMFRegisterArticleProtocol() {
     [NSURLProtocol registerClass:[WMFArticleProtocol class]];

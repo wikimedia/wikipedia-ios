@@ -7,6 +7,7 @@
 //
 
 #import "WMFSuggestedPagesFunnel.h"
+#import "MediaWikiKit.h"
 
 static NSString* const kSchemaName = @"MobileWikiAppArticleSuggestions";
 static int const kSchemaVersion    = 10590869;

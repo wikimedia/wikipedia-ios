@@ -10,6 +10,7 @@
 #import "NSString+WMFHTMLParsing.h"
 #import "MWKSection+WMFSharing.h"
 #import <BlocksKit/BlocksKit.h>
+#import "MediaWikiKit.h"
 
 @implementation MWKArticle (WMFSharing)
 

@@ -13,7 +13,6 @@
 #import "WMFBlockDefinitions.h"
 #import "WMFComparison.h"
 
-#import "MediaWikiKit.h"
 #import "WMFArticlePresenter.h"
 
 static inline NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key){

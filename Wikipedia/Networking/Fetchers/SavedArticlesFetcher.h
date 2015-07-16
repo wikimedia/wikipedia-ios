@@ -1,8 +1,7 @@
 
 #import "FetcherBase.h"
 
-@class MWKArticle, MWKSavedPageList, AFHTTPRequestOperationManager;
-@class SavedArticlesFetcher;
+@class MWKArticle, MWKSavedPageList, AFHTTPRequestOperationManager, SavedArticlesFetcher, MWKDataStore;
 
 @protocol SavedArticlesFetcherDelegate <FetchFinishedDelegate>
 

@@ -10,6 +10,7 @@
 #import "EventLogger.h"
 #import "QueuesSingleton.h"
 #import "SessionSingleton.h"
+#import "MediaWikiKit.h"
 
 @implementation EventLoggingFunnel
 

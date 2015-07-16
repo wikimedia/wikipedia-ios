@@ -7,6 +7,7 @@
 #import "SessionSingleton.h"
 #import "WikipediaAppUtils.h"
 #import "NSObject+ConstraintsScale.h"
+#import "MediaWikiKit.h"
 
 #define MENU_HEADING_FONT_SIZE (13.0 * MENUS_SCALE_MULTIPLIER)
 #define MENU_SUB_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.5f alpha:1.0f]

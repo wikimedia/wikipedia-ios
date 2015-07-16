@@ -10,6 +10,7 @@
 #import "UIStoryboard+WMFExtensions.h"
 #import "UITabBarController+WMFExtensions.h"
 #import <Masonry/Masonry.h>
+#import "MediaWikiKit.h"
 
 typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     WMFAppTabTypeSaved = 0,

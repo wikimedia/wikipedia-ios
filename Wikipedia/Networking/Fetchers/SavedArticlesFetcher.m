@@ -2,6 +2,7 @@
 #import "SavedArticlesFetcher.h"
 #import "ArticleFetcher.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import "MediaWikiKit.h"
 
 @interface SavedArticlesFetcher ()
 

@@ -9,6 +9,7 @@
 #import "UIWebView+ElementLocation.h"
 #import "Defines.h"
 #import "UIScrollView+WMFScrollsToTop.h"
+#import "MediaWikiKit.h"
 
 #define REFERENCE_LINK_COLOR @"#2b6fb2"
 

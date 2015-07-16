@@ -15,6 +15,7 @@
 #import <BlocksKit/BlocksKit.h>
 #import <Masonry/Masonry.h>
 #import "UIView+WMFRTLMirroring.h"
+#import "MediaWikiKit.h"
 
 static CGFloat const LanguagesSectionFooterHeight = 10.f;
 

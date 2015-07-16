@@ -16,6 +16,7 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "PageHistoryFetcher.h"
 #import "UIView+WMFRTLMirroring.h"
+#import "MediaWikiKit.h"
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
 

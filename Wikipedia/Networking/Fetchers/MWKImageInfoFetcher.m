@@ -12,6 +12,7 @@
 #import "MWKArticle.h"
 #import "MWKImageList.h"
 #import <BlocksKit/BlocksKit.h>
+#import "MediaWikiKit.h"
 
 // FIXME: remove this soon
 #import "SessionSingleton.h"

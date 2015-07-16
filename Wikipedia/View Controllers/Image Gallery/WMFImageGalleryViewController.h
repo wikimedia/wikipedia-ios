@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class MWKArticle;
+@class MWKArticle, MWKImage;
 
 /// View controller which renders an article's images in a fullscreen, scrollable gallery.
 @interface WMFImageGalleryViewController : UICollectionViewController

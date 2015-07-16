@@ -3,6 +3,7 @@
 #import "MWKHistoryList.h"
 #import "MWKHistoryEntry.h"
 #import "MWKArticle.h"
+#import "MediaWikiKit.h"
 
 
 NS_ASSUME_NONNULL_BEGIN

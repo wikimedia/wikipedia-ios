@@ -1,4 +1,6 @@
 
+#import "MWKHistoryEntry.h"
+
 @interface WMFArticlePresenter : NSObject
 
 + (WMFArticlePresenter*)sharedInstance;

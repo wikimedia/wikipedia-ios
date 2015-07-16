@@ -22,6 +22,7 @@
 #import "WMFArticlePresenter.h"
 #import "SectionEditorViewController.h"
 #import "UIView+WMFRTLMirroring.h"
+#import "MediaWikiKit.h"
 
 @interface AccountCreationViewController ()
 

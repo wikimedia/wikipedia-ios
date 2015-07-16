@@ -16,6 +16,7 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "WMFArticleParsing.h"
 #import "ZeroConfigState.h"
+#import "MediaWikiKit.h"
 
 // Reminder: For caching reasons, don't do "(scale * 320)" here.
 #define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)

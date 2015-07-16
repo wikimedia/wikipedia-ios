@@ -26,6 +26,7 @@
 #import "AboutViewController.h"
 #import "WMFArticlePresenter.h"
 #import "UIView+WMFRTLMirroring.h"
+#import "MediaWikiKit.h"
 
 #pragma mark - Defines
 

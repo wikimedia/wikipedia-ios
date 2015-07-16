@@ -23,6 +23,7 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIView+WMFRTLMirroring.h"
+#import "MediaWikiKit.h"
 
 @interface LoginViewController (){
 }

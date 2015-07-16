@@ -14,7 +14,7 @@
 #import "QueuesSingleton.h"
 #import "SessionSingleton.h"
 #import "NSString+Extras.h"
-
+#import "MediaWikiKit.h"
 #import "Defines.h"
 #import "WMFAssetsFile.h"
 

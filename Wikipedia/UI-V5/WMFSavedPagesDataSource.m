@@ -3,6 +3,7 @@
 #import "MWKSavedPageList.h"
 #import "MWKSavedPageEntry.h"
 #import "MWKArticle.h"
+#import "MediaWikiKit.h"
 
 
 NS_ASSUME_NONNULL_BEGIN

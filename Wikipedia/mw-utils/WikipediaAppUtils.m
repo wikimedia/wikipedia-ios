@@ -6,6 +6,7 @@
 #import "SessionSingleton.h"
 #import "NSBundle+WMFInfoUtils.h"
 #import <BlocksKit/BlocksKit.h>
+#import "MediaWikiKit.h"
 
 NSUInteger MegabytesToBytes(NSUInteger m) {
     static NSUInteger const MEGABYTE = 1 << 20;

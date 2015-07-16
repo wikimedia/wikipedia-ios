@@ -8,6 +8,7 @@
 #import "MWLanguageInfo.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "MediaWikiKit.h"
 
 @implementation NSString (Extras)
 

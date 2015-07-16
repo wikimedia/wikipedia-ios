@@ -21,6 +21,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFArticlePresenter.h"
 #import "UIView+WMFRTLMirroring.h"
+#import "MediaWikiKit.h"
 
 #define TABLE_CELL_ID @"PrimaryMenuCell"
 
