@@ -5,13 +5,14 @@
 
 extern NSString* const WMFErrorDomain;
 extern NSString* const WMFRedirectTitleKey;
+extern NSString* const WMFRedirectTitleKey;
 
 typedef NS_ENUM(NSInteger, WMFErrorType) {
     
     WMFErrorTypeStringLength,
     WMFErrorTypeStringMissingParameter,
     WMFErrorTypeRedirected,
-
+    WMFErrorTypeUnableToSave
 };
 
 @interface NSError (WMFExtensions)
@@ -19,6 +20,8 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
 + (NSError*)wmf_errorWithType:(WMFErrorType)type userInfo:(NSDictionary*)userInfo;
 
 + (NSError*)wmf_redirectedErrorWithTitle:(MWKTitle*)redirectedtitle;
+
++ (NSError*)wmf_unableToSaveErrorWithReason:(NSString*)reason; //reason is specfied as NSLocalizedDescriptionKey
 
 - (BOOL)wmf_isWMFErrorDomain;
 

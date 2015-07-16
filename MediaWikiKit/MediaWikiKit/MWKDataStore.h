@@ -98,9 +98,9 @@ extern NSString* MWKCreateImageURLWithPath(NSString* path);
 - (NSArray*)imageInfoForArticle:(MWKArticle*)article;
 
 
-- (NSDictionary*)historyListData;
-- (NSDictionary*)savedPageListData;
-- (NSDictionary*)recentSearchListData;
+- (NSArray*)historyListData;
+- (NSArray*)savedPageListData;
+- (NSArray*)recentSearchListData;
 
 
 

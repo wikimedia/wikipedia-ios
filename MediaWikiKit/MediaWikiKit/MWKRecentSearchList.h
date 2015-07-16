@@ -1,14 +1,11 @@
 
+#import "MWKList.h"
 
-#import "MWKDataObject.h"
+@class MWKRecentSearchEntry, MWKDataStore;
 
-@class MWKRecentSearchEntry;
-
-@interface MWKRecentSearchList : MWKDataObject
+@interface MWKRecentSearchList : MWKList
 
 @property (readonly, weak, nonatomic) MWKDataStore* dataStore;
-@property (readonly, nonatomic, assign) NSUInteger length;
-@property (readonly, nonatomic, assign) BOOL dirty;
 
 /**
  *  Create saved page list and connect with data store.
@@ -29,13 +26,9 @@
  *
  *  @return The task. The result is the MWKSavedPageEntry.
  */
-- (AnyPromise*)addEntry:(MWKRecentSearchEntry*)entry;
+- (void)addEntry:(MWKRecentSearchEntry*)entry;
 
-/**
- *  Save changes to data store.
- *
- *  @return The task. Result will be nil.
- */
-- (AnyPromise*)save;
+
+- (NSArray*)dataExport;
 
 @end

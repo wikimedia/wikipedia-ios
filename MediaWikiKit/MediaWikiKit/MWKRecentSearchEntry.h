@@ -7,8 +7,9 @@
 //
 
 #import "MWKSiteDataObject.h"
+#import "MWKList.h"
 
-@interface MWKRecentSearchEntry : MWKSiteDataObject
+@interface MWKRecentSearchEntry : MWKSiteDataObject<MWKListObject>
 
 @property (readonly, copy, nonatomic) NSString* searchTerm;
 

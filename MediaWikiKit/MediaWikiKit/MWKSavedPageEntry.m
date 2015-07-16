@@ -66,6 +66,12 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKSavedPageEntry, isEqualToEntry:)
     return self.didMigrateImageData ^ flipBitsWithAdditionalRotation(self.title.hash, 1);
 }
 
+#pragma mark - MWKListObject
+
+- (id <NSCopying>)listIndex {
+    return self.title;
+}
+
 - (id)dataExport {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
 

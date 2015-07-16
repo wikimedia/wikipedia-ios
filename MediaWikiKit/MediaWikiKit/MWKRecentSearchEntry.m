@@ -33,6 +33,12 @@
     return self;
 }
 
+#pragma mark - MWKListObject
+
+- (id <NSCopying>)listIndex {
+    return self.searchTerm;
+}
+
 - (id)dataExport {
     return @{
                @"domain": self.site.domain,

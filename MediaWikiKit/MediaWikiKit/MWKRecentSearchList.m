@@ -1,15 +1,11 @@
 
 
+#import "MWKRecentSearchList.h"
 #import "MediaWikiKit.h"
-#import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 
 @interface MWKRecentSearchList ()
 
 @property (readwrite, weak, nonatomic) MWKDataStore* dataStore;
-@property (readwrite, nonatomic, assign) NSUInteger length;
-@property (readwrite, nonatomic, assign) BOOL dirty;
-@property (nonatomic, strong) NSMutableArray* entries;
 
 @end
 
@@ -18,75 +14,52 @@
 #pragma mark - Setup
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    self = [super init];
+    NSArray* entries = [[dataStore savedPageListData] bk_map:^id (id obj) {
+        return [[MWKRecentSearchEntry alloc] initWithDict:obj];
+    }];
+
+    self = [super initWithEntries:entries];
     if (self) {
         self.dataStore = dataStore;
-        self.entries   = [[NSMutableArray alloc] init];
-        NSDictionary* data = [self.dataStore historyListData];
-        [self importData:data];
     }
     return self;
 }
 
-#pragma mark - Data methods
-
-- (void)importData:(NSDictionary*)data {
-    for (NSDictionary* entryDict in data[@"entries"]) {
-        MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithDict:entryDict];
-        [self.entries addObject:entry];
-    }
-    self.dirty = NO;
-}
-
-- (id)dataExport {
-    NSMutableArray* dicts = [[NSMutableArray alloc] init];
-    for (MWKRecentSearchEntry* entry in self.entries) {
-        [dicts addObject:[entry dataExport]];
-    }
-    return @{@"entries": dicts};
-}
-
 #pragma mark - Data Update
 
-- (AnyPromise*)addEntry:(MWKRecentSearchEntry*)entry {
+- (void)addEntry:(MWKRecentSearchEntry*)entry {
     if (entry.searchTerm == nil) {
-        return [AnyPromise promiseWithValue:[NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]];
+        return;
     }
-
-    return dispatch_promise_on(dispatch_get_main_queue(), ^{
-        NSUInteger oldIndex = [self.entries indexOfObject:entry];
-        if (oldIndex != NSNotFound) {
-            // Move to top!
-            [self.entries removeObjectAtIndex:oldIndex];
-        }
-        [self.entries insertObject:entry atIndex:0];
-        self.dirty = YES;
-        // @todo trim to max?
-
-        return [AnyPromise promiseWithValue:entry];
-    });
+    [self removeEntryWithListIndex:entry.searchTerm];
+    [self insertEntry:entry atIndex:0];
 }
 
 #pragma mark - Entry Access
 
 - (MWKRecentSearchEntry*)entryAtIndex:(NSUInteger)index {
-    return self.entries[index];
+    return [super entryAtIndex:index];
 }
 
 #pragma mark - Save
 
-- (AnyPromise*)save {
-    return dispatch_promise_on(dispatch_get_main_queue(), ^{
-        NSError* error;
-        if (self.dirty && ![self.dataStore saveRecentSearchList:self error:&error]) {
-            NSAssert(NO, @"Error saving saved pages: %@", [error localizedDescription]);
-            return [AnyPromise promiseWithValue:error];
-        } else {
-            self.dirty = NO;
+- (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler {
+    NSError* error;
+    if ([self.dataStore saveRecentSearchList:self error:&error]) {
+        if (completion) {
+            completion();
         }
+    } else {
+        if (errorHandler) {
+            errorHandler(error);
+        }
+    }
+}
 
-        return [AnyPromise promiseWithValue:nil];
-    });
+- (NSArray*)dataExport {
+    return [self.entries bk_map:^id (MWKRecentSearchEntry* obj) {
+        return [obj dataExport];
+    }];
 }
 
 @end

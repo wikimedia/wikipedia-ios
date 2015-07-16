@@ -170,7 +170,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.savedPageList.length;
+    return [self.savedPageList countOfEntries];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -300,7 +300,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 }
 
 - (void)setEmptyOverlayAndTrashIconVisibility {
-    BOOL savedPageFound = (self.savedPageList.length > 0);
+    BOOL savedPageFound = ([self.savedPageList countOfEntries] > 0);
 
     self.emptyOverlay.hidden      = savedPageFound;
     self.reloadButtonItem.enabled = savedPageFound;
@@ -427,7 +427,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.25 animations:^{
             [self showRefreshButton];
-            if (self.savedPageList.length > 0) {
+            if ([self.savedPageList countOfEntries] > 0) {
                 [self showTrashButton];
             }
         }];

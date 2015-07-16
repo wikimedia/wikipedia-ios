@@ -231,19 +231,19 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (BOOL)saveHistoryList:(MWKHistoryList*)list error:(NSError**)error {
     NSString* path       = self.basePath;
-    NSDictionary* export = [list dataExport];
+    NSDictionary* export = @{@"entries": [list dataExport]};
     return [self saveDictionary:export path:path name:@"History.plist" error:error];
 }
 
 - (BOOL)saveSavedPageList:(MWKSavedPageList*)list error:(NSError**)error {
     NSString* path       = self.basePath;
-    NSDictionary* export = [list dataExport];
+    NSDictionary* export = @{@"entries": [list dataExport]};
     return [self saveDictionary:export path:path name:@"SavedPages.plist" error:error];
 }
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList*)list error:(NSError**)error {
     NSString* path       = self.basePath;
-    NSDictionary* export = [list dataExport];
+    NSDictionary* export = @{@"entries": [list dataExport]};
     return [self saveDictionary:export path:path name:@"RecentSearches.plist" error:error];
 }
 
@@ -341,25 +341,25 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return data;
 }
 
-- (NSDictionary*)historyListData {
+- (NSArray*)historyListData {
     NSString* path     = self.basePath;
     NSString* filePath = [path stringByAppendingPathComponent:@"History.plist"];
     NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    return dict;
+    return dict[@"entries"];
 }
 
-- (NSDictionary*)savedPageListData {
+- (NSArray*)savedPageListData {
     NSString* path     = self.basePath;
     NSString* filePath = [path stringByAppendingPathComponent:@"SavedPages.plist"];
     NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    return dict;
+    return dict[@"entries"];
 }
 
-- (NSDictionary*)recentSearchListData {
+- (NSArray*)recentSearchListData {
     NSString* path     = self.basePath;
     NSString* filePath = [path stringByAppendingPathComponent:@"RecentSearches.plist"];
     NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    return dict;
+    return dict[@"entries"];
 }
 
 - (NSArray*)imageInfoForArticle:(MWKArticle*)article;

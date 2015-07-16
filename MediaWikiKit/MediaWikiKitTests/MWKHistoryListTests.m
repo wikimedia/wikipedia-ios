@@ -35,7 +35,7 @@
 
     dataStore   = [MWKDataStore temporaryDataStore];
     historyList = [[MWKHistoryList alloc] initWithDataStore:dataStore];
-    NSAssert([historyList length] == 0, @"History list must be empty before tests begin.");
+    NSAssert([historyList countOfEntries] == 0, @"History list must be empty before tests begin.");
 }
 
 - (void)tearDown {
@@ -44,14 +44,14 @@
 }
 
 - (void)testEmptyCount {
-    XCTAssertEqual(historyList.length, 0, @"Should have length 0 initially");
+    XCTAssertEqual([historyList countOfEntries], 0, @"Should have length 0 initially");
 }
 
 - (void)testAddCount {
     MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn
                                                     discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     [historyList addEntry:entry];
-    XCTAssertEqual(historyList.length, 1, @"Should have length 1 after adding");
+    XCTAssertEqual([historyList countOfEntries], 1, @"Should have length 1 after adding");
 }
 
 - (void)testAddCount2 {
@@ -59,7 +59,7 @@
                                                  discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleLAEn
                                                  discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
-    XCTAssertEqual(historyList.length, 2, @"Should have length 2 after adding");
+    XCTAssertEqual([historyList countOfEntries], 2, @"Should have length 2 after adding");
 }
 
 - (void)testAddCount2Same {
@@ -67,7 +67,7 @@
                                                  discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleSFEn
                                                  discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
-    XCTAssertEqual(historyList.length, 1, @"Should have length 1 after adding a duplicate, not 2");
+    XCTAssertEqual([historyList countOfEntries], 1, @"Should have length 1 after adding a duplicate, not 2");
 }
 
 - (void)testAddCount2SameButDiffObjects {
@@ -77,7 +77,7 @@
                                                  discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:title2
                                                  discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
-    XCTAssertEqual(historyList.length, 1, @"Should have length 1 after adding a duplicate, not 2");
+    XCTAssertEqual([historyList countOfEntries], 1, @"Should have length 1 after adding a duplicate, not 2");
 }
 
 - (void)testAddCount2DiffLanguages {
@@ -85,7 +85,7 @@
                                                  discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
     [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleSFFr
                                                  discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
-    XCTAssertEqual(historyList.length, 2, @"Should have length 2 after adding a duplicate in another language, not 1");
+    XCTAssertEqual([historyList countOfEntries], 2, @"Should have length 2 after adding a duplicate in another language, not 1");
 }
 
 - (void)testEmptyNotDirty {
@@ -106,7 +106,7 @@
     [historyList addEntry:entry1];
     [historyList addEntry:entry2];
     [historyList removePageFromHistoryWithTitle:entry1.title];
-    XCTAssertEqual(historyList.length, 1, @"Should have length 1 after adding two then removing one");
+    XCTAssertEqual([historyList countOfEntries], 1, @"Should have length 1 after adding two then removing one");
 }
 
 @end

@@ -21,6 +21,7 @@
 #import "MWKImage.h"
 #import "MWKProtectionStatus.h"
 
+#import "MWKList.h"
 
 #import "MWKHistoryEntry.h"
 #import "MWKHistoryList.h"

@@ -190,6 +190,8 @@
 		0E466E551B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E466E541B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m */; };
 		0E7955C71B2B389800B055A2 /* TGLStackedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7955C31B2B389800B055A2 /* TGLStackedLayout.m */; };
 		0E7955D01B2B659500B055A2 /* WMFArticleListTranstion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7955CD1B2B659500B055A2 /* WMFArticleListTranstion.m */; };
+		0E869F121B56B83F002604C3 /* MWKList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F111B56B83F002604C3 /* MWKList.m */; };
+		0E869F151B582297002604C3 /* MWKListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F131B58228D002604C3 /* MWKListTests.m */; };
 		0E94AFEA1B209721000BC5EA /* iPhone_Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E94AFE91B209721000BC5EA /* iPhone_Root.storyboard */; };
 		0E94AFED1B20976A000BC5EA /* WMFAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E94AFEC1B20976A000BC5EA /* WMFAppViewController.m */; };
 		0E94AFF01B209792000BC5EA /* WMFArticleListCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E94AFEF1B209792000BC5EA /* WMFArticleListCollectionViewController.m */; };
@@ -756,6 +758,9 @@
 		0E7955CC1B2B659500B055A2 /* WMFArticleListTranstion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleListTranstion.h; sourceTree = "<group>"; };
 		0E7955CD1B2B659500B055A2 /* WMFArticleListTranstion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleListTranstion.m; sourceTree = "<group>"; };
 		0E7C6D4C1B3106A800F1F985 /* WMFArticleListDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleListDataSource.h; sourceTree = "<group>"; };
+		0E869F101B56B83F002604C3 /* MWKList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKList.h; sourceTree = "<group>"; };
+		0E869F111B56B83F002604C3 /* MWKList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKList.m; sourceTree = "<group>"; };
+		0E869F131B58228D002604C3 /* MWKListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKListTests.m; sourceTree = "<group>"; };
 		0E88F9211B4ED2AB00205C99 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = "UI-V5/WMFBlockDefinitions.h"; sourceTree = "<group>"; };
 		0E94AFE91B209721000BC5EA /* iPhone_Root.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhone_Root.storyboard; sourceTree = "<group>"; };
 		0E94AFEB1B20976A000BC5EA /* WMFAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFAppViewController.h; sourceTree = "<group>"; };
@@ -2346,6 +2351,8 @@
 			children = (
 				BCB6697D1A83F6C300C7B1FE /* MWKDataObject.h */,
 				BCB6697E1A83F6C300C7B1FE /* MWKDataObject.m */,
+				0E869F101B56B83F002604C3 /* MWKList.h */,
+				0E869F111B56B83F002604C3 /* MWKList.m */,
 				BCB6697F1A83F6C300C7B1FE /* MWKSiteDataObject.h */,
 				BCB669801A83F6C300C7B1FE /* MWKSiteDataObject.m */,
 				BCB669811A83F6C300C7B1FE /* MWKUser.h */,
@@ -2417,6 +2424,7 @@
 				BCB669CE1A83F6D300C7B1FE /* MWKDataStoreStorageTests.m */,
 				BCB669CF1A83F6D300C7B1FE /* MWKImageStorageTests.m */,
 				BCB669D01A83F6D300C7B1FE /* MWKHistoryListTests.m */,
+				0E869F131B58228D002604C3 /* MWKListTests.m */,
 				BCB66A0F1A851C9B00C7B1FE /* MWKImageListTests.m */,
 				BCB58F7D1A8D1B8400465627 /* MWKImageInfo+MWKImageComparisonTests.m */,
 			);
@@ -3124,6 +3132,7 @@
 				BC31B2521AB1D9DC008138CA /* WMFImageInfoControllerTests.m in Sources */,
 				BC0FED641AAA0263002488D7 /* MWKArticleStoreTestCase.m in Sources */,
 				BCA676561AC05FE200A16160 /* NSBundle+TestAssets.m in Sources */,
+				0E869F151B582297002604C3 /* MWKListTests.m in Sources */,
 				BCB8487B1AAAADF90077EC24 /* WMFRoundingUtilitiesTests.m in Sources */,
 				BC0FED6F1AAA0268002488D7 /* MWKImageInfo+MWKImageComparisonTests.m in Sources */,
 				BC0FED621AAA0263002488D7 /* WMFCodingStyle.m in Sources */,
@@ -3259,6 +3268,7 @@
 				04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */,
 				0487048C19F8262600B7D307 /* SearchResultFetcher.m in Sources */,
 				0E366B471B2F614E00ABFB86 /* PromiseKit.m in Sources */,
+				0E869F121B56B83F002604C3 /* MWKList.m in Sources */,
 				BC23759A1AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.m in Sources */,
 				04090A3B187FB7D000577EDF /* UIView+Debugging.m in Sources */,
 				BCC185D81A9E5628005378F8 /* UILabel+WMFStyling.m in Sources */,

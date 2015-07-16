@@ -64,19 +64,6 @@
            && self.scrollPosition == entry.scrollPosition;
 }
 
-- (id)dataExport {
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-
-    dict[@"domain"]          = self.site.domain;
-    dict[@"language"]        = self.site.language;
-    dict[@"title"]           = self.title.dataBaseKey;
-    dict[@"date"]            = [self iso8601DateString:self.date];
-    dict[@"discoveryMethod"] = [MWKHistoryEntry stringForDiscoveryMethod:self.discoveryMethod];
-    dict[@"scrollPosition"]  = @(self.scrollPosition);
-
-    return [NSDictionary dictionaryWithDictionary:dict];
-}
-
 + (NSString*)stringForDiscoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     switch (discoveryMethod) {
         case MWKHistoryDiscoveryMethodSearch:
@@ -108,6 +95,25 @@
     } else {
         return MWKHistoryDiscoveryMethodUnknown;
     }
+}
+
+#pragma mark - MWKListObject
+
+- (id <NSCopying>)listIndex {
+    return self.title;
+}
+
+- (id)dataExport {
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+
+    dict[@"domain"]          = self.site.domain;
+    dict[@"language"]        = self.site.language;
+    dict[@"title"]           = self.title.dataBaseKey;
+    dict[@"date"]            = [self iso8601DateString:self.date];
+    dict[@"discoveryMethod"] = [MWKHistoryEntry stringForDiscoveryMethod:self.discoveryMethod];
+    dict[@"scrollPosition"]  = @(self.scrollPosition);
+
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
 @end

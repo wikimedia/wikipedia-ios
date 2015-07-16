@@ -7,6 +7,7 @@
 //
 
 #import "MWKSiteDataObject.h"
+#import "MWKList.h"
 
 @class MWKTitle;
 
@@ -21,7 +22,7 @@ typedef NS_ENUM (NSUInteger, MWKHistoryDiscoveryMethod){
     MWKHistoryDiscoveryMethodReloadFromCache,
 };
 
-@interface MWKHistoryEntry : MWKSiteDataObject
+@interface MWKHistoryEntry : MWKSiteDataObject<MWKListObject>
 
 @property (readonly, strong, nonatomic) MWKTitle* title;
 @property (readwrite, strong, nonatomic) NSDate* date;

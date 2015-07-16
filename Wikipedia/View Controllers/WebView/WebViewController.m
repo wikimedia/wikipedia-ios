@@ -1164,7 +1164,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     // 'leaf' to hang off of, but this works for now.
     MWKHistoryList* historyList = self.session.userDataStore.historyList;
     //NSLog(@"XXX %d", (int)historyList.length);
-    if (historyList.length > 0) {
+    if ([historyList countOfEntries] > 0) {
         [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.session.currentArticle.title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
     }
 }
@@ -1593,28 +1593,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateProgress:0.85 animated:YES completion:NULL];
     });
-}
-
-- (NSDictionary*)getAdjacentHistoryEntries {
-    SessionSingleton* session   = [SessionSingleton sharedInstance];
-    MWKHistoryList* historyList = session.userDataStore.historyList;
-
-    MWKHistoryEntry* currentHistoryEntry = [historyList entryForTitle:session.currentArticle.title];
-    MWKHistoryEntry* beforeHistoryEntry  = [historyList entryBeforeEntry:currentHistoryEntry];
-    MWKHistoryEntry* afterHistoryEntry   = [historyList entryAfterEntry:currentHistoryEntry];
-
-    NSMutableDictionary* result = [@{} mutableCopy];
-    if (beforeHistoryEntry) {
-        result[@"before"] = beforeHistoryEntry;
-    }
-    if (currentHistoryEntry) {
-        result[@"current"] = currentHistoryEntry;
-    }
-    if (afterHistoryEntry) {
-        result[@"after"] = afterHistoryEntry;
-    }
-
-    return result;
 }
 
 - (void)updateBottomBarButtonsEnabledState {

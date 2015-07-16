@@ -1,4 +1,5 @@
 #import "WikipediaAppUtils.h"
+#import "WMFBlockDefinitions.h"
 #import "MediaWikiKit.h"
 #import "WMFGCDHelpers.h"
 #import "NSURL+Extras.h"

@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSUInteger)articleCount {
-    return [[self savedPages] length];
+    return [[self savedPages] countOfEntries];
 }
 
 - (MWKSavedPageEntry*)savedPageForIndexPath:(NSIndexPath*)indexPath {

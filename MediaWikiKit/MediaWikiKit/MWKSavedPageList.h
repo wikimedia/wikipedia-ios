@@ -1,23 +1,13 @@
 
-#import "MWKDataObject.h"
+#import "MWKList.h"
 
 @class MWKTitle;
 @class MWKSavedPageEntry;
 @class MWKDataStore;
-@class AnyPromise;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWKSavedPageList : MWKDataObject <NSFastEnumeration>
-
-/**
- *  Observable - observe to get KVO notifications
- */
-@property (nonatomic, strong, readonly) NSArray* entries;
-
-@property (readonly, weak, nonatomic) MWKDataStore* dataStore;
-@property (readonly, nonatomic, assign) NSUInteger length;
-@property (readonly, nonatomic, assign) BOOL dirty;
+@interface MWKSavedPageList : MWKList
 
 /**
  *  Create saved page list and connect with data store.
@@ -29,10 +19,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
+@property (readonly, weak, nonatomic) MWKDataStore* dataStore;
+
 - (MWKSavedPageEntry*)entryAtIndex:(NSUInteger)index;
+- (MWKSavedPageEntry* __nullable)entryForTitle:(MWKTitle*)title;
+
 - (NSUInteger)indexForEntry:(MWKSavedPageEntry*)entry;
 
-- (MWKSavedPageEntry* __nullable)entryForTitle:(MWKTitle*)title;
 - (BOOL)isSaved:(MWKTitle*)title;
 
 /**
@@ -88,13 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)removeAllSavedPages;
 
-/**
- *  Save changes to data store.
- *
- *  @return The task. Result will be nil.
- */
-- (AnyPromise*)save;
 
+- (NSArray*)dataExport;
 
 @end
 

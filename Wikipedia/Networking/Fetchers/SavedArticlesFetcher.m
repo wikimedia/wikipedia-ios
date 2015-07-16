@@ -100,11 +100,11 @@ static SavedArticlesFetcher* _fetcher = nil;
 }
 
 - (CGFloat)progress {
-    if ([self.savedPageList length] == 0) {
+    if ([self.savedPageList countOfEntries] == 0) {
         return 0.0;
     }
 
-    return (CGFloat)([self.savedPageList length] - [self.fetchersByArticleTitle count]) / (CGFloat)[self.savedPageList length];
+    return (CGFloat)([self.savedPageList countOfEntries] - [self.fetchersByArticleTitle count]) / (CGFloat)[self.savedPageList countOfEntries];
 }
 
 #pragma mark - Delegate Notification

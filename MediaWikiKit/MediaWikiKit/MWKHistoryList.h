@@ -1,21 +1,13 @@
 
-#import "MWKDataObject.h"
+#import "MWKList.h"
 
 @class MWKTitle;
 @class MWKHistoryEntry;
 @class MWKDataStore;
-@class AnyPromise;
 
-@interface MWKHistoryList : MWKDataObject <NSFastEnumeration>
+NS_ASSUME_NONNULL_BEGIN
 
-/**
- *  Observable - observe to get KVO notifications
- */
-@property (nonatomic, strong, readonly)  NSArray* entries;
-
-@property (nonatomic, weak, readonly) MWKDataStore* dataStore;
-@property (nonatomic, assign, readonly) NSUInteger length;
-@property (nonatomic, assign, readonly) BOOL dirty;
+@interface MWKHistoryList : MWKList
 
 /**
  *  Create history list and connect with data store.
@@ -27,12 +19,12 @@
  */
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
+@property (nonatomic, weak, readonly) MWKDataStore* dataStore;
+
 - (MWKHistoryEntry*)entryAtIndex:(NSUInteger)index;
-- (MWKHistoryEntry*)entryForTitle:(MWKTitle*)title;
+- (MWKHistoryEntry* __nullable)entryForTitle:(MWKTitle*)title;
 
 - (NSUInteger)indexForEntry:(MWKHistoryEntry*)entry;
-- (MWKHistoryEntry*)entryAfterEntry:(MWKHistoryEntry*)entry;
-- (MWKHistoryEntry*)entryBeforeEntry:(MWKHistoryEntry*)entry;
 
 - (MWKHistoryEntry*)mostRecentEntry;
 
@@ -94,13 +86,10 @@
  */
 - (void)removeAllEntriesFromHistory;
 
-/**
- *  Save changes to data store.
- *
- *  @return The task. Result will be nil.
- */
-- (AnyPromise*)save;
 
-
+- (NSArray*)dataExport;
 
 @end
+
+NS_ASSUME_NONNULL_END
+

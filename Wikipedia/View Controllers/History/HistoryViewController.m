@@ -151,7 +151,7 @@
     NSMutableArray* lastMonth = [@[] mutableCopy];
     NSMutableArray* garbage   = [@[] mutableCopy];
 
-    for (int i = 0; i < self.historyList.length; i++) {
+    for (int i = 0; i < [self.historyList countOfEntries]; i++) {
         MWKHistoryEntry* history = [self.historyList entryAtIndex:i];
         /*
            NSLog(@"HISTORY:\n\t\

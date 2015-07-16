@@ -7,12 +7,14 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "MediaWikiKit.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class MWKArticle;
 @class MWKTitle;
 @class MWKDataStore;
+
 
 @interface XCTestCase (MWKFixtures)
 

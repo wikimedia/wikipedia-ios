@@ -17,6 +17,12 @@ NSString* const WMFRedirectTitleKey = @"WMFRedirectTitleKey";
     
 }
 
++ (NSError*)wmf_unableToSaveErrorWithReason:(NSString*)reason{
+    
+    return [self wmf_errorWithType:WMFErrorTypeUnableToSave userInfo:reason ? @{NSLocalizedDescriptionKey : reason}: nil];
+}
+
+
 - (BOOL)wmf_isWMFErrorDomain{
     if([self.domain isEqualToString:WMFErrorDomain]){
         return YES;

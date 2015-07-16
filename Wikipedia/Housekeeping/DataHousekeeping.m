@@ -32,7 +32,7 @@
     MWKSavedPageList* savedPageList = userDataStore.savedPageList;
 
 
-    NSMutableSet* articlesToSave = [NSMutableSet setWithCapacity:savedPageList.length];
+    NSMutableSet* articlesToSave = [NSMutableSet setWithCapacity:[savedPageList countOfEntries]];
 
     // Keep all saved pages
     for (MWKSavedPageEntry* entry in savedPageList) {
@@ -40,7 +40,7 @@
     }
 
     // Keep most recent MAX_HISTORY_ENTRIES history entries
-    NSMutableArray* historyEntriesToPrune = [NSMutableArray arrayWithCapacity:historyList.length];
+    NSMutableArray* historyEntriesToPrune = [NSMutableArray arrayWithCapacity:[historyList countOfEntries]];
     int n                                 = 0;
     for (MWKHistoryEntry* entry in historyList) {
         if (n++ < MAX_HISTORY_ENTRIES) {

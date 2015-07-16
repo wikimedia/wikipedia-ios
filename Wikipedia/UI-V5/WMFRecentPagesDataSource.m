@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSUInteger)articleCount {
-    return [[self recentPages] length];
+    return [[self recentPages] countOfEntries];
 }
 
 - (MWKHistoryEntry*)recentPageForIndexPath:(NSIndexPath*)indexPath {
