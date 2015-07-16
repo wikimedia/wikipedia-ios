@@ -22,6 +22,7 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
 @property (nonatomic, weak, readonly) UIImageView* imageView;
 @property (nonatomic, weak, readonly) UIScrollView* imageContainerView;
 @property (nonatomic, weak, readonly) WMFGradientView* gradientView;
+@property (nonatomic, weak, readonly) UIActivityIndicatorView* loadingIndicator;
 
 /**
  * Use this getter (instead of @c imageSize or <code>image.size</code>) to resolve the image size for display &
@@ -37,6 +38,7 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        _zoomEnabled                   = YES;
         self.contentView.clipsToBounds = YES;
 
         _imageSize = CGSizeZero;
@@ -55,6 +57,16 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
         [self.imageContainerView addSubview:imageView];
         _imageView = imageView;
 
+        WMFImageGalleryDetailOverlayView* detailOverlayView = [WMFImageGalleryDetailOverlayView wmf_viewFromClassNib];
+        detailOverlayView.userInteractionEnabled = NO;
+        [self.contentView addSubview:detailOverlayView];
+        _detailOverlayView = detailOverlayView;
+
+        [self.detailOverlayView mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.height.lessThanOrEqualTo(@(WMFImageGalleryMaxDetailHeight)).with.priorityHigh();
+            make.leading.trailing.and.bottom.equalTo(self.contentView);
+        }];
+
         WMFGradientView* gradientView = [WMFGradientView new];
         [gradientView.gradientLayer setLocations:@[@0, @1]];
         [gradientView.gradientLayer setColors:@[(id)[UIColor colorWithWhite:0.0 alpha:1.0].CGColor,
@@ -63,27 +75,22 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
         [gradientView.gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];
         [gradientView.gradientLayer setEndPoint:CGPointMake(0.5, 0.0)];
         gradientView.userInteractionEnabled = NO;
-        [self.contentView addSubview:gradientView];
+        [self.detailOverlayView addSubview:gradientView];
+        [self.detailOverlayView sendSubviewToBack:gradientView];
         _gradientView = gradientView;
 
-        WMFImageGalleryDetailOverlayView* detailOverlayView = [WMFImageGalleryDetailOverlayView wmf_viewFromClassNib];
-        detailOverlayView.userInteractionEnabled = NO;
-        [self.contentView addSubview:detailOverlayView];
-        _detailOverlayView = detailOverlayView;
-
-        [self.detailOverlayView mas_makeConstraints:^(MASConstraintMaker* make) {
-            make.height.lessThanOrEqualTo(@(WMFImageGalleryMaxDetailHeight)).with.priorityHigh();
-            make.leading.equalTo(self.contentView.mas_leading);
-            make.trailing.equalTo(self.contentView.mas_trailing);
-            make.bottom.equalTo(self.contentView.mas_bottom);
-        }];
-
         [self.gradientView mas_makeConstraints:^(MASConstraintMaker* make) {
-            make.leading.equalTo(self.contentView.mas_leading);
-            make.trailing.equalTo(self.contentView.mas_trailing);
-            make.bottom.equalTo(self.detailOverlayView.mas_bottom);
-            make.top.equalTo(self.detailOverlayView.mas_top);
+            make.edges.equalTo(self.detailOverlayView);
         }];
+
+        UIActivityIndicatorView* loadingIndicator =
+            [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        loadingIndicator.hidesWhenStopped = YES;
+        [self.contentView addSubview:loadingIndicator];
+        [loadingIndicator mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.center.equalTo(self.contentView);
+        }];
+        _loadingIndicator = loadingIndicator;
     }
     return self;
 }
@@ -92,12 +99,26 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
     [super prepareForReuse];
     [self.detailOverlayView setImageDescription:nil];
     [self.detailOverlayView setLicense:nil owner:nil];
-    self.gradientView.hidden                = NO;
-    self.detailOverlayView.hidden           = NO;
-    self.detailOverlayView.ownerTapCallback = nil;
-    self.image                              = nil;
-    self.imageSize                          = CGSizeZero;
-    self.imageContainerView.contentOffset   = CGPointZero;
+    self.gradientView.hidden                       = NO;
+    self.detailOverlayView.hidden                  = NO;
+    self.detailOverlayView.ownerTapCallback        = nil;
+    self.image                                     = nil;
+    self.imageSize                                 = CGSizeZero;
+    self.imageContainerView.contentOffset          = CGPointZero;
+    self.imageContainerView.userInteractionEnabled = YES;
+    self.zoomEnabled                               = YES;
+    self.loading                                   = NO;
+}
+
+- (void)setZoomEnabled:(BOOL)zoomEnabled {
+    if (_zoomEnabled == zoomEnabled) {
+        return;
+    }
+    _zoomEnabled               = zoomEnabled;
+    self.imageView.contentMode = _zoomEnabled ?
+                                 UIViewContentModeScaleAspectFit : UIViewContentModeScaleAspectFill;
+    // trigger layout to recalculate zoom factors & frames
+    [self setNeedsLayout];
 }
 
 #pragma mark - Layout
@@ -130,14 +151,23 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
      */
     self.imageContainerView.frame       = self.contentView.bounds;
     self.imageContainerView.contentSize = self.contentView.bounds.size;
-    self.imageView.frame                = (CGRect){
-        .origin = CGPointZero,
-        .size   = self.effectiveImageSize
-    };
 
-    // once frames are set, transforms & insets can be applied
-    [self resetScaleFactors];
-    [self centerImageInScrollView];
+    if (self.isZoomEnabled) {
+        self.imageView.frame = (CGRect){
+            .origin = CGPointZero,
+            .size   = self.effectiveImageSize
+        };
+    } else {
+        self.imageView.frame = self.imageContainerView.bounds;
+    }
+
+    if (self.isZoomEnabled) {
+        // once frames are set, transforms & insets can be applied
+        [self resetScaleFactors];
+        [self centerImageInScrollView];
+    } else {
+        self.imageContainerView.contentInset = UIEdgeInsetsZero;
+    }
 }
 
 #pragma mark - View Updates
@@ -167,7 +197,6 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
 
 /**
  * Set the min/max/current @c zoomScale for <code>imageContainerView</code>. See implementation comments for details.
- * @note This is invoked automatically by @c centerImageInScrollView
  */
 - (void)resetScaleFactors {
     if (self.image) {
@@ -176,7 +205,7 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
         double const heightScale = self.contentView.frame.size.height / self.effectiveImageSize.height;
         /*
            The minimum & maximum scales need to be rounded *down*, otherwise there's an "off by one" error where the
-           contents of @c imageContainerView are _just_ larger than its @c contentSize, which causes paging glitches.
+           contents of imageContainerView are _just_ larger than its contentSize, which causes paging glitches.
          */
         double const minScale = FlooredPercentage(fmin(widthScale, heightScale));
 
@@ -222,9 +251,35 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
     [self setNeedsLayout];
 }
 
-- (void)setDetailViewAlpha:(float)alpha {
-    self.gradientView.alpha = alpha;
-    [self.detailOverlayView setGroupAlpha:alpha];
+#pragma mark - Loading
+
+- (void)startLoadingAfterDelay:(NSTimeInterval)seconds {
+    // cancel any previous calls
+    [self cancelStartLoading];
+    // schedule a call that will start the loading indicator animating in `seconds`
+    [self.loadingIndicator performSelector:@selector(startAnimating)
+                                withObject:nil
+                                afterDelay:seconds];
+}
+
+- (void)cancelStartLoading {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self.loadingIndicator
+                                             selector:@selector(startAnimating)
+                                               object:nil];
+}
+
+- (BOOL)isLoading {
+    return self.loadingIndicator.isAnimating;
+}
+
+- (void)setLoading:(BOOL)loading {
+    [self cancelStartLoading];
+
+    if (loading) {
+        [self.loadingIndicator startAnimating];
+    } else {
+        [self.loadingIndicator stopAnimating];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -235,7 +290,7 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
 }
 
 - (UIView*)viewForZoomingInScrollView:(UIScrollView*)imageScrollView {
-    return self.imageView;
+    return self.isZoomEnabled ? self.imageView : nil;
 }
 
 @end

@@ -10,8 +10,10 @@
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "MWNetworkActivityIndicatorManager.h"
-#import "NSArray+WMFExtensions.h"
+#import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "NSIndexSet+BKReduce.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 #undef LOG_LEVEL_DEF
 #define LOG_LEVEL_DEF WMFImageInfoControllerLogLevel
@@ -19,7 +21,7 @@
 static const int LOG_LEVEL_DEF = DDLogLevelDebug;
 
 
-NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
+NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
     return [imageInfo bk_index:^id < NSCopying > (MWKImageInfo* info) {
         return info.imageAssociationValue ? : [NSNull null];
     }];
@@ -32,18 +34,17 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 @synthesize fetchedIndices      = _fetchedIndices;
 @synthesize uniqueArticleImages = _uniqueArticleImages;
 
-- (instancetype)initWithArticle:(MWKArticle*)article batchSize:(NSUInteger)batchSize {
+- (instancetype)initWithArticle:(MWKArticle* __nullable)article batchSize:(NSUInteger)batchSize {
     return [self initWithArticle:article batchSize:batchSize infoFetcher:[[MWKImageInfoFetcher alloc] initWithDelegate:nil]];
 }
 
-- (instancetype)initWithArticle:(MWKArticle*)article
+- (instancetype)initWithArticle:(MWKArticle* __nullable)article
                       batchSize:(NSUInteger)batchSize
                     infoFetcher:(MWKImageInfoFetcher*)fetcher {
     NSAssert(batchSize <= 50, @"Only up to 50 titles can be retrieved at a time.");
     self = [super init];
     if (self) {
         _article          = article;
-        _dataStore        = article.dataStore;
         _imageInfoFetcher = fetcher;
         _infoBatchSize    = batchSize;
     }
@@ -52,13 +53,28 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 
 #pragma mark - Accessors
 
+- (void)setArticle:(MWKArticle* __nullable)article {
+    if ([_article isEqualToArticle:article]) {
+        return;
+    }
+    _article = article;
+
+    // reset all lazily-calculated properties and state
+    _uniqueArticleImages = nil;
+    _imageFilePageTitles = nil;
+    _indexedImageInfo    = nil;
+    _fetchedIndices      = nil;
+}
+
 - (NSArray*)uniqueArticleImages {
+    if (!self.article) {
+        return @[];
+    }
     if (!_uniqueArticleImages) {
         NSArray* uniqueArticleImages = [self.article.images uniqueLargestVariants];
 
         // reverse article images if current language is RTL
-        _uniqueArticleImages =
-            [WikipediaAppUtils isDeviceLanguageRTL] ? [uniqueArticleImages wmf_reverseArray] : uniqueArticleImages;
+        _uniqueArticleImages = [uniqueArticleImages wmf_reverseArrayIfApplicationIsRTL];;
 
         NSMutableArray* imageFilePageTitles = [NSMutableArray arrayWithCapacity:_uniqueArticleImages.count];
 
@@ -80,15 +96,22 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
         // strictly evaluate iamgeFilePageTitles to filter out any images don't have a canonicalFilename
         _imageFilePageTitles = [imageFilePageTitles copy];
     }
-    return _uniqueArticleImages;
+    return _uniqueArticleImages ? : @[];
 }
 
 - (NSDictionary*)indexedImageInfo {
+    if (!self.article) {
+        return @{};
+    }
     if (!_indexedImageInfo) {
         _indexedImageInfo =
             WMFIndexImageInfo([self.dataStore imageInfoForArticle:self.article]) ? : [NSMutableDictionary new];
     }
     return _indexedImageInfo;
+}
+
+- (MWKDataStore* __nullable)dataStore {
+    return self.article.dataStore;
 }
 
 - (NSUInteger)indexOfImageAssociatedWithInfo:(MWKImageInfo*)info {
@@ -114,25 +137,25 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
             return acc;
         }];
     }
-    return _fetchedIndices;
+    return _fetchedIndices ? : [NSMutableIndexSet new];
 }
 
 - (BOOL)hasFetchedAllItems {
     return [self.fetchedIndices containsIndexesInRange:NSMakeRange(0, self.uniqueArticleImages.count)];
 }
 
-- (MWKImageInfo*)infoForImage:(MWKImage*)image {
+- (MWKImageInfo* __nullable)infoForImage:(MWKImage*)image {
     return self.indexedImageInfo[image.infoAssociationValue];
 }
 
 #pragma mark - Public Fetch
 
-- (id<MWKImageInfoRequest>)fetchBatchContainingIndex:(NSInteger)index {
+- (id<MWKImageInfoRequest> __nullable)fetchBatchContainingIndex:(NSInteger)index {
     return [self fetchBatch:[self batchRangeForTargetIndex:index]];
 }
 
-- (NSArray*)fetchBatchesContainingIndexes:(NSIndexSet*)indexes {
-    if (indexes.count == 0) {
+- (NSArray* __nullable)fetchBatchesContainingIndexes:(NSIndexSet*)indexes {
+    if (indexes.count == 0 || !self.article) {
         return nil;
     } else {
         return [indexes bk_reduce:[NSMutableArray new]
@@ -146,7 +169,7 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
     }
 }
 
-- (NSArray*)fetchBatchContainingIndex:(NSInteger)index withNthNeighbor:(NSUInteger)next {
+- (NSArray* __nullable)fetchBatchContainingIndex:(NSInteger)index withNthNeighbor:(NSUInteger)next {
     NSAssert(next >= 0, @"No reason to call this method with next == 0");
     NSMutableIndexSet* indexes     = [NSMutableIndexSet indexSetWithIndex:index];
     NSUInteger const neighborIndex = index + next;
@@ -159,6 +182,9 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 #pragma mark - Private Fetch
 
 - (NSRange)batchRangeForTargetIndex:(NSUInteger)index {
+    if (!self.article) {
+        return WMFRangeMakeNotFound();
+    }
     NSParameterAssert(index < self.uniqueArticleImages.count);
     if (index > self.uniqueArticleImages.count) {
         DDLogWarn(@"Attempted to fetch %lu which is beoynd upper bound of %lu",
@@ -174,7 +200,10 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
     return range;
 }
 
-- (id<MWKImageInfoRequest>)fetchBatch:(NSRange)batch {
+- (id<MWKImageInfoRequest> __nullable)fetchBatch:(NSRange)batch {
+    if (!self.article) {
+        return nil;
+    }
     NSParameterAssert(!WMFRangeIsNotFoundOrEmpty(batch));
     if (WMFRangeIsNotFoundOrEmpty(batch)) {
         DDLogWarn(@"Attempted to fetch not found or empty range: %@", NSStringFromRange(batch));
@@ -194,13 +223,14 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
+    __weak MWKArticle* currentArticle = self.article;
     __weak __typeof__((self)) weakSelf = self;
     return [self.imageInfoFetcher fetchInfoForPageTitles:titlesToFetch
                                                 fromSite:self.article.site
                                                  success:^(NSArray* infoObjects) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
         __typeof__((weakSelf)) strSelf = weakSelf;
-        if (!strSelf) {
+        if (!strSelf || ![currentArticle isEqualToArticle:strSelf.article]) {
             return;
         }
         NSDictionary* indexedInfo = WMFIndexImageInfo(infoObjects);
@@ -228,3 +258,5 @@ NSDictionary* WMFIndexImageInfo(NSArray* imageInfo){
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -207,6 +207,18 @@
     return [resultBuilder array];
 }
 
+- (NSArray*)uniqueLargestVariantSourceURLs {
+    NSArray* uniqueLargestVariants = self.uniqueLargestVariants;
+    return [uniqueLargestVariants bk_reduce:[NSMutableArray arrayWithCapacity:uniqueLargestVariants.count]
+                                  withBlock:^NSMutableArray*(NSMutableArray* memo, MWKImage* image) {
+        NSURL* url = [NSURL wmf_optionalURLWithString:image.sourceURL];
+        if (url) {
+            [memo addObject:url];
+        }
+        return memo;
+    }];
+}
+
 - (BOOL)addImageURLIfAbsent:(NSString*)imageURL {
     imageURL = [imageURL wmf_schemelessURL];
     if (imageURL && imageURL.length > 0 && ![self.mutableEntries containsObject:imageURL]) {

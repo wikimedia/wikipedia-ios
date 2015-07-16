@@ -1,11 +1,12 @@
-
 #import "WMFArticleListCollectionViewController.h"
 #import "UICollectionView+WMFExtensions.h"
 #import "WMFArticleViewControllerContainerCell.h"
 #import "WMFArticleViewController.h"
 
+#import "UICollectionView+WMFExtensions.h"
 #import "TGLStackedLayout.h"
 #import "WMFOffScreenFlowLayout.h"
+#import "UIView+WMFDefaultNib.h"
 
 #import "WMFArticleListTranstion.h"
 
@@ -112,8 +113,8 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 }
 
 - (void)refreshVisibleCells {
-    [[self.collectionView indexPathsForVisibleItems] enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL* stop) {
-        WMFArticleViewControllerContainerCell* cell = (id)[self.collectionView cellForItemAtIndexPath:obj];
+    [self.collectionView wmf_enumerateVisibleCellsUsingBlock:
+     ^(WMFArticleViewControllerContainerCell* cell, NSIndexPath* path, BOOL* _) {
         [cell.viewController updateUI];
     }];
 }
@@ -150,7 +151,8 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 }
 
 // iOS 7 Rotation Support
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration {
     [UIView animateWithDuration:duration animations:^{
         [self updateCellSizeBasedOnViewFrame];
     }];
@@ -159,11 +161,11 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 }
 
 // iOS 8+ Rotation Support
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
-    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > context)
-    {
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > context) {
         [self updateCellSizeBasedOnViewFrame];
-    }                            completion:NULL];
+    } completion:NULL];
 
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
@@ -181,11 +183,15 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
     return [self.dataSource articleCount];
 }
 
-- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(NSIndexPath*)indexPath {
-    WMFArticleViewControllerContainerCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WMFArticleViewControllerContainerCell class]) forIndexPath:indexPath];
+- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView
+                 cellForItemAtIndexPath:(NSIndexPath*)indexPath {
+    WMFArticleViewControllerContainerCell* cell =
+        [collectionView dequeueReusableCellWithReuseIdentifier:[WMFArticleViewControllerContainerCell wmf_nibName]
+                                                  forIndexPath:indexPath];
 
     if (cell.viewController == nil) {
-        WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
+        WMFArticleViewController* vc =
+            [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
         [vc setMode:WMFArticleControllerModeList animated:NO];
         [cell setViewControllerAndAddViewToContentView:vc];
     }
@@ -198,25 +204,34 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 
 #pragma mark - <UICollectionViewDelegate>
 
-- (void)collectionView:(UICollectionView*)collectionView willDisplayCell:(UICollectionViewCell*)cell forItemAtIndexPath:(NSIndexPath*)indexPath {
+- (void)collectionView:(UICollectionView*)collectionView
+       willDisplayCell:(UICollectionViewCell*)cell
+    forItemAtIndexPath:(NSIndexPath*)indexPath {
     WMFArticleViewControllerContainerCell* containerCell = (id)cell;
     [containerCell.viewController didMoveToParentViewController:self];
 }
 
-- (void)collectionView:(UICollectionView*)collectionView didEndDisplayingCell:(UICollectionViewCell*)cell forItemAtIndexPath:(NSIndexPath*)indexPath {
-    [[UIApplication sharedApplication] sendAction:@selector(respondsToSelector:) to:nil from:nil forEvent:nil];
+- (void)  collectionView:(UICollectionView*)collectionView
+    didEndDisplayingCell:(UICollectionViewCell*)cell
+      forItemAtIndexPath:(NSIndexPath*)indexPath {
     WMFArticleViewControllerContainerCell* containerCell = (id)cell;
     [containerCell.viewController willMoveToParentViewController:nil];
     [containerCell.viewController removeFromParentViewController];
 }
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    WMFArticleViewControllerContainerCell* cell = (WMFArticleViewControllerContainerCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    WMFArticleViewControllerContainerCell* cell =
+        (WMFArticleViewControllerContainerCell*)[collectionView cellForItemAtIndexPath:indexPath];
 
-    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
+    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore
+                                                                                     savedPages:self.savedPages];
     vc.article = cell.viewController.article;
 
-    self.cardTransition                             = [[WMFArticleListTranstion alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:vc.tableView];
+    self.cardTransition =
+        [[WMFArticleListTranstion alloc] initWithPresentingViewController:self
+                                                  presentedViewController:vc
+                                                        contentScrollView:vc.tableView];
+
     self.cardTransition.nonInteractiveDuration      = 0.5;
     self.cardTransition.presentCardOffset           = vc.tableView.contentInset.top;
     self.cardTransition.offsetOfNextOverlappingCard = self.stackedLayout.topReveal;
@@ -254,7 +269,10 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 #pragma mark - DataSource KVO
 
 - (void)observeDataSource {
-    [self.KVOController observe:_dataSource keyPath:WMF_SAFE_KEYPATH(_dataSource, articles) options:0 block:^(id observer, id object, NSDictionary* change) {
+    [self.KVOController observe:_dataSource
+                        keyPath:WMF_SAFE_KEYPATH(_dataSource, articles)
+                        options:0
+                          block:^(id observer, id object, NSDictionary* change) {
         NSKeyValueChange changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
         NSArray* indexPaths = indexPathsWithIndexSet(change[NSKeyValueChangeIndexesKey], 0);
         [self updateCellsAtIndexPaths:indexPaths change:changeKind];

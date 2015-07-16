@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /// Extends BlocksKit with indexing functionality.
 @interface NSArray (BKIndex)
 
@@ -29,3 +31,5 @@
 - (NSDictionary*)bk_indexWithKeypath:(NSString*)keypath;
 
 @end
+
+NS_ASSUME_NONNULL_END

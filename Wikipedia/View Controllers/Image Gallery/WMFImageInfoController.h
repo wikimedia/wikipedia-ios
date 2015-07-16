@@ -4,6 +4,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class MWKArticle;
 @class MWKImage;
 @class MWKImageInfo;
@@ -22,7 +24,7 @@
 
 @interface WMFImageInfoController : NSObject
 
-@property (nonatomic, strong, readonly) MWKArticle* article;
+@property (nonatomic, strong, nullable) MWKArticle* article;
 
 @property (nonatomic, weak) id<WMFImageInfoControllerDelegate> delegate;
 
@@ -30,17 +32,17 @@
 @property (nonatomic, readonly) NSUInteger infoBatchSize;
 
 /// Lazily calculated snapshot of the uniqued images in the receiver's @c article.
-@property (nonatomic, readonly) NSArray* uniqueArticleImages;
+@property (nonatomic, strong, readonly) NSArray* uniqueArticleImages;
 
 ///
 /// @name Initialization
 ///
 
 /// Initialize with @c article, letting the receiver create the default @c fetcher and @c imageFetcher.
-- (instancetype)initWithArticle:(MWKArticle*)article batchSize:(NSUInteger)batchSize;
+- (instancetype)initWithArticle:(MWKArticle* __nullable)article batchSize:(NSUInteger)batchSize;
 
 /// Designated initializer.
-- (instancetype)initWithArticle:(MWKArticle*)article
+- (instancetype)initWithArticle:(MWKArticle* __nullable)article
                       batchSize:(NSUInteger)batchSize
                     infoFetcher:(MWKImageInfoFetcher*)fetcher;
 
@@ -54,10 +56,10 @@
  * @return The request to fetch the specified batch, or @c nil if it has already been fetched or the index is
  *         out of bounds.
  */
-- (id<MWKImageInfoRequest>)fetchBatchContainingIndex:(NSInteger)index;
+- (id<MWKImageInfoRequest> __nullable)fetchBatchContainingIndex:(NSInteger)index;
 
 /// Convenience for fetching batches for multiple target indexes at once.
-- (NSArray*)fetchBatchesContainingIndexes:(NSIndexSet*)indexes;
+- (NSArray* __nullable)fetchBatchesContainingIndexes:(NSIndexSet*)indexes;
 
 /**
  * Convenience for fetching the specified @c index as well as its neighbor.
@@ -70,16 +72,18 @@
  * Note that this will either result in one fetch (@c index and <code>index + next</code> is in the same batch or
  * two fetches if @c index and <code>index + next</code> are in different batches.
  */
-- (NSArray*)fetchBatchContainingIndex:(NSInteger)index withNthNeighbor:(NSUInteger)next;
+- (NSArray* __nullable)fetchBatchContainingIndex:(NSInteger)index withNthNeighbor:(NSUInteger)next;
 
 ///
 /// @name Getters
 ///
 
 /// @return The @c MWKImageInfo object which is associated with @c image, or @c nil if none exists.
-- (MWKImageInfo*)infoForImage:(MWKImage*)image;
+- (MWKImageInfo* __nullable)infoForImage:(MWKImage*)image;
 
 /// @return The index of the @c MWKImage associated with @c info, or @c NSNotFound.
 - (NSUInteger)indexOfImageAssociatedWithInfo:(MWKImageInfo*)info;
 
 @end
+
+NS_ASSUME_NONNULL_END

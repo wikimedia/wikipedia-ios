@@ -1,24 +1,34 @@
 #import "WMFArticleViewController.h"
+
+// Frameworks
 #import <Masonry/Masonry.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
-#import "UIButton+WMFButton.h"
-#import "WebViewController.h"
-#import "UIStoryboard+WMFExtensions.h"
-#import "UIViewController+WMFStoryboardUtilities.h"
 
+
+// Models & Controllers
+#import "WebViewController.h"
+#import "WMFArticleHeaderImageGalleryViewController.h"
+#import "WMFArticleFetcher.h"
+#import "WMFSearchFetcher.h"
+#import "WMFSearchResults.h"
+#import "WMFImageGalleryViewController.h"
+
+// Views
 #import "WMFArticleTableHeaderView.h"
 #import "WMFArticleSectionCell.h"
 #import "PaddedLabel.h"
 #import "WMFArticleSectionHeaderCell.h"
 #import "WMFArticleExtractCell.h"
-#import "NSString+Extras.h"
-
-#import "MWKArticle+WMFSharing.h"
-#import "WMFArticleFetcher.h"
-#import "WMFSearchFetcher.h"
-#import "WMFSearchResults.h"
 #import "WMFArticleReadMoreCell.h"
+
+// Categories
+#import "NSString+Extras.h"
+#import "UIButton+WMFButton.h"
+#import "UIStoryboard+WMFExtensions.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
+#import "MWKArticle+WMFSharing.h"
 #import "UIView+WMFDefaultNib.h"
 
 typedef NS_ENUM (NSInteger, WMFArticleSectionType) {
@@ -29,7 +39,14 @@ typedef NS_ENUM (NSInteger, WMFArticleSectionType) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticleViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface WMFArticleViewController ()
+<UITableViewDataSource,
+ UITableViewDelegate,
+ WMFArticleHeaderImageGalleryViewControllerDelegate,
+ WMFImageGalleryViewControllerDelegate>
+
+@property (nonatomic, weak) IBOutlet UIView* galleryContainerView;
+@property (nonatomic, weak) IBOutlet WMFArticleTableHeaderView* headerView;
 
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPages;
@@ -37,43 +54,46 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 
+/// Promise representing the request for the current article's data.
+@property (nonatomic, weak, nullable) AnyPromise* articleRequest;
+
 @property (nonatomic, strong) WMFSearchFetcher* readMoreFetcher;
 @property (nonatomic, strong) WMFSearchResults* readMoreResults;
+
+@property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGalleryViewController;
+@property (nonatomic, weak) IBOutlet UITapGestureRecognizer* expandGalleryTapRecognizer;
 
 @end
 
 @implementation WMFArticleViewController
 
 + (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages {
-    WMFArticleViewController* vc = (id)[[UIStoryboard wmf_storyBoardForViewControllerClass:[WMFArticleViewController class]] instantiateInitialViewController];
+    WMFArticleViewController* vc = [self wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore  = dataStore;
     vc.savedPages = savedPages;
     return vc;
 }
 
-#pragma - Tear Down
-
-- (void)dealloc {
-    [self unobserveArticleUpdates];
-}
-
 #pragma mark - Accessors
 
+- (void)setHeaderGalleryViewController:(WMFArticleHeaderImageGalleryViewController* __nonnull)galleryViewController {
+    _headerGalleryViewController = galleryViewController;
+    [_headerGalleryViewController setImageURLsFromArticle:self.article];
+}
+
 - (void)setArticle:(MWKArticle* __nullable)article {
-    if ([_article isEqual:article]) {
+    if (WMF_EQUAL(_article, isEqualToArticle:, article)) {
         return;
     }
 
     [self unobserveArticleUpdates];
     [[WMFImageController sharedInstance] cancelFetchForURL:[NSURL wmf_optionalURLWithString:[_article bestThumbnailImageURL]]];
 
-    _article = article;
+    // TODO cancel
+    self.articleRequest = nil;
 
-    DDLogVerbose(@"\n");
-    DDLogVerbose(@"%@", article.title.text);
-    DDLogVerbose(@"%@", article.entityDescription); //not saved? only seeing it in search results not saved panels
-    DDLogVerbose(@"%@", article.thumbnailURL);
-    DDLogVerbose(@"%lu", [article.sections count]);
+    _article = article;
+    [self.headerGalleryViewController setImageURLsFromArticle:article];
 
     [self updateUI];
     [self observeAndFetchArticleIfNeeded];
@@ -92,10 +112,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isSaved {
     return [self.savedPages isSaved:self.article.title];
-}
-
-- (WMFArticleTableHeaderView*)headerView {
-    return (WMFArticleTableHeaderView*)self.tableView.tableHeaderView;
 }
 
 - (UIButton*)saveButton {
@@ -157,14 +173,21 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)fetchArticleForTitle:(MWKTitle*)title {
-    [self.articleFetcher fetchArticleForPageTitle:title progress:nil].then(^(MWKArticle* article) {
-        // re-entry, should result in being article being observed
+    @weakify(self)
+    self.articleRequest = [self.articleFetcher fetchArticleForPageTitle:title progress:nil];
+
+    self.articleRequest.then(^(MWKArticle* article){
+        @strongify(self)
+        [self.headerGalleryViewController setImageURLsFromArticle : article];
         self.article = article;
-    }).catch(^(NSError* error) {
+    })
+    .catch(^(NSError* error){
+        @strongify(self)
         if ([error wmf_isWMFErrorOfType:WMFErrorTypeRedirected]) {
             [self fetchArticleForTitle:[[error userInfo] wmf_redirectTitle]];
-        } else {
-            NSLog(@"Article Fetch Error: %@", [error localizedDescription]);
+        } else if (!self.presentingViewController) {
+            // only do error handling if not presenting gallery
+            DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
         }
     });
 }
@@ -174,7 +197,8 @@ NS_ASSUME_NONNULL_BEGIN
     // card collection view controller sets it a lot as you scroll through the cards. "fetchReadMoreForTitle:" however
     // is only called when the card is expanded, so self.readMoreFetcher is set here as well so it's not needlessly
     // repeatedly set.
-    self.readMoreFetcher                  = [[WMFSearchFetcher alloc] initWithSearchSite:self.article.title.site dataStore:self.dataStore];
+    self.readMoreFetcher =
+        [[WMFSearchFetcher alloc] initWithSearchSite:self.article.title.site dataStore:self.dataStore];
     self.readMoreFetcher.maxSearchResults = 3;
 
     @weakify(self)
@@ -213,18 +237,11 @@ NS_ASSUME_NONNULL_BEGIN
 //      see old LeadImageTitleAttributedString.m for example from old native lead image
     headerView.titleLabel.text       = [self.article.title.text wmf_stringByRemovingHTML];
     headerView.descriptionLabel.text = [self.article.entityDescription wmf_stringByCapitalizingFirstCharacter];
-
-    [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:[self.article bestThumbnailImageURL]]].then(^(UIImage* image){
-        headerView.image.image = image;
-    }).catch(^(NSError* error){
-        NSLog(@"Image Fetch Error: %@", [error localizedDescription]);
-    });
 }
 
 - (void)clearHeaderView {
     WMFArticleTableHeaderView* headerView = [self headerView];
     headerView.titleLabel.attributedText = nil;
-    headerView.image.image               = [UIImage imageNamed:@"lead-default"];
 }
 
 - (void)updateSavedButtonState {
@@ -245,6 +262,7 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
     }
+    self.headerGalleryViewController.view.userInteractionEnabled = mode == WMFArticleControllerModeNormal;
 }
 
 #pragma mark - Actions
@@ -278,14 +296,30 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UIViewController
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
+    if ([segue.destinationViewController isKindOfClass:[WMFArticleHeaderImageGalleryViewController class]]) {
+        self.headerGalleryViewController          = segue.destinationViewController;
+        self.headerGalleryViewController.delegate = self;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    UICollectionViewFlowLayout* galleryLayout = (UICollectionViewFlowLayout*)_headerGalleryViewController.collectionViewLayout;
+    galleryLayout.minimumInteritemSpacing = 0;
+    galleryLayout.minimumLineSpacing      = 0;
+    galleryLayout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
 
     [self clearHeaderView];
     [self configureForDynamicCellHeight];
     [self updateUI];
     [self updateUIForMode:self.mode animated:NO];
-    [self observeArticleUpdates];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -354,11 +388,13 @@ NS_ASSUME_NONNULL_BEGIN
     [cell setNeedsDisplay];
     [cell layoutIfNeeded];
 
-    [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:readMoreArticle.thumbnailURL]].then(^(UIImage* image){
+    NSURL* url = [NSURL wmf_optionalURLWithString:readMoreArticle.thumbnailURL];
+    [[WMFImageController sharedInstance] fetchImageWithURL:url].then(^(UIImage* image){
         cell.thumbnailImageView.image = image;
     }).catch(^(NSError* error){
         NSLog(@"Image Fetch Error: %@", [error localizedDescription]);
     });
+
     return cell;
 }
 
@@ -400,14 +436,46 @@ NS_ASSUME_NONNULL_BEGIN
 - (MWKTitle*)titleForSelectedIndexPath:(NSIndexPath*)indexPath {
     switch ((WMFArticleSectionType)indexPath.section) {
         case WMFArticleSectionTypeSummary:
-            return [[MWKTitle alloc] initWithSite:self.article.title.site normalizedTitle:self.article.title.text fragment:@""];
+            return [[MWKTitle alloc] initWithSite:self.article.title.site
+                                  normalizedTitle:self.article.title.text
+                                         fragment:@""];
         case WMFArticleSectionTypeTOC:
-            return [[MWKTitle alloc] initWithSite:self.article.title.site normalizedTitle:self.article.title.text fragment:self.article.sections[indexPath.row + 1].anchor];
+            return [[MWKTitle alloc] initWithSite:self.article.title.site
+                                  normalizedTitle:self.article.title.text
+                                         fragment:self.article.sections[indexPath.row + 1].anchor];
         case WMFArticleSectionTypeReadMore: {
             MWKArticle* readMoreArticle = ((MWKArticle*)self.readMoreResults.articles[indexPath.row]);
-            return [[MWKTitle alloc] initWithSite:readMoreArticle.site normalizedTitle:readMoreArticle.title.text fragment:@""];
+            return [[MWKTitle alloc] initWithSite:readMoreArticle.site
+                                  normalizedTitle:readMoreArticle.title.text
+                                         fragment:@""];
         }
     }
+}
+
+#pragma mark - WMFArticleHeadermageGalleryViewControllerDelegate
+
+- (void)headerImageGallery:(WMFArticleHeaderImageGalleryViewController* __nonnull)gallery
+     didSelectImageAtIndex:(NSUInteger)index {
+    NSParameterAssert(![self.presentingViewController isKindOfClass:[WMFImageGalleryViewController class]]);
+    WMFImageGalleryViewController* detailGallery = [[WMFImageGalleryViewController alloc] initWithArticle:nil];
+    detailGallery.delegate = self;
+    if (self.article.isCached) {
+        detailGallery.article     = self.article;
+        detailGallery.currentPage = index;
+    } else {
+        if (!self.articleRequest) {
+            [self fetchArticle];
+        }
+        [detailGallery setArticleWithPromise:self.articleRequest];
+    }
+    [self presentViewController:detailGallery animated:YES completion:nil];
+}
+
+#pragma mark - WMFImageGalleryViewControllerDelegate
+
+- (void)willDismissGalleryController:(WMFImageGalleryViewController* __nonnull)gallery {
+    self.headerGalleryViewController.currentPage = gallery.currentPage;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

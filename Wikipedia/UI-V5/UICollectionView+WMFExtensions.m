@@ -1,23 +1,20 @@
 
 #import "UICollectionView+WMFExtensions.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation UICollectionView (WMFExtensions)
 
-- (void)wmf_enumerateIndexPathsUsingBlock:(void (^)(NSIndexPath* indexPath, BOOL* stop))block {
-    BOOL stop = NO;
-
+- (void)wmf_enumerateIndexPathsUsingBlock:(WMFIndexPathEnumerator)block {
+    BOOL stop              = NO;
     NSInteger sectionCount = [self numberOfSections];
-
     for (NSInteger section = 0; section < sectionCount; section++) {
         NSInteger rowCount = [self numberOfItemsInSection:section];
-
         for (NSInteger row = 0; row < rowCount; row++) {
             NSIndexPath* indexPath = [NSIndexPath indexPathForItem:row inSection:section];
-
             if (block) {
                 block(indexPath, &stop);
             }
-
             if (stop) {
                 return;
             }
@@ -25,10 +22,19 @@
     }
 }
 
-- (void)wmf_enumerateVisibleIndexPathsUsingBlock:(void (^)(NSIndexPath* indexPath, BOOL* stop))block {
+- (void)wmf_enumerateVisibleIndexPathsUsingBlock:(WMFIndexPathEnumerator)block {
     [self.indexPathsForVisibleItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
         if (block) {
             block(obj, stop);
+        }
+    }];
+}
+
+- (void)wmf_enumerateVisibleCellsUsingBlock:(WMFCellEnumerator)block {
+    [self wmf_enumerateVisibleIndexPathsUsingBlock:^(NSIndexPath* path, BOOL* stop) {
+        id cell = [self cellForItemAtIndexPath:path];
+        if (cell) {
+            block(cell, path, stop);
         }
     }];
 }
@@ -50,3 +56,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

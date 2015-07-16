@@ -19,6 +19,8 @@
 #import "MWKImageInfoFetcher.h"
 #import "MWKImageInfoResponseSerializer.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSDictionary* WMFIndexImageInfo(NSArray* imageInfo);
 
 @interface WMFImageInfoController ()
@@ -31,7 +33,7 @@ extern NSDictionary* WMFIndexImageInfo(NSArray* imageInfo);
 @property (nonatomic, strong, readonly) MWKImageInfoFetcher* imageInfoFetcher;
 
 /// Convenience getter for the receiver's <code>article.dataStore</code>.
-@property (nonatomic, strong, readonly) MWKDataStore* dataStore;
+@property (nonatomic, strong, nullable, readonly) MWKDataStore* dataStore;
 
 /// Lazily calculated array of "File:" titles from the contents of @c uniqueArticleImages
 @property (nonatomic, strong, readonly) NSArray* imageFilePageTitles;
@@ -40,6 +42,8 @@ extern NSDictionary* WMFIndexImageInfo(NSArray* imageInfo);
 
 - (NSRange)batchRangeForTargetIndex:(NSUInteger)index;
 
-- (id<MWKImageInfoRequest>)fetchBatch:(NSRange)batch;
+- (id<MWKImageInfoRequest> __nullable)fetchBatch:(NSRange)batch;
 
 @end
+
+NS_ASSUME_NONNULL_END

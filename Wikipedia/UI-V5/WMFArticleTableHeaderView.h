@@ -5,10 +5,9 @@
 
 @interface WMFArticleTableHeaderView : UIView
 
-@property (strong, nonatomic) IBOutlet UIButton* readButton;
-@property (strong, nonatomic) IBOutlet UIButton* saveButton;
-@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel* descriptionLabel;
-@property (strong, nonatomic) IBOutlet UIImageView* image;
+@property (weak, nonatomic) IBOutlet UIButton* readButton;
+@property (weak, nonatomic) IBOutlet UIButton* saveButton;
+@property (weak, nonatomic) IBOutlet UILabel* titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel* descriptionLabel;
 
 @end

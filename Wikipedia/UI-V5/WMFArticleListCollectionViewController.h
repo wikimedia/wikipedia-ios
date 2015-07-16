@@ -26,5 +26,4 @@ typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
 
 @end
 
-
 NS_ASSUME_NONNULL_END

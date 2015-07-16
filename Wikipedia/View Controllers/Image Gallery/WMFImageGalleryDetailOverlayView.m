@@ -12,7 +12,7 @@
 #import "WikiGlyph_Chars.h"
 #import "UILabel+WMFStyling.h"
 #import "MWKLicense+ToGlyph.h"
-#import "NSParagraphStyle+WMFNaturalAlignmentStyle.h"
+#import "NSParagraphStyle+WMFParagraphStyles.h"
 
 static double const WMFImageGalleryLicenseFontSize       = 19.0;
 static double const WMFImageGalleryLicenseBaselineOffset = -1.5;
@@ -25,7 +25,6 @@ static double const WMFImageGalleryOwnerFontSize         = 11.f;
 - (IBAction)didTapOwnerButton;
 
 @end
-
 
 static NSAttributedString* ConcatOwnerAndLicense(NSString* owner, MWKLicense* license){
     if (!owner && !license) {
@@ -53,7 +52,7 @@ static NSAttributedString* ConcatOwnerAndLicense(NSString* owner, MWKLicense* li
     [result appendAttributedString:attributedOwnerAndSeparator];
 
     [result addAttribute:NSParagraphStyleAttributeName
-                   value:[NSParagraphStyle wmf_naturalAlignmentStyle]
+                   value:[NSParagraphStyle wmf_tailTruncatingNaturalAlignmentStyle]
                    range:NSMakeRange(0, result.length)];
 
     return result;
@@ -77,12 +76,6 @@ static NSAttributedString* ConcatOwnerAndLicense(NSString* owner, MWKLicense* li
     if (self.ownerTapCallback) {
         self.ownerTapCallback();
     }
-}
-
-- (void)setGroupAlpha:(float)alpha {
-    self.alpha                       = alpha;
-    self.imageDescriptionLabel.alpha = alpha;
-    self.ownerButton.alpha           = alpha;
 }
 
 - (NSString*)imageDescription {

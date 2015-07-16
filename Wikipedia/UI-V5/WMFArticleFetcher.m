@@ -7,7 +7,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
 @interface WMFArticleFetcher ()
 
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
@@ -39,13 +38,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        AFHTTPRequestOperation* operation = [self.fetcher fetchSectionsForTitle:pageTitle
-                                                                    inDataStore:self.dataStore
-                                                                    withManager:self.operationManager
-                                                                  progressBlock:progress
-                                                                completionBlock:resolve
-                                                                     errorBlock:resolve];
-        if (operation == nil) {
+        AFHTTPRequestOperation* operation =
+            [self.fetcher fetchSectionsForTitle:pageTitle
+                                    inDataStore:self.dataStore
+                                    withManager:self.operationManager
+                                  progressBlock:progress
+                                completionBlock:resolve
+                                     errorBlock:resolve];
+        if (!operation) {
             resolve([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
         }
     }];

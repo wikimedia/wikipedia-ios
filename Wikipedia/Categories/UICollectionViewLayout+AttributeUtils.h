@@ -1,5 +1,5 @@
 //
-//  UICollectionViewFlowLayout+AttributeUtils.h
+//  UICollectionViewLayout+AttributeUtils.h
 //  Wikipedia
 //
 //  Created by Brian Gerstle on 2/26/15.
@@ -13,10 +13,10 @@
  * @warning Most of these methods were naively implemented and only support layouts configured with a horizontal
  *          scrolling direction.
  */
-@interface UICollectionViewFlowLayout (AttributeUtils)
+@interface UICollectionViewLayout (AttributeUtils)
 
-/// The @c NSIndexPath for the item closest to the current @c contentOffset of the receiver's @c collectionView.
-- (NSIndexPath*)wmf_indexPathClosestToContentOffset;
+/// The @c NSIndexPath for the item closest to the current @c contentOffset.x of the receiver's @c collectionView.
+- (NSIndexPath*)wmf_indexPathHorizontallyClosestToContentOffset;
 
 /**
  * Sort an array of @c UICollectionViewLayoutAttribute objects by their distance to @c point in ascending order.

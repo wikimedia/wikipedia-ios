@@ -1,17 +1,17 @@
 //
-//  UICollectionViewFlowLayout+AttributeUtils.m
+//  UICollectionViewLayout+AttributeUtils.m
 //  Wikipedia
 //
 //  Created by Brian Gerstle on 2/26/15.
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "UICollectionViewFlowLayout+AttributeUtils.h"
+#import "UICollectionViewLayout+AttributeUtils.h"
 #import <BlocksKit/BlocksKit.h>
 
-@implementation UICollectionViewFlowLayout (AttributeUtils)
+@implementation UICollectionViewLayout (AttributeUtils)
 
-- (NSIndexPath*)wmf_indexPathClosestToContentOffset {
+- (NSIndexPath*)wmf_indexPathHorizontallyClosestToContentOffset {
     return [[[self wmf_layoutAttributesByDistanceToPoint:self.collectionView.contentOffset] firstObject] indexPath];
 }
 

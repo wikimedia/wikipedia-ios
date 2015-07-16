@@ -19,7 +19,4 @@
 
 - (void)setLicense:(MWKLicense*)license owner:(NSString*)owner;
 
-/// Set all child view alphas to @c alpha. This is preferred to hiding & showing them.
-- (void)setGroupAlpha:(float)alpha;
-
 @end

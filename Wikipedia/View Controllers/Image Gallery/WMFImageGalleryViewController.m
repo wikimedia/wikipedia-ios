@@ -17,6 +17,7 @@
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "MWNetworkActivityIndicatorManager.h"
+#import "NSArray+WMFLayoutDirectionUtilities.h"
 
 // View
 #import <Masonry/Masonry.h>
@@ -26,14 +27,14 @@
 #import "WikiGlyph_Chars.h"
 #import "UICollectionViewFlowLayout+NSCopying.h"
 #import "UICollectionViewFlowLayout+WMFItemSizeThatFits.h"
+#import "WMFCollectionViewPageLayout.h"
 #import "UIViewController+Alert.h"
-#import "UICollectionViewFlowLayout+AttributeUtils.h"
+#import "UICollectionViewLayout+AttributeUtils.h"
 #import "UILabel+WMFStyling.h"
 #import "UIButton+FrameUtils.h"
 #import "UIView+WMFFrameUtils.h"
 #import "WMFGradientView.h"
-
-#import "WMFImageInfoController.h"
+#import "UICollectionView+WMFExtensions.h"
 
 // Model
 #import "MWKDataStore.h"
@@ -45,21 +46,16 @@
 // Networking
 #import "AFHTTPRequestOperationManager+UniqueRequests.h"
 #import "MWKImageInfoResponseSerializer.h"
-
-#undef LOG_LEVEL_DEF
-#define LOG_LEVEL_DEF WMFImageGalleryLogLevel
-
-static const int LOG_LEVEL_DEF = DDLogLevelDebug;
+#import "WMFImageInfoController.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^ WMFGalleryCellEnumerator)(WMFImageGalleryCollectionViewCell* cell, NSIndexPath* indexPath);
 
 static double const WMFImageGalleryTopGradientHeight = 150.0;
 
 @interface WMFImageGalleryViewController ()
 <UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout, WMFImageInfoControllerDelegate>
-
-@property (nonatomic) BOOL didApplyInitialVisibleImageIndex;
-@property (nonatomic, getter = isChromeHidden) BOOL chromeHidden;
 
 @property (nonatomic, weak, readonly) UICollectionViewFlowLayout* collectionViewFlowLayout;
 @property (nonatomic, weak, readonly) UIButton* closeButton;
@@ -72,6 +68,10 @@ static double const WMFImageGalleryTopGradientHeight = 150.0;
 
 @property (nonatomic, strong, readonly) WMFImageInfoController* infoController;
 
+@property (nonatomic, weak) UIActivityIndicatorView* loadingIndicator;
+
+@property (nonatomic, weak) PMKResolver articlePromiseResolve;
+
 - (MWKDataStore*)dataStore;
 
 @end
@@ -81,19 +81,26 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 @implementation WMFImageGalleryViewController
 @synthesize infoController = _infoController;
 
-- (instancetype)initWithArticle:(MWKArticle*)article {
-    // TODO(bgerstle): use non-zero inset, disable bouncing, and customize scroll target to land images in center
-    UICollectionViewFlowLayout* defaultLayout = [[UICollectionViewFlowLayout alloc] init];
++ (UICollectionViewFlowLayout*)wmf_defaultGalleryLayout {
+    UICollectionViewFlowLayout* defaultLayout = [[WMFCollectionViewPageLayout alloc] init];
     defaultLayout.sectionInset            = UIEdgeInsetsZero;
     defaultLayout.minimumInteritemSpacing = 0.f;
     defaultLayout.minimumLineSpacing      = 0.f;
     defaultLayout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
-    // itemSize is based on view bounds, so we need to wait until it is about to appear to set it
+    return defaultLayout;
+}
 
-    self = [super initWithCollectionViewLayout:defaultLayout];
+- (instancetype)init {
+    return [self initWithArticle:nil];
+}
+
+- (instancetype)initWithArticle:(MWKArticle* __nullable)article {
+    self = [super initWithCollectionViewLayout:[[self class] wmf_defaultGalleryLayout]];
     if (self) {
-        _article      = article;
-        _chromeHidden = NO;
+        _article       = article;
+        _chromeHidden  = NO;
+        _chromeEnabled = YES;
+        _zoomEnabled   = YES;
     }
     return self;
 }
@@ -107,6 +114,55 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 }
 
 #pragma mark - Getters
+
+- (void)setArticleWithPromise:(AnyPromise*)articlePromise {
+    if (self.articlePromiseResolve) {
+        self.articlePromiseResolve([NSError cancelledError]);
+    }
+
+    [self.loadingIndicator startAnimating];
+
+    __block id articlePromiseResolve;
+    // wrap articlePromise in a promise we can cancel if a new one comes in
+    AnyPromise* cancellableArticlePromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+        articlePromiseResolve = resolve;
+    }];
+    self.articlePromiseResolve = articlePromiseResolve;
+
+    articlePromise.then(articlePromiseResolve).catchWithPolicy(PMKCatchPolicyAllErrors, articlePromiseResolve);
+
+    // chain off the cancellable promise
+    @weakify(self);
+    cancellableArticlePromise.then(^(MWKArticle* article) {
+        @strongify(self);
+        self.article = article;
+    })
+    .catch(^(NSError* error) {
+        @strongify(self);
+        [self.loadingIndicator stopAnimating];
+        [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:2.f];
+    });
+}
+
+- (void)setArticle:(MWKArticle* __nullable)article {
+    if (WMF_EQUAL(_article, isEqualToArticle:, article)) {
+        return;
+    }
+    _article = article;
+    if (self.article) {
+        NSAssert(self.article.isCached, @"gallery assumes article data is already downloaded");
+        self.infoController.article = article;
+        self.currentPage            = [self.uniqueArticleImages wmf_startingIndexForApplicationLayoutDirection];
+        [self.infoController fetchBatchContainingIndex:self.currentPage];
+    } else {
+        self.infoController.article = nil;
+        self.currentPage            = 0;
+    }
+
+    if ([self isViewLoaded]) {
+        [self.collectionView reloadData];
+    }
+}
 
 - (WMFImageInfoController*)infoController {
     if (!_infoController) {
@@ -136,64 +192,27 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return nil;
 }
 
-- (NSUInteger)mostVisibleItemIndex {
-    return [self.collectionViewFlowLayout wmf_indexPathClosestToContentOffset].item;
-}
-
-- (void)forEachVisibleCell:(void (^)(WMFImageGalleryCollectionViewCell*, NSIndexPath*))block {
-    if (!block) {
-        return;
-    }
-    [self.collectionView.indexPathsForVisibleItems bk_each:^(NSIndexPath* path) {
-        WMFImageGalleryCollectionViewCell* cell =
-            (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:path];
-        if (cell) {
-            block(cell, path);
-        }
-    }];
-}
-
-#pragma mark - View event handling
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration {
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    NSUInteger const currentImageIndex = [self mostVisibleItemIndex];
-    [UIView animateWithDuration:duration
-                          delay:0
-                        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowAnimatedContent
-                     animations:^{
-        [self.collectionViewFlowLayout invalidateLayout];
-    }
-                     completion:^(BOOL finished) {
-        [self setVisibleImageIndex:currentImageIndex animated:NO forceViewUpdate:YES];
-    }];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    /*
-       only apply visible image index once the collection view has been populated with cells, otherwise calls to get
-       layout attributes of the item at `visibleImageIndex` will return `nil` (on iOS 6, at least)
-     */
-    if (!self.didApplyInitialVisibleImageIndex && self.collectionView.visibleCells.count) {
-        [self applyVisibleImageIndex:NO];
-        /*
-           only set the flag *after* the visible index has been updated, to make sure UICollectionViewDelegate callbacks
-           don't override it
-         */
-        self.didApplyInitialVisibleImageIndex = YES;
-    }
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // fetch after appearing so we don't do work while the animation is rendering
-    [self.infoController fetchBatchContainingIndex:self.visibleImageIndex];
+    [self.infoController fetchBatchContainingIndex:self.currentPage];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    UIActivityIndicatorView* loadingIndicator =
+        [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    loadingIndicator.hidesWhenStopped = YES;
+    [loadingIndicator stopAnimating];
+    [self.view addSubview:loadingIndicator];
+    [loadingIndicator mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.center.equalTo(self.view);
+    }];
+    self.loadingIndicator = loadingIndicator;
+
+    self.collectionView.showsHorizontalScrollIndicator = NO;
+    self.collectionView.showsVerticalScrollIndicator   = NO;
 
     WMFGradientView* topGradientView = [WMFGradientView new];
     topGradientView.userInteractionEnabled = NO;
@@ -225,7 +244,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
     // setup actions
     [closeButton addTarget:self
-                    action:@selector(didTouchCloseButton:)
+                    action:@selector(closeButtonTapped:)
           forControlEvents:UIControlEventTouchUpInside];
 
     [self.view addSubview:closeButton];
@@ -274,6 +293,8 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     [self.collectionView registerClass:[WMFImageGalleryCollectionViewCell class]
             forCellWithReuseIdentifier:WMFImageGalleryCollectionViewCellReuseId];
     self.collectionView.pagingEnabled = YES;
+
+    [self applyChromeHidden:NO];
 }
 
 #pragma mark - Chrome
@@ -291,7 +312,8 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 }
 
 - (void)setChromeHidden:(BOOL)hidden animated:(BOOL)animated {
-    if (_chromeHidden == hidden) {
+    if (_chromeHidden == hidden || !self.isChromeEnabled) {
+        // no-op of chromeHidden state is already equal to `hidden` or chrome is disabled
         return;
     }
     _chromeHidden = hidden;
@@ -299,6 +321,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 }
 
 - (void)applyChromeHidden:(BOOL)animated {
+    if (![self isViewLoaded]) {
+        return;
+    }
     dispatch_block_t animations = ^{
         self.topGradientView.hidden = [self isChromeHidden];
         self.closeButton.hidden     = [self isChromeHidden];
@@ -318,43 +343,51 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }
 }
 
+- (void)setChromeEnabled:(BOOL)chromeEnabled {
+    // NOTE(bgerstle): don't bail if _chromeEnabled == chromeEnabled, as chromeHidden state might need to be updated
+    _chromeEnabled = chromeEnabled;
+
+    if (!_chromeHidden && !_chromeEnabled) {
+        // force chrome to be hidden if it is shown and chrome becomes disabled
+        _chromeHidden = YES;
+        [self applyChromeHidden:NO];
+    }
+}
+
+#pragma mark - Zoom
+
+- (void)setZoomEnabled:(BOOL)zoomEnabled {
+    if (_zoomEnabled == zoomEnabled) {
+        return;
+    }
+    _zoomEnabled = zoomEnabled;
+    [self applyZoomEnabled];
+}
+
+- (void)applyZoomEnabled {
+    if ([self isViewLoaded]) {
+        [self.collectionView wmf_enumerateVisibleCellsUsingBlock:^(WMFImageGalleryCollectionViewCell* cell,
+                                                                   NSIndexPath* indexPath,
+                                                                   BOOL* _) {
+            cell.zoomEnabled = self.isZoomEnabled;
+        }];
+    }
+}
+
 #pragma mark - Dismissal
 
-- (void)didTouchCloseButton:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)closeButtonTapped:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(willDismissGalleryController:)]) {
+        [self.delegate willDismissGalleryController:self];
+    }
+    [self dismissViewControllerAnimated:YES completion:^{
+        if ([self.delegate respondsToSelector:@selector(didDismissGalleryController:)]) {
+            [self.delegate didDismissGalleryController:self];
+        }
+    }];
 }
 
 #pragma mark - Visible Image Index
-
-- (void)applyVisibleImageIndex:(BOOL)animated {
-    if ([self isViewLoaded]) {
-        // can't use scrollToItem because it doesn't handle post-rotation scrolling well on iOS 6
-        UICollectionViewLayoutAttributes* visibleImageAttributes =
-            [self.collectionViewFlowLayout layoutAttributesForItemAtIndexPath:
-             [NSIndexPath indexPathForItem:self.visibleImageIndex inSection:0]];
-        NSAssert(visibleImageAttributes,
-                 @"Layout attributes for visible image were nil because %@ was called too early!",
-                 NSStringFromSelector(_cmd));
-        [self.collectionView setContentOffset:visibleImageAttributes.frame.origin animated:animated];
-    }
-}
-
-- (void)setVisibleImageIndex:(NSUInteger)visibleImageIndex animated:(BOOL)animated {
-    [self setVisibleImageIndex:visibleImageIndex animated:animated forceViewUpdate:NO];
-}
-
-- (void)setVisibleImageIndex:(NSUInteger)visibleImageIndex animated:(BOOL)animated forceViewUpdate:(BOOL)force {
-    if (!force && visibleImageIndex == _visibleImageIndex) {
-        return;
-    }
-    NSParameterAssert(visibleImageIndex < self.uniqueArticleImages.count);
-    _visibleImageIndex = visibleImageIndex;
-    [self applyVisibleImageIndex:animated];
-}
-
-- (void)setVisibleImageIndex:(NSUInteger)visibleImageIndex {
-    [self setVisibleImageIndex:visibleImageIndex animated:NO];
-}
 
 - (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated {
     NSInteger selectedImageIndex = [self.uniqueArticleImages indexOfObjectPassingTest:^BOOL (MWKImage* image,
@@ -368,11 +401,11 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }];
 
     if (selectedImageIndex == NSNotFound) {
-        NSLog(@"WARNING: falling back to showing the first image.");
+        DDLogWarn(@"Falling back to showing the first image.");
         selectedImageIndex = 0;
     }
 
-    self.visibleImageIndex = selectedImageIndex;
+    self.currentPage = selectedImageIndex;
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -391,21 +424,15 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark Delegate
 
-- (CGSize)  collectionView:(UICollectionView*)collectionView
-                    layout:(UICollectionViewLayout*)collectionViewLayout
-    sizeForItemAtIndexPath:(NSIndexPath*)indexPath {
-    return [self.collectionViewFlowLayout wmf_itemSizeThatFits:self.view.bounds.size];
-}
-
 - (void)collectionView:(UICollectionView*)collectionView
        willDisplayCell:(UICollectionViewCell*)cell
     forItemAtIndexPath:(NSIndexPath*)indexPath {
     /*
        since we have to wait until the cells are laid out before applying visibleImageIndex, this method can be
-       called before visibleImageIndex has been applied.  as a result, we check the flag here to ensure our first fetch
+       called before currentPage has been applied.  as a result, we check the flag here to ensure our first fetch
        doesn't involve the first image if the user tapped on the last image.
      */
-    if (self.didApplyInitialVisibleImageIndex) {
+    if (self.didApplyCurrentPage) {
         [self.infoController fetchBatchContainingIndex:indexPath.item withNthNeighbor:5];
     }
 }
@@ -432,6 +459,10 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     MWKImage* imageStub        = self.uniqueArticleImages[indexPath.item];
     MWKImageInfo* infoForImage = [self.infoController infoForImage:imageStub];
 
+    cell.zoomEnabled = self.zoomEnabled;
+
+    [cell startLoadingAfterDelay:0.25];
+
     [self updateDetailVisibilityForCell:cell withInfo:infoForImage];
 
     if (infoForImage) {
@@ -453,6 +484,8 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     [self updateImageForCell:cell atIndexPath:indexPath image:imageStub info:infoForImage];
 }
 
+#pragma mark - Image Details
+
 - (void)updateDetailVisibilityForCellAtIndexPath:(NSIndexPath*)indexPath {
     WMFImageGalleryCollectionViewCell* cell =
         (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
@@ -470,8 +503,25 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
                              withInfo:(MWKImageInfo*)info {
     BOOL const shouldHideDetails = [self isChromeHidden]
                                    || (!info.imageDescription && !info.owner && !info.license);
-    [cell setDetailViewAlpha:shouldHideDetails ? 0.0 : 1.0];
+    cell.detailOverlayView.alpha = shouldHideDetails ? 0.0 : 1.0;
 }
+
+#pragma mark - Error Handling
+
+- (void)showError:(NSError*)error forCellAtIndexPath:(NSIndexPath*)path {
+    WMFImageGalleryCollectionViewCell* cell =
+        (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:path];
+    [self showError:error inCell:cell atIndexPath:path];
+}
+
+- (void)showError:(NSError*)error
+           inCell:(WMFImageGalleryCollectionViewCell*)cell
+      atIndexPath:(NSIndexPath*)indexPath {
+    cell.loading = NO;
+    // TODO: show error UI for cell
+}
+
+#pragma mark - Image Handling
 
 - (void)updateImageAtIndexPath:(NSIndexPath*)indexPath {
     NSParameterAssert(indexPath);
@@ -503,8 +553,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         [self setPlaceholderImage : placeholderImage ofInfo : infoForImage forCellAtIndexPath : indexPath];
     }]
     .catch(^(NSError* error) {
-        // TODO: show alert if any errors trickle down from above (i.e. network error fetching high-res image)
         DDLogWarn(@"Failed to load image for cell at %@: %@", indexPath, error);
+        @strongify(self);
+        [self showError:error forCellAtIndexPath:indexPath];
     });
 }
 
@@ -520,6 +571,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }
     cell.image     = image;
     cell.imageSize = info.thumbSize;
+    cell.loading   = NO;
 }
 
 - (void)setPlaceholderImage:(UIImage* __nullable)image
@@ -546,13 +598,20 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
        the higher-res image is downloaded
      */
     cell.imageSize = info ? info.thumbSize : image.size;
+    if (!info) {
+        // only stop loading if info is nil, meaning that there's no high-res image coming
+        cell.loading = NO;
+    }
 }
 
 #pragma mark - WMFImageInfoControllerDelegate
 
 - (void)imageInfoController:(WMFImageInfoController*)controller didFetchBatch:(NSRange)range {
     NSIndexSet* fetchedIndexes = [NSIndexSet indexSetWithIndexesInRange:range];
-    [self forEachVisibleCell:^(WMFImageGalleryCollectionViewCell* cell, NSIndexPath* indexPath) {
+    [self.loadingIndicator stopAnimating];
+    [self.collectionView wmf_enumerateVisibleCellsUsingBlock:^(WMFImageGalleryCollectionViewCell* cell,
+                                                               NSIndexPath* indexPath,
+                                                               BOOL* _) {
         if ([fetchedIndexes containsIndex:indexPath.item]) {
             [self updateCell:cell atIndexPath:indexPath];
         }
@@ -562,8 +621,15 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 - (void)imageInfoController:(WMFImageInfoController*)controller
          failedToFetchBatch:(NSRange)range
                       error:(NSError*)error {
-    // TODO: only show errors on the cells for which we failed to get image info
     [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+    NSIndexSet* failedIndexes = [NSIndexSet indexSetWithIndexesInRange:range];
+    [self.collectionView wmf_enumerateVisibleCellsUsingBlock:^(WMFImageGalleryCollectionViewCell* cell,
+                                                               NSIndexPath* indexPath,
+                                                               BOOL* _) {
+        if ([failedIndexes containsIndex:indexPath.item]) {
+            [self showError:error inCell:cell atIndexPath:indexPath];
+        }
+    }];
 }
 
 @end

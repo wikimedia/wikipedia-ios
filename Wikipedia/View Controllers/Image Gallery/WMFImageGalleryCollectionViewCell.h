@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @class WMFImageGalleryDetailOverlayView;
-@class WMFGradientView;
 
 @interface WMFImageGalleryCollectionViewCell : UICollectionViewCell
 
@@ -24,12 +23,15 @@
  * @note This setter takes precedence over @c imageView.image since other cell elements need to be laid out as a result
  *       of the image changing.
  */
-@property (nonatomic) UIImage* image;
+@property (nonatomic, strong) UIImage* image;
 
 /// The subview which displays additional information about the image.
 @property (nonatomic, weak, readonly) WMFImageGalleryDetailOverlayView* detailOverlayView;
 
-/// Set @c alpha for the gradient & detail overlay views. This is preferred to hiding & showing them.
-- (void)setDetailViewAlpha:(float)alpha;
+@property (nonatomic, getter = isZoomEnabled) BOOL zoomEnabled;
+
+@property (nonatomic, getter = isLoading) BOOL loading;
+
+- (void)startLoadingAfterDelay:(NSTimeInterval)seconds;
 
 @end

@@ -85,6 +85,9 @@
  */
 - (NSArray*)uniqueLargestVariants;
 
+/// @return The `sourceURL` of each entry in `uniqueLargestVariants` as a NSURL.
+- (NSArray*)uniqueLargestVariantSourceURLs;
+
 @property (readonly) BOOL dirty;
 
 - (void)save;
