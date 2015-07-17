@@ -174,7 +174,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticleForTitle:(MWKTitle*)title {
     @weakify(self)
-    self.articleRequest = [self.articleFetcher fetchArticleForPageTitle:title progress:nil];
+    self.articleRequest = [self.articleFetcher fetchSectionTitlesAndFirstSectionForPageTitle:title progress:nil];
 
     self.articleRequest.then(^(MWKArticle* article){
         @strongify(self)
@@ -433,7 +433,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)presentArticleScrolledToSectionForIndexPath:(NSIndexPath*)indexPath {
     WebViewController* webVC = [WebViewController wmf_initialViewControllerFromClassStoryboard];
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:webVC] animated:YES completion:^{
-        [webVC navigateToPage:[self titleForSelectedIndexPath:indexPath] discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
+        [webVC navigateToPage:[self titleForSelectedIndexPath:indexPath] discoveryMethod:MWKHistoryDiscoveryMethodReloadFromCache];
     }];
 }
 
@@ -442,7 +442,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFArticleSectionTypeSummary:
             return [[MWKTitle alloc] initWithSite:self.article.title.site
                                   normalizedTitle:self.article.title.text
-                                         fragment:@""];
+                                         fragment:nil];
         case WMFArticleSectionTypeTOC:
             return [[MWKTitle alloc] initWithSite:self.article.title.site
                                   normalizedTitle:self.article.title.text
@@ -451,7 +451,7 @@ NS_ASSUME_NONNULL_BEGIN
             MWKArticle* readMoreArticle = ((MWKArticle*)self.readMoreResults.articles[indexPath.row]);
             return [[MWKTitle alloc] initWithSite:readMoreArticle.site
                                   normalizedTitle:readMoreArticle.title.text
-                                         fragment:@""];
+                                         fragment:nil];
         }
     }
 }

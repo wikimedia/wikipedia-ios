@@ -10,6 +10,7 @@
 
 - (AFHTTPRequestOperation*)fetchSectionsForTitle:(MWKTitle*)title
                                      inDataStore:(MWKDataStore*)store
+                            fetchLeadSectionOnly:(BOOL)fetchLeadSectionOnly
                                      withManager:(AFHTTPRequestOperationManager*)manager
                                    progressBlock:(WMFProgressHandler)progress
                                  completionBlock:(WMFArticleHandler)completion

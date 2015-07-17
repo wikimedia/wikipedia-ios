@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress;
 
+- (AnyPromise*)fetchSectionTitlesAndFirstSectionForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress;
+
 @end
 
 NS_ASSUME_NONNULL_END

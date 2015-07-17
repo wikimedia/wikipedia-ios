@@ -63,7 +63,7 @@ static SavedArticlesFetcher* _fetcher = nil;
                 ArticleFetcher* fetcher = [[ArticleFetcher alloc] init];
                 self.fetchersByArticleTitle[entry.title] = fetcher;
 
-                [fetcher fetchSectionsForTitle:entry.title inDataStore:self.dataStore withManager:self.operationManager progressBlock:NULL completionBlock:^(MWKArticle* article) {
+                [fetcher fetchSectionsForTitle:entry.title inDataStore:self.dataStore fetchLeadSectionOnly:NO withManager:self.operationManager progressBlock:NULL completionBlock:^(MWKArticle* article) {
                     MWKArticle* fetchedArticle = article;
 
                     dispatch_async(self.accessQueue, ^{

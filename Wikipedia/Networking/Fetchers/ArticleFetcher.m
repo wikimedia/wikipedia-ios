@@ -24,6 +24,7 @@
 @interface ArticleFetcher ()
 
 @property (nonatomic, assign, readwrite) BOOL sendUsageReports;
+@property (nonatomic, assign, readwrite) BOOL fetchLeadSectionOnly;
 
 @end
 
@@ -31,6 +32,7 @@
 
 - (AFHTTPRequestOperation*)fetchSectionsForTitle:(MWKTitle*)title
                                      inDataStore:(MWKDataStore*)store
+                            fetchLeadSectionOnly:(BOOL)fetchLeadSectionOnly
                                      withManager:(AFHTTPRequestOperationManager*)manager
                                    progressBlock:(WMFProgressHandler)progress
                                  completionBlock:(WMFArticleHandler)completion
@@ -39,6 +41,7 @@
     NSAssert(store != nil, @"Store nil");
     NSAssert(manager != nil, @"Manager nil");
 
+    self.fetchLeadSectionOnly = fetchLeadSectionOnly;
     if (!title.text) {
         return nil;
     }
@@ -136,6 +139,10 @@
                                                @"languagecount", @"id", @"protection", @"editable", @"displaytitle",
                                                @"thumb", @"description", @"image"])
     }.mutableCopy;
+
+    if (self.fetchLeadSectionOnly) {
+        params[@"sections"] = @0;
+    }
 
     return params;
 }

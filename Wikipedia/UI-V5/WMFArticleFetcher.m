@@ -37,10 +37,19 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress {
+    return [self fetchArticleForPageTitle:pageTitle fetchLeadSectionOnly:NO progress:progress];
+}
+
+- (AnyPromise*)fetchSectionTitlesAndFirstSectionForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress {
+    return [self fetchArticleForPageTitle:pageTitle fetchLeadSectionOnly:YES progress:progress];
+}
+
+- (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle fetchLeadSectionOnly:(BOOL)fetchLeadSectionOnly progress:(WMFProgressHandler __nullable)progress {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
         AFHTTPRequestOperation* operation =
             [self.fetcher fetchSectionsForTitle:pageTitle
                                     inDataStore:self.dataStore
+                           fetchLeadSectionOnly:fetchLeadSectionOnly
                                     withManager:self.operationManager
                                   progressBlock:progress
                                 completionBlock:resolve
