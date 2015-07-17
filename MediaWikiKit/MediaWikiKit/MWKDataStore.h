@@ -22,6 +22,9 @@ FOUNDATION_EXPORT NSString* const MWKDataStoreValidImageSitePrefix;
  */
 extern NSString* MWKCreateImageURLWithPath(NSString* path);
 
+extern NSString* const MWKArticleSavedNotification;
+extern NSString* const MWKArticleKey;
+
 @interface MWKDataStore : NSObject
 
 @property (readonly, copy, nonatomic) NSString* basePath;
