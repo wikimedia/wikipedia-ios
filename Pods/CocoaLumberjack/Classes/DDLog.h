@@ -543,3 +543,4 @@ typedef NS_OPTIONS(NSInteger, DDLogMessageOptions) {
 @property (nonatomic, readonly, getter=isOnInternalLoggerQueue) BOOL onInternalLoggerQueue;
 
 @end
+

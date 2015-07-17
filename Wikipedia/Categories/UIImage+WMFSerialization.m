@@ -7,6 +7,7 @@
 //
 
 #import "UIImage+WMFSerialization.h"
+#import <AnimatedGIFImageSerialization/AnimatedGIFImageSerialization.h>
 
 @implementation UIImage (WMFSerialization)
 
@@ -18,6 +19,10 @@
     return UIImageJPEGRepresentation(self, 1.0);
 }
 
+- (NSData*)wmf_gifRepresentation {
+    return UIImageAnimatedGIFRepresentation(self);
+}
+
 - (NSData*)wmf_dataRepresentationForMimeType:(NSString*)mimeType
                           serializedMimeType:(NSString* __autoreleasing*)outMimeType {
     if ([mimeType hasSuffix:@"jpeg"]) {
@@ -25,12 +30,24 @@
             *outMimeType = @"image/jpeg";
         }
         return [self wmf_losslessJPEGRepresentation];
-    } else { /* if ([mimeType hasSuffix:@"png"]) */
+    } else if ([mimeType hasSuffix:@"png"]) {
         if (*outMimeType) {
             *outMimeType = @"image/png";
         }
         return [self wmf_pngRepresentation];
+    } else if ([mimeType hasSuffix:@"gif"]) {
+        NSData* data = [self wmf_gifRepresentation];
+        if (data) {
+            if (*outMimeType) {
+                *outMimeType = @"image/gif";
+            }
+            return data;
+        }
     }
+
+    DDLogWarn(@"Unknown Image Type, falling back on PNG");
+    *outMimeType = @"image/png";
+    return [self wmf_pngRepresentation];
 }
 
 @end

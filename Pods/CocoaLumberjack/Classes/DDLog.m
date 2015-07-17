@@ -315,10 +315,10 @@ static NSUInteger _numProcessors;
         tag:(id)tag
      format:(NSString *)format, ... {
     va_list args;
-
+    
     if (format) {
         va_start(args, format);
-
+        
         NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
         [self log:asynchronous
           message:message
@@ -344,7 +344,7 @@ static NSUInteger _numProcessors;
         tag:(id)tag
      format:(NSString *)format
        args:(va_list)args {
-
+    
     if (format) {
         NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
         [self log:asynchronous
@@ -368,7 +368,7 @@ static NSUInteger _numProcessors;
    function:(const char *)function
        line:(NSUInteger)line
         tag:(id)tag {
-
+    
     DDLogMessage *logMessage = [[DDLogMessage alloc] initWithMessage:message
                                                                level:level
                                                                 flag:flag
@@ -379,7 +379,7 @@ static NSUInteger _numProcessors;
                                                                  tag:tag
                                                              options:(DDLogMessageOptions)0
                                                            timestamp:nil];
-
+    
     [self queueLogMessage:logMessage asynchronously:asynchronous];
 }
 
@@ -606,19 +606,19 @@ static NSUInteger _numProcessors;
             break;
         }
     }
-
+    
     if (loggerNode == nil) {
         NSLogDebug(@"DDLog: Request to remove logger which wasn't added");
         return;
     }
-
+    
     // Notify logger
     if ([logger respondsToSelector:@selector(willRemoveLogger)]) {
         dispatch_async(loggerNode->_loggerQueue, ^{ @autoreleasepool {
             [logger willRemoveLogger];
         } });
     }
-
+    
     // Remove from loggers array
     [_loggers removeObject:loggerNode];
 }
@@ -626,7 +626,7 @@ static NSUInteger _numProcessors;
 + (void)lt_removeAllLoggers {
     NSAssert(dispatch_get_specific(GlobalLoggingQueueIdentityKey),
              @"This method should only be run on the logging thread/queue");
-
+    
     // Notify all loggers
     for (DDLoggerNode *loggerNode in _loggers) {
         if ([loggerNode->_logger respondsToSelector:@selector(willRemoveLogger)]) {
@@ -635,7 +635,7 @@ static NSUInteger _numProcessors;
             } });
         }
     }
-
+    
     // Remove all loggers from array
 
     [_loggers removeAllObjects];
@@ -674,23 +674,23 @@ static NSUInteger _numProcessors;
             if (!(logMessage->_flag & loggerNode->_level)) {
                 continue;
             }
-
+            
             dispatch_group_async(_loggingGroup, loggerNode->_loggerQueue, ^{ @autoreleasepool {
                 [loggerNode->_logger logMessage:logMessage];
             } });
         }
-
+        
         dispatch_group_wait(_loggingGroup, DISPATCH_TIME_FOREVER);
     } else {
         // Execute each logger serialy, each within its own queue.
-
+        
         for (DDLoggerNode *loggerNode in _loggers) {
             // skip the loggers that shouldn't write this message based on the log level
 
             if (!(logMessage->_flag & loggerNode->_level)) {
                 continue;
             }
-
+            
             dispatch_sync(loggerNode->_loggerQueue, ^{ @autoreleasepool {
                 [loggerNode->_logger logMessage:logMessage];
             } });
@@ -719,10 +719,10 @@ static NSUInteger _numProcessors;
     //
     // Now we need to propogate the flush request to any loggers that implement the flush method.
     // This is designed for loggers that buffer IO.
-
+    
     NSAssert(dispatch_get_specific(GlobalLoggingQueueIdentityKey),
              @"This method should only be run on the logging thread/queue");
-
+    
     for (DDLoggerNode *loggerNode in _loggers) {
         if ([loggerNode->_logger respondsToSelector:@selector(flush)]) {
             dispatch_group_async(_loggingGroup, loggerNode->_loggerQueue, ^{ @autoreleasepool {
@@ -730,7 +730,7 @@ static NSUInteger _numProcessors;
             } });
         }
     }
-
+    
     dispatch_group_wait(_loggingGroup, DISPATCH_TIME_FOREVER);
 }
 
@@ -883,6 +883,31 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
 
 #endif /* if TARGET_OS_IPHONE */
 
+// Should we use pthread_threadid_np ?
+// With iOS 8+/OSX 10.10+ NSLog uses pthread_threadid_np instead of pthread_mach_thread_np
+
+#if TARGET_OS_IPHONE
+
+// Compiling for iOS
+
+  #ifndef kCFCoreFoundationVersionNumber_iOS_8_0
+    #define kCFCoreFoundationVersionNumber_iOS_8_0 1140.10
+  #endif
+
+    #define USE_PTHREAD_THREADID_NP                (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0)
+
+#else
+
+// Compiling for Mac OS X
+
+  #ifndef kCFCoreFoundationVersionNumber10_10
+    #define kCFCoreFoundationVersionNumber10_10    1151.16
+  #endif
+
+    #define USE_PTHREAD_THREADID_NP                (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber10_10)
+
+#endif /* if TARGET_OS_IPHONE */
+
 - (instancetype)initWithMessage:(NSString *)message
                           level:(DDLogLevel)level
                            flag:(DDLogFlag)flag
@@ -898,14 +923,25 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
         _level        = level;
         _flag         = flag;
         _context      = context;
-        _file         = file;
-        _function     = function;
+
+        BOOL copyFile = (options & DDLogMessageCopyFile) == DDLogMessageCopyFile;
+        _file = copyFile ? [file copy] : file;
+
+        BOOL copyFunction = (options & DDLogMessageCopyFunction) == DDLogMessageCopyFunction;
+        _function = copyFunction ? [function copy] : function;
+
         _line         = line;
         _tag          = tag;
         _options      = options;
         _timestamp    = timestamp ?: [NSDate new];
 
-        _threadID     = [[NSString alloc] initWithFormat:@"%x", pthread_mach_thread_np(pthread_self())];
+        if (USE_PTHREAD_THREADID_NP) {
+            __uint64_t tid;
+            pthread_threadid_np(NULL, &tid);
+            _threadID = [[NSString alloc] initWithFormat:@"%llu", tid];
+        } else {
+            _threadID = [[NSString alloc] initWithFormat:@"%x", pthread_mach_thread_np(pthread_self())];
+        }
         _threadName   = NSThread.currentThread.name;
 
         // Get the file name without extension
@@ -915,7 +951,7 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
         {
             _fileName = [_fileName substringToIndex:dotLocation];
         }
-
+        
         // Try to get the current queue's label
         if (USE_DISPATCH_CURRENT_QUEUE_LABEL) {
             _queueLabel = [[NSString alloc] initWithFormat:@"%s", dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL)];
@@ -934,7 +970,7 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
 
 - (id)copyWithZone:(NSZone *)zone {
     DDLogMessage *newMessage = [DDLogMessage new];
-
+    
     newMessage->_message = _message;
     newMessage->_level = _level;
     newMessage->_flag = _flag;

@@ -23,3 +23,4 @@
             NSAssert(NO, description);                                                \
         }
 #define DDAssertCondition(condition) DDAssert(condition, @"Condition not satisfied: %s", #condition)
+

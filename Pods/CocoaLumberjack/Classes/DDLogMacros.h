@@ -24,11 +24,7 @@
  * The constant/variable/method responsible for controlling the current log level.
  **/
 #ifndef LOG_LEVEL_DEF
-    #ifdef ddLogLevel
-        #define LOG_LEVEL_DEF ddLogLevel
-    #else
-        #define LOG_LEVEL_DEF DDLogLevelVerbose
-    #endif
+    #define LOG_LEVEL_DEF ddLogLevel
 #endif
 
 /**
@@ -83,3 +79,4 @@
 #define DDLogInfo(frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagInfo,    0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
 #define DDLogDebug(frmt, ...)   LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagDebug,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
 #define DDLogVerbose(frmt, ...) LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, DDLogFlagVerbose, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+

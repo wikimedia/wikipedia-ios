@@ -6,18 +6,19 @@ PODS:
   - AFNetworking/Reachability (2.5.4)
   - AFNetworking/Security (2.5.4)
   - AFNetworking/Serialization (2.5.4)
+  - AnimatedGIFImageSerialization (0.2.0)
   - BlocksKit/Core (2.2.5)
   - BlocksKit/DynamicDelegate (2.2.5)
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
-  - CocoaLumberjack (2.0.0):
-    - CocoaLumberjack/Default (= 2.0.0)
-    - CocoaLumberjack/Extensions (= 2.0.0)
-  - CocoaLumberjack/Core (2.0.0)
-  - CocoaLumberjack/Default (2.0.0):
+  - CocoaLumberjack (2.0.1):
+    - CocoaLumberjack/Default (= 2.0.1)
+    - CocoaLumberjack/Extensions (= 2.0.1)
+  - CocoaLumberjack/Core (2.0.1)
+  - CocoaLumberjack/Default (2.0.1):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.0.0):
+  - CocoaLumberjack/Extensions (2.0.1):
     - CocoaLumberjack/Default
   - HockeySDK (3.6.2)
   - hpple (0.2.0)
@@ -38,6 +39,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking/NSURLConnection (~> 2.5)
+  - AnimatedGIFImageSerialization
   - BlocksKit/Core (~> 2.2)
   - BlocksKit/UIKit (~> 2.2)
   - CocoaLumberjack (~> 2.0.0)
@@ -57,8 +59,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  AnimatedGIFImageSerialization: b0f0cfe71eac1ee45a3d57ae533c23b8e6f29501
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
-  CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
+  CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   HockeySDK: 51ade1aff04463137e852797d2eb4dfb2511d6a9
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf

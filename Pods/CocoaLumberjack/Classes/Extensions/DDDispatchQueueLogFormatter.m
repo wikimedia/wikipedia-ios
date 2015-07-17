@@ -23,12 +23,12 @@
 
 @interface DDDispatchQueueLogFormatter () {
     NSString *_dateFormatString;
-
+    
     int32_t _atomicLoggerCount;
     NSDateFormatter *_threadUnsafeDateFormatter; // Use [self stringFromDate]
-
+    
     OSSpinLock _lock;
-
+    
     NSUInteger _minQueueLength;           // _prefix == Only access via atomic property
     NSUInteger _maxQueueLength;           // _prefix == Only access via atomic property
     NSMutableDictionary *_replacements;   // _prefix == Only access from within spinlock
