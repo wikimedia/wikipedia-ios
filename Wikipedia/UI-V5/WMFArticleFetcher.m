@@ -7,8 +7,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString* const WMFArticleFetchedNotification = @"WMFArticleFetchedNotification";
-NSString* const WMFArticleFetchedKey          = @"WMFArticleFetchedKey";
 
 @interface WMFArticleFetcher ()
 
@@ -48,7 +46,6 @@ NSString* const WMFArticleFetchedKey          = @"WMFArticleFetchedKey";
                 }
             });
         } completionBlock:^(MWKArticle* article) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:WMFArticleFetchedNotification object:self userInfo:@{WMFArticleFetchedKey: article}];
             resolve(article);
         } errorBlock:^(NSError* error) {
             resolve(error);

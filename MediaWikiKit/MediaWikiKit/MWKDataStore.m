@@ -7,8 +7,10 @@
 
 #import <BlocksKit/BlocksKit.h>
 
-
+NSString* const MWKArticleSavedNotification      = @"MWKArticleSavedNotification";
+NSString* const MWKArticleKey                    = @"MWKArticleKey";
 NSString* const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
+
 NSString* MWKCreateImageURLWithPath(NSString* path) {
     return [MWKDataStoreValidImageSitePrefix stringByAppendingString:path];
 }
@@ -18,15 +20,24 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 @interface MWKDataStore ()
 
 @property (readwrite, copy, nonatomic) NSString* basePath;
+@property (nonatomic, strong) NSCache* articleCache;
 
 @end
 
 @implementation MWKDataStore
 
+#pragma mark - Class methods
+
 + (NSString*)mainDataStorePath {
     NSString* documentsFolder =
         [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     return [documentsFolder stringByAppendingPathComponent:@"Data"];
+}
+
+#pragma mark - Setup / Teardown
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (instancetype)init {
@@ -36,9 +47,18 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 - (instancetype)initWithBasePath:(NSString*)basePath {
     self = [super init];
     if (self) {
-        self.basePath = basePath;
+        self.basePath                = basePath;
+        self.articleCache            = [[NSCache alloc] init];
+        self.articleCache.countLimit = 50;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     return self;
+}
+
+#pragma mark - Memory
+
+- (void)didRecievememoryWarningWithNotifcation:(NSNotification*)note {
+    [self.articleCache removeAllObjects];
 }
 
 #pragma mark - path methods
@@ -193,9 +213,14 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (void)saveArticle:(MWKArticle*)article {
+    if (article.title.text == nil) {
+        return;
+    }
     NSString* path       = [self pathForArticle:article];
     NSDictionary* export = [article dataExport];
     [self saveDictionary:export path:path name:@"Article.plist"];
+    [self.articleCache setObject:article forKey:article.title];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKArticleSavedNotification object:self userInfo:@{MWKArticleKey: article}];
 }
 
 - (void)saveSection:(MWKSection*)section {
@@ -266,6 +291,10 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 #pragma mark - load methods
 
+- (MWKArticle*)memoryCachedArticleWithTitle:(MWKTitle*)title {
+    return [self.articleCache objectForKey:title];
+}
+
 - (MWKArticle*)existingArticleWithTitle:(MWKTitle*)title {
     NSString* path     = [self pathForTitle:title];
     NSString* filePath = [path stringByAppendingPathComponent:@"Article.plist"];
@@ -274,7 +303,19 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (MWKArticle*)articleWithTitle:(MWKTitle*)title {
-    return [self existingArticleWithTitle:title] ? : [[MWKArticle alloc] initWithTitle:title dataStore:self];
+    MWKArticle* article = [self memoryCachedArticleWithTitle:title];
+
+    if (!article) {
+        article = [self existingArticleWithTitle:title];
+        if (!article) {
+            article = [[MWKArticle alloc] initWithTitle:title dataStore:self];
+        }
+        if (article) {
+            [self.articleCache setObject:article forKey:article.title];
+        }
+    }
+
+    return article;
 }
 
 - (MWKSection*)sectionWithId:(NSUInteger)sectionId article:(MWKArticle*)article {

@@ -7,12 +7,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString* const WMFArticleFetchedNotification;
-extern NSString* const WMFArticleFetchedKey;
-
-extern NSString* const WMFArticleFetchedNotification;
-extern NSString* const WMFArticleFetchedKey;
-
 @interface WMFArticleFetcher : NSObject
 
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;

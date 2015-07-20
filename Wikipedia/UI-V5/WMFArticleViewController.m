@@ -115,15 +115,15 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article Notifications
 
 - (void)observeArticleUpdates {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleUpdatedWithNotification:) name:WMFArticleFetchedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleUpdatedWithNotification:) name:MWKArticleSavedNotification object:nil];
 }
 
 - (void)unobserveArticleUpdates {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFArticleFetchedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
 }
 
 - (void)articleUpdatedWithNotification:(NSNotification*)note {
-    MWKArticle* article = note.userInfo[WMFArticleFetchedKey];
+    MWKArticle* article = note.userInfo[MWKArticleKey];
     if ([self.article.title isEqualToTitle:article.title]) {
         dispatchOnMainQueue(^{
             self.article = article;
