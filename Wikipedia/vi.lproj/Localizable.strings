@@ -7,6 +7,7 @@
 // Author: Macofe
 // Author: Max20091
 // Author: Minh Nguyen
+// Author: Vinhtantran
 
 "languages-title" = "Ngôn ngữ";
 "article-languages-label" = "Chọn ngôn ngữ";
@@ -15,6 +16,7 @@
 "article-languages-filter-placeholder" = "Lọc Ngôn ngữ";
 "article-read-more-title" = "Đọc tiếp";
 "article-unable-to-load-section" = "Không thể tải lên phần này. Bạn hãy thử tải lại trang để xem lỗi có được khắc phục hay không.";
+"article-unable-to-load-article" = "Không thể tải bài này.";
 "info-box-title" = "Thông tin nhanh";
 "info-box-close-text" = "Đóng";
 "table-title-other" = "Thêm thông tin";
@@ -261,6 +263,7 @@
 "migration-update-progress-count-label" = "Di chuyển bài báo $1 của $2";
 "migration-prompt-title" = "Trông giống như chúng ta có một lịch sử!";
 "migration-prompt-message" = "Chúng tôi cần di chuyển các trang mới lưu và đã lưu gần đây. Thao tác này có thể sẽ mất một phút...";
+"migration-confirm-button-title" = "Chuyển nội dung";
 "migration-skip-button-title" = "Xóa đối tượng";
 "image-gallery-unknown-owner" = "Người tải lên không rõ.";
 "image-gallery-fetch-image-info-error-title" = "Không thể tải hình ảnh về";

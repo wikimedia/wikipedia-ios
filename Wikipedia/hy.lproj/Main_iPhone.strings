@@ -1,7 +1,26 @@
 // Messages for Armenian (Հայերեն)
 // Exported from translatewiki.net
+// Author: Vahe Gharakhanyan
 // Author: Xelgen
 
-"7Wa-ox-cAd.normalTitle" = "Հիշել";
-"AIA-vO-cLI.placeholder" = "Մուտքագրեք վերևի պատկերի տեքստը";
-"P0o-I6-RDJ.normalTitle" = "Չեղարկել";
+"21c-U6-yfo.normalTitle" = "Ցույց տալ մեկ այլ նկար";
+"5cT-2Y-0Ie.placeholder" = "Մասնակցի անուն";
+"GiD-Rj-wb7.text" = "Պահպանված էջերը պարզապես հրաշալի են: Դուք կարող եք կարդալ նրանց նույնիսկ օֆլայն գտնվելու ժամանակ:";
+"LfM-01-aCF.text" = "Նախադիտում";
+"P6J-IE-CiO.text" = "Բաց թողնել";
+"PCr-0J-fBj.placeholder" = "Գաղտնաբառ";
+"UgH-77-lyp.placeholder" = "Կրկնեք գաղտնաբառը";
+"W1c-wQ-1pa.text" = "Դեռևս պահպանված էջեր չկան:";
+"Wff-o9-AdH.text" = "Մուտք գործել";
+"aUp-0e-F6i.text" = "Վերջերս դիտված էջեր չկան:";
+"c3c-PU-Exz.text" = "Ստեղծել մասնակցային հաշիվ";
+"gPg-cg-Yjy.placeholder" = "Վերևի նկարից մուտքագրեք տեքստը";
+"heA-3K-nhS.text" = "Դուք արդեն գրանցվա՞ծ եք։ Մուտք գործել";
+"huU-kO-aYI.text" = "Դուք հավանաբար հեռացրել եք ամբողջը: Հաջորդ անգամ, երբ գնաք այդ էջը, կարող եք վերադառնալ դրան այստեղից:";
+"ib6-Zk-jUw.text" = "Հոդվածի տեղային անվանում";
+"jiW-Cg-oL3.text" = "Ստեղծել մասնակցային հաշիվ";
+"kVb-lx-d6C.placeholder" = "Գաղտնաբառ";
+"mAk-1N-jPC.placeholder" = "Մասնակցի անուն";
+"rKI-nq-3p7.placeholder" = "Էլ–փոստի հասցե (ոչ պարտադիր)";
+"wVn-n7-pdy.text" = "Լեզու";
+"wkl-j8-wLX.text" = "Ստեղծել մասնակցային հաշիվ";

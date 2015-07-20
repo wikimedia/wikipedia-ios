@@ -262,6 +262,7 @@
 "nearby-location-general-error" = "位置を特定できません。引っ張って更新するか、後ほどもう一度試してみてください。";
 "nearby-wifi" = "Wi-Fi を有効にすると、位置情報の精度をより高めることができます。";
 "migration-update-progress-label" = "ローカルデータをアップグレード中";
+"migration-prompt-title" = "履歴があるようです！";
 "migration-prompt-message" = "私たちは、あなたのセーブされた最新のページを上に移動する必要があります。これには数分かかる場合があります…";
 "migration-skip-button-title" = "それを削除";
 "image-gallery-unknown-owner" = "アップロード者不明。";
