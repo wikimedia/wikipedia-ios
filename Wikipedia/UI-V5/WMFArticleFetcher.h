@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
-- (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler)progress;
+- (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress;
 
 @end
 

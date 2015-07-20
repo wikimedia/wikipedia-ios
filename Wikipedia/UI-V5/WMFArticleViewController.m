@@ -64,6 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
+    [self unobserveArticleUpdates];
     [[WMFImageController sharedInstance] cancelFetchForURL:[NSURL wmf_optionalURLWithString:[_article bestThumbnailImageURL]]];
 
     _article = article;
@@ -75,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
     DDLogVerbose(@"%lu", [article.sections count]);
 
     [self updateUI];
-    [self fetchArticleIfNeeded];
+    [self observeAndFetchArticleIfNeeded];
 }
 
 - (void)setMode:(WMFArticleControllerMode)mode animated:(BOOL)animated {
@@ -86,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
     _mode = mode;
 
     [self updateUIForMode:mode animated:animated];
-    [self fetchArticleIfNeeded];
+    [self observeAndFetchArticleIfNeeded];
 }
 
 - (BOOL)isSaved {
@@ -125,28 +126,30 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)articleUpdatedWithNotification:(NSNotification*)note {
     MWKArticle* article = note.userInfo[MWKArticleKey];
     if ([self.article.title isEqualToTitle:article.title]) {
-        dispatchOnMainQueue(^{
-            self.article = article;
-        });
+        self.article = article;
     }
 }
 
 #pragma mark - Article Fetching
 
-- (void)fetchArticleIfNeeded {
+- (void)observeAndFetchArticleIfNeeded {
     if (!self.article) {
+        // nothing to fetch or observe
         return;
     }
 
     if (self.mode == WMFArticleControllerModeList) {
+        // don't update or fetch while in list mode
         return;
     }
 
-    if ([self.article bestThumbnailImageURL] && [self.article isCached]) {
-        return;
+    if ([self.article isCached]) {
+        // observe immediately
+        [self observeArticleUpdates];
+    } else {
+        // fetch then observe
+        [self fetchArticle];
     }
-
-    [self fetchArticle];
 }
 
 - (void)fetchArticle {
@@ -154,18 +157,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)fetchArticleForTitle:(MWKTitle*)title {
-    [self unobserveArticleUpdates];
-    [self.articleFetcher fetchArticleForPageTitle:title progress:^(CGFloat progress){
-    }].then(^(MWKArticle* article){
+    [self.articleFetcher fetchArticleForPageTitle:title progress:nil].then(^(MWKArticle* article) {
+        // re-entry, should result in being article being observed
         self.article = article;
-    }).catch(^(NSError* error){
+    }).catch(^(NSError* error) {
         if ([error wmf_isWMFErrorOfType:WMFErrorTypeRedirected]) {
             [self fetchArticleForTitle:[[error userInfo] wmf_redirectTitle]];
         } else {
             NSLog(@"Article Fetch Error: %@", [error localizedDescription]);
         }
-    }).then(^(){
-        [self observeArticleUpdates];
     });
 }
 
@@ -235,18 +235,15 @@ NS_ASSUME_NONNULL_BEGIN
     switch (mode) {
         case WMFArticleControllerModeNormal: {
             self.tableView.scrollEnabled = YES;
+            [self observeAndFetchArticleIfNeeded];
+            break;
         }
-        break;
-        case WMFArticleControllerModeList: {
+        default: {
             [self.tableView setContentOffset:CGPointZero animated:animated];
             self.tableView.scrollEnabled = NO;
+            [self unobserveArticleUpdates];
+            break;
         }
-        break;
-        case WMFArticleControllerModePopup: {
-            [self.tableView setContentOffset:CGPointZero animated:animated];
-            self.tableView.scrollEnabled = NO;
-        }
-        break;
     }
 }
 

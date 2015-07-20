@@ -37,20 +37,14 @@ NS_ASSUME_NONNULL_BEGIN
     return _fetcher;
 }
 
-- (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler)progress {
+- (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        AFHTTPRequestOperation* operation = [self.fetcher fetchSectionsForTitle:pageTitle inDataStore:self.dataStore withManager:self.operationManager progressBlock:^(CGFloat completionProgress) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (progress) {
-                    progress(completionProgress);
-                }
-            });
-        } completionBlock:^(MWKArticle* article) {
-            resolve(article);
-        } errorBlock:^(NSError* error) {
-            resolve(error);
-        }];
-
+        AFHTTPRequestOperation* operation = [self.fetcher fetchSectionsForTitle:pageTitle
+                                                                    inDataStore:self.dataStore
+                                                                    withManager:self.operationManager
+                                                                  progressBlock:progress
+                                                                completionBlock:resolve
+                                                                     errorBlock:resolve];
         if (operation == nil) {
             resolve([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
         }

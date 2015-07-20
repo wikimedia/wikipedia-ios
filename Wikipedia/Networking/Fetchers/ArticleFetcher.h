@@ -15,8 +15,4 @@
                                  completionBlock:(WMFArticleHandler)completion
                                       errorBlock:(WMFErrorHandler)errorHandler;
 
-
-
-
-
 @end

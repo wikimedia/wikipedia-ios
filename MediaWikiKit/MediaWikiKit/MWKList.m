@@ -19,7 +19,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.mutableEntries = [NSMutableArray array];
+        _mutableEntries     = [NSMutableArray array];
         self.entriesByTitle = [NSMutableDictionary dictionary];
     }
     return self;
@@ -143,6 +143,10 @@
 }
 
 #pragma mark - KVO
+
+- (NSMutableArray*)mutableEntries {
+    return [self mutableArrayValueForKey:@"entries"];
+}
 
 - (NSUInteger)countOfEntries {
     return [_mutableEntries count];

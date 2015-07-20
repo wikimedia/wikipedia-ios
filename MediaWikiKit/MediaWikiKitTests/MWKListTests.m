@@ -131,4 +131,21 @@
     XCTAssertEqual([list countOfEntries], 0, @"Should have length 0 after removing all");
 }
 
+- (void)testKVO {
+    MWKList* list                = [[MWKList alloc] init];
+    NSMutableArray* observations = [NSMutableArray new];
+    [self.KVOController observe:list
+                        keyPath:WMF_SAFE_KEYPATH(list, entries)
+                        options:0
+                          block:^(id observer, id object, NSDictionary* change) {
+        [observations addObject:@[change[NSKeyValueChangeKindKey], change[NSKeyValueChangeIndexesKey]]];
+    }];
+    [list addEntry:self.testObjects[0]];
+    [list removeEntry:self.testObjects[0]];
+    XCTAssertEqual(observations.count, 2);
+    XCTAssertEqualObjects(observations[0], (@[@(NSKeyValueChangeInsertion), [NSIndexSet indexSetWithIndex:0]]));
+    XCTAssertEqualObjects(observations[1], (@[@(NSKeyValueChangeRemoval), [NSIndexSet indexSetWithIndex:0]]));
+    [self.KVOController unobserve:list];
+}
+
 @end
