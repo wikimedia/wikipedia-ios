@@ -13,7 +13,7 @@
 #import "UIView+WMFFrameUtils.h"
 #import "UIView+WMFDefaultNib.h"
 #import "WMFGradientView.h"
-#import "WMFRoundingUtilities.h"
+#import "WMFMath.h"
 
 static double const WMFImageGalleryMaxDetailHeight = 250.0;
 
@@ -207,11 +207,11 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
            The minimum & maximum scales need to be rounded *down*, otherwise there's an "off by one" error where the
            contents of imageContainerView are _just_ larger than its contentSize, which causes paging glitches.
          */
-        double const minScale = FlooredPercentage(fmin(widthScale, heightScale));
+        double const minScale = WMFFlooredPercentage(fmin(widthScale, heightScale));
 
         // images should be zoomable up to, at most, twice their intrinsic content size
         // in cases where the image is small, and minScale > 1, we must make sure maxScale >= minScale
-        double const maxScale = fmax(minScale, FlooredPercentage(2.0 / minScale));
+        double const maxScale = fmax(minScale, WMFFlooredPercentage(2.0 / minScale));
 
         NSParameterAssert(minScale <= maxScale);
         self.imageContainerView.minimumZoomScale = minScale;

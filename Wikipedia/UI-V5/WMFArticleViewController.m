@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setHeaderGalleryViewController:(WMFArticleHeaderImageGalleryViewController* __nonnull)galleryViewController {
     _headerGalleryViewController = galleryViewController;
-    [_headerGalleryViewController setImageURLsFromArticle:self.article];
+    [_headerGalleryViewController setImagesFromArticle:self.article];
 }
 
 - (void)setArticle:(MWKArticle* __nullable)article {
@@ -93,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.articleRequest = nil;
 
     _article = article;
-    [self.headerGalleryViewController setImageURLsFromArticle:article];
+    [self.headerGalleryViewController setImagesFromArticle:article];
 
     [self updateUI];
     [self observeAndFetchArticleIfNeeded];
@@ -178,7 +178,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.articleRequest.then(^(MWKArticle* article){
         @strongify(self)
-        [self.headerGalleryViewController setImageURLsFromArticle : article];
+        [self.headerGalleryViewController setImagesFromArticle : article];
         self.article = article;
     })
     .catch(^(NSError* error){

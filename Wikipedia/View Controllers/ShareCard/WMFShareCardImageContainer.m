@@ -14,9 +14,9 @@
     // self.leadImage is potentially a larger variant, which is why here the focal rect unit coords are
     // sought on self.leadImage.article.image
     CGRect focalRect    = CGRectZero;
-    NSArray* focalRects = [self.leadImage.article.image focalRectsInUnitCoordinatesAsStrings];
+    NSArray* focalRects = [self.leadImage.article.image allNormalizedFaceBounds];
     if (focalRects.count > 0) {
-        focalRect = WMFRectFromUnitRectForReferenceSize(CGRectFromString([focalRects firstObject]), self.leadImage.size);
+        focalRect = WMFDenormalizeRectUsingSize(CGRectFromString([focalRects firstObject]), self.leadImage.size);
     }
     return focalRect;
 }

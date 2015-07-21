@@ -84,7 +84,7 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
                                    withBlock:^id (NSMutableArray* uniqueArticleImages, MWKImage* image) {
             NSAssert(image.canonicalFilename.length,
                      @"Unable to form canonical filename from image: %@",
-                     image.sourceURL);
+                     image.sourceURLString);
             if (image.canonicalFilename.length) {
                 NSString* filePageTitle = [@"File:" stringByAppendingString:image.canonicalFilename];
                 [imageFilePageTitles addObject:filePageTitle];

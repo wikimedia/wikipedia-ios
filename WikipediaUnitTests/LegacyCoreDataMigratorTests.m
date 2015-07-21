@@ -213,7 +213,7 @@
     for (NSUInteger i = thumbnailModifier; i < oldArticleImages.count; i++) {
         Image* oldImage         = oldArticleImages[i];
         MWKImage* migratedImage = migratedArticle.images[i + thumbnailModifier];
-        assertThat(migratedImage.sourceURL, is(oldImage.sourceUrl));
+        assertThat(migratedImage.sourceURLString, is(oldImage.sourceUrl));
         assertThat([migratedImage asNSData], is(oldImage.imageData.data));
     }
 

@@ -286,24 +286,22 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 #pragma mark - Process DataSource Changes
 
 - (void)updateCellsAtIndexPaths:(NSArray*)indexPaths change:(NSKeyValueChange)change {
-    [self.collectionView performBatchUpdates:^{
-        switch (change) {
-            case NSKeyValueChangeInsertion:
-                [self insertCellsAtIndexPaths:indexPaths];
-                break;
-            case NSKeyValueChangeRemoval:
-                [self deleteCellsAtIndexPaths:indexPaths];
-                break;
-            case NSKeyValueChangeReplacement:
-                [self reloadCellsAtIndexPaths:indexPaths];
-                break;
-            case NSKeyValueChangeSetting:
-                [self.collectionView reloadData];
-                break;
-            default:
-                break;
-        }
-    } completion:NULL];
+    switch (change) {
+        case NSKeyValueChangeInsertion:
+            [self insertCellsAtIndexPaths:indexPaths];
+            break;
+        case NSKeyValueChangeRemoval:
+            [self deleteCellsAtIndexPaths:indexPaths];
+            break;
+        case NSKeyValueChangeReplacement:
+            [self reloadCellsAtIndexPaths:indexPaths];
+            break;
+        case NSKeyValueChangeSetting:
+            [self.collectionView reloadData];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)insertCellsAtIndexPaths:(NSArray*)indexPaths {

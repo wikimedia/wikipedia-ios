@@ -219,7 +219,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
         // copy all legacy data to a tmp folder for later comparison
         let legacyImageDataPaths = (article.allImageURLs() as! [NSURL]).reduce([:] as [NSURL:String]) { memo, url in
             let legacyImageData = dataStore.imageDataWithImage(MWKImage(article: article,
-                sourceURL: url.absoluteString!))
+                sourceURLString: url.absoluteString!))
             assert(legacyImageData.length != 0, "Images in the test article must have data for this test")
             let tmpPathForURL = tmpImageDirectory.stringByAppendingPathComponent(url.lastPathComponent!)
             legacyImageData.writeToFile(tmpPathForURL, atomically: false)
@@ -252,7 +252,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
             XCTAssertFalse(self.imageMigration.imageController.hasDataInMemoryForImageWithURL(url),
                 "image migration should not store migrated images in memory to prevent bloating")
 
-            XCTAssertNil(self.dataStore.imageDataWithImage(MWKImage(article: article, sourceURL: url.absoluteString!)),
+            XCTAssertNil(self.dataStore.imageDataWithImage(MWKImage(article: article, sourceURLString: url.absoluteString!)),
                 "Legacy image data not deleted for image with url: \(url)")
 
             let legacyData = NSFileManager.defaultManager().contentsAtPath(legacyImageDataPaths[url]!)

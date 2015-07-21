@@ -149,11 +149,11 @@
 }
 
 - (NSString*)largestImageVariant:(NSString*)imageURL {
-    return [self largestImageVariantForURL:imageURL].sourceURL;
+    return [self largestImageVariantForURL:imageURL].sourceURLString;
 }
 
 - (NSString*)smallestImageVariant:(NSString*)imageURL {
-    return [self smallestImageVariantForURL:imageURL].sourceURL;
+    return [self smallestImageVariantForURL:imageURL].sourceURLString;
 }
 
 - (MWKImage*)largestImageVariantForURL:(NSString*)imageURL cachedOnly:(BOOL)cachedOnly {
@@ -187,11 +187,11 @@
 }
 
 - (NSUInteger)indexOfImage:(MWKImage*)image {
-    return [self.mutableEntries indexOfObject:image.sourceURL];
+    return [self.mutableEntries indexOfObject:image.sourceURLString];
 }
 
 - (BOOL)containsImage:(MWKImage*)image {
-    return [self.mutableEntries containsObject:image.sourceURL];
+    return [self.mutableEntries containsObject:image.sourceURLString];
 }
 
 - (NSArray*)uniqueLargestVariants {
@@ -211,9 +211,8 @@
     NSArray* uniqueLargestVariants = self.uniqueLargestVariants;
     return [uniqueLargestVariants bk_reduce:[NSMutableArray arrayWithCapacity:uniqueLargestVariants.count]
                                   withBlock:^NSMutableArray*(NSMutableArray* memo, MWKImage* image) {
-        NSURL* url = [NSURL wmf_optionalURLWithString:image.sourceURL];
-        if (url) {
-            [memo addObject:url];
+        if (image.sourceURL) {
+            [memo addObject:image.sourceURL];
         }
         return memo;
     }];

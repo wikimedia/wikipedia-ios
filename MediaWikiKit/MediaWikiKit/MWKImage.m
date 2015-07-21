@@ -3,136 +3,110 @@
 #import "WikipediaAppUtils.h"
 #import "MediaWikiKit.h"
 #import "WMFImageURLParsing.h"
-#import "WMFFaceDetector.h"
 #import "WMFGeometry.h"
 #import "Wikipedia-Swift.h"
 #import <BlocksKit/BlocksKit.h>
 
 @interface MWKImage ()
 
-// Identifiers
-@property (readwrite, weak, nonatomic) MWKArticle* article;
+///
+/// readwrite redeclarations
+///
 
-// Metadata, static
-@property (readwrite, copy, nonatomic) NSString* sourceURL;
+@property (readwrite, weak, nonatomic) MWKArticle* article;
+@property (readwrite, copy, nonatomic) NSURL* sourceURL;
+@property (readwrite, assign, nonatomic) BOOL isCached;
+
+///
+/// Lazy property storage
+///
+
 @property (readwrite, copy, nonatomic) NSString* extension;
 @property (readwrite, copy, nonatomic) NSString* fileName;
 @property (readwrite, copy, nonatomic) NSString* fileNameNoSizePrefix;
-
-@property (readwrite, assign, nonatomic) BOOL isCached;
-
-@property (readwrite, copy, nonatomic) NSArray* focalRectsInUnitCoordinatesAsStrings;
 
 @end
 
 @implementation MWKImage
 
-#pragma mark - Setup
+- (instancetype)initWithArticle:(MWKArticle*)article sourceURLString:(NSString*)urlString {
+    return [self initWithArticle:article sourceURL:[NSURL wmf_optionalURLWithString:urlString]];
+}
 
-- (instancetype)initWithArticle:(MWKArticle*)article sourceURL:(NSString*)url {
+- (instancetype)initWithArticle:(MWKArticle*)article sourceURL:(NSURL*)sourceURL {
     self = [super initWithSite:article.site];
     if (self) {
         self.article = article;
 
         // fileNameNoSizePrefix is lazily derived from this property, so be careful if _sourceURL needs to be re-set
-        self.sourceURL = url;
-
-        self.focalRectsInUnitCoordinatesAsStrings = @[];
+        self.sourceURL = sourceURL;
     }
     return self;
 }
+
+#pragma mark - Serialization
 
 - (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict {
     NSString* sourceURL = [self requiredString:@"sourceURL" dict:dict];
-    self = [self initWithArticle:article sourceURL:sourceURL];
+    self = [self initWithArticle:article sourceURLString:sourceURL];
     if (self) {
-        self.dateLastAccessed                     = [self optionalDate:@"dateLastAccessed" dict:dict];
-        self.dateRetrieved                        = [self optionalDate:@"dateRetrieved" dict:dict];
-        self.mimeType                             = [self optionalString:@"mimeType" dict:dict];
-        self.width                                = [self optionalNumber:@"width" dict:dict];
-        self.height                               = [self optionalNumber:@"height" dict:dict];
-        self.focalRectsInUnitCoordinatesAsStrings = dict[@"focalRects"];
+        self.mimeType                = [self optionalString:@"mimeType" dict:dict];
+        self.width                   = [self optionalNumber:@"width" dict:dict];
+        self.height                  = [self optionalNumber:@"height" dict:dict];
+        self.allNormalizedFaceBounds = [dict[@"focalRects"] bk_map:^NSValue*(NSString* rectString) {
+            return [NSValue valueWithCGRect:CGRectFromString(rectString)];
+        }];
     }
     return self;
 }
 
-#pragma mark - Focal Rects
+- (id)dataExport {
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    dict[@"sourceURL"] = self.sourceURLString;
 
-- (void)calculateFocalRectsBasedOnFaceDetectionWithImageData:(NSData*)imageData {
-    if ([self.focalRectsInUnitCoordinatesAsStrings count] == 0) {
-        if (!imageData) {
-            imageData = [self asNSData];
-        }
-
-        static WMFFaceDetector* faceDetector = nil;
-        if (!faceDetector) {
-            faceDetector = [[WMFFaceDetector alloc] init];
-        }
-        [faceDetector setImageWithData:imageData];
-        [faceDetector detectFaces];
-
-        self.focalRectsInUnitCoordinatesAsStrings = [faceDetector allFaceBoundsAsStringsNormalizedToUnitRect];
+    if (self.mimeType) {
+        dict[@"mimeType"] = self.mimeType;
     }
-}
-
-- (CGRect)normalizedRectFromRect:(CGRect)rect {
-    CGRect imageRect = CGRectZero;
-    imageRect.size = [self size];
-    CGRect normalized = WMFRectWithUnitRectInReferenceRect(rect, imageRect);
-    return normalized;
-}
-
-- (CGRect)primaryFocalRectNormalizedToImageSize:(BOOL)normalized {
-    if (self.focalRectsInUnitCoordinatesAsStrings.count == 0) {
-        return CGRectZero;
+    if (self.width) {
+        dict[@"width"] = self.width;
+    }
+    if (self.height) {
+        dict[@"height"] = self.height;
+    }
+    if (self.allNormalizedFaceBounds) {
+        dict[@"focalRects"] = [self.allNormalizedFaceBounds bk_map:^id (NSValue* rectValue) {
+            return NSStringFromCGRect(rectValue.CGRectValue);
+        }];
     }
 
-    NSString* primary = [self.focalRectsInUnitCoordinatesAsStrings firstObject];
-    CGRect rect       = CGRectFromString(primary);
-
-    if (normalized) {
-        rect = [self normalizedRectFromRect:rect];
-    }
-
-    return rect;
-}
-
-- (CGRect)rectEnclosingAllFocalRectsNormalizedToImageSize:(BOOL)normalized {
-    __block CGRect enclosingRect = CGRectZero;
-
-    [self.focalRectsInUnitCoordinatesAsStrings enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
-        CGRect rect = CGRectFromString(obj);
-
-        if (CGRectIsEmpty(enclosingRect)) {
-            enclosingRect = rect;
-        } else {
-            enclosingRect = CGRectUnion(enclosingRect, rect);
-        }
-    }];
-
-    if (normalized) {
-        enclosingRect = [self normalizedRectFromRect:enclosingRect];
-    }
-
-    return enclosingRect;
+    return [dict copy];
 }
 
 #pragma mark - Accessors
+
+- (CGRect)firstFaceBounds {
+    NSValue* firstFace = [self.allNormalizedFaceBounds firstObject];
+    return firstFace ? [firstFace CGRectValue] : CGRectZero;
+}
+
+- (NSString*)sourceURLString {
+    return self.sourceURL.absoluteString;
+}
 
 - (CGSize)size {
     return CGSizeMake([self.width floatValue], [self.height floatValue]);
 }
 
 - (NSString*)extension {
-    return [self.sourceURL pathExtension];
+    return [self.sourceURLString pathExtension];
 }
 
 - (NSString*)fileName {
-    return [self.sourceURL lastPathComponent];
+    return [self.sourceURLString lastPathComponent];
 }
 
 - (NSString*)basename {
-    NSArray* sourceURLComponents = [self.sourceURL componentsSeparatedByString:@"/"];
+    NSArray* sourceURLComponents = [self.sourceURLString componentsSeparatedByString:@"/"];
     NSParameterAssert(sourceURLComponents.count >= 2);
     return sourceURLComponents[sourceURLComponents.count - 2];
 }
@@ -142,7 +116,7 @@
 }
 
 - (NSString*)canonicalFilenameFromSourceURL {
-    return [MWKImage canonicalFilenameFromSourceURL:self.sourceURL];
+    return [MWKImage canonicalFilenameFromSourceURL:self.sourceURLString];
 }
 
 + (NSString*)fileNameNoSizePrefix:(NSString*)sourceURL {
@@ -159,73 +133,29 @@
 
 - (NSString*)fileNameNoSizePrefix {
     if (!_fileNameNoSizePrefix) {
-        _fileNameNoSizePrefix = [MWKImage fileNameNoSizePrefix:self.sourceURL];
+        _fileNameNoSizePrefix = [MWKImage fileNameNoSizePrefix:self.sourceURLString];
     }
     return _fileNameNoSizePrefix;
 }
 
 #pragma mark - Import / Export
 
-- (id)dataExport {
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-    dict[@"sourceURL"] = self.sourceURL;
-    if (self.dateLastAccessed) {
-        dict[@"dateLastAccessed"] = [self iso8601DateString:self.dateLastAccessed];
-    }
-    if (self.dateRetrieved) {
-        dict[@"dateRetrieved"] = [self iso8601DateString:self.dateRetrieved];
-    }
-    if (self.mimeType) {
-        dict[@"mimeType"] = self.mimeType;
-    }
-    if (self.width) {
-        dict[@"width"] = self.width;
-    }
-    if (self.height) {
-        dict[@"height"] = self.height;
-    }
-    if (self.focalRectsInUnitCoordinatesAsStrings) {
-        dict[@"focalRects"] = self.focalRectsInUnitCoordinatesAsStrings;
-    }
-
-    return [dict copy];
-}
-
 - (void)importImageData:(NSData*)data {
-//    [self.article.dataStore saveImageData:data image:self];
+    [self.article.dataStore saveImageData:data image:self];
 }
 
 - (void)updateWithData:(NSData*)data {
-//    self.dateRetrieved    = [[NSDate alloc] init];
-//    self.dateLastAccessed = [[NSDate alloc] init];
-//    self.mimeType         = [self getImageMimeTypeForExtension:self.extension];
-//
-//    if (!self.width || !self.height) {
-//        UIImage* img = [UIImage imageWithData:data];
-//        self.width  = [NSNumber numberWithInt:img.size.width];
-//        self.height = [NSNumber numberWithInt:img.size.height];
-//    }
+    self.mimeType = [self getImageMimeTypeForExtension:self.extension];
+
+    if (!self.width || !self.height) {
+        UIImage* img = [UIImage imageWithData:data];
+        self.width  = [NSNumber numberWithInt:img.size.width];
+        self.height = [NSNumber numberWithInt:img.size.height];
+    }
 }
 
 - (NSString*)getImageMimeTypeForExtension:(NSString*)extension {
-    NSString* lowerCaseSelf = [extension lowercaseString];
-    if ([lowerCaseSelf isEqualToString:@"jpg"]) {
-        return @"image/jpeg";
-    }
-    if ([lowerCaseSelf isEqualToString:@"jpeg"]) {
-        return @"image/jpeg";
-    }
-    if ([lowerCaseSelf isEqualToString:@"png"]) {
-        return @"image/png";
-    }
-    if ([lowerCaseSelf isEqualToString:@"gif"]) {
-        return @"image/gif";
-    }
-    return @"";
-}
-
-- (void)updateLastAccessed {
-    self.dateLastAccessed = [[NSDate alloc] init];
+    return [self.sourceURL wmf_mimeTypeForExtension];
 }
 
 - (void)save {
@@ -233,18 +163,17 @@
 }
 
 - (UIImage*)asUIImage {
-    return nil;
-//    UIImage* image = [[WMFImageController sharedInstance] ];
-//
-//    NSAssert((![self hasEstimatedSize] || [self isEstimatedSizeWithinPoints:10.f ofSize:image.size]),
-//             (@"estimatedSize inaccuracy has exceeded acceptable threshold: { \n"
-//              "\t" "sourceURL: %@, \n"
-//              "\t" "estimatedSize: %@ \n"
-//              "\t" "actualSize: %@ \n"
-//              "}"),
-//             self.sourceURL, [self estimatedSizeString], NSStringFromCGSize(image.size));
-//
-//    return image;
+    UIImage* image = [UIImage imageWithData:[self.article.dataStore imageDataWithImage:self]];
+
+    NSAssert((![self hasEstimatedSize] || [self isEstimatedSizeWithinPoints:10.f ofSize:image.size]),
+             (@"estimatedSize inaccuracy has exceeded acceptable threshold: { \n"
+              "\t" "sourceURL: %@, \n"
+              "\t" "estimatedSize: %@ \n"
+              "\t" "actualSize: %@ \n"
+              "}"),
+             self.sourceURL, [self estimatedSizeString], NSStringFromCGSize(image.size));
+
+    return image;
 }
 
 - (BOOL)hasEstimatedSize {
@@ -275,25 +204,25 @@
 }
 
 - (MWKImage*)largestVariant {
-    NSString* largestURL = [self.article.images largestImageVariant:self.sourceURL];
+    NSString* largestURL = [self.article.images largestImageVariant:self.sourceURLString];
     return [self.article imageWithURL:largestURL];
 }
 
 - (MWKImage*)smallestVariant {
-    NSString* smallestURL = [self.article.images smallestImageVariant:self.sourceURL];
+    NSString* smallestURL = [self.article.images smallestImageVariant:self.sourceURLString];
     return [self.article imageWithURL:smallestURL];
 }
 
 - (MWKImage*)largestCachedVariant {
-    return [self.article.images largestImageVariantForURL:self.sourceURL cachedOnly:YES];
+    return [self.article.images largestImageVariantForURL:self.sourceURLString cachedOnly:YES];
 }
 
 - (MWKImage*)smallestCachedVariant {
-    return [self.article.images smallestImageVariantForURL:self.sourceURL cachedOnly:YES];
+    return [self.article.images smallestImageVariantForURL:self.sourceURLString cachedOnly:YES];
 }
 
 - (BOOL)isDownloaded {
-    return [[WMFImageController sharedInstance] hasImageWithURL:[NSURL URLWithString:self.sourceURL]];
+    return [[WMFImageController sharedInstance] hasImageWithURL:[NSURL URLWithString:self.sourceURLString]];
 }
 
 - (BOOL)isEqual:(id)object {
@@ -322,7 +251,7 @@
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ article: %@ sourceURL: %@",
-            [super description], self.article.title, self.sourceURL];
+            [super description], self.article.title, self.sourceURLString];
 }
 
 - (NSString*)fullImageBinaryPath {

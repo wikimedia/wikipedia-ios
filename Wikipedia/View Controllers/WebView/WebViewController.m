@@ -214,11 +214,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(sectionImageRetrieved:)
-                                                 name:WMFArticleImageSectionImageRetrievedNotification
-                                               object:nil];
-
     [self fadeAlert];
 
     self.scrollViewDragBeganVerticalOffset = 0.0f;
@@ -1374,108 +1369,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 #pragma mark - Lead image
 
 - (NSString*)leadImageGetHtml {
-    // Get lead image html structured such that no JS bridge messages are needed for lead image presentation.
-    // Set everything here via css before the html payload is delivered to the web view.
-
-    MWKArticle* article = self.session.currentArticle;
-
-    if (article.isMain) {
-        return @"";
-    }
-
-    NSString* title       = article.displaytitle;
-    NSString* description = article.entityDescription ? [[article.entityDescription wmf_stringByRemovingHTML] wmf_stringByCapitalizingFirstCharacter] : @"";
-
-    BOOL hasImage = article.imageURL != nil;
-
-    // offsetY is percent to shift image vertically. 0 aligns top to top of lead_image_div,
-    // 50 centers it vertically, and 100 aligns bottom of image to bottom of lead_image_div.
-    NSInteger offsetY = 50;
-
-    if (hasImage) {
-        CGRect focalRect = [article.image primaryFocalRectNormalizedToImageSize:NO];
-        if (!CGRectEqualToRect(focalRect, CGRectZero)) {
-            offsetY = [self leadImageFocalOffsetYPercentageFromTopOfRect:focalRect];
-        }
-    }
-
-    static NSString* formatString =
-        @"<div id='lead_image_div' class='lead_image_div' style='background-image:url(%@);background-position:50%% %ld%%;'>"
-        "<div id='lead_image_placeholder' style='%@'></div>"
-        "<div id='lead_image_gradient'></div>"
-        "<div id='lead_image_text_container'>"
-        "<div id='lead_image_title' style='font-size:%.02fpx;'>%@</div>"
-        "<div id='lead_image_description' style='font-size:%.02fpx;'>%@</div>"
-        "</div>"
-        "</div>";
-
-    NSString* html =
-        [NSString stringWithFormat:formatString,
-         article.imageURL,
-         (long)offsetY,
-         [article.image isDownloaded] ? @"display:none;" : @"",
-         34.0f* [self leadImageGetSizeReductionMultiplierForTitleOfLength:title.length],
-         title,
-         17.0f,
-         description
-        ];
-
-    if (!hasImage) {
-        html = [NSString stringWithFormat:@"<div id='lead_image_none'>%@</div>", html];
-    }
-
-    return html;
-}
-
-- (CGFloat)leadImageGetSizeReductionMultiplierForTitleOfLength:(NSUInteger)length {
-    // Quick hack for shrinking long titles in rough proportion to their length.
-
-    CGFloat multiplier = 1.0f;
-
-    // Assume roughly title 28 chars per line. Note this doesn't take in to account
-    // interface orientation, which means the reduction is really not strictly
-    // in proportion to line count, rather to string length. This should be ok for
-    // now. Search for "lopado" and you'll see an insanely long title in the search
-    // results, which is nice for testing, and which this seems to handle.
-    // Also search for "list of accidents" for lots of other long title articles,
-    // many with lead images.
-
-    CGFloat charsPerLine = 28;
-    CGFloat lines        = ceil(length / charsPerLine);
-
-    // For every 2 "lines" (after the first 2) reduce title text size by 10%.
-    if (lines > 2) {
-        CGFloat linesAfter2Lines = lines - 2;
-        multiplier = 1.0f - (linesAfter2Lines * 0.1f);
-    }
-
-    // Don't shrink below 60%.
-    return MAX(multiplier, 0.6f);
-}
-
-- (void)sectionImageRetrieved:(NSNotification*)notification {
-    MWKImage* image = (MWKImage*)notification.object;
-    if ([image isLeadImage]) {
-        CGRect rect = [image primaryFocalRectNormalizedToImageSize:NO];
-        [self leadImageHidePlaceHolderAndCenterOnFaceIfNeeded:rect];
-    }
-}
-
-- (NSInteger)leadImageFocalOffsetYPercentageFromTopOfRect:(CGRect)rect {
-    float percentFromTop = CGRectGetMidY(rect) * 100.0f;
-    return (NSInteger)(MAX(0.0f, MIN(100.0f, percentFromTop)));
-}
-
-- (void)leadImageHidePlaceHolderAndCenterOnFaceIfNeeded:(CGRect)rect {
-    NSString* applyFocalOffsetJS = @"";
-    if (!CGRectEqualToRect(rect, CGRectZero)) {
-        applyFocalOffsetJS =
-            [NSString stringWithFormat:@"document.getElementById('lead_image_div').style.backgroundPosition = '100%% %ld%%';", (long)[self leadImageFocalOffsetYPercentageFromTopOfRect:rect]];
-    }
-
-    NSString* hidePlaceholderJS = @"document.getElementById('lead_image_placeholder').style.opacity = 0;";
-
-    [self.webView stringByEvaluatingJavaScriptFromString:[@[hidePlaceholderJS, applyFocalOffsetJS] componentsJoinedByString : @""]];
+    return @"";
 }
 
 #pragma mark Display article from data store
