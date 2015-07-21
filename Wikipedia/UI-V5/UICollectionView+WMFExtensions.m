@@ -55,6 +55,81 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (NSArray*)wmf_visibleIndexPathsOfItemsBeforeIndexPath:(NSIndexPath*)indexPath {
+    return [[self indexPathsForVisibleItems] bk_select:^BOOL (NSIndexPath* obj) {
+        if (obj.section > indexPath.section) {
+            return NO;
+        }
+
+        if (obj.row < indexPath.row) {
+            return YES;
+        }
+
+        return NO;
+    }];
+}
+
+- (NSArray*)wmf_visibleIndexPathsOfItemsAfterIndexPath:(NSIndexPath*)indexPath {
+    return [[self indexPathsForVisibleItems] bk_select:^BOOL (NSIndexPath* obj) {
+        if (obj.section < indexPath.section) {
+            return NO;
+        }
+
+        if (obj.row > indexPath.row) {
+            return YES;
+        }
+
+        return NO;
+    }];
+}
+
+- (CGRect)wmf_rectEnclosingCellsAtIndexPaths:(NSArray*)indexPaths {
+    __block CGRect enclosingRect = CGRectZero;
+
+    [indexPaths enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL* stop) {
+        UICollectionViewCell* cell = [self cellForItemAtIndexPath:obj];
+
+        if (!cell) {
+            return;
+        }
+
+        if (CGRectIsEmpty(enclosingRect)) {
+            enclosingRect = cell.frame;
+        } else {
+            enclosingRect = CGRectUnion(enclosingRect, cell.frame);
+        }
+    }];
+
+    return enclosingRect;
+}
+
+- (UIView*)wmf_snapshotOfVisibleCells {
+    NSArray* indexpaths = [self indexPathsForVisibleItems];
+    return [self wmf_snapshotOfCellsAtIndexPaths:indexpaths];
+}
+
+- (UIView*)wmf_snapshotOfCellAtIndexPath:(NSIndexPath*)indexPath {
+    return [self wmf_snapshotOfCellsAtIndexPaths:@[indexPath]];
+}
+
+- (UIView*)wmf_snapshotOfCellsAtIndexPaths:(NSArray*)indexPaths {
+    __block CGRect snapShotRect = [self wmf_rectEnclosingCellsAtIndexPaths:indexPaths];
+
+    if (CGRectIsEmpty(snapShotRect)) {
+        return nil;
+    } else {
+        return [self resizableSnapshotViewFromRect:snapShotRect afterScreenUpdates:YES withCapInsets:UIEdgeInsetsZero];
+    }
+}
+
+- (UIView*)wmf_snapshotOfCellsBeforeIndexPath:(NSIndexPath*)indexPath {
+    return [self wmf_snapshotOfCellsAtIndexPaths:[self wmf_visibleIndexPathsOfItemsBeforeIndexPath:indexPath]];
+}
+
+- (UIView*)wmf_snapshotOfCellsAfterIndexPath:(NSIndexPath*)indexPath {
+    return [self wmf_snapshotOfCellsAtIndexPaths:[self wmf_visibleIndexPathsOfItemsAfterIndexPath:indexPath]];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

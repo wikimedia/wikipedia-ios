@@ -61,8 +61,6 @@
 /** Content offset value to replace actual value when -overwriteContentOffset is YES */
 @property (assign, nonatomic) CGPoint contentOffset;
 
-/** Index path of item currently being moved, and thus being hidden */
-@property (strong, nonatomic) NSIndexPath* movingIndexPath;
 
 @end
 

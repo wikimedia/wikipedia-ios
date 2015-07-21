@@ -20,6 +20,24 @@ typedef void (^ WMFCellEnumerator)(id cell, NSIndexPath* indexPath, BOOL* stop);
  */
 - (void)wmf_setCollectionViewLayout:(UICollectionViewLayout*)layout animated:(BOOL)animated alwaysFireCompletion:(void (^)(BOOL finished))completion;
 
+
+
+- (NSArray*)wmf_visibleIndexPathsOfItemsBeforeIndexPath:(NSIndexPath*)indexPath;
+- (NSArray*)wmf_visibleIndexPathsOfItemsAfterIndexPath:(NSIndexPath*)indexPath;
+
+- (CGRect)wmf_rectEnclosingCellsAtIndexPaths:(NSArray*)indexPaths;
+
+- (UIView*)wmf_snapshotOfVisibleCells;
+
+- (UIView*)wmf_snapshotOfCellAtIndexPath:(NSIndexPath*)indexPath;
+
+- (UIView*)wmf_snapshotOfCellsAtIndexPaths:(NSArray*)indexPaths;
+
+- (UIView*)wmf_snapshotOfCellsBeforeIndexPath:(NSIndexPath*)indexPath;
+
+- (UIView*)wmf_snapshotOfCellsAfterIndexPath:(NSIndexPath*)indexPath;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

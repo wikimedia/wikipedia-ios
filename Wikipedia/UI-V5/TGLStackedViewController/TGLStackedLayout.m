@@ -24,6 +24,7 @@
 //  THE SOFTWARE.
 
 #import "TGLStackedLayout.h"
+#import "UICollectionView+WMFExtensions.h"
 
 #define MOVE_ZOOM 0.95
 
@@ -39,15 +40,22 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
 
 @interface TGLStackedLayout ()<UIGestureRecognizerDelegate>
 
-@property (strong, nonatomic) UIView* movingView;
-@property (strong, nonatomic) UILongPressGestureRecognizer* moveGestureRecognizer;
 
 @property (assign, nonatomic) TGLStackedViewControllerScrollDirection scrollDirection;
 @property (strong, nonatomic) CADisplayLink* scrollDisplayLink;
 
+
+@property (strong, nonatomic) UILongPressGestureRecognizer* moveGestureRecognizer;
+
 @property (nonatomic, strong) UIPanGestureRecognizer* deletePanGesture;
-@property (nonatomic, strong) NSIndexPath* panningIndexPath;
-@property (nonatomic, strong) NSIndexPath* deletingIndexPath;
+
+@property (assign, nonatomic) CGPoint gestureStartLocation;
+
+/** Index path of item currently being moved, and thus being hidden */
+@property (strong, nonatomic) NSIndexPath* movingIndexPath;
+@property (assign, nonatomic) CGPoint movingCellCenter;
+@property (strong, nonatomic) UIView* movingSnapshotView;
+@property (strong, nonatomic) UIView* bottomSnapshotView;
 
 @property (nonatomic, strong) NSDictionary* layoutAttributes;
 
@@ -300,9 +308,6 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
     [self.layoutAttributes enumerateKeysAndObjectsUsingBlock:^(NSIndexPath* indexPath, UICollectionViewLayoutAttributes* attributes, BOOL* stop) {
         if (CGRectIntersectsRect(rect, attributes.frame)) {
             [layoutAttributes addObject:attributes];
-            if ([self.panningIndexPath isEqual:attributes.indexPath]) {
-                [self updateAttibutesWithPanTranslation:attributes];
-            }
         }
     }];
 
@@ -311,19 +316,7 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
 
 - (UICollectionViewLayoutAttributes*)layoutAttributesForItemAtIndexPath:(NSIndexPath*)indexPath {
     UICollectionViewLayoutAttributes* item = self.layoutAttributes[indexPath];
-    if ([self.panningIndexPath isEqual:indexPath]) {
-        [self updateAttibutesWithPanTranslation:item];
-    }
     return item;
-}
-
-- (UICollectionViewLayoutAttributes*)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath*)itemIndexPath {
-    if ([self.deletingIndexPath isEqual:itemIndexPath]) {
-        UICollectionViewLayoutAttributes* item = [self layoutAttributesForItemAtIndexPath:itemIndexPath];
-        [self updateAttibutesForDeletion:item];
-        return item;
-    }
-    return [super finalLayoutAttributesForDisappearingItemAtIndexPath:itemIndexPath];
 }
 
 - (void)prepareForTransitionToLayout:(UICollectionViewLayout*)newLayout {
@@ -340,18 +333,6 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
 
     CGRect frame = item.frame;
     frame.origin.x = translation.x;
-    item.frame     = frame;
-}
-
-- (void)resetAttibutesWithPanTranslation:(UICollectionViewLayoutAttributes*)item {
-    CGRect frame = item.frame;
-    frame.origin.x = 0;
-    item.frame     = frame;
-}
-
-- (void)updateAttibutesForDeletion:(UICollectionViewLayoutAttributes*)item {
-    CGRect frame = item.frame;
-    frame.origin.x = self.collectionView.bounds.size.width * 2;
     item.frame     = frame;
 }
 
@@ -372,16 +353,13 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
             if (indexPath && canMove) {
                 UICollectionViewCell* movingCell = [self.collectionView cellForItemAtIndexPath:indexPath];
 
-                self.movingView = [[UIView alloc] initWithFrame:movingCell.frame];
+                self.movingSnapshotView       = [movingCell snapshotViewAfterScreenUpdates:YES];
+                self.movingSnapshotView.frame = movingCell.frame;
 
-                startCenter = self.movingView.center;
+                startCenter = self.movingSnapshotView.center;
 
-                UIImageView* movingImageView = [[UIImageView alloc] initWithImage:[self screenshotImageOfItem:movingCell]];
-
-                movingImageView.alpha = 0.0f;
-
-                [self.movingView addSubview:movingImageView];
-                [self.collectionView addSubview:self.movingView];
+                self.movingSnapshotView.alpha = 0.0f;
+                [self.collectionView addSubview:self.movingSnapshotView];
 
                 self.movingIndexPath = indexPath;
 
@@ -394,8 +372,8 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
                     __strong typeof(self) strongSelf = weakSelf;
 
                     if (strongSelf) {
-                        strongSelf.movingView.transform = CGAffineTransformMakeScale(MOVE_ZOOM, MOVE_ZOOM);
-                        movingImageView.alpha = 1.0f;
+                        strongSelf.movingSnapshotView.transform = CGAffineTransformMakeScale(MOVE_ZOOM, MOVE_ZOOM);
+                        strongSelf.movingSnapshotView.alpha = 1.0f;
                     }
                 }
                                  completion:^(BOOL finished) {
@@ -415,7 +393,7 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
 
                 currentCenter.y += (currentLocation.y - startLocation.y);
 
-                self.movingView.center = currentCenter;
+                self.movingSnapshotView.center = currentCenter;
 
                 if (currentLocation.y < CGRectGetMinY(self.collectionView.bounds) + SCROLL_ZONE_TOP && self.collectionView.contentOffset.y > SCROLL_ZONE_TOP) {
                     [self startScrollingUp];
@@ -451,16 +429,16 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
                     __strong typeof(self) strongSelf = weakSelf;
 
                     if (strongSelf) {
-                        strongSelf.movingView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
-                        strongSelf.movingView.frame = layoutAttributes.frame;
+                        strongSelf.movingSnapshotView.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+                        strongSelf.movingSnapshotView.frame = layoutAttributes.frame;
                     }
                 }
                                  completion:^(BOOL finished) {
                     __strong typeof(self) strongSelf = weakSelf;
 
                     if (strongSelf) {
-                        [strongSelf.movingView removeFromSuperview];
-                        strongSelf.movingView = nil;
+                        [strongSelf.movingSnapshotView removeFromSuperview];
+                        strongSelf.movingSnapshotView = nil;
 
                         self.movingIndexPath = nil;
                         [strongSelf invalidateLayout];
@@ -517,10 +495,10 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
             if (offset.y > 0.0) {
                 self.collectionView.contentOffset = offset;
 
-                CGPoint center = self.movingView.center;
+                CGPoint center = self.movingSnapshotView.center;
 
-                center.y              -= SCROLL_PER_FRAME;
-                self.movingView.center = center;
+                center.y                      -= SCROLL_PER_FRAME;
+                self.movingSnapshotView.center = center;
             } else {
                 [self stopScrolling];
 
@@ -540,10 +518,10 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
             if (offset.y < self.collectionView.contentSize.height - CGRectGetHeight(self.collectionView.bounds)) {
                 self.collectionView.contentOffset = offset;
 
-                CGPoint center = self.movingView.center;
+                CGPoint center = self.movingSnapshotView.center;
 
-                center.y              += SCROLL_PER_FRAME;
-                self.movingView.center = center;
+                center.y                      += SCROLL_PER_FRAME;
+                self.movingSnapshotView.center = center;
             } else {
                 [self stopScrolling];
 
@@ -558,18 +536,6 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
         default:
             break;
     }
-}
-
-- (UIImage*)screenshotImageOfItem:(UICollectionViewCell*)item {
-    UIGraphicsBeginImageContextWithOptions(item.bounds.size, item.isOpaque, 0.0f);
-
-    [item.layer renderInContext:UIGraphicsGetCurrentContext()];
-
-    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-
-    UIGraphicsEndImageContext();
-
-    return image;
 }
 
 - (void)updateLayoutAtMovingLocation:(CGPoint)movingLocation {
@@ -601,26 +567,12 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
 #pragma mark - UIGestureRecognizer
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
-    if (![gestureRecognizer isEqual:self.deletePanGesture]) {
-        return YES;
+    if ([gestureRecognizer isEqual:self.deletePanGesture]) {
+        CGPoint velocity = [(UIPanGestureRecognizer*)gestureRecognizer velocityInView:self.collectionView];
+        if (velocity.y > 0 || velocity.y < 0) {
+            return NO;
+        }
     }
-
-    CGPoint attachmentPoint       = [gestureRecognizer locationInView:self.collectionView];
-    NSIndexPath* touchedIndexPath = [self.collectionView indexPathForItemAtPoint:attachmentPoint];
-
-    if (!touchedIndexPath) {
-        return NO;
-    }
-
-    if ([self.delegate respondsToSelector:@selector(stackLayout:canDeleteItemAtIndexPath:)] && ![self.delegate stackLayout:self canDeleteItemAtIndexPath:touchedIndexPath]) {
-        return NO;
-    }
-
-    CGPoint velocity = [(UIPanGestureRecognizer*)gestureRecognizer velocityInView:self.collectionView];
-    if (velocity.y > 0 || velocity.y < 0) {
-        return NO;
-    }
-
     return YES;
 }
 
@@ -633,47 +585,72 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
             CGPoint attachmentPoint = [pan locationInView:self.collectionView];
 
             NSIndexPath* touchedIndexPath = [self.collectionView indexPathForItemAtPoint:attachmentPoint];
+
+            //bail if no index path
             if (!touchedIndexPath) {
                 [self cancelTouchesInGestureRecognizer:pan];
                 return;
             }
 
-            UICollectionViewLayoutAttributes* attributes = [self layoutAttributesForItemAtIndexPath:touchedIndexPath];
-
-            if (!attributes) {
+            //bail if we can't move
+            if ([self.delegate respondsToSelector:@selector(stackLayout:canDeleteItemAtIndexPath:)] && ![self.delegate stackLayout:self canDeleteItemAtIndexPath:touchedIndexPath]) {
                 [self cancelTouchesInGestureRecognizer:pan];
                 return;
             }
 
-            self.panningIndexPath = touchedIndexPath;
+            UICollectionViewCell* movingCell = [self.collectionView cellForItemAtIndexPath:touchedIndexPath];
+
+            //bail if there is no cell
+            if (!movingCell) {
+                [self cancelTouchesInGestureRecognizer:pan];
+                return;
+            }
+
+            self.movingSnapshotView       = [self.collectionView wmf_snapshotOfCellAtIndexPath:touchedIndexPath];
+            self.movingSnapshotView.frame = movingCell.frame;
+            self.movingCellCenter         = self.movingSnapshotView.center;
+            self.movingIndexPath          = touchedIndexPath;
+
+            self.bottomSnapshotView       = [self.collectionView wmf_snapshotOfCellsAfterIndexPath:touchedIndexPath];
+            self.bottomSnapshotView.frame = [self.collectionView wmf_rectEnclosingCellsAtIndexPaths:[self.collectionView wmf_visibleIndexPathsOfItemsAfterIndexPath:touchedIndexPath]];
+
+            [self.collectionView addSubview:self.movingSnapshotView];
+            [self.collectionView addSubview:self.bottomSnapshotView];
+
             [self invalidateLayout];
         }
         break;
 
         case UIGestureRecognizerStateChanged:
         {
-            [self invalidateLayout];
+            if (self.movingIndexPath) {
+                CGPoint translation   = [pan translationInView:self.collectionView];
+                CGPoint currentCenter = self.movingCellCenter;
+                currentCenter.x               += translation.x;
+                self.movingSnapshotView.center = currentCenter;
+            }
         }
         break;
 
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled:
         {
-            CGPoint translation = [pan translationInView:self.collectionView];
-            CGFloat originalX   = [super layoutAttributesForItemAtIndexPath:self.panningIndexPath].frame.origin.x;
+            if (self.movingIndexPath) {
+                CGPoint translation = [pan translationInView:self.collectionView];
 
-            if (translation.x >= (originalX + self.collectionView.bounds.size.width / 2)) {
-                [self completeDeletionPanAnimation];
-                return;
+                if (fabs(translation.x) >= self.collectionView.bounds.size.width / 2) {
+                    [self completeDeletionPanAnimationWithGestureRecognizer:pan];
+                    return;
+                }
+
+                CGPoint velocity = [pan velocityInView:self.collectionView];
+                if (fabs(velocity.x) > 500) {
+                    [self completeDeletionPanAnimationWithGestureRecognizer:pan];
+                    return;
+                }
+
+                [self cancelDeletionPanAnimationWithGestureRecognizer:pan];
             }
-
-            CGPoint velocity = [pan velocityInView:self.collectionView];
-            if (velocity.x > 500) {
-                [self completeDeletionPanAnimation];
-                return;
-            }
-
-            [self cancelDeletionPanAnimation];
         }
         break;
 
@@ -687,29 +664,65 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
     gesture.enabled = YES;
 }
 
-- (void)completeDeletionPanAnimation {
-    self.deletingIndexPath = self.panningIndexPath;
-    self.panningIndexPath  = nil;
+- (void)completeDeletionPanAnimationWithGestureRecognizer:(UIPanGestureRecognizer*)pan {
+    CGPoint velocity         = [pan velocityInView:self.collectionView];
+    CGPoint finalDestination = self.movingCellCenter;
 
-    [self.collectionView performBatchUpdates:^{
-        UICollectionViewLayoutAttributes* item = [self layoutAttributesForItemAtIndexPath:self.deletingIndexPath];
-        [self resetAttibutesWithPanTranslation:item];
+    if (velocity.x > 0) {
+        finalDestination.x += CGRectGetWidth(self.collectionView.bounds);
+    } else {
+        finalDestination.x -= CGRectGetWidth(self.collectionView.bounds);
+    }
 
-        [self.collectionView deleteItemsAtIndexPaths:@[self.deletingIndexPath]];
-        if ([self.delegate respondsToSelector:@selector(stackLayout:deleteItemAtIndexPath:)]) {
-            [self.delegate stackLayout:self deleteItemAtIndexPath:self.deletingIndexPath];
-        }
+    NSIndexPath* indexPath = self.movingIndexPath;
+
+    [UIView animateWithDuration:0.25 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:velocity.x / finalDestination.x options:0 animations:^{
+        self.movingSnapshotView.center = finalDestination;
     } completion:^(BOOL finished) {
-        self.deletingIndexPath = nil;
+        self.movingIndexPath = nil;
+        self.gestureStartLocation = CGPointZero;
+        self.movingCellCenter = CGPointZero;
+        [self.movingSnapshotView removeFromSuperview];
+        self.movingSnapshotView = nil;
+        [self.bottomSnapshotView removeFromSuperview];
+        self.bottomSnapshotView = nil;
+
+        [self.collectionView performBatchUpdates:^{
+            if ([self.delegate respondsToSelector:@selector(stackLayout:deleteItemAtIndexPath:)]) {
+                [self.delegate stackLayout:self deleteItemAtIndexPath:indexPath];
+            }
+            [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+
+            [self invalidateLayout];
+        } completion:^(BOOL finished) {
+        }];
     }];
 }
 
-- (void)cancelDeletionPanAnimation {
-    self.panningIndexPath = nil;
+- (void)cancelDeletionPanAnimationWithGestureRecognizer:(UIPanGestureRecognizer*)pan {
+    CGPoint velocity         = [pan velocityInView:self.collectionView];
+    CGPoint finalDestination = self.movingCellCenter;
 
-    [self.collectionView performBatchUpdates:^{
-        [self invalidateLayout];
-    } completion:nil];
+    [UIView animateWithDuration:0.25 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:velocity.x / finalDestination.x options:0 animations:^{
+        self.movingSnapshotView.center = finalDestination;
+    } completion:^(BOOL finished) {
+        self.movingIndexPath = nil;
+        self.gestureStartLocation = CGPointZero;
+        self.movingCellCenter = CGPointZero;
+
+        [self.collectionView performBatchUpdates:^{
+            [self invalidateLayout];
+        } completion:^(BOOL finished) {
+            //For some reason this completion blick fires before the layout is finished resulting in a flicker when updating the moving view.
+            // To compensate, we add a delay in to be sure it is finished before moving
+            dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
+                [self.movingSnapshotView removeFromSuperview];
+                self.movingSnapshotView = nil;
+                [self.bottomSnapshotView removeFromSuperview];
+                self.bottomSnapshotView = nil;
+            });
+        }];
+    }];
 }
 
 @end
