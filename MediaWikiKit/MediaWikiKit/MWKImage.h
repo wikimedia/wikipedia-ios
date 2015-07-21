@@ -8,72 +8,92 @@
 
 @interface MWKImage : MWKSiteDataObject
 
-// Identifiers
+/**
+ * Article the image was parsed from.
+ */
 @property (readonly, weak, nonatomic) MWKArticle* article;
 
-// Metadata, static
-#warning TOOD: deprecate in favor of NSURL
-@property (readonly, copy, nonatomic) NSString* sourceURL;
-@property (readonly, copy, nonatomic) NSString* extension;
-@property (readonly, copy, nonatomic) NSString* fileName;
-@property (readonly, copy, nonatomic) NSString* fileNameNoSizePrefix;
+/**
+ * URL pointing to the receiver's data.
+ */
+@property (readonly, copy, nonatomic) NSURL* sourceURL;
 
-// Metadata, variable
-@property (copy, nonatomic) NSDate* dateLastAccessed;
-@property (copy, nonatomic) NSDate* dateRetrieved;
-@property (copy, nonatomic) NSString* mimeType;
+/**
+ * Absolute string of `sourceURL`.
+ */
+@property (readonly, copy, nonatomic) NSString* sourceURLString;
 
+#pragma mark - Size
+
+/**
+ * Width of the receiver's image.
+ * @warning This might be a guess based on the dimensions specified in the <img> tag the receiver was
+ *          parsed from.
+ */
 @property (copy, nonatomic) NSNumber* width;
+
+/**
+ * Height of the receiver's image.
+ * @warning This might be a guess based on the dimensions specified in the <img> tag the receiver was
+ *          parsed from.
+ */
 @property (copy, nonatomic) NSNumber* height;
+
+/**
+ * @return CGSize with the receiver's `width` and `height`.
+ */
 - (CGSize)size;
 
 
-// Local storage status
+/**
+ * Local storage status
+ */
 @property (readonly, assign, nonatomic) BOOL isDownloaded;
 
-- (instancetype)initWithArticle:(MWKArticle*)article sourceURL:(NSString*)url;
+#pragma mark - Initialization
+
+/**
+ * Initializes the image with the given `article` and `sourceURL`.
+ */
+- (instancetype)initWithArticle:(MWKArticle*)article sourceURL:(NSURL*)sourceURL NS_DESIGNATED_INITIALIZER;
+
+/**
+ * Convenience initializer, @see initWithArtile:sourceURL:
+ */
+- (instancetype)initWithArticle:(MWKArticle*)article sourceURLString:(NSString*)url;
+
+#pragma mark - Serialization
+
+/**
+ * Initializes the receiver with the given article, and sets its properties with data from `dict`.
+ * @param article  The article to associate this image with.
+ * @param dict     A dictionary which contains data from a previous call to `-[MWKImage dataExport]`.
+ */
 - (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict;
 
 /**
- *  Calculate focal rects
- *
- *  @param imageData optional, if you do not pass it the image data will be extracted from disk
+ * Save the receiver in the same `MWKDataStore` as its `article`.
  */
-- (void)calculateFocalRectsBasedOnFaceDetectionWithImageData:(NSData*)imageData;
-
-/**
- *  All focal rects as strings. Calculated via "calculateFocalRectsBasedOnFaceDetectionWithImageData"
- * Normally you do not need to access this directly, instead use the methods
- */
-@property (readonly, copy, nonatomic) NSArray* focalRectsInUnitCoordinatesAsStrings;
-
-/**
- *  Returns the primary focal rect
- *  If normalized is set to YES, the rect will be normailzed
- *  to the image size. If set to NO, the rect will be in
- *  terms of the unit rect coordinates (0…1)
- *
- *  @param normalized  Set YES to normalize to the image
- *  @return The primary focal rect
- */
-- (CGRect)primaryFocalRectNormalizedToImageSize:(BOOL)normalized;
-
-/**
- *  Returns a rect enclosing all focal rects
- *  If normalized is set to YES, the rect will be normailzed
- *  to the image size. If set to NO, the rect will be in
- *  terms of the unit rect coordinates (0…1)
-
- *  @return The rect enclosing all focal rects
- */
-- (CGRect)rectEnclosingAllFocalRectsNormalizedToImageSize:(BOOL)normalized;
-
-
-- (BOOL)isEqualToImage:(MWKImage*)image;
-
-// internal
-- (void)updateLastAccessed;
 - (void)save;
+
+#pragma mark - Managing Face Information
+
+/**
+ * Array of NSValue-wrapped unit rectangles, in the coordinate space of the receiver's image (y-origin on the bottom).
+ *
+ * Used to cache the results of face detection.
+ *
+ * @see CIDetector+WMFFaceDetection
+ */
+@property (copy, nonatomic) NSArray* allNormalizedFaceBounds;
+
+/**
+ * Convenience accessor for the bounds of the first face in `allNormalizedFaceBounds`.
+ * @return The normalized bounds of the first face, or `CGRectZero` if allNormalizedFaceBounds is empty or `nil`.
+ */
+- (CGRect)firstFaceBounds;
+
+#pragma mark - Variants
 
 - (MWKImage*)largestVariant;
 - (MWKImage*)largestCachedVariant;
@@ -81,7 +101,31 @@
 - (MWKImage*)smallestVariant;
 - (MWKImage*)smallestCachedVariant;
 
-/// Return the folder containing the image file from receiver's @c sourceURL.
+
+/**
+ * Checks if two images are variants of each other <b>but not exactly the same image</b>.
+ * @discussion For example: <br/>
+   @code
+   MWKImage *img; // sourceURL = .../foo.jpg/440px-foo.jpg
+   MWKImage *imgAtOtherRes; // sourceURL = .../foo.jpg/7200px-foo.jpg
+   MWKImage *otherImage; // sourceURL = .../bar.jpg/440px-bar.jpg
+   [img isVariantOfImage:imgAtOtherRes]; //< returns YES
+   [img isVariantOfImage:otherImage]; //< returns YES
+   [img isVariantOfImage:img]; //< returns NO
+   @endcode
+ */
+- (BOOL)isVariantOfImage:(MWKImage*)otherImage;
+
+#pragma mark - File Properties
+
+@property (readonly, copy, nonatomic) NSString* extension;
+@property (readonly, copy, nonatomic) NSString* fileName;
+@property (readonly, copy, nonatomic) NSString* fileNameNoSizePrefix;
+@property (copy, nonatomic) NSString* mimeType;
+
+/**
+ * Return the folder containing the image file from receiver's @c sourceURL.
+ */
 - (NSString*)basename;
 
 /**
@@ -104,28 +148,22 @@
  */
 + (NSString*)fileNameNoSizePrefix:(NSString*)sourceURL;
 
-/// The name of the image "file" associatd with the receiver, with percent encodings replaced.
+/**
+ * The name of the image "file" associatd with the receiver, with percent encodings replaced.
+ */
 + (NSString*)canonicalFilenameFromSourceURL:(NSString*)sourceURL;
 
 + (NSInteger)fileSizePrefix:(NSString*)sourceURL;
 
-/**
- * Checks if two images are variants of each other <b>but not exactly the same image</b>.
- * @discussion For example: <br/>
-   @code
-   MWKImage *img; // sourceURL = .../foo.jpg/440px-foo.jpg
-   MWKImage *imgAtOtherRes; // sourceURL = .../foo.jpg/7200px-foo.jpg
-   MWKImage *otherImage; // sourceURL = .../bar.jpg/440px-bar.jpg
-   [img isVariantOfImage:imgAtOtherRes]; //< returns YES
-   [img isVariantOfImage:otherImage]; //< returns YES
-   [img isVariantOfImage:img]; //< returns NO
-   @endcode
- */
-- (BOOL)isVariantOfImage:(MWKImage*)otherImage;
+#pragma mark - Comparison
+
+- (BOOL)isEqualToImage:(MWKImage*)image;
 
 - (BOOL)isLeadImage;
 
 @end
+
+#pragma mark - Deprecated Methods
 
 @interface MWKImage ()
 

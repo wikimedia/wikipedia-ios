@@ -541,14 +541,13 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     NSParameterAssert(cell);
     @weakify(self)
 
-    NSURL * placeholderURL = [NSURL wmf_optionalURLWithString:[[image largestCachedVariant] sourceURL]];
-    [[WMFImageController sharedInstance] cascadingFetchWithMainURL:infoForImage.imageThumbURL
-                                              cachedPlaceholderURL:placeholderURL
-                                                    mainImageBlock:^(UIImage* __nonnull mainImage) {
+    [[WMFImageController sharedInstance] cascadingFetchWithMainURL : infoForImage.imageThumbURL
+     cachedPlaceholderURL :[[image largestCachedVariant] sourceURL]
+     mainImageBlock :^(UIImage* __nonnull mainImage) {
         @strongify(self)
         [self setImage : mainImage withInfo : infoForImage forCellAtIndexPath : indexPath];
     }
-                                       cachedPlaceholderImageBlock:^(UIImage* __nonnull placeholderImage) {
+cachedPlaceholderImageBlock:^(UIImage* __nonnull placeholderImage) {
         @strongify(self)
         [self setPlaceholderImage : placeholderImage ofInfo : infoForImage forCellAtIndexPath : indexPath];
     }]

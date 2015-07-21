@@ -120,7 +120,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (NSString*)pathForImage:(MWKImage*)image {
-    return [self pathForImageURL:image.sourceURL title:image.article.title];
+    return [self pathForImageURL:image.sourceURLString title:image.article.title];
 }
 
 - (NSString*)pathForArticleImageInfo:(MWKArticle*)article {
@@ -244,10 +244,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     NSString* path     = [self pathForImage:image];
     NSString* filename = [@"Image" stringByAppendingPathExtension:image.extension];
 
-    if ([image isLeadImage]) {
-        [image calculateFocalRectsBasedOnFaceDetectionWithImageData:data];
-    }
-
     [self saveData:data path:path name:filename];
 
     [image updateWithData:data];
@@ -352,12 +348,12 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     } else {
         // Not 100% sure if we should return an object here or not,
         // but it seems useful to do so.
-        return [[MWKImage alloc] initWithArticle:article sourceURL:url];
+        return [[MWKImage alloc] initWithArticle:article sourceURLString:url];
     }
 }
 
 - (NSString*)pathForImageData:(MWKImage*)image {
-    return [self pathForImageData:image.sourceURL title:image.article.title];
+    return [self pathForImageData:image.sourceURLString title:image.article.title];
 }
 
 - (NSString*)pathForImageData:(NSString*)sourceURL title:(MWKTitle*)title {

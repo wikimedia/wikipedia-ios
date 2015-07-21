@@ -223,7 +223,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
  */
 - (MWKImage*)importImageURL:(NSString*)url sectionId:(int)sectionId {
     [self updateImageListsWithSourceURL:url inSection:sectionId];
-    return [[MWKImage alloc] initWithArticle:self sourceURL:url];
+    return [[MWKImage alloc] initWithArticle:self sourceURLString:url];
 }
 
 /**

@@ -4,52 +4,64 @@
 #import "WMFGeometry.h"
 #include <CoreGraphics/CGAffineTransform.h>
 
-/**
- *  http://stackoverflow.com/a/16042543/48311
- *
- */
-CGRect WMFUnitRectWithReferenceRect(CGRect rect, CGRect referenceRect){
-    if (CGRectIsEmpty(referenceRect) || CGRectIsEmpty(rect)) {
+#pragma mark - Aggregate Operations
+
+CGRect WMFConvertAndNormalizeCGRectUsingSize(CGRect rect, CGSize size) {
+    CGAffineTransform normalizeAndConvertTransform =
+        CGAffineTransformConcat(WMFAffineCoreGraphicsToUIKitTransformMake(size),
+                                WMFAffineNormalizeTransformMake(size));
+    return CGRectApplyAffineTransform(rect, normalizeAndConvertTransform);
+}
+
+#pragma mark - Normalization
+
+CGRect WMFNormalizeRectUsingSize(CGRect rect, CGSize size) {
+    if (CGSizeEqualToSize(size, CGSizeZero) || CGRectIsEmpty(rect)) {
         return CGRectZero;
     }
-    CGAffineTransform t = CGAffineTransformMakeScale(1.0f / referenceRect.size.width, 1.0f / referenceRect.size.height);
-    CGRect unitRect = CGRectApplyAffineTransform(rect, t);
-    return unitRect;
+    return CGRectApplyAffineTransform(rect, WMFAffineNormalizeTransformMake(size));
 }
 
-CGRect WMFRectWithUnitRectInReferenceRect(CGRect unitRect, CGRect referenceRect){
-    if (CGRectIsEmpty(referenceRect) || CGRectIsEmpty(unitRect)) {
+CGRect WMFDenormalizeRectUsingSize(CGRect rect, CGSize size) {
+    if (CGSizeEqualToSize(size, CGSizeZero) || CGRectIsEmpty(rect)) {
         return CGRectZero;
     }
-
-    CGAffineTransform t = CGAffineTransformMakeScale(referenceRect.size.width, referenceRect.size.height);
-    CGRect rect = CGRectApplyAffineTransform(unitRect, t);
-    return rect;
+    return CGRectApplyAffineTransform(rect, WMFAffineDenormalizeTransformMake(size));
 }
 
-CGRect WMFUnitRectFromRectForReferenceSize(CGRect rect, CGSize refSize){
-    if (CGSizeEqualToSize(refSize, CGSizeZero) || CGRectIsEmpty(rect)) {
-        return CGRectZero;
+#pragma mark - Normalization Transforms
+
+CGAffineTransform WMFAffineNormalizeTransformMake(CGSize size) {
+    if (CGSizeEqualToSize(size, CGSizeZero)) {
+        return CGAffineTransformIdentity;
     }
-    return CGRectMake(
-                      CGRectGetMinX(rect) / refSize.width,
-                      CGRectGetMinY(rect) / refSize.height,
-                      CGRectGetWidth(rect) / refSize.width,
-                      CGRectGetHeight(rect) / refSize.height
-                      );
+    return CGAffineTransformMakeScale(1.0f / size.width, 1.0f / size.height);
 }
 
-CGRect WMFRectFromUnitRectForReferenceSize(CGRect unitRect, CGSize refSize){
-    return CGRectMake(
-                      unitRect.origin.x * refSize.width,
-                      unitRect.origin.y * refSize.height,
-                      unitRect.size.width * refSize.width,
-                      unitRect.size.height * refSize.height
-                      );
+CGAffineTransform WMFAffineDenormalizeTransformMake(CGSize size) {
+    return CGAffineTransformInvert(WMFAffineNormalizeTransformMake(size));
 }
 
-CGRect WMFUIKitRectFromCoreImageRectInReferenceRect(CGRect coreImageRect, CGRect referenceRect) {
+#pragma mark - Coordinate System Conversions
+
+CGRect WMFConvertCGCoordinateRectToUICoordinateRectUsingSize(CGRect cgRect, CGSize size) {
+    return CGRectApplyAffineTransform(cgRect, WMFAffineCoreGraphicsToUIKitTransformMake(size));
+}
+
+CGRect WMFConvertUICoordinateRectToCGCoordinateRectUsingSize(CGRect uiRect, CGSize size) {
+    return CGRectApplyAffineTransform(uiRect, WMFAffineUIKitToCoreGraphicsTransformMake(size));
+}
+
+#pragma mark - Coordinate System Conversion Transforms
+
+CGAffineTransform WMFAffineCoreGraphicsToUIKitTransformMake(CGSize size) {
+    if (CGSizeEqualToSize(size, CGSizeZero)) {
+        return CGAffineTransformIdentity;
+    }
     CGAffineTransform transform = CGAffineTransformMakeScale(1, -1);
-    transform = CGAffineTransformTranslate(transform, 0, -referenceRect.size.height);
-    return CGRectApplyAffineTransform(coreImageRect, transform);
+    return CGAffineTransformTranslate(transform, 0, -size.height);
+}
+
+CGAffineTransform WMFAffineUIKitToCoreGraphicsTransformMake(CGSize size) {
+    return CGAffineTransformInvert(WMFAffineCoreGraphicsToUIKitTransformMake(size));
 }

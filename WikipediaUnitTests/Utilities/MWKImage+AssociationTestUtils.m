@@ -12,11 +12,11 @@
 @implementation MWKImage (AssociationTestUtils)
 
 + (instancetype)imageAssociatedWithSourceURL:(NSString*)imageURL {
-    return [[self alloc] initWithArticle:nil sourceURL:imageURL];
+    return [[self alloc] initWithArticle:nil sourceURLString:imageURL];
 }
 
 - (MWKImageInfo*)createAssociatedInfo {
-    return [MWKImageInfo infoAssociatedWithSourceURL:self.sourceURL];
+    return [MWKImageInfo infoAssociatedWithSourceURL:self.sourceURLString];
 }
 
 + (id)mappedFromInfoObjects:(id)infoObjectList {

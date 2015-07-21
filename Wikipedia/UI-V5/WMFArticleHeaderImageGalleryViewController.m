@@ -12,10 +12,13 @@
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
+#import "CIDetector+WMFFaceDetection.h"
 
 // View
 #import "WMFImageCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
+#import "UIImageView+WMFContentOffset.h"
+#import "UIImage+WMFNormalization.h"
 
 // Model
 #import "MWKArticle.h"
@@ -23,41 +26,55 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface WMFArticleHeaderImageGalleryViewController ()
+@property (nonatomic, strong) CIDetector* faceDetector;
+@end
+
 @implementation WMFArticleHeaderImageGalleryViewController
 
-- (void)setImageURLs:(NSArray* __nullable)imageURLs {
-    if (WMF_EQUAL(_imageURLs, isEqualToArray:, imageURLs)) {
+- (CIDetector*)faceDetector {
+    if (!_faceDetector) {
+        _faceDetector = [CIDetector wmf_sharedLowAccuracyBackgroundFaceDetector];
+    }
+    return _faceDetector;
+}
+
+- (void)setImages:(NSArray* __nullable)images {
+    if (WMF_EQUAL(_images, isEqualToArray:, images)) {
         return;
     }
-    _imageURLs       = [(imageURLs ? : @[]) wmf_reverseArrayIfApplicationIsRTL];
-    self.currentPage = [_imageURLs wmf_startingIndexForApplicationLayoutDirection];
+    for (MWKImage* image in _images) {
+        // TODO: use private downloader to prevent side effects
+        [[WMFImageController sharedInstance] cancelFetchForURL:image.sourceURL];
+    }
+    _images          = [(images ? : @[]) wmf_reverseArrayIfApplicationIsRTL];
+    self.currentPage = [_images wmf_startingIndexForApplicationLayoutDirection];
     if ([self isViewLoaded]) {
         [self.collectionView reloadData];
     }
 }
 
-- (void)setImageURLsFromArticle:(MWKArticle* __nonnull)article {
+- (void)setImagesFromArticle:(MWKArticle* __nonnull)article {
     if (article.isCached) {
-        [self setImageURLsFromCachedArticle:article];
+        [self setImagesFromCachedArticle:article];
     } else {
-        [self setImageURLsFromUncachedArticle:article];
+        [self setImagesFromUncachedArticle:article];
     }
 }
 
-- (void)setImageURLsFromCachedArticle:(MWKArticle* __nonnull)article {
+- (void)setImagesFromCachedArticle:(MWKArticle* __nonnull)article {
     NSParameterAssert(article.isCached);
-    self.imageURLs = [article.images.uniqueLargestVariantSourceURLs wmf_reverseArrayIfApplicationIsRTL];
+    self.images = article.images.uniqueLargestVariants;
 }
 
-- (void)setImageURLsFromUncachedArticle:(MWKArticle* __nonnull)article {
+- (void)setImagesFromUncachedArticle:(MWKArticle* __nonnull)article {
     NSParameterAssert(!article.isCached);
-    NSURL* url = [NSURL wmf_optionalURLWithString:article.imageURL];
-    if (url) {
-        self.imageURLs = [NSMutableArray arrayWithObject:url];
-    } else if ((url = [NSURL wmf_optionalURLWithString:article.thumbnailURL])) {
-        self.imageURLs = [NSMutableArray arrayWithObject:url];
+    if (article.imageURL) {
+        self.images = @[[[MWKImage alloc] initWithArticle:article sourceURLString:article.imageURL]];
+    } else if (article.thumbnailURL) {
+        self.images = @[[[MWKImage alloc] initWithArticle:article sourceURLString:article.thumbnailURL]];
     } else {
-        self.imageURLs = nil;
+        self.images = nil;
     }
 }
 
@@ -67,28 +84,51 @@ NS_ASSUME_NONNULL_BEGIN
     [self.delegate headerImageGallery:self didSelectImageAtIndex:indexPath.item];
 }
 
-- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(NSIndexPath*)indexPath {
-    WMFImageCollectionViewCell* cell = (WMFImageCollectionViewCell*)
-                                       [collectionView dequeueReusableCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]
-                                                                                 forIndexPath:indexPath];
+- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView
+                 cellForItemAtIndexPath:(NSIndexPath*)indexPath {
+    WMFImageCollectionViewCell* cell =
+        (WMFImageCollectionViewCell*)
+        [collectionView dequeueReusableCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]
+                                                  forIndexPath:indexPath];
+    MWKImage* imageMetadata = self.images[indexPath.item];
     @weakify(self);
-    [[WMFImageController sharedInstance] fetchImageWithURL:self.imageURLs[indexPath.item]]
-    .then(^(UIImage* image) {
-        @strongify(self);
-        [self setImage:image forCellAtIndexPath:indexPath];
+    [[WMFImageController sharedInstance] fetchImageWithURL:[imageMetadata sourceURL]]
+    .then(^id (UIImage* image) {
+        if (!self) {
+            return [NSError cancelledError];
+        } else {
+            if (!imageMetadata.allNormalizedFaceBounds) {
+                return [self.faceDetector wmf_detectFeaturelessFacesInImage:image].then(^(NSArray* faces) {
+                    @strongify(self);
+                    imageMetadata.allNormalizedFaceBounds = [faces bk_map:^NSValue*(CIFeature* feature) {
+                        return [NSValue valueWithCGRect:[image wmf_normalizeAndConvertCGCoordinateRect:feature.bounds]];
+                    }];
+                    [imageMetadata save];
+                    [self setImage:image centeringBounds:imageMetadata.firstFaceBounds forCellAtIndexPath:indexPath];
+                });
+            } else {
+                [self setImage:image centeringBounds:imageMetadata.firstFaceBounds forCellAtIndexPath:indexPath];
+                return nil;
+            }
+        }
     });
     return cell;
 }
 
-- (void)setImage:(UIImage*)image forCellAtIndexPath:(NSIndexPath*)path {
+- (void)setImage:(UIImage*)image centeringBounds:(CGRect)normalizedCenterBounds forCellAtIndexPath:(NSIndexPath*)path {
     WMFImageCollectionViewCell* cell = (WMFImageCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:path];
     if (cell) {
         cell.imageView.image = image;
+        if (CGRectIsEmpty(normalizedCenterBounds)) {
+            [cell.imageView wmf_resetContentOffset];
+        } else {
+            [cell.imageView wmf_setContentOffsetToCenterRect:[image wmf_denormalizeRect:normalizedCenterBounds]];
+        }
     }
 }
 
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.imageURLs.count;
+    return self.images.count;
 }
 
 @end

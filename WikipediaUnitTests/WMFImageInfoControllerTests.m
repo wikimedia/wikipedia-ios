@@ -74,7 +74,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     MWKDataStore* mockDataStore = mock([MWKDataStore class]);
     MWKArticle* mockArticle     = mock([MWKArticle class]);
     NSArray* testImages         = [[self generateSourceURLs:5] bk_map:^MWKImage*(NSString* sourceURL) {
-        return [[MWKImage alloc] initWithArticle:mockArticle sourceURL:sourceURL];
+        return [[MWKImage alloc] initWithArticle:mockArticle sourceURLString:sourceURL];
     }];
     NSRange preFetchedRange    = NSMakeRange(0, 2);
     NSArray* expectedImageInfo = [[MWKImageInfo mappedFromImages:testImages] subarrayWithRange:preFetchedRange];
