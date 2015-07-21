@@ -1,4 +1,3 @@
-
 @import UIKit;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -7,6 +6,8 @@ typedef void (^ WMFIndexPathEnumerator)(NSIndexPath* indexPath, BOOL* stop);
 typedef void (^ WMFCellEnumerator)(id cell, NSIndexPath* indexPath, BOOL* stop);
 
 @interface UICollectionView (WMFExtensions)
+
+- (NSArray*)wmf_indexPathsForIndexes:(NSIndexSet*)indexes inSection:(NSInteger)section;
 
 - (void)wmf_enumerateIndexPathsUsingBlock:(WMFIndexPathEnumerator)block;
 

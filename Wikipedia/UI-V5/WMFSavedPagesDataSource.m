@@ -20,13 +20,17 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         self.savedPages = savedPages;
-        [self.KVOController observe:savedPages keyPath:WMF_SAFE_KEYPATH(savedPages, entries) options:NSKeyValueObservingOptionPrior block:^(id observer, id object, NSDictionary* change) {
+        [self.KVOControllerNonRetaining observe:savedPages keyPath:WMF_SAFE_KEYPATH(savedPages, entries) options:NSKeyValueObservingOptionPrior block:^(id observer, id object, NSDictionary* change) {
             NSKeyValueChange changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
 
             if ([change[NSKeyValueChangeNotificationIsPriorKey] boolValue]) {
-                [self willChange:changeKind valuesAtIndexes:change[NSKeyValueChangeIndexesKey] forKey:@"articles"];
+                [observer willChange:changeKind
+                     valuesAtIndexes:change[NSKeyValueChangeIndexesKey]
+                              forKey:WMF_SAFE_KEYPATH(((WMFSavedPagesDataSource*)observer), articles)];
             } else {
-                [self didChange:changeKind valuesAtIndexes:change[NSKeyValueChangeIndexesKey] forKey:@"articles"];
+                [observer didChange:changeKind
+                    valuesAtIndexes:change[NSKeyValueChangeIndexesKey]
+                             forKey:WMF_SAFE_KEYPATH(((WMFSavedPagesDataSource*)observer), articles)];
             }
         }];
     }

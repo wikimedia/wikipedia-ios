@@ -64,12 +64,18 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 - (void)configureSavedViewController {
     [self configureArticleListController:self.savedArticlesViewController];
-    self.savedArticlesViewController.dataSource = [[WMFSavedPagesDataSource alloc] initWithSavedPagesList:[self userDataStore].savedPageList];
+    if (!self.savedArticlesViewController.dataSource) {
+        self.savedArticlesViewController.dataSource =
+            [[WMFSavedPagesDataSource alloc] initWithSavedPagesList:[self userDataStore].savedPageList];
+    }
 }
 
 - (void)configureRecentViewController {
     [self configureArticleListController:self.recentArticlesViewController];
-    self.recentArticlesViewController.dataSource = [[WMFRecentPagesDataSource alloc] initWithRecentPagesList:[self userDataStore].historyList];
+    if (!self.recentArticlesViewController.dataSource) {
+        self.recentArticlesViewController.dataSource =
+            [[WMFRecentPagesDataSource alloc] initWithRecentPagesList:[self userDataStore].historyList];
+    }
 }
 
 #pragma mark - Public

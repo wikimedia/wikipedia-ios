@@ -78,8 +78,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - DataSource KVO
 
 - (void)observeSavedPages {
-    [self.KVOController observe:self.userDataStore.savedPageList keyPath:WMF_SAFE_KEYPATH(self.userDataStore.savedPageList, entries) options:0 block:^(id observer, id object, NSDictionary* change) {
-        [self.resultsListController refreshVisibleCells];
+    [self.KVOControllerNonRetaining observe:self.userDataStore.savedPageList
+                                    keyPath:WMF_SAFE_KEYPATH(self.userDataStore.savedPageList, entries)
+                                    options:0
+                                      block:^(WMFSearchViewController* observer,
+                                              id object,
+                                              NSDictionary* change) {
+        [observer.resultsListController refreshVisibleCells];
     }];
 }
 
@@ -98,7 +103,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
-        self.resultsListController = segue.destinationViewController;
+        self.resultsListController             = segue.destinationViewController;
+        self.resultsListController.savedPages  = self.userDataStore.savedPageList;
+        self.resultsListController.recentPages = self.userDataStore.historyList;
     }
     if ([segue.destinationViewController isKindOfClass:[RecentSearchesViewController class]]) {
         self.recentSearchesViewController          = segue.destinationViewController;

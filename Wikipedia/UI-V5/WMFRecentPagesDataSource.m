@@ -20,13 +20,19 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         self.recentPages = recentPages;
-        [self.KVOController observe:recentPages keyPath:WMF_SAFE_KEYPATH(recentPages, entries) options:NSKeyValueObservingOptionPrior block:^(id observer, id object, NSDictionary* change) {
+        [self.KVOControllerNonRetaining observe:recentPages
+                                        keyPath:WMF_SAFE_KEYPATH(recentPages, entries)
+                                        options:NSKeyValueObservingOptionPrior
+                                          block:^(id observer, id object, NSDictionary* change) {
             NSKeyValueChange changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
-
             if ([change[NSKeyValueChangeNotificationIsPriorKey] boolValue]) {
-                [self willChange:changeKind valuesAtIndexes:change[NSKeyValueChangeIndexesKey] forKey:@"articles"];
+                [observer willChange:changeKind
+                     valuesAtIndexes:change[NSKeyValueChangeIndexesKey]
+                              forKey:WMF_SAFE_KEYPATH(((WMFRecentPagesDataSource*)observer), articles)];
             } else {
-                [self didChange:changeKind valuesAtIndexes:change[NSKeyValueChangeIndexesKey] forKey:@"articles"];
+                [observer didChange:changeKind
+                    valuesAtIndexes:change[NSKeyValueChangeIndexesKey]
+                             forKey:WMF_SAFE_KEYPATH(((WMFRecentPagesDataSource*)observer), articles)];
             }
         }];
     }

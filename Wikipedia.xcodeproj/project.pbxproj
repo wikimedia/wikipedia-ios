@@ -278,6 +278,7 @@
 		BC6E8B951B5E90B1003D9A39 /* UIImage+WMFImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E8B941B5E90B1003D9A39 /* UIImage+WMFImageProcessing.m */; };
 		BC6E8B981B5EB4B2003D9A39 /* UIImage+WMFNormalization.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E8B971B5EB4B2003D9A39 /* UIImage+WMFNormalization.m */; };
 		BC6E8B9A1B5ED0F6003D9A39 /* WMFGeometryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E8B991B5ED0F6003D9A39 /* WMFGeometryTests.m */; };
+		BC6E8B9F1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E8B9E1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m */; };
 		BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
 		BC7E4A441B33812700EECD8B /* LanguagesViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC7E4A431B33812700EECD8B /* LanguagesViewController.storyboard */; };
 		BC8210CC1B4EB2390010BF7B /* NSURLExtrasTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8210CB1B4EB2390010BF7B /* NSURLExtrasTests.m */; };
@@ -895,6 +896,9 @@
 		BC6E8B971B5EB4B2003D9A39 /* UIImage+WMFNormalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WMFNormalization.m"; sourceTree = "<group>"; };
 		BC6E8B991B5ED0F6003D9A39 /* WMFGeometryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFGeometryTests.m; sourceTree = "<group>"; };
 		BC6E8B9B1B5ED19A003D9A39 /* XCTAssert+CGGeometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XCTAssert+CGGeometry.h"; sourceTree = "<group>"; };
+		BC6E8B9C1B5FE06C003D9A39 /* WMFKVOUpdatableList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFKVOUpdatableList.h; sourceTree = "<group>"; };
+		BC6E8B9D1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+WMFKVOUpdatableList.h"; sourceTree = "<group>"; };
+		BC6E8B9E1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+WMFKVOUpdatableList.m"; sourceTree = "<group>"; };
 		BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFCodingStyle.m; sourceTree = "<group>"; };
 		BC7A4A231B17B3510003E73E /* NSObjectUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObjectUtilities.h; sourceTree = "<group>"; };
 		BC7ACB621AB34C9C00791497 /* WMFAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAsyncTestCase.h; path = ../WMFAsyncTestCase.h; sourceTree = "<group>"; };
@@ -2042,6 +2046,9 @@
 				0ED44D771B28DA4D00F284BA /* UICollectionView+WMFExtensions.m */,
 				04016E181B3264C700D732FE /* UIViewController+WMFStoryboardUtilities.h */,
 				04016E191B3264C700D732FE /* UIViewController+WMFStoryboardUtilities.m */,
+				BC6E8B9C1B5FE06C003D9A39 /* WMFKVOUpdatableList.h */,
+				BC6E8B9D1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.h */,
+				BC6E8B9E1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -3420,6 +3427,7 @@
 				046A4B9D1B38DC5400440F67 /* UIView+WMFRTLMirroring.m in Sources */,
 				BCB66A0C1A85183000C7B1FE /* NSString+WMFHTMLParsing.m in Sources */,
 				BCB669AF1A83F6C400C7B1FE /* MWKHistoryList.m in Sources */,
+				BC6E8B9F1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m in Sources */,
 				BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */,
 				BCB58F441A890D9700465627 /* MWKImageInfo+MWKImageComparison.m in Sources */,
 				BCB669AD1A83F6C400C7B1FE /* MWKSavedPageList.m in Sources */,

@@ -7,17 +7,12 @@
 #import "TGLStackedLayout.h"
 #import "WMFOffScreenFlowLayout.h"
 #import "UIView+WMFDefaultNib.h"
+#import "UICollectionView+WMFKVOUpdatableList.h"
 
 #import "WMFArticleListTranstion.h"
 
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "MediaWikiKit.h"
-
-NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
-    return [indexes bk_mapIndex:^id (NSUInteger index) {
-        return [NSIndexPath indexPathForRow:(NSInteger)index inSection:section];
-    }];
-}
 
 @interface WMFArticleListCollectionViewController ()<TGLStackedLayoutDelegate>
 
@@ -89,6 +84,22 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 
 #pragma mark - Accessors
 
+#define WMFWarnIfNilOnReturn(prop, type) \
+    - (type*)prop { \
+        if (!_ ## prop) { DDLogWarn(@"%@ not configured with " #prop "!", [self debugDescription]); } \
+        return _ ## prop; \
+    }
+
+WMFWarnIfNilOnReturn(dataStore, MWKDataStore)
+
+WMFWarnIfNilOnReturn(recentPages, MWKHistoryList)
+
+WMFWarnIfNilOnReturn(savedPages, MWKSavedPageList)
+
+- (NSString*)debugDescription {
+    return [NSString stringWithFormat:@"%@ dataSourceClass: %@", self, [self.dataSource class]];
+}
+
 - (TGLStackedLayout*)stackedLayout {
     if (!_stackedLayout) {
         TGLStackedLayout* layout = [[TGLStackedLayout alloc] init];
@@ -127,23 +138,13 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
     self.collectionView.backgroundColor = [UIColor clearColor];
 
     [self updateListForMode:self.mode animated:NO completion:NULL];
-}
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+    [self observeDataSource];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [self updateCellSizeBasedOnViewFrame];
-}
-
-- (BOOL)shouldAutorotate {
-    return YES;
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
@@ -191,7 +192,8 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 
     if (cell.viewController == nil) {
         WMFArticleViewController* vc =
-            [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
+            [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore
+                                                              savedPages:self.savedPages];
         [vc setMode:WMFArticleControllerModeList animated:NO];
         [cell setViewControllerAndAddViewToContentView:vc];
     }
@@ -243,7 +245,8 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 
     [self presentViewController:vc animated:YES completion:^{
-        [self.recentPages addPageToHistoryWithTitle:cell.viewController.article.title discoveryMethod:[self.dataSource discoveryMethod]];
+        [self.recentPages addPageToHistoryWithTitle:cell.viewController.article.title
+                                    discoveryMethod:[self.dataSource discoveryMethod]];
         [self.recentPages save];
     }];
 }
@@ -269,51 +272,23 @@ NSArray* indexPathsWithIndexSet(NSIndexSet* indexes, NSInteger section) {
 #pragma mark - DataSource KVO
 
 - (void)observeDataSource {
-    [self.KVOController observe:_dataSource
-                        keyPath:WMF_SAFE_KEYPATH(_dataSource, articles)
-                        options:0
-                          block:^(id observer, id object, NSDictionary* change) {
-        NSKeyValueChange changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
-        NSArray* indexPaths = indexPathsWithIndexSet(change[NSKeyValueChangeIndexesKey], 0);
-        [self updateCellsAtIndexPaths:indexPaths change:changeKind];
+    if (![self isViewLoaded] || !self.dataSource) {
+        return;
+    }
+    [self.KVOControllerNonRetaining observe:self.dataSource
+                                    keyPath:WMF_SAFE_KEYPATH(self.dataSource, articles)
+                                    options:0
+                                      block:^(WMFArticleListCollectionViewController* observer,
+                                              id object,
+                                              NSDictionary* change) {
+        [observer.collectionView wmf_updateIndexes:change[NSKeyValueChangeIndexesKey]
+                                         inSection:0
+                                     forChangeKind:[change[NSKeyValueChangeKindKey] unsignedIntegerValue]];
     }];
 }
 
 - (void)unobserveDataSource {
-    [self.KVOController unobserve:_dataSource];
-}
-
-#pragma mark - Process DataSource Changes
-
-- (void)updateCellsAtIndexPaths:(NSArray*)indexPaths change:(NSKeyValueChange)change {
-    switch (change) {
-        case NSKeyValueChangeInsertion:
-            [self insertCellsAtIndexPaths:indexPaths];
-            break;
-        case NSKeyValueChangeRemoval:
-            [self deleteCellsAtIndexPaths:indexPaths];
-            break;
-        case NSKeyValueChangeReplacement:
-            [self reloadCellsAtIndexPaths:indexPaths];
-            break;
-        case NSKeyValueChangeSetting:
-            [self.collectionView reloadData];
-            break;
-        default:
-            break;
-    }
-}
-
-- (void)insertCellsAtIndexPaths:(NSArray*)indexPaths {
-    [self.collectionView insertItemsAtIndexPaths:indexPaths];
-}
-
-- (void)deleteCellsAtIndexPaths:(NSArray*)indexPaths {
-    [self.collectionView deleteItemsAtIndexPaths:indexPaths];
-}
-
-- (void)reloadCellsAtIndexPaths:(NSArray*)indexPaths {
-    [self.collectionView reloadItemsAtIndexPaths:indexPaths];
+    [self.KVOControllerNonRetaining unobserve:self.dataSource];
 }
 
 @end

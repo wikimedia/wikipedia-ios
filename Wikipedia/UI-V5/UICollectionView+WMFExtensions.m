@@ -5,6 +5,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation UICollectionView (WMFExtensions)
 
+- (NSArray*)wmf_indexPathsForIndexes:(NSIndexSet* __nonnull)indexes inSection:(NSInteger)section {
+    return [indexes bk_mapIndex:^id (NSUInteger index) {
+        return [NSIndexPath indexPathForRow:(NSInteger)index inSection:section];
+    }];
+}
+
 - (void)wmf_enumerateIndexPathsUsingBlock:(WMFIndexPathEnumerator)block {
     BOOL stop              = NO;
     NSInteger sectionCount = [self numberOfSections];
