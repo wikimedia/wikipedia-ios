@@ -13,13 +13,22 @@ static NSString* const kAppInstallIdKey         = @"appInstallID";
 
 @implementation SavedPagesFunnel
 
-- (id)init {
+- (instancetype)init {
     // http://meta.wikimedia.org/wiki/Schema:MobileWikiAppSavedPages
     self = [super initWithSchema:@"MobileWikiAppSavedPages" version:10375480];
     if (self) {
         self.appInstallId = [self persistentUUID:@"ReadingAction"];
     }
     return self;
+}
+
++ (void)logStateChange:(BOOL)didSave {
+    SavedPagesFunnel* funnel = [self new];
+    if (didSave) {
+        [funnel logSaveNew];
+    } else {
+        [funnel logDelete];
+    }
 }
 
 - (void)logSaveNew {

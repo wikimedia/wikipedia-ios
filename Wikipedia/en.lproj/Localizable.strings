@@ -310,3 +310,5 @@
 
 "page-issues" = "Page issues";
 "page-similar-titles" = "Similar pages";
+
+"mwk-empty-title-error" = "Unable to perform operation with empty title.";
