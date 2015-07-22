@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 
 /// Promise representing the request for the current article's data.
-@property (nonatomic, weak, nullable) AnyPromise* articleRequest;
+@property (nonatomic, strong, nullable) AnyPromise* articleRequest;
 
 @property (nonatomic, strong) WMFSearchFetcher* readMoreFetcher;
 @property (nonatomic, strong) WMFSearchResults* readMoreResults;
@@ -189,6 +189,10 @@ NS_ASSUME_NONNULL_BEGIN
             // only do error handling if not presenting gallery
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
         }
+    })
+    .finally(^{
+        @strongify(self);
+        self.articleRequest = nil;
     });
 }
 
