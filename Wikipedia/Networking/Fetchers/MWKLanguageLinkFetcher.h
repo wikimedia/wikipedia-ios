@@ -23,8 +23,6 @@ typedef NS_ENUM (NSInteger, LanguageLinksFetchErrorType) {
 
 @interface MWKLanguageLinkFetcher : FetcherBase
 
-@property (strong, nonatomic, readonly) MWKTitle* title;
-
 /// Fetches the language links for the given page title.
 - (instancetype)initAndFetchLanguageLinksForPageTitle:(MWKTitle*)title
                                           withManager:(AFHTTPRequestOperationManager*)manager

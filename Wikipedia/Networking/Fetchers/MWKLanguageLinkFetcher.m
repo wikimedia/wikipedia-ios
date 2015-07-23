@@ -13,7 +13,6 @@
 
 @interface MWKLanguageLinkFetcher ()
 
-@property (readwrite, strong, nonatomic) MWKTitle* title;
 @property (strong, nonatomic) AFHTTPRequestOperationManager* manager;
 
 @end
@@ -29,26 +28,39 @@
 }
 
 - (instancetype)initWithManager:(AFHTTPRequestOperationManager*)manager delegate:(id<FetchFinishedDelegate>)delegate {
+    NSParameterAssert(manager);
     self = [super init];
     if (self) {
         self.manager               = manager;
         self.fetchFinishedDelegate = delegate;
-        NSAssert([manager.responseSerializer isKindOfClass:[MWKLanguageLinkResponseSerializer class]],
-                 @"%@ needs to have an instance of %@ as its response serializer",
-                 self, [MWKLanguageLinkResponseSerializer class]);
     }
     return self;
+}
+
+- (void)finishWithError:(NSError*)error fetchedData:(id)fetchedData block:(void (^)(id))block {
+    [super finishWithError:error fetchedData:fetchedData];
+    if (block) {
+        dispatchOnMainQueue(^{
+            block(error ? : fetchedData);
+        });
+    }
 }
 
 - (void)fetchLanguageLinksForTitle:(MWKTitle*)title
                            success:(void (^)(NSArray*))success
                            failure:(void (^)(NSError*))failure {
-    self.title = title;
-    NSURL* url           = [[SessionSingleton sharedInstance] urlForLanguage:self.title.site.language];
+    if (!title.text.length) {
+        NSError* error = [NSError errorWithDomain:WMFNetworkingErrorDomain
+                                             code:WMFNetworkingError_InvalidParameters
+                                         userInfo:nil];
+        [self finishWithError:error fetchedData:nil block:failure];
+        return;
+    }
+    NSURL* url           = [[SessionSingleton sharedInstance] urlForLanguage:title.site.language];
     NSDictionary* params = @{
         @"action": @"query",
         @"prop": @"langlinks",
-        @"titles": self.title.text,
+        @"titles": title.text,
         @"lllimit": @"500",
         @"llprop": WMFJoinedPropertyParameters(@[@"langname", @"autonym"]),
         @"llinlanguagecode": [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode],
@@ -60,24 +72,14 @@
            parameters:params
               success:^(AFHTTPRequestOperation* operation, NSDictionary* indexedLanguageLinks) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        NSAssert([[indexedLanguageLinks allValues] firstObject],
+        NSArray* languageLinksForTitle = [[indexedLanguageLinks allValues] firstObject];
+        NSAssert(languageLinksForTitle,
                  @"Expected language links to return one object for the title we fetched, but got: %@",
                  indexedLanguageLinks);
-        NSArray* languageLinksForTitle = [[indexedLanguageLinks allValues] firstObject];
-        if (success) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                success(languageLinksForTitle);
-            });
-        }
-        [self finishWithError:nil fetchedData:languageLinksForTitle];
+        [self finishWithError:nil fetchedData:languageLinksForTitle block:success];
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        if (error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                failure(error);
-            });
-        }
-        [self finishWithError:error fetchedData:nil];
+        [self finishWithError:error fetchedData:nil block:failure];
     }];
 }
 

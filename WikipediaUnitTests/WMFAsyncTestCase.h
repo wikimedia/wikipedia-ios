@@ -16,6 +16,8 @@ extern NSTimeInterval const WMFDefaultExpectationTimeout;
 
 @interface WMFAsyncTestCase : XCTestCase
 
+- (void)popExpectation;
+
 - (void)popExpectationAfter:(dispatch_block_t)block;
 
 - (void)pushExpectation:(const char*)file line:(int)line;
