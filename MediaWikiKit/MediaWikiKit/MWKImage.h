@@ -53,6 +53,7 @@
  *  terms of the unit rect coordinates (0…1)
  *
  *  @param normalized  Set YES to normalize to the image
+ *
  *  @return The primary focal rect
  */
 - (CGRect)primaryFocalRectNormalizedToImageSize:(BOOL)normalized;
@@ -62,11 +63,13 @@
  *  If normalized is set to YES, the rect will be normailzed
  *  to the image size. If set to NO, the rect will be in
  *  terms of the unit rect coordinates (0…1)
-
  *  @return The rect enclosing all focal rects
  */
 - (CGRect)rectEnclosingAllFocalRectsNormalizedToImageSize:(BOOL)normalized;
 
+- (BOOL)hasFaces;
+
+- (BOOL)didDetectFaces;
 
 - (void)importImageData:(NSData*)data;
 
