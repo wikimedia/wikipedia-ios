@@ -14,6 +14,7 @@
 #import "NSObject+ConstraintsScale.h"
 #import "UITableView+DynamicCellHeight.h"
 #import "UIScreen+Extras.h"
+#import "WMFHamburgerMenuFunnel.h"
 
 #define TABLE_CELL_ID @"PrimaryMenuCell"
 
@@ -38,6 +39,8 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
 
 @property (strong, nonatomic) PrimaryMenuTableViewCell* offScreenSizingCell;
 
+@property (nonatomic, strong) WMFHamburgerMenuFunnel* funnel;
+
 @end
 
 @implementation PrimaryMenuViewController
@@ -56,7 +59,11 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
+
+    self.funnel = [[WMFHamburgerMenuFunnel alloc] init];
+    [self.funnel logMenuOpen];
 
     //[self setupTableData];
     //[self randomizeTitles];
@@ -119,6 +126,7 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
 
     switch (tappedItem.tag) {
         case NAVBAR_BUTTON_X:
+            [self.funnel logMenuClose];
         case NAVBAR_LABEL:
             [self popModal];
 
@@ -238,6 +246,7 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
 - (void)performActionForItem:(PrimaryMenuItemTag)tag {
     switch (tag) {
         case PRIMARY_MENU_ITEM_LOGIN: {
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeLogin];
             [self performModalSequeWithID:@"modal_segue_show_login"
                           transitionStyle:UIModalTransitionStyleCoverVertical
                                     block:^(LoginViewController* loginVC){
@@ -247,33 +256,39 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
         }
         break;
         case PRIMARY_MENU_ITEM_RANDOM: {
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeRandom];
             //[self showAlert:MWLocalizedString(@"fetching-random-article", nil) type:ALERT_TYPE_TOP duration:-1];
             [NAV loadRandomArticle];
             [self popModal];
         }
         break;
         case PRIMARY_MENU_ITEM_TODAY: {
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeToday];
             //[self showAlert:MWLocalizedString(@"fetching-today-article", nil) type:ALERT_TYPE_TOP duration:-1];
             [NAV loadTodaysArticle];
             [self popModal];
         }
         break;
         case PRIMARY_MENU_ITEM_RECENT:
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeRecent];
             [self performModalSequeWithID:@"modal_segue_show_history"
                           transitionStyle:UIModalTransitionStyleCoverVertical
                                     block:nil];
             break;
         case PRIMARY_MENU_ITEM_SAVEDPAGES:
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeSavedPages];
             [self performModalSequeWithID:@"modal_segue_show_saved_pages"
                           transitionStyle:UIModalTransitionStyleCoverVertical
                                     block:nil];
             break;
         case PRIMARY_MENU_ITEM_NEARBY:
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeNearby];
             [self performModalSequeWithID:@"modal_segue_show_nearby"
                           transitionStyle:UIModalTransitionStyleCoverVertical
                                     block:nil];
             break;
         case PRIMARY_MENU_ITEM_MORE:
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeMore];
             [self performModalSequeWithID:@"modal_segue_show_secondary_menu"
                           transitionStyle:UIModalTransitionStyleCoverVertical
                                     block:nil];
