@@ -3,24 +3,20 @@
 
 @interface WMFFaceDetector : NSObject
 
-@property (nonatomic, strong) CIImage* image;
+@property (nonatomic, strong, readonly) CIImage* image;
 
 /**
- *  Set the image property with UIImage
- *  Useful if you didn't have a CIImage before hand
- *  Will attempt to use image.CIImage first, then fallback to UIImagePNGRepresentation()
+ * The `CIFeature` objects representing faces detected by the receiver.
  *
- *  @param image the image to use
+ * This will be `nil` before detection is run, and a non-empty array afterwards.
  */
-- (void)setImageWithUIImage:(UIImage*)image;
+@property (nonatomic, copy, readonly) NSArray* faces;
 
-/**
- *  Set the image property with NSData
- *  Useful if you didn't have a CIImage before hand
- *
- *  @param data to create the image from
- */
-- (void)setImageWithData:(NSData*)data;
+- (instancetype)initWithCIImage:(CIImage*)image NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithUIImage:(UIImage*)image;
+
+- (instancetype)initWithImageData:(NSData*)data;
 
 /**
  *  Detect faces synchronously
@@ -33,13 +29,6 @@
  *  @param completion fired when face detection is completed
  */
 - (void)detectFacesWithCompletionBlock:(dispatch_block_t)completion;
-
-/**
- *  All faces
- *
- *  @return An array of CIFaceFeature
- */
-- (NSArray*)allFaces;
 
 /**
  *  Get an array of the bounds of all the faces. Each bounds will be normalized

@@ -57,19 +57,21 @@
 
 #pragma mark - Focal Rects
 
+- (BOOL)didDetectFaces {
+    return self.focalRectsInUnitCoordinatesAsStrings != nil;
+}
+
+- (BOOL)hasFaces {
+    return self.focalRectsInUnitCoordinatesAsStrings.count > 0;
+}
+
 - (void)calculateFocalRectsBasedOnFaceDetectionWithImageData:(NSData*)imageData {
-    if ([self.focalRectsInUnitCoordinatesAsStrings count] == 0) {
+    if (!self.didDetectFaces) {
         if (!imageData) {
             imageData = [self asNSData];
         }
-
-        static WMFFaceDetector* faceDetector = nil;
-        if (!faceDetector) {
-            faceDetector = [[WMFFaceDetector alloc] init];
-        }
-        [faceDetector setImageWithData:imageData];
+        WMFFaceDetector* faceDetector = [[WMFFaceDetector alloc] initWithImageData:imageData];
         [faceDetector detectFaces];
-
         self.focalRectsInUnitCoordinatesAsStrings = [faceDetector allFaceBoundsAsStringsNormalizedToUnitRect];
     }
 }
@@ -82,7 +84,7 @@
 }
 
 - (CGRect)primaryFocalRectNormalizedToImageSize:(BOOL)normalized {
-    if (self.focalRectsInUnitCoordinatesAsStrings.count == 0) {
+    if (!self.hasFaces) {
         return CGRectZero;
     }
 
