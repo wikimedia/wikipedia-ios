@@ -248,6 +248,7 @@
 		BC725ECA1B617E1A00E0A64C /* WMFSafeAssignTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC725EC91B617E1A00E0A64C /* WMFSafeAssignTests.m */; };
 		BC725ECC1B6182C800E0A64C /* MWKSavedPageListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC725ECB1B6182C800E0A64C /* MWKSavedPageListTests.m */; };
 		BC725ECF1B628C0300E0A64C /* NSParagraphStyle+WMFParagraphStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = BC725ECE1B628C0300E0A64C /* NSParagraphStyle+WMFParagraphStyles.m */; };
+		BC725ED21B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC725ED11B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m */; };
 		BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
 		BC7E4A521B34B53E00EECD8B /* MWKLanguageLinkControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7E4A511B34B53E00EECD8B /* MWKLanguageLinkControllerTests.m */; };
 		BC86B9361A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B9351A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m */; };
@@ -807,6 +808,7 @@
 		BC725ECB1B6182C800E0A64C /* MWKSavedPageListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSavedPageListTests.m; sourceTree = "<group>"; };
 		BC725ECD1B628C0300E0A64C /* NSParagraphStyle+WMFParagraphStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+WMFParagraphStyles.h"; sourceTree = "<group>"; };
 		BC725ECE1B628C0300E0A64C /* NSParagraphStyle+WMFParagraphStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+WMFParagraphStyles.m"; sourceTree = "<group>"; };
+		BC725ED11B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLinkResponseSerializerTests.m; sourceTree = "<group>"; };
 		BC7A4A231B17B3510003E73E /* NSObjectUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObjectUtilities.h; sourceTree = "<group>"; };
 		BC7ACB621AB34C9C00791497 /* WMFAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAsyncTestCase.h; path = ../WMFAsyncTestCase.h; sourceTree = "<group>"; };
 		BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAsyncTestCase.m; path = ../WMFAsyncTestCase.m; sourceTree = "<group>"; };
@@ -2161,6 +2163,7 @@
 				BC7E4A511B34B53E00EECD8B /* MWKLanguageLinkControllerTests.m */,
 				BC905BCF1B60391F0010227E /* MWKLanguageLinkFetcherTests.m */,
 				BC725EC91B617E1A00E0A64C /* WMFSafeAssignTests.m */,
+				BC725ED11B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests;
@@ -3011,6 +3014,7 @@
 				04F1226A1ACB822D002FC3B5 /* NSString+FormattedAttributedStringTests.m in Sources */,
 				BCCED2D01AE03BE20094EB7E /* MWKSectionListTests.m in Sources */,
 				BC7E4A521B34B53E00EECD8B /* MWKLanguageLinkControllerTests.m in Sources */,
+				BC725ED21B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m in Sources */,
 				BC0FED6B1AAA0268002488D7 /* MWKDataStoreStorageTests.m in Sources */,
 				0484B9071ABB50FA00874073 /* WMFArticleParsing.m in Sources */,
 				BC0FED751AAA026C002488D7 /* NSArray+BKIndexTests.m in Sources */,

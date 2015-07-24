@@ -72,10 +72,10 @@
            parameters:params
               success:^(AFHTTPRequestOperation* operation, NSDictionary* indexedLanguageLinks) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        NSArray* languageLinksForTitle = [[indexedLanguageLinks allValues] firstObject];
-        NSAssert(languageLinksForTitle,
-                 @"Expected language links to return one object for the title we fetched, but got: %@",
+        NSAssert(indexedLanguageLinks.count < 2,
+                 @"Expected language links to return one or no objects for the title we fetched, but got: %@",
                  indexedLanguageLinks);
+        NSArray* languageLinksForTitle = [[indexedLanguageLinks allValues] firstObject];
         [self finishWithError:nil fetchedData:languageLinksForTitle block:success];
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
