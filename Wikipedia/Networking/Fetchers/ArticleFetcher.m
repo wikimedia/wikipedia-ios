@@ -81,12 +81,17 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             //NSLog(@"JSON: %@", responseObject);
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            // Clear any MCCMNC header - needed because manager is a singleton.
+            [self removeMCCMNCHeaderFromRequestSerializer:manager.requestSerializer];
 
             // Convert the raw NSData response to a dictionary.
             NSDictionary* responseDictionary = [self dictionaryFromDataResponse:localResponseObject];
-
-            // Clear any MCCMNC header - needed because manager is a singleton.
-            [self removeMCCMNCHeaderFromRequestSerializer:manager.requestSerializer];
+            id error = responseDictionary[@"error"];
+            if (error) {
+                NSError* apiError = WMFErrorForApiErrorObject(error);
+                [self finishWithError:apiError fetchedData:nil];
+                return;
+            }
 
             @try {
                 [self.article importMobileViewJSON:responseDictionary[@"mobileview"]];
