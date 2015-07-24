@@ -24,8 +24,8 @@ NSError* WMFErrorForApiErrorObject(NSDictionary* apiError){
     void (^ maybeMapApiToUserInfo)(NSString*, NSString*) = ^(NSString* userInfoKey, NSString* apiErrorKey) {
         [userInfoBuilder wmf_maybeSetObject:apiError[apiErrorKey] forKey:userInfoKey];
     };
-    maybeMapApiToUserInfo(NSLocalizedDescriptionKey, @"code");
-    maybeMapApiToUserInfo(NSLocalizedFailureReasonErrorKey, @"info");
+    maybeMapApiToUserInfo(NSLocalizedFailureReasonErrorKey, @"code");
+    maybeMapApiToUserInfo(NSLocalizedDescriptionKey, @"info");
     maybeMapApiToUserInfo(NSLocalizedRecoverySuggestionErrorKey, @"*");
     return [NSError errorWithDomain:WMFNetworkingErrorDomain code:WMFNetworkingError_APIError userInfo:userInfoBuilder];
 }
