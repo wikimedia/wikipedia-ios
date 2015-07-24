@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -36,6 +36,7 @@
             <constraints>
                 <constraint firstItem="I6f-Vm-XuX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="100" id="0L5-I0-Yi9"/>
                 <constraint firstItem="I6f-Vm-XuX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="2k3-u8-8nA"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="l6E-b6-poB" secondAttribute="trailing" constant="20" symbolic="YES" id="7RJ-RE-3u1"/>
                 <constraint firstAttribute="bottom" secondItem="l6E-b6-poB" secondAttribute="bottom" constant="8" id="PWz-xR-vOr"/>
                 <constraint firstItem="l6E-b6-poB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="e6B-Lc-WcL"/>
                 <constraint firstItem="l6E-b6-poB" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="bottom" constant="8" symbolic="YES" id="eSj-hx-LwA"/>
