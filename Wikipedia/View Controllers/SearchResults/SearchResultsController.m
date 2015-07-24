@@ -540,7 +540,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     return (self.type == WMFSearchResultsControllerTypeReadMore);
 }
 
-- (NSString*)getSearchLanguage {
+- (NSString*)searchLanguage {
     if ([self isReadMore]) {
         return [SessionSingleton sharedInstance].currentArticleSite.language;
     } else {
@@ -548,11 +548,15 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     }
 }
 
+- (MWKSite*)searchSite {
+    return [[MWKSite alloc] initWithLanguage:[self searchLanguage]];
+}
+
 - (void)performSupplementalFullTextSearchForTerm:(NSString*)searchTerm {
     (void)[[SearchResultFetcher alloc] initAndSearchForTerm:searchTerm
                                                  searchType:SEARCH_TYPE_IN_ARTICLES
                                                searchReason:SEARCH_REASON_SUPPLEMENT_PREFIX_WITH_FULL_TEXT
-                                                   language:[self getSearchLanguage]
+                                                   language:[self searchLanguage]
                                                  maxResults:[self maxResultsAdjustedForExcludedArticles]
                                                 withManager:[QueuesSingleton sharedInstance].searchResultsFetchManager
                                          thenNotifyDelegate:self];
@@ -569,7 +573,7 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     (void)[[SearchResultFetcher alloc] initAndSearchForTerm:searchTerm
                                                  searchType:SEARCH_TYPE_TITLES
                                                searchReason:reason
-                                                   language:[self getSearchLanguage]
+                                                   language:[self searchLanguage]
                                                  maxResults:[self maxResultsAdjustedForExcludedArticles]
                                                 withManager:[QueuesSingleton sharedInstance].searchResultsFetchManager
                                          thenNotifyDelegate:self];
@@ -646,17 +650,16 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     [self.searchFunnel logSearchResultTap];
 }
 
-- (void)loadArticleWithTitle:(NSString*)title {
-    if ([title length] == 0) {
+- (void)loadArticleWithTitle:(NSString*)titleText {
+    if ([titleText length] == 0) {
         return;
     }
 
     [self saveSearchTermToRecentList];
 
-    // Set CurrentArticleTitle so web view knows what to load.
-    title = [title wmf_stringByReplacingUndrescoresWithSpaces];
+    titleText = [titleText wmf_stringByReplacingUndrescoresWithSpaces];
 
-    [NAV loadArticleWithTitle:[[SessionSingleton sharedInstance].searchSite titleWithString:title]
+    [NAV loadArticleWithTitle:[[self searchSite] titleWithString:titleText]
                      animated:YES
               discoveryMethod:MWKHistoryDiscoveryMethodSearch
                    popToWebVC:YES];
