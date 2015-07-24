@@ -73,7 +73,9 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
     self.languageFilterField.layer.borderWidth = 1.f;
 
     // stylize
-    [self.languageFilterField setReturnKeyType:UIReturnKeyDone];
+    if ([self.languageFilterField respondsToSelector:@selector(setReturnKeyType:)]) {
+        [self.languageFilterField setReturnKeyType:UIReturnKeyDone];
+    }
     self.languageFilterField.barTintColor = CHROME_COLOR;
     self.languageFilterField.placeholder  = MWLocalizedString(@"article-languages-filter-placeholder", nil);
 }
