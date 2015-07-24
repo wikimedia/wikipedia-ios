@@ -10,6 +10,7 @@
 
 #import "WMFGCDHelpers.h"
 #import "NSObjectUtilities.h"
+#import "WMFOutParamUtils.h"
 
 #import "RootViewController.h"
 #import "CenterNavController.h"

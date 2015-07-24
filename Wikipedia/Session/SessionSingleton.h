@@ -85,4 +85,12 @@
 // file is known to be associated with an article title.
 @property (strong, nonatomic) NSMutableDictionary* titleToTempDirThumbURLMap;
 
+/**
+ * Toggle save state of the current article, if there is one.
+ * @param error Out-param of any error that occurred while toggling save state and saving.
+ * @return A boxed boolean indicating the new save state of `currentArticle` or `nil` if an error occured.
+ * @see -[MWKSavedPageList toggleSaveStateForTitle:error:]
+ */
+- (NSNumber*)toggleSaveStateForCurrentArticle:(NSError* __autoreleasing*)error;
+
 @end

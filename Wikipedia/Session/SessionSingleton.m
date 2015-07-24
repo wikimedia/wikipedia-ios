@@ -180,4 +180,23 @@
     [[QueuesSingleton sharedInstance] reset];
 }
 
+#pragma mark - Save
+
+- (NSNumber*)toggleSaveStateForCurrentArticle:(NSError* __autoreleasing*)error {
+    NSError* toggleSaveError;
+    NSNumber* didSave = [self.userDataStore.savedPageList toggleSaveStateForTitle:self.currentArticle.title
+                                                                            error:&toggleSaveError];
+    if (toggleSaveError) {
+        WMFSafeAssign(error, toggleSaveError);
+        return nil;
+    }
+    [self.userDataStore save:&toggleSaveError];
+    if (toggleSaveError) {
+        WMFSafeAssign(error, toggleSaveError);
+        return nil;
+    }
+    [SavedPagesFunnel logStateChange:didSave];
+    return didSave;
+}
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "MediaWikiKit.h"
+#import "NSError+MWKErrors.h"
 
 @interface MWKSavedPageList ()
 
@@ -17,6 +18,21 @@
 @end
 
 @implementation MWKSavedPageList
+
+- (NSNumber*)toggleSaveStateForTitle:(MWKTitle*)title error:(NSError* __autoreleasing*)error {
+    if (!title.text.length) {
+        WMFSafeAssign(error, [NSError mwk_emptyTitleError]);
+        return nil;
+    }
+    MWKSavedPageEntry* entry = [self entryForTitle:title];
+    if (!entry) {
+        [self addEntry:[[MWKSavedPageEntry alloc] initWithTitle:title]];
+        return @YES;
+    } else {
+        [self removeEntry:entry];
+        return @NO;
+    }
+}
 
 - (NSUInteger)length {
     return [self.entries count];

@@ -22,6 +22,16 @@
 - (MWKSavedPageEntry*)entryForTitle:(MWKTitle*)title;
 - (BOOL)isSaved:(MWKTitle*)title;
 
+/**
+ * Toggle the save state for `title`.
+ *
+ * @param title Title to toggle state for, either saving or un-saving it.
+ * @param error Out-param of any error that occurred while toggling save state and saving.
+ *
+ * @return A boxed boolean indicating the new saved state for `title` or `nil` if an error occured.
+ */
+- (NSNumber*)toggleSaveStateForTitle:(MWKTitle*)title error:(NSError**)error;
+
 /// Add a new entry to the saved page list!
 - (void)addEntry:(MWKSavedPageEntry*)entry;
 /// Remove one.

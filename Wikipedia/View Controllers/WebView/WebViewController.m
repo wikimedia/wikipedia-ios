@@ -966,34 +966,19 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 #pragma Saved Pages
 
 - (void)saveCurrentPage {
-    MWKTitle* title          = self.session.currentArticle.title;
-    MWKUserDataStore* store  = self.session.userDataStore;
-    MWKSavedPageList* list   = store.savedPageList;
-    MWKSavedPageEntry* entry = [list entryForTitle:title];
-
-    SavedPagesFunnel* funnel = [[SavedPagesFunnel alloc] init];
-
-    if (entry == nil) {
-        // Show alert.
-        [self showPageSavedAlertMessageForTitle:title.text];
-
-        // Actually perform the save.
-        entry = [[MWKSavedPageEntry alloc] initWithTitle:title];
-        [list addEntry:entry];
-
-        [store save];
-        [funnel logSaveNew];
+    NSError* error;
+    NSNumber* isSaved = [self.session toggleSaveStateForCurrentArticle:&error];
+    if (!isSaved) {
+        [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:2.f];
+    } else if (isSaved.boolValue) {
+        [self showPageSavedAlertMessageForTitle:self.session.currentArticle.title.text];
     } else {
-        // Unsave!
-        [list removeEntry:entry];
-        [store save];
-
         [self fadeAlert];
-        [funnel logDelete];
     }
 }
 
 - (void)showPageSavedAlertMessageForTitle:(NSString*)title {
+    NSParameterAssert(title.length);
     // First show saved message.
     NSString* savedMessage = MWLocalizedString(@"share-menu-page-saved", nil);
 

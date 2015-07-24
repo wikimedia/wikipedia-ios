@@ -47,4 +47,10 @@
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 
+WMF_SYNTHESIZE_IS_EQUAL(MWKSavedPageEntry, isEqualToSavedEntry:)
+
+- (BOOL)isEqualToSavedEntry:(MWKSavedPageEntry*)rhs {
+    return WMF_RHS_PROP_EQUAL(title, isEqualToTitle:);
+}
+
 @end
