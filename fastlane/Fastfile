@@ -24,22 +24,10 @@ platform :ios do
   desc "Runs all the unit tests."
   lane :test do
     return if test_disabled?
-    # TODO: lint & test JS code
-    xctest(
-      scheme: 'Wikipedia',
-      destination: "platform=iOS Simulator,name=iPhone 6,OS=8.3",
-      reports: [
-        {
-          report: "html",
-          output: "build/reports/unit-tests.html"
-        },
-        {
-          report: "junit",
-          output: "build/reports/unit-tests.xml"
-        }
-      ],
-      clean: nil
-    )
+    xctool :test, [
+      'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES',
+      'GCC_GENERATE_TEST_COVERAGE_FILES=YES'
+    ].join(' ')
   end
 
   desc "Increment app build version, commit, & tag locally."

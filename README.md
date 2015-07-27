@@ -1,5 +1,6 @@
 # Wikipedia iOS
 The official Wikipedia iOS client.
+[![Build Status](https://travis-ci.org/wikimedia/wikipedia-ios.svg)](https://travis-ci.org/wikimedia/wikipedia-ios)
 
 * OS target: iOS 6.0 or higher
 * Device target: iPhone, iPod, iPad
