@@ -13,7 +13,6 @@
 #pragma mark - Setup
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-
     NSArray* entries = [[dataStore savedPageListData] bk_map:^id (id obj) {
         @try {
             return [[MWKSavedPageEntry alloc] initWithDict:obj];
@@ -22,15 +21,14 @@
             return nil;
         }
     }];
-    
-    entries = [entries bk_reject:^BOOL(id obj) {
-       
-        if([obj isEqual:[NSNull null]]){
+
+    entries = [entries bk_reject:^BOOL (id obj) {
+        if ([obj isEqual:[NSNull null]]) {
             return YES;
         }
         return NO;
     }];
-    
+
     self = [super initWithEntries:entries];
     if (self) {
         self.dataStore = dataStore;

@@ -157,7 +157,6 @@
         ([url.relativePath rangeOfString:@"/w/api.php"].location == NSNotFound)
         ) {
         [requestSerializer setValue:nil forHTTPHeaderField:@"X-MCCMNC"];
-
     } else {
         CTCarrier* mno = [[[CTTelephonyNetworkInfo alloc] init] subscriberCellularProvider];
         if (mno) {

@@ -915,10 +915,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     SavedPagesFunnel* funnel = [[SavedPagesFunnel alloc] init];
     MWKUserDataStore* store  = self.session.userDataStore;
     MWKTitle* title          = self.session.currentArticle.title;
-    
+
     [store.savedPageList toggleSavedPageForTitle:title];
     [store.savedPageList save].then(^(){
-        
         BOOL isSaved = [store.savedPageList isSaved:title];
 
         if (isSaved) {
