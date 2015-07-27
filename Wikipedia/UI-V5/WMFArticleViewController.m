@@ -74,6 +74,10 @@ NS_ASSUME_NONNULL_BEGIN
     return vc;
 }
 
+- (void)dealloc {
+    [self unobserveSavedPages];
+}
+
 #pragma mark - Accessors
 
 - (void)setHeaderGalleryViewController:(WMFArticleHeaderImageGalleryViewController* __nonnull)galleryViewController {
@@ -127,6 +131,18 @@ NS_ASSUME_NONNULL_BEGIN
         _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
     }
     return _articleFetcher;
+}
+
+#pragma mark - Saved Pages KVO
+
+- (void)observeSavedPages {
+    [self.KVOControllerNonRetaining observe:self.savedPages keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries) options:0 block:^(id observer, id object, NSDictionary* change) {
+        [self updateSavedButtonState];
+    }];
+}
+
+- (void)unobserveSavedPages {
+    [self.KVOControllerNonRetaining unobserve:self.savedPages keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries)];
 }
 
 #pragma mark - Article Notifications
@@ -284,8 +300,10 @@ NS_ASSUME_NONNULL_BEGIN
         [self fetchArticle];
     }
 
+    [self unobserveSavedPages];
     [self.savedPages toggleSavedPageForTitle:self.article.title];
     [self.savedPages save];
+    [self observeSavedPages];
     [self updateSavedButtonState];
 }
 
@@ -320,6 +338,7 @@ NS_ASSUME_NONNULL_BEGIN
     galleryLayout.minimumLineSpacing      = 0;
     galleryLayout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
 
+    [self observeSavedPages];
     [self clearHeaderView];
     [self configureForDynamicCellHeight];
     [self updateUI];
