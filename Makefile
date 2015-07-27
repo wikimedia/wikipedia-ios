@@ -9,8 +9,11 @@ lint: ##Lint the native code, requires uncrustify
 lint:
 	@scripts/uncrustify_all.sh
 
-test:
+test: ##Run unit tests through fastlane
 	@bundle exec fastlane test
+
+submodules: ##Install or update submodules
+	git submodule update --init --recursive
 
 check-deps: ##Make sure system prerequisites are installed
 check-deps: xcode-cltools-check exec-check node-check
@@ -20,11 +23,10 @@ check-deps: xcode-cltools-check exec-check node-check
 #!!!!!
 
 travis-get-deps: ##Install dependencies for building on Travis
-travis-get-deps: xcode-cltools-check
+travis-get-deps: xcode-cltools-check submodules bundle-install
 	@brew update; \
 	brew install uncrustify || brew upgrade uncrustify; \
 	brew install xctool || brew upgrade xctool; \
-	bundle install
 
 #!!!!!
 #!!!!! Xcode dependencies
@@ -35,10 +37,11 @@ xcode-cltools-check: ##Make sure proper Xcode & command line tools are installed
 	@case $(XCODE_VERSION) in \
 		"Xcode 6"*) echo "Xcode 6 or higher is installed!" ;; \
 		*) echo "Missing Xcode 6 or higher."; exit 1;; \
-	esac ;; \
+	esac; \
 	if ! xcode-select -p > /dev/null ; then \
-		echo "Xcode command line tools are missing! Please run xcode-select --install or download them from Xcode's 'Downloads' tab in preferences." ; exit 1 ;; \
-	else
+		echo "Xcode command line tools are missing! Please run xcode-select --install or download them from Xcode's 'Downloads' tab in preferences."; \
+		exit 1; \
+	else \
 		echo "Xcode command line tools are installed!"; \
 	fi
 
