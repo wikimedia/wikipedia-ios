@@ -1,6 +1,5 @@
 language: objective-c
 before_install:
-  - gem install bundler
   - make travis-get-deps
 script: make test
 after_success:
