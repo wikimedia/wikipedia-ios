@@ -35,7 +35,7 @@ xcode-cltools-check: ##Make sure proper Xcode & command line tools are installed
 	@case $(XCODE_VERSION) in \
 		"Xcode 6"*) echo "Xcode 6 or higher is installed!" ;; \
 		*) echo "Missing Xcode 6 or higher."; exit 1;; \
-	esac \
+	esac ;; \
 	if ! xcode-select -p > /dev/null ; then \
 		echo "Xcode command line tools are missing! Please run xcode-select --install or download them from Xcode's 'Downloads' tab in preferences." ; exit 1 ;; \
 	else
