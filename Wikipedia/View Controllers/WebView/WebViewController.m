@@ -1377,12 +1377,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self presentViewController:vc animated:YES completion:NULL];
 }
 
-#pragma mark - Lead image
-
-- (NSString*)leadImageGetHtml {
-    return @"";
-}
-
 #pragma mark Display article from data store
 
 - (void)displayArticle:(MWKTitle*)title {
@@ -1483,7 +1477,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         return;
     }
 
-    [self.bridge loadHTML:htmlStr withAssetsFile:@"index.html" leadSectionHtml:[self leadImageGetHtml]];
+    [self.bridge loadHTML:htmlStr withAssetsFile:@"index.html"];
 
     // NSLog(@"languageInfo = %@", languageInfo.code);
     [self.bridge sendMessage:@"setLanguage"
