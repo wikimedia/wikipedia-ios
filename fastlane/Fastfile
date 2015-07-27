@@ -21,9 +21,18 @@ platform :ios do
     make 'lint'
   end
 
+  desc "Lints code, runs tests, and generates reports"
+  lane :jenkins do
+    xctool :test, [
+      'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES',
+      'GCC_GENERATE_TEST_COVERAGE_FILES=YES',
+      '-reporter junit:build/reports/unit-tests.xml',
+      '-reporter pretty'
+    ].join(' ')
+  end
+
   desc "Runs all the unit tests."
-  lane :test do
-    return if test_disabled?
+  lane :travis do
     xctool :test, [
       'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES',
       'GCC_GENERATE_TEST_COVERAGE_FILES=YES'
