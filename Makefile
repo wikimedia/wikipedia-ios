@@ -23,10 +23,11 @@ check-deps: xcode-cltools-check exec-check node-check
 #!!!!!
 
 travis-get-deps: ##Install dependencies for building on Travis
-travis-get-deps: xcode-cltools-check submodules bundle-install
+travis-get-deps: xcode-cltools-check submodules
 	@brew update; \
 	brew install uncrustify || brew upgrade uncrustify; \
 	brew install xctool || brew upgrade xctool; \
+	bundle install --without dev
 
 #!!!!!
 #!!!!! Xcode dependencies
@@ -150,9 +151,9 @@ pod: bundle-install
 
 RUBY_VERSION = "$(shell ruby -v 2>/dev/null)"
 
-bundle-install: ##Install gems using Bundler
+bundle-install: ##Install all gems using Bundler
 bundle-install: bundler-check
-	@$(BUNDLER) install
+	@bundle install
 
 bundler-check: ##Make sure Bundler is installed
 bundler-check: ruby-check
