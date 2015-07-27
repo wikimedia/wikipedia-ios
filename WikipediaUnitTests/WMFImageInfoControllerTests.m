@@ -72,18 +72,23 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 - (void)testReadsFromDataStoreLazilyAndPopulatesFetchedIndices {
     MWKImageList* mockImageList = mock([MWKImageList class]);
     MWKDataStore* mockDataStore = mock([MWKDataStore class]);
-    MWKArticle* mockArticle     = mock([MWKArticle class]);
-    NSArray* testImages         = [[self generateSourceURLs:5] bk_map:^MWKImage*(NSString* sourceURL) {
-        return [[MWKImage alloc] initWithArticle:mockArticle sourceURLString:sourceURL];
+
+    MWKTitle* title = [[MWKTitle alloc] initWithSite:[MWKSite siteWithCurrentLocale]
+                                     normalizedTitle:@"foo"
+                                            fragment:nil];
+    MWKArticle* dummyArticle = [[MWKArticle alloc] initWithTitle:title dataStore:mockDataStore];
+
+    NSArray* testImages = [[self generateSourceURLs:5] bk_map:^MWKImage*(NSString* sourceURL) {
+        return [[MWKImage alloc] initWithArticle:dummyArticle sourceURLString:sourceURL];
     }];
     NSRange preFetchedRange    = NSMakeRange(0, 2);
     NSArray* expectedImageInfo = [[MWKImageInfo mappedFromImages:testImages] subarrayWithRange:preFetchedRange];
 
     [given([mockImageList uniqueLargestVariants]) willReturn:testImages];
-    [given([mockDataStore imageInfoForArticle:mockArticle]) willReturn:expectedImageInfo];
-    [given([mockDataStore imageListWithArticle:mockArticle section:nil]) willReturn:mockImageList];
+    [given([mockDataStore imageInfoForArticle:dummyArticle]) willReturn:expectedImageInfo];
+    [given([mockDataStore imageListWithArticle:dummyArticle section:nil]) willReturn:mockImageList];
 
-    WMFImageInfoController* controller = [[WMFImageInfoController alloc] initWithArticle:mockArticle
+    WMFImageInfoController* controller = [[WMFImageInfoController alloc] initWithArticle:dummyArticle
                                                                                batchSize:2
                                                                              infoFetcher:self.mockInfoFetcher];
 
