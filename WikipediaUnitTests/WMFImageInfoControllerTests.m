@@ -80,10 +80,10 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     NSArray* expectedImageInfo = [[MWKImageInfo mappedFromImages:testImages] subarrayWithRange:preFetchedRange];
 
     [given([mockImageList uniqueLargestVariants]) willReturn:testImages];
-    [given([mockDataStore imageInfoForArticle:article]) willReturn:expectedImageInfo];
-    [given([mockDataStore imageListWithArticle:article section:nil]) willReturn:mockImageList];
+    [given([mockDataStore imageInfoForArticle:mockArticle]) willReturn:expectedImageInfo];
+    [given([mockDataStore imageListWithArticle:mockArticle section:nil]) willReturn:mockImageList];
 
-    WMFImageInfoController* controller = [[WMFImageInfoController alloc] initWithArticle:article
+    WMFImageInfoController* controller = [[WMFImageInfoController alloc] initWithArticle:mockArticle
                                                                                batchSize:2
                                                                              infoFetcher:self.mockInfoFetcher];
 

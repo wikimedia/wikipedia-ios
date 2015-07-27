@@ -1,5 +1,6 @@
 
 #import "MWKHistoryEntry.h"
+@import UIKit;
 
 @interface WMFArticlePresenter : NSObject
 

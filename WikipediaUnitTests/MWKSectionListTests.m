@@ -13,6 +13,8 @@
 #import "MWKSection.h"
 #import "MWKDataStore.h"
 #import "WMFRandomFileUtilities.h"
+#import "MWKTitle.h"
+#import "MWKSite.h"
 
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>

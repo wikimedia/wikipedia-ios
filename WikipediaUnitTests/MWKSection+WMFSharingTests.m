@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "MWKSection+WMFSharing.h"
+#import "MWKSite.h"
+#import "MWKTitle.h"
+#import "MWKArticle.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>

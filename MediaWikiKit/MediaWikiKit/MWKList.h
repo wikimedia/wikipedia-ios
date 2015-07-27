@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKList : MWKDataObject<NSFastEnumeration>
 
-- (instancetype)initWithEntries:(NSArray*)entries;
+- (instancetype)initWithEntries:(NSArray* __nullable)entries;
 
 /**
  *  Observable - observe to get KVO notifications
