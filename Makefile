@@ -137,14 +137,11 @@ node-check: ##Make sure node is installed
 #!!!!! Native dependency management
 #!!!!!
 
-submodules: ##Update, initialize, & clone git submodules
-	git submodule update --init --recursive
-
-BUNDLER = "$(shell which bundle 2/dev/null)"
+RUBY_VERSION = "$(shell ruby -v 2>/dev/null)"
 
 pod: ##Install native dependencies via CocoaPods
-pod: bundle-install submodules
-	@$(BUNDLER) exec pod install
+pod: bundle-install
+	@bundle exec pod install
 
 #!!!!!
 #!!!!! Ruby dependency management
@@ -154,11 +151,11 @@ RUBY_VERSION = "$(shell ruby -v 2>/dev/null)"
 
 bundle-install: ##Install gems using Bundler
 bundle-install: bundler-check
-	@$(BUNDLER) install
+	@bundle install
 
 bundler-check: ##Make sure Bundler is installed
 bundler-check: ruby-check
-	@if [[ $(BUNDLER) == "" ]]; then \
+	@if ! which -s bundle ; then \
 		echo "Missing the Bundler Ruby gem." ; \
 		exit 1 ; \
 	else \
