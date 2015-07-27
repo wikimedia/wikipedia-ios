@@ -10,14 +10,14 @@
 // Author: Relly Komaruzaman
 // Author: Rizkiahmadz
 
+"languages-title" = "Bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batal";
 "article-languages-downloading" = "Memuat bahasa artikel...";
 "article-languages-filter-placeholder" = "Saring Bahasa";
 "article-read-more-title" = "Baca lebih lanjut";
 "article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
-"article-languages-preferred-section-header" = "Disukai";
-"article-languages-other-section-header" = "Bahasa Lainnya";
+"article-unable-to-load-article" = "Tidak dapat memuat artikel.";
 "info-box-title" = "Fakta cepat";
 "info-box-close-text" = "Tutup";
 "table-title-other" = "Informasi lebih lanjut";

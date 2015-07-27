@@ -64,6 +64,12 @@
             MWKArticle* article = [store articleWithTitle:title];
             // Convert the raw NSData response to a dictionary.
             NSDictionary* responseDictionary = [self dictionaryFromDataResponse:localResponseObject];
+            id error = responseDictionary[@"error"];
+            if (error) {
+                NSError* apiError = WMFErrorForApiErrorObject(error);
+                [self finishWithError:apiError fetchedData:nil];
+                return;
+            }
 
             @try {
                 [article importMobileViewJSON:responseDictionary[@"mobileview"]];
@@ -152,7 +158,6 @@
         ) {
         [requestSerializer setValue:nil forHTTPHeaderField:@"X-MCCMNC"];
 
-        return;
     } else {
         CTCarrier* mno = [[[CTTelephonyNetworkInfo alloc] init] subscriberCellularProvider];
         if (mno) {

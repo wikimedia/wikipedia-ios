@@ -5,6 +5,7 @@
 // Author: Ebraminio
 // Author: Fatemi127
 // Author: Hosseinblue
+// Author: Leyth
 // Author: Macofe
 // Author: Mahdiz
 // Author: Maspadana
@@ -12,12 +13,14 @@
 // Author: Sahehco
 // Author: Signal89
 
+"languages-title" = "زبان‌ها";
 "article-languages-label" = "انتخاب زبان";
 "article-languages-cancel" = "لغو";
 "article-languages-downloading" = "در حال بارگیری زبان‌های مقاله...";
 "article-languages-filter-placeholder" = "پالایه زبان";
 "article-read-more-title" = "بیشتر بخوانید";
 "article-unable-to-load-section" = "امکان براگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
+"article-unable-to-load-article" = "بارگذاری مقاله ناموفق بود.";
 "info-box-title" = "واقعیت‌های سریع";
 "info-box-close-text" = "بستن";
 "table-title-other" = "اطلاعات بیشتر";
@@ -100,7 +103,9 @@
 "search-recent-clear-cancel" = "لغو";
 "search-recent-clear-delete-all" = "حذف همه";
 "main-menu-title" = "بیشتر";
+"main-menu-heading-about" = "درباره";
 "main-menu-language-title" = "جستجوی  $1  زبان ویکی";
+"main-menu-faq" = "پاسخ پرسش‌های رایج";
 "main-menu-language-toggle-show" = "نمایش زبان‌ها";
 "main-menu-language-toggle-hide" = "پنهان کردن زبان‌ها";
 "main-menu-language-selection-saved" = "انتخاب زبان ذخیره شد";
@@ -225,7 +230,7 @@
 "abuse-filter-warning-irrelevant" = "پیوندهای بیرونی یا تصاویر نامرتبط";
 "abuse-filter-warning-repeat" = "تکرار نویسه‌ها";
 "abuse-filter-disallow-heading" = "شما نمی‌توانید این ویرایش را ذخیره کنید. لطفاً بازگردید و تغییرش دهید.";
-"abuse-filter-disallow-unconstructive" = "یک پالایهٔ خودکار این ویرایش را به طور بالقوه غیرسازنده یا تلاش برای خرابکاری تشخیص داده‌است.";
+"abuse-filter-disallow-unconstructive" = "یک پالایهٔ خودکار این ویرایش را به طور بالقوه غیرسازنده یا تلاش برای خرابکاری تشخیص داده است.";
 "abuse-filter-disallow-notable" = "ویکی‌پدیا یک دانشنامه است و فقط محتوای بی طرف و قابل توجه به اینجا تعلق دارند.";
 "menu-edit-accessibility-label" = "ویرایش";
 "menu-close-accessibility-label" = "بستن";
@@ -237,25 +242,26 @@
 "menu-search-accessibility-label" = "جستجو";
 "menu-reload-accessibility-label" = "بارگیری دوباره";
 "menu-cancel-accessibility-label" = "لغو";
-"menu-share-accessibility-label" = "به اشتراک‌گذاشتن";
+"menu-share-accessibility-label" = "به اشتراک گذاشتن";
 "menu-more-accessibility-label" = "تنظیمات بیشتر";
 "menu-trash-accessibility-label" = "حذف";
+"menu-language-accessibility-label" = "زبان‌ها";
 "nearby-title" = "در نزدیکی";
 "nearby-distance-label-meters" = "$1 متر";
 "nearby-distance-label-km" = "$1 کیلومتر";
 "nearby-distance-label-feet" = "$1 پا";
 "nearby-distance-label-miles" = "$1 مایل";
 "nearby-pull-to-refresh-prompt" = "برای تازه‌شدن بکشید";
-"nearby-pull-to-refresh-is-refreshing" = "تازه‌کردن";
+"nearby-pull-to-refresh-is-refreshing" = "تازه کردن";
 "nearby-loading" = "در حال بارگذاری مقاله‌های نزدیک...";
 "nearby-loaded" = "مقاله‌های بارگذاری‌شده در این نزدیکی";
-"nearby-none" = "هیچ مقاله نزدیکی یافت نشد. برای تازه‌کردن فشار دهید یا بعداً تلاش کنید.";
+"nearby-none" = "هیچ مقاله نزدیکی یافت نشد. برای تازه کردن فشار دهید یا بعداً تلاش کنید.";
 "nearby-open-in-maps" = "بازشدن در نقشه";
 "nearby-cancel" = "لغو";
 "nearby-location-updates-denied" = "این اپلیکیشن دسترسی برای به روز رسانی‌های موقعیت را ندارد.";
 "nearby-location-updates-enable" = "برای فعال کردن به روز رسانی‌ها تنظیمات اپلیکیشن را باز کنید و روبرو را انتخاب کنید:";
 "nearby-location-updates-settings-menu" = "حریم شخصی > خدمات موقعیت > ویکی‌پدیا";
-"nearby-location-general-error" = "ناتوان در تشخیص موقعیت. برای تازه‌کردن فشار دهید یا بعداً تلاش کنید.";
+"nearby-location-general-error" = "ناتوان در تشخیص موقعیت. برای تازه کردن فشار دهید یا بعداً تلاش کنید.";
 "nearby-wifi" = "فعال کردن وای‌فای می‌تواند به دستگاه‌تان در بهتر تشخیص‌دادن موقعیت‌تان کمک کند.";
 "migration-update-progress-label" = "مهاجرت اطلاعات محلی";
 "migration-update-progress-count-label" = "مهاجرت مقاله از $1 به $2";

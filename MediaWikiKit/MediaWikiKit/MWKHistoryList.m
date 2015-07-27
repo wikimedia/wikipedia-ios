@@ -54,7 +54,7 @@
 }
 
 - (void)addEntry:(MWKHistoryEntry*)entry {
-    if (entry.title == nil) {
+    if ([entry.title.text length] == 0) {
         return;
     }
     if ([self containsEntryForListIndex:entry.title]) {
@@ -70,7 +70,7 @@
 }
 
 - (void)savePageScrollPosition:(CGFloat)scrollposition toPageInHistoryWithTitle:(MWKTitle*)title {
-    if (title == nil) {
+    if ([title.text length] == 0) {
         return;
     }
     [self updateEntryWithListIndex:title update:^BOOL (MWKHistoryEntry* __nullable entry) {
@@ -80,7 +80,7 @@
 }
 
 - (void)removePageFromHistoryWithTitle:(MWKTitle*)title {
-    if (title == nil) {
+    if ([title.text length] == 0) {
         return;
     }
     [self removeEntryWithListIndex:title];

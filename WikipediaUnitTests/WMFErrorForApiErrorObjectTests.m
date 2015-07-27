@@ -28,8 +28,8 @@
     };
     assertThat(WMFErrorForApiErrorObject(apiErrorObj),
                allOf(hasProperty(@"domain", WMFNetworkingErrorDomain),
-                     hasProperty(@"userInfo", hasEntries(NSLocalizedDescriptionKey, apiErrorObj[@"code"],
-                                                         NSLocalizedFailureReasonErrorKey, apiErrorObj[@"info"],
+                     hasProperty(@"userInfo", hasEntries(NSLocalizedFailureReasonErrorKey, apiErrorObj[@"code"],
+                                                         NSLocalizedDescriptionKey, apiErrorObj[@"info"],
                                                          NSLocalizedRecoverySuggestionErrorKey, apiErrorObj[@"*"],
                                                          nil)),
                      nil));

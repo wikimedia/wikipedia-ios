@@ -1,5 +1,6 @@
 
 #import "MediaWikiKit.h"
+#import "NSError+MWKErrors.h"
 
 @interface MWKSavedPageList ()
 
@@ -12,10 +13,24 @@
 #pragma mark - Setup
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    NSArray* entries = [[dataStore savedPageListData] bk_map:^id (id obj) {
-        return [[MWKSavedPageEntry alloc] initWithDict:obj];
-    }];
 
+    NSArray* entries = [[dataStore savedPageListData] bk_map:^id (id obj) {
+        @try {
+            return [[MWKSavedPageEntry alloc] initWithDict:obj];
+        } @catch (NSException* e) {
+            NSLog(@"Encountered exception while reading entry %@: %@", e, obj);
+            return nil;
+        }
+    }];
+    
+    entries = [entries bk_reject:^BOOL(id obj) {
+       
+        if([obj isEqual:[NSNull null]]){
+            return YES;
+        }
+        return NO;
+    }];
+    
     self = [super initWithEntries:entries];
     if (self) {
         self.dataStore = dataStore;
@@ -30,10 +45,16 @@
 }
 
 - (MWKSavedPageEntry*)entryForTitle:(MWKTitle*)title {
+    if ([title.text length] == 0) {
+        return nil;
+    }
     return [super entryForListIndex:title];
 }
 
 - (BOOL)isSaved:(MWKTitle*)title {
+    if ([title.text length] == 0) {
+        return NO;
+    }
     return [self containsEntryForListIndex:title];
 }
 
@@ -60,10 +81,7 @@
 }
 
 - (void)addEntry:(MWKSavedPageEntry*)entry {
-    if (entry.title == nil) {
-        return;
-    }
-    if ([self containsEntryForListIndex:entry.title]) {
+    if ([self isSaved:entry.title]) {
         return;
     }
     [super addEntry:entry];

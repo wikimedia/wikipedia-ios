@@ -16,11 +16,11 @@ class AppleStringsFile {
 		$data = file_get_contents( $path );
 		return $this->readFromVariable( $data );
 	}
-	
+
 	public function write( $data ) {
 		return $this->writeReal( $data );
 	}
-	
+
 	/**
 	 * @param array $data
 	 * @return array Parsed data.
@@ -206,7 +206,7 @@ function fillStubs( &$en, &$qqq ) {
 	$qqqKeys = array_keys( $qqq['MESSAGES'] );
 	$missing = array_diff( $enKeys, $qqqKeys );
 	$extra = array_diff( $qqqKeys, $enKeys );
-	
+
 	if (count( $missing ) > 0 || count( $extra ) > 0 ) {
 		foreach( $missing as $key ) {
 			$qqq['MESSAGES'][$key] = 'MISSING DESCRIPTION; DO NOT COMMIT FILE YET';
@@ -227,17 +227,16 @@ function processStubs( $filename ) {
 
 	$file_en = "$base/en.lproj/$filename.strings";
 	$file_qqq = "$base/qqq.lproj/$filename.strings";
-	
+
 	$data_en = $parser->readFromFile( $file_en );
 	$data_qqq = $parser->readFromFile( $file_qqq );
 
 	if (fillStubs( $data_en, $data_qqq )) {
-		$out = $parser->write( $data_qqq );	
+		$out = $parser->write( $data_qqq );
 		file_put_contents( $file_qqq, $out );
 		echo "Updated qqq.lproj/$filename.strings\n";
 	}
 }
 
 processStubs('InfoPlist');
-processStubs('Main_iPhone');
 processStubs('Localizable');

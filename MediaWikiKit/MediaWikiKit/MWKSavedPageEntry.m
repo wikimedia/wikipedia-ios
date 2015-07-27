@@ -8,6 +8,7 @@
 
 #import "MediaWikiKit.h"
 #import "NSObjectUtilities.h"
+#import "NSMutableDictionary+WMFMaybeSet.h"
 
 typedef NS_ENUM (NSUInteger, MWKSavedPageEntrySchemaVersion) {
     MWKSavedPageEntrySchemaVersionUnknown = 0,
@@ -27,6 +28,7 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
 @implementation MWKSavedPageEntry
 
 - (instancetype)initWithTitle:(MWKTitle*)title {
+    NSParameterAssert(title);
     self = [self initWithSite:title.site];
     if (self) {
         self.title               = title;
@@ -75,12 +77,11 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKSavedPageEntry, isEqualToEntry:)
 - (id)dataExport {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
 
-    dict[MWKSavedPageEntrySchemaVersionKey]       = @(MWKSavedPageEntrySchemaVersionCurrent);
-    dict[MWKSavedPageEntryDidMigrateImageDataKey] = @(self.didMigrateImageData);
-    dict[@"domain"]                               = self.site.domain;
-    dict[@"language"]                             = self.site.language;
-    dict[@"title"]                                = self.title.text;
-
+    [dict wmf_maybeSetObject:@(MWKSavedPageEntrySchemaVersionCurrent) forKey:MWKSavedPageEntrySchemaVersionKey];
+    [dict wmf_maybeSetObject:@(self.didMigrateImageData) forKey:MWKSavedPageEntryDidMigrateImageDataKey];
+    [dict wmf_maybeSetObject:self.site.domain forKey:@"domain"];
+    [dict wmf_maybeSetObject:self.site.language forKey:@"language"];
+    [dict wmf_maybeSetObject:self.title.text forKey:@"title"];
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 

@@ -21,7 +21,7 @@
 "account-creation-login" = "اؤنجه‌دن حسابینیز وارمی؟ گیرینیز.";
 "account-creation-username-placeholder-text" = "ایشلدن آدی";
 "account-creation-password-placeholder-text" = "رمز";
-"login-user-blocked" = "ایستیفاده‌چی باغلانیب.";
+"login-user-blocked" = "ایشلدن باغلانیب.";
 "login-username-placeholder-text" = "ایشلدن آدی";
 "login-password-placeholder-text" = "رمز";
 "wikitext-upload-save" = "ساخلانیلیر...";
@@ -59,7 +59,7 @@
 "main-menu-show-today" = "بوگون";
 "main-menu-nearby" = "یاخیندا";
 "main-menu-more" = "داها...";
-"saved-pages-title" = "ساخلانیلمیش صحیفه‌لر";
+"saved-pages-title" = "ساخلانیلمیش صفحه‌لر";
 "saved-pages-clear-cancel" = "پوْز";
 // Fuzzy
 "saved-pages-clear-delete-all" = "هامیسین سیل";
@@ -84,7 +84,7 @@
 "about-wikipedia" = "ویکی‌پدیا";
 "about-contributors" = "چالیشقان‌لار";
 "about-translators" = "چئویریجی‌لر";
-"share-menu-save-page" = "صحیفه‌نی ساخلا";
+"share-menu-save-page" = "صفحه‌نی ساخلا";
 "timestamp-just-now" = "ایندی";
 "timestamp-minutes" = "d% دقیقه قاباق";
 "timestamp-hours" = "d% ساعات قاباق";

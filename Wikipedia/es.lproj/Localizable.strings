@@ -9,14 +9,14 @@
 // Author: Vivaelcelta
 // Author: Wifidel
 
+"languages-title" = "Idiomas";
 "article-languages-label" = "Elige un idioma";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "Cargando idiomas del artículo…";
 "article-languages-filter-placeholder" = "Filtro de idiomas";
 "article-read-more-title" = "Leer más";
 "article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
-"article-languages-preferred-section-header" = "Preferido";
-"article-languages-other-section-header" = "Otros idiomas";
+"article-unable-to-load-article" = "No se puede cargar el artículo.";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Cerrar";
 "table-title-other" = "Más información";

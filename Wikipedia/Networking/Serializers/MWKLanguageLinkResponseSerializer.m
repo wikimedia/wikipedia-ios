@@ -18,13 +18,15 @@
         return nil;
     }
     NSDictionary* pagesByID = json[@"query"][@"pages"];
-    return [pagesByID bk_map:^id (id key, NSDictionary* result) {
+    return [[pagesByID bk_map:^id (id key, NSDictionary* result) {
         return [result[@"langlinks"] bk_map:^MWKLanguageLink*(NSDictionary* jsonLink) {
             return [[MWKLanguageLink alloc] initWithLanguageCode:jsonLink[@"lang"]
                                                    pageTitleText:jsonLink[@"*"]
                                                             name:jsonLink[@"autonym"]
                                                    localizedName:jsonLink[@"langname"]];
         }];
+    }] bk_reject:^BOOL (id key, id obj) {
+        return WMF_IS_EQUAL(obj, [NSNull null]);
     }];
 }
 

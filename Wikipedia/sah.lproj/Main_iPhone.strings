@@ -1,5 +1,6 @@
 // Messages for Sakha (саха тыла)
 // Exported from translatewiki.net
+// Author: HalanTul
 // Author: Krivoshapkina
 
 "21c-U6-yfo.normalTitle" = "Атын куоду көрдөр";
@@ -16,8 +17,10 @@
 "gPg-cg-Yjy.placeholder" = "Ойууттан тиэкиһи суруйан ыл";
 "heA-3K-nhS.text" = "Бэлиэтэммитиҥ дуо? Киир";
 "huU-kO-aYI.text" = "Арааһа барытын соппуккун быһыылаах. Аныгыскыга, ханнык эрэ сирэйгэ киирэ сылдьыбыт буоллаххына, ону мантан буолуоххун сөп буолуо.";
+"ib6-Zk-jUw.text" = "Ыстатыйа тылбаастаммыт аата";
 "jiW-Cg-oL3.text" = "Бэлиэтэнии";
 "kVb-lx-d6C.placeholder" = "Аһарык";
 "mAk-1N-jPC.placeholder" = "Кыттааччы аата";
 "rKI-nq-3p7.placeholder" = "Email аадырыс (булгуччута суох)";
+"wVn-n7-pdy.text" = "Тыл аата";
 "wkl-j8-wLX.text" = "Бэлиэтэнии";

@@ -38,11 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateEntryWithTitle:(MWKTitle*)title update:(BOOL (^)(MWKSavedPageEntry*))update;
 
 /**
- *  Toggle Saved Page status for a title
+ * Toggle the save state for `title`.
  *
- *  @param title The title of the page to toggle
- *
- *  @return The task. The result is nil.
+ * @param title Title to toggle state for, either saving or un-saving it.
  */
 - (void)toggleSavedPageForTitle:(MWKTitle*)title;
 
@@ -50,8 +48,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  Add a saved page
  *
  *  @param title The title of the page to add
- *
- *  @return The task. The result is the MWKSavedPageEntry.
  */
 - (void)addSavedPageWithTitle:(MWKTitle*)title;
 
@@ -60,8 +56,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  Use this method if you needed to create an entry directly.
  *
  *  @param entry The entry to add
- *
- *  @return The task. The result is the MWKSavedPageEntry.
  */
 - (void)addEntry:(MWKSavedPageEntry*)entry;
 
@@ -69,15 +63,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  Remove a saved page task
  *
  *  @param title The title of the page to remove
- *
- *  @return The task. The result is nil.
  */
 - (void)removeSavedPageWithTitle:(MWKTitle*)title;
 
 /**
  *  Remove all saved pages
- *
- *  @return The task. The result will be nil.
  */
 - (void)removeAllSavedPages;
 

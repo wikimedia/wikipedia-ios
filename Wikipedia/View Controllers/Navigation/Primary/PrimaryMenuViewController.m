@@ -22,6 +22,7 @@
 #import "WMFArticlePresenter.h"
 #import "UIView+WMFRTLMirroring.h"
 #import "MediaWikiKit.h"
+#import "WMFHamburgerMenuFunnel.h"
 
 #define TABLE_CELL_ID @"PrimaryMenuCell"
 
@@ -46,6 +47,8 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
 
 @property (strong, nonatomic) PrimaryMenuTableViewCell* offScreenSizingCell;
 
+@property (nonatomic, strong) WMFHamburgerMenuFunnel* funnel;
+
 @end
 
 @implementation PrimaryMenuViewController
@@ -56,7 +59,11 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
+
+    self.funnel = [[WMFHamburgerMenuFunnel alloc] init];
+    [self.funnel logMenuOpen];
 
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
@@ -204,6 +211,7 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
 - (void)performActionForItem:(PrimaryMenuItemTag)tag {
     switch (tag) {
         case PRIMARY_MENU_ITEM_LOGIN: {
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeLogin];
             LoginViewController* loginVC = [LoginViewController wmf_initialViewControllerFromClassStoryboard];
             loginVC.funnel = [[LoginFunnel alloc] init];
             [loginVC.funnel logStartFromNavigation];
@@ -212,25 +220,31 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
         }
         break;
         case PRIMARY_MENU_ITEM_RANDOM: {
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeRandom];
             //[self showAlert:MWLocalizedString(@"fetching-random-article", nil) type:ALERT_TYPE_TOP duration:-1];
             [[WMFArticlePresenter sharedInstance] presentRandomArticle];
         }
         break;
         case PRIMARY_MENU_ITEM_TODAY: {
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeToday];
             //[self showAlert:MWLocalizedString(@"fetching-today-article", nil) type:ALERT_TYPE_TOP duration:-1];
             [[WMFArticlePresenter sharedInstance] presentTodaysArticle];
         }
         break;
         case PRIMARY_MENU_ITEM_RECENT:
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeRecent];
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[HistoryViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
             break;
         case PRIMARY_MENU_ITEM_SAVEDPAGES:
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeSavedPages];
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[SavedPagesViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
             break;
         case PRIMARY_MENU_ITEM_NEARBY:
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeNearby];
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[NearbyViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
             break;
         case PRIMARY_MENU_ITEM_MORE: {
+            [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeMore];
             UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[SecondaryMenuViewController wmf_initialViewControllerFromClassStoryboard]];
             [self presentViewController:nc animated:YES completion:nil];
         }

@@ -42,7 +42,8 @@
     MWKDataStore* tmpDataStore = [[MWKDataStore alloc] initWithBasePath:self.tempDataStoreDir];
 
     // create article w/ mock section to prevent crashing due to image import side effects
-    MWKArticle* article = [[MWKArticle alloc] initWithTitle:nil dataStore:tmpDataStore];
+    MWKTitle* title     = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:tmpDataStore];
     [article.sections setSections:[NSMutableArray arrayWithObject:mock([MWKSection class])]];
 
     NSArray* dummySourceURLs = [@[@"10px-a.jpg", @"10px-b.jpg", @"100px-a.jpg", @"10px-c.jpg"] bk_map :^id (id obj) {

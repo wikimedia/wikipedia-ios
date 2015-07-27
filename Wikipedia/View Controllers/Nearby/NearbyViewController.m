@@ -344,8 +344,6 @@
     self.locationManager.headingFilter  = 1.5;
     self.locationManager.distanceFilter = 1.0;
 
-    ((UIScrollView*)self.collectionView).decelerationRate = UIScrollViewDecelerationRateFast;
-
     [self.locationManager startUpdatingLocation];
     if (self.headingAvailable) {
         [self.locationManager startUpdatingHeading];

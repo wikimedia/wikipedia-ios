@@ -4,12 +4,14 @@
 // Author: Mikulas1
 // Author: Rudko
 
+"languages-title" = "Jazyky";
 "article-languages-label" = "Zvoliť jazyk";
 "article-languages-cancel" = "Zrušiť";
 "article-languages-downloading" = "Načítam zoznam jazykov...";
 "article-languages-filter-placeholder" = "Jazykový filter";
 "article-read-more-title" = "Ďalšie informácie";
 "article-unable-to-load-section" = "Túto sekciu sa nepodarilo načítať. Vyskúšajte obnoviť článok, problém sa tým možno odstráni.";
+"article-unable-to-load-article" = "Článok nebolo možné načítať.";
 "info-box-title" = "Rýchle fakty";
 "info-box-close-text" = "Zavrieť";
 "table-title-other" = "Viac informácií";
@@ -89,7 +91,9 @@
 "search-recent-clear-cancel" = "Zrušiť";
 "search-recent-clear-delete-all" = "Vymazať všetko";
 "main-menu-title" = "Viac";
-"main-menu-language-title" = "Hľadať vo Wikipédii";
+"main-menu-heading-about" = "O aplikácii";
+"main-menu-language-title" = "Hľadať v $1 Wikipédii";
+"main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Ukázať jazyky";
 "main-menu-language-toggle-hide" = "Skryť jazyky";
 "main-menu-language-selection-saved" = "Výber jazyka bol uložený";
@@ -142,8 +146,7 @@
 "edit-summary-choice-added-missing-info" = "Pridanie chýbajúcich informácii";
 "edit-summary-choice-added-clarification" = "Pridanie objasnenia";
 "edit-summary-choice-other" = "Iné";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "Ako ste vylepšili článok?";
+"edit-summary-field-placeholder-text" = "Ako inak ste vylepšili článok?";
 "edit-summary-title" = "Ako ste vylepšili článok?";
 "fetching-random-article" = "Nahrávam náhodný článok";
 "article-pull-to-refresh-prompt" = "Potiahnutím obnovíte článok";
@@ -213,6 +216,8 @@
 "nearby-distance-label-feet" = "$1 stopy (stôp)";
 "nearby-distance-label-miles" = "$1 míľ";
 "nearby-pull-to-refresh-is-refreshing" = "Obnovujem";
+"nearby-loading" = "Načítavam okolité články...";
+"nearby-loaded" = "Okolité články načítané";
 "nearby-cancel" = "Zrušiť";
 "nearby-location-updates-denied" = "Táto aplikácia nemá prístup k údajom o polohe.";
 "nearby-location-updates-settings-menu" = "Súkromie > Služby polohy > Wikipedia";

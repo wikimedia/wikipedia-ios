@@ -79,7 +79,9 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
     self.languageFilterField.layer.borderWidth = 1.f;
 
     // stylize
-    [self.languageFilterField setReturnKeyType:UIReturnKeyDone];
+    if ([self.languageFilterField respondsToSelector:@selector(setReturnKeyType:)]) {
+        [self.languageFilterField setReturnKeyType:UIReturnKeyDone];
+    }
     self.languageFilterField.barTintColor = CHROME_COLOR;
     self.languageFilterField.placeholder  = MWLocalizedString(@"article-languages-filter-placeholder", nil);
 }
@@ -209,9 +211,9 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 #endif
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
     if (PreferredLanguagesSection == indexPath.section) {
-        return PreferredLanguageRowHeight;
+        return PreferredLanguageRowHeight * MENUS_SCALE_MULTIPLIER;
     } else {
-        return OtherLanguageRowHeight;
+        return OtherLanguageRowHeight * MENUS_SCALE_MULTIPLIER;
     }
 }
 
@@ -234,7 +236,9 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.languageSelectionDelegate languageSelected:[self languageAtIndexPath:indexPath] sender:self];
+    MWKLanguageLink* selectedLanguage = [self languageAtIndexPath:indexPath];
+    [self.langLinkController saveSelectedLanguage:selectedLanguage];
+    [self.languageSelectionDelegate languageSelected:selectedLanguage sender:self];
 }
 
 #pragma mark - UITextFieldDelegate

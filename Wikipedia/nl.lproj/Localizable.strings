@@ -1,5 +1,6 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
+// Author: FabianRM
 // Author: JurgenNL
 // Author: Macofe
 // Author: Mathonius
@@ -10,14 +11,14 @@
 // Author: Sjoerddebruin
 // Author: Southparkfan
 
+"languages-title" = "Talen";
 "article-languages-label" = "Taal kiezen";
 "article-languages-cancel" = "Annuleren";
 "article-languages-downloading" = "Paginatalen aan het laden...";
 "article-languages-filter-placeholder" = "Taal filteren";
-"article-read-more-title" = "Lees meer";
+"article-read-more-title" = "Meer lezen";
 "article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
-"article-languages-preferred-section-header" = "Voorkeurtalen";
-"article-languages-other-section-header" = "Overige talen";
+"article-unable-to-load-article" = "Het was niet mogelijk de pagina te laden.";
 "info-box-title" = "Snelle feiten";
 "info-box-close-text" = "Sluiten";
 "table-title-other" = "Meer informatie";
@@ -54,7 +55,7 @@
 "account-creation-password-placeholder-text" = "Wachtwoord";
 "account-creation-password-confirm-placeholder-text" = "Wachtwoord bevestigen";
 "account-creation-email-placeholder-text" = "E-mailadres (optioneel)";
-"account-creation-missing-fields" = "U moet een gebruikersnaam, wachtwoord, en wachtwoordbevestiging invoeren om een gebruikersaccount aan te maken.";
+"account-creation-missing-fields" = "U moet een gebruikersnaam, wachtwoord, en wachtwoordbevestiging invoeren om een account aan te maken.";
 "login-name-not-found" = "U moet een gebruikersnaam opgeven om aan te melden.";
 "login-name-illegal" = "U hebt een ongeldige gebruikersnaam opgegeven.";
 "login-name-does-not-exist" = "De opgegeven gebruikersnaam bestaat niet.";
@@ -82,7 +83,7 @@
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Koppeling openen";
-"open-link-cancel" = "Annuleer";
+"open-link-cancel" = "Annuleren";
 "search-searching" = "Bezig met zoeken...";
 "search-no-matches" = "Geen overeenkomsten gevonden voor de zoekterm.";
 "search-field-placeholder-text" = "Zoeken in Wikipedia";
@@ -125,7 +126,7 @@
 "main-menu-terms-of-use" = "Gebruiksvoorwaarden";
 "main-menu-rate-app" = "App beoordelen";
 "main-menu-heading-zero" = "Wikipedia Zero";
-"main-menu-heading-legal" = "Privacy en Voorwaarden";
+"main-menu-heading-legal" = "Privacy en voorwaarden";
 "main-menu-show-today" = "Vandaag";
 "main-menu-nearby" = "In de buurt";
 "main-menu-more" = "Meer...";
@@ -137,7 +138,7 @@
 "saved-pages-clear-cancel" = "Annuleren";
 "saved-pages-clear-delete-all" = "Alles verwijderen";
 "saved-pages-refresh-cancel-alert-title" = "Bijwerken geanuleerd";
-"saved-pages-refresh-cancel-alert-message" = "Wikipedia artikels worden constant bijgewerkt. Druk op vernieuwen om de nieuwste versie van de artikels te bekijken.";
+"saved-pages-refresh-cancel-alert-message" = "Wikipediapagina's worden constant bijgewerkt. Druk op vernieuwen om de nieuwste versie van de pagina's te bekijken.";
 "saved-pages-refresh-cancel-alert-button" = "Begrepen";
 "page-history-title" = "Paginageschiedenis";
 "page-history-downloading" = "Paginageschiedenis laden...";
@@ -178,7 +179,7 @@
 "about-testers" = "testers";
 "about-testers-details" = "Getest door $1";
 "about-translators" = "vertalers";
-"about-translators-details" = "Dit app is vertaald door de vrijwillige vertalers van $1";
+"about-translators-details" = "Deze app is vertaald door de vrijwillige vertalers van $1";
 "about-libraries" = "gebruikte bibliotheken";
 "about-libraries-license" = "Licentie";
 "about-repositories" = "repositories";
@@ -270,13 +271,13 @@
 "image-gallery-fetch-image-info-error-title" = "Downloaden van afbeeldingen niet mogelijk";
 "image-gallery-fetch-image-info-error-message" = "Het was niet mogelijk de afbeeldingen voor de pagina te laden. Ververs de pagina en probeer het opnieuw.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
-"hockeyapp-alert-question" = "Wilt u het crash rapport naar $1 versturen, zodat Wikimedia deze kan bekijken?";
-"hockeyapp-alert-question-with-response-field" = "Wilt u het crash rapport naar $1 versturen, zodat Wikimedia deze kan bekijken? Beschrijf wat er gebeurde tijdens de crash:";
-"hockeyapp-alert-title" = "Sorry, app crashte laatste keer";
+"hockeyapp-alert-question" = "Wilt u het crashrapport naar $1 verzenden, zodat Wikimedia het kan bekijken?";
+"hockeyapp-alert-question-with-response-field" = "Wilt u het crashrapport naar $1 verzenden, zodat Wikimedia het kan bekijken? Beschrijf wat er gebeurde tijdens de crash:";
+"hockeyapp-alert-title" = "De app crashte de laatste keer helaas";
 "hockeyapp-alert-send-report" = "Rapport verzenden";
-"hockeyapp-alert-always-send" = "Altijd versturen";
+"hockeyapp-alert-always-send" = "Altijd verzenden";
 "hockeyapp-alert-do-not-send" = "Niet verzenden";
-"hockeyapp-alert-privacy" = "$1 privacy";
+"hockeyapp-alert-privacy" = "Privacy van $1";
 "page-issues" = "Paginaproblemen";
 "page-similar-titles" = "Vergelijkbare pagina's";
 "captcha-reload" = "Andere captcha weergeven";

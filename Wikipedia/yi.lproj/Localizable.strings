@@ -3,12 +3,12 @@
 // Author: Har-wradim
 // Author: פוילישער
 
+"languages-title" = "שפראכן";
 "article-languages-label" = "קלויבן שפראך…";
 "article-languages-cancel" = "אַנולירן";
 "article-languages-downloading" = "לאדן ארטיקל שפראכן…";
 "article-languages-filter-placeholder" = "שפראך־פֿילטער";
 "article-read-more-title" = "לייענט ווײטער";
-"article-languages-other-section-header" = "אַנדערע שפראַכן";
 "info-box-title" = "גיכע פאקטן";
 "info-box-close-text" = "פארמאכן";
 "table-title-other" = "נאך אינפארמאציע";
@@ -114,9 +114,11 @@
 "edit-summary-choice-fixed-grammar" = "פארראכטן גראמאטיק";
 "edit-summary-choice-fixed-inaccuracy" = "פארראכטן טעות";
 "edit-summary-choice-added-category" = "צוגעלייגט קאטעגאריע";
+"edit-summary-choice-added-missing-info" = "צוגעלייגט פעלנדע אינפארמאציע";
 "edit-summary-choice-other" = "אַנדער";
 "edit-summary-title" = "וויאזוי האט איר פארבעסערט דעם בלאט?";
 "credits-wikimedia-repos" = "וויקימעדיע";
+"credits-github-mirror" = "אפ-שפיגל (גיטהאב)";
 "about-title" = "וועגן";
 "about-wikipedia" = "וויקיפעדיע";
 "about-contributors" = "בײַשטײַערער";
@@ -178,6 +180,7 @@
 "nearby-distance-label-feet" = "$1 פיס";
 "nearby-distance-label-miles" = "$1 מייל";
 "nearby-cancel" = "אַנולירן";
+"migration-update-progress-label" = "מיגרירן לאקאלע דאטן";
 "migration-skip-button-title" = "אויסמעקן";
 "image-gallery-fetch-image-info-error-ok" = "יאָ";
 "hockeyapp-alert-send-report" = "שיקן באריכט";

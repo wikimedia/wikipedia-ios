@@ -105,7 +105,7 @@ typedef NS_ENUM (NSInteger, BottomMenuItemTag) {
     self.saveButton.tag                = BOTTOM_MENU_BUTTON_SAVE;
     self.saveButton.accessibilityLabel = MWLocalizedString(@"share-menu-save-page", nil);
 
-    self.allButtons = @[self.backButton, self.forwardButton, self.shareButton, self.saveButton, self.languagesButton];
+    self.allButtons = @[self.backButton, self.forwardButton, self.saveButton, self.languagesButton, self.shareButton];
 
     self.view.backgroundColor = CHROME_COLOR;
 

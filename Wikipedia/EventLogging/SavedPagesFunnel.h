@@ -12,7 +12,8 @@
 
 @property NSString* appInstallId;
 
-- (id)init;
++ (void)logStateChange:(BOOL)didSave;
+
 
 /**
  * Log the saving of a new page to the saved set.

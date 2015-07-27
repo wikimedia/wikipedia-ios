@@ -34,8 +34,12 @@
 }
 
 - (NSString*)requiredString:(NSString*)key dict:(NSDictionary*)dict {
+    return [self requiredString:key dict:dict allowEmpty:YES];
+}
+
+- (NSString*)requiredString:(NSString*)key dict:(NSDictionary*)dict allowEmpty:(BOOL)allowEmpty {
     NSString* str = [self optionalString:key dict:dict];
-    if (str == nil) {
+    if (str == nil || (str.length == 0 && !allowEmpty)) {
         @throw [NSException exceptionWithName:@"MWKDataObjectException"
                                        reason:@"expected string, got nothing"
                                      userInfo:@{@"key": key}];

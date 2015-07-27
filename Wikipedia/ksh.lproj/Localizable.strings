@@ -2,14 +2,14 @@
 // Exported from translatewiki.net
 // Author: Purodha
 
+"languages-title" = "Schprohche";
 "article-languages-label" = "Söhg en Schprohch uß";
 "article-languages-cancel" = "Ophüre!";
 "article-languages-downloading" = "Ben dä Sigg iehr Schprohche aam ahde&nbsp;{{int:ellipsis}}";
 "article-languages-filter-placeholder" = "Schprohche ußsöhke";
 "article-read-more-title" = "Mih lässe";
 "article-unable-to-load-section" = "mer kunnte dä affschnett nit lahde. Versöhg ens, dä jannze Atikel neu ze lahde, öm ze sinn, of dat hellef.";
-"article-languages-preferred-section-header" = "Vörjetroke";
-"article-languages-other-section-header" = "Ander Schprohche";
+"article-unable-to-load-article" = "Mer künne dä Atikel nit lahde.";
 "info-box-close-text" = "Zohmaache";
 "table-title-other" = "Mih Aanjahbe";
 "history-label" = "Köözlesch jedonn";

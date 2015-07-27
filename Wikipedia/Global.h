@@ -6,6 +6,8 @@
 #import "WMFGCDHelpers.h"
 #import <BlocksKit/BlocksKit.h>
 #import "NSError+WMFExtensions.h"
+#import "NSObjectUtilities.h"
+#import "WMFOutParamUtils.h"
 
 #import <libextobjc/EXTScope.h>
 #import <KVOController/FBKVOController.h>

@@ -2,11 +2,14 @@
 // Exported from translatewiki.net
 // Author: Xuacu
 
+"languages-title" = "Llingües";
 "article-languages-label" = "Escoyer llingua";
 "article-languages-cancel" = "Encaboxar";
 "article-languages-downloading" = "Cargando llingües del artículu...";
 "article-languages-filter-placeholder" = "Filtru de llingua";
 "article-read-more-title" = "Lleer más";
+"article-unable-to-load-section" = "Nun pudo cargase esta seición. Prueba a recargar l'artículu para ver si'l problema íguase asina.";
+"article-unable-to-load-article" = "Nun pudo cargase l'artículu.";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Zarrar";
 "table-title-other" = "Más información";
@@ -89,7 +92,9 @@
 "search-recent-clear-cancel" = "Encaboxar";
 "search-recent-clear-delete-all" = "Desaniciar too";
 "main-menu-title" = "Más";
+"main-menu-heading-about" = "Tocante a";
 "main-menu-language-title" = "Guetar la wiki en llingua $1";
+"main-menu-faq" = "EMF (entrugues más frecuentes)";
 "main-menu-language-toggle-show" = "Amosar llingües";
 "main-menu-language-toggle-hide" = "Anubrir llingües";
 "main-menu-language-selection-saved" = "Seleición d'idioma guardada";
@@ -229,6 +234,7 @@
 "menu-share-accessibility-label" = "Compartir";
 "menu-more-accessibility-label" = "Más axustes";
 "menu-trash-accessibility-label" = "Desaniciar";
+"menu-language-accessibility-label" = "Llingües";
 "nearby-title" = "Cercanu";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
@@ -244,6 +250,13 @@
 "nearby-location-updates-denied" = "Esta app nun tien permisu pa recibir anovamientos del allugamientu.";
 "nearby-location-updates-enable" = "P'activar los anovamientos del allugamientu abri la App de preferencies y seleiciona lo siguiente:";
 "nearby-location-updates-settings-menu" = "Intimidá > Servicios d'allugamientu > Wikipedia";
+"nearby-location-general-error" = "Nun pudo determinase l'allugamientu. Tira p'anovar o inténtalo más sero.";
+"nearby-wifi" = "Si actives Wi-Fi podría ayudar a que'l preséu determine meyor el to allugamientu.";
+"migration-update-progress-label" = "Migrando datos llocales";
+"migration-update-progress-count-label" = "Migrando l'artículu $1 de $2";
+"migration-prompt-title" = "¡Paez que tenemos un historial!";
+"migration-prompt-message" = "Necesitamos mover les tos páxines guardaes y recientes. Esto puede tardar un minutu...";
+"migration-confirm-button-title" = "Treslladar les mios coses";
 "migration-skip-button-title" = "Desanicialo";
 "image-gallery-unknown-owner" = "Autor desconocíu.";
 "image-gallery-fetch-image-info-error-title" = "Nun pudieron descargase les imaxes";
@@ -255,3 +268,12 @@
 "history-none" = "Equí nun hai páxines recientes.";
 "captcha-prompt" = "Escribi'l testu CAPTCHA de la imaxe d'arriba";
 "history-description" = "Probablemente desaniciástiles toes. La siguiente vez que vaigas a una páxina pues volver a ella dende equí.";
+"hockeyapp-alert-question" = "¿Quedríes unviar un informe de fallu a $1 para que Wikimedia pueda revisalu?";
+"hockeyapp-alert-question-with-response-field" = "¿Quedríes unviar un informe de fallu a $1 para que Wikimedia pueda revisalu? Por favor, describe qué pasó cuando asocedió'l fallu:";
+"hockeyapp-alert-title" = "Sentímoslo, l'aplicación falló la última vez";
+"hockeyapp-alert-send-report" = "Unviar informe";
+"hockeyapp-alert-always-send" = "Unviar siempre";
+"hockeyapp-alert-do-not-send" = "Nun unviar";
+"hockeyapp-alert-privacy" = "Intimidá de $1";
+"page-issues" = "Problemes de la páxina";
+"page-similar-titles" = "Páxines asemeyaes";

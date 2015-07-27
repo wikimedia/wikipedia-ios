@@ -76,7 +76,12 @@
  */
 - (void)save;
 
+
 #pragma mark - Managing Face Information
+
+- (BOOL)hasFaces;
+
+- (BOOL)didDetectFaces;
 
 /**
  * Array of NSValue-wrapped unit rectangles, in the coordinate space of the receiver's image (y-origin on the bottom).

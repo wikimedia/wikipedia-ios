@@ -11,14 +11,14 @@
 // Author: Violetanka
 // Author: Ömer Berkay
 
+"languages-title" = "Diller";
 "article-languages-label" = "Dil seçin";
 "article-languages-cancel" = "İptal";
 "article-languages-downloading" = "Madde dilleri yükleniyor...";
 "article-languages-filter-placeholder" = "Dil Süzgeci";
 "article-read-more-title" = "Devamı";
 "article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
-"article-languages-preferred-section-header" = "Tercih edilen";
-"article-languages-other-section-header" = "Diğer diller";
+"article-unable-to-load-article" = "Makale yüklenemedi.";
 "info-box-title" = "Pratik bilgiler";
 "info-box-close-text" = "Kapat";
 "table-title-other" = "Daha fazla bilgi";

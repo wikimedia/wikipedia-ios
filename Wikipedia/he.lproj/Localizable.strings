@@ -7,14 +7,14 @@
 // Author: Matanya
 // Author: איתן96
 
+"languages-title" = "שפות";
 "article-languages-label" = "בחירת שפה";
 "article-languages-cancel" = "ביטול";
 "article-languages-downloading" = "טעינת שפות הערך...";
 "article-languages-filter-placeholder" = "סינון שפה";
 "article-read-more-title" = "לקרוא עוד";
 "article-unable-to-load-section" = "לא ניתן לטעון את הפסקה הזאת. נא לנסות לרענן את הערך כדי לראות אם זה מתקן את הבעיה.";
-"article-languages-preferred-section-header" = "מועדפות";
-"article-languages-other-section-header" = "שפות אחרות";
+"article-unable-to-load-article" = "לא ניתן לטעון את הערך.";
 "info-box-title" = "עובדות מהירות";
 "info-box-close-text" = "סגירה";
 "table-title-other" = "מידע נוסף";

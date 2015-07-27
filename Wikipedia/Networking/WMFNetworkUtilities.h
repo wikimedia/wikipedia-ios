@@ -13,7 +13,8 @@
 extern NSString* const WMFNetworkingErrorDomain;
 
 typedef NS_ENUM (NSInteger, WMFNetworkingError) {
-    WMFNetworkingError_APIError
+    WMFNetworkingError_APIError,
+    WMFNetworkingError_InvalidParameters
 };
 
 

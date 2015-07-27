@@ -11,14 +11,14 @@
 // Author: Solucer
 // Author: Wladek92
 
+"languages-title" = "Langues";
 "article-languages-label" = "Choisir langue";
 "article-languages-cancel" = "Annuler";
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
 "article-languages-filter-placeholder" = "Filtre de langue";
 "article-read-more-title" = "En savoir plus";
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
-"article-languages-preferred-section-header" = "Préféré";
-"article-languages-other-section-header" = "Autres langues";
+"article-unable-to-load-article" = "Impossible de charger l’article.";
 "info-box-title" = "Faits en bref";
 "info-box-close-text" = "Fermer";
 "table-title-other" = "Plus d’information";

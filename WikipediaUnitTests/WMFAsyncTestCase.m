@@ -42,4 +42,8 @@ NSTimeInterval const WMFDefaultExpectationTimeout = 0.1;
     [expectation fulfill];
 }
 
+- (void)popExpectation {
+    [self popExpectationAfter:nil];
+}
+
 @end

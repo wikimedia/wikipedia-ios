@@ -18,14 +18,13 @@
 // Author: Peg60
 // Author: SuperVirtual
 
+"languages-title" = "Lingue";
 "article-languages-label" = "Scegli la lingua";
 "article-languages-cancel" = "Annulla";
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
 "article-languages-filter-placeholder" = "Filtra lingua";
 "article-read-more-title" = "Leggi altro";
 "article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
-"article-languages-preferred-section-header" = "Preferiti";
-"article-languages-other-section-header" = "Altre lingue";
 "info-box-title" = "Fatti in breve";
 "info-box-close-text" = "Chiudi";
 "table-title-other" = "Ulteriori informazioni";

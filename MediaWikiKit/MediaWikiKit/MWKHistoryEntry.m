@@ -8,6 +8,7 @@
 
 #import "MediaWikiKit.h"
 #import "WikipediaAppUtils.h"
+#import "NSMutableDictionary+WMFMaybeSet.h"
 
 @interface MWKHistoryEntry ()
 
@@ -35,7 +36,7 @@
 
     self = [self initWithSite:[MWKSite siteWithDomain:domain language:language]];
     if (self) {
-        self.title           = [self requiredTitle:@"title" dict:dict];
+        self.title           = [self requiredTitle:@"title" dict:dict allowEmpty:NO];
         self.date            = [self requiredDate:@"date" dict:dict];
         self.discoveryMethod = [MWKHistoryEntry discoveryMethodForString:[self requiredString:@"discoveryMethod" dict:dict]];
         self.scrollPosition  = [[self requiredNumber:@"scrollPosition" dict:dict] floatValue];
@@ -62,6 +63,20 @@
            && WMF_EQUAL(self.date, isEqualToDate:, entry.date)
            && self.discoveryMethod == entry.discoveryMethod
            && self.scrollPosition == entry.scrollPosition;
+}
+
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@: {\n"
+            "\ttitle: %@,\n"
+            "\tdate: %@,\n"
+            "\tdiscoveryMethod: %@,\n"
+            "\tscrollPosition: %d\n"
+            "}",
+            [super description],
+            self.title,
+            self.date,
+            [MWKHistoryEntry stringForDiscoveryMethod:self.discoveryMethod],
+            self.scrollPosition];
 }
 
 + (NSString*)stringForDiscoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
@@ -106,14 +121,13 @@
 - (id)dataExport {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
 
-    dict[@"domain"]          = self.site.domain;
-    dict[@"language"]        = self.site.language;
-    dict[@"title"]           = self.title.dataBaseKey;
-    dict[@"date"]            = [self iso8601DateString:self.date];
-    dict[@"discoveryMethod"] = [MWKHistoryEntry stringForDiscoveryMethod:self.discoveryMethod];
-    dict[@"scrollPosition"]  = @(self.scrollPosition);
+    [dict wmf_maybeSetObject:self.site.domain forKey:@"domain"];
+    [dict wmf_maybeSetObject:self.site.language forKey:@"language"];
+    [dict wmf_maybeSetObject:self.title.dataBaseKey forKey:@"title"];
+    [dict wmf_maybeSetObject:[self iso8601DateString:self.date] forKey:@"date"];
+    [dict wmf_maybeSetObject:[MWKHistoryEntry stringForDiscoveryMethod:self.discoveryMethod] forKey:@"discoveryMethod"];
+    [dict wmf_maybeSetObject:@(self.scrollPosition) forKey:@"scrollPosition"];
 
     return [NSDictionary dictionaryWithDictionary:dict];
 }
-
 @end

@@ -159,6 +159,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self setupTopMenuButtons];
     [self setupBottomMenuButtons];
 
+    self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+
     self.scrollingToTop = NO;
 
     self.panSwipeRecognizer = nil;
@@ -913,24 +915,24 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     SavedPagesFunnel* funnel = [[SavedPagesFunnel alloc] init];
     MWKUserDataStore* store  = self.session.userDataStore;
     MWKTitle* title          = self.session.currentArticle.title;
-    BOOL isSaved             = [store.savedPageList isSaved:self.session.currentArticle.title];
+    
+    [store.savedPageList toggleSavedPageForTitle:title];
+    [store.savedPageList save].then(^(){
+        
+        BOOL isSaved = [store.savedPageList isSaved:title];
 
-    if (!isSaved) {
-        [store.savedPageList addSavedPageWithTitle:title];
-        [store.savedPageList save].then(^(){
-            [self showPageSavedAlertMessageForTitle:title.text];
+        if (isSaved) {
+            [self showPageSavedAlertMessageForTitle:self.session.currentArticle.title.text];
             [funnel logSaveNew];
-        });
-    } else {
-        [store.savedPageList removeSavedPageWithTitle:title];
-        [store.savedPageList save].then(^(){
+        } else {
             [self fadeAlert];
             [funnel logDelete];
-        });
-    }
+        }
+    });
 }
 
 - (void)showPageSavedAlertMessageForTitle:(NSString*)title {
+    NSParameterAssert(title.length);
     // First show saved message.
     NSString* savedMessage = MWLocalizedString(@"share-menu-page-saved", nil);
 
@@ -1196,16 +1198,20 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     NSString* cleanTitle = title.text;
     NSParameterAssert(cleanTitle.length);
 
+    if ([title.text length] == 0) {
+        [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
+        return;
+    }
+
     [self hideKeyboard];
 
     [self cancelSearchLoading];
-//    [self cancelArticleLoading];
 
     if (discoveryMethod != MWKHistoryDiscoveryMethodBackForward && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromNetwork && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromCache) {
         [self updateHistoryDateVisitedForArticleBeingNavigatedFrom];
     }
 
-    MWKArticle* article = [self.session.dataStore articleWithTitle:self.currentTitle];
+    MWKArticle* article = [self.session.dataStore articleWithTitle:title];
 
     self.jumpToFragment                        = title.fragment;
     self.currentTitle                          = title;
@@ -1249,6 +1255,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)loadArticleWithTitleFromNetwork:(MWKTitle*)title {
+    NSParameterAssert(title);
+    if ([title.text length] == 0) {
+        [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
+        return;
+    }
+
     [self showProgressViewAnimated:YES];
     self.isFetchingArticle = YES;
 
@@ -1375,6 +1387,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 #pragma mark Display article from data store
 
 - (void)displayArticle:(MWKTitle*)title {
+    NSParameterAssert(title.text);
+    if ([title.text length] == 0) {
+        [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
+        return;
+    }
+
     MWKArticle* article = [self.session.dataStore articleWithTitle:title];
     self.session.currentArticle = article;
 

@@ -14,6 +14,7 @@
 
 - (NSString*)optionalString:(NSString*)key dict:(NSDictionary*)dict;
 - (NSString*)requiredString:(NSString*)key dict:(NSDictionary*)dict;
+- (NSString*)requiredString:(NSString*)key dict:(NSDictionary*)dict allowEmpty:(BOOL)allowEmpty;
 
 - (NSNumber*)optionalNumber:(NSString*)key dict:(NSDictionary*)dict;
 - (NSNumber*)requiredNumber:(NSString*)key dict:(NSDictionary*)dict;
