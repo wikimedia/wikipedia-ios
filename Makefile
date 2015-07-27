@@ -155,12 +155,12 @@ bundle-install: bundler-check
 
 bundler-check: ##Make sure Bundler is installed
 bundler-check: ruby-check
-	@if ! which -s bundle ; then \
-		echo "Missing the Bundler Ruby gem." ; \
-		exit 1 ; \
-	else \
-		echo "Bundler is installed!" ; \
-	fi
+#	@if ! which -s bundle ; then \
+#		echo "Missing the Bundler Ruby gem." ; \
+#		exit 1 ; \
+#	else \
+#		echo "Bundler is installed!" ; \
+#	fi
 
 get-bundler: ##Install Bundler, requires Ruby installed outside /usr/bin
 get-bundler: get-ruby
