@@ -1,5 +1,7 @@
 language: objective-c
-before_install: make travis-get-deps
+before_install:
+  - gem install bundler
+  - make travis-get-deps
 script: make test
 after_success:
     - bash <(curl -s https://codecov.io/bash)

@@ -138,10 +138,11 @@ node-check: ##Make sure node is installed
 #!!!!!
 
 RUBY_VERSION = "$(shell ruby -v 2>/dev/null)"
+BUNDLER = "$(shell which bundle 2/dev/null)"
 
 pod: ##Install native dependencies via CocoaPods
 pod: bundle-install
-	@bundle exec pod install
+	@$(BUNDLER) exec pod install
 
 #!!!!!
 #!!!!! Ruby dependency management
@@ -151,16 +152,16 @@ RUBY_VERSION = "$(shell ruby -v 2>/dev/null)"
 
 bundle-install: ##Install gems using Bundler
 bundle-install: bundler-check
-	@bundle install
+	@$(BUNDLER) install
 
 bundler-check: ##Make sure Bundler is installed
 bundler-check: ruby-check
-#	@if ! which -s bundle ; then \
-#		echo "Missing the Bundler Ruby gem." ; \
-#		exit 1 ; \
-#	else \
-#		echo "Bundler is installed!" ; \
-#	fi
+	@if ! which -s bundle; then \
+		echo "Missing the Bundler Ruby gem." ; \
+		exit 1 ; \
+	else \
+		echo "Bundler is installed!" ; \
+	fi
 
 get-bundler: ##Install Bundler, requires Ruby installed outside /usr/bin
 get-bundler: get-ruby
