@@ -230,21 +230,21 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     NSUInteger numImages                         = [ranges count] * self.controller.infoBatchSize;
     NSMutableArray* accumulatedFetchedImageInfos = [NSMutableArray arrayWithCapacity:numImages];
 
-    void (^ verifyDataStoreAndControllerData)() = ^{
-        assertThat(self.controller.indexedImageInfo.allValues,
-                   containsItemsInCollectionInAnyOrder(accumulatedFetchedImageInfos));
-
-        assertThat([self.tmpDataStore imageInfoForArticle:self.testArticle],
-                   containsItemsInCollectionInAnyOrder(accumulatedFetchedImageInfos));
-    };
-
     for (NSValue* boxedRange in ranges) {
+        PushExpectation();
         assertThat(@([self.controller hasFetchedAllItems]), isFalse());
         [self fetchRangeSuccessfully:boxedRange.rangeValue
                           fromImages:self.controller.uniqueArticleImages
                      withAccumulator:accumulatedFetchedImageInfos];
-        verifyDataStoreAndControllerData();
     }
+
+    WaitForExpectations();
+
+    assertThat(self.controller.indexedImageInfo.allValues,
+               containsItemsInCollectionInAnyOrder(accumulatedFetchedImageInfos));
+
+    assertThat([self.tmpDataStore imageInfoForArticle:self.testArticle],
+               containsItemsInCollectionInAnyOrder(accumulatedFetchedImageInfos));
 
     assertThat(@([self.controller hasFetchedAllItems]), isTrue());
 
@@ -253,15 +253,11 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     }
 
     assertThat(accumulatedFetchedImageInfos, hasCountOf(self.controller.uniqueArticleImages.count));
-
-    verifyDataStoreAndControllerData();
 }
 
 - (void)fetchRangeSuccessfully:(NSRange)range
                     fromImages:(NSArray*)testImages
                withAccumulator:(NSMutableArray*)accumulatedInfos {
-    PushExpectation();
-
     [self.controller fetchBatchContainingIndex:range.location];
 
     assertThat(@([self.controller.fetchedIndices containsIndexesInRange:range]),
@@ -271,8 +267,6 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     [accumulatedInfos addObjectsFromArray:imageInfoForCurrentBatch];
 
     [self mockInfoFetcherSuccess:range];
-
-    WaitForExpectations();
 }
 
 #pragma mark - Delegate Call Forwarding
