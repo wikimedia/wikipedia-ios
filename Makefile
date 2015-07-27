@@ -9,9 +9,6 @@ lint: ##Lint the native code, requires uncrustify
 lint:
 	@scripts/uncrustify_all.sh
 
-test: ##Run unit tests through fastlane
-	@bundle exec fastlane test
-
 submodules: ##Install or update submodules
 	git submodule update --init --recursive
 

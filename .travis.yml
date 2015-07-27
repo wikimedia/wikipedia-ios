@@ -2,6 +2,6 @@ language: objective-c
 osx_image: xcode6.4
 install:
   - make travis-get-deps
-script: make test
+script: bundle exec fastlane travis
 after_success:
   - bash <(curl -s https://codecov.io/bash)

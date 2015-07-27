@@ -260,12 +260,12 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 - (void)fetchRangeSuccessfully:(NSRange)range
                     fromImages:(NSArray*)testImages
                withAccumulator:(NSMutableArray*)accumulatedInfos {
+    PushExpectation();
+
     [self.controller fetchBatchContainingIndex:range.location];
 
     assertThat(@([self.controller.fetchedIndices containsIndexesInRange:range]),
                describedAs(@"Ranges should be marked as fetched the first time they're requested", isTrue(), nil));
-
-    PushExpectation();
 
     NSArray* imageInfoForCurrentBatch = [MWKImageInfo mappedFromImages:[testImages subarrayWithRange:range]];
     [accumulatedInfos addObjectsFromArray:imageInfoForCurrentBatch];
