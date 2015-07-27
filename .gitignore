@@ -23,6 +23,9 @@ DerivedData
 # Icons
 Wikipedia/Images.xcassets/AppIcon.appiconset/*.png
 
+# Bundler
+vendor/bundle
+
 # Fastlane
 fastlane/report.xml
 fastlane/Error*.png
