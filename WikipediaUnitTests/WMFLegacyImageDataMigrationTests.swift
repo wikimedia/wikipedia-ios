@@ -118,7 +118,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
     func testMigrateImagesResolvesAfterMigratingAllImages() {
         let (article, legacyImageDataPaths) = prepareArticleFixtureWithTempImages("Barack_Obama")
         expectPromise(toResolve(),
-        timeout: 1,
+        timeout: 5,
         pipe: {
             self.verifySuccessfulMigration(ofArticle: article, legacyImageDataPaths: legacyImageDataPaths)
         },
@@ -135,7 +135,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
         addUnmigratedEntryForTitle(article.title)
 
         expectPromise(toResolve(),
-        timeout: 2,
+        timeout: 10,
         pipe: {
             XCTAssertNil(self.imageMigration.unmigratedEntry(), "Should be no remaining unmigrated entries")
             let migratedEntry = self.dataStore.userDataStore().savedPageList.entryForTitle(article.title)!
@@ -163,7 +163,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
         addUnmigratedEntryForTitle(article2.title)
 
         expectPromise(toResolve(),
-        timeout: 4,
+        timeout: 10,
         pipe: {
             XCTAssertNil(self.imageMigration.unmigratedEntry(), "Should be no remaining unmigrated entries")
 
