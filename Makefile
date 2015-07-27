@@ -27,8 +27,7 @@ travis-get-deps: xcode-cltools-check submodules
 	@brew update; \
 	brew install uncrustify || brew upgrade uncrustify; \
 	brew install xctool || brew upgrade xctool; \
-	bundle install --without dev; \
-	git status
+	bundle install --without dev;
 
 #!!!!!
 #!!!!! Xcode dependencies
