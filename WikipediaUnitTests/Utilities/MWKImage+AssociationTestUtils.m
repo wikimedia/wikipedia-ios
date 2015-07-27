@@ -8,11 +8,15 @@
 
 #import "MWKImage+AssociationTestUtils.h"
 #import <BlocksKit/BlocksKit.h>
+#import "MWKSite.h"
+#import "MWKArticle.h"
 
 @implementation MWKImage (AssociationTestUtils)
 
 + (instancetype)imageAssociatedWithSourceURL:(NSString*)imageURL {
-    return [[self alloc] initWithArticle:nil sourceURLString:imageURL];
+    MWKTitle* title     = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:nil];
+    return [[self alloc] initWithArticle:article sourceURLString:imageURL];
 }
 
 - (MWKImageInfo*)createAssociatedInfo {
