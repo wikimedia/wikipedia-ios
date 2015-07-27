@@ -38,11 +38,12 @@
     CGSize testSize   = CGSizeMake(200, 200);
 
     CGRect normalizedRect = WMFNormalizeRectUsingSize(testUIRect, testSize);
-    XCTAssertEqualRects(normalizedRect,
-                        CGRectMake(testUIRect.origin.x / testSize.width,
-                                   testUIRect.origin.y / testSize.height,
-                                   testUIRect.size.width / testSize.width,
-                                   testUIRect.size.height / testSize.height));
+    XCTAssertEqualRectsWithAccuracy(normalizedRect,
+                                    CGRectMake(testUIRect.origin.x / testSize.width,
+                                               testUIRect.origin.y / testSize.height,
+                                               testUIRect.size.width / testSize.width,
+                                               testUIRect.size.height / testSize.height),
+                                    0.0001);
 
     XCTAssertEqualRectsWithAccuracy(WMFDenormalizeRectUsingSize(normalizedRect, testSize), testUIRect, 0.0001);
 }

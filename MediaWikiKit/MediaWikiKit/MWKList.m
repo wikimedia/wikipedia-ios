@@ -25,7 +25,7 @@
     return self;
 }
 
-- (instancetype)initWithEntries:(NSArray*)entries {
+- (instancetype)initWithEntries:(NSArray* __nullable)entries {
     self = [self init];
     if (self) {
         [self importEntries:entries];

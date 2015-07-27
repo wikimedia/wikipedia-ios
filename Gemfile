@@ -1,5 +1,11 @@
 source "https://rubygems.org"
 
-gem 'cocoapods', '~> 0.37.2'
-gem 'fastlane', '~> 1.3.1'
-gem 'git', '~> 1.2'
+group :dev do
+  gem 'cocoapods', '~> 0.36.1'
+end
+
+group :ci do
+  gem 'fastlane', '~> 1.3.1'
+  gem 'git', '~> 1.2'
+end
+
