@@ -472,7 +472,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [self fadeAlert];
 
-                [self.bridge loadHTML:fetchedData withAssetsFile:@"preview.html" leadSectionHtml:@""];
+                [self.bridge loadHTML:fetchedData withAssetsFile:@"preview.html"];
 
                 [self.bridge sendMessage:@"setLanguage"
                              withPayload:@{

@@ -15,7 +15,7 @@
               baseURL:[NSURL URLWithString:filePath]];
 }
 
-- (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName leadSectionHtml:(NSString*)leadSectionHtml {
+- (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName {
     if (!string) {
         string = @"";
     }
@@ -32,7 +32,7 @@
                                                            error:nil];
     }
 
-    [self loadHTMLString:[NSString stringWithFormat:fileContents, leadSectionHtml, string]
+    [self loadHTMLString:[NSString stringWithFormat:fileContents, string]
                  baseURL:[NSURL URLWithString:path]];
 }
 
