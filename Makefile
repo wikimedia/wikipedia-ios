@@ -12,8 +12,11 @@ lint:
 submodules: ##Install or update submodules
 	git submodule update --init --recursive
 
-check-deps: ##Make sure system prerequisites are installed
-check-deps: xcode-cltools-check exec-check node-check
+prebuild: ##Install dependencies needed to build the project
+prebuild: submodules
+
+check-deps: ##Make sure dev prerequisites are installed
+check-deps: xcode-cltools-check exec-check node-check bundle-check
 
 #!!!!!
 #!!!!! Travis
