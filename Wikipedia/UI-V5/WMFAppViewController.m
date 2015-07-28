@@ -244,7 +244,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 - (void)updateTabBarVisibilityBasedOnSearchState:(WMFSearchState)state {
     switch (state) {
         case WMFSearchStateInactive: {
-            self.rootTabBarController.view.hidden                      = NO;
+            self.rootTabBarController.view.hidden                  = NO;
             self.tabControllerContainerView.userInteractionEnabled = YES;
             [self.rootTabBarController wmf_setTabBarVisible:YES animated:YES completion:NULL];
         }

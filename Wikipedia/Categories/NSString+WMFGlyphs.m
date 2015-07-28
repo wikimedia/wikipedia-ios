@@ -74,7 +74,7 @@
 
 @implementation NSAttributedString (WMFGlyphs)
 
-+ (NSAttributedString*)attributedStringForGlyph:(WMFGlyph)glyph color:(UIColor * __nullable)color {
++ (NSAttributedString*)attributedStringForGlyph:(WMFGlyph)glyph color:(UIColor* __nullable)color {
     return [self attributedStringForGlyph:glyph fontSize:nil baselineOffset:nil color:color];
 }
 
@@ -84,8 +84,8 @@
                                           color:(UIColor*)color {
     return [[NSAttributedString alloc] initWithString:[NSString wmf_stringForGlyph:glyph]
                                            attributes:@{
-                NSFontAttributeName: fontSize ?: [UIFont wmf_glyphFontOfSize:32],
-                NSBaselineOffsetAttributeName: baselineOffset ?: @([NSString wmf_baselineOffsetToCenterGlyph:glyph]),
+                NSFontAttributeName: fontSize ? : [UIFont wmf_glyphFontOfSize:32],
+                NSBaselineOffsetAttributeName: baselineOffset ? : @([NSString wmf_baselineOffsetToCenterGlyph:glyph]),
                 NSForegroundColorAttributeName: color ? : [UIColor blackColor]
             }];
 }
