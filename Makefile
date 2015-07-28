@@ -97,15 +97,21 @@ exec-check:  ##Check that executable dependencies are installed
 web: ##Make web assets
 web: css grunt
 
-CSS_ORIGIN = http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&only=styles&skin=vector&modules=
+PROD_CSS_PREFIX="http://bits.wikimedia.org/en.wikipedia.org"
+LOCAL_CSS_PREFIX="http://127.0.0.1:8080/w"
+
+# Switch to LOCAL_CSS_PREFIX when testing CSS changes in a local MW instance (in vagrant).
+CSS_PREFIX=$(PROD_CSS_PREFIX)
 WEB_ASSETS_DIR = "Wikipedia/assets"
+
+CSS_ORIGIN = $(CSS_PREFIX)/load.php?debug=false&lang=en&only=styles&skin=vector&modules=skins.minerva.base.reset|skins.minerva.content.styles|
 
 define get_css_module
 curl -s -L -o
 endef
 
 css: ##Download latest stylesheets
-	@echo "Downloading CSS assets..."; \
+	@echo "Downloading CSS assets from $(CSS_PREFIX)..."; \
 	mkdir -p $(WEB_ASSETS_DIR); \
 	cd $(WEB_ASSETS_DIR); \
 	$(get_css_module) 'styles.css' "$(CSS_ORIGIN)mobile.app.pagestyles.ios" > /dev/null; \
@@ -120,19 +126,11 @@ grunt: npm
 	@cd www && grunt && cd ..
 
 npm: ##Install Javascript dependencies
-npm: node-check
+npm:
 	@cd www && npm install && cd ..
 
 get-node: ##Install node via Homebrew
 	brew install node
-
-node-check: ##Make sure node is installed
-	@if [[ $(NODE_VERSION) > "v0.10" && $(NPM_VERSION) > "1.4" ]]; then \
-		echo "node and npm are installed and up to date!" ; \
-	else \
-	echo "node v0.10 or higher and npm 1.4 or higher are not installed. You can use homebrew to install (brew install node) or upgrade if out of date (brew upgrade node)" ; \
-		exit 1; \
-	fi
 
 #!!!!!
 #!!!!! Native dependency management
