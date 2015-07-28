@@ -136,8 +136,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Saved Pages KVO
 
 - (void)observeSavedPages {
-    [self.KVOControllerNonRetaining observe:self.savedPages keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries) options:0 block:^(id observer, id object, NSDictionary* change) {
-        [(WMFArticleViewController*)observer updateSavedButtonState];
+    [self.KVOControllerNonRetaining observe:self.savedPages keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries) options:0 block:^(WMFArticleViewController* observer, id object, NSDictionary* change) {
+        [observer updateSavedButtonState];
     }];
 }
 

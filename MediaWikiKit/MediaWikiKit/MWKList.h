@@ -6,7 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MWKListObject <NSObject>
 
-- (id <NSCopying>)listIndex;
+- (id <NSCopying, NSObject>)listIndex;
 
 @end
 
