@@ -11,6 +11,8 @@
 #import "UITabBarController+WMFExtensions.h"
 #import <Masonry/Masonry.h>
 #import "MediaWikiKit.h"
+#import "UIFont+WMFStyle.h"
+#import "NSString+WMFGlyphs.h"
 
 typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     WMFAppTabTypeNearby = 0,
@@ -25,7 +27,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
 
-@property (nonatomic, strong) UITabBarController* tabBarController;
+@property (nonatomic, strong) UITabBarController* rootTabBarController;
 
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* recentArticlesViewController;
@@ -49,7 +51,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 }
 
 - (void)configureTabController {
-    self.tabBarController.delegate = self;
+    self.rootTabBarController.delegate = self;
 }
 
 - (void)configureSearchViewController {
@@ -103,7 +105,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 #pragma mark - Utilities
 
 - (UINavigationController*)navigationControllerForTab:(WMFAppTabType)tab {
-    return (UINavigationController*)[self.tabBarController viewControllers][tab];
+    return (UINavigationController*)[self.rootTabBarController viewControllers][tab];
 }
 
 - (UIViewController*)rootViewControllerForTab:(WMFAppTabType)tab {
@@ -129,18 +131,17 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 }
 
 - (WMFArticleListCollectionViewController*)savedArticlesViewController {
-    return (id)[self rootViewControllerForTab:WMFAppTabTypeSaved];
+    return (WMFArticleListCollectionViewController*)[self rootViewControllerForTab:WMFAppTabTypeSaved];
 }
 
 - (WMFArticleListCollectionViewController*)recentArticlesViewController {
-    return (id)[self rootViewControllerForTab:WMFAppTabTypeRecent];
+    return (WMFArticleListCollectionViewController*)[self rootViewControllerForTab:WMFAppTabTypeRecent];
 }
 
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     [self showSplashView];
 
     [self runDataMigrationIfNeededWithCompletion:^{
@@ -155,7 +156,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
         [self configureSearchViewController];
     }
     if ([segue.destinationViewController isKindOfClass:[UITabBarController class]]) {
-        self.tabBarController = segue.destinationViewController;
+        self.rootTabBarController = segue.destinationViewController;
         [self configureTabController];
     }
 }
@@ -215,8 +216,8 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     }];
 }
 
-- (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
-    WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
+- (void)rootTabBarController:(UITabBarController*)rootTabBarController didSelectViewController:(UIViewController*)viewController {
+    WMFAppTabType tab = [[rootTabBarController viewControllers] indexOfObject:viewController];
 
     switch (tab) {
         case WMFAppTabTypeNearby: {
@@ -243,16 +244,16 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 - (void)updateTabBarVisibilityBasedOnSearchState:(WMFSearchState)state {
     switch (state) {
         case WMFSearchStateInactive: {
-            self.tabBarController.view.hidden                      = NO;
+            self.rootTabBarController.view.hidden                      = NO;
             self.tabControllerContainerView.userInteractionEnabled = YES;
-            [self.tabBarController wmf_setTabBarVisible:YES animated:YES completion:NULL];
+            [self.rootTabBarController wmf_setTabBarVisible:YES animated:YES completion:NULL];
         }
         break;
         case WMFSearchStateActive: {
             @weakify(self);
-            [self.tabBarController wmf_setTabBarVisible:NO animated:YES completion:^{
+            [self.rootTabBarController wmf_setTabBarVisible:NO animated:YES completion:^{
                 @strongify(self);
-                self.tabBarController.view.hidden = YES;
+                self.rootTabBarController.view.hidden = YES;
                 self.tabControllerContainerView.userInteractionEnabled = NO;
             }];
         }
