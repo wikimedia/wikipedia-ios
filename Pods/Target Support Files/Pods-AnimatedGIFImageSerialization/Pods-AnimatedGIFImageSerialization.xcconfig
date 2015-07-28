@@ -1,1 +1,0 @@
-PODS_ANIMATEDGIFIMAGESERIALIZATION_OTHER_LDFLAGS = -framework "CoreGraphics" -framework "ImageIO" -framework "MobileCoreServices"
