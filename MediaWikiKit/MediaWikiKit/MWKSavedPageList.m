@@ -1,6 +1,5 @@
 
 #import "MediaWikiKit.h"
-#import "NSError+MWKErrors.h"
 
 @interface MWKSavedPageList ()
 

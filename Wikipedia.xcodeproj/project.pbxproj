@@ -280,7 +280,6 @@
 		BC6E8B981B5EB4B2003D9A39 /* UIImage+WMFNormalization.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E8B971B5EB4B2003D9A39 /* UIImage+WMFNormalization.m */; };
 		BC6E8B9A1B5ED0F6003D9A39 /* WMFGeometryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E8B991B5ED0F6003D9A39 /* WMFGeometryTests.m */; };
 		BC6E8B9F1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E8B9E1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m */; };
-		BC725EC71B6111E600E0A64C /* NSError+MWKErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = BC725EC61B6111E600E0A64C /* NSError+MWKErrors.m */; };
 		BC725ECA1B617E1A00E0A64C /* WMFSafeAssignTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC725EC91B617E1A00E0A64C /* WMFSafeAssignTests.m */; };
 		BC725ECC1B6182C800E0A64C /* MWKSavedPageListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC725ECB1B6182C800E0A64C /* MWKSavedPageListTests.m */; };
 		BC725ED21B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC725ED11B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m */; };
@@ -912,8 +911,6 @@
 		BC6E8B9D1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+WMFKVOUpdatableList.h"; sourceTree = "<group>"; };
 		BC6E8B9E1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+WMFKVOUpdatableList.m"; sourceTree = "<group>"; };
 		BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFCodingStyle.m; sourceTree = "<group>"; };
-		BC725EC51B6111E600E0A64C /* NSError+MWKErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+MWKErrors.h"; sourceTree = "<group>"; };
-		BC725EC61B6111E600E0A64C /* NSError+MWKErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+MWKErrors.m"; sourceTree = "<group>"; };
 		BC725EC81B61255400E0A64C /* WMFOutParamUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFOutParamUtils.h; sourceTree = "<group>"; };
 		BC725EC91B617E1A00E0A64C /* WMFSafeAssignTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSafeAssignTests.m; sourceTree = "<group>"; };
 		BC725ECB1B6182C800E0A64C /* MWKSavedPageListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSavedPageListTests.m; sourceTree = "<group>"; };
@@ -2482,8 +2479,6 @@
 				BCB6697C1A83F6C300C7B1FE /* Metadata classes */,
 				BCB669951A83F6C300C7B1FE /* Data classes */,
 				BCB669A21A83F6C300C7B1FE /* Data i/o */,
-				BC725EC51B6111E600E0A64C /* NSError+MWKErrors.h */,
-				BC725EC61B6111E600E0A64C /* NSError+MWKErrors.m */,
 			);
 			name = MediaWikiKit;
 			path = MediaWikiKit/MediaWikiKit;
@@ -3337,7 +3332,6 @@
 				044396231A3D33030081557D /* UICollectionViewCell+DynamicCellHeight.m in Sources */,
 				BC905A131B44815900523DFE /* SDImageCache+PromiseKit.swift in Sources */,
 				04414DDF1A1420EB00A41B4E /* WikiDataShortDescriptionFetcher.m in Sources */,
-				BC725EC71B6111E600E0A64C /* NSError+MWKErrors.m in Sources */,
 				0EFB0F1F1B31EE2D00D05C08 /* DiscoveryContext.m in Sources */,
 				BC6E8B951B5E90B1003D9A39 /* UIImage+WMFImageProcessing.m in Sources */,
 				04D686F61AB2949C0009B44A /* MenuLabel.m in Sources */,

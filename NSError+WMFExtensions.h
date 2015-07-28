@@ -4,6 +4,7 @@
 @class MWKTitle;
 
 extern NSString* const WMFErrorDomain;
+
 extern NSString* const WMFRedirectTitleKey;
 extern NSString* const WMFRedirectTitleKey;
 
@@ -12,7 +13,8 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
     WMFErrorTypeStringLength,
     WMFErrorTypeStringMissingParameter,
     WMFErrorTypeRedirected,
-    WMFErrorTypeUnableToSave
+    WMFErrorTypeUnableToSave,
+    WMFErrorTypeArticleResponseSerialization
 };
 
 @interface NSError (WMFExtensions)
@@ -23,12 +25,19 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
 
 + (NSError*)wmf_unableToSaveErrorWithReason:(NSString*)reason; //reason is specfied as NSLocalizedDescriptionKey
 
-- (BOOL)wmf_isWMFErrorDomain;
++ (NSError*)wmf_serializeArticleErrorWithReason:(NSString*)reason; //reason is specfied as NSLocalizedDescriptionKey
 
+
+- (BOOL)wmf_isWMFErrorDomain;
 - (BOOL)wmf_isWMFErrorOfType:(WMFErrorType)type;
 
 @end
 
+@interface NSError (WMFConnectionFallback)
+
+- (BOOL)shouldFallbackToDesktopURLError;
+
+@end
 
 @interface NSDictionary (WMFErrorExtensions)
 

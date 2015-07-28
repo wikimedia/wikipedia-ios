@@ -10,7 +10,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "NSError+MWKErrors.h"
 #import "MWKDataObject.h"
 #import "MWKSiteDataObject.h"
 
