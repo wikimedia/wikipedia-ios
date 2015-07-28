@@ -6,7 +6,6 @@
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 
-
 // Models & Controllers
 #import "WebViewController.h"
 #import "WMFArticleHeaderImageGalleryViewController.h"
@@ -52,10 +51,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPages;
 @property (nonatomic, assign, readwrite) WMFArticleControllerMode mode;
 
+@property (nonatomic, strong) WMFArticlePreviewFetcher* articlePreviewFetcher;
 @property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 
-/// Promise representing the request for the current article's data.
-@property (nonatomic, strong, nullable) AnyPromise* articleRequest;
+@property (nonatomic, strong) AnyPromise* articleFetcherPromise;
 
 @property (nonatomic, strong) WMFSearchFetcher* readMoreFetcher;
 @property (nonatomic, strong) WMFSearchResults* readMoreResults;
@@ -90,9 +89,11 @@ NS_ASSUME_NONNULL_BEGIN
     [[WMFImageController sharedInstance] cancelFetchForURL:[NSURL wmf_optionalURLWithString:[_article bestThumbnailImageURL]]];
 
     // TODO cancel
-    self.articleRequest = nil;
+    [self.articlePreviewFetcher cancelFetchForPageTitle:_article.title];
+    [self.articleFetcher cancelFetchForPageTitle:_article.title];
 
     _article = article;
+    
     [self.headerGalleryViewController setImagesFromArticle:article];
 
     [self updateUI];
@@ -120,6 +121,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIButton*)readButton {
     return [[self headerView] readButton];
+}
+
+- (WMFArticlePreviewFetcher*)articlePreviewFetcher {
+    if (!_articlePreviewFetcher) {
+        _articlePreviewFetcher = [[WMFArticlePreviewFetcher alloc] init];
+    }
+    return _articlePreviewFetcher;
 }
 
 - (WMFArticleFetcher*)articleFetcher {
@@ -173,15 +181,23 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)fetchArticleForTitle:(MWKTitle*)title {
+    
     @weakify(self)
-    self.articleRequest = [self.articleFetcher fetchSectionTitlesAndFirstSectionForPageTitle:title progress:nil];
-
-    self.articleRequest.then(^(MWKArticle* article){
+    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle:title progress:NULL].then(^(NSDictionary* articlePreview){
+      
+        @strongify(self)
+        AnyPromise* fullArticlePromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
+        self.articleFetcherPromise = fullArticlePromise;
+        return fullArticlePromise;
+        
+    }).then(^(MWKArticle* article){
+        
         @strongify(self)
         [self.headerGalleryViewController setImagesFromArticle : article];
         self.article = article;
-    })
-    .catch(^(NSError* error){
+        
+    }).catch(^(NSError* error){
+        
         @strongify(self)
         if ([error wmf_isWMFErrorOfType:WMFErrorTypeRedirected]) {
             [self fetchArticleForTitle:[[error userInfo] wmf_redirectTitle]];
@@ -189,11 +205,11 @@ NS_ASSUME_NONNULL_BEGIN
             // only do error handling if not presenting gallery
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
         }
-    })
-    .finally(^{
+        
+    }).finally(^{
         @strongify(self);
-        self.articleRequest = nil;
-    });
+        self.articleFetcherPromise = nil;
+    });;
 }
 
 - (void)fetchReadMoreForTitle:(MWKTitle*)title {
@@ -467,10 +483,10 @@ NS_ASSUME_NONNULL_BEGIN
         detailGallery.article     = self.article;
         detailGallery.currentPage = index;
     } else {
-        if (!self.articleRequest) {
+        if (![self.articleFetcher isFetchingArticleForTitle:self.article.title]) {
             [self fetchArticle];
         }
-        [detailGallery setArticleWithPromise:self.articleRequest];
+        [detailGallery setArticleWithPromise:self.articleFetcherPromise];
     }
     [self presentViewController:detailGallery animated:YES completion:nil];
 }
