@@ -83,7 +83,6 @@
 		0487047E19F8262600B7D307 /* AccountCreationTokenFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487045819F8262600B7D307 /* AccountCreationTokenFetcher.m */; };
 		0487047F19F8262600B7D307 /* AccountCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487045A19F8262600B7D307 /* AccountCreator.m */; };
 		0487048019F8262600B7D307 /* AccountLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487045C19F8262600B7D307 /* AccountLogin.m */; };
-		0487048119F8262600B7D307 /* ArticleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487045E19F8262600B7D307 /* ArticleFetcher.m */; };
 		0487048219F8262600B7D307 /* AssetsFileFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487046019F8262600B7D307 /* AssetsFileFetcher.m */; };
 		0487048319F8262600B7D307 /* FetcherBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487046319F8262600B7D307 /* FetcherBase.m */; };
 		0487048419F8262600B7D307 /* CaptchaResetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487046519F8262600B7D307 /* CaptchaResetter.m */; };
@@ -584,8 +583,6 @@
 		0487045A19F8262600B7D307 /* AccountCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountCreator.m; sourceTree = "<group>"; };
 		0487045B19F8262600B7D307 /* AccountLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountLogin.h; sourceTree = "<group>"; };
 		0487045C19F8262600B7D307 /* AccountLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountLogin.m; sourceTree = "<group>"; };
-		0487045D19F8262600B7D307 /* ArticleFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleFetcher.h; sourceTree = "<group>"; };
-		0487045E19F8262600B7D307 /* ArticleFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleFetcher.m; sourceTree = "<group>"; };
 		0487045F19F8262600B7D307 /* AssetsFileFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsFileFetcher.h; sourceTree = "<group>"; };
 		0487046019F8262600B7D307 /* AssetsFileFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetsFileFetcher.m; sourceTree = "<group>"; };
 		0487046219F8262600B7D307 /* FetcherBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetcherBase.h; sourceTree = "<group>"; };
@@ -1595,8 +1592,6 @@
 				0487045A19F8262600B7D307 /* AccountCreator.m */,
 				0487045B19F8262600B7D307 /* AccountLogin.h */,
 				0487045C19F8262600B7D307 /* AccountLogin.m */,
-				0487045D19F8262600B7D307 /* ArticleFetcher.h */,
-				0487045E19F8262600B7D307 /* ArticleFetcher.m */,
 				C42D947C1A937DAC00A4871A /* SavedArticlesFetcher.h */,
 				C42D947D1A937DAC00A4871A /* SavedArticlesFetcher.m */,
 				0487045F19F8262600B7D307 /* AssetsFileFetcher.h */,
@@ -3372,7 +3367,6 @@
 				04CCCFF61935094000E3F60C /* PrimaryMenuViewController.m in Sources */,
 				BCE6EE101B2619E900AF603B /* MWKLanguageLink.m in Sources */,
 				0EF451F61B545ED100D621BD /* WMFRecentPagesDataSource.m in Sources */,
-				0487048119F8262600B7D307 /* ArticleFetcher.m in Sources */,
 				04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */,
 				0487048C19F8262600B7D307 /* SearchResultFetcher.m in Sources */,
 				0E366B471B2F614E00ABFB86 /* PromiseKit.m in Sources */,
