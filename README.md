@@ -1,5 +1,6 @@
 # Wikipedia iOS
 The official Wikipedia iOS client.
+
 [![Build Status](https://travis-ci.org/wikimedia/wikipedia-ios.svg)](https://travis-ci.org/wikimedia/wikipedia-ios) [![codecov.io](http://codecov.io/github/wikimedia/wikipedia-ios/coverage.svg?branch=master)](http://codecov.io/github/wikimedia/wikipedia-ios?branch=master)
 
 * OS target: iOS 6.0 or higher
