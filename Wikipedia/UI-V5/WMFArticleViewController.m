@@ -137,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)observeSavedPages {
     [self.KVOControllerNonRetaining observe:self.savedPages keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries) options:0 block:^(id observer, id object, NSDictionary* change) {
-        [self updateSavedButtonState];
+        [(WMFArticleViewController*)observer updateSavedButtonState];
     }];
 }
 
