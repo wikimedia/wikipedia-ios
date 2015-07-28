@@ -93,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.articleFetcher cancelFetchForPageTitle:_article.title];
 
     _article = article;
-    
+
     [self.headerGalleryViewController setImagesFromArticle:article];
 
     [self updateUI];
@@ -181,23 +181,17 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)fetchArticleForTitle:(MWKTitle*)title {
-    
     @weakify(self)
-    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle:title progress:NULL].then(^(NSDictionary* articlePreview){
-      
+    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle : title progress : NULL].then(^(NSDictionary* articlePreview){
         @strongify(self)
-        AnyPromise* fullArticlePromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
+        AnyPromise * fullArticlePromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
         self.articleFetcherPromise = fullArticlePromise;
         return fullArticlePromise;
-        
     }).then(^(MWKArticle* article){
-        
         @strongify(self)
         [self.headerGalleryViewController setImagesFromArticle : article];
         self.article = article;
-        
     }).catch(^(NSError* error){
-        
         @strongify(self)
         if ([error wmf_isWMFErrorOfType:WMFErrorTypeRedirected]) {
             [self fetchArticleForTitle:[[error userInfo] wmf_redirectTitle]];
@@ -205,7 +199,6 @@ NS_ASSUME_NONNULL_BEGIN
             // only do error handling if not presenting gallery
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
         }
-        
     }).finally(^{
         @strongify(self);
         self.articleFetcherPromise = nil;

@@ -43,7 +43,7 @@ static SavedArticlesFetcher* _fetcher = nil;
     if (self) {
         self.dataStore   = dataStore;
         self.accessQueue = dispatch_queue_create("org.wikipedia.savedarticlesfetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
-        self.fetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
+        self.fetcher     = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
     }
     return self;
 }
@@ -59,16 +59,12 @@ static SavedArticlesFetcher* _fetcher = nil;
 
         for (MWKSavedPageEntry* entry in self.savedPageList) {
             if (entry.title) {
-                
                 self.fetchOperationsByArticleTitle[entry.title] = [self.fetcher fetchArticleForPageTitle:entry.title progress:NULL].thenOn(self.accessQueue, ^(MWKArticle* article){
-                    
                     [self.fetchOperationsByArticleTitle removeObjectForKey:entry.title];
                     [self.fetchedArticles addObject:article];
                     [self notifyDelegateProgressWithFetchedArticle:article error:nil];
                     [self notifyDelegateCompletionIfFinished];
-                    
                 }).catch(^(NSError* error){
-                    
                     dispatch_async(self.accessQueue, ^{
                         [self.fetchOperationsByArticleTitle removeObjectForKey:entry.title];
                         self.errorsByArticleTitle[entry.title] = error;

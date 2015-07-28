@@ -12,34 +12,32 @@
 @implementation WMFArticleRequestSerializer
 
 
-- (NSURLRequest *)requestBySerializingRequest:(NSURLRequest *)request
-                               withParameters:(id)parameters
-                                        error:(NSError * __autoreleasing *)error{
-    
+- (NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
+                              withParameters:(id)parameters
+                                       error:(NSError* __autoreleasing*)error {
     [self updateMCCMNCHeaderForURL:[request URL]];
     NSMutableDictionary* serializedParams = [self paramsForTitle:(MWKTitle*)parameters];
-    
+
     return [super requestBySerializingRequest:request withParameters:serializedParams error:error];
 }
 
 - (NSMutableDictionary*)paramsForTitle:(MWKTitle*)title {
     NSMutableDictionary* params = @{
-                                    @"format": @"json",
-                                    @"action": @"mobileview",
-                                    @"sectionprop": WMFJoinedPropertyParameters(@[@"toclevel", @"line", @"anchor", @"level", @"number",
-                                                                                  @"fromtitle", @"index"]),
-                                    @"noheadings": @"true",
-                                    @"sections": @"all",
-                                    @"page": title.text,
-                                    @"thumbwidth": @(LEAD_IMAGE_WIDTH),
-                                    @"prop": WMFJoinedPropertyParameters(@[@"sections", @"text", @"lastmodified", @"lastmodifiedby",
-                                                                           @"languagecount", @"id", @"protection", @"editable", @"displaytitle",
-                                                                           @"thumb", @"description", @"image"])
-                                    }.mutableCopy;
-    
+        @"format": @"json",
+        @"action": @"mobileview",
+        @"sectionprop": WMFJoinedPropertyParameters(@[@"toclevel", @"line", @"anchor", @"level", @"number",
+                                                      @"fromtitle", @"index"]),
+        @"noheadings": @"true",
+        @"sections": @"all",
+        @"page": title.text,
+        @"thumbwidth": @(LEAD_IMAGE_WIDTH),
+        @"prop": WMFJoinedPropertyParameters(@[@"sections", @"text", @"lastmodified", @"lastmodifiedby",
+                                               @"languagecount", @"id", @"protection", @"editable", @"displaytitle",
+                                               @"thumb", @"description", @"image"])
+    }.mutableCopy;
+
     return params;
 }
-
 
 #pragma mark - MCCMNC Header
 
@@ -49,11 +47,11 @@
 // http://lists.wikimedia.org/pipermail/wikimedia-l/2014-April/071131.html
 
 static BOOL _headerSent = NO;
-+ (BOOL)didSendMCCMNCheader{
++ (BOOL)didSendMCCMNCheader {
     return _headerSent;
 }
 
-+ (BOOL)setDidSendMCCMNCHeader{
++ (BOOL)setDidSendMCCMNCHeader {
     _headerSent = YES;
 }
 
@@ -62,16 +60,15 @@ static BOOL _headerSent = NO;
  * The serializer "wants" to be agnostic to the actual URL.
  * Can we check against a base URL at least?
  */
-- (void)updateMCCMNCHeaderForURL:(NSURL*)url{
-    
-    if(self.shouldSendMCCMNCheader && ![[self class] didSendMCCMNCheader] && [self hasCellularProvider] && [self urlIsReachableOverCellularNetwork:url]){
+- (void)updateMCCMNCHeaderForURL:(NSURL*)url {
+    if (self.shouldSendMCCMNCheader && ![[self class] didSendMCCMNCheader] && [self hasCellularProvider] && [self urlIsReachableOverCellularNetwork:url]) {
         [self addMCCMNCHeader];
-    }else{
+    } else {
         [self removeMCCMNCHeader];
     }
 }
 
-- (void)addMCCMNCHeader{
+- (void)addMCCMNCHeader {
     CTCarrier* mno = [[[CTTelephonyNetworkInfo alloc] init] subscriberCellularProvider];
     // In iOS disentangling network MCC-MNC from SIM MCC-MNC not in API yet.
     // So let's use the same value for both parts of the field.
@@ -82,42 +79,41 @@ static BOOL _headerSent = NO;
     [[self class] setDidSendMCCMNCHeader];
 }
 
-- (void)removeMCCMNCHeader{
+- (void)removeMCCMNCHeader {
     [self setValue:nil forHTTPHeaderField:@"X-MCCMNC"];
 }
 
 #pragma mark - MCCMNC Cellular Checks
 
-- (BOOL)hasCellularProvider{
+- (BOOL)hasCellularProvider {
     CTCarrier* mno = [[[CTTelephonyNetworkInfo alloc] init] subscriberCellularProvider];
-    if(mno){
+    if (mno) {
         return YES;
     }
     return NO;
 }
 
-- (BOOL)urlIsReachableOverCellularNetwork:(NSURL*)url{
+- (BOOL)urlIsReachableOverCellularNetwork:(NSURL*)url {
     SCNetworkReachabilityRef reachabilityRef =
-    SCNetworkReachabilityCreateWithName(NULL, [[url host] UTF8String]);
+        SCNetworkReachabilityCreateWithName(NULL, [[url host] UTF8String]);
     SCNetworkReachabilityFlags reachabilityFlags;
     SCNetworkReachabilityGetFlags(reachabilityRef, &reachabilityFlags);
-    
+
     // The following is a good functioning mask in practice for the case where
     // cellular is being used, with wifi not on / there are no known wifi APs.
     // When wifi is on with a known wifi AP connection, kSCNetworkReachabilityFlagsReachable
     // is present, but kSCNetworkReachabilityFlagsIsWWAN is not present.
     if (reachabilityFlags == (
-                              kSCNetworkReachabilityFlagsIsWWAN
-                              |
-                              kSCNetworkReachabilityFlagsReachable
-                              |
-                              kSCNetworkReachabilityFlagsTransientConnection
-                              )
+            kSCNetworkReachabilityFlagsIsWWAN
+            |
+            kSCNetworkReachabilityFlagsReachable
+            |
+            kSCNetworkReachabilityFlagsTransientConnection
+            )
         ) {
-        
         return YES;
     }
-    
+
     return NO;
 }
 

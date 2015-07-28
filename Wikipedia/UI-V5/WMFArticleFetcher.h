@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /* Temporary base class to hold common response serialization logic.
- * This can be removed when response serialization is moved into the 
+ * This can be removed when response serialization is moved into the
  * AFNetworking Serializers. See WMFArticleSerializer for more info.
  */
 @interface WMFArticleBaseFetcher : NSObject

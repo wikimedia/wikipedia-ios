@@ -3,13 +3,12 @@
 
 @implementation WMFArticleResponseSerializer
 
-- (id)responseObjectForResponse:(NSURLResponse *)response
-                           data:(NSData *)data
-                          error:(NSError *__autoreleasing *)error{
-    
-    NSDictionary* JSON = [super responseObjectForResponse:response data:data error:error];
+- (id)responseObjectForResponse:(NSURLResponse*)response
+                           data:(NSData*)data
+                          error:(NSError* __autoreleasing*)error {
+    NSDictionary* JSON        = [super responseObjectForResponse:response data:data error:error];
     NSDictionary* articleJSON = JSON[@"mobileview"];
-    
+
     /* TODO: actually map the contents. The issue here is that our data model revolves around "MWKTitle",
      * when in fact, the mobileview resppnse knows nothing about this concept. Meaning we can't parse an
      * MWKTitle from this reponse. And therefore cannot get the cached article from the data store.
