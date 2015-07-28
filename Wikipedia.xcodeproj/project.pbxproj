@@ -201,6 +201,8 @@
 		0EBC56681AD3656900E82CDD /* WMFAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */; };
 		0EBC567F1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */; };
 		0EBC56971AD5B69300E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */; };
+		0ECC99EF1B67D43500004E47 /* WMFArticleRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC99EE1B67D43500004E47 /* WMFArticleRequestSerializer.m */; };
+		0ECC99F21B67DDB600004E47 /* WMFArticleResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC99F11B67DDB600004E47 /* WMFArticleResponseSerializer.m */; };
 		0ED44D751B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED44D741B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.m */; };
 		0ED44D781B28DA4D00F284BA /* UICollectionView+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED44D771B28DA4D00F284BA /* UICollectionView+WMFExtensions.m */; };
 		0EE7687B1AF982C100A5D046 /* WMFArticleProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE7687A1AF982C100A5D046 /* WMFArticleProtocol.m */; };
@@ -794,6 +796,10 @@
 		0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+WMFExtensions.m"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
 		0EBC567D1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BITHockeyManager+WMFExtensions.h"; path = "Wikipedia/Categories/BITHockeyManager+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
 		0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BITHockeyManager+WMFExtensions.m"; path = "Wikipedia/Categories/BITHockeyManager+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
+		0ECC99EE1B67D43500004E47 /* WMFArticleRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleRequestSerializer.m; sourceTree = "<group>"; };
+		0ECC99F01B67DDB600004E47 /* WMFArticleResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleResponseSerializer.h; sourceTree = "<group>"; };
+		0ECC99F11B67DDB600004E47 /* WMFArticleResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleResponseSerializer.m; sourceTree = "<group>"; };
+		0ECC99F61B68025900004E47 /* WMFArticleRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleRequestSerializer.h; sourceTree = "<group>"; };
 		0ED44D731B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleViewControllerContainerCell.h; sourceTree = "<group>"; };
 		0ED44D741B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleViewControllerContainerCell.m; sourceTree = "<group>"; };
 		0ED44D761B28DA4D00F284BA /* UICollectionView+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+WMFExtensions.h"; sourceTree = "<group>"; };
@@ -2235,6 +2241,10 @@
 				0E2B06FB1B2D12B300EA2F53 /* Transitions */,
 				0E34AC551B45DC9500475A1A /* WMFArticleFetcher.h */,
 				0E34AC561B45DC9500475A1A /* WMFArticleFetcher.m */,
+				0ECC99F61B68025900004E47 /* WMFArticleRequestSerializer.h */,
+				0ECC99EE1B67D43500004E47 /* WMFArticleRequestSerializer.m */,
+				0ECC99F01B67DDB600004E47 /* WMFArticleResponseSerializer.h */,
+				0ECC99F11B67DDB600004E47 /* WMFArticleResponseSerializer.m */,
 			);
 			name = Article;
 			sourceTree = "<group>";
@@ -3348,6 +3358,7 @@
 				0487048519F8262600B7D307 /* EditTokenFetcher.m in Sources */,
 				04CCCFF71935094000E3F60C /* PrimaryMenuTableViewCell.m in Sources */,
 				BCAC50C11AF3F7460015936C /* NSBundle+WMFInfoUtils.m in Sources */,
+				0ECC99F21B67DDB600004E47 /* WMFArticleResponseSerializer.m in Sources */,
 				0EFB0F201B31EE2D00D05C08 /* GalleryImage.m in Sources */,
 				0E466E521B41F83500E91992 /* WMFArticlePopupTransition.m in Sources */,
 				0487048F19F8262600B7D307 /* WikiTextSectionFetcher.m in Sources */,
@@ -3427,6 +3438,7 @@
 				BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
 				0E7955C71B2B389800B055A2 /* TGLStackedLayout.m in Sources */,
 				C96335911AA92AAC00A1EB2C /* WMFCrashAlertView.m in Sources */,
+				0ECC99EF1B67D43500004E47 /* WMFArticleRequestSerializer.m in Sources */,
 				D401C2C01A659E5000D4D127 /* DataMigrationProgressViewController.m in Sources */,
 				04CCCFF01935093A00E3F60C /* SecondaryMenuViewController.m in Sources */,
 				0EBC567F1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */,
