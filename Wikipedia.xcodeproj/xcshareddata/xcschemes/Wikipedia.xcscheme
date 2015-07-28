@@ -51,6 +51,11 @@
                BlueprintName = "WikipediaUnitTests"
                ReferencedContainer = "container:Wikipedia.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "LegacyCoreDataMigratorTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

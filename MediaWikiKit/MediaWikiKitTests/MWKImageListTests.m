@@ -18,6 +18,7 @@
 
 #import "MWKArticle.h"
 #import "MWKSection.h"
+#import "MWKSite.h"
 #import "MWKSectionList_Private.h"
 #import "MWKDataStore.h"
 #import "MWKImageList.h"

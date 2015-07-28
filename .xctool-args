@@ -1,0 +1,7 @@
+[
+  "-workspace", "Wikipedia.xcworkspace",
+  "-scheme", "Wikipedia",
+  "-configuration", "Debug",
+  "-sdk", "iphonesimulator",
+  "-arch", "i386"
+]

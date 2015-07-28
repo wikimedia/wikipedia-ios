@@ -70,7 +70,7 @@
 }
 
 - (void)addSavedPageWithTitle:(MWKTitle*)title {
-    if (title == nil) {
+    if ([title.text length] == 0) {
         return;
     }
     MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithTitle:title];

@@ -22,19 +22,14 @@
 - (void)testReadPerformance {
     NSMutableArray* entries = [NSMutableArray arrayWithCapacity:1000];
     for (int i = 0; i < 1000; i++) {
-        [entries addObject:@{
-             @"language": @"en",
-             @"domain": @"wikipedia.org",
-             @"title": [[NSUUID UUID] UUIDString],
-             @"date": [[NSDateFormatter wmf_iso8601Formatter] stringFromDate:[NSDate date]],
-             @"scrollPosition": @0,
-             @"discoveryMethod": [MWKHistoryEntry stringForDiscoveryMethod:MWKHistoryDiscoveryMethodLink]
-         }];
+        MWKTitle* title        = [[MWKSite siteWithCurrentLocale] titleWithString:[[NSUUID UUID] UUIDString]];
+        MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:MWKHistoryDiscoveryMethodLink];
+        [entries addObject:entry];
     }
 
     [self measureBlock:^{
-        MWKHistoryList* list = [[MWKHistoryList alloc] initWithDict:NSDictionaryOfVariableBindings(entries)];
-        XCTAssertEqual(list.length, [entries count]);
+        MWKHistoryList* list = [[MWKHistoryList alloc] initWithEntries:entries];
+        XCTAssertEqual([list countOfEntries], [entries count]);
     }];
 }
 

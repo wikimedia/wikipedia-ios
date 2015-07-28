@@ -1,55 +1,33 @@
+.PHONY=build
+
 XCODE_VERSION = "$(shell xcodebuild -version 2>/dev/null)"
-XC_WORKSPACE = Wikipedia.xcworkspace
-XC_PROJECT = Wikipedia.xcodeproj
-XCODEBUILD_BASE_ARGS = -workspace $(XC_WORKSPACE)
-XC_DEFAULT_SCHEME = Wikipedia
 
 help: ##Show this help
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
-
-clean: ##Clean the Xcode workspace
-clean: xcode-cltools-check
-	xcodebuild clean $(XCODEBUILD_BASE_ARGS) -scheme $(XC_DEFAULT_SCHEME)
-
-build: ##Fetch code dependencies and build the app for release
-build: xcode-cltools-check
-	xcodebuild build $(XCODEBUILD_BASE_ARGS) \
-		-scheme $(XC_DEFAULT_SCHEME) \
-		-sdk iphoneos \
-		-configuration Release
-
-build-sim: ##Fetch code dependencies and build the app for debugging in the simulator
-build-sim: xcode-cltools-check
-	xcodebuild build $(XCODEBUILD_BASE_ARGS) \
-		-scheme $(XC_DEFAULT_SCHEME) \
-		-sdk iphonesimulator \
-		-configuration Debug
-
-# Only use the project, not workspace during analyze to prevent analysis of the Pods
-analyze: ##Run static analysis
-analyze: xcode-cltools-check
-	xcodebuild analyze -project $(XC_PROJECT) \
-		-sdk iphonesimulator \
-		-target Wikipedia
-
-test: ##Fetch code dependencies and run tests
-test: xcode-cltools-check
-	xcodebuild test $(XCODEBUILD_BASE_ARGS) \
-		-scheme $(XC_DEFAULT_SCHEME) \
-		-sdk iphonesimulator
-
-verify: ##Lint, anaylze, and run tests
-verify: lint analyze test
 
 lint: ##Lint the native code, requires uncrustify
 lint:
 	@scripts/uncrustify_all.sh
 
-check-deps: ##Make sure system prerequisites are installed
-check-deps: xcode-cltools-check exec-check node-check
+submodules: ##Install or update submodules
+	git submodule update --init --recursive
 
-bootstrap: ##Only recommended if starting from scratch! Attempts to install all dependencies (Xcode command-line tools Homebrew, Ruby, Node, Bundler, etc...)
-bootstrap: get-xcode-cltools get-homebrew get-node get-bundler brew-install bundle-install
+prebuild: ##Install dependencies needed to build the project
+prebuild: submodules
+
+check-deps: ##Make sure dev prerequisites are installed
+check-deps: xcode-cltools-check exec-check node-check bundle-check
+
+#!!!!!
+#!!!!! Travis
+#!!!!!
+
+travis-get-deps: ##Install dependencies for building on Travis
+travis-get-deps: xcode-cltools-check submodules
+	@brew update; \
+	brew install uncrustify || brew upgrade uncrustify; \
+	brew install xctool || brew upgrade xctool; \
+	bundle install --without dev;
 
 #!!!!!
 #!!!!! Xcode dependencies
@@ -58,9 +36,15 @@ bootstrap: get-xcode-cltools get-homebrew get-node get-bundler brew-install bund
 # Required so we (and other tools) can use command line tools, e.g. xcodebuild.
 xcode-cltools-check: ##Make sure proper Xcode & command line tools are installed
 	@case $(XCODE_VERSION) in \
-		"Xcode 6"*) echo "Xcode 6 or higher is installed with command line tools!" ;; \
-		*) echo "Missing Xcode 6 or higher and/or the command line tools."; exit 1;; \
-	esac
+		"Xcode 6"*) echo "Xcode 6 or higher is installed!" ;; \
+		*) echo "Missing Xcode 6 or higher."; exit 1;; \
+	esac; \
+	if ! xcode-select -p > /dev/null ; then \
+		echo "Xcode command line tools are missing! Please run xcode-select --install or download them from Xcode's 'Downloads' tab in preferences."; \
+		exit 1; \
+	else \
+		echo "Xcode command line tools are installed!"; \
+	fi
 
 get-xcode-cltools: ##Install Xcode command-line tools
 	xcode-select --install
@@ -89,7 +73,7 @@ BREW_FORMULAE = "uncrustify" "imagemagick" "gs" "xctool"
 
 brew-install: ##Install executable dependencies via Homebrew
 brew-install: brew-check
-	brew install $(BREW_FORMULAE)
+	@brew install $(BREW_FORMULAE); brew upgrade ${BREW_FORMULAE)
 
 # Append additional dependencies as quoted strings (i.e. EXEC_DEPS = "dep1" "dep2" ...)
 EXEC_DEPS = "uncrustify" "convert" "gs" "xctool"
@@ -113,15 +97,21 @@ exec-check:  ##Check that executable dependencies are installed
 web: ##Make web assets
 web: css grunt
 
-CSS_ORIGIN = http://bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&lang=en&only=styles&skin=vector&modules=skins.minerva.base.reset|skins.minerva.content.styles|
+PROD_CSS_PREFIX="http://bits.wikimedia.org/en.wikipedia.org"
+LOCAL_CSS_PREFIX="http://127.0.0.1:8080/w"
+
+# Switch to LOCAL_CSS_PREFIX when testing CSS changes in a local MW instance (in vagrant).
+CSS_PREFIX=$(PROD_CSS_PREFIX)
 WEB_ASSETS_DIR = "Wikipedia/assets"
+
+CSS_ORIGIN = $(CSS_PREFIX)/load.php?debug=false&lang=en&only=styles&skin=vector&modules=skins.minerva.base.reset|skins.minerva.content.styles|
 
 define get_css_module
 curl -s -L -o
 endef
 
 css: ##Download latest stylesheets
-	@echo "Downloading CSS assets..."; \
+	@echo "Downloading CSS assets from $(CSS_PREFIX)..."; \
 	mkdir -p $(WEB_ASSETS_DIR); \
 	cd $(WEB_ASSETS_DIR); \
 	$(get_css_module) 'styles.css' "$(CSS_ORIGIN)mobile.app.pagestyles.ios" > /dev/null; \
@@ -136,31 +126,21 @@ grunt: npm
 	@cd www && grunt && cd ..
 
 npm: ##Install Javascript dependencies
-npm: node-check
+npm:
 	@cd www && npm install && cd ..
 
 get-node: ##Install node via Homebrew
 	brew install node
 
-node-check: ##Make sure node is installed
-	@if [[ $(NODE_VERSION) > "v0.10" && $(NPM_VERSION) > "1.4" ]]; then \
-		echo "node and npm are installed and up to date!" ; \
-	else \
-	echo "node v0.10 or higher and npm 1.4 or higher are not installed. You can use homebrew to install (brew install node) or upgrade if out of date (brew upgrade node)" ; \
-		exit 1; \
-	fi
-
 #!!!!!
 #!!!!! Native dependency management
 #!!!!!
 
-submodules: ##Update, initialize, & clone git submodules
-	git submodule update --init --recursive
-
+RUBY_VERSION = "$(shell ruby -v 2>/dev/null)"
 BUNDLER = "$(shell which bundle 2/dev/null)"
 
 pod: ##Install native dependencies via CocoaPods
-pod: bundle-install submodules
+pod: bundle-install
 	@$(BUNDLER) exec pod install
 
 #!!!!!
@@ -169,13 +149,13 @@ pod: bundle-install submodules
 
 RUBY_VERSION = "$(shell ruby -v 2>/dev/null)"
 
-bundle-install: ##Install gems using Bundler
+bundle-install: ##Install all gems using Bundler
 bundle-install: bundler-check
-	@$(BUNDLER) install
+	@bundle install
 
 bundler-check: ##Make sure Bundler is installed
 bundler-check: ruby-check
-	@if [[ $(BUNDLER) == "" ]]; then \
+	@if ! which -s bundle; then \
 		echo "Missing the Bundler Ruby gem." ; \
 		exit 1 ; \
 	else \
@@ -197,3 +177,10 @@ ruby-check: ##Make sure Ruby is installed
 get-ruby: ##Install Ruby via Homebrew (to remove need for sudo)
 		brew install ruby
 
+
+#!!!!!
+#!!!!! Misc
+#!!!!!
+
+bootstrap: ##Only recommended if starting from scratch! Attempts to install all dependencies (Xcode command-line tools Homebrew, Ruby, Node, Bundler, etc...)
+	bootstrap: get-xcode-cltools get-homebrew get-node get-bundler brew-install bundle-install
