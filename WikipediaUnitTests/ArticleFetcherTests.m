@@ -8,69 +8,74 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <AFNetworking/AFHTTPRequestOperationManager.h>
+//#import "WMFArticleFetcher.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "MWKArticle.h"
 #import "MWKSite.h"
 #import "MWKTitle.h"
 #import "WMFTestFixtureUtilities.h"
 #import "SessionSingleton.h"
-#import "WMFAsyncTestCase.h"
-
-#define MOCKITO_SHORTHAND 1
-#import <OCMockito/OCMockito.h>
-
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
+#import <Nocilla/Nocilla.h>
+//#import "WikipediaUnitTests-Swift.h"
+//#import "PromiseKit.h"
 
 @interface ArticleFetcherTests : XCTestCase
 
-//@property (strong, nonatomic) MWKDataStore* tempDataStore;
-//@property (strong, nonatomic) AFHTTPRequestOperationManager* mockRequestManager;
-//@property (strong, nonatomic) ArticleFetcher* articleFetcher;
-//@property (strong, nonatomic) void (^ fetchFinished)(MWKArticle*, NSError*);
+@property (strong, nonatomic) MWKDataStore* tempDataStore;
+//@property (strong, nonatomic) WMFArticleFetcher* articleFetcher;
+
 @end
 
 @implementation ArticleFetcherTests
 
-//- (void)setUp {
-//    [super setUp];
-//    self.mockRequestManager = mock([AFHTTPRequestOperationManager class]);
-//    self.tempDataStore      = [MWKDataStore temporaryDataStore];
-//}
-//
-//- (void)tearDown {
-//    [self.tempDataStore removeFolderAtBasePath];
-//    self.fetchFinished = nil;
-//    [super tearDown];
-//}
-//
-//- (void)testSuccessfulFetchWritesArticleToDataStore {
-//    MWKTitle* dummyTitle     = [[MWKSite siteWithDomain:@"wikipedia.org" language:@"en"] titleWithString:@"Foo"];
-//    MWKArticle* dummyArticle = [self.tempDataStore articleWithTitle:dummyTitle];
-//
-//    MKTArgumentCaptor* successCaptor = [self mockSuccessfulFetchOfArticle:dummyArticle
-//                                                              withManager:self.mockRequestManager
-//                                                                withStore:self.tempDataStore];
-//
+- (void)setUp {
+    [super setUp];
+    self.tempDataStore = [MWKDataStore temporaryDataStore];
+//    self.articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.tempDataStore];
+    [[LSNocilla sharedInstance] start];
+}
+
+- (void)tearDown {
+    [[LSNocilla sharedInstance] stop];
+    [self.tempDataStore removeFolderAtBasePath];
+    self.tempDataStore = nil;
+//    self.articleFetcher = nil;
+    [super tearDown];
+}
+
+- (void)testSuccessfulFetchWritesArticleToDataStore {
+    MWKSite* site        = [MWKSite siteWithDomain:@"wikipedia.org" language:@"en"];
+    MWKTitle* dummyTitle = [site titleWithString:@"Foo"];
+    NSURL* url           = [site mobileApiEndpoint];
+
+    MWKArticle* dummyArticle = [self.tempDataStore articleWithTitle:dummyTitle];
+
+    NSString* json = [[self wmf_bundle] wmf_stringFromContentsOfFile:@"Obama" ofType:@"json"];
+
+    stubRequest(@"GET", [url absoluteString]).
+    andReturn(200).
+    withHeaders(@{@"Content-Type": @"application/json"}).
+    withBody(json);
+
 //    XCTestExpectation* responseExpectation = [self expectationWithDescription:@"articleResponse"];
 //
-//    @weakify(self)
-//    self.fetchFinished = ^(MWKArticle* article, NSError* err) {
-//        @strongify(self)
-//        assertThat(err, is(nilValue()));
+//    [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^(MWKArticle* article){
+//
 //        MWKArticle* savedArticle = [self.tempDataStore articleWithTitle:dummyTitle];
 //        assertThat(article, is(equalTo(savedArticle)));
 //        assertThat(@([article isDeeplyEqualToArticle:savedArticle]), isTrue());
 //        [responseExpectation fulfill];
-//    };
 //
-//    [self invokeCapturedSuccessBlock:successCaptor withDataFromFixture:@"Obama"];
+//    }).catch(^(NSError* error){
 //
-//    // this is slow, so needs a longer timeout
+//
+//
+//    });
+
+    // this is slow, so needs a longer timeout
 //    [self waitForExpectationsWithTimeout:2.0 handler:nil];
-//}
-//
+}
+
 //- (void)testFetchingArticleIsIdempotent {
 //    MWKTitle* dummyTitle     = [[MWKSite siteWithDomain:@"wikipedia.org" language:@"en"] titleWithString:@"Foo"];
 //    MWKArticle* dummyArticle = [self.tempDataStore articleWithTitle:dummyTitle];
@@ -111,36 +116,6 @@
 //                           [firstFetchResult debugDescription],
 //                           [secondFetchResult debugDescription], nil));
 //}
-//
-//- (MKTArgumentCaptor*)mockSuccessfulFetchOfArticle:(MWKArticle*)article
-//                                       withManager:(AFHTTPRequestOperationManager*)manager
-//                                         withStore:(MWKDataStore*)store {
-//    ArticleFetcher* fetcher = [[ArticleFetcher alloc] init];
-//    [fetcher fetchSectionsForTitle:article.title inDataStore:store withManager:manager progressBlock:NULL completionBlock:^(MWKArticle* article) {
-//        if (self.fetchFinished) {
-//            self.fetchFinished(article, nil);
-//        }
-//    } errorBlock:^(NSError* error) {
-//        if (self.fetchFinished) {
-//            self.fetchFinished(nil, error);
-//        }
-//    }];
-//
-//
-//    MKTArgumentCaptor* successCaptor = [MKTArgumentCaptor new];
-//    [MKTVerify(manager)
-//     GET:[[[SessionSingleton sharedInstance] urlForLanguage:article.title.site.language] absoluteString]
-//     parameters:anything()
-//        success:[successCaptor capture]
-//        failure:anything()];
-//
-//    return successCaptor;
-//}
-//
-//- (void)invokeCapturedSuccessBlock:(MKTArgumentCaptor*)captor withDataFromFixture:(NSString*)fixture {
-//    void (^ successBlock)(AFHTTPRequestOperation*, id response) = [captor value];
-//    NSData* jsonData = [[self wmf_bundle] wmf_dataFromContentsOfFile:fixture ofType:@"json"];
-//    successBlock(nil, jsonData);
-//}
+
 
 @end
