@@ -1,5 +1,7 @@
 
 #import "WMFArticleResponseSerializer.h"
+#import <Mantle/Mantle.h>
+#import "MWKArticlePreview.h"
 
 @implementation WMFArticleResponseSerializer
 
@@ -18,6 +20,20 @@
      * When ready, add a "MWKDataStore" property or if post-CoreData, add a NSmanagedObjectContext property.
      */
     return articleJSON;
+}
+
+@end
+
+
+@implementation WMFArticlePreviewResponseSerializer : AFJSONResponseSerializer
+
+- (id)responseObjectForResponse:(NSURLResponse*)response
+                           data:(NSData*)data
+                          error:(NSError* __autoreleasing*)error {
+    NSDictionary* JSON        = [super responseObjectForResponse:response data:data error:error];
+    NSDictionary* articleJSON = JSON[@"mobileview"];
+
+    return [MTLJSONAdapter modelOfClass:[MWKArticlePreview class] fromJSONDictionary:articleJSON error:nil];
 }
 
 @end

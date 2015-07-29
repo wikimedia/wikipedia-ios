@@ -185,6 +185,7 @@
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		0E466E521B41F83500E91992 /* WMFArticlePopupTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E466E511B41F83500E91992 /* WMFArticlePopupTransition.m */; };
 		0E466E551B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E466E541B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m */; };
+		0E5F28601B6719AF008885A2 /* MWKArticlePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F285F1B6719AF008885A2 /* MWKArticlePreview.m */; };
 		0E7955C71B2B389800B055A2 /* TGLStackedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7955C31B2B389800B055A2 /* TGLStackedLayout.m */; };
 		0E7955D01B2B659500B055A2 /* WMFArticleListTranstion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7955CD1B2B659500B055A2 /* WMFArticleListTranstion.m */; };
 		0E869F121B56B83F002604C3 /* MWKList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F111B56B83F002604C3 /* MWKList.m */; };
@@ -767,6 +768,8 @@
 		0E466E511B41F83500E91992 /* WMFArticlePopupTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticlePopupTransition.m; sourceTree = "<group>"; };
 		0E466E531B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFScrollViewTopPanGestureRecognizer.h; sourceTree = "<group>"; };
 		0E466E541B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFScrollViewTopPanGestureRecognizer.m; sourceTree = "<group>"; };
+		0E5F285E1B6719AF008885A2 /* MWKArticlePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKArticlePreview.h; sourceTree = "<group>"; };
+		0E5F285F1B6719AF008885A2 /* MWKArticlePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticlePreview.m; sourceTree = "<group>"; };
 		0E7955C21B2B389800B055A2 /* TGLStackedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGLStackedLayout.h; sourceTree = "<group>"; };
 		0E7955C31B2B389800B055A2 /* TGLStackedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGLStackedLayout.m; sourceTree = "<group>"; };
 		0E7955CC1B2B659500B055A2 /* WMFArticleListTranstion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleListTranstion.h; sourceTree = "<group>"; };
@@ -2465,6 +2468,8 @@
 				BCB669991A83F6C300C7B1FE /* MWKDataStore.m */,
 				BCB6699A1A83F6C300C7B1FE /* MWKArticle.h */,
 				BCB6699B1A83F6C300C7B1FE /* MWKArticle.m */,
+				0E5F285E1B6719AF008885A2 /* MWKArticlePreview.h */,
+				0E5F285F1B6719AF008885A2 /* MWKArticlePreview.m */,
 				BCB6699C1A83F6C300C7B1FE /* MWKUserDataStore.h */,
 				BCB6699D1A83F6C300C7B1FE /* MWKUserDataStore.m */,
 				BCB6699E1A83F6C300C7B1FE /* MWKImageList.h */,
@@ -3453,6 +3458,7 @@
 				0E366B361B2F176700ABFB86 /* WMFOffScreenFlowLayout.m in Sources */,
 				C94BE3EE1A8169ED00F2105B /* WMFShareFunnel.m in Sources */,
 				BCB58F671A8AA22200465627 /* MWKLicense+ToGlyph.m in Sources */,
+				0E5F28601B6719AF008885A2 /* MWKArticlePreview.m in Sources */,
 				0EFB0F191B31EE2D00D05C08 /* Article.m in Sources */,
 				0EF451F31B5458F700D621BD /* UITabBarController+WMFExtensions.m in Sources */,
 				04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */,

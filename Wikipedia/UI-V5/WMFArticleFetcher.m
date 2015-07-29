@@ -1,16 +1,24 @@
 
 #import "WMFArticleFetcher.h"
+
+//Tried not to do it, but we need it for the useageReports BOOL
+//Plan to refactor settings into an another object, then we can remove this.
+#import "SessionSingleton.h"
+
+//AFNetworking
+#import "MWNetworkActivityIndicatorManager.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "WMFArticleRequestSerializer.h"
 #import "WMFArticleResponseSerializer.h"
-#import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
-#import "MWNetworkActivityIndicatorManager.h"
 #import "WMFArticleParsing.h"
 
-//Tried not to do it, but we need it for the useage reports BOOL
-//Plan to refactor settings into an another object, then we can remove this.
-#import "SessionSingleton.h"
+//Promises
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
+
+//Models
+#import "MWKArticlePreview.h"
+#import "MWKArticle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,20 +39,18 @@ NS_ASSUME_NONNULL_BEGIN
         NSString* queueID = [NSString stringWithFormat:@"org.wikipedia.articlefetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
         self.operationsQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
-        manager.requestSerializer  = [WMFArticlePreviewRequestSerializer serializer];
-        manager.responseSerializer = [WMFArticleResponseSerializer serializer];
-        self.operationManager      = manager;
+        self.operationManager = manager;
     }
     return self;
 }
 
 - (WMFArticleRequestSerializer*)requestSerializer {
-    return [self.operationManager.requestSerializer isKindOfClass:[WMFArticlePreviewRequestSerializer class]] ? self.operationManager.requestSerializer : nil;
+    return [self.operationManager.requestSerializer isKindOfClass:[WMFArticlePreviewRequestSerializer class]] ? (id)self.operationManager.requestSerializer : nil;
 }
 
 #pragma mark - Fetching
 
-- (id)serializedArticleWithTitle:(MWKTitle*)title response:(NSDictionary*)response {
+- (id)serializedArticleWithTitle:(MWKTitle*)title response:(id)response {
     return response;
 }
 
@@ -92,7 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self trackOperation:operation forTitle:pageTitle];
 }
 
-#pragma mark - Operation Tracking
+#pragma mark - Operation Tracking / Cancelling
 
 - (AFHTTPRequestOperation*)trackedOperationForTitle:(MWKTitle*)title {
     if ([title.text length] == 0) {
@@ -117,8 +123,6 @@ NS_ASSUME_NONNULL_BEGIN
         self.operationsKeyedByTitle[title] = operation;
     });
 }
-
-#pragma mark - Query / Cancel Operations
 
 - (void)untrackOperationForTitle:(MWKTitle*)title {
     dispatch_sync(self.operationsQueue, ^{
@@ -161,6 +165,15 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @implementation WMFArticlePreviewFetcher
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.operationManager.requestSerializer  = [WMFArticlePreviewRequestSerializer serializer];
+        self.operationManager.responseSerializer = [WMFArticlePreviewResponseSerializer serializer];
+    }
+    return self;
+}
 
 - (AnyPromise*)fetchArticlePreviewForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress {
     NSAssert(pageTitle.text != nil, @"Title text nil");

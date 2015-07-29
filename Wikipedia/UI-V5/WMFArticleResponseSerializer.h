@@ -4,3 +4,7 @@
 @interface WMFArticleResponseSerializer : AFJSONResponseSerializer
 
 @end
+
+@interface WMFArticlePreviewResponseSerializer : AFJSONResponseSerializer
+
+@end

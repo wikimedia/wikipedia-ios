@@ -3,9 +3,10 @@
 
 @class MWKTitle;
 @class MWKDataStore;
+@class MWKArticle;
+@class MWKArticlePreview;
 
 NS_ASSUME_NONNULL_BEGIN
-
 
 /* Temporary base class to hold common response serialization logic.
  * This can be removed when response serialization is moved into the
@@ -35,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticlePreviewFetcher : WMFArticleBaseFetcher
 
-//Fullfilled promise returns something else
+//Fullfilled promise returns MWKArticlePreview
 - (AnyPromise*)fetchArticlePreviewForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress;
 
 @end
