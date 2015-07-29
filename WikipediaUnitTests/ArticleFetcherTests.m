@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-//#import "WMFArticleFetcher.h"
+#import "WMFArticleFetcher.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "MWKArticle.h"
 #import "MWKSite.h"
@@ -16,13 +16,17 @@
 #import "WMFTestFixtureUtilities.h"
 #import "SessionSingleton.h"
 #import <Nocilla/Nocilla.h>
-//#import "WikipediaUnitTests-Swift.h"
-//#import "PromiseKit.h"
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
+#import "XCTestCase+PromiseKit.h"
+
+#define HC_SHORTHAND 1
+#import <OCHamcrest/OCHamcrest.h>
 
 @interface ArticleFetcherTests : XCTestCase
 
 @property (strong, nonatomic) MWKDataStore* tempDataStore;
-//@property (strong, nonatomic) WMFArticleFetcher* articleFetcher;
+@property (strong, nonatomic) WMFArticleFetcher* articleFetcher;
 
 @end
 
@@ -30,16 +34,16 @@
 
 - (void)setUp {
     [super setUp];
-    self.tempDataStore = [MWKDataStore temporaryDataStore];
-//    self.articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.tempDataStore];
+    self.tempDataStore  = [MWKDataStore temporaryDataStore];
+    self.articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.tempDataStore];
     [[LSNocilla sharedInstance] start];
 }
 
 - (void)tearDown {
     [[LSNocilla sharedInstance] stop];
     [self.tempDataStore removeFolderAtBasePath];
-    self.tempDataStore = nil;
-//    self.articleFetcher = nil;
+    self.tempDataStore  = nil;
+    self.articleFetcher = nil;
     [super tearDown];
 }
 
@@ -52,18 +56,28 @@
 
     NSString* json = [[self wmf_bundle] wmf_stringFromContentsOfFile:@"Obama" ofType:@"json"];
 
-    stubRequest(@"GET", [url absoluteString]).
+    stubRequest(@"GET", [NSString stringWithFormat:@"%@/.*", [url absoluteString]]).
     andReturn(200).
     withHeaders(@{@"Content-Type": @"application/json"}).
     withBody(json);
+
+    [self expectAnyPromiseToResolve:^{
+        return
+        [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:nil]
+        .then(^(MWKArticle* article) {
+            assertThat(article, is(equalTo(dummyArticle)));
+            assertThat(@([article isDeeplyEqualToArticle:dummyArticle]), isTrue());
+            MWKArticle* articleFromDisk = [self.tempDataStore existingArticleWithTitle:dummyTitle];
+            assertThat(@([articleFromDisk isDeeplyEqualToArticle:dummyArticle]), isTrue());
+        });
+    } timeout:WMFDefaultExpectationTimeout WMFExpectFromHere];
 
 //    XCTestExpectation* responseExpectation = [self expectationWithDescription:@"articleResponse"];
 //
 //    [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^(MWKArticle* article){
 //
 //        MWKArticle* savedArticle = [self.tempDataStore articleWithTitle:dummyTitle];
-//        assertThat(article, is(equalTo(savedArticle)));
-//        assertThat(@([article isDeeplyEqualToArticle:savedArticle]), isTrue());
+
 //        [responseExpectation fulfill];
 //
 //    }).catch(^(NSError* error){
