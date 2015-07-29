@@ -70,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
             resolve([self serializedArticleWithTitle:pageTitle response:JSON]);
         });
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-        if ([url isEqual:[pageTitle.site mobileApiEndpoint]] && [error shouldFallbackToDesktopURLError]) {
+        if ([url isEqual:[pageTitle.site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
             [self fetchArticleForPageTitle:pageTitle useDesktopURL:YES progress:progress resolver:resolve];
         } else {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];

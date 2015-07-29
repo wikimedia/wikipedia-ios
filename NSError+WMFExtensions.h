@@ -23,9 +23,11 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
 
 + (NSError*)wmf_redirectedErrorWithTitle:(MWKTitle*)redirectedtitle;
 
-+ (NSError*)wmf_unableToSaveErrorWithReason:(NSString*)reason; //reason is specfied as NSLocalizedDescriptionKey
+//reason is specfied as NSLocalizedDescriptionKey
++ (NSError*)wmf_unableToSaveErrorWithReason:(NSString*)reason;
 
-+ (NSError*)wmf_serializeArticleErrorWithReason:(NSString*)reason; //reason is specfied as NSLocalizedDescriptionKey
+//reason is specfied as NSLocalizedDescriptionKey
++ (NSError*)wmf_serializeArticleErrorWithReason:(NSString*)reason;
 
 
 - (BOOL)wmf_isWMFErrorDomain;
@@ -35,7 +37,11 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
 
 @interface NSError (WMFConnectionFallback)
 
-- (BOOL)shouldFallbackToDesktopURLError;
+/*
+ * If YES, this error indicates that we should attempt to resend the
+ * request using the desktop URL.
+ */
+- (BOOL)wmf_shouldFallbackToDesktopURLError;
 
 @end
 

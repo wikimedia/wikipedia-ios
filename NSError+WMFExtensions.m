@@ -47,7 +47,7 @@ NSString* const WMFRedirectTitleKey = @"WMFRedirectTitleKey";
 
 @implementation NSError (WMFConnectionFallback)
 
-- (BOOL)shouldFallbackToDesktopURLError{
+- (BOOL)wmf_shouldFallbackToDesktopURLError{
     
     if (self.domain == NSStreamSocketSSLErrorDomain ||
         (self.domain == NSURLErrorDomain &&
