@@ -2,17 +2,13 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WMFArticleExtractCell.h"
-
-@interface WMFArticleExtractCell ()
-
-@property (strong, nonatomic) IBOutlet UILabel* label;
-
-@end
+#import <DTCoreText/DTCoreText.h>
 
 @implementation WMFArticleExtractCell
 
-- (void)setExtractText:(NSString*)text {
-    self.label.text = text;
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.attributedTextLabel.attributedString = nil;
 }
 
 @end

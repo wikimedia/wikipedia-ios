@@ -24,6 +24,10 @@ extern NSString* const WMFDefaultSiteDomain;
 /// @name Computed Properties
 ///
 
+- (NSURL*)URL;
+
+- (NSURL*)mobileURL;
+
 - (NSURL*)apiEndpoint;
 
 - (NSURL*)mobileApiEndpoint;

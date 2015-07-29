@@ -10,6 +10,7 @@
 #import <BlocksKit/BlocksKit.h>
 #import "WikipediaAppUtils.h"
 #import "NSURL+Extras.h"
+#import "NSString+WMFHTMLParsing.h"
 
 typedef NS_ENUM (NSUInteger, MWKArticleSchemaVersion) {
     /**
@@ -19,6 +20,11 @@ typedef NS_ENUM (NSUInteger, MWKArticleSchemaVersion) {
 };
 
 static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticleSchemaVersion_1;
+
+static inline NSString* MWKArticleMainPageXPath(BOOL plainText) {
+    #define MWKArticleMainPageExtractXPath @"/html/body/div/div/p[1]"
+    return plainText ? MWKArticleMainPageExtractXPath "//text()" : MWKArticleMainPageExtractXPath;
+}
 
 @interface MWKArticle ()
 
@@ -449,6 +455,29 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return [imageURLs bk_reject:^BOOL (id obj) {
         return [NSNull null] == obj;
     }];
+}
+
+#pragma mark - Extraction
+
+- (NSString*)extractedLeadSection:(BOOL)plainText {
+    for (MWKSection* section in self.sections) {
+        NSString* snippet =
+            [self isMain] ?
+            [section textForXPath : MWKArticleMainPageXPath(plainText)]
+            : (plainText ? [section extractedText] : [section extractedHTML]);
+        if (snippet.length) {
+            return snippet;
+        }
+    }
+    return @"";
+}
+
+- (NSString*)extractedLeadSectionText {
+    return [self extractedLeadSection:YES];
+}
+
+- (NSString*)extractedLeadSectionHTML {
+    return [self extractedLeadSection:NO];
 }
 
 @end

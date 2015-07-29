@@ -283,6 +283,8 @@
 		BC69C3141AB0C1FF0090B039 /* WMFImageInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69C3131AB0C1FF0090B039 /* WMFImageInfoController.m */; };
 		BC6BF4001B19213600362968 /* XCTestCase+WMFLocaleTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6BF3FE1B19209900362968 /* XCTestCase+WMFLocaleTesting.m */; };
 		BC6BFC5F1B680A410074D0DA /* NSString+WMFGlyphs.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6BFC5E1B680A410074D0DA /* NSString+WMFGlyphs.m */; };
+		BC6BFC611B684EF70074D0DA /* MWKArticleLeadSectionHTMLVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6BFC601B684EF70074D0DA /* MWKArticleLeadSectionHTMLVisualTests.m */; };
+		BC6BFC681B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6BFC671B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m */; };
 		BC6E8B921B5E8DB7003D9A39 /* CIContext+WMFImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E8B911B5E8DB7003D9A39 /* CIContext+WMFImageProcessing.m */; };
 		BC6E8B951B5E90B1003D9A39 /* UIImage+WMFImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E8B941B5E90B1003D9A39 /* UIImage+WMFImageProcessing.m */; };
 		BC6E8B981B5EB4B2003D9A39 /* UIImage+WMFNormalization.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E8B971B5EB4B2003D9A39 /* UIImage+WMFNormalization.m */; };
@@ -305,7 +307,6 @@
 		BC905A111B447A8300523DFE /* NSURLRequest+WMFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC905A101B447A8300523DFE /* NSURLRequest+WMFUtilities.m */; };
 		BC905A131B44815900523DFE /* SDImageCache+PromiseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC905A121B44815900523DFE /* SDImageCache+PromiseKit.swift */; };
 		BC905A151B44962100523DFE /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC905A141B44962100523DFE /* CancellablePromise.swift */; };
-		BC92A7711AFA841C003C4212 /* MWKSection+WMFSharing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC92A7701AFA841C003C4212 /* MWKSection+WMFSharing.m */; };
 		BC92A7731AFA88D3003C4212 /* MWKSection+WMFSharingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC92A7721AFA88D3003C4212 /* MWKSection+WMFSharingTests.m */; };
 		BC955BC71A82BEFD000EF9E4 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */; };
 		BC955BCF1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BCE1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m */; };
@@ -317,7 +318,7 @@
 		BCA96E731AAA354D009A61FA /* WMFGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA96E721AAA354D009A61FA /* WMFGradientView.m */; };
 		BCA96E771AAA35EE009A61FA /* UIView+WMFDefaultNib.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA96E761AAA35EE009A61FA /* UIView+WMFDefaultNib.m */; };
 		BCAC50C11AF3F7460015936C /* NSBundle+WMFInfoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAC50C01AF3F7460015936C /* NSBundle+WMFInfoUtils.m */; };
-		BCAFC5D01AFD5E7D004615BA /* MWKArticle+WMFSharingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAFC5CF1AFD5E7D004615BA /* MWKArticle+WMFSharingTests.m */; };
+		BCAFC5D01AFD5E7D004615BA /* MWKArticleExtractionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAFC5CF1AFD5E7D004615BA /* MWKArticleExtractionTests.m */; };
 		BCAFC5D31AFD5F7E004615BA /* MWKArticle+WMFSharing.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAFC5D11AFD5F7E004615BA /* MWKArticle+WMFSharing.m */; };
 		BCAFC5ED1B02490A004615BA /* WMFRandomFileUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAFC5EC1B02490A004615BA /* WMFRandomFileUtilities.m */; };
 		BCB3AE861AC11320004AD205 /* NSPersistentStoreCoordinator+WMFTempCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB3AE851AC11320004AD205 /* NSPersistentStoreCoordinator+WMFTempCoordinator.m */; };
@@ -923,6 +924,10 @@
 		BC6BF3FE1B19209900362968 /* XCTestCase+WMFLocaleTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+WMFLocaleTesting.m"; sourceTree = "<group>"; };
 		BC6BFC5D1B680A410074D0DA /* NSString+WMFGlyphs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WMFGlyphs.h"; sourceTree = "<group>"; };
 		BC6BFC5E1B680A410074D0DA /* NSString+WMFGlyphs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WMFGlyphs.m"; sourceTree = "<group>"; };
+		BC6BFC601B684EF70074D0DA /* MWKArticleLeadSectionHTMLVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticleLeadSectionHTMLVisualTests.m; sourceTree = "<group>"; };
+		BC6BFC651B6858250074D0DA /* WMFArticleViewController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleViewController_Private.h; sourceTree = "<group>"; };
+		BC6BFC661B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+WMFHTMLForSite.h"; sourceTree = "<group>"; };
+		BC6BFC671B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+WMFHTMLForSite.m"; sourceTree = "<group>"; };
 		BC6E8B901B5E8DB7003D9A39 /* CIContext+WMFImageProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CIContext+WMFImageProcessing.h"; sourceTree = "<group>"; };
 		BC6E8B911B5E8DB7003D9A39 /* CIContext+WMFImageProcessing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CIContext+WMFImageProcessing.m"; sourceTree = "<group>"; };
 		BC6E8B931B5E90B1003D9A39 /* UIImage+WMFImageProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WMFImageProcessing.h"; sourceTree = "<group>"; };
@@ -967,8 +972,6 @@
 		BC905A141B44962100523DFE /* CancellablePromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancellablePromise.swift; sourceTree = "<group>"; };
 		BC905BCF1B60391F0010227E /* MWKLanguageLinkFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLinkFetcherTests.m; sourceTree = "<group>"; };
 		BC92A76E1AFA83D2003C4212 /* WMFSharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSharing.h; path = ShareCard/WMFSharing.h; sourceTree = "<group>"; };
-		BC92A76F1AFA841C003C4212 /* MWKSection+WMFSharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSection+WMFSharing.h"; sourceTree = "<group>"; };
-		BC92A7701AFA841C003C4212 /* MWKSection+WMFSharing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+WMFSharing.m"; sourceTree = "<group>"; };
 		BC92A7721AFA88D3003C4212 /* MWKSection+WMFSharingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+WMFSharingTests.m"; sourceTree = "<group>"; };
 		BC955BC51A82BEFD000EF9E4 /* MWKImageInfoFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKImageInfoFetcher.h; sourceTree = "<group>"; };
 		BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKImageInfoFetcher.m; sourceTree = "<group>"; };
@@ -991,7 +994,7 @@
 		BCA96E761AAA35EE009A61FA /* UIView+WMFDefaultNib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WMFDefaultNib.m"; sourceTree = "<group>"; };
 		BCAC50BF1AF3F7460015936C /* NSBundle+WMFInfoUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+WMFInfoUtils.h"; sourceTree = "<group>"; };
 		BCAC50C01AF3F7460015936C /* NSBundle+WMFInfoUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+WMFInfoUtils.m"; sourceTree = "<group>"; };
-		BCAFC5CF1AFD5E7D004615BA /* MWKArticle+WMFSharingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKArticle+WMFSharingTests.m"; sourceTree = "<group>"; };
+		BCAFC5CF1AFD5E7D004615BA /* MWKArticleExtractionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticleExtractionTests.m; sourceTree = "<group>"; };
 		BCAFC5D11AFD5F7E004615BA /* MWKArticle+WMFSharing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKArticle+WMFSharing.m"; sourceTree = "<group>"; };
 		BCAFC5D21AFD5F7E004615BA /* MWKArticle+WMFSharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKArticle+WMFSharing.h"; sourceTree = "<group>"; };
 		BCAFC5EB1B02490A004615BA /* WMFRandomFileUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRandomFileUtilities.h; sourceTree = "<group>"; };
@@ -1880,8 +1883,6 @@
 				04B0E3E91AE8252800379AE0 /* NSURL+WMFRest.m */,
 				BCAC50BF1AF3F7460015936C /* NSBundle+WMFInfoUtils.h */,
 				BCAC50C01AF3F7460015936C /* NSBundle+WMFInfoUtils.m */,
-				BC92A76F1AFA841C003C4212 /* MWKSection+WMFSharing.h */,
-				BC92A7701AFA841C003C4212 /* MWKSection+WMFSharing.m */,
 				BCAFC5D21AFD5F7E004615BA /* MWKArticle+WMFSharing.h */,
 				BCAFC5D11AFD5F7E004615BA /* MWKArticle+WMFSharing.m */,
 				BCFB090B1B445A720077955B /* UIImage+WMFSerialization.h */,
@@ -1904,6 +1905,8 @@
 				BC6E8B941B5E90B1003D9A39 /* UIImage+WMFImageProcessing.m */,
 				BC6E8B961B5EB4B2003D9A39 /* UIImage+WMFNormalization.h */,
 				BC6E8B971B5EB4B2003D9A39 /* UIImage+WMFNormalization.m */,
+				BC6BFC661B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.h */,
+				BC6BFC671B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2269,6 +2272,7 @@
 			children = (
 				0E94AFF41B209882000BC5EA /* WMFArticleViewController.h */,
 				0E94AFF51B209882000BC5EA /* WMFArticleViewController.m */,
+				BC6BFC651B6858250074D0DA /* WMFArticleViewController_Private.h */,
 				0E0377741B4C47D500470BBE /* Table */,
 				0E2B06FB1B2D12B300EA2F53 /* Transitions */,
 				0E34AC551B45DC9500475A1A /* WMFArticleFetcher.h */,
@@ -2370,7 +2374,8 @@
 				BCCED2CF1AE03BE20094EB7E /* MWKSectionListTests.m */,
 				BC49B3631AEECFD8009F55BE /* ArticleLoadingTests.m */,
 				BC92A7721AFA88D3003C4212 /* MWKSection+WMFSharingTests.m */,
-				BCAFC5CF1AFD5E7D004615BA /* MWKArticle+WMFSharingTests.m */,
+				BCAFC5CF1AFD5E7D004615BA /* MWKArticleExtractionTests.m */,
+				BC6BFC601B684EF70074D0DA /* MWKArticleLeadSectionHTMLVisualTests.m */,
 				BC5FE5741B1DFF5400273BC0 /* ArticleFetcherTests.m */,
 				BC092BA61B19189100093C59 /* MWKSiteInfoFetcherTests.m */,
 				BC8210CB1B4EB2390010BF7B /* NSURLExtrasTests.m */,
@@ -3247,6 +3252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC6BF4001B19213600362968 /* XCTestCase+WMFLocaleTesting.m in Sources */,
+				BC6BFC611B684EF70074D0DA /* MWKArticleLeadSectionHTMLVisualTests.m in Sources */,
 				0EBC56971AD5B69300E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */,
 				BCF1E20D1B4C5C7300B10877 /* WMFBackgroundTestManagerTests.swift in Sources */,
 				BCFE02781B41FA12003752B7 /* MWKHistoryListPerformanceTests.m in Sources */,
@@ -3294,7 +3300,7 @@
 				0EBC56681AD3656900E82CDD /* WMFAsyncTestCase.m in Sources */,
 				BCA9575D1ABE473800B62AE8 /* LegacyCoreDataMigratorTests.m in Sources */,
 				BCCE8EBC1B4D7F590009FBBC /* XCTestCase+SwiftDefaults.swift in Sources */,
-				BCAFC5D01AFD5E7D004615BA /* MWKArticle+WMFSharingTests.m in Sources */,
+				BCAFC5D01AFD5E7D004615BA /* MWKArticleExtractionTests.m in Sources */,
 				BC0FED691AAA0268002488D7 /* MWKProtectionStatusTests.m in Sources */,
 				BC0FED6C1AAA0268002488D7 /* MWKImageStorageTests.m in Sources */,
 				BC092BA71B19189100093C59 /* MWKSiteInfoFetcherTests.m in Sources */,
@@ -3372,6 +3378,7 @@
 				040D83591AB0ECFD000896D5 /* WMFCenteredPathView.m in Sources */,
 				BCB669B41A83F6C400C7B1FE /* MWKArticle.m in Sources */,
 				0E2B06F61B2CE45800EA2F53 /* WMFSavedPagesDataSource.m in Sources */,
+				BC6BFC681B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m in Sources */,
 				044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */,
 				0429301018604898002A13FC /* SavedPagesViewController.m in Sources */,
 				04D149DF18877343006B4104 /* UIViewController+Alert.m in Sources */,
@@ -3447,7 +3454,6 @@
 				C98990341A699DE000AF44FC /* WMFShareCardViewController.m in Sources */,
 				049289291B1FBC1800BE4B21 /* WMFURLCache.m in Sources */,
 				C42D94861A937DE000A4871A /* WMFBorderButton.m in Sources */,
-				BC92A7711AFA841C003C4212 /* MWKSection+WMFSharing.m in Sources */,
 				0E94AFF31B209857000BC5EA /* WMFSearchViewController.m in Sources */,
 				047801BE18AE987900DBB747 /* UIButton+ColorMask.m in Sources */,
 				BC092B9C1B18F8D700093C59 /* MWKSiteInfo.m in Sources */,

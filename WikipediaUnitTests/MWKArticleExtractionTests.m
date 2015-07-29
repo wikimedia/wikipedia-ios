@@ -19,11 +19,11 @@
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
 
-@interface MWKArticle_WMFSharingTests : XCTestCase
+@interface MWKArticleExtractionTests : XCTestCase
 @property (nonatomic) MWKArticle* article;
 @end
 
-@implementation MWKArticle_WMFSharingTests
+@implementation MWKArticleExtractionTests
 
 - (void)testMainPage {
     self.article =

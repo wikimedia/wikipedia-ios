@@ -8,6 +8,19 @@
 
 #import "MediaWikiKit.h"
 #import "WikipediaAppUtils.h"
+#import "NSString+WMFHTMLParsing.h"
+#import <hpple/TFHpple.h>
+#import "WikipediaAppUtils.h"
+
+/*
+   Grab the text from the first `<p>` tag in the receiver's `text`, filtering out geo-location by excluding span
+   elements with `coordinates` as their `id`.
+
+   Note, using a macro to avoid duplicating the "base" XPath or having to use `stringWithFormat:` to construct it at
+   run-time.
+ */
+#define MWKSectionExtractXPath @"/html/body/p[not(.//span[@id='coordinates'])][1]"
+static NSString* const MWKSectionTextExtractXPath = MWKSectionExtractXPath "//text()";
 
 @interface MWKSection ()
 
@@ -143,6 +156,36 @@
            && WMF_EQUAL(self.anchor, isEqualToString:, section.anchor)
            && WMF_EQUAL(self.text, isEqualToString:, section.text)
            && WMF_EQUAL(self.images, isEqual:, section.images);
+}
+
+#pragma mark - Extraction
+
+- (NSString*)extractedHTML {
+    return [self textForXPath:MWKSectionExtractXPath];
+}
+
+- (NSString*)extractedText {
+    return [self textForXPath:MWKSectionTextExtractXPath];
+}
+
+- (NSString*)textForXPath:(NSString*)xpath {
+    /*
+       HAX: TFHpple implicitly wraps its data in html/body tags, which we need to reference explicitly since we want the
+       top-level <p> tag.
+     */
+    NSArray* xpathResults = [[TFHpple
+                              hppleWithHTMLData:[self.text dataUsingEncoding:NSUTF8StringEncoding]]
+                             searchWithXPathQuery:xpath];
+    if (xpathResults) {
+        NSString* shareSnippet = [[[xpathResults
+                                    valueForKey:WMF_SAFE_KEYPATH([TFHppleElement new], raw)]
+                                   componentsJoinedByString:@""]
+                                  wmf_shareSnippetFromText];
+        if (shareSnippet.length) {
+            return shareSnippet;
+        }
+    }
+    return @"";
 }
 
 @end

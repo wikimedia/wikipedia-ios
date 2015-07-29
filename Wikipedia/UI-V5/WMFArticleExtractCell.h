@@ -3,8 +3,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class DTAttributedLabel;
+
 @interface WMFArticleExtractCell : UITableViewCell
 
-- (void)setExtractText:(NSString*)text;
+@property (strong, nonatomic) IBOutlet DTAttributedLabel* attributedTextLabel;
 
 @end

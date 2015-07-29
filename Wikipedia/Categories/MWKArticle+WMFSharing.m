@@ -7,23 +7,11 @@
 //
 
 #import "MWKArticle+WMFSharing.h"
-#import "NSString+WMFHTMLParsing.h"
-#import "MWKSection+WMFSharing.h"
-#import <BlocksKit/BlocksKit.h>
-#import "MediaWikiKit.h"
 
 @implementation MWKArticle (WMFSharing)
 
 - (NSString*)shareSnippet {
-    for (MWKSection* section in self.sections) {
-        NSString* snippet = [self isMain] ?
-                            [section shareSnippetFromTextUsingXpath : @"/html/body/div/div/p[1]//text()"]
-                            :[section shareSnippet];
-        if (snippet.length) {
-            return snippet;
-        }
-    }
-    return @"";
+    return [self extractedLeadSectionText];
 }
 
 @end

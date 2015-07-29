@@ -1,4 +1,4 @@
-#import "WMFArticleViewController.h"
+#import "WMFArticleViewController_Private.h"
 
 // Frameworks
 #import <Masonry/Masonry.h>
@@ -31,6 +31,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "MWKArticle+WMFSharing.h"
 #import "UIView+WMFDefaultNib.h"
+#import "NSAttributedString+WMFHTMLForSite.h"
 
 typedef NS_ENUM (NSInteger, WMFArticleSectionType) {
     WMFArticleSectionTypeSummary,
@@ -409,7 +410,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFArticleExtractCell*)textExtractCellAtIndexPath:(NSIndexPath*)indexPath {
     WMFArticleExtractCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleExtractCell wmf_nibName]];
-    [cell setExtractText:[self.article shareSnippet]];
+    cell.attributedTextLabel.delegate = self;
+    NSData* extractedHTMLData = [self.article.extractedLeadSectionHTML dataUsingEncoding:NSUTF8StringEncoding];
+    cell.attributedTextLabel.attributedString =
+        [[NSAttributedString alloc] initWithHTMLData:extractedHTMLData
+                                                site:self.article.site];
+    cell.attributedTextLabel.numberOfLines                          = 0;
+    cell.attributedTextLabel.lineBreakMode                          = NSLineBreakByCharWrapping;
+    cell.attributedTextLabel.layoutFrameHeightIsConstrainedByBounds = NO;
     return cell;
 }
 
@@ -517,6 +525,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)willDismissGalleryController:(WMFImageGalleryViewController* __nonnull)gallery {
     self.headerGalleryViewController.currentPage = gallery.currentPage;
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - DTAttributedContentViewDelegate
+
+- (UIView*)attributedTextContentView:(DTAttributedTextContentView*)attributedTextContentView viewForLink:(NSURL*)url identifier:(NSString*)identifier frame:(CGRect)frame {
+    DTLinkButton* linkButton = [[DTLinkButton alloc] initWithFrame:frame];
+    linkButton.GUID = identifier;
+    linkButton.URL  = url;
+    [linkButton bk_addEventHandler:^(WMFArticleViewController* sender) {
+        DDLogVerbose(@"I tapped a link! %@", url);
+    } forControlEvents:UIControlEventTouchUpInside];
+    return linkButton;
 }
 
 @end
