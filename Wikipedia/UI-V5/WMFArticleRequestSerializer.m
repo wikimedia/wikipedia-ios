@@ -51,7 +51,7 @@ static BOOL _headerSent = NO;
     return _headerSent;
 }
 
-+ (BOOL)setDidSendMCCMNCHeader {
++ (void)setDidSendMCCMNCHeader {
     _headerSent = YES;
 }
 
