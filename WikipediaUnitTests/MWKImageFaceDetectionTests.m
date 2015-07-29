@@ -98,12 +98,12 @@
 - (void)testDetectingFacesInObamaLeadImage {
     self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:@"foo"];
 
-    UIImage* facelessImage = [UIImage imageNamed:@"640px-President_Barack_Obama.jpg"
-                                        inBundle:[self wmf_bundle]
-                   compatibleWithTraitCollection:nil];
-    NSParameterAssert(facelessImage);
+    UIImage* imageWithFaces = [UIImage imageNamed:@"640px-President_Barack_Obama.jpg"
+                                         inBundle:[self wmf_bundle]
+                    compatibleWithTraitCollection:nil];
+    NSParameterAssert(imageWithFaces);
 
-    [given([self.mockDataStore imageDataWithImage:self.image]) willReturn:UIImageJPEGRepresentation(facelessImage, 1.0)];
+    [given([self.mockDataStore imageDataWithImage:self.image]) willReturn:UIImageJPEGRepresentation(imageWithFaces, 1.0)];
 
     [self.image calculateFocalRectsBasedOnFaceDetectionWithImageData:nil];
 
