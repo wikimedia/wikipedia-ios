@@ -12,6 +12,8 @@
 #import "WMFArticleFetcher.h"
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
+#import "MWKArticlePreview.h"
+#import "MWKArticle.h"
 #import "WMFImageGalleryViewController.h"
 
 // Views
@@ -54,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFArticlePreviewFetcher* articlePreviewFetcher;
 @property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 
-@property (nonatomic, strong) AnyPromise* articleFetcherPromise;
+@property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 @property (nonatomic, strong) WMFSearchFetcher* readMoreFetcher;
 @property (nonatomic, strong) WMFSearchResults* readMoreResults;
@@ -182,7 +184,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticleForTitle:(MWKTitle*)title {
     @weakify(self)
-    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle : title progress : NULL].then(^(NSDictionary* articlePreview){
+    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle : title progress : NULL].then(^(MWKArticlePreview* articlePreview){
         @strongify(self)
         AnyPromise * fullArticlePromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
         self.articleFetcherPromise = fullArticlePromise;
