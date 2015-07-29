@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleBaseFetcher ()
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
-@property (nonatomic, strong) NSMutableDictionary* operationsKeyedByTitle;
+@property (nonatomic, strong) NSMapTable* operationsKeyedByTitle;
 @property (nonatomic, strong) dispatch_queue_t operationsQueue;
 
 @end
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.operationsKeyedByTitle = [NSMutableDictionary dictionary];
+        self.operationsKeyedByTitle = [NSMapTable strongToWeakObjectsMapTable];
         NSString* queueID = [NSString stringWithFormat:@"org.wikipedia.articlefetcher.accessQueue.%@", [[NSUUID UUID] UUIDString]];
         self.operationsQueue = dispatch_queue_create([queueID cStringUsingEncoding:NSUTF8StringEncoding], DISPATCH_QUEUE_SERIAL);
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
@@ -66,7 +66,6 @@ NS_ASSUME_NONNULL_BEGIN
     AFHTTPRequestOperation* operation = [self.operationManager GET:url.absoluteString parameters:pageTitle success:^(AFHTTPRequestOperation* operation, id responseObject) {
         NSDictionary* JSON = responseObject;
         dispatchOnBackgroundQueue(^{
-            [self untrackOperationForTitle:pageTitle];
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve([self serializedArticleWithTitle:pageTitle response:JSON]);
         });
@@ -74,8 +73,6 @@ NS_ASSUME_NONNULL_BEGIN
         if ([url isEqual:[pageTitle.site mobileApiEndpoint]] && [error shouldFallbackToDesktopURLError]) {
             [self fetchArticleForPageTitle:pageTitle useDesktopURL:YES progress:progress resolver:resolve];
         } else {
-            [self untrackOperationForTitle:pageTitle];
-
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
         }
@@ -108,7 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
     __block AFHTTPRequestOperation* op = nil;
 
     dispatch_sync(self.operationsQueue, ^{
-        op = self.operationsKeyedByTitle[title.text];
+        op = [self.operationsKeyedByTitle objectForKey:title.text];
     });
 
     return op;
@@ -120,13 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     dispatch_sync(self.operationsQueue, ^{
-        self.operationsKeyedByTitle[title] = operation;
-    });
-}
-
-- (void)untrackOperationForTitle:(MWKTitle*)title {
-    dispatch_sync(self.operationsQueue, ^{
-        [self.operationsKeyedByTitle removeObjectForKey:title];
+        [self.operationsKeyedByTitle setObject:operation forKey:title];
     });
 }
 
@@ -142,7 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
     __block AFHTTPRequestOperation* op = nil;
 
     dispatch_sync(self.operationsQueue, ^{
-        op = self.operationsKeyedByTitle[pageTitle.text];
+        op = [self.operationsKeyedByTitle objectForKey:pageTitle];
     });
 
     [op cancel];
@@ -176,8 +167,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (AnyPromise*)fetchArticlePreviewForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress {
-    NSAssert(pageTitle.text != nil, @"Title text nil");
-    NSAssert(self.operationManager != nil, @"Manager nil");
+    NSAssert([pageTitle.text length] > 0, @"Title text nil");
 
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
         [self fetchArticleForPageTitle:pageTitle useDesktopURL:NO progress:progress resolver:resolve];

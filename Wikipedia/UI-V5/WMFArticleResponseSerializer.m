@@ -25,7 +25,7 @@
 @end
 
 
-@implementation WMFArticlePreviewResponseSerializer : AFJSONResponseSerializer
+@implementation WMFArticlePreviewResponseSerializer
 
 - (id)responseObjectForResponse:(NSURLResponse*)response
                            data:(NSData*)data
@@ -33,7 +33,7 @@
     NSDictionary* JSON        = [super responseObjectForResponse:response data:data error:error];
     NSDictionary* articleJSON = JSON[@"mobileview"];
 
-    return [MTLJSONAdapter modelOfClass:[MWKArticlePreview class] fromJSONDictionary:articleJSON error:nil];
+    return [MTLJSONAdapter modelOfClass:[MWKArticlePreview class] fromJSONDictionary:articleJSON error:error];
 }
 
 @end

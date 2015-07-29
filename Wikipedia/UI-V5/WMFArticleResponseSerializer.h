@@ -1,10 +1,11 @@
 
 #import <AFNetworking/AFURLResponseSerialization.h>
+#import "WMFApiJsonResponseSerializer.h"
 
-@interface WMFArticleResponseSerializer : AFJSONResponseSerializer
+@interface WMFArticleResponseSerializer : WMFApiJsonResponseSerializer
 
 @end
 
-@interface WMFArticlePreviewResponseSerializer : AFJSONResponseSerializer
+@interface WMFArticlePreviewResponseSerializer : WMFApiJsonResponseSerializer
 
 @end
