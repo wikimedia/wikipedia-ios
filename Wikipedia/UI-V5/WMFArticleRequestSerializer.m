@@ -52,7 +52,10 @@ static BOOL _headerSent = NO;
 }
 
 + (void)setDidSendMCCMNCHeader {
-    _headerSent = YES;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _headerSent = YES;
+    });
 }
 
 /*
