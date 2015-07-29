@@ -35,8 +35,6 @@
 
         // fileNameNoSizePrefix is lazily derived from this property, so be careful if _sourceURL needs to be re-set
         self.sourceURL = url;
-
-        self.focalRectsInUnitCoordinatesAsStrings = @[];
     }
     return self;
 }
