@@ -56,10 +56,15 @@
 
     NSString* json = [[self wmf_bundle] wmf_stringFromContentsOfFile:@"Obama" ofType:@"json"];
 
-    stubRequest(@"GET", [NSString stringWithFormat:@"%@/.*", [url absoluteString]]).
-    andReturn(200).
-    withHeaders(@{@"Content-Type": @"application/json"}).
-    withBody(json);
+    // TODO: refactor into convenience method
+    NSRegularExpression* anyRequestFromTestSite =
+        [NSRegularExpression regularExpressionWithPattern:
+         [NSString stringWithFormat:@"%@.*", [url absoluteString]] options:0 error:nil];
+
+    stubRequest(@"GET", anyRequestFromTestSite)
+    .andReturn(200)
+    .withHeaders(@{@"Content-Type": @"application/json"})
+    .withBody(json);
 
     [self expectAnyPromiseToResolve:^{
         return
