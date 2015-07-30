@@ -31,7 +31,7 @@
                              line:(NSUInteger)line {
     XCTestExpectation* expectation = [self expectationForMethod:method line:line];
     AnyPromise* promise            = testBlock();
-    promise.thenInBackground(^{
+    promise.then(^{
         [expectation fulfill];
     });
     [self waitForExpectationsWithTimeout:timeout handler:nil];
