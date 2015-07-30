@@ -3,9 +3,9 @@
 
 @interface MWKSectionMetaData : MTLModel<MTLJSONSerializing>
 
-@property (readonly, copy, nonatomic) NSString* displayTitle;
+@property (copy, nonatomic, readonly) NSString* displayTitle;
 
-@property (readonly, copy, nonatomic) NSIndexPath* number;
-@property (readonly, copy, nonatomic) NSNumber* level;
+@property (copy, nonatomic, readonly) NSIndexPath* number;
+@property (copy, nonatomic, readonly) NSNumber* level;
 
 @end
