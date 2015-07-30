@@ -29,15 +29,17 @@
 - (void)navigateToPage:(MWKTitle*)title
        discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 
-- (void)tocScrollWebViewToSectionWithElementId:(NSString*)elementId
-                                      duration:(CGFloat)duration
-                                   thenHideTOC:(BOOL)hideTOC;
-
 - (void)tocHide;
 - (void)tocToggle;
 - (void)saveWebViewScrollOffset;
 
 - (void)loadRandomArticle;
 - (void)loadTodaysArticle;
+
+//TODO: combine these into one method that accepts an animated parameter
+- (void)tocScrollWebViewToSectionWithElementId:(NSString*)elementId
+                                      duration:(CGFloat)duration
+                                   thenHideTOC:(BOOL)hideTOC;
+- (void)scrollToFragment:(NSString*)fragment;
 
 @end

@@ -1202,6 +1202,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         return;
     }
 
+    //Force view to load if not already on screen
+    //We need to get HTML load process going even before we are in the view hierarchy
+    if (!self.isViewLoaded) {
+        [self view];
+    }
+
     [self hideKeyboard];
 
     [self cancelSearchLoading];
@@ -1243,6 +1249,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
     [self loadArticleWithTitleFromNetwork:title];
+}
+
+- (void)scrollToFragment:(NSString*)fragment {
+    self.jumpToFragment = fragment;
+    [self jumpToFragmentIfNecessary];
 }
 
 - (void)cancelArticleLoading {
