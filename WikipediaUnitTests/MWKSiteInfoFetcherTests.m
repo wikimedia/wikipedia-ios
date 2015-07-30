@@ -59,8 +59,7 @@
                            failure:^(NSError* e){
         assertThat(e, is(expectedError));
         [failedFetchExpectation fulfill];
-    }
-                     callbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    }];
 
     MKTArgumentCaptor* failureBlockCaptor = [[MKTArgumentCaptor alloc] init];
     [MKTVerify(mockReqManager) wmf_idempotentGET:testSite.apiEndpoint.absoluteString
@@ -82,10 +81,12 @@
 
     XCTestExpectation* successfulFetchExpectation = [self expectationWithDescription:@"successCallback"];
 
-    [self.fetcher fetchInfoForSite:testSite success:^(MWKSiteInfo* siteInfo) {
+    [self.fetcher fetchInfoForSite:testSite
+                           success:^(MWKSiteInfo* siteInfo) {
         assertThat(siteInfo.mainPageTitleText, is([fixtureJSON valueForKeyPath:@"query.general.mainpage"]));
         [successfulFetchExpectation fulfill];
-    } failure:^(NSError* e){} callbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+    }
+                           failure:^(NSError* e){}];
 
     MKTArgumentCaptor* successBlockCaptor = [[MKTArgumentCaptor alloc] init];
     [MKTVerify(mockReqManager) wmf_idempotentGET:testSite.apiEndpoint.absoluteString
@@ -126,12 +127,13 @@
                                success:^(MWKSiteInfo* info) {
             NSLog(@"Site info for %@: %@", locale.localeIdentifier, info);
             [expectation fulfill];
-        } failure:^(NSError* error) {
+        }
+                               failure:^(NSError* error) {
             @synchronized(errors) {
                 [errors addObject:@[locale.localeIdentifier, error]];
             }
             [expectation fulfill];
-        } callbackQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+        }];
     }];
     XCTAssert(errors.count == 0, @"Failed to fetch site info for locales: %@", errors);
 }
