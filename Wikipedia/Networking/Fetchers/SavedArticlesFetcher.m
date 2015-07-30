@@ -1,18 +1,19 @@
 
 #import "SavedArticlesFetcher.h"
-#import "ArticleFetcher.h"
+#import "WMFArticleFetcher.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "MediaWikiKit.h"
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
 
 @interface SavedArticlesFetcher ()
 
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
-@property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic, strong) WMFArticleFetcher* fetcher;
 
-@property (nonatomic, strong) NSMutableDictionary* fetchersByArticleTitle;
+@property (nonatomic, strong) NSMutableDictionary* fetchOperationsByArticleTitle;
 @property (nonatomic, strong) NSMutableDictionary* errorsByArticleTitle;
-
 @property (nonatomic, strong) NSMutableArray* fetchedArticles;
 
 @property (nonatomic, strong) dispatch_queue_t accessQueue;
@@ -42,9 +43,7 @@ static SavedArticlesFetcher* _fetcher = nil;
     if (self) {
         self.dataStore   = dataStore;
         self.accessQueue = dispatch_queue_create("org.wikipedia.savedarticlesfetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
-        AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        self.operationManager      = manager;
+        self.fetcher     = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
     }
     return self;
 }
@@ -54,37 +53,32 @@ static SavedArticlesFetcher* _fetcher = nil;
     [self cancelFetch];
 
     dispatch_async(self.accessQueue, ^{
-        self.fetchersByArticleTitle = [NSMutableDictionary dictionary];
-        self.errorsByArticleTitle = [NSMutableDictionary dictionary];
+        self.fetchOperationsByArticleTitle = [NSMutableDictionary dictionary];
         self.fetchedArticles = [NSMutableArray array];
+        self.errorsByArticleTitle = [NSMutableDictionary dictionary];
 
         for (MWKSavedPageEntry* entry in self.savedPageList) {
             if (entry.title) {
-                ArticleFetcher* fetcher = [[ArticleFetcher alloc] init];
-                self.fetchersByArticleTitle[entry.title] = fetcher;
-
-                [fetcher fetchSectionsForTitle:entry.title inDataStore:self.dataStore withManager:self.operationManager progressBlock:NULL completionBlock:^(MWKArticle* article) {
-                    MWKArticle* fetchedArticle = article;
-
+                self.fetchOperationsByArticleTitle[entry.title] = [self.fetcher fetchArticleForPageTitle:entry.title progress:NULL].thenOn(self.accessQueue, ^(MWKArticle* article){
+                    [self.fetchOperationsByArticleTitle removeObjectForKey:entry.title];
+                    [self.fetchedArticles addObject:article];
+                    [self notifyDelegateProgressWithFetchedArticle:article error:nil];
+                    [self notifyDelegateCompletionIfFinished];
+                }).catch(^(NSError* error){
                     dispatch_async(self.accessQueue, ^{
-                        [self.fetchersByArticleTitle removeObjectForKey:entry.title];
-                        [self.fetchedArticles addObject:fetchedArticle];
-                        [self notifyDelegateProgressWithFetchedArticle:fetchedArticle error:nil];
+                        [self.fetchOperationsByArticleTitle removeObjectForKey:entry.title];
+                        self.errorsByArticleTitle[entry.title] = error;
+                        [self notifyDelegateProgressWithFetchedArticle:nil error:error];
                         [self notifyDelegateCompletionIfFinished];
                     });
-                } errorBlock:^(NSError* error) {
-                    [self.fetchersByArticleTitle removeObjectForKey:entry.title];
-                    self.errorsByArticleTitle[entry.title] = error;
-                    [self notifyDelegateProgressWithFetchedArticle:nil error:error];
-                    [self notifyDelegateCompletionIfFinished];
-                }];
+                });
             }
         }
     });
 }
 
 - (void)cancelFetch {
-    [self.operationManager.operationQueue cancelAllOperations];
+    [self.fetcher cancelAllFetches];
 }
 
 #pragma mark - Progress
@@ -104,7 +98,7 @@ static SavedArticlesFetcher* _fetcher = nil;
         return 0.0;
     }
 
-    return (CGFloat)([self.savedPageList countOfEntries] - [self.fetchersByArticleTitle count]) / (CGFloat)[self.savedPageList countOfEntries];
+    return (CGFloat)([self.savedPageList countOfEntries] - [self.fetchOperationsByArticleTitle count]) / (CGFloat)[self.savedPageList countOfEntries];
 }
 
 #pragma mark - Delegate Notification
@@ -121,7 +115,7 @@ static SavedArticlesFetcher* _fetcher = nil;
 
 - (void)notifyDelegateCompletionIfFinished {
     dispatch_async(self.accessQueue, ^{
-        if ([self.fetchersByArticleTitle count] == 0) {
+        if ([self.fetchOperationsByArticleTitle count] == 0) {
             NSError* reportedError;
             if ([self.errorsByArticleTitle count] > 0) {
                 reportedError = [[self.errorsByArticleTitle allValues] firstObject];

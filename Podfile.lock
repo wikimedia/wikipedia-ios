@@ -30,6 +30,7 @@ PODS:
     - Mantle/extobjc (= 2.0.2)
   - Mantle/extobjc (2.0.2)
   - Masonry (0.6.2)
+  - Nocilla (0.10.0)
   - OCHamcrest (4.1.1)
   - OCMockito (1.4.0):
     - OCHamcrest (~> 4.0)
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - libextobjc/EXTScope (~> 0.4.1)
   - Mantle
   - Masonry (= 0.6.2)
+  - Nocilla
   - OCHamcrest (~> 4.1)
   - OCMockito (~> 1.4)
   - SDWebImage (from `./vendor/SDWebImage`)
@@ -68,6 +70,7 @@ SPEC CHECKSUMS:
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: 967fd31ea0220890b2e76589198996b534bb3fb1
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
+  Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29

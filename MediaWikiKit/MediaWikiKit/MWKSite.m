@@ -83,9 +83,9 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 //    apiEndpointComponents.host = [hostComponents componentsJoinedByString:@"."];
 //    apiEndpointComponents.path = @"";
 //    return [apiEndpointComponents URL];
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@%@/w/api.php",
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@%@.%@/w/api.php",
                                  self.language,
-                                 isMobile ? @"m." : @"",
+                                 isMobile ? @".m" : @"",
                                  self.domain]];
 }
 

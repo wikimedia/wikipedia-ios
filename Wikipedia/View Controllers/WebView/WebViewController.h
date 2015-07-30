@@ -3,7 +3,6 @@
 
 #import <UIKit/UIKit.h>
 #import "PullToRefreshViewController.h"
-#import "ArticleFetcher.h"
 
 @class BottomMenuViewController, CommunicationBridge;
 

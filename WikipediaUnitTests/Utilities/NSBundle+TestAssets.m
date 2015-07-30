@@ -10,6 +10,15 @@
 
 @implementation NSBundle (TestAssets)
 
+- (NSString*)wmf_stringFromContentsOfFile:(NSString*)filename ofType:(NSString*)type {
+    NSError* error;
+    NSString* string = [NSString stringWithContentsOfFile:[self pathForResource:filename ofType:type]
+                                                 encoding:NSUTF8StringEncoding
+                                                    error:&error];
+    NSAssert(!error, @"Unexpected error reading test fixture: %@.%@, %@", filename, type, error);
+    return string;
+}
+
 - (NSData*)wmf_dataFromContentsOfFile:(NSString*)filename ofType:(NSString*)type {
     NSError* error;
     NSData* data = [NSData dataWithContentsOfFile:[self pathForResource:filename ofType:type]

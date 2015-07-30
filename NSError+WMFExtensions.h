@@ -4,6 +4,7 @@
 @class MWKTitle;
 
 extern NSString* const WMFErrorDomain;
+
 extern NSString* const WMFRedirectTitleKey;
 extern NSString* const WMFRedirectTitleKey;
 
@@ -12,7 +13,8 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
     WMFErrorTypeStringLength,
     WMFErrorTypeStringMissingParameter,
     WMFErrorTypeRedirected,
-    WMFErrorTypeUnableToSave
+    WMFErrorTypeUnableToSave,
+    WMFErrorTypeArticleResponseSerialization
 };
 
 @interface NSError (WMFExtensions)
@@ -21,14 +23,27 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
 
 + (NSError*)wmf_redirectedErrorWithTitle:(MWKTitle*)redirectedtitle;
 
-+ (NSError*)wmf_unableToSaveErrorWithReason:(NSString*)reason; //reason is specfied as NSLocalizedDescriptionKey
+//reason is specfied as NSLocalizedDescriptionKey
++ (NSError*)wmf_unableToSaveErrorWithReason:(NSString*)reason;
+
+//reason is specfied as NSLocalizedDescriptionKey
++ (NSError*)wmf_serializeArticleErrorWithReason:(NSString*)reason;
+
 
 - (BOOL)wmf_isWMFErrorDomain;
-
 - (BOOL)wmf_isWMFErrorOfType:(WMFErrorType)type;
 
 @end
 
+@interface NSError (WMFConnectionFallback)
+
+/*
+ * If YES, this error indicates that we should attempt to resend the
+ * request using the desktop URL.
+ */
+- (BOOL)wmf_shouldFallbackToDesktopURLError;
+
+@end
 
 @interface NSDictionary (WMFErrorExtensions)
 

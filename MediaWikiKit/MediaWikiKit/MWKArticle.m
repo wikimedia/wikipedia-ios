@@ -339,7 +339,15 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (BOOL)isCached {
-    return [self.sections count] > 0 ? YES : NO;
+    BOOL hasNilSection = NO;
+    for (MWKSection* section in self.sections) {
+        if (section.text == nil) {
+            hasNilSection = YES;
+            break;
+        }
+    }
+
+    return [self.sections count] == 0 || hasNilSection ? NO : YES;
 }
 
 - (MWKImage*)thumbnail {
