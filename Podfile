@@ -6,9 +6,12 @@ inhibit_all_warnings!
 
 xcodeproj 'Wikipedia'
 
+# HTML
+pod 'DTCoreText', '~> 1.6.16'
+pod 'hpple', '~> 0.2'
+
 # Networking / Parsing
 pod 'AFNetworking/NSURLConnection', '~> 2.5'
-pod 'hpple', '~> 0.2'
 pod 'Mantle'
 
 # Images
@@ -34,4 +37,5 @@ target 'WikipediaUnitTests', :exclusive => false do
   pod 'OCMockito', '~> 1.4'
   pod 'OCHamcrest', '~> 4.1'
   pod 'Nocilla'
+  pod 'FBSnapshotTestCase/Core', '~> 2.0.3'
 end
