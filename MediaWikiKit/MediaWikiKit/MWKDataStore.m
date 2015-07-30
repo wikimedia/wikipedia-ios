@@ -328,9 +328,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     NSError* err;
     NSString* html = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&err];
     if (err) {
-        @throw [NSException exceptionWithName:@"MWKDataStoreException"
-                                       reason:err.description
-                                     userInfo:@{@"filePath": filePath, @"err": err}];
+        return nil;
     }
 
     return html;
