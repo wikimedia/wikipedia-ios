@@ -52,8 +52,6 @@
     MWKTitle* dummyTitle = [site titleWithString:@"Foo"];
     NSURL* url           = [site mobileApiEndpoint];
 
-    MWKArticle* dummyArticle = [self.tempDataStore articleWithTitle:dummyTitle];
-
     NSString* json = [[self wmf_bundle] wmf_stringFromContentsOfFile:@"Obama" ofType:@"json"];
 
     // TODO: refactor into convenience method
@@ -66,25 +64,23 @@
     .withHeaders(@{@"Content-Type": @"application/json"})
     .withBody(json);
 
-    XCTestExpectation* responseExpectation1 = [self expectationWithDescription:@"articleResponse"];
-    XCTestExpectation* responseExpectation2 = [self expectationWithDescription:@"articleResponse"];
+    XCTestExpectation* responseExpectation = [self expectationWithDescription:@"articleResponse"];
 
-    MWKArticle* firstArticle;
+    __block MWKArticle* firstArticle;
     [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^(MWKArticle* article){
         assertThat(article.displaytitle, is(equalTo(@"Barack Obama")));
 
         MWKArticle* savedArticle = [self.tempDataStore articleWithTitle:dummyTitle];
-
         assertThat(article, is(equalTo(savedArticle)));
         assertThat(@([article isDeeplyEqualToArticle:savedArticle]), isTrue());
 
-        [responseExpectation1 fulfill];
+        firstArticle = article;
 
         return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL];
     }).then(^(MWKArticle* article){
-        assertThat(article, isNot(equalTo(firstArticle)));
+        assertThat(article, is(equalTo(firstArticle)));
 
-        [responseExpectation2 fulfill];
+        [responseExpectation fulfill];
     });
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
