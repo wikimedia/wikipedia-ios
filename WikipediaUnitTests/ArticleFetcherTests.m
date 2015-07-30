@@ -79,6 +79,7 @@
         return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL];
     }).then(^(MWKArticle* article){
         assertThat(article, is(equalTo(firstArticle)));
+        assertThat(@([article isDeeplyEqualToArticle:firstArticle]), isTrue());
 
         [responseExpectation fulfill];
     });
