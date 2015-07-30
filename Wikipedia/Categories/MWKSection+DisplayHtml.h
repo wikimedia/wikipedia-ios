@@ -14,4 +14,6 @@
 
 - (NSString*)displayHTML:(NSString*)html;
 
+- (NSInteger)getHeadingTagSize;
+
 @end

@@ -47,6 +47,8 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
 - (NSInteger)getHeadingTagSize {
     // Varies <H#> tag size based on section level.
 
+    return 1;
+
     NSInteger size = self.level.integerValue;
 
     // Don't go smaller than 1 - ie "<H1>"

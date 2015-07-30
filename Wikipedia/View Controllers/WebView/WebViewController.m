@@ -27,6 +27,12 @@
 #import "WMFArticleViewController.h"
 #import "PageHistoryViewController.h"
 
+#import "UIView+WMFSearchSubviews.h"
+#import "MWKSection+TOC.h"
+#import "MWKSection+DisplayHtml.h"
+#import "TitleOverlayModel.h"
+#import "TitleOverlayLabel.h"
+
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
     WMFWebViewAlertZeroCharged,
@@ -51,6 +57,16 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 @property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
 
+
+
+@property (nonatomic, strong) NSMutableArray* nativeTitleLabelModelsArray;
+@property (nonatomic, strong) NSNumber* indexOfNativeTitleLabelNearestTop;
+@property (nonatomic, strong) TitleOverlayLabel* topStaticNativeTitleLabel;
+@property (nonatomic, strong) NSLayoutConstraint* topStaticNativeTitleLabelTopConstraint;
+
+
+
+
 @end
 
 @implementation WebViewController
@@ -61,6 +77,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.session = [SessionSingleton sharedInstance];
+
+        self.nativeTitleLabelModelsArray       = @[].mutableCopy;
+        self.indexOfNativeTitleLabelNearestTop = @0;
     }
     return self;
 }
@@ -185,6 +204,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tocVC updateTocForArticle:[SessionSingleton sharedInstance].currentArticle];
             [weakSelf updateTOCScrollPositionWithoutAnimationIfHidden];
+
+            [weakSelf addNativeSectionTitleOverlayLabels];
         });
     }];
 
@@ -215,6 +236,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
+
+    [self addTopStaticNativeTitleOverlayLabel];
 
     [self fadeAlert];
 
@@ -482,6 +505,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self tocUpdateViewLayout];
     [self.view layoutIfNeeded];
 
+
+    self.topStaticNativeTitleLabel.alpha = 0;
+
+
     [UIView animateWithDuration:duration.floatValue
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
@@ -747,7 +774,13 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         &&
         [keyPath isEqual:@"contentSize"]
         ) {
+        [self updateNativeSectionTitleOverlayLabelsPositions];
         [object preventHorizontalScrolling];
+    }
+
+
+    if ([keyPath isEqualToString:@"indexOfNativeTitleLabelNearestTop"]) {
+        [self updateTopStaticTitleLabelText];
     }
 }
 
@@ -1058,6 +1091,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     // reason, from causing the keyboard to hide when the user is typing on it!
     CGFloat distanceScrolled     = self.scrollViewDragBeganVerticalOffset - scrollView.contentOffset.y;
     CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
+
+    [self determineIndexOfNativeTitleLabelNearestTopForScrollContentOffset:scrollView.contentOffset.y];
+    [self nudgeTopStaticTitleLabelIfNecessaryForScrollContentOffset:scrollView.contentOffset.y];
 
     if (self.keyboardIsVisible && fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
         [self hideKeyboard];
@@ -1453,12 +1489,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     } else {
         CGPoint scrollOffset = CGPointMake(0, 0);
         self.lastScrollOffset = scrollOffset;
-    }
-
-    if (!self.session.currentArticle.isMain) {
-        // Add target div for TOC "read more" entry so it can use existing
-        // TOC scrolling mechanism.
-        [sectionTextArray addObject:@"<div id='section_heading_and_content_block_100000'></div>"];
     }
 
     // Join article sections text
@@ -2015,7 +2045,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma Wikipedia Zero alert dialogs
+#pragma mark Wikipedia Zero alert dialogs
 
 - (void)promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString*)title {
     if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce) {
@@ -2043,6 +2073,158 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                            , nil];
     dialog.tag = WMFWebViewAlertZeroCharged;
     [dialog show];
+}
+
+#pragma mark Native section title label overlays
+
+- (void)addNativeSectionTitleOverlayLabels {
+    for (TitleOverlayModel* m in self.nativeTitleLabelModelsArray) {
+        [m.label removeFromSuperview];
+    }
+    [self.nativeTitleLabelModelsArray removeAllObjects];
+
+    TitleOverlayModel* leadingPlaceholder = [[TitleOverlayModel alloc] init];
+    leadingPlaceholder.yOffset = 0;
+    [self.nativeTitleLabelModelsArray addObject:leadingPlaceholder];
+
+    UIView* browserView = [self.webView.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
+
+    for (MWKSection* section in self.session.currentArticle.sections) {
+        NSString* title = section.line;
+        if (title) {
+            title = [title wmf_stringByRemovingHTML];
+
+            TitleOverlayLabel* label = [[TitleOverlayLabel alloc] init];
+            label.text = title;
+
+            [self.webView.scrollView addSubview:label];
+
+            NSLayoutConstraint* (^ constrainEqually)(NSLayoutAttribute) = ^NSLayoutConstraint*(NSLayoutAttribute attr) {
+                NSLayoutConstraint* c =
+                    [NSLayoutConstraint constraintWithItem:label
+                                                 attribute:attr
+                                                 relatedBy:NSLayoutRelationEqual
+                                                    toItem:browserView
+                                                 attribute:attr
+                                                multiplier:1.0
+                                                  constant:0];
+
+                [self.webView.scrollView addConstraint:c];
+
+                return c;
+            };
+
+            constrainEqually(NSLayoutAttributeTrailing);
+            constrainEqually(NSLayoutAttributeLeading);
+
+            NSLayoutConstraint* topConstraint = constrainEqually(NSLayoutAttributeTop);
+
+            TitleOverlayModel* m = [[TitleOverlayModel alloc] init];
+            m.anchor        = section.anchor.copy;
+            m.title         = title;
+            m.topConstraint = topConstraint;
+            m.yOffset       = topConstraint.constant;
+            m.label         = label;
+            [self.nativeTitleLabelModelsArray addObject:m];
+        }
+    }
+
+    TitleOverlayModel* trailingPlaceholder = [[TitleOverlayModel alloc] init];
+    trailingPlaceholder.yOffset = 100000000;
+    [self.nativeTitleLabelModelsArray addObject:trailingPlaceholder];
+
+    [self updateNativeSectionTitleOverlayLabelsPositions];
+}
+
+- (void)addTopStaticNativeTitleOverlayLabel {
+    self.topStaticNativeTitleLabel       = [[TitleOverlayLabel alloc] init];
+    self.topStaticNativeTitleLabel.alpha = 0;
+    [self.view addSubview:self.topStaticNativeTitleLabel];
+    [self.topStaticNativeTitleLabel mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+    }];
+
+    self.topStaticNativeTitleLabelTopConstraint = [NSLayoutConstraint constraintWithItem:self.topStaticNativeTitleLabel
+                                                                               attribute:NSLayoutAttributeTop
+                                                                               relatedBy:NSLayoutRelationEqual
+                                                                                  toItem:self.topLayoutGuide
+                                                                               attribute:NSLayoutAttributeBottom
+                                                                              multiplier:1.0
+                                                                                constant:0];
+
+    [self.view addConstraint:self.topStaticNativeTitleLabelTopConstraint];
+
+    [self addObserver:self
+           forKeyPath:@"indexOfNativeTitleLabelNearestTop"
+              options:NSKeyValueObservingOptionNew
+              context:nil];
+}
+
+- (void)updateNativeSectionTitleOverlayLabelsPositions {
+    if (self.nativeTitleLabelModelsArray.count > 0) {
+        for (NSUInteger i = 1; i < self.nativeTitleLabelModelsArray.count - 1; i++) {
+            TitleOverlayModel* m = self.nativeTitleLabelModelsArray[i];
+            if (m.anchor && m.topConstraint) {
+                CGRect rect = [self.webView getWebViewRectForHtmlElementWithId:m.anchor];
+                m.topConstraint.constant = rect.origin.y;
+                m.yOffset                = m.topConstraint.constant;
+            }
+        }
+    }
+}
+
+- (void)determineIndexOfNativeTitleLabelNearestTopForScrollContentOffset:(CGFloat)offsetY {
+    if (![self tocDrawerIsOpen]) {
+        NSNumber* lastOffset = @0;
+
+        for (NSUInteger thisIndex = 0; thisIndex < self.nativeTitleLabelModelsArray.count; thisIndex++) {
+            TitleOverlayModel* m = self.nativeTitleLabelModelsArray[thisIndex];
+
+            NSNumber* thisOffset = @(m.yOffset);
+            if (
+                (
+                    offsetY > lastOffset.floatValue
+                    &&
+                    offsetY <= thisOffset.floatValue
+                )
+                ) {
+                thisIndex -= 1;
+                if (![@(thisIndex)isEqualToNumber:self.indexOfNativeTitleLabelNearestTop]) {
+                    self.indexOfNativeTitleLabelNearestTop = @(thisIndex);
+                }
+                break;
+            }
+            lastOffset = thisOffset;
+        }
+    }
+}
+
+- (void)nudgeTopStaticTitleLabelIfNecessaryForScrollContentOffset:(CGFloat)offsetY {
+    if (![self tocDrawerIsOpen]) {
+        CGFloat pushY = 0;
+        if (self.topStaticNativeTitleLabel.alpha != 0) {
+            TitleOverlayModel* pusherTitleLabel = self.nativeTitleLabelModelsArray[self.indexOfNativeTitleLabelNearestTop.integerValue + 1];
+            NSNumber* topmostHeaderOffsetY      = @(pusherTitleLabel.yOffset);
+            CGRect staticLabelPseudoRect        = CGRectMake(0, 0, 1, self.topStaticNativeTitleLabel.frame.size.height);
+            CGRect topmostLabelPseudoRect       = CGRectMake(0, topmostHeaderOffsetY.floatValue - offsetY, 1, 1);
+            if (CGRectIntersectsRect(staticLabelPseudoRect, topmostLabelPseudoRect)) {
+                pushY = staticLabelPseudoRect.size.height - topmostLabelPseudoRect.origin.y;
+            }
+        }
+        self.topStaticNativeTitleLabelTopConstraint.constant = -pushY;
+    }
+}
+
+- (void)updateTopStaticTitleLabelText {
+    if ([self.indexOfNativeTitleLabelNearestTop isEqualToNumber:@0]) {
+        self.topStaticNativeTitleLabel.text  = @"";
+        self.topStaticNativeTitleLabel.alpha = 0;
+    } else {
+        self.topStaticNativeTitleLabel.alpha = 1.0;
+        TitleOverlayModel* m = self.nativeTitleLabelModelsArray[self.indexOfNativeTitleLabelNearestTop.integerValue];
+        self.topStaticNativeTitleLabel.text = m.title;
+    }
 }
 
 @end
