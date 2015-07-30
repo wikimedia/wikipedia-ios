@@ -8,6 +8,7 @@
 
 #import "MWKArticlePreview.h"
 #import "NSDateFormatter+WMFExtensions.h"
+#import "MWKSectionMetaData.h"
 
 @implementation MWKArticlePreview
 
@@ -19,16 +20,8 @@
     }];
 }
 
-+ (NSValueTransformer*)sectionTitlesJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id (NSArray* value, BOOL* success, NSError* __autoreleasing* error) {
-        return [value bk_map:^id (NSDictionary* obj) {
-            NSString* title = obj[@"line"];
-            if (!title) {
-                title = @"Summary";
-            }
-            return title;
-        }];
-    }];
++ (NSValueTransformer*)sectionsJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[MWKSectionMetaData class]];
 }
 
 + (NSValueTransformer*)lastModifiedJSONTransformer {
@@ -42,9 +35,9 @@
                @"numberOfLanguages": @"languagecount",
                @"displayTitle": @"displaytitle",
                @"articleID": @"id",
+               @"sections": @"sections",
                @"wikidataDescription": @"description",
                @"htmlSummary": @"sections",
-               @"sectionTitles": @"sections",
                @"lastModified": @"lastmodified",
                //When MWKUser inherits from MTLModel, we can use it and the dictionaryTransformerWithModelClass API instead
                @"lastModifiedBy": @"lastmodifiedby.name",

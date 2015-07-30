@@ -10,7 +10,8 @@
 @property (nonatomic, copy) NSString* wikidataDescription;
 @property (nonatomic, copy) NSString* htmlSummary;
 
-@property (nonatomic, strong) NSArray* sectionTitles;
+//An array of MWKSectionMetaData
+@property (nonatomic, strong) NSArray* sections;
 
 @property (nonatomic, strong) NSDate* lastModified;
 @property (nonatomic, copy) NSString* lastModifiedBy;
