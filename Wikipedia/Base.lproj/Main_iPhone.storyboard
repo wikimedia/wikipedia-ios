@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1qV-3k-dN1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="1qV-3k-dN1">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="5100" identifier="xcode"/>
@@ -1013,7 +1013,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9e-S5-3FD" userLabel="Empty marker">
-                                        <rect key="frame" x="0.0" y="165" width="320" height="238"/>
+                                        <rect key="frame" x="0.0" y="165.5" width="320" height="237"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SavedPagesEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="Nki-Th-pdU">
                                                 <rect key="frame" x="100" y="0.0" width="120" height="118"/>
@@ -1024,7 +1024,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No saved pages yet." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="240" translatesAutoresizingMaskIntoConstraints="NO" id="W1c-wQ-1pa" userLabel="Big label" customClass="PaddedLabel">
-                                                <rect key="frame" x="40" y="126" width="240" height="21"/>
+                                                <rect key="frame" x="40" y="126" width="240" height="20.5"/>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="240" id="e1Z-4h-8Lb"/>
@@ -1034,7 +1034,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saved pages are pretty awesome. Think of them as bookmarks that you can read even when you are offline." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="240" translatesAutoresizingMaskIntoConstraints="NO" id="GiD-Rj-wb7" userLabel="Little label" customClass="PaddedLabel">
-                                                <rect key="frame" x="40" y="155" width="240" height="51"/>
+                                                <rect key="frame" x="40" y="154.5" width="240" height="50.5"/>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="240" id="aGU-cc-78V"/>
@@ -1465,7 +1465,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yc2-71-IOD" userLabel="Empty marker">
-                                        <rect key="frame" x="0.0" y="200" width="320" height="168"/>
+                                        <rect key="frame" x="0.0" y="200.5" width="320" height="167"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RecentPagesEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="o1U-9i-KeG">
                                                 <rect key="frame" x="100" y="0.0" width="120" height="40"/>
@@ -1476,7 +1476,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No recent pages here." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="240" translatesAutoresizingMaskIntoConstraints="NO" id="aUp-0e-F6i" userLabel="Big label" customClass="PaddedLabel">
-                                                <rect key="frame" x="40" y="56" width="240" height="21"/>
+                                                <rect key="frame" x="40" y="56" width="240" height="20.5"/>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="240" id="gk7-uX-V6e"/>
@@ -1486,7 +1486,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You probably deleted all of them. Next time you go to a page you can get back to it from here." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="240" translatesAutoresizingMaskIntoConstraints="NO" id="huU-kO-aYI" userLabel="Little label" customClass="PaddedLabel">
-                                                <rect key="frame" x="40" y="85" width="240" height="51"/>
+                                                <rect key="frame" x="40" y="84.5" width="240" height="50.5"/>
                                                 <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="240" id="yPh-Mt-b6u"/>
@@ -1886,7 +1886,7 @@
                                             <constraint firstAttribute="width" constant="40" id="eSx-Bm-x3b"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klv-mB-gcz">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klv-mB-gcz" userLabel="Spacer 1">
                                         <rect key="frame" x="55" y="0.0" width="15" height="46"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1899,7 +1899,7 @@
                                             <constraint firstAttribute="width" constant="40" id="0ms-jq-E98"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UF3-bo-mVp">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UF3-bo-mVp" userLabel="Spacer 2">
                                         <rect key="frame" x="120" y="0.0" width="15" height="46"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1909,11 +1909,10 @@
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="OE6-SN-jDs"/>
                                             <constraint firstAttribute="width" constant="40" id="ZeF-iK-ExO"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="agJ-gd-cGC">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="agJ-gd-cGC" userLabel="Spacer 3">
                                         <rect key="frame" x="185" y="0.0" width="15" height="46"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1926,7 +1925,7 @@
                                             <constraint firstAttribute="width" constant="40" id="B4b-uF-os6"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcs-iX-IdH">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcs-iX-IdH" userLabel="Spacer 4">
                                         <rect key="frame" x="250" y="0.0" width="15" height="46"/>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1951,10 +1950,9 @@
                                     <constraint firstAttribute="bottom" secondItem="klv-mB-gcz" secondAttribute="bottom" id="B6F-so-rIi"/>
                                     <constraint firstItem="klv-mB-gcz" firstAttribute="top" secondItem="DsV-9G-XpE" secondAttribute="top" id="BYg-5e-VJt"/>
                                     <constraint firstItem="SIR-FX-olC" firstAttribute="top" secondItem="DsV-9G-XpE" secondAttribute="top" id="Cz3-qw-whZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="pa7-aw-hDf" secondAttribute="trailing" constant="10" id="EIy-k4-Vwd"/>
+                                    <constraint firstAttribute="trailing" secondItem="pa7-aw-hDf" secondAttribute="trailing" priority="750" constant="10" id="EIy-k4-Vwd"/>
                                     <constraint firstAttribute="bottom" secondItem="vRW-Da-kEk" secondAttribute="bottom" id="Jw9-B2-KUX"/>
                                     <constraint firstItem="1LN-g3-9sh" firstAttribute="leading" secondItem="klv-mB-gcz" secondAttribute="trailing" constant="5" id="P3n-8M-PXe"/>
-                                    <constraint firstAttribute="centerX" secondItem="SIR-FX-olC" secondAttribute="centerX" id="QkE-rD-T02"/>
                                     <constraint firstItem="vRW-Da-kEk" firstAttribute="top" secondItem="DsV-9G-XpE" secondAttribute="top" id="Qsf-7W-KXA"/>
                                     <constraint firstItem="UF3-bo-mVp" firstAttribute="width" secondItem="klv-mB-gcz" secondAttribute="width" id="VRe-wV-5l1"/>
                                     <constraint firstItem="Qcs-iX-IdH" firstAttribute="top" secondItem="DsV-9G-XpE" secondAttribute="top" id="YDL-Xn-D4d"/>
@@ -1974,7 +1972,7 @@
                                     <constraint firstItem="agJ-gd-cGC" firstAttribute="top" secondItem="DsV-9G-XpE" secondAttribute="top" id="vsx-3h-Lyy"/>
                                     <constraint firstAttribute="bottom" secondItem="Qcs-iX-IdH" secondAttribute="bottom" id="x2T-Ma-5tI"/>
                                     <constraint firstItem="agJ-gd-cGC" firstAttribute="leading" secondItem="SIR-FX-olC" secondAttribute="trailing" constant="5" id="xlR-KR-OHO"/>
-                                    <constraint firstItem="vRW-Da-kEk" firstAttribute="leading" secondItem="DsV-9G-XpE" secondAttribute="leading" constant="10" id="zG9-VW-v4V"/>
+                                    <constraint firstItem="vRW-Da-kEk" firstAttribute="leading" secondItem="DsV-9G-XpE" secondAttribute="leading" priority="750" constant="10" id="zG9-VW-v4V"/>
                                 </constraints>
                             </view>
                         </subviews>
