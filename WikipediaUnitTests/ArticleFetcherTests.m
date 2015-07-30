@@ -66,75 +66,28 @@
     .withHeaders(@{@"Content-Type": @"application/json"})
     .withBody(json);
 
-    [self expectAnyPromiseToResolve:^{
-        return
-        [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:nil]
-        .then(^(MWKArticle* article) {
-            assertThat(article, is(equalTo(dummyArticle)));
-            assertThat(@([article isDeeplyEqualToArticle:dummyArticle]), isTrue());
-            MWKArticle* articleFromDisk = [self.tempDataStore existingArticleWithTitle:dummyTitle];
-            assertThat(@([articleFromDisk isDeeplyEqualToArticle:dummyArticle]), isTrue());
-        });
-    } timeout:WMFDefaultExpectationTimeout WMFExpectFromHere];
+    XCTestExpectation* responseExpectation1 = [self expectationWithDescription:@"articleResponse"];
+    XCTestExpectation* responseExpectation2 = [self expectationWithDescription:@"articleResponse"];
 
-//    XCTestExpectation* responseExpectation = [self expectationWithDescription:@"articleResponse"];
-//
-//    [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^(MWKArticle* article){
-//
-//        MWKArticle* savedArticle = [self.tempDataStore articleWithTitle:dummyTitle];
+    MWKArticle* firstArticle;
+    [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^(MWKArticle* article){
+        assertThat(article.displaytitle, is(equalTo(@"Barack Obama")));
 
-//        [responseExpectation fulfill];
-//
-//    }).catch(^(NSError* error){
-//
-//
-//
-//    });
+        MWKArticle* savedArticle = [self.tempDataStore articleWithTitle:dummyTitle];
 
-    // this is slow, so needs a longer timeout
-//    [self waitForExpectationsWithTimeout:2.0 handler:nil];
+        assertThat(article, is(equalTo(savedArticle)));
+        assertThat(@([article isDeeplyEqualToArticle:savedArticle]), isTrue());
+
+        [responseExpectation1 fulfill];
+
+        return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL];
+    }).then(^(MWKArticle* article){
+        assertThat(article, isNot(equalTo(firstArticle)));
+
+        [responseExpectation2 fulfill];
+    });
+
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
-
-//- (void)testFetchingArticleIsIdempotent {
-//    MWKTitle* dummyTitle     = [[MWKSite siteWithDomain:@"wikipedia.org" language:@"en"] titleWithString:@"Foo"];
-//    MWKArticle* dummyArticle = [self.tempDataStore articleWithTitle:dummyTitle];
-//
-//    dispatch_block_t fetch = ^{
-//        XCTestExpectation* responseExpectation = [self expectationWithDescription:@"articleResponse"];
-//
-//        AFHTTPRequestOperationManager* manager = mock([AFHTTPRequestOperationManager class]);
-//        MKTArgumentCaptor* successBlockCaptor  = [self mockSuccessfulFetchOfArticle:dummyArticle
-//                                                                        withManager:manager
-//                                                                          withStore:self.tempDataStore];
-//
-//        self.fetchFinished = ^(MWKArticle* article, NSError* err) {
-//            [responseExpectation fulfill];
-//        };
-//
-//        [self invokeCapturedSuccessBlock:successBlockCaptor withDataFromFixture:@"Obama"];
-//
-//        // this is slow, so needs a longer timeout
-//        [self waitForExpectationsWithTimeout:2.0 handler:nil];
-//    };
-//
-//    fetch();
-//
-//    MWKArticle* firstFetchResult = [self.tempDataStore articleWithTitle:dummyTitle];
-//
-//
-//    fetch();
-//
-//    MWKArticle* secondFetchResult = [self.tempDataStore articleWithTitle:dummyTitle];
-//
-//    assertThat(secondFetchResult, is(equalTo(firstFetchResult)));
-//    assertThat(@([secondFetchResult isDeeplyEqualToArticle:firstFetchResult]),
-//               describedAs(@"Expected data store to remain the same after fetching the same article twice: \n"
-//                           "firstResult: %0 \n"
-//                           "secondResult: %1",
-//                           isTrue(),
-//                           [firstFetchResult debugDescription],
-//                           [secondFetchResult debugDescription], nil));
-//}
-
 
 @end
