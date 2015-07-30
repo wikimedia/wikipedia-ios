@@ -127,10 +127,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self headerView] saveButton];
 }
 
-- (UIButton*)readButton {
-    return [[self headerView] readButton];
-}
-
 - (WMFArticlePreviewFetcher*)articlePreviewFetcher {
     if (!_articlePreviewFetcher) {
         _articlePreviewFetcher = [[WMFArticlePreviewFetcher alloc] init];

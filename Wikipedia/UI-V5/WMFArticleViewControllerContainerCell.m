@@ -59,7 +59,7 @@
         make.leading.trailing.top.and.bottom.equalTo(self.contentView);
     }];
 
-    self.touchView.viewsToSendTouches = @[[viewController saveButton], [viewController readButton]];
+    self.touchView.viewsToSendTouches = @[[viewController saveButton]];
 }
 
 @end
