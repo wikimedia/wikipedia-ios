@@ -6,7 +6,6 @@
 @interface MWKList ()
 
 @property (nonatomic, strong) NSMutableArray* mutableEntries;
-@property (nonatomic, strong) NSMutableDictionary* entriesByTitle;
 @property (nonatomic, readwrite, assign) BOOL dirty;
 
 @end
@@ -19,8 +18,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _mutableEntries     = [NSMutableArray array];
-        self.entriesByTitle = [NSMutableDictionary dictionary];
+        _mutableEntries = [NSMutableArray array];
     }
     return self;
 }
@@ -60,15 +58,13 @@
 - (void)addEntry:(id<MWKListObject>)entry {
     NSAssert([entry conformsToProtocol:@protocol(MWKListObject)], @"attempting to add object that does not implement MWKListObject");
     [self.mutableEntries addObject:entry];
-    self.entriesByTitle[[entry listIndex]] = entry;
-    self.dirty                             = YES;
+    self.dirty = YES;
 }
 
 - (void)insertEntry:(id<MWKListObject>)entry atIndex:(NSUInteger)index {
     NSAssert([entry conformsToProtocol:@protocol(MWKListObject)], @"attempting to insert object that does not implement MWKListObject");
     [self.mutableEntries insertObject:entry atIndex:index];
-    self.entriesByTitle[[entry listIndex]] = entry;
-    self.dirty                             = YES;
+    self.dirty = YES;
 }
 
 - (NSUInteger)indexForEntry:(id<MWKListObject>)entry {
@@ -80,7 +76,12 @@
 }
 
 - (id<MWKListObject> __nullable)entryForListIndex:(id <NSCopying>)listIndex {
-    return self.entriesByTitle[listIndex];
+    return [self.entries bk_match:^BOOL (id < MWKListObject > obj) {
+        if ([[obj listIndex] isEqual:listIndex]) {
+            return YES;
+        }
+        return NO;
+    }];
 }
 
 - (BOOL)containsEntryForListIndex:(id <NSCopying>)listIndex {
@@ -98,7 +99,6 @@
 
 - (void)removeEntry:(id<MWKListObject>)entry {
     [self.mutableEntries removeObject:entry];
-    [self.entriesByTitle removeObjectForKey:[entry listIndex]];
     self.dirty = YES;
 }
 
@@ -111,7 +111,6 @@
 
 - (void)removeAllEntries {
     [self.mutableEntries removeAllObjects];
-    [self.entriesByTitle removeAllObjects];
     self.dirty = YES;
 }
 
