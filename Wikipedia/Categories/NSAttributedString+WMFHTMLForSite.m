@@ -14,11 +14,8 @@
 
 + (NSDictionary*)wmf_defaultHTMLOptionsForSite:(MWKSite*)site {
     UIFont* defaultFont                = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    DTCSSStylesheet* defaultStyleSheet = [[DTCSSStylesheet alloc] initWithStyleBlock:@" \
-    img { \
-      display: none \
-    } \
-    "];
+    DTCSSStylesheet* defaultStyleSheet =
+        [[DTCSSStylesheet alloc] initWithStyleBlock:@"img { display: none } "];
     return @{
                NSBaseURLDocumentOption: [site URL],
                DTMaxImageSize: [NSValue valueWithCGSize:CGSizeZero],

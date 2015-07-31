@@ -21,8 +21,6 @@
 
 @interface WMFArticleSummaryVisualTests : FBSnapshotTestCase
 @property (nonatomic, strong) MWKArticle* article;
-@property (nonatomic, strong) MWKDataStore* tempDataStore;
-@property (nonatomic, strong) MWKSavedPageList* tempSavePageList;
 @end
 
 @implementation WMFArticleSummaryVisualTests
@@ -34,11 +32,6 @@
 
 - (void)tearDown {
     [super tearDown];
-    [self.tempDataStore removeFolderAtBasePath];
-}
-
-- (NSString*)wmf_snapshotDescriptionFromMethod:(SEL)method line:(NSUInteger)line {
-    return [NSString stringWithFormat:@"-[%@ %@]:L%lu", [self class], NSStringFromSelector(method), line];
 }
 
 - (void)testExoplanetPortraitIPhone6Width {
@@ -56,7 +49,7 @@
         [MWKTitle titleWithString:@"Title" site:[MWKSite siteWithDomain:@"wikipedia.org" language:@"en"]];
 
     self.article = [[MWKArticle alloc] initWithTitle:title
-                                           dataStore:self.tempDataStore
+                                           dataStore:nil
                                                 dict:mobileViewJSON[@"mobileview"]];
 
     WMFMinimalArticleContentController* minimalContentController = [[WMFMinimalArticleContentController alloc] init];
