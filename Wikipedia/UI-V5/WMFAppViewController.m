@@ -13,7 +13,8 @@
 #import "MediaWikiKit.h"
 
 typedef NS_ENUM (NSUInteger, WMFAppTabType) {
-    WMFAppTabTypeSaved = 0,
+    WMFAppTabTypeNearby = 0,
+    WMFAppTabTypeSaved,
     WMFAppTabTypeRecent
 };
 
@@ -25,8 +26,10 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 @property (nonatomic, strong) IBOutlet UIView* splashView;
 
 @property (nonatomic, strong) UITabBarController* tabBarController;
+
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* recentArticlesViewController;
+
 @property (nonatomic, strong) WMFSearchViewController* searchViewController;
 
 @property (nonatomic, strong) SessionSingleton* session;
@@ -97,6 +100,16 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     //TODO: restore any UI, show Today
 }
 
+#pragma mark - Utilities
+
+- (UINavigationController*)navigationControllerForTab:(WMFAppTabType)tab {
+    return (UINavigationController*)[self.tabBarController viewControllers][tab];
+}
+
+- (UIViewController*)rootViewControllerForTab:(WMFAppTabType)tab {
+    return [[[self navigationControllerForTab:tab] viewControllers] firstObject];
+}
+
 #pragma mark - Accessors
 
 - (SessionSingleton*)session {
@@ -116,11 +129,11 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 }
 
 - (WMFArticleListCollectionViewController*)savedArticlesViewController {
-    return [self.tabBarController viewControllers][WMFAppTabTypeSaved];
+    return (id)[self rootViewControllerForTab:WMFAppTabTypeSaved];
 }
 
 - (WMFArticleListCollectionViewController*)recentArticlesViewController {
-    return [self.tabBarController viewControllers][WMFAppTabTypeRecent];
+    return (id)[self rootViewControllerForTab:WMFAppTabTypeRecent];
 }
 
 #pragma mark - UIViewController
@@ -206,6 +219,10 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
 
     switch (tab) {
+        case WMFAppTabTypeNearby: {
+            //TODO: configure Nearby
+        }
+        break;
         case WMFAppTabTypeSaved: {
             [self configureSavedViewController];
         }
