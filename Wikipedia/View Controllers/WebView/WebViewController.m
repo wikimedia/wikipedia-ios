@@ -270,10 +270,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     [self tocUpdateViewLayout];
 
-    @weakify(self)
-    [self.KVOControllerNonRetaining observe : self.webView.scrollView keyPath : WMF_SAFE_KEYPATH(UIScrollView.new, contentSize) options : NSKeyValueObservingOptionNew block :^(id observer, id object, NSDictionary* change) {
-        @strongify(self)
-        [self updateNativeSectionTitleOverlayLabelsPositions];
+    [self.KVOControllerNonRetaining observe:self.webView.scrollView keyPath:WMF_SAFE_KEYPATH(UIScrollView.new, contentSize) options:NSKeyValueObservingOptionNew block:^(WebViewController* observer, id object, NSDictionary* change) {
+        [observer updateNativeSectionTitleOverlayLabelsPositions];
         // Restrict the web view from scrolling horizonally.
         [object preventHorizontalScrolling];
     }];
