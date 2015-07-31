@@ -14,8 +14,19 @@
         self.numberOfLines                             = 0;
         self.lineBreakMode                             = NSLineBreakByWordWrapping;
         self.backgroundColor                           = [UIColor whiteColor];
+
+        UILongPressGestureRecognizer* longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+        longPressRecognizer.minimumPressDuration = 1.0f;
+        self.userInteractionEnabled              = YES;
+        [self addGestureRecognizer:longPressRecognizer];
     }
     return self;
+}
+
+- (void)handleLongPress:(UILongPressGestureRecognizer*)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"EditSection" object:self userInfo:@{@"sectionId": @(self.sectionId)}];
+    }
 }
 
 @end

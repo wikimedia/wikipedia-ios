@@ -6,4 +6,6 @@
 
 @interface TitleOverlayLabel : PaddedLabel
 
+@property (nonatomic) int sectionId;
+
 @end

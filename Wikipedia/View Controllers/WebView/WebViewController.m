@@ -277,6 +277,27 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         // Restrict the web view from scrolling horizonally.
         [object preventHorizontalScrolling];
     }];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(editSection:)
+                                                 name:@"EditSection"
+                                               object:nil];
+}
+
+- (void)editSection:(NSNotification*)notification {
+    if ([self tocDrawerIsOpen]) {
+        [self tocHide];
+        return;
+    }
+
+    if (self.editable) {
+        self.sectionToEditId = [notification.userInfo[@"sectionId"] integerValue];
+        [self showSectionEditor];
+    } else {
+        ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
+        [funnel logProtectionStatus:[[self.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
+        [self showProtectedDialog];
+    }
 }
 
 - (void)jumpToFragmentIfNecessary {
@@ -813,27 +834,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                     NSURL* url = [NSURL URLWithString:href];
                     [[UIApplication sharedApplication] openURL:url];
                 }
-            }
-        }];
-
-        [_bridge addListener:@"editClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
-            if (!strSelf) {
-                return;
-            }
-
-            if ([strSelf tocDrawerIsOpen]) {
-                [strSelf tocHide];
-                return;
-            }
-
-            if (strSelf.editable) {
-                strSelf.sectionToEditId = [payload[@"sectionId"] integerValue];
-                [strSelf showSectionEditor];
-            } else {
-                ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
-                [funnel logProtectionStatus:[[strSelf.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
-                [strSelf showProtectedDialog];
             }
         }];
 
@@ -2073,7 +2073,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             title = [title wmf_stringByRemovingHTML];
 
             TitleOverlayLabel* label = [[TitleOverlayLabel alloc] init];
-            label.text = title;
+            label.text      = title;
+            label.sectionId = section.sectionId;
 
             [self.webView.scrollView addSubview:label];
 
@@ -2103,6 +2104,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             m.topConstraint = topConstraint;
             m.yOffset       = topConstraint.constant;
             m.label         = label;
+            m.sectionId     = section.sectionId;
             [self.nativeTitleLabelModelsArray addObject:m];
         }
     }
@@ -2182,12 +2184,14 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)updateTopStaticTitleLabelText {
     if (self.indexOfNativeTitleLabelNearestTop == 0) {
-        self.topStaticNativeTitleLabel.text  = @"";
-        self.topStaticNativeTitleLabel.alpha = 0;
+        self.topStaticNativeTitleLabel.text      = @"";
+        self.topStaticNativeTitleLabel.alpha     = 0;
+        self.topStaticNativeTitleLabel.sectionId = 0;
     } else {
         self.topStaticNativeTitleLabel.alpha = 1.0;
         TitleOverlayModel* m = self.nativeTitleLabelModelsArray[self.indexOfNativeTitleLabelNearestTop];
-        self.topStaticNativeTitleLabel.text = m.title;
+        self.topStaticNativeTitleLabel.text      = m.title;
+        self.topStaticNativeTitleLabel.sectionId = m.sectionId;
     }
 }
 
