@@ -58,7 +58,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
 
 @property (nonatomic, strong) NSMutableArray* nativeTitleLabelModelsArray;
-@property (nonatomic, strong) NSNumber* indexOfNativeTitleLabelNearestTop;
+@property (nonatomic) NSUInteger indexOfNativeTitleLabelNearestTop;
 @property (nonatomic, strong) TitleOverlayLabel* topStaticNativeTitleLabel;
 @property (nonatomic, strong) NSLayoutConstraint* topStaticNativeTitleLabelTopConstraint;
 
@@ -74,7 +74,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         self.session = [SessionSingleton sharedInstance];
 
         self.nativeTitleLabelModelsArray       = @[].mutableCopy;
-        self.indexOfNativeTitleLabelNearestTop = @0;
+        self.indexOfNativeTitleLabelNearestTop = 0;
     }
     return self;
 }
@@ -2148,22 +2148,16 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)updateIndexOfNativeTitleLabelNearestTopForScrollContentOffset:(CGFloat)offsetY {
-    NSNumber* lastOffset = @0;
+    CGFloat lastOffset = 0;
 
     for (NSUInteger thisIndex = 0; thisIndex < self.nativeTitleLabelModelsArray.count; thisIndex++) {
         TitleOverlayModel* m = self.nativeTitleLabelModelsArray[thisIndex];
 
-        NSNumber* thisOffset = @(m.yOffset);
-        if (
-            (
-                offsetY > lastOffset.floatValue
-                &&
-                offsetY <= thisOffset.floatValue
-            )
-            ) {
+        CGFloat thisOffset = m.yOffset;
+        if (offsetY > lastOffset && offsetY <= thisOffset) {
             thisIndex -= 1;
-            if (![@(thisIndex)isEqualToNumber:self.indexOfNativeTitleLabelNearestTop]) {
-                self.indexOfNativeTitleLabelNearestTop = @(thisIndex);
+            if (thisIndex != self.indexOfNativeTitleLabelNearestTop) {
+                self.indexOfNativeTitleLabelNearestTop = thisIndex;
                 [self updateTopStaticTitleLabelText];
             }
             break;
@@ -2175,10 +2169,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)nudgeTopStaticTitleLabelIfNecessaryForScrollContentOffset:(CGFloat)offsetY {
     CGFloat pushY = 0;
     if (self.topStaticNativeTitleLabel.alpha != 0) {
-        TitleOverlayModel* pusherTitleLabel = self.nativeTitleLabelModelsArray[self.indexOfNativeTitleLabelNearestTop.integerValue + 1];
-        NSNumber* topmostHeaderOffsetY      = @(pusherTitleLabel.yOffset);
+        TitleOverlayModel* pusherTitleLabel = self.nativeTitleLabelModelsArray[self.indexOfNativeTitleLabelNearestTop + 1];
+        CGFloat topmostHeaderOffsetY        = pusherTitleLabel.yOffset;
         CGRect staticLabelPseudoRect        = CGRectMake(0, 0, 1, self.topStaticNativeTitleLabel.frame.size.height);
-        CGRect topmostLabelPseudoRect       = CGRectMake(0, topmostHeaderOffsetY.floatValue - offsetY, 1, 1);
+        CGRect topmostLabelPseudoRect       = CGRectMake(0, topmostHeaderOffsetY - offsetY, 1, 1);
         if (CGRectIntersectsRect(staticLabelPseudoRect, topmostLabelPseudoRect)) {
             pushY = staticLabelPseudoRect.size.height - topmostLabelPseudoRect.origin.y;
         }
@@ -2187,12 +2181,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)updateTopStaticTitleLabelText {
-    if ([self.indexOfNativeTitleLabelNearestTop isEqualToNumber:@0]) {
+    if (self.indexOfNativeTitleLabelNearestTop == 0) {
         self.topStaticNativeTitleLabel.text  = @"";
         self.topStaticNativeTitleLabel.alpha = 0;
     } else {
         self.topStaticNativeTitleLabel.alpha = 1.0;
-        TitleOverlayModel* m = self.nativeTitleLabelModelsArray[self.indexOfNativeTitleLabelNearestTop.integerValue];
+        TitleOverlayModel* m = self.nativeTitleLabelModelsArray[self.indexOfNativeTitleLabelNearestTop];
         self.topStaticNativeTitleLabel.text = m.title;
     }
 }
