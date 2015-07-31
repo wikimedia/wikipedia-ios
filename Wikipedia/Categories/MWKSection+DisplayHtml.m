@@ -22,16 +22,12 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
 }
 
 - (NSString*)getHeaderTag {
-    if (self.sectionId == 0) {
-        // Lead section.
-        return MWKSectionDisambigAndPageIssuesPlaceholderDiv;
-    } else {
-        return
-            [NSString stringWithFormat:@"<h1 class='section_heading' id='%@'>%@</h1>",
-             self.anchor,
-             self.line
-            ];
-    }
+    return
+        [NSString stringWithFormat:@"<h1 class='section_heading' id='%@'>%@</h1>%@",
+         self.anchor,
+         [self isLeadSection] ? self.title.text : self.line,
+         [self isLeadSection] ? MWKSectionDisambigAndPageIssuesPlaceholderDiv : @""
+        ];
 }
 
 @end
