@@ -15,6 +15,10 @@
 @class MWKArticle;
 @class MWKImageList;
 
+#define MWKSectionHTMLExtractXPath @"/html/body/p[not(.//span[@id='coordinates'])][1]"
+static NSString* const MWKSectionTextExtractXPath = MWKSectionHTMLExtractXPath "//text()";
+
+
 @interface MWKSection : MWKSiteDataObject
 
 @property (readonly, strong, nonatomic) MWKTitle* title;

@@ -102,6 +102,24 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     return [apiEndpointComponents URL];
 }
 
+- (UIUserInterfaceLayoutDirection)layoutDirection {
+    switch (CFLocaleGetLanguageCharacterDirection((__bridge CFStringRef)self.language)) {
+        case kCFLocaleLanguageDirectionRightToLeft:
+            return UIUserInterfaceLayoutDirectionRightToLeft;
+        default:
+            return UIUserInterfaceLayoutDirectionLeftToRight;
+    }
+}
+
+- (NSTextAlignment)textAlignment {
+    switch (self.layoutDirection) {
+        case UIUserInterfaceLayoutDirectionRightToLeft:
+            return NSTextAlignmentRight;
+        case UIUserInterfaceLayoutDirectionLeftToRight:
+            return NSTextAlignmentLeft;
+    }
+}
+
 #pragma mark - NSObject
 
 - (BOOL)isEqual:(id)object {

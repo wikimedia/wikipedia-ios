@@ -23,6 +23,8 @@
 #import "WMFArticleSectionHeaderCell.h"
 #import "WMFArticleExtractCell.h"
 #import "WMFArticleReadMoreCell.h"
+#import "WMFArticleNavigationDelegate.h"
+#import "WMFMinimalArticleContentController.h"
 
 // Categories
 #import "NSString+Extras.h"
@@ -66,6 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) IBOutlet UITapGestureRecognizer* expandGalleryTapRecognizer;
 
 @property (nonatomic, strong) WebViewController* webViewController;
+@property (nonatomic, strong) WMFMinimalArticleContentController* minimalContentController;
 
 @end
 
@@ -83,6 +86,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - Accessors
+
+- (WMFMinimalArticleContentController*)minimalContentController {
+    if (!_minimalContentController) {
+        _minimalContentController = [[WMFMinimalArticleContentController alloc] init];
+//        _minimalContentController.articleNavigationDelegate = self;
+    }
+    return _minimalContentController;
+}
 
 - (void)setHeaderGalleryViewController:(WMFArticleHeaderImageGalleryViewController* __nonnull)galleryViewController {
     _headerGalleryViewController = galleryViewController;
@@ -363,6 +374,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self configureForDynamicCellHeight];
     [self updateUI];
     [self updateUIForMode:self.mode animated:NO];
+
+    [self.tableView registerClass:[DTAttributedTextCell class] forCellReuseIdentifier:[DTAttributedTextCell wmf_nibName]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -400,24 +413,31 @@ NS_ASSUME_NONNULL_BEGIN
     return 0;
 }
 
+- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
+    if (indexPath.section != WMFArticleSectionTypeSummary) {
+        return UITableViewAutomaticDimension;
+    }
+    DTAttributedTextCell* cell = [self summaryCellAtIndexPath:indexPath];
+    return [cell requiredRowHeightInTableView:tableView];
+}
+
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     switch ((WMFArticleSectionType)indexPath.section) {
-        case WMFArticleSectionTypeSummary: return [self textExtractCellAtIndexPath:indexPath];
+        case WMFArticleSectionTypeSummary: return [self summaryCellAtIndexPath:indexPath];
         case WMFArticleSectionTypeTOC: return [self tocSectionCellAtIndexPath:indexPath];
         case WMFArticleSectionTypeReadMore: return [self readMoreCellAtIndexPath:indexPath];
     }
 }
 
-- (WMFArticleExtractCell*)textExtractCellAtIndexPath:(NSIndexPath*)indexPath {
-    WMFArticleExtractCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleExtractCell wmf_nibName]];
-    cell.attributedTextLabel.delegate = self;
-    NSData* extractedHTMLData = [self.article.extractedLeadSectionHTML dataUsingEncoding:NSUTF8StringEncoding];
-    cell.attributedTextLabel.attributedString =
-        [[NSAttributedString alloc] initWithHTMLData:extractedHTMLData
-                                                site:self.article.site];
-    cell.attributedTextLabel.numberOfLines                          = 0;
-    cell.attributedTextLabel.lineBreakMode                          = NSLineBreakByCharWrapping;
-    cell.attributedTextLabel.layoutFrameHeightIsConstrainedByBounds = NO;
+- (DTAttributedTextCell*)summaryCellAtIndexPath:(NSIndexPath*)indexPath {
+    DTAttributedTextCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[DTAttributedTextCell wmf_nibName]];
+    /*
+       HAX: need to call this before due to (potential?) oversight in DTCoreText which doesn't sync this property w/
+          its internal attributedTextContentView
+     */
+    cell.hasFixedRowHeight = NO;
+    [self.minimalContentController configureCell:cell];
+    cell.attributedString = self.article.summaryHTML;
     return cell;
 }
 
@@ -525,18 +545,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)willDismissGalleryController:(WMFImageGalleryViewController* __nonnull)gallery {
     self.headerGalleryViewController.currentPage = gallery.currentPage;
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - DTAttributedContentViewDelegate
-
-- (UIView*)attributedTextContentView:(DTAttributedTextContentView*)attributedTextContentView viewForLink:(NSURL*)url identifier:(NSString*)identifier frame:(CGRect)frame {
-    DTLinkButton* linkButton = [[DTLinkButton alloc] initWithFrame:frame];
-    linkButton.GUID = identifier;
-    linkButton.URL  = url;
-    [linkButton bk_addEventHandler:^(WMFArticleViewController* sender) {
-        DDLogVerbose(@"I tapped a link! %@", url);
-    } forControlEvents:UIControlEventTouchUpInside];
-    return linkButton;
 }
 
 @end

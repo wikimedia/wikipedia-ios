@@ -54,7 +54,10 @@ NS_ASSUME_NONNULL_BEGIN
     return response;
 }
 
-- (void)fetchArticleForPageTitle:(MWKTitle*)pageTitle useDesktopURL:(BOOL)useDeskTopURL progress:(WMFProgressHandler __nullable)progress resolver:(PMKResolver)resolve {
+- (void)fetchArticleForPageTitle:(MWKTitle*)pageTitle
+                   useDesktopURL:(BOOL)useDeskTopURL
+                        progress:(WMFProgressHandler __nullable)progress
+                        resolver:(PMKResolver)resolve {
     if (!pageTitle.text || !pageTitle.site.language) {
         resolve([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
     }
@@ -63,8 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSURL* url = useDeskTopURL ? [pageTitle.site apiEndpoint] : [pageTitle.site mobileApiEndpoint];
 
-    AFHTTPRequestOperation* operation = [self.operationManager GET:url.absoluteString parameters:pageTitle success:^(AFHTTPRequestOperation* operation, id responseObject) {
-        NSDictionary* JSON = responseObject;
+    AFHTTPRequestOperation* operation = [self.operationManager GET:url.absoluteString parameters:pageTitle success:^(AFHTTPRequestOperation* operation, NSDictionary* JSON) {
+        NSParameterAssert([JSON isKindOfClass:[NSDictionary class]]);
         dispatchOnBackgroundQueue(^{
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve([self serializedArticleWithTitle:pageTitle response:JSON]);

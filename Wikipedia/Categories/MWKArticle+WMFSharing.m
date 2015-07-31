@@ -7,11 +7,12 @@
 //
 
 #import "MWKArticle+WMFSharing.h"
+#import "NSString+WMFHTMLParsing.h"
 
 @implementation MWKArticle (WMFSharing)
 
 - (NSString*)shareSnippet {
-    return [self extractedLeadSectionText];
+    return [[self extractedLeadSectionText] wmf_shareSnippetFromText];
 }
 
 @end

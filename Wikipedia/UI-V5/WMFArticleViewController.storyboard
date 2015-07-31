@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Article View Controller-->
@@ -94,31 +93,6 @@
                             </connections>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WMFArticleExtractCell" id="KTp-n8-TCW" customClass="WMFArticleExtractCell">
-                                <rect key="frame" x="0.0" y="0.0" width="576" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KTp-n8-TCW" id="km5-Ln-mtl">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WUd-qK-Ubi" customClass="DTAttributedLabel">
-                                            <rect key="frame" x="8" y="8" width="584" height="27"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </subviews>
-                                    <animations/>
-                                    <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="WUd-qK-Ubi" secondAttribute="bottom" id="EoC-W5-p7T"/>
-                                        <constraint firstItem="WUd-qK-Ubi" firstAttribute="leading" secondItem="km5-Ln-mtl" secondAttribute="leadingMargin" id="YJj-lc-7oz"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="WUd-qK-Ubi" secondAttribute="trailing" id="ewm-Uu-Ks1"/>
-                                        <constraint firstItem="WUd-qK-Ubi" firstAttribute="top" secondItem="km5-Ln-mtl" secondAttribute="topMargin" id="sie-oS-r7V"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <animations/>
-                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <connections>
-                                    <outlet property="attributedTextLabel" destination="WUd-qK-Ubi" id="NbY-kE-pfK"/>
-                                </connections>
-                            </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WMFArticleSectionHeaderCell" id="G26-fs-mMP" userLabel="ArticleSectionHeader" customClass="WMFArticleSectionHeaderCell">
                                 <rect key="frame" x="0.0" y="0.0" width="576" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>

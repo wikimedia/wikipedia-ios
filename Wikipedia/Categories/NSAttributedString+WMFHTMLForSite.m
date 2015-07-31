@@ -19,10 +19,11 @@
                DTMaxImageSize: [NSValue valueWithCGSize:CGSizeZero],
                // prevents things like background colors
                DTIgnoreInlineStylesOption: @YES,
-               DTDefaultTextAlignment: @(NSTextAlignmentNatural),
+               DTDefaultTextAlignment: @(site.textAlignment),
                DTDefaultFontFamily: defaultFont.familyName,
                DTDefaultFontName: defaultFont.fontName,
-               DTDefaultFontSize: @(defaultFont.pointSize)
+               DTDefaultFontSize: @(defaultFont.pointSize),
+               DTDefaultLineHeightMultiplier: @([[NSParagraphStyle defaultParagraphStyle] lineHeightMultiple])
     };
 }
 

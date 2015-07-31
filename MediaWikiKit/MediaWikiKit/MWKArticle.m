@@ -11,6 +11,8 @@
 #import "WikipediaAppUtils.h"
 #import "NSURL+Extras.h"
 #import "NSString+WMFHTMLParsing.h"
+#import "NSAttributedString+WMFHTMLForSite.h"
+#import "MWKSection.h"
 
 typedef NS_ENUM (NSUInteger, MWKArticleSchemaVersion) {
     /**
@@ -21,10 +23,8 @@ typedef NS_ENUM (NSUInteger, MWKArticleSchemaVersion) {
 
 static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticleSchemaVersion_1;
 
-static inline NSString* MWKArticleMainPageXPath(BOOL plainText) {
-    #define MWKArticleMainPageExtractXPath @"/html/body/div/div/p[1]"
-    return plainText ? MWKArticleMainPageExtractXPath "//text()" : MWKArticleMainPageExtractXPath;
-}
+#define MWKArticleMainPageLeadingHTMLXPath @"/html/body/div/div/p[1]"
+static NSString* const MWKArticleMainPageLeadingTextXPath = MWKArticleMainPageLeadingHTMLXPath "//text()";
 
 @interface MWKArticle ()
 
@@ -459,17 +459,78 @@ static inline NSString* MWKArticleMainPageXPath(BOOL plainText) {
 
 #pragma mark - Extraction
 
-- (NSString*)extractedLeadSection:(BOOL)plainText {
+- (NSString*)firstNonEmptySectionTextForXpath:(NSString*)xpath {
+    NSString* results = nil;
     for (MWKSection* section in self.sections) {
-        NSString* snippet =
-            [self isMain] ?
-            [section textForXPath : MWKArticleMainPageXPath(plainText)]
-            : (plainText ? [section extractedText] : [section extractedHTML]);
-        if (snippet.length) {
-            return snippet;
+        results = [section textForXPath:xpath];
+        if (results) {
+            return results;
         }
     }
     return @"";
+}
+
+- (NSAttributedString*)summaryHTML {
+    static NSString* summaryXPath;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSArray* allowedTags = @[
+            @"b",
+            @"i",
+            @"span",
+            @"a",
+            @"sup",
+            @"blockquote",
+            @"br",
+            @"cite",
+            @"em",
+            @"header",
+            @"h1",
+            @"h2",
+            @"h3",
+            @"h4",
+            @"h5",
+            @"h6",
+            @"ul",
+            @"li",
+            @"ol",
+            @"q",
+            @"strike",
+            @"sub",
+            @"u",
+            @"ul"
+        ];
+
+        NSString* tagSelector = [[allowedTags bk_map:^NSString*(NSString* tag) {
+            return [@"self::" stringByAppendingString:tag];
+        }] componentsJoinedByString:@" or "];
+
+        summaryXPath = [NSString stringWithFormat:
+                        // top-level article paragraphs' text and...
+                        @"/html/body/p/text() | "
+                        // children of top-level article paragraphs matching predicate
+                        "/html/body/p/*["
+                        "(%@)" // allowed tags
+                        " and "
+                        "not(descendant::*[contains(@class, 'IPA')])" // tags with "IPA" descendants
+                        "]"
+                        , tagSelector];
+    });
+    NSString* xpathResults = [self firstNonEmptySectionTextForXpath:summaryXPath];
+    NSData* xpathData      = [xpathResults dataUsingEncoding:NSUTF8StringEncoding];
+    return [[NSAttributedString alloc] initWithHTMLData:xpathData site:self.site];
+}
+
+- (NSString*)extractedLeadSection:(BOOL)textOnly {
+    if ([self isMain]) {
+        return [self firstNonEmptySectionTextForXpath:textOnly ?
+                MWKArticleMainPageLeadingTextXPath
+                : MWKArticleMainPageLeadingTextXPath];
+    } else {
+        return [self firstNonEmptySectionTextForXpath:textOnly ?
+                MWKSectionTextExtractXPath
+                : MWKArticleMainPageLeadingTextXPath];
+    }
 }
 
 - (NSString*)extractedLeadSectionText {

@@ -100,6 +100,11 @@ static const NSInteger kMWKArticleSectionNone = -1;
 ///
 
 /**
+ * @return Summary of the receiver as an attributd string built from HTML.
+ */
+- (NSAttributedString*)summaryHTML;
+
+/**
  * Plain text extracted from the receiver's first non-empty section.
  *
  * @return A plain-text string, or `nil` if none of the receiver's sections have been downloaded.

@@ -49,6 +49,10 @@ extern NSString* const WMFDefaultSiteDomain;
 
 - (BOOL)isEqualToSite:(MWKSite* __nullable)other;
 
+- (UIUserInterfaceLayoutDirection)layoutDirection;
+
+- (NSTextAlignment)textAlignment;
+
 ///
 /// @name Title Factory Convenience Methods
 ///
