@@ -3,8 +3,8 @@
 
 #import <Foundation/Foundation.h>
 
-@class TitleOverlayLabel;
-@interface TitleOverlayModel : NSObject
+@class WMFTitleOverlayLabel;
+@interface WMFTitleOverlayModel : NSObject
 
 @property (nonatomic, strong) NSLayoutConstraint* topConstraint;
 @property (nonatomic, strong) NSString* anchor;
@@ -12,6 +12,6 @@
 @property (nonatomic) CGFloat yOffset;
 @property (nonatomic) int sectionId;
 
-@property (nonatomic, strong) TitleOverlayLabel* label;
+@property (nonatomic, strong) WMFTitleOverlayLabel* label;
 
 @end

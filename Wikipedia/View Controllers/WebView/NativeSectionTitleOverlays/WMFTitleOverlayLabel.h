@@ -4,7 +4,7 @@
 #import <UIKit/UIKit.h>
 #import "PaddedLabel.h"
 
-@interface TitleOverlayLabel : PaddedLabel
+@interface WMFTitleOverlayLabel : PaddedLabel
 
 @property (nonatomic) int sectionId;
 
