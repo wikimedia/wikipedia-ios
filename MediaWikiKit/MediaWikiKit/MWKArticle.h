@@ -104,20 +104,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (NSAttributedString*)summaryHTML;
 
-/**
- * Plain text extracted from the receiver's first non-empty section.
- *
- * @return A plain-text string, or `nil` if none of the receiver's sections have been downloaded.
- */
-- (NSString*)extractedLeadSectionText;
-
-/**
- * HTML extracted from the receiver's first non-empty section.
- *
- * @return An HTML string, or `nil` if none of the receiver's sections have been downloaded.
- */
-- (NSString*)extractedLeadSectionHTML;
-
 @end
 
 @interface MWKArticle ()

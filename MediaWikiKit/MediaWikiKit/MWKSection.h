@@ -9,17 +9,16 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
-
+#import "WMFSharing.h"
 #import "MWKSiteDataObject.h"
 
 @class MWKArticle;
 @class MWKImageList;
 
-#define MWKSectionHTMLExtractXPath @"/html/body/p[not(.//span[@id='coordinates'])][1]"
-static NSString* const MWKSectionTextExtractXPath = MWKSectionHTMLExtractXPath "//text()";
-
+extern NSString* const MWKSectionShareSnippetXPath;
 
 @interface MWKSection : MWKSiteDataObject
+    <WMFSharing>
 
 @property (readonly, strong, nonatomic) MWKTitle* title;
 @property (readonly, weak, nonatomic) MWKArticle* article;
@@ -59,6 +58,17 @@ static NSString* const MWKSectionTextExtractXPath = MWKSectionHTMLExtractXPath "
 ///
 
 /**
+ * Query the receiver's `text with the given `xpath`.
+ *
+ * @param xpath The xpath to use when selecting elements.
+ *
+ * @return A string obtained by joining the elements matching `xpath`.
+ *
+ * @see elementsInTextMatchingXPath:
+ */
+- (NSString*)textForXPath:(NSString*)xpath;
+
+/**
  * Query the receiver's `text` with the given `xpath`.
  *
  * @param xpath The XPath to use when selecting HTML (or text) elements.
@@ -66,23 +76,8 @@ static NSString* const MWKSectionTextExtractXPath = MWKSectionHTMLExtractXPath "
  * @warning This might be expensive, but if you want to calculate/cache it off the main thread, create a separate
  *          section object to avoid properties from being get/set from different threads.
  *
- * @return The results of the XPath query, potentially `nil` if there are no results, this section hasn't been
- *         downloaded yet, or an error occurred.
+ * @return An array of `TFHppleElement` objects which match the given XPath query, or `nil` if there were no results.
  */
-- (NSString*)textForXPath:(NSString*)xpath;
-
-/**
- * Plain text extracted from the receiver's HTML (`text`) using a "standard" XPath.
- *
- * @see -[MWKSection textForXPath:]
- */
-- (NSString*)extractedText;
-
-/**
- * HTML extracted from the receiver's HTML (`text`) using a "standard" XPath.
- *
- * @see -[MWKSection textForXPath:]
- */
-- (NSString*)extractedHTML;
+- (NSArray*)elementsInTextMatchingXPath:(NSString*)xpath;
 
 @end

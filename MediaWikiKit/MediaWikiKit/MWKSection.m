@@ -12,6 +12,8 @@
 #import <hpple/TFHpple.h>
 #import "WikipediaAppUtils.h"
 
+NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='coordinates'])][1]//text()";
+
 @interface MWKSection ()
 
 @property (readwrite, strong, nonatomic) MWKTitle* title;
@@ -150,22 +152,25 @@
 
 #pragma mark - Extraction
 
-- (NSString*)extractedHTML {
-    return [self textForXPath:MWKSectionHTMLExtractXPath];
-}
-
-- (NSString*)extractedText {
-    return [self textForXPath:MWKSectionTextExtractXPath];
+- (NSString*)shareSnippet {
+    return [[self textForXPath:MWKSectionShareSnippetXPath] wmf_shareSnippetFromText];
 }
 
 - (NSString*)textForXPath:(NSString*)xpath {
-    NSArray* xpathResults = [[TFHpple
-                              hppleWithHTMLData:[self.text dataUsingEncoding:NSUTF8StringEncoding]]
-                             searchWithXPathQuery:xpath];
+    NSArray* xpathResults = [self elementsInTextMatchingXPath:xpath];
     if (xpathResults.count) {
         return [[xpathResults valueForKey:WMF_SAFE_KEYPATH([TFHppleElement new], raw)] componentsJoinedByString:@""];
     }
     return @"";
+}
+
+- (NSArray*)elementsInTextMatchingXPath:(NSString*)xpath {
+    NSParameterAssert(xpath.length);
+    if (!self.text) {
+        DDLogWarn(@"Trying to query section text before downloaded. Section: %@", self);
+        return nil;
+    }
+    return [[TFHpple hppleWithHTMLData:[self.text dataUsingEncoding:NSUTF8StringEncoding]] searchWithXPathQuery:xpath];
 }
 
 @end

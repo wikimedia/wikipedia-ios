@@ -13,17 +13,25 @@
 @implementation NSAttributedString (WMFHTMLForSite)
 
 + (NSDictionary*)wmf_defaultHTMLOptionsForSite:(MWKSite*)site {
-    UIFont* defaultFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    UIFont* defaultFont                = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    DTCSSStylesheet* defaultStyleSheet = [[DTCSSStylesheet alloc] initWithStyleBlock:@" \
+    img { \
+      display: none \
+    } \
+    "];
     return @{
                NSBaseURLDocumentOption: [site URL],
                DTMaxImageSize: [NSValue valueWithCGSize:CGSizeZero],
-               // prevents things like background colors
-               DTIgnoreInlineStylesOption: @YES,
+               DTIgnoreInlineStylesOption: @YES, // prevents things like background colors
                DTDefaultTextAlignment: @(site.textAlignment),
                DTDefaultFontFamily: defaultFont.familyName,
                DTDefaultFontName: defaultFont.fontName,
                DTDefaultFontSize: @(defaultFont.pointSize),
-               DTDefaultLineHeightMultiplier: @([[NSParagraphStyle defaultParagraphStyle] lineHeightMultiple])
+               DTDefaultLineHeightMultiplier: @([[NSParagraphStyle defaultParagraphStyle] lineHeightMultiple]),
+               DTDefaultLinkDecoration: @NO, // disable decoration for links
+               DTDefaultLinkColor: [UIColor wmf_logoBlue],
+               DTDocumentPreserveTrailingSpaces: @YES,
+               DTDefaultStyleSheet: defaultStyleSheet
     };
 }
 

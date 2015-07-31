@@ -7,6 +7,7 @@
 //
 
 #import "MediaWikiKit.h"
+#import <hpple/TFHpple.h>
 #import <BlocksKit/BlocksKit.h>
 #import "WikipediaAppUtils.h"
 #import "NSURL+Extras.h"
@@ -22,9 +23,6 @@ typedef NS_ENUM (NSUInteger, MWKArticleSchemaVersion) {
 };
 
 static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticleSchemaVersion_1;
-
-#define MWKArticleMainPageLeadingHTMLXPath @"/html/body/div/div/p[1]"
-static NSString* const MWKArticleMainPageLeadingTextXPath = MWKArticleMainPageLeadingHTMLXPath "//text()";
 
 @interface MWKArticle ()
 
@@ -459,17 +457,6 @@ static NSString* const MWKArticleMainPageLeadingTextXPath = MWKArticleMainPageLe
 
 #pragma mark - Extraction
 
-- (NSString*)firstNonEmptySectionTextForXpath:(NSString*)xpath {
-    NSString* results = nil;
-    for (MWKSection* section in self.sections) {
-        results = [section textForXPath:xpath];
-        if (results) {
-            return results;
-        }
-    }
-    return @"";
-}
-
 - (NSAttributedString*)summaryHTML {
     static NSString* summaryXPath;
     static dispatch_once_t onceToken;
@@ -511,34 +498,22 @@ static NSString* const MWKArticleMainPageLeadingTextXPath = MWKArticleMainPageLe
                         // children of top-level article paragraphs matching predicate
                         "/html/body/p/*["
                         "(%@)" // allowed tags
-                        " and "
-                        "not(descendant::*[contains(@class, 'IPA')])" // tags with "IPA" descendants
+//                        " and "
+//                        "not(descendant::*[contains(@class, 'IPA')])" // tags with "IPA" descendants
                         "]"
                         , tagSelector];
     });
-    NSString* xpathResults = [self firstNonEmptySectionTextForXpath:summaryXPath];
-    NSData* xpathData      = [xpathResults dataUsingEncoding:NSUTF8StringEncoding];
-    return [[NSAttributedString alloc] initWithHTMLData:xpathData site:self.site];
-}
-
-- (NSString*)extractedLeadSection:(BOOL)textOnly {
-    if ([self isMain]) {
-        return [self firstNonEmptySectionTextForXpath:textOnly ?
-                MWKArticleMainPageLeadingTextXPath
-                : MWKArticleMainPageLeadingTextXPath];
-    } else {
-        return [self firstNonEmptySectionTextForXpath:textOnly ?
-                MWKSectionTextExtractXPath
-                : MWKArticleMainPageLeadingTextXPath];
+    NSArray* xpathResults;
+    for (MWKSection* section in self.sections) {
+        xpathResults = [section elementsInTextMatchingXPath:summaryXPath];
+        if (xpathResults.count) {
+            break;
+        }
     }
-}
-
-- (NSString*)extractedLeadSectionText {
-    return [self extractedLeadSection:YES];
-}
-
-- (NSString*)extractedLeadSectionHTML {
-    return [self extractedLeadSection:NO];
+    NSData* xpathData = [[[xpathResults valueForKey:WMF_SAFE_KEYPATH(TFHppleElement.new, raw)]
+                          componentsJoinedByString:@"<br/>"]
+                         dataUsingEncoding:NSUTF8StringEncoding];
+    return [[NSAttributedString alloc] initWithHTMLData:xpathData site:self.site];
 }
 
 @end
