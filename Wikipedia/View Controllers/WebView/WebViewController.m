@@ -57,15 +57,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 @property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
 
-
-
 @property (nonatomic, strong) NSMutableArray* nativeTitleLabelModelsArray;
 @property (nonatomic, strong) NSNumber* indexOfNativeTitleLabelNearestTop;
 @property (nonatomic, strong) TitleOverlayLabel* topStaticNativeTitleLabel;
 @property (nonatomic, strong) NSLayoutConstraint* topStaticNativeTitleLabelTopConstraint;
-
-
-
 
 @end
 
@@ -258,12 +253,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     [self tocSetupSwipeGestureRecognizers];
 
-    // Restrict the web view from scrolling horizonally.
-    [self.webView.scrollView addObserver:self
-                              forKeyPath:@"contentSize"
-                                 options:NSKeyValueObservingOptionNew
-                                 context:nil];
-
     // UIWebView has a bug which causes a black bar to appear at
     // bottom of the web view if toc quickly dragged on and offscreen.
     self.webView.opaque = NO;
@@ -280,6 +269,19 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.webView.scrollView.layer.anchorPoint = CGPointMake((isRTL ? 1.0 : 0.0), 0.0);
 
     [self tocUpdateViewLayout];
+
+    @weakify(self)
+    [self.KVOControllerNonRetaining observe : self.webView.scrollView keyPath : WMF_SAFE_KEYPATH(UIScrollView.new, contentSize) options : NSKeyValueObservingOptionNew block :^(id observer, id object, NSDictionary* change) {
+        @strongify(self)
+        [self updateNativeSectionTitleOverlayLabelsPositions];
+        // Restrict the web view from scrolling horizonally.
+        [object preventHorizontalScrolling];
+    }];
+
+    [self.KVOControllerNonRetaining observe:self keyPath:WMF_SAFE_KEYPATH(self, indexOfNativeTitleLabelNearestTop) options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary* change) {
+        @strongify(self)
+        [self updateTopStaticTitleLabelText];
+    }];
 }
 
 - (void)jumpToFragmentIfNecessary {
@@ -761,27 +763,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (BOOL)shouldAutomaticallyForwardRotationMethods {
     return YES;
-}
-
-#pragma mark KVO
-
-- (void)observeValueForKeyPath:(NSString*)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary*)change
-                       context:(void*)context {
-    if (
-        (object == self.webView.scrollView)
-        &&
-        [keyPath isEqual:@"contentSize"]
-        ) {
-        [self updateNativeSectionTitleOverlayLabelsPositions];
-        [object preventHorizontalScrolling];
-    }
-
-
-    if ([keyPath isEqualToString:@"indexOfNativeTitleLabelNearestTop"]) {
-        [self updateTopStaticTitleLabelText];
-    }
 }
 
 #pragma mark Webview obj-c to javascript bridge
@@ -2154,11 +2135,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                                                                                 constant:0];
 
     [self.view addConstraint:self.topStaticNativeTitleLabelTopConstraint];
-
-    [self addObserver:self
-           forKeyPath:@"indexOfNativeTitleLabelNearestTop"
-              options:NSKeyValueObservingOptionNew
-              context:nil];
 }
 
 - (void)updateNativeSectionTitleOverlayLabelsPositions {
