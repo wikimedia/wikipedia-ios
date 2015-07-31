@@ -277,11 +277,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         // Restrict the web view from scrolling horizonally.
         [object preventHorizontalScrolling];
     }];
-
-    [self.KVOControllerNonRetaining observe:self keyPath:WMF_SAFE_KEYPATH(self, indexOfNativeTitleLabelNearestTop) options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary* change) {
-        @strongify(self)
-        [self updateTopStaticTitleLabelText];
-    }];
 }
 
 - (void)jumpToFragmentIfNecessary {
@@ -1073,8 +1068,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     CGFloat distanceScrolled     = self.scrollViewDragBeganVerticalOffset - scrollView.contentOffset.y;
     CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
 
-    [self determineIndexOfNativeTitleLabelNearestTopForScrollContentOffset:scrollView.contentOffset.y];
-    [self nudgeTopStaticTitleLabelIfNecessaryForScrollContentOffset:scrollView.contentOffset.y];
+    if (![self tocDrawerIsOpen]) {
+        [self updateIndexOfNativeTitleLabelNearestTopForScrollContentOffset:scrollView.contentOffset.y];
+        [self nudgeTopStaticTitleLabelIfNecessaryForScrollContentOffset:scrollView.contentOffset.y];
+    }
 
     if (self.keyboardIsVisible && fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
         [self hideKeyboard];
@@ -2150,46 +2147,43 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 }
 
-- (void)determineIndexOfNativeTitleLabelNearestTopForScrollContentOffset:(CGFloat)offsetY {
-    if (![self tocDrawerIsOpen]) {
-        NSNumber* lastOffset = @0;
+- (void)updateIndexOfNativeTitleLabelNearestTopForScrollContentOffset:(CGFloat)offsetY {
+    NSNumber* lastOffset = @0;
 
-        for (NSUInteger thisIndex = 0; thisIndex < self.nativeTitleLabelModelsArray.count; thisIndex++) {
-            TitleOverlayModel* m = self.nativeTitleLabelModelsArray[thisIndex];
+    for (NSUInteger thisIndex = 0; thisIndex < self.nativeTitleLabelModelsArray.count; thisIndex++) {
+        TitleOverlayModel* m = self.nativeTitleLabelModelsArray[thisIndex];
 
-            NSNumber* thisOffset = @(m.yOffset);
-            if (
-                (
-                    offsetY > lastOffset.floatValue
-                    &&
-                    offsetY <= thisOffset.floatValue
-                )
-                ) {
-                thisIndex -= 1;
-                if (![@(thisIndex)isEqualToNumber:self.indexOfNativeTitleLabelNearestTop]) {
-                    self.indexOfNativeTitleLabelNearestTop = @(thisIndex);
-                }
-                break;
+        NSNumber* thisOffset = @(m.yOffset);
+        if (
+            (
+                offsetY > lastOffset.floatValue
+                &&
+                offsetY <= thisOffset.floatValue
+            )
+            ) {
+            thisIndex -= 1;
+            if (![@(thisIndex)isEqualToNumber:self.indexOfNativeTitleLabelNearestTop]) {
+                self.indexOfNativeTitleLabelNearestTop = @(thisIndex);
+                [self updateTopStaticTitleLabelText];
             }
-            lastOffset = thisOffset;
+            break;
         }
+        lastOffset = thisOffset;
     }
 }
 
 - (void)nudgeTopStaticTitleLabelIfNecessaryForScrollContentOffset:(CGFloat)offsetY {
-    if (![self tocDrawerIsOpen]) {
-        CGFloat pushY = 0;
-        if (self.topStaticNativeTitleLabel.alpha != 0) {
-            TitleOverlayModel* pusherTitleLabel = self.nativeTitleLabelModelsArray[self.indexOfNativeTitleLabelNearestTop.integerValue + 1];
-            NSNumber* topmostHeaderOffsetY      = @(pusherTitleLabel.yOffset);
-            CGRect staticLabelPseudoRect        = CGRectMake(0, 0, 1, self.topStaticNativeTitleLabel.frame.size.height);
-            CGRect topmostLabelPseudoRect       = CGRectMake(0, topmostHeaderOffsetY.floatValue - offsetY, 1, 1);
-            if (CGRectIntersectsRect(staticLabelPseudoRect, topmostLabelPseudoRect)) {
-                pushY = staticLabelPseudoRect.size.height - topmostLabelPseudoRect.origin.y;
-            }
+    CGFloat pushY = 0;
+    if (self.topStaticNativeTitleLabel.alpha != 0) {
+        TitleOverlayModel* pusherTitleLabel = self.nativeTitleLabelModelsArray[self.indexOfNativeTitleLabelNearestTop.integerValue + 1];
+        NSNumber* topmostHeaderOffsetY      = @(pusherTitleLabel.yOffset);
+        CGRect staticLabelPseudoRect        = CGRectMake(0, 0, 1, self.topStaticNativeTitleLabel.frame.size.height);
+        CGRect topmostLabelPseudoRect       = CGRectMake(0, topmostHeaderOffsetY.floatValue - offsetY, 1, 1);
+        if (CGRectIntersectsRect(staticLabelPseudoRect, topmostLabelPseudoRect)) {
+            pushY = staticLabelPseudoRect.size.height - topmostLabelPseudoRect.origin.y;
         }
-        self.topStaticNativeTitleLabelTopConstraint.constant = -pushY;
     }
+    self.topStaticNativeTitleLabelTopConstraint.constant = -pushY;
 }
 
 - (void)updateTopStaticTitleLabelText {
