@@ -74,7 +74,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         self.session = [SessionSingleton sharedInstance];
 
         self.nativeTitleLabelModelsArray       = @[].mutableCopy;
-        self.indexOfNativeTitleLabelNearestTop = 0;
+        self.indexOfNativeTitleLabelNearestTop = -1;
     }
     return self;
 }
@@ -2061,14 +2061,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
     [self.nativeTitleLabelModelsArray removeAllObjects];
 
-    TitleOverlayModel* leadingPlaceholder = [[TitleOverlayModel alloc] init];
-    leadingPlaceholder.yOffset = 0;
-    [self.nativeTitleLabelModelsArray addObject:leadingPlaceholder];
-
     UIView* browserView = [self.webView.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
 
     for (MWKSection* section in self.session.currentArticle.sections) {
-        NSString* title = section.line;
+        NSString* title = (section.sectionId == 0) ? section.title.text : section.line;
         if (title) {
             title = [title wmf_stringByRemovingHTML];
 
@@ -2109,10 +2105,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         }
     }
 
-    TitleOverlayModel* trailingPlaceholder = [[TitleOverlayModel alloc] init];
-    trailingPlaceholder.yOffset = 100000000;
-    [self.nativeTitleLabelModelsArray addObject:trailingPlaceholder];
-
     [self updateNativeSectionTitleOverlayLabelsPositions];
 }
 
@@ -2132,13 +2124,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                                                                                attribute:NSLayoutAttributeBottom
                                                                               multiplier:1.0
                                                                                 constant:0];
-
     [self.view addConstraint:self.topStaticNativeTitleLabelTopConstraint];
 }
 
 - (void)updateNativeSectionTitleOverlayLabelsPositions {
     if (self.nativeTitleLabelModelsArray.count > 0) {
-        for (NSUInteger i = 1; i < self.nativeTitleLabelModelsArray.count - 1; i++) {
+        for (NSUInteger i = 0; i < self.nativeTitleLabelModelsArray.count; i++) {
             TitleOverlayModel* m = self.nativeTitleLabelModelsArray[i];
             if (m.anchor && m.topConstraint) {
                 CGRect rect = [self.webView getWebViewRectForHtmlElementWithId:m.anchor];
@@ -2150,49 +2141,54 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)updateIndexOfNativeTitleLabelNearestTopForScrollContentOffset:(CGFloat)offsetY {
-    CGFloat lastOffset = 0;
+    self.topStaticNativeTitleLabel.alpha = (offsetY <= 0) ? 0 : 1;
+
+    CGFloat lastOffset          = 0;
+    NSUInteger newTopLabelIndex = -1;
 
     for (NSUInteger thisIndex = 0; thisIndex < self.nativeTitleLabelModelsArray.count; thisIndex++) {
         TitleOverlayModel* m = self.nativeTitleLabelModelsArray[thisIndex];
-
-        CGFloat thisOffset = m.yOffset;
+        CGFloat thisOffset   = m.yOffset;
         if (offsetY > lastOffset && offsetY <= thisOffset) {
-            thisIndex -= 1;
-            if (thisIndex != self.indexOfNativeTitleLabelNearestTop) {
-                self.indexOfNativeTitleLabelNearestTop = thisIndex;
-                [self updateTopStaticTitleLabelText];
-            }
+            newTopLabelIndex = thisIndex - 1;
+            break;
+        } else if ((thisIndex == (self.nativeTitleLabelModelsArray.count - 1)) && (offsetY > thisOffset)) {
+            newTopLabelIndex = thisIndex;
             break;
         }
         lastOffset = thisOffset;
     }
+
+    if (newTopLabelIndex != -1) {
+        if (newTopLabelIndex != self.indexOfNativeTitleLabelNearestTop) {
+            self.indexOfNativeTitleLabelNearestTop = newTopLabelIndex;
+            [self updateTopStaticTitleLabelText];
+        }
+    }
 }
 
 - (void)nudgeTopStaticTitleLabelIfNecessaryForScrollContentOffset:(CGFloat)offsetY {
-    CGFloat pushY = 0;
-    if (self.topStaticNativeTitleLabel.alpha != 0) {
-        TitleOverlayModel* pusherTitleLabel = self.nativeTitleLabelModelsArray[self.indexOfNativeTitleLabelNearestTop + 1];
-        CGFloat topmostHeaderOffsetY        = pusherTitleLabel.yOffset;
-        CGRect staticLabelPseudoRect        = CGRectMake(0, 0, 1, self.topStaticNativeTitleLabel.frame.size.height);
-        CGRect topmostLabelPseudoRect       = CGRectMake(0, topmostHeaderOffsetY - offsetY, 1, 1);
-        if (CGRectIntersectsRect(staticLabelPseudoRect, topmostLabelPseudoRect)) {
-            pushY = staticLabelPseudoRect.size.height - topmostLabelPseudoRect.origin.y;
+    NSUInteger pusherIndex  = self.indexOfNativeTitleLabelNearestTop + 1;
+    CGFloat distanceToPushY = 0;
+    if (pusherIndex < (self.nativeTitleLabelModelsArray.count)) {
+        TitleOverlayModel* pusherTitleLabel = self.nativeTitleLabelModelsArray[pusherIndex];
+        if (pusherTitleLabel.sectionId > 0) {
+            CGFloat topmostHeaderOffsetY  = pusherTitleLabel.yOffset;
+            CGRect staticLabelPseudoRect  = CGRectMake(0, 0, 1, self.topStaticNativeTitleLabel.frame.size.height);
+            CGRect topmostLabelPseudoRect = CGRectMake(0, topmostHeaderOffsetY - offsetY, 1, 1);
+            if (CGRectIntersectsRect(staticLabelPseudoRect, topmostLabelPseudoRect)) {
+                distanceToPushY = staticLabelPseudoRect.size.height - topmostLabelPseudoRect.origin.y;
+            }
         }
     }
-    self.topStaticNativeTitleLabelTopConstraint.constant = -pushY;
+    self.topStaticNativeTitleLabelTopConstraint.constant = -distanceToPushY;
 }
 
 - (void)updateTopStaticTitleLabelText {
-    if (self.indexOfNativeTitleLabelNearestTop == 0) {
-        self.topStaticNativeTitleLabel.text      = @"";
-        self.topStaticNativeTitleLabel.alpha     = 0;
-        self.topStaticNativeTitleLabel.sectionId = 0;
-    } else {
-        self.topStaticNativeTitleLabel.alpha = 1.0;
-        TitleOverlayModel* m = self.nativeTitleLabelModelsArray[self.indexOfNativeTitleLabelNearestTop];
-        self.topStaticNativeTitleLabel.text      = m.title;
-        self.topStaticNativeTitleLabel.sectionId = m.sectionId;
-    }
+    self.topStaticNativeTitleLabel.alpha = 1.0;
+    TitleOverlayModel* m = self.nativeTitleLabelModelsArray[self.indexOfNativeTitleLabelNearestTop];
+    self.topStaticNativeTitleLabel.text      = m.title;
+    self.topStaticNativeTitleLabel.sectionId = m.sectionId;
 }
 
 @end

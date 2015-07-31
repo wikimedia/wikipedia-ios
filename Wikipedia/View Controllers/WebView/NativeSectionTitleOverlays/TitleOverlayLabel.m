@@ -8,7 +8,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.font                                      = [UIFont fontWithName:@"Times New Roman" size:30];
+        self.font                                      = [UIFont fontWithName:@"Times New Roman" size:29];
         self.padding                                   = UIEdgeInsetsMake(14, 18, 14, 18);
         self.translatesAutoresizingMaskIntoConstraints = NO;
         self.numberOfLines                             = 0;
