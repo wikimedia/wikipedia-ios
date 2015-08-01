@@ -10,7 +10,7 @@
 @property (nonatomic, strong) NSString* anchor;
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic) CGFloat yOffset;
-@property (nonatomic) int sectionId;
+@property (nonatomic) NSNumber* sectionId;
 
 @property (nonatomic, strong) WMFTitleOverlayLabel* label;
 

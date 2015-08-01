@@ -4,14 +4,9 @@
 #import "WMFSectionTitlesViewController.h"
 #import "WMFTitleOverlayLabel.h"
 #import "WMFTitleOverlayModel.h"
-#import "MWKSection.h"
-#import "MWKArticle.h"
-#import "MWKSectionList.h"
-#import "MWKTitle.h"
 #import "NSString+Extras.h"
 #import "UIView+WMFSearchSubviews.h"
 #import <Masonry/Masonry.h>
-#import "UIWebView+ElementLocation.h"
 
 @interface WMFSectionTitlesViewController ()
 
@@ -37,7 +32,7 @@
     self.topStaticNativeTitleLabel.alpha = 0;
 }
 
-- (void)addOverlaysForSections:(MWKSectionList*)sections {
+- (void)addOverlays {
     for (WMFTitleOverlayModel* m in self.models) {
         [m.label removeFromSuperview];
     }
@@ -47,14 +42,18 @@
 
     UIView* browserView = [self.webView.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
 
-    for (MWKSection* section in sections) {
-        NSString* title = (section.sectionId == 0) ? section.title.text : section.line;
+    NSArray* sections = [self getSectionTitlesJSON];
+
+    for (NSDictionary* section in sections) {
+        NSNumber* sectionId = section[@"sectionId"];
+
+        NSString* title = section[@"text"];
         if (title) {
             title = [title wmf_stringByRemovingHTML];
 
             WMFTitleOverlayLabel* label = [[WMFTitleOverlayLabel alloc] init];
             label.text      = title;
-            label.sectionId = section.sectionId;
+            label.sectionId = sectionId;
 
             [self.webView.scrollView addSubview:label];
 
@@ -79,12 +78,12 @@
             NSLayoutConstraint* topConstraint = constrainEqually(NSLayoutAttributeTop);
 
             WMFTitleOverlayModel* m = [[WMFTitleOverlayModel alloc] init];
-            m.anchor        = section.anchor.copy;
+            m.anchor        = section[@"anchor"];
             m.title         = title;
             m.topConstraint = topConstraint;
             m.yOffset       = topConstraint.constant;
             m.label         = label;
-            m.sectionId     = section.sectionId;
+            m.sectionId     = sectionId;
             [self.models addObject:m];
         }
     }
@@ -104,24 +103,27 @@
         make.right.equalTo(self.webViewController.view.mas_right);
     }];
 
-    self.topStaticNativeTitleLabelTopConstraint = [NSLayoutConstraint constraintWithItem:self.topStaticNativeTitleLabel
-                                                                               attribute:NSLayoutAttributeTop
-                                                                               relatedBy:NSLayoutRelationEqual
-                                                                                  toItem:self.webViewController.topLayoutGuide
-                                                                               attribute:NSLayoutAttributeBottom
-                                                                              multiplier:1.0
-                                                                                constant:0];
+    self.topStaticNativeTitleLabelTopConstraint =
+        [NSLayoutConstraint constraintWithItem:self.topStaticNativeTitleLabel
+                                     attribute:NSLayoutAttributeTop
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:self.webViewController.topLayoutGuide
+                                     attribute:NSLayoutAttributeBottom
+                                    multiplier:1.0
+                                      constant:0];
     [self.webViewController.view addConstraint:self.topStaticNativeTitleLabelTopConstraint];
 }
 
 - (void)updateOverlaysPositions {
-    if (self.models.count > 0) {
+    NSArray* headingsTopOffsets = [self getSectionTitlesLocationsJSON];
+    if (headingsTopOffsets.count == self.models.count) {
         for (NSUInteger i = 0; i < self.models.count; i++) {
             WMFTitleOverlayModel* m = self.models[i];
             if (m.anchor && m.topConstraint) {
-                CGRect rect = [self.webView getWebViewRectForHtmlElementWithId:m.anchor];
-                m.topConstraint.constant = rect.origin.y;
-                m.yOffset                = m.topConstraint.constant;
+                NSNumber* topOffset = headingsTopOffsets[i];
+                CGFloat topFloat    = topOffset.floatValue + self.webView.scrollView.contentOffset.y;
+                m.topConstraint.constant = topFloat;
+                m.yOffset                = topFloat;
             }
         }
     }
@@ -181,6 +183,49 @@
     WMFTitleOverlayModel* m = self.models[self.indexOfNativeTitleLabelNearestTop];
     self.topStaticNativeTitleLabel.text      = m.title;
     self.topStaticNativeTitleLabel.sectionId = m.sectionId;
+}
+
+#pragma mark Section title and title location determination
+
+- (id)getJSONFromWebViewUsingFunction:(NSString*)jsFunctionString {
+    NSString* jsonString = [self.webView stringByEvaluatingJavaScriptFromString:jsFunctionString];
+    NSData* jsonData     = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError* error       = nil;
+    id result            = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+    return (error) ? nil : result;
+}
+
+static NSString* const WMFJSGetSectionTitlesJSON =
+    @"(function(){"
+    @"  var nodeList = document.querySelectorAll('h1.section_heading');"
+    @"  var nodeArray = Array.prototype.slice.call(nodeList);"
+    @"  nodeArray = nodeArray.map(function(n){"
+    @"    var rect = n.getBoundingClientRect();"
+    @"    return {"
+    @"        anchor:n.id,"
+    @"        sectionId:n.getAttribute('sectionId'),"
+    @"        text:n.innerHTML"
+    @"    };"
+    @"  });"
+    @"  return JSON.stringify(nodeArray);"
+    @"})();";
+
+- (NSArray*)getSectionTitlesJSON {
+    return [self getJSONFromWebViewUsingFunction:WMFJSGetSectionTitlesJSON];
+}
+
+static NSString* const WMFJSGetSectionTitlesLocationsJSON =
+    @"(function(){"
+    @"  var nodeList = document.querySelectorAll('h1.section_heading');"
+    @"  var nodeArray = Array.prototype.slice.call(nodeList);"
+    @"  nodeArray = nodeArray.map(function(n){"
+    @"    return n.getBoundingClientRect().top;"
+    @"  });"
+    @"  return JSON.stringify(nodeArray);"
+    @"})();";
+
+- (NSArray*)getSectionTitlesLocationsJSON {
+    return [self getJSONFromWebViewUsingFunction:WMFJSGetSectionTitlesLocationsJSON];
 }
 
 @end

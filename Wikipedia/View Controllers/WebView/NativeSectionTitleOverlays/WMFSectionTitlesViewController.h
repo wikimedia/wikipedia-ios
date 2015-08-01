@@ -3,14 +3,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class MWKSectionList;
-
 @interface WMFSectionTitlesViewController : NSObject
 
 @property (nonatomic, strong) UIWebView* webView;
 @property (nonatomic, strong) UIViewController* webViewController;
 
-- (void)addOverlaysForSections:(MWKSectionList*)sections;
+- (void)addOverlays;
 - (void)updateOverlaysPositions;
 - (void)updateTopOverlayForScrollOffsetY:(CGFloat)offsetY;
 - (void)hideTopOverlay;

@@ -23,8 +23,9 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
 
 - (NSString*)getHeaderTag {
     return
-        [NSString stringWithFormat:@"<h1 class='section_heading' id='%@'>%@</h1>%@",
+        [NSString stringWithFormat:@"<h1 class='section_heading' id='%@' sectionId='%d'>%@</h1>%@",
          self.anchor,
+         self.sectionId,
          [self isLeadSection] ? self.title.text : self.line,
          [self isLeadSection] ? MWKSectionDisambigAndPageIssuesPlaceholderDiv : @""
         ];

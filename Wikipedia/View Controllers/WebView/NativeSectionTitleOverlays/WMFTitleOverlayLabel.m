@@ -25,7 +25,7 @@
 
 - (void)handleLongPress:(UILongPressGestureRecognizer*)recognizer {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"EditSection" object:self userInfo:@{@"sectionId": @(self.sectionId)}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"EditSection" object:self userInfo:@{@"sectionId": self.sectionId}];
     }
 }
 

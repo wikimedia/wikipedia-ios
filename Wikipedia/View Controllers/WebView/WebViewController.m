@@ -194,7 +194,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tocVC updateTocForArticle:[SessionSingleton sharedInstance].currentArticle];
             [weakSelf updateTOCScrollPositionWithoutAnimationIfHidden];
-            [weakSelf.sectionTitlesViewController addOverlaysForSections:[SessionSingleton sharedInstance].currentArticle.sections];
+            [weakSelf.sectionTitlesViewController addOverlays];
         });
     }];
 

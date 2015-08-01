@@ -6,6 +6,6 @@
 
 @interface WMFTitleOverlayLabel : PaddedLabel
 
-@property (nonatomic) int sectionId;
+@property (nonatomic) NSNumber* sectionId;
 
 @end
