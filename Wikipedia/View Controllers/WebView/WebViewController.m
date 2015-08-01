@@ -263,7 +263,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self tocUpdateViewLayout];
 
     [self.KVOControllerNonRetaining observe:self.webView.scrollView keyPath:WMF_SAFE_KEYPATH(UIScrollView.new, contentSize) options:NSKeyValueObservingOptionNew block:^(WebViewController* observer, id object, NSDictionary* change) {
-        [self.sectionTitlesViewController updateOverlayPositions];
+        [self.sectionTitlesViewController updateOverlaysPositions];
         // Restrict the web view from scrolling horizonally.
         [object preventHorizontalScrolling];
     }];
@@ -1059,7 +1059,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
 
     if (![self tocDrawerIsOpen]) {
-        [self.sectionTitlesViewController didScrollToOffsetY:scrollView.contentOffset.y];
+        [self.sectionTitlesViewController updateTopOverlayForScrollOffsetY:scrollView.contentOffset.y];
     }
 
     if (self.keyboardIsVisible && fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {

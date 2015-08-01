@@ -11,8 +11,8 @@
 @property (nonatomic, strong) UIViewController* webViewController;
 
 - (void)addOverlaysForSections:(MWKSectionList*)sections;
-- (void)updateOverlayPositions;
-- (void)didScrollToOffsetY:(CGFloat)offsetY;
+- (void)updateOverlaysPositions;
+- (void)updateTopOverlayForScrollOffsetY:(CGFloat)offsetY;
 - (void)hideTopOverlay;
 
 @end

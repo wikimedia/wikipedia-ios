@@ -89,7 +89,7 @@
         }
     }
 
-    [self updateOverlayPositions];
+    [self updateOverlaysPositions];
 }
 
 - (void)setupTopStaticNativeTitleOverlayLabel {
@@ -114,7 +114,7 @@
     [self.webViewController.view addConstraint:self.topStaticNativeTitleLabelTopConstraint];
 }
 
-- (void)updateOverlayPositions {
+- (void)updateOverlaysPositions {
     if (self.models.count > 0) {
         for (NSUInteger i = 0; i < self.models.count; i++) {
             WMFTitleOverlayModel* m = self.models[i];
@@ -127,7 +127,7 @@
     }
 }
 
-- (void)didScrollToOffsetY:(CGFloat)offsetY {
+- (void)updateTopOverlayForScrollOffsetY:(CGFloat)offsetY {
     [self updateIndexOfNativeTitleLabelNearestTopForScrollOffsetY:offsetY];
     [self nudgeTopStaticTitleLabelIfNecessaryForScrollOffsetY:offsetY];
 }
