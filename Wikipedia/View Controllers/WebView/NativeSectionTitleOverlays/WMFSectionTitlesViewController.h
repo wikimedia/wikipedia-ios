@@ -3,7 +3,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class MWKSectionList, WMFTitleOverlayLabel;
+@class MWKSectionList;
 
 @interface WMFSectionTitlesViewController : NSObject
 

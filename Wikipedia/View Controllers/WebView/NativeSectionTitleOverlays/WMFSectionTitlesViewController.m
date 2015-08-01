@@ -15,7 +15,7 @@
 
 @interface WMFSectionTitlesViewController ()
 
-@property (nonatomic, strong) NSMutableArray* nativeTitleLabelModelsArray;
+@property (nonatomic, strong) NSMutableArray* models;
 @property (nonatomic) NSUInteger indexOfNativeTitleLabelNearestTop;
 @property (nonatomic, strong) NSLayoutConstraint* topStaticNativeTitleLabelTopConstraint;
 @property (nonatomic, strong) WMFTitleOverlayLabel* topStaticNativeTitleLabel;
@@ -27,7 +27,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.nativeTitleLabelModelsArray       = @[].mutableCopy;
+        self.models                            = @[].mutableCopy;
         self.indexOfNativeTitleLabelNearestTop = -1;
     }
     return self;
@@ -38,10 +38,10 @@
 }
 
 - (void)addOverlaysForSections:(MWKSectionList*)sections {
-    for (WMFTitleOverlayModel* m in self.nativeTitleLabelModelsArray) {
+    for (WMFTitleOverlayModel* m in self.models) {
         [m.label removeFromSuperview];
     }
-    [self.nativeTitleLabelModelsArray removeAllObjects];
+    [self.models removeAllObjects];
 
     [self setupTopStaticNativeTitleOverlayLabel];
 
@@ -85,7 +85,7 @@
             m.yOffset       = topConstraint.constant;
             m.label         = label;
             m.sectionId     = section.sectionId;
-            [self.nativeTitleLabelModelsArray addObject:m];
+            [self.models addObject:m];
         }
     }
 
@@ -115,9 +115,9 @@
 }
 
 - (void)updateOverlayPositions {
-    if (self.nativeTitleLabelModelsArray.count > 0) {
-        for (NSUInteger i = 0; i < self.nativeTitleLabelModelsArray.count; i++) {
-            WMFTitleOverlayModel* m = self.nativeTitleLabelModelsArray[i];
+    if (self.models.count > 0) {
+        for (NSUInteger i = 0; i < self.models.count; i++) {
+            WMFTitleOverlayModel* m = self.models[i];
             if (m.anchor && m.topConstraint) {
                 CGRect rect = [self.webView getWebViewRectForHtmlElementWithId:m.anchor];
                 m.topConstraint.constant = rect.origin.y;
@@ -138,13 +138,13 @@
     CGFloat lastOffset          = 0;
     NSUInteger newTopLabelIndex = -1;
 
-    for (NSUInteger thisIndex = 0; thisIndex < self.nativeTitleLabelModelsArray.count; thisIndex++) {
-        WMFTitleOverlayModel* m = self.nativeTitleLabelModelsArray[thisIndex];
+    for (NSUInteger thisIndex = 0; thisIndex < self.models.count; thisIndex++) {
+        WMFTitleOverlayModel* m = self.models[thisIndex];
         CGFloat thisOffset      = m.yOffset;
         if (offsetY > lastOffset && offsetY <= thisOffset) {
             newTopLabelIndex = thisIndex - 1;
             break;
-        } else if ((thisIndex == (self.nativeTitleLabelModelsArray.count - 1)) && (offsetY > thisOffset)) {
+        } else if ((thisIndex == (self.models.count - 1)) && (offsetY > thisOffset)) {
             newTopLabelIndex = thisIndex;
             break;
         }
@@ -162,8 +162,8 @@
 - (void)nudgeTopStaticTitleLabelIfNecessaryForScrollContentOffset:(CGFloat)offsetY {
     NSUInteger pusherIndex  = self.indexOfNativeTitleLabelNearestTop + 1;
     CGFloat distanceToPushY = 0;
-    if (pusherIndex < (self.nativeTitleLabelModelsArray.count)) {
-        WMFTitleOverlayModel* pusherTitleLabel = self.nativeTitleLabelModelsArray[pusherIndex];
+    if (pusherIndex < (self.models.count)) {
+        WMFTitleOverlayModel* pusherTitleLabel = self.models[pusherIndex];
         if (pusherTitleLabel.sectionId > 0) {
             CGFloat topmostHeaderOffsetY  = pusherTitleLabel.yOffset;
             CGRect staticLabelPseudoRect  = CGRectMake(0, 0, 1, self.topStaticNativeTitleLabel.frame.size.height);
@@ -178,7 +178,7 @@
 
 - (void)updateTopStaticTitleLabelText {
     self.topStaticNativeTitleLabel.alpha = 1.0;
-    WMFTitleOverlayModel* m = self.nativeTitleLabelModelsArray[self.indexOfNativeTitleLabelNearestTop];
+    WMFTitleOverlayModel* m = self.models[self.indexOfNativeTitleLabelNearestTop];
     self.topStaticNativeTitleLabel.text      = m.title;
     self.topStaticNativeTitleLabel.sectionId = m.sectionId;
 }
