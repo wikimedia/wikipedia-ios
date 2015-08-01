@@ -158,9 +158,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.sectionTitlesViewController         = [[WMFSectionTitlesViewController alloc] init];
-    self.sectionTitlesViewController.vc      = self;
-    self.sectionTitlesViewController.webView = self.webView;
+    self.sectionTitlesViewController                   = [[WMFSectionTitlesViewController alloc] init];
+    self.sectionTitlesViewController.webViewController = self;
+    self.sectionTitlesViewController.webView           = self.webView;
 
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
     [self.navigationController.toolbar wmf_mirrorIfDeviceRTL];

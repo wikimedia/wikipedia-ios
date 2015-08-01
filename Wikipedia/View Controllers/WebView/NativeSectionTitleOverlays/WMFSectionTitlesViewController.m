@@ -98,20 +98,20 @@
     }
     self.topStaticNativeTitleLabel       = [[WMFTitleOverlayLabel alloc] init];
     self.topStaticNativeTitleLabel.alpha = 0;
-    [self.vc.view addSubview:self.topStaticNativeTitleLabel];
+    [self.webViewController.view addSubview:self.topStaticNativeTitleLabel];
     [self.topStaticNativeTitleLabel mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.left.equalTo(self.vc.view.mas_left);
-        make.right.equalTo(self.vc.view.mas_right);
+        make.left.equalTo(self.webViewController.view.mas_left);
+        make.right.equalTo(self.webViewController.view.mas_right);
     }];
 
     self.topStaticNativeTitleLabelTopConstraint = [NSLayoutConstraint constraintWithItem:self.topStaticNativeTitleLabel
                                                                                attribute:NSLayoutAttributeTop
                                                                                relatedBy:NSLayoutRelationEqual
-                                                                                  toItem:self.vc.topLayoutGuide
+                                                                                  toItem:self.webViewController.topLayoutGuide
                                                                                attribute:NSLayoutAttributeBottom
                                                                               multiplier:1.0
                                                                                 constant:0];
-    [self.vc.view addConstraint:self.topStaticNativeTitleLabelTopConstraint];
+    [self.webViewController.view addConstraint:self.topStaticNativeTitleLabelTopConstraint];
 }
 
 - (void)updateOverlayPositions {
@@ -128,11 +128,11 @@
 }
 
 - (void)didScrollToOffsetY:(CGFloat)offsetY {
-    [self updateIndexOfNativeTitleLabelNearestTopForScrollContentOffset:offsetY];
-    [self nudgeTopStaticTitleLabelIfNecessaryForScrollContentOffset:offsetY];
+    [self updateIndexOfNativeTitleLabelNearestTopForScrollOffsetY:offsetY];
+    [self nudgeTopStaticTitleLabelIfNecessaryForScrollOffsetY:offsetY];
 }
 
-- (void)updateIndexOfNativeTitleLabelNearestTopForScrollContentOffset:(CGFloat)offsetY {
+- (void)updateIndexOfNativeTitleLabelNearestTopForScrollOffsetY:(CGFloat)offsetY {
     self.topStaticNativeTitleLabel.alpha = (offsetY <= 0) ? 0 : 1;
 
     CGFloat lastOffset          = 0;
@@ -159,7 +159,7 @@
     }
 }
 
-- (void)nudgeTopStaticTitleLabelIfNecessaryForScrollContentOffset:(CGFloat)offsetY {
+- (void)nudgeTopStaticTitleLabelIfNecessaryForScrollOffsetY:(CGFloat)offsetY {
     NSUInteger pusherIndex  = self.indexOfNativeTitleLabelNearestTop + 1;
     CGFloat distanceToPushY = 0;
     if (pusherIndex < (self.models.count)) {
