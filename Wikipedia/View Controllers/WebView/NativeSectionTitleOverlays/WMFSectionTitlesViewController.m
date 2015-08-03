@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) NSMutableArray* models;
 @property (nonatomic) NSUInteger indexOfNativeTitleLabelNearestTop;
-@property (nonatomic, strong) NSLayoutConstraint* topStaticNativeTitleLabelTopConstraint;
+@property (nonatomic, strong) MASConstraint* topStaticNativeTitleLabelTopConstraint;
 @property (nonatomic, strong) WMFTitleOverlayLabel* topStaticNativeTitleLabel;
 
 @property (nonatomic, strong) UIWebView* webView;
@@ -106,17 +106,8 @@
     [self.topStaticNativeTitleLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.left.equalTo(self.webViewController.view.mas_left);
         make.right.equalTo(self.webViewController.view.mas_right);
+        self.topStaticNativeTitleLabelTopConstraint = make.top.equalTo(self.webViewController.mas_topLayoutGuide);
     }];
-
-    self.topStaticNativeTitleLabelTopConstraint =
-        [NSLayoutConstraint constraintWithItem:self.topStaticNativeTitleLabel
-                                     attribute:NSLayoutAttributeTop
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:self.webViewController.topLayoutGuide
-                                     attribute:NSLayoutAttributeBottom
-                                    multiplier:1.0
-                                      constant:0];
-    [self.webViewController.view addConstraint:self.topStaticNativeTitleLabelTopConstraint];
 }
 
 - (void)updateOverlaysPositions {
@@ -180,7 +171,7 @@
             }
         }
     }
-    self.topStaticNativeTitleLabelTopConstraint.constant = -distanceToPushY;
+    [self.topStaticNativeTitleLabelTopConstraint setOffset:-distanceToPushY];
 }
 
 - (void)updateTopStaticTitleLabelText {
