@@ -2010,7 +2010,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark Wikipedia Zero alert dialogs
+#pragma mark - Wikipedia Zero alert dialogs
 
 - (void)promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString*)title {
     if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce) {
