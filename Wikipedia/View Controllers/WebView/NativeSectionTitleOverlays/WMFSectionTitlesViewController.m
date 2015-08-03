@@ -13,8 +13,8 @@
 @property (nonatomic, strong) NSMutableArray* overlayModels;
 @property (nonatomic, strong) MASConstraint* topStaticOverlayTopConstraint;
 @property (nonatomic, strong) WMFTitleOverlayLabel* topStaticOverlay;
-@property (nonatomic, strong) UIWebView* webView;
-@property (nonatomic, strong) UIViewController* webViewController;
+@property (nonatomic, weak) UIWebView* webView;
+@property (nonatomic, weak) UIViewController* webViewController;
 
 @end
 
@@ -26,6 +26,12 @@
         self.overlayModels     = @[].mutableCopy;
         self.webView           = webView;
         self.webViewController = webViewController;
+        [self.KVOControllerNonRetaining observe:self.webView.scrollView
+                                        keyPath:WMF_SAFE_KEYPATH(UIScrollView.new, contentSize)
+                                        options:NSKeyValueObservingOptionNew
+                                          block:^(WMFSectionTitlesViewController* observer, id object, NSDictionary* change) {
+            [self updateOverlaysPositions];
+        }];
     }
     return self;
 }
