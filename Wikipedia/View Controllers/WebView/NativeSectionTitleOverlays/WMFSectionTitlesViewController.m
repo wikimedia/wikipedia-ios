@@ -37,7 +37,7 @@
     self.topStaticNativeTitleLabel.alpha = 0;
 }
 
-- (void)addOverlays {
+- (void)resetOverlays {
     for (WMFTitleOverlayModel* m in self.overlayModels) {
         [m.label removeFromSuperview];
     }

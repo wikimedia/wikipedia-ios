@@ -7,7 +7,7 @@
 
 - (instancetype)initWithWebView:(UIWebView*)webView webViewController:(UIViewController*)webViewController;
 
-- (void)addOverlays;
+- (void)resetOverlays;
 - (void)updateOverlaysPositions;
 - (void)updateTopOverlayForScrollOffsetY:(CGFloat)offsetY;
 - (void)hideTopOverlay;
