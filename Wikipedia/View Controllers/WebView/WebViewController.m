@@ -177,8 +177,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     self.referencesVC = nil;
 
-    self.sectionToEditId = @0;
-
     __weak WebViewController* weakSelf = self;
     [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
         [weakSelf jumpToFragmentIfNecessary];
@@ -282,8 +280,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     if (self.editable) {
         WMFTitleOverlayLabel* sender = notification.object;
-        self.sectionToEditId = [sender sectionId];
-        [self showSectionEditor];
+        [self showSectionEditorForSection:[sender sectionId]];
     } else {
         ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
         [funnel logProtectionStatus:[[self.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
@@ -408,9 +405,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 #pragma mark Edit section
 
-- (void)showSectionEditor {
+- (void)showSectionEditorForSection:(NSNumber*)sectionID {
     SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
-    sectionEditVC.section = self.session.currentArticle.sections[[self.sectionToEditId integerValue]];
+    sectionEditVC.section = self.session.currentArticle.sections[[sectionID integerValue]];
     [self.navigationController pushViewController:sectionEditVC animated:YES];
 }
 
