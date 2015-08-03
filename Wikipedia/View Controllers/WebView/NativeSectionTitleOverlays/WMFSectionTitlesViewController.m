@@ -10,7 +10,7 @@
 
 @interface WMFSectionTitlesViewController ()
 
-@property (nonatomic, strong) NSMutableArray* models;
+@property (nonatomic, strong) NSMutableArray* overlayModels;
 @property (nonatomic) NSUInteger indexOfNativeTitleLabelNearestTop;
 @property (nonatomic, strong) MASConstraint* topStaticNativeTitleLabelTopConstraint;
 @property (nonatomic, strong) WMFTitleOverlayLabel* topStaticNativeTitleLabel;
@@ -25,7 +25,7 @@
 - (instancetype)initWithWebView:(UIWebView*)webView webViewController:(UIViewController*)webViewController {
     self = [super init];
     if (self) {
-        self.models                            = @[].mutableCopy;
+        self.overlayModels                     = @[].mutableCopy;
         self.indexOfNativeTitleLabelNearestTop = -1;
         self.webView                           = webView;
         self.webViewController                 = webViewController;
@@ -38,10 +38,10 @@
 }
 
 - (void)addOverlays {
-    for (WMFTitleOverlayModel* m in self.models) {
+    for (WMFTitleOverlayModel* m in self.overlayModels) {
         [m.label removeFromSuperview];
     }
-    [self.models removeAllObjects];
+    [self.overlayModels removeAllObjects];
 
     [self setupTopStaticNativeTitleOverlayLabel];
 
@@ -89,7 +89,7 @@
             m.yOffset       = topConstraint.constant;
             m.label         = label;
             m.sectionId     = sectionId;
-            [self.models addObject:m];
+            [self.overlayModels addObject:m];
         }
     }
 
@@ -112,9 +112,9 @@
 
 - (void)updateOverlaysPositions {
     NSArray* headingsTopOffsets = [self getSectionTitlesLocationsJSON];
-    if (headingsTopOffsets.count == self.models.count) {
-        for (NSUInteger i = 0; i < self.models.count; i++) {
-            WMFTitleOverlayModel* m = self.models[i];
+    if (headingsTopOffsets.count == self.overlayModels.count) {
+        for (NSUInteger i = 0; i < self.overlayModels.count; i++) {
+            WMFTitleOverlayModel* m = self.overlayModels[i];
             if (m.anchor && m.topConstraint) {
                 NSNumber* topOffset = headingsTopOffsets[i];
                 CGFloat topFloat    = topOffset.floatValue + self.webView.scrollView.contentOffset.y;
@@ -136,13 +136,13 @@
     CGFloat lastOffset          = 0;
     NSUInteger newTopLabelIndex = -1;
 
-    for (NSUInteger thisIndex = 0; thisIndex < self.models.count; thisIndex++) {
-        WMFTitleOverlayModel* m = self.models[thisIndex];
+    for (NSUInteger thisIndex = 0; thisIndex < self.overlayModels.count; thisIndex++) {
+        WMFTitleOverlayModel* m = self.overlayModels[thisIndex];
         CGFloat thisOffset      = m.yOffset;
         if (offsetY > lastOffset && offsetY <= thisOffset) {
             newTopLabelIndex = thisIndex - 1;
             break;
-        } else if ((thisIndex == (self.models.count - 1)) && (offsetY > thisOffset)) {
+        } else if ((thisIndex == (self.overlayModels.count - 1)) && (offsetY > thisOffset)) {
             newTopLabelIndex = thisIndex;
             break;
         }
@@ -160,8 +160,8 @@
 - (void)nudgeTopStaticTitleLabelIfNecessaryForScrollOffsetY:(CGFloat)offsetY {
     NSUInteger pusherIndex  = self.indexOfNativeTitleLabelNearestTop + 1;
     CGFloat distanceToPushY = 0;
-    if (pusherIndex < (self.models.count)) {
-        WMFTitleOverlayModel* pusherTitleLabel = self.models[pusherIndex];
+    if (pusherIndex < (self.overlayModels.count)) {
+        WMFTitleOverlayModel* pusherTitleLabel = self.overlayModels[pusherIndex];
         if (pusherTitleLabel.sectionId > 0) {
             CGFloat topmostHeaderOffsetY  = pusherTitleLabel.yOffset;
             CGRect staticLabelPseudoRect  = CGRectMake(0, 0, 1, self.topStaticNativeTitleLabel.frame.size.height);
@@ -176,7 +176,7 @@
 
 - (void)updateTopStaticTitleLabelText {
     self.topStaticNativeTitleLabel.alpha = 1.0;
-    WMFTitleOverlayModel* m = self.models[self.indexOfNativeTitleLabelNearestTop];
+    WMFTitleOverlayModel* m = self.overlayModels[self.indexOfNativeTitleLabelNearestTop];
     self.topStaticNativeTitleLabel.text      = m.title;
     self.topStaticNativeTitleLabel.sectionId = m.sectionId;
 }
