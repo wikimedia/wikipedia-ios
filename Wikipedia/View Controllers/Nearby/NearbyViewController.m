@@ -2,24 +2,31 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "NearbyViewController.h"
-#import "NearbyResultCollectionCell.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
+
+#import "Defines.h"
 #import "NearbyFetcher.h"
 #import "ThumbnailFetcher.h"
 #import "QueuesSingleton.h"
-#import "PaddedLabel.h"
+
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
+
+#import "NSString+Extras.h"
+
 #import "UIViewController+Alert.h"
-#import "NSString+Extras.h"
-#import <MapKit/MapKit.h>
-#import "Defines.h"
-#import "NSString+Extras.h"
 #import "UICollectionViewCell+DynamicCellHeight.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "WMFArticlePresenter.h"
-#import <CoreLocation/CoreLocation.h>
 #import "UIView+WMFRTLMirroring.h"
+
 #import "MediaWikiKit.h"
+
+#import "PaddedLabel.h"
+#import "NearbyResultCollectionCell.h"
+
+#import "WMFArticlePopupTransition.h"
+#import "WMFArticleViewController.h"
 
 #define TABLE_CELL_ID @"NearbyResultCollectionCell"
 
@@ -41,6 +48,9 @@
 @property (nonatomic, strong) NSString* cachePath;
 @property (nonatomic) BOOL headingAvailable;
 @property (strong, nonatomic) NearbyResultCollectionCell* offScreenSizingCell;
+
+@property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
+
 
 @end
 
@@ -77,14 +87,6 @@
  */
 
 @implementation NearbyViewController
-
-- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    NSDictionary* rowData = [self getRowDataForIndexPath:indexPath];
-
-    [[WMFArticlePresenter sharedInstance] presentArticleWithTitle:[[SessionSingleton sharedInstance].searchSite
-                                                                   titleWithString:rowData[@"title"]]
-                                                  discoveryMethod:MWKHistoryDiscoveryMethodSearch];
-}
 
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
@@ -326,6 +328,8 @@
                  adjustForOrientation:self.interfaceOrientation];
 }
 
+#pragma mark - UIViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -361,6 +365,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - UICollectionViewDataSource
+
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
     return 1;
 }
@@ -368,21 +375,6 @@
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
     NSArray* sectionArray = self.nearbyDataArray[section];
     return sectionArray.count;
-}
-
-- (void)updateDistancesAndAnglesOfCell:(NearbyResultCollectionCell*)cell atIndexPath:(NSIndexPath*)indexPath {
-    cell.headingAvailable = self.headingAvailable;
-
-    NSDictionary* rowData = [self getRowDataForIndexPath:indexPath];
-
-    NSValue* coordVal            = rowData[@"coordinate"];
-    CLLocationCoordinate2D coord = [self getCoordinateFromNSValue:coordVal];
-
-    CLLocationDistance distance = [self getDistanceToCoordinate:coord];
-    cell.distance = @(distance);
-
-    double angle = [self getAngleToCoordinate:coord];
-    cell.angle = angle;
 }
 
 - (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(NSIndexPath*)indexPath {
@@ -423,6 +415,44 @@
     }
 
     return cell;
+}
+
+- (void)updateDistancesAndAnglesOfCell:(NearbyResultCollectionCell*)cell atIndexPath:(NSIndexPath*)indexPath {
+    cell.headingAvailable = self.headingAvailable;
+
+    NSDictionary* rowData = [self getRowDataForIndexPath:indexPath];
+
+    NSValue* coordVal            = rowData[@"coordinate"];
+    CLLocationCoordinate2D coord = [self getCoordinateFromNSValue:coordVal];
+
+    CLLocationDistance distance = [self getDistanceToCoordinate:coord];
+    cell.distance = @(distance);
+
+    double angle = [self getAngleToCoordinate:coord];
+    cell.angle = angle;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
+    NSDictionary* rowData = [self getRowDataForIndexPath:indexPath];
+    [self presentPopupForTitle:[[MWKSite siteWithCurrentLocale] titleWithString:rowData[@"title"]]];
+}
+
+#pragma mark - Article Popup
+
+- (void)presentPopupForTitle:(MWKTitle*)title {
+    MWKArticle* article          = [[SessionSingleton sharedInstance].dataStore articleWithTitle:title];
+    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:[SessionSingleton sharedInstance].dataStore savedPages:[SessionSingleton sharedInstance].dataStore.userDataStore.savedPageList];
+    vc.article = article;
+
+    self.popupTransition                        = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:nil];
+    self.popupTransition.nonInteractiveDuration = 0.5;
+    self.popupTransition.presentInteractively   = NO;
+    vc.transitioningDelegate                    = self.popupTransition;
+    vc.modalPresentationStyle                   = UIModalPresentationCustom;
+
+    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 - (NSDictionary*)getRowDataForIndexPath:(NSIndexPath*)indexPath {
