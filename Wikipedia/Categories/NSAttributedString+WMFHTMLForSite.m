@@ -20,7 +20,7 @@
                NSBaseURLDocumentOption: [site URL],
                DTMaxImageSize: [NSValue valueWithCGSize:CGSizeZero],
                DTIgnoreInlineStylesOption: @YES, // prevents things like background colors
-               DTDefaultTextAlignment: @(site.textAlignment),
+               DTDefaultTextAlignment: @(NSTextAlignmentToCTTextAlignment(site.textAlignment)),
                DTDefaultFontFamily: defaultFont.familyName,
                DTDefaultFontName: defaultFont.fontName,
                DTDefaultFontSize: @(defaultFont.pointSize),

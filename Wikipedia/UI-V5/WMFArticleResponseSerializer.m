@@ -2,6 +2,8 @@
 #import "WMFArticleResponseSerializer.h"
 #import <Mantle/Mantle.h>
 #import "MWKArticlePreview.h"
+#import "WMFFixtureRecording.h"
+#import "NSURL+Extras.h"
 
 @implementation WMFArticleResponseSerializer
 
@@ -10,6 +12,10 @@
                           error:(NSError* __autoreleasing*)error {
     NSDictionary* JSON        = [super responseObjectForResponse:response data:data error:error];
     NSDictionary* articleJSON = JSON[@"mobileview"];
+
+    WMFRecordDataFixture(data,
+                         [@"MobileView" stringByAppendingPathComponent:response.URL.host],
+                         [response.URL wmf_valueForQueryKey:@"page"]);
 
     /* TODO: actually map the contents. The issue here is that our data model revolves around "MWKTitle",
      * when in fact, the mobileview resppnse knows nothing about this concept. Meaning we can't parse an

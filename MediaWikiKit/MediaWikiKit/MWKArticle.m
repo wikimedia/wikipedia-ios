@@ -457,7 +457,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Extraction
 
-#define paragraphSelector "/html/body/p"
+#define WMFParagraphSelector "/html/body/p"
 
 + (NSString*)paragraphChildSelector {
     static NSString* paragraphChildSelector;
@@ -496,9 +496,9 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
         paragraphChildSelector = [NSString stringWithFormat:
                                   // top-level article paragraphs' text and...
-                                  @paragraphSelector "/text() | "
+                                  @WMFParagraphSelector "/text() | "
                                   // children of top-level article paragraphs matching predicate
-                                  paragraphSelector "/*[(%@)]"
+                                  WMFParagraphSelector "/*[(%@)]"
                                   , tagSelector];
     });
     return paragraphChildSelector;
@@ -509,7 +509,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     NSString* filteredParagraphs;
     @autoreleasepool {
         filteredParagraphs =
-            [[[leadSection elementsInTextMatchingXPath:@paragraphSelector] bk_map:^NSString*(TFHppleElement* paragraphEl) {
+            [[[[leadSection elementsInTextMatchingXPath:@WMFParagraphSelector] bk_map:^NSString*(TFHppleElement* paragraphEl) {
             return [[[[TFHpple hppleWithHTMLData:[paragraphEl.raw dataUsingEncoding:NSUTF8StringEncoding]]
                       // select children of each paragraph
                       searchWithXPathQuery:[MWKArticle paragraphChildSelector]]
@@ -517,6 +517,8 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
                      valueForKey:WMF_SAFE_KEYPATH(paragraphEl, raw)]
                     // join
                     componentsJoinedByString:@""];
+        }] bk_select:^BOOL (id stringOrNull) {
+            return [stringOrNull isKindOfClass:[NSString class]] && [stringOrNull length] > 0;
         }]
              // double space all paragraphs
              componentsJoinedByString:@"<br/><br/>"];

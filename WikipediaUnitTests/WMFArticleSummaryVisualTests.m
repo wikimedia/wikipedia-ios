@@ -35,18 +35,31 @@
 }
 
 - (void)testExoplanetPortraitIPhone6Width {
-    [self verifySummaryForFixture:@"Exoplanet.mobileview"];
+    [self verifySummaryForFixture:@"Exoplanet.mobileview" languageCode:@"en"];
 }
 
 - (void)testObamaPortraitIPhone6Width {
-    [self verifySummaryForFixture:@"Obama"];
+    [self verifySummaryForFixture:@"Obama" languageCode:@"en"];
 }
 
-- (void)verifySummaryForFixture:(NSString*)fixtureFilename {
-    NSDictionary* mobileViewJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureFilename];
+- (void)testTajMahalPortraitIPhone6Width {
+    NSData* mobileViewData =
+        [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MobileView/ar.m.wikipedia.org/تاج محل"
+                                               ofType:@""];
+    [self verifySummaryForFixtureData:
+     [NSJSONSerialization JSONObjectWithData:mobileViewData options:0 error:nil]
+                             langCode:@"ar"];
+}
 
+- (void)verifySummaryForFixture:(NSString*)fixtureFilename languageCode:(NSString*)langCode {
+    NSDictionary* mobileViewJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureFilename];
+    [self verifySummaryForFixtureData:mobileViewJSON langCode:langCode];
+}
+
+- (void)verifySummaryForFixtureData:(NSDictionary*)mobileViewJSON langCode:(NSString*)langCode  {
     MWKTitle* title =
-        [MWKTitle titleWithString:@"Title" site:[MWKSite siteWithDomain:@"wikipedia.org" language:@"en"]];
+        [MWKTitle titleWithString:@"Title" site:[MWKSite siteWithDomain:@"wikipedia.org"
+                                                               language:langCode]];
 
     self.article = [[MWKArticle alloc] initWithTitle:title
                                            dataStore:nil
