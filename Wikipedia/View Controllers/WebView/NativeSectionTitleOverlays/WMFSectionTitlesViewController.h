@@ -5,8 +5,7 @@
 
 @interface WMFSectionTitlesViewController : NSObject
 
-@property (nonatomic, strong) UIWebView* webView;
-@property (nonatomic, strong) UIViewController* webViewController;
+- (instancetype)initWithWebView:(UIWebView*)webView webViewController:(UIViewController*)webViewController;
 
 - (void)addOverlays;
 - (void)updateOverlaysPositions;

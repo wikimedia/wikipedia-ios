@@ -15,15 +15,20 @@
 @property (nonatomic, strong) NSLayoutConstraint* topStaticNativeTitleLabelTopConstraint;
 @property (nonatomic, strong) WMFTitleOverlayLabel* topStaticNativeTitleLabel;
 
+@property (nonatomic, strong) UIWebView* webView;
+@property (nonatomic, strong) UIViewController* webViewController;
+
 @end
 
 @implementation WMFSectionTitlesViewController
 
-- (instancetype)init {
+- (instancetype)initWithWebView:(UIWebView*)webView webViewController:(UIViewController*)webViewController {
     self = [super init];
     if (self) {
         self.models                            = @[].mutableCopy;
         self.indexOfNativeTitleLabelNearestTop = -1;
+        self.webView                           = webView;
+        self.webViewController                 = webViewController;
     }
     return self;
 }
