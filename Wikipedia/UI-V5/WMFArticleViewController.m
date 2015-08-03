@@ -64,6 +64,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGalleryViewController;
 @property (nonatomic, weak) IBOutlet UITapGestureRecognizer* expandGalleryTapRecognizer;
 
+@property (nonatomic, strong) WebViewController* webViewController;
+
 @end
 
 @implementation WMFArticleViewController
@@ -125,10 +127,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self headerView] saveButton];
 }
 
-- (UIButton*)readButton {
-    return [[self headerView] readButton];
-}
-
 - (WMFArticlePreviewFetcher*)articlePreviewFetcher {
     if (!_articlePreviewFetcher) {
         _articlePreviewFetcher = [[WMFArticlePreviewFetcher alloc] init];
@@ -141,6 +139,13 @@ NS_ASSUME_NONNULL_BEGIN
         _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
     }
     return _articleFetcher;
+}
+
+- (WebViewController*)webViewController {
+    if (!_webViewController) {
+        _webViewController = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+    }
+    return _webViewController;
 }
 
 #pragma mark - Saved Pages KVO
@@ -187,6 +192,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     if ([self.article isCached]) {
         // observe immediately
+        [self loadWebViewController];
         [self observeArticleUpdates];
     } else {
         // fetch then observe
@@ -209,6 +215,7 @@ NS_ASSUME_NONNULL_BEGIN
         @strongify(self)
         [self.headerGalleryViewController setImagesFromArticle : article];
         self.article = article;
+        [self loadWebViewController];
     }).catch(^(NSError* error){
         @strongify(self)
         if ([error wmf_isWMFErrorOfType:WMFErrorTypeRedirected]) {
@@ -242,6 +249,10 @@ NS_ASSUME_NONNULL_BEGIN
     .catch(^(NSError* err) {
         DDLogError(@"Failed to fetch readmore: %@", err);
     });
+}
+
+- (void)loadWebViewController {
+    [self.webViewController navigateToPage:self.article.title discoveryMethod:MWKHistoryDiscoveryMethodReloadFromCache];
 }
 
 #pragma mark - View Updates
@@ -299,11 +310,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Actions
 
 - (IBAction)readButtonTapped:(id)sender {
-    WebViewController* webVC   = [WebViewController wmf_initialViewControllerFromClassStoryboard];
-    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:webVC];
-    [self presentViewController:nc animated:YES completion:^{
-        [webVC navigateToPage:self.article.title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
-    }];
+    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:self.webViewController];
+    [self presentViewController:nc animated:YES completion:NULL];
 }
 
 - (IBAction)toggleSave:(id)sender {
@@ -461,10 +469,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)presentArticleScrolledToSectionForIndexPath:(NSIndexPath*)indexPath {
-    WebViewController* webVC = [WebViewController wmf_initialViewControllerFromClassStoryboard];
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:webVC] animated:YES completion:^{
-        [webVC navigateToPage:[self titleForSelectedIndexPath:indexPath] discoveryMethod:MWKHistoryDiscoveryMethodReloadFromCache];
-    }];
+    MWKTitle* titleWithFragment = [self titleForSelectedIndexPath:indexPath];
+    [self.webViewController scrollToFragment:titleWithFragment.fragment];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:self.webViewController] animated:YES completion:NULL];
 }
 
 - (MWKTitle*)titleForSelectedIndexPath:(NSIndexPath*)indexPath {

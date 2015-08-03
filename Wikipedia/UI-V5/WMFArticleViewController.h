@@ -27,7 +27,6 @@ typedef NS_ENUM (NSUInteger, WMFArticleControllerMode) {
 - (void)updateUI;
 
 @property (nonatomic, strong, readonly) UIButton* saveButton;
-@property (nonatomic, strong, readonly) UIButton* readButton;
 
 
 
