@@ -147,6 +147,7 @@
 "saved-pages-description" = "Saved pages are pretty awesome. Think of them as bookmarks that you can read even when you are offline.";
 "saved-pages-none" = "No saved pages yet.";
 
+"page-history-title" = "Article history";
 "page-history-downloading" = "Loading article history...";
 
 "navbar-title-mode-edit-wikitext" = "Edit";
