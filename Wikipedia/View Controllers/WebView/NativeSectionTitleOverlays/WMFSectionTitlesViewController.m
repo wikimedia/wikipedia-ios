@@ -11,9 +11,9 @@
 @interface WMFSectionTitlesViewController ()
 
 @property (nonatomic, strong) NSMutableArray* overlayModels;
-@property (nonatomic) NSUInteger indexOfNativeTitleLabelNearestTop;
-@property (nonatomic, strong) MASConstraint* topStaticNativeTitleLabelTopConstraint;
-@property (nonatomic, strong) WMFTitleOverlayLabel* topStaticNativeTitleLabel;
+@property (nonatomic) NSUInteger indexOfTitleLabelNearestTop;
+@property (nonatomic, strong) MASConstraint* topStaticTitleLabelTopConstraint;
+@property (nonatomic, strong) WMFTitleOverlayLabel* topStaticTitleLabel;
 
 @property (nonatomic, strong) UIWebView* webView;
 @property (nonatomic, strong) UIViewController* webViewController;
@@ -25,16 +25,16 @@
 - (instancetype)initWithWebView:(UIWebView*)webView webViewController:(UIViewController*)webViewController {
     self = [super init];
     if (self) {
-        self.overlayModels                     = @[].mutableCopy;
-        self.indexOfNativeTitleLabelNearestTop = -1;
-        self.webView                           = webView;
-        self.webViewController                 = webViewController;
+        self.overlayModels               = @[].mutableCopy;
+        self.indexOfTitleLabelNearestTop = -1;
+        self.webView                     = webView;
+        self.webViewController           = webViewController;
     }
     return self;
 }
 
 - (void)hideTopOverlay {
-    self.topStaticNativeTitleLabel.alpha = 0;
+    self.topStaticTitleLabel.alpha = 0;
 }
 
 - (void)resetOverlays {
@@ -43,7 +43,7 @@
     }
     [self.overlayModels removeAllObjects];
 
-    [self setupTopStaticNativeTitleOverlayLabel];
+    [self setupTopStaticTitleOverlayLabel];
 
     UIView* browserView = [self.webView.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
 
@@ -96,17 +96,17 @@
     [self updateOverlaysPositions];
 }
 
-- (void)setupTopStaticNativeTitleOverlayLabel {
-    if (self.topStaticNativeTitleLabel) {
+- (void)setupTopStaticTitleOverlayLabel {
+    if (self.topStaticTitleLabel) {
         return;
     }
-    self.topStaticNativeTitleLabel       = [[WMFTitleOverlayLabel alloc] init];
-    self.topStaticNativeTitleLabel.alpha = 0;
-    [self.webViewController.view addSubview:self.topStaticNativeTitleLabel];
-    [self.topStaticNativeTitleLabel mas_makeConstraints:^(MASConstraintMaker* make) {
+    self.topStaticTitleLabel       = [[WMFTitleOverlayLabel alloc] init];
+    self.topStaticTitleLabel.alpha = 0;
+    [self.webViewController.view addSubview:self.topStaticTitleLabel];
+    [self.topStaticTitleLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.left.equalTo(self.webViewController.view.mas_left);
         make.right.equalTo(self.webViewController.view.mas_right);
-        self.topStaticNativeTitleLabelTopConstraint = make.top.equalTo(self.webViewController.mas_topLayoutGuide);
+        self.topStaticTitleLabelTopConstraint = make.top.equalTo(self.webViewController.mas_topLayoutGuide);
     }];
 }
 
@@ -126,12 +126,12 @@
 }
 
 - (void)updateTopOverlayForScrollOffsetY:(CGFloat)offsetY {
-    [self updateIndexOfNativeTitleLabelNearestTopForScrollOffsetY:offsetY];
+    [self updateIndexOfTitleLabelNearestTopForScrollOffsetY:offsetY];
     [self nudgeTopStaticTitleLabelIfNecessaryForScrollOffsetY:offsetY];
 }
 
-- (void)updateIndexOfNativeTitleLabelNearestTopForScrollOffsetY:(CGFloat)offsetY {
-    self.topStaticNativeTitleLabel.alpha = (offsetY <= 0) ? 0 : 1;
+- (void)updateIndexOfTitleLabelNearestTopForScrollOffsetY:(CGFloat)offsetY {
+    self.topStaticTitleLabel.alpha = (offsetY <= 0) ? 0 : 1;
 
     CGFloat lastOffset          = 0;
     NSUInteger newTopLabelIndex = -1;
@@ -150,35 +150,35 @@
     }
 
     if (newTopLabelIndex != -1) {
-        if (newTopLabelIndex != self.indexOfNativeTitleLabelNearestTop) {
-            self.indexOfNativeTitleLabelNearestTop = newTopLabelIndex;
+        if (newTopLabelIndex != self.indexOfTitleLabelNearestTop) {
+            self.indexOfTitleLabelNearestTop = newTopLabelIndex;
             [self updateTopStaticTitleLabelText];
         }
     }
 }
 
 - (void)nudgeTopStaticTitleLabelIfNecessaryForScrollOffsetY:(CGFloat)offsetY {
-    NSUInteger pusherIndex  = self.indexOfNativeTitleLabelNearestTop + 1;
+    NSUInteger pusherIndex  = self.indexOfTitleLabelNearestTop + 1;
     CGFloat distanceToPushY = 0;
     if (pusherIndex < (self.overlayModels.count)) {
         WMFTitleOverlayModel* pusherTitleLabel = self.overlayModels[pusherIndex];
         if (pusherTitleLabel.sectionId > 0) {
             CGFloat topmostHeaderOffsetY  = pusherTitleLabel.yOffset;
-            CGRect staticLabelPseudoRect  = CGRectMake(0, 0, 1, self.topStaticNativeTitleLabel.frame.size.height);
+            CGRect staticLabelPseudoRect  = CGRectMake(0, 0, 1, self.topStaticTitleLabel.frame.size.height);
             CGRect topmostLabelPseudoRect = CGRectMake(0, topmostHeaderOffsetY - offsetY, 1, 1);
             if (CGRectIntersectsRect(staticLabelPseudoRect, topmostLabelPseudoRect)) {
                 distanceToPushY = staticLabelPseudoRect.size.height - topmostLabelPseudoRect.origin.y;
             }
         }
     }
-    [self.topStaticNativeTitleLabelTopConstraint setOffset:-distanceToPushY];
+    [self.topStaticTitleLabelTopConstraint setOffset:-distanceToPushY];
 }
 
 - (void)updateTopStaticTitleLabelText {
-    self.topStaticNativeTitleLabel.alpha = 1.0;
-    WMFTitleOverlayModel* m = self.overlayModels[self.indexOfNativeTitleLabelNearestTop];
-    self.topStaticNativeTitleLabel.text      = m.title;
-    self.topStaticNativeTitleLabel.sectionId = m.sectionId;
+    self.topStaticTitleLabel.alpha = 1.0;
+    WMFTitleOverlayModel* m = self.overlayModels[self.indexOfTitleLabelNearestTop];
+    self.topStaticTitleLabel.text      = m.title;
+    self.topStaticTitleLabel.sectionId = m.sectionId;
 }
 
 #pragma mark Section title and title location determination
