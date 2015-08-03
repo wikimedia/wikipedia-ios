@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A216g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A235d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -206,9 +206,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="qVm-oc-aaW" kind="relationship" relationship="viewControllers" id="Edk-Rh-NmJ"/>
-                        <segue destination="2yz-KN-V6a" kind="relationship" relationship="viewControllers" id="vxH-Ku-Dua"/>
-                        <segue destination="y74-wE-CKB" kind="relationship" relationship="viewControllers" id="X4l-6p-nO8"/>
+                        <segue destination="EJe-8j-1e6" kind="relationship" relationship="viewControllers" id="yhB-EA-2gx"/>
+                        <segue destination="bzO-gj-jpB" kind="relationship" relationship="viewControllers" id="xti-KQ-b7L"/>
+                        <segue destination="ROQ-sG-rcF" kind="relationship" relationship="viewControllers" id="tmz-sA-ulb"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mEs-xw-QRr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -261,10 +261,11 @@
                         </connections>
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Saved" id="V9D-BB-B3n"/>
+                    <navigationItem key="navigationItem" id="2Sy-ZF-kd0"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Buh-ul-uFW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="196" y="2121"/>
+            <point key="canvasLocation" x="929" y="2881"/>
         </scene>
         <!--Recent Searches View Controller-->
         <scene sceneID="MGk-Bd-HA1">
@@ -428,10 +429,29 @@
                         </connections>
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Recent" id="Hg0-Uc-GUG"/>
+                    <navigationItem key="navigationItem" id="HIJ-DO-oEV"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FrI-J3-ZJ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="956" y="2136"/>
+            <point key="canvasLocation" x="1607" y="2881"/>
+        </scene>
+        <!--Saved-->
+        <scene sceneID="Lqf-ge-2v5">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="bzO-gj-jpB" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Saved" image="saved" id="tEK-7k-93Q"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ScF-IW-gDl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="qVm-oc-aaW" kind="relationship" relationship="rootViewController" id="zhE-Qb-Nyd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2e4-LR-hlG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="929" y="2115"/>
         </scene>
         <!--Nearby-->
         <scene sceneID="Db8-pn-u9C">
@@ -442,7 +462,7 @@
                         <viewControllerLayoutGuide type="bottom" id="hQ8-Ps-Tb7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yua-5k-4ie">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
+                        <rect key="frame" x="0.0" y="44" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eCD-hw-sGe">
@@ -473,16 +493,56 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Nearby" id="U3f-2f-YQU"/>
+                    <navigationItem key="navigationItem" id="jSq-CI-bRK"/>
                     <connections>
                         <outlet property="collectionView" destination="eCD-hw-sGe" id="EPp-rw-5mv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tus-AL-SDq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1737" y="2121"/>
+            <point key="canvasLocation" x="237" y="2881"/>
+        </scene>
+        <!--Recent-->
+        <scene sceneID="2zr-9G-QMd">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="ROQ-sG-rcF" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Recent" image="history" id="ZNo-7p-3PU"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rIL-t0-IJM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2yz-KN-V6a" kind="relationship" relationship="rootViewController" id="TJJ-bE-r8W"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k8g-Wb-9RE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1607" y="2115"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="my8-ht-Vqg">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="EJe-8j-1e6" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Home" image="home" id="fCG-Qf-VzW"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="c8d-c3-ZKx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="y74-wE-CKB" kind="relationship" relationship="rootViewController" id="El9-dO-blV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rXf-sf-vwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="237" y="2115"/>
         </scene>
     </scenes>
     <resources>
+        <image name="history" width="25" height="25"/>
+        <image name="home" width="25" height="25"/>
         <image name="logo-onboarding" width="210" height="192"/>
+        <image name="saved" width="25" height="25"/>
     </resources>
 </document>
