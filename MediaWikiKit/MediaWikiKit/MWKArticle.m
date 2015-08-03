@@ -457,8 +457,10 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Extraction
 
-- (NSAttributedString*)summaryHTML {
-    static NSString* summaryXPath;
+#define paragraphSelector "/html/body/p"
+
++ (NSString*)paragraphChildSelector {
+    static NSString* paragraphChildSelector;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSArray* allowedTags = @[
@@ -492,27 +494,34 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
             return [@"self::" stringByAppendingString:tag];
         }] componentsJoinedByString:@" or "];
 
-        summaryXPath = [NSString stringWithFormat:
-                        // top-level article paragraphs' text and...
-                        @"/html/body/p/text() | "
-                        // children of top-level article paragraphs matching predicate
-                        "/html/body/p/*["
-                        "(%@)" // allowed tags
-//                        " and "
-//                        "not(descendant::*[contains(@class, 'IPA')])" // tags with "IPA" descendants
-                        "]"
-                        , tagSelector];
+        paragraphChildSelector = [NSString stringWithFormat:
+                                  // top-level article paragraphs' text and...
+                                  @paragraphSelector "/text() | "
+                                  // children of top-level article paragraphs matching predicate
+                                  paragraphSelector "/*[(%@)]"
+                                  , tagSelector];
     });
-    NSArray* xpathResults;
-    for (MWKSection* section in self.sections) {
-        xpathResults = [section elementsInTextMatchingXPath:summaryXPath];
-        if (xpathResults.count) {
-            break;
-        }
+    return paragraphChildSelector;
+}
+
+- (NSAttributedString*)summaryHTML {
+    MWKSection* leadSection = [self.sections firstNonEmptySection];
+    NSString* filteredParagraphs;
+    @autoreleasepool {
+        filteredParagraphs =
+            [[[leadSection elementsInTextMatchingXPath:@paragraphSelector] bk_map:^NSString*(TFHppleElement* paragraphEl) {
+            return [[[[TFHpple hppleWithHTMLData:[paragraphEl.raw dataUsingEncoding:NSUTF8StringEncoding]]
+                      // select children of each paragraph
+                      searchWithXPathQuery:[MWKArticle paragraphChildSelector]]
+                     // get their "raw" HTML
+                     valueForKey:WMF_SAFE_KEYPATH(paragraphEl, raw)]
+                    // join
+                    componentsJoinedByString:@""];
+        }]
+             // double space all paragraphs
+             componentsJoinedByString:@"<br/><br/>"];
     }
-    NSData* xpathData = [[[xpathResults valueForKey:WMF_SAFE_KEYPATH(TFHppleElement.new, raw)]
-                          componentsJoinedByString:@"<br/>"]
-                         dataUsingEncoding:NSUTF8StringEncoding];
+    NSData* xpathData = [filteredParagraphs dataUsingEncoding:NSUTF8StringEncoding];
     return [[NSAttributedString alloc] initWithHTMLData:xpathData site:self.site];
 }
 

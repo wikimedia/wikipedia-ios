@@ -127,4 +127,13 @@
             "}", [self description], self.sections];
 }
 
+- (MWKSection*)firstNonEmptySection {
+    for (MWKSection* section in self.sections) {
+        if (section.text.length) {
+            return section;
+        }
+    }
+    return nil;
+}
+
 @end

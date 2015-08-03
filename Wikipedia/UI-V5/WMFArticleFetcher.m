@@ -66,11 +66,10 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSURL* url = useDeskTopURL ? [pageTitle.site apiEndpoint] : [pageTitle.site mobileApiEndpoint];
 
-    AFHTTPRequestOperation* operation = [self.operationManager GET:url.absoluteString parameters:pageTitle success:^(AFHTTPRequestOperation* operation, NSDictionary* JSON) {
-        NSParameterAssert([JSON isKindOfClass:[NSDictionary class]]);
+    AFHTTPRequestOperation* operation = [self.operationManager GET:url.absoluteString parameters:pageTitle success:^(AFHTTPRequestOperation* operation, id response) {
         dispatchOnBackgroundQueue(^{
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve([self serializedArticleWithTitle:pageTitle response:JSON]);
+            resolve([self serializedArticleWithTitle:pageTitle response:response]);
         });
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         if ([url isEqual:[pageTitle.site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
