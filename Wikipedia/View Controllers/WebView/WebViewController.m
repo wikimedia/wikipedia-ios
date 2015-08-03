@@ -27,6 +27,9 @@
 #import "WMFArticleViewController.h"
 #import "PageHistoryViewController.h"
 
+#import "WMFTitleOverlayLabel.h"
+#import "WMFSectionTitlesViewController.h"
+
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
     WMFWebViewAlertZeroCharged,
@@ -50,6 +53,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @property (strong, nonatomic) NSString* wikipediaZeroLearnMoreExternalUrl;
 
 @property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
+
+@property (nonatomic, strong) WMFSectionTitlesViewController* sectionTitlesViewController;
 
 @end
 
@@ -153,6 +158,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.sectionTitlesViewController = [[WMFSectionTitlesViewController alloc] initWithWebView:self.webView webViewController:self];
+
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
     [self.navigationController.toolbar wmf_mirrorIfDeviceRTL];
 
@@ -170,8 +177,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     self.referencesVC = nil;
 
-    self.sectionToEditId = 0;
-
     __weak WebViewController* weakSelf = self;
     [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
         [weakSelf jumpToFragmentIfNecessary];
@@ -185,6 +190,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tocVC updateTocForArticle:[SessionSingleton sharedInstance].currentArticle];
             [weakSelf updateTOCScrollPositionWithoutAnimationIfHidden];
+            [weakSelf.sectionTitlesViewController resetOverlays];
         });
     }];
 
@@ -235,12 +241,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     [self tocSetupSwipeGestureRecognizers];
 
-    // Restrict the web view from scrolling horizonally.
-    [self.webView.scrollView addObserver:self
-                              forKeyPath:@"contentSize"
-                                 options:NSKeyValueObservingOptionNew
-                                 context:nil];
-
     // UIWebView has a bug which causes a black bar to appear at
     // bottom of the web view if toc quickly dragged on and offscreen.
     self.webView.opaque = NO;
@@ -257,6 +257,35 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.webView.scrollView.layer.anchorPoint = CGPointMake((isRTL ? 1.0 : 0.0), 0.0);
 
     [self tocUpdateViewLayout];
+
+    [self.KVOControllerNonRetaining observe:self.webView.scrollView
+                                    keyPath:WMF_SAFE_KEYPATH(UIScrollView.new, contentSize)
+                                    options:NSKeyValueObservingOptionNew
+                                      block:^(WebViewController* observer, id object, NSDictionary* change) {
+        // Restrict the web view from scrolling horizonally.
+        [object preventHorizontalScrolling];
+    }];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(editSection:)
+                                                 name:@"EditSection"
+                                               object:nil];
+}
+
+- (void)editSection:(NSNotification*)notification {
+    if ([self tocDrawerIsOpen]) {
+        [self tocHide];
+        return;
+    }
+
+    if (self.editable) {
+        WMFTitleOverlayLabel* sender = notification.object;
+        [self showSectionEditorForSection:[sender sectionId]];
+    } else {
+        ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
+        [funnel logProtectionStatus:[[self.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
+        [self showProtectedDialog];
+    }
 }
 
 - (void)jumpToFragmentIfNecessary {
@@ -376,9 +405,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 #pragma mark Edit section
 
-- (void)showSectionEditor {
+- (void)showSectionEditorForSection:(NSNumber*)sectionID {
     SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
-    sectionEditVC.section = self.session.currentArticle.sections[self.sectionToEditId];
+    sectionEditVC.section = self.session.currentArticle.sections[[sectionID integerValue]];
     [self.navigationController pushViewController:sectionEditVC animated:YES];
 }
 
@@ -481,6 +510,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     [self tocUpdateViewLayout];
     [self.view layoutIfNeeded];
+
+
+    [self.sectionTitlesViewController hideTopOverlay];
+
 
     [UIView animateWithDuration:duration.floatValue
                           delay:0.0f
@@ -736,21 +769,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return YES;
 }
 
-#pragma mark KVO
-
-- (void)observeValueForKeyPath:(NSString*)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary*)change
-                       context:(void*)context {
-    if (
-        (object == self.webView.scrollView)
-        &&
-        [keyPath isEqual:@"contentSize"]
-        ) {
-        [object preventHorizontalScrolling];
-    }
-}
-
 #pragma mark Webview obj-c to javascript bridge
 
 - (CommunicationBridge*)bridge {
@@ -804,27 +822,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                     NSURL* url = [NSURL URLWithString:href];
                     [[UIApplication sharedApplication] openURL:url];
                 }
-            }
-        }];
-
-        [_bridge addListener:@"editClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
-            if (!strSelf) {
-                return;
-            }
-
-            if ([strSelf tocDrawerIsOpen]) {
-                [strSelf tocHide];
-                return;
-            }
-
-            if (strSelf.editable) {
-                strSelf.sectionToEditId = [payload[@"sectionId"] integerValue];
-                [strSelf showSectionEditor];
-            } else {
-                ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
-                [funnel logProtectionStatus:[[strSelf.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
-                [strSelf showProtectedDialog];
             }
         }];
 
@@ -1058,6 +1055,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     // reason, from causing the keyboard to hide when the user is typing on it!
     CGFloat distanceScrolled     = self.scrollViewDragBeganVerticalOffset - scrollView.contentOffset.y;
     CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
+
+    if (![self tocDrawerIsOpen]) {
+        [self.sectionTitlesViewController updateTopOverlayForScrollOffsetY:scrollView.contentOffset.y];
+    }
 
     if (self.keyboardIsVisible && fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
         [self hideKeyboard];
@@ -1464,12 +1465,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     } else {
         CGPoint scrollOffset = CGPointMake(0, 0);
         self.lastScrollOffset = scrollOffset;
-    }
-
-    if (!self.session.currentArticle.isMain) {
-        // Add target div for TOC "read more" entry so it can use existing
-        // TOC scrolling mechanism.
-        [sectionTextArray addObject:@"<div id='section_heading_and_content_block_100000'></div>"];
     }
 
     // Join article sections text
@@ -2026,7 +2021,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma Wikipedia Zero alert dialogs
+#pragma mark - Wikipedia Zero alert dialogs
 
 - (void)promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString*)title {
     if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce) {
