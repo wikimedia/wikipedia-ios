@@ -41,9 +41,4 @@
     return self;
 }
 
-- (void)prepareForReuse {
-    [super prepareForReuse];
-    self.attributedString = nil;
-}
-
 @end
