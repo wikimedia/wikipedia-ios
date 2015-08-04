@@ -40,6 +40,10 @@
     return self;
 }
 
+- (UIView*)topHeader {
+    return self.topStaticOverlay;
+}
+
 - (void)hideTopOverlay {
     self.topStaticOverlay.alpha = 0;
 }

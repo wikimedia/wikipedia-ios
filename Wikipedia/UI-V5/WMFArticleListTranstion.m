@@ -2,15 +2,15 @@
 
 #import "WMFArticleListTranstion.h"
 #import "WMFScrollViewTopPanGestureRecognizer.h"
+#import "WMFArticleListCollectionViewController.h"
+#import "WMFArticleContainerViewController.h"
+#import "UIView+WMFShapshotting.h"
 
 @interface WMFArticleListTranstion ()<UIGestureRecognizerDelegate>
 
-@property (nonatomic, weak, readwrite) UIViewController* presentingViewController;
-@property (nonatomic, weak, readwrite) UIViewController* presentedViewController;
+@property (nonatomic, weak, readwrite) WMFArticleListCollectionViewController* listViewController;
+@property (nonatomic, weak, readwrite) WMFArticleContainerViewController* articleContainerViewController;
 @property (nonatomic, weak, readwrite) UIScrollView* scrollView;
-
-@property (strong, nonatomic) UIView* movingCardSnapshot;
-@property (strong, nonatomic) UIView* overlappingCardSnapshot;
 
 @property (nonatomic, assign, readwrite) BOOL isPresented;
 @property (nonatomic, assign, readwrite) BOOL isDismissing;
@@ -25,13 +25,14 @@
 
 @implementation WMFArticleListTranstion
 
-- (instancetype)initWithPresentingViewController:(UIViewController*)presentingViewController presentedViewController:(UIViewController*)presentedViewController contentScrollView:(UIScrollView*)scrollView {
+- (instancetype)initWithArticleListViewController:(WMFArticleListCollectionViewController*)listViewController articleContainerViewController:(WMFArticleContainerViewController*)articleContainerViewController contentScrollView:(UIScrollView*)scrollView {
     self = [super init];
     if (self) {
-        _dismissInteractively     = YES;
-        _presentingViewController = presentingViewController;
-        _presentedViewController  = presentedViewController;
-        _scrollView               = scrollView;
+        _nonInteractiveDuration         = 0.5;
+        _dismissInteractively           = YES;
+        _listViewController             = listViewController;
+        _articleContainerViewController = articleContainerViewController;
+        _scrollView                     = scrollView;
         [self addDismissGestureRecognizer];
     }
     return self;
@@ -97,11 +98,10 @@
 - (void)animatePresentation:(id<UIViewControllerContextTransitioning>)transitionContext {
     UIView* containerView = [transitionContext containerView];
 
-    UIViewController* fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController* toVC   = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController* toVC = self.articleContainerViewController;
 
-    UIView* fromView = fromVC.view;
-    UIView* toView   = toVC.view;
+    UIView* toView = toVC.view;
+    [containerView addSubview:toView];
 
     //Setup toView
     CGRect toViewFinalFrame = [transitionContext finalFrameForViewController:toVC];
@@ -109,43 +109,31 @@
     toView.alpha = 0.0;
 
     //Setup snapshot of presented card
-    UIView* snapshotView = [self.movingCardView snapshotViewAfterScreenUpdates:YES];
-    self.movingCardSnapshot = snapshotView;
+    UIView* transitioningView = [self.listViewController viewForTransition:self];
+    UIView* snapshotView      = [transitioningView wmf_snapshotAfterScreenUpdates:YES andAddToContainerView:containerView];
+    CGRect snapShotFinalFrame = toViewFinalFrame;
+    snapShotFinalFrame.size = snapshotView.frame.size;
 
-    //Setup final frame for presented card
-    CGRect referenceFrameAdjustedForContainerView = [containerView convertRect:self.movingCardView.frame fromView:self.movingCardView.superview];
-    snapshotView.frame = referenceFrameAdjustedForContainerView;
-    CGRect finalSnapshotFrame = snapshotView.frame;
-    finalSnapshotFrame.origin.y = toViewFinalFrame.origin.y + self.presentCardOffset;
+    //Setup overlaping screen shot
+    CGRect overlapRect      = [self.listViewController frameOfOverlappingListItemsForTransition:self];
+    UIView* overlapSnapshot = [self.listViewController.view wmf_resizableSnapshotViewFromRect:overlapRect afterScreenUpdates:YES andAddToContainerView:containerView];
 
     //How far the animation moves (used to compute percentage for the interactive portion)
-    self.totalCardAnimationDistance = referenceFrameAdjustedForContainerView.origin.y - toViewFinalFrame.origin.y;
-
-    //Setup snapshot of overlapping cards
-    CGRect referenceFrameAdjustedForFromView = [fromView convertRect:self.movingCardView.frame fromView:self.movingCardView.superview];
-    CGRect overlappingCardsSnapshotFrame     = CGRectMake(0, referenceFrameAdjustedForFromView.origin.y + self.offsetOfNextOverlappingCard, CGRectGetWidth(fromView.bounds), CGRectGetHeight(fromView.bounds));
-    UIView* overlappingCards                 = [fromView resizableSnapshotViewFromRect:overlappingCardsSnapshotFrame afterScreenUpdates:YES withCapInsets:UIEdgeInsetsZero];
-    overlappingCards.frame       = CGRectMake(0, referenceFrameAdjustedForContainerView.origin.y + self.offsetOfNextOverlappingCard, CGRectGetWidth(fromView.bounds), CGRectGetHeight(fromView.bounds));
-    self.overlappingCardSnapshot = overlappingCards;
-
-    //Add views to the container
-    [containerView addSubview:toView];
-    [containerView addSubview:snapshotView];
-    [containerView addSubview:overlappingCards];
+    self.totalCardAnimationDistance = snapshotView.frame.origin.y - toViewFinalFrame.origin.y;
 
     self.isPresenting = YES;
     [UIView animateKeyframesWithDuration:self.nonInteractiveDuration delay:0.0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
         [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:1.0 animations:^{
-            snapshotView.frame = finalSnapshotFrame;
+            snapshotView.frame = snapShotFinalFrame;
         }];
 
         [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.25 animations:^{
-            overlappingCards.frame = CGRectOffset(overlappingCards.frame, 0, -30);
+            overlapSnapshot.frame = CGRectOffset(overlapSnapshot.frame, 0, -30);
         }];
 
 
         [UIView addKeyframeWithRelativeStartTime:0.25 relativeDuration:0.75 animations:^{
-            overlappingCards.frame = CGRectOffset(overlappingCards.frame, 0, CGRectGetHeight(containerView.frame) - overlappingCards.frame.origin.y);
+            overlapSnapshot.frame = CGRectOffset(overlapSnapshot.frame, 0, CGRectGetHeight(containerView.frame) - CGRectGetMinY(overlapSnapshot.frame));
         }];
     } completion:^(BOOL finished) {
         toView.alpha = 1.0;
@@ -154,7 +142,7 @@
         self.isPresented = ![transitionContext transitionWasCancelled];
 
         [snapshotView removeFromSuperview];
-        [overlappingCards removeFromSuperview];
+        [overlapSnapshot removeFromSuperview];
 
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
@@ -163,22 +151,36 @@
 - (void)animateDismiss:(id<UIViewControllerContextTransitioning>)transitionContext {
     UIView* containerView = [transitionContext containerView];
 
-    UIViewController* fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController* fromVC = self.articleContainerViewController;
+    UIViewController* toVC   = self.listViewController;
 
     UIView* fromView = fromVC.view;
+
     fromView.alpha = 0.0;
 
+    //Scroll the list if needed (the list may have changed)
+    [self.listViewController scrollToArticleIfOffscreen:self.articleContainerViewController.article animated:NO];
+
     //Setup snapshot of presented card
-    UIView* snapshotView      = self.movingCardSnapshot;
-    CGRect finalSnapshotFrame = [containerView convertRect:self.movingCardView.frame fromView:self.movingCardView.superview];
+    UIView* transitioningView = self.articleContainerViewController.view;
+    UIView* snapshotView      = [transitioningView wmf_snapshotAfterScreenUpdates:NO andAddToContainerView:containerView];
+    UIView* articleInList     = [self.listViewController viewForTransition:self];
+    CGRect finalSnapshotFrame;
+    if (articleInList) {
+        finalSnapshotFrame = [containerView convertRect:articleInList.frame fromView:articleInList.superview];
+    } else {
+        finalSnapshotFrame = CGRectOffset(snapshotView.frame, 0.0, CGRectGetHeight(snapshotView.frame));
+    }
+    finalSnapshotFrame.size = snapshotView.frame.size;
 
-    //Setup snapshot of overlapping cards
-    UIView* overlappingCards         = self.overlappingCardSnapshot;
-    CGRect finalOverlapSnapshotFrame = CGRectMake(0, finalSnapshotFrame.origin.y + self.offsetOfNextOverlappingCard, CGRectGetWidth(fromView.bounds), CGRectGetHeight(fromView.bounds));
+    //Setup overlaping screen shot
+    CGRect overlapRect               = [self.listViewController frameOfOverlappingListItemsForTransition:self];
+    UIView* overlapSnapshot          = [self.listViewController.view wmf_resizableSnapshotViewFromRect:overlapRect afterScreenUpdates:YES andAddToContainerView:containerView];
+    CGRect finalOverlapSnapshotFrame = overlapSnapshot.frame;
+    overlapSnapshot.frame = CGRectOffset(overlapSnapshot.frame, 0, CGRectGetHeight(containerView.frame) - CGRectGetMinY(overlapSnapshot.frame));
 
-    //Add views to the container
-    [containerView addSubview:snapshotView];
-    [containerView addSubview:overlappingCards];
+    //How far the animation moves (used to compute percentage for the interactive portion)
+    self.totalCardAnimationDistance = finalSnapshotFrame.origin.y - snapshotView.frame.origin.y;
 
     self.isDismissing = YES;
     [UIView animateKeyframesWithDuration:self.nonInteractiveDuration delay:0.0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
@@ -187,12 +189,12 @@
         }];
 
         [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.75 animations:^{
-            overlappingCards.frame = CGRectOffset(finalOverlapSnapshotFrame, 0, -30);
+            overlapSnapshot.frame = CGRectOffset(finalOverlapSnapshotFrame, 0, -30);
         }];
 
 
         [UIView addKeyframeWithRelativeStartTime:0.75 relativeDuration:0.25 animations:^{
-            overlappingCards.frame = finalOverlapSnapshotFrame;
+            overlapSnapshot.frame = finalOverlapSnapshotFrame;
         }];
     } completion:^(BOOL finished) {
         if ([transitionContext transitionWasCancelled]) {
@@ -203,26 +205,44 @@
         self.isPresented = [transitionContext transitionWasCancelled];
 
         [snapshotView removeFromSuperview];
-        [overlappingCards removeFromSuperview];
+        [overlapSnapshot removeFromSuperview];
 
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }
 
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch {
+    if ([self.articleContainerViewController transitionShouldBeEnabled:self]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer {
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer {
+    return YES;
+}
+
 #pragma mark - Gesture
+
 
 - (void)addDismissGestureRecognizer {
     if (!self.dismissGestureRecognizer) {
         self.dismissGestureRecognizer          = (id)[[WMFScrollViewTopPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDismissGesture:)];
         self.dismissGestureRecognizer.delegate = self;
-        [self.presentedViewController.view addGestureRecognizer:self.dismissGestureRecognizer];
+        [self.articleContainerViewController.view addGestureRecognizer:self.dismissGestureRecognizer];
         [self.dismissGestureRecognizer setScrollview:self.scrollView];
     }
 }
 
 - (void)removeDismissGestureRecognizer {
     if (self.dismissGestureRecognizer) {
-        [self.presentedViewController.view removeGestureRecognizer:self.dismissGestureRecognizer];
+        [self.articleContainerViewController.view removeGestureRecognizer:self.dismissGestureRecognizer];
         self.dismissGestureRecognizer.delegate = nil;
         self.dismissGestureRecognizer          = nil;
     }
@@ -234,7 +254,7 @@
             CGPoint translation     = [recognizer translationInView:recognizer.view];
             BOOL swipeIsTopToBottom = translation.y > 0;
             if (swipeIsTopToBottom) {
-                [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+                [self.articleContainerViewController dismissViewControllerAnimated:YES completion:nil];
             }
             break;
         }

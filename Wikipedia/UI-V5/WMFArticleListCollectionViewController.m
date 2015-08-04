@@ -10,7 +10,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UICollectionView+WMFKVOUpdatableList.h"
 
-#import "WMFArticleListTranstion.h"
+#import "WMFArticleContainerViewController.h"
 
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "MediaWikiKit.h"
@@ -23,6 +23,8 @@
 @property (nonatomic, strong) WMFOffScreenFlowLayout* offScreenLayout;
 
 @property (strong, nonatomic) WMFArticleListTranstion* cardTransition;
+
+@property (strong, nonatomic) MWKArticle* selectedArticle;
 
 @end
 
@@ -119,6 +121,27 @@
     }];
 }
 
+#pragma mark - Scrolling
+
+- (void)scrollToArticle:(MWKArticle*)article animated:(BOOL)animated {
+    NSIndexPath* indexPath = [self.dataSource indexPathForArticle:article];
+    if (!indexPath) {
+        return;
+    }
+    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:animated];
+}
+
+- (void)scrollToArticleIfOffscreen:(MWKArticle*)article animated:(BOOL)animated {
+    NSIndexPath* indexPath = [self.dataSource indexPathForArticle:article];
+    if (!indexPath) {
+        return;
+    }
+    if ([self.collectionView cellForItemAtIndexPath:indexPath]) {
+        return;
+    }
+    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:animated];
+}
+
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
@@ -174,7 +197,7 @@
     self.offScreenLayout.itemSize = self.view.bounds.size;
 }
 
-#pragma mark - <UICollectionViewDataSource>
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
     return [self.dataSource articleCount];
@@ -200,7 +223,7 @@
     return cell;
 }
 
-#pragma mark - <UICollectionViewDelegate>
+#pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView*)collectionView
        willDisplayCell:(UICollectionViewCell*)cell
@@ -218,28 +241,21 @@
 }
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    WMFArticleViewControllerContainerCell* cell =
-        (WMFArticleViewControllerContainerCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    WMFArticleViewControllerContainerCell* cell = (WMFArticleViewControllerContainerCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    self.selectedArticle = cell.viewController.article;
 
-    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore
-                                                                                     savedPages:self.savedPages];
-    vc.article = cell.viewController.article;
+    WMFArticleContainerViewController* container = [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
+    container.article = self.selectedArticle;
 
-    self.cardTransition =
-        [[WMFArticleListTranstion alloc] initWithPresentingViewController:self
-                                                  presentedViewController:vc
-                                                        contentScrollView:vc.tableView];
-
-    self.cardTransition.nonInteractiveDuration      = 0.5;
-    self.cardTransition.presentCardOffset           = vc.tableView.contentInset.top;
-    self.cardTransition.offsetOfNextOverlappingCard = self.stackedLayout.topReveal;
-    self.cardTransition.movingCardView              = cell;
-    vc.transitioningDelegate                        = self.cardTransition;
-    vc.modalPresentationStyle                       = UIModalPresentationCustom;
+    self.cardTransition = [[WMFArticleListTranstion alloc] initWithArticleListViewController:self
+                                                              articleContainerViewController:container
+                                                                           contentScrollView:container.articleViewController.tableView];
+    container.transitioningDelegate  = self.cardTransition;
+    container.modalPresentationStyle = UIModalPresentationCustom;
 
     [self wmf_hideKeyboard];
 
-    [self presentViewController:vc animated:YES completion:^{
+    [self presentViewController:container animated:YES completion:^{
         [self.recentPages addPageToHistoryWithTitle:cell.viewController.article.title
                                     discoveryMethod:[self.dataSource discoveryMethod]];
         [self.recentPages save];
@@ -284,6 +300,22 @@
 
 - (void)unobserveDataSource {
     [self.KVOControllerNonRetaining unobserve:self.dataSource];
+}
+
+#pragma mark - WMFArticleListTranstioning
+
+- (UIView*)viewForTransition:(WMFArticleListTranstion*)transition {
+    NSIndexPath* indexPath = [self.dataSource indexPathForArticle:self.selectedArticle];
+    return [self.collectionView cellForItemAtIndexPath:indexPath];
+}
+
+- (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTranstion*)transition {
+    NSIndexPath* indexPath     = [self.dataSource indexPathForArticle:self.selectedArticle];
+    NSIndexPath* next          = [self.collectionView wmf_indexPathAfterIndexPath:indexPath];
+    UICollectionViewCell* cell = [self.collectionView cellForItemAtIndexPath:next];
+    CGRect frame               = cell.frame;
+    frame.size.height = CGRectGetHeight(self.collectionView.frame) - frame.origin.y;
+    return frame;
 }
 
 @end

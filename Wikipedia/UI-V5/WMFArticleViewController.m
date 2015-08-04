@@ -32,6 +32,7 @@
 #import "MWKArticle+WMFSharing.h"
 #import "UIView+WMFDefaultNib.h"
 
+#import "WMFArticleWebViewTransition.h"
 #import "WMFArticlePopupTransition.h"
 
 typedef NS_ENUM (NSInteger, WMFArticleSectionType) {
@@ -43,8 +44,7 @@ typedef NS_ENUM (NSInteger, WMFArticleSectionType) {
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleViewController ()
-<UITableViewDataSource,
- UITableViewDelegate,
+<UINavigationControllerDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
  WMFWebViewControllerDelegate>
@@ -67,6 +67,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGalleryViewController;
 @property (nonatomic, weak) IBOutlet UITapGestureRecognizer* expandGalleryTapRecognizer;
 
+@property (nonatomic, strong) WMFArticleWebViewTransition* webViewTransition;
+
+@property (nonatomic, assign) NSUInteger selectedSectionIndex;
 @property (nonatomic, strong) WebViewController* webViewController;
 
 @property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
@@ -316,8 +319,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Actions
 
 - (IBAction)readButtonTapped:(id)sender {
-    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:self.webViewController];
-    [self presentViewController:nc animated:YES completion:NULL];
+    [self.navigationController pushViewController:self.webViewController animated:YES];
 }
 
 - (IBAction)toggleSave:(id)sender {
@@ -358,6 +360,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationController.delegate        = self;
+
     UICollectionViewFlowLayout* galleryLayout = (UICollectionViewFlowLayout*)_headerGalleryViewController.collectionViewLayout;
     galleryLayout.minimumInteritemSpacing = 0;
     galleryLayout.minimumLineSpacing      = 0;
@@ -373,6 +378,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+
     [self updateUI];
 
     // Note: do not call "fetchReadMoreForTitle:" in updateUI! Because we don't save the read more results to the data store, we need to fetch
@@ -382,6 +389,23 @@ NS_ASSUME_NONNULL_BEGIN
             [self fetchReadMoreForTitle:self.article.title];
         }
     }
+}
+
+#pragma mark - IndexPath Calculations
+
+- (NSUInteger)tableOfContentsSectionIndexWithIndexPath:(NSIndexPath*)indexPath {
+    if (indexPath.section != WMFArticleSectionTypeTOC) {
+        return NSNotFound;
+    }
+    return indexPath.row + 1;
+}
+
+- (NSIndexPath*)tableOfContentsIndexPathWithSectionIndex:(NSUInteger)index {
+    return [NSIndexPath indexPathForRow:index - 1 inSection:WMFArticleSectionTypeTOC];
+}
+
+- (NSInteger)countOfTableOfContentsSectionsExcludingSummary {
+    return [self.article.sections count] - 1;
 }
 
 #pragma mark - UITableViewDataSource
@@ -396,10 +420,10 @@ NS_ASSUME_NONNULL_BEGIN
             return 1;
             break;
         case WMFArticleSectionTypeTOC:
-            return self.article.sections.count - 1;
+            return [self countOfTableOfContentsSectionsExcludingSummary];
             break;
         case WMFArticleSectionTypeReadMore:
-            return self.readMoreResults.articleCount;
+            return [self.readMoreResults articleCount];
             break;
     }
     return 0;
@@ -407,9 +431,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     switch ((WMFArticleSectionType)indexPath.section) {
-        case WMFArticleSectionTypeSummary: return [self textExtractCellAtIndexPath:indexPath];
-        case WMFArticleSectionTypeTOC: return [self tocSectionCellAtIndexPath:indexPath];
-        case WMFArticleSectionTypeReadMore: return [self readMoreCellAtIndexPath:indexPath];
+        case WMFArticleSectionTypeSummary:
+            return [self textExtractCellAtIndexPath:indexPath];
+        case WMFArticleSectionTypeTOC:
+            return [self tocSectionCellAtIndexPath:indexPath];
+        case WMFArticleSectionTypeReadMore:
+            return [self readMoreCellAtIndexPath:indexPath];
     }
 }
 
@@ -421,8 +448,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFArticleSectionCell*)tocSectionCellAtIndexPath:(NSIndexPath*)indexPath {
     WMFArticleSectionCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleSectionCell wmf_nibName]];
-    cell.level           = self.article.sections[indexPath.row + 1].level;
-    cell.titleLabel.text = [self.article.sections[indexPath.row + 1].line wmf_stringByRemovingHTML];
+    NSUInteger index            = [self tableOfContentsSectionIndexWithIndexPath:indexPath];
+    cell.level           = self.article.sections[index].level;
+    cell.titleLabel.text = [self.article.sections[index].line wmf_stringByRemovingHTML];
     return cell;
 }
 
@@ -472,6 +500,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [self presentArticleScrolledToSectionForIndexPath:indexPath];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Article Link Presentation
@@ -481,10 +510,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)presentArticleScrolledToSectionForIndexPath:(NSIndexPath*)indexPath {
+    self.selectedSectionIndex = [self tableOfContentsSectionIndexWithIndexPath:indexPath];
     MWKTitle* titleWithFragment = [self titleForSelectedIndexPath:indexPath];
     if ([self titleIsTheSameAsCurrentArticle:titleWithFragment]) {
         [self.webViewController scrollToFragment:titleWithFragment.fragment];
-        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:self.webViewController] animated:YES completion:NULL];
+        WMFArticleWebViewTransition* transition = [[WMFArticleWebViewTransition alloc] initWithArticleViewController:self webViewController:self.webViewController];
+        self.webViewTransition = transition;
+        [self.navigationController pushViewController:self.webViewController animated:YES];
     } else {
         [self presentPopupForTitle:titleWithFragment];
     }
@@ -552,6 +584,29 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)willDismissGalleryController:(WMFImageGalleryViewController* __nonnull)gallery {
     self.headerGalleryViewController.currentPage = gallery.currentPage;
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - WMFArticleWebViewTransitioning
+
+- (NSUInteger)selectedSectionIndexForTransition:(WMFArticleWebViewTransition*)transition {
+    return self.selectedSectionIndex;
+}
+
+- (UIView*)viewForTransition:(WMFArticleWebViewTransition*)transition {
+    return self.view;
+}
+
+- (UIView*)transition:(WMFArticleWebViewTransition*)transition viewForSectionIndex:(NSUInteger)index {
+    return [self.tableView cellForRowAtIndexPath:[self tableOfContentsIndexPathWithSectionIndex:index]];
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController*)navigationController
+                                   animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                fromViewController:(UIViewController*)fromVC
+                                                  toViewController:(UIViewController*)toVC {
+    return self.webViewTransition;
 }
 
 @end
