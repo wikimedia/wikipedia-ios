@@ -1,14 +1,14 @@
 //
-//  UIColor+WMFPalette.m
+//  UIColor+WMFStyle.m
 //  Wikipedia
 //
 //  Created by Brian Gerstle on 7/31/15.
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "UIColor+WMFPalette.h"
+#import "UIColor+WMFStyle.h"
 
-@implementation UIColor (WMFPalette)
+@implementation UIColor (WMFStyle)
 
 + (instancetype)wmf_logoBlue {
     return [self wmf_logoBlueWithAlpha:1.0];

@@ -1,5 +1,5 @@
 //
-//  UIColor+WMFPalette.h
+//  UIColor+WMFStyle.h
 //  Wikipedia
 //
 //  Created by Brian Gerstle on 7/31/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor (WMFPalette)
+@interface UIColor (WMFStyle)
 
 + (instancetype)wmf_logoBlue;
 

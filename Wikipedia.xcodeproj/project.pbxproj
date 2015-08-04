@@ -279,7 +279,7 @@
 		BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */; };
 		BC56209A1B6B92CF0013FFB0 /* WMFMinimalArticleContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5620991B6B92CF0013FFB0 /* WMFMinimalArticleContentController.m */; };
 		BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */ = {isa = PBXBuildFile; fileRef = BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */; };
-		BC5620A81B6BEDAD0013FFB0 /* UIColor+WMFPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFPalette.m */; };
+		BC5620A81B6BEDAD0013FFB0 /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFStyle.m */; };
 		BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */; };
 		BC5FE5721B1DF38A00273BC0 /* NOWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */; };
 		BC5FE5751B1DFF5400273BC0 /* ArticleFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FE5741B1DFF5400273BC0 /* ArticleFetcherTests.m */; };
@@ -926,8 +926,8 @@
 		BC5620991B6B92CF0013FFB0 /* WMFMinimalArticleContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFMinimalArticleContentController.m; sourceTree = "<group>"; };
 		BC56209B1B6BA9110013FFB0 /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Exoplanet.mobileview.json; sourceTree = "<group>"; };
-		BC5620A61B6BEDAD0013FFB0 /* UIColor+WMFPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WMFPalette.h"; sourceTree = "<group>"; };
-		BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WMFPalette.m"; sourceTree = "<group>"; };
+		BC5620A61B6BEDAD0013FFB0 /* UIColor+WMFStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WMFStyle.h"; sourceTree = "<group>"; };
+		BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WMFStyle.m"; sourceTree = "<group>"; };
 		BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ENWikiSiteInfo.json; sourceTree = "<group>"; };
 		BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NOWikiSiteInfo.json; sourceTree = "<group>"; };
 		BC5FE5741B1DFF5400273BC0 /* ArticleFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleFetcherTests.m; sourceTree = "<group>"; };
@@ -1866,8 +1866,8 @@
 				BCB66A0A1A85183000C7B1FE /* NSString+WMFHTMLParsing.h */,
 				BCB66A0B1A85183000C7B1FE /* NSString+WMFHTMLParsing.m */,
 				042950D21A9D3BA7009BE784 /* UIColor+WMFHexColor.h */,
-				BC5620A61B6BEDAD0013FFB0 /* UIColor+WMFPalette.h */,
-				BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFPalette.m */,
+				BC5620A61B6BEDAD0013FFB0 /* UIColor+WMFStyle.h */,
+				BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFStyle.m */,
 				042950D31A9D3BA7009BE784 /* UIColor+WMFHexColor.m */,
 				BCB58F651A8AA22200465627 /* MWKLicense+ToGlyph.h */,
 				BCB58F661A8AA22200465627 /* MWKLicense+ToGlyph.m */,
@@ -3403,7 +3403,7 @@
 				0EFB0F221B31EE2D00D05C08 /* Image.m in Sources */,
 				D4F277FB194235A00032BA38 /* ProtectedEditAttemptFunnel.m in Sources */,
 				0487047E19F8262600B7D307 /* AccountCreationTokenFetcher.m in Sources */,
-				BC5620A81B6BEDAD0013FFB0 /* UIColor+WMFPalette.m in Sources */,
+				BC5620A81B6BEDAD0013FFB0 /* UIColor+WMFStyle.m in Sources */,
 				049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */,
 				0436998E1B45B673002FD81D /* WMFArticleTableHeaderView.m in Sources */,
 				04F27B7518FE0F2E00EDD838 /* PageHistoryResultCell.m in Sources */,
