@@ -2,7 +2,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WMFSectionTitlesViewController.h"
-#import "WMFTitleOverlayLabel.h"
+#import "WMFTitleOverlay.h"
 #import "WMFTitleOverlayModel.h"
 #import "NSString+Extras.h"
 #import "UIView+WMFSearchSubviews.h"
@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) NSMutableArray* overlayModels;
 @property (nonatomic, strong) MASConstraint* topStaticOverlayTopConstraint;
-@property (nonatomic, strong) WMFTitleOverlayLabel* topStaticOverlay;
+@property (nonatomic, strong) WMFTitleOverlay* topStaticOverlay;
 @property (nonatomic, weak) UIView* view;
 @property (nonatomic, weak) UIWebView* webView;
 @property (nonatomic, strong) MASViewAttribute* topLayoutGuide;
@@ -46,7 +46,7 @@
 
 - (void)resetOverlays {
     for (WMFTitleOverlayModel* m in self.overlayModels) {
-        [m.label removeFromSuperview];
+        [m.overlay removeFromSuperview];
     }
     [self.overlayModels removeAllObjects];
 
@@ -63,20 +63,20 @@
         if (title) {
             title = [title wmf_stringByRemovingHTML];
 
-            WMFTitleOverlayLabel* label = [[WMFTitleOverlayLabel alloc] init];
-            label.text      = title;
-            label.sectionId = sectionId;
+            WMFTitleOverlay* overlay = [self getNewOverlay];
+            overlay.title     = title;
+            overlay.sectionId = sectionId;
 
-            [self.webView.scrollView addSubview:label];
+            [self.webView.scrollView addSubview:overlay];
 
             WMFTitleOverlayModel* m = [[WMFTitleOverlayModel alloc] init];
             m.anchor    = section[@"anchor"];
             m.title     = title;
             m.yOffset   = 0;
-            m.label     = label;
+            m.overlay   = overlay;
             m.sectionId = sectionId;
 
-            [label mas_makeConstraints:^(MASConstraintMaker* make) {
+            [overlay mas_makeConstraints:^(MASConstraintMaker* make) {
                 make.leading.equalTo(browserView.mas_leading);
                 make.trailing.equalTo(browserView.mas_trailing);
                 m.topConstraint = make.top.equalTo(browserView.mas_top);
@@ -89,11 +89,15 @@
     [self updateOverlaysPositions];
 }
 
+-(WMFTitleOverlay*)getNewOverlay {
+    return [[[NSBundle mainBundle] loadNibNamed:@"WMFTitleOverlay" owner:self options:nil] objectAtIndex:0];
+}
+
 - (void)setupTopStaticTitleOverlay {
     if (self.topStaticOverlay) {
         return;
     }
-    self.topStaticOverlay       = [[WMFTitleOverlayLabel alloc] init];
+    self.topStaticOverlay       = [self getNewOverlay];
     self.topStaticOverlay.alpha = 0;
     [self.view addSubview:self.topStaticOverlay];
     [self.topStaticOverlay mas_makeConstraints:^(MASConstraintMaker* make) {
@@ -148,8 +152,7 @@
 }
 
 - (void)updateTopStaticOverlayWithModel:(WMFTitleOverlayModel*)model {
-    self.topStaticOverlay.text = model.title;
-    [self.topStaticOverlay layoutIfNeeded];
+    self.topStaticOverlay.title     = model.title;
     self.topStaticOverlay.sectionId = model.sectionId;
 }
 

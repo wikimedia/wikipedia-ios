@@ -2,7 +2,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WMFTitleOverlayModel.h"
-#import "WMFTitleOverlayLabel.h"
+#import "WMFTitleOverlay.h"
 
 @implementation WMFTitleOverlayModel
 

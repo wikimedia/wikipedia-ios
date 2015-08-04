@@ -26,7 +26,7 @@
 #import "WMFArticleViewController.h"
 #import "PageHistoryViewController.h"
 
-#import "WMFTitleOverlayLabel.h"
+#import "WMFTitleOverlay.h"
 #import "WMFSectionTitlesViewController.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
@@ -276,8 +276,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
     if (self.editable) {
-        WMFTitleOverlayLabel* sender = notification.object;
-        [self showSectionEditorForSection:[sender sectionId]];
+        [self showSectionEditorForSection:[(WMFTitleOverlay *)notification.object sectionId]];
     } else {
         ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
         [funnel logProtectionStatus:[[self.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];

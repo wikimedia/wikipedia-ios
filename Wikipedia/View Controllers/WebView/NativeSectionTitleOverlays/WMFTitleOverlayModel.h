@@ -4,7 +4,7 @@
 #import <Foundation/Foundation.h>
 #import <Masonry/Masonry.h>
 
-@class WMFTitleOverlayLabel;
+@class WMFTitleOverlay;
 @interface WMFTitleOverlayModel : NSObject
 
 @property (nonatomic, strong) MASConstraint* topConstraint;
@@ -13,6 +13,6 @@
 @property (nonatomic) CGFloat yOffset;
 @property (nonatomic) NSNumber* sectionId;
 
-@property (nonatomic, strong) WMFTitleOverlayLabel* label;
+@property (nonatomic, strong) WMFTitleOverlay* overlay;
 
 @end
