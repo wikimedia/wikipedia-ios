@@ -110,6 +110,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title                                                    = @"Search";
     self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self updateUIWithResults:nil];
 }
@@ -208,7 +209,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)updateUIWithResults:(WMFSearchResults*)results {
-    self.title = results.searchTerm;
     [self updateSearchButtonWithResults:results.searchSuggestion];
     [self updateRecentSearchesVisibility];
 }
