@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 group :dev do
-  gem 'cocoapods', '~> 0.36.1'
+  gem 'cocoapods', '~> 0.38.2'
 end
 
 group :ci do

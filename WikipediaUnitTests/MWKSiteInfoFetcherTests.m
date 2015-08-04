@@ -50,15 +50,12 @@
 
     MWKSite* testSite = [MWKSite siteWithCurrentLocale];
 
-    XCTestExpectation* failedFetchExpectation = [self expectationWithDescription:@"failureCallback"];
-
     NSError* expectedError = [NSError errorWithDomain:@"foo" code:1 userInfo:nil];
 
     [self.fetcher fetchInfoForSite:testSite
                            success:^(MWKSiteInfo* siteInfo) {}
                            failure:^(NSError* e){
         assertThat(e, is(expectedError));
-        [failedFetchExpectation fulfill];
     }];
 
     MKTArgumentCaptor* failureBlockCaptor = [[MKTArgumentCaptor alloc] init];
@@ -68,8 +65,6 @@
                                          failure:[failureBlockCaptor capture]];
     void (^ failureCallback)(AFHTTPRequestOperation* op, NSError* err) = [failureBlockCaptor value];
     failureCallback(nil, expectedError);
-
-    WaitForExpectations();
 }
 
 - (void)runSuccessfulCallbackTestWithFixture:(NSString*)fixture site:(MWKSite*)testSite {

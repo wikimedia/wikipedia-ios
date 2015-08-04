@@ -34,14 +34,20 @@
     }
 
     [self unobserveDataSource];
+
     _dataSource = dataSource;
-    [self observeDataSource];
 
     self.title = [_dataSource displayTitle];
 
     if ([self isViewLoaded]) {
         [self.collectionView setContentOffset:CGPointZero];
         [self.collectionView reloadData];
+        /*
+           can't let KVO callbacks fire until the view is completely reloaded. this prevents crashes when updates occur
+           before reloading, which the collectionView assumes are balanced (i.e. we explicitly removed any sections that
+           no longer exist)
+         */
+        [self observeDataSource];
     }
 }
 

@@ -8,22 +8,35 @@
 
 #import "MWKArticle+WMFSharing.h"
 #import "NSString+WMFHTMLParsing.h"
-#import "MWKSection+WMFSharing.h"
-#import <BlocksKit/BlocksKit.h>
-#import "MediaWikiKit.h"
+#import "MWKSectionList.h"
+#import "MWKSection.h"
+
+#define MWKArticleMainPageLeadingHTMLXPath @"/html/body/div/div/p[1]"
+static NSString* const MWKArticleMainPageLeadingTextXPath = MWKArticleMainPageLeadingHTMLXPath "//text()";
 
 @implementation MWKArticle (WMFSharing)
 
-- (NSString*)shareSnippet {
+- (NSString*)firstNonEmptyResultFromIteratingSectionsWithBlock:(NSString*(^)(MWKSection*))block {
+    NSString* result;
     for (MWKSection* section in self.sections) {
-        NSString* snippet = [self isMain] ?
-                            [section shareSnippetFromTextUsingXpath : @"/html/body/div/div/p[1]//text()"]
-                            :[section shareSnippet];
-        if (snippet.length) {
-            return snippet;
+        result = block(section);
+        if (result) {
+            return result;
         }
     }
     return @"";
+}
+
+- (NSString*)shareSnippet {
+    if ([self isMain]) {
+        return [self firstNonEmptyResultFromIteratingSectionsWithBlock:^NSString*(MWKSection* section) {
+            return [[section textForXPath:MWKArticleMainPageLeadingTextXPath] wmf_shareSnippetFromText];
+        }];
+    } else {
+        return [self firstNonEmptyResultFromIteratingSectionsWithBlock:^NSString*(MWKSection* section) {
+            return [section shareSnippet];
+        }];
+    }
 }
 
 @end

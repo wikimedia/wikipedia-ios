@@ -72,21 +72,52 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     return [self apiEndpoint:NO];
 }
 
+- (NSURLComponents*)URLComponents:(BOOL)isMobile {
+    NSURLComponents* siteURLComponents = [[NSURLComponents alloc] init];
+    siteURLComponents.scheme = @"https";
+    NSMutableArray* hostComponents = [NSMutableArray arrayWithObject:self.language];
+    if (isMobile) {
+        [hostComponents addObject:@"m"];
+    }
+    [hostComponents addObject:self.domain];
+    siteURLComponents.host = [hostComponents componentsJoinedByString:@"."];
+    return siteURLComponents;
+}
+
+- (NSURL*)URL {
+    return [self URL:NO];
+}
+
+- (NSURL*)mobileURL {
+    return [self URL:YES];
+}
+
+- (NSURL*)URL:(BOOL)isMobile {
+    return [[self URLComponents:NO] URL];
+}
+
 - (NSURL*)apiEndpoint:(BOOL)isMobile {
-//    NSURLComponents* apiEndpointComponents = [[NSURLComponents alloc] init];
-//    apiEndpointComponents.scheme = @"https";
-//    NSMutableArray* hostComponents = [NSMutableArray arrayWithObject:self.language];
-//    if (isMobile) {
-//        [hostComponents addObject:@"m"];
-//    }
-//    [hostComponents addObject:self.domain];
-//    apiEndpointComponents.host = [hostComponents componentsJoinedByString:@"."];
-//    apiEndpointComponents.path = @"";
-//    return [apiEndpointComponents URL];
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@%@.%@/w/api.php",
-                                 self.language,
-                                 isMobile ? @".m" : @"",
-                                 self.domain]];
+    NSURLComponents* apiEndpointComponents = [self URLComponents:isMobile];
+    apiEndpointComponents.path = @"/w/api.php";
+    return [apiEndpointComponents URL];
+}
+
+- (UIUserInterfaceLayoutDirection)layoutDirection {
+    switch (CFLocaleGetLanguageCharacterDirection((__bridge CFStringRef)self.language)) {
+        case kCFLocaleLanguageDirectionRightToLeft:
+            return UIUserInterfaceLayoutDirectionRightToLeft;
+        default:
+            return UIUserInterfaceLayoutDirectionLeftToRight;
+    }
+}
+
+- (NSTextAlignment)textAlignment {
+    switch (self.layoutDirection) {
+        case UIUserInterfaceLayoutDirectionRightToLeft:
+            return NSTextAlignmentRight;
+        case UIUserInterfaceLayoutDirectionLeftToRight:
+            return NSTextAlignmentLeft;
+    }
 }
 
 #pragma mark - NSObject

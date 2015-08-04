@@ -24,6 +24,10 @@ extern NSString* const WMFDefaultSiteDomain;
 /// @name Computed Properties
 ///
 
+- (NSURL*)URL;
+
+- (NSURL*)mobileURL;
+
 - (NSURL*)apiEndpoint;
 
 - (NSURL*)mobileApiEndpoint;
@@ -44,6 +48,10 @@ extern NSString* const WMFDefaultSiteDomain;
 + (instancetype)siteWithCurrentLocale;
 
 - (BOOL)isEqualToSite:(MWKSite* __nullable)other;
+
+- (UIUserInterfaceLayoutDirection)layoutDirection;
+
+- (NSTextAlignment)textAlignment;
 
 ///
 /// @name Title Factory Convenience Methods
