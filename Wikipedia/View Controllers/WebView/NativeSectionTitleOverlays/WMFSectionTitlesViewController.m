@@ -13,19 +13,23 @@
 @property (nonatomic, strong) NSMutableArray* overlayModels;
 @property (nonatomic, strong) MASConstraint* topStaticOverlayTopConstraint;
 @property (nonatomic, strong) WMFTitleOverlayLabel* topStaticOverlay;
+@property (nonatomic, weak) UIView* view;
 @property (nonatomic, weak) UIWebView* webView;
-@property (nonatomic, weak) UIViewController* webViewController;
+@property (nonatomic, strong) MASViewAttribute* topLayoutGuide;
 
 @end
 
 @implementation WMFSectionTitlesViewController
 
-- (instancetype)initWithWebView:(UIWebView*)webView webViewController:(UIViewController*)webViewController {
+- (instancetype)initWithView:(UIView*)view
+                     webView:(UIWebView*)webView
+              topLayoutGuide:(MASViewAttribute*)topLayoutGuide {
     self = [super init];
     if (self) {
-        self.overlayModels     = @[].mutableCopy;
-        self.webView           = webView;
-        self.webViewController = webViewController;
+        self.overlayModels  = @[].mutableCopy;
+        self.view           = view;
+        self.webView        = webView;
+        self.topLayoutGuide = topLayoutGuide;
         [self.KVOControllerNonRetaining observe:self.webView.scrollView
                                         keyPath:WMF_SAFE_KEYPATH(UIScrollView.new, contentSize)
                                         options:NSKeyValueObservingOptionNew
@@ -65,33 +69,19 @@
 
             [self.webView.scrollView addSubview:label];
 
-            NSLayoutConstraint* (^ constrainEqually)(NSLayoutAttribute) = ^NSLayoutConstraint*(NSLayoutAttribute attr) {
-                NSLayoutConstraint* c =
-                    [NSLayoutConstraint constraintWithItem:label
-                                                 attribute:attr
-                                                 relatedBy:NSLayoutRelationEqual
-                                                    toItem:browserView
-                                                 attribute:attr
-                                                multiplier:1.0
-                                                  constant:0];
-
-                [self.webView.scrollView addConstraint:c];
-
-                return c;
-            };
-
-            constrainEqually(NSLayoutAttributeTrailing);
-            constrainEqually(NSLayoutAttributeLeading);
-
-            NSLayoutConstraint* topConstraint = constrainEqually(NSLayoutAttributeTop);
-
             WMFTitleOverlayModel* m = [[WMFTitleOverlayModel alloc] init];
-            m.anchor        = section[@"anchor"];
-            m.title         = title;
-            m.topConstraint = topConstraint;
-            m.yOffset       = topConstraint.constant;
-            m.label         = label;
-            m.sectionId     = sectionId;
+            m.anchor    = section[@"anchor"];
+            m.title     = title;
+            m.yOffset   = 0;
+            m.label     = label;
+            m.sectionId = sectionId;
+
+            [label mas_makeConstraints:^(MASConstraintMaker* make) {
+                make.leading.equalTo(browserView.mas_leading);
+                make.trailing.equalTo(browserView.mas_trailing);
+                m.topConstraint = make.top.equalTo(browserView.mas_top);
+            }];
+
             [self.overlayModels addObject:m];
         }
     }
@@ -105,11 +95,11 @@
     }
     self.topStaticOverlay       = [[WMFTitleOverlayLabel alloc] init];
     self.topStaticOverlay.alpha = 0;
-    [self.webViewController.view addSubview:self.topStaticOverlay];
+    [self.view addSubview:self.topStaticOverlay];
     [self.topStaticOverlay mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.left.equalTo(self.webViewController.view.mas_left);
-        make.right.equalTo(self.webViewController.view.mas_right);
-        self.topStaticOverlayTopConstraint = make.top.equalTo(self.webViewController.mas_topLayoutGuide);
+        make.leading.equalTo(self.view.mas_leading);
+        make.trailing.equalTo(self.view.mas_trailing);
+        self.topStaticOverlayTopConstraint = make.top.equalTo(self.topLayoutGuide);
     }];
 }
 
@@ -121,8 +111,8 @@
             if (m.anchor && m.topConstraint) {
                 NSNumber* topOffset = headingsTopOffsets[i];
                 CGFloat topFloat    = topOffset.floatValue + self.webView.scrollView.contentOffset.y;
-                m.topConstraint.constant = topFloat;
-                m.yOffset                = topFloat;
+                [m.topConstraint setOffset:topFloat];
+                m.yOffset = topFloat;
             }
         }
     }
@@ -158,7 +148,8 @@
 }
 
 - (void)updateTopStaticOverlayWithModel:(WMFTitleOverlayModel*)model {
-    self.topStaticOverlay.text      = model.title;
+    self.topStaticOverlay.text = model.title;
+    [self.topStaticOverlay layoutIfNeeded];
     self.topStaticOverlay.sectionId = model.sectionId;
 }
 

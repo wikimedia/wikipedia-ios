@@ -2,10 +2,13 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <Foundation/Foundation.h>
+@class MASViewAttribute;
 
 @interface WMFSectionTitlesViewController : NSObject
 
-- (instancetype)initWithWebView:(UIWebView*)webView webViewController:(UIViewController*)webViewController;
+- (instancetype)initWithView:(UIView*)view
+                     webView:(UIWebView*)webView
+              topLayoutGuide:(MASViewAttribute*)topLayoutGuide;
 
 - (void)resetOverlays;
 - (void)updateTopOverlayForScrollOffsetY:(CGFloat)offsetY;
