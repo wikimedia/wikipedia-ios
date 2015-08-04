@@ -312,6 +312,9 @@
 
 - (UIView*)viewForTransition:(WMFArticleListTranstion*)transition {
     NSIndexPath* indexPath = [self.dataSource indexPathForArticle:self.selectedArticle];
+    if (!indexPath) {
+        return nil;
+    }
     return [self.collectionView cellForItemAtIndexPath:indexPath];
 }
 

@@ -50,22 +50,22 @@ NS_ASSUME_NONNULL_BEGIN
         if (indexPath.section == 0) {
             return nil;
         }
-        NSUInteger previousSection = indexPath.section - 1;
-        NSUInteger previousItem    = [self numberOfItemsInSection:previousSection] - 1;
+        NSInteger previousSection = indexPath.section - 1;
+        NSInteger previousItem    = [self numberOfItemsInSection:previousSection] - 1;
         return [NSIndexPath indexPathForItem:previousItem inSection:previousSection];
     }
 
-    NSUInteger previousItem = indexPath.item - 1;
+    NSInteger previousItem = indexPath.item - 1;
     return [NSIndexPath indexPathForItem:previousItem inSection:indexPath.section];
 }
 
 - (NSIndexPath*)wmf_indexPathAfterIndexPath:(NSIndexPath*)indexPath {
-    NSUInteger nextItem = indexPath.item + 1;
+    NSInteger nextItem = indexPath.item + 1;
     if (nextItem < [self numberOfItemsInSection:indexPath.section]) {
         return [NSIndexPath indexPathForItem:nextItem inSection:indexPath.section];
     }
 
-    NSUInteger nextSection = indexPath.section + 1;
+    NSInteger nextSection = indexPath.section + 1;
 
     if (nextSection < [self numberOfSections]) {
         return [NSIndexPath indexPathForItem:0 inSection:nextSection];
