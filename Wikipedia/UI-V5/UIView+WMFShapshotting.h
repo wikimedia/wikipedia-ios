@@ -3,8 +3,7 @@
 
 @interface UIView (WMFShapshotting)
 
-- (UIView*)wmf_snapshotAfterScreenUpdates:(BOOL)afterUpdates andAddToContainerView:(UIView*)containerView;
-- (UIView*)wmf_resizableSnapshotViewFromRect:(CGRect)rect afterScreenUpdates:(BOOL)afterUpdates andAddToContainerView:(UIView*)containerView;
-
+- (UIView*)wmf_addSnapshotToView:(UIView*)containerView afterScreenUpdates:(BOOL)afterUpdates;
+- (UIView*)wmf_addResizableSnapshotToView:(UIView*)containerView fromRect:(CGRect)rect afterScreenUpdates:(BOOL)afterUpdates withCapInsets:(UIEdgeInsets)capInsets;
 
 @end

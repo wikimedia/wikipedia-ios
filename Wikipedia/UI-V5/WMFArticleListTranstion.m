@@ -110,13 +110,14 @@
 
     //Setup snapshot of presented card
     UIView* transitioningView = [self.listViewController viewForTransition:self];
-    UIView* snapshotView      = [transitioningView wmf_snapshotAfterScreenUpdates:YES andAddToContainerView:containerView];
+    UIView* snapshotView      = [transitioningView wmf_addSnapshotToView:containerView afterScreenUpdates:YES];
+
     CGRect snapShotFinalFrame = toViewFinalFrame;
     snapShotFinalFrame.size = snapshotView.frame.size;
 
     //Setup overlaping screen shot
     CGRect overlapRect      = [self.listViewController frameOfOverlappingListItemsForTransition:self];
-    UIView* overlapSnapshot = [self.listViewController.view wmf_resizableSnapshotViewFromRect:overlapRect afterScreenUpdates:YES andAddToContainerView:containerView];
+    UIView* overlapSnapshot = [self.listViewController.view wmf_addResizableSnapshotToView:containerView fromRect:overlapRect afterScreenUpdates:YES withCapInsets:UIEdgeInsetsZero];
 
     //How far the animation moves (used to compute percentage for the interactive portion)
     self.totalCardAnimationDistance = snapshotView.frame.origin.y - toViewFinalFrame.origin.y;
@@ -163,7 +164,7 @@
 
     //Setup snapshot of presented card
     UIView* transitioningView = self.articleContainerViewController.view;
-    UIView* snapshotView      = [transitioningView wmf_snapshotAfterScreenUpdates:NO andAddToContainerView:containerView];
+    UIView* snapshotView      = [transitioningView wmf_addSnapshotToView:containerView afterScreenUpdates:NO];
     UIView* articleInList     = [self.listViewController viewForTransition:self];
     CGRect finalSnapshotFrame;
     if (articleInList) {
@@ -174,8 +175,9 @@
     finalSnapshotFrame.size = snapshotView.frame.size;
 
     //Setup overlaping screen shot
-    CGRect overlapRect               = [self.listViewController frameOfOverlappingListItemsForTransition:self];
-    UIView* overlapSnapshot          = [self.listViewController.view wmf_resizableSnapshotViewFromRect:overlapRect afterScreenUpdates:YES andAddToContainerView:containerView];
+    CGRect overlapRect      = [self.listViewController frameOfOverlappingListItemsForTransition:self];
+    UIView* overlapSnapshot = [self.listViewController.view wmf_addResizableSnapshotToView:containerView fromRect:overlapRect afterScreenUpdates:YES withCapInsets:UIEdgeInsetsZero];
+
     CGRect finalOverlapSnapshotFrame = overlapSnapshot.frame;
     overlapSnapshot.frame = CGRectOffset(overlapSnapshot.frame, 0, CGRectGetHeight(containerView.frame) - CGRectGetMinY(overlapSnapshot.frame));
 
