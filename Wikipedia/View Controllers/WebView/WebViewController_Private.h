@@ -92,7 +92,6 @@ static int const kMinimumTextSelectionLength = 2;
 @property (nonatomic) BOOL unsafeToScroll;
 
 @property (nonatomic) float relativeScrollOffsetBeforeRotate;
-@property (nonatomic) NSUInteger sectionToEditId;
 
 @property (strong, nonatomic) NSDictionary* adjacentHistoryIDs;
 @property (strong, nonatomic) NSString* externalUrl;

@@ -111,7 +111,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     transformer.transform( "moveFirstGoodParagraphUp", document );
     transformer.transform( "hideRedlinks", document );
-    transformer.transform( "disableFilePageEdit", document );
     transformer.transform( "addImageOverflowXContainers", document ); // Needs to happen before "widenImages" transform.
     transformer.transform( "widenImages", document );
     transformer.transform( "hideTables", document );
@@ -259,9 +258,7 @@ function maybeSendMessageForTarget(event, hrefTarget){
     }
     var href = hrefTarget.getAttribute( "href" );
     var hrefClass = hrefTarget.getAttribute('class');
-    if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
-        bridge.sendMessage( 'editClicked', { sectionId: hrefTarget.getAttribute( "data-id" ) });
-    } else if (href && refs.isReference(href)) {
+    if (href && refs.isReference(href)) {
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
     } else if (href && href[0] === "#") {
@@ -453,11 +450,10 @@ module.exports = new Transformer();
 require("./transforms/collapseTables");
 require("./transforms/relocateFirstParagraph");
 require("./transforms/hideRedLinks");
-require("./transforms/disableFilePageEdit");
 require("./transforms/addImageOverflowContainers");
 require("./transforms/collapsePageIssuesAndDisambig");
 
-},{"./transforms/addImageOverflowContainers":8,"./transforms/collapsePageIssuesAndDisambig":9,"./transforms/collapseTables":10,"./transforms/disableFilePageEdit":11,"./transforms/hideRedLinks":12,"./transforms/relocateFirstParagraph":13}],8:[function(require,module,exports){
+},{"./transforms/addImageOverflowContainers":8,"./transforms/collapsePageIssuesAndDisambig":9,"./transforms/collapseTables":10,"./transforms/hideRedLinks":11,"./transforms/relocateFirstParagraph":12}],8:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -498,7 +494,7 @@ transformer.register( "addImageOverflowXContainers", function( content ) {
     }
 } );
 
-},{"../transformer":6,"../utilities":15}],9:[function(require,module,exports){
+},{"../transformer":6,"../utilities":14}],9:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -681,7 +677,7 @@ exports.issuesClicked = issuesClicked;
 exports.disambigClicked = disambigClicked;
 exports.closeClicked = closeClicked;
 
-},{"../transformer":6,"../utilities":15}],10:[function(require,module,exports){
+},{"../transformer":6,"../utilities":14}],10:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -844,33 +840,7 @@ transformer.register( "hideTables", function( content ) {
     }
 } );
 
-},{"../transformer":6,"../utilities":15}],11:[function(require,module,exports){
-var transformer = require("../transformer");
-
-transformer.register( "disableFilePageEdit", function( content ) {
-    var filetoc = content.querySelector( '#filetoc' );
-    if (filetoc) {
-        // We're on a File: page! Do some quick hacks.
-        // In future, replace entire thing with a custom view most of the time.
-        // Hide edit sections
-        var editSections = content.querySelectorAll('.edit_section_button');
-        for (var i = 0; i < editSections.length; i++) {
-            editSections[i].style.display = 'none';
-        }
-        var fullImageLink = content.querySelector('.fullImageLink a');
-        if (fullImageLink) {
-            // Don't replace the a with a span, as it will break styles.
-            // Just disable clicking.
-            // Don't disable touchstart as this breaks scrolling!
-            fullImageLink.href = '';
-            fullImageLink.addEventListener( 'click', function( event ) {
-                event.preventDefault();
-            } );
-        }
-    }
-} );
-
-},{"../transformer":6}],12:[function(require,module,exports){
+},{"../transformer":6,"../utilities":14}],11:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -881,7 +851,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":6}],13:[function(require,module,exports){
+},{"../transformer":6}],12:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -900,21 +870,12 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     var allPs = block_0.getElementsByTagName( "p" );
     if(!allPs) return;
 
-    var edit_section_button_0 = content.getElementById( "edit_section_button_0" );
-    if(!edit_section_button_0) return;
-
-    function moveAfter(newNode, referenceNode) {
-        // Based on: http://stackoverflow.com/a/4793630/135557
-        referenceNode.parentNode.insertBefore(newNode.parentNode.removeChild(newNode), referenceNode.nextSibling);
-    }
-
     for ( var i = 0; i < allPs.length; i++ ) {
         var p = allPs[i];
 
         // Narrow down to first P which is direct child of content_block_0 DIV.
         // (Don't want to yank P from somewhere in the middle of a table!)
         if  (p.parentNode != block_0) continue;
-
 
         // Ensure the P being pulled up has at least a couple lines of text.
         // Otherwise silly things like a empty P or P which only contains a
@@ -927,37 +888,15 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
         var pIsTooSmall = (p.offsetHeight < minHeight);
         if(pIsTooSmall) continue;
 
-
-        /*
-        // Note: this works - just not sure if needed?
-        // Sometimes P will be mostly image and not much text. Don't
-        // want to move these!
-        var pIsMostlyImage = false;
-        var imgs = p.getElementsByTagName('img');
-        for (var j = 0; j < imgs.length; j++) {
-            var thisImg = imgs[j];
-            // Get image height from img tag's height attribute - otherwise
-            // you'd have to wait for the image to render (if you used offsetHeight).
-            var thisImgHeight = thisImg.getAttribute("height");
-            if(thisImgHeight == 0) continue;
-            var imgHeightPercentOfParagraphTagHeight = thisImgHeight / p.offsetHeight;
-            if (imgHeightPercentOfParagraphTagHeight > 0.5){
-                pIsMostlyImage = true;
-                break;
-            }
-        }
-        if(pIsMostlyImage) continue;
-        */
-
         // Move the P! Place it just after the lead section edit button.
-        moveAfter(p, edit_section_button_0);
+        block_0.insertBefore(p, block_0.firstChild);
 
         // But only move one P!
         break;
     }
 });
 
-},{"../transformer":6}],14:[function(require,module,exports){
+},{"../transformer":6}],13:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -1065,7 +1004,7 @@ transformer.register( "widenImages", function( content ) {
     }
 } );
 
-},{"../transformer":6,"../utilities":15}],15:[function(require,module,exports){
+},{"../transformer":6,"../utilities":14}],14:[function(require,module,exports){
 
 function getDictionaryFromSrcset(srcset) {
     /*
@@ -1128,4 +1067,4 @@ exports.findAncestor = findAncestor;
 exports.httpGetSync = httpGetSync;
 exports.isNestedInTable = isNestedInTable;
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14])
