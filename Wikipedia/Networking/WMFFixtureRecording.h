@@ -24,7 +24,7 @@ extern void _WMFRecordFixtureWithBlock(NSString* folder,
                                        WMFFixtureRecordingBlock block);
 #else
 
-#define WMFRecordJSONFixture(...)
+#define WMFRecordDataFixture(...)
 
 #endif
 
