@@ -1,6 +1,6 @@
 
 #import <UIKit/UIKit.h>
-
+#import "WMFArticleWebViewTransition.h"
 @class MWKDataStore;
 @class MWKSavedPageList;
 
@@ -12,7 +12,7 @@ typedef NS_ENUM (NSUInteger, WMFArticleControllerMode) {
     WMFArticleControllerModePopup,
 };
 
-@interface WMFArticleViewController : UITableViewController
+@interface WMFArticleViewController : UITableViewController< WMFArticleWebViewTransitioning>
 
 + (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages;
 
@@ -27,8 +27,6 @@ typedef NS_ENUM (NSUInteger, WMFArticleControllerMode) {
 - (void)updateUI;
 
 @property (nonatomic, strong, readonly) UIButton* saveButton;
-
-
 
 @end
 

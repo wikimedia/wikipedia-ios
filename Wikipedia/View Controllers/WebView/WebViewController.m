@@ -106,7 +106,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     @weakify(self)
 
     UIBarButtonItem * done = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemDone handler:^(id sender) {
-        [self dismissViewControllerAnimated:YES completion:NULL];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 
     self.navigationItem.leftBarButtonItem = done;
@@ -374,6 +374,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
     [super viewWillAppear:animated];
+
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 
     self.referencesHidden = YES;
 
@@ -2049,6 +2051,24 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                            , nil];
     dialog.tag = WMFWebViewAlertZeroCharged;
     [dialog show];
+}
+
+#pragma mark - WMFArticleWebViewTransitioning
+
+- (NSUInteger)selectedSectionIndexForTransition:(WMFArticleWebViewTransition*)transition {
+    //Calculate the current section
+    NSInteger indexOfFirstOnscreenSection =
+        [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
+                                                       count:[[SessionSingleton sharedInstance].currentArticle.sections count]];
+    return indexOfFirstOnscreenSection;
+}
+
+- (UIView*)viewForTransition:(WMFArticleWebViewTransition*)transition {
+    return self.view;
+}
+
+- (UIView*)transition:(WMFArticleWebViewTransition*)transition viewForSectionIndex:(NSUInteger)index {
+    return [self.sectionTitlesViewController topHeader];
 }
 
 @end

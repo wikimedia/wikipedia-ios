@@ -3,10 +3,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PullToRefreshViewController.h"
+#import "WMFArticleWebViewTransition.h"
 
 @class BottomMenuViewController, CommunicationBridge;
 
-@interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
+@interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, WMFArticleWebViewTransitioning>
 
 @property (weak, nonatomic) IBOutlet UIWebView* webView;
 @property (nonatomic) BOOL referencesHidden;
