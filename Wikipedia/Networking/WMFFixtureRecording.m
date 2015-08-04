@@ -27,6 +27,9 @@ void _WMFRecordFixtureWithBlock(NSString* folder,
     NSCParameterAssert(folder.length);
     NSCParameterAssert(filename.length);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:@"WMFFixtureRecordingEnabled"]) {
+            return;
+        }
         const char* const fixtureDir = getenv(WMFFixtureDirectoryEnvKey);
         if (fixtureDir) {
             NSString* fixtureFolderPath = [NSString stringWithFormat:@"%s/%@", fixtureDir, folder];
