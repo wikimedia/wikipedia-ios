@@ -1,6 +1,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WMFArticleListDataSource.h"
+#import "WMFArticleListTranstion.h"
 
 @class MWKDataStore, MWKSavedPageList, MWKHistoryList;
 
@@ -11,7 +12,7 @@ typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
     WMFArticleListModeOffScreen
 };
 
-@interface WMFArticleListCollectionViewController : UICollectionViewController
+@interface WMFArticleListCollectionViewController : UICollectionViewController<WMFArticleListTranstioning>
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong) MWKSavedPageList* savedPages;
@@ -23,6 +24,10 @@ typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
 - (void)setListMode:(WMFArticleListMode)mode animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
 
 - (void)refreshVisibleCells;
+
+- (void)scrollToArticle:(MWKArticle*)article animated:(BOOL)animated;
+
+- (void)scrollToArticleIfOffscreen:(MWKArticle*)article animated:(BOOL)animated;
 
 @end
 
