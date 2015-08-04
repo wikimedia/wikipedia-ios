@@ -498,7 +498,12 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
                                   // top-level article paragraphs' text and...
                                   @WMFParagraphSelector "/text() | "
                                   // children of top-level article paragraphs matching predicate
-                                  WMFParagraphSelector "/*[(%@)]"
+                                  WMFParagraphSelector "/*["
+                                  // one of allowed tags
+                                  "(%@)"
+                                  " and "
+                                  // excluding geo-coordinates
+                                  "not(*[@id = 'coordinates'])]"
                                   , tagSelector];
     });
     return paragraphChildSelector;
