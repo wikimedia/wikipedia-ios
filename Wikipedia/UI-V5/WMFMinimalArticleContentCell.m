@@ -3,11 +3,15 @@
 
 #import "WMFMinimalArticleContentCell.h"
 #import "WMFLinkButtonFactory.h"
+#import <Masonry/Masonry.h>
 
 @interface WMFMinimalArticleContentCell ()
 <DTAttributedTextContentViewDelegate>
 
 @property (nonatomic, strong) WMFLinkButtonFactory* buttonFactory;
+//@property (nonatomic, weak) DTAttributedTextContentView* attributedTextContentView;
+@property (nonatomic, strong) MASConstraint* heightConstraint;
+
 @end
 
 @implementation WMFMinimalArticleContentCell
@@ -27,12 +31,16 @@
     return self.buttonFactory.articleNavigationDelegate;
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.attributedTextContextView.shouldDrawImages = NO;
-    self.attributedTextContextView.shouldDrawLinks  = YES;
-    self.hasFixedRowHeight                          = NO;
-    self.textDelegate                               = self.buttonFactory;
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.attributedTextContextView.shouldDrawImages = NO;
+        self.attributedTextContextView.shouldDrawLinks  = YES;
+        self.hasFixedRowHeight                          = NO;
+        self.textDelegate                               = self.buttonFactory;
+        self.attributedTextContextView.edgeInsets       = UIEdgeInsetsMake(10.f, 10.f, 10.f, 10.f);
+    }
+    return self;
 }
 
 - (void)prepareForReuse {
