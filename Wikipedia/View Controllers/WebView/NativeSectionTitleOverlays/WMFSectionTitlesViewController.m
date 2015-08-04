@@ -144,7 +144,8 @@
 }
 
 - (void)updateTopStaticOverlayWithModel:(WMFTitleOverlayModel*)model {
-    self.topStaticOverlay.text      = model.title;
+    self.topStaticOverlay.text = model.title;
+    [self.topStaticOverlay layoutIfNeeded];
     self.topStaticOverlay.sectionId = model.sectionId;
 }
 
