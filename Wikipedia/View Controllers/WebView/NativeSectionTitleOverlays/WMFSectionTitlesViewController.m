@@ -13,19 +13,23 @@
 @property (nonatomic, strong) NSMutableArray* overlayModels;
 @property (nonatomic, strong) MASConstraint* topStaticOverlayTopConstraint;
 @property (nonatomic, strong) WMFTitleOverlayLabel* topStaticOverlay;
+@property (nonatomic, weak) UIView* view;
 @property (nonatomic, weak) UIWebView* webView;
-@property (nonatomic, weak) UIViewController* webViewController;
+@property (nonatomic, strong) MASViewAttribute* topLayoutGuide;
 
 @end
 
 @implementation WMFSectionTitlesViewController
 
-- (instancetype)initWithWebView:(UIWebView*)webView webViewController:(UIViewController*)webViewController {
+- (instancetype)initWithView:(UIView*)view
+                     webView:(UIWebView*)webView
+              topLayoutGuide:(MASViewAttribute*)topLayoutGuide {
     self = [super init];
     if (self) {
-        self.overlayModels     = @[].mutableCopy;
-        self.webView           = webView;
-        self.webViewController = webViewController;
+        self.overlayModels  = @[].mutableCopy;
+        self.view           = view;
+        self.webView        = webView;
+        self.topLayoutGuide = topLayoutGuide;
         [self.KVOControllerNonRetaining observe:self.webView.scrollView
                                         keyPath:WMF_SAFE_KEYPATH(UIScrollView.new, contentSize)
                                         options:NSKeyValueObservingOptionNew
@@ -91,11 +95,11 @@
     }
     self.topStaticOverlay       = [[WMFTitleOverlayLabel alloc] init];
     self.topStaticOverlay.alpha = 0;
-    [self.webViewController.view addSubview:self.topStaticOverlay];
+    [self.view addSubview:self.topStaticOverlay];
     [self.topStaticOverlay mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.leading.equalTo(self.webViewController.view.mas_leading);
-        make.trailing.equalTo(self.webViewController.view.mas_trailing);
-        self.topStaticOverlayTopConstraint = make.top.equalTo(self.webViewController.mas_topLayoutGuide);
+        make.leading.equalTo(self.view.mas_leading);
+        make.trailing.equalTo(self.view.mas_trailing);
+        self.topStaticOverlayTopConstraint = make.top.equalTo(self.topLayoutGuide);
     }];
 }
 
