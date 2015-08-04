@@ -11,4 +11,6 @@
 - (void)updateTopOverlayForScrollOffsetY:(CGFloat)offsetY;
 - (void)hideTopOverlay;
 
+- (UIView*)topHeader;
+
 @end
