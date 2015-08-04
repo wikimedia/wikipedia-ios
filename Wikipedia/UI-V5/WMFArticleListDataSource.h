@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger) articleCount;
 - (MWKArticle*)articleForIndexPath:(NSIndexPath*)indexPath;
+- (NSIndexPath*)indexPathForArticle:(MWKArticle*)article;
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath;
 

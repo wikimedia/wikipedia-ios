@@ -71,6 +71,15 @@ NS_ASSUME_NONNULL_BEGIN
     return [self articleForEntry:entry];
 }
 
+- (NSIndexPath*)indexPathForArticle:(MWKArticle*)article {
+    NSUInteger index = [self.articles indexOfObject:article];
+    if (index == NSNotFound) {
+        return nil;
+    }
+
+    return [NSIndexPath indexPathForItem:index inSection:0];
+}
+
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {
     return YES;
 }
