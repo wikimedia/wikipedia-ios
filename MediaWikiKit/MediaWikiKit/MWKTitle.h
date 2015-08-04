@@ -63,6 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isEqualToTitle:(MWKTitle*)title;
 
+- (BOOL)isEqualToTitleExcludingFragment:(MWKTitle*)title;
 
 @end
 
