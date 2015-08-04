@@ -32,4 +32,11 @@
 - (UIView*)viewForTransition:(WMFArticleListTranstion*)transition;
 - (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTranstion*)transition;
 
+
+@end
+
+@protocol WMFArticleListTranstionEnabling <NSObject>
+
+- (BOOL)transitionShouldBeEnabled:(WMFArticleListTranstion*)transition;
+
 @end
