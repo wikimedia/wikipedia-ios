@@ -24,11 +24,9 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 
 @interface WMFAppViewController ()<UITabBarControllerDelegate>
-@property (strong, nonatomic) IBOutlet UIView* searchContainerView;
 @property (strong, nonatomic) IBOutlet UIView* tabControllerContainerView;
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
-
 @property (nonatomic, strong) UITabBarController* rootTabBarController;
 
 @property (nonatomic, strong, readonly) WMFSearchViewController* searchViewController;
