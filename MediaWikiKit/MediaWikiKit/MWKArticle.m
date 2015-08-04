@@ -457,7 +457,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Extraction
 
-#define WMFParagraphSelector "/html/body/p"
+static NSString* const WMFParagraphSelector = @"/html/body/p";
 
 + (NSString*)paragraphChildSelector {
     static NSString* paragraphChildSelector;
@@ -495,16 +495,16 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         }] componentsJoinedByString:@" or "];
 
         paragraphChildSelector = [NSString stringWithFormat:
-                                  // top-level article paragraphs' text and...
-                                  @WMFParagraphSelector "/text() | "
-                                  // children of top-level article paragraphs matching predicate
-                                  WMFParagraphSelector "/*["
+                                  // top-level article paragraphs' text and
+                                  @"%@/text() | "
+                                  // children of top-level article paragraphs which is
+                                  "%@/*["
                                   // one of allowed tags
                                   "(%@)"
                                   " and "
                                   // excluding geo-coordinates
                                   "not(*[@id = 'coordinates'])]"
-                                  , tagSelector];
+                                  , WMFParagraphSelector, WMFParagraphSelector, tagSelector];
     });
     return paragraphChildSelector;
 }
@@ -514,7 +514,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     NSString* filteredParagraphs;
     @autoreleasepool {
         filteredParagraphs =
-            [[[[leadSection elementsInTextMatchingXPath:@WMFParagraphSelector] bk_map:^NSString*(TFHppleElement* paragraphEl) {
+            [[[[leadSection elementsInTextMatchingXPath:WMFParagraphSelector] bk_map:^NSString*(TFHppleElement* paragraphEl) {
             return [[[[TFHpple hppleWithHTMLData:[paragraphEl.raw dataUsingEncoding:NSUTF8StringEncoding]]
                       // select children of each paragraph
                       searchWithXPathQuery:[MWKArticle paragraphChildSelector]]
