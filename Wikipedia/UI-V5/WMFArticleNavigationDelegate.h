@@ -15,19 +15,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFArticleNavigationDelegate <NSObject>
 
-- (void)articleView:(UIView<WMFArticleNavigation>*)sender didTapLinkToPage:(MWKTitle*)title;
+- (void)articleNavigator:(id<WMFArticleNavigation>)sender didTapLinkToPage:(MWKTitle*)pageTitle;
 
-- (void)articleView:(UIView<WMFArticleNavigation>*)sender didTapCitationLink:(NSString*)citationFragment;
+- (void)articleNavigator:(id<WMFArticleNavigation>)sender
+      didTapCitationLink:(NSString*)citationFragment
+                  onPage:(MWKTitle*)pageTitle;
 
-- (void)articleView:(UIView<WMFArticleNavigation>*)sender didTapSectionLink:(NSString*)sectionAnchorFragment;
+- (void)articleNavigator:(id<WMFArticleNavigation>)sender didTapExternalLink:(NSURL*)externalURL;
 
-- (void)articleView:(UIView<WMFArticleNavigation>*)sender didTapExternalLink:(NSURL*)externalURL;
+//- (void)articleNavigator:(id)sender didTapImage:(NSString*)sourceURL;
 
-//- (void)articleView:(id)sender didTapImage:(NSString*)sourceURL;
+//- (void)articleNavigatorDidTapEdit:(id)sender
 
-//- (void)articleViewDidTapEdit:(id)sender
-
-//- (void)articleView:(id)sender didTapEditForSection:(NSString*)sectionAnchorFragment;
+//- (void)articleNavigator:(id)sender didTapEditForSection:(NSString*)sectionAnchorFragment;
 
 @end
 

@@ -26,7 +26,7 @@
 #import "WMFArticleNavigationDelegate.h"
 
 // Categories
-#import "NSString+Extras.h"
+#import "NSString+WMFUtilities.h"
 #import "UIButton+WMFButton.h"
 #import "UIStoryboard+WMFExtensions.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -49,7 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
  UITableViewDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
- WMFWebViewControllerDelegate>
+ WMFWebViewControllerDelegate,
+ WMFArticleNavigationDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView* galleryContainerView;
 @property (nonatomic, weak) IBOutlet WMFArticleTableHeaderView* headerView;
@@ -435,6 +436,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFMinimalArticleContentCell* cell =
         [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
     cell.attributedString = self.article.summaryHTML;
+    cell.articleNavigationDelegate = self;
     return cell;
 }
 
@@ -491,13 +493,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Article Link Presentation
 
-- (BOOL)titleIsTheSameAsCurrentArticle:(MWKTitle*)title {
+- (BOOL)isTitleReferenceToCurrentArticle:(MWKTitle*)title {
     return [[self.article title] isEqualToTitleExcludingFragment:title];
 }
 
 - (void)presentArticleScrolledToSectionForIndexPath:(NSIndexPath*)indexPath {
     MWKTitle* titleWithFragment = [self titleForSelectedIndexPath:indexPath];
-    if ([self titleIsTheSameAsCurrentArticle:titleWithFragment]) {
+    if ([self isTitleReferenceToCurrentArticle:titleWithFragment]) {
         [self.webViewController scrollToFragment:titleWithFragment.fragment];
         [self presentViewController:[[UINavigationController alloc] initWithRootViewController:self.webViewController] animated:YES completion:NULL];
     } else {
@@ -567,6 +569,29 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)willDismissGalleryController:(WMFImageGalleryViewController* __nonnull)gallery {
     self.headerGalleryViewController.currentPage = gallery.currentPage;
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - WMFArticleNavigation
+
+- (void)scrollToFragment:(NSString * __nonnull)fragment animated:(BOOL)animated {
+}
+
+- (void)scrollToLink:(NSURL * __nonnull)linkURL animated:(BOOL)animated {
+}
+
+#pragma mark - WMFArticleNavigationDelegate
+
+- (void)articleNavigator:(id<WMFArticleNavigation> __nonnull)sender
+      didTapCitationLink:(NSString * __nonnull)citationFragment {
+}
+
+- (void)articleNavigator:(id<WMFArticleNavigation> __nonnull)sender
+        didTapLinkToPage:(MWKTitle * __nonnull)title {
+}
+
+- (void)articleNavigator:(id<WMFArticleNavigation> __nonnull)sender
+      didTapExternalLink:(NSURL * __nonnull)externalURL {
 }
 
 @end
