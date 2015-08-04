@@ -36,16 +36,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @implementation WMFSearchViewController
 
-- (void)setUserDataStore:(MWKUserDataStore* __nonnull)userDataStore {
+- (void)setSavedPages:(MWKSavedPageList* __nonnull)savedPages {
+    if (WMF_IS_EQUAL(_savedPages, savedPages)) {
+        return;
+    }
     [self unobserveSavedPages];
-    _userDataStore                        = userDataStore;
-    self.resultsListController.savedPages = _userDataStore.savedPageList;
+    _savedPages = savedPages;
     [self observeSavedPages];
-}
-
-- (void)setDataStore:(MWKDataStore* __nonnull)dataStore {
-    _dataStore                           = dataStore;
-    self.resultsListController.dataStore = _dataStore;
 }
 
 - (NSString*)currentSearchTerm {
@@ -75,11 +72,20 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }
 }
 
+- (void)configureArticleList {
+    NSParameterAssert(self.dataStore);
+    NSParameterAssert(self.recentPages);
+    NSParameterAssert(self.savedPages);
+    self.resultsListController.dataStore   = self.dataStore;
+    self.resultsListController.savedPages  = self.savedPages;
+    self.resultsListController.recentPages = self.recentPages;
+}
+
 #pragma mark - DataSource KVO
 
 - (void)observeSavedPages {
-    [self.KVOControllerNonRetaining observe:self.userDataStore.savedPageList
-                                    keyPath:WMF_SAFE_KEYPATH(self.userDataStore.savedPageList, entries)
+    [self.KVOControllerNonRetaining observe:self.savedPages
+                                    keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries)
                                     options:0
                                       block:^(WMFSearchViewController* observer,
                                               id object,
@@ -89,23 +95,25 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)unobserveSavedPages {
-    [self.KVOController unobserve:self.userDataStore.savedPageList];
+    [self.KVOController unobserve:self.savedPages];
 }
 
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.resultsListController.delegate                           = self;
     self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self updateUIWithResults:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self configureArticleList];
+}
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
-        self.resultsListController             = segue.destinationViewController;
-        self.resultsListController.savedPages  = self.userDataStore.savedPageList;
-        self.resultsListController.recentPages = self.userDataStore.historyList;
+        self.resultsListController = segue.destinationViewController;
+        [self configureArticleList];
     }
     if ([segue.destinationViewController isKindOfClass:[RecentSearchesViewController class]]) {
         self.recentSearchesViewController          = segue.destinationViewController;

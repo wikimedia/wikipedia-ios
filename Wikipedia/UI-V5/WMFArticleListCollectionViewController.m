@@ -85,18 +85,6 @@
 
 #pragma mark - Accessors
 
-#define WMFWarnIfNilOnReturn(prop, type) \
-    - (type*)prop { \
-        if (!_ ## prop) { DDLogWarn(@"%@ not configured with " #prop "!", [self debugDescription]); } \
-        return _ ## prop; \
-    }
-
-WMFWarnIfNilOnReturn(dataStore, MWKDataStore)
-
-WMFWarnIfNilOnReturn(recentPages, MWKHistoryList)
-
-WMFWarnIfNilOnReturn(savedPages, MWKSavedPageList)
-
 - (NSString*)debugDescription {
     return [NSString stringWithFormat:@"%@ dataSourceClass: %@", self, [self.dataSource class]];
 }
@@ -141,6 +129,13 @@ WMFWarnIfNilOnReturn(savedPages, MWKSavedPageList)
     [self updateListForMode:self.mode animated:NO completion:NULL];
 
     [self observeDataSource];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSParameterAssert(self.dataStore);
+    NSParameterAssert(self.recentPages);
+    NSParameterAssert(self.savedPages);
 }
 
 - (void)viewDidLayoutSubviews {
