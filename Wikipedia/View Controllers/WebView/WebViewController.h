@@ -6,9 +6,13 @@
 
 @class BottomMenuViewController, CommunicationBridge;
 
+@protocol WMFWebViewControllerDelegate;
+
 @interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIWebView* webView;
+@property (nonatomic, weak) id<WMFWebViewControllerDelegate> delegate;
+
+@property (nonatomic, weak) IBOutlet UIWebView* webView;
 @property (nonatomic) BOOL referencesHidden;
 @property (nonatomic) BOOL scrollingToTop;
 
@@ -42,3 +46,11 @@
 - (void)scrollToFragment:(NSString*)fragment;
 
 @end
+
+
+@protocol WMFWebViewControllerDelegate <NSObject>
+
+- (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title;
+
+@end
+
