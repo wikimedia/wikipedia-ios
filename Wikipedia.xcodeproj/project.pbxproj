@@ -110,7 +110,6 @@
 		049B2BDB1AB9016A00CE27FF /* MWKArticle+ConvenienceSpecs in Resources */ = {isa = PBXBuildFile; fileRef = 049B2BDA1AB9016A00CE27FF /* MWKArticle+ConvenienceSpecs */; };
 		04A97E8718B81D5D0046B166 /* AccountCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A97E8618B81D5D0046B166 /* AccountCreationViewController.m */; };
 		04A9C2931B4B51E0008B996F /* WMFArticleSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A9C2921B4B51E0008B996F /* WMFArticleSectionHeaderView.m */; };
-		04A9C2961B4B59E3008B996F /* WMFMinimalArticleContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A9C2951B4B59E3008B996F /* WMFMinimalArticleContentCell.m */; };
 		04A9C2A21B4F326D008B996F /* WMFArticleReadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A9C2A11B4F326D008B996F /* WMFArticleReadMoreCell.m */; };
 		04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE1C6F1891B302002D5487 /* NSObject+Extras.m */; };
 		04AE520519DB5E0900F89B92 /* NSObject+ConstraintsScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AE520419DB5E0900F89B92 /* NSObject+ConstraintsScale.m */; };
@@ -195,6 +194,7 @@
 		0E869F151B582297002604C3 /* MWKListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F131B58228D002604C3 /* MWKListTests.m */; };
 		0E869F4B1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F4A1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m */; };
 		0E9008E81B715E64001A600A /* WMFCollectionViewExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9008E61B715E2E001A600A /* WMFCollectionViewExtensionTests.m */; };
+		0E9008E91B717A97001A600A /* WMFMinimalArticleContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A9C2951B4B59E3008B996F /* WMFMinimalArticleContentCell.m */; };
 		0E94AFEA1B209721000BC5EA /* iPhone_Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E94AFE91B209721000BC5EA /* iPhone_Root.storyboard */; };
 		0E94AFED1B20976A000BC5EA /* WMFAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E94AFEC1B20976A000BC5EA /* WMFAppViewController.m */; };
 		0E94AFF01B209792000BC5EA /* WMFArticleListCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E94AFEF1B209792000BC5EA /* WMFArticleListCollectionViewController.m */; };
@@ -3425,8 +3425,6 @@
 				0463639818A844570049EE4F /* KeychainCredentials.m in Sources */,
 				BCA96E771AAA35EE009A61FA /* UIView+WMFDefaultNib.m in Sources */,
 				0EBB287C1B70350C00D8E1D8 /* UIView+WMFShapshotting.m in Sources */,
-				04A9C2961B4B59E3008B996F /* WMFArticleExtractCell.m in Sources */,
-				04A9C2961B4B59E3008B996F /* WMFMinimalArticleContentCell.m in Sources */,
 				0E94AFFB1B20A22C000BC5EA /* WMFStyleManager.m in Sources */,
 				0E34AC571B45DC9500475A1A /* WMFArticleFetcher.m in Sources */,
 				040D83591AB0ECFD000896D5 /* WMFCenteredPathView.m in Sources */,
@@ -3461,6 +3459,7 @@
 				BCAC50C11AF3F7460015936C /* NSBundle+WMFInfoUtils.m in Sources */,
 				0ECC99F21B67DDB600004E47 /* WMFArticleResponseSerializer.m in Sources */,
 				0EFB0F201B31EE2D00D05C08 /* GalleryImage.m in Sources */,
+				0E9008E91B717A97001A600A /* WMFMinimalArticleContentCell.m in Sources */,
 				0E466E521B41F83500E91992 /* WMFArticlePopupTransition.m in Sources */,
 				0487048F19F8262600B7D307 /* WikiTextSectionFetcher.m in Sources */,
 				0EA4402E1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m in Sources */,
