@@ -53,6 +53,14 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     return [(WMFSearchResults*)self.resultsListController.dataSource searchSuggestion];
 }
 
+- (WMFSearchFetcher*)fetcher {
+    if (!_fetcher) {
+        _fetcher = [[WMFSearchFetcher alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
+    }
+
+    return _fetcher;
+}
+
 - (void)updateSearchStateAndNotifyDelegate:(WMFSearchState)state {
     if (self.state == state) {
         return;
@@ -65,7 +73,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)updateRecentSearchesVisibility {
-    if (self.state == WMFSearchStateActive && [self.searchBar.text length] == 0 && [self.searchBar isFirstResponder] && self.recentSearchesViewController.recentSearchesItemCount > 0) {
+    if ([self.searchBar.text length] == 0 && self.recentSearchesViewController.recentSearchesItemCount > 0) {
         [self.recentSearchesContainerView setHidden:NO];
     } else {
         [self.recentSearchesContainerView setHidden:YES];
@@ -108,8 +116,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self updateRecentSearchesVisibility];
     [self configureArticleList];
 }
+
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
         self.resultsListController = segue.destinationViewController;
@@ -125,12 +135,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar*)searchBar {
     [self updateSearchStateAndNotifyDelegate:WMFSearchStateActive];
-
     [self updateRecentSearchesVisibility];
 
     [self.searchBar setShowsCancelButton:YES animated:YES];
-
-    self.fetcher = [[WMFSearchFetcher alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
 
     if (![[self currentSearchTerm] isEqualToString:self.searchBar.text]) {
         [self searchForSearchTerm:self.searchBar.text];
