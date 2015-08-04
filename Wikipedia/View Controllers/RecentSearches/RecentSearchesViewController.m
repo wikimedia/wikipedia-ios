@@ -10,7 +10,7 @@
 #import "WikiGlyph_Chars.h"
 #import "WikipediaAppUtils.h"
 #import "NSArray+Predicate.h"
-#import "UIViewController+HideKeyboard.h"
+#import "UIViewController+WMFHideKeyboard.h"
 #import "UIView+TemporaryAnimatedXF.h"
 
 #define CELL_HEIGHT (48.0 * MENUS_SCALE_MULTIPLIER)
@@ -253,7 +253,7 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
-    [self hideKeyboard];
+    [self wmf_hideKeyboard];
 }
 
 @end

@@ -1,4 +1,4 @@
-#import "WMFArticleViewController.h"
+#import "WMFArticleViewController_Private.h"
 
 // Frameworks
 #import <Masonry/Masonry.h>
@@ -20,9 +20,10 @@
 #import "WMFArticleTableHeaderView.h"
 #import "WMFArticleSectionCell.h"
 #import "PaddedLabel.h"
-#import "WMFArticleSectionHeaderCell.h"
-#import "WMFArticleExtractCell.h"
+#import "WMFArticleSectionHeaderView.h"
+#import "WMFMinimalArticleContentCell.h"
 #import "WMFArticleReadMoreCell.h"
+#import "WMFArticleNavigationDelegate.h"
 
 // Categories
 #import "NSString+Extras.h"
@@ -31,6 +32,9 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "MWKArticle+WMFSharing.h"
 #import "UIView+WMFDefaultNib.h"
+#import "NSAttributedString+WMFHTMLForSite.h"
+
+#import "WMFArticlePopupTransition.h"
 
 typedef NS_ENUM (NSInteger, WMFArticleSectionType) {
     WMFArticleSectionTypeSummary,
@@ -44,7 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 <UITableViewDataSource,
  UITableViewDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
- WMFImageGalleryViewControllerDelegate>
+ WMFImageGalleryViewControllerDelegate,
+ WMFWebViewControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView* galleryContainerView;
 @property (nonatomic, weak) IBOutlet WMFArticleTableHeaderView* headerView;
@@ -65,6 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) IBOutlet UITapGestureRecognizer* expandGalleryTapRecognizer;
 
 @property (nonatomic, strong) WebViewController* webViewController;
+
+@property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
 
 @end
 
@@ -143,7 +150,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WebViewController*)webViewController {
     if (!_webViewController) {
-        _webViewController = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+        _webViewController          = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+        _webViewController.delegate = self;
     }
     return _webViewController;
 }
@@ -151,7 +159,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Saved Pages KVO
 
 - (void)observeSavedPages {
-    [self.KVOControllerNonRetaining observe:self.savedPages keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries) options:0 block:^(WMFArticleViewController* observer, id object, NSDictionary* change) {
+    [self.KVOControllerNonRetaining observe:self.savedPages
+                                    keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries)
+                                    options:0
+                                      block:^(WMFArticleViewController* observer, id object, NSDictionary* change) {
         [observer updateSavedButtonState];
     }];
 }
@@ -357,6 +368,9 @@ NS_ASSUME_NONNULL_BEGIN
     galleryLayout.minimumLineSpacing      = 0;
     galleryLayout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
 
+    [self.tableView registerClass:[WMFMinimalArticleContentCell class]
+           forCellReuseIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
+
     [self observeSavedPages];
     [self clearHeaderView];
     [self configureForDynamicCellHeight];
@@ -399,17 +413,26 @@ NS_ASSUME_NONNULL_BEGIN
     return 0;
 }
 
+- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
+    if (indexPath.section != WMFArticleSectionTypeSummary) {
+        return UITableViewAutomaticDimension;
+    }
+    DTAttributedTextCell* cell = [self contentCellAtIndexPath:indexPath];
+    return [cell requiredRowHeightInTableView:tableView];
+}
+
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     switch ((WMFArticleSectionType)indexPath.section) {
-        case WMFArticleSectionTypeSummary: return [self textExtractCellAtIndexPath:indexPath];
+        case WMFArticleSectionTypeSummary: return [self contentCellAtIndexPath:indexPath];
         case WMFArticleSectionTypeTOC: return [self tocSectionCellAtIndexPath:indexPath];
         case WMFArticleSectionTypeReadMore: return [self readMoreCellAtIndexPath:indexPath];
     }
 }
 
-- (WMFArticleExtractCell*)textExtractCellAtIndexPath:(NSIndexPath*)indexPath {
-    WMFArticleExtractCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleExtractCell wmf_nibName]];
-    [cell setExtractText:[self.article shareSnippet]];
+- (WMFMinimalArticleContentCell*)contentCellAtIndexPath:(NSIndexPath*)indexPath {
+    WMFMinimalArticleContentCell* cell =
+        [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
+    cell.attributedString = self.article.summaryHTML;
     return cell;
 }
 
@@ -441,25 +464,21 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
-    static NSString* cellID           = @"WMFArticleSectionHeaderCell";
-    WMFArticleSectionHeaderCell* cell = (WMFArticleSectionHeaderCell*)[tableView dequeueReusableCellWithIdentifier:cellID];
-    [self configureHeaderCell:cell inSection:section];
-    return cell;
-}
-
-- (void)configureHeaderCell:(WMFArticleSectionHeaderCell*)cell inSection:(NSInteger)section {
-//TODO(5.0): localize these!
+    WMFArticleSectionHeaderView* header =
+        [tableView dequeueReusableCellWithIdentifier:[WMFArticleSectionHeaderView wmf_nibName]];
+    //TODO(5.0): localize these!
     switch (section) {
         case WMFArticleSectionTypeSummary:
-            cell.sectionHeaderLabel.text = @"Summary";
+            header.sectionHeaderLabel.text = @"Summary";
             break;
         case WMFArticleSectionTypeTOC:
-            cell.sectionHeaderLabel.text = @"Table of contents";
+            header.sectionHeaderLabel.text = @"Table of contents";
             break;
         case WMFArticleSectionTypeReadMore:
-            cell.sectionHeaderLabel.text = @"Read more";
+            header.sectionHeaderLabel.text = @"Read more";
             break;
     }
+    return header;
 }
 
 #pragma mark - UITableViewDelegate
@@ -468,10 +487,20 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentArticleScrolledToSectionForIndexPath:indexPath];
 }
 
+#pragma mark - Article Link Presentation
+
+- (BOOL)titleIsTheSameAsCurrentArticle:(MWKTitle*)title {
+    return [[self.article title] isEqualToTitleExcludingFragment:title];
+}
+
 - (void)presentArticleScrolledToSectionForIndexPath:(NSIndexPath*)indexPath {
     MWKTitle* titleWithFragment = [self titleForSelectedIndexPath:indexPath];
-    [self.webViewController scrollToFragment:titleWithFragment.fragment];
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:self.webViewController] animated:YES completion:NULL];
+    if ([self titleIsTheSameAsCurrentArticle:titleWithFragment]) {
+        [self.webViewController scrollToFragment:titleWithFragment.fragment];
+        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:self.webViewController] animated:YES completion:NULL];
+    } else {
+        [self presentPopupForTitle:titleWithFragment];
+    }
 }
 
 - (MWKTitle*)titleForSelectedIndexPath:(NSIndexPath*)indexPath {
@@ -491,6 +520,25 @@ NS_ASSUME_NONNULL_BEGIN
                                          fragment:nil];
         }
     }
+}
+
+- (void)presentPopupForTitle:(MWKTitle*)title {
+    MWKArticle* article          = [self.dataStore articleWithTitle:title];
+    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
+    vc.article = article;
+
+    self.popupTransition                        = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:nil];
+    self.popupTransition.nonInteractiveDuration = 0.5;
+    vc.transitioningDelegate                    = self.popupTransition;
+    vc.modalPresentationStyle                   = UIModalPresentationCustom;
+
+    [self presentViewController:vc animated:YES completion:NULL];
+}
+
+#pragma mark - WMFWebViewControllerDelegate
+
+- (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title {
+    [self presentPopupForTitle:title];
 }
 
 #pragma mark - WMFArticleHeadermageGalleryViewControllerDelegate

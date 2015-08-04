@@ -7,7 +7,7 @@
 #import "UIViewController+Alert.h"
 #import "QueuesSingleton.h"
 #import "WikiTextSectionUploader.h"
-#import "UIViewController+HideKeyboard.h"
+#import "UIViewController+WMFHideKeyboard.h"
 #import "EditTokenFetcher.h"
 #import "SessionSingleton.h"
 #import "PreviewWebView.h"
@@ -577,7 +577,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                     {
                         //NSString *warningHtml = error.userInfo[@"warning"];
 
-                        [self hideKeyboard];
+                        [self wmf_hideKeyboard];
 
                         if ((error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED)) {
                             self.mode            = PREVIEW_MODE_EDIT_WIKITEXT_DISALLOW;

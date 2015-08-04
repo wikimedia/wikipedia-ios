@@ -7,9 +7,13 @@
 //
 
 #import "MediaWikiKit.h"
+#import <hpple/TFHpple.h>
 #import <BlocksKit/BlocksKit.h>
 #import "WikipediaAppUtils.h"
 #import "NSURL+Extras.h"
+#import "NSString+WMFHTMLParsing.h"
+#import "NSAttributedString+WMFHTMLForSite.h"
+#import "MWKSection.h"
 
 typedef NS_ENUM (NSUInteger, MWKArticleSchemaVersion) {
     /**
@@ -449,6 +453,80 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return [imageURLs bk_reject:^BOOL (id obj) {
         return [NSNull null] == obj;
     }];
+}
+
+#pragma mark - Extraction
+
+static NSString* const WMFParagraphSelector = @"/html/body/p";
+
++ (NSString*)paragraphChildSelector {
+    static NSString* paragraphChildSelector;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSArray* allowedTags = @[
+            @"b",
+            @"i",
+            @"span",
+            @"a",
+            @"sup",
+            @"blockquote",
+            @"br",
+            @"cite",
+            @"em",
+            @"header",
+            @"h1",
+            @"h2",
+            @"h3",
+            @"h4",
+            @"h5",
+            @"h6",
+            @"ul",
+            @"li",
+            @"ol",
+            @"q",
+            @"strike",
+            @"sub",
+            @"u",
+            @"ul"
+        ];
+
+        NSString* tagSelector = [[allowedTags bk_map:^NSString*(NSString* tag) {
+            return [@"self::" stringByAppendingString:tag];
+        }] componentsJoinedByString:@" or "];
+
+        paragraphChildSelector = [NSString stringWithFormat:
+                                  // top-level article paragraphs' text and
+                                  @"%@/text() | "
+                                  // children of top-level article paragraphs which is
+                                  "%@/*["
+                                  // one of allowed tags
+                                  "(%@)"
+                                  " and "
+                                  // excluding geo-coordinates
+                                  "not(*[@id = 'coordinates'])]"
+                                  , WMFParagraphSelector, WMFParagraphSelector, tagSelector];
+    });
+    return paragraphChildSelector;
+}
+
+- (NSAttributedString*)summaryHTML {
+    MWKSection* leadSection      = [self.sections firstNonEmptySection];
+    NSString* filteredParagraphs =
+        [[[[leadSection elementsInTextMatchingXPath:WMFParagraphSelector] bk_map:^NSString*(TFHppleElement* paragraphEl) {
+        return [[[[TFHpple hppleWithHTMLData:[paragraphEl.raw dataUsingEncoding:NSUTF8StringEncoding]]
+                  // select children of each paragraph
+                  searchWithXPathQuery:[MWKArticle paragraphChildSelector]]
+                 // get their "raw" HTML
+                 valueForKey:WMF_SAFE_KEYPATH(paragraphEl, raw)]
+                // join
+                componentsJoinedByString:@""];
+    }] bk_select:^BOOL (id stringOrNull) {
+        return [stringOrNull isKindOfClass:[NSString class]] && [stringOrNull length] > 0;
+    }]
+         // double space all paragraphs
+         componentsJoinedByString:@"<br/><br/>"];
+    NSData* xpathData = [filteredParagraphs dataUsingEncoding:NSUTF8StringEncoding];
+    return [[NSAttributedString alloc] initWithHTMLData:xpathData site:self.site];
 }
 
 @end

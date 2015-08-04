@@ -3,5 +3,5 @@
   "-scheme", "Wikipedia",
   "-configuration", "Debug",
   "-sdk", "iphonesimulator",
-  "-arch", "i386"
+  "-destination", "platform=iOS Simulator,name=iPhone 6,OS=8.4"
 ]

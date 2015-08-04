@@ -1,5 +1,6 @@
 #import "WMFArticleListCollectionViewController.h"
 #import "UICollectionView+WMFExtensions.h"
+#import "UIViewController+WMFHideKeyboard.h"
 #import "WMFArticleViewControllerContainerCell.h"
 #import "WMFArticleViewController.h"
 
@@ -35,14 +36,20 @@
     }
 
     [self unobserveDataSource];
+
     _dataSource = dataSource;
-    [self observeDataSource];
 
     self.title = [_dataSource displayTitle];
 
     if ([self isViewLoaded]) {
         [self.collectionView setContentOffset:CGPointZero];
         [self.collectionView reloadData];
+        /*
+           can't let KVO callbacks fire until the view is completely reloaded. this prevents crashes when updates occur
+           before reloading, which the collectionView assumes are balanced (i.e. we explicitly removed any sections that
+           no longer exist)
+         */
+        [self observeDataSource];
     }
 }
 
@@ -85,18 +92,6 @@
 }
 
 #pragma mark - Accessors
-
-#define WMFWarnIfNilOnReturn(prop, type) \
-    - (type*)prop { \
-        if (!_ ## prop) { DDLogWarn(@"%@ not configured with " #prop "!", [self debugDescription]); } \
-        return _ ## prop; \
-    }
-
-WMFWarnIfNilOnReturn(dataStore, MWKDataStore)
-
-WMFWarnIfNilOnReturn(recentPages, MWKHistoryList)
-
-WMFWarnIfNilOnReturn(savedPages, MWKSavedPageList)
 
 - (NSString*)debugDescription {
     return [NSString stringWithFormat:@"%@ dataSourceClass: %@", self, [self.dataSource class]];
@@ -163,6 +158,13 @@ WMFWarnIfNilOnReturn(savedPages, MWKSavedPageList)
     [self updateListForMode:self.mode animated:NO completion:NULL];
 
     [self observeDataSource];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSParameterAssert(self.dataStore);
+    NSParameterAssert(self.recentPages);
+    NSParameterAssert(self.savedPages);
 }
 
 - (void)viewDidLayoutSubviews {
@@ -257,8 +259,7 @@ WMFWarnIfNilOnReturn(savedPages, MWKSavedPageList)
     container.transitioningDelegate  = self.cardTransition;
     container.modalPresentationStyle = UIModalPresentationCustom;
 
-    // if keyboard is visible, dismiss it (e.g. when used to display search results)
-    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+    [self wmf_hideKeyboard];
 
     [self presentViewController:container animated:YES completion:^{
         [self.recentPages addPageToHistoryWithTitle:cell.viewController.article.title

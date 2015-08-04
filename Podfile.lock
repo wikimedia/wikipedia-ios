@@ -20,6 +20,18 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.1):
     - CocoaLumberjack/Default
+  - DTCoreText (1.6.16):
+    - DTFoundation/Core (~> 1.7.5)
+    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
+    - DTFoundation/DTHTMLParser (~> 1.7.5)
+    - DTFoundation/UIKit (~> 1.7.5)
+  - DTFoundation/Core (1.7.7)
+  - DTFoundation/DTAnimatedGIF (1.7.7)
+  - DTFoundation/DTHTMLParser (1.7.7):
+    - DTFoundation/Core
+  - DTFoundation/UIKit (1.7.7):
+    - DTFoundation/Core
+  - FBSnapshotTestCase/Core (2.0.3)
   - HockeySDK (3.6.2)
   - hpple (0.2.0)
   - KVOController (1.0.3)
@@ -44,6 +56,8 @@ DEPENDENCIES:
   - BlocksKit/Core (~> 2.2)
   - BlocksKit/UIKit (~> 2.2)
   - CocoaLumberjack (~> 2.0.0)
+  - DTCoreText (~> 1.6.16)
+  - FBSnapshotTestCase/Core (~> 2.0.3)
   - HockeySDK (= 3.6.2)
   - hpple (~> 0.2)
   - KVOController
@@ -57,13 +71,16 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   SDWebImage:
-    :path: ./vendor/SDWebImage
+    :path: "./vendor/SDWebImage"
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   AnimatedGIFImageSerialization: b0f0cfe71eac1ee45a3d57ae533c23b8e6f29501
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
+  DTCoreText: 934a16fe9ffdd169c96261721b39dc312b75713d
+  DTFoundation: c9b3362b83f0017389082ec067ede719826a579d
+  FBSnapshotTestCase: d0eeca6bf87958e088b254396ae66873f971cfb1
   HockeySDK: 51ade1aff04463137e852797d2eb4dfb2511d6a9
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
@@ -75,4 +92,4 @@ SPEC CHECKSUMS:
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2

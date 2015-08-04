@@ -1,7 +1,7 @@
 
 @protocol WMFSearchViewControllerDelegate;
 
-@class MWKSite, MWKDataStore, MWKUserDataStore;
+@class MWKSite, MWKDataStore, MWKSavedPageList, MWKHistoryList;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +14,8 @@ typedef NS_ENUM (NSUInteger, WMFSearchState) {
 
 @property (nonatomic, strong) MWKSite* searchSite;
 @property (nonatomic, strong) MWKDataStore* dataStore;
-@property (nonatomic, strong) MWKUserDataStore* userDataStore;
+@property (nonatomic, strong) MWKSavedPageList* savedPages;
+@property (nonatomic, strong) MWKHistoryList* recentPages;
 
 @property(nonatomic, weak, nullable) id<WMFSearchViewControllerDelegate> delegate;
 

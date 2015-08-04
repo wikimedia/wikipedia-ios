@@ -36,6 +36,9 @@
 - (NSUInteger) count;
 - (MWKSection*)objectAtIndexedSubscript:(NSUInteger)idx;
 
+/// @return The first section whose `text` is not empty, or `nil` if all sections (or the receiver) are empty.
+- (MWKSection*)firstNonEmptySection;
+
 - (void)save;
 
 - (BOOL)isEqualToSectionList:(MWKSectionList*)sectionList;

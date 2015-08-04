@@ -18,7 +18,7 @@
 #import "MWLanguageInfo.h"
 #import "Defines.h"
 #import "UIScrollView+NoHorizontalScrolling.h"
-#import "UIViewController+HideKeyboard.h"
+#import "UIViewController+WMFHideKeyboard.h"
 #import "UIWebView+HideScrollGradient.h"
 #import "UIWebView+ElementLocation.h"
 #import "UIView+RemoveConstraints.h"
@@ -92,7 +92,6 @@ static int const kMinimumTextSelectionLength = 2;
 @property (nonatomic) BOOL unsafeToScroll;
 
 @property (nonatomic) float relativeScrollOffsetBeforeRotate;
-@property (nonatomic) NSUInteger sectionToEditId;
 
 @property (strong, nonatomic) NSDictionary* adjacentHistoryIDs;
 @property (strong, nonatomic) NSString* externalUrl;
