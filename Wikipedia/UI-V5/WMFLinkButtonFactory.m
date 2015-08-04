@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFMinimalArticleContentController.h"
+#import "WMFLinkButtonFactory.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import <DTCoreText/DTAttributedTextContentView.h>
 #import <DTCoreText/DTAttributedTextCell.h>
@@ -32,24 +32,7 @@
 
 @end
 
-@interface WMFMinimalArticleContentController ()
-<DTAttributedTextContentViewDelegate>
-@end
-
-@implementation WMFMinimalArticleContentController
-
-- (void)configureContentView:(DTAttributedTextContentView*)contentView {
-    contentView.delegate         = self;
-    contentView.shouldDrawImages = NO;
-    contentView.shouldDrawLinks  = YES;
-}
-
-- (void)configureCell:(DTAttributedTextCell*)attributedTextCell {
-    attributedTextCell.textDelegate = self;
-    [self configureContentView:attributedTextCell.attributedTextContextView];
-}
-
-#pragma mark - DTAttributedTextContentViewDelegate
+@implementation WMFLinkButtonFactory
 
 - (UIView*)attributedTextContentView:(DTAttributedTextContentView*)attributedTextContentView
                          viewForLink:(NSURL*)url

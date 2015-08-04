@@ -11,10 +11,8 @@
 #import <FBSnapshotTestCase/FBSnapshotTestCase.h>
 #import "WMFTestFixtureUtilities.h"
 #import "MWKArticle.h"
-#import "WMFMinimalArticleContentController.h"
 #import "XCTestCase+PromiseKit.h"
-
-#import <DTCoreText/DTAttributedTextContentView.h>
+#import "WMFMinimalArticleContentCell.h"
 
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>
@@ -65,18 +63,21 @@
                                            dataStore:nil
                                                 dict:mobileViewJSON[@"mobileview"]];
 
-    WMFMinimalArticleContentController* minimalContentController = [[WMFMinimalArticleContentController alloc] init];
+    WMFMinimalArticleContentCell* testCell = [WMFMinimalArticleContentCell new];
+    testCell.attributedString = self.article.summaryHTML;
 
-    DTAttributedTextContentView* testView = [[DTAttributedTextContentView alloc] init];
-    [minimalContentController configureContentView:testView];
-    testView.attributedString = self.article.summaryHTML;
-    testView.frame            = (CGRect){
+    // attributed text cell need a superview else it won't layout its subviews
+    UIView* testView = [UIView new];
+    [testView addSubview:testCell];
+    testView.frame = (CGRect){
         .origin = CGPointZero,
-        .size   = [testView suggestedFrameSizeToFitEntireStringConstraintedToWidth:320]
+        .size   = [testCell.attributedTextContextView suggestedFrameSizeToFitEntireStringConstraintedToWidth:320]
     };
+    testCell.frame = testView.bounds;
 
     // pass nil to get description based on current test
-    FBSnapshotVerifyView(testView, nil);
+    // workaround for https://github.com/facebook/ios-snapshot-test-case/issues/102
+    FBSnapshotVerifyViewWithOptions(testCell, nil, [NSSet setWithObject:@"_64"], 0);
 }
 
 @end

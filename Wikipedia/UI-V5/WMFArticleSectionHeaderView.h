@@ -3,10 +3,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class DTAttributedLabel;
+@interface WMFArticleSectionHeaderView : UITableViewCell
 
-@interface WMFArticleExtractCell : UITableViewCell
-
-@property (strong, nonatomic) IBOutlet DTAttributedLabel* attributedTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel* sectionHeaderLabel;
 
 @end

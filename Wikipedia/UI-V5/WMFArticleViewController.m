@@ -20,11 +20,10 @@
 #import "WMFArticleTableHeaderView.h"
 #import "WMFArticleSectionCell.h"
 #import "PaddedLabel.h"
-#import "WMFArticleSectionHeaderCell.h"
-#import "WMFArticleExtractCell.h"
+#import "WMFArticleSectionHeaderView.h"
+#import "WMFMinimalArticleContentCell.h"
 #import "WMFArticleReadMoreCell.h"
 #import "WMFArticleNavigationDelegate.h"
-#import "WMFMinimalArticleContentController.h"
 
 // Categories
 #import "NSString+Extras.h"
@@ -68,7 +67,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) IBOutlet UITapGestureRecognizer* expandGalleryTapRecognizer;
 
 @property (nonatomic, strong) WebViewController* webViewController;
-@property (nonatomic, strong) WMFMinimalArticleContentController* minimalContentController;
 
 @end
 
@@ -86,14 +84,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - Accessors
-
-- (WMFMinimalArticleContentController*)minimalContentController {
-    if (!_minimalContentController) {
-        _minimalContentController = [[WMFMinimalArticleContentController alloc] init];
-//        _minimalContentController.articleNavigationDelegate = self;
-    }
-    return _minimalContentController;
-}
 
 - (void)setHeaderGalleryViewController:(WMFArticleHeaderImageGalleryViewController* __nonnull)galleryViewController {
     _headerGalleryViewController = galleryViewController;
@@ -163,7 +153,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Saved Pages KVO
 
 - (void)observeSavedPages {
-    [self.KVOControllerNonRetaining observe:self.savedPages keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries) options:0 block:^(WMFArticleViewController* observer, id object, NSDictionary* change) {
+    [self.KVOControllerNonRetaining observe:self.savedPages
+                                    keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries)
+                                    options:0
+                                      block:^(WMFArticleViewController* observer, id object, NSDictionary* change) {
         [observer updateSavedButtonState];
     }];
 }
@@ -369,13 +362,14 @@ NS_ASSUME_NONNULL_BEGIN
     galleryLayout.minimumLineSpacing      = 0;
     galleryLayout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
 
+    [self.tableView registerClass:[WMFMinimalArticleContentCell class]
+           forCellReuseIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
+
     [self observeSavedPages];
     [self clearHeaderView];
     [self configureForDynamicCellHeight];
     [self updateUI];
     [self updateUIForMode:self.mode animated:NO];
-
-    [self.tableView registerClass:[DTAttributedTextCell class] forCellReuseIdentifier:[DTAttributedTextCell wmf_nibName]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -417,26 +411,21 @@ NS_ASSUME_NONNULL_BEGIN
     if (indexPath.section != WMFArticleSectionTypeSummary) {
         return UITableViewAutomaticDimension;
     }
-    DTAttributedTextCell* cell = [self summaryCellAtIndexPath:indexPath];
+    DTAttributedTextCell* cell = [self contentCellAtIndexPath:indexPath];
     return [cell requiredRowHeightInTableView:tableView];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     switch ((WMFArticleSectionType)indexPath.section) {
-        case WMFArticleSectionTypeSummary: return [self summaryCellAtIndexPath:indexPath];
+        case WMFArticleSectionTypeSummary: return [self contentCellAtIndexPath:indexPath];
         case WMFArticleSectionTypeTOC: return [self tocSectionCellAtIndexPath:indexPath];
         case WMFArticleSectionTypeReadMore: return [self readMoreCellAtIndexPath:indexPath];
     }
 }
 
-- (DTAttributedTextCell*)summaryCellAtIndexPath:(NSIndexPath*)indexPath {
-    DTAttributedTextCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[DTAttributedTextCell wmf_nibName]];
-    /*
-       HAX: need to call this before due to (potential?) oversight in DTCoreText which doesn't sync this property w/
-          its internal attributedTextContentView
-     */
-    cell.hasFixedRowHeight = NO;
-    [self.minimalContentController configureCell:cell];
+- (WMFMinimalArticleContentCell*)contentCellAtIndexPath:(NSIndexPath*)indexPath {
+    WMFMinimalArticleContentCell* cell =
+        [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
     cell.attributedString = self.article.summaryHTML;
     return cell;
 }
@@ -469,25 +458,21 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
-    static NSString* cellID           = @"WMFArticleSectionHeaderCell";
-    WMFArticleSectionHeaderCell* cell = (WMFArticleSectionHeaderCell*)[tableView dequeueReusableCellWithIdentifier:cellID];
-    [self configureHeaderCell:cell inSection:section];
-    return cell;
-}
-
-- (void)configureHeaderCell:(WMFArticleSectionHeaderCell*)cell inSection:(NSInteger)section {
-//TODO(5.0): localize these!
+    WMFArticleSectionHeaderView* header =
+        [tableView dequeueReusableCellWithIdentifier:[WMFArticleSectionHeaderView wmf_nibName]];
+    //TODO(5.0): localize these!
     switch (section) {
         case WMFArticleSectionTypeSummary:
-            cell.sectionHeaderLabel.text = @"Summary";
+            header.sectionHeaderLabel.text = @"Summary";
             break;
         case WMFArticleSectionTypeTOC:
-            cell.sectionHeaderLabel.text = @"Table of contents";
+            header.sectionHeaderLabel.text = @"Table of contents";
             break;
         case WMFArticleSectionTypeReadMore:
-            cell.sectionHeaderLabel.text = @"Read more";
+            header.sectionHeaderLabel.text = @"Read more";
             break;
     }
+    return header;
 }
 
 #pragma mark - UITableViewDelegate

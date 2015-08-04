@@ -8,19 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "WMFArticleNavigationDelegate.h"
-
-@class DTAttributedTextContentView;
-@class DTAttributedTextCell;
+#import <DTCoreText/DTCoreText.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFMinimalArticleContentController : NSObject
+@interface WMFLinkButtonFactory : NSObject
+    <DTAttributedTextContentViewDelegate>
 
 @property (nonatomic, weak, nullable) id<WMFArticleNavigationDelegate> articleNavigationDelegate;
-
-- (void)configureContentView:(DTAttributedTextContentView*)contentView;
-
-- (void)configureCell:(DTAttributedTextCell*)attributedTextCell;
 
 @end
 
