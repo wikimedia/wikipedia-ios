@@ -45,6 +45,35 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
+- (NSIndexPath*)wmf_indexPathBeforeIndexPath:(NSIndexPath*)indexPath {
+    if (indexPath.item == 0) {
+        if (indexPath.section == 0) {
+            return nil;
+        }
+        NSUInteger previousSection = indexPath.section - 1;
+        NSUInteger previousItem    = [self numberOfItemsInSection:previousSection] - 1;
+        return [NSIndexPath indexPathForItem:previousItem inSection:previousSection];
+    }
+
+    NSUInteger previousItem = indexPath.item - 1;
+    return [NSIndexPath indexPathForItem:previousItem inSection:indexPath.section];
+}
+
+- (NSIndexPath*)wmf_indexPathAfterIndexPath:(NSIndexPath*)indexPath {
+    NSUInteger nextItem = indexPath.item + 1;
+    if (nextItem < [self numberOfItemsInSection:indexPath.section]) {
+        return [NSIndexPath indexPathForItem:nextItem inSection:indexPath.section];
+    }
+
+    NSUInteger nextSection = indexPath.section + 1;
+
+    if (indexPath.section < [self numberOfSections]) {
+        return [NSIndexPath indexPathForItem:0 inSection:nextSection];
+    }
+
+    return nil;
+}
+
 /**
  *  Like other UIKit methods, the completion isn't called if you pass animated = false.
  *  This method ensures the completion block is always called.

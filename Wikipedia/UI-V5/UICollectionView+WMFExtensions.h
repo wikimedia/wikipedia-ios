@@ -15,15 +15,17 @@ typedef void (^ WMFCellEnumerator)(id cell, NSIndexPath* indexPath, BOOL* stop);
 
 - (void)wmf_enumerateVisibleCellsUsingBlock:(WMFCellEnumerator)block;
 
+- (NSIndexPath*)wmf_indexPathBeforeIndexPath:(NSIndexPath*)indexPath;
+- (NSIndexPath*)wmf_indexPathAfterIndexPath:(NSIndexPath*)indexPath;
+
 /**
  *  Like other UIKit methods, the completion isn't called if you pass animated = false.
  *  This method ensures the completion block is always called.
  */
 - (void)wmf_setCollectionViewLayout:(UICollectionViewLayout*)layout animated:(BOOL)animated alwaysFireCompletion:(void (^)(BOOL finished))completion;
 
-
-
 - (NSArray*)wmf_visibleIndexPathsOfItemsBeforeIndexPath:(NSIndexPath*)indexPath;
+
 - (NSArray*)wmf_visibleIndexPathsOfItemsAfterIndexPath:(NSIndexPath*)indexPath;
 
 - (CGRect)wmf_rectEnclosingCellsAtIndexPaths:(NSArray*)indexPaths;
