@@ -9,8 +9,6 @@
 <DTAttributedTextContentViewDelegate>
 
 @property (nonatomic, strong) WMFLinkButtonFactory* buttonFactory;
-//@property (nonatomic, weak) DTAttributedTextContentView* attributedTextContentView;
-@property (nonatomic, strong) MASConstraint* heightConstraint;
 
 @end
 
