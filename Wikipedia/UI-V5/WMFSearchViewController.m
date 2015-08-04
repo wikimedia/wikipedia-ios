@@ -36,16 +36,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @implementation WMFSearchViewController
 
-- (void)setUserDataStore:(MWKUserDataStore* __nonnull)userDataStore {
+- (void)setSavedPages:(MWKSavedPageList* __nonnull)savedPages {
+    if (WMF_IS_EQUAL(_savedPages, savedPages)) {
+        return;
+    }
     [self unobserveSavedPages];
-    _userDataStore                        = userDataStore;
-    self.resultsListController.savedPages = _userDataStore.savedPageList;
+    _savedPages = savedPages;
     [self observeSavedPages];
-}
-
-- (void)setDataStore:(MWKDataStore* __nonnull)dataStore {
-    _dataStore                           = dataStore;
-    self.resultsListController.dataStore = _dataStore;
 }
 
 - (NSString*)currentSearchTerm {
@@ -54,6 +51,14 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (NSString*)searchSuggestion {
     return [(WMFSearchResults*)self.resultsListController.dataSource searchSuggestion];
+}
+
+- (WMFSearchFetcher*)fetcher {
+    if (!_fetcher) {
+        _fetcher = [[WMFSearchFetcher alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
+    }
+
+    return _fetcher;
 }
 
 - (void)updateSearchStateAndNotifyDelegate:(WMFSearchState)state {
@@ -68,18 +73,27 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)updateRecentSearchesVisibility {
-    if (self.state == WMFSearchStateActive && [self.searchBar.text length] == 0 && [self.searchBar isFirstResponder] && self.recentSearchesViewController.recentSearchesItemCount > 0) {
+    if ([self.searchBar.text length] == 0 && self.recentSearchesViewController.recentSearchesItemCount > 0) {
         [self.recentSearchesContainerView setHidden:NO];
     } else {
         [self.recentSearchesContainerView setHidden:YES];
     }
 }
 
+- (void)configureArticleList {
+    NSParameterAssert(self.dataStore);
+    NSParameterAssert(self.recentPages);
+    NSParameterAssert(self.savedPages);
+    self.resultsListController.dataStore   = self.dataStore;
+    self.resultsListController.savedPages  = self.savedPages;
+    self.resultsListController.recentPages = self.recentPages;
+}
+
 #pragma mark - DataSource KVO
 
 - (void)observeSavedPages {
-    [self.KVOControllerNonRetaining observe:self.userDataStore.savedPageList
-                                    keyPath:WMF_SAFE_KEYPATH(self.userDataStore.savedPageList, entries)
+    [self.KVOControllerNonRetaining observe:self.savedPages
+                                    keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries)
                                     options:0
                                       block:^(WMFSearchViewController* observer,
                                               id object,
@@ -89,23 +103,33 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)unobserveSavedPages {
-    [self.KVOController unobserve:self.userDataStore.savedPageList];
+    [self.KVOController unobserve:self.savedPages];
 }
 
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.resultsListController.delegate                           = self;
+    self.title                                                    = @"Search";
     self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self updateUIWithResults:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self updateRecentSearchesVisibility];
+    [self configureArticleList];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.searchBar becomeFirstResponder];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
-        self.resultsListController             = segue.destinationViewController;
-        self.resultsListController.savedPages  = self.userDataStore.savedPageList;
-        self.resultsListController.recentPages = self.userDataStore.historyList;
+        self.resultsListController = segue.destinationViewController;
+        [self configureArticleList];
     }
     if ([segue.destinationViewController isKindOfClass:[RecentSearchesViewController class]]) {
         self.recentSearchesViewController          = segue.destinationViewController;
@@ -117,12 +141,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar*)searchBar {
     [self updateSearchStateAndNotifyDelegate:WMFSearchStateActive];
-
     [self updateRecentSearchesVisibility];
 
     [self.searchBar setShowsCancelButton:YES animated:YES];
-
-    self.fetcher = [[WMFSearchFetcher alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
 
     if (![[self currentSearchTerm] isEqualToString:self.searchBar.text]) {
         [self searchForSearchTerm:self.searchBar.text];
@@ -188,7 +209,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)updateUIWithResults:(WMFSearchResults*)results {
-    self.title = results.searchTerm;
     [self updateSearchButtonWithResults:results.searchSuggestion];
     [self updateRecentSearchesVisibility];
 }

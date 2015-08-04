@@ -9,30 +9,29 @@
 #import "WMFRecentPagesDataSource.h"
 #import "UIStoryboard+WMFExtensions.h"
 #import "UITabBarController+WMFExtensions.h"
+#import "UIViewController+WMFHideKeyboard.h"
 #import <Masonry/Masonry.h>
 #import "MediaWikiKit.h"
 #import "UIFont+WMFStyle.h"
 #import "NSString+WMFGlyphs.h"
 
 typedef NS_ENUM (NSUInteger, WMFAppTabType) {
-    WMFAppTabTypeNearby = 0,
+    WMFAppTabTypeHome = 0,
+    WMFAppTabTypeSearch,
     WMFAppTabTypeSaved,
     WMFAppTabTypeRecent
 };
 
 
-@interface WMFAppViewController ()<WMFSearchViewControllerDelegate, UITabBarControllerDelegate>
-@property (strong, nonatomic) IBOutlet UIView* searchContainerView;
+@interface WMFAppViewController ()<UITabBarControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIView* tabControllerContainerView;
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
-
 @property (nonatomic, strong) UITabBarController* rootTabBarController;
 
+@property (nonatomic, strong, readonly) WMFSearchViewController* searchViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* recentArticlesViewController;
-
-@property (nonatomic, strong) WMFSearchViewController* searchViewController;
 
 @property (nonatomic, strong) SessionSingleton* session;
 
@@ -47,7 +46,6 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     [self configureSearchViewController];
     [self configureSavedViewController];
     [self configureRecentViewController];
-    [self updateTabBarVisibilityBasedOnSearchState:self.searchViewController.state];
 }
 
 - (void)configureTabController {
@@ -55,10 +53,10 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 }
 
 - (void)configureSearchViewController {
-    self.searchViewController.delegate      = self;
-    self.searchViewController.searchSite    = [self.session searchSite];
-    self.searchViewController.dataStore     = self.session.dataStore;
-    self.searchViewController.userDataStore = self.session.userDataStore;
+    self.searchViewController.searchSite  = [self.session searchSite];
+    self.searchViewController.dataStore   = self.session.dataStore;
+    self.searchViewController.savedPages  = self.session.userDataStore.savedPageList;
+    self.searchViewController.recentPages = self.session.userDataStore.historyList;
 }
 
 - (void)configureArticleListController:(WMFArticleListCollectionViewController*)controller {
@@ -130,6 +128,10 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     return self.session.userDataStore;
 }
 
+- (WMFSearchViewController*)searchViewController {
+    return (WMFSearchViewController*)[self rootViewControllerForTab:WMFAppTabTypeSearch];
+}
+
 - (WMFArticleListCollectionViewController*)savedArticlesViewController {
     return (WMFArticleListCollectionViewController*)[self rootViewControllerForTab:WMFAppTabTypeSaved];
 }
@@ -151,10 +153,6 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[WMFSearchViewController class]]) {
-        self.searchViewController = segue.destinationViewController;
-        [self configureSearchViewController];
-    }
     if ([segue.destinationViewController isKindOfClass:[UITabBarController class]]) {
         self.rootTabBarController = segue.destinationViewController;
         [self configureTabController];
@@ -216,12 +214,17 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     }];
 }
 
-- (void)rootTabBarController:(UITabBarController*)rootTabBarController didSelectViewController:(UIViewController*)viewController {
-    WMFAppTabType tab = [[rootTabBarController viewControllers] indexOfObject:viewController];
+- (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
+    [self wmf_hideKeyboard];
 
+    WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
     switch (tab) {
-        case WMFAppTabTypeNearby: {
+        case WMFAppTabTypeHome: {
             //TODO: configure Nearby
+        }
+        break;
+        case WMFAppTabTypeSearch: {
+            [self configureSearchViewController];
         }
         break;
         case WMFAppTabTypeSaved: {
@@ -230,32 +233,6 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
         break;
         case WMFAppTabTypeRecent: {
             [self configureRecentViewController];
-        }
-        break;
-    }
-}
-
-#pragma mark - WMFSearchViewControllerDelegate
-
-- (void)searchController:(WMFSearchViewController*)controller searchStateDidChange:(WMFSearchState)state {
-    [self updateTabBarVisibilityBasedOnSearchState:state];
-}
-
-- (void)updateTabBarVisibilityBasedOnSearchState:(WMFSearchState)state {
-    switch (state) {
-        case WMFSearchStateInactive: {
-            self.rootTabBarController.view.hidden                  = NO;
-            self.tabControllerContainerView.userInteractionEnabled = YES;
-            [self.rootTabBarController wmf_setTabBarVisible:YES animated:YES completion:NULL];
-        }
-        break;
-        case WMFSearchStateActive: {
-            @weakify(self);
-            [self.rootTabBarController wmf_setTabBarVisible:NO animated:YES completion:^{
-                @strongify(self);
-                self.rootTabBarController.view.hidden = YES;
-                self.tabControllerContainerView.userInteractionEnabled = NO;
-            }];
         }
         break;
     }

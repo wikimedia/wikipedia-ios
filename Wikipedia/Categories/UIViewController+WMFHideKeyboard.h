@@ -1,12 +1,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIViewController (HideKeyboard)
+@interface UIViewController (WMFHideKeyboard)
 
 /**
  *  Uses the responder chain to make all UIResponders
  *  in the view hierarchy resignFirstResponder.
  */
-- (void)hideKeyboard;
+- (void)wmf_hideKeyboard;
 
 @end

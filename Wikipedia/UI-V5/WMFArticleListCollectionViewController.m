@@ -1,5 +1,6 @@
 #import "WMFArticleListCollectionViewController.h"
 #import "UICollectionView+WMFExtensions.h"
+#import "UIViewController+WMFHideKeyboard.h"
 #import "WMFArticleViewControllerContainerCell.h"
 #import "WMFArticleViewController.h"
 
@@ -84,18 +85,6 @@
 
 #pragma mark - Accessors
 
-#define WMFWarnIfNilOnReturn(prop, type) \
-    - (type*)prop { \
-        if (!_ ## prop) { DDLogWarn(@"%@ not configured with " #prop "!", [self debugDescription]); } \
-        return _ ## prop; \
-    }
-
-WMFWarnIfNilOnReturn(dataStore, MWKDataStore)
-
-WMFWarnIfNilOnReturn(recentPages, MWKHistoryList)
-
-WMFWarnIfNilOnReturn(savedPages, MWKSavedPageList)
-
 - (NSString*)debugDescription {
     return [NSString stringWithFormat:@"%@ dataSourceClass: %@", self, [self.dataSource class]];
 }
@@ -140,6 +129,13 @@ WMFWarnIfNilOnReturn(savedPages, MWKSavedPageList)
     [self updateListForMode:self.mode animated:NO completion:NULL];
 
     [self observeDataSource];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSParameterAssert(self.dataStore);
+    NSParameterAssert(self.recentPages);
+    NSParameterAssert(self.savedPages);
 }
 
 - (void)viewDidLayoutSubviews {
@@ -241,8 +237,7 @@ WMFWarnIfNilOnReturn(savedPages, MWKSavedPageList)
     vc.transitioningDelegate                        = self.cardTransition;
     vc.modalPresentationStyle                       = UIModalPresentationCustom;
 
-    // if keyboard is visible, dismiss it (e.g. when used to display search results)
-    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+    [self wmf_hideKeyboard];
 
     [self presentViewController:vc animated:YES completion:^{
         [self.recentPages addPageToHistoryWithTitle:cell.viewController.article.title
