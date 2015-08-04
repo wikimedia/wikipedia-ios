@@ -3,7 +3,7 @@
 #import <Masonry/Masonry.h>
 #import "WMFArticleViewController.h"
 
-@interface WMFArticleContainerViewController ()
+@interface WMFArticleContainerViewController ()<UINavigationControllerDelegate>
 
 @property (nonatomic, strong, readwrite) UINavigationController* containingNavigaionController;
 @property (nonatomic, strong, readwrite) WMFArticleViewController* articleViewController;
@@ -23,13 +23,13 @@
         self.articleViewController = articleViewController;
         UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:self.articleViewController];
         nc.navigationBarHidden = YES;
-        nc.delegate            = self.articleViewController;
         [self.view addSubview:nc.view];
         [nc.view mas_makeConstraints:^(MASConstraintMaker* make) {
             make.leading.trailing.top.bottom.equalTo(self.view);
         }];
         [self addChildViewController:nc];
         [nc didMoveToParentViewController:self];
+        self.containingNavigaionController = nc;
     }
     return self;
 }
@@ -40,6 +40,15 @@
 
 - (MWKArticle*)article {
     return self.articleViewController.article;
+}
+
+#pragma mark - WMFArticleListTranstionEnabling
+
+- (BOOL)transitionShouldBeEnabled:(WMFArticleListTranstion*)transition {
+    if ([[self.containingNavigaionController viewControllers] count] > 1) {
+        return NO;
+    }
+    return YES;
 }
 
 @end

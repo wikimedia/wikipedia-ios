@@ -211,7 +211,14 @@
     }];
 }
 
-#pragma mark - Gesture
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch {
+    if ([self.articleContainerViewController transitionShouldBeEnabled:self]) {
+        return YES;
+    }
+    return NO;
+}
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer {
     return YES;
@@ -220,6 +227,9 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer {
     return YES;
 }
+
+#pragma mark - Gesture
+
 
 - (void)addDismissGestureRecognizer {
     if (!self.dismissGestureRecognizer) {
