@@ -120,6 +120,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self configureArticleList];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.searchBar becomeFirstResponder];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
         self.resultsListController = segue.destinationViewController;
