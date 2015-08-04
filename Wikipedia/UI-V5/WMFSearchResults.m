@@ -37,10 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSIndexPath*)indexPathForArticle:(MWKArticle*)article {
     NSUInteger index = [self.articles indexOfObject:article];
-    if(index == NSNotFound){
+    if (index == NSNotFound) {
         return nil;
     }
-    
+
     return [NSIndexPath indexPathForItem:index inSection:0];
 }
 
