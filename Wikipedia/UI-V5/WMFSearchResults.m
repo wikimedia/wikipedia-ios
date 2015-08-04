@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString*)displayTitle {
-    return self.searchTerm;
+    return @"Search";
 }
 
 - (NSUInteger)articleCount {
