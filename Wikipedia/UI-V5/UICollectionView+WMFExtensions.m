@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSUInteger nextSection = indexPath.section + 1;
 
-    if (indexPath.section < [self numberOfSections]) {
+    if (nextSection < [self numberOfSections]) {
         return [NSIndexPath indexPathForItem:0 inSection:nextSection];
     }
 
