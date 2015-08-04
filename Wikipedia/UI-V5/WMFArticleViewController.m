@@ -33,6 +33,7 @@
 #import "UIView+WMFDefaultNib.h"
 
 #import "WMFArticleWebViewTransition.h"
+#import "WMFArticlePopupTransition.h"
 
 typedef NS_ENUM (NSInteger, WMFArticleSectionType) {
     WMFArticleSectionTypeSummary,
@@ -45,7 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleViewController ()
 <UINavigationControllerDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
- WMFImageGalleryViewControllerDelegate>
+ WMFImageGalleryViewControllerDelegate,
+ WMFWebViewControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView* galleryContainerView;
 @property (nonatomic, weak) IBOutlet WMFArticleTableHeaderView* headerView;
@@ -69,6 +71,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSUInteger selectedSectionIndex;
 @property (nonatomic, strong) WebViewController* webViewController;
+
+@property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
 
 @end
 
@@ -147,7 +151,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WebViewController*)webViewController {
     if (!_webViewController) {
-        _webViewController = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+        _webViewController          = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+        _webViewController.delegate = self;
     }
     return _webViewController;
 }
@@ -498,14 +503,23 @@ NS_ASSUME_NONNULL_BEGIN
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark - Article Link Presentation
+
+- (BOOL)titleIsTheSameAsCurrentArticle:(MWKTitle*)title {
+    return [[self.article title] isEqualToTitleExcludingFragment:title];
+}
+
 - (void)presentArticleScrolledToSectionForIndexPath:(NSIndexPath*)indexPath {
     self.selectedSectionIndex = [self tableOfContentsSectionIndexWithIndexPath:indexPath];
     MWKTitle* titleWithFragment = [self titleForSelectedIndexPath:indexPath];
-    [self.webViewController scrollToFragment:titleWithFragment.fragment];
-
-    WMFArticleWebViewTransition* transition = [[WMFArticleWebViewTransition alloc] initWithArticleViewController:self webViewController:self.webViewController];
-    self.webViewTransition = transition;
-    [self.navigationController pushViewController:self.webViewController animated:YES];
+    if ([self titleIsTheSameAsCurrentArticle:titleWithFragment]) {
+        [self.webViewController scrollToFragment:titleWithFragment.fragment];
+        WMFArticleWebViewTransition* transition = [[WMFArticleWebViewTransition alloc] initWithArticleViewController:self webViewController:self.webViewController];
+        self.webViewTransition = transition;
+        [self.navigationController pushViewController:self.webViewController animated:YES];
+    } else {
+        [self presentPopupForTitle:titleWithFragment];
+    }
 }
 
 - (MWKTitle*)titleForSelectedIndexPath:(NSIndexPath*)indexPath {
@@ -525,6 +539,25 @@ NS_ASSUME_NONNULL_BEGIN
                                          fragment:nil];
         }
     }
+}
+
+- (void)presentPopupForTitle:(MWKTitle*)title {
+    MWKArticle* article          = [self.dataStore articleWithTitle:title];
+    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
+    vc.article = article;
+
+    self.popupTransition                        = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:nil];
+    self.popupTransition.nonInteractiveDuration = 0.5;
+    vc.transitioningDelegate                    = self.popupTransition;
+    vc.modalPresentationStyle                   = UIModalPresentationCustom;
+
+    [self presentViewController:vc animated:YES completion:NULL];
+}
+
+#pragma mark - WMFWebViewControllerDelegate
+
+- (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title {
+    [self presentPopupForTitle:title];
 }
 
 #pragma mark - WMFArticleHeadermageGalleryViewControllerDelegate

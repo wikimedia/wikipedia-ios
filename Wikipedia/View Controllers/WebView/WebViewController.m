@@ -23,7 +23,6 @@
 #import "UIWebView+WMFSuppressSelection.h"
 #import "WMFArticlePresenter.h"
 #import "UIView+WMFRTLMirroring.h"
-#import "WMFArticlePopupTransition.h"
 #import "WMFArticleViewController.h"
 #import "PageHistoryViewController.h"
 
@@ -51,8 +50,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @property (strong, nonatomic) WMFShareFunnel* shareFunnel;
 @property (strong, nonatomic) WMFShareOptionsViewController* shareOptionsViewController;
 @property (strong, nonatomic) NSString* wikipediaZeroLearnMoreExternalUrl;
-
-@property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
 
 @property (nonatomic, strong) WMFSectionTitlesViewController* sectionTitlesViewController;
 
@@ -158,7 +155,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.sectionTitlesViewController = [[WMFSectionTitlesViewController alloc] initWithWebView:self.webView webViewController:self];
+    self.sectionTitlesViewController = [[WMFSectionTitlesViewController alloc] initWithView:self.view webView:self.webView topLayoutGuide:self.mas_topLayoutGuide];
 
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
     [self.navigationController.toolbar wmf_mirrorIfDeviceRTL];
@@ -797,7 +794,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
             if ([href wmf_isInternalLink]) {
                 MWKTitle* pageTitle = [strSelf.session.currentArticleSite titleWithInternalLink:href];
-                [strSelf presentPopupForTitle:pageTitle];
+                [weakSelf.delegate webViewController:weakSelf didTapOnLinkForTitle:pageTitle];
             } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                 if ([href hasPrefix:@"//"]) {
@@ -1374,21 +1371,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                 break;
         }
     }
-}
-
-#pragma mark - Article Popup
-
-- (void)presentPopupForTitle:(MWKTitle*)title {
-    MWKArticle* article          = [self.session.dataStore articleWithTitle:title];
-    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:self.session.dataStore savedPages:self.session.userDataStore.savedPageList];
-    vc.article = article;
-
-    self.popupTransition                        = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:nil];
-    self.popupTransition.nonInteractiveDuration = 0.5;
-    vc.transitioningDelegate                    = self.popupTransition;
-    vc.modalPresentationStyle                   = UIModalPresentationCustom;
-
-    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 #pragma mark Display article from data store

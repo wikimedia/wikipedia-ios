@@ -111,6 +111,11 @@ NS_ASSUME_NONNULL_BEGIN
            && WMF_EQUAL_PROPERTIES(self, fragment, isEqualToString:, otherTitle);
 }
 
+- (BOOL)isEqualToTitleExcludingFragment:(MWKTitle*)otherTitle {
+    return WMF_IS_EQUAL_PROPERTIES(self, site, otherTitle)
+           && WMF_EQUAL_PROPERTIES(self, text, isEqualToString:, otherTitle);
+}
+
 - (NSString*)description {
     if (self.fragment) {
         return [NSString stringWithFormat:@"%@:%@:%@#%@", self.site.domain, self.site.language, self.text, self.fragment];
