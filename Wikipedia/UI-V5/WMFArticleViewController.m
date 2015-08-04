@@ -477,10 +477,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article Link Presentation
 
 - (BOOL)titleIsTheSameAsCurrentArticle:(MWKTitle*)title {
-    if ([[self.article title] isEqualToTitleExcludingFragment:title]) {
-        return YES;
-    }
-    return NO;
+    return [[self.article title] isEqualToTitleExcludingFragment:title];
 }
 
 - (void)presentArticleScrolledToSectionForIndexPath:(NSIndexPath*)indexPath {
