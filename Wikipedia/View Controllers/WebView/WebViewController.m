@@ -1061,7 +1061,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
     if (self.keyboardIsVisible && fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
-        [self hideKeyboard];
+        [self wmf_hideKeyboard];
         //NSLog(@"Keyboard Hidden!");
     }
 
@@ -1209,7 +1209,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [self view];
     }
 
-    [self hideKeyboard];
+    [self wmf_hideKeyboard];
 
     [self cancelSearchLoading];
 

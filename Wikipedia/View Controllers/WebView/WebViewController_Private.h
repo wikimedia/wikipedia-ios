@@ -18,7 +18,7 @@
 #import "MWLanguageInfo.h"
 #import "Defines.h"
 #import "UIScrollView+NoHorizontalScrolling.h"
-#import "UIViewController+HideKeyboard.h"
+#import "UIViewController+WMFHideKeyboard.h"
 #import "UIWebView+HideScrollGradient.h"
 #import "UIWebView+ElementLocation.h"
 #import "UIView+RemoveConstraints.h"

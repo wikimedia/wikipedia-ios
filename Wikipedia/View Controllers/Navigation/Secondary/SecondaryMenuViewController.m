@@ -7,7 +7,7 @@
 #import "SessionSingleton.h"
 #import "WikipediaAppUtils.h"
 #import "LanguagesViewController.h"
-#import "UIViewController+HideKeyboard.h"
+#import "UIViewController+WMFHideKeyboard.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "UIViewController+Alert.h"
 #import "NSString+FormattedAttributedString.h"
@@ -664,7 +664,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 #pragma mark - Scroll
 
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
-    [self hideKeyboard];
+    [self wmf_hideKeyboard];
 }
 
 /*
