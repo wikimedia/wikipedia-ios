@@ -459,6 +459,9 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 static NSString* const WMFParagraphSelector = @"/html/body/p";
 
+/**
+ * @return An XPath selector used to select children of top-level paragraphs of an article's HTML.
+ */
 + (NSString*)paragraphChildSelector {
     static NSString* paragraphChildSelector;
     static dispatch_once_t onceToken;

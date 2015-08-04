@@ -100,7 +100,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
 ///
 
 /**
- * @return Summary of the receiver as an attributd string built from HTML.
+ * @return Summary of the receiver as an attributed string built from HTML.
  */
 - (NSAttributedString*)summaryHTML;
 
