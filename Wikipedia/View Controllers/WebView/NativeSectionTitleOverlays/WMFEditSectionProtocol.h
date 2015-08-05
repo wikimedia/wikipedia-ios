@@ -3,8 +3,8 @@
 
 @protocol WMFEditSectionDelegate <NSObject>
 
-- (void)wmf_editSection:(NSNumber*)sectionId;
+- (void)editSection:(NSNumber*)sectionId;
 
-- (BOOL)wmf_isArticleEditable;
+- (BOOL)isArticleEditable;
 
 @end

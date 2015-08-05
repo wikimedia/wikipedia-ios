@@ -267,25 +267,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }];
 }
 
-- (BOOL)wmf_isArticleEditable {
-    return self.editable;
-}
-
-- (void)wmf_editSection:(NSNumber*)sectionId {
-    if ([self tocDrawerIsOpen]) {
-        [self tocHide];
-        return;
-    }
-
-    if (self.editable) {
-        [self showSectionEditorForSection:sectionId];
-    } else {
-        ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
-        [funnel logProtectionStatus:[[self.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
-        [self showProtectedDialog];
-    }
-}
-
 - (void)jumpToFragmentIfNecessary {
     if (self.jumpToFragment && (self.jumpToFragment.length > 0)) {
         [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"location.hash = '%@'", self.jumpToFragment]];
@@ -388,6 +369,27 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
 
     [super viewWillDisappear:animated];
+}
+
+#pragma mark - WMFEditSectionDelegate methods
+
+- (BOOL)isArticleEditable {
+    return self.editable;
+}
+
+- (void)editSection:(NSNumber*)sectionId {
+    if ([self tocDrawerIsOpen]) {
+        [self tocHide];
+        return;
+    }
+
+    if (self.editable) {
+        [self showSectionEditorForSection:sectionId];
+    } else {
+        ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
+        [funnel logProtectionStatus:[[self.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
+        [self showProtectedDialog];
+    }
 }
 
 #pragma mark Sync config/ios.json if necessary
