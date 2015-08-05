@@ -276,7 +276,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
     if (self.editable) {
-        [self showSectionEditorForSection:[(WMFTitleOverlay *)notification.object sectionId]];
+        [self showSectionEditorForSection:[(WMFTitleOverlay*)notification.object sectionId]];
     } else {
         ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
         [funnel logProtectionStatus:[[self.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];

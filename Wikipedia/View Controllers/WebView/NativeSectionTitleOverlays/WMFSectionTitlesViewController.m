@@ -44,10 +44,14 @@
     self.topStaticOverlay.alpha = 0;
 }
 
+- (void)removeAnyExistingTitleOverlays {
+    NSArray* existingOverlays = [self.webView.scrollView.subviews filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self isKindOfClass: %@", [WMFTitleOverlay class]]];
+    [existingOverlays makeObjectsPerformSelector:@selector(removeFromSuperview)];
+}
+
 - (void)resetOverlays {
-    for (WMFTitleOverlayModel* m in self.overlayModels) {
-        [m.overlay removeFromSuperview];
-    }
+    [self removeAnyExistingTitleOverlays];
+
     [self.overlayModels removeAllObjects];
 
     [self setupTopStaticTitleOverlay];
@@ -73,7 +77,6 @@
             m.anchor    = section[@"anchor"];
             m.title     = title;
             m.yOffset   = 0;
-            m.overlay   = overlay;
             m.sectionId = sectionId;
 
             [overlay mas_makeConstraints:^(MASConstraintMaker* make) {
@@ -89,7 +92,7 @@
     [self updateOverlaysPositions];
 }
 
--(WMFTitleOverlay*)getNewOverlay {
+- (WMFTitleOverlay*)getNewOverlay {
     return [[[NSBundle mainBundle] loadNibNamed:@"WMFTitleOverlay" owner:self options:nil] objectAtIndex:0];
 }
 
