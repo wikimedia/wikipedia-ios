@@ -4,7 +4,6 @@
 #import "WMFSectionHeadersViewController.h"
 #import "WMFSectionHeader.h"
 #import "WMFSectionHeaderModel.h"
-#import "NSString+Extras.h"
 #import "UIView+WMFSearchSubviews.h"
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit.h>
@@ -68,7 +67,7 @@
 - (void)updateModelsForSections:(NSArray*)sections {
     self.sectionHeaderModels = [sections bk_map:^id (NSDictionary* section) {
         WMFSectionHeaderModel* model = [[WMFSectionHeaderModel alloc] init];
-        model.title = [section[@"text"] wmf_stringByRemovingHTML];
+        model.title = section[@"text"];
         model.yOffset = 0;
         model.sectionId = section[@"sectionId"];
         return model;
@@ -206,7 +205,7 @@ static NSString* const WMFJSGetSectionHeadersJSON =
     @"    var rect = n.getBoundingClientRect();"
     @"    return {"
     @"        sectionId:n.getAttribute('sectionId'),"
-    @"        text:n.innerHTML"
+    @"        text:n.textContent"
     @"    };"
     @"  });"
     @"  return JSON.stringify(nodeArray);"
