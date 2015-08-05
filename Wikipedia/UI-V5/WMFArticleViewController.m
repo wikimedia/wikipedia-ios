@@ -26,7 +26,7 @@
 #import "WMFArticleNavigationDelegate.h"
 
 // Categories
-#import "NSString+WMFUtilities.h"
+#import "NSString+Extras.h"
 #import "UIButton+WMFButton.h"
 #import "UIStoryboard+WMFExtensions.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -435,8 +435,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFMinimalArticleContentCell*)contentCellAtIndexPath:(NSIndexPath*)indexPath {
     WMFMinimalArticleContentCell* cell =
         [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
-    cell.attributedString = self.article.summaryHTML;
-    cell.articleNavigationDelegate = self;
+    cell.attributedString          = self.article.summaryHTML;
+    cell.articleNavigationDelegate = self.articleNavigationDelegate;
     return cell;
 }
 
@@ -571,28 +571,37 @@ NS_ASSUME_NONNULL_BEGIN
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
 #pragma mark - WMFArticleNavigation
 
-- (void)scrollToFragment:(NSString * __nonnull)fragment animated:(BOOL)animated {
+- (void)scrollToFragment:(NSString* __nonnull)fragment animated:(BOOL)animated {
 }
 
-- (void)scrollToLink:(NSURL * __nonnull)linkURL animated:(BOOL)animated {
+- (void)scrollToLink:(NSURL* __nonnull)linkURL animated:(BOOL)animated {
 }
 
 #pragma mark - WMFArticleNavigationDelegate
 
-- (void)articleNavigator:(id<WMFArticleNavigation> __nonnull)sender
-      didTapCitationLink:(NSString * __nonnull)citationFragment {
+- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
+      didTapCitationLink:(NSString* __nonnull)citationFragment
+                  onPage:(MWKTitle* __nonnull)pageTitle {
+    if ([self isTitleReferenceToCurrentArticle:pageTitle]) {
+        [self scrollToFragment:citationFragment animated:YES];
+    }
 }
 
-- (void)articleNavigator:(id<WMFArticleNavigation> __nonnull)sender
-        didTapLinkToPage:(MWKTitle * __nonnull)title {
+- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
+        didTapLinkToPage:(MWKTitle* __nonnull)title {
+    [self presentPopupForTitle:title];
 }
 
-- (void)articleNavigator:(id<WMFArticleNavigation> __nonnull)sender
-      didTapExternalLink:(NSURL * __nonnull)externalURL {
+- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
+      didTapExternalLink:(NSURL* __nonnull)externalURL {
+    // TODO: show zero warning if necesary, or directly open in safari
 }
+
+#pragma mark - UINavigationControllerDelegate
+
+// placeholder
 
 @end
 

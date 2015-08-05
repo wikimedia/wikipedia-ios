@@ -15,11 +15,11 @@
 
 + (void)load {
     /*
-     Set tiled layers for all attributed text content views. This prevents rendering all attributed text at once, but
-     might require unnecessary overrhead for smaller layers.
+       Set tiled layers for all attributed text content views. This prevents rendering all attributed text at once, but
+       might require unnecessary overrhead for smaller layers.
 
-     If there's a situation where the amount of text to shown is likely to be small most of the time, consider using
-     a custom subclass of DTAttributedTextContentView which returns `CALayer` from `layerClass` w/o checking super.
+       If there's a situation where the amount of text to shown is likely to be small most of the time, consider using
+       a custom subclass of DTAttributedTextContentView which returns `CALayer` from `layerClass` w/o checking super.
      */
     [DTAttributedTextContentView setLayerClass:[DTTiledLayerWithoutFade class]];
 }

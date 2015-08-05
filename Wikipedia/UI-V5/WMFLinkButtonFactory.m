@@ -10,6 +10,8 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import <DTCoreText/DTAttributedTextContentView.h>
 
+#import "NSURL+WMFLinkParsing.h"
+
 @implementation WMFLinkButtonFactory
 
 - (UIView*)attributedTextContentView:(DTAttributedTextContentView*)attributedTextContentView
@@ -19,14 +21,11 @@
     DTLinkButton* linkButton = [[DTLinkButton alloc] initWithFrame:frame];
     linkButton.GUID = identifier;
     linkButton.URL  = url;
-//    @weakify(attributedTextContentView);
-//    @weakify(self);
+    @weakify(self);
     [linkButton bk_addEventHandler:^(DTLinkButton* sender) {
-//        @strongify(self);
-//        @strongify(attributedTextContentView);
-//        NSURL* URL = sender.URL;
-//        [self.articleNavigationDelegate articleView:attributedTextContentView didTapLinkToPage:sender.URL];
-        DDLogVerbose(@"link tapped: %@", sender.URL);
+        @strongify(self);
+        // TODO: pass text content view as sender once DTAttributedTextContentView conforms to the protocol
+        [sender.URL wmf_informNavigationDelegate:self.articleNavigationDelegate withSender:nil];
     } forControlEvents:UIControlEventTouchUpInside];
     return linkButton;
 }

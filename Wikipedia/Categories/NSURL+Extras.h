@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)wmf_urlByPrependingSchemeIfSchemeless;
 
-- (id)wmf_valueForQueryKey:(NSString*)queryKey;
+- (NSString*)wmf_valueForQueryKey:(NSString*)queryKey;
 
 @end
 

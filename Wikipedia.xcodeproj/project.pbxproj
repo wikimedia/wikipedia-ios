@@ -283,6 +283,7 @@
 		BC56209A1B6B92CF0013FFB0 /* WMFLinkButtonFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5620991B6B92CF0013FFB0 /* WMFLinkButtonFactory.m */; };
 		BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */ = {isa = PBXBuildFile; fileRef = BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */; };
 		BC5620A81B6BEDAD0013FFB0 /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFStyle.m */; };
+		BC5FA1771B72859B005BE5BA /* NSURL+WMFLinkParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FA1761B72859B005BE5BA /* NSURL+WMFLinkParsing.m */; };
 		BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */; };
 		BC5FE5721B1DF38A00273BC0 /* NOWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */; };
 		BC5FE5751B1DFF5400273BC0 /* ArticleFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FE5741B1DFF5400273BC0 /* ArticleFetcherTests.m */; };
@@ -936,6 +937,8 @@
 		BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Exoplanet.mobileview.json; sourceTree = "<group>"; };
 		BC5620A61B6BEDAD0013FFB0 /* UIColor+WMFStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WMFStyle.h"; sourceTree = "<group>"; };
 		BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WMFStyle.m"; sourceTree = "<group>"; };
+		BC5FA1751B72859B005BE5BA /* NSURL+WMFLinkParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+WMFLinkParsing.h"; sourceTree = "<group>"; };
+		BC5FA1761B72859B005BE5BA /* NSURL+WMFLinkParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFLinkParsing.m"; sourceTree = "<group>"; };
 		BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ENWikiSiteInfo.json; sourceTree = "<group>"; };
 		BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NOWikiSiteInfo.json; sourceTree = "<group>"; };
 		BC5FE5741B1DFF5400273BC0 /* ArticleFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleFetcherTests.m; sourceTree = "<group>"; };
@@ -1808,6 +1811,8 @@
 				04C43ABA183442FC006C643B /* NSString+Extras.h */,
 				04C43ABB183442FC006C643B /* NSString+Extras.m */,
 				045AB8C11B1E15D9002839D7 /* NSURL+Extras.h */,
+				BC5FA1751B72859B005BE5BA /* NSURL+WMFLinkParsing.h */,
+				BC5FA1761B72859B005BE5BA /* NSURL+WMFLinkParsing.m */,
 				045AB8C21B1E15D9002839D7 /* NSURL+Extras.m */,
 				04B91AA918E3D9E200FFAA1C /* NSString+FormattedAttributedString.h */,
 				04B91AAA18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m */,
@@ -3581,6 +3586,7 @@
 				BCB669B71A83F6C400C7B1FE /* MWKSectionList.m in Sources */,
 				0EE768811AFD25CC00A5D046 /* WMFSearchFunnel.m in Sources */,
 				046A4B9D1B38DC5400440F67 /* UIView+WMFRTLMirroring.m in Sources */,
+				BC5FA1771B72859B005BE5BA /* NSURL+WMFLinkParsing.m in Sources */,
 				BCB66A0C1A85183000C7B1FE /* NSString+WMFHTMLParsing.m in Sources */,
 				BCB669AF1A83F6C400C7B1FE /* MWKHistoryList.m in Sources */,
 				BC6E8B9F1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m in Sources */,

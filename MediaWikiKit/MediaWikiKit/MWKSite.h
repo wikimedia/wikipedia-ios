@@ -37,6 +37,15 @@ extern NSString* const WMFDefaultSiteDomain;
 /// Create a site using @c language and the default domain.
 - (instancetype)initWithLanguage:(NSString*)language;
 
+/**
+ * Initialize a site with components of a URL.
+ *
+ * @param url URL pointing to a Wikipedia site (e.g. https://en.wikipedia.org).
+ *
+ * @return A site with properties parsed from the given URL, or `nil` if parsing failed.
+ */
+- (MWKSite* __nullable)initWithURL:(NSURL*)url;
+
 + (instancetype)siteWithDomain:(NSString*)domain language:(NSString*)language;
 
 + (instancetype)siteWithLanguage:(NSString*)language;

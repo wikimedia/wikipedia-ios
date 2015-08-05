@@ -14,7 +14,7 @@ typedef NS_ENUM (NSUInteger, WMFArticleControllerMode) {
 };
 
 @interface WMFArticleViewController : UITableViewController
-<WMFArticleNavigation>
+    <UINavigationControllerDelegate>
 
 + (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages;
 
