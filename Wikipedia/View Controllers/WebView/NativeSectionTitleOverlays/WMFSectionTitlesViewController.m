@@ -11,7 +11,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "WMFEditSectionProtocol.h"
 
-@interface WMFSectionTitlesViewController () <WMFEditSectionDelegate>
+@interface WMFSectionTitlesViewController ()
 
 @property (nonatomic, strong) NSArray* overlayModels;
 @property (nonatomic, strong) MASConstraint* topStaticOverlayTopConstraint;
@@ -81,7 +81,7 @@
     UIView* browserView = [self.webView.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
     for (WMFTitleOverlayModel* model in self.overlayModels) {
         WMFTitleOverlay* overlay = [WMFTitleOverlay wmf_viewFromClassNib];
-        overlay.editSectionDelegate = self;
+        overlay.editSectionDelegate = self.editSectionDelegate;
         overlay.title               = model.title;
         overlay.sectionId           = model.sectionId;
         [self.webView.scrollView addSubview:overlay];
@@ -98,7 +98,7 @@
         return;
     }
     self.topStaticOverlay                     = [WMFTitleOverlay wmf_viewFromClassNib];
-    self.topStaticOverlay.editSectionDelegate = self;
+    self.topStaticOverlay.editSectionDelegate = self.editSectionDelegate;
     self.topStaticOverlay.alpha               = 0;
     [self.view addSubview:self.topStaticOverlay];
     [self.topStaticOverlay mas_makeConstraints:^(MASConstraintMaker* make) {
@@ -230,10 +230,6 @@ static NSString* const WMFJSGetSectionTitlesLocationsJSON =
 
 - (NSArray*)getSectionTitlesLocationsJSON {
     return [self getJSONFromWebViewUsingFunction:WMFJSGetSectionTitlesLocationsJSON];
-}
-
-- (void)wmf_editSection:(NSNumber*)sectionId {
-    [self.editSectionDelegate wmf_editSection:sectionId];
 }
 
 @end
