@@ -32,7 +32,7 @@
 }
 
 - (IBAction)editPencilTapped:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"EditSection" object:self userInfo:nil];
+    [self.editSectionDelegate wmf_editSection:self.sectionId];
 }
 
 @end

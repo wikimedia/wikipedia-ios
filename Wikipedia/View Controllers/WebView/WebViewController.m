@@ -28,6 +28,7 @@
 
 #import "WMFTitleOverlay.h"
 #import "WMFSectionTitlesViewController.h"
+#import "WMFEditSectionProtocol.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -35,7 +36,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
-@interface WebViewController () <LanguageSelectionDelegate, FetchFinishedDelegate>
+@interface WebViewController () <LanguageSelectionDelegate, FetchFinishedDelegate, WMFEditSectionDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem* buttonTOC;
 @property (nonatomic, strong) UIBarButtonItem* buttonLanguages;
@@ -157,6 +158,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     self.sectionTitlesViewController = [[WMFSectionTitlesViewController alloc] initWithView:self.view webView:self.webView topLayoutGuide:self.mas_topLayoutGuide];
 
+    self.sectionTitlesViewController.editSectionDelegate = self;
+
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
     [self.navigationController.toolbar wmf_mirrorIfDeviceRTL];
 
@@ -262,21 +265,16 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         // Restrict the web view from scrolling horizonally.
         [object preventHorizontalScrolling];
     }];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(editSection:)
-                                                 name:@"EditSection"
-                                               object:nil];
 }
 
-- (void)editSection:(NSNotification*)notification {
+- (void)wmf_editSection:(NSNumber*)sectionId {
     if ([self tocDrawerIsOpen]) {
         [self tocHide];
         return;
     }
 
     if (self.editable) {
-        [self showSectionEditorForSection:[(WMFTitleOverlay*)notification.object sectionId]];
+        [self showSectionEditorForSection:sectionId];
     } else {
         ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
         [funnel logProtectionStatus:[[self.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];

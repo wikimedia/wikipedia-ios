@@ -485,6 +485,7 @@
 		041E32241B714823001D0E28 /* WMFTitleOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFTitleOverlay.xib; sourceTree = "<group>"; };
 		041E32261B714867001D0E28 /* WMFTitleOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFTitleOverlay.h; sourceTree = "<group>"; };
 		041E32271B714867001D0E28 /* WMFTitleOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTitleOverlay.m; sourceTree = "<group>"; };
+		041E322D1B7292EA001D0E28 /* WMFEditSectionProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFEditSectionProtocol.h; sourceTree = "<group>"; };
 		041EFC361996A1F800B2CB28 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		042244FB197F5E09005DD0BF /* AbuseFilterAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbuseFilterAlert.h; sourceTree = "<group>"; };
 		042244FC197F5E09005DD0BF /* AbuseFilterAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbuseFilterAlert.m; sourceTree = "<group>"; };
@@ -1560,6 +1561,7 @@
 				041E32241B714823001D0E28 /* WMFTitleOverlay.xib */,
 				041E32261B714867001D0E28 /* WMFTitleOverlay.h */,
 				041E32271B714867001D0E28 /* WMFTitleOverlay.m */,
+				041E322D1B7292EA001D0E28 /* WMFEditSectionProtocol.h */,
 			);
 			path = NativeSectionTitleOverlays;
 			sourceTree = "<group>";

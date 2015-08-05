@@ -9,8 +9,9 @@
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit.h>
 #import "UIView+WMFDefaultNib.h"
+#import "WMFEditSectionProtocol.h"
 
-@interface WMFSectionTitlesViewController ()
+@interface WMFSectionTitlesViewController () <WMFEditSectionDelegate>
 
 @property (nonatomic, strong) NSArray* overlayModels;
 @property (nonatomic, strong) MASConstraint* topStaticOverlayTopConstraint;
@@ -80,8 +81,9 @@
     UIView* browserView = [self.webView.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
     for (WMFTitleOverlayModel* model in self.overlayModels) {
         WMFTitleOverlay* overlay = [WMFTitleOverlay wmf_viewFromClassNib];
-        overlay.title     = model.title;
-        overlay.sectionId = model.sectionId;
+        overlay.editSectionDelegate = self;
+        overlay.title               = model.title;
+        overlay.sectionId           = model.sectionId;
         [self.webView.scrollView addSubview:overlay];
         [overlay mas_makeConstraints:^(MASConstraintMaker* make) {
             make.leading.equalTo(browserView.mas_leading);
@@ -95,8 +97,9 @@
     if (self.topStaticOverlay) {
         return;
     }
-    self.topStaticOverlay       = [WMFTitleOverlay wmf_viewFromClassNib];
-    self.topStaticOverlay.alpha = 0;
+    self.topStaticOverlay                     = [WMFTitleOverlay wmf_viewFromClassNib];
+    self.topStaticOverlay.editSectionDelegate = self;
+    self.topStaticOverlay.alpha               = 0;
     [self.view addSubview:self.topStaticOverlay];
     [self.topStaticOverlay mas_makeConstraints:^(MASConstraintMaker* make) {
         make.leading.equalTo(self.view.mas_leading);
@@ -107,8 +110,6 @@
 
 - (void)updateOverlaysPositions {
     NSArray* headingsTopOffsets = [self getSectionTitlesLocationsJSON];
-
-    NSAssert((headingsTopOffsets.count == self.overlayModels.count), @"Headings offsets count %ld is not equal to Models count %ld!", headingsTopOffsets.count, self.overlayModels.count);
 
     if (headingsTopOffsets.count == self.overlayModels.count) {
         for (NSUInteger i = 0; i < self.overlayModels.count; i++) {
@@ -229,6 +230,10 @@ static NSString* const WMFJSGetSectionTitlesLocationsJSON =
 
 - (NSArray*)getSectionTitlesLocationsJSON {
     return [self getJSONFromWebViewUsingFunction:WMFJSGetSectionTitlesLocationsJSON];
+}
+
+- (void)wmf_editSection:(NSNumber*)sectionId {
+    [self.editSectionDelegate wmf_editSection:sectionId];
 }
 
 @end
