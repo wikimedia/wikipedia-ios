@@ -1,17 +1,17 @@
 //  Created by Monte Hurd on 8/4/15.
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "WMFTitleOverlay.h"
+#import "WMFSectionHeader.h"
 #import "UIButton+WMFButton.h"
 
-@interface WMFTitleOverlay ()
+@interface WMFSectionHeader ()
 
 @property (nonatomic, strong) IBOutlet UIButton* button;
 @property (nonatomic, strong) IBOutlet UILabel* label;
 
 @end
 
-@implementation WMFTitleOverlay
+@implementation WMFSectionHeader
 
 - (void)setTitle:(NSString*)title {
     self.label.text = title;

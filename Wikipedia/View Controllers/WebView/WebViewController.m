@@ -26,8 +26,7 @@
 #import "WMFArticleViewController.h"
 #import "PageHistoryViewController.h"
 
-#import "WMFTitleOverlay.h"
-#import "WMFSectionTitlesViewController.h"
+#import "WMFSectionHeadersViewController.h"
 #import "WMFEditSectionProtocol.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
@@ -52,7 +51,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @property (strong, nonatomic) WMFShareOptionsViewController* shareOptionsViewController;
 @property (strong, nonatomic) NSString* wikipediaZeroLearnMoreExternalUrl;
 
-@property (nonatomic, strong) WMFSectionTitlesViewController* sectionTitlesViewController;
+@property (nonatomic, strong) WMFSectionHeadersViewController* sectionHeadersViewController;
 
 @end
 
@@ -156,9 +155,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.sectionTitlesViewController = [[WMFSectionTitlesViewController alloc] initWithView:self.view webView:self.webView topLayoutGuide:self.mas_topLayoutGuide];
+    self.sectionHeadersViewController =
+        [[WMFSectionHeadersViewController alloc] initWithView:self.view
+                                                      webView:self.webView
+                                               topLayoutGuide:self.mas_topLayoutGuide];
 
-    self.sectionTitlesViewController.editSectionDelegate = self;
+    self.sectionHeadersViewController.editSectionDelegate = self;
 
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
     [self.navigationController.toolbar wmf_mirrorIfDeviceRTL];
@@ -190,7 +192,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tocVC updateTocForArticle:[SessionSingleton sharedInstance].currentArticle];
             [weakSelf updateTOCScrollPositionWithoutAnimationIfHidden];
-            [weakSelf.sectionTitlesViewController resetOverlays];
+            [weakSelf.sectionHeadersViewController resetHeaders];
         });
     }];
 
@@ -512,7 +514,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self.view layoutIfNeeded];
 
 
-    [self.sectionTitlesViewController hideTopOverlay];
+    [self.sectionHeadersViewController hideTopHeader];
 
 
     [UIView animateWithDuration:duration.floatValue
@@ -1057,7 +1059,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
 
     if (![self tocDrawerIsOpen]) {
-        [self.sectionTitlesViewController updateTopOverlayForScrollOffsetY:scrollView.contentOffset.y];
+        [self.sectionHeadersViewController updateTopHeaderForScrollOffsetY:scrollView.contentOffset.y];
     }
 
     if (self.keyboardIsVisible && fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {

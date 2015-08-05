@@ -4,7 +4,7 @@
 #import <Foundation/Foundation.h>
 #import <Masonry/Masonry.h>
 
-@interface WMFTitleOverlayModel : NSObject
+@interface WMFSectionHeaderModel : NSObject
 
 @property (nonatomic, strong) MASConstraint* topConstraint;
 @property (nonatomic, strong) NSString* anchor;

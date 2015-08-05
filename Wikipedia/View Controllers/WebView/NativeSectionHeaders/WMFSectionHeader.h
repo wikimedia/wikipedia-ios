@@ -4,7 +4,7 @@
 #import <UIKit/UIKit.h>
 #import "WMFEditSectionProtocol.h"
 
-@interface WMFTitleOverlay : UIView
+@interface WMFSectionHeader : UIView
 
 @property (nonatomic) NSNumber* sectionId;
 @property (nonatomic, strong) NSString* title;

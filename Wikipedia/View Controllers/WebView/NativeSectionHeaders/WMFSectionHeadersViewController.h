@@ -6,15 +6,15 @@
 
 @class MASViewAttribute;
 
-@interface WMFSectionTitlesViewController : NSObject
+@interface WMFSectionHeadersViewController : NSObject
 
 - (instancetype)initWithView:(UIView*)view
                      webView:(UIWebView*)webView
               topLayoutGuide:(MASViewAttribute*)topLayoutGuide;
 
-- (void)resetOverlays;
-- (void)updateTopOverlayForScrollOffsetY:(CGFloat)offsetY;
-- (void)hideTopOverlay;
+- (void)resetHeaders;
+- (void)updateTopHeaderForScrollOffsetY:(CGFloat)offsetY;
+- (void)hideTopHeader;
 
 @property (nonatomic, weak) id <WMFEditSectionDelegate> editSectionDelegate;
 
