@@ -14,13 +14,16 @@
 @implementation WMFTitleOverlay
 
 - (void)setTitle:(NSString*)title {
-    _title          = title;
     self.label.text = title;
 
     // Force layout to prevent bug detailed here:
     // https://github.com/wikimedia/wikipedia-ios/commit/8d963d40a91476958933d9e5973f5f56b7531653
     [self.label layoutIfNeeded];
     [self layoutIfNeeded];
+}
+
+- (NSString*)title {
+    return self.label.text;
 }
 
 - (void)awakeFromNib {
