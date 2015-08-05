@@ -793,31 +793,16 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             if ([href wmf_isInternalLink]) {
                 MWKTitle* pageTitle = [strSelf.session.currentArticleSite titleWithInternalLink:href];
                 [weakSelf.delegate webViewController:weakSelf didTapOnLinkForTitle:pageTitle];
-            } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
+            } else {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                 if ([href hasPrefix:@"//"]) {
                     // Expand protocol-relative link to https -- secure by default!
                     href = [@"https:" stringByAppendingString:href];
                 }
-
-                // TODO: make all of the stuff above parse the URL into parts
-                // unless it's /wiki/ or #anchor style.
-                // Then validate if it's still in Wikipedia land and branch appropriately.
-                if ([SessionSingleton sharedInstance].zeroConfigState.disposition &&
-                    [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
-                    strSelf.externalUrl = href;
-                    UIAlertView* dialog = [[UIAlertView alloc]
-                                           initWithTitle:MWLocalizedString(@"zero-interstitial-title", nil)
-                                                     message:MWLocalizedString(@"zero-interstitial-leave-app", nil)
-                                                    delegate:strSelf
-                                           cancelButtonTitle:MWLocalizedString(@"zero-interstitial-cancel", nil)
-                                           otherButtonTitles:MWLocalizedString(@"zero-interstitial-continue", nil)
-                                           , nil];
-                    dialog.tag = WMFWebViewAlertZeroInterstitial;
-                    [dialog show];
-                } else {
-                    NSURL* url = [NSURL URLWithString:href];
-                    [[UIApplication sharedApplication] openURL:url];
+                NSURL* url = [NSURL URLWithString:href];
+                NSCAssert(url, @"Failed to from URL from link %@", href);
+                if (url) {
+                    [[[SessionSingleton sharedInstance] zeroConfigState] showWarningIfNeededBeforeOpeningURL:url];
                 }
             }
         }];

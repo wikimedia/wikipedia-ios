@@ -1,5 +1,7 @@
 #import "WMFArticleViewController_Private.h"
 
+#import "SessionSingleton.h"
+
 // Frameworks
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
@@ -596,7 +598,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
       didTapExternalLink:(NSURL* __nonnull)externalURL {
-    // TODO: show zero warning if necesary, or directly open in safari
+    [[[SessionSingleton sharedInstance] zeroConfigState] showWarningIfNeededBeforeOpeningURL:externalURL];
 }
 
 #pragma mark - UINavigationControllerDelegate
