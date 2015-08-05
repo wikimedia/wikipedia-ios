@@ -31,6 +31,11 @@
     [self.button wmf_setButtonType:WMFButtonTypePencil];
 }
 
+- (void)willMoveToSuperview:(UIView*)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+    self.button.enabled = [self.editSectionDelegate wmf_isArticleEditable];
+}
+
 - (IBAction)editPencilTapped:(id)sender {
     [self.editSectionDelegate wmf_editSection:self.sectionId];
 }

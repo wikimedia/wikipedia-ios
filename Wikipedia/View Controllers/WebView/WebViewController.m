@@ -267,6 +267,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }];
 }
 
+- (BOOL)wmf_isArticleEditable {
+    return self.editable;
+}
+
 - (void)wmf_editSection:(NSNumber*)sectionId {
     if ([self tocDrawerIsOpen]) {
         [self tocHide];

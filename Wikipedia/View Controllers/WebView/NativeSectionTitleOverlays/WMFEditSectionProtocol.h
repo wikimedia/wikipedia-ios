@@ -5,4 +5,6 @@
 
 - (void)wmf_editSection:(NSNumber*)sectionId;
 
+- (BOOL)wmf_isArticleEditable;
+
 @end
