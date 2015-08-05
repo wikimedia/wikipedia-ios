@@ -8,6 +8,7 @@
 #import "UIView+WMFSearchSubviews.h"
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit.h>
+#import "UIView+WMFDefaultNib.h"
 
 @interface WMFSectionTitlesViewController ()
 
@@ -78,7 +79,7 @@
     [self removeAnyExistingTitleOverlays];
     UIView* browserView = [self.webView.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
     for (WMFTitleOverlayModel* model in self.overlayModels) {
-        WMFTitleOverlay* overlay = [self getNewOverlay];
+        WMFTitleOverlay* overlay = [WMFTitleOverlay wmf_viewFromClassNib];
         overlay.title     = model.title;
         overlay.sectionId = model.sectionId;
         [self.webView.scrollView addSubview:overlay];
@@ -90,15 +91,11 @@
     }
 }
 
-- (WMFTitleOverlay*)getNewOverlay {
-    return [[[NSBundle mainBundle] loadNibNamed:@"WMFTitleOverlay" owner:self options:nil] objectAtIndex:0];
-}
-
 - (void)setupTopStaticTitleOverlay {
     if (self.topStaticOverlay) {
         return;
     }
-    self.topStaticOverlay       = [self getNewOverlay];
+    self.topStaticOverlay       = [WMFTitleOverlay wmf_viewFromClassNib];
     self.topStaticOverlay.alpha = 0;
     [self.view addSubview:self.topStaticOverlay];
     [self.topStaticOverlay mas_makeConstraints:^(MASConstraintMaker* make) {
