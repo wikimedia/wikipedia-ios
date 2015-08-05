@@ -7,7 +7,6 @@
 @interface WMFSectionHeaderModel : NSObject
 
 @property (nonatomic, strong) MASConstraint* topConstraint;
-@property (nonatomic, strong) NSString* anchor;
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic) CGFloat yOffset;
 @property (nonatomic) NSNumber* sectionId;

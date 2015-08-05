@@ -68,7 +68,6 @@
 - (void)updateModelsForSections:(NSArray*)sections {
     self.sectionHeaderModels = [sections bk_map:^id (NSDictionary* section) {
         WMFSectionHeaderModel* model = [[WMFSectionHeaderModel alloc] init];
-        model.anchor = section[@"anchor"];
         model.title = [section[@"text"] wmf_stringByRemovingHTML];
         model.yOffset = 0;
         model.sectionId = section[@"sectionId"];
@@ -114,7 +113,7 @@
     if (headingsTopOffsets.count == self.sectionHeaderModels.count) {
         for (NSUInteger i = 0; i < self.sectionHeaderModels.count; i++) {
             WMFSectionHeaderModel* m = self.sectionHeaderModels[i];
-            if (m.anchor && m.topConstraint) {
+            if (m.topConstraint) {
                 NSNumber* topOffset = headingsTopOffsets[i];
                 CGFloat topFloat    = topOffset.floatValue + self.webView.scrollView.contentOffset.y;
                 [m.topConstraint setOffset:topFloat];
@@ -206,7 +205,6 @@ static NSString* const WMFJSGetSectionHeadersJSON =
     @"  nodeArray = nodeArray.map(function(n){"
     @"    var rect = n.getBoundingClientRect();"
     @"    return {"
-    @"        anchor:n.id,"
     @"        sectionId:n.getAttribute('sectionId'),"
     @"        text:n.innerHTML"
     @"    };"
