@@ -110,6 +110,9 @@
 
 - (void)updateOverlaysPositions {
     NSArray* headingsTopOffsets = [self getSectionTitlesLocationsJSON];
+
+    NSAssert((headingsTopOffsets.count == self.overlayModels.count), @"Headings offsets count %ld is not equal to Models count %ld!", headingsTopOffsets.count, self.overlayModels.count);
+
     if (headingsTopOffsets.count == self.overlayModels.count) {
         for (NSUInteger i = 0; i < self.overlayModels.count; i++) {
             WMFTitleOverlayModel* m = self.overlayModels[i];
