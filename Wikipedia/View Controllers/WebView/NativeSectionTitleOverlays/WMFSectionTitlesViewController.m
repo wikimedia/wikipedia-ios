@@ -7,10 +7,11 @@
 #import "NSString+Extras.h"
 #import "UIView+WMFSearchSubviews.h"
 #import <Masonry/Masonry.h>
+#import <BlocksKit/BlocksKit.h>
 
 @interface WMFSectionTitlesViewController ()
 
-@property (nonatomic, strong) NSMutableArray* overlayModels;
+@property (nonatomic, strong) NSArray* overlayModels;
 @property (nonatomic, strong) MASConstraint* topStaticOverlayTopConstraint;
 @property (nonatomic, strong) WMFTitleOverlay* topStaticOverlay;
 @property (nonatomic, weak) UIView* view;
@@ -26,7 +27,7 @@
               topLayoutGuide:(MASViewAttribute*)topLayoutGuide {
     self = [super init];
     if (self) {
-        self.overlayModels  = @[].mutableCopy;
+        self.overlayModels  = @[];
         self.view           = view;
         self.webView        = webView;
         self.topLayoutGuide = topLayoutGuide;
@@ -50,46 +51,43 @@
 }
 
 - (void)resetOverlays {
-    [self removeAnyExistingTitleOverlays];
-
-    [self.overlayModels removeAllObjects];
-
     [self setupTopStaticTitleOverlay];
 
-    UIView* browserView = [self.webView.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
+    NSArray* sections         = [self getSectionTitlesJSON];
+    NSArray* nonBlankSections = [sections bk_select:^BOOL (NSDictionary* section) {
+        return (section[@"text"] != nil);
+    }];
 
-    NSArray* sections = [self getSectionTitlesJSON];
-
-    for (NSDictionary* section in sections) {
-        NSNumber* sectionId = section[@"sectionId"];
-
-        NSString* title = section[@"text"];
-        if (title) {
-            title = [title wmf_stringByRemovingHTML];
-
-            WMFTitleOverlay* overlay = [self getNewOverlay];
-            overlay.title     = title;
-            overlay.sectionId = sectionId;
-
-            [self.webView.scrollView addSubview:overlay];
-
-            WMFTitleOverlayModel* m = [[WMFTitleOverlayModel alloc] init];
-            m.anchor    = section[@"anchor"];
-            m.title     = title;
-            m.yOffset   = 0;
-            m.sectionId = sectionId;
-
-            [overlay mas_makeConstraints:^(MASConstraintMaker* make) {
-                make.leading.equalTo(browserView.mas_leading);
-                make.trailing.equalTo(browserView.mas_trailing);
-                m.topConstraint = make.top.equalTo(browserView.mas_top);
-            }];
-
-            [self.overlayModels addObject:m];
-        }
-    }
-
+    [self updateOverlayModelsForSections:nonBlankSections];
+    [self addOverlayForEachOverlayModel];
     [self updateOverlaysPositions];
+}
+
+- (void)updateOverlayModelsForSections:(NSArray*)sections {
+    self.overlayModels = [sections bk_map:^id (NSDictionary* section) {
+        WMFTitleOverlayModel* model = [[WMFTitleOverlayModel alloc] init];
+        model.anchor = section[@"anchor"];
+        model.title = [section[@"text"] wmf_stringByRemovingHTML];
+        model.yOffset = 0;
+        model.sectionId = section[@"sectionId"];
+        return model;
+    }];
+}
+
+- (void)addOverlayForEachOverlayModel {
+    [self removeAnyExistingTitleOverlays];
+    UIView* browserView = [self.webView.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
+    for (WMFTitleOverlayModel* model in self.overlayModels) {
+        WMFTitleOverlay* overlay = [self getNewOverlay];
+        overlay.title     = model.title;
+        overlay.sectionId = model.sectionId;
+        [self.webView.scrollView addSubview:overlay];
+        [overlay mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.leading.equalTo(browserView.mas_leading);
+            make.trailing.equalTo(browserView.mas_trailing);
+            model.topConstraint = make.top.equalTo(browserView.mas_top);
+        }];
+    }
 }
 
 - (WMFTitleOverlay*)getNewOverlay {
