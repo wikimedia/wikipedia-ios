@@ -24,8 +24,6 @@ typedef NS_ENUM (NSUInteger, WMFArticleControllerMode) {
 
 @property (nonatomic, assign, readonly) WMFArticleControllerMode mode;
 
-@property (nonatomic, weak, nullable) id<WMFArticleNavigationDelegate> articleNavigationDelegate;
-
 - (void)setMode:(WMFArticleControllerMode)mode animated:(BOOL)animated;
 
 - (void)updateUI;

@@ -436,7 +436,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFMinimalArticleContentCell* cell =
         [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
     cell.attributedString          = self.article.summaryHTML;
-    cell.articleNavigationDelegate = self.articleNavigationDelegate;
+    cell.articleNavigationDelegate = self;
     return cell;
 }
 
