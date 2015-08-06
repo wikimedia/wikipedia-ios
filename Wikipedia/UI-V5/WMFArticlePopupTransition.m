@@ -1,5 +1,3 @@
-
-
 #import "WMFArticlePopupTransition.h"
 #import "WMFScrollViewTopPanGestureRecognizer.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
@@ -8,7 +6,7 @@
 @interface WMFArticlePopupTransition ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak, readwrite) UIViewController* presentingViewController;
-@property (nonatomic, weak, readwrite) WMFArticleViewController* presentedViewController;
+@property (nonatomic, weak, readwrite) UIViewController<WMFArticleListItemController>* presentedViewController;
 @property (nonatomic, weak, readwrite) UIScrollView* scrollView;
 
 @property (nonatomic, strong, readwrite) UIView* backgroundView;
