@@ -38,10 +38,15 @@ extern NSString* const WMFCitationFragmentSubstring;
 
 /**
  * Strips the internal link prefix from the receiver, if present.
+ *
+ * @warning If you need to be sure any query or fragment are also stripped, use this same category on `NSURL`.
  */
 - (NSString*)wmf_internalLinkPath;
 
-/// Normalizes page titles extracted from URLs, replacing percent escapes and underscores.
+/**
+ *  @return Copy of the receiver after normalizing page titles extracted from URLs, replacing percent escapes
+ *          and underscores.
+ */
 - (NSString*)wmf_normalizedPageTitle;
 
 @end
