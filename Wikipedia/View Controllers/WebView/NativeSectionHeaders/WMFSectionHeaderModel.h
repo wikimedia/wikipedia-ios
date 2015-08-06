@@ -4,15 +4,12 @@
 #import <Foundation/Foundation.h>
 #import <Masonry/Masonry.h>
 
-@class WMFTitleOverlayLabel;
-@interface WMFTitleOverlayModel : NSObject
+@interface WMFSectionHeaderModel : NSObject
 
 @property (nonatomic, strong) MASConstraint* topConstraint;
-@property (nonatomic, strong) NSString* anchor;
 @property (nonatomic, strong) NSString* title;
+@property (nonatomic, strong) NSString* anchor;
 @property (nonatomic) CGFloat yOffset;
 @property (nonatomic) NSNumber* sectionId;
-
-@property (nonatomic, strong) WMFTitleOverlayLabel* label;
 
 @end

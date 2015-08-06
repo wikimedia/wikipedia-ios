@@ -94,6 +94,7 @@
             break;
         case WMFButtonTypePencil:
             [self wmf_setGlyphTitle:WMF_GLYPH_PENCIL color:nil forState:UIControlStateNormal];
+            [self wmf_setGlyphTitle:WMF_GLYPH_PENCIL color:[UIColor lightGrayColor] forState:UIControlStateDisabled];
             break;
         default:
             break;

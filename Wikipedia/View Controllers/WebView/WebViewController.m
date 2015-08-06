@@ -26,8 +26,8 @@
 #import "WMFArticleViewController.h"
 #import "PageHistoryViewController.h"
 
-#import "WMFTitleOverlayLabel.h"
-#import "WMFSectionTitlesViewController.h"
+#import "WMFSectionHeadersViewController.h"
+#import "WMFEditSectionProtocol.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -35,7 +35,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
-@interface WebViewController () <LanguageSelectionDelegate, FetchFinishedDelegate>
+@interface WebViewController () <LanguageSelectionDelegate, FetchFinishedDelegate, WMFEditSectionDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem* buttonTOC;
 @property (nonatomic, strong) UIBarButtonItem* buttonLanguages;
@@ -51,7 +51,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @property (strong, nonatomic) WMFShareOptionsViewController* shareOptionsViewController;
 @property (strong, nonatomic) NSString* wikipediaZeroLearnMoreExternalUrl;
 
-@property (nonatomic, strong) WMFSectionTitlesViewController* sectionTitlesViewController;
+@property (nonatomic, strong) WMFSectionHeadersViewController* sectionHeadersViewController;
 
 @end
 
@@ -155,7 +155,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.sectionTitlesViewController = [[WMFSectionTitlesViewController alloc] initWithView:self.view webView:self.webView topLayoutGuide:self.mas_topLayoutGuide];
+    self.sectionHeadersViewController =
+        [[WMFSectionHeadersViewController alloc] initWithView:self.view
+                                                      webView:self.webView
+                                               topLayoutGuide:self.mas_topLayoutGuide];
+
+    self.sectionHeadersViewController.editSectionDelegate = self;
 
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
     [self.navigationController.toolbar wmf_mirrorIfDeviceRTL];
@@ -187,7 +192,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tocVC updateTocForArticle:[SessionSingleton sharedInstance].currentArticle];
             [weakSelf updateTOCScrollPositionWithoutAnimationIfHidden];
-            [weakSelf.sectionTitlesViewController resetOverlays];
+            [weakSelf.sectionHeadersViewController resetHeaders];
         });
     }];
 
@@ -262,27 +267,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         // Restrict the web view from scrolling horizonally.
         [object preventHorizontalScrolling];
     }];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(editSection:)
-                                                 name:@"EditSection"
-                                               object:nil];
-}
-
-- (void)editSection:(NSNotification*)notification {
-    if ([self tocDrawerIsOpen]) {
-        [self tocHide];
-        return;
-    }
-
-    if (self.editable) {
-        WMFTitleOverlayLabel* sender = notification.object;
-        [self showSectionEditorForSection:[sender sectionId]];
-    } else {
-        ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
-        [funnel logProtectionStatus:[[self.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
-        [self showProtectedDialog];
-    }
 }
 
 - (void)jumpToFragmentIfNecessary {
@@ -387,6 +371,27 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
 
     [super viewWillDisappear:animated];
+}
+
+#pragma mark - WMFEditSectionDelegate methods
+
+- (BOOL)isArticleEditable {
+    return self.editable;
+}
+
+- (void)editSection:(NSNumber*)sectionId {
+    if ([self tocDrawerIsOpen]) {
+        [self tocHide];
+        return;
+    }
+
+    if (self.editable) {
+        [self showSectionEditorForSection:sectionId];
+    } else {
+        ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
+        [funnel logProtectionStatus:[[self.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
+        [self showProtectedDialog];
+    }
 }
 
 #pragma mark Sync config/ios.json if necessary
@@ -509,7 +514,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self.view layoutIfNeeded];
 
 
-    [self.sectionTitlesViewController hideTopOverlay];
+    [self.sectionHeadersViewController hideTopHeader];
 
 
     [UIView animateWithDuration:duration.floatValue
@@ -1054,7 +1059,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
 
     if (![self tocDrawerIsOpen]) {
-        [self.sectionTitlesViewController updateTopOverlayForScrollOffsetY:scrollView.contentOffset.y];
+        [self.sectionHeadersViewController updateTopHeaderForScrollOffsetY:scrollView.contentOffset.y];
     }
 
     if (self.keyboardIsVisible && fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
