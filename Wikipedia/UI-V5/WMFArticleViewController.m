@@ -607,6 +607,14 @@ NS_ASSUME_NONNULL_BEGIN
         return [citation.citationIdentifier isEqualToString:fragment];
     }];
     DDLogInfo(@"Tapped citation %@", tappedCitation);
+//    if (!tappedCitation) {
+//        DDLogWarn(@"Failed to parse citation for article %@", self.article);
+    // TEMP: show webview until we figure out what to do w/ ReferencesVC
+    [self.webViewController scrollToFragment:fragment];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:self.webViewController]
+                       animated:YES
+                     completion:NULL];
+//    }
 }
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
