@@ -122,7 +122,6 @@
 		04B0E3EA1AE8252800379AE0 /* NSURL+WMFRest.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0E3E91AE8252800379AE0 /* NSURL+WMFRest.m */; };
 		04B0EA47190B2319007458AF /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B0EA46190B2319007458AF /* PreviewLicenseView.xib */; };
 		04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0EA49190B2348007458AF /* PreviewLicenseView.m */; };
-		04B6925018E77B2A00F88D8A /* UIWebView+HideScrollGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */; };
 		04B7B9BD18B5570E00A63551 /* CaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */; };
 		04B91AA718E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AA618E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m */; };
 		04B91AAB18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AAA18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m */; };
@@ -675,8 +674,6 @@
 		04B0EA46190B2319007458AF /* PreviewLicenseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviewLicenseView.xib; sourceTree = "<group>"; };
 		04B0EA48190B2348007458AF /* PreviewLicenseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewLicenseView.h; sourceTree = "<group>"; };
 		04B0EA49190B2348007458AF /* PreviewLicenseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewLicenseView.m; sourceTree = "<group>"; };
-		04B6924E18E77B2A00F88D8A /* UIWebView+HideScrollGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+HideScrollGradient.h"; sourceTree = "<group>"; };
-		04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+HideScrollGradient.m"; sourceTree = "<group>"; };
 		04B7B9BB18B5570E00A63551 /* CaptchaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaViewController.h; sourceTree = "<group>"; };
 		04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CaptchaViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		04B91AA518E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TemporaryAnimatedXF.h"; sourceTree = "<group>"; };
@@ -1874,10 +1871,8 @@
 				042E3B921AA16D6700BF8D66 /* UIViewController+WMFChildViewController.m */,
 				04F0E2E8186EDC1A00468738 /* UIWebView+ElementLocation.h */,
 				04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */,
-				04B6924E18E77B2A00F88D8A /* UIWebView+HideScrollGradient.h */,
 				C99844551A8C1F23001D58FD /* UIWebView+WMFSuppressSelection.h */,
 				C99844561A8C1F23001D58FD /* UIWebView+WMFSuppressSelection.m */,
-				04B6924F18E77B2A00F88D8A /* UIWebView+HideScrollGradient.m */,
 				0439317419FB092600386E8F /* UIWebView+LoadAssetsHtml.h */,
 				0439317519FB092600386E8F /* UIWebView+LoadAssetsHtml.m */,
 				042BEAED1A92EE66002CF320 /* UIWebView+WMFTrackingView.h */,
@@ -3555,7 +3550,6 @@
 				0480AEA01AA4F4DA00A9950C /* WMFIntrinsicContentSizeAwareTableView.m in Sources */,
 				0484B9061ABB50FA00874073 /* WMFArticleParsing.m in Sources */,
 				BC505EF41B594E8E00537006 /* WMFArticleHeaderImageGalleryViewController.m in Sources */,
-				04B6925018E77B2A00F88D8A /* UIWebView+HideScrollGradient.m in Sources */,
 				048830D21AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m in Sources */,
 				047E95511996DD030046A122 /* NearbyViewController.m in Sources */,
 				04AE520519DB5E0900F89B92 /* NSObject+ConstraintsScale.m in Sources */,
