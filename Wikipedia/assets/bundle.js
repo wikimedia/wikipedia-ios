@@ -291,7 +291,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
 
 })();
 
-},{"./bridge":1,"./refs":5,"./transformer":6,"./transforms/collapsePageIssuesAndDisambig":9}],4:[function(require,module,exports){
+},{"./bridge":1,"./refs":5,"./transformer":7,"./transforms/collapsePageIssuesAndDisambig":10}],4:[function(require,module,exports){
 
 var bridge = require("./bridge");
 var elementLocation = require("./elementLocation");
@@ -423,6 +423,34 @@ exports.isReference = isReference;
 exports.sendNearbyReferences = sendNearbyReferences;
 
 },{"./bridge":1}],6:[function(require,module,exports){
+(function (global){
+
+function getSectionHeadersArray(){
+    var nodeList = document.querySelectorAll('h1.section_heading');
+    var nodeArray = Array.prototype.slice.call(nodeList);
+    nodeArray = nodeArray.map(function(n){
+        return {
+            sectionId:n.getAttribute('sectionId'),
+            text:n.textContent
+        };
+    });
+    return nodeArray;
+}
+
+function getSectionHeaderLocationsArray(){
+    var nodeList = document.querySelectorAll('h1.section_heading');
+    var nodeArray = Array.prototype.slice.call(nodeList);
+    nodeArray = nodeArray.map(function(n){
+        return n.getBoundingClientRect().top;
+    });
+    return nodeArray;
+}
+
+global.getSectionHeadersArray = getSectionHeadersArray;
+global.getSectionHeaderLocationsArray = getSectionHeaderLocationsArray;
+
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],7:[function(require,module,exports){
 function Transformer() {
 }
 
@@ -445,7 +473,7 @@ Transformer.prototype.transform = function( transform, element ) {
 
 module.exports = new Transformer();
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 
 require("./transforms/collapseTables");
 require("./transforms/relocateFirstParagraph");
@@ -453,7 +481,7 @@ require("./transforms/hideRedLinks");
 require("./transforms/addImageOverflowContainers");
 require("./transforms/collapsePageIssuesAndDisambig");
 
-},{"./transforms/addImageOverflowContainers":8,"./transforms/collapsePageIssuesAndDisambig":9,"./transforms/collapseTables":10,"./transforms/hideRedLinks":11,"./transforms/relocateFirstParagraph":12}],8:[function(require,module,exports){
+},{"./transforms/addImageOverflowContainers":9,"./transforms/collapsePageIssuesAndDisambig":10,"./transforms/collapseTables":11,"./transforms/hideRedLinks":12,"./transforms/relocateFirstParagraph":13}],9:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -494,7 +522,7 @@ transformer.register( "addImageOverflowXContainers", function( content ) {
     }
 } );
 
-},{"../transformer":6,"../utilities":14}],9:[function(require,module,exports){
+},{"../transformer":7,"../utilities":15}],10:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -677,7 +705,7 @@ exports.issuesClicked = issuesClicked;
 exports.disambigClicked = disambigClicked;
 exports.closeClicked = closeClicked;
 
-},{"../transformer":6,"../utilities":14}],10:[function(require,module,exports){
+},{"../transformer":7,"../utilities":15}],11:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -840,7 +868,7 @@ transformer.register( "hideTables", function( content ) {
     }
 } );
 
-},{"../transformer":6,"../utilities":14}],11:[function(require,module,exports){
+},{"../transformer":7,"../utilities":15}],12:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -851,7 +879,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":6}],12:[function(require,module,exports){
+},{"../transformer":7}],13:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -896,7 +924,7 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     }
 });
 
-},{"../transformer":6}],13:[function(require,module,exports){
+},{"../transformer":7}],14:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -1004,7 +1032,7 @@ transformer.register( "widenImages", function( content ) {
     }
 } );
 
-},{"../transformer":6,"../utilities":14}],14:[function(require,module,exports){
+},{"../transformer":7,"../utilities":15}],15:[function(require,module,exports){
 
 function getDictionaryFromSrcset(srcset) {
     /*
@@ -1067,4 +1095,4 @@ exports.findAncestor = findAncestor;
 exports.httpGetSync = httpGetSync;
 exports.isNestedInTable = isNestedInTable;
 
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14])
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])

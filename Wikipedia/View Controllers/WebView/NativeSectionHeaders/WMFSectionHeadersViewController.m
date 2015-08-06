@@ -9,6 +9,9 @@
 #import <BlocksKit/BlocksKit.h>
 #import "UIView+WMFDefaultNib.h"
 #import "WMFEditSectionProtocol.h"
+#import "UIWebView+WMFJavascriptContext.h"
+
+@import JavaScriptCore;
 
 @interface WMFSectionHeadersViewController ()
 
@@ -54,7 +57,7 @@
 - (void)resetHeaders {
     [self setupTopStaticHeader];
 
-    NSArray* sections         = [self getSectionHeadersJSON];
+    NSArray* sections         = [self getSectionHeadersFromWebView];
     NSArray* nonBlankSections = [sections bk_select:^BOOL (NSDictionary* section) {
         return (section[@"text"] != nil);
     }];
@@ -107,7 +110,7 @@
 }
 
 - (void)updateHeadersPositions {
-    NSArray* headingsTopOffsets = [self getSectionHeadersLocationsJSON];
+    NSArray* headingsTopOffsets = [self getSectionHeadersLocationsFromWebView];
 
     if (headingsTopOffsets.count == self.sectionHeaderModels.count) {
         for (NSUInteger i = 0; i < self.sectionHeaderModels.count; i++) {
@@ -189,43 +192,12 @@
 
 #pragma mark Section title and title location determination
 
-- (id)getJSONFromWebViewUsingFunction:(NSString*)jsFunctionString {
-    NSString* jsonString = [self.webView stringByEvaluatingJavaScriptFromString:jsFunctionString];
-    NSData* jsonData     = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    NSError* error       = nil;
-    id result            = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-    return (error) ? nil : result;
+- (NSArray*)getSectionHeadersFromWebView {
+    return [self.webView wmf_getArrayFromJavascriptFunctionNamed:@"getSectionHeadersArray" withArguments:nil];
 }
 
-static NSString* const WMFJSGetSectionHeadersJSON =
-    @"(function(){"
-    @"  var nodeList = document.querySelectorAll('h1.section_heading');"
-    @"  var nodeArray = Array.prototype.slice.call(nodeList);"
-    @"  nodeArray = nodeArray.map(function(n){"
-    @"    return {"
-    @"        sectionId:n.getAttribute('sectionId'),"
-    @"        text:n.textContent"
-    @"    };"
-    @"  });"
-    @"  return JSON.stringify(nodeArray);"
-    @"})();";
-
-- (NSArray*)getSectionHeadersJSON {
-    return [self getJSONFromWebViewUsingFunction:WMFJSGetSectionHeadersJSON];
-}
-
-static NSString* const WMFJSGetSectionHeadersLocationsJSON =
-    @"(function(){"
-    @"  var nodeList = document.querySelectorAll('h1.section_heading');"
-    @"  var nodeArray = Array.prototype.slice.call(nodeList);"
-    @"  nodeArray = nodeArray.map(function(n){"
-    @"    return n.getBoundingClientRect().top;"
-    @"  });"
-    @"  return JSON.stringify(nodeArray);"
-    @"})();";
-
-- (NSArray*)getSectionHeadersLocationsJSON {
-    return [self getJSONFromWebViewUsingFunction:WMFJSGetSectionHeadersLocationsJSON];
+- (NSArray*)getSectionHeadersLocationsFromWebView {
+    return [self.webView wmf_getArrayFromJavascriptFunctionNamed:@"getSectionHeaderLocationsArray" withArguments:nil];
 }
 
 @end
