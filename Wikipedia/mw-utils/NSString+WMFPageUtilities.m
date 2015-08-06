@@ -12,10 +12,16 @@
 
 NSString* const WMFInternalLinkPathPrefix = @"/wiki/";
 
+NSString* const WMFCitationFragmentSubstring = @"cite_note";
+
 @implementation NSString (WMFPageUtilities)
 
 - (BOOL)wmf_isInternalLink {
-    return [self rangeOfString:WMFInternalLinkPathPrefix].location != NSNotFound;
+    return [self containsString:WMFInternalLinkPathPrefix];
+}
+
+- (BOOL)wmf_isCitationFragment {
+    return [self containsString:WMFCitationFragmentSubstring];
 }
 
 - (NSString*)wmf_internalLinkPath {

@@ -1,5 +1,7 @@
 #import "WMFArticleViewController_Private.h"
 
+#import "SessionSingleton.h"
+
 // Frameworks
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
@@ -15,6 +17,8 @@
 #import "MWKArticlePreview.h"
 #import "MWKArticle.h"
 #import "WMFImageGalleryViewController.h"
+#import "ReferencesVC.h"
+#import "MWKCitation.h"
 
 // Views
 #import "WMFArticleTableHeaderView.h"
@@ -49,7 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
  UITableViewDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
- WMFWebViewControllerDelegate>
+ WMFWebViewControllerDelegate,
+ WMFArticleNavigationDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView* galleryContainerView;
 @property (nonatomic, weak) IBOutlet WMFArticleTableHeaderView* headerView;
@@ -434,7 +439,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFMinimalArticleContentCell*)contentCellAtIndexPath:(NSIndexPath*)indexPath {
     WMFMinimalArticleContentCell* cell =
         [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
-    cell.attributedString = self.article.summaryHTML;
+    cell.attributedString          = self.article.summaryHTML;
+    cell.articleNavigationDelegate = self;
     return cell;
 }
 
@@ -491,13 +497,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Article Link Presentation
 
-- (BOOL)titleIsTheSameAsCurrentArticle:(MWKTitle*)title {
+- (BOOL)isTitleReferenceToCurrentArticle:(MWKTitle*)title {
     return [[self.article title] isEqualToTitleExcludingFragment:title];
 }
 
 - (void)presentArticleScrolledToSectionForIndexPath:(NSIndexPath*)indexPath {
     MWKTitle* titleWithFragment = [self titleForSelectedIndexPath:indexPath];
-    if ([self titleIsTheSameAsCurrentArticle:titleWithFragment]) {
+    if ([self isTitleReferenceToCurrentArticle:titleWithFragment]) {
         [self.webViewController scrollToFragment:titleWithFragment.fragment];
         [self presentViewController:[[UINavigationController alloc] initWithRootViewController:self.webViewController] animated:YES completion:NULL];
     } else {
@@ -568,6 +574,62 @@ NS_ASSUME_NONNULL_BEGIN
     self.headerGalleryViewController.currentPage = gallery.currentPage;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - WMFArticleNavigation
+
+- (void)scrollToFragment:(NSString* __nonnull)fragment animated:(BOOL)animated {
+}
+
+- (void)scrollToLink:(NSURL* __nonnull)linkURL animated:(BOOL)animated {
+}
+
+#pragma mark - WMFArticleNavigationDelegate
+
+- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
+      didTapCitationLink:(NSString* __nonnull)citationFragment {
+    if (self.article.isCached) {
+        [self showCitationWithFragment:citationFragment];
+    } else {
+        if (!self.articleFetcherPromise) {
+            [self fetchArticle];
+        }
+        @weakify(self);
+        self.articleFetcherPromise.then(^(MWKArticle* _) {
+            @strongify(self);
+            [self showCitationWithFragment:citationFragment];
+        });
+    }
+}
+
+- (void)showCitationWithFragment:(NSString*)fragment {
+    NSParameterAssert(self.article.isCached);
+    MWKCitation* tappedCitation = [self.article.citations bk_match:^BOOL (MWKCitation* citation) {
+        return [citation.citationIdentifier isEqualToString:fragment];
+    }];
+    DDLogInfo(@"Tapped citation %@", tappedCitation);
+//    if (!tappedCitation) {
+//        DDLogWarn(@"Failed to parse citation for article %@", self.article);
+    // TEMP: show webview until we figure out what to do w/ ReferencesVC
+    [self.webViewController scrollToFragment:fragment];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:self.webViewController]
+                       animated:YES
+                     completion:NULL];
+//    }
+}
+
+- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
+        didTapLinkToPage:(MWKTitle* __nonnull)title {
+    [self presentPopupForTitle:title];
+}
+
+- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
+      didTapExternalLink:(NSURL* __nonnull)externalURL {
+    [[[SessionSingleton sharedInstance] zeroConfigState] showWarningIfNeededBeforeOpeningURL:externalURL];
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+// placeholder
 
 @end
 

@@ -15,19 +15,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFArticleNavigationDelegate <NSObject>
 
-- (void)articleView:(UIView<WMFArticleNavigation>*)sender didTapLinkToPage:(MWKTitle*)title;
+/*
+   TODO: remove __nullable, as it's only nullable to allow edge cases where there's no sender at the call site
+   which conforms to the protocol. Most delegates won't see `nil` since a "proxy" object will forward the delegate
+   callback, passing themselves as the sender.
+ */
 
-- (void)articleView:(UIView<WMFArticleNavigation>*)sender didTapCitationLink:(NSString*)citationFragment;
+- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender didTapLinkToPage:(MWKTitle*)pageTitle;
 
-- (void)articleView:(UIView<WMFArticleNavigation>*)sender didTapSectionLink:(NSString*)sectionAnchorFragment;
+- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender didTapCitationLink:(NSString*)citationFragment;
 
-- (void)articleView:(UIView<WMFArticleNavigation>*)sender didTapExternalLink:(NSURL*)externalURL;
+- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender didTapExternalLink:(NSURL*)externalURL;
 
-//- (void)articleView:(id)sender didTapImage:(NSString*)sourceURL;
+/*
+   Note for the future: gallery presentation should be based on:
+   - article (or maybe section)
+   - current image
+   - rect of tapped image in screen bounds (for "zoom in" transition to modal)
+ */
+//- (void)articleNavigator:(id)sender didTapImage:(NSString*)sourceURL;
 
-//- (void)articleViewDidTapEdit:(id)sender
+//- (void)articleNavigatorDidTapEdit:(id)sender
 
-//- (void)articleView:(id)sender didTapEditForSection:(NSString*)sectionAnchorFragment;
+//- (void)articleNavigator:(id)sender didTapEditForSection:(NSString*)sectionAnchorFragment;
 
 @end
 

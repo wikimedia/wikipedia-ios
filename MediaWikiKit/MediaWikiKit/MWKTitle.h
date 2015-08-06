@@ -58,6 +58,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// Initialize a new title with `relativeInternalLink`, which is parsed after removing the `/wiki/` prefix.
 - (instancetype)initWithInternalLink:(NSString*)relativeInternalLink site:(MWKSite*)site;
 
+/**
+ * Initialize a new title with a URL, using its path and and host as the title's `text` and `site`.
+ *
+ * @param url URL pointing to a Wikipedia page (i.e. an internal link).
+ *
+ * @return A new title with properties parsed from the given URL, or `nil` if an error occurred.
+ */
+- (MWKTitle* __nullable)initWithURL:(NSURL*)url;
+
 /// Convenience factory method wrapping `initWithString:site:`.
 + (MWKTitle*)titleWithString:(NSString*)str site:(MWKSite*)site;
 

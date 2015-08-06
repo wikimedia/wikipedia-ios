@@ -12,9 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFArticleNavigation <NSObject>
 
-- (void)wmf_scrollToLink:(NSURL*)linkURL animated:(BOOL)animated;
+- (void)scrollToLink:(NSURL*)linkURL animated:(BOOL)animated;
 
-- (void)wmf_scrollToFragment:(NSString*)fragment animated:(BOOL)animated;
+- (void)scrollToFragment:(NSString*)fragment animated:(BOOL)animated;
 
 @end
 

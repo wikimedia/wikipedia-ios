@@ -41,7 +41,7 @@
     return [self wmf_urlByPrependingSchemeIfSchemeless:@"https"];
 }
 
-- (id)wmf_valueForQueryKey:(NSString*)queryKey {
+- (NSString*)wmf_valueForQueryKey:(NSString*)queryKey {
     #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
     #error Backwards-compatible iOS 7 implementation not necessary, delete it.
     #endif
@@ -64,10 +64,11 @@
             return queryDict;
         }] objectForKey:queryKey];
     } else {
-        return [(NSURLQueryItem*)[[[NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES] queryItems]
-                                  bk_match:^BOOL (NSURLQueryItem* q) {
+        NSURLQueryItem* queryItem = [[[NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES] queryItems]
+                                     bk_match:^BOOL (NSURLQueryItem* q) {
             return [q.name isEqualToString:@"page"];
-        }] value];
+        }];
+        return queryItem ? (queryItem.value ? : @"") : nil;
     }
 }
 

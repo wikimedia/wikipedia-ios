@@ -3,11 +3,14 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ZeroConfigState : NSObject
 
-@property (strong, nonatomic) NSString* partnerXcs;
-@property (nonatomic) BOOL disposition;
-@property (nonatomic) BOOL sentMCCMNC;
+@property (atomic, copy, nullable) NSString* partnerXcs;
+@property (atomic) BOOL disposition;
+@property (atomic) BOOL sentMCCMNC;
+
 @property (nonatomic, readonly) BOOL zeroOnDialogShownOnce;
 @property (nonatomic, readonly) BOOL warnWhenLeaving;
 @property (nonatomic, readonly) BOOL fakeZeroOn;
@@ -16,4 +19,8 @@
 - (void)toggleWarnWhenLeaving;
 - (void)toggleFakeZeroOn;
 
+- (void)showWarningIfNeededBeforeOpeningURL:(NSURL*)url;
+
 @end
+
+NS_ASSUME_NONNULL_END

@@ -136,4 +136,8 @@
     return nil;
 }
 
+- (NSArray*)entries {
+    return self.sections;
+}
+
 @end

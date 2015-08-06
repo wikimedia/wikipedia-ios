@@ -14,6 +14,7 @@
 #import "NSString+WMFHTMLParsing.h"
 #import "NSAttributedString+WMFHTMLForSite.h"
 #import "MWKSection.h"
+#import "MWKCitation.h"
 
 typedef NS_ENUM (NSUInteger, MWKArticleSchemaVersion) {
     /**
@@ -49,6 +50,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (readwrite, strong, nonatomic) MWKImageList* images;
 @property (readwrite, strong, nonatomic) MWKImage* thumbnail;
 @property (readwrite, strong, nonatomic) MWKImage* image;
+@property (readwrite, strong, nonatomic /*, nullable*/) NSArray* citations;
 
 @end
 
@@ -457,8 +459,41 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Extraction
 
+#pragma mark Citations
+
+static NSString* const WMFArticleReflistColumnSelector = @"/html/body/*[contains(@class,'reflist')]//*[contains(@class, 'references')]/li";
+
+- (NSArray*)citations {
+    if (!_citations) {
+        __block NSArray* referenceListItems;
+        [self.sections.entries enumerateObjectsWithOptions:NSEnumerationReverse
+                                                usingBlock:^(MWKSection* section, NSUInteger idx, BOOL* stop) {
+            referenceListItems = [section elementsInTextMatchingXPath:WMFArticleReflistColumnSelector];
+            if (referenceListItems.count > 0) {
+                *stop = YES;
+            }
+        }];
+        if (!referenceListItems) {
+            DDLogWarn(@"Failed to parse reflist for %@ cached article: %@", self.isCached ? @"" : @"not", self);
+            return nil;
+        }
+        _citations = [[referenceListItems bk_map:^MWKCitation*(TFHppleElement* el) {
+            return [[MWKCitation alloc] initWithCitationIdentifier:el.attributes[@"id"]
+                                                           rawHTML:el.raw];
+        }] bk_reject:^BOOL (id obj) {
+            return WMF_IS_EQUAL(obj, [NSNull null]);
+        }];
+    }
+    return _citations;
+}
+
+#pragma mark Section Paragraphs
+
 static NSString* const WMFParagraphSelector = @"/html/body/p";
 
+/**
+ * @return An XPath selector used to select children of top-level paragraphs of an article's HTML.
+ */
 + (NSString*)paragraphChildSelector {
     static NSString* paragraphChildSelector;
     static dispatch_once_t onceToken;

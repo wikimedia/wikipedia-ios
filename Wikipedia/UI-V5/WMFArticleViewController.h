@@ -1,5 +1,6 @@
 
 #import <UIKit/UIKit.h>
+#import "WMFArticleNavigationDelegate.h"
 
 @class MWKDataStore;
 @class MWKSavedPageList;
@@ -13,6 +14,7 @@ typedef NS_ENUM (NSUInteger, WMFArticleControllerMode) {
 };
 
 @interface WMFArticleViewController : UITableViewController
+    <UINavigationControllerDelegate>
 
 + (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages;
 
@@ -21,6 +23,7 @@ typedef NS_ENUM (NSUInteger, WMFArticleControllerMode) {
 @property (nonatomic, strong, nullable) MWKArticle* article;
 
 @property (nonatomic, assign, readonly) WMFArticleControllerMode mode;
+
 - (void)setMode:(WMFArticleControllerMode)mode animated:(BOOL)animated;
 
 - (void)updateUI;

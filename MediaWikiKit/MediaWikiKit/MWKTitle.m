@@ -5,6 +5,8 @@
 #import "NSString+WMFPageUtilities.h"
 #import "NSArray+WMFExtensions.h"
 #import "NSObjectUtilities.h"
+#import "NSURL+WMFLinkParsing.h"
+#import "NSString+WMFPageUtilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -41,6 +43,16 @@ NS_ASSUME_NONNULL_BEGIN
     NSAssert(relativeInternalLink.length == 0 || [relativeInternalLink wmf_isInternalLink],
              @"Expected string with internal link prefix but got: %@", relativeInternalLink);
     return [self initWithString:[relativeInternalLink wmf_internalLinkPath] site:site];
+}
+
+- (MWKTitle* __nullable)initWithURL:(NSURL* __nonnull)url {
+    MWKSite* site = [[MWKSite alloc] initWithURL:url];
+    if (!site) {
+        return nil;
+    }
+    return [self initWithSite:site
+              normalizedTitle:[[url wmf_internalLinkPath] wmf_normalizedPageTitle]
+                     fragment:url.fragment];
 }
 
 - (instancetype)initWithString:(NSString*)string site:(MWKSite*)site {

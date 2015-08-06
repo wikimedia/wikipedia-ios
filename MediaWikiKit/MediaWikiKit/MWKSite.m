@@ -36,6 +36,22 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     return [self initWithDomain:WMFDefaultSiteDomain language:language];
 }
 
+- (MWKSite* __nullable)initWithURL:(NSURL* __nonnull)url {
+    NSArray* hostComponents = [url.host componentsSeparatedByString:@"."];
+    if (hostComponents.count < 3) {
+        DDLogError(@"Can't form site from incomplete URL: %@", url);
+        return nil;
+    }
+    NSString* language = [hostComponents firstObject];
+    if (!language.length) {
+        DDLogError(@"Can't form site empty language URL component: %@", url);
+        return nil;
+    }
+    NSString* domain =
+        [[hostComponents subarrayWithRange:NSMakeRange(1, hostComponents.count - 1)] componentsJoinedByString:@"."];
+    return [self initWithDomain:domain language:language];
+}
+
 + (instancetype)siteWithLanguage:(NSString*)language {
     return [[self alloc] initWithLanguage:language];
 }
