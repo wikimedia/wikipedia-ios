@@ -67,6 +67,15 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, strong, nonatomic) MWKImage* thumbnail;
 @property (readonly, strong, nonatomic) MWKImage* image;
 
+/**
+ *  Array of `MWKCitation` objects parsed from the receiver's reference list.
+ *
+ *  Might be `nil` if the section containing the reference list hasn't been downloaded, be sure to check `isCached`
+ *  and fetch the full article contents if necessary.  Might also be `nil` if an error occurred, in which case the
+ *  citations should be viewed in the webview.
+ */
+@property (readonly, strong, nonatomic /*, nullable*/) NSArray* citations;
+
 - (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore;
 - (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore dict:(NSDictionary*)dict;
 - (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore searchResultsDict:(NSDictionary*)dict;

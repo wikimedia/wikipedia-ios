@@ -284,6 +284,7 @@
 		BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */ = {isa = PBXBuildFile; fileRef = BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */; };
 		BC5620A81B6BEDAD0013FFB0 /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFStyle.m */; };
 		BC5FA1771B72859B005BE5BA /* NSURL+WMFLinkParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FA1761B72859B005BE5BA /* NSURL+WMFLinkParsing.m */; };
+		BC5FA1821B738DFB005BE5BA /* MWKCitation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FA1811B738DFB005BE5BA /* MWKCitation.m */; };
 		BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */; };
 		BC5FE5721B1DF38A00273BC0 /* NOWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */; };
 		BC5FE5751B1DFF5400273BC0 /* ArticleFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FE5741B1DFF5400273BC0 /* ArticleFetcherTests.m */; };
@@ -939,6 +940,8 @@
 		BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WMFStyle.m"; sourceTree = "<group>"; };
 		BC5FA1751B72859B005BE5BA /* NSURL+WMFLinkParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+WMFLinkParsing.h"; sourceTree = "<group>"; };
 		BC5FA1761B72859B005BE5BA /* NSURL+WMFLinkParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFLinkParsing.m"; sourceTree = "<group>"; };
+		BC5FA1801B738DFB005BE5BA /* MWKCitation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKCitation.h; sourceTree = "<group>"; };
+		BC5FA1811B738DFB005BE5BA /* MWKCitation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKCitation.m; sourceTree = "<group>"; };
 		BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ENWikiSiteInfo.json; sourceTree = "<group>"; };
 		BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NOWikiSiteInfo.json; sourceTree = "<group>"; };
 		BC5FE5741B1DFF5400273BC0 /* ArticleFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleFetcherTests.m; sourceTree = "<group>"; };
@@ -2573,6 +2576,8 @@
 				BCB669A01A83F6C300C7B1FE /* MWKSectionList.h */,
 				BCCED2D21AE041BD0094EB7E /* MWKSectionList_Private.h */,
 				BCB669A11A83F6C300C7B1FE /* MWKSectionList.m */,
+				BC5FA1801B738DFB005BE5BA /* MWKCitation.h */,
+				BC5FA1811B738DFB005BE5BA /* MWKCitation.m */,
 			);
 			name = "Data i/o";
 			sourceTree = "<group>";
@@ -3592,6 +3597,7 @@
 				BC6E8B9F1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m in Sources */,
 				BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */,
 				BCB58F441A890D9700465627 /* MWKImageInfo+MWKImageComparison.m in Sources */,
+				BC5FA1821B738DFB005BE5BA /* MWKCitation.m in Sources */,
 				BCB669AD1A83F6C400C7B1FE /* MWKSavedPageList.m in Sources */,
 				BCC185E81A9FA498005378F8 /* UICollectionViewLayout+AttributeUtils.m in Sources */,
 				04D686F81AB2949C0009B44A /* PaddedLabel.m in Sources */,

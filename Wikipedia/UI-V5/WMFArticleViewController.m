@@ -17,6 +17,8 @@
 #import "MWKArticlePreview.h"
 #import "MWKArticle.h"
 #import "WMFImageGalleryViewController.h"
+#import "ReferencesVC.h"
+#import "MWKCitation.h"
 
 // Views
 #import "WMFArticleTableHeaderView.h"
@@ -584,11 +586,26 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFArticleNavigationDelegate
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
-      didTapCitationLink:(NSString* __nonnull)citationFragment
-                  onPage:(MWKTitle* __nonnull)pageTitle {
-    if ([self isTitleReferenceToCurrentArticle:pageTitle]) {
-        [self scrollToFragment:citationFragment animated:YES];
+      didTapCitationLink:(NSString* __nonnull)citationFragment {
+    [self showCitationWithFragment:citationFragment];
+}
+
+- (void)showCitationWithFragment:(NSString*)fragment {
+    if (!self.article.isCached) {
+        if (!self.articleFetcherPromise) {
+            [self fetchArticle];
+        }
+        @weakify(self);
+        self.articleFetcherPromise.then(^(MWKArticle* _) {
+            @strongify(self);
+            [self showCitationWithFragment:fragment];
+        });
+        return;
     }
+    MWKCitation* tappedCitation = [self.article.citations bk_match:^BOOL (MWKCitation* citation) {
+        return [citation.citationIdentifier isEqualToString:fragment];
+    }];
+    DDLogInfo(@"Tapped citation %@", tappedCitation);
 }
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender

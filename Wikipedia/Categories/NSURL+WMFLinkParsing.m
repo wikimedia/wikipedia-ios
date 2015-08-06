@@ -28,15 +28,11 @@
 
 - (void)wmf_informNavigationDelegate:(id<WMFArticleNavigationDelegate>)delegate
                           withSender:(id<WMFArticleNavigation> __nullable)articleNavigator {
-    if ([self wmf_isInternalLink]) {
+    if ([self wmf_isCitation]) {
+        [delegate articleNavigator:articleNavigator didTapCitationLink:self.fragment];
+    } else if ([self wmf_isInternalLink]) {
         MWKTitle* title = [[MWKTitle alloc] initWithURL:self];
-        if ([self wmf_isCitation]) {
-            [delegate articleNavigator:articleNavigator
-                    didTapCitationLink:self.fragment
-                                onPage:title];
-        } else {
-            [delegate articleNavigator:articleNavigator didTapLinkToPage:title];
-        }
+        [delegate articleNavigator:articleNavigator didTapLinkToPage:title];
     } else {
         [delegate articleNavigator:articleNavigator didTapExternalLink:[self wmf_urlByPrependingSchemeIfSchemeless]];
     }

@@ -23,9 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender didTapLinkToPage:(MWKTitle*)pageTitle;
 
-- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
-      didTapCitationLink:(NSString*)citationFragment
-                  onPage:(MWKTitle*)pageTitle;
+- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender didTapCitationLink:(NSString*)citationFragment;
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender didTapExternalLink:(NSURL*)externalURL;
 
