@@ -234,8 +234,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     self.webView.backgroundColor = [UIColor whiteColor];
 
-    [self.webView hideScrollGradient];
-
     [self tocSetupSwipeGestureRecognizers];
 
     // UIWebView has a bug which causes a black bar to appear at
