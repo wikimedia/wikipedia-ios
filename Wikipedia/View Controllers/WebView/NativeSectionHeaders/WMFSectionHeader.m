@@ -40,8 +40,4 @@
     [self.editSectionDelegate editSection:self.sectionId];
 }
 
-- (IBAction)titleTapped:(id)sender {
-    [self.tapSectionDelegate scrollToAnchor:self.anchor];
-}
-
 @end

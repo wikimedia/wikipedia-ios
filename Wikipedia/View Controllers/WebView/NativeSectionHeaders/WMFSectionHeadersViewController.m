@@ -10,11 +10,10 @@
 #import "UIView+WMFDefaultNib.h"
 #import "WMFSectionHeaderEditProtocol.h"
 #import "UIWebView+WMFJavascriptContext.h"
-#import "WMFSectionHeaderTapProtocol.h"
 
 @import JavaScriptCore;
 
-@interface WMFSectionHeadersViewController () <WMFSectionHeaderTapDelegate>
+@interface WMFSectionHeadersViewController ()
 
 @property (nonatomic, strong) NSArray* sectionHeaderModels;
 @property (nonatomic, strong) MASConstraint* topStaticHeaderTopConstraint;
@@ -40,19 +39,10 @@
                                         keyPath:WMF_SAFE_KEYPATH(UIScrollView.new, contentSize)
                                         options:NSKeyValueObservingOptionNew
                                           block:^(WMFSectionHeadersViewController* observer, id object, NSDictionary* change) {
-            [self updateHeadersPositions];
+            [observer updateHeadersPositions];
         }];
     }
     return self;
-}
-
-- (void)scrollToAnchor:(NSString*)anchor {
-    WMFSectionHeaderModel* tappedModel = [self.sectionHeaderModels bk_match:^BOOL (WMFSectionHeaderModel* model) {
-        return ([model.anchor isEqualToString:anchor]);
-    }];
-    if (tappedModel) {
-        [self.webView.scrollView setContentOffset:CGPointMake(0, tappedModel.yOffset + 3) animated:YES];
-    }
 }
 
 - (void)hideTopHeader {
@@ -94,10 +84,10 @@
     for (WMFSectionHeaderModel* model in self.sectionHeaderModels) {
         WMFSectionHeader* header = [WMFSectionHeader wmf_viewFromClassNib];
         header.editSectionDelegate = self.editSectionDelegate;
-        header.tapSectionDelegate  = self;
-        header.title               = model.title;
-        header.sectionId           = model.sectionId;
-        header.anchor              = model.anchor;
+        [self setupTapCallbackForSectionHeader:header];
+        header.title     = model.title;
+        header.sectionId = model.sectionId;
+        header.anchor    = model.anchor;
         [self.webView.scrollView addSubview:header];
         [header mas_makeConstraints:^(MASConstraintMaker* make) {
             make.leading.equalTo(browserView.mas_leading);
@@ -107,14 +97,27 @@
     }
 }
 
+- (void)setupTapCallbackForSectionHeader:(WMFSectionHeader*)sectionHeader {
+    [sectionHeader addTarget:self action:@selector(scrollToAnchorForSectionHeader:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)scrollToAnchorForSectionHeader:(WMFSectionHeader*)sectionHeader {
+    WMFSectionHeaderModel* tappedModel = [self.sectionHeaderModels bk_match:^BOOL (WMFSectionHeaderModel* model) {
+        return ([model.anchor isEqualToString:sectionHeader.anchor]);
+    }];
+    if (tappedModel) {
+        [self.webView.scrollView setContentOffset:CGPointMake(0, tappedModel.yOffset + 3) animated:YES];
+    }
+}
+
 - (void)setupTopStaticHeader {
     if (self.topStaticHeader) {
         return;
     }
     self.topStaticHeader                     = [WMFSectionHeader wmf_viewFromClassNib];
     self.topStaticHeader.editSectionDelegate = self.editSectionDelegate;
-    self.topStaticHeader.tapSectionDelegate  = self;
-    self.topStaticHeader.alpha               = 0;
+    [self setupTapCallbackForSectionHeader:self.topStaticHeader];
+    self.topStaticHeader.alpha = 0;
     [self.view addSubview:self.topStaticHeader];
     [self.topStaticHeader mas_makeConstraints:^(MASConstraintMaker* make) {
         make.leading.equalTo(self.view.mas_leading);

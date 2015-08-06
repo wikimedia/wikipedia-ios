@@ -3,15 +3,13 @@
 
 #import <UIKit/UIKit.h>
 #import "WMFSectionHeaderEditProtocol.h"
-#import "WMFSectionHeaderTapProtocol.h"
 
-@interface WMFSectionHeader : UIView
+@interface WMFSectionHeader : UIControl
 
 @property (nonatomic) NSNumber* sectionId;
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, strong) NSString* anchor;
 
 @property (nonatomic, weak) id <WMFSectionHeaderEditDelegate> editSectionDelegate;
-@property (nonatomic, weak) id <WMFSectionHeaderTapDelegate> tapSectionDelegate;
 
 @end

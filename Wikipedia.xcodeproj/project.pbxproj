@@ -499,7 +499,6 @@
 		041E32361B72AB9A001D0E28 /* WMFSectionHeaderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSectionHeaderModel.m; sourceTree = "<group>"; };
 		041E323E1B736CCF001D0E28 /* UIWebView+WMFJavascriptContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+WMFJavascriptContext.h"; sourceTree = "<group>"; };
 		041E323F1B736CCF001D0E28 /* UIWebView+WMFJavascriptContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+WMFJavascriptContext.m"; sourceTree = "<group>"; };
-		041E32411B73FC60001D0E28 /* WMFSectionHeaderTapProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSectionHeaderTapProtocol.h; sourceTree = "<group>"; };
 		041EFC361996A1F800B2CB28 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		042244FB197F5E09005DD0BF /* AbuseFilterAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbuseFilterAlert.h; sourceTree = "<group>"; };
 		042244FC197F5E09005DD0BF /* AbuseFilterAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbuseFilterAlert.m; sourceTree = "<group>"; };
@@ -1450,7 +1449,6 @@
 			isa = PBXGroup;
 			children = (
 				041E322F1B72AB9A001D0E28 /* WMFSectionHeaderEditProtocol.h */,
-				041E32411B73FC60001D0E28 /* WMFSectionHeaderTapProtocol.h */,
 				041E32301B72AB9A001D0E28 /* WMFSectionHeadersViewController.h */,
 				041E32311B72AB9A001D0E28 /* WMFSectionHeadersViewController.m */,
 				041E32321B72AB9A001D0E28 /* WMFSectionHeader.h */,
