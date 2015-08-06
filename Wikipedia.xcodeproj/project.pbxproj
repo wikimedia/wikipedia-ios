@@ -488,7 +488,7 @@
 		041C55D11950B27D006CE0EF /* EditSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EditSummaryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		041C6204199ED2A20061516F /* MWKSection+TOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSection+TOC.h"; sourceTree = "<group>"; };
 		041C6205199ED2A20061516F /* MWKSection+TOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+TOC.m"; sourceTree = "<group>"; };
-		041E322F1B72AB9A001D0E28 /* WMFEditSectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFEditSectionProtocol.h; sourceTree = "<group>"; };
+		041E322F1B72AB9A001D0E28 /* WMFSectionHeaderEditProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSectionHeaderEditProtocol.h; sourceTree = "<group>"; };
 		041E32301B72AB9A001D0E28 /* WMFSectionHeadersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSectionHeadersViewController.h; sourceTree = "<group>"; };
 		041E32311B72AB9A001D0E28 /* WMFSectionHeadersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSectionHeadersViewController.m; sourceTree = "<group>"; };
 		041E32321B72AB9A001D0E28 /* WMFSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSectionHeader.h; sourceTree = "<group>"; };
@@ -1445,7 +1445,7 @@
 		041E322E1B72AB9A001D0E28 /* NativeSectionHeaders */ = {
 			isa = PBXGroup;
 			children = (
-				041E322F1B72AB9A001D0E28 /* WMFEditSectionProtocol.h */,
+				041E322F1B72AB9A001D0E28 /* WMFSectionHeaderEditProtocol.h */,
 				041E32301B72AB9A001D0E28 /* WMFSectionHeadersViewController.h */,
 				041E32311B72AB9A001D0E28 /* WMFSectionHeadersViewController.m */,
 				041E32321B72AB9A001D0E28 /* WMFSectionHeader.h */,

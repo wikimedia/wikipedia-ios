@@ -40,8 +40,4 @@
     [self.editSectionDelegate editSection:self.sectionId];
 }
 
-- (IBAction)titleTapped:(id)sender {
-    NSLog(@"section %@ anchor %@ tapped", self.sectionId, self.anchor);
-}
-
 @end

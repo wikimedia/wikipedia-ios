@@ -2,14 +2,14 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
-#import "WMFEditSectionProtocol.h"
+#import "WMFSectionHeaderEditProtocol.h"
 
-@interface WMFSectionHeader : UIView
+@interface WMFSectionHeader : UIControl
 
 @property (nonatomic) NSNumber* sectionId;
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, strong) NSString* anchor;
 
-@property (nonatomic, weak) id <WMFEditSectionDelegate> editSectionDelegate;
+@property (nonatomic, weak) id <WMFSectionHeaderEditDelegate> editSectionDelegate;
 
 @end
