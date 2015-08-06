@@ -2,7 +2,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <Foundation/Foundation.h>
-#import "WMFEditSectionProtocol.h"
+#import "WMFSectionHeaderEditProtocol.h"
 
 @class MASViewAttribute;
 
@@ -16,6 +16,6 @@
 - (void)updateTopHeaderForScrollOffsetY:(CGFloat)offsetY;
 - (void)hideTopHeader;
 
-@property (nonatomic, weak) id <WMFEditSectionDelegate> editSectionDelegate;
+@property (nonatomic, weak) id <WMFSectionHeaderEditDelegate> editSectionDelegate;
 
 @end

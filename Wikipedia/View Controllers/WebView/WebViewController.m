@@ -27,7 +27,7 @@
 #import "PageHistoryViewController.h"
 
 #import "WMFSectionHeadersViewController.h"
-#import "WMFEditSectionProtocol.h"
+#import "WMFSectionHeaderEditProtocol.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -35,7 +35,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
-@interface WebViewController () <LanguageSelectionDelegate, FetchFinishedDelegate, WMFEditSectionDelegate>
+@interface WebViewController () <LanguageSelectionDelegate, FetchFinishedDelegate, WMFSectionHeaderEditDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem* buttonTOC;
 @property (nonatomic, strong) UIBarButtonItem* buttonLanguages;
@@ -373,7 +373,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [super viewWillDisappear:animated];
 }
 
-#pragma mark - WMFEditSectionDelegate methods
+#pragma mark - WMFSectionHeaderEditDelegate methods
 
 - (BOOL)isArticleEditable {
     return self.editable;

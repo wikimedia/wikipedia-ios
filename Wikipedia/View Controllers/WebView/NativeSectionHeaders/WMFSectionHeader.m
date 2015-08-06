@@ -41,7 +41,7 @@
 }
 
 - (IBAction)titleTapped:(id)sender {
-    NSLog(@"section %@ anchor %@ tapped", self.sectionId, self.anchor);
+    [self.tapSectionDelegate scrollToAnchor:self.anchor];
 }
 
 @end
