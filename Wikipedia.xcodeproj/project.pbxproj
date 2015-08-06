@@ -914,6 +914,8 @@
 		BC34E4691B31AD8B00258928 /* MWKLanguageLinkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLinkController.m; sourceTree = "<group>"; };
 		BC34E4721B31D92100258928 /* LangaugeSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LangaugeSelectionDelegate.h; sourceTree = "<group>"; };
 		BC3863481B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFLinkParsingTests.m"; sourceTree = "<group>"; };
+		BC38634A1B73EEA4003A2D38 /* WMFArticleContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleContentController.h; sourceTree = "<group>"; };
+		BC38634B1B7400E7003A2D38 /* WMFArticleListItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleListItemController.h; sourceTree = "<group>"; };
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC49B3631AEECFD8009F55BE /* ArticleLoadingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleLoadingTests.m; sourceTree = "<group>"; };
 		BC505EE91B59461400537006 /* WMFCollectionViewPageLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFCollectionViewPageLayout.h; sourceTree = "<group>"; };
@@ -2323,6 +2325,7 @@
 				0EA35C491B6BB85100D9CFE6 /* WMFArticleContainerViewController.m */,
 				0E94AFF41B209882000BC5EA /* WMFArticleViewController.h */,
 				0E94AFF51B209882000BC5EA /* WMFArticleViewController.m */,
+				BC38634B1B7400E7003A2D38 /* WMFArticleListItemController.h */,
 				BC6BFC651B6858250074D0DA /* WMFArticleViewController_Private.h */,
 				0E0377741B4C47D500470BBE /* Table */,
 				0E2B06FB1B2D12B300EA2F53 /* Transitions */,
@@ -2332,6 +2335,7 @@
 				0ECC99EE1B67D43500004E47 /* WMFArticleRequestSerializer.m */,
 				0ECC99F01B67DDB600004E47 /* WMFArticleResponseSerializer.h */,
 				0ECC99F11B67DDB600004E47 /* WMFArticleResponseSerializer.m */,
+				BC38634A1B73EEA4003A2D38 /* WMFArticleContentController.h */,
 			);
 			name = Article;
 			sourceTree = "<group>";

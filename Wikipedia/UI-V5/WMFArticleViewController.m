@@ -9,7 +9,6 @@
 #import "PromiseKit.h"
 
 // Models & Controllers
-#import "WebViewController.h"
 #import "WMFArticleHeaderImageGalleryViewController.h"
 #import "WMFArticleFetcher.h"
 #import "WMFSearchFetcher.h"
@@ -17,7 +16,6 @@
 #import "MWKArticlePreview.h"
 #import "MWKArticle.h"
 #import "WMFImageGalleryViewController.h"
-#import "ReferencesVC.h"
 #import "MWKCitation.h"
 
 // Views
@@ -38,7 +36,6 @@
 #import "UIView+WMFDefaultNib.h"
 #import "NSAttributedString+WMFHTMLForSite.h"
 
-#import "WMFArticlePopupTransition.h"
 
 typedef NS_ENUM (NSInteger, WMFArticleSectionType) {
     WMFArticleSectionTypeSummary,
@@ -52,9 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 <UITableViewDataSource,
  UITableViewDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
- WMFImageGalleryViewControllerDelegate,
- WMFWebViewControllerDelegate,
- WMFArticleNavigationDelegate>
+ WMFImageGalleryViewControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView* galleryContainerView;
 @property (nonatomic, weak) IBOutlet WMFArticleTableHeaderView* headerView;
@@ -74,13 +69,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGalleryViewController;
 @property (nonatomic, weak) IBOutlet UITapGestureRecognizer* expandGalleryTapRecognizer;
 
-@property (nonatomic, strong) WebViewController* webViewController;
-
-@property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
-
 @end
 
 @implementation WMFArticleViewController
+@synthesize article = _article;
+@synthesize mode = _mode;
 
 + (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages {
     WMFArticleViewController* vc = [self wmf_initialViewControllerFromClassStoryboard];
@@ -153,14 +146,6 @@ NS_ASSUME_NONNULL_BEGIN
     return _articleFetcher;
 }
 
-- (WebViewController*)webViewController {
-    if (!_webViewController) {
-        _webViewController          = [WebViewController wmf_initialViewControllerFromClassStoryboard];
-        _webViewController.delegate = self;
-    }
-    return _webViewController;
-}
-
 #pragma mark - Saved Pages KVO
 
 - (void)observeSavedPages {
@@ -208,7 +193,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     if ([self.article isCached]) {
         // observe immediately
-        [self loadWebViewController];
         [self observeArticleUpdates];
     } else {
         // fetch then observe
@@ -231,7 +215,6 @@ NS_ASSUME_NONNULL_BEGIN
         @strongify(self)
         [self.headerGalleryViewController setImagesFromArticle : article];
         self.article = article;
-        [self loadWebViewController];
     }).catch(^(NSError* error){
         @strongify(self)
         if ([error wmf_isWMFErrorOfType:WMFErrorTypeRedirected]) {
@@ -265,10 +248,6 @@ NS_ASSUME_NONNULL_BEGIN
     .catch(^(NSError* err) {
         DDLogError(@"Failed to fetch readmore: %@", err);
     });
-}
-
-- (void)loadWebViewController {
-    [self.webViewController navigateToPage:self.article.title discoveryMethod:MWKHistoryDiscoveryMethodReloadFromCache];
 }
 
 #pragma mark - View Updates
@@ -324,11 +303,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - Actions
-
-- (IBAction)readButtonTapped:(id)sender {
-    UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:self.webViewController];
-    [self presentViewController:nc animated:YES completion:NULL];
-}
 
 - (IBAction)toggleSave:(id)sender {
     if (![self.article isCached]) {
@@ -440,7 +414,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFMinimalArticleContentCell* cell =
         [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
     cell.attributedString          = self.article.summaryHTML;
-    cell.articleNavigationDelegate = self;
+    cell.articleNavigationDelegate = self.articleNavigationDelegate;
     return cell;
 }
 
@@ -492,23 +466,13 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    [self presentArticleScrolledToSectionForIndexPath:indexPath];
+    #warning TODO: ask delegate to go to section
 }
 
 #pragma mark - Article Link Presentation
 
 - (BOOL)isTitleReferenceToCurrentArticle:(MWKTitle*)title {
     return [[self.article title] isEqualToTitleExcludingFragment:title];
-}
-
-- (void)presentArticleScrolledToSectionForIndexPath:(NSIndexPath*)indexPath {
-    MWKTitle* titleWithFragment = [self titleForSelectedIndexPath:indexPath];
-    if ([self isTitleReferenceToCurrentArticle:titleWithFragment]) {
-        [self.webViewController scrollToFragment:titleWithFragment.fragment];
-        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:self.webViewController] animated:YES completion:NULL];
-    } else {
-        [self presentPopupForTitle:titleWithFragment];
-    }
 }
 
 - (MWKTitle*)titleForSelectedIndexPath:(NSIndexPath*)indexPath {
@@ -528,25 +492,6 @@ NS_ASSUME_NONNULL_BEGIN
                                          fragment:nil];
         }
     }
-}
-
-- (void)presentPopupForTitle:(MWKTitle*)title {
-    MWKArticle* article          = [self.dataStore articleWithTitle:title];
-    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
-    vc.article = article;
-
-    self.popupTransition                        = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:nil];
-    self.popupTransition.nonInteractiveDuration = 0.5;
-    vc.transitioningDelegate                    = self.popupTransition;
-    vc.modalPresentationStyle                   = UIModalPresentationCustom;
-
-    [self presentViewController:vc animated:YES completion:NULL];
-}
-
-#pragma mark - WMFWebViewControllerDelegate
-
-- (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title {
-    [self presentPopupForTitle:title];
 }
 
 #pragma mark - WMFArticleHeadermageGalleryViewControllerDelegate
@@ -582,54 +527,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)scrollToLink:(NSURL* __nonnull)linkURL animated:(BOOL)animated {
 }
-
-#pragma mark - WMFArticleNavigationDelegate
-
-- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
-      didTapCitationLink:(NSString* __nonnull)citationFragment {
-    if (self.article.isCached) {
-        [self showCitationWithFragment:citationFragment];
-    } else {
-        if (!self.articleFetcherPromise) {
-            [self fetchArticle];
-        }
-        @weakify(self);
-        self.articleFetcherPromise.then(^(MWKArticle* _) {
-            @strongify(self);
-            [self showCitationWithFragment:citationFragment];
-        });
-    }
-}
-
-- (void)showCitationWithFragment:(NSString*)fragment {
-    NSParameterAssert(self.article.isCached);
-    MWKCitation* tappedCitation = [self.article.citations bk_match:^BOOL (MWKCitation* citation) {
-        return [citation.citationIdentifier isEqualToString:fragment];
-    }];
-    DDLogInfo(@"Tapped citation %@", tappedCitation);
-//    if (!tappedCitation) {
-//        DDLogWarn(@"Failed to parse citation for article %@", self.article);
-    // TEMP: show webview until we figure out what to do w/ ReferencesVC
-    [self.webViewController scrollToFragment:fragment];
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:self.webViewController]
-                       animated:YES
-                     completion:NULL];
-//    }
-}
-
-- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
-        didTapLinkToPage:(MWKTitle* __nonnull)title {
-    [self presentPopupForTitle:title];
-}
-
-- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
-      didTapExternalLink:(NSURL* __nonnull)externalURL {
-    [[[SessionSingleton sharedInstance] zeroConfigState] showWarningIfNeededBeforeOpeningURL:externalURL];
-}
-
-#pragma mark - UINavigationControllerDelegate
-
-// placeholder
 
 @end
 
