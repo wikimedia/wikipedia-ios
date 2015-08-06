@@ -73,6 +73,7 @@
         model.title = section[@"text"];
         model.yOffset = 0;
         model.sectionId = section[@"sectionId"];
+        model.anchor = section[@"anchor"];
         return model;
     }];
 }
@@ -85,6 +86,7 @@
         header.editSectionDelegate = self.editSectionDelegate;
         header.title               = model.title;
         header.sectionId           = model.sectionId;
+        header.anchor              = model.anchor;
         [self.webView.scrollView addSubview:header];
         [header mas_makeConstraints:^(MASConstraintMaker* make) {
             make.leading.equalTo(browserView.mas_leading);
@@ -157,6 +159,7 @@
 - (void)updateTopStaticHeaderWithModel:(WMFSectionHeaderModel*)model {
     self.topStaticHeader.title     = model.title;
     self.topStaticHeader.sectionId = model.sectionId;
+    self.topStaticHeader.anchor    = model.anchor;
 }
 
 - (NSUInteger)indexOfTopmostSectionForWebViewScrollOffsetY:(CGFloat)offsetY {

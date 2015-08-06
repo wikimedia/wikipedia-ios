@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
@@ -10,11 +11,15 @@
             <rect key="frame" x="0.0" y="0.0" width="370" height="104"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aq0-2J-9hh">
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aq0-2J-9hh">
                     <rect key="frame" x="18" y="14" width="278" height="76"/>
+                    <gestureRecognizers/>
                     <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="29"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="NqJ-tu-x8a" appends="YES" id="ijA-JD-mOb"/>
+                    </connections>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5qC-hm-lp9">
                     <rect key="frame" x="306" y="37" width="46" height="30"/>
@@ -45,5 +50,10 @@
             </connections>
             <point key="canvasLocation" x="197" y="94"/>
         </view>
+        <tapGestureRecognizer id="NqJ-tu-x8a">
+            <connections>
+                <action selector="titleTapped:" destination="iN0-l3-epB" id="m23-p9-eGJ"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>

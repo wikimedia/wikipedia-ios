@@ -4,6 +4,7 @@ function getSectionHeadersArray(){
     var nodeArray = Array.prototype.slice.call(nodeList);
     nodeArray = nodeArray.map(function(n){
         return {
+            anchor:n.getAttribute('id'),
             sectionId:n.getAttribute('sectionId'),
             text:n.textContent
         };

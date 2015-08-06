@@ -8,6 +8,7 @@
 
 @property (nonatomic) NSNumber* sectionId;
 @property (nonatomic, strong) NSString* title;
+@property (nonatomic, strong) NSString* anchor;
 
 @property (nonatomic, weak) id <WMFEditSectionDelegate> editSectionDelegate;
 
