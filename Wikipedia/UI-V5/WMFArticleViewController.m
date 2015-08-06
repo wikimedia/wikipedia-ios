@@ -587,21 +587,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
       didTapCitationLink:(NSString* __nonnull)citationFragment {
-    [self showCitationWithFragment:citationFragment];
-}
-
-- (void)showCitationWithFragment:(NSString*)fragment {
-    if (!self.article.isCached) {
+    if (self.article.isCached) {
+        [self showCitationWithFragment:citationFragment];
+    } else {
         if (!self.articleFetcherPromise) {
             [self fetchArticle];
         }
         @weakify(self);
         self.articleFetcherPromise.then(^(MWKArticle* _) {
             @strongify(self);
-            [self showCitationWithFragment:fragment];
+            [self showCitationWithFragment:citationFragment];
         });
-        return;
     }
+}
+
+- (void)showCitationWithFragment:(NSString*)fragment {
+    NSParameterAssert(self.article.isCached);
     MWKCitation* tappedCitation = [self.article.citations bk_match:^BOOL (MWKCitation* citation) {
         return [citation.citationIdentifier isEqualToString:fragment];
     }];
