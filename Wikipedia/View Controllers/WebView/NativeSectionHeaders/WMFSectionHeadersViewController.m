@@ -202,7 +202,6 @@ static NSString* const WMFJSGetSectionHeadersJSON =
     @"  var nodeList = document.querySelectorAll('h1.section_heading');"
     @"  var nodeArray = Array.prototype.slice.call(nodeList);"
     @"  nodeArray = nodeArray.map(function(n){"
-    @"    var rect = n.getBoundingClientRect();"
     @"    return {"
     @"        sectionId:n.getAttribute('sectionId'),"
     @"        text:n.textContent"
