@@ -22,7 +22,7 @@
 @property (nonatomic, strong) TGLStackedLayout* stackedLayout;
 @property (nonatomic, strong) WMFOffScreenFlowLayout* offScreenLayout;
 
-@property (strong, nonatomic) WMFArticleListTranstion* cardTransition;
+@property (strong, nonatomic) WMFArticleListTransition* cardTransition;
 
 @property (strong, nonatomic) MWKArticle* selectedArticle;
 
@@ -314,7 +314,7 @@
 
 #pragma mark - WMFArticleListTranstioning
 
-- (UIView*)viewForTransition:(WMFArticleListTranstion*)transition {
+- (UIView*)viewForTransition:(WMFArticleListTransition*)transition {
     NSIndexPath* indexPath = [self.dataSource indexPathForArticle:self.selectedArticle];
     if (!indexPath) {
         return nil;
@@ -322,7 +322,7 @@
     return [self.collectionView cellForItemAtIndexPath:indexPath];
 }
 
-- (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTranstion*)transition {
+- (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTransition*)transition {
     NSIndexPath* indexPath     = [self.dataSource indexPathForArticle:self.selectedArticle];
     NSIndexPath* next          = [self.collectionView wmf_indexPathAfterIndexPath:indexPath];
     UICollectionViewCell* cell = [self.collectionView cellForItemAtIndexPath:next];

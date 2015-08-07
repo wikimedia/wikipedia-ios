@@ -4,7 +4,7 @@
 @class WMFArticleListCollectionViewController;
 @class WMFArticleContainerViewController;
 
-@interface WMFArticleListTranstion : UIPercentDrivenInteractiveTransition <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning>
+@interface WMFArticleListTransition : UIPercentDrivenInteractiveTransition <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning>
 
 - (instancetype)initWithArticleListViewController:(WMFArticleListCollectionViewController*)listViewController articleContainerViewController:(WMFArticleContainerViewController*)articleContainerViewController contentScrollView:(UIScrollView*)scrollView;
 
@@ -29,7 +29,7 @@
 
 @protocol WMFArticleListTranstioning <NSObject>
 
-- (UIView*)viewForTransition:(WMFArticleListTranstion*)transition;
-- (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTranstion*)transition;
+- (UIView*)viewForTransition:(WMFArticleListTransition*)transition;
+- (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTransition*)transition;
 
 @end

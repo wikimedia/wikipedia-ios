@@ -1,7 +1,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WMFArticleListDataSource.h"
-#import "WMFArticleListTranstion.h"
+#import "WMFArticleListTransition.h"
 
 @class MWKDataStore, MWKSavedPageList, MWKHistoryList;
 
