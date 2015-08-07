@@ -26,6 +26,7 @@
 		041E32391B72AB9A001D0E28 /* WMFSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E32341B72AB9A001D0E28 /* WMFSectionHeader.xib */; };
 		041E323A1B72AB9A001D0E28 /* WMFSectionHeaderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E32361B72AB9A001D0E28 /* WMFSectionHeaderModel.m */; };
 		041E32401B736CCF001D0E28 /* UIWebView+WMFJavascriptContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E323F1B736CCF001D0E28 /* UIWebView+WMFJavascriptContext.m */; };
+		041E32441B753212001D0E28 /* UIButton+WMFMultiLineHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E32431B753212001D0E28 /* UIButton+WMFMultiLineHeight.m */; };
 		041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041EFC361996A1F800B2CB28 /* MapKit.framework */; };
 		04224500197F5E09005DD0BF /* AbuseFilterAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 042244FC197F5E09005DD0BF /* AbuseFilterAlert.m */; };
 		04224501197F5E09005DD0BF /* BulletedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042244FE197F5E09005DD0BF /* BulletedLabel.m */; };
@@ -498,6 +499,8 @@
 		041E32361B72AB9A001D0E28 /* WMFSectionHeaderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSectionHeaderModel.m; sourceTree = "<group>"; };
 		041E323E1B736CCF001D0E28 /* UIWebView+WMFJavascriptContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+WMFJavascriptContext.h"; sourceTree = "<group>"; };
 		041E323F1B736CCF001D0E28 /* UIWebView+WMFJavascriptContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+WMFJavascriptContext.m"; sourceTree = "<group>"; };
+		041E32421B753212001D0E28 /* UIButton+WMFMultiLineHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WMFMultiLineHeight.h"; sourceTree = "<group>"; };
+		041E32431B753212001D0E28 /* UIButton+WMFMultiLineHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WMFMultiLineHeight.m"; sourceTree = "<group>"; };
 		041EFC361996A1F800B2CB28 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		042244FB197F5E09005DD0BF /* AbuseFilterAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbuseFilterAlert.h; sourceTree = "<group>"; };
 		042244FC197F5E09005DD0BF /* AbuseFilterAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbuseFilterAlert.m; sourceTree = "<group>"; };
@@ -1950,6 +1953,8 @@
 				BC6BFC671B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m */,
 				041E323E1B736CCF001D0E28 /* UIWebView+WMFJavascriptContext.h */,
 				041E323F1B736CCF001D0E28 /* UIWebView+WMFJavascriptContext.m */,
+				041E32421B753212001D0E28 /* UIButton+WMFMultiLineHeight.h */,
+				041E32431B753212001D0E28 /* UIButton+WMFMultiLineHeight.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -3452,6 +3457,7 @@
 				040D83591AB0ECFD000896D5 /* WMFCenteredPathView.m in Sources */,
 				BCB669B41A83F6C400C7B1FE /* MWKArticle.m in Sources */,
 				0E2B06F61B2CE45800EA2F53 /* WMFSavedPagesDataSource.m in Sources */,
+				041E32441B753212001D0E28 /* UIButton+WMFMultiLineHeight.m in Sources */,
 				BC6BFC681B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m in Sources */,
 				044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */,
 				0429301018604898002A13FC /* SavedPagesViewController.m in Sources */,
