@@ -81,13 +81,16 @@
         <!--Search-->
         <scene sceneID="Ijm-OL-UgQ">
             <objects>
-                <navigationController navigationBarHidden="YES" id="cv0-Vi-jBW" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" hidesBarsOnSwipe="YES" hidesBarsOnTap="YES" hidesBarsWhenKeyboardAppears="YES" id="cv0-Vi-jBW" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Search" image="search" id="CfH-lu-Ja9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="M49-9C-IIr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </navigationBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="navigationBarHidden" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="tkf-8P-b2O" kind="relationship" relationship="rootViewController" id="I2J-aE-P8Y"/>
                     </connections>
@@ -99,7 +102,7 @@
         <!--Search View Controller-->
         <scene sceneID="25p-jW-rHl">
             <objects>
-                <viewController storyboardIdentifier="WMFSearchViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tkf-8P-b2O" customClass="WMFSearchViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WMFSearchViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tkf-8P-b2O" customClass="WMFSearchViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CKX-gH-RjL"/>
                         <viewControllerLayoutGuide type="bottom" id="8Yb-zt-F5o"/>
@@ -215,7 +218,7 @@
         <!--Saved Pages List-->
         <scene sceneID="r64-5z-ebS">
             <objects>
-                <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Saved" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qVm-oc-aaW" userLabel="Saved Pages List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Saved" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qVm-oc-aaW" userLabel="Saved Pages List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="cbI-aA-luO">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -332,7 +335,7 @@
         <!--Search Results List-->
         <scene sceneID="1Ub-Zb-UVi">
             <objects>
-                <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Search" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4Pn-cn-DIj" userLabel="Search Results List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Search" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4Pn-cn-DIj" userLabel="Search Results List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="Sdm-Uo-q4M">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="447"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -383,7 +386,7 @@
         <!--Recent Pages List-->
         <scene sceneID="bR7-pf-lJf">
             <objects>
-                <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Recent" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2yz-KN-V6a" userLabel="Recent Pages List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Recent" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2yz-KN-V6a" userLabel="Recent Pages List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="TGO-DA-pJe">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -435,13 +438,16 @@
         <!--Saved-->
         <scene sceneID="Lqf-ge-2v5">
             <objects>
-                <navigationController navigationBarHidden="YES" id="bzO-gj-jpB" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" hidesBarsOnSwipe="YES" hidesBarsOnTap="YES" hidesBarsWhenKeyboardAppears="YES" id="bzO-gj-jpB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Saved" image="saved" id="tEK-7k-93Q"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ScF-IW-gDl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </navigationBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="navigationBarHidden" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="qVm-oc-aaW" kind="relationship" relationship="rootViewController" id="zhE-Qb-Nyd"/>
                     </connections>
@@ -453,13 +459,13 @@
         <!--Nearby-->
         <scene sceneID="Db8-pn-u9C">
             <objects>
-                <viewController storyboardIdentifier="NearbyViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="y74-wE-CKB" customClass="NearbyViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NearbyViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="y74-wE-CKB" customClass="NearbyViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rhw-5r-SuS"/>
                         <viewControllerLayoutGuide type="bottom" id="hQ8-Ps-Tb7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yua-5k-4ie">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="531"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eCD-hw-sGe">
@@ -488,7 +494,6 @@
                             <constraint firstItem="hQ8-Ps-Tb7" firstAttribute="top" secondItem="eCD-hw-sGe" secondAttribute="bottom" id="xOP-Cy-g4C"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Nearby" id="U3f-2f-YQU"/>
                     <navigationItem key="navigationItem" id="jSq-CI-bRK"/>
                     <connections>
@@ -502,13 +507,16 @@
         <!--Recent-->
         <scene sceneID="2zr-9G-QMd">
             <objects>
-                <navigationController navigationBarHidden="YES" id="ROQ-sG-rcF" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" hidesBarsOnSwipe="YES" hidesBarsOnTap="YES" hidesBarsWhenKeyboardAppears="YES" id="ROQ-sG-rcF" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Recent" image="history" id="ZNo-7p-3PU"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rIL-t0-IJM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </navigationBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="navigationBarHidden" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="2yz-KN-V6a" kind="relationship" relationship="rootViewController" id="TJJ-bE-r8W"/>
                     </connections>
@@ -520,13 +528,16 @@
         <!--Home-->
         <scene sceneID="my8-ht-Vqg">
             <objects>
-                <navigationController navigationBarHidden="YES" id="EJe-8j-1e6" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" hidesBarsOnSwipe="YES" hidesBarsOnTap="YES" hidesBarsWhenKeyboardAppears="YES" id="EJe-8j-1e6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="home" id="fCG-Qf-VzW"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="c8d-c3-ZKx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </navigationBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="navigationBarHidden" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="y74-wE-CKB" kind="relationship" relationship="rootViewController" id="El9-dO-blV"/>
                     </connections>

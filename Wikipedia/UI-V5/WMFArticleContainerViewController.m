@@ -12,6 +12,7 @@
 #import "MWKDataStore.h"
 #import "MWKArticle.h"
 #import "MWKCitation.h"
+#import "MWKTitle.h"
 
 // View
 #import "WMFArticlePopupTransition.h"
@@ -62,7 +63,10 @@ NS_ASSUME_NONNULL_BEGIN
     if (WMF_EQUAL(self.article, isEqualToArticle:, article)) {
         return;
     }
-    self.currentArticleController.article = article;
+
+    self.articleViewController.article = article;
+    self.webViewController.article = article;
+    self.title = article.title.text;
 }
 
 - (WMFArticleViewController*)articleViewController {
@@ -98,9 +102,6 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    // sync article on switch
-    currentArticleController.article = self.article;
-
     if (currentArticleController.parentViewController != self) {
         [self addChildViewController:currentArticleController];
     }
@@ -115,6 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
     [currentArticleController.view mas_makeConstraints:^(MASConstraintMaker* make) {
         make.left.right.top.and.bottom.equalTo(self.view);
     }];
+    [currentArticleController.view layoutIfNeeded];
 
     void(^completion)(BOOL) = ^(BOOL finished) {
         NSParameterAssert(finished);
@@ -182,7 +184,8 @@ NS_ASSUME_NONNULL_BEGIN
 //        DDLogWarn(@"Failed to parse citation for article %@", self.article);
     // TEMP: show webview until we figure out what to do w/ ReferencesVC
     [self.webViewController scrollToFragment:fragment];
-    self.currentArticleController = self.webViewController;
+    [self setCurrentArticleController:self.webViewController animated:YES];
+
 //    }
 }
 
@@ -223,15 +226,17 @@ NS_ASSUME_NONNULL_BEGIN
                                                           savedPages:self.savedPageList];
     vc.article = article;
 
-    self.popupTransition =
-        [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self
-                                                    presentedViewController:vc
-                                                          contentScrollView:nil];
-    self.popupTransition.nonInteractiveDuration = 0.5;
-    vc.transitioningDelegate                    = self.popupTransition;
-    vc.modalPresentationStyle                   = UIModalPresentationCustom;
+    [self.navigationController pushViewController:vc animated:YES];
 
-    [self presentViewController:vc animated:YES completion:NULL];
+//    self.popupTransition =
+//        [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self
+//                                                    presentedViewController:vc
+//                                                          contentScrollView:nil];
+//    self.popupTransition.nonInteractiveDuration = 0.5;
+//    vc.transitioningDelegate                    = self.popupTransition;
+//    vc.modalPresentationStyle                   = UIModalPresentationCustom;
+//
+//    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 @end

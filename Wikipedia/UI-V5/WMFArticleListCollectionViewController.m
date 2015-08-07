@@ -153,6 +153,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.extendedLayoutIncludesOpaqueBars = YES;
+    self.automaticallyAdjustsScrollViewInsets = YES;
     self.collectionView.backgroundColor = [UIColor clearColor];
 
     [self updateListForMode:self.mode animated:NO completion:NULL];
@@ -253,19 +255,21 @@
     WMFArticleContainerViewController* container = [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
     container.article = self.selectedArticle;
 
-    self.cardTransition = [[WMFArticleListTranstion alloc] initWithArticleListViewController:self
-                                                              articleContainerViewController:container
-                                                                           contentScrollView:container.articleViewController.tableView];
-    container.transitioningDelegate  = self.cardTransition;
-    container.modalPresentationStyle = UIModalPresentationCustom;
+//    self.cardTransition = [[WMFArticleListTranstion alloc] initWithArticleListViewController:self
+//                                                              articleContainerViewController:container
+//                                                                           contentScrollView:container.articleViewController.tableView];
+//    container.transitioningDelegate  = self.cardTransition;
+//    container.modalPresentationStyle = UIModalPresentationCustom;
 
     [self wmf_hideKeyboard];
 
-    [self presentViewController:container animated:YES completion:^{
+    [self.navigationController pushViewController:container animated:YES];
+
+//    [self presentViewController:container animated:YES completion:^{
         [self.recentPages addPageToHistoryWithTitle:cell.viewController.article.title
                                     discoveryMethod:[self.dataSource discoveryMethod]];
         [self.recentPages save];
-    }];
+//    }];
 }
 
 #pragma mark - TGLStackedLayoutDelegate
