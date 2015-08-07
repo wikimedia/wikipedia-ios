@@ -56,6 +56,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @end
 
 @implementation WebViewController
+@synthesize article = _article;
 
 @synthesize siteInfoFetcher = _siteInfoFetcher;
 
@@ -1368,7 +1369,16 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         return;
     }
 
-    MWKArticle* article = [self.session.dataStore articleWithTitle:title];
+    self.article = [self.session.dataStore articleWithTitle:title];
+}
+
+- (void)setArticle:(MWKArticle * __nullable)article {
+    _article = article;
+
+    #warning HAX: force the view to load
+    [self view];
+
+    #warning TODO: remove dependency on session current article
     self.session.currentArticle = article;
 
     if (![article isCached]) {
@@ -1384,7 +1394,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         case MWKHistoryDiscoveryMethodReloadFromNetwork:
         case MWKHistoryDiscoveryMethodUnknown: {
             // Update the history so the most recently viewed article appears at the top.
-            [self.session.userDataStore.historyList addPageToHistoryWithTitle:title discoveryMethod:self.session.currentArticleDiscoveryMethod];
+            [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.article.title
+                                                              discoveryMethod:self.session.currentArticleDiscoveryMethod];
             break;
         }
 
@@ -1395,7 +1406,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
 
-    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:title.site.language];
+    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.title.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
 
     self.editable         = article.editable;

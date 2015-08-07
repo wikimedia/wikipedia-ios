@@ -342,7 +342,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.tableView.scrollsToTop = YES;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
 
     UICollectionViewFlowLayout* galleryLayout = (UICollectionViewFlowLayout*)_headerGalleryViewController.collectionViewLayout;
     galleryLayout.minimumInteritemSpacing = 0;
@@ -415,6 +416,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
     cell.attributedString          = self.article.summaryHTML;
     cell.articleNavigationDelegate = self.articleNavigationDelegate;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
