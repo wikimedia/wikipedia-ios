@@ -271,6 +271,7 @@
 		BC32A1D91B4B1B8A00A286DE /* WMFLegacyImageDataMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32A1D81B4B1B8A00A286DE /* WMFLegacyImageDataMigration.swift */; };
 		BC34E46A1B31AD8B00258928 /* MWKLanguageLinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC34E4691B31AD8B00258928 /* MWKLanguageLinkController.m */; };
 		BC3863491B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3863481B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m */; };
+		BC38634F1B7509E8003A2D38 /* WMFNavigationTransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC38634E1B7509E8003A2D38 /* WMFNavigationTransitionController.m */; };
 		BC49B3641AEECFD8009F55BE /* ArticleLoadingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC49B3631AEECFD8009F55BE /* ArticleLoadingTests.m */; };
 		BC505EEB1B59461400537006 /* WMFCollectionViewPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BC505EEA1B59461400537006 /* WMFCollectionViewPageLayout.m */; };
 		BC505EEE1B594B5700537006 /* WMFImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC505EED1B594B5700537006 /* WMFImageCollectionViewCell.m */; };
@@ -910,6 +911,8 @@
 		BC3863481B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFLinkParsingTests.m"; sourceTree = "<group>"; };
 		BC38634A1B73EEA4003A2D38 /* WMFArticleContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleContentController.h; sourceTree = "<group>"; };
 		BC38634B1B7400E7003A2D38 /* WMFArticleListItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleListItemController.h; sourceTree = "<group>"; };
+		BC38634D1B7509E8003A2D38 /* WMFNavigationTransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNavigationTransitionController.h; sourceTree = "<group>"; };
+		BC38634E1B7509E8003A2D38 /* WMFNavigationTransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNavigationTransitionController.m; sourceTree = "<group>"; };
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC49B3631AEECFD8009F55BE /* ArticleLoadingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleLoadingTests.m; sourceTree = "<group>"; };
 		BC505EE91B59461400537006 /* WMFCollectionViewPageLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFCollectionViewPageLayout.h; sourceTree = "<group>"; };
@@ -2165,6 +2168,8 @@
 				0E466E511B41F83500E91992 /* WMFArticlePopupTransition.m */,
 				0E466E531B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.h */,
 				0E466E541B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m */,
+				BC38634D1B7509E8003A2D38 /* WMFNavigationTransitionController.h */,
+				BC38634E1B7509E8003A2D38 /* WMFNavigationTransitionController.m */,
 			);
 			name = Transitions;
 			sourceTree = "<group>";
@@ -3477,6 +3482,7 @@
 				0E466E521B41F83500E91992 /* WMFArticlePopupTransition.m in Sources */,
 				0487048F19F8262600B7D307 /* WikiTextSectionFetcher.m in Sources */,
 				0EA4402E1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m in Sources */,
+				BC38634F1B7509E8003A2D38 /* WMFNavigationTransitionController.m in Sources */,
 				C913C89C1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m in Sources */,
 				04EDEE2A1A215DBC00798076 /* UITableView+DynamicCellHeight.m in Sources */,
 				0E466E551B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m in Sources */,

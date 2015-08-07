@@ -4,28 +4,21 @@
 @class WMFArticleListCollectionViewController;
 @class WMFArticleContainerViewController;
 
-@interface WMFArticleListTranstion : UIPercentDrivenInteractiveTransition <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning>
+@interface WMFArticleListTranstion : UIPercentDrivenInteractiveTransition
+<UIViewControllerAnimatedTransitioning>
 
-- (instancetype)initWithArticleListViewController:(WMFArticleListCollectionViewController*)listViewController articleContainerViewController:(WMFArticleContainerViewController*)articleContainerViewController contentScrollView:(UIScrollView*)scrollView;
+@property (nonatomic, assign) BOOL isDismissing;
+@property (nonatomic, assign) BOOL isPresenting;
 
-@property (nonatomic, weak, readonly) WMFArticleListCollectionViewController* listViewController;
-@property (nonatomic, weak, readonly) WMFArticleContainerViewController* articleContainerViewController;
-@property (nonatomic, weak, readonly) UIScrollView* scrollView;
-
+@property (nonatomic, weak) WMFArticleListCollectionViewController* listViewController;
+@property (nonatomic, weak) WMFArticleContainerViewController* articleContainerViewController;
 
 /**
  *  Duration of the animation when not interactive
  */
 @property (assign, nonatomic) NSTimeInterval nonInteractiveDuration;
 
-/**
- *  Set to NO to disable interactive dismissal
- *  Default is YES
- */
-@property (assign, nonatomic) BOOL dismissInteractively;
-
 @end
-
 
 @protocol WMFArticleListTranstioning <NSObject>
 
