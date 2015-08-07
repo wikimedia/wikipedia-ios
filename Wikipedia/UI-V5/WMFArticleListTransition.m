@@ -1,12 +1,12 @@
 
 
-#import "WMFArticleListTranstion.h"
+#import "WMFArticleListTransition.h"
 #import "WMFScrollViewTopPanGestureRecognizer.h"
 #import "WMFArticleListCollectionViewController.h"
 #import "WMFArticleContainerViewController.h"
 #import "UIView+WMFShapshotting.h"
 
-@interface WMFArticleListTranstion ()<UIGestureRecognizerDelegate>
+@interface WMFArticleListTransition ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak, readwrite) WMFArticleListCollectionViewController* listViewController;
 @property (nonatomic, weak, readwrite) WMFArticleContainerViewController* articleContainerViewController;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation WMFArticleListTranstion
+@implementation WMFArticleListTransition
 
 - (instancetype)initWithArticleListViewController:(WMFArticleListCollectionViewController*)listViewController articleContainerViewController:(WMFArticleContainerViewController*)articleContainerViewController contentScrollView:(UIScrollView*)scrollView {
     self = [super init];
