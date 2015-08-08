@@ -13,7 +13,6 @@
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 #import "NSString+FormattedAttributedString.h"
-#import "UIButton+WMFMultiLineHeight.h"
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
