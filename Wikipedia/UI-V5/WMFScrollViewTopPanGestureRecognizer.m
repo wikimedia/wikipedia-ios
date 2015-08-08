@@ -1,46 +1,59 @@
 #import "WMFScrollViewTopPanGestureRecognizer.h"
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
+#import "UIScrollView+WMFContentOffsetUtils.h"
+
 @interface WMFScrollViewTopPanGestureRecognizer ()
-@property (nonatomic, assign) CGFloat startingOffset;
-@property (nonatomic, assign, readwrite) BOOL didStart;
+
+/**
+ *  Vertical touch coordinate recorded when `scrollView.contentOffset` goes beyond the top of its content.
+ *
+ *  Specifically, `scrollView.contentOffset.y < scrollView.contentInset.top`
+ */
+@property (nonatomic, assign) CGFloat initialVerticalOffset;
+
+@property (nonatomic, assign, readwrite, getter=isRecordingVerticalDisplacement) BOOL recordingVerticalDisplacement;
+
 @end
 
 @implementation WMFScrollViewTopPanGestureRecognizer
 
-- (CGFloat)postBoundsTranslation {
-    return self.didStart ? [self locationInView:self.view].y - self.startingOffset : 0.0;
+- (CGFloat)aboveBoundsVerticalDisplacement {
+    return self.isRecordingVerticalDisplacement ? ([self locationInView:self.view].y - self.initialVerticalOffset) : 0.0;
+}
+
+- (void)setRecordingVerticalDisplacement:(BOOL)recordingVerticalDisplacement {
+    _recordingVerticalDisplacement = recordingVerticalDisplacement;
+    self.initialVerticalOffset = recordingVerticalDisplacement ? [self locationInView:self.view].y : 0.0;
 }
 
 - (void)reset {
     [super reset];
-    DDLogVerbose(@"Recognizer resetting");
-    self.didStart = NO;
-    self.startingOffset = 0.0;
+    self.recordingVerticalDisplacement = NO;
 }
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event {
     [super touchesMoved:touches withEvent:event];
-
-    if (!self.scrollview || self.state != UIGestureRecognizerStateChanged) {
+    if (!self.scrollView || self.state != UIGestureRecognizerStateChanged) {
         return;
     }
 
-    BOOL isPastBounds = self.scrollview.contentOffset.y < self.scrollview.contentInset.top;
-    if (isPastBounds && !self.didStart) {
-        self.didStart = YES;
-        self.startingOffset = [self locationInView:self.view].y;
-        DDLogVerbose(@"Starting postBoundsTranslation tracking w/ offset %f", self.startingOffset);
-        self.scrollview.contentOffset = CGPointMake(self.scrollview.contentInset.left,
-                                                    self.scrollview.contentInset.top);
+    /*
+     !!!: Only set recordingVerticalDisplacement to `NO` in `reset`, otherwise touch continuity will break during
+          interactive transitions when the user scrolls below the top inset.
+    */
+    if (self.scrollView.contentOffset.y <= self.scrollView.contentInset.top && !self.isRecordingVerticalDisplacement) {
+        self.recordingVerticalDisplacement = YES;
     }
-    else if (self.didStart && self.scrollview.contentOffset.y > self.scrollview.contentInset.top) {
-        DDLogVerbose(@"Reseting recognizer state to allow transition to restart when scrollview goes past bounds again.");
-        /*
-         if this isn't reset, the user won't be able to scroll normally after aborting a transition
-        */
-        self.state = UIGestureRecognizerStateCancelled;
+
+    if (self.isRecordingVerticalDisplacement && self.aboveBoundsVerticalDisplacement >= 0.0) {
+        // only block scrolling while tracking touches that would displace content beyond top inset
+        [self.scrollView wmf_scrollToTop:NO];
     }
+    /* 
+     !!!: once we stop using snapshots, users will see content scroll normally below contentInset.top
+     even after staring an interactive transition
+    */
 }
 
 @end

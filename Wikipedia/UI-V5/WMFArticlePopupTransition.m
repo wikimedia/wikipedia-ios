@@ -325,7 +325,7 @@
         self.dismissGestureRecognizer          = (id)[[WMFScrollViewTopPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDismissGesture:)];
         self.dismissGestureRecognizer.delegate = self;
         [self.presentedViewController.view addGestureRecognizer:self.dismissGestureRecognizer];
-        [self.dismissGestureRecognizer setScrollview:self.scrollView];
+        self.dismissGestureRecognizer.scrollView = self.scrollView;
     }
 }
 
