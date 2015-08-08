@@ -273,6 +273,7 @@
 		BC34E46A1B31AD8B00258928 /* MWKLanguageLinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC34E4691B31AD8B00258928 /* MWKLanguageLinkController.m */; };
 		BC3863491B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3863481B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m */; };
 		BC38634F1B7509E8003A2D38 /* WMFNavigationTransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC38634E1B7509E8003A2D38 /* WMFNavigationTransitionController.m */; };
+		BC3863521B76A184003A2D38 /* UIScrollView+WMFContentOffsetUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3863511B76A184003A2D38 /* UIScrollView+WMFContentOffsetUtils.m */; };
 		BC49B3641AEECFD8009F55BE /* ArticleLoadingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC49B3631AEECFD8009F55BE /* ArticleLoadingTests.m */; };
 		BC505EEB1B59461400537006 /* WMFCollectionViewPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = BC505EEA1B59461400537006 /* WMFCollectionViewPageLayout.m */; };
 		BC505EEE1B594B5700537006 /* WMFImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC505EED1B594B5700537006 /* WMFImageCollectionViewCell.m */; };
@@ -919,6 +920,8 @@
 		BC38634B1B7400E7003A2D38 /* WMFArticleListItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleListItemController.h; sourceTree = "<group>"; };
 		BC38634D1B7509E8003A2D38 /* WMFNavigationTransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNavigationTransitionController.h; sourceTree = "<group>"; };
 		BC38634E1B7509E8003A2D38 /* WMFNavigationTransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNavigationTransitionController.m; sourceTree = "<group>"; };
+		BC3863501B76A184003A2D38 /* UIScrollView+WMFContentOffsetUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+WMFContentOffsetUtils.h"; sourceTree = "<group>"; };
+		BC3863511B76A184003A2D38 /* UIScrollView+WMFContentOffsetUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+WMFContentOffsetUtils.m"; sourceTree = "<group>"; };
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC49B3631AEECFD8009F55BE /* ArticleLoadingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleLoadingTests.m; sourceTree = "<group>"; };
 		BC505EE91B59461400537006 /* WMFCollectionViewPageLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFCollectionViewPageLayout.h; sourceTree = "<group>"; };
@@ -1847,6 +1850,8 @@
 				04DB0BE818BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.h */,
 				04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */,
 				048830D01AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.h */,
+				BC3863501B76A184003A2D38 /* UIScrollView+WMFContentOffsetUtils.h */,
+				BC3863511B76A184003A2D38 /* UIScrollView+WMFContentOffsetUtils.m */,
 				048830D11AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m */,
 				0484E3DC19D9D19B0085D18D /* UIView+ConstraintsScale.h */,
 				0484E3DD19D9D19B0085D18D /* UIView+ConstraintsScale.m */,
@@ -3646,6 +3651,7 @@
 				0439317619FB092600386E8F /* UIWebView+LoadAssetsHtml.m in Sources */,
 				04B91AA718E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m in Sources */,
 				04224500197F5E09005DD0BF /* AbuseFilterAlert.m in Sources */,
+				BC3863521B76A184003A2D38 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				BCB669731A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
 				BCE24FE01B0CF0C7003F054B /* SQLiteHelper.m in Sources */,
 				D4B0AE0819366A0A00F0AC90 /* CreateAccountFunnel.m in Sources */,
