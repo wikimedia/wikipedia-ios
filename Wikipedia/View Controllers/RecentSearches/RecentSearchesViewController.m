@@ -9,9 +9,9 @@
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars.h"
 #import "WikipediaAppUtils.h"
-#import "NSArray+Predicate.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "UIView+TemporaryAnimatedXF.h"
+#import "Wikipedia-Swift.h"
 
 #define CELL_HEIGHT (48.0 * MENUS_SCALE_MULTIPLIER)
 #define HEADING_FONT_SIZE (16.0 * MENUS_SCALE_MULTIPLIER)
@@ -132,8 +132,8 @@
 - (NSDictionary*)dataForTerm:(NSString*)term
                       domain:(NSString*)domain {
     // For now just match on the search term, not the domain or other fields.
-    return [self.tableDataArray firstMatchForPredicate:[NSPredicate predicateWithFormat:@"(term == %@)", term]];
-    //return [self.tableDataArray firstMatchForPredicate:[NSPredicate predicateWithFormat:@"(term == %@) AND (domain == %@)", term, domain]];
+    return [self.tableDataArray wmf_firstMatchForPredicate:[NSPredicate predicateWithFormat:@"(term == %@)", term]];
+    //return [self.tableDataArray wmf_firstMatchForPredicate:[NSPredicate predicateWithFormat:@"(term == %@) AND (domain == %@)", term, domain]];
 }
 
 - (NSString*)getFilePath {
