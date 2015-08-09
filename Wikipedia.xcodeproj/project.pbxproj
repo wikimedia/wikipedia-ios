@@ -130,7 +130,6 @@
 		04BA48A11A80062F00CB5CAE /* UIFont+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BA48A01A80062E00CB5CAE /* UIFont+WMFStyle.m */; };
 		04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */; };
 		04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AAB18344131006C643B /* CommunicationBridge.m */; };
-		04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AB9183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m */; };
 		04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43ABB183442FC006C643B /* NSString+Extras.m */; };
 		04C695CE18ED08D900D9F2DA /* UIView+WMFSearchSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C695CD18ED08D900D9F2DA /* UIView+WMFSearchSubviews.m */; };
 		04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C695D118ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m */; };
@@ -688,8 +687,6 @@
 		04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		04C43AAA18344131006C643B /* CommunicationBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationBridge.h; sourceTree = "<group>"; };
 		04C43AAB18344131006C643B /* CommunicationBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationBridge.m; sourceTree = "<group>"; };
-		04C43AB8183442FC006C643B /* NSRunLoop+TimeOutAndFlag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRunLoop+TimeOutAndFlag.h"; sourceTree = "<group>"; };
-		04C43AB9183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunLoop+TimeOutAndFlag.m"; sourceTree = "<group>"; };
 		04C43ABA183442FC006C643B /* NSString+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extras.h"; sourceTree = "<group>"; };
 		04C43ABB183442FC006C643B /* NSString+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extras.m"; sourceTree = "<group>"; };
 		04C695CC18ED08D900D9F2DA /* UIView+WMFSearchSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WMFSearchSubviews.h"; sourceTree = "<group>"; };
@@ -1815,8 +1812,6 @@
 				0449E63818AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m */,
 				04AE1C6E1891B302002D5487 /* NSObject+Extras.h */,
 				04AE1C6F1891B302002D5487 /* NSObject+Extras.m */,
-				04C43AB8183442FC006C643B /* NSRunLoop+TimeOutAndFlag.h */,
-				04C43AB9183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m */,
 				04C43ABA183442FC006C643B /* NSString+Extras.h */,
 				04C43ABB183442FC006C643B /* NSString+Extras.m */,
 				045AB8C11B1E15D9002839D7 /* NSURL+Extras.h */,
@@ -3572,7 +3567,6 @@
 				04CCA0C01983086D000E982A /* ReferencesVC.m in Sources */,
 				0ED44D781B28DA4D00F284BA /* UICollectionView+WMFExtensions.m in Sources */,
 				043B6E8E1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
-				04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				0487048719F8262600B7D307 /* LoginTokenFetcher.m in Sources */,
 				D4B0AE0E19366A5400F0AC90 /* LoginFunnel.m in Sources */,
 				BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */,
