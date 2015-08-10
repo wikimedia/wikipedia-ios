@@ -23,7 +23,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleContainerViewController ()
-<WMFWebViewControllerDelegate, WMFArticleNavigationDelegate>
+<WMFWebViewControllerDelegate, WMFArticleViewControllerDelegate>
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_articleViewController) {
         _articleViewController = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore
                                                                                    savedPages:self.savedPageList];
-        _articleViewController.articleNavigationDelegate = self;
+        _articleViewController.delegate = self;
     }
     return _articleViewController;
 }
@@ -153,6 +153,13 @@ NS_ASSUME_NONNULL_BEGIN
     [_currentArticleController didMoveToParentViewController:self];
 }
 
+#pragma mark - WebView Transition
+
+- (void)showWebViewAtFragment:(NSString*)fragment {
+    [self.webViewController scrollToFragment:fragment];
+    [self setCurrentArticleController:self.webViewController animated:YES];
+}
+
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
@@ -160,7 +167,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.currentArticleController = self.articleViewController;
 }
 
-#pragma mark - WMFArticleNavigationDelegate
+#pragma mark - WMFArticleViewControllerDelegate
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
       didTapCitationLink:(NSString* __nonnull)citationFragment {
@@ -178,19 +185,23 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (void)articleViewController:(WMFArticleViewController * __nonnull)articleViewController
+    didTapSectionWithFragment:(NSString * __nonnull)fragment {
+    [self showWebViewAtFragment:fragment];
+}
+
 - (void)showCitationWithFragment:(NSString*)fragment {
-    NSParameterAssert(self.article.isCached);
-    MWKCitation* tappedCitation = [self.article.citations bk_match:^BOOL (MWKCitation* citation) {
-        return [citation.citationIdentifier isEqualToString:fragment];
-    }];
-    DDLogInfo(@"Tapped citation %@", tappedCitation);
+//    NSParameterAssert(self.article.isCached);
+//    MWKCitation* tappedCitation = [self.article.citations bk_match:^BOOL (MWKCitation* citation) {
+//        return [citation.citationIdentifier isEqualToString:fragment];
+//    }];
+//    DDLogInfo(@"Tapped citation %@", tappedCitation);
 //    if (!tappedCitation) {
 //        DDLogWarn(@"Failed to parse citation for article %@", self.article);
-    // TEMP: show webview until we figure out what to do w/ ReferencesVC
-    [self.webViewController scrollToFragment:fragment];
-    [self setCurrentArticleController:self.webViewController animated:YES];
-
 //    }
+
+    // TEMP: show webview until we figure out what to do w/ ReferencesVC
+    [self showWebViewAtFragment:fragment];
 }
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
@@ -219,6 +230,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForTitle:(MWKTitle *)title {
     [self presentPopupForTitle:title];
+}
+
+- (void)dismissWebViewController:(WebViewController *)controller {
+    [self setCurrentArticleController:self.articleViewController];
 }
 
 #pragma mark - Popup
