@@ -253,9 +253,14 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
     }];
 }
 
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    // !!!: disable pop to root behavior
+    return tabBarController.selectedViewController != viewController;
+}
+
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-    // Need to implement "pop to root" transition handling
+    // !!: Need to implement "pop to root" transition handling
 //    if (tabBarController.selectedViewController == viewController) {
 //        // pop to root when user taps the currently selected tab
 //        [viewController.navigationController popToRootViewControllerAnimated:YES];

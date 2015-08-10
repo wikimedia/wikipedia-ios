@@ -415,7 +415,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFMinimalArticleContentCell* cell =
         [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
     cell.attributedString          = self.article.summaryHTML;
-    cell.articleNavigationDelegate = self.articleNavigationDelegate;
+    cell.articleNavigationDelegate = self.delegate;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -468,7 +468,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    #warning TODO: ask delegate to go to section
+    [self.delegate articleViewController:self
+               didTapSectionWithFragment:self.article.sections[indexPath.row + 1].anchor];
 }
 
 #pragma mark - Article Link Presentation

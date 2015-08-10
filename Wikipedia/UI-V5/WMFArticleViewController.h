@@ -6,8 +6,15 @@
 
 @class MWKDataStore;
 @class MWKSavedPageList;
+@class WMFArticleViewController;
 
 NS_ASSUME_NONNULL_BEGIN
+
+@protocol WMFArticleViewControllerDelegate <WMFArticleNavigationDelegate>
+
+- (void)articleViewController:(WMFArticleViewController*)articleViewController didTapSectionWithFragment:(NSString*)fragment;
+
+@end
 
 @interface WMFArticleViewController : UITableViewController
     <WMFArticleContentController, WMFArticleListItemController>
@@ -17,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 
-@property (nonatomic, weak) id<WMFArticleNavigationDelegate> articleNavigationDelegate;
+@property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
 
 - (void)updateUI;
 
