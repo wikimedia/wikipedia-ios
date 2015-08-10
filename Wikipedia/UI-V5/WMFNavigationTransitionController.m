@@ -33,7 +33,7 @@
 
 @implementation WMFNavigationTransitionController
 
-- (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
+- (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController*)navigationController
                          interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
     if ([animationController isKindOfClass:[WMFArticleListTransition class]]) {
         WMFArticleListTransition* listTransition = (WMFArticleListTransition*)animationController;
@@ -63,8 +63,8 @@
             NSAssert(operation == UINavigationControllerOperationPop, @"Expected pop, got %ld", operation);
             DDLogVerbose(@"Popping from container to list");
             WMFArticleListTransition* transition =
-            [self transitionForList:(WMFArticleListCollectionViewController*)toVC
-                          container:(WMFArticleContainerViewController*)fromVC];
+                [self transitionForList:(WMFArticleListCollectionViewController*)toVC
+                              container:(WMFArticleContainerViewController*)fromVC];
             return transition;
         } else if ([toVC wmf_isArticleContainer]) {
             DDLogVerbose(@"Transitioning between containers with operation: %ld", operation);
@@ -88,9 +88,9 @@
 - (WMFArticleListTransition*)transitionForList:(WMFArticleListCollectionViewController*)listVC
                                      container:(WMFArticleContainerViewController*)containerVC {
     static const char* const WMFArticleListTransitionAssociationKey = "WMFArticleListTransition";
-    WMFArticleListTransition* listTransition = [listVC bk_associatedValueForKey:WMFArticleListTransitionAssociationKey];
+    WMFArticleListTransition* listTransition                        = [listVC bk_associatedValueForKey:WMFArticleListTransitionAssociationKey];
     if (!listTransition) {
-        listTransition = [WMFArticleListTransition new];
+        listTransition                    = [WMFArticleListTransition new];
         listTransition.listViewController = listVC;
         [listVC bk_associateValue:listTransition withKey:WMFArticleListTransitionAssociationKey];
     }
@@ -105,7 +105,7 @@
     WMFArticlePopupTransition* popupTransition                       =
         [presentingVC bk_associatedValueForKey:WMFArticlePopupTransitionAssociationKey];
     if (!popupTransition) {
-        popupTransition = [[WMFArticlePopupTransition alloc] init];
+        popupTransition                          = [[WMFArticlePopupTransition alloc] init];
         popupTransition.presentingViewController = presentingVC;
         [presentingVC bk_associateValue:popupTransition withKey:WMFArticlePopupTransitionAssociationKey];
     }

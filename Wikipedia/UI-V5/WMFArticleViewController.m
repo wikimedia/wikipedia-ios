@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleViewController
 @synthesize article = _article;
-@synthesize mode = _mode;
+@synthesize mode    = _mode;
 
 + (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages {
     WMFArticleViewController* vc = [self wmf_initialViewControllerFromClassStoryboard];
@@ -416,7 +416,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
     cell.attributedString          = self.article.summaryHTML;
     cell.articleNavigationDelegate = self.delegate;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle            = UITableViewCellSelectionStyleNone;
     return cell;
 }
 

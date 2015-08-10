@@ -126,9 +126,9 @@
 }
 
 - (void)animatePopupWithTimer:(CADisplayLink*)link {
-    NSTimeInterval elapedTime   = link.timestamp - self.popupAnimationStartTime;
-    CGFloat distance            = elapedTime * self.popupAnimationSpeed;
-    CGFloat progressDelta = [self animationProgressFromHeight:distance];
+    NSTimeInterval elapedTime = link.timestamp - self.popupAnimationStartTime;
+    CGFloat distance          = elapedTime * self.popupAnimationSpeed;
+    CGFloat progressDelta     = [self animationProgressFromHeight:distance];
 
     CGFloat percentComplete = [self percentComplete];
 
@@ -152,16 +152,16 @@
 }
 
 - (void)animatePresentation:(id<UIViewControllerContextTransitioning>)transitionContext {
-    UIView* containerView = [transitionContext containerView];
+    UIView* containerView  = [transitionContext containerView];
     UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView* toView = [transitionContext viewForKey:UITransitionContextToViewKey];
+    UIView* toView         = [transitionContext viewForKey:UITransitionContextToViewKey];
 
     if (!self.backgroundView) {
         UIView* backgroundView = [[UIView alloc] initWithFrame:containerView.bounds];
-        backgroundView.backgroundColor  = [UIColor blackColor];
-        backgroundView.alpha            = 0.35;
+        backgroundView.backgroundColor        = [UIColor blackColor];
+        backgroundView.alpha                  = 0.35;
         backgroundView.userInteractionEnabled = NO;
-        self.backgroundView = backgroundView;
+        self.backgroundView                   = backgroundView;
     }
 
     // Setup toView
@@ -198,8 +198,8 @@
 
 - (void)animateDismiss:(id<UIViewControllerContextTransitioning>)transitionContext {
     UIView* containerView = [transitionContext containerView];
-    UIView* fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
-    UIView* toView = [transitionContext viewForKey:UITransitionContextToViewKey];
+    UIView* fromView      = [transitionContext viewForKey:UITransitionContextFromViewKey];
+    UIView* toView        = [transitionContext viewForKey:UITransitionContextToViewKey];
 
     [containerView addSubview:toView];
     [containerView addSubview:self.backgroundView];
@@ -257,11 +257,11 @@
 
 #pragma mark - UIGestureRecognizerDelegate
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch {
     return YES;
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
     if (gestureRecognizer == self.presentGestureRecognizer) {
         // only start dragging popup when touch begins inside it
         CGPoint currentLocation = [gestureRecognizer locationInView:self.containerView];
@@ -277,11 +277,11 @@
     return YES;
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer {
     return NO;
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer {
     return NO;
 }
 
@@ -299,7 +299,7 @@
     if (self.presentGestureRecognizer) {
         [self.presentGestureRecognizer.view removeGestureRecognizer:self.presentGestureRecognizer];
         self.presentGestureRecognizer.delegate = nil;
-        self.presentGestureRecognizer = nil;
+        self.presentGestureRecognizer          = nil;
     }
 }
 
@@ -312,15 +312,15 @@
         return;
     }
     if (self.presentInteractively && !self.presentGestureRecognizer) {
-        self.presentGestureRecognizer          =
+        self.presentGestureRecognizer =
             [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePresentGesture:)];
         self.presentGestureRecognizer.delegate = self;
         /*
-         !!!: gesture must be added to window because:
-         1. navigation controller disables user interaction for the containerView during transitions
-         2. as a result of 1, the gesture never is never able to start receiving touch events, since the usual flow is
+           !!!: gesture must be added to window because:
+           1. navigation controller disables user interaction for the containerView during transitions
+           2. as a result of 1, the gesture never is never able to start receiving touch events, since the usual flow is
             for the gesture itself to start receiving events, _then_ start the transition
-        */
+         */
         [self.presentingViewController.view.window addGestureRecognizer:self.presentGestureRecognizer];
     } else if (!self.presentInteractively) {
         [self removePresentGestureRecognizer];
@@ -339,15 +339,14 @@
         self.dismissGestureRecognizer =
             [[WMFScrollViewTopPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDismissGesture:)];
         self.dismissGestureRecognizer.cancelsTouchesInView = NO;
-        self.dismissGestureRecognizer.delaysTouchesBegan = NO;
-        self.dismissGestureRecognizer.delegate = self;
+        self.dismissGestureRecognizer.delaysTouchesBegan   = NO;
+        self.dismissGestureRecognizer.delegate             = self;
         [self.presentedViewController.view addGestureRecognizer:self.dismissGestureRecognizer];
         self.dismissGestureRecognizer.scrollView = self.presentedViewController.articleViewController.tableView;
     } else if (!self.dismissInteractively) {
         [self removeDismissGestureRecognizer];
     }
 }
-
 
 - (void)handlePresentGesture:(UIPanGestureRecognizer*)recognizer {
     switch (recognizer.state) {

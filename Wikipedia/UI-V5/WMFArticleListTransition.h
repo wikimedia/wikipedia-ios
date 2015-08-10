@@ -5,7 +5,7 @@
 @class WMFArticleContainerViewController;
 
 @interface WMFArticleListTransition : UIPercentDrivenInteractiveTransition
-<UIViewControllerAnimatedTransitioning>
+    <UIViewControllerAnimatedTransitioning>
 
 @property (nonatomic, assign) BOOL isDismissing;
 @property (nonatomic, assign) BOOL isPresenting;

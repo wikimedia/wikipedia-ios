@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface WMFNavigationTransitionController : NSObject
-<UINavigationControllerDelegate>
+    <UINavigationControllerDelegate>
 
 @end

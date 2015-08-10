@@ -135,7 +135,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }];
 
 //    self.navigationController.toolbarHidden = NO;
-    self.toolbarItems                       = @[
+    self.toolbarItems = @[
         self.buttonEditHistory,
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
         self.buttonSave,
@@ -864,7 +864,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             NSString* selectedImageURL = payload[@"url"];
             NSCParameterAssert(selectedImageURL.length);
             MWKImage* selectedImage = [weakSelf.article.images largestImageVariantForURL:selectedImageURL
-                                                                                            cachedOnly:NO];
+                                                                              cachedOnly:NO];
             NSCParameterAssert(selectedImage);
             [strSelf presentGalleryForArticle:weakSelf.article showingImage:selectedImage];
         }];
@@ -1368,7 +1368,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.article = [self.session.dataStore articleWithTitle:title];
 }
 
-- (void)setArticle:(MWKArticle * __nullable)article {
+- (void)setArticle:(MWKArticle* __nullable)article {
     if ([_article isEqualToArticle:article]) {
         return;
     }

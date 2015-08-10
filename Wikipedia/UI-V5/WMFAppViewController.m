@@ -23,7 +23,7 @@
  *
  *  @see WMFAppTabCount
  */
-typedef NS_ENUM(NSUInteger, WMFAppTabType){
+typedef NS_ENUM (NSUInteger, WMFAppTabType){
     WMFAppTabTypeHome = 0,
     WMFAppTabTypeSearch,
     WMFAppTabTypeSaved,
@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, WMFAppTabType){
 
 /**
  *  Number of tabs in the main tab bar.
- * 
+ *
  *  @warning Kept as a separate constant to prevent switch statements from being considered inexhaustive. This means we
  *           need to make sure it's manually kept in sync by ensuring:
  *              - The tab enum we increment is the last one
@@ -76,10 +76,10 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
     for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
         UINavigationController* navigationController = [self navigationControllerForTab:i];
 //        navigationController.delegate = self.navigationTransitionController;
-        navigationController.hidesBarsOnSwipe = YES;
-        navigationController.hidesBarsOnTap = YES;
+        navigationController.hidesBarsOnSwipe             = YES;
+        navigationController.hidesBarsOnTap               = YES;
         navigationController.hidesBarsWhenKeyboardAppears = YES;
-        navigationController.navigationBarHidden = NO;
+        navigationController.navigationBarHidden          = NO;
     }
 }
 
