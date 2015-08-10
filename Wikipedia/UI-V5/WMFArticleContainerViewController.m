@@ -53,6 +53,10 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@ %@", [super description], self.article.title];
+}
+
 #pragma mark - Accessors
 
 - (MWKArticle* __nullable)article {
@@ -225,18 +229,7 @@ NS_ASSUME_NONNULL_BEGIN
         [[WMFArticleContainerViewController alloc] initWithDataStore:self.dataStore
                                                           savedPages:self.savedPageList];
     vc.article = article;
-
     [self.navigationController pushViewController:vc animated:YES];
-
-//    self.popupTransition =
-//        [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self
-//                                                    presentedViewController:vc
-//                                                          contentScrollView:nil];
-//    self.popupTransition.nonInteractiveDuration = 0.5;
-//    vc.transitioningDelegate                    = self.popupTransition;
-//    vc.modalPresentationStyle                   = UIModalPresentationCustom;
-//
-//    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 @end

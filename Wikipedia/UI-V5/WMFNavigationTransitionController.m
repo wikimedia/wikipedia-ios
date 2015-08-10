@@ -35,11 +35,17 @@
 
 - (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
                          interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
+
     if ([animationController isKindOfClass:[WMFArticleListTranstion class]]) {
         WMFArticleListTranstion* listTransition = (WMFArticleListTranstion*)animationController;
+        // HAX: should probably just use separate animators instead of relying on a flag being set
         return listTransition.isDismissing ? listTransition : nil;
+    } else if ([animationController isKindOfClass:[WMFArticlePopupTransition class]]) {
+        WMFArticlePopupTransition* popupTransition = (WMFArticlePopupTransition*)animationController;
+        return popupTransition;
+    } else {
+        return nil;
     }
-    return nil;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController*)navigationController
@@ -48,18 +54,31 @@
                                                  toViewController:(UIViewController*)toVC {
     if ([fromVC wmf_isArticleList] && [toVC wmf_isArticleContainer]) {
         NSAssert(operation == UINavigationControllerOperationPush, @"Expected push, got %ld", operation);
-        DDLogInfo(@"Pushing container from list");
+        DDLogVerbose(@"Pushing container from list");
         WMFArticleListTranstion* transition =
             [self transitionForList:(WMFArticleListCollectionViewController*)fromVC
                           container:(WMFArticleContainerViewController*)toVC];
         return transition;
-    } else if ([fromVC wmf_isArticleContainer] && [toVC wmf_isArticleList]) {
-        NSAssert(operation == UINavigationControllerOperationPop, @"Expected pop, got %ld", operation);
-        DDLogInfo(@"Popping from container to list");
-        WMFArticleListTranstion* transition =
+    } else if ([fromVC wmf_isArticleContainer]) {
+        if ([toVC wmf_isArticleList]) {
+            NSAssert(operation == UINavigationControllerOperationPop, @"Expected pop, got %ld", operation);
+            DDLogVerbose(@"Popping from container to list");
+            WMFArticleListTranstion* transition =
             [self transitionForList:(WMFArticleListCollectionViewController*)toVC
                           container:(WMFArticleContainerViewController*)fromVC];
-        return transition;
+            return transition;
+        } else if ([toVC wmf_isArticleContainer]) {
+            DDLogVerbose(@"Transitioning between containers with operation: %ld", operation);
+            NSAssert(operation != UINavigationControllerOperationNone,
+                     @"UINavigationControllerOperationNone is not supported!");
+            if (operation == UINavigationControllerOperationPop) {
+                return [self popupTransitionWithPresentingController:(WMFArticleContainerViewController*)toVC
+                                                 presentedController:(WMFArticleContainerViewController*)fromVC];
+            } else if (operation == UINavigationControllerOperationPush) {
+                return [self popupTransitionWithPresentingController:(WMFArticleContainerViewController*)fromVC
+                                                 presentedController:(WMFArticleContainerViewController*)toVC];
+            }
+        }
     }
     // fall back to default
     return nil;
@@ -69,8 +88,6 @@
 
 - (WMFArticleListTranstion*)transitionForList:(WMFArticleListCollectionViewController*)listVC
                                      container:(WMFArticleContainerViewController*)containerVC {
-    NSAssert([containerVC wmf_isArticleContainer],
-             @"Expected %@ to be an article container when originating controller is a list.", containerVC);
     static const char* const WMFArticleListTranstionAssociationKey = "WMFArticleListTranstion";
     WMFArticleListTranstion* listTransition = [listVC bk_associatedValueForKey:WMFArticleListTranstionAssociationKey];
     if (!listTransition) {
@@ -81,6 +98,21 @@
     NSParameterAssert(listTransition.listViewController == listVC);
     listTransition.articleContainerViewController = containerVC;
     return listTransition;
+}
+
+- (WMFArticlePopupTransition*)popupTransitionWithPresentingController:(WMFArticleContainerViewController*)presentingVC
+                                                  presentedController:(WMFArticleContainerViewController*)presentedVC {
+    static const char* const WMFArticlePopupTransitionAssociationKey = "WMFArticlePopupTransition";
+    WMFArticlePopupTransition* popupTransition                       =
+        [presentingVC bk_associatedValueForKey:WMFArticlePopupTransitionAssociationKey];
+    if (!popupTransition) {
+        popupTransition = [[WMFArticlePopupTransition alloc] init];
+        popupTransition.presentingViewController = presentingVC;
+        [presentingVC bk_associateValue:popupTransition withKey:WMFArticlePopupTransitionAssociationKey];
+    }
+    NSParameterAssert(popupTransition.presentingViewController == presentingVC);
+    popupTransition.presentedViewController = presentedVC;
+    return popupTransition;
 }
 
 @end

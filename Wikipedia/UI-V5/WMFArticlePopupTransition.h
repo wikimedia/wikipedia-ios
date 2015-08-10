@@ -2,18 +2,13 @@
 @import UIKit;
 #import "WMFArticleListItemController.h"
 
+@class WMFArticleContainerViewController;
+
 @interface WMFArticlePopupTransition : UIPercentDrivenInteractiveTransition
-    <UIViewControllerTransitioningDelegate,
-     UIViewControllerAnimatedTransitioning,
-     UIViewControllerInteractiveTransitioning>
+    <UIViewControllerAnimatedTransitioning>
 
-- (instancetype)initWithPresentingViewController:(UIViewController*)presentingViewController
-                         presentedViewController:(UIViewController<WMFArticleListItemController>*)presentedViewController
-                               contentScrollView:(UIScrollView*)scrollView;
-
-@property (nonatomic, weak, readonly) UIViewController* presentingViewController;
-@property (nonatomic, weak, readonly) UIViewController<WMFArticleListItemController>* presentedViewController;
-@property (nonatomic, weak, readonly) UIScrollView* scrollView;
+@property (nonatomic, weak) UIViewController* presentingViewController;
+@property (nonatomic, weak) WMFArticleContainerViewController* presentedViewController;
 
 /**
  *  Duration of the animation when not interactive
@@ -38,7 +33,5 @@
  *  Default is YES
  */
 @property (assign, nonatomic) BOOL dismissInteractively;
-
-
 
 @end
