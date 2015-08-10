@@ -33,7 +33,6 @@
 		042258521B33EAD400FDD0C6 /* ShareMenuSavePageActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 042258511B33EAD400FDD0C6 /* ShareMenuSavePageActivity.m */; };
 		042258561B34A29800FDD0C6 /* PreviewAndSaveViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 042258551B34A29800FDD0C6 /* PreviewAndSaveViewController.storyboard */; };
 		042258581B34A2C100FDD0C6 /* EditSummaryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 042258571B34A2C100FDD0C6 /* EditSummaryViewController.storyboard */; };
-		042487521A54BECD00A5C905 /* MWKArticle+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 042487511A54BECD00A5C905 /* MWKArticle+Convenience.m */; };
 		04272E7B1940EEBC00CC682F /* WMFAssetsFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 04272E791940EEBC00CC682F /* WMFAssetsFile.m */; };
 		0429300A18604898002A13FC /* SavedPagesResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0429300418604898002A13FC /* SavedPagesResultCell.m */; };
 		0429301018604898002A13FC /* SavedPagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0429300918604898002A13FC /* SavedPagesViewController.m */; };
@@ -109,7 +108,8 @@
 		0493C2CC1952373100EBB973 /* DataHousekeeping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0493C2CB1952373100EBB973 /* DataHousekeeping.m */; };
 		0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */; };
 		049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049566C118F5F4CB0058EA12 /* ZeroConfigState.m */; };
-		049B2BDB1AB9016A00CE27FF /* MWKArticle+ConvenienceSpecs in Resources */ = {isa = PBXBuildFile; fileRef = 049B2BDA1AB9016A00CE27FF /* MWKArticle+ConvenienceSpecs */; };
+		04A807331B76BF36007F4EDD /* NSArray+WMFPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A807321B76BF36007F4EDD /* NSArray+WMFPredicate.swift */; };
+		04A807341B7738C6007F4EDD /* NSArray+PredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA6764A1AC05FAD00A16160 /* NSArray+PredicateTests.m */; };
 		04A97E8718B81D5D0046B166 /* AccountCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A97E8618B81D5D0046B166 /* AccountCreationViewController.m */; };
 		04A9C2931B4B51E0008B996F /* WMFArticleSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A9C2921B4B51E0008B996F /* WMFArticleSectionHeaderView.m */; };
 		04A9C2A21B4F326D008B996F /* WMFArticleReadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A9C2A11B4F326D008B996F /* WMFArticleReadMoreCell.m */; };
@@ -128,7 +128,6 @@
 		04BA48A11A80062F00CB5CAE /* UIFont+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BA48A01A80062E00CB5CAE /* UIFont+WMFStyle.m */; };
 		04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */; };
 		04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AAB18344131006C643B /* CommunicationBridge.m */; };
-		04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43AB9183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m */; };
 		04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C43ABB183442FC006C643B /* NSString+Extras.m */; };
 		04C695CE18ED08D900D9F2DA /* UIView+WMFSearchSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C695CD18ED08D900D9F2DA /* UIView+WMFSearchSubviews.m */; };
 		04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C695D118ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m */; };
@@ -137,7 +136,6 @@
 		04C91CEB195517250035ED1B /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C91CEA195517250035ED1B /* OnboardingViewController.m */; };
 		04C9509D19EF02980013F3C0 /* EventLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C9509C19EF02980013F3C0 /* EventLogger.m */; };
 		04CB603D1B5053120052B6EF /* UITableViewCell+WMFEdgeToEdgeSeparator.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CB603C1B5053120052B6EF /* UITableViewCell+WMFEdgeToEdgeSeparator.m */; };
-		04CBAC7319A9B786009F3D7E /* NSArray+Predicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CBAC7219A9B786009F3D7E /* NSArray+Predicate.m */; };
 		04CCA0C01983086D000E982A /* ReferencesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA0BF1983086D000E982A /* ReferencesVC.m */; };
 		04CCA0C319830A44000E982A /* ReferenceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA0C219830A44000E982A /* ReferenceVC.m */; };
 		04CCCFEE1935093A00E3F60C /* SecondaryMenuRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCCFEA1935093A00E3F60C /* SecondaryMenuRowView.m */; };
@@ -508,8 +506,6 @@
 		042258511B33EAD400FDD0C6 /* ShareMenuSavePageActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareMenuSavePageActivity.m; path = ShareCard/ShareMenuSavePageActivity.m; sourceTree = "<group>"; };
 		042258551B34A29800FDD0C6 /* PreviewAndSaveViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PreviewAndSaveViewController.storyboard; sourceTree = "<group>"; };
 		042258571B34A2C100FDD0C6 /* EditSummaryViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditSummaryViewController.storyboard; sourceTree = "<group>"; };
-		042487501A54BECD00A5C905 /* MWKArticle+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKArticle+Convenience.h"; sourceTree = "<group>"; };
-		042487511A54BECD00A5C905 /* MWKArticle+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKArticle+Convenience.m"; sourceTree = "<group>"; };
 		04272E781940EEBC00CC682F /* WMFAssetsFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = WMFAssetsFile.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		04272E791940EEBC00CC682F /* WMFAssetsFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WMFAssetsFile.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		04292FFC185FC026002A13FC /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
@@ -652,7 +648,7 @@
 		0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs.ttf"; sourceTree = "<group>"; };
 		049566C018F5F4CB0058EA12 /* ZeroConfigState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZeroConfigState.h; sourceTree = "<group>"; };
 		049566C118F5F4CB0058EA12 /* ZeroConfigState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZeroConfigState.m; sourceTree = "<group>"; };
-		049B2BDA1AB9016A00CE27FF /* MWKArticle+ConvenienceSpecs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "MWKArticle+ConvenienceSpecs"; sourceTree = "<group>"; };
+		04A807321B76BF36007F4EDD /* NSArray+WMFPredicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+WMFPredicate.swift"; sourceTree = "<group>"; };
 		04A97E8518B81D5D0046B166 /* AccountCreationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCreationViewController.h; sourceTree = "<group>"; };
 		04A97E8618B81D5D0046B166 /* AccountCreationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AccountCreationViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		04A9C2911B4B51E0008B996F /* WMFArticleSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleSectionHeaderView.h; sourceTree = "<group>"; };
@@ -686,8 +682,6 @@
 		04C43AA1183440C1006C643B /* MWNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
 		04C43AAA18344131006C643B /* CommunicationBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationBridge.h; sourceTree = "<group>"; };
 		04C43AAB18344131006C643B /* CommunicationBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationBridge.m; sourceTree = "<group>"; };
-		04C43AB8183442FC006C643B /* NSRunLoop+TimeOutAndFlag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRunLoop+TimeOutAndFlag.h"; sourceTree = "<group>"; };
-		04C43AB9183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRunLoop+TimeOutAndFlag.m"; sourceTree = "<group>"; };
 		04C43ABA183442FC006C643B /* NSString+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extras.h"; sourceTree = "<group>"; };
 		04C43ABB183442FC006C643B /* NSString+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extras.m"; sourceTree = "<group>"; };
 		04C695CC18ED08D900D9F2DA /* UIView+WMFSearchSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WMFSearchSubviews.h"; sourceTree = "<group>"; };
@@ -705,8 +699,6 @@
 		04C9509C19EF02980013F3C0 /* EventLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventLogger.m; path = EventLogging/EventLogger.m; sourceTree = "<group>"; };
 		04CB603B1B5053120052B6EF /* UITableViewCell+WMFEdgeToEdgeSeparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+WMFEdgeToEdgeSeparator.h"; sourceTree = "<group>"; };
 		04CB603C1B5053120052B6EF /* UITableViewCell+WMFEdgeToEdgeSeparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+WMFEdgeToEdgeSeparator.m"; sourceTree = "<group>"; };
-		04CBAC7119A9B786009F3D7E /* NSArray+Predicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Predicate.h"; sourceTree = "<group>"; };
-		04CBAC7219A9B786009F3D7E /* NSArray+Predicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Predicate.m"; sourceTree = "<group>"; };
 		04CCA0BE1983086D000E982A /* ReferencesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferencesVC.h; sourceTree = "<group>"; };
 		04CCA0BF1983086D000E982A /* ReferencesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferencesVC.m; sourceTree = "<group>"; };
 		04CCA0C119830A44000E982A /* ReferenceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferenceVC.h; sourceTree = "<group>"; };
@@ -1808,16 +1800,13 @@
 				BCB669711A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.h */,
 				BCB669721A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m */,
 				043F18DA18D9691D00D8489A /* TopActionSheet */,
-				04CBAC7119A9B786009F3D7E /* NSArray+Predicate.h */,
-				04CBAC7219A9B786009F3D7E /* NSArray+Predicate.m */,
+				04A807321B76BF36007F4EDD /* NSArray+WMFPredicate.swift */,
 				04142A8D184F974E006EF779 /* NSDate-Utilities.h */,
 				04142A8E184F974E006EF779 /* NSDate-Utilities.m */,
 				0449E63718AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.h */,
 				0449E63818AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m */,
 				04AE1C6E1891B302002D5487 /* NSObject+Extras.h */,
 				04AE1C6F1891B302002D5487 /* NSObject+Extras.m */,
-				04C43AB8183442FC006C643B /* NSRunLoop+TimeOutAndFlag.h */,
-				04C43AB9183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m */,
 				04C43ABA183442FC006C643B /* NSString+Extras.h */,
 				04C43ABB183442FC006C643B /* NSString+Extras.m */,
 				045AB8C11B1E15D9002839D7 /* NSURL+Extras.h */,
@@ -1826,9 +1815,6 @@
 				045AB8C21B1E15D9002839D7 /* NSURL+Extras.m */,
 				04B91AA918E3D9E200FFAA1C /* NSString+FormattedAttributedString.h */,
 				04B91AAA18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m */,
-				042487501A54BECD00A5C905 /* MWKArticle+Convenience.h */,
-				042487511A54BECD00A5C905 /* MWKArticle+Convenience.m */,
-				049B2BDA1AB9016A00CE27FF /* MWKArticle+ConvenienceSpecs */,
 				0472BC16193AD88C00C40BDA /* MWKSection+DisplayHtml.h */,
 				0472BC17193AD88C00C40BDA /* MWKSection+DisplayHtml.m */,
 				041C6204199ED2A20061516F /* MWKSection+TOC.h */,
@@ -3156,7 +3142,6 @@
 				04DA87811B30E0C600C948F8 /* HistoryViewController.storyboard in Resources */,
 				04AEF0F41B2E8CA100EFE858 /* SectionEditorViewController.storyboard in Resources */,
 				D401C2C11A659E5000D4D127 /* DataMigrationProgressViewController.xib in Resources */,
-				049B2BDB1AB9016A00CE27FF /* MWKArticle+ConvenienceSpecs in Resources */,
 				04478631185145090050563B /* HistoryResultPrototypeView.xib in Resources */,
 				04016E1E1B328E8B00D732FE /* OnboardingViewController.storyboard in Resources */,
 				C98990361A699DFB00AF44FC /* ShareCard.xib in Resources */,
@@ -3387,6 +3372,7 @@
 				BCD41E001B11D1B200231BB1 /* XCTestCase+MWKFixtures.m in Sources */,
 				BCCE8EBA1B4D5DD90009FBBC /* XCTestCase+PromiseKit.swift in Sources */,
 				BC0FED631AAA0263002488D7 /* MWKTestCase.m in Sources */,
+				04A807341B7738C6007F4EDD /* NSArray+PredicateTests.m in Sources */,
 				BC92A7731AFA88D3003C4212 /* MWKSection+WMFSharingTests.m in Sources */,
 				BC5FE5751B1DFF5400273BC0 /* ArticleFetcherTests.m in Sources */,
 				BCAFC5ED1B02490A004615BA /* WMFRandomFileUtilities.m in Sources */,
@@ -3488,7 +3474,6 @@
 				04EDEE2A1A215DBC00798076 /* UITableView+DynamicCellHeight.m in Sources */,
 				0E466E551B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m in Sources */,
 				BC69C3141AB0C1FF0090B039 /* WMFImageInfoController.m in Sources */,
-				04CBAC7319A9B786009F3D7E /* NSArray+Predicate.m in Sources */,
 				0EFB0F1D1B31EE2D00D05C08 /* NSManagedObjectContext+SimpleFetch.m in Sources */,
 				04CCCFF61935094000E3F60C /* PrimaryMenuViewController.m in Sources */,
 				BCE6EE101B2619E900AF603B /* MWKLanguageLink.m in Sources */,
@@ -3515,7 +3500,6 @@
 				04D686FA1AB2949C0009B44A /* TabularScrollView.m in Sources */,
 				041A3B5E18E11ED90079FF1C /* LanguageCell.m in Sources */,
 				0E94AFED1B20976A000BC5EA /* WMFAppViewController.m in Sources */,
-				042487521A54BECD00A5C905 /* MWKArticle+Convenience.m in Sources */,
 				D42E75EB18D11237002EA7E5 /* MWLanguageInfo.m in Sources */,
 				0EFB0F1A1B31EE2D00D05C08 /* ArticleData.xcdatamodeld in Sources */,
 				043F8BF21A11699A00D1AE44 /* UIView+WMFRoundCorners.m in Sources */,
@@ -3573,7 +3557,6 @@
 				04CCA0C01983086D000E982A /* ReferencesVC.m in Sources */,
 				0ED44D781B28DA4D00F284BA /* UICollectionView+WMFExtensions.m in Sources */,
 				043B6E8E1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
-				04C43ABE183442FC006C643B /* NSRunLoop+TimeOutAndFlag.m in Sources */,
 				0487048719F8262600B7D307 /* LoginTokenFetcher.m in Sources */,
 				D4B0AE0E19366A5400F0AC90 /* LoginFunnel.m in Sources */,
 				BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */,
@@ -3620,6 +3603,7 @@
 				040D835E1AB0EE45000896D5 /* WMFGeometry.c in Sources */,
 				BC86B9361A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */,
 				D4991449181D51DE00E6073C /* AppDelegate.m in Sources */,
+				04A807331B76BF36007F4EDD /* NSArray+WMFPredicate.swift in Sources */,
 				BCB669A81A83F6C400C7B1FE /* MWKUser.m in Sources */,
 				BCB669AB1A83F6C400C7B1FE /* MWKProtectionStatus.m in Sources */,
 				046E2B6F1B3213BE008A99A6 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,

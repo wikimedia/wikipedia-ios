@@ -36,7 +36,6 @@
 #import "UINavigationController+TopActionSheet.h"
 #import "ReferencesVC.h"
 #import "WMF_Colors.h"
-#import "NSArray+Predicate.h"
 #import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
 #import "NSString+FormattedAttributedString.h"

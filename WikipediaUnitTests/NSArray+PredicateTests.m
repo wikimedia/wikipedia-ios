@@ -12,7 +12,7 @@
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
 
-#import "NSArray+Predicate.h"
+#import "Wikipedia-Swift.h"
 
 @interface NSArray_PredicateTests : XCTestCase
 
@@ -21,8 +21,8 @@
 @implementation NSArray_PredicateTests
 
 - (void)testEmptyArray {
-    assertThat([@[] firstMatchForPredicate:[NSPredicate predicateWithValue:YES]], is(nilValue()));
-    assertThat([@[] firstMatchForPredicate:[NSPredicate predicateWithValue:NO]], is(nilValue()));
+    assertThat([@[] wmf_firstMatchForPredicate:[NSPredicate predicateWithValue:YES]], is(nilValue()));
+    assertThat([@[] wmf_firstMatchForPredicate:[NSPredicate predicateWithValue:NO]], is(nilValue()));
 }
 
 - (void)testFindsCorrectObject {
@@ -31,12 +31,12 @@
         NSPredicate* isElement = [NSPredicate predicateWithBlock:^BOOL (id obj, NSDictionary* bindings) {
             return [obj isEqual:element];
         }];
-        assertThat([testArray firstMatchForPredicate:isElement], is(element));
+        assertThat([testArray wmf_firstMatchForPredicate:isElement], is(element));
     }
 }
 
 - (void)testFalsePredicate {
-    assertThat(([@[@1, @2, @3] firstMatchForPredicate:[NSPredicate predicateWithValue:NO]]), is(nilValue()));
+    assertThat(([@[@1, @2, @3] wmf_firstMatchForPredicate:[NSPredicate predicateWithValue:NO]]), is(nilValue()));
 }
 
 - (void)testPerformance {
@@ -47,7 +47,7 @@
         [testArray addObject:@(i)];
     }
     [self measureBlock:^{
-        [testArray firstMatchForPredicate:[NSPredicate predicateWithBlock:^BOOL (NSNumber* x, NSDictionary* bindings) {
+        [testArray wmf_firstMatchForPredicate:[NSPredicate predicateWithBlock:^BOOL (NSNumber* x, NSDictionary* bindings) {
             return [x isEqualToNumber:worstCase];
         }]];
     }];
