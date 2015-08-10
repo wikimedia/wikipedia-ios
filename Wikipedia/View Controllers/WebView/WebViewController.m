@@ -102,14 +102,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)setupTopMenuButtons {
     @weakify(self)
 
-    UIBarButtonItem * done = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                             handler:^(id sender) {
-        @strongify(self);
-        [self.delegate dismissWebViewController:self];
-    }];
-
-    self.navigationItem.backBarButtonItem = done;
-
     self.buttonTOC = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents
                                              handler:^(id sender){
         @strongify(self)

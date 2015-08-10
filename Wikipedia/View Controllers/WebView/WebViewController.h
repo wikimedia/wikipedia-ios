@@ -58,7 +58,5 @@
 
 - (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title;
 
-- (void)dismissWebViewController:(WebViewController *)controller;
-
 @end
 

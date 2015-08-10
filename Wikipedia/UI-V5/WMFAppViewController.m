@@ -75,12 +75,11 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
     for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
         UINavigationController* navigationController = [self navigationControllerForTab:i];
-        navigationController.delegate = self.navigationTransitionController;
-        // prevent navigation bar from showing initially or hiding/showing as a side-effect
-        navigationController.hidesBarsOnSwipe = NO;
-        navigationController.hidesBarsOnTap = NO;
-        navigationController.hidesBarsWhenKeyboardAppears = NO;
-        navigationController.navigationBarHidden = YES;
+//        navigationController.delegate = self.navigationTransitionController;
+        navigationController.hidesBarsOnSwipe = YES;
+        navigationController.hidesBarsOnTap = YES;
+        navigationController.hidesBarsWhenKeyboardAppears = YES;
+        navigationController.navigationBarHidden = NO;
     }
 }
 
@@ -253,18 +252,8 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
     }];
 }
 
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    // !!!: disable pop to root behavior
-    return tabBarController.selectedViewController != viewController;
-}
-
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-    // !!: Need to implement "pop to root" transition handling
-//    if (tabBarController.selectedViewController == viewController) {
-//        // pop to root when user taps the currently selected tab
-//        [viewController.navigationController popToRootViewControllerAnimated:YES];
-//    }
 }
 
 @end

@@ -151,9 +151,23 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)primitiveSetCurrentArticleController:(UIViewController<WMFArticleContentController>*)currentArticleController {
     _currentArticleController = currentArticleController;
     [_currentArticleController didMoveToParentViewController:self];
+    NSString* buttonTitle = _currentArticleController == self.articleViewController ? @"Web" : @"Reader";
+    self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:buttonTitle
+                                         style:UIBarButtonItemStylePlain
+                                        target:self
+                                        action:@selector(toggleCurrentArticleController)];
 }
 
-#pragma mark - WebView Transition
+#pragma mark - Transitions 
+
+- (void)toggleCurrentArticleController {
+    if (self.currentArticleController == self.articleViewController) {
+        [self setCurrentArticleController:self.webViewController animated:YES];
+    } else {
+        [self setCurrentArticleController:self.articleViewController animated:YES];
+    }
+}
 
 - (void)showWebViewAtFragment:(NSString*)fragment {
     [self.webViewController scrollToFragment:fragment];
@@ -206,7 +220,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
         didTapLinkToPage:(MWKTitle* __nonnull)title {
-    [self presentPopupForTitle:title];
+    [self presentArticleWithTitle:title];
 }
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
@@ -229,16 +243,12 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFWebViewControllerDelegate
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForTitle:(MWKTitle *)title {
-    [self presentPopupForTitle:title];
-}
-
-- (void)dismissWebViewController:(WebViewController *)controller {
-    [self setCurrentArticleController:self.articleViewController];
+    [self presentArticleWithTitle:title];
 }
 
 #pragma mark - Popup
 
-- (void)presentPopupForTitle:(MWKTitle*)title {
+- (void)presentArticleWithTitle:(MWKTitle*)title {
     MWKArticle* article                   = [self.dataStore articleWithTitle:title];
     WMFArticleContainerViewController* vc =
         [[WMFArticleContainerViewController alloc] initWithDataStore:self.dataStore

@@ -468,8 +468,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    [self.delegate articleViewController:self
-               didTapSectionWithFragment:self.article.sections[indexPath.row + 1].anchor];
+    if (indexPath.section == WMFArticleSectionTypeTOC) {
+        [self.delegate articleViewController:self
+                   didTapSectionWithFragment:self.article.sections[indexPath.row + 1].anchor];
+    }
 }
 
 #pragma mark - Article Link Presentation

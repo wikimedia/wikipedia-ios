@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString*)displayTitle {
-    return nil;
+    return MWLocalizedString(@"main-menu-show-history", nil);
 }
 
 - (NSUInteger)articleCount {
