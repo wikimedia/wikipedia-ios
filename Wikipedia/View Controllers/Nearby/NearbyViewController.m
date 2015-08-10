@@ -26,6 +26,7 @@
 #import "NearbyResultCollectionCell.h"
 
 #import "WMFArticlePopupTransition.h"
+#import "WMFArticleContainerViewController.h"
 #import "WMFArticleViewController.h"
 
 #define TABLE_CELL_ID @"NearbyResultCollectionCell"
@@ -443,16 +444,12 @@
 
 - (void)presentPopupForTitle:(MWKTitle*)title {
     MWKArticle* article          = [[SessionSingleton sharedInstance].dataStore articleWithTitle:title];
-    WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:[SessionSingleton sharedInstance].dataStore savedPages:[SessionSingleton sharedInstance].dataStore.userDataStore.savedPageList];
-    vc.article = article;
-
-    self.popupTransition                        = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:nil];
-    self.popupTransition.nonInteractiveDuration = 0.5;
-    self.popupTransition.presentInteractively   = NO;
-    vc.transitioningDelegate                    = self.popupTransition;
-    vc.modalPresentationStyle                   = UIModalPresentationCustom;
-
-    [self presentViewController:vc animated:YES completion:NULL];
+    WMFArticleContainerViewController* articleContainerVC =
+        [WMFArticleContainerViewController
+         articleContainerViewControllerWithDataStore:article.dataStore
+         savedPages:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]];
+    articleContainerVC.article = article;
+    [self.navigationController pushViewController:articleContainerVC animated:YES];
 }
 
 - (NSDictionary*)getRowDataForIndexPath:(NSIndexPath*)indexPath {

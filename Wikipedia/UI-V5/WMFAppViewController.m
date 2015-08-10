@@ -255,26 +255,11 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-
-    WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
-    switch (tab) {
-        case WMFAppTabTypeHome: {
-            //TODO: configure Nearby
-        }
-        break;
-        case WMFAppTabTypeSearch: {
-            [self configureSearchViewController];
-        }
-        break;
-        case WMFAppTabTypeSaved: {
-            [self configureSavedViewController];
-        }
-        break;
-        case WMFAppTabTypeRecent: {
-            [self configureRecentViewController];
-        }
-        break;
-    }
+    // Need to implement "pop to root" transition handling
+//    if (tabBarController.selectedViewController == viewController) {
+//        // pop to root when user taps the currently selected tab
+//        [viewController.navigationController popToRootViewControllerAnimated:YES];
+//    }
 }
 
 @end

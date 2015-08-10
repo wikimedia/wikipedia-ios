@@ -19,12 +19,12 @@
 @implementation WMFScrollViewTopPanGestureRecognizer
 
 - (CGFloat)aboveBoundsVerticalDisplacement {
-    return self.isRecordingVerticalDisplacement ? ([self locationInView:self.view].y - self.initialVerticalOffset) : 0.0;
+    return self.isRecordingVerticalDisplacement ? ([self locationInView:self.view.window].y - self.initialVerticalOffset) : 0.0;
 }
 
 - (void)setRecordingVerticalDisplacement:(BOOL)recordingVerticalDisplacement {
     _recordingVerticalDisplacement = recordingVerticalDisplacement;
-    self.initialVerticalOffset = recordingVerticalDisplacement ? [self locationInView:self.view].y : 0.0;
+    self.initialVerticalOffset = recordingVerticalDisplacement ? [self locationInView:self.view.window].y : 0.0;
 }
 
 - (void)reset {

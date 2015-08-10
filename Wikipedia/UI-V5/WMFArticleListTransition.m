@@ -291,6 +291,7 @@
                 } else {
                     DDLogVerbose(@"Canceling interactive transition.");
                     [self cancelInteractiveTransition];
+
                 }
             } else {
                 DDLogVerbose(@"Touch ended w/o transition starting.");
