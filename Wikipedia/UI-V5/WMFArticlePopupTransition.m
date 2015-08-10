@@ -74,13 +74,12 @@
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     self.totalCardAnimationDistance = CGRectGetHeight([transitionContext containerView].frame);
 
-    if (self.presentInteractively) {
-        [self.presentedViewController setMode:WMFArticleControllerModePopup animated:NO];
-    }
-
     if (self.isDismissing) {
         [self animateDismiss:transitionContext];
     } else {
+        if (self.presentInteractively) {
+            [self.presentedViewController setMode:WMFArticleControllerModePopup animated:NO];
+        }
         [self animatePresentation:transitionContext];
     }
 }
@@ -267,6 +266,9 @@
         // only start dragging popup when touch begins inside it
         CGPoint currentLocation = [gestureRecognizer locationInView:self.containerView];
         return currentLocation.y >= self.popupOriginY;
+    } else if (gestureRecognizer == self.tapGestureRecognizer || gestureRecognizer == self.dismissGestureRecognizer) {
+        // only start dismissal if our VC on top of the stack
+        return self.presentingViewController.navigationController.topViewController == self.presentedViewController;
     }
     return YES;
 }
@@ -336,6 +338,8 @@
     if (self.dismissInteractively && !self.dismissGestureRecognizer) {
         self.dismissGestureRecognizer =
             [[WMFScrollViewTopPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDismissGesture:)];
+        self.dismissGestureRecognizer.cancelsTouchesInView = NO;
+        self.dismissGestureRecognizer.delaysTouchesBegan = NO;
         self.dismissGestureRecognizer.delegate = self;
         [self.presentedViewController.view addGestureRecognizer:self.dismissGestureRecognizer];
         self.dismissGestureRecognizer.scrollView = self.presentedViewController.articleViewController.tableView;
@@ -459,6 +463,7 @@
 }
 
 - (void)handleTap:(UITapGestureRecognizer*)tap {
+    NSAssert(self.isPresenting, @"Tap gesture should only be possible while presenting.");
     if ([tap locationInView:self.containerView].y >= self.popupOriginY) {
         [self finishInteractiveTransition];
     } else {
