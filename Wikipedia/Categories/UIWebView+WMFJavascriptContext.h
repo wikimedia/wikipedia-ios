@@ -10,4 +10,8 @@
 
 - (NSArray*)wmf_getArrayFromJavascriptFunctionNamed:(NSString*)name withArguments:(NSArray*)arguments;
 
+- (double)wmf_getDoubleFromJavascriptFunctionNamed:(NSString*)name withArguments:(NSArray*)arguments;
+
+- (void)wmf_callJavascriptFunctionNamed:(NSString*)name withArguments:(NSArray*)arguments;
+
 @end

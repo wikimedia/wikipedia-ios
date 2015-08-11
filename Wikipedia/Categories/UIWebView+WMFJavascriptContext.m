@@ -19,4 +19,12 @@ static NSString* const WMFWebViewJavascriptContextPath = @"documentView.webView.
     return [[[self wmf_javascriptContext][name] callWithArguments:arguments] toArray];
 }
 
+- (double)wmf_getDoubleFromJavascriptFunctionNamed:(NSString*)name withArguments:(NSArray*)arguments {
+    return [[[self wmf_javascriptContext][name] callWithArguments:arguments] toDouble];
+}
+
+- (void)wmf_callJavascriptFunctionNamed:(NSString*)name withArguments:(NSArray*)arguments {
+    [[self wmf_javascriptContext][name] callWithArguments:arguments];
+}
+
 @end
