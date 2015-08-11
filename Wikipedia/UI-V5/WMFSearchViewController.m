@@ -46,12 +46,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         searchSiteButton.titleLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
         [searchSiteButton setTitleColor:[UIColor wmf_logoBlue] forState:UIControlStateNormal];
         self.navigationItem.titleView = searchSiteButton;
-        _searchSiteButton = searchSiteButton;
+        _searchSiteButton             = searchSiteButton;
     }
     return _searchSiteButton;
 }
 
-- (void)setSearchSite:(MWKSite * __nonnull)searchSite {
+- (void)setSearchSite:(MWKSite* __nonnull)searchSite {
     if (WMF_EQUAL(self.searchSite, isEqualToSite:, searchSite)) {
         return;
     }
