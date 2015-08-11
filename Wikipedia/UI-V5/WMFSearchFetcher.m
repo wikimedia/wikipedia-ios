@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFSearchFetcher ()<FetchFinishedDelegate>
 
-@property (nonatomic, strong, readwrite) MWKSite* searchSite;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;

@@ -22,7 +22,7 @@
 @property (nonatomic, strong) TGLStackedLayout* stackedLayout;
 @property (nonatomic, strong) WMFOffScreenFlowLayout* offScreenLayout;
 
-@property (strong, nonatomic) WMFArticleListTranstion* cardTransition;
+@property (strong, nonatomic) WMFArticleListTransition* cardTransition;
 
 @property (strong, nonatomic) MWKArticle* selectedArticle;
 
@@ -153,7 +153,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.collectionView.backgroundColor = [UIColor clearColor];
+    self.extendedLayoutIncludesOpaqueBars     = YES;
+    self.automaticallyAdjustsScrollViewInsets = YES;
+    self.collectionView.backgroundColor       = [UIColor clearColor];
 
     [self updateListForMode:self.mode animated:NO completion:NULL];
 
@@ -253,19 +255,13 @@
     WMFArticleContainerViewController* container = [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
     container.article = self.selectedArticle;
 
-    self.cardTransition = [[WMFArticleListTranstion alloc] initWithArticleListViewController:self
-                                                              articleContainerViewController:container
-                                                                           contentScrollView:container.articleViewController.tableView];
-    container.transitioningDelegate  = self.cardTransition;
-    container.modalPresentationStyle = UIModalPresentationCustom;
-
     [self wmf_hideKeyboard];
 
-    [self presentViewController:container animated:YES completion:^{
-        [self.recentPages addPageToHistoryWithTitle:cell.viewController.article.title
-                                    discoveryMethod:[self.dataSource discoveryMethod]];
-        [self.recentPages save];
-    }];
+    [self.navigationController pushViewController:container animated:YES];
+
+    [self.recentPages addPageToHistoryWithTitle:cell.viewController.article.title
+                                discoveryMethod:[self.dataSource discoveryMethod]];
+    [self.recentPages save];
 }
 
 #pragma mark - TGLStackedLayoutDelegate
@@ -310,7 +306,7 @@
 
 #pragma mark - WMFArticleListTranstioning
 
-- (UIView*)viewForTransition:(WMFArticleListTranstion*)transition {
+- (UIView*)viewForTransition:(WMFArticleListTransition*)transition {
     NSIndexPath* indexPath = [self.dataSource indexPathForArticle:self.selectedArticle];
     if (!indexPath) {
         return nil;
@@ -318,7 +314,7 @@
     return [self.collectionView cellForItemAtIndexPath:indexPath];
 }
 
-- (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTranstion*)transition {
+- (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTransition*)transition {
     NSIndexPath* indexPath     = [self.dataSource indexPathForArticle:self.selectedArticle];
     NSIndexPath* next          = [self.collectionView wmf_indexPathAfterIndexPath:indexPath];
     UICollectionViewCell* cell = [self.collectionView cellForItemAtIndexPath:next];

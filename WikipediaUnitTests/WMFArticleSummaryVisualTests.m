@@ -32,21 +32,30 @@
     [super tearDown];
 }
 
-- (void)testExoplanetPortraitIPhone6Width {
+- (void)testPageWithCitations {
     [self verifySummaryForFixture:@"Exoplanet.mobileview" languageCode:@"en"];
 }
 
-- (void)testObamaPortraitIPhone6Width {
+- (void)testPageWithIPA {
     [self verifySummaryForFixture:@"Obama" languageCode:@"en"];
 }
 
-- (void)testTajMahalPortraitIPhone6Width {
+- (void)testPageWithRTL {
     NSData* mobileViewData =
         [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MobileView/ar.m.wikipedia.org/تاج محل"
                                                ofType:@""];
     [self verifySummaryForFixtureData:
      [NSJSONSerialization JSONObjectWithData:mobileViewData options:0 error:nil]
                              langCode:@"ar"];
+}
+
+- (void)testPageWithChildlessParagraphs {
+    NSData* mobileViewData =
+        [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MobileView/en.m.wiktionary.org/stationary"
+                                               ofType:@""];
+    [self verifySummaryForFixtureData:
+     [NSJSONSerialization JSONObjectWithData:mobileViewData options:0 error:nil]
+                             langCode:@"en"];
 }
 
 - (void)verifySummaryForFixture:(NSString*)fixtureFilename languageCode:(NSString*)langCode {

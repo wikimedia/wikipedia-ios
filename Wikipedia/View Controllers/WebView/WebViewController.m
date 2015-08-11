@@ -56,6 +56,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @end
 
 @implementation WebViewController
+@synthesize article = _article;
 
 @synthesize siteInfoFetcher = _siteInfoFetcher;
 
@@ -81,7 +82,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)dealloc {
-    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -101,12 +101,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)setupTopMenuButtons {
     @weakify(self)
-
-    UIBarButtonItem * done = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemDone handler:^(id sender) {
-        [self dismissViewControllerAnimated:YES completion:NULL];
-    }];
-
-    self.navigationItem.leftBarButtonItem = done;
 
     self.buttonTOC = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents
                                              handler:^(id sender){
@@ -140,8 +134,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [self editHistoryButtonPushed];
     }];
 
-    self.navigationController.toolbarHidden = NO;
-    self.toolbarItems                       = @[
+//    self.navigationController.toolbarHidden = NO;
+    self.toolbarItems = @[
         self.buttonEditHistory,
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
         self.buttonSave,
@@ -190,7 +184,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
         //dispatching because the toc is expensive to create so we are waiting to update it after the web view renders.
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tocVC updateTocForArticle:[SessionSingleton sharedInstance].currentArticle];
+            [weakSelf.tocVC updateTocForArticle:weakSelf.article];
             [weakSelf updateTOCScrollPositionWithoutAnimationIfHidden];
             [weakSelf.sectionHeadersViewController resetHeaders];
         });
@@ -360,7 +354,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)updateTOCButtonVisibility {
-    self.buttonTOC.enabled = ![SessionSingleton sharedInstance].currentArticle.isMain;
+    self.buttonTOC.enabled = !self.article.isMain;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -407,7 +401,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)showSectionEditorForSection:(NSNumber*)sectionID {
     SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
-    sectionEditVC.section = self.session.currentArticle.sections[[sectionID integerValue]];
+    sectionEditVC.section = self.article.sections[[sectionID integerValue]];
     [self.navigationController pushViewController:sectionEditVC animated:YES];
 }
 
@@ -560,7 +554,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         return;
     }
 
-    if (self.session.currentArticle.isMain) {
+    if (self.article.isMain) {
         return;
     }
 
@@ -794,7 +788,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             }
 
             if ([href wmf_isInternalLink]) {
-                MWKTitle* pageTitle = [strSelf.session.currentArticleSite titleWithInternalLink:href];
+                MWKTitle* pageTitle = [weakSelf.article.site titleWithInternalLink:href];
                 [weakSelf.delegate webViewController:weakSelf didTapOnLinkForTitle:pageTitle];
             } else {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
@@ -869,10 +863,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
             NSString* selectedImageURL = payload[@"url"];
             NSCParameterAssert(selectedImageURL.length);
-            MWKImage* selectedImage = [strSelf.session.currentArticle.images largestImageVariantForURL:selectedImageURL
-                                                                                            cachedOnly:NO];
+            MWKImage* selectedImage = [weakSelf.article.images largestImageVariantForURL:selectedImageURL
+                                                                              cachedOnly:NO];
             NSCParameterAssert(selectedImage);
-            [strSelf presentGalleryForArticle:strSelf.session.currentArticle showingImage:selectedImage];
+            [strSelf presentGalleryForArticle:weakSelf.article showingImage:selectedImage];
         }];
 
         self.unsafeToScroll = NO;
@@ -896,14 +890,14 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)toggleSavedPage {
     SavedPagesFunnel* funnel = [[SavedPagesFunnel alloc] init];
     MWKUserDataStore* store  = self.session.userDataStore;
-    MWKTitle* title          = self.session.currentArticle.title;
+    MWKTitle* title          = self.article.title;
 
     [store.savedPageList toggleSavedPageForTitle:title];
     [store.savedPageList save].then(^(){
         BOOL isSaved = [store.savedPageList isSaved:title];
 
         if (isSaved) {
-            [self showPageSavedAlertMessageForTitle:self.session.currentArticle.title.text];
+            [self showPageSavedAlertMessageForTitle:self.article.title.text];
             [funnel logSaveNew];
         } else {
             [self fadeAlert];
@@ -988,11 +982,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)saveWebViewScrollOffset {
     // Don't record scroll position of "main" pages.
-    if (self.session.currentArticle.isMain) {
+    if (self.article.isMain) {
         return;
     }
 
-    [self.session.userDataStore.historyList savePageScrollPosition:self.webView.scrollView.contentOffset.y toPageInHistoryWithTitle:self.session.currentArticle.title];
+    [self.session.userDataStore.historyList savePageScrollPosition:self.webView.scrollView.contentOffset.y toPageInHistoryWithTitle:self.article.title];
 }
 
 #pragma mark Web view html content live location retrieval
@@ -1101,6 +1095,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)animateTopAndBottomMenuHidden:(BOOL)hidden {
+#warning TEMP: disable until we figure out what to do w/ top/bottom bars
+#if 0
     // Don't toggle if hidden state isn't different or if it's already toggling.
     if ((self.navigationController.isNavigationBarHidden == hidden) || self.isAnimatingTopAndBottomMenuHidden) {
         return;
@@ -1118,6 +1114,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             self.isAnimatingTopAndBottomMenuHidden = NO;
         }];
     }];
+#endif
 }
 
 - (void)animateTopAndBottomMenuReveal {
@@ -1147,7 +1144,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     MWKHistoryList* historyList = self.session.userDataStore.historyList;
     //NSLog(@"XXX %d", (int)historyList.length);
     if ([historyList countOfEntries] > 0) {
-        [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.session.currentArticle.title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
+        [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.article.title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
     }
 }
 
@@ -1170,7 +1167,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)reloadCurrentArticleOrMainPageWithMethod:(MWKHistoryDiscoveryMethod)method {
-    MWKTitle* page = self.session.currentArticle.title;
+    MWKTitle* page = self.article.title;
     if (page) {
         [self navigateToPage:page discoveryMethod:method];
     } else {
@@ -1260,11 +1257,15 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self showProgressViewAnimated:YES];
     self.isFetchingArticle = YES;
 
+    @weakify(self);
     [self.articleFetcher fetchArticleForPageTitle:title progress:^(CGFloat progress){
+        @strongify(self);
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES completion:NULL];
     }].then(^(MWKArticle* article){
+        @strongify(self);
         [self handleFetchedArticle:article];
     }).catch(^(NSError* error){
+        @strongify(self);
         [self handleFetchArticleError:error];
     });
 }
@@ -1368,10 +1369,25 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         return;
     }
 
-    MWKArticle* article = [self.session.dataStore articleWithTitle:title];
+    self.article = [self.session.dataStore articleWithTitle:title];
+}
+
+- (void)setArticle:(MWKArticle* __nullable)article {
+    if ([_article isEqualToArticle:article]) {
+        return;
+    }
+
+    _article = article;
+
+    #warning HAX: force the view to load
+    [self view];
+
+    #warning TODO: remove dependency on session current article
     self.session.currentArticle = article;
 
-    if (![article isCached]) {
+    if (article && ![article isCached]) {
+        [self loadArticleWithTitleFromNetwork:article.title];
+        DDLogVerbose(@"Set with uncached article.");
         [self hideProgressViewAnimated:YES];
         return;
     }
@@ -1384,7 +1400,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         case MWKHistoryDiscoveryMethodReloadFromNetwork:
         case MWKHistoryDiscoveryMethodUnknown: {
             // Update the history so the most recently viewed article appears at the top.
-            [self.session.userDataStore.historyList addPageToHistoryWithTitle:title discoveryMethod:self.session.currentArticleDiscoveryMethod];
+            [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.article.title
+                                                              discoveryMethod:self.session.currentArticleDiscoveryMethod];
             break;
         }
 
@@ -1395,7 +1412,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
 
-    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:title.site.language];
+    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.title.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
 
     self.editable         = article.editable;
@@ -1407,7 +1424,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
 
-    for (MWKSection* section in self.session.currentArticle.sections) {
+    for (MWKSection* section in self.article.sections) {
         NSString* html = nil;
 
         @try {
@@ -1861,7 +1878,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self.webView wmf_suppressSelection];
 
     self.shareOptionsViewController =
-        [[WMFShareOptionsViewController alloc] initWithMWKArticle:[SessionSingleton sharedInstance].currentArticle
+        [[WMFShareOptionsViewController alloc] initWithMWKArticle:self.article
                                                           snippet:snippet
                                                    backgroundView:self.navigationController.view
                                                          delegate:self];

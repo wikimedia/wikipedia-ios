@@ -10,6 +10,8 @@
 
 @interface NSBundle (WMFInfoUtils)
 
+- (NSString*)wmf_bundleName;
+
 ///
 /// @name App Version Information
 ///
