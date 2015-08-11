@@ -32,15 +32,15 @@
     [super tearDown];
 }
 
-- (void)testExoplanetPortraitIPhone6Width {
+- (void)testPageWithCitations {
     [self verifySummaryForFixture:@"Exoplanet.mobileview" languageCode:@"en"];
 }
 
-- (void)testObamaPortraitIPhone6Width {
+- (void)testPageWithIPA {
     [self verifySummaryForFixture:@"Obama" languageCode:@"en"];
 }
 
-- (void)testTajMahalPortraitIPhone6Width {
+- (void)testPageWithRTL {
     NSData* mobileViewData =
         [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MobileView/ar.m.wikipedia.org/تاج محل"
                                                ofType:@""];
@@ -49,7 +49,7 @@
                              langCode:@"ar"];
 }
 
-- (void)testStationaryIPhone6Width {
+- (void)testPageWithChildlessParagraphs {
     NSData* mobileViewData =
         [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MobileView/en.m.wiktionary.org/stationary"
                                                ofType:@""];
