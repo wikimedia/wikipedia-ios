@@ -12,6 +12,7 @@
 
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
+#import "NSString+FormattedAttributedString.h"
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
@@ -29,8 +30,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @property (nonatomic, assign, readwrite) WMFSearchState state;
 
-@property (nonatomic, strong) MASConstraint* suggestionButtonVisibleConstraint;
-@property (nonatomic, strong) MASConstraint* suggestionButtonHiddenConstraint;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint* suggestionButtonHeightConstraint;
 
 @end
 
@@ -214,29 +214,23 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)updateSearchButtonWithResults:(NSString*)searchSuggestion {
-    if ([searchSuggestion length]) {
-        [self.searchSuggestionButton setTitle:[NSString stringWithFormat:@"%@:%@", MWLocalizedString(@"search-did-you-mean", nil), searchSuggestion] forState:UIControlStateNormal];
+    [self.searchSuggestionButton setAttributedTitle:([searchSuggestion length] ? [self getAttributedStringForSuggestion : searchSuggestion] : nil)
+                                           forState:UIControlStateNormal];
+    [self.view setNeedsUpdateConstraints];
+    [self.view layoutIfNeeded];
+}
 
-        if (!self.suggestionButtonVisibleConstraint) {
-            [self.suggestionButtonHiddenConstraint uninstall];
-            self.suggestionButtonHiddenConstraint = nil;
-            [self.resultsListContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
-                self.suggestionButtonVisibleConstraint = make.top.equalTo(self.searchSuggestionButton.mas_bottom).with.offset(6.0);
-            }];
-            [self.view layoutIfNeeded];
-        }
-    } else {
-        [self.searchSuggestionButton setTitle:nil forState:UIControlStateNormal];
+- (void)updateViewConstraints {
+    [super updateViewConstraints];
+    self.suggestionButtonHeightConstraint.constant =
+        [self.searchSuggestionButton attributedTitleForState:UIControlStateNormal] ? [self.searchSuggestionButton wmf_heightAccountingForMultiLineText] : 0;
+}
 
-        if (!self.suggestionButtonHiddenConstraint) {
-            [self.suggestionButtonVisibleConstraint uninstall];
-            self.suggestionButtonVisibleConstraint = nil;
-            [self.resultsListContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
-                self.suggestionButtonHiddenConstraint = make.top.equalTo(self.searchBar.mas_bottom);
-            }];
-            [self.view layoutIfNeeded];
-        }
-    }
+- (NSAttributedString*)getAttributedStringForSuggestion:(NSString*)suggestion {
+    return [MWLocalizedString(@"search-did-you-mean", nil)
+            attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:18]}
+                       substitutionStrings:@[suggestion]
+                    substitutionAttributes:@[@{NSFontAttributeName: [UIFont italicSystemFontOfSize:18]}]];
 }
 
 #pragma mark - WMFRecentSearchesViewControllerDelegate

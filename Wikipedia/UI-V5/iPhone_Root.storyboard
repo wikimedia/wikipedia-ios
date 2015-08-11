@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A235d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -117,16 +117,22 @@
                                 </connections>
                             </searchBar>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ia7-49-Gwu">
-                                <rect key="frame" x="0.0" y="84" width="600" height="447"/>
+                                <rect key="frame" x="0.0" y="74" width="600" height="457"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="4Pn-cn-DIj" kind="embed" id="8w9-gJ-Prh"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ukX-0p-5ey">
-                                <rect key="frame" x="277" y="48" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ukX-0p-5ey">
+                                <rect key="frame" x="0.0" y="44" width="600" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Button">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="kmj-N8-U2n"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="8" maxX="10" maxY="8"/>
+                                <inset key="titleEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -145,37 +151,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tpe-pb-Bgw" firstAttribute="top" secondItem="ZNj-Jo-URc" secondAttribute="bottom" id="22F-ec-9qm"/>
-                            <constraint firstItem="ukX-0p-5ey" firstAttribute="top" secondItem="ZNj-Jo-URc" secondAttribute="bottom" constant="4" id="32n-FT-n9y"/>
-                            <constraint firstItem="tpe-pb-Bgw" firstAttribute="top" secondItem="Ia7-49-Gwu" secondAttribute="top" id="3ic-NB-X3K"/>
-                            <constraint firstAttribute="centerY" secondItem="ZNj-Jo-URc" secondAttribute="centerY" id="7um-O6-iBm"/>
+                            <constraint firstItem="ukX-0p-5ey" firstAttribute="top" secondItem="ZNj-Jo-URc" secondAttribute="bottom" id="32n-FT-n9y"/>
                             <constraint firstItem="Ia7-49-Gwu" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="AdT-tS-YIU"/>
-                            <constraint firstItem="tpe-pb-Bgw" firstAttribute="leading" secondItem="Ia7-49-Gwu" secondAttribute="leading" id="Crb-uF-hEq"/>
                             <constraint firstItem="ZNj-Jo-URc" firstAttribute="top" secondItem="CKX-gH-RjL" secondAttribute="bottom" id="HTd-6H-IdL"/>
                             <constraint firstItem="tpe-pb-Bgw" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="Jdl-JP-8BM"/>
                             <constraint firstItem="8Yb-zt-F5o" firstAttribute="top" secondItem="tpe-pb-Bgw" secondAttribute="bottom" id="ONj-Ah-ZWd"/>
                             <constraint firstAttribute="trailing" secondItem="Ia7-49-Gwu" secondAttribute="trailing" id="PnC-FC-Xud"/>
-                            <constraint firstItem="tpe-pb-Bgw" firstAttribute="bottom" secondItem="Ia7-49-Gwu" secondAttribute="bottom" id="T0N-dg-3ZT"/>
-                            <constraint firstItem="Ia7-49-Gwu" firstAttribute="top" secondItem="ZNj-Jo-URc" secondAttribute="bottom" id="VR7-y0-CDG"/>
+                            <constraint firstAttribute="trailing" secondItem="ukX-0p-5ey" secondAttribute="trailing" id="V9L-9N-b5U"/>
                             <constraint firstItem="8Yb-zt-F5o" firstAttribute="top" secondItem="Ia7-49-Gwu" secondAttribute="bottom" id="XlJ-cb-ymV"/>
-                            <constraint firstAttribute="centerX" secondItem="ZNj-Jo-URc" secondAttribute="centerX" id="cxv-4Q-C8N"/>
-                            <constraint firstItem="Ia7-49-Gwu" firstAttribute="top" secondItem="ukX-0p-5ey" secondAttribute="bottom" constant="6" placeholder="YES" id="fdO-Tl-2cD"/>
-                            <constraint firstAttribute="centerX" secondItem="ukX-0p-5ey" secondAttribute="centerX" id="h5k-7F-xym"/>
+                            <constraint firstItem="Ia7-49-Gwu" firstAttribute="top" secondItem="ukX-0p-5ey" secondAttribute="bottom" id="fdO-Tl-2cD"/>
                             <constraint firstAttribute="trailing" secondItem="tpe-pb-Bgw" secondAttribute="trailing" id="k4b-zR-59u"/>
                             <constraint firstItem="ZNj-Jo-URc" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="lud-F9-Eww"/>
-                            <constraint firstItem="tpe-pb-Bgw" firstAttribute="trailing" secondItem="Ia7-49-Gwu" secondAttribute="trailing" id="xNK-xX-osN"/>
+                            <constraint firstItem="ukX-0p-5ey" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="qxr-F9-9VR"/>
                             <constraint firstAttribute="trailing" secondItem="ZNj-Jo-URc" secondAttribute="trailing" id="zhb-KY-6d8"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="7um-O6-iBm"/>
-                                <exclude reference="cxv-4Q-C8N"/>
-                                <exclude reference="3ic-NB-X3K"/>
-                                <exclude reference="Crb-uF-hEq"/>
-                                <exclude reference="T0N-dg-3ZT"/>
-                                <exclude reference="xNK-xX-osN"/>
-                                <exclude reference="VR7-y0-CDG"/>
-                            </mask>
-                        </variation>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="VPB-a3-QrM"/>
@@ -184,6 +173,7 @@
                         <outlet property="resultsListContainerView" destination="Ia7-49-Gwu" id="xdS-en-9mw"/>
                         <outlet property="searchBar" destination="ZNj-Jo-URc" id="Y5b-g5-7Mc"/>
                         <outlet property="searchSuggestionButton" destination="ukX-0p-5ey" id="O0X-WP-Nym"/>
+                        <outlet property="suggestionButtonHeightConstraint" destination="kmj-N8-U2n" id="xhh-6i-8mi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7p-O3-yFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -334,7 +324,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Search" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4Pn-cn-DIj" userLabel="Search Results List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="Sdm-Uo-q4M">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="447"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="457"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <collectionViewLayout key="collectionViewLayout" id="ic4-TR-7Nt" customClass="TGLStackedLayout"/>

@@ -108,6 +108,7 @@
 		0493C2CC1952373100EBB973 /* DataHousekeeping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0493C2CB1952373100EBB973 /* DataHousekeeping.m */; };
 		0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */; };
 		049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049566C118F5F4CB0058EA12 /* ZeroConfigState.m */; };
+		04A807311B757880007F4EDD /* UIButton+WMFMultiLineHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A807301B757880007F4EDD /* UIButton+WMFMultiLineHeight.swift */; };
 		04A807331B76BF36007F4EDD /* NSArray+WMFPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A807321B76BF36007F4EDD /* NSArray+WMFPredicate.swift */; };
 		04A807341B7738C6007F4EDD /* NSArray+PredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA6764A1AC05FAD00A16160 /* NSArray+PredicateTests.m */; };
 		04A97E8718B81D5D0046B166 /* AccountCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A97E8618B81D5D0046B166 /* AccountCreationViewController.m */; };
@@ -648,6 +649,7 @@
 		0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs.ttf"; sourceTree = "<group>"; };
 		049566C018F5F4CB0058EA12 /* ZeroConfigState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZeroConfigState.h; sourceTree = "<group>"; };
 		049566C118F5F4CB0058EA12 /* ZeroConfigState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZeroConfigState.m; sourceTree = "<group>"; };
+		04A807301B757880007F4EDD /* UIButton+WMFMultiLineHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+WMFMultiLineHeight.swift"; sourceTree = "<group>"; };
 		04A807321B76BF36007F4EDD /* NSArray+WMFPredicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+WMFPredicate.swift"; sourceTree = "<group>"; };
 		04A97E8518B81D5D0046B166 /* AccountCreationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCreationViewController.h; sourceTree = "<group>"; };
 		04A97E8618B81D5D0046B166 /* AccountCreationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AccountCreationViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -1936,6 +1938,7 @@
 				BC6BFC671B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m */,
 				041E323E1B736CCF001D0E28 /* UIWebView+WMFJavascriptContext.h */,
 				041E323F1B736CCF001D0E28 /* UIWebView+WMFJavascriptContext.m */,
+				04A807301B757880007F4EDD /* UIButton+WMFMultiLineHeight.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -3619,6 +3622,7 @@
 				BCBDC88C1B3A0715003A6D17 /* Cancellable.swift in Sources */,
 				0439317619FB092600386E8F /* UIWebView+LoadAssetsHtml.m in Sources */,
 				04B91AA718E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m in Sources */,
+				04A807311B757880007F4EDD /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				04224500197F5E09005DD0BF /* AbuseFilterAlert.m in Sources */,
 				BCB669731A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
 				BCE24FE01B0CF0C7003F054B /* SQLiteHelper.m in Sources */,
