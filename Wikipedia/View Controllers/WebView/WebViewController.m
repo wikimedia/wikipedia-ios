@@ -1516,7 +1516,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)scrollToElementOnScreenBeforeRotate {
     NSString* js = @"(function() {"
                    @"    if (_topElement) {"
-                   @"    if (_topElement.id && (_topElement.id === 'lead_image_div')) return 0;"
                    @"        var rect = _topElement.getBoundingClientRect();"
                    @"        return (window.scrollY + rect.top) - (%f * rect.height);"
                    @"    } else {"
