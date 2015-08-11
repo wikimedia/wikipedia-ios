@@ -14,6 +14,8 @@
 #import "MediaWikiKit.h"
 #import "UIFont+WMFStyle.h"
 #import "NSString+WMFGlyphs.h"
+#import "OnboardingViewController.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
 
 typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     WMFAppTabTypeHome = 0,
@@ -142,14 +144,24 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 #pragma mark - UIViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self showSplashView];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 
-    [self runDataMigrationIfNeededWithCompletion:^{
-        [self hideSplashViewAnimated:YES];
-        [self loadMainUI];
-    }];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self showSplashView];
+
+        [self runDataMigrationIfNeededWithCompletion:^{
+            [self loadMainUI];
+            if ([self shouldShowOnboarding]) {
+                [self showOnboardingWithCompletion:^{
+                    [self hideSplashViewAnimated:NO];
+                }];
+            } else {
+                [self hideSplashViewAnimated:YES];
+            }
+        }];
+    });
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
@@ -165,6 +177,19 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
+}
+
+#pragma mark - Onboarding
+
+- (BOOL)shouldShowOnboarding {
+    NSNumber* showOnboarding = [[NSUserDefaults standardUserDefaults] objectForKey:@"ShowOnboarding"];
+    return showOnboarding.boolValue;
+}
+
+- (void)showOnboardingWithCompletion:(dispatch_block_t)completion {
+    [self presentViewController:[OnboardingViewController wmf_initialViewControllerFromClassStoryboard] animated:NO completion:completion];
+    [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"ShowOnboarding"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - Splash
