@@ -28,7 +28,7 @@
 
 - (NSString*)wmf_randomlyRepeatMaxTimes:(NSUInteger)maxTimes;
 
-- (NSString*)wmf_stringByReplacingUndrescoresWithSpaces;
+- (NSString*)wmf_stringByReplacingUnderscoresWithSpaces;
 
 - (NSString*)wmf_stringByReplacingSpacesWithUnderscores;
 
