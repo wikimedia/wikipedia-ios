@@ -128,18 +128,6 @@ bridge.registerListener( "setLanguage", function( payload ){
     document.querySelector('base').href = 'https://' + payload.lang + '.wikipedia.org/';
 } );
 
-bridge.registerListener( "setScale", function( payload ) {
-    var contentSettings = [
-        "width=device-width",
-        "initial-scale=1.0",
-        "user-scalable=yes",
-        "minimum-scale=" + payload.min,
-        "maximum-scale=" + payload.max
-    ];
-    var content = contentSettings.join(", ");
-    document.getElementById("viewport").setAttribute('content', content);
-} );
-
 bridge.registerListener( "scrollToFragment", function( payload ) {
     var item = document.getElementById( payload.hash );
     var rect = item.getBoundingClientRect();
