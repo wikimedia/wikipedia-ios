@@ -152,8 +152,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
         self.resultsListController = segue.destinationViewController;
         [self configureArticleList];
-    }
-    if ([segue.destinationViewController isKindOfClass:[RecentSearchesViewController class]]) {
+    } else if ([segue.destinationViewController isKindOfClass:[RecentSearchesViewController class]]) {
         self.recentSearchesViewController          = segue.destinationViewController;
         self.recentSearchesViewController.delegate = self;
     }
