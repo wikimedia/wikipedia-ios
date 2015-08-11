@@ -49,6 +49,15 @@
                              langCode:@"ar"];
 }
 
+- (void)testStationaryIPhone6Width {
+    NSData* mobileViewData =
+        [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MobileView/en.m.wiktionary.org/stationary"
+                                               ofType:@""];
+    [self verifySummaryForFixtureData:
+     [NSJSONSerialization JSONObjectWithData:mobileViewData options:0 error:nil]
+                             langCode:@"en"];
+}
+
 - (void)verifySummaryForFixture:(NSString*)fixtureFilename languageCode:(NSString*)langCode {
     NSDictionary* mobileViewJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureFilename];
     [self verifySummaryForFixtureData:mobileViewJSON langCode:langCode];

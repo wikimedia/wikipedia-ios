@@ -545,23 +545,34 @@ static NSString* const WMFParagraphSelector = @"/html/body/p";
 }
 
 - (NSAttributedString*)summaryHTML {
-    MWKSection* leadSection      = [self.sections firstNonEmptySection];
-    NSString* filteredParagraphs =
-        [[[[leadSection elementsInTextMatchingXPath:WMFParagraphSelector] bk_map:^NSString*(TFHppleElement* paragraphEl) {
-        return [[[[TFHpple hppleWithHTMLData:[paragraphEl.raw dataUsingEncoding:NSUTF8StringEncoding]]
-                  // select children of each paragraph
-                  searchWithXPathQuery:[MWKArticle paragraphChildSelector]]
-                 // get their "raw" HTML
-                 valueForKey:WMF_SAFE_KEYPATH(paragraphEl, raw)]
-                // join
-                componentsJoinedByString:@""];
-    }] bk_select:^BOOL (id stringOrNull) {
-        return [stringOrNull isKindOfClass:[NSString class]] && [stringOrNull length] > 0;
-    }]
-         // double space all paragraphs
-         componentsJoinedByString:@"<br/><br/>"];
-    NSData* xpathData = [filteredParagraphs dataUsingEncoding:NSUTF8StringEncoding];
-    return [[NSAttributedString alloc] initWithHTMLData:xpathData site:self.site];
+    for (MWKSection* section in self.sections) {
+        NSArray* nonEmptyParagraphElements =
+            [[section elementsInTextMatchingXPath:WMFParagraphSelector] bk_reject:^BOOL (TFHppleElement* paragraphEl) {
+            return paragraphEl.children.count == 0;
+        }];
+        if (!nonEmptyParagraphElements.count) {
+            continue;
+        }
+        NSArray* nonEmptyParagraphsWithSelectedChildren =
+            [[nonEmptyParagraphElements bk_map:^NSString*(TFHppleElement* paragraphEl) {
+            return [[[[TFHpple hppleWithHTMLData:[paragraphEl.raw dataUsingEncoding:NSUTF8StringEncoding]]
+                      // select children of each paragraph
+                      searchWithXPathQuery:[MWKArticle paragraphChildSelector]]
+                     // get their "raw" HTML
+                     valueForKey:WMF_SAFE_KEYPATH(paragraphEl, raw)]
+                    // join
+                    componentsJoinedByString:@""];
+        }] bk_select:^BOOL (id stringOrNull) {
+            return [stringOrNull isKindOfClass:[NSString class]] && [stringOrNull length] > 0;
+        }];
+        if (!nonEmptyParagraphsWithSelectedChildren.count) {
+            continue;
+        }
+        NSString* lineSeparatedParagraphs = [nonEmptyParagraphsWithSelectedChildren componentsJoinedByString:@"<br/><br/>"];
+        NSData* xpathData                 = [lineSeparatedParagraphs dataUsingEncoding:NSUTF8StringEncoding];
+        return [[NSAttributedString alloc] initWithHTMLData:xpathData site:self.site];
+    }
+    return nil;
 }
 
 @end
