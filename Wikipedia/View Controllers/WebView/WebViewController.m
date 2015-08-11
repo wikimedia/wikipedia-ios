@@ -1490,7 +1490,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 #pragma mark Scroll to last section after rotate
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [self.webView wmf_callJavascriptFunctionNamed:@"setPreRotationRelativeScrollOffset" withArguments:nil];
+    [[self.webView wmf_javascriptContext][@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
+
 
     [self tocHideWithDuration:@0.0f];
 
@@ -1506,7 +1507,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)scrollToElementOnScreenBeforeRotate {
-    double finalScrollOffset = [self.webView wmf_getDoubleFromJavascriptFunctionNamed:@"getPostRotationScrollOffset" withArguments:nil];
+    double finalScrollOffset = [[[self.webView wmf_javascriptContext][@"getPostRotationScrollOffset"] callWithArguments:nil] toDouble];
 
     [self tocScrollWebViewToPoint:CGPointMake(0, finalScrollOffset)
                          duration:0

@@ -3,8 +3,6 @@
 
 #import "UIWebView+WMFJavascriptContext.h"
 
-@import JavaScriptCore;
-
 static NSString* const WMFWebViewJavascriptContextPath = @"documentView.webView.mainFrame.javaScriptContext";
 
 @implementation UIWebView (WMFJavascriptContext)
@@ -13,18 +11,6 @@ static NSString* const WMFWebViewJavascriptContextPath = @"documentView.webView.
     JSContext* context = [self valueForKeyPath:WMFWebViewJavascriptContextPath];
     NSAssert([context isKindOfClass:[JSContext class]], @"No javascript context found for webView!");
     return context;
-}
-
-- (NSArray*)wmf_getArrayFromJavascriptFunctionNamed:(NSString*)name withArguments:(NSArray*)arguments {
-    return [[[self wmf_javascriptContext][name] callWithArguments:arguments] toArray];
-}
-
-- (double)wmf_getDoubleFromJavascriptFunctionNamed:(NSString*)name withArguments:(NSArray*)arguments {
-    return [[[self wmf_javascriptContext][name] callWithArguments:arguments] toDouble];
-}
-
-- (void)wmf_callJavascriptFunctionNamed:(NSString*)name withArguments:(NSArray*)arguments {
-    [[self wmf_javascriptContext][name] callWithArguments:arguments];
 }
 
 @end

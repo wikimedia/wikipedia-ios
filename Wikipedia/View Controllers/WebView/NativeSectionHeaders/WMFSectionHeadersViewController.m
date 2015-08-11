@@ -211,11 +211,11 @@
 #pragma mark Section title and title location determination
 
 - (NSArray*)getSectionHeadersFromWebView {
-    return [self.webView wmf_getArrayFromJavascriptFunctionNamed:@"getSectionHeadersArray" withArguments:nil];
+    return [[[self.webView wmf_javascriptContext][@"getSectionHeadersArray"] callWithArguments:nil] toArray];
 }
 
 - (NSArray*)getSectionHeadersLocationsFromWebView {
-    return [self.webView wmf_getArrayFromJavascriptFunctionNamed:@"getSectionHeaderLocationsArray" withArguments:nil];
+    return [[[self.webView wmf_javascriptContext][@"getSectionHeaderLocationsArray"] callWithArguments:nil] toArray];
 }
 
 @end
