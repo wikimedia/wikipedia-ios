@@ -90,6 +90,11 @@ NS_ASSUME_NONNULL_BEGIN
         (WMFImageCollectionViewCell*)
         [collectionView dequeueReusableCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]
                                                   forIndexPath:indexPath];
+    if (self.images.count == 0) {
+        cell.imageView.image       = [UIImage imageNamed:@"logo-placeholder-saved"];
+        cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        return cell;
+    }
     MWKImage* imageMetadata = self.images[indexPath.item];
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:[imageMetadata sourceURL]]
@@ -118,7 +123,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setImage:(UIImage*)image centeringBounds:(CGRect)normalizedCenterBounds forCellAtIndexPath:(NSIndexPath*)path {
     WMFImageCollectionViewCell* cell = (WMFImageCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:path];
     if (cell) {
-        cell.imageView.image = image;
+        cell.imageView.image       = image;
+        cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         if (CGRectIsEmpty(normalizedCenterBounds)) {
             [cell.imageView wmf_resetContentOffset];
         } else {
@@ -128,7 +134,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.images.count;
+    // if there are 0 images, show a placeholder
+    return self.images.count > 0 ? self.images.count : 1;
 }
 
 @end

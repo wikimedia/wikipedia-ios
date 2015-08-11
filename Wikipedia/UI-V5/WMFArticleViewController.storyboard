@@ -161,14 +161,6 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59N-e6-kQK">
                                             <rect key="frame" x="10" y="10" width="580" height="59"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-placeholder-search" translatesAutoresizingMaskIntoConstraints="NO" id="9A4-UO-dRq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="59"/>
-                                                    <animations/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" priority="999" constant="60" id="XNN-TH-Cle"/>
-                                                        <constraint firstAttribute="width" constant="60" id="eJC-BC-qun"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Lp-j9-yQ7" userLabel="Title Label">
                                                     <rect key="frame" x="70" y="0.0" width="510" height="41"/>
                                                     <animations/>
@@ -183,6 +175,14 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-placeholder-search" translatesAutoresizingMaskIntoConstraints="NO" id="9A4-UO-dRq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="59"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" priority="999" constant="60" id="XNN-TH-Cle"/>
+                                                        <constraint firstAttribute="width" constant="60" id="eJC-BC-qun"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <animations/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -249,7 +249,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GiH-fi-DXA">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-placeholder-saved" translatesAutoresizingMaskIntoConstraints="NO" id="GiH-fi-DXA">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <animations/>
                                         </imageView>
@@ -282,6 +282,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="logo-placeholder-saved" width="110" height="110"/>
         <image name="logo-placeholder-search" width="55" height="55"/>
     </resources>
 </document>
