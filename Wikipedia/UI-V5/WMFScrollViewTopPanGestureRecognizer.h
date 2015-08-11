@@ -13,7 +13,7 @@
  *  recorded, it's not possible to report `aboveBoundsVerticalDisplacement` while also blocking further changes to
  *  the `contentOffset` of the receiver's `scrollView`.
  */
-@property (nonatomic, assign, readonly, getter=isRecordingVerticalDisplacement) BOOL recordingVerticalDisplacement;
+@property (nonatomic, assign, readonly, getter = isRecordingVerticalDisplacement) BOOL recordingVerticalDisplacement;
 
 /**
  *  The vertical displacement past the top of `scrollView.contentInset.top`.
@@ -23,7 +23,7 @@
  *
  *  @warning This will always return 0 unless `didStart == YES`.
  *
- *  @return The vertical displacement as described above. Positive indicates the user is scrolling up past 
+ *  @return The vertical displacement as described above. Positive indicates the user is scrolling up past
  *          `contentInset.top`, while a negative indicates downward scrolling.
  */
 @property (nonatomic, assign, readonly) CGFloat aboveBoundsVerticalDisplacement;

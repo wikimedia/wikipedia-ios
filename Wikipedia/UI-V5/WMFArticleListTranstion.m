@@ -86,7 +86,7 @@
     UIView* selectedCardView = [self.listViewController viewForTransition:self];
     NSParameterAssert(selectedCardView);
     /*
-     !!!: Snapshot must be taken before screen updates otherwise the snapshot will be cut short
+       !!!: Snapshot must be taken before screen updates otherwise the snapshot will be cut short
      */
     UIView* snapshotView = [selectedCardView wmf_addSnapshotToView:containerView afterScreenUpdates:NO];
 
@@ -139,9 +139,9 @@
     // Setup snapshot of presented card
     [self.articleContainerViewController.articleViewController.tableView wmf_scrollToTop:NO];
     /*
-     !!!: Snapshot must be taken before screen updates, otherwise the list view will flicker before the fullscreen card
+       !!!: Snapshot must be taken before screen updates, otherwise the list view will flicker before the fullscreen card
           is presented on top of it
-    */
+     */
     UIView* fullscreenArticleSnapshotView =
         [self.articleContainerViewController.articleViewController.view wmf_addSnapshotToView:containerView
                                                                            afterScreenUpdates:NO];
@@ -155,12 +155,12 @@
     [self.listViewController scrollToArticleIfOffscreen:self.articleContainerViewController.article animated:NO];
 
     // Setup snapshot of cards overlapping the fullscreen article (when in the list)
-    // !!!: adding overlapping cards to the container after setting frames prevents flickering when transition starts 
-    CGRect overlapRect      = [self.listViewController frameOfOverlappingListItemsForTransition:self];
+    // !!!: adding overlapping cards to the container after setting frames prevents flickering when transition starts
+    CGRect overlapRect = [self.listViewController frameOfOverlappingListItemsForTransition:self];
 
     /*
-     !!!: Snapshot must be taken after screen updates, otherwise the overlapping card titles will not be rendered
-    */
+       !!!: Snapshot must be taken after screen updates, otherwise the overlapping card titles will not be rendered
+     */
     UIView* overlapSnapshot = [self.listViewController.view wmf_addResizableSnapshotToView:containerView
                                                                                   fromRect:overlapRect
                                                                         afterScreenUpdates:YES
@@ -291,7 +291,6 @@
                 } else {
                     DDLogVerbose(@"Canceling interactive transition.");
                     [self cancelInteractiveTransition];
-
                 }
             } else {
                 DDLogVerbose(@"Touch ended w/o transition starting.");

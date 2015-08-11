@@ -23,7 +23,7 @@
  *
  *  @see WMFAppTabCount
  */
-typedef NS_ENUM(NSUInteger, WMFAppTabType){
+typedef NS_ENUM (NSUInteger, WMFAppTabType){
     WMFAppTabTypeHome = 0,
     WMFAppTabTypeSearch,
     WMFAppTabTypeSaved,
@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, WMFAppTabType){
 
 /**
  *  Number of tabs in the main tab bar.
- * 
+ *
  *  @warning Kept as a separate constant to prevent switch statements from being considered inexhaustive. This means we
  *           need to make sure it's manually kept in sync by ensuring:
  *              - The tab enum we increment is the last one
@@ -77,10 +77,10 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
         UINavigationController* navigationController = [self navigationControllerForTab:i];
         navigationController.delegate = self.navigationTransitionController;
         // prevent navigation bar from showing initially or hiding/showing as a side-effect
-        navigationController.hidesBarsOnSwipe = NO;
-        navigationController.hidesBarsOnTap = NO;
+        navigationController.hidesBarsOnSwipe             = NO;
+        navigationController.hidesBarsOnTap               = NO;
         navigationController.hidesBarsWhenKeyboardAppears = NO;
-        navigationController.navigationBarHidden = YES;
+        navigationController.navigationBarHidden          = YES;
     }
 }
 
@@ -253,7 +253,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
     }];
 }
 
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+- (BOOL)tabBarController:(UITabBarController*)tabBarController shouldSelectViewController:(UIViewController*)viewController {
     // !!!: disable pop to root behavior
     return tabBarController.selectedViewController != viewController;
 }

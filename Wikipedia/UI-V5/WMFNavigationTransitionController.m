@@ -33,9 +33,8 @@
 
 @implementation WMFNavigationTransitionController
 
-- (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
+- (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController*)navigationController
                          interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
-
     if ([animationController isKindOfClass:[WMFArticleListTranstion class]]) {
         WMFArticleListTranstion* listTransition = (WMFArticleListTranstion*)animationController;
         // HAX: should probably just use separate animators instead of relying on a flag being set
@@ -64,8 +63,8 @@
             NSAssert(operation == UINavigationControllerOperationPop, @"Expected pop, got %ld", operation);
             DDLogVerbose(@"Popping from container to list");
             WMFArticleListTranstion* transition =
-            [self transitionForList:(WMFArticleListCollectionViewController*)toVC
-                          container:(WMFArticleContainerViewController*)fromVC];
+                [self transitionForList:(WMFArticleListCollectionViewController*)toVC
+                              container:(WMFArticleContainerViewController*)fromVC];
             return transition;
         } else if ([toVC wmf_isArticleContainer]) {
             DDLogVerbose(@"Transitioning between containers with operation: %ld", operation);
@@ -87,11 +86,11 @@
 #pragma mark - Specific Transitions
 
 - (WMFArticleListTranstion*)transitionForList:(WMFArticleListCollectionViewController*)listVC
-                                     container:(WMFArticleContainerViewController*)containerVC {
+                                    container:(WMFArticleContainerViewController*)containerVC {
     static const char* const WMFArticleListTranstionAssociationKey = "WMFArticleListTranstion";
-    WMFArticleListTranstion* listTransition = [listVC bk_associatedValueForKey:WMFArticleListTranstionAssociationKey];
+    WMFArticleListTranstion* listTransition                        = [listVC bk_associatedValueForKey:WMFArticleListTranstionAssociationKey];
     if (!listTransition) {
-        listTransition = [WMFArticleListTranstion new];
+        listTransition                    = [WMFArticleListTranstion new];
         listTransition.listViewController = listVC;
         [listVC bk_associateValue:listTransition withKey:WMFArticleListTranstionAssociationKey];
     }
@@ -106,7 +105,7 @@
     WMFArticlePopupTransition* popupTransition                       =
         [presentingVC bk_associatedValueForKey:WMFArticlePopupTransitionAssociationKey];
     if (!popupTransition) {
-        popupTransition = [[WMFArticlePopupTransition alloc] init];
+        popupTransition                          = [[WMFArticlePopupTransition alloc] init];
         popupTransition.presentingViewController = presentingVC;
         [presentingVC bk_associateValue:popupTransition withKey:WMFArticlePopupTransitionAssociationKey];
     }

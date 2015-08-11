@@ -16,7 +16,7 @@
 - (CGPoint)wmf_topContentOffset;
 
 /**
- *  Scroll the receiver to the top of its content. 
+ *  Scroll the receiver to the top of its content.
  *
  *  Use this instead of setting `contentOffset = CGPointZero`, as some scroll views have `contentInset != CGPointZero`.
  *

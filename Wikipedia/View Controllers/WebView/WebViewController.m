@@ -143,7 +143,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }];
 
 //    self.navigationController.toolbarHidden = NO;
-    self.toolbarItems                       = @[
+    self.toolbarItems = @[
         self.buttonEditHistory,
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
         self.buttonSave,
@@ -1376,7 +1376,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.article = [self.session.dataStore articleWithTitle:title];
 }
 
-- (void)setArticle:(MWKArticle * __nullable)article {
+- (void)setArticle:(MWKArticle* __nullable)article {
     _article = article;
 
     #warning HAX: force the view to load

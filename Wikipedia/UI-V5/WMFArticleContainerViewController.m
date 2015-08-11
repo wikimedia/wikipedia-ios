@@ -46,8 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages {
     self = [super init];
     if (self) {
-        self.savedPageList = savedPages;
-        self.dataStore     = dataStore;
+        self.savedPageList            = savedPages;
+        self.dataStore                = dataStore;
         self.currentArticleController = self.articleViewController;
     }
     return self;
@@ -69,8 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     self.articleViewController.article = article;
-    self.webViewController.article = article;
-    self.title = article.title.text;
+    self.webViewController.article     = article;
+    self.title                         = article.title.text;
 }
 
 - (WMFArticleViewController*)articleViewController {
@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WebViewController*)webViewController {
     if (!_webViewController) {
-        _webViewController = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+        _webViewController          = [WebViewController wmf_initialViewControllerFromClassStoryboard];
         _webViewController.delegate = self;
     }
     return _webViewController;
@@ -122,7 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
     [currentArticleController.view layoutIfNeeded];
 
-    void(^completion)(BOOL) = ^(BOOL finished) {
+    void (^ completion)(BOOL) = ^(BOOL finished) {
         NSParameterAssert(finished);
         // remove previous view from hierarchy
         if (currentArticleController != self.currentArticleController) {
@@ -185,8 +185,8 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)articleViewController:(WMFArticleViewController * __nonnull)articleViewController
-    didTapSectionWithFragment:(NSString * __nonnull)fragment {
+- (void)articleViewController:(WMFArticleViewController* __nonnull)articleViewController
+    didTapSectionWithFragment:(NSString* __nonnull)fragment {
     [self showWebViewAtFragment:fragment];
 }
 
@@ -228,11 +228,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFWebViewControllerDelegate
 
-- (void)webViewController:(WebViewController *)controller didTapOnLinkForTitle:(MWKTitle *)title {
+- (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title {
     [self presentPopupForTitle:title];
 }
 
-- (void)dismissWebViewController:(WebViewController *)controller {
+- (void)dismissWebViewController:(WebViewController*)controller {
     [self setCurrentArticleController:self.articleViewController];
 }
 

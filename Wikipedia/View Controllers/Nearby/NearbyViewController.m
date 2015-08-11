@@ -443,11 +443,11 @@
 #pragma mark - Article Popup
 
 - (void)presentPopupForTitle:(MWKTitle*)title {
-    MWKArticle* article          = [[SessionSingleton sharedInstance].dataStore articleWithTitle:title];
+    MWKArticle* article                                   = [[SessionSingleton sharedInstance].dataStore articleWithTitle:title];
     WMFArticleContainerViewController* articleContainerVC =
         [WMFArticleContainerViewController
          articleContainerViewControllerWithDataStore:article.dataStore
-         savedPages:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]];
+                                          savedPages:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]];
     articleContainerVC.article = article;
     [self.navigationController pushViewController:articleContainerVC animated:YES];
 }

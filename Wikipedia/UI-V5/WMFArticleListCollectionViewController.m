@@ -153,9 +153,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.extendedLayoutIncludesOpaqueBars = YES;
+    self.extendedLayoutIncludesOpaqueBars     = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
-    self.collectionView.backgroundColor = [UIColor clearColor];
+    self.collectionView.backgroundColor       = [UIColor clearColor];
 
     [self updateListForMode:self.mode animated:NO completion:NULL];
 
