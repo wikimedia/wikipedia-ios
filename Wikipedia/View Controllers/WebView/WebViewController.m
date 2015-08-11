@@ -1257,11 +1257,15 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self showProgressViewAnimated:YES];
     self.isFetchingArticle = YES;
 
+    @weakify(self);
     [self.articleFetcher fetchArticleForPageTitle:title progress:^(CGFloat progress){
+        @strongify(self);
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES completion:NULL];
     }].then(^(MWKArticle* article){
+        @strongify(self);
         [self handleFetchedArticle:article];
     }).catch(^(NSError* error){
+        @strongify(self);
         [self handleFetchArticleError:error];
     });
 }
@@ -1372,6 +1376,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     if ([_article isEqualToArticle:article]) {
         return;
     }
+
     _article = article;
 
     #warning HAX: force the view to load
@@ -1380,8 +1385,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     #warning TODO: remove dependency on session current article
     self.session.currentArticle = article;
 
-    if (![article isCached]) {
-        #warning TODO: efficiently/idempotently fetch full article data in the background?
+    if (article && ![article isCached]) {
+        [self loadArticleWithTitleFromNetwork:article.title];
         DDLogVerbose(@"Set with uncached article.");
         [self hideProgressViewAnimated:YES];
         return;

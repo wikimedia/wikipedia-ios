@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFSearchFetcher : NSObject
 
-@property (nonatomic, strong, readonly) MWKSite* searchSite;
+@property (nonatomic, strong) MWKSite* searchSite;
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 
 - (instancetype)initWithSearchSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore;

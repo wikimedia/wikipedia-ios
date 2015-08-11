@@ -24,6 +24,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (strong, nonatomic) IBOutlet UIButton* searchSuggestionButton;
 @property (strong, nonatomic) IBOutlet UIView* resultsListContainerView;
 @property (strong, nonatomic) IBOutlet UIView* recentSearchesContainerView;
+@property (weak, nonatomic) UIButton* searchSiteButton;
 
 @property (nonatomic, strong) WMFSearchFetcher* fetcher;
 
@@ -35,6 +36,28 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @end
 
 @implementation WMFSearchViewController
+
+- (UIButton*)searchSiteButton {
+    if (!_searchSiteButton) {
+        UIButton* searchSiteButton = [[UIButton alloc] init];
+        [searchSiteButton addTarget:self
+                             action:@selector(didTapSearchSiteButton)
+                   forControlEvents:UIControlEventTouchUpInside];
+        searchSiteButton.titleLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+        [searchSiteButton setTitleColor:[UIColor wmf_logoBlue] forState:UIControlStateNormal];
+        self.navigationItem.titleView = searchSiteButton;
+        _searchSiteButton = searchSiteButton;
+    }
+    return _searchSiteButton;
+}
+
+- (void)setSearchSite:(MWKSite * __nonnull)searchSite {
+    if (WMF_EQUAL(self.searchSite, isEqualToSite:, searchSite)) {
+        return;
+    }
+    self.fetcher.searchSite = searchSite;
+    [self.searchSiteButton setTitle:searchSite.URL.host forState:UIControlStateNormal];
+}
 
 - (void)setSavedPages:(MWKSavedPageList* __nonnull)savedPages {
     if (WMF_IS_EQUAL(_savedPages, savedPages)) {
@@ -110,7 +133,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title                                                    = @"Search";
     self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self updateUIWithResults:nil];
 }
@@ -237,6 +259,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             [self.view layoutIfNeeded];
         }
     }
+}
+
+#pragma mark - Search Site
+
+- (void)didTapSearchSiteButton {
+    DDLogWarn(@"TODO: display language picker to choose another site.");
 }
 
 #pragma mark - WMFRecentSearchesViewControllerDelegate
