@@ -2,12 +2,11 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
+@import JavaScriptCore;
 
 @class JSContext;
 @interface UIWebView (WMFJavascriptContext)
 
 - (JSContext*)wmf_javascriptContext;
-
-- (NSArray*)wmf_getArrayFromJavascriptFunctionNamed:(NSString*)name withArguments:(NSArray*)arguments;
 
 @end

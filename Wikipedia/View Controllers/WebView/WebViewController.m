@@ -29,6 +29,8 @@
 #import "WMFSectionHeadersViewController.h"
 #import "WMFSectionHeaderEditProtocol.h"
 
+#import "UIWebView+WMFJavascriptContext.h"
+
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
     WMFWebViewAlertZeroCharged,
@@ -1488,17 +1490,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 #pragma mark Scroll to last section after rotate
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    NSString* js = @"(function() {"
-                   @"    _topElement = document.elementFromPoint( window.innerWidth / 2, 0 );"
-                   @"    if (_topElement) {"
-                   @"        var rect = _topElement.getBoundingClientRect();"
-                   @"        return rect.top / rect.height;"
-                   @"    } else {"
-                   @"        return 0;"
-                   @"    }"
-                   @"})()";
-    float relativeScrollOffset = [[self.webView stringByEvaluatingJavaScriptFromString:js] floatValue];
-    self.relativeScrollOffsetBeforeRotate = relativeScrollOffset;
+    [[self.webView wmf_javascriptContext][@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
+
 
     [self tocHideWithDuration:@0.0f];
 
@@ -1514,20 +1507,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)scrollToElementOnScreenBeforeRotate {
-    NSString* js = @"(function() {"
-                   @"    if (_topElement) {"
-                   @"        var rect = _topElement.getBoundingClientRect();"
-                   @"        return (window.scrollY + rect.top) - (%f * rect.height);"
-                   @"    } else {"
-                   @"        return 0;"
-                   @"    }"
-                   @"})()";
-    NSString* js2         = [NSString stringWithFormat:js, self.relativeScrollOffsetBeforeRotate, self.relativeScrollOffsetBeforeRotate];
-    int finalScrollOffset = [[self.webView stringByEvaluatingJavaScriptFromString:js2] intValue];
+    double finalScrollOffset = [[[self.webView wmf_javascriptContext][@"getPostRotationScrollOffset"] callWithArguments:nil] toDouble];
 
-    CGPoint point = CGPointMake(0, finalScrollOffset);
-
-    [self tocScrollWebViewToPoint:point
+    [self tocScrollWebViewToPoint:CGPointMake(0, finalScrollOffset)
                          duration:0
                       thenHideTOC:NO];
 }
