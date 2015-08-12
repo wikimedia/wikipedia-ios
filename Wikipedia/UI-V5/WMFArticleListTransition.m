@@ -1,6 +1,6 @@
 #import "WMFArticleListTransition.h"
 #import "WMFScrollViewTopPanGestureRecognizer.h"
-#import "WMFArticleListCollectionViewController.h"
+#import "WMFArticleListCollectionViewController_Transitioning.h"
 #import "WMFArticleContainerViewController.h"
 #import "WMFArticleViewController.h"
 #import "UIView+WMFShapshotting.h"
@@ -9,6 +9,10 @@
 
 @interface WMFArticleListTransition ()<UIGestureRecognizerDelegate>
 
+@property (nonatomic, assign, readwrite) BOOL isDismissing;
+@property (nonatomic, assign, readwrite) BOOL isPresenting;
+
+@property (nonatomic, weak, readwrite) WMFArticleListCollectionViewController* listViewController;
 @property (nonatomic, weak) UIScrollView* scrollView;
 @property (strong, nonatomic) WMFScrollViewTopPanGestureRecognizer* dismissGestureRecognizer;
 @property (assign, nonatomic) BOOL didStartInteractiveDismissal;
@@ -19,9 +23,10 @@
 
 @implementation WMFArticleListTransition
 
-- (instancetype)init {
+- (instancetype)initWithListCollectionViewController:(WMFArticleListCollectionViewController*)listViewController {
     self = [super init];
     if (self) {
+        self.listViewController = listViewController;
         _nonInteractiveDuration = 0.5;
         _isDismissing           = NO;
     }

@@ -1,4 +1,5 @@
 #import "WMFArticleListCollectionViewController.h"
+#import "WMFArticleListCollectionViewController_Transitioning.h"
 #import "UICollectionView+WMFExtensions.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "WMFArticleViewControllerContainerCell.h"
@@ -22,13 +23,19 @@
 @property (nonatomic, strong) TGLStackedLayout* stackedLayout;
 @property (nonatomic, strong) WMFOffScreenFlowLayout* offScreenLayout;
 
-@property (strong, nonatomic) WMFArticleListTransition* cardTransition;
-
 @property (strong, nonatomic) MWKArticle* selectedArticle;
 
 @end
 
 @implementation WMFArticleListCollectionViewController
+@synthesize listTransition = _listTransition;
+
+- (WMFArticleListTransition*)listTransition {
+    if (!_listTransition) {
+        _listTransition = [[WMFArticleListTransition alloc] initWithListCollectionViewController:self];
+    }
+    return _listTransition;
+}
 
 - (void)setDataSource:(id<WMFArticleListDataSource> __nullable)dataSource {
     if ([_dataSource isEqual:dataSource]) {

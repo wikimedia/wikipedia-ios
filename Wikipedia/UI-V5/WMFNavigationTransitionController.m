@@ -10,11 +10,10 @@
 #import <UIKit/UIKit.h>
 
 #import "WMFArticleContentController.h"
-#import "WMFArticleListCollectionViewController.h"
+#import "WMFArticleListCollectionViewController_Transitioning.h"
 #import "WMFArticlePopupTransition.h"
-#import "WMFArticleListTransition.h"
 #import "WMFArticleViewController.h"
-#import "WMFArticleContainerViewController.h"
+#import "WMFArticleContainerViewController_Transitioning.h"
 
 @interface UIViewController (WMFClassCheckConvenience)
 
@@ -87,31 +86,14 @@
 
 - (WMFArticleListTransition*)transitionForList:(WMFArticleListCollectionViewController*)listVC
                                      container:(WMFArticleContainerViewController*)containerVC {
-    static const char* const WMFArticleListTransitionAssociationKey = "WMFArticleListTransition";
-    WMFArticleListTransition* listTransition                        = [listVC bk_associatedValueForKey:WMFArticleListTransitionAssociationKey];
-    if (!listTransition) {
-        listTransition                    = [WMFArticleListTransition new];
-        listTransition.listViewController = listVC;
-        [listVC bk_associateValue:listTransition withKey:WMFArticleListTransitionAssociationKey];
-    }
-    NSParameterAssert(listTransition.listViewController == listVC);
-    listTransition.articleContainerViewController = containerVC;
-    return listTransition;
+    listVC.listTransition.articleContainerViewController = containerVC;
+    return listVC.listTransition;
 }
 
 - (WMFArticlePopupTransition*)popupTransitionWithPresentingController:(WMFArticleContainerViewController*)presentingVC
                                                   presentedController:(WMFArticleContainerViewController*)presentedVC {
-    static const char* const WMFArticlePopupTransitionAssociationKey = "WMFArticlePopupTransition";
-    WMFArticlePopupTransition* popupTransition                       =
-        [presentingVC bk_associatedValueForKey:WMFArticlePopupTransitionAssociationKey];
-    if (!popupTransition) {
-        popupTransition                          = [[WMFArticlePopupTransition alloc] init];
-        popupTransition.presentingViewController = presentingVC;
-        [presentingVC bk_associateValue:popupTransition withKey:WMFArticlePopupTransitionAssociationKey];
-    }
-    NSParameterAssert(popupTransition.presentingViewController == presentingVC);
-    popupTransition.presentedViewController = presentedVC;
-    return popupTransition;
+    presentingVC.popupTransition.presentedViewController = presentedVC;
+    return presentingVC.popupTransition;
 }
 
 @end

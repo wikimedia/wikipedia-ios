@@ -1,4 +1,5 @@
 #import "WMFArticleContainerViewController.h"
+#import "WMFArticleContainerViewController_Transitioning.h"
 
 // Frameworks
 #import <Masonry/Masonry.h>
@@ -33,11 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) UIBarButtonItem* toggleCurrentControllerButton;
 
-@property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
-
 @end
 
 @implementation WMFArticleContainerViewController
+@synthesize popupTransition = _popupTransition;
 
 + (instancetype)articleContainerViewControllerWithDataStore:(MWKDataStore*)dataStore
                                                  savedPages:(MWKSavedPageList*)savedPages {
@@ -55,24 +55,18 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)configureNavigationItem {
-    UIBarButtonItem* toggleCurrentControllerButton =
-        [[UIBarButtonItem alloc] initWithTitle:[self toggleButtonTitle]
-                                         style:UIBarButtonItemStylePlain
-                                        target:self
-                                        action:@selector(toggleCurrentArticleController)];
-    self.toggleCurrentControllerButton = toggleCurrentControllerButton;
-
-    self.navigationItem.rightBarButtonItems = @[
-        self.toggleCurrentControllerButton
-    ];
-}
-
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.article.title];
 }
 
 #pragma mark - Accessors
+
+- (WMFArticlePopupTransition*)popupTransition {
+    if (!_popupTransition) {
+        _popupTransition = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self];
+    }
+    return _popupTransition;
+}
 
 - (NSString*)toggleButtonTitle {
     // TODO: come up with better (localized) names
@@ -198,6 +192,19 @@ NS_ASSUME_NONNULL_BEGIN
     // !!!: currentArticleController's view must be added manually. otherwise this is done by VC transition APIs
     [self.view addSubview:self.currentArticleController.view];
     [self setupCurrentArticleController:self.currentArticleController];
+}
+
+- (void)configureNavigationItem {
+    UIBarButtonItem* toggleCurrentControllerButton =
+        [[UIBarButtonItem alloc] initWithTitle:[self toggleButtonTitle]
+                                         style:UIBarButtonItemStylePlain
+                                        target:self
+                                        action:@selector(toggleCurrentArticleController)];
+    self.toggleCurrentControllerButton = toggleCurrentControllerButton;
+
+    self.navigationItem.rightBarButtonItems = @[
+        self.toggleCurrentControllerButton
+    ];
 }
 
 #pragma mark - WMFArticleViewControllerDelegate

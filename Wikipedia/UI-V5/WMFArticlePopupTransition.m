@@ -14,6 +14,8 @@
 
 @interface WMFArticlePopupTransition ()<UIGestureRecognizerDelegate>
 
+@property (nonatomic, weak, readwrite) UIViewController* presentingViewController;
+
 @property (nonatomic, strong, readwrite) UIView* backgroundView;
 @property (nonatomic, weak, readwrite) UIView* containerView;
 
@@ -38,17 +40,17 @@
 
 @end
 
-
 @implementation WMFArticlePopupTransition
 
-- (instancetype)init {
+- (instancetype)initWithPresentingViewController:(UIViewController* __nonnull)presentingViewController {
     self = [super init];
     if (self) {
-        _presentInteractively   = YES;
-        _dismissInteractively   = YES;
-        _popupHeight            = 300.0;
-        _popupAnimationSpeed    = 100 / 0.3;
-        _nonInteractiveDuration = 0.5;
+        self.presentingViewController = presentingViewController;
+        _presentInteractively         = YES;
+        _dismissInteractively         = YES;
+        _popupHeight                  = 300.0;
+        _popupAnimationSpeed          = 100 / 0.3;
+        _nonInteractiveDuration       = 0.5;
     }
     return self;
 }
