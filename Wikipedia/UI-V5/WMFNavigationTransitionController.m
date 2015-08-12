@@ -86,7 +86,7 @@
 #pragma mark - Specific Transitions
 
 - (WMFArticleListTransition*)transitionForList:(WMFArticleListCollectionViewController*)listVC
-                                    container:(WMFArticleContainerViewController*)containerVC {
+                                     container:(WMFArticleContainerViewController*)containerVC {
     static const char* const WMFArticleListTransitionAssociationKey = "WMFArticleListTransition";
     WMFArticleListTransition* listTransition                        = [listVC bk_associatedValueForKey:WMFArticleListTransitionAssociationKey];
     if (!listTransition) {
