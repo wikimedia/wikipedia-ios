@@ -121,13 +121,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         // Needed by iOS 8.
-        SEL selector = NSSelectorFromString(@"requestWhenInUseAuthorization");
-        if ([self.locationManager respondsToSelector:selector]) {
-            NSInvocation* invocation =
-                [NSInvocation invocationWithMethodSignature:[[self.locationManager class] instanceMethodSignatureForSelector:selector]];
-            [invocation setSelector:selector];
-            [invocation setTarget:self.locationManager];
-            [invocation invoke];
+        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+            [self.locationManager requestWhenInUseAuthorization];
         }
     });
 
