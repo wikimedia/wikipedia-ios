@@ -17,6 +17,8 @@
 #import "OnboardingViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "NearbyViewController.h"
+#import <PiwikTracker/PiwikTracker.h>
+
 
 typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     WMFAppTabTypeHome = 0,
@@ -51,6 +53,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     [self configureSearchViewController];
     [self configureSavedViewController];
     [self configureRecentViewController];
+    [[PiwikTracker sharedInstance] sendView:@"Home"];
 }
 
 - (void)configureTabController {
@@ -265,18 +268,22 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     switch (tab) {
         case WMFAppTabTypeHome: {
             [self configureNearbyViewController];
+            [[PiwikTracker sharedInstance] sendView:@"Home"];
         }
         break;
         case WMFAppTabTypeSearch: {
             [self configureSearchViewController];
+            [[PiwikTracker sharedInstance] sendView:@"Search"];
         }
         break;
         case WMFAppTabTypeSaved: {
             [self configureSavedViewController];
+            [[PiwikTracker sharedInstance] sendView:@"Saved"];
         }
         break;
         case WMFAppTabTypeRecent: {
             [self configureRecentViewController];
+            [[PiwikTracker sharedInstance] sendView:@"Recent"];
         }
         break;
     }

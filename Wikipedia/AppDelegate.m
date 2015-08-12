@@ -5,6 +5,10 @@
 #import "WMFAppViewController.h"
 #import "Wikipedia-Swift.h"
 #import "WMFLogFormatter.h"
+#import <PiwikTracker/PiwikTracker.h>
+
+static NSString* const WMFPiwikServerURL = @"http://piwik.wmflabs.org/";
+static NSString* const WMFPiwikSiteID    = @"4";
 
 @interface AppDelegate ()
 
@@ -59,6 +63,7 @@
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
     [self.imageMigration setupAndStart];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
+    [PiwikTracker sharedInstanceWithSiteID:WMFPiwikSiteID baseURL:[NSURL URLWithString:WMFPiwikServerURL]];
 
     WMFAppViewController* vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
     [vc launchAppInWindow:self.window];
