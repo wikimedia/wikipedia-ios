@@ -164,9 +164,8 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
         [self runDataMigrationIfNeededWithCompletion:^{
             [self loadMainUI];
-            [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding){
-                [self hideSplashViewAnimated:!didShowOnboarding];
-            }];
+            BOOL didShowOnboarding = [self presentOnboardingIfNeeded];
+            [self hideSplashViewAnimated:!didShowOnboarding];
         }];
     });
 }
@@ -193,22 +192,16 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     return showOnboarding.boolValue;
 }
 
-- (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
+- (BOOL)presentOnboardingIfNeeded {
     if ([self shouldShowOnboarding]) {
         [self presentViewController:[OnboardingViewController wmf_initialViewControllerFromClassStoryboard]
                            animated:NO
-                         completion:^{
-            if (completion) {
-                completion(YES);
-            }
-        }];
+                         completion:NULL];
         [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"ShowOnboarding"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        return;
+        return YES;
     }
-    if (completion) {
-        completion(NO);
-    }
+    return NO;
 }
 
 #pragma mark - Splash
