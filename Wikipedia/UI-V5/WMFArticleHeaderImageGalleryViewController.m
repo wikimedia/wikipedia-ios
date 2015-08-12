@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
         [collectionView dequeueReusableCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]
                                                   forIndexPath:indexPath];
     if (self.images.count == 0) {
-        cell.imageView.image       = [UIImage imageNamed:@"logo-placeholder-saved"];
+        cell.imageView.image       = [UIImage imageNamed:@"lead-default"];
         cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         return cell;
     }

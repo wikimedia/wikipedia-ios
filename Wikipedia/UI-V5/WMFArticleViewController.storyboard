@@ -249,7 +249,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-placeholder-saved" translatesAutoresizingMaskIntoConstraints="NO" id="GiH-fi-DXA">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lead-default" translatesAutoresizingMaskIntoConstraints="NO" id="GiH-fi-DXA">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <animations/>
                                         </imageView>
@@ -282,7 +282,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo-placeholder-saved" width="110" height="110"/>
+        <image name="lead-default" width="640" height="512"/>
         <image name="logo-placeholder-search" width="55" height="55"/>
     </resources>
 </document>

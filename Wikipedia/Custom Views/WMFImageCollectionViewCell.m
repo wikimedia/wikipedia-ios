@@ -12,7 +12,7 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.imageView.image       = [UIImage imageNamed:@"logo-placeholder-saved"];
+    self.imageView.image       = [UIImage imageNamed:@"lead-default"];
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
 }
 
