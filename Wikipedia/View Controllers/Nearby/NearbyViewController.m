@@ -51,8 +51,6 @@
 
 @property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
 
-@property (nonatomic) BOOL skipStartUpdates;
-
 @end
 
 /*
@@ -116,33 +114,26 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    self.skipStartUpdates = NO;
-    // Only begin updates if by the time the startUpdates selector below is performed
-    // self.skipStartUpdates is still NO - lets us add the nearby view controller
-    // somewhere and immediately cover it up without it starting to update locations
-    // and headings.
-    [self performSelector:@selector(startUpdates) withObject:nil afterDelay:0.5];
+    [self startUpdates];
 }
 
 - (void)startUpdates {
-    if (!self.skipStartUpdates) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            // Needed by iOS 8.
-            SEL selector = NSSelectorFromString(@"requestWhenInUseAuthorization");
-            if ([self.locationManager respondsToSelector:selector]) {
-                NSInvocation* invocation =
-                    [NSInvocation invocationWithMethodSignature:[[self.locationManager class] instanceMethodSignatureForSelector:selector]];
-                [invocation setSelector:selector];
-                [invocation setTarget:self.locationManager];
-                [invocation invoke];
-            }
-        });
-
-        [self.locationManager startUpdatingLocation];
-        if (self.headingAvailable) {
-            [self.locationManager startUpdatingHeading];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // Needed by iOS 8.
+        SEL selector = NSSelectorFromString(@"requestWhenInUseAuthorization");
+        if ([self.locationManager respondsToSelector:selector]) {
+            NSInvocation* invocation =
+                [NSInvocation invocationWithMethodSignature:[[self.locationManager class] instanceMethodSignatureForSelector:selector]];
+            [invocation setSelector:selector];
+            [invocation setTarget:self.locationManager];
+            [invocation invoke];
         }
+    });
+
+    [self.locationManager startUpdatingLocation];
+    if (self.headingAvailable) {
+        [self.locationManager startUpdatingHeading];
     }
 }
 
@@ -154,8 +145,6 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    self.skipStartUpdates = YES;
-
     [self stopUpdates];
 
     [[QueuesSingleton sharedInstance].nearbyFetchManager.operationQueue cancelAllOperations];
