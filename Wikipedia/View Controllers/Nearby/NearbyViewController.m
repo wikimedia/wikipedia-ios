@@ -51,6 +51,7 @@
 
 @property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
 
+@property (nonatomic) BOOL skipBeginUpdating;
 
 @end
 
@@ -115,26 +116,39 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        // Needed by iOS 8.
-        SEL selector = NSSelectorFromString(@"requestWhenInUseAuthorization");
-        if ([self.locationManager respondsToSelector:selector]) {
-            NSInvocation* invocation =
-                [NSInvocation invocationWithMethodSignature:[[self.locationManager class] instanceMethodSignatureForSelector:selector]];
-            [invocation setSelector:selector];
-            [invocation setTarget:self.locationManager];
-            [invocation invoke];
-        }
-    });
+    self.skipBeginUpdating = NO;
+    // Only begin updates if by the time the beginUpdating selector below is performed
+    // self.skipBeginUpdating is still NO - lets us add the nearby view controller
+    // somewhere and immediately cover it up without it starting to update locations
+    // and headings.
+    [self performSelector:@selector(beginUpdating) withObject:nil afterDelay:0.5];
+}
 
-    [self.locationManager startUpdatingLocation];
-    if (self.headingAvailable) {
-        [self.locationManager startUpdatingHeading];
+- (void)beginUpdating {
+    if (!self.skipBeginUpdating) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            // Needed by iOS 8.
+            SEL selector = NSSelectorFromString(@"requestWhenInUseAuthorization");
+            if ([self.locationManager respondsToSelector:selector]) {
+                NSInvocation* invocation =
+                    [NSInvocation invocationWithMethodSignature:[[self.locationManager class] instanceMethodSignatureForSelector:selector]];
+                [invocation setSelector:selector];
+                [invocation setTarget:self.locationManager];
+                [invocation invoke];
+            }
+        });
+
+        [self.locationManager startUpdatingLocation];
+        if (self.headingAvailable) {
+            [self.locationManager startUpdatingHeading];
+        }
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    self.skipBeginUpdating = YES;
+
     [self.locationManager stopUpdatingLocation];
 
     if (self.headingAvailable) {
