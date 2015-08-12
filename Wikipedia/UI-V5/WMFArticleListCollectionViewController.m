@@ -322,15 +322,12 @@
 }
 
 - (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTransition*)transition {
-    NSIndexPath* indexPath         = [self.dataSource indexPathForArticle:self.selectedArticle];
-    NSIndexPath* next              = [self.collectionView wmf_indexPathAfterIndexPath:indexPath];
-    UICollectionViewCell* cell     = [self.collectionView cellForItemAtIndexPath:next];
-    CGFloat relativeCellTop        = cell.frame.origin.y - self.collectionView.contentOffset.y;
-    CGFloat overlappingCardsHeight = self.collectionView.bounds.size.height - relativeCellTop;
-    return CGRectMake(self.collectionView.frame.origin.x,
-                      relativeCellTop + self.collectionView.frame.origin.y,
-                      self.collectionView.frame.size.width,
-                      overlappingCardsHeight);
+    NSIndexPath* indexPath     = [self.dataSource indexPathForArticle:self.selectedArticle];
+    NSIndexPath* next          = [self.collectionView wmf_indexPathAfterIndexPath:indexPath];
+    UICollectionViewCell* cell = [self.collectionView cellForItemAtIndexPath:next];
+    CGRect frame               = cell.frame;
+    frame.size.height = CGRectGetHeight(self.collectionView.frame) - frame.origin.y;
+    return frame;
 }
 
 @end
