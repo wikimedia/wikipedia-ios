@@ -164,7 +164,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
         [self runDataMigrationIfNeededWithCompletion:^{
             [self loadMainUI];
-            [self showOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding){
+            [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding){
                 [self hideSplashViewAnimated:!didShowOnboarding];
             }];
         }];
@@ -193,7 +193,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     return showOnboarding.boolValue;
 }
 
-- (void)showOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
+- (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
     if ([self shouldShowOnboarding]) {
         [self presentViewController:[OnboardingViewController wmf_initialViewControllerFromClassStoryboard]
                            animated:NO
