@@ -29,8 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readwrite) WMFArticleViewController* articleViewController;
 @property (nonatomic, strong, readwrite) WebViewController* webViewController;
-
 @property (nonatomic, weak) UIViewController<WMFArticleContentController>* currentArticleController;
+
+@property (nonatomic, weak) UIBarButtonItem* toggleCurrentControllerButton;
 
 @property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
 
@@ -49,8 +50,22 @@ NS_ASSUME_NONNULL_BEGIN
         self.savedPageList            = savedPages;
         self.dataStore                = dataStore;
         self.currentArticleController = self.articleViewController;
+        [self configureNavigationItem];
     }
     return self;
+}
+
+- (void)configureNavigationItem {
+    UIBarButtonItem* toggleCurrentControllerButton =
+        [[UIBarButtonItem alloc] initWithTitle:[self toggleButtonTitle]
+                                         style:UIBarButtonItemStylePlain
+                                        target:self
+                                        action:@selector(toggleCurrentArticleController)];
+    self.toggleCurrentControllerButton = toggleCurrentControllerButton;
+
+    self.navigationItem.rightBarButtonItems = @[
+        self.toggleCurrentControllerButton
+    ];
 }
 
 - (NSString*)description {
@@ -58,6 +73,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - Accessors
+
+- (NSString*)toggleButtonTitle {
+    // TODO: come up with better (localized) names
+    if (self.currentArticleController == self.articleViewController) {
+        return @"Web";
+    } else {
+        return @"Reader";
+    }
+}
 
 - (MWKArticle* __nullable)article {
     return self.currentArticleController.article;
@@ -111,46 +135,53 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     // prevent premature view loading
-    if (![self isViewLoaded]) {
+    if ([self isViewLoaded]) {
+        [self transitionFromPreviousArticleController:self.currentArticleController
+                                  toArticleController:currentArticleController
+                                             animated:animated];
+    } else {
         [self primitiveSetCurrentArticleController:currentArticleController];
-        return;
     }
+}
 
-    [self.view addSubview:currentArticleController.view];
-    [currentArticleController.view mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.left.right.top.and.bottom.equalTo(self.view);
-    }];
-    [currentArticleController.view layoutIfNeeded];
-
-    void (^ completion)(BOOL) = ^(BOOL finished) {
-        NSParameterAssert(finished);
-        // remove previous view from hierarchy
-        if (currentArticleController != self.currentArticleController) {
-            [self.currentArticleController.view removeFromSuperview];
-        }
-        [self primitiveSetCurrentArticleController:currentArticleController];
-    };
-
-    if (!self.currentArticleController || self.currentArticleController == _currentArticleController) {
-        // no previous view, or installing view of current, no need to transition
-        completion(YES);
-        return;
-    }
-
-    currentArticleController.view.alpha = 0.f;
-    [self transitionFromViewController:self.currentArticleController
+- (void)transitionFromPreviousArticleController:(UIViewController<WMFArticleContentController>* __nullable)previousController
+                            toArticleController:(UIViewController<WMFArticleContentController>* __nullable)currentArticleController
+                                       animated:(BOOL)animated {
+    [self transitionFromViewController:previousController
                       toViewController:currentArticleController
                               duration:animated ? [CATransaction animationDuration] : 0.0
-                               options:0
+                               options:UIViewAnimationOptionTransitionCrossDissolve
                             animations:^{
-        currentArticleController.view.alpha = 1.0;
+        [self setupCurrentArticleController:currentArticleController];
     }
-                            completion:completion];
+                            completion:^(BOOL finished) {
+        NSParameterAssert(finished);
+        [self primitiveSetCurrentArticleController:currentArticleController];
+    }];
+}
+
+- (void)setupCurrentArticleController:(UIViewController<WMFArticleContentController>*)currentArticleController {
+    [currentArticleController.view mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.leading.trailing.top.and.bottom.equalTo(self.view);
+    }];
+    [self.navigationController setNavigationBarHidden:currentArticleController != self.webViewController
+                                             animated:YES];
+}
+
+- (void)toggleCurrentArticleController {
+    if (self.currentArticleController == self.articleViewController) {
+        [self setCurrentArticleController:self.webViewController animated:YES];
+    } else {
+        [self setCurrentArticleController:self.articleViewController animated:YES];
+    }
 }
 
 - (void)primitiveSetCurrentArticleController:(UIViewController<WMFArticleContentController>*)currentArticleController {
+    NSAssert(_currentArticleController != currentArticleController,
+             @"Caller should have already performed equality checks and acted accordingly.");
     _currentArticleController = currentArticleController;
     [_currentArticleController didMoveToParentViewController:self];
+    self.toggleCurrentControllerButton.title = [self toggleButtonTitle];
 }
 
 #pragma mark - WebView Transition
@@ -164,7 +195,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.currentArticleController = self.articleViewController;
+    // !!!: currentArticleController's view must be added manually. otherwise this is done by VC transition APIs
+    [self.view addSubview:self.currentArticleController.view];
+    [self setupCurrentArticleController:self.currentArticleController];
 }
 
 #pragma mark - WMFArticleViewControllerDelegate
@@ -174,6 +207,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.article.isCached) {
         [self showCitationWithFragment:citationFragment];
     } else {
+        // TODO: fetch all sections before attempting to parse citations natively
 //        if (!self.articleFetcherPromise) {
 //            [self fetchArticle];
 //        }
@@ -191,6 +225,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)showCitationWithFragment:(NSString*)fragment {
+    // TODO: parse citations natively, then show citation popup control
 //    NSParameterAssert(self.article.isCached);
 //    MWKCitation* tappedCitation = [self.article.citations bk_match:^BOOL (MWKCitation* citation) {
 //        return [citation.citationIdentifier isEqualToString:fragment];
