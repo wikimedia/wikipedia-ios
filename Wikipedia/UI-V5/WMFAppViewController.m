@@ -14,6 +14,9 @@
 #import "MediaWikiKit.h"
 #import "UIFont+WMFStyle.h"
 #import "NSString+WMFGlyphs.h"
+#import "OnboardingViewController.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
+#import "NearbyViewController.h"
 
 typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     WMFAppTabTypeHome = 0,
@@ -29,6 +32,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 @property (nonatomic, strong) IBOutlet UIView* splashView;
 @property (nonatomic, strong) UITabBarController* rootTabBarController;
 
+@property (nonatomic, strong, readonly) NearbyViewController* nearbyViewController;
 @property (nonatomic, strong, readonly) WMFSearchViewController* searchViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* recentArticlesViewController;
@@ -43,6 +47,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 - (void)loadMainUI {
     [self configureTabController];
+    [self configureNearbyViewController];
     [self configureSearchViewController];
     [self configureSavedViewController];
     [self configureRecentViewController];
@@ -50,6 +55,10 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 - (void)configureTabController {
     self.rootTabBarController.delegate = self;
+}
+
+- (void)configureNearbyViewController {
+    //[self.nearbyViewController doSomething];
 }
 
 - (void)configureSearchViewController {
@@ -128,6 +137,10 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     return self.session.userDataStore;
 }
 
+- (NearbyViewController*)nearbyViewController {
+    return (NearbyViewController*)[self rootViewControllerForTab:WMFAppTabTypeHome];
+}
+
 - (WMFSearchViewController*)searchViewController {
     return (WMFSearchViewController*)[self rootViewControllerForTab:WMFAppTabTypeSearch];
 }
@@ -142,14 +155,20 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 #pragma mark - UIViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self showSplashView];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 
-    [self runDataMigrationIfNeededWithCompletion:^{
-        [self hideSplashViewAnimated:YES];
-        [self loadMainUI];
-    }];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self showSplashView];
+
+        [self runDataMigrationIfNeededWithCompletion:^{
+            [self loadMainUI];
+            [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding){
+                [self hideSplashViewAnimated:!didShowOnboarding];
+            }];
+        }];
+    });
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
@@ -165,6 +184,31 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
+}
+
+#pragma mark - Onboarding
+
+- (BOOL)shouldShowOnboarding {
+    NSNumber* showOnboarding = [[NSUserDefaults standardUserDefaults] objectForKey:@"ShowOnboarding"];
+    return showOnboarding.boolValue;
+}
+
+- (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
+    if ([self shouldShowOnboarding]) {
+        [self presentViewController:[OnboardingViewController wmf_initialViewControllerFromClassStoryboard]
+                           animated:NO
+                         completion:^{
+            if (completion) {
+                completion(YES);
+            }
+        }];
+        [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"ShowOnboarding"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return;
+    }
+    if (completion) {
+        completion(NO);
+    }
 }
 
 #pragma mark - Splash
@@ -220,7 +264,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
     switch (tab) {
         case WMFAppTabTypeHome: {
-            //TODO: configure Nearby
+            [self configureNearbyViewController];
         }
         break;
         case WMFAppTabTypeSearch: {

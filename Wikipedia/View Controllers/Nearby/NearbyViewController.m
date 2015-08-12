@@ -51,7 +51,6 @@
 
 @property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
 
-
 @end
 
 /*
@@ -100,16 +99,6 @@
         self.locationManager              = [[CLLocationManager alloc] init];
         self.locationManager.activityType = CLActivityTypeFitness;
 
-        // Needed by iOS 8.
-        SEL selector = NSSelectorFromString(@"requestWhenInUseAuthorization");
-        if ([self.locationManager respondsToSelector:selector]) {
-            NSInvocation* invocation =
-                [NSInvocation invocationWithMethodSignature:[[self.locationManager class] instanceMethodSignatureForSelector:selector]];
-            [invocation setSelector:selector];
-            [invocation setTarget:self.locationManager];
-            [invocation invoke];
-        }
-
         self.imageFetchQ      = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         self.placeholderImage = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
         NSArray* cachePaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -122,12 +111,36 @@
     return NO;
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [self.locationManager stopUpdatingLocation];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 
+    [self startUpdates];
+}
+
+- (void)startUpdates {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // Needed by iOS 8.
+        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+            [self.locationManager requestWhenInUseAuthorization];
+        }
+    });
+
+    [self.locationManager startUpdatingLocation];
+    if (self.headingAvailable) {
+        [self.locationManager startUpdatingHeading];
+    }
+}
+
+- (void)stopUpdates {
+    [self.locationManager stopUpdatingLocation];
     if (self.headingAvailable) {
         [self.locationManager stopUpdatingHeading];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self stopUpdates];
 
     [[QueuesSingleton sharedInstance].nearbyFetchManager.operationQueue cancelAllOperations];
 
@@ -347,11 +360,6 @@
 
     self.locationManager.headingFilter  = 1.5;
     self.locationManager.distanceFilter = 1.0;
-
-    [self.locationManager startUpdatingLocation];
-    if (self.headingAvailable) {
-        [self.locationManager startUpdatingHeading];
-    }
 
     [self.collectionView registerNib:[UINib nibWithNibName:TABLE_CELL_ID bundle:nil] forCellWithReuseIdentifier:TABLE_CELL_ID];
 
