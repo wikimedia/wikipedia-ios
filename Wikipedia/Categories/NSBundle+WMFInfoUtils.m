@@ -10,6 +10,10 @@
 
 @implementation NSBundle (WMFInfoUtils)
 
+- (NSString*)wmf_bundleName {
+    return [self objectForInfoDictionaryKey:@"CFBundleName"];
+}
+
 #pragma mark - Version Info
 
 - (NSString*)wmf_bundleIdentifier {

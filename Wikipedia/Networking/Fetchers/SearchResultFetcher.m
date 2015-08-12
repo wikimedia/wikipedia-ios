@@ -199,7 +199,7 @@
                 }
                 mutablePrefixPage[@"snippet"] = snippet;
 
-                mutablePrefixPage[@"title"] = mutablePrefixPage[@"title"] ? [mutablePrefixPage[@"title"] wmf_stringByReplacingUndrescoresWithSpaces] : @"";
+                mutablePrefixPage[@"title"] = mutablePrefixPage[@"title"] ? [mutablePrefixPage[@"title"] wmf_stringByReplacingUnderscoresWithSpaces] : @"";
 
                 mutablePrefixPage[@"searchtype"] = @(self.searchType);
                 mutablePrefixPage[@"searchterm"] = self.searchTerm;

@@ -4,7 +4,7 @@
 @class WMFArticleListCollectionViewController;
 @class WMFArticleContainerViewController;
 
-@interface WMFArticleListTranstion : UIPercentDrivenInteractiveTransition
+@interface WMFArticleListTransition : UIPercentDrivenInteractiveTransition
     <UIViewControllerAnimatedTransitioning>
 
 @property (nonatomic, assign) BOOL isDismissing;
@@ -20,9 +20,9 @@
 
 @end
 
-@protocol WMFArticleListTranstioning <NSObject>
+@protocol WMFArticleListTransitioning <NSObject>
 
-- (UIView*)viewForTransition:(WMFArticleListTranstion*)transition;
-- (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTranstion*)transition;
+- (UIView*)viewForTransition:(WMFArticleListTransition*)transition;
+- (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTransition*)transition;
 
 @end

@@ -12,7 +12,7 @@
 #import "WMFArticleContentController.h"
 #import "WMFArticleListCollectionViewController.h"
 #import "WMFArticlePopupTransition.h"
-#import "WMFArticleListTranstion.h"
+#import "WMFArticleListTransition.h"
 #import "WMFArticleViewController.h"
 #import "WMFArticleContainerViewController.h"
 
@@ -35,8 +35,8 @@
 
 - (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController*)navigationController
                          interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
-    if ([animationController isKindOfClass:[WMFArticleListTranstion class]]) {
-        WMFArticleListTranstion* listTransition = (WMFArticleListTranstion*)animationController;
+    if ([animationController isKindOfClass:[WMFArticleListTransition class]]) {
+        WMFArticleListTransition* listTransition = (WMFArticleListTransition*)animationController;
         // HAX: should probably just use separate animators instead of relying on a flag being set
         return listTransition.isDismissing ? listTransition : nil;
     } else if ([animationController isKindOfClass:[WMFArticlePopupTransition class]]) {
@@ -54,7 +54,7 @@
     if ([fromVC wmf_isArticleList] && [toVC wmf_isArticleContainer]) {
         NSAssert(operation == UINavigationControllerOperationPush, @"Expected push, got %ld", operation);
         DDLogVerbose(@"Pushing container from list");
-        WMFArticleListTranstion* transition =
+        WMFArticleListTransition* transition =
             [self transitionForList:(WMFArticleListCollectionViewController*)fromVC
                           container:(WMFArticleContainerViewController*)toVC];
         return transition;
@@ -62,7 +62,7 @@
         if ([toVC wmf_isArticleList]) {
             NSAssert(operation == UINavigationControllerOperationPop, @"Expected pop, got %ld", operation);
             DDLogVerbose(@"Popping from container to list");
-            WMFArticleListTranstion* transition =
+            WMFArticleListTransition* transition =
                 [self transitionForList:(WMFArticleListCollectionViewController*)toVC
                               container:(WMFArticleContainerViewController*)fromVC];
             return transition;
@@ -85,14 +85,14 @@
 
 #pragma mark - Specific Transitions
 
-- (WMFArticleListTranstion*)transitionForList:(WMFArticleListCollectionViewController*)listVC
+- (WMFArticleListTransition*)transitionForList:(WMFArticleListCollectionViewController*)listVC
                                     container:(WMFArticleContainerViewController*)containerVC {
-    static const char* const WMFArticleListTranstionAssociationKey = "WMFArticleListTranstion";
-    WMFArticleListTranstion* listTransition                        = [listVC bk_associatedValueForKey:WMFArticleListTranstionAssociationKey];
+    static const char* const WMFArticleListTransitionAssociationKey = "WMFArticleListTransition";
+    WMFArticleListTransition* listTransition                        = [listVC bk_associatedValueForKey:WMFArticleListTransitionAssociationKey];
     if (!listTransition) {
-        listTransition                    = [WMFArticleListTranstion new];
+        listTransition                    = [WMFArticleListTransition new];
         listTransition.listViewController = listVC;
-        [listVC bk_associateValue:listTransition withKey:WMFArticleListTranstionAssociationKey];
+        [listVC bk_associateValue:listTransition withKey:WMFArticleListTransitionAssociationKey];
     }
     NSParameterAssert(listTransition.listViewController == listVC);
     listTransition.articleContainerViewController = containerVC;

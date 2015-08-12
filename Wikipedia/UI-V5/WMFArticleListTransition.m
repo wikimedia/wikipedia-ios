@@ -1,4 +1,4 @@
-#import "WMFArticleListTranstion.h"
+#import "WMFArticleListTransition.h"
 #import "WMFScrollViewTopPanGestureRecognizer.h"
 #import "WMFArticleListCollectionViewController.h"
 #import "WMFArticleContainerViewController.h"
@@ -7,7 +7,7 @@
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "WMFMath.h"
 
-@interface WMFArticleListTranstion ()<UIGestureRecognizerDelegate>
+@interface WMFArticleListTransition ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) UIScrollView* scrollView;
 @property (strong, nonatomic) WMFScrollViewTopPanGestureRecognizer* dismissGestureRecognizer;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation WMFArticleListTranstion
+@implementation WMFArticleListTransition
 
 - (instancetype)init {
     self = [super init];

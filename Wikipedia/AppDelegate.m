@@ -4,6 +4,7 @@
 #import "BITHockeyManager+WMFExtensions.h"
 #import "WMFAppViewController.h"
 #import "Wikipedia-Swift.h"
+#import "WMFLogFormatter.h"
 
 @interface AppDelegate ()
 
@@ -33,7 +34,9 @@
      }];
 
 #if DEBUG
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    id<DDLogger> consoleLogger = [DDTTYLogger sharedInstance];
+    [consoleLogger setLogFormatter:[WMFLogFormatter new]];
+    [DDLog addLogger:consoleLogger];
 #endif
 }
 

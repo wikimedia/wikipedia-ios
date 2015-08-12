@@ -84,7 +84,7 @@
     return [NSString stringWithFormat:@"<%@>", [randStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
 }
 
-- (NSString*)wmf_stringByReplacingUndrescoresWithSpaces {
+- (NSString*)wmf_stringByReplacingUnderscoresWithSpaces {
     return [self stringByReplacingOccurrencesOfString:@"_" withString:@" "];
 }
 
