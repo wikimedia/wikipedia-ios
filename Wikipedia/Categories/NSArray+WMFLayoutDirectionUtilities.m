@@ -7,7 +7,7 @@
 //
 
 #import "NSArray+WMFLayoutDirectionUtilities.h"
-#import "NSArray+WMFExtensions.h"
+#import "Wikipedia-Swift.h"
 
 @implementation NSArray (WMFLayoutDirectionUtilities)
 

@@ -3,7 +3,7 @@
 
 #import "MediaWikiKit.h"
 #import "NSString+WMFPageUtilities.h"
-#import "NSArray+WMFExtensions.h"
+#import "Wikipedia-Swift.h"
 #import "NSObjectUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
 #import "NSString+WMFPageUtilities.h"
