@@ -1187,6 +1187,7 @@
 		BCF7FC9A1B7B9ADE00CDFB8C /* WMFLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLogFormatter.m; sourceTree = "<group>"; };
 		BCF7FC9C1B7BA42A00CDFB8C /* WMFArticleContainerViewController_Transitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleContainerViewController_Transitioning.h; sourceTree = "<group>"; };
 		BCF7FC9D1B7BA61B00CDFB8C /* WMFArticleListCollectionViewController_Transitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleListCollectionViewController_Transitioning.h; sourceTree = "<group>"; };
+		BCF7FC9E1B7BAFB100CDFB8C /* WMFListTransitionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFListTransitionProvider.h; sourceTree = "<group>"; };
 		BCF8DCA41B70055F00149C26 /* WMFFixtureRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFixtureRecording.h; sourceTree = "<group>"; };
 		BCF8DCA51B70055F00149C26 /* WMFFixtureRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFFixtureRecording.m; sourceTree = "<group>"; };
 		BCF8DCA71B7009B100149C26 /* MobileView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MobileView; sourceTree = "<group>"; };
@@ -2181,6 +2182,7 @@
 				0E466E541B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m */,
 				BC38634D1B7509E8003A2D38 /* WMFNavigationTransitionController.h */,
 				BC38634E1B7509E8003A2D38 /* WMFNavigationTransitionController.m */,
+				BCF7FC9E1B7BAFB100CDFB8C /* WMFListTransitionProvider.h */,
 			);
 			name = Transitions;
 			sourceTree = "<group>";

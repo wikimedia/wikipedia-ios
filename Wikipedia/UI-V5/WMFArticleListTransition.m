@@ -137,6 +137,7 @@
 - (void)animateDismiss:(id<UIViewControllerContextTransitioning>)transitionContext {
     DDLogVerbose(@"Animating dismissal from %@ to %@", self.articleContainerViewController, self.listViewController);
     UIView* containerView = [transitionContext containerView];
+    UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView* fromView      = [transitionContext viewForKey:UITransitionContextFromViewKey];
     UIView* toView        = [transitionContext viewForKey:UITransitionContextToViewKey];
 
@@ -153,7 +154,7 @@
     // setup list behind fullscreen article
     // !!!: adding list view behind presented card snapshot prevents the list flickering when transition starts
     [containerView insertSubview:toView belowSubview:fullscreenArticleSnapshotView];
-    CGRect toViewFinalFrame = [transitionContext finalFrameForViewController:self.listViewController];
+    CGRect toViewFinalFrame = [transitionContext finalFrameForViewController:toVC];
     toView.frame = toViewFinalFrame;
     // Scroll the list to make the card we're dismissing visible (e.g. in case its index changed)
     [self.listViewController scrollToArticleIfOffscreen:self.articleContainerViewController.article animated:NO];

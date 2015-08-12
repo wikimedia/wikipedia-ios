@@ -17,7 +17,7 @@
 
 @interface UIViewController (WMFClassCheckConvenience)
 
-- (BOOL)wmf_isArticleList;
+- (BOOL)wmf_isListTransitionProvider;
 
 - (BOOL)wmf_isArticleContainer;
 
@@ -50,19 +50,19 @@
                                   animationControllerForOperation:(UINavigationControllerOperation)operation
                                                fromViewController:(UIViewController*)fromVC
                                                  toViewController:(UIViewController*)toVC {
-    if ([fromVC wmf_isArticleList] && [toVC wmf_isArticleContainer]) {
+    if ([fromVC wmf_isListTransitionProvider] && [toVC wmf_isArticleContainer]) {
         NSAssert(operation == UINavigationControllerOperationPush, @"Expected push, got %ld", operation);
         DDLogVerbose(@"Pushing container from list");
         WMFArticleListTransition* transition =
-            [self transitionForList:(WMFArticleListCollectionViewController*)fromVC
+            [self transitionForList:(id<WMFArticleListTransitionProvider>)fromVC
                           container:(WMFArticleContainerViewController*)toVC];
         return transition;
     } else if ([fromVC wmf_isArticleContainer]) {
-        if ([toVC wmf_isArticleList]) {
+        if ([toVC wmf_isListTransitionProvider]) {
             NSAssert(operation == UINavigationControllerOperationPop, @"Expected pop, got %ld", operation);
             DDLogVerbose(@"Popping from container to list");
             WMFArticleListTransition* transition =
-                [self transitionForList:(WMFArticleListCollectionViewController*)toVC
+                [self transitionForList:(id<WMFArticleListTransitionProvider>)toVC
                               container:(WMFArticleContainerViewController*)fromVC];
             return transition;
         } else if ([toVC wmf_isArticleContainer]) {
@@ -84,10 +84,10 @@
 
 #pragma mark - Specific Transitions
 
-- (WMFArticleListTransition*)transitionForList:(WMFArticleListCollectionViewController*)listVC
+- (WMFArticleListTransition*)transitionForList:(id<WMFArticleListTransitionProvider>)listTransitionProvider
                                      container:(WMFArticleContainerViewController*)containerVC {
-    listVC.listTransition.articleContainerViewController = containerVC;
-    return listVC.listTransition;
+    listTransitionProvider.listTransition.articleContainerViewController = containerVC;
+    return listTransitionProvider.listTransition;
 }
 
 - (WMFArticlePopupTransition*)popupTransitionWithPresentingController:(WMFArticleContainerViewController*)presentingVC
@@ -104,8 +104,8 @@
     return [self isKindOfClass:[WMFArticleContainerViewController class]];
 }
 
-- (BOOL)wmf_isArticleList {
-    return [self isKindOfClass:[WMFArticleListCollectionViewController class]];
+- (BOOL)wmf_isListTransitionProvider {
+    return [self conformsToProtocol:@protocol(WMFArticleListTransitionProvider)];
 }
 
 - (BOOL)wmf_isArticleContentController {

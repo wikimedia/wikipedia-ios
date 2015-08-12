@@ -8,9 +8,10 @@
 
 #import "WMFArticleListCollectionViewController.h"
 #import "WMFArticleListTransition.h"
+#import "WMFListTransitionProvider.h"
 
 @interface WMFArticleListCollectionViewController ()
-<WMFArticleListTransitioning>
+<WMFArticleListTransitioning, WMFArticleListTransitionProvider>
 
 @property (nonatomic, strong, readonly) WMFArticleListTransition* listTransition;
 
