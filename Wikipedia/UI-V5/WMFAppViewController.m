@@ -164,13 +164,9 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
         [self runDataMigrationIfNeededWithCompletion:^{
             [self loadMainUI];
-            if ([self shouldShowOnboarding]) {
-                [self showOnboardingWithCompletion:^{
-                    [self hideSplashViewAnimated:NO];
-                }];
-            } else {
-                [self hideSplashViewAnimated:YES];
-            }
+            [self showOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding){
+                [self hideSplashViewAnimated:!didShowOnboarding];
+            }];
         }];
     });
 }
@@ -197,10 +193,22 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     return showOnboarding.boolValue;
 }
 
-- (void)showOnboardingWithCompletion:(dispatch_block_t)completion {
-    [self presentViewController:[OnboardingViewController wmf_initialViewControllerFromClassStoryboard] animated:NO completion:completion];
-    [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"ShowOnboarding"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+- (void)showOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
+    if ([self shouldShowOnboarding]) {
+        [self presentViewController:[OnboardingViewController wmf_initialViewControllerFromClassStoryboard]
+                           animated:NO
+                         completion:^{
+            if (completion) {
+                completion(YES);
+            }
+        }];
+        [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"ShowOnboarding"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return;
+    }
+    if (completion) {
+        completion(NO);
+    }
 }
 
 #pragma mark - Splash
