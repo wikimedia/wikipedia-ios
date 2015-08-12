@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/BITUpdateManagerPrivate.h
+../../../HockeySDK/Classes/bitupdatemanagerprivate.h

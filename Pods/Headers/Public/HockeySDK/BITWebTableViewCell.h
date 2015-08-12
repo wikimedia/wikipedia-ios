@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/BITWebTableViewCell.h
+../../../HockeySDK/Classes/bitwebtableviewcell.h

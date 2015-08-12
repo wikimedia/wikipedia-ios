@@ -30,6 +30,7 @@ pod 'KVOController'
 pod 'Masonry', '0.6.2'
 
 # Diagnostics
+pod 'PiwikTracker'
 pod 'CocoaLumberjack', '~> 2.0.0'
 pod 'HockeySDK', '3.6.2'
 

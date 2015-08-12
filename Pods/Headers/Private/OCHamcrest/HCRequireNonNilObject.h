@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Core/Helpers/HCRequireNonNilObject.h
+../../../OCHamcrest/Source/Core/Helpers/hcrequirenonnilobject.h

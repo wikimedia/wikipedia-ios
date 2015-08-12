@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Object/HCConformsToProtocol.h
+../../../OCHamcrest/Source/Library/Object/hcconformstoprotocol.h

@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/HockeySDK.h
+../../../HockeySDK/Classes/hockeysdk.h

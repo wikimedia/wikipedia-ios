@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Object/HCIsTypeOf.h
+../../../OCHamcrest/Source/Library/Object/hcistypeof.h

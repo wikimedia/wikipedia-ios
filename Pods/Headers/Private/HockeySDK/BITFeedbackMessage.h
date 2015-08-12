@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/BITFeedbackMessage.h
+../../../HockeySDK/Classes/bitfeedbackmessage.h

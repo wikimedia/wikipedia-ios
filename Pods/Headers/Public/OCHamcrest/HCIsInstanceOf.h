@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Object/HCIsInstanceOf.h
+../../../OCHamcrest/Source/Library/Object/hcisinstanceof.h

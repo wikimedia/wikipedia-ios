@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/Helpers/ReturnValueSetters/MKTCharReturnSetter.h
+../../../OCMockito/Source/OCMockito/Helpers/ReturnValueSetters/mktcharreturnsetter.h

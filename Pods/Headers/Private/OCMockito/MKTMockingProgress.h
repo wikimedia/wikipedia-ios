@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/MKTMockingProgress.h
+../../../OCMockito/Source/OCMockito/mktmockingprogress.h

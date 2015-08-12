@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Core/HCStringDescription.h
+../../../OCHamcrest/Source/Core/hcstringdescription.h

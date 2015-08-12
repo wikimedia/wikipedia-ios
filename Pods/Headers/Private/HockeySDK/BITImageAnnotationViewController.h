@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/BITImageAnnotationViewController.h
+../../../HockeySDK/Classes/bitimageannotationviewcontroller.h

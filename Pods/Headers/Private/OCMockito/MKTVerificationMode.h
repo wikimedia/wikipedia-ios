@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/MKTVerificationMode.h
+../../../OCMockito/Source/OCMockito/mktverificationmode.h

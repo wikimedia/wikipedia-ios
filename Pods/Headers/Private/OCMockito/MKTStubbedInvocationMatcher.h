@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/MKTStubbedInvocationMatcher.h
+../../../OCMockito/Source/OCMockito/mktstubbedinvocationmatcher.h

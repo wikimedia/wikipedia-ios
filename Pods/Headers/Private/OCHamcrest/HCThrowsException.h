@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Object/HCThrowsException.h
+../../../OCHamcrest/Source/Library/Object/hcthrowsexception.h

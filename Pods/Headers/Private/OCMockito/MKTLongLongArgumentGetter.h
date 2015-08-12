@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/Helpers/ArgumentGetters/MKTLongLongArgumentGetter.h
+../../../OCMockito/Source/OCMockito/Helpers/ArgumentGetters/mktlonglongargumentgetter.h

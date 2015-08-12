@@ -1,1 +1,1 @@
-../../../hpple/XPathQuery.h
+../../../hpple/xpathquery.h

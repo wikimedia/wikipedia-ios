@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Collection/HCIsEmptyCollection.h
+../../../OCHamcrest/Source/Library/Collection/hcisemptycollection.h

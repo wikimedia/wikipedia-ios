@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Core/Helpers/HCInvocationMatcher.h
+../../../OCHamcrest/Source/Core/Helpers/hcinvocationmatcher.h
