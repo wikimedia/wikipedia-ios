@@ -51,7 +51,7 @@
 
 @property (strong, nonatomic) WMFArticlePopupTransition* popupTransition;
 
-@property (nonatomic) BOOL skipBeginUpdating;
+@property (nonatomic) BOOL skipStartUpdates;
 
 @end
 
@@ -116,16 +116,16 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    self.skipBeginUpdating = NO;
-    // Only begin updates if by the time the beginUpdating selector below is performed
-    // self.skipBeginUpdating is still NO - lets us add the nearby view controller
+    self.skipStartUpdates = NO;
+    // Only begin updates if by the time the startUpdates selector below is performed
+    // self.skipStartUpdates is still NO - lets us add the nearby view controller
     // somewhere and immediately cover it up without it starting to update locations
     // and headings.
-    [self performSelector:@selector(beginUpdating) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(startUpdates) withObject:nil afterDelay:0.5];
 }
 
-- (void)beginUpdating {
-    if (!self.skipBeginUpdating) {
+- (void)startUpdates {
+    if (!self.skipStartUpdates) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             // Needed by iOS 8.
@@ -146,14 +146,17 @@
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    self.skipBeginUpdating = YES;
-
+- (void)stopUpdates {
     [self.locationManager stopUpdatingLocation];
-
     if (self.headingAvailable) {
         [self.locationManager stopUpdatingHeading];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    self.skipStartUpdates = YES;
+
+    [self stopUpdates];
 
     [[QueuesSingleton sharedInstance].nearbyFetchManager.operationQueue cancelAllOperations];
 
