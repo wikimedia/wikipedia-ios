@@ -136,10 +136,10 @@
 
 - (void)animateDismiss:(id<UIViewControllerContextTransitioning>)transitionContext {
     DDLogVerbose(@"Animating dismissal from %@ to %@", self.articleContainerViewController, self.listViewController);
-    UIView* containerView = [transitionContext containerView];
+    UIView* containerView  = [transitionContext containerView];
     UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView* fromView      = [transitionContext viewForKey:UITransitionContextFromViewKey];
-    UIView* toView        = [transitionContext viewForKey:UITransitionContextToViewKey];
+    UIView* fromView       = [transitionContext viewForKey:UITransitionContextFromViewKey];
+    UIView* toView         = [transitionContext viewForKey:UITransitionContextToViewKey];
 
     // Setup snapshot of presented card
     [self.articleContainerViewController.articleViewController.tableView wmf_scrollToTop:NO];

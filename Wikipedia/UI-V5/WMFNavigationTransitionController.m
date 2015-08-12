@@ -54,7 +54,7 @@
         NSAssert(operation == UINavigationControllerOperationPush, @"Expected push, got %ld", operation);
         DDLogVerbose(@"Pushing container from list");
         WMFArticleListTransition* transition =
-            [self transitionForList:(id<WMFArticleListTransitionProvider>)fromVC
+            [self transitionForList:(id < WMFArticleListTransitionProvider >) fromVC
                           container:(WMFArticleContainerViewController*)toVC];
         return transition;
     } else if ([fromVC wmf_isArticleContainer]) {
@@ -62,7 +62,7 @@
             NSAssert(operation == UINavigationControllerOperationPop, @"Expected pop, got %ld", operation);
             DDLogVerbose(@"Popping from container to list");
             WMFArticleListTransition* transition =
-                [self transitionForList:(id<WMFArticleListTransitionProvider>)toVC
+                [self transitionForList:(id < WMFArticleListTransitionProvider >) toVC
                               container:(WMFArticleContainerViewController*)fromVC];
             return transition;
         } else if ([toVC wmf_isArticleContainer]) {
