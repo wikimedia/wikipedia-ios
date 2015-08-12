@@ -7,9 +7,6 @@
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "WMFMath.h"
 
-#undef LOG_LEVEL_DEF
-#define LOG_LEVEL_DEF DDLogLevelVerbose
-
 @interface WMFArticleListTranstion ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) UIScrollView* scrollView;
@@ -56,6 +53,8 @@
 #pragma mark - UIViewControllerInteractiveTransitioning
 
 - (void)startInteractiveTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+    DDLogVerbose(@"Interactive transition did start.");
+    self.didStartInteractiveDismissal = YES;
     [super startInteractiveTransition:transitionContext];
     NSAssert(self.isDismissing, @"This class only supports interactive dismissal, not presentation.");
 }
@@ -264,13 +263,7 @@
                 CGFloat transitionProgress =
                     WMFStrictClamp(0.0, recognizer.aboveBoundsVerticalDisplacement / self.totalCardAnimationDistance, 1.0);
                 if (!self.didStartInteractiveDismissal) {
-                    /*
-                       !!!: Must set this flag here since the gesture recognizer callbacks will fire again, causing this
-                          method to be entered before startInteractiveTransition is called, causing us to call pop
-                          more than once.
-                     */
                     DDLogVerbose(@"Starting dismissal.");
-                    self.didStartInteractiveDismissal = YES;
                     [self.articleContainerViewController.navigationController popViewControllerAnimated:YES];
                 } else {
                     DDLogVerbose(@"Interactive transition progress: %f / %f = %f",
@@ -284,9 +277,14 @@
         }
 
         case UIGestureRecognizerStateEnded: {
+            CGFloat verticalVelocity =
+                [self.dismissGestureRecognizer velocityInView:self.dismissGestureRecognizer.view].y;
             if (self.didStartInteractiveDismissal) {
                 if (self.percentComplete >= 0.33) {
-                    DDLogVerbose(@"Finishing interactive transition.");
+                    DDLogInfo(@"Finishing transition since user released touch above percentComplete threshold.");
+                    [self finishInteractiveTransition];
+                } else if (verticalVelocity >= self.totalCardAnimationDistance) {
+                    DDLogInfo(@"Finishing transition since user swiped above velocity threshold.");
                     [self finishInteractiveTransition];
                 } else {
                     DDLogVerbose(@"Canceling interactive transition.");
