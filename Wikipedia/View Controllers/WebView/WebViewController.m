@@ -1388,7 +1388,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.session.currentArticle = article;
 
     if (![article isCached]) {
-        [self hideProgressViewAnimated:YES];
+        [self showProgressViewAnimated:NO];
+        [self loadArticleWithTitleFromNetwork:article.title];
         return;
     }
 
@@ -1804,8 +1805,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     [UIView animateWithDuration:0.25 animations:^{
         [self _hideProgressView];
-    } completion:^(BOOL finished) {
-    }];
+    } completion:nil];
 }
 
 - (void)_hideProgressView {

@@ -151,6 +151,8 @@ NS_ASSUME_NONNULL_BEGIN
                             completion:^(BOOL finished) {
         NSParameterAssert(finished);
         [self primitiveSetCurrentArticleController:currentArticleController];
+        // !!!: this has to be done in completion, otherwise the animation will report as not having finished
+        [self updateNavigationBarStateForViewController:currentArticleController];
     }];
 }
 
@@ -158,8 +160,14 @@ NS_ASSUME_NONNULL_BEGIN
     [currentArticleController.view mas_makeConstraints:^(MASConstraintMaker* make) {
         make.leading.trailing.top.and.bottom.equalTo(self.view);
     }];
-    [self.navigationController setNavigationBarHidden:currentArticleController != self.webViewController
-                                             animated:YES];
+    [self updateNavigationBarStateForViewController:currentArticleController];
+}
+
+- (void)updateNavigationBarStateForViewController:(UIViewController*)viewController {
+    [self.navigationController setNavigationBarHidden:viewController != self.webViewController
+                                             animated:NO];
+    // !!!: custom transitions don't handle back button presses very nicely, so disable for now
+    self.navigationItem.hidesBackButton = viewController == self.webViewController;
 }
 
 - (void)toggleCurrentArticleController {
@@ -186,6 +194,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - ViewController
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateNavigationBarStateForViewController:self.currentArticleController];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
