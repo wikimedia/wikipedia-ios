@@ -16,6 +16,7 @@
 #import "NSString+WMFGlyphs.h"
 #import "OnboardingViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "NearbyViewController.h"
 
 typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     WMFAppTabTypeHome = 0,
@@ -31,6 +32,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 @property (nonatomic, strong) IBOutlet UIView* splashView;
 @property (nonatomic, strong) UITabBarController* rootTabBarController;
 
+@property (nonatomic, strong, readonly) NearbyViewController* nearbyViewController;
 @property (nonatomic, strong, readonly) WMFSearchViewController* searchViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* recentArticlesViewController;
@@ -45,6 +47,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 - (void)loadMainUI {
     [self configureTabController];
+    [self configureNearbyViewController];
     [self configureSearchViewController];
     [self configureSavedViewController];
     [self configureRecentViewController];
@@ -52,6 +55,10 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 - (void)configureTabController {
     self.rootTabBarController.delegate = self;
+}
+
+- (void)configureNearbyViewController {
+    //[self.nearbyViewController doSomething];
 }
 
 - (void)configureSearchViewController {
@@ -128,6 +135,10 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 - (MWKUserDataStore*)userDataStore {
     return self.session.userDataStore;
+}
+
+- (NearbyViewController*)nearbyViewController {
+    return (NearbyViewController*)[self rootViewControllerForTab:WMFAppTabTypeHome];
 }
 
 - (WMFSearchViewController*)searchViewController {
@@ -245,7 +256,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
     switch (tab) {
         case WMFAppTabTypeHome: {
-            //TODO: configure Nearby
+            [self configureNearbyViewController];
         }
         break;
         case WMFAppTabTypeSearch: {
