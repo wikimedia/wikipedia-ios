@@ -100,16 +100,6 @@
         self.locationManager              = [[CLLocationManager alloc] init];
         self.locationManager.activityType = CLActivityTypeFitness;
 
-        // Needed by iOS 8.
-        SEL selector = NSSelectorFromString(@"requestWhenInUseAuthorization");
-        if ([self.locationManager respondsToSelector:selector]) {
-            NSInvocation* invocation =
-                [NSInvocation invocationWithMethodSignature:[[self.locationManager class] instanceMethodSignatureForSelector:selector]];
-            [invocation setSelector:selector];
-            [invocation setTarget:self.locationManager];
-            [invocation invoke];
-        }
-
         self.imageFetchQ      = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         self.placeholderImage = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
         NSArray* cachePaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -120,6 +110,28 @@
 
 - (BOOL)prefersStatusBarHidden {
     return NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // Needed by iOS 8.
+        SEL selector = NSSelectorFromString(@"requestWhenInUseAuthorization");
+        if ([self.locationManager respondsToSelector:selector]) {
+            NSInvocation* invocation =
+                [NSInvocation invocationWithMethodSignature:[[self.locationManager class] instanceMethodSignatureForSelector:selector]];
+            [invocation setSelector:selector];
+            [invocation setTarget:self.locationManager];
+            [invocation invoke];
+        }
+    });
+
+    [self.locationManager startUpdatingLocation];
+    if (self.headingAvailable) {
+        [self.locationManager startUpdatingHeading];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -347,11 +359,6 @@
 
     self.locationManager.headingFilter  = 1.5;
     self.locationManager.distanceFilter = 1.0;
-
-    [self.locationManager startUpdatingLocation];
-    if (self.headingAvailable) {
-        [self.locationManager startUpdatingHeading];
-    }
 
     [self.collectionView registerNib:[UINib nibWithNibName:TABLE_CELL_ID bundle:nil] forCellWithReuseIdentifier:TABLE_CELL_ID];
 
