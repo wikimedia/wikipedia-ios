@@ -4,55 +4,58 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "Wikipedia-Swift.h"
+#define HC_SHORTHAND 1
+#import <OCHamcrest/OCHamcrest.h>
 
 @interface NSArray_WMFExtensions : XCTestCase
+
+@property (strong, nonatomic) NSArray* array;
 
 @end
 
 @implementation NSArray_WMFExtensions
 
+- (void)setUp {
+    [super setUp];
+    self.array = @[@"one", @"two"];
+}
+
+- (void)tearDown {
+    self.array = nil;
+    [super tearDown];
+}
+
 - (void)test_wmf_safeObjectAtIndex_findExpectedObject {
-    NSArray* a = @[@"one", @"two"];
-    XCTAssert([[a wmf_safeObjectAtIndex:0] isEqualToString:@"one"], @"Found expected object");
+    assertThat([self.array wmf_safeObjectAtIndex:0], is(@"one"));
 }
 
 - (void)test_wmf_safeObjectAtIndex_outOfRangeReturnsNil {
-    NSArray* a = @[@"one"];
-    XCTAssertNil([a wmf_safeObjectAtIndex:1], @"Out of range returned nil properly.");
+    assertThat([self.array wmf_safeObjectAtIndex:2], is(nilValue()));
 }
 
 - (void)test_wmf_safeObjectAtIndex_emptyOutOfRangeReturnsNil {
-    NSArray* a = @[];
-    XCTAssertNil([a wmf_safeObjectAtIndex:1], @"Empty array returned nil properly.");
+    assertThat([@[] wmf_safeObjectAtIndex: 1], is(nilValue()));
 }
 
 - (void)test_wmf_arrayByTrimmingToLength_countZeroReturnsSelf {
-    NSArray* a = @[];
-    XCTAssertEqualObjects(a, [a wmf_arrayByTrimmingToLength:5], @"Returned self on empty array.");
+    NSArray* emptyArray = @[];
+    assertThat([emptyArray wmf_arrayByTrimmingToLength:5], is(emptyArray));
 }
 
 - (void)test_wmf_arrayByTrimmingToLength_arraySmallerThanRequestedLength {
-    NSArray* a = @[@"one", @"two"];
-    XCTAssertEqualObjects(a, [a wmf_arrayByTrimmingToLength:3], @"Returned self on too small length request.");
+    assertThat([self.array wmf_arrayByTrimmingToLength:3], is(self.array));
 }
 
 - (void)test_wmf_arrayByTrimmingToLength_trimToCount {
-    NSArray* a  = @[@"one", @"two"];
-    NSArray* a2 = [a wmf_arrayByTrimmingToLength:1];
-    XCTAssert(a2.count == 1, @"Returned array of expected count.");
+    assertThat([self.array wmf_arrayByTrimmingToLength:1], hasCountOf(1));
 }
 
 - (void)test_wmf_arrayByTrimmingToLength_trimToExpectedResult {
-    NSArray* a = @[@"one", @"two"];
-    XCTAssert([[a wmf_arrayByTrimmingToLength:1][0] isEqualToString:@"one"], @"Returned array containing expected object.");
+    assertThat([self.array wmf_arrayByTrimmingToLength:1][0], is(@"one"));
 }
 
 - (void)test_wmf_reverseArray {
-    NSArray* a  = @[@"one", @"two"];
-    NSArray* a2 = [a wmf_reverseArray];
-
-    XCTAssert([a2[0] isEqualToString:@"two"], @"Returned reversed array containing expected object.");
-    XCTAssert([a2[1] isEqualToString:@"one"], @"Returned reversed array containing expected object.");
+    assertThat([self.array wmf_reverseArray], is(@[@"two", @"one"]));
 }
 
 @end

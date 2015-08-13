@@ -198,11 +198,10 @@
 // iOS 8+ Rotation Support
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > context) {
         [self updateCellSizeBasedOnViewFrame];
     } completion:NULL];
-
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 #pragma mark - Update Cell Size

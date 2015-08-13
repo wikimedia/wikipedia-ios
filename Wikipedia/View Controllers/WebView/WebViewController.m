@@ -91,10 +91,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return NO;
 }
 
-- (BOOL)prefersTopNavigationHidden {
-    return [self shouldShowOnboarding];
-}
-
 - (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
     return UIStatusBarAnimationFade;
 }
@@ -251,11 +247,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     self.view.backgroundColor = CHROME_COLOR;
 
-    // Uncomment these lines only if testing onboarding!
-    // These lines allow the onboarding to run on every app cold start.
-    //[[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"ShowOnboarding"];
-    //[[NSUserDefaults standardUserDefaults] synchronize];
-
     // Ensure toc show/hide animation scales the web view w/o vertical motion.
     BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
     self.webView.scrollView.layer.anchorPoint = CGPointMake((isRTL ? 1.0 : 0.0), 0.0);
@@ -296,11 +287,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         return;
     }
 
-    // Don't show alerts if onboarding onscreen.
-    if ([self shouldShowOnboarding]) {
-        return;
-    }
-
     [super showAlert:alertText type:type duration:duration];
 }
 
@@ -311,12 +297,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)doStuffOnAppear {
-    if ([self shouldShowOnboarding]) {
-        [self showOnboarding];
-
-        self.webView.alpha = 1.0f;
-    }
-
     // Don't move this to viewDidLoad - this is because viewDidLoad may only get
     // called very occasionally as app suspend/resume probably doesn't cause
     // viewDidLoad to fire.
@@ -325,17 +305,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self performHousekeepingIfNecessary];
 
     //[self.view randomlyColorSubviews];
-}
-
-- (BOOL)shouldShowOnboarding {
-    NSNumber* showOnboarding = [[NSUserDefaults standardUserDefaults] objectForKey:@"ShowOnboarding"];
-    return showOnboarding.boolValue;
-}
-
-- (void)showOnboarding {
-    [self presentViewController:[OnboardingViewController wmf_initialViewControllerFromClassStoryboard] animated:YES completion:nil];
-    [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"ShowOnboarding"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)performHousekeepingIfNecessary {
@@ -352,10 +321,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if ([self shouldShowOnboarding]) {
-        self.webView.alpha = 0.0f;
-    }
-
     [super viewWillAppear:animated];
 
     self.referencesHidden = YES;

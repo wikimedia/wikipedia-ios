@@ -7,6 +7,8 @@
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "WMFMath.h"
 
+#import <Masonry/Masonry.h>
+
 @interface WMFArticleListTransition ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, assign, readwrite) BOOL isDismissing;

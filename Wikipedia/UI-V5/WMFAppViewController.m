@@ -16,6 +16,10 @@
 #import "NSString+WMFGlyphs.h"
 #import "WMFNavigationTransitionController.h"
 
+#import "OnboardingViewController.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
+#import "NearbyViewController.h"
+
 /**
  *  Enums for each tab in the main tab bar.
  *
@@ -49,6 +53,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 @property (nonatomic, strong) IBOutlet UIView* splashView;
 @property (nonatomic, strong) UITabBarController* rootTabBarController;
 
+@property (nonatomic, strong, readonly) NearbyViewController* nearbyViewController;
 @property (nonatomic, strong, readonly) WMFSearchViewController* searchViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* recentArticlesViewController;
@@ -65,6 +70,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 - (void)loadMainUI {
     [self configureTabController];
+    [self configureNearbyViewController];
     [self configureSearchViewController];
     [self configureSavedViewController];
     [self configureRecentViewController];
@@ -82,6 +88,10 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
         navigationController.hidesBarsWhenKeyboardAppears = NO;
         navigationController.navigationBarHidden          = YES;
     }
+}
+
+- (void)configureNearbyViewController {
+    //[self.nearbyViewController doSomething];
 }
 
 - (void)configureSearchViewController {
@@ -167,6 +177,10 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
     return self.session.userDataStore;
 }
 
+- (NearbyViewController*)nearbyViewController {
+    return (NearbyViewController*)[self rootViewControllerForTab:WMFAppTabTypeHome];
+}
+
 - (WMFSearchViewController*)searchViewController {
     return (WMFSearchViewController*)[self rootViewControllerForTab:WMFAppTabTypeSearch];
 }
@@ -181,14 +195,20 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 #pragma mark - UIViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self showSplashView];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 
-    [self runDataMigrationIfNeededWithCompletion:^{
-        [self hideSplashViewAnimated:YES];
-        [self loadMainUI];
-    }];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self showSplashView];
+
+        [self runDataMigrationIfNeededWithCompletion:^{
+            [self loadMainUI];
+            [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding){
+                [self hideSplashViewAnimated:!didShowOnboarding];
+            }];
+        }];
+    });
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
@@ -204,6 +224,31 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
+}
+
+#pragma mark - Onboarding
+
+- (BOOL)shouldShowOnboarding {
+    NSNumber* showOnboarding = [[NSUserDefaults standardUserDefaults] objectForKey:@"ShowOnboarding"];
+    return showOnboarding.boolValue;
+}
+
+- (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
+    if ([self shouldShowOnboarding]) {
+        [self presentViewController:[OnboardingViewController wmf_initialViewControllerFromClassStoryboard]
+                           animated:NO
+                         completion:^{
+            if (completion) {
+                completion(YES);
+            }
+        }];
+        [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"ShowOnboarding"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return;
+    }
+    if (completion) {
+        completion(NO);
+    }
 }
 
 #pragma mark - Splash
